@@ -1,0 +1,32 @@
+ADD_DEFINITIONS(-D__GAME_SERVER__)
+INCLUDE_DIRECTORIES(..)
+SET(LIBMISSION_SRC
+	QuestInfo.cpp
+	MonsterKillQuestInfo.cpp
+	GatherItemQuestInfo.cpp
+	MeetNPCQuestInfo.cpp
+	RewardClass.cpp
+	RandomRewardClass.cpp
+	SlayerWeaponRewardClass.cpp
+	AnotherQuestRewardClass.cpp
+	RewardInfo.cpp
+	ItemRewardInfo.cpp
+	QuestAdvanceRewardInfo.cpp
+	AnotherQuestRewardInfo.cpp
+	MiniGameQuestInfo.cpp
+	QuestInfoManager.cpp
+	SimpleQuestInfoManager.cpp
+	EventQuestInfoManager.cpp
+	RewardClassInfoManager.cpp
+	SimpleQuestRewardManager.cpp
+	QuestManager.cpp
+	QuestStatus.cpp
+	MonsterKillQuestStatus.cpp
+	GatherItemQuestStatus.cpp
+	DummyQuestStatus.cpp
+	MeetNPCQuestStatus.cpp
+	MiniGameQuestStatus.cpp
+	EventQuestAdvance.cpp
+	EventQuestLootingManager.cpp
+)
+ADD_LIBRARY(Mission STATIC ${LIBMISSION_SRC})
