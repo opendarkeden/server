@@ -128,11 +128,11 @@ void SerialDatagram::read (SerialDatagramPacket * & pPacket )
 
 	// 데이터그램의 크기가 패킷의 크기보다 작을 경우
 	if (m_Length < szPacketHeader + packetSize )
-		throw Error("데이터그램 패킷이 한번에 읽혀지지 않았습니다.");
+		throw Error("packet length small than head + size");
 
 	// 데이터그램의 크기가 패킷의 크기보다 클 경우
 	if (m_Length > szPacketHeader + packetSize )
-		throw Error("여러 개의 데이터그램 패킷이 한꺼번에 읽혀졌습니다.");
+		throw Error("packet length greater than head + size");
 
 	// 패킷을 생성한다.
 	pPacket = (SerialDatagramPacket*)g_pPacketFactoryManager->createPacket(packetID);
