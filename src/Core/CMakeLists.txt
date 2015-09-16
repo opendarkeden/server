@@ -935,8 +935,82 @@ TARGET_COMPILE_OPTIONS(LoginServerPackets PRIVATE -D__LOGIN_SERVER__)
 TARGET_INCLUDE_DIRECTORIES(LoginServerPackets PRIVATE . ../server/database ../server ../server/loginserver ../server/gameserver)
 
 SET(CORE_SRC
-SXml.cpp WarInfo.cpp RaceWarInfo.cpp GuildWarInfo.cpp LevelWarInfo.cpp BloodBibleBonusInfo.cpp  Assert1.cpp Datagram.cpp SerialDatagram.cpp DatagramSocket.cpp FileAPI.cpp GameTime.cpp  ScriptParameter.cpp  Player.cpp PCSlayerInfo.cpp PCVampireInfo.cpp PCSlayerInfo2.cpp PCVampireInfo2.cpp PCSlayerInfo3.cpp PCVampireInfo3.cpp Properties.cpp Resource.cpp ResourceManager.cpp ServerSocket.cpp Socket.cpp SocketAPI.cpp SocketImpl.cpp SocketInputStream.cpp SocketOutputStream.cpp StringStream.cpp Update.cpp UpdateManager.cpp InventoryInfo.cpp InventorySlotInfo.cpp RideMotorcycleInfo.cpp RideMotorcycleSlotInfo.cpp GearSlotInfo.cpp GearInfo.cpp ExtraInfo.cpp ExtraSlotInfo.cpp PCItemInfo.cpp SubItemInfo.cpp  ModifyInfo.cpp ModifyItemInfo.cpp EffectInfo.cpp SlayerSkillInfo.cpp VampireSkillInfo.cpp SubSlayerSkillInfo.cpp SubVampireSkillInfo.cpp Utility.cpp VSDateTime.cpp ServerGroupInfo.cpp TimeChecker.cpp NPCInfo.cpp Shape.cpp Geometry.cpp WorldInfo.cpp GuildInfo.cpp GuildMemberInfo.cpp 
-GuildInfo2.cpp GuildMemberInfo2.cpp  Encrypter.cpp	SocketEncryptInputStream.cpp SocketEncryptOutputStream.cpp  OustersSkillInfo.cpp PCOustersInfo.cpp PCOustersInfo2.cpp PCOustersInfo3.cpp SubOustersSkillInfo.cpp  ItemNameInfo.cpp SweeperBonusInfo.cpp PetInfo.cpp  NicknameInfo.cpp QuestStatusInfo.cpp BloodBibleSignInfo.cpp StoreInfo.cpp)
+SXml.cpp
+WarInfo.cpp
+RaceWarInfo.cpp
+GuildWarInfo.cpp
+LevelWarInfo.cpp
+BloodBibleBonusInfo.cpp
+Assert1.cpp
+Datagram.cpp
+SerialDatagram.cpp
+DatagramSocket.cpp
+FileAPI.cpp
+GameTime.cpp
+ScriptParameter.cpp
+Player.cpp
+PCSlayerInfo.cpp
+PCVampireInfo.cpp
+PCSlayerInfo2.cpp
+PCVampireInfo2.cpp
+PCSlayerInfo3.cpp
+PCVampireInfo3.cpp
+Properties.cpp
+Resource.cpp
+ResourceManager.cpp
+ServerSocket.cpp
+Socket.cpp
+SocketAPI.cpp
+SocketImpl.cpp
+SocketInputStream.cpp
+SocketOutputStream.cpp
+StringStream.cpp
+Update.cpp
+UpdateManager.cpp
+InventoryInfo.cpp
+InventorySlotInfo.cpp
+RideMotorcycleInfo.cpp
+RideMotorcycleSlotInfo.cpp
+GearSlotInfo.cpp
+GearInfo.cpp
+ExtraInfo.cpp
+ExtraSlotInfo.cpp
+PCItemInfo.cpp
+SubItemInfo.cpp
+ModifyInfo.cpp
+ModifyItemInfo.cpp
+EffectInfo.cpp
+SlayerSkillInfo.cpp
+VampireSkillInfo.cpp
+SubSlayerSkillInfo.cpp
+SubVampireSkillInfo.cpp
+Utility.cpp
+VSDateTime.cpp
+ServerGroupInfo.cpp
+TimeChecker.cpp
+NPCInfo.cpp
+Shape.cpp
+Geometry.cpp
+WorldInfo.cpp
+GuildInfo.cpp
+GuildMemberInfo.cpp
+GuildInfo2.cpp
+GuildMemberInfo2.cpp
+Encrypter.cpp
+SocketEncryptInputStream.cpp
+SocketEncryptOutputStream.cpp
+OustersSkillInfo.cpp
+PCOustersInfo.cpp
+PCOustersInfo2.cpp
+PCOustersInfo3.cpp
+SubOustersSkillInfo.cpp
+ItemNameInfo.cpp
+SweeperBonusInfo.cpp
+PetInfo.cpp
+NicknameInfo.cpp
+QuestStatusInfo.cpp
+BloodBibleSignInfo.cpp
+StoreInfo.cpp)
 ADD_LIBRARY(Core STATIC ${CORE_SRC})
 TARGET_INCLUDE_DIRECTORIES(Core PRIVATE . ../server ../server/database)
 
