@@ -1,0 +1,62 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename    : ActionRepair.cpp
+// Written By  : 
+// Description :
+////////////////////////////////////////////////////////////////////////////////
+
+#include "ActionRepair.h"
+#include "Creature.h"
+#include "GamePlayer.h"
+#include "PropertyBuffer.h"
+#include "GCNPCResponse.h"
+
+////////////////////////////////////////////////////////////////////////////////
+//
+////////////////////////////////////////////////////////////////////////////////
+void ActionRepair::read (PropertyBuffer & propertyBuffer)
+    throw(Error)
+{
+    __BEGIN_TRY
+    __END_CATCH
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// 액션을 실행한다.
+////////////////////////////////////////////////////////////////////////////////
+void ActionRepair::execute (Creature * pCreature1 , Creature * pCreature2) 
+	throw(Error)
+{
+	__BEGIN_TRY
+
+	Assert(pCreature1 != NULL);
+	Assert(pCreature2 != NULL);
+	Assert(pCreature1->isNPC());
+	Assert(pCreature2->isPC());
+
+	GCNPCResponse okpkt;
+	okpkt.setCode(NPC_RESPONSE_INTERFACE_REPAIR);
+
+	Player* pPlayer = pCreature2->getPlayer();
+	Assert(pPlayer != NULL);
+	pPlayer->sendPacket(&okpkt);
+
+	__END_CATCH
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ActionRepair::toString () const 
+	throw()
+{
+	__BEGIN_TRY
+
+	StringStream msg;
+	msg << "ActionRepair("
+	    << ")";
+	return msg.toString();
+
+	__END_CATCH
+}

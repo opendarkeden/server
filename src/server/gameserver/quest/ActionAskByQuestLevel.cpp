@@ -1,0 +1,100 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename    : ActionAskByQuestLevel.cpp
+// Written By  : 
+// Description :
+////////////////////////////////////////////////////////////////////////////////
+
+#include "ActionAskByQuestLevel.h"
+#include "Creature.h"
+#include "NPC.h"
+#include "GamePlayer.h"
+#include "PlayerCreature.h"
+
+#include "mission/QuestManager.h"
+#include "mission/EventQuestAdvance.h"
+
+#include "GCNPCAsk.h"
+#include "GCNPCResponse.h"
+
+////////////////////////////////////////////////////////////////////////////////
+// 
+////////////////////////////////////////////////////////////////////////////////
+void ActionAskByQuestLevel::read (PropertyBuffer & propertyBuffer)
+    throw(Error)
+{
+    __BEGIN_TRY
+
+	try 
+	{
+		// read script id
+		m_ScriptID[0] = propertyBuffer.getPropertyInt("Level1");
+		m_ScriptID[1] = propertyBuffer.getPropertyInt("Level2");
+		m_ScriptID[2] = propertyBuffer.getPropertyInt("Level3");
+		m_ScriptID[3] = propertyBuffer.getPropertyInt("Level4");
+		m_ScriptID[4] = propertyBuffer.getPropertyInt("Level5");
+	} 
+	catch (NoSuchElementException & nsee)
+	{
+		throw Error(nsee.toString());
+	}
+	
+    __END_CATCH
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// 액션을 실행한다.
+////////////////////////////////////////////////////////////////////////////////
+void ActionAskByQuestLevel::execute (Creature * pCreature1 , Creature * pCreature2) 
+	throw(Error)
+{
+	__BEGIN_TRY
+
+	Assert(pCreature1 != NULL);
+	Assert(pCreature2 != NULL);
+	Assert(pCreature1->isNPC());
+	Assert(pCreature2->isPC());
+
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+	Assert(pPC != NULL);
+
+	ScriptID_t sID = m_ScriptID[ pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() ];
+
+	if (sID == 0 )
+	{
+		GCNPCResponse gcNPCResponse;
+		gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+		Player* pPlayer = pCreature2->getPlayer();
+		pPlayer->sendPacket(&gcNPCResponse);
+	}
+	else
+	{
+		GCNPCAsk gcNPCAsk;
+		gcNPCAsk.setObjectID(pCreature1->getObjectID());
+		gcNPCAsk.setScriptID(sID);
+		gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+
+		Player* pPlayer = pCreature2->getPlayer();
+		pPlayer->sendPacket(&gcNPCAsk);
+	}
+
+	__END_CATCH
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// get debug string
+////////////////////////////////////////////////////////////////////////////////
+string ActionAskByQuestLevel::toString () const 
+	throw()
+{
+	__BEGIN_TRY
+
+	StringStream msg;
+	msg << "ActionAskByQuestLevel("
+	    << ")";
+
+	return msg.toString();
+
+	__END_CATCH
+}

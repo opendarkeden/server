@@ -1,0 +1,53 @@
+////////////////////////////////////////////////////////////////////////////////
+// Filename    : LuckInfo.cpp
+// Written By  : beowulf
+// Description :
+////////////////////////////////////////////////////////////////////////////////
+
+#include "LuckInfo.h"
+#include "Assert1.h"
+#include "VariableManager.h"
+#include "DB.h"
+#include <algorithm>
+
+////////////////////////////////////////////////////////////////////////////////
+// Global Variable initialization
+////////////////////////////////////////////////////////////////////////////////
+/*LuckInfoManager * g_pLuckInfoManager = NULL;
+
+////////////////////////////////////////////////////////////////////////////////
+// class LuckInfoManager member methods
+////////////////////////////////////////////////////////////////////////////////
+
+LuckInfoManager::LuckInfoManager()
+	throw()
+{
+	__BEGIN_TRY
+
+	for (int i=0; i<3; ++i )
+	{
+		m_ItemTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
+		m_OptionTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
+	}
+
+	__END_CATCH
+}
+
+LuckInfoManager::~LuckInfoManager()
+	throw()
+{
+	__BEGIN_TRY
+
+	__END_CATCH
+}
+
+void LuckInfoManager::init()
+	throw(Error)
+{
+	__BEGIN_TRY
+
+
+	__END_CATCH
+}
+
+*/
