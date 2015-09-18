@@ -7,7 +7,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #ifndef __SERIAL_DATAGRAM_PACKET_H__
-#define __SERIAL_DATAGRAM__PACKET_H__
+#define __SERIAL_DATAGRAM_PACKET_H__
 
 // include files
 #include "Packet.h"
