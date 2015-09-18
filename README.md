@@ -2,10 +2,9 @@
 
 # dependency
 
-libmysqlclient.a
-liblua.a
-libxerces-c.a
-libzlog.a
+mysql
+lua
+xerces-c
 
 # compile
 
