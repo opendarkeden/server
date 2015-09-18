@@ -1,4 +1,6 @@
- SET(LIBCBilling_SRC 
+INCLUDE_DIRECTORIES(/usr/local/include/mysql)
+
+SET(LIBCBilling_SRC 
 	CBillingPacketErrorBody.cpp
 	CBillingPacketHeader.cpp
 	CBillingPacketRequestIntervalValidationBody.cpp
