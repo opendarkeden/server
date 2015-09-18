@@ -24,9 +24,6 @@ void GCSystemMessage::read (SocketInputStream & iStream )
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage > 256 )
-		throw InvalidProtocolException("too large message length");
-
 	iStream.read(m_Message , szMessage);
 
 	iStream.read(m_Color);
@@ -53,9 +50,6 @@ void GCSystemMessage::write (SocketOutputStream & oStream ) const
 
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
-
-	if (szMessage > 256 )
-		throw InvalidProtocolException("too large message length");
 
 	oStream.write(m_Message);
 

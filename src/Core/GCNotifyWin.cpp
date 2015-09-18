@@ -20,9 +20,6 @@ void GCNotifyWin::read (SocketInputStream & iStream )
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage > 2048 )
-		throw InvalidProtocolException("too large message length");
-
 	iStream.read(m_Name , szMessage);
 
 	__END_CATCH
@@ -39,9 +36,6 @@ void GCNotifyWin::write (SocketOutputStream & oStream ) const
 
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
-
-	if (szMessage > 2048 )
-		throw InvalidProtocolException("too large message length");
 
 	oStream.write(szMessage);
 

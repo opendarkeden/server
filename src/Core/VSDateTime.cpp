@@ -224,7 +224,7 @@ bool VSDate::isValid(int y, int m, int d)
 
 bool VSDate::leapYear(int y)
 {
-	return (y % 4 == 0 && y % 100 != 0 || y % 400 == 0);
+	return ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0);
 }
 
 uint VSDate::greg2jul(int y, int m, int d)
@@ -771,7 +771,7 @@ VSTime VSTime::fromStringHM(string text)
     /////////////////////////////////////////
     if (text.size() < 3) return vst;
 
-    uint a=0;
+    size_t a=0;
 
     a = text.find_first_of(':', 0);
 

@@ -80,9 +80,6 @@ struct SingleGuildInfo
 		iStream.read(m_GuildMemberCount);
 		iStream.read(szGuildIntro);
 
-		if (szGuildIntro > 256 )
-			throw InvalidProtocolException("too long szGuildIntro length");
-
 		if (szGuildIntro != 0 )
 			iStream.read(m_GuildIntro, szGuildIntro);
 		else
@@ -110,9 +107,6 @@ struct SingleGuildInfo
 			throw InvalidProtocolException("szGuildMaster == 0");
 		if (szGuildMaster > 20 )
 			throw InvalidProtocolException("too long szGuildMaster length");
-
-		if (szGuildIntro > 256 )
-			throw InvalidProtocolException("too long szGuildIntro length");
 
 		oStream.write(m_GuildID);
 		oStream.write(szGuildName);

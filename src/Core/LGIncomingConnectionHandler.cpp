@@ -63,7 +63,7 @@ void LGIncomingConnectionHandler::execute (LGIncomingConnection * pPacket )
 	//
 	//--------------------------------------------------------------------------------
 
-	DWORD authKey = rand() << (time(0) % 10 ) + rand() >> (time(0)% 10);
+    DWORD authKey = rand() << ((time(0) % 10 ) + rand()) >> (time(0)% 10);
 
 	// CI 객체를 생성한다.
 	ConnectionInfo * pConnectionInfo = new ConnectionInfo();

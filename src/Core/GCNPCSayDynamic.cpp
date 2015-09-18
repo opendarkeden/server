@@ -20,9 +20,6 @@ void GCNPCSayDynamic::read (SocketInputStream & iStream )
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
 
-	if (szMessage > 2048 )
-		throw InvalidProtocolException("too large message length");
-
 	iStream.read(m_Message , szMessage);
 
 	__END_CATCH
@@ -39,9 +36,6 @@ void GCNPCSayDynamic::write (SocketOutputStream & oStream ) const
 
 	if (szMessage == 0 )
 		throw InvalidProtocolException("szMessage == 0");
-
-	if (szMessage > 2048 )
-		throw InvalidProtocolException("too large message length");
 
 	oStream.write(szMessage);
 

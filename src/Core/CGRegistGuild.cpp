@@ -25,9 +25,6 @@ void CGRegistGuild::read (SocketInputStream & iStream)
 
 	iStream.read(szGuildIntro);
 
-	if (szGuildIntro > 256 )
-		throw InvalidProtocolException("szGuildIntro > 256");
-
 	if (szGuildIntro != 0 )
 		iStream.read(m_GuildIntro, szGuildIntro);
 	else
@@ -48,9 +45,6 @@ void CGRegistGuild::write (SocketOutputStream & oStream) const
 		throw InvalidProtocolException("szGuildName == 0 ");
 	if (szGuildName > 30 ) 
 		throw InvalidProtocolException("szGuildName > 30");
-
-	if (szGuildIntro > 256 )
-		throw InvalidProtocolException("szGuildIntro > 256");
 
 	oStream.write(szGuildName);
 	oStream.write(m_GuildName);

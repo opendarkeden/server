@@ -81,10 +81,6 @@ void Resource::load (ifstream & ifile )
 		throw Error("szFilename == 0");
 	}
 
-	if (szFilename > maxFilename ) {
-		throw Error("too large filename length");
-	}
-
 	char filename[maxFilename+1];
 	ifile.read(filename , szFilename);
 	filename[szFilename] = 0;

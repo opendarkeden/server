@@ -7,7 +7,7 @@
 //----------------------------------------------------------------------
 
 #ifndef __GS_EXPEL_GUILD_MEMBER_H__
-#define __GS_EXPEL_GUILD_MEMBER__H__
+#define __GS_EXPEL_GUILD_MEMBER_H__
 
 // include files
 #include "Packet.h"

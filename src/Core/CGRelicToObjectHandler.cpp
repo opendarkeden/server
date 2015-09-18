@@ -269,18 +269,18 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket , Player* pPl
 	// Player가 두 성물이 다 없거나
 	// item이 없는 경우?
 	// 성물이 아니거나
-	if (bTableHasSlayerRelic && bTableHasVampireRelic
-		|| !bPlayerHasSlayerRelic && !bPlayerHasVampireRelic
-		|| pItem==NULL
-		|| pItem->getItemClass() != Item::ITEM_CLASS_RELIC)
-	{
-		GCCannotAdd _GCCannotAdd;
-		_GCCannotAdd.setObjectID(pPacket->getObjectID());
-		pPlayer->sendPacket(&_GCCannotAdd);
+  if ((bTableHasSlayerRelic && bTableHasVampireRelic)
+      || (!bPlayerHasSlayerRelic && !bPlayerHasVampireRelic)
+      || pItem==NULL
+      || pItem->getItemClass() != Item::ITEM_CLASS_RELIC)
+    {
+      GCCannotAdd _GCCannotAdd;
+      _GCCannotAdd.setObjectID(pPacket->getObjectID());
+      pPlayer->sendPacket(&_GCCannotAdd);
 
-		//cout << "return: Cannot add" << endl;
-		return;
-	}
+      //cout << "return: Cannot add" << endl;
+      return;
+    }
 
 	ItemType_t 		relicIndex 			= pItem->getItemType();
 
@@ -305,19 +305,19 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket , Player* pPl
 	// 들고 있는 아이템이 없거나
 	// 남의 보관대이거나
 	// 이미 같은 종족의 성물이 있다면 넣을 수 없다.
-	if (pItem->getObjectID() != pPacket->getItemObjectID()
-		|| bSlayer && bVampireRelicTable
-		|| bVampire && bSlayerRelicTable
-		|| bTableHasSlayerRelic && pRelicInfo->relicType==RELIC_TYPE_SLAYER
-		|| bTableHasVampireRelic && pRelicInfo->relicType==RELIC_TYPE_VAMPIRE)
-	{
-		GCCannotAdd _GCCannotAdd;
-		_GCCannotAdd.setObjectID(pPacket->getObjectID());
-		pPlayer->sendPacket(&_GCCannotAdd);
+  if (pItem->getObjectID() != pPacket->getItemObjectID()
+      || (bSlayer && bVampireRelicTable)
+      || (bVampire && bSlayerRelicTable)
+      || (bTableHasSlayerRelic && pRelicInfo->relicType==RELIC_TYPE_SLAYER)
+      || (bTableHasVampireRelic && pRelicInfo->relicType==RELIC_TYPE_VAMPIRE))
+    {
+      GCCannotAdd _GCCannotAdd;
+      _GCCannotAdd.setObjectID(pPacket->getObjectID());
+      pPlayer->sendPacket(&_GCCannotAdd);
 
-		//cout << "return: Cannot Add2" << endl;
-		return;
-	}
+      //cout << "return: Cannot Add2" << endl;
+      return;
+    }
 
 	// 슬레이어인 경우는 오토바이, 스나이핑상태 이면 안되고
 	// 뱀파이어인 경우는 변신상태, 투명상태이면 안된다.
@@ -456,39 +456,39 @@ void CGRelicToObjectHandler::executeRelic(CGRelicToObject* pPacket , Player* pPl
 
 
 		// 두 성물을 모두 갖게 되는 경우
-		if (bTableHasSlayerRelic && pRelicInfo->relicType==RELIC_TYPE_VAMPIRE
-			|| bTableHasVampireRelic && pRelicInfo->relicType==RELIC_TYPE_SLAYER)
+    if ((bTableHasSlayerRelic && pRelicInfo->relicType==RELIC_TYPE_VAMPIRE)
+        || (bTableHasVampireRelic && pRelicInfo->relicType==RELIC_TYPE_SLAYER))
 
-		{
-			// 성물 보관대가 안전한 시간 설정
-			Timeval safeTime;
-			getCurrentTime(safeTime);
-			safeTime.tv_sec += g_pVariableManager->getCombatBonusTime()*60;
+      {
+        // 성물 보관대가 안전한 시간 설정
+        Timeval safeTime;
+        getCurrentTime(safeTime);
+        safeTime.tv_sec += g_pVariableManager->getCombatBonusTime()*60;
 
-			// 승리 message 를 보내준다.
-			GCSystemMessage gcSystemMessage;
+        // 승리 message 를 보내준다.
+        GCSystemMessage gcSystemMessage;
 
-			pTableEffect->setSafeTime(safeTime);
+        pTableEffect->setSafeTime(safeTime);
 
-			if (bSlayer)
-			{
-				gcSystemMessage.setMessage(g_pStringPool->getString(STRID_COMBAT_SLAYER_WIN ));
-				g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_SLAYER);
-			}
-			else
-			{
-				gcSystemMessage.setMessage(g_pStringPool->getString(STRID_COMBAT_VAMPIRE_WIN ));
-				g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_VAMPIRE);
-			}
+        if (bSlayer)
+          {
+            gcSystemMessage.setMessage(g_pStringPool->getString(STRID_COMBAT_SLAYER_WIN ));
+            g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_SLAYER);
+          }
+        else
+          {
+            gcSystemMessage.setMessage(g_pStringPool->getString(STRID_COMBAT_VAMPIRE_WIN ));
+            g_pCombatInfoManager->setRelicOwner(relicIndex, CombatInfoManager::RELIC_OWNER_VAMPIRE);
+          }
 
-			// 전쟁이 종료되었다.
-			g_pCombatInfoManager->setCombat(false);
+        // 전쟁이 종료되었다.
+        g_pCombatInfoManager->setCombat(false);
 
-			// 전체 사용자에게 message를 보낸다.
-			g_pZoneGroupManager->broadcast(&gcSystemMessage);
+        // 전체 사용자에게 message를 보낸다.
+        g_pZoneGroupManager->broadcast(&gcSystemMessage);
 
-			g_pCombatInfoManager->computeModify();
-		}
+        g_pCombatInfoManager->computeModify();
+      }
 	}
 	else
 	{
@@ -529,19 +529,18 @@ void CGRelicToObjectHandler::executeBloodBible(CGRelicToObject* pPacket , Player
 	// 시체가 아니거나
 	// Monster시체가 아니거나
 	// ShrineGuard도 ShrineHoly도 아니면.. 성단이 아니지.
-	if (pTableItem==NULL 
-		|| pTableItem->getItemClass()!=Item::ITEM_CLASS_CORPSE
-		|| pTableItem->getItemType()!=MONSTER_CORPSE
-		|| !pTableItem->isFlag(Effect::EFFECT_CLASS_SHRINE_GUARD) &&
-			!pTableItem->isFlag(Effect::EFFECT_CLASS_SHRINE_HOLY))
-	{
-		GCCannotAdd _GCCannotAdd;
-		_GCCannotAdd.setObjectID(pPacket->getObjectID());
-		pPlayer->sendPacket(&_GCCannotAdd);
+  if (pTableItem==NULL 
+      || pTableItem->getItemClass()!=Item::ITEM_CLASS_CORPSE
+      || pTableItem->getItemType()!=MONSTER_CORPSE
+      || (!pTableItem->isFlag(Effect::EFFECT_CLASS_SHRINE_GUARD) &&	!pTableItem->isFlag(Effect::EFFECT_CLASS_SHRINE_HOLY)))
+    {
+      GCCannotAdd _GCCannotAdd;
+      _GCCannotAdd.setObjectID(pPacket->getObjectID());
+      pPlayer->sendPacket(&_GCCannotAdd);
 
-		//cout << "return: not Shrine" << endl;
-		return;
-	}
+      //cout << "return: not Shrine" << endl;
+      return;
+    }
 
 	// 성단
 	MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);
@@ -599,19 +598,18 @@ void CGRelicToObjectHandler::executeCastleSymbol(CGRelicToObject* pPacket , Play
 	// 시체가 아니거나
 	// Monster시체가 아니거나
 	// ShrineGuard도 ShrineHoly도 아니면.. 성단이 아니지.
-	if (pTableItem==NULL 
-		|| pTableItem->getItemClass()!=Item::ITEM_CLASS_CORPSE
-		|| pTableItem->getItemType()!=MONSTER_CORPSE
-		|| !pTableItem->isFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_GUARD) &&
-			!pTableItem->isFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_HOLY))
-	{
-		GCCannotAdd _GCCannotAdd;
-		_GCCannotAdd.setObjectID(pPacket->getObjectID());
-		pPlayer->sendPacket(&_GCCannotAdd);
+  if (pTableItem==NULL 
+      || pTableItem->getItemClass()!=Item::ITEM_CLASS_CORPSE
+      || pTableItem->getItemType()!=MONSTER_CORPSE
+      || (!pTableItem->isFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_GUARD) &&	!pTableItem->isFlag(Effect::EFFECT_CLASS_CASTLE_SHRINE_HOLY)))
+    {
+      GCCannotAdd _GCCannotAdd;
+      _GCCannotAdd.setObjectID(pPacket->getObjectID());
+      pPlayer->sendPacket(&_GCCannotAdd);
 
-		//cout << "return: not Shrine" << endl;
-		return;
-	}
+      //cout << "return: not Shrine" << endl;
+      return;
+    }
 
 	// 성단
 	MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTableItem);

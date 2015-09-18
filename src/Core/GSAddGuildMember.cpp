@@ -32,9 +32,6 @@ void GSAddGuildMember::read (SocketInputStream& iStream )
 	iStream.read(m_GuildMemberRank);
 	iStream.read(szGuildMemberIntro);
 
-	if (szGuildMemberIntro > 256 )
-		throw InvalidProtocolException("too long Guild Member Intro");
-
 	if (szGuildMemberIntro != 0 )
 		iStream.read(m_GuildMemberIntro, szGuildMemberIntro);
 	else
@@ -61,9 +58,6 @@ void GSAddGuildMember::write (SocketOutputStream& oStream ) const
 		throw InvalidProtocolException("szName == 0");
 	if (szName > 20 )
 		throw InvalidProtocolException("too long name length");
-
-	if (szGuildMemberIntro > 256 )
-		throw InvalidProtocolException("too long GuildMemberIntro length");
 
 	oStream.write(m_GuildID);
 	oStream.write(szName);

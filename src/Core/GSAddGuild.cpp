@@ -40,9 +40,6 @@ void GSAddGuild::read (SocketInputStream & iStream )
 
 	iStream.read(szGuildIntro);
 
-	if (szGuildIntro > 256 )
-		throw InvalidProtocolException("too long guild intro length");
-
 	if (szGuildIntro != 0 )
 		iStream.read(m_GuildIntro, szGuildIntro);
 	else
@@ -77,9 +74,6 @@ void GSAddGuild::write (SocketOutputStream & oStream ) const
 		throw InvalidProtocolException("szGuildMaster == 0");
 	if (szGuildMaster > 20 )
 		throw InvalidProtocolException("too long guild master length");
-
-	if (szGuildIntro > 256 )
-		throw InvalidProtocolException("too long guild intro length");
 
 	oStream.write(szGuildName);
 	oStream.write(m_GuildName);

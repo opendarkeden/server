@@ -63,7 +63,7 @@ void GCGoodsList::read (SocketInputStream & iStream )
 
 	BYTE totalNum;
 	iStream.read(totalNum);
-	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : 물건 개수가 제한을 초과했습니다.");
+	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
 
 	for (int i=0; i < totalNum ; ++i )
 	{
@@ -106,7 +106,7 @@ void GCGoodsList::write (SocketOutputStream & oStream ) const
 	__BEGIN_DEBUG
 		
 	BYTE totalNum = m_GoodsList.size();
-	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : 아이템 개수가 틀려먹었습니다.");
+	if (totalNum > MAX_GOODS_LIST ) throw DisconnectException("GCGoodsList : totalNum greater than MAX_GOODS_LIST");
 
 	oStream.write(totalNum);
 	

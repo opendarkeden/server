@@ -104,7 +104,7 @@ void GCTimeLimitItemInfo::addTimeLimit(ObjectID_t objectID, DWORD time)
 
 	ItemTimeLimitMap::const_iterator	itr = m_TimeLimitItemInfos.find(objectID);
 
-	if (itr != m_TimeLimitItemInfos.end() ) throw Error("아이템 오브젝트 아이디가 겹치네용.");
+	if (itr != m_TimeLimitItemInfos.end() ) throw Error("GCTimeLimitItemInfo addTimeLimit error");
 
 	m_TimeLimitItemInfos[ objectID ] = time;
 

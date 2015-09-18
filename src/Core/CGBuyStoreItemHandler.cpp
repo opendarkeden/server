@@ -53,7 +53,7 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 
 	if (pPacket->getIndex() > MAX_ITEM_NUM )
 	{
-		filelog("Store.log", "[%s:%s] (%u) 잘못된 인덱스입니다.",
+		filelog("Store.log", "[%s:%s] (%u) packet index > MAX_ITEM_NUM.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getIndex());
 		return;
 	}

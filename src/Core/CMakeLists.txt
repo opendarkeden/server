@@ -1,5 +1,9 @@
+cmake_minimum_required(VERSION 3.0)
+SET(WARNING_FLAGS "-Wno-invalid-source-encoding -Wno-c++11-compat-deprecated-writable-strings -Wno-format -Wno-format-security")
+SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${WARNING_FLAGS}" )
 ADD_DEFINITIONS(-D__LINUX__)
-#INCLUDE_DIRECTORIES(../server .)
+
+INCLUDE_DIRECTORIES(/usr/local/include/mysql)
 SET(GC_SRC 	
 	GCActiveGuildListHandler.cpp
 	GCAddBat.cpp

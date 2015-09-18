@@ -102,9 +102,10 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket , Player* pPlaye
 			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pos.id);
 			
 			// 유료존인데 유료사용자가 아니면...
-			if (pZoneInfo == NULL || (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
-				&& (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass())) {
-				//Statement* pStmt = NULL;
+      if (pZoneInfo == NULL ||
+          ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
+           && (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass()))) {
+        //Statement* pStmt = NULL;
 				string connectIP = pGamePlayer->getSocket()->getHost();
 
 				// 유료 서비스 사용이 가능한가?
@@ -332,9 +333,9 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket , Player* pPlaye
 						ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(id);
 						
 						// 유료존인데 유료사용자가 아니면...
-						if (pZoneInfo==NULL || (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
-							&& (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass())) {
-							//Statement* pStmt = NULL;
+            if (pZoneInfo==NULL ||
+                ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone()) && (!pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass()))) {
+              //Statement* pStmt = NULL;
 							string connectIP = pGamePlayer->getSocket()->getHost();
 
 							// 유료 서비스 사용이 가능한가?

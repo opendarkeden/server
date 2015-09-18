@@ -148,37 +148,36 @@ void CGSelectTileEffectHandler::executeVampirePortal(CGSelectTileEffect* pPacket
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 			// 유료존인데 유료사용중이 아니면...
 			// 그리고 패밀리 요금제 적용중인 아니면
-			if (pZoneInfo==NULL
-				|| (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
-					&& !pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass() )
-			{
-				//Statement* pStmt = NULL;
-				string connectIP = pGamePlayer->getSocket()->getHost();
+      if (pZoneInfo==NULL
+          || ((pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone()) && !pGamePlayer->isPayPlaying() && !pGamePlayer->isFamilyFreePass()) )
+        {
+          //Statement* pStmt = NULL;
+          string connectIP = pGamePlayer->getSocket()->getHost();
 
-				// 유료 서비스 사용이 가능한가?
-				if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
-				{
-					sendPayInfo(pGamePlayer);
-				}
-				else if (pZoneInfo->isPayPlay())
-				{
-					// 유료 서비스 사용 불가인 경우
-					GCSystemMessage gcSystemMessage;
+          // 유료 서비스 사용이 가능한가?
+          if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
+            {
+              sendPayInfo(pGamePlayer);
+            }
+          else if (pZoneInfo->isPayPlay())
+            {
+              // 유료 서비스 사용 불가인 경우
+              GCSystemMessage gcSystemMessage;
 
-					if (g_pConfig->getPropertyInt("IsNetMarble")==0)
-					{
-						gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
-					}
-					else
-					{
-						gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
-					}
+              if (g_pConfig->getPropertyInt("IsNetMarble")==0)
+                {
+                  gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+                }
+              else
+                {
+                  gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+                }
 
-					pGamePlayer->sendPacket (&gcSystemMessage);
+              pGamePlayer->sendPacket (&gcSystemMessage);
 
-					return;
-				}
-			}
+              return;
+            }
+        }
 #endif
 		} catch (NoSuchElementException&) {
 			return;

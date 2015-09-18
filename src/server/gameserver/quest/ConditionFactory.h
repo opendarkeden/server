@@ -1,0 +1,25 @@
+//////////////////////////////////////////////////////////////////////////////
+// Filename    : ConditionFactory.h 
+// Written By  : 
+// Description :
+//////////////////////////////////////////////////////////////////////////////
+
+#ifndef __CONDITION_FACTORY_H__
+#define __CONDITION_FACTORY_H__
+
+#include "Condition.h"
+
+//////////////////////////////////////////////////////////////////////////////
+// class ConditionFactory
+//////////////////////////////////////////////////////////////////////////////
+
+class ConditionFactory 
+{
+public:
+	virtual ~ConditionFactory() throw() {}
+	virtual ConditionType_t getConditionType() const throw() = 0;
+	virtual string getConditionName() const throw() = 0;
+	virtual Condition* createCondition() const throw() = 0;
+};
+
+#endif

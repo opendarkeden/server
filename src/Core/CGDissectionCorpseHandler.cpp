@@ -99,8 +99,8 @@ void CGDissectionCorpseHandler::execute (CGDissectionCorpse* pPacket , Player* p
 		// Coma상태라면 루팅 불가. by sigi. 2002.12.10
         // 현재 박쥐 상태라면 리턴
         if (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-       	 	|| pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)
-			|| pCreature->isVampire() && pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT))
+            || pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)
+            || (pCreature->isVampire() && pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)))
            return;
 		
 		// 슬레이어인 경우 오토바이 타고 있으면 아이템 루팅 불가 by sigi

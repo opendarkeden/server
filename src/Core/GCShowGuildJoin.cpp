@@ -24,7 +24,7 @@ void GCShowGuildJoin::read (SocketInputStream & iStream )
 
 	if (szGuildName == 0 )
 		throw InvalidProtocolException("szGuildName == 0");
-	if (szGuildName > 30);
+	if (szGuildName > 30)
 		throw InvalidProtocolException("too long szGuildName length");
 
 	iStream.read(m_GuildName, szGuildName);

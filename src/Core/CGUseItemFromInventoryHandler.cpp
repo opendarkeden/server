@@ -370,15 +370,15 @@ void CGUseItemFromInventoryHandler::executePotion(CGUseItemFromInventory* pPacke
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 	// 코마 상태라면 사용할 수 없다.
-	if (pSlayer->isFlag(Effect::EFFECT_CLASS_COMA)
-		// 송편인 경우는 유료 사용자가 아니면 사용할 수 없다.
-		|| pItem->getItemType()==11 && !pGamePlayer->isPayPlaying() && !pGamePlayer->isPremiumPlay())
-	{
-		GCCannotUse _GCCannotUse;
-		_GCCannotUse.setObjectID(pPacket->getObjectID());
-		pGamePlayer->sendPacket(&_GCCannotUse);
-		return;
-	}
+  if (pSlayer->isFlag(Effect::EFFECT_CLASS_COMA)
+      // 송편인 경우는 유료 사용자가 아니면 사용할 수 없다.
+      || (pItem->getItemType()==11 && !pGamePlayer->isPayPlaying() && !pGamePlayer->isPremiumPlay()))
+    {
+      GCCannotUse _GCCannotUse;
+      _GCCannotUse.setObjectID(pPacket->getObjectID());
+      pGamePlayer->sendPacket(&_GCCannotUse);
+      return;
+    }
 
 	HP_t	MaxHP     = pSlayer->getHP(ATTR_MAX);
 	HP_t	CurrentHP = pSlayer->getHP(ATTR_CURRENT);
@@ -773,15 +773,15 @@ void CGUseItemFromInventoryHandler::executeSerum(CGUseItemFromInventory* pPacket
 	Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 	// 코마 상태라면 사용할 수 없다.
-	if (pVampire->isFlag(Effect::EFFECT_CLASS_COMA)
-		// 송편인 경우는 유료 사용자가 아니면 사용할 수 없다.
-		|| pItem->getItemType()==5 && !pGamePlayer->isPayPlaying() && !pGamePlayer->isPremiumPlay())
-	{
-		GCCannotUse _GCCannotUse;
-		_GCCannotUse.setObjectID(pPacket->getObjectID());
-		pGamePlayer->sendPacket(&_GCCannotUse);
-		return;
-	}
+  if (pVampire->isFlag(Effect::EFFECT_CLASS_COMA)
+      // 송편인 경우는 유료 사용자가 아니면 사용할 수 없다.
+      || (pItem->getItemType()==5 && !pGamePlayer->isPayPlaying() && !pGamePlayer->isPremiumPlay()))
+    {
+      GCCannotUse _GCCannotUse;
+      _GCCannotUse.setObjectID(pPacket->getObjectID());
+      pGamePlayer->sendPacket(&_GCCannotUse);
+      return;
+    }
 
 	HP_t   MaxHP       = pVampire->getHP(ATTR_MAX);
 	HP_t   CurrentHP   = pVampire->getHP(ATTR_CURRENT);

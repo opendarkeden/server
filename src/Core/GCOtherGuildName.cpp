@@ -50,9 +50,6 @@ void GCOtherGuildName::write (SocketOutputStream & oStream ) const
 	//if (szGuildName == 0 )
 	//	throw InvalidProtocolException("szGuildName == 0");
 
-	if (szGuildName > 256 )
-		throw InvalidProtocolException("too long GuildName length");
-
 	oStream.write(m_ObjectID);
 	oStream.write(m_GuildID);
 	oStream.write(szGuildName);
