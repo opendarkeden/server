@@ -11,7 +11,7 @@
 #include "Assert.h"
 #include "Exception.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 #include <list>
 
 #include "VSDateTime.h"
@@ -249,7 +249,7 @@ protected:
 #endif
 #define MAX_GUILDMEMBER_WAIT_COUNT			15
 
-typedef hash_map<string, GuildMember*> HashMapGuildMember;
+typedef unordered_map<string, GuildMember*> HashMapGuildMember;
 typedef HashMapGuildMember::iterator HashMapGuildMemberItor;
 typedef HashMapGuildMember::const_iterator HashMapGuildMemberConstItor;
 

@@ -12,7 +12,7 @@
 #include "Exception.h"
 #include "Mutex.h"
 #include "Timeval.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildManager
@@ -23,9 +23,9 @@
 
 class Guild;
 
-typedef hash_map<GuildID_t, Guild*> HashMapGuild;
-typedef hash_map<GuildID_t, Guild*>::iterator HashMapGuildItor;
-typedef hash_map<GuildID_t, Guild*>::const_iterator HashMapGuildConstItor;
+typedef unordered_map<GuildID_t, Guild*> HashMapGuild;
+typedef unordered_map<GuildID_t, Guild*>::iterator HashMapGuildItor;
+typedef unordered_map<GuildID_t, Guild*>::const_iterator HashMapGuildConstItor;
 
 #ifdef __SHARED_SERVER__
 class SGGuildInfo;
@@ -104,7 +104,7 @@ public: // debug
 ///// Member data /////
 	
 protected:
-	hash_map<GuildID_t, Guild*> m_Guilds;		// 길드 포인터 맵
+	unordered_map<GuildID_t, Guild*> m_Guilds;		// 길드 포인터 맵
 
 	Timeval m_WaitMemberClearTime;				// heartbeat 에서 Wait 중인 길드멤버 정리 시간
 

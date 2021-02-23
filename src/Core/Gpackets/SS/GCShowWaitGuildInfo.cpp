@@ -112,7 +112,7 @@ void GCShowWaitGuildInfo::write ( SocketOutputStream & oStream ) const
 	oStream.write( m_JoinFee );
 	oStream.write( MemberNum );
 
-	slist<string>::const_iterator itr = m_MemberList.begin();
+	list<string>::const_iterator itr = m_MemberList.begin();
 	for ( ; itr != m_MemberList.end(); itr++ )
 	{
 		szMember = (*itr).size();
@@ -145,7 +145,7 @@ PacketSize_t GCShowWaitGuildInfo::getPacketSize() const throw()
 							  szGold +
 							  szBYTE;
 
-	slist<string>::const_iterator itr = m_MemberList.begin();
+	list<string>::const_iterator itr = m_MemberList.begin();
 	for ( ; itr != m_MemberList.end() ; itr++ )
 	{
 		PacketSize += szBYTE + (*itr).size();
