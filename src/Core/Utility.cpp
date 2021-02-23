@@ -8,6 +8,7 @@
 #include "Utility.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdarg>
 #include "Assert.h"
 #include "VSDateTime.h"
 

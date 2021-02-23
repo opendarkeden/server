@@ -1040,8 +1040,7 @@ bool PaySystem::isPayPlayingPeriodPersonal(const string& PlayerID)
 		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
-		Result* pResult = pStmt->executeQuery( "
-			SELECT PayType=0 or PayPlayDate > now() FROM Player WHERE PlayerID='%s'",
+		Result* pResult = pStmt->executeQuery("SELECT PayType=0 or PayPlayDate > now() FROM Player WHERE PlayerID='%s'",
 			PlayerID.c_str());
 
 		if (pResult->next())

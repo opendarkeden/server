@@ -214,8 +214,8 @@ public:
 	// denychat
 	static void opdenychat(GamePlayer* pPlayer, string msg, int i) throw(ProtocolException, Error);
 	// world 
-	static void oprefreshguildunion(GamePlayer* pPlayer, string msg, int i, bool bSameWorldOnly = true) throw(ProtocolException, Error);
-	static void opmodifyunioninfo(GamePlayer* pPlayer, string msg, int i, bool bSameWorldOnly = true) throw(ProtocolException, Error);
+	static void oprefreshguildunion(GamePlayer* pPlayer, string msg, int i, bool bSameWorldOnly) throw(ProtocolException, Error);
+	static void opmodifyunioninfo(GamePlayer* pPlayer, string msg, int i, bool bSameWorldOnly) throw(ProtocolException, Error);
 
 #endif
 

@@ -12,7 +12,7 @@
 #include "SXml.h"
 #include <iostream>
 #include <iosfwd>
-#include <assert.h>
+// #include <cassert>
 #include <cstdio>
 #include <cstdarg>
 #include <ctime>
@@ -45,7 +45,7 @@ void itoa( int value, char* buf, int r )
 
 //#pragma warning(disable:4100)
 
-XERCES_CPP_NAMESPACE_USE
+// XERCES_CPP_NAMESPACE_USE
 
 //////////////////////////////////////////////////////////////////////////////
 /// \class XMLUtil
@@ -675,7 +675,7 @@ XMLTree::SaveToFile( const char* pFilename )
 {
 	ofstream file( pFilename, ios::out | ios::trunc );
 
-	if ( file == NULL ) return;
+	if ( !file ) return;
 
 	file << "<?xml version=\"1.0\" encoding=\"EUC-KR\"?>" << endl;
 	
@@ -788,7 +788,7 @@ XMLTreeGenerator::endElement(	const XMLCh* const uri,
 									const XMLCh* const localname, 
 									const XMLCh* const qname )
 {
-	assert( m_pBuffer != NULL );
+	// assert( m_pBuffer != NULL );
 
 	m_pBuffer = const_cast<XMLTree *>(m_pBuffer->GetParent());
 }
@@ -797,7 +797,7 @@ void
 XMLTreeGenerator::characters( const XMLCh* const chars, 
 								const unsigned int length )
 {
-	assert( m_pBuffer != NULL );
+	// assert( m_pBuffer != NULL );
 
 	string text = XMLUtil::trim( XMLUtil::WideCharToString( chars ) );
 	m_pBuffer->SetText( m_pBuffer->GetText() + text );
@@ -824,7 +824,7 @@ void XMLTreeGenerator::warning(const SAXParseException& e)
 		e.getColumnNumber(),
 		XMLUtil::WideCharToString(e.getMessage()).c_str());
 
-	assert(false);
+	// assert(false);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -840,7 +840,7 @@ void XMLTreeGenerator::error(const SAXParseException& e)
 		e.getColumnNumber(),
 		XMLUtil::WideCharToString(e.getMessage()).c_str());
 
-	assert(false);
+	// assert(false);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -856,7 +856,7 @@ void XMLTreeGenerator::fatalError(const SAXParseException& e)
 		e.getColumnNumber(),
 		XMLUtil::WideCharToString(e.getMessage()).c_str());
 
-	assert(false);
+	// assert(false);
 }
 
 
@@ -898,8 +898,8 @@ XMLParser::~XMLParser()
 //////////////////////////////////////////////////////////////////////////////
 void XMLParser::parseURL(const char* pURL)
 {
-	assert(pURL != NULL);
-	assert(m_pHandler != NULL);
+	// assert(pURL != NULL);
+	// assert(m_pHandler != NULL);
 
 	// SAX 파서 오브젝트를 생성한다. 그리고 feature를 설정한다.
 	// SAX2에서 지원되는 feature는 다음과 같다.
@@ -953,8 +953,8 @@ void XMLParser::parseURL(const char* pURL)
 //////////////////////////////////////////////////////////////////////////////
 void XMLParser::parse(const char* buffer)
 {
-	assert(buffer != NULL);
-	assert(m_pHandler != NULL);
+	// assert(buffer != NULL);
+	// assert(m_pHandler != NULL);
 
 	// SAX 파서 오브젝트를 생성한다. 그리고 feature를 설정한다.
 	// feature에 관한 사항은 XMLParser::parseURL() 함수를 참고하기 바란다.

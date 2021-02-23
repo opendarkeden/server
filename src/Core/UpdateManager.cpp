@@ -50,7 +50,7 @@ void UpdateManager::load ( const string & filename )
 {
 	__BEGIN_TRY
 
-	ifstream ifile( filename.c_str() , ios::in | ios::binary | ios::nocreate );
+	ifstream ifile( filename.c_str() , ios::in | ios::binary );
 	if ( !ifile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with read mode";
@@ -91,7 +91,7 @@ void UpdateManager::save ( const string & filename ) const
 {
 	__BEGIN_TRY
 
-	ofstream ofile( filename.c_str() , ios::out | ios::binary | ios::noreplace );
+	ofstream ofile( filename.c_str() , ios::out | ios::binary );
 	if ( !ofile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with write mode";

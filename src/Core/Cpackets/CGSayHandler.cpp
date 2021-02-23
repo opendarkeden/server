@@ -5633,7 +5633,7 @@ void CGSayHandler::oplog(GamePlayer* pPlayer, string msg, int i)
 	__END_DEBUG_EX __END_CATCH
 }
 
-void CGSayHandler::opmodifyunioninfo(GamePlayer* pGamePlayer , string msg, int i, bool bSameWorldOnly = true)
+void CGSayHandler::opmodifyunioninfo(GamePlayer* pGamePlayer , string msg, int i, bool bSameWorldOnly)
 	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
@@ -5651,7 +5651,7 @@ void CGSayHandler::opmodifyunioninfo(GamePlayer* pGamePlayer , string msg, int i
 	
 }
 
-void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int i, bool bSameWorldOnly = true)
+void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int i, bool bSameWorldOnly)
 	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX

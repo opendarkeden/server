@@ -37,7 +37,7 @@ DatabaseManager::~DatabaseManager ()
 	__BEGIN_TRY
 	
 	// 모든 Connection 를 삭제해야 한다.
-	hash_map<int, Connection*>::iterator itr = m_Connections.begin();
+	unordered_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
 		SAFE_DELETE(itr->second);
 
@@ -220,7 +220,7 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< int , Connection * >::iterator itr = m_Connections.find( TID );
+	unordered_map< int , Connection * >::iterator itr = m_Connections.find( TID );
 	
 	if ( itr != m_Connections.end() )
 	{
@@ -249,7 +249,7 @@ void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< int , Connection * >::iterator itr = m_DistConnections.find( TID );
+	unordered_map< int , Connection * >::iterator itr = m_DistConnections.find( TID );
 	
 	if ( itr != m_DistConnections.end() )
 	{
@@ -278,7 +278,7 @@ void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< int , Connection * >::iterator itr = m_CBillingConnections.find( TID );
+	unordered_map< int , Connection * >::iterator itr = m_CBillingConnections.find( TID );
 	
 	if ( itr != m_CBillingConnections.end() )
 	{
@@ -308,7 +308,7 @@ void DatabaseManager::addPCRoomConnection ( int TID,  Connection * pConnection )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< int , Connection * >::iterator itr = m_PCRoomConnections.find( TID );
+	unordered_map< int , Connection * >::iterator itr = m_PCRoomConnections.find( TID );
 	
 	if ( itr != m_Connections.end() )
 	{
@@ -333,7 +333,7 @@ Connection * DatabaseManager::getDistConnection ( const string& connName )
 		
 	Connection * pTempConnection = NULL;
 
-	hash_map<int, Connection*>::iterator itr = m_DistConnections.find(Thread::self());
+	unordered_map<int, Connection*>::iterator itr = m_DistConnections.find(Thread::self());
 
 	if (itr == m_DistConnections.end())
 	{
@@ -362,7 +362,7 @@ Connection * DatabaseManager::getConnection ( const string& connName )
 		
 	Connection * pTempConnection = NULL;
 
-	hash_map<int, Connection*>::iterator itr;
+	unordered_map<int, Connection*>::iterator itr;
 
 	// connName에 대해서 각기 다른 DB Server로 분기하도록 한다.
 	//if(connName == "DIST_DARKEDEN")
@@ -397,7 +397,7 @@ Connection* DatabaseManager::getCBillingConnection( const string& connName )
 		
 	Connection * pTempConnection = NULL;
 
-	hash_map<int, Connection*>::iterator itr;
+	unordered_map<int, Connection*>::iterator itr;
 
 	itr = m_CBillingConnections.find(Thread::self());
 
@@ -426,7 +426,7 @@ Connection * DatabaseManager::getPCRoomConnection ( const string& connName )
 		
 	Connection * pTempConnection = NULL;
 
-	hash_map<int, Connection*>::iterator itr;
+	unordered_map<int, Connection*>::iterator itr;
 
 	itr = m_PCRoomConnections.find(Thread::self());
 
@@ -457,7 +457,7 @@ void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnecti
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find( WorldID );
+	unordered_map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find( WorldID );
 	
 	if ( itr != m_WorldConnections.end() )
 	{
@@ -489,7 +489,7 @@ Connection * DatabaseManager::getConnection ( int TID )
 	{
 		Connection * pTempConnection = NULL;
 
-		hash_map<int, Connection*>::iterator itr = m_WorldConnections.find(TID);
+		unordered_map<int, Connection*>::iterator itr = m_WorldConnections.find(TID);
 
 		if (itr == m_WorldConnections.end())
 		{

@@ -102,12 +102,12 @@ void GGCommandHandler::execute ( GGCommand * pPacket )
 	}
 	else if (msg.substr(i+1 , 17 ) == "modifyunioninfo"){
 
-		CGSayHandler::opmodifyunioninfo(NULL, msg, i);
+		CGSayHandler::opmodifyunioninfo(NULL, msg, i, true);
 
 	}
 	else if (msg.substr(i+1 , 17 ) == "refreshguildunion"){
 
-		CGSayHandler::oprefreshguildunion(NULL, msg, i);
+		CGSayHandler::oprefreshguildunion(NULL, msg, i, true);
 
 	}
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)

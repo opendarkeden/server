@@ -74,7 +74,7 @@ public :
  
     // get/set socket's nonblocking status
     bool isNonBlocking () const throw (Error);
-    void setNonBlocking (bool on = true) throw (Error);
+    void setNonBlocking (bool on) throw (Error);
  
     // get/set receive buffer size
     uint getReceiveBufferSize () const throw (Error);

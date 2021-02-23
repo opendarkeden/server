@@ -42,7 +42,7 @@ PlayerManager::PlayerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 PlayerManager::~PlayerManager () 
-	throw ()
+	throw (Error)
 {
 	__BEGIN_TRY
 

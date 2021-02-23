@@ -43,7 +43,7 @@ void ResourceManager::load ( const string & filename )
 {
 	__BEGIN_TRY
 
-	ifstream ifile( filename.c_str() , ios::in | ios::binary | ios::nocreate );
+	ifstream ifile( filename.c_str() , ios::in | ios::binary );
 
 	if ( !ifile ) {
 		StringStream msg;
@@ -82,7 +82,7 @@ void ResourceManager::save ( const string & filename ) const
 {
 	__BEGIN_TRY
 
-	ofstream ofile( filename.c_str() , ios::out | ios::noreplace );
+	ofstream ofile( filename.c_str() , ios::out );
 
 	if ( !ofile ) {
 		StringStream msg;

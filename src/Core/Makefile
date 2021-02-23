@@ -14,7 +14,8 @@ STLDIR = /usr/include/STL
 BINDIR = $(VSHOME)/bin
 LIBDIR = $(VSHOME)/lib
 LOGDIR = $(VSHOME)/log
-XMLDIR = /usr/lib/xerces-c/include
+# XMLDIR = /usr/lib/xerces-c/include
+XMLDIR = /mnt/c/xerces-c-3.2.3/xerces-c-3.2.3/src
 #----------------------------------------------------------------------
 # General Rules
 #----------------------------------------------------------------------
@@ -64,8 +65,10 @@ CORE_OBJS = WarInfo.o RaceWarInfo.o GuildWarInfo.o LevelWarInfo.o BloodBibleBonu
 			GuildInfo2.o GuildMemberInfo2.o \
 			Encrypter.o	SocketEncryptInputStream.o SocketEncryptOutputStream.o \
 			OustersSkillInfo.o PCOustersInfo.o PCOustersInfo2.o PCOustersInfo3.o SubOustersSkillInfo.o \
-			ItemNameInfo.o SweeperBonusInfo.o PetInfo.o SXml.o NicknameInfo.o QuestStatusInfo.o \
+			ItemNameInfo.o SweeperBonusInfo.o PetInfo.o NicknameInfo.o QuestStatusInfo.o \
 			BloodBibleSignInfo.o StoreInfo.o
+
+# SXml.o
 
 CORE_SRCS = $(CORE_OBJS:.o=.cpp)
 CORE_LIB = $(LIBDIR)/libCore.a

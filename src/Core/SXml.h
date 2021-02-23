@@ -14,7 +14,7 @@
 
 #include "Types.h"
 
-#include <hash_map>
+#include <unordered_map>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -53,10 +53,10 @@ public:
 class XMLTree
 {
 private:
-	typedef hash_map<string, XMLAttribute *> ATTRIBUTES_MAP;
+	typedef unordered_map<string, XMLAttribute *> ATTRIBUTES_MAP;
 	typedef vector<XMLAttribute *> ATTRIBUTES_VECTOR;
 	
-	typedef hash_map<string, XMLTree*> CHILDREN_MAP;
+	typedef unordered_map<string, XMLTree*> CHILDREN_MAP;
 	typedef vector<XMLTree *> CHILDREN_VECTOR;
 
 	string     m_Name;        ///< 노드의 이름

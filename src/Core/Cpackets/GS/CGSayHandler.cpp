@@ -704,10 +704,11 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 	}
 	else if(set_type == "evnet_activate")
 	{
-		if(g_pVariableManager->getEventActivate() == 1)
-			message << "事件正在进行中..." << endl;
-		else
-			message << "事件已停止" << endl;
+		if(g_pVariableManager->getEventActivate() == 1) {
+			// message << ((const string &) ("事件正在进行中...")) << endl;
+		} else {
+			// message << "事件已停止" << endl;
+    }
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "event_ratio")

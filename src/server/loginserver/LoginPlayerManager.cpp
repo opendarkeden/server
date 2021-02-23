@@ -477,7 +477,7 @@ void LoginPlayerManager::acceptNewConnection ()
 		return;
 	}
 
-	client->setNonBlocking();
+	client->setNonBlocking(true);
 
 	if (client->getSockError())
 	{

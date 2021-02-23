@@ -102,7 +102,7 @@ void GGCommandHandler::execute ( GGCommand * pPacket )
 	}
 	else if (msg.substr(i+1 , 17 ) == "modifyunioninfo"){
 
-		CGSayHandler::opmodifyunioninfo(NULL, msg, i);
+		CGSayHandler::opmodifyunioninfo(NULL, msg, i, true);
 
 	}
 	else if (msg.substr(i+1 , 17 ) == "refreshguildunion"){

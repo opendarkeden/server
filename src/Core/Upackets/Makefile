@@ -36,21 +36,23 @@ TARGET2 = $(LIBDIR)/libUpdateClientPackets.a
 
 OBJS1	= \
 		CUBeginUpdate.us.o CUBeginUpdateHandler.us.o \
-		CURequest.us.o CURequestHandler.us.o \
+		CURequest.us.o \
 		CUEndUpdate.us.o CUEndUpdateHandler.us.o \
 		CURequestLoginMode.us.o CURequestLoginModeHandler.us.o \
 		UCUpdate.us.o UCUpdateHandler.us.o \
 		UCUpdateList.us.o UCUpdateListHandler.us.o \
-		UCRequestLoginMode.us.o UCRequestLoginModeHandler.us.o
+		UCRequestLoginMode.us.o UCRequestLoginModeHandler.us.o \
+	# CURequestHandler.us.o
 
 OBJS2	= \
 		CUBeginUpdate.uc.o CUBeginUpdateHandler.uc.o \
-		CURequest.uc.o CURequestHandler.uc.o \
+		CURequest.uc.o \
 		CUEndUpdate.uc.o CUEndUpdateHandler.uc.o \
 		CURequestLoginMode.uc.o CURequestLoginModeHandler.uc.o \
 		UCUpdate.uc.o UCUpdateHandler.uc.o \
 		UCUpdateList.uc.o UCUpdateListHandler.uc.o \
-		UCRequestLoginMode.uc.o UCRequestLoginModeHandler.uc.o
+		UCRequestLoginMode.uc.o UCRequestLoginModeHandler.uc.o \
+	# CURequestHandler.uc.o 
 
 SRCS	= $(OBJS1:.us.o=.cpp)
 
