@@ -43,7 +43,7 @@ public:
 	{
 		m_Values.clear();
 
-		list<T>::const_iterator itr = VL.m_Values.begin();
+		typename list<T>::const_iterator itr = VL.m_Values.begin();
 
 		for (; itr!=VL.m_Values.end(); itr++)
 		{
@@ -103,7 +103,7 @@ void ValueList<T>::write ( SocketOutputStream & oStream )
 	BYTE numValue = m_Values.size();
 	oStream.write( numValue );
 
-	list<T>::const_iterator itr = m_Values.begin();
+	typename list<T>::const_iterator itr = m_Values.begin();
     for (; itr!= m_Values.end(); itr++) 
 	{
 		oStream.write( *itr );
@@ -126,7 +126,7 @@ string ValueList<T>::toString ()
 
 	msg << "Values(";
 
-	list<T>::const_iterator itr = m_Values.begin();
+	typename list<T>::const_iterator itr = m_Values.begin();
 
 	for ( ; itr!= m_Values.end() ; itr++ ) {
 		const T& info = *itr;
