@@ -9,13 +9,13 @@
 #define __GC_GUILD_MEMBER_LIST_H__
 
 // include files
-#include <slist>
+#include <list>
 #include "Packet.h"
 #include "PacketFactory.h"
 #include "GuildMemberInfo.h"
 
-typedef slist<GuildMemberInfo*> GuildMemberInfoList;
-typedef slist<GuildMemberInfo*>::const_iterator GuildMemberInfoListConstItor;
+typedef list<GuildMemberInfo*> GuildMemberInfoList;
+typedef list<GuildMemberInfo*>::const_iterator GuildMemberInfoListConstItor;
 
 
 //////////////////////////////////////////////////////////////////////

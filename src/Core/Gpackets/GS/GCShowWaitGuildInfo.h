@@ -11,7 +11,7 @@
 // include files
 #include "Packet.h"
 #include "PacketFactory.h"
-#include <slist>
+#include <list>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ private :
 	Gold_t m_JoinFee;
 	
 	// Starting Lember List
-	slist<string> m_MemberList;
+	list<string> m_MemberList;
 	
 };
 
