@@ -13,15 +13,15 @@
 #include "Types.h"
 #include "Exception.h"
 #include "ZoneGroupInfo.h"
-#include <hash_map>
+#include <unordered_map>
 
-typedef hash_map< ZoneGroupID_t , ZoneGroupInfo * > HashMapZoneGroupInfo;
+typedef unordered_map< ZoneGroupID_t , ZoneGroupInfo * > HashMapZoneGroupInfo;
 
 //----------------------------------------------------------------------
 //
 // class ZoneGroupInfoManager;
 //
-// 존그룹 아이디를 키값으로 하는 존 정보의 hash_map 을 가지고 있다.
+// 존그룹 아이디를 키값으로 하는 존 정보의 unordered_map 을 가지고 있다.
 //
 //----------------------------------------------------------------------
 

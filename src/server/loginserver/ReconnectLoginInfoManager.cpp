@@ -190,7 +190,7 @@ string ReconnectLoginInfoManager::toString () const
 
 	msg << "ReconnectLoginInfoManager(";
 
-	for (hash_map<string, ReconnectLoginInfo*>::const_iterator itr = m_ReconnectLoginInfos.begin() ; itr != m_ReconnectLoginInfos.end() ;itr++)
+	for (unordered_map<string, ReconnectLoginInfo*>::const_iterator itr = m_ReconnectLoginInfos.begin() ; itr != m_ReconnectLoginInfos.end() ;itr++)
 	{
 		Assert(itr->second != NULL);
 		msg << itr->second->toString();

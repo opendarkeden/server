@@ -1193,9 +1193,9 @@ bool isBlockIP(const string& ip)
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		Result* pResult = pStmt->executeQuery(
-			"SELECT class, first, last FROM IPBlockInfo WHERE
-			(IP = '%s' AND class=1) OR
-			(IP = '%s' AND class=2) OR
+			"SELECT class, first, last FROM IPBlockInfo WHERE\
+			(IP = '%s' AND class=1) OR\
+			(IP = '%s' AND class=2) OR\
 			(IP = '%s')",
 			classA.c_str(), classB.c_str(), classC.c_str() );
 
@@ -1267,7 +1267,7 @@ bool isBlockMAC(const string& MAC)
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		Result* pResult = pStmt->executeQuery(
-			"SELECT LockMAC, State FROM MACBlockInfo WHERE
+			"SELECT LockMAC, State FROM MACBlockInfo WHERE\
 			(LockMAC = '%s' AND State='DENY')",
 			MAC.c_str());
 
