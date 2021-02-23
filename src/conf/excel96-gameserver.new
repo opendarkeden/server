@@ -1,0 +1,95 @@
+User : excel96
+HomePath : /home/darkeden/vs
+TCPPort : 9998
+MonitorClientIP1 : 211.155.225.13
+MonitorClient1UDPORT : 9876
+MonitorClientIP2 : 211.155.225.13
+MonitorClient2UDPORT : 9876
+
+LoginServerIP: 211.155.225.13
+LoginServerUDPPort : 9996
+LoginServerBaseUDPPort : 9800
+LoginServerUDPPortNum : 1
+GameServerUDPPort : 9997
+#--------------------------------------------------
+SharedServerIP :211.155.225.13
+SharedServerPort : 9977
+
+#--------------------------------------------------
+# BillingSystem Server
+#--------------------------------------------------
+BillingServerIP : 111.111.111.111
+BillingServerPort : 1111
+
+# ??.?o????- á¤?? .ù????.§ °?àó 1?è.
+BillingGameNo : 1
+
+ChinaBillingServerIP : 61.129.55.204
+ChinaBillingServerPort : 19009
+ChinaBillingVersionNumber : 1000
+ChinaBillingMinusInterval : 10
+
+CBILLING_DB_HOST : 61.151.239.102
+CBILLING_DB_DB : BILLING_LOG
+CBILLING_DB_USER : elcastle
+CBILLING_DB_PASSWORD : elca005
+
+#--------------------------------------------------
+# Time. Good~
+#--------------------------------------------------
+BaseGameTime : 1996-1-1
+BaseRealTime : 2000-5-1
+
+#--------------------------------------------------
+# DB connection
+#--------------------------------------------------
+DB_HOST : 211.155.225.13
+DB_DB : DARKEDEN
+DB_USER : elcastle
+DB_PASSWORD : elca005
+
+UI_DB_HOST : 211.155.225.13
+UI_DB_DB : USERINFO
+UI_DB_USER : elcastle
+UI_DB_PASSWORD : elca005
+
+
+# ·?±× ?-1? á??ò
+LogServerIP : 111.111.111.111
+
+
+# ·?±× ?-1? ?÷??
+LogServerPort : 1111
+
+# ·?±× ·1o§
+LogLevel : 2999
+
+#--------------------------------------------------
+# item id section
+#--------------------------------------------------
+Dimension : 0
+
+WorldID : 1
+
+# ?-1?à? °1??
+ServerCount : 1
+ServerID :0
+
+# 3Y??oí??
+IsNetMarble : 0
+
+# á?á· àüà? àú.? ??à? ±a.é
+ActiveRaceWar : 1
+
+# àì ?-1???.? ±ê1??.±a?| ??.?°??
+ActiveFlagWar : 1
+
+# á?á· àüà? ???? ±a.é
+JoinRaceWar : 1
+
+# ±?.? àüà? ???? ±a.é
+ActiveGuildWar : 1
+
+HeadCount : 0
+ActiveLevelWar : 1
+
