@@ -12,16 +12,16 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "ReconnectLoginInfo.h"
 
-typedef hash_map< string , ReconnectLoginInfo * > HashMapReconnectLoginInfo;
+typedef unordered_map< string , ReconnectLoginInfo * > HashMapReconnectLoginInfo;
 
 //----------------------------------------------------------------------
 //
 // class ReconnectLoginInfoManager;
 //
-// IP 스트링을 키값으로 하는 hash_map 을 내부에 가지고 있다.
+// IP 스트링을 키값으로 하는 unordered_map 을 내부에 가지고 있다.
 //
 //----------------------------------------------------------------------
 

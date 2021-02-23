@@ -23,7 +23,7 @@
 
 #include <hash_map>
 #include <bitset>
-#include <slist>
+#include <forward_list>
 #include <vector>
 
 static const GuildID_t SlayerCommon	=99;
@@ -431,7 +431,7 @@ public:
 	void	removeDefaultOptionSet( DefaultOptionSetType_t type ) throw();
 
 protected:
-	slist<DefaultOptionSetType_t>		m_DefaultOptionSet;
+	forward_list<DefaultOptionSetType_t>		m_DefaultOptionSet;
 
 public:
 	PetInfo*	getPetInfo() const;

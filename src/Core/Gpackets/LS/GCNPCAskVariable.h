@@ -7,7 +7,7 @@
 #ifndef __GC_NPC_ASK_VARIABLE_H__
 #define __GC_NPC_ASK_VARIABLE_H__
 
-#include <hash_map>
+#include <unordered_map>
 #include "Packet.h"
 #include "PacketFactory.h"
 #include "ScriptParameter.h"
@@ -17,7 +17,7 @@
 // NPC 의 대사를 주변의 PC 들에게 전송한다.
 //////////////////////////////////////////////////////////////////////////////
 
-typedef hash_map<string,ScriptParameter*>		HashMapScriptParameter;
+typedef unordered_map<string,ScriptParameter*>		HashMapScriptParameter;
 typedef HashMapScriptParameter::iterator		HashMapScriptParameterItor;
 typedef HashMapScriptParameter::const_iterator	HashMapScriptParameterConstItor;
 

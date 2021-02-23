@@ -50,7 +50,7 @@ public :
 	PlayerManager () throw ();
 
 	// destructor
-	virtual ~PlayerManager () throw ();
+	virtual ~PlayerManager () throw (Error);
 
 	// broadcast message
 	virtual void broadcastPacket ( Packet * pPacket ) throw ( Error );

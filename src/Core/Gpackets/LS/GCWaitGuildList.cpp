@@ -143,7 +143,7 @@ string GCWaitGuildList::toString () const
 	
 	msg << "GCWaitGuildList(";
 
-	slist<GuildInfo*>::const_iterator itr = m_GuildInfoList.begin();
+	list<GuildInfo*>::const_iterator itr = m_GuildInfoList.begin();
 	for ( ; itr != m_GuildInfoList.end(); itr++ )
 	{
 		msg << (*itr)->toString();

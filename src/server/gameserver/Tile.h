@@ -7,7 +7,7 @@
 #ifndef __TILE_H__
 #define __TILE_H__
 
-#include <slist>
+#include <forward_list>
 #include "Types.h"
 #include "Exception.h"
 #include "Object.h"
@@ -138,15 +138,15 @@ public:
 	void setSector(Sector* pSector) { m_pSector = pSector; }
 
 public:
-	const slist<Object*> & getObjectList() const throw() { return m_Objects; }
-	slist<Object*> & getObjectList() throw() { return m_Objects; }
+	const forward_list<Object*> & getObjectList() const throw() { return m_Objects; }
+	forward_list<Object*> & getObjectList() throw() { return m_Objects; }
 
 	string toString() const throw();
 
 private:
 	WORD           m_wFlags;  // 타일 속성 플래그
 	WORD           m_wOption; // 옵션 플래그, 타일 속성 플래그에 따라서 다르게 사용된다.
-	slist<Object*> m_Objects; // 오브젝트 포인터의 리스트
+	forward_list<Object*> m_Objects; // 오브젝트 포인터의 리스트
 	Sector*        m_pSector; // 이 타일이 속한 섹터에 대한 포인터
 };
 
