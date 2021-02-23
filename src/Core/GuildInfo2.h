@@ -15,10 +15,10 @@
 #include "Packet.h"
 #include "GuildMemberInfo2.h"
 
-#include <slist>
+#include <list>
 
-typedef slist<GuildMemberInfo2*> GuildMemberInfoList2;
-typedef slist<GuildMemberInfo2*>::const_iterator GuildMemberInfoListConstItor2;
+typedef list<GuildMemberInfo2*> GuildMemberInfoList2;
+typedef list<GuildMemberInfo2*>::const_iterator GuildMemberInfoListConstItor2;
 
 //////////////////////////////////////////////////////////////////////
 //

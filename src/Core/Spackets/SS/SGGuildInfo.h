@@ -17,8 +17,8 @@
 #include "GuildMemberInfo2.h"
 
 
-typedef slist<GuildInfo2*> GuildInfoList2;
-typedef slist<GuildInfo2*>::const_iterator GuildInfoListConstItor2;
+typedef list<GuildInfo2*> GuildInfoList2;
+typedef list<GuildInfo2*>::const_iterator GuildInfoListConstItor2;
 
 //----------------------------------------------------------------------
 //

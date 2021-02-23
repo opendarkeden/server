@@ -58,7 +58,7 @@ void CURequestHandler::execute ( CURequest * pPacket , Player * pPlayer )
 
 	//cout << "Try to open " << filename << "..." << endl;
 
-	ifstream ifile( filename , ios::in | ios::binary | ios::nocreate );
+	ifstream ifile( filename , ios::in | ios::binary );
 		
 	if ( !ifile ) {
 		// 존재하지 않는 파일을 요청한 것은 해킹으로 간주한다.
