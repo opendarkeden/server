@@ -58,7 +58,7 @@ GuildManager::~GuildManager()
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	// 모든 길드 객체들을 메모리에서 삭제한다.
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.begin();
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.begin();
 	for (; itr != m_Guilds.end(); itr++)
 	{
 		Guild* pGuild = itr->second;
@@ -300,7 +300,7 @@ void GuildManager::addGuild(Guild* pGuild)
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
 	if (itr != m_Guilds.end()) throw DuplicatedException();
 	m_Guilds[pGuild->getID()] = pGuild;
 
@@ -317,7 +317,7 @@ void GuildManager::addGuild_NOBLOCKED(Guild* pGuild)
 
 	Assert(pGuild != NULL);
 
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
 	if (itr != m_Guilds.end()) throw DuplicatedException();
 	m_Guilds[pGuild->getID()] = pGuild;
 
@@ -332,7 +332,7 @@ void GuildManager::deleteGuild(GuildID_t id)
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 	if (itr == m_Guilds.end()) throw NoSuchElementException();
 
 #ifdef __GAME_SERVER__
@@ -355,10 +355,10 @@ void GuildManager::deleteGuild(GuildID_t id)
 	}
 
 	{
-		const hash_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
+		const unordered_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
 
-		hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
-		hash_map<ZoneID_t, CastleInfo*>::const_iterator endItr = castleInfos.end();
+		unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
+		unordered_map<ZoneID_t, CastleInfo*>::const_iterator endItr = castleInfos.end();
 
 		for ( ; itr != endItr ; ++itr )
 		{
@@ -424,7 +424,7 @@ Guild* GuildManager::getGuild(GuildID_t id)
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 
 	if (itr == m_Guilds.end())
 	{
@@ -451,7 +451,7 @@ Guild* GuildManager::getGuild_NOBLOCKED(GuildID_t id)
 	// 리턴 할 길드 포인터
 	Guild* pGuild;
 
-	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 
 	if (itr == m_Guilds.end())
 	{

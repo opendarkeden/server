@@ -9,7 +9,7 @@
 #include "Exception.h"
 
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 
 enum StringID
 {
@@ -30,7 +30,7 @@ enum StringID
 class StringPool
 {
 public:
-	typedef hash_map<uint, string>		StringHashMap;
+	typedef unordered_map<uint, string>		StringHashMap;
 	typedef StringHashMap::iterator			StringHashMapItor;
 	typedef StringHashMap::const_iterator	StringHashMapConstItor;
 
