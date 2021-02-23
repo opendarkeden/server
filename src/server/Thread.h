@@ -84,7 +84,7 @@ public :
 	Thread ( ThreadAttr * attr = NULL ) throw ();
 
 	// destructor
-	virtual ~Thread () throw ();
+	virtual ~Thread () throw (Error);
 
 
 //////////////////////////////////////////////////

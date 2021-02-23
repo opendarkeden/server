@@ -15,11 +15,7 @@
  * BUILD_INFO 는 간략하게 영문으로 기술
  */
 #define BUILD_NUMBER 40518
-#define BUILD_INFO   "<Version Information>\n
-+Add ----- \n
--Delete -----\n
-Fix -----\n
-"
+#define BUILD_INFO   "<Version Information>\n+Add ----- \n-Delete -----\nFix -----\n"
 
 
 #if defined(__WINDOWS__)

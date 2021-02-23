@@ -216,3542 +216,2779 @@ dep :
 	gccmakedep $(SRCS) $(INCLUDES)
 # DO NOT DELETE
 WarInfo.o: WarInfo.cpp WarInfo.h Packet.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PacketFactory.h ValueList.h
+
 RaceWarInfo.o: RaceWarInfo.cpp RaceWarInfo.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PacketFactory.h WarInfo.h \
  ValueList.h
+
 GuildWarInfo.o: GuildWarInfo.cpp GuildWarInfo.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PacketFactory.h WarInfo.h \
  ValueList.h
+
 LevelWarInfo.o: LevelWarInfo.cpp LevelWarInfo.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PacketFactory.h WarInfo.h \
  ValueList.h
+
 BloodBibleBonusInfo.o: BloodBibleBonusInfo.cpp BloodBibleBonusInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 Assert.o: Assert.cpp Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Assert.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h
+ Assert.h Exception.h StringStream.h
+
 Datagram.o: Datagram.cpp Datagram.h Types.h Packet.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketAPI.h Assert.h \
+ Exception.h StringStream.h  \
+  SocketAPI.h Assert.h \
  PacketFactoryManager.h Packet.h SocketInputStream.h Socket.h \
- SocketImpl.h SocketOutputStream.h PacketFactory.h DatagramPacket.h \
- /usr/include/bits/stdio_lim.h
+ SocketImpl.h SocketOutputStream.h PacketFactory.h DatagramPacket.h
+
 SerialDatagram.o: SerialDatagram.cpp SerialDatagram.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketAPI.h Assert.h \
+ Exception.h StringStream.h  \
+  SocketAPI.h Assert.h \
  PacketFactoryManager.h Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketOutputStream.h PacketFactory.h \
  SerialDatagramPacket.h
 DatagramSocket.o: DatagramSocket.cpp DatagramSocket.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketAPI.h Datagram.h Assert.h FileAPI.h
+ Exception.h StringStream.h  \
+  SocketAPI.h Datagram.h Assert.h FileAPI.h
 FileAPI.o: FileAPI.cpp FileAPI.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Assert.h
+ Exception.h StringStream.h  \
+  Assert.h
 GameTime.o: GameTime.cpp GameTime.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 ScriptParameter.o: ScriptParameter.cpp ScriptParameter.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
-Player.o: Player.cpp /usr/include/stdio.h /usr/include/features.h \
+Player.o: Player.cpp   \
  Cpackets/CGConnectSetKey.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/types.h /usr/include/bits/pthreadtypes.h \
- /usr/include/bits/sched.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/bits/stdio_lim.h Player.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/STL/fstream \
- /usr/include/STL/fstream.h /usr/include/STL/string \
- /usr/include/STL/stl_config.h /usr/include/STL/stl_string_fwd.h \
- /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/STL/stl_hash_fun.h \
+   \
+  \
+   \
+   \
+   \
+   \
+  \
+  Player.h Types.h types/SystemTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
  types/PlayerTypes.h types/ObjectTypes.h types/CreatureTypes.h \
  types/ItemTypes.h types/ZoneTypes.h types/QuestTypes.h \
  types/ShopTypes.h types/GuildTypes.h types/WarTypes.h \
  types/ServerType.h Utility.h Exception.h StringStream.h \
- /usr/include/STL/list /usr/include/STL/stl_list.h Socket.h \
+   Socket.h \
  SocketImpl.h SocketAPI.h SocketInputStream.h SocketOutputStream.h \
  Assert.h Packet.h
 PCSlayerInfo.o: PCSlayerInfo.cpp PCSlayerInfo.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h /usr/include/STL/bitset
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h 
 PCVampireInfo.o: PCVampireInfo.cpp PCVampireInfo.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 PCSlayerInfo2.o: PCSlayerInfo2.cpp PCSlayerInfo2.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 PCVampireInfo2.o: PCVampireInfo2.cpp PCVampireInfo2.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 PCSlayerInfo3.o: PCSlayerInfo3.cpp PCSlayerInfo3.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h Assert.h /usr/include/STL/bitset
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h Assert.h 
 PCVampireInfo3.o: PCVampireInfo3.cpp PCVampireInfo3.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h Assert.h
 Properties.o: Properties.cpp Properties.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h /usr/include/STL/map \
- /usr/include/STL/stl_tree.h /usr/include/STL/stl_map.h \
- /usr/include/STL/stl_multimap.h
+ Exception.h StringStream.h
+
 Resource.o: Resource.cpp Resource.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h UpdateDef.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  UpdateDef.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 ResourceManager.o: ResourceManager.cpp ResourceManager.h Resource.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h UpdateDef.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  UpdateDef.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h Assert.h
 ServerSocket.o: ServerSocket.cpp ServerSocket.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketImpl.h SocketAPI.h Socket.h
+ Exception.h StringStream.h  \
+  SocketImpl.h SocketAPI.h Socket.h
 Socket.o: Socket.cpp Socket.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketImpl.h SocketAPI.h Assert.h
+ Exception.h StringStream.h  \
+  SocketImpl.h SocketAPI.h Assert.h
 SocketAPI.o: SocketAPI.cpp SocketAPI.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h FileAPI.h
+ Exception.h StringStream.h  \
+  FileAPI.h
 SocketImpl.o: SocketImpl.cpp SocketImpl.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketAPI.h FileAPI.h
+ Exception.h StringStream.h  \
+  SocketAPI.h FileAPI.h
+
 SocketInputStream.o: SocketInputStream.cpp SocketInputStream.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Socket.h SocketImpl.h SocketAPI.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/asm/errno.h Assert.h Packet.h \
+ Exception.h StringStream.h  \
+  Socket.h SocketImpl.h SocketAPI.h \
+   \
+   Assert.h Packet.h \
  SocketOutputStream.h
 SocketOutputStream.o: SocketOutputStream.cpp SocketOutputStream.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Socket.h SocketImpl.h SocketAPI.h \
+ Exception.h StringStream.h  \
+  Socket.h SocketImpl.h SocketAPI.h \
  Assert.h Packet.h SocketInputStream.h VSDateTime.h
 StringStream.o: StringStream.cpp StringStream.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
- types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- /usr/include/STL/list /usr/include/STL/stl_list.h \
- /usr/include/bits/stdio_lim.h
+ types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h
+
 Update.o: Update.cpp Update.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- UpdateDef.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Assert.h SocketInputStream.h Socket.h \
+ UpdateDef.h Exception.h StringStream.h  \
+  Assert.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
+
 UpdateManager.o: UpdateManager.cpp UpdateManager.h Update.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- UpdateDef.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Assert.h SocketInputStream.h Socket.h \
+ UpdateDef.h Exception.h StringStream.h  \
+  Assert.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h Resource.h \
  ResourceManager.h
 InventoryInfo.o: InventoryInfo.cpp InventoryInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h InventorySlotInfo.h SocketInputStream.h \
+ Exception.h StringStream.h  \
+  InventorySlotInfo.h SocketInputStream.h \
  Socket.h SocketImpl.h SocketAPI.h SocketOutputStream.h PCItemInfo.h \
  SubItemInfo.h Assert.h Packet.h
 InventorySlotInfo.o: InventorySlotInfo.cpp InventorySlotInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h
 RideMotorcycleInfo.o: RideMotorcycleInfo.cpp RideMotorcycleInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h RideMotorcycleSlotInfo.h \
+ Exception.h StringStream.h  \
+  RideMotorcycleSlotInfo.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h Packet.h
 RideMotorcycleSlotInfo.o: RideMotorcycleSlotInfo.cpp \
  RideMotorcycleSlotInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h
 GearSlotInfo.o: GearSlotInfo.cpp GearSlotInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h
 GearInfo.o: GearInfo.cpp GearInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h GearSlotInfo.h SocketInputStream.h \
+ Exception.h StringStream.h  \
+  GearSlotInfo.h SocketInputStream.h \
  Socket.h SocketImpl.h SocketAPI.h SocketOutputStream.h PCItemInfo.h \
  SubItemInfo.h Assert.h Packet.h
 ExtraInfo.o: ExtraInfo.cpp ExtraInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h ExtraSlotInfo.h SocketInputStream.h \
+ Exception.h StringStream.h  \
+  ExtraSlotInfo.h SocketInputStream.h \
  Socket.h SocketImpl.h SocketAPI.h SocketOutputStream.h PCItemInfo.h \
  SubItemInfo.h Assert.h Packet.h
 ExtraSlotInfo.o: ExtraSlotInfo.cpp ExtraSlotInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h
+
 PCItemInfo.o: PCItemInfo.cpp PCItemInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h SubItemInfo.h Assert.h
 SubItemInfo.o: SubItemInfo.cpp SubItemInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 ModifyInfo.o: ModifyInfo.cpp ModifyInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 ModifyItemInfo.o: ModifyItemInfo.cpp ModifyItemInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h ModifyInfo.h
+
 EffectInfo.o: EffectInfo.cpp EffectInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
+
 SlayerSkillInfo.o: SlayerSkillInfo.cpp SlayerSkillInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PCSkillInfo.h Packet.h \
+ Exception.h StringStream.h  \
+  PCSkillInfo.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h SubSlayerSkillInfo.h Assert.h
 VampireSkillInfo.o: VampireSkillInfo.cpp VampireSkillInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PCSkillInfo.h Packet.h \
+ Exception.h StringStream.h  \
+  PCSkillInfo.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h SubVampireSkillInfo.h Assert.h
 SubSlayerSkillInfo.o: SubSlayerSkillInfo.cpp SubSlayerSkillInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 SubVampireSkillInfo.o: SubVampireSkillInfo.cpp SubVampireSkillInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 Utility.o: Utility.cpp Utility.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h \
- /usr/include/bits/stdio_lim.h Assert.h Exception.h StringStream.h \
- /usr/include/STL/list /usr/include/STL/stl_list.h VSDateTime.h
-VSDateTime.o: VSDateTime.cpp VSDateTime.h /usr/include/sys/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h /usr/include/bits/types.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/STL/string \
- /usr/include/STL/stl_config.h /usr/include/STL/stl_string_fwd.h \
- /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/alloca.h /usr/include/string.h \
- /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h /usr/include/bits/stdio_lim.h \
- /usr/include/unistd.h /usr/include/bits/posix_opt.h \
- /usr/include/bits/confname.h /usr/include/getopt.h \
- /usr/include/sys/time.h
+  Assert.h Exception.h StringStream.h \
+   VSDateTime.h
+VSDateTime.o: VSDateTime.cpp VSDateTime.h
+
 ServerGroupInfo.o: ServerGroupInfo.cpp ServerGroupInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 TimeChecker.o: TimeChecker.cpp TimeChecker.h VSDateTime.h \
- /usr/include/sys/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/include/bits/types.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/STL/string \
- /usr/include/STL/stl_config.h /usr/include/STL/stl_string_fwd.h \
- /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/alloca.h /usr/include/string.h \
- /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
- /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h ../server/Timeval.h \
- /usr/include/sys/time.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
- /usr/include/getopt.h Properties.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/fstream \
- /usr/include/STL/fstream.h types/PlayerTypes.h types/ObjectTypes.h \
+   \
+   \
+  \
+  \
+   \
+    \
+   \
+   \
+   \
+   \
+  \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+    \
+   \
+  \
+   \
+   \
+   \
+   \
+   \
+  ../server/Timeval.h \
+   \
+   \
+  Properties.h Types.h types/SystemTypes.h \
+   \
+  types/PlayerTypes.h types/ObjectTypes.h \
  types/CreatureTypes.h types/ItemTypes.h types/ZoneTypes.h \
  types/QuestTypes.h types/ShopTypes.h types/GuildTypes.h \
  types/WarTypes.h types/ServerType.h Utility.h Exception.h \
- StringStream.h /usr/include/STL/list /usr/include/STL/stl_list.h \
- /usr/include/STL/map /usr/include/STL/stl_tree.h \
- /usr/include/STL/stl_map.h /usr/include/STL/stl_multimap.h Assert.h
+ StringStream.h   \
+   \
+   Assert.h
 NPCInfo.o: NPCInfo.cpp NPCInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 Shape.o: Shape.cpp Shape.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h
+ Exception.h StringStream.h
+
 Geometry.o: Geometry.cpp Geometry.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
- types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- /usr/include/STL/list /usr/include/STL/stl_list.h
+ types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h
+
 WorldInfo.o: WorldInfo.cpp WorldInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 GuildInfo.o: GuildInfo.cpp GuildInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 GuildMemberInfo.o: GuildMemberInfo.cpp GuildMemberInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 GuildInfo2.o: GuildInfo2.cpp GuildInfo2.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
- SocketImpl.h SocketAPI.h SocketOutputStream.h GuildMemberInfo2.h \
- /usr/include/STL/slist /usr/include/STL/stl_slist.h
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
+ SocketImpl.h SocketAPI.h SocketOutputStream.h GuildMemberInfo2.h
+
 GuildMemberInfo2.o: GuildMemberInfo2.cpp GuildMemberInfo2.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
 Encrypter.o: Encrypter.cpp Encrypter.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h EncryptUtility.h
+ Exception.h StringStream.h  \
+  EncryptUtility.h
 SocketEncryptInputStream.o: SocketEncryptInputStream.cpp \
  SocketEncryptInputStream.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h Encrypter.h EncryptUtility.h Assert.h
+
 SocketEncryptOutputStream.o: SocketEncryptOutputStream.cpp \
  SocketEncryptOutputStream.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketOutputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  SocketOutputStream.h Socket.h \
  SocketImpl.h SocketAPI.h Encrypter.h EncryptUtility.h Assert.h
 OustersSkillInfo.o: OustersSkillInfo.cpp OustersSkillInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PCSkillInfo.h Packet.h \
+ Exception.h StringStream.h  \
+  PCSkillInfo.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h SubOustersSkillInfo.h Assert.h
 PCOustersInfo.o: PCOustersInfo.cpp PCOustersInfo.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
+
 PCOustersInfo2.o: PCOustersInfo2.cpp PCOustersInfo2.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
+
 PCOustersInfo3.o: PCOustersInfo3.cpp PCOustersInfo3.h PCInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h Assert.h
 SubOustersSkillInfo.o: SubOustersSkillInfo.cpp SubOustersSkillInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
 ItemNameInfo.o: ItemNameInfo.cpp ItemNameInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Packet.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Packet.h Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PacketFactory.h
 SweeperBonusInfo.o: SweeperBonusInfo.cpp SweeperBonusInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h
+
 PetInfo.o: PetInfo.cpp PetInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- types/PetTypes.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
+ types/PetTypes.h Exception.h StringStream.h  \
+ Packet.h SocketInputStream.h Socket.h \
  SocketImpl.h SocketAPI.h SocketOutputStream.h VSDateTime.h
+
 SXml.o: SXml.cpp SXml.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
- types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- /usr/include/STL/hash_map /usr/include/STL/stl_hashtable.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_hash_map.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_bvector.h /usr/include/STL/iosfwd \
- /usr/include/STL/cstdio /usr/include/bits/stdio_lim.h \
- /usr/include/STL/cstdarg /usr/include/STL/ctime \
- /usr/lib/xerces-c/include/xercesc/sax/SAXParseException.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/SAXException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLString.hpp \
- /usr/lib/xerces-c/include/xercesc/util/BaseRefVectorOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/ArrayIndexOutOfBoundsException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMemory.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XercesDefs.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XercesVersion.hpp \
- /usr/lib/xerces-c/include/xercesc/util/AutoSense.hpp \
- /usr/lib/xerces-c/include/xercesc/util/Platforms/Linux/LinuxDefs.hpp \
- /usr/lib/xerces-c/include/xercesc/util/Compilers/GCCDefs.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLExceptMsgs.hpp \
- /usr/lib/xerces-c/include/xercesc/dom/DOMError.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLUni.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLErrorReporter.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLEnumerator.hpp \
- /usr/lib/xerces-c/include/xercesc/util/PlatformUtils.hpp \
- /usr/lib/xerces-c/include/xercesc/util/PanicHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/MemoryManager.hpp \
- /usr/lib/xerces-c/include/xercesc/util/BaseRefVectorOf.c \
- /usr/lib/xerces-c/include/xercesc/framework/MemBufInputSource.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/InputSource.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/XMLReaderFactory.hpp \
- /usr/lib/xerces-c/include/xercesc/parsers/SAX2XMLReaderImpl.hpp \
- /usr/lib/xerces-c/include/xercesc/parsers/SAXParser.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/Parser.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/VecAttrListImpl.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/AttributeList.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLAttr.hpp \
- /usr/lib/xerces-c/include/xercesc/util/QName.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLUniDefs.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/XSerializable.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/XSerializeEngine.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/BinOutputStream.hpp \
- /usr/lib/xerces-c/include/xercesc/util/BinInputStream.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefHashTableOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/HashBase.hpp \
- /usr/lib/xerces-c/include/xercesc/util/IllegalArgumentException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/NoSuchElementException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RuntimeException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/HashXMLCh.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefHashTableOf.c \
- /usr/lib/xerces-c/include/xercesc/util/NullPointerException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/ValueVectorOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/ValueVectorOf.c \
- /usr/lib/xerces-c/include/xercesc/internal/XSerializationException.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/XProtoType.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLAttDef.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/datatype/DatatypeValidator.hpp \
- /usr/lib/xerces-c/include/xercesc/util/KVStringPair.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/RegularExpression.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefArrayVectorOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefArrayVectorOf.c \
- /usr/lib/xerces-c/include/xercesc/util/Janitor.hpp \
- /usr/lib/xerces-c/include/xercesc/util/Janitor.c \
- /usr/lib/xerces-c/include/xercesc/util/Mutexes.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/Op.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefVectorOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefVectorOf.c \
- /usr/lib/xerces-c/include/xercesc/util/regx/TokenFactory.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/Token.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/BMPattern.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/ModifierToken.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/ConditionToken.hpp \
- /usr/lib/xerces-c/include/xercesc/util/regx/OpFactory.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/SchemaSymbols.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSSimpleTypeDefinition.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSTypeDefinition.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSObject.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSConstants.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/ValidationContext.hpp \
- /usr/lib/xerces-c/include/xercesc/util/NameIdPool.hpp \
- /usr/lib/xerces-c/include/xercesc/util/NameIdPool.c \
- /usr/lib/xerces-c/include/xercesc/framework/XMLDocumentHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLElementDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLAttDefList.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLEntityHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLBuffer.hpp \
- /usr/lib/xerces-c/include/xercesc/util/SecurityManager.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/DTD/DocTypeHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLNotationDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/DTD/DTDAttDef.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/DTD/DTDElementDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLContentModel.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/DTD/DTDEntityDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLEntityDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/VecAttributesImpl.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/Attributes.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/XMLScanner.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLBufferMgr.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLErrorCodes.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLRefInfo.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/ReaderMgr.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/XMLReader.hpp \
- /usr/lib/xerces-c/include/xercesc/util/XMLChar.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLRecognizer.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefStackOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/EmptyStackException.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefStackOf.c \
- /usr/lib/xerces-c/include/xercesc/sax/Locator.hpp \
- /usr/lib/xerces-c/include/xercesc/internal/ElemStack.hpp \
- /usr/lib/xerces-c/include/xercesc/util/StringPool.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/common/GrammarResolver.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLGrammarPool.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSModel.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSNamedMap.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefHash2KeysTableOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/RefHash2KeysTableOf.c \
- /usr/lib/xerces-c/include/xercesc/framework/psvi/XSNamedMap.c \
- /usr/lib/xerces-c/include/xercesc/validators/schema/SchemaElementDecl.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/common/Grammar.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/ComplexTypeInfo.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/SchemaAttDef.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/datatype/UnionDatatypeValidator.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/PSVIDefs.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/identity/IdentityConstraint.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/identity/IC_Field.hpp \
- /usr/lib/xerces-c/include/xercesc/validators/schema/identity/XPathMatcher.hpp \
- /usr/lib/xerces-c/include/xercesc/util/ValueStackOf.hpp \
- /usr/lib/xerces-c/include/xercesc/util/ValueStackOf.c \
- /usr/lib/xerces-c/include/xercesc/sax2/SAX2XMLReader.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLValidator.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLValidityCodes.hpp \
- /usr/lib/xerces-c/include/xercesc/framework/XMLPScanToken.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/DefaultHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/ContentHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/LexicalHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/sax2/DeclHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/DTDHandler.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/EntityResolver.hpp \
- /usr/lib/xerces-c/include/xercesc/sax/ErrorHandler.hpp
+ types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h
+
 NicknameInfo.o: NicknameInfo.cpp NicknameInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h \
+ types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Packet.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Packet.h Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h Assert.h
+
 QuestStatusInfo.o: QuestStatusInfo.cpp QuestStatusInfo.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Packet.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Packet.h Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h
+
 BloodBibleSignInfo.o: BloodBibleSignInfo.cpp BloodBibleSignInfo.h \
- Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h Packet.h SocketInputStream.h Socket.h \
- SocketImpl.h SocketAPI.h SocketOutputStream.h /usr/include/STL/vector \
- /usr/include/STL/stl_range_errors.h /usr/include/STL/stl_vector.h \
- /usr/include/STL/stl_bvector.h Assert.h
+ Exception.h StringStream.h  \
+  Packet.h SocketInputStream.h Socket.h \
+ SocketImpl.h SocketAPI.h SocketOutputStream.h  \
+   \
+  Assert.h
 StoreInfo.o: StoreInfo.cpp StoreInfo.h Types.h types/SystemTypes.h \
- /usr/include/STL/iostream /usr/include/STL/iostream.h \
- /usr/include/STL/streambuf.h /usr/include/libio.h \
- /usr/include/_G_config.h /usr/include/bits/types.h \
- /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Packet.h Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h
+ Packet.h Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h PCItemInfo.h SubItemInfo.h Assert.h
+
 PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGConnectSetKey.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PacketFactoryManager.h Packet.h \
+ Exception.h StringStream.h  \
+  PacketFactoryManager.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h PacketFactory.h Cpackets/CGAttack.h \
  Cpackets/CGAddGearToMouse.h Cpackets/CGAddInventoryToMouse.h \
@@ -3778,7 +3015,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGVisible.h Cpackets/CGVerifyTime.h \
  Cpackets/CGRequestNewbieItem.h Cpackets/CGWithdrawTax.h \
  Cpackets/CGTypeStringList.h Cpackets/CGUseItemFromGear.h \
- Cpackets/CLCreatePC.h /usr/include/STL/bitset Cpackets/CLDeletePC.h \
+ Cpackets/CLCreatePC.h  Cpackets/CLDeletePC.h \
  Cpackets/CLGetPCList.h Cpackets/CLLogin.h Cpackets/CLLogout.h \
  Cpackets/CLQueryPlayerID.h Cpackets/CLQueryCharacterName.h \
  Cpackets/CLRegisterPlayer.h Cpackets/CLSelectPC.h Player.h \
@@ -3796,8 +3033,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCAddNewItemToZone.h Gpackets/GCAddNPC.h \
  Gpackets/GCAddSlayer.h PCSlayerInfo3.h PCInfo.h PetInfo.h \
  types/PetTypes.h VSDateTime.h NicknameInfo.h StoreInfo.h PCItemInfo.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h \
+   \
+   \
  Gpackets/GCAddSlayerCorpse.h Gpackets/GCAddVampire.h PCVampireInfo3.h \
  Gpackets/GCAddVampireCorpse.h Gpackets/GCAddVampireFromBurrowing.h \
  Gpackets/GCAddVampireFromTransformation.h Gpackets/GCAddWolf.h \
@@ -3867,8 +3104,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCThrowItemOK1.h Gpackets/GCThrowItemOK2.h \
  Gpackets/GCThrowItemOK3.h Gpackets/GCVisibleOK.h \
  Gpackets/GCVisibleFail.h Gpackets/GCNPCInfo.h \
- Gpackets/GCNPCAskVariable.h /usr/include/STL/hash_map \
- /usr/include/STL/stl_hashtable.h /usr/include/STL/stl_hash_map.h \
+ Gpackets/GCNPCAskVariable.h  \
+   \
  ScriptParameter.h Gpackets/GCWarScheduleList.h Gpackets/GCWarList.h \
  GuildWarInfo.h WarInfo.h ValueList.h RaceWarInfo.h \
  Gpackets/GMServerInfo.h DatagramPacket.h Datagram.h \
@@ -3915,7 +3152,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCRequestedIP.h Gpackets/GCRequestFailed.h \
  Gpackets/GCOtherModifyInfo.h Gpackets/GGCommand.h \
  Cpackets/CGRegistGuild.h Gpackets/GCWaitGuildList.h \
- /usr/include/STL/slist /usr/include/STL/stl_slist.h GuildInfo.h \
+   GuildInfo.h \
  Gpackets/GCShowWaitGuildInfo.h Gpackets/GCShowGuildInfo.h \
  Cpackets/CGSelectGuild.h Cpackets/CGTryJoinGuild.h \
  Gpackets/GCShowGuildJoin.h Cpackets/CGJoinGuild.h \
@@ -3943,9 +3180,9 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGSkillToNamed.h Cpackets/CGUseMessageItemFromInventory.h \
  Gpackets/GCHolyLandBonusInfo.h BloodBibleBonusInfo.h \
  Gpackets/GCBloodBibleStatus.h Gpackets/GCKickMessage.h \
- Gpackets/GCTimeLimitItemInfo.h /usr/include/STL/map \
- /usr/include/STL/stl_tree.h /usr/include/STL/stl_map.h \
- /usr/include/STL/stl_multimap.h Gpackets/GCSelectQuestID.h \
+ Gpackets/GCTimeLimitItemInfo.h  \
+   \
+  Gpackets/GCSelectQuestID.h \
  Cpackets/CGSelectQuest.h Gpackets/GCQuestStatus.h \
  Gpackets/GCMonsterKillQuestInfo.h Cpackets/CGLotterySelect.h \
  Gpackets/GCNotifyWin.h Gpackets/GCGoodsList.h \
@@ -3973,7 +3210,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGModifyNickname.h Cpackets/CGSelectNickname.h \
  Gpackets/GCNicknameVerify.h Gpackets/GCModifyNickname.h \
  Gpackets/GCGQuestStatusInfo.h QuestStatusInfo.h \
- /usr/include/STL/numeric /usr/include/STL/stl_numeric.h \
+   \
  Gpackets/GCGQuestStatusModify.h Cpackets/CGGQuestAccept.h \
  Cpackets/CGGQuestCancel.h Gpackets/GCExecuteElement.h \
  Gpackets/GCGQuestInventory.h Gpackets/GCAuthKey.h \
@@ -3996,138 +3233,32 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGUsePowerPoint.h Gpackets/GCUsePowerPointResult.h \
  Cpackets/CGDonationMoney.h Cpackets/CGGetEventItem.h
 PacketIDSet.o: PacketIDSet.cpp PacketIDSet.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PlayerStatus.h Assert.h
 PacketValidator.o: PacketValidator.cpp PacketValidator.h PacketIDSet.h \
- Packet.h Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Packet.h Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h PlayerStatus.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h PlayerStatus.h
+
 PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PacketFactoryManager.h Packet.h \
+ Exception.h StringStream.h  \
+  PacketFactoryManager.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h PacketFactory.h Cpackets/CGAttack.h \
  Cpackets/CGAddGearToMouse.h Cpackets/CGAddInventoryToMouse.h \
@@ -4154,7 +3285,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGVisible.h Cpackets/CGVerifyTime.h \
  Cpackets/CGRequestNewbieItem.h Cpackets/CGWithdrawTax.h \
  Cpackets/CGTypeStringList.h Cpackets/CGUseItemFromGear.h \
- Cpackets/CLCreatePC.h /usr/include/STL/bitset Cpackets/CLDeletePC.h \
+ Cpackets/CLCreatePC.h  Cpackets/CLDeletePC.h \
  Cpackets/CLGetPCList.h Cpackets/CLLogin.h Cpackets/CLLogout.h \
  Cpackets/CLQueryPlayerID.h Cpackets/CLQueryCharacterName.h \
  Cpackets/CLRegisterPlayer.h Cpackets/CLSelectPC.h Player.h \
@@ -4172,8 +3303,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCAddNewItemToZone.h Gpackets/GCAddNPC.h \
  Gpackets/GCAddSlayer.h PCSlayerInfo3.h PCInfo.h PetInfo.h \
  types/PetTypes.h VSDateTime.h NicknameInfo.h StoreInfo.h PCItemInfo.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h \
+   \
+   \
  Gpackets/GCAddSlayerCorpse.h Gpackets/GCAddVampire.h PCVampireInfo3.h \
  Gpackets/GCAddVampireCorpse.h Gpackets/GCAddVampireFromBurrowing.h \
  Gpackets/GCAddVampireFromTransformation.h Gpackets/GCAddWolf.h \
@@ -4243,8 +3374,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCThrowItemOK1.h Gpackets/GCThrowItemOK2.h \
  Gpackets/GCThrowItemOK3.h Gpackets/GCVisibleOK.h \
  Gpackets/GCVisibleFail.h Gpackets/GCNPCInfo.h \
- Gpackets/GCNPCAskVariable.h /usr/include/STL/hash_map \
- /usr/include/STL/stl_hashtable.h /usr/include/STL/stl_hash_map.h \
+ Gpackets/GCNPCAskVariable.h  \
+   \
  ScriptParameter.h Gpackets/GCWarScheduleList.h Gpackets/GCWarList.h \
  GuildWarInfo.h WarInfo.h ValueList.h RaceWarInfo.h \
  Gpackets/GMServerInfo.h DatagramPacket.h Datagram.h \
@@ -4291,7 +3422,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCRequestedIP.h Gpackets/GCRequestFailed.h \
  Gpackets/GCOtherModifyInfo.h Gpackets/GGCommand.h \
  Cpackets/CGRegistGuild.h Gpackets/GCWaitGuildList.h \
- /usr/include/STL/slist /usr/include/STL/stl_slist.h GuildInfo.h \
+   GuildInfo.h \
  Gpackets/GCShowWaitGuildInfo.h Gpackets/GCShowGuildInfo.h \
  Cpackets/CGSelectGuild.h Cpackets/CGTryJoinGuild.h \
  Gpackets/GCShowGuildJoin.h Cpackets/CGJoinGuild.h \
@@ -4319,9 +3450,9 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGSkillToNamed.h Cpackets/CGUseMessageItemFromInventory.h \
  Gpackets/GCHolyLandBonusInfo.h BloodBibleBonusInfo.h \
  Gpackets/GCBloodBibleStatus.h Gpackets/GCKickMessage.h \
- Gpackets/GCTimeLimitItemInfo.h /usr/include/STL/map \
- /usr/include/STL/stl_tree.h /usr/include/STL/stl_map.h \
- /usr/include/STL/stl_multimap.h Gpackets/GCSelectQuestID.h \
+ Gpackets/GCTimeLimitItemInfo.h  \
+   \
+  Gpackets/GCSelectQuestID.h \
  Cpackets/CGSelectQuest.h Gpackets/GCQuestStatus.h \
  Gpackets/GCMonsterKillQuestInfo.h Cpackets/CGLotterySelect.h \
  Gpackets/GCNotifyWin.h Gpackets/GCGoodsList.h \
@@ -4349,7 +3480,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGModifyNickname.h Cpackets/CGSelectNickname.h \
  Gpackets/GCNicknameVerify.h Gpackets/GCModifyNickname.h \
  Gpackets/GCGQuestStatusInfo.h QuestStatusInfo.h \
- /usr/include/STL/numeric /usr/include/STL/stl_numeric.h \
+   \
  Gpackets/GCGQuestStatusModify.h Cpackets/CGGQuestAccept.h \
  Cpackets/CGGQuestCancel.h Gpackets/GCExecuteElement.h \
  Gpackets/GCGQuestInventory.h Gpackets/GCAuthKey.h \
@@ -4372,138 +3503,67 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGUsePowerPoint.h Gpackets/GCUsePowerPointResult.h \
  Cpackets/CGDonationMoney.h Cpackets/CGGetEventItem.h
 PacketIDSet.o: PacketIDSet.cpp PacketIDSet.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PlayerStatus.h Assert.h
 PacketValidator.o: PacketValidator.cpp PacketValidator.h PacketIDSet.h \
- Packet.h Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Packet.h Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h PlayerStatus.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h PlayerStatus.h
+
 PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PacketFactoryManager.h Packet.h \
+ Exception.h StringStream.h  \
+  PacketFactoryManager.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h PacketFactory.h Cpackets/CGAttack.h \
  Cpackets/CGAddGearToMouse.h Cpackets/CGAddInventoryToMouse.h \
@@ -4530,7 +3590,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGVisible.h Cpackets/CGVerifyTime.h \
  Cpackets/CGRequestNewbieItem.h Cpackets/CGWithdrawTax.h \
  Cpackets/CGTypeStringList.h Cpackets/CGUseItemFromGear.h \
- Cpackets/CLCreatePC.h /usr/include/STL/bitset Cpackets/CLDeletePC.h \
+ Cpackets/CLCreatePC.h  Cpackets/CLDeletePC.h \
  Cpackets/CLGetPCList.h Cpackets/CLLogin.h Cpackets/CLLogout.h \
  Cpackets/CLQueryPlayerID.h Cpackets/CLQueryCharacterName.h \
  Cpackets/CLRegisterPlayer.h Cpackets/CLSelectPC.h Player.h \
@@ -4548,8 +3608,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCAddNewItemToZone.h Gpackets/GCAddNPC.h \
  Gpackets/GCAddSlayer.h PCSlayerInfo3.h PCInfo.h PetInfo.h \
  types/PetTypes.h VSDateTime.h NicknameInfo.h StoreInfo.h PCItemInfo.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h \
+   \
+   \
  Gpackets/GCAddSlayerCorpse.h Gpackets/GCAddVampire.h PCVampireInfo3.h \
  Gpackets/GCAddVampireCorpse.h Gpackets/GCAddVampireFromBurrowing.h \
  Gpackets/GCAddVampireFromTransformation.h Gpackets/GCAddWolf.h \
@@ -4619,8 +3679,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCThrowItemOK1.h Gpackets/GCThrowItemOK2.h \
  Gpackets/GCThrowItemOK3.h Gpackets/GCVisibleOK.h \
  Gpackets/GCVisibleFail.h Gpackets/GCNPCInfo.h \
- Gpackets/GCNPCAskVariable.h /usr/include/STL/hash_map \
- /usr/include/STL/stl_hashtable.h /usr/include/STL/stl_hash_map.h \
+ Gpackets/GCNPCAskVariable.h  \
+   \
  ScriptParameter.h Gpackets/GCWarScheduleList.h Gpackets/GCWarList.h \
  GuildWarInfo.h WarInfo.h ValueList.h RaceWarInfo.h \
  Gpackets/GMServerInfo.h DatagramPacket.h Datagram.h \
@@ -4667,7 +3727,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCRequestedIP.h Gpackets/GCRequestFailed.h \
  Gpackets/GCOtherModifyInfo.h Gpackets/GGCommand.h \
  Cpackets/CGRegistGuild.h Gpackets/GCWaitGuildList.h \
- /usr/include/STL/slist /usr/include/STL/stl_slist.h GuildInfo.h \
+   GuildInfo.h \
  Gpackets/GCShowWaitGuildInfo.h Gpackets/GCShowGuildInfo.h \
  Cpackets/CGSelectGuild.h Cpackets/CGTryJoinGuild.h \
  Gpackets/GCShowGuildJoin.h Cpackets/CGJoinGuild.h \
@@ -4695,9 +3755,9 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGSkillToNamed.h Cpackets/CGUseMessageItemFromInventory.h \
  Gpackets/GCHolyLandBonusInfo.h BloodBibleBonusInfo.h \
  Gpackets/GCBloodBibleStatus.h Gpackets/GCKickMessage.h \
- Gpackets/GCTimeLimitItemInfo.h /usr/include/STL/map \
- /usr/include/STL/stl_tree.h /usr/include/STL/stl_map.h \
- /usr/include/STL/stl_multimap.h Gpackets/GCSelectQuestID.h \
+ Gpackets/GCTimeLimitItemInfo.h  \
+   \
+  Gpackets/GCSelectQuestID.h \
  Cpackets/CGSelectQuest.h Gpackets/GCQuestStatus.h \
  Gpackets/GCMonsterKillQuestInfo.h Cpackets/CGLotterySelect.h \
  Gpackets/GCNotifyWin.h Gpackets/GCGoodsList.h \
@@ -4725,7 +3785,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGModifyNickname.h Cpackets/CGSelectNickname.h \
  Gpackets/GCNicknameVerify.h Gpackets/GCModifyNickname.h \
  Gpackets/GCGQuestStatusInfo.h QuestStatusInfo.h \
- /usr/include/STL/numeric /usr/include/STL/stl_numeric.h \
+   \
  Gpackets/GCGQuestStatusModify.h Cpackets/CGGQuestAccept.h \
  Cpackets/CGGQuestCancel.h Gpackets/GCExecuteElement.h \
  Gpackets/GCGQuestInventory.h Gpackets/GCAuthKey.h \
@@ -4748,138 +3808,67 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGUsePowerPoint.h Gpackets/GCUsePowerPointResult.h \
  Cpackets/CGDonationMoney.h Cpackets/CGGetEventItem.h
 PacketIDSet.o: PacketIDSet.cpp PacketIDSet.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PlayerStatus.h Assert.h
 PacketValidator.o: PacketValidator.cpp PacketValidator.h PacketIDSet.h \
- Packet.h Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Packet.h Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h PlayerStatus.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h PlayerStatus.h
+
 PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+   \
+   \
+   \
+   \
+  \
+   \
+    \
+  \
+   \
+   \
+   \
+  \
+  \
+    \
+   \
+   \
+   \
+   \
+    \
+   \
+   \
+   \
+   \
+   \
+  \
+  \
+   \
+   \
+  \
+  \
+   \
+   \
+   \
+   \
+   \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h PacketFactoryManager.h Packet.h \
+ Exception.h StringStream.h  \
+  PacketFactoryManager.h Packet.h \
  SocketInputStream.h Socket.h SocketImpl.h SocketAPI.h \
  SocketOutputStream.h PacketFactory.h Cpackets/CGAttack.h \
  Cpackets/CGAddGearToMouse.h Cpackets/CGAddInventoryToMouse.h \
@@ -4906,7 +3895,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGVisible.h Cpackets/CGVerifyTime.h \
  Cpackets/CGRequestNewbieItem.h Cpackets/CGWithdrawTax.h \
  Cpackets/CGTypeStringList.h Cpackets/CGUseItemFromGear.h \
- Cpackets/CLCreatePC.h /usr/include/STL/bitset Cpackets/CLDeletePC.h \
+ Cpackets/CLCreatePC.h  Cpackets/CLDeletePC.h \
  Cpackets/CLGetPCList.h Cpackets/CLLogin.h Cpackets/CLLogout.h \
  Cpackets/CLQueryPlayerID.h Cpackets/CLQueryCharacterName.h \
  Cpackets/CLRegisterPlayer.h Cpackets/CLSelectPC.h Player.h \
@@ -4924,8 +3913,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCAddNewItemToZone.h Gpackets/GCAddNPC.h \
  Gpackets/GCAddSlayer.h PCSlayerInfo3.h PCInfo.h PetInfo.h \
  types/PetTypes.h VSDateTime.h NicknameInfo.h StoreInfo.h PCItemInfo.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h \
+   \
+   \
  Gpackets/GCAddSlayerCorpse.h Gpackets/GCAddVampire.h PCVampireInfo3.h \
  Gpackets/GCAddVampireCorpse.h Gpackets/GCAddVampireFromBurrowing.h \
  Gpackets/GCAddVampireFromTransformation.h Gpackets/GCAddWolf.h \
@@ -4995,8 +3984,8 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCThrowItemOK1.h Gpackets/GCThrowItemOK2.h \
  Gpackets/GCThrowItemOK3.h Gpackets/GCVisibleOK.h \
  Gpackets/GCVisibleFail.h Gpackets/GCNPCInfo.h \
- Gpackets/GCNPCAskVariable.h /usr/include/STL/hash_map \
- /usr/include/STL/stl_hashtable.h /usr/include/STL/stl_hash_map.h \
+ Gpackets/GCNPCAskVariable.h  \
+   \
  ScriptParameter.h Gpackets/GCWarScheduleList.h Gpackets/GCWarList.h \
  GuildWarInfo.h WarInfo.h ValueList.h RaceWarInfo.h \
  Gpackets/GMServerInfo.h DatagramPacket.h Datagram.h \
@@ -5043,7 +4032,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Gpackets/GCRequestedIP.h Gpackets/GCRequestFailed.h \
  Gpackets/GCOtherModifyInfo.h Gpackets/GGCommand.h \
  Cpackets/CGRegistGuild.h Gpackets/GCWaitGuildList.h \
- /usr/include/STL/slist /usr/include/STL/stl_slist.h GuildInfo.h \
+   GuildInfo.h \
  Gpackets/GCShowWaitGuildInfo.h Gpackets/GCShowGuildInfo.h \
  Cpackets/CGSelectGuild.h Cpackets/CGTryJoinGuild.h \
  Gpackets/GCShowGuildJoin.h Cpackets/CGJoinGuild.h \
@@ -5071,9 +4060,9 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGSkillToNamed.h Cpackets/CGUseMessageItemFromInventory.h \
  Gpackets/GCHolyLandBonusInfo.h BloodBibleBonusInfo.h \
  Gpackets/GCBloodBibleStatus.h Gpackets/GCKickMessage.h \
- Gpackets/GCTimeLimitItemInfo.h /usr/include/STL/map \
- /usr/include/STL/stl_tree.h /usr/include/STL/stl_map.h \
- /usr/include/STL/stl_multimap.h Gpackets/GCSelectQuestID.h \
+ Gpackets/GCTimeLimitItemInfo.h  \
+   \
+  Gpackets/GCSelectQuestID.h \
  Cpackets/CGSelectQuest.h Gpackets/GCQuestStatus.h \
  Gpackets/GCMonsterKillQuestInfo.h Cpackets/CGLotterySelect.h \
  Gpackets/GCNotifyWin.h Gpackets/GCGoodsList.h \
@@ -5101,7 +4090,7 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGModifyNickname.h Cpackets/CGSelectNickname.h \
  Gpackets/GCNicknameVerify.h Gpackets/GCModifyNickname.h \
  Gpackets/GCGQuestStatusInfo.h QuestStatusInfo.h \
- /usr/include/STL/numeric /usr/include/STL/stl_numeric.h \
+   \
  Gpackets/GCGQuestStatusModify.h Cpackets/CGGQuestAccept.h \
  Cpackets/CGGQuestCancel.h Gpackets/GCExecuteElement.h \
  Gpackets/GCGQuestInventory.h Gpackets/GCAuthKey.h \
@@ -5124,92 +4113,20 @@ PacketFactoryManager.o: PacketFactoryManager.cpp Assert.h Types.h \
  Cpackets/CGUsePowerPoint.h Gpackets/GCUsePowerPointResult.h \
  Cpackets/CGDonationMoney.h Cpackets/CGGetEventItem.h
 PacketIDSet.o: PacketIDSet.cpp PacketIDSet.h Packet.h Types.h \
- types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
  SocketAPI.h SocketOutputStream.h PlayerStatus.h Assert.h
 PacketValidator.o: PacketValidator.cpp PacketValidator.h PacketIDSet.h \
- Packet.h Types.h types/SystemTypes.h /usr/include/STL/iostream \
- /usr/include/STL/iostream.h /usr/include/STL/streambuf.h \
- /usr/include/libio.h /usr/include/_G_config.h \
- /usr/include/bits/types.h /usr/include/features.h \
- /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stddef.h \
- /usr/include/bits/pthreadtypes.h /usr/include/bits/sched.h \
- /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/stdarg.h \
- /usr/include/STL/fstream /usr/include/STL/fstream.h \
- /usr/include/STL/string /usr/include/STL/stl_config.h \
- /usr/include/STL/stl_string_fwd.h /usr/include/STL/stl_alloc.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/exception \
- /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/endian.h /usr/include/bits/endian.h \
- /usr/include/sys/select.h /usr/include/bits/select.h \
- /usr/include/bits/sigset.h /usr/include/bits/time.h \
- /usr/include/sys/sysmacros.h /usr/include/alloca.h \
- /usr/include/string.h /usr/include/assert.h /usr/include/ctype.h \
- /usr/include/STL/functional /usr/include/STL/stl_function.h \
- /usr/include/STL/stdexcept /usr/include/STL/stl_exception.h \
- /usr/include/STL/stl_iterator_base.h /usr/include/STL/memory \
- /usr/include/STL/stl_algobase.h /usr/include/STL/stl_relops.h \
- /usr/include/STL/stl_pair.h /usr/include/STL/type_traits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/limits.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /usr/lib/gcc-lib/i686-redhat-linux/2.95.3/include/new.h \
- /usr/include/STL/stl_iterator.h /usr/include/STL/stl_construct.h \
- /usr/include/STL/stl_tempbuf.h /usr/include/STL/stl_uninitialized.h \
- /usr/include/STL/stl_raw_storage_iter.h /usr/include/STL/algorithm \
- /usr/include/STL/stl_algo.h /usr/include/STL/stl_heap.h \
- /usr/include/STL/char_traits.h /usr/include/stdio.h \
- /usr/include/STL/stl_hash_fun.h types/PlayerTypes.h \
+ Packet.h Types.h types/SystemTypes.h  \
+  types/PlayerTypes.h \
  types/ObjectTypes.h types/CreatureTypes.h types/ItemTypes.h \
  types/ZoneTypes.h types/QuestTypes.h types/ShopTypes.h \
  types/GuildTypes.h types/WarTypes.h types/ServerType.h Utility.h \
- Exception.h StringStream.h /usr/include/STL/list \
- /usr/include/STL/stl_list.h SocketInputStream.h Socket.h SocketImpl.h \
- SocketAPI.h SocketOutputStream.h PlayerStatus.h \
- /usr/include/STL/vector /usr/include/STL/stl_range_errors.h \
- /usr/include/STL/stl_vector.h /usr/include/STL/stl_bvector.h
+ Exception.h StringStream.h  \
+  SocketInputStream.h Socket.h SocketImpl.h \
+ SocketAPI.h SocketOutputStream.h PlayerStatus.h

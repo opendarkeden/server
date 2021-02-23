@@ -2,7 +2,7 @@
 #define __VARIABLE_MANAGER_H__
 
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include <vector>
 
 enum VariableType
@@ -403,7 +403,7 @@ class VariableManager
 {
 public :
 	typedef vector<int>						VARIABLE;
-	typedef hash_map<string, VariableType>	VARIABLE_NAME;
+	typedef unordered_map<string, VariableType>	VARIABLE_NAME;
 
 public:
 	VariableManager() throw(Error);
