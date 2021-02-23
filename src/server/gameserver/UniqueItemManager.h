@@ -18,10 +18,10 @@ class UniqueItemManager
 {
 public :
 
-	void init() throw(Error);
+	void init() throw (Error);
 
 	// unique item을 하나 생성한다.
-	//Item* getRandomUniqueitem() throw(Error);
+	//Item* getRandomUniqueitem() throw (Error);
 
 	// 아이템 생성 가능한가? (아이템 개수 제한)
 	static bool isPossibleCreate(Item::ItemClass itemClass, ItemType_t itemType) throw(Error);

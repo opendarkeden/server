@@ -8,7 +8,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "RewardClass.h"
 
 #include <vector>
@@ -33,7 +33,7 @@ enum QuestClass
 class QuestInfo
 {
 public:
-	QuestInfo(QuestID_t qID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec, RewardClass_t rClass, QuestClass questClass);
+	QuestInfo( QuestID_t qID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec, RewardClass_t rClass, QuestClass questClass );
 	virtual ~QuestInfo();
 
 public:
@@ -42,8 +42,8 @@ public:
 	QuestID_t		getQuestID() const { return m_QuestID; }
 	virtual string	toString() const throw();
 
-	virtual bool	canExecute(PlayerCreature* pPC ) const throw(Error);
-	virtual QuestStatus*	makeQuestStatus(PlayerCreature* pPC ) const throw(Error) = 0;
+	virtual bool	canExecute( PlayerCreature* pPC ) const throw(Error);
+	virtual QuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const throw(Error) = 0;
 
 	bool			isMonsterKillQuest() const { return m_QuestClass == QUEST_CLASS_MONSTER_KILL; }
 	DWORD			getTimeLimit() const { return m_TimeLimitSec; }
@@ -52,8 +52,8 @@ public:
 	bool			isEventQuest() const { return m_bEventQuest; }
 	int				getQuestLevel() const { return m_QuestLevel; }
 
-	void			setEventQuest(bool bEvent = true ) { m_bEventQuest = bEvent; }
-	void			setQuestLevel(int qLevel ) { m_QuestLevel = qLevel; }
+	void			setEventQuest( bool bEvent = true ) { m_bEventQuest = bEvent; }
+	void			setQuestLevel( int qLevel ) { m_QuestLevel = qLevel; }
 
 protected:
 	const QuestClass	m_QuestClass;

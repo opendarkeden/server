@@ -16,7 +16,7 @@ UniqueItemManager* g_pUniqueItemManager = NULL;
 // init
 //----------------------------------------------------------------------
 void UniqueItemManager::init() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -37,7 +37,7 @@ void UniqueItemManager::init()
 			Item::ItemClass itemClass = (Item::ItemClass)pResult->getInt(1);
 			int itemType  = pResult->getInt(2);
 
-			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(itemClass, itemType);
+			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( itemClass, itemType );
 			Assert(pItemInfo!=NULL);
 
 			pItemInfo->setUnique();

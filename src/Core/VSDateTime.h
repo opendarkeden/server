@@ -197,7 +197,7 @@ public:
 public:
     static VSDateTime currentDateTime();
 	static VSDateTime fromString(string text);
-	static VSDateTime fromYYYYMMDDHHMMSS(string text, bool bEndOfDay = true);
+	static VSDateTime fromYYYYMMDDHHMMSS( string text, bool bEndOfDay = true );
 
 
 ///// Member data /////

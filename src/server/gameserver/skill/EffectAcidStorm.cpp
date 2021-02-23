@@ -7,9 +7,9 @@
 #include "SkillUtil.h"
 #include "EffectStormAcid.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 EffectAcidStorm::EffectAcidStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
 	throw(Error)
@@ -47,7 +47,7 @@ bool EffectAcidStorm::affectCreature(Creature* pTargetCreature, bool bAffectByMo
 	
 	Zone* pZone = pTargetCreature->getZone();
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 	// 상대방에게 미칠 독 데미지를 계산한다.
 	int StormDamage = computeMagicDamage(pTargetCreature, m_Damage, SKILL_ACID_STORM, m_bVampire, pAttacker);
 
@@ -60,7 +60,7 @@ bool EffectAcidStorm::affectCreature(Creature* pTargetCreature, bool bAffectByMo
 		pEffectStormAcid->setPoint(StormDamage/3);
 		pEffectStormAcid->setDeadline(16); // 이부분 바꿔야 한다.
 		pEffectStormAcid->setTick(5);             // 이부분도 바꿔야 한다.
-		pEffectStormAcid->setUserObjectID(m_UserObjectID);
+		pEffectStormAcid->setUserObjectID( m_UserObjectID );
 		pEffectStormAcid->affect(pTargetCreature);
 		pTargetCreature->addEffect(pEffectStormAcid);
 		pTargetCreature->setFlag(Effect::EFFECT_CLASS_STORM_ACID);
@@ -95,8 +95,8 @@ void EffectAcidStorm::affect()
 	HP_t RemainHP = 0;
 
 	//
-	const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+	const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
 
 	for(; itr != oList.end(); itr++)
 	{

@@ -8,11 +8,11 @@
 #define __GUILDMANAGER_H__
 
 #include "Types.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Exception.h"
 #include "Mutex.h"
 #include "Timeval.h"
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildManager
@@ -23,9 +23,9 @@
 
 class Guild;
 
-typedef map<GuildID_t, Guild*> HashMapGuild;
-typedef map<GuildID_t, Guild*>::iterator HashMapGuildItor;
-typedef map<GuildID_t, Guild*>::const_iterator HashMapGuildConstItor;
+typedef hash_map<GuildID_t, Guild*> HashMapGuild;
+typedef hash_map<GuildID_t, Guild*>::iterator HashMapGuildItor;
+typedef hash_map<GuildID_t, Guild*>::const_iterator HashMapGuildConstItor;
 
 #ifdef __SHARED_SERVER__
 class SGGuildInfo;
@@ -68,11 +68,11 @@ public: // misc methods
 
 #ifdef __SHARED_SERVER__
 public:
-	void makeSGGuildInfo(SGGuildInfo& sgGuildInfo ) throw();
+	void makeSGGuildInfo( SGGuildInfo& sgGuildInfo ) throw();
 #endif
 
-	void makeWaitGuildList(GCWaitGuildList& gcWaitGuildList, GuildRace_t race ) throw();
-	void makeActiveGuildList(GCActiveGuildList& gcWaitGuildList, GuildRace_t race ) throw();
+	void makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRace_t race ) throw();
+	void makeActiveGuildList( GCActiveGuildList& gcWaitGuildList, GuildRace_t race ) throw();
 
 public:
 	void lock() { m_Mutex.lock(); }
@@ -83,19 +83,19 @@ public:
 	void heartbeat() throw(Error);
 
 public:
-	bool isGuildMaster(GuildID_t guildID, PlayerCreature* pPC ) throw(Error);
+	bool isGuildMaster( GuildID_t guildID, PlayerCreature* pPC ) throw(Error);
 
-	string getGuildName(GuildID_t guildID ) throw(Error);
+	string getGuildName( GuildID_t guildID ) throw (Error);
 
 	// 길드가 성을 가졌나?
-	bool hasCastle(GuildID_t guildID ) throw(Error);
-	bool hasCastle(GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) throw(Error);
+	bool hasCastle( GuildID_t guildID ) throw(Error);
+	bool hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) throw(Error);
 
 	// 길드가 전쟁신청을 했나?
-	bool hasWarSchedule(GuildID_t guildID ) throw(Error);
+	bool hasWarSchedule( GuildID_t guildID ) throw(Error);
 
 	// 현재 진행중인 전쟁이 있는가?
-	bool hasActiveWar(GuildID_t guidlID ) throw(Error);
+	bool hasActiveWar( GuildID_t guidlID ) throw(Error);
 
 public: // debug
 	string toString(void) const throw();
@@ -104,7 +104,7 @@ public: // debug
 ///// Member data /////
 	
 protected:
-	map<GuildID_t, Guild*> m_Guilds;		// 길드 포인터 맵
+	hash_map<GuildID_t, Guild*> m_Guilds;		// 길드 포인터 맵
 
 	Timeval m_WaitMemberClearTime;				// heartbeat 에서 Wait 중인 길드멤버 정리 시간
 

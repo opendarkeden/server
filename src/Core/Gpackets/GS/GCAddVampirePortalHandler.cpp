@@ -1,0 +1,25 @@
+//////////////////////////////////////////////////////////////////////////////
+// Filename    : GCAddVampirePortalHandler.cpp
+// Written By  : excel96
+// Description :
+// 뱀파이어 포탈은 현재 이펙트의 일종으로서 구현되는데, 이 패킷은
+// 클라이언트에게 바닥에다 뱀파이어 포탈 이펙트를 붙이라는 패킷이다.
+//////////////////////////////////////////////////////////////////////////////
+
+#include "GCAddVampirePortal.h"
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+void GCAddVampirePortalHandler::execute ( GCAddVampirePortal * pGCAddVampirePortal , Player * pPlayer )
+	 throw ( Error )
+{
+	__BEGIN_TRY __BEGIN_DEBUG_EX
+		
+#ifdef __GAME_CLIENT__
+	//cout << pGCAddVampirePortal->toString() << endl;
+#elif __WINDOWS__
+
+#endif
+
+	__END_DEBUG_EX __END_CATCH
+}

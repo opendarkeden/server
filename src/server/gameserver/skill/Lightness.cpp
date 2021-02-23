@@ -6,12 +6,12 @@
 
 #include "Lightness.h"
 #include "EffectLightness.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -88,9 +88,9 @@ void Lightness::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 			Sight_t oldSight = pTargetCreature->getSight();
 			Sight_t newSight = pTargetCreature->getEffectedSight();
 
-			if (oldSight != newSight )
+			if ( oldSight != newSight )
 			{
-				pTargetCreature->setSight(newSight);
+				pTargetCreature->setSight( newSight );
 				pZone->updateScan(pTargetCreature, oldSight, newSight);
 				_GCSkillToObjectOK2.addShortData(MODIFY_VISION, newSight);
 			}
@@ -208,9 +208,9 @@ void Lightness::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
 			Sight_t oldSight = pSlayer->getSight();
 			Sight_t newSight = pSlayer->getEffectedSight();
 
-			if (oldSight != newSight )
+			if ( oldSight != newSight )
 			{
-				pSlayer->setSight(newSight);
+				pSlayer->setSight( newSight );
 				pZone->updateScan(pSlayer, oldSight, newSight);
 				_GCSkillToSelfOK1.addShortData(MODIFY_VISION, newSight);
 			}

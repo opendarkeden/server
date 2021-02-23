@@ -6,7 +6,7 @@
 class EffectIceHailToTile : public EffectWithWarning
 {
 public:
-	EffectIceHailToTile(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning(Effect::EFFECT_CLASS_ICICLE_DROP_SIGN, Effect::EFFECT_CLASS_ICE_HAIL, pZone, x, y ) { }
+	EffectIceHailToTile(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning( Effect::EFFECT_CLASS_ICICLE_DROP_SIGN, Effect::EFFECT_CLASS_ICE_HAIL, pZone, x, y ) { }
 	void affect() throw(Error);
 
 	string toString() const throw() { return "EffectIceHailToTile"; }

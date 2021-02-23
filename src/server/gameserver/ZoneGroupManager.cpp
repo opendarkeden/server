@@ -14,21 +14,21 @@
 #include "PCManager.h"
 #include "Portal.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Tile.h"
 #include "GamePlayer.h"
 #include "LoginServerManager.h"
 #include "IncomingPlayerManager.h"
 #include <stdio.h>
 #include <list>
-#include <map>
+#include <hash_map>
 
 //--------------------------------------------------------------------------------
 // constructor
 //--------------------------------------------------------------------------------
 ZoneGroupManager::ZoneGroupManager () 
-	throw()
-//: m_ZoneGroups(10)
+	throw ()
+: m_ZoneGroups(10)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,11 +39,11 @@ ZoneGroupManager::ZoneGroupManager ()
 // destructor
 //--------------------------------------------------------------------------------
 ZoneGroupManager::~ZoneGroupManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.begin();
+	hash_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.begin();
 	for (; itr != m_ZoneGroups.end(); itr++)
 	{
 		ZoneGroup* pZoneGroup = itr->second;
@@ -61,7 +61,7 @@ ZoneGroupManager::~ZoneGroupManager ()
 // initialize zone manager
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -79,11 +79,11 @@ void ZoneGroupManager::init ()
 //
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::load ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
-    cout << "[ZoneGroupManager] Loading..." << endl;
+
 	Statement* pStmt = NULL;
 	list<ZoneGroupID_t> ZoneGroupIDList;
 
@@ -112,7 +112,7 @@ void ZoneGroupManager::load ()
 		// 해당하는 ID의 존 그룹을 생성하고, 매니저에다 더한다.
 		ZoneGroup* pZoneGroup = new ZoneGroup(ID);
 		ZonePlayerManager* pZonePlayerManager = new ZonePlayerManager();
-		pZonePlayerManager->setZGID(ID);
+		pZonePlayerManager->setZGID( ID );
 		pZoneGroup->setZonePlayerManager(pZonePlayerManager);
 		addZoneGroup(pZoneGroup);
 
@@ -142,11 +142,11 @@ void ZoneGroupManager::load ()
 				// ZoneGroupManager 에 접근하게 된다. 따라서, 먼저 ZGM에 추가한 후 초기화를 해야 한다.
 				//--------------------------------------------------------------------------------
 
-				//printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION START @@@@@@@@@@@@@@@\n", zoneID);
+				printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION START @@@@@@@@@@@@@@@\n", zoneID);
 
 				pZone->init();
 
-				//printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION SUCCESS @@@@@@@@@@@@@@@\n", zoneID);
+				printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION SUCCESS @@@@@@@@@@@@@@@\n", zoneID);
 			}
 
 			SAFE_DELETE(pStmt);
@@ -231,7 +231,7 @@ void ZoneGroupManager::load ()
 		throw Error(sqe.toString());
 	}
 	*/
-    cout << "[ZoneGroupManager] Loaded." << endl;
+
 	__END_DEBUG
 	__END_CATCH
 }
@@ -241,7 +241,7 @@ void ZoneGroupManager::load ()
 // save data to database
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::save ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -255,11 +255,11 @@ void ZoneGroupManager::save ()
 // add zone to zone manager
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::addZoneGroup (ZoneGroup* pZoneGroup) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(pZoneGroup->getZoneGroupID());
+	hash_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(pZoneGroup->getZoneGroupID());
 	
 	if (itr != m_ZoneGroups.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -275,13 +275,13 @@ void ZoneGroupManager::addZoneGroup (ZoneGroup* pZoneGroup)
 // get zone from zone manager
 //--------------------------------------------------------------------------------
 ZoneGroup* ZoneGroupManager::getZoneGroupByGroupID (ZoneGroupID_t ZoneGroupID) const
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
 	ZoneGroup* pZoneGroup = NULL;
 
-	map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(ZoneGroupID);
+	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(ZoneGroupID);
 	
 	if (itr != m_ZoneGroups.end()) {
 
@@ -306,11 +306,11 @@ ZoneGroup* ZoneGroupManager::getZoneGroupByGroupID (ZoneGroupID_t ZoneGroupID) c
 // Delete zone from zone manager
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::deleteZoneGroup (ZoneGroupID_t zoneID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
-	map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(zoneID);
+	hash_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(zoneID);
 	
 	if (itr != m_ZoneGroups.end()) 
 	{
@@ -336,13 +336,13 @@ void ZoneGroupManager::deleteZoneGroup (ZoneGroupID_t zoneID)
 // get zone from zone manager
 //--------------------------------------------------------------------------------
 ZoneGroup* ZoneGroupManager::getZoneGroup (ZoneGroupID_t zoneID) const
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
 	ZoneGroup* pZoneGroup = NULL;
 
-	map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(zoneID);
+	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(zoneID);
 	
 	if (itr != m_ZoneGroups.end()) {
 
@@ -363,37 +363,37 @@ ZoneGroup* ZoneGroupManager::getZoneGroup (ZoneGroupID_t zoneID) const
 }
 
 void   ZoneGroupManager::broadcast(Packet* pPacket) 
-	throw(Error)
+	throw (Error)
 {
 	ZoneGroup* pZoneGroup = NULL;
 
-	map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
+	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
 	
 	for (; itr != m_ZoneGroups.end(); itr++)
 	{
 		pZoneGroup = itr->second;
 
-		pZoneGroup->getZonePlayerManager()->broadcastPacket(pPacket);
+		pZoneGroup->getZonePlayerManager()->broadcastPacket( pPacket );
 	}	
 }
 
 void   ZoneGroupManager::pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter) 
-	throw(Error)
+	throw (Error)
 {
-//	ZoneGroup* pZoneGroup = NULL;
+	ZoneGroup* pZoneGroup = NULL;
 
-//	map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
+	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
 	
-//	for (; itr != m_ZoneGroups.end(); itr++)
-//	{
-//		pZoneGroup = itr->second;
+	for (; itr != m_ZoneGroups.end(); itr++)
+	{
+		pZoneGroup = itr->second;
 
-//		pZoneGroup->getZonePlayerManager()->pushBroadcastPacket(pPacket, pFilter);
-//	}
+		pZoneGroup->getZonePlayerManager()->pushBroadcastPacket( pPacket, pFilter );
+	}	
 }
 
 void ZoneGroupManager::outputLoadValue()
-	throw(Error)
+	throw (Error)
 {
 	//------------------------------------------------------------------
 	// ZoneGroup load
@@ -403,15 +403,15 @@ void ZoneGroupManager::outputLoadValue()
 	VSDateTime current = VSDateTime::currentDateTime();
 	file << current.toString() << endl;
 
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 
 	for (itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 	{
 		ZoneGroup* pZoneGroup = itr->second;
 		file << "[" << (int)pZoneGroup->getZoneGroupID() << "] ";
 
-		const map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
-		map< ZoneID_t, Zone* >::const_iterator iZone;
+		const hash_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
+		hash_map< ZoneID_t, Zone* >::const_iterator iZone;
 
 		// 각 Zone의 loadValue를 구한다.
 		int totalLoad = 0;
@@ -449,7 +449,7 @@ void ZoneGroupManager::outputLoadValue()
 //
 //---------------------------------------------------------------------------
 bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
-	throw(Error)
+	throw (Error)
 {
 	const int maxGroup  		= m_ZoneGroups.size();	// zoneGroup 수
 	//const int loadMultiplier 	= 5;					// load 가중치 - 느린 애들을 더 느리다...라고 하기 위한 것.
@@ -464,7 +464,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	//LOAD_INFOS 	loadInfos;
 	GROUPS		groups;
 
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 
 	// 전체 load
 	int totalLoad = 0;
@@ -479,8 +479,8 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	{
 		ZoneGroup* pZoneGroup = itr->second;
 
-		const map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
-		map< ZoneID_t, Zone* >::const_iterator iZone;
+		const hash_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
+		hash_map< ZoneID_t, Zone* >::const_iterator iZone;
 
 		// 각 Zone의 loadValue를 구한다.
 		for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
@@ -488,7 +488,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 			Zone* pZone = iZone->second;
 
 			int load = pZone->getLoadValue();
-			load = min(load, loadLimit);
+			load = min( load, loadLimit );
 
 			// 10~500
 			maxLoadValue = max(maxLoadValue, load);
@@ -526,7 +526,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	if (!bForce)
 	{
 		int loadBoundary = stableLoad;
-		//int loadBoundary = (loadLimit - stableLoad ) * loadMultiplier;
+		//int loadBoundary = ( loadLimit - stableLoad ) * loadMultiplier;
 
 		// 부하 한계 수치보다 작거나
 		// min~max 부하 수치 차이가 일정수치 이하이면
@@ -542,8 +542,8 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 				ZoneGroup* pZoneGroup = itr->second;
 
 				// loadValue를 초기화 시켜준다.
-				const map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
-				map< ZoneID_t, Zone* >::const_iterator iZone;
+				const hash_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
+				hash_map< ZoneID_t, Zone* >::const_iterator iZone;
 
 				// 각 Zone의 loadValue를 구한다.
 				for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
@@ -564,7 +564,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	int avgLoad = totalLoad * averageLoadPercent / maxGroup / 100;
 
 	// 새로운 그룹의 load를 계산하기 위해서
-	groups.reserve(maxGroup);
+	groups.reserve( maxGroup );
 	for (i=0; i<maxGroup; i++)
 	{
 		groups[i] = 0;
@@ -631,8 +631,8 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 //---------------------------------------------------------------------------
 // DB에 설정된 기본 ZoneGroup으로 설정한다.
 //---------------------------------------------------------------------------
-bool	ZoneGroupManager::makeDefaultLoadInfo(LOAD_INFOS& loadInfos )
-	throw(Error)
+bool	ZoneGroupManager::makeDefaultLoadInfo( LOAD_INFOS& loadInfos )
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -703,7 +703,7 @@ bool	ZoneGroupManager::makeDefaultLoadInfo(LOAD_INFOS& loadInfos )
 }
 
 //---------------------------------------------------------------------------
-// balance ZoneGroup (bForce )
+// balance ZoneGroup ( bForce )
 //---------------------------------------------------------------------------
 //
 // bForce : balacing할 필요가 없다고 판단되는 경우에도 
@@ -718,7 +718,7 @@ bool	ZoneGroupManager::makeDefaultLoadInfo(LOAD_INFOS& loadInfos )
 //
 //---------------------------------------------------------------------------
 void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -732,18 +732,18 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 	//------------------------------------------------------------------
 	if (bDefault)
 	{
-		makeDefaultLoadInfo(loadInfos);
+		makeDefaultLoadInfo( loadInfos );
 	}
 	else
 	{
-		if (!makeBalancedLoadInfo(loadInfos, bForce ))
+		if (!makeBalancedLoadInfo( loadInfos, bForce ))
 		{
 			// balancing할 필요가 없다고 판단되는 경우이다.
 			return;
 		}
 	}
 
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 	LOAD_INFOS::const_iterator iInfo;
 
 	//------------------------------------------------------------------
@@ -815,8 +815,8 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 			try {
 				//cout << "[" << (int)zoneID << "] " << (int)oldGroupID << " --> " << (int)newGroupID << endl;
 
-				map< ZoneGroupID_t , ZoneGroup* >::iterator iOldZoneGroup = m_ZoneGroups.find(oldGroupID);
-				map< ZoneGroupID_t , ZoneGroup* >::iterator iNewZoneGroup = m_ZoneGroups.find(newGroupID);
+				hash_map< ZoneGroupID_t , ZoneGroup* >::iterator iOldZoneGroup = m_ZoneGroups.find( oldGroupID );
+				hash_map< ZoneGroupID_t , ZoneGroup* >::iterator iNewZoneGroup = m_ZoneGroups.find( newGroupID );
 
 				ZoneGroup* pOldZoneGroup = iOldZoneGroup->second;
 				ZoneGroup* pNewZoneGroup = iNewZoneGroup->second;
@@ -828,16 +828,16 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 				Zone* pZone = pOldZoneGroup->getZone(zoneID);
 
 				// Old ZoneGroup --> New ZoneGroup
-				pOldZoneGroup->removeZone(zoneID);
-				pNewZoneGroup->addZone(pZone);
+				pOldZoneGroup->removeZone( zoneID );
+				pNewZoneGroup->addZone( pZone );
 				
 
 				// ZoneGroup
-				pZone->setZoneGroup(pNewZoneGroup);
+				pZone->setZoneGroup( pNewZoneGroup );
 
 				// ZoneInfoManager
-				ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zoneID);
-				pZoneInfo->setZoneGroupID(newGroupID);
+				ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneID );
+				pZoneInfo->setZoneGroupID( newGroupID );
 
 				//------------------------------------------------------------------
 				// ZonePlayerManager::m_pPlayers
@@ -847,16 +847,16 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 				// 		pZoneGroup->m_pZonePlayerManager에 추가한다.
 				//------------------------------------------------------------------
 				const PCManager* pPCManager = pZone->getPCManager();
-				const map< ObjectID_t, Creature* >& players = pPCManager->getCreatures();
-				map< ObjectID_t, Creature* >::const_iterator iPlayer;
+				const hash_map< ObjectID_t, Creature* >& players = pPCManager->getCreatures();
+				hash_map< ObjectID_t, Creature* >::const_iterator iPlayer;
 
 				// 각 Player들의 ZPM을 옮긴다.
 				for (iPlayer=players.begin(); iPlayer!=players.end(); iPlayer++)
 				{
 					Player* pPlayer = iPlayer->second->getPlayer();
 
-					pOldZPM->deletePlayer_NOBLOCKED(pPlayer->getSocket()->getSOCKET());
-					pNewZPM->addPlayer_NOBLOCKED(dynamic_cast<GamePlayer*>(pPlayer));
+					pOldZPM->deletePlayer_NOBLOCKED( pPlayer->getSocket()->getSOCKET() );
+					pNewZPM->addPlayer_NOBLOCKED( dynamic_cast<GamePlayer*>(pPlayer) );
 				}
 
 			} catch (NoSuchElementException& t) {
@@ -877,8 +877,8 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 			ZoneGroup* pZoneGroup = itr->second;
 
 			// loadValue를 초기화 시켜준다.
-			const map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
-			map< ZoneID_t, Zone* >::const_iterator iZone;
+			const hash_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
+			hash_map< ZoneID_t, Zone* >::const_iterator iZone;
 
 			// 각 Zone의 loadValue를 구한다.
 			for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
@@ -926,7 +926,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 // lock all ZoneGroup and LoginServerManager
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::lockZoneGroups()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
@@ -940,7 +940,7 @@ void ZoneGroupManager::lockZoneGroups()
 	// 					LOCK all ZoneGroups
 	//
 	//------------------------------------------------------------------
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 
 	for (itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 	{
@@ -956,7 +956,7 @@ void ZoneGroupManager::lockZoneGroups()
 // lock all ZoneGroup and LoginServerManager
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::unlockZoneGroups()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
@@ -965,7 +965,7 @@ void ZoneGroupManager::unlockZoneGroups()
 	// 					UNLOCK all ZoneGroups
 	//
 	//------------------------------------------------------------------
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 
 	for (itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 	{
@@ -987,13 +987,13 @@ void ZoneGroupManager::unlockZoneGroups()
 // get PlayerNum. by sigi. 2002.12.30
 //--------------------------------------------------------------------------------
 int ZoneGroupManager::getPlayerNum () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	int numPC = 0;
 	
-	map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr = m_ZoneGroups.begin();
+	hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr = m_ZoneGroups.begin();
 
 	for (; itr != m_ZoneGroups.end() ; itr ++) 
 	{
@@ -1009,19 +1009,19 @@ int ZoneGroupManager::getPlayerNum () const
 }
 
 void   ZoneGroupManager::removeFlag(Effect::EffectClass EC)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	ZoneGroup* pZoneGroup = NULL;
 
-	map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
+	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.begin();
 	
 	for (; itr != m_ZoneGroups.end(); itr++)
 	{
 		pZoneGroup = itr->second;
 
-		pZoneGroup->getZonePlayerManager()->removeFlag(EC);
+		pZoneGroup->getZonePlayerManager()->removeFlag( EC );
 	}	
 
 	__END_CATCH
@@ -1031,7 +1031,7 @@ void   ZoneGroupManager::removeFlag(Effect::EffectClass EC)
 // get debug string
 //--------------------------------------------------------------------------------
 string ZoneGroupManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -1039,7 +1039,7 @@ string ZoneGroupManager::toString () const
 
 	msg << "ZoneGroupManager(";
 		
-	for (map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
+	for (hash_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 	{
 		msg << itr->second->toString();
 	}

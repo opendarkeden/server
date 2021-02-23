@@ -9,7 +9,7 @@
 #include "Vampire.h"
 #include "Monster.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -117,89 +117,89 @@ string EffectRevealer::toString()
 	__END_CATCH
 }
 
-bool EffectRevealer::canSeeHide(Creature* pTarget ) const
-	throw(Error )
+bool EffectRevealer::canSeeHide( Creature* pTarget ) const
+	throw( Error )
 {
-	if (!pTarget->isFlag(Effect::EFFECT_CLASS_HIDE ) )
+	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_HIDE ) )
 		return true;
 
 	Level_t level;
 	
-	if (pTarget->isVampire() )
+	if ( pTarget->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pTarget);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		level = pVampire->getLevel();
 	}
-	else if (pTarget->isMonster() )
+	else if ( pTarget->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pTarget);
-		Assert(pMonster != NULL);
+		Assert( pMonster != NULL );
 
 		level = pMonster->getLevel();
 	}
 	else
 	{
-		throw Error("뱀파이어나 몬스터가 아닌데 하이드하고 있다");
+		throw Error( "뱀파이어나 몬스터가 아닌데 하이드하고 있다" );
 	}
 
-	if (m_SkillLevel >= 25 && m_SkillLevel > level )
+	if ( m_SkillLevel >= 25 && m_SkillLevel > level )
 		return true;
 	else
 		return false;
 }
 
-bool EffectRevealer::canSeeSniping(Creature* pTarget ) const
-	throw(Error )
+bool EffectRevealer::canSeeSniping( Creature* pTarget ) const
+	throw( Error )
 {
-	if (!pTarget->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE ) )
+	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_SNIPING_MODE ) )
 		return true;
 
-	Assert(pTarget->isSlayer());
+	Assert( pTarget->isSlayer() );
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pTarget);
 
 	ExpLevel_t level;
 
-	SkillSlot* pSkillSlot = pSlayer->getSkill(SKILL_SNIPING);
-	Assert(pSkillSlot != NULL);
+	SkillSlot* pSkillSlot = pSlayer->getSkill( SKILL_SNIPING );
+	Assert( pSkillSlot != NULL );
 
 	level = pSkillSlot->getExpLevel();
 
-	if (m_SkillLevel >= 45 && m_SkillLevel > level )
+	if ( m_SkillLevel >= 45 && m_SkillLevel > level )
 		return true;
 	else
 		return false;
 }
 
-bool EffectRevealer::canSeeInvisibility(Creature* pTarget ) const
-	throw(Error )
+bool EffectRevealer::canSeeInvisibility( Creature* pTarget ) const
+	throw( Error )
 {
-	if (!pTarget->isFlag(Effect::EFFECT_CLASS_INVISIBILITY ) )
+	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_INVISIBILITY ) )
 		return true;
 
 	Level_t level;
 
-	if (pTarget->isVampire() )
+	if ( pTarget->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pTarget);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		level = pVampire->getLevel();
 	}
-	else if (pTarget->isMonster() )
+	else if ( pTarget->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pTarget);
-		Assert(pMonster != NULL);
+		Assert( pMonster != NULL );
 
 		level = pMonster->getLevel();
 	}
 	else
 	{
-		throw Error("뱀파이어나 몬스터가 아닌데 인비지빌리티를 쓰고 있다.");
+		throw Error( "뱀파이어나 몬스터가 아닌데 인비지빌리티를 쓰고 있다." );
 	}
 
-	if (m_SkillLevel >=65 && (m_SkillLevel-20) >= level )
+	if ( m_SkillLevel >=65 && (m_SkillLevel-20) >= level )
 		return true;
 	else
 		return false;

@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Liberty.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 #include "EffectParalyze.h"
 
@@ -65,23 +65,23 @@ void Liberty::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP() +  pOustersSkillSlot->getExpLevel()/3;
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
-		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange()) && canHit(pOusters, pTargetCreature, SkillType, pOustersSkillSlot->getExpLevel());
+		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange()) && canHit( pOusters, pTargetCreature, SkillType, pOustersSkillSlot->getExpLevel() );
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
-		bool bHPCheck	= pTargetOusters->isFlag(Effect::EFFECT_CLASS_PARALYZE);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
+		bool bHPCheck	= pTargetOusters->isFlag( Effect::EFFECT_CLASS_PARALYZE );
 
 		int Ratio = 0;
-		EffectParalyze* pEffect = dynamic_cast<EffectParalyze*>(pTargetOusters->findEffect(Effect::EFFECT_CLASS_PARALYZE ));
-		if (pEffect != NULL )
+		EffectParalyze* pEffect = dynamic_cast<EffectParalyze*>(pTargetOusters->findEffect( Effect::EFFECT_CLASS_PARALYZE ));
+		if ( pEffect != NULL )
 		{
-			if (pOustersSkillSlot->getExpLevel() <= 15 )
+			if ( pOustersSkillSlot->getExpLevel() <= 15 )
 			{
-				Ratio = (int)((pOusters->getLevel() + (pOustersSkillSlot->getExpLevel() * 8.0 / 3.0 ) ) - pEffect->getLevel());
+				Ratio = ( pOusters->getLevel() + ( pOustersSkillSlot->getExpLevel() * 8.0 / 3.0 ) ) - pEffect->getLevel();
 			}
 			else
 			{
-				Ratio = (int)((pOusters->getLevel() + 20 + (pOustersSkillSlot->getExpLevel() * 4.0 / 3.0 ) ) - pEffect->getLevel());
-				if (pOustersSkillSlot->getExpLevel() == 30 ) Ratio = (int)(Ratio * 1.1);
+				Ratio = ( pOusters->getLevel() + 20 + ( pOustersSkillSlot->getExpLevel() * 4.0 / 3.0 ) ) - pEffect->getLevel();
+				if ( pOustersSkillSlot->getExpLevel() == 30 ) Ratio *= 1.1;
 			}
 		}
 

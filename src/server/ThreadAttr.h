@@ -47,10 +47,10 @@ class ThreadAttr {
 public :
 	
 	// constructor
-	ThreadAttr () throw(Error);
+	ThreadAttr () throw ( Error );
 
 	// destructor
-	~ThreadAttr () throw(Error);
+	~ThreadAttr () throw ( Error );
 	
 
 //////////////////////////////////////////////////
@@ -67,19 +67,19 @@ public :
 	// use pthread_attr_t pointer instead.
 	// (pthread_attr_t 에 대해 assignment 가 지원되지 않을 가능성 있음)
 	//
-	pthread_attr_t * getAttr () throw() { return &attr; }
+	pthread_attr_t * getAttr () throw () { return &attr; }
 
 	// is thread attribute detached state?
-	bool isDetached () const throw(Error ) { return getDetachState() == PTHREAD_CREATE_DETACHED; }
+	bool isDetached () const throw ( Error ) { return getDetachState() == PTHREAD_CREATE_DETACHED; }
 	
 	// set thread attribute detached state
-	void setDetached () throw(Error ) { setDetachState(PTHREAD_CREATE_DETACHED); }
+	void setDetached () throw ( Error ) { setDetachState(PTHREAD_CREATE_DETACHED); }
 
 	// is thread attribute joinable state?
-	bool isJoinable () const throw(Error ) { return getDetachState() == PTHREAD_CREATE_JOINABLE; }
+	bool isJoinable () const throw ( Error ) { return getDetachState() == PTHREAD_CREATE_JOINABLE; }
 	
 	// set thread attribute joinable state
-	void setJoinable () throw(Error ) { setDetachState(PTHREAD_CREATE_JOINABLE); }
+	void setJoinable () throw ( Error ) { setDetachState(PTHREAD_CREATE_JOINABLE); }
 
 
 //////////////////////////////////////////////////
@@ -89,10 +89,10 @@ public :
 protected :
 
 	// get thread attribute's state
-	int getDetachState () const throw(Error);
+	int getDetachState () const throw ( Error );
 
 	// set thread attribute's state
-	void setDetachState (int state ) throw(Error);
+	void setDetachState ( int state ) throw ( Error );
 
 
 //////////////////////////////////////////////////

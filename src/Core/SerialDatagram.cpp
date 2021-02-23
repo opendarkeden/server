@@ -8,7 +8,7 @@
 
 // include files
 #include "SerialDatagram.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "PacketFactoryManager.h"
 #include "SerialDatagramPacket.h"
 
@@ -16,12 +16,12 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SerialDatagram::SerialDatagram () 
-	throw() 
+	throw () 
 : m_Length(0), m_InputOffset(0), m_OutputOffset(0), m_Data(NULL) 
 {
 	__BEGIN_TRY
 
-	memset(&m_SockAddr , 0 , sizeof(m_SockAddr));
+	memset( &m_SockAddr , 0 , sizeof(m_SockAddr) );
 	m_SockAddr.sin_family = AF_INET;
 
 	__END_CATCH
@@ -32,11 +32,11 @@ SerialDatagram::SerialDatagram ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 SerialDatagram::~SerialDatagram () 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
-	if (m_Data != NULL ) {
+	if ( m_Data != NULL ) {
 		SAFE_DELETE_ARRAY(m_Data);
 		m_Data = NULL;
 	}
@@ -48,15 +48,15 @@ SerialDatagram::~SerialDatagram ()
 //////////////////////////////////////////////////////////////////////
 // 내부 버퍼에 들어있는 내용을 외부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::read (char * buf , uint len )
-	throw(Error )
+void SerialDatagram::read ( char * buf , uint len )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// boundary check
-	Assert(m_InputOffset + len <= m_Length);
+	Assert( m_InputOffset + len <= m_Length );
 
-	memcpy(buf , &m_Data[m_InputOffset] , len);
+	memcpy( buf , &m_Data[m_InputOffset] , len );
 
 	m_InputOffset += len;
 
@@ -67,16 +67,16 @@ void SerialDatagram::read (char * buf , uint len )
 //////////////////////////////////////////////////////////////////////
 // 내부 버퍼에 들어있는 내용을 외부 스트링으로 복사한다.
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::read (string & str , uint len )
-	throw(Error )
+void SerialDatagram::read ( string & str , uint len )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// boundary check
-	Assert(m_InputOffset + len <= m_Length);
+	Assert( m_InputOffset + len <= m_Length );
 
 	str.reserve(len);
-	str.assign(&m_Data[m_InputOffset] , len);
+	str.assign( &m_Data[m_InputOffset] , len );
 
 	m_InputOffset += len;
 
@@ -100,54 +100,54 @@ void SerialDatagram::read (string & str , uint len )
 // 읽혀진다.. 라는 가정하에서만 의미가 있다.
 // 
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::read (SerialDatagramPacket * & pPacket )
-	throw(ProtocolException , Error )
+void SerialDatagram::read ( SerialDatagramPacket * & pPacket )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-	Assert(pPacket == NULL);
+	Assert( pPacket == NULL );
 
 	PacketID_t packetID;
 	PacketSize_t packetSize;
 	uint serial;
 
 	// initialize packet header
-	read((char*)&packetID , szPacketID);
-	read((char*)&packetSize , szPacketSize);
-	read((char*)&serial, szuint);
+	read( (char*)&packetID , szPacketID );
+	read( (char*)&packetSize , szPacketSize );
+	read( (char*)&serial, szuint );
 
-	//cout << "SerialDatagramPacket I  D : " << packetID << endl;
+	cout << "SerialDatagramPacket I  D : " << packetID << endl;
 
 	// 패킷 아이디가 이상할 경우
-	if (packetID >= Packet::PACKET_MAX )
+	if ( packetID >= Packet::PACKET_MAX )
 		throw InvalidProtocolException("invalid packet id");
 
 	// 패킷 사이즈가 이상할 경우
-	if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
+	if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 		throw InvalidProtocolException("too large packet size");
 
 	// 데이터그램의 크기가 패킷의 크기보다 작을 경우
-	if (m_Length < szPacketHeader + packetSize )
-		throw Error("packet length small than head + size");
+	if ( m_Length < szPacketHeader + packetSize )
+		throw Error("데이터그램 패킷이 한번에 읽혀지지 않았습니다.");
 
 	// 데이터그램의 크기가 패킷의 크기보다 클 경우
-	if (m_Length > szPacketHeader + packetSize )
-		throw Error("packet length greater than head + size");
+	if ( m_Length > szPacketHeader + packetSize )
+		throw Error("여러 개의 데이터그램 패킷이 한꺼번에 읽혀졌습니다.");
 
 	// 패킷을 생성한다.
-	pPacket = (SerialDatagramPacket*)g_pPacketFactoryManager->createPacket(packetID);
+	pPacket = (SerialDatagramPacket*)g_pPacketFactoryManager->createPacket( packetID );
 
-	Assert(pPacket != NULL);
+	Assert( pPacket != NULL );
 
 	// 시리얼을 넣는다
-	pPacket->setSerial(serial);
+	pPacket->setSerial( serial );
 
 	// 패킷을 초기화한다.
-	pPacket->read(*this);
+	pPacket->read( *this );
 
 	// 패킷을 보낸 주소/포트를 저장한다.
-	pPacket->setHost(getHost());
-	pPacket->setPort(getPort());
+	pPacket->setHost( getHost() );
+	pPacket->setPort( getPort() );
 
 	__END_CATCH
 }
@@ -156,19 +156,19 @@ void SerialDatagram::read (SerialDatagramPacket * & pPacket )
 //////////////////////////////////////////////////////////////////////
 // 외부 버퍼에 들어있는 내용을 내부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::write (const char * buf , uint len )
-	throw(Error )
+void SerialDatagram::write ( const char * buf , uint len )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// boundary check
-	Assert(m_OutputOffset + len <= m_Length);
+	Assert( m_OutputOffset + len <= m_Length );
 //	if (m_OutputOffset + len > m_Length)
 //	{
-//		throw Error("SerialDatagram::write(): 쓰려는 내용이 버퍼의 크기보다 큽니다.");
+//		throw Error( "SerialDatagram::write(): 쓰려는 내용이 버퍼의 크기보다 큽니다.");
 //	}
 
-	memcpy(&m_Data[m_OutputOffset] , buf , len);
+	memcpy( &m_Data[m_OutputOffset] , buf , len );
 
 	m_OutputOffset += len;
 
@@ -185,16 +185,16 @@ void SerialDatagram::write (const char * buf , uint len )
 // 을 변경해줄 필요는 없다.
 //
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::write (const string & str )
-	throw(Error )
+void SerialDatagram::write ( const string & str )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// boundary check
-	Assert(m_OutputOffset + str.size() <= m_Length);
+	Assert( m_OutputOffset + str.size() <= m_Length );
 
 	// write string body
-	write(str.c_str() , str.size());
+	write( str.c_str() , str.size() );
 
 	__END_CATCH
 }
@@ -210,27 +210,27 @@ void SerialDatagram::write (const string & str )
 // 되어야 한다.
 //
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::write (const SerialDatagramPacket * pPacket )
-	throw(ProtocolException , Error )
+void SerialDatagram::write ( const SerialDatagramPacket * pPacket )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
-	Assert(pPacket != NULL);
+	Assert( pPacket != NULL );
 
 	PacketID_t packetID = pPacket->getPacketID();
 	PacketSize_t packetSize = pPacket->getPacketSize();
 	uint serial = pPacket->getSerial();
 
 	// 데이타그램의 버퍼를 적절한 크기로 설정한다.
-	setData(szPacketHeader + packetSize);
+	setData( szPacketHeader + packetSize );
 
 	// 패킷 헤더를 설정한다.
-	write((char*)&packetID , szPacketID);
-	write((char*)&packetSize , szPacketSize);
-	write((char*)&serial, szuint);
+	write( (char*)&packetID , szPacketID );
+	write( (char*)&packetSize , szPacketSize );
+	write( (char*)&serial, szuint );
 
 	// 패킷 바디를 설정한다.
-	pPacket->write(*this);
+	pPacket->write( *this );
 
 	__END_CATCH
 }
@@ -243,16 +243,16 @@ void SerialDatagram::write (const SerialDatagramPacket * pPacket )
 // 데이터그램소켓에서 읽어들인 데이터를 내부버퍼에 복사한다.
 //
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::setData (char * data , uint len ) 
-	throw(Error ) 
+void SerialDatagram::setData ( char * data , uint len ) 
+	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
-	Assert(data != NULL && m_Data == NULL);
+	Assert( data != NULL && m_Data == NULL );
 
 	m_Length = len; 
 	m_Data = new char[m_Length]; 
-	memcpy(m_Data , data , m_Length); 
+	memcpy( m_Data , data , m_Length ); 
 
 	__END_CATCH
 }
@@ -260,12 +260,12 @@ void SerialDatagram::setData (char * data , uint len )
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::setData (uint len )
-	throw(Error )
+void SerialDatagram::setData ( uint len )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	Assert(m_Data == NULL);
+	Assert( m_Data == NULL );
 
 	m_Length = len;
 	m_Data = new char[ m_Length ];
@@ -277,14 +277,14 @@ void SerialDatagram::setData (uint len )
 //////////////////////////////////////////////////////////////////////
 // set address
 //////////////////////////////////////////////////////////////////////
-void SerialDatagram::setAddress (SOCKADDR_IN * pSockAddr ) 
-	throw(Error ) 
+void SerialDatagram::setAddress ( SOCKADDR_IN * pSockAddr ) 
+	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
-	Assert(pSockAddr != NULL);
+	Assert( pSockAddr != NULL );
 
-	memcpy(&m_SockAddr , pSockAddr , szSOCKADDR_IN); 
+	memcpy( &m_SockAddr , pSockAddr , szSOCKADDR_IN ); 
 
 	__END_CATCH
 }
@@ -293,7 +293,7 @@ void SerialDatagram::setAddress (SOCKADDR_IN * pSockAddr )
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string SerialDatagram::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "SerialDatagram("

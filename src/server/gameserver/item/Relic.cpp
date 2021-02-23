@@ -50,7 +50,7 @@ Relic::Relic(ItemType_t itemType, const list<OptionType_t>& optionType)
 		if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 		{
 			filelog("itembug.log", "Relic::Relic() : Invalid item type or option type");
-			throw("Relic::Relic() : Invalid item type or optionType");
+			throw ("Relic::Relic() : Invalid item type or optionType");
 		}
 	} catch (Throwable& t) {
 		cout << t.toString().c_str() << endl;
@@ -122,7 +122,7 @@ void Relic::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE RelicObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE RelicObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -165,8 +165,8 @@ void Relic::save(const string & ownerID, Storage storage, StorageID_t storageID,
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE RelicObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d  WHERE ItemID=%ld",
-									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Durability, (int)m_EnchantLevel, m_ItemID);
+		pStmt->executeQuery( "UPDATE RelicObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d  WHERE ItemID=%ld",
+									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Durability, (int)m_EnchantLevel, m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -381,13 +381,13 @@ void RelicLoader::load(Creature* pCreature)
 		// Relic load할게 있다는것은..
 		// 현재로서는 이전에 서버다운이 되었다는 의미이다.
 		// 그래서, 지운다. by sigi
-		pStmt->executeQuery(
+		pStmt->executeQuery( 
 				"DELETE FROM RelicObject WHERE OwnerID = '%s'", 
-				pCreature->getName().c_str());
+				pCreature->getName().c_str() );
 
 		/*
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, EnchantLevel FROM RelicObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, EnchantLevel FROM RelicObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())

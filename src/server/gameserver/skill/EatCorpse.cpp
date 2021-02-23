@@ -11,15 +11,15 @@
 #include "PCVampireInfo3.h"
 #include "MonsterCorpse.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCRemoveCorpseHead.h"
-#include "GCAddEffect.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCRemoveCorpseHead.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 타일 핸들러
@@ -63,17 +63,17 @@ void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 
 		bool bEatableCorpse = false;
 
-		if (pItem != NULL
+		if ( pItem != NULL
 		  && pItem->getItemClass() == Item::ITEM_CLASS_CORPSE
 		  && pItem->getItemType() == MONSTER_CORPSE )
 		{
 			MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
-			Assert(pCorpse != NULL);
+			Assert( pCorpse != NULL );
 
 			// 성물보관함이 아니어야 한다.
 			// 크리스마스 트리가 아니어야 한다.
 			// 성단이 아니어야 한다.
-			if (!pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE)
+			if ( !pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE)
 			  && !pCorpse->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE) 
 			  && pCorpse->getMonsterType() != 482
 			  && pCorpse->getMonsterType() != 650

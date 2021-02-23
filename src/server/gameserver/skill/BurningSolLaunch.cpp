@@ -16,20 +16,20 @@ void BurningSolLaunch::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, S
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
 
-	if (!pSlayer->isFlag(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
+	if ( !pSlayer->isFlag( Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
 	{
-		executeSkillFailException(pSlayer, getSkillType());
+		executeSkillFailException( pSlayer, getSkillType() );
 		return;
 	}
 
 	EffectBurningSolCharging* pEffect = dynamic_cast<EffectBurningSolCharging*>(pSlayer->findEffect(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1));
-	if (pEffect == NULL )
+	if ( pEffect == NULL )
 	{
-		executeSkillFailException(pSlayer, getSkillType());
+		executeSkillFailException( pSlayer, getSkillType() );
 		return;
 	}
 
-	//cout << "Launching burning sol..." << (int)pEffect->getLevel() << endl;
+	cout << "Launching burning sol..." << (int)pEffect->getLevel() << endl;
 
 	pEffect->setDeadline(0);
 
@@ -38,7 +38,7 @@ void BurningSolLaunch::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, S
 	SkillOutput output;
 	computeOutput(input, output);
 
-	//cout << "Damage bonus : " << output.Damage << endl;
+	cout << "Damage bonus : " << output.Damage << endl;
 
 	SIMPLE_SKILL_INPUT param;
 	param.SkillType     = getSkillType();
@@ -57,24 +57,24 @@ void BurningSolLaunch::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, S
 	SIMPLE_SKILL_OUTPUT result;
 
 	int offset = 2;
-//	if (pEffect->getLevel() >= 2 ) offset = 2;
+//	if ( pEffect->getLevel() >= 2 ) offset = 2;
 
 	// 목표위치+4방향
-	for (int i=-offset; i<=offset; ++i )
-	for (int j=-offset; j<=offset; ++j )
-		param.addMask(i, j, 100);
+	for ( int i=-offset; i<=offset; ++i )
+	for ( int j=-offset; j<=offset; ++j )
+		param.addMask( i, j, 100 );
 
 	param.Grade = pEffect->getLevel();
 	
-/*	param.addMask(0,  0, 100);
+/*	param.addMask( 0,  0, 100);
 	param.addMask(-1, -1, 100);
-	param.addMask(0, -1, 100);
-	param.addMask(1, -1, 100);
+	param.addMask( 0, -1, 100);
+	param.addMask( 1, -1, 100);
 	param.addMask(-1,  0, 100);
-	param.addMask(1,  0, 100);
+	param.addMask( 1,  0, 100);
 	param.addMask(-1,  1, 100);
-	param.addMask(0,  1, 100);
-	param.addMask(1,  1, 100);*/
+	param.addMask( 0,  1, 100);
+	param.addMask( 1,  1, 100);*/
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
@@ -94,7 +94,7 @@ void BurningSolLaunch::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, Skil
 	Zone* pZone = pSlayer->getZone();
 	Assert(pZone!=NULL);
 
-	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
 
 	if (pTargetCreature!=NULL)
 	{

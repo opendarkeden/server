@@ -15,10 +15,10 @@
 class RandomRewardClass : public RewardClass
 {
 public:
-	RandomRewardClass(RewardClass_t rClass ) : RewardClass(rClass) { }
+	RandomRewardClass( RewardClass_t rClass ) : RewardClass(rClass) { }
 
 public:
-	RewardInfo*		selectReward(PlayerCreature* pPC ) const throw(Error);
+	RewardInfo*		selectReward( PlayerCreature* pPC ) const throw(Error);
 
 	virtual string	toString() const throw();
 

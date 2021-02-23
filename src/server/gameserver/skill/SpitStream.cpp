@@ -52,7 +52,7 @@ void SpitStream::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 {
 	__BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
+	cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
 
 	SkillInput input(pSlayer, pSkillSlot);
 	SkillOutput output;
@@ -76,7 +76,7 @@ void SpitStream::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 	
 	g_SimpleLinearMeleeSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
+	cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End" << endl;
 
 	__END_CATCH
 }

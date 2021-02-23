@@ -2,21 +2,21 @@
 #include "PlayerCreature.h"
 #include "GQuestInventory.h"
 #include "Player.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
-GQuestElement::ResultType GQuestLoseQuestItemElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestLoseQuestItemElement::checkCondition( PlayerCreature* pPC ) const
 {
 	GQuestInventory& inventory = pPC->getGQuestManager()->getGQuestInventory();
 
-	list<ItemType_t>::iterator itr = find(inventory.getItems().begin(), inventory.getItems().end(), m_ItemType);
-	if (itr == inventory.getItems().end() ) return FAIL;
+	list<ItemType_t>::iterator itr = find( inventory.getItems().begin(), inventory.getItems().end(), m_ItemType );
+	if ( itr == inventory.getItems().end() ) return FAIL;
 
 	inventory.getItems().erase(itr);
 	pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("Äù½ºÆ® ¾ÆÀÌÅÛÀ» ÀÒ¾ú½À´Ï´Ù.");
-	pPC->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("»ñµÃÈÎÎñµÀ¾ß.");
+	pPC->getPlayer()->sendPacket( &gcSM );
 
 	return OK;
 }
@@ -26,7 +26,7 @@ GQuestLoseQuestItemElement* GQuestLoseQuestItemElement::makeElement(XMLTree* pTr
 	GQuestLoseQuestItemElement* pRet = new GQuestLoseQuestItemElement;
 
 	DWORD itemType;
-	if (pTree->GetAttribute("id", itemType ) ) pRet->m_ItemType = itemType;
+	if ( pTree->GetAttribute("id", itemType ) ) pRet->m_ItemType = itemType;
 
 	return pRet;
 }

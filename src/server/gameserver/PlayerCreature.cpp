@@ -19,15 +19,15 @@
 #include "Key.h"
 #include "Guild.h"
 #include "GuildManager.h"
-#include "GCRankBonusInfo.h"
-#include "GCTimeLimitItemInfo.h"
-#include "GCModifyInformation.h"
-#include "GCOtherModifyInfo.h"
-#include "GCNoticeEvent.h"
-#include "GCMonsterKillQuestInfo.h"
-#include "GCPetStashList.h"
-#include "GCModifyNickname.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCRankBonusInfo.h"
+#include "Gpackets/GCTimeLimitItemInfo.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCNoticeEvent.h"
+#include "Gpackets/GCMonsterKillQuestInfo.h"
+#include "Gpackets/GCPetStashList.h"
+#include "Gpackets/GCModifyNickname.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 #include "RankBonusInfo.h"
 #include "GamePlayer.h"
@@ -42,8 +42,7 @@
 //#include "QuestEvent.h"
 //#include "Quest.h"
 //#include "SimpleQuestLoader.h"
-#include "skill/SkillUtil.h"
-#include "PacketUtil.h"
+#include <list>
 #include "DefaultOptionSetInfo.h"
 #include "Pet.h"
 #include "SMSAddressBook.h"
@@ -55,9 +54,6 @@
 #include "Store.h"
 #include "mofus/Mofus.h"
 #include "AdvancementClassExpTable.h"
-#include "SubInventory.h"
-
-#include <list>
 
 const int MAX_GOODS_INVENTORY_SIZE = 10;
 
@@ -66,7 +62,7 @@ const int MAX_GOODS_INVENTORY_SIZE = 10;
 //////////////////////////////////////////////////////////////////////////////
 PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
 	throw()
-: Creature(OID, pPlayer), m_pAdvancementClass(NULL )
+: Creature(OID, pPlayer), m_pAdvancementClass( NULL )
 {
 	__BEGIN_TRY
 
@@ -85,7 +81,7 @@ PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
 	m_GuildID			  = 0;
 
 	m_pQuestManager		  = new QuestManager(this);
-	m_pTimeLimitItemManager = new TimeLimitItemManager(this);
+	m_pTimeLimitItemManager = new TimeLimitItemManager( this );
 
 	m_bLotto			  = false;
 	m_pQuestItem		= NULL;
@@ -95,16 +91,16 @@ PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
 	m_pRank = NULL;
 	m_pPet = NULL;
 //	m_pSMSAddressBook = NULL;
-	m_pSMSAddressBook = new SMSAddressBook(this);
+	m_pSMSAddressBook = new SMSAddressBook( this );
 	m_SMSCharge = 0;
 //	m_pNicknameBook = NULL;
-	m_pNicknameBook = new NicknameBook(this);
+	m_pNicknameBook = new NicknameBook( this );
 	m_pNickname = NULL;
 	
-	m_PetStash.reserve(MAX_PET_STASH);
-	for (int i=0; i<MAX_PET_STASH; ++i ) m_PetStash.push_back(NULL);
+	m_PetStash.reserve( MAX_PET_STASH );
+	for ( int i=0; i<MAX_PET_STASH; ++i ) m_PetStash.push_back(NULL);
 
-	m_pGQuestManager = new GQuestManager(this);
+	m_pGQuestManager = new GQuestManager( this );
 	m_pBloodBibleSign = new BloodBibleSignInfo;
 	m_BaseLuck = 0;
 	m_pStore = new Store;
@@ -128,9 +124,6 @@ PlayerCreature::~PlayerCreature()
 {
 	__BEGIN_TRY
 
-	// ªÛ¡°ø° ø√∂Û∞° ¿÷¥¬ æ∆¿Ã≈€¿ª ªË¡¶«—¥Ÿ.
-	m_pStore->clearAll();
-	
 	// ¿Œ∫•≈‰∏Æ ªË¡¶
 	SAFE_DELETE(m_pInventory);
 
@@ -165,42 +158,42 @@ PlayerCreature::~PlayerCreature()
 	// «√∑°±◊ º¬ ªË¡¶
 	SAFE_DELETE(m_pFlagSet);
 
-	// RankBonus map ªË¡¶
-	for (HashMapRankBonusItor itr = m_RankBonuses.begin(); itr != m_RankBonuses.end(); itr++ )
+	// RankBonus hash_map ªË¡¶
+	for ( HashMapRankBonusItor itr = m_RankBonuses.begin(); itr != m_RankBonuses.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 	m_RankBonuses.clear();
 
-	if (m_pTimeLimitItemManager != NULL )
-		SAFE_DELETE(m_pTimeLimitItemManager);
+	if ( m_pTimeLimitItemManager != NULL )
+		SAFE_DELETE( m_pTimeLimitItemManager );
 
-	if (m_pQuestManager != NULL )
-		SAFE_DELETE(m_pQuestManager);
+	if ( m_pQuestManager != NULL )
+		SAFE_DELETE( m_pQuestManager );
 
-/*	for (list<ItemNameInfo*>::iterator itr = m_ItemNameInfoList.begin(); itr != m_ItemNameInfoList.end(); itr++ )
+/*	for ( list<ItemNameInfo*>::iterator itr = m_ItemNameInfoList.begin(); itr != m_ItemNameInfoList.end(); itr++ )
 	{
 		ItemNameInfo* pInfo = *itr;
-		SAFE_DELETE(pInfo);
+		SAFE_DELETE( pInfo );
 	}
 	m_ItemNameInfoList.clear();*/
 
-	if (m_pQuestItem != NULL )
-		SAFE_DELETE(m_pQuestItem);
+	if ( m_pQuestItem != NULL )
+		SAFE_DELETE( m_pQuestItem );
 
-	SAFE_DELETE(m_pRank);
+	SAFE_DELETE( m_pRank );
 
-	for (int i=0; i<MAX_PET_STASH; ++i )
+	for ( int i=0; i<MAX_PET_STASH; ++i )
 	{
-		SAFE_DELETE(m_PetStash[i]);
+		SAFE_DELETE( m_PetStash[i] );
 	}
 
-	SAFE_DELETE(m_pSMSAddressBook);
-	SAFE_DELETE(m_pNicknameBook);
-	SAFE_DELETE(m_pGQuestManager);
-	SAFE_DELETE(m_pBloodBibleSign);
-	SAFE_DELETE(m_pStore);
-	SAFE_DELETE(m_pAdvancementClass);
+	SAFE_DELETE( m_pSMSAddressBook );
+	SAFE_DELETE( m_pNicknameBook );
+	SAFE_DELETE( m_pGQuestManager );
+	SAFE_DELETE( m_pBloodBibleSign );
+	SAFE_DELETE( m_pStore );
+	SAFE_DELETE( m_pAdvancementClass );
 
 	__END_CATCH
 }
@@ -212,7 +205,7 @@ bool PlayerCreature::load()
 
 	m_pSMSAddressBook->load();
 
-	m_PowerPoint = loadPowerPoint(getName());
+	m_PowerPoint = loadPowerPoint( getName() );
 
 	return true;
 
@@ -235,7 +228,7 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 	// Item ¿⁄√ºø° ObjectID «“¥Á
 	OR.registerObject_NOLOCKED(pItem);
 	// Ω√∞£¡¶«— æ∆¿Ã≈€ ∏≈¥œ¿˙ø° OID ∞° πŸ≤Óæ˙¥Ÿ∞Ì æÀ∑¡¡ÿ¥Ÿ.
-	m_pTimeLimitItemManager->registerItem(pItem);
+	m_pTimeLimitItemManager->registerItem( pItem );
 
 	// ∫ß∆Æ∂Û∏È æ»ø° ¿÷¥¬ æ∆¿Ã≈€µÈµµ OID∏¶ πﬁæ∆≥ıæ∆æﬂ «—¥Ÿ.
 	if (pItem->getItemClass() == Item::ITEM_CLASS_BELT)
@@ -251,44 +244,10 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 			{
 				OR.registerObject_NOLOCKED(pBeltItem);
 				// Ω√∞£¡¶«— æ∆¿Ã≈€ ∏≈¥œ¿˙ø° OID ∞° πŸ≤Óæ˙¥Ÿ∞Ì æÀ∑¡¡ÿ¥Ÿ.
-				m_pTimeLimitItemManager->registerItem(pBeltItem);
+				m_pTimeLimitItemManager->registerItem( pBeltItem );
 			}
 		}
-	}
-
-	if (pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-	{
-		SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-		Inventory* pInventory = pSubInventory->getInventory();
-
-		list<Item*> ItemList;
-		int height = pInventory->getHeight();
-		int width  = pInventory->getWidth();
-
-		for (int j=0; j<height; j++)
-		{
-			for (int i=0; i<width; i++)
-			{
-				Item* pItem = pInventory->getItem(i, j);
-				if (pItem != NULL)
-				{
-					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
-
-					if (itr == ItemList.end())
-					{
-						// ∞∞¿∫ æ∆¿Ã≈€¿ª µŒπ¯ µÓ∑œ«œ¡ˆ æ ±‚ ¿ß«ÿº≠
-						// ∏ÆΩ∫∆Æø°¥Ÿ∞° æ∆¿Ã≈€¿ª ¡˝æÓ≥÷¥¬¥Ÿ.
-						ItemList.push_back(pItem);
-
-						// æ∆¿Ã≈€¿« OID∏¶ «“¥Áπﬁ¥¬¥Ÿ.
-						registerItem(pItem, OR);
-
-						i += pItem->getVolumeWidth() - 1;
-					}
-				}
-			}
-		}
-	}
+	} 
 
 	__END_CATCH
 }
@@ -362,7 +321,7 @@ void PlayerCreature::registerInitInventory(ObjectRegistry& OR)
 					ItemList.push_back(pItem);
 
 					// ItemTrace ∏¶ ≥≤±Ê ∞Õ¿Œ¡ˆ ∞·¡§
-					pItem->setTraceItem(bTraceLog(pItem ));
+					pItem->setTraceItem( bTraceLog( pItem ) );
 
 					// æ∆¿Ã≈€¿« OID∏¶ «“¥Áπﬁ¥¬¥Ÿ.
 					registerItem(pItem, OR);
@@ -413,9 +372,9 @@ void PlayerCreature::registerGoodsInventory(ObjectRegistry& OR)
 	GoodsInventory::ListItem& goods = m_pGoodsInventory->getGoods();
 	GoodsInventory::ListItemItr itr = goods.begin();
 
-	for (; itr != goods.end(); itr++ )
+	for ( ; itr != goods.end(); itr++ )
 	{
-		registerItem((*itr).m_pItem, OR);
+		registerItem( (*itr).m_pItem, OR);
 	}
 
 	__END_CATCH
@@ -426,7 +385,7 @@ void PlayerCreature::loadTimeLimitItem() throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(m_pTimeLimitItemManager != NULL);
+	Assert( m_pTimeLimitItemManager != NULL );
 
 	m_pTimeLimitItemManager->load();
 
@@ -434,7 +393,7 @@ void PlayerCreature::loadTimeLimitItem() throw(Error)
 }
 
 void PlayerCreature::loadItem()
-	throw(InvalidProtocolException, Error)
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -450,26 +409,26 @@ void PlayerCreature::loadItem()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT ItemType FROM BloodBibleSignObject WHERE OwnerID='%s' ORDER BY ItemType", getName().c_str());
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
-			m_pBloodBibleSign->getList().push_back(pResult->getInt(1));
+			m_pBloodBibleSign->getList().push_back( pResult->getInt(1) );
 		}
 	}
-	END_DB(pStmt);
+	END_DB( pStmt );
 
 	__END_CATCH
 }
 
 bool PlayerCreature::wasteIfTimeLimitExpired(Item* pItem)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	if (pItem == NULL ) return false;
+	if ( pItem == NULL ) return false;
 
-	if (m_pTimeLimitItemManager->wasteIfTimeOver(pItem ) )
+	if ( m_pTimeLimitItemManager->wasteIfTimeOver( pItem ) )
 	{
-		pItem->waste(STORAGE_TIMEOVER);
+		pItem->waste( STORAGE_TIMEOVER );
 		return true;
 	}
 
@@ -485,9 +444,9 @@ void PlayerCreature::sendTimeLimitItemInfo()
 
 	GCTimeLimitItemInfo gcTimeLimitItemInfo;
 
-	if (m_pTimeLimitItemManager->makeTimeLimitItemInfo(gcTimeLimitItemInfo ) )
+	if ( m_pTimeLimitItemManager->makeTimeLimitItemInfo( gcTimeLimitItemInfo ) )
 	{
-		getPlayer()->sendPacket(&gcTimeLimitItemInfo);
+		getPlayer()->sendPacket( &gcTimeLimitItemInfo );
 	}
 
 	__END_CATCH
@@ -495,32 +454,32 @@ void PlayerCreature::sendTimeLimitItemInfo()
 
 void PlayerCreature::addTimeLimitItem(Item* pItem, DWORD time) throw(Error)
 {
-	m_pTimeLimitItemManager->addTimeLimitItem(pItem, time);
+	m_pTimeLimitItemManager->addTimeLimitItem( pItem, time );
 } 
 
-void PlayerCreature::sellItem(Item* pItem ) throw(Error)
+void PlayerCreature::sellItem( Item* pItem ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if (pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->itemSold(pItem);
+	if ( pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->itemSold( pItem );
 
 	__END_CATCH
 }
 
-void PlayerCreature::deleteItemByMorph(Item* pItem ) throw(Error)
+void PlayerCreature::deleteItemByMorph( Item* pItem ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if (pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->deleteItemByMorph(pItem);
+	if ( pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->deleteItemByMorph( pItem );
 
 	__END_CATCH
 }
 
-void PlayerCreature::updateItemTimeLimit(Item* pItem, DWORD time ) throw(Error)
+void PlayerCreature::updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if (pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->updateItemTimeLimit(pItem, time);
+	if ( pItem->isTimeLimitItem() ) m_pTimeLimitItemManager->updateItemTimeLimit( pItem, time );
 
 	__END_CATCH
 }
@@ -532,97 +491,97 @@ void PlayerCreature::sendCurrentQuestInfo() const throw(Error)
 
 void PlayerCreature::whenQuestLevelUpgrade()
 {
-	static bool bNonPK = g_pGameServerInfoManager->getGameServerInfo(1, g_pConfig->getPropertyInt("ServerID" ), g_pConfig->getPropertyInt("WorldID" ) )->isNonPKServer();
+	static bool bNonPK = g_pGameServerInfoManager->getGameServerInfo( 1, g_pConfig->getPropertyInt( "ServerID" ), g_pConfig->getPropertyInt( "WorldID" ) )->isNonPKServer();
 
-	if (bNonPK && getLevel() > 80 )
+	if ( bNonPK && getLevel() > 80 )
 	{
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayer);
 		Assert(pGamePlayer!=NULL);
 
 		GCSystemMessage gcSM;
-		gcSM.setMessage("PK∞° ±›¡ˆµ» º≠πˆ∏¶ ¿ÃøÎ«“ ºˆ ¿÷¥¬ ∑π∫ß¿Ã √ ∞˙«ﬂΩ¿¥œ¥Ÿ. 10√  µ⁄ø° ¡¢º”¿Ã ¡æ∑·µÀ¥œ¥Ÿ.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "µ±«∞µ»º∂“—≥¨≥ˆµ«¬ΩΩ˚÷πPKµƒ∑˛ŒÒ∆˜œﬁ÷∆.10√Î∫ÛΩ´ÕÀ≥ˆ." );
+		pGamePlayer->sendPacket( &gcSM );
 
 		bool newEvent = false;
 		EventKick* pEvent = dynamic_cast<EventKick*>(pGamePlayer->getEvent(Event::EVENT_CLASS_KICK));
-		if (pEvent == NULL )
+		if ( pEvent == NULL )
 		{
-			pEvent = new EventKick(pGamePlayer);
+			pEvent = new EventKick( pGamePlayer );
 			newEvent = true;
 		}
 
 		pEvent->setDeadline(100);
-		if (newEvent ) pGamePlayer->addEvent(pEvent);
+		if ( newEvent ) pGamePlayer->addEvent( pEvent );
 	}
 
-	if (g_pVariableManager->getVariable(CHOBO_EVENT ) )
+	if ( g_pVariableManager->getVariable( CHOBO_EVENT ) )
 	{
 		Level_t level = getLevel();
-		if (level < 40 && (level%5) == 0 )
+		if ( level < 40 && (level%5) == 0 )
 		{
-			getGQuestManager()->getGQuestInventory().saveOne(getName(), 13+(level/5));
-			getPlayer()->sendPacket(getGQuestManager()->getGQuestInventory().getInventoryPacket());
+			getGQuestManager()->getGQuestInventory().saveOne( getName(), 13+(level/5) );
+			getPlayer()->sendPacket( getGQuestManager()->getGQuestInventory().getInventoryPacket() );
 
 			GCNoticeEvent gcNE;
-			gcNE.setCode(NOTICE_EVENT_GIVE_PRESENT_1 + (level/5));
-			getPlayer()->sendPacket(&gcNE);
+			gcNE.setCode( NOTICE_EVENT_GIVE_PRESENT_1 + (level/5) );
+			getPlayer()->sendPacket( &gcNE );
 		}
-		if (level == 40 )
+		if ( level == 40 )
 		{
 			GCNoticeEvent gcNE;
-			gcNE.setCode(NOTICE_EVENT_CAN_OPEN_PRESENT_8);
-			getPlayer()->sendPacket(&gcNE);
+			gcNE.setCode( NOTICE_EVENT_CAN_OPEN_PRESENT_8 );
+			getPlayer()->sendPacket( &gcNE );
 		}
 	}
 
 	m_pGQuestManager->levelUp();
 
-	if (getQuestLevel() == 40 )
+	if ( getQuestLevel() == 40 )
 	{
 		GCNoticeEvent gcNE;
-		gcNE.setCode(NOTICE_EVENT_CAN_PET_QUEST);
+		gcNE.setCode( NOTICE_EVENT_CAN_PET_QUEST );
 		getPlayer()->sendPacket(&gcNE);
 	}
 
-	if (getLevel() >= 10 )
+	if ( getLevel() >= 10 )
 	{
 		NicknameInfo* pLevelNickInfo = m_pNicknameBook->getNicknameInfo(1);
-		if (pLevelNickInfo == NULL )
+		if ( pLevelNickInfo == NULL )
 		{
 			pLevelNickInfo = new NicknameInfo;
-			pLevelNickInfo->setNicknameID(1);
-			pLevelNickInfo->setNicknameType(NicknameInfo::NICK_BUILT_IN);
-			pLevelNickInfo->setNicknameIndex(0);
-			m_pNicknameBook->setNicknameInfo(1, pLevelNickInfo);
+			pLevelNickInfo->setNicknameID( 1 );
+			pLevelNickInfo->setNicknameType( NicknameInfo::NICK_BUILT_IN );
+			pLevelNickInfo->setNicknameIndex( 0 );
+			m_pNicknameBook->setNicknameInfo( 1, pLevelNickInfo );
 		}
 
-		if (pLevelNickInfo->getNicknameType() == NicknameInfo::NICK_BUILT_IN
+		if ( pLevelNickInfo->getNicknameType() == NicknameInfo::NICK_BUILT_IN
 				&& pLevelNickInfo->getNicknameIndex() != getLevel()/10 )
 		{
-			pLevelNickInfo->setNicknameIndex(getLevel()/10);
+			pLevelNickInfo->setNicknameIndex( getLevel()/10 );
 
 			Packet* pNicknamePacket = m_pNicknameBook->getNicknameBookListPacket();
-			getPlayer()->sendPacket(pNicknamePacket);
-			SAFE_DELETE(pNicknamePacket);
+			getPlayer()->sendPacket( pNicknamePacket );
+			SAFE_DELETE( pNicknamePacket );
 
-			if (pLevelNickInfo == m_pNickname )
+			if ( pLevelNickInfo == m_pNickname )
 			{
 				GCModifyNickname gcMN;
-				gcMN.setObjectID(getObjectID());
-				gcMN.setNicknameInfo(m_pNickname);
-				getZone()->broadcastPacket(getX(), getY(), &gcMN);
+				gcMN.setObjectID( getObjectID() );
+				gcMN.setNicknameInfo( m_pNickname );
+				getZone()->broadcastPacket( getX(), getY(), &gcMN );
 			}
 		}
 	}
 
 #ifdef __TEST_SERVER__
-	if (getLevel() >= 150 )
+	if ( getLevel() >= 150 )
 	{
 		increaseAdvancementClassExp(1);
 		GCModifyInformation gcMI;
 		gcMI.addShortData(MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel());
 		gcMI.addLongData(MODIFY_ADVANCEMENT_CLASS_GOAL_EXP, getAdvancementClassGoalExp());
-		getPlayer()->sendPacket(&gcMI);
+		getPlayer()->sendPacket( &gcMI );
 
 		GCOtherModifyInfo gcOMI;
 		gcOMI.addShortData(MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel());
@@ -658,7 +617,7 @@ void PlayerCreature::setStashNumEx(BYTE num)
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(sqlSlayer.toString());
-		if (!isOusters() )
+		if ( !isOusters() )
 			pStmt->executeQuery(sqlVampire.toString());
 		else
 			pStmt->executeQuery(sqlOusters.toString());
@@ -698,7 +657,7 @@ void PlayerCreature::setStashGoldEx(Gold_t gold)
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(sqlSlayer.toString());
-		if (!isOusters() )
+		if ( !isOusters() )
 			pStmt->executeQuery(sqlVampire.toString());
 		else
 			pStmt->executeQuery(sqlOusters.toString());
@@ -737,7 +696,7 @@ void PlayerCreature::increaseStashGoldEx(Gold_t gold)
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(sqlSlayer.toString());
-		if (!isOusters() )
+		if ( !isOusters() )
 			pStmt->executeQuery(sqlVampire.toString());
 		else
 			pStmt->executeQuery(sqlOusters.toString());
@@ -776,7 +735,7 @@ void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(sqlSlayer.toString());
-		if (!isOusters() )
+		if ( !isOusters() )
 			pStmt->executeQuery(sqlVampire.toString());
 		else
 			pStmt->executeQuery(sqlOusters.toString());
@@ -881,9 +840,9 @@ bool PlayerCreature::hasEnemy(const string& Name)
 string PlayerCreature::getGuildName() const
 	throw()
 {
-	Guild* pGuild = g_pGuildManager->getGuild(m_GuildID);
+	Guild* pGuild = g_pGuildManager->getGuild( m_GuildID );
 	
-	if (pGuild != NULL )
+	if ( pGuild != NULL )
 		return pGuild->getName();
 
 	return "";
@@ -895,12 +854,12 @@ string PlayerCreature::getGuildName() const
 GuildMemberRank_t PlayerCreature::getGuildMemberRank() const
 	throw()
 {
-	Guild* pGuild = g_pGuildManager->getGuild(m_GuildID);
+	Guild* pGuild = g_pGuildManager->getGuild( m_GuildID );
 
-	if (pGuild != NULL )
+	if ( pGuild != NULL )
 	{
-		GuildMember* pGuildMember = pGuild->getMember(getName());
-		if (pGuildMember != NULL )
+		GuildMember* pGuildMember = pGuild->getMember( getName() );
+		if ( pGuildMember != NULL )
 		{
 			return pGuildMember->getRank();
 		}
@@ -913,14 +872,14 @@ Rank_t PlayerCreature::getRank() const throw() { return m_pRank->getLevel(); }
 RankExp_t PlayerCreature::getRankExp() const throw() { return m_pRank->getTotalExp(); }
 RankExp_t PlayerCreature::getRankGoalExp() const throw() { return m_pRank->getGoalExp(); }
 
-RankBonus* PlayerCreature::getRankBonus(RankBonus::RankBonusType type ) const
+RankBonus* PlayerCreature::getRankBonus( RankBonus::RankBonusType type ) const
 	throw()
 {
 	__BEGIN_TRY
 	
-	HashMapRankBonusConstItor itr = m_RankBonuses.find(type);
+	HashMapRankBonusConstItor itr = m_RankBonuses.find( type );
 
-	if (itr == m_RankBonuses.end() )
+	if ( itr == m_RankBonuses.end() )
 	{
 		return NULL;
 	}
@@ -930,21 +889,21 @@ RankBonus* PlayerCreature::getRankBonus(RankBonus::RankBonusType type ) const
 	__END_CATCH
 }
 
-void PlayerCreature::addRankBonus(RankBonus* rankBonus )
+void PlayerCreature::addRankBonus( RankBonus* rankBonus )
 	throw()
 {
 	__BEGIN_TRY
 
-	HashMapRankBonusItor itr = m_RankBonuses.find(rankBonus->getType());
+	HashMapRankBonusItor itr = m_RankBonuses.find( rankBonus->getType() );
 
-	if (itr == m_RankBonuses.end() )
+	if ( itr == m_RankBonuses.end() )
 	{
 		m_RankBonuses[rankBonus->getType()] = rankBonus;
-		m_RankBonusFlag.set(rankBonus->getType());
+		m_RankBonusFlag.set( rankBonus->getType() );
 	}
 	else
 	{
-		SAFE_DELETE(rankBonus);
+		SAFE_DELETE( rankBonus );
 	}
 
 	__END_CATCH
@@ -956,9 +915,9 @@ void PlayerCreature::clearRankBonus()
 	__BEGIN_TRY
 
 	HashMapRankBonusItor itr = m_RankBonuses.begin();
-	for (; itr != m_RankBonuses.end(); itr++ )
+	for ( ; itr != m_RankBonuses.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_RankBonuses.clear();
@@ -969,25 +928,25 @@ void PlayerCreature::clearRankBonus()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", getName().c_str());
+		pStmt->executeQuery( "DELETE FROM RankBonusData WHERE OwnerID = '%s'", getName().c_str() );
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	__END_CATCH
 }
 
-RankBonus* PlayerCreature::getRankBonusByRank(Rank_t rank ) const
+RankBonus* PlayerCreature::getRankBonusByRank( Rank_t rank ) const
 	throw()
 {
 	__BEGIN_TRY
 
 	HashMapRankBonusConstItor itr = m_RankBonuses.begin();
 
-	for (; itr != m_RankBonuses.end(); itr++ )
+	for ( ; itr != m_RankBonuses.end(); itr++ )
 	{
 		RankBonus* pLearnedRankBonus = itr->second;
 
-		if (rank == pLearnedRankBonus->getRank() )
+		if ( rank == pLearnedRankBonus->getRank() )
 		{
 			return pLearnedRankBonus;
 		}
@@ -998,23 +957,23 @@ RankBonus* PlayerCreature::getRankBonusByRank(Rank_t rank ) const
 	__END_CATCH
 }
 
-void PlayerCreature::clearRankBonus(Rank_t rank )
+void PlayerCreature::clearRankBonus( Rank_t rank )
 	throw()
 {
 	__BEGIN_TRY
 
-	RankBonus* pRankBonus = getRankBonusByRank(rank);
-	if (pRankBonus == NULL )
+	RankBonus* pRankBonus = getRankBonusByRank( rank );
+	if ( pRankBonus == NULL )
 		return;
 
 	DWORD rankBonusType = pRankBonus->getType();
 
-	HashMapRankBonusItor itr = m_RankBonuses.find(rankBonusType);
-	if (itr != m_RankBonuses.end() )
+	HashMapRankBonusItor itr = m_RankBonuses.find( rankBonusType );
+	if ( itr != m_RankBonuses.end() )
 	{
-		m_RankBonusFlag.reset(rankBonusType);
-		SAFE_DELETE(itr->second);
-		m_RankBonuses.erase(itr);
+		m_RankBonusFlag.reset( rankBonusType );
+		SAFE_DELETE( itr->second );
+		m_RankBonuses.erase( itr );
 	}
 
 	Statement* pStmt = NULL;
@@ -1022,22 +981,23 @@ void PlayerCreature::clearRankBonus(Rank_t rank )
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s' AND Type = %d", getName().c_str(), (int)rankBonusType);
+		pStmt->executeQuery( "DELETE FROM RankBonusData WHERE OwnerID = '%s' AND Type = %d", getName().c_str(), (int)rankBonusType );
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	__END_CATCH
 }
 
-bool PlayerCreature::learnRankBonus(DWORD type )
+bool PlayerCreature::learnRankBonus( DWORD type )
 	throw()
 {
-	__BEGIN_TRY
-
+	//__BEGIN_TRY
+	try
+	{
 	// ∞∞¿∫ Rank ¿« Bonus ∞° ¿÷¥Ÿ∏È πËøÔ ºˆ æ¯¥Ÿ.
 	HashMapRankBonusConstItor itr = m_RankBonuses.begin();
 
-	RankBonusInfo* pRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo(type);
+	RankBonusInfo* pRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo( type );
 
 	// ¡æ¡∑ ∞ÀªÁ. 0¿Ã ΩΩ∑π¿ÃæÓ. 1¿Ã πÏ∆ƒ¿ÃæÓ
 	bool bValidRace = isSlayer() && pRankBonusInfo->getRace() == 0
@@ -1045,33 +1005,33 @@ bool PlayerCreature::learnRankBonus(DWORD type )
 						|| isOusters() && pRankBonusInfo->getRace() == 2;
 
 	// ∞Ë±ﬁ ∞ÀªÁ
-	if (getRank() < pRankBonusInfo->getRank() )
+	if ( getRank() < pRankBonusInfo->getRank() )
 		return false;
 
 	if (!bValidRace)
 		return false;
 
-	for (; itr != m_RankBonuses.end(); itr++ )
+	for ( ; itr != m_RankBonuses.end(); itr++ )
 	{
 		RankBonus* pLearnedRankBonus = itr->second;
 
-		if (pRankBonusInfo->getRank() == pLearnedRankBonus->getRank() )
+		if ( pRankBonusInfo->getRank() == pLearnedRankBonus->getRank() )
 		{
 			DWORD type = pLearnedRankBonus->getType();
 
-			RankBonusInfo* pLearnedRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo(type);
+			RankBonusInfo* pLearnedRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo( type );
 
 			// ∞∞¿∫ ¡æ¡∑¿« ∞∞¿∫ ºˆ¡ÿ¿« ±‚º˙¿∫ ∏¯ πËøÓ¥Ÿ.
-			if (pRankBonusInfo->getRace()==pLearnedRankBonusInfo->getRace())
+			if ( pRankBonusInfo->getRace()==pLearnedRankBonusInfo->getRace())
 			{
 				return false;
 			}
 		}
 	}
 	
-	RankBonus* rankBonus = new RankBonus(pRankBonusInfo->getType(), pRankBonusInfo->getPoint(), pRankBonusInfo->getRank());
+	RankBonus* rankBonus = new RankBonus( pRankBonusInfo->getType(), pRankBonusInfo->getPoint(), pRankBonusInfo->getRank() );
 
-	addRankBonus(rankBonus);
+	addRankBonus( rankBonus );
 
 	// DB ø° √ﬂ∞°
 	Statement* pStmt = NULL;
@@ -1079,15 +1039,21 @@ bool PlayerCreature::learnRankBonus(DWORD type )
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("INSERT INTO RankBonusData (OwnerID, Type )  VALUES ('%s', %d )", getName().c_str(), type);
+		pStmt->executeQuery( "INSERT INTO RankBonusData ( OwnerID, Type )  VALUES ( '%s', %d )", getName().c_str(), type );
 
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
 
 	return true;
-
-	__END_CATCH
+	}
+	catch (Throwable & t) 
+	{ 
+		filelog("PlayerCreature.txt","PlayerCreature.cpp INSERT INTO RankBonusData error!");
+		return false;
+	}
+	
+	//__END_CATCH
 }
 
 void PlayerCreature::sendRankBonusInfo()
@@ -1099,12 +1065,12 @@ void PlayerCreature::sendRankBonusInfo()
 
 	GCRankBonusInfo gcRankBonusInfo;
 
-	for (; itr != m_RankBonuses.end(); itr++ )
+	for ( ; itr != m_RankBonuses.end(); itr++ )
 	{
-		gcRankBonusInfo.addListElement(itr->second->getType());
+		gcRankBonusInfo.addListElement( itr->second->getType() );
 	}
 
-	m_pPlayer->sendPacket(&gcRankBonusInfo);
+	m_pPlayer->sendPacket( &gcRankBonusInfo );
 
 	__END_CATCH
 }
@@ -1120,23 +1086,23 @@ void PlayerCreature::loadRankBonus()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Type FROM RankBonusData WHERE OwnerID ='%s'", getName().c_str());
+		pResult = pStmt->executeQuery( "SELECT Type FROM RankBonusData WHERE OwnerID ='%s'", getName().c_str() );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			DWORD rankBonusType = pResult->getInt(1);
 
-			RankBonusInfo* pRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo(rankBonusType);
+			RankBonusInfo* pRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo( rankBonusType );
 
-			if (getRace() == pRankBonusInfo->getRace() )
+			if ( getRace() == pRankBonusInfo->getRace() )
 			{
 				RankBonus* pRankBonus = new RankBonus();
 
-				pRankBonus->setType(rankBonusType);
-				pRankBonus->setPoint(pRankBonusInfo->getPoint());
-				pRankBonus->setRank(pRankBonusInfo->getRank());
+				pRankBonus->setType( rankBonusType );
+				pRankBonus->setPoint( pRankBonusInfo->getPoint() );
+				pRankBonus->setRank( pRankBonusInfo->getRank() );
 
-				addRankBonus(pRankBonus);
+				addRankBonus( pRankBonus );
 			}
 		}
 
@@ -1149,20 +1115,19 @@ void PlayerCreature::loadRankBonus()
 
 void PlayerCreature::increaseRankExp(RankExp_t Point)
 {
-    return;
 	if (Point <= 0) return;
 
 	// PK ¡∏ æ»ø°º≠¥¬ ∞Ê«Ëƒ°∏¶ ¡÷¡ˆ æ ¥¬¥Ÿ.
-	if (g_pPKZoneInfoManager->isPKZone(getZoneID() ) )
+	if ( g_pPKZoneInfoManager->isPKZone( getZoneID() ) )
 		return;
 
 	// ¥Ÿ¿Ã≥™πÕ ¡∏ æ»ø°º≠¥¬ ∞Ê«Ëƒ°∏¶ ¡÷¡ˆ æ ¥¬¥Ÿ.
-	if (m_pZone != NULL && m_pZone->isDynamicZone() )
+	if ( m_pZone != NULL && m_pZone->isDynamicZone() )
 		return;
 
-	if (isFlag(Effect::EFFECT_CLASS_BONUS_EXP ) ) Point*=2;
+	if ( isFlag( Effect::EFFECT_CLASS_BONUS_EXP ) ) Point*=2;
 
-	if (m_pRank->increaseExp(Point) )
+	if ( m_pRank->increaseExp(Point) )
 	{
 		char pField[80];
 		sprintf(pField, "Rank=%u, RankExp=%lu, RankGoalExp=%lu",
@@ -1242,48 +1207,61 @@ bool PlayerCreature::canPlayFree()
 	return false;
 }
 
-void PlayerCreature::loadGoods() throw(Error) {
+void PlayerCreature::loadGoods()
+	throw(Error)
+{
 	__BEGIN_TRY
-
+	
 	Statement* pStmt = NULL;
 	Result* pResult = NULL;
 
-	if (m_pGoodsInventory->getNum() != 0) {
-		filelog("GoodsReload.log", "∏∂ƒœæ∆≈€ ∏Æ∑ŒµÂ «ﬂ≥ƒ? : %s", getName().c_str());
+	if ( m_pGoodsInventory->getNum() != 0 )
+	{
+		filelog("GoodsReload.log", "∏∂ƒœæ∆≈€ ∏Æ∑ŒµÂ «ﬂ≥ƒ? : %s", getName().c_str() );
 		m_pGoodsInventory->clear();
 	}
 
-	BEGIN_DB {
-		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
+	BEGIN_DB
+	{
+		pStmt = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 
-		pResult = pStmt->executeQuery("SELECT ID, GoodsID, Num FROM GoodsListObject WHERE World = %d AND PlayerID = '%s' AND Name = '%s' AND Status = 'NOT'", g_pConfig->getPropertyInt("WorldID"), getPlayer()->getID().c_str(), getName().c_str());
+		pResult = pStmt->executeQuery( "SELECT ID, GoodsID, Num FROM GoodsListObject WHERE World = %d AND PlayerID = '%s' AND Name = '%s' AND Status = 'NOT'",
+										g_pConfig->getPropertyInt("WorldID"),
+										getPlayer()->getID().c_str(),
+										getName().c_str() );
 
-		while (pResult->next()) {
+		while ( pResult->next() )
+		{
 			string ID = pResult->getString(1);
 			DWORD goodsID = pResult->getInt(2);
 			int num = pResult->getInt(3);
 
-			for (int i = 0; i < max(1,min(50, num)); i++) {
-				Item* pItem = createItemByGoodsID(goodsID);
-				if (pItem != NULL)
-					m_pGoodsInventory->addItem(ID, pItem);
+			for ( int i = 0; i < max(1,min(50,num)) ; i++ )
+			{
+				Item* pItem = createItemByGoodsID( goodsID );
+				if ( pItem != NULL )
+				{
+					m_pGoodsInventory->addItem( ID, pItem );
+				}
 			}
 		}
 
-		SAFE_DELETE(pStmt);
-	} END_DB(pStmt)
+		SAFE_DELETE( pStmt );
+	}
+	END_DB(pStmt)
 
 	__END_CATCH
 }
 
+
 /*void	PlayerCreature::loadQuest() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 #ifdef __ACTIVE_QUEST__
 
-	SimpleQuestLoader::getInstance()->load(this);
+	SimpleQuestLoader::getInstance()->load( this );
 	
 #endif
 
@@ -1291,7 +1269,7 @@ void PlayerCreature::loadGoods() throw(Error) {
 }
 
 bool    PlayerCreature::addQuest(Quest* pQuest) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1301,7 +1279,7 @@ bool    PlayerCreature::addQuest(Quest* pQuest)
 		m_pQuestManager = new QuestManager;
 	}
 
-	if (m_pQuestManager->addQuest(pQuest ))
+	if (m_pQuestManager->addQuest( pQuest ))
 	{
 		return true;
 	}
@@ -1315,7 +1293,7 @@ bool    PlayerCreature::addQuest(Quest* pQuest)
 }
 
 bool    PlayerCreature::checkEvent(QuestEvent* pQuestEvent) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1323,7 +1301,7 @@ bool    PlayerCreature::checkEvent(QuestEvent* pQuestEvent)
 
 	if (m_pQuestManager!=NULL)
 	{
-		Quest* pCompleteQuest = m_pQuestManager->checkEvent(pQuestEvent);
+		Quest* pCompleteQuest = m_pQuestManager->checkEvent( pQuestEvent );
 
 		if (pCompleteQuest!=NULL)
 		{
@@ -1340,7 +1318,7 @@ bool    PlayerCreature::checkEvent(QuestEvent* pQuestEvent)
 }
 
 Quest*  PlayerCreature::removeCompleteQuest() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1360,20 +1338,20 @@ Quest*  PlayerCreature::removeCompleteQuest()
 	return NULL;
 }*/
 /*
-bool PlayerCreature::deleteItemNameInfoList(ObjectID_t objectID ) 
+bool PlayerCreature::deleteItemNameInfoList( ObjectID_t objectID ) 
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	list<ItemNameInfo*>::iterator itr = m_ItemNameInfoList.begin();
 	
-	for(; itr != m_ItemNameInfoList.end() ; itr++ )
+	for( ; itr != m_ItemNameInfoList.end() ; itr++ )
 	{
 		ItemNameInfo* pInfo = *itr;
-		if(pInfo->getObjectID() == objectID )
+		if( pInfo->getObjectID() == objectID )
 		{
-			SAFE_DELETE(pInfo);
-			m_ItemNameInfoList.erase(itr);
+			SAFE_DELETE( pInfo );
+			m_ItemNameInfoList.erase( itr );
 
 			return true;
 		}
@@ -1384,17 +1362,17 @@ bool PlayerCreature::deleteItemNameInfoList(ObjectID_t objectID )
 	__END_CATCH
 }
 
-string PlayerCreature::getItemName(ObjectID_t objectID ) 
+string PlayerCreature::getItemName( ObjectID_t objectID ) 
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	list<ItemNameInfo*>::iterator itr = m_ItemNameInfoList.begin();
 	
-	for(; itr != m_ItemNameInfoList.end() ; itr++ )
+	for( ; itr != m_ItemNameInfoList.end() ; itr++ )
 	{
 		ItemNameInfo* pInfo = *itr;
-		if(pInfo->getObjectID() == objectID )
+		if( pInfo->getObjectID() == objectID )
 		{
 			return pInfo->getName();
 		}
@@ -1406,39 +1384,39 @@ string PlayerCreature::getItemName(ObjectID_t objectID )
 }
 */
 
-void PlayerCreature::addDefaultOptionSet(DefaultOptionSetType_t type )
+void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
 	throw()
 {
 	// ¿ÃπÃ ¿÷¥¬ ∞Õ¿Œ¡ˆ »Æ¿Œ«—¥Ÿ.
-	list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
-	for (; itr != m_DefaultOptionSet.end(); itr++ )
+	slist<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
+	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
-		if ((*itr) == type )
+		if ( (*itr) == type )
 			return;
 	}
 
-	m_DefaultOptionSet.push_front(type);
+	m_DefaultOptionSet.push_front( type );
 }
 
-void PlayerCreature::removeDefaultOptionSet(DefaultOptionSetType_t type )
+void PlayerCreature::removeDefaultOptionSet( DefaultOptionSetType_t type )
 	throw()
 {
-	list<DefaultOptionSetType_t>::iterator before = m_DefaultOptionSet.end();
-	list<DefaultOptionSetType_t>::iterator current = m_DefaultOptionSet.begin();
+	slist<DefaultOptionSetType_t>::iterator before = m_DefaultOptionSet.end();
+	slist<DefaultOptionSetType_t>::iterator current = m_DefaultOptionSet.begin();
 
-	for (; current != m_DefaultOptionSet.end(); before = current++ )
+	for ( ; current != m_DefaultOptionSet.end(); before = current++ )
 	{
-		if ((*current) == type )
+		if ( (*current) == type )
 		{
 			// πﬂ∞ﬂ«ﬂ¥Ÿ.
-			if (before == m_DefaultOptionSet.end() )
+			if ( before == m_DefaultOptionSet.end() )
 			{
 				// delete first node
 				m_DefaultOptionSet.pop_front();
 			}
 			else
 			{
-				m_DefaultOptionSet.erase(current);
+				m_DefaultOptionSet.erase_after(before);
 			}
 
 			return;
@@ -1446,42 +1424,6 @@ void PlayerCreature::removeDefaultOptionSet(DefaultOptionSetType_t type )
 	}
 
 	// πﬂ∞ﬂ∏¯«ﬂ¥Ÿ.
-}
-
-void PlayerCreature::addDefaultOptionType(OptionType_t type )
-{
-	m_DefaultOptions.push_front(type);
-}
-
-void PlayerCreature::removeDefaultOptionType(OptionType_t type )
-{
-	list<OptionType_t>::iterator before = m_DefaultOptions.end();
-	list<OptionType_t>::iterator current = m_DefaultOptions.begin();
-	list<OptionType_t>::iterator end = before;
-
-	for (; current != end; before = current++ )
-	{
-		if ((*current) == type )
-		{
-			// πﬂ∞ﬂ«ﬂ¥Ÿ.
-			if (before == end )
-			{
-				// √ππ¯¬∞ ≥ÎµÂ ¡ˆøÏ±‚
-				m_DefaultOptions.pop_front();
-			}
-			else
-			{
-				m_DefaultOptions.erase(current);
-			}
-
-			return;
-		}
-	}
-}
-
-void PlayerCreature::clearDefaultOptionTypes()
-{
-	m_DefaultOptions.clear();
 }
 
 PetInfo* PlayerCreature::getPetInfo() const
@@ -1492,13 +1434,13 @@ PetInfo* PlayerCreature::getPetInfo() const
 void PlayerCreature::setPetInfo(PetInfo* pPetInfo)
 {
 	m_pPetInfo = pPetInfo;
-	SAFE_DELETE(m_pPet);
+	SAFE_DELETE( m_pPet );
 	m_pPet = Pet::makePet(this, m_pPetInfo);
 }
 
 void PlayerCreature::heartbeat(const Timeval& currentTime) throw()
 {
-	if (m_pPet != NULL ) m_pPet->heartbeat(currentTime);
+	if ( m_pPet != NULL ) m_pPet->heartbeat( currentTime );
 	m_pGQuestManager->heartbeat();
 }
 
@@ -1517,22 +1459,22 @@ GCMonsterKillQuestInfo::QuestInfo*	PlayerCreature::getPetQuestInfo() const
 
 void	PlayerCreature::addPetStashItem(int idx, Item* pPetItem)
 {
-	Assert(pPetItem == NULL || pPetItem->getItemClass() == Item::ITEM_CLASS_PET_ITEM);
-	Assert(idx >= 0 && idx <= MAX_PET_STASH);
+	Assert( pPetItem == NULL || pPetItem->getItemClass() == Item::ITEM_CLASS_PET_ITEM );
+	Assert( idx >= 0 && idx <= MAX_PET_STASH );
 	m_PetStash[idx] = pPetItem;
 }
 
 Item*	PlayerCreature::getPetStashItem(int idx)
 {
-	Assert(idx >= 0 && idx <= MAX_PET_STASH);
+	Assert( idx >= 0 && idx <= MAX_PET_STASH );
 	return m_PetStash[idx];
 }
 
-bool PlayerCreature::canSee(Object* pObject ) const
+bool PlayerCreature::canSee( Object* pObject ) const
 {
-	if (pObject->getObjectClass() == OBJECT_CLASS_CREATURE )
+	if ( pObject->getObjectClass() == OBJECT_CLASS_CREATURE )
 	{
-		return ::canSee(this, dynamic_cast<Creature*>(pObject));
+		return ::canSee( this, dynamic_cast<Creature*>(pObject) );
 	}
 	else
 	{
@@ -1542,57 +1484,46 @@ bool PlayerCreature::canSee(Object* pObject ) const
 
 Level_t PlayerCreature::getAdvancementClassLevel() const { return m_pAdvancementClass->getLevel(); }
 Exp_t PlayerCreature::getAdvancementClassGoalExp() const { return m_pAdvancementClass->getGoalExp(); }
-bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus) {
-	// ¥Ÿ¿Ã≥™πÕ ¡∏ø°º≠¥¬ ∞Ê«Ëƒ°∏¶ ∏‘¡ˆ æ ¥¬¥Ÿ.
-	if (getZone() != NULL && getZone()->isDynamicZone() )
-		return false;
-
+bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus)
+{
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayer);
-    SLAYER_RECORD Sprev;
-    VAMPIRE_RECORD Vprev;
-    OUSTERS_RECORD Oprev;
-    Slayer* pSlayer;
-    Vampire* pVampire;
-    Ousters* pOusters;
-
-    if (this->isSlayer()) {
-        pSlayer = dynamic_cast<Slayer*>(this);
-        pSlayer->getSlayerRecord(Sprev);
-    } else if (this->isVampire()) {
-        pVampire = dynamic_cast<Vampire*>(this);
-        pVampire->getVampireRecord(Vprev);
-    } else {
-        pOusters = dynamic_cast<Ousters*>(this);
-        pOusters->getOustersRecord(Oprev);
-    }
-
-	if (pGamePlayer != NULL )
+	if ( pGamePlayer != NULL )
 	{
-		if (bApplyExpBonus && (pGamePlayer->isPremiumPlay() || pGamePlayer->isFamilyFreePass()))
-			exp = getPercentValue(exp, g_pVariableManager->getPremiumExpBonusPercent());
+		if ( bApplyExpBonus
+			&& (pGamePlayer->isPremiumPlay() || pGamePlayer->isFamilyFreePass())
+			)
+		{
+			exp = getPercentValue( exp, g_pVariableManager->getPremiumExpBonusPercent() );
+		}
 
-		if(bApplyExpBonus
+		if( bApplyExpBonus
 			&& g_pVariableManager->getExpRatio() > 100
 			&& g_pVariableManager->getEventActivate() == 1)
 		{
 			exp = getPercentValue(exp, g_pVariableManager->getExpRatio());
 		}
 
-		if (bApplyExpBonus && isAffectExp2X() )
+		if ( bApplyExpBonus && isAffectExp2X() )
 		{
 			// ∞Ê«Ëƒ° µŒπË
-			exp <<= 1;
+			//exp <<= 1;
+			exp=2*exp;
+		}
+		//chengh modify 2006 07 21 ,–ﬁ∏ƒ…≥¬©À´±∂Œﬁ–ß¥ÌŒÛ
+		if ( isFlag( Effect::EFFECT_CLASS_BONUS_EXP ) ) 
+		{
+			exp*= 2;
 		}
 	}
 
-	//cout << getName() << "ø°∞‘ Ω¬¡˜ ∞Ê«Ëƒ° " << (int)exp << "∏∏≈≠ ¡›¥œ¥Ÿ." << endl;
+	cout << getName() << "ø°∞‘ Ω¬¡˜ ∞Ê«Ëƒ° " << (int)exp << "∏∏≈≠ ¡›¥œ¥Ÿ." << endl;
 	Level_t prevLevel = getAdvancementClassLevel();
-	bool ret = m_pAdvancementClass->increaseExp(exp, true, true);
-	if (getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
+	bool ret = m_pAdvancementClass->increaseExp( exp, true, true );
+	if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
 	Level_t nextLevel = getAdvancementClassLevel();
-	//cout << getName() << "¿Ã " << (int)prevLevel << " ø°º≠ " << (int)nextLevel << " ¿Ã µ«æ˙Ω¿¥œ¥Ÿ." << endl;
+	cout << getName() << "¿Ã " << (int)prevLevel << " ø°º≠ " << (int)nextLevel << " ¿Ã µ«æ˙Ω¿¥œ¥Ÿ." << endl;
 
-	if (prevLevel != nextLevel )
+	if ( prevLevel != nextLevel )
 	{
 		Bonus_t bonus = getBonus();
 		Level_t _4pointstart = min((int)prevLevel, 50);
@@ -1600,56 +1531,49 @@ bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus)
 		Level_t _5pointstart = max((int)prevLevel, 50);
 		Level_t _5pointend = max((int)nextLevel, 50);
 
-		Bonus_t bonusdiff = ((_4pointend - _4pointstart ) * 4) + ((_5pointend - _5pointstart ) * 5);
+		Bonus_t bonusdiff = (( _4pointend - _4pointstart ) * 4) + (( _5pointend - _5pointstart ) * 5);
 		cout << getName() << "ø°∞‘ " << (int)bonusdiff << "∏∏≈≠ ¥…∑¬ƒ° ¡›¥œ¥Ÿ." << endl;
 		bonus += bonusdiff;
-		setBonus(bonus);
+		setBonus( bonus );
 
 		StringStream sav;
 		sav << "AdvancementClass = " << (int)nextLevel 
 			<< ",AdvancementGoalExp = " << (int)getAdvancementClassGoalExp() 
 			<< ",Bonus = " << (int)getBonus();
 
-		tinysave(sav.toString());
+		tinysave( sav.toString() );
 		initAllStatAndSend();
 	}
 	else
 	{
 		m_AdvancementClassExpSaveCount++;
-		if (m_AdvancementClassExpSaveCount > 100 )
+		if ( m_AdvancementClassExpSaveCount > 100 )
 		{
 			StringStream sav;
 			sav << "AdvancementClass = " << (int)getAdvancementClassLevel() 
 				<< ",AdvancementGoalExp = " << (int)getAdvancementClassGoalExp();
-			tinysave(sav.toString());
+			tinysave( sav.toString() );
 			m_AdvancementClassExpSaveCount = 0;
 		}
 	}
 
 	GCModifyInformation gcMI;
-	gcMI.addLongData(MODIFY_ADVANCEMENT_CLASS_GOAL_EXP, getAdvancementClassGoalExp());
-	if (ret) {
-		gcMI.addShortData(MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel());
-		gcMI.addShortData(MODIFY_BONUS_POINT, getBonus());
+	gcMI.addLongData( MODIFY_ADVANCEMENT_CLASS_GOAL_EXP, getAdvancementClassGoalExp() );
+	if ( ret )
+	{
+		gcMI.addShortData( MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel() );
+		gcMI.addShortData( MODIFY_BONUS_POINT, getBonus() );
 		m_pGQuestManager->advancementClassLevelUp();
 	}
 
-    sendEffectLevelUp(pGamePlayer->getCreature());
-    if (this->isSlayer())
-        healCreatureForLevelUp(pSlayer, gcMI, &Sprev);
-    else if (this->isVampire())
-        healCreatureForLevelUp(pVampire, gcMI, &Vprev);
-    else
-        healCreatureForLevelUp(pOusters, gcMI, &Oprev);
-
-	getPlayer()->sendPacket(&gcMI);
+	getPlayer()->sendPacket( &gcMI );
 
 	return ret;
 }
 
 bool PlayerCreature::putAdvancedBonusToSTR()
 {
-	if (m_AdvancedAttrBonus <= 0 ) return false;
+	if ( m_AdvancedAttrBonus <= 0 ) return false;
 	m_AdvancedAttrBonus--;
 	m_AdvancedSTR++;
 	return true;
@@ -1657,7 +1581,7 @@ bool PlayerCreature::putAdvancedBonusToSTR()
 
 bool PlayerCreature::putAdvancedBonusToDEX()
 {
-	if (m_AdvancedAttrBonus <= 0 ) return false;
+	if ( m_AdvancedAttrBonus <= 0 ) return false;
 	m_AdvancedAttrBonus--;
 	m_AdvancedDEX++;
 	return true;
@@ -1665,37 +1589,11 @@ bool PlayerCreature::putAdvancedBonusToDEX()
 
 bool PlayerCreature::putAdvancedBonusToINT()
 {
-	if (m_AdvancedAttrBonus <= 0 ) return false;
+	if ( m_AdvancedAttrBonus <= 0 ) return false;
 	m_AdvancedAttrBonus--;
 	m_AdvancedINT++;
 	return true;
 }
-
-void PlayerCreature::addEffectOption(ObjectID_t oid, OptionType_t type )
-{
-	HashMapObjectOptionItor itr = m_EffectOptions.find(oid);
-
-	if (itr == m_EffectOptions.end() )
-	{
-		m_EffectOptions[ oid ] = type;
-	}
-}
-
-void PlayerCreature::removeEffectOption(ObjectID_t oid )
-{
-	HashMapObjectOptionItor itr = m_EffectOptions.find(oid);
-
-	if (itr != m_EffectOptions.end() )
-	{
-		m_EffectOptions.erase(itr);
-	}
-}
-
-void PlayerCreature::clearEffectOption()
-{
-	m_EffectOptions.clear();
-}
-
 bool PlayerCreature::canChangeMasterEffectColor()
 {
 	// MasterEffectColor 5 ¥¬ ±ÊµÂ¿¸ øÏΩ¬¿⁄µÈ«—≈◊ ¡÷¥¬ ∏∂Ω∫≈Õ ¿Ã∆Â∆Æ¥Ÿ
@@ -1703,4 +1601,3 @@ bool PlayerCreature::canChangeMasterEffectColor()
 	// 2005.05.17 by bezz
 	return m_MasterEffectColor != 5;
 }
-

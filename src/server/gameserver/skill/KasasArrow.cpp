@@ -34,8 +34,8 @@ void KasasArrow::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 	param.bMagicDamage  = true;
 	param.bAdd          = false;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	SIMPLE_SKILL_OUTPUT result;

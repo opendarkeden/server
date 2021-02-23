@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "Inventory.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "ItemInfoManager.h"
 #include "VolumeInfo.h"
 #include "ParkingCenter.h"
@@ -15,18 +15,12 @@
 #include "EffectSchedule.h"
 #include "Zone.h"
 #include "Store.h"
-#include "InventoryInfo.h"
-#include "Player.h"
-#include <map>
-#include <stdio.h>
+#include <hash_map>
 
 #include "Key.h"
 #include "Belt.h"
 
 #include "EffectVampirePortal.h"
-
-#include "GCDeleteInventoryItem.h"
-#include "GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -185,7 +179,7 @@ Inventory::~Inventory()
 ////////////////////////////////////////////////////////////
 // 지정된 위치에 아이템이 있는가?
 ////////////////////////////////////////////////////////////
-bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y) const
+bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -203,7 +197,7 @@ bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y) const
 ////////////////////////////////////////////////////////////
 // 지정된 아이템이 있는가?
 ////////////////////////////////////////////////////////////
-bool Inventory::hasItem(ObjectID_t ObjectID) const
+bool Inventory::hasItem(ObjectID_t ObjectID)
 	throw()
 {
 	__BEGIN_TRY
@@ -218,7 +212,7 @@ bool Inventory::hasItem(ObjectID_t ObjectID) const
 ////////////////////////////////////////////////////////////
 // 지정된 아이템이 있는가?
 ////////////////////////////////////////////////////////////
-bool Inventory::hasItemWithItemID(ItemID_t ItemID) const
+bool Inventory::hasItemWithItemID(ItemID_t ItemID)
 	throw()
 {
 	__BEGIN_TRY
@@ -231,31 +225,9 @@ bool Inventory::hasItemWithItemID(ItemID_t ItemID) const
 }
 
 ////////////////////////////////////////////////////////////
-// 지정된 클래스의 아이템이 있는가?
-////////////////////////////////////////////////////////////
-bool Inventory::hasItemWithItemClass(Item::ItemClass ItemClass ) const
-{
-	for (int y=0; y<m_Height; y++)
-	{
-		for (int x=0; x<m_Width; x++)
-		{
-			InventorySlot& slot  = getInventorySlot(x, y);
-			Item*          pItem = slot.getItem();
-
-			if (pItem != NULL && pItem->getItemClass() == ItemClass )
-			{
-				return true;
-			}
-		}
-	}
-
-	return false;
-}
-
-////////////////////////////////////////////////////////////
 // 지정된 타겟을 타겟으로 하는 열쇠를 가지고 있는가?
 ////////////////////////////////////////////////////////////
-bool Inventory::hasKey(ItemID_t TargetItemID) const
+bool Inventory::hasKey(ItemID_t TargetItemID)
 	throw()
 {
 	__BEGIN_TRY
@@ -629,6 +601,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 				p.x = x; 
 				p.y = y;
 
+				//cout << (int)x << ", " << (int)y << " ]" << endl;
 				return true;
 			}
 		}
@@ -687,10 +660,10 @@ void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
 			VolumeWidth_t  ItemWidth  = pItem->getVolumeWidth();
 			VolumeHeight_t ItemHeight = pItem->getVolumeHeight();
 
-			if (pItem->isOnStore() )
+			if ( pItem->isOnStore() )
 			{
 				Store* pStore = pItem->getStore();
-				if (pStore != NULL && pStore->hasItem(pItem))
+				if ( pStore != NULL && pStore->hasItem(pItem))
 				{
 					BYTE index = pStore->getItemIndex(pItem);
 					pStore->removeStoreItem(index);
@@ -806,7 +779,7 @@ Item* Inventory::searchItem(CoordInven_t X, CoordInven_t Y, Item* pItem, TPOINT 
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithItemID (ItemID_t itemID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -820,7 +793,7 @@ Item* Inventory::getItemWithItemID (ItemID_t itemID)
 // 지정된 벨트를 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getBeltWithItemID(ItemID_t itemID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -834,7 +807,7 @@ Item* Inventory::getBeltWithItemID(ItemID_t itemID)
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -848,7 +821,7 @@ Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
-Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y) const
+Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -878,7 +851,7 @@ Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y) co
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
-Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y) const
+Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -908,7 +881,7 @@ Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y) cons
 // 지정된 id와 클래스로 아이템을 찾아서 포인터를 리턴한다.
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
-Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) const
+Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -939,7 +912,7 @@ Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t
 // 지정된 id와 클래스로 아이템을 찾아서 포인터를 리턴한다.
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
-Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) const
+Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -976,7 +949,7 @@ Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& 
 //  2002.09.04 장홍창 
 /////////////////////////////////////////////////////////////////////////////////////
 
-Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType) const//, CoordInven_t& X, CoordInven_t& Y)
+Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType)//, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -1004,7 +977,7 @@ Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType) const//, 
 	__END_CATCH
 }
 
-Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInven_t& X, CoordInven_t& Y) const
+Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInven_t& X, CoordInven_t& Y)
 	throw()
 {
 	__BEGIN_TRY
@@ -1081,7 +1054,7 @@ void Inventory::setItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 실제로 아이템 객체를 지우지는 않는다.
 ////////////////////////////////////////////////////////////
 void Inventory::clear()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -1232,12 +1205,13 @@ void Inventory::save(const string& owner)
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 string Inventory::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
-	msg << "Inventory(" << "\n" << "Owner:" << m_Owner << "\n";
+	msg << "Inventory(" << "\n";
+	msg	<< "Owner:" << m_Owner << "\n";
 
 	for (int y=0; y<m_Height; y++)
 	{
@@ -1255,7 +1229,8 @@ string Inventory::toString () const
 		msg << "\n";
 	}
 
-	msg << "\n)";
+	msg << "\n";
+	msg << ")";
 
 	return msg.toString();
 
@@ -1277,10 +1252,12 @@ string Inventory::toString () const
 //#ifdef __XMAS_EVENT_CODE__
 // 인벤토리를 검색하면서 색깔별로 이벤트 별 숫자를 헤아린다.
 bool Inventory::hasEnoughStar(const XMAS_STAR& star)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
+	//cout << "필요한 별의 숫자 : " << star.amount << endl;
+	
 	int amount[STAR_COLOR_MAX];
 	memset(amount, 0, sizeof(int)*STAR_COLOR_MAX);
 
@@ -1297,7 +1274,7 @@ bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 			if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_EVENT_STAR)
 			{
 				int ItemNum =  pItem->getNum();
-
+				//cout << pItem->getItemType() << " " << ItemNum << endl;
 				switch (pItem->getItemType())
 				{
 					case 0: amount[STAR_COLOR_BLACK] += ItemNum; break;
@@ -1313,6 +1290,9 @@ bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 		}
 	}
 
+	//cout << star.color << endl;
+	//cout << "가지고 있는 공의 숫자: " << amount[star.color] << endl;
+
 	if (amount[star.color] >= star.amount) return true;
 
 	return false;
@@ -1323,7 +1303,7 @@ bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 
 //#ifdef __XMAS_EVENT_CODE__
 void Inventory::decreaseStar(const XMAS_STAR& star)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1337,8 +1317,10 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 			InventorySlot& slot  = getInventorySlot(x, y);
 			Item*          pItem = slot.getItem();
 
-			if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_EVENT_STAR) {
+			if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_EVENT_STAR)
+			{
 				ItemType_t IType = pItem->getItemType();
+				cout << IType << " " << star.color << endl;
 
 				if ((IType == 0 && star.color == STAR_COLOR_BLACK) ||
 					(IType == 1 && star.color == STAR_COLOR_RED)   ||
@@ -1346,12 +1328,14 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 					(IType == 3 && star.color == STAR_COLOR_GREEN) ||
 					(IType == 4 && star.color == STAR_COLOR_CYAN)  ||
 					(IType == 5 && star.color == STAR_COLOR_WHITE) ||
-					(IType == 6 && star.color == STAR_COLOR_PINK)) {
+					(IType == 6 && star.color == STAR_COLOR_PINK))
+				{
 					int ItemNum = pItem->getNum();
 
 					// 아이템의 스택 숫자가 줄여야 할 양보다 작거나 같다면,
 					// 아이템을 삭제해야 한다.
-					if (ItemNum <= amount) {
+					if (ItemNum <= amount)
+					{
 						m_TotalWeight -= (pItem->getWeight() * ItemNum);
 						m_TotalNum -= ItemNum;
 
@@ -1393,7 +1377,7 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 ///*
 //#ifdef __XMAS_EVENT_CODE__
 bool Inventory::hasRedGiftBox(void) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1425,7 +1409,7 @@ bool Inventory::hasRedGiftBox(void)
 ///*
 //#ifdef __XMAS_EVENT_CODE__
 bool Inventory::hasGreenGiftBox(void) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1453,104 +1437,6 @@ bool Inventory::hasGreenGiftBox(void)
 }
 //#endif
 //*/
-bool Inventory::hasEnoughNumItem(Item::ItemClass itemClass, ItemType_t itemType, int num )
-{
-	int amount = 0;
-	for (int y=0; y<m_Height; y++)
-	{
-		for (int x=0; x<m_Width; x++)
-		{
-			InventorySlot& slot  = getInventorySlot(x, y);
-			Item*          pItem = slot.getItem();
-
-			if (pItem != NULL
-				&& pItem->getItemClass() == itemClass
-				&& pItem->getItemType() == itemType
-			   )
-			{
-				amount +=  pItem->getNum();
-			}
-		}
-	}
-
-	if (amount >= num )
-		return true;
-
-	return false;
-}
-
-void Inventory::decreaseNumItem(Item::ItemClass itemClass, ItemType_t itemType, int num, Player* pPlayer )
-{
-	int amount = num;
-	for (int y=0; y<m_Height; y++)
-	{
-		for (int x=0; x<m_Width; x++)
-		{
-			InventorySlot& slot  = getInventorySlot(x, y);
-			Item*          pItem = slot.getItem();
-
-			if (pItem != NULL
-				&& pItem->getItemClass() == itemClass
-				&& pItem->getItemType() == itemType
-			   )
-			{
-				int itemNum =  pItem->getNum();
-
-				if (itemNum <= amount )
-				{
-					// 아이템을 지운다.
-					deleteItem(pItem->getObjectID());
-
-					// 클라이언트에 알린다.
-					GCDeleteInventoryItem gcDeleteInventoryItem;
-					gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
-					pPlayer->sendPacket(&gcDeleteInventoryItem);
-
-					// 메모리및 DB 에서 삭제
-					pItem->destroy();
-					SAFE_DELETE(pItem);
-
-					amount -= itemNum;
-				}
-				else
-				{
-					// 아이템 갯수를 줄인다.
-					pItem->setNum(itemNum - amount);
-					decreaseItemNum(amount);
-					decreaseWeight(pItem->getWeight() * amount);
-
-					// 클라이언트에 알린다.
-					GCDeleteInventoryItem gcDeleteInventoryItem;
-					gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
-					pPlayer->sendPacket(&gcDeleteInventoryItem);
-
-					GCCreateItem gcCreateItem;
-					gcCreateItem.setObjectID(pItem->getObjectID());
-					gcCreateItem.setItemClass(pItem->getItemClass());
-					gcCreateItem.setItemType(pItem->getItemType());
-					gcCreateItem.setItemNum(pItem->getNum());
-					gcCreateItem.setInvenX((CoordInven_t)x);
-					gcCreateItem.setInvenY((CoordInven_t)y);
-					pPlayer->sendPacket(&gcCreateItem);
-
-					// DB에 저장
-					char pField[80];
-					sprintf(pField, "Num=%d", pItem->getNum());
-					pItem->tinysave(pField);
-
-					amount = 0;
-				}
-
-				if (amount == 0 )
-				{
-					return;
-				}
-			}
-		}
-	}
-
-	Assert(false);
-}
 
 void Inventory::clearQuestItem(list<Item*>& iList) throw(Error)
 {
@@ -1573,9 +1459,9 @@ void Inventory::clearQuestItem(list<Item*>& iList) throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						if (pItem->isQuestItem() )
+						if ( pItem->isQuestItem() )
 						{
-							deleteItem(pItem->getObjectID());
+							deleteItem( pItem->getObjectID() );
 							iList.push_back(pItem);
 						}
 						else
@@ -1590,53 +1476,4 @@ void Inventory::clearQuestItem(list<Item*>& iList) throw(Error)
 			}
 		}
 	}
-}
-
-InventoryInfo* Inventory::getInventoryInfo() const
-{
-	__BEGIN_TRY
-
-	BYTE ItemCount = 0;
-
-	InventoryInfo* pInventoryInfo = new InventoryInfo();
-	list<Item*> ItemList;
-
-	for (int j = 0; j < m_Height; j++) 
-	{
-		for (int i = 0 ; i < m_Width ; i++) 
-		{
-			if (hasItem(i, j)) 
-			{
-				Item* pItem = getItem(i , j);
-				VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
-//				Item::ItemClass IClass = pItem->getItemClass();
-
-				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
-
-				if (itr == ItemList.end()) 
-				{
-					// map 에 Item을 등록시켜 놓음,
-					// 다음 비교때 같은 아이템인지 확인하기 위하여.
-					ItemList.push_back(pItem);
-
-					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
-					pItem->makePCItemInfo(*pInventorySlotInfo);
-					pInventorySlotInfo->setInvenX(i);
-					pInventorySlotInfo->setInvenY(j);
-
-					pInventoryInfo->addListElement(pInventorySlotInfo);
-					ItemCount++;
-					i = i + ItemWidth - 1;
-				}
-			}
-		}
-	}
-
-	pInventoryInfo->setListNum(ItemCount);
-	pInventoryInfo->setWidth(m_Width);
-	pInventoryInfo->setHeight(m_Height);
-
-	return pInventoryInfo;
-
-	__END_CATCH
 }

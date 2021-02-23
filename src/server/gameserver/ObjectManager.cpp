@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ObjectManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "CreatureManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PlayerManager.h"
 #include "MonsterInfo.h"
 #include "TimeManager.h"
@@ -133,7 +133,7 @@
 #include "GQuestCheckPoint.h"
 #include "SiegeManager.h"
 
-//#include "gameguard/CSAuth.h"
+#include "gameguard/CSAuth.h"
 #include "GuildUnion.h"
 #include "war/DragonEyeManager.h"
 #include "AdvancementClassExpTable.h"
@@ -153,7 +153,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 ObjectManager::ObjectManager ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ ObjectManager::ObjectManager ()
 }
 
 ObjectManager::~ObjectManager ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -358,96 +358,96 @@ ObjectManager::~ObjectManager ()
 }
 
 void ObjectManager::init ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
-    cout << "[ObjectManager] Initializing Object Managers..." << endl;
-	//printf("ObjectManager::load() : SystemAvailabilitiesManager Initialization Start\n");
+
+	printf("ObjectManager::load() : SystemAvailabilitiesManager Initialization Start\n");
 	SystemAvailabilitiesManager::getInstance()->load();
-	//printf("ObjectManager::load() : SystemAvailabilitiesManager Initialization Success\n");
+	printf("ObjectManager::load() : SystemAvailabilitiesManager Initialization Success\n");
 
 	//--------------------------------------------------------------------------------
 	// 존을 로딩할때, NPC 를 로딩하며 이때 이 팩토리들이 사용되므로
 	// 존 로딩보다 먼저 호출되어야 한다.
 	//--------------------------------------------------------------------------------
-	//printf("ObjectManager::init() : StringPool Initialization Start....... \n");
+	printf("ObjectManager::init() : StringPool Initialization Start....... \n");
 	g_pStringPool->load();
-	//printf("ObjectManager::init() : StringPool Initialization Success....... \n");
+	printf("ObjectManager::init() : StringPool Initialization Success....... \n");
 
-	//printf("ObjectManager::init() : VariableManager Initialization Start....... \n");
+	printf("ObjectManager::init() : VariableManager Initialization Start....... \n");
 	g_pVariableManager->init();
-	//printf("ObjectManager::init() : VariableManager Initialization Success....... \n");
+	printf("ObjectManager::init() : VariableManager Initialization Success....... \n");
 
-	//printf("ObjectManager::init() : ConditionFactoryManager Initialization Start\n");
+	printf("ObjectManager::init() : ConditionFactoryManager Initialization Start\n");
 	g_pConditionFactoryManager->init();
-	//printf("ObjectManager::init() : ConditionFactoryManager Initialization Success\n");
+	printf("ObjectManager::init() : ConditionFactoryManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ActionFactoryManager Initialization Start\n");
+	printf("ObjectManager::init() : ActionFactoryManager Initialization Start\n");
 	g_pActionFactoryManager->init();
-	//printf("ObjectManager::init() : ActionFactoryManager Initialization Success\n");
+	printf("ObjectManager::init() : ActionFactoryManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ShopTemplate Initialization Start\n");
+	printf("ObjectManager::init() : ShopTemplate Initialization Start\n");
 	g_pShopTemplateManager->init();
-	//printf("ObjectManager::init() : ShopTemplate Initialization Success\n");
+	printf("ObjectManager::init() : ShopTemplate Initialization Success\n");
 
-	//printf("ObjectManager::init() : DirectiveSetManager Initialization Start\n");
+	printf("ObjectManager::init() : DirectiveSetManager Initialization Start\n");
 	g_pDirectiveSetManager->init();
-	//printf("ObjectManager::init() : DirectiveSetManager Initialization Success\n");
+	printf("ObjectManager::init() : DirectiveSetManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : MonsterNameManager Initialization Start\n");
+	printf("ObjectManager::init() : MonsterNameManager Initialization Start\n");
 	g_pMonsterNameManager->init();
-	//printf("ObjectManager::init() : MonsterNameManager Initialization Success\n");
+	printf("ObjectManager::init() : MonsterNameManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : TimeManager Initialization Start\n");
+	printf("ObjectManager::init() : TimeManager Initialization Start\n");
 	g_pTimeManager->init();
-	//printf("ObjectManager::init() : TimeManager Initialization Success\n");
+	printf("ObjectManager::init() : TimeManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : PublicScriptManager Initialization Start\n");
+	printf("ObjectManager::init() : PublicScriptManager Initialization Start\n");
 	g_pPublicScriptManager->init();
-	//printf("ObjectManager::init() : PublicScriptManager Initialization Success\n");
+	printf("ObjectManager::init() : PublicScriptManager Initialization Success\n");
 	
 	// option을 itemInfo보다 먼저 load()해야한다.
-	//printf("ObjectManager::init() : OptionInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : OptionInfoManager Initialization Start\n");
 	g_pOptionInfoManager->init();
-	//printf("ObjectManager::init() : OptionInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : OptionInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : SweeperBonusManager Initialization Start....... \n");
+	printf("ObjectManager::init() : SweeperBonusManager Initialization Start....... \n");
 	g_pSweeperBonusManager->init();
-	//printf("ObjectManager::init() : SweeperBonusManager Initialization Success....... \n");
+	printf("ObjectManager::init() : SweeperBonusManager Initialization Success....... \n");
 
-	//printf("ObjectManager::init() : ItemInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : ItemInfoManager Initialization Start\n");
 	g_pItemInfoManager->init();
-	//printf("ObjectManager::init() : ItemInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : ItemInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ItemMineInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : ItemMineInfoManager Initialization Start\n");
 	g_pItemMineInfoManager->load();
-	//printf("ObjectManager::init() : ItemMineInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : ItemMineInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : WarID Initialization Start\n");
-	g_pWarSystem->setWarIDSuccessor(g_pConfig->getPropertyInt("ServerCount"));
+	printf("ObjectManager::init() : WarID Initialization Start\n");
+	g_pWarSystem->setWarIDSuccessor( g_pConfig->getPropertyInt("ServerCount") );
 	War::initWarIDRegistry();
-	//printf("ObjectManager::init() : WarID Initialization Success\n");
+	printf("ObjectManager::init() : WarID Initialization Success\n");
 
-	//printf("ObjectManager::init() : VolumeInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : VolumeInfoManager Initialization Start\n");
 	g_pVolumeInfoManager->init();
-	//printf("ObjectManager::init() : VolumeInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : VolumeInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ItemFactory Initialization Start\n");
+	printf("ObjectManager::init() : ItemFactory Initialization Start\n");
 	g_pItemFactoryManager->init();
-	//printf("ObjectManager::init() : ItemFactory Initialization Success\n");
+	printf("ObjectManager::init() : ItemFactory Initialization Success\n");
 
-	//printf("ObjectManager::init() : ItemLoaderManager Initialization Start\n");
+	printf("ObjectManager::init() : ItemLoaderManager Initialization Start\n");
 	g_pItemLoaderManager->init();
-	//printf("ObjectManager::init() : ItemLoaderManager Initialization Success\n");
+	printf("ObjectManager::init() : ItemLoaderManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : DarkLightInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : DarkLightInfoManager Initialization Start\n");
 	g_pDarkLightInfoManager->init();
-	//printf("ObjectManager::init() : DarkLightInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : DarkLightInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : MonsterInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : MonsterInfoManager Initialization Start\n");
 	g_pMonsterInfoManager->init();
-	//printf("ObjectManager::init() : MonsterInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : MonsterInfoManager Initialization Success\n");
 
 	// 반드시 ZoneInfoManager보다 먼저 로드되어야 한다.
 	// 반드시 OptionInfo 보다 나중에 로드되어야 한다.
@@ -455,82 +455,82 @@ void ObjectManager::init ()
 	g_pRewardClassInfoManager->load();
 	printf("ObjectManager::load() : RewardClassInfoManager Initialization Success\n");*/
 
-	//printf("ObjectManager::init() : EffectLoaderManager Initialization Start\n");
+	printf("ObjectManager::init() : EffectLoaderManager Initialization Start\n");
 	g_pEffectLoaderManager->init();
-	//printf("ObjectManager::init() : EffectLoaderManager Initialization Success\n");
+	printf("ObjectManager::init() : EffectLoaderManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ZoneInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : ZoneInfoManager Initialization Start\n");
 	g_pZoneInfoManager->init();
-	//printf("ObjectManager::init() : ZoneInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : ZoneInfoManager Initialization Success\n");
 
 	// by sigi. 2002.9.2
-	//printf("ObjectManager::load() : MasterLairInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : MasterLairInfoManager Initialization Start\n");
 	g_pMasterLairInfoManager->init();	// ZoneInfo, MonsterManager이후, Zone 이전에 loading해야 한다.
-	//printf("ObjectManager::load() : MasterLairInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : MasterLairInfoManager Initialization Success\n");
 
 	// by bezz,Sequoia. 2003. 1. 20.
-	//printf("ObjectManager::load() : CastleInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : CastleInfoManager Initialization Start\n");
 	g_pCastleInfoManager->init();	// ZoneInfo, MonsterManager이후, Zone 이전에 loading해야 한다.
-	//printf("ObjectManager::load() : CastleInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : CastleInfoManager Initialization Success\n");
 
 //	printf("ObjectManager::load() : HolyLandRaceBonus Initialization Start\n");
 //	g_pHolyLandRaceBonus->refresh();
 //	printf("ObjectManager::load() : HolyLandRaceBonus Initialization Success\n");
 
-	//printf("ObjectManager::init() : ZoneGroupManager Initialization Start\n");
+	printf("ObjectManager::init() : ZoneGroupManager Initialization Start\n");
 	g_pZoneGroupManager->init();
-	//printf("ObjectManager::init() : ZoneGroupManager Initialization Success\n");
+	printf("ObjectManager::init() : ZoneGroupManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : BloodBibleBonusManager Initialization Start\n");
+	printf("ObjectManager::load() : BloodBibleBonusManager Initialization Start\n");
 	g_pBloodBibleBonusManager->init();
-	//printf("ObjectManager::load() : BloodBibleBonusManager Initialization Success\n");
+	printf("ObjectManager::load() : BloodBibleBonusManager Initialization Success\n");
 		
 	// ShrineInfoManager 는 필살로 Zone 이 모두 로딩된 다음에 불려야 한다.
 	// BloodBibleBonusManager에 BloodBible 소유 종족을 세팅하므로 BloodBibleBonusManager가 로딩된 다음에 불려야 한다.
-	//printf("ObjectManager::init() : ShrineInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : ShrineInfoManager Initialization Start\n");
 	g_pShrineInfoManager->init();
-	//printf("ObjectManager::init() : ShrineInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : ShrineInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : CastleShrineInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : CastleShrineInfoManager Initialization Start\n");
 	g_pCastleShrineInfoManager->init();
-	//printf("ObjectManager::init() : CastleShrineInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : CastleShrineInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : WeatherInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : WeatherInfoManager Initialization Start\n");
 	g_pWeatherInfoManager->init();
-	//printf("ObjectManager::init() : WeatherInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : WeatherInfoManager Initialization Success\n");
 
 	// WayPointManager 도 필살로 Zone이 모두 로딩된 다음에 불려야 된다.
-	//printf("ObjectManager::load() : WayPointManager Initialization Start\n");
+	printf("ObjectManager::load() : WayPointManager Initialization Start\n");
 	g_pWayPointManager->load();
-	//printf("ObjectManager::load() : WayPointManager Initialization Success\n");
+	printf("ObjectManager::load() : WayPointManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Start\n");
 	g_pLevelWarZoneInfoManager->init();	// 머 아무때나 Loading 해도 됨
-	//printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : LevelNickInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : LevelNickInfoManager Initialization Start\n");
 	LevelNickInfoManager::Instance().load();	// 머 아무때나 Loading 해도 됨
-	//printf("ObjectManager::load() : LevelNickInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : LevelNickInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : DragonEyeManagerManager Initialization Start\n");
+	printf("ObjectManager::load() : DragonEyeManagerManager Initialization Start\n");
 	g_pDragonEyeManager->init();	// 아이템 인포가 로딩된 뒤.
-	//printf("ObjectManager::load() : DragonEyeManagerManager Initialization Success\n");
+	printf("ObjectManager::load() : DragonEyeManagerManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : TimeChecker Initialization Start\n");
+	printf("ObjectManager::init() : TimeChecker Initialization Start\n");
 	g_pTimeChecker->init(); // 아무때나 Loading 해도 됨
-	//printf("ObjectManager::init() : TimeChecker Initialization Success\n");
+	printf("ObjectManager::init() : TimeChecker Initialization Success\n");
 
-    cout << "[ObjectManager] Object Managers Initialized." << endl;
+	
 	__END_DEBUG
 	__END_CATCH
 }
 
 
-void ObjectManager::load()
-	 throw(Error)
+void ObjectManager::load ()
+	 throw (Error)
 {
 	__BEGIN_TRY
-    cout << "[ObjectManager] Loading Objects..." << endl;
+
 	//--------------------------------------------------------------------------------
 	// 존그룹을 로딩하면, 내부적으로 존을 로딩한다.
 	// 이때 존 안에 소속된 NPC 들이 로딩되는데.. SetPosition 액션이 수행되기
@@ -550,61 +550,65 @@ void ObjectManager::load()
 	//g_pSkillParentInfoManager->init();
 	//printf("ObjectManager::init() : SkillParentInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : GuildManager Initialization Start\n");
+	printf("ObjectManager::init() : GuildManager Initialization Start\n");
 	if (g_pGuildManager!=NULL) g_pGuildManager->init();
-	//printf("ObjectManager::init() : GuildManager Initialization Success\n");
+	printf("ObjectManager::init() : GuildManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : GuildUnionManager Initialization Start\n");
+	printf("ObjectManager::init() : GuildUnionManager Initialization Start\n");
 	GuildUnionManager::Instance().load();
-	//printf("ObjectManager::init() : GuildUnionManager Initialization Success\n");
+	printf("ObjectManager::init() : GuildUnionManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : SkillHandlerManager Initialization Start\n");
+	printf("ObjectManager::init() : SkillHandlerManager Initialization Start\n");
 	g_pSkillHandlerManager->init();
-	//printf("ObjectManager::init() : SkillHandlerManager Initialization Success\n");
+	printf("ObjectManager::init() : SkillHandlerManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : SkillInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : SkillInfoManager Initialization Start\n");
 	g_pSkillInfoManager->init();
-	//printf("ObjectManager::init() : SkillInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : SkillInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : SkillDomainInfoManager Initialization Start\n");
+
+
+	printf("ObjectManager::init() : SkillDomainInfoManager Initialization Start\n");
 	g_pSkillDomainInfoManager->init();
-	//printf("ObjectManager::init() : SkillDomainInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : SkillDomainInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : ResurrectLocationManager Initialization Start\n");
+
+
+	printf("ObjectManager::init() : ResurrectLocationManager Initialization Start\n");
 	g_pResurrectLocationManager->init();
-	//printf("ObjectManager::init() : ResurrectLocationManager Initialization Success\n");
+	printf("ObjectManager::init() : ResurrectLocationManager Initialization Success\n");
 
 	// balnce info manager init//abcd
-	//printf("ObjectManager::init() : STR Exp Table Initialization Start\n");
+	printf("ObjectManager::init() : STR Exp Table Initialization Start\n");
 //	g_pSTRBalanceInfoManager->init();
 	SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_STR].load();
-	//printf("ObjectManager::init() : STR Exp Table Initialization Success\n");
+	printf("ObjectManager::init() : STR Exp Table Initialization Success\n");
 
-	//printf("ObjectManager::init() : DEX Exp Table Initialization Start\n");
+	printf("ObjectManager::init() : DEX Exp Table Initialization Start\n");
 //	g_pDEXBalanceInfoManager->init();
 	SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_DEX].load();
-	//printf("ObjectManager::init() : DEX Exp Table Initialization Success\n");
+	printf("ObjectManager::init() : DEX Exp Table Initialization Success\n");
 
-	//printf("ObjectManager::init() : INT Exp Table Initialization Start\n");
+	printf("ObjectManager::init() : INT Exp Table Initialization Start\n");
 //	g_pINTBalanceInfoManager->init();
 	SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_INT].load();
-	//printf("ObjectManager::init() : INT Exp Table Initialization Success\n");
+	printf("ObjectManager::init() : INT Exp Table Initialization Success\n");
 
-	//printf("ObjectManager::init() : VampExpInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : VampExpInfoManager Initialization Start\n");
 	g_pVampEXPInfoManager->init();
-	//printf("ObjectManager::init() : VampExpInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : VampExpInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : OustersEXPInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : OustersEXPInfoManager Initialization Start\n");
 	g_pOustersEXPInfoManager->init();
-	//printf("ObjectManager::init() : OustersEXPInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : OustersEXPInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::init() : AdvancementClassExpTable Initialization Start\n");
+	printf("ObjectManager::init() : AdvancementClassExpTable Initialization Start\n");
 	AdvancementClassExpTable::s_AdvancementClassExpTable.load();
-	//printf("ObjectManager::init() : AdvancementClassExpTable Initialization Success\n");
+	printf("ObjectManager::init() : AdvancementClassExpTable Initialization Success\n");
 
-	//printf("ObjectManager::init() : VisionInfoManager Initialization Start\n");
+	printf("ObjectManager::init() : VisionInfoManager Initialization Start\n");
 	g_pVisionInfoManager->init();
-	//printf("ObjectManager::init() : VisionInfoManager Initialization Success\n");
+	printf("ObjectManager::init() : VisionInfoManager Initialization Success\n");
 
 //	printf("ObjectManager::init() : GuildRegistrationManager Initialization Start\n");
 //	g_pGuildRegistrationManager->init();
@@ -614,20 +618,20 @@ void ObjectManager::load()
 //	g_pGuildVoteManager->init();
 //	printf("ObjectManager::init() : GuildVoteManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : GameWorldInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : GameWorldInfoManager Initialization Start\n");
 	g_pGameWorldInfoManager->load();
-	//printf("ObjectManager::load() : GameWorldInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : GameWorldInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : CombatInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : CombatInfoManager Initialization Start\n");
 	g_pCombatInfoManager->initModify();
-	//printf("ObjectManager::load() : CombatInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : CombatInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : UniqueItemManager Initialization Start\n");
+	printf("ObjectManager::load() : UniqueItemManager Initialization Start\n");
 	g_pUniqueItemManager->init();
-	//printf("ObjectManager::load() : UniqueItemManager Initialization Success\n");
+	printf("ObjectManager::load() : UniqueItemManager Initialization Success\n");
 
 	// by sigi. 2002.8.31
-	//printf("ObjectManager::load() : RankExpTables Initialization Start\n");
+	printf("ObjectManager::load() : RankExpTables Initialization Start\n");
 //	g_pRankEXPInfoManager[RANK_TYPE_SLAYER]->init(RANK_TYPE_SLAYER);
 //	g_pRankEXPInfoManager[RANK_TYPE_VAMPIRE]->init(RANK_TYPE_VAMPIRE);
 //	g_pRankEXPInfoManager[RANK_TYPE_OUSTERS]->init(RANK_TYPE_OUSTERS);
@@ -636,120 +640,120 @@ void ObjectManager::load()
 	RankExpTable::s_RankExpTables[RANK_TYPE_SLAYER].load();
 	RankExpTable::s_RankExpTables[RANK_TYPE_VAMPIRE].load();
 	RankExpTable::s_RankExpTables[RANK_TYPE_OUSTERS].load();
-	//printf("ObjectManager::load() : RankExpTables Initialization Success\n");
+	printf("ObjectManager::load() : RankExpTables Initialization Success\n");
 
 //	printf("ObjectManager::load() : UniqueItemManager Initialization Start\n");
 //	g_pLuckInfoManager->init();
 //	printf("ObjectManager::load() : UniqueItemManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : LogNameManager Initialization Start\n");
+	printf("ObjectManager::load() : LogNameManager Initialization Start\n");
 	LogNameManager::getInstance().init();
-	//printf("ObjectManager::load() : LogNameManager Initialization Success\n");
+	printf("ObjectManager::load() : LogNameManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : RankBonusInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : RankBonusInfoManager Initialization Start\n");
 	g_pRankBonusInfoManager->load();
-	//printf("ObjectManager::load() : RankBonusInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : RankBonusInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : WarSystem Initialization Start\n");
+	printf("ObjectManager::load() : WarSystem Initialization Start\n");
 	g_pWarSystem->init();
-	//printf("ObjectManager::load() : WarSystem Initialization Success\n");
+	printf("ObjectManager::load() : WarSystem Initialization Success\n");
 
-	//printf("ObjectManager::load() : RaceWarLimiter Initialization Start\n");
+	printf("ObjectManager::load() : RaceWarLimiter Initialization Start\n");
 	RaceWarLimiter::getInstance()->load();
-	//printf("ObjectManager::load() : RaceWarLimiter Initialization Success\n");
+	printf("ObjectManager::load() : RaceWarLimiter Initialization Success\n");
 
-	//printf("ObjectManager::load() : PKZoneInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : PKZoneInfoManager Initialization Start\n");
 	g_pPKZoneInfoManager->load();
-	//printf("ObjectManager::load() : PKZoneInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : PKZoneInfoManager Initialization Success\n");
 
 //	printf("ObjectManager::load() : FameLimitInfoManager Initialization Start\n");
 //	g_pFameLimitInfoManager->load();
 //	printf("ObjectManager::load() : FameLimitInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : GameServerGroupInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : GameServerGroupInfoManager Initialization Start\n");
 	g_pGameServerGroupInfoManager->init();
-	//printf("ObjectManager::load() : GameServerGroupInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : GameServerGroupInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : CastleSkillInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : CastleSkillInfoManager Initialization Start\n");
 	g_pCastleSkillInfoManager->load();
-	//printf("ObjectManager::load() : CastleSkillInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : CastleSkillInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : GoodsInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : GoodsInfoManager Initialization Start\n");
 	g_pGoodsInfoManager->load();
-	//printf("ObjectManager::load() : GoodsInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : GoodsInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : EventQuestLootingManager Initialization Start\n");
+	printf("ObjectManager::load() : EventQuestLootingManager Initialization Start\n");
 	g_pEventQuestLootingManager->load();
-	//printf("ObjectManager::load() : EventQuestLootingManager Initialization Success\n");
+	printf("ObjectManager::load() : EventQuestLootingManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : FlagManager Initialization Start\n");
+	printf("ObjectManager::load() : FlagManager Initialization Start\n");
 	g_pFlagManager->init();
-	//printf("ObjectManager::load() : FlagManager Initialization Success\n");
+	printf("ObjectManager::load() : FlagManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : RegenZoneManager Initialization Start\n");
+	printf("ObjectManager::load() : RegenZoneManager Initialization Start\n");
 	RegenZoneManager::getInstance()->load();
-	//printf("ObjectManager::load() : RegenZoneManager Initialization Success\n");
+	printf("ObjectManager::load() : RegenZoneManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : DefaultOptionSetInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : DefaultOptionSetInfoManager Initialization Start\n");
 	g_pDefaultOptionSetInfoManager->load();
-	//printf("ObjectManager::load() : DefaultOptionSetInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : DefaultOptionSetInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : PetTypeInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : PetTypeInfoManager Initialization Start\n");
 	PetTypeInfoManager::getInstance()->load();
-	//printf("ObjectManager::load() : PetTypeInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : PetTypeInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : PetAttrInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : PetAttrInfoManager Initialization Start\n");
 	PetAttrInfoManager::Instance().load();
-	//printf("ObjectManager::load() : PetAttrInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : PetAttrInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : PetExpInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : PetExpInfoManager Initialization Start\n");
 	PetExpInfoManager::Instance().load();
-	//printf("ObjectManager::load() : PetExpInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : PetExpInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : ItemGradeManager Initialization Start\n");
+	printf("ObjectManager::load() : ItemGradeManager Initialization Start\n");
 	ItemGradeManager::Instance().load();
-	//printf("ObjectManager::load() : ItemGradeManager Initialization Success\n");
+	printf("ObjectManager::load() : ItemGradeManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : EventZoneInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : EventZoneInfoManager Initialization Start\n");
 	EventZoneInfoManager::Instance().load();
-	//printf("ObjectManager::load() : EventZoneInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : EventZoneInfoManager Initialization Success\n");
 
-	//printf("ObjectFactory::load() : GQuestElementFactory Initialization Start\n");
+	printf("ObjectFactory::load() : GQuestElementFactory Initialization Start\n");
 	GQuestElementFactory::Instance().init();
-	//printf("ObjectFactory::load() : GQuestElementFactory Initialization Success\n");
+	printf("ObjectFactory::load() : GQuestElementFactory Initialization Success\n");
 
-	//printf("ObjectManager::load() : GQuestInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : GQuestInfoManager Initialization Start\n");
 	GQuestInfoManager::Instance().load();
-	//printf("ObjectManager::load() : GQuestInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : GQuestInfoManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : GQuestCheckPoint Initialization Start\n");
+	printf("ObjectManager::load() : GQuestCheckPoint Initialization Start\n");
 	GQuestCheckPoint::Instance().load();
-	//printf("ObjectManager::load() : GQuestCheckPoint Initialization Success\n");
+	printf("ObjectManager::load() : GQuestCheckPoint Initialization Success\n");
 
-	//printf("ObjectManager::load() : SiegeManager Initialization Start\n");
+	printf("ObjectManager::load() : SiegeManager Initialization Start\n");
 	SiegeManager::Instance().init();
-	//printf("ObjectManager::load() : SiegeManager Initialization Success\n");
+	printf("ObjectManager::load() : SiegeManager Initialization Success\n");
 
-//	printf("ObjectManager::load() : CSAuth Table Initialization Start\n");
-//	LoadAuthTable((g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str());
-//	printf("ObjectManager::load() : CSAuth Table Initialization Success\n");
+	printf("ObjectManager::load() : CSAuth Table Initialization Start\n");
+	LoadAuthTable((g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str());
+	printf("ObjectManager::load() : CSAuth Table Initialization Success\n");
 
-//	printf("ObjectManager::load() : CSAuth Index Initialization Start\n");
-//	LoadAuthIndex((g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str());
-//	printf("ObjectManager::load() : CSAuth Index Initialization Success\n");
+	printf("ObjectManager::load() : CSAuth Index Initialization Start\n");
+	LoadAuthIndex((g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str());
+	printf("ObjectManager::load() : CSAuth Index Initialization Success\n");
 
-	//printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Start\n");
+	printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Start\n");
 	g_pDynamicZoneInfoManager->init();
-	//printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Success\n");
+	printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Success\n");
 
 	// DynamicZoneInfoManager init 후에 호출
-	//printf("ObjectManager::load() : DynamicZoneManager Initialization Start\n");
+	printf("ObjectManager::load() : DynamicZoneManager Initialization Start\n");
 	g_pDynamicZoneManager->init();
-	//printf("ObjectManager::load() : DynamicZoneManager Initialization Success\n");
+	printf("ObjectManager::load() : DynamicZoneManager Initialization Success\n");
 
-	//printf("ObjectManager::load() : DynamicZoneFactoryManager Initialization Start\n");
+	printf("ObjectManager::load() : DynamicZoneFactoryManager Initialization Start\n");
 	g_pDynamicZoneFactoryManager->init();
-	//printf("ObjectManager::load() : DynamicZoneFactoryManager Initialization Success\n");
+	printf("ObjectManager::load() : DynamicZoneFactoryManager Initialization Success\n");
 
 	/*
 	printf("ObjectManager::load() : QuestInfoManager Initialization Start\n");
@@ -784,12 +788,12 @@ void ObjectManager::load()
 /*#ifdef __ACTIVE_QUEST__
 	MonsterKillQuestFactory::initMonsterTypeInfos();
 #endif*/
-    cout << "[ObjectManager] Objects Loaded." << endl;
+
 	__END_CATCH
 }
 
 void ObjectManager::save ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 

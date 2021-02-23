@@ -8,17 +8,15 @@
 #include "EffectBloodySnake.h"
 #include "Creature.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCSkillFailed1.h"
-#include "GCAddEffectToTile.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSkillFailed1.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -42,8 +40,8 @@ void BloodySnake::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 		//Assert(pTargetCreature != NULL);
 
 		// NoSuch제거. by sigi. 2002.5.2
-		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature ) )
+		if ( pTargetCreature==NULL
+			|| !canAttack( pVampire, pTargetCreature ) )
 		{
 			executeSkillFailException(pVampire, getSkillType());
 			return;
@@ -114,7 +112,7 @@ void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			SkillOutput output;
 			computeOutput(input, output);
 
-			Dir_t 	   Dir		= getDirectionToPosition(myX, myY, X, Y);
+			Dir_t 	   Dir		= getDirectionToPosition( myX, myY, X, Y );
 
 			list<Creature*> cList;	// denier list
 			
@@ -140,10 +138,10 @@ void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 				
 					// 이펙트 클래스를 생성한다.
 					EffectBloodySnake* pEffect = new EffectBloodySnake(pZone , tileX, tileY);
-					pEffect->setCasterName(pVampire->getName());
-					pEffect->setCasterID(pVampire->getObjectID());
-					pEffect->setClan(Creature::CREATURE_CLASS_VAMPIRE, pVampire->getClanType());
-					pEffect->setDamage(output.Damage);
+					pEffect->setCasterName( pVampire->getName() );
+					pEffect->setCasterID( pVampire->getObjectID() );
+					pEffect->setClan( Creature::CREATURE_CLASS_VAMPIRE, pVampire->getClanType() );
+					pEffect->setDamage( output.Damage );
 					pEffect->setDeadline(output.Duration);
 					pEffect->setLevel(pVampire->getINT());
 					pEffect->setNextTime(0);
@@ -157,22 +155,22 @@ void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 					tile.addEffect(pEffect);
 
 					GCAddEffectToTile gcAddEffectToTile;
-					gcAddEffectToTile.setEffectID(Effect::EFFECT_CLASS_BLOODY_SNAKE);
-					gcAddEffectToTile.setDuration(output.Tick + (output.Tick>>1));
-					gcAddEffectToTile.setObjectID(pEffect->getObjectID());
-					gcAddEffectToTile.setXY(tileX, tileY);
+					gcAddEffectToTile.setEffectID( Effect::EFFECT_CLASS_BLOODY_SNAKE );
+					gcAddEffectToTile.setDuration( output.Tick + (output.Tick>>1));
+					gcAddEffectToTile.setObjectID( pEffect->getObjectID() );
+					gcAddEffectToTile.setXY( tileX, tileY );
 
 					pZone->broadcastPacket(tileX, tileY, &gcAddEffectToTile);
 
 
 
-					const list<Object*>& oList = tile.getObjectList();
-					for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+					const slist<Object*>& oList = tile.getObjectList();
+					for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 					{
 						Object* pTarget = *itr;
 						Creature* pTargetCreature = NULL;
 						if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-							&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() ) 
+							&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() ) 
 						) 
 						{
 							cList.push_back(pTargetCreature);
@@ -365,7 +363,7 @@ void BloodySnake::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			}
 			else
 			{
-				StartDir = EndDir = getDirectionToPosition(myX, myY, X, Y);
+				StartDir = EndDir = getDirectionToPosition( myX, myY, X, Y );
 			}
 
 			list<Creature*> cList;	// denier list
@@ -395,10 +393,10 @@ void BloodySnake::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					
 						// 이펙트 클래스를 생성한다.
 						EffectBloodySnake* pEffect = new EffectBloodySnake(pZone , tileX, tileY);
-						pEffect->setCasterName(pMonster->getName());
-						pEffect->setCasterID(pMonster->getObjectID());
-						pEffect->setClan(Creature::CREATURE_CLASS_MONSTER, pMonster->getClanType());
-						pEffect->setDamage(output.Damage);
+						pEffect->setCasterName( pMonster->getName() );
+						pEffect->setCasterID( pMonster->getObjectID() );
+						pEffect->setClan( Creature::CREATURE_CLASS_MONSTER, pMonster->getClanType() );
+						pEffect->setDamage( output.Damage );
 						pEffect->setDeadline(output.Duration);
 						pEffect->setLevel(pMonster->getINT());
 						pEffect->setNextTime(0);
@@ -413,20 +411,20 @@ void BloodySnake::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						tile.addEffect(pEffect);
 
 						GCAddEffectToTile gcAddEffectToTile;
-						gcAddEffectToTile.setEffectID(Effect::EFFECT_CLASS_BLOODY_SNAKE);
-						gcAddEffectToTile.setDuration(output.Tick + (output.Tick>>1));
-						gcAddEffectToTile.setObjectID(pEffect->getObjectID());
-						gcAddEffectToTile.setXY(tileX, tileY);
+						gcAddEffectToTile.setEffectID( Effect::EFFECT_CLASS_BLOODY_SNAKE );
+						gcAddEffectToTile.setDuration( output.Tick + (output.Tick>>1));
+						gcAddEffectToTile.setObjectID( pEffect->getObjectID() );
+						gcAddEffectToTile.setXY( tileX, tileY );
 
 						pZone->broadcastPacket(tileX, tileY, &gcAddEffectToTile);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
 							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
 							) 
 							{
 								cList.push_back(pTargetCreature);

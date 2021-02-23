@@ -11,14 +11,14 @@
 #include "GamePlayer.h"
 
 #include "PacketUtil.h"
-#include "GCPetStashList.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCPetStashList.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetDeposit::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionPetDeposit::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -48,10 +48,10 @@ void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCPetStashList gcPetStashList;
-	makeGCPetStashList(&gcPetStashList, pPC);
+	makeGCPetStashList( &gcPetStashList, pPC );
 
 	/* 팻보관함이 뜨기 전에 대화창을 닫아주어야 하기에 날린다.*/
 	GCNPCResponse response;
@@ -59,7 +59,7 @@ void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2)
     pPC->getPlayer()->sendPacket(&response);
 	
 	gcPetStashList.setCode(1);
-	pPC->getPlayer()->sendPacket(&gcPetStashList);
+	pPC->getPlayer()->sendPacket( &gcPetStashList );
 
 	__END_CATCH
 }
@@ -69,7 +69,7 @@ void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionPetDeposit::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

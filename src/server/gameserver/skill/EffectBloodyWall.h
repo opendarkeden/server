@@ -57,7 +57,7 @@ public:
 	Creature::CreatureClass getCreatureClass() const	{ return m_CreatureClass; }
 	int getClanID() const			{ return m_ClanID; }
 
-	void setForce(bool force ) throw(Error) { m_bForce = force; }
+	void setForce( bool force ) throw(Error) { m_bForce = force; }
 	bool isForce() const throw(Error) { return m_bForce; }
 
 private:

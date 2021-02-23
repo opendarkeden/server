@@ -25,7 +25,7 @@
 
 ////////////////////////////////////////////////////////////////////////
 // 
-// SocketImpl::SocketImpl () throw(Error);
+// SocketImpl::SocketImpl () throw ( Error );
 // 
 // Parameters 
 //     none
@@ -35,35 +35,38 @@
 // 
 ////////////////////////////////////////////////////////////////////////
 SocketImpl::SocketImpl () 
-	 throw()
+	 throw ()
 : m_SocketID(INVALID_SOCKET), m_Host("Unknown"), m_Port(0)
 {
+
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////
-SocketImpl::SocketImpl (uint port ) 
-	 throw()
+SocketImpl::SocketImpl ( uint port ) 
+	 throw ()
 : m_SocketID(INVALID_SOCKET), m_Host("Unknown"), m_Port(port)
 {
+
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
 //////////////////////////////////////////////////////////////////////
-SocketImpl::SocketImpl (const string & host , uint port ) 
-	throw()
+SocketImpl::SocketImpl ( const string & host , uint port ) 
+	throw ()
 : m_SocketID(INVALID_SOCKET), m_Host(host), m_Port(port)
 {
+
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 //
-// SocketImpl::SocketImpl (const SocketImpl & impl ) throw();
+// SocketImpl::SocketImpl ( const SocketImpl & impl ) throw ();
 //
 // copy constructor 
 //
@@ -74,15 +77,16 @@ SocketImpl::SocketImpl (const string & host , uint port )
 //     none
 //
 ////////////////////////////////////////////////////////////////////////
-SocketImpl::SocketImpl (const SocketImpl & impl ) 
-	throw()
+SocketImpl::SocketImpl ( const SocketImpl & impl ) 
+	throw ()
 : m_SocketID(impl.m_SocketID), m_Host(impl.m_Host), m_Port(impl.m_Port)
 {
+
 }
 
 ////////////////////////////////////////////////////////////////////////
 //
-// SocketImpl::~SocketImpl () throw(Error);
+// SocketImpl::~SocketImpl () throw ( Error );
 //
 // virtual destructor
 //
@@ -94,7 +98,7 @@ SocketImpl::SocketImpl (const SocketImpl & impl )
 //
 ////////////////////////////////////////////////////////////////////////
 SocketImpl::~SocketImpl () 
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY 
 
@@ -106,15 +110,15 @@ SocketImpl::~SocketImpl ()
 //////////////////////////////////////////////////////////////////////
 // create connection
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::create () throw(Error )
+void SocketImpl::create () throw ( Error )
 {
 	__BEGIN_TRY
 		
 	// create socket
-	m_SocketID = SocketAPI::socket_ex(AF_INET , SOCK_STREAM , 0);
+	m_SocketID = SocketAPI::socket_ex( AF_INET , SOCK_STREAM , 0 );
 
 	// clear socket address structure
-    memset(&m_SockAddr , 0 , sizeof(m_SockAddr));
+    memset( &m_SockAddr , 0 , sizeof(m_SockAddr) );
 
 	// set socket address's family to "AF_INET"
 	m_SockAddr.sin_family      = AF_INET;
@@ -125,18 +129,17 @@ void SocketImpl::create () throw(Error )
 //////////////////////////////////////////////////////////////////////
 // close connection
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::close () throw(Error )
+void SocketImpl::close () throw ( Error )
 {
 	__BEGIN_TRY 
 
-	if(!isSockError() ) {
+	if( !isSockError() ) {
 		try {
-			SocketAPI::closesocket_ex(m_SocketID);
-		} catch (FileNotOpenedException& ) {
+			SocketAPI::closesocket_ex( m_SocketID );
+		} catch ( FileNotOpenedException& ) {
 			// if already closed, ignore...
 		}
 	}
-	
 	__END_CATCH
 }
 
@@ -145,14 +148,14 @@ void SocketImpl::close () throw(Error )
 // bind address to socket
 //////////////////////////////////////////////////////////////////////
 void SocketImpl::bind ()
-	 throw(BindException , Error )
+	 throw ( BindException , Error )
 {
 	__BEGIN_TRY
 
 	m_SockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     m_SockAddr.sin_port        = htons(m_Port);
 
-	SocketAPI::bind_ex(m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr));
+	SocketAPI::bind_ex( m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr) );
 
 	__END_CATCH
 }
@@ -161,8 +164,8 @@ void SocketImpl::bind ()
 //////////////////////////////////////////////////////////////////////
 // bind address to socket
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::bind (uint port )
-	 throw(BindException , Error )
+void SocketImpl::bind ( uint port )
+	 throw ( BindException , Error )
 {
 	__BEGIN_TRY
 
@@ -172,7 +175,7 @@ void SocketImpl::bind (uint port )
 	m_SockAddr.sin_addr.s_addr = htonl(INADDR_ANY);
     m_SockAddr.sin_port        = htons(m_Port);
 
-	SocketAPI::bind_ex(m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr));
+	SocketAPI::bind_ex( m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr) );
 	
 	__END_CATCH
 }
@@ -180,12 +183,12 @@ void SocketImpl::bind (uint port )
 //////////////////////////////////////////////////////////////////////
 // bind address to socket
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::listen (uint backlog )
-	 throw(Error )
+void SocketImpl::listen ( uint backlog )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 		
-	SocketAPI::listen_ex(m_SocketID , backlog);
+	SocketAPI::listen_ex( m_SocketID , backlog );
 
 	__END_CATCH
 }
@@ -194,8 +197,8 @@ void SocketImpl::listen (uint backlog )
 //////////////////////////////////////////////////////////////////////
 // connect to remote host
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::connect (const string & host , uint port )
-     throw(ConnectException , Error )
+void SocketImpl::connect ( const string & host , uint port )
+     throw ( ConnectException , Error )
 {
 	__BEGIN_TRY 
 		
@@ -203,13 +206,13 @@ void SocketImpl::connect (const string & host , uint port )
 	m_Port = port;
 
 	// set sockaddr's host
-	m_SockAddr.sin_addr.s_addr = inet_addr(m_Host.c_str());
+	m_SockAddr.sin_addr.s_addr = inet_addr( m_Host.c_str() );
 	
 	// set sockaddr's port
 	m_SockAddr.sin_port = htons(m_Port);
 	
 	// try to connect to peer host
-	SocketAPI::connect_ex(m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr));
+	SocketAPI::connect_ex( m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr) );
 	
 	__END_CATCH
 }
@@ -219,18 +222,18 @@ void SocketImpl::connect (const string & host , uint port )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketImpl::connect ()
-     throw(ConnectException , Error )
+     throw ( ConnectException , Error )
 {
 	__BEGIN_TRY 
 
 	// set sockaddr's host
-	m_SockAddr.sin_addr.s_addr = inet_addr(m_Host.c_str());
+	m_SockAddr.sin_addr.s_addr = inet_addr( m_Host.c_str() );
 	
 	// set sockaddr's port
 	m_SockAddr.sin_port = htons(m_Port);
 	
 	// try to connect to peer host
-	SocketAPI::connect_ex(m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr));
+	SocketAPI::connect_ex( m_SocketID , (const struct sockaddr *)&m_SockAddr , sizeof(m_SockAddr) );
 	
 	__END_CATCH
 }
@@ -240,28 +243,26 @@ void SocketImpl::connect ()
 //
 //////////////////////////////////////////////////////////////////////
 SocketImpl * SocketImpl::accept ()
-	throw(NonBlockingIOException , ConnectException , Error )
+	throw ( NonBlockingIOException , ConnectException , Error )
 {
 	__BEGIN_TRY
 
     // make client socket address structure ready
     SOCKADDR_IN ClientAddr;
-    memset(&ClientAddr , 0 , sizeof(ClientAddr));
+    memset( &ClientAddr , 0 , sizeof(ClientAddr) );
     uint len = sizeof(ClientAddr);
  
     // get client socket descriptor
-    uint ClientID = SocketAPI::accept_ex(m_SocketID , (struct sockaddr *)&ClientAddr , &len);
+    uint ClientID = SocketAPI::accept_ex( m_SocketID , (struct sockaddr *)&ClientAddr , &len );
  
     // create MSocketImpl with socket descriptor
     SocketImpl * client = new SocketImpl();
  
 	// initialize client socket implementation object
 	client->m_SocketID = ClientID;
-	memcpy(&(client->m_SockAddr) , &ClientAddr , sizeof(SOCKADDR_IN));
+	memcpy( &(client->m_SockAddr) , &ClientAddr , sizeof(SOCKADDR_IN) );
 	client->m_Host = client->_getHost();
 	client->m_Port = client->_getPort();
- 
-    // return SocketImpl
     return client;
 
 	__END_CATCH
@@ -271,38 +272,40 @@ SocketImpl * SocketImpl::accept ()
 //////////////////////////////////////////////////////////////////////
 // send data to peer
 //////////////////////////////////////////////////////////////////////
-uint SocketImpl::send (const void * buf , uint len , uint flags ) 
-     throw(IOException , InvalidProtocolException, Error )
+uint SocketImpl::send ( const void * buf , uint len , uint flags ) 
+     throw ( IOException , InvalidProtocolException, Error )
 {
 	__BEGIN_TRY 
 
-	uint result;
+		uint result;
 
-	try {
+	try{		
 
-	result = SocketAPI::send_ex(m_SocketID , buf , len , flags);
+		result = SocketAPI::send_ex( m_SocketID , buf , len , flags );
 
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		cout << "SocketImpl::send Exception Check!" << endl;
 		cout << t.toString() << endl;
-		throw InvalidProtocolException("음 여까지 올라왔군");
+		throw InvalidProtocolException( "음 여까지 올라왔군" );
 	}
 
 	return result;
-	
+
 	__END_CATCH
 }
 	
 //////////////////////////////////////////////////////////////////////
 // receive data from peer
 //////////////////////////////////////////////////////////////////////
-uint SocketImpl::receive (void * buf , uint len , uint flags ) 
-     throw(IOException , Error )
+uint SocketImpl::receive ( void * buf , uint len , uint flags ) 
+     throw ( IOException , Error )
 {
 	__BEGIN_TRY 
+	//modify by viva 2008-12-22
+	//len =  SocketAPI::recv_ex( m_SocketID , buf , len , flags );
+	return SocketAPI::recv_ex(m_SocketID, buf, len, flags);
+	//end
 
-	return SocketAPI::recv_ex(m_SocketID , buf , len , flags);
-	
 	__END_CATCH
 }
 	
@@ -310,11 +313,11 @@ uint SocketImpl::receive (void * buf , uint len , uint flags )
 // how much available?
 //////////////////////////////////////////////////////////////////////
 uint SocketImpl::available () const 
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 		
-	return SocketAPI::availablesocket_ex(m_SocketID);
+	return SocketAPI::availablesocket_ex( m_SocketID );
 
 	__END_CATCH
 }
@@ -323,14 +326,14 @@ uint SocketImpl::available () const
 // get socket's linger status
 //////////////////////////////////////////////////////////////////////
 uint SocketImpl::getLinger () const
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
 	struct linger ling;
 	uint len = sizeof(ling);
 	
-	SocketAPI::getsockopt_ex(m_SocketID , SOL_SOCKET , SO_LINGER , &ling , &len);
+	SocketAPI::getsockopt_ex( m_SocketID , SOL_SOCKET , SO_LINGER , &ling , &len );
 	
 	return ling.l_linger;
 	
@@ -341,8 +344,8 @@ uint SocketImpl::getLinger () const
 //////////////////////////////////////////////////////////////////////
 // set socket's linger status
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::setLinger (uint lingertime )
-     throw(Error )
+void SocketImpl::setLinger ( uint lingertime )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
@@ -351,7 +354,7 @@ void SocketImpl::setLinger (uint lingertime )
 	ling.l_onoff = lingertime > 0 ? 1 : 0;
 	ling.l_linger = lingertime;
 	
-	SocketAPI::setsockopt_ex(m_SocketID , SOL_SOCKET , SO_LINGER , &ling , sizeof(ling));
+	SocketAPI::setsockopt_ex( m_SocketID , SOL_SOCKET , SO_LINGER , &ling , sizeof(ling) );
 	
 	__END_CATCH
 }
@@ -361,14 +364,14 @@ void SocketImpl::setLinger (uint lingertime )
 // get socket's reuse address status
 //////////////////////////////////////////////////////////////////////
 bool SocketImpl::isReuseAddr () const
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 		
 	int reuse;
 	uint len = sizeof(reuse);
 	
-	SocketAPI::getsockopt_ex(m_SocketID , SOL_SOCKET , SO_REUSEADDR , &reuse , &len);
+	SocketAPI::getsockopt_ex( m_SocketID , SOL_SOCKET , SO_REUSEADDR , &reuse , &len );
 	
 	return reuse == 1;
 	
@@ -379,16 +382,16 @@ bool SocketImpl::isReuseAddr () const
 // get socket's reuse address status
 //////////////////////////////////////////////////////////////////////
 bool SocketImpl::isSockError () const
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 		
 	int error;
 	uint len = sizeof(error);
 	
-	int Result = SocketAPI::getsockopt_ex2(m_SocketID , SOL_SOCKET , SO_ERROR , &error, &len);
+	int Result = SocketAPI::getsockopt_ex2( m_SocketID , SOL_SOCKET , SO_ERROR , &error, &len );
 
-	if(Result == 0 ) return false;
+	if( Result == 0 ) return false;
 	else 			  return true;
 
 	__END_CATCH
@@ -397,14 +400,14 @@ bool SocketImpl::isSockError () const
 //////////////////////////////////////////////////////////////////////
 // set socket's reuse address status
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::setReuseAddr (bool on )
-     throw(Error )
+void SocketImpl::setReuseAddr ( bool on )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
 	int opt = on == true ? 1 : 0;
 	
-	SocketAPI::setsockopt_ex(m_SocketID , SOL_SOCKET , SO_REUSEADDR , &opt , sizeof(opt));
+	SocketAPI::setsockopt_ex( m_SocketID , SOL_SOCKET , SO_REUSEADDR , &opt , sizeof(opt) );
 	
 	__END_CATCH
 }
@@ -414,11 +417,11 @@ void SocketImpl::setReuseAddr (bool on )
 // get socket's nonblocking status
 //////////////////////////////////////////////////////////////////////
 bool SocketImpl::isNonBlocking () const 
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
-	return SocketAPI::getsocketnonblocking_ex(m_SocketID);
+	return SocketAPI::getsocketnonblocking_ex( m_SocketID );
 	
 	__END_CATCH
 }
@@ -427,12 +430,12 @@ bool SocketImpl::isNonBlocking () const
 //////////////////////////////////////////////////////////////////////
 // set socket's nonblocking status
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::setNonBlocking (bool on ) 
-     throw(Error )
+void SocketImpl::setNonBlocking ( bool on ) 
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
-	SocketAPI::setsocketnonblocking_ex(m_SocketID , on);
+	SocketAPI::setsocketnonblocking_ex( m_SocketID , on );
 	
 	__END_CATCH
 }
@@ -442,14 +445,14 @@ void SocketImpl::setNonBlocking (bool on )
 // get receive buffer size
 //////////////////////////////////////////////////////////////////////
 uint SocketImpl::getReceiveBufferSize () const 
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 
 	uint ReceiveBufferSize;
 	uint size = sizeof(ReceiveBufferSize);
 
-	SocketAPI::getsockopt_ex(m_SocketID , SOL_SOCKET , SO_SNDBUF , &ReceiveBufferSize, &size);
+	SocketAPI::getsockopt_ex( m_SocketID , SOL_SOCKET , SO_SNDBUF , &ReceiveBufferSize, &size );
 	
 	return ReceiveBufferSize;
 	
@@ -460,12 +463,12 @@ uint SocketImpl::getReceiveBufferSize () const
 //////////////////////////////////////////////////////////////////////
 // set receive buffer size
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::setReceiveBufferSize (uint ReceiveBufferSize ) 
-	 throw(Error )
+void SocketImpl::setReceiveBufferSize ( uint ReceiveBufferSize ) 
+	 throw ( Error )
 {
 	__BEGIN_TRY 
 
-	SocketAPI::setsockopt_ex(m_SocketID , SOL_SOCKET , SO_SNDBUF , &ReceiveBufferSize, sizeof(ReceiveBufferSize));
+	SocketAPI::setsockopt_ex( m_SocketID , SOL_SOCKET , SO_SNDBUF , &ReceiveBufferSize, sizeof(ReceiveBufferSize) );
 	
 	__END_CATCH
 }
@@ -474,14 +477,14 @@ void SocketImpl::setReceiveBufferSize (uint ReceiveBufferSize )
 // get send buffer size
 //////////////////////////////////////////////////////////////////////
 uint SocketImpl::getSendBufferSize () const 
-     throw(Error )
+     throw ( Error )
 {
 	__BEGIN_TRY 
 		
 	uint SendBufferSize;
 	uint size = sizeof(SendBufferSize);
 
-	SocketAPI::getsockopt_ex(m_SocketID , SOL_SOCKET , SO_SNDBUF , &SendBufferSize, &size);
+	SocketAPI::getsockopt_ex( m_SocketID , SOL_SOCKET , SO_SNDBUF , &SendBufferSize, &size );
 	
 	return SendBufferSize;
 	
@@ -490,7 +493,7 @@ uint SocketImpl::getSendBufferSize () const
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketImpl::setSendBufferSize (uint SendBufferSize ) throw(Error )
+// void SocketImpl::setSendBufferSize ( uint SendBufferSize ) throw ( Error )
 //
 // set send buffer size
 //
@@ -502,12 +505,12 @@ uint SocketImpl::getSendBufferSize () const
 //     Error from setsockopt_ex()
 //
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::setSendBufferSize (uint SendBufferSize ) 
-     throw(Error )
+void SocketImpl::setSendBufferSize ( uint SendBufferSize ) 
+     throw ( Error )
 {
 	__BEGIN_TRY 
 		
-	SocketAPI::setsockopt_ex(m_SocketID , SOL_SOCKET , SO_SNDBUF , &SendBufferSize, sizeof(SendBufferSize));
+	SocketAPI::setsockopt_ex( m_SocketID , SOL_SOCKET , SO_SNDBUF , &SendBufferSize, sizeof(SendBufferSize) );
 	
 	__END_CATCH
 }
@@ -515,7 +518,7 @@ void SocketImpl::setSendBufferSize (uint SendBufferSize )
 
 //////////////////////////////////////////////////////////////////////
 //
-// string SocketImpl::_getHost () const throw();
+// string SocketImpl::_getHost () const throw ();
 //
 // get host address of this socket
 //
@@ -530,15 +533,15 @@ void SocketImpl::setSendBufferSize (uint SendBufferSize )
 //
 //////////////////////////////////////////////////////////////////////
 string SocketImpl::_getHost () const 
-       throw()
+       throw ()
 {
-	return string(inet_ntoa(m_SockAddr.sin_addr ));
+	return string( inet_ntoa( m_SockAddr.sin_addr ) );
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketImpl::_setHost (const string & host ) throw()
+// void SocketImpl::_setHost ( const string & host ) throw ()
 //
 // set host address of this socket
 //
@@ -552,16 +555,16 @@ string SocketImpl::_getHost () const
 //     none
 //
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::_setHost (const string & host ) 
-     throw()
+void SocketImpl::_setHost ( const string & host ) 
+     throw ()
 {
-	m_SockAddr.sin_addr.s_addr = inet_addr(host.c_str());
+	m_SockAddr.sin_addr.s_addr = inet_addr( host.c_str() );
 }
 			    
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint SocketImpl::_getPort () const throw()
+// uint SocketImpl::_getPort () const throw ()
 //
 // get port of this socket
 //
@@ -576,15 +579,15 @@ void SocketImpl::_setHost (const string & host )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketImpl::_getPort () const 
-     throw()
+     throw ()
 {
-	return ntohs(m_SockAddr.sin_port);
+	return ntohs( m_SockAddr.sin_port );
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketImpl::_setPort (uint port ) throw()
+// void SocketImpl::_setPort ( uint port ) throw ()
 //
 // set host address of this socket
 //
@@ -598,8 +601,17 @@ uint SocketImpl::_getPort () const
 //     none
 //
 //////////////////////////////////////////////////////////////////////
-void SocketImpl::_setPort (uint port ) 
-	 throw()
+void SocketImpl::_setPort ( uint port ) 
+	 throw ()
 {
 	m_SockAddr.sin_port = htons(port);
+}
+//add by viva
+string SocketImpl::getLocalHost()	const
+	throw()
+{
+	  SOCKADDR_IN local;
+      uint len = sizeof(SOCKADDR_IN);
+      getsockname(m_SocketID, (SOCKADDR*)&local, &len);
+      return string(inet_ntoa(local.sin_addr));
 }

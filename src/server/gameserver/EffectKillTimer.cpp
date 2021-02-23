@@ -41,22 +41,26 @@ void EffectKillTimer::unaffect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectKillTimer" << "unaffect BEGIN" << endl;
+
 	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
 
-	if (pCreature == NULL ) return;
-	if (pCreature->isMonster() )
+	if ( pCreature == NULL ) return;
+	if ( pCreature->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		if (m_bKill )
+		if ( m_bKill )
 		{
 			pMonster->setHP(0);
 		}
 		else
 		{
-			pMonster->getZone()->deleteCreature(pMonster, pMonster->getX(), pMonster->getY());
+			pMonster->getZone()->deleteCreature( pMonster, pMonster->getX(), pMonster->getY() );
 		}
 	}
 
+	//cout << "EffectKillTimer" << "unaffect END" << endl;
+						
 	__END_CATCH
 }
 

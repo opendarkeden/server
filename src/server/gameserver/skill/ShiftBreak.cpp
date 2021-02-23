@@ -10,7 +10,7 @@
 #include "Zone.h"
 #include "EffectDarkness.h"
 
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 생성자
@@ -39,12 +39,12 @@ ShiftBreak::ShiftBreak()
 	mask[7].x =  1;
 	mask[7].y = -1;
 
-	for (int k = 0; k < 8; k++ )
+	for ( int k = 0; k < 8; k++ )
 	{
 		int l = k;
-		for (int i = 1; i < 6; i++ )
+		for ( int i = 1; i < 6; i++ )
 		{
-			if (l == 8 )
+			if ( l == 8 )
 				l = 0;
 
 			m_pShiftBreakMask[k][i].set(mask[l].x , mask[l].y);
@@ -110,8 +110,8 @@ void ShiftBreak::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 	SkillInput input(pOusters, pOustersSkillSlot);
 	SIMPLE_SKILL_INPUT param;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	SkillOutput output;
@@ -130,9 +130,9 @@ void ShiftBreak::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	Dir_t dir = calcDirection(pOusters->getX(), pOusters->getY(), X, Y);
+	Dir_t dir = calcDirection( pOusters->getX(), pOusters->getY(), X, Y);
 
-	for (int i = 0 ; i < 6 ; i++ )
+	for ( int i = 0 ; i < 6 ; i++ )
 	{
 		param.addMask(m_pShiftBreakMask[(int)dir][i].x, m_pShiftBreakMask[(int)dir][i].y, 100);
 	}
@@ -144,40 +144,40 @@ void ShiftBreak::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
 	Zone* pZone = pOusters->getZone();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
 		int tx = pOusters->getX() + itr->x;
 		int ty = pOusters->getY() + itr->y;
-		if (!isValidZoneCoord(pZone, tx, ty ) ) continue;
-		Tile& rTile = pZone->getTile(tx, ty);
+		if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
+		Tile& rTile = pZone->getTile( tx, ty );
 
-		EffectDarkness* pEffect = dynamic_cast<EffectDarkness*>(rTile.getEffect(Effect::EFFECT_CLASS_DARKNESS ));
-		if (pEffect == NULL ) continue;
+		EffectDarkness* pEffect = dynamic_cast<EffectDarkness*>(rTile.getEffect( Effect::EFFECT_CLASS_DARKNESS ));
+		if ( pEffect == NULL ) continue;
 
 		int Ratio = pOusters->getLevel() + pOustersSkillSlot->getExpLevel() - (pEffect->getLevel()/3);
-		Ratio = max(Ratio, 0);
+		Ratio = max( Ratio, 0 );
 
-		if (input.SkillLevel <= 15 )
+		if ( input.SkillLevel <= 15 )
 		{
 			Ratio += 40;
-			Ratio = min(Ratio, 60);
+			Ratio = min( Ratio, 60 );
 		}
 		else
 		{
 			Ratio += 45;
-			Ratio = min(Ratio, 75);
+			Ratio = min( Ratio, 75 );
 		}
 
 //		Ratio = min(30, Ratio);
-//		if (input.SkillLevel > 15 ) Ratio += 10;
+//		if ( input.SkillLevel > 15 ) Ratio += 10;
 //		Ratio = max(10, Ratio);
 
-		//cout << "다크니스 있음. 확률 " << Ratio << endl;
+		cout << "다크니스 있음. 확률 " << Ratio << endl;
 
-		if (rand()%100 < Ratio )
+		if ( rand()%100 < Ratio )
 		{
-			//cout << "성공 " << endl;
-			pZone->deleteEffect(pEffect->getObjectID());
+			cout << "성공 " << endl;
+			pZone->deleteEffect( pEffect->getObjectID() );
 
 			GCDeleteEffectFromTile gcDeleteEffectFromTile;
 			gcDeleteEffectFromTile.setXY(tx, ty);

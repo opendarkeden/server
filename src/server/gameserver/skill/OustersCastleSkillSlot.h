@@ -8,8 +8,8 @@ class OustersCastleSkillSlot : public OustersSkillSlot
 public:
 	OustersCastleSkillSlot() throw()
 		: OustersSkillSlot() { }
-	OustersCastleSkillSlot(SkillType_t SkillType, ulong Interval, ulong CastingTime ) throw()
-		: OustersSkillSlot(SkillType, Interval, CastingTime ) { }
+	OustersCastleSkillSlot( SkillType_t SkillType, ulong Interval, ulong CastingTime ) throw()
+		: OustersSkillSlot( SkillType, Interval, CastingTime ) { }
 	~OustersCastleSkillSlot() throw() { }
 
 public:

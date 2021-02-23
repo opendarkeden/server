@@ -9,7 +9,7 @@
 #include "Vampire.h"
 #include "Monster.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void EffectSharpShield::unaffect(Creature* pCreature)
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(m_ClientEffectClass);
+	gcRemoveEffect.addEffectList( m_ClientEffectClass );
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	//cout << "EffectSharpShield" << "unaffect END" << endl;
@@ -101,9 +101,9 @@ void EffectSharpShield::setLevel(Level_t Level)
 	throw()
 {
 //	m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_1;
-	if(Level <= GRADE_ADEPT_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_1;
-	else if(Level <= GRADE_EXPERT_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_2;
-	else if(Level <= GRADE_MASTER_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_3;
+	if( Level <= GRADE_ADEPT_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_1;
+	else if( Level <= GRADE_EXPERT_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_2;
+	else if( Level <= GRADE_MASTER_LIMIT_LEVEL ) m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_3;
 	else m_ClientEffectClass = EFFECT_CLASS_SHARP_SHIELD_4;
 } 
 

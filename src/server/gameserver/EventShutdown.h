@@ -16,7 +16,7 @@
 class EventShutdown : public Event 
 {
 public:
-	EventShutdown(GamePlayer* pGamePlayer ) throw();
+	EventShutdown( GamePlayer* pGamePlayer ) throw();
 	~EventShutdown() throw() {}
 			
 public:

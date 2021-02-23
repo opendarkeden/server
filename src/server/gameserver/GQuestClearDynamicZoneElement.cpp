@@ -1,11 +1,11 @@
 #include "GQuestClearDynamicZoneElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestClearDynamicZoneElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestClearDynamicZoneMission* pClearDynamicZoneMission = dynamic_cast<GQuestClearDynamicZoneMission*>(pMission);
-	if (pClearDynamicZoneMission == NULL ) return WAIT;
-	if (pClearDynamicZoneMission->isClear() ) return OK;
+	if ( pClearDynamicZoneMission == NULL ) return WAIT;
+	if ( pClearDynamicZoneMission->isClear() ) return OK;
 
 	return WAIT;
 }

@@ -11,7 +11,7 @@
 class SlayerAttrExpTable : public ExpTable<Exp_t, Attr_t, 1, 315>
 {
 public:
-	SlayerAttrExpTable(AttrKind kind ) : m_Kind(kind)
+	SlayerAttrExpTable( AttrKind kind ) : m_Kind(kind)
 	{
 	}
 

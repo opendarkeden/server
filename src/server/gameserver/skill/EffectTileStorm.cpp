@@ -12,11 +12,9 @@
 #include "SkillUtil.h"
 #include "SkillInfo.h"
 
-#include "GCModifyInformation.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK4.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
 
 int StormDamageModify[5][5] =
 {
@@ -54,27 +52,26 @@ void EffectTileStorm::affect()
 {
 	__BEGIN_TRY
 
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 사용자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = m_pZone->getCreature( m_UserObjectID );
 	// 캐스터가 없으면 무시한다.
-	if (pCastCreature == NULL )
+	if ( pCastCreature == NULL )
 		return;
 
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCastCreature);
 
-	SkillSlot* pSkillSlot	= pSlayer->hasSkill(m_SkillType);
-	SkillInfo* pSkillInfo	= g_pSkillInfoManager->getSkillInfo(m_SkillType);
+	SkillSlot* pSkillSlot	= pSlayer->hasSkill( m_SkillType );
+	SkillInfo* pSkillInfo	= g_pSkillInfoManager->getSkillInfo( m_SkillType );
 	SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 	SkillLevel_t SkillLevel = pSkillSlot->getExpLevel();
 
 	VSRect rect(0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1);
-	if(!rect.ptInRect(m_X, m_Y ) ) return;
+	if( !rect.ptInRect( m_X, m_Y ) ) return;
 
-	GCModifyInformation gcMI;
 	GCSkillToObjectOK2 _GCSkillToObjectOK2;
 	GCSkillToObjectOK4 _GCSkillToObjectOK4;
 
@@ -82,7 +79,7 @@ void EffectTileStorm::affect()
 	Damage_t maxDamage=0;
 
 	int diff = 1;
-	if (m_bLarge ) diff = 2;
+	if ( m_bLarge ) diff = 2;
 
 	Level_t maxEnemyLevel = 0;
 	uint EnemyNum = 0;
@@ -98,60 +95,62 @@ void EffectTileStorm::affect()
 
 		Tile& tile = m_pZone->getTile(tileX, tileY);
 
-		const list<Object*>& oList = tile.getObjectList();
-		list<Object*>::const_iterator itr = oList.begin();
-		for (; itr != oList.end(); itr++ )
+		const slist<Object*>& oList = tile.getObjectList();
+		slist<Object*>::const_iterator itr = oList.begin();
+		for ( ; itr != oList.end(); itr++ )
 		{
 			Object* pObject = *itr;
-			Assert(pObject != NULL);
+			Assert( pObject != NULL );
 
-			if (pObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+			if ( pObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 			{
 				Creature* pTargetCreature = dynamic_cast<Creature*>(pObject);
-				Assert(pTargetCreature != NULL);
+				Assert( pTargetCreature != NULL );
 
-				if (pTargetCreature->getObjectID() == m_UserObjectID
-					|| !canAttack(pCastCreature, pTargetCreature )
+				if ( pTargetCreature->getObjectID() == m_UserObjectID
+					|| !canAttack( pCastCreature, pTargetCreature )
 					|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 				{
 					continue;
 				}
 
-				bool bPK				= verifyPK(pSlayer, pTargetCreature);
-				bool bZoneLevelCheck	= checkZoneLevelToHitTarget(pTargetCreature);
-				bool bHitRoll			= HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel);
+				bool bPK				= verifyPK( pSlayer, pTargetCreature );
+				bool bZoneLevelCheck	= checkZoneLevelToHitTarget( pTargetCreature );
+				bool bHitRoll			= HitRoll::isSuccess( pSlayer, pTargetCreature, SkillLevel );
 
-				if (bPK && bZoneLevelCheck && bHitRoll )
+				if ( bPK && bZoneLevelCheck && bHitRoll )
 				{
 					// 원래 데미지와 스킬 데미지 보너스를 더한 최종 데미지를 구한다.
 					bool bCriticalHit = false;
 					Damage_t FinalDamage = 0;
-					FinalDamage += computeDamage(pSlayer, pTargetCreature, SkillLevel/2, bCriticalHit);
+					FinalDamage += computeDamage( pSlayer, pTargetCreature, SkillLevel/2, bCriticalHit );
 					FinalDamage += m_Damage;
 
 					// 흠...눈 크게 뜨고 보셈...필살 얍삽 코딩
 					int DamageModifier = StormDamageModify[oX+2][oY+2];
-					Damage_t TileDamage = getPercentValue(FinalDamage, DamageModifier);
+					Damage_t TileDamage = getPercentValue( FinalDamage, DamageModifier );
 
 					if(pTargetCreature != NULL && !pTargetCreature->isSlayer())
 					{
 						if(pTargetCreature->isPC())
 						{
-							::setDamage(pTargetCreature, TileDamage, pSlayer, m_SkillType, &_GCSkillToObjectOK2, &gcMI);
+							GCModifyInformation gcMI;
+							::setDamage( pTargetCreature, TileDamage, pSlayer, m_SkillType , &gcMI );
+							pTargetCreature->getPlayer()->sendPacket( &gcMI );
 
 						}
 						else if(pTargetCreature->isMonster())
 						{
 							Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 
-							::setDamage(pMonster, TileDamage, pSlayer, m_SkillType, NULL, &gcMI);
+							::setDamage( pMonster, TileDamage, pSlayer, m_SkillType );
 
-							pMonster->addEnemy(pSlayer);
+							pMonster->addEnemy( pSlayer );
 						}
 
-						if (TileDamage > maxDamage ) maxDamage = TileDamage;
+						if ( TileDamage > maxDamage ) maxDamage = TileDamage;
 
-						if (pTargetCreature->isPC() )
+						if ( pTargetCreature->isPC() )
 						{
 							// 공격을 당한 뱀파이어에게 
 							_GCSkillToObjectOK2.setObjectID(1);
@@ -161,14 +160,14 @@ void EffectTileStorm::affect()
 							pTargetCreature->getPlayer()->sendPacket(&_GCSkillToObjectOK2);
 						}
 
-						_GCSkillToObjectOK4.setTargetObjectID(pTargetCreature->getObjectID());
-						_GCSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+						_GCSkillToObjectOK4.setTargetObjectID( pTargetCreature->getObjectID() );
+						_GCSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
 						_GCSkillToObjectOK4.setDuration(0);
-						m_pZone->broadcastPacket(tileX, tileY, &_GCSkillToObjectOK4, pTargetCreature);
+						m_pZone->broadcastPacket( tileX, tileY, &_GCSkillToObjectOK4, pTargetCreature);
 
 						bHit = true;
 
-						if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+						if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 						EnemyNum++;
 					}
 				}
@@ -176,22 +175,22 @@ void EffectTileStorm::affect()
 		}
 	}
 
-	if (bHit )
+	if ( bHit )
 	{
-		decreaseDurability(pSlayer, NULL, pSkillInfo, &gcMI, NULL);
-		shareAttrExp(pSlayer, maxDamage, 8, 1, 1, gcMI);
-		increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), gcMI, maxEnemyLevel, EnemyNum);
-		increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, gcMI);
+		GCModifyInformation gcMI;
+		shareAttrExp( pSlayer, maxDamage, 8, 1, 1, gcMI );
+		increaseDomainExp( pSlayer, DomainType, pSkillInfo->getPoint(), gcMI, maxEnemyLevel, EnemyNum );
+		increaseSkillExp( pSlayer, DomainType, pSkillSlot, pSkillInfo, gcMI );
 
-		pSlayer->getPlayer()->sendPacket(&gcMI);
+		pSlayer->getPlayer()->sendPacket( &gcMI );
 	}
 
 	// 없어져 버렷!!
 	m_StormTime--;
-	if (m_StormTime <= 0 )
-		setDeadline(0);
+	if ( m_StormTime <= 0 )
+		setDeadline( 0 );
 	else
-		setNextTime(m_Tick);
+		setNextTime( m_Tick );
 
 	__END_CATCH 
 }
@@ -238,7 +237,7 @@ string EffectTileStorm::toString()
 
 	msg << "EffectTileStorm("
 		<< "ObjectID:" << (int)getObjectID()
-		<< ",Zone:" << m_pZone
+		<< ",Zone:" << (int)m_pZone
 		<< ",X:" << (int)m_X
 		<< ",Y:" << (int)m_Y
 		<< ",Damage:" << (int)m_Damage

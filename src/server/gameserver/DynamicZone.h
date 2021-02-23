@@ -37,13 +37,13 @@ public:
 	void makeDynamicZone();
 
 	ZoneID_t getTemplateZoneID() const { return m_TemplateZoneID; }
-	void setTemplateZoneID(ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
+	void setTemplateZoneID( ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
 
 	ZoneID_t getZoneID() const { return m_ZoneID; }
-	void setZoneID(ZoneID_t zoneID ) { m_ZoneID = zoneID; }
+	void setZoneID( ZoneID_t zoneID ) { m_ZoneID = zoneID; }
 
 	int getStatus() const { return m_Status; }
-	void setStatus(int status ) { m_Status = status; }
+	void setStatus( int status ) { m_Status = status; }
 
 protected:
 	ZoneID_t m_TemplateZoneID;
@@ -68,7 +68,7 @@ public:
 ///////////////////////////////////////////////////////////
 // DynamicZoneFactory macro
 ///////////////////////////////////////////////////////////
-#define DECLARE_DYNAMIC_ZONE_FACTORY(DYNAMIC_ZONE ) 						\
+#define DECLARE_DYNAMIC_ZONE_FACTORY( DYNAMIC_ZONE ) 						\
 	class DYNAMIC_ZONE##Factory	: public DynamicZoneFactory					\
 	{																		\
 	public:																	\
@@ -77,7 +77,7 @@ public:
 		DynamicZone* createDynamicZone() const { return new DYNAMIC_ZONE; }	\
 	};
 
-#define DEFINE_DYNAMIC_ZONE_FACTORY(DYNAMIC_ZONE, DYNAMIC_ZONE_ID )					\
+#define DEFINE_DYNAMIC_ZONE_FACTORY( DYNAMIC_ZONE, DYNAMIC_ZONE_ID )					\
 	int DYNAMIC_ZONE##Factory::getDynamicZoneType() const { return DYNAMIC_ZONE_ID; }
 
 #endif

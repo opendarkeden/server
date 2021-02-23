@@ -13,13 +13,13 @@
 #include "SlayerSkillInfo.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
 SlayerSkillInfo::SlayerSkillInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	m_bLearnNewSkill = false;
@@ -33,12 +33,12 @@ SlayerSkillInfo::SlayerSkillInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 SlayerSkillInfo::~SlayerSkillInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
 	// 소속된 모든 객체들을 삭제한다.
-	while (!m_SubSlayerSkillInfoList.empty() ) {
+	while ( !m_SubSlayerSkillInfoList.empty() ) {
 		SubSlayerSkillInfo * pSubSlayerSkillInfo = m_SubSlayerSkillInfoList.front();
 		SAFE_DELETE(pSubSlayerSkillInfo);
 		m_SubSlayerSkillInfoList.pop_front();
@@ -51,20 +51,20 @@ SlayerSkillInfo::~SlayerSkillInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void SlayerSkillInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void SlayerSkillInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_bLearnNewSkill);
-	iStream.read(m_DomainType);
-	iStream.read(m_ListNum);
+	iStream.read( m_bLearnNewSkill);
+	iStream.read( m_DomainType );
+	iStream.read( m_ListNum );
 
-	for(int i = 0; i < m_ListNum; i++ ) {
+	for( int i = 0; i < m_ListNum; i++ ) {
 		SubSlayerSkillInfo * pSubSlayerSkillInfo = new SubSlayerSkillInfo();
-		pSubSlayerSkillInfo->read(iStream);
-		m_SubSlayerSkillInfoList.push_back(pSubSlayerSkillInfo);
+		pSubSlayerSkillInfo->read( iStream );
+		m_SubSlayerSkillInfoList.push_back( pSubSlayerSkillInfo );
 
 	}
 
@@ -75,19 +75,19 @@ void SlayerSkillInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void SlayerSkillInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void SlayerSkillInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_bLearnNewSkill);
-	oStream.write(m_DomainType);
-	oStream.write(m_ListNum);
+	oStream.write( m_bLearnNewSkill );
+	oStream.write( m_DomainType );
+	oStream.write( m_ListNum );
 
-    for (list<SubSlayerSkillInfo*>:: const_iterator itr = m_SubSlayerSkillInfoList.begin(); itr!= m_SubSlayerSkillInfoList.end(); itr++) {
-		Assert(*itr != NULL);
-		(*itr)->write(oStream);
+    for ( list<SubSlayerSkillInfo*>:: const_iterator itr = m_SubSlayerSkillInfoList.begin(); itr!= m_SubSlayerSkillInfoList.end(); itr++) {
+		Assert( *itr != NULL );
+		(*itr)->write( oStream );
 	}
 
 	__END_CATCH
@@ -102,7 +102,7 @@ PacketSize_t SlayerSkillInfo::getSize()
 
 	PacketSize_t PacketSize = szBYTE + szSkillDomainType + szBYTE;
 
-	for (list< SubSlayerSkillInfo* >::const_iterator itr = m_SubSlayerSkillInfoList.begin() ; itr != m_SubSlayerSkillInfoList.end() ; itr ++ ) {
+	for ( list< SubSlayerSkillInfo* >::const_iterator itr = m_SubSlayerSkillInfoList.begin() ; itr != m_SubSlayerSkillInfoList.end() ; itr ++ ) {
 
 		PacketSize += (*itr)->getSize();
 
@@ -119,17 +119,17 @@ PacketSize_t SlayerSkillInfo::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string SlayerSkillInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "SlayerSkillInfo(ListNum:" << (int)m_ListNum 
-		<< " ListSet(" ;
+	msg << "SlayerSkillInfo( ListNum:" << (int)m_ListNum 
+		<< " ListSet( " ;
 
-	for (list<SubSlayerSkillInfo*>::const_iterator itr = m_SubSlayerSkillInfoList.begin(); itr!= m_SubSlayerSkillInfoList.end() ; itr++ ) {
-		Assert(*itr != NULL);
+	for ( list<SubSlayerSkillInfo*>::const_iterator itr = m_SubSlayerSkillInfoList.begin(); itr!= m_SubSlayerSkillInfoList.end() ; itr++ ) {
+		Assert( *itr != NULL );
 		msg << (*itr)->toString() << ",";
 	}
 

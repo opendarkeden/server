@@ -7,9 +7,9 @@
 #include "WaterBarrier.h"
 #include "EffectWaterBarrier.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -53,7 +53,7 @@ void WaterBarrier::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlo
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_WATER_BARRIER);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{

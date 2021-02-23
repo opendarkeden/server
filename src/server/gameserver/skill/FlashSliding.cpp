@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "FlashSliding.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -89,7 +89,7 @@ void FlashSliding::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 				Damage_t Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel/5, bCriticalHit);
 				setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
 				computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-				decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
+				decreaseDurability( pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2 );
 
 				// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 				if (bCriticalHit)
@@ -99,7 +99,7 @@ void FlashSliding::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
 				if (!pTargetCreature->isSlayer())
 				{
-					if (bIncreaseDomainExp )
+					if ( bIncreaseDomainExp )
 					{
 						shareAttrExp(pSlayer, Damage, 8, 1, 1, _GCSkillToObjectOK1);
 						increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1, pTargetCreature->getLevel());

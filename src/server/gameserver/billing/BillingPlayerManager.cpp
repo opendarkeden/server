@@ -11,8 +11,8 @@
 #include "BillingPlayer.h"
 #include "CommonBillingPacket.h"
 #include "Properties.h"
-//#include "LogClient.h"
-#include "Assert1.h"
+#include "LogClient.h"
+#include "Assert.h"
 
 //#include "ThreadManager.h"
 //#include "ThreadPool.h"
@@ -22,13 +22,13 @@
 #include "Timeval.h"
 
 #define __BEGIN_BILLING_TRY	try {
-#define __END_BILLING_CATCH	} catch (Throwable& t )								\
+#define __END_BILLING_CATCH	} catch ( Throwable& t )								\
 				{																	\
 					cout << t.toString().c_str() << endl;							\
 					filelog(LOGFILE_BILLING_PLAYER, "%s", t.toString().c_str());		\
 																					\
 					try {															\
-						SAFE_DELETE(m_pBillingPlayer);							\
+						SAFE_DELETE( m_pBillingPlayer );							\
 					} catch (Throwable& t) {										\
 						filelog(LOGFILE_BILLING_PLAYER, "(delete)%s", t.toString().c_str());	\
 					}	\
@@ -37,14 +37,14 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-BillingPlayerManager::BillingPlayerManager ()
-	throw(Error)
+BillingPlayerManager::BillingPlayerManager () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	m_pBillingPlayer = NULL;
 
-	m_Mutex.setName("BillingPlayerManager");
+	m_Mutex.setName( "BillingPlayerManager" );
 
 	m_bForceDisconnect = false;
 
@@ -54,8 +54,8 @@ BillingPlayerManager::BillingPlayerManager ()
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-BillingPlayerManager::~BillingPlayerManager ()
-	throw(Error)
+BillingPlayerManager::~BillingPlayerManager () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -67,8 +67,8 @@ BillingPlayerManager::~BillingPlayerManager ()
 //////////////////////////////////////////////////////////////////////
 // stop thread
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::stop ()
-	throw(Error)
+void BillingPlayerManager::stop () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -80,8 +80,8 @@ void BillingPlayerManager::stop ()
 //////////////////////////////////////////////////////////////////////
 // main method
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::run ()
-	throw()
+void BillingPlayerManager::run () 
+	throw ()
 {
 	__BEGIN_TRY
 	try {
@@ -92,40 +92,40 @@ void BillingPlayerManager::run ()
 		string user     = g_pConfig->getProperty("UI_DB_USER");
 		string password = g_pConfig->getProperty("UI_DB_PASSWORD");
 		uint port		= 0;
-		if (g_pConfig->hasKey("UI_DB_PORT") )
+		if ( g_pConfig->hasKey("UI_DB_PORT") )
 			port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 		Connection* pDistConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addDistConnection(Thread::self(), pDistConnection);
-		//cout << "******************************************************" << endl;
-		//cout << " THREAD CONNECT UIIRIBUTION DB - for BillingSystem" << endl;
-		//cout << " TID Number = " << (int)Thread::self()<< endl;
-		//cout << "******************************************************" << endl;
+		g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+		cout << "******************************************************" << endl;
+		cout << " THREAD CONNECT UIIRIBUTION DB - for BillingSystem" << endl;
+		cout << " TID Number = " << (int)Thread::self()<< endl;
+		cout << "******************************************************" << endl;
 
 		Timeval dummyQueryTime;
-		getCurrentTime(dummyQueryTime);
+		getCurrentTime( dummyQueryTime );
 
 		Timeval disconnectCheckTime;
-		getCurrentTime(disconnectCheckTime);
+		getCurrentTime( disconnectCheckTime );
 
-		const string& 	BillingServerIP 	= g_pConfig->getProperty("BillingServerIP");
-		uint 			BillingServerPort 	= g_pConfig->getPropertyInt("BillingServerPort");
+		const string& 	BillingServerIP 	= g_pConfig->getProperty( "BillingServerIP" );
+		uint 			BillingServerPort 	= g_pConfig->getPropertyInt( "BillingServerPort" );
 
 		bool bFirstConnection = true;
 
-		while (true )
+		while ( true )
 		{
-			usleep(100);
+			usleep( 100 );
 
 			// 연결되어 있지 않다면 연결을 시도한다.
-			if (m_pBillingPlayer == NULL )
+			if ( m_pBillingPlayer == NULL )
 			{
 				Socket* pSocket = NULL;
 
 				try
 				{
 					// create socket
-					pSocket = new Socket(BillingServerIP, BillingServerPort);
+					pSocket = new Socket( BillingServerIP, BillingServerPort );
 
 					// connect
 					pSocket->connect();
@@ -137,7 +137,7 @@ void BillingPlayerManager::run ()
 					pSocket->setLinger(0);
 
 					__ENTER_CRITICAL_SECTION(m_Mutex)
-					m_pBillingPlayer = new BillingPlayer(pSocket);
+					m_pBillingPlayer = new BillingPlayer( pSocket );
 					__LEAVE_CRITICAL_SECTION(m_Mutex)
 
 					pSocket = NULL;
@@ -151,46 +151,48 @@ void BillingPlayerManager::run ()
 						bFirstConnection = false;
 					}
 
-					cout << "[BillingPlayerManager] Connection to BillingServer established." << endl;
+					cout << "connection to billingServer established -  " 
+						<< BillingServerIP.c_str() << ":" << BillingServerPort << endl;
 					filelog(LOGFILE_BILLING_PLAYER, "----- connection established(%s:%d) -----", BillingServerIP.c_str(), BillingServerPort);
-				}
-				catch (Throwable& t )
+				} 
+				catch ( Throwable& t )
 				{
-					cout << "[BillingPlayerManager] Failed to connect to BillingServer." << endl;
+					cout << "connect to billingServer fail - "
+						<< BillingServerIP.c_str() << ":" << BillingServerPort << endl;
 					filelog(LOGFILE_BILLING_PLAYER, "connection failed(%s:%d)", BillingServerIP.c_str(), BillingServerPort);
 
 					try {
-						SAFE_DELETE(pSocket);
+						SAFE_DELETE( pSocket );
 					} catch (Throwable& t) {
 						filelog(LOGFILE_BILLING_PLAYER, "[0]%s", t.toString().c_str());
 					}
 
 					__ENTER_CRITICAL_SECTION(m_Mutex)
-
+					
 					try {
-							SAFE_DELETE(m_pBillingPlayer);
+							SAFE_DELETE( m_pBillingPlayer ); 
 					} catch (Throwable& t) {
 						filelog(LOGFILE_BILLING_PLAYER, "[1]%s", t.toString().c_str());
 					}
 					__LEAVE_CRITICAL_SECTION(m_Mutex)
 
 					// 다음 접속시도시간
-					usleep(1000000);	// 1초
+					usleep( 1000000 );	// 1초
 				}
 			}
 
 			// 소켓이 연결되어 있다면 입출력을 처리한다.
 			__ENTER_CRITICAL_SECTION(m_Mutex)
 
-			if (m_pBillingPlayer != NULL )
+			if ( m_pBillingPlayer != NULL )
 			{
 				__BEGIN_BILLING_TRY
 
-				if (m_pBillingPlayer->getSocket()->getSockError() )
+				if ( m_pBillingPlayer->getSocket()->getSockError() )
 				{
 					try {
-						SAFE_DELETE(m_pBillingPlayer);
-					} catch (Throwable& t )
+						SAFE_DELETE( m_pBillingPlayer );
+					} catch ( Throwable& t )
 					{
 						filelog(LOGFILE_BILLING_PLAYER, "[1]%s", t.toString().c_str());
 					}
@@ -213,21 +215,21 @@ void BillingPlayerManager::run ()
 
 			if (dummyQueryTime < currentTime)
 			{
-				g_pDatabaseManager->executeDummyQuery(pDistConnection);
+				g_pDatabaseManager->executeDummyQuery( pDistConnection );
 
 				// 1시간 ~ 1시간 30분 사이에서 dummy query 시간을 설정한다.
 				// timeout이 되지 않게 하기 위해서이다.
 				dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 			}
 
-			if (m_pBillingPlayer != NULL )
+			if ( m_pBillingPlayer != NULL )
 			{
-				if (disconnectCheckTime < currentTime )
+				if ( disconnectCheckTime < currentTime )
 				{
 					__ENTER_CRITICAL_SECTION(m_Mutex)
 
 					// 1분 동안 2번째 이상의 retry 가 30명이 넘으면 짜른다.
-					if (m_pBillingPlayer->getRetryCount() > 30 )
+					if ( m_pBillingPlayer->getRetryCount() > 30 )
 						m_bForceDisconnect = true;
 
 					m_pBillingPlayer->resetRetryCount();
@@ -238,13 +240,13 @@ void BillingPlayerManager::run ()
 					disconnectCheckTime.tv_sec += 60;
 				}
 
-				if (m_bForceDisconnect )
+				if ( m_bForceDisconnect )
 				{
 					m_bForceDisconnect = false;
-					filelog(LOGFILE_BILLING_PLAYER, "Disconnect Force");
+					filelog(LOGFILE_BILLING_PLAYER, "Disconnect Force" );
 
 					try {
-						SAFE_DELETE(m_pBillingPlayer);
+						SAFE_DELETE( m_pBillingPlayer );
 					} catch (Throwable& t) {
 						filelog(LOGFILE_BILLING_PLAYER, "(delete)%s", t.toString().c_str());
 					}
@@ -264,20 +266,20 @@ void BillingPlayerManager::run ()
 //////////////////////////////////////////////////////////////////////
 // send packet to billing server
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::sendPacket (Packet* pPacket )
-	throw(ProtocolException , Error)
+void BillingPlayerManager::sendPacket ( Packet* pPacket )
+	throw (ProtocolException , Error)
 {
 	__BEGIN_BILLING_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	if (m_pBillingPlayer != NULL )
+		
+	if ( m_pBillingPlayer != NULL )
 	{
-		m_pBillingPlayer->sendPacket(pPacket);
+		m_pBillingPlayer->sendPacket( pPacket );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
-
+	
 	__END_BILLING_CATCH
 }
 
@@ -285,15 +287,15 @@ void BillingPlayerManager::sendPacket (Packet* pPacket )
 // 게임 서버가 처음 뜰 때 보낸다.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayInit()
-	throw(ProtocolException, Error )
+	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	if (m_pBillingPlayer != NULL )
+		
+	if ( m_pBillingPlayer != NULL )
 	{
 		m_pBillingPlayer->sendPayInit();
-
+		
 		// 바로 보내버린다.
 		m_pBillingPlayer->processOutput();
 	}
@@ -305,14 +307,14 @@ void BillingPlayerManager::sendPayInit()
 //////////////////////////////////////////////////////////////////////
 // 캐릭터의 접속 상태를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::sendPayCheck(CommonBillingPacket* pPacket )
-	throw(ProtocolException, Error )
+void BillingPlayerManager::sendPayCheck( CommonBillingPacket* pPacket )
+	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
-
-	if (m_pBillingPlayer != NULL )
+		
+	if ( m_pBillingPlayer != NULL )
 	{
-		m_pBillingPlayer->sendPayCheck(pPacket);
+		m_pBillingPlayer->sendPayCheck( pPacket );
 	}
 
 	__END_BILLING_CATCH
@@ -321,15 +323,15 @@ void BillingPlayerManager::sendPayCheck(CommonBillingPacket* pPacket )
 //////////////////////////////////////////////////////////////////////
 // 캐릭터가 게임에 처음 접속할때 보내는것
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::sendPayLogin(Player* pPlayer )
-	throw(ProtocolException, Error )
+void BillingPlayerManager::sendPayLogin( Player* pPlayer ) 
+	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	if (m_pBillingPlayer != NULL )
+		
+	if ( m_pBillingPlayer != NULL )
 	{
-		m_pBillingPlayer->sendPayLogin(pPlayer);
+		m_pBillingPlayer->sendPayLogin( pPlayer );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -339,15 +341,15 @@ void BillingPlayerManager::sendPayLogin(Player* pPlayer )
 //////////////////////////////////////////////////////////////////////
 // 캐릭터가 게임에서 나갈때 보내는것
 //////////////////////////////////////////////////////////////////////
-void BillingPlayerManager::sendPayLogout(Player* pPlayer )
-	throw(ProtocolException, Error )
+void BillingPlayerManager::sendPayLogout( Player* pPlayer ) 
+	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	if (m_pBillingPlayer != NULL )
+		
+	if ( m_pBillingPlayer != NULL )
 	{
-		m_pBillingPlayer->sendPayLogout(pPlayer);
+		m_pBillingPlayer->sendPayLogout( pPlayer );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)

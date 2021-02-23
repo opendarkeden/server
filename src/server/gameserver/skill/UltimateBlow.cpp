@@ -5,18 +5,18 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "UltimateBlow.h"
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -37,7 +37,7 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()) 
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -110,7 +110,7 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 
 			// 데미지를 계산하고, quickfire 페널티를 가한다.
 			// output.Damage가 음수이기 때문에, %값을 구해 더하면 결국 빼는 것이 된다.
-			int Damage = (int)(max(1,Random(pWeapon->getMinDamage(), pWeapon->getMaxDamage() )) * (1.0f + ((float)pSkillSlot->getExpLevel() * 4.0f / 100.f ) )); //computeDamage(pSlayer, pTargetCreature, SkillLevel/5, bCriticalHit);
+			int Damage = max(1,Random( pWeapon->getMinDamage(), pWeapon->getMaxDamage() )) * ( 1.0f + ( (float)pSkillSlot->getExpLevel() * 4.0f / 100.f ) ); //computeDamage(pSlayer, pTargetCreature, SkillLevel/5, bCriticalHit);
 			Damage += getPercentValue(Damage, output.Damage);
 			Damage = max(0, Damage);
 
@@ -127,9 +127,9 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 			}*/
 
 			int dist = 1 + pSkillSlot->getExpLevel() / 50;
-			for (int i=0; i<dist; ++i )
+			for ( int i=0; i<dist; ++i )
 			{
-				knockbackCreature(pSlayer->getZone(), pTargetCreature, pSlayer->getX(), pSlayer->getY());
+				knockbackCreature(pSlayer->getZone(), pTargetCreature, pSlayer->getX(), pSlayer->getY() );
 			}
 
 			/*
@@ -138,7 +138,7 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 			if (Random(1, 100) < 80 && !pTargetCreature->isSlayer())
 			{
 			*/
-			if(!pTargetCreature->isSlayer() ) 
+			if( !pTargetCreature->isSlayer() ) 
 			{
 				if (bIncreaseExp)
 				{

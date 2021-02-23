@@ -25,7 +25,7 @@ static const POINT d [] = {
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWander::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionWander::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWander::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -98,16 +98,16 @@ void ActionWander::execute (Creature * pCreature1 , Creature * pCreature2)
 			Dir_t nextDir = pCreature1->getDir();
 			bool changeDir = false;
 
-			if (movableDir[nextDir] )
+			if ( movableDir[nextDir] )
 			{
-				if (rand() % 10 == 0 ) changeDir = true;
+				if ( rand() % 10 == 0 ) changeDir = true;
 			}
 			else
 			{
 				changeDir = true;
 			}
 
-			if (changeDir )
+			if ( changeDir )
 			{
 				uint j = rand() % movableDirCount + 1;
 
@@ -139,7 +139,7 @@ void ActionWander::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWander::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

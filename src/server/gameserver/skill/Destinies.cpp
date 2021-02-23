@@ -41,18 +41,18 @@ void Destinies::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSki
 
 	g_SimpleMissileSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
 
-	if (result.bSuccess )
+	if ( result.bSuccess )
 	{
-		//cout << "Destinies 성공" << endl;
-		if (result.pTargetCreature->isOusters() ) return;
+		cout << "Destinies 성공" << endl;
+		if ( result.pTargetCreature->isOusters() ) return;
 
-		EffectDestinies* pEffect = new EffectDestinies(pOusters);
-		pEffect->setTargetType(result.pTargetCreature);
-		pEffect->setDamage(output.Damage);
-		pEffect->setNextTime(10);
+		EffectDestinies* pEffect = new EffectDestinies( pOusters );
+		pEffect->setTargetType( result.pTargetCreature );
+		pEffect->setDamage( output.Damage );
+		pEffect->setNextTime( 10 );
 		pEffect->setBroadcastingEffect(false);
 
-		pOusters->addEffect(pEffect);
+		pOusters->addEffect( pEffect );
 	}
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(vampire)" << endl;

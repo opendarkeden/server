@@ -13,9 +13,10 @@
 
 class SMSServiceThread;
 
-class SMSMessage {
+class SMSMessage
+{
 public:
-	SMSMessage(const string& senderName, const string& recvNum, const string& callerNum, const string& msg): m_SenderName(senderName), m_ReceiverNumber(recvNum), m_CallerNumber(callerNum), m_Message(msg) {}
+	SMSMessage( const string& senderName, const string& recvNum, const string& callerNum, const string& msg ) : m_SenderName(senderName), m_ReceiverNumber(recvNum), m_CallerNumber(callerNum), m_Message(msg) { }
 	string	toString() const;
 
 	friend class SMSServiceThread;
@@ -26,22 +27,24 @@ private:
 	string	m_Message;
 };
 
-class SMSServiceThread: public Thread {
+class SMSServiceThread : public Thread
+{
 public:
 	static SMSServiceThread& Instance() { static SMSServiceThread theInstance; return theInstance; }
 
-	void run();
+	void run() throw();
 	string	getName() const throw() { return "SMSServiceThread"; }
 
-	void pushMessage(SMSMessage* pMsg);
-	string getDBString(const string& msg) const;
-	bool isValidNumber(const string& num) const;
+	void pushMessage( SMSMessage* pMsg );
+	string getDBString( const string& msg ) const;
+	bool isValidNumber( const string& num ) const;
 
 private:
-	SMSServiceThread(): m_QueueMutex(), m_pConnection(NULL) { m_QueueMutex.setName("SMS Queue Lock"); }
+	SMSServiceThread() : m_QueueMutex(), m_pConnection(NULL) { m_QueueMutex.setName("SMS Queue Lock"); }
 
 	Mutex				m_QueueMutex;
 	list<SMSMessage*>	m_MessageQueue;
 	Connection*			m_pConnection;
 };
+
 #endif

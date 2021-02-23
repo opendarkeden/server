@@ -9,8 +9,8 @@
 #include "Vampire.h"
 #include "Monster.h"
 
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ void EffectBurningSolCharging::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 	
 	__END_CATCH
 }
@@ -48,16 +48,16 @@ void EffectBurningSolCharging::affect(Creature* pCreature)
 	__BEGIN_TRY
 
 	static Turn_t delay[] = { 10, 10, 300 };
-	if (m_Level >= 3 ) return;
+	if ( m_Level >= 3 ) return;
 
-	setNextTime(delay[m_Level]);
+	setNextTime( delay[m_Level] );
 
 //	cout << "upgrade burning sol..." << m_Level << endl;
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 	pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	m_Level++;
@@ -104,7 +104,7 @@ void EffectBurningSolCharging::unaffect(Creature* pCreature)
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	//cout << "EffectBurningSolCharging" << "unaffect END" << endl;

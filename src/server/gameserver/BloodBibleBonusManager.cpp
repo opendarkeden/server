@@ -8,7 +8,7 @@
 #include "BloodBibleBonusManager.h"
 #include "DB.h"
 
-#include "GCHolyLandBonusInfo.h"
+#include "Gpackets/GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class BloodBibleBonusManager member methods
@@ -50,9 +50,9 @@ void BloodBibleBonusManager::clear()
 	__BEGIN_TRY
 
 	BloodBibleBonusHashMapItor itr = m_BloodBibleBonuses.begin();
-	for (; itr != m_BloodBibleBonuses.end(); itr++ )
+	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_BloodBibleBonuses.clear();
@@ -95,10 +95,10 @@ void BloodBibleBonusManager::load()
 			BloodBibleBonus* pBloodBibleBonus = new BloodBibleBonus();
 			int i = 0;
 
-			pBloodBibleBonus->setType(pResult->getInt(++i));
-			pBloodBibleBonus->setName(pResult->getString(++i));
-			pBloodBibleBonus->setOptionTypeList(pResult->getString(++i));
-			pBloodBibleBonus->setRace(0);
+			pBloodBibleBonus->setType( pResult->getInt(++i) );
+			pBloodBibleBonus->setName( pResult->getString(++i) );
+			pBloodBibleBonus->setOptionTypeList( pResult->getString(++i) );
+			pBloodBibleBonus->setRace( 0 );
 
 			addBloodBibleBonus(pBloodBibleBonus);
 		}
@@ -121,14 +121,14 @@ void BloodBibleBonusManager::save()
 	__END_CATCH
 }
 
-BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus(BloodBibleBonusType_t bloodBibleBonusType ) const
-	throw(NoSuchElementException, Error )
+BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus( BloodBibleBonusType_t bloodBibleBonusType ) const
+	throw( NoSuchElementException, Error )
 {
 	__BEGIN_TRY
 
-	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find(bloodBibleBonusType);
+	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find( bloodBibleBonusType );
 
-	if (itr == m_BloodBibleBonuses.end() )
+	if ( itr == m_BloodBibleBonuses.end() )
 	{
 		cerr << "BloodBibleBonusManager::getBloodBibleBonus() : no such element" << endl;
 		throw NoSuchElementException();
@@ -146,8 +146,8 @@ void BloodBibleBonusManager::addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonu
 
   	Assert (pBloodBibleBonus != NULL);
 
-	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find(pBloodBibleBonus->getType());
-	if (itr != m_BloodBibleBonuses.end() )
+	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.find( pBloodBibleBonus->getType() );
+	if ( itr != m_BloodBibleBonuses.end() )
 	{
 		throw DuplicatedException ();
 	}
@@ -157,32 +157,32 @@ void BloodBibleBonusManager::addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonu
 	__END_CATCH
 }
 
-void BloodBibleBonusManager::setBloodBibleBonusRace(BloodBibleBonusType_t bloodBibleBonusType, Race_t race )
-	throw(Error )
+void BloodBibleBonusManager::setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	getBloodBibleBonus(bloodBibleBonusType )->setRace(race);
+	getBloodBibleBonus( bloodBibleBonusType )->setRace( race );
 
 	__END_CATCH
 }
 
-void BloodBibleBonusManager::makeHolyLandBonusInfo(GCHolyLandBonusInfo& gcHolyLandBonusInfo )
-	throw(Error )
+void BloodBibleBonusManager::makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 /*	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
-	for (; itr != m_BloodBibleBonuses.end(); itr++ )
+	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
 	{
 		BloodBibleBonusInfo* pInfo = new BloodBibleBonusInfo();
 		BloodBibleBonus* pBonus = itr->second;
 
-		pInfo->setType(pBonus->getType());
-		pInfo->setRace(pBonus->getRace());
-		pInfo->setOptionType(pBonus->getOptionTypeList());
+		pInfo->setType( pBonus->getType() );
+		pInfo->setRace( pBonus->getRace() );
+		pInfo->setOptionType( pBonus->getOptionTypeList() );
 
-		gcHolyLandBonusInfo.addBloodBibleBonusInfo(pInfo);
+		gcHolyLandBonusInfo.addBloodBibleBonusInfo( pInfo );
 	}*/
 
 	__END_CATCH
@@ -198,7 +198,7 @@ string BloodBibleBonusManager::toString() const
 	msg << "BloodBibleBonusManager(\n";
 
 	BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
-	for (; itr != m_BloodBibleBonuses.end(); itr++ )
+	for ( ; itr != m_BloodBibleBonuses.end(); itr++ )
 	{
 		msg << itr->second->toString() << ",";
 	}

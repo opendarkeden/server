@@ -59,16 +59,16 @@ public:
 public:
 
 	// get pc type
-	PCType getPCType () const throw() { return PC_SLAYER; }
+	PCType getPCType () const throw () { return PC_SLAYER; }
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get size of object
-	uint getSize () const throw()
+	uint getSize () const throw ()
 	{
 		return szBYTE + m_Name.size() 
 			+ szSlot
@@ -88,7 +88,7 @@ public:
 	}
 
 	// get max size of object
-	static uint getMaxSize () throw()
+	static uint getMaxSize () throw ()
 	{
 		return szBYTE + 20
 			+ szSlot
@@ -108,17 +108,17 @@ public:
 	}
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
     // get/set PC's name
-    string getName () const throw() { return m_Name; }
-    void setName (const string& name) throw() { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
+    string getName () const throw () { return m_Name; }
+    void setName (const string& name) throw () { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
 
 	// get/set Slot
-	Slot getSlot () const throw() { return m_Slot; }
-	void setSlot (Slot slot) throw() { m_Slot = slot; }
-	void setSlot (string slot) throw(InvalidProtocolException) 
+	Slot getSlot () const throw () { return m_Slot; }
+	void setSlot (Slot slot) throw () { m_Slot = slot; }
+	void setSlot (string slot) throw (InvalidProtocolException) 
 	{
 		if (slot == Slot2String[SLOT1]) 
 		{
@@ -145,16 +145,16 @@ public:
 	// get/set STR
 	// *CAUTION*
 	// Assert()로 할 경우, NDEBUG 모드에서는 disable 되므로 if 로 체크해야 한다. 
-	Attr_t getSTR () const throw(Error) { if (m_STR > maxSlayerAttr) throw Error("STR out of range"); return m_STR; }
-	void setSTR (Attr_t str) throw(Error) { if (str > maxSlayerAttr) throw Error("STR out of range"); m_STR = str; }
+	Attr_t getSTR () const throw (Error) { if (m_STR > maxSlayerAttr) throw Error("STR out of range"); return m_STR; }
+	void setSTR (Attr_t str) throw (Error) { if (str > maxSlayerAttr) throw Error("STR out of range"); m_STR = str; }
 
 	// get/set DEX
-	Attr_t getDEX () const throw(Error) { if (m_DEX > maxSlayerAttr) throw Error("DEX out of range"); return m_DEX; }
-	void setDEX (Attr_t dex) throw(Error) { if (dex > maxSlayerAttr) throw Error("DEX out of range"); m_DEX = dex; }
+	Attr_t getDEX () const throw (Error) { if (m_DEX > maxSlayerAttr) throw Error("DEX out of range"); return m_DEX; }
+	void setDEX (Attr_t dex) throw (Error) { if (dex > maxSlayerAttr) throw Error("DEX out of range"); m_DEX = dex; }
 
 	// get/set INT
-	Attr_t getINT () const throw(Error) { if (m_INT > maxSlayerAttr) throw Error("INT out of range"); return m_INT; }
-	void setINT (Attr_t inte) throw(Error) { if (inte > maxSlayerAttr) throw Error("INT out of range"); m_INT = inte; }
+	Attr_t getINT () const throw (Error) { if (m_INT > maxSlayerAttr) throw Error("INT out of range"); return m_INT; }
+	void setINT (Attr_t inte) throw (Error) { if (inte > maxSlayerAttr) throw Error("INT out of range"); m_INT = inte; }
 
 	// get/set STR Exp
 	Exp_t getSTRExp () const throw(Error) { return m_STRExp; };
@@ -169,35 +169,35 @@ public:
 	void setINTExp(Exp_t INTExp) throw(Error) { m_INTExp = INTExp; }
 
 
-	Rank_t getRank () const throw() { return m_Rank; }
-	void setRank (Rank_t rank) throw() { m_Rank = rank; }
+	Rank_t getRank () const throw () { return m_Rank; }
+	void setRank (Rank_t rank) throw () { m_Rank = rank; }
 
 
 	// get/set HP
-	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw() { return m_HP[attrType]; }
-	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw() { m_HP[attrType] = hp; }
-	void setHP (HP_t curHP, HP_t maxHP) throw() { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
+	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw () { return m_HP[attrType]; }
+	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw () { m_HP[attrType] = hp; }
+	void setHP (HP_t curHP, HP_t maxHP) throw () { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
 
 	// get/set MP
-	MP_t getMP (AttrType attrType = ATTR_CURRENT) const throw() { return m_MP[attrType]; }
-	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = mp; }
-	void setMP (MP_t curMP, MP_t maxMP) throw() { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
+	MP_t getMP (AttrType attrType = ATTR_CURRENT) const throw () { return m_MP[attrType]; }
+	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT) throw () { m_MP[attrType] = mp; }
+	void setMP (MP_t curMP, MP_t maxMP) throw () { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
 
 	// get/set fame
-	Fame_t getFame () const throw() { return m_Fame; }
-	void setFame (Fame_t fame) throw() { m_Fame = fame; }
+	Fame_t getFame () const throw () { return m_Fame; }
+	void setFame (Fame_t fame) throw () { m_Fame = fame; }
 
 	// get/set gold
-	//Gold_t getGold () const throw() { return m_Gold; }
-	//void setGold (Gold_t gold) throw() { m_Gold = gold; }
+	//Gold_t getGold () const throw () { return m_Gold; }
+	//void setGold (Gold_t gold) throw () { m_Gold = gold; }
 
 	  // get/set skill domain level
-	SkillLevel_t getSkillDomainLevel (SkillDomain domain) const throw() { return m_DomainLevels[ domain ]; }
-	void setSkillDomainLevel (SkillDomain domain, SkillLevel_t skillLevel) throw() { m_DomainLevels[ domain ] = skillLevel; }
+	SkillLevel_t getSkillDomainLevel (SkillDomain domain) const throw () { return m_DomainLevels[ domain ]; }
+	void setSkillDomainLevel (SkillDomain domain, SkillLevel_t skillLevel) throw () { m_DomainLevels[ domain ] = skillLevel; }
 
 	  // get/set zoneID
-	//ZoneID_t getZoneID () const throw() { return m_ZoneID; }
-	//void setZoneID (ZoneID_t zoneID) throw() { m_ZoneID = zoneID; }
+	//ZoneID_t getZoneID () const throw () { return m_ZoneID; }
+	//void setZoneID (ZoneID_t zoneID) throw () { m_ZoneID = zoneID; }
 
 	Level_t getAdvancementLevel() const { return m_AdvancementLevel; }
 	void	setAdvancementLevel(Level_t level) { m_AdvancementLevel = level; }
@@ -205,11 +205,11 @@ public:
 // get/set outlook
 public:
 	// get/set sex
-    Sex getSex () const throw() 
+    Sex getSex () const throw () 
 	{ 
 		return m_Outlook.test(SLAYER_BIT_SEX)?MALE:FEMALE; 
 	}
-    void setSex (Sex sex) throw() 
+    void setSex (Sex sex) throw () 
 	{ 
 		m_Outlook.set(SLAYER_BIT_SEX,(sex==MALE?true:false)); 
 	}
@@ -225,17 +225,17 @@ public:
 	}
 
 	// get/set hair style
-	HairStyle getHairStyle () const throw() 
+	HairStyle getHairStyle () const throw () 
 	{ 
 		return HairStyle((m_Outlook.to_ulong() >> SLAYER_BIT_HAIRSTYLE1) & 3); 
 	}
-	void setHairStyle (HairStyle hairStyle) throw() 
+	void setHairStyle (HairStyle hairStyle) throw () 
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_HAIRSTYLE1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(hairStyle << SLAYER_BIT_HAIRSTYLE1); 
 	}
 
-	void setHairStyle (string hairStyle) throw(InvalidProtocolException)
+	void setHairStyle (string hairStyle) throw (InvalidProtocolException)
 	{
 		if (hairStyle == HairStyle2String[HAIR_STYLE1]) 
 		{
@@ -257,55 +257,55 @@ public:
 	}
 
 	// get/set helmet
-	HelmetType getHelmetType () const throw() 
+	HelmetType getHelmetType () const throw () 
 	{ 
 		return HelmetType((m_Outlook.to_ulong() >> SLAYER_BIT_HELMET1) & 3); 
 	}
-	void setHelmetType (HelmetType helmetType) throw()
+	void setHelmetType (HelmetType helmetType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_HELMET1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(helmetType << SLAYER_BIT_HELMET1); 
 	}
 
 	// get/set jacket
-	JacketType getJacketType () const throw() 
+	JacketType getJacketType () const throw () 
 	{ 
 		return JacketType((m_Outlook.to_ulong() >> SLAYER_BIT_JACKET1) & 7); 
 	}
-	void setJacketType (JacketType jacketType) throw()
+	void setJacketType (JacketType jacketType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_JACKET1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(jacketType << SLAYER_BIT_JACKET1); 
 	}
 
 	// get/set pants
-	PantsType getPantsType () const throw()
+	PantsType getPantsType () const throw ()
 	{
 		return PantsType((m_Outlook.to_ulong() >> SLAYER_BIT_PANTS1) & 7);
 	}
-	void setPantsType (PantsType pantsType) throw()
+	void setPantsType (PantsType pantsType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_PANTS1);
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(pantsType << SLAYER_BIT_PANTS1);
 	}
 
 	// get/set weapon
-	WeaponType getWeaponType () const throw()
+	WeaponType getWeaponType () const throw ()
 	{ 
 		return WeaponType((m_Outlook.to_ulong() >> SLAYER_BIT_WEAPON1) & 15);
 	}
-	void setWeaponType (WeaponType weaponType) throw()
+	void setWeaponType (WeaponType weaponType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(15 << SLAYER_BIT_WEAPON1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(weaponType << SLAYER_BIT_WEAPON1);
 	}
 
 	// get/set Shield Type
-	ShieldType getShieldType () const throw() 
+	ShieldType getShieldType () const throw () 
 	{ 
 		return ShieldType((m_Outlook.to_ulong() >> SLAYER_BIT_SHIELD1) & 3); 
 	}
-	void setShieldType (ShieldType shieldType) throw()
+	void setShieldType (ShieldType shieldType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_SHIELD1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(shieldType << SLAYER_BIT_SHIELD1); 
@@ -317,71 +317,71 @@ public:
 public:
 
 	// get/set hair color
-	Color_t getHairColor () const throw() 
+	Color_t getHairColor () const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_HAIR ]; 
 	}
-	void setHairColor (Color_t color) throw() 
+	void setHairColor (Color_t color) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_HAIR ] = color; 
 	}
 
 	// get/set skin color
-	Color_t getSkinColor () const throw() 
+	Color_t getSkinColor () const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_SKIN ]; 
 	}
-	void setSkinColor (Color_t color) throw() 
+	void setSkinColor (Color_t color) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_SKIN ] = color; 
 	}
 
 	// get/set helmet color
-	Color_t getHelmetColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getHelmetColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_HELMET + (uint)colorType ]; 
 	}
-	void setHelmetColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setHelmetColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_HELMET + (uint)colorType ] = color; 
 	}
 
 	// get/set jacket color
-	Color_t getJacketColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getJacketColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_JACKET + (uint)colorType ]; 
 	}
-	void setJacketColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setJacketColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_JACKET + (uint)colorType ] = color; 
 	}
 
 	// get/set pants color
-	Color_t getPantsColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getPantsColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_PANTS + (uint)colorType ]; 
 	}
-	void setPantsColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setPantsColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_PANTS + (uint)colorType ] = color; 
 	}
 
 	// get/set weapon color
-	Color_t getWeaponColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getWeaponColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_WEAPON + (uint)colorType ]; 
 	}
-	void setWeaponColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setWeaponColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_WEAPON + (uint)colorType ] = color; 
 	}
 
 	// get/set shield color
-	Color_t getShieldColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getShieldColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_SHIELD + (uint)colorType ]; 
 	}
-	void setShieldColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setShieldColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_SHIELD + (uint)colorType ] = color; 
 	}

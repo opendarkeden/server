@@ -43,17 +43,17 @@ public:
 
 public:
 	BloodBibleBonusType_t getType() const { return m_Type; }
-	void setType(DWORD type ) { m_Type = type; }
+	void setType( DWORD type ) { m_Type = type; }
 
 	string getName() const { return m_Name; }
-	void setName(string name ) { m_Name = name; }
+	void setName( string name ) { m_Name = name; }
 
 	Race_t getRace() const { return m_Race; }
-	void setRace(Race_t race ) { m_Race = race; }
+	void setRace( Race_t race ) { m_Race = race; }
 
 	void clearOptionTypeList() { m_OptionTypeList.clear(); }
 	const OptionTypeList& getOptionTypeList() const { return m_OptionTypeList; }
-	void setOptionTypeList(const string& optionList ) { makeOptionList(optionList, m_OptionTypeList); } 
+	void setOptionTypeList( const string& optionList ) { makeOptionList( optionList, m_OptionTypeList ); } 
 	string toString() const throw();
 
 protected:

@@ -10,9 +10,9 @@
 #include "GamePlayer.h"
 #include "CreatureUtil.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 #include "GDRLairManager.h"
 #include "GQuestManager.h"
 
@@ -54,7 +54,7 @@ void SummonSylph::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 							|| pOusters->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
 							|| pOusters->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
 							|| GDRLairManager::Instance().isGDRLairZone(pZone->getZoneID())
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -96,10 +96,10 @@ void SummonSylph::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 
 //			pOustersSkillSlot->setRunTime(output.Delay);
 
-			if (pOusters->getPetInfo() != NULL )
+			if ( pOusters->getPetInfo() != NULL )
 			{
-				pOusters->setPetInfo(NULL);
-				sendPetInfo(dynamic_cast<GamePlayer*>(pOusters->getPlayer()), true);
+				pOusters->setPetInfo( NULL );
+				sendPetInfo( dynamic_cast<GamePlayer*>(pOusters->getPlayer()), true );
 			}
 
 			pOusters->getGQuestManager()->rideMotorcycle();

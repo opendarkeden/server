@@ -8,9 +8,9 @@
 #include "EffectRevealer.h"
 #include "Party.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -58,15 +58,15 @@ void Revealer::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffe
 
 			// 이펙트 오브젝트를 생성해서 붙인다.
 			EffectRevealer* pEffectRevealer = new EffectRevealer (pSlayer);
-			pEffectRevealer->setSkillLevel(pSkillSlot->getExpLevel());
+			pEffectRevealer->setSkillLevel( pSkillSlot->getExpLevel() );
 			pEffectRevealer->setDeadline(output.Duration);
 			pSlayer->addEffect(pEffectRevealer);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_REVEALER);
 
 			// 이 이펙트가 붙음으로써, 안 보이던 것이 보인다.
 			pZone->updateMineScan(pSlayer);
-			//pZone->updateInvisibleScan(pSlayer);
-			pZone->updateHiddenScan(pSlayer);
+			//pZone->updateInvisibleScan( pSlayer );
+			pZone->updateHiddenScan( pSlayer );
 
 			// 경험치를 올린다.
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));

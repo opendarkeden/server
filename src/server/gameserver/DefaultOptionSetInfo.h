@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Types.h"
 #include "OptionInfo.h"
-#include <map>
+#include <hash_map>
 #include <list>
 
 
@@ -29,10 +29,10 @@ public:
 	~DefaultOptionSetInfo();
 
 public:
-	void setType(DefaultOptionSetType_t type ) { m_Type = type; }
+	void setType( DefaultOptionSetType_t type ) { m_Type = type; }
 	DefaultOptionSetType_t getType() const { return m_Type; }
 
-	void setOptionTypeList(const list<OptionType_t>& optionTypes ) { m_OptionTypes = optionTypes; }
+	void setOptionTypeList( const list<OptionType_t>& optionTypes ) { m_OptionTypes = optionTypes; }
 	const list<OptionType_t>& getOptionTypeList() const { return m_OptionTypes; }
 
 private:
@@ -41,7 +41,7 @@ private:
 
 };
 
-typedef map<DefaultOptionSetType_t, DefaultOptionSetInfo*>		HashMapDefaultOptionSetInfo;
+typedef hash_map<DefaultOptionSetType_t, DefaultOptionSetInfo*>		HashMapDefaultOptionSetInfo;
 typedef HashMapDefaultOptionSetInfo::iterator						HashMapDefaultOptionSetInfoItor;
 typedef HashMapDefaultOptionSetInfo::const_iterator					HashMapDefaultOptionSetInfoConstItor;
 
@@ -55,8 +55,8 @@ public:
 public:
 	void load() throw();
 
-	DefaultOptionSetInfo* getDefaultOptionSetInfo(DefaultOptionSetType_t type);
-	void addDefaultOptionSetInfo(DefaultOptionSetInfo* pDefaultOptionSetInfo ) throw(DuplicatedException,Error);
+	DefaultOptionSetInfo* getDefaultOptionSetInfo( DefaultOptionSetType_t type );
+	void addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo ) throw(DuplicatedException,Error);
 
 private:
 	HashMapDefaultOptionSetInfo	m_DefaultOptionSetInfos;

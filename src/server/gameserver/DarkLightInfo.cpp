@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "DarkLightInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "GameTime.h"
 #include "TimeManager.h"
 #include "DB.h"
@@ -14,10 +14,10 @@
 const int DLIndexByTimeband[4] =
 {
 	// (month-1)*(24*6) + (hour)*6 + (minute/10)
-	(5 - 1 ) * (24 * 6 ) + ( 5 ) * 6 + (50 / 10 ),	// TIME_DAWM
-	(5 - 1 ) * (24 * 6 ) + (12 ) * 6 + ( 0 / 10 ),	// TIME_DAY
-	(5 - 1 ) * (24 * 6 ) + (18 ) * 6 + ( 0 / 10 ),	// TIME_DUSK
-	(5 - 1 ) * (24 * 6 ) + ( 0 ) * 6 + ( 0 / 10 )	// TIME_NIGHT
+	( 5 - 1 ) * ( 24 * 6 ) + (  5 ) * 6 + ( 50 / 10 ),	// TIME_DAWM
+	( 5 - 1 ) * ( 24 * 6 ) + ( 12 ) * 6 + (  0 / 10 ),	// TIME_DAY
+	( 5 - 1 ) * ( 24 * 6 ) + ( 18 ) * 6 + (  0 / 10 ),	// TIME_DUSK
+	( 5 - 1 ) * ( 24 * 6 ) + (  0 ) * 6 + (  0 / 10 )	// TIME_NIGHT
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ string DarkLightInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 DarkLightInfoManager::DarkLightInfoManager ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ DarkLightInfoManager::DarkLightInfoManager ()
 }
 
 DarkLightInfoManager::~DarkLightInfoManager ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ DarkLightInfoManager::~DarkLightInfoManager ()
 }
 
 void DarkLightInfoManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -99,7 +99,7 @@ void DarkLightInfoManager::init ()
 }
 
 void DarkLightInfoManager::load () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -153,7 +153,7 @@ void DarkLightInfoManager::load ()
 }
 
 DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , BYTE minute) 
-	throw(OutOfBoundException , Error)
+	throw (OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , 
 }
 
 const DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , BYTE minute) const 
-	throw(OutOfBoundException , Error)
+	throw (OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -190,13 +190,13 @@ const DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE h
 	__END_CATCH
 }
 
-const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo (Zone* pZone ) const
-	throw(Error)
+const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone ) const
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 존에 시간이 고정된 경우라면 적절한 DarkLight 정보를 리턴한다.
-	if (pZone != NULL && pZone->isTimeStop() )
+	if ( pZone != NULL && pZone->isTimeStop() )
 	{
 		return m_DarkLightInfos[ DLIndexByTimeband[ pZone->getTimeband() ] ];
 	}
@@ -209,13 +209,13 @@ const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo (Zone* pZone 
 	__END_CATCH
 }
 
-DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo (Zone* pZone ) 
-	throw(Error)
+DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone ) 
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 존에 시간이 고정된 경우라면 적절한 DarkLight 정보를 리턴한다.
-	if (pZone != NULL && pZone->isTimeStop() )
+	if ( pZone != NULL && pZone->isTimeStop() )
 	{
 		return m_DarkLightInfos[ DLIndexByTimeband[ pZone->getTimeband() ] ];
 	}
@@ -229,7 +229,7 @@ DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo (Zone* pZone )
 }
 
 string DarkLightInfoManager::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	StringStream msg;

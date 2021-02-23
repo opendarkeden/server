@@ -99,39 +99,39 @@ public:
 	void setElementalDomain(int elemental) { m_ElementalDomain = elemental; }
 
 	bool isMelee() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_MELEE); }
-	void setMelee(bool bMelee )
+	void setMelee( bool bMelee )
 	{
-		(bMelee ? m_PropertyType.set(SKILL_PROPERTY_TYPE_MELEE )
-		  		 : m_PropertyType.reset(SKILL_PROPERTY_TYPE_MELEE )); }
+		( bMelee ? m_PropertyType.set( SKILL_PROPERTY_TYPE_MELEE )
+		  		 : m_PropertyType.reset( SKILL_PROPERTY_TYPE_MELEE ) ); }
 
 	bool isMagic() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_MAGIC); }
-	void setMagic(bool bMagic ) 
+	void setMagic( bool bMagic ) 
 	{
-		(bMagic ? m_PropertyType.set(SKILL_PROPERTY_TYPE_MAGIC )
-				 : m_PropertyType.reset(SKILL_PROPERTY_TYPE_MAGIC ));
+		( bMagic ? m_PropertyType.set( SKILL_PROPERTY_TYPE_MAGIC )
+				 : m_PropertyType.reset( SKILL_PROPERTY_TYPE_MAGIC ) );
 	}
 
-	bool isPhysic() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_PHYSIC); }
-	void setPhysic(bool bPhysic )
+	bool isPhysic() const { return m_PropertyType.test( SKILL_PROPERTY_TYPE_PHYSIC ); }
+	void setPhysic( bool bPhysic )
 	{ 
-		(bPhysic ? m_PropertyType.set(SKILL_PROPERTY_TYPE_PHYSIC )
-		  		  : m_PropertyType.reset(SKILL_PROPERTY_TYPE_PHYSIC ));
+		( bPhysic ? m_PropertyType.set( SKILL_PROPERTY_TYPE_PHYSIC )
+		  		  : m_PropertyType.reset( SKILL_PROPERTY_TYPE_PHYSIC ) );
 	}
 
 	// 배우기 위해 필요한 스킬 포인트
 	int getSkillPoint() const { return m_SkillPoint; }
-	void setSkillPoint(int skillPoint ) { m_SkillPoint = skillPoint; }
+	void setSkillPoint( int skillPoint ) { m_SkillPoint = skillPoint; }
 
 	// 스킬 레벨 업 포인트
 	int getLevelUpPoint() const { return m_LevelUpPoint; }
-	void setLevelUpPoint(int levelUpPoint ) { m_LevelUpPoint = levelUpPoint; }
+	void setLevelUpPoint( int levelUpPoint ) { m_LevelUpPoint = levelUpPoint; }
 
 	// 이전에 배워야 할 스킬들
-	void addRequireSkill(SkillType_t skillType ) { m_RequireSkills.push_back(skillType); }
+	void addRequireSkill( SkillType_t skillType ) { m_RequireSkills.push_back( skillType ); }
 	list<SkillType_t>& getRequireSkills() { return m_RequireSkills; }
 
 	// 이전에 배워야 할 스킬들
-	void addRequiredSkill(SkillType_t skillType ) { m_RequiredSkills.push_back(skillType); }
+	void addRequiredSkill( SkillType_t skillType ) { m_RequiredSkills.push_back( skillType ); }
 	list<SkillType_t>& getRequiredSkills() { return m_RequiredSkills; }
 
 	BYTE canDelete() const { return m_CanDelete; }
@@ -152,20 +152,20 @@ public:
 	ElementalType getRequireStone3Elemental() const { return m_RequireStone3Elemental; }
 	ElementalType getRequireStone4Elemental() const { return m_RequireStone4Elemental; }
 
-	void setRequireFire(Elemental_t require ) { m_RequireFire = require; }
-	void setRequireWater(Elemental_t require ) { m_RequireWater = require; }
-	void setRequireEarth(Elemental_t require ) { m_RequireEarth = require; }
-	void setRequireWind(Elemental_t require ) { m_RequireWind = require; }
-	void setRequireSum(Elemental_t require ) { m_RequireSum = require; }
+	void setRequireFire( Elemental_t require ) { m_RequireFire = require; }
+	void setRequireWater( Elemental_t require ) { m_RequireWater = require; }
+	void setRequireEarth( Elemental_t require ) { m_RequireEarth = require; }
+	void setRequireWind( Elemental_t require ) { m_RequireWind = require; }
+	void setRequireSum( Elemental_t require ) { m_RequireSum = require; }
 
-	void setRequireWristletElemental(ElementalType require ) { m_RequireWristletElemental = require; }
-	void setRequireStone1Elemental(ElementalType require ) { m_RequireStone1Elemental = require; }
-	void setRequireStone2Elemental(ElementalType require ) { m_RequireStone2Elemental = require; }
-	void setRequireStone3Elemental(ElementalType require ) { m_RequireStone3Elemental = require; }
-	void setRequireStone4Elemental(ElementalType require ) { m_RequireStone4Elemental = require; }
+	void setRequireWristletElemental( ElementalType require ) { m_RequireWristletElemental = require; }
+	void setRequireStone1Elemental( ElementalType require ) { m_RequireStone1Elemental = require; }
+	void setRequireStone2Elemental( ElementalType require ) { m_RequireStone2Elemental = require; }
+	void setRequireStone3Elemental( ElementalType require ) { m_RequireStone3Elemental = require; }
+	void setRequireStone4Elemental( ElementalType require ) { m_RequireStone4Elemental = require; }
 
-	void setRequireSkill(const string& requireSkill);
-	void setCondition(const string& condition);
+	void setRequireSkill( const string& requireSkill );
+	void setCondition( const string& condition );
 
 	// toString
 	string toString() const ;

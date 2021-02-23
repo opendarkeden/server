@@ -8,7 +8,7 @@ class GQuestStartOtherQuestElement : public GQuestElement
 public:
 	GQuestStartOtherQuestElement() : m_QuestID(0) { }
 	string 				getElementName() const { return "StartOtherQuest"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestStartOtherQuestElement*	makeElement(XMLTree* pTree);
 
 private:

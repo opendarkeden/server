@@ -13,13 +13,12 @@
 #include "MonsterManager.h"
 #include "EffectKillTimer.h"
 #include "GQuestManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <map>
 
 enum OUSTERS_MIRROR_OF_ABYSS
 {
@@ -44,68 +43,83 @@ DynamicZoneOustersMirrorOfAbyss::~DynamicZoneOustersMirrorOfAbyss()
 
 void DynamicZoneOustersMirrorOfAbyss::init()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	m_OMOAStatus = WAIT_FOR_PC;
-	getCurrentTime(m_Deadline);
+	getCurrentTime( m_Deadline );
 	m_Deadline.tv_sec += 60;
-	getCurrentTime(m_EndTime);
+	getCurrentTime( m_EndTime );
 	m_EndTime.tv_sec += 10 * 60;
 }
 
 void DynamicZoneOustersMirrorOfAbyss::heartbeat()
 {
-	switch (m_OMOAStatus )
+	switch ( m_OMOAStatus )
 	{
 	case WAIT_FOR_PC:
-		if (checkPC() )
+		if ( checkPC() )
 		{
 			processEntering();
 			m_OMOAStatus = ADD_MONO;
+			cout << "-----------------------ADD_MONO" << endl;
 		}
 		break;
 
 	case ADD_MONO:
-		if (addMono() )
+		if ( addMono() )
+		{
 			m_OMOAStatus = WAIT_FOR_COMPLETE;
+			cout << "-----------------------WAIT_FOR_COMPLETE" << endl;
+		}
 		break;
 
 	case WAIT_FOR_COMPLETE:
-		if (checkComplete() )
+		if ( checkComplete() )
 		{
 			openGateToOut();
 			m_OMOAStatus = CLEAR_MONO;
+			cout << "-----------------------CLEAR_MONO" << endl;
 		}
-		if (!checkMono() )
+
+		if ( !checkMono() )
+		{
 			killPC();
+		}
 
 		break;
 
 	case CLEAR_MONO:
-		if (clearMono() )
+		if ( clearMono() )
+		{
 			m_OMOAStatus = WAIT_FOR_CLEAR;
+			cout << "-----------------------WAIT_FOR_CLEAR" << endl;
+		}
 		break;
 
 	case WAIT_FOR_CLEAR:
-		if (!checkPC() && !checkMono() )
+		if ( !checkPC() && !checkMono() )
 		{
 			m_OMOAStatus = OUSTERS_MIRROR_OF_ABYSS_END;
 			m_Status = DYNAMIC_ZONE_STATUS_READY;
+			cout << "-----------------------READY" << endl;
 		}
 		break;
 	}
 
-	if (!checkPC() )
+	if ( !checkPC() )
 	{
-		if (m_OMOAStatus == WAIT_FOR_PC )
+		if ( m_OMOAStatus == WAIT_FOR_PC )
 		{
 			Timeval current;
-			getCurrentTime(current);
+			getCurrentTime( current );
 
-			if (current > m_Deadline )
+			if ( current > m_Deadline )
+			{
 				m_OMOAStatus = CLEAR_MONO;
+				cout << "-----------------------Time out" << endl;
+			}
 		}
-		else if (m_OMOAStatus == WAIT_FOR_COMPLETE )
+		else if ( m_OMOAStatus == WAIT_FOR_COMPLETE )
 		{
 			m_OMOAStatus = CLEAR_MONO;
 		}
@@ -114,7 +128,7 @@ void DynamicZoneOustersMirrorOfAbyss::heartbeat()
 
 bool DynamicZoneOustersMirrorOfAbyss::checkPC()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// PC ¼ö Ã¼Å©
 	uint size = m_pZone->getPCManager()->getSize();
@@ -124,25 +138,25 @@ bool DynamicZoneOustersMirrorOfAbyss::checkPC()
 
 bool DynamicZoneOustersMirrorOfAbyss::addMono()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// ÀÌ¼ºÀÇ ºÀÀÎÀ» »ý¼ºÇÑ´Ù.
-	Monster* pMonster = new Monster(792);
-	Assert(pMonster != NULL);
+	Monster* pMonster = new Monster( 792 );
+	Assert( pMonster != NULL );
 
-	pMonster->setName("ÀÌ¼ºÀÇ ºÀÀÎ");
+	pMonster->setName( "ÀíÐÔÖ®·âÓ¡" );
 	pMonster->setClanType(33);
 
 	try
 	{
-		m_pZone->addCreature(pMonster, 15, 15, 2);
+		m_pZone->addCreature( pMonster, 15, 15, 2 );
 		m_pZone->getMonsterManager()->addEnemy(NULL, pMonster);
 
 		m_MonoObjectID = pMonster->getObjectID();
 	}
-	catch (EmptyTileNotExistException& )
+	catch ( EmptyTileNotExistException& )
 	{
-		SAFE_DELETE(pMonster);
+		SAFE_DELETE( pMonster );
 	}
 
 	return true;
@@ -150,20 +164,20 @@ bool DynamicZoneOustersMirrorOfAbyss::addMono()
 
 bool DynamicZoneOustersMirrorOfAbyss::clearMono()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	MonsterManager* pMonsterManager = m_pZone->getMonsterManager();
-	Assert(pMonsterManager != NULL);
+	Assert( pMonsterManager != NULL );
 
-	Creature* pCreature = pMonsterManager->getCreature(m_MonoObjectID);
-	if (pCreature != NULL )
+	Creature* pCreature = pMonsterManager->getCreature( m_MonoObjectID );
+	if ( pCreature != NULL )
 	{
-		if (pCreature->isMonster() )
+		if ( pCreature->isMonster() )
 		{
-			EffectKillTimer* pEffect = new EffectKillTimer(pCreature, true);
-			pCreature->setFlag(pEffect->getEffectClass());
+			EffectKillTimer* pEffect = new EffectKillTimer( pCreature, true );
+			pCreature->setFlag( pEffect->getEffectClass() );
 			pEffect->setDeadline(50);
-			pCreature->addEffect(pEffect);
+			pCreature->addEffect( pEffect );
 		}
 	}
 
@@ -172,20 +186,20 @@ bool DynamicZoneOustersMirrorOfAbyss::clearMono()
 
 bool DynamicZoneOustersMirrorOfAbyss::openGateToOut()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
     // Äù½ºÆ®¸¦ ÁøÇà½ÃÅ²´Ù.
-    map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
-    for (; itr != endItr; ++itr )
+    for ( ; itr != endItr; ++itr )
     {
-        Assert(itr->second != NULL);
+        Assert( itr->second != NULL );
 
-        if (itr->second->isPC() )
+        if ( itr->second->isPC() )
         {
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-            Assert(pPC != NULL);
+            Assert( pPC != NULL );
 
             pPC->getGQuestManager()->clearDynamicZone(m_TemplateZoneID);
         }
@@ -197,8 +211,8 @@ bool DynamicZoneOustersMirrorOfAbyss::openGateToOut()
 bool DynamicZoneOustersMirrorOfAbyss::checkComplete()
 {
 	Timeval current;
-	getCurrentTime(current);
-	if (current > m_EndTime )
+	getCurrentTime( current );
+	if ( current > m_EndTime )
 	{
 		return true;
 	}
@@ -210,20 +224,20 @@ bool DynamicZoneOustersMirrorOfAbyss::checkComplete()
 
 void DynamicZoneOustersMirrorOfAbyss::processEntering()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
     // Äù½ºÆ® Á¸¿¡ µé¾î¿ÔÀ½À» ¾Ë¸°´Ù.
-    map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
-    for (; itr != endItr; ++itr )
+    for ( ; itr != endItr; ++itr )
     {
-        Assert(itr->second != NULL);
+        Assert( itr->second != NULL );
 
-        if (itr->second->isPC() )
+        if ( itr->second->isPC() )
         {
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-            Assert(pPC != NULL);
+            Assert( pPC != NULL );
 
             pPC->getGQuestManager()->enterDynamicZone(m_TemplateZoneID);
         }
@@ -232,50 +246,50 @@ void DynamicZoneOustersMirrorOfAbyss::processEntering()
 
 bool DynamicZoneOustersMirrorOfAbyss::checkMono()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	MonsterManager* pMonsterManager = m_pZone->getMonsterManager();
-	Assert(pMonsterManager != NULL);
+	Assert( pMonsterManager != NULL );
 
-	Creature* pCreature = pMonsterManager->getCreature(m_MonoObjectID);
+	Creature* pCreature = pMonsterManager->getCreature( m_MonoObjectID );
 	return pCreature != NULL;
 }
 
 void DynamicZoneOustersMirrorOfAbyss::killPC()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
     // PC ¸¦ Á×ÀÎ´Ù.
-    map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
-    for (; itr != endItr; ++itr )
+    for ( ; itr != endItr; ++itr )
     {
-        Assert(itr->second != NULL);
+        Assert( itr->second != NULL );
 
-        if (itr->second->isPC() )
+        if ( itr->second->isPC() )
         {
             PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-            Assert(pPC != NULL);
+            Assert( pPC != NULL );
 
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-				Assert(pSlayer != NULL);
+				Assert( pSlayer != NULL );
 
 				pSlayer->setHP(0);
 			}
-			else if (pPC->isVampire() )
+			else if ( pPC->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-				Assert(pVampire != NULL);
+				Assert( pVampire != NULL );
 
 				pVampire->setHP(0);
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-				Assert(pOusters != NULL);
+				Assert( pOusters != NULL );
 
 				pOusters->setHP(0);
 			}
@@ -283,6 +297,6 @@ void DynamicZoneOustersMirrorOfAbyss::killPC()
     }
 }
 
-DEFINE_DYNAMIC_ZONE_FACTORY(DynamicZoneOustersMirrorOfAbyss, DYNAMIC_ZONE_OUSTERS_MIRROR_OF_ABYSS )
+DEFINE_DYNAMIC_ZONE_FACTORY( DynamicZoneOustersMirrorOfAbyss, DYNAMIC_ZONE_OUSTERS_MIRROR_OF_ABYSS )
 
 

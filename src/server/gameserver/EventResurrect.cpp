@@ -23,7 +23,7 @@
 
 #include "PacketUtil.h"
 
-#include "GCUpdateInfo.h"
+#include "Gpackets/GCUpdateInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventResurrect member methods
@@ -43,7 +43,7 @@ EventResurrect::~EventResurrect()
 }
 
 void EventResurrect::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -131,7 +131,7 @@ void EventResurrect::activate ()
 }
 
 string EventResurrect::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventResurrect("

@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SharedServerClient.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "PacketFactoryManager.h"
 #include "PacketValidator.h"
 #include "GuildManager.h"
@@ -26,7 +26,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 SharedServerClient::SharedServerClient (Socket* pSocket)
-	 throw(Error)
+	 throw (Error)
 : Player(pSocket)
 {
 	__BEGIN_TRY
@@ -42,7 +42,7 @@ SharedServerClient::SharedServerClient (Socket* pSocket)
 //////////////////////////////////////////////////////////////////////////////
 
 SharedServerClient::~SharedServerClient ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ SharedServerClient::~SharedServerClient ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::processCommand () 
-     throw(IOException , Error)
+     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -88,7 +88,7 @@ void SharedServerClient::processCommand ()
 			// 패킷 아이디가 이상하면 프로토콜 에러로 간주한다.
 			if (packetID >= (int)Packet::PACKET_MAX)
 			{
-				filelog("SharedServerClient.txt", "Packet ID exceed MAX, RECV [%d/%d]");
+				filelog("SharedServerClient.txt", "Packet ID exceed MAX, RECV [%d/%d]" );
 
 				throw InvalidProtocolException("too large packet id");
 			}
@@ -98,7 +98,7 @@ void SharedServerClient::processCommand ()
 				// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
 				if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
 				{
-					filelog("SharedServerClient.txt", "Too Larget Packet Size, RECV [%d],PacketSize[%d]");
+					filelog("SharedServerClient.txt", "Too Larget Packet Size, RECV [%d],PacketSize[%d]" );
 
 					throw InvalidProtocolException("too large packet size");
 				}
@@ -121,9 +121,9 @@ void SharedServerClient::processCommand ()
 				// 패킷아이디가 잘못될 경우는 패킷핸들러매니저에서 처리한다.
 				#ifdef __PROFILE_PACKETS__
 					
-					beginProfileEx(	pPacket->getPacketName().c_str());
+					beginProfileEx(	pPacket->getPacketName().c_str() );
 					pPacket->execute(this);
-					endProfileEx(pPacket->getPacketName().c_str());
+					endProfileEx( pPacket->getPacketName().c_str() );
 
 				#else
 					pPacket->execute(this);
@@ -149,7 +149,7 @@ void SharedServerClient::processCommand ()
 			}
 		}
 	} 
-	catch (InsufficientDataException& ide )
+	catch ( InsufficientDataException& ide )
 	{
 	}
 
@@ -166,7 +166,7 @@ void SharedServerClient::processCommand ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::processOutput () 
-     throw(IOException , Error)
+     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -193,7 +193,7 @@ void SharedServerClient::processOutput ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::sendPacket (Packet* pPacket) 
-	 throw(ProtocolException , Error)
+	 throw (ProtocolException , Error)
 {	
 	__BEGIN_TRY
 	
@@ -218,7 +218,7 @@ void SharedServerClient::sendPacket (Packet* pPacket)
 //
 //////////////////////////////////////////////////////////////////////
 string SharedServerClient::toString () const
-       throw(Error)
+       throw (Error)
 {
 	__BEGIN_TRY
 		

@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Treasure.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "StringStream.h"
 #include "OptionInfo.h"
 #include "ItemInfoManager.h"
@@ -15,8 +15,6 @@
 #include <string.h>
 
 #include "SXml.h"
-
-#include <map>
 
 const uint TREASURE_RATIO_MODULUS = 100000;
 
@@ -58,7 +56,7 @@ void TreasureOptionType::loadFromFile(ifstream& file)
 	catch (NoSuchElementException & nsee)
 	{
 		cerr << "TreasureOptionType::loadFromFile() : Unknown Option" << endl;
-		throw("TreasureOptionType::loadFromFile() : Unknown Option");
+		throw ("TreasureOptionType::loadFromFile() : Unknown Option");
 	}
 
 	__END_CATCH
@@ -73,7 +71,7 @@ void TreasureOptionType::parseString(const string& text)
 
 	if (text.size() < 3) return;
 
-    size_t a = text.find_first_of(',', 0);
+	uint a = text.find_first_of(',', 0);
 
 	if (a != string::npos)
 	{
@@ -90,13 +88,13 @@ void TreasureOptionType::parseString(const string& text)
 		catch (NoSuchElementException & nsee)
 		{
 			cerr << "TreasureOptionType::parseString() : Unknown Option String[" << optionString << "]" << endl;
-			throw("TreasureOptionType::parseString() : Unknown Option String");
+			throw ("TreasureOptionType::parseString() : Unknown Option String");
 		}
 	}
 	else
 	{
 		cerr << "TreasureOptionType::parseString() : Error[" << text << "]" << endl;
-		throw("TreasureOptionType::parseString() : Error");
+		throw ("TreasureOptionType::parseString() : Error");
 	}
 
 	__END_CATCH
@@ -120,8 +118,8 @@ string TreasureOptionType::toString(void) const
 /*XMLTree* TreasureOptionType::makeXMLTree() const
 {
 	XMLTree* ret = NULL;
-	OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(m_OptionType);
-	if (pOptionInfo != NULL )
+	OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( m_OptionType );
+	if ( pOptionInfo != NULL )
 	{
 		ret = new XMLTree("OptionType");
 		ret->AddAttribute("Option", pOptionInfo->getNickname());
@@ -142,7 +140,9 @@ TreasureItemType::TreasureItemType()
 		
 	m_ItemType = 0;
 	m_Ratio    = 0;
-
+	//add by sonic 2006.10.21;
+	m_OptionRatioMax      = 2;
+	//end by sonic
 	__END_CATCH
 }
 
@@ -182,7 +182,7 @@ void TreasureItemType::loadFromFile(int itemClass, ifstream& file)
 			<< "ItemClass:" << ItemClass2String[itemClass] 
 			<< ",ItemType:" << (int)m_ItemType << "\n";
 		cerr << msg.toString();
-		throw(msg.toString());
+		throw (msg.toString());
 	}
 
 	for (int i=0; i<OptionTypeCount; i++)
@@ -213,14 +213,14 @@ void TreasureItemType::parseString(int itemClass, const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// ¸ÕÀú item typeÀ» ÀÐ¾îµéÀÎ´Ù.
-    size_t i = text.find_first_of('(', 0);
-    size_t j = text.find_first_of(',', i+1);
-    size_t k = text.find_first_of(')', j+1);
+	uint i = text.find_first_of('(', 0);
+	uint j = text.find_first_of(',', i+1);
+	uint k = text.find_first_of(')', j+1);
 
 	if (i == string::npos || j == string::npos || k == string::npos)
 	{
 		cerr << "TreasureItemType::parseString() : Error" << endl;
-		throw("TreasureItemType::parseString() : Error");
+		throw ("TreasureItemType::parseString() : Error");
 	}
 
 	m_ItemType    = atoi(trim(text.substr(i+1, j-i-1)).c_str());
@@ -235,14 +235,14 @@ void TreasureItemType::parseString(int itemClass, const string& text)
 			<< "ItemClass:" << ItemClass2String[itemClass] 
 			<< ",ItemType:" << (int)m_ItemType << "\n";
 		cerr << msg.toString();
-		throw(msg.toString());
+		throw (msg.toString());
 	}
 
 	// ¿É¼Ç Á¤º¸¸¦ ÀÐ¾îµéÀÎ´Ù.
 	string newText = text.substr(k+1, text.size()-k-1);
 
-    size_t a = 0;
-    size_t b = 0;
+	uint a = 0;
+	uint b = 0;
 
 	if (newText.size() > 0)
 	{
@@ -293,8 +293,9 @@ bool TreasureItemType::getRandomOption(ITEM_TEMPLATE* pTemplate)
 		//cout << "OptionTypeTotalRatio = 0" << endl;
 		return false;
 	}
-		
-	for (int k=0; k<2; k++)
+	// add by Sonic 2006.10.21 Ôö¼Ó¶þÊôÐÔÒÔÉÏµÄµô±¦ m_OptionRatioMax
+	//for (int k=0; k< 2 ; k++)
+	for (int k=0; k< m_OptionRatioMax ; k++)
 	{
 		bool bOneMore = false;
 
@@ -315,7 +316,7 @@ bool TreasureItemType::getRandomOption(ITEM_TEMPLATE* pTemplate)
 				if (pTemplate->bCreateOption)
 				{
 					// ÀÌ¹Ì ±× ¿É¼ÇÀÌ ºÙ¾îÀÖ´Â °æ¿ì
-					if (hasOptionClass(pTemplate->OptionType, pTOT->getOptionType() ))
+					if (hasOptionClass( pTemplate->OptionType, pTOT->getOptionType() ))
 					{
 						// ´õ ÀÌ»ó Ã£Áö ¸»ÀÚ.
 						//cout << "has Same OptionClass(" << pTOT->getOptionType() << ")" << endl;
@@ -325,7 +326,7 @@ bool TreasureItemType::getRandomOption(ITEM_TEMPLATE* pTemplate)
 					if (pTOT->getOptionType()!=0)
 					{
 						//cout << "add Option: " << pTOT->getOptionType() << endl;
-						pTemplate->OptionType.push_back(pTOT->getOptionType());
+						pTemplate->OptionType.push_back( pTOT->getOptionType() );
 					}
 				}
 				//else
@@ -391,9 +392,9 @@ string TreasureItemType::toString(void) const
 	vector<TreasureOptionType*>::const_iterator itr = m_TreasureOptionTypes.begin();
 	vector<TreasureOptionType*>::const_iterator endItr = m_TreasureOptionTypes.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		ret->AddChild((*itr)->makeXMLTree());
+		ret->AddChild( (*itr)->makeXMLTree() );
 	}
 
 	return ret;
@@ -411,6 +412,9 @@ TreasureItemClass::TreasureItemClass()
 	m_ItemClass = Item::ITEM_CLASS_MAX;
 	m_Ratio     = 0;
 
+//add By Sonic 2006.10.21
+	m_OptionRatioMax=2;
+//end by sonic
 	__END_CATCH
 }
 
@@ -471,9 +475,9 @@ void TreasureItemClass::parseString(const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// ¾ÆÀÌÅÛ Å¬·¡½º ¹× È®·üÀ» ÀÐ¾îµéÀÎ´Ù. 
-    size_t i = text.find_first_of('(', 0);
-    size_t j = text.find_first_of(',', i+1);
-    size_t k = text.find_first_of(')', j+1);
+	uint i = text.find_first_of('(', 0);
+	uint j = text.find_first_of(',', i+1);
+	uint k = text.find_first_of(')', j+1);
 
 	string itemClassString = trim(text.substr(i+1, j-i-1));
 	m_Ratio = atoi(trim(text.substr(j+1, k-j-1)).c_str());
@@ -485,8 +489,8 @@ void TreasureItemClass::parseString(const string& text)
 
 	//cout << "TIC::newText\n" << newText << endl << endl;
 
-    size_t a = 0;
-    size_t b = 0;
+	uint a = 0;
+	uint b = 0;
 
 	while (b < newText.size()-1)
 	{
@@ -543,7 +547,7 @@ bool TreasureItemClass::getRandomItem(ITEM_TEMPLATE* pTemplate)
 			pTemplate->ItemType = pTIT->getItemType();
 
 			// À¯´ÏÅ© ¾ÆÀÌÅÛ¿¡ °üÇÑ Ã¼Å©¸¦ ÇØ¾ßÇÑ´Ù. by sigi. 2002.8.16
-			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pTemplate->ItemClass, pTemplate->ItemType);
+			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pTemplate->ItemClass, pTemplate->ItemType );
 			Assert(pItemInfo!=NULL);
 
 			// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
@@ -566,6 +570,9 @@ bool TreasureItemClass::getRandomItem(ITEM_TEMPLATE* pTemplate)
 			}
 			else
 			{
+				// add by Sonic 2006.10.21
+				pTIT->setRndItemOptionMax(getRndItemOptionMax());
+				// end by Sonic
 				pTIT->getRandomOption(pTemplate);
 				return true;
 			}
@@ -608,9 +615,9 @@ string TreasureItemClass::toString(void) const
 	vector<TreasureItemType*>::const_iterator itr = m_TreasureItemTypes.begin();
 	vector<TreasureItemType*>::const_iterator endItr = m_TreasureItemTypes.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		ret->AddChild((*itr)->makeXMLTree());
+		ret->AddChild( (*itr)->makeXMLTree() );
 	}
 
 	return ret;
@@ -632,7 +639,7 @@ Item::ItemClass TreasureItemClass::getItemClassFromString(const string& text)
 	StringStream msg;
 	msg << "TreasureItemClass::getItemClassFromString() : Unknown String[" << text << "]";
 	cerr << msg.toString() << endl;
-	throw(msg.toString());
+	throw (msg.toString());
 
 	__END_CATCH
 }
@@ -649,6 +656,8 @@ Treasure::Treasure()
 	m_ItemRatio           = 0;
 	m_OptionRatio         = 0;
 	m_ItemClassTotalRatio = 0;
+	//add by sonic 2006.10.21;
+	m_OptionRatioMax      = 2;
 
 	__END_CATCH
 }
@@ -718,14 +727,14 @@ void Treasure::parseString(const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// ¸ÕÀú ¾ÆÀÌÅÛ ÀÚÃ¼°¡ ³ª¿Ã È®·ü°ú, ±× ¾ÆÀÌÅÛ¿¡ ¿É¼ÇÀÌ ºÙÀ» È®·üÀ» ÀÐ¾îµéÀÎ´Ù.
-    size_t i = text.find_first_of('(');
-    size_t j = text.find_first_of(',');
-    size_t k = text.find_first_of(')');
+	uint i = text.find_first_of('(');
+	uint j = text.find_first_of(',');
+	uint k = text.find_first_of(')');
 
 	if (i == string::npos || j == string::npos || k == string::npos) 
 	{
 		cerr << "Treasure::parseString() : Error" << endl;
-		throw("Treasure::parseString() : Error");
+		throw ("Treasure::parseString() : Error");
 	}
 
 	//m_ItemRatio = atoi(trim(text.substr(i+1, j-i-1)).c_str()) * 150 / 100 ;
@@ -744,8 +753,8 @@ void Treasure::parseString(const string& text)
 	string etoken = "END_ITEMCLASS";
 	uint   BTOKENSIZE = btoken.size();
 
-    size_t a = 0;
-    size_t b = 0;
+	uint a = 0;
+	uint b = 0;
 
 	while (b < newText.size()-1)
 	{
@@ -796,7 +805,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate)
 
 	
 	// Æ®·¹Á®¸®½ºÆ®¿¡ ¾ÆÀÌÅÛÀÌ ¾ø´Â °æ¿ìÀÏ ²¨´Ù..¾Æ¸¶µµ...»ý±îÀÚ~.
-	if (0 == m_ItemClassTotalRatio )
+	if ( 0 == m_ItemClassTotalRatio )
 		return false;
 
 	// ¸ÕÀú ¾ÆÀÌÅÛÀÌ ³ª¿ÃÁö ¾È ³ª¿ÃÁö¿¡ ´ëÇÑ È®·üÃ¼Å©¸¦ ½ÃÇàÇÑ´Ù.
@@ -842,7 +851,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate)
 			preRatioSum = ratioSum;
 			ratioSum += pTIC->getRatio();
 
-			if (itemClassRatio > preRatioSum && itemClassRatio < ratioSum)
+			if ( itemClassRatio > preRatioSum && itemClassRatio < ratioSum)
 			{
 				pTemplate->ItemClass = pTIC->getItemClass();
 				if (pTIC->getRandomItem(pTemplate))
@@ -867,7 +876,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent)
 	int ItemRatio = rand()%TREASURE_RATIO_MODULUS;
 
 	// ¾ÆÀÌÅÛ È®·ü¿¡ ¼öÁ¤Ä¡ ´ëÀÔ
-	int ModifyItemRatio = getPercentValue(m_ItemRatio, nPercent);
+	int ModifyItemRatio = getPercentValue( m_ItemRatio, nPercent );
 
 //	cout << "Item value : " << ItemRatio << endl;
 //	cout << "Bonus Ratio : " << nPercent << endl;
@@ -888,7 +897,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent)
 
 		//cout << "¿É¼Ç È®·ü Ã¼Å© : " << OptionRatio << " < " << m_OptionRatio << endl;
 
-		if (m_ItemClassTotalRatio == 0 )
+		if ( m_ItemClassTotalRatio == 0 )
 			return false;
 
 		int itemClassRatio = rand()%m_ItemClassTotalRatio;
@@ -900,13 +909,18 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent)
 		for (uint i=0; i<m_TreasureItemClasses.size(); i++)
 		{
 			TreasureItemClass* pTIC = m_TreasureItemClasses[i];
-
+	//add by Sonic 2006.10.21 Ôö¼Ó¶àÊôÐÔ×°±¸
+		
+	//end by sonic
 			preRatioSum = ratioSum;
 			ratioSum += pTIC->getRatio();
 
-			if (itemClassRatio > preRatioSum && itemClassRatio < ratioSum)
+			if ( itemClassRatio > preRatioSum && itemClassRatio < ratioSum)
 			{
 				pTemplate->ItemClass = pTIC->getItemClass();
+			// add by Sonic 2006.10.21
+				pTIC->setRndItemOptionMax(getRndItemOptionMax());
+			// end by sonic
 				if (pTIC->getRandomItem(pTemplate))
 					return true;
 				else
@@ -950,9 +964,9 @@ string Treasure::toString(void) const
 	vector<TreasureItemClass*>::const_iterator itr = m_TreasureItemClasses.begin();
 	vector<TreasureItemClass*>::const_iterator endItr = m_TreasureItemClasses.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		ret->AddChild((*itr)->makeXMLTree());
+		ret->AddChild( (*itr)->makeXMLTree() );
 	}
 
 	return ret;
@@ -1030,8 +1044,8 @@ void TreasureList::parseString(const string& text)
 	string eToken = "END_TREASURE";
 	uint   BTOKENSIZE = bToken.size();
 
-    size_t a = 0;
-    size_t b = 0;
+	uint a = 0;
+	uint b = 0;
 
 	int count = 0;
 
@@ -1096,9 +1110,9 @@ string TreasureList::toString(void) const
 	list<Treasure*>::const_iterator itr = m_Treasures.begin();
 	list<Treasure*>::const_iterator endItr = m_Treasures.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		ret->AddChild((*itr)->makeXMLTree());
+		ret->AddChild( (*itr)->makeXMLTree() );
 	}
 
 	return ret;
@@ -1116,7 +1130,7 @@ TreasureLists::~TreasureLists()
 void 
 TreasureLists::clear()
 {
-	map<string, TreasureList*>::iterator itr = m_TreasureLists.begin();
+	hash_map<string, TreasureList*>::iterator itr = m_TreasureLists.begin();
 	for (; itr!=m_TreasureLists.end(); itr++)
 	{
 		TreasureList* pTreasureList = itr->second;
@@ -1128,7 +1142,7 @@ TreasureLists::clear()
 TreasureList*   
 TreasureLists::getTreasure(const string& filename) const
 {
-	map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find(filename);
+	hash_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
 
 	if (itr!=m_TreasureLists.end())
 	{
@@ -1141,7 +1155,7 @@ TreasureLists::getTreasure(const string& filename) const
 void            
 TreasureLists::addTreasure(const string& filename, TreasureList* pTreasureList)
 {
-	map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find(filename);
+	hash_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
 
 	if (itr!=m_TreasureLists.end())
 	{
@@ -1156,14 +1170,14 @@ TreasureList*
 TreasureLists::loadTreasure(const string& filename)
 {
 	TreasureList* pTreasureList = new TreasureList;
-	ifstream file(filename.c_str(), ios::in | ios::binary);
+	ifstream file(filename.c_str(), ios::in | ios::nocreate | ios::binary);
 
 	if (!file)
 	{
 		StringStream msg;
 		msg << "Cannot open " << filename << " to read.";
 		cerr << msg.toString() << endl;
-		throw(msg.toString());
+		throw (msg.toString());
 	}
 
 	pTreasureList->loadFromFile(file);
@@ -1173,7 +1187,7 @@ TreasureLists::loadTreasure(const string& filename)
 
 //	cout << "Generating XML File.. " << endl;
 //	XMLTree* pXML = pTreasureList->makeXMLTree();
-//	pXML->SaveToFile((filename+".xml").c_str());
+//	pXML->SaveToFile( (filename+".xml").c_str() );
 
 	return pTreasureList;
 }

@@ -12,14 +12,14 @@
 #include "Vampire.h"
 #include "Ousters.h"
 
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTakeDonation::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -41,7 +41,7 @@ void ActionTakeDonation::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTakeDonation::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -213,7 +213,7 @@ void ActionTakeDonation::execute (Creature * pCreature1, Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTakeDonation::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

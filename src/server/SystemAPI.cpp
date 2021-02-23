@@ -20,14 +20,16 @@
 // exception version of fork()
 //
 //--------------------------------------------------------------------------------
-int SystemAPI::fork_ex() throw(Error) {
+int SystemAPI::fork_ex () 
+    throw ( Error )
+{
 	__BEGIN_TRY
 
 #if __LINUX__
 	int fd = fork();
 	
-	if (fd < 0 ) {
-		switch (errno ) {
+	if ( fd < 0 ) {
+		switch ( errno ) {
 			case EAGAIN : 
 				throw Error("fork  cannot  allocate  sufficient memory to copy the parent's page tables and allocate a task structure for the child.");
 			case ENOMEM : 

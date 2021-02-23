@@ -11,8 +11,8 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "GCRemoveEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 EffectPotentialExplosion::EffectPotentialExplosion(Creature* pCreature)
 	throw(Error)

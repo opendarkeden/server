@@ -7,10 +7,10 @@
 #include "Berserker.h"
 #include "EffectBerserker.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -80,8 +80,8 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
 			// 이펙트 클래스를 만들어 붙인다.
 			EffectBerserker* pEffect = new EffectBerserker(pSlayer);
 			pEffect->setDeadline(output.Duration);
-			pEffect->setDefensePenalty(DefensePenalty);
-			pEffect->setProtectionPenalty(ProtectionPenalty);
+			pEffect->setDefensePenalty( DefensePenalty );
+			pEffect->setProtectionPenalty( ProtectionPenalty );
 			pEffect->setToHitBonus(output.ToHit);
 			pEffect->setDamageBonus(output.Damage);
 			pSlayer->addEffect(pEffect);
@@ -98,7 +98,7 @@ void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10*(Grade+1);
 
-			if (bIncreaseDomainExp )
+			if ( bIncreaseDomainExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 8, 1, 1, _GCSkillToSelfOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);

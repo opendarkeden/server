@@ -24,14 +24,14 @@
 class RideMotorcycleInfo 
 {
 public:
-	RideMotorcycleInfo () throw();
-	~RideMotorcycleInfo () throw();
+	RideMotorcycleInfo () throw ();
+	~RideMotorcycleInfo () throw ();
 	
 public:
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	PacketSize_t getSize() throw();
+	PacketSize_t getSize() throw ();
 
 	static uint getMaxSize() throw() 
 	{
@@ -42,7 +42,7 @@ public:
 			RideMotorcycleSlotInfo::getMaxSize()* 60;
 	}
 
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
 	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
@@ -51,7 +51,7 @@ public:
 	void setItemType(ItemType_t ItemType) throw() { m_ItemType = ItemType; }
 	ItemType_t getItemType() const throw() { return m_ItemType; }
 
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
+	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back( OptionType ); }
 	void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
 	int getOptionTypeSize() const throw()	{ return m_OptionType.size(); }
 	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }

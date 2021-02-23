@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SimpleMissileSkill.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 SimpleMissileSkill g_SimpleMissileSkill;
 
@@ -43,7 +43,7 @@ void SimpleMissileSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, param.SkillType);
@@ -188,7 +188,7 @@ void SimpleMissileSkill::execute(
 	Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -208,7 +208,7 @@ void SimpleMissileSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, param.SkillType);
@@ -368,7 +368,7 @@ void SimpleMissileSkill::execute(
 	Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -387,7 +387,7 @@ void SimpleMissileSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC()
 			)
 		{
@@ -431,7 +431,7 @@ void SimpleMissileSkill::execute(
 		{
 			// 만일 스킬 데미지가 마법 데미지라면, 마법 데미지 계산 함수를 이용해 계산을 해준다.
 //			Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true);
-			Damage += computeOustersMagicDamage(pOusters, pTargetCreature, param.SkillDamage, param.SkillType);
+			Damage += computeOustersMagicDamage( pOusters, pTargetCreature, param.SkillDamage, param.SkillType );
 		}
 		else
 		{
@@ -447,7 +447,7 @@ void SimpleMissileSkill::execute(
 		bool bHitRoll           = false;
 		bool bCanHit            = canHit(pOusters, pTargetCreature, param.SkillType);
 		bool bPK                = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (param.bMagicHitRoll)
 		{
@@ -566,7 +566,7 @@ void SimpleMissileSkill::execute(
 		Monster* pMonster, Creature* pEnemy, 
 		const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 		CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 

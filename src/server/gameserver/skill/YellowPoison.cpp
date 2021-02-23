@@ -8,13 +8,13 @@
 #include "EffectYellowPoison.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ void YellowPoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		//Assert(pTargetCreature != NULL);
 
 		if (pTargetCreature == NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -93,10 +93,10 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
 		// Knowledge of Poison 捞 乐促搁 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -113,8 +113,12 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 		{
 			Tile& tile = pZone->getTile(X, Y);
 			if (tile.canAddEffect()) bTileCheck = true;
+			// add by Coffee 2007-5-8 增加对SummonClay魔灵技能的检测
+			if (tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY)) bTileCheck = false;
+			// end by Coffee
 		}
-
+		
+		
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck)
 		{
 			decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
@@ -159,7 +163,7 @@ void YellowPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 			ZoneCoord_t myX = pVampire->getX();
 			ZoneCoord_t myY = pVampire->getY();
 
-			if (pTargetCreature != NULL && (pTargetCreature->isSlayer()||pTargetCreature->isOusters() ))
+			if (pTargetCreature != NULL && ( pTargetCreature->isSlayer()||pTargetCreature->isOusters() ))
 			{
 				if (pEffect->affectCreature(pTargetCreature, false) == true)
 				{
@@ -365,7 +369,7 @@ void YellowPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			ZoneCoord_t myX = pMonster->getX();
 			ZoneCoord_t myY = pMonster->getY();
 
-			if (pTargetCreature != NULL && (pTargetCreature->isSlayer()||pTargetCreature->isOusters() ))
+			if (pTargetCreature != NULL && ( pTargetCreature->isSlayer()||pTargetCreature->isOusters() ))
 			{
 				if (pEffect->affectCreature(pTargetCreature, false) == true)
 				{

@@ -9,7 +9,7 @@
 
 // include files
 #include "MPacket.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 // 패킷 구조
 struct _PKT_RESULT
@@ -41,15 +41,15 @@ public:
 	MPacket* create()
 	{
 		MPacket* pPacket = new PKTResult;
-		Assert(pPacket != NULL);
+		Assert( pPacket != NULL );
 		return pPacket;
 	}
 
 	// 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-	void read(SocketInputStream& iStream);
+	void read( SocketInputStream& iStream );
 
 	// 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-	void write(SocketOutputStream& oStream);
+	void write( SocketOutputStream& oStream );
 
 	// debug message
 	string toString() const;

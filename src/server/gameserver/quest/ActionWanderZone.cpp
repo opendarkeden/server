@@ -25,7 +25,7 @@ static const POINT d [] = {
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWanderZone::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void ActionWanderZone::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWanderZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ void ActionWanderZone::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature1->isNPC() || pCreature1->isMonster());
 
 	Zone * pZone = pCreature1->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	const int left = 5;
 	const int top = 5;
@@ -86,8 +86,8 @@ void ActionWanderZone::execute (Creature * pCreature1 , Creature * pCreature2)
 			// 다음 도착 지점은 (x,y,r) 영역 안에 존재하면서,
 			// NPC가 움직일 수 있는 - 블락되지 않은 - 타일이어야 한다.
 			if (pCreature1->canMove(nx,ny)
-				&& (nx >= left && nx <= right )
-				&& (ny >= top && ny <= bottom ) )
+				&& ( nx >= left && nx <= right )
+				&& ( ny >= top && ny <= bottom ) )
 			{
 				movableDir[i] = true;
 				movableDirCount++;
@@ -105,16 +105,16 @@ void ActionWanderZone::execute (Creature * pCreature1 , Creature * pCreature2)
 			Dir_t nextDir = pCreature1->getDir();
 			bool changeDir = false;
 
-			if (movableDir[nextDir] )
+			if ( movableDir[nextDir] )
 			{
-				if (rand() % 10 == 0 ) changeDir = true;
+				if ( rand() % 10 == 0 ) changeDir = true;
 			}
 			else
 			{
 				changeDir = true;
 			}
 
-			if (changeDir )
+			if ( changeDir )
 			{
 				uint j = rand() % movableDirCount + 1;
 
@@ -145,7 +145,7 @@ void ActionWanderZone::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWanderZone::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

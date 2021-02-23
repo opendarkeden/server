@@ -29,7 +29,7 @@ public:
 	bool removeTileEffect();
 
 	void processEntering();
-	void removeEffect(ZoneCoord_t x, ZoneCoord_t y);
+	void removeEffect( ZoneCoord_t x, ZoneCoord_t y );
 	void addFakeEffect();
 
 private:
@@ -37,7 +37,7 @@ private:
 };
 
 
-DECLARE_DYNAMIC_ZONE_FACTORY(DynamicZoneGateOfAlter )
+DECLARE_DYNAMIC_ZONE_FACTORY( DynamicZoneGateOfAlter )
 
 #endif
 

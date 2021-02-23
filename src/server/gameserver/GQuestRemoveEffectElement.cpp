@@ -2,12 +2,12 @@
 #include "PlayerCreature.h"
 #include "Zone.h"
 
-GQuestElement::ResultType GQuestRemoveEffectElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestRemoveEffectElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (pPC->isFlag(m_EffectClass ) )
+	if ( pPC->isFlag( m_EffectClass ) )
 	{
-		Effect* pEffect = pPC->findEffect(m_EffectClass);
-		if (pEffect != NULL )
+		Effect* pEffect = pPC->findEffect( m_EffectClass );
+		if ( pEffect != NULL )
 		{
 			pEffect->setDeadline(0);
 		}

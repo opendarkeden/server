@@ -14,29 +14,29 @@ PKTReceiveOK::PKTReceiveOK()
 }
 
 // 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-void PKTReceiveOK::read(SocketInputStream& iStream )
+void PKTReceiveOK::read( SocketInputStream& iStream )
 {
-	iStream.read((char*)this, szPKTReceiveOK);
+	iStream.read( (char*)this, szPKTReceiveOK );
 
 	// change order - network to host
-//	nSize		= ntohl(nSize);
-//	nCode		= ntohl(nCode);
+//	nSize		= ntohl( nSize );
+//	nCode		= ntohl( nCode );
 }
 
 // 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-void PKTReceiveOK::write(SocketOutputStream& oStream )
+void PKTReceiveOK::write( SocketOutputStream& oStream )
 {
 	nCode = getID();
 
 	// change order - host to network
-//	nSize		= htonl(nSize);
-//	nCode		= htonl(nCode);
+//	nSize		= htonl( nSize );
+//	nCode		= htonl( nCode );
 
-	oStream.write((const char*)this, szPKTReceiveOK);
+	oStream.write( (const char*)this, szPKTReceiveOK );
 
 	// restore order
-//	nSize		= ntohl(nSize);
-//	nCode		= ntohl(nCode);
+//	nSize		= ntohl( nSize );
+//	nCode		= ntohl( nCode );
 }
 
 // debug message

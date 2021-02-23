@@ -19,22 +19,22 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
 #include "EffectRefiniumTicket.h"
 #include "PlayerCreature.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeExit::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionActivateMazeExit::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeExit::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -71,26 +71,26 @@ void ActionActivateMazeExit::execute (Creature * pNPC , Creature * pCreature)
 
 	// 미로 출구는 유료존 체크 안하고 보내준다. 젠장 -_-
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	bool isCorrect = false;
 
-	if (!pPC->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
+	if ( !pPC->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
 	{
 		filelog("EventBug.log", "미로 안에 있는데 리피늄 티켓이 없어. 로그아웃하는수밖에.. : %s", pPC->getName().c_str());
 	}
 	else
 	{
-		EffectRefiniumTicket* pEffect = dynamic_cast<EffectRefiniumTicket*>(pPC->findEffect(Effect::EFFECT_CLASS_REFINIUM_TICKET ));
-		if (pEffect != NULL )
+		EffectRefiniumTicket* pEffect = dynamic_cast<EffectRefiniumTicket*>(pPC->findEffect( Effect::EFFECT_CLASS_REFINIUM_TICKET ));
+		if ( pEffect != NULL )
 		{
 			isCorrect = ((int)pEffect->getExit() == (int)m_ExitID);
-			if (isCorrect ) pEffect->setDeadline(0);
+			if ( isCorrect ) pEffect->setDeadline(0);
 			else
 			{
-				pEffect->setPrevExitZoneID(pPC->getZoneID());
-				pEffect->setPrevExitX(pPC->getX());
-				pEffect->setPrevExitY(pPC->getY());
+				pEffect->setPrevExitZoneID( pPC->getZoneID() );
+				pEffect->setPrevExitX( pPC->getX() );
+				pEffect->setPrevExitY( pPC->getY() );
 			}
 		}
 	}
@@ -113,7 +113,7 @@ void ActionActivateMazeExit::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionActivateMazeExit::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

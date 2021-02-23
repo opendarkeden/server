@@ -2,22 +2,22 @@
 #include "PlayerCreature.h"
 #include "Slayer.h"
 #include "skill/SkillUtil.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
-GQuestElement::ResultType GQuestGiveDomainExpElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveDomainExpElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (!pPC->isSlayer() ) return FAIL;
+	if ( !pPC->isSlayer() ) return FAIL;
 
 	GCModifyInformation gcMI;
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-	increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), m_Amount, gcMI);
-	pSlayer->getPlayer()->sendPacket(&gcMI);
+	increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), m_Amount, gcMI );
+	pSlayer->getPlayer()->sendPacket( &gcMI );
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("µµ¸ÞÀÎ °æÇèÄ¡¸¦ È¹µæÇß½À´Ï´Ù.");
-	pSlayer->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("»ñµÃ¸ÃÇøÓòµÄ¾­ÑéÖµ.");
+	pSlayer->getPlayer()->sendPacket( &gcSM );
 
 	return OK;
 }

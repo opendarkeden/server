@@ -5,7 +5,7 @@
 #include "Exception.h"
 
 #include <vector>
-#include <map>
+#include <hash_map>
 
 class Zone;
 class EventZoneInfoManager;
@@ -13,7 +13,7 @@ class EventZoneInfoManager;
 class EventZoneInfo
 {
 public:
-	EventZoneInfo(WORD eventID, ZoneID_t zoneID);
+	EventZoneInfo( WORD eventID, ZoneID_t zoneID );
 
 	ZoneID_t	getZoneID() const;
 	WORD		getEventID() const { return m_EventID; }
@@ -21,7 +21,7 @@ public:
 	bool		isEventOn() const { return m_bEventOn; }
 	void		turnOn() { m_bEventOn = true; }
 	void		turnOff() { m_bEventOn = false; }
-	void		setPCLimit(WORD lim ) { m_PCLimit = lim; }
+	void		setPCLimit( WORD lim ) { m_PCLimit = lim; }
 
 	ZoneCoord_t	getEnterX() const { return m_EnterX; }
 	ZoneCoord_t	getEnterY() const { return m_EnterY; }
@@ -46,18 +46,18 @@ private:
 class ZoneEventInfo
 {
 public:
-	ZoneEventInfo(WORD eventID ) : m_EventID(eventID) { }
+	ZoneEventInfo( WORD eventID ) : m_EventID(eventID) { }
 
 	WORD			getEventID() const { return m_EventID; }
 
-	EventZoneInfo*	getEventZoneInfo(ZoneID_t zoneID ) const;
-	void			addEventZoneInfo(EventZoneInfo* pEventZoneInfo);
+	EventZoneInfo*	getEventZoneInfo( ZoneID_t zoneID ) const;
+	void			addEventZoneInfo( EventZoneInfo* pEventZoneInfo );
 
 	EventZoneInfo*	getCurrentEventZoneInfo() const;
 
 private:
 	WORD								m_EventID;
-	map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
+	hash_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
 };
 
 class EventZoneInfoManager
@@ -65,14 +65,14 @@ class EventZoneInfoManager
 public:
 	void	load() throw(Error);
 	
-	ZoneEventInfo*	getZoneEventInfo(WORD eventID ) const;
-	EventZoneInfo*	getEventZoneInfo(ZoneID_t zoneID ) const;
+	ZoneEventInfo*	getZoneEventInfo( WORD eventID ) const;
+	EventZoneInfo*	getEventZoneInfo( ZoneID_t zoneID ) const;
 
 	static EventZoneInfoManager& Instance() { static EventZoneInfoManager theInstance; return theInstance; }
 
 private:
-	map<WORD, ZoneEventInfo*>		m_ZoneEventInfos;
-	map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
+	hash_map<WORD, ZoneEventInfo*>		m_ZoneEventInfos;
+	hash_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
 };
 
 #endif

@@ -16,14 +16,14 @@
 class DisarmMine: public SkillHandler 
 {
 public :
-	DisarmMine () throw() {}
-	~DisarmMine () throw() {}
+	DisarmMine () throw () {}
+	~DisarmMine () throw () {}
 	
 public :
-    string getSkillHandlerName () const throw() { return "DisarmMine"; }
-	SkillType_t getSkillType () const throw() { return SKILL_DISARM_MINE; }
+    string getSkillHandlerName () const throw () { return "DisarmMine"; }
+	SkillType_t getSkillType () const throw () { return SKILL_DISARM_MINE; }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID) throw (Error);
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

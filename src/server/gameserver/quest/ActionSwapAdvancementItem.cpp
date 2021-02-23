@@ -13,13 +13,13 @@
 #include "GuildManager.h"
 #include "CastleInfoManager.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSwapAdvancementItem::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -31,7 +31,7 @@ void ActionSwapAdvancementItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSwapAdvancementItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -45,30 +45,30 @@ void ActionSwapAdvancementItem::execute (Creature * pCreature1 , Creature * pCre
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
 	Player* pPlayer = pPC->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	GCNPCResponse deny;
 
-	if (!pPC->isAdvanced() )
+	if ( !pPC->isAdvanced() )
 	{
-		deny.setCode(NPC_RESPONSE_NOT_ADVANCED);
+		deny.setCode( NPC_RESPONSE_NOT_ADVANCED );
 		bSuccess = false;
 	}
 
-	if (bSuccess )
+	if ( bSuccess )
 	{
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_SWAP_ADVANCEMENT_ITEM);
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_SWAP_ADVANCEMENT_ITEM );
+		pPlayer->sendPacket( &response );
 	}
 	else
 	{
-		pPlayer->sendPacket(&deny);
+		pPlayer->sendPacket( &deny );
 	}
 	
 	GCNPCResponse quit;
-	quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPlayer->sendPacket(&quit);
+	quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+	pPlayer->sendPacket( &quit );
 
 	__END_CATCH
 }
@@ -78,7 +78,7 @@ void ActionSwapAdvancementItem::execute (Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSwapAdvancementItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

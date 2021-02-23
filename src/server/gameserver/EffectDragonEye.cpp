@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 EffectDragonEye::EffectDragonEye(Creature* pCreature)
 	throw(Error)
-: EffectHasRelic(pCreature )
+: EffectHasRelic( pCreature )
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ EffectDragonEye::EffectDragonEye(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 EffectDragonEye::EffectDragonEye(Item* pItem)
 	throw(Error)
-: EffectHasRelic(pItem )
+: EffectHasRelic( pItem )
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,7 +39,7 @@ void EffectDragonEye::affect(Creature* pCreature)
 	__BEGIN_TRY
 
 	// HP 가 두배~
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		SLAYER_RECORD prev;
@@ -47,7 +47,7 @@ void EffectDragonEye::affect(Creature* pCreature)
 		pSlayer->initAllStat();
 		pSlayer->sendModifyInfo(prev);
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		VAMPIRE_RECORD prev;
@@ -55,7 +55,7 @@ void EffectDragonEye::affect(Creature* pCreature)
 		pVampire->initAllStat();
 		pVampire->sendModifyInfo(prev);
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		OUSTERS_RECORD prev;
@@ -75,7 +75,7 @@ void EffectDragonEye::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 
 	// HP 원래대로
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		SLAYER_RECORD prev;
@@ -83,7 +83,7 @@ void EffectDragonEye::unaffect(Creature* pCreature)
 		pSlayer->initAllStat();
 		pSlayer->sendModifyInfo(prev);
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		VAMPIRE_RECORD prev;
@@ -91,7 +91,7 @@ void EffectDragonEye::unaffect(Creature* pCreature)
 		pVampire->initAllStat();
 		pVampire->sendModifyInfo(prev);
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		OUSTERS_RECORD prev;

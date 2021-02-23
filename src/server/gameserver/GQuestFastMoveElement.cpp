@@ -1,11 +1,11 @@
 #include "GQuestFastMoveElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestFastMoveElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestFastMoveMission* pFastMoveMission = dynamic_cast<GQuestFastMoveMission*>(pMission);
-	if (pFastMoveMission == NULL ) return FAIL;
-	if (pFastMoveMission->isRide() ) return OK;
+	if ( pFastMoveMission == NULL ) return FAIL;
+	if ( pFastMoveMission->isRide() ) return OK;
 
 	return WAIT;
 }

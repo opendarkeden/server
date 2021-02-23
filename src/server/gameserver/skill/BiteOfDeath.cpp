@@ -7,13 +7,13 @@
 #include "BiteOfDeath.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 		// 저주 면역. by sigi. 2002.9.13
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC()
 			|| !pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF)
 			|| pTargetCreature->isDead()
@@ -71,12 +71,12 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 		bool bPK         = verifyPK(pVampire, pTargetCreature);
 		bool bMaster	 = false;
 
-		if (pTargetCreature->isMonster() )
+		if ( pTargetCreature->isMonster() )
 		{
 			Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
-			Assert(pTargetMonster != NULL);
+			Assert( pTargetMonster != NULL );
 
-			if (pTargetMonster->isMaster()
+			if ( pTargetMonster->isMaster()
 #ifdef __UNDERWORLD__
 					|| pTargetMonster->isUnderworld() || pTargetMonster->getMonsterType() == 599
 #endif
@@ -125,33 +125,33 @@ void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
 
 			// 타겟 쥑여뿐다.
-			if (pTargetCreature->isSlayer() )
+			if ( pTargetCreature->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 				pSlayer->setHP(0);
 			}
-			else if (pTargetCreature->isVampire() )
+			else if ( pTargetCreature->isVampire() )
 			{
 				Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
 				pTargetVampire->setHP(0);
 			}
-			else if (pTargetCreature->isOusters() )
+			else if ( pTargetCreature->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pTargetCreature);
 				pOusters->setHP(0);
 			}
-			else if (pTargetCreature->isMonster() )
+			else if ( pTargetCreature->isMonster() )
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 				HP_t decreaseHP = pMonster->getHP();
 				pMonster->setHP(0);
 
-				increaseFame(pVampire, decreaseHP);
-				_GCSkillToObjectOK1.addLongData(MODIFY_FAME, pVampire->getFame());
+				increaseFame( pVampire, decreaseHP );
+				_GCSkillToObjectOK1.addLongData( MODIFY_FAME, pVampire->getFame() );
 			}
 			else Assert(false);
 
-			affectKillCount(pVampire, pTargetCreature);
+			affectKillCount( pVampire, pTargetCreature );
 
 			_GCSkillToObjectOK1.setSkillType(SkillType);
 			_GCSkillToObjectOK1.setCEffectID(CEffectID);

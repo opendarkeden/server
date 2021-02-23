@@ -16,8 +16,8 @@
 #include "IncomingPlayerManager.h"
 #include "ZonePlayerManager.h"
 #include "TimeManager.h"
-#include <fstream>
-//#include "LogClient.h"
+#include <fstream.h>
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "Party.h"
 #include "TradeManager.h"
@@ -29,10 +29,10 @@
 #include "DB.h"
 #include "CreatureUtil.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMorph1.h"
-#include "GCMorphVampire2.h"
-#include "GSGuildMemberLogOn.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMorph1.h"
+#include "Gpackets/GCMorphVampire2.h"
+#include "Gpackets/GSGuildMemberLogOn.h"
 
 #include <stdio.h>
 
@@ -56,7 +56,7 @@ EventMorph::~EventMorph()
 }
 
 void EventMorph::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -93,9 +93,9 @@ void EventMorph::activate ()
 		return;
 	}
 
-	dropRelicToZone(pFromCreature);
-	dropFlagToZone(pFromCreature);
-	dropSweeperToZone(pFromCreature);
+	dropRelicToZone( pFromCreature );
+	dropFlagToZone( pFromCreature );
+	dropSweeperToZone( pFromCreature );
 
 	//////////////////////////////////////////////////////////////////////
 	// 각종 존 레벨 정보를 삭제해야 한다.
@@ -158,31 +158,31 @@ void EventMorph::activate ()
 	g_pPCFinder->addCreature(pVampire);
 
 	// 길드 현재 접속 리스트에서 삭제한다.
-	if (pSlayer->getGuildID() != 99 )
+	if ( pSlayer->getGuildID() != 99 )
 	{
-		Guild* pGuild = g_pGuildManager->getGuild(pSlayer->getGuildID());
-		if (pGuild != NULL )
+		Guild* pGuild = g_pGuildManager->getGuild( pSlayer->getGuildID() );
+		if ( pGuild != NULL )
 		{
-			pGuild->deleteCurrentMember(pSlayer->getName());
+			pGuild->deleteCurrentMember( pSlayer->getName() );
 
 			GSGuildMemberLogOn gsGuildMemberLogOn;
-			gsGuildMemberLogOn.setGuildID(pGuild->getID());
-			gsGuildMemberLogOn.setName(pSlayer->getName());
-			gsGuildMemberLogOn.setLogOn(false);
+			gsGuildMemberLogOn.setGuildID( pGuild->getID() );
+			gsGuildMemberLogOn.setName( pSlayer->getName() );
+			gsGuildMemberLogOn.setLogOn( false );
 
-			g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
+			g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 			
 			Statement* pStmt = NULL;
 			// 디비에 업데이트 한다.
 			BEGIN_DB
 			{
 				pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-				pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pSlayer->getName().c_str());
+				pStmt->executeQuery( "UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pSlayer->getName().c_str() );
 			}
 			END_DB(pStmt)
 		}
 		else
-			filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pSlayer->getGuildID(), pSlayer->getName().c_str());
+			filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pSlayer->getGuildID(), pSlayer->getName().c_str() );
 	}
 
 	// 인벤토리 교체.
@@ -244,9 +244,9 @@ void EventMorph::activate ()
 				pInventory->addItem(point.x, point.y, pItem);
 				pItem->save(pVampire->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
    	        }
-       	    else if (pItem->isTimeLimitItem() )
+       	    else if ( pItem->isTimeLimitItem() )
 			{
-				pSlayer->deleteItemByMorph(pItem);
+				pSlayer->deleteItemByMorph( pItem );
 
 				pItem->destroy();
 				SAFE_DELETE(pItem);
@@ -263,24 +263,24 @@ void EventMorph::activate ()
 				if (pt.x != -1) 
 				{
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-					//log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "", pItem->toString());
+					log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "", pItem->toString());
 
 					// ItemTraceLog 를 남긴다
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
-						sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-						remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
-						remainTraceLogNew(pItem, pFromCreature->getName(), ITL_DROP, ITLD_MOVE, pZone->getZoneID(), pt.x, pt.y);
+						sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+						remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+						remainTraceLogNew( pItem, pFromCreature->getName(), ITL_DROP, ITLD_MOVE, pZone->getZoneID(), pt.x, pt.y);
 					}
 				} 
 				else 
 				{
 					// ItemTraceLog 를 남긴다
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
-						remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
-						remainTraceLogNew(pItem, pFromCreature->getName(), ITL_ETC, ITLD_DELETE);
+						remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+						remainTraceLogNew( pItem, pFromCreature->getName(), ITL_ETC, ITLD_DELETE);
 					}
 					pItem->destroy();
 					SAFE_DELETE(pItem);
@@ -299,9 +299,9 @@ void EventMorph::activate ()
    	        pInventory->addItem(point.x, point.y, pItem);
 			pItem->save(pVampire->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
         }
-		else if (pItem->isTimeLimitItem() )
+		else if ( pItem->isTimeLimitItem() )
 		{
-			pSlayer->deleteItemByMorph(pItem);
+			pSlayer->deleteItemByMorph( pItem );
 
 			pItem->destroy();
 			SAFE_DELETE(pItem);
@@ -318,24 +318,24 @@ void EventMorph::activate ()
 			if (pt.x != -1) 
 			{
 				pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-				//log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "");
+				log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "");
 
 				// ItemTraceLog 를 남긴다
-				if (pItem != NULL && pItem->isTraceItem() )
+				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					char zoneName[15];
-					sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-					remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
-					remainTraceLogNew(pItem, pFromCreature->getName(), ITL_DROP, ITLD_MOVE, pZone->getZoneID(), pt.x, pt.y);
+					sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+					remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+					remainTraceLogNew( pItem, pFromCreature->getName(), ITL_DROP, ITLD_MOVE, pZone->getZoneID(), pt.x, pt.y);
 				}
 			}
 			else 
 			{
 				// ItemTraceLog 를 남긴다
-				if (pItem != NULL && pItem->isTraceItem() )
+				if ( pItem != NULL && pItem->isTraceItem() )
 				{
-					remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
-					remainTraceLogNew(pItem, pFromCreature->getName(), ITL_DROP, ITLD_DELETE);
+					remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+					remainTraceLogNew( pItem, pFromCreature->getName(), ITL_DROP, ITLD_DELETE );
 				}
 				pItem->destroy();
 				SAFE_DELETE(pItem);
@@ -532,7 +532,7 @@ void EventMorph::activate ()
 	file.close();
 	*/
 
-	//log(LOG_SLAYER_TO_VAMPIRE, pFromCreature->getName(), "");
+	log(LOG_SLAYER_TO_VAMPIRE, pFromCreature->getName(), "");
 
 	SAFE_DELETE(pFromCreature);
 
@@ -541,7 +541,7 @@ void EventMorph::activate ()
 }
 	
 string EventMorph::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventMorph("

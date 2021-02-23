@@ -20,12 +20,11 @@ private:
 class GQuestSayNPCElement : public GQuestElement
 {
 public:
-	GQuestSayNPCElement() : m_Target(0), m_Volume(0) { }
+	GQuestSayNPCElement() : m_Target(0) { }
 	string 				getElementName() const { return "SayNPC"; }
 	GQuestManager::EventTypes	getEventType() const { return GQuestManager::MEETNPC; }
 
 	ResultType			checkMission(GQuestMission* pStatus) const;
-	bool				checkVolume(PlayerCreature* pPC ) const;
 
 	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;
 	GQuestSayNPCElement*	makeElement(XMLTree* pTree);
@@ -33,8 +32,7 @@ public:
 	NPCID_t getTarget() const { return m_Target; }
 
 private:
-	NPCID_t			m_Target;
-	VolumeType_t	m_Volume;
+	NPCID_t	m_Target;
 };
 
 extern GQuestSayNPCElement g_SayNPCElement;

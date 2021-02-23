@@ -31,7 +31,7 @@ void MeteorStorm::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 
 		// NoSuch¡¶∞≈. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -74,15 +74,15 @@ void MeteorStorm::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	param.addMask(0, 0, 100);
-	param.addMask(1, 0, 100);
-	param.addMask(-1, 0, 100);
-	param.addMask(0, 1, 100);
-	param.addMask(0,-1, 100);
-	param.addMask(1, 1, 100);
-	param.addMask(-1,-1, 100);
-	param.addMask(-1, 1, 100);
-	param.addMask(1,-1, 100);
+	param.addMask( 0, 0, 100 );
+	param.addMask( 1, 0, 100 );
+	param.addMask(-1, 0, 100 );
+	param.addMask( 0, 1, 100 );
+	param.addMask( 0,-1, 100 );
+	param.addMask( 1, 1, 100 );
+	param.addMask(-1,-1, 100 );
+	param.addMask(-1, 1, 100 );
+	param.addMask( 1,-1, 100 );
 
 	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID);
 

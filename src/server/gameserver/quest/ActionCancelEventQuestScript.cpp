@@ -13,13 +13,13 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCNPCAsk.h"
+#include "Gpackets/GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCancelEventQuestScript::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void ActionCancelEventQuestScript::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCancelEventQuestScript::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -57,18 +57,18 @@ void ActionCancelEventQuestScript::execute (Creature * pCreature1 , Creature * p
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	int questLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel();
 	ScriptID_t sID = m_ScriptID[ questLevel ];
 	QuestID_t qID;
 
-	if (!pPC->getQuestManager()->hasEventQuest(questLevel, qID ) ) sID = m_CounterScriptID;
-	if (pPC->getQuestManager()->successEventQuest(questLevel, qID ) ) sID = m_SuccessScriptID;
+	if ( !pPC->getQuestManager()->hasEventQuest( questLevel, qID ) ) sID = m_CounterScriptID;
+	if ( pPC->getQuestManager()->successEventQuest( questLevel, qID ) ) sID = m_SuccessScriptID;
 	GCNPCAsk gcNPCAsk;
 	gcNPCAsk.setObjectID(pCreature1->getObjectID());
 	gcNPCAsk.setScriptID(sID);
-	gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+	gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNPCAsk);
@@ -81,7 +81,7 @@ void ActionCancelEventQuestScript::execute (Creature * pCreature1 , Creature * p
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionCancelEventQuestScript::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

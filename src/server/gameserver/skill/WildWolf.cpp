@@ -16,12 +16,12 @@
 #include "Corpse.h"
 #include "MonsterCorpse.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCHPRecoveryStartToOthers.h"
-#include "GCHPRecoveryStartToSelf.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCHPRecoveryStartToOthers.h"
+#include "Gpackets/GCHPRecoveryStartToSelf.h"
+#include "Gpackets/GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -31,8 +31,8 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 {
 	__BEGIN_TRY
 
-	Assert(pVampire != NULL);
-	Assert(pVampireSkillSlot != NULL);
+	Assert( pVampire != NULL );
+	Assert( pVampireSkillSlot != NULL );
 
 	try
 	{
@@ -43,31 +43,31 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
 		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 		//Assert(pTargetCreature != NULL);
-		if (pTargetCreature==NULL )
+		if ( pTargetCreature==NULL )
 		{
-			Item* pTargetItem = pZone->getItem(TargetObjectID);
-			if (pTargetItem == NULL || pTargetItem->getItemClass() != Item::ITEM_CLASS_CORPSE )
+			Item* pTargetItem = pZone->getItem( TargetObjectID );
+			if ( pTargetItem == NULL || pTargetItem->getItemClass() != Item::ITEM_CLASS_CORPSE )
 			{
 				executeSkillFailException(pVampire, getSkillType());
 				return;
 			}
 
-			eatCorpse(pVampire, pTargetItem, pVampireSkillSlot);
+			eatCorpse( pVampire, pTargetItem, pVampireSkillSlot );
 			return;
 		}
 
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
-		if (!canAttack(pVampire, pTargetCreature )
+		if ( !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC() )
 		{
 			executeSkillFailException(pVampire, getSkillType());
 			return;
 		}
 
-		if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA ) )
+		if ( pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA ) )
 		{
-			eatComaCreature(pVampire, pTargetCreature);
+			eatComaCreature( pVampire, pTargetCreature );
 			return;
 		}
 
@@ -83,7 +83,7 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 		bool bManaCheck         = hasEnoughMana(pVampire, RequiredMP);
 		bool bTimeCheck         = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck        = verifyDistance(pVampire, pTargetCreature, Range);
-		bool bHitRoll           = HitRoll::isSuccess(pVampire, pTargetCreature);
+		bool bHitRoll           = HitRoll::isSuccess( pVampire, pTargetCreature );
 		bool bCanHit            = canHit(pVampire, pTargetCreature, getSkillType());
 		bool bPK                = verifyPK(pVampire, pTargetCreature);
 
@@ -105,8 +105,8 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 			pEffect->setTick(3);
 			pEffect->setNextTime(3);
 			pEffect->setTimes(3);
-			pEffect->setCasterOID(pVampire->getObjectID());
-			pTargetCreature->addEffect(pEffect);
+			pEffect->setCasterOID( pVampire->getObjectID() );
+			pTargetCreature->addEffect( pEffect );
 
 			increaseAlignment(pVampire, pTargetCreature, _GCSkillToObjectOK1);
 
@@ -151,12 +151,12 @@ void WildWolf::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 		} 
 		else
 		{
-			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature);
+			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature );
 		}
 	}
 	catch(Throwable & t)
 	{
-		executeSkillFailException(pVampire, getSkillType());
+		executeSkillFailException( pVampire, getSkillType() );
 	}
 
 	__END_CATCH
@@ -166,32 +166,32 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 {
 	__BEGIN_TRY
 
-	if (pCorpse->getItemClass() != Item::ITEM_CLASS_CORPSE || pCorpse->getItemType() == VAMPIRE_CORPSE )
+	if ( pCorpse->getItemClass() != Item::ITEM_CLASS_CORPSE || pCorpse->getItemType() == VAMPIRE_CORPSE )
 	{
-		executeSkillFailException(pVampire, getSkillType());
+		executeSkillFailException( pVampire, getSkillType() );
 		return;
 	}
 
-	if (pCorpse != NULL
+	if ( pCorpse != NULL
 		&& pCorpse->getItemClass() == Item::ITEM_CLASS_CORPSE
 		&& pCorpse->getItemType() == MONSTER_CORPSE )
 	{
 		MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pCorpse);
-		Assert(pMonsterCorpse != NULL);
+		Assert( pMonsterCorpse != NULL );
 
-		if (pMonsterCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE )
-			|| pMonsterCorpse->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE )
+		if ( pMonsterCorpse->isFlag( Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE )
+			|| pMonsterCorpse->isFlag( Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE )
 			|| pMonsterCorpse->getMonsterType() == 482
 			|| pMonsterCorpse->getMonsterType() == 650
 			|| pMonsterCorpse->isShrine() )
 		{
-			executeSkillFailException(pVampire, getSkillType());
+			executeSkillFailException( pVampire, getSkillType() );
 			return;
 		}
 	}
 
 	Corpse* pTargetCorpse = dynamic_cast<Corpse*>(pCorpse);
-	Assert(pTargetCorpse != NULL);
+	Assert( pTargetCorpse != NULL );
 
 	Zone* pZone = pVampire->getZone();
 
@@ -205,9 +205,9 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 	int  RequiredMP         = decreaseConsumeMP(pVampire, pSkillInfo);
 	bool bManaCheck         = hasEnoughMana(pVampire, RequiredMP);
 	bool bTimeCheck         = verifyRunTime(pVampireSkillSlot);
-	bool bRangeCheck        = getDistance(pVampire->getX(), pVampire->getY(), pTargetCorpse->getX(), pTargetCorpse->getY() ) <= Range;
+	bool bRangeCheck        = getDistance( pVampire->getX(), pVampire->getY(), pTargetCorpse->getX(), pTargetCorpse->getY() ) <= Range;
 
-	if (bManaCheck && bTimeCheck && bRangeCheck )
+	if ( bManaCheck && bTimeCheck && bRangeCheck )
 	{
 		SkillInput input(pVampire);
 		SkillOutput output;
@@ -242,7 +242,7 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 			GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
 			gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
 			gcHPRecoveryStartToOthers.setPeriod(NewPeriod);
-			gcHPRecoveryStartToOthers.setDelay(RegenPeriod);
+			gcHPRecoveryStartToOthers.setDelay(RegenPeriod );
 			gcHPRecoveryStartToOthers.setQuantity(RegenHPUnit);
 
 			pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcHPRecoveryStartToOthers, pVampire);
@@ -315,7 +315,7 @@ void WildWolf::eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVa
 
 void WildWolf::eatComaCreature(Vampire* pVampire, Creature* pComaCreature)
 {
-	executeSkillFailNormal(pVampire, getSkillType(), pComaCreature);
+	executeSkillFailNormal(pVampire, getSkillType(), pComaCreature );
 }
 
 WildWolf g_WildWolf;

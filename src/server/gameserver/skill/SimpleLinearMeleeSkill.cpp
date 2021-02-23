@@ -7,11 +7,11 @@
 #include "SimpleLinearMeleeSkill.h"
 #include "Geometry.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
 SimpleLinearMeleeSkill g_SimpleLinearMeleeSkill;
 
@@ -21,7 +21,7 @@ SimpleLinearMeleeSkill g_SimpleLinearMeleeSkill;
 
 void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID) throw(Error)
+	CEffectID_t CEffectID=0) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -129,11 +129,11 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 						bool bMoveModeCheck  = (pTargetCreature->getMoveMode() == Creature::MOVE_MODE_WALKING) ? true : false;
 
 						bool bCanHit         = canHit(pSlayer, pTargetCreature, param.SkillType);
-						if((pTargetCreature->getMoveMode() == Creature::MOVE_MODE_FLYING ) &&  param.Level == 1 ) {
+						if( ( pTargetCreature->getMoveMode() == Creature::MOVE_MODE_FLYING ) &&  param.Level == 1 ) {
 							bMoveModeCheck = true;
 							bCanHit = true;
 						}
-						if((pTargetCreature->getMoveMode() == Creature::MOVE_MODE_BURROWING) &&  param.Level == 2 ) {
+						if( ( pTargetCreature->getMoveMode() == Creature::MOVE_MODE_BURROWING) &&  param.Level == 2 ) {
 							bMoveModeCheck = true;
 							bCanHit = true;
 						}
@@ -144,7 +144,7 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 						bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 						bool bSetMinDamage   = false;
 
-						if (param.SkillType == SKILL_SPIT_STREAM && tileX == X && tileY == Y )
+						if ( param.SkillType == SKILL_SPIT_STREAM && tileX == X && tileY == Y )
 						{
 							bRaceCheck = !pTargetCreature->isNPC();
 						}
@@ -159,13 +159,13 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 						}
 
 						// 도 계열의 기술은 맞지 않더라도 7%의 데미지를 가진다 - by bezz
-						if (param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
+						if ( param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
 						{
 							bHitRoll = true;
 							bSetMinDamage = true;
 						}
 
-						if (!canAttack(pSlayer, pTargetCreature )
+						if ( !canAttack( pSlayer, pTargetCreature )
 							|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 						{
 							bHitRoll = false; 
@@ -191,9 +191,9 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 							}
 
 							// HitRoll 에서 실패한 도 계열의 기술의 경우 7%의 데미지를 갖도록 한다 - by bezz
-							if (bSetMinDamage )
+							if ( bSetMinDamage )
 							{
-								Damage = getPercentValue(Damage, 7);
+								Damage = getPercentValue( Damage, 7 );
 							}
 
 							MaxDamage = max(Damage, MaxDamage);
@@ -221,7 +221,7 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 							if (!pTargetCreature->isSlayer())
 							{
 								bHit = true;
-								if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+								if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 								EnemyNum++;
 							}
 						}
@@ -343,7 +343,7 @@ void SimpleLinearMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 /*
 void SimpleLinearMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID=0) throw(Error)
+	CEffectID_t CEffectID=0) throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -351,7 +351,7 @@ void SimpleLinearMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
 void SimpleLinearMeleeSkill::execute(Monster* pMonster, int X, int Y,
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID=0) throw(Error)
+	CEffectID_t CEffectID=0) throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH

@@ -27,8 +27,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -86,18 +86,18 @@ public:
 
 public:
 	Target	getTarget() const { return m_Target; }
-	void	setTarget(Target target ) { m_Target = target; }
+	void	setTarget( Target target ) { m_Target = target; }
 
 	Type	getType() const { return m_Type; }
-	void	setType(Type type ) { m_Type = type; }
+	void	setType( Type type ) { m_Type = type; }
 
 	ItemType_t	getVampireLevel() const { return m_VampireLevel; }
 	ItemType_t	getSlayerLevel() const { return m_SlayerLevel; }
 	ItemType_t	getOustersLevel() const { return m_OustersLevel; }
 
-	void		setVampireLevel(ItemType_t level ) { m_VampireLevel = level; }
-	void		setSlayerLevel(ItemType_t level ) { m_SlayerLevel = level; }
-	void		setOustersLevel(ItemType_t level ) { m_OustersLevel = level; }
+	void		setVampireLevel( ItemType_t level ) { m_VampireLevel = level; }
+	void		setSlayerLevel( ItemType_t level ) { m_SlayerLevel = level; }
+	void		setOustersLevel( ItemType_t level ) { m_OustersLevel = level; }
 
 private:
 	Target	m_Target;

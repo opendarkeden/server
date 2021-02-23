@@ -10,13 +10,10 @@
 #include "GamePlayer.h"
 #include "ZoneInfoManager.h"
 #include "PKZoneInfoManager.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
 #include "GDRLairManager.h"
 #include "war/WarSystem.h"
-
-#include <sstream>
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -42,7 +39,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 		Assert(pGamePlayer != NULL);
 
-		if (pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) 
+		if ( pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) 
 			|| pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
 		{
 			executeSkillFailNormal(pSlayer, getSkillType(), NULL);
@@ -63,13 +60,13 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 		ZoneCoord_t y = pSlayer->getY();
 		
 		bool bValidTarget = false;
-		__ENTER_CRITICAL_SECTION((*g_pPCFinder) )
+		__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
-		Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-		if (pTarget != NULL )
+		Creature* pTarget = g_pPCFinder->getCreature_LOCKED( targetName );
+		if ( pTarget != NULL )
 		{
 			Zone* pTargetZone = pTarget->getZone();
-			if (pTargetZone != NULL )
+			if ( pTargetZone != NULL )
 			{
 				// Target 체크
 				// 같은 종족이어야 한다.
@@ -78,9 +75,9 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 				bool bPLAYER = pTarget->getCompetence() == PLAYER;
 				bool bMasterLair = pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
 				// 유료 서비스 사용이 가능한가?
-				bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
+				bool bValidPay = pGamePlayer->loginPayPlay( pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
 							|| pGamePlayer->isFamilyFreePass()
-							|| !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID() )->isPayPlay();
+							|| !g_pZoneInfoManager->getZoneInfo( pTargetZone->getZoneID() )->isPayPlay();
 
 				// 야전사령부, 시외곽지역, 이벤트경기장, 이벤트OX, 테메리에로는 갈 수 없다.
 				bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
@@ -91,7 +88,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 				// 성이나 마스터 레어로도 쫓아갈 수 없다. 2003. 1.20. by bezz, Sequoia
 				// 아담의 성지 내로도 쫓아갈 수 없다. 2003. 2. 8. by Sequoia
 								  (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) && !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
-								  !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID() ) &&
+								  !g_pPKZoneInfoManager->isPKZone( pTargetZone->getZoneID() ) &&
 								  // 다이나믹 존으로도 갈 수 없다.
 								  !pTargetZone->isDynamicZone();
 
@@ -99,7 +96,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 			}
 		}
 
-		__LEAVE_CRITICAL_SECTION((*g_pPCFinder) )
+		__LEAVE_CRITICAL_SECTION( (*g_pPCFinder) )
 
 		int  RequiredMP  = pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
@@ -115,19 +112,6 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 		{
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-            __ENTER_CRITICAL_SECTION((*g_pPCFinder))
-                Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-                
-                GCSystemMessage msg;
-                stringstream msg2;
-                msg2 << pSlayer->getName() << " used Soul Chain and will arrive in 10 seconds.";
-                msg.setMessage(msg2.str());
-                msg.setColor(0x00FFFFFF);
-                msg.setType(SYSTEM_MESSAGE_NORMAL);
-                msg.setRace(RACE_SLAYER);
-                pTarget->getPlayer()->sendPacket(&msg);
-            __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
-
 			SkillInput input(pSlayer, pSkillSlot);
 			SkillOutput output;
 			computeOutput(input, output);
@@ -136,8 +120,8 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 			EffectSoulChain* pEffect= new EffectSoulChain(pSlayer);
 			pEffect->setDuration(output.Duration);
 			pEffect->setDeadline(100);
-			pEffect->setTargetName(targetName);
-			pEffect->setZone(pZone);
+			pEffect->setTargetName( targetName );
+			pEffect->setZone( pZone );
 
 			ObjectRegistry & objectregister = pZone->getObjectRegistry();
 			objectregister.registerObject(pEffect);
@@ -150,7 +134,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 			Exp_t ExpUp = 10*(Grade+1);
 
 			int STRPoint, DEXPoint, INTPoint;
-			switch (DomainType )
+			switch ( DomainType )
 			{
 				case SKILL_DOMAIN_BLADE:
 				case SKILL_DOMAIN_SWORD:
@@ -227,7 +211,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 		Assert(pGamePlayer != NULL);
 
-		if (pVampire->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
+		if ( pVampire->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
 			|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
 		{
 			executeSkillFailNormal(pVampire, getSkillType(), NULL);
@@ -244,13 +228,13 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 		ZoneCoord_t y = pVampire->getY();
 
 		bool bValidTarget = false;
-		__ENTER_CRITICAL_SECTION((*g_pPCFinder) )
+		__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
-		Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-		if (pTarget != NULL )
+		Creature* pTarget = g_pPCFinder->getCreature_LOCKED( targetName );
+		if ( pTarget != NULL )
 		{
 			Zone* pTargetZone = pTarget->getZone();
-			if (pTargetZone != NULL )
+			if ( pTargetZone != NULL )
 			{
 				// Target 체크
 				// 같은 종족이어야 한다.
@@ -260,9 +244,9 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 				// 마스터 레어로는 이동할 수 없다.
 				bool bMasterLair = pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
 				// 유료 서비스 사용이 가능한가?
-				bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
+				bool bValidPay = pGamePlayer->loginPayPlay( pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
 							|| pGamePlayer->isFamilyFreePass()
-							|| !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID() )->isPayPlay();
+							|| !g_pZoneInfoManager->getZoneInfo( pTargetZone->getZoneID() )->isPayPlay();
 
 				// 야전사령부, 시외곽지역, 이벤트경기장, 이벤트OX, 테메리에로는 갈 수 없다.
 				bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
@@ -271,7 +255,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 								  pTargetZone->getZoneID() != 1132 && pTargetZone->getZoneID() != 1133 &&
 								  pTargetZone->getZoneID() != 1134 && !pTargetZone->isCastleZone() &&
 								  (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) && !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
-								  !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID() ) &&
+								  !g_pPKZoneInfoManager->isPKZone( pTargetZone->getZoneID() ) &&
 								  // 다이나믹 존으로도 갈 수 없다.
 								  !pTargetZone->isDynamicZone();
 
@@ -279,7 +263,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 			}
 		}
 
-		__LEAVE_CRITICAL_SECTION((*g_pPCFinder) )
+		__LEAVE_CRITICAL_SECTION( (*g_pPCFinder) )
 
 		int  RequiredMP  = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck  = hasEnoughMana(pVampire, RequiredMP);
@@ -295,29 +279,16 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 		{
 			decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
-            __ENTER_CRITICAL_SECTION((*g_pPCFinder))
-                Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-
-                GCSystemMessage msg;
-                stringstream msg2;
-                msg2 << pVampire->getName() << " used Soul Chain and will arrive in 10 seconds.";
-                msg.setMessage(msg2.str());
-                msg.setColor(0x00FFFFFF);
-                msg.setType(SYSTEM_MESSAGE_NORMAL);
-                msg.setRace(RACE_VAMPIRE);
-                pTarget->getPlayer()->sendPacket(&msg);
-            __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
-
 			SkillInput input(pVampire);
 			SkillOutput output;
 			computeOutput(input, output);
 		
 			// 10 초 동안 움직일 수 없도록 이펙트를 붙인다.
-			EffectSoulChain* pEffect = new EffectSoulChain(pVampire);
+			EffectSoulChain* pEffect = new EffectSoulChain( pVampire );
 			pEffect->setDuration(output.Duration);
 			pEffect->setDeadline(100);
-			pEffect->setTargetName(targetName);
-			pEffect->setZone(pZone);
+			pEffect->setTargetName( targetName );
+			pEffect->setZone( pZone );
 
 			ObjectRegistry & objectregister = pZone->getObjectRegistry();
 			objectregister.registerObject(pEffect);
@@ -381,7 +352,7 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 		Assert(pGamePlayer != NULL);
 
-		if (pOusters->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
+		if ( pOusters->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
 			|| pOusters->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
 		{
 			executeSkillFailNormal(pOusters, getSkillType(), NULL);
@@ -398,13 +369,13 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 		ZoneCoord_t y = pOusters->getY();
 
 		bool bValidTarget = false;
-		__ENTER_CRITICAL_SECTION((*g_pPCFinder) )
+		__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
-		Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-		if (pTarget != NULL )
+		Creature* pTarget = g_pPCFinder->getCreature_LOCKED( targetName );
+		if ( pTarget != NULL )
 		{
 			Zone* pTargetZone = pTarget->getZone();
-			if (pTargetZone != NULL )
+			if ( pTargetZone != NULL )
 			{
 				// Target 체크
 				// 같은 종족이어야 한다.
@@ -414,9 +385,9 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 				// 마스터 레어로는 이동할 수 없다.
 				bool bMasterLair = pTargetZone->isMasterLair() || GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID());
 				// 유료 서비스 사용이 가능한가?
-				bool bValidPay = pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
+				bool bValidPay = pGamePlayer->loginPayPlay( pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
 							|| pGamePlayer->isFamilyFreePass()
-							|| !g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID() )->isPayPlay();
+							|| !g_pZoneInfoManager->getZoneInfo( pTargetZone->getZoneID() )->isPayPlay();
 
 				// 야전사령부, 시외곽지역, 이벤트경기장, 이벤트OX, 테메리에로는 갈 수 없다.
 				bool bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
@@ -425,7 +396,7 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 								  pTargetZone->getZoneID() != 1132 && pTargetZone->getZoneID() != 1133 &&
 								  pTargetZone->getZoneID() != 1134 && !pTargetZone->isCastleZone() &&
 								  (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) && !pTargetZone->isCastle() && !pTargetZone->isMasterLair() &&
-								  !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID() ) &&
+								  !g_pPKZoneInfoManager->isPKZone( pTargetZone->getZoneID() ) &&
 								  // 다이나믹 존으로도 갈 수 없다.
 								  !pTargetZone->isDynamicZone();
 
@@ -433,7 +404,7 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 			}
 		}
 
-		__LEAVE_CRITICAL_SECTION((*g_pPCFinder) )
+		__LEAVE_CRITICAL_SECTION( (*g_pPCFinder) )
 
 		int  RequiredMP  = pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
@@ -449,29 +420,16 @@ void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkil
 		{
 			decreaseMana(pOusters, RequiredMP, _GCSkillToSelfOK1);
 
-            __ENTER_CRITICAL_SECTION((*g_pPCFinder))
-                Creature* pTarget = g_pPCFinder->getCreature_LOCKED(targetName);
-
-                GCSystemMessage msg;
-                stringstream msg2;
-                msg2 << pOusters->getName() << " used Soul Chain and will arrive in 10 seconds.";
-                msg.setMessage(msg2.str());
-                msg.setColor(0x00FFFFFF);
-                msg.setType(SYSTEM_MESSAGE_NORMAL);
-                msg.setRace(RACE_OUSTERS);
-                pTarget->getPlayer()->sendPacket(&msg);
-            __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
-
 			SkillInput input(pOusters, pSkillSlot);
 			SkillOutput output;
 			computeOutput(input, output);
 		
 			// 10 초 동안 움직일 수 없도록 이펙트를 붙인다.
-			EffectSoulChain* pEffect = new EffectSoulChain(pOusters);
+			EffectSoulChain* pEffect = new EffectSoulChain( pOusters );
 			pEffect->setDuration(output.Duration);
 			pEffect->setDeadline(100);
-			pEffect->setTargetName(targetName);
-			pEffect->setZone(pZone);
+			pEffect->setTargetName( targetName );
+			pEffect->setZone( pZone );
 
 			ObjectRegistry & objectregister = pZone->getObjectRegistry();
 			objectregister.registerObject(pEffect);

@@ -11,7 +11,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionIsGuildMember::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -19,7 +19,7 @@ bool ConditionIsGuildMember::isSatisfied (Creature * pCreature1 , Creature * pCr
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
 	// 길드 이름을 가져와서 있으면 길드원이다.
-	if (pPC->getGuildName().size() != 0 )
+	if ( pPC->getGuildName().size() != 0 )
 		return true;
 
 	return false;
@@ -29,7 +29,7 @@ bool ConditionIsGuildMember::isSatisfied (Creature * pCreature1 , Creature * pCr
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionIsGuildMember::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -37,7 +37,7 @@ void ConditionIsGuildMember::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionIsGuildMember::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

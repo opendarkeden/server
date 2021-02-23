@@ -5,11 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "MoleShot.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 #include "ItemUtil.h"
 #include <list>
 
@@ -289,8 +289,8 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 				bool bPK             = verifyPK(pSlayer, pTargetCreature);
 				bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
-				if (!canAttack(pSlayer, pTargetCreature )
-					|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA )
+				if ( !canAttack( pSlayer, pTargetCreature )
+					|| pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA )
 				)
 				{
 					bHitRoll = false;
@@ -336,7 +336,7 @@ void MoleShot::SGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 					{
 						bHit = true;
 
-						if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+						if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 						EnemyNum++;
 					}
 				}
@@ -555,8 +555,8 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 				bool bPK             = verifyPK(pSlayer, pTargetCreature);
 				bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
-				if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE )
-					|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA )
+				if ( pTargetCreature->isFlag( Effect::EFFECT_CLASS_NO_DAMAGE )
+					|| pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA )
 				)
 				{
 					bHitRoll = false;
@@ -599,7 +599,7 @@ void MoleShot::ARSMGexecute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 					if (!pTargetCreature->isSlayer())
 					{
 						bHit = true;
-						if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+						if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 						EnemyNum++;
 					}
 				}

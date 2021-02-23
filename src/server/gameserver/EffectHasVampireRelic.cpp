@@ -14,11 +14,11 @@
 #include "MonsterCorpse.h"
 #include "Player.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -73,50 +73,50 @@ void EffectHasVampireRelic::affect(Creature* pCreature)
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 	*/
 	// 존 정보를 얻는다.
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone!=NULL);
 
-	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pZone->getZoneID());
-	Assert(pZoneInfo != NULL);
+	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( pZone->getZoneID() );
+	Assert( pZoneInfo != NULL );
 
     // 위치를 알린다.
     char msg[100];
 
 	const char* race;
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
-		race = g_pStringPool->c_str(STRID_SLAYER);
+		race = g_pStringPool->c_str( STRID_SLAYER );
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
-		race = g_pStringPool->c_str(STRID_VAMPIRE);
+		race = g_pStringPool->c_str( STRID_VAMPIRE );
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
-		race = g_pStringPool->c_str(STRID_OUSTERS);
+		race = g_pStringPool->c_str( STRID_OUSTERS );
 	}
 
-    sprintf(msg, g_pStringPool->c_str(STRID_HAVING_VAMPIRE_RELIC ),
+    sprintf( msg, g_pStringPool->c_str( STRID_HAVING_VAMPIRE_RELIC ),
                 pCreature->getName().c_str(),
 				race,
-//                (pCreature->isSlayer() ? g_pStringPool->c_str(STRID_SLAYER ) : g_pStringPool->c_str(STRID_VAMPIRE ) ),
+//                ( pCreature->isSlayer() ? g_pStringPool->c_str( STRID_SLAYER ) : g_pStringPool->c_str( STRID_VAMPIRE ) ),
                 (int)pCreature->getX(),
                 (int)pCreature->getY()
-   );
+    );
 
 /*	// 위치를 알린다.
 	StringStream msg;
-	msg << pCreature->getName() << " 님(" << (pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 " 
+	msg << pCreature->getName() << " 님(" << ( pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 " 
 		<< pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
 		<< ")에서 뱀파이어 성물을 가지고 있습니다."; */
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg);
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	setNextTime(m_Tick);
 
@@ -153,7 +153,7 @@ void EffectHasVampireRelic::affect(Item* pItem)
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	setNextTime(m_Tick);
 	*/

@@ -9,16 +9,16 @@
 #include <fstream>
 #include <list>
 
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -44,7 +44,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
 		// NPC는 공격할 수 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 		   )
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -138,7 +138,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
 					if (!pTargetCreature->isSlayer())
 					{
-						if (bIncreaseDomainExp )
+						if ( bIncreaseDomainExp )
 						{
 							shareAttrExp(pSlayer, Damage , 1, 8, 1, _GCAttackArmsOK1);
 							increaseDomainExp(pSlayer, DomainType , 1, _GCAttackArmsOK1, pTargetCreature->getLevel());
@@ -255,7 +255,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 						if (!pTargetCreature->isSlayer())
 						{
 							bHit = true;
-							if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+							if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 							EnemyNum++;
 						}
 					}

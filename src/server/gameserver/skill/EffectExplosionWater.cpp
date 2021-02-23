@@ -8,73 +8,73 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
-EffectExplosionWater::EffectExplosionWater(Creature* pCreature )
-	throw(Error )
+EffectExplosionWater::EffectExplosionWater( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	setTarget(pCreature);
+	setTarget( pCreature );
 
 	__END_CATCH
 }
 
 void EffectExplosionWater::affect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
 
-void EffectExplosionWater::affect(Creature* pCreature )
-	throw(Error )
+void EffectExplosionWater::affect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
-void EffectExplosionWater::unaffect(Creature* pCreature )
-	throw(Error )
+void EffectExplosionWater::unaffect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	//cout << "EffectExplosionWater " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER);
+	pCreature->removeFlag( Effect::EFFECT_CLASS_EXPLOSION_WATER );
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_EXPLOSION_WATER);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_EXPLOSION_WATER );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature );
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
 		Player* pPlayer = pCreature->getPlayer();
-		Assert(pPlayer != NULL);
+		Assert( pPlayer != NULL );
 
-		pPlayer->sendPacket(&gcRemoveEffect);
+		pPlayer->sendPacket( &gcRemoveEffect );
 	}
 
 	__END_CATCH
 }
 
 void EffectExplosionWater::unaffect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+	unaffect( pCreature );
 
 	__END_CATCH
 }

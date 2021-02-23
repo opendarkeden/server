@@ -5,16 +5,16 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "HeadShot.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()) 
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -141,7 +141,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 				if (!pTargetCreature->isSlayer())
 				{
 					// 경험치를 올려준다.
-					if (bIncreaseDomainExp )
+					if ( bIncreaseDomainExp )
 					{
 						shareAttrExp(pSlayer, Damage , 1, 8, 1, _GCSkillToObjectOK1);
 						increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1, pTargetCreature->getLevel());
@@ -286,7 +286,7 @@ void HeadShot::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 						if (!pEnemy->isSlayer())
 						{
 							bHit = true;
-							if (maxEnemyLevel < pEnemy->getLevel() ) maxEnemyLevel = pEnemy->getLevel();
+							if ( maxEnemyLevel < pEnemy->getLevel() ) maxEnemyLevel = pEnemy->getLevel();
 							EnemyNum++;
 						}
 					}

@@ -11,7 +11,7 @@ public:
 	GQuestORElement() { }
 	string		 				getElementName() const { return "OR"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestORElement*	makeElement(XMLTree* pTree);
 

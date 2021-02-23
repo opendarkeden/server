@@ -24,10 +24,10 @@
 
 #include "SkillHandler.h"
 
-#include "GCAddMonster.h"
-#include "GCMove.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSay.h"
+#include "Gpackets/GCAddMonster.h"
+#include "Gpackets/GCMove.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSay.h"
 
 #include "skill/SkillHandlerManager.h"
 #include "skill/EffectParalyze.h"
@@ -97,26 +97,26 @@ const int RudolfSpeechMax = 10;
 // 몬스터 적 인식 관련 함수
 //////////////////////////////////////////////////////////////////////////////
 bool Monster::isRealEnemy(Creature* pEnemy)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	Assert(pEnemy != NULL);
 
-	if (m_pBrain == NULL ) return false;
+	if ( m_pBrain == NULL ) return false;
 	Zone* pZone = pEnemy->getZone();
-	if (pEnemy->getObjectID() == m_OwnerObjectID ) return false;
+	if ( pEnemy->getObjectID() == m_OwnerObjectID ) return false;
 
-	if (m_OwnerObjectID != 0 )
+	if ( m_OwnerObjectID != 0 )
 	{
-		Creature* pOwner = m_pZone->getCreature(m_OwnerObjectID);
-		if (pOwner != NULL && pOwner->getCreatureClass() == pEnemy->getCreatureClass() && canAttack(pOwner, pEnemy ) )
+		Creature* pOwner = m_pZone->getCreature( m_OwnerObjectID );
+		if ( pOwner != NULL && pOwner->getCreatureClass() == pEnemy->getCreatureClass() && canAttack( pOwner, pEnemy ) )
 		{
 //			cout << __PRETTY_FUNCTION__ << pEnemy->getName() << "is same class as owner" << pOwner->getName() << endl;
 			return false;
 		}
 
-		if (GDRLairManager::Instance().isGDRLairZone(getZoneID()) && pEnemy->isPC() ) return false;
+		if ( GDRLairManager::Instance().isGDRLairZone(getZoneID()) && pEnemy->isPC() ) return false;
 	}
 
 	// 유령은 무시
@@ -124,7 +124,7 @@ bool Monster::isRealEnemy(Creature* pEnemy)
 		// 죽은 놈은 적으로 인식하지 않는다.
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_COMA)
 		// 공중 공격을 못하면 박쥐 상태의 적은 적으로 인식하지 않는다.
-		|| (!m_pBrain->canAttackAir() && pEnemy->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
+		|| ( !m_pBrain->canAttackAir() && pEnemy->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
 		// 스나이핑 모드의 적도 적으로 인식하지 않는다.
 		|| !pEnemy->isFlag(Effect::EFFECT_CLASS_PARALYZE)	// 석화 걸리면 보인다고 하자
 			&& !pZone->isMasterLair()						// 마스터 레어에서는 다 보인다. 2002.10.16.by sigi
@@ -136,15 +136,15 @@ bool Monster::isRealEnemy(Creature* pEnemy)
 		// 아마게돈 걸린 놈음 때리면 안 된다. 어차피 안 맞는다. 2003. 1. 2. by Sequoia
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_ARMAGEDDON)
 		// 안전지대 내부를 못 보면 안전지대 내부에 있는 적도 적으로 인삭하지 않는다.
-		|| (!m_pBrain->canSeeSafeZone() && (pZone->getZoneLevel(pEnemy->getX(), pEnemy->getY()) & SAFE_ZONE) )
+		|| ( !m_pBrain->canSeeSafeZone() && (pZone->getZoneLevel(pEnemy->getX(), pEnemy->getY()) & SAFE_ZONE) )
 		)
 	{
 		return false;
 	}
 
-	if (SiegeManager::Instance().isSiegeZone(pZone->getZoneID()) )
+	if ( SiegeManager::Instance().isSiegeZone(pZone->getZoneID()) )
 	{
-		if (pEnemy->isFlag(Effect::EFFECT_CLASS_SIEGE_DEFENDER ) || pEnemy->isFlag(Effect::EFFECT_CLASS_SIEGE_REINFORCE ) )
+		if ( pEnemy->isFlag( Effect::EFFECT_CLASS_SIEGE_DEFENDER ) || pEnemy->isFlag( Effect::EFFECT_CLASS_SIEGE_REINFORCE ) )
 			return false;
 	}
 
@@ -157,7 +157,7 @@ bool Monster::isRealEnemy(Creature* pEnemy)
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Monster::Monster (MonsterType_t monsterType)
-	throw() : m_MonsterType(monsterType)
+	throw () : m_MonsterType(monsterType)
 {
 	__BEGIN_TRY
 
@@ -200,17 +200,17 @@ Monster::Monster (MonsterType_t monsterType)
 	m_Damage[ATTR_CURRENT] = computeMinDamage(CClass, &attr, pMonsterInfo->getEnhanceMinDamage());
 	m_Damage[ATTR_MAX]     = computeMaxDamage(CClass, &attr, pMonsterInfo->getEnhanceMaxDamage());
 
-	if (monsterType == 717 ) m_HP[ATTR_MAX] = 40000;
-	if (monsterType == 723 ) m_HP[ATTR_MAX] = 60000;
-	if (monsterType == 724 ) m_HP[ATTR_MAX] = 30000;
-	if (monsterType == 725 ) m_HP[ATTR_MAX] = 30000;
-	if (monsterType == 764 ) m_HP[ATTR_MAX] = 55000;
-	if (monsterType == 765 ) m_HP[ATTR_MAX] = 60000;
+	if ( monsterType == 717 ) m_HP[ATTR_MAX] = 40000;
+	if ( monsterType == 723 ) m_HP[ATTR_MAX] = 60000;
+	if ( monsterType == 724 ) m_HP[ATTR_MAX] = 30000;
+	if ( monsterType == 725 ) m_HP[ATTR_MAX] = 30000;
+	if ( monsterType == 764 ) m_HP[ATTR_MAX] = 55000;
+	if ( monsterType == 765 ) m_HP[ATTR_MAX] = 60000;
 
-	if (m_HP[ATTR_MAX] > 20000 )
+	if ( m_HP[ATTR_MAX] > 20000 )
 	{
-		if (monsterType >= 717 ){}
-			//cout << pMonsterInfo->getHName() << "의 HP : " << m_HP[ATTR_MAX] << endl;
+		if ( monsterType >= 717 )
+			cout << pMonsterInfo->getHName() << "의 HP : " << m_HP[ATTR_MAX] << endl;
 		else
 			m_HP[ATTR_MAX] = 20000;
 	}
@@ -237,15 +237,15 @@ Monster::Monster (MonsterType_t monsterType)
 
 	clearAccuDelay();
 
-	if (monsterType != 722 )
+	if ( monsterType != 722 )
 	{
 		// AI 클래스를 생성한다.
 		uint aitype = pMonsterInfo->getAIType();
-		if (aitype != 65535 )
+		if ( aitype != 65535 )
 			m_pBrain = new MonsterAI(this, aitype);
 		else
 		{
-			//cout << pMonsterInfo->getHName() << "은 뇌가 없다." << endl;
+			cout << pMonsterInfo->getHName() << "은 뇌가 없다." << endl;
 			m_pBrain = NULL;
 		}
 	}
@@ -258,7 +258,7 @@ Monster::Monster (MonsterType_t monsterType)
 	switch (pMonsterInfo->selectRegenType())
 	{
 		case REGENTYPE_HIDE :
-			setFlag(Effect::EFFECT_CLASS_HIDE);
+			setFlag( Effect::EFFECT_CLASS_HIDE );
 			m_MoveMode = MOVE_MODE_BURROWING;
 		break;
 
@@ -268,11 +268,11 @@ Monster::Monster (MonsterType_t monsterType)
 		break;
 
 		case REGENTYPE_INVISIBLE :
-			setFlag(Effect::EFFECT_CLASS_INVISIBILITY);
+			setFlag( Effect::EFFECT_CLASS_INVISIBILITY );
 		break;
 
 		case REGENTYPE_BAT :
-			setFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT);
+			setFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT );
 			m_MoveMode = MOVE_MODE_FLYING;
 		break;
 
@@ -286,7 +286,7 @@ Monster::Monster (MonsterType_t monsterType)
 	else
 		m_Name = g_pMonsterNameManager->getRandomName(this);
 
-	if (monsterType == 722 ) m_Name = "하이메스 맹인석상";
+	if ( monsterType == 722 ) m_Name = "하이메스 맹인석상";
 
 	getCurrentTime(m_LastSpeechTime);
 
@@ -294,25 +294,25 @@ Monster::Monster (MonsterType_t monsterType)
 	{
 		case 358:
 		case 359:
-			m_Name = g_pStringPool->getString(STRID_EVENT_SANTA_NAME);
+			m_Name = g_pStringPool->getString( STRID_EVENT_SANTA_NAME );
 			break;
 		case 360:
 		case 361:
-			m_Name = g_pStringPool->getString(STRID_EVENT_WOLF_NAME);
+			m_Name = g_pStringPool->getString( STRID_EVENT_WOLF_NAME );
 			break;
 		case 371:
 		case 372:
-			m_Name = g_pStringPool->getString(STRID_SLAYER_RELIC_SHRINE);
+			m_Name = g_pStringPool->getString( STRID_SLAYER_RELIC_SHRINE );
 			break;
 		case 374:
 	    case 375:
-			m_Name = g_pStringPool->getString(STRID_VAMPIRE_RELIC_SHRINE);
+			m_Name = g_pStringPool->getString( STRID_VAMPIRE_RELIC_SHRINE );
 			break;
 		default:
 			break;
 	}
 
-	if (monsterType >= 660 && monsterType <= 669 ) m_Name = g_pStringPool->getString(STRID_ORE);
+	if ( monsterType >= 660 && monsterType <= 669 ) m_Name = g_pStringPool->getString(STRID_ORE);
 
 	// 클랜 타입을 세팅한다.
 	// by sigi. 2002.10.8
@@ -343,7 +343,7 @@ Monster::Monster (MonsterType_t monsterType)
 	}
 
 	// 기본 effect들을 설정한다. by sigi. 2002.9.13
-	pMonsterInfo->addDefaultEffects(this);
+	pMonsterInfo->addDefaultEffects( this );
 		
 	m_LastHitCreatureClass = CREATURE_CLASS_MAX;
 	m_isEventMonster = false;
@@ -352,7 +352,7 @@ Monster::Monster (MonsterType_t monsterType)
 	m_RelicIndex = -1;
 
 	// 대충 못 움직이는 몹은 걍 RelicIndex를 넣어가지고 못 움직이게 한다.
-	if (monsterType >= 660 && monsterType <= 669 )
+	if ( monsterType >= 660 && monsterType <= 669 )
 	{
 		m_RelicIndex = monsterType;
 	}
@@ -376,7 +376,7 @@ Monster::Monster (MonsterType_t monsterType)
 		m_EventMonsterIndex = 0xF000 + rand()%0x0FFF;
 	}
 
-	setChief(pMonsterInfo->isChief());
+	setChief( pMonsterInfo->isChief() );
 
 	} catch (Throwable& t)
 	{
@@ -391,9 +391,9 @@ Monster::Monster (MonsterType_t monsterType)
 #endif
 
 	m_LastKiller = 0;
-	getCurrentTime(m_NextRegenTime);
+	getCurrentTime( m_NextRegenTime );
 	
-	switch (m_MonsterType )
+	switch ( m_MonsterType )
 	{
 		case 724:
 		case 725:
@@ -403,7 +403,7 @@ Monster::Monster (MonsterType_t monsterType)
 			break;
 	}
 
-	switch (m_MonsterType )
+	switch ( m_MonsterType )
 	{
 		case 717:
 		case 723:
@@ -426,21 +426,21 @@ Monster::Monster (MonsterType_t monsterType)
 			}
 	}
 
-	if (m_MonsterType == 764 )
+	if ( m_MonsterType == 764 )
 	{
 		EffectRegenerate* pEffect = new EffectRegenerate(this);
 		pEffect->setTick(30);
 		pEffect->setPoint(200);
 		pEffect->setNextTime(0);
-		addEffect(pEffect);
+		addEffect( pEffect );
 	}
-	else if (m_MonsterType == 765 )
+	else if ( m_MonsterType == 765 )
 	{
 		EffectRegenerate* pEffect = new EffectRegenerate(this);
 		pEffect->setTick(30);
 		pEffect->setPoint(300);
 		pEffect->setNextTime(0);
-		addEffect(pEffect);
+		addEffect( pEffect );
 	}
 
 	__END_CATCH
@@ -451,7 +451,7 @@ Monster::Monster (MonsterType_t monsterType)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Monster::~Monster() 
-    throw()
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -461,7 +461,7 @@ Monster::~Monster()
 }
 
 SpriteType_t Monster::getSpriteType () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -471,7 +471,7 @@ SpriteType_t Monster::getSpriteType () const
 }
 
 Level_t Monster::getLevel () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -481,7 +481,7 @@ Level_t Monster::getLevel () const
 }
 
 uint Monster::getBodySize () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -491,7 +491,7 @@ uint Monster::getBodySize () const
 }
 
 Color_t Monster::getMainColor () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -501,7 +501,7 @@ Color_t Monster::getMainColor () const
 }
 
 Color_t Monster::getSubColor () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -511,7 +511,7 @@ Color_t Monster::getSubColor () const
 }
 
 MAlignment Monster::getAlignment () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -524,7 +524,7 @@ MAlignment Monster::getAlignment () const
 // registerObject 
 //////////////////////////////////////////////////////////////////////////////
 void Monster::registerObject ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -547,16 +547,16 @@ void Monster::registerObject ()
 // 하는 모든 몬스터를 iterating 해가면서 Monster::act() 메쏘드를 호출한다.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::act(const Timeval& currentTime)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	if (m_RegenAmount != 0 && currentTime > m_NextRegenTime )
+	if ( m_RegenAmount != 0 && currentTime > m_NextRegenTime )
 	{
-		if ((HP_t)(m_HP[ATTR_MAX] * 0.3) > m_HP[ATTR_CURRENT] )
+		if ( (HP_t)(m_HP[ATTR_MAX] * 0.3) > m_HP[ATTR_CURRENT] )
 		{
-			switch (m_MonsterType )
+			switch ( m_MonsterType )
 			{
 				case 724:
 				case 725:
@@ -583,7 +583,7 @@ void Monster::act(const Timeval& currentTime)
 		}
 		else
 		{
-			switch (m_MonsterType )
+			switch ( m_MonsterType )
 			{
 				case 724:
 				case 725:
@@ -603,14 +603,14 @@ void Monster::act(const Timeval& currentTime)
 			}
 		}
 
-		m_HP[ATTR_CURRENT] += min((int)m_RegenAmount, m_HP[ATTR_MAX] - m_HP[ATTR_CURRENT]);
+		m_HP[ATTR_CURRENT] += min( (int)m_RegenAmount, m_HP[ATTR_MAX] - m_HP[ATTR_CURRENT] );
 
 		GCStatusCurrentHP gcHP;
-		gcHP.setObjectID(getObjectID());
-		gcHP.setCurrentHP(m_HP[ATTR_CURRENT]);
+		gcHP.setObjectID( getObjectID() );
+		gcHP.setCurrentHP( m_HP[ATTR_CURRENT] );
 
-		if (getZone() != NULL )
-			getZone()->broadcastPacket(getX(), getY(), &gcHP);
+		if ( getZone() != NULL )
+			getZone()->broadcastPacket( getX(), getY(), &gcHP );
 	}
 
 	// 현재 시간이 다음 턴보다 작다면, 아직 좀 더 기다려야 한다.
@@ -769,7 +769,7 @@ void Monster::act(const Timeval& currentTime)
 					m_pBrain->move(m_pZone->getWidth()>>1, m_pZone->getHeight()>>1);
 				}
 
-				if ((m_bScanEnemy || isFlag(Effect::EFFECT_CLASS_HALLUCINATION) ) && currentTime > m_NextScanTurn )
+				if ( ( m_bScanEnemy || isFlag(Effect::EFFECT_CLASS_HALLUCINATION) ) && currentTime > m_NextScanTurn )
 				{
 					m_pZone->monsterScan(this, m_X, m_Y, m_Dir);
 
@@ -795,9 +795,9 @@ void Monster::act(const Timeval& currentTime)
 	if (rand()%600 < statSum && isAlive())
 		m_HP[ATTR_CURRENT] =(HP_t)min((int)m_HP[ATTR_CURRENT]+1, (int)m_HP[ATTR_MAX]);
 
-	if (m_HP[ATTR_CURRENT] == m_HP[ATTR_MAX] && isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
+	if ( m_HP[ATTR_CURRENT] == m_HP[ATTR_MAX] && isFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
 	{
-		removeFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+		removeFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN );
 	}
 	__END_PROFILE_MONSTER("M_REGEN_HP");
 
@@ -806,7 +806,7 @@ void Monster::act(const Timeval& currentTime)
 }
 
 void Monster::actDeadAction(void) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -824,24 +824,24 @@ void Monster::actDeadAction(void)
 			if (pEnemy!=NULL) m_pBrain->actDeadAction(pEnemy);
 		}
 	}
-	else if (getMonsterType() == GROUND_ELEMENTAL_TYPE )
+	else if ( getMonsterType() == GROUND_ELEMENTAL_TYPE )
 	{
 		int oX, oY;
 		int X = getX();
 		int Y = getY();
 
-		for (oX = X - 2 ; oX <= X + 2 ; ++oX )
-		for (oY = Y - 2 ; oY <= Y + 2 ; ++oY )
+		for ( oX = X - 2 ; oX <= X + 2 ; ++oX )
+		for ( oY = Y - 2 ; oY <= Y + 2 ; ++oY )
 		{
-			if (!isValidZoneCoord(getZone(), oX, oY ) ) continue;
-			Effect* pEffect = getZone()->getTile(oX,oY).getEffect(Effect::EFFECT_CLASS_GROUND_ELEMENTAL_AURA);
-			if (pEffect != NULL )
+			if ( !isValidZoneCoord( getZone(), oX, oY ) ) continue;
+			Effect* pEffect = getZone()->getTile(oX,oY).getEffect( Effect::EFFECT_CLASS_GROUND_ELEMENTAL_AURA );
+			if ( pEffect != NULL )
 			{
-				getZone()->deleteEffect(pEffect->getObjectID());
+				getZone()->deleteEffect( pEffect->getObjectID() );
 			}
 		}
 	}
-	else if (getMonsterType() >= 726 && getMonsterType() <= 729 )
+	else if ( getMonsterType() >= 726 && getMonsterType() <= 729 )
 	{
 		SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SKILL_SUMMON_MONSTERS);
 		pSkillHandler->execute(this);
@@ -861,7 +861,7 @@ void Monster::actDeadAction(void)
 // PC가 몬스터를 공격할 때, 주변의 몬스터들에게도 addEnemy()를 호출해준다.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::addEnemy (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -876,7 +876,7 @@ void Monster::addEnemy (Creature* pCreature)
 	// addEnemy()는 때렸을때 불리는 함수이므로.. pece를 제거한다.
 	if (isFlag(Effect::EFFECT_CLASS_PEACE))
 	{
-		Effect* pEffect = m_pEffectManager->findEffect(Effect::EFFECT_CLASS_PEACE);
+		Effect* pEffect = m_pEffectManager->findEffect( Effect::EFFECT_CLASS_PEACE );
 
 		EffectPeace* pEffectPeace = dynamic_cast<EffectPeace*>(pEffect);
 
@@ -884,7 +884,7 @@ void Monster::addEnemy (Creature* pCreature)
 		if (pCreature->getObjectID()==pEffectPeace->getPeaceCreatureID())
 		{
 			pEffect->unaffect(this);
-			m_pEffectManager->deleteEffect(Effect::EFFECT_CLASS_PEACE);
+			m_pEffectManager->deleteEffect( Effect::EFFECT_CLASS_PEACE );
 		}
 	}
 
@@ -1287,7 +1287,7 @@ void Monster::addEnemy (Creature* pCreature)
 // PC의 이동, 로그인시 설정된다.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::addPotentialEnemy (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1297,14 +1297,14 @@ void Monster::addPotentialEnemy (Creature* pCreature)
 	if (this==pCreature
 		|| !isRealEnemy(pCreature)) return;
 	// 할루 걸려있으면 클랜타입 구분 못 한다.
-	if (!isFlag(Effect::EFFECT_CLASS_HALLUCINATION ) &&
+	if (!isFlag( Effect::EFFECT_CLASS_HALLUCINATION ) &&
 		pCreature->getClanType() == m_ClanType) return;
 
 	// peace에 걸려있다면..
 	if (isFlag(Effect::EFFECT_CLASS_PEACE))
 	{
 //		Effect* pEffect = pMonster->getEffectManager()->findEffect(EFFECT_CLASS_PEACE);
-		Effect* pEffect = m_pEffectManager->findEffect(Effect::EFFECT_CLASS_PEACE);
+		Effect* pEffect = m_pEffectManager->findEffect( Effect::EFFECT_CLASS_PEACE );
 
 		EffectPeace* pEffectPeace = dynamic_cast<EffectPeace*>(pEffect);
 
@@ -1335,7 +1335,7 @@ void Monster::addPotentialEnemy (Creature* pCreature)
 // 특정 크리처를 적 리스트에서 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::deleteEnemy (ObjectID_t enemyID)
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1360,7 +1360,7 @@ void Monster::deleteEnemy (ObjectID_t enemyID)
 // Enemy 중에서 로그아웃한 PC 를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::verifyEnemies ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1420,7 +1420,7 @@ void Monster::verifyEnemies ()
 // PRIMARY ENEMY 를 리턴한다.
 //////////////////////////////////////////////////////////////////////////////
 Creature* Monster::getPrimaryEnemy () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1552,7 +1552,7 @@ Creature* Monster::getPrimaryEnemy () const
 // 적 리스트의 특정 위치의 크리처의 아이디를 리턴한다.
 //////////////////////////////////////////////////////////////////////////////
 ObjectID_t Monster::getEnemy (EnemyPriority enemyPriority) const
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1590,7 +1590,7 @@ ObjectID_t Monster::getEnemy (EnemyPriority enemyPriority) const
 // 210 - maxAttr : ENEMY_EIGHTH
 //////////////////////////////////////////////////////////////////////////////
 uint Monster::getMaxEnemies () const
-	throw()
+	throw ()
 {
 	return (m_INT < 210) ? (m_INT / 30 + 1) : 8 ;
 }
@@ -1599,7 +1599,7 @@ uint Monster::getMaxEnemies () const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string Monster::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -1662,10 +1662,10 @@ void Monster::addPrecedence(const string & Name, int PartyID, int damage)
 	m_PrecedenceTable.addPrecedence(Name, PartyID, damage);
 }
 
-int Monster::getOustersExp(Ousters* pOusters )
+int Monster::getOustersExp( Ousters* pOusters )
 {
-	int total = computeCreatureExp(this, 100);
-	double percent = m_PrecedenceTable.getDamagePercent(pOusters->getName(), pOusters->getPartyID());
+	int total = computeCreatureExp( this, 100 );
+	double percent = m_PrecedenceTable.getDamagePercent( pOusters->getName(), pOusters->getPartyID() );
 
 //	return (int)((double)total * percent) * 1.4;
 	return (int)((double)total * percent);
@@ -1687,14 +1687,14 @@ void Monster::clearEnemyLimitTime() throw()
 }
 
 bool Monster::hasNextMonsterSummonInfo()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(m_MonsterType);
+	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( m_MonsterType );
 	Assert(pMonsterInfo!=NULL);
 
-	if (pMonsterInfo->hasNextMonsterSummonInfo(m_MonsterSummonStep ))
+	if (pMonsterInfo->hasNextMonsterSummonInfo( m_MonsterSummonStep ))
 	{
 		return true;
 	}
@@ -1705,14 +1705,14 @@ bool Monster::hasNextMonsterSummonInfo()
 }
 
 bool Monster::getMonsterSummonInfo(SUMMON_INFO2& summonInfo) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(m_MonsterType);
+	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( m_MonsterType );
 	Assert(pMonsterInfo!=NULL);
 
-	if (pMonsterInfo->getMonsterSummonInfo(m_MonsterSummonStep, summonInfo ))
+	if (pMonsterInfo->getMonsterSummonInfo( m_MonsterSummonStep, summonInfo ))
 	{
 		// 다음 단계의 소환을 준비한다.
 		m_MonsterSummonStep ++;
@@ -1737,18 +1737,18 @@ bool Monster::isEnemyToAttack(Creature* pCreature) const
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_GHOST))
 		return false;
 
-	if (pCreature->getObjectID() == m_OwnerObjectID ) return false;
+	if ( pCreature->getObjectID() == m_OwnerObjectID ) return false;
 
-	if (m_OwnerObjectID != 0 )
+	if ( m_OwnerObjectID != 0 )
 	{
-		Creature* pOwner = m_pZone->getCreature(m_OwnerObjectID);
-		if (pOwner != NULL && pOwner->getCreatureClass() == pCreature->getCreatureClass() && canAttack(pOwner, pCreature ) )
+		Creature* pOwner = m_pZone->getCreature( m_OwnerObjectID );
+		if ( pOwner != NULL && pOwner->getCreatureClass() == pCreature->getCreatureClass() && canAttack( pOwner, pCreature ) )
 		{
 //			cout << __PRETTY_FUNCTION__ << pCreature->getName() << "is same race as owner " << pOwner->getName() << endl;
 			return false;
 		}
 
-		if (GDRLairManager::Instance().isGDRLairZone(getZoneID()) && pCreature->isPC() ) return false;
+		if ( GDRLairManager::Instance().isGDRLairZone(getZoneID()) && pCreature->isPC() ) return false;
 	}
 
 	if (m_Flag.test(Effect::EFFECT_CLASS_HALLUCINATION))
@@ -1761,12 +1761,12 @@ bool Monster::isEnemyToAttack(Creature* pCreature) const
 	if (pCreature->isSlayer())
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-		return isEnemyToAttack(pSlayer);
+		return isEnemyToAttack( pSlayer );
 	}
 	else if (pCreature->isVampire())
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-		return isEnemyToAttack(pVampire);
+		return isEnemyToAttack( pVampire );
 	}
 	else if (pCreature->isOusters())
 	{
@@ -1776,7 +1776,7 @@ bool Monster::isEnemyToAttack(Creature* pCreature) const
 	else if (pCreature->isMonster())
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		return isEnemyToAttack(pMonster);
+		return isEnemyToAttack( pMonster );
 	}
 
 	return false;

@@ -4,9 +4,9 @@
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectMPRecovery.h"
-#include "GCMPRecoveryEnd.h"
+#include "Gpackets/GCMPRecoveryEnd.h"
 #include "Zone.h"
 #include "Slayer.h"
 #include "Ousters.h"
@@ -14,7 +14,7 @@
 #include "Player.h"
 
 EffectMPRecovery::EffectMPRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ EffectMPRecovery::EffectMPRecovery ()
 }
 
 EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 }
 
 EffectMPRecovery::~EffectMPRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -66,14 +66,18 @@ void EffectMPRecovery::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
+	{
+		cout << "Pleasure Explosion ¶«¿¡ ¾È Âù´Ù." << endl;
 		return;
+	}
 
 	Timeval CurrentTime;
 
 	getCurrentTime(CurrentTime);
 
-	if (pCreature->isSlayer()) {
+	if ( pCreature->isSlayer() )
+	{
 		Turn_t timegapSec =  m_Deadline.tv_sec - CurrentTime.tv_sec;
 		Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
 
@@ -101,7 +105,7 @@ void EffectMPRecovery::affect(Creature* pCreature)
 
 		m_Period = RecoveryPeriod;
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Turn_t timegapSec =  m_Deadline.tv_sec - CurrentTime.tv_sec;
 		Turn_t timegapUSec = m_Deadline.tv_usec - CurrentTime.tv_usec;
@@ -135,7 +139,7 @@ void EffectMPRecovery::affect(Creature* pCreature)
 }
 
 void EffectMPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -161,7 +165,7 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 {
 	__BEGIN_TRY
 	
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
@@ -182,7 +186,7 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 
 		pSlayer->removeFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
@@ -208,7 +212,7 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectMPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -216,11 +220,12 @@ void EffectMPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , O
 }
 
 string EffectMPRecovery::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
-	if (m_pZone) {
+	if (m_pZone) 
+	{
 		msg << "EffectMPRecovery("
 				<< "ZoneID:" << (int)m_pZone->getZoneID()
 				<< ",X:"     << (int)getX()
@@ -228,9 +233,13 @@ string EffectMPRecovery::toString () const
 	}
 
 	if (m_pTarget)
+	{
 		msg << ",Target:" << m_pTarget->toString();
+	}
 	else
+	{
 		msg << ",Target:NULL";
+	}
 
 	msg << ",Deadline:" << (int)m_Deadline.tv_sec 
 			<< "." << (int)m_Deadline.tv_usec

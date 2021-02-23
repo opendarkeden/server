@@ -46,7 +46,7 @@ public:
 	void setUserObjectID(ObjectID_t oid) throw() { m_UserObjectID = oid; }
 	ObjectID_t getUserObjectID() const throw() { return m_UserObjectID; }
 
-	void setVampire(bool bVampire = true ) { m_bVampire = bVampire; }
+	void setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
 	bool isVampire() const { return m_bVampire; }
 
 private:

@@ -8,8 +8,8 @@ class VampireCastleSkillSlot : public VampireSkillSlot
 public:
 	VampireCastleSkillSlot() throw()
 		: VampireSkillSlot() { }
-	VampireCastleSkillSlot(SkillType_t SkillType, ulong Interval, ulong CastingTime ) throw()
-		: VampireSkillSlot(SkillType, Interval, CastingTime ) { }
+	VampireCastleSkillSlot( SkillType_t SkillType, ulong Interval, ulong CastingTime ) throw()
+		: VampireSkillSlot( SkillType, Interval, CastingTime ) { }
 	~VampireCastleSkillSlot() throw() { }
 
 public:

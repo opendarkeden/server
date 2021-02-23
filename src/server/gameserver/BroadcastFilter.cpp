@@ -10,15 +10,15 @@
 /////////////////////////////////////////////////////////////////////////////
 // class BroadcastFilterRace
 /////////////////////////////////////////////////////////////////////////////
-bool BroadcastFilterRace::isSatisfy(GamePlayer* pGamePlayer )
+bool BroadcastFilterRace::isSatisfy( GamePlayer* pGamePlayer )
 	throw()
 {
 	__BEGIN_TRY
 
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	Creature* pCreature = pGamePlayer->getCreature();
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
 	return pCreature->getRace() == m_Race;
 
@@ -30,7 +30,7 @@ BroadcastFilter* BroadcastFilterRace::Clone()
 {
 	__BEGIN_TRY
 
-	BroadcastFilter* pFilter = new BroadcastFilterRace(m_Race);
+	BroadcastFilter* pFilter = new BroadcastFilterRace( m_Race );
 
 	return pFilter;
 

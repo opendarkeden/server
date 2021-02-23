@@ -7,40 +7,40 @@
 #include "ConditionCanEnterGDRLair.h"
 #include "GDRLairManager.h"
 #include "Effect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterGDRLair::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
 //	return false;
 
-/*	if (GDRLairManager::Instance().getTotalPCs() > 36 )
+/*	if ( GDRLairManager::Instance().getTotalPCs() > 36 )
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("Á¦ÇÑ ÀÎ¿øÀÌ ÃÊ°úµÇ¾î µé¾î°¥ ¼ö ¾ø½À´Ï´Ù.");
+		gcSystemMessage.setMessage( "Á¦ÇÑ ÀÎ¿øÀÌ ÃÊ°úµÇ¾î µé¾î°¥ ¼ö ¾ø½À´Ï´Ù." );
 		pCreature2->getPlayer()->sendPacket (&gcSystemMessage);
 		return false;
 	}*/
 
-	if (!GDRLairManager::Instance().canEnter() )
+	if ( !GDRLairManager::Instance().canEnter() )
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("Áúµå·¹ ·¹¾î°¡ ¿­¸®Áö ¾Ê¾Ò½À´Ï´Ù.");
+		gcSystemMessage.setMessage( "ÈÈ´ïÈðÐÐ¹¬»¹Ã»¿ªÆô." );
 		pCreature2->getPlayer()->sendPacket (&gcSystemMessage);
 		return false;
 	}
 
-	if (!pCreature2->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR ) )
+	if ( !pCreature2->isFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR ) )
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("·¯½ºÆ® Å¸¿ö 2Ãþ¿¡¼­ ÇÏÀÌ¸Þ½º ¸ÍÀÎ¼®»óÀ» ºÎ¼ö°í ¿Í¾ß ÇÕ´Ï´Ù.");
+		gcSystemMessage.setMessage( "±ØÐëµ½Ê§ÂäÖ®Ëþ2²ãÆÆ»µÏÄÂóË¹Ã¤ÈËÊ¯Ïñ." );
 		pCreature2->getPlayer()->sendPacket (&gcSystemMessage);
 		return false;
 	}
@@ -52,7 +52,7 @@ bool ConditionCanEnterGDRLair::isSatisfied (Creature * pCreature1 , Creature * p
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterGDRLair::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -60,7 +60,7 @@ void ConditionCanEnterGDRLair::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterGDRLair::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

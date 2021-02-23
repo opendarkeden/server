@@ -10,13 +10,13 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWaitForMeetCouple::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionWaitForMeetCouple::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWaitForMeetCouple::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -45,15 +45,15 @@ void ActionWaitForMeetCouple::execute (Creature * pCreature1 , Creature * pCreat
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 //	cout << "ActionWaitForMeeCouple(" << pNPC->getObjectID() << ")" << endl;
 
 	GCNPCResponse gcNPCResponse;
-	gcNPCResponse.setCode(NPC_RESPONSE_WAIT_FOR_MEET_COUPLE);
+	gcNPCResponse.setCode( NPC_RESPONSE_WAIT_FOR_MEET_COUPLE );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNPCResponse);
@@ -66,7 +66,7 @@ void ActionWaitForMeetCouple::execute (Creature * pCreature1 , Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWaitForMeetCouple::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

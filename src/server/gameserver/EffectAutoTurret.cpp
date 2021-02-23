@@ -10,7 +10,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectAutoTurret::EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
+EffectAutoTurret::EffectAutoTurret( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -29,9 +29,9 @@ void EffectAutoTurret::affect()
 {
 	__BEGIN_TRY
 
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
-	affect(m_pZone, m_X, m_Y);
+	affect( m_pZone, m_X, m_Y );
 	
 	__END_CATCH
 }
@@ -53,8 +53,8 @@ void EffectAutoTurret::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 	
 	__END_CATCH
 }

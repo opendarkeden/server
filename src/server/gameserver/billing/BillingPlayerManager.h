@@ -38,15 +38,15 @@ public:
 
 	void run() throw();
 
-	void sendPacket(Packet* pPacket ) throw(ProtocolException, Error);
+	void sendPacket( Packet* pPacket ) throw( ProtocolException, Error );
 
 	// Pay Login/Logout
-	void sendPayInit() throw(ProtocolException, Error);
-	void sendPayCheck(CommonBillingPacket* pPacket ) throw(ProtocolException, Error);
-	void sendPayLogin(Player* pPlayer ) throw(ProtocolException, Error);
-	void sendPayLogout(Player* pPlayer ) throw(ProtocolException, Error);
+	void sendPayInit() throw( ProtocolException, Error );
+	void sendPayCheck( CommonBillingPacket* pPacket ) throw( ProtocolException, Error );
+	void sendPayLogin( Player* pPlayer ) throw( ProtocolException, Error );
+	void sendPayLogout( Player* pPlayer ) throw( ProtocolException, Error );
 
-	void setForceDisconnect(bool bForceDisconnect = true ) { m_bForceDisconnect = bForceDisconnect; }
+	void setForceDisconnect( bool bForceDisconnect = true ) { m_bForceDisconnect = bForceDisconnect; }
 
 private:
 

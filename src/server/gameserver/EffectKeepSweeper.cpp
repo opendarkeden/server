@@ -1,13 +1,13 @@
 
 #include "EffectKeepSweeper.h"
 #include "Item.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectKeepSweeper::EffectKeepSweeper(Item* pItem) throw(Error)
 {
 	__BEGIN_TRY
 
-	setTarget(pItem);
+	setTarget( pItem );
 	m_Part = 0;
 
 	__END_CATCH
@@ -18,9 +18,9 @@ void EffectKeepSweeper::unaffect() throw(Error)
 	__BEGIN_TRY
 
 	Item* pItem = dynamic_cast<Item*>(m_pTarget);
-	Assert(pItem != NULL);
+	Assert( pItem != NULL );
 
-	pItem->removeFlag(getEffectClass());
+	pItem->removeFlag( getEffectClass() );
 
 	__END_CATCH
 }

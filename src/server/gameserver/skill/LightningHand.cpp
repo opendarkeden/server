@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "LightningHand.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
 #include "CrossCounter.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void LightningHand::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSl
 		bool bTimeCheck         = verifyRunTime(pSkillSlot);
 		bool bRangeCheck        = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
 		bool bHitRoll           = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel / 2);
-		bool bCanHit            = canHit(pSlayer, pTargetCreature, SkillType) && canAttack(pSlayer, pTargetCreature);
+		bool bCanHit            = canHit(pSlayer, pTargetCreature, SkillType) && canAttack( pSlayer, pTargetCreature );
 		bool bPK                = verifyPK(pSlayer, pTargetCreature);
 
 		// 마나가 있어야 하고, 시간과 거리 체크에 성공하고,

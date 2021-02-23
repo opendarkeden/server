@@ -277,70 +277,67 @@ bool isPossibleUpgradeItemType(Item::ItemClass IClass);
 // 크리스마스 트리 이벤트용
 //////////////////////////////////////////////////////////////////////////////
 // 트리 조각을 검색
-//TPOINT checkEventTree(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY);
-//TPOINT checkEventDocument(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY);
-//TPOINT checkEventDoll(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY);
-TPOINT checkEventPuzzle(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, int start);
+//TPOINT checkEventTree( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
+//TPOINT checkEventDocument( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
+//TPOINT checkEventDoll( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY );
+TPOINT checkEventPuzzle( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, int start);
 
 // 인벤토리의 (X0, Y0) - (X1, y1) 범위의 아이템을 지운다.
-void deleteInventoryItem(Inventory* pInventory, CoordInven_t invenX0, CoordInven_t invenY0, CoordInven_t invenX1, CoordInven_t invenY1);
+void deleteInventoryItem( Inventory* pInventory, CoordInven_t invenX0, CoordInven_t invenY0, CoordInven_t invenX1, CoordInven_t invenY1 );
 
 // 인벤토리에 초보자용 아이템을 넣어준다.
-bool addNewbieItemToInventory(Slayer* pSlayer, bool sendPacket = false ) throw(Error);
-bool addNewbieGoldToInventory(Slayer* pSlayer, bool sendPacket = false ) throw(Error);
-bool addNewbieItemToGear(Slayer* pSlayer, bool sendPacket = false ) throw(Error);
+bool addNewbieItemToInventory( Slayer* pSlayer, bool sendPacket = false ) throw(Error);
+bool addNewbieGoldToInventory( Slayer* pSlayer, bool sendPacket = false ) throw(Error);
+bool addNewbieItemToGear( Slayer* pSlayer, bool sendPacket = false ) throw(Error);
 
-bool addNewbieItemToInventory(Ousters* pOusters, bool sendPacket = false ) throw(Error);
-bool addNewbieGoldToInventory(Ousters* pOusters, bool sendPacket = false ) throw(Error);
-bool addNewbieItemToGear(Ousters* pOusters, bool sendPacket = false ) throw(Error);
+bool addNewbieItemToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error);
+bool addNewbieGoldToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error);
+bool addNewbieItemToGear( Ousters* pOusters, bool sendPacket = false ) throw(Error);
 
-Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer) throw(Error);
+Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer) throw (Error);
 
 // 옵션 string으로부터 옵션 list를 만든다.
-void makeOptionList(const string& options, list<OptionType_t>& optionList) throw(Error);
+void makeOptionList(const string& options, list<OptionType_t>& optionList) throw (Error);
 
-void saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y) throw(Error);
+void saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y) throw (Error);
 
-bool canDecreaseDurability(Item* pItem ) throw(Error);
+bool canDecreaseDurability( Item* pItem ) throw(Error);
 
-bool canSell(Item* pItem);
-bool canPutInStash(Item* pItem);
-bool canTrade(Item* pItem);
-bool canTradeInventoryItem(Item* pItem);
-bool isCoupleRing(Item* pItem);
+bool canSell( Item* pItem );
+bool canPutInStash( Item* pItem );
+bool canTrade( Item* pItem );
+bool isCoupleRing( Item* pItem );
 
-bool suitableItemClass(Item::ItemClass iClass, SkillDomainType_t domainType);
+bool suitableItemClass( Item::ItemClass iClass, SkillDomainType_t domainType );
 
 // 아이템을 성별에 맞는 동급의 아이템으로 바꿔준다. 아이템 타입이 남자용 다음에 바로 같은 급의 여자용이 온다고 가정
 // 이걸 불러준 뒤엔 반드시 아이템 타입을 세이브해주던가 pItem->save() 를 불러줘야 된다.
-void setItemGender(Item* pItem, GenderRestriction gender);
+void setItemGender( Item* pItem, GenderRestriction gender );
 
 // Item Trace Log 를 남길 아이템인가?
-bool bTraceLog(Item* pItem);
+bool bTraceLog( Item* pItem );
 
 // Item Trace Log 남기는 함수 
-void remainTraceLog (Item* pItem, const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType ) throw(Error);
-void remainTraceLogNew (Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid=0, int x=0, int y=0 ) throw(Error);
+void remainTraceLog ( Item* pItem, const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType ) throw (Error);
+void remainTraceLogNew ( Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid=0, int x=0, int y=0 ) throw (Error);
 
 // Meney Trace Log 남기는 함수
-void remainMoneyTraceLog (const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType, int amount ) throw(Error);
+void remainMoneyTraceLog ( const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType, int amount ) throw (Error);
 
 // Web 에서 산 아이템을 만드는 함수
-Item* createItemByGoodsID(DWORD goodsID);
+Item* createItemByGoodsID( DWORD goodsID );
 
 // 복권당첨에 관련 된 함수 (특별히 둘 곳이 없어서 여기 둔다 --;) 2003.04.29 by DEW
-bool bWinPrize(DWORD rewardID, DWORD questLevel);
+bool bWinPrize( DWORD rewardID, DWORD questLevel );
 
-void deleteFlagEffect(Corpse* pFlagPole, Item* pFlag);
+void deleteFlagEffect( Corpse* pFlagPole, Item* pFlag );
 
-Item* fitToPC(Item* pItem, PlayerCreature* pPC);
+Item* fitToPC( Item* pItem, PlayerCreature* pPC );
 
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 
-ItemType_t getItemTypeByItemLimit(Item::ItemClass itemClass, ItemType_t itemType);
+ItemType_t getItemTypeByItemLimit( Item::ItemClass itemClass, ItemType_t itemType );
 
 #endif	// __THAILAND_SERVER__
-
-void increaseEventItemCount(Item* pItem, int num = 1);
 
 #endif

@@ -19,7 +19,7 @@ public:
 	CastleSkillSlot() throw()
 		: SkillSlot() {}
 	CastleSkillSlot(SkillType_t SkillType, DWORD Exp, ulong Interval) throw()
-		: SkillSlot(SkillType, Exp, Interval ) {}
+		: SkillSlot( SkillType, Exp, Interval ) {}
 	~CastleSkillSlot() throw();
 
 public:

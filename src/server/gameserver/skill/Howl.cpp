@@ -5,10 +5,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Howl.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCDeleteObject.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddEffect.h"
 #include "ZoneUtil.h"
 #include "EffectHowl.h"
 
@@ -37,7 +37,7 @@ void Howl::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffe
 		GCSkillToSelfOK1 _GCSkillToSelfOK1;
 		GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-		SkillInput input(pVampire);
+		SkillInput input( pVampire );
 		SkillOutput output;
 		computeOutput(input, output);
 
@@ -57,16 +57,16 @@ void Howl::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffe
 		
 			ObjectID_t objectID = pVampire->getObjectID();
 
-			EffectHowl* pEffect = new EffectHowl(pVampire);
-			pEffect->setDeadline(output.Duration);
+			EffectHowl* pEffect = new EffectHowl( pVampire );
+			pEffect->setDeadline( output.Duration );
 
 			pVampire->setFlag(Effect::EFFECT_CLASS_HOWL);
-			pVampire->addEffect(pEffect);
+			pVampire->addEffect( pEffect );
 
 			VAMPIRE_RECORD prev;
-			pVampire->getVampireRecord(prev);
+			pVampire->getVampireRecord( prev );
 			pVampire->initAllStat();
-			pVampire->sendModifyInfo(prev);
+			pVampire->sendModifyInfo( prev );
 			
 			_GCSkillToSelfOK1.setSkillType(SKILL_HOWL);
 			_GCSkillToSelfOK1.setCEffectID(CEffectID);
@@ -80,9 +80,9 @@ void Howl::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffe
 			pZone->broadcastPacket(x, y, &_GCSkillToSelfOK2, pVampire);
 
 			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pVampire->getObjectID());
-			gcAddEffect.setEffectID(Effect::EFFECT_CLASS_HOWL);
-			gcAddEffect.setDuration(output.Duration);
+			gcAddEffect.setObjectID( pVampire->getObjectID() );
+			gcAddEffect.setEffectID( Effect::EFFECT_CLASS_HOWL );
+			gcAddEffect.setDuration( output.Duration );
 
 			pPlayer->sendPacket(&gcAddEffect);
 		}

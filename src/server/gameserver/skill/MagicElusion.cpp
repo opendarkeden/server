@@ -10,17 +10,15 @@
 #include "Slayer.h"
 #include "Player.h"
 
-#include "GCModifyInformation.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillFailed1.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 타일 핸들러
@@ -150,29 +148,29 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 						pEffect->setBroadcastingEffect(false);
 					}
 
-					const list<Object*>& oList = tile.getObjectList();
-					for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+					const slist<Object*>& oList = tile.getObjectList();
+					for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 					{
 						Object* pTarget = *itr;
-						if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+						if ( pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 						{
 							Creature* pCreature = dynamic_cast<Creature*>(pTarget);
-							Assert(pCreature != NULL);
+							Assert( pCreature != NULL );
 							
-							if (pCreature->isVampire() )
+							if ( pCreature->isVampire() )
 							{
 								Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-								Assert(pVampire != NULL);
+								Assert( pVampire != NULL );
 
 								GCModifyInformation gcMI;
-								::setDamage(pVampire, output.Damage, pSlayer, pSkillSlot->getSkillType(), &gcMI);
+								::setDamage( pVampire, output.Damage, pSlayer, pSkillSlot->getSkillType(), &gcMI );
 
-								pVampire->getPlayer()->sendPacket(&gcMI);
+								pVampire->getPlayer()->sendPacket( &gcMI );
 								cList.push_back(pCreature);
 							}
-							else if (pCreature->isMonster() )
+							else if ( pCreature->isMonster() )
 							{
-								::setDamage(pCreature, output.Damage, pSlayer, pSkillSlot->getSkillType());
+								::setDamage( pCreature, output.Damage, pSlayer, pSkillSlot->getSkillType() );
 							}
 						}
 					}
@@ -263,7 +261,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 			executeSkillFailNormal(pSlayer, getSkillType(), NULL);
 		}
 
-		if (bTimeCheck ) pSkillSlot->setRunTime(output.Delay);
+		if ( bTimeCheck ) pSkillSlot->setRunTime(output.Delay);
 	} 
 	catch (Throwable & t) 
 	{
@@ -280,7 +278,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void MagicElusion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	execute(pSlayer, pSlayer->getX(), pSlayer->getY(), pSkillSlot, CEffectID);
 }

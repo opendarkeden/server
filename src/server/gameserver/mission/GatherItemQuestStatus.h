@@ -4,19 +4,19 @@
 #include "QuestStatus.h"
 #include "Item.h"
 
-#include "GCQuestStatus.h"
+#include "Gpackets/GCQuestStatus.h"
 
 class GatherItemQuestStatus : public QuestStatus
 {
 public:
-	GatherItemQuestStatus(QuestID_t qID, const VSDateTime& deadline, Item::ItemClass itemClass, ItemType_t itemType, int num )
-		: QuestStatus(qID, deadline, QUEST_CLASS_GATHER_ITEM ), m_TargetItemClass(itemClass ), m_TargetItemType(itemType ), m_TargetNum(num), m_CurrentNum(0)
+	GatherItemQuestStatus( QuestID_t qID, const VSDateTime& deadline, Item::ItemClass itemClass, ItemType_t itemType, int num )
+		: QuestStatus( qID, deadline, QUEST_CLASS_GATHER_ITEM ), m_TargetItemClass( itemClass ), m_TargetItemType( itemType ), m_TargetNum(num), m_CurrentNum(0)
 	{
 	}
 	~GatherItemQuestStatus() { }
 
-//	bool			got(Item* pItem ) throw(Error);
-	bool			isTarget(Item* pItem ) const throw(Error);
+//	bool			got( Item* pItem ) throw(Error);
+	bool			isTarget( Item* pItem ) const throw(Error);
 	void			reset() { m_CurrentNum = 0; }
 
 	bool			isSuccess() const throw(Error);

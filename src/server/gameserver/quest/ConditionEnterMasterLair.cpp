@@ -23,7 +23,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEnterMasterLair::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	if (!g_pVariableManager->isActiveMasterLair())
 	{
@@ -78,7 +78,7 @@ bool ConditionEnterMasterLair::isSatisfied (Creature * pCreature1 , Creature * p
 		MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
 		Assert(pMasterLairManager!=NULL);
 
-		if (pMasterLairManager->enterCreature(pCreature2 ))
+		if (pMasterLairManager->enterCreature( pCreature2 ))
 		{
 			// 출입 가능
 			return true;
@@ -92,7 +92,7 @@ bool ConditionEnterMasterLair::isSatisfied (Creature * pCreature1 , Creature * p
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEnterMasterLair::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -109,7 +109,7 @@ void ConditionEnterMasterLair::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEnterMasterLair::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

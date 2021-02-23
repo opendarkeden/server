@@ -26,7 +26,7 @@ Script::Script()
 // copy constructor
 //////////////////////////////////////////////////////////////////////////////
 Script::Script (const Script & script)
-	throw()
+	throw ()
 {
 	uint i;
 
@@ -63,7 +63,7 @@ void Script::clearContents()
 // assignment operator
 //////////////////////////////////////////////////////////////////////////////
 const Script & Script::operator = (const Script & script)
-	throw()
+	throw ()
 {
 	if (&script != this)
 	{
@@ -96,7 +96,7 @@ string Script::getSubject(uint index) const
 	if (index >= SCRIPT_MAX_SUBJECTS || index >= m_SubjectCount)
 	{
 		cerr << "Script::getSubject() : Out of bounds" << endl;
-		throw("Script::getSubject() : Out of bounds");
+		throw ("Script::getSubject() : Out of bounds");
 	}
 
 	return m_Subjects[index];
@@ -110,7 +110,7 @@ void Script::addSubject(const string& content, DWORD code)
 	if (m_SubjectCount >= SCRIPT_MAX_SUBJECTS)
 	{
 		cerr << "Script::addSubject() : Out of bounds" << endl;
-		throw("Script::addSubject() : Out of bounds");
+		throw ("Script::addSubject() : Out of bounds");
 	}
 
 	m_Subjects[m_SubjectCount] = content;
@@ -126,7 +126,7 @@ string Script::getContent(uint index) const
 	if (index >= SCRIPT_MAX_CONTENTS || index >= m_ContentCount)
 	{
 		cerr << "Script::getContent() : Out of bounds" << endl;
-		throw("Script::getContent() : Out of bounds");
+		throw ("Script::getContent() : Out of bounds");
 	}
 
 	return m_Contents[index];
@@ -140,7 +140,7 @@ void Script::addContent(const string& content, DWORD code)
 	if (m_ContentCount >= SCRIPT_MAX_CONTENTS)
 	{
 		cerr << "Script::addContent() : Out of bounds" << endl;
-		throw("Script::addContent() : Out of bounds");
+		throw ("Script::addContent() : Out of bounds");
 	}
 
 	m_Contents[m_ContentCount] = content;
@@ -161,7 +161,7 @@ string Script::getRandomSubject(void) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string Script::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 	uint         i = 0;

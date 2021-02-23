@@ -98,13 +98,12 @@
 #include "Persona.h"
 #include "Fascia.h"
 #include "Mitten.h"
-#include "SubInventory.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 ItemLoaderManager::ItemLoaderManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -113,7 +112,7 @@ ItemLoaderManager::ItemLoaderManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 ItemLoaderManager::~ItemLoaderManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -122,7 +121,7 @@ ItemLoaderManager::~ItemLoaderManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ItemLoaderManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -213,7 +212,6 @@ void ItemLoaderManager::init ()
 	m_pItemLoaders[Item::ITEM_CLASS_PERSONA] = g_pPersonaLoader = new PersonaLoader();
 	m_pItemLoaders[Item::ITEM_CLASS_FASCIA] = g_pFasciaLoader = new FasciaLoader();
 	m_pItemLoaders[Item::ITEM_CLASS_MITTEN] = g_pMittenLoader = new MittenLoader();
-	m_pItemLoaders[Item::ITEM_CLASS_SUB_INVENTORY] = g_pSubInventoryLoader = new SubInventoryLoader();
 
 	__END_CATCH
 }
@@ -221,13 +219,12 @@ void ItemLoaderManager::init ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ItemLoaderManager::load (Slayer* pSlayer) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 모터사이클을 가장 먼저 로딩해야 한다.
 	g_pMotorcycleLoader->load(pSlayer);
-	g_pSubInventoryLoader->load(pSlayer);
 
 	// 그다음이 벨트이다.
 	g_pBeltLoader->load(pSlayer);
@@ -308,13 +305,12 @@ void ItemLoaderManager::load (Slayer* pSlayer)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ItemLoaderManager::load (Vampire* pVampire) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 뱀파이어는 모터사이클이 없으므로, 모터사이클을 로딩할 필요가 없다.
 	// 그러나, 벨트는 로딩할 필요가 있다.
-	g_pSubInventoryLoader->load(pVampire);
 	g_pBeltLoader->load(pVampire);
 
 	g_pARLoader->load(pVampire);
@@ -393,13 +389,12 @@ void ItemLoaderManager::load (Vampire* pVampire)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ItemLoaderManager::load (Ousters* pOusters) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 암스밴드는 벨트다.
 	// 제일먼저 로딩해야 푸파나 콤포스메이가 들어갈 수 있다.
-	g_pSubInventoryLoader->load(pOusters);
 	g_pOustersArmsbandLoader->load(pOusters);
 	g_pOustersBootsLoader->load(pOusters);
 	g_pOustersChakramLoader->load(pOusters);
@@ -438,13 +433,14 @@ void ItemLoaderManager::load (Ousters* pOusters)
 	g_pFasciaLoader->load(pOusters);
 	g_pMittenLoader->load(pOusters);
 
+
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ItemLoaderManager::load (Zone* pZone) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -453,7 +449,7 @@ void ItemLoaderManager::load (Zone* pZone)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string ItemLoaderManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

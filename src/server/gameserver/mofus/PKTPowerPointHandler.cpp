@@ -12,50 +12,56 @@
 #include "MPlayer.h"
 #include "MJob.h"
 #include "Properties.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 // 실행 함수
-void PKTPowerPointHandler::execute(MPlayer* pPlayer, MPacket* pPacket )
+void PKTPowerPointHandler::execute( MPlayer* pPlayer, MPacket* pPacket )
 {
 	PKTPowerPoint* pPowerPoint = dynamic_cast<PKTPowerPoint*>(pPacket);
-	Assert(pPowerPoint != NULL);
+	Assert( pPowerPoint != NULL );
 
-	//cout << "--------------------------------------------------" << endl;
-	//cout << "RECV [" << pPlayer->getJob()->getName() << "] PowerPoint (name:" << pPowerPoint->sCharName << ",point:" << pPowerPoint->nPowerPoint << ")" << endl;
-	//cout << "--------------------------------------------------" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "RECV [" << pPlayer->getJob()->getName() << "] PowerPoint (name:" << pPowerPoint->sCharName
+		 << ",point:" << pPowerPoint->nPowerPoint << ")" << endl;
+	cout << "--------------------------------------------------" << endl;
 
-	filelog(MOFUS_LOG_FILE, "RECV [%s] PowerPoint (name:%s,point:%d)", pPlayer->getJob()->getName().c_str(), pPowerPoint->sCharName, pPowerPoint->nPowerPoint);
-	filelog(MOFUS_PACKET_FILE, "RECV : [%s] %s", pPlayer->getJob()->getName().c_str(), pPacket->toString().c_str());
+	filelog( MOFUS_LOG_FILE, "RECV [%s] PowerPoint (name:%s,point:%d)", pPlayer->getJob()->getName().c_str(), pPowerPoint->sCharName, pPowerPoint->nPowerPoint );
+	filelog( MOFUS_PACKET_FILE, "RECV : [%s] %s", pPlayer->getJob()->getName().c_str(), pPacket->toString().c_str() );
 
 	//////////////////////////////////////////////////////////////////////
 	// 받은 패킷 확인.
 	//////////////////////////////////////////////////////////////////////
-	static int MofusServerCode = g_pConfig->getPropertyInt("MofusServerCode");
+	static int MofusServerCode = g_pConfig->getPropertyInt( "MofusServerCode" );
 	// 게임 코드 확인
-	bool bCheckGameCode = (pPowerPoint->getGameCode() == 1);
+	bool bCheckGameCode = ( pPowerPoint->getGameCode() == 1 );
 	// 서버 코드 확인
-	bool bCheckGameServerCode = (pPowerPoint->getGameServerCode() == MofusServerCode);
+	bool bCheckGameServerCode = ( pPowerPoint->getGameServerCode() == MofusServerCode );
 	// 캐릭터 이름 확인
-	bool bCheckCharacterName = (strcasecmp(pPlayer->getJob()->getName().c_str(), pPowerPoint->getCharacterName() ) == 0);
+	bool bCheckCharacterName = ( strcasecmp( pPlayer->getJob()->getName().c_str(), pPowerPoint->getCharacterName() ) == 0 );
 
-	if (!bCheckGameCode || !bCheckGameServerCode || !bCheckCharacterName )
+	if ( !bCheckGameCode || !bCheckGameServerCode || !bCheckCharacterName )
 	{
-		//cout << "--------------------------------------------------" << endl;
-		//cout << "ERROR CHECK (name:" << pPlayer->getJob()->getName() << ",mofusname:" << pPowerPoint->getCharacterName() << ",gameservercode:" << MofusServerCode << ",mofusgameservercode:" << pPowerPoint->getGameServerCode() << ",gamecode:" << pPowerPoint->getGameCode() << ")" << endl;
-		//cout << "--------------------------------------------------" << endl;
+		cout << "--------------------------------------------------" << endl;
+		cout << "ERROR CHECK (name:" << pPlayer->getJob()->getName()
+			 << ",mofusname:" << pPowerPoint->getCharacterName()
+			 << ",gameservercode:" << MofusServerCode
+			 << ",mofusgameservercode:" << pPowerPoint->getGameServerCode()
+			 << ",gamecode:" << pPowerPoint->getGameCode()
+			 << ")" << endl;
+		cout << "--------------------------------------------------" << endl;
 
-		filelog(MOFUS_LOG_FILE, "ERROR (name:%s,mofusname:%s,gameservercode:%d,mofusgameservercode:%d)",
+		filelog( MOFUS_LOG_FILE, "ERROR (name:%s,mofusname:%s,gameservercode:%d,mofusgameservercode:%d)",
 									pPlayer->getJob()->getName().c_str(),
 									pPowerPoint->getCharacterName(),
 									MofusServerCode,
-									pPowerPoint->getGameServerCode());
+									pPowerPoint->getGameServerCode() );
 
 		// 매칭 정보 확인 실패
 		// 파워짱 서버로 확인 실패를 알린다.
-		pPlayer->sendSError(MSERR_MATCH);
+		pPlayer->sendSError( MSERR_MATCH );
 
 		// 사용자에게는 매칭 정보 오류로 알린다.
-		pPlayer->setErrorCode(MERR_MATCHING);
+		pPlayer->setErrorCode( MERR_MATCHING );
 
 		// 작업 끝
 		pPlayer->setEnd();
@@ -74,24 +80,24 @@ void PKTPowerPointHandler::execute(MPlayer* pPlayer, MPacket* pPacket )
 	static int MaxPowerPoint = 40;
 
 	// 1회 전송시 적용할 최대 파워짱 포인트 적용
-	int savepowerpoint = min(pPowerPoint->getPowerPoint(), MaxPowerPoint);
+	int savepowerpoint = min( pPowerPoint->getPowerPoint(), MaxPowerPoint );
 
 	// 가져온 파워 포인트를 DB에 누적하여 저장
-	savePowerPoint(pPlayer->getJob()->getName(), savepowerpoint);
+	savePowerPoint( pPlayer->getJob()->getName(), savepowerpoint );
 
 	// 파일 로그
-	filelog(MOFUS_LOG_FILE, "SAVE PowerPoint (name:%s,savepoint:%d,recvpoint:%d)",
+	filelog( MOFUS_LOG_FILE, "SAVE PowerPoint (name:%s,savepoint:%d,recvpoint:%d)",
 									pPlayer->getJob()->getName().c_str(),
 									savepowerpoint,
-									pPowerPoint->getPowerPoint());
+									pPowerPoint->getPowerPoint() );
 
-	logPowerPoint(pPlayer->getJob()->getName(), pPowerPoint->getPowerPoint(), savepowerpoint);
+	logPowerPoint( pPlayer->getJob()->getName(), pPowerPoint->getPowerPoint(), savepowerpoint );
 
 	// 받은 파워 포인트를 누적
-	pPlayer->addPowerPoint(savepowerpoint);
+	pPlayer->addPowerPoint( savepowerpoint );
 
 	// 처리 했다는 결과를 파워짱 서버에 알린다.
-	if (pPowerPoint->isContinue() )
+	if ( pPowerPoint->isContinue() )
 	{
 		// 작업이 더 있다.
 		pPlayer->sendReceiveOK();

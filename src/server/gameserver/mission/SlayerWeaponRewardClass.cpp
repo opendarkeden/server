@@ -6,17 +6,17 @@
 #include "ItemRewardInfo.h"
 #include "ItemUtil.h"
 
-RewardInfo*	SlayerWeaponRewardClass::selectReward(PlayerCreature* pPC ) const throw(Error)
+RewardInfo*	SlayerWeaponRewardClass::selectReward( PlayerCreature* pPC ) const throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
-//	Assert(pPC->isSlayer());
+	Assert( pPC != NULL );
+//	Assert( pPC->isSlayer() );
 
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
 		vector<RewardInfo*>::const_iterator itr = m_RewardInfos.begin();
 		vector<RewardInfo*>::const_iterator endItr = m_RewardInfos.end();
@@ -24,23 +24,23 @@ RewardInfo*	SlayerWeaponRewardClass::selectReward(PlayerCreature* pPC ) const th
 		for (; itr != endItr; ++itr )
 		{
 			ItemRewardInfo* pItemRI = dynamic_cast<ItemRewardInfo*>(*itr);
-			Assert(pItemRI != NULL);
+			Assert( pItemRI != NULL );
 
 			Item::ItemClass iClass = pItemRI->getItemClass();
 			SkillDomainType_t domain = pSlayer->getHighestSkillDomain();
 
-			if (suitableItemClass(iClass, domain ) && pItemRI->canGiveReward(pPC ) )
+			if ( suitableItemClass( iClass, domain ) && pItemRI->canGiveReward( pPC ) )
 			{
 			//	QuestMessage result = pItemRI->giveReward(pPC);
-			//	if (result == COMPLETE_SUCCESS ) return result;
+			//	if ( result == COMPLETE_SUCCESS ) return result;
 				return pItemRI;
 			}
 		}
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 
 		vector<RewardInfo*>::const_iterator itr = m_RewardInfos.begin();
 		vector<RewardInfo*>::const_iterator endItr = m_RewardInfos.end();
@@ -49,7 +49,7 @@ RewardInfo*	SlayerWeaponRewardClass::selectReward(PlayerCreature* pPC ) const th
 		vector<RewardInfo*> candidates;
 		candidates.clear();
 
-		if (pOusters->getSTR(ATTR_BASIC ) > pOusters->getINT(ATTR_BASIC ) )
+		if ( pOusters->getSTR( ATTR_BASIC ) > pOusters->getINT( ATTR_BASIC ) )
 		{
 			targetItemClass = Item::ITEM_CLASS_OUSTERS_CHAKRAM;
 		}
@@ -61,18 +61,18 @@ RewardInfo*	SlayerWeaponRewardClass::selectReward(PlayerCreature* pPC ) const th
 		for (; itr != endItr; ++itr )
 		{
 			ItemRewardInfo* pItemRI = dynamic_cast<ItemRewardInfo*>(*itr);
-			Assert(pItemRI != NULL);
+			Assert( pItemRI != NULL );
 
 			Item::ItemClass iClass = pItemRI->getItemClass();
 
-			if (iClass == targetItemClass && pItemRI->canGiveReward(pPC ) )
+			if ( iClass == targetItemClass && pItemRI->canGiveReward( pPC ) )
 			{
 //				return pItemRI;
-				candidates.push_back(pItemRI);
+				candidates.push_back( pItemRI );
 			}
 		}
 
-		if (!candidates.empty() )
+		if ( !candidates.empty() )
 		{
 			return candidates[rand()%candidates.size()];
 		}
@@ -83,12 +83,12 @@ RewardInfo*	SlayerWeaponRewardClass::selectReward(PlayerCreature* pPC ) const th
 	__END_CATCH
 }
 
-QuestMessage SlayerWeaponRewardClass::giveReward(PlayerCreature* pPC ) const throw(Error)
+QuestMessage SlayerWeaponRewardClass::giveReward( PlayerCreature* pPC ) const throw(Error)
 {
 	__BEGIN_TRY
 
-	RewardInfo* pRI = selectReward(pPC);
-	if (pRI == NULL ) return COMPLETE_FAIL_NO_INVENTORY_SPACE;
+	RewardInfo* pRI = selectReward( pPC );
+	if ( pRI == NULL ) return COMPLETE_FAIL_NO_INVENTORY_SPACE;
 
 	return pRI->giveReward(pPC);
 

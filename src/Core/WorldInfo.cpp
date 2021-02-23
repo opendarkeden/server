@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 WorldInfo::WorldInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	m_Stat = 0;
@@ -30,7 +30,7 @@ WorldInfo::WorldInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 WorldInfo::~WorldInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -40,17 +40,17 @@ WorldInfo::~WorldInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void WorldInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void WorldInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName;
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_ID);
-	iStream.read(szName);
-	iStream.read(m_Name, szName);
-	iStream.read(m_Stat);
+	iStream.read( m_ID );
+	iStream.read( szName );
+	iStream.read( m_Name, szName );
+	iStream.read( m_Stat );
 
 	__END_CATCH
 }
@@ -58,17 +58,17 @@ void WorldInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void WorldInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void WorldInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName = m_Name.size();
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_ID);
-	oStream.write(szName);
-	oStream.write(m_Name);
-	oStream.write(m_Stat);
+	oStream.write( m_ID );
+	oStream.write( szName );
+	oStream.write( m_Name );
+	oStream.write( m_Stat );
 
 	__END_CATCH
 }
@@ -96,13 +96,13 @@ PacketSize_t WorldInfo::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string WorldInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "WorldInfo("
+	msg << "WorldInfo( "
 		<< "ID : "<< m_ID
 		<< "Name : " << m_Name
 		<< "Stat : " << m_Stat

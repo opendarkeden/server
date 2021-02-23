@@ -57,15 +57,15 @@ void ThunderBolt::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	param.addMask(0,  0, 100);
+	param.addMask( 0,  0, 100);
 	param.addMask(-1, -1, 100);
-	param.addMask(0, -1, 100);
-	param.addMask(1, -1, 100);
+	param.addMask( 0, -1, 100);
+	param.addMask( 1, -1, 100);
 	param.addMask(-1,  0, 100);
-	param.addMask(1,  0, 100);
+	param.addMask( 1,  0, 100);
 	param.addMask(-1,  1, 100);
-	param.addMask(0,  1, 100);
-	param.addMask(1,  1, 100);
+	param.addMask( 0,  1, 100);
+	param.addMask( 1,  1, 100);
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
@@ -143,19 +143,19 @@ void ThunderBolt::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	param.addMask(0,  0, 100);
+	param.addMask( 0,  0, 100);
 	param.addMask(-1, -1, 100);
-	param.addMask(0, -1, 100);
-	param.addMask(1, -1, 100);
+	param.addMask( 0, -1, 100);
+	param.addMask( 1, -1, 100);
 	param.addMask(-1,  0, 100);
-	param.addMask(1,  0, 100);
+	param.addMask( 1,  0, 100);
 	param.addMask(-1,  1, 100);
-	param.addMask(0,  1, 100);
-	param.addMask(1,  1, 100);
+	param.addMask( 0,  1, 100);
+	param.addMask( 1,  1, 100);
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		executeSkillFailException(pSlayer, getSkillType());
 	}
 

@@ -16,8 +16,6 @@
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
 #include "Party.h"
-#include "SubInventory.h"
-#include "BalloonHeadbandUtil.h"
 
 EventItemInfoManager* g_pEventItemInfoManager = NULL;
 
@@ -43,7 +41,7 @@ EventItem::EventItem(ItemType_t itemType, const list<OptionType_t>& optionType, 
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "EventItem::EventItem() : Invalid item type or option type");
-		throw("EventItem::EventItem() : Invalid item type or optionType");
+		throw ("EventItem::EventItem() : Invalid item type or optionType");
 	}
 }
 
@@ -103,7 +101,7 @@ void EventItem::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE EventItemObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE EventItemObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -141,8 +139,8 @@ void EventItem::save(const string & ownerID, Storage storage, StorageID_t storag
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE EventItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE EventItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -196,7 +194,7 @@ Weight_t EventItem::getWeight() const
 	__END_CATCH
 }
 
-void EventItem::whenPCTake(PlayerCreature* pPC )
+void EventItem::whenPCTake( PlayerCreature* pPC )
 {
 }
 
@@ -299,8 +297,8 @@ void EventItemLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM EventItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM EventItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -360,49 +358,24 @@ void EventItemLoader::load(Creature* pCreature)
 
 				PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-				if (pEventItem->getItemType() == 27 )
+				if ( pEventItem->getItemType() == 27 )
 				{
 					// 깃발은 나오면 안 된다. -_-
-					processItemBug(pCreature, pEventItem);
+					processItemBug( pCreature, pEventItem );
 				}
 				else switch(storage)
 				{
 					case STORAGE_INVENTORY:
+						if (pInventory->canAddingEx(x, y, pEventItem))
 						{
-							if (storageID != 0 )
-							{
-								SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-								if (pInventoryItem == NULL )
-								{
-									processItemBugEx(pCreature, pEventItem);
-									break;
-								}
-
-								pInventory = pInventoryItem->getInventory();
-							}
-
-							if (pInventory->canAddingEx(x, y, pEventItem))
-							{
-								pInventory->addItemEx(x, y, pEventItem);
-
-								ItemType_t itemType = pEventItem->getItemType();
-
-								if (itemType == 30 ) 
-								{
-									pPC->setBaseLuck(10);
-								}
-								else if (itemType >= 32 && itemType <= 36 )
-								{
-									// 풍선 머리띠 옵션 적용
-									applyBalloonHeadbandDefaultOption(pPC, itemType);
-								}
-							}
-							else
-							{
-								processItemBugEx(pCreature, pEventItem);
-							}
-							break;
+							pInventory->addItemEx(x, y, pEventItem);
+							if ( pEventItem->getItemType() == 30 ) pPC->setBaseLuck(10);
 						}
+						else
+						{
+							processItemBugEx(pCreature, pEventItem);
+						}
+						break;
 
 					case STORAGE_GEAR:
 						processItemBugEx(pCreature, pEventItem);
@@ -413,25 +386,11 @@ void EventItemLoader::load(Creature* pCreature)
 						break;
 
 					case STORAGE_EXTRASLOT :
-						{
-							ItemType_t itemType = pEventItem->getItemType();
-
-							if (pCreature->isSlayer())       pSlayer->addItemToExtraInventorySlot(pEventItem);
-							else if (pCreature->isVampire()) pVampire->addItemToExtraInventorySlot(pEventItem);
-							else if (pCreature->isOusters()) pOusters->addItemToExtraInventorySlot(pEventItem);
-
-							if (itemType == 30 )
-							{
-								pPC->setBaseLuck(10);
-							}
-							else if (itemType >= 32 && itemType <= 36 )
-							{
-								// 풍선 머리띠 옵션 적용
-								applyBalloonHeadbandDefaultOption(pPC, itemType);
-							}
-
-							break;
-						}
+						if (pCreature->isSlayer())       pSlayer->addItemToExtraInventorySlot(pEventItem);
+						else if (pCreature->isVampire()) pVampire->addItemToExtraInventorySlot(pEventItem);
+						else if (pCreature->isOusters()) pOusters->addItemToExtraInventorySlot(pEventItem);
+						if ( pEventItem->getItemType() == 30 ) pPC->setBaseLuck(10);
+						break;
 
 					case STORAGE_MOTORCYCLE:
 						processItemBugEx(pCreature, pEventItem);
@@ -445,7 +404,7 @@ void EventItemLoader::load(Creature* pCreature)
 						else
 						{
 							pStash->insert(x, y, pEventItem);
-							if (pEventItem->getItemType() == 30 ) pPC->setBaseLuck(10);
+							if ( pEventItem->getItemType() == 30 ) pPC->setBaseLuck(10);
 						}
 						break;
 

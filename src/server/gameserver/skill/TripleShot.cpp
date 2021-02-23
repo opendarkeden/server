@@ -5,18 +5,18 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "TripleShot.h"
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void TripleShot::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -37,7 +37,7 @@ void TripleShot::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()) 
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -131,7 +131,7 @@ void TripleShot::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot
 			if (Random(1, 100) < 80 && !pTargetCreature->isSlayer())
 			{
 			*/
-			if(!pTargetCreature->isSlayer() )
+			if( !pTargetCreature->isSlayer() )
 			{
 				if (bIncreaseExp)
 				{

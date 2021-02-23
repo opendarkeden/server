@@ -7,8 +7,9 @@
 #include "DB.h"
 #include "Slayer.h"
 #include "Player.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "EffectManager.h"
+#include <algo.h>
 #include <algorithm>
 #include <stdlib.h>
 #include <stdio.h>
@@ -48,7 +49,6 @@
 #include "item/SMG.h"
 #include "item/Belt.h"
 #include "item/Skull.h"
-#include "item/SubInventory.h"
 
 #include "skill/CastleSkillSlot.h"
 #include "skill/EffectBless.h"
@@ -63,17 +63,17 @@
 #include "skill/EffectProtectionFromAcid.h"
 #include "EffectGrandMasterSlayer.h"
 
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCModifyInformation.h"
-#include "GCChangeShape.h"
-#include "GCTakeOff.h"
-#include "GCSkillInfo.h"
-#include "GCRealWearingInfo.h"
-#include "GCStatusCurrentHP.h"
-#include "GCTradeFinish.h"
-#include "GCOtherModifyInfo.h"
-#include "GCPetStashList.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeShape.h"
+#include "Gpackets/GCTakeOff.h"
+#include "Gpackets/GCSkillInfo.h"
+#include "Gpackets/GCRealWearingInfo.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCTradeFinish.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCPetStashList.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -99,8 +99,6 @@
 #include "AdvancementClassExpTable.h"
 #include "DynamicZone.h"
 
-#include <map>
-
 const Color_t UNIQUE_COLOR = 0xFFFF;
 const Color_t UNIQUE_OPTION = 0xFFFF;
 
@@ -113,7 +111,7 @@ const Attr_t MAX_SLAYER_ATTR_OLD = 200;
 const Attr_t MAX_SLAYER_SUM_OLD = 300;
 
 Slayer::Slayer () 
-	throw() 
+	throw () 
 : PlayerCreature(0,NULL)
 {
 	__BEGIN_TRY
@@ -172,7 +170,7 @@ Slayer::Slayer ()
 }
 
 Slayer::~Slayer() 
-    throw()
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -237,7 +235,7 @@ Slayer::~Slayer()
 		deleteAllPartyInfo(this);
 
 		// 기술들을 삭제
-		map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
+		hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
 			SkillSlot* pSkillSlot = itr->second;
@@ -246,7 +244,7 @@ Slayer::~Slayer()
 
 		m_SkillSlot.clear();
 
-//		SAFE_DELETE(m_pRank);
+//		SAFE_DELETE( m_pRank );
 
 	} catch (Throwable& t) {
 		filelog("slayerDestructor.txt", "%s", t.toString().c_str());
@@ -267,7 +265,7 @@ Slayer::~Slayer()
 // Zone에 종속된 ObjectRegistry를 사용해서, Slayer 와 소유아이템들의
 // ObjectID를 할당받는다.
 void Slayer::registerObject ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -319,10 +317,10 @@ void Slayer::registerObject ()
 
 	m_Garbage.registerObject(OR);
 
-	for (int i=0; i<MAX_PET_STASH; ++i )
+	for ( int i=0; i<MAX_PET_STASH; ++i )
 	{
 		Item* pItem = getPetStashItem(i);
-		if (pItem != NULL ) registerItem(pItem, OR);
+		if ( pItem != NULL ) registerItem( pItem, OR );
 	}
 
 	__LEAVE_CRITICAL_SECTION(OR)
@@ -336,7 +334,7 @@ void Slayer::registerObject ()
 // Zone에 종속된 ObjectRegistry를 사용해서, Slayer 와 소유아이템들의
 // ObjectID를 할당받는다. 초기에 ItemTrace 를 위해 따로 뺌
 void Slayer::registerInitObject ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -368,7 +366,7 @@ void Slayer::registerInitObject ()
 		if (pItem != NULL) 
 		{
 			// ItemTrace 를 남길 것인지 결정
-			pItem->setTraceItem(bTraceLog(pItem ));
+			pItem->setTraceItem( bTraceLog( pItem ) );
 
 			bool bCheck = true;
 
@@ -386,7 +384,7 @@ void Slayer::registerInitObject ()
 	if (pSlotItem != NULL)
 	{
 		// ItemTrace 를 남길 것인지 결정
-		pSlotItem->setTraceItem(bTraceLog(pSlotItem ));
+		pSlotItem->setTraceItem( bTraceLog( pSlotItem ) );
 		registerItem(pSlotItem, OR);
 	}
 
@@ -406,7 +404,7 @@ void Slayer::registerInitObject ()
 
 // 시간제한 아이템을 체크한다.
 // 모든 아이템이 이미 register 되어있어야 한다.
-void Slayer::checkItemTimeLimit() throw(Error)
+void Slayer::checkItemTimeLimit() throw (Error)
 {
 	__BEGIN_TRY
 
@@ -430,10 +428,10 @@ void Slayer::checkItemTimeLimit() throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						if (wasteIfTimeLimitExpired(pItem ) )
+						if ( wasteIfTimeLimitExpired( pItem ) )
 						{
-							m_pInventory->deleteItem(pItem->getObjectID());
-							SAFE_DELETE(pItem);
+							m_pInventory->deleteItem( pItem->getObjectID() );
+							SAFE_DELETE( pItem );
 						}
 						else
 						{
@@ -441,47 +439,6 @@ void Slayer::checkItemTimeLimit() throw(Error)
 							// 같은 아이템을 두번 체크하지 않기 위해서
 							// 리스트에다가 아이템을 집어넣는다.
 							ItemList.push_back(pItem);
-						}
-
-						// 서브 인벤토리일 경우 안에도 찾는다.
-						if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-						{
-							SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-							Assert(pSubInventoryItem != NULL);
-							Inventory* pSubInventory = pSubInventoryItem->getInventory();
-							Assert(pSubInventory != NULL);
-
-							list<Item*> SubItemList;
-
-							for (CoordInven_t sy = 0; sy < pSubInventory->getHeight(); ++sy )
-							{
-								for (CoordInven_t sx = 0; sx < pSubInventory->getWidth(); ++sx )
-								{
-									Item* pSubItem = pSubInventory->getItem(sx, sy);
-
-									if (pSubItem != NULL )
-									{
-										// 체크된 아이템의 리스트에서 현재 아이템을 찾는다.
-										list<Item*>::iterator itr = find(SubItemList.begin(), SubItemList.end(), pSubItem);
-
-										if (itr == SubItemList.end() )
-										{
-											if (wasteIfTimeLimitExpired(pSubItem ) )
-											{
-												pSubInventory->deleteItem(pSubItem->getObjectID());
-												SAFE_DELETE(pSubItem);
-											}
-										}
-										else
-										{
-											// 리스트에 아이템이 없으면
-											// 같은 아이템을 두번 체크하지 않기 위해서
-											// 리스트에다가 아이템을 집어넣는다.
-											SubItemList.push_back(pSubItem);
-										}
-									}
-								}
-							}
 						}
 					}
 				}
@@ -504,12 +461,12 @@ void Slayer::checkItemTimeLimit() throw(Error)
 
 				if (bCheck) 
 				{
-					if (wasteIfTimeLimitExpired(pItem ) )
+					if ( wasteIfTimeLimitExpired( pItem ) )
 					{
-						deleteWearItem((WearPart)i);
-						if (i == WEAR_LEFTHAND && isTwohandWeapon(pItem ) )
-							deleteWearItem(WEAR_RIGHTHAND);
-						SAFE_DELETE(pItem);
+						deleteWearItem( (WearPart)i );
+						if ( i == WEAR_LEFTHAND && isTwohandWeapon( pItem ) )
+							deleteWearItem( WEAR_RIGHTHAND );
+						SAFE_DELETE( pItem );
 					}
 				}
 			}
@@ -519,17 +476,17 @@ void Slayer::checkItemTimeLimit() throw(Error)
 	// 마우스에 들고 있는 아이템을 체크한다.
 	{
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
-		if (pSlotItem != NULL && wasteIfTimeLimitExpired(pSlotItem ) )
+		if (pSlotItem != NULL && wasteIfTimeLimitExpired( pSlotItem ) )
 		{
 			deleteItemFromExtraInventorySlot();
-			SAFE_DELETE(pSlotItem);
+			SAFE_DELETE( pSlotItem );
 		}
 	}
 
 	// 오토바이를 체크한다.
 	// 일단 복잡해서 오토바이는 시간제한 안함
 /*	{
-		if (m_pMotorcycle != NULL && wasteIfTimeLimitExpired(m_pMotorcycle ) )
+		if (m_pMotorcycle != NULL && wasteIfTimeLimitExpired( m_pMotorcycle ) )
 		{
 		}
 	}*/
@@ -537,7 +494,7 @@ void Slayer::checkItemTimeLimit() throw(Error)
 	__END_CATCH
 }
 
-void Slayer::updateEventItemTime(DWORD time ) throw(Error)
+void Slayer::updateEventItemTime( DWORD time ) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -561,7 +518,7 @@ void Slayer::updateEventItemTime(DWORD time ) throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						updateItemTimeLimit(pItem, time);
+						updateItemTimeLimit( pItem, time );
 
 						// 리스트에 아이템이 없으면
 						// 같은 아이템을 두번 체크하지 않기 위해서
@@ -588,7 +545,7 @@ void Slayer::updateEventItemTime(DWORD time ) throw(Error)
 
 				if (bCheck) 
 				{
-					updateItemTimeLimit(pItem, time);
+					updateItemTimeLimit( pItem, time );
 				}
 			}
 		}
@@ -599,15 +556,15 @@ void Slayer::updateEventItemTime(DWORD time ) throw(Error)
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
 		if (pSlotItem != NULL)
 		{
-			updateItemTimeLimit(pSlotItem, time);
+			updateItemTimeLimit( pSlotItem, time );
 		}
 	}
 
 	__END_CATCH
 }
 
-void Slayer::loadItem(bool checkTimeLimit )
-	throw(InvalidProtocolException, Error)
+void Slayer::loadItem( bool checkTimeLimit )
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -629,17 +586,17 @@ void Slayer::loadItem(bool checkTimeLimit )
 	registerInitObject();
 
 	// 처음 접속한 사람일 경우 초보자용 아이템세트를 일단 준 다음..
-	if(m_pFlagSet->isOn(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
+	if( m_pFlagSet->isOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
 	{
-		addNewbieItemToInventory(this);
-		addNewbieGoldToInventory(this);
-		addNewbieItemToGear(this);
+		addNewbieItemToInventory( this );
+		addNewbieGoldToInventory( this );
+		addNewbieItemToGear( this );
 		// 주었을 경우 줬다는 플래그를 꺼준다.
-		m_pFlagSet->turnOff(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO);
-		m_pFlagSet->save(getName());
+		m_pFlagSet->turnOff( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO );
+		m_pFlagSet->save( getName() );
 	}
 
-	if (checkTimeLimit )
+	if ( checkTimeLimit )
 	{
 		checkItemTimeLimit();
 	}
@@ -661,11 +618,11 @@ void Slayer::loadItem(bool checkTimeLimit )
 }
 
 bool Slayer::load ()
-	throw(InvalidProtocolException, Error)
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
-	if (!PlayerCreature::load() ) return false;
+	if ( !PlayerCreature::load() ) return false;
 
 	for (int i=0; i<SKILL_DOMAIN_VAMPIRE; i++)
 	{
@@ -681,7 +638,30 @@ bool Slayer::load ()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Name, AdvancementClass, AdvancementGoalExp, Competence, CompetenceShape, Sex, HairStyle, HairColor, SkinColor, Phone, MasterEffectColor, STR, STRGoalExp, DEX, DEXGoalExp, INTE, INTGoalExp, AdvancedSTR, AdvancedDEX, AdvancedINT, Bonus, Rank, RankGoalExp, CurrentHP, HP, CurrentMP, MP, Fame, Gold, GuildID, BladeLevel, BladeGoalExp, SwordLevel, SwordGoalExp, GunLevel, GunGoalExp, EnchantLevel, EnchantGoalExp, HealLevel, HealGoalExp, ETCLevel, ETCGoalExp, ZoneID, XCoord, YCoord, Sight, GunBonusExp, RifleBonusExp, Alignment, StashGold, StashNum, ResurrectZone, Reward, SMSCharge FROM Slayer WHERE Name = '%s' AND Active = 'ACTIVE'", m_Name.c_str());
+		pResult = pStmt->executeQuery(
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Competence, CompetenceShape, Sex,MasterEffectColor, 
+			HairStyle, HairColor, SkinColor, Phone, 
+			STR, STRGoalExp,
+			DEX, DEXGoalExp,
+			INTE, INTGoalExp,
+			AdvancedSTR, AdvancedDEX, AdvancedINT, Bonus, 
+			Rank, RankGoalExp, 
+			CurrentHP, HP, CurrentMP, MP, 
+			Fame, Gold, GuildID, 
+			BladeLevel, BladeGoalExp, 
+			SwordLevel, SwordGoalExp, 
+			GunLevel, GunGoalExp, 
+			EnchantLevel, EnchantGoalExp, 
+			HealLevel, HealGoalExp, 
+			ETCLevel, ETCGoalExp, 
+			ZoneID, XCoord, YCoord, Sight, 
+			GunBonusExp, RifleBonusExp, 
+			Alignment,
+			StashGold, StashNum, ResurrectZone, Reward,
+			SMSCharge
+			FROM Slayer WHERE Name = '%s' AND Active = 'ACTIVE'",
+			m_Name.c_str()
+		);
 
 		if (pResult->getRowCount() == 0) 
 		{
@@ -699,21 +679,20 @@ bool Slayer::load ()
 		Level_t advLevel = pResult->getInt(++i);
 		Exp_t	advGoalExp = pResult->getInt(++i);
 
-		m_pAdvancementClass = new AdvancementClass(advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable);
-		if (getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
+		m_pAdvancementClass = new AdvancementClass( advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable );
+		if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
 
 		int competence = pResult->getInt(++i);
-		if (competence >= 4 ) competence = 3;
+		if ( competence >= 4 ) competence = 3;
 
 		setCompetence(competence);
 		setCompetenceShape(pResult->getInt(++i));
 		setSex(pResult->getString(++i));
-//		setMasterEffectColor(pResult->getInt(++i));
+		setMasterEffectColor(pResult->getInt(++i));
 		setHairStyle(pResult->getString(++i));
 		setHairColor(pResult->getInt(++i));
 		setSkinColor(pResult->getInt(++i));
 		setPhoneNumber(atoi(pResult->getString(++i)));
-		setMasterEffectColor(pResult->getInt(++i));
 
 		m_STR[ATTR_BASIC]   = pResult->getInt(++i);
 		m_STR[ATTR_MAX]     = m_STR[ATTR_BASIC];
@@ -721,7 +700,7 @@ bool Slayer::load ()
 //		m_STRExp            = pResult->getInt(++i);
 		Exp_t STRGoalExp        = pResult->getInt(++i);
 
-		m_pAttrs[ATTR_KIND_STR] = new Attr(m_STR[ATTR_BASIC], STRGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_STR]);
+		m_pAttrs[ATTR_KIND_STR] = new Attr( m_STR[ATTR_BASIC], STRGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_STR] );
 
 		m_DEX[ATTR_BASIC]   = pResult->getInt(++i);
 		m_DEX[ATTR_MAX]     = m_DEX[ATTR_BASIC];
@@ -729,7 +708,7 @@ bool Slayer::load ()
 //		m_DEXExp            = pResult->getInt(++i);
 		Exp_t DEXGoalExp        = pResult->getInt(++i);
 
-		m_pAttrs[ATTR_KIND_DEX] = new Attr(m_DEX[ATTR_BASIC], DEXGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_DEX]);
+		m_pAttrs[ATTR_KIND_DEX] = new Attr( m_DEX[ATTR_BASIC], DEXGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_DEX] );
 		
 		m_INT[ATTR_BASIC]   = pResult->getInt(++i);
 		m_INT[ATTR_MAX]     = m_INT[ATTR_BASIC];
@@ -737,7 +716,7 @@ bool Slayer::load ()
 //		m_INTExp            = pResult->getInt(++i);
 		Exp_t INTGoalExp        = pResult->getInt(++i);
 
-		m_pAttrs[ATTR_KIND_INT] = new Attr(m_INT[ATTR_BASIC], INTGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_INT]);
+		m_pAttrs[ATTR_KIND_INT] = new Attr( m_INT[ATTR_BASIC], INTGoalExp, SlayerAttrExpTable::s_SlayerAttrExpTable[ATTR_KIND_INT] );
 
 		m_AdvancedSTR = pResult->getInt(++i);
 		m_AdvancedDEX = pResult->getInt(++i);
@@ -748,7 +727,7 @@ bool Slayer::load ()
 //		RankExp_t RankExp            = pResult->getInt(++i);
 		RankExp_t RankGoalExp        = pResult->getInt(++i);
 
-		m_pRank = new Rank(CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_SLAYER]);
+		m_pRank = new Rank( CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_SLAYER] );
 //		cout << getRankGoalExp() << endl;
 
 		//cout << "Slayer::load() : STR[CURRENT]" << (int)m_STR[ATTR_CURRENT] << endl;
@@ -814,7 +793,7 @@ bool Slayer::load ()
 		setResurrectZoneID(pResult->getInt(++i));
 
 		reward = pResult->getInt(++i);
-		setSMSCharge(pResult->getInt(++i));
+		setSMSCharge( pResult->getInt(++i) );
 
 		// 그냥 다시 계산해버린다. 2002.7.15 by sigi
 		// 공식 바뀌면 AbilityBalance.cpp의 computeHP도 수정해야한다.
@@ -822,17 +801,17 @@ bool Slayer::load ()
 
 		try
 		{
-			setZoneID(zoneID);
+			setZoneID( zoneID );
 		}
-		catch (Error& e )
+		catch ( Error& e )
 		{
 			// 길드 아지트 문제로 본다.
 			// 길드 아지트가 한 게임 서버에만 존재하므로 다른 게임서버로 접속할 때 그 아지트로 들어가지 못한다.
 			ZONE_COORD ResurrectCoord;
-			g_pResurrectLocationManager->getSlayerPosition(12, ResurrectCoord);
-			setZoneID(ResurrectCoord.id);
-			setX(ResurrectCoord.x);
-			setY(ResurrectCoord.y);
+			g_pResurrectLocationManager->getSlayerPosition( 12, ResurrectCoord );
+			setZoneID( ResurrectCoord.id );
+			setX( ResurrectCoord.x );
+			setY( ResurrectCoord.y );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -984,11 +963,11 @@ bool Slayer::load ()
 
 			// 이 스킬을 쓸 수 있는지 없는지 체크 한돠..
 			// 스킬인포를 받아온다.
-			SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(pSkillSlot->getSkillType());
-			Assert(pSkillInfo != NULL);
+			SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(pSkillSlot->getSkillType() );
+			Assert( pSkillInfo != NULL );
 
 			// 배우는 레벨보다 지금 현재의 도메인 레벨이 낮으면 당연히 못쓴다.
-			if(pSkillInfo->getLevel() > m_SkillDomainLevels[pSkillInfo->getDomainType()] && pSkillInfo->getDomainType() != SKILL_DOMAIN_ETC ) 
+			if( pSkillInfo->getLevel() > m_SkillDomainLevels[pSkillInfo->getDomainType()] && pSkillInfo->getDomainType() != SKILL_DOMAIN_ETC ) 
 			{
 				pSkillSlot->setDisable();
 			}
@@ -1009,13 +988,13 @@ bool Slayer::load ()
 	// GrandMaster인 경우는 Effect를 붙여준다.
 	// by sigi. 2002.11.8
 	if (getHighestSkillDomainLevel()>=100
-		&& SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
+		&& SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
 	{
 		if (!isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER))
 		{
 			EffectGrandMasterSlayer* pEffect = new EffectGrandMasterSlayer(this);
 			pEffect->setDeadline(999999);
-			getEffectManager()->addEffect(pEffect);
+			getEffectManager()->addEffect( pEffect );
 			setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER);
 		}
 	}
@@ -1269,7 +1248,7 @@ bool Slayer::load ()
 
 			//tinysave(attrsave.toString());
 			if (pField[0]!='\0')
-				tinysave(pField);
+				tinysave( pField );
 
 			//file.close();
 		}
@@ -1280,20 +1259,20 @@ bool Slayer::load ()
 	initAllStat();
 
 	// 전쟁 참가 Flag 체크
-	if (RaceWarLimiter::isInPCList(this ) )
+	if ( RaceWarLimiter::isInPCList( this ) )
 	{
-		setFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+		setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 	}
 
 	if (m_pZone->isHolyLand() 
 		&& g_pWarSystem->hasActiveRaceWar()
-		&& !isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
+		&& !isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
 	{
 		ZONE_COORD ResurrectCoord;
-		g_pResurrectLocationManager->getPosition(this, ResurrectCoord);
-		setZoneID(ResurrectCoord.id);
-		setX(ResurrectCoord.x);
-		setY(ResurrectCoord.y);
+		g_pResurrectLocationManager->getPosition( this, ResurrectCoord );
+		setZoneID( ResurrectCoord.id );
+		setX( ResurrectCoord.x );
+		setY( ResurrectCoord.y );
 	}
 
 	return true;
@@ -1302,7 +1281,7 @@ bool Slayer::load ()
 }
 
 void Slayer::save () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1376,8 +1355,8 @@ void Slayer::save () const
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE Slayer SET CurrentHP=%d, HP=%d, CurrentMP=%d, MP=%d, ZoneID=%d, XCoord=%d, YCoord=%d WHERE Name='%s'",
-								m_HP[ATTR_CURRENT], m_HP[ATTR_MAX], m_MP[ATTR_CURRENT], m_MP[ATTR_MAX], getZoneID(), (int)m_X, (int)m_Y, m_Name.c_str());
+		pStmt->executeQuery( "UPDATE Slayer SET CurrentHP=%d, HP=%d, CurrentMP=%d, MP=%d, ZoneID=%d, XCoord=%d, YCoord=%d WHERE Name='%s'",
+								m_HP[ATTR_CURRENT], m_HP[ATTR_MAX], m_MP[ATTR_CURRENT], m_MP[ATTR_MAX], getZoneID(), (int)m_X, (int)m_Y, m_Name.c_str() );
 
 
 		// 일반적으로, 아무런 데이타도 바뀌지 않았을 경우
@@ -1408,7 +1387,7 @@ void Slayer::save () const
 
 		sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d",
 									STORAGE_ZONE, m_pZone->getZoneID(), m_X, m_Y);
-		m_pMotorcycle->tinysave(pField);
+		m_pMotorcycle->tinysave( pField );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -1418,7 +1397,7 @@ void Slayer::save () const
 
 // tinysave
 void Slayer::tinysave(const string & field)
-    const throw(Error)
+    const throw (Error)
 {
     __BEGIN_TRY
 
@@ -1538,7 +1517,7 @@ SkillSlot* Slayer::getSkill(SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -1571,7 +1550,7 @@ void Slayer::addSkill(SkillSlot* pSkillSlot)
 			break;
 	}
 
-	map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(pSkillSlot->getSkillType());
+	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(pSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1581,7 +1560,7 @@ void Slayer::addSkill(SkillSlot* pSkillSlot)
 	// 2003.3.30 by Sequoia 조건 추가함
 	else
 	{
-		if (pSkillSlot != itr->second ) SAFE_DELETE(pSkillSlot);
+		if ( pSkillSlot != itr->second ) SAFE_DELETE(pSkillSlot);
 	}
 
 	__END_CATCH
@@ -1608,7 +1587,7 @@ void Slayer::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1637,17 +1616,17 @@ void Slayer::removeCastleSkill(SkillType_t SkillType)
 	__BEGIN_TRY
 
 	// 성지 스킬만 지울 수 있다.
-	if (g_pCastleSkillInfoManager->getZoneID(SkillType ) == 0 ) return;
+	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
-	map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
 		CastleSkillSlot* pCastleSkillSlot = dynamic_cast<CastleSkillSlot*>(itr->second);
 
-		SAFE_DELETE(pCastleSkillSlot);
+		SAFE_DELETE( pCastleSkillSlot );
 
-		m_SkillSlot.erase(itr);
+		m_SkillSlot.erase( itr );
 	}
 
 	__END_CATCH
@@ -1659,14 +1638,14 @@ void Slayer::removeAllCastleSkill()
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
 
-	while (itr != m_SkillSlot.end() )
+	while ( itr != m_SkillSlot.end() )
 	{
-		if (itr->second != NULL )
+		if ( itr->second != NULL )
 		{
 			SkillSlot* pSkillSlot = itr->second;
-			if (g_pCastleSkillInfoManager->getZoneID(pSkillSlot->getSkillType() ) == 0 )
+			if ( g_pCastleSkillInfoManager->getZoneID( pSkillSlot->getSkillType() ) == 0 )
 			{
 				// 성지스킬이 아니면 다음껄로 넘어간다.
 				++itr;
@@ -1674,11 +1653,11 @@ void Slayer::removeAllCastleSkill()
 			}
 
 			// 성지스킬이면 지워준다. 반복자 사용에 주의
-			SAFE_DELETE(pSkillSlot);
-			map<SkillType_t, SkillSlot*>::iterator prevItr = itr;
+			SAFE_DELETE( pSkillSlot );
+			hash_map<SkillType_t, SkillSlot*>::iterator prevItr = itr;
 			
 			++itr;
-			m_SkillSlot.erase(prevItr);
+			m_SkillSlot.erase( prevItr );
 		}
 		else
 		{
@@ -1695,7 +1674,7 @@ void Slayer::removeAllCastleSkill()
 // 이 메소드는 접속할때 Item을 Loading 하면서 쓰는 wearItem이다.
 // 이 메소드 안에선 Broadcast를 하지 않는 것이 좋다.
 void Slayer::wearItem(WearPart Part, Item* pItem)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1847,65 +1826,65 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 
 	// 어떤 무기를 잡고 있다는 정보를 저장한다. 
 	// SlayerInfo에 셋팅을 해 놓아야 다음 누군가가 볼때 날려준다.
-	Color_t color = getItemShapeColor(pItem, pOptionInfo); 
+	Color_t color = getItemShapeColor( pItem, pOptionInfo ); 
 
 	switch (IClass)
 	{
 		case Item::ITEM_CLASS_MACE:
 			//m_SlayerInfo.setWeaponType(WEAPON_MACE);
 			m_SlayerInfo.setWeaponType(WEAPON_MACE);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_CROSS:
 			m_SlayerInfo.setWeaponType(WEAPON_CROSS);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_BLADE:
 			m_SlayerInfo.setWeaponType(WEAPON_BLADE);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_AR:
 			m_SlayerInfo.setWeaponType(WEAPON_AR);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SR:
 			m_SlayerInfo.setWeaponType(WEAPON_SR);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SMG:
 			m_SlayerInfo.setWeaponType(WEAPON_SMG);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SG:
 			m_SlayerInfo.setWeaponType(WEAPON_SG);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_HELM:
 			m_SlayerInfo.setHelmetType(getHelmetType(IType));
-			m_SlayerInfo.setHelmetColor(color);
+			m_SlayerInfo.setHelmetColor( color );
 			break;
 		case Item::ITEM_CLASS_SHIELD:
 			m_SlayerInfo.setShieldType(getShieldType(IType));
-			m_SlayerInfo.setShieldColor(color);
+			m_SlayerInfo.setShieldColor( color );
 			break;
 		case Item::ITEM_CLASS_SWORD:
 			m_SlayerInfo.setWeaponType(WEAPON_SWORD);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_COAT:
 			m_SlayerInfo.setJacketType(getJacketType(IType));
 			//cout << "Jacket: ItemType=" << (int)IType << ", JacketType=" << JacketType2String[m_SlayerInfo.getJacketType()] << endl;
-			m_SlayerInfo.setJacketColor(color);
+			m_SlayerInfo.setJacketColor( color );
 			break;
 		case Item::ITEM_CLASS_TROUSER:
 			m_SlayerInfo.setPantsType(getPantsType(IType));
 			//cout << "Pants: ItemType=" << (int)IType << ", PantsType=" << PantsType2String[m_SlayerInfo.getPantsType()] << endl;
-			m_SlayerInfo.setPantsColor(color);
+			m_SlayerInfo.setPantsColor( color );
 			break;
 		case Item::ITEM_CLASS_SHOULDER_ARMOR:
 			m_SlayerInfo.setShoulderType(getShoulderType(IType));
 			//cout << "Pants: ItemType=" << (int)IType << ", PantsType=" << PantsType2String[m_SlayerInfo.getPantsType()] << endl;
-			m_SlayerInfo.setShoulderColor(color);
+			m_SlayerInfo.setShoulderColor( color );
 			break;
 		default:
 			break;
@@ -1918,7 +1897,7 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 // Slayer::wearItem()
 // Item을 장착창에 장착시키고 능력치를 계산한다.
 void Slayer::wearItem(WearPart Part)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2113,10 +2092,10 @@ void Slayer::wearItem(WearPart Part)
 
 	//ItemType_t IType = pItem->getItemType();
 
-	Color_t color = getItemShapeColor(pItem, pOptionInfo); 
+	Color_t color = getItemShapeColor( pItem, pOptionInfo ); 
 
 	// 함수로 뺐다. by sigi. 2002.10.30
-	bisChange = changeShape(pItem, color);
+	bisChange = changeShape( pItem, color );
 	/*
 	// 실제로 입을 수 있으면 복장을 바꿔준다. by sigi. 2002.10.30
 	if (m_pRealWearingCheck[Part])
@@ -2128,69 +2107,69 @@ void Slayer::wearItem(WearPart Part)
 				bisChange = true;
 				//m_SlayerInfo.setWeaponType(WEAPON_MACE);
 				m_SlayerInfo.setWeaponType(WEAPON_CROSS);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_CROSS:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_CROSS);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_BLADE:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_BLADE);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_AR:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_AR);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_SR:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_SR);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_SMG:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_SMG);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_SG:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_SG);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_HELM:
 				bisChange = true;
 				m_SlayerInfo.setHelmetType(getHelmetType(IType));
-				m_SlayerInfo.setHelmetColor(color);
+				m_SlayerInfo.setHelmetColor( color );
 				break;
 			case Item::ITEM_CLASS_SHIELD:
 				bisChange = true;
 				m_SlayerInfo.setShieldType(getShieldType(IType));
-				m_SlayerInfo.setShieldColor(color);
+				m_SlayerInfo.setShieldColor( color );
 				break;
 			case Item::ITEM_CLASS_SWORD:
 				bisWeapon = true;
 				bisChange = true;
 				m_SlayerInfo.setWeaponType(WEAPON_SWORD);
-				m_SlayerInfo.setWeaponColor(color);
+				m_SlayerInfo.setWeaponColor( color );
 				break;
 			case Item::ITEM_CLASS_COAT:
 				bisChange = true;
 				m_SlayerInfo.setJacketType(getJacketType(IType));
-				m_SlayerInfo.setJacketColor(color);
+				m_SlayerInfo.setJacketColor( color );
 				break;
 			case Item::ITEM_CLASS_TROUSER:
 				bisChange = true;
 				m_SlayerInfo.setPantsType(getPantsType(IType));
-				m_SlayerInfo.setPantsColor(color);
+				m_SlayerInfo.setPantsColor( color );
 				break;
 			case Item::ITEM_CLASS_RING :
 				bisChange = false;
@@ -2243,8 +2222,8 @@ void Slayer::wearItem(WearPart Part)
 		_GCChangeShape.setOptionType(pItem->getFirstOptionType());
 		_GCChangeShape.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
 
-		if (color == QUEST_COLOR )
-			_GCChangeShape.setFlag(SHAPE_FLAG_QUEST);
+		if ( color == QUEST_COLOR )
+			_GCChangeShape.setFlag( SHAPE_FLAG_QUEST );
 
 		Zone* pZone = m_pZone;
 		pZone->broadcastPacket(m_X, m_Y, &_GCChangeShape, this);
@@ -2271,7 +2250,7 @@ void Slayer::wearItem(WearPart Part)
 // *NOTE : 임시로 bool 타입의 parameter를 넣어 둔다.
 //         코드가 구질구질 해지기 때문에 나중에 바꾸도록 한다.. 필수!
 void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2472,12 +2451,12 @@ bool Slayer::isRealWearing(WearPart part) const
 {
 	__BEGIN_TRY
 
-	if (part >= WEAR_MAX) throw("Slayer::isRealWearing() : invalid wear point!");
+	if (part >= WEAR_MAX) throw ("Slayer::isRealWearing() : invalid wear point!");
 	if (m_pWearItem[part] == NULL) return false;
 	if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4)
 	{
 		// 해당 위치에 반지도 있어야 된다.
-		if (m_pWearItem[part-WEAR_ZAP1+WEAR_FINGER1]==NULL ) return false;
+		if ( m_pWearItem[part-WEAR_ZAP1+WEAR_FINGER1]==NULL ) return false;
 	}
 
 	return isRealWearing(m_pWearItem[part]);
@@ -2491,33 +2470,28 @@ bool Slayer::isRealWearing(Item* pItem) const
 	__BEGIN_TRY
 
 	if (pItem == NULL) return false;
-	if (pItem->getDurability() == 0 ) return false;
 
-/*	if (m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4003 )
+/*	if ( m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4003 )
 	{
-		if (!isSlayerWeapon(pItem->getItemClass() ) ) return false;
+		if ( !isSlayerWeapon( pItem->getItemClass() ) ) return false;
 	}*/
 
 	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
 	Level_t			ReqAdvancedLevel = pItemInfo->getReqAdvancedLevel();
-	if (ReqAdvancedLevel > 0 && (!isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
+	if ( ReqAdvancedLevel > 0 && ( !isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_SMG || pItem->getItemClass() == Item::ITEM_CLASS_SG )
+	if ( isSlayerWeapon(pItem->getItemClass()) || pItem->getItemClass() == Item::ITEM_CLASS_COAT || pItem->getItemClass() == Item::ITEM_CLASS_TROUSER )
 	{
-		if (ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
+		if ( ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
 	}
-/*	if (isSlayerWeapon(pItem->getItemClass()) || pItem->getItemClass() == Item::ITEM_CLASS_COAT || pItem->getItemClass() == Item::ITEM_CLASS_TROUSER )
-	{
-		if (ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
-	}*/
 
 	// 시간제한아이템은 레어나 유니크나 무료사용자도 쓸 수 있다....... 2003.5.4
-	if (pItem->isTimeLimitItem() )
+	if ( pItem->isTimeLimitItem() )
 	{
 		Attr_t    ReqGender = pItemInfo->getReqGender();
-		if ((m_Sex == MALE && ReqGender == GENDER_FEMALE ) ||
-			 (m_Sex == FEMALE && ReqGender == GENDER_MALE ) ) return false;
+		if ( ( m_Sex == MALE && ReqGender == GENDER_FEMALE ) ||
+			 ( m_Sex == FEMALE && ReqGender == GENDER_MALE ) ) return false;
 		return true;
 	}
 
@@ -2536,7 +2510,7 @@ bool Slayer::isRealWearing(Item* pItem) const
 		}
 	}
 
-	if (isCoupleRing(pItem ) )
+	if ( isCoupleRing( pItem ) )
 	{
 		return true;
 	}
@@ -2550,10 +2524,10 @@ bool Slayer::isRealWearing(Item* pItem) const
 	// 기본 아이템의 능력치 총합 요구치가 300이 넘으면 옵션을 포함한 요구치가 435까지 올라갈 수 있다.
 	// 기본 아이템의 요구치가 300 이하일 경우 옵션을 다 포함해도 300을 넘어서는 안 된다.
 	// 다른 것들도 마찬가지다. 2003.3.21 by Sequoia
-	Attr_t	ReqSumMax	= ((ReqSum > MAX_SLAYER_SUM_OLD ) ? MAX_SLAYER_SUM : MAX_SLAYER_SUM_OLD);
-	Attr_t	ReqSTRMax	= ((ReqSTR > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD);
-	Attr_t	ReqDEXMax	= ((ReqDEX > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD);
-	Attr_t	ReqINTMax	= ((ReqINT > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD);
+	Attr_t	ReqSumMax	= ( ( ReqSum > MAX_SLAYER_SUM_OLD ) ? MAX_SLAYER_SUM : MAX_SLAYER_SUM_OLD );
+	Attr_t	ReqSTRMax	= ( ( ReqSTR > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
+	Attr_t	ReqDEXMax	= ( ( ReqDEX > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
+	Attr_t	ReqINTMax	= ( ( ReqINT > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
 
 	// 아이템이 옵션을 가지고 있다면, 
 	// 옵션의 종류에 따라서 능력치 제한을 올려준다.
@@ -2564,7 +2538,7 @@ bool Slayer::isRealWearing(Item* pItem) const
 		list<OptionType_t>::const_iterator itr;
 		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 		{
-			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 
 			if (ReqSTR != 0) ReqSTR += (pOptionInfo->getReqSum() * 2);
 			if (ReqDEX != 0) ReqDEX += (pOptionInfo->getReqSum() * 2);
@@ -2652,20 +2626,20 @@ void Slayer::setMotorcycle(Motorcycle* pMotorcycle)
 	// SlaeyrInfo에 모토사이클을 타고 있다는 것을 셋팅한다.
 	//m_SlayerInfo.setMotorcycleType(MOTORCYCLE1);
 	// by sigi.2002.6.22
-	m_SlayerInfo.setMotorcycleType(getMotorcycleType(pMotorcycle->getItemType()));
+	m_SlayerInfo.setMotorcycleType( getMotorcycleType(pMotorcycle->getItemType()) );
 
-	if (!pMotorcycle->hasOptionType() )
+	if ( !pMotorcycle->hasOptionType() )
 	{
     	m_SlayerInfo.setMotorcycleColor(388);
 	}
 	else
 	{
 		OptionType_t option = pMotorcycle->getFirstOptionType();
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(option);
+		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( option );
 
-		if (pOptionInfo != NULL )
+		if ( pOptionInfo != NULL )
 		{
-			m_SlayerInfo.setMotorcycleColor(pOptionInfo->getColor());
+			m_SlayerInfo.setMotorcycleColor( pOptionInfo->getColor() );
 		}
 		else
 		{
@@ -2692,7 +2666,7 @@ void Slayer::getOffMotorcycle()
 		char pField[80];
 		sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d",
 									STORAGE_ZONE, m_pZone->getZoneID(), (int)pt.x, (int)pt.y);
-		m_pMotorcycle->tinysave(pField);
+		m_pMotorcycle->tinysave( pField );
 
 		MotorcycleBox* pMotorcycleBox = g_pParkingCenter->getMotorcycleBox(m_pMotorcycle->getItemID());
 
@@ -2730,7 +2704,7 @@ void Slayer::getOffMotorcycle()
 }
 
 PCSlayerInfo2* Slayer::getSlayerInfo2 () const
-	throw()
+	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -2776,9 +2750,9 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 //	pInfo->setSTRExp(m_STRExp);
 //	pInfo->setDEXExp(m_DEXExp);
 //	pInfo->setINTExp(m_INTExp);
-	pInfo->setSTRExp(getSTRGoalExp());
-	pInfo->setDEXExp(getDEXGoalExp());
-	pInfo->setINTExp(getINTGoalExp());
+	pInfo->setSTRExp( getSTRGoalExp() );
+	pInfo->setDEXExp( getDEXGoalExp() );
+	pInfo->setINTExp( getINTGoalExp() );
 
 	// 계급
 	pInfo->setRank(getRank());
@@ -2807,16 +2781,16 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 	// 운영자로 스프라이트를 출력해줘야 한다. 
 	pInfo->setCompetence(m_CompetenceShape);
 	pInfo->setGuildID(m_GuildID);
-	pInfo->setGuildName(getGuildName());
-	pInfo->setGuildMemberRank(getGuildMemberRank());
+	pInfo->setGuildName( getGuildName() );
+	pInfo->setGuildMemberRank( getGuildMemberRank() );
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) pInfo->setUnionID(0);
-	else pInfo->setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) pInfo->setUnionID( 0 );
+	else pInfo->setUnionID( pUnion->getUnionID() );
 
-	pInfo->setAdvancementLevel(getAdvancementClassLevel());
-	pInfo->setAdvancementGoalExp(getAdvancementClassGoalExp());
-	pInfo->setAttrBonus(getBonus());
+	pInfo->setAdvancementLevel( getAdvancementClassLevel() );
+	pInfo->setAdvancementGoalExp( getAdvancementClassGoalExp() );
+	pInfo->setAttrBonus( getBonus() );
 
 	return pInfo;
 
@@ -2824,7 +2798,7 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 }
 
 PCSlayerInfo3 Slayer::getSlayerInfo3 () const
-	throw()
+	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -2850,9 +2824,9 @@ PCSlayerInfo3 Slayer::getSlayerInfo3 () const
     m_SlayerInfo.setSkinColor(m_SkinColor);
 	m_SlayerInfo.setMasterEffectColor(m_MasterEffectColor);
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) m_SlayerInfo.setUnionID(0);
-	else m_SlayerInfo.setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) m_SlayerInfo.setUnionID( 0 );
+	else m_SlayerInfo.setUnionID( pUnion->getUnionID() );
 
 	m_SlayerInfo.setAdvancementLevel(getAdvancementClassLevel());
 
@@ -2877,7 +2851,7 @@ ExtraInfo* Slayer::getExtraInfo() const
 		//Item::ItemClass IClass = pItem->getItemClass();
 
 		ExtraSlotInfo* pExtraSlotInfo = new ExtraSlotInfo();
-		pItem->makePCItemInfo(*pExtraSlotInfo);
+		pItem->makePCItemInfo( *pExtraSlotInfo );
 
 /*
 		pExtraSlotInfo->setObjectID(pItem->getObjectID());
@@ -2976,7 +2950,7 @@ GearInfo* Slayer::getGearInfo() const
 //			Item::ItemClass IClass = pItem->getItemClass();
 
 			GearSlotInfo* pGearSlotInfo = new GearSlotInfo();
-			pItem->makePCItemInfo(*pGearSlotInfo);
+			pItem->makePCItemInfo( *pGearSlotInfo );
 
 			pGearSlotInfo->setSlotID(i);
 
@@ -3074,34 +3048,104 @@ GearInfo* Slayer::getGearInfo() const
 //////////////////////////////////////////////////////////////////////////////
 // get Inventory Info
 //////////////////////////////////////////////////////////////////////////////
-InventoryInfo* Slayer::getInventoryInfo() const throw() {
+InventoryInfo* Slayer::getInventoryInfo() const
+    throw()
+{
 	__BEGIN_DEBUG
 
 	BYTE ItemCount = 0;
-
-    list<Item*> ItemList;
 	InventoryInfo* pInventoryInfo = new InventoryInfo();
+	list<Item*> ItemList;
 	VolumeHeight_t Height = m_pInventory->getHeight();
-	VolumeWidth_t Width = m_pInventory->getWidth();
+	VolumeWidth_t Width  = m_pInventory->getWidth();
 
-	for (int j = 0; j < Height; j++) {
-		for (int i = 0; i < Width; i++) {
-			if (m_pInventory->hasItem(i, j)) {
-				Item* pItem = m_pInventory->getItem(i, j);
+	for (int j = 0; j < Height; j++) 
+	{
+		for (int i = 0 ; i < Width ; i ++) 
+		{
+			if (m_pInventory->hasItem(i, j)) 
+			{
+				Item* pItem = m_pInventory->getItem(i , j);
 				VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
 //				Item::ItemClass IClass = pItem->getItemClass();
 
-				list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
+				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
 
-				if (itr == ItemList.end()) {
-					// map 에 Item을 등록시켜 놓음,
+				if (itr == ItemList.end()) 
+				{
+					// Hash_map 에 Item을 등록시켜 놓음,
 					// 다음 비교때 같은 아이템인지 확인하기 위하여.
 					ItemList.push_back(pItem);
 
 					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
-					pItem->makePCItemInfo(*pInventorySlotInfo);
+					pItem->makePCItemInfo( *pInventorySlotInfo );
 					pInventorySlotInfo->setInvenX(i);
 					pInventorySlotInfo->setInvenY(j);
+
+					// InventorySlotInfo를 구성
+/*					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
+					pInventorySlotInfo->setObjectID(pItem->getObjectID());
+					pInventorySlotInfo->setItemClass(pItem->getItemClass());
+					pInventorySlotInfo->setItemType(pItem->getItemType());
+					pInventorySlotInfo->setOptionType(pItem->getOptionTypeList());
+					pInventorySlotInfo->setDurability(pItem->getDurability());
+					pInventorySlotInfo->setSilver(pItem->getSilver());
+					pInventorySlotInfo->setEnchantLevel(pItem->getEnchantLevel());
+					pInventorySlotInfo->setInvenX(i);
+					pInventorySlotInfo->setInvenY(j);
+					pInventorySlotInfo->setItemNum(pItem->getNum());
+
+					if (IClass == Item::ITEM_CLASS_AR) 
+					{
+						AR* pAR = dynamic_cast<AR*>(pItem);
+						pInventorySlotInfo->setItemNum(pAR->getBulletCount());
+					} 
+					else if (IClass == Item::ITEM_CLASS_SG) 
+					{
+						SG* pSG = dynamic_cast<SG*>(pItem);
+						pInventorySlotInfo->setItemNum(pSG->getBulletCount());
+					} 
+					else if (IClass == Item::ITEM_CLASS_SMG) 
+					{
+						SMG* pSMG = dynamic_cast<SMG*>(pItem);
+						pInventorySlotInfo->setItemNum(pSMG->getBulletCount());
+					} 
+					else if (IClass == Item::ITEM_CLASS_SR) 
+					{
+						SR* pSR = dynamic_cast<SR*>(pItem);
+						pInventorySlotInfo->setItemNum(pSR->getBulletCount());
+					} 
+
+					// 벨트라면 Sub 아이템의 추가 정보가 필요하다.
+					if (IClass == Item::ITEM_CLASS_BELT) 
+					{
+						Belt*      pBelt          = dynamic_cast<Belt*>(pItem);
+						Inventory* pBeltInventory = pBelt->getInventory();
+						BYTE       SubItemCount   = 0;
+
+						for (int i = 0; i < pBelt->getPocketCount(); i++) 
+						{
+							Item* pBeltItem = pBeltInventory->getItem(i, 0);
+
+							if (pBeltItem != NULL) 
+							{
+								SubItemInfo* pSubItemInfo = new SubItemInfo();
+								pSubItemInfo->setObjectID(pBeltItem->getObjectID());
+								pSubItemInfo->setItemClass(pBeltItem->getItemClass());
+								pSubItemInfo->setItemType(pBeltItem->getItemType());
+								pSubItemInfo->setItemNum(pBeltItem->getNum());
+								pSubItemInfo->setSlotID(i);
+
+								pInventorySlotInfo->addListElement(pSubItemInfo);
+
+								SubItemCount++;
+							}
+						}
+
+						pInventorySlotInfo->setListNum(SubItemCount);
+					}
+
+					pInventorySlotInfo->setMainColor(0);*/
 
 					pInventoryInfo->addListElement(pInventorySlotInfo);
 					ItemCount++;
@@ -3158,9 +3202,9 @@ void Slayer::sendSlayerSkillInfo()
 
 		// 현재 시간, 남은 캐스팅 타임을 계산하기 위해
 		Timeval currentTime;
-		getCurrentTime(currentTime);
+		getCurrentTime( currentTime );
 
-		map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+		hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
 			SkillSlot* pSkillSlot = itr->second;
@@ -3186,7 +3230,7 @@ void Slayer::sendSlayerSkillInfo()
 
 				// casting time 항목을 다음 캐스팅까지 남은 시간으로 한다.
 				//pSubSlayerSkillInfo->setCastingTime(pSkillSlot->getCastingTime());
-				pSubSlayerSkillInfo->setCastingTime(pSkillSlot->getRemainTurn(currentTime ));
+				pSubSlayerSkillInfo->setCastingTime( pSkillSlot->getRemainTurn( currentTime ) );
 				pSubSlayerSkillInfo->setEnable(pSkillSlot->canUse());
 
 				// 슬레이어 스킬인포에 서브 스킬 인포를 추가한다.
@@ -3242,14 +3286,14 @@ EffectInfo* Slayer::getEffectInfo()
 	return pEffectInfo;
 }
 
-void Slayer::setGold(Gold_t gold )
+void Slayer::setGold( Gold_t gold )
 	throw()
 {
 	__BEGIN_TRY
 
 	// MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	m_Gold = min((Gold_t)MAX_MONEY, gold);
+	m_Gold = min( (Gold_t)MAX_MONEY, gold );
 
 	__END_CATCH
 }
@@ -3270,7 +3314,7 @@ void Slayer::setGoldEx(Gold_t gold)
 	*/
 	char pField[80];
 	sprintf(pField, "Gold = %ld", m_Gold);
-	tinysave(pField);
+	tinysave( pField );
 
 	__END_DEBUG
 	__END_CATCH
@@ -3284,7 +3328,7 @@ void Slayer::increaseGoldEx(Gold_t gold)
 
 	// MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	if (m_Gold + gold > MAX_MONEY )
+	if ( m_Gold + gold > MAX_MONEY )
 		gold = MAX_MONEY - m_Gold;
 
 	setGold(m_Gold+gold);
@@ -3312,7 +3356,7 @@ void Slayer::decreaseGoldEx(Gold_t gold)
 
 	// 0 미만이 되는 걸 막는다. 0 미만이 되면 underflow 되서 난리가 난다.
 	// 2003.1.8  by bezz.
-	if (m_Gold < gold )
+	if ( m_Gold < gold )
 		gold = m_Gold;
 
 	setGold(m_Gold-gold);
@@ -3343,7 +3387,7 @@ bool Slayer::checkGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT Gold FROM Slayer WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_Gold;
 		}
@@ -3369,7 +3413,7 @@ bool Slayer::checkStashGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT StashGold FROM Slayer WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_StashGold;
 		}
@@ -3397,7 +3441,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 	}
 #endif*/
 
-	PlayerCreature::heartbeat(currentTime);
+	PlayerCreature::heartbeat( currentTime );
 
 	// 여기서 Prayer와 Meditation에 관련된 MP 리젠을 해준다.
 	// 하트비트 함수를 하나 따로 만들고, 실행시키는 것이 옳겠지만...
@@ -3409,7 +3453,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 		SkillSlot* pPrayer     = hasSkill(SKILL_PRAYER);
 		SkillSlot* pMeditation = hasSkill(SKILL_MEDITATION);
 
-		if (IClass == Item::ITEM_CLASS_CROSS && pPrayer != NULL && pPrayer->canUse() && !isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
+		if (IClass == Item::ITEM_CLASS_CROSS && pPrayer != NULL && pPrayer->canUse() && !isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
 		{
 			Timeval currentTime;
 			getCurrentTime(currentTime);
@@ -3436,7 +3480,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 				m_MPRegenTime.tv_usec = currentTime.tv_usec;
 			}
 		}
-		else if (IClass == Item::ITEM_CLASS_MACE && pMeditation != NULL && pMeditation->canUse() && !isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
+		else if (IClass == Item::ITEM_CLASS_MACE && pMeditation != NULL && pMeditation->canUse() && !isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION))
 		{
 			Timeval currentTime;
 			getCurrentTime(currentTime);
@@ -3646,7 +3690,7 @@ uint Slayer::getSlayerLevel(void) const
 }
 
 string Slayer::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -3707,10 +3751,10 @@ SkillLevel_t Slayer::getHighestSkillDomainLevel() const
 
 	SkillLevel_t highest;
 
-	highest = max(m_SkillDomainLevels[SKILL_DOMAIN_BLADE], m_SkillDomainLevels[SKILL_DOMAIN_SWORD]);
-	highest = max(highest, m_SkillDomainLevels[SKILL_DOMAIN_GUN]);
-	highest = max(highest, m_SkillDomainLevels[SKILL_DOMAIN_HEAL]);
-	highest = max(highest, m_SkillDomainLevels[SKILL_DOMAIN_ENCHANT]);
+	highest = max( m_SkillDomainLevels[SKILL_DOMAIN_BLADE], m_SkillDomainLevels[SKILL_DOMAIN_SWORD] );
+	highest = max( highest, m_SkillDomainLevels[SKILL_DOMAIN_GUN] );
+	highest = max( highest, m_SkillDomainLevels[SKILL_DOMAIN_HEAL] );
+	highest = max( highest, m_SkillDomainLevels[SKILL_DOMAIN_ENCHANT] );
 
 	return highest;
 
@@ -3724,18 +3768,18 @@ SkillDomainType_t Slayer::getHighestSkillDomain() const
 	
 	SkillDomainType_t highest;	
 
-	if (m_SkillDomainLevels[SKILL_DOMAIN_BLADE] > m_SkillDomainLevels[SKILL_DOMAIN_SWORD] )
+	if ( m_SkillDomainLevels[SKILL_DOMAIN_BLADE] > m_SkillDomainLevels[SKILL_DOMAIN_SWORD] )
 		highest = SKILL_DOMAIN_BLADE;
 	else
 		highest = SKILL_DOMAIN_SWORD;
 
-	if (m_SkillDomainLevels[SKILL_DOMAIN_GUN] > m_SkillDomainLevels[highest] )
+	if ( m_SkillDomainLevels[SKILL_DOMAIN_GUN] > m_SkillDomainLevels[highest] )
 		highest = SKILL_DOMAIN_GUN;
 
-	if (m_SkillDomainLevels[SKILL_DOMAIN_HEAL] > m_SkillDomainLevels[highest] )
+	if ( m_SkillDomainLevels[SKILL_DOMAIN_HEAL] > m_SkillDomainLevels[highest] )
 		highest = SKILL_DOMAIN_HEAL;
 
-	if (m_SkillDomainLevels[SKILL_DOMAIN_ENCHANT] > m_SkillDomainLevels[highest] )
+	if ( m_SkillDomainLevels[SKILL_DOMAIN_ENCHANT] > m_SkillDomainLevels[highest] )
 		highest = SKILL_DOMAIN_ENCHANT;
 
 	return highest;
@@ -3744,11 +3788,11 @@ SkillDomainType_t Slayer::getHighestSkillDomain() const
 }
 	
 void Slayer::saveSkills(void) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		SkillSlot* pSkillSlot = itr->second;
@@ -3810,15 +3854,15 @@ IP_t Slayer::getIP(void) const
 	RCSay dp;
 	dp.setName("server");
 	dp.setMessage("ok???");
-	g_pLoginServerManager->sendPacket(inet_ntoa(sa), Port, &dp);
-	g_pLoginServerManager->sendPacket(g_pConfig->getProperty("LoginServerIP") , 9996, &dp);
+	g_pLoginServerManager->sendPacket( inet_ntoa(sa), Port, &dp );
+	g_pLoginServerManager->sendPacket( g_pConfig->getProperty("LoginServerIP") , 9996, &dp );
 
 	return IP;
 	*/
 }
 
 void Slayer::saveGears(void) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -3870,7 +3914,7 @@ void Slayer::saveGears(void) const
 }
 
 void Slayer::saveExps(void) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -3912,7 +3956,7 @@ void Slayer::saveExps(void) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE Slayer SET STRGoalExp=%lu, DEXGoalExp=%lu, INTGoalExp=%lu, BladeGoalExp=%lu, SwordGoalExp=%lu, GunGoalExp=%lu, EnchantGoalExp=%lu, HealGoalExp=%lu, ETCGoalExp=%lu, Alignment=%d, Fame=%ld, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu, AdvancedSTR=%u, AdvancedDEX=%u, AdvancedINT=%u, Bonus=%u WHERE Name='%s'",
+		pStmt->executeQuery( "UPDATE Slayer SET STRGoalExp=%lu, DEXGoalExp=%lu, INTGoalExp=%lu, BladeGoalExp=%lu, SwordGoalExp=%lu, GunGoalExp=%lu, EnchantGoalExp=%lu, HealGoalExp=%lu, ETCGoalExp=%lu, Alignment=%d, Fame=%ld, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu, AdvancedSTR=%u, AdvancedDEX=%u, AdvancedINT=%u, Bonus=%u WHERE Name='%s'",
 								getSTRGoalExp(), getDEXGoalExp(), getINTGoalExp(), m_GoalExp[SKILL_DOMAIN_BLADE], m_GoalExp[SKILL_DOMAIN_SWORD], m_GoalExp[SKILL_DOMAIN_GUN], m_GoalExp[SKILL_DOMAIN_ENCHANT], m_GoalExp[SKILL_DOMAIN_HEAL], m_GoalExp[SKILL_DOMAIN_ETC], m_Alignment, m_Fame, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(),
 								m_AdvancedSTR, m_AdvancedDEX, m_AdvancedINT, m_AdvancedAttrBonus, m_Name.c_str());
 
@@ -3937,7 +3981,7 @@ void Slayer::saveExps(void) const
 //     클라이언트에서 옵션으로 색값을 찾아서 쓴다.
 //----------------------------------------------------------------------
 void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLOR_MAX]) const
-//	throw()
+//	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -3983,8 +4027,8 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 		*/
 
 //		colors[slayerColor] = (pItem->isUnique()? UNIQUE_OPTION : pItem->getFirstOptionType());
-		if (pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
-		else if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+		if ( pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
+		else if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
 		else colors[slayerColor] = pItem->getFirstOptionType();
 
 		flag |= (getPantsType(IType) << slayerBit);
@@ -4015,8 +4059,8 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 
 //		colors[slayerColor] = (pItem->isUnique()? UNIQUE_OPTION : pItem->getFirstOptionType());
 
-		if (pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
-		else if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+		if ( pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
+		else if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
 		else colors[slayerColor] = pItem->getFirstOptionType();
 
 		flag |= (getJacketType(IType) << slayerBit);
@@ -4048,8 +4092,8 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 
 //		colors[slayerColor] = (pItem->isUnique()? UNIQUE_OPTION : pItem->getFirstOptionType());
 
-		if (pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
-		else if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+		if ( pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
+		else if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
 		else colors[slayerColor] = pItem->getFirstOptionType();
 
 		flag |= (getHelmetType(IType) << slayerBit);
@@ -4084,9 +4128,9 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 
 //		colors[slayerColor] = (pItem->isUnique()? UNIQUE_OPTION : pItem->getFirstOptionType());
 
-//		if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
-		if (pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
-		else if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+//		if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+		if ( pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
+		else if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
 		else colors[slayerColor] = pItem->getFirstOptionType();
 
 		flag |= (getShieldType(IType) << slayerBit);
@@ -4128,8 +4172,8 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 
 		//colors[slayerColor] = (pItem->isUnique()? UNIQUE_OPTION : pItem->getFirstOptionType());
 
-		if (pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
-		else if (pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
+		if ( pItem->isUnique() ) colors[slayerColor] = UNIQUE_OPTION;
+		else if ( pItem->isTimeLimitItem() ) colors[slayerColor] = QUEST_OPTION;
 		else colors[slayerColor] = pItem->getFirstOptionType();
 
 		flag |= (weaponType << slayerBit);
@@ -4154,7 +4198,7 @@ void Slayer::saveInitialRank(void)
 	int maxDomainLevel = getHighestSkillDomainLevel();
 
 	int curRank = max(1, (maxDomainLevel+3) / 4);
-	m_pRank->SET_LEVEL(curRank);
+	m_pRank->SET_LEVEL( curRank );
 /*
 	SLAYER_RECORD prev;
 	getSlayerRecord(prev);
@@ -4258,87 +4302,87 @@ Slayer::addShape(Item::ItemClass IClass, ItemType_t IType, Color_t color)
 			//m_SlayerInfo.setWeaponType(WEAPON_MACE);
 
 			m_SlayerInfo.setWeaponType(WEAPON_MACE);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_CROSS:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_CROSS);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_BLADE:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_BLADE);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_AR:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_AR);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SR:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_SR);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SMG:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_SMG);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_SG:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_SG);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_HELM:
 			bisChange = true;
 
 			m_SlayerInfo.setHelmetType(getHelmetType(IType));
-			m_SlayerInfo.setHelmetColor(color);
+			m_SlayerInfo.setHelmetColor( color );
 			break;
 		case Item::ITEM_CLASS_SHIELD:
 			bisChange = true;
 
 			m_SlayerInfo.setShieldType(getShieldType(IType));
-			m_SlayerInfo.setShieldColor(color);
+			m_SlayerInfo.setShieldColor( color );
 			break;
 		case Item::ITEM_CLASS_SWORD:
 			bisWeapon = true;
 			bisChange = true;
 
 			m_SlayerInfo.setWeaponType(WEAPON_SWORD);
-			m_SlayerInfo.setWeaponColor(color);
+			m_SlayerInfo.setWeaponColor( color );
 			break;
 		case Item::ITEM_CLASS_COAT:
 			bisChange = true;
 
 			m_SlayerInfo.setJacketType(getJacketType(IType));
-			m_SlayerInfo.setJacketColor(color);
+			m_SlayerInfo.setJacketColor( color );
 			break;
 		case Item::ITEM_CLASS_TROUSER:
 			bisChange = true;
 
 			m_SlayerInfo.setPantsType(getPantsType(IType));
-			m_SlayerInfo.setPantsColor(color);
+			m_SlayerInfo.setPantsColor( color );
 			break;
 
 		case Item::ITEM_CLASS_SHOULDER_ARMOR:
 			bisChange = true;
 
 			m_SlayerInfo.setShoulderType(getShoulderType(IType));
-			m_SlayerInfo.setShoulderColor(color);
+			m_SlayerInfo.setShoulderColor( color );
 			break;
 
 		default:
@@ -4478,7 +4522,7 @@ Slayer::getItemShapeColor(Item* pItem, OptionInfo* pOptionInfo) const
 {
 	Color_t color;
 
-	if (pItem->isTimeLimitItem() )
+	if ( pItem->isTimeLimitItem() )
 	{
 		// 퀘스트 아이템도 특정한 색깔로 대체해서 처리한다.
 		color = QUEST_COLOR;
@@ -4575,12 +4619,12 @@ bool Slayer::isPayPlayAvaiable()
 	__END_CATCH
 }
 
-QuestGrade_t Slayer::getQuestGrade() const throw() { return getTotalAttr(ATTR_BASIC ) - getSkillDomainLevel(SKILL_DOMAIN_HEAL)*1.5 - getSkillDomainLevel(SKILL_DOMAIN_ENCHANT)*1.5; }
+QuestGrade_t Slayer::getQuestGrade() const throw() { return getTotalAttr( ATTR_BASIC ) - getSkillDomainLevel(SKILL_DOMAIN_HEAL)*1.5 - getSkillDomainLevel(SKILL_DOMAIN_ENCHANT)*1.5; }
 
 // 순수 능력치 합이 40 미만이면 초보(Novice) 이다.
 bool Slayer::isNovice() const
 {
-	return (m_STR[ATTR_BASIC] + m_DEX[ATTR_BASIC] + m_INT[ATTR_BASIC] ) <= 40;
+	return ( m_STR[ATTR_BASIC] + m_DEX[ATTR_BASIC] + m_INT[ATTR_BASIC] ) <= 40;
 }
 
 void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInfo)
@@ -4594,13 +4638,13 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 		damage = getPercentValue(damage, g_pVariableManager->getExpRatio());
 
 	// 시간대에 따라 경험치 두배
-	if (isAffectExp2X() )
+	if ( isAffectExp2X() )
 		damage <<= 1;
 
-	if (isFlag(Effect::EFFECT_CLASS_BONUS_EXP ) ) damage *= 2;
+	if ( isFlag( Effect::EFFECT_CLASS_BONUS_EXP ) ) damage *= 2;
 
-	Exp_t MainPoint = max(1, damage * 8 / 10);
-	Exp_t SubPoint = max(1, damage / 10);
+	Exp_t MainPoint = max( 1, damage * 8 / 10 );
+	Exp_t SubPoint = max( 1, damage / 10 );
 
 #ifdef __CHINA_SERVER__
 
@@ -4609,13 +4653,13 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 
 	SkillLevel_t HighSkillLevel = getHighestSkillDomainLevel();
 
-	if (HighSkillLevel < 50 )
+	if ( HighSkillLevel < 50 )
 		userExpConst = 1.0;
-	else if (HighSkillLevel > 49 && HighSkillLevel < 75 )
+	else if ( HighSkillLevel > 49 && HighSkillLevel < 75 )
 		userExpConst = 0.8;
-	else if (HighSkillLevel > 74 && HighSkillLevel < 100 )
+	else if ( HighSkillLevel > 74 && HighSkillLevel < 100 )
 		userExpConst = 0.6;
-	else if (HighSkillLevel > 99 )
+	else if ( HighSkillLevel > 99 )
 		userExpConst = 0.4;
 
 	MainPoint = (Exp_t)(MainPoint*userExpConst);
@@ -4628,13 +4672,13 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 	// 도메인 레벨이 100 아래로 도로 떨어졌어도 능력치 총합이 300을 넘었을 경우 300의 제한을 받지 않는다.
 
 	SkillLevel_t	MaxDomainLevel	= getHighestSkillDomainLevel();
-	Attr_t			TotalAttr		= getTotalAttr(ATTR_BASIC);
+	Attr_t			TotalAttr		= getTotalAttr( ATTR_BASIC );
     Attr_t          TotalAttrBound      = 0;        // 능력치 총합 제한
     Attr_t          AttrBound           = 0;        // 단일 능력치 제한
     Attr_t          OneAttrExpBound     = 0;        // 한 개의 능력치에만 경험치 주는 능력치 총합 경계값
 	Attr_t			SubAttrMax			= 0;		// 보조 능력치 최대값
 
-	if (MaxDomainLevel <= SLAYER_BOUND_LEVEL && TotalAttr <= SLAYER_BOUND_ATTR_SUM )
+	if ( MaxDomainLevel <= SLAYER_BOUND_LEVEL && TotalAttr <= SLAYER_BOUND_ATTR_SUM )
 	{
 		TotalAttrBound  = SLAYER_BOUND_ATTR_SUM;        // 300
 		AttrBound       = SLAYER_BOUND_ATTR;            // 200
@@ -4655,12 +4699,12 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 
 	bool levelUpSubAttrs[2] = { false, false };
 
-	for (int itr = ATTR_KIND_STR ; itr != ATTR_KIND_MAX ; ++itr )
+	for ( int itr = ATTR_KIND_STR ; itr != ATTR_KIND_MAX ; ++itr )
 	{
-		if (m_pAttrs[itr] != pMainAttr ) pSubAttrs[count++] = m_pAttrs[itr];
+		if ( m_pAttrs[itr] != pMainAttr ) pSubAttrs[count++] = m_pAttrs[itr];
 	}
 
-	if (pSubAttrs[0]->getLevel() < pSubAttrs[1]->getLevel() )
+	if ( pSubAttrs[0]->getLevel() < pSubAttrs[1]->getLevel() )
 	{
 		Attr* pTemp;
 		SWAP(pSubAttrs[0], pSubAttrs[1], pTemp);
@@ -4669,43 +4713,43 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 	bool downOtherLevel = TotalAttr >= TotalAttrBound;
 	bool upOtherLevel = TotalAttr < OneAttrExpBound;
 	bool canLevelUp = pMainAttr->getLevel() < AttrBound;
-	bool levelUpMainAttr = pMainAttr->increaseExp(MainPoint, canLevelUp);
+	bool levelUpMainAttr = pMainAttr->increaseExp( MainPoint, canLevelUp );
 
-	if (levelUpMainAttr && downOtherLevel )
+	if ( levelUpMainAttr && downOtherLevel )
 	{
 		pSubAttrs[0]->levelDown();
 		levelUpSubAttrs[0] = true;
 	}
 
-	if (upOtherLevel )
+	if ( upOtherLevel )
 	{
-		levelUpSubAttrs[0] = pSubAttrs[0]->increaseExp(SubPoint ) || levelUpSubAttrs[0];
-		levelUpSubAttrs[1] = pSubAttrs[1]->increaseExp(SubPoint);
+		levelUpSubAttrs[0] = pSubAttrs[0]->increaseExp( SubPoint ) || levelUpSubAttrs[0];
+		levelUpSubAttrs[1] = pSubAttrs[1]->increaseExp( SubPoint );
 	}
 	else
 	{
-		if (pSubAttrs[0]->getLevel() < SubAttrMax )
-			levelUpSubAttrs[0] = pSubAttrs[0]->increaseExp(SubPoint ) || levelUpSubAttrs[0];
-		if (pSubAttrs[1]->getLevel() < SubAttrMax )
-			levelUpSubAttrs[1] = pSubAttrs[1]->increaseExp(SubPoint ) || levelUpSubAttrs[1];
+		if ( pSubAttrs[0]->getLevel() < SubAttrMax )
+			levelUpSubAttrs[0] = pSubAttrs[0]->increaseExp( SubPoint ) || levelUpSubAttrs[0];
+		if ( pSubAttrs[1]->getLevel() < SubAttrMax )
+			levelUpSubAttrs[1] = pSubAttrs[1]->increaseExp( SubPoint ) || levelUpSubAttrs[1];
 	}
 
-	if (++m_AttrExpSaveCount > ATTR_EXP_SAVE_PERIOD )
+	if ( ++m_AttrExpSaveCount > ATTR_EXP_SAVE_PERIOD )
 	{
 		char pField[256];
 		sprintf(pField, "STRGoalExp=%ld, DEXGoalExp=%ld, INTGoalExp=%ld",
 							getSTRGoalExp(), getDEXGoalExp(), getINTGoalExp());
 
-		tinysave(pField);
+		tinysave( pField );
 
 		m_AttrExpSaveCount = 0;
 	}
 
-	if (levelUpMainAttr || levelUpSubAttrs[0] || levelUpSubAttrs[1] )
+	if ( levelUpMainAttr || levelUpSubAttrs[0] || levelUpSubAttrs[1] )
 	{
 		healCreatureForLevelUp(this, modifyInfo, &prev);
-		sendEffectLevelUp(this);
-		if (g_pVariableManager->isNewbieTransportToGuild() ) checkNewbieTransportToGuild(this);
+		sendEffectLevelUp( this );
+		if ( g_pVariableManager->isNewbieTransportToGuild() ) checkNewbieTransportToGuild(this);
 
 		char pField[256];
 		sprintf(pField, "STR=%d, DEX=%d, INTE=%d, STRGoalExp=%ld, DEXGoalExp=%ld, INTGoalExp=%ld",
@@ -4715,7 +4759,7 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 							m_pAttrs[ATTR_KIND_INT]->getLevel(),
 							getSTRGoalExp(), getDEXGoalExp(), getINTGoalExp());
 
-		tinysave(pField);
+		tinysave( pField );
 	}
 
 	modifyInfo.addLongData(MODIFY_STR_EXP, getSTRGoalExp());
@@ -4723,23 +4767,23 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 	modifyInfo.addLongData(MODIFY_INT_EXP, getINTGoalExp());
 }
 
-void Slayer::setLastTarget(ObjectID_t value )
+void Slayer::setLastTarget( ObjectID_t value )
 {
-	if (getPet() != NULL && value != getLastTarget() )
+	if ( getPet() != NULL && value != getLastTarget() )
 	{
 		GCOtherModifyInfo gcOMI;
-		gcOMI.setObjectID(getObjectID());
-		gcOMI.addLongData(MODIFY_LAST_TARGET, value);
+		gcOMI.setObjectID( getObjectID() );
+		gcOMI.addLongData( MODIFY_LAST_TARGET, value );
 
-		m_pZone->broadcastPacket(getX(), getY(), &gcOMI, this);
+		m_pZone->broadcastPacket( getX(), getY(), &gcOMI, this );
 
 		GCModifyInformation gcMI;
-		gcMI.addLongData(MODIFY_LAST_TARGET, value);
+		gcMI.addLongData( MODIFY_LAST_TARGET, value );
 
-		getPlayer()->sendPacket(&gcMI);
+		getPlayer()->sendPacket( &gcMI );
 	}
 
-	Creature::setLastTarget(value);
+	Creature::setLastTarget( value );
 }
 
 void Slayer::initPetQuestTarget()
@@ -4748,47 +4792,47 @@ void Slayer::initPetQuestTarget()
 
 	int minClass = 1, maxClass = 1;
 
-	if (grade <= 60 )
+	if ( grade <= 60 )
 	{
 		minClass = maxClass = 2;
 	}
-	else if (grade <= 95 )
+	else if ( grade <= 95 )
 	{
 		minClass = maxClass = 3;
 	}
-	else if (grade <= 130 )
+	else if ( grade <= 130 )
 	{
 		minClass = 4; maxClass = 5;
 	}
-	else if (grade <= 170 )
+	else if ( grade <= 170 )
 	{
 		minClass = maxClass = 6;
 	}
-	else if (grade <= 210 )
+	else if ( grade <= 210 )
 	{
 		minClass = maxClass = 7;
 	}
-	else if (grade <= 240 )
+	else if ( grade <= 240 )
 	{
 		minClass = 7; maxClass = 8;
 	}
-	else if (grade <= 270 )
+	else if ( grade <= 270 )
 	{
 		minClass = 8; maxClass = 9;
 	}
-	else if (grade <= 290 )
+	else if ( grade <= 290 )
 	{
 		minClass = 9; maxClass = 10;
 	}
-	else if (grade <= 300 )
+	else if ( grade <= 300 )
 	{
 		minClass = maxClass = 10;
 	}
-	else if (grade <= 320 )
+	else if ( grade <= 320 )
 	{
 		minClass = 10; maxClass = 11;
 	}
-	else if (grade <= 360 )
+	else if ( grade <= 360 )
 	{
 		minClass = 10; maxClass = 11;
 	}
@@ -4797,7 +4841,7 @@ void Slayer::initPetQuestTarget()
 		minClass = 11; maxClass = 12;
 	}
 
-	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass(minClass, maxClass);
+	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass( minClass, maxClass );
 	m_TargetNum = 80;
 	m_TimeLimit = 3600;
 }

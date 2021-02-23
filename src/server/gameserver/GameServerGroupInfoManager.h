@@ -13,15 +13,15 @@
 #include "Types.h"
 #include "Exception.h"
 #include "GameServerGroupInfo.h"
-#include <map>
+#include <hash_map>
 
-typedef map< ServerGroupID_t ,GameServerGroupInfo * > HashMapGameServerGroupInfo;
+typedef hash_map< ServerGroupID_t ,GameServerGroupInfo * > HashMapGameServerGroupInfo;
 
 //----------------------------------------------------------------------
 //
 // class GameServerGroupInfoManager;
 //
-// 게임 서버의 ID 를 키값으로 하는 GameServerGroupInfo의 map 을 
+// 게임 서버의 ID 를 키값으로 하는 GameServerGroupInfo의 hash_map 을 
 // 내부에 가지고 있다.
 //
 //----------------------------------------------------------------------
@@ -31,34 +31,34 @@ class GameServerGroupInfoManager {
 public :
 	
 	// constructor
-	GameServerGroupInfoManager () throw();
+	GameServerGroupInfoManager () throw ();
 	
 	// destructor
-	~GameServerGroupInfoManager () throw();
+	~GameServerGroupInfoManager () throw ();
 
 	// initialize manager
-	void init () throw(Error);
+	void init () throw ( Error );
 
 	// load from database
-	void load () throw(Error);
+	void load () throw ( Error );
 
 	// clear GameServerGroupInfos
-	void clear() throw(Error);
+	void clear() throw ( Error );
 	
 	// add info
-	void addGameServerGroupInfo (GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) throw(DuplicatedException);
+	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) throw ( DuplicatedException );
 	
 	// delete info
-	void deleteGameServerGroupInfo (const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) throw(NoSuchElementException);
+	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
 	
 	// get GameServerGroupInfo by ServerGroupID
-	GameServerGroupInfo * getGameServerGroupInfo (const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const throw(NoSuchElementException);
+	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const throw( NoSuchElementException );
 
 	// get count of info
-	uint getSize (WorldID_t WorldID ) const throw() { return m_GameServerGroupInfos[WorldID].size(); }
+	uint getSize ( WorldID_t WorldID ) const throw () { return m_GameServerGroupInfos[WorldID].size(); }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 private :
 	

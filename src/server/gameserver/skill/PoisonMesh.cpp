@@ -6,17 +6,17 @@
 
 #include "PoisonMesh.h"
 #include "EffectPoisonMesh.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Vampire.h"
 #include "Reflection.h"
 #include "RankBonus.h"
@@ -48,7 +48,7 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 		// 면역이거나. by sigi. 2002.9.13
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -102,8 +102,8 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 			EffectPoisonMesh* pEffectPoisonMesh = new EffectPoisonMesh(pTargetCreature);
 			pEffectPoisonMesh->setDeadline(output.Duration);
 			pEffectPoisonMesh->setNextTime(0);
-			pEffectPoisonMesh->setCasterID(pVampire->getObjectID());
-			pEffectPoisonMesh->setDamage(output.Damage);
+			pEffectPoisonMesh->setCasterID( pVampire->getObjectID() );
+			pEffectPoisonMesh->setDamage( output.Damage );
 			pTargetCreature->addEffect(pEffectPoisonMesh);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_POISON_MESH);
 
@@ -178,7 +178,7 @@ void PoisonMesh::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature);
 		}
 
-		if (bTimeCheck ) pVampireSkillSlot->setRunTime(output.Delay);
+		if ( bTimeCheck ) pVampireSkillSlot->setRunTime(output.Delay);
 	} 
 	catch(Throwable & t) 
 	{

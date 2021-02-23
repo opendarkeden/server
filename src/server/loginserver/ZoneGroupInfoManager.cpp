@@ -17,7 +17,7 @@
 // constructor
 //----------------------------------------------------------------------
 ZoneGroupInfoManager::ZoneGroupInfoManager () 
-	throw()
+	throw ()
 {
 }
 	
@@ -25,13 +25,13 @@ ZoneGroupInfoManager::ZoneGroupInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 ZoneGroupInfoManager::~ZoneGroupInfoManager () 
-	throw()
+	throw ()
 {
 	// hashmap 안의 각 pair 의 second, 즉 ZoneGroupInfo 객체만을 삭제하고
 	// pair 자체는 그대로 둔다. (ZoneGroupInfo가 힙에 생성되어 있다는 것에
 	// 유의하라. 즉 필살삭제를 해야 한다. 하긴, ZGIM이 destruct 된다는 것은
 	// 로그인 서버가 셧다운된다는 것을 의미하니깐.. - -; )
-	for (HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.begin() ; 
+	for ( HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.begin() ; 
 		  itr != m_ZoneGroupInfos.end() ; 
 		  itr ++ ) {
 		delete itr->second;
@@ -47,7 +47,7 @@ ZoneGroupInfoManager::~ZoneGroupInfoManager ()
 // initialize GSIM
 //----------------------------------------------------------------------
 void ZoneGroupInfoManager::init ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -55,7 +55,7 @@ void ZoneGroupInfoManager::init ()
 	load();
 
 	// just print to cout
-	//cout << toString() << endl;
+	cout << toString() << endl;
 
 	__END_CATCH
 }
@@ -64,7 +64,7 @@ void ZoneGroupInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void ZoneGroupInfoManager::load ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -77,14 +77,14 @@ void ZoneGroupInfoManager::load ()
 			"SELECT ZoneGroupID , ServerID FROM ZoneGroupInfo"
 		);
 
-		while (pResult->next() ) {
+		while ( pResult->next() ) {
 			ZoneGroupInfo * pZoneGroupInfo = new ZoneGroupInfo();
-			pZoneGroupInfo->setZoneGroupID(pResult->getWORD(1));
-			pZoneGroupInfo->setServerID(pResult->getWORD(2));
-			addZoneGroupInfo(pZoneGroupInfo);
+			pZoneGroupInfo->setZoneGroupID( pResult->getWORD(1) );
+			pZoneGroupInfo->setServerID( pResult->getWORD(2) );
+			addZoneGroupInfo( pZoneGroupInfo );
 		}
 
-	} catch (SQLQueryException & sqe ) {
+	} catch ( SQLQueryException & sqe ) {
 
 		// 필살 삭제!
 		delete pStmt;
@@ -101,14 +101,14 @@ void ZoneGroupInfoManager::load ()
 //----------------------------------------------------------------------
 // add info 
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::addZoneGroupInfo (ZoneGroupInfo * pZoneGroupInfo ) 
-	throw(DuplicatedException )
+void ZoneGroupInfoManager::addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
-	HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.find(pZoneGroupInfo->getZoneGroupID());
+	HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.find( pZoneGroupInfo->getZoneGroupID() );
 	
-	if (itr != m_ZoneGroupInfos.end() )
+	if ( itr != m_ZoneGroupInfos.end() )
 		throw DuplicatedException("duplicated zone id");
 
 	m_ZoneGroupInfos[ pZoneGroupInfo->getZoneGroupID() ] = pZoneGroupInfo;
@@ -119,20 +119,20 @@ void ZoneGroupInfoManager::addZoneGroupInfo (ZoneGroupInfo * pZoneGroupInfo )
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::deleteZoneGroupInfo (ZoneGroupID_t zoneGroupID )
-	throw(NoSuchElementException )
+void ZoneGroupInfoManager::deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID )
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
-	HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.find(zoneGroupID);
+	HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.find( zoneGroupID );
 	
-	if (itr != m_ZoneGroupInfos.end() ) {
+	if ( itr != m_ZoneGroupInfos.end() ) {
 
 		// ZoneGroupInfo 를 삭제한다.
 		delete itr->second;
 
 		// pair를 삭제한다.
-		m_ZoneGroupInfos.erase(itr);
+		m_ZoneGroupInfos.erase( itr );
 
 	} else { // not found
 
@@ -148,16 +148,16 @@ void ZoneGroupInfoManager::deleteZoneGroupInfo (ZoneGroupID_t zoneGroupID )
 //----------------------------------------------------------------------
 // get info
 //----------------------------------------------------------------------
-ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo (ZoneGroupID_t zoneGroupID ) const
-	throw(NoSuchElementException )
+ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) const
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
 	ZoneGroupInfo * pZoneGroupInfo = NULL;
 
-	HashMapZoneGroupInfo::const_iterator itr = m_ZoneGroupInfos.find(zoneGroupID);
+	HashMapZoneGroupInfo::const_iterator itr = m_ZoneGroupInfos.find( zoneGroupID );
 	
-	if (itr != m_ZoneGroupInfos.end() ) {
+	if ( itr != m_ZoneGroupInfos.end() ) {
 
 		pZoneGroupInfo = itr->second;
 
@@ -165,7 +165,7 @@ ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo (ZoneGroupID_t zoneGroupI
 
 		StringStream msg;
 		msg << "ZoneGroupID : " << zoneGroupID;
-		throw NoSuchElementException(msg.toString());
+		throw NoSuchElementException( msg.toString() );
 
 	}
 
@@ -179,7 +179,7 @@ ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo (ZoneGroupID_t zoneGroupI
 // get debug string
 //----------------------------------------------------------------------
 string ZoneGroupInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -187,7 +187,7 @@ string ZoneGroupInfoManager::toString () const
 
 	msg << "ZoneGroupInfoManager(";
 
-	if (m_ZoneGroupInfos.empty() ) {
+	if ( m_ZoneGroupInfos.empty() ) {
 
 		msg << "EMPTY";
 
@@ -198,7 +198,7 @@ string ZoneGroupInfoManager::toString () const
 		//
 		// for_each()를 사용할 것
 		//--------------------------------------------------
-		for (HashMapZoneGroupInfo::const_iterator itr = m_ZoneGroupInfos.begin() ; 
+		for ( HashMapZoneGroupInfo::const_iterator itr = m_ZoneGroupInfos.begin() ; 
 			  itr != m_ZoneGroupInfos.end() ; 
 			  itr ++ )
 			msg << itr->second->toString();

@@ -26,7 +26,7 @@ UserGateway::s_UserGatewayTypeToString[MAX_USER_GATEWAY_TYPE] =
 };
 
 UserGateway::UserGateway()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ UserGateway::UserGateway()
 }
 
 UserGateway::~UserGateway()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -47,14 +47,14 @@ UserGateway::~UserGateway()
 
 void 	
 UserGateway::clear()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	m_UserInfos.clear();
-	m_UserInfos.reserve(MAX_USER_GATEWAY_TYPE);
+	m_UserInfos.reserve( MAX_USER_GATEWAY_TYPE );
 
 	for (int i=0; i<MAX_USER_GATEWAY_TYPE; i++)
 	{
@@ -67,7 +67,7 @@ UserGateway::clear()
 }
 
 void    UserGateway::passUser(UserGatewayType ugt)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ void    UserGateway::passUser(UserGatewayType ugt)
 }
 
 int     UserGateway::getInfo(UserGatewayType ugt) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -99,7 +99,7 @@ int     UserGateway::getInfo(UserGatewayType ugt) const
 }
 
 int     UserGateway::getTotalInfo() const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -122,13 +122,13 @@ int     UserGateway::getTotalInfo() const
 
 string	
 UserGateway::toString()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "UserGateway(";
+	msg << "UserGateway( ";
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 

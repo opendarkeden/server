@@ -17,17 +17,17 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionHasEnoughCastleEntranceFee::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	Gold_t fee = g_pCastleInfoManager->getCastleInfo(m_ZoneID )->getEntranceFee();
+	Gold_t fee = g_pCastleInfoManager->getCastleInfo( m_ZoneID )->getEntranceFee();
 	Gold_t remain = pPC->getGold();
 
-	if(fee <= remain ) return true;
+	if( fee <= remain ) return true;
 	else return false;
 }
 
@@ -35,7 +35,7 @@ bool ConditionHasEnoughCastleEntranceFee::isSatisfied (Creature * pCreature1 , C
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionHasEnoughCastleEntranceFee::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -52,7 +52,7 @@ void ConditionHasEnoughCastleEntranceFee::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionHasEnoughCastleEntranceFee::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

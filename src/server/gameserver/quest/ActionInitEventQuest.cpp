@@ -15,7 +15,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -35,23 +35,23 @@ void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	Assert(pCreature1 != NULL);
-	Assert(pCreature1->isNPC());
+	Assert( pCreature1 != NULL );
+	Assert( pCreature1->isNPC() );
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 	EventQuestInfoManager* pQIM = new EventQuestInfoManager(pNPC);
 
 	pQIM->load(pNPC->getName());
-	pNPC->setQuestInfoManager(pQIM);
+	pNPC->setQuestInfoManager( pQIM );
 
 	SimpleQuestRewardManager* pRIM = new SimpleQuestRewardManager(pNPC);
 
 	pRIM->load(pNPC->getName());
-	pNPC->setRewardClassInfoManager(pRIM);
+	pNPC->setRewardClassInfoManager( pRIM );
 
 	__END_CATCH
 }
@@ -61,7 +61,7 @@ void ActionInitEventQuest::execute (Creature * pCreature1 , Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionInitEventQuest::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -56,35 +56,35 @@
 #include "CastleInfoManager.h"
 #include "PKZoneInfoManager.h"
 
-#include "GCUpdateInfo.h"
-#include "GCAddSlayer.h"
-#include "GCAddVampire.h"
-#include "GCAddOusters.h"
-#include "GCAddMonster.h"
-#include "GCAddNPC.h"
-#include "GCAddNewItemToZone.h"
-#include "GCDropItemToZone.h"
-#include "GCAddSlayerCorpse.h"
-#include "GCAddVampireCorpse.h"
-#include "GCAddMonsterCorpse.h"
-#include "GCAddOustersCorpse.h"
-#include "GCOtherModifyInfo.h"
-#include "GCSystemMessage.h"
-#include "GCCreateItem.h"
-#include "GCAddEffect.h"
-#include "GCWarScheduleList.h"
-#include "GCMiniGameScores.h"
-#include "GCPetStashList.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCAddSlayer.h"
+#include "Gpackets/GCAddVampire.h"
+#include "Gpackets/GCAddOusters.h"
+#include "Gpackets/GCAddMonster.h"
+#include "Gpackets/GCAddNPC.h"
+#include "Gpackets/GCAddNewItemToZone.h"
+#include "Gpackets/GCDropItemToZone.h"
+#include "Gpackets/GCAddSlayerCorpse.h"
+#include "Gpackets/GCAddVampireCorpse.h"
+#include "Gpackets/GCAddMonsterCorpse.h"
+#include "Gpackets/GCAddOustersCorpse.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCWarScheduleList.h"
+#include "Gpackets/GCMiniGameScores.h"
+#include "Gpackets/GCPetStashList.h"
 
-#include "GCUpdateInfo.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCModifyInformation.h"
 #include "ModifyInfo.h"
-//#include "GCItemNameInfoList.h"
+//#include "Gpackets/GCItemNameInfoList.h"
 
 #include "GuildManager.h"
 
-#include "Assert1.h"
-//#include "LogClient.h"
+#include "Assert.h"
+#include "LogClient.h"
 #include "DB.h"
 #include <list>
 #include <stdio.h>
@@ -102,7 +102,7 @@ void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
 	__BEGIN_TRY
 
  	// 가입한놈에게에 보낸다.
-	list<Creature*> cList = g_pPCFinder->getGuildCreatures(gID , 300);
+	list<Creature*> cList = g_pPCFinder->getGuildCreatures( gID , 300);
 	for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 	{
 
@@ -118,11 +118,11 @@ void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
 
 			makeGCOtherModifyInfoGuildUnion(&gcOtherModifyInfo, pOtherCreature);
 
-			__ENTER_CRITICAL_SECTION((*(pZone->getZoneGroup())) )
+			__ENTER_CRITICAL_SECTION( (*(pZone->getZoneGroup())) )
 
 			pZone->broadcastPacket(X, Y, &gcOtherModifyInfo , pOtherCreature);
 
-			__LEAVE_CRITICAL_SECTION((*(pZone->getZoneGroup())) )
+			__LEAVE_CRITICAL_SECTION( (*(pZone->getZoneGroup())) )
 
 		}
 	}
@@ -144,10 +144,10 @@ void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
 	Assert(pTargetGamePlayer!=NULL);
 
 	PlayerCreature* pTargetPlayerCreature = dynamic_cast<PlayerCreature*>(pTargetGamePlayer->getCreature());
-	Assert(pTargetPlayerCreature != NULL);
+	Assert( pTargetPlayerCreature != NULL );
 
  	// 가입한놈에게에 보낸다.
-	list<Creature*> cList = g_pPCFinder->getGuildCreatures(pTargetPlayerCreature->getGuildID() , 300);
+	list<Creature*> cList = g_pPCFinder->getGuildCreatures( pTargetPlayerCreature->getGuildID() , 300);
 	for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 	{
 
@@ -171,11 +171,11 @@ void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
 				}
 				else
 				{
-					__ENTER_CRITICAL_SECTION((*(pZone->getZoneGroup())) )
+					__ENTER_CRITICAL_SECTION( (*(pZone->getZoneGroup())) )
 
 					pZone->broadcastPacket(X, Y, &gcOtherModifyInfo , pOtherCreature);
 
-					__LEAVE_CRITICAL_SECTION((*(pZone->getZoneGroup())) )
+					__LEAVE_CRITICAL_SECTION( (*(pZone->getZoneGroup())) )
 
 				}
 			}
@@ -199,10 +199,10 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
 	Assert(pGamePlayer!=NULL);
 
 	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPlayerCreature != NULL);
+	Assert( pPlayerCreature != NULL );
 	
 	GuildUnion *pUnion = NULL;
-	pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
+	pUnion = GuildUnionManager::Instance().getGuildUnion( pPlayerCreature->getGuildID() );
 
 	// 소속된 연합이 없으면
 	if(pUnion == NULL)
@@ -219,9 +219,9 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
 		bool	isGuildMaster = false;
 		bool	isGuildUnionMaster = false;
 
-		pModifyInformation->addShortData(MODIFY_UNIONID, pUnion->getUnionID());
+		pModifyInformation->addShortData(MODIFY_UNIONID, pUnion->getUnionID() );
 		
-		if(g_pGuildManager->isGuildMaster (pPlayerCreature->getGuildID(), pPlayerCreature))
+		if(g_pGuildManager->isGuildMaster ( pPlayerCreature->getGuildID(), pPlayerCreature))
 		{
 			isGuildMaster = true;
 		}
@@ -231,12 +231,12 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
 			isGuildUnionMaster = true;
 		}
 
-		if(isGuildMaster && isGuildUnionMaster )
+		if( isGuildMaster && isGuildUnionMaster )
 		{
 			pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_MASTER);
 			//cout << "GCModifyInfo->GuildInformation - " << (int)pUnion->getUnionID() << " / UNION_MASTER" << endl;
 		}
-		else if(isGuildMaster && !isGuildUnionMaster )
+		else if( isGuildMaster && !isGuildUnionMaster )
 		{
 			pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_GUILD_MASTER);
 			//cout << "GCModifyInfo->GuildInformation - " << (int)pUnion->getUnionID() << " / UNION_GUILD_MASTER" << endl;
@@ -268,10 +268,10 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 	Assert(pGamePlayer!=NULL);
 
 	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPlayerCreature != NULL);
+	Assert( pPlayerCreature != NULL );
 	
 	GuildUnion *pUnion = NULL;
-	pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
+	pUnion = GuildUnionManager::Instance().getGuildUnion( pPlayerCreature->getGuildID() );
 
 	// 소속된 연합이 없으면
 	if(pUnion == NULL)
@@ -288,9 +288,9 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 		bool	isGuildMaster = false;
 		bool	isGuildUnionMaster = false;
 
-		pModifyInformation->addShortData(MODIFY_UNIONID, pUnion->getUnionID());
+		pModifyInformation->addShortData(MODIFY_UNIONID, pUnion->getUnionID() );
 		
-		if(g_pGuildManager->isGuildMaster (pPlayerCreature->getGuildID(), pPlayerCreature))
+		if(g_pGuildManager->isGuildMaster ( pPlayerCreature->getGuildID(), pPlayerCreature))
 		{
 			isGuildMaster = true;
 		}
@@ -300,12 +300,12 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 			isGuildUnionMaster = true;
 		}
 
-		if(isGuildMaster && isGuildUnionMaster )
+		if( isGuildMaster && isGuildUnionMaster )
 		{
 			pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_MASTER);
 //			cout << "GCModifyInfo->GuildInformation - " << (int)pUnion->getUnionID() << " / UNION_MASTER" << endl;
 		}
-		else if(isGuildMaster && !isGuildUnionMaster )
+		else if( isGuildMaster && !isGuildUnionMaster )
 		{
 			pModifyInformation->addShortData(MODIFY_UNIONGRADE, GCUpdateInfo::UNION_GUILD_MASTER);
 //			cout << "GCModifyInfo->GuildInformation - " << (int)pUnion->getUnionID() << " / UNION_GUILD_MASTER" << endl;
@@ -327,14 +327,16 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 //
 // 포탈이나, 죽어서 맵 사이를 이동할 때 쓰는, GCUpdateInfo 정보를 구성한다.
 //////////////////////////////////////////////////////////////////////////////
-void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
+void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
+	throw()
+{
 	__BEGIN_TRY
 
 	////////////////////////////////////////////////////////////
 	// 존 위치 정보 구성
 	////////////////////////////////////////////////////////////
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert(pZone!=NULL);
 
 	ZoneCoord_t x = pCreature->getX();
 	ZoneCoord_t y = pCreature->getY();
@@ -349,17 +351,19 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	pUpdateInfo->setZoneY(y);
 
 	// DynamicZone 처리
-	if (pZone->isDynamicZone()) {
+	if ( pZone->isDynamicZone() )
+	{
 		DynamicZone* pDynamicZone = pZone->getDynamicZone();
-		Assert(pDynamicZone != NULL);
+		Assert( pDynamicZone != NULL );
 
-		pUpdateInfo->setZoneID(pDynamicZone->getTemplateZoneID());
+		pUpdateInfo->setZoneID( pDynamicZone->getTemplateZoneID() );
 	}
 
 	////////////////////////////////////////////////////////////
 	// 인벤토리 및 기어 정보 구성
 	////////////////////////////////////////////////////////////
-	if (pCreature->isSlayer()) {
+	if (pCreature->isSlayer())
+	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		Assert(pSlayer != NULL);
 
@@ -373,9 +377,11 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 		if (pSlayer->hasRideMotorcycle())
 			pUpdateInfo->setRideMotorcycleInfo(pSlayer->getRideMotorcycleInfo());
 
-		pUpdateInfo->setSMSCharge(pSlayer->getSMSCharge());
-		pUpdateInfo->setNicknameInfo(pSlayer->getNickname());
-	} else if (pCreature->isVampire()) {
+		pUpdateInfo->setSMSCharge( pSlayer->getSMSCharge() );
+		pUpdateInfo->setNicknameInfo( pSlayer->getNickname() );
+	}
+	else if ( pCreature->isVampire() )
+	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		Assert(pVampire != NULL);
 
@@ -386,21 +392,23 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 		pUpdateInfo->setGearInfo(pVampire->getGearInfo());
 		pUpdateInfo->setExtraInfo(pVampire->getExtraInfo());
 
-		pUpdateInfo->setSMSCharge(pVampire->getSMSCharge());
-		pUpdateInfo->setNicknameInfo(pVampire->getNickname());
-	} else if (pCreature->isOusters()) {
+		pUpdateInfo->setSMSCharge( pVampire->getSMSCharge() );
+		pUpdateInfo->setNicknameInfo( pVampire->getNickname() );
+	}
+	else if ( pCreature->isOusters() )
+	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		Assert(pOusters != NULL);
 
-		pUpdateInfo->setPCInfo(pOusters->getOustersInfo2());
+		pUpdateInfo->setPCInfo( pOusters->getOustersInfo2() );
 
 		// Inventory, Gear 정보 구성
-		pUpdateInfo->setInventoryInfo(pOusters->getInventoryInfo());
-		pUpdateInfo->setGearInfo(pOusters->getGearInfo());
-		pUpdateInfo->setExtraInfo(pOusters->getExtraInfo());
+		pUpdateInfo->setInventoryInfo( pOusters->getInventoryInfo() );
+		pUpdateInfo->setGearInfo( pOusters->getGearInfo() );
+		pUpdateInfo->setExtraInfo( pOusters->getExtraInfo() );
 
-		pUpdateInfo->setSMSCharge(pOusters->getSMSCharge());
-		pUpdateInfo->setNicknameInfo(pOusters->getNickname());
+		pUpdateInfo->setSMSCharge( pOusters->getSMSCharge() );
+		pUpdateInfo->setNicknameInfo( pOusters->getNickname() );
 	}
 
 	////////////////////////////////////////////////////////////
@@ -411,28 +419,43 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	////////////////////////////////////////////////////////////
 	// 시야 정보 구성
 	////////////////////////////////////////////////////////////
-	if (pZone->getZoneType() == ZONE_CASTLE) {
+	if (pZone->getZoneType()==ZONE_CASTLE )
+	{
 		pUpdateInfo->setDarkLevel(pZone->getDarkLevel());
 		pUpdateInfo->setLightLevel(pZone->getLightLevel());
-	} else if (g_pPKZoneInfoManager->isPKZone(pZone->getZoneID())) {
+	}
+	else if ( g_pPKZoneInfoManager->isPKZone( pZone->getZoneID() ) )
+	{
 		pUpdateInfo->setLightLevel(14);
 		pUpdateInfo->setDarkLevel(0);
-	} else if (pCreature->isSlayer()) {
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_LIGHTNESS)) {
+	}
+	else if (pCreature->isSlayer())
+	{
+		if (pCreature->isFlag(Effect::EFFECT_CLASS_LIGHTNESS))
+		{
 			pUpdateInfo->setLightLevel(15);
 			pUpdateInfo->setDarkLevel(1);
-		} else if (pCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE)) {
+		}
+		else if (pCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE))
+		{
 			pUpdateInfo->setDarkLevel(15);
 			pUpdateInfo->setLightLevel(1);
-		} else {
+		}
+		else
+		{
 			pUpdateInfo->setDarkLevel(pZone->getDarkLevel());
 			pUpdateInfo->setLightLevel(pZone->getLightLevel());
 		}
-	} else if (pCreature->isVampire()) {
+	}
+	else if ( pCreature->isVampire() )
+	{
 		pUpdateInfo->setDarkLevel(max(0, DARK_MAX - pZone->getDarkLevel()));
 		pUpdateInfo->setLightLevel(min(13, LIGHT_MAX - pZone->getLightLevel()));
-	} else if (pCreature->isOusters()) {
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE)) {
+	}
+	else if ( pCreature->isOusters() )
+	{
+		if (pCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE))
+		{
 			pUpdateInfo->setDarkLevel(15);
 			pUpdateInfo->setLightLevel(1);
 		}
@@ -441,9 +464,10 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	//		pUpdateInfo->setDarkLevel(15);
 	//		pUpdateInfo->setLightLevel(3);
 	//	}
-		else {
-			pUpdateInfo->setDarkLevel(13);
-			pUpdateInfo->setLightLevel(6);
+		else
+		{
+			pUpdateInfo->setDarkLevel( 13 );
+			pUpdateInfo->setLightLevel( 6 );
 		}
 	}
 
@@ -457,17 +481,19 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	// NPC 스프라이트 정보 구성
 	////////////////////////////////////////////////////////////
 	pUpdateInfo->setNPCCount(pZone->getNPCCount());
-	for (uint i = 0; i < pZone->getNPCCount(); i++)
+	for (uint i = 0 ; i < pZone->getNPCCount() ; i ++)
 		pUpdateInfo->setNPCType(i , pZone->getNPCType(i));
 
 	////////////////////////////////////////////////////////////
 	// 몬스터 스프라이트 정보 구성
 	////////////////////////////////////////////////////////////
 	// 마스터 레어에서 소환되는 몬스터를 미리 로딩한다.
-	if (pZone->isMasterLair()) {
+	if (pZone->isMasterLair())
+	{
 		// 사실은 SpriteType이다. -_-; by sigi. 2002.10.8
 		const int num = 25;
-		const MonsterType_t mtypes[num] = {
+		const MonsterType_t mtypes[num] =
+		{
 			27,		// 블러드워록
 			40,		// 골레머
 			41,		// 더티스트라이더
@@ -500,12 +526,14 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 			//92,103,102, 101
 		};
 
-		pUpdateInfo->setMonsterCount(num);
-		for (int i = 0; i < num; i++)
-			pUpdateInfo->setMonsterType(i, mtypes[i]);
-	} else {
+		pUpdateInfo->setMonsterCount( num );
+		for (int i = 0 ; i < num; i ++)
+			pUpdateInfo->setMonsterType(i , mtypes[i]);
+	}
+	else
+	{
 		pUpdateInfo->setMonsterCount(pZone->getMonsterCount());
-		for (uint i = 0; i < pZone->getMonsterCount(); i++)
+		for (uint i = 0 ; i < pZone->getMonsterCount() ; i ++)
 			pUpdateInfo->setMonsterType(i , pZone->getMonsterType(i));
 	}
 
@@ -514,7 +542,8 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	////////////////////////////////////////////////////////////
 	list<NPCInfo*>* pNPCInfos = pZone->getNPCInfos();
 	list<NPCInfo*>::const_iterator itr = pNPCInfos->begin();
-	for (; itr != pNPCInfos->end(); itr++) {
+	for (; itr != pNPCInfos->end(); itr++)
+	{
 		NPCInfo* pInfo = *itr;
 		pUpdateInfo->addNPCInfo(pInfo);
 	}
@@ -524,12 +553,15 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	ServerGroupID_t ZoneGroupCount = g_pZoneGroupManager->size();
 	UserNum_t ZoneUserNum = 0;
 
-	for(int i = 1; i < ZoneGroupCount+1; i++ ) {
+	for( int i = 1; i < ZoneGroupCount+1; i++ ) {
 		ZoneGroup* pZoneGroup;
 
-		try {
+		try
+		{
 			pZoneGroup = g_pZoneGroupManager->getZoneGroup(i);
-		} catch (NoSuchElementException&) {
+		}
+		catch (NoSuchElementException&)
+		{
 			throw Error("Critical Error : ZoneInfoManager에 해당 존그룹이 존재하지 않습니다.");
 		}
 
@@ -540,10 +572,10 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 
 	int UserModify = 0;
 
-	//ServerGroupID_t CurrentServerGroupID = g_pConfig->getPropertyInt("ServerID");
+	//ServerGroupID_t CurrentServerGroupID = g_pConfig->getPropertyInt( "ServerID" );
 
 	/*
-	if(CurrentServerGroupID == 0 
+	if( CurrentServerGroupID == 0 
 		|| CurrentServerGroupID == 1 
 		|| CurrentServerGroupID == 2 
 		|| CurrentServerGroupID == 7 ) {
@@ -552,18 +584,30 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 	*/
 	UserModify = 1000;
 
-	if (ZoneUserNum < 100 + UserModify)
-		pUpdateInfo->setServerStat(SERVER_FREE);
+	if (ZoneUserNum < 100 + UserModify ) 
+	{
+		pUpdateInfo->setServerStat( SERVER_FREE );
+	} 
 	else if (ZoneUserNum < 250 + UserModify ) 
-		pUpdateInfo->setServerStat(SERVER_NORMAL);
+	{
+		pUpdateInfo->setServerStat( SERVER_NORMAL );
+	} 
 	else if (ZoneUserNum < 400 + UserModify ) 
-		pUpdateInfo->setServerStat(SERVER_BUSY);
+	{
+		pUpdateInfo->setServerStat( SERVER_BUSY );
+	} 
 	else if (ZoneUserNum < 500 + UserModify ) 
-		pUpdateInfo->setServerStat(SERVER_VERY_BUSY);
+	{
+		pUpdateInfo->setServerStat( SERVER_VERY_BUSY );
+	} 
 	else if (ZoneUserNum >= 800 + UserModify ) 
-		pUpdateInfo->setServerStat(SERVER_FULL);
+	{
+		pUpdateInfo->setServerStat( SERVER_FULL );
+	} 
 	else 
-		pUpdateInfo->setServerStat(SERVER_DOWN);
+	{
+		pUpdateInfo->setServerStat( SERVER_DOWN );
+	}
 
 	// 프리미엄 정보 설정
 	if (pZone->isPremiumZone()) pUpdateInfo->setPremiumZone();
@@ -573,57 +617,72 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature) throw() {
 
 	if (pGamePlayer->isPremiumPlay()) pUpdateInfo->setPremiumPlay();
 
-	static bool bNonPK = g_pGameServerInfoManager->getGameServerInfo(1, g_pConfig->getPropertyInt("ServerID" ), g_pConfig->getPropertyInt("WorldID" ) )->isNonPKServer();
+	static bool bNonPK = g_pGameServerInfoManager->getGameServerInfo( 1, g_pConfig->getPropertyInt( "ServerID" ), g_pConfig->getPropertyInt( "WorldID" ) )->isNonPKServer();
 
-	if (bNonPK) {
+	if ( bNonPK )
+	{
 		pUpdateInfo->setNonPK(1);
 //		cout << "PK불가능" << endl;
-	} else {
+	}
+	else
+	{
 		pUpdateInfo->setNonPK(0);
 //		cout << "PK가능" << endl;
 	}
 
 	// GuildUnion Information
 	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPlayerCreature != NULL);
+	Assert( pPlayerCreature != NULL );
 	
 	GuildUnion *pUnion = NULL;
-	pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
+	pUnion = GuildUnionManager::Instance().getGuildUnion( pPlayerCreature->getGuildID() );
 
 	// 소속된 연합이 없으면
-	if(pUnion == NULL) {
+	if(pUnion == NULL)
+	{
 		pUpdateInfo->setGuildUnionID(0);
 		pUpdateInfo->setGuildUnionUserType(GCUpdateInfo::UNION_NOTHING);
 //		cout << "GCUpdateInfo->getGuildUnionUserType() : UNION_NOTHING (NOT UNION)" << endl;
-	} else {
+	}
+	else
+	{
 		// 소속된 연합이 있다.
 		bool	isGuildMaster = false;
 		bool	isGuildUnionMaster = false;
 
-		pUpdateInfo->setGuildUnionID(pUnion->getUnionID());
+		pUpdateInfo->setGuildUnionID( pUnion->getUnionID() );
 		
-		if(g_pGuildManager->isGuildMaster(pPlayerCreature->getGuildID(), pPlayerCreature))
+		if(g_pGuildManager->isGuildMaster ( pPlayerCreature->getGuildID(), pPlayerCreature))
+		{
 			isGuildMaster = true;
+		}
 
-		if(pUnion->getMasterGuildID() == pPlayerCreature->getGuildID())
+		if(pUnion->getMasterGuildID() == pPlayerCreature->getGuildID() )
+		{
 			isGuildUnionMaster = true;
+		}
 
-		if(isGuildMaster && isGuildUnionMaster) {
+		if( isGuildMaster && isGuildUnionMaster )
+		{
 			pUpdateInfo->setGuildUnionUserType(GCUpdateInfo::UNION_MASTER);
 //			cout << "GCUpdateInfo->getGuildUnionUserType() : UNION_MASTER" << endl;
-		} else if(isGuildMaster && !isGuildUnionMaster) {
+		}
+		else if( isGuildMaster && !isGuildUnionMaster )
+		{
 			pUpdateInfo->setGuildUnionUserType(GCUpdateInfo::UNION_GUILD_MASTER);
 //			cout << "GCUpdateInfo->getGuildUnionUserType() : UNION_GUILD_MASTER" << endl;
-		} else {
+		}
+		else
+		{
 			pUpdateInfo->setGuildUnionUserType(GCUpdateInfo::UNION_NOTHING);
 //			cout << "GCUpdateInfo->getGuildUnionUserType() : UNION_NOTHING" << endl;
 		}
 	}
 
-	pUpdateInfo->setBloodBibleSignInfo(pPlayerCreature->getBloodBibleSign());
+	pUpdateInfo->setBloodBibleSignInfo( pPlayerCreature->getBloodBibleSign() );
 
 	// 파워 포인트
-	pUpdateInfo->setPowerPoint(pPlayerCreature->getPowerPoint());
+	pUpdateInfo->setPowerPoint( pPlayerCreature->getPowerPoint() );
 
 	__END_CATCH
 }
@@ -1051,25 +1110,25 @@ void makeGCCreateItem(GCCreateItem* pGCCreateItem, Item* pItem, CoordInven_t x, 
 	pGCCreateItem->setInvenX(x);
 	pGCCreateItem->setInvenY(y);
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_PET_ITEM )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_PET_ITEM )
 	{
 		PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
 		list<OptionType_t> olist;
 
-		if (pPetItem->getPetInfo()->getPetOption() != 0 )
+		if ( pPetItem->getPetInfo()->getPetOption() != 0 )
 			olist.push_back(pPetItem->getPetInfo()->getPetOption());
 
-		pGCCreateItem->setOptionType(olist);
-		pGCCreateItem->setDurability(pPetItem->getPetInfo()->getPetHP());
-		pGCCreateItem->setEnchantLevel(pPetItem->getPetInfo()->getPetAttr());
-		pGCCreateItem->setSilver(pPetItem->getPetInfo()->getPetAttrLevel());
-		pGCCreateItem->setGrade((pPetItem->getPetInfo()->getPetHP()==0)?(pPetItem->getPetInfo()->getLastFeedTime().daysTo(VSDateTime::currentDateTime() )):(-1));
-		pGCCreateItem->setItemNum(pPetItem->getPetInfo()->getPetLevel());
+		pGCCreateItem->setOptionType( olist );
+		pGCCreateItem->setDurability( pPetItem->getPetInfo()->getPetHP() );
+		pGCCreateItem->setEnchantLevel( pPetItem->getPetInfo()->getPetAttr() );
+		pGCCreateItem->setSilver( pPetItem->getPetInfo()->getPetAttrLevel() );
+		pGCCreateItem->setGrade( (pPetItem->getPetInfo()->getPetHP()==0)?(pPetItem->getPetInfo()->getLastFeedTime().daysTo( VSDateTime::currentDateTime() )):(-1) );
+		pGCCreateItem->setItemNum( pPetItem->getPetInfo()->getPetLevel() );
 	}
 }
 
 void sendPayInfo(GamePlayer* pGamePlayer)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1118,7 +1177,7 @@ void sendPayInfo(GamePlayer* pGamePlayer)
 
 // 주위에 LevelUp effect를 뿌려준다.
 void sendEffectLevelUp(Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1151,7 +1210,7 @@ void sendEffectLevelUp(Creature* pCreature)
 }
 
 void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1162,9 +1221,9 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 	{
 		GCSystemMessage gcSystemMessage;
 
-		gcSystemMessage.setMessage(msg);
+		gcSystemMessage.setMessage( msg );
 
-		pGamePlayer->sendPacket(&gcSystemMessage);
+		pGamePlayer->sendPacket( &gcSystemMessage );
 	}
 	// 존에 없다면.. GamePlayer에 추가해두고 나중에 보내준다.
 	else
@@ -1176,8 +1235,8 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 		{
 			pEvent = pEventSystemMessage = new EventSystemMessage(pGamePlayer);
 			// 존에 들어가자 마자 처리된다.
-			pEvent->setDeadline(0);
-			pGamePlayer->addEvent(pEvent);
+			pEvent->setDeadline( 0 );
+			pGamePlayer->addEvent( pEvent );
 		}
 		else
 		{
@@ -1185,7 +1244,7 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 		}
 
 		Assert(pEventSystemMessage!=NULL);
-		pEventSystemMessage->addMessage(msg);
+		pEventSystemMessage->addMessage( msg );
 
 		//cout << "NOT GPS_NORMAL: EventSystemMessage" << endl;
 	}
@@ -1205,7 +1264,7 @@ bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneI
 	WarScheduler* pWarScheduler = pZone->getWarScheduler();
 	Assert(pWarScheduler!=NULL);
 
-	pWarScheduler->makeGCWarScheduleList(pGCWarScheduleList);
+	pWarScheduler->makeGCWarScheduleList( pGCWarScheduleList );
 
 	__END_CATCH
 
@@ -1220,18 +1279,18 @@ bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneI
 	list<ItemNameInfo*>& itemNameInfos = pPC->getItemNameInfoList();
 	list<ItemNAmeInfo*>::const_iterator itr = itemNameInfos.begin();
 
-	for(; itr != itemNameInfos.end() ; itr++ )
+	for( ; itr != itemNameInfos.end() ; itr++ )
 	{
-		pInfo->addItemNameInfo(*itr);
+		pInfo->addItemNameInfo( *itr );
 	}
 
 	__END_CATCH
 }*/
 
-void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level )
+void sendGCMiniGameScores( PlayerCreature* pPC, BYTE gameType, BYTE Level )
 {
 	GCMiniGameScores gcMGS;
-	gcMGS.setGameType((GameType)gameType);
+	gcMGS.setGameType( (GameType)gameType );
 	gcMGS.setLevel(Level);
 
 	Statement* pStmt = NULL;
@@ -1245,16 +1304,16 @@ void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level )
 		// UPDATE인 경우는 Result* 대신에.. pStmt->getAffectedRowCount()
 		if (pResult->next())
 		{
-			gcMGS.addScore(pResult->getString(1), pResult->getInt(2));
+			gcMGS.addScore( pResult->getString(1), pResult->getInt(2) );
 		}
 
 /*		pResult = pStmt->executeQuery(
 				"SELECT Score FROM MiniGameScores WHERE Type=%u AND Level=%u AND Name='%s' LIMIT 1",
-					gameType, Level, pPC->getName().c_str());
+					gameType, Level, pPC->getName().c_str() );
 
 		if (pResult->next())
 		{
-			gcMGS.addScore(pPC->getName(), pResult->getInt(1));
+			gcMGS.addScore( pPC->getName(), pResult->getInt(1) );
 		}*/
 
 		SAFE_DELETE(pStmt);
@@ -1264,13 +1323,13 @@ void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level )
 	pPC->getPlayer()->sendPacket(&gcMGS);
 }
 
-void makeGCPetStashList(GCPetStashList* pPacket, PlayerCreature* pPC )
+void makeGCPetStashList( GCPetStashList* pPacket, PlayerCreature* pPC )
 {
-	for (int i=0; i<MAX_PET_STASH; ++i )
+	for ( int i=0; i<MAX_PET_STASH; ++i )
 	{
 		PetItem* pPetItem = dynamic_cast<PetItem*>(pPC->getPetStashItem(i));
 
-		if (pPetItem != NULL )
+		if ( pPetItem != NULL )
 		{
 			PetStashItemInfo* pInfo = new PetStashItemInfo;
 			pInfo->pPetInfo = pPetItem->getPetInfo();

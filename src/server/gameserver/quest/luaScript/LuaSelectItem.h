@@ -8,7 +8,7 @@ class LuaSelectItem : public LuaScript {
 public :
 	LuaSelectItem(LuaState* pState);
 
-	virtual int		executeFile(const string& filename) throw(Error);
+	virtual int		executeFile(const string& filename) throw (Error);
 
 	Item::ItemClass	getItemClass() const	{ return m_ItemClass; }
 	ItemType_t		getItemType() const		{ return m_ItemType; }

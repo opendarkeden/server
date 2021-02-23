@@ -7,9 +7,9 @@
 #include "CrossGuard.h"
 #include "EffectCrossGuard.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -25,8 +25,8 @@ void CrossGuard::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot,
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -37,9 +37,9 @@ void CrossGuard::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot,
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
+		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
 
-		if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND) )
+		if ( pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND) )
 		{
 			executeSkillFailException(pOusters, getSkillType(), Grade);
 			return;
@@ -59,7 +59,7 @@ void CrossGuard::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot,
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_CROSS_GUARD);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{

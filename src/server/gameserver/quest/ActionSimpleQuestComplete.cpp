@@ -10,13 +10,13 @@
 #include "Script.h"
 #include "ScriptManager.h"
 
-#include "GCNPCAskDynamic.h"
+#include "Gpackets/GCNPCAskDynamic.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestComplete::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionSimpleQuestComplete::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestComplete::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void ActionSimpleQuestComplete::execute (Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSimpleQuestComplete::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

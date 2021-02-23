@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PlayingWithFire.h"
-//#include "GCSkillToSelfOK1.h"
-//#include "GCSkillToSelfOK2.h"
+//#include "Gpackets/GCSkillToSelfOK1.h"
+//#include "Gpackets/GCSkillToSelfOK2.h"
 #include "SimpleTileMeleeSkill.h"
 
 
@@ -123,7 +123,7 @@ void PlayingWithFire::execute(Monster* pMonster)
 {
 	__BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
+	cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
 
 	Assert(pMonster != NULL);
 
@@ -187,8 +187,8 @@ void PlayingWithFire::execute(Monster* pMonster)
 				param.addMask(m_pPlayingWithFireMask[i].x, m_pPlayingWithFireMask[i].y, 100);
 			}
 		*/
-			for (int i=-10; i<=10; ++i )
-				for (int j=-10; j<=10; ++j )
+			for ( int i=-10; i<=10; ++i )
+				for ( int j=-10; j<=10; ++j )
 					param.addMask(i, j, 100);
 			
 

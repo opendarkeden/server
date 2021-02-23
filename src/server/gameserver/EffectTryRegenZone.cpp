@@ -4,12 +4,12 @@
 #include "Creature.h"
 #include "Zone.h"
 
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
-EffectTryRegenZone::EffectTryRegenZone(MonsterCorpse* pTower )
+EffectTryRegenZone::EffectTryRegenZone( MonsterCorpse* pTower )
 {
-	setTarget(pTower);
+	setTarget( pTower );
 }
 
 void EffectTryRegenZone::affect()
@@ -18,29 +18,29 @@ void EffectTryRegenZone::affect()
 	__BEGIN_TRY
 
 	MonsterCorpse* pTower = dynamic_cast<MonsterCorpse*>(m_pTarget);
-	Assert(pTower != NULL);
+	Assert( pTower != NULL );
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pTower->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.setObjectID( pTower->getObjectID() );
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 
-	pTower->getZone()->broadcastPacket(pTower->getX(), pTower->getY(), &gcRemoveEffect);
+	pTower->getZone()->broadcastPacket( pTower->getX(), pTower->getY(), &gcRemoveEffect );
 
 	++m_Progress;
 
-	if (m_Progress >= 3 )
+	if ( m_Progress >= 3 )
 	{
-		RegenZoneManager::getInstance()->changeRegenZoneOwner(pTower, m_OwnerRace);
+		RegenZoneManager::getInstance()->changeRegenZoneOwner( pTower, m_OwnerRace );
 		setDeadline(0);
 	}
 	else
 	{
 		GCAddEffect gcAddEffect;
-		gcAddEffect.setObjectID(pTower->getObjectID());
-		gcAddEffect.setEffectID(getSendEffectClass());
-		gcAddEffect.setDuration(200);
+		gcAddEffect.setObjectID( pTower->getObjectID() );
+		gcAddEffect.setEffectID( getSendEffectClass() );
+		gcAddEffect.setDuration( 200 );
 
-		pTower->getZone()->broadcastPacket(pTower->getX(), pTower->getY(), &gcAddEffect);
+		pTower->getZone()->broadcastPacket( pTower->getX(), pTower->getY(), &gcAddEffect );
 		setNextTime(50);
 	}
 
@@ -53,15 +53,15 @@ void EffectTryRegenZone::unaffect()
 	__BEGIN_TRY
 
 	MonsterCorpse* pTower = dynamic_cast<MonsterCorpse*>(m_pTarget);
-	Assert(pTower != NULL);
+	Assert( pTower != NULL );
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pTower->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.setObjectID( pTower->getObjectID() );
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 
-	pTower->getZone()->broadcastPacket(pTower->getX(), pTower->getY(), &gcRemoveEffect);
+	pTower->getZone()->broadcastPacket( pTower->getX(), pTower->getY(), &gcRemoveEffect );
 
-	pTower->removeFlag(getEffectClass());
+	pTower->removeFlag( getEffectClass() );
 
 	__END_CATCH
 }

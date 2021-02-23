@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SweeperBonusInfo::SweeperBonusInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	
@@ -31,7 +31,7 @@ SweeperBonusInfo::SweeperBonusInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 SweeperBonusInfo::~SweeperBonusInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
@@ -44,22 +44,22 @@ SweeperBonusInfo::~SweeperBonusInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void SweeperBonusInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void SweeperBonusInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 //	BYTE szOptionList;
 
-//	iStream.read(m_Type);
-	iStream.read(m_Race);
+//	iStream.read( m_Type );
+	iStream.read( m_Race );
 
-/*	iStream.read(szOptionList);
-	for (int i = 0 ; i < szOptionList; i++ )
+/*	iStream.read( szOptionList );
+	for ( int i = 0 ; i < szOptionList; i++ )
 	{
 		OptionType_t optionType;
-		iStream.read(optionType);
-		m_OptionTypeList.push_back(optionType);
+		iStream.read( optionType );
+		m_OptionTypeList.push_back( optionType );
 	}
 */
 	__END_CATCH
@@ -68,22 +68,22 @@ void SweeperBonusInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void SweeperBonusInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void SweeperBonusInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
-//	oStream.write(m_Type);
-	oStream.write(m_Race);
+//	oStream.write( m_Type );
+	oStream.write( m_Race );
 
 /*	BYTE szOptionList = m_OptionTypeList.size();
-	oStream.write(szOptionList);
+	oStream.write( szOptionList );
 
 	OptionTypeListConstItor itr = m_OptionTypeList.begin();
-	for (; itr != m_OptionTypeList.end(); itr++ )
+	for ( ; itr != m_OptionTypeList.end(); itr++ )
 	{
 		OptionType_t optionType = *itr;
-		oStream.write(optionType);
+		oStream.write( optionType );
 	}
 */		
 	__END_CATCH
@@ -95,13 +95,13 @@ void SweeperBonusInfo::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 string SweeperBonusInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "SweeperBonusInfo("
+	msg << "SweeperBonusInfo( "
 //		<< "Type:" << (int)m_Type
 		<< "Race:" << (int)m_Race
 //		<< "OptionTypeListSize:" << (int)m_OptionTypeList.size()

@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GoodsInfoManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include "ItemFactoryManager.h"
 #include "ItemInfoManager.h"
@@ -83,9 +83,9 @@ void GoodsInfoManager::clear()
 
 	HashMapGoodsInfoItr itr = m_GoodsInfos.begin();
 
-	for (; itr != m_GoodsInfos.end(); itr++ )
+	for ( ; itr != m_GoodsInfos.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_GoodsInfos.clear();
@@ -114,19 +114,19 @@ void GoodsInfoManager::load()
 			GoodsInfo* pGoodsInfo = new GoodsInfo();
 			int i = 0;
 
-			pGoodsInfo->setID(pResult->getInt(++i));
-			pGoodsInfo->setName(pResult->getString(++i));
-			pGoodsInfo->setItemClass((Item::ItemClass)(pResult->getInt(++i)));
-			pGoodsInfo->setItemType(pResult->getInt(++i));
-			pGoodsInfo->setGrade(pResult->getInt(++i));
+			pGoodsInfo->setID( pResult->getInt(++i) );
+			pGoodsInfo->setName( pResult->getString(++i) );
+			pGoodsInfo->setItemClass( (Item::ItemClass)(pResult->getInt(++i)) );
+			pGoodsInfo->setItemType( pResult->getInt(++i) );
+			pGoodsInfo->setGrade( pResult->getInt(++i) );
 			string optionField = pResult->getString(++i);
-			pGoodsInfo->setNum(pResult->getInt(++i));
-			pGoodsInfo->setTimeLimit(pResult->getInt(++i) == 1); // enum('LIMITED'(1), 'UNLIMITED'(2) ) 
-			pGoodsInfo->setHour(pResult->getInt(++i));
+			pGoodsInfo->setNum( pResult->getInt(++i) );
+			pGoodsInfo->setTimeLimit( pResult->getInt(++i) == 1 ); // enum( 'LIMITED'(1), 'UNLIMITED'(2) ) 
+			pGoodsInfo->setHour( pResult->getInt(++i) );
 
 			list<OptionType_t> optionTypes;
-			setOptionTypeFromField(optionTypes, optionField);
-			pGoodsInfo->setOptionTypeList(optionTypes);
+			setOptionTypeFromField( optionTypes, optionField );
+			pGoodsInfo->setOptionTypeList( optionTypes );
 
 			addGoodsInfo(pGoodsInfo);
 		}
@@ -146,9 +146,9 @@ void GoodsInfoManager::addGoodsInfo(GoodsInfo* pGoodsInfo)
 
   	Assert (pGoodsInfo != NULL);
 
-	HashMapGoodsInfoItr itr = m_GoodsInfos.find(pGoodsInfo->getID());
+	HashMapGoodsInfoItr itr = m_GoodsInfos.find( pGoodsInfo->getID() );
 
-	if (itr != m_GoodsInfos.end() )
+	if ( itr != m_GoodsInfos.end() )
 		throw DuplicatedException();
 
 	m_GoodsInfos[ pGoodsInfo->getID() ] = pGoodsInfo;
@@ -156,14 +156,14 @@ void GoodsInfoManager::addGoodsInfo(GoodsInfo* pGoodsInfo)
 	__END_CATCH
 }
 
-GoodsInfo* GoodsInfoManager::getGoodsInfo(DWORD id ) const
+GoodsInfo* GoodsInfoManager::getGoodsInfo( DWORD id ) const
 	throw()
 {
 	__BEGIN_TRY
 
-	HashMapGoodsInfoConstItr itr = m_GoodsInfos.find(id);
+	HashMapGoodsInfoConstItr itr = m_GoodsInfos.find( id );
 
-	if (itr == m_GoodsInfos.end() )
+	if ( itr == m_GoodsInfos.end() )
 		return NULL;
 
 	return itr->second;
@@ -182,7 +182,7 @@ string GoodsInfoManager::toString() const
 
 	HashMapGoodsInfoConstItr itr = m_GoodsInfos.begin();
 
-	for (; itr != m_GoodsInfos.end(); itr++ )
+	for ( ; itr != m_GoodsInfos.end(); itr++ )
 	{
 		msg << "GoodsInfos[" << itr->second->getID() << "] == ";
 		msg	<< itr->second->getName();

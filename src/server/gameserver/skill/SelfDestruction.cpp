@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SelfDestruction.h"
-//#include "GCSkillToSelfOK1.h"
-#include "GCAddEffectToTile.h"
+//#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCAddEffectToTile.h"
 #include "SimpleTileMissileSkill.h"
 #include "EffectKillTimer.h"
 
@@ -71,8 +71,8 @@ void SelfDestruction::execute(Monster* pMonster)
 			SIMPLE_SKILL_OUTPUT result;
 
 
-			for (int i=-1; i<=1; ++i )
-			for (int j=-1; j<=1; ++j )
+			for ( int i=-1; i<=1; ++i )
+			for ( int j=-1; j<=1; ++j )
 				param.addMask(i, j, 100);
 
 			g_SimpleTileMissileSkill.execute(pMonster, x, y,
@@ -80,7 +80,7 @@ void SelfDestruction::execute(Monster* pMonster)
 											0, 
 											false);
 
-			if (result.bSuccess )
+			if ( result.bSuccess )
 			{
 //				pMonster->setHP(0);
 				EffectKillTimer* pEffect = new EffectKillTimer(pMonster);

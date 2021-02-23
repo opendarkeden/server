@@ -5,13 +5,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectPrecedence.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Zone.h"
 #include "DB.h"
 #include "Creature.h"
 
 EffectPrecedence::EffectPrecedence(Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ EffectPrecedence::EffectPrecedence(Creature* pCreature)
 }
 
 EffectPrecedence::EffectPrecedence(Item* pItem) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ void EffectPrecedence::affect(Creature* pCreature)
 }
 
 void EffectPrecedence::affect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void EffectPrecedence::unaffect(Creature* pCreature)
 }
 
 void EffectPrecedence::unaffect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ void EffectPrecedence::unaffect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Obje
 }
 
 string EffectPrecedence::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EffectPrecedence("

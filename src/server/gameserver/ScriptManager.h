@@ -10,7 +10,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include "Script.h"
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class ScriptManager
@@ -38,9 +38,9 @@ public:
 	XMLTree*	getScriptXML(ScriptID_t scriptID) { return m_ScriptXMLs[scriptID]; }
 
 private:
-	map< ScriptID_t, Script* > m_Scripts; // hash map of script
-	map< string, XMLTree* > m_XMLS;
-	map< ScriptID_t, XMLTree* > m_ScriptXMLs;
+	hash_map< ScriptID_t, Script* > m_Scripts; // hash map of script
+	hash_map< string, XMLTree* > m_XMLS;
+	hash_map< ScriptID_t, XMLTree* > m_ScriptXMLs;
 
 };
 

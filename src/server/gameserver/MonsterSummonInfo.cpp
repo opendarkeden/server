@@ -12,7 +12,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// MonsterCollectionInfo :: parseString(infoString )
+// MonsterCollectionInfo :: parseString( infoString )
 //
 //////////////////////////////////////////////////////////////////////////////
 //	SpriteType_t	SpriteType;
@@ -36,12 +36,12 @@ void MonsterCollectionInfo::parseString(const string& text)
 	if (text.size() < 5)
 		return;
 
-    size_t a = text.find_first_of('(');
-    size_t b = text.find_first_of(',');
-    size_t c = text.find_first_of(')');
+	uint a = text.find_first_of('(');
+	uint b = text.find_first_of(',');
+	uint c = text.find_first_of(')');
 
-    size_t d = text.find_first_of('{', a);
-    size_t e = text.find_first_of('}', d);
+	uint d = text.find_first_of('{', a);
+	uint e = text.find_first_of('}', d);
 
 	bool bMonsterType = (d!=string::npos && e!=string::npos);
 
@@ -58,7 +58,7 @@ void MonsterCollectionInfo::parseString(const string& text)
 			name = trim(text.substr(a+1, b-a-1));
 		}
 
-		Num  = atoi(trim(text.substr(b+1, c-b-1)).c_str());
+		Num  = atoi( trim(text.substr(b+1, c-b-1)).c_str() );
 
 		//cout << "[MonsterCollectionInfo] " << name.c_str() << ", " << (int)Num << endl;
 
@@ -75,7 +75,7 @@ void MonsterCollectionInfo::parseString(const string& text)
 		}
 		else
 		{
-			SpriteType = g_pMonsterInfoManager->getSpriteTypeByName(name);
+			SpriteType = g_pMonsterInfoManager->getSpriteTypeByName( name );
 
 			if (SpriteType==0)
 				SpriteType = atoi(name.c_str());
@@ -107,7 +107,7 @@ string MonsterCollectionInfo::toString() const
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// parseString(collectionString )
+// parseString( collectionString )
 //
 //////////////////////////////////////////////////////////////////////////////
 // list<MonsterCollectionInfo> Infos;
@@ -119,7 +119,7 @@ void MonsterCollection::parseString(const string& text)
 {
 	Infos.clear();
 
-    size_t a, b, c = 0;
+	uint a, b, c = 0;
 
 	while (1)
 	{
@@ -130,11 +130,11 @@ void MonsterCollection::parseString(const string& text)
 			break;
 
 		MonsterCollectionInfo mc;
-		mc.parseString(text.substr(a, b-a+1));
+		mc.parseString( text.substr(a, b-a+1) );
 
 		//cout << "[MonsterCollection] " << text.substr(a,b-a+1).c_str() << endl;
 
-		Infos.push_back(mc);
+		Infos.push_back( mc );
 
 		c = text.find_first_of(',', b);
 
@@ -185,7 +185,7 @@ const MonsterCollection* MonsterSummonStep::getRandomMonsterCollection() const
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// parseString(summonStepString )
+// parseString( summonStepString )
 //
 //////////////////////////////////////////////////////////////////////////////
 //	vector<MonsterCollection>  Collections;
@@ -201,13 +201,13 @@ void MonsterSummonStep::parseString(const string& text)
 	Collections.clear();
 
 	// 개수 알아내기
-    size_t l = text.find_first_of('[');
-    size_t r = text.find_first_of(']');
+	int l = text.find_first_of('[');
+	int r = text.find_first_of(']');
 
 	if (l >= r)
 		return;
 
-    size_t a, b, c=0;
+	uint a, b, c=0;
 	while (1)
 	{
 		a = text.find_first_of('(', c);
@@ -218,11 +218,11 @@ void MonsterSummonStep::parseString(const string& text)
 			break;
 
 		MonsterCollection mc;
-		mc.parseString(text.substr(a, b-a+1));
+		mc.parseString( text.substr(a, b-a+1) );
 
 		//cout << "[MonsterSummonStep] " << text.substr(a,b-a+1).c_str() << endl;
 
-		Collections.push_back(mc);
+		Collections.push_back( mc );
 	}
 }
 
@@ -278,7 +278,7 @@ bool MonsterSummonInfo::hasNextMonsterCollection(int step) const
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// parseString(summonInfoString )
+// parseString( summonInfoString )
 //
 //////////////////////////////////////////////////////////////////////////////
 // vector<MonsterSummonStep>  Steps;
@@ -295,7 +295,7 @@ bool MonsterSummonInfo::hasNextMonsterCollection(int step) const
 void MonsterSummonInfo::parseString(const string& text)
 {
 	// 개수 알아내기
-    size_t a, b=0;
+	uint a, b=0;
 	while (1)
 	{
 		a = text.find_first_of('[', b);
@@ -305,11 +305,11 @@ void MonsterSummonInfo::parseString(const string& text)
 			break;
 
 		MonsterSummonStep ms;
-		ms.parseString(text.substr(a,b-a+1));
+		ms.parseString( text.substr(a,b-a+1) );
 
 		//cout << "[MonsterSummonInfo] " << text.substr(a,b-a+1).c_str() << endl;
 
-		Steps.push_back(ms);
+		Steps.push_back( ms );
 	}
 }
 

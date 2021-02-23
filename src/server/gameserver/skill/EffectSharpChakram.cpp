@@ -7,7 +7,7 @@
 #include "EffectSharpChakram.h"
 #include "Ousters.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ void EffectSharpChakram::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-	Assert(pTargetOusters != NULL);
+	Assert( pTargetOusters != NULL );
 
 	pTargetOusters->initAllStatAndSend();
 

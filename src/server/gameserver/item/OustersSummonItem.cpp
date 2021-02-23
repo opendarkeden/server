@@ -14,7 +14,6 @@
 #include "Stash.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 ItemID_t OustersSummonItem::m_ItemIDRegistry = 0;
 Mutex    OustersSummonItem::m_Mutex;
@@ -42,7 +41,7 @@ OustersSummonItem::OustersSummonItem(ItemType_t itemType, const list<OptionType_
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "OustersSummonItem::OustersSummonItem() : Invalid item type or option type");
-		throw("OustersSummonItem::OustersSummonItem() : Invalid item type or optionType");
+		throw ("OustersSummonItem::OustersSummonItem() : Invalid item type or optionType");
 	}
 }
 
@@ -100,7 +99,7 @@ void OustersSummonItem::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE OustersSummonItemObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE OustersSummonItemObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -137,8 +136,8 @@ void OustersSummonItem::save(const string & ownerID, Storage storage, StorageID_
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE OustersSummonItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Charge=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Charge, m_ItemID);
+		pStmt->executeQuery( "UPDATE OustersSummonItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Charge=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Charge, m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -312,8 +311,8 @@ void OustersSummonItemLoader::load(Creature* pCreature)
 		pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge FROM OustersSummonItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge FROM OustersSummonItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -373,18 +372,6 @@ void OustersSummonItemLoader::load(Creature* pCreature)
 
 				if (storage == STORAGE_INVENTORY)
 				{
-					if (storageID != 0 )
-					{
-						SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-						if (pInventoryItem == NULL )
-						{
-							processItemBugEx(pCreature, pOustersSummonItem);
-							break;
-						}
-
-						pInventory = pInventoryItem->getInventory();
-					}
-
 					if (pInventory->canAddingEx(x, y, pOustersSummonItem))
 					{
 						pInventory->addItemEx(x, y, pOustersSummonItem);

@@ -26,7 +26,7 @@ public:
 
 	void	setPrice(Gold_t	price) { m_Price = price; }*/
 
-	void	makeStoreItemInfo(StoreItemInfo& info);
+	void	makeStoreItemInfo( StoreItemInfo& info );
 private:
 	bool	m_bExist;
 	Item*	m_pItem;
@@ -42,14 +42,12 @@ public:
 	void	setSign(const string& sign) { m_Sign = sign; m_StoreInfo.setSign(m_Sign); }
 
 	bool	isOpen() const { return m_bOpen; }
-	void	open() { m_bOpen = true; m_StoreInfo.setOpen((BYTE)m_bOpen); }
-	void	close() { m_bOpen = false; m_StoreInfo.setOpen((BYTE)m_bOpen); }
+	void	open() { m_bOpen = true; m_StoreInfo.setOpen( (BYTE)m_bOpen ); }
+	void	close() { m_bOpen = false; m_StoreInfo.setOpen( (BYTE)m_bOpen ); }
 
-	void	clearAll();
-
-	StoreItem&	getStoreItem(BYTE index ) { return m_StoreItems[index]; }
-	BYTE	setStoreItem(BYTE index, Item* pItem, Gold_t price);
-	BYTE	removeStoreItem(BYTE index);
+	StoreItem&	getStoreItem( BYTE index ) { return m_StoreItems[index]; }
+	BYTE	setStoreItem( BYTE index, Item* pItem, Gold_t price );
+	BYTE	removeStoreItem( BYTE index );
 
 	const StoreInfo&	getStoreInfo() const { return m_StoreInfo; }
 	StoreInfo&	getStoreInfo() { return m_StoreInfo; }

@@ -21,7 +21,7 @@ enum PCType
 	PC_VAMPIRE,
 	PC_OUSTERS
 };
-const string PCType2String [] = 
+const string PCType2String[] = 
 {
 	"PC_SLAYER",
 	"PC_VAMPIRE",
@@ -293,7 +293,7 @@ const uint szHairStyle = szBYTE;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Slot (MAX == 3 )
+// Slot ( MAX == 3 )
 //////////////////////////////////////////////////////////////////////////////
 enum Slot 
 { 
@@ -430,7 +430,7 @@ const uint szSlotID = sizeof(SlotID_t);
 
 // Skill Domain
 typedef BYTE SkillDomainType_t;
-const uint szSkillDomainType = sizeof(SkillDomainType_t);
+const uint szSkillDomainType = sizeof( SkillDomainType_t );
 
 typedef BYTE SkillLevel_t;
 const uint szSkillLevel = sizeof(SkillLevel_t);
@@ -522,7 +522,7 @@ const uint szCoord = sizeof(Coord_t);
 typedef BYTE Dir_t;
 const uint szDir = sizeof(Dir_t);
 
-enum Directions
+enum Directions 
 { 
 	LEFT ,
 	LEFTDOWN ,

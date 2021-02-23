@@ -12,17 +12,15 @@
 #include "ZoneUtil.h"
 #include "HitRoll.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "EffectBloodDrain.h"
 #include "EffectAftermath.h"
 #include "SkillInfo.h"
 #include "SkillUtil.h"
-
-#include <list>
 
 const uint CriticalBloodDrainLevel = 74;
 
@@ -74,10 +72,10 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
 		{
 			Tile& tile = pZone->getTile(tileX, tileY);
 
-			if (tile.hasCreature(Creature::MOVE_MODE_WALKING ) ) 
+			if ( tile.hasCreature( Creature::MOVE_MODE_WALKING ) ) 
 			{
-				const list<Object*>& oList = tile.getObjectList();
-				for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+				const slist<Object*>& oList = tile.getObjectList();
+				for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 				{
 					Object* pTarget = *itr;
 					Creature* pTargetCreature = NULL;
@@ -138,7 +136,7 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
 								}
 							}
 
-							if(CurrentHP < MaxHP ) {
+							if( CurrentHP < MaxHP ) {
 								ExpUp++;
 								bCured = true;
 
@@ -156,13 +154,13 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
 								_GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
 								_GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
 								_GCSkillToSelfOK2.setDuration(0);
-								pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &_GCSkillToSelfOK2, pTargetCreature);
+								pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &_GCSkillToSelfOK2, pTargetCreature );
 
 								Zone* pZone = pTargetCreature->getZone();
 								GCStatusCurrentHP gcStatusCurrentHP;
 								gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
 								gcStatusCurrentHP.setCurrentHP(RemainHP);
-								pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
+								pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP );
 							}
 						} 
 					}
@@ -171,18 +169,18 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
 		}	
 	}
 
-	SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_CURE_CRITICAL_WOUNDS);
+	SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_CURE_CRITICAL_WOUNDS );
 
-	if(pSkillInfo != NULL && bCured ) {
+	if( pSkillInfo != NULL && bCured ) {
 		SkillSlot * pSkillSlot = ((Slayer*)pCreature)->hasSkill(SKILL_CURE_CRITICAL_WOUNDS);
-		if(pSkillSlot != NULL ) {
+		if( pSkillSlot != NULL ) {
 			Slayer * pCastSlayer = dynamic_cast<Slayer*>(pCreature);
 			GCModifyInformation gcMI;
 			SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 			// 경험치를 올려준다.
 			shareAttrExp(pCastSlayer, ExpUp, 1 , 1 , 8, gcMI);
-			increaseDomainExp(pCastSlayer, DomainType, ExpUp, gcMI);
-			increaseSkillExp(pCastSlayer, DomainType, pSkillSlot, pSkillInfo, gcMI);
+			increaseDomainExp(pCastSlayer, DomainType, ExpUp, gcMI );
+			increaseSkillExp(pCastSlayer, DomainType, pSkillSlot, pSkillInfo, gcMI );
 			pCastSlayer->getPlayer()->sendPacket(&gcMI);
 		}
 	}

@@ -7,16 +7,16 @@
 #include "FrozenArmor.h"
 #include "EffectFrozenArmor.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -60,7 +60,7 @@ void FrozenArmor::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_FROZEN_ARMOR);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -171,7 +171,7 @@ void FrozenArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ousters
 		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, output.Range);
 		bool bHitRoll	 = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_FROZEN_ARMOR);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		ZoneCoord_t targetX = pTargetCreature->getX();
 		ZoneCoord_t targetY = pTargetCreature->getY();
@@ -231,7 +231,7 @@ void FrozenArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ousters
 
 			Player* pTargetPlayer = pTargetCreature->getPlayer();
 
-			if (pTargetPlayer != NULL )
+			if ( pTargetPlayer != NULL )
 			{
 				if (bCanSeeCaster) pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
 				else pTargetPlayer->sendPacket(&_GCSkillToObjectOK6);

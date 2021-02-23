@@ -8,13 +8,15 @@
 void executeSelectItem(LuaSelectItem& luaSelectItem, const char* pFilename)
 {
 	luaSelectItem.prepare();
-	luaSelectItem.executeFile(pFilename);
+	luaSelectItem.executeFile( pFilename );
 
 	int ItemClass 	= luaSelectItem.getItemClass();
 	int ItemType 	= luaSelectItem.getItemType();
 	int OptionType 	= luaSelectItem.getOptionType();
 
-	//cout << "ItemClass=" << ItemClass << ", ItemType=" << ItemType << ", OptionType=" << OptionType << endl << endl;
+	cout << "ItemClass=" << ItemClass
+		<< ", ItemType=" << ItemType
+		<< ", OptionType=" << OptionType << endl << endl;
 
 	luaSelectItem.clear();
 }
@@ -23,7 +25,7 @@ void executeVampire()
 {
 	LuaState L;
 	L.init();
-	L.dofile("xmasEventCommon.lua");
+	L.dofile( "xmasEventCommon.lua" );
 
 	LuaTradeEventVampireItem luaVampireItem(&L);
 
@@ -34,9 +36,9 @@ void executeVampire()
 
 		if (Level==0) break;
 
-		luaVampireItem.setLevel(Level);
+		luaVampireItem.setLevel( Level );
 
-		executeSelectItem(luaVampireItem, "xmasEventVampire.lua");
+		executeSelectItem(luaVampireItem, "xmasEventVampire.lua" );
 	}
 }
 
@@ -44,7 +46,7 @@ void executeSlayer()
 {
 	LuaState L;
 	L.init();
-	L.dofile("xmasEventCommon.lua");
+	L.dofile( "xmasEventCommon.lua" );
 
 	LuaTradeEventSlayerItem luaSlayerItem(&L);
 
@@ -55,9 +57,9 @@ void executeSlayer()
 
 		if (SUM==0) break;
 
-		luaSlayerItem.setSum(SUM);
+		luaSlayerItem.setSum( SUM );
 
-		executeSelectItem(luaSlayerItem, "xmasEventSlayer.lua");
+		executeSelectItem(luaSlayerItem, "xmasEventSlayer.lua" );
 	}
 }
 

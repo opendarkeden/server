@@ -8,13 +8,13 @@
 #include "Creature.h"
 #include "GamePlayer.h"
 #include "StringPool.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -26,7 +26,7 @@ void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCre
 
 	GCSystemMessage gcSystemMessage;
 
-	if (pCreature2->isSlayer() )
+	if ( pCreature2->isSlayer() )
 		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_SUM_NEWBIE_ZONE));
 	else
 		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_LEVEL_NEWBIE_ZONE));
@@ -53,7 +53,7 @@ void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSystemMessagePerRace::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

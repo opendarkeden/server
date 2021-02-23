@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 UserInfoManager::UserInfoManager () 
-	throw()
+	throw ()
 {
 }
 	
@@ -26,14 +26,14 @@ UserInfoManager::UserInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 UserInfoManager::~UserInfoManager () 
-	throw()
+	throw ()
 {
 	// hashmap 안의 각 pair 의 second, 즉 UserInfo 객체만을 삭제하고
 	// pair 자체는 그대로 둔다. (UserInfo가 힙에 생성되어 있다는 것에
 	// 유의하라. 즉 필살삭제를 해야 한다. 하긴, ZGIM이 destruct 된다는 것은
 	// 로그인 서버가 셧다운된다는 것을 의미하니깐.. - -; )
-	for(int i = 1; i < m_MaxWorldID; i++ ) {
-		for (HashMapUserInfo::iterator itr = m_UserInfos[i].begin() ; 
+	for( int i = 1; i < m_MaxWorldID; i++ ) {
+		for ( HashMapUserInfo::iterator itr = m_UserInfos[i].begin() ; 
 			  itr != m_UserInfos[i].end() ; 
 			  itr ++ ) {
 			delete itr->second;
@@ -53,14 +53,14 @@ UserInfoManager::~UserInfoManager ()
 // initialize GSIM
 //----------------------------------------------------------------------
 void UserInfoManager::init ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	load();
 
 	// just print to cout
-	//cout << toString() << endl;
+	cout << toString() << endl;
 
 	__END_CATCH
 }
@@ -69,7 +69,7 @@ void UserInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void UserInfoManager::load ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -104,16 +104,16 @@ void UserInfoManager::load ()
 			"SELECT WorldID, GroupID FROM GameServerGroupInfo"
 		);
 
-		while (pResult->next() ) {
+		while ( pResult->next() ) {
 			UserInfo * pUserInfo = new UserInfo();
 			WorldID_t WorldID = pResult->getInt(1);
-			pUserInfo->setWorldID(WorldID);
-			pUserInfo->setServerGroupID(pResult->getInt(2));
-			pUserInfo->setUserNum(0);
-			addUserInfo(pUserInfo);
+			pUserInfo->setWorldID( WorldID );
+			pUserInfo->setServerGroupID( pResult->getInt(2) );
+			pUserInfo->setUserNum( 0 );
+			addUserInfo( pUserInfo );
 		}
 
-	} catch (SQLQueryException & sqe ) {
+	} catch ( SQLQueryException & sqe ) {
 
 		// 필살 삭제!
 		delete pStmt;
@@ -130,14 +130,14 @@ void UserInfoManager::load ()
 //----------------------------------------------------------------------
 // add info 
 //----------------------------------------------------------------------
-void UserInfoManager::addUserInfo (UserInfo * pUserInfo ) 
-	throw(DuplicatedException )
+void UserInfoManager::addUserInfo ( UserInfo * pUserInfo ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
-	HashMapUserInfo::iterator itr = m_UserInfos[pUserInfo->getWorldID()].find(pUserInfo->getServerGroupID());
+	HashMapUserInfo::iterator itr = m_UserInfos[pUserInfo->getWorldID()].find( pUserInfo->getServerGroupID() );
 	
-	if (itr != m_UserInfos[pUserInfo->getWorldID()].end() )
+	if ( itr != m_UserInfos[pUserInfo->getWorldID()].end() )
 		throw DuplicatedException("duplicated zone id");
 
 	m_UserInfos[pUserInfo->getWorldID()][ pUserInfo->getServerGroupID() ] = pUserInfo;
@@ -148,20 +148,20 @@ void UserInfoManager::addUserInfo (UserInfo * pUserInfo )
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void UserInfoManager::deleteUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t WorldID )
-	throw(NoSuchElementException )
+void UserInfoManager::deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID )
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
-	HashMapUserInfo::iterator itr = m_UserInfos[WorldID].find(ServerGroupID);
+	HashMapUserInfo::iterator itr = m_UserInfos[WorldID].find( ServerGroupID );
 	
-	if (itr != m_UserInfos[WorldID].end() ) {
+	if ( itr != m_UserInfos[WorldID].end() ) {
 
 		// UserInfo 를 삭제한다.
 		delete itr->second;
 
 		// pair를 삭제한다.
-		m_UserInfos[WorldID].erase(itr);
+		m_UserInfos[WorldID].erase( itr );
 
 	} else { // not found
 
@@ -177,16 +177,16 @@ void UserInfoManager::deleteUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t Wor
 //----------------------------------------------------------------------
 // get info
 //----------------------------------------------------------------------
-UserInfo * UserInfoManager::getUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const
-	throw(NoSuchElementException )
+UserInfo * UserInfoManager::getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
 	UserInfo * pUserInfo = NULL;
 
-	HashMapUserInfo::const_iterator itr = m_UserInfos[WorldID].find(ServerGroupID);
+	HashMapUserInfo::const_iterator itr = m_UserInfos[WorldID].find( ServerGroupID );
 	
-	if (itr != m_UserInfos[WorldID].end() ) {
+	if ( itr != m_UserInfos[WorldID].end() ) {
 
 		pUserInfo = itr->second;
 
@@ -194,7 +194,7 @@ UserInfo * UserInfoManager::getUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t 
 
 		StringStream msg;
 		msg << "ServerGroupID : " << ServerGroupID;
-		throw NoSuchElementException(msg.toString());
+		throw NoSuchElementException( msg.toString() );
 
 	}
 
@@ -208,7 +208,7 @@ UserInfo * UserInfoManager::getUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t 
 // get debug string
 //----------------------------------------------------------------------
 string UserInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -216,9 +216,9 @@ string UserInfoManager::toString () const
 
 	msg << "UserInfoManager(";
 
-	for(int i = 1; i < m_MaxWorldID; i++ ) {
+	for( int i = 1; i < m_MaxWorldID; i++ ) {
 
-		if (m_UserInfos[i].empty() ) {
+		if ( m_UserInfos[i].empty() ) {
 
 			msg << "EMPTY";
 
@@ -229,7 +229,7 @@ string UserInfoManager::toString () const
 			//
 			// for_each()를 사용할 것
 			//--------------------------------------------------
-			for (HashMapUserInfo::const_iterator itr = m_UserInfos[i].begin() ; 
+			for ( HashMapUserInfo::const_iterator itr = m_UserInfos[i].begin() ; 
 				  itr != m_UserInfos[i].end() ; 
 				  itr ++ )
 				msg << itr->second->toString();

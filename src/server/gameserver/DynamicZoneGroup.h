@@ -6,7 +6,7 @@
 #define __DYNAMIC_ZONE_GROUP_H__
 
 #include "Types.h"
-#include <map>
+#include <hash_map>
 
 // forward declaration
 class DynamicZone;
@@ -17,7 +17,7 @@ class DynamicZone;
 class DynamicZoneGroup
 {
 public:
-	typedef map<ZoneID_t,DynamicZone*>		HashMapDynamicZone;
+	typedef hash_map<ZoneID_t,DynamicZone*>		HashMapDynamicZone;
 	typedef HashMapDynamicZone::iterator		HashMapDynamicZoneItor;
 	typedef HashMapDynamicZone::const_iterator	HashMapDynamicZoneConstItor;
 
@@ -30,16 +30,16 @@ public:
 
 public:
 	int getDynamicZoneType() const { return m_DynamicZoneType; }
-	void setDynamicZoneType(int dynamicZoneType ) { m_DynamicZoneType = dynamicZoneType; }
+	void setDynamicZoneType( int dynamicZoneType ) { m_DynamicZoneType = dynamicZoneType; }
 
 	ZoneID_t getTemplateZoneID() const { return m_TemplateZoneID; }
-	void setTemplateZoneID(ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
+	void setTemplateZoneID( ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
 
 	bool canEnter();
 	DynamicZone* getAvailableDynamicZone();
 
 protected:
-	void addDynamicZone(DynamicZone* pDynamicZone);
+	void addDynamicZone( DynamicZone* pDynamicZone );
 	uint getSize() { return m_DynamicZones.size(); }
 
 private:

@@ -12,9 +12,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -66,9 +66,9 @@ void EffectGreenStalker::affect(Creature* pCreature)
 	// 기술 사용자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL 이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
-	if (pCastCreature == NULL )
+	if ( pCastCreature == NULL )
 	{
 		setNextTime(m_Tick);
 
@@ -78,7 +78,7 @@ void EffectGreenStalker::affect(Creature* pCreature)
 	int PoisonDamage = computeMagicDamage(pCreature, m_Damage, SKILL_GREEN_STALKER, m_bVampire, pCastCreature);
 
 	// 무적상태 체크. by sigi. 2002.9.5
-	if (canAttack(pCastCreature, pCreature )
+	if ( canAttack( pCastCreature, pCreature )
 		 && !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 		)
 	{
@@ -89,7 +89,7 @@ void EffectGreenStalker::affect(Creature* pCreature)
 			Assert(pSlayer != NULL);
 
 			GCModifyInformation gcMI;
-			::setDamage(pSlayer, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI);
+			::setDamage( pSlayer, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI );
 
 			Player* pPlayer = pCreature->getPlayer();
 			Assert(pPlayer != NULL);
@@ -101,7 +101,7 @@ void EffectGreenStalker::affect(Creature* pCreature)
 			Assert(pVampire != NULL);
 
 			GCModifyInformation gcMI;
-			::setDamage(pVampire, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI);
+			::setDamage( pVampire, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI );
 
 			Player* pPlayer = pCreature->getPlayer();
 			Assert(pPlayer != NULL);
@@ -113,7 +113,7 @@ void EffectGreenStalker::affect(Creature* pCreature)
 			Assert(pOusters != NULL);
 
 			GCModifyInformation gcMI;
-			::setDamage(pOusters, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI);
+			::setDamage( pOusters, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER, &gcMI );
 
 			Player* pPlayer = pCreature->getPlayer();
 			Assert(pPlayer != NULL);
@@ -124,14 +124,14 @@ void EffectGreenStalker::affect(Creature* pCreature)
 			Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 			Assert(pMonster != NULL);
 
-			::setDamage(pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER);
+			::setDamage( pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_STALKER );
 		}
 
 		// m_CasterName이 pCreature를 죽인 경우의 KillCount 처리
 		// by sigi. 2002.9.9
 /*		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+			Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 			if (pAttacker!=NULL)
 			{ 

@@ -16,14 +16,14 @@
 #include "PlayerCreature.h"
 #include "FlagSet.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // ActionContractGnomesHorn 액션은 그냥 클라이언트에게 ShopVersion을 보내주는 것이므로,
 // 특별히 읽어들여야 할 파라미터가 없다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionContractGnomesHorn::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -34,7 +34,7 @@ void ActionContractGnomesHorn::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionContractGnomesHorn::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -53,11 +53,11 @@ void ActionContractGnomesHorn::execute (Creature * pCreature1 , Creature * pCrea
 	FlagSet* pFlagSet = pPC->getFlagSet();
 	Assert(pFlagSet != NULL);
 
-	pFlagSet->turnOn(FLAGSET_GNOMES_HORN);
-	pFlagSet->save(pPC->getName());
+	pFlagSet->turnOn( FLAGSET_GNOMES_HORN );
+	pFlagSet->save( pPC->getName() );
 
 	GCNPCResponse gcNPCResponse;
-	gcNPCResponse.setCode(NPC_RESPONSE_GNOME_CONTRACT_OK);
+	gcNPCResponse.setCode( NPC_RESPONSE_GNOME_CONTRACT_OK );
 
 	pPC->getPlayer()->sendPacket(&gcNPCResponse);
 
@@ -69,7 +69,7 @@ void ActionContractGnomesHorn::execute (Creature * pCreature1 , Creature * pCrea
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionContractGnomesHorn::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

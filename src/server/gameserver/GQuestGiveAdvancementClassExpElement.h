@@ -8,7 +8,7 @@ class GQuestGiveAdvancementClassExpElement : public GQuestElement
 public:
 	GQuestGiveAdvancementClassExpElement() : m_Amount(0) { }
 	string 				getElementName() const { return "GiveAdvancementClassExp"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestGiveAdvancementClassExpElement*	makeElement(XMLTree* pTree);
 
 private:

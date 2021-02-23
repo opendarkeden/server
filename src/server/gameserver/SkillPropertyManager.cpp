@@ -54,9 +54,9 @@ string SkillProperty::toString() const
 	
 	StringStream msg;
 	msg << "(" << (int)m_SkillType << ":";
-	for (int i = 0; i < SKILL_PROPERTY_TYPE_MAX; i++ )
+	for ( int i = 0; i < SKILL_PROPERTY_TYPE_MAX; i++ )
 	{
-		msg << (m_PropertyType.test(i ) ? "1" : "0");
+		msg << ( m_PropertyType.test( i ) ? "1" : "0" );
 	}
 	msg << ")";
 	return msg.toString();
@@ -92,9 +92,9 @@ void SkillPropertyManager::init()
 {
 	__BEGIN_TRY
 
-	m_SkillProperties.reserve(SKILL_MAX);
+	m_SkillProperties.reserve( SKILL_MAX );
 
-	for (int i = 0 ; i < SKILL_MAX; i++ )
+	for ( int i = 0 ; i < SKILL_MAX; i++ )
 	{
 		m_SkillProperties[i] = NULL;
 	}
@@ -109,9 +109,9 @@ void SkillPropertyManager::clear()
 {
 	__BEGIN_TRY
 
-	for (int i = 0 ; i < SKILL_MAX; i++ )
+	for ( int i = 0 ; i < SKILL_MAX; i++ )
 	{
-		SAFE_DELETE(m_SkillProperties[i]);
+		SAFE_DELETE( m_SkillProperties[i] );
 	}
 	
 	m_SkillProperties.clear();
@@ -124,15 +124,15 @@ void SkillPropertyManager::initDefaultSkillProperty()
 {
 	__BEGIN_TRY
 
-	for (int i = 0; i < DefaultSkillMax; i++ )
+	for ( int i = 0; i < DefaultSkillMax; i++ )
 	{
 		SkillProperty* pSkillProperty = new SkillProperty();
-		pSkillProperty->setType(DefaultSkill[i][0]);
-		pSkillProperty->setMelee(DefaultSkill[i][1]);
-		pSkillProperty->setMagic(DefaultSkill[i][2]);
-		pSkillProperty->setPhysic(DefaultSkill[i][3]);
+		pSkillProperty->setType( DefaultSkill[i][0] );
+		pSkillProperty->setMelee( DefaultSkill[i][1] );
+		pSkillProperty->setMagic( DefaultSkill[i][2] );
+		pSkillProperty->setPhysic( DefaultSkill[i][3] );
 
-		addSkillProperty(pSkillProperty);
+		addSkillProperty( pSkillProperty );
 	}
 
 	__END_CATCH
@@ -160,8 +160,8 @@ SkillProperty* SkillPropertyManager::getSkillProperty(SkillType_t SkillType)
 	__END_CATCH
 }
 
-void SkillPropertyManager::addSkillProperty(SkillProperty* pSkillProperty )
-	throw(DuplicatedException, OutOfBoundException, Error )
+void SkillPropertyManager::addSkillProperty( SkillProperty* pSkillProperty )
+	throw( DuplicatedException, OutOfBoundException, Error )
 {
 	__BEGIN_TRY
 

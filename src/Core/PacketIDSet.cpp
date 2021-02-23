@@ -8,13 +8,13 @@
 
 // include files
 #include "PacketIDSet.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-PacketIDSet::PacketIDSet (PlayerStatus playerStatus , PacketIDSetType packetIDSetType ) 
-	throw()
+PacketIDSet::PacketIDSet ( PlayerStatus playerStatus , PacketIDSetType packetIDSetType ) 
+	throw ()
 : m_PacketIDSetType(packetIDSetType), m_PlayerStatus(playerStatus)
 {
 }
@@ -23,7 +23,7 @@ PacketIDSet::PacketIDSet (PlayerStatus playerStatus , PacketIDSetType packetIDSe
 // destructor
 //----------------------------------------------------------------------
 PacketIDSet::~PacketIDSet () 
-	throw()
+	throw ()
 {
 	m_PacketIDSet.clear();
 }
@@ -31,18 +31,18 @@ PacketIDSet::~PacketIDSet ()
 //----------------------------------------------------------------------
 // add packet id to set
 //----------------------------------------------------------------------
-void PacketIDSet::addPacketID (PacketID_t packetID ) 
-	throw(DuplicatedException )
+void PacketIDSet::addPacketID ( PacketID_t packetID ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
-	Assert(m_PacketIDSetType != PIST_NONE);
-	Assert(m_PacketIDSetType != PIST_ANY);
+	Assert( m_PacketIDSetType != PIST_NONE );
+	Assert( m_PacketIDSetType != PIST_ANY );
 
-	pair<PACKET_ID_SET::iterator,bool> p = m_PacketIDSet.insert(packetID);
+	pair<PACKET_ID_SET::iterator,bool> p = m_PacketIDSet.insert( packetID );
 
 	// 이미 같은 키가 존재한다는 소리다.
-	if (! p.second )
+	if ( ! p.second )
 		throw DuplicatedException();
 
 	__END_CATCH
@@ -51,14 +51,14 @@ void PacketIDSet::addPacketID (PacketID_t packetID )
 //----------------------------------------------------------------------
 // delete packet id from set
 //----------------------------------------------------------------------
-void PacketIDSet::deletePacketID (PacketID_t packetID ) 
-	throw(NoSuchElementException )
+void PacketIDSet::deletePacketID ( PacketID_t packetID ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
-	PACKET_ID_SET::iterator itr = m_PacketIDSet.find(packetID);
+	PACKET_ID_SET::iterator itr = m_PacketIDSet.find( packetID );
 
-	if (itr != m_PacketIDSet.end() )
+	if ( itr != m_PacketIDSet.end() )
 		throw NoSuchElementException();
 
 	m_PacketIDSet.erase(itr);
@@ -69,30 +69,30 @@ void PacketIDSet::deletePacketID (PacketID_t packetID )
 //----------------------------------------------------------------------
 // has packet id ?
 //----------------------------------------------------------------------
-bool PacketIDSet::hasPacketID (PacketID_t packetID ) const
-	throw(NoSuchElementException , IgnorePacketException )
+bool PacketIDSet::hasPacketID ( PacketID_t packetID ) const
+	throw ( NoSuchElementException , IgnorePacketException )
 {
 	__BEGIN_TRY
 
-	if (m_PacketIDSetType == PIST_NORMAL ) {
+	if ( m_PacketIDSetType == PIST_NORMAL ) {
 
 		// 일반적인 경우, 존재할 때에만 true 를 리턴한다.
-		PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find(packetID);
+		PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find( packetID );
 
 		return itr != m_PacketIDSet.end();
 
-	} else if (m_PacketIDSetType == PIST_ANY ) {
+	} else if ( m_PacketIDSetType == PIST_ANY ) {
 
 		// 그 어떤 패킷도 허용된다.
 		return true;
 
-	} else if (m_PacketIDSetType == PIST_IGNORE_EXCEPT ) {
+	} else if ( m_PacketIDSetType == PIST_IGNORE_EXCEPT ) {
 
 		// 패킷이 존재할 경우, true 를 리턴한다.
 		// 패킷이 존재하지 않으면, 무시해야 한다.
-		PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find(packetID);
+		PACKET_ID_SET::const_iterator itr = m_PacketIDSet.find( packetID );
 
-		if (itr != m_PacketIDSet.end() ) {
+		if ( itr != m_PacketIDSet.end() ) {
 			return true;
 		} else {
 			throw IgnorePacketException();
@@ -109,7 +109,7 @@ bool PacketIDSet::hasPacketID (PacketID_t packetID ) const
 // get debug string
 //----------------------------------------------------------------------
 string PacketIDSet::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -117,7 +117,7 @@ string PacketIDSet::toString () const
 		<< "PlayerStatus:" << (int)m_PlayerStatus 
 		<< "PacketID:";
 
-	for (PACKET_ID_SET::const_iterator itr = m_PacketIDSet.begin() ;
+	for ( PACKET_ID_SET::const_iterator itr = m_PacketIDSet.begin() ;
 		  itr != m_PacketIDSet.end() ;
 		  itr ++ ) {
 

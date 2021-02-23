@@ -7,19 +7,19 @@
 
 // include files
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectBloodyWall.h"
 #include "EffectContinualBloodyWall.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
 #include "SkillUtil.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
 EffectContinualBloodyWall::EffectContinualBloodyWall (Zone* pZone) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ EffectContinualBloodyWall::EffectContinualBloodyWall (Zone* pZone)
 // destructor
 //----------------------------------------------------------------------
 EffectContinualBloodyWall::~EffectContinualBloodyWall () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -58,29 +58,29 @@ void EffectContinualBloodyWall::affect()
 
 	VSRect rect(0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1);
 
-	for (int X = m_Left ; X <= m_Right ; X++ )
-	for (int Y = m_Top ; Y <= m_Bottom ; Y++ )
+	for ( int X = m_Left ; X <= m_Right ; X++ )
+	for ( int Y = m_Top ; Y <= m_Bottom ; Y++ )
 	{
-		if (rect.ptInRect(X, Y) )
+		if ( rect.ptInRect(X, Y) )
 		{
-			Tile& tile = m_pZone->getTile(X, Y);
-			if (tile.canAddEffect() )
+			Tile& tile = m_pZone->getTile( X, Y );
+			if ( tile.canAddEffect() )
 			{
 				EffectBloodyWall* pEffect = new EffectBloodyWall(m_pZone, X, Y);
-				pEffect->setDamage(getDamage());
-				pEffect->setDeadline(getDuration());
-				pEffect->setTick(getDuration());
+				pEffect->setDamage( getDamage() );
+				pEffect->setDeadline( getDuration() );
+				pEffect->setTick( getDuration() );
 				pEffect->setNextTime(0);
-				pEffect->setForce(true);
+				pEffect->setForce( true );
 
 				m_pZone->registerObject(pEffect);
 				m_pZone->addEffect(pEffect);
 				tile.addEffect(pEffect);
 
 				GCAddEffectToTile gcAddEffectToTile;
-				gcAddEffectToTile.setEffectID(pEffect->getEffectClass());
+				gcAddEffectToTile.setEffectID( pEffect->getEffectClass() );
 				gcAddEffectToTile.setXY(X, Y);
-				gcAddEffectToTile.setDuration(getDuration());
+				gcAddEffectToTile.setDuration( getDuration() );
 
 				m_pZone->broadcastPacket(X, Y, &gcAddEffectToTile);
 			}
@@ -109,7 +109,7 @@ void EffectContinualBloodyWall::unaffect()
 // get debug string
 //----------------------------------------------------------------------
 string EffectContinualBloodyWall::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -138,25 +138,25 @@ void EffectContinualBloodyWallLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_CONTINUAL_BLOODY_WALL);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_CONTINUAL_BLOODY_WALL);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			EffectContinualBloodyWall* pEffect = new EffectContinualBloodyWall(pZone);
 			pEffect->setRect(left, right, top, bottom);
-			pEffect->setTick(value1);
-			pEffect->setDuration(value2);
-			pEffect->setDamage(value3);
+			pEffect->setTick( value1 );
+			pEffect->setDuration( value2 );
+			pEffect->setDamage( value3 );
 
 			// 존 및 타일에다가 이펙트를 추가한다.
 			pZone->registerObject(pEffect);

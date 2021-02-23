@@ -13,7 +13,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionHasInvenSpace::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -21,10 +21,10 @@ bool ConditionHasInvenSpace::isSatisfied (Creature * pCreature1 , Creature * pCr
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
 	Inventory* pInventory = pPC->getInventory();
-	if (pInventory == NULL ) return false;
+	if ( pInventory == NULL ) return false;
 
 	_TPOINT tp;
-	return pInventory->getEmptySlot(m_Width, m_Height, tp);
+	return pInventory->getEmptySlot( m_Width, m_Height, tp );
 
 	return false;
 }
@@ -33,7 +33,7 @@ bool ConditionHasInvenSpace::isSatisfied (Creature * pCreature1 , Creature * pCr
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionHasInvenSpace::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -52,7 +52,7 @@ void ConditionHasInvenSpace::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionHasInvenSpace::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

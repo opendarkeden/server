@@ -17,7 +17,7 @@ RankBonus::RankBonus()
 	__END_CATCH
 }
 
-RankBonus::RankBonus(DWORD type, DWORD point, Rank_t rank )
+RankBonus::RankBonus( DWORD type, DWORD point, Rank_t rank )
 	throw()
 {
 	__BEGIN_TRY

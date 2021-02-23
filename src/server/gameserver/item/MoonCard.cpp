@@ -15,7 +15,6 @@
 #include "Utility.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 MoonCardInfoManager* g_pMoonCardInfoManager = NULL;
 
@@ -41,7 +40,7 @@ MoonCard::MoonCard(ItemType_t itemType, const list<OptionType_t>& optionType, It
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "MoonCard::MoonCard() : Invalid item type or option type");
-		throw("MoonCard::MoonCard() : Invalid item type or optionType");
+		throw ("MoonCard::MoonCard() : Invalid item type or optionType");
 	}
 }
 
@@ -101,7 +100,7 @@ void MoonCard::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MoonCardObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE MoonCardObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -139,8 +138,8 @@ void MoonCard::save(const string & ownerID, Storage storage, StorageID_t storage
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MoonCardObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE MoonCardObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -292,8 +291,8 @@ void MoonCardLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM MoonCardObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM MoonCardObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -353,18 +352,6 @@ void MoonCardLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pMoonCard);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pMoonCard))
 						{
 							pInventory->addItemEx(x, y, pMoonCard);

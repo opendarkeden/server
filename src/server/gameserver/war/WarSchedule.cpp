@@ -8,10 +8,10 @@
 #include "CastleInfoManager.h"
 #include "GuildWar.h"
 #include "SiegeWar.h"
-#include "GCWarScheduleList.h"
-#include "GCWarList.h"
+#include "Gpackets/GCWarScheduleList.h"
+#include "Gpackets/GCWarList.h"
 
-WarSchedule::WarSchedule(Work* pWork, const VSDateTime& Time, ScheduleType type) 
+WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) 
 	throw(Error)
 : Schedule(pWork, Time, type)
 {
@@ -20,13 +20,13 @@ WarSchedule::WarSchedule(Work* pWork, const VSDateTime& Time, ScheduleType type)
 }
 
 WarSchedule::~WarSchedule()
-	throw()
+	throw (Error)
 {
 }
 
 void    
-WarSchedule::makeWarScheduleInfo(WarScheduleInfo* pWSI ) const
-	throw(Error)
+WarSchedule::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ WarSchedule::makeWarScheduleInfo(WarScheduleInfo* pWSI ) const
 	War* pWar = dynamic_cast<War*>(m_pWork);
 	Assert(pWar!=NULL);
 	
-	pWar->makeWarScheduleInfo(pWSI);
+	pWar->makeWarScheduleInfo( pWSI );
     pWSI->year					= m_ScheduledTime.date().year();
     pWSI->month					= m_ScheduledTime.date().month();
     pWSI->day					= m_ScheduledTime.date().day();
@@ -46,7 +46,7 @@ WarSchedule::makeWarScheduleInfo(WarScheduleInfo* pWSI ) const
 
 void
 WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -83,9 +83,9 @@ WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
 	//---------------------------------------------------
 	// WarInfo 값 설정
 	//---------------------------------------------------
-	pWar->makeWarInfo(pWarInfo);
-	pWarInfo->setRemainTime(remainSec);
-	pWarInfo->setStartTime(startTime);
+	pWar->makeWarInfo( pWarInfo );
+	pWarInfo->setRemainTime( remainSec );
+	pWarInfo->setStartTime( startTime );
 
 //	cout << "after set : " << pWarInfo->getStartTime() << endl;
 
@@ -117,27 +117,27 @@ void WarSchedule::create()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(
-				"INSERT IGNORE INTO WarScheduleInfo (WarID, ServerID, ZoneID, WarType, AttackGuildID, WarFee, StartTime, Status ) \
-				VALUES (%u, %u, %u, '%s', %u, %u, '%s', '%s' )",
+				"INSERT IGNORE INTO WarScheduleInfo ( WarID, ServerID, ZoneID, WarType, AttackGuildID, WarFee, StartTime, Status ) \
+				VALUES ( %u, %u, %u, '%s', %u, %u, '%s', '%s' )",
 						(int)pSiegeWar->getWarID(), 
-						g_pConfig->getPropertyInt("ServerID" ), 
+						g_pConfig->getPropertyInt( "ServerID" ), 
 						(int)pSiegeWar->getCastleZoneID(),
 						pSiegeWar->getWarType2DBString().c_str(), 
 						(int)pSiegeWar->getChallangerGuildID(), 
 						(int)pSiegeWar->getRegistrationFee(), 
 						m_ScheduledTime.toDateTime().c_str(),
-						pSiegeWar->getState2DBString().c_str());
+						pSiegeWar->getState2DBString().c_str() );
 
-		if(pStmt->getAffectedRowCount() == 0 )
+		if( pStmt->getAffectedRowCount() == 0 )
 		{
-			filelog("WarError.log", "WarSchedule::create() : 이미 테이블에 War 정보가 있거나 테이블이 잘못되었습니다.");
+			filelog( "WarError.log", "WarSchedule::create() : 이미 테이블에 War 정보가 있거나 테이블이 잘못되었습니다." );
 			SAFE_DELETE(pStmt);
 			return;
 		}
 
 		SAFE_DELETE(pStmt);
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	__END_CATCH
 }
@@ -163,11 +163,11 @@ void WarSchedule::save()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(
-				"REPLACE INTO WarScheduleInfo (WarID, ServerID, ZoneID, WarType, AttackerCount, "
+				"REPLACE INTO WarScheduleInfo ( WarID, ServerID, ZoneID, WarType, AttackerCount, "
 				"AttackGuildID, AttackGuildID2, AttackGuildID3, AttackGuildID4, AttackGuildID5, WarFee, StartTime, Status ) \
-				VALUES (%u, %u, %u, '%s', %u, %u, %u, %u, %u, %u, %u, '%s', '%s' )",
+				VALUES ( %u, %u, %u, '%s', %u, %u, %u, %u, %u, %u, %u, '%s', '%s' )",
 						(int)pSiegeWar->getWarID(), 
-						g_pConfig->getPropertyInt("ServerID" ), 
+						g_pConfig->getPropertyInt( "ServerID" ), 
 						(int)pSiegeWar->getCastleZoneID(),
 						pSiegeWar->getWarType2DBString().c_str(), 
 						(int)pSiegeWar->getChallengerGuildCount(),
@@ -178,24 +178,24 @@ void WarSchedule::save()
 						(int)pSiegeWar->getChallangerGuildID(4), 
 						(int)pSiegeWar->getRegistrationFee(), 
 						m_ScheduledTime.toDateTime().c_str(),
-						pSiegeWar->getState2DBString().c_str());
+						pSiegeWar->getState2DBString().c_str() );
 
-		if(pStmt->getAffectedRowCount() == 0 )
+		if( pStmt->getAffectedRowCount() == 0 )
 		{
-			filelog("WarError.log", "WarSchedule::create() : 이미 테이블에 War 정보가 있거나 테이블이 잘못되었습니다.");
+			filelog( "WarError.log", "WarSchedule::create() : 이미 테이블에 War 정보가 있거나 테이블이 잘못되었습니다." );
 			SAFE_DELETE(pStmt);
 			return;
 		}
 
 		SAFE_DELETE(pStmt);
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	__END_CATCH
 }
 #endif
 
-void WarSchedule::tinysave(const string& query )
+void WarSchedule::tinysave( const string& query )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -213,18 +213,18 @@ void WarSchedule::tinysave(const string& query )
 				"UPDATE WarScheduleInfo SET %s WHERE WarID = %d AND ServerID = %d",
 							query.c_str(), 
 							pWar->getWarID(), 
-							g_pConfig->getPropertyInt("ServerID" )
+							g_pConfig->getPropertyInt( "ServerID" )
 				);
 
-/*		if(pStmt->getAffectedRowCount() == 0 )
+/*		if( pStmt->getAffectedRowCount() == 0 )
 		{
-			filelog("WarError.log", "WarSchedule::tinySave() DB에 WarSchedule이 없거나 정보가 잘못되었습니다. ZoneID:%d, WarID:%d, Query:%s",
-					pWarScheduler->getZone()->getZoneID(), pWar->getWarID(), query.c_str());
+			filelog( "WarError.log", "WarSchedule::tinySave() DB에 WarSchedule이 없거나 정보가 잘못되었습니다. ZoneID:%d, WarID:%d, Query:%s",
+					pWarScheduler->getZone()->getZoneID(), pWar->getWarID(), query.c_str() );
 			SAFE_DELETE(pStmt);
 			return;
 		}*/
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	SAFE_DELETE(pStmt);
 
@@ -246,7 +246,7 @@ bool WarSchedule::heartbeat()
 
 			char pState[20];
 			sprintf(pState, "Status='%s'", pWar->getState2DBString().c_str());
-			tinysave(string(pState));
+			tinysave( string(pState) );
 		}
 
 		return true;

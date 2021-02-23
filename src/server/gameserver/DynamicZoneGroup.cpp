@@ -8,7 +8,7 @@
 #include "DynamicZoneManager.h"
 #include "DynamicZoneFactoryManager.h"
 #include "DynamicZoneInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 ///////////////////////////////////////////////////////////
 // class DynamicZoneGroup
@@ -28,22 +28,22 @@ void DynamicZoneGroup::clear()
 	HashMapDynamicZoneItor itr = m_DynamicZones.begin();
 	HashMapDynamicZoneItor endItr = m_DynamicZones.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_DynamicZones.clear();
 }
 
-void DynamicZoneGroup::addDynamicZone(DynamicZone* pDynamicZone )
+void DynamicZoneGroup::addDynamicZone( DynamicZone* pDynamicZone )
 {
-	HashMapDynamicZoneItor itr = m_DynamicZones.find(pDynamicZone->getZoneID());
+	HashMapDynamicZoneItor itr = m_DynamicZones.find( pDynamicZone->getZoneID() );
 
-	if (itr != m_DynamicZones.end() )
+	if ( itr != m_DynamicZones.end() )
 	{
 		cerr << "Duplicated zoneID. DynamicZoneGroup::addDynamicZone" << endl;
-		Assert(false);
+		Assert( false );
 	}
 
 	m_DynamicZones[pDynamicZone->getZoneID()] = pDynamicZone;
@@ -55,9 +55,9 @@ bool DynamicZoneGroup::canEnter()
 	HashMapDynamicZoneItor itr = m_DynamicZones.begin();
 	HashMapDynamicZoneItor endItr = m_DynamicZones.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		if (itr->second->getStatus() == DYNAMIC_ZONE_STATUS_READY )
+		if ( itr->second->getStatus() == DYNAMIC_ZONE_STATUS_READY )
 		{
 			return true;
 		}
@@ -72,11 +72,11 @@ DynamicZone* DynamicZoneGroup::getAvailableDynamicZone()
 	HashMapDynamicZoneItor itr = m_DynamicZones.begin();
 	HashMapDynamicZoneItor endItr = m_DynamicZones.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		if (itr->second->getStatus() == DYNAMIC_ZONE_STATUS_READY )
+		if ( itr->second->getStatus() == DYNAMIC_ZONE_STATUS_READY )
 		{
-			itr->second->setStatus(DYNAMIC_ZONE_STATUS_RUNNING);
+			itr->second->setStatus( DYNAMIC_ZONE_STATUS_RUNNING );
 			itr->second->init();
 			return itr->second;
 		}
@@ -86,13 +86,13 @@ DynamicZone* DynamicZoneGroup::getAvailableDynamicZone()
 	// 새로 DynamicZone 을 만든다.
 	DynamicZone* pDynamicZone = NULL;
 
-	pDynamicZone = g_pDynamicZoneFactoryManager->createDynamicZone(m_DynamicZoneType);
+	pDynamicZone = g_pDynamicZoneFactoryManager->createDynamicZone( m_DynamicZoneType );
 
-	pDynamicZone->setTemplateZoneID(m_TemplateZoneID);
-	pDynamicZone->setZoneID(g_pDynamicZoneManager->getNewDynamicZoneID());
-	pDynamicZone->setStatus(DYNAMIC_ZONE_STATUS_RUNNING);
+	pDynamicZone->setTemplateZoneID( m_TemplateZoneID );
+	pDynamicZone->setZoneID( g_pDynamicZoneManager->getNewDynamicZoneID() );
+	pDynamicZone->setStatus( DYNAMIC_ZONE_STATUS_RUNNING );
 	pDynamicZone->makeDynamicZone();
-	addDynamicZone(pDynamicZone);
+	addDynamicZone( pDynamicZone );
 
 	return pDynamicZone;
 }

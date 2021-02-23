@@ -11,19 +11,19 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanWarpGate::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
-	return !pCreature2->isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE);
+	return !pCreature2->isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanWarpGate::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -31,7 +31,7 @@ void ConditionCanWarpGate::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanWarpGate::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

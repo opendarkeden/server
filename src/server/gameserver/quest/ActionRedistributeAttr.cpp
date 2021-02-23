@@ -13,15 +13,15 @@
 #include "StringPool.h"
 #include <stdio.h>
 
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedistributeAttr::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionRedistributeAttr::read (PropertyBuffer & propertyBuffer)
 		else
 		{
 			cout << "ActionRedistributeAttr::read() : Unknown ATTR type" << endl;
-			throw("ActionRedistributeAttr::read() : Unknown ATTR type");
+			throw ("ActionRedistributeAttr::read() : Unknown ATTR type");
 		}
 	} 
 	catch (NoSuchElementException & nsee)
@@ -53,7 +53,7 @@ void ActionRedistributeAttr::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 
 	Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
 
-	Gold_t ATTR_PRICE = g_pVariableManager->getVariable(VAMPIRE_REDISTRIBUTE_ATTR_PRICE);
+	Gold_t ATTR_PRICE = g_pVariableManager->getVariable( VAMPIRE_REDISTRIBUTE_ATTR_PRICE );
 
 	// 돈을 가지고 있지 않다면 에러다.
 	if (pVampire->getGold() < ATTR_PRICE) 
@@ -85,10 +85,10 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 		msg << pVampire->getName() << " 님은 충분한 돈을 가지고 있지 않습니다.(" << ATTR_PRICE << " 겔드)"; */
 
         char msg[100];
-        sprintf(msg, g_pStringPool->c_str(STRID_NOT_ENOUGH_MONEY ), pVampire->getName().c_str());
+        sprintf( msg, g_pStringPool->c_str( STRID_NOT_ENOUGH_MONEY ), pVampire->getName().c_str() );
 
 		GCSystemMessage gcSM;
-		gcSM.setMessage(msg);
+		gcSM.setMessage( msg );
 		pPlayer->sendPacket(&gcSM);
 		return;
 	}
@@ -125,7 +125,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 //			msg << "레벨만큼만 보너스 포인트로 전환할 수 있습니다.";
 
 			GCSystemMessage gcSM;
-			gcSM.setMessage(g_pStringPool->getString(STRID_TRANS_BONUS_POINT ));
+			gcSM.setMessage( g_pStringPool->getString( STRID_TRANS_BONUS_POINT ) );
 			pPlayer->sendPacket(&gcSM);
 			SAFE_DELETE(pStmt);
 			return;
@@ -157,7 +157,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 //			msg << "STR을 20이하로 낮출 수는 없습니다.";
 
 			GCSystemMessage gcSM;
-			gcSM.setMessage(g_pStringPool->getString(STRID_STR_LOW_LIMIT ));
+			gcSM.setMessage( g_pStringPool->getString( STRID_STR_LOW_LIMIT ) );
 			pPlayer->sendPacket(&gcSM);
 			return;
 		}
@@ -179,7 +179,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 //			msg << "DEX를 20이하로 낮출 수는 없습니다.";
 
 			GCSystemMessage gcSM;
-			gcSM.setMessage(g_pStringPool->getString(STRID_DEX_LOW_LIMIT ));
+			gcSM.setMessage( g_pStringPool->getString( STRID_DEX_LOW_LIMIT ) );
 			pPlayer->sendPacket(&gcSM);
 			return;
 		}
@@ -201,7 +201,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 //			msg << "INT를 20이하로 낮출 수는 없습니다.";
 
 			GCSystemMessage gcSM;
-			gcSM.setMessage(g_pStringPool->getString(STRID_INT_LOW_LIMIT ));
+			gcSM.setMessage( g_pStringPool->getString( STRID_INT_LOW_LIMIT ) );
 			pPlayer->sendPacket(&gcSM);
 			return;
 		}
@@ -251,7 +251,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRedistributeAttr::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

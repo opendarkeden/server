@@ -17,7 +17,6 @@
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
 #include "ZoneGroupManager.h"
-#include "SubInventory.h"
 
 // global variable declaration
 PupaInfoManager* g_pPupaInfoManager = NULL;
@@ -42,7 +41,7 @@ Pupa::Pupa(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t 
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "Pupa::Pupa() : Invalid item type or option type");
-		throw("Pupa::Pupa() : Invalid item type or optionType");
+		throw ("Pupa::Pupa() : Invalid item type or optionType");
 	}
 }
 
@@ -90,8 +89,8 @@ void Pupa::create(const string & ownerID, Storage storage, StorageID_t storageID
 		*/
 
 		// StringStreamÁ¦°Å. by sigi. 2002.5.13
-		pStmt->executeQuery("INSERT INTO PupaObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
-								m_ItemID, m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, x, y, (int)m_Num);
+		pStmt->executeQuery( "INSERT INTO PupaObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
+								m_ItemID, m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, x, y, (int)m_Num );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -146,7 +145,7 @@ void Pupa::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE PupaObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE PupaObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -170,8 +169,8 @@ void Pupa::save(const string & ownerID, Storage storage, StorageID_t storageID, 
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE PupaObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE PupaObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -346,7 +345,7 @@ void PupaInfo::parseEffect(const string& effect)
 
 	if (effect.size() < 5) return;
 
-    size_t a = 0, b = 0, c = 0, d = 0, e = 0;
+	uint a = 0, b = 0, c = 0, d = 0, e = 0;
 	
 	while (e < effect.size() - 1)
 	{
@@ -477,8 +476,8 @@ void PupaLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PupaObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PupaObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{
@@ -538,18 +537,6 @@ void PupaLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pPupa);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pPupa))
 						{
 							pInventory->addItemEx(x, y, pPupa);
@@ -609,7 +596,7 @@ void PupaLoader::load(Creature* pCreature)
 						}
 						else if (pCreature->isOusters())
 						{
-							pItem = findItemIID(pOusters, storageID, Item::ITEM_CLASS_OUSTERS_ARMSBAND);
+							pItem = findItemIID( pOusters, storageID, Item::ITEM_CLASS_OUSTERS_ARMSBAND );
 							if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND)
 							{
 								pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);

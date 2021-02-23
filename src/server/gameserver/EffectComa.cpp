@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectComa.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
@@ -26,11 +26,11 @@
 
 #include "SlayerCorpse.h"
 #include "VampireCorpse.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Thread.h"
     
-#include "GCCreatureDied.h"
-#include "GCGetOffMotorCycle.h"
+#include "Gpackets/GCCreatureDied.h"
+#include "Gpackets/GCGetOffMotorCycle.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -77,17 +77,21 @@ void EffectComa::unaffect(Creature* pDeadCreature)
 {
 	__BEGIN_TRY
 
+	//cout << "EffectComa " << "unaffect BEGIN(Creature)" << endl;
+	
 	Assert(pDeadCreature != NULL);
 	//Assert(pDeadCreature->isDead());
 
 	// 이펙트 플래그를 삭제해준다.
 	pDeadCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 	// 날아오면 강제로 죽이는 코드를 집어넣는다.
-	if (pDeadCreature->isSlayer()) {
+	if (pDeadCreature->isSlayer())
+	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
 		pSlayer->setHP(0, ATTR_CURRENT);
 	}
-	else if (pDeadCreature->isVampire()) {
+	else if (pDeadCreature->isVampire())
+	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
 		pVampire->setHP(0, ATTR_CURRENT);
 	}
@@ -97,6 +101,8 @@ void EffectComa::unaffect(Creature* pDeadCreature)
 		pOusters->setHP(0, ATTR_CURRENT);
 	}
 
+	//cout << "EffectComa " << "unaffect END(Creature)" << endl;
+
 	__END_CATCH
 }
 
@@ -105,8 +111,12 @@ void EffectComa::unaffect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectComa " << "unaffect BEGIN" << endl;
+
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 	unaffect(pCreature);
+
+	//cout << "EffectComa " << "unaffect END" << endl;
 
 	__END_CATCH
 }

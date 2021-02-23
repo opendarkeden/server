@@ -10,16 +10,13 @@
 #include "Monster.h"
 #include "Player.h"
 #include "SkillUtil.h"
-#include "MonsterCorpse.h"
 
-#include "GCModifyInformation.h"
-#include "GCAddEffectToTile.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK2.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -51,28 +48,28 @@ EffectHarpoonBomb::EffectHarpoonBomb(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 
 void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 {
-	//cout << "crashing " << X << ", " << Y << endl;
+	cout << "crashing " << X << ", " << Y << endl;
 	Assert(pZone != NULL);
-	Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
 	VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
 	GCAddEffectToTile gcAE;
-	gcAE.setEffectID(getSendEffectClass());
-	gcAE.setObjectID(getObjectID());
-	gcAE.setDuration(10);
-	gcAE.setXY(X, Y);
-	pZone->broadcastPacket(X, Y, &gcAE);
+	gcAE.setEffectID( getSendEffectClass() );
+	gcAE.setObjectID( getObjectID() );
+	gcAE.setDuration( 10 );
+	gcAE.setXY( X, Y );
+	pZone->broadcastPacket( X, Y, &gcAE );
 
-	for(int x = -1; x <= 1; x++)
+	for( int x = -1; x <= 1; x++)
 	{
 		for(int y= -1; y <= 1; y++)
 		{
 			if(!rect.ptInRect(X+x, Y+y)) continue;
 			Tile& tile = pZone->getTile(X+x, Y+y);
 			
-			const list<Object*>& oList = tile.getObjectList();
-			list<Object*>::const_iterator itr = oList.begin();
+			const slist<Object*>& oList = tile.getObjectList();
+			slist<Object*>::const_iterator itr = oList.begin();
 			for(; itr != oList.end(); itr++)
 			{
 				Object* pObject = *itr;
@@ -86,9 +83,9 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 					// ÀÚ½ÅÀº ¸ÂÁö ¾Ê´Â´Ù
 					// ¹«Àû»óÅÂ Ã¼Å©. by sigi. 2002.9.5
 					if (pCreature->getObjectID()==m_UserObjectID
-						|| !canAttack(pCastCreature, pCreature )
+						|| !canAttack( pCastCreature, pCreature )
 						|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-						|| !checkZoneLevelToHitTarget(pCreature )
+						|| !checkZoneLevelToHitTarget( pCreature )
 						|| pCreature->isDead()
 						|| pCreature->isSlayer()
 					)
@@ -96,10 +93,10 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 						continue;
 					}
 
-					if (pCastCreature != NULL && pCastCreature->isMonster() )
+					if ( pCastCreature != NULL && pCastCreature->isMonster() )
 					{
 						Monster* pMonster = dynamic_cast<Monster*>(pCastCreature);
-						if (pMonster != NULL && !pMonster->isEnemyToAttack(pCreature ) ) continue;
+						if ( pMonster != NULL && !pMonster->isEnemyToAttack( pCreature ) ) continue;
 					}
 
 					//GCModifyInformation gcMI;
@@ -110,7 +107,7 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 					{
 						Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-						::setDamage(pSlayer, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pSlayer, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI);
 
 /*						Player* pPlayer = pSlayer->getPlayer();
 						Assert(pPlayer != NULL);
@@ -121,7 +118,7 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 					{
 						Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-						::setDamage(pVampire, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pVampire, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI );
 
 /*						Player* pPlayer = pVampire->getPlayer();
 						Assert(pPlayer != NULL);
@@ -131,7 +128,7 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 					{
 						Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-						::setDamage(pOusters, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pOusters, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, &gcSkillToObjectOK2, &gcAttackerMI );
 
 /*						Player* pPlayer = pOusters->getPlayer();
 						Assert(pPlayer != NULL);
@@ -141,23 +138,23 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 					{
 						Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-						::setDamage(pMonster, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, NULL, &gcAttackerMI);
+						::setDamage( pMonster, m_Damage, pCastCreature, SKILL_HARPOON_BOMB, NULL, &gcAttackerMI );
 
-						if (pCastCreature != NULL ) pMonster->addEnemy(pCastCreature);
+						if ( pCastCreature != NULL ) pMonster->addEnemy( pCastCreature );
 					}
 
 					// userÇÑÅ×´Â ¸Â´Â ¸ð½ÀÀ» º¸¿©ÁØ´Ù.
 					if (pCreature->isPC())
 					{
-						gcSkillToObjectOK2.setObjectID(1);	// ÀÇ¹Ì ¾ø´Ù.
-						gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+						gcSkillToObjectOK2.setObjectID( 1 );	// ÀÇ¹Ì ¾ø´Ù.
+						gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
 						gcSkillToObjectOK2.setDuration(0);
 						pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
 					}
 
 					GCSkillToObjectOK4 gcSkillToObjectOK4;
-					gcSkillToObjectOK4.setTargetObjectID(pCreature->getObjectID());
-					gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+					gcSkillToObjectOK4.setTargetObjectID( pCreature->getObjectID() );
+					gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
 					gcSkillToObjectOK4.setDuration(0);
 
 					pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcSkillToObjectOK4, pCreature);
@@ -166,7 +163,7 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 		}
 	}
 
-	//cout << "crashed" << endl;
+	cout << "crashed" << endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -176,22 +173,22 @@ void EffectHarpoonBomb::affect()
 {
 	__BEGIN_TRY
 
-	//cout << "harpoon bomb affect ";
+	cout << "harpoon bomb affect ";
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
 	Zone* pZone = NULL;
 	int cX, cY;
 
-	if (pCreature == NULL )
+	if ( pCreature == NULL )
 	{
-		//cout << "to zone" << endl;
+		cout << "to zone" << endl;
 		pZone = m_pZone;
 		cX = m_X;
 		cY = m_Y;
 	}
 	else
 	{
-		//cout << "to creature" << endl;
+		cout << "to creature" << endl;
 		pZone = pCreature->getZone();
 		cX = pCreature->getX();
 		cY = pCreature->getY();
@@ -201,19 +198,19 @@ void EffectHarpoonBomb::affect()
 
 	VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-	for(int x = -1; x <= 1; x++)
+	for( int x = -1; x <= 1; x++)
 	{
 		for(int y= -1; y <= 1; y++)
 		{
 			int X = cX + x;
 			int Y = cY + y;
-			//cout << "check " << X << ", " << Y << endl;
+			cout << "check " << X << ", " << Y << endl;
 
 			if(!rect.ptInRect(X, Y)) continue;
 			Tile& tile = pZone->getTile(X, Y);
 
-			const list<Object*>& oList = tile.getObjectList();
-			list<Object*>::const_iterator itr = oList.begin();
+			const slist<Object*>& oList = tile.getObjectList();
+			slist<Object*>::const_iterator itr = oList.begin();
 			for(; itr != oList.end(); itr++)
 			{
 				Object* pObject = *itr;
@@ -224,48 +221,31 @@ void EffectHarpoonBomb::affect()
 					Creature* pTargetCreature = dynamic_cast<Creature*>(pObject);
 					Assert(pTargetCreature != NULL);
 
-					if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA ) )
+					if ( pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA ) )
 					{
-						crash(pZone, X, Y);
-						Effect* pComa = pTargetCreature->findEffect(Effect::EFFECT_CLASS_COMA);
-						if (pComa != NULL )
+						//cout << "Test1 " << endl;
+						crash( pZone, X, Y );
+						Effect* pComa = pTargetCreature->findEffect( Effect::EFFECT_CLASS_COMA );
+						if ( pComa != NULL )
 						{
-							pTargetCreature->setFlag(Effect::EFFECT_CLASS_HARPOON_BOMB);
+							pTargetCreature->setFlag( Effect::EFFECT_CLASS_HARPOON_BOMB );
 							pComa->setDeadline(0);
 						}
 					}
 				}
-				else if (pObject->getObjectClass() == Object::OBJECT_CLASS_ITEM )
+				else if ( pObject->getObjectClass() == Object::OBJECT_CLASS_ITEM )
 				{
 					Item* pTargetItem = dynamic_cast<Item*>(pObject);
-					if (pTargetItem->getItemClass() == Item::ITEM_CLASS_CORPSE )
+					if ( pTargetItem->getItemClass() == Item::ITEM_CLASS_CORPSE )
 					{
-						crash(pZone, X, Y);
-
-						// ½ÃÃ¼¸¦ »èÁ¦ÇÑ´Ù.
-						if (pTargetItem->getItemType() == MONSTER_CORPSE )
-						{
-							bool bDelete = false;
-
-							MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pTargetItem);
-							Assert(pCorpse != NULL);
-							// ¼º¹°º¸°üÇÔÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-							// Å©¸®½º¸¶½º Æ®¸®°¡ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-							// ¾Ë¸²ÆÇÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-							// ¼º´ÜÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
-							if (!pCorpse->isFlag(Effect::EFFECT_CLASS_SLAYER_RELIC_TABLE)
-							  && !pCorpse->isFlag(Effect::EFFECT_CLASS_VAMPIRE_RELIC_TABLE) 
-							  && pCorpse->getMonsterType() != 482
-							  && pCorpse->getMonsterType() != 650
-							  && !pCorpse->isShrine() )
-							{
-								bDelete = true;
-							}
-
-							if (bDelete )
-								pZone->deleteItemDelayed(pTargetItem, X, Y);
-						}
-
+						// add by coffee 2006-12.29 ÐÞÕýÇ¹ÊÖÕ¨Ê¥µ®Ê÷ºÍÖØÉúËþ
+								//if( pMonster->getMonsterType() 	== 482 || pMonster->getMonsterType() 	== 673 ) continue;
+						/*
+						//cout << "Test2 " << endl;
+						crash( pZone, X, Y );
+						pZone->deleteItemDelayed(pTargetItem, X, Y);
+						*/
+						// end 2006-12.29
 //						SAFE_DELETE(pTargetItem);
 					}
 				}
@@ -288,7 +268,7 @@ void EffectHarpoonBomb::unaffect()
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 //	unaffect(pCreature);
 
-	if (pCreature == NULL )
+	if ( pCreature == NULL )
 	{
 		Tile& tile = m_pZone->getTile(m_X, m_Y);
 		tile.deleteEffect(m_ObjectID);

@@ -24,7 +24,7 @@ PCWarLimiter::~PCWarLimiter()
 // load
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::load() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,10 +49,10 @@ void	PCWarLimiter::load()
 			int 	Limit 		= pResult->getInt(4);
 			int 	Current 	= pResult->getInt(5);
 
-			LevelLimitInfo lli(ID, MinLevel, MaxLevel, Limit);
-			lli.setCurrent(Current);
+			LevelLimitInfo lli( ID, MinLevel, MaxLevel, Limit );
+			lli.setCurrent( Current );
 
-			addLimitInfo(lli);
+			addLimitInfo( lli );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -70,7 +70,7 @@ void	PCWarLimiter::load()
 // lock걸린 상태에서 불려야 한다.
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::clearCurrent()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -80,7 +80,7 @@ void	PCWarLimiter::clearCurrent()
 	{
 		LimitInfo_t* pLI = &(m_LimitInfos[i]);
 
-		pLI->setCurrent(0);
+		pLI->setCurrent( 0 );
 	}
 
 	// DB에도 0으로 바꿔준다.
@@ -90,7 +90,7 @@ void	PCWarLimiter::clearCurrent()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt->executeQuery(
-			"UPDATE %s SET CurrentNum=0", getTableName().c_str());
+			"UPDATE %s SET CurrentNum=0", getTableName().c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -105,7 +105,7 @@ void	PCWarLimiter::clearCurrent()
 // lock걸린 상태에서 불려야 한다.
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::saveCurrent(const LevelLimitInfo* pLI) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -131,7 +131,7 @@ void	PCWarLimiter::saveCurrent(const LevelLimitInfo* pLI) const
 // join
 //--------------------------------------------------------------------------------
 bool 	PCWarLimiter::join(PlayerCreature* pPC) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -145,7 +145,7 @@ bool 	PCWarLimiter::join(PlayerCreature* pPC)
 		&& !pLI->isLimit() )
 	{
 		pLI->increase();
-		saveCurrent(pLI);
+		saveCurrent( pLI );
 
 		isJoin = true;
 	}
@@ -161,7 +161,7 @@ bool 	PCWarLimiter::join(PlayerCreature* pPC)
 // leave
 //--------------------------------------------------------------------------------
 bool	PCWarLimiter::leave(PlayerCreature* pPC) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ bool	PCWarLimiter::leave(PlayerCreature* pPC)
 	if (pLI!=NULL)
 	{
 		pLI->decrease();
-		saveCurrent(pLI);
+		saveCurrent( pLI );
 
 		isLeave = true;
 	}
@@ -201,11 +201,11 @@ SlayerWarLimiter::~SlayerWarLimiter()
 }
 
 //--------------------------------------------------------------------------------
-// getLimitInfo(PC )
+// getLimitInfo( PC )
 //--------------------------------------------------------------------------------
 SlayerWarLimiter::LimitInfo_t*
 SlayerWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ SlayerWarLimiter::getLimitInfo(PlayerCreature* pPC)
 	{
 		LimitInfo_t* pLI = &(m_LimitInfos[i]);
 
-		if (pLI->isLevelInRange(Level ))
+		if (pLI->isLevelInRange( Level ))
 		{
 			return pLI;
 		}
@@ -251,11 +251,11 @@ VampireWarLimiter::~VampireWarLimiter()
 }
 
 //--------------------------------------------------------------------------------
-// getLimitInfo(PC )
+// getLimitInfo( PC )
 //--------------------------------------------------------------------------------
 VampireWarLimiter::LimitInfo_t*
 VampireWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -272,7 +272,7 @@ VampireWarLimiter::getLimitInfo(PlayerCreature* pPC)
 	{
 		LimitInfo_t* pLI = &(m_LimitInfos[i]);
 
-		if (pLI->isLevelInRange(Level ))
+		if (pLI->isLevelInRange( Level ))
 		{
 			return pLI;
 		}
@@ -298,11 +298,11 @@ OustersWarLimiter::~OustersWarLimiter()
 }
 
 //--------------------------------------------------------------------------------
-// getLimitInfo(PC )
+// getLimitInfo( PC )
 //--------------------------------------------------------------------------------
 OustersWarLimiter::LimitInfo_t*
 OustersWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -319,7 +319,7 @@ OustersWarLimiter::getLimitInfo(PlayerCreature* pPC)
 	{
 		LimitInfo_t* pLI = &(m_LimitInfos[i]);
 
-		if (pLI->isLevelInRange(Level ))
+		if (pLI->isLevelInRange( Level ))
 		{
 			return pLI;
 		}
@@ -339,7 +339,7 @@ OustersWarLimiter::getLimitInfo(PlayerCreature* pPC)
 // clear
 //--------------------------------------------------------------------------------
 void	RaceWarLimiter::clearCurrent() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -354,7 +354,7 @@ void	RaceWarLimiter::clearCurrent()
 // load
 //--------------------------------------------------------------------------------
 void	RaceWarLimiter::load() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -369,7 +369,7 @@ void	RaceWarLimiter::load()
 // join
 //--------------------------------------------------------------------------------
 bool	RaceWarLimiter::join(PlayerCreature* pPC) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -379,25 +379,25 @@ bool	RaceWarLimiter::join(PlayerCreature* pPC)
 
 	if (pPC->isSlayer())
 	{
-		isJoin = m_SlayerWarLimiter.join(pPC);
+		isJoin = m_SlayerWarLimiter.join( pPC );
 	}
 	else if (pPC->isVampire())
 	{
 		Assert(pPC->isVampire());
 
-		isJoin = m_VampireWarLimiter.join(pPC);
+		isJoin = m_VampireWarLimiter.join( pPC );
 	}
 	else if (pPC->isOusters())
 	{
 		Assert(pPC->isOusters());
 
-		isJoin = m_OustersWarLimiter.join(pPC);
+		isJoin = m_OustersWarLimiter.join( pPC );
 	}
 
 	if (isJoin)
 	{
-		addPCList(pPC);
-		pPC->setFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+		addPCList( pPC );
+		pPC->setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 	}
 
 	return isJoin;
@@ -409,7 +409,7 @@ bool	RaceWarLimiter::join(PlayerCreature* pPC)
 // leave
 //--------------------------------------------------------------------------------
 bool	RaceWarLimiter::leave(PlayerCreature* pPC) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -419,24 +419,24 @@ bool	RaceWarLimiter::leave(PlayerCreature* pPC)
 
 	if (pPC->isSlayer())
 	{
-		isLeave = m_SlayerWarLimiter.leave(pPC);
+		isLeave = m_SlayerWarLimiter.leave( pPC );
 	}
 	else if (pPC->isVampire())
 	{
 		Assert(pPC->isVampire());
 
-		isLeave = m_VampireWarLimiter.leave(pPC);
+		isLeave = m_VampireWarLimiter.leave( pPC );
 	}
 	else if (pPC->isOusters())
 	{
 		Assert(pPC->isOusters());
 
-		isLeave = m_OustersWarLimiter.leave(pPC);
+		isLeave = m_OustersWarLimiter.leave( pPC );
 	}
 
 	if (isLeave)
 	{
-		removePCList(pPC);
+		removePCList( pPC );
 	}
 
 	return isLeave;
@@ -445,25 +445,25 @@ bool	RaceWarLimiter::leave(PlayerCreature* pPC)
 }
 
 //--------------------------------------------------------------------------------
-// get LimitInfo(race, index )
+// get LimitInfo( race, index )
 //--------------------------------------------------------------------------------
 LevelLimitInfo*    RaceWarLimiter::getLimitInfo(Race_t race, int index) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	if (race==RACE_SLAYER)
 	{
-		return m_SlayerWarLimiter.getLimitInfoByIndex(index);
+		return m_SlayerWarLimiter.getLimitInfoByIndex( index );
 	}
 	else if (race==RACE_VAMPIRE)
 	{
-		return m_VampireWarLimiter.getLimitInfoByIndex(index);
+		return m_VampireWarLimiter.getLimitInfoByIndex( index );
 	}
 
 	Assert(race==RACE_OUSTERS);
 
-	return m_OustersWarLimiter.getLimitInfoByIndex(index);
+	return m_OustersWarLimiter.getLimitInfoByIndex( index );
 
 	__END_CATCH
 }

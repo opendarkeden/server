@@ -34,11 +34,11 @@ class GDRLairIdle : public SetTimeState
 {
 public:
 	DWORD	getStateType() const { return GDR_LAIR_IDLE; }
-	GDRLairIdle(const VSDateTime& date ) : SetTimeState(GDR_LAIR_ENTRANCE, date ) { }
+	GDRLairIdle( const VSDateTime& date ) : SetTimeState( GDR_LAIR_ENTRANCE, date ) { }
 
 	void start();
 
-	State*	clone() { return new GDRLairIdle(getTimer()); }
+	State*	clone() { return new GDRLairIdle( getTimer() ); }
 	string	toString() const { return "GDRLairIdle"; }
 private:
 };
@@ -48,7 +48,7 @@ class GDRLairEntrance : public TimerState
 {
 public:
 	DWORD	getStateType() const { return GDR_LAIR_ENTRANCE; }
-	GDRLairEntrance() : TimerState(GDR_LAIR_ICEPOLE, 1210 ) { }
+	GDRLairEntrance() : TimerState( GDR_LAIR_ICEPOLE, 1210 ) { }
 
 	void start();
 	DWORD heartbeat(Timeval currentTime);
@@ -64,7 +64,7 @@ public:
 {
 public:
 	DWORD	getStateType() const { return GDR_LAIR_ILLUSIONS_WAY_ONLY; }
-	GDRLairIllusionsWayOnly() : TimerState(GDR_LAIR_ICEPOLE, 600 ) { }
+	GDRLairIllusionsWayOnly() : TimerState( GDR_LAIR_ICEPOLE, 600 ) { }
 	DWORD	heartbeat(Timeval currentTime);
 
 	void start();
@@ -96,7 +96,7 @@ private:
 class GDRLairScene1 : public GDRScene
 {
 public:
-	GDRLairScene1() : GDRScene(GDR_LAIR_SUMMON_MONSTER ) { }
+	GDRLairScene1() : GDRScene( GDR_LAIR_SUMMON_MONSTER ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_1; }
 	void	end();
@@ -126,7 +126,7 @@ public:
 class GDRLairScene2 : public GDRScene
 {
 public:
-	GDRLairScene2() : GDRScene(GDR_LAIR_SUMMON_GDR_DUP ) { }
+	GDRLairScene2() : GDRScene( GDR_LAIR_SUMMON_GDR_DUP ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_2; }
 	void	end();
@@ -153,7 +153,7 @@ public:
 class GDRLairScene3 : public GDRScene
 {
 public:
-	GDRLairScene3() : GDRScene(GDR_LAIR_GDR_FIGHT ) { }
+	GDRLairScene3() : GDRScene( GDR_LAIR_GDR_FIGHT ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_3; }
 	void	end();
@@ -181,7 +181,7 @@ public:
 class GDRLairScene4 : public GDRScene
 {
 public:
-	GDRLairScene4() : GDRScene(GDR_LAIR_AWAKENED_GDR_FIGHT ) { }
+	GDRLairScene4() : GDRScene( GDR_LAIR_AWAKENED_GDR_FIGHT ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_4; }
 
@@ -208,7 +208,7 @@ public:
 class GDRLairScene5 : public GDRScene
 {
 public:
-	GDRLairScene5() : GDRScene(GDR_LAIR_MINION_FIGHT ) { }
+	GDRLairScene5() : GDRScene( GDR_LAIR_MINION_FIGHT ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_5; }
 
@@ -234,7 +234,7 @@ public:
 class GDRLairScene6 : public GDRScene
 {
 public:
-	GDRLairScene6() : GDRScene(GDR_LAIR_AWAKENED_GDR_FIGHT ) { }
+	GDRLairScene6() : GDRScene( GDR_LAIR_AWAKENED_GDR_FIGHT ) { }
 	void	start();
 	DWORD	getStateType() const { return GDR_LAIR_SCENE_6; }
 
@@ -247,7 +247,7 @@ public:
 class GDRLairEnding : public TimerState
 {
 public:
-	GDRLairEnding() : TimerState(GDR_LAIR_IDLE, 10 ) { }
+	GDRLairEnding() : TimerState( GDR_LAIR_IDLE, 10 ) { }
 	DWORD	getStateType() const { return GDR_LAIR_ENDING; }
 
 	void	start();
@@ -261,7 +261,7 @@ public:
 class GDRLairKillAll : public TimerState
 {
 public:
-	GDRLairKillAll() : TimerState(GDR_LAIR_IDLE, 10 ) { }
+	GDRLairKillAll() : TimerState( GDR_LAIR_IDLE, 10 ) { }
 	DWORD	getStateType() const { return GDR_LAIR_KILL_ALL; }
 
 	void	start();

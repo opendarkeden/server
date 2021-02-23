@@ -68,7 +68,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkil
 	catch (Throwable & t) 
 	{
 		executeSkillFailException(pVampire, getSkillType());
-        //cout << t.toString() << endl;
+        ////cout << t.toString() << endl;
     }
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;

@@ -16,32 +16,32 @@ PKTError::PKTError()
 }
 
 // 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-void PKTError::read(SocketInputStream& iStream )
+void PKTError::read( SocketInputStream& iStream )
 {
-	iStream.read((char*)this, szPKTError);
+	iStream.read( (char*)this, szPKTError );
 
 	// change order - network to host
-//	nSize		= ntohl(nSize);
-//	nCode		= ntohl(nCode);
-//	nError		= ntohl(nError);
+//	nSize		= ntohl( nSize );
+//	nCode		= ntohl( nCode );
+//	nError		= ntohl( nError );
 }
 
 // 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-void PKTError::write(SocketOutputStream& oStream )
+void PKTError::write( SocketOutputStream& oStream )
 {
 	nCode = getID();
 
 	// change order - host to network
-//	nSize		= htonl(nSize);
-//	nCode		= htonl(nCode);
-//	nError		= htonl(nError);
+//	nSize		= htonl( nSize );
+//	nCode		= htonl( nCode );
+//	nError		= htonl( nError );
 
-	oStream.write((const char*)this, szPKTError);
+	oStream.write( (const char*)this, szPKTError );
 
 	// restore order
-//	nSize		= ntohl(nSize);
-//	nCode		= ntohl(nCode);
-//	nError		= ntohl(nError);
+//	nSize		= ntohl( nSize );
+//	nCode		= ntohl( nCode );
+//	nError		= ntohl( nError );
 }
 
 // debug message

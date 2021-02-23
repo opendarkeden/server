@@ -10,7 +10,7 @@ public:
 	GQuestCompleteQuestElement() : m_QuestID(0) { }
 	string		 				getElementName() const { return "CompleteQuest"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestCompleteQuestElement*	makeElement(XMLTree* pTree);
 

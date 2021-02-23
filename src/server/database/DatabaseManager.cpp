@@ -13,13 +13,10 @@
 #include "Result.h"
 #include "Statement.h"
 #include "Properties.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include "pthreadAPI.h"
 
-#include <map>
-
-DatabaseManager::DatabaseManager ()
+DatabaseManager::DatabaseManager () 
 	throw()
 {
 	__BEGIN_TRY
@@ -34,17 +31,17 @@ DatabaseManager::DatabaseManager ()
 	__END_CATCH
 }
 
-DatabaseManager::~DatabaseManager ()
-	throw()
+DatabaseManager::~DatabaseManager () 
+	throw ()
 {
 	__BEGIN_TRY
-
-	// ï¿½ï¿½ï¿½ï¿½ Connection ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
-	map<TID, Connection*>::iterator itr = m_Connections.begin();
+	
+	// ¸ðµç Connection ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	hash_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
 		SAFE_DELETE(itr->second);
 
-	// ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
 	m_Connections.clear();
 
 	SAFE_DELETE(m_pDefaultConnection);
@@ -54,22 +51,22 @@ DatabaseManager::~DatabaseManager ()
 }
 
 void DatabaseManager::init ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	try
+	try 
 	{
-		//cout << "--------------------------------------------------" << endl;
-		//cout << "            Init DatabaseManager " << endl;
-		//cout << "--------------------------------------------------" << endl;
+		cout << "--------------------------------------------------" << endl;
+		cout << "            Init DatabaseManager " << endl;
+		cout << "--------------------------------------------------" << endl;
 
 		string host     = g_pConfig->getProperty("DB_HOST");
 		string db       = g_pConfig->getProperty("DB_DB");
 		string user     = g_pConfig->getProperty("DB_USER");
 		string password = g_pConfig->getProperty("DB_PASSWORD");
 		uint port		= 0;
-		if (g_pConfig->hasKey("DB_PORT") )
+		if ( g_pConfig->hasKey("DB_PORT") )
 			port = g_pConfig->getPropertyInt("DB_PORT");
 
 		m_pDefaultConnection = new Connection(host, db, user, password, port);
@@ -80,7 +77,7 @@ void DatabaseManager::init ()
 		string uiuser     = g_pConfig->getProperty("UI_DB_USER");
 		string uipassword = g_pConfig->getProperty("UI_DB_PASSWORD");
 		uint uiport		= 0;
-		if (g_pConfig->hasKey("DB_PORT") )
+		if ( g_pConfig->hasKey("DB_PORT") )
 			uiport = g_pConfig->getPropertyInt("DB_PORT");
 
 		m_pUserInfoConnection = new Connection(uihost, uidb, uiuser, uipassword, uiport);
@@ -98,55 +95,55 @@ void DatabaseManager::init ()
 		pStmt = m_pDefaultConnection->createStatement();
 		Result * pResult = NULL;
 
-		// ï¿½Ã°ï¿½ Ã¼Å©
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 1ï¿½Ã°ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½È¶ï¿½ï¿½ï¿½.
-		pResult = pStmt->executeQuery("SELECT now()");
-		if (pResult->next() )
+		// ½Ã°£ Ã¼Å©
+		// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¼­¹ö°£¿¡ ½Ã°£Â÷ÀÌ°¡ 1½Ã°£ ÀÌ»óÀÌ¸é ¾È¶á´Ù.
+		pResult = pStmt->executeQuery( "SELECT now()" );
+		if ( pResult->next() )
 		{
 			// 0123456789012345678
 			// 2003-08-25 18:25:11
-			string sDBTime = pResult->getString(1);
+			string sDBTime = pResult->getString( 1 );
 			tm tDBTime;
-			//cout << sDBTime << endl;
+			cout << sDBTime << endl;
 
-			tDBTime.tm_year	= atoi(sDBTime.substr(0,4).c_str() ) - 1900;
-			tDBTime.tm_mon	= atoi(sDBTime.substr(5,2).c_str());
-			tDBTime.tm_mday	= atoi(sDBTime.substr(8,2).c_str());
-			tDBTime.tm_hour	= atoi(sDBTime.substr(11,2).c_str());
-			tDBTime.tm_min	= atoi(sDBTime.substr(14,2).c_str());
-			tDBTime.tm_sec	= atoi(sDBTime.substr(17,2).c_str());
+			tDBTime.tm_year	= atoi( sDBTime.substr( 0,4).c_str() ) - 1900;
+			tDBTime.tm_mon	= atoi( sDBTime.substr( 5,2).c_str() );
+			tDBTime.tm_mday	= atoi( sDBTime.substr( 8,2).c_str() );
+			tDBTime.tm_hour	= atoi( sDBTime.substr(11,2).c_str() );
+			tDBTime.tm_min	= atoi( sDBTime.substr(14,2).c_str() );
+			tDBTime.tm_sec	= atoi( sDBTime.substr(17,2).c_str() );
 
 			time_t tSYSTime = time(0);
 
-			double dbDiff = difftime(tSYSTime, mktime(&tDBTime));
+			double dbDiff = difftime( tSYSTime, mktime(&tDBTime) );
 
-			if ((int)dbDiff > 3600 )
+			if ( (int)dbDiff > 3600 )
 			{
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 1ï¿½Ã°ï¿½ ï¿½Ì»ï¿½ï¿½Ì´ï¿½.
-				//cout << "======================================================" << endl;
-				//cout << "!!! Time Check Error !!!" << endl;
-				//cout << "!!! Please check DB server and service server time !!!" << endl;
-				//cout << "======================================================" << endl;
+				// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¼­¹ö°£¿¡ ½Ã°£Â÷ÀÌ°¡ 1½Ã°£ ÀÌ»óÀÌ´Ù.
+				cout << "======================================================" << endl;
+				cout << "!!! Time Check Error !!!" << endl;
+				cout << "!!! Please check DB server and service server time !!!" << endl;
+				cout << "======================================================" << endl;
 
-				//throw Error("Time Check Error");
+				throw Error("Time Check Error");
 			}
 		}
 
 		#ifdef __LOGIN_SERVER__
-			pResult = pStmt->executeQuery(
+			pResult = pStmt->executeQuery( 
 			"SELECT WorldID, Host, DB, User, Password, Port FROM WorldDBInfo");
-			//cout << "[LOGIN_SERVER] query WorldDBInfo" << endl;
+			cout << "[LOGIN_SERVER] query WorldDBInfo" << endl;
 		#else
-			pResult = pStmt->executeQuery(
+			pResult = pStmt->executeQuery( 
 			"SELECT WorldID, Host, DB, User, Password, Port FROM WorldDBInfo WHERE WorldID = 0");
 		#endif
-
-		while(pResult->next() ) {
-			//cout << "--------------------------------------------------" << endl;
-			//cout << "--------------------------------------------------" << endl;
-			//cout << "Connecting....... Another DB Server" << endl;
-			//cout << "--------------------------------------------------" << endl;
-			//cout << "--------------------------------------------------" << endl;
+	
+		while( pResult->next() ) {
+			cout << "--------------------------------------------------" << endl;
+			cout << "--------------------------------------------------" << endl;
+			cout << "Connecting....... Another DB Server" << endl;
+			cout << "--------------------------------------------------" << endl;
+			cout << "--------------------------------------------------" << endl;
 
 			WorldID_t WorldID = pResult->getInt(1);
 			string whost = pResult->getString(2);
@@ -155,7 +152,7 @@ void DatabaseManager::init ()
 			string wpassword = pResult->getString(5);
 			uint port = pResult->getInt(6);
 
-			cout << "Connecting: "
+			cout << "Connectiong: " 
 				<< "WorldID=" << (int)WorldID
 				<< ", HOST=" << whost.c_str()
 				<< ", DB=" << wdb.c_str()
@@ -166,11 +163,11 @@ void DatabaseManager::init ()
 			Assert(pConnection!=NULL);
 
 			#ifdef __LOGIN_SERVER__
-                m_WorldConnections[ (TID)WorldID ] = pConnection;
+				m_WorldConnections[ WorldID ] = pConnection;
 
-                addConnection((TID)WorldID , pConnection);
+				addConnection( WorldID , pConnection );
 
-				//cout << "WorldID=" << (int)WorldID << ", IP=" << whost.c_str() << endl;
+				cout << "WorldID=" << (int)WorldID << ", IP=" << whost.c_str() << endl;
 			#else
 				m_pWorldDefaultConnection = pConnection;
 			#endif
@@ -179,17 +176,17 @@ void DatabaseManager::init ()
 
 		/*
 		#ifdef __LOGIN_SERVER__
-			pResult = pStmt->executeQuery(
+			pResult = pStmt->executeQuery( 
 			"SELECT ID, Host, DB, User, Password FROM PCRoomDBInfo");
 
-			if (pResult->next() ) {
+			if ( pResult->next() ) {
 				WorldID_t ID = pResult->getInt(1);
 				string phost = pResult->getString(2);
 				string pdb = pResult->getString(3);
 				string puser = pResult->getString(4);
 				string ppassword = pResult->getString(5);
 
-				cout << "Connectiong: "
+				cout << "Connectiong: " 
 					<< "ID=" << (int)ID
 					<< ", HOST=" << phost.c_str()
 					<< ", DB=" << pdb.c_str()
@@ -205,105 +202,17 @@ void DatabaseManager::init ()
 
 		SAFE_DELETE(pStmt);
 
-	}
-	catch (SQLConnectException & sce )
+	} 
+	catch ( SQLConnectException & sce ) 
 	{
-		throw Error(sce.toString());
+		throw Error( sce.toString() );
 	}
 
 	__END_CATCH
 }
 
-void DatabaseManager::addConnection (TID tid,  Connection * pConnection )
-	throw(DuplicatedException )
-{
-	__BEGIN_TRY
-
-	//cout << "Adding TID connection BEGIN" << endl;
-
-	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	map< TID , Connection * >::iterator itr = m_Connections.find(tid);
-
-	if (itr != m_Connections.end() )
-	{
-		cout << "duplicated connection info id" << endl;
-		throw DuplicatedException("duplicated connection info id");
-	}
-
-	m_Connections[ tid ] = pConnection;
-
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
-
-	//cout << "Adding TID connection END" << endl;
-
-	__END_CATCH
-}
-
-////////////////////////////////////////////////////////////////////////////
-// Potion ï¿½ï¿½ Thread Connectionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
-////////////////////////////////////////////////////////////////////////////
-void DatabaseManager::addDistConnection (TID tid,  Connection * pConnection )
-	throw(DuplicatedException )
-{
-	__BEGIN_TRY
-
-	//cout << "Adding TID connection BEGIN" << endl;
-
-	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	map< TID , Connection * >::iterator itr = m_DistConnections.find(tid);
-
-	if (itr != m_DistConnections.end() )
-	{
-		cout << "duplicated connection info id" << endl;
-		throw DuplicatedException("duplicated connection info id");
-	}
-
-	m_DistConnections[ tid ] = pConnection;
-
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
-
-	//cout << "Adding TID connection END" << endl;
-
-	__END_CATCH
-}
-
-////////////////////////////////////////////////////////////////////////////
-// China Billing log ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
-////////////////////////////////////////////////////////////////////////////
-void DatabaseManager::addCBillingConnection (TID tid,  Connection * pConnection )
-	throw(DuplicatedException )
-{
-	__BEGIN_TRY
-
-	//cout << "Adding TID connection BEGIN" << endl;
-
-	__ENTER_CRITICAL_SECTION(m_Mutex)
-
-	map< TID , Connection * >::iterator itr = m_CBillingConnections.find(tid);
-
-	if (itr != m_CBillingConnections.end() )
-	{
-		cout << "duplicated connection info id" << endl;
-		throw DuplicatedException("duplicated connection info id");
-	}
-
-	m_CBillingConnections[ tid ] = pConnection;
-
-	__LEAVE_CRITICAL_SECTION(m_Mutex)
-
-	//cout << "Adding TID connection END" << endl;
-
-	__END_CATCH
-}
-
-/*
-////////////////////////////////////////////////////////////////////////////////
-// PC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Connection ï¿½ï¿½ï¿½ï¿½
-////////////////////////////////////////////////////////////////////////////////
-void DatabaseManager::addPCRoomConnection (int TID,  Connection * pConnection )
-	throw(DuplicatedException )
+void DatabaseManager::addConnection ( int TID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -311,9 +220,97 @@ void DatabaseManager::addPCRoomConnection (int TID,  Connection * pConnection )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< int , Connection * >::iterator itr = m_PCRoomConnections.find(TID);
+	hash_map< int , Connection * >::iterator itr = m_Connections.find( TID );
+	
+	if ( itr != m_Connections.end() )
+	{
+		cout << "duplicated connection info id" << endl;
+		throw DuplicatedException("duplicated connection info id");
+	}
 
-	if (itr != m_Connections.end() )
+	m_Connections[ TID ] = pConnection;
+
+	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Adding TID connection END" << endl;
+
+	__END_CATCH
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Potion Ãø Thread ConnectionÀ» À§ÇÑ ºÎºÐ
+////////////////////////////////////////////////////////////////////////////
+void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
+{
+	__BEGIN_TRY
+
+	cout << "Adding TID connection BEGIN" << endl;
+
+	__ENTER_CRITICAL_SECTION(m_Mutex)
+
+	hash_map< int , Connection * >::iterator itr = m_DistConnections.find( TID );
+	
+	if ( itr != m_DistConnections.end() )
+	{
+		cout << "duplicated connection info id" << endl;
+		throw DuplicatedException("duplicated connection info id");
+	}
+
+	m_DistConnections[ TID ] = pConnection;
+
+	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Adding TID connection END" << endl;
+
+	__END_CATCH
+}
+
+////////////////////////////////////////////////////////////////////////////
+// China Billing log ÀúÀåÀ» À§ÇÑ DB ¿¬°á Ãß°¡
+////////////////////////////////////////////////////////////////////////////
+void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
+{
+	__BEGIN_TRY
+
+	cout << "Adding TID connection BEGIN" << endl;
+
+	__ENTER_CRITICAL_SECTION(m_Mutex)
+
+	hash_map< int , Connection * >::iterator itr = m_CBillingConnections.find( TID );
+	
+	if ( itr != m_CBillingConnections.end() )
+	{
+		cout << "duplicated connection info id" << endl;
+		throw DuplicatedException("duplicated connection info id");
+	}
+
+	m_CBillingConnections[ TID ] = pConnection;
+
+	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Adding TID connection END" << endl;
+
+	__END_CATCH
+}
+
+/*
+////////////////////////////////////////////////////////////////////////////////
+// PC ¹æ °ü·Ã Connection ÀúÀå
+////////////////////////////////////////////////////////////////////////////////
+void DatabaseManager::addPCRoomConnection ( int TID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
+{
+	__BEGIN_TRY
+
+	cout << "Adding TID connection BEGIN" << endl;
+
+	__ENTER_CRITICAL_SECTION(m_Mutex)
+
+	hash_map< int , Connection * >::iterator itr = m_PCRoomConnections.find( TID );
+	
+	if ( itr != m_Connections.end() )
 	{
 		cout << "duplicated connection info id" << endl;
 		throw DuplicatedException("duplicated connection info id");
@@ -329,14 +326,14 @@ void DatabaseManager::addPCRoomConnection (int TID,  Connection * pConnection )
 }
 */
 
-Connection * DatabaseManager::getDistConnection (const string& connName )
-	throw(NoSuchElementException )
+Connection * DatabaseManager::getDistConnection ( const string& connName ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 
-	map<TID, Connection*>::iterator itr = m_DistConnections.find(Thread::self());
+	hash_map<int, Connection*>::iterator itr = m_DistConnections.find(Thread::self());
 
 	if (itr == m_DistConnections.end())
 	{
@@ -346,8 +343,8 @@ Connection * DatabaseManager::getDistConnection (const string& connName )
 #else
 		pTempConnection = m_pWorldDefaultConnection;
 #endif
-	}
-	else
+	} 
+	else 
 	{
 		pTempConnection = itr->second;
 	}
@@ -358,16 +355,16 @@ Connection * DatabaseManager::getDistConnection (const string& connName )
 }
 
 
-Connection * DatabaseManager::getConnection (const string& connName )
-	throw(NoSuchElementException )
+Connection * DatabaseManager::getConnection ( const string& connName ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 
-	map<TID, Connection*>::iterator itr;
+	hash_map<int, Connection*>::iterator itr;
 
-	// connNameï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ DB Serverï¿½ï¿½ ï¿½Ð±ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+	// connName¿¡ ´ëÇØ¼­ °¢±â ´Ù¸¥ DB Server·Î ºÐ±âÇÏµµ·Ï ÇÑ´Ù.
 	//if(connName == "DIST_DARKEDEN")
 	//{
 	//	itr = m_DistConnections.find(Thread::self());
@@ -393,24 +390,24 @@ Connection * DatabaseManager::getConnection (const string& connName )
 	__END_CATCH
 }
 
-Connection* DatabaseManager::getCBillingConnection(const string& connName )
-	throw(NoSuchElementException )
+Connection* DatabaseManager::getCBillingConnection( const string& connName ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 
-	map<TID, Connection*>::iterator itr;
+	hash_map<int, Connection*>::iterator itr;
 
 	itr = m_CBillingConnections.find(Thread::self());
 
-	if(itr != m_CBillingConnections.end() )
+	if( itr != m_CBillingConnections.end() )
 	{
 		pTempConnection = itr->second;
 	}
 	else
 	{
-		throw NoSuchElementException("No such element CBilling Connection error");
+		throw NoSuchElementException( "No such element CBilling Connection error" );
 	}
 
 	//Assert(pTempConnection!=NULL);
@@ -420,16 +417,16 @@ Connection* DatabaseManager::getCBillingConnection(const string& connName )
 }
 /*
 ////////////////////////////////////////////////////////////////////////////
-// PC ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¿ï¿½ Connection ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// PC ¹æ ÅëÇÕ¿ë Connection °¡Á®¿À±â
 ////////////////////////////////////////////////////////////////////////////
-Connection * DatabaseManager::getPCRoomConnection (const string& connName )
-	throw(NoSuchElementException )
+Connection * DatabaseManager::getPCRoomConnection ( const string& connName ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 
-	map<int, Connection*>::iterator itr;
+	hash_map<int, Connection*>::iterator itr;
 
 	itr = m_PCRoomConnections.find(Thread::self());
 
@@ -439,7 +436,7 @@ Connection * DatabaseManager::getPCRoomConnection (const string& connName )
 
 	#else
 
-		Assert(itr != m_PCRoomConnections.end());
+		Assert( itr != m_PCRoomConnections.end() );
 
 		pTempConnection = itr->second;
 
@@ -451,8 +448,8 @@ Connection * DatabaseManager::getPCRoomConnection (const string& connName )
 }
 */
 /*
-void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnection )
-	throw(DuplicatedException )
+void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -460,9 +457,9 @@ void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnectio
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find(WorldID);
-
-	if (itr != m_WorldConnections.end() )
+	hash_map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find( WorldID );
+	
+	if ( itr != m_WorldConnections.end() )
 	{
 		cout << "duplicated connection info id" << endl;
 		throw DuplicatedException("duplicated connection info id");
@@ -477,22 +474,22 @@ void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnectio
 	__END_CATCH
 }
 */
-
-Connection * DatabaseManager::getConnection (TID tid )
-	throw(NoSuchElementException )
+	
+Connection * DatabaseManager::getConnection ( int TID ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	if (m_WorldConnections.empty())	// by sigi. 2002.10.23
 	{
-		Assert(m_pWorldDefaultConnection);
+		Assert( m_pWorldDefaultConnection );
 		return m_pWorldDefaultConnection;
 	}
 	else	// by sigi. 2002.10.23
 	{
 		Connection * pTempConnection = NULL;
 
-		map<TID, Connection*>::iterator itr = m_WorldConnections.find(tid);
+		hash_map<int, Connection*>::iterator itr = m_WorldConnections.find(TID);
 
 		if (itr == m_WorldConnections.end())
 		{
@@ -510,7 +507,7 @@ Connection * DatabaseManager::getConnection (TID tid )
 }
 
 void DatabaseManager::executeDummyQuery(Connection* pConnection)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -523,7 +520,7 @@ void DatabaseManager::executeDummyQuery(Connection* pConnection)
 		SAFE_DELETE(pStmt);
 	} END_DB(pStmt) {
 		 SAFE_DELETE(pStmt);
-	}
+	} 
 
 	__END_CATCH
 }

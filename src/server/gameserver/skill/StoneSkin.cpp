@@ -7,14 +7,14 @@
 #include "EffectStoneSkin.h"
 #include "RankBonus.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCAddEffect.h"
 #include "HitRoll.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,10 +46,10 @@ void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
 
 		// Knowledge of Curse 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -66,7 +66,7 @@ void StoneSkin::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, 
 			decreaseMana(pVampire, RequiredMP, _GCSkillToSelfOK1);
 
 			// 스킬 레벨에 따라 데미지 보너스가 달라진다.
-			SkillInput input(pVampire);
+			SkillInput input( pVampire );
 			SkillOutput output;
 			input.SkillLevel = pVampire->getSTR()+pVampire->getDEX()+pVampire->getINT();
 			input.DomainLevel = pVampire->getLevel();

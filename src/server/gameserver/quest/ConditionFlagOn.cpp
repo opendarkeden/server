@@ -12,7 +12,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionFlagOn::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -29,7 +29,7 @@ bool ConditionFlagOn::isSatisfied (Creature * pCreature1 , Creature * pCreature2
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionFlagOn::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -46,7 +46,7 @@ void ConditionFlagOn::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionFlagOn::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include "VSDateTime.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 #include "QuestInfo.h"
 
@@ -22,7 +22,7 @@ protected:
 		QUEST_REWARDED	// 2
 	};
 public:
-	QuestStatus(QuestID_t qID, const VSDateTime& deadline, QuestClass questClass ) : m_QuestClass(questClass ), m_Deadline(deadline), m_State(QUEST_STARTED ) { m_QuestID = qID; m_bTimeLimit = false; }
+	QuestStatus( QuestID_t qID, const VSDateTime& deadline, QuestClass questClass ) : m_QuestClass( questClass ), m_Deadline(deadline), m_State( QUEST_STARTED ) { m_QuestID = qID; m_bTimeLimit = false; }
 	virtual ~QuestStatus() { }
 
 	QuestClass		getQuestClass() const { return m_QuestClass; }
@@ -33,20 +33,20 @@ public:
 	virtual bool	isSuccess() const throw(Error) { return m_State == QUEST_SUCCESS && !timeExpired(); }
 	virtual bool	isRewarded() const throw(Error) { return m_State == QUEST_REWARDED; }
 
-	void	setSuccess() const { Assert(m_State == QUEST_STARTED); m_State = QUEST_SUCCESS; }
-	void	setRewarded() const { Assert(m_State == QUEST_SUCCESS); m_State = QUEST_REWARDED; }
-	void	setRewardClass(RewardClass_t rClass) { m_RewardClass = rClass; }
+	void	setSuccess() const { Assert( m_State == QUEST_STARTED ); m_State = QUEST_SUCCESS; }
+	void	setRewarded() const { Assert( m_State == QUEST_SUCCESS ); m_State = QUEST_REWARDED; }
+	void	setRewardClass( RewardClass_t rClass) { m_RewardClass = rClass; }
 
 	bool	isMonsterKillQuest() { return m_QuestClass == QUEST_CLASS_MONSTER_KILL; }
 
 	bool	isEventQuest() const { return m_bEventQuest; }
 	int		getQuestLevel() const { return m_QuestLevel; }
 
-	void	setEventQuest(bool bEQ ) { m_bEventQuest = bEQ; }
-	void	setQuestLevel(int qLvl ) { m_QuestLevel = qLvl; }
+	void	setEventQuest( bool bEQ ) { m_bEventQuest = bEQ; }
+	void	setQuestLevel( int qLvl ) { m_QuestLevel = qLvl; }
 
 	bool	isTimeLimit() const { return m_bTimeLimit; }
-	void	setTimeLimit(bool bTL ) { m_bTimeLimit = bTL; }
+	void	setTimeLimit( bool bTL ) { m_bTimeLimit = bTL; }
 
 	virtual Packet*	makeStatusPacket() const = 0;
 
@@ -71,7 +71,7 @@ protected:
 
 protected:
 	PlayerCreature*	getOwnerPC() const;
-	void			setOwnerQM(QuestManager* pQM ) { m_pOwnerQM = pQM; }
+	void			setOwnerQM( QuestManager* pQM ) { m_pOwnerQM = pQM; }
 	RewardClass_t	getRewardClass() const { return m_RewardClass; }
 
 	friend class	QuestManager;

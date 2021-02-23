@@ -21,34 +21,34 @@ class CBillingPlayerInfo
 {
 public:
 	// constructor
-	CBillingPlayerInfo() throw(Error);
+	CBillingPlayerInfo() throw ( Error );
 
 	// destructor
-	virtual ~CBillingPlayerInfo() throw(Error);
+	virtual ~CBillingPlayerInfo() throw ( Error );
 
 	// get debug string
-	virtual string toString() const throw(Error);
+	virtual string toString() const throw ( Error );
 
 public:
 	// get / set CBillingVerified;
 	bool isCBillingVerified() const { return m_bCBillingVerified; }
-	void setCBillingVerified(bool bVerified = true ) { m_bCBillingVerified = true; }
+	void setCBillingVerified( bool bVerified = true ) { m_bCBillingVerified = true; }
 
 	// get / set PayPlayer
 	bool isPayPlayer() const { return m_bPayPlayer; }
-	void setPayPlayer(bool bPayPlayer = true ) { m_bPayPlayer = bPayPlayer; }
+	void setPayPlayer( bool bPayPlayer = true ) { m_bPayPlayer = bPayPlayer; }
 
 	// get / set show pay info
 	bool isCBShowPayInfo() const { return m_bShowPayInfo; }
-	void setCBShowPayInfo(bool bShowPayInfo = true ) { m_bShowPayInfo = bShowPayInfo; }
+	void setCBShowPayInfo( bool bShowPayInfo = true ) { m_bShowPayInfo = bShowPayInfo; }
 
 	// get /set CBPlayerType
 	int getCBPlayerType() const { return m_CBPlayerType; }
-	void setCBPlayerType(int cbPlayerType ) { m_CBPlayerType = cbPlayerType; }
+	void setCBPlayerType( int cbPlayerType ) { m_CBPlayerType = cbPlayerType; }
 
 	// get /set CBPayType
 	int getCBPayType() const { return m_CBPayType; }
-	void setCBPayType(int cbPayType ) { m_CBPayType = cbPayType; }
+	void setCBPayType( int cbPayType ) { m_CBPayType = cbPayType; }
 
 	// get and increase SendID and RecvID
 	int increaseSendID() { return ++m_SendID; }
@@ -66,15 +66,15 @@ public:
 
 	// get / set last show left Point 
 	int getCBLastShowLeftTime() const { return m_CBLastShowLeftTime; }
-	void setCBLastShowLeftTime(int lastShowLeftTime ) { m_CBLastShowLeftTime = lastShowLeftTime; }
+	void setCBLastShowLeftTime( int lastShowLeftTime ) { m_CBLastShowLeftTime = lastShowLeftTime; }
 
 	// get / set EndDateTime
 	VSDateTime getCBEndDateTime() const { return m_CBEndDateTime; }
-	void setCBEndDateTime(VSDateTime endDateTime ) { m_CBEndDateTime = endDateTime; }
+	void setCBEndDateTime( VSDateTime endDateTime ) { m_CBEndDateTime = endDateTime; }
 
 	// get / set Left point
 	int getCBLeftTime() const { return m_CBLeftTime; }
-	void setCBLeftTime(int leftTime ) { m_CBLeftTime = leftTime; }
+	void setCBLeftTime( int leftTime ) { m_CBLeftTime = leftTime; }
 
 protected:
 	bool	m_bCBillingVerified;

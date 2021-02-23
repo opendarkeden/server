@@ -16,7 +16,7 @@
 class EventRefreshHolyLandPlayer : public Event 
 {
 public:
-	EventRefreshHolyLandPlayer(GamePlayer* pGamePlayer ) throw();
+	EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer ) throw();
 	~EventRefreshHolyLandPlayer() throw() {}
 			
 public:

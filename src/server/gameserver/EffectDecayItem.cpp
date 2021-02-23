@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectDecayItem.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
@@ -24,7 +24,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectDecayItem::EffectDecayItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -47,7 +47,7 @@ EffectDecayItem::EffectDecayItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 // destructor
 //----------------------------------------------------------------------
 EffectDecayItem::~EffectDecayItem () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ EffectDecayItem::~EffectDecayItem ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectDecayItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -77,7 +77,7 @@ void EffectDecayItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obje
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 
 				if (m_bDeleteFromDB)
 				{
-					//ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pTempItem->getItemClass(), pTempItem->getItemType());
+					//ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pTempItem->getItemClass(), pTempItem->getItemType() );
 					//Assert(pItemInfo!=NULL);
 
 					// 유니크 아이템인 경우 개수를 줄인다.
@@ -119,7 +119,7 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 					{
 						// create한 아이템이 아닌 경우만 지워준다.
 						if (pTempItem->getCreateType()!=Item::CREATE_TYPE_CREATE)
-							UniqueItemManager::deleteItem(pTempItem->getItemClass(), pTempItem->getItemType());
+							UniqueItemManager::deleteItem( pTempItem->getItemClass(), pTempItem->getItemType() );
 
 						filelog("uniqueItem.txt", "[EffectDecayItem] %s", pTempItem->toString().c_str());
 					}
@@ -127,23 +127,23 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 					// ItemTraceLog 를 남긴다
 					/*
 					 * 존에 떨어진 아이템중 expire time인것들 모두 로그를 빼버린다.
-					if (pTempItem != NULL && pTempItem->isTraceItem() )
+					if ( pTempItem != NULL && pTempItem->isTraceItem() )
 					{
 						char zoneName[15];
-						sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), x, y);
-						remainTraceLog(pTempItem, zoneName, "GOD", ITEM_LOG_DELETE, DETAIL_TIMEOUT);
+						sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), x, y);
+						remainTraceLog( pTempItem, zoneName, "GOD", ITEM_LOG_DELETE, DETAIL_TIMEOUT);
 					}
 					*/
 
 					// 돈 로그 남기자
-					if (pTempItem->getItemClass() == Item::ITEM_CLASS_MONEY )
+					if ( pTempItem->getItemClass() == Item::ITEM_CLASS_MONEY )
 					{
 						Money* pMoney = dynamic_cast<Money*>(pTempItem);
-						if (pMoney->getAmount() >= g_pVariableManager->getMoneyTraceLogLimit() )
+						if ( pMoney->getAmount() >= g_pVariableManager->getMoneyTraceLogLimit() )
 						{
 							char zoneName[15];
-							sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), x, y);
-							remainMoneyTraceLog(zoneName, "GOD", ITEM_LOG_DELETE, DETAIL_TIMEOUT, pMoney->getAmount());
+							sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), x, y);
+							remainMoneyTraceLog( zoneName, "GOD", ITEM_LOG_DELETE, DETAIL_TIMEOUT, pMoney->getAmount() );
 						}
 					}
 
@@ -164,7 +164,7 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -174,7 +174,7 @@ void EffectDecayItem::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -184,7 +184,7 @@ void EffectDecayItem::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectDecayItem::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

@@ -11,7 +11,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionNotGuildMember::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -19,7 +19,7 @@ bool ConditionNotGuildMember::isSatisfied (Creature * pCreature1 , Creature * pC
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
 	// 길드 이름을 가져와서 없으면 길드원이 아니다
-	if (pPC->getGuildName().size() == 0 )
+	if ( pPC->getGuildName().size() == 0 )
 		return true;
 
 	return false;
@@ -29,7 +29,7 @@ bool ConditionNotGuildMember::isSatisfied (Creature * pCreature1 , Creature * pC
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionNotGuildMember::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -37,7 +37,7 @@ void ConditionNotGuildMember::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionNotGuildMember::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

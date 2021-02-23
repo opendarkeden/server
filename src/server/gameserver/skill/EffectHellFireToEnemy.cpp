@@ -9,8 +9,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -32,13 +32,13 @@ void EffectHellFireToEnemy::affect()
 {
 	__BEGIN_TRY
 
-	if (m_pTarget == NULL || m_pTarget->getObjectClass() != OBJECT_CLASS_CREATURE )
+	if ( m_pTarget == NULL || m_pTarget->getObjectClass() != OBJECT_CLASS_CREATURE )
 	{
 		setDeadline(0);
 		return;
 	}
 
-	affect(dynamic_cast<Creature*>(m_pTarget));
+	affect( dynamic_cast<Creature*>(m_pTarget) );
 	
 	__END_CATCH
 }
@@ -48,39 +48,39 @@ void EffectHellFireToEnemy::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 		
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
-	if (pCreature->isDead() )
+	if ( pCreature->isDead() )
 	{
 		setDeadline(0);
 		return;
 	}
 
-	Creature* pAttacker = pCreature->getZone()->getCreature(m_CasterOID);
+	Creature* pAttacker = pCreature->getZone()->getCreature( m_CasterOID );
 	Damage_t damage = m_Damage;
 
 	GCModifyInformation gcMI, gcAttackerMI;
 
-	::setDamage(pCreature, damage, pAttacker, SKILL_HELLFIRE, &gcMI, &gcAttackerMI, true, false);
+	::setDamage( pCreature, damage, pAttacker, SKILL_HELLFIRE, &gcMI, &gcAttackerMI, true, false );
 
-	if (pCreature->isDead() && pAttacker != NULL && pAttacker->isOusters() )
+	if ( pCreature->isDead() && pAttacker != NULL && pAttacker->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pAttacker);
-//		Exp_t exp = computeCreatureExp(pCreature, KILL_EXP);
-		Exp_t exp = computeCreatureExp(pCreature, 70, pOusters);
-		shareOustersExp(pOusters, exp, gcAttackerMI);
-		increaseAlignment(pAttacker, pCreature, gcAttackerMI);
+//		Exp_t exp = computeCreatureExp( pCreature, KILL_EXP );
+		Exp_t exp = computeCreatureExp( pCreature, 70, pOusters );
+		shareOustersExp( pOusters, exp, gcAttackerMI );
+		increaseAlignment( pAttacker, pCreature, gcAttackerMI );
 	}
 	
-	if (pAttacker != NULL && pAttacker->isPC() )
+	if ( pAttacker != NULL && pAttacker->isPC() )
 	{
 		computeAlignmentChange(pCreature, damage, pAttacker, &gcMI, &gcAttackerMI);
-		pAttacker->getPlayer()->sendPacket(&gcAttackerMI);
+		pAttacker->getPlayer()->sendPacket( &gcAttackerMI );
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		pCreature->getPlayer()->sendPacket(&gcMI);
+		pCreature->getPlayer()->sendPacket( &gcMI );
 	}
 
 	setNextTime(10);
@@ -107,7 +107,7 @@ void EffectHellFireToEnemy::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 //	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-//	Assert(pTargetOusters != NULL);
+//	Assert( pTargetOusters != NULL );
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;

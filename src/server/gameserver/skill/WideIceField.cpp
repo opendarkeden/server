@@ -8,13 +8,13 @@
 #include "EffectIceField.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -53,9 +53,9 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			SkillOutput output;
 			computeOutput(input, output);
 
-			for (int i=-2; i<=2; ++i )
+			for ( int i=-2; i<=2; ++i )
 			{
-				for (int j=-2; j<=2; ++j )
+				for ( int j=-2; j<=2; ++j )
 				{
 					bool bTileCheck = false;
 					VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -67,10 +67,10 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						Tile& tile = pZone->getTile(tX, tY);
 						if (tile.canAddEffect()) bTileCheck = true;
 						// 머시 그라운드 있음 추가 못한당.
-						if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
+						if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
 					}
 
-					if (!bTileCheck ) continue;
+					if ( !bTileCheck ) continue;
 
 					Tile&   tile  = pZone->getTile(tX, tY);
 					
@@ -84,8 +84,8 @@ void WideIceField::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					
 					// 이펙트 오브젝트를 생성한다.
 					EffectIceField* pEffect = new EffectIceField(pZone, tX, tY);
-					pEffect->setCasterName(pMonster->getName());
-					pEffect->setCasterID(pMonster->getObjectID());
+					pEffect->setCasterName( pMonster->getName() );
+					pEffect->setCasterID( pMonster->getObjectID() );
 					pEffect->setDeadline(output.Duration);
 					pEffect->setDuration(output.Range);
 					pEffect->setNextTime(0);

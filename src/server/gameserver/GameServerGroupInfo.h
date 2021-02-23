@@ -30,22 +30,22 @@ public :
 
 	// get/set GameWorldID
 	WorldID_t getWorldID() const throw() { return m_WorldID; }
-	void setWorldID(WorldID_t WorldID ) throw() { m_WorldID = WorldID; }
+	void setWorldID( WorldID_t WorldID ) throw() { m_WorldID = WorldID; }
 
 	// get/set GameServerGroupID
 	ServerGroupID_t getGroupID() const throw() { return m_GroupID; }
-	void setGroupID(ServerGroupID_t GroupID ) throw() { m_GroupID = GroupID; }
+	void setGroupID( ServerGroupID_t GroupID ) throw() { m_GroupID = GroupID; }
 
 	// get/set host name
-	string getGroupName() const throw() { return m_GroupName; }
-	void setGroupName(string GroupName ) throw() { m_GroupName = GroupName; }
+	string getGroupName() const throw () { return m_GroupName; }
+	void setGroupName( string GroupName ) throw () { m_GroupName = GroupName; }
 	
 	// get/set host name
-	BYTE getStat() const throw() { return m_Stat; }
-	void setStat(BYTE stat ) throw() { m_Stat = stat; }
+	BYTE getStat() const throw () { return m_Stat; }
+	void setStat( BYTE stat ) throw () { m_Stat = stat; }
 
 	// get debug string
-	string toString () const throw() 
+	string toString () const throw () 
 	{
 		StringStream msg;
 		msg << "GameServerGroupInfo("

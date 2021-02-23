@@ -88,7 +88,7 @@ public:
     // push Player to queue
     void pushPlayer(GamePlayer* pGamePlayer) throw(Error);
     void pushOutPlayer(GamePlayer* pGamePlayer) throw(Error);
-	void processPlayerListQueue() throw(Error);
+	void processPlayerListQueue() throw (Error);
 
 	// Queue's Player Add Manager
     void heartbeat() throw(Error);
@@ -98,13 +98,13 @@ public:
 
 	void    removeFlag (Effect::EffectClass EC) throw(Error);
 
-	void lock() throw(Error) { m_Mutex.lock(); }	
-	void unlock() throw(Error) { m_Mutex.unlock(); }	
+	void lock() throw (Error) { m_Mutex.lock(); }	
+	void unlock() throw (Error) { m_Mutex.unlock(); }	
 
 	// 모든 플레이어를 정리한다.
-	void clearPlayers() throw(Error);
+	void clearPlayers() throw (Error);
 
-	void setZGID(ZoneGroupID_t id ) { m_ZGID = id; }
+	void setZGID( ZoneGroupID_t id ) { m_ZGID = id; }
 	ZoneGroupID_t getZGID() const { return m_ZGID; }
 
 #if defined(__THAILAND_SERVER__) 

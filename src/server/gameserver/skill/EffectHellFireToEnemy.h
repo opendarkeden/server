@@ -31,10 +31,10 @@ public:
 	string toString() const throw();
 
 	Damage_t    getDamage() const { return m_Damage; }
-	void        setDamage(Damage_t Damage ) { m_Damage = Damage; }
+	void        setDamage( Damage_t Damage ) { m_Damage = Damage; }
 
 	ObjectID_t  getCasterOID() const { return m_CasterOID; }
-	void        setCasterOID(ObjectID_t CasterOID ) { m_CasterOID = CasterOID; }
+	void        setCasterOID( ObjectID_t CasterOID ) { m_CasterOID = CasterOID; }
 
 
 private:

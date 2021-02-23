@@ -2,7 +2,7 @@
 // MouseItemPosition 클래스 구현
 ///////////////////////////////////////////////////////////////////
 
-#include "Assert1.h"
+#include "Assert.h"
 
 #include "PlayerCreature.h"
 #include "Player.h"
@@ -18,39 +18,39 @@
 #include "CreatureUtil.h"
 
 #include "MouseItemPosition.h"
-#include "GCDeleteInventoryItem.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
+#include "Gpackets/GCAddEffect.h"
 
-Item* MouseItemPosition::popItem(bool bLock )
+Item* MouseItemPosition::popItem( bool bLock )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	if (bLock ) return popItem_UNLOCKED();
+	if ( bLock ) return popItem_UNLOCKED();
 	return popItem_LOCKED();
 
 	__END_CATCH
 }
 
-Item* MouseItemPosition::popItem_UNLOCKED()
+Item* MouseItemPosition::popItem_UNLOCKED( )
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	Creature* pTargetCreature = findCreature();
-	Zone* pZone = getZoneByCreature(pTargetCreature);
+	Zone* pZone = getZoneByCreature( pTargetCreature );
 
-	//Assert(pZone != NULL);
+	//Assert( pZone != NULL );
 	if (pZone==NULL) return NULL;
 	
 	Item* pItem = NULL;
 
-	__ENTER_CRITICAL_SECTION((*pZone) )
+	__ENTER_CRITICAL_SECTION( (*pZone) )
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
-	Assert(pPC != NULL);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pTargetCreature );
+	Assert( pPC != NULL );
 
-	pItem = popItem_CORE(pPC);
+	pItem = popItem_CORE( pPC );
 
     __LEAVE_CRITICAL_SECTION((*pZone))
 
@@ -66,13 +66,13 @@ Item* MouseItemPosition::popItem_LOCKED()
 
 	Creature* pTargetCreature = findCreature();
 
-	Zone* pZone = getZoneByCreature(pTargetCreature);
-	Assert(pZone != NULL);
+	Zone* pZone = getZoneByCreature( pTargetCreature );
+	Assert( pZone != NULL );
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
-	Assert(pPC != NULL);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pTargetCreature );
+	Assert( pPC != NULL );
 
-	return popItem_CORE(pPC);
+	return popItem_CORE( pPC );
 
 	__END_CATCH
 }
@@ -83,26 +83,26 @@ Zone* MouseItemPosition::getZone()
 	__BEGIN_TRY
 
 	// 구해놓은게 있으면 그걸로 리턴한다.
-	if (m_bSetZone ) return m_pZone;
+	if ( m_bSetZone ) return m_pZone;
 
 	// 구해놓은게 없으면 새로 구한다.
 	Creature* pTargetCreature = findCreature();
 
-	return getZoneByCreature(pTargetCreature);
+	return getZoneByCreature( pTargetCreature );
 
 	__END_CATCH
 }
 
-Item* MouseItemPosition::popItem_CORE(PlayerCreature* pPC )
+Item* MouseItemPosition::popItem_CORE( PlayerCreature* pPC )
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	Item* pItem;
 
-	if (pPC->getExtraInventorySlotItem() == NULL) 
+	if ( pPC->getExtraInventorySlotItem() == NULL) 
 	{
-		filelog("ItemError.log", "InventoryItemPosition:getItem() : 해당하는 위치에 아이템이 없습니다.");
+		filelog( "ItemError.log", "InventoryItemPosition:getItem() : 해당하는 위치에 아이템이 없습니다." );
 
 		return NULL;
 	}
@@ -111,33 +111,33 @@ Item* MouseItemPosition::popItem_CORE(PlayerCreature* pPC )
 	pPC->deleteItemFromExtraInventorySlot();
 
 	GCDeleteInventoryItem gcDeleteInventoryItem;
-	gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
+	gcDeleteInventoryItem.setObjectID( pItem->getObjectID() );
 
-	pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+	pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_BLOOD_BIBLE
 		|| pItem->getItemClass() == Item::ITEM_CLASS_CASTLE_SYMBOL )
 	{
-		sendBloodBibleEffect(pPC, Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME);
-		deleteRelicEffect(pPC, pItem);
+		sendBloodBibleEffect( pPC, Effect::EFFECT_CLASS_WARP_BLOOD_BIBLE_FROM_ME );
+		deleteRelicEffect( pPC, pItem );
 	}
-	if (pItem->isFlagItem() )
+	if ( pItem->isFlagItem() )
 	{
-		Effect* pFlagEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
-		if (pFlagEffect != NULL ) pFlagEffect->setDeadline(0);
+		Effect* pFlagEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_FLAG );
+		if ( pFlagEffect != NULL ) pFlagEffect->setDeadline(0);
 	}
 
-	if (pItem->isSweeper() )
+	if ( pItem->isSweeper() )
 	{
-		Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_SWEEPER);
-		if (pEffect != NULL )
+		Effect* pEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_SWEEPER );
+		if ( pEffect != NULL )
 		{
 			pEffect->setDeadline(0);
 		}	
 	}
-	if (pItem->getItemClass() == Item::ITEM_CLASS_WAR_ITEM )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_WAR_ITEM )
 	{
-		deleteRelicEffect(pPC, pItem);
+		deleteRelicEffect( pPC, pItem );
 	}
 
 	return pItem;
@@ -158,7 +158,7 @@ Creature* MouseItemPosition::findCreature()
     pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_OwnerName);
     if (pTargetCreature==NULL)
     {
-		filelog("ItemError.log", "InventoryItemPosition:getItem() : 해당하는 Creature가 없습니다.");
+		filelog( "ItemError.log", "InventoryItemPosition:getItem() : 해당하는 Creature가 없습니다." );
 
         g_pPCFinder->unlock();
         return NULL;
@@ -171,15 +171,15 @@ Creature* MouseItemPosition::findCreature()
 	__END_CATCH
 }
 
-Zone* MouseItemPosition::getZoneByCreature(Creature* pCreature ) 
-	throw(Error)
+Zone* MouseItemPosition::getZoneByCreature( Creature* pCreature ) 
+	throw (Error)
 {
 	if (pCreature==NULL) return NULL;
 
     Assert(pCreature->isPC());
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 	
 	m_bSetZone = true;
 	m_pZone = pZone;

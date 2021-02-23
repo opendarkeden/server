@@ -1,0 +1,3 @@
+# !/bin/sh
+
+vi Creature.cpp CreatureManager.cpp EffectDecayCorpse.cpp EffectDecayItem.cpp EffectSchedule.cpp EventMonsterManager.cpp EventMorph.cpp MonsterGroup.cpp MonsterManager.cpp PCManager.cpp ParkingCenter.cpp Zone.cpp ZoneUtil.cpp 

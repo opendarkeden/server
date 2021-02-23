@@ -10,9 +10,9 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -75,6 +75,8 @@ void EffectRelicTable::unaffect(Item* pItem)
 	__BEGIN_DEBUG
 
 	/*
+	//cout << "EffectRelicTable" << "unaffect BEGIN" << endl;
+
 	Assert(pItem != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -88,8 +90,10 @@ void EffectRelicTable::unaffect(Item* pItem)
 	gcRemoveEffect.setObjectID(pItem->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_HAS_SLAYER_RELIC);
 	pZone->broadcastPacket(pItem->getX(), pItem->getY(), &gcRemoveEffect);
+
+	//cout << "EffectRelicTable" << "unaffect END" << endl;
 	*/
-	pItem->removeFlag(getEffectClass());
+	pItem->removeFlag( getEffectClass() );
 
 	__END_DEBUG
 	__END_CATCH
@@ -99,7 +103,7 @@ void EffectRelicTable::unaffect(Item* pItem)
 bool EffectRelicTable::isSafeTime() const
 {
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
 	return currentTime > m_SafeTime;
 }
@@ -108,7 +112,7 @@ bool EffectRelicTable::isSafeTime() const
 bool EffectRelicTable::isLockTime() const
 {
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
 	return currentTime < m_LockTime;
 }

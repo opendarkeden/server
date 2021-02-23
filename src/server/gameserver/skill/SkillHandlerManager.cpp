@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SkillHandlerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 // 老馆 傍拜
 #include "AttackMelee.h"
@@ -351,9 +351,6 @@
 #include "SMGAttack.h"
 #include "GrenadeAttack.h"
 
-#include "UnterfeldwebelFire.h"
-#include "FeldwebelFire.h"
-
 // 铰流 胶懦
 #include "Halo.h"
 #include "Destinies.h"
@@ -366,6 +363,32 @@
 #include "HarpoonBomb.h"
 #include "PassingHeal.h"
 #include "RottenApple.h"
+// add by coffee 2007-3-1
+#include "BloodyScarify.h"		//血之烙印
+#include "BloodCurse.h"			//血之詛咒
+
+#include "ShineSword.h"			 //闪耀之剑 (人类 剑技能)]
+#include "BombCrashWalk.h"		//巨炮轰炸
+#include "SatelliteBomb.h"		//卫星轰击 (人类枪新技能)
+#include "IllusionInversion.h"	//恐怖幻觉(人类医生)
+#include "HeavenGround.h"		//天神降临
+// 魔灵
+#include "DummyDrake.h"			// 德雷克傀儡(火法)
+#include "HydroConvergence.h"   // 复合水疗(水法)
+#include "SummonClay.h"			// 粘土召唤(土法)
+#include "HeterChakram.h"		// 夏布利基因(敏战)
+#include "SkyFire.h"                                               //386 天雷火花 ADD BY RALLSER
+#include "CutStorm.h"                                        //387 ADD BY RALLSER
+#include "XRLMissile.h"                                        //388 ADD BY RALLSER
+#include "SacredStamp.h"                                  //389 ADD BY RALLSER
+#include "BrambleHalo.h"                                   //390 ADD BY RALLSER
+#include "DeadlyClaw.h"                                                                    //391致伤裂爪 add by rallser
+#include "VoodooRing.h"                            //392 ADD BY RALLSER
+#include "PenetrateWheel.h"                   //393 ADD BY RALLSER
+#include "FireMeteor.h"                           //394 ADD BY RALLSER
+#include "BigRockfall.h"                       //395 ADD BY RALLSER
+#include "RapidFreeze.h"                        //396 ADD BY RALLSER
+// end
 #include "MonsterRangeSkill.h"
 
 // global variable declaration
@@ -381,7 +404,7 @@ MonsterRangeSkill
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SkillHandlerManager::SkillHandlerManager () 
-	throw()
+	throw ()
 : m_SkillHandlers(NULL) , m_Size(SKILL_MAX)
 {
 	__BEGIN_TRY
@@ -401,7 +424,7 @@ SkillHandlerManager::SkillHandlerManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SkillHandlerManager::~SkillHandlerManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 		
@@ -422,7 +445,7 @@ SkillHandlerManager::~SkillHandlerManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void SkillHandlerManager::init ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -785,16 +808,39 @@ void SkillHandlerManager::init ()
 	addSkillHandler(&g_PuscaAttack);
 	addSkillHandler(&g_NodCopilaAttack);
 	addSkillHandler(&g_NodCopilaAttack2);
-	addSkillHandler(&g_UnterfeldwebelFire);
-	addSkillHandler(&g_FeldwebelFire);
-
+	// add by coffee 2007-2-17 start
+	// 吸血鬼新技能
+	addSkillHandler(&g_BloodyScarify);
+	addSkillHandler(&g_BloodCurse);
+	//人类技能
+	addSkillHandler(&g_ShineSword);
+	addSkillHandler(&g_BombCrashWalk);
+	addSkillHandler(&g_SatelliteBomb);
+	addSkillHandler(&g_IllusionInversion);
+	addSkillHandler(&g_HeavenGround);
+	// 魔灵新技能
+	addSkillHandler(&g_DummyDrake);
+	addSkillHandler(&g_HydroConvergence);
+	addSkillHandler(&g_SummonClay);
+	addSkillHandler(&g_HeterChakram);	
+        addSkillHandler(&g_SkyFire);
+        addSkillHandler(&g_CutStorm);
+        addSkillHandler(&g_XRLMissile);
+        addSkillHandler(&g_SacredStamp);
+        addSkillHandler(&g_BrambleHalo);
+        addSkillHandler(&g_DeadlyClaw);
+        addSkillHandler(&g_VoodooRing);
+        addSkillHandler(&g_PenetrateWheel);
+        addSkillHandler(&g_FireMeteor);
+        addSkillHandler(&g_BigRockfall);
+        addSkillHandler(&g_RapidFreeze);
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void SkillHandlerManager::addSkillHandler (SkillHandler * pSkillHandler) 
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -813,20 +859,20 @@ void SkillHandlerManager::addSkillHandler (SkillHandler * pSkillHandler)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SkillHandler * SkillHandlerManager::getSkillHandler (SkillType_t SkillType)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// Wide Storm 阑 啊瘤绊 乐阑 版快, Wide 贸府绰 盔贰 扁贱 救俊辑 贸府茄促.
-/*	if (SkillType == SKILL_DARKNESS_WIDE )
+/*	if ( SkillType == SKILL_DARKNESS_WIDE )
 	{
 		SkillType = SKILL_DARKNESS;
 	}
-	else if (SkillType == SKILL_POISON_STORM_WIDE )
+	else if ( SkillType == SKILL_POISON_STORM_WIDE )
 	{
 		SkillType = SKILL_POISON_STORM;
 	}
-	else if (SkillType == SKILL_ACID_STORM_WIDE )
+	else if ( SkillType == SKILL_ACID_STORM_WIDE )
 	{
 		SkillType = SKILL_ACID_STORM;
 	}
@@ -852,7 +898,7 @@ SkillHandler * SkillHandlerManager::getSkillHandler (SkillType_t SkillType)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string SkillHandlerManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

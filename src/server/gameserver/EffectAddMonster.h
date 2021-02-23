@@ -35,7 +35,7 @@ public:
 	
 	virtual void unaffect() throw(Error);
 	virtual void unaffect(Object* pObject) throw(Error);
-    virtual void unaffect(Creature* pCreature = NULL) throw(Error);
+	virtual void unaffect(Creature* pCreature = NULL) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__);}	
 	virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature) throw(Error);
 
 	virtual void create(const string & ownerID) throw(Error) {}

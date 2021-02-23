@@ -26,8 +26,8 @@ public:
 	virtual string toString() const throw();
 
 public:
-	ScriptID_t getScriptID(int index ) const throw() { return m_ScriptID[index]; }
-	void setScriptID(int index, ScriptID_t scriptID ) throw() { m_ScriptID[index] = scriptID; }
+	ScriptID_t getScriptID( int index ) const throw() { return m_ScriptID[index]; }
+	void setScriptID( int index, ScriptID_t scriptID ) throw() { m_ScriptID[index] = scriptID; }
 
 private:
 	ScriptID_t m_ScriptID[5];   // 말할 대사 아이디

@@ -16,9 +16,9 @@
 #include "mission/MonsterKillQuestInfo.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCSelectQuestID.h"
-#include "GCMonsterKillQuestInfo.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCSelectQuestID.h"
+#include "Gpackets/GCMonsterKillQuestInfo.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include <algorithm>
 #include <iosfwd>
@@ -27,7 +27,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventQuest::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -48,7 +48,7 @@ void ActionGiveEventQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -59,44 +59,44 @@ void ActionGiveEventQuest::execute (Creature * pCreature1 , Creature * pCreature
 	Assert(pCreature2->isPC());
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
-	if (!pPC->getQuestManager()->canStartMoreQuest() )
+	if ( !pPC->getQuestManager()->canStartMoreQuest() )
 	{
 		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-		gcNPCResponse.setParameter((uint)START_FAIL_QUEST_NUM_EXCEEDED);
+		gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+		gcNPCResponse.setParameter( (uint)START_FAIL_QUEST_NUM_EXCEEDED );
 
-		pPlayer->sendPacket(&gcNPCResponse);
+		pPlayer->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	if (pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() != m_QuestLevel )
+	if ( pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() != m_QuestLevel )
 	{
 		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-		gcNPCResponse.setParameter((uint)START_FAIL_PC);
+		gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+		gcNPCResponse.setParameter( (uint)START_FAIL_PC );
 
-		pPlayer->sendPacket(&gcNPCResponse);
+		pPlayer->sendPacket( &gcNPCResponse );
 		return;
 	}
 
 	list<QuestID_t> quests;
-	pNPC->getQuestInfoManager()->getEventQuestIDs(m_QuestLevel, pPC, back_inserter(quests ));
+	pNPC->getQuestInfoManager()->getEventQuestIDs( m_QuestLevel, pPC, back_inserter( quests ) );
 
 	//cout << "Quest List : ";
-	//copy(quests.begin(), quests.end(), ostream_iterator<DWORD>(cout, ","));
+	//copy( quests.begin(), quests.end(), ostream_iterator<DWORD>(cout, ",") );
 	//cout << endl;
 
-	GCSelectQuestID gcGiveEventQuestID(quests.begin(), quests.end());
+	GCSelectQuestID gcGiveEventQuestID( quests.begin(), quests.end() );
 
-	pPlayer->sendPacket(&gcGiveEventQuestID);
+	pPlayer->sendPacket( &gcGiveEventQuestID );
 
 	__END_CATCH
 }
@@ -106,7 +106,7 @@ void ActionGiveEventQuest::execute (Creature * pCreature1 , Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveEventQuest::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -19,7 +19,7 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
@@ -31,15 +31,15 @@
 
 #include "GQuestManager.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivatePortal::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionActivatePortal::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -78,7 +78,7 @@ void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature)
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_ZoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -91,18 +91,18 @@ void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature)
 			{
 				sendPayInfo(pGamePlayer);
 			}
-			else if (!pGamePlayer->isFamilyFreePass() ) // 패밀리 프리 패스는 유료존으로 갈 수 있다.
+			else if ( !pGamePlayer->isFamilyFreePass() ) // 패밀리 프리 패스는 유료존으로 갈 수 있다.
 			{
 				// 유료 서비스 사용 불가인 경우
 				GCSystemMessage gcSystemMessage;
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -116,52 +116,52 @@ void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature)
 
 	if (bTransport)
 	{
-		if (m_ZoneID == 1410 )
+		if ( m_ZoneID == 1410 )
 		{
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR ) )
+			if ( pCreature->isFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR ) )
 			{
 				Effect* pEffect = pCreature->findEffect(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR);
-				if (pEffect != NULL ) pEffect->setDeadline(0);
+				if ( pEffect != NULL ) pEffect->setDeadline(0);
 			}
 
-			if (pCreature->isSlayer() )
+			if ( pCreature->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-				Assert(pSlayer != NULL);
+				Assert( pSlayer != NULL );
 
 				// 오토바이를 타고 있으면 오토바이에서 내린다.
-				if (pSlayer->hasRideMotorcycle() )
+				if ( pSlayer->hasRideMotorcycle() )
 				{
 					pSlayer->getOffMotorcycle();
 				}
 			}
 
-			if (pCreature->isOusters() )
+			if ( pCreature->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-				Assert(pOusters != NULL);
+				Assert( pOusters != NULL );
 
 				// 실프 타고 있으면 내려준다
-				if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
+				if ( pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 				{
 					Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_SUMMON_SYLPH);
-					if (pEffect != NULL ) pEffect->setDeadline(0);
+					if ( pEffect != NULL ) pEffect->setDeadline(0);
 				}
 			}
 
-			if (pCreature->isVampire() )
+			if ( pCreature->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-				Assert(pVampire != NULL);
+				Assert( pVampire != NULL );
 
-				if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
+				if ( pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
 				{
-					addUntransformCreature(pVampire->getZone(), pVampire, true);
+					addUntransformCreature( pVampire->getZone(), pVampire, true );
 				}
 			}
 		}
 
-		if (pNPC != NULL )
+		if ( pNPC != NULL )
 		{
 			pPC->getGQuestManager()->illegalWarp();
 		}
@@ -184,7 +184,7 @@ void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionActivatePortal::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

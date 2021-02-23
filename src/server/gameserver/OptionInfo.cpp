@@ -5,16 +5,14 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "OptionInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include "StringStream.h"
-#include <algorithm>
+#include <algo.h>
 
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
-
-#include <map>
 
 //////////////////////////////////////////////////////////////////////////////
 // global varible initialization
@@ -206,39 +204,39 @@ isPossibleOptionClass(Item::ItemClass itemClass, OptionClass optionClass)
 }
 
 /*
-bool OptionClassInfo::ApplyOption(PlayerCreature* pPC, int PlusPoint )
+bool OptionClassInfo::ApplyOption( PlayerCreature* pPC, int PlusPoint )
 {
-	if (pPC == NULL ) return false;
-	if (pPC->isSlayer() )
+	if ( pPC == NULL ) return false;
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		return ApplyOption(pSlayer, PlusPoint);
+		return ApplyOption( pSlayer, PlusPoint );
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		return ApplyOption(pVampire, PlusPoint);
+		return ApplyOption( pVampire, PlusPoint );
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		return ApplyOption(pOusters, PlusPoint);
+		return ApplyOption( pOusters, PlusPoint );
 	}
 }
 
-bool OptionClassInfo::ApplyOption(Slayer* pSlayer, int PlusPoint )
+bool OptionClassInfo::ApplyOption( Slayer* pSlayer, int PlusPoint )
 {
-	if (pSlayer == NULL ) return false;
+	if ( pSlayer == NULL ) return false;
 }
 
-bool OptionClassInfo::ApplyOption(Vampire* pVampire, int PlusPoint )
+bool OptionClassInfo::ApplyOption( Vampire* pVampire, int PlusPoint )
 {
-	if (pVampire == NULL ) return false;
+	if ( pVampire == NULL ) return false;
 }
 
-bool OptionClassInfo::ApplyOption(Ousters* pOusters, int PlusPoint )
+bool OptionClassInfo::ApplyOption( Ousters* pOusters, int PlusPoint )
 {
-	if (pOusters == NULL ) return false;
+	if ( pOusters == NULL ) return false;
 }
 */
 
@@ -291,7 +289,7 @@ void OptionInfo::setReqAbility(const string& req)
 {
 	__BEGIN_TRY
 
-    size_t a = 0, b = 0, c = 0;
+	uint a = 0, b = 0, c = 0;
 
 	do
 	{
@@ -318,7 +316,7 @@ void OptionInfo::setReqAbility(const string& req)
 		else if (identifier != "")
 		{
 			//cerr << "OptionInfo::setReqAbility() : Unknown ability type [" << identifier << "]" << endl;
-			throw("OptionInfo::setReqAbility() : Unknown ability type");
+			throw ("OptionInfo::setReqAbility() : Unknown ability type");
 		}
 
 	} while (c < req.size() -1);
@@ -412,11 +410,11 @@ OptionInfoSet::~OptionInfoSet()
 
 // 지정된 레벨에 따라서 맵에다 옵션 타입을 집어넣는다.
 void OptionInfoSet::addOptionType(uint level, OptionType_t type)
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
-	map<uint, OptionType_t>::iterator itr = m_OptionTypes.find(level);
+	hash_map<uint, OptionType_t>::iterator itr = m_OptionTypes.find(level);
 
 	if (itr != m_OptionTypes.end())
 	{
@@ -438,7 +436,7 @@ void OptionInfoSet::getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<
 {
 	__BEGIN_TRY
 
-	map<uint, OptionType_t>::iterator itr = m_OptionTypes.begin();
+	hash_map<uint, OptionType_t>::iterator itr = m_OptionTypes.begin();
 	for (; itr != m_OptionTypes.end(); itr++)
 	{
 		uint level = itr->first;
@@ -461,7 +459,7 @@ string OptionInfoSet::toString(void) const
 
 	msg << "OptionInfoSet(";
 
-	map<uint, OptionType_t>::const_iterator itr = m_OptionTypes.begin();
+	hash_map<uint, OptionType_t>::const_iterator itr = m_OptionTypes.begin();
 	for (; itr != m_OptionTypes.end(); itr++)
 		msg << (int)itr->first << ":" << (int)itr->second << ",";
 
@@ -485,7 +483,7 @@ OptionInfoManager::OptionInfoManager()
 
 	m_nOptionCount = 0;
 	m_OptionClassInfos.clear();
-	m_OptionClassInfos.reserve((int)OPTION_MAX);
+	m_OptionClassInfos.reserve( (int)OPTION_MAX );
 	m_ToTalPetEnchantOption = 0;
 	m_PetEnchantOptionList.clear();
 
@@ -510,7 +508,7 @@ OptionInfoManager::release()
 
 	m_nOptionCount = 0;
 
-	map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.begin();
+	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.begin();
 	for (; itr != m_OptionInfos.end(); itr++)
 	{
 		OptionInfo* pInfo = itr->second;
@@ -536,9 +534,9 @@ OptionInfoManager::release()
 	vector<OptionClassInfo*>::iterator citr = m_OptionClassInfos.begin();
 	vector<OptionClassInfo*>::iterator endcItr = m_OptionClassInfos.end();
 
-	for (; citr != endcItr ; ++citr )
+	for ( ; citr != endcItr ; ++citr )
 	{
-		if (*citr != NULL ) SAFE_DELETE(*citr);
+		if ( *citr != NULL ) SAFE_DELETE( *citr );
 	}
 
 	m_OptionClassInfos.clear();
@@ -558,7 +556,7 @@ OptionInfoManager::release()
 }
 
 void OptionInfoManager::init()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -568,7 +566,7 @@ void OptionInfoManager::init()
 }
 
 void OptionInfoManager::load()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -621,7 +619,7 @@ void OptionInfoManager::load()
 			pInfo->setUpgradeSecondRatio(pResult->getInt(++i));
 			pInfo->setUpgradeCrashPercent(pResult->getInt(++i));
 			pInfo->setNextOptionRatio(pResult->getInt(++i));
-			pInfo->setGrade(pResult->getInt(++i));
+			pInfo->setGrade( pResult->getInt(++i) );
 
 			addOptionInfo(pInfo);
 
@@ -647,7 +645,7 @@ void OptionInfoManager::load()
 					// level까지 추가해둔다.
 					for (uint l=gambleLevel; l<=GAMBLE_OPTION_LEVEL_MAX; l++)
 					{
-						m_GambleOptions[ic][l].push_back(type);
+						m_GambleOptions[ic][l].push_back( type );
 						//cout << "GambleOption[" << ic << "][" << l << "] = " << (int)type << endl;
 					}
 				}
@@ -662,16 +660,16 @@ void OptionInfoManager::load()
 			throw Error("There is no data in OptionClassInfo Table");
 		}
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
-			OptionClassInfo* pInfo = new OptionClassInfo((OptionClass)pResult->getInt(1));
-			pInfo->setName(pResult->getString(2));
-			pInfo->setHName(pResult->getString(3));
-			pInfo->setLevel(pResult->getInt(4));
-			pInfo->setTotalGrade(pResult->getInt(5));
-			pInfo->setOptionGroup((OptionGroup)pResult->getInt(6));
+			OptionClassInfo* pInfo = new OptionClassInfo( (OptionClass)pResult->getInt(1) );
+			pInfo->setName( pResult->getString(2) );
+			pInfo->setHName( pResult->getString(3) );
+			pInfo->setLevel( pResult->getInt(4) );
+			pInfo->setTotalGrade( pResult->getInt(5) );
+			pInfo->setOptionGroup( (OptionGroup)pResult->getInt(6) );
 
-			addOptionClassInfo(pInfo);
+			addOptionClassInfo( pInfo );
 		}
 
 		pResult = pStmt->executeQuery("SELECT Level, TotalGrade, Grade, RatioWhenFail, RatioWhenSuccess FROM RareEnchantInfo");
@@ -682,42 +680,42 @@ void OptionInfoManager::load()
 			throw Error("There is no data in RareEnchantInfo Table");
 		}
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			int level = pResult->getInt(1);
 			int total = pResult->getInt(2);
 
 			int key = level*10 + total;
 
-			map<int,RareOptionUpgradeInfo*>::iterator itr = m_RareEnchantInfo.find(key);
+			hash_map<int,RareOptionUpgradeInfo*>::iterator itr = m_RareEnchantInfo.find(key);
 
-			if (itr == m_RareEnchantInfo.end() )
+			if ( itr == m_RareEnchantInfo.end() )
 			{
-				RareOptionUpgradeInfo* pInfo = new RareOptionUpgradeInfo(level, total);
+				RareOptionUpgradeInfo* pInfo = new RareOptionUpgradeInfo( level, total );
 				m_RareEnchantInfo[key] = pInfo;
 			}
 
 			int grade = pResult->getInt(3);
 
-			m_RareEnchantInfo[key]->setRatio(grade, false, pResult->getInt(4));
-			m_RareEnchantInfo[key]->setRatio(grade, true, pResult->getInt(5));
+			m_RareEnchantInfo[key]->setRatio( grade, false, pResult->getInt(4) );
+			m_RareEnchantInfo[key]->setRatio( grade, true, pResult->getInt(5) );
 		}
 
 		pResult = pStmt->executeQuery("SELECT OptionType, Ratio FROM PetEnchantOptionRatioInfo");
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			OptionType_t optionType = pResult->getInt(1);
 			int 		 ratio 		= pResult->getInt(2);
 
 			ratio = ratio + getTotalPetEnchantOption();
-			setTotalPetEnchantOption(ratio);
+			setTotalPetEnchantOption( ratio );
 		
 			PetEnchantOption* pPetEnchantOption = new PetEnchantOption();
-			pPetEnchantOption->setOptionType(optionType);
-			pPetEnchantOption->setRatio(ratio);
+			pPetEnchantOption->setOptionType( optionType );
+			pPetEnchantOption->setRatio( ratio );
 
-			addPetEnchantOption(pPetEnchantOption);
+			addPetEnchantOption( pPetEnchantOption );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -770,12 +768,12 @@ void OptionInfoManager::load()
 }
 
 void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
 	// OptionType으로 구분되는 해쉬맵에다 집어넣는다.
-	map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
+	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
 
 	if (itr != m_OptionInfos.end())
 	{
@@ -789,7 +787,7 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 	m_OptionInfos[pOptionInfo->getType()] = pOptionInfo;
 
 	// Nickname으로 구분되는 해쉬맵에다 집어넣는다.
-	map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
+	hash_map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
 
 	if (itr2 != m_NicknameOptionInfos.end())
 	{
@@ -806,13 +804,13 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 }
 
 OptionInfo* OptionInfoManager::getOptionInfo(OptionType_t OptionType)
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
 	//cout << "getOptionInfo(" << (int)OptionType << ") " << endl;
 
-	map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(OptionType);
+	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(OptionType);
 
 	if (itr == m_OptionInfos.end())
 	{
@@ -829,11 +827,11 @@ OptionInfo* OptionInfoManager::getOptionInfo(OptionType_t OptionType)
 }
 
 OptionInfo* OptionInfoManager::getOptionInfo(const string& nickname)
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
 
 	if (itr == m_NicknameOptionInfos.end())
 	{
@@ -850,11 +848,11 @@ OptionInfo* OptionInfoManager::getOptionInfo(const string& nickname)
 }
 
 OptionType_t OptionInfoManager::getOptionType(const string& nickname)
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
 
 	if (itr == m_NicknameOptionInfos.end())
 	{
@@ -869,7 +867,7 @@ OptionType_t OptionInfoManager::getOptionType(const string& nickname)
 }
 
 string OptionInfoManager::getOptionName(const list<OptionType_t>& optionTypes)
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -879,7 +877,7 @@ string OptionInfoManager::getOptionName(const list<OptionType_t>& optionTypes)
 
 	for (itr = optionTypes.begin() ; itr != optionTypes.end() ; itr++)
 	{
-		OptionInfo* pOptionInfo = getOptionInfo(*itr);
+		OptionInfo* pOptionInfo = getOptionInfo( *itr );
 		optionName << pOptionInfo->getName() << " ";
 	}
 
@@ -921,7 +919,7 @@ vector<OptionType_t> OptionInfoManager::getPossibleOptionVector(Item::ItemClass 
 			m_OptionInfoSet[OPTION_ATTACK_SPEED].getPossibleOptionTypes(minLevel, maxLevel, temp);
 			m_OptionInfoSet[OPTION_ALL_ATTR].getPossibleOptionTypes(minLevel, maxLevel, temp);
 
-			if (IClass != Item::ITEM_CLASS_VAMPIRE_WEAPON )
+			if ( IClass != Item::ITEM_CLASS_VAMPIRE_WEAPON )
 				m_OptionInfoSet[OPTION_MP].getPossibleOptionTypes(minLevel, maxLevel, temp);
 
 			break;
@@ -943,7 +941,7 @@ vector<OptionType_t> OptionInfoManager::getPossibleOptionVector(Item::ItemClass 
 			m_OptionInfoSet[OPTION_DURABILITY].getPossibleOptionTypes(minLevel, maxLevel, temp);
 			m_OptionInfoSet[OPTION_ALL_ATTR].getPossibleOptionTypes(minLevel, maxLevel, temp);
 
-			if (IClass != Item::ITEM_CLASS_VAMPIRE_COAT )
+			if ( IClass != Item::ITEM_CLASS_VAMPIRE_COAT )
 				m_OptionInfoSet[OPTION_MP].getPossibleOptionTypes(minLevel, maxLevel, temp);
 
 			break;
@@ -987,7 +985,7 @@ vector<OptionType_t> OptionInfoManager::getPossibleOptionVector(Item::ItemClass 
 			if (IClass!=Item::ITEM_CLASS_VAMPIRE_EARRING)
 				m_OptionInfoSet[OPTION_LUCK].getPossibleOptionTypes(minLevel, maxLevel, temp);
 
-			if (IClass != Item::ITEM_CLASS_VAMPIRE_RING &&
+			if ( IClass != Item::ITEM_CLASS_VAMPIRE_RING &&
 			 	 IClass != Item::ITEM_CLASS_VAMPIRE_EARRING &&
 				 IClass != Item::ITEM_CLASS_VAMPIRE_BRACELET &&
 				 IClass != Item::ITEM_CLASS_VAMPIRE_NECKLACE )
@@ -1094,21 +1092,21 @@ vector<OptionType_t> OptionInfoManager::getPossibleOptionVector(Item::ItemClass 
 void OptionInfoManager::addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType) 
 	throw(DuplicatedException, Error)
 {
-	m_GambleOptions[itemClass][level].push_back(optionType);
+	m_GambleOptions[itemClass][level].push_back( optionType );
 }
 
-int OptionInfoManager::getRareUpgradeRatio(OptionType_t optionType, bool success )
+int OptionInfoManager::getRareUpgradeRatio( OptionType_t optionType, bool success )
 {
-	OptionInfo* pOI = getOptionInfo(optionType);
-	if (pOI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 옵션 인포가 없습니다.");
+	OptionInfo* pOI = getOptionInfo( optionType );
+	if ( pOI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 옵션 인포가 없습니다.");
 
 	OptionClassInfo* pOCI = m_OptionClassInfos[pOI->getClass()];
-	if (pOCI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 옵션 클래스 인포가 없습니다.");
+	if ( pOCI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 옵션 클래스 인포가 없습니다.");
 
 	RareOptionUpgradeInfo* pROUI = m_RareEnchantInfo[pOCI->getKey()];
-	if (pROUI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 레어 인챈트 인포가 없습니다.");
+	if ( pROUI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : 레어 인챈트 인포가 없습니다.");
 
-	return pROUI->getRatio(pOI->getGrade(), success);
+	return pROUI->getRatio( pOI->getGrade(), success );
 }
 
 void OptionInfoManager::addPetEnchantOption(PetEnchantOption* pPetEnchantOption)
@@ -1116,7 +1114,7 @@ void OptionInfoManager::addPetEnchantOption(PetEnchantOption* pPetEnchantOption)
 {
 	__BEGIN_TRY
 
-	Assert(pPetEnchantOption != NULL);
+	Assert( pPetEnchantOption != NULL);
 	m_PetEnchantOptionList.push_back(pPetEnchantOption);
 
 	__END_CATCH

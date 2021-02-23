@@ -24,7 +24,7 @@ class LoginServerManager : public Thread
 {
 public:
 	LoginServerManager() throw(Error);
-	virtual ~LoginServerManager() throw(Error);
+	~LoginServerManager() throw(Error);
 
 public:
 	void init() throw(Error) {}

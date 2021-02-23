@@ -8,7 +8,7 @@
 #include "WarSystem.h"
 #include "Properties.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "ZoneGroupManager.h"
 //#include "HolyLandRaceBonus.h"
 #include "Zone.h"
@@ -18,7 +18,7 @@
 #include "ShrineInfoManager.h"
 #include "ZoneInfoManager.h"
 #include "PCManager.h"
-#include "GCWarScheduleList.h"
+#include "Gpackets/GCWarScheduleList.h"
 #include "RaceWarInfo.h"
 #include "HolyLandManager.h"
 #include "VariableManager.h"
@@ -28,19 +28,17 @@
 
 #include "StringStream.h"
 
-#include "GCSystemMessage.h"
-#include "GCNoticeEvent.h"
-#include "CGSay.h"
-
-#include <map>
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNoticeEvent.h"
+#include "Cpackets/CGSay.h"
 
 //--------------------------------------------------------------------------------
 //
 // constructor / destructor
 //
 //--------------------------------------------------------------------------------
-RaceWar::RaceWar(WarState warState, WarID_t warID )
-: War(warState, warID )
+RaceWar::RaceWar( WarState warState, WarID_t warID )
+: War( warState, warID )
 {
 }
 
@@ -59,7 +57,7 @@ RaceWar::~RaceWar()
 //     자신의 Zone(성)에 대한 처리는 lock이 필요없다.
 //--------------------------------------------------------------------------------
 void RaceWar::executeStart()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -83,7 +81,7 @@ void RaceWar::executeStart()
 //	g_pHolyLandManager->sendBloodBibleStatus();
 
 	// 아담의 성지 전역에 시간을 고정한다.
-	g_pHolyLandManager->fixTimeband(g_pVariableManager->getVariable(RACE_WAR_TIMEBAND ));
+	g_pHolyLandManager->fixTimeband( g_pVariableManager->getVariable( RACE_WAR_TIMEBAND ) );
 
 	g_pHolyLandManager->killAllMonsters();
 
@@ -105,7 +103,7 @@ void RaceWar::executeStart()
 }
 
 void RaceWar::recordRaceWarStart()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -130,11 +128,11 @@ void RaceWar::recordRaceWarStart()
 			uint race = pResult->getInt(1);
 			uint num  = pResult->getInt(2);
 
-			if (race == 0 )
+			if ( race == 0 )
 				slayerSum = num;
-			else if (race == 1 )
+			else if ( race == 1 )
 				vampireSum = num;
-			else if (race == 2 )
+			else if ( race == 2 )
 				oustersSum = num;
 		}
 
@@ -145,11 +143,11 @@ void RaceWar::recordRaceWarStart()
 			uint id   		= pResult->getInt(1);
 			uint ownerRace	= pResult->getInt(2);
 
-			if (ownerRace == 0 )
+			if ( ownerRace == 0 )
 				slayerOld = slayerOld + itos(id) + "|";
-			else if (ownerRace == 1 )
+			else if ( ownerRace == 1 )
 				vampireOld = vampireOld + itos(id) + "|";
-			else if (ownerRace == 2 )
+			else if ( ownerRace == 2 )
 				oustersOld = oustersOld + itos(id) + "|";
 		}
 
@@ -158,7 +156,7 @@ void RaceWar::recordRaceWarStart()
 						slayerSum, vampireSum, oustersSum,
 						slayerOld.c_str(),
 						vampireOld.c_str(),
-						oustersOld.c_str());
+						oustersOld.c_str() );
 	}
 	END_DB(pStmt)
 
@@ -173,7 +171,7 @@ void RaceWar::recordRaceWarStart()
 // 전쟁이 끝나는 시점에서 처리해야 될 것들
 //--------------------------------------------------------------------------------
 void RaceWar::executeEnd()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -218,7 +216,7 @@ void RaceWar::executeEnd()
 	RegenZoneManager::getInstance()->reload();
 
 	// 캐릭터들의 Flag도 모두 제거한다.
-	g_pZoneGroupManager->removeFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+	g_pZoneGroupManager->removeFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 
 	CGSayHandler::opworld(NULL, "*world *load blood_bible_owner", 0, true);
 
@@ -232,7 +230,7 @@ void RaceWar::executeEnd()
 }
 
 void RaceWar::recordRaceWarEnd()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -254,11 +252,11 @@ void RaceWar::recordRaceWarEnd()
 			uint id   		= pResult->getInt(1);
 			uint ownerRace	= pResult->getInt(2);
 
-			if (ownerRace == 0 )
+			if ( ownerRace == 0 )
 				slayerNew = slayerNew + itos(id) + "|";
-			else if (ownerRace == 1 )
+			else if ( ownerRace == 1 )
 				vampireNew = vampireNew + itos(id) + "|";
-			else if (ownerRace == 2 )
+			else if ( ownerRace == 2 )
 				oustersNew = oustersNew + itos(id) + "|";
 		}
 
@@ -266,7 +264,7 @@ void RaceWar::recordRaceWarEnd()
 						slayerNew.c_str(),
 						vampireNew.c_str(),
 						oustersNew.c_str(),
-						getWarStartTime().toStringforWeb().c_str());
+						getWarStartTime().toStringforWeb().c_str() );
 	}
 	END_DB(pStmt)
 
@@ -275,7 +273,7 @@ void RaceWar::recordRaceWarEnd()
 	sprintf(cmd, "/home/darkeden/vs/bin/script/recordRaceWarHistory.py %s %d %d ",
 					getWarStartTime().toStringforWeb().c_str(),
 					g_pConfig->getPropertyInt("Dimension"),
-					g_pConfig->getPropertyInt("WorldID"));
+					g_pConfig->getPropertyInt("WorldID") );
 
 	filelog("script.log", cmd);
 	system(cmd);
@@ -284,11 +282,11 @@ void RaceWar::recordRaceWarEnd()
 }
 
 string RaceWar::getWarName() const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	return "종족간 전쟁";
+	return "蘆痢쇌濫轢";
 
 	__END_CATCH
 }
@@ -297,7 +295,7 @@ string RaceWar::getWarName() const
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void RaceWar::sendWarEndMessage() const
-    throw(ProtocolException, Error)
+    throw (ProtocolException, Error)
 {
     __BEGIN_TRY
 
@@ -305,15 +303,15 @@ void RaceWar::sendWarEndMessage() const
 
 	// 안전지대 해제 확인? 패킷
 	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_RACE_WAR_OVER);
-	g_pZoneGroupManager->broadcast(&gcNoticeEvent);
+	gcNoticeEvent.setCode( NOTICE_EVENT_RACE_WAR_OVER );
+	g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
     __END_CATCH
 }
 
 
-void    RaceWar::makeWarScheduleInfo(WarScheduleInfo* pWSI ) const 
-	throw(Error)
+void    RaceWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const 
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -325,7 +323,7 @@ void    RaceWar::makeWarScheduleInfo(WarScheduleInfo* pWSI ) const
 }
 
 void 	RaceWar::makeWarInfo(WarInfo* pWarInfo) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -335,14 +333,14 @@ void 	RaceWar::makeWarInfo(WarInfo* pWarInfo) const
 	RaceWarInfo* pRaceWarInfo = dynamic_cast<RaceWarInfo*>(pWarInfo);
 	Assert(pRaceWarInfo!=NULL);
 
-	const map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
+	const hash_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
 
-	map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
+	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
 
-	for (; itr!=castleInfos.end(); itr++)
+	for ( ; itr!=castleInfos.end(); itr++)
 	{
 		CastleInfo* pCastleInfo = itr->second;
-		pRaceWarInfo->addCastleID(pCastleInfo->getZoneID());
+		pRaceWarInfo->addCastleID( pCastleInfo->getZoneID() );
 	}
 
 	__END_CATCH
@@ -350,7 +348,7 @@ void 	RaceWar::makeWarInfo(WarInfo* pWarInfo) const
 
 
 string RaceWar::toString() const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 

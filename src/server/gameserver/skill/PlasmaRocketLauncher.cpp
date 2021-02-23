@@ -7,12 +7,12 @@
 #include "PlasmaRocketLauncher.h"
 #include "EffectPlasmaRocketLauncher.h"
 #include "ItemUtil.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -39,7 +39,7 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 		)
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -54,7 +54,7 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 		computeOutput(input, output);
 
 		Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
-		if(pWeapon == NULL || isArmsWeapon(pWeapon) == false)
+		if( pWeapon == NULL || isArmsWeapon(pWeapon) == false)
 		{
 			executeSkillFailException(pSlayer, getSkillType());
 			return;
@@ -83,11 +83,12 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 		bool bBulletCheck = (getRemainBullet(pWeapon) > 0) ? true : false;
 		
 
-		//cout << "remp : " << RequiredMP << ", bMcheck : " << bManaCheck << ", bTimeCheck : " << bTimeCheck << ", bRangeCheck : " << bRangeCheck << ", bHitroll : " << bHitRoll << ", bEffect : " << bEffected << ", bPK : " << bPK << endl;
-
+		printf("remp : %d, bMcheck : %d, bTimeCheck : %d, bRangeCheck : %d, bHitroll : %d, bEffect : %d, bPK : %d\n",
+				RequiredMP, bManaCheck, bTimeCheck, bRangeCheck, bHitRoll, bEffected, bPK);
+		
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bPK && bBulletCheck)
 		{
-			//cout << "check OK" << endl;
+			printf("check OK\n");
 			// 마나를 줄인다.
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
@@ -105,7 +106,7 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 				//Exp_t      ExpUp = 10* (Grade + 1);
 				//shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
 				//
-				if (bIncreaseDomainExp )
+				if ( bIncreaseDomainExp )
 				{
 					increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1, pTargetCreature->getLevel());
 				}
@@ -118,7 +119,7 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 			Assert(pEffect != NULL);
 			pEffect->setNextTime(output.Duration);
 			pEffect->setPoint(output.Damage); 
-			pEffect->setUserObjectID(pSlayer->getObjectID());
+			pEffect->setUserObjectID( pSlayer->getObjectID() );
 
 			pTargetCreature->addEffect(pEffect);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER);
@@ -147,10 +148,10 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 				Assert(pTargetPlayer != NULL);
 				pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
 			}
-			else if (pTargetCreature->isMonster() )
+			else if ( pTargetCreature->isMonster() )
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-				if (pMonster != NULL ) pMonster->addEnemy(pSlayer);
+				if ( pMonster != NULL ) pMonster->addEnemy(pSlayer);
 			}
 
 			list<Creature*> cList;
@@ -170,13 +171,13 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 		} 
 		else 
 		{
-			//cout << "nonono~1" << endl;
+			printf("nonono~1\n");
 			executeSkillFailNormal(pSlayer, getSkillType(), pTargetCreature);
 		}
 	} 
 	catch (Throwable & t) 
 	{
-		//cout << "skill exception!!~1" << endl;
+		printf("skill exception!!~1\n");
 		executeSkillFailException(pSlayer, getSkillType());
 	}
 

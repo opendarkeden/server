@@ -12,7 +12,7 @@ public :
 	void 	clear()		{ m_SlayerOptionTypes.clear(); m_VampireOptionTypes.clear(); }
 
 	// 아담의 성지에서의 종족보너스를 다시 설정한다.
-	void	refresh() throw(Error);
+	void	refresh() throw (Error);
 
 	const list<OptionType_t>&	getSlayerOptionTypeList() const	{ return m_SlayerOptionTypes; }
 	const list<OptionType_t>&	getVampireOptionTypeList() const { return m_VampireOptionTypes; }

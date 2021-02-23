@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////
 #include "SocketInputStream.h"
 #include <errno.h>
-#include "Assert1.h"
+#include "Assert.h"
 #include "Packet.h"
 
 #if __LINUX__
@@ -24,16 +24,20 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketInputStream::SocketInputStream (Socket * sock , uint BufferLen ) 
-	throw(Error )
+SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen ) 
+	throw ( Error )
 : m_pSocket(sock), m_Buffer(NULL), m_BufferLen(BufferLen), m_Head(0), m_Tail(0)
 {
 	__BEGIN_TRY
 		
-	Assert(m_pSocket != NULL);
-	Assert(m_BufferLen > 0);
+	Assert( m_pSocket != NULL );
+	Assert( m_BufferLen > 0 );
 	
 	m_Buffer = new char[ m_BufferLen ];
+//add by viva 2008-12-31
+	//m_EncryptKey = 0;
+	//m_HashTable = NULL;
+//end
 		
 	__END_CATCH
 }
@@ -43,7 +47,7 @@ SocketInputStream::SocketInputStream (Socket * sock , uint BufferLen )
 // destructor
 //////////////////////////////////////////////////////////////////////
 SocketInputStream::~SocketInputStream () 
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -58,14 +62,14 @@ SocketInputStream::~SocketInputStream ()
 // read data from input buffer
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketInputStream::read (char * buf , uint len ) 
-	throw(ProtocolException , Error )
+uint SocketInputStream::read ( char * buf , uint len ) 
+	throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 		
-	Assert(buf != NULL);	
+	Assert( buf != NULL );	
 	
-	if (len == 0 )
+	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
 	// 요청한 만큼의 데이타가 버퍼내에 존재하지 않을 경우 예외를 던진다.
@@ -73,10 +77,10 @@ uint SocketInputStream::read (char * buf , uint len )
 	// 중복된 감이 있다. 따라서, 코멘트로 처리해도 무방하다.
 	// 단 아래 코드를 코멘트처리하면, 바로 아래의 if-else 를 'if'-'else if'-'else'
 	// 로 수정해줘야 한다.
-	if (len > length() )
-		throw InsufficientDataException(len - length());
+	if ( len > length() )
+		throw InsufficientDataException( len - length() );
 	
-	if (m_Head < m_Tail ) {	// normal order
+	if ( m_Head < m_Tail ) {	// normal order
 
 		//
         //    H   T
@@ -84,9 +88,9 @@ uint SocketInputStream::read (char * buf , uint len )
         // ...abcd...
         //
 
-		memcpy(buf , &m_Buffer[m_Head] , len);
+		memcpy( buf , &m_Buffer[m_Head] , len );
 
-	} else {					// reversed order (m_Head > m_Tail )
+	} else {					// reversed order ( m_Head > m_Tail )
 		
         //
         //     T  H
@@ -95,16 +99,16 @@ uint SocketInputStream::read (char * buf , uint len )
         //
 	 
 		uint rightLen = m_BufferLen - m_Head;
-		if (len <= rightLen ) {
-			memcpy(buf , &m_Buffer[m_Head] , len);
+		if ( len <= rightLen ) {
+			memcpy( buf , &m_Buffer[m_Head] , len );
 		} else {
-			memcpy(buf , &m_Buffer[m_Head] , rightLen);
-			memcpy(&buf[rightLen] , m_Buffer , len - rightLen);
+			memcpy( buf , &m_Buffer[m_Head] , rightLen );
+			memcpy( &buf[rightLen] , m_Buffer , len - rightLen );
 		}
 
 	}
 
-	m_Head = (m_Head + len ) % m_BufferLen;
+	m_Head = ( m_Head + len ) % m_BufferLen;
 	
 	return len;
 		
@@ -115,12 +119,12 @@ uint SocketInputStream::read (char * buf , uint len )
 //////////////////////////////////////////////////////////////////////
 // read data from input buffer
 //////////////////////////////////////////////////////////////////////
-uint SocketInputStream::read (string & str , uint len ) 
-	throw(ProtocolException , Error )
+uint SocketInputStream::read ( string & str , uint len ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	if (len == 0 )
+	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
 	// 요청한 만큼의 데이타가 버퍼내에 존재하지 않을 경우 예외를 던진다.
@@ -128,13 +132,13 @@ uint SocketInputStream::read (string & str , uint len )
 	// 중복된 감이 있다. 따라서, 코멘트로 처리해도 무방하다.
 	// 단 아래 코드를 코멘트처리하면, 바로 아래의 if-else 를 if-else if-else
 	// 로 수정해줘야 한다.
-	if (len > length() )
-		throw InsufficientDataException(len - length());
+	if ( len > length() )
+		throw InsufficientDataException( len - length() );
 	
 	// 스트링에다가 len 만큼 공간을 미리 할당한다.
-	str.reserve(len);
+	str.reserve( len );
 
-	if (m_Head < m_Tail ) {	// normal order
+	if ( m_Head < m_Tail ) {	// normal order
 
 		//
         //    H   T
@@ -142,9 +146,9 @@ uint SocketInputStream::read (string & str , uint len )
         // ...abcd...
         //
 
-		str.assign(&m_Buffer[m_Head] , len);
+		str.assign( &m_Buffer[m_Head] , len );
 
-	} else { 					// reversed order (m_Head > m_Tail )
+	} else { 					// reversed order ( m_Head > m_Tail )
 		
         //
         //     T  H
@@ -153,15 +157,15 @@ uint SocketInputStream::read (string & str , uint len )
         //
 	 
 		uint rightLen = m_BufferLen - m_Head;
-		if (len <= rightLen ) {
-			str.assign(&m_Buffer[m_Head] , len);
+		if ( len <= rightLen ) {
+			str.assign( &m_Buffer[m_Head] , len );
 		} else {
-			str.assign(&m_Buffer[m_Head] , rightLen);
-			str.append(m_Buffer , len - rightLen);
+			str.assign( &m_Buffer[m_Head] , rightLen );
+			str.append( m_Buffer , len - rightLen );
 		}
 	}
 	
-	m_Head = (m_Head + len ) % m_BufferLen;
+	m_Head = ( m_Head + len ) % m_BufferLen;
 
 	return len;
 		
@@ -171,8 +175,8 @@ uint SocketInputStream::read (string & str , uint len )
 //////////////////////////////////////////////////////////////////////
 // read packet from input buffer
 //////////////////////////////////////////////////////////////////////
-void SocketInputStream::readPacket (Packet * pPacket ) 
-	throw(ProtocolException , Error )
+void SocketInputStream::readPacket ( Packet * pPacket ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -180,15 +184,16 @@ void SocketInputStream::readPacket (Packet * pPacket )
 	// 파라미터로 넘겼으므로 ID 는 skip 한다. Size는 객체의 바이너리 
 	// 이미지가 모두 도착했는지만 체크할뿐, 객체의 초기화와는 무관하기
 	// 때문에 skip 한다.
-	skip(szPacketHeader + 1);
+	skip( szPacketHeader );
 
 	// 이제 하위 패킷 클래스에 정의된 메쏘드를 수행하면, 내부에서
 	// 알아서 잘 초기화하게 된다.
 	// 단 어떤 패킷의 read()에서 틀리게 되면 그 이후의 모든 패킷은
 	// 파싱이 불가능하게 된다. 따라서, 패킷 클래스를 디자인할 때
 	// 주의해야 한다.
-	pPacket->read(*this);
-	
+	//cout<<"Receive_before:"<<pPacket->toString()<<endl;
+	pPacket->read( *this );
+	cout<<"Receive:"<<pPacket->toString()<<endl;
 	__END_CATCH
 }
 
@@ -196,24 +201,24 @@ void SocketInputStream::readPacket (Packet * pPacket )
 //////////////////////////////////////////////////////////////////////
 // peek data from buffer
 //////////////////////////////////////////////////////////////////////
-bool SocketInputStream::peek (char * buf , uint len ) 
-	throw(ProtocolException , Error )
+bool SocketInputStream::peek ( char * buf , uint len ) 
+	throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 			
-	Assert(buf != NULL);	
+	Assert( buf != NULL );	
 
-	if (len == 0 )
+	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
 	// 요청한 크기보다 버퍼의 데이타가 적은 경우, 예외를 던진다.
-	if (len > length() )
-		//throw InsufficientDataException(len - length());
+	if ( len > length() )
+		//throw InsufficientDataException( len - length() );
 		// NoSuch제거. by sigi. 2002.5.4
 		return false;
 
 	// buf 에 복사는 하되, m_Head 는 변화시키지 않는다.
-	if (m_Head < m_Tail ) {	// normal order
+	if ( m_Head < m_Tail ) {	// normal order
 
 		//
         //    H   T
@@ -221,9 +226,9 @@ bool SocketInputStream::peek (char * buf , uint len )
         // ...abcd...
         //
 
-		memcpy(buf , &m_Buffer[m_Head] , len);
+		memcpy( buf , &m_Buffer[m_Head] , len );
 
-	} else { 					// reversed order (m_Head > m_Tail )
+	} else { 					// reversed order ( m_Head > m_Tail )
 		
         //
         //     T  H
@@ -232,11 +237,11 @@ bool SocketInputStream::peek (char * buf , uint len )
         //
 	 
 		uint rightLen = m_BufferLen - m_Head;
-		if (len <= rightLen ) {
-			memcpy(&buf[0]        , &m_Buffer[m_Head] , len);
+		if ( len <= rightLen ) {
+			memcpy( &buf[0]        , &m_Buffer[m_Head] , len );
 		} else {
-			memcpy(&buf[0]        , &m_Buffer[m_Head] , rightLen);
-			memcpy(&buf[rightLen] , &m_Buffer[0]      , len - rightLen);
+			memcpy( &buf[0]        , &m_Buffer[m_Head] , rightLen );
+			memcpy( &buf[rightLen] , &m_Buffer[0]      , len - rightLen );
 		}
 	}
 		
@@ -252,19 +257,19 @@ bool SocketInputStream::peek (char * buf , uint len )
 // read(N) == peek(N) + skip(N)
 //
 //////////////////////////////////////////////////////////////////////
-void SocketInputStream::skip (uint len ) 
-	throw(ProtocolException , Error )
+void SocketInputStream::skip ( uint len ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	if (len == 0 )
+	if ( len == 0 )
 		throw InvalidProtocolException("len==0");
 	
-	if (len > length() )
-		throw InsufficientDataException(len - length());
+	if ( len > length() )
+		throw InsufficientDataException( len - length() );
 	
 	// m_Head 를 증가시킨다.
-	m_Head = (m_Head + len ) % m_BufferLen;
+	m_Head = ( m_Head + len ) % m_BufferLen;
 
 	__END_CATCH
 }
@@ -298,7 +303,7 @@ void SocketInputStream::skip (uint len )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::fill () 
-	throw(IOException , Error )
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -306,11 +311,11 @@ uint SocketInputStream::fill ()
 	uint nReceived;			// Socket::receive()로 한번 읽어들인 크기
 	uint nFree;				// 버퍼의 빈 영역의 크기
 
-	if (m_Head <= m_Tail ) {	// normal order
+	if ( m_Head <= m_Tail ) {	// normal order
 								// m_Head == m_Tail 일 경우는 버퍼가 빈 상태를 나타낸다.
 
 		// 일단 버퍼의 오른쪽 빈 공간만을 채운다.
-		if (m_Head == 0 ) {
+		if ( m_Head == 0 ) {
 
 			//
 			// H   T
@@ -323,28 +328,34 @@ uint SocketInputStream::fill ()
 			// 해서 0 일 경우 m_Tail 을 위해서 버퍼의 맨 마지막 칸을 비워둬야 하겠다. ^^
 
 			nFree = m_BufferLen - m_Tail - 1;
-			nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , nFree);
-
+			nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
+			
 			// by sigi. NonblockException제거. 2002.5.17
 			if (nReceived==0) return 0;
-
+			//add by viva
+			//if(nReceived>0)
+				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+			//end
 			m_Tail += nReceived;
 			nFilled += nReceived;
 			
-			if (nReceived == nFree ) {
+			if ( nReceived == nFree ) {
 
 				// 소켓의 receive 버퍼에 데이타가 남아있을 가능성이 있다.
 				// 그러나, 입력 버퍼에 여유 공간이 없으므로 데이타가 남아 
 				// 있다면 버퍼를 증가시켜야 한다.
 				uint available = m_pSocket->available();
-				if (available > 0 ) {
-					resize(available + 1);
+				if ( available > 0 ) {
+					resize( available + 1 );
 					// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-					nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , available);
+					nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
 
 					// by sigi. NonblockException제거. 2002.5.17
 					if (nReceived==0) return 0;
-
+					//add by viva
+					//if(nReceived>0)
+						//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+					//end
 					m_Tail += nReceived;
 					nFilled += nReceived;
 				}
@@ -360,44 +371,53 @@ uint SocketInputStream::fill ()
 
 			// 이 경우, m_Tail 이 버퍼의 앞쪽으로 넘어가도 무방하다.
 			nFree = m_BufferLen - m_Tail;
-			nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , nFree);
+			nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
 
 			// by sigi. NonblockException제거. 2002.5.17
 			if (nReceived==0) return 0;
-
-			m_Tail = (m_Tail + nReceived ) % m_BufferLen;
+			//add by viva
+			//if(nReceived>0)
+				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+			//end
+			m_Tail = ( m_Tail + nReceived ) % m_BufferLen;
 			nFilled += nReceived;
 
-			if (nReceived == nFree ) {
+			if ( nReceived == nFree ) {
 				
-				Assert(m_Tail == 0);
+				Assert( m_Tail == 0 );
 
 				// 소켓의 receive 버퍼에 데이타가 더 남아있을 가능성이 있다.
 				// 따라서, 입력 버퍼의 앞쪽 여유 공간에 데이타를 쓰도록 한다.
 				// 단 이때에도 m_Head == m_Tail 이면 empty 가 되므로,
 				// -1 줄이도록 한다.
 				nFree = m_Head - 1;
-				nReceived = m_pSocket->receive(&m_Buffer[0] , nFree);
+				nReceived = m_pSocket->receive( &m_Buffer[0] , nFree );
 
 				// by sigi. NonblockException제거. 2002.5.17
 				if (nReceived==0) return 0;
-
+				//add by viva
+				//if(nReceived>0)
+					//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+				//end
 				m_Tail += nReceived;
 				nFilled += nReceived;
 			
-				if (nReceived == nFree ) {	// buffer is full
+				if ( nReceived == nFree ) {	// buffer is full
 
 					// 버퍼가 가득 찬 상태일 경우, 소켓의 receive 버퍼에 데이타가 더 
 					// 남아있을 가능성이 있다. 따라서, 읽어보고 더 있으면 버퍼를 증가시킨다.
 					uint available = m_pSocket->available();
-					if (available > 0 ) {
-						resize(available + 1);
+					if ( available > 0 ) {
+						resize( available + 1 );
 						// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-						nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , available);
+						nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
 
 						// by sigi. NonblockException제거. 2002.5.17
 						if (nReceived==0) return 0;
-
+						//add by viva
+						//if(nReceived>0)
+							//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+						//end
 						m_Tail += nReceived;
 						nFilled += nReceived;
 					}
@@ -405,7 +425,7 @@ uint SocketInputStream::fill ()
 			}
 		}
 
-	} else {	// reversed order (m_Head > m_Tail )
+	} else {	// reversed order ( m_Head > m_Tail )
 		
 		//
         //     T  H
@@ -414,34 +434,51 @@ uint SocketInputStream::fill ()
         //
 		
 		nFree = m_Head - m_Tail - 1;
-		nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , nFree);
+		nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , nFree );
 
 		// by sigi. NonblockException제거. 2002.5.17
 		if (nReceived==0) return 0;
-
+		//add by viva
+		//if(nReceived>0)
+			//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+		//end
 		m_Tail += nReceived;
 		nFilled += nReceived;
 		
-		if (nReceived == nFree ) {		// buffer is full
+		if ( nReceived == nFree ) {		// buffer is full
 
 			// 이 경우, 소켓의 receive 버퍼에 데이타가 더 남아있을 
 			// 가능성이 있다. 따라서, 읽어보고 더 있으면 버퍼를 증가시킨다.
 			uint available = m_pSocket->available();
-			if (available > 0 ) {
-				resize(available + 1);
+			if ( available > 0 ) {
+				resize( available + 1 );
 				// resize 되면, 내부의 데이타가 정렬되므로 m_Tail 부터 쓰면 된다.
-				nReceived = m_pSocket->receive(&m_Buffer[m_Tail] , available);
+				nReceived = m_pSocket->receive( &m_Buffer[m_Tail] , available );
 		
 				// by sigi. NonblockException제거. 2002.5.17
 				if (nReceived==0) return 0;
-
+				//add by viva
+				//if(nReceived>0)
+					//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+				//end
 				m_Tail += nReceived;
 				nFilled += nReceived;
 			}
 		}
 
 	}
-
+//add by viva 2008-12-31
+//	if(nFilled>0)
+//	{
+//		if(m_Tail>=nFilled)
+//			m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail-nFilled], nFilled);
+//		else
+//		{
+//			m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_BufferLen - m_Tail], nFilled - m_Tail);
+//			m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[0], m_Tail);
+//		}
+//	}
+//end
 	return nFilled;
 
 	__END_CATCH
@@ -455,50 +492,50 @@ uint SocketInputStream::fill ()
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::fill_RAW ()
-	 throw(IOException , Error )
+	 throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
 #if __LINUX__
 	uint nfree = m_BufferLen - m_Tail - 1;	
 
-	int nread = recv(m_pSocket->getSOCKET() , &m_Buffer[m_Tail] , nfree , 0);
+	int nread = recv( m_pSocket->getSOCKET() , &m_Buffer[m_Tail] , nfree , 0 );
 
-	if (nread < 0 ) {
-		if (errno == EWOULDBLOCK ) {
+	if ( nread < 0 ) {
+		if ( errno == EWOULDBLOCK ) {
 			// NonBlockingIOException
 			nread = 0;
-		} else if (errno == ECONNRESET ) {
+		} else if ( errno == ECONNRESET ) {
 			// ConnectException
 			throw ConnectException();
 		} else {
 			// Error
 			throw UnknownError(strerror(errno),errno);
 		}
-	} else if (nread == 0 ) {
+	} else if ( nread == 0 ) {
 		// EOFException
 		throw EOFException();
 	}
 	
 	m_Tail += nread;
 	
-	if (nread == (int)nfree ) {
+	if ( nread == (int)nfree ) {
 		// 데이타가 더 있을 가능성이 있다.
 		uint more = 0;
-		int result = ioctl(m_pSocket->getSOCKET() , FIONREAD , &more);
-		if (result < 0 )
+		int result = ioctl( m_pSocket->getSOCKET() , FIONREAD , &more );
+		if ( result < 0 )
 			throw UnknownError(strerror(errno),errno);
 		
-		if (more > 0 ) {
+		if ( more > 0 ) {
 
 			// 버퍼를 증가시킨다.
-			resize(more + 1);
+			resize( more + 1 );
 
 			// 버퍼를 채운다.
-			nread = recv(m_pSocket->getSOCKET() , &m_Buffer[m_Tail] , more , 0);
+			nread = recv( m_pSocket->getSOCKET() , &m_Buffer[m_Tail] , more , 0 );
 			
 			// 무조건 more 만큼 읽어야 한다. 그렇지 않을 경우 에러다.
-			Assert((int)more == nread);
+			Assert( (int)more == nread );
 			
 			nread += more;
 		}		
@@ -517,23 +554,23 @@ uint SocketInputStream::fill_RAW ()
 //////////////////////////////////////////////////////////////////////
 // resize buffer
 //////////////////////////////////////////////////////////////////////
-void SocketInputStream::resize (int size )
-	 throw(IOException , Error )
+void SocketInputStream::resize ( int size )
+	 throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
-	Assert(size != 0);
+	Assert( size != 0 );
 	
 	// resize size조절. by sigi. 2002.10.7
 	size = max(size, (int)(m_BufferLen>>1));
 	uint newBufferLen = m_BufferLen + size;
 	uint len = length();
 	
-	if (size < 0 ) {
+	if ( size < 0 ) {
 		
 		// 만약 크기를 줄이려는데 버퍼에 들어있는 데이타를 
 		// 다 못담아낼 경우 
-		if (newBufferLen < 0 || newBufferLen < len )
+		if ( newBufferLen < 0 || newBufferLen < len )
 			throw IOException("new buffer is too small!");
 		
 	} 
@@ -542,7 +579,7 @@ void SocketInputStream::resize (int size )
 	char * newBuffer = new char[ newBufferLen ];
 		
 	// 원래 버퍼의 내용을 복사한다.
-	if (m_Head < m_Tail ) {
+	if ( m_Head < m_Tail ) {
 
 		//
 		//    H   T
@@ -550,9 +587,9 @@ void SocketInputStream::resize (int size )
 		// ...abcd...
 		//
 
-		memcpy(newBuffer , &m_Buffer[m_Head] , m_Tail - m_Head);
+		memcpy( newBuffer , &m_Buffer[m_Head] , m_Tail - m_Head );
 
-	} else if (m_Head > m_Tail ) {
+	} else if ( m_Head > m_Tail ) {
 
 		//
         //     T  H
@@ -560,15 +597,15 @@ void SocketInputStream::resize (int size )
         // abcd...efg
         //
 		
-		memcpy(newBuffer , &m_Buffer[m_Head] , m_BufferLen - m_Head);
-		memcpy(&newBuffer[ m_BufferLen - m_Head ] , m_Buffer , m_Tail);
+		memcpy( newBuffer , &m_Buffer[m_Head] , m_BufferLen - m_Head );
+		memcpy( &newBuffer[ m_BufferLen - m_Head ] , m_Buffer , m_Tail );
 
 	}
 		
 	// 원래 버퍼를 삭제한다.
 	delete [] m_Buffer;
 		
-	// 버퍼 및 버퍼 크기를 재설정한다.
+	// ???및 버퍼 크기를 재설정한다.
 	m_Buffer = newBuffer;
 	m_BufferLen = newBufferLen;
 	m_Head = 0;
@@ -591,24 +628,24 @@ void SocketInputStream::resize (int size )
 //    0123456789     0123456789
 //    ...abcd...     abcd...efg
 //
-//    7 - 3 = 4      10 - (7 - 4 ) = 7
+//    7 - 3 = 4      10 - ( 7 - 4 ) = 7
 //
 // CAUTION
 //
 //    m_Tail 이 빈 칸을 가리키고 있다는 것에 유의하라. 
 //    버퍼의 크기가 m_BufferLen 라면 실제 이 큐에 들어갈 
-//    수 있는 데이타는 (m_BufferLen - 1 ) 이 된다.
+//    수 있는 데이타는 ( m_BufferLen - 1 ) 이 된다.
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::length () const
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 
-	if (m_Head < m_Tail )
+	if ( m_Head < m_Tail )
 		return m_Tail - m_Head;
 	
-	else if (m_Head > m_Tail ) 
+	else if ( m_Head > m_Tail ) 
 		return m_BufferLen - m_Head + m_Tail;
 	
 	return 0;
@@ -621,7 +658,7 @@ uint SocketInputStream::length () const
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string SocketInputStream::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -633,3 +670,20 @@ string SocketInputStream::toString () const
 
 	return msg.toString();
 }
+//add by viva 2008-12-31
+/*WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
+	throw()
+{
+	for(int i = 0; i<len; i++)
+		*(buf + i) ^= 0xCC;
+	
+	if(m_HashTable == NULL) return EncryptKey;
+
+	for(int i = 0; i<len; i++)
+	{
+		*(buf + i) ^= m_HashTable[EncryptKey];
+		if(++EncryptKey == 512)	EncryptKey = 0;
+	}
+	return EncryptKey;
+}*/
+//end

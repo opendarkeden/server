@@ -41,10 +41,10 @@ public:
 	Attr_t getLevel() const throw() { return m_Level; }
 	void setLevel(Attr_t l) throw() { m_Level = l; }
 
-	void setVampire(bool bVampire = true ) { m_bVampire = bVampire; }
+	void setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
 	bool isVampire() { return m_bVampire; }
 
-	void setForce(bool force ) { m_bForce = force; }
+	void setForce( bool force ) { m_bForce = force; }
 	bool isForce() { return m_bForce; }
 	
 	bool affectCreature(Creature* pCreature, bool bAffectByMove) throw(Error); 

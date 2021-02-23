@@ -15,15 +15,15 @@ class GatherItemQuestInfo : public QuestInfo
 {
 public:
 	GatherItemQuestInfo(QuestID_t questID, Race_t race, QuestGrade_t maxGrade, QuestGrade_t minGrade, DWORD timeLimitSec, RewardClass_t rClass, Item::ItemClass itemClass, ItemType_t itemType, int num)
-		: QuestInfo(questID, race, maxGrade, minGrade, timeLimitSec, rClass, QUEST_CLASS_GATHER_ITEM ), m_TargetItemClass(itemClass), m_TargetItemType(itemType), m_TargetNum(num)
+		: QuestInfo( questID, race, maxGrade, minGrade, timeLimitSec, rClass, QUEST_CLASS_GATHER_ITEM ), m_TargetItemClass(itemClass), m_TargetItemType(itemType), m_TargetNum(num)
 	{
 	}
 
 	virtual ~GatherItemQuestInfo() { }
 
 public:
-	bool			isTargetItem(Item* pItem ) { Assert(pItem != NULL); return m_TargetItemClass==pItem->getItemClass() && m_TargetItemType==pItem->getItemType(); }
-	GatherItemQuestStatus*	makeQuestStatus(PlayerCreature* pPC ) const throw(Error);
+	bool			isTargetItem( Item* pItem ) { Assert( pItem != NULL ); return m_TargetItemClass==pItem->getItemClass() && m_TargetItemType==pItem->getItemType(); }
+	GatherItemQuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const throw(Error);
 
 private:
 	Item::ItemClass	m_TargetItemClass;

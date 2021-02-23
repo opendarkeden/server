@@ -50,8 +50,8 @@ public:
 public:
 	void addTreasure(Item* pItem) throw();
 	Item* getTreasure() throw();
-	Item* getTreasure(ObjectID_t objectID ) const throw();
-	Item* popTreasure(ObjectID_t objectID ) throw();
+	Item* getTreasure( ObjectID_t objectID ) const throw();
+	Item* popTreasure( ObjectID_t objectID ) throw();
 
 	BYTE getTreasureCount() const throw() { return m_TreasureCount; }
 	void setTreasureCount(BYTE Count) throw() { m_TreasureCount = Count; }

@@ -12,9 +12,9 @@
 #include "HitRoll.h"
 #include "CrossCounter.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -24,8 +24,8 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 {
 	__BEGIN_TRY
 
-	Assert(pVampire != NULL);
-	Assert(pVampireSkillSlot != NULL);
+	Assert( pVampire != NULL );
+	Assert( pVampireSkillSlot != NULL );
 
 	try
 	{
@@ -40,7 +40,7 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -48,10 +48,10 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		}
 
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -63,13 +63,13 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		SkillType_t       SkillType  = pVampireSkillSlot->getSkillType();
 		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 		Range_t			  Range		 = 2 + pVampire->getSTR()/80 + pVampire->getDEX()/120 + pVampire->getINT()/240;
-		Range = min((Range_t)6, Range);
+		Range = min( (Range_t)6, Range );
 
 		int  RequiredMP         = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck         = hasEnoughMana(pVampire, RequiredMP);
 		bool bTimeCheck         = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck        = verifyDistance(pVampire, pTargetCreature, Range);
-		bool bHitRoll           = HitRoll::isSuccess(pVampire, pTargetCreature, HitBonus);
+		bool bHitRoll           = HitRoll::isSuccess( pVampire, pTargetCreature, HitBonus );
 		bool bCanHit            = canHit(pVampire, pTargetCreature, getSkillType());
 		bool bPK                = verifyPK(pVampire, pTargetCreature);
 
@@ -81,14 +81,14 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 			computeOutput(input, output);
 
 			Damage_t Damage = output.Damage;
-			Damage = computeMagicDamage(pTargetCreature, Damage, getSkillType(), true, pVampire);
+			Damage = computeMagicDamage( pTargetCreature, Damage, getSkillType(), true, pVampire );
 
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL );
+				Assert( pRankBonus != NULL );
 
-				Damage += getPercentValue(Damage, pRankBonus->getPoint());
+				Damage += getPercentValue( Damage, pRankBonus->getPoint() );
 			}
 
 			CheckCrossCounter(pVampire, pTargetCreature, Damage);
@@ -157,12 +157,12 @@ void BloodyZenith::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		} 
 		else
 		{
-			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature);
+			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature );
 		}
 	}
 	catch(Throwable & t)
 	{
-		executeSkillFailException(pVampire, getSkillType());
+		executeSkillFailException( pVampire, getSkillType() );
 	}
 
 	__END_CATCH
@@ -176,13 +176,13 @@ void BloodyZenith::execute(Monster* pMonster, Creature* pEnemy)
 {
 	__BEGIN_TRY
 
-	Assert(pMonster != NULL);
-	Assert(pEnemy != NULL);
+	Assert( pMonster != NULL );
+	Assert( pEnemy != NULL );
 
 	try
 	{
 		Zone* pZone = pMonster->getZone();
-		Assert(pZone != NULL);
+		Assert( pZone != NULL );
 
 		if (pMonster->isFlag(Effect::EFFECT_CLASS_HIDE))
 		{
@@ -196,57 +196,57 @@ void BloodyZenith::execute(Monster* pMonster, Creature* pEnemy)
 		GCSkillToObjectOK2 _GCSkillToObjectOK2;
 		GCSkillToObjectOK5 _GCSkillToObjectOK5;
 
-		SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(getSkillType());
+		SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo( getSkillType() );
 
 		SkillInput input(pMonster);
 		SkillOutput output;
-		computeOutput(input, output);
+		computeOutput( input, output );
 
-		bool bRangeCheck	= verifyDistance(pMonster, pEnemy, pMonster->getMissileRange());
-		bool bHitRoll		= HitRoll::isSuccess(pMonster, pEnemy);
-		bool bCanHit		= canHit(pMonster, pEnemy, getSkillType());
+		bool bRangeCheck	= verifyDistance( pMonster, pEnemy, pMonster->getMissileRange() );
+		bool bHitRoll		= HitRoll::isSuccess( pMonster, pEnemy );
+		bool bCanHit		= canHit( pMonster, pEnemy, getSkillType() );
 
 		ZoneCoord_t vampX   = pMonster->getX();
 		ZoneCoord_t vampY   = pMonster->getY();
 		ZoneCoord_t targetX = pEnemy->getX();
 		ZoneCoord_t targetY = pEnemy->getY();
 		
-		if (bRangeCheck && bHitRoll && bCanHit &&
+		if ( bRangeCheck && bHitRoll && bCanHit &&
 			pZone->moveFastMonster(pMonster, vampX, vampY, targetX, targetY, getSkillType()) )
 		{
 			Damage_t Damage = output.Damage;
-			Damage = computeMagicDamage(pEnemy, Damage, getSkillType());
+			Damage = computeMagicDamage( pEnemy, Damage, getSkillType() );
 
-			CheckCrossCounter(pMonster, pEnemy, Damage);
-			setDamage(pEnemy, Damage, pMonster, getSkillType(), &_GCSkillToObjectOK2, NULL);
-			decreaseDurability(pMonster, pEnemy, pSkillInfo, NULL, &_GCSkillToObjectOK2);
+			CheckCrossCounter( pMonster, pEnemy, Damage );
+			setDamage( pEnemy, Damage, pMonster, getSkillType(), &_GCSkillToObjectOK2, NULL );
+			decreaseDurability( pMonster, pEnemy, pSkillInfo, NULL, &_GCSkillToObjectOK2 );
 
-			_GCSkillToObjectOK2.setObjectID(pMonster->getObjectID());
-			_GCSkillToObjectOK2.setSkillType(getSkillType());
+			_GCSkillToObjectOK2.setObjectID( pMonster->getObjectID() );
+			_GCSkillToObjectOK2.setSkillType( getSkillType() );
 			_GCSkillToObjectOK2.setDuration(0);
 
-			_GCSkillToObjectOK5.setObjectID(pMonster->getObjectID());
-			_GCSkillToObjectOK5.setTargetObjectID(pEnemy->getObjectID());
-			_GCSkillToObjectOK5.setSkillType(getSkillType());
+			_GCSkillToObjectOK5.setObjectID( pMonster->getObjectID() );
+			_GCSkillToObjectOK5.setTargetObjectID( pEnemy->getObjectID() );
+			_GCSkillToObjectOK5.setSkillType( getSkillType() );
 			_GCSkillToObjectOK5.setDuration(0);
 
-			if (pEnemy->isPC() )
+			if ( pEnemy->isPC() )
 			{
-				pEnemy->getPlayer()->sendPacket(&_GCSkillToObjectOK2);
+				pEnemy->getPlayer()->sendPacket( &_GCSkillToObjectOK2 );
 			}
 
 			list<Creature*> cList;
-			cList.push_back(pMonster);
-			cList.push_back(pEnemy);
+			cList.push_back( pMonster );
+			cList.push_back( pEnemy );
 
-			pZone->broadcastSkillPacket(pMonster->getX(), pMonster->getY(), pEnemy->getX(), pEnemy->getY(), &_GCSkillToObjectOK5, cList);
+			pZone->broadcastSkillPacket( pMonster->getX(), pMonster->getY(), pEnemy->getX(), pEnemy->getY(), &_GCSkillToObjectOK5, cList );
 		}
 		else
 		{
-			executeSkillFailNormal(pMonster, getSkillType(), pEnemy);
+			executeSkillFailNormal( pMonster, getSkillType(), pEnemy );
 		}
 	}
-	catch(Throwable& t )
+	catch( Throwable& t )
 	{
 		executeSkillFailException(pMonster, getSkillType());
 	}

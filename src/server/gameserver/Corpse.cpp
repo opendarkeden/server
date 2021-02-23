@@ -12,10 +12,10 @@
 #include "RelicUtil.h"
 #include <stdio.h>
 //#include "EffectHasBloodBible.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 // ItemUtil.h에 이거 옮기고 지워도 된다.
-extern void saveItemInCorpse(Item* pItem, Corpse* pCorpse) throw(Error);
+extern void saveItemInCorpse(Item* pItem, Corpse* pCorpse) throw (Error);
 
 //////////////////////////////////////////////////////////////////////////////
 // class Corpse member methods
@@ -61,8 +61,8 @@ Item* Corpse::getTreasure()
 		Assert(pItem!=NULL);
 
 		// 성단에서 성서가 빠져나갈때 이펙트를 꺼준다.
-		deleteFlagEffect(this, pItem);
-		deleteRelicEffect(this, pItem);
+		deleteFlagEffect( this, pItem );
+		deleteRelicEffect( this, pItem );
 
 		m_Treasures.pop_front();
 		m_TreasureCount--;
@@ -88,11 +88,11 @@ void Corpse::addTreasure(Item* pItem)
 
 		addHasRelicEffect(m_pZone, this, pItem);
 	}
-	else if (pItem->isFlagItem() )
+	else if ( pItem->isFlagItem() )
 	{
 		saveItemInCorpse(pItem, this);
 	}
-	else if (pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
+	else if ( pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 	{
 		saveItemInCorpse(pItem, this);
 
@@ -104,16 +104,16 @@ void Corpse::addTreasure(Item* pItem)
 	__END_CATCH
 }
 
-Item* Corpse::getTreasure(ObjectID_t objectID ) const
+Item* Corpse::getTreasure( ObjectID_t objectID ) const
 	throw()
 {
 	__BEGIN_TRY
 
 	list<Item*>::const_iterator itr = m_Treasures.begin();
 
-	for (; itr != m_Treasures.end() ; itr++ )
+	for ( ; itr != m_Treasures.end() ; itr++ )
 	{
-		if ((*itr)->getObjectID() == objectID ) return *itr;
+		if ( (*itr)->getObjectID() == objectID ) return *itr;
 	}
 
 	return NULL;
@@ -122,20 +122,20 @@ Item* Corpse::getTreasure(ObjectID_t objectID ) const
 }
 
 
-Item* Corpse::popTreasure(ObjectID_t objectID )
+Item* Corpse::popTreasure( ObjectID_t objectID )
 	throw()
 {
 	__BEGIN_TRY
 
 	list<Item*>::iterator itr = m_Treasures.begin();
 
-	for (; itr != m_Treasures.end() ; itr++ )
+	for ( ; itr != m_Treasures.end() ; itr++ )
 	{
-		if ((*itr)->getObjectID() == objectID )
+		if ( (*itr)->getObjectID() == objectID )
 		{
 			Item* pItem = *itr;
 			m_Treasures.erase(itr);
-			m_Treasures.push_front(pItem);
+			m_Treasures.push_front( pItem );
 			return getTreasure();
 		}
 	}

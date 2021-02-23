@@ -11,28 +11,26 @@
 #include "PCFinder.h"
 #include <stdio.h>
 
-#include <map>
-
 //////////////////////////////////////////////////////////////////////////////
 // class NPCManager member methods
 //////////////////////////////////////////////////////////////////////////////
 
 NPCManager::NPCManager () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 NPCManager::~NPCManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void NPCManager::load (ZoneID_t zoneID, int race) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -41,6 +39,7 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 	Result*    pResult = NULL;
 
 	bool bLoadAllRace = (race==0xFF);
+
 	BEGIN_DB
 	{
 		//StringStream sql;
@@ -49,12 +48,12 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 
 		if (bLoadAllRace)
 		{
-			pResult = pStmt->executeQuery(
+			pResult = pStmt->executeQuery( 
 				"SELECT Name, NPCID, SpriteType, Race, MainColor, SubColor, ClanType, ShowInMinimap, TaxingCastleZoneID FROM NPC WHERE ZoneID = %d", (int)zoneID);
 		}
 		else
 		{
-			pResult = pStmt->executeQuery(
+			pResult = pStmt->executeQuery( 
 				"SELECT Name, NPCID, SpriteType, Race, MainColor, SubColor, ClanType, ShowInMinimap, TaxingCastleZoneID FROM NPC WHERE ZoneID = %d AND Race = %d", (int)zoneID, (int)race);
 		}
 
@@ -62,14 +61,14 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 		{
 			uint i = 0;
 
-			string Name(pResult->getString(++i));
+			string Name( pResult->getString(++i) );
 
 			if (getCreature(Name)==NULL)
 			{
 				// create NPC object
 				NPC* pNPC = new NPC();
 
-				pNPC->setName(Name);
+				pNPC->setName( Name );
 				pNPC->setNPCID(pResult->getInt(++i));
 				pNPC->setSpriteType(pResult->getInt(++i));
 				pNPC->setRace(pResult->getInt(++i));
@@ -82,14 +81,14 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 				if (ShowInMinimap != 0) pNPC->setShowInMinimap(true);
 				else pNPC->setShowInMinimap(false);
 
-				pNPC->setTaxingCastleZoneID(pResult->getInt(++i));
+				pNPC->setTaxingCastleZoneID( pResult->getInt(++i) );
 
 //				cout << pNPC->getName() << "은 " << pNPC->getTaxingCastleZoneID() << " 존에서 세금 매깁니다." << endl;
-				filelog("NPC.log", "%s는 %u존에서 세금 매깁니다.", pNPC->getName().c_str(), pNPC->getTaxingCastleZoneID());
+				filelog("NPC.log", "%s는 %u존에서 세금 매깁니다.", pNPC->getName().c_str(), pNPC->getTaxingCastleZoneID() );
 
-				//printf("NPC[%s] loading begin >> ", pNPC->getName().c_str());
+				printf("NPC[%s] loading begin >> ", pNPC->getName().c_str());
 				pNPC->init();
-				//printf("loading end\n");
+				printf("loading end\n");
 				// NPC trace 를 위해 by DEW 2003. 04. 16
 				g_pPCFinder->addNPC(pNPC);
 
@@ -104,12 +103,13 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
+	
 	__END_DEBUG
 	__END_CATCH
 }
 	
 void NPCManager::processCreatures () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -119,7 +119,7 @@ void NPCManager::processCreatures ()
 
 	try
 	{
-		map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
+		hash_map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
 		for (; itr != m_Creatures.end() ; itr++)
 		{
 			itr->second->act(currentTime);
@@ -136,7 +136,7 @@ void NPCManager::processCreatures ()
 }
 
 string NPCManager::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

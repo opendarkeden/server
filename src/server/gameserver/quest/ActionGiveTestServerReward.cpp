@@ -20,8 +20,8 @@
 #include <list>
 
 #include "PacketUtil.h"
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ ActionGiveTestServerReward::~ActionGiveTestServerReward()
 //  load
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::load()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 	
@@ -71,7 +71,7 @@ void ActionGiveTestServerReward::load()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -96,7 +96,7 @@ void ActionGiveTestServerReward::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -112,13 +112,13 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	Assert(pPlayer != NULL);
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+	Assert(pGamePlayer != NULL );
 
 	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+	Assert( pInventory != NULL );
 
 	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	Item::ItemClass ItemClass;
 	ItemType_t		ItemType;
@@ -127,15 +127,15 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	Item*			pItem;
 
 	// 이미 보상을 받을 수 있는지 체크
-	if (!(pGamePlayer->getSpecialEventCount() & SPECIAL_EVENT_TEST_SERVER_REWARD) )
+	if ( !(pGamePlayer->getSpecialEventCount() & SPECIAL_EVENT_TEST_SERVER_REWARD) )
 	{
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_REWARD_FAIL);
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_REWARD_FAIL );
+		pPlayer->sendPacket( &response );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
@@ -143,26 +143,26 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	LuaSelectItem*	pLuaSelectItem = NULL;
 	string			luaFileName;
 
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		// 루아에 슬레이어 능력치의 합을 set한다.
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
-		Attr_t sum = pSlayer->getSTR(ATTR_BASIC )
-				   + pSlayer->getDEX(ATTR_BASIC )
-				   + pSlayer->getINT(ATTR_BASIC);
+		Attr_t sum = pSlayer->getSTR( ATTR_BASIC )
+				   + pSlayer->getDEX( ATTR_BASIC )
+				   + pSlayer->getINT( ATTR_BASIC );
 
 		m_pLuaSlayerItem->setSum(sum);
 		pLuaSelectItem = m_pLuaSlayerItem;
 		luaFileName = m_SlayerFilename;
 
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		// 루아에 뱀파이어의 레벨을 set한다.
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		int level = pVampire->getLevel();
 		m_pLuaVampireItem->setLevel(level);
@@ -173,7 +173,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	// 루아의 계산 결과를 받아 아이템을 생성한다.
 	pLuaSelectItem->prepare();
 	
-	int result = pLuaSelectItem->executeFile(luaFileName);
+	int result = pLuaSelectItem->executeFile( luaFileName );
 	LuaState::logError(result);
 
 	ItemClass 	= pLuaSelectItem->getItemClass();
@@ -182,72 +182,72 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 
 	pLuaSelectItem->clear();
 
-	if(ItemClass >= Item::ITEM_CLASS_MAX )
+	if( ItemClass >= Item::ITEM_CLASS_MAX )
 	{
-		filelog("TestServerRewardError.txt", "[ ItemInfo Error ] : ItemClass = %d , ItemType = %d , OptionType = %d", ItemClass, ItemType, OptionType);
+		filelog( "TestServerRewardError.txt", "[ ItemInfo Error ] : ItemClass = %d , ItemType = %d , OptionType = %d", ItemClass, ItemType, OptionType );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
 
 	// 선물(Item)을 만든다.
 	list<OptionType_t> optionTypeList;
-	if (OptionType != 0 )
-		optionTypeList.push_back(OptionType);
+	if ( OptionType != 0 )
+		optionTypeList.push_back( OptionType );
 
-	pItem = g_pItemFactoryManager->createItem(ItemClass, ItemType, optionTypeList);
-	Assert(pItem != NULL);
+	pItem = g_pItemFactoryManager->createItem( ItemClass, ItemType, optionTypeList );
+	Assert( pItem != NULL );
 
 	// 인벤토리에 아이템을 넣을 빈 자리를 받아온다.
 	TPOINT p;
 	
 	if (!pInventory->getEmptySlot(pItem, p)) 
 	{
-		SAFE_DELETE(pItem);
+		SAFE_DELETE( pItem );
 
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_NO_EMPTY_SLOT);
+		response.setCode( NPC_RESPONSE_NO_EMPTY_SLOT );
 		pGamePlayer->sendPacket(&response);
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
 
 	// 선물을 인벤토리에 추가한다.
-	pZone->getObjectRegistry().registerObject(pItem);
-	pInventory->addItem(p.x, p.y, pItem);
-	pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, p.x, p.y);
+	pZone->getObjectRegistry().registerObject( pItem );
+	pInventory->addItem( p.x, p.y, pItem );
+	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, p.x, p.y );
 
 	// ItemTraceLog 를 남긴다
-	if (pItem != NULL && pItem->isTraceItem() )
+	if ( pItem != NULL && pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+		remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 	}
 
 	// 클라이언트에 선물이 추가되었음을 알린다.
 	GCCreateItem gcCreateItem;
-	makeGCCreateItem(&gcCreateItem, pItem, p.x, p.y);
+	makeGCCreateItem( &gcCreateItem, pItem, p.x, p.y );
 	pPlayer->sendPacket(&gcCreateItem);
 
 	// 선물을 받았다고 Flag 를 끈다.
-	pGamePlayer->setSpecialEventCount(pGamePlayer->getSpecialEventCount() & ~(SPECIAL_EVENT_TEST_SERVER_REWARD));
+	pGamePlayer->setSpecialEventCount( pGamePlayer->getSpecialEventCount() & ~(SPECIAL_EVENT_TEST_SERVER_REWARD) );
 	// Flag 를 저장한다.
 	pGamePlayer->saveSpecialEventCount();
 
 	// 보상을 받았다고 클라이언트에 보낸다.
 	GCNPCResponse response;
-	response.setCode(NPC_RESPONSE_REWARD_OK);
-	pPlayer->sendPacket(&response);
+	response.setCode( NPC_RESPONSE_REWARD_OK );
+	pPlayer->sendPacket( &response );
 
 	GCNPCResponse quit;
-	quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPlayer->sendPacket(&quit);
+	quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+	pPlayer->sendPacket( &quit );
 
 	__END_CATCH
 }
@@ -257,7 +257,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveTestServerReward::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

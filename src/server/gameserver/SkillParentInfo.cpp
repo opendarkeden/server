@@ -8,8 +8,8 @@
 
 #include "SkillParentInfo.h"
 #include "DB.h"
-#include "Assert1.h"
-#include <algorithm>
+#include "Assert.h"
+#include <algo.h>
 
 //----------------------------------------------------------------------
 //
@@ -17,7 +17,7 @@
 //
 //----------------------------------------------------------------------
 SkillParentInfo::SkillParentInfo (SkillType_t SkillType) 
-	throw() 
+	throw () 
 : m_SkillType(SkillType)
 {
 	__BEGIN_TRY
@@ -32,7 +32,7 @@ SkillParentInfo::SkillParentInfo (SkillType_t SkillType)
 //
 //----------------------------------------------------------------------
 SkillParentInfo::~SkillParentInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -45,7 +45,7 @@ SkillParentInfo::~SkillParentInfo ()
 //
 //----------------------------------------------------------------------
 void SkillParentInfo::init ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -60,7 +60,7 @@ void SkillParentInfo::init ()
 //
 //----------------------------------------------------------------------
 bool SkillParentInfo::hasParent (SkillType_t SkillType)
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ bool SkillParentInfo::hasParent (SkillType_t SkillType)
 // 적 리스트의 특정 위치의 크리처의 아이디를 리턴한다.
 //----------------------------------------------------------------------
 SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
 // get debug string
 //----------------------------------------------------------------------
 string SkillParentInfo::toString () const
-	throw()
+	throw ()
 {
 
 	__BEGIN_TRY

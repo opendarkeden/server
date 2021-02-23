@@ -38,10 +38,10 @@ void AcidBolt::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
 	// Knowledge of Acid 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

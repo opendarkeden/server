@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 CarryingReceiverInfoManager* g_pCarryingReceiverInfoManager = NULL;
@@ -39,7 +38,7 @@ CarryingReceiver::CarryingReceiver(ItemType_t itemType, const list<OptionType_t>
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "CarryingReceiver::CarryingReceiver() : Invalid item type or option type");
-		throw("CarryingReceiver::CarryingReceiver() : Invalid item type or optionType");
+		throw ("CarryingReceiver::CarryingReceiver() : Invalid item type or optionType");
 	}
 }
 
@@ -75,7 +74,7 @@ void CarryingReceiver::create(const string & ownerID, Storage storage, StorageID
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO CarryingReceiverObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -110,7 +109,7 @@ void CarryingReceiver::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE CarryingReceiverObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE CarryingReceiverObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -135,9 +134,9 @@ void CarryingReceiver::save(const string & ownerID, Storage storage, StorageID_t
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE CarryingReceiverObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-									m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE CarryingReceiverObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
+									m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -269,8 +268,8 @@ void CarryingReceiverLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Grade, EnchantLevel, ItemFlag FROM CarryingReceiverObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Grade, EnchantLevel, ItemFlag FROM CarryingReceiverObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -331,18 +330,6 @@ void CarryingReceiverLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pCarryingReceiver);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pCarryingReceiver))
 						{
 							pInventory->addItemEx(x, y, pCarryingReceiver);

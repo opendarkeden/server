@@ -10,14 +10,14 @@
 #include "Types.h"
 #include "Exception.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 #include "ConnectionInfo.h"
 
-typedef map< string, ConnectionInfo* > HashMapConnectionInfo;
+typedef hash_map< string, ConnectionInfo* > HashMapConnectionInfo;
 
 //////////////////////////////////////////////////////////////////////////////
 // class ConnectionInfoManager;
-// IP 스트링을 키값으로 하는 map 을 내부에 가지고 있다.
+// IP 스트링을 키값으로 하는 hash_map 을 내부에 가지고 있다.
 //////////////////////////////////////////////////////////////////////////////
 
 class ConnectionInfoManager 

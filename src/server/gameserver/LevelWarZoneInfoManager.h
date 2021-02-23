@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include "Mutex.h"
 
 class Packet;
@@ -18,7 +18,7 @@ public:
 public:
 
 	int						getGrade() const	{ return m_LevelWarGrade; }
-	void					setGrade(int grade ) 	{ m_LevelWarGrade = grade; }
+	void					setGrade( int grade ) 	{ m_LevelWarGrade = grade; }
 
 	ZoneID_t				getZoneID() const	{ return m_ZoneID; }
 	void					setZoneID(const ZoneID_t zoneID)	{ m_ZoneID = zoneID; }
@@ -48,12 +48,12 @@ public:
 	void					setMaxOustersLevel(const Level_t level)	{ m_OustersLevelMax = level; }
 
 	const list<ZoneID_t>& 	getZoneIDList() const throw() { return m_LevelWarBonusZoneIDList; }
-	void					setZoneIDList(const string& zoneIDs )	throw();
+	void					setZoneIDList( const string& zoneIDs )	throw();
 
-	bool 					isBonusZone(ZoneID_t targetZoneID) const throw(Error);
+	bool 					isBonusZone(ZoneID_t targetZoneID) const throw (Error);
 
 	bool					isCreatureThisLevel(Creature* pCreature) const throw();
-	bool					isZoneThisLevel(ZoneID_t zoneID ) const throw();
+	bool					isZoneThisLevel( ZoneID_t zoneID ) const throw();
 
 	string toString() const throw();
 
@@ -92,28 +92,28 @@ public:
 	void lock() throw(Error) { m_Mutex.lock(); }
 	void unlock() throw(Error) { m_Mutex.unlock(); }
 
-	void addLevelWarZoneInfo(LevelWarZoneInfo* pLevelWarZoneInfo ) throw(Error);
-	int getCreatureLevelGrade(Creature* pCreature ) throw(Error);
-	ZoneID_t getCreatureZoneID(Creature* pCreature ) throw(Error);
+	void addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZoneInfo ) throw(Error);
+	int getCreatureLevelGrade( Creature* pCreature ) throw(Error);
+	ZoneID_t getCreatureZoneID( Creature* pCreature ) throw(Error);
 	
-	bool isCreatureBonusZone(Creature* pCreature, ZoneID_t zoneID ) const throw(Error);
+	bool isCreatureBonusZone( Creature* pCreature, ZoneID_t zoneID ) const throw(Error);
 
-	LevelWarZoneInfo* getLevelWarZoneInfo(ZoneID_t zoneID ) const throw(Error);
+	LevelWarZoneInfo* getLevelWarZoneInfo( ZoneID_t zoneID ) const throw(Error);
 
 public:
 	void clearLevelWarZoneIDs() throw(Error);
-	bool getLevelWarZoneID(ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const throw(Error);
-	void setLevelWarZoneID(ZoneID_t zoneID, ZoneID_t levelWarZoneID ) throw(Error);
+	bool getLevelWarZoneID( ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const throw(Error);
+	void setLevelWarZoneID( ZoneID_t zoneID, ZoneID_t levelWarZoneID ) throw (Error);
 
 //	void refreshSweeperBonusZonePlayer() throw(Error);
-	void broadcast(ZoneID_t zoneID, Packet* pPacket ) const throw(Error);
+	void broadcast( ZoneID_t zoneID, Packet* pPacket ) const throw(Error);
 
 	string toString() const throw();
 
 private:
 
-	map<ZoneID_t, LevelWarZoneInfo*>		m_LevelWarZoneInfos;
-	map<ZoneID_t, ZoneID_t>				m_LevelWarZoneIDs;
+	hash_map<ZoneID_t, LevelWarZoneInfo*>		m_LevelWarZoneInfos;
+	hash_map<ZoneID_t, ZoneID_t>				m_LevelWarZoneIDs;
 
 	mutable Mutex 								m_Mutex;
 

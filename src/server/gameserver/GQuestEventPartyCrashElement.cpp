@@ -1,11 +1,11 @@
 #include "GQuestEventPartyCrashElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestEventPartyCrashElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestEventPartyCrashMission* pEventPartyCrashMission = dynamic_cast<GQuestEventPartyCrashMission*>(pMission);
-	if (pEventPartyCrashMission == NULL ) return FAIL;
-	if (pEventPartyCrashMission->isMet() ) return OK;
+	if ( pEventPartyCrashMission == NULL ) return FAIL;
+	if ( pEventPartyCrashMission->isMet() ) return OK;
 
 	return WAIT;
 }

@@ -39,7 +39,7 @@ private:
 };
 
 
-DECLARE_DYNAMIC_ZONE_FACTORY(DynamicZoneOustersMirrorOfAbyss )
+DECLARE_DYNAMIC_ZONE_FACTORY( DynamicZoneOustersMirrorOfAbyss )
 
 #endif
 

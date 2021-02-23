@@ -14,7 +14,7 @@ enum MoonCard
 	NEW_MOON
 };
 
-MoonCard getCardKind(PlayerCreature* pPC, Monster* pMonster);
-Item* getCardItem(MoonCard card);
+MoonCard getCardKind( PlayerCreature* pPC, Monster* pMonster );
+Item* getCardItem( MoonCard card );
 
 #endif// __MOON_CARD_H__

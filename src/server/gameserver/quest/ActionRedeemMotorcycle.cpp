@@ -18,12 +18,12 @@
 #include "ItemUtil.h"
 
 #include "item/Key.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedeemMotorcycle::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -32,7 +32,7 @@ void ActionRedeemMotorcycle::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedeemMotorcycle::execute (Creature * pCreature1 , Creature* pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -182,10 +182,10 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 			pResult = pStmt->executeQuery("SELECT ItemID FROM MotorcycleObject WHERE ItemID=%lu", targetID);
 
-			if (!pResult->next() )
+			if ( !pResult->next() )
 			{
 				Key* pKey = dynamic_cast<Key*>(pItem);
-				Assert(pKey != NULL);
+				Assert( pKey != NULL );
 
 				targetID = pKey->setNewMotorcycle(pSlayer);
 			}
@@ -235,8 +235,8 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 					pMotorcycleBox->setTransport();
 
 					// motorcycle을 slayer의 zone으로 옮긴다.
-					pMotorZone->transportItem(motorX, motorY, pMotorcycle, 
-												pZone, pSlayer->getX(), pSlayer->getY());
+					pMotorZone->transportItem( motorX, motorY, pMotorcycle, 
+												pZone, pSlayer->getX(), pSlayer->getY() );
 
 					// Use OK 대용이다.
 					// Use하면 아이템이 사라지던가 그렇지 싶다. - -;
@@ -355,7 +355,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRedeemMotorcycle::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

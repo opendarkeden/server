@@ -1,0 +1,25 @@
+OBJS	= \
+		LCCreatePCError.o LCCreatePCErrorHandler.o \
+		LCCreatePCOK.o LCCreatePCOKHandler.o \
+		LCDeletePCError.o LCDeletePCErrorHandler.o \
+		LCDeletePCOK.o LCDeletePCOKHandler.o \
+		LCLoginError.o LCLoginErrorHandler.o \
+		LCLoginOK.o LCLoginOKHandler.o \
+		LCPCList.o LCPCListHandler.o \
+		LCQueryResultPlayerID.o LCQueryResultPlayerIDHandler.o \
+		LCQueryResultCharacterName.o LCQueryResultCharacterNameHandler.o \
+		LCReconnect.o LCReconnectHandler.o \
+		LCRegisterPlayerError.o LCRegisterPlayerErrorHandler.o \
+		LCRegisterPlayerOK.o LCRegisterPlayerOKHandler.o \
+		LCSelectPCError.o LCSelectPCErrorHandler.o \
+		LCServerList.o LCServerListHandler.o \
+		LCWorldList.o LCWorldListHandler.o \
+		LCVersionCheckOK.o LCVersionCheckOKHandler.o \
+		LCVersionCheckError.o LCVersionCheckErrorHandler.o \
+		LGIncomingConnection.o LGIncomingConnectionHandler.o \
+		LGIncomingConnectionOK.o LGIncomingConnectionOKHandler.o \
+		LGIncomingConnectionError.o LGIncomingConnectionErrorHandler.o \
+		LGKickCharacter.o LGKickCharacterHandler.o
+
+SRCS	= $(OBJS:.o=.cpp)
+

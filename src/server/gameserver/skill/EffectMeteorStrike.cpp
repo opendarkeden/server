@@ -11,12 +11,10 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK4.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -50,11 +48,11 @@ void EffectMeteorStrike::affect()
 
 	// 이펙트를 건 크리쳐를 가져온다.
 	// !! 존을 떠났을 수도 있으므로 NULL 이 될 수 있다.
-	Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
-	if (m_bPlayer )
+	Creature* pCastCreature = m_pZone->getCreature( m_UserObjectID );
+	if ( m_bPlayer )
 	{
-//		pCastCreature = m_pZone->getCreature(m_UserObjectID);
-		if (pCastCreature == NULL )
+//		pCastCreature = m_pZone->getCreature( m_UserObjectID );
+		if ( pCastCreature == NULL )
 		{
 //			Tile& tile = m_pZone->getTile(m_X, m_Y);
 //			tile.deleteEffect(m_ObjectID);
@@ -81,34 +79,34 @@ void EffectMeteorStrike::affect()
 			int splash = max(abs(x), abs(y));
 
 			// 가운데는 100%
-//			if (m_bPlayer )
+//			if ( m_bPlayer )
 //			{
-/*				if (splash == 0 )
+/*				if ( splash == 0 )
 				{
 					Damage = m_Damage;
 				}
-				else if (splash == 1 )
+				else if ( splash == 1 )
 				{
-					Damage = getPercentValue(m_Damage, 85);
+					Damage = getPercentValue( m_Damage, 85 );
 				}
 				else
 				{
-					Damage = getPercentValue(m_Damage, 70);
+					Damage = getPercentValue( m_Damage, 70 );
 				}*/
 
-				if (splash >= 3 ) splash = 2;
-				Damage = getPercentValue(m_Damage, m_SplashRatio[splash]);
+				if ( splash >= 3 ) splash = 2;
+				Damage = getPercentValue( m_Damage, m_SplashRatio[splash] );
 //			}
 //			else
 //			{
 //				// 주위에는 50% damage
-//				if (splash != 0 ) Damage = m_Damage >> splash;
+//				if ( splash != 0 ) Damage = m_Damage >> splash;
 //				else Damage = m_Damage;
 //			}
 
 			// 타일 안에 존재하는 오브젝트들을 검색한다.
-			const list<Object*>& oList = tile.getObjectList();
-			list<Object*>::const_iterator itr = oList.begin();
+			const slist<Object*>& oList = tile.getObjectList();
+			slist<Object*>::const_iterator itr = oList.begin();
 			for (; itr != oList.end(); itr++) 
 			{
 				Assert(*itr != NULL);
@@ -124,18 +122,18 @@ void EffectMeteorStrike::affect()
 					// 자신은 맞지 않는다
 					// 무적상태 체크. by sigi. 2002.9.5
 					if (pCreature->getObjectID()==m_UserObjectID
-						|| !canAttack(pCastCreature, pCreature )
+						|| !canAttack( pCastCreature, pCreature )
 						|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-						|| !checkZoneLevelToHitTarget(pCreature )
+						|| !checkZoneLevelToHitTarget( pCreature )
 					)
 					{
 						continue;
 					}
 
-					if (pCastCreature != NULL && pCastCreature->isMonster() )
+					if ( pCastCreature != NULL && pCastCreature->isMonster() )
 					{
 						Monster* pMonster = dynamic_cast<Monster*>(pCastCreature);
-						if (pMonster != NULL && !pMonster->isEnemyToAttack(pCreature ) ) continue;
+						if ( pMonster != NULL && !pMonster->isEnemyToAttack( pCreature ) ) continue;
 					}
 
 					//GCModifyInformation gcMI;
@@ -146,7 +144,7 @@ void EffectMeteorStrike::affect()
 					{
 						Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-						::setDamage(pSlayer, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pSlayer, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI);
 
 /*						Player* pPlayer = pSlayer->getPlayer();
 						Assert(pPlayer != NULL);
@@ -156,12 +154,12 @@ void EffectMeteorStrike::affect()
 					else if (pCreature->isVampire())
 					{
 						// 뱀파이어가 사용했을 경우 뱀파이어는 중심 타일을 제외하고는 맞지 않는다.
-						if (m_bPlayer )// && splash != 0 )
+						if ( m_bPlayer )// && splash != 0 )
 							continue;
 
 						Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-						::setDamage(pVampire, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pVampire, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI );
 
 /*						Player* pPlayer = pVampire->getPlayer();
 						Assert(pPlayer != NULL);
@@ -171,7 +169,7 @@ void EffectMeteorStrike::affect()
 					{
 						Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-						::setDamage(pOusters, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI);
+						::setDamage( pOusters, Damage, pCastCreature, SKILL_METEOR_STRIKE, &gcSkillToObjectOK2, &gcAttackerMI );
 
 /*						Player* pPlayer = pOusters->getPlayer();
 						Assert(pPlayer != NULL);
@@ -181,39 +179,39 @@ void EffectMeteorStrike::affect()
 					{
 						Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-						::setDamage(pMonster, Damage, pCastCreature, SKILL_METEOR_STRIKE, NULL, &gcAttackerMI);
+						::setDamage( pMonster, Damage, pCastCreature, SKILL_METEOR_STRIKE, NULL, &gcAttackerMI );
 
-						if (pCastCreature != NULL ) pMonster->addEnemy(pCastCreature);
+						if ( pCastCreature != NULL ) pMonster->addEnemy( pCastCreature );
 					}
 
 					// 상대가 죽었다면 경험치를 올려준다.
-					if (pCreature->isDead() )
+					if ( pCreature->isDead() )
 					{
-						if (pCastCreature != NULL && pCastCreature->isVampire() )
+						if ( pCastCreature != NULL && pCastCreature->isVampire() )
 						{
 							Vampire* pVampire = dynamic_cast<Vampire*>(pCastCreature);
-							Assert(pVampire != NULL);
+							Assert( pVampire != NULL );
 
 							int exp = computeCreatureExp(pCreature, KILL_EXP);
 							shareVampExp(pVampire, exp, gcAttackerMI);
-							computeAlignmentChange(pCreature, Damage, pCastCreature, &gcSkillToObjectOK2, &gcAttackerMI);
+							computeAlignmentChange( pCreature, Damage, pCastCreature, &gcSkillToObjectOK2, &gcAttackerMI );
 
-							pVampire->getPlayer()->sendPacket(&gcAttackerMI);
+							pVampire->getPlayer()->sendPacket( &gcAttackerMI );
 						}
 					}
 
 					// user한테는 맞는 모습을 보여준다.
 					if (pCreature->isPC())
 					{
-						gcSkillToObjectOK2.setObjectID(1);	// 의미 없다.
-						gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+						gcSkillToObjectOK2.setObjectID( 1 );	// 의미 없다.
+						gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
 						gcSkillToObjectOK2.setDuration(0);
 						pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
 					}
 
 					GCSkillToObjectOK4 gcSkillToObjectOK4;
-					gcSkillToObjectOK4.setTargetObjectID(pCreature->getObjectID());
-					gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+					gcSkillToObjectOK4.setTargetObjectID( pCreature->getObjectID() );
+					gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
 					gcSkillToObjectOK4.setDuration(0);
 
 					m_pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcSkillToObjectOK4, pCreature);

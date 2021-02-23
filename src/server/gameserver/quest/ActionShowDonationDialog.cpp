@@ -8,14 +8,14 @@
 #include "Creature.h"
 #include "Player.h"
 
-#include "CGDonationMoney.h"
-#include "GCNPCResponse.h"
+#include "Cpackets/CGDonationMoney.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowDonationDialog::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionShowDonationDialog::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowDonationDialog::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,15 +49,13 @@ void ActionShowDonationDialog::execute (Creature * pCreature1, Creature * pCreat
 	Assert(pPlayer != NULL);
 
 	GCNPCResponse response;
-	response.setCode(NPC_RESPONSE_SHOW_DONATION_DIALOG);
-	if (m_Type == "Personal" )
-		response.setParameter(DONATION_TYPE_200501_PERSONAL);
-	else if (m_Type == "Guild" )
-		response.setParameter(DONATION_TYPE_200501_GUILD);
-	else if (m_Type == "Wedding" )
-		response.setParameter(DONATION_TYPE_200505_WEDDING);
+	response.setCode( NPC_RESPONSE_SHOW_DONATION_DIALOG );
+	if ( m_Type == "Personal" )
+		response.setParameter( DONATION_TYPE_200501_PERSONAL );
+	else if ( m_Type == "Guild" )
+		response.setParameter( DONATION_TYPE_200501_GUILD );
 
-	pPlayer->sendPacket(&response);
+	pPlayer->sendPacket( &response );
 
 	__END_CATCH
 }
@@ -67,7 +65,7 @@ void ActionShowDonationDialog::execute (Creature * pCreature1, Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionShowDonationDialog::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

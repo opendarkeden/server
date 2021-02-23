@@ -6,7 +6,7 @@
 
 #include "WeatherInfo.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // global variable definition
@@ -56,7 +56,7 @@ string WeatherInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 void WeatherInfoManager::load () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void WeatherInfoManager::load ()
 }
 
 string WeatherInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	StringStream msg;

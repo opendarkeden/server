@@ -7,13 +7,13 @@
 #include "Item.h"
 #include "DB.h"
 #include "ItemInfoManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 #include "PCItemInfo.h"
 #include "PlayerCreature.h"
 #include "Store.h"
 
-#include "CGRequestStoreInfo.h"
+#include "Cpackets/CGRequestStoreInfo.h"
 
 #include <cstdio>
 
@@ -35,6 +35,7 @@ Item::Item()
 }
 
 Item::~Item()
+	throw()
 {
 }
 
@@ -69,16 +70,16 @@ bool Item::destroy()
 }
 
 // 아이템을 버린다. 기본은 가비지로, 특별한 경우엔 Timeover 나 그외 안 쓰는 storage로..
-void Item::waste(Storage storage ) const
+void Item::waste( Storage storage ) const
 	throw(Error)
 {
-	Assert((uint)storage >= (uint)STORAGE_GARBAGE);
+	Assert( (uint)storage >= (uint)STORAGE_GARBAGE );
 
 	char query[50];
 
-	sprintf(query, "Storage = %u", (uint)storage);
+	sprintf( query, "Storage = %u", (uint)storage );
 
-	tinysave(query);
+	tinysave( query );
 }
 
 const list<OptionType_t>& Item::getDefaultOptions(void) const 
@@ -114,7 +115,7 @@ bool Item::isQuestItem() const
 
 void Item::makePCItemInfo(PCItemInfo& result) const
 {
-	if (m_ObjectID == 0 )
+	if ( m_ObjectID == 0 )
 	{
 		filelog("ItemError.log", "아이템 oid가 0입니다. : %s", toString().c_str());
 		result.setObjectID(0);
@@ -135,16 +136,23 @@ void Item::makePCItemInfo(PCItemInfo& result) const
 	result.setGrade(getGrade());
 }
 
-void Item::whenPCLost(PlayerCreature* pPC)
+void Item::whenPCTake( PlayerCreature* pPC )
 {
+//	cout << pPC->getName() << " Take " << toString() << endl; 
+}
+
+void Item::whenPCLost( PlayerCreature* pPC )
+{
+//	cout << pPC->getName() << " Lost " << toString() << endl; 
 	Store* pStore = pPC->getStore();
 	BYTE index = pStore->getItemIndex(this);
 
-	if (index != 0xff) {
-		pStore->removeStoreItem(index);
+	if ( index != 0xff )
+	{
+		pStore->removeStoreItem( index );
 
 		CGRequestStoreInfo cgInfo;
 		cgInfo.setOwnerObjectID(0);
-		cgInfo.execute(pPC->getPlayer());
+		cgInfo.execute( pPC->getPlayer() );
 	}
 }

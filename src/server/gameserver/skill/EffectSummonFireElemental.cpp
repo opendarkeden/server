@@ -17,12 +17,12 @@
 #include "SkillUtil.h"
 #include "HitRoll.h"
 #include "SkillInfo.h"
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -46,10 +46,10 @@ void EffectSummonFireElemental::affect()
 
 	Creature* pCastCreature = dynamic_cast<Creature*>(m_pTarget);
 
-	if (pCastCreature == NULL || !pCastCreature->isOusters() ) return;
+	if ( pCastCreature == NULL || !pCastCreature->isOusters() ) return;
 
 	Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
-	Assert(pOusters != NULL);
+	Assert( pOusters != NULL );
 
 	Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 	if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
@@ -60,39 +60,39 @@ void EffectSummonFireElemental::affect()
 	}
 
 	Player* pPlayer = dynamic_cast<Player*>(pCastCreature->getPlayer());
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	Zone* pZone = pCastCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	ObjectID_t targetObjectID = pOusters->getLastTarget();
-	if (targetObjectID == 0 )
+	if ( targetObjectID == 0 )
 	{
 		setNextTime(20);
 		return;
 	}
 
-	Creature* pTargetCreature = pZone->getCreature(targetObjectID);
+	Creature* pTargetCreature = pZone->getCreature( targetObjectID );
 
-	if (pTargetCreature == NULL || pTargetCreature->isDead() || pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
+	if ( pTargetCreature == NULL || pTargetCreature->isDead() || pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 	{
 		pOusters->setLastTarget(0);
 		setNextTime(20);
 		return;
 	}
 
-	SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_SUMMON_FIRE_ELEMENTAL);
-	OustersSkillSlot* pSkillSlot = pOusters->getSkill(SKILL_SUMMON_FIRE_ELEMENTAL);
+	SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo( SKILL_SUMMON_FIRE_ELEMENTAL );
+	OustersSkillSlot* pSkillSlot = pOusters->getSkill( SKILL_SUMMON_FIRE_ELEMENTAL );
 
 	bool bRaceCheck = pTargetCreature->isSlayer() || pTargetCreature->isVampire() || pTargetCreature->isMonster();
-	bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, getRange());
-	bool bHitRoll = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot ) && canAttack(pOusters, pTargetCreature);
+	bool bRangeCheck = verifyDistance( pOusters, pTargetCreature, getRange() );
+	bool bHitRoll = HitRoll::isSuccessMagic( pOusters, pSkillInfo, pSkillSlot ) && canAttack( pOusters, pTargetCreature );
 
 	GCModifyInformation AttackerMI, TargetMI;
 
-	if (bRaceCheck && bRangeCheck && bHitRoll )
+	if ( bRaceCheck && bRangeCheck && bHitRoll )
 	{
-		::setDamage(pTargetCreature, getDamage(), pOusters, SKILL_SUMMON_FIRE_ELEMENTAL, &TargetMI, &AttackerMI);
+		::setDamage( pTargetCreature, getDamage(), pOusters, SKILL_SUMMON_FIRE_ELEMENTAL, &TargetMI, &AttackerMI );
 		computeAlignmentChange(pTargetCreature, getDamage(), pOusters, &TargetMI, &AttackerMI);
 		decreaseDurability(pOusters, pTargetCreature, pSkillInfo, &TargetMI, &AttackerMI);
 
@@ -106,26 +106,26 @@ void EffectSummonFireElemental::affect()
 
 		GCAddEffect gcAttackerEffect, gcTargetEffect;
 
-		gcAttackerEffect.setObjectID(pOusters->getObjectID());
-		gcAttackerEffect.setEffectID(Effect::EFFECT_CLASS_FIRE_ELEMENTAL_ATTACK);
-		gcAttackerEffect.setDuration(0);
+		gcAttackerEffect.setObjectID( pOusters->getObjectID() );
+		gcAttackerEffect.setEffectID( Effect::EFFECT_CLASS_FIRE_ELEMENTAL_ATTACK );
+		gcAttackerEffect.setDuration( 0 );
 
-		gcTargetEffect.setObjectID(pTargetCreature->getObjectID());
-		gcTargetEffect.setEffectID(Effect::EFFECT_CLASS_FIRE_ELEMENTAL_DAMAGED);
-		gcTargetEffect.setDuration(0);
+		gcTargetEffect.setObjectID( pTargetCreature->getObjectID() );
+		gcTargetEffect.setEffectID( Effect::EFFECT_CLASS_FIRE_ELEMENTAL_DAMAGED );
+		gcTargetEffect.setDuration( 0 );
 
-		pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcTargetEffect);
-		pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &gcAttackerEffect);
+		pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcTargetEffect );
+		pZone->broadcastPacket( pOusters->getX(), pOusters->getY(), &gcAttackerEffect );
 
-		pPlayer->sendPacket(&AttackerMI);
+		pPlayer->sendPacket( &AttackerMI );
 
-		if (pTargetCreature->isPC() )
+		if ( pTargetCreature->isPC() )
 		{
-			pTargetCreature->getPlayer()->sendPacket(&TargetMI);
+			pTargetCreature->getPlayer()->sendPacket( &TargetMI );
 		}
 	}
 
-	setNextTime(20);
+	setNextTime( 20 );
 
 	__END_CATCH
 }
@@ -149,7 +149,7 @@ void EffectSummonFireElemental::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-	Assert(pTargetOusters != NULL);
+	Assert( pTargetOusters != NULL );
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;

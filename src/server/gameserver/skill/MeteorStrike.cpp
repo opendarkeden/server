@@ -8,13 +8,13 @@
 #include "RankBonus.h"
 #include "EffectMeteorStrike.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -39,7 +39,7 @@ void MeteorStrike::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -90,10 +90,10 @@ void MeteorStrike::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -127,7 +127,7 @@ void MeteorStrike::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 				pZone->deleteEffect(effectID);
 			}
 
-			checkMine(pZone, X, Y);
+			checkMine( pZone, X, Y );
 			
 			// 데미지와 지속 시간을 계산한다.
 			SkillInput input(pVampire);
@@ -136,7 +136,7 @@ void MeteorStrike::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
 			// 이펙트 오브젝트를 생성한다.
 			EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y, true);
-			pEffect->setUserObjectID(pVampire->getObjectID());
+			pEffect->setUserObjectID( pVampire->getObjectID() );
 			pEffect->setDamage(output.Damage);
 			pEffect->setNextTime(output.Duration);
 			//pEffect->setNextTime(0);
@@ -306,8 +306,8 @@ void MeteorStrike::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		if (bRangeCheck && bHitRoll && bTileCheck)
 		{
 
-			if(rand() % 100 < 50 ) {
-				checkMine(pZone, X, Y);
+			if( rand() % 100 < 50 ) {
+				checkMine( pZone, X, Y );
 			}
 
 			Tile&   tile  = pZone->getTile(X, Y);
@@ -330,7 +330,7 @@ void MeteorStrike::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			// 이펙트 오브젝트를 생성한다.
 			EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y);
 			pEffect->setNextTime(output.Duration);
-			pEffect->setUserObjectID(pMonster->getObjectID());
+			pEffect->setUserObjectID( pMonster->getObjectID() );
 			//pEffect->setNextTime(0);
 			//pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);

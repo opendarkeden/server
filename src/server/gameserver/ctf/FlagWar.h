@@ -32,7 +32,7 @@ protected:
 
 	virtual void		addFlags();
 
-	void addFlagsRandom(ZoneID_t zoneID, uint no);
+	void addFlagsRandom( ZoneID_t zoneID, uint no );
 
 	string toString() const throw(Error) { return "FlagWar"; }
 

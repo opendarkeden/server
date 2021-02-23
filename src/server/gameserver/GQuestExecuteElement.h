@@ -8,7 +8,7 @@ class GQuestExecuteElement : public GQuestElement
 public:
 	GQuestExecuteElement(const string& name) : m_ElementName(name) { }
 	string 				getElementName() const { return m_ElementName; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestExecuteElement*	makeElement(XMLTree* pTree);
 
 private:

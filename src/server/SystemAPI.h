@@ -21,7 +21,7 @@ namespace SystemAPI {
 //
 // exception version of fork()
 //
-int fork_ex () throw(Error);
+int fork_ex () throw ( Error );
 
 };
 

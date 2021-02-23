@@ -8,12 +8,12 @@
 #include "RankBonus.h"
 #include "EffectMeteorStrike.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -65,7 +65,7 @@ void GrenadeAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			// 이펙트 오브젝트를 생성한다.
 			EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y);
 			pEffect->setNextTime(output.Duration);
-			pEffect->setUserObjectID(pMonster->getObjectID());
+			pEffect->setUserObjectID( pMonster->getObjectID() );
 			pEffect->setDamage(output.Damage);
 
 			// 타일에 붙은 이펙트는 OID를 받아야 한다.

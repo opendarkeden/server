@@ -19,25 +19,25 @@ class MJob;
 class MPlayer : public Player
 {
 public:
-	MPlayer(MJob* pJob ) throw(Error);
-	virtual ~MPlayer() throw(Error);
+	MPlayer( MJob* pJob ) throw ( Error );
+	virtual ~MPlayer() throw ( Error );
 
 public:
 	// network read / write
-	void processInput() throw(IOException, Error);
-	void processOutput() throw(IOException, Error);
+	void processInput() throw ( IOException, Error );
+	void processOutput() throw ( IOException, Error );
 
 	// parse packet and execute handler for the packet
-	void processCommand() throw(IOException, Error);
+	void processCommand() throw ( IOException, Error );
 
 	// send packet to player's output buffer
-	void sendPacket(MPacket* pPacket ) throw(ProtocolException, Error);
+	void sendPacket( MPacket* pPacket ) throw ( ProtocolException, Error );
 
 	// connect
 	void connect();
 
 	// disconnect
-	void disconnect(bool bDisconnected = DISCONNECTED ) throw(InvalidProtocolException, Error);
+	void disconnect( bool bDisconnected = DISCONNECTED ) throw ( InvalidProtocolException, Error );
 
 public:
 	// process
@@ -51,19 +51,19 @@ public:
 	void sendUserInfo();
 	void sendReceiveOK();
 	void sendResult();
-	void sendSError(int errorCode);
+	void sendSError( int errorCode );
 
 	// get Job
 	MJob* getJob() const { return m_pJob; }
 	
 	// add power point
-	void addPowerPoint(int point);
+	void addPowerPoint( int point );
 
 	// set errorcode
-	void setErrorCode(int errorCode);
+	void setErrorCode( int errorCode );
 
 	// 작업 끝
-	void setEnd(bool bEnd = true);
+	void setEnd( bool bEnd = true );
 
 private:
 	// 처리할 작업

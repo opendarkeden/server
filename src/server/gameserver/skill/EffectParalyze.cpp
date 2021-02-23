@@ -13,9 +13,9 @@
 #include "Player.h"
 #include "SkillHandler.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectParalyze::EffectParalyze(Creature* pCreature)
 	throw(Error)

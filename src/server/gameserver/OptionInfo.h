@@ -12,7 +12,7 @@
 #include "Item.h"
 #include <list>
 #include <vector>
-#include <map>
+#include <hash_map>
  
 //////////////////////////////////////////////////////////////////////////////
 // 옵션 레벨의 맥스
@@ -129,15 +129,15 @@ enum OptionGroup
 class RareOptionUpgradeInfo
 {
 public:
-	RareOptionUpgradeInfo(int level, int grade ) : m_Level(level), m_TotalGrade(grade)
+	RareOptionUpgradeInfo( int level, int grade ) : m_Level(level), m_TotalGrade(grade)
 	{
 		m_UpgradeRatio[0].reserve(grade); m_UpgradeRatio[1].reserve(grade);
 	}
 
 	int				getKey() const { return m_Level*10 + m_TotalGrade; }
 
-	int				getRatio(int grade, bool success ) const { Assert(grade < m_TotalGrade); return m_UpgradeRatio[(int)success][grade]; }
-	void			setRatio(int grade, bool success, int ratio ) { Assert(grade < m_TotalGrade); m_UpgradeRatio[(int)success][grade] = ratio; }
+	int				getRatio( int grade, bool success ) const { Assert( grade < m_TotalGrade ); return m_UpgradeRatio[(int)success][grade]; }
+	void			setRatio( int grade, bool success, int ratio ) { Assert( grade < m_TotalGrade ); m_UpgradeRatio[(int)success][grade] = ratio; }
 
 private:
 	int				m_Level;
@@ -148,32 +148,32 @@ private:
 class OptionClassInfo
 {
 public:
-	OptionClassInfo(OptionClass optionClass ) : m_OptionClass(optionClass) { m_Level=0; m_TotalGrade=0; }
+	OptionClassInfo( OptionClass optionClass ) : m_OptionClass(optionClass) { m_Level=0; m_TotalGrade=0; }
 
 	OptionClass		getOptionClass() const { return m_OptionClass; }
 
 	OptionGroup		getOptionGroup() const { return m_OptionGroup; }
-	void			setOptionGroup(OptionGroup optionGroup ) { m_OptionGroup = optionGroup; }
+	void			setOptionGroup( OptionGroup optionGroup ) { m_OptionGroup = optionGroup; }
 
 	int				getKey() const { return m_Level*10 + m_TotalGrade; }
 
 	const string&	getName() const { return m_Name; }
-	void			setName(const string& name ) { m_Name = name; }
+	void			setName( const string& name ) { m_Name = name; }
 
 	const string&	getHName() const { return m_HName; }
-	void			setHName(const string& hname ) { m_HName = hname; }
+	void			setHName( const string& hname ) { m_HName = hname; }
 
 	int				getLevel() const { return m_Level; }
-	void			setLevel(int level ) { m_Level = level; }
+	void			setLevel( int level ) { m_Level = level; }
 
 	int				getTotalGrade() const { return m_TotalGrade; }
-	void			setTotalGrade(int grade ) { m_TotalGrade = grade; }
+	void			setTotalGrade( int grade ) { m_TotalGrade = grade; }
 
 	/*
-	bool			ApplyOption(PlayerCreature* pPC, int PlusPoint);
-	bool			ApplyOption(Slayer* pSlayer, int PlusPoint);
-	bool			ApplyOption(Vampire* pVampire, int PlusPoint);
-	bool			ApplyOption(Ousters* pOusters, int PlusPoint);
+	bool			ApplyOption( PlayerCreature* pPC, int PlusPoint );
+	bool			ApplyOption( Slayer* pSlayer, int PlusPoint );
+	bool			ApplyOption( Vampire* pVampire, int PlusPoint );
+	bool			ApplyOption( Ousters* pOusters, int PlusPoint );
 	*/
 
 private:
@@ -282,7 +282,7 @@ public:
 	void setNextOptionRatio(Ratio_t ratio) { m_NextOptionRatio = ratio; }
 
 	int	getGrade() const { return m_Grade; }
-	void setGrade(int grade ) { m_Grade = grade; }
+	void setGrade( int grade ) { m_Grade = grade; }
 
 	string toString() const throw();
 
@@ -341,7 +341,7 @@ public:
 	string toString(void) const throw();
 
 private:
-	map<uint, OptionType_t> m_OptionTypes;
+	hash_map<uint, OptionType_t> m_OptionTypes;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -353,10 +353,10 @@ public:
 	PetEnchantOption() throw() { m_Type = 0; m_Ratio = 0; }
 	~PetEnchantOption() throw() {}
 
-	void setOptionType(OptionType_t type ) throw() { m_Type = type; }
+	void setOptionType( OptionType_t type ) throw() { m_Type = type; }
 	OptionType_t getOptionType() const throw() { return m_Type; }
 
-	void setRatio(int ratio ) throw() { m_Ratio = ratio; }
+	void setRatio( int ratio ) throw() { m_Ratio = ratio; }
 	int getRatio() const throw() { return m_Ratio; }
 
 private:
@@ -400,28 +400,28 @@ public:
 	int	getTotalGambleRatio(Item::ItemClass itemClass, uint level) throw()	{ return m_TotalGambleRatio[itemClass][level]; }
 
 	// rare enchant 관련
-	int getRareUpgradeRatio(OptionType_t optionType, bool success);
-	const OptionClassInfo* getOptionClassInfo(OptionClass oc ) { return m_OptionClassInfos[oc]; }
+	int getRareUpgradeRatio( OptionType_t optionType, bool success );
+	const OptionClassInfo* getOptionClassInfo( OptionClass oc ) { return m_OptionClassInfos[oc]; }
 
 	void addPetEnchantOption(PetEnchantOption* pPetEnchantOption) throw();
 	const list<PetEnchantOption*>& getPetEnchantOptionList() const { return m_PetEnchantOptionList; }
 
-	void setTotalPetEnchantOption(int total ) throw() { m_ToTalPetEnchantOption = total; }
+	void setTotalPetEnchantOption( int total ) throw() { m_ToTalPetEnchantOption = total; }
 	int getTotalPetEnchantOption() throw() { return m_ToTalPetEnchantOption; }
 
 	string toString() const throw();
 
 private:
-	void addOptionClassInfo(OptionClassInfo* pInfo ) { m_OptionClassInfos[pInfo->getOptionClass()] = pInfo; }
+	void addOptionClassInfo( OptionClassInfo* pInfo ) { m_OptionClassInfos[pInfo->getOptionClass()] = pInfo; }
 
 	uint                                m_nOptionCount;
-	map<OptionType_t, OptionInfo*> m_OptionInfos;
-	map<string, OptionInfo*>       m_NicknameOptionInfos;
+	hash_map<OptionType_t, OptionInfo*> m_OptionInfos;
+	hash_map<string, OptionInfo*>       m_NicknameOptionInfos;
 	OptionInfoSet                       m_OptionInfoSet[OPTION_MAX];
 	vector<OptionClassInfo*>			m_OptionClassInfos;
 	vector<OptionType_t>                m_GambleOptions[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
 	int					                m_TotalGambleRatio[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
-	map<int,RareOptionUpgradeInfo*>		m_RareEnchantInfo;
+	hash_map<int,RareOptionUpgradeInfo*>		m_RareEnchantInfo;
 
 	list<PetEnchantOption*> 			m_PetEnchantOptionList;
 	int									m_ToTalPetEnchantOption;

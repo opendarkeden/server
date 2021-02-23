@@ -19,17 +19,17 @@ void SharpRound::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 	SkillInput input(pOusters, pOustersSkillSlot);
 	SIMPLE_SKILL_INPUT param;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	Zone* pZone = pOusters->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
-	if (pTargetCreature == NULL )
+	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
+	if ( pTargetCreature == NULL )
 	{
-		executeSkillFailException(pOusters, getSkillType(), param.Grade);
+		executeSkillFailException( pOusters, getSkillType(), param.Grade );
 		return;
 	}
 
@@ -37,7 +37,7 @@ void SharpRound::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 	computeOutput(input, output);
 
 	param.SkillType     = getSkillType();
-	param.SkillDamage   = output.Damage + (computeDamage(pOusters, pTargetCreature ) / 2);
+	param.SkillDamage   = output.Damage + ( computeDamage( pOusters, pTargetCreature ) / 2 );
 	param.Delay         = output.Delay;
 	param.ItemClass     = Item::ITEM_CLASS_OUSTERS_CHAKRAM;
 	param.STRMultiplier = 0;
@@ -49,7 +49,7 @@ void SharpRound::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
+	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID );
 
 	__END_CATCH
 }

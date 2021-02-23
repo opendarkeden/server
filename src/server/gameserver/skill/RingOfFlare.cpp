@@ -7,9 +7,9 @@
 #include "RingOfFlare.h"
 #include "EffectRingOfFlare.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -25,8 +25,8 @@ void RingOfFlare::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -58,7 +58,7 @@ void RingOfFlare::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_RING_OF_FLARE);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -76,12 +76,12 @@ void RingOfFlare::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 			pEffect->setDeadline(output.Duration);
 			pEffect->setDamage(output.Damage);
 			pEffect->setNextTime(0);
-			if (Grade > 0 )
+			if ( Grade > 0 )
 			{
-				if (Grade == 1 ) pEffect->setSendEffectClass(Effect::EFFECT_CLASS_RING_OF_FLARE_2);
-				else pEffect->setSendEffectClass(Effect::EFFECT_CLASS_RING_OF_FLARE_3);
+				if ( Grade == 1 ) pEffect->setSendEffectClass( Effect::EFFECT_CLASS_RING_OF_FLARE_2 );
+				else pEffect->setSendEffectClass( Effect::EFFECT_CLASS_RING_OF_FLARE_3 );
 			}
-			else pEffect->setSendEffectClass(Effect::EFFECT_CLASS_RING_OF_FLARE);
+			else pEffect->setSendEffectClass( Effect::EFFECT_CLASS_RING_OF_FLARE );
 
 			pOusters->addEffect(pEffect);
 			pOusters->setFlag(Effect::EFFECT_CLASS_RING_OF_FLARE);

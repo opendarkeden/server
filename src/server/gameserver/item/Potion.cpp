@@ -15,7 +15,6 @@
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
 #include "ZoneGroupManager.h"
-#include "SubInventory.h"
 
 // global variable declaration
 PotionInfoManager* g_pPotionInfoManager = NULL;
@@ -44,7 +43,7 @@ Potion::Potion(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNu
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), optionType))
 	{
 		filelog("itembug.log", "Potion::Potion() : Invalid item type or option type");
-		throw("Potion::Potion() : Invalid item type or optionType");
+		throw ("Potion::Potion() : Invalid item type or optionType");
 	}
 }
 
@@ -92,8 +91,8 @@ void Potion::create(const string & ownerID, Storage storage, StorageID_t storage
 		*/
 
 		// StringStreamÁ¦°Å. by sigi. 2002.5.13
-		pStmt->executeQuery("INSERT INTO PotionObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
-								m_ItemID, m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, x, y, (int)getNum());
+		pStmt->executeQuery( "INSERT INTO PotionObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
+								m_ItemID, m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, x, y, (int)getNum() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -151,7 +150,7 @@ void Potion::tinysave(const char* field) const
 		//pStmt = g_pDatabaseManager->getConnection("DIST_DARKEDEN")->createStatement();
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE PotionObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE PotionObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -193,8 +192,8 @@ void Potion::save(const string & ownerID, Storage storage, StorageID_t storageID
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE PotionObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)getNum(), m_ItemID);
+		pStmt->executeQuery( "UPDATE PotionObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)getNum(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -374,7 +373,7 @@ void PotionInfo::parseEffect(const string& effect)
 
 	if (effect.size() < 5) return;
 
-    size_t a = 0, b = 0, c = 0, d = 0, e = 0;
+	uint a = 0, b = 0, c = 0, d = 0, e = 0;
 	
 	while (e < effect.size() - 1)
 	{
@@ -519,8 +518,8 @@ void PotionLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PotionObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PotionObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -572,18 +571,6 @@ void PotionLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pPotion);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pPotion))
 						{
 							pInventory->addItemEx(x, y, pPotion);

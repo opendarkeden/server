@@ -13,7 +13,7 @@
 #include "ZonePlayerManager.h"
 #include "PCSlayerInfo2.h"
 #include "PCVampireInfo2.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Slayer.h"
 #include "Vampire.h"
 #include "TimeManager.h"
@@ -30,8 +30,8 @@
 
 #include "quest/Trigger.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ public:
 	isSameZoneID(ZoneID_t ZoneID) : m_ZoneID(ZoneID) {}
 
 	// operator
-	bool operator () (PortalTargetInfo* pPortalTargetInfo) throw()
+	bool operator () (PortalTargetInfo* pPortalTargetInfo) throw ()
 	{
 		return pPortalTargetInfo->getZoneID() == m_ZoneID;
 	}
@@ -153,7 +153,7 @@ void PrivatePortal::setY(ZoneCoord_t y)
 
 
 bool PrivatePortal::activate (Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -171,7 +171,7 @@ bool PrivatePortal::activate (Creature* pCreature)
 }
 
 string PrivatePortal::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string PrivatePortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool NormalPortal::activate (Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -204,34 +204,19 @@ bool NormalPortal::activate (Creature* pCreature)
 	Assert(m_pTarget != NULL);
 	Assert(pCreature->isPC());
 
-	switch (getObjectType() )
+	switch ( getObjectType() )
 	{
 		case PORTAL_SLAYER:
-			if (!pCreature->isSlayer() && !pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_SLAYER_PORTAL ) ) return false;
-			if (pCreature->isSlayer() && dynamic_cast<Slayer*>(pCreature)->hasRideMotorcycle() ) return false;
+			if ( !pCreature->isSlayer() && !pCreature->isFlag( Effect::EFFECT_CLASS_CAN_ENTER_SLAYER_PORTAL ) ) return false;
+			if ( pCreature->isSlayer() && dynamic_cast<Slayer*>(pCreature)->hasRideMotorcycle() ) return false;
 			break;
 		case PORTAL_VAMPIRE:
-			if (!pCreature->isVampire() )
-			{
-				// 뱀파이어가 아닐 때, 뱀파이어 포탈로 들어갈 수 있는 이펙트가 없으면 못들어 간다.
-				if (!pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_VAMPIRE_PORTAL ) )
-					return false;
-
-				// 뱀파이어 포탈로 들어갈 수 있는 이펙트가 있어도 바토리던전 1층은 못들어간다.
-				if (m_pTarget->getZoneID() == 1100 )
-					return false;
-			}
+			if ( !pCreature->isVampire() && !pCreature->isFlag( Effect::EFFECT_CLASS_CAN_ENTER_VAMPIRE_PORTAL ) ) return false;
 			break;
 		case PORTAL_OUSTERS:
-			if (!pCreature->isOusters() && !pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_OUSTERS_PORTAL ) ) return false;
+			if ( !pCreature->isOusters() && !pCreature->isFlag( Effect::EFFECT_CLASS_CAN_ENTER_OUSTERS_PORTAL ) ) return false;
 			break;
 		case PORTAL_NORMAL:
-			// 바토리던전 1층은 못들어간다.
-			if (m_pTarget->getZoneID() == 1100 )
-			{
-				if (!pCreature->isVampire() )
-					return false;
-			}
 			break;
 		default:
 			return false;
@@ -246,7 +231,7 @@ bool NormalPortal::activate (Creature* pCreature)
 }
 
 string NormalPortal::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -269,7 +254,7 @@ string NormalPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool GuildPortal::activate (Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -282,26 +267,26 @@ bool GuildPortal::activate (Creature* pCreature)
 	static const uint CLAN_ZONEID = 20001;
 
 	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPlayerCreature != NULL);
+	Assert( pPlayerCreature != NULL );
 
-	Guild* pGuild = g_pGuildManager->getGuild(pPlayerCreature->getGuildID());
+	Guild* pGuild = g_pGuildManager->getGuild( pPlayerCreature->getGuildID() );
 
 	// 소속된 길드가 없으면 걍 무시
-	if (pGuild == NULL )
+	if ( pGuild == NULL )
 		return false;
 
 	// 소속된 길드의 아지트가 이 서버에 없으면 무시
-	if (pGuild->getServerGroupID() != g_pConfig->getPropertyInt("ServerID" ) )
+	if ( pGuild->getServerGroupID() != g_pConfig->getPropertyInt( "ServerID" ) )
 		return false;
 
 	// 길드의 상태가 active가 아니면 무시
-	if (pGuild->getState() != Guild::GUILD_STATE_ACTIVE )
+	if ( pGuild->getState() != Guild::GUILD_STATE_ACTIVE )
 		return false;
 
 	// Guild Portal 종류를 Slayer, Vampire 두가지로 바꿔야 하는데 시간이 없어서 그냥 Zone ID 를 보고 구별한다.
 	// 자기 종족의 길드 포탈인지 확인한다.
-	if ((pGuild->getRace() == Guild::GUILD_RACE_SLAYER  && m_pTarget->getZoneID() == TEAM_ZONEID )
-	  || (pGuild->getRace() == Guild::GUILD_RACE_VAMPIRE && m_pTarget->getZoneID() == CLAN_ZONEID ) )
+	if ( ( pGuild->getRace() == Guild::GUILD_RACE_SLAYER  && m_pTarget->getZoneID() == TEAM_ZONEID )
+	  || ( pGuild->getRace() == Guild::GUILD_RACE_VAMPIRE && m_pTarget->getZoneID() == CLAN_ZONEID ) )
 	{
 		transportCreature(pCreature, pGuild->getZoneID(), m_pTarget->getX(), m_pTarget->getY(), true);
 	}
@@ -317,7 +302,7 @@ bool GuildPortal::activate (Creature* pCreature)
 }
 
 string GuildPortal::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -340,7 +325,7 @@ string GuildPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool MultiPortal::activate (Creature* pCreature, ZoneID_t ZoneID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -372,7 +357,7 @@ bool MultiPortal::activate (Creature* pCreature, ZoneID_t ZoneID)
 }
 
 string MultiPortal::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -398,7 +383,7 @@ string MultiPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool TriggeredPortal::activate(Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -434,7 +419,7 @@ bool TriggeredPortal::activate(Creature* pCreature)
 }
 
 void TriggeredPortal::load(ZoneID_t zoneid, int left, int top, int right, int bottom) 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

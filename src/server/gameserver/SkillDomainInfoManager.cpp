@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "SkillDomainInfoManager.h"
 #include "StringStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 
 DomainInfo::DomainInfo()
@@ -32,7 +32,7 @@ DomainInfo::~DomainInfo()
 // get debug string
 //--------------------------------------------------------------------------------
 string DomainInfo::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	StringStream msg;
@@ -154,7 +154,7 @@ void SkillDomainInfoManager::init ()
 // get item info
 //--------------------------------------------------------------------------------
 DomainInfo* SkillDomainInfoManager::getDomainInfo (SkillDomain DomainType, Level_t Level)
-	const throw(Error)
+	const throw (Error)
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ DomainInfo* SkillDomainInfoManager::getDomainInfo (SkillDomain DomainType, Level
 // get item info
 //--------------------------------------------------------------------------------
 void SkillDomainInfoManager::addDomainInfo(DomainInfo* pDomainInfo) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -192,7 +192,7 @@ void SkillDomainInfoManager::addDomainInfo(DomainInfo* pDomainInfo) const
 // get debug string
 //--------------------------------------------------------------------------------
 string SkillDomainInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	StringStream msg;

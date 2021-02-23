@@ -8,9 +8,9 @@
 #include <sys/resource.h>
 
 
-int main(int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
-	if (argc < 3 )
+	if ( argc < 3 )
 	{
 		cout << "mofus -f conf" << endl;
 		return 1;
@@ -22,7 +22,7 @@ int main(int argc, char* argv[] )
 	setrlimit(RLIMIT_CORE,&rl);
 
 	string* Argv = new string[argc];
-	for (int i = 0; i < argc; ++i )
+	for ( int i = 0; i < argc; ++i )
 	{
 		Argv[i] = argv[i];
 	}
@@ -32,7 +32,7 @@ int main(int argc, char* argv[] )
 		g_pConfig = new Properties();
 		g_pConfig->load(Argv[2]);
 	}
-	catch (Error& e )
+	catch ( Error& e )
 	{
 		return 1;
 	}
@@ -45,21 +45,21 @@ int main(int argc, char* argv[] )
 
 	g_pMPlayerManager->start();
 
-	while (1 )
+	while ( 1 )
 	{
 		char command[256];
 		cin >> command;
 		string sCommand(command);
-		StringParser parser(sCommand);
+		StringParser parser( sCommand );
 
 		string action = parser.getPart(0);
 
-		if (action == "ui" )
+		if ( action == "ui" )
 		{
-			g_pMPlayerManager->addJob(parser.getPart(1), parser.getPart(2), parser.getPart(3));
+			g_pMPlayerManager->addJob( parser.getPart(1), parser.getPart(2), parser.getPart(3) );
 		}
 
-		usleep(100);
+		usleep( 100 );
 	}
 }
 

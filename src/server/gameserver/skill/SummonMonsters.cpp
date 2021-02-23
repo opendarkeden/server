@@ -9,8 +9,8 @@
 #include "ZoneUtil.h"
 #include "MasterLairManager.h"
 #include "MasterLairInfoManager.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSay.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSay.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ void SummonMonsters::execute(Monster* pMonster)
 
 			SUMMON_INFO2 summonInfo;
 
-			bool hasInfo = pMonster->getMonsterSummonInfo(summonInfo);
+			bool hasInfo = pMonster->getMonsterSummonInfo( summonInfo );
 
 			if (!hasInfo || summonInfo.pMonsters==NULL)
 			{
@@ -182,7 +182,7 @@ void SummonMonsters::execute(Monster* pMonster)
 				Assert(pMasterLairManager!=NULL);
 				// minion combat에서는 지정된 좌표에 소환한다.
 
-				MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(pZone->getZoneID());
+				MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( pZone->getZoneID() );
 				Assert(pInfo!=NULL);
 
 				if (!pMasterLairManager->isMasterReady())
@@ -191,9 +191,9 @@ void SummonMonsters::execute(Monster* pMonster)
 					y = pInfo->getSummonY();
 
 					GCSay gcSay;
-					gcSay.setObjectID(pMonster->getObjectID());
-					gcSay.setColor(MASTER_SAY_COLOR);
-					gcSay.setMessage(pInfo->getRandomMasterSummonSay());
+					gcSay.setObjectID( pMonster->getObjectID() );
+					gcSay.setColor( MASTER_SAY_COLOR );
+					gcSay.setMessage( pInfo->getRandomMasterSummonSay() );
 					if (!gcSay.getMessage().empty())
 						pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &gcSay);
 				}
@@ -211,7 +211,7 @@ void SummonMonsters::execute(Monster* pMonster)
 			summonInfo.regenType = REGENTYPE_PORTAL;
 
 			// 몬스터를 존에 추가한다.
-			addMonstersToZone(pZone, summonInfo);
+			addMonstersToZone( pZone, summonInfo );
 
 			//cout << "SummonMonsters OK" << endl;
 			GCSkillToTileOK5 _GCSkillToTileOK5;
@@ -220,7 +220,7 @@ void SummonMonsters::execute(Monster* pMonster)
 			_GCSkillToTileOK5.setSkillType(getSkillType());
 			_GCSkillToTileOK5.setX(x);
 			_GCSkillToTileOK5.setY(y);
-			_GCSkillToTileOK5.setDuration( 0);
+			_GCSkillToTileOK5.setDuration(  0);
 
 			pZone->broadcastPacket(x, y,  &_GCSkillToTileOK5);
 		}

@@ -12,8 +12,8 @@
 #include "NPC.h"
 #include "Script.h"
 #include "Trigger.h"
-#include "GCShopVersion.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCShopVersion.h"
+#include "Gpackets/GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@
 // 특별히 읽어들여야 할 파라미터가 없다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSell::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -32,7 +32,7 @@ void ActionSell::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSell::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -56,10 +56,10 @@ void ActionSell::execute (Creature * pCreature1 , Creature * pCreature2)
 	pkt.setVersion(SHOP_RACK_SPECIAL,    pNPC->getShopVersion(SHOP_RACK_SPECIAL));
 	pkt.setVersion(SHOP_RACK_MYSTERIOUS, pNPC->getShopVersion(SHOP_RACK_MYSTERIOUS));
 
-	int taxratio = pNPC->getTaxRatio(pPC);
+	int taxratio = pNPC->getTaxRatio( pPC );
 
-	if (taxratio != 100 ) pkt.setMarketCondSell(taxratio);
-	else pkt.setMarketCondSell(pNPC->getMarketCondSell());
+	if ( taxratio != 100 ) pkt.setMarketCondSell(taxratio);
+	else pkt.setMarketCondSell( pNPC->getMarketCondSell() );
 
 	pPlayer->sendPacket(&pkt);
 
@@ -71,7 +71,7 @@ void ActionSell::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSell::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -8,13 +8,13 @@
 #include "RankBonus.h"
 #include "EffectKillTimer.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -100,8 +100,8 @@ void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, V
 /*			Tile& tile = pZone->getTile(X, Y);
 			if (tile.canAddEffect()) bTileCheck = true;
 			// 머시 그라운드 있음 추가 못한당.
-			if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
-			if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) != NULL ) bTileCheck=false;*/
+			if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
+			if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) != NULL ) bTileCheck=false;*/
 			bTileCheck = false;
 		}
 
@@ -117,33 +117,33 @@ void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, V
 			SkillOutput output;
 			computeOutput(input, output);
 
-			Monster* pMonster = new Monster(753);
-//			pMonster->setFlag(Effect::EFFECT_CLASS_NO_DAMAGE);
+			Monster* pMonster = new Monster( 753 );
+//			pMonster->setFlag( Effect::EFFECT_CLASS_NO_DAMAGE );
 			pMonster->setTreasure(false);
 			pMonster->setClanType(33);
 			pMonster->setScanEnemy(true);
 			pMonster->setName("Gore Gland");
 
-			EffectKillTimer* pEffect = new EffectKillTimer(pMonster);
-			pEffect->setDeadline(output.Duration);
-			pMonster->addEffect(pEffect);
+			EffectKillTimer* pEffect = new EffectKillTimer( pMonster );
+			pEffect->setDeadline( output.Duration );
+			pMonster->addEffect( pEffect );
 
-			pMonster->setINT(pVampire->getINT());
-			pMonster->setHP(500 + (8 * pVampire->getINT() ), ATTR_MAX);
-			pMonster->setHP(500 + (8 * pVampire->getINT() ), ATTR_CURRENT);
-			pMonster->setOwnerObjectID(pVampire->getObjectID());
+			pMonster->setINT( pVampire->getINT() );
+			pMonster->setHP( 500 + ( 8 * pVampire->getINT() ), ATTR_MAX );
+			pMonster->setHP( 500 + ( 8 * pVampire->getINT() ), ATTR_CURRENT );
+			pMonster->setOwnerObjectID( pVampire->getObjectID() );
 
 			try
 			{
-				pZone->addCreature(pMonster, X, Y, 0);
+				pZone->addCreature( pMonster, X, Y, 0 );
 			}
-			catch(Exception& e )
+			catch( Exception& e )
 			{
 				filelog("SummonGoreGland.log", "%s", e.toString().c_str());
 				return;
 			}
 
-			pZone->monsterScan(pMonster, X, Y, 0);
+			pZone->monsterScan( pMonster, X, Y, 0 );
 
 			ZoneCoord_t myX = pVampire->getX();
 			ZoneCoord_t myY = pVampire->getY();

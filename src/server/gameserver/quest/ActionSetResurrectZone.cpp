@@ -12,14 +12,14 @@
 #include "Vampire.h"
 #include "Ousters.h"
 #include "StringPool.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSetResurrectZone::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -40,7 +40,7 @@ void ActionSetResurrectZone::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSetResurrectZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -72,7 +72,7 @@ void ActionSetResurrectZone::execute (Creature * pCreature1 , Creature * pCreatu
 	}
 
 	GCSystemMessage msg;
-	msg.setMessage(g_pStringPool->getString(STRID_SET_RESURRECTION_POSITION ));
+	msg.setMessage( g_pStringPool->getString( STRID_SET_RESURRECTION_POSITION ) );
 	pPlayer->sendPacket(&msg);
 
 	__END_CATCH
@@ -82,7 +82,7 @@ void ActionSetResurrectZone::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSetResurrectZone::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -39,16 +39,16 @@ public:
 	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 	SkillType_t getSkillType() const { return m_SkillType; }
-	void setSkillType(SkillType_t skillType ) { m_SkillType = skillType; }
+	void setSkillType( SkillType_t skillType ) { m_SkillType = skillType; }
 
 	int getStormTime() const { return m_StormTime; }
-	void setStormTime(int stormTime ) { m_StormTime = stormTime; }
+	void setStormTime( int stormTime ) { m_StormTime = stormTime; }
 
 	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t tick ) { m_Tick = tick; }
+	void setTick( Turn_t tick ) { m_Tick = tick; }
 
 	bool isLarge() const { return m_bLarge; }
-	void setLarge(bool large ) { m_bLarge = large; }
+	void setLarge( bool large ) { m_bLarge = large; }
 
 private:
 	int			m_Damage;

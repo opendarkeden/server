@@ -9,7 +9,7 @@
 #include "Vampire.h"
 
 VampireCorpse::VampireCorpse (Vampire* pVampire)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ VampireCorpse::~VampireCorpse()
 	__END_CATCH
 }
 string VampireCorpse::toString ()
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 

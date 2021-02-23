@@ -15,7 +15,7 @@
 #include "Player.h"
 #include "ItemMap.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "VSDateTime.h"
 #include "FlagSet.h"
 #include "EventItemUtil.h"
@@ -23,16 +23,14 @@
 
 #include "VariableManager.h"
 
-#include "GCTradeFinish.h"
-
-#include <map>
+#include "Gpackets/GCTradeFinish.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // class TradeInfo member methods
 ////////////////////////////////////////////////////////////////////////////////
 
 TradeInfo::TradeInfo()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	
@@ -47,7 +45,7 @@ TradeInfo::TradeInfo()
 }
 
 TradeInfo::~TradeInfo()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	
@@ -57,7 +55,7 @@ TradeInfo::~TradeInfo()
 }
 
 bool TradeInfo::hasItem(Item* pItem)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -72,7 +70,7 @@ bool TradeInfo::hasItem(Item* pItem)
 }
 
 bool TradeInfo::addItem(Item* pItem)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -84,7 +82,7 @@ bool TradeInfo::addItem(Item* pItem)
 }
 
 bool TradeInfo::removeItem(Item* pItem)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	
@@ -131,18 +129,18 @@ bool TradeInfo::isValidOKTime(const Timeval& currentTime)
 ////////////////////////////////////////////////////////////////////////////////
 
 TradeManager::TradeManager()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 TradeManager::~TradeManager()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map<string, TradeInfo*>::iterator itr = m_InfoMap.begin();
+	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.begin();
 	for (; itr != m_InfoMap.end(); itr++)
 	{
 		TradeInfo* pInfo = itr->second;
@@ -155,18 +153,18 @@ TradeManager::~TradeManager()
 }
 
 void TradeManager::init()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 bool TradeManager::hasTradeInfo(const string & Name)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end()) return false;
 	return true;
 
@@ -174,11 +172,11 @@ bool TradeManager::hasTradeInfo(const string & Name)
 }
 
 TradeInfo* TradeManager::getTradeInfo(const string & Name)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end()) return NULL;
 	return itr->second;
 
@@ -186,12 +184,12 @@ TradeInfo* TradeManager::getTradeInfo(const string & Name)
 }
 
 void TradeManager::addTradeInfo(TradeInfo* pInfo)
-	throw(DuplicatedException)
+	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
 	Assert(pInfo != NULL);
-	map<string, TradeInfo*>::iterator itr = m_InfoMap.find(pInfo->getMainName());
+	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(pInfo->getMainName());
 	if (itr != m_InfoMap.end()) throw DuplicatedException();
 	m_InfoMap[pInfo->getMainName()] = pInfo;
 		
@@ -199,11 +197,11 @@ void TradeManager::addTradeInfo(TradeInfo* pInfo)
 }
 
 void TradeManager::removeTradeInfo(const string & Name)
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 	
-	map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end())
 	{
 		cerr << "TradeManager::removeTradeInfo() : NoSuchElementException" << endl;
@@ -220,7 +218,7 @@ void TradeManager::removeTradeInfo(const string & Name)
 }
 
 void TradeManager::initTrade(Creature* pCreature1, Creature* pCreature2)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -228,7 +226,7 @@ void TradeManager::initTrade(Creature* pCreature1, Creature* pCreature2)
 	if (hasTradeInfo(pCreature1->getName()) || 
 		hasTradeInfo(pCreature2->getName()))
 	{
-		throw("TradeManager::initTrade() : Trade info already exist!");
+		throw ("TradeManager::initTrade() : Trade info already exist!");
 	}
 
 	TradeInfo* pInfo1 = new TradeInfo();
@@ -247,7 +245,7 @@ void TradeManager::initTrade(Creature* pCreature1, Creature* pCreature2)
 }
 
 int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -325,18 +323,18 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		if (pInventory1->hasItem(pItem->getObjectID()))
 		{
 			// 선물 상자 교환 이벤트 (선물 상자는 다른 아이템과 함께 Trade 될 수 없다! - 취소다
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
-				if (tradeList1.size() != 1 )
+				if ( tradeList1.size() != 1 )
 					goto ErrorCode;
 				*/
 
 				bTradeGiftBox = true;
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 					&& pItem->getItemType() >= 16 && pItem->getItemType() <= 18 )
 			{
 				EventGiftBoxCount++;
@@ -354,16 +352,16 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		if (pInventory2->hasItem(pItem->getObjectID()))
 		{
 			// 선물 상자 교환 이벤트 (선물 상자는 다른 아이템과 함께 Trade 될 수 없다! - 취소다
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
-				if (tradeList2.size() != 1 )
+				if ( tradeList2.size() != 1 )
 					goto ErrorCode;
 				*/
 
 				// 상대가 GiftBox 를 올리지 않았다면 Trade 를 할 수 없다!
-				if (!bTradeGiftBox )
+				if ( !bTradeGiftBox )
 				{
 					SAFE_DELETE(pInventory1);
 					SAFE_DELETE(pInventory2);
@@ -373,7 +371,7 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 				bTradeGiftBox = false;
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 					&& pItem->getItemType() >= 16 && pItem->getItemType() <= 18 )
 			{
 				EventGiftBoxCount--;
@@ -386,7 +384,7 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 	}
 
 	// 한명이라도 GiftBox 를 올리지 않았으면 bTradeGiftBox 가 true 가 되서 돌아온다
-	if (bTradeGiftBox || EventGiftBoxCount != 0 )
+	if ( bTradeGiftBox || EventGiftBoxCount != 0 )
 	{
 		SAFE_DELETE(pInventory1);
 		SAFE_DELETE(pInventory2);
@@ -431,13 +429,13 @@ ErrorCode:
 }
 
 void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	if (!canTrade(pCreature1, pCreature2))
 	{
-		throw("TradeManager::processTrade() : 아, 씨바. 교환도 안 되는데, 왜 교환시키는데?");
+		throw ("TradeManager::processTrade() : 아, 씨바. 교환도 안 되는데, 왜 교환시키는데?");
 	}
 
 	// 필요한 변수들을 준비한다.
@@ -460,31 +458,31 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 	PlayerCreature*    pPlayerCreature1  = dynamic_cast<PlayerCreature*>(pCreature1);
 	PlayerCreature*    pPlayerCreature2  = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	bool check1 = pPlayerCreature1->checkDBGold(pPlayerCreature1->getGold() + tradeGold1);
-	bool check2 = pPlayerCreature2->checkDBGold(pPlayerCreature2->getGold() + tradeGold2);
+	bool check1 = pPlayerCreature1->checkDBGold( pPlayerCreature1->getGold() + tradeGold1 );
+	bool check2 = pPlayerCreature2->checkDBGold( pPlayerCreature2->getGold() + tradeGold2 );
 
-	if (!check1 )
+	if ( !check1 )
 	{
-		filelog("GoldBug.log", "TradeManager::processTrade : 돈이 안 맞습니다. [%s:%s]", pPlayerCreature1->getName().c_str(), pPlayerCreature1->getPlayer()->getID().c_str());
+		filelog( "GoldBug.log", "TradeManager::processTrade : 돈이 안 맞습니다. [%s:%s]", pPlayerCreature1->getName().c_str(), pPlayerCreature1->getPlayer()->getID().c_str() );
 	}
 
-	if (!check2 )
+	if ( !check2 )
 	{
-		filelog("GoldBug.log", "TradeManager::processTrade : 돈이 안 맞습니다. [%s:%s]", pPlayerCreature2->getName().c_str(), pPlayerCreature2->getPlayer()->getID().c_str());
+		filelog( "GoldBug.log", "TradeManager::processTrade : 돈이 안 맞습니다. [%s:%s]", pPlayerCreature2->getName().c_str(), pPlayerCreature2->getPlayer()->getID().c_str() );
 	}
 
-	if (!check1 || !check2 )
+	if ( !check1 || !check2 )
 	{
 		GamePlayer* pGamePlayer1 = dynamic_cast<GamePlayer*>(pPlayerCreature1->getPlayer());
 		GamePlayer* pGamePlayer2 = dynamic_cast<GamePlayer*>(pPlayerCreature2->getPlayer());
 
-		if (pGamePlayer1 != NULL )
+		if ( pGamePlayer1 != NULL )
 		{
 			pGamePlayer1->setPenaltyFlag(PENALTY_TYPE_KICKED);
 			pGamePlayer1->setItemRatioBonusPoint(1);
 		}
 
-		if (pGamePlayer2 != NULL )
+		if ( pGamePlayer2 != NULL )
 		{
 			pGamePlayer2->setPenaltyFlag(PENALTY_TYPE_KICKED);
 			pGamePlayer2->setItemRatioBonusPoint(1);
@@ -522,7 +520,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		pInventory1 = pOusters1->getInventory();
 		pInventory2 = pOusters2->getInventory();
 	}
-	else throw("TradeManager::processTrade() : 다른 종족 간에 교환할 수는 없쥐!");
+	else throw ("TradeManager::processTrade() : 다른 종족 간에 교환할 수는 없쥐!");
 
 	// 먼저 각자의 인벤토리에서 교환할 아이템들을 제거한다.
 	for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
@@ -531,12 +529,12 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		if (pInventory1->hasItem(pItem->getObjectID()))
 		{
 			// 선물 상자 교환 이벤트 (선물 상자는 다른 아이템과 함께 Trade 될 수 없다! - 취소다
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
-				if (tradeList1.size() != 1 )
-					throw("TradeManager::processTrade() : 선물 상자는 다른 아이템과 함께 교환할 수는 없다!");
+				if ( tradeList1.size() != 1 )
+					throw ("TradeManager::processTrade() : 선물 상자는 다른 아이템과 함께 교환할 수는 없다!");
 				*/
 
 				bTradeGiftBox = true;
@@ -548,7 +546,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			itemMap1.addItem(pItem);
 			pItem->whenPCLost(pPlayerCreature1);
 		}
-		else throw("TradeManager::processTrade() : 모지? 아이템이 없자나!");
+		else throw ("TradeManager::processTrade() : 모지? 아이템이 없자나!");
 	}
 	for (list<Item*>::iterator itr = tradeList2.begin(); itr != tradeList2.end(); itr++)
 	{
@@ -556,17 +554,17 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		if (pInventory2->hasItem(pItem->getObjectID()))
 		{
 			// 선물 상자 교환 이벤트 (선물 상자는 다른 아이템과 함께 Trade 될 수 없다! - 취소다
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
-				if (tradeList2.size() != 1 )
-					throw("TradeManager::processTrade() : 선물 상자는 다른 아이템과 함께 교환할 수는 없다!");
+				if ( tradeList2.size() != 1 )
+					throw ("TradeManager::processTrade() : 선물 상자는 다른 아이템과 함께 교환할 수는 없다!");
 				*/
 
 				// 상대가 GiftBox 를 올리지 않았다면 Trade 를 할 수 없다!
-				if (!bTradeGiftBox )
-					throw("TradeManager::processTrade() : 선물 상자는 둘 다 올려야 교환할 수 있다!");
+				if ( !bTradeGiftBox )
+					throw ("TradeManager::processTrade() : 선물 상자는 둘 다 올려야 교환할 수 있다!");
 
 				giftBoxType2 = pItem->getItemType();
 			}
@@ -575,7 +573,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			itemMap2.addItem(pItem);
 			pItem->whenPCLost(pPlayerCreature2);
 		}
-		else throw("TradeManager::processTrade() : 모지? 아이템이 없자나!");
+		else throw ("TradeManager::processTrade() : 모지? 아이템이 없자나!");
 	}
 
 	// 이제 서로의 인벤토리에다 교환할 아이템들을 더해본다.
@@ -585,10 +583,10 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		// 아이템을 더하던 중 하나라도 더할 수 없다면, false를 리턴한다.
 		if (!pInventory2->addItem(pItem))
 		{
-			throw("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
+			throw ("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
 		}
 
-		//pItem->whenPCTake(pPlayerCreature2);
+		pItem->whenPCTake( pPlayerCreature2 );
 		
 		// 크리스마스 이벤트 2002.12.16. by bezz.
 		// 녹색 선물 상자라면 붉은 색으로 바꾼다.
@@ -600,31 +598,31 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			FlagSet* pFlagSet = pPlayerCreature2->getFlagSet();
 			Assert(pFlagSet!=NULL);
 			pFlagSet->turnOn(FLAGSET_RECEIVE_GREEN_GIFT_BOX);
-			pFlagSet->save(pCreature2->getName());
+			pFlagSet->save( pCreature2->getName() );
 		}
 
 		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pItem->getItemType() > 1 && pItem->getItemType() < 6)
 		{
-			int blackGiftBoxType = getBlackGiftBoxType(giftBoxType1, giftBoxType2);
+			int blackGiftBoxType = getBlackGiftBoxType( giftBoxType1, giftBoxType2 );
 
-			if (blackGiftBoxType != 0 )
+			if ( blackGiftBoxType != 0 )
 				pItem->setItemType(blackGiftBoxType);
 			else
-				throw("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
+				throw ("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
 		}
 
-		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+		if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				&& pItem->getItemType() >= 16 && pItem->getItemType() <= 18 )
 		{
-			pItem->setItemType(pItem->getItemType()+3);
+			pItem->setItemType( pItem->getItemType()+3 );
 		}
 
 		// ItemTraceLog 를 남긴다
-		if (pItem != NULL && pItem->isTraceItem() )
+		if ( pItem != NULL && pItem->isTraceItem() )
 		{
-			remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
-			remainTraceLogNew(pItem, pCreature1->getName(), ITL_DROP, ITLD_TRADE);
-			remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_TRADE);
+			remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
+			remainTraceLogNew( pItem, pCreature1->getName(), ITL_DROP, ITLD_TRADE );
+			remainTraceLogNew( pItem, pCreature2->getName(), ITL_GET, ITLD_TRADE );
 		}
 	}
 	for (ItemMap::iterator itr = itemMap2.begin(); itr != itemMap2.end(); itr++)
@@ -633,10 +631,10 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		// 아이템을 더하던 중 하나라도 더할 수 없다면, false를 리턴한다.
 		if (!pInventory1->addItem(pItem))
 		{
-			throw("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
+			throw ("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
 		}
 
-		//pItem->whenPCTake(pPlayerCreature1);
+		pItem->whenPCTake( pPlayerCreature1 );
 
 		// 크리스마스 이벤트 2002.12.16. by bezz.
 		// 녹색 선물 상자라면 붉은 색으로 바꾼다.
@@ -648,32 +646,32 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			FlagSet* pFlagSet = pPlayerCreature1->getFlagSet();
 			Assert(pFlagSet!=NULL);
 			pFlagSet->turnOn(FLAGSET_RECEIVE_GREEN_GIFT_BOX);
-			pFlagSet->save(pCreature1->getName());
+			pFlagSet->save( pCreature1->getName() );
 
 		}
 
 		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pItem->getItemType() > 1 && pItem->getItemType() < 6)
 		{
-			int blackGiftBoxType = getBlackGiftBoxType(giftBoxType1, giftBoxType2);
+			int blackGiftBoxType = getBlackGiftBoxType( giftBoxType1, giftBoxType2 );
 
-			if (blackGiftBoxType != 0 )
+			if ( blackGiftBoxType != 0 )
 				pItem->setItemType(blackGiftBoxType);
 			else
-				throw("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
+				throw ("TradeManager::processTrade() : 씨바, 교환하다가 에러났다.");
 		}
 
-		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
+		if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				&& pItem->getItemType() >= 16 && pItem->getItemType() <= 18 )
 		{
-			pItem->setItemType(pItem->getItemType()+3);
+			pItem->setItemType( pItem->getItemType()+3 );
 		}
 
 		// ItemTraceLog 를 남긴다
-		if (pItem != NULL && pItem->isTraceItem() )
+		if ( pItem != NULL && pItem->isTraceItem() )
 		{
-			remainTraceLog(pItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
-			remainTraceLogNew(pItem, pCreature2->getName(), ITL_DROP, ITLD_TRADE);
-			remainTraceLogNew(pItem, pCreature1->getName(), ITL_GET, ITLD_TRADE);
+			remainTraceLog( pItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
+			remainTraceLogNew( pItem, pCreature2->getName(), ITL_DROP, ITLD_TRADE );
+			remainTraceLogNew( pItem, pCreature1->getName(), ITL_GET, ITLD_TRADE );
 		}
 
 	}
@@ -714,14 +712,14 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		msg << itr->second->toString() << "\n";
 
 	// 돈로그 남기자 -_-a
-	if (tradeGold1 >= g_pVariableManager->getMoneyTraceLogLimit() )
+	if ( tradeGold1 >= g_pVariableManager->getMoneyTraceLogLimit() )
 	{
-		remainMoneyTraceLog(pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, tradeGold1);
+		remainMoneyTraceLog( pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, tradeGold1 );
 	}
 
-	if (tradeGold2 >= g_pVariableManager->getMoneyTraceLogLimit() )
+	if ( tradeGold2 >= g_pVariableManager->getMoneyTraceLogLimit() )
 	{
-		remainMoneyTraceLog(pCreature2->getName(), pCreature1->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, tradeGold2);
+		remainMoneyTraceLog( pCreature2->getName(), pCreature1->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, tradeGold2 );
 	}
 
 	//log(LOG_TRADE, pCreature1->getName(), pCreature2->getName(), msg.toString());
@@ -763,7 +761,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 // 실제로 되돌려야 할 것은 돈 뿐이다.
 ////////////////////////////////////////////////////////////////////////////////
 void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -789,7 +787,7 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 			msg << "TradeManager::cancelTrade() 오류 발생... CODE(" 
 				<< nCondition << ")";
 			filelog("tradeError.txt", "[1] %s", msg.toString().c_str());
-			//throw("TradeManager::cancelTrade() : 이건 또 뭔데?");
+			//throw ("TradeManager::cancelTrade() : 이건 또 뭔데?");
 
 			return;
 		}
@@ -848,7 +846,7 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 // 실제로 되돌려야 할 것은 돈 뿐이다.
 ////////////////////////////////////////////////////////////////////////////////
 void TradeManager::cancelTrade(Creature* pPC)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -941,7 +939,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 // 두 크리쳐가 서로 교환중인지를 체크한다.
 ////////////////////////////////////////////////////////////////////////////////
 bool TradeManager::isTrading(Creature* pCreature1, Creature* pCreature2)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

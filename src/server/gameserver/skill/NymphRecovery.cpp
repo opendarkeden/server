@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "NymphRecovery.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -26,8 +26,8 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -68,9 +68,9 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP() + pOustersSkillSlot->getExpLevel();
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
-		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange()) && canHit(pOusters, pTargetCreature, SkillType, pOustersSkillSlot->getExpLevel());
+		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange()) && canHit( pOusters, pTargetCreature, SkillType, pOustersSkillSlot->getExpLevel() );
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
 		bool bHPCheck	= pTargetOusters->getHP(ATTR_MAX) > pTargetOusters->getHP() || pTargetOusters->getMP(ATTR_MAX) > pTargetOusters->getMP();
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bSatisfyRequire && bHPCheck)
@@ -84,29 +84,29 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 			input.TargetType = SkillInput::TARGET_OTHER;
 			computeOutput(input, output);
 
-			HP_t final = min((int)pTargetOusters->getHP(ATTR_MAX), pTargetOusters->getHP() + output.Damage);
-			if (final > pTargetOusters->getHP(ATTR_MAX) - pTargetOusters->getSilverDamage() )
+			HP_t final = min( (int)pTargetOusters->getHP(ATTR_MAX), pTargetOusters->getHP() + output.Damage );
+			if ( final > pTargetOusters->getHP(ATTR_MAX) - pTargetOusters->getSilverDamage() )
 			{
-				pTargetOusters->setSilverDamage(pTargetOusters->getHP(ATTR_MAX) - final);
+				pTargetOusters->setSilverDamage( pTargetOusters->getHP(ATTR_MAX) - final );
 				_GCSkillToObjectOK2.addShortData(MODIFY_SILVER_DAMAGE, pTargetOusters->getSilverDamage());
 			}
 
-			if (pTargetOusters->getHP() != final )
+			if ( pTargetOusters->getHP() != final )
 			{
-				pTargetOusters->setHP(final);
+				pTargetOusters->setHP( final );
 				_GCSkillToObjectOK2.addShortData(MODIFY_CURRENT_HP, final);
 			}
 
 			GCStatusCurrentHP gcHP;
-			gcHP.setObjectID(pTargetOusters->getObjectID());
-			gcHP.setCurrentHP(final);
+			gcHP.setObjectID( pTargetOusters->getObjectID() );
+			gcHP.setCurrentHP( final );
 
-			if (pTargetOusters->getMP(ATTR_MAX) > pTargetOusters->getMP() )
+			if ( pTargetOusters->getMP(ATTR_MAX) > pTargetOusters->getMP() )
 			{
-				final = min((int)pTargetOusters->getMP(ATTR_MAX), pTargetOusters->getMP() + output.Damage);
-				if (pTargetOusters->getMP() != final )
+				final = min( (int)pTargetOusters->getMP(ATTR_MAX), pTargetOusters->getMP() + output.Damage );
+				if ( pTargetOusters->getMP() != final )
 				{
-					pTargetOusters->setMP(final);
+					pTargetOusters->setMP( final );
 					_GCSkillToObjectOK2.addShortData(MODIFY_CURRENT_MP, final);
 				}
 			}
@@ -174,8 +174,8 @@ void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -204,7 +204,7 @@ void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
 		bool bHPCheck	= pOusters->getHP(ATTR_MAX) > pOusters->getHP() || pOusters->getMP(ATTR_MAX) > pOusters->getMP();
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bSatisfyRequire && bHPCheck)
@@ -217,29 +217,29 @@ void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 			input.TargetType = SkillInput::TARGET_SELF;
 			computeOutput(input, output);
 
-			HP_t final = min((int)pOusters->getHP(ATTR_MAX), pOusters->getHP() + output.Damage);
-			if (final > pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage() )
+			HP_t final = min( (int)pOusters->getHP(ATTR_MAX), pOusters->getHP() + output.Damage );
+			if ( final > pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage() )
 			{
-				pOusters->setSilverDamage(pOusters->getHP(ATTR_MAX) - final);
+				pOusters->setSilverDamage( pOusters->getHP(ATTR_MAX) - final );
 				_GCSkillToSelfOK1.addShortData(MODIFY_SILVER_DAMAGE, pOusters->getSilverDamage());
 			}
 
-			if (pOusters->getHP() != final )
+			if ( pOusters->getHP() != final )
 			{
-				pOusters->setHP(final);
+				pOusters->setHP( final );
 				_GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_HP, final);
 			}
 
 			GCStatusCurrentHP gcHP;
-			gcHP.setObjectID(pOusters->getObjectID());
-			gcHP.setCurrentHP(final);
+			gcHP.setObjectID( pOusters->getObjectID() );
+			gcHP.setCurrentHP( final );
 
-			if (pOusters->getMP(ATTR_MAX) > pOusters->getMP() )
+			if ( pOusters->getMP(ATTR_MAX) > pOusters->getMP() )
 			{
-				final = min((int)pOusters->getMP(ATTR_MAX), pOusters->getMP() + output.Damage);
-				if (pOusters->getMP() != final )
+				final = min( (int)pOusters->getMP(ATTR_MAX), pOusters->getMP() + output.Damage );
+				if ( pOusters->getMP() != final )
 				{
-					pOusters->setMP(final);
+					pOusters->setMP( final );
 					_GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_MP, final);
 				}
 			}

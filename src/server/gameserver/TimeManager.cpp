@@ -11,7 +11,7 @@
 // initialize 
 //////////////////////////////////////////////////////////////////////////////
 void TimeManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -21,9 +21,9 @@ void TimeManager::init ()
 		string strBaseGameTime = g_pConfig->getProperty("BaseGameTime");
 		string strBaseRealTime = g_pConfig->getProperty("BaseRealTime");
 
-        size_t yearEnd = strBaseGameTime.find('-' , 0);
-        size_t monEnd = strBaseGameTime.find('-' , yearEnd + 1);
-        size_t dayEnd = strBaseGameTime.find_last_not_of(' ');
+		int yearEnd = strBaseGameTime.find('-' , 0);
+		int monEnd = strBaseGameTime.find('-' , yearEnd + 1);
+		int dayEnd = strBaseGameTime.find_last_not_of(' ');
 
 		string year = strBaseGameTime.substr(0 , yearEnd);
 		string month = strBaseGameTime.substr(yearEnd + 1 , monEnd - yearEnd);
@@ -86,7 +86,7 @@ void TimeManager::init ()
 // 현재 게임 시간을 알아낸다.
 //////////////////////////////////////////////////////////////////////////////
 GameTime TimeManager::getGameTime () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	// 현재 시간을 측정한다.
@@ -107,7 +107,7 @@ GameTime TimeManager::getGameTime () const
 	// GameTime 객체를 초기화하기 위해서는, tm 스트럭처를 얻어내야 한다.
 	// tm 스트럭처에서 년,일을 제외한 값들이 0부터 시작한다는 점에 유의할 것.
 	tm ltm;
-	localtime_r(&gameTime, &ltm);
+	localtime_r( &gameTime, &ltm );
 	//struct tm* ptm = localtime(&gameTime);
 
 	GameTime result;
@@ -128,7 +128,7 @@ GameTime TimeManager::getGameTime () const
 // 현재 게임 시간을 time_t 값으로 알아낸다.
 //////////////////////////////////////////////////////////////////////////////
 time_t TimeManager::getgametime () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	//
@@ -224,12 +224,15 @@ uint TimeManager::getTimeband(void) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string TimeManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	StringStream msg;
 
-	msg << "TimeManager:(BaseGameTime:" << ctime(&m_BaseGameTime) << "BaseRealTime:" << ctime(&m_BaseRealTime) << ")";
+	msg << "TimeManager:(" 
+			<< "BaseGameTime:" << (int)ctime(&m_BaseGameTime)
+			<< "BaseRealTime:" << (int)ctime(&m_BaseRealTime)
+			<< ")";
 
 	return msg.toString();
 	__END_CATCH

@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 #include <map>
 #include <vector>
@@ -22,8 +22,8 @@ public:
 	DWORD	getCheckPointID(MonsterCorpse* pCheckPoint);
 	vector<DWORD>&	getWayPointVector(Race_t race, DWORD grade)
 	{
-		Assert(grade <= 4 && grade >= 1);
-		Assert(race<3);
+		Assert( grade <= 4 && grade >= 1 );
+		Assert( race<3 );
 
 		return m_EventWayPoints[race][grade-1];
 	}

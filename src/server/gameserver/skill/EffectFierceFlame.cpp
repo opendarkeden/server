@@ -13,10 +13,8 @@
 #include "ZoneUtil.h"
 #include "Zone.h"
 
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-
-#include <list>
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -49,40 +47,40 @@ void EffectFierceFlame::affect()
 
 	Zone* pZone = pCreature->getZone();
 
-	for (int i=-1; i<=1; ++i )
-	for (int j=-1; j<=1; ++j )
+	for ( int i=-1; i<=1; ++i )
+	for ( int j=-1; j<=1; ++j )
 	{
 		int tx = cx + i;
 		int ty = cy + j;
-		if (tx < 0 || ty < 0 ) continue;
-		if (!isValidZoneCoord(pZone, tx, ty ) ) continue;
+		if ( tx < 0 || ty < 0 ) continue;
+		if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
 
-		list<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
-		list<Object*>::iterator itr = olist.begin();
-		for (; itr != olist.end() ; ++itr )
+		slist<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
+		slist<Object*>::iterator itr = olist.begin();
+		for ( ; itr != olist.end() ; ++itr )
 		{
 			Object* pObject = *itr;
-			if (pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+			if ( pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 
 			Creature* pTargetCreature = dynamic_cast<Creature*>(pObject);
-			if (pTargetCreature == NULL || pTargetCreature->isOusters() || pTargetCreature == pCreature ) continue;
-			if (pTargetCreature->isFlag(getEffectClass() ) ) continue;
+			if ( pTargetCreature == NULL || pTargetCreature->isOusters() || pTargetCreature == pCreature ) continue;
+			if ( pTargetCreature->isFlag( getEffectClass() ) ) continue;
 
-			EffectFierceFlame* pEffect = new EffectFierceFlame(pTargetCreature);
-			pEffect->setUserOID(m_UserOID);
-			pEffect->setDamage(m_Damage);
-			pEffect->setDeadline(m_Duration/2);
-			pEffect->setDuration(m_Duration/2);
+			EffectFierceFlame* pEffect = new EffectFierceFlame( pTargetCreature );
+			pEffect->setUserOID( m_UserOID );
+			pEffect->setDamage( m_Damage );
+			pEffect->setDeadline( m_Duration/2 );
+			pEffect->setDuration( m_Duration/2 );
 			pEffect->setNextTime(10);
-			pTargetCreature->setFlag(pEffect->getEffectClass());
-			pTargetCreature->addEffect(pEffect);
+			pTargetCreature->setFlag( pEffect->getEffectClass() );
+			pTargetCreature->addEffect( pEffect );
 
 			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pTargetCreature->getObjectID());
-			gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-			gcAddEffect.setDuration(m_Duration/2);
+			gcAddEffect.setObjectID( pTargetCreature->getObjectID() );
+			gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+			gcAddEffect.setDuration( m_Duration/2 );
 			
-			pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect);
+			pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect );
 
 		}
 	}
@@ -99,32 +97,32 @@ void EffectFierceFlame::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (pCreature == NULL ) return;
+	if ( pCreature == NULL ) return;
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	Ousters* pOusters = dynamic_cast<Ousters*>(pZone->getCreature(m_UserOID ));
+	Ousters* pOusters = dynamic_cast<Ousters*>(pZone->getCreature( m_UserOID ));
 
 	GCModifyInformation gcMI, gcAttackerMI;
 
-	if (canAttack(pOusters, pCreature )
+	if ( canAttack( pOusters, pCreature )
 	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
 	{
 		Damage_t damage = getDamage();
-		if (pCreature->isPC() )
+		if ( pCreature->isPC() )
 		{
 			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-			::setDamage(pPC, damage, pOusters, SKILL_FIERCE_FLAME, &gcMI, &gcAttackerMI, true, false);
-			pPC->getPlayer()->sendPacket(&gcMI);
+			::setDamage( pPC, damage, pOusters, SKILL_FIERCE_FLAME, &gcMI, &gcAttackerMI, true, false );
+			pPC->getPlayer()->sendPacket( &gcMI );
 		}
-		else if (pCreature->isMonster() )
+		else if ( pCreature->isMonster() )
 		{
-			::setDamage(pCreature, damage, pOusters, SKILL_FIERCE_FLAME, NULL, &gcAttackerMI, true, false);
+			::setDamage( pCreature, damage, pOusters, SKILL_FIERCE_FLAME, NULL, &gcAttackerMI, true, false );
 		}
 
-		if (pOusters != NULL )
+		if ( pOusters != NULL )
 		{
 			computeAlignmentChange(pCreature, damage, pOusters, &gcMI, &gcAttackerMI);
 			increaseAlignment(pOusters, pCreature, gcAttackerMI);
@@ -135,7 +133,7 @@ void EffectFierceFlame::affect(Creature* pCreature)
 				shareOustersExp(pOusters, exp, gcAttackerMI);
 			}
 
-			pOusters->getPlayer()->sendPacket(&gcAttackerMI);
+			pOusters->getPlayer()->sendPacket( &gcAttackerMI );
 		}
 	}
 

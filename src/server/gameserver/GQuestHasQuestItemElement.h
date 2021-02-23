@@ -10,7 +10,7 @@ public:
 	GQuestHasQuestItemElement() : m_Num(1) { }
 	string		 				getElementName() const { return "HasQuestItem"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestHasQuestItemElement*	makeElement(XMLTree* pTree);
 

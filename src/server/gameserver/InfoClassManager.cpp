@@ -14,7 +14,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 InfoClassManager::InfoClassManager () 
-	throw()
+	throw ()
 : m_InfoCount(0), m_pItemInfos(NULL), m_TotalRatio(0), m_AveragePrice(0)
 {
 }
@@ -24,7 +24,7 @@ InfoClassManager::InfoClassManager ()
 // destructor
 //--------------------------------------------------------------------------------
 InfoClassManager::~InfoClassManager() 
-	throw()
+	throw ()
 {
 	if (m_pItemInfos != NULL) 
 	{
@@ -40,7 +40,7 @@ InfoClassManager::~InfoClassManager()
 // init
 //--------------------------------------------------------------------------------
 void InfoClassManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void InfoClassManager::init ()
 // reload item infos
 //--------------------------------------------------------------------------------
 void InfoClassManager::reload()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void InfoClassManager::reload()
 // add item info
 //--------------------------------------------------------------------------------
 void InfoClassManager::addItemInfo (ItemInfo* pItemInfo) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -120,7 +120,7 @@ void InfoClassManager::addItemInfo (ItemInfo* pItemInfo)
 // get item info
 //--------------------------------------------------------------------------------
 ItemInfo* InfoClassManager::getItemInfo (ItemType_t itemType) const 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -136,14 +136,14 @@ ItemInfo* InfoClassManager::getItemInfo (ItemType_t itemType) const
 // remove all item infos
 //--------------------------------------------------------------------------------
 void InfoClassManager::removeAllItemInfo()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	if (m_pItemInfos != NULL )
+	if ( m_pItemInfos != NULL )
 	{
-		for (uint i = 0; i <= m_InfoCount ; i++ )
-			SAFE_DELETE(m_pItemInfos[i]);
+		for ( uint i = 0; i <= m_InfoCount ; i++ )
+			SAFE_DELETE( m_pItemInfos[i] );
 	}
 
 	__END_CATCH
@@ -153,7 +153,7 @@ void InfoClassManager::removeAllItemInfo()
 // get Random ItemType
 //--------------------------------------------------------------------------------
 ItemType_t  InfoClassManager::getRandomItemType() const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -169,6 +169,13 @@ ItemType_t  InfoClassManager::getRandomItemType() const
 	int ratio;
 	int ratioSum      = 0;
 
+	/*
+	cout << "m_TotalRatio = " << m_TotalRatio
+		<< ", fail/succeed = " << failRatio<< "/" << succeedRatio
+		<< ", newTotalRatio = " << newTotalRatio
+		<< ", select = " << itemTypeRatio << endl;
+	*/
+
 	// 0번은 실패로 보고..
 	for (uint i=0; i<=m_InfoCount; i++)
 	{
@@ -178,11 +185,23 @@ ItemType_t  InfoClassManager::getRandomItemType() const
 		// 0이 아닌 경우에만 gambleRatio를 적용한다.
 		// 0은 실패아이템으로 보고.. 나머지만 확률을 증가시킨다.
 		if (i!=0)
+		{
+			//cout << "[" << i << "] " << ratio;
 			ratio = getPercentValue(ratio, gambleRatio);
+
+			//cout << " --> " << ratio;
+		}
+		else
+		{
+			//cout << "[" << i << "] " << ratio;
+		}
 
 		ratioSum += ratio;
 
-		if (itemTypeRatio < ratioSum) {
+		//cout << " , ratioSum/Select = " << ratioSum << "/" << itemTypeRatio << endl;
+
+		if (itemTypeRatio < ratioSum)
+		{
 			// i번째 type을 선택한다. 아마 pInfo->getItemType()==i 이겠지만..
 			return pInfo->getItemType();
 		}
@@ -199,14 +218,16 @@ ItemType_t  InfoClassManager::getRandomItemType() const
 // toString for debug
 //--------------------------------------------------------------------------------
 string InfoClassManager::toString() const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
 	msg << "InfoClassManager(";
 
 	for (uint i = 0 ; i <= m_InfoCount ; i ++)
+	{
 		msg << m_pItemInfos[i]->toString();
+	}
 
 	msg << ")";
 

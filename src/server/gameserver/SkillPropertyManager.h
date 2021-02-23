@@ -24,26 +24,26 @@ public:
 
 public:
 	SkillType_t getType() const { return m_SkillType; }
-	void setType(SkillType_t skillType ) { m_SkillType = skillType; }
+	void setType( SkillType_t skillType ) { m_SkillType = skillType; }
 
 	bool isMelee() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_MELEE); }
-	void setMelee(bool bMelee )
+	void setMelee( bool bMelee )
 	{
-		(bMelee ? m_PropertyType.set(SKILL_PROPERTY_TYPE_MELEE )
-		  		 : m_PropertyType.reset(SKILL_PROPERTY_TYPE_MELEE )); }
+		( bMelee ? m_PropertyType.set( SKILL_PROPERTY_TYPE_MELEE )
+		  		 : m_PropertyType.reset( SKILL_PROPERTY_TYPE_MELEE ) ); }
 
 	bool isMagic() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_MAGIC); }
-	void setMagic(bool bMagic ) 
+	void setMagic( bool bMagic ) 
 	{
-		(bMagic ? m_PropertyType.set(SKILL_PROPERTY_TYPE_MAGIC )
-				 : m_PropertyType.reset(SKILL_PROPERTY_TYPE_MAGIC ));
+		( bMagic ? m_PropertyType.set( SKILL_PROPERTY_TYPE_MAGIC )
+				 : m_PropertyType.reset( SKILL_PROPERTY_TYPE_MAGIC ) );
 	}
 
-	bool isPhysic() const { return m_PropertyType.test(SKILL_PROPERTY_TYPE_PHYSIC); }
-	void setPhysic(bool bPhysic )
+	bool isPhysic() const { return m_PropertyType.test( SKILL_PROPERTY_TYPE_PHYSIC ); }
+	void setPhysic( bool bPhysic )
 	{ 
-		(bPhysic ? m_PropertyType.set(SKILL_PROPERTY_TYPE_PHYSIC )
-		  		  : m_PropertyType.reset(SKILL_PROPERTY_TYPE_PHYSIC ));
+		( bPhysic ? m_PropertyType.set( SKILL_PROPERTY_TYPE_PHYSIC )
+		  		  : m_PropertyType.reset( SKILL_PROPERTY_TYPE_PHYSIC ) );
 	}
 
 	// toString

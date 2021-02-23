@@ -10,7 +10,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::Effect () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ Effect::Effect ()
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::Effect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget , Turn_t delay) 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -49,11 +49,12 @@ Effect::Effect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget , 
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::~Effect () 
+	throw ()	
 {
 }
 
 void Effect::setNextTime(Turn_t delay) 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -67,7 +68,7 @@ void Effect::setNextTime(Turn_t delay)
 	__END_CATCH
 }
 
-void Effect::setDeadline (Turn_t delay) throw()
+void Effect::setDeadline (Turn_t delay) throw ()
 {
 	__BEGIN_TRY
 

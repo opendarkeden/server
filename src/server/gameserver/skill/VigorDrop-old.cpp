@@ -26,14 +26,14 @@
 #include "VigorDrop.h"
 #include "EffectVigorDrop.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -59,7 +59,7 @@ void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -259,7 +259,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 				} // if(pTargetCreature!= NULL)
 			}
 
-			if(bHit ) {
+			if( bHit ) {
 				// 기술이 타일내에서 한번이라도 성공했을때에는 경험치를 받는다. 
 				// 광역기술내에서 여러 Creature한테 데미지를 준 경우에는 어떻게 하는가?
 				// 1. 한 Creature에게 준 데미지를 Point로 계산한다.

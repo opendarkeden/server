@@ -15,10 +15,10 @@
 class AnotherQuestRewardClass : public RewardClass
 {
 public:
-	AnotherQuestRewardClass(RewardClass_t rClass ) : RewardClass(rClass) { }
+	AnotherQuestRewardClass( RewardClass_t rClass ) : RewardClass(rClass) { }
 
 public:
-	virtual QuestMessage	giveReward(PlayerCreature* pPC ) const throw(Error);
+	virtual QuestMessage	giveReward( PlayerCreature* pPC ) const throw(Error);
 	bool	anotherQuestReward() const { return true; }
 
 	virtual string	toString() const throw();

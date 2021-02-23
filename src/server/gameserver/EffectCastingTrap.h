@@ -7,9 +7,9 @@ class EffectCastingIcicleTrap : public Effect
 {
 public:
 	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
-	EffectCastingIcicleTrap(EffectClass IcicleEffect, Zone* pZone ) : Effect(pZone, 0, 0, NULL, 99999999 ), m_IcicleEffect(IcicleEffect), m_bLarge(false) { }
+	EffectCastingIcicleTrap( EffectClass IcicleEffect, Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ), m_IcicleEffect(IcicleEffect), m_bLarge(false) { }
 
-	void setStartXY(ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
+	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
 	void setDir(Dir_t dir) { m_Dir = dir; }
 	void setLength(int len) { m_Length = len; }
 	void setTick(Turn_t tick) { m_Tick = tick; }
@@ -35,9 +35,9 @@ class EffectCastingSideTrap : public Effect
 {
 public:
 	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
-	EffectCastingSideTrap(Zone* pZone ) : Effect(pZone, 0, 0, NULL, 99999999 ) { }
+	EffectCastingSideTrap( Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ) { }
 
-	void setStartXY(ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
+	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
 	void setDir(Dir_t dir) { m_Dir = dir; }
 	void setLength(int len) { m_Length = len; }
 	void setTick(Turn_t tick) { m_Tick = tick; }
@@ -60,9 +60,9 @@ class EffectCastingIceWall : public Effect
 {
 public:
 	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
-	EffectCastingIceWall(Zone* pZone ) : Effect(pZone, 0, 0, NULL, 99999999 ), m_State(0) { }
+	EffectCastingIceWall( Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ), m_State(0) { }
 
-	void setStartXY(ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
+	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
 	void setDir(Dir_t dir) { m_Dir = dir; }
 	void setLength(int len) { m_Length = len; }
 	void setWallLength(int len) { m_WallLength = len; }

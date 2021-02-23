@@ -6,9 +6,9 @@ void PetExpInfoManager::clear()
 	vector<PetExpInfo*>::iterator itr = m_PetExpInfos.begin();
 	vector<PetExpInfo*>::iterator endItr = m_PetExpInfos.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		SAFE_DELETE(*itr);
+		SAFE_DELETE( *itr );
 	}
 
 	m_PetExpInfos.clear();
@@ -23,7 +23,7 @@ void PetExpInfoManager::load()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT PetLevel, PetAccumExp FROM PetExpInfo");
 
-		while(pResult->next() )
+		while( pResult->next() )
 		{
 			PetLevel_t PetLevel = pResult->getInt(1);
 			PetExp_t PetExp = pResult->getInt(2);
@@ -31,16 +31,16 @@ void PetExpInfoManager::load()
 			m_PetExpInfos[PetLevel] = new PetExpInfo(PetLevel, PetExp);
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 }
 
-bool PetExpInfoManager::canLevelUp(PetLevel_t level, PetExp_t exp )
+bool PetExpInfoManager::canLevelUp( PetLevel_t level, PetExp_t exp )
 {
-	if (level >= PetMaxLevel ) return false;
+	if ( level >= PetMaxLevel ) return false;
 	PetExpInfo* pPetExpInfo = m_PetExpInfos[level];
-	if (pPetExpInfo == NULL ) return false;
+	if ( pPetExpInfo == NULL ) return false;
 
 	return pPetExpInfo->getPetGoalExp() <= exp;
 }

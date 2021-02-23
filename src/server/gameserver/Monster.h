@@ -8,7 +8,7 @@
 #define __MONSTER_H__
 
 #include "Creature.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Timeval.h"
 #include "MonsterInfo.h"
 #include "PrecedenceTable.h"
@@ -27,7 +27,7 @@ class Monster : public Creature
 // 생성자/소멸자
 public:
 	Monster(MonsterType_t monsterType) throw();
-	virtual ~Monster() throw();
+	virtual ~Monster() throw (Error);
 
 // 하위 클래스 상속 함수
 public:
@@ -38,7 +38,7 @@ public:
 
 	virtual void registerObject() throw(Error);
 
-	virtual bool load() throw(InvalidProtocolException, Error) { return true;}
+	virtual bool load() throw (InvalidProtocolException, Error) { return true;}
 	virtual void save() const throw(Error) {}
 
 	virtual string toString() const throw();
@@ -48,7 +48,7 @@ public:
 
 	// AI 코드가 수행되는 메인 메쏘드이다.
 	void act(const Timeval& currentTime) throw(Error);
-	void actDeadAction(void) throw(Error);
+	void actDeadAction(void) throw (Error);
 
 	// enemy specific methods
 	void addEnemy(Creature* pCreature) throw(Error);
@@ -161,7 +161,7 @@ public:
 	PrecedenceTable* getPrecedenceTable(void) { return &m_PrecedenceTable; }
 //	void addPrecedence(Creature* pCreature, int damage);
 	void addPrecedence(const string & Name, int PartyID, int damage);
-	int getOustersExp(Ousters* pOusters);
+	int getOustersExp( Ousters* pOusters );
 
 	string getHostName(void) const { return m_HostName; }
 	void setHostName(const string& name) { m_HostName = name; }
@@ -202,8 +202,8 @@ public:
 	void setTreasure(bool bTreasure=true) { m_bTreasure = m_bTreasure && bTreasure; }	// 원래 Treasure가 있는 애들만 Treasure가 있어야 된다.
 
 	// 몬스터가 소환하는 몬스터의 종류. by sigi. 2002.9.2
-	bool getMonsterSummonInfo(SUMMON_INFO2& summonInfo) throw(Error);
-	bool hasNextMonsterSummonInfo() throw(Error);
+	bool getMonsterSummonInfo(SUMMON_INFO2& summonInfo) throw (Error);
+	bool hasNextMonsterSummonInfo() throw (Error);
 	int  getMonsterSummonStep() const { return m_MonsterSummonStep; }
 	void setMonsterSummonStep(int ss) { m_MonsterSummonStep = ss; }
 
@@ -218,12 +218,12 @@ public:
 	int  getEventMonsterIndex()	const		{ return m_EventMonsterIndex; }
 	bool isEventMonster() const				{ return m_EventMonsterIndex<0xFFFF; }	// -_-;
 
-	void setQuestItem(Item* pItem )		{ m_pQuestItem = pItem; }
+	void setQuestItem( Item* pItem )		{ m_pQuestItem = pItem; }
 	Item* getQuestItem() const { return m_pQuestItem; }
 
 #ifdef __UNDERWORLD__
 	bool isUnderworld() { return m_bUnderWorld; }
-	void setUnderworld(bool bUnderworld = true ) { m_bUnderWorld = bUnderworld; }
+	void setUnderworld( bool bUnderworld = true ) { m_bUnderWorld = bUnderworld; }
 #endif
 
 	void setLastKiller(ObjectID_t id) { m_LastKiller = id; }

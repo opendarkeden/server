@@ -11,21 +11,21 @@
 #include "Vampire.h"
 #include "Ousters.h"
 
-#include "GCModifyInformation.h"
+#include "Gpackets/GCModifyInformation.h"
 
 EventSave::EventSave (GamePlayer* pGamePlayer) 
-	throw(Error)
+	throw (Error)
 : Event(pGamePlayer)
 {
 }
 
 EventSave::~EventSave () 
-	throw()
+	throw ()
 {
 }
 			
 void EventSave::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 

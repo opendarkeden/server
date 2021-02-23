@@ -37,12 +37,12 @@ Stash::~Stash()
 }
 
 bool Stash::isExist(BYTE rack, BYTE index) const 
-	throw()
+
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw Error("Stash::() : OutOfBounds!");
 	return m_pRack[rack].isExist(index);
 
 	__END_DEBUG 
@@ -50,12 +50,12 @@ bool Stash::isExist(BYTE rack, BYTE index) const
 }
 
 void Stash::insert(BYTE rack, BYTE index, Item* pItem) 
-	throw()
+
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw Error("Stash::() : OutOfBounds!");
 	m_pRack[rack].insert(index, pItem);
 
 	__END_DEBUG 
@@ -63,12 +63,11 @@ void Stash::insert(BYTE rack, BYTE index, Item* pItem)
 }
 
 void Stash::remove(BYTE rack, BYTE index) 
-	throw()
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw ("Stash::() : OutOfBounds!");
 	m_pRack[rack].remove(index);
 	
 	__END_DEBUG 
@@ -76,12 +75,11 @@ void Stash::remove(BYTE rack, BYTE index)
 }
 
 Item* Stash::get(BYTE rack, BYTE index) 
-	throw()
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw Error("Stash::() : OutOfBounds!");
 	return m_pRack[rack].get(index);
 
 	__END_DEBUG 
@@ -89,7 +87,6 @@ Item* Stash::get(BYTE rack, BYTE index)
 }
 
 void Stash::clear(void) 
-	throw()
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
@@ -102,12 +99,11 @@ void Stash::clear(void)
 }
 
 BYTE Stash::getFirstEmptySlot(BYTE rack) const 
-	throw()
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw Error("Stash::() : OutOfBounds!");
 	return m_pRack[rack].getFirstEmptySlot();
 
 	__END_DEBUG 
@@ -115,12 +111,11 @@ BYTE Stash::getFirstEmptySlot(BYTE rack) const
 }
 
 BYTE Stash::getLastEmptySlot(BYTE rack) const 
-	throw()
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
-	if (rack >= STASH_RACK_MAX) throw("Stash::() : OutOfBounds!");
+	if (rack >= STASH_RACK_MAX) throw Error("Stash::() : OutOfBounds!");
 	return m_pRack[rack].getLastEmptySlot();
 
 	__END_DEBUG 

@@ -17,7 +17,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GuildInfo2::GuildInfo2 () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -28,7 +28,7 @@ GuildInfo2::GuildInfo2 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GuildInfo2::~GuildInfo2 () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	
@@ -47,11 +47,11 @@ void GuildInfo2::clearGuildMemberInfoList()
 	__BEGIN_TRY
 
 	// GuildInfoList를 삭제한다.
-	while(!m_GuildMemberInfoList.empty() )
+	while( !m_GuildMemberInfoList.empty() )
 	{
 		GuildMemberInfo2* pGuildMemberInfo = m_GuildMemberInfoList.front();
 		m_GuildMemberInfoList.pop_front();
-		SAFE_DELETE(pGuildMemberInfo);
+		SAFE_DELETE( pGuildMemberInfo );
 	}
 
 	__END_CATCH
@@ -61,59 +61,62 @@ void GuildInfo2::clearGuildMemberInfoList()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo2::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void GuildInfo2::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName, szMaster, szDate, szIntro;
 
-	iStream.read(m_ID);
-	iStream.read(szName);
+	iStream.read( m_ID );
+	iStream.read( szName );
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szGuildName == 0");
-	if (szName > 30 )
-		throw InvalidProtocolException("too long szGuildName size");
+	if ( szName == 0 )
+		throw InvalidProtocolException( "szGuildName == 0" );
+	if ( szName > 30 )
+		throw InvalidProtocolException( "too long szGuildName size" );
 
-	iStream.read(m_Name, szName);
-	iStream.read(m_Type);
-	iStream.read(m_Race);
-	iStream.read(m_State);
-	iStream.read(m_ServerGroupID);
-	iStream.read(m_ZoneID);
-	iStream.read(szMaster);
+	iStream.read( m_Name, szName );
+	iStream.read( m_Type );
+	iStream.read( m_Race );
+	iStream.read( m_State );
+	iStream.read( m_ServerGroupID );
+	iStream.read( m_ZoneID );
+	iStream.read( szMaster );
 
-	if (szMaster == 0 )
-		throw InvalidProtocolException("szGuildMaster == 0");
-	if (szMaster > 20 )
-		throw InvalidProtocolException("too long szGuildMaster size");
+	if ( szMaster == 0 )
+		throw InvalidProtocolException( "szGuildMaster == 0" );
+	if ( szMaster > 20 )
+		throw InvalidProtocolException( "too long szGuildMaster size" );
 
-	iStream.read(m_Master, szMaster);
-	iStream.read(szDate);
+	iStream.read( m_Master, szMaster );
+	iStream.read( szDate );
 
-	if (szDate > 11 )
-		throw InvalidProtocolException("too long szGuildExpireDate size");
+	if ( szDate > 11 )
+		throw InvalidProtocolException( "too long szGuildExpireDate size" );
 
-	if (szDate != 0 )
-		iStream.read(m_Date, szDate);
+	if ( szDate != 0 )
+		iStream.read( m_Date, szDate );
 	else
 		m_Date = "";
 
-	iStream.read(szIntro);
+	iStream.read( szIntro );
 
-	if (szIntro != 0 )
-		iStream.read(m_Intro, szIntro);
+	if ( szIntro > 256 )
+		throw InvalidProtocolException( "too long szIntro length" );
+
+	if ( szIntro != 0 )
+		iStream.read( m_Intro, szIntro );
 	else
 		m_Intro = "";
 
 	WORD szGuildMemberInfo;
-	iStream.read(szGuildMemberInfo);
-	for (int i = 0; i < szGuildMemberInfo; i++ )
+	iStream.read( szGuildMemberInfo );
+	for ( int i = 0; i < szGuildMemberInfo; i++ )
 	{
 		GuildMemberInfo2* pGuildMemberInfo = new GuildMemberInfo2();
-		pGuildMemberInfo->read(iStream);
-		m_GuildMemberInfoList.push_front(pGuildMemberInfo);
+		pGuildMemberInfo->read( iStream );
+		m_GuildMemberInfoList.push_front( pGuildMemberInfo );
 	}
 
 
@@ -123,8 +126,8 @@ void GuildInfo2::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo2::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void GuildInfo2::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -133,46 +136,49 @@ void GuildInfo2::write (SocketOutputStream & oStream )
 	BYTE szDate = m_Date.size();
 	BYTE szIntro = m_Intro.size();
 	
-	if (szName == 0 )
-		throw InvalidProtocolException("szGuildName == 0");
-	if (szName > 30 )
-		throw InvalidProtocolException("too long szGuildName size");
+	if ( szName == 0 )
+		throw InvalidProtocolException( "szGuildName == 0" );
+	if ( szName > 30 )
+		throw InvalidProtocolException( "too long szGuildName size" );
 
-	if (szMaster == 0 )
-		throw InvalidProtocolException("szGuildMaster == 0");
-	if (szMaster > 20 )
-		throw InvalidProtocolException("too long szGuildMaster size");
+	if ( szMaster == 0 )
+		throw InvalidProtocolException( "szGuildMaster == 0" );
+	if ( szMaster > 20 )
+		throw InvalidProtocolException( "too long szGuildMaster size" );
 
-	if (szDate > 11 )
-		throw InvalidProtocolException("too long szGuildExpireDate size");
+	if ( szDate > 11 )
+		throw InvalidProtocolException( "too long szGuildExpireDate size" );
+
+	if ( szIntro > 256 )
+		throw InvalidProtocolException( "too long szIntro length" );
 
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_ID);
-	oStream.write(szName);
-	oStream.write(m_Name);
-	oStream.write(m_Type);
-	oStream.write(m_Race);
-	oStream.write(m_State);
-	oStream.write(m_ServerGroupID);
-	oStream.write(m_ZoneID);
-	oStream.write(szMaster);
-	oStream.write(m_Master);
+	oStream.write( m_ID );
+	oStream.write( szName );
+	oStream.write( m_Name );
+	oStream.write( m_Type );
+	oStream.write( m_Race );
+	oStream.write( m_State );
+	oStream.write( m_ServerGroupID );
+	oStream.write( m_ZoneID );
+	oStream.write( szMaster );
+	oStream.write( m_Master );
 
-	oStream.write(szDate);
-	if (szDate != 0 )
-		oStream.write(m_Date);
+	oStream.write( szDate );
+	if ( szDate != 0 )
+		oStream.write( m_Date );
 
-	oStream.write(szIntro);
-	if (szIntro != 0 )
-		oStream.write(m_Intro);
+	oStream.write( szIntro );
+	if ( szIntro != 0 )
+		oStream.write( m_Intro );
 
 
 	WORD szGuildMemberInfo = m_GuildMemberInfoList.size();
-	oStream.write(szGuildMemberInfo);
+	oStream.write( szGuildMemberInfo );
 	GuildMemberInfoListConstItor2 itr = m_GuildMemberInfoList.begin();
-	for (; itr != m_GuildMemberInfoList.end(); itr++ )
+	for ( ; itr != m_GuildMemberInfoList.end(); itr++ )
 	{
-		(*itr)->write(oStream);
+		(*itr)->write( oStream );
 	}
 
 
@@ -206,7 +212,7 @@ PacketSize_t GuildInfo2::getSize()
 	PacketSize += szWORD;
 
 	GuildMemberInfoListConstItor2 itr = m_GuildMemberInfoList.begin();
-	for (; itr != m_GuildMemberInfoList.end(); itr++ )
+	for ( ; itr != m_GuildMemberInfoList.end(); itr++ )
 	{
 		PacketSize += (*itr)->getSize();
 	}
@@ -222,13 +228,13 @@ PacketSize_t GuildInfo2::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string GuildInfo2::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "GuildInfo2("
+	msg << "GuildInfo2( "
 		<< "GuildID:" << m_ID
 		<< "GuildName:" << m_Name
 		<< "GuildType:" << (int)m_Type

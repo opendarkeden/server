@@ -54,7 +54,7 @@ public:
 	void init(RankType rankType) throw(Error);
 	void load(RankType rankType) throw(Error);
 
-	RankEXPInfo* getRankEXPInfo(uint value) const throw(InvalidProtocolException);
+	RankEXPInfo* getRankEXPInfo(uint value) const throw (InvalidProtocolException);
 	void addRankEXPInfo(RankEXPInfo* pRankEXPInfo) throw();
 
 	string toString() const throw();

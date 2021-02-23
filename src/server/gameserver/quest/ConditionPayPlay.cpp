@@ -17,7 +17,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionPayPlay::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -56,7 +56,7 @@ bool ConditionPayPlay::isSatisfied (Creature * pCreature1 , Creature * pCreature
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionPayPlay::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	/*
 	try
@@ -75,7 +75,7 @@ void ConditionPayPlay::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionPayPlay::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

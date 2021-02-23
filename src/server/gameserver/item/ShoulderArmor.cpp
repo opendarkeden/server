@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 ShoulderArmorInfoManager* g_pShoulderArmorInfoManager = NULL;
@@ -41,7 +40,7 @@ ShoulderArmor::ShoulderArmor(ItemType_t itemType, const list<OptionType_t>& opti
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "ShoulderArmor::ShoulderArmor() : Invalid item type or option type");
-		throw("ShoulderArmor::ShoulderArmor() : Invalid item type or optionType");
+		throw ("ShoulderArmor::ShoulderArmor() : Invalid item type or optionType");
 	}
 }
 
@@ -77,7 +76,7 @@ void ShoulderArmor::create(const string & ownerID, Storage storage, StorageID_t 
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO ShoulderArmorObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -111,7 +110,7 @@ void ShoulderArmor::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE ShoulderArmorObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE ShoulderArmorObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -136,9 +135,9 @@ void ShoulderArmor::save(const string & ownerID, Storage storage, StorageID_t st
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE ShoulderArmorObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getGrade(), (int)getEnchantLevel(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE ShoulderArmorObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -274,8 +273,8 @@ void ShoulderArmorLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM ShoulderArmorObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-											pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM ShoulderArmorObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+											pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -337,18 +336,6 @@ void ShoulderArmorLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pShoulderArmor);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pShoulderArmor))
 						{
 							pInventory->addItemEx(x, y, pShoulderArmor);

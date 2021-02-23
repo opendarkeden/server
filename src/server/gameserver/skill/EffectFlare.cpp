@@ -13,9 +13,9 @@
 #include "DarkLightInfo.h"
 #include "MonsterInfo.h"
 
-#include "GCModifyInformation.h"
-#include "GCChangeDarkLight.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -99,9 +99,9 @@ void EffectFlare::unaffect(Creature* pCreature)
 		GCModifyInformation _GCModifyInformation; 
 		_GCModifyInformation.addShortData(MODIFY_VISION, NewSight);
 		pPlayer->sendPacket(&_GCModifyInformation);
-		pZone->updateScan(pVampire, FLARE_SIGHT, NewSight);
+		pZone->updateScan(pVampire, FLARE_SIGHT, NewSight );
 
-	//	DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo(pZone);
+	//	DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo( pZone );
 		DarkLevel_t    darkLevel  = max(0, DARK_MAX - pZone->getDarkLevel());
 		LightLevel_t   lightLevel = min(13, LIGHT_MAX - pZone->getLightLevel());
 

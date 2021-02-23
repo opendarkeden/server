@@ -30,21 +30,21 @@ class SlotInfo {
 public :
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get size of object
-	uint getSize () const throw()
+	uint getSize () const throw ()
 	{ return 0; }
 
 	// get max size of object
-	static uint getMaxSize () throw()
+	static uint getMaxSize () throw ()
 	{ return 0; }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 public :
 
@@ -61,7 +61,7 @@ public :
 	ItemType_t getItemType() const throw() { return m_ItemType; }
 
 	// get/set OptionType
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
+	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back( OptionType ); }
 	void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
 	int getOptionTypeSize() const throw()	{ return m_OptionType.size(); }
 	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }

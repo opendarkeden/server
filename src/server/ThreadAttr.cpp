@@ -24,11 +24,11 @@ using namespace pthreadAPI;
 //
 //////////////////////////////////////////////////////////////////////
 ThreadAttr::ThreadAttr () 
-    throw(Error )
+    throw ( Error )
 {
 	__BEGIN_TRY
 
-	pthread_attr_init_ex(&attr);
+	pthread_attr_init_ex( &attr );
 	
 	__END_CATCH
 }
@@ -40,11 +40,11 @@ ThreadAttr::ThreadAttr ()
 //
 //////////////////////////////////////////////////////////////////////
 ThreadAttr::~ThreadAttr () 
-    throw(Error )
+    throw ( Error )
 {
 	__BEGIN_TRY
 
-	pthread_attr_destroy_ex(&attr);
+	pthread_attr_destroy_ex( &attr );
 	
 	__END_CATCH
 }
@@ -56,12 +56,12 @@ ThreadAttr::~ThreadAttr ()
 //
 //////////////////////////////////////////////////////////////////////
 int ThreadAttr::getDetachState () const 
-    throw(Error )
+    throw ( Error )
 {
 	__BEGIN_TRY
 
 	int state;
-	pthread_attr_getdetachstate_ex(&attr , &state);
+	pthread_attr_getdetachstate_ex( &attr , &state );
 	return state;
 	
 	__END_CATCH
@@ -73,12 +73,12 @@ int ThreadAttr::getDetachState () const
 // 쓰레드의 DETACHED attribute를 설정한다.
 //
 //////////////////////////////////////////////////////////////////////
-void ThreadAttr::setDetachState (int state ) 
-     throw(Error )
+void ThreadAttr::setDetachState ( int state ) 
+     throw ( Error )
 {
 	__BEGIN_TRY
 
-	pthread_attr_setdetachstate_ex(&attr , state);
+	pthread_attr_setdetachstate_ex( &attr , state );
 	
 	__END_CATCH
 }

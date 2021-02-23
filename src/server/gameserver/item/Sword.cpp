@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 SwordInfoManager*     g_pSwordInfoManager = NULL;
@@ -33,7 +32,7 @@ Sword::Sword()
 
 Sword::Sword(ItemType_t itemType, const list<OptionType_t>& optionType)
 	throw()
-//: m_OptionType(optionType )
+//: m_OptionType( optionType )
 {
 
 	//m_ItemType    = itemType;
@@ -48,7 +47,7 @@ Sword::Sword(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "Sword::Sword() : Invalid item type or option type");
-		throw("Sword::Sword() : Invalid item type or optionType");
+		throw ("Sword::Sword() : Invalid item type or optionType");
 	}
 }
 
@@ -84,7 +83,7 @@ void Sword::create(const string & ownerID, Storage storage, StorageID_t storageI
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO SwordObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -118,7 +117,7 @@ void Sword::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE SwordObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE SwordObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -163,9 +162,9 @@ void Sword::save(const string & ownerID, Storage storage, StorageID_t storageID,
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE SwordObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
-									m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getEnchantLevel(), (int)getSilver(), (int)getGrade(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE SwordObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
+									m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getEnchantLevel(), (int)getSilver(), (int)getGrade(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -402,8 +401,8 @@ void SwordLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, EnchantLevel, Silver, Grade, ItemFlag FROM SwordObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, EnchantLevel, Silver, Grade, ItemFlag FROM SwordObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -466,18 +465,6 @@ void SwordLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pSword);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pSword))
 						{
 							pInventory->addItemEx(x, y, pSword);

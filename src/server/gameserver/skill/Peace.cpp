@@ -6,13 +6,13 @@
 
 #include "Peace.h"
 #include "EffectPeace.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* p
 void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -182,7 +182,7 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 							pMonster->setFlag(Effect::EFFECT_CLASS_PEACE);
 
 							// 이미 때리고 있는 경우라면 제거..
-							pMonster->deleteEnemy(pSlayer->getObjectID());
+							pMonster->deleteEnemy( pSlayer->getObjectID() );
 
 							//cout << pMonster->getName().c_str() << "에게 Peace 걸었다." << endl;
 							//cList.push_back(pMonster);
@@ -191,10 +191,10 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 
 							// 타겟 list를 패킷에 추가한다.
 
-							_GCSkillToTileOK1.addCListElement(pMonster->getObjectID());
-							_GCSkillToTileOK2.addCListElement(pMonster->getObjectID());
-							_GCSkillToTileOK4.addCListElement(pMonster->getObjectID());
-							_GCSkillToTileOK5.addCListElement(pMonster->getObjectID());
+							_GCSkillToTileOK1.addCListElement( pMonster->getObjectID() );
+							_GCSkillToTileOK2.addCListElement( pMonster->getObjectID() );
+							_GCSkillToTileOK4.addCListElement( pMonster->getObjectID() );
+							_GCSkillToTileOK5.addCListElement( pMonster->getObjectID() );
 						}
 						else
 						{
@@ -208,7 +208,7 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 				}
 			}
 
-			if (bSuccess ) {
+			if ( bSuccess ) {
 
 				// 성공해야 마나를 떨어뜨린다.
 				decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
@@ -225,7 +225,7 @@ void Peace::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pS
 				result.bSuccess = true;
 			}
 
-			Dir_t dir = calcDirection (myX, myY, X, Y);
+			Dir_t dir = calcDirection ( myX, myY, X, Y );
 
 			_GCSkillToTileOK1.setSkillType(param.SkillType);
 			_GCSkillToTileOK1.setCEffectID(CEffectID);

@@ -15,7 +15,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 /*ItemNameInfo::ItemNameInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -26,7 +26,7 @@
 // destructor
 //////////////////////////////////////////////////////////////////////
 ItemNameInfo::~ItemNameInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -36,16 +36,16 @@ ItemNameInfo::~ItemNameInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void ItemNameInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void ItemNameInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName;
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_ObjectID);
-	iStream.read(szName);
-	iStream.read(m_Name, szName);
+	iStream.read( m_ObjectID );
+	iStream.read( szName );
+	iStream.read( m_Name, szName );
 
 	__END_CATCH
 }
@@ -53,15 +53,15 @@ void ItemNameInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void ItemNameInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void ItemNameInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName = m_Name.size();
-	oStream.write(m_ObjectID);
-	oStream.write(szName);
-	oStream.write(m_Name);
+	oStream.write( m_ObjectID );
+	oStream.write( szName );
+	oStream.write( m_Name );
 
 	__END_CATCH
 }
@@ -89,13 +89,13 @@ PacketSize_t ItemNameInfo::getSize() const
 //
 //////////////////////////////////////////////////////////////////////
 string ItemNameInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "ItemNameInfo("
+	msg << "ItemNameInfo( "
 		<< "ObjectID : " << m_ObjectID
 		<< "Name : " << m_Name
 		<< ")";

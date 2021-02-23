@@ -20,16 +20,16 @@ public:
 		SWEEPER_DEFAULT
 	};
 
-	SweeperSet(SweeperIndex idx ) : m_Index(idx)
+	SweeperSet( SweeperIndex idx ) : m_Index(idx)
 	{
 	//	m_SweeperSafes.reserve(12);
 	}
 
-	void	addSafe(uint itemType, MonsterCorpse* pSafe ) { m_SweeperSafes[itemType] = pSafe; }
-	MonsterCorpse* getSweeperSafes(uint itemType);
-	bool	isSafe(MonsterCorpse* pCorpse ) const; 
-	int		getType(MonsterCorpse* pCorpse ) const; 
-//	bool	isSafe(MonsterCorpse* pCorpse ) const { return find(m_SweeperSafes.begin(), m_SweeperSafes.end(), pCorpse ) != m_SweeperSafes.end(); }
+	void	addSafe( uint itemType, MonsterCorpse* pSafe ) { m_SweeperSafes[itemType] = pSafe; }
+	MonsterCorpse* getSweeperSafes( uint itemType );
+	bool	isSafe( MonsterCorpse* pCorpse ) const; 
+	int		getType( MonsterCorpse* pCorpse ) const; 
+//	bool	isSafe( MonsterCorpse* pCorpse ) const { return find( m_SweeperSafes.begin(), m_SweeperSafes.end(), pCorpse ) != m_SweeperSafes.end(); }
 
 //	MonsterCorpse*	getLastSafe() const { return m_SweeperSafes.back(); }
 
@@ -49,17 +49,17 @@ public:
 
 	void	load(int level, Zone* pZone);
 
-	int		getSafeIndex(MonsterCorpse* pSafe ) const;
-//	bool	isFit(Item* pSweeper, MonsterCorpse* pSafe);
-	bool	putSweeper(Item* pSweeper, MonsterCorpse* pSafe);
+	int		getSafeIndex( MonsterCorpse* pSafe ) const;
+//	bool	isFit( Item* pSweeper, MonsterCorpse* pSafe );
+	bool	putSweeper( Item* pSweeper, MonsterCorpse* pSafe );
 
-	SweeperSet* getSweeperSet(uint index ) { return m_SweeperSets[index]; }
+	SweeperSet* getSweeperSet( uint index ) { return m_SweeperSets[index]; }
 
 	bool	returnAllSweeper();
-	bool	returnSweeper(ItemType_t sweeperID , bool bLock = true);
-//	bool	returnSweeper(Zone* pZone, Sweeper* pSweeper ) const;
+	bool	returnSweeper( ItemType_t sweeperID , bool bLock = true );
+//	bool	returnSweeper( Zone* pZone, Sweeper* pSweeper ) const;
 
-	void	saveSweeperOwner(uint itemType, int safeType, int ownerRace);
+	void	saveSweeperOwner( uint itemType, int safeType, int ownerRace );
 
 private:
 	map<uint, SweeperSet*> m_SweeperSets;

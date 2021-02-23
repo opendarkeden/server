@@ -9,16 +9,16 @@
 #include "Creature.h"
 #include "PlayerCreature.h"
 #include "Player.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectPKZoneResurrection::EffectPKZoneResurrection(Creature* pCreature )
+EffectPKZoneResurrection::EffectPKZoneResurrection( Creature* pCreature )
 {
 	__BEGIN_TRY
 
-	setTarget(pCreature);
-	setBroadcastingEffect(false);
+	setTarget( pCreature );
+	setBroadcastingEffect( false );
 
 	__END_CATCH
 }
@@ -38,7 +38,7 @@ void EffectPKZoneResurrection::unaffect()
 	__BEGIN_TRY	
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+	unaffect( pCreature );
 
 	__END_CATCH
 }
@@ -51,16 +51,16 @@ void EffectPKZoneResurrection::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 
 	GCAddEffect gcAddEffect;
-	gcAddEffect.setObjectID(pCreature->getObjectID());
-	gcAddEffect.setEffectID(getSendEffectClass());
-	gcAddEffect.setDuration(28);
+	gcAddEffect.setObjectID( pCreature->getObjectID() );
+	gcAddEffect.setEffectID( getSendEffectClass() );
+	gcAddEffect.setDuration( 28 );
 
 	Zone* pZone = pCreature->getZone();
 
-	if (pZone != NULL )
-		pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
+	if ( pZone != NULL )
+		pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffect );
 
-	pCreature->removeFlag(getEffectClass());
+	pCreature->removeFlag( getEffectClass() );
 
 	__END_CATCH
 }

@@ -122,7 +122,6 @@ public:
 		CONDITION_IS_GUILD_MEMBER,			// 길드에 속해 있는가?
 
 		CONDITION_CAN_ENTER_QUEST_ZONE,		// 퀘스트존에 들어갈 수 있는가
-		CONDITION_HAS_ENOUGH_FAMILY_COIN,	// 패밀리 코인이 충분히 있는가?
 
 		CONDITION_MAX
 	};

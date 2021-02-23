@@ -21,7 +21,7 @@ public:
 	ZoneInfo();
 	~ZoneInfo();
 
-	void load(ZoneID_t zoneID ) throw(Error);
+	void load( ZoneID_t zoneID ) throw(Error);
 
 public:
 	ZoneID_t getZoneID() const throw() { return m_ZoneID; }
@@ -79,7 +79,7 @@ public:
 
 	bool isLevelWarZone() const
 	{
-		switch (m_ZoneID )
+		switch ( m_ZoneID )
 		{
 			case 1131:
 			case 1132:

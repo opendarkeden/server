@@ -21,20 +21,20 @@ void SimpleQuestRewardManager::load(const string& name) throw(Error)
 		{
 			int index = 0;
 
-			RewardClass_t	rClass	= (RewardClass_t)		pResult->getInt(++index);
-			RewardID_t		rID		= (RewardID_t	)		pResult->getInt(++index);
-			Item::ItemClass	iClass	= (Item::ItemClass)		pResult->getInt(++index);
-			ItemType_t		iType	= (ItemType_t)			pResult->getInt(++index);
-			string			option	= 						pResult->getString(++index);
-			DWORD			time	= (DWORD)				pResult->getInt(++index);
+			RewardClass_t	rClass	= (RewardClass_t)		pResult->getInt( ++index );
+			RewardID_t		rID		= (RewardID_t	)		pResult->getInt( ++index );
+			Item::ItemClass	iClass	= (Item::ItemClass)		pResult->getInt( ++index );
+			ItemType_t		iType	= (ItemType_t)			pResult->getInt( ++index );
+			string			option	= 						pResult->getString( ++index );
+			DWORD			time	= (DWORD)				pResult->getInt( ++index );
 
-			if (m_RewardClasses[ rClass ] == NULL ){
-				m_RewardClasses[rClass] = new RandomRewardClass(rClass);
+			if ( m_RewardClasses[ rClass ] == NULL ){
+				m_RewardClasses[rClass] = new RandomRewardClass( rClass );
 				//cout << "NPC : " << name << ", RewardClass : " << (uint)rClass << endl;
 			}
 
-			ItemRewardInfo* pItemRI = new ItemRewardInfo(rID, rClass, iClass, iType, option, time);
-			m_RewardClasses[rClass]->addRewardInfo(pItemRI);
+			ItemRewardInfo* pItemRI = new ItemRewardInfo( rID, rClass, iClass, iType, option, time );
+			m_RewardClasses[rClass]->addRewardInfo( pItemRI );
 		}
 
 		pResult = pStmt->executeQuery("SELECT RewardClass, RewardID, IClass, IType, OptionType, TimeLimitSec FROM SlayerWeaponRewardInfo WHERE NPC='%s'", name.c_str());
@@ -43,20 +43,20 @@ void SimpleQuestRewardManager::load(const string& name) throw(Error)
 		{
 			int index = 0;
 
-			RewardClass_t	rClass	= (RewardClass_t)		pResult->getInt(++index);
-			RewardID_t		rID		= (RewardID_t	)		pResult->getInt(++index);
-			Item::ItemClass	iClass	= (Item::ItemClass)		pResult->getInt(++index);
-			ItemType_t		iType	= (ItemType_t)			pResult->getInt(++index);
-			string			option	= 						pResult->getString(++index);
-			DWORD			time	= (DWORD)				pResult->getInt(++index);
+			RewardClass_t	rClass	= (RewardClass_t)		pResult->getInt( ++index );
+			RewardID_t		rID		= (RewardID_t	)		pResult->getInt( ++index );
+			Item::ItemClass	iClass	= (Item::ItemClass)		pResult->getInt( ++index );
+			ItemType_t		iType	= (ItemType_t)			pResult->getInt( ++index );
+			string			option	= 						pResult->getString( ++index );
+			DWORD			time	= (DWORD)				pResult->getInt( ++index );
 
-			if (m_RewardClasses[ rClass ] == NULL ){
-				m_RewardClasses[rClass] = new SlayerWeaponRewardClass(rClass);
+			if ( m_RewardClasses[ rClass ] == NULL ){
+				m_RewardClasses[rClass] = new SlayerWeaponRewardClass( rClass );
 				//cout << "NPC : " << name << ", RewardClass : " << (uint)rClass << endl;
 			}
 
-			ItemRewardInfo* pItemRI = new ItemRewardInfo(rID, rClass, iClass, iType, option, time);
-			m_RewardClasses[rClass]->addRewardInfo(pItemRI);
+			ItemRewardInfo* pItemRI = new ItemRewardInfo( rID, rClass, iClass, iType, option, time );
+			m_RewardClasses[rClass]->addRewardInfo( pItemRI );
 		}
 
 		SAFE_DELETE(pStmt);

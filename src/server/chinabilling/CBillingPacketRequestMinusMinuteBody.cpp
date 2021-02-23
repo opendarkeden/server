@@ -10,46 +10,46 @@
 #include "SocketOutputStream.h"
 
 CBillingPacketRequestMinusMinuteBody::CBillingPacketRequestMinusMinuteBody()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	memset(this, 0, szCBillingPacketRequestMinusMinuteBodyInfo);
+	memset( this, 0, szCBillingPacketRequestMinusMinuteBodyInfo );
 
 	__END_CATCH
 }
 
-void CBillingPacketRequestMinusMinuteBody::read(SocketInputStream& iStream )
-	throw(ProtocolException, Error )
+void CBillingPacketRequestMinusMinuteBody::read( SocketInputStream& iStream )
+	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
 	CBillingPacketRequestMinusMinuteBodyInfo* pInfo = this;
 
-	iStream.read((char*)pInfo, szCBillingPacketRequestMinusMinuteBodyInfo);
+	iStream.read( (char*)pInfo, szCBillingPacketRequestMinusMinuteBodyInfo );
 
 	__END_CATCH
 }
 
-void CBillingPacketRequestMinusMinuteBody::write(SocketOutputStream& oStream )
-	throw(ProtocolException, Error )
+void CBillingPacketRequestMinusMinuteBody::write( SocketOutputStream& oStream )
+	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
 	const CBillingPacketRequestMinusMinuteBodyInfo* pInfo = this;
-	oStream.write((const char*)pInfo, szCBillingPacketRequestMinusMinuteBodyInfo);
+	oStream.write( (const char*)pInfo, szCBillingPacketRequestMinusMinuteBodyInfo );
 
 	__END_CATCH
 }
 
 string CBillingPacketRequestMinusMinuteBody::toString() const
-	throw()
+	throw ()
 {
 	char str[128];
 	StringStream msg;
 	msg << "ErrorBody(";
 
-	memcpy(str, Login_Name, 64); str[64] = '\0';
+	memcpy( str, Login_Name, 64 ); str[64] = '\0';
 	msg << "Login_Name:" << str
 		<< ")";
 

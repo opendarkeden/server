@@ -8,8 +8,8 @@
 #include "Tile.h"
 #include "Zone.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -32,8 +32,12 @@ void EffectDarknessForbidden::unaffect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectDarknessForbidden" << "unaffect BEGIN" << endl;
+
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 	tile.deleteEffect(m_ObjectID);
+
+	//cout << "EffectDarknessForbidden" << "unaffect END" << endl;
 
 	__END_CATCH
 }

@@ -13,11 +13,9 @@
 #include "ZoneUtil.h"
 #include "EffectIceHailToTile.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -48,77 +46,77 @@ void EffectIceHail::affect()
 	Assert(m_pZone != NULL);
 
 	// 시전자를 가져온다.
-	Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
-	if (pCastCreature == NULL ) return;
+	Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
+	if ( pCastCreature == NULL ) return;
 
-	for (int i = -m_Range; i <= m_Range; ++i )
+	for ( int i = -m_Range; i <= m_Range; ++i )
 	{
-		for (int j = -m_Range; j <= m_Range; ++j )
+		for ( int j = -m_Range; j <= m_Range; ++j )
 		{
-			Tile& rTile = m_pZone->getTile(m_X + i, m_Y + j);
-			const list<Object*>& rList = rTile.getObjectList();
+			Tile& rTile = m_pZone->getTile( m_X + i, m_Y + j );
+			const slist<Object*>& rList = rTile.getObjectList();
 
-			list<Object*>::const_iterator itr = rList.begin();
-			list<Object*>::const_iterator endItr = rList.end();
+			slist<Object*>::const_iterator itr = rList.begin();
+			slist<Object*>::const_iterator endItr = rList.end();
 
 		//	cout << "아프냐?" << endl;
 
-			for (; itr != endItr ; ++itr )
+			for ( ; itr != endItr ; ++itr )
 			{
 				Object* pObject = *itr;
-				if (pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+				if ( pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 
 				Creature* pCreature = dynamic_cast<Creature*>(pObject);
-				if (pCreature == NULL || pCreature->getObjectID() == m_CasterID ) continue;
-				if (!canAttack(pCastCreature, pCreature ) ) continue;
+				if ( pCreature == NULL || pCreature->getObjectID() == m_CasterID ) continue;
+				if ( !canAttack( pCastCreature, pCreature ) ) continue;
 
-				if (pCastCreature->isMonster() )
+				if ( pCastCreature->isMonster() )
 				{
 					Monster* pGDR = dynamic_cast<Monster*>(pCastCreature);
-					if (pGDR != NULL )
+					if ( pGDR != NULL )
 					{
-						if (!pGDR->isEnemyToAttack(pCreature ) ) continue;
+						if ( !pGDR->isEnemyToAttack( pCreature ) ) continue;
 					}
 				}
 
 				HP_t currentHP, finalHP = 0;
 				GCStatusCurrentHP gcHP;
-				gcHP.setObjectID(pCreature->getObjectID());
+				gcHP.setObjectID( pCreature->getObjectID() );
 
-				if (pCreature->isSlayer() )
+				if ( pCreature->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-					Assert(pSlayer != NULL);
+					Assert( pSlayer != NULL );
 
 					currentHP = pSlayer->getHP();
-					finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
+					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
 
-					pSlayer->setHP(finalHP);
+					pSlayer->setHP( finalHP );
 				}
-				else if (pCreature->isVampire() )
+				else if ( pCreature->isVampire() )
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-					Assert(pVampire != NULL);
+					Assert( pVampire != NULL );
 
 					currentHP = pVampire->getHP();
-					finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
+					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
 
-					pVampire->setHP(finalHP);
+					pVampire->setHP( finalHP );
 				}
-				else if (pCreature->isOusters() )
+				else if ( pCreature->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-					Assert(pOusters != NULL);
+					Assert( pOusters != NULL );
 
 					currentHP = pOusters->getHP();
-					finalHP = currentHP - min(currentHP, (HP_t)m_Damage);
+					finalHP = currentHP - min( currentHP, (HP_t)m_Damage );
 
-					pOusters->setHP(finalHP);
+					pOusters->setHP( finalHP );
 				}
 				else continue;
 
-				gcHP.setCurrentHP(finalHP);
-				m_pZone->broadcastPacket(m_X, m_Y, &gcHP);
+				gcHP.setCurrentHP( finalHP );
+				m_pZone->broadcastPacket( m_X, m_Y, &gcHP );
 
 		//		cout << "아프다" << endl;
 			}

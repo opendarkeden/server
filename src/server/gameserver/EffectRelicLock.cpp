@@ -12,10 +12,10 @@
 #include "MonsterCorpse.h"
 #include "Player.h"
 #include "ZoneGroupManager.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ EffectRelicLock::EffectRelicLock(Item* pItem)
 
 	//m_LockTime.tv_sec = 0;
 	//m_LockTime.tv_usec = 0;
-	setTarget(pItem);
+	setTarget( pItem );
 
 	__END_CATCH
 }

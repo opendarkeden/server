@@ -12,7 +12,7 @@
 #include "LevelWarZoneInfoManager.h"
 #include "DB.h"
 
-#include "GCSweeperBonusInfo.h"
+#include "Gpackets/GCSweeperBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class SweeperBonusManager member methods
@@ -54,9 +54,9 @@ void SweeperBonusManager::clear()
 	__BEGIN_TRY
 
 	SweeperBonusHashMapItor itr = m_SweeperBonuses.begin();
-	for (; itr != m_SweeperBonuses.end(); itr++ )
+	for ( ; itr != m_SweeperBonuses.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_SweeperBonuses.clear();
@@ -99,11 +99,11 @@ void SweeperBonusManager::load()
 			SweeperBonus* pSweeperBonus = new SweeperBonus();
 			int i = 0;
 
-			pSweeperBonus->setType(pResult->getInt(++i));
-			pSweeperBonus->setName(pResult->getString(++i));
-			pSweeperBonus->setOptionTypeList(pResult->getString(++i));
-			pSweeperBonus->setRace(pResult->getInt(++i));
-			pSweeperBonus->setLevel(pResult->getInt(++i));
+			pSweeperBonus->setType( pResult->getInt(++i) );
+			pSweeperBonus->setName( pResult->getString(++i) );
+			pSweeperBonus->setOptionTypeList( pResult->getString(++i) );
+			pSweeperBonus->setRace( pResult->getInt(++i) );
+			pSweeperBonus->setLevel( pResult->getInt(++i) );
 
 			addSweeperBonus(pSweeperBonus);
 		}
@@ -151,9 +151,9 @@ void SweeperBonusManager::reloadOwner(int level)
 
 			SweeperBonusHashMapItor itr = m_SweeperBonuses.find(type);
 
-			if (itr != m_SweeperBonuses.end() )
+			if ( itr != m_SweeperBonuses.end() )
 			{
-				itr->second->setRace(pResult->getInt(++i));
+				itr->second->setRace( pResult->getInt(++i) );
 			}
 
 		}
@@ -176,14 +176,14 @@ void SweeperBonusManager::save()
 	__END_CATCH
 }
 
-SweeperBonus* SweeperBonusManager::getSweeperBonus(SweeperBonusType_t sweeperBonusType ) const
-	throw(NoSuchElementException, Error )
+SweeperBonus* SweeperBonusManager::getSweeperBonus( SweeperBonusType_t sweeperBonusType ) const
+	throw( NoSuchElementException, Error )
 {
 	__BEGIN_TRY
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find(sweeperBonusType);
+	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find( sweeperBonusType );
 
-	if (itr == m_SweeperBonuses.end() )
+	if ( itr == m_SweeperBonuses.end() )
 	{
 		cerr << "SweeperBonusManager::getSweeperBonus() : no such element" << endl;
 		throw NoSuchElementException();
@@ -201,8 +201,8 @@ void SweeperBonusManager::addSweeperBonus(SweeperBonus* pSweeperBonus)
 
   	Assert (pSweeperBonus != NULL);
 
-	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find(pSweeperBonus->getType());
-	if (itr != m_SweeperBonuses.end() )
+	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.find( pSweeperBonus->getType() );
+	if ( itr != m_SweeperBonuses.end() )
 	{
 		throw DuplicatedException ();
 	}
@@ -218,13 +218,13 @@ bool SweeperBonusManager::isAble(ZoneID_t zoneID) const
 	__BEGIN_TRY
 
 	ZoneID_t levelWarZoneID;
-	if (g_pLevelWarZoneInfoManager->getLevelWarZoneID(zoneID, levelWarZoneID ) )
+	if ( g_pLevelWarZoneInfoManager->getLevelWarZoneID( zoneID, levelWarZoneID ) )
 	{
-		Zone* pZone = getZoneByZoneID(levelWarZoneID);
-		if (pZone == NULL ) return false;
+		Zone* pZone = getZoneByZoneID( levelWarZoneID );
+		if ( pZone == NULL ) return false;
 
 		LevelWarManager* pLevelWarManager = pZone->getLevelWarManager();
-		if (pLevelWarManager == NULL ) return false;
+		if ( pLevelWarManager == NULL ) return false;
 
 		return !pLevelWarManager->hasWar();
 	}
@@ -234,53 +234,53 @@ bool SweeperBonusManager::isAble(ZoneID_t zoneID) const
 	__END_CATCH
 }
 
-void SweeperBonusManager::setSweeperBonusRace(SweeperBonusType_t sweeperBonusType, Race_t race )
-	throw(Error )
+void SweeperBonusManager::setSweeperBonusRace( SweeperBonusType_t sweeperBonusType, Race_t race )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	getSweeperBonus(sweeperBonusType )->setRace(race);
+	getSweeperBonus( sweeperBonusType )->setRace( race );
 
 	__END_CATCH
 }
 
-void SweeperBonusManager::makeSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo )
-	throw(Error )
+void SweeperBonusManager::makeSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for (; itr != m_SweeperBonuses.end(); itr++ )
+	for ( ; itr != m_SweeperBonuses.end(); itr++ )
 	{
 		SweeperBonusInfo* pInfo = new SweeperBonusInfo();
 		SweeperBonus* pBonus = itr->second;
 
-		pInfo->setType(pBonus->getType());
-		pInfo->setRace(pBonus->getRace());
-		pInfo->setOptionType(pBonus->getOptionTypeList());
+		pInfo->setType( pBonus->getType() );
+		pInfo->setRace( pBonus->getRace() );
+		pInfo->setOptionType( pBonus->getOptionTypeList() );
 
-		gcSweeperBonusInfo.addSweeperBonusInfo(pInfo);
+		gcSweeperBonusInfo.addSweeperBonusInfo( pInfo );
 	}
 
 	__END_CATCH
 }
 
-void SweeperBonusManager::makeVoidSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo )
-	throw(Error )
+void SweeperBonusManager::makeVoidSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for (; itr != m_SweeperBonuses.end(); itr++ )
+	for ( ; itr != m_SweeperBonuses.end(); itr++ )
 	{
 		SweeperBonusInfo* pInfo = new SweeperBonusInfo();
 		SweeperBonus* pBonus = itr->second;
 
-		pInfo->setType(pBonus->getType());
-		pInfo->setRace(3);
-		pInfo->setOptionType(pBonus->getOptionTypeList());
+		pInfo->setType( pBonus->getType() );
+		pInfo->setRace( 3 );
+		pInfo->setOptionType( pBonus->getOptionTypeList() );
 
-		gcSweeperBonusInfo.addSweeperBonusInfo(pInfo);
+		gcSweeperBonusInfo.addSweeperBonusInfo( pInfo );
 	}
 
 	__END_CATCH
@@ -296,7 +296,7 @@ string SweeperBonusManager::toString() const
 	msg << "SweeperBonusManager(\n";
 
 	SweeperBonusHashMapConstItor itr = m_SweeperBonuses.begin();
-	for (; itr != m_SweeperBonuses.end(); itr++ )
+	for ( ; itr != m_SweeperBonuses.end(); itr++ )
 	{
 		msg << itr->second->toString() << ",";
 	}

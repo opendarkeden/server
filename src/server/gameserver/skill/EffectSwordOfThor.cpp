@@ -9,7 +9,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectSwordOfThor::EffectSwordOfThor(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
+EffectSwordOfThor::EffectSwordOfThor( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -28,8 +28,8 @@ void EffectSwordOfThor::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 	
 	__END_CATCH
 }

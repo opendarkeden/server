@@ -10,7 +10,7 @@ public:
 	GQuestClearDynamicZoneMission(ZoneID_t targetZoneID) : m_bClear(false), m_TargetZoneID(targetZoneID) { }
 
 	bool	isClear() const { return m_bClear; }
-	void	clear(ZoneID_t zoneID) { if (m_TargetZoneID == zoneID ) m_bClear = true; }
+	void	clear(ZoneID_t zoneID) { if ( m_TargetZoneID == zoneID ) m_bClear = true; }
 
 	string	getMissionName() const { return "ClearDynamicZoneMission"; }
 private:

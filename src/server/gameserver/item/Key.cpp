@@ -14,7 +14,6 @@
 #include "ItemInfoManager.h"
 #include "ItemFactoryManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 KeyInfoManager* g_pKeyInfoManager = NULL;
@@ -38,7 +37,7 @@ Key::Key(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "Key::Key() : Invalid item type or option type");
-		throw("Key::Key() : Invalid item type or optionType");
+		throw ("Key::Key() : Invalid item type or optionType");
 	}
 }
 
@@ -105,7 +104,7 @@ void Key::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE KeyObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE KeyObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -146,8 +145,8 @@ void Key::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE KeyObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Target=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Target, m_ItemID);
+		pStmt->executeQuery( "UPDATE KeyObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Target=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Target, m_ItemID );
 		
 		SAFE_DELETE(pStmt);
 	}
@@ -163,18 +162,18 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) throw(Error)
 	ItemID_t targetID = 0;
 
 	// 타겟이 0이 아니라도 타겟이 없으면 새 모터사이클을 넣어야 된다.
-//	Assert(getTarget() == 0);
-	Assert(pSlayer != NULL);
+//	Assert( getTarget() == 0 );
+	Assert( pSlayer != NULL );
 	Zone* pZone = pSlayer->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	KeyInfo* pKeyInfo = dynamic_cast<KeyInfo*>(g_pItemInfoManager->getItemInfo(getItemClass(), getItemType() ));
-	Assert(pKeyInfo != NULL);
+	KeyInfo* pKeyInfo = dynamic_cast<KeyInfo*>(g_pItemInfoManager->getItemInfo( getItemClass(), getItemType() ));
+	Assert( pKeyInfo != NULL );
 
 	list<OptionType_t> option;
 	ItemType_t motorcycleType = pKeyInfo->getTargetType();
 
-	if (pKeyInfo->getOptionType() != 0 ) option.push_back(pKeyInfo->getOptionType());
+	if ( pKeyInfo->getOptionType() != 0 ) option.push_back( pKeyInfo->getOptionType() );
 
 	Item* pMotorcycle = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_MOTORCYCLE, motorcycleType, option);
 	Assert(pMotorcycle != NULL);
@@ -201,7 +200,7 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) throw(Error)
 	END_DB(pStmt)
 
 	// log
-	filelog("motorcycle.txt", "[SetTargetID] Owner = %s, KeyID = %lu, Key's targetID = %lu, MotorcycleID = %lu", pSlayer->getName().c_str(), getItemID(), getTarget(), pMotorcycle->getItemID());
+	filelog("motorcycle.txt", "[SetTargetID] Owner = %s, KeyID = %lu, Key's targetID = %lu, MotorcycleID = %lu", pSlayer->getName().c_str(), getItemID(), getTarget(), pMotorcycle->getItemID() );
 
 	// 밑에서 pMotorcycle을 사용해도 되겠지만, 기존 코드 안 건드릴려고 여기서 지운다.
 	SAFE_DELETE(pMotorcycle);
@@ -378,8 +377,8 @@ void KeyLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Target FROM KeyObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Target FROM KeyObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -431,18 +430,6 @@ void KeyLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pKey);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pKey))
 						{
 							pInventory->addItemEx(x, y, pKey);

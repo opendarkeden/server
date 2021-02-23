@@ -7,7 +7,7 @@
 #include "ClientManager.h"
 #include "Socket.h"
 #include "ThreadManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "ThreadPool.h"
 #include "ServerSocket.h"
 #include "Properties.h"
@@ -27,7 +27,7 @@
 #include "LocalIP.h"
 #include <list>
 
-//#include "TOpackets/GTOAcknowledgement.h"
+#include "TOpackets/GTOAcknowledgement.h"
 #include "LoginServerManager.h"
 
 ClientManager* g_pClientManager = NULL;
@@ -37,7 +37,7 @@ ClientManager* g_pClientManager = NULL;
 // 하위 매니저 객체를 생성한다.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::ClientManager ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ ClientManager::ClientManager ()
 	Assert(g_pIncomingPlayerManager != NULL);
 
 	// 다음에 ZoneGroup을 Balancing할 시간을 지정한다.
-	getCurrentTime(m_BalanceZoneGroupTime);
+	getCurrentTime( m_BalanceZoneGroupTime );
 	m_BalanceZoneGroupTime.tv_sec += 5*60;//g_pVariableManager->getZoneGroupBalancingMinute()*60;
 	m_bForceZoneGroupBalancing = false;
 	m_bDefaultZoneGroupBalancing = false;
@@ -61,7 +61,7 @@ ClientManager::ClientManager ()
 // 하위 매니저 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::~ClientManager ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ ClientManager::~ClientManager ()
 // 하위 매니저 객체를 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::init ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 
@@ -88,7 +88,7 @@ void ClientManager::init ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::stop ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void ClientManager::stop ()
 // accept new connection
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::run ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -112,11 +112,11 @@ void ClientManager::run ()
 
 	//VSTime vstime;
 	Timeval dummyQueryTime;
-	getCurrentTime(dummyQueryTime);
+	getCurrentTime( dummyQueryTime );
 
-#ifdef __CHINA_SERVER__
+#if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 	Timeval theOneAckTime;
-	getCurrentTime(theOneAckTime);
+	getCurrentTime( theOneAckTime );
 //	theOneAckTime.tv_sec += 198 * 60;
 	theOneAckTime.tv_sec += (10 + rand()%20) * 60;
 
@@ -209,35 +209,36 @@ void ClientManager::run ()
 
 		if (dummyQueryTime < currentTime)
 		{
-			g_pDatabaseManager->executeDummyQuery(g_pDatabaseManager->getDistConnection("PLAYERDB"));
+			g_pDatabaseManager->executeDummyQuery( g_pDatabaseManager->getDistConnection("PLAYERDB") );
 
 			// 1시간 ~ 1시간 30분 사이에서 dummy query 시간을 설정한다.
 			// timeout이 되지 않게 하기 위해서이다.
 			dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 		}
 
-#if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
-		if (theOneAckTime < currentTime )
+#if	defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__)
+		if ( theOneAckTime < currentTime )
 		{
 			list<string> ips = getLocalIP();
 			list<string>::iterator itr = ips.begin();
 			list<string>::iterator endItr = ips.end();
 
-//			for (; itr != endItr ; ++itr )
-//			{
-                //string& myIP = *itr;
+			for ( ; itr != endItr ; ++itr )
+			{
+				string& myIP = *itr;
+//				cout << "My IP Address is : " << myIP << endl;
 
-                //GTOAcknowledgement GTO;
-                //GTO.setServerIP(myIP);
-                //GTO.setServerType(0);
-                //GTO.setUDPPort(g_pConfig->getPropertyInt("GameServerUDPPort"));
+				GTOAcknowledgement GTO;
+				GTO.setServerIP( myIP );
+				GTO.setServerType( 0 );
+				GTO.setUDPPort(g_pConfig->getPropertyInt("GameServerUDPPort") );
 
-				//g_pLoginServerManager->sendPacket("61.78.53.244", 9981, &GTO);
-                //g_pLoginServerManager->sendPacket("61.78.53.244", 19982, &GTO);
-//			}
+				//g_pLoginServerManager->sendPacket( "61.78.53.244", 9981, &GTO );
+				g_pLoginServerManager->sendPacket( "61.78.53.244", 19982, &GTO );
+			}
 
-			//theOneAckTime.tv_sec += (180 + rand()%300 ) * 60;
-			theOneAckTime.tv_sec += (60 + rand()%120 ) * 60;
+			//theOneAckTime.tv_sec += ( 180 + rand()%300 ) * 60;
+			theOneAckTime.tv_sec += ( 60 + rand()%120 ) * 60;
 		}
 #endif
 
@@ -308,6 +309,7 @@ void ClientManager::run ()
 
 		// CPU 점유율을 줄이기 위해 0.001초 동안 쉰다.
 	} //while
+
 	__END_DEBUG
 	__END_CATCH
 }
@@ -325,13 +327,13 @@ void    ClientManager::setBalanceZoneGroup(int afterMinutes, bool bForce, bool b
 //
 //--------------------------------------------------------------------------------
 void ClientManager::addEvent (Event* pEvent)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	addEvent_LOCKED(pEvent);
+	addEvent_LOCKED( pEvent );
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
@@ -343,7 +345,7 @@ void ClientManager::addEvent (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 void ClientManager::addEvent_LOCKED (Event* pEvent)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -359,7 +361,7 @@ void ClientManager::addEvent_LOCKED (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 bool ClientManager::deleteEvent (Event::EventClass EClass)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -378,7 +380,7 @@ bool ClientManager::deleteEvent (Event::EventClass EClass)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ClientManager::toString () const
-	   throw(Error)
+	   throw (Error)
 {
 	__BEGIN_TRY
 

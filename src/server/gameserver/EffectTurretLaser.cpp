@@ -10,14 +10,12 @@
 #include "Creature.h"
 #include "SkillUtil.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCAddEffectToTile.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectTurretLaser::EffectTurretLaser(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
+EffectTurretLaser::EffectTurretLaser( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -36,11 +34,11 @@ void EffectTurretLaser::affect()
 {
 	__BEGIN_TRY
 
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
-	setNextTime(5);
+	setNextTime( 5 );
 
-	affect(m_pZone, m_X, m_Y);
+	affect( m_pZone, m_X, m_Y );
 	
 	__END_CATCH
 }
@@ -52,34 +50,34 @@ void EffectTurretLaser::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
 {
 	__BEGIN_TRY
 
-	if (!isValidZoneCoord(pZone, Cx, Cy ) ) return;
+	if ( !isValidZoneCoord( pZone, Cx, Cy ) ) return;
 	Tile& rTile = pZone->getTile(Cx, Cy);
-	list<Object*>& oList = rTile.getObjectList();
-	list<Object*>::iterator itr = oList.begin();
+	slist<Object*>& oList = rTile.getObjectList();
+	slist<Object*>::iterator itr = oList.begin();
 
-	for (; itr != oList.end(); ++itr )
+	for ( ; itr != oList.end(); ++itr )
 	{
 		Object* pObject = *itr;
-		if (pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+		if ( pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 
 		Creature* pCreature = dynamic_cast<Creature*>(pObject);
-		if (pCreature->isMonster() || pCreature->isFlag(Effect::EFFECT_CLASS_SIEGE_REINFORCE ) || pCreature->isFlag(Effect::EFFECT_CLASS_SIEGE_DEFENDER ) )
+		if ( pCreature->isMonster() || pCreature->isFlag( Effect::EFFECT_CLASS_SIEGE_REINFORCE ) || pCreature->isFlag( Effect::EFFECT_CLASS_SIEGE_DEFENDER ) )
 			continue;
 
 		GCModifyInformation gcMI;
 
-		setDamage(pCreature, 50, NULL, SKILL_ATTACK_MELEE, &gcMI, NULL, true);
-		if (pCreature->isPC() ) pCreature->getPlayer()->sendPacket(&gcMI);
+		setDamage( pCreature, 50, NULL, SKILL_ATTACK_MELEE, &gcMI, NULL, true );
+		if ( pCreature->isPC() ) pCreature->getPlayer()->sendPacket( &gcMI );
 
 		GCAddEffectToTile gcAE;
 		gcAE.setObjectID(0);
 		gcAE.setDuration(2);
-		gcAE.setEffectID(Effect::EFFECT_CLASS_TURRET_LASER_ATTACK);
+		gcAE.setEffectID( Effect::EFFECT_CLASS_TURRET_LASER_ATTACK );
 
-		for (int i=-1; i<=1; ++i )
+		for ( int i=-1; i<=1; ++i )
 		{
-			gcAE.setXY(Cx+i, Cy+i);
-			pZone->broadcastPacket(Cx+i, Cy+i, &gcAE);
+			gcAE.setXY( Cx+i, Cy+i );
+			pZone->broadcastPacket( Cx+i, Cy+i, &gcAE );
 		}
 	}
 
@@ -93,8 +91,8 @@ void EffectTurretLaser::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 	
 	__END_CATCH
 }

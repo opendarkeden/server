@@ -11,10 +11,9 @@
 #include "Socket.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Packet.h"
 //#include "PacketFactoryManager.h"
-#include "zlog.h"
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -22,29 +21,33 @@
 //
 //////////////////////////////////////////////////////////////////////
 Player::Player ()
-	 throw(Error )
+	 throw ( Error )
 : m_pSocket(NULL), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
+//add by viva
+	//pHashTable = NULL;
 }
 
-Player::Player (Socket * pSocket )
-	 throw(Error )
+Player::Player ( Socket * pSocket )
+	 throw ( Error )
 : m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
 		
-	Assert(m_pSocket != NULL);
+	Assert( m_pSocket != NULL );
 
 	// create socket input stream
-	m_pInputStream = new SocketInputStream(m_pSocket);
+	m_pInputStream = new SocketInputStream( m_pSocket );
 
-	Assert(m_pInputStream != NULL);
+	Assert( m_pInputStream != NULL );
 	
 	// create socket output stream
-	m_pOutputStream = new SocketOutputStream(m_pSocket);
+	m_pOutputStream = new SocketOutputStream( m_pSocket );
 
-	Assert(m_pOutputStream != NULL);
+	Assert( m_pOutputStream != NULL );
 
+//add by viva
+	//pHashTable = NULL;
 	__END_CATCH
 }
 
@@ -55,7 +58,7 @@ Player::Player (Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 Player::~Player ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -66,13 +69,19 @@ Player::~Player ()
 	SAFE_DELETE(m_pOutputStream);
 
 	// delete socket
-	if (m_pSocket != NULL ) 
+	if ( m_pSocket != NULL ) 
 	{
 		m_pSocket->close();
 		delete m_pSocket;
 		m_pSocket = NULL;
 	}
-
+//add by viva
+	/*if(pHashTable!=NULL)
+	{
+		delete[] pHashTable;
+		pHashTable = NULL;
+	}*/
+//end
 	__END_CATCH
 }
 
@@ -83,7 +92,7 @@ Player::~Player ()
 //
 //////////////////////////////////////////////////////////////////////
 void Player::processInput ()
-	throw(IOException , Error )
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -93,7 +102,7 @@ void Player::processInput ()
 	} 
 	catch (NonBlockingIOException& nbie) 
 	{
-        dzlog_error("%s\n", nbie.toString().c_str());
+		//cout << nbie.toString().c_str() << endl;
 	}
 
 	__END_CATCH
@@ -105,8 +114,8 @@ void Player::processInput ()
 // parse packet and execute handler for the packet
 //
 //////////////////////////////////////////////////////////////////////
-void Player::processCommand (bool Option ) 
-     throw(IOException , Error )
+void Player::processCommand ( bool Option ) 
+     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -120,58 +129,58 @@ void Player::processCommand (bool Option )
 		Packet * pPacket;
 
 		// 입력버퍼에 들어있는 완전한 패킷들을 모조리 처리한다.
-		while (true ) {
+		while ( true ) {
 		
 			// 입력스트림에서 패킷헤더크기만큼 읽어본다.
 			// 만약 지정한 크기만큼 스트림에서 읽을 수 없다면,
 			// Insufficient 예외가 발생하고, 루프를 빠져나간다.
-			m_pInputStream->peek(header , szPacketHeader);
+			m_pInputStream->peek( header , szPacketHeader );
 
 			// 패킷아이디 및 패킷크기를 알아낸다.
 			// 이때 패킷크기는 헤더를 포함한다.
-			memcpy(&packetID   , &header[0] , szPacketID);	
-			memcpy(&packetSize , &header[szPacketID] , szPacketSize);
+			memcpy( &packetID   , &header[0] , szPacketID );	
+			memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 
 			// 패킷 아이디가 이상하면 프로토콜 에러로 간주한다.
-			if (packetID >= Packet::PACKET_MAX )
+			if ( packetID >= Packet::PACKET_MAX )
 				throw InvalidProtocolException("invalid packet id");
 			
 			// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
-			if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
+			if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 				throw InvalidProtocolException("too large packet size");
 			
 			// 입력버퍼내에 패킷크기만큼의 데이타가 들어있는지 확인한다.
 			// 최적화시 break 를 사용하면 된다. (여기서는 일단 exception을 쓸 것이다.)
-			if (m_pInputStream->length() < szPacketHeader + packetSize )
+			if ( m_pInputStream->length() < szPacketHeader + packetSize )
 				throw InsufficientDataException();
 			
 			// 여기까지 왔다면 입력버퍼에는 완전한 패킷 하나 이상이 들어있다는 뜻이다.
 			// 패킷팩토리매니저로부터 패킷아이디를 사용해서 패킷 스트럭처를 생성하면 된다.
 			// 패킷아이디가 잘못될 경우는 패킷팩토리매니저에서 처리한다.
-			pPacket = g_pPacketFactoryManager->createPacket(packetID);
+			pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
 			// 이제 이 패킷스트럭처를 초기화한다.
 			// 패킷하위클래스에 정의된 read()가 virtual 메커니즘에 의해서 호출되어
 			// 자동적으로 초기화된다.
-			m_pInputStream->read(pPacket);
+			m_pInputStream->read( pPacket );
 			
 			// 이제 이 패킷스트럭처를 가지고 패킷핸들러를 수행하면 된다.
 			// 패킷아이디가 잘못될 경우는 패킷핸들러매니저에서 처리한다.
-			pPacket->execute(this);
+			pPacket->execute( this );
 			
 			// 패킷을 삭제한다
 			delete pPacket;
 
 		}
 
-	} catch (NoSuchElementException & nsee ) {
+	} catch ( NoSuchElementException & nsee ) {
 
 		// PacketFactoryManager::createPacket(PacketID_t)
 		// PacketFactoryManager::getPacketMaxSize(PacketID_t)
 		// 에서 던질 가능성이 있다.
-		throw Error(nsee.toString());
+		throw Error( nsee.toString() );
 
-	} catch (InsufficientDataException ) {
+	} catch ( InsufficientDataException ) {
 
 		// do nothing
 
@@ -187,7 +196,7 @@ void Player::processCommand (bool Option )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::processOutput ()
-	throw(IOException , Error, ProtocolException )
+	throw ( IOException , Error, ProtocolException )
 {
 	__BEGIN_TRY
 
@@ -195,7 +204,7 @@ void Player::processOutput ()
 	{
 		m_pOutputStream->flush();
 	} 
-	catch (InvalidProtocolException & t ) 
+	catch ( InvalidProtocolException & t ) 
 	{
 		cerr << t.toString() << endl;
 		throw InvalidProtocolException("Player::processOutput에서 상위로 던진다 누가 받노?");
@@ -210,13 +219,13 @@ void Player::processOutput ()
 // send packet to player's output buffer
 //
 //////////////////////////////////////////////////////////////////////
-void Player::sendPacket (Packet * pPacket )
-	throw(ProtocolException , Error )
+void Player::sendPacket ( Packet * pPacket )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	if (m_pOutputStream!=NULL)	// -_-;
-		m_pOutputStream->writePacket(pPacket);
+		m_pOutputStream->writePacket( pPacket );
 
 	/*
 	cout << endl;
@@ -233,13 +242,13 @@ void Player::sendPacket (Packet * pPacket )
 // send stream to player's output buffer
 //
 //////////////////////////////////////////////////////////////////////
-void Player::sendStream (SocketOutputStream* pOutputStream )
-	throw(ProtocolException , Error )
+void Player::sendStream ( SocketOutputStream* pOutputStream )
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	if (m_pOutputStream!=NULL)
-		m_pOutputStream->write(pOutputStream->getBuffer(), pOutputStream->length());
+		m_pOutputStream->write( pOutputStream->getBuffer(), pOutputStream->length() );
 
 	__END_CATCH
 }
@@ -247,11 +256,11 @@ void Player::sendStream (SocketOutputStream* pOutputStream )
 
 //////////////////////////////////////////////////////////////////////
 //
-// disconnect (close socket )
+// disconnect ( close socket )
 //
 //////////////////////////////////////////////////////////////////////
-void Player::disconnect (bool bDisconnected )
-	throw(InvalidProtocolException, Error)
+void Player::disconnect ( bool bDisconnected )
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -260,14 +269,14 @@ void Player::disconnect (bool bDisconnected )
 		// 정당하게 로그아웃한 경우에는 출력 버퍼를 플러시할 수 있다.
 		// 그러나, 불법적인 디스를 걸었다면 소켓이 닫겼으므로
 		// 플러시할 경우 SIG_PIPE 을 받게 된다.
-		if (bDisconnected == UNDISCONNECTED ) 
+		if ( bDisconnected == UNDISCONNECTED ) 
 		{
 			m_pOutputStream->flush();
 		}
 
 		m_pSocket->close();
 	} 
-	catch (InvalidProtocolException & t ) 
+	catch ( InvalidProtocolException & t ) 
 	{
 		cerr << "Player::disconnect Exception Check!!" << endl;
 		cerr << t.toString() << endl;
@@ -282,22 +291,22 @@ void Player::disconnect (bool bDisconnected )
 //////////////////////////////////////////////////////////////////////
 // set socket
 //////////////////////////////////////////////////////////////////////
-void Player::setSocket (Socket * pSocket )
-	throw()
+void Player::setSocket ( Socket * pSocket )
+	throw ()
 {
 	__BEGIN_TRY
 
 	m_pSocket = pSocket;
 
-	if (m_pInputStream != NULL ) 
+	if ( m_pInputStream != NULL ) 
 	{
 		delete m_pInputStream;
-		m_pInputStream = new SocketInputStream(m_pSocket);
+		m_pInputStream = new SocketInputStream( m_pSocket );
 	}
 
-	if (m_pOutputStream != NULL ) {
+	if ( m_pOutputStream != NULL ) {
 		delete m_pOutputStream;
-		m_pOutputStream = new SocketOutputStream(m_pSocket);
+		m_pOutputStream = new SocketOutputStream( m_pSocket );
 	}
 
 	__END_CATCH
@@ -309,7 +318,7 @@ void Player::setSocket (Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 string Player::toString () const
-       throw(Error )
+       throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -325,3 +334,30 @@ string Player::toString () const
 
 	__END_CATCH
 }
+
+//add by viva 2008-12-31
+/*void Player::setKey(WORD EncryptKey, WORD HashKey) throw()
+{
+	__BEGIN_TRY
+	if(pHashTable!=NULL)
+	{
+		if(EncryptKey == 0xAEB7 && HashKey == 0x9B3E)
+			exit(0);
+	}	
+	pHashTable = new BYTE[512];
+	BYTE key = (HashKey + 4658)&0x00FF;
+	for(int i = 0; i<512; i++)
+	{
+		key = (key+0xCC)^(key * 0x3)^key;
+		pHashTable[i] = key;
+	}
+
+	EncryptKey = EncryptKey % 512;
+	if( m_pInputStream != NULL)
+		m_pInputStream->setKey(EncryptKey, pHashTable);
+	if( m_pOutputStream != NULL)
+		m_pOutputStream->setKey(EncryptKey, pHashTable);
+
+	__END_CATCH
+}*/
+//end

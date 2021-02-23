@@ -22,15 +22,15 @@ public:
 		REGEN_ZONE_DEFAULT
 	};
 
-	RegenZoneInfo(uint ID, MonsterCorpse* pTower, uint Owner ) : m_ID(ID), m_pRegenZoneTower(pTower) { Assert(Owner < 4); m_Owner = (RegenZoneIndex)Owner; }
+	RegenZoneInfo( uint ID, MonsterCorpse* pTower, uint Owner ) : m_ID(ID), m_pRegenZoneTower(pTower) { Assert( Owner < 4 ); m_Owner = (RegenZoneIndex)Owner; }
 	uint getID() const { return m_ID; }
 	MonsterCorpse* getTower() const { return m_pRegenZoneTower; }
 
 	RegenZoneIndex getOwner() const { return m_Owner; }
-	void setOwner(RegenZoneIndex owner ) { m_Owner = owner; }
+	void setOwner( RegenZoneIndex owner ) { m_Owner = owner; }
 
 	RegenZoneIndex getOriginalOwner() const { return m_OriginalOwner; }
-	void setOriginalOwner(RegenZoneIndex owner ) { m_OriginalOwner = owner; }
+	void setOriginalOwner( RegenZoneIndex owner ) { m_OriginalOwner = owner; }
 
 	void putTryingPosition() throw(Error);
 	void deleteTryingPosition() throw(Error);
@@ -60,12 +60,12 @@ public:
 	void putTryingPosition() throw(Error);
 	void deleteTryingPosition() throw(Error);
 
-	void changeRegenZoneOwner(MonsterCorpse* pTower, Race_t race);
+	void changeRegenZoneOwner( MonsterCorpse* pTower, Race_t race );
 
-	bool canTryRegenZone(PlayerCreature* pPC, MonsterCorpse* pTower);
-	bool canRegen(PlayerCreature* pPC, uint ID);
+	bool canTryRegenZone( PlayerCreature* pPC, MonsterCorpse* pTower );
+	bool canRegen( PlayerCreature* pPC, uint ID );
 
-	void regeneratePC(PlayerCreature* pPC, uint ID);
+	void regeneratePC( PlayerCreature* pPC, uint ID );
 
 	void broadcastStatus();
 	GCRegenZoneStatus* getStatusPacket() const { return m_pStatusPacket; }

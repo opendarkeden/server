@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectRecallMotorcycle.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
@@ -20,7 +20,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectRecallMotorcycle::EffectRecallMotorcycle (Zone* pZone , ZoneCoord_t sx, ZoneCoord_t sy, Zone* pTargetZone, ZoneCoord_t x , ZoneCoord_t y , Item* pItem , ObjectID_t ownerOID, Turn_t delay) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pItem,delay), m_OwnerOID(ownerOID)
 {
 	__BEGIN_TRY
@@ -49,7 +49,7 @@ EffectRecallMotorcycle::EffectRecallMotorcycle (Zone* pZone , ZoneCoord_t sx, Zo
 // destructor
 //----------------------------------------------------------------------
 EffectRecallMotorcycle::~EffectRecallMotorcycle () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -60,9 +60,11 @@ EffectRecallMotorcycle::~EffectRecallMotorcycle ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectRecallMotorcycle::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
+
+	//cout << "EffectRecallMotorcycle unaffect" << endl;
 
 	Zone* pZone = m_pZone;
 	ZoneCoord_t x = m_X;
@@ -100,28 +102,29 @@ void EffectRecallMotorcycle::unaffect ()
 
 					if (pZone->getZoneGroup()==m_pTargetZone->getZoneGroup())
 					{
-						m_pTargetZone->addItem(pTempItem, x, y);
+						m_pTargetZone->addItem( pTempItem, x, y );
 
 						Slayer* pOwner = dynamic_cast<Slayer*>((m_pTargetZone->getCreature(m_OwnerOID)));
-						if (pOwner != NULL )
+						if ( pOwner != NULL )
 						{
-							EffectRideMotorcycle* pEffect = new EffectRideMotorcycle(pOwner, pTempItem, x, y);
+							EffectRideMotorcycle* pEffect = new EffectRideMotorcycle( pOwner, pTempItem, x, y );
 							pEffect->setDeadline(0);
-							m_pTargetZone->registerObject(pEffect);
-							m_pTargetZone->addEffect(pEffect);
+							m_pTargetZone->registerObject( pEffect );
+							m_pTargetZone->addEffect( pEffect );
 						}
 					}
 					else
 					{
+						//cout << "Zone->addItemDelayed" << endl;
 						m_pTargetZone->addItemDelayed(pTempItem, x, y);
 
 						Slayer* pOwner = dynamic_cast<Slayer*>((m_pTargetZone->getCreature(m_OwnerOID)));
-						if (pOwner != NULL )
+						if ( pOwner != NULL )
 						{
-							EffectRideMotorcycle* pEffect = new EffectRideMotorcycle(pOwner, pTempItem, x, y);
+							EffectRideMotorcycle* pEffect = new EffectRideMotorcycle( pOwner, pTempItem, x, y );
 							pEffect->setDeadline(0);
-							m_pTargetZone->registerObject(pEffect);
-							m_pTargetZone->addEffect_LOCKING(pEffect);
+							m_pTargetZone->registerObject( pEffect );
+							m_pTargetZone->addEffect_LOCKING( pEffect );
 						}
 					}
 				}
@@ -140,7 +143,7 @@ void EffectRecallMotorcycle::unaffect ()
 // get debug string
 //----------------------------------------------------------------------
 string EffectRecallMotorcycle::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

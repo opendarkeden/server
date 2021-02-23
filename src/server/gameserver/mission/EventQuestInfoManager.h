@@ -7,7 +7,7 @@ class EventQuestInfoManager : public QuestInfoManager
 {
 public:
 	EventQuestInfoManager(NPC* pNPC) : QuestInfoManager(pNPC) { }
-	virtual ~EventQuestInfoManager() throw() { }
+	virtual ~EventQuestInfoManager() { }
 
 public:
 	void	load(const string& name) throw(Error);

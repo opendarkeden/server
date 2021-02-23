@@ -29,8 +29,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -98,10 +98,10 @@ public:
 	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
 
     virtual ElementalType getElementalType() const { return m_ElementalType; }
-	void setElementalType(ElementalType elementalType ) { m_ElementalType = elementalType; }
+	void setElementalType( ElementalType elementalType ) { m_ElementalType = elementalType; }
 
 	virtual Elemental_t getElemental() const { return m_Elemental; }
-	void setElemental(Elemental_t elemental ) { m_Elemental = elemental; }
+	void setElemental( Elemental_t elemental ) { m_Elemental = elemental; }
 
 	virtual string toString() const throw();
 

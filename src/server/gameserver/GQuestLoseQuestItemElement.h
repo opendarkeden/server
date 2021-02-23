@@ -8,7 +8,7 @@ class GQuestLoseQuestItemElement : public GQuestElement
 public:
 	GQuestLoseQuestItemElement() : m_ItemType(0) { }
 	string 				getElementName() const { return "LoseQuestItem"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestLoseQuestItemElement*	makeElement(XMLTree* pTree);
 
 private:

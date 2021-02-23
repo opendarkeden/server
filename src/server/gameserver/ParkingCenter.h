@@ -12,7 +12,7 @@
 #include "Zone.h"
 #include "item/Motorcycle.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 #include <list>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -80,11 +80,11 @@ public:
 	MotorcycleBox* getMotorcycleBox(ItemID_t keyTargetID) const throw(NoSuchElementException, Error);
 
 	// 주로 RemoveMotorcycles를 처리해준다. by sigi. 2003.2.26
-	void	heartbeat() throw(Error);
+	void	heartbeat() throw (Error);
 
 private:
 	// 여기서 ItemID_t는 오토바이의 ItemID를 말한다.
-	map< ItemID_t, MotorcycleBox* > 	m_Motorcycles;
+	hash_map< ItemID_t, MotorcycleBox* > 	m_Motorcycles;
 	list< MotorcycleBox* > 					m_RemoveMotorcycles;
 
 	mutable Mutex m_Mutex;

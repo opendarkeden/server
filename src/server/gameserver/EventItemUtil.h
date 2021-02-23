@@ -17,8 +17,8 @@ enum MoonCard
 	NEW_MOON
 };
 
-MoonCard getCardKind(PlayerCreature* pPC, Monster* pMonster);
-Item* getCardItem(MoonCard card);
+MoonCard getCardKind( PlayerCreature* pPC, Monster* pMonster );
+Item* getCardItem( MoonCard card );
 
 enum LuckyBag
 {
@@ -29,8 +29,8 @@ enum LuckyBag
 	RED_LUCKY_BAG
 };
 
-LuckyBag getLuckyBagKind(PlayerCreature* pPC, Monster* pMonster);
-Item* getLuckyBagItem(LuckyBag luckybag);
+LuckyBag getLuckyBagKind( PlayerCreature* pPC, Monster* pMonster );
+Item* getLuckyBagItem( LuckyBag luckybag );
 
 enum GiftBox
 {
@@ -41,11 +41,11 @@ enum GiftBox
 	YELLOW_GIFT_BOX
 };
 
-GiftBox getGiftBoxKind(PlayerCreature* pPC, Monster* pMonster);
-Item* getGiftBoxItem(GiftBox giftbox);
+GiftBox getGiftBoxKind( PlayerCreature* pPC, Monster* pMonster );
+Item* getGiftBoxItem( GiftBox giftbox );
 
-int getBlackGiftBoxType(int t1, int t2);
-bool canGiveEventItem(PlayerCreature* pPC, Monster* pMonster);
+int getBlackGiftBoxType( int t1, int t2);
+bool canGiveEventItem( PlayerCreature* pPC, Monster* pMonster );
 
 enum NewYear2005Item
 {
@@ -58,8 +58,8 @@ enum NewYear2005Item
 	EVENT_MUGWORT_RICE_CAKE_SOUP,
 };
 
-NewYear2005Item getNewYear2005ItemKind(PlayerCreature* pPC, Monster* pMonster);
-Item* getNewYear2005Item(NewYear2005Item kind);
+NewYear2005Item getNewYear2005ItemKind( PlayerCreature* pPC, Monster* pMonster );
+Item* getNewYear2005Item( NewYear2005Item kind );
 
 void logEventItemCount(Item* pEventItem) throw(Error);
 

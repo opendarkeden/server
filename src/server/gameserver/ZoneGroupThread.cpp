@@ -6,13 +6,13 @@
 
 #include "ZoneGroupThread.h"
 #include "ZonePlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "DB.h"
 #include "VSDateTime.h"
 #include "Properties.h"
 #include "Profile.h"
 #include "Timeval.h"
-#include "GMServerInfo.h"
+#include "Gpackets/GMServerInfo.h"
 
 //#define __FULL_PROFILE__
 
@@ -27,7 +27,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroupThread::ZoneGroupThread (ZoneGroup* pZoneGroup) 
-	throw()
+	throw ()
 : m_pZoneGroup(pZoneGroup)
 {
 	__BEGIN_TRY
@@ -38,7 +38,7 @@ ZoneGroupThread::ZoneGroupThread (ZoneGroup* pZoneGroup)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroupThread::~ZoneGroupThread () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -49,7 +49,7 @@ ZoneGroupThread::~ZoneGroupThread ()
 // 를 할 필요가 없다. 즉 모든 예외를 잡아서 처리해야 한다는 소리.
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroupThread::run () 
-	throw()
+	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -58,28 +58,29 @@ void ZoneGroupThread::run ()
 	string user     = g_pConfig->getProperty("DB_USER");
 	string password = g_pConfig->getProperty("DB_PASSWORD");
 	uint port		= 0;
-	if (g_pConfig->hasKey("DB_PORT") )
+	if ( g_pConfig->hasKey("DB_PORT") )
 		port = g_pConfig->getPropertyInt("DB_PORT");
 
 	Connection* pConnection = new Connection(host, db, user, password, port);
-    g_pDatabaseManager->addConnection(Thread::self(), pConnection);
-	//cout << "******************************************************" << endl;
-	//cout << "THREAD CONNECT DB" << endl;
-	//cout << "******************************************************" << endl;
+	g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+	cout << "******************************************************" << endl;
+	cout << " THREAD CONNECT DB " << endl;
+	cout << "******************************************************" << endl;
 
 	string dist_host     = g_pConfig->getProperty("UI_DB_HOST");
 	string dist_db       = "DARKEDEN";
 	string dist_user     = g_pConfig->getProperty("UI_DB_USER");
 	string dist_password = g_pConfig->getProperty("UI_DB_PASSWORD");
 	uint dist_port		= 0;
-	if (g_pConfig->hasKey("UI_DB_PORT") )
+	if ( g_pConfig->hasKey("UI_DB_PORT") )
 		dist_port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 	Connection* pDistConnection = new Connection(dist_host, dist_db, dist_user, dist_password, dist_port);
-    g_pDatabaseManager->addDistConnection((Thread::self()), pDistConnection);
-	//cout << "******************************************************" << endl;
-	//cout << "THREAD CONNECT UIIRIBUTION DB " << endl << "TID Number = " << (int)Thread::self() << endl;
-	//cout << "******************************************************" << endl;
+	g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+	cout << "******************************************************" << endl;
+	cout << " THREAD CONNECT UIIRIBUTION DB " << endl;
+	cout << " TID Number = " << (int)Thread::self()<< endl;
+	cout << "******************************************************" << endl;
 
 	/*
 	// Login DB 의 PCRoomDBInfo Table 읽어서 Connection 만들기
@@ -106,7 +107,7 @@ void ZoneGroupThread::run ()
 		Connection * pConnection = new Connection(host, db, user, password);
 		Assert(pConnection!=NULL);
 
-		g_pDatabaseManager->addPCRoomConnection((int)(Thread::self()) , pConnection);
+		g_pDatabaseManager->addPCRoomConnection((int)(Thread::self()) , pConnection );
 	}
 	*/
 
@@ -153,8 +154,8 @@ void ZoneGroupThread::run ()
 
 		if (dummyQueryTime < currentTime)
 		{
-			g_pDatabaseManager->executeDummyQuery(pConnection);
-			g_pDatabaseManager->executeDummyQuery(pDistConnection);
+			g_pDatabaseManager->executeDummyQuery( pConnection );
+			g_pDatabaseManager->executeDummyQuery( pDistConnection );
 
 			// 1시간 ~ 1시간 30분 사이에서 dummy query 시간을 설정한다.
 		    // timeout이 되지 않게 하기 위해서이다.
@@ -169,7 +170,9 @@ void ZoneGroupThread::run ()
 			m_pZoneGroup->makeZoneUserInfo(gmServerInfo); 
 
 			//outputProfileEx(false, false);
-			//(g_ProfileSampleManager.getProfileSampleSet())->outputProfileToFile("Profile", false, false, &gmServerInfo);
+			(g_ProfileSampleManager.getProfileSampleSet())->outputProfileToFile("Profile", false, false,
+																				&gmServerInfo);
+
 			
 			NextTime.tv_sec = currentTime.tv_sec + 10;
 			NextTime.tv_usec = currentTime.tv_usec;
@@ -192,7 +195,7 @@ void ZoneGroupThread::run ()
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ZoneGroupThread::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "ZoneGroupThread("

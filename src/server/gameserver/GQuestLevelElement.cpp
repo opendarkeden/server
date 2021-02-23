@@ -1,9 +1,9 @@
 #include "GQuestLevelElement.h"
 #include "PlayerCreature.h"
 
-bool GQuestLevelMission::isSuccess(PlayerCreature* pPC )
+bool GQuestLevelMission::isSuccess( PlayerCreature* pPC )
 {
-	if (pPC->getLevel() >= m_Goal )
+	if ( pPC->getLevel() >= m_Goal )
 		m_bSuccess = true;
 	else
 		m_bSuccess = false;
@@ -11,21 +11,21 @@ bool GQuestLevelMission::isSuccess(PlayerCreature* pPC )
 	return m_bSuccess;
 }
 
-GQuestElement::ResultType GQuestLevelElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestLevelElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (pPC->getLevel() <= m_Max && pPC->getLevel() >= m_Min ) return OK;
-	else if (m_Index == 0 ) return FAIL;
+	if ( pPC->getLevel() <= m_Max && pPC->getLevel() >= m_Min ) return OK;
+	else if ( m_Index == 0 ) return FAIL;
 
-	if (pPC->getLevel() < m_Min ) return WAIT;
+	if ( pPC->getLevel() < m_Min ) return WAIT;
 	return FAIL;
 }
 
 GQuestElement::ResultType GQuestLevelElement::checkMission(GQuestMission* pStatus) const
 {
 	GQuestLevelMission* pLevelMission = dynamic_cast<GQuestLevelMission*>(pStatus);
-	if (pLevelMission == NULL ) return FAIL;
+	if ( pLevelMission == NULL ) return FAIL;
 
-	if (pLevelMission->isSuccess() ) return OK;
+	if ( pLevelMission->isSuccess() ) return OK;
 	return WAIT;
 }
 

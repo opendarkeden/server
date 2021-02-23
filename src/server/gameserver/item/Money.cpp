@@ -13,7 +13,6 @@
 #include "Stash.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 MoneyInfoManager* g_pMoneyInfoManager = NULL;
@@ -30,14 +29,15 @@ Money::Money()
 {
 }
 
-Money::Money(ItemType_t itemType, const list<OptionType_t>& optionType)
+Money::Money(ItemType_t itemType, const list<OptionType_t>& optionType ,ItemNum_t Num)
 	throw()
 : m_ItemType(itemType), m_Amount(0)
 {
+	m_Num      = Num;
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "Money::Money() : Invalid item type or option type");
-		throw("Money::Money() : Invalid item type or optionType");
+		throw ("Money::Money() : Invalid item type or optionType");
 	}
 }
 
@@ -71,12 +71,18 @@ void Money::create(const string & ownerID, Storage storage, StorageID_t storageI
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		StringStream sql;
-
+/*
 		sql << "INSERT INTO MoneyObject "
-			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Amount)"
+			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Amount )"
 			<< " VALUES(" 
 			<< m_ItemID << ", "
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " << m_Amount << ")";
+*/
+		sql << "INSERT INTO MoneyObject "
+			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Amount, Num )"
+			<< " VALUES(" 
+			<< m_ItemID << ", "
+			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " << m_Amount << ", " << (int)m_Num << ")";
 
 		pStmt->executeQuery(sql.toString());
 
@@ -103,7 +109,7 @@ void Money::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MoneyObject SET %s, Amount=%ld WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE MoneyObject SET %s, Amount=%ld WHERE ItemID=%ld",
 								field, m_Amount, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -144,8 +150,8 @@ void Money::save(const string & ownerID, Storage storage, StorageID_t storageID,
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE MoneyObject SET ObjectID=%ld ,ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Amount=%ld WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Amount, m_ItemID);
+		pStmt->executeQuery( "UPDATE MoneyObject SET ObjectID=%ld ,ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Amount=%ld,Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Amount, (int)m_Num ,m_ItemID);
 
 		SAFE_DELETE(pStmt);
 	}
@@ -319,8 +325,8 @@ void MoneyLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Amount FROM MoneyObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Amount, Num FROM MoneyObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -341,6 +347,7 @@ void MoneyLoader::load(Creature* pCreature)
 				BYTE y = pResult->getBYTE(++i);
 
 				pMoney->setAmount(pResult->getDWORD(++i));
+				pMoney->setNum(pResult->getBYTE(++i));
 
 				Inventory*  pInventory      = NULL;
 				Slayer*     pSlayer         = NULL;
@@ -372,18 +379,6 @@ void MoneyLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pMoney);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pMoney))
 						{
 							pInventory->addItemEx(x, y, pMoney);

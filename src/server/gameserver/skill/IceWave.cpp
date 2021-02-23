@@ -5,11 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "IceWave.h"
-//#include "GCSkillToSelfOK1.h"
-//#include "GCSkillToSelfOK2.h"
+//#include "Gpackets/GCSkillToSelfOK1.h"
+//#include "Gpackets/GCSkillToSelfOK2.h"
 #include "SimpleTileMeleeSkill.h"
 #include "Utility.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -23,28 +23,28 @@ IceWave::IceWave()
 
 	int index=0;
 
-	for (int i=-3; i<=3; ++i )
+	for ( int i=-3; i<=3; ++i )
 	{
-		for (int j=-3; j<=3; ++j )
+		for ( int j=-3; j<=3; ++j )
 		{
-			filelog("IceWave.log", "%d:(%d,%d)", index, i, j);
-			m_pIceWaveMask[index++].set(i, j);
+			filelog("IceWave.log", "%d:(%d,%d)", index, i, j );
+			m_pIceWaveMask[index++].set( i, j );
 		}
 	}
 
-	for (int i=0; i<8; ++i )
+	for ( int i=0; i<8; ++i )
 	{
-		for (int j=1; j<=2; ++j )
+		for ( int j=1; j<=2; ++j )
 		{
 			int ox = dirMoveMask[i].x * j * 3 + dirMoveMask[i].x * 2;
 			int oy = dirMoveMask[i].y * j * 3 + dirMoveMask[i].y * 2;
 
-			for (int k=-1; k<=1; ++k )
+			for ( int k=-1; k<=1; ++k )
 			{
-				for (int l=-1; l<=1; ++l )
+				for ( int l=-1; l<=1; ++l )
 				{
-					filelog("IceWave.log", "%d:(%d,%d)", index, ox+k, oy+l);
-					m_pIceWaveMask[index++].set(ox+k, oy+l);
+					filelog("IceWave.log", "%d:(%d,%d)", index, ox+k, oy+l );
+					m_pIceWaveMask[index++].set( ox+k, oy+l );
 				}
 			}
 		}
@@ -86,10 +86,10 @@ void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		X -= min((int)X, dx);
 		Y -= min((int)Y, dy);
 
-		if (X > pZone->getWidth() ) X = pZone->getWidth()-1;
-		if (Y > pZone->getHeight() ) Y = pZone->getHeight()-1;
+		if ( X > pZone->getWidth() ) X = pZone->getWidth()-1;
+		if ( Y > pZone->getHeight() ) Y = pZone->getHeight()-1;
 
-		pZone->moveFastMonster(pMonster, pMonster->getX(), pMonster->getY(), X, Y, getSkillType());
+		pZone->moveFastMonster( pMonster, pMonster->getX(), pMonster->getY(), X, Y, getSkillType() );
 
 		ZoneCoord_t x = pMonster->getX();
 		ZoneCoord_t y = pMonster->getY();
@@ -121,18 +121,18 @@ void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 			SIMPLE_SKILL_OUTPUT result;
 
-			for (int i=0; i<8; ++i )
+			for ( int i=0; i<8; ++i )
 			{
-				for (int j=0; j<3; ++j )
+				for ( int j=0; j<3; ++j )
 				{
 					int ox = pMonster->getX() + dirMoveMask[i].x * j * 3 + dirMoveMask[i].x * 2;
 					int oy = pMonster->getY() + dirMoveMask[i].y * j * 3 + dirMoveMask[i].y * 2;
 
 					GCAddEffectToTile gcAE;
-					gcAE.setXY(ox, oy);
-					gcAE.setEffectID(Effect::EFFECT_CLASS_ICICLE_AUGER_LARGE);
-					gcAE.setDuration(15);
-					pMonster->getZone()->broadcastPacket(ox, oy, &gcAE);
+					gcAE.setXY( ox, oy );
+					gcAE.setEffectID( Effect::EFFECT_CLASS_ICICLE_AUGER_LARGE );
+					gcAE.setDuration( 15 );
+					pMonster->getZone()->broadcastPacket( ox, oy, &gcAE );
 				}
 			}
 

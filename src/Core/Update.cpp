@@ -12,21 +12,21 @@
 //--------------------------------------------------------------------------------
 // load from file
 //--------------------------------------------------------------------------------
-void Update::load (ifstream & ifile ) 
-	throw(IOException , Error )
+void Update::load ( ifstream & ifile ) 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// load version
 	//--------------------------------------------------------------------------------
-	ifile.read((char *)&m_Version , szVersion);
+	ifile.read( (char *)&m_Version , szVersion );
 	
 	//--------------------------------------------------------------------------------
 	// load update type
 	//--------------------------------------------------------------------------------
 	BYTE updatetype;
-	ifile.read((char *)&updatetype, szBYTE);
+	ifile.read( (char *)&updatetype, szBYTE );
 	m_UpdateType = (UPDATETYPE)updatetype;
 
 	//--------------------------------------------------------------------------------
@@ -34,23 +34,23 @@ void Update::load (ifstream & ifile )
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
 	char buf[maxParameterLen+1];
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// load param size
 		//--------------------------------------------------------------------------------
-		ifile.read((char *)&szParam , szParameterLen);
+		ifile.read( (char *)&szParam , szParameterLen );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// load param value
 		//--------------------------------------------------------------------------------
-		ifile.read(buf , szParam);
+		ifile.read( buf , szParam );
 		buf[szParam] = 0;
 
 		m_Params[i] = buf;
@@ -64,44 +64,44 @@ void Update::load (ifstream & ifile )
 //--------------------------------------------------------------------------------
 // save to file
 //--------------------------------------------------------------------------------
-void Update::save (ofstream & ofile ) const 
-	throw(IOException , Error )
+void Update::save ( ofstream & ofile ) const 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// save update type
 	//--------------------------------------------------------------------------------
-	ofile.write((const char *)&m_Version , szVersion);
+	ofile.write( (const char *)&m_Version , szVersion );
 
 	//--------------------------------------------------------------------------------
 	// save update type
 	//--------------------------------------------------------------------------------
 	BYTE updatetype = m_UpdateType;
-	ofile.write((const char *)&updatetype , szBYTE);
+	ofile.write( (const char *)&updatetype , szBYTE );
 
 	//--------------------------------------------------------------------------------
 	// save parameters
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// save param size
 		//--------------------------------------------------------------------------------
 		szParam = m_Params[i].size();
-		ofile.write((const char *)&szParam , szParameterLen);
+		ofile.write( (const char *)&szParam , szParameterLen );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// save param value
 		//--------------------------------------------------------------------------------
-		ofile.write(m_Params[i].c_str() , szParam);
+		ofile.write( m_Params[i].c_str() , szParam );
 	}
 
 	__END_CATCH
@@ -111,47 +111,47 @@ void Update::save (ofstream & ofile ) const
 //--------------------------------------------------------------------------------
 // read from socket input stream
 //--------------------------------------------------------------------------------
-void Update::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void Update::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// read version
 	//--------------------------------------------------------------------------------
-	iStream.read(m_Version);
+	iStream.read( m_Version );
 	
 	//--------------------------------------------------------------------------------
 	// read update type
 	//--------------------------------------------------------------------------------
 	BYTE updatetype;
-	iStream.read(updatetype);
+	iStream.read( updatetype );
 	m_UpdateType = (UPDATETYPE)updatetype;
 
-	if (m_UpdateType >= UPDATETYPE_MAX )
+	if ( m_UpdateType >= UPDATETYPE_MAX )
 		throw InvalidProtocolException("invalid update type");
 
 	//--------------------------------------------------------------------------------
 	// read parameters
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// read param size
 		//--------------------------------------------------------------------------------
-		iStream.read(szParam);
+		iStream.read( szParam );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// read param value
 		//--------------------------------------------------------------------------------
-		iStream.read(m_Params[i] , szParam);
+		iStream.read( m_Params[i] , szParam );
 		
 	}
 
@@ -162,24 +162,24 @@ void Update::read (SocketInputStream & iStream )
 //--------------------------------------------------------------------------------
 // read from socket
 //--------------------------------------------------------------------------------
-void Update::read (Socket * pSocket ) 
-	throw(IOException , Error )
+void Update::read ( Socket * pSocket ) 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// read version
 	//--------------------------------------------------------------------------------
-	pSocket->receive(&m_Version , szVersion);
+	pSocket->receive( &m_Version , szVersion );
 	
 	//--------------------------------------------------------------------------------
 	// read update type
 	//--------------------------------------------------------------------------------
 	BYTE updatetype;
-	pSocket->receive(&updatetype , szBYTE);
+	pSocket->receive( &updatetype , szBYTE );
 	m_UpdateType = (UPDATETYPE)updatetype;
 
-	if (m_UpdateType >= UPDATETYPE_MAX )
+	if ( m_UpdateType >= UPDATETYPE_MAX )
 		throw InvalidProtocolException("invalid update type");
 
 	//--------------------------------------------------------------------------------
@@ -187,23 +187,23 @@ void Update::read (Socket * pSocket )
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
 	char buf[maxParameterLen+1];
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// read param size
 		//--------------------------------------------------------------------------------
-		pSocket->receive(&szParam , szParameterLen);
+		pSocket->receive( &szParam , szParameterLen );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// read param value
 		//--------------------------------------------------------------------------------
-		pSocket->receive(buf , szParam);
+		pSocket->receive( buf , szParam );
 		buf[szParam] = 0;
 
 		m_Params[i] = buf;
@@ -216,43 +216,43 @@ void Update::read (Socket * pSocket )
 //--------------------------------------------------------------------------------
 // write to socket output stream
 //--------------------------------------------------------------------------------
-void Update::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void Update::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// write version
 	//--------------------------------------------------------------------------------
-	oStream.write(m_Version);
+	oStream.write( m_Version );
 
 	//--------------------------------------------------------------------------------
 	// write update type
 	//--------------------------------------------------------------------------------
-	oStream.write((BYTE)m_UpdateType);
+	oStream.write( (BYTE)m_UpdateType );
 
 	//--------------------------------------------------------------------------------
 	// save parameters
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// save param size
 		//--------------------------------------------------------------------------------
 		szParam = m_Params[i].size();
-		oStream.write(szParam);
+		oStream.write( szParam );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// save param value
 		//--------------------------------------------------------------------------------
-		oStream.write(m_Params[i]);
+		oStream.write( m_Params[i] );
 	}
 
 
@@ -263,44 +263,44 @@ void Update::write (SocketOutputStream & oStream ) const
 //--------------------------------------------------------------------------------
 // write to socket
 //--------------------------------------------------------------------------------
-void Update::write (Socket * pSocket ) const 
-	throw(IOException , Error )
+void Update::write ( Socket * pSocket ) const 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// write version
 	//--------------------------------------------------------------------------------
-	pSocket->send(&m_Version , szVersion);
+	pSocket->send( &m_Version , szVersion );
 	
 	//--------------------------------------------------------------------------------
 	// write update type
 	//--------------------------------------------------------------------------------
 	BYTE updatetype = m_UpdateType;
-	pSocket->send(&updatetype , szBYTE);
+	pSocket->send( &updatetype , szBYTE );
 
 	//--------------------------------------------------------------------------------
 	// write parameters
 	//--------------------------------------------------------------------------------
 	ParameterLen_t szParam;
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
 
 		//--------------------------------------------------------------------------------
 		// write param size
 		//--------------------------------------------------------------------------------
 		szParam = m_Params[i].size();
-		pSocket->send(&szParam , szParameterLen);
+		pSocket->send( &szParam , szParameterLen );
 
-		if (szParam == 0 )
+		if ( szParam == 0 )
 			continue;
 
-		if (szParam > maxParameterLen )
+		if ( szParam > maxParameterLen )
 			throw Error("too large parameter length");
 
 		//--------------------------------------------------------------------------------
 		// write param value
 		//--------------------------------------------------------------------------------
-		pSocket->send(m_Params[i].c_str() , szParam);
+		pSocket->send( m_Params[i].c_str() , szParam );
 	}
 
 
@@ -312,14 +312,14 @@ void Update::write (Socket * pSocket ) const
 // execute update
 //--------------------------------------------------------------------------------
 void Update::execute () 
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
 #ifdef __UPDATE_CLIENT__
 
-	switch (m_UpdateType ) {
+	switch ( m_UpdateType ) {
 		case UPDATETYPE_CREATE_DIRECTORY :
 			{
 			}
@@ -383,13 +383,13 @@ void Update::execute ()
 // get size
 //--------------------------------------------------------------------------------
 uint Update::getSize () const
-	throw()
+	throw ()
 {
 	// [Version] [UpdateType] 
 	uint size = szVersion + szBYTE;
 
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
-		size += (szParameterLen + m_Params[i].size());
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
+		size += ( szParameterLen + m_Params[i].size() );
 	}
 
 	return size;
@@ -400,10 +400,10 @@ uint Update::getSize () const
 // get max size
 //--------------------------------------------------------------------------------
 uint Update::getMaxSize ()
-	throw()
+	throw ()
 {
 	// [Version] [UpdateType] [ParameterLen] [Parameter0] ... [ParameterLen] [Parameter5]
-	return szVersion + szBYTE + (szParameterLen + maxParameterLen ) * maxParams;
+	return szVersion + szBYTE + ( szParameterLen + maxParameterLen ) * maxParams;
 }
 
 
@@ -411,7 +411,7 @@ uint Update::getMaxSize ()
 // get debug string
 //--------------------------------------------------------------------------------
 string Update::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -419,8 +419,8 @@ string Update::toString () const
 		<< "Version:" << m_Version
 		<< ",UpdateType:" << UPDATETYPE2String[ m_UpdateType ];
 
-	for (uint i = 0 ; i < maxParams ; i ++ ) {
-		if (m_Params[i] == "" )
+	for ( uint i = 0 ; i < maxParams ; i ++ ) {
+		if ( m_Params[i] == "" )
 			break;
 		msg << ",Params[" << i << "]:" << m_Params[i];
 	}

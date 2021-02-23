@@ -43,7 +43,7 @@ uint getPointsFromLine(int x1, int y1, int x2, int y2, list<POINT>& rList)
 			}
 			else
 			{
-				rList.push_front(POINT(xCount, (int)Y));
+				rList.push_front( POINT(xCount, (int)Y) );
 				Y += yStep;
 			}
 		}
@@ -65,7 +65,7 @@ uint getPointsFromLine(int x1, int y1, int x2, int y2, list<POINT>& rList)
 			}
 			else
 			{
-				rList.push_front(POINT((int)X, yCount));
+				rList.push_front( POINT((int)X, yCount) );
 				X += xStep;
 			}
 		}

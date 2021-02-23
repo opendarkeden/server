@@ -9,7 +9,7 @@
 #include "Directive.h"
 #include "StringStream.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -150,14 +150,14 @@ void DirectiveSet::clear()
 	__END_CATCH
 }
 
-bool DirectiveSet::hasCondition(int condition ) const
+bool DirectiveSet::hasCondition( int condition ) const
 {
 	list<Directive*>::const_iterator itr = m_Directives.begin();
 	list<Directive*>::const_iterator endItr = m_Directives.end();
 
 	for (; itr != endItr; ++itr)
 	{
-		if ((*itr)->hasCondition(condition) ) return true;
+		if ( (*itr)->hasCondition(condition) ) return true;
 	}
 
 	return false;
@@ -247,7 +247,7 @@ void DirectiveSetManager::load()
 
 	Statement* pStmt   = NULL;
 	Result*    pResult = NULL;
-    cout << "[GAMESERVER] Loading DirectiveSetManager..." << endl;
+
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -255,7 +255,7 @@ void DirectiveSetManager::load()
 		// 셋의 숫자를 읽어온다.
 		pResult = pStmt->executeQuery("SELECT MAX(ID) FROM DirectiveSet");
 
-		if (pResult->getRowCount() == 0) throw("DirectiveSetManager::load() : 테이블에 없습니다.");
+		if (pResult->getRowCount() == 0) throw ("DirectiveSetManager::load() : 테이블에 없습니다.");
 
 		pResult->next();
 		m_nSetCount = pResult->getInt(1)+1;
@@ -263,7 +263,7 @@ void DirectiveSetManager::load()
 		// 읽어들인 숫자만큼 메모리를 할당하고...
 		if (m_ppSet==NULL)
 		{
-			m_ppSet = new DirectiveSet*[m_nSetCount];
+			m_ppSet = new (DirectiveSet*)[m_nSetCount];
 			Assert(m_ppSet != NULL);
 			for (uint i=0; i<m_nSetCount; i++)
 			{
@@ -281,22 +281,22 @@ void DirectiveSetManager::load()
 			string text     = pResult->getString(3);
 			string deadtext = pResult->getString(4);
 
-			//printf("ID[%d] Directive Loading Begin >> ", index);
+			printf("ID[%d] Directive Loading Begin >> ", index);
 
 			////////////////
-			//filelog("Directive.txt", "===============================================");
+			///filelog("Directive.txt", "===============================================");
 			//filelog("Directive.txt", "Name:%s", name.c_str());
 			////////////////
 
 			createDirectiveSet(index, name, text, deadtext);
 
-			//printf("Loading End\n");
+			printf("Loading End\n");
 		}
 
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
-    cout << "[GAMESERVER] DirectiveSetManager loaded." << endl;
+
 	__END_CATCH
 }
 
@@ -351,8 +351,8 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 	string beginToken = "DIRECTIVE BEGIN";
 	string endToken   = "DIRECTIVE END";
-    size_t   start      = 0;
-    size_t   end        = 0;
+	uint   start      = 0;
+	uint   end        = 0;
 
 	while (end < text.size() - 1)
 	{
@@ -380,7 +380,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 		Assert(pDirective != NULL);
 
-        size_t i = 0, j = 0, k = 0;
+		uint i = 0, j = 0, k = 0;
 
 		while (k < directive.size())
 		{
@@ -409,7 +409,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 			else
 			{
 				cerr << "DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER" << endl;
-				throw("DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER");
+				throw ("DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER");
 			}
 		}
 
@@ -451,7 +451,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 			Assert(pDirective != NULL);
 
-            size_t i = 0, j = 0, k = 0;
+			uint i = 0, j = 0, k = 0;
 
 			while (k < directive.size())
 			{
@@ -480,7 +480,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 				else
 				{
 					cerr << "DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER" << endl;
-					throw("DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER");
+					throw ("DirectiveSetManager::createDirectiveSet() : 알 수 없는 IDENTIFIER");
 				}
 			}
 
@@ -488,8 +488,10 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 		}
 	}
 
-	m_ppSet[index]->setAttackAir(m_ppSet[index]->hasCondition(DIRECTIVE_COND_ENEMY_ON_AIR ));
-	m_ppSet[index]->setSeeSafeZone(m_ppSet[index]->hasCondition(DIRECTIVE_COND_ENEMY_ON_SAFE_ZONE ));
+	m_ppSet[index]->setAttackAir( m_ppSet[index]->hasCondition( DIRECTIVE_COND_ENEMY_ON_AIR ) );
+	m_ppSet[index]->setSeeSafeZone( m_ppSet[index]->hasCondition( DIRECTIVE_COND_ENEMY_ON_SAFE_ZONE ) );
+
+	if ( m_ppSet[index]->canSeeSafeZone() ) cout << index << " : can see safe zone" << endl;
 
 	__END_CATCH
 }
@@ -503,8 +505,8 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 {
 	__BEGIN_TRY
 
-    size_t oldpos     = 0;
-    size_t pos        = 0;
+	uint oldpos     = 0;
+	uint pos        = 0;
 	uint paramCount = 0;
 
 	while (oldpos < text.size() && pos < text.size())
@@ -655,7 +657,7 @@ int DirectiveSetManager::getRatio(const string& token)
 	if (rValue < 0 || rValue > 100) 
 	{
 		cerr << "DirectiveSetManager::getRatio() : Invalid ratio value" << endl;
-		throw("DirectiveSetManager::getRatio() : Invalid ratio value");
+		throw ("DirectiveSetManager::getRatio() : Invalid ratio value");
 	}
 
 	return rValue;

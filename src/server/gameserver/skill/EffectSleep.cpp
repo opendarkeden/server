@@ -11,74 +11,74 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
-EffectSleep::EffectSleep(Creature* pCreature )
-	throw(Error )
+EffectSleep::EffectSleep( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	setTarget(pCreature);
+	setTarget( pCreature );
 
 	__END_CATCH
 }
 
 void EffectSleep::affect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
 
-void EffectSleep::affect(Creature* pCreature )
-	throw(Error )
+void EffectSleep::affect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	__END_CATCH
 }
 
-void EffectSleep::unaffect(Creature* pCreature )
-	throw(Error )
+void EffectSleep::unaffect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	//cout << "EffectSleep " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_SLEEP);
+	pCreature->removeFlag( Effect::EFFECT_CLASS_SLEEP );
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SLEEP);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_SLEEP );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature );
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
 		Player* pPlayer = pCreature->getPlayer();
-		Assert(pPlayer != NULL);
+		Assert( pPlayer != NULL );
 
-		pPlayer->sendPacket(&gcRemoveEffect);
+		pPlayer->sendPacket( &gcRemoveEffect );
 	}
 
 	__END_CATCH
 }
 
 void EffectSleep::unaffect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+	unaffect( pCreature );
 
 	__END_CATCH
 }

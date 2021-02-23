@@ -11,7 +11,7 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include <time.h>
 
 class Zone;

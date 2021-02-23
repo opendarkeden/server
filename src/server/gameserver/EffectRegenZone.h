@@ -11,11 +11,11 @@ class MonsterCorpse;
 class EffectRegenZone : public Effect
 {
 public:
-	EffectRegenZone(MonsterCorpse* pTower);
+	EffectRegenZone( MonsterCorpse* pTower );
 
 	EffectClass	getEffectClass() const throw() { return Effect::EFFECT_CLASS_SLAYER_REGEN_ZONE; }
 	EffectClass	getSendEffectClass() const throw() { return (EffectClass)(getEffectClass() + m_OwnerRace); }
-	void setOwner(RegenZoneInfo::RegenZoneIndex Owner ) { m_OwnerRace = Owner; }
+	void setOwner( RegenZoneInfo::RegenZoneIndex Owner ) { m_OwnerRace = Owner; }
 
 	void unaffect() throw(Error);
 

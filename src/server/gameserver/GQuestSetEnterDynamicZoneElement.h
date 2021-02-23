@@ -9,7 +9,7 @@ class GQuestSetEnterDynamicZoneElement : public GQuestElement
 public:
 	GQuestSetEnterDynamicZoneElement() : m_DynamicZoneID(0), m_CanEnter(0) { }
 	string 				getElementName() const { return "SetDynamicZone"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestSetEnterDynamicZoneElement*	makeElement(XMLTree* pTree);
 
 private:

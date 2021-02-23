@@ -15,8 +15,6 @@
 #include <list>
 
 class PetItem;
-class InventoryInfo;
-class Player;
 
 #define MAX_INVEN_WIDTH		10
 #define MAX_INVEN_HEIGHT	6
@@ -57,11 +55,10 @@ public:
 
 // check methods
 public: 
-	bool hasItem(CoordInven_t X, CoordInven_t Y) const throw();
-	bool hasItem(ObjectID_t ObjectID) const throw();
-	bool hasItemWithItemID(ItemID_t ItemID) const throw();
-	bool hasItemWithItemClass(Item::ItemClass ItemClass ) const;
-	bool hasKey(ItemID_t TargetItemID) const throw();
+	bool hasItem(CoordInven_t X, CoordInven_t Y) throw();
+	bool hasItem(ObjectID_t ObjectID) throw();
+	bool hasItemWithItemID(ItemID_t ItemID) throw();
+	bool hasKey(ItemID_t TargetItemID) throw();
 
 	bool canAdding(CoordInven_t X, CoordInven_t Y, Item* pItem) throw();
 	bool canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem) throw();
@@ -75,7 +72,7 @@ public:
 	bool  getEmptySlot(Item* pItem, _TPOINT& p) throw()
 	{
 		Assert (pItem != NULL);
-		return getEmptySlot(pItem->getVolumeWidth(), pItem->getVolumeHeight(), p);
+		return getEmptySlot( pItem->getVolumeWidth(), pItem->getVolumeHeight(), p );
 	}
 	bool  getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight, _TPOINT& p) throw();
 	void  deleteItem(ObjectID_t ObjectID) throw(Error);
@@ -89,14 +86,14 @@ public:
 	Item* getBeltWithItemID(ItemID_t itemID) throw(Error);
 	Item* getItemWithObjectID(ObjectID_t objectID) throw(Error);
 
-	Item* findItemOID(ObjectID_t objectID, CoordInven_t& X, CoordInven_t& Y) const throw();
-	Item* findItemIID(ItemID_t ItemID, CoordInven_t& X, CoordInven_t& Y) const throw();
+	Item* findItemOID(ObjectID_t objectID, CoordInven_t& X, CoordInven_t& Y) throw();
+	Item* findItemIID(ItemID_t ItemID, CoordInven_t& X, CoordInven_t& Y) throw();
 
-	Item* findItemOID(ObjectID_t objectID, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) const throw();
-	Item* findItemIID(ItemID_t ItemID, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) const throw();
+	Item* findItemOID(ObjectID_t objectID, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) throw();
+	Item* findItemIID(ItemID_t ItemID, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y) throw();
 
-	Item* findItem(Item::ItemClass IClass, ItemType_t itemType=0xFFFF) const throw();
-	Item* findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInven_t& X, CoordInven_t& Y) const throw();
+	Item* findItem(Item::ItemClass IClass, ItemType_t itemType=0xFFFF) throw();
+	Item* findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInven_t& X, CoordInven_t& Y) throw();
 
 // item manipulation related methods
 public:
@@ -125,20 +122,14 @@ public:
 // 2002년 어린이날 스타 이벤트를 위해서 재사용(GiftBox는 사용하지 않음)
 // 이벤트 재사용을 위해서 XMAS_STAR를 STAR_EVENT로 바꾸는 것을 고려해야 함
 public:
-	bool hasEnoughStar(const XMAS_STAR& star) throw(Error);
-	void decreaseStar(const XMAS_STAR& star) throw(Error);
-	bool hasRedGiftBox(void) throw(Error);
-	bool hasGreenGiftBox(void) throw(Error);
-
-	bool hasEnoughNumItem(Item::ItemClass itemClass, ItemType_t itemType, int num);
-	void decreaseNumItem(Item::ItemClass itemClass, ItemType_t itemType, int num, Player* pPlayer);
+	bool hasEnoughStar(const XMAS_STAR& star) throw (Error);
+	void decreaseStar(const XMAS_STAR& star) throw (Error);
+	bool hasRedGiftBox(void) throw (Error);
+	bool hasGreenGiftBox(void) throw (Error);
 //#endif
 
 public:
 	void clearQuestItem(list<Item*>& iList) throw(Error);
-
-public:
-	InventoryInfo* getInventoryInfo() const;
 
 ////////////////////////////////////////
 // member data

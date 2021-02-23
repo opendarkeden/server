@@ -7,14 +7,14 @@
 #include "EventCBilling.h"
 #include "GamePlayer.h"
 #include "chinabilling/CBillingPlayerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 EventCBilling::EventCBilling (GamePlayer* pGamePlayer) 
-	throw(Error)
+	throw (Error)
 : Event(pGamePlayer),
   m_TrySendLoginCount(0)
 {
@@ -25,7 +25,7 @@ EventCBilling::EventCBilling (GamePlayer* pGamePlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 EventCBilling::~EventCBilling () 
-	throw()
+	throw ()
 {
 }
 
@@ -34,32 +34,32 @@ EventCBilling::~EventCBilling ()
 // activate
 //////////////////////////////////////////////////////////////////////////////
 void EventCBilling::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	Assert(m_pGamePlayer != NULL);
 
-	if (!m_pGamePlayer->isCBillingVerified() )
+	if ( !m_pGamePlayer->isCBillingVerified() )
 	{
-		// 아직 Login 패킷을 보내지 못했다면 다시 보낸다. (연결이 끊겨 있어서 보내지 못한 생태이다. )
-		m_pGamePlayer->setCBillingVerified(g_pCBillingPlayerManager->sendLogin(m_pGamePlayer ));
+		// 아직 Login 패킷을 보내지 못했다면 다시 보낸다. ( 연결이 끊겨 있어서 보내지 못한 생태이다. )
+		m_pGamePlayer->setCBillingVerified( g_pCBillingPlayerManager->sendLogin( m_pGamePlayer ) );
 		m_TrySendLoginCount++;
 	}
 
 	// Login 패킷을 보냈다면 minus point packet 을 보내고, 아니라면 쌓아 둔다.
-	if (m_pGamePlayer->isCBillingVerified() )
+	if ( m_pGamePlayer->isCBillingVerified() )
 	{
 		// 빌링 패킷을 보낸다. minus point/minute
-		if (!g_pCBillingPlayerManager->sendMinusPoint(m_pGamePlayer ) )
+		if ( !g_pCBillingPlayerManager->sendMinusPoint( m_pGamePlayer ) )
 		{
 			m_pGamePlayer->increaseMissedMinusPointPacket();
 		}
 
 		// send missed minus point packet
-		while (m_pGamePlayer->hasMissedMinusPointPacket() )
+		while ( m_pGamePlayer->hasMissedMinusPointPacket() )
 		{
-			if (g_pCBillingPlayerManager->sendMinusPoint(m_pGamePlayer ) )
+			if ( g_pCBillingPlayerManager->sendMinusPoint( m_pGamePlayer ) )
 			{
 				m_pGamePlayer->decreaseMissedMinusPointPacket();
 			}

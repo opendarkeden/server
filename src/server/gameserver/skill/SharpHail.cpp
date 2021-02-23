@@ -8,13 +8,13 @@
 #include "EffectSharpHail.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -30,8 +30,8 @@ void SharpHail::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSki
 	Assert(pOustersSkillSlot != NULL);
 
 /*	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 */
     try
@@ -45,10 +45,10 @@ void SharpHail::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSki
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
-			executeSkillFailException(pOusters, getSkillType(), 0);
+			executeSkillFailException(pOusters, getSkillType(), 0 );
 			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
 			return;
 		}
@@ -57,7 +57,7 @@ void SharpHail::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSki
     } 
 	catch (Throwable & t) 
 	{
-		executeSkillFailException(pOusters, getSkillType(), 0);
+		executeSkillFailException(pOusters, getSkillType(), 0 );
         //cout << t.toString() << endl;
     }
 
@@ -80,8 +80,8 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 	Assert(pOustersSkillSlot != NULL);
 
 /*	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 */
 	try 
@@ -95,7 +95,7 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 		Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
 		if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
 		{
-			executeSkillFailException(pOusters, pOustersSkillSlot->getSkillType(), 0);
+			executeSkillFailException(pOusters, pOustersSkillSlot->getSkillType(), 0 );
 			return;
 		}
 
@@ -118,7 +118,7 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		
 		bool bTileCheck = false;
@@ -135,8 +135,8 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 
 			int oX, oY;
 
-			for (oX = X - 2 ; oX <= X + 2 ; ++oX )
-			for (oY = Y - 2 ; oY <= Y + 2 ; ++oY )
+			for ( oX = X - 2 ; oX <= X + 2 ; ++oX )
+			for ( oY = Y - 2 ; oY <= Y + 2 ; ++oY )
 			{
 				if (!rect.ptInRect(oX, oY)) continue;
 
@@ -150,12 +150,12 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 				   
 				Damage_t Damage = output.Damage;
 				bool bCriticalHit = false;
-				if(pTargetCreature )
+				if( pTargetCreature )
 					Damage += computeDamage(pOusters, pTargetCreature, 0, bCriticalHit);		
 				
 				// 이펙트 오브젝트를 생성한다.
 				EffectSharpHail* pEffect = new EffectSharpHail(pZone, oX, oY);
-				pEffect->setUserObjectID(pOusters->getObjectID());
+				pEffect->setUserObjectID( pOusters->getObjectID() );
 				pEffect->setDeadline(output.Duration);
 				pEffect->setNextTime(3);
 				pEffect->setTick(output.Tick);
@@ -164,10 +164,10 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 				
 				pEffect->setLevel(pOustersSkillSlot->getExpLevel());
 
-				/*if (Grade > 0 )
+				/*if ( Grade > 0 )
 				{
-					if (Grade == 1 ) pEffect->setSendEffectClass(Effect::EFFECT_CLASS_SHARP_HAIL_2);
-					else pEffect->setSendEffectClass(Effect::EFFECT_CLASS_SHARP_HAIL_3);
+					if ( Grade == 1 ) pEffect->setSendEffectClass( Effect::EFFECT_CLASS_SHARP_HAIL_2 );
+					else pEffect->setSendEffectClass( Effect::EFFECT_CLASS_SHARP_HAIL_3 );
 				}*/
 
 				// 타일에 붙은 이펙트는 OID를 받아야 한다.
@@ -223,12 +223,12 @@ void SharpHail::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ousters
 		} 
 		else 
 		{
-			executeSkillFailNormal(pOusters, getSkillType(), NULL, 0);
+			executeSkillFailNormal(pOusters, getSkillType(), NULL, 0 );
 		}
 	}
 	catch (Throwable & t) 
 	{
-		executeSkillFailException(pOusters, getSkillType(), 0);
+		executeSkillFailException(pOusters, getSkillType(), 0 );
 		//cout << t.toString() << endl;
 	}
 

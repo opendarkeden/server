@@ -684,16 +684,25 @@ public:
 		EFFECT_CLASS_CAN_ENTER_VAMPIRE_PORTAL,		// 462
 		EFFECT_CLASS_CAN_ENTER_OUSTERS_PORTAL,		// 463
 
-		EFFECT_CLASS_TILE_PORTAL,					// 464
-
-		EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL,			// 465
-		EFFECT_CLASS_SAFE_FORCE_SCROLL,				// 466
-		EFFECT_CLASS_CARNELIAN_FORCE_SCROLL,		// 467
-
-        // by bloodyshade
-        EFFECT_CLASS_IMMUNE_TO_ROTTEN_APPLE,        // 468
-
-		EFFECT_CLASS_MAX
+		EFFECT_CLASS_TILE_PORTAL,						// 464
+		// add by Coffee 2007-5-20
+		EFFECT_CLASS_BLOOD_BLLODY_SCARIFY,			// 血之烙印(吸血鬼)
+		EFFECT_CLASS_BLOOD_CURSE,					// 血之詛咒(吸血鬼)
+		EFFECT_CLASS_SKILL_BOMB_CRASH_WALK_TO_ENEMY,  //465
+		EFFECT_CLASS_SKILL_SATELLITE_BOMB_AIM,		  // 卫星轰击 效果定义 (人类)
+		EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT,      // 卫星轰击 效果定义 (人类)
+		EFFECT_CLASS_SKILL_SATELLITE_BOMB_FIRE,          // 开枪效果
+		EFFECT_CLASS_HEAVEN_GROUND,					 // 法师天神降临
+		EFFECT_CLASS_DUMMY_DRAKE,					 // 德雷克傀儡(魔灵)
+		EFFECT_CLASS_HYDRO_CONVERGENCE,				//  复合水疗
+		EFFECT_CLASS_SUMMON_CLAY,				//  Summon Clay  粘土召唤    (魔灵新技能 土法)
+		EFFECT_CLASS_HETER_CHAKRAM,				//  Heter Chakram 夏布利基因  (魔灵新技能  战士)
+                EFFECT_CLASS_Bramble_Halo,
+                EFFECT_CLASS_Fire_Meteor,
+                EFFECT_CLASS_Penetrate_Wheel,
+                EFFECT_CLASS_Rapid_Freeze,
+                EFFECT_CLASS_XRL_Missile,	
+	        EFFECT_CLASS_MAX
 	};
 
 
@@ -701,7 +710,7 @@ public:
 public:
 	Effect() throw();
 	Effect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget, Turn_t delay) throw();
-	virtual ~Effect();
+	virtual ~Effect() throw();
 			
 
 // methods from Object

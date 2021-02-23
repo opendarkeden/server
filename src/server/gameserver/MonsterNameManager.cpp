@@ -9,8 +9,6 @@
 #include "MonsterInfo.h"
 #include "DB.h"
 
-#include <map>
-
 //////////////////////////////////////////////////////////////////////////////
 // global varible
 //////////////////////////////////////////////////////////////////////////////
@@ -68,7 +66,7 @@ void MonsterNameManager::init()
 		if (nCount == 0)
 		{
 			cerr << "MonsterNameManager::init() : No data exist on FirstNameInfo" << endl;
-			throw("MonsterNameManager::init() : No data exist on FirstNameInfo");
+			throw ("MonsterNameManager::init() : No data exist on FirstNameInfo");
 		}
 
 		m_nFirstNameCount = nCount;
@@ -87,7 +85,7 @@ void MonsterNameManager::init()
 		if (nCount == 0)
 		{
 			cerr << "MonsterNameManager::init() : No data exist on MiddleNameInfo" << endl;
-			throw("MonsterNameManager::init() : No data exist on MiddleNameInfo");
+			throw ("MonsterNameManager::init() : No data exist on MiddleNameInfo");
 		}
 
 		m_nMiddleNameCount = nCount;
@@ -106,7 +104,7 @@ void MonsterNameManager::init()
 		if (nCount == 0)
 		{
 			cerr << "MonsterNameManager::init() : No data exist on LastNameInfo" << endl;
-			throw("MonsterNameManager::init() : No data exist on LastNameInfo");
+			throw ("MonsterNameManager::init() : No data exist on LastNameInfo");
 		}
 
 		m_nLastNameCount = nCount;
@@ -238,7 +236,7 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
 		NameKey |= nMiddleNameIndex < 16;
 		NameKey |= nLastNameIndex       ;
 
-		map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
+		hash_map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
 
 		if (itr == m_UsedName.end())
 		{

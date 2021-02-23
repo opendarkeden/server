@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 VampireEarringInfoManager* g_pVampireEarringInfoManager = NULL;
@@ -46,7 +45,7 @@ VampireEarring::VampireEarring(ItemType_t itemType, const list<OptionType_t>& op
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "VampireEarring::VampireEarring() : Invalid item type or option type");
-		throw("VampireEarring::VampireEarring() : Invalid item type or optionType");
+		throw ("VampireEarring::VampireEarring() : Invalid item type or optionType");
 	}
 }
 
@@ -82,7 +81,7 @@ void VampireEarring::create(const string & ownerID, Storage storage, StorageID_t
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO VampireEarringObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -116,7 +115,7 @@ void VampireEarring::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE VampireEarringObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE VampireEarringObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -160,9 +159,9 @@ void VampireEarring::save(const string & ownerID, Storage storage, StorageID_t s
 		*/
 	
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE VampireEarringObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld", 
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE VampireEarringObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld", 
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -380,8 +379,8 @@ void VampireEarringLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM VampireEarringObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM VampireEarringObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -443,18 +442,6 @@ void VampireEarringLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pVampireEarring);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pVampireEarring))
 						{
 							pInventory->addItemEx(x, y, pVampireEarring);

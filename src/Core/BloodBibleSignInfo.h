@@ -23,19 +23,19 @@
 class BloodBibleSignInfo 
 {
 public:
-	BloodBibleSignInfo () throw();
-	~BloodBibleSignInfo () throw();
+	BloodBibleSignInfo () throw ();
+	~BloodBibleSignInfo () throw ();
 	
 public:
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	PacketSize_t getSize () const throw() { return szuint + szBYTE + szItemType * m_SignList.size(); }
-	static uint getMaxSize () throw() { return szuint + szBYTE + szItemType * BLOOD_BIBLE_SIGN_SLOT_NUM; }
+	PacketSize_t getSize () const throw () { return szuint + szBYTE + szItemType * m_SignList.size(); }
+	static uint getMaxSize () throw () { return szuint + szBYTE + szItemType * BLOOD_BIBLE_SIGN_SLOT_NUM; }
 
 public:
 	uint	getOpenNum() const { return m_OpenNum; }
-	void	setOpenNum(uint num ) { m_OpenNum = num; }
+	void	setOpenNum( uint num ) { m_OpenNum = num; }
 
 	vector<ItemType_t>&	getList() { return m_SignList; }
 	const vector<ItemType_t>& getList() const { return m_SignList; }

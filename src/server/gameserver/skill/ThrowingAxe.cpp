@@ -8,13 +8,13 @@
 #include "RankBonus.h"
 #include "EffectMeteorStrike.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -45,7 +45,7 @@ void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
-		Dir_t dir = getDirection(pMonster->getX(), pMonster->getY(), X, Y);
+		Dir_t dir = getDirection( pMonster->getX(), pMonster->getY(), X, Y );
 		X = pMonster->getX() + dirMoveMask[dir].x * 7;
 		Y = pMonster->getY() + dirMoveMask[dir].y * 7;
 
@@ -57,8 +57,8 @@ void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 		if (bRangeCheck && bHitRoll && bTileCheck)
 		{
-			if(rand() % 100 < 50 ) {
-				checkMine(pZone, X, Y);
+			if( rand() % 100 < 50 ) {
+				checkMine( pZone, X, Y );
 			}
 
 			Tile&   tile  = pZone->getTile(X, Y);
@@ -73,8 +73,8 @@ void ThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			// 이펙트 오브젝트를 생성한다.
 			EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, X, Y);
 			pEffect->setNextTime(output.Duration);
-			pEffect->setUserObjectID(pMonster->getObjectID());
-			pEffect->setBroadcastingEffect(false);
+			pEffect->setUserObjectID( pMonster->getObjectID() );
+			pEffect->setBroadcastingEffect( false );
 			//pEffect->setNextTime(0);
 			//pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);

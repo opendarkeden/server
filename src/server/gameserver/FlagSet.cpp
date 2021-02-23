@@ -7,7 +7,7 @@
 #include "FlagSet.h"
 #include "DB.h"
 #include "StringStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ void FlagSet::load(const string& owner)
 			pStmt->executeQuery("INSERT IGNORE INTO FlagSet (OwnerID, FlagData) VALUES ('%s','')", owner.c_str());
 
 			//cerr << msg.toString() << endl;
-			//throw(msg.toString());
+			//throw (msg.toString());
 		}
 		else
 		{
@@ -251,7 +251,7 @@ void FlagSet::initialize(void)
 	__BEGIN_TRY
 
 	if (m_bInit) return;
-	Assert(FLAGSET_MAX <= FLAG_SIZE_MAX);
+	Assert( FLAGSET_MAX <= FLAG_SIZE_MAX );
 
 	for (int i=0; i<256; i++)
 	{

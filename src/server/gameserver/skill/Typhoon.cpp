@@ -46,7 +46,7 @@ void Typhoon::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 		Zone* pZone = pSlayer->getZone();
 		Assert(pZone!=NULL);
 
-		Creature* pCreature = pZone->getCreature(TargetObjectID);
+		Creature* pCreature = pZone->getCreature( TargetObjectID );
 
 		if (pCreature!=NULL)
 		{
@@ -56,7 +56,7 @@ void Typhoon::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-				// delay설정 (+ 1초 )
+				// delay설정 ( + 1초 )
 				if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
 						&& !pMonster->isUnderworld() && pMonster->getMonsterType() != 599

@@ -31,10 +31,10 @@ public:
 	void setRank(Rank_t rank) { m_Rank = rank; }
 
 	DWORD getPoint() const { return m_Point; }
-	void setPoint(DWORD point ) { m_Point = point; }
+	void setPoint( DWORD point ) { m_Point = point; }
 
 	int getRace() const { return m_Race; }
-	void setRace(int race ) { m_Race = race; }
+	void setRace( int race ) { m_Race = race; }
 
 	// toString
 	string toString() const ;

@@ -13,13 +13,13 @@
 #include "ExtraInfo.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
 ExtraInfo::ExtraInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	m_ListNum = 0;
@@ -31,12 +31,12 @@ ExtraInfo::ExtraInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 ExtraInfo::~ExtraInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
 	// 소속된 모든 객체들을 삭제한다.
-	while (!m_ExtraSlotInfoList.empty() ) 
+	while ( !m_ExtraSlotInfoList.empty() ) 
 	{
 		ExtraSlotInfo * pExtraSlotInfo = m_ExtraSlotInfoList.front();
 		SAFE_DELETE(pExtraSlotInfo);
@@ -50,18 +50,18 @@ ExtraInfo::~ExtraInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void ExtraInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void ExtraInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_ListNum);
+	iStream.read( m_ListNum );
 
-	for(int i = 0; i < m_ListNum; i++ ) {
+	for( int i = 0; i < m_ListNum; i++ ) {
 		ExtraSlotInfo * pExtraSlotInfo = new ExtraSlotInfo();
-		pExtraSlotInfo->read(iStream);
-		m_ExtraSlotInfoList.push_back(pExtraSlotInfo);
+		pExtraSlotInfo->read( iStream );
+		m_ExtraSlotInfoList.push_back( pExtraSlotInfo );
 
 	}
 
@@ -72,17 +72,17 @@ void ExtraInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void ExtraInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void ExtraInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_ListNum);
+	oStream.write( m_ListNum );
 
-    for (list<ExtraSlotInfo*>:: const_iterator itr = m_ExtraSlotInfoList.begin(); itr!= m_ExtraSlotInfoList.end(); itr++) {
-		Assert(*itr != NULL);
-		(*itr)->write(oStream);
+    for ( list<ExtraSlotInfo*>:: const_iterator itr = m_ExtraSlotInfoList.begin(); itr!= m_ExtraSlotInfoList.end(); itr++) {
+		Assert( *itr != NULL );
+		(*itr)->write( oStream );
 	}
 
 	__END_CATCH
@@ -97,7 +97,7 @@ PacketSize_t ExtraInfo::getSize()
 
 	PacketSize_t PacketSize = szBYTE;
 
-	for (list< ExtraSlotInfo* >::const_iterator itr = m_ExtraSlotInfoList.begin() ; itr != m_ExtraSlotInfoList.end() ; itr ++ ) {
+	for ( list< ExtraSlotInfo* >::const_iterator itr = m_ExtraSlotInfoList.begin() ; itr != m_ExtraSlotInfoList.end() ; itr ++ ) {
 
 		PacketSize += (*itr)->getSize();
 
@@ -114,17 +114,17 @@ PacketSize_t ExtraInfo::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string ExtraInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "ExtraInfo(ListNum:" << (int)m_ListNum 
-		<< " ListSet(" ;
+	msg << "ExtraInfo( ListNum:" << (int)m_ListNum 
+		<< " ListSet( " ;
 
-	for (list<ExtraSlotInfo*>::const_iterator itr = m_ExtraSlotInfoList.begin(); itr!= m_ExtraSlotInfoList.end() ; itr++ ) {
-		Assert(*itr != NULL);
+	for ( list<ExtraSlotInfo*>::const_iterator itr = m_ExtraSlotInfoList.begin(); itr!= m_ExtraSlotInfoList.end() ; itr++ ) {
+		Assert( *itr != NULL );
 		msg << (*itr)->toString() << ",";
 	}
 

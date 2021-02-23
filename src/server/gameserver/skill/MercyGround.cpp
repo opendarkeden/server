@@ -7,14 +7,14 @@
 #include "MercyGround.h"
 #include "EffectMercyGround.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillFailed1.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -38,7 +38,7 @@ void MercyGround::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 		//Assert(pTargetCreature != NULL);
 
 		// NoSuch제거. by sigi. 2002.5.2
-		if (pTargetCreature==NULL )
+		if ( pTargetCreature==NULL )
 		{
 			executeSkillFailException(pSlayer, getSkillType());
 			return;
@@ -128,7 +128,9 @@ void MercyGround::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 							tile.getEffect(Effect::EFFECT_CLASS_DARKNESS) != NULL ||
 							tile.getEffect(Effect::EFFECT_CLASS_PROMINENCE) != NULL ||
 							tile.getEffect(Effect::EFFECT_CLASS_ACID_SWAMP) != NULL ||
-							tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL
+							tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ||
+							tile.getEffect(Effect::EFFECT_CLASS_HEAVEN_GROUND) != NULL ||
+							tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY) !=NULL
 						)
 						{
 							executeSkillFailNormal(pSlayer, getSkillType(), NULL);
@@ -232,7 +234,7 @@ void MercyGround::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 
 			// EXP UP!
 			SkillDomainType_t DomainType = pSkillInfo->getDomainType();
-			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
+			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel( pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10* (Grade + 1);
 
 			shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToTileOK1);

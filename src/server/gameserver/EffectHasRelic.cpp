@@ -15,11 +15,11 @@
 #include "WarSystem.h"
 #include "ZoneInfoManager.h"
 #include "ZoneGroupManager.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -53,19 +53,19 @@ void EffectHasRelic::affect()
 
 	Assert(m_pTarget!=NULL);
 
-	switch (m_pTarget->getObjectClass() )
+	switch ( m_pTarget->getObjectClass() )
 	{
 		case OBJECT_CLASS_CREATURE :
 		{
 			Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-			affect(pCreature);
+			affect( pCreature );
 		}
 		break;
 
 		case OBJECT_CLASS_ITEM :
 		{
 			Item* pItem = dynamic_cast<Item*>(m_pTarget);
-			affect(pItem);
+			affect( pItem );
 		}
 		break;
 
@@ -115,19 +115,23 @@ void EffectHasRelic::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectHasCastleSymbol" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
 	// initAllStat을 불러야 한다.
-	pCreature->removeFlag(getEffectClass());
+	pCreature->removeFlag( getEffectClass() );
 
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	//cout << "EffectHasCastleSymbol" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH
@@ -141,6 +145,9 @@ void EffectHasRelic::unaffect(Item* pItem)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+
+	//cout << "EffectCastleSymbol" << "unaffect BEGIN" << endl;
+
 	Assert(pItem != NULL);
 
 	Assert(pItem->getItemClass()==Item::ITEM_CLASS_CORPSE);
@@ -148,15 +155,18 @@ void EffectHasRelic::unaffect(Item* pItem)
 
 	MonsterCorpse* pCorpse = dynamic_cast<MonsterCorpse*>(pItem);
 
-	pCorpse->removeFlag(getEffectClass());
+	pCorpse->removeFlag( getEffectClass() );
 
 	Zone* pZone = pCorpse->getZone();
 	Assert(pZone != NULL);
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pItem->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
-	pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
+	gcRemoveEffect.setObjectID( pItem->getObjectID() );
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
+	pZone->broadcastPacket( pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect );
+
+	//cout << "EffectCastleSymbol" << "unaffect END" << endl;
+
 
 	__END_DEBUG
 	__END_CATCH

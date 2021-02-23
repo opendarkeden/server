@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "HarpoonBomb.h"
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
+#include "Gpackets/GCAddEffect.h"
 #include "EffectHarpoonBomb.h"
 #include "ItemUtil.h"
 
@@ -18,7 +18,7 @@
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void HarpoonBomb::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -39,7 +39,7 @@ void HarpoonBomb::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC() 
 			|| pTargetCreature->isDead())
 		{
@@ -127,31 +127,31 @@ void HarpoonBomb::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 				knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
 			}
 
-			if (pTargetCreature->isDead() && (rand()%100)<output.Range )
+			if ( pTargetCreature->isDead() && (rand()%100)<output.Range )
 			{
-				//cout << "harpoon bomb set : " << pTargetCreature->getName() << endl;
-				if (pTargetCreature->isPC() )
+				cout << "harpoon bomb set : " << pTargetCreature->getName() << endl;
+				if ( pTargetCreature->isPC() )
 				{
-					EffectHarpoonBomb* pEffect = new EffectHarpoonBomb(pTargetCreature);
-					pEffect->setUserObjectID(pSlayer->getObjectID());
-					pEffect->setDamage(output.Tick);
-					pEffect->setNextTime(100 + output.Duration);
-					pTargetCreature->setFlag(Effect::EFFECT_CLASS_HARPOON_BOMB);
-					pTargetCreature->addEffect(pEffect);
+					EffectHarpoonBomb* pEffect = new EffectHarpoonBomb( pTargetCreature );
+					pEffect->setUserObjectID( pSlayer->getObjectID() );
+					pEffect->setDamage( output.Tick );
+					pEffect->setNextTime( 100 + output.Duration );
+					pTargetCreature->setFlag( Effect::EFFECT_CLASS_HARPOON_BOMB );
+					pTargetCreature->addEffect( pEffect );
 					GCAddEffect gcAE;
-					gcAE.setObjectID(pTargetCreature->getObjectID());
-					gcAE.setDuration(100 + output.Duration);
-					gcAE.setEffectID(Effect::EFFECT_CLASS_HARPOON_BOMB);
-					pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcAE);
+					gcAE.setObjectID( pTargetCreature->getObjectID() );
+					gcAE.setDuration( 100 + output.Duration );
+					gcAE.setEffectID( Effect::EFFECT_CLASS_HARPOON_BOMB );
+					pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcAE );
 				}
 				else
 				{
-					EffectHarpoonBomb* pEffect = new EffectHarpoonBomb(pTargetCreature);
-					pEffect->setUserObjectID(pSlayer->getObjectID());
-					pEffect->setDamage(output.Tick);
-					pEffect->setNextTime(output.Duration);
-					pTargetCreature->setFlag(Effect::EFFECT_CLASS_HARPOON_BOMB);
-					pTargetCreature->addEffect(pEffect);
+					EffectHarpoonBomb* pEffect = new EffectHarpoonBomb( pTargetCreature );
+					pEffect->setUserObjectID( pSlayer->getObjectID() );
+					pEffect->setDamage( output.Tick );
+					pEffect->setNextTime( output.Duration );
+					pTargetCreature->setFlag( Effect::EFFECT_CLASS_HARPOON_BOMB );
+					pTargetCreature->addEffect( pEffect );
 				}
 			}
 
@@ -161,7 +161,7 @@ void HarpoonBomb::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 			if (Random(1, 100) < 80 && !pTargetCreature->isSlayer())
 			{
 			*/
-			if(!pTargetCreature->isSlayer() ) 
+			if( !pTargetCreature->isSlayer() ) 
 			{
 				if (bIncreaseExp)
 				{

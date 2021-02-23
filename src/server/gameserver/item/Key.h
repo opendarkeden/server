@@ -29,8 +29,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -72,10 +72,10 @@ public:
 	virtual string toString() const throw();
 
 	OptionType_t getOptionType() const throw() { return m_OptionType; }
-	void setOptionType(OptionType_t optionType ) { m_OptionType = optionType; }
+	void setOptionType( OptionType_t optionType ) { m_OptionType = optionType; }
 
 	ItemType_t getTargetType() const throw() { return m_TargetType; }
-	void setTargetType(ItemType_t target ) { m_TargetType = target; }
+	void setTargetType( ItemType_t target ) { m_TargetType = target; }
 
 private:
 	OptionType_t m_OptionType;

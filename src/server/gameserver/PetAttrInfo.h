@@ -5,7 +5,7 @@
 #include "types/PetTypes.h"
 #include "Exception.h"
 #include <vector>
-#include <map>
+#include <hash_map>
 #include "PetExpInfo.h"
 
 class PetInfo;
@@ -16,11 +16,11 @@ public:
 	PetAttrInfo(PetAttr_t PetAttr) : m_PetAttr(PetAttr) { m_PetAttrLevels.reserve(PetMaxLevel); m_PetAttrLevels.clear(); m_EnchantRatio=0; }
 	PetAttr_t getPetAttr() const { return m_PetAttr; }
 
-	PetAttrLevel_t getPetAttrLevel(PetLevel_t PetLevel ) { return m_PetAttrLevels[PetLevel]; }
-	void setPetAttrLevel(PetLevel_t PetLevel, PetAttrLevel_t PetAttrLevel ) { m_PetAttrLevels[PetLevel] = PetAttrLevel; }
+	PetAttrLevel_t getPetAttrLevel( PetLevel_t PetLevel ) { return m_PetAttrLevels[PetLevel]; }
+	void setPetAttrLevel( PetLevel_t PetLevel, PetAttrLevel_t PetAttrLevel ) { m_PetAttrLevels[PetLevel] = PetAttrLevel; }
 
 	int getEnchantRatio() { return m_EnchantRatio; }
-	void setEnchantRatio(int EnchantRatio ) { m_EnchantRatio = EnchantRatio; }
+	void setEnchantRatio( int EnchantRatio ) { m_EnchantRatio = EnchantRatio; }
 
 private:
 	PetAttr_t m_PetAttr;
@@ -37,14 +37,14 @@ public:
 	void clear();
 	void load();
 
-	PetAttrInfo* getPetAttrInfo(PetAttr_t PetAttr ) const;
+	PetAttrInfo* getPetAttrInfo( PetAttr_t PetAttr ) const;
 
 	static PetAttrInfoManager& Instance() { static PetAttrInfoManager theInstance; return theInstance; }
 
-	bool enchantRandomAttr(PetInfo* pPetInfo, int ratio);
-	bool enchantSpecAttr(PetInfo* pPetInfo, PetAttr_t PetAttr);
+	bool enchantRandomAttr( PetInfo* pPetInfo, int ratio );
+	bool enchantSpecAttr( PetInfo* pPetInfo, PetAttr_t PetAttr );
 private:
-	map<PetAttr_t, PetAttrInfo*> m_PetAttrInfoMap;
+	hash_map<PetAttr_t, PetAttrInfo*> m_PetAttrInfoMap;
 };
 
 #endif

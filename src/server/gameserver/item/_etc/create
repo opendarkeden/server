@@ -1,0 +1,30 @@
+#!/bin/sh
+
+ln -s ../Bomb.h Bomb.h
+ln -s ../BombMaterial.h BombMaterial.h
+ln -s ../ETC.h ETC.h
+ln -s ../HolyWater.h HolyWater.h
+ln -s ../Key.h Key.h
+ln -s ../LearningItem.h LearningItem.h
+ln -s ../Magazine.h Magazine.h
+ln -s ../Mine.h Mine.h
+ln -s ../Money.h Money.h
+ln -s ../Motorcycle.h Motorcycle.h
+ln -s ../Potion.h Potion.h
+ln -s ../Skull.h Skull.h
+ln -s ../Water.h Water.h
+
+ln -s ../Bomb.cpp Bomb.cpp
+ln -s ../BombMaterial.cpp BombMaterial.cpp
+ln -s ../ETC.cpp ETC.cpp
+ln -s ../HolyWater.cpp HolyWater.cpp
+ln -s ../Key.cpp Key.cpp
+ln -s ../LearningItem.cpp LearningItem.cpp
+ln -s ../Magazine.cpp Magazine.cpp
+ln -s ../Mine.cpp Mine.cpp
+ln -s ../Money.cpp Money.cpp
+ln -s ../Motorcycle.cpp Motorcycle.cpp
+ln -s ../Potion.cpp Potion.cpp
+ln -s ../Skull.cpp Skull.cpp
+ln -s ../Water.cpp Water.cpp
+

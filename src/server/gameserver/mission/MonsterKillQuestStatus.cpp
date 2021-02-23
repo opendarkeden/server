@@ -7,15 +7,15 @@ GCQuestStatus* MonsterKillQuestStatus::makeStatusPacket() const
 {
 	GCQuestStatus* pPacket = new GCQuestStatus();
 
-	pPacket->setQuestID((WORD)getQuestID());
-	pPacket->setCurrentNum((WORD)m_CurrentNum);
-	if (m_State == QUEST_REWARDED )
+	pPacket->setQuestID( (WORD)getQuestID() );
+	pPacket->setCurrentNum( (WORD)m_CurrentNum );
+	if ( m_State == QUEST_REWARDED )
 	{
-		pPacket->setRemainTime(0);
+		pPacket->setRemainTime( 0 );
 	}
 	else
 	{
-		pPacket->setRemainTime((DWORD)VSDateTime::currentDateTime().secsTo(m_Deadline ));
+		pPacket->setRemainTime( (DWORD)VSDateTime::currentDateTime().secsTo( m_Deadline ) );
 	}
 
 //	cout << "Make Packet : " << pPacket->toString() << endl;
@@ -23,22 +23,22 @@ GCQuestStatus* MonsterKillQuestStatus::makeStatusPacket() const
 	return pPacket;
 }
 
-bool MonsterKillQuestStatus::killed(SpriteType_t targetSType, bool isChief )
+bool MonsterKillQuestStatus::killed( SpriteType_t targetSType, bool isChief )
 {
 	bool ret = false;
 
-	if (m_CurrentNum < m_GoalNum )
+	if ( m_CurrentNum < m_GoalNum )
 	{
-		if ((!m_IsChief || isChief ) && m_TargetMonsterSpriteType == targetSType )
+		if ( (!m_IsChief || isChief ) && m_TargetMonsterSpriteType == targetSType )
 		{
 			m_CurrentNum++;
 			ret = true;
 		}
 	}
 
-	if (m_CurrentNum >= m_GoalNum )
+	if ( m_CurrentNum >= m_GoalNum )
 	{
-		if (m_State == QUEST_STARTED )
+		if ( m_State == QUEST_STARTED )
 		{
 			m_State = QUEST_SUCCESS;
 			ret = true;
@@ -56,7 +56,7 @@ string MonsterKillQuestStatus::toString() const throw(Error)
 
 	msg << "MonsterKillQuestStatus("
 		<< "Target : " << (unsigned long)m_TargetMonsterSpriteType
-		<< ", IsChief : " << ((m_IsChief==0)?"no":"yes" )
+		<< ", IsChief : " << ( (m_IsChief==0)?"no":"yes" )
 		<< ", Goal : " << m_GoalNum
 		<< ", Current : " << m_CurrentNum
 		<< ") : " << QuestStatus::toString().c_str();

@@ -1,12 +1,12 @@
 #include "GQuestBloodDrainElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestBloodDrainElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestBloodDrainMission* pBloodDrainMission = dynamic_cast<GQuestBloodDrainMission*>(pMission);
-	if (pBloodDrainMission == NULL ) return FAIL;
+	if ( pBloodDrainMission == NULL ) return FAIL;
 
-	if (pBloodDrainMission->getCurrent() >= m_Goal ) return OK;
+	if ( pBloodDrainMission->getCurrent() >= m_Goal ) return OK;
 
 	return WAIT;
 }
@@ -22,7 +22,7 @@ GQuestBloodDrainElement* GQuestBloodDrainElement::makeElement(XMLTree* pTree)
 {
 	GQuestBloodDrainElement* pRet = new GQuestBloodDrainElement;
 
-	Assert(pTree->GetAttribute("num", pRet->m_Goal));
+	Assert( pTree->GetAttribute("num", pRet->m_Goal) );
 
 	DWORD index;
 	if (pTree->GetAttribute("index", index)) pRet->m_Index = index;

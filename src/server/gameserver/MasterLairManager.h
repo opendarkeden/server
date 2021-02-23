@@ -11,7 +11,7 @@
 #include "Item.h"
 #include "Timeval.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -44,14 +44,14 @@ public:
 	bool enterCreature(Creature* pCreature) throw(Error);  // 존에 출입이 가능한가? 
 	bool leaveCreature(Creature* pCreature) throw(Error);  // 존에서 나간 경우
 
-	bool heartbeat() throw(Error);
+	bool heartbeat() throw (Error);
 
 	//void increaseSummonedMonsterNumber(int num) throw(Error);
 	bool isMasterReady() const { return m_bMasterReady; }
 	void setMasterReady(bool bReady=true) { m_bMasterReady = bReady; }
 
-	void startEvent() throw(Error);
-	void stopEvent() throw(Error);
+	void startEvent() throw (Error);
+	void stopEvent() throw (Error);
 
 	void lock() throw(Error) { m_Mutex.lock(); }
     void ulnock() throw(Error) { m_Mutex.unlock(); }
@@ -59,22 +59,22 @@ public:
 	string toString() const throw(Error);
 
 protected :
-	void processEventWaitingPlayer() throw(Error);
-	void processEventMinionCombat() throw(Error);
-	void processEventMasterCombat() throw(Error);
-	void processEventWaitingKickOut() throw(Error);
-	void processEventWaitingRegen() throw(Error);
+	void processEventWaitingPlayer() throw (Error);
+	void processEventMinionCombat() throw (Error);
+	void processEventMasterCombat() throw (Error);
+	void processEventWaitingKickOut() throw (Error);
+	void processEventWaitingRegen() throw (Error);
 
-	void activeEventWaitingPlayer() throw(Error);
-	void activeEventMinionCombat() throw(Error);
-	void activeEventMasterCombat() throw(Error);
-	void activeEventWaitingKickOut() throw(Error);
-	void activeEventWaitingRegen() throw(Error);
+	void activeEventWaitingPlayer() throw (Error);
+	void activeEventMinionCombat() throw (Error);
+	void activeEventMasterCombat() throw (Error);
+	void activeEventWaitingKickOut() throw (Error);
+	void activeEventWaitingRegen() throw (Error);
 
-	void deleteAllMonsters() throw(Error);		// 모든 몬스터 삭제
-	void kickOutPlayers() throw(Error);		// 사용자 강제 추방
-	void giveKillingReward() throw(Error);		// 마스터 죽였을 때 받는 보상
-	void killAllMonsters() throw(Error);		// 모든 몬스터를 죽인다
+	void deleteAllMonsters() throw (Error);		// 모든 몬스터 삭제
+	void kickOutPlayers() throw (Error);		// 사용자 강제 추방
+	void giveKillingReward() throw (Error);		// 마스터 죽였을 때 받는 보상
+	void killAllMonsters() throw (Error);		// 모든 몬스터를 죽인다
 
 private : 
 	Zone*             m_pZone;  

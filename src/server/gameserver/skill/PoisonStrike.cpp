@@ -38,10 +38,10 @@ void PoisonStrike::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
 	// Knowledge of Poison 이 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

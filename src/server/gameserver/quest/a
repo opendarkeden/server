@@ -1,0 +1,7 @@
+			// by sigi. 2002.10.14
+			if (!bFound)
+			{
+				pStmt->executeQuery(
+				"INSERT INTO MotorcycleObject (ItemID, ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, OptionType, Durability) Values (%d, %d, %d, '', %d, %d, %d, %d, '', %d)",
+					itemID, pMotorcycle->getObjectID(), itemType, STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y, durability);
+			}

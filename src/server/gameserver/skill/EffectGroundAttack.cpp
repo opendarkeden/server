@@ -12,12 +12,10 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK4.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -83,7 +81,7 @@ void EffectGroundAttack::unaffect()
 	// 시전자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL이 될 수 잇다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = m_pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = m_pZone->getCreature( m_UserObjectID );
 
 	int Damage;
 	int DamageLimit = 0xFFFF; //500;
@@ -110,8 +108,8 @@ void EffectGroundAttack::unaffect()
 			int	DamagePercent = (bCenterEffect? m_DamagePercent : (m_DamagePercent>>1));
 
 			// 타일 안에 존재하는 오브젝트들을 검색한다.
-			const list<Object*>& oList = tile.getObjectList();
-			list<Object*>::const_iterator itr = oList.begin();
+			const slist<Object*>& oList = tile.getObjectList();
+			slist<Object*>::const_iterator itr = oList.begin();
 			for (; itr != oList.end(); itr++) 
 			{
 				Assert(*itr != NULL);
@@ -125,7 +123,7 @@ void EffectGroundAttack::unaffect()
 					Assert(pCreature != NULL);
 
 					// 무적상태 체크. by sigi. 2002.9.5
-					if (!canAttack(pCastCreature, pCreature ) )
+					if ( !canAttack( pCastCreature, pCreature ) )
 					{
 						continue;
 					}
@@ -138,7 +136,7 @@ void EffectGroundAttack::unaffect()
 						Damage = min(DamageLimit, MaxHP*DamagePercent/100);
 
 						GCModifyInformation gcMI;
-						::setDamage(pSlayer, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI);
+						::setDamage( pSlayer, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI );
 
 						Player* pPlayer = pSlayer->getPlayer();
 						Assert(pPlayer != NULL);
@@ -152,7 +150,7 @@ void EffectGroundAttack::unaffect()
 						Damage = min(DamageLimit, MaxHP*DamagePercent/100);
 
 						GCModifyInformation gcMI;
-						::setDamage(pVampire, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI);
+						::setDamage( pVampire, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI );
 
 						Player* pPlayer = pVampire->getPlayer();
 						Assert(pPlayer != NULL);
@@ -166,7 +164,7 @@ void EffectGroundAttack::unaffect()
 						Damage = min(DamageLimit, MaxHP*DamagePercent/100);
 
 						GCModifyInformation gcMI;
-						::setDamage(pOusters, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI);
+						::setDamage( pOusters, Damage, pCastCreature, SKILL_GROUND_ATTACK, &gcMI );
 
 						Player* pPlayer = pOusters->getPlayer();
 						Assert(pPlayer != NULL);
@@ -179,22 +177,22 @@ void EffectGroundAttack::unaffect()
 						MaxHP = pMonster->getHP(ATTR_MAX);
 						Damage = min(DamageLimit, MaxHP*DamagePercent/100);
 
-						::setDamage(pMonster, Damage, pCastCreature, SKILL_GROUND_ATTACK);
+						::setDamage( pMonster, Damage, pCastCreature, SKILL_GROUND_ATTACK );
 					}
 
 					// user한테는 맞는 모습을 보여준다.
 					if (pCreature->isPC())
 					{
 						GCSkillToObjectOK2 gcSkillToObjectOK2;
-						gcSkillToObjectOK2.setObjectID(1);	// 의미 없다.
-						gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+						gcSkillToObjectOK2.setObjectID( 1 );	// 의미 없다.
+						gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
 						gcSkillToObjectOK2.setDuration(0);
 						pCreature->getPlayer()->sendPacket(&gcSkillToObjectOK2);
 					}
 
 					GCSkillToObjectOK4 gcSkillToObjectOK4;
-					gcSkillToObjectOK4.setTargetObjectID(pCreature->getObjectID());
-					gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+					gcSkillToObjectOK4.setTargetObjectID( pCreature->getObjectID() );
+					gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
 					gcSkillToObjectOK4.setDuration(0);
 					m_pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcSkillToObjectOK4, pCreature);
 
@@ -202,7 +200,7 @@ void EffectGroundAttack::unaffect()
 					// by sigi. 2002.8.31
 /*					if (pCreature->isDead())
 					{
-						Creature* pAttacker = m_pZone->getCreature(m_CasterName);
+						Creature* pAttacker = m_pZone->getCreature( m_CasterName );
 
 						if (pAttacker!=NULL)
 						{ 

@@ -12,10 +12,10 @@
 #include "EventMorph.h"
 #include "PCManager.h"
 #include "GamePlayer.h"
-#include "GCMorph1.h"
-#include "GCMorphVampire2.h"
-#include "GCModifyInformation.h"
-#include "GCChangeDarkLight.h"
+#include "Gpackets/GCMorph1.h"
+#include "Gpackets/GCMorphVampire2.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeDarkLight.h"
 #include "PCFinder.h"
 #include "EventRegeneration.h"
 #include "DB.h"
@@ -61,7 +61,7 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
 	//cout << "EffectBloodDrain" << "unaffect BEGIN" << endl;
 	Assert(pFromCreature != NULL);
 
-	if (pFromCreature->isSlayer() )
+	if ( pFromCreature->isSlayer() )
 	{
 
 		Player* pPlayer = pFromCreature->getPlayer();
@@ -96,12 +96,12 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
 		Player* pPlayer = pFromCreature->getPlayer();
 		Assert(pPlayer != NULL);
 
-		pFromCreature->removeFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
+		pFromCreature->removeFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN );
 
 		Sight_t oldSight = pFromCreature->getSight();
 		Sight_t newSight = pFromCreature->getEffectedSight();
 
-		if (oldSight != newSight )
+		if ( oldSight != newSight )
 		{
 			GCModifyInformation gcMI;
 			pFromCreature->setSight(newSight);
@@ -116,7 +116,7 @@ void EffectBloodDrain::unaffect(Creature* pFromCreature)
 		}
 
 		// DB에서 지워뿐다.
-		destroy(pFromCreature->getName());
+		destroy( pFromCreature->getName() );
 	}
 
 	//cout << "EffectBloodDrain" << "unaffect END" << endl;
@@ -183,8 +183,8 @@ void EffectBloodDrain::create(const string & ownerID)
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("INSERT INTO EffectBloodDrain (OwnerID , YearTime, DayTime, Level) VALUES('%s', %ld, %ld, %d)",
-								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec, (int)m_Level);
+		pStmt->executeQuery( "INSERT INTO EffectBloodDrain (OwnerID , YearTime, DayTime, Level) VALUES('%s', %ld, %ld, %d)",
+								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec, (int)m_Level );
 
 
 		SAFE_DELETE(pStmt);
@@ -253,8 +253,8 @@ void EffectBloodDrain::save(const string & ownerID)
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE EffectBloodDrain SET YearTime=%ld, DayTime=%ld, Level=%d WHERE OwnerID='%s'", 
-								currentYearTime, m_Deadline.tv_sec, m_Level, ownerID.c_str());
+		pStmt->executeQuery( "UPDATE EffectBloodDrain SET YearTime=%ld, DayTime=%ld, Level=%d WHERE OwnerID='%s'", 
+								currentYearTime, m_Deadline.tv_sec, m_Level, ownerID.c_str() );
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
@@ -290,7 +290,7 @@ void EffectBloodDrainLoader::load(Creature* pCreature)
 	__BEGIN_TRY
 
 	Assert(pCreature != NULL);
-	if (!pCreature->isSlayer() && !pCreature->isOusters() ) return;
+	if ( !pCreature->isSlayer() && !pCreature->isOusters() ) return;
 
 	Statement* pStmt = NULL;
 
@@ -308,7 +308,7 @@ void EffectBloodDrainLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT DayTime, Level FROM EffectBloodDrain WHERE OwnerID='%s'", 
+		Result* pResult = pStmt->executeQuery( "SELECT DayTime, Level FROM EffectBloodDrain WHERE OwnerID='%s'", 
 												pCreature->getName().c_str());
 
 		while(pResult->next())

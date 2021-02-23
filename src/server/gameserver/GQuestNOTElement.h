@@ -11,7 +11,7 @@ public:
 	GQuestNOTElement() { }
 	string 				getElementName() const { return "NOT"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestNOTElement*	makeElement(XMLTree* pTree);
 

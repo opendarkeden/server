@@ -9,7 +9,7 @@
 
 #include "Object.h"
 #include "EffectManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Timeval.h"
 #include <stdlib.h>
 #include <algorithm>
@@ -73,7 +73,7 @@ public:
 
 public:
     Creature(ObjectID_t objectID = 0, Player* pPlayer = NULL) throw();
-    virtual ~Creature() throw();
+    virtual ~Creature() throw (Error);
 
 public:
 	virtual ObjectClass getObjectClass() const throw() { return OBJECT_CLASS_CREATURE; }
@@ -81,7 +81,7 @@ public:
 	virtual string toString() const throw() = 0;
 
 public:
-	virtual bool load() throw(InvalidProtocolException, Error) = 0; // load from DB
+	virtual bool load() throw (InvalidProtocolException, Error) = 0; // load from DB
 	virtual void save() const throw(Error) = 0; // save to DB
 	
 public:
@@ -225,10 +225,10 @@ public :
 	void setNewXY(ZoneCoord_t x, ZoneCoord_t y) throw() { m_NewX = x; m_NewY = y; }
 
 public:
-	bool isEffect(Effect::EffectClass EClass) throw(Error);
-	void deleteEffect(Effect::EffectClass EClass) throw(Error);
-	Effect* findEffect(Effect::EffectClass EClass) const throw(Error);
-	void addEffect(Effect* pEffect) throw(Error);
+	bool isEffect(Effect::EffectClass EClass) throw (Error);
+	void deleteEffect(Effect::EffectClass EClass) throw (Error);
+	Effect* findEffect(Effect::EffectClass EClass) const throw (Error);
+	void addEffect(Effect* pEffect) throw (Error);
 
 public:
 	virtual Level_t getLevel() const throw() = 0;

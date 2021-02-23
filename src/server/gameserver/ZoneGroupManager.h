@@ -12,7 +12,7 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include <vector>
 #include <map>
 #include "ZoneGroup.h"
@@ -91,26 +91,26 @@ public:
 	uint size() const throw() { return m_ZoneGroups.size(); }
 
 	// getZoneGroups
-	const map<ZoneGroupID_t, ZoneGroup*>& getZoneGroups() const { return m_ZoneGroups; }
+	const hash_map<ZoneGroupID_t, ZoneGroup*>& getZoneGroups() const { return m_ZoneGroups; }
 
-	void   broadcast(Packet* pPacket) throw(Error); 
-	void   pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter=NULL) throw(Error); 
+	void   broadcast(Packet* pPacket) throw (Error); 
+	void   pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter=NULL) throw (Error); 
 
-	bool   makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce=false) throw(Error); 
-	bool   makeDefaultLoadInfo(LOAD_INFOS& loadInfos) throw(Error); 
-	void   balanceZoneGroup(bool bForce=false, bool bDefault=false) throw(Error); 
+	bool   makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce=false) throw (Error); 
+	bool   makeDefaultLoadInfo(LOAD_INFOS& loadInfos) throw (Error); 
+	void   balanceZoneGroup(bool bForce=false, bool bDefault=false) throw (Error); 
 
 
 	// get debug string
 	string toString() const throw();
 
-	void	outputLoadValue() throw(Error);
+	void	outputLoadValue() throw (Error);
 
-	void    lock() throw(Error)        { m_Mutex.lock(); }
-    void    unlock() throw(Error)      { m_Mutex.unlock(); }
+	void    lock() throw (Error)        { m_Mutex.lock(); }
+    void    unlock() throw (Error)      { m_Mutex.unlock(); }
 
-	void	lockZoneGroups() throw(Error);
-	void	unlockZoneGroups() throw(Error);
+	void	lockZoneGroups() throw( Error );
+	void	unlockZoneGroups() throw( Error );
 
 	int 	getPlayerNum () const throw(Error);
 
@@ -119,7 +119,7 @@ public:
 private:
 	
 	// zone ÀÇ ÇØ½¬¸Ê
-	map< ZoneGroupID_t, ZoneGroup* > m_ZoneGroups;
+	hash_map< ZoneGroupID_t, ZoneGroup* > m_ZoneGroups;
 
 	mutable Mutex	m_Mutex;
 };

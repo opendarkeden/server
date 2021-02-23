@@ -1,6 +1,6 @@
 #include "WarSchedule.h"
 #include "WarScheduler.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include "Zone.h"
 #include "Properties.h"
@@ -8,7 +8,7 @@
 #include "SiegeWar.h"
 #include "VariableManager.h"
 #include <stdio.h>
-#include "GCWarScheduleList.h"
+#include "Gpackets/GCWarScheduleList.h"
 #include "WarSystem.h"
 
 // dt 이후의 월, 수, 금 오후 8시(~9시)
@@ -16,7 +16,8 @@
 const int NextWarDay [2][8] =
 {
 	{ 0, 1, 7, 6, 5, 4, 3, 2 },	// 길드전
-	{ 0, 2, 1, 0, 3, 2, 1, 0 }	// 종족전
+	//{ 0, 2, 1, 0, 3, 2, 1, 0 }	// RaceWar 휑,寧,랗,힛,愷,巧,짇,휑
+	{ 0, 6, 5, 4, 3, 2, 1, 0 }	// RaceWar 휑,寧,랗,힛,愷,巧,짇,휑
 };
 
 // 테스트 서버에서..
@@ -32,8 +33,8 @@ const int NextWarHour [2][24] =
 };
 
 
-WarScheduler::WarScheduler(Zone* pZone ) 
-	throw(Error)
+WarScheduler::WarScheduler( Zone* pZone ) 
+	throw (Error)
 : m_pZone(pZone) 
 {
 	// Zone에 붙어서 돌아간다.
@@ -42,12 +43,12 @@ WarScheduler::WarScheduler(Zone* pZone )
 }
 
 WarScheduler::~WarScheduler()
-	throw()
+	throw (Error)
 {
 }
 
 bool WarScheduler::makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -62,18 +63,18 @@ bool WarScheduler::makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList) 
 		Assert(pWarSchedule!=NULL);
 
 		WarScheduleInfo* pWSI = new WarScheduleInfo;
-		pWarSchedule->makeWarScheduleInfo(pWSI);
+		pWarSchedule->makeWarScheduleInfo( pWSI );
 
-		pGCWarScheduleList->addWarScheduleInfo(pWSI);
+		pGCWarScheduleList->addWarScheduleInfo( pWSI );
 	}
 
 	// 자동으로 시작하는 기능이 설정되어 있다면, 종족 전쟁 정보는 무조건 넣어준다.
 	if (g_pVariableManager->isAutoStartRaceWar())
 	{
 		WarScheduleInfo* pWSI = new WarScheduleInfo;
-		if (g_pWarSystem->addRaceWarScheduleInfo(pWSI ))
+		if (g_pWarSystem->addRaceWarScheduleInfo( pWSI ))
 		{
-			pGCWarScheduleList->addWarScheduleInfo(pWSI);
+			pGCWarScheduleList->addWarScheduleInfo( pWSI );
 		}
 		else
 		{
@@ -110,11 +111,11 @@ Work* WarScheduler::heartbeat()
 		Assert(pWar!=NULL);
 
 		if (pWar->getWarType()==WAR_RACE
-			&& getWarTypeCount(WAR_RACE )==0)
+			&& getWarTypeCount( WAR_RACE )==0)
 		{
-			War* pNewWar = new War(m_pZone->getZoneID(), WAR_RACE, 0, War::WAR_STATE_WAIT);
+			War* pNewWar = new War( m_pZone->getZoneID(), WAR_RACE, 0, War::WAR_STATE_WAIT );
 
-			addWar(pNewWar);
+			addWar( pNewWar );
 
 			filelog("WarLog.txt", "[%d][WarID=%d] 종족 전쟁이 시작되었으므로 다음 종족 전쟁을 추가합니다.", 
 								(int)m_pZone->getZoneID(), (int)pWar->getWarID());
@@ -141,25 +142,25 @@ void WarScheduler::load()
 
 	//int numRaceWar = 0;
 
-	VSDateTime currentDateTime(VSDateTime::currentDateTime());
+	VSDateTime currentDateTime( VSDateTime::currentDateTime() );
 
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(
+		pResult = pStmt->executeQuery( 
 #ifndef __OLD_GUILD_WAR__
 				"SELECT WarID, WarType, AttackerCount, AttackGuildID, AttackGuildID2, AttackGuildID3, AttackGuildID4, AttackGuildID5, "
 						"WarFee, StartTime FROM WarScheduleInfo "
 #else
 				"SELECT WarID, WarType, AttackGuildID, WarFee, StartTime FROM WarScheduleInfo "
 #endif
-						"WHERE ServerID = %u AND ZoneID = %u AND (Status = 'WAIT' OR Status = 'START' ) "
+						"WHERE ServerID = %u AND ZoneID = %u AND ( Status = 'WAIT' OR Status = 'START' ) "
 						"ORDER BY StartTime",
 						g_pConfig->getPropertyInt("ServerID"), 
 						(int)m_pZone->getZoneID() 
 		);
 
-		if(pResult->getRowCount() > 0 )
+		if( pResult->getRowCount() > 0 )
 		{
 			WarID_t			warID;
 			WarType_t		warType;
@@ -173,29 +174,29 @@ void WarScheduler::load()
 			string			dateTemp;
 			VSDateTime		warStartTime;
 			
-			while(pResult->next() )
+			while( pResult->next() )
 			{
 				int i=0;
 
-				warID				= (WarID_t)		pResult->getInt(++i);
-				string warTypeStr	= pResult->getString(++i);
+				warID				= (WarID_t)		pResult->getInt( ++i );
+				string warTypeStr	= pResult->getString( ++i );
 
 				if (warTypeStr=="GUILD") 		warType = WAR_GUILD;
 				else if (warTypeStr=="RACE") 	continue;//warType = WAR_RACE;
 				else Assert(false);
 #ifndef __OLD_GUILD_WAR__
-				challengerNum = pResult->getInt(++i);
+				challengerNum = pResult->getInt( ++i );
 
-				for (int j=0 ; j<5; ++j )
+				for ( int j=0 ; j<5; ++j )
 				{
-					challengerGuildID[j]	= (GuildID_t)	pResult->getInt(++i);
+					challengerGuildID[j]	= (GuildID_t)	pResult->getInt( ++i );
 				}
 #else
-				challengerGuildID	= (GuildID_t)	pResult->getInt(++i);
+				challengerGuildID	= (GuildID_t)	pResult->getInt( ++i );
 #endif
 
-				warRegistrationFee	= (Gold_t)		pResult->getInt(++i);
-				dateTemp			=				pResult->getString(++i);
+				warRegistrationFee	= (Gold_t)		pResult->getInt( ++i );
+				dateTemp			=				pResult->getString( ++i );
 				warStartTime		= VSDateTime(dateTemp);
 
 				// 이미 시작되었어야할 전쟁이라면 시작시간을 바꿔준다.
@@ -205,29 +206,29 @@ void WarScheduler::load()
 				}
 
 #ifndef __OLD_GUILD_WAR__
-				SiegeWar* pWar = new SiegeWar(m_pZone->getZoneID(), War::WAR_STATE_WAIT, warID);
+				SiegeWar* pWar = new SiegeWar( m_pZone->getZoneID(), War::WAR_STATE_WAIT, warID );
 #else
-				GuildWar* pWar = new GuildWar(m_pZone->getZoneID(), challengerGuildID, War::WAR_STATE_WAIT, warID);
+				GuildWar* pWar = new GuildWar( m_pZone->getZoneID(), challengerGuildID, War::WAR_STATE_WAIT, warID );
 #endif
-				pWar->setWarStartTime(warStartTime);
-				pWar->setRegistrationFee(warRegistrationFee);
+				pWar->setWarStartTime( warStartTime );
+				pWar->setRegistrationFee( warRegistrationFee );
 
 #ifndef __OLD_GUILD_WAR__
-				pResult = pStmt->executeQuery("SELECT ReinforceGuildID FROM ReinforceRegisterInfo WHERE WarID=%u AND Status='ACCEPT'", warID);
+				pResult = pStmt->executeQuery( "SELECT ReinforceGuildID FROM ReinforceRegisterInfo WHERE WarID=%u AND Status='ACCEPT'", warID );
 
-				if (pResult->next() )
+				if ( pResult->next() )
 				{
-					pWar->setReinforceGuildID(pResult->getInt(1));
+					pWar->setReinforceGuildID( pResult->getInt(1) );
 				}
 
-				for (int j=0 ; j<challengerNum ; ++j )
+				for ( int j=0 ; j<challengerNum ; ++j )
 				{
 					pWar->addChallengerGuild(challengerGuildID[j]);
 				}
 #endif
 
-				WarSchedule* pWarSchedule = new WarSchedule(pWar, warStartTime, Schedule::SCHEDULE_TYPE_ONCE);
-				addSchedule(pWarSchedule);
+				WarSchedule* pWarSchedule = new WarSchedule( pWar, warStartTime, Schedule::SCHEDULE_TYPE_ONCE );
+				addSchedule( pWarSchedule );
 
 				//cout << "WarScheduler: loading [" << pWarSchedule->toString().c_str() << "]" << endl;
 				filelog("WarLog.txt", "[LOAD] %s", pWar->toString().c_str());
@@ -236,20 +237,20 @@ void WarScheduler::load()
 			}
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	// 종족 전쟁 설정된게 없으면 설정한다.
 	/*
 	if (numRaceWar==0)
 	{
-		VSDateTime warStartTime = getNextWarDateTime(WAR_RACE);
+		VSDateTime warStartTime = getNextWarDateTime( WAR_RACE );
 
-		War* pRaceWar = new War(m_pZone->getZoneID(), WAR_RACE, 0, War::WAR_STATE_WAIT);
-		WarSchedule* pWarSchedule = new WarSchedule(pRaceWar, warStartTime, Schedule::SCHEDULE_TYPE_PERIODIC);
-		addSchedule(pWarSchedule);
+		War* pRaceWar = new War( m_pZone->getZoneID(), WAR_RACE, 0, War::WAR_STATE_WAIT );
+		WarSchedule* pWarSchedule = new WarSchedule( pRaceWar, warStartTime, Schedule::SCHEDULE_TYPE_PERIODIC );
+		addSchedule( pWarSchedule );
 
 		filelog("WarLog.txt", "[%d][WarID=%d] 종족 전쟁이 없으므로 종족 전쟁을 추가합니다.", 
 								(int)m_pZone->getZoneID(), (int)pRaceWar->getWarID());
@@ -274,9 +275,9 @@ int WarScheduler::getWarTypeCount(WarType_t warType)
 
 	RecentSchedules::const_iterator itr = m_RecentSchedules.getSchedules().begin();
 
-	for(; itr != m_RecentSchedules.getSchedules().end() ; itr++ )
+	for( ; itr != m_RecentSchedules.getSchedules().end() ; itr++ )
 	{
-		WarSchedule* pWarSchedule = dynamic_cast<WarSchedule*>((*itr));
+		WarSchedule* pWarSchedule = dynamic_cast<WarSchedule*>( (*itr) );
 		Assert(pWarSchedule!=NULL);
 
 		War* pWar = dynamic_cast<War*>(pWarSchedule->getWork());
@@ -295,7 +296,7 @@ int WarScheduler::getWarTypeCount(WarType_t warType)
 	__END_CATCH
 }
 
-void WarScheduler::tinysave(WarID_t warID, const string& query )
+void WarScheduler::tinysave( WarID_t warID, const string& query )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -304,13 +305,13 @@ void WarScheduler::tinysave(WarID_t warID, const string& query )
 
 	RecentSchedules::const_iterator itr = m_RecentSchedules.getSchedules().begin();
 
-	for(; itr != m_RecentSchedules.getSchedules().end() ; itr++ )
+	for( ; itr != m_RecentSchedules.getSchedules().end() ; itr++ )
 	{
-		WarSchedule* pWarSchedule = dynamic_cast<WarSchedule*>((*itr));
+		WarSchedule* pWarSchedule = dynamic_cast<WarSchedule*>( (*itr) );
 
-		if(pWarSchedule->getWarID() == warID )
+		if( pWarSchedule->getWarID() == warID )
 		{
-			pWarSchedule->tinysave(query);
+			pWarSchedule->tinysave( query );
 			m_Mutex.unlock();
 			return;
 		}
@@ -318,13 +319,13 @@ void WarScheduler::tinysave(WarID_t warID, const string& query )
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)	
 
-	filelog("WarError.log", "WarScheduler::tinySave() DB에 WarID:%d 인 WarSchedule이 없습니다.", warID);
+	filelog( "WarError.log", "WarScheduler::tinySave() DB에 WarID:%d 인 WarSchedule이 없습니다.", warID );
 
 	__END_CATCH
 }
 
 VSDateTime
-WarScheduler::getLastWarDateTime(WarType_t warType ) const
+WarScheduler::getLastWarDateTime( WarType_t warType ) const
 {
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
@@ -332,14 +333,14 @@ WarScheduler::getLastWarDateTime(WarType_t warType ) const
 	bool bFound = false;
 	VSDateTime dt = VSDateTime::currentDateTime();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
 		WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(*itr);
-		if(pSchedule->getWar()->getWarType() == warType )
+		if( pSchedule->getWar()->getWarType() == warType )
 		{
 			if (bFound)
 			{
-				if (dt < pSchedule->getScheduledTime() )
+				if ( dt < pSchedule->getScheduledTime() )
 					dt = pSchedule->getScheduledTime();
 			}
 			else
@@ -355,7 +356,7 @@ WarScheduler::getLastWarDateTime(WarType_t warType ) const
 
 // dt 이후의 전쟁 시간을 알아온다.
 VSDateTime
-WarScheduler::getNextWarDateTime(WarType_t warType, const VSDateTime& dt )
+WarScheduler::getNextWarDateTime( WarType_t warType, const VSDateTime& dt )
 {
 	int startHour = 0;
 
@@ -377,41 +378,41 @@ WarScheduler::getNextWarDateTime(WarType_t warType, const VSDateTime& dt )
 			break;
 		}
 
-		nextWarDateTime = dt.addDays(NextWarDay[warType][dt.date().dayOfWeek()]);
+		nextWarDateTime = dt.addDays( NextWarDay[warType][dt.date().dayOfWeek()] );
  		nextWarTime 	= VSTime(startHour, 0, 0);
-		nextWarDateTime.setTime(nextWarTime);
+		nextWarDateTime.setTime( nextWarTime );
 
-		if (nextWarDateTime < VSDateTime::currentDateTime() )
+		if ( nextWarDateTime < VSDateTime::currentDateTime() )
 		{
-			//nextWarDateTime = nextWarDateTime.addDays(NextWarDay[warType][dt.addDays(1).date().dayOfWeek()]);
-			nextWarDateTime = nextWarDateTime.addDays(1);
-			nextWarDateTime = nextWarDateTime.addDays(NextWarDay[warType][nextWarDateTime.date().dayOfWeek()]);
+			//nextWarDateTime = nextWarDateTime.addDays( NextWarDay[warType][dt.addDays(1).date().dayOfWeek()] );
+			nextWarDateTime = nextWarDateTime.addDays( 1 );
+			nextWarDateTime = nextWarDateTime.addDays( NextWarDay[warType][nextWarDateTime.date().dayOfWeek()] );
 		}
 	}
 	else
 	{
-		nextWarDateTime = dt.addSecs(NextWarHour[warType][dt.time().hour()]*60*60);
+		nextWarDateTime = dt.addSecs( NextWarHour[warType][dt.time().hour()]*60*60 );
  		nextWarTime 	= VSTime(nextWarDateTime.time().hour(), 0, 0);
-		nextWarDateTime.setTime(nextWarTime);
+		nextWarDateTime.setTime( nextWarTime );
 	}
 
 	return nextWarDateTime;
 }
 
 VSDateTime
-WarScheduler::getNextWarDateTime(WarType_t warType ) const
+WarScheduler::getNextWarDateTime( WarType_t warType ) const
 {
-	return getNextWarDateTime(warType, getLastWarDateTime(warType));
+	return getNextWarDateTime( warType, getLastWarDateTime(warType) );
 }
 
-bool WarScheduler::addWar(War* pWar ) 
+bool WarScheduler::addWar( War* pWar ) 
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	WarType_t warType = pWar->getWarType();
-	VSDateTime warStartTime = getNextWarDateTime(warType);
-	pWar->setWarStartTime(warStartTime);
+	VSDateTime warStartTime = getNextWarDateTime( warType );
+	pWar->setWarStartTime( warStartTime );
 
 	Schedule::ScheduleType scheduleType;
 	
@@ -424,15 +425,15 @@ bool WarScheduler::addWar(War* pWar )
 		scheduleType = Schedule::SCHEDULE_TYPE_PERIODIC;
 	}
 	
-	WarSchedule* pWarSchedule = new WarSchedule(pWar, warStartTime, scheduleType);
+	WarSchedule* pWarSchedule = new WarSchedule( pWar, warStartTime, scheduleType);
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)	
 
-	addSchedule(pWarSchedule);
+	addSchedule( pWarSchedule );
 
 	filelog("WarLog.txt", "[%d][WarID=%d] %s 전쟁을 신청했으므로 스케쥴에 추가합니다.", 
 				(int)m_pZone->getZoneID(), (int)pWar->getWarID(), 
-				(pWar->getWarType()==WAR_GUILD? "길드":"종족"));
+				(pWar->getWarType()==WAR_GUILD? "길드":"종족") );
 
 	pWarSchedule->create();
 
@@ -444,7 +445,7 @@ bool WarScheduler::addWar(War* pWar )
 	__END_CATCH
 }
 
-bool WarScheduler::canAddWar(WarType_t warType ) 
+bool WarScheduler::canAddWar( WarType_t warType ) 
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -457,7 +458,7 @@ bool WarScheduler::canAddWar(WarType_t warType )
 
 void
 WarScheduler::cancelGuildSchedules() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -484,30 +485,30 @@ WarScheduler::cancelGuildSchedules()
 	__END_CATCH
 }
 
-bool WarScheduler::hasSchedule(GuildID_t gID ) throw(Error)
+bool WarScheduler::hasSchedule( GuildID_t gID ) throw(Error)
 {
 	__BEGIN_TRY
 
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
 		WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(*itr);
-		if (pSchedule == NULL ) continue;
+		if ( pSchedule == NULL ) continue;
 
 		War* pWar = dynamic_cast<War*>(pSchedule->getWork());
-		if (pWar != NULL && pWar->getWarType() == WAR_GUILD )
+		if ( pWar != NULL && pWar->getWarType() == WAR_GUILD )
 		{
 #ifndef __OLD_GUILD_WAR__
 			SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(pWar);
-			if (pSiegeWar != NULL && pSiegeWar->isWarParticipant(gID) && pSiegeWar->getState() == War::WAR_STATE_WAIT )
+			if ( pSiegeWar != NULL && pSiegeWar->isWarParticipant(gID) && pSiegeWar->getState() == War::WAR_STATE_WAIT )
 			{
 				return true;
 			}
 #else
 			GuildWar* pGuildWar = dynamic_cast<GuildWar*>(pWar);
-			if (pGuildWar != NULL && pGuildWar->getChallangerGuildID() == gID && pGuildWar->getState() == War::WAR_STATE_WAIT )
+			if ( pGuildWar != NULL && pGuildWar->getChallangerGuildID() == gID && pGuildWar->getState() == War::WAR_STATE_WAIT )
 			{
 				return true;
 			}

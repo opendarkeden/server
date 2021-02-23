@@ -8,7 +8,7 @@
 #include "PlayerCreature.h"
 #include "Player.h"
 #include "GQuestManager.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include <cstdio>
 
 EffectEventQuestReset::EffectEventQuestReset(Creature* pCreature, int type) throw(Error)
@@ -48,20 +48,22 @@ void EffectEventQuestReset::affect (Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (!pCreature->isPC() ) return;
+	if ( !pCreature->isPC() ) return;
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
 //	int lastSec = getRemainDuration() * 10;
-	int lastSec = timediff(m_Deadline, gCurrentTime ).tv_sec;
-
+	int lastSec = timediff( m_Deadline, gCurrentTime ).tv_sec;
+	cout << "lastSec : " << lastSec << endl;
 	int lastHours = lastSec/3600;
 	int lastMins = (lastSec%3600)/60;
 
 	char buffer[256];
-	sprintf(buffer, "Event Quest ends in %d hours and %d minutes.", lastHours, lastMins);
+	sprintf(buffer, "离任务规定时间还剩下%d小时%d分.", lastHours, lastMins);
 	GCSystemMessage gcSM;
 	gcSM.setMessage(buffer);
-	pPC->getPlayer()->sendPacket(&gcSM);
+	pPC->getPlayer()->sendPacket( &gcSM );
+
+	cout << gcSM.getMessage() << endl;
 
 	__END_CATCH
 }
@@ -82,7 +84,7 @@ void EffectEventQuestReset::unaffect (Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (!pCreature->isPC() ) return;
+	if ( !pCreature->isPC() ) return;
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
 	pPC->getGQuestManager()->eraseQuest(1001);
@@ -100,8 +102,8 @@ void EffectEventQuestReset::unaffect (Creature* pCreature)
 	pPC->getGQuestManager()->refreshQuest();
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("12 hours have passed, you can retry the quest.");
-	pPC->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("已过12小时的规定时间.可以重新申请A等级任务.");
+	pPC->getPlayer()->sendPacket( &gcSM );
 
 	__END_CATCH
 }
@@ -112,7 +114,8 @@ string EffectEventQuestReset::toString()
 	__BEGIN_TRY
 
 	StringStream msg;
-	msg << "EffectEventQuestReset()";
+	msg << "EffectEventQuestReset("
+		<< ")";
 	return msg.toString();
 
 	__END_CATCH

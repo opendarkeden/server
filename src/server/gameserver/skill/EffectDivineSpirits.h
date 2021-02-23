@@ -30,7 +30,7 @@ public:
 	string toString() const throw();
 
 public:
-	void setBonus(uint bonus ) { m_Bonus = bonus; }
+	void setBonus( uint bonus ) { m_Bonus = bonus; }
 	uint getBonus() const { return m_Bonus; }
 
 private:

@@ -12,10 +12,10 @@
 #include "ZoneUtil.h"
 #include "ZoneInfoManager.h"
 #include "SkillUtil.h"
-#include "GCRemoveEffect.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -38,8 +38,8 @@ void EffectGunShotGuidancePoint::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 
 	__END_CATCH
 }

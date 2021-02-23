@@ -20,11 +20,11 @@
 #include "ZoneGroupManager.h"
 #include "GuildManager.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -42,7 +42,7 @@ const Effect::EffectClass EffectHasCastleSymbol::EffectClasses[6] =
 //////////////////////////////////////////////////////////////////////////////
 EffectHasCastleSymbol::EffectHasCastleSymbol(Creature* pCreature)
 	throw(Error)
-: EffectHasRelic(pCreature )
+: EffectHasRelic( pCreature )
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ EffectHasCastleSymbol::EffectHasCastleSymbol(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 EffectHasCastleSymbol::EffectHasCastleSymbol(Item* pItem)
 	throw(Error)
-: EffectHasRelic(pItem )
+: EffectHasRelic( pItem )
 {
 	__BEGIN_TRY
 
@@ -70,8 +70,8 @@ void EffectHasCastleSymbol::affect(Creature* pCreature)
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone!=NULL);
 
-	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(pZone->getZoneID());
-	Assert(pZoneInfo != NULL);
+	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( pZone->getZoneID() );
+	Assert( pZoneInfo != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 	Assert(pPC!=NULL);
@@ -79,36 +79,36 @@ void EffectHasCastleSymbol::affect(Creature* pCreature)
 	// 위치를 알린다.
 /*	StringStream msg;
 	msg << pCreature->getName() << " 님(" 
-		//<< (pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 " 
-		<< g_pGuildManager->getGuildName(pPC->getGuildID() ) << ")이 "
+		//<< ( pCreature->isSlayer() ? "슬레이어" : "뱀파이어" ) << ")이 " 
+		<< g_pGuildManager->getGuildName( pPC->getGuildID() ) << ")이 "
 	    << pZoneInfo->getFullName() << "(" << (int)pCreature->getX() << ", " << (int)pCreature->getY()
 		<< ")에서 성의 상징(" << m_PartName << ")을 가지고 있습니다.";
 	*/
 
 	char msg[300]; 
-	sprintf(msg, g_pStringPool->c_str(STRID_BROADCAST_CASTLE_SYMBOL_POSITION ),
-					pCreature->getName().c_str(), g_pGuildManager->getGuildName(pPC->getGuildID() ).c_str(),
+	sprintf( msg, g_pStringPool->c_str( STRID_BROADCAST_CASTLE_SYMBOL_POSITION ),
+					pCreature->getName().c_str(), g_pGuildManager->getGuildName( pPC->getGuildID() ).c_str(),
 					pZoneInfo->getFullName().c_str(), (int)pCreature->getX(), (int)pCreature->getY(),
-					m_PartName.c_str());
+					m_PartName.c_str() );
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg);
 
 	
-	g_pCastleInfoManager->broadcastShrinePacket(m_Part , &gcSystemMessage);
+	g_pCastleInfoManager->broadcastShrinePacket( m_Part , &gcSystemMessage );
 /*
-	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_Part);
+	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_Part );
 	
 	const list<ZoneID_t>& ZoneIDList = pCastleInfo->getZoneIDList();
 	list<ZoneID_t>::const_iterator itr = ZoneIDList.begin();
 
-	for (; itr != ZoneIDList.end() ; itr++) 
+	for ( ; itr != ZoneIDList.end() ; itr++) 
 	{
-		Zone* pCastleZone = getZoneByZoneID(*itr);
-		pCastleZone->broadcastPacket(&gcSystemMessage);
+		Zone* pCastleZone = getZoneByZoneID( *itr );
+		pCastleZone->broadcastPacket( &gcSystemMessage );
 	}
 */
-//	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+//	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	setNextTime(m_Tick);
 																															    	
@@ -128,12 +128,12 @@ void EffectHasCastleSymbol::affect(Item* pItem)
 	ZoneID_t 	castleZoneID;
 	bool		isCastle;
 
-	isCastle = g_pCastleInfoManager->getCastleZoneID(m_pZone->getZoneID() , castleZoneID);
+	isCastle = g_pCastleInfoManager->getCastleZoneID( m_pZone->getZoneID() , castleZoneID);
 
-	if (isCastle && g_pWarSystem->hasCastleActiveWar(castleZoneID ))
+	if ( isCastle && g_pWarSystem->hasCastleActiveWar( castleZoneID ))
 	{
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID());
-		Assert(pZoneInfo != NULL);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
+		Assert( pZoneInfo != NULL );
 
 		// 위치를 알린다.
 /*		StringStream msg;
@@ -142,26 +142,26 @@ void EffectHasCastleSymbol::affect(Item* pItem)
 */
 
 		char msg[200];
-		sprintf(msg, g_pStringPool->c_str(STRID_BROADCAST_CASTLE_SYMBOL_POSITION_2 ),
-						pZoneInfo->getFullName().c_str(), (int)m_X, (int)m_Y, m_PartName.c_str());
+		sprintf( msg, g_pStringPool->c_str( STRID_BROADCAST_CASTLE_SYMBOL_POSITION_2 ),
+						pZoneInfo->getFullName().c_str(), (int)m_X, (int)m_Y, m_PartName.c_str() );
 
 		GCSystemMessage gcSystemMessage;
 		gcSystemMessage.setMessage(msg);
 
-		g_pCastleInfoManager->broadcastShrinePacket(m_Part , &gcSystemMessage);
+		g_pCastleInfoManager->broadcastShrinePacket( m_Part , &gcSystemMessage );
 /*
-		CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_Part);
+		CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_Part );
 		
 		const list<ZoneID_t>& ZoneIDList = pCastleInfo->getZoneIDList();
 		list<ZoneID_t>::const_iterator itr = ZoneIDList.begin();
 
-		for (; itr != ZoneIDList.end() ; itr++) 
+		for ( ; itr != ZoneIDList.end() ; itr++) 
 		{
-			Zone* pCastleZone = getZoneByZoneID(*itr);
-			pCastleZone->broadcastPacket(&gcSystemMessage);
+			Zone* pCastleZone = getZoneByZoneID( *itr );
+			pCastleZone->broadcastPacket( &gcSystemMessage );
 		}
 */
-//		g_pZoneGroupManager->broadcast(&gcSystemMessage);
+//		g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	}
 
@@ -170,14 +170,14 @@ void EffectHasCastleSymbol::affect(Item* pItem)
 	__END_CATCH
 }
 
-void EffectHasCastleSymbol::setPart(int part )
+void EffectHasCastleSymbol::setPart( int part )
 	throw()
 {
 	__BEGIN_TRY
 
-	const CastleSymbolInfo* pCastleSymbolInfo = dynamic_cast<const CastleSymbolInfo*>(g_pCastleSymbolInfoManager->getItemInfo(part ));
+	const CastleSymbolInfo* pCastleSymbolInfo = dynamic_cast<const CastleSymbolInfo*>(g_pCastleSymbolInfoManager->getItemInfo( part ) );
 
-	if (pCastleSymbolInfo != NULL )
+	if ( pCastleSymbolInfo != NULL )
 	{
 		m_Part = part;
 		m_PartName = pCastleSymbolInfo->getName();

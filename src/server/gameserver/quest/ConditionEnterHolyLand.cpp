@@ -23,7 +23,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEnterHolyLand::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	/*if (!g_pVariableManager->isActiveHolyLand())
 	{
@@ -79,10 +79,10 @@ bool ConditionEnterHolyLand::isSatisfied (Creature * pCreature1 , Creature * pCr
 				return true;
 			}
 
-			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
 
 			// 전쟁 참가를 했었어야 한다.
-			return pPC->isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+			return pPC->isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 		}
 
 		// 전쟁 중 아니면 그냥 들어간다.
@@ -96,7 +96,7 @@ bool ConditionEnterHolyLand::isSatisfied (Creature * pCreature1 , Creature * pCr
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEnterHolyLand::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -113,7 +113,7 @@ void ConditionEnterHolyLand::read (PropertyBuffer & propertyBuffer)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEnterHolyLand::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

@@ -9,7 +9,7 @@
 #include "Creature.h"
 #include "Player.h"
 #include "Zone.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,8 @@ void EffectTranslation::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectTranslation" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -65,6 +67,8 @@ void EffectTranslation::unaffect(Creature* pCreature)
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_TRANSLATION);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	//cout << "EffectTranslation" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

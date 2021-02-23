@@ -8,13 +8,13 @@
 #include "RankBonus.h"
 #include "EffectMeteorStrike.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -24,7 +24,7 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 {
 	__BEGIN_TRY
 
-	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << "begin(monster) " << endl;
+	cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << "begin(monster) " << endl;
 
 	try 
 	{
@@ -51,7 +51,7 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			if (tile.canAddEffect()) bTileCheck = true;
 		}
 
-		Dir_t dir = getDirection(pMonster->getX(), pMonster->getY(), X, Y);
+		Dir_t dir = getDirection( pMonster->getX(), pMonster->getY(), X, Y );
 		Dir_t dir2 = (dir+7)%8;		// left
 		Dir_t dir3 = (dir+1)%8;		// right
 
@@ -82,14 +82,14 @@ void MultiThrowingAxe::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			
 			for(int i=0; i < 3; i++)
 			{
-				if (!isValidZoneCoord(pZone, tX[i], tY[i]) ) continue;
+				if ( !isValidZoneCoord(pZone, tX[i], tY[i]) ) continue;
 				Tile&   tile  = pZone->getTile(tX[i], tY[i]);
 				
 				// 이펙트 오브젝트를 생성한다.
 				EffectMeteorStrike* pEffect = new EffectMeteorStrike(pZone, tX[i], tY[i]);
 				pEffect->setNextTime(output.Duration);
-				pEffect->setUserObjectID(pMonster->getObjectID());
-				pEffect->setBroadcastingEffect(false);
+				pEffect->setUserObjectID( pMonster->getObjectID() );
+				pEffect->setBroadcastingEffect( false );
 				//pEffect->setNextTime(0);
 				//pEffect->setTick(output.Tick);
 				pEffect->setDamage(output.Damage);

@@ -8,14 +8,14 @@
 #include "SwordRay.h"
 #include "EffectTileStorm.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -41,7 +41,7 @@ void SwordRay::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pS
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -123,13 +123,13 @@ void SwordRay::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
 
 			Range_t Range = 5;
 
-			EffectTileStorm* pEffect = new EffectTileStorm(pZone, X, Y);
-			pEffect->setUserObjectID(pSlayer->getObjectID());
-			pEffect->setDamage(output.Damage);
-			pEffect->setSkillType(SkillType);
-			pEffect->setStormTime(1);
-			pEffect->setTick(output.Tick);
-			pEffect->setNextTime(output.Tick);
+			EffectTileStorm* pEffect = new EffectTileStorm( pZone, X, Y );
+			pEffect->setUserObjectID( pSlayer->getObjectID() );
+			pEffect->setDamage( output.Damage );
+			pEffect->setSkillType( SkillType );
+			pEffect->setStormTime( 1 );
+			pEffect->setTick( output.Tick );
+			pEffect->setNextTime( output.Tick );
 			pEffect->setLarge(false);
 
 			ObjectRegistry& objectregister = pZone->getObjectRegistry();
@@ -175,7 +175,7 @@ void SwordRay::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot*
 			// broadcasting후 5번OK를 받은 사람을 기록한다.
 			// 여기에 기록된 사람은 차후 broadcasting에서 제외된다.
 			list<Creature*> cList;
-			cList.push_back(pSlayer);
+			cList.push_back( pSlayer );
 			cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 			
 			// 기술을 쓴 사람을 볼 수 있는 사람들에게 broadcasting

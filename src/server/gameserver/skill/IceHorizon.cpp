@@ -9,16 +9,14 @@
 #include "Creature.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCSkillFailed1.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 IceHorizon::IceHorizon()
 	throw()
@@ -49,7 +47,7 @@ void IceHorizon::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -119,7 +117,7 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 		
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -141,7 +139,7 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 				if (rect.ptInRect(tileX, tileY))
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
-					if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
+					if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
 
 					// 현재 타일에다 이펙트를 추가할 수 있다면...
 					if (tile.canAddEffect())
@@ -156,14 +154,14 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
 						// 이펙트 클래스를 생성한다.
 						EffectIceHorizon* pEffect = new EffectIceHorizon(pZone , tileX, tileY);
-						pEffect->setCasterName(pOusters->getName());
-						pEffect->setCasterID(pOusters->getObjectID());
+						pEffect->setCasterName( pOusters->getName() );
+						pEffect->setCasterID( pOusters->getObjectID() );
 						pEffect->setDeadline(output.Duration);
 						pEffect->setIncreaseAmount(output.Damage);	
 						pEffect->setNextTime(0);
 						pEffect->setTick(output.Tick);
 
-						if (i != 0 || j !=  0 ) pEffect->setBroadcastingEffect(false);
+						if ( i != 0 || j !=  0 ) pEffect->setBroadcastingEffect(false);
 
 						// Tile에 붙이는 Effect는 ObjectID를 등록받아야 한다.
 						ObjectRegistry & objectregister = pZone->getObjectRegistry();
@@ -171,14 +169,14 @@ void IceHorizon::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
-							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isVampire() )
-								&& !checkZoneLevelToHitTarget(pTargetCreature )
+							if ( pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isVampire() )
+								&& !checkZoneLevelToHitTarget( pTargetCreature )
 							) 
 							{
 								cList.push_back(pTargetCreature);

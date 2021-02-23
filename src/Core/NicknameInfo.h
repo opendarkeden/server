@@ -35,10 +35,10 @@ public:
 	string	getNickname() const { return m_Nickname; }
 	WORD	getNicknameIndex() const { return m_NicknameIndex; }
 
-	void	setNicknameID(WORD id ) { m_NicknameID = id; }
-	void	setNicknameType(BYTE type ) { m_NicknameType = type; }
-	void	setNickname(const string& name ) { m_Nickname = name; }
-	void	setNicknameIndex(WORD index ) { m_NicknameIndex = index; }
+	void	setNicknameID( WORD id ) { m_NicknameID = id; }
+	void	setNicknameType( BYTE type ) { m_NicknameType = type; }
+	void	setNickname( const string& name ) { m_Nickname = name; }
+	void	setNicknameIndex( WORD index ) { m_NicknameIndex = index; }
 
 private:
 	WORD	m_NicknameID;

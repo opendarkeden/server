@@ -11,7 +11,7 @@
 #include "MonsterCounter.h"
 #include "Item.h"
 #include "Timeval.h"
-#include <map>
+#include <hash_map>
 #include <list>
 #include <vector>
 
@@ -69,7 +69,7 @@ public:
 	void addItem(Monster* pDeadMonster, MonsterCorpse* pMonsterCorpse) throw(Error);
 	
 	// 해쉬맵을 직접 액세스할 때
-	const map<MonsterType_t, MonsterCounter*>& getMonsters(void) { return m_Monsters;}
+	const hash_map<MonsterType_t, MonsterCounter*>& getMonsters(void) { return m_Monsters;}
 
 	// 전체의 잠재적인 적으로 인식한다. pMonster를 pCreature가 공격한 경우에..
 	void addPotentialEnemy(Monster* pMonster, Creature* pCreature) throw(Error);
@@ -84,18 +84,18 @@ public:
 	void deleteAllMonsters(bool bDeleteFromZone=true) throw(Error);//NoSuchElementException, Error);
 
 	// kill AllMonsters
-	void killAllMonsters(const map<ObjectID_t, ObjectID_t>& exceptCreatures) throw(Error);//NoSuchElementException, Error);
+	void killAllMonsters(const hash_map<ObjectID_t, ObjectID_t>& exceptCreatures) throw(Error);//NoSuchElementException, Error);
 
-	int upgradeItemTypeByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) throw(Error);
-	int upgradeOptionByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) throw(Error);
+	int upgradeItemTypeByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) throw (Error);
+	int upgradeOptionByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) throw (Error);
 
 protected :
-	void parseMonsterList(const string& text, bool bReload=false) throw(Error);
-	void parseEventMonsterList(const string& text, bool bReload=false) throw(Error);
+	void parseMonsterList(const string& text, bool bReload=false) throw (Error);
+	void parseEventMonsterList(const string& text, bool bReload=false) throw (Error);
 
 private:
 	Zone* m_pZone; // 몬스터 매니저가 소속된 존에 대한 포인터
-	map< SpriteType_t, MonsterCounter* > m_Monsters; // 현재 존에 존재하는 몬스터의 숫자 현황
+	hash_map< SpriteType_t, MonsterCounter* > m_Monsters; // 현재 존에 존재하는 몬스터의 숫자 현황
 	Timeval m_RegenTime; // 다음 몬스터 재생 시간
 
 	int m_RICE_CAKE_PROB_RATIO[5];

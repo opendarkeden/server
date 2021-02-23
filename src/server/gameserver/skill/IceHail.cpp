@@ -8,14 +8,14 @@
 #include "EffectIceHail.h"
 #include "ZoneUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -44,12 +44,12 @@ void IceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		bool bHitRoll    = HitRoll::isSuccessMagic(pMonster, pSkillInfo);
 
 		bool bTileCheck = false;
-		if (isValidZoneCoord(pZone, X, Y ) )
+		if ( isValidZoneCoord( pZone, X, Y ) )
 		{
 			Tile& tile = pZone->getTile(X, Y);
 			if (tile.canAddEffect()) bTileCheck = true;
 			// 머시 그라운드 있음 추가 못한당.
-//			if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
+//			if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) bTileCheck=false;
 		}
 
 		Range_t Range = 5;
@@ -71,7 +71,7 @@ void IceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			pEffect->setNextTime(15);
 			pEffect->setTick(output.Tick);
 			pEffect->setRange(2);
-			pEffect->setCasterID(pMonster->getObjectID());
+			pEffect->setCasterID( pMonster->getObjectID() );
 
 			// 타일에 붙은 이펙트는 OID를 받아야 한다.
 			ObjectRegistry & objectregister = pZone->getObjectRegistry();
@@ -79,13 +79,13 @@ void IceHail::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		
 			// 존 및 타일에다가 이펙트를 추가한다.
 			pZone->addEffect(pEffect);	
-			pZone->getTile(X, Y ).addEffect(pEffect);
+			pZone->getTile( X, Y ).addEffect(pEffect);
 
 			GCAddEffectToTile gcAE;
-			gcAE.setXY(X, Y);
-			gcAE.setEffectID(Effect::EFFECT_CLASS_ICICLE_DROP_SIGN);
-			gcAE.setDuration(10);
-			pZone->broadcastPacket(X, Y, &gcAE);
+			gcAE.setXY( X, Y );
+			gcAE.setEffectID( Effect::EFFECT_CLASS_ICICLE_DROP_SIGN );
+			gcAE.setDuration( 10 );
+			pZone->broadcastPacket( X, Y, &gcAE );
 
 			_GCSkillToTileOK3.setObjectID(pMonster->getObjectID());
 			_GCSkillToTileOK3.setSkillType(SkillType);

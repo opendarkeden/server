@@ -22,8 +22,8 @@ public:
 	uint getSize() const throw() { return szBYTE + ((m_ItemExist)?(PCItemInfo::getSize() + szGold):0); }
 	static uint getMaxSize() throw() { return szBYTE + PCItemInfo::getMaxSize() + szGold; }
 
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	BYTE	isItemExist() const { return m_ItemExist; }
 	void	setItemExist(BYTE exist) { m_ItemExist = exist; }
@@ -40,7 +40,7 @@ class StoreOutlook
 public:
 	StoreOutlook() : m_Open(0) { }
 
-	PacketSize_t getSize() const { return szBYTE + ((m_Open==0)?0:(szBYTE+m_Sign.size())); }
+	PacketSize_t getSize() const { return szBYTE + ( (m_Open==0)?0:(szBYTE+m_Sign.size()) ); }
 	static PacketSize_t getMaxSize() { return szBYTE + szBYTE + MAX_SIGN_SIZE; }
 
 	void read(SocketInputStream& iStream) throw(ProtocolException, Error);

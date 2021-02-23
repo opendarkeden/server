@@ -1,0 +1,2 @@
+#!/bin/sh
+vi AR.cpp Belt.cpp Blade.cpp Bracelet.cpp Coat.cpp Cross.cpp Glove.cpp Helm.cpp Mace.cpp Necklace.cpp Ring.cpp SG.cpp SMG.cpp SR.cpp Shield.cpp Shoes.cpp Sword.cpp Trouser.cpp VampireCoat.cpp VampireBracelet.cpp VampireEarring.cpp VampireNecklace.cpp VampireRing.cpp VampireWeapon.cpp VampireAmulet.cpp

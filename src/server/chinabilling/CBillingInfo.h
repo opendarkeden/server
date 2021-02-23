@@ -140,8 +140,8 @@ struct _CBILLING_PACKET_RESPONSE_LOGIN_BODY
 	char			End_Date_Time[16];		// end date time of monthly user. format : YYYYMMDDHHMISS
 	mutable int		Player_Type;			// type of user. unlimited, limited, monthly, point.
 	mutable int		Pay_Type;				// pre paid or post paid
-	mutable int		Free_Left_Time;			// free left time (minute )
-	mutable int		Rating_Left_Time;		// rating left time (minute )
+	mutable int		Free_Left_Time;			// free left time ( minute )
+	mutable int		Rating_Left_Time;		// rating left time ( minute )
 };
 
 typedef _CBILLING_PACKET_RESPONSE_LOGIN_BODY CBillingPacketResponseLoginBodyInfo;
@@ -167,8 +167,8 @@ struct _CBILLING_PACKET_RESPONSE_MINUS_POINT_BODY
 	char			Login_Name[64];			// login name
 	mutable int		Player_Type;			// type of user. unlimited, limited, monthly, point.
 	mutable int		Pay_Type;				// pre paid or post paid
-	mutable int		Free_Left_Time;			// free left time (minute )
-	mutable int		Rating_Left_Time;		// rating left time (minute )
+	mutable int		Free_Left_Time;			// free left time ( minute )
+	mutable int		Rating_Left_Time;		// rating left time ( minute )
 	mutable int		Minus_Free_Point;		// minus point from free left time
 	mutable int		Minus_Point;			// minus point from pay left time
 };
@@ -194,8 +194,8 @@ struct _CBILLING_PACKET_RESPONSE_MINUS_MINUTE_BODY
 {
 	char			Login_Name[64];			// login name
 	mutable int		Pay_Type;				// pre paid or post paid
-	mutable int		Free_Left_Time;			// free left time (minute )
-	mutable int		Rating_Left_Time;		// rating left time(minute )
+	mutable int		Free_Left_Time;			// free left time ( minute )
+	mutable int		Rating_Left_Time;		// rating left time( minute )
 	mutable int		Minus_Free_Duration;	// minus minute from free left time
 	mutable int		Minus_Duration;			// minus minute from pay left time
 };

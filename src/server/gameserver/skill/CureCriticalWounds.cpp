@@ -6,9 +6,9 @@
 
 #include "CureCriticalWounds.h"
 #include "EffectCureCriticalWounds.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 const uint CriticalBloodDrainLevel = 74;
 
@@ -68,7 +68,7 @@ void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffect
 			pECCW->setDelay(20);
 			pECCW->setNextTime(0);
 			pSlayer->addEffect(pECCW);
-			pSlayer->setFlag(Effect::EFFECT_CLASS_CURE_CRITICAL_WOUNDS);
+			pSlayer->setFlag( Effect::EFFECT_CLASS_CURE_CRITICAL_WOUNDS );
 
 			// 패킷을 준비해서 보낸다.
 			ZoneCoord_t myX = pSlayer->getX();

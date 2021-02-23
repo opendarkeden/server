@@ -22,7 +22,7 @@ class RewardClass;
 class ItemRewardInfo : public RewardInfo
 {
 public:
-	ItemRewardInfo(RewardID_t rID, RewardClass_t rClass, Item::ItemClass iClass, ItemType_t iType, const string& option, DWORD time);
+	ItemRewardInfo( RewardID_t rID, RewardClass_t rClass, Item::ItemClass iClass, ItemType_t iType, const string& option, DWORD time );
 	virtual ~ItemRewardInfo();
 
 public:
@@ -34,7 +34,7 @@ public:
 	virtual string	toString() const throw();
 
 public:
-//	static void		loadRewardClass(RewardClass& rClass ) throw(Error);
+//	static void		loadRewardClass( RewardClass& rClass ) throw(Error);
 
 private:
 	Item::ItemClass			m_IClass;

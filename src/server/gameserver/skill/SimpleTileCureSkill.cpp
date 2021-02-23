@@ -8,20 +8,20 @@
 #include "EffectBloodDrain.h"
 #include "EffectAftermath.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 SimpleTileCureSkill g_SimpleTileCureSkill;
 
@@ -32,7 +32,7 @@ SimpleTileCureSkill g_SimpleTileCureSkill;
 void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -97,12 +97,12 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
 					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if (CurrentHP < MaxHP )
+					if ( CurrentHP < MaxHP )
 					{
 						bHPCheck = true;
 					}
 
-					if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
+					if ( pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
 					{
 						Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 						pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
@@ -116,7 +116,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 					bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-					if (bHitRoll && bHPCheck && pTargetCreature->isAlive())
+					if ( bHitRoll && bHPCheck && pTargetCreature->isAlive())
 					{
 						Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
@@ -130,7 +130,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 						_GCSkillToSelfOK2.setObjectID(pSlayer->getObjectID());
 						_GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
 						_GCSkillToSelfOK2.setDuration(0);
-						pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2, pTargetSlayer);
+						pZone->broadcastPacket( pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2, pTargetSlayer);
 						//*/
 
 
@@ -162,7 +162,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 							pTargetSlayer->initAllStat();
 							pTargetSlayer->sendRealWearingInfo();
 
-							if(pTargetSlayer == pSlayer ) {
+							if( pTargetSlayer == pSlayer ) {
 								pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
 							} else {
 								pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
@@ -180,10 +180,10 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 						HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
 						// 실제 회복 수치를 계산한다.
-						if(CurrentHP + HealPoint <= MaxHP ) {
-							RealHealPoint = max((unsigned int)0, HealPoint);
+						if( CurrentHP + HealPoint <= MaxHP ) {
+							RealHealPoint = max( (unsigned int)0, HealPoint );
 						} else {
-							RealHealPoint = max(0, MaxHP - CurrentHP);
+							RealHealPoint = max( 0, MaxHP - CurrentHP );
 						}
 
 						CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
@@ -196,14 +196,14 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 				} 
 			}
 
-			if(bheal ) {
+			if( bheal ) {
 				// 경험치를 올려준다.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
 			}
 
-			Dir_t dir = calcDirection (myX, myY, X, Y);
+			Dir_t dir = calcDirection ( myX, myY, X, Y );
 
 			_GCSkillToTileOK1.setSkillType(param.SkillType);
 			_GCSkillToTileOK1.setCEffectID(CEffectID);
@@ -306,7 +306,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -379,14 +379,14 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
 					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if (CurrentHP < MaxHP )
+					if ( CurrentHP < MaxHP )
 					{
 						bHPCheck = true;
 					}
 					bSlayer = true;
 				} 
 
-				if (bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
+				if ( bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
 				{
 					Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 					pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
@@ -400,7 +400,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
 				bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-				if (bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
+				if ( bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
 				{
 					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 					Assert(pTargetSlayer!= NULL);
@@ -433,7 +433,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 						pTargetSlayer->initAllStat();
 						pTargetSlayer->sendRealWearingInfo();
 
-						if(pTargetSlayer == pSlayer ) {
+						if( pTargetSlayer == pSlayer ) {
 							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
 						} else {
 							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
@@ -451,10 +451,10 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
 					// 실제 회복 수치를 계산한다.
-					if(CurrentHP + HealPoint <= MaxHP ) {
-						RealHealPoint = max((unsigned int)0, HealPoint);
+					if( CurrentHP + HealPoint <= MaxHP ) {
+						RealHealPoint = max( (unsigned int)0, HealPoint );
 					} else {
-						RealHealPoint = max(0, MaxHP - CurrentHP);
+						RealHealPoint = max( 0, MaxHP - CurrentHP );
 					}
 
 					CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
@@ -466,14 +466,14 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 				}
 			}
 
-			if(bheal ) {
+			if( bheal ) {
 				// 경험치를 올려준다.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
 			}
 
-			Dir_t dir = calcDirection (myX, myY, X, Y);
+			Dir_t dir = calcDirection ( myX, myY, X, Y );
 
 			_GCSkillToTileOK1.setSkillType(param.SkillType);
 			_GCSkillToTileOK1.setCEffectID(CEffectID);
@@ -578,7 +578,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -637,14 +637,14 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
 					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
 
-					if (CurrentHP < MaxHP )
+					if ( CurrentHP < MaxHP )
 					{
 						bHPCheck = true;
 					}
 					bSlayer = true;
 				} 
 
-				if (bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
+				if ( bSlayer && pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
 				{
 					Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 					pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
@@ -658,10 +658,10 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 
 				bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-				if (bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
+				if ( bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
 				{
 					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-					Assert(pTargetSlayer != NULL);
+					Assert( pTargetSlayer != NULL );
 
 					// 흡혈당한 상태라면 흡혈 상태를 날려준다.
 					if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
@@ -691,7 +691,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 						pTargetSlayer->initAllStat();
 						pTargetSlayer->sendRealWearingInfo();
 
-						if(pTargetSlayer == pSlayer ) {
+						if( pTargetSlayer == pSlayer ) {
 							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
 						} else {
 							pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
@@ -709,10 +709,10 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
 					// 실제 회복 수치를 계산한다.
-					if(CurrentHP + HealPoint <= MaxHP ) {
-						RealHealPoint = max((unsigned int)0, HealPoint);
+					if( CurrentHP + HealPoint <= MaxHP ) {
+						RealHealPoint = max( (unsigned int)0, HealPoint );
 					} else {
-						RealHealPoint = max(0, MaxHP - CurrentHP);
+						RealHealPoint = max( 0, MaxHP - CurrentHP );
 					}
 
 					CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
@@ -724,14 +724,14 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 				}
 			}
 
-			if(bheal ) {
+			if( bheal ) {
 				// 경험치를 올려준다.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
 			}
 
-			Dir_t dir = calcDirection (myX, myY, X, Y);
+			Dir_t dir = calcDirection ( myX, myY, X, Y );
 
 			_GCSkillToTileOK1.setSkillType(param.SkillType);
 			_GCSkillToTileOK1.setCEffectID(CEffectID);

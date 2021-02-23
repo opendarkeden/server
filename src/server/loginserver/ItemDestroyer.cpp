@@ -12,7 +12,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 ItemDestroyer::ItemDestroyer () 
-	throw()
+	throw ()
 {
 }
 
@@ -20,8 +20,8 @@ ItemDestroyer::ItemDestroyer ()
 //--------------------------------------------------------------------------------
 // destroy all item whose owner is ...
 //--------------------------------------------------------------------------------
-void ItemDestroyer::destroyAll (const string & ownerID ) 
-	throw(Error )
+void ItemDestroyer::destroyAll ( const string & ownerID ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void ItemDestroyer::destroyAll (const string & ownerID )
 
 		delete pStmt;
 	}
-	catch (SQLQueryException & sqe )
+	catch ( SQLQueryException & sqe )
 	{
 		delete pStmt;
 		throw Error(sqe.toString());

@@ -12,8 +12,8 @@ public:
 	void affect() throw(Error);
 	void unaffect() throw(Error);
 
-	void	setSignDuration(Turn_t turn ) { m_SignDuration = turn; }
-	void	setMainDuration(Turn_t turn ) { m_MainDuration = turn; }
+	void	setSignDuration( Turn_t turn ) { m_SignDuration = turn; }
+	void	setMainDuration( Turn_t turn ) { m_MainDuration = turn; }
 
 	void start();
 
@@ -28,7 +28,7 @@ private:
 class EffectIcicle : public EffectWithWarning
 {
 public:
-	EffectIcicle(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning((EffectClass)(icicle + 1), icicle, pZone, x, y ) { }
+	EffectIcicle(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning( (EffectClass)(icicle + 1), icicle, pZone, x, y ) { }
 	void affect() throw(Error);
 
 	string toString() const throw() { return "EffectIcicle"; }
@@ -37,7 +37,7 @@ public:
 class EffectLargeIcicle : public EffectWithWarning
 {
 public:
-	EffectLargeIcicle(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning((EffectClass)(icicle + 1), icicle, pZone, x, y ) { }
+	EffectLargeIcicle(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning( (EffectClass)(icicle + 1), icicle, pZone, x, y ) { }
 	void affect() throw(Error);
 
 	string toString() const throw() { return "EffectLargeIcicle"; }
@@ -46,10 +46,10 @@ public:
 class EffectSideTrap : public EffectWithWarning
 {
 public:
-	EffectSideTrap(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning((EffectClass)(icicle + 1), icicle, pZone, x, y ) { m_Dir = 0; }
+	EffectSideTrap(EffectClass icicle, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) : EffectWithWarning( (EffectClass)(icicle + 1), icicle, pZone, x, y ) { m_Dir = 0; }
 	void affect() throw(Error);
 
-	void setDir(Dir_t dir ) { m_Dir = dir; }
+	void setDir( Dir_t dir ) { m_Dir = dir; }
 
 	string toString() const throw() { return "EffectSideTrap"; }
 

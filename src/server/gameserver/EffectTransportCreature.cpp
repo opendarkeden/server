@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectTransportCreature.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "VariableManager.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
@@ -23,7 +23,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t zoneID , ZoneCoord_t x , ZoneCoord_t y , Turn_t delay) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -33,9 +33,9 @@ EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t 
 	m_CreatureID = pCreature->getObjectID();
 	m_ZoneID = zoneID;
 	m_pZone = pCreature->getZone();	// 그냥 다른 곳에서의 assert때문에
-	setTarget(pCreature);
-	setDeadline(delay);
-	setNextTime(0);
+	setTarget( pCreature );
+	setDeadline( delay );
+	setNextTime( 0 );
 
 	// 서버 전용 Effect이다. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
@@ -48,7 +48,7 @@ EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t 
 // destructor
 //----------------------------------------------------------------------
 EffectTransportCreature::~EffectTransportCreature () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -59,7 +59,7 @@ void EffectTransportCreature::affect()
 {
 	__BEGIN_TRY
 
-	Creature* pCreature = m_pZone->getCreature(m_CreatureID);
+	Creature* pCreature = m_pZone->getCreature( m_CreatureID );
 	//Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
 	if (pCreature!=NULL)
@@ -86,17 +86,17 @@ void EffectTransportCreature::affect(Creature* pCreature)
 //	msg << (int)RemainTime << "초 후에 " << m_ZoneName << "로 이동됩니다.";
 
     char msg[50];
-    sprintf(msg, g_pStringPool->c_str(STRID_TRANSPORT_CREATURE ),
+    sprintf( msg, g_pStringPool->c_str( STRID_TRANSPORT_CREATURE ),
                     (int)RemainTime,
-                    m_ZoneName.c_str());
+                    m_ZoneName.c_str() );
 
-	string sMsg(msg);
+	string sMsg( msg );
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(sMsg);
-	pCreature->getPlayer()->sendPacket(&gcSystemMessage);
+	pCreature->getPlayer()->sendPacket( &gcSystemMessage );
 
-	setNextTime(m_MessageTick);
+	setNextTime( m_MessageTick );
 
 	__END_CATCH
 }
@@ -109,7 +109,7 @@ void EffectTransportCreature::unaffect()
 {
 	__BEGIN_TRY
 
-	Creature* pCreature = m_pZone->getCreature(m_CreatureID);
+	Creature* pCreature = m_pZone->getCreature( m_CreatureID );
 	//Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 
 	if (pCreature!=NULL)
@@ -131,7 +131,7 @@ void EffectTransportCreature::unaffect(Creature* pCreature)
 	Assert(pCreature!=NULL);
 	Assert(m_pZone!=NULL);
 
-	transportCreature(pCreature, m_ZoneID, getX(), getY(), false);
+	transportCreature( pCreature, m_ZoneID, getX(), getY(), false );
 
 	__END_CATCH
 }
@@ -142,7 +142,7 @@ void EffectTransportCreature::unaffect(Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectTransportCreature::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

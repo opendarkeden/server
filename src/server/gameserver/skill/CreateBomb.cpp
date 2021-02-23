@@ -10,8 +10,8 @@
 
 #include "item/Bomb.h"
 
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToInventoryOK2.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToInventoryOK2.h"
 
 int MaterialType2BombTypeMap[] =
 {
@@ -33,6 +33,8 @@ void CreateBomb::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 	throw(Error)
 {
 	__BEGIN_TRY
+
+	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(CreateBomb)" << endl;
 
 	Assert(pSlayer != NULL);
 	Assert(pSkillSlot != NULL);
@@ -117,8 +119,10 @@ void CreateBomb::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 			Item* pPrevBomb = pInventory->getItem(TargetX, TargetY);
 
 			// 기존의 폭탄 객체가 있다는 말은 쌓아야 한다는 말이다.
-			if (pPrevBomb != NULL) {
-				if (canStack(pPrevBomb, pBomb) == false) {
+			if (pPrevBomb != NULL)
+			{
+				if (canStack(pPrevBomb, pBomb) == false)
+				{
 					// 같은 타입의 폭탄가 아닐 때인데... 이런 경우가 어떻게 하면 생길까...
 					SAFE_DELETE(pBomb);
 
@@ -142,7 +146,8 @@ void CreateBomb::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 				_GCSkillToInventoryOK1.setObjectID(pPrevBomb->getObjectID());
 			}
 			// 기존의 폭탄 객체가 없다는 말은 폭탄 객체를 DB에 생성해야 한다는 말이다.
-			else {
+			else
+			{
 				ObjectRegistry& OR = pZone->getObjectRegistry();
 				OR.registerObject(pBomb);
 

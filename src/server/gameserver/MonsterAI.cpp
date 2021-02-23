@@ -23,9 +23,7 @@
 #include "StringPool.h"
 
 #include "Profile.h"
-#include "GCSay.h"
-
-#include <list>
+#include "Gpackets/GCSay.h"
 
 #define ABS(X) (((X)>=0)?X:-X)
 
@@ -42,11 +40,11 @@
 TPOINT getSafeTile(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
 {
 	TPOINT ptAcid;
-	ptAcid = findSuitablePositionForEffect(pZone, x, y, Effect::EFFECT_CLASS_ACID_SWAMP);
+	ptAcid = findSuitablePositionForEffect( pZone, x, y, Effect::EFFECT_CLASS_ACID_SWAMP );
 
 	/*
 	TPOINT ptBloody;
-	ptBloody = findSuitablePositionForEffect(pZone, x, y, Effect::EFFECT_CLASS_BLOODY_WALL);
+	ptBloody = findSuitablePositionForEffect( pZone, x, y, Effect::EFFECT_CLASS_BLOODY_WALL );
 	*/
 
 	return ptAcid;
@@ -370,7 +368,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 			&& !m_pBody->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)
 			&& !m_pBody->isFlag(Effect::EFFECT_CLASS_HIDE))
 		{
-			setMoveRule(MOVE_RULE_RIGHTWALL); // 여기껀 별 의미없다.
+			setMoveRule( MOVE_RULE_RIGHTWALL ); // 여기껀 별 의미없다.
 			m_BlockedDir = bestDir;
 
 			// 이번 턴에는 그냥 갈 방향을 결정하면 된다.
@@ -475,36 +473,36 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 			if (ndir>curDir && ndir<curDir+4
 				|| curDir>4 && (ndir>curDir || ndir<curDir-4))
 			{
-				setMoveRule(MOVE_RULE_RIGHTWALL);
+				setMoveRule( MOVE_RULE_RIGHTWALL );
 				//cout << "set RightWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 			}
 			else
 			{
-				setMoveRule(MOVE_RULE_LEFTWALL);
+				setMoveRule( MOVE_RULE_LEFTWALL );
 				//cout << "set LeftWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 			}
 		}
 		// 좌수법 적용
 		else if (leftWall)
 		{
-			setMoveRule(MOVE_RULE_LEFTWALL);
+			setMoveRule( MOVE_RULE_LEFTWALL );
 			//cout << "set LeftWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 		}
 		// 우수법 적용
 		else if (rightWall)
 		{
-			setMoveRule(MOVE_RULE_RIGHTWALL);
+			setMoveRule( MOVE_RULE_RIGHTWALL );
 			//cout << "set RightWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 		}
 		// 벽이 없다면 벽타기 안한다.
 		else
 		{
-			setMoveRule(MOVE_RULE_NORMAL);
+			setMoveRule( MOVE_RULE_NORMAL );
 		}
 	}
 	else
 	{
-		setMoveRule(MOVE_RULE_NORMAL);
+		setMoveRule( MOVE_RULE_NORMAL );
 	}
 
 	return found;
@@ -588,7 +586,7 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 		{
 			// 벽타기를 그만둔다.
 			//cout << "FindBest : " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
-			setMoveRule(MOVE_RULE_NORMAL);
+			setMoveRule( MOVE_RULE_NORMAL );
 		}
 
 		return true;
@@ -654,7 +652,7 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 	}
 
 	// 벽타기로 아무곳도 갈 수 없다면 벽타기를 그만둔다. 
-	setMoveRule(MOVE_RULE_NORMAL);
+	setMoveRule( MOVE_RULE_NORMAL );
 
 	//cout << "Can't go Wall : " << m_pBody->getName() << endl;
 
@@ -759,7 +757,7 @@ bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
 		else if (enemyY - yOffset2 > (int)pZone->getHeight()) ey = pZone->getHeight();
 		else ey = enemyY - yOffset2;
 
-		setMoveRule(MOVE_RULE_NORMAL);	// 정상적인 이동
+		setMoveRule( MOVE_RULE_NORMAL );	// 정상적인 이동
 	}
 
 	return move(ex, ey);
@@ -815,7 +813,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
  
 	// [ test code ]
 	//	Zone* pZone = m_pBody->getZone();
-	// Assert(pZone != NULL);
+	// Assert( pZone != NULL );
 
 	//cout << "ZoneID=" << (int)pZone->getZoneID()
     //    << ", MonsterCount=" << (int)pZone->getMonsterCount() << endl;
@@ -829,17 +827,17 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 	// Slayer몹/Vampire몹으로 나뉘지 않을까.. 으흠 - -;
 	//----------------------------------------------------------
 	// Hide상태라면 튀어나와야 한다.
-	if (m_pBody->isFlag(Effect::EFFECT_CLASS_HIDE ))
+	if (m_pBody->isFlag( Effect::EFFECT_CLASS_HIDE ))
 	{
 		SkillType = SKILL_UN_BURROW;
 	}
 	// 박쥐상태라면 다시 변신
-	else if (m_pBody->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ))
+	else if (m_pBody->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ))
 	{
 		SkillType = SKILL_UN_TRANSFORM;
 	}
 	// invisible상태라면 풀어야 한다.
-	else if (m_pBody->isFlag(Effect::EFFECT_CLASS_INVISIBILITY ))
+	else if (m_pBody->isFlag( Effect::EFFECT_CLASS_INVISIBILITY ))
 	{
 		SkillType = SKILL_UN_INVISIBILITY;
 	}
@@ -873,8 +871,6 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 		// 장거리 기술들
 		////////////////////////////////////////////////////////////
 		case SKILL_ATTACK_ARMS:
-		case SKILL_UNTERFELDWEBEL_FIRE:
-		case SKILL_FELDWEBEL_FIRE:
 			if (dist > m_pBody->getMissileRange()) return SKILL_FAILED_RANGE;
 			pSkillHandler->execute(m_pBody, pEnemy);
 			break;
@@ -942,7 +938,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 			Assert(pSkillInfo != NULL);
 
-			if (SkillType == SKILL_GUN_SHOT_GUIDANCE || SkillType == SKILL_ICE_LANCE || SkillType == SKILL_ICE_HAIL )
+			if ( SkillType == SKILL_GUN_SHOT_GUIDANCE || SkillType == SKILL_ICE_LANCE || SkillType == SKILL_ICE_HAIL )
 			{
 				// 바보
 			}
@@ -967,7 +963,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 				delay.tv_usec = 500000;
 			}
 
-			if (SkillType == SKILL_ICE_WAVE || SkillType == SKILL_CHOPPING_FIREWOOD )
+			if ( SkillType == SKILL_ICE_WAVE || SkillType == SKILL_CHOPPING_FIREWOOD )
 			{
 				delay.tv_sec  = 2;
 				delay.tv_usec = 500000;
@@ -994,7 +990,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			break;
 
 		case SKILL_SUMMON_MONSTERS:
-			if (!checkPossibleSummonMonsters(m_pBody, NULL) && !m_pBody->isMaster() ) return SKILL_FAILED_RANGE;
+			if ( !checkPossibleSummonMonsters(m_pBody, NULL) && !m_pBody->isMaster() ) return SKILL_FAILED_RANGE;
 			
 			pSkillHandler->execute(m_pBody);
 
@@ -1116,7 +1112,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_FLEE");
 					if (!flee(pEnemy))
 					{
-						setMoveRule(MOVE_RULE_NORMAL);	// 정상적인 이동
+						setMoveRule( MOVE_RULE_NORMAL );	// 정상적인 이동
 						rValue = useSkill(pEnemy, SKILL_ATTACK_MELEE, 100);
 						if (rValue != 0) approach(pEnemy);
 						//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] !free" << endl;
@@ -1132,7 +1128,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 				case DIRECTIVE_ACTION_USE_SKILL:
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_USE_SKILL");
 					// Block Head 걸려있을때는 스킬을 사용할 수 없다.
-					if (m_pBody->isFlag(Effect::EFFECT_CLASS_BLOCK_HEAD ) || m_pBody->isFlag(Effect::EFFECT_CLASS_TENDRIL ) ) continue;
+					if ( m_pBody->isFlag( Effect::EFFECT_CLASS_BLOCK_HEAD ) || m_pBody->isFlag( Effect::EFFECT_CLASS_TENDRIL ) ) continue;
 					parameter = pDirective->getParameter();
 					ratio     = pDirective->getRatio();
 					rValue    = useSkill(pEnemy, (SkillType_t)parameter, ratio);
@@ -1147,7 +1143,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] " << SkillTypes2String[parameter] << endl;
 
 
-					setMoveRule(MOVE_RULE_NORMAL);	// 정상적인 이동
+					setMoveRule( MOVE_RULE_NORMAL );	// 정상적인 이동
 
 					break;
 				
@@ -1158,7 +1154,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					if (!m_pBody->getEnemies().empty())
 						m_pBody->getEnemies().pop_front();
 
-					setMoveRule(MOVE_RULE_NORMAL);	// 정상적인 이동
+					setMoveRule( MOVE_RULE_NORMAL );	// 정상적인 이동
 					//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] forget" << endl;
 					__END_PROFILE_MONSTER("DIRECTIVE_ACTION_FORGET");
 
@@ -1191,7 +1187,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 							// by sigi. 2002.10.7
 							if (m_pBody->getEnemies().empty())
 							{
-								m_pBody->addEnemy(pEnemy);
+								m_pBody->addEnemy( pEnemy );
 							}
 						}
 
@@ -1275,33 +1271,33 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 						int diffX = myX - nmX;
 						int diffY = myY - nmY;
 
-						float ratio = 5.0 / (ABS(diffX) + ABS(diffY));
+						float ratio = 5.0 / ( ABS(diffX) + ABS(diffY) );
 
-						int newX = (int)(myX + diffX * ratio);
-						int newY = (int)(myY + diffY * ratio);
+						int newX = myX + diffX * ratio;
+						int newY = myY + diffY * ratio;
 
-						if (isValidZoneCoord(m_pBody->getZone(), newX, newY ) )
-							result = m_pBody->getZone()->moveFastMonster(m_pBody, myX, myY, newX, newY, SKILL_RAPID_GLIDING);
+						if ( isValidZoneCoord( m_pBody->getZone(), newX, newY ) )
+							result = m_pBody->getZone()->moveFastMonster( m_pBody, myX, myY, newX, newY, SKILL_RAPID_GLIDING );
 
-/*						if (newX > 0 ) continue;
-						if (newY < 0 ) continue;
-						if (newX >= m_pBody->getZone()->getWidth() ) continue;
-						if (newY >= m_pBody->getZone()->getHeight() ) continue;
+/*						if ( newX > 0 ) continue;
+						if ( newY < 0 ) continue;
+						if ( newX >= m_pBody->getZone()->getWidth() ) continue;
+						if ( newY >= m_pBody->getZone()->getHeight() ) continue;
 
-						if (!m_pBody->getZone()->moveFastMonster(m_pBody, myX, myY, newX, newY, SKILL_RAPID_GLIDING ) ) continue;*/
+						if ( !m_pBody->getZone()->moveFastMonster( m_pBody, myX, myY, newX, newY, SKILL_RAPID_GLIDING ) ) continue;*/
 						__END_PROFILE_MONSTER("DIRECTIVE_ACTION_FAST_FLEE");
 
-						if (!result ) continue;
+						if ( !result ) continue;
 					}
 					break;
 				case DIRECTIVE_ACTION_SAY:
 				{
 					parameter = pDirective->getParameter();
 					GCSay gcSay;
-					gcSay.setObjectID(m_pBody->getObjectID());
-					gcSay.setMessage(g_pStringPool->getString(parameter ));
-					gcSay.setColor(0x00ffffff);
-					m_pBody->getZone()->broadcastPacket(m_pBody->getX(), m_pBody->getY(), &gcSay);
+					gcSay.setObjectID( m_pBody->getObjectID() );
+					gcSay.setMessage( g_pStringPool->getString( parameter ) );
+					gcSay.setColor( 0x00ffffff );
+					m_pBody->getZone()->broadcastPacket( m_pBody->getX(), m_pBody->getY(), &gcSay );
 				}
 			}
 			break;
@@ -1393,14 +1389,14 @@ void MonsterAI::actDeadAction(Creature* pEnemy)
 					continue;
 				}
 			}
-			else if (pDirective->getAction() == DIRECTIVE_ACTION_SAY)
+			else if ( pDirective->getAction() == DIRECTIVE_ACTION_SAY)
 			{
 				int parameter = pDirective->getParameter();
 				GCSay gcSay;
-				gcSay.setObjectID(m_pBody->getObjectID());
-				gcSay.setMessage(g_pStringPool->getString(parameter ));
-				gcSay.setColor(0x00ffffff);
-				m_pBody->getZone()->broadcastPacket(m_pBody->getX(), m_pBody->getY(), &gcSay);
+				gcSay.setObjectID( m_pBody->getObjectID() );
+				gcSay.setMessage( g_pStringPool->getString( parameter ) );
+				gcSay.setColor( 0x00ffffff );
+				m_pBody->getZone()->broadcastPacket( m_pBody->getX(), m_pBody->getY(), &gcSay );
 			}
 		}
 	}
@@ -1441,8 +1437,8 @@ void MonsterAI::setDelay(const Timeval& currentTime)
 
 	m_pBody->clearAccuDelay();
 
-	if (m_pBody->isFlag(Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE ) 
-	||	m_pBody->isFlag(Effect::EFFECT_CLASS_JABBING_VEIN ) )
+	if ( m_pBody->isFlag( Effect::EFFECT_CLASS_ICE_FIELD_TO_CREATURE ) 
+	||	m_pBody->isFlag( Effect::EFFECT_CLASS_JABBING_VEIN ) )
 	{
 		m_pBody->setNextTurn(currentTime + nexttime + nexttime);
 	}
@@ -1499,7 +1495,7 @@ void MonsterAI::setAttackDelay(const Timeval& currentTime)
 
 	m_pBody->clearAccuDelay();
 
-	if (m_pBody->isFlag(Effect::EFFECT_CLASS_ICE_OF_SOUL_STONE ) 
+	if ( m_pBody->isFlag( Effect::EFFECT_CLASS_ICE_OF_SOUL_STONE ) 
 		||	m_pBody->getZone()->getTile(m_pBody->getX(),m_pBody->getY()).getEffect(Effect::EFFECT_CLASS_FURY_OF_GNOME) != NULL )
 	{
 		m_pBody->setNextTurn(currentTime + nexttime + nexttime);
@@ -1877,7 +1873,7 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 #endif
 		)
 		|| pEnemy == NULL)*/
-	if (pEnemy == NULL )
+	if ( pEnemy == NULL )
 	{
 		return false;
 	}
@@ -1905,9 +1901,9 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 	}
 
 	// HP가 30~70%이면 10~30%의 확률로 흡혈한다.
-	int maxBDPercent = max(startBDPercent, endBDPercent);
+	int maxBDPercent = max( startBDPercent, endBDPercent );
 	int gapHPPercent = startHPPercent - endHPPercent;
-	int gapBDPercent = abs(endBDPercent - startBDPercent);
+	int gapBDPercent = abs( endBDPercent - startBDPercent );
 
 	//int permitRatio = maxBDPercent - (masterHPPercent-endHPPercent)/2;
 	int permitRatio = maxBDPercent - gapBDPercent * (masterHPPercent-endHPPercent) / gapHPPercent;
@@ -2080,7 +2076,7 @@ bool checkImInBadPosition(Monster* pMonster, Creature* pEnemy)
 	Zone* pZone = pMonster->getZone();
 	Assert(pZone!=NULL);
 
-	Tile& rTile = pZone->getTile(pMonster->getX(), pMonster->getY());
+	Tile& rTile = pZone->getTile( pMonster->getX(), pMonster->getY() );
 
 	// 무적 상태가 아니고
 	if (!pMonster->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
@@ -2154,9 +2150,9 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 				// 타일에 크리처가 있는 경우에만
 				if (rTile.hasCreature()) 
 				{
-					const list<Object*> & objectList = rTile.getObjectList();
+					const slist<Object*> & objectList = rTile.getObjectList();
 
-					for (list<Object*>::const_iterator itr = objectList.begin() ; 
+					for (slist<Object*>::const_iterator itr = objectList.begin() ; 
 						itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; 
 						itr++) 
 					{
@@ -2170,7 +2166,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 							&& pCreature->isPC()
 							&& pMonster->isRealEnemy(pCreature))
 						{
-							int checkStrongValue = getStrongValue(pCreature);
+							int checkStrongValue = getStrongValue( pCreature );
 
 							// 더 약한넘을 pWeakestCreature로 임명~한다
 							if (checkStrongValue < strongValue)
@@ -2188,7 +2184,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 		if (pWeakestCreature!=NULL)
 		{
 			pMonster->deleteAllEnemy();
-			pMonster->addEnemy(pWeakestCreature);
+			pMonster->addEnemy( pWeakestCreature );
 
 			return true;
 		}
@@ -2272,37 +2268,37 @@ bool checkPossibleSummonMonsters(Monster* pMonster, Creature* pEnemy)
 bool checkEnemyTileNotAcidSwamp(Monster* pMonster, Creature* pEnemy)
 {
 	Zone* pZone = pEnemy->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	Tile& rTile = pZone->getTile(pEnemy->getX(), pEnemy->getY());
-	if (rTile.getEffect(Effect::EFFECT_CLASS_ACID_SWAMP ) == NULL ) return true;
+	Tile& rTile = pZone->getTile( pEnemy->getX(), pEnemy->getY() );
+	if ( rTile.getEffect( Effect::EFFECT_CLASS_ACID_SWAMP ) == NULL ) return true;
 
 	return false;
 }
 
 bool checkEnemyOnAir(Monster* pMonster, Creature* pEnemy)
 {
-	if (pEnemy == NULL ) return false;
-	if (pEnemy->getMoveMode() == Creature::MOVE_MODE_FLYING ) return true;
+	if ( pEnemy == NULL ) return false;
+	if ( pEnemy->getMoveMode() == Creature::MOVE_MODE_FLYING ) return true;
 	return false;
 }
 
 bool checkEnemyOnSafeZone(Monster* pMonster, Creature* pEnemy)
 {
-	if (pEnemy==NULL ) return false;
-	return ((pEnemy->getZone()->getZoneLevel(pEnemy->getX(), pEnemy->getY() ) & SAFE_ZONE ) != 0);
+	if ( pEnemy==NULL ) return false;
+	return ( ( pEnemy->getZone()->getZoneLevel( pEnemy->getX(), pEnemy->getY() ) & SAFE_ZONE ) != 0 );
 }
 
 bool checkCanAttackThrowingAxe(Monster* pMonster, Creature* pEnemy)
 {
-	if (pEnemy==NULL ) return false;
-	Dir_t dir = getDirection(pMonster->getX(), pMonster->getY(), pEnemy->getX(), pEnemy->getY());
+	if ( pEnemy==NULL ) return false;
+	Dir_t dir = getDirection( pMonster->getX(), pMonster->getY(), pEnemy->getX(), pEnemy->getY() );
 	ZoneCoord_t X = pMonster->getX() + dirMoveMask[dir].x * 7;
 	ZoneCoord_t Y = pMonster->getY() + dirMoveMask[dir].y * 7;
-	Distance_t distance = pMonster->getDistance(X, Y, pEnemy->getX(), pEnemy->getY());
+	Distance_t distance = pMonster->getDistance( X, Y, pEnemy->getX(), pEnemy->getY() );
 
 //	cout << "dir : " << (int)dir << ", distance : " << (int)distance << endl;
 
-	if (distance > 2 ) return false;
+	if ( distance > 2 ) return false;
 	return true;
 }

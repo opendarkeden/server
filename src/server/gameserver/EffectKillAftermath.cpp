@@ -63,9 +63,13 @@ void EffectKillAftermath::unaffect(Creature* pFromCreature)
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
 
+	//cout << "EffectKillAftermath" << "unaffect BEGIN" << endl;
+
 	Assert(pFromCreature != NULL);
 	pFromCreature->removeFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH);
 	destroy(pFromCreature->getName());
+
+	//cout << "EffectKillAftermath" << "unaffect END" << endl;
 
 	__END_DEBUG 
 	__END_CATCH
@@ -78,9 +82,13 @@ void EffectKillAftermath::unaffect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectKillAftermath" << "unaffect BEGIN" << endl;
+
 	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
 	unaffect(pCreature);
 
+	//cout << "EffectKillAftermath" << "unaffect END" << endl;
+						
 	__END_CATCH
 }
 
@@ -180,8 +188,8 @@ void EffectKillAftermath::save(const string & ownerID)
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
-		pStmt->executeQuery("UPDATE EffectKillAftermath SET YearTime = %ld, DayTime = %ld WHERE OwnerID = '%s'",
-		 						currentYearTime, m_Deadline.tv_sec, ownerID.c_str());
+		pStmt->executeQuery( "UPDATE EffectKillAftermath SET YearTime = %ld, DayTime = %ld WHERE OwnerID = '%s'",
+		 						currentYearTime, m_Deadline.tv_sec, ownerID.c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -217,7 +225,10 @@ void EffectKillAftermathLoader::load(Creature* pCreature)
 	__BEGIN_TRY
 
 	if (pCreature == NULL)
+	{
+		//cout << "EffectKillAftermathLoader : 크리쳐가 널입니다." << endl;
 		return;
+	}
 
 	Statement* pStmt = NULL;
 
@@ -236,8 +247,8 @@ void EffectKillAftermathLoader::load(Creature* pCreature)
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
-		Result* pResult = pStmt->executeQuery("SELECT DayTime FROM EffectKillAftermath WHERE OwnerID = '%s'", 
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM EffectKillAftermath WHERE OwnerID = '%s'", 
+												pCreature->getName().c_str() );
 
 		while(pResult->next())
 		{

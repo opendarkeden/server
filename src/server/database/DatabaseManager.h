@@ -9,26 +9,25 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include "Connection.h"
 #include "Mutex.h"
-#include "pthreadAPI.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class DatabaseManager;
 //////////////////////////////////////////////////////////////////////////////
 
-class DatabaseManager
+class DatabaseManager 
 {
 public:
 	DatabaseManager() throw();
 	~DatabaseManager() throw();
-
+	
 public:
 	void init() throw(Error);
-	void addConnection(TID TID, Connection * pConnection) throw(DuplicatedException);
-	void addDistConnection(TID TID, Connection * pConnection) throw(DuplicatedException);
-	void addCBillingConnection(TID TID, Connection * pConnection) throw(DuplicatedException);
+	void addConnection(int TID, Connection * pConnection) throw(DuplicatedException);
+	void addDistConnection(int TID, Connection * pConnection) throw(DuplicatedException);
+	void addCBillingConnection(int TID, Connection * pConnection) throw(DuplicatedException);
 //	void addPCRoomConnection(int TID, Connection * pConnection) throw(DuplicatedException);
 
 	Connection* getConnection(const string& ip) throw(NoSuchElementException);
@@ -36,7 +35,7 @@ public:
 	Connection* getCBillingConnection(const string& ip) throw(NoSuchElementException);
 //	Connection* getPCRoomConnection(const string& ip) throw(NoSuchElementException);
 	Connection* getUserInfoConnection(void) throw() { return m_pUserInfoConnection; }
-	void	executeDummyQuery(Connection* pConnection) throw(Error);
+	void	executeDummyQuery(Connection* pConnection) throw (Error);
 
 	//--------------------------------------------------------------------
 	// * elca's NOTE
@@ -58,24 +57,24 @@ public:
 	// 일반 게임 서버에서의 쿼리는 쓰레드 별로 나뉘어져 있기 때문에
 	// 신경쓰지 않도록 한다.
 	//--------------------------------------------------------------------
-	Connection* getConnection(TID) throw(NoSuchElementException);
+	Connection* getConnection( int TID ) throw(NoSuchElementException);
 //	void addConnection(WorldID_t WorldID, Connection * pConnection) throw(DuplicatedException);
 
 private:
 	// 각 쓰레드별로 존재하는 DB 연결
-	map<TID, Connection*> m_Connections;
+	hash_map<int, Connection*> m_Connections;
 
 	// 각 쓰레드별로 존재하는 Distribute DB 연결
-	map<TID, Connection*> m_DistConnections;
+	hash_map<int, Connection*> m_DistConnections;
 
-//	map<WorldID_t, Connection*> m_WorldConnections;
-	map<TID, Connection*> m_WorldConnections;
+//	hash_map<WorldID_t, Connection*> m_WorldConnections;
+	hash_map<int, Connection*> m_WorldConnections;
 
 	// 각 쓰레드별로 존재하는 CBilling DB 연결
-	map<TID, Connection*> m_CBillingConnections;
+	hash_map<int, Connection*> m_CBillingConnections;
 
 	// PC방 통합용 DB 연결
-//	map<int, Connection*> m_PCRoomConnections;
+//	hash_map<int, Connection*> m_PCRoomConnections;
 
 	// 각 월드별로 존재하는 DB 연결
 

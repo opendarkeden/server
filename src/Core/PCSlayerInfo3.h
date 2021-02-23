@@ -8,7 +8,7 @@
 #define __PC_SLAYER_INFO3_H__
 
 #include "PCInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include <bitset>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -51,6 +51,7 @@ public:
 		SLAYER_BIT_HAIRSTYLE2 ,
 		SLAYER_BIT_HELMET1,
 		SLAYER_BIT_HELMET2,
+		SLAYER_BIT_HELMET3,//by viva
 		SLAYER_BIT_JACKET1,
 		SLAYER_BIT_JACKET2,
 		SLAYER_BIT_JACKET3,
@@ -61,10 +62,12 @@ public:
 		SLAYER_BIT_WEAPON2,
 		SLAYER_BIT_WEAPON3,
 		SLAYER_BIT_WEAPON4,
+		SLAYER_BIT_WEAPON5,	//by viva
 		SLAYER_BIT_MOTORCYCLE1,
 		SLAYER_BIT_MOTORCYCLE2,
 		SLAYER_BIT_SHIELD1,
 		SLAYER_BIT_SHIELD2,
+		SLAYER_BIT_SHIELD3,//by viva
 		SLAYER_BIT_SHOULDER1,
 		SLAYER_BIT_SHOULDER2,
 		SLAYER_BIT_MAX
@@ -87,12 +90,12 @@ public:
 
 
 public:
-	PCSlayerInfo3 () throw()
+	PCSlayerInfo3 () throw ()
 	{
 		m_Outlook.reset();
 	}
 
-	PCSlayerInfo3 (const PCSlayerInfo3 & slayerInfo) throw()
+	PCSlayerInfo3 (const PCSlayerInfo3 & slayerInfo) throw ()
 		: m_ObjectID(slayerInfo.m_ObjectID), m_Name(slayerInfo.m_Name), 
 		m_X(slayerInfo.m_X), m_Y(slayerInfo.m_Y), m_Dir(slayerInfo.m_Dir), 
 		m_Outlook(slayerInfo.m_Outlook), m_MasterEffectColor(slayerInfo.m_MasterEffectColor),
@@ -107,12 +110,12 @@ public:
 
 
 public:
-	PCType getPCType () const throw() { return PC_SLAYER; }
+	PCType getPCType () const throw () { return PC_SLAYER; }
 	
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	uint getSize () const throw() 
+	uint getSize () const throw () 
 	{ 
 		return szObjectID 					// 크리처 아이디
 			+ szBYTE + m_Name.size() 		// 이름
@@ -130,7 +133,7 @@ public:
 			+ szLevel;
 	}
 
-	static uint getMaxSize () throw()
+	static uint getMaxSize () throw ()
 	{
 		return szObjectID 					// 크리처 아이디
 			+ szBYTE + 20					// 이름
@@ -148,7 +151,7 @@ public:
 			+ szLevel;
 	}
 
-	PCSlayerInfo3 &operator = (const PCSlayerInfo3 & slayerInfo) throw()
+	PCSlayerInfo3 &operator = (const PCSlayerInfo3 & slayerInfo) throw ()
 	{    
 		if (&slayerInfo == this)
 			return *this;
@@ -178,198 +181,198 @@ public:
 		return *this;
 	}
 
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
-	ObjectID_t getObjectID () const throw() { return m_ObjectID; }
-	void setObjectID (ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID () const throw () { return m_ObjectID; }
+	void setObjectID (ObjectID_t creatureID) throw () { m_ObjectID = creatureID; }
 
-	string getName () const throw(Error) { Assert(m_Name != ""); return m_Name; }
-	void setName (const string & name) throw(Error) { m_Name = name; Assert(m_Name != ""); }
+	string getName () const throw (Error) { Assert(m_Name != ""); return m_Name; }
+	void setName (const string & name) throw (Error) { m_Name = name; Assert(m_Name != ""); }
 
-	Coord_t getX () const throw() { return m_X; }
-	void setX (Coord_t x) throw() { m_X = x; }
+	Coord_t getX () const throw () { return m_X; }
+	void setX (Coord_t x) throw () { m_X = x; }
 	
-	Coord_t getY () const throw() { return m_Y; }
-	void setY (Coord_t y) throw() { m_Y = y; }
+	Coord_t getY () const throw () { return m_Y; }
+	void setY (Coord_t y) throw () { m_Y = y; }
 
-	Dir_t getDir () const throw() { return m_Dir; }
-	void setDir (Dir_t dir) throw() { m_Dir = dir; }
+	Dir_t getDir () const throw () { return m_Dir; }
+	void setDir (Dir_t dir) throw () { m_Dir = dir; }
 
 public:
-    Sex getSex () const throw() 
+    Sex getSex () const throw () 
 	{ 
 		return m_Outlook.test(SLAYER_BIT_SEX)?MALE:FEMALE; 
 	}
-    void setSex (Sex sex) throw() 
+    void setSex (Sex sex) throw () 
 	{ 
 		m_Outlook.set(SLAYER_BIT_SEX,(sex==MALE?true:false)); 
 	}
 
-	HairStyle getHairStyle () const throw() 
+	HairStyle getHairStyle () const throw () 
 	{ 
 		return HairStyle((m_Outlook.to_ulong() >> SLAYER_BIT_HAIRSTYLE1) & 3); 
 	}
-	void setHairStyle (HairStyle hairStyle) throw() 
+	void setHairStyle (HairStyle hairStyle) throw () 
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_HAIRSTYLE1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(hairStyle << SLAYER_BIT_HAIRSTYLE1); 
 	}
 
-	HelmetType getHelmetType () const throw() 
+	HelmetType getHelmetType () const throw () 
 	{ 
-		return HelmetType((m_Outlook.to_ulong() >> SLAYER_BIT_HELMET1) & 3); 
+		return HelmetType((m_Outlook.to_ulong() >> SLAYER_BIT_HELMET1) & 7); 
 	}
-	void setHelmetType (HelmetType helmetType) throw()
+	void setHelmetType (HelmetType helmetType) throw ()
 	{ 
-		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_HELMET1); 
+		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_HELMET1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(helmetType << SLAYER_BIT_HELMET1); 
 	}
 
-	JacketType getJacketType () const throw() 
+	JacketType getJacketType () const throw () 
 	{ 
 		return JacketType((m_Outlook.to_ulong() >> SLAYER_BIT_JACKET1) & 7); 
 	}
-	void setJacketType (JacketType jacketType) throw()
+	void setJacketType (JacketType jacketType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_JACKET1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(jacketType << SLAYER_BIT_JACKET1); 
 	}
 
-	PantsType getPantsType () const throw() 
+	PantsType getPantsType () const throw () 
 	{ 
 		return PantsType((m_Outlook.to_ulong() >> SLAYER_BIT_PANTS1) & 7); 
 	}
-	void setPantsType (PantsType pantsType) throw()
+	void setPantsType (PantsType pantsType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_PANTS1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(pantsType << SLAYER_BIT_PANTS1); 
 	}
 
-	WeaponType getWeaponType () const throw()
+	WeaponType getWeaponType () const throw ()
 	{ 
-		return WeaponType((m_Outlook.to_ulong() >> SLAYER_BIT_WEAPON1) & 15); 
+		return WeaponType((m_Outlook.to_ulong() >> SLAYER_BIT_WEAPON1) & 31); 
 	}
-	void setWeaponType (WeaponType weaponType) throw()
+	void setWeaponType (WeaponType weaponType) throw ()
 	{ 
-		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(15 << SLAYER_BIT_WEAPON1); 
+		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(31 << SLAYER_BIT_WEAPON1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(weaponType << SLAYER_BIT_WEAPON1); 
 	}
 
-	ShieldType getShieldType () const throw()
+	ShieldType getShieldType () const throw ()
 	{
-		return ShieldType((m_Outlook.to_ulong() >> SLAYER_BIT_SHIELD1) & 3);
+		return ShieldType((m_Outlook.to_ulong() >> SLAYER_BIT_SHIELD1) & 7);
 	}
-	void setShieldType (ShieldType shieldType) throw()
+	void setShieldType (ShieldType shieldType) throw ()
 	{
-		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_SHIELD1);
+		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(7 << SLAYER_BIT_SHIELD1);
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(shieldType << SLAYER_BIT_SHIELD1);
 	}
 
-	MotorcycleType getMotorcycleType () const throw()
+	MotorcycleType getMotorcycleType () const throw ()
 	{ 
 		return MotorcycleType((m_Outlook.to_ulong() >> SLAYER_BIT_MOTORCYCLE1) & 3); 
 	}
-	void setMotorcycleType (MotorcycleType motorcycleType) throw()
+	void setMotorcycleType (MotorcycleType motorcycleType) throw ()
 	{ 
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_MOTORCYCLE1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(motorcycleType << SLAYER_BIT_MOTORCYCLE1); 
 	}
 
-	BYTE getShoulderType () const throw()
+	BYTE getShoulderType () const throw ()
 	{
 		return BYTE((m_Outlook.to_ulong() >> SLAYER_BIT_SHOULDER1) & 3); 
 	}
-	void setShoulderType (BYTE shoulder) throw()
+	void setShoulderType (BYTE shoulder) throw ()
 	{
 		m_Outlook &= ~bitset<SLAYER_BIT_MAX>(3 << SLAYER_BIT_SHOULDER1); 
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(shoulder << SLAYER_BIT_SHOULDER1); 
 	}
 
 public:
-	Color_t getHairColor () const throw() 
+	Color_t getHairColor () const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_HAIR ]; 
 	}
-	void setHairColor (Color_t color) throw() 
+	void setHairColor (Color_t color) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_HAIR ] = color; 
 	}
 
-	Color_t getSkinColor () const throw() 
+	Color_t getSkinColor () const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_SKIN ]; 
 	}
-	void setSkinColor (Color_t color) throw() 
+	void setSkinColor (Color_t color) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_SKIN ] = color; 
 	}
 
-	Color_t getHelmetColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getHelmetColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_HELMET + (uint)colorType ]; 
 	}
-	void setHelmetColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setHelmetColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_HELMET + (uint)colorType ] = color; 
 	}
 
-	Color_t getJacketColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getJacketColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_JACKET + (uint)colorType ]; 
 	}
-	void setJacketColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setJacketColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_JACKET + (uint)colorType ] = color; 
 	}
 
-	Color_t getPantsColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getPantsColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_PANTS + (uint)colorType ]; 
 	}
-	void setPantsColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setPantsColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_PANTS + (uint)colorType ] = color; 
 	}
 
-	Color_t getWeaponColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getWeaponColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_WEAPON + (uint)colorType ]; 
 	}
-	void setWeaponColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setWeaponColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_WEAPON + (uint)colorType ] = color; 
 	}
 
-	Color_t getShieldColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getShieldColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_SHIELD + (uint)colorType ]; 
 	}
-	void setShieldColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setShieldColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_SHIELD + (uint)colorType ] = color; 
 	}
 
-	Color_t getMotorcycleColor (ColorType colorType = MAIN_COLOR) const throw() 
+	Color_t getMotorcycleColor (ColorType colorType = MAIN_COLOR) const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_MOTORCYCLE + (uint)colorType ]; 
 	}
-	void setMotorcycleColor (Color_t color, ColorType colorType = MAIN_COLOR) throw() 
+	void setMotorcycleColor (Color_t color, ColorType colorType = MAIN_COLOR) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_MOTORCYCLE + (uint)colorType ] = color; 
 	}
 
-	Color_t getShoulderColor () const throw() 
+	Color_t getShoulderColor () const throw () 
 	{ 
 		return m_Colors[ SLAYER_COLOR_SHOULDER ]; 
 	}
-	void setShoulderColor (Color_t color) throw() 
+	void setShoulderColor (Color_t color) throw () 
 	{ 
 		m_Colors[ SLAYER_COLOR_SHOULDER ] = color; 
 	}
 
 	BYTE getMasterEffectColor() const { return m_MasterEffectColor; }
-	void setMasterEffectColor(BYTE color ) { m_MasterEffectColor = color; }
+	void setMasterEffectColor( BYTE color ) { m_MasterEffectColor = color; }
 
 	HP_t getCurrentHP() const throw() { return m_CurrentHP; }
 	void setCurrentHP(HP_t CurrentHP) throw() { m_CurrentHP = CurrentHP; }
@@ -392,11 +395,11 @@ public:
 	uint getUnionID(void) const { return m_UnionID; }
 	void setUnionID(uint UnionID ) { m_UnionID = UnionID; }
 
-	Rank_t getRank () const throw() { return m_Rank; }
-	void setRank (Rank_t rank) throw() { m_Rank = rank; }
+	Rank_t getRank () const throw () { return m_Rank; }
+	void setRank (Rank_t rank) throw () { m_Rank = rank; }
 
 	Level_t	getAdvancementLevel() const { return m_AdvancementLevel; }
-	void setAdvancementLevel(Level_t level ) { m_AdvancementLevel = level; }
+	void setAdvancementLevel( Level_t level ) { m_AdvancementLevel = level; }
 
 private:
 	ObjectID_t				m_ObjectID;					// OID

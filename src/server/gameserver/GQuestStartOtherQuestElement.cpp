@@ -2,9 +2,9 @@
 #include "PlayerCreature.h"
 #include "GQuestManager.h"
 
-GQuestElement::ResultType GQuestStartOtherQuestElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestStartOtherQuestElement::checkCondition( PlayerCreature* pPC ) const
 {
-	pPC->getGQuestManager()->accept(m_QuestID);
+	pPC->getGQuestManager()->accept( m_QuestID );
 	return OK;
 }
 

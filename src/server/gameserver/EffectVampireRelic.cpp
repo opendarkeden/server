@@ -13,11 +13,11 @@
 #include "MonsterCorpse.h"
 #include "Player.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -80,24 +80,24 @@ void EffectVampireRelic::affect(Creature* pCreature)
 */
 
     char msg[50];
-    sprintf(msg, g_pStringPool->c_str(STRID_TAKE_VAMPIRE_RELIC ),
-                    pCreature->getName().c_str());
+    sprintf( msg, g_pStringPool->c_str( STRID_TAKE_VAMPIRE_RELIC ),
+                    pCreature->getName().c_str() );
 
-    string sMsg(msg);
+    string sMsg( msg );
 
 	GCSystemMessage gcSystemMessage;
 
 	gcSystemMessage.setType(SYSTEM_MESSAGE_COMBAT);
 	gcSystemMessage.setMessage(sMsg);
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 
 	// Effect붙인다.
 	GCAddEffect gcAddEffect;
-	gcAddEffect.setObjectID(pCreature->getObjectID());
-	gcAddEffect.setEffectID(getSendEffectClass());
-	gcAddEffect.setDuration(65000);
+	gcAddEffect.setObjectID( pCreature->getObjectID() );
+	gcAddEffect.setEffectID( getSendEffectClass() );
+	gcAddEffect.setDuration( 65000 );
 	pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
 
 	setNextTime(m_Tick);
@@ -135,7 +135,7 @@ void EffectVampireRelic::affect(Item* pItem)
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	setNextTime(m_Tick);
 	*/
@@ -181,6 +181,8 @@ void EffectVampireRelic::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectVampireRelic" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -195,6 +197,8 @@ void EffectVampireRelic::unaffect(Creature* pCreature)
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_VAMPIRE_RELIC);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
+	//cout << "EffectVampireRelic" << "unaffect END" << endl;
+
 	__END_DEBUG
 	__END_CATCH
 }
@@ -205,6 +209,8 @@ void EffectVampireRelic::unaffect(Item* pItem)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
+
+	//cout << "EffectVampireRelic" << "unaffect BEGIN" << endl;
 
 	Assert(pItem != NULL);
 
@@ -222,6 +228,8 @@ void EffectVampireRelic::unaffect(Item* pItem)
 	gcRemoveEffect.setObjectID(pItem->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_VAMPIRE_RELIC);
 	pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
+
+	//cout << "EffectVampireRelic" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

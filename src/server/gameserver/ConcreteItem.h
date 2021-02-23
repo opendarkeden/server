@@ -22,7 +22,7 @@ public:
 	// 가상 함수 구체화
 	ItemClass	getItemClass() const throw() { return IClass; }
 	string		getObjectTableName() const throw() { return ItemObjectTableName[getItemClass()]; }
-	ItemInfo*	getItemInfo() const { return g_pItemInfoManager->getItemInfo(getItemClass(), getItemType()); }
+	ItemInfo*	getItemInfo() const { return g_pItemInfoManager->getItemInfo( getItemClass(), getItemType() ); }
 
 	ItemType_t	getItemType() const throw() { return m_ItemType; }
 	void		setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
@@ -43,7 +43,7 @@ public:
 	Durability_t	getDurability() const throw(Error) { return m_Durability.getValue(); }
 	void			setDurability(Durability_t durability) throw(Error) { m_Durability.setValue(durability); }
 	Durability_t	getMaxDurability() const {
-		if (m_Durability.hasValue() )
+		if ( m_Durability.hasValue() )
 		{
 			Durability_t baseDur = getItemInfo()->getDurability();
 //			return max(1000,((int)baseDur) + min((int)m_Grade.getDurabilityOffset(), 65000-baseDur));

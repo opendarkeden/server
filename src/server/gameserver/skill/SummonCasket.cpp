@@ -5,10 +5,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SummonCasket.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddEffect.h"
 #include "ZoneUtil.h"
 #include "RankBonus.h"
 
@@ -59,10 +59,10 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 
 		// Knowledge of Summon 이 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_SUMMON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -121,8 +121,8 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 
 				if (level < userLevel)
 				{
-					pEffectManager->deleteEffect(effectClass);
-					pVampire->removeFlag(effectClass);
+					pEffectManager->deleteEffect( effectClass );
+					pVampire->removeFlag( effectClass );
 				}
 			}
 
@@ -135,8 +135,8 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 
 				if (level < userLevel)
 				{
-					pEffectManager->deleteEffect(effectClass);
-					pVampire->removeFlag(effectClass);
+					pEffectManager->deleteEffect( effectClass );
+					pVampire->removeFlag( effectClass );
 				}
 			}
 
@@ -148,8 +148,8 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 				int level =	(dynamic_cast<EffectSeduction*>(pCheckEffect))->getLevel();
 
 				if (level < userLevel)
-					pEffectManager->deleteEffect(effectClass);
-					pVampire->removeFlag(effectClass);
+					pEffectManager->deleteEffect( effectClass );
+					pVampire->removeFlag( effectClass );
 			}
 
 

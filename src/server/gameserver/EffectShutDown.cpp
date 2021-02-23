@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectShutDown.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Zone.h"
 #include "unistd.h"
 #include "signal.h"
@@ -29,7 +29,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectShutDown::EffectShutDown () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -40,7 +40,7 @@ EffectShutDown::EffectShutDown ()
 // constructor
 //----------------------------------------------------------------------
 EffectShutDown::EffectShutDown (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Corpse* pCorpse , Turn_t delay) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pCorpse,delay) 
 {
 	__BEGIN_TRY
@@ -56,7 +56,7 @@ EffectShutDown::EffectShutDown (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Co
 // destructor
 //----------------------------------------------------------------------
 EffectShutDown::~EffectShutDown () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -92,8 +92,8 @@ void EffectShutDown::affect(Creature* pCreature)
 
 	msg << (int)RemainTime << "초 후에 서버가 종료됩니다. 잠시 후 접속해 주시기 바랍니다. "; */
     char msg[80];
-    sprintf(msg, g_pStringPool->c_str(STRID_SERVER_SHUT_DOWN_COUNT_DOWN ),
-                    (int)RemainTime);
+    sprintf( msg, g_pStringPool->c_str( STRID_SERVER_SHUT_DOWN_COUNT_DOWN ),
+                    (int)RemainTime );
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg);
@@ -120,7 +120,7 @@ void EffectShutDown::affect(Creature* pCreature)
 			catch (NoSuchElementException&) 
 			{
 				SAFE_DELETE(pStmt);
-				throw Error("Critical Error : ZoneInfoManager에 해당 존그룹이 존재하지 않습니다.");
+				throw Error("Critical Error : ZoneInfoManager꼇닸瞳맡契삔.");
 			}
 
 			ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -172,7 +172,7 @@ void EffectShutDown::affect(Creature* pCreature)
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectShutDown::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -196,7 +196,7 @@ void EffectShutDown::unaffect()
 //	msg << "서버가 종료됩니다.";
 
 	GCSystemMessage gcSystemMessage;
-	gcSystemMessage.setMessage(g_pStringPool->getString(STRID_SERVER_SHUT_DOWN ));
+	gcSystemMessage.setMessage( g_pStringPool->getString( STRID_SERVER_SHUT_DOWN ) );
 
 	BEGIN_DB
 	{
@@ -217,7 +217,7 @@ void EffectShutDown::unaffect()
 			catch (NoSuchElementException&) 
 			{
 				SAFE_DELETE(pStmt);
-				throw Error("Critical Error : ZoneInfoManager에 해당 존그룹이 존재하지 않습니다.");
+				throw Error("Critical Error : ZoneInfoManager꼇닸瞳맡契삔.");
 			}
 
 			ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -230,9 +230,9 @@ void EffectShutDown::unaffect()
 
 	//kill(getpid() , 9);
 	EventShutdown* pEventShutdown = new EventShutdown(NULL);
-	pEventShutdown->setDeadline(0);
+	pEventShutdown->setDeadline( 0 );
 
-	g_pClientManager->addEvent(pEventShutdown);
+	g_pClientManager->addEvent( pEventShutdown );
 
 	__END_CATCH
 }
@@ -252,7 +252,7 @@ void EffectShutDown::unaffect(Creature* pCreature)
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectShutDown::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -264,7 +264,7 @@ void EffectShutDown::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 // get debug string
 //----------------------------------------------------------------------
 string EffectShutDown::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

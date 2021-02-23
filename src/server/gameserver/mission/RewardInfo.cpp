@@ -1,7 +1,7 @@
 #include "RewardInfo.h"
 #include "StringStream.h"
 
-RewardInfo::RewardInfo(RewardID_t rID, RewardClass_t rClass )
+RewardInfo::RewardInfo( RewardID_t rID, RewardClass_t rClass )
 {
 	m_RewardID = rID;
 	m_RewardClass = rClass;

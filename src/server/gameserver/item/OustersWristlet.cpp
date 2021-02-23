@@ -15,7 +15,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 OustersWristletInfoManager* g_pOustersWristletInfoManager = NULL;
@@ -36,7 +35,7 @@ OustersWristlet::OustersWristlet()
 
 OustersWristlet::OustersWristlet(ItemType_t itemType, const list<OptionType_t>& optionType)
 	throw()
-//: m_OptionType(optionType )
+//: m_OptionType( optionType )
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -48,7 +47,7 @@ OustersWristlet::OustersWristlet(ItemType_t itemType, const list<OptionType_t>& 
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "OustersWristlet::OustersWristlet() : Invalid item type or option type");
-		throw("OustersWristlet::OustersWristlet() : Invalid item type or optionType");
+		throw ("OustersWristlet::OustersWristlet() : Invalid item type or optionType");
 	}
 }
 
@@ -83,7 +82,7 @@ void OustersWristlet::create(const string & ownerID, Storage storage, StorageID_
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO OustersWristletObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -116,7 +115,7 @@ void OustersWristlet::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE OustersWristletObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE OustersWristletObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -160,9 +159,9 @@ void OustersWristlet::save(const string & ownerID, Storage storage, StorageID_t 
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 		pStmt->executeQuery("UPDATE OustersWristletObject SET ObjectID=%ld, ItemType=%d, OwnerID= '%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -425,7 +424,7 @@ void OustersWristletLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade,EnchantLevel, ItemFlag FROM OustersWristletObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade,EnchantLevel, ItemFlag FROM OustersWristletObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
 													pCreature->getName().c_str());
 
 
@@ -495,18 +494,6 @@ void OustersWristletLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pOustersWristlet);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pOustersWristlet))
 						{
 							pInventory->addItemEx(x, y, pOustersWristlet);

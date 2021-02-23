@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : EffectSharpHail.h
 // Written by  : elca@ewestsoft.com
-// Description : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SharpHailï¿½ï¿½ Effectï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+// Description : ¼ºÁ÷¸¶¹ý SharpHailÀÇ Effect¸¦ Ã³¸®ÇØÁÖ±â À§ÇÑ Å¬·¡½ºÀÌ´Ù.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __EFFECT_SHARP_HAIL__
@@ -36,11 +36,11 @@ public:
 	int getLevel(void) const { return m_Level; }
 	void setLevel(int level) { m_Level = level; }
 
-	void setForce(bool force ) { m_bForce = force; }
+	void setForce( bool force ) { m_bForce = force; }
 	bool isForce() const { return m_bForce; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 private:
 	int     m_Damage;

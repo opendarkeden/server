@@ -10,21 +10,21 @@
 #include "Zone.h"
 #include "PlayerCreature.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
-PartnerWaitInfo::PartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCName )
+PartnerWaitInfo::PartnerWaitInfo( PlayerCreature* pWaitingPC, string RequestedPCName )
 {
-	Assert(pWaitingPC != NULL);
+	Assert( pWaitingPC != NULL );
 
 	m_pZone = pWaitingPC->getZone();
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	m_RequestedPCName = RequestedPCName;
 	m_WaitingPCOID = pWaitingPC->getObjectID();
 
 	// 제한시간 1분
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 	m_Deadline = currentTime;
 	m_Deadline.tv_sec += 60;
 }
@@ -34,14 +34,14 @@ PartnerWaitInfo* PartnerWaitInfo::getPartnerWaitInfo(PlayerCreature* pWaitingPC,
 {
 	__BEGIN_TRY
 
-	Assert(pWaitingPC != NULL);
+	Assert( pWaitingPC != NULL );
 
-	switch(waitType )
+	switch( waitType )
 	{
 		case WAIT_FOR_MEET:
-			return new WaitForMeet(pWaitingPC, RequestedPCName);
+			return new WaitForMeet( pWaitingPC, RequestedPCName );
 		case WAIT_FOR_APART:
-			return new WaitForApart(pWaitingPC, RequestedPCName);
+			return new WaitForApart( pWaitingPC, RequestedPCName );
 		default:
 			return NULL;
 	}
@@ -53,13 +53,13 @@ PlayerCreature*	PartnerWaitInfo::getWaitingPC() const
 {
 	__BEGIN_TRY
 
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
-	Creature* pCreature = m_pZone->getCreature(m_WaitingPCOID);
-	if (pCreature != NULL )
+	Creature* pCreature = m_pZone->getCreature( m_WaitingPCOID );
+	if ( pCreature != NULL )
 	{
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-		Assert(pPC != NULL);
+		Assert( pPC != NULL );
 
 		return pPC;
 	}
@@ -73,24 +73,24 @@ PartnerWaitingManager::~PartnerWaitingManager()
 {
 	WaitInfoHashMap::iterator itr = m_WaitInfos.begin();
 
-	for(; itr != m_WaitInfos.end(); itr++ )
+	for( ; itr != m_WaitInfos.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_WaitInfos.clear();
 }
 
 // 새로운 PartnerWaitInfo를 만들고 등록한다.
-uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string RequestedPCName )
+uint PartnerWaitingManager::waitForPartner( PlayerCreature* pWaitingPC, string RequestedPCName )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	if (!g_pVariableManager->isActivateCouple() ) return COUPLE_MESSAGE_NOT_EVENT_TERM;
+	if ( !g_pVariableManager->isActivateCouple() ) return COUPLE_MESSAGE_NOT_EVENT_TERM;
 
-	Assert(pWaitingPC != NULL);
-	if (isWaitForPartner(pWaitingPC ) ) return COUPLE_MESSAGE_ALREADY_WAITING;
+	Assert( pWaitingPC != NULL );
+	if ( isWaitForPartner( pWaitingPC ) ) return COUPLE_MESSAGE_ALREADY_WAITING;
 
 	PlayerCreature* pTargetPC = NULL;
 
@@ -99,28 +99,28 @@ uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string Re
     Creature* pTargetCreature = g_pPCFinder->getCreature_LOCKED(RequestedPCName);
     if (pTargetCreature!=NULL)
     {
-		if (!pTargetCreature->isPC() )
+		if ( !pTargetCreature->isPC() )
 		{
 			g_pPCFinder->unlock();
 			return COUPLE_MESSAGE_LOGOFF;
 		}
 
-		pTargetPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
-		Assert(pTargetPC != NULL);
+		pTargetPC = dynamic_cast<PlayerCreature*>( pTargetCreature );
+		Assert( pTargetPC != NULL );
     }
 
 	__LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
-	if (pTargetPC == NULL ) return COUPLE_MESSAGE_LOGOFF;
+	if ( pTargetPC == NULL ) return COUPLE_MESSAGE_LOGOFF;
 
 	// PartnerWaitInfo 의 FactoryMethod 로 새로운 PartnerWaitInfo 의 객체를 만든다. WaitForMeet or WaitForApart
-	PartnerWaitInfo* pPartnerWaitInfo = PartnerWaitInfo::getPartnerWaitInfo(pWaitingPC, RequestedPCName, getWaitType());
-	Assert(pPartnerWaitInfo != NULL);
+	PartnerWaitInfo* pPartnerWaitInfo = PartnerWaitInfo::getPartnerWaitInfo( pWaitingPC, RequestedPCName, getWaitType() );
+	Assert( pPartnerWaitInfo != NULL );
 
-	uint result = pPartnerWaitInfo->waitPartner(pTargetPC);
-	if (result != 0 )
+	uint result = pPartnerWaitInfo->waitPartner( pTargetPC );
+	if ( result != 0 )
 	{
-		SAFE_DELETE(pPartnerWaitInfo);
+		SAFE_DELETE( pPartnerWaitInfo );
 		return result;
 	}
 
@@ -132,21 +132,21 @@ uint PartnerWaitingManager::waitForPartner(PlayerCreature* pWaitingPC, string Re
 }
 
 // 해당하는 PC가 기다리고 있는 파트너 요청을 찾아서 지운다.
-bool PartnerWaitingManager::stopWaitForPartner(PlayerCreature* pWaitingPC )
+bool PartnerWaitingManager::stopWaitForPartner( PlayerCreature* pWaitingPC )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pWaitingPC != NULL);
+	Assert( pWaitingPC != NULL );
 
 	WaitInfoHashMap::iterator itr = m_WaitInfos.begin();
 
-	for(; itr != m_WaitInfos.end(); itr++ )
+	for( ; itr != m_WaitInfos.end(); itr++ )
 	{
-		if (pWaitingPC == itr->second->getWaitingPC() )
+		if ( pWaitingPC == itr->second->getWaitingPC() )
 		{
-			SAFE_DELETE(itr->second);
-			m_WaitInfos.erase(itr);
+			SAFE_DELETE( itr->second );
+			m_WaitInfos.erase( itr );
 			return true;
 		}
 	}
@@ -156,58 +156,58 @@ bool PartnerWaitingManager::stopWaitForPartner(PlayerCreature* pWaitingPC )
 	__END_CATCH
 }
 
-uint PartnerWaitingManager::acceptPartner(PlayerCreature* pRequestedPC )
+uint PartnerWaitingManager::acceptPartner( PlayerCreature* pRequestedPC )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	if (!g_pVariableManager->isActivateCouple() ) return COUPLE_MESSAGE_NOT_EVENT_TERM;
+	if ( !g_pVariableManager->isActivateCouple() ) return COUPLE_MESSAGE_NOT_EVENT_TERM;
 
-	Assert(pRequestedPC != NULL);
+	Assert( pRequestedPC != NULL );
 
-	WaitInfoHashMap::iterator itr = m_WaitInfos.find(pRequestedPC->getName());
+	WaitInfoHashMap::iterator itr = m_WaitInfos.find( pRequestedPC->getName() );
 	// 이 사람을 기다리는 자가 없다.
-	if (itr == m_WaitInfos.end() ) return COUPLE_MESSAGE_NO_WAITING;
+	if ( itr == m_WaitInfos.end() ) return COUPLE_MESSAGE_NO_WAITING;
 
 	PartnerWaitInfo* pPartnerWaitInfo = itr->second;
-	Assert(pPartnerWaitInfo != NULL);
+	Assert( pPartnerWaitInfo != NULL );
 
 	PlayerCreature* pWaitingPC = pPartnerWaitInfo->getWaitingPC();
-	if (pWaitingPC == NULL )
+	if ( pWaitingPC == NULL )
 		return COUPLE_MESSAGE_LOGOFF;
 
 	// 성별이 같으면 성사될 수 없다.
-	if (pWaitingPC->getSex() == pRequestedPC->getSex() ) return COUPLE_MESSAGE_SAME_SEX;
+	if ( pWaitingPC->getSex() == pRequestedPC->getSex() ) return COUPLE_MESSAGE_SAME_SEX;
 
-	uint result = pPartnerWaitInfo->acceptPartner(pRequestedPC);
+	uint result = pPartnerWaitInfo->acceptPartner( pRequestedPC );
 
 	// 성사된 이후엔 지워준다.
-	SAFE_DELETE(pPartnerWaitInfo);
-	m_WaitInfos.erase(itr);
+	SAFE_DELETE( pPartnerWaitInfo );
+	m_WaitInfos.erase( itr );
 
 	return result;
 
 	__END_CATCH
 }
 
-bool PartnerWaitingManager::isWaitForPartner(PlayerCreature* pRequestedPC )
+bool PartnerWaitingManager::isWaitForPartner( PlayerCreature* pRequestedPC )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	WaitInfoHashMap::iterator itr = m_WaitInfos.find(pRequestedPC->getName());
-	return (itr != m_WaitInfos.end());
+	WaitInfoHashMap::iterator itr = m_WaitInfos.find( pRequestedPC->getName() );
+	return ( itr != m_WaitInfos.end() );
 
 	__END_CATCH
 }
 
-PlayerCreature* PartnerWaitingManager::getWaitingPartner(PlayerCreature* pRequestedPC )
+PlayerCreature* PartnerWaitingManager::getWaitingPartner( PlayerCreature* pRequestedPC )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	WaitInfoHashMap::iterator itr = m_WaitInfos.find(pRequestedPC->getName());
-	if (itr == m_WaitInfos.end() ) return NULL;
+	WaitInfoHashMap::iterator itr = m_WaitInfos.find( pRequestedPC->getName() );
+	if ( itr == m_WaitInfos.end() ) return NULL;
 
 	return itr->second->getWaitingPC();
 	
@@ -221,23 +221,23 @@ void PartnerWaitingManager::heartbeat()
 
 	WaitInfoHashMap::iterator itr = m_WaitInfos.begin();
 
-	for (; itr != m_WaitInfos.end() ; )
+	for ( ; itr != m_WaitInfos.end() ; )
 	{
 		PartnerWaitInfo* pPartnerWaitInfo = itr->second;
-		Assert(pPartnerWaitInfo != NULL);
+		Assert( pPartnerWaitInfo != NULL );
 
 		Timeval currentTime;
-		getCurrentTime(currentTime);
+		getCurrentTime( currentTime );
 
-		if (pPartnerWaitInfo->getDeadline() < currentTime )
+		if ( pPartnerWaitInfo->getDeadline() < currentTime )
 		{
 			WaitInfoHashMap::iterator delitr = itr;
 			itr++;
 
 			// 데드라인이 지났다!
 			pPartnerWaitInfo->timeExpired();
-			SAFE_DELETE(pPartnerWaitInfo);
-			m_WaitInfos.erase(delitr);
+			SAFE_DELETE( pPartnerWaitInfo );
+			m_WaitInfos.erase( delitr );
 		}
 		else
 		{

@@ -10,9 +10,9 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectStoneSkin::EffectStoneSkin(Creature* pCreature)
 	throw(Error)

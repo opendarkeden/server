@@ -38,7 +38,7 @@ struct MissionInfo
 
 		BYTE szSTR;
 		iStream.read(szSTR);
-		if (szSTR != 0 ) iStream.read(m_StrArg, szSTR);
+		if ( szSTR != 0 ) iStream.read(m_StrArg, szSTR);
 
 		iStream.read(m_NumArg);
 	}
@@ -50,12 +50,12 @@ struct MissionInfo
 		oStream.write(m_Status);
 
 		BYTE szSTR = m_StrArg.size();
-		oStream.write(szSTR);
-		if (szSTR != 0 ) oStream.write(m_StrArg);
+		oStream.write( szSTR );
+		if ( szSTR != 0 ) oStream.write( m_StrArg );
 
-		oStream.write(m_NumArg);
+		oStream.write( m_NumArg );
 
-		//cout << "write mission : " << m_NumArg << " , " << m_StrArg << endl;
+		cout << "write mission : " << m_NumArg << " , " << m_StrArg << endl;
 	}
 
 	PacketSize_t getSize() const { return szBYTE + szWORD + szBYTE + szBYTE + m_StrArg.size() + szDWORD; }

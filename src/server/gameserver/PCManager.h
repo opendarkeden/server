@@ -42,14 +42,14 @@ public:
 	//void broadcastPacket(Packet* pPacket, Creature* owner) throw(Error);
 
 	// 모든 사용자들 다른 곳으로 이동시킨다.
-	void transportAllCreatures(ZoneID_t ZoneID, ZoneCoord_t ZoneX = 0xffff, ZoneCoord_t ZoneY = 0xffff, Race_t race=defaultRaceValue, Turn_t delay=10) const throw(Error);
+	void transportAllCreatures(ZoneID_t ZoneID, ZoneCoord_t ZoneX = 0xffff, ZoneCoord_t ZoneY = 0xffff, Race_t race=defaultRaceValue, Turn_t delay=10) const throw (Error);
 	
 	// get debug string 
 	string toString() const throw();
 
 	// Holy Land Race Bonus 변화에 따른 플레이어 refresh
-	void setRefreshHolyLandPlayer(bool bRefresh ) { m_bRefreshHolyLandPlayer = bRefresh; }
-//	void setRefreshLevelWarBonusZonePlayer(bool bRefresh ) { m_bRefreshLevelWarBonusZonePlayer = bRefresh; }
+	void setRefreshHolyLandPlayer( bool bRefresh ) { m_bRefreshHolyLandPlayer = bRefresh; }
+//	void setRefreshLevelWarBonusZonePlayer( bool bRefresh ) { m_bRefreshLevelWarBonusZonePlayer = bRefresh; }
 
 	vector<uint>	getPCNumByRace() const;
 private:

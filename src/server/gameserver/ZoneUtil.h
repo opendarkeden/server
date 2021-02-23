@@ -288,26 +288,26 @@ bool isValidZoneCoord(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, int offset=0);
 //////////////////////////////////////////////////////////////////////////////
 // master lair 에  pCreature가 들어갈 수 있는가?
 //////////////////////////////////////////////////////////////////////////////
-bool enterMasterLair(Zone* pZone, Creature* pCreature) throw(Error);
+bool enterMasterLair(Zone* pZone, Creature* pCreature) throw (Error);
 
 // 야전사령부에서 초보자들을 다른 곳으로 보낼때.. 목표 존의 정보
 void checkNewbieTransportToGuild(Slayer* pSlayer);
 void getNewbieTransportZoneInfo(Slayer* pSlayer, ZONE_COORD& zoneInfo);
 
 // Corpse를 Zone에 추가한다.
-bool addCorpseToZone(Corpse* pCorpse, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy) throw(Error);
+bool addCorpseToZone(Corpse* pCorpse, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy) throw (Error);
 
 // 범위 안에 특정한 몬스터 시체가 있는지 확인한다. 
 // 있으면 true, 없으면 false
-bool checkCorpse(Zone* pZone, MonsterType_t MType, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2 ) throw();
+bool checkCorpse( Zone* pZone, MonsterType_t MType, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2 ) throw();
 
 void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList ) throw(Error);
 
-uint getZoneTimeband(Zone* pZone);
+uint getZoneTimeband( Zone* pZone );
 
-bool createBulletinBoard(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterType_t type, const string& msg, const VSDateTime& timeLimit);
-void loadBulletinBoard(Zone* pZone);
+bool createBulletinBoard( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterType_t type, const string& msg, const VSDateTime& timeLimit );
+void loadBulletinBoard( Zone* pZone );
 
-void forbidDarkness(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, int range);
+void forbidDarkness( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, int range );
 
 #endif

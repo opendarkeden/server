@@ -9,7 +9,7 @@
 
 #include "PlayerCreature.h"
 #include "Zone.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Inventory.h"
 #include "PCSlayerInfo.h"
 #include "PCSlayerInfo2.h"
@@ -24,14 +24,14 @@
 #include "CreatureUtil.h"
 #include "ModifyInfo.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 //#include "RankExpTable.h"
 #include "SlayerAttrExpTable.h"
 
 #include "skill/Skill.h"
 #include "skill/SkillSlot.h"
 
-#include "GCModifyInformation.h"
+#include "Gpackets/GCModifyInformation.h"
 
 #ifdef __CHINA_SERVER__
 #define	SLAYER_BOUND_LEVEL			100
@@ -141,7 +141,7 @@ public:
 //////////////////////////////////////////////////////////////
 public:
 	Slayer() throw();
-	virtual ~Slayer() throw();
+	virtual ~Slayer() throw (Error);
 	
 //////////////////////////////////////////////////////////////
 // 하위 클래스 상속 함수
@@ -153,15 +153,15 @@ public:
 	virtual void registerObject() throw(Error);
 	virtual void registerInitObject() throw(Error);
 
-	virtual bool load() throw(InvalidProtocolException, Error);
-	void loadItem(bool checkTimeLimit = false ) throw(InvalidProtocolException, Error);
+	virtual bool load() throw (InvalidProtocolException, Error);
+	void loadItem( bool checkTimeLimit = false ) throw (InvalidProtocolException, Error);
 
-	virtual void save() const throw(Error);
-	virtual void tinysave(const string & field) const throw(Error);
-//	virtual void tinysave(const char* field) const throw(Error);
-	void saveSkills(void) const throw(Error);
-	void saveGears(void) const throw(Error);
-	void saveExps(void) const throw(Error);
+	virtual void save() const throw (Error);
+	virtual void tinysave(const string & field) const throw (Error);
+//	virtual void tinysave(const char* field) const throw (Error);
+	void saveSkills(void) const throw (Error);
+	void saveGears(void) const throw (Error);
+	void saveExps(void) const throw (Error);
 
 	virtual void act(const Timeval& currentTime) throw(Error) {}
 
@@ -174,8 +174,8 @@ public:
 // 시간제한 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	void checkItemTimeLimit() throw(Error);
-	void updateEventItemTime(DWORD time ) throw(Error);
+	void checkItemTimeLimit() throw (Error);
+	void updateEventItemTime( DWORD time ) throw(Error);
 
 //////////////////////////////////////////////////////////////
 // 상태 관련 함수(dead or alive)
@@ -261,7 +261,7 @@ public:
 	void    setINT(Attr_t attr, AttrType attrType = ATTR_CURRENT) throw() { m_INT[attrType] = attr; }
 	Exp_t   getINTGoalExp() const throw() { return m_pAttrs[ATTR_KIND_INT]->getGoalExp(); }
 
-	Attr_t	getTotalAttr(AttrType attrType = ATTR_CURRENT ) const throw() { return getSTR(attrType ) + getDEX(attrType ) + getINT(attrType); }
+	Attr_t	getTotalAttr( AttrType attrType = ATTR_CURRENT ) const throw() { return getSTR( attrType ) + getDEX( attrType ) + getINT( attrType ); }
 	QuestGrade_t getQuestGrade() const throw();
 
 	void divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& ModifyInfo);
@@ -281,7 +281,7 @@ public:
 	void setHP(HP_t current, HP_t max) throw() { m_HP[ATTR_CURRENT] = current; m_HP[ATTR_MAX] = max; }
 
 	MP_t getMP(AttrType attrType = ATTR_CURRENT) const throw() { return m_MP[attrType]; }
-	void setMP(MP_t mp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = mp; }
+	void setMP(MP_t hp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = hp; }
 	void setMP(MP_t current, MP_t max) throw() { m_MP[ATTR_CURRENT] = current; m_MP[ATTR_MAX] = max; }
 
 
@@ -378,7 +378,7 @@ private:
 	void computeItemStat(Item* pItem) throw();
 	void computeOptionStat(Item* pItem) throw();
 	void computeOptionStat(OptionType_t optionType) throw();
-	void computeOptionClassStat(OptionClass OClass, int PlusPoint);
+	void computeOptionClassStat( OptionClass OClass, int PlusPoint );
 
 //////////////////////////////////////////////////////////////
 // 아이템 검색 함수
@@ -596,7 +596,7 @@ private:
 
 	// SkillSlot
 	//SkillSlot* m_pSkillSlot[MAX_SLAYER_SKILL_SLOT];
-	map<SkillType_t, SkillSlot*> m_SkillSlot;
+	hash_map<SkillType_t, SkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[WEAR_MAX];

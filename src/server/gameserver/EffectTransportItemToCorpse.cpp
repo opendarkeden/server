@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectTransportItemToCorpse.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
@@ -18,9 +18,11 @@
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pItem, Zone* pTargetZone, ObjectID_t corpseObjectID, Turn_t delay) 
-	throw(Error)
-: Effect(pZone,0,0,pItem,delay) {
+EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pItem, 
+														Zone* pTargetZone, ObjectID_t corpseObjectID, Turn_t delay) 
+	throw (Error)
+: Effect(pZone,0,0,pItem,delay) 
+{
 	__BEGIN_TRY
 
 	Assert(getZone() != NULL);
@@ -43,7 +45,7 @@ EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pIt
 // destructor
 //----------------------------------------------------------------------
 EffectTransportItemToCorpse::~EffectTransportItemToCorpse () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -59,7 +61,7 @@ EffectTransportItemToCorpse::~EffectTransportItemToCorpse ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -73,7 +75,7 @@ void EffectTransportItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoor
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -89,22 +91,28 @@ void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCo
 	if (pZone->getZoneGroup()==m_pTargetZone->getZoneGroup())
 	//if (pZone==m_pTargetZone)
 	{
+		//cout << "Zone->addItem" << endl;
 		//pZone->addItem(pTempItem, x, y);
 
-		Item* pCorpseItem = m_pTargetZone->getItem(m_CorpseObjectID);
+		Item* pCorpseItem = m_pTargetZone->getItem( m_CorpseObjectID );
 
 		if (pCorpseItem!=NULL && pCorpseItem->getItemClass()==Item::ITEM_CLASS_CORPSE)
 		{
 			Corpse* pCorpse = dynamic_cast<Corpse*>(pCorpseItem);
 			Assert(pCorpse!=NULL);
 
-			pCorpse->addTreasure(pItem);
+			pCorpse->addTreasure( pItem );
 		}
 		else
-			throw Error("(EffectTransportItemToCorpse) Invalid Corpse.");
+		{
+			throw Error("시체가 아니네");
+		}
 	}
 	else
+	{
+		//cout << "Zone->addItemDelayed" << endl;
 		m_pTargetZone->addItemToCorpseDelayed(pItem, m_CorpseObjectID);
+	}
 
 	pTarget = NULL;
 
@@ -115,9 +123,12 @@ void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCo
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
+
+	//cout << "EffectTransportItemToCorpse unaffect" << endl;
+
 	__END_CATCH
 }
 
@@ -125,7 +136,7 @@ void EffectTransportItemToCorpse::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -135,7 +146,7 @@ void EffectTransportItemToCorpse::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectTransportItemToCorpse::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

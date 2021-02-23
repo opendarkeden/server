@@ -8,7 +8,7 @@ class GQuestGiveDomainExpElement : public GQuestElement
 public:
 	GQuestGiveDomainExpElement() : m_Amount(0) { }
 	string 				getElementName() const { return "GiveDomainExp"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestGiveDomainExpElement*	makeElement(XMLTree* pTree);
 
 private:

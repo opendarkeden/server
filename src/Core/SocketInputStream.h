@@ -46,10 +46,10 @@ class SocketInputStream {
 public :
 	
 	// constructor
-	SocketInputStream (Socket* sock, uint BufferSize = DefaultSocketInputBufferSize) throw(Error);
+	SocketInputStream (Socket* sock, uint BufferSize = DefaultSocketInputBufferSize) throw (Error);
 	
 	// destructor
-	virtual ~SocketInputStream () throw(Error);
+	virtual ~SocketInputStream () throw (Error);
 
 	
 //////////////////////////////////////////////////
@@ -58,48 +58,48 @@ public :
 public :
 	
 	// read data from stream (input buffer)
-	uint read (char* buf, uint len) throw(ProtocolException, Error);
-	uint read (string & str, uint len) throw(ProtocolException, Error);
-	void readPacket (Packet* p) throw(ProtocolException, Error);
+	uint read (char* buf, uint len) throw (ProtocolException, Error);
+	uint read (string & str, uint len) throw (ProtocolException, Error);
+	void readPacket (Packet* p) throw (ProtocolException, Error);
 
 	template<typename T>
-		uint read(T& buf ) throw(ProtocolException, Error);
+		uint read( T& buf ) throw (ProtocolException, Error);
 
-/*	uint read (bool   & buf) throw(ProtocolException, Error) { return read((char*)&buf, szbool ); }
-	uint read (char   & buf) throw(ProtocolException, Error) { return read((char*)&buf, szchar ); }
-	uint read (uchar  & buf) throw(ProtocolException, Error) { return read((char*)&buf, szuchar); }
-	uint read (short  & buf) throw(ProtocolException, Error) { return read((char*)&buf, szshort); }
-	uint read (ushort & buf) throw(ProtocolException, Error) { return read((char*)&buf, szushort); }
-	uint read (int    & buf) throw(ProtocolException, Error) { return read((char*)&buf, szint  ); }
-	uint read (uint   & buf) throw(ProtocolException, Error) { return read((char*)&buf, szuint ); }
-	uint read (long   & buf) throw(ProtocolException, Error) { return read((char*)&buf, szlong ); }
-	uint read (ulong  & buf) throw(ProtocolException, Error) { return read((char*)&buf, szulong); }
+/*	uint read (bool   & buf) throw (ProtocolException, Error) { return read((char*)&buf, szbool  ); }
+	uint read (char   & buf) throw (ProtocolException, Error) { return read((char*)&buf, szchar  ); }
+	uint read (uchar  & buf) throw (ProtocolException, Error) { return read((char*)&buf, szuchar ); }
+	uint read (short  & buf) throw (ProtocolException, Error) { return read((char*)&buf, szshort ); }
+	uint read (ushort & buf) throw (ProtocolException, Error) { return read((char*)&buf, szushort); }
+	uint read (int    & buf) throw (ProtocolException, Error) { return read((char*)&buf, szint   ); }
+	uint read (uint   & buf) throw (ProtocolException, Error) { return read((char*)&buf, szuint  ); }
+	uint read (long   & buf) throw (ProtocolException, Error) { return read((char*)&buf, szlong  ); }
+	uint read (ulong  & buf) throw (ProtocolException, Error) { return read((char*)&buf, szulong ); }
 */
 	// peek data from stream (input buffer)
-	bool peek (char* buf, uint len) throw(ProtocolException, Error);
+	bool peek (char* buf, uint len) throw (ProtocolException, Error);
 	
 	// skip data from stream (input buffer)
-	void skip (uint len) throw(ProtocolException, Error);
+	void skip (uint len) throw (ProtocolException, Error);
 	
 	// fill stream (input buffer) from socket
-	uint fill () throw(IOException, Error);
-	uint fill_RAW () throw(IOException, Error);
+	uint fill () throw (IOException, Error);
+	uint fill_RAW () throw (IOException, Error);
 
 	// resize buffer
-	void resize (int size) throw(IOException, Error);
+	void resize (int size) throw (IOException, Error);
 	
 	// get buffer length
-	uint capacity () const throw() { return m_BufferLen; }
+	uint capacity () const throw () { return m_BufferLen; }
 	
 	// get data length in buffer
-	uint length () const throw();
-	uint size () const throw() { return length(); }
+	uint length () const throw ();
+	uint size () const throw () { return length(); }
 
 	// check if buffer is empty
-	bool isEmpty () const throw() { return m_Head == m_Tail; }
+	bool isEmpty () const throw () { return m_Head == m_Tail; }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 
 //////////////////////////////////////////////////
@@ -119,7 +119,13 @@ private :
 	// buffer head/tail
 	uint m_Head;
 	uint m_Tail;
-
+//add by viva 2008-12-31
+//public :
+	//WORD m_EncryptKey;
+	//BYTE* m_HashTable;
+	//void setKey(WORD EncryptKey, BYTE* HashTable) throw() {m_EncryptKey = EncryptKey; m_HashTable = HashTable; }
+	//WORD EncryptData(WORD EncryptKey, char* buf, int len) throw();
+//end
 };
 
 
@@ -129,8 +135,8 @@ private :
 //
 //////////////////////////////////////////////////////////////////////
 template<typename T>
-uint SocketInputStream::read (T& buf ) 
-	throw(ProtocolException , Error )
+uint SocketInputStream::read ( T& buf ) 
+	throw ( ProtocolException , Error )
 {
 	uint len = (uint)sizeof(T);
 
@@ -139,10 +145,10 @@ uint SocketInputStream::read (T& buf )
 	// 중복된 감이 있다. 따라서, 코멘트로 처리해도 무방하다.
 	// 단 아래 코드를 코멘트처리하면, 바로 아래의 if-else 를 'if'-'else if'-'else'
 	// 로 수정해줘야 한다.
-	if (len > length() )
-		throw InsufficientDataException(len - length());
+	if ( len > length() )
+		throw InsufficientDataException( len - length() );
 	
-	if (m_Head < m_Tail )	// normal order
+	if ( m_Head < m_Tail )	// normal order
 	{
 		//
         //    H   T
@@ -152,7 +158,7 @@ uint SocketInputStream::read (T& buf )
 		buf = *(T*)(m_Buffer+m_Head);
 
 	}
-	else					// reversed order (m_Head > m_Tail )
+	else					// reversed order ( m_Head > m_Tail )
 	{
 		
         //
@@ -161,18 +167,18 @@ uint SocketInputStream::read (T& buf )
         // abcd...efg
         //
 		uint rightLen = m_BufferLen - m_Head;
-		if (len <= rightLen )
+		if ( len <= rightLen )
 		{
 			buf = *(T*)(m_Buffer+m_Head);
 		}
 		else
 		{
-			memcpy((char*)&buf , &m_Buffer[m_Head] , rightLen);
-			memcpy(((char*)(&buf)+rightLen), m_Buffer, len - rightLen);
+			memcpy( (char*)&buf , &m_Buffer[m_Head] , rightLen );
+			memcpy( ((char*)(&buf)+rightLen), m_Buffer, len - rightLen );
 		}
 	}
 
-	m_Head = (m_Head + len ) % m_BufferLen;
+	m_Head = ( m_Head + len ) % m_BufferLen;
 	
 	return len;
 		

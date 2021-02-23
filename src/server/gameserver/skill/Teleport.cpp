@@ -6,10 +6,10 @@
 
 #include "Teleport.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 타일 핸들러 
@@ -47,7 +47,7 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y,  Ousters
 		GCSkillToTileOK5 _GCSkillToTileOK5;
 
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
-		if (!rect.ptInRect(X, Y) )
+		if ( !rect.ptInRect(X, Y) )
 		{
 			executeSkillFailException(pOusters, getSkillType());
 		}
@@ -88,7 +88,7 @@ void Teleport::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y,  Ousters
 				_GCSkillToTileOK5.setDuration(0);
 
 				// 자신에게 바뀐 MP를 알려준다.
-				pPlayer->sendPacket(&_GCSkillToTileOK1);
+				pPlayer->sendPacket( &_GCSkillToTileOK1 );
 				pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &_GCSkillToTileOK5, pOusters);
 
 				pOustersSkillSlot->setRunTime(output.Delay);
@@ -148,7 +148,7 @@ void Teleport::execute(Ousters * pOusters, ObjectID_t TargetObjectID, OustersSki
 
 //		bool bIncreaseDomainExp = pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND);
 
-		execute(pOusters, pTargetCreature->getX(), pTargetCreature->getY(), pOustersSkillSlot, CEffectID);
+		execute( pOusters, pTargetCreature->getX(), pTargetCreature->getY(), pOustersSkillSlot, CEffectID );
 /*
 		SkillInput input(pOusters);
 		SkillOutput output;
@@ -173,7 +173,7 @@ void Teleport::execute(Ousters * pOusters, ObjectID_t TargetObjectID, OustersSki
 				decreaseMana(pOusters, RequiredMP, gcMI);
 
 				// 자신에게 바뀐 HP를 알려준다.
-				pPlayer->sendPacket(&gcMI);
+				pPlayer->sendPacket( &gcMI );
 
 				// 주위에 HP가 바꼈다고 알린다.
 				GCStatusCurrentHP gcStatusCurrentHP;

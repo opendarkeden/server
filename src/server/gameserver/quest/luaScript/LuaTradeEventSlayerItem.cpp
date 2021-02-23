@@ -8,12 +8,12 @@ LuaTradeEventSlayerItem::LuaTradeEventSlayerItem(LuaState* pState)
 
 void
 LuaTradeEventSlayerItem::prepare()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	lua_pushnumber(m_pState->getState(), m_SUM);
-	lua_setglobal(m_pState->getState(), "SUM");
+	lua_pushnumber( m_pState->getState(), m_SUM );
+	lua_setglobal( m_pState->getState(), "SUM" );
 
 	__END_CATCH
 }

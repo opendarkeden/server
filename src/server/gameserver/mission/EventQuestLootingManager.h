@@ -37,7 +37,7 @@ public:
 	QuestGrade_t	m_MaxGrade;
 
 public:
-	bool			isTargetMonster(PlayerCreature* pPC, Monster* pMonster ) const;
+	bool			isTargetMonster( PlayerCreature* pPC, Monster* pMonster ) const;
 	Item*			getLootingItem() throw(Error);
 
 	string			toString() const;
@@ -46,8 +46,8 @@ public:
 class EventQuestLootingManager
 {
 public:
-	EventQuestLootingInfo* isTargetMonster(PlayerCreature* pPC, Monster* pMonster);
-	bool			killed(PlayerCreature* pPC, Monster* pMonster ) throw(Error);
+	EventQuestLootingInfo* isTargetMonster( PlayerCreature* pPC, Monster* pMonster );
+	bool			killed( PlayerCreature* pPC, Monster* pMonster ) throw(Error);
 
 	void 			load() throw(Error);
 private:

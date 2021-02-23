@@ -22,7 +22,7 @@ class RewardClass;
 class AnotherQuestRewardInfo : public RewardInfo
 {
 public:
-	AnotherQuestRewardInfo(RewardID_t rID, RewardClass_t rClass, QuestID_t qID);
+	AnotherQuestRewardInfo( RewardID_t rID, RewardClass_t rClass, QuestID_t qID );
 	virtual ~AnotherQuestRewardInfo();
 
 public:

@@ -15,15 +15,15 @@ const uint szItemType = sizeof(ItemType_t);
 
 // Item의 OptionType
 typedef BYTE OptionType_t;
-const uint szOptionType = sizeof(OptionType_t);
+const uint szOptionType = sizeof( OptionType_t );
 
 // DefaultOptionSetType
 typedef BYTE DefaultOptionSetType_t;
-const uint szDefaultOptionSetType = sizeof(DefaultOptionSetType_t);
+const uint szDefaultOptionSetType = sizeof( DefaultOptionSetType_t );
 
 // Item의 DB 용 아이디
 typedef DWORD ItemID_t;
-const uint szItemID_t = sizeof(ItemID_t);
+const uint szItemID_t = sizeof( ItemID_t );
 
 // StorageID : 아이템이 저장된 곳을 지정하는 변수
 typedef DWORD StorageID_t;
@@ -35,17 +35,17 @@ const uint szItemClass = sizeof(ItemClass_t);
 
 // 아이템의 가격
 typedef DWORD Price_t;
-const uint szPrice= sizeof(Price_t);
+const uint szPrice= sizeof( Price_t );
 
 // volume
 typedef BYTE VolumeType_t;
-const uint szVolumeType = sizeof(VolumeType_t);
+const uint szVolumeType = sizeof( VolumeType_t );
 
 typedef BYTE VolumeWidth_t;
-const uint szVolumeWidth = sizeof(VolumeWidth_t);
+const uint szVolumeWidth = sizeof( VolumeWidth_t );
 
 typedef BYTE VolumeHeight_t;
-const uint szVolumeHeight = sizeof(VolumeHeight_t);
+const uint szVolumeHeight = sizeof( VolumeHeight_t );
 
 const string Volume2String [] = 
 {
@@ -60,7 +60,7 @@ const string Volume2String [] =
 
 // weight
 typedef WORD Weight_t;
-const uint szWeight= sizeof(Weight_t);
+const uint szWeight= sizeof( Weight_t );
 
 // Storage - 아이템이 저장되는 위치를 나타낸다.
 enum Storage 
@@ -94,7 +94,7 @@ const uint szRange = sizeof(Range_t);
 
 // Inventory 좌표
 typedef BYTE CoordInven_t;
-const uint szCoordInven = sizeof(CoordInven_t);
+const uint szCoordInven = sizeof( CoordInven_t );
 
 // 아이템 생성 확률 (상점 및 몬스터 해치웠을 때)
 typedef uint Ratio_t;
@@ -102,35 +102,35 @@ const uint szRatio = sizeof(Ratio_t);
 
 // Item의 FlagType
 typedef BYTE FlagType_t;
-const uint szFlagType = sizeof(FlagType_t);
+const uint szFlagType = sizeof( FlagType_t );
 
 // Inventory의 Item갯수
 typedef BYTE ItemNum_t;
-const uint szItemNum = sizeof(ItemNum_t);
+const uint szItemNum = sizeof( ItemNum_t );
 
 // 내구성, 유지시간
 typedef WORD Duration_t;
-const uint szDuration = sizeof(Duration_t);
+const uint szDuration = sizeof( Duration_t );
 
 // 탄환수
 typedef BYTE Bullet_t;
-const uint szBullet = sizeof(Bullet_t);
+const uint szBullet = sizeof( Bullet_t );
 
 // 사정거리 나중에 지울 것임.. 현재는 이걸로 돼 있는게 넘 많아서..
 typedef BYTE Distance_t;
-const uint szDistance = sizeof(Distance_t);
+const uint szDistance = sizeof( Distance_t );
 
 // 상승부위
 typedef BYTE AscentPart_t;
-const uint szAscentPart = sizeof(AscentPart_t);
+const uint szAscentPart = sizeof( AscentPart_t );
 
 // 변화수치
 typedef BYTE PlusValue_t;
-const uint szPlusValue = sizeof(PlusValue_t);
+const uint szPlusValue = sizeof( PlusValue_t );
 
 // 스피드
 typedef BYTE Speed_t;
-const uint szSpeed = sizeof(Speed_t);
+const uint szSpeed = sizeof( Speed_t );
 
 // 벨트 포켓숫자
 typedef BYTE PocketNum_t;

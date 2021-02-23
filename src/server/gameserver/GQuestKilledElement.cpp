@@ -1,12 +1,12 @@
 #include "GQuestKilledElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestKilledElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestKilledMission* pKilledMission = dynamic_cast<GQuestKilledMission*>(pMission);
-	if (pKilledMission == NULL ) return FAIL;
+	if ( pKilledMission == NULL ) return FAIL;
 
-	if (pKilledMission->getCurrent() >= m_Goal ) return OK;
+	if ( pKilledMission->getCurrent() >= m_Goal ) return OK;
 
 	return WAIT;
 }
@@ -22,7 +22,7 @@ GQuestKilledElement* GQuestKilledElement::makeElement(XMLTree* pTree)
 {
 	GQuestKilledElement* pRet = new GQuestKilledElement;
 
-	Assert(pTree->GetAttribute("num", pRet->m_Goal));
+	Assert( pTree->GetAttribute("num", pRet->m_Goal) );
 
 	DWORD index;
 	if (pTree->GetAttribute("index", index)) pRet->m_Index = index;

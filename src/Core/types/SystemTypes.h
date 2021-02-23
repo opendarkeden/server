@@ -15,12 +15,16 @@
  * BUILD_INFO 는 간략하게 영문으로 기술
  */
 #define BUILD_NUMBER 40518
-#define BUILD_INFO   "<Version Information>\n+Add ----- \n-Delete -----\nFix -----\n"
+#define BUILD_INFO   "<Version Information>\n
++Add ----- \n
+-Delete -----\n
+Fix -----\n
+"
 
 
 #if defined(__WINDOWS__)
 	// 4786 - STL의 심볼명의 길이가 255를 넘어갈 때
-	#pragma warning (disable : 4786 )
+	#pragma warning ( disable : 4786 )
 	#include <Windows.h>
 #elif defined(__LINUX__)
 	#include <sys/types.h>
@@ -43,7 +47,7 @@ typedef unsigned long ulong;
 #if defined(__LINUX__) || defined(__WIN_CONSOLE__)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
-    typedef unsigned int DWORD;
+	typedef unsigned long DWORD;
 	typedef unsigned long long ulonglong;
 #else
 	typedef unsigned __int64 ulonglong;

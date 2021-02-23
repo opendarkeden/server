@@ -15,7 +15,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 OustersChakramInfoManager* g_pOustersChakramInfoManager = NULL;
@@ -36,7 +35,7 @@ OustersChakram::OustersChakram()
 
 OustersChakram::OustersChakram(ItemType_t itemType, const list<OptionType_t>& optionType)
 	throw()
-//: m_OptionType(optionType )
+//: m_OptionType( optionType )
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -47,7 +46,7 @@ OustersChakram::OustersChakram(ItemType_t itemType, const list<OptionType_t>& op
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "OustersChakram::OustersChakram() : Invalid item type or option type");
-		throw("OustersChakram::OustersChakram() : Invalid item type or optionType");
+		throw ("OustersChakram::OustersChakram() : Invalid item type or optionType");
 	}
 }
 
@@ -82,7 +81,7 @@ void OustersChakram::create(const string & ownerID, Storage storage, StorageID_t
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO OustersChakramObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -115,7 +114,7 @@ void OustersChakram::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE OustersChakramObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE OustersChakramObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -159,9 +158,9 @@ void OustersChakram::save(const string & ownerID, Storage storage, StorageID_t s
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 		pStmt->executeQuery("UPDATE OustersChakramObject SET ObjectID=%ld, ItemType=%d, OwnerID= '%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -396,7 +395,7 @@ void OustersChakramLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM OustersChakramObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM OustersChakramObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
 													pCreature->getName().c_str());
 
 
@@ -466,18 +465,6 @@ void OustersChakramLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pOustersChakram);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pOustersChakram))
 						{
 							pInventory->addItemEx(x, y, pOustersChakram);

@@ -12,11 +12,11 @@
 #include "MonsterCorpse.h"
 #include "Player.h"
 #include "ZoneGroupManager.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -76,14 +76,14 @@ void EffectShrineGuard::affect(Creature* pCreature)
 	gcSystemMessage.setType(SYSTEM_MESSAGE_COMBAT);
 	gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 
 	// Effect붙인다.
 	GCAddEffect gcAddEffect;
-	gcAddEffect.setObjectID(pCreature->getObjectID());
-	gcAddEffect.setEffectID(getEffectClass());
-	gcAddEffect.setDuration(65000);
+	gcAddEffect.setObjectID( pCreature->getObjectID() );
+	gcAddEffect.setEffectID( getEffectClass() );
+	gcAddEffect.setDuration( 65000 );
 	pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
 
 	setNextTime(m_Tick);
@@ -139,6 +139,8 @@ void EffectShrineGuard::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectShrineGuard" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -153,6 +155,8 @@ void EffectShrineGuard::unaffect(Creature* pCreature)
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SHRINE_GUARD);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
+	//cout << "EffectShrineGuard" << "unaffect END" << endl;
+
 	__END_DEBUG
 	__END_CATCH
 }
@@ -164,6 +168,8 @@ void EffectShrineGuard::unaffect(Item* pItem)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
+
+	//cout << "EffectShrineGuard" << "unaffect BEGIN" << endl;
 
 	Assert(pItem != NULL);
 
@@ -181,6 +187,8 @@ void EffectShrineGuard::unaffect(Item* pItem)
 	gcRemoveEffect.setObjectID(pItem->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SHRINE_GUARD);
 	pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
+
+	//cout << "EffectShrineGuard" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

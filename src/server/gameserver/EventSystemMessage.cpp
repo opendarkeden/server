@@ -7,7 +7,7 @@
 #include "EventSystemMessage.h"
 #include "GamePlayer.h"
 	
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -28,11 +28,11 @@ EventSystemMessage::~EventSystemMessage()
 }
 
 void EventSystemMessage::addMessage (const string& msg) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	m_Messages.push_back(msg);
+	m_Messages.push_back( msg );
 
 	__END_CATCH
 }
@@ -54,19 +54,19 @@ void EventSystemMessage::activate ()
 
 	while (itr!=m_Messages.end())
 	{
-		gcSystemMessage.setMessage(*itr);
-		pCreature->getPlayer()->sendPacket(&gcSystemMessage);
+		gcSystemMessage.setMessage( *itr );
+		pCreature->getPlayer()->sendPacket( &gcSystemMessage );
 
 		itr++;
 	}
 
-	//setNextTime(m_MessageTick);
+	//setNextTime( m_MessageTick );
 
 	__END_CATCH
 }
 
 string EventSystemMessage::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventSystemMessage("

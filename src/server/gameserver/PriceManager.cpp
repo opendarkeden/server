@@ -40,8 +40,8 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 	// 첨에 공짜로 준 아이템은 팔아도 1원밖에 못 얻는다. 2003. 1. 15. Sequoia
 	if (pItem->getCreateType() == Item::CREATE_TYPE_GAME ) return (Price_t)1;
 	// 퀘스트 아이템은 오디번~~~ 2003. 4. 14. Sequoia
-	if (pItem->isTimeLimitItem() ) return (Price_t)50;
-	if (pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4 )
+	if ( pItem->isTimeLimitItem() ) return (Price_t)50;
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4 )
 	{
 		return (Price_t)g_pVariableManager->getVariable(CROWN_PRICE);
 	}
@@ -51,10 +51,10 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 	double originalPrice = pItemInfo->getPrice();
 	double finalPrice    = 0;
 
-	if (pItem->getGrade() != -1 )
+	if ( pItem->getGrade() != -1 )
 	{
-		double gradePercent = 80 + (5 * pItem->getGrade());
-//		originalPrice = getPercentValue(originalPrice, gradePercent);
+		double gradePercent = 80 + ( 5 * pItem->getGrade() );
+//		originalPrice = getPercentValue( originalPrice, gradePercent );
 		originalPrice *= (gradePercent/100.0);
 	}
 
@@ -87,7 +87,7 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 		list<OptionType_t>::const_iterator itr;
 		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 		{
-			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 			Assert(pOptionInfo != NULL);
 			priceMultiplier = (double)(pOptionInfo->getPriceMultiplier());
 			finalPrice += (originalPrice* priceMultiplier / 100);
@@ -149,7 +149,7 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 	}
 
 	// 유료 사용자이고 유료존 이면
-	if (g_pVariableManager->getVariable(PREMIUM_HALF_EVENT ) )
+	if ( g_pVariableManager->getVariable( PREMIUM_HALF_EVENT ) )
 	{
 		if (
 			pItem->getItemClass() == Item::ITEM_CLASS_POTION || pItem->getItemClass() == Item::ITEM_CLASS_SERUM ||
@@ -157,11 +157,11 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 			pItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI
 		)
 		{
-			if (pCreature->isPC() )
+			if ( pCreature->isPC() )
 			{
 				PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 				GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-				if (pGamePlayer->isPayPlaying() )
+				if ( pGamePlayer->isPayPlaying() )
 				{
 					// 반 값.
 					finalPrice = finalPrice / 2;
@@ -173,14 +173,14 @@ Price_t PriceManager::getPrice(Item* pItem, MarketCond_t nDiscount, ShopRackType
 	// Blood Bible 보너스 적용
 	if (pItem->getItemClass() == Item::ITEM_CLASS_POTION || pItem->getItemClass() == Item::ITEM_CLASS_SERUM )
 	{
-		if (pCreature->isPC() )
+		if ( pCreature->isPC() )
 		{
 			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 			int ratio = pPC->getPotionPriceRatio();
-			if (ratio != 0 )
+			if ( ratio != 0 )
 			{
 				// ratio 값이 마이너스 값이다.
-				finalPrice += getPercentValue((int)finalPrice, ratio);
+				finalPrice += getPercentValue( (int)finalPrice, ratio );
 			}
 		}
 	}
@@ -201,10 +201,10 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const
 	double originalPrice = pItemInfo->getPrice();
 	double finalPrice    = 0;
 
-	if (pItem->getGrade() != -1 )
+	if ( pItem->getGrade() != -1 )
 	{
-		double gradePercent = 80 + (5 * pItem->getGrade());
-//		originalPrice = getPercentValue(originalPrice, gradePercent);
+		double gradePercent = 80 + ( 5 * pItem->getGrade() );
+//		originalPrice = getPercentValue( originalPrice, gradePercent );
 		originalPrice *= (gradePercent/100.0);
 	}
 
@@ -237,7 +237,7 @@ Price_t PriceManager::getRepairPrice(Item* pItem, Creature* pCreature) const
 		list<OptionType_t>::const_iterator itr;
 		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 		{
-			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 			Assert(pOptionInfo != NULL);
 			priceMultiplier = (double)(pOptionInfo->getPriceMultiplier());
 			finalPrice += (originalPrice* priceMultiplier / 100);
@@ -440,21 +440,21 @@ Price_t PriceManager::getMysteriousPrice(Item::ItemClass itemClass, Creature* pC
 	multiplier = max(1, multiplier);
 
 	// 가격 평균을 알아온다.
-	InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager(itemClass);
+	InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager( itemClass );
 	Assert(pInfoClass!=NULL);
 
 	// 가격 평균 * 능력치 비율?
 	int finalPrice = (int)pInfoClass->getAveragePrice() * multiplier;
 
 	// Blood Bible 보너스 적용
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		int ratio = pPC->getGamblePriceRatio();
-		if (ratio != 0 )
+		if ( ratio != 0 )
 		{
 			// ratio 값은 마이너스 값이다.
-			finalPrice += getPercentValue(finalPrice, ratio);
+			finalPrice += getPercentValue( finalPrice, ratio );
 		}
 	}
 

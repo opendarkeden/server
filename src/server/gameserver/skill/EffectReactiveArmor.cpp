@@ -7,7 +7,7 @@
 #include "EffectReactiveArmor.h"
 #include "Ousters.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ void EffectReactiveArmor::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-	Assert(pTargetOusters != NULL);
+	Assert( pTargetOusters != NULL );
 
 	pTargetOusters->initAllStatAndSend();
 

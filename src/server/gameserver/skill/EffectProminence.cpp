@@ -14,10 +14,8 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -49,9 +47,9 @@ void EffectProminence::affect()
 
 	// 이펙트 사용자를 가져온다.
 	// 존에 없을 수 있으므로 NULL 이 될 수 있다.
-	Creature * pCastCreature = m_pZone->getCreature(m_UserObjectID);
+	Creature * pCastCreature = m_pZone->getCreature( m_UserObjectID );
 
-	if (pCastCreature == NULL && !isForce() )
+	if ( pCastCreature == NULL && !isForce() )
 	{
 		setNextTime(m_Tick);
 
@@ -62,8 +60,8 @@ void EffectProminence::affect()
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -78,10 +76,10 @@ void EffectProminence::affect()
 
 			// 무적상태 체크. by sigi. 2002.9.5
 			// 산 면역. by sigi. 2002.9.13
-			if (pCastCreature != NULL &&
-				(!canAttack(pCastCreature, pCreature )
+			if ( pCastCreature != NULL &&
+				( !canAttack( pCastCreature, pCreature )
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA) 
-				|| !canHit(pCastCreature, pCreature, SKILL_PROMINENCE, getLevel() ))
+				|| !canHit( pCastCreature, pCreature, SKILL_PROMINENCE, getLevel() ))
 			)
 			{
 				continue;
@@ -89,7 +87,7 @@ void EffectProminence::affect()
 
 			// 2003.1.10 by Sequoia
 			// 안전지대 체크
-			if(!checkZoneLevelToHitTarget(pCreature ) ) continue;
+			if( !checkZoneLevelToHitTarget( pCreature ) ) continue;
 
 			if (pCreature->getMoveMode() != Creature::MOVE_MODE_FLYING)
 			{
@@ -100,7 +98,7 @@ void EffectProminence::affect()
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-					::setDamage(pSlayer, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false);
+					::setDamage( pSlayer, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false );
 
 					Player* pPlayer = pSlayer->getPlayer();
 					Assert(pPlayer != NULL);
@@ -110,7 +108,7 @@ void EffectProminence::affect()
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-					::setDamage(pVampire, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false);
+					::setDamage( pVampire, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false );
 
 					Player* pPlayer = pVampire->getPlayer();
 					Assert(pPlayer != NULL);
@@ -120,13 +118,13 @@ void EffectProminence::affect()
 				{
 					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 				
-					::setDamage(pMonster, m_Damage, pCastCreature, SKILL_PROMINENCE, NULL, &gcAttackerMI, true, false);
+					::setDamage( pMonster, m_Damage, pCastCreature, SKILL_PROMINENCE, NULL, &gcAttackerMI, true, false );
 				}
 				else if (pCreature->isOusters() && isForce() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-					::setDamage(pOusters, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false);
+					::setDamage( pOusters, m_Damage, pCastCreature, SKILL_PROMINENCE, &gcDefenderMI, &gcAttackerMI, true, false );
 
 					Player* pPlayer = pOusters->getPlayer();
 					Assert(pPlayer != NULL);
@@ -135,12 +133,12 @@ void EffectProminence::affect()
 				else continue; // 아우스터즈나 NPC 상대로... -_-
 
 				// 죽었으면 경험치준다. 음.....
-				if (pCastCreature != NULL )
+				if ( pCastCreature != NULL )
 				{
 					if (pCreature->isDead() && pCastCreature->isOusters())
 					{
-						Ousters* pCastOusters = dynamic_cast<Ousters*>(pCastCreature);
-						Assert(pCastOusters != NULL);
+						Ousters* pCastOusters = dynamic_cast<Ousters*>( pCastCreature );
+						Assert( pCastOusters != NULL );
 
 //						int exp = computeCreatureExp(pCreature, 100, pCastOusters);
 						int exp = computeCreatureExp(pCreature, 70, pCastOusters);
@@ -149,16 +147,16 @@ void EffectProminence::affect()
 				}
 
 				// 성향 계산하기
-/*				if (pCastCreature != NULL
+/*				if ( pCastCreature != NULL
 					&& pCastCreature->isPC()
 					&& pCreature->isPC()
 				)
 				{
-					computeAlignmentChange(pCreature, m_Damage, pCastCreature, &gcDefenderMI, &gcAttackerMI);
+					computeAlignmentChange( pCreature, m_Damage, pCastCreature, &gcDefenderMI, &gcAttackerMI );
 					modifiedAttacker = true;
 				}*/
 
-				if (gcAttackerMI.getShortCount() != 0 || gcAttackerMI.getLongCount() != 0 ) pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
+				if ( gcAttackerMI.getShortCount() != 0 || gcAttackerMI.getLongCount() != 0 ) pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
 			}
 		}
 	}
@@ -216,36 +214,36 @@ void EffectProminenceLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_PROMINENCE_3);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_PROMINENCE_3);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-			for (int X = left ; X <= right ; X++ )
-			for (int Y = top ; Y <= bottom ; Y++ )
+			for ( int X = left ; X <= right ; X++ )
+			for ( int Y = top ; Y <= bottom ; Y++ )
 			{
-				if (rect.ptInRect(X, Y) )
+				if ( rect.ptInRect(X, Y) )
 				{
 					Tile& tile = pZone->getTile(X,Y);
-					if (tile.canAddEffect() ) 
+					if ( tile.canAddEffect() ) 
 					{
 						EffectProminence* pEffect = new EffectProminence(pZone, X, Y);
-						pEffect->setTick(value2);
-						pEffect->setDamage(value3);
+						pEffect->setTick( value2 );
+						pEffect->setDamage( value3 );
 						pEffect->setNextTime(0);
-						pEffect->setForce(true);
-						pEffect->setSendEffectClass(Effect::EFFECT_CLASS_PROMINENCE_3);
+						pEffect->setForce( true );
+						pEffect->setSendEffectClass( Effect::EFFECT_CLASS_PROMINENCE_3 );
 
 						// 존 및 타일에다가 이펙트를 추가한다.
 						pZone->registerObject(pEffect);

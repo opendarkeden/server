@@ -9,7 +9,7 @@
 #include "Slayer.h"
 
 SlayerCorpse::SlayerCorpse (Slayer* pSlayer)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ SlayerCorpse::~SlayerCorpse()
 }
 
 string SlayerCorpse::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

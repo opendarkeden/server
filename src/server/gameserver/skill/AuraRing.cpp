@@ -37,10 +37,10 @@ void AuraRing::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Holy Smashing 이 있다면 데미지 10% 증가
-	if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING ) )
+	if ( pSlayer->hasRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING ) )
 	{
-		RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pSlayer->getRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING );
+		Assert( pRankBonus != NULL );
 
 		param.SkillDamage += pRankBonus->getPoint();
 	}

@@ -1,3 +1,4 @@
+
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : RefusalEther.cpp
 // Written by  : 
@@ -9,14 +10,14 @@
 #include "RankBonus.h"
 #include "EffectDarkness.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCDeleteEffectFromTile.h"
-#include "GCSkillFailed1.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 RefusalEther::RefusalEther()
 	throw()
@@ -37,8 +38,8 @@ void RefusalEther::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try
@@ -82,8 +83,8 @@ void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -124,7 +125,7 @@ void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 		
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -135,28 +136,28 @@ void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 			decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 			list<Creature*> cList;
 
-			for (int ox = X-output.Range; ox <= X+output.Range; ++ox )
-			for (int oy = Y-output.Range; oy <= Y+output.Range; ++oy )
+			for ( int ox = X-output.Range; ox <= X+output.Range; ++ox )
+			for ( int oy = Y-output.Range; oy <= Y+output.Range; ++oy )
 			{
-				if (!rect.ptInRect(ox,oy) ) continue;
+				if ( !rect.ptInRect(ox,oy) ) continue;
 
 				Tile& rTile = pZone->getTile(ox,oy);
 				EffectDarkness* pEffect = dynamic_cast<EffectDarkness*>(rTile.getEffect(Effect::EFFECT_CLASS_DARKNESS));
 				int ratio = 0;
 
-				if (pEffect != NULL )
+				if ( pEffect != NULL )
 				{
-					if (input.SkillLevel <= 15 )
+					if ( input.SkillLevel <= 15 )
 					{
-						ratio = (int)(pOusters->getLevel() + (input.SkillLevel * 8.0 / 3.0 ) - pEffect->getLevel());
+						ratio = pOusters->getLevel() + ( input.SkillLevel * 8.0 / 3.0 ) - pEffect->getLevel();
 					}
 					else
 					{
-						ratio = (int)(pOusters->getLevel() + 20 + (input.SkillLevel * 4.0 / 3.0 ) - pEffect->getLevel());
-						if (input.SkillLevel == 30 ) ratio = (int)(ratio * 1.1);
+						ratio = pOusters->getLevel() + 20 + ( input.SkillLevel * 4.0 / 3.0 ) - pEffect->getLevel();
+						if ( input.SkillLevel == 30 ) ratio *= 1.1;
 					}
 
-					ratio = max(20, ratio);
+					ratio = max( 20, ratio );
 				}
 				else
 				{
@@ -179,8 +180,8 @@ void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 					gcDeleteEffectFromTile.setEffectID(Effect::EFFECT_CLASS_DARKNESS);
 					pZone->broadcastPacket(ox, oy, &gcDeleteEffectFromTile);
 
-					if (pTargetCreature != NULL && pTargetCreature->isPC() && pTargetCreature->getObjectID() != pOusters->getObjectID() )
-						cList.push_back(pTargetCreature);
+					if ( pTargetCreature != NULL && pTargetCreature->isPC() && pTargetCreature->getObjectID() != pOusters->getObjectID() )
+						cList.push_back( pTargetCreature );
 				}
 			}
 
@@ -236,9 +237,9 @@ void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 			list<Creature*>::iterator itr = cList.begin();
 			list<Creature*>::iterator endItr = cList.end();
 
-			for (; itr != endItr ; ++itr )
+			for ( ; itr != endItr ; ++itr )
 			{
-				if ((*itr)->isPC() )
+				if ( (*itr)->isPC() )
 				{
 					(*itr)->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}

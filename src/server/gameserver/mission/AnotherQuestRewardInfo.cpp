@@ -3,8 +3,8 @@
 #include "QuestManager.h"
 #include "PlayerCreature.h"
 
-AnotherQuestRewardInfo::AnotherQuestRewardInfo(RewardID_t rID, RewardClass_t rClass, QuestID_t qID )
-	: RewardInfo(rID, rClass ), m_QuestID(qID)
+AnotherQuestRewardInfo::AnotherQuestRewardInfo( RewardID_t rID, RewardClass_t rClass, QuestID_t qID )
+	: RewardInfo( rID, rClass ), m_QuestID(qID)
 {
 }
 
@@ -12,7 +12,7 @@ AnotherQuestRewardInfo::~AnotherQuestRewardInfo()
 {
 }
 
-QuestMessage AnotherQuestRewardInfo::canGiveReward(PlayerCreature* pPC ) const
+QuestMessage AnotherQuestRewardInfo::canGiveReward( PlayerCreature* pPC ) const
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -22,16 +22,16 @@ QuestMessage AnotherQuestRewardInfo::canGiveReward(PlayerCreature* pPC ) const
 	__END_CATCH
 }
 
-QuestMessage AnotherQuestRewardInfo::giveReward(PlayerCreature *pPC ) const
+QuestMessage AnotherQuestRewardInfo::giveReward( PlayerCreature *pPC ) const
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	QuestMessage result = canGiveReward(pPC);
+	QuestMessage result = canGiveReward( pPC );
 
-	if (result != COMPLETE_SUCCESS ) return result;
+	if ( result != COMPLETE_SUCCESS ) return result;
 
-	Assert(false);
+	Assert( false );
 	return COMPLETE_SUCCESS;
 
 	__END_CATCH
@@ -45,7 +45,7 @@ string AnotherQuestRewardInfo::toString() const throw()
 
 	msg << "AnotherQuestRewardInfo("
 		<< "QuestID : " << (uint)m_QuestID
-		<< ") : " << "\n" << RewardInfo::toString().c_str();
+		<< ") : " << endl << RewardInfo::toString().c_str();
 
 	return msg.toString();
 

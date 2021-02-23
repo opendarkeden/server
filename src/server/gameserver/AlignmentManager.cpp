@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "AlignmentManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 AlignmentManager* g_pAlignmentManager = NULL;
 

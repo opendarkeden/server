@@ -13,20 +13,17 @@
 #include "CreatureUtil.h"
 #include "GamePlayer.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
-#include "GCAddWolf.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddWolf.h"
 #include "GDRLairManager.h"
-
-#include "item/SubInventory.h"
-#include "TradeManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, ObjectID_t InventoryItemObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
+void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -46,29 +43,6 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Objec
 		Assert(pZone != NULL);
 		Assert(pInventory!= NULL);
 
-		SubInventory* pInventoryItem = NULL;
-		int invenID = 0;
-
-		if (InventoryItemObjectID != 0 )
-		{
-			//cout << "서브 인벤토리에서 사용 : " << InventoryItemObjectID << endl;
-			CoordInven_t X, Y;
-			pInventoryItem = dynamic_cast<SubInventory*>(pInventory->findItemOID(InventoryItemObjectID, X, Y ));
-
-			TradeManager* pTradeManager = pZone->getTradeManager();
-			Assert(pTradeManager != NULL);
-
-			if (pInventoryItem == NULL || pTradeManager->hasTradeInfo(pVampire->getName()) )
-			{
-				//cout << "근데 서브 인벤토리가 없다." <<endl;
-				executeSkillFailException(pVampire, getSkillType());
-				return;
-			}
-
-			pInventory = pInventoryItem->getInventory();
-			invenID = pInventoryItem->getItemID();
-		}
-
 		Item* pItem = pInventory->getItem(X, Y);
 		Assert(pItem != NULL);
 
@@ -77,8 +51,8 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Objec
 		if (pItem->getItemClass() != Item::ITEM_CLASS_VAMPIRE_ETC 
 			|| pItem->getItemType() != 0
 			|| pVampire->hasRelicItem()
-			|| g_pPKZoneInfoManager->isPKZone(pZone->getZoneID() )
-			|| pVampire->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET )
+			|| g_pPKZoneInfoManager->isPKZone( pZone->getZoneID() )
+			|| pVampire->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET )
 			|| GDRLairManager::Instance().isGDRLairZone(pZone->getZoneID())
 		)
 		{
@@ -97,10 +71,10 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Objec
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -113,7 +87,10 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Objec
 		bool bMoveModeCheck = pVampire->isWalking();
 		bool bEffected      = pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF)
 								|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_FLAG)
-								|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
+								|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER)
+								// add by coffee 2006-12-29 錦攣긴낚鬼의BUG
+								|| pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF);
+								// end 2006-12-29
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bMoveModeCheck && !bEffected)
 		{
@@ -152,12 +129,12 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Objec
 			gcAddWolf.setGuildID(pVampire->getGuildID());
 			pZone->broadcastPacket(x, y, &gcAddWolf, pVampire);
 
-			decreaseItemNum(pItem, pInventory, pVampire->getName(), STORAGE_INVENTORY, invenID, X, Y);
+			decreaseItemNum(pItem, pInventory, pVampire->getName(), STORAGE_INVENTORY, 0, X, Y);
 
-			if (pVampire->getPetInfo() != NULL )
+			if ( pVampire->getPetInfo() != NULL )
 			{
 				pVampire->setPetInfo(NULL);
-				sendPetInfo(dynamic_cast<GamePlayer*>(pVampire->getPlayer()), true);
+				sendPetInfo( dynamic_cast<GamePlayer*>(pVampire->getPlayer()), true );
 			}
 
 			pSkillSlot->setRunTime(output.Delay);

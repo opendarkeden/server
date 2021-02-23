@@ -37,20 +37,20 @@ void BloodyNail::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Tiger Nail 이 있다면 데미지 10% 증가
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL );
+		Assert( pRankBonus != NULL );
 
-		param.SkillDamage += getPercentValue(param.SkillDamage, pRankBonus->getPoint());
+		param.SkillDamage += getPercentValue( param.SkillDamage, pRankBonus->getPoint() );
 	}
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

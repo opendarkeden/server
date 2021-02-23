@@ -7,10 +7,10 @@
 #include "HolyArmor.h"
 #include "EffectHolyArmor.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프
@@ -63,8 +63,8 @@ void HolyArmor::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t CE
 		{
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-			pSlayer->setHP(pSlayer->getHP()-100);
-			_GCSkillToSelfOK1.addShortData(MODIFY_CURRENT_HP, pSlayer->getHP());
+			pSlayer->setHP( pSlayer->getHP()-100 );
+			_GCSkillToSelfOK1.addShortData( MODIFY_CURRENT_HP, pSlayer->getHP() );
 
 			SkillInput input(pSlayer, pSkillSlot);
 			SkillOutput output;

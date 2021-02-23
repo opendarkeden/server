@@ -8,14 +8,14 @@
 #include "Creature.h"
 #include "Player.h"
 
-#include "CGGetEventItem.h"
-#include "GCNPCResponse.h"
+#include "Cpackets/CGGetEventItem.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowConfirmGetEventItemDialog::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionShowConfirmGetEventItemDialog::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowConfirmGetEventItemDialog::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,17 +49,17 @@ void ActionShowConfirmGetEventItemDialog::execute (Creature * pCreature1, Creatu
 	Assert(pPlayer != NULL);
 
 	GCNPCResponse response;
-	response.setCode(NPC_RESPONSE_SHOW_CONFIRM_GET_EVENT_ITEM_DIALOG);
-	if (m_Type == "ComebackItem" )
-		response.setParameter(EVENT_TYPE_200501_COMBACK_ITEM);
-	else if (m_Type == "ComebackPremiumItem" )
-		response.setParameter(EVENT_TYPE_200501_COMBACK_PREMIUM_ITEM);
-	else if (m_Type == "ComebackRecommendItem" )
-		response.setParameter(EVENT_TYPE_200501_COMBACK_RECOMMEND_ITEM);
+	response.setCode( NPC_RESPONSE_SHOW_CONFIRM_GET_EVENT_ITEM_DIALOG );
+	if ( m_Type == "ComebackItem" )
+		response.setParameter( EVENT_TYPE_200501_COMBACK_ITEM );
+	else if ( m_Type == "ComebackPremiumItem" )
+		response.setParameter( EVENT_TYPE_200501_COMBACK_PREMIUM_ITEM );
+	else if ( m_Type == "ComebackRecommendItem" )
+		response.setParameter( EVENT_TYPE_200501_COMBACK_RECOMMEND_ITEM );
 	else
 		return;
 
-	pPlayer->sendPacket(&response);
+	pPlayer->sendPacket( &response );
 
 	__END_CATCH
 }
@@ -69,7 +69,7 @@ void ActionShowConfirmGetEventItemDialog::execute (Creature * pCreature1, Creatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionShowConfirmGetEventItemDialog::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

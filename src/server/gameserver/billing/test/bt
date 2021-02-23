@@ -1,0 +1,2 @@
+#! /bin/sh
+./billingTest -f billingInfo.conf

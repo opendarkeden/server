@@ -2,22 +2,22 @@
 #include "PlayerCreature.h"
 #include "Vampire.h"
 #include "skill/SkillUtil.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
-GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (!pPC->isVampire() ) return FAIL;
+	if ( !pPC->isVampire() ) return FAIL;
 
 	GCModifyInformation gcMI;
 	Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-	increaseVampExp(pVampire, m_Amount, gcMI);
-	pVampire->getPlayer()->sendPacket(&gcMI);
+	increaseVampExp( pVampire, m_Amount, gcMI );
+	pVampire->getPlayer()->sendPacket( &gcMI );
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("°æÇèÄ¡¸¦ È¹µæÇß½À´Ï´Ù.");
-	pPC->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("»ñµÃ¾­ÑéÖµ.");
+	pPC->getPlayer()->sendPacket( &gcSM );
 
 	return OK;
 }

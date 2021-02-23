@@ -38,10 +38,10 @@ void BloodySpear::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}
@@ -101,7 +101,7 @@ void BloodySpear::execute(Monster* pMonster, Creature* pEnemy)
 			int tileY = Y+oY;
 			if (!rect.ptInRect(tileX, tileY)) continue;
 
-			checkMine(pZone, tileX, tileY);
+			checkMine( pZone, tileX, tileY );
 
 			Tile& tile = pZone->getTile(tileX, tileY);
 
@@ -113,7 +113,7 @@ void BloodySpear::execute(Monster* pMonster, Creature* pEnemy)
 				// NPC도 아니어야 한다.
 				&& !pTargetCreature->isNPC()
 				// 공격 대상이 맞는지 확인
-				&& pMonster->isEnemyToAttack(pTargetCreature ))
+				&& pMonster->isEnemyToAttack( pTargetCreature ))
 			{
 				g_SimpleMissileSkill.execute(pMonster, pTargetCreature, param, result);
 			}

@@ -6,8 +6,8 @@
 
 #include "EffectDeleteTile.h"
 #include "Zone.h"
-#include "GCAddEffectToTile.h"
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -32,12 +32,12 @@ void EffectDeleteTile::affect()
 
 	// 주위에 뿌려준다. -> 없어도 될 듯
 /*	GCAddEffectToTile gcAddEffectToTile;
-	gcAddEffectToTile.setEffectID(getEffectClass());
-	gcAddEffectToTile.setObjectID(getObjectID());
-	gcAddEffectToTile.setXY(m_X, m_Y);
-	gcAddEffectToTile.setDuration(999999);
+	gcAddEffectToTile.setEffectID( getEffectClass() );
+	gcAddEffectToTile.setObjectID( getObjectID() );
+	gcAddEffectToTile.setXY( m_X, m_Y );
+	gcAddEffectToTile.setDuration( 999999 );
 
-	m_pZone->broadcastPacket(m_X, m_Y, &gcAddEffectToTile);
+	m_pZone->broadcastPacket( m_X, m_Y, &gcAddEffectToTile );
 */
 	__END_CATCH 
 }
@@ -67,6 +67,7 @@ void EffectDeleteTile::unaffect()
 {
 	__BEGIN_TRY
 
+	cout << "delete effect " << m_X << " , " << m_Y << endl;
 	Tile& EffectedTile = m_pZone->getTile(m_X, m_Y);
 	EffectedTile.deleteEffect(m_ObjectID);
 
@@ -91,7 +92,7 @@ string EffectDeleteTile::toString()
 
 	msg << "EffectDeleteTile("
 		<< "ObjectID:" << (int)getObjectID()
-        << ",Zone:" << m_pZone
+		<< ",Zone:" << (int)m_pZone
 		<< ",X:" << (int)m_X
 		<< ",Y:" << (int)m_Y
 		<< ")";

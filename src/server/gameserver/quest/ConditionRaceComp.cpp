@@ -10,7 +10,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionRaceComp::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -24,7 +24,7 @@ bool ConditionRaceComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionRaceComp::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -36,7 +36,7 @@ void ConditionRaceComp::read (PropertyBuffer & propertyBuffer)
 		else
 		{
 			cout << "ConditionRaceComp::read() : unknown race" << endl;
-			throw("ConditionRaceComp::read() : unknown race");
+			throw ("ConditionRaceComp::read() : unknown race");
 		}
 	}
 	catch (NoSuchElementException & nsee)
@@ -49,7 +49,7 @@ void ConditionRaceComp::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionRaceComp::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

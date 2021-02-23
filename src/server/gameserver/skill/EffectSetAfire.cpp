@@ -10,9 +10,9 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectSetAfire::EffectSetAfire(Creature* pCreature)
 	throw(Error)
@@ -29,12 +29,12 @@ void EffectSetAfire::affect() throw(Error)
 {
 	__BEGIN_TRY
 
-	if (m_pTarget == NULL || m_pTarget->getObjectClass() != OBJECT_CLASS_CREATURE )
+	if ( m_pTarget == NULL || m_pTarget->getObjectClass() != OBJECT_CLASS_CREATURE )
 	{
 		setDeadline(0);
 		return;
 	}
-	affect(dynamic_cast<Creature*>(m_pTarget));
+	affect( dynamic_cast<Creature*>(m_pTarget) );
 
 	__END_CATCH
 }
@@ -44,56 +44,56 @@ void EffectSetAfire::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	Assert(pCreature != NULL);
-	if (pCreature->isDead() )
+	Assert( pCreature != NULL );
+	if ( pCreature->isDead() )
 	{
 		setDeadline(0);
 		return;
 	}
 
-	Creature* pAttacker = pCreature->getZone()->getCreature(m_CasterOID);
+	Creature* pAttacker = pCreature->getZone()->getCreature( m_CasterOID );
 	Damage_t damage = m_Damage / m_TotalTimes;
-	if (m_Times == m_TotalTimes ) damage += m_Damage % m_TotalTimes;
-	if (!canAttack(pAttacker, pCreature ) ) return;
+	if ( m_Times == m_TotalTimes ) damage += m_Damage % m_TotalTimes;
+	if ( !canAttack( pAttacker, pCreature ) ) return;
 
 	GCModifyInformation gcMI, gcAttackerMI;
 
-	::setDamage(pCreature, damage, pAttacker, SKILL_SET_AFIRE, &gcMI, &gcAttackerMI);
+	::setDamage( pCreature, damage, pAttacker, SKILL_SET_AFIRE, &gcMI, &gcAttackerMI );
 
-	if (pCreature->isDead() && pAttacker != NULL && pAttacker->isVampire() )
+	if ( pCreature->isDead() && pAttacker != NULL && pAttacker->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
-		Exp_t exp = computeCreatureExp(pCreature, KILL_EXP);
-		shareVampExp(pVampire, exp, gcAttackerMI);
-		increaseAlignment(pAttacker, pCreature, gcAttackerMI);
+		Exp_t exp = computeCreatureExp( pCreature, KILL_EXP );
+		shareVampExp( pVampire, exp, gcAttackerMI );
+		increaseAlignment( pAttacker, pCreature, gcAttackerMI );
 		setDeadline(0);
 	}
 
-	if (pAttacker != NULL && pAttacker->isPC() )
+	if ( pAttacker != NULL && pAttacker->isPC() )
 	{
 		computeAlignmentChange(pCreature, damage, pAttacker, &gcMI, &gcAttackerMI);
-		pAttacker->getPlayer()->sendPacket(&gcAttackerMI);
+		pAttacker->getPlayer()->sendPacket( &gcAttackerMI );
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		pCreature->getPlayer()->sendPacket(&gcMI);
+		pCreature->getPlayer()->sendPacket( &gcMI );
 	}
 
 	--m_Times;
 
-	if (m_Times == 0 ) 
+	if ( m_Times == 0 ) 
 	{
 		setDeadline(0);
-		if (pAttacker != NULL )
+		if ( pAttacker != NULL )
 		{
-			knockbackCreature(pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY());
-			knockbackCreature(pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY());
-			knockbackCreature(pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY());
+			knockbackCreature( pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY() );
+			knockbackCreature( pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY() );
+			knockbackCreature( pCreature->getZone(), pCreature, pAttacker->getX(), pAttacker->getY() );
 		}
 	}
 	else 
-		setNextTime(m_Tick);
+		setNextTime( m_Tick );
 
 	__END_CATCH
 }

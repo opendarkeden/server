@@ -19,7 +19,7 @@
 // constructor
 //----------------------------------------------------------------------
 GameServerGroupInfoManager::GameServerGroupInfoManager () 
-	throw()
+	throw ()
 {
 	m_MaxWorldID = 0;
 }
@@ -28,7 +28,7 @@ GameServerGroupInfoManager::GameServerGroupInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 GameServerGroupInfoManager::~GameServerGroupInfoManager () 
-	throw()
+	throw ()
 {
 	clear();
 }
@@ -37,7 +37,7 @@ GameServerGroupInfoManager::~GameServerGroupInfoManager ()
 // clear GameServerGroupInfos
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::clear()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -45,8 +45,8 @@ void GameServerGroupInfoManager::clear()
 	// pair 자체는 그대로 둔다. (GameServerGroupInfo가 힙에 생성되어 있다는 것에
 	// 유의하라. 즉 필살삭제를 해야 한다. 하긴, GSIM이 destruct 된다는 것은
 	// 로그인 서버가 셧다운된다는 것을 의미하니깐.. - -; )
-	for(int i = 1 ; i < m_MaxWorldID; i++ ) {
-		for (HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[i].begin() ; 
+	for( int i = 1 ; i < m_MaxWorldID; i++ ) {
+		for ( HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[i].begin() ; 
 			  itr != m_GameServerGroupInfos[i].end() ; 
 			  itr ++ ) {
 			SAFE_DELETE(itr->second);
@@ -67,12 +67,15 @@ void GameServerGroupInfoManager::clear()
 // initialize GSIM
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::init ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// just load data from GameServerGroupInfo table
 	load();
+
+	// just print to cout
+	cout << toString() << endl;
 
 	__END_CATCH
 }
@@ -81,7 +84,7 @@ void GameServerGroupInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::load ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -113,30 +116,32 @@ void GameServerGroupInfoManager::load ()
 	try {
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result * pResult = pStmt->executeQuery("SELECT WorldID, GroupID, GroupName, Stat FROM GameServerGroupInfo");
+		Result * pResult = pStmt->executeQuery(
+			"SELECT WorldID, GroupID, GroupName, Stat FROM GameServerGroupInfo"
+		);
 
-		while (pResult->next() ) {
+		while ( pResult->next() ) {
 			GameServerGroupInfo * pGameServerGroupInfo = new GameServerGroupInfo();
 			WorldID_t WorldID = pResult->getInt(1);
-			pGameServerGroupInfo->setWorldID(WorldID);
-			pGameServerGroupInfo->setGroupID(pResult->getInt(2));
-			pGameServerGroupInfo->setGroupName(pResult->getString(3));
-			pGameServerGroupInfo->setStat(pResult->getInt(4));
-			addGameServerGroupInfo(pGameServerGroupInfo, WorldID);
+			pGameServerGroupInfo->setWorldID( WorldID );
+			pGameServerGroupInfo->setGroupID( pResult->getInt(2) );
+			pGameServerGroupInfo->setGroupName( pResult->getString(3) );
+			pGameServerGroupInfo->setStat( pResult->getInt(4) );
+			addGameServerGroupInfo( pGameServerGroupInfo, WorldID );
 		}
 
 		// 필살 삭제!
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 
-	} catch (SQLQueryException & sqe ) {
+	} catch ( SQLQueryException & sqe ) {
 
 		// 필살 삭제!
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 
 		throw Error(sqe.toString());
 
-	} catch (Throwable & t ) {
-		SAFE_DELETE(pStmt);
+	} catch ( Throwable & t ) {
+		SAFE_DELETE( pStmt );
 		cout << t.toString() << endl;
 	}
 
@@ -146,16 +151,19 @@ void GameServerGroupInfoManager::load ()
 //----------------------------------------------------------------------
 // add info 
 //----------------------------------------------------------------------
-void GameServerGroupInfoManager::addGameServerGroupInfo (GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) 
-	throw(DuplicatedException )
+void GameServerGroupInfoManager::addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
 	int GroupID = pGameServerGroupInfo->getGroupID();
-	HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[WorldID].find(GroupID);
+	HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[WorldID].find( GroupID );
 	
-	if (itr != m_GameServerGroupInfos[WorldID].end() )
+	if ( itr != m_GameServerGroupInfos[WorldID].end() )
 		throw DuplicatedException("duplicated game-server nickname");
+
+	cout << "addGameServerGroupInfo: " << (int)WorldID << ", " << GroupID 
+		<< " : " << pGameServerGroupInfo->getGroupName().c_str() << endl;
 
 	m_GameServerGroupInfos[WorldID][GroupID] = pGameServerGroupInfo;
 
@@ -165,20 +173,20 @@ void GameServerGroupInfoManager::addGameServerGroupInfo (GameServerGroupInfo * p
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void GameServerGroupInfoManager::deleteGameServerGroupInfo (const ServerGroupID_t GroupID, WorldID_t WorldID ) 
-	throw(NoSuchElementException )
+void GameServerGroupInfoManager::deleteGameServerGroupInfo ( const ServerGroupID_t GroupID, WorldID_t WorldID ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
-	HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[WorldID].find(GroupID);
+	HashMapGameServerGroupInfo::iterator itr = m_GameServerGroupInfos[WorldID].find( GroupID );
 	
-	if (itr != m_GameServerGroupInfos[WorldID].end() ) {
+	if ( itr != m_GameServerGroupInfos[WorldID].end() ) {
 
 		// GameServerGroupInfo 를 삭제한다.
 		delete itr->second;
 
 		// pair를 삭제한다.
-		m_GameServerGroupInfos[WorldID].erase(itr);
+		m_GameServerGroupInfos[WorldID].erase( itr );
 
 	} else {
 
@@ -193,21 +201,21 @@ void GameServerGroupInfoManager::deleteGameServerGroupInfo (const ServerGroupID_
 //----------------------------------------------------------------------
 // get GameServerGroupinfo by ServerGroupID
 //----------------------------------------------------------------------
-GameServerGroupInfo * GameServerGroupInfoManager::getGameServerGroupInfo (const ServerGroupID_t GroupID, WorldID_t WorldID ) const
-	throw(NoSuchElementException )
+GameServerGroupInfo * GameServerGroupInfoManager::getGameServerGroupInfo ( const ServerGroupID_t GroupID, WorldID_t WorldID ) const
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
-	if(WorldID >= m_MaxWorldID ) {
+	if( WorldID >= m_MaxWorldID ) {
 		// 그런 게임서버인포 객체를 찾을 수 없었을 때
 		throw NoSuchElementException();
 	}
 		
 	GameServerGroupInfo * pGameServerGroupInfo = NULL;
 
-	HashMapGameServerGroupInfo::const_iterator itr = m_GameServerGroupInfos[WorldID].find(GroupID);
+	HashMapGameServerGroupInfo::const_iterator itr = m_GameServerGroupInfos[WorldID].find( GroupID );
 	
-	if (itr != m_GameServerGroupInfos[WorldID].end() ) {
+	if ( itr != m_GameServerGroupInfos[WorldID].end() ) {
 		pGameServerGroupInfo = itr->second;
 	} else {
 		// 그런 게임서버인포 객체를 찾을 수 없었을 때
@@ -223,7 +231,7 @@ GameServerGroupInfo * GameServerGroupInfoManager::getGameServerGroupInfo (const 
 // get debug string
 //----------------------------------------------------------------------
 string GameServerGroupInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -231,9 +239,9 @@ string GameServerGroupInfoManager::toString () const
 
 	msg << "GameServerGroupInfoManager(\n";
 
-	for (int i = 1; i < m_MaxWorldID ; i++ ) {
+	for ( int i = 1; i < m_MaxWorldID ; i++ ) {
 
-		if (m_GameServerGroupInfos[i].empty() ) {
+		if ( m_GameServerGroupInfos[i].empty() ) {
 
 			msg << "EMPTY";
 
@@ -244,7 +252,7 @@ string GameServerGroupInfoManager::toString () const
 			//
 			// for_each()를 사용할 것
 			//--------------------------------------------------
-			for (HashMapGameServerGroupInfo::const_iterator itr = m_GameServerGroupInfos[i].begin() ; 
+			for ( HashMapGameServerGroupInfo::const_iterator itr = m_GameServerGroupInfos[i].begin() ; 
 				  itr != m_GameServerGroupInfos[i].end() ; 
 				  itr ++ )
 				msg << itr->second->toString() << '\n';

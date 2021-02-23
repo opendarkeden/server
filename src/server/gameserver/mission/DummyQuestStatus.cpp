@@ -7,15 +7,15 @@ GCQuestStatus* DummyQuestStatus::makeStatusPacket() const
 {
 	GCQuestStatus* pPacket = new GCQuestStatus();
 
-	pPacket->setQuestID((WORD)getQuestID());
-	pPacket->setCurrentNum((WORD)0);
-	if (m_State == QUEST_REWARDED )
+	pPacket->setQuestID( (WORD)getQuestID() );
+	pPacket->setCurrentNum( (WORD)0 );
+	if ( m_State == QUEST_REWARDED )
 	{
-		pPacket->setRemainTime(0);
+		pPacket->setRemainTime( 0 );
 	}
 	else
 	{
-		pPacket->setRemainTime((DWORD)VSDateTime::currentDateTime().secsTo(m_Deadline ));
+		pPacket->setRemainTime( (DWORD)VSDateTime::currentDateTime().secsTo( m_Deadline ) );
 	}
 
 //	cout << "Make Packet : " << pPacket->toString() << endl;

@@ -8,13 +8,13 @@
 #include "EffectProminence.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -30,8 +30,8 @@ void Prominence::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
     try
@@ -45,7 +45,7 @@ void Prominence::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, getSkillType(), Grade);
@@ -80,8 +80,8 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -119,7 +119,7 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, output.Range);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -135,8 +135,8 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 
 			int oX, oY;
 
-			for (oX = X - 1 ; oX <= X + 1 ; ++oX )
-			for (oY = Y - 1 ; oY <= Y + 1 ; ++oY )
+			for ( oX = X - 1 ; oX <= X + 1 ; ++oX )
+			for ( oY = Y - 1 ; oY <= Y + 1 ; ++oY )
 			{
 				if (!rect.ptInRect(oX, oY)) continue;
 
@@ -144,8 +144,11 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 				if (!tile.canAddEffect()) continue;
 
 				// 머시 그라운드 있음 추가 못한당.
-				if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
-				if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
+				if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
+				if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) !=NULL) continue;
+				if ( tile.getEffect(Effect::EFFECT_CLASS_HEAVEN_GROUND) !=NULL) continue;
+				if ( tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY) !=NULL) continue;
+				
 				
 				// 같은 이펙트가 이미 존재한다면 삭제한다.
 				Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_PROMINENCE);
@@ -155,11 +158,11 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 					pZone->deleteEffect(effectID);
 				}
 
-				checkMine(pZone, oX, oY);
+				checkMine( pZone, oX, oY );
 				
 				// 이펙트 오브젝트를 생성한다.
 				EffectProminence* pEffect = new EffectProminence(pZone, oX, oY);
-				pEffect->setUserObjectID(pOusters->getObjectID());
+				pEffect->setUserObjectID( pOusters->getObjectID() );
 				pEffect->setDeadline(output.Duration);
 				pEffect->setNextTime(0);
 				pEffect->setTick(output.Tick);
@@ -167,10 +170,10 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 				pEffect->setDamage(output.Damage);
 				pEffect->setLevel(pOustersSkillSlot->getExpLevel());
 
-				if (Grade > 0 )
+				if ( Grade > 0 )
 				{
-					if (Grade == 1 ) pEffect->setSendEffectClass(Effect::EFFECT_CLASS_PROMINENCE_2);
-					else pEffect->setSendEffectClass(Effect::EFFECT_CLASS_PROMINENCE_3);
+					if ( Grade == 1 ) pEffect->setSendEffectClass( Effect::EFFECT_CLASS_PROMINENCE_2 );
+					else pEffect->setSendEffectClass( Effect::EFFECT_CLASS_PROMINENCE_3 );
 				}
 
 				// 타일에 붙은 이펙트는 OID를 받아야 한다.
@@ -182,12 +185,12 @@ void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 				tile.addEffect(pEffect);
 
 				GCAddEffectToTile gcAddEffect;
-				gcAddEffect.setXY(oX, oY);
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-				gcAddEffect.setObjectID(pEffect->getObjectID());
-				gcAddEffect.setDuration(output.Duration);
+				gcAddEffect.setXY( oX, oY );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+				gcAddEffect.setObjectID( pEffect->getObjectID() );
+				gcAddEffect.setDuration( output.Duration );
 
-				pZone->broadcastPacket(oX, oY, &gcAddEffect, pOusters);
+				pZone->broadcastPacket( oX, oY, &gcAddEffect, pOusters );
 			}
 
 			ZoneCoord_t myX = pOusters->getX();

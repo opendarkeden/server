@@ -6,13 +6,13 @@
 #include "SimpleTileEffect.h"
 #include "Tile.h"
 #include "Zone.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SimpleTileEffect::SimpleTileEffect(EffectClass eClass, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
 	throw(Error) :
-	m_EffectClass(eClass )
+	m_EffectClass( eClass )
 {
 	__BEGIN_TRY
 
@@ -30,8 +30,8 @@ void SimpleTileEffect::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 
 	__END_CATCH
 }

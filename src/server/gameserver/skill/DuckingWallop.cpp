@@ -10,12 +10,12 @@
 #include "RankBonus.h"
 #include "Utility.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,39 +47,39 @@ DuckingWallop::DuckingWallop()
 	mask[7].x = -1;
 	mask[7].y = -1;
 
-	for (int k = 0; k < 8; k++ )
+	for ( int k = 0; k < 8; k++ )
 	{
 		int l = 0;
-		for (int i = 1; i <= 6; i++ )
+		for ( int i = 1; i <= 6; i++ )
 		{
 			int x = 0;
 			int y = 0;
 
-			for (int j = 0; j <= width[i]; j++ )
+			for ( int j = 0; j <= width[i]; j++ )
 			{
 				x = mask[k].x * i;
 				y = mask[k].y * i;
 
-				if (j == 0 )
+				if ( j == 0 )
 				{
 					m_DamageRatio[l] = 75;
-					m_pDuckingWallopMask[k][l++].set(x, y);
+					m_pDuckingWallopMask[k][l++].set( x, y );
 				}
 				else 
 				{
-					int left  = (k % 2 == 0 ? (k + 2 ) % 8 : (k + 3 ) % 8);
-					int right = (k % 2 == 0 ? (k + 6 ) % 8 : (k + 5 ) % 8);
+					int left  = ( k % 2 == 0 ? ( k + 2 ) % 8 : ( k + 3 ) % 8 );
+					int right = ( k % 2 == 0 ? ( k + 6 ) % 8 : ( k + 5 ) % 8 );
 
-					int xl = x + (mask[left].x * j);
-					int yl = y + (mask[left].y * j);
+					int xl = x + ( mask[left].x * j );
+					int yl = y + ( mask[left].y * j );
 
-					int xr = x + (mask[right].x * j);
-					int yr = y + (mask[right].y * j);
+					int xr = x + ( mask[right].x * j );
+					int yr = y + ( mask[right].y * j );
 
 					m_DamageRatio[l] = 100;
-					m_pDuckingWallopMask[k][l++].set(xl, yl);
+					m_pDuckingWallopMask[k][l++].set( xl, yl );
 					m_DamageRatio[l] = 100;
-					m_pDuckingWallopMask[k][l++].set(xr, yr);
+					m_pDuckingWallopMask[k][l++].set( xr, yr );
 				}
 			}
 		}
@@ -143,10 +143,10 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pOusters->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+	if ( pOusters->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
-		RankBonus* pRankBonus = pOusters->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pOusters->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}
@@ -157,7 +157,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 		SkillOutput output;
 		computeOutput(input, output);
 
-		Dir_t	dir		= getDirectionToPosition(pOusters->getX(), pOusters->getY(), X, Y);
+		Dir_t	dir		= getDirectionToPosition( pOusters->getX(), pOusters->getY(), X, Y );
 
 		// 강제로 knockback시킬 확률
 //		bool bForceKnockback = rand()%100 < output.ToHit;
@@ -168,7 +168,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 		Assert(pZone != NULL);
 
 		VSRect rect(1, 1, pZone->getWidth()-2, pZone->getHeight()-2);
-		if (!rect.ptInRect(X, Y ))
+		if (!rect.ptInRect( X, Y ))
 		{
 			executeSkillFailException(pOusters, SkillType);
 			return;
@@ -181,7 +181,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 		GCSkillToTileOK5 _GCSkillToTileOK5;
 //		GCSkillToTileOK6 _GCSkillToTileOK6;
 
-		SkillInfo*  pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+		SkillInfo*  pSkillInfo = g_pSkillInfoManager->getSkillInfo( SkillType );
 
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
@@ -193,9 +193,9 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 		int TargetX = (int)myX + dirMoveMask[dir].x*6;
 		int TargetY = (int)myY + dirMoveMask[dir].y*6;
 
-		bool bPassLine	 = isPassLine(pZone, myX, myY, TargetX, TargetY);
+		bool bPassLine	 = isPassLine( pZone, myX, myY, TargetX, TargetY );
 
-		if (bManaCheck && bTimeCheck && bRangeCheck && bPassLine && pZone->moveFastPC(pOusters, myX, myY, TargetX, TargetY, getSkillType() ))
+		if (bManaCheck && bTimeCheck && bRangeCheck && bPassLine && pZone->moveFastPC( pOusters, myX, myY, TargetX, TargetY, getSkillType() ))
 		{
 			// 마나를 떨어뜨린다.
 			decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
@@ -207,7 +207,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 
 			// knockback 때문에 recursive 하게 데미지를 먹는 경우가 있다.
 			// 그래서 제일 먼쪽에 있는 마스크부터 체크한다.
-			for (int i = 17; i >= 0; i-- )
+			for ( int i = 17; i >= 0; i-- )
 			{
 				int tileX   = myX + m_pDuckingWallopMask[dir][i].x;
 				int tileY   = myY + m_pDuckingWallopMask[dir][i].y;
@@ -241,7 +241,7 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 						Creature* pTargetCreature = (*itr);
 						Assert(pTargetCreature != NULL);
 
-						if (!canAttack(pOusters, pTargetCreature )
+						if ( !canAttack( pOusters, pTargetCreature )
 							|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 						{
 							continue;
@@ -252,12 +252,12 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 							bool bPK             = verifyPK(pOusters, pTargetCreature);
 							bool bRaceCheck      = pTargetCreature->isSlayer() || pTargetCreature->isMonster() || pTargetCreature->isVampire();
 							bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
-							bool bHitRoll        = HitRoll::isSuccess(pOusters, pTargetCreature);
+							bool bHitRoll        = HitRoll::isSuccess( pOusters, pTargetCreature );
 
 							// min : 20, max : 100
 							if (bPK && bRaceCheck && bZoneLevelCheck && bHitRoll)
 							{
-								Damage_t Damage = computeDamage(pOusters, pTargetCreature);
+								Damage_t Damage = computeDamage( pOusters, pTargetCreature );
 								Damage += output.Damage;
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();

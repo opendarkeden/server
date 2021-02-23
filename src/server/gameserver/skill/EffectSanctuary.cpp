@@ -108,8 +108,8 @@ void EffectSanctuary::unaffect()
 	Tile & tile = m_pZone->getTile(m_X, m_Y);
 //
 //	// unaffect creatures on tile
-//	const list<Object*>& oList = tile.getObjectList();
-//	for (list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+//	const slist<Object*>& oList = tile.getObjectList();
+//	for (slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 //	{
 //		if (*itr != this) 
 //		{

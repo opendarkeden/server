@@ -9,8 +9,8 @@
 #include "Player.h"
 #include "Zone.h"
 #include "Ousters.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -27,12 +27,12 @@ EffectGrandMasterOusters::EffectGrandMasterOusters(Creature* pCreature)
 Effect::EffectClass EffectGrandMasterOusters::getSendEffectClass() const throw()
 {
 	Ousters* pOusters = dynamic_cast<Ousters*>(m_pTarget);
-	if (pOusters == NULL ) return getEffectClass();
+	if ( pOusters == NULL ) return getEffectClass();
 
 	Level_t level = pOusters->getLevel();
 
-	if (level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS_150;
-	else if (level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS_130;
+	if ( level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS_150;
+	else if ( level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS_130;
 	else return getEffectClass();
 }
 
@@ -44,7 +44,7 @@ void EffectGrandMasterOusters::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }

@@ -12,14 +12,14 @@
 #include "SXml.h"
 #include <iostream>
 #include <iosfwd>
-#include <cassert>
+#include <assert.h>
 #include <cstdio>
 #include <cstdarg>
 #include <ctime>
 
-void itoa(int value, char* buf, int r )
+void itoa( int value, char* buf, int r )
 {
-	if (r == 10 )
+	if ( r == 10 )
 	{
 		sprintf(buf, "%d", value);
 	}
@@ -32,15 +32,15 @@ void itoa(int value, char* buf, int r )
 //using namespace std;
 
 //#pragma warning (push, 1)
-	#include <xercesc/sax/SAXParseException.hpp>
-	#include <xercesc/sax/SAXException.hpp>
-	#include <xercesc/framework/MemBufInputSource.hpp>
-	#include <xercesc/util/PlatformUtils.hpp>
-	#include <xercesc/util/XMLString.hpp>
-	#include <xercesc/sax2/XMLReaderFactory.hpp>
-	#include <xercesc/sax2/SAX2XMLReader.hpp>
-	#include <xercesc/sax2/Attributes.hpp>
-	#include <xercesc/sax2/DefaultHandler.hpp>
+	#include "xercesc/sax/SAXParseException.hpp"
+	#include "xercesc/sax/SAXException.hpp"
+	#include "xercesc/framework/MemBufInputSource.hpp"
+	#include "xercesc/util/PlatformUtils.hpp"
+	#include "xercesc/util/XMLString.hpp"
+	#include "xercesc/sax2/XMLReaderFactory.hpp"
+	#include "xercesc/sax2/SAX2XMLReader.hpp"
+	#include "xercesc/sax2/Attributes.hpp"
+	#include "xercesc/sax2/DefaultHandler.hpp"
 //#pragma warning (pop)
 
 //#pragma warning(disable:4100)
@@ -92,27 +92,27 @@ private:
 
 
 public:
-	XMLTreeGenerator(XMLTree* pTree);
+	XMLTreeGenerator( XMLTree* pTree );
 	virtual ~XMLTreeGenerator();
 
 
 public:
 	// Handlers for the SAX ContentHandler interface
-	void startElement(const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname, const Attributes& attrs);
-	void endElement(const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname);
-	void characters(const XMLCh* const chars, const unsigned int length);
-	void ignorableWhitespace(const XMLCh* const, const unsigned int ) {}
+	void startElement( const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname, const Attributes& attrs );
+	void endElement( const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname );
+	void characters( const XMLCh* const chars, const unsigned int length );
+	void ignorableWhitespace( const XMLCh* const, const unsigned int ) {}
 	void resetDocument();
 
 	// Handlers for the SAX ErrorHandler interface
-	void warning(const SAXParseException& e);
-	void error(const SAXParseException& e);
-	void fatalError(const SAXParseException& e);
+	void warning( const SAXParseException& e );
+	void error( const SAXParseException& e );
+	void fatalError( const SAXParseException& e );
 
 
 private:
-	XMLTreeGenerator(const XMLTreeGenerator& ) {}
-	XMLTreeGenerator& operator = (const XMLTreeGenerator& ) { return *this; }
+	XMLTreeGenerator( const XMLTreeGenerator& ) {}
+	XMLTreeGenerator& operator = ( const XMLTreeGenerator& ) { return *this; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -149,9 +149,9 @@ static const char* XML_ERROR_FILENAME = "__XMLError.log";
 //////////////////////////////////////////////////////////////////////////////
 string XMLUtil::WideCharToString(const XMLCh * wstr, int wstrlen)
 {
-//	return StrX(wstr ).c_str();
+//	return StrX( wstr ).c_str();
 
-/*	if (wstrlen == -1 )
+/*	if ( wstrlen == -1 )
 	{
 		wstrlen = (int)wcslen(wstr);
 	}*/
@@ -185,7 +185,7 @@ string XMLUtil::WideCharToString(const XMLCh * wstr, int wstrlen)
 
 	// 최소한의 복사를 줄이기 위해서 스트링을 준비. 	
 /*	string strBuffer;
-	strBuffer.reserve(wstrlen * 2 + 1);		// capacity 를 충분하게.. 
+	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity 를 충분하게.. 
 	int nCopied = WideCharToMultiByte(
 		CP_OEMCP,
 		WC_COMPOSITECHECK,
@@ -194,7 +194,7 @@ string XMLUtil::WideCharToString(const XMLCh * wstr, int wstrlen)
 		const_cast<LPSTR>(strBuffer.data()),	// mbcs string (unicode)
 		(int)strBuffer.capacity(),					// length of mbcs string
 		NULL,									// NULL 이 빠르다는데?
-		NULL);
+		NULL );
 	strBuffer[nCopied] = 0;
 	strBuffer._Mysize = nCopied;				// 수동으로 지정해야 한다.
 
@@ -240,7 +240,7 @@ void XMLUtil::filelog(char* fmt, ...)
 		if (nchars == -1 || nchars > 30000)
 		{
 			filelog(NULL, "filelog buffer overflow!");
-			throw("filelog() : more buffer size needed for log");
+			throw ("filelog() : more buffer size needed for log");
 		}
 		va_end(valist);
 
@@ -260,8 +260,8 @@ void XMLUtil::filelog(char* fmt, ...)
 //
 //////////////////////////////////////////////////////////////////////////////
 
-XMLAttribute::XMLAttribute(const string &name, const string &value )
-: m_Name(name ), m_Value(value )
+XMLAttribute::XMLAttribute( const string &name, const string &value )
+: m_Name( name ), m_Value( value )
 {
 }
 
@@ -270,7 +270,7 @@ XMLAttribute::~XMLAttribute()
 }
 
 void
-XMLAttribute::SetValue(string value )
+XMLAttribute::SetValue( string value )
 {
 	m_Value = value;
 }
@@ -290,31 +290,31 @@ XMLAttribute::ToString() const
 const int
 XMLAttribute::ToInt() const
 {
-	return atoi(m_Value.c_str());
+	return atoi( m_Value.c_str() );
 }
 
 const DWORD
 XMLAttribute::ToHex() const
 {
-	return strtoul(m_Value.c_str(), NULL, 16);
+	return strtoul( m_Value.c_str(), NULL, 16 );
 }
 
 const bool
 XMLAttribute::ToBool() const
 {
-	return (m_Value == "true" || m_Value == "TRUE" ) ? true : false;
+	return ( m_Value == "true" || m_Value == "TRUE" ) ? true : false;
 }
 
 const double	
 XMLAttribute::ToDouble() const
 {
-	return atof(m_Value.c_str());
+	return atof( m_Value.c_str() );
 }
 
 const float
 XMLAttribute::ToFloat() const
 {
-	return (float)atof(m_Value.c_str());
+	return (float)atof( m_Value.c_str() );
 }
 
 
@@ -325,31 +325,31 @@ XMLAttribute::ToFloat() const
 //////////////////////////////////////////////////////////////////////////////
 
 XMLTree::XMLTree()
-: m_pParent(NULL )
+: m_pParent( NULL )
 {
 }
 
-XMLTree::XMLTree(const string& name )
-: m_Name(name ), m_pParent(NULL )
+XMLTree::XMLTree( const string& name )
+: m_Name( name ), m_pParent( NULL )
 {
 }
 
-XMLTree::XMLTree(const XMLTree& xmlTree )
+XMLTree::XMLTree( const XMLTree& xmlTree )
 	: m_Name(xmlTree.m_Name), m_Text(xmlTree.m_Text), m_pParent(NULL)
 {
 	ATTRIBUTES_VECTOR::const_iterator aitr = xmlTree.m_AttributesVector.begin();
 
-	for (; aitr != xmlTree.m_AttributesVector.end() ; ++aitr )
+	for ( ; aitr != xmlTree.m_AttributesVector.end() ; ++aitr )
 	{
-		AddAttribute((*aitr)->GetName(), (*aitr)->ToString());
+		AddAttribute( (*aitr)->GetName(), (*aitr)->ToString() );
 	}
 
 	CHILDREN_VECTOR::const_iterator citr = xmlTree.m_ChildrenVector.begin();
 
-	for (; citr != xmlTree.m_ChildrenVector.end() ; ++citr )
+	for ( ; citr != xmlTree.m_ChildrenVector.end() ; ++citr )
 	{
-		XMLTree* pNewChild = new XMLTree(**citr);
-		AddChild(pNewChild);
+		XMLTree* pNewChild = new XMLTree( **citr );
+		AddChild( pNewChild );
 	}
 }
 
@@ -365,7 +365,7 @@ XMLTree::GetName() const
 }
 
 void
-XMLTree::SetName(const string& name )
+XMLTree::SetName( const string& name )
 {
 	m_Name = name;
 }
@@ -377,7 +377,7 @@ XMLTree::GetText() const
 }
 
 void
-XMLTree::SetText(const string& text )
+XMLTree::SetText( const string& text )
 {
 	m_Text = text;
 }
@@ -389,105 +389,105 @@ XMLTree::GetParent() const
 }
 
 void
-XMLTree::SetParent(XMLTree* pParent )
+XMLTree::SetParent( XMLTree* pParent )
 {
 	m_pParent = pParent;
 }
 
-void XMLTree::AddAttribute(const string& name, const string& value )
+void XMLTree::AddAttribute( const string& name, const string& value )
 {
-	ATTRIBUTES_MAP::iterator itr = m_AttributesMap.find(name);
+	ATTRIBUTES_MAP::iterator itr = m_AttributesMap.find( name );
 	
-	if (itr == m_AttributesMap.end() )
+	if ( itr == m_AttributesMap.end() )
 	{
-		XMLAttribute *pAttr = new XMLAttribute(name, value);
+		XMLAttribute *pAttr = new XMLAttribute( name, value );
 		
-		m_AttributesVector.push_back(pAttr);
-		m_AttributesMap.insert(ATTRIBUTES_MAP::value_type(name, pAttr ));
+		m_AttributesVector.push_back( pAttr );
+		m_AttributesMap.insert( ATTRIBUTES_MAP::value_type( name, pAttr ) );
 	}
 	else
 	{
 		XMLAttribute *pAttr = itr->second;
-		pAttr->SetValue(value);
+		pAttr->SetValue( value );
 	}
 }
 
-void XMLTree::AddAttribute(const string& name, const char *value )
+void XMLTree::AddAttribute( const string& name, const char *value )
 {
-	AddAttribute(name, string(value));
+	AddAttribute( name, string(value) );
 }
 
-void XMLTree::AddAttribute(const string& name, const int& value )
+void XMLTree::AddAttribute( const string& name, const int& value )
 {
 	char szTemp[20];
-	itoa(value, szTemp, 10);
-	AddAttribute(name, string(szTemp));
+	itoa( value, szTemp, 10 );
+	AddAttribute( name, string(szTemp) );
 }
 
-// void XMLTree::AddAttribute(const string& name, const unsigned int& value, const bool bHex )
-// {
-// 	char szTemp[20];
-// 	if(bHex == true )
-// 		itoa(value, szTemp, 16);
-// 	else
-// 		itoa(value, szTemp, 10);
-// 
-// 	AddAttribute(name, string(szTemp));
-// }
-
-void XMLTree::AddAttribute(const string& name, const DWORD& value, const bool bHex )
+void XMLTree::AddAttribute( const string& name, const unsigned int& value, const bool bHex )
 {
 	char szTemp[20];
-	if(bHex == true )
-		itoa(value, szTemp, 16);
+	if( bHex == true )
+		itoa( value, szTemp, 16 );
 	else
-		itoa(value, szTemp, 10);
+		itoa( value, szTemp, 10 );
 
-	AddAttribute(name, string(szTemp));
+	AddAttribute( name, string(szTemp) );
 }
 
-void XMLTree::AddAttribute(const string& name, const float& value )
+void XMLTree::AddAttribute( const string& name, const DWORD& value, const bool bHex )
+{
+	char szTemp[20];
+	if( bHex == true )
+		itoa( value, szTemp, 16 );
+	else
+		itoa( value, szTemp, 10 );
+
+	AddAttribute( name, string(szTemp) );
+}
+
+void XMLTree::AddAttribute( const string& name, const float& value )
 {
 	char szTemp[512];
-	sprintf(szTemp, "%f", value);
-	AddAttribute(name, string(szTemp));
+	sprintf( szTemp, "%f", value );
+	AddAttribute( name, string(szTemp) );
 }
 
-void XMLTree::AddAttribute(const string& name, const double& value )
+void XMLTree::AddAttribute( const string& name, const double& value )
 {
 	char szTemp[512];
-	sprintf(szTemp, "%f", value);
-	AddAttribute(name, string(szTemp));
+	sprintf( szTemp, "%f", value );
+	AddAttribute( name, string(szTemp) );
 }
 
-void XMLTree::AddAttribute(const string& name, const bool& value )
+void XMLTree::AddAttribute( const string& name, const bool& value )
 {
-	if(value == true )
-		AddAttribute(name, string("true"));
+	if( value == true )
+		AddAttribute( name, string("true") );
 	else
-		AddAttribute(name, string("false"));
+		AddAttribute( name, string("false") );
 }
 
 XMLAttribute *
-XMLTree::GetAttribute(const string& name ) const
+XMLTree::GetAttribute( const string& name ) const
 {
 	if(m_AttributesMap.empty() == true)
 		return NULL;
 
-	ATTRIBUTES_MAP::const_iterator itr = m_AttributesMap.find(name);
+	ATTRIBUTES_MAP::const_iterator itr = m_AttributesMap.find( name );
 
-	if(itr == m_AttributesMap.end() )
+	if( itr == m_AttributesMap.end() )
 		return NULL;
 
 	return itr->second;
 }
 
 const bool
-XMLTree::GetAttribute(const string& name, string &value )
+XMLTree::GetAttribute( const string& name, string &value )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
 		return false;
 
 	value = pAttr->ToString();
@@ -496,11 +496,11 @@ XMLTree::GetAttribute(const string& name, string &value )
 }
 
 const bool
-XMLTree::GetAttribute(const string& name, int &value )
+XMLTree::GetAttribute( const string& name, int &value )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
 		return false;
 
 	value = pAttr->ToInt();
@@ -508,31 +508,15 @@ XMLTree::GetAttribute(const string& name, int &value )
 	return true;
 }
 
-// const bool
-// XMLTree::GetAttribute(const string& name, unsigned int &value, const bool bHex )
-// {
-// 	const XMLAttribute *pAttr = GetAttribute(name);
-// 
-// 	if(pAttr == NULL )
-// 		return false;
-// 
-// 	if(bHex == true )
-// 		value = pAttr->ToHex();
-// 	else
-// 		value = pAttr->ToInt();
-// 
-// 	return true;
-// }
-
 const bool
-XMLTree::GetAttribute(const string& name, DWORD &value, const bool bHex )
+XMLTree::GetAttribute( const string& name, unsigned int &value, const bool bHex )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
 		return false;
 
-	if(bHex == true )
+	if( bHex == true )
 		value = pAttr->ToHex();
 	else
 		value = pAttr->ToInt();
@@ -541,11 +525,27 @@ XMLTree::GetAttribute(const string& name, DWORD &value, const bool bHex )
 }
 
 const bool
-XMLTree::GetAttribute(const string& name, float &value )
+XMLTree::GetAttribute( const string& name, DWORD &value, const bool bHex )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
+		return false;
+
+	if( bHex == true )
+		value = pAttr->ToHex();
+	else
+		value = pAttr->ToInt();
+
+	return true;
+}
+
+const bool
+XMLTree::GetAttribute( const string& name, float &value )
+{
+	const XMLAttribute *pAttr = GetAttribute( name );
+
+	if( pAttr == NULL )
 		return false;
 
 	value = pAttr->ToFloat();
@@ -554,11 +554,11 @@ XMLTree::GetAttribute(const string& name, float &value )
 }
 
 const bool
-XMLTree::GetAttribute(const string& name, double &value )
+XMLTree::GetAttribute( const string& name, double &value )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
 		return false;
 
 	value = pAttr->ToDouble();
@@ -567,11 +567,11 @@ XMLTree::GetAttribute(const string& name, double &value )
 }
 
 const bool
-XMLTree::GetAttribute(const string& name, bool &value )
+XMLTree::GetAttribute( const string& name, bool &value )
 {
-	const XMLAttribute *pAttr = GetAttribute(name);
+	const XMLAttribute *pAttr = GetAttribute( name );
 
-	if(pAttr == NULL )
+	if( pAttr == NULL )
 		return false;
 
 	value = pAttr->ToBool();
@@ -580,47 +580,47 @@ XMLTree::GetAttribute(const string& name, bool &value )
 }
 
 XMLTree*
-XMLTree::AddChild(const string& name )
+XMLTree::AddChild( const string& name )
 {
-	CHILDREN_MAP::iterator itr = m_ChildrenMap.find(name);
+	CHILDREN_MAP::iterator itr = m_ChildrenMap.find( name );
 
-	XMLTree *pTree = new XMLTree(name);
+	XMLTree *pTree = new XMLTree( name );
 
-	pTree->SetParent(this);
-	m_ChildrenVector.push_back(pTree);
+	pTree->SetParent( this );
+	m_ChildrenVector.push_back( pTree );
 
-	if (itr == m_ChildrenMap.end() )
+	if ( itr == m_ChildrenMap.end() )
 	{
-		m_ChildrenMap.insert(CHILDREN_MAP::value_type(name, pTree ));
+		m_ChildrenMap.insert( CHILDREN_MAP::value_type( name, pTree ) );
 	}
 
 	return pTree;
 }
 
 XMLTree*
-XMLTree::AddChild(XMLTree* pChild )
+XMLTree::AddChild( XMLTree* pChild )
 {
-	pChild->SetParent(this);
-	m_ChildrenVector.push_back(pChild);
+	pChild->SetParent( this );
+	m_ChildrenVector.push_back( pChild );
 	m_ChildrenMap[pChild->GetName()] = pChild;
 	return pChild;
 }
 
 XMLTree*
-XMLTree::GetChild(const string& name ) const
+XMLTree::GetChild( const string& name ) const
 {
-	CHILDREN_MAP::const_iterator itr = m_ChildrenMap.find(name);
+	CHILDREN_MAP::const_iterator itr = m_ChildrenMap.find( name );
 
-	if (itr == m_ChildrenMap.end() )
+	if ( itr == m_ChildrenMap.end() )
 		return NULL;
 
 	return itr->second;
 }
 
 XMLTree*
-XMLTree::GetChild(size_t index ) const
+XMLTree::GetChild( size_t index ) const
 {
-	return ((index < m_ChildrenVector.size() ) ? m_ChildrenVector[index] : NULL);
+	return ( ( index < m_ChildrenVector.size() ) ? m_ChildrenVector[index] : NULL );
 }
 
 const size_t
@@ -657,25 +657,25 @@ void XMLTree::Release()
 }
 
 void
-XMLTree::LoadFromFile(const char *pFilename )
+XMLTree::LoadFromFile( const char *pFilename )
 {
-	XMLParser parser(this);
-	parser.parseURL(pFilename);
+	XMLParser parser( this );
+	parser.parseURL( pFilename );
 }
 
 void
-XMLTree::LoadFromMem(const char *pBuffer )
+XMLTree::LoadFromMem( const char *pBuffer )
 {
-	XMLParser parser(this);
-	parser.parse(pBuffer);
+	XMLParser parser( this );
+	parser.parse( pBuffer );
 }
 
 void
-XMLTree::SaveToFile(const char* pFilename )
+XMLTree::SaveToFile( const char* pFilename )
 {
-	ofstream file(pFilename, ios::out | ios::trunc);
+	ofstream file( pFilename, ios::out | ios::trunc );
 
-	if (file == NULL ) return;
+	if ( file == NULL ) return;
 
 	file << "<?xml version=\"1.0\" encoding=\"EUC-KR\"?>" << endl;
 	
@@ -683,9 +683,9 @@ XMLTree::SaveToFile(const char* pFilename )
 }
 
 void
-XMLTree::Save(ofstream& file, size_t indent )
+XMLTree::Save( ofstream& file, size_t indent )
 {
-	for (size_t i = 0; i < indent; i++ )
+	for ( size_t i = 0; i < indent; i++ )
 		file << "\t";
 
 	file << "<" << m_Name;
@@ -693,7 +693,7 @@ XMLTree::Save(ofstream& file, size_t indent )
 	ATTRIBUTES_VECTOR::iterator itr = m_AttributesVector.begin();
 	ATTRIBUTES_VECTOR::iterator endItr = m_AttributesVector.end();
 
-	while(itr != endItr)
+	while( itr != endItr)
 	{
 		file << " " << (*itr)->GetName() << "='" << (*itr)->ToString() << "'";
 
@@ -719,14 +719,14 @@ XMLTree::Save(ofstream& file, size_t indent )
 			CHILDREN_VECTOR::iterator itr = m_ChildrenVector.begin();
 			CHILDREN_VECTOR::iterator endItr = m_ChildrenVector.end();
 
-			while(itr != endItr)
+			while( itr != endItr)
 			{
-				(*itr)->Save(file, indent + 1);
+				(*itr)->Save( file, indent + 1 );
 
 				itr++;
 			}
 
-			for (size_t i = 0; i < indent; i++ )
+			for ( size_t i = 0; i < indent; i++ )
 				file << "\t";
 
 			file << "</" << m_Name << ">" << endl;
@@ -741,7 +741,7 @@ XMLTree::Save(ofstream& file, size_t indent )
 //
 //////////////////////////////////////////////////////////////////////////////
 
-XMLTreeGenerator::XMLTreeGenerator(XMLTree* pTree )
+XMLTreeGenerator::XMLTreeGenerator( XMLTree* pTree )
 : m_pRoot(pTree), m_pBuffer(NULL)
 {
 }
@@ -751,33 +751,33 @@ XMLTreeGenerator::~XMLTreeGenerator()
 }
 
 void
-XMLTreeGenerator::startElement(const XMLCh* const uri, 
+XMLTreeGenerator::startElement( const XMLCh* const uri, 
 									const XMLCh* const localname, 
 									const XMLCh* const qname, 
 									const Attributes& attrs)
 {
-	string name = XMLUtil::trim(XMLUtil::WideCharToString(localname ));
+	string name = XMLUtil::trim( XMLUtil::WideCharToString( localname ) );
 
-	if (name.empty() ) return;
+	if ( name.empty() ) return;
 
 	XMLTree* pTree = NULL;
 
-	if (m_pBuffer == NULL )
+	if ( m_pBuffer == NULL )
 	{
-		m_pRoot->SetName(name);
+		m_pRoot->SetName( name );
 		
 		pTree = m_pRoot;
 	}
 	else
 	{
-		pTree = m_pBuffer->AddChild(name);
+		pTree = m_pBuffer->AddChild( name );
 	}
 
-	for (unsigned int i = 0; i < attrs.getLength(); i++ ) 
+	for ( unsigned int i = 0; i < attrs.getLength(); i++ ) 
 	{
 		pTree->AddAttribute(
-			XMLUtil::trim(XMLUtil::WideCharToString(attrs.getLocalName(i ) ) ),
-			XMLUtil::trim(XMLUtil::WideCharToString(attrs.getValue(i ) ) ));
+			XMLUtil::trim( XMLUtil::WideCharToString( attrs.getLocalName( i ) ) ),
+			XMLUtil::trim( XMLUtil::WideCharToString( attrs.getValue( i ) ) ) );
 	}
 
 	m_pBuffer = pTree;
@@ -788,19 +788,19 @@ XMLTreeGenerator::endElement(	const XMLCh* const uri,
 									const XMLCh* const localname, 
 									const XMLCh* const qname )
 {
-	assert(m_pBuffer != NULL);
+	assert( m_pBuffer != NULL );
 
 	m_pBuffer = const_cast<XMLTree *>(m_pBuffer->GetParent());
 }
 
 void
-XMLTreeGenerator::characters(const XMLCh* const chars, 
+XMLTreeGenerator::characters( const XMLCh* const chars, 
 								const unsigned int length )
 {
-	assert(m_pBuffer != NULL);
+	assert( m_pBuffer != NULL );
 
-	string text = XMLUtil::trim(XMLUtil::WideCharToString(chars ));
-	m_pBuffer->SetText(m_pBuffer->GetText() + text);
+	string text = XMLUtil::trim( XMLUtil::WideCharToString( chars ) );
+	m_pBuffer->SetText( m_pBuffer->GetText() + text );
 }
 
 //////////////////////////////////////////////////////////////////////////////

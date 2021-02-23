@@ -6,7 +6,7 @@
 
 #include "StringPool.h"
 #include "CombatInfoManager.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "ZoneGroupManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ CombatInfoManager::CombatInfoManager()
 {
 	__BEGIN_TRY
 	
-	for (int i = 0; i < maxRelic; i++ )
+	for ( int i = 0; i < maxRelic; i++ )
 	{
 		m_RelicOwner[i] = RELIC_OWNER_NULL;
 	}
@@ -59,7 +59,7 @@ void CombatInfoManager::computeModify()
 	m_VampireHPModify = 0;
 	m_VampireToHitModify = 0;
 
-	for (int i = 0; i < maxRelic; i++ )
+	for ( int i = 0; i < maxRelic; i++ )
 	{
 		// bonus, penalty 계산
 	}
@@ -78,7 +78,7 @@ void CombatInfoManager::computeModify()
 	{
 		//m_SlayerHPModify = g_pVariableManager->getCombatSlayerHPBonusRatio();
 //		gcSystemMessage.setMessage("슬레이어에게 보너스를 뭐줄까?");
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_APPLICATE_COMBAT_SLAYER_BONUS ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_APPLICATE_COMBAT_SLAYER_BONUS ) );
 		bSendMessage = true;
 	}
 	// 뱀파이어 승리
@@ -86,7 +86,7 @@ void CombatInfoManager::computeModify()
 	{
 		//m_VampireHPModify = g_pVariableManager->getCombatVampireHPBonusRatio();
 //		gcSystemMessage.setMessage("뱀파이어에게 보너스를 뭐줄까?");
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_APPLICATE_COMBAT_VAMPIRE_BONUS ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_APPLICATE_COMBAT_VAMPIRE_BONUS ) );
 		bSendMessage = true;
 	}
 
@@ -95,19 +95,19 @@ void CombatInfoManager::computeModify()
 		// 적용되고 있다가 적용안되는 경우
 		if (m_bSlayerBonus && m_bVampireBonus)
 		{
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_BONUS ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_MORE_COMBAT_BONUS ) );
 			bSendMessage = true;
 		}
 		// 슬레이어 보너스가 사라지는 경우
 		else if (m_bSlayerBonus)
 		{
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_SLAYER_BONUS ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_MORE_COMBAT_SLAYER_BONUS ) );
 			bSendMessage = true;
 		}
 		// 뱀파이어 보너스가 사라지는 경우
 		else if (m_bVampireBonus)
 		{
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_MORE_COMBAT_VAMPIRE_BONUS ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_MORE_COMBAT_VAMPIRE_BONUS ) );
 			bSendMessage = true;
 		}
 	}
@@ -121,12 +121,12 @@ void CombatInfoManager::computeModify()
 	__END_CATCH
 }
 
-void CombatInfoManager::setRelicOwner(int index, RelicOwner relicOwner )
-	throw(OutOfBoundException )
+void CombatInfoManager::setRelicOwner( int index, RelicOwner relicOwner )
+	throw ( OutOfBoundException )
 {
 	__BEGIN_TRY
 
-	if (index < 0 || index >= maxRelic )
+	if ( index < 0 || index >= maxRelic )
 	{
 		throw OutOfBoundException();
 	}

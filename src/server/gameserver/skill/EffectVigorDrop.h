@@ -47,7 +47,7 @@ public:
 //	void setPartyID(int PartyID) { m_PartyID = PartyID; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 	int getDamage(void) const { return m_Damage; }
 	void setDamage(int damage) { m_Damage = damage; }

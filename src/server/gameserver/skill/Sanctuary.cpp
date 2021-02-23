@@ -7,16 +7,14 @@
 #include "Sanctuary.h"
 #include "EffectSanctuary.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillFailed1.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -197,8 +195,8 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 							pZone->broadcastPacket(X, Y, &gcAddEffectToTile, pSlayer);
 						}
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							//Creature* pTargetCreature = NULL;
@@ -284,7 +282,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 
 			// EXP UP!
 			SkillDomainType_t DomainType = pSkillInfo->getDomainType();
-			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
+			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel( pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10* (Grade + 1);
 
 			shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToTileOK1);
@@ -362,7 +360,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	execute(pSlayer, pSlayer->getX(), pSlayer->getY(), pSkillSlot, CEffectID);
 }

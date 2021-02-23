@@ -15,10 +15,10 @@
 #include "Packet.h"
 #include "GuildMemberInfo2.h"
 
-#include <list>
+#include <slist>
 
-typedef list<GuildMemberInfo2*> GuildMemberInfoList2;
-typedef list<GuildMemberInfo2*>::const_iterator GuildMemberInfoListConstItor2;
+typedef slist<GuildMemberInfo2*> GuildMemberInfoList2;
+typedef slist<GuildMemberInfo2*>::const_iterator GuildMemberInfoListConstItor2;
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -31,26 +31,26 @@ class GuildInfo2 {
 public :
 	
 	// constructor
-	GuildInfo2 () throw();
+	GuildInfo2 () throw ();
 	
 	// destructor
-	~GuildInfo2 () throw();
+	~GuildInfo2 () throw ();
 
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () throw();
+	PacketSize_t getSize () throw ();
 
 	static uint getMaxSize() throw() {
-		return (szGuildID
+		return ( szGuildID
 			   + szBYTE + 30
 			   + szGuildType
 			   + szGuildRace
@@ -64,53 +64,53 @@ public :
 	}
 
 	// get packet's debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 	// get/set GuildID
 	GuildID_t getID() const throw() { return m_ID; }
-	void setID(GuildID_t GuildID ) throw() { m_ID = GuildID; }
+	void setID( GuildID_t GuildID ) throw() { m_ID = GuildID; }
 
 	// get/set Guild Name
 	string getName() const throw() { return m_Name; }
-	void setName(const string& GuildName ) throw() { m_Name = GuildName; }
+	void setName( const string& GuildName ) throw() { m_Name = GuildName; }
 
 	// get/set GuildType
 	GuildType_t getType() const throw() { return m_Type; }
-	void setType(GuildType_t type ) throw() { m_Type = type; }
+	void setType( GuildType_t type ) throw() { m_Type = type; }
 
 	// get/set Race
 	GuildRace_t getRace() const throw() { return m_Race; }
-	void setRace(GuildRace_t race ) throw() { m_Race = race; }
+	void setRace( GuildRace_t race ) throw() { m_Race = race; }
 
 	// get/set state
 	GuildState_t getState() const throw() { return m_State; }
-	void setState(GuildState_t state ) throw() { m_State = state; }
+	void setState( GuildState_t state ) throw() { m_State = state; }
 
 	// get/set server group ID
 	ServerGroupID_t getServerGroupID() const throw() { return m_ServerGroupID; }
-	void setServerGroupID(ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
+	void setServerGroupID( ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
 
 	// get/set Zone ID
 	ZoneID_t getZoneID() const throw() { return m_ZoneID; }
-	void setZoneID(ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
+	void setZoneID( ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
 
 	// get/set Guild Master
 	string getMaster() const throw() { return m_Master; }
-	void setMaster(const string& master ) throw() { m_Master = master; }
+	void setMaster( const string& master ) throw() { m_Master = master; }
 
 	// get/set Guild Expire Date
 	string getDate() const throw() { return m_Date; }
-	void setDate(const string& date ) throw() { m_Date = date; }
+	void setDate( const string& date ) throw() { m_Date = date; }
 
 	// get/set guild intro
 	string getIntro() const throw() { return m_Intro; }
-	void setIntro(const string& intro ) throw() { m_Intro = intro; }
+	void setIntro( const string& intro ) throw() { m_Intro = intro; }
 
 	// get guild member info list num
 	WORD getGuildMemberInfoListNum() const throw() { return m_GuildMemberInfoList.size(); }
 
 	// add GuildMemberInfo
-	void addGuildMemberInfo(GuildMemberInfo2* pGuildMemberInfo ) throw() { m_GuildMemberInfoList.push_front(pGuildMemberInfo); }
+	void addGuildMemberInfo( GuildMemberInfo2* pGuildMemberInfo ) throw() { m_GuildMemberInfoList.push_front( pGuildMemberInfo ); }
 
 	// clear GuildMemberInfoList
 	void clearGuildMemberInfoList() throw();
@@ -118,7 +118,7 @@ public :
 	// pop front element in GuildMemberInfoList
 	GuildMemberInfo2* popFrontGuildMemberInfoList() throw()
 	{
-		if (m_GuildMemberInfoList.empty() )
+		if ( m_GuildMemberInfoList.empty() )
 		return NULL;
 
 		GuildMemberInfo2* pGuildMemberInfo = m_GuildMemberInfoList.front();

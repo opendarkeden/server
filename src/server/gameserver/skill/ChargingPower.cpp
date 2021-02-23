@@ -7,9 +7,9 @@
 #include "ChargingPower.h"
 #include "EffectChargingPower.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -84,7 +84,7 @@ void ChargingPower::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t 
 			// 경험치를 올린다.
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10*(Grade+1);
-			if (bIncreaseExp )
+			if ( bIncreaseExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 8, 1, 1, _GCSkillToSelfOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);

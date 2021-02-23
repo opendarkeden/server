@@ -5,9 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ParkingCenter.h"
-#include "GCDeleteObject.h"
-
-#include <map>
+#include "Gpackets/GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class MotorcycleBox member methods
@@ -85,7 +83,7 @@ ParkingCenter::~ParkingCenter()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.begin();
+	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.begin();
 
 	for (; itr != m_Motorcycles.end(); itr++)
 	{
@@ -101,7 +99,7 @@ ParkingCenter::~ParkingCenter()
 }
 
 void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -109,7 +107,7 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 
 	Assert(pMotorcycleBox != NULL);
 
-	map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(pMotorcycleBox->getItemID());
+	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(pMotorcycleBox->getItemID());
 
 	if (itr != m_Motorcycles.end())
 	{
@@ -127,7 +125,7 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 // 여기서 오토바이 전체를 삭제하게 됨으로 존에서 오토바이를 지운다음.
 // 최종적으로 이 함수를 불러야 할 것이다.
 void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -135,7 +133,7 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
 
 	if (itr == m_Motorcycles.end())
 	{
@@ -160,7 +158,7 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 	{
 		__ENTER_CRITICAL_SECTION(m_MutexRemove)
 
-		m_RemoveMotorcycles.push_back(pMotorcycleBox);
+		m_RemoveMotorcycles.push_back( pMotorcycleBox );
 
 		__LEAVE_CRITICAL_SECTION(m_MutexRemove)
 	}
@@ -171,7 +169,7 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 
 // 특정 KeyID를 가진 MotorcycleBox가 있는지 확인한다.
 bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -179,7 +177,7 @@ bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
 
 	if (itr == m_Motorcycles.end())
 	{
@@ -195,7 +193,7 @@ bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID)
 
 // 열쇠의 TargetID로 오토바이를 찾아서 Return 해주는 함수이다.
 MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	
@@ -205,7 +203,7 @@ MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const
 	{
 		__ENTER_CRITICAL_SECTION(m_Mutex)
 
-		map< ItemID_t , MotorcycleBox* >::const_iterator itr = m_Motorcycles.find(keyTargetID);
+		hash_map< ItemID_t , MotorcycleBox* >::const_iterator itr = m_Motorcycles.find(keyTargetID);
 
 		if (itr == m_Motorcycles.end())
 		{
@@ -233,7 +231,7 @@ MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const
 
 // 이건  ClientManager thread에서 돌아간다.
 void ParkingCenter::heartbeat()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -245,7 +243,7 @@ void ParkingCenter::heartbeat()
 	{
 		MotorcycleBox* pMotorcycleBox = *itr;
 
-		SAFE_DELETE(pMotorcycleBox);
+		SAFE_DELETE( pMotorcycleBox );
 	}
 
 	m_RemoveMotorcycles.clear();

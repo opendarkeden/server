@@ -14,8 +14,8 @@
 #include "WarSystem.h"
 #include "Properties.h"
 
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include "SystemAvailabilitiesManager.h"
 
@@ -23,7 +23,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionJoinRaceWar::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -43,7 +43,7 @@ void ActionJoinRaceWar::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionJoinRaceWar::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -52,47 +52,47 @@ void ActionJoinRaceWar::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_RACE_WAR);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_RACE_WAR );
 
 	GCNPCResponse gcNPCResponse;
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
 
 	static int isJoinRaceWar = g_pConfig->getPropertyInt("JoinRaceWar");
 
 	// 서버 자체에 종족 전쟁 참가 신청 기능이 꺼져있는 경우
-	if (!isJoinRaceWar )
+	if ( !isJoinRaceWar )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_RACE_WAR_GO_FIRST_SERVER);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_RACE_WAR_GO_FIRST_SERVER );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 		return;
 	}
 
-	if (!g_pVariableManager->isWarActive()
+	if ( !g_pVariableManager->isWarActive()
 		|| g_pWarSystem->hasActiveRaceWar())
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_UNAVAILABLE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_UNAVAILABLE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	if (pCreature2->isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ) )
+	if ( pCreature2->isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_ALREADY_REGISTERED);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_ALREADY_REGISTERED );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	if (!RaceWarLimiter::getInstance()->join(pPC ) )
+	if ( !RaceWarLimiter::getInstance()->join( pPC ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_RACE_WAR_JOIN_FAILED);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_RACE_WAR_JOIN_FAILED );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	gcNPCResponse.setCode(NPC_RESPONSE_RACE_WAR_JOIN_OK);
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	gcNPCResponse.setCode( NPC_RESPONSE_RACE_WAR_JOIN_OK );
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 	return;
 
 	__END_CATCH
@@ -102,7 +102,7 @@ void ActionJoinRaceWar::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionJoinRaceWar::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -27,7 +27,7 @@ Item* ItemMineInfo::getItem()
 {
 	__BEGIN_TRY
 
-	Item* pItem = g_pItemFactoryManager->createItem((Item::ItemClass)getItemClass(), getItemType() , getItemOptions());
+	Item* pItem = g_pItemFactoryManager->createItem( (Item::ItemClass)getItemClass(), getItemType() , getItemOptions() );
 
 	return pItem;
 
@@ -89,7 +89,7 @@ void ItemMineInfoManager::load()
 		Result* pResult = pStmt->executeQuery(
 							"SELECT ID, ItemClass, ItemType, ItemOption FROM ItemMineInfo");
 		
-		while(pResult->next() )
+		while( pResult->next() )
 		{
 			uint i = 0;
 
@@ -101,12 +101,12 @@ void ItemMineInfoManager::load()
 			string 	itemOptions = pResult->getString(++i);
 
 			list<OptionType_t> oList;
-			makeOptionList(itemOptions, oList);
+			makeOptionList( itemOptions, oList );
 
-			pItemMineInfo->setID(id);
-			pItemMineInfo->setItemClass(TreasureItemClass::getItemClassFromString(itemClass ));
-			pItemMineInfo->setItemType(itemType);
-			pItemMineInfo->setItemOptions(oList);
+			pItemMineInfo->setID( id );
+			pItemMineInfo->setItemClass( TreasureItemClass::getItemClassFromString( itemClass ) );
+			pItemMineInfo->setItemType( itemType );
+			pItemMineInfo->setItemOptions( oList );
 
 			addItemMineInfo(pItemMineInfo);	
 		}
@@ -123,7 +123,7 @@ ItemMineInfo* ItemMineInfoManager::getItemMineInfo(int id) const
 
 	HashMapItemMineInfoConstItor itr = m_ItemMineInfos.find(id);
 
-	if (itr == m_ItemMineInfos.end() )
+	if ( itr == m_ItemMineInfos.end() )
 		return NULL;
 
 	return itr->second;
@@ -138,7 +138,7 @@ void ItemMineInfoManager::addItemMineInfo(ItemMineInfo* pItemMineInfo)
 
 	HashMapItemMineInfoItor itr = m_ItemMineInfos.find(pItemMineInfo->getID());
 
-	if (itr != m_ItemMineInfos.end() )
+	if ( itr != m_ItemMineInfos.end() )
 		throw DuplicatedException();
 
 	m_ItemMineInfos[ pItemMineInfo->getID() ] = pItemMineInfo;
@@ -152,7 +152,7 @@ string ItemMineInfoManager::toString() const
 
 	StringStream msg;
 
-	if (m_ItemMineInfos.empty() ) msg << "EMPTY";
+	if ( m_ItemMineInfos.empty() ) msg << "EMPTY";
 	else
 	{
 		HashMapItemMineInfoConstItor endItr = m_ItemMineInfos.end();
@@ -173,7 +173,7 @@ Item* ItemMineInfoManager::getRandomItem(int minID, int maxID)
 {
 	__BEGIN_TRY
 
-	ItemMineInfo* pItemMineInfo = getItemMineInfo(Random(minID, maxID ));
+	ItemMineInfo* pItemMineInfo = getItemMineInfo( Random( minID, maxID ) );
 
 	return pItemMineInfo->getItem();
 

@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 ARInfoManager* g_pARInfoManager = NULL;
@@ -46,7 +45,7 @@ AR::AR(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "AR::AR() : Invalid item type or option type");
-		throw("AR::AR() : Invalid item type or optionType");
+		throw ("AR::AR() : Invalid item type or optionType");
 	}
 }
 
@@ -107,8 +106,8 @@ void AR::create(const string & ownerID, Storage storage, StorageID_t storageID, 
 
 		// StringStream ¾ø¾Ö±â. by sigi. 2002.5.13
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("INSERT INTO ARObject (ItemID, ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Grade, ItemFlag) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, '%s', %d, %d, %d, %d)",
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "INSERT INTO ARObject (ItemID, ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Grade, ItemFlag) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, '%s', %d, %d, %d, %d)",
 							m_ItemID, m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getBulletCount(), (int)getGrade(), (int)m_CreateType);
 
 		SAFE_DELETE(pStmt);
@@ -133,7 +132,7 @@ void AR::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE ARObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE ARObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -179,8 +178,8 @@ void AR::save(const string & ownerID, Storage storage, StorageID_t storageID, BY
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE ARObject SET ObjectID = %ld, ItemType = %d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, BulletCount=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE ARObject SET ObjectID = %ld, ItemType = %d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, BulletCount=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
 								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getEnchantLevel(), (int)getBulletCount(), (int)getSilver(), (int)getGrade(), m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -193,7 +192,7 @@ void AR::save(const string & ownerID, Storage storage, StorageID_t storageID, BY
 //--------------------------------------------------------------------------------
 // save item
 //--------------------------------------------------------------------------------
-void AR::saveBullet() throw(Error)
+void AR::saveBullet() throw (Error)
 {
 	__BEGIN_TRY
 
@@ -216,7 +215,7 @@ void AR::saveBullet() throw(Error)
 void AR::makePCItemInfo(PCItemInfo& result) const
 {
 	Item::makePCItemInfo(result);
-	result.setItemNum(getBulletCount());
+	result.setItemNum( getBulletCount() );
 }
 
 //--------------------------------------------------------------------------------
@@ -401,7 +400,7 @@ void ARInfoManager::load()
 			m_pItemInfos[i] = NULL;
 
 		pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Durability, minDamage, maxDamage, ToHitBonus, `Range`, Speed, ReqAbility, ItemLevel, CriticalBonus, DefaultOption, UpgradeRatio, UpgradeCrashPercent, NextOptionRatio, NextItemType, DowngradeRatio FROM ARInfo"
+			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Durability, minDamage, maxDamage, ToHitBonus, Range, Speed, ReqAbility, ItemLevel, CriticalBonus, DefaultOption, UpgradeRatio, UpgradeCrashPercent, NextOptionRatio, NextItemType, DowngradeRatio FROM ARInfo"
 		);
 
 		while (pResult->next()) 
@@ -431,7 +430,7 @@ void ARInfoManager::load()
 			pARInfo->setUpgradeCrashPercent(pResult->getInt(++i));
 			pARInfo->setNextOptionRatio(pResult->getInt(++i));
 			pARInfo->setNextItemType(pResult->getInt(++i));
-			pARInfo->setDowngradeRatio(pResult->getInt(++i));
+			pARInfo->setDowngradeRatio( pResult->getInt(++i) );
 
 			addItemInfo(pARInfo);
 		}
@@ -472,8 +471,8 @@ void ARLoader::load(Creature* pCreature)
 
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Silver, EnchantLevel, Grade, ItemFlag FROM ARObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Silver, EnchantLevel, Grade, ItemFlag FROM ARObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{
@@ -536,18 +535,6 @@ void ARLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pAR);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pAR))
 						{
 							pInventory->addItemEx(x, y, pAR);

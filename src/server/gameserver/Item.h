@@ -105,13 +105,12 @@ const string ItemClass2String[] =
 	"ITEM_CLASS_TRAP_ITEM",				// 81
 	"ITEM_CLASS_BLOOD_BIBLE_SIGN",		// 82
 	"ITEM_CLASS_WAR_ITEM",				// 83
-	"ITEM_CLASS_CARRYING_RECEIVER",		// 84
-	"ITEM_CLASS_SHOULDER_ARMOR",		// 85
-	"ITEM_CLASS_DERMIS",				// 86
-	"ITEM_CLASS_PERSONA",				// 87
-	"ITEM_CLASS_FASCIA",				// 88
-	"ITEM_CLASS_MITTEN",				// 89
-	"ITEM_CLASS_SUB_INVENTORY",			// 90
+	"ITEM_CLASS_CARRYING_RECEIVER",		// 94
+	"ITEM_CLASS_SHOULDER_ARMOR",		// 95
+	"ITEM_CLASS_DERMIS",				// 98
+	"ITEM_CLASS_PERSONA",				// 99
+	"ITEM_CLASS_FASCIA",				// 104
+	"ITEM_CLASS_MITTEN",				// 105
 };
 
 const string ItemClass2ShortString[] = 
@@ -200,13 +199,12 @@ const string ItemClass2ShortString[] =
 	"TRAP_ITEM",			// 81
 	"BLOOD_BIBLE_SIGN",		// 82
 	"WAR_ITEM",				// 83
-	"CARRYING_RECEIVER",		// 84
-	"SHOULDER_ARMOR",		// 85
-	"DERMIS",				// 86
-	"PERSONA",				// 87
-	"FASCIA",				// 88
-	"MITTEN",				// 89
-	"SUB_INVENTORY",		// 90
+	"CARRYING_RECEIVER",		// 94
+	"SHOULDER_ARMOR",		// 95
+	"DERMIS",				// 98
+	"PERSONA",				// 99
+	"FASCIA",				// 104
+	"MITTEN",				// 105
 };
 
 const string ItemObjectTableName[] = 
@@ -301,7 +299,6 @@ const string ItemObjectTableName[] =
 	"PersonaObject",				// 87
 	"FasciaObject",				// 88
 	"MittenObject",				// 89
-	"SubInventoryObject",		// 90
 };
 
 
@@ -341,7 +338,7 @@ const int ItemMaxStack[] =
 	20, //MINE                 // 25
 	 1, //BELT                 // 26
 	 1, //LEARNINGITEM         // 27
-	 1, //MONEY                // 28
+	50, //MONEY                // 28
 	 1, //CORPSE               // 29
 	 1, //VAMPIRE_RING         // 30
 	 1, //VAMPIRE_BRACELET     // 31
@@ -412,7 +409,6 @@ const int ItemMaxStack[] =
 	 1, //PERSONA				// 87
 	 1, //FASCIA				// 88
 	 1, //MITTEN				// 89
-	 1, //SUB_INVENTORY			// 90
 };
 
 class PCItemInfo;
@@ -523,9 +519,8 @@ public:
 		ITEM_CLASS_PERSONA,				// 87
 		ITEM_CLASS_FASCIA,				// 88
 		ITEM_CLASS_MITTEN,				// 89
-		ITEM_CLASS_SUB_INVENTORY,		// 90
 
-		ITEM_CLASS_MAX                   // 91
+		ITEM_CLASS_MAX                   // 90
 	};
 
 	enum CreateType 
@@ -549,7 +544,7 @@ public:
 // constructor/destructor
 public:
 	Item() throw();
-	virtual ~Item();
+	virtual ~Item() throw();
 
 
 // methods from Object
@@ -564,8 +559,8 @@ public:
 	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error) = 0;	// itemID=0 <-- 특정 ItemID로 생성. by sigi. 2002.10.28
 	virtual bool destroy() throw(Error);
 	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) throw(Error) = 0;
-	virtual void tinysave(const string & field) const throw(Error) = 0;
-	void waste(Storage storage = STORAGE_GARBAGE ) const throw(Error);
+	virtual void tinysave(const string & field) const throw (Error) = 0;
+	void waste( Storage storage = STORAGE_GARBAGE ) const throw (Error);
 
 // own methods
 // *CAUTION*
@@ -622,7 +617,7 @@ public:
 	virtual ItemNum_t getNum() const throw() { return 1; }
 	virtual void setNum(ItemNum_t Num) throw() {}
 
-	virtual bool isStackable() const throw() { return false; }
+	virtual bool isStackable() const throw() { 	return false; }
 
 	virtual BYTE getBulletCount() const throw() { return 0; } 
 	virtual void setBulletCount(BYTE bulletCount) throw() {}
@@ -639,7 +634,7 @@ public:
 	virtual int getCriticalBonus(void) const throw() { return 0; }
 
 	virtual Grade_t getGrade() const { return -1; }
-	virtual void setGrade(Grade_t Grade ) { } 
+	virtual void setGrade( Grade_t Grade ) { } 
 
 	virtual Luck_t getLuck() const { return 0; }
 
@@ -673,9 +668,9 @@ public:
 	int		getHour() const					{ return m_Hour; }
 	void	setHour(int hour)				{ m_Hour = hour; }
 
-	virtual void makePCItemInfo(PCItemInfo& pResult ) const;
-	virtual void whenPCTake(PlayerCreature* pPC) {};
-	virtual void whenPCLost(PlayerCreature* pPC);
+	virtual void makePCItemInfo( PCItemInfo& pResult ) const;
+	virtual void whenPCTake( PlayerCreature* pPC );
+	virtual void whenPCLost( PlayerCreature* pPC );
 
 	bool	isOnStore() const { return m_bOnStore; }
 
@@ -683,7 +678,7 @@ public:
 	void	undisplayItem() { m_bOnStore = false; setStore(NULL); }
 
 	Store* 			getStore() const { return m_pStore; }
-	void			setStore(Store* pStore ) { m_pStore = pStore; }
+	void			setStore( Store* pStore ) { m_pStore = pStore; }
 
 // member data
 protected:

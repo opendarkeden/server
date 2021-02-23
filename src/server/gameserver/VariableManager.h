@@ -2,7 +2,7 @@
 #define __VARIABLE_MANAGER_H__
 
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include <vector>
 
 enum VariableType
@@ -47,7 +47,7 @@ enum VariableType
 	RANK_EXP_GAIN_PERCENT,			// 37
 	ITEM_LUCK_PERCENT,				// 38
 
-	// 대박 이벤트 용 (code name : lotto event )
+	// 대박 이벤트 용 ( code name : lotto event )
 	// 2003. 1. 12 by bezz. Sequoia. dew
 	LOTTO_ITEM_RATIO,				// 39
 	LOTTO_ITEM_BONUS_NUM,			// 40
@@ -203,15 +203,6 @@ enum VariableType
 	EVENT_MUGWORT_RICE_CAKE_SOUP_RATIO,	// 134
 
 	TIME_PERIOD_EXP_2X,				// 135
-	COUNT_KILL_MONSTER,				// 136
-
-	DONATION_EVENT_200505,			// 137
-
-	FAMILY_COIN_EVENT,				// 138
-	FAMILY_COIN_RATIO,				// 139
-	BALLOON_HEADBAND_EVENT,			// 140
-	BALLOON_HEADBAND_RATIO,			// 141
-	FULL_PARTY_EXP_EVENT,			// 142
 
 	VARIABLE_MAX
 };
@@ -258,7 +249,7 @@ const string VariableType2String[VARIABLE_MAX] =
 	"RANK_EXP_GAIN_PERCENT",			// 37
 	"ITEM_LUCK_PERCENT",				// 38
 
-	// 대박 이벤트 용 (code name : lotto event )
+	// 대박 이벤트 용 ( code name : lotto event )
 	// 2003. 1. 12 by bezz. Sequoia. dew
 	"LOTTO_ITEM_RATIO",					// 39
 	"LOTTO_ITEM_BONUS_NUM"	,			// 40
@@ -405,13 +396,6 @@ const string VariableType2String[VARIABLE_MAX] =
 	"EVENT_BLACK_RICE_CAKE_SOUP_RATIO",		// 133
 	"EVENT_MUGWORT_RICE_CAKE_SOUP_RATIO",	// 134
 	"TIME_PERIOD_EXP_2X",				// 135
-	"COUNT_KILL_MONSTER",				// 136
-	"DONATION_EVENT_200505",			// 137
-	"FAMILY_COIN_EVENT",				// 138
-	"FAMILY_COIN_RATIO",				// 139
-	"BALLOON_HEADBAND_EVENT",			// 140
-	"BALLOON_HEADBAND_RATIO",			// 141
-	"FULL_PARTY_EXP_EVENT",				// 142
 };
 
 
@@ -419,7 +403,7 @@ class VariableManager
 {
 public :
 	typedef vector<int>						VARIABLE;
-	typedef map<string, VariableType>	VARIABLE_NAME;
+	typedef hash_map<string, VariableType>	VARIABLE_NAME;
 
 public:
 	VariableManager() throw(Error);
@@ -527,10 +511,10 @@ public:
 	void 	setNewbieTransportToGuild(bool value) 	{ setVariable(NEWBIE_TRANSPORT_TO_GUILD, value); }
 	bool 	isNewbieTransportToGuild() const 		{ return m_Variables[NEWBIE_TRANSPORT_TO_GUILD]!=0; }
 
-	void setChristmasFireCrackerRatio(int value )	{ setVariable(CHRISTMAS_FIRE_CRACKER_RATIO, value); }
+	void setChristmasFireCrackerRatio( int value )	{ setVariable(CHRISTMAS_FIRE_CRACKER_RATIO, value); }
 	int	 getChristmasFireCrackerRatio() const		{ return m_Variables[CHRISTMAS_FIRE_CRACKER_RATIO]; }
 
-	void setChristmasTreePartRatio(int value )		{ setVariable(CHRISTMAS_TREE_PART_RATIO, value); }
+	void setChristmasTreePartRatio( int value )		{ setVariable(CHRISTMAS_TREE_PART_RATIO, value); }
 	int	 getChristmasTreeRatio() const				{ return m_Variables[CHRISTMAS_TREE_PART_RATIO]; }
 
 	bool 	isWarPeriodWeek() const 				{ return m_Variables[WAR_PERIOD_WEEK]!=0; }
@@ -579,11 +563,27 @@ public:
 
 	bool isEventGiftBox() const                     { return m_Variables[EVENT_GIFT_BOX]!=0; }
 
+#if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)	
+
+	bool isRemoveAllGame() const                    { return m_fRemoveAllGame!=0; }
+	void setRemoveAllGame(bool flag)                { m_fRemoveAllGame = flag; }
+
+	bool isEggDummyDB() const                       { return m_fEggDummyDB!=0; }
+	void setEggDummyDB(bool flag)                   { m_fEggDummyDB = flag; }
+#endif
+
 // data members
 private:
 	VARIABLE					m_Variables;
 		
 	VARIABLE_NAME 				m_VariableNames;
+
+#if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
+
+	bool m_fRemoveAllGame;
+	bool m_fEggDummyDB;
+
+#endif
 };
 
 extern VariableManager* g_pVariableManager;

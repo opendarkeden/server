@@ -30,10 +30,10 @@ public:
 	string toString() const throw();
 
 public:
-	void setDamage(uint bonus ) { m_Damage = bonus; }
+	void setDamage( uint bonus ) { m_Damage = bonus; }
 	uint getDamage() const { return m_Damage; }
 
-	void setRange(Range_t Range ) { m_Range = Range; }
+	void setRange( Range_t Range ) { m_Range = Range; }
 	Range_t getRange() const { return m_Range; }
 
 private:

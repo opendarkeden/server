@@ -13,9 +13,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ void EffectStorm::affect(Creature* pCreature)
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(NULL, pCreature )
+		&& canAttack( NULL, pCreature )
 		&& !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 		&& !pCreature->isDead())
 	{
@@ -166,7 +166,7 @@ void EffectStorm::affect(Creature* pCreature)
 		// by sigi. 2002.9.9
 		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_CasterName);
+			Creature* pAttacker = pZone->getCreature( m_CasterName );
 
 			if (pAttacker!=NULL)
 			{ 

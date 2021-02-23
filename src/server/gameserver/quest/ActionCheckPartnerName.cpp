@@ -9,7 +9,7 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "StringPool.h"
 #include "FlagSet.h"
 #include "PlayerCreature.h"
@@ -22,7 +22,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCheckPartnerName::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -42,7 +42,7 @@ void ActionCheckPartnerName::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCheckPartnerName::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -52,24 +52,24 @@ void ActionCheckPartnerName::execute (Creature * pCreature1 , Creature * pCreatu
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	char buffer[256];
 	string partnerName;
 
-	if (!pPC->getFlagSet()->isOn(FLAGSET_IS_COUPLE) || !g_pCoupleManager->getPartnerName(pPC, partnerName) )
+	if ( !pPC->getFlagSet()->isOn(FLAGSET_IS_COUPLE) || !g_pCoupleManager->getPartnerName(pPC, partnerName) )
 	{
-		sprintf(buffer, "%s", g_pStringPool->getString(STRID_NOT_COUPLE).c_str());
+		sprintf(buffer, "%s", g_pStringPool->getString(STRID_NOT_COUPLE).c_str() );
 	}
 	else
 	{
-		sprintf(buffer, g_pStringPool->getString(STRID_COUPLE_IS).c_str(), partnerName.c_str());
+		sprintf(buffer, g_pStringPool->getString(STRID_COUPLE_IS).c_str(), partnerName.c_str() );
 	}
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage(buffer);
+	gcSM.setMessage( buffer );
 
-	pPC->getPlayer()->sendPacket(&gcSM);
+	pPC->getPlayer()->sendPacket( &gcSM );
 
 	__END_CATCH
 }
@@ -79,7 +79,7 @@ void ActionCheckPartnerName::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionCheckPartnerName::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -9,48 +9,68 @@
 #ifndef __GAME_WORLD_INFO_MANAGER_H__
 #define __GAME_WORLD_INFO_MANAGER_H__
 
+// include files
 #include "Types.h"
 #include "Exception.h"
 #include "GameWorldInfo.h"
-#include <map>
+#include <hash_map>
 
-typedef map<WorldID_t, GameWorldInfo*> HashMapGameWorldInfo;
+typedef hash_map< WorldID_t , GameWorldInfo* > HashMapGameWorldInfo;
 
 //----------------------------------------------------------------------
 //
 // class GameWorldInfoManager;
 //
-// 게임 서버의 ID 를 키값으로 하는 GameWorldInfo의 map 을 
+// 게임 서버의 ID 를 키값으로 하는 GameWorldInfo의 hash_map 을 
 // 내부에 가지고 있다.
 //
 //----------------------------------------------------------------------
 
 class GameWorldInfoManager {
-public:
-    GameWorldInfoManager() throw() {};
-    ~GameWorldInfoManager() throw();
+	
+public :
+	
+	// constructor
+	GameWorldInfoManager () throw ();
+	
+	// destructor
+	~GameWorldInfoManager () throw ();
 
-    void init() throw(Error);
-    void load() throw(Error);
+	// initialize manager
+	void init () throw ( Error );
 
-    void clear() throw(Error);
+	// load from database
+	void load () throw ( Error );
 
-    void addGameWorldInfo(GameWorldInfo * pGameWorldInfo) throw(DuplicatedException);
-    void deleteGameWorldInfo(const WorldID_t WorldID) throw(NoSuchElementException);
+	// clear GameWorldInfo objects
+	void clear() throw ( Error );
+	
+	// add info
+	void addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) throw ( DuplicatedException );
+	
+	// delete info
+	void deleteGameWorldInfo ( const WorldID_t WorldID ) throw ( NoSuchElementException );
+	
+	// get GameWorldInfo by WorldID
+	GameWorldInfo * getGameWorldInfo ( const WorldID_t WorldID ) const throw( NoSuchElementException );
 
-    GameWorldInfo * getGameWorldInfo(const WorldID_t WorldID) const throw(NoSuchElementException);
+	// get count of info
+	uint getSize () const throw () { return m_GameWorldInfos.size(); }
 
-    uint getSize() const throw() { return m_GameWorldInfos.size(); }
-
-    string toString() const throw();
+	// get debug string
+	string toString () const throw ();
 
 private :
-    // hash map of GameWorldInfo
-    // key   : WorldID_t
-    // value : GameWorldInfo *
-    HashMapGameWorldInfo m_GameWorldInfos;
+	
+	// hash map of GameWorldInfo
+	// key   : WorldID_t
+	// value : GameWorldInfo *
+	HashMapGameWorldInfo m_GameWorldInfos;
+
 };
 
+
+// global variable declaration
 extern GameWorldInfoManager * g_pGameWorldInfoManager;
 
 #endif

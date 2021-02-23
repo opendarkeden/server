@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include fies
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectDeleteItem.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectDeleteItem::EffectDeleteItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject , Turn_t delay)
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pObject,delay) 
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ EffectDeleteItem::EffectDeleteItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // destructor
 //----------------------------------------------------------------------
 EffectDeleteItem::~EffectDeleteItem () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ EffectDeleteItem::~EffectDeleteItem ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectDeleteItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void EffectDeleteItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectDeleteItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -79,22 +79,22 @@ void EffectDeleteItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , O
 	Assert(isValidZoneCoord(pZone, x, y));
 
 	//pZone->deleteFromItemList(pTarget->getObjectID());
-	//(pZone->getTile(x, y)).deleteItem();
-	//pZone->deleteItem(pTarget, x, y);
+	//(pZone->getTile( x, y)).deleteItem();
+	//pZone->deleteItem( pTarget, x, y );
 
 	Item* pItem = NULL;
 
 	Tile& tile = pZone->getTile(x,y);
 
-	if (tile.hasItem() )
+	if ( tile.hasItem() )
 	{
 		pItem = tile.getItem();
 
-		if (pItem != NULL )
+		if ( pItem != NULL )
 		{
-			if (pItem->getObjectID() == m_ObjectID )
+			if ( pItem->getObjectID() == m_ObjectID )
 			{
-				pZone->deleteItem(pItem, x, y);
+				pZone->deleteItem( pItem, x, y );
 
 				GCDeleteObject gcDO;
 				gcDO.setObjectID(pTarget->getObjectID());
@@ -112,7 +112,7 @@ void EffectDeleteItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , O
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDeleteItem::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -122,7 +122,7 @@ void EffectDeleteItem::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDeleteItem::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -132,7 +132,7 @@ void EffectDeleteItem::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectDeleteItem::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

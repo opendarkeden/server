@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include "Mutex.h"
 
 class PlayerCreature;
@@ -43,10 +43,10 @@ public:
 	void	 		setY(ZoneCoord_t y) 			{ m_Y = y; }
 
 	const string& 	getName() const 				{ return m_Name; }
-	void			setName(const string& name ) 	{ m_Name = name; }
+	void			setName( const string& name ) 	{ m_Name = name; }
 
 	ObjectID_t		getObjectID() const				{ return m_ObjectID; }
-	void			setObjectID(ObjectID_t objectID ) { m_ObjectID = objectID; }
+	void			setObjectID( ObjectID_t objectID ) { m_ObjectID = objectID; }
 
 	string toString() const throw();
 
@@ -72,7 +72,7 @@ public:
 	string toString() const throw();
 
 	ShrineID_t		getShrineID() const				{ return m_ShrineID; }
-	void			setShrineID(ShrineID_t sid )	{ m_ShrineID = sid; }
+	void			setShrineID( ShrineID_t sid )	{ m_ShrineID = sid; }
 
 	ShrineInfo& 	getSlayerGuardShrine()	{ return m_SlayerGuardShrine; }
 	ShrineInfo& 	getVampireGuardShrine() { return m_VampireGuardShrine; }
@@ -86,13 +86,13 @@ public:
 	void	setOustersGuardShrine() { m_OwnerRace = RACE_OUSTERS; }
 
 	ItemType_t		getBloodBibleItemType() const					{ return m_ItemType; }
-	void			setBloodBibleItemType(ItemType_t itemType ) 	{ m_ItemType = itemType; }
+	void			setBloodBibleItemType( ItemType_t itemType ) 	{ m_ItemType = itemType; }
 
 	Race_t			getOwnerRace() const		{ return m_OwnerRace; }
-	void			setOwnerRace(Race_t race ) throw(Error);
+	void			setOwnerRace( Race_t race ) throw(Error);
 
-	void			sendBloodBibleStatus(PlayerCreature* pPC ) throw(Error);
-	void			setBloodBibleStatus(GCBloodBibleStatus* pGCBBS ) throw(Error);
+	void			sendBloodBibleStatus( PlayerCreature* pPC ) throw(Error);
+	void			setBloodBibleStatus( GCBloodBibleStatus* pGCBBS ) throw(Error);
 	void 			broadcastBloodBibleStatus() throw(Error);
 
 	Item* 			createBloodBibleInGuardShrine() throw(Error);
@@ -117,7 +117,7 @@ private :
 class ShrineInfoManager
 {
 public:
-	typedef map<ShrineID_t, ShrineSet*>	HashMapShrineSet;
+	typedef hash_map<ShrineID_t, ShrineSet*>	HashMapShrineSet;
 	typedef HashMapShrineSet::iterator			HashMapShrineSetItor;
 	typedef HashMapShrineSet::const_iterator	HashMapShrineSetConstItor;
 
@@ -132,11 +132,11 @@ public:
 	void clear();
 
 	void addAllShrineToZone() throw(Error);
-	void addShrineToZone(ShrineInfo& shrineInfo, ItemType_t itemType = 0 ) throw(Error);
+	void addShrineToZone( ShrineInfo& shrineInfo, ItemType_t itemType = 0 ) throw(Error);
 
-	void addShrineSet(ShrineSet* pShrineSet ) throw(Error);
-	void deleteShrineSet(ShrineID_t shrineID ) throw(Error);
-	ShrineSet* getShrineSet(ShrineID_t shrineID ) const throw(Error);
+	void addShrineSet( ShrineSet* pShrineSet ) throw(Error);
+	void deleteShrineSet( ShrineID_t shrineID ) throw(Error);
+	ShrineSet* getShrineSet( ShrineID_t shrineID ) const throw(Error);
 	int  size() const { return m_ShrineSets.size(); }
 
 	string toString() const throw();
@@ -144,22 +144,22 @@ public:
 public:
 	bool isMatchGuardShrine(Item* pItem, MonsterCorpse* pMonsterCorpse, PlayerCreature* pPC) const throw(Error);
 	bool isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCorpse) const throw(Error);
-	bool isDefenderOfGuardShrine(PlayerCreature* pPC, MonsterCorpse* pShrine ) const throw(Error);
-	bool canPickupBloodBible(Race_t race, BloodBible* pBloodBible ) const throw(Error);
+	bool isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCorpse* pShrine ) const throw(Error);
+	bool canPickupBloodBible( Race_t race, BloodBible* pBloodBible ) const throw (Error);
 	bool getMatchGuardShrinePosition(Item* pItem, ZoneItemPosition& zip) const throw(Error);
 
-//	bool returnCastleBloodBible(ZoneID_t castleZoneID ) const throw(Error);
-	bool returnAllBloodBible() const throw(Error);
-	bool returnBloodBible(ShrineID_t shrineID, bool bLock = true ) const throw(Error);
-	bool returnBloodBible(Zone* pZone, BloodBible* pBloodBible ) const throw(Error);
+//	bool returnCastleBloodBible( ZoneID_t castleZoneID ) const throw (Error);
+	bool returnAllBloodBible() const throw (Error);
+	bool returnBloodBible( ShrineID_t shrineID, bool bLock = true ) const throw (Error);
+	bool returnBloodBible( Zone* pZone, BloodBible* pBloodBible ) const throw (Error);
 
-//	bool removeShrineShield(Zone* pZone ) throw(Error);
-	bool removeShrineShield(ShrineInfo* pShrineInfo ) throw(Error);
-	//bool addShrineShield(Zone* pZone ) throw(Error);
-	//bool addShrineShield_LOCKED(Zone* pZone ) throw(Error);
-	bool addShrineShield(ShrineInfo &shrineInfo ) throw(Error);
+//	bool removeShrineShield( Zone* pZone ) throw(Error);
+	bool removeShrineShield( ShrineInfo* pShrineInfo ) throw(Error);
+	//bool addShrineShield( Zone* pZone ) throw(Error);
+	//bool addShrineShield_LOCKED( Zone* pZone ) throw(Error);
+	bool addShrineShield( ShrineInfo &shrineInfo ) throw(Error);
 
-	bool putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const throw(Error);
+	bool putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const throw (Error);
 
 public :
 	void addAllShrineShield() throw(Error);
@@ -169,8 +169,8 @@ public :
 	bool saveBloodBibleOwner() throw(Error);
 
 	// 피의 성서 위치 정보를 등록한다.
-	void registerBloodBibleStatus(ItemType_t m_Part, GCBloodBibleStatus* pGCBBS ) throw(Error);
-	void sendBloodBibleStatus(PlayerCreature* pPC ) throw(Error);
+	void registerBloodBibleStatus( ItemType_t m_Part, GCBloodBibleStatus* pGCBBS ) throw(Error);
+	void sendBloodBibleStatus( PlayerCreature* pPC ) throw(Error);
 
 	void broadcastBloodBibleStatus() throw(Error);
 

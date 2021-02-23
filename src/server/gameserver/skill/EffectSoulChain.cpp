@@ -13,9 +13,9 @@
 #include "PCFinder.h"
 #include "ZoneUtil.h"
 #include "ZoneInfoManager.h"
-#include "GCRemoveEffect.h"
-#include "GCSkillFailed1.h"
-#include "GCSkillFailed2.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSkillFailed1.h"
+#include "Gpackets/GCSkillFailed2.h"
 #include "GDRLairManager.h"
 #include "Store.h"
 #include "GQuestManager.h"
@@ -55,20 +55,20 @@ void EffectSoulChain::unaffect(Creature* pCreature)
 	Assert(pCreature != NULL);
 
 	// 이펙트 플레그가 없다면 죽었다거나 하는 문제로 transport 하지 않겠다는걸 의미한다.
-	if (!pCreature->isFlag(Effect::EFFECT_CLASS_SOUL_CHAIN ) )
+	if ( !pCreature->isFlag( Effect::EFFECT_CLASS_SOUL_CHAIN ) )
 		return;
 
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
 	Player* pPlayer = pCreature->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	ZoneCoord_t x = pCreature->getX();
 	ZoneCoord_t y = pCreature->getY();
@@ -76,43 +76,43 @@ void EffectSoulChain::unaffect(Creature* pCreature)
 
 	// Effect 가 없어졌음을 알린다.
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SOUL_CHAIN);
-	pZone->broadcastPacket(x, y, &gcRemoveEffect);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_SOUL_CHAIN );
+	pZone->broadcastPacket( x, y, &gcRemoveEffect );
 
 	// Target 을 체크해서 전송이 가능하면 전송한다.
 	bool bValid = false;
 
-	if (pPC->hasRelicItem() || pPC->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) || pPC->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
+	if ( pPC->hasRelicItem() || pPC->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) || pPC->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
 	{
 	}
-	else if (pPC->isSlayer() && dynamic_cast<Slayer*>(pPC)->hasRideMotorcycle() )
+	else if ( pPC->isSlayer() && dynamic_cast<Slayer*>(pPC)->hasRideMotorcycle() )
 	{
 	}
-	else if (pPC->getStore()->isOpen() )
+	else if ( pPC->getStore()->isOpen() )
 	{
 	}
 	else
 	{
-		__ENTER_CRITICAL_SECTION((*g_pPCFinder) )
+		__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
-		Creature* pTargetCreature = g_pPCFinder->getCreature_LOCKED(m_TargetName);
-		if (pTargetCreature != NULL )
+		Creature* pTargetCreature = g_pPCFinder->getCreature_LOCKED( m_TargetName );
+		if ( pTargetCreature != NULL )
 		{
 			Zone* pTargetZone = pTargetCreature->getZone();
-			if (pTargetZone != NULL )
+			if ( pTargetZone != NULL )
 			{
 				// 마스터 레어로는 이동할 수 없다.
-				if (!pTargetZone->isMasterLair() && !GDRLairManager::Instance().isGDRLairZone(pTargetZone->getZoneID() ) )
+				if ( !pTargetZone->isMasterLair() && !GDRLairManager::Instance().isGDRLairZone( pTargetZone->getZoneID() ) )
 				{
 					// 유료 서비스 이용이 가능한가?
-					if (pGamePlayer->loginPayPlay(pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
+					if ( pGamePlayer->loginPayPlay( pGamePlayer->getSocket()->getHost(), pGamePlayer->getID() )
 						|| pGamePlayer->isFamilyFreePass()
-						|| !(g_pZoneInfoManager->getZoneInfo(pTargetZone->getZoneID() )->isPayPlay() ) )
+						|| !( g_pZoneInfoManager->getZoneInfo( pTargetZone->getZoneID() )->isPayPlay() ) )
 					{
 						// 야전사령부, 시외곽지역, 이벤트경기장, 이벤트OX 존으로는 갈 수 없다.
 						// 테메리에 성지로도 갈 수 없다.
-						if (pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
+						if ( pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
 							 pTargetZone->getZoneID() != 1005 && pTargetZone->getZoneID() != 1006 &&
 							 pTargetZone->getZoneID() != 1122 && pTargetZone->getZoneID() != 1131 &&
 							 pTargetZone->getZoneID() != 1132 && pTargetZone->getZoneID() != 1133 &&
@@ -121,27 +121,27 @@ void EffectSoulChain::unaffect(Creature* pCreature)
 						{
 							bValid = true;
 							pPC->getGQuestManager()->illegalWarp();
-							transportCreature(pCreature, pTargetZone->getZoneID(), pTargetCreature->getX(), pTargetCreature->getY(), false);
+							transportCreature( pCreature, pTargetZone->getZoneID(), pTargetCreature->getX(), pTargetCreature->getY(), false );
 						}
 					}
 				}
 			}
 		}
 
-		__LEAVE_CRITICAL_SECTION((*g_pPCFinder) )
+		__LEAVE_CRITICAL_SECTION( (*g_pPCFinder) )
 	}
 
-	if (!bValid )
+	if ( !bValid )
 	{
 		GCSkillFailed1 gcSkillFailed1;
-		gcSkillFailed1.setSkillType(SKILL_SOUL_CHAIN);
-		pPlayer->sendPacket(&gcSkillFailed1);
+		gcSkillFailed1.setSkillType( SKILL_SOUL_CHAIN );
+		pPlayer->sendPacket( &gcSkillFailed1 );
 
 		GCSkillFailed2 gcSkillFailed2;
 		gcSkillFailed2.setSkillType(SKILL_SOUL_CHAIN);
 		gcSkillFailed2.setObjectID(pCreature->getObjectID());
 
-		pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcSkillFailed2, pCreature);
+		pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcSkillFailed2, pCreature );
 	}
 
 	__END_CATCH
@@ -154,10 +154,10 @@ void EffectSoulChain::unaffect()
 {
 	__BEGIN_TRY
 
-	if (m_pZone != NULL )
+	if ( m_pZone != NULL )
 	{
-		Creature* pCreature = m_pZone->getCreature(m_OwnerOID);
-		if (pCreature != NULL )
+		Creature* pCreature = m_pZone->getCreature( m_OwnerOID );
+		if ( pCreature != NULL )
 			unaffect(pCreature);
 	}
 	

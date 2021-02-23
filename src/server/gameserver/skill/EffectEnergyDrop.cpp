@@ -23,9 +23,9 @@
 #include "SkillUtil.h"
 #include "EffectEnergyDropToCreature.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 EffectEnergyDrop::EffectEnergyDrop(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
 	throw(Error)
@@ -62,7 +62,7 @@ bool EffectEnergyDrop::affectCreature(Creature* pTargetCreature, bool bAffectByM
 
 	// 안전지대 체크
 	// 2003.1.10 by bezz, Sequoia
-	if (!checkZoneLevelToHitTarget(pTargetCreature) )
+	if ( !checkZoneLevelToHitTarget(pTargetCreature) )
 	{
 		return false;
 	}
@@ -95,7 +95,7 @@ bool EffectEnergyDrop::affectCreature(Creature* pTargetCreature, bool bAffectByM
         // 우선권 시스템을 위하여 이름과 파티 아이디를 넣는다.
 //		pEffectEnergyDropToCreature->setCasterName(m_CasterName);
 //		pEffectEnergyDropToCreature->setPartyID(m_PartyID);
-		pEffectEnergyDropToCreature->setUserObjectID(m_UserObjectID);
+		pEffectEnergyDropToCreature->setUserObjectID( m_UserObjectID );
 
 		pEffectEnergyDropToCreature->setLevel(m_Level);
 		pEffectEnergyDropToCreature->setPoint(DropDamage/3);

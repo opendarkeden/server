@@ -22,11 +22,11 @@
 #include "ModifyInfo.h"
 #include "CreatureUtil.h"
 //#include "RankExpTable.h"
-#include <map>
+#include <hash_map>
 
 #include "skill/VampireSkillSlot.h"
 
-#include "GCModifyInformation.h"
+#include "Gpackets/GCModifyInformation.h"
 
 #define VAMPIRE_MAX_LEVEL				150		//abcd
 #define VAMPIRE_MAX_RANK				50		// 계급 max
@@ -101,7 +101,7 @@ public:
 ////////////////////////////////////////////////////
 public:
 	Vampire() throw();
-	virtual ~Vampire() throw();
+	virtual ~Vampire() throw (Error);
 
 ////////////////////////////////////////////////////
 // 하위 클래스(Creature) 상속 함수
@@ -113,15 +113,15 @@ public:
 	virtual void registerObject() throw(Error);
 	virtual void registerInitObject() throw(Error);
 
-	virtual bool load() throw(InvalidProtocolException, Error);
-	void loadItem(bool checkTimeLimit = false ) throw(InvalidProtocolException, Error);
+	virtual bool load() throw (InvalidProtocolException, Error);
+	void loadItem( bool checkTimeLimit = false ) throw (InvalidProtocolException, Error);
 
-	virtual void save() const throw(Error);
-	virtual void tinysave(const string & field) const throw(Error);
-//	virtual void tinysave(const char* field) const throw(Error);
-	void saveSkills(void) const throw(Error);
-	void saveGears(void) const throw(Error);
-	void saveExps(void) const throw(Error);
+	virtual void save() const throw (Error);
+	virtual void tinysave(const string & field) const throw (Error);
+//	virtual void tinysave(const char* field) const throw (Error);
+	void saveSkills(void) const throw (Error);
+	void saveGears(void) const throw (Error);
+	void saveExps(void) const throw (Error);
 
 	virtual void act(const Timeval& currentTime) throw(Error) {}
 
@@ -135,8 +135,8 @@ public:
 // 시간제한 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	void checkItemTimeLimit() throw(Error);
-	void updateEventItemTime(DWORD time ) throw(Error);
+	void checkItemTimeLimit() throw (Error);
+	void updateEventItemTime( DWORD time ) throw(Error);
 
 ////////////////////////////////////////////////////
 // 상태 관련 함수(Dead or Alive!)
@@ -398,8 +398,8 @@ public:
 	WORD getAlignmentSaveCount(void) const { return m_AlignmentSaveCount; }
 	void setAlignmentSaveCount(WORD count) { m_AlignmentSaveCount = count; }
 
-	int		getMastery(uint domain ) const { return m_Mastery[domain]; }
-	void	setMastery(uint domain, int mastery ) { m_Mastery[domain] = mastery; }
+	int		getMastery( uint domain ) const { return m_Mastery[domain]; }
+	void	setMastery( uint domain, int mastery ) { m_Mastery[domain] = mastery; }
 
 //	void increaseVampExp(Exp_t Point);
 //	void increaseRankExp(RankExp_t Point);
@@ -479,7 +479,7 @@ private:
 
 	// SkillSlot
 	//VampireSkillSlot* m_pSkillSlot[MAX_VAMPIRE_SKILL_SLOT];
-	map<SkillType_t, VampireSkillSlot*> m_SkillSlot;
+	hash_map<SkillType_t, VampireSkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[VAMPIRE_WEAR_MAX];

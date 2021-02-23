@@ -9,8 +9,8 @@
 #include "Player.h"
 #include "Zone.h"
 #include "Vampire.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -27,12 +27,12 @@ EffectGrandMasterVampire::EffectGrandMasterVampire(Creature* pCreature)
 Effect::EffectClass EffectGrandMasterVampire::getSendEffectClass() const throw()
 {
 	Vampire* pVampire = dynamic_cast<Vampire*>(m_pTarget);
-	if (pVampire == NULL ) return getEffectClass();
+	if ( pVampire == NULL ) return getEffectClass();
 
 	Level_t level = pVampire->getLevel();
 
-	if (level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE_150;
-	else if (level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE_130;
+	if ( level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE_150;
+	else if ( level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE_130;
 	else return getEffectClass();
 }
 
@@ -44,7 +44,7 @@ void EffectGrandMasterVampire::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
@@ -89,6 +89,8 @@ void EffectGrandMasterVampire::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectGrandMasterVampire" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -102,6 +104,8 @@ void EffectGrandMasterVampire::unaffect(Creature* pCreature)
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	//cout << "EffectGrandMasterVampire" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

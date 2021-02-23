@@ -8,7 +8,7 @@ class GQuestGiveQuestItemElement : public GQuestElement
 public:
 	GQuestGiveQuestItemElement() : m_ItemType(0), m_bSave(false) { }
 	string 				getElementName() const { return "GiveQuestItem"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestGiveQuestItemElement*	makeElement(XMLTree* pTree);
 
 private:

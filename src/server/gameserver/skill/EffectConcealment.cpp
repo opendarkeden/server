@@ -9,7 +9,7 @@
 #include "Vampire.h"
 #include "Monster.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ void EffectConcealment::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 	Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pCreature);
-	Assert(pTargetSlayer != NULL);
+	Assert( pTargetSlayer != NULL );
 
 	SLAYER_RECORD prev;
 

@@ -2,12 +2,12 @@
 #include "GQuestStatus.h"
 #include "PlayerCreature.h"
 
-GQuestElement::ResultType GQuestCompleteQuestElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestCompleteQuestElement::checkCondition( PlayerCreature* pPC ) const
 {
-	GQuestStatus* pStatus = pPC->getGQuestManager()->getGQuestStatus(m_QuestID);
-	if (pStatus == NULL ) return FAIL;
+	GQuestStatus* pStatus = pPC->getGQuestManager()->getGQuestStatus( m_QuestID );
+	if ( pStatus == NULL ) return FAIL;
 
-	if (pStatus->getStatus() == QuestStatusInfo::COMPLETE ) return OK;
+	if ( pStatus->getStatus() == QuestStatusInfo::COMPLETE ) return OK;
 	return FAIL;
 }
 

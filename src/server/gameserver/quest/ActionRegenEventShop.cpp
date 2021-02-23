@@ -12,7 +12,7 @@
 #include "ShopTemplate.h"
 #include "OptionInfo.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "ItemFactoryManager.h"
 
 #include <stdlib.h>
@@ -51,7 +51,7 @@ ActionRegenEventShop::~ActionRegenEventShop()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegenEventShop::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void ActionRegenEventShop::read (PropertyBuffer & propertyBuffer)
 // NOTE : ShopTemplate은 이 액션이 실행되기 전에 모두 로드되어 있어야 한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegenEventShop::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -179,8 +179,8 @@ void ActionRegenEventShop::execute (Creature * pCreature1 , Creature * pCreature
 		for (BYTE rackIndex=0; rackIndex<SHOP_RACK_INDEX_MAX; rackIndex++)
 		{
 			Item* pShopItem = pNPC->getShopItem(rackType, rackIndex);
-			//if (pShopItem != NULL)
-				//log(LOG_SHOP_DESTROY_ITEM, pNPC->getName(), "", pShopItem->toString());
+			if (pShopItem != NULL)
+				log(LOG_SHOP_DESTROY_ITEM, pNPC->getName(), "", pShopItem->toString());
 		}
 	}
 
@@ -233,7 +233,7 @@ void ActionRegenEventShop::execute (Creature * pCreature1 , Creature * pCreature
 		// 종류가 6가지라면, 3개까지 집어넣을 수 있다.
 		// 이 시도 횟수를 trialMax 변수에다 집어넣는다.
 		if (combi[i] == 0) trialMax = 0;
-		else trialMax = (int)(SHOP_RACK_INDEX_MAX/combi[i]);
+		else trialMax = (int)(floor(SHOP_RACK_INDEX_MAX/combi[i]));
 
 		// 만일 샵 타입이 노멀이라면, 같은 아이템을 여러 개
 		// 생성하는 것은 의미가 없으므로, 한번만 아이템을 생성한다.
@@ -308,7 +308,7 @@ void ActionRegenEventShop::execute (Creature * pCreature1 , Creature * pCreature
 					Item::ItemClass IClass = Item::ItemClass(itemClass);
 					list<OptionType_t> optionTypes;
 					if (optionType!=0)
-						optionTypes.push_back(optionType);
+						optionTypes.push_back( optionType );
 					Item* pItem = g_pItemFactoryManager->createItem(IClass, itemType, optionTypes);
 					Assert(pItem != NULL);
 
@@ -337,7 +337,7 @@ void ActionRegenEventShop::execute (Creature * pCreature1 , Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRegenEventShop::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -350,8 +350,8 @@ string ActionRegenEventShop::toString () const
 		msg << "Item" << i++ << ":" 
 			<< (int)(*itr) << ",";
 	msg << ")";
-
+	
 	return msg.toString();
-
+	
 	__END_CATCH
 }

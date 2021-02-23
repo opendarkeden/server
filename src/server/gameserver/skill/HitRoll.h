@@ -47,7 +47,7 @@ public:
 	static bool isSuccessMagic(Monster* pMonster, SkillInfo* pSkillInfo);
 
 	// 뱀파이어 및 몬스터용 흡혈 명중굴림 함수
-	static bool isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int multiplier = 3);
+	static bool isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int multiplier=3);
 
 	// 저주 계열 마법 명중굴림 함수
 	static bool isSuccessCurse(int MagicLevel, Resist_t resist);
@@ -78,17 +78,17 @@ public:
 	static bool isSuccessWillOfLife(Vampire* pVampire);
 
 	// 크리티컬 히트 롤을 수행한다.
-	static bool isCriticalHit(Creature* pCreature, int CriticalBonus = 0);
+	static bool isCriticalHit(Creature* pCreature, int CriticalBonus=0);
 
 	// 슬레이어 셀프 스킬인가를 체크하는 함수
-	static bool isSlayerSelfSkill(SkillType_t skillType);
-	static bool isOustersSelfSkill(SkillType_t skillType);
+	static bool isSlayerSelfSkill( SkillType_t skillType );
+	static bool isOustersSelfSkill( SkillType_t skillType );
 
 	// 할루 성공률
-	static bool isSuccessHallucination(Vampire* pAttacker, Creature* pTarget);
+	static bool isSuccessHallucination( Vampire* pAttacker, Creature* pTarget );
 
 	// 백스탭 성공률
-	static bool isSuccessBackStab(Ousters* pAttacker);
+	static bool isSuccessBackStab( Ousters* pAttacker );
 };
 
 #endif

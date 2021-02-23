@@ -54,7 +54,7 @@ public :
 	WarType_t 			getWarType() const 			{ return WAR_RACE; }
 
 	ZoneIDList& 		getCastleIDs() 				{ return m_CastleIDs; }
-	void 				addCastleID(ZoneID_t zid) 	{ m_CastleIDs.addValue(zid); }
+	void 				addCastleID(ZoneID_t zid) 	{ m_CastleIDs.addValue( zid ); }
 
 	void	operator = (const RaceWarInfo& RWI)
 	{

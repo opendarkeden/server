@@ -18,17 +18,17 @@
 #define __USE_ENCRYPTER__
 
 #ifdef __METRO_SERVER__
-	#define EncryptCode(a, b ) (unsigned char ) ((((a ) >> 8 ) ^ (a ) ) ^ (((b ) + 1 ) << 4 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( a ) >> 8 ) ^ ( a ) ) ^ ( ( ( b ) + 1 ) << 4 ) )
 #elif defined(__NETMARBLE_SERVER__)
-	#define EncryptCode(a, b ) (unsigned char ) ((((a ) >> 8 ) ^ (a ) ) ^ (((b ) + 1 ) << 4 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( a ) >> 8 ) ^ ( a ) ) ^ ( ( ( b ) + 1 ) << 4 ) )
 #elif defined(__TEST_SERVER__)
-	#define EncryptCode(a, b ) (unsigned char ) ((((a ) >> 8 ) ^ (a ) ) ^ (((b ) + 1 ) << 4 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( a ) >> 8 ) ^ ( a ) ) ^ ( ( ( b ) + 1 ) << 4 ) )
 #elif defined(__INTERNATIONAL_SERVER__)
-	#define EncryptCode(a, b ) (unsigned char ) ((((a ) >> 8 ) ^ (a ) ) ^ (((b ) + 1 ) * 51 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( a ) >> 8 ) ^ ( a ) ) ^ ( ( ( b ) + 1 ) * 51 ) )
 #elif defined(__CHINA_SERVER__)
-	#define EncryptCode(a, b ) (unsigned char ) (((((b ) + 1 ) << 4 ) | (a ) ) ^ ((a ) >> 8 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( ( b ) + 1 ) << 4 ) | ( a ) ) ^ ( ( a ) >> 8 ) )
 #elif defined(__THAILAND_SERVER__)
-	#define EncryptCode(a, b ) (unsigned char ) (((((b ) + 3 ) << 3 ) ^ (a ) ) | ((a ) >> 8 ) )
+	#define EncryptCode( a, b ) ( unsigned char ) ( ( ( ( ( b ) + 3 ) << 3 ) ^ ( a ) ) | ( ( a ) >> 8 ) )
 #endif
 
 class Encrypter

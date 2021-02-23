@@ -18,17 +18,17 @@
 //#include "RankExpTable.h"
 //#include "ItemNameInfo.h"
 //#include "quest/Squest/QuestManager.h"
-#include "GCMonsterKillQuestInfo.h"
+#include "Gpackets/GCMonsterKillQuestInfo.h"
 #include "OptionInfo.h"
 
-#include <map>
+#include <hash_map>
 #include <bitset>
-#include <list>
+#include <slist>
 #include <vector>
 
-static const GuildID_t SlayerCommon	= 99;
-static const GuildID_t VampireCommon = 0;
-static const GuildID_t OustersCommon = 66;
+static const GuildID_t SlayerCommon	=99;
+static const GuildID_t VampireCommon=0;
+static const GuildID_t OustersCommon=66;
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ class Store;
 //class GCMonsterKillQuestInfo;
 //struct GCMonsterKillQuestInfo::QuestInfo;
 
-typedef map<DWORD, RankBonus*> HashMapRankBonus;
+typedef hash_map<DWORD, RankBonus*> HashMapRankBonus;
 typedef HashMapRankBonus::iterator HashMapRankBonusItor;
 typedef HashMapRankBonus::const_iterator HashMapRankBonusConstItor;
 
@@ -69,9 +69,9 @@ public:
 	PlayerCreature(ObjectID_t objectID = 0, Player* pPlayer = NULL) throw();
 	virtual ~PlayerCreature() throw();
 
-	virtual bool load() throw(InvalidProtocolException, Error);
-	virtual void tinysave(const string & field) const throw(Error) = 0;
-//	virtual void tinysave(const char* field) const throw(Error) = 0;
+	virtual bool load() throw (InvalidProtocolException, Error);
+	virtual void tinysave(const string & field) const throw (Error) = 0;
+//	virtual void tinysave(const char* field) const throw (Error) = 0;
 
 ////////////////////////////////////////////////////////////
 // OID 등록 관련 메쏘드
@@ -90,14 +90,14 @@ public:
 // 시간제한 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	bool wasteIfTimeLimitExpired(Item* pItem) throw(Error);
-	virtual void checkItemTimeLimit() throw(Error) = 0;
+	bool wasteIfTimeLimitExpired(Item* pItem) throw (Error);
+	virtual void checkItemTimeLimit() throw (Error) = 0;
 	void sendTimeLimitItemInfo() throw(Error);
 	void addTimeLimitItem(Item* pItem, DWORD time) throw(Error);
-	void sellItem(Item* pItem ) throw(Error);
-	void deleteItemByMorph(Item* pItem ) throw(Error);
-	void updateItemTimeLimit(Item* pItem, DWORD time ) throw(Error);
-	virtual void updateEventItemTime(DWORD time ) throw(Error) = 0;
+	void sellItem( Item* pItem ) throw(Error);
+	void deleteItemByMorph( Item* pItem ) throw(Error);
+	void updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error);
+	virtual void updateEventItemTime( DWORD time ) throw(Error) = 0;
 	void loadTimeLimitItem() throw(Error);
 
 //////////////////////////////////////////////////////////////
@@ -129,9 +129,9 @@ public:
 	virtual void addItemToExtraInventorySlot(Item* pItem) throw(Error) { m_pExtraInventorySlot->addItem(pItem); }
 
 	// 2003.04.04. by Sequoia
-	virtual void loadItem() throw(InvalidProtocolException, Error);
+	virtual void loadItem() throw (InvalidProtocolException, Error);
 
-	virtual GoodsInventory* getGoodsInventory() { loadGoods(); return m_pGoodsInventory; }
+	virtual GoodsInventory* getGoodsInventory() const throw() { return m_pGoodsInventory; }
 
 ////////////////////////////////////////////////////////////
 // 보관함 관련 메쏘드
@@ -206,7 +206,7 @@ public:
 	virtual void   increaseGoldEx(Gold_t gold) throw() = 0;
     virtual void   decreaseGoldEx(Gold_t gold) throw() = 0;
 	virtual bool checkGoldIntegrity() = 0;
-	bool checkDBGold(Gold_t gold )
+	bool checkDBGold( Gold_t gold )
 	{
 		Gold_t temp = getGold();
 		setGold(gold);
@@ -245,7 +245,7 @@ public:
 
 	void setPK(bool isPK) throw() { m_isPK = isPK; }
 
-	void setGuildID(GuildID_t GuildID ) throw() { m_GuildID = GuildID; }
+	void setGuildID( GuildID_t GuildID ) throw() { m_GuildID = GuildID; }
 	GuildID_t getGuildID() const throw() { return m_GuildID; }
 
 	string getGuildName() const throw();
@@ -268,18 +268,18 @@ public:
 // Rank Bonus 관련
 ////////////////////////////////////////////////////////////
 	void loadRankBonus() throw();
-	bool hasRankBonus(RankBonus::RankBonusType type ) throw() { return m_RankBonusFlag.test(type); }
-	RankBonus* getRankBonus(RankBonus::RankBonusType type ) const throw();
-	RankBonus* getRankBonusByRank(Rank_t rank ) const throw();
-	bool learnRankBonus(DWORD type ) throw();
+	bool hasRankBonus( RankBonus::RankBonusType type ) throw() { return m_RankBonusFlag.test(type); }
+	RankBonus* getRankBonus( RankBonus::RankBonusType type ) const throw();
+	RankBonus* getRankBonusByRank( Rank_t rank ) const throw();
+	bool learnRankBonus( DWORD type ) throw();
 	void clearRankBonus() throw();
-	void clearRankBonus(Rank_t rank ) throw();
+	void clearRankBonus( Rank_t rank ) throw();
 	HashMapRankBonus& getRankBonuses() { return m_RankBonuses; }
 
 	void sendRankBonusInfo() throw();
 
 protected:
-	void addRankBonus(RankBonus* rankBonus ) throw();
+	void addRankBonus( RankBonus* rankBonus ) throw();
 
 public :
 	// by sigi. 2002.11.19
@@ -289,16 +289,16 @@ public :
 
 public:
 	Item*	getQuestItem() const { return m_pQuestItem; }
-	void	setQuestItem(Item* pItem ) { m_pQuestItem = pItem; }
+	void	setQuestItem( Item* pItem ) { m_pQuestItem = pItem; }
 
 public :
 	// by sigi. 2002.12.3
-/*	void	loadQuest() throw(Error);
+/*	void	loadQuest() throw (Error);
 	bool 	hasQuest() const 	{ return m_pQuestManager!=NULL && !m_pQuestManager->isEmpty(); }
-	bool 	addQuest(Quest* pQuest) throw(Error);
-	bool 	checkEvent(QuestEvent* pQuest) throw(Error);
-	Quest* 	removeCompleteQuest() throw(Error);
-	void 	removeAllQuest() throw(Error)	{ if (m_pQuestManager!=NULL) m_pQuestManager->release(); }*/
+	bool 	addQuest(Quest* pQuest) throw (Error);
+	bool 	checkEvent(QuestEvent* pQuest) throw (Error);
+	Quest* 	removeCompleteQuest() throw (Error);
+	void 	removeAllQuest() throw (Error)	{ if (m_pQuestManager!=NULL) m_pQuestManager->release(); }*/
 
 	virtual void initAllStatAndSend() = 0;
 	virtual void initAllStat(int numPartyMember) throw() = 0;
@@ -307,11 +307,11 @@ public :
 	virtual void computeItemStat(Item* pItem) throw() = 0;
 	virtual void computeOptionStat(Item* pItem) throw() = 0;
 	virtual void computeOptionStat(OptionType_t optionType) throw() = 0;
-	virtual void computeOptionClassStat(OptionClass OClass, int PlusPoint ) = 0;
+	virtual void computeOptionClassStat( OptionClass OClass, int PlusPoint ) = 0;
 
 	void heartbeat(const Timeval& currentTime) throw();
 
-	virtual bool canSee(Object* pObject ) const;
+	virtual bool canSee( Object* pObject ) const;
 
 ////////////////////////////////////////////////////////////
 // 멤버 데이터
@@ -367,32 +367,32 @@ public:
 	/////////////////////////////////////////////////////////
 public:
 	int					getConsumeMPRatio() const { return m_ConsumeMPRatio; }
-	void				setConsumeMPRatio(int ratio ) { m_ConsumeMPRatio = ratio; }
+	void				setConsumeMPRatio( int ratio ) { m_ConsumeMPRatio = ratio; }
 
 	int					getGamblePriceRatio() const { return m_GamblePriceRatio; }
-	void				setGamblePriceRatio(int ratio ) { m_GamblePriceRatio = ratio; }
+	void				setGamblePriceRatio( int ratio ) { m_GamblePriceRatio = ratio; }
 
 	int					getPotionPriceRatio() const { return m_PotionPriceRatio; }
-	void				setPotionPriceRatio(int ratio ) { m_PotionPriceRatio = ratio; }
+	void				setPotionPriceRatio( int ratio ) { m_PotionPriceRatio = ratio; }
 
 	Damage_t			getMagicBonusDamage() const { return m_MagicBonusDamage; }
-	void				setMagicBonusDamage(Damage_t damage ) { m_MagicBonusDamage = damage; }
+	void				setMagicBonusDamage( Damage_t damage ) { m_MagicBonusDamage = damage; }
 
 	Damage_t			getPhysicBonusDamage() const { return m_PhysicBonusDamage; }
-	void				setPhysicBonusDamage(Damage_t damage ) { m_PhysicBonusDamage = damage; }
+	void				setPhysicBonusDamage( Damage_t damage ) { m_PhysicBonusDamage = damage; }
 
 	Damage_t			getMagicDamageReduce() const { return m_MagicDamageReduce; }
-	void				setMagicDamageReduce(Damage_t damage ) { m_MagicDamageReduce = damage; }
+	void				setMagicDamageReduce( Damage_t damage ) { m_MagicDamageReduce = damage; }
 
 	Damage_t			getPhysicDamageReduce() const { return m_PhysicDamageReduce; }
-	void				setPhysicDamageReduce(Damage_t damage ) { m_PhysicDamageReduce = damage; }
+	void				setPhysicDamageReduce( Damage_t damage ) { m_PhysicDamageReduce = damage; }
 
 /*	bool				isEmptyItemNameInfoList() { return m_ItemNameInfoList.empty(); }
 	void				clearItemNameInfoList() { m_ItemNameInfoList.clear(); }
 	const list<ItemNameInfo*>& getItemNameInfoList() const { return m_ItemNameInfoList; }
-	void				addItemNameInfoList(ItemNameInfo* itemNameInfo ) { m_ItemNameInfoList.push_back(itemNameInfo); }
-	bool				deleteItemNameInfoList(ObjectID_t objectID ) throw(Error);
-	string				getItemName(ObjectID_t objectID ) throw(Error);*/
+	void				addItemNameInfoList( ItemNameInfo* itemNameInfo ) { m_ItemNameInfoList.push_back(itemNameInfo); }
+	bool				deleteItemNameInfoList( ObjectID_t objectID ) throw(Error);
+	string				getItemName( ObjectID_t objectID ) throw(Error);*/
 
 protected:
 	int						m_ConsumeMPRatio;
@@ -410,13 +410,13 @@ protected:
 
 public:
 	DWORD				getLottoRewardID() const { return m_LottoRewardID; }
-	void				setLottoRewardID(DWORD lottoRewardID ) { m_LottoRewardID = lottoRewardID; }
+	void				setLottoRewardID( DWORD lottoRewardID ) { m_LottoRewardID = lottoRewardID; }
 
 	DWORD				getLottoQuestLevel() const { return m_LottoQuestLevel; }
-	void 				setLottoQuestLevel(DWORD lottoQuestLevel ) { m_LottoQuestLevel = lottoQuestLevel; }
+	void 				setLottoQuestLevel( DWORD lottoQuestLevel ) { m_LottoQuestLevel = lottoQuestLevel; }
 
 	bool				isLotto() const { return m_bLotto; }
-	void				setLotto(bool lotto ) { m_bLotto = lotto; }
+	void				setLotto( bool lotto ) { m_bLotto = lotto; }
 
 protected:
 	DWORD				m_LottoRewardID;
@@ -427,31 +427,11 @@ protected:
 	// Default Option Set Info
 	//////////////////////////////////////////////
 public:
-	void	addDefaultOptionSet(DefaultOptionSetType_t type ) throw();
-	void	removeDefaultOptionSet(DefaultOptionSetType_t type ) throw();
-
-	void	addDefaultOptionType(OptionType_t type);
-	void	removeDefaultOptionType(OptionType_t type);
-	void	clearDefaultOptionTypes();
+	void	addDefaultOptionSet( DefaultOptionSetType_t type ) throw();
+	void	removeDefaultOptionSet( DefaultOptionSetType_t type ) throw();
 
 protected:
-	list<DefaultOptionSetType_t>		m_DefaultOptionSet;
-	list<OptionType_t>					m_DefaultOptions;
-
-	//////////////////////////////////////////////
-	// Effect Option
-	//////////////////////////////////////////////
-public:
-	void addEffectOption(ObjectID_t oid, OptionType_t type);
-	void removeEffectOption(ObjectID_t oid);
-	void clearEffectOption();
-
-protected:
-	typedef map<ObjectID_t, OptionType_t>		HashMapObjectOption;
-	typedef HashMapObjectOption::iterator			HashMapObjectOptionItor;
-	typedef HashMapObjectOption::const_iterator		HashMapObjectOptionConstItor;
-
-	HashMapObjectOption m_EffectOptions;
+	slist<DefaultOptionSetType_t>		m_DefaultOptionSet;
 
 public:
 	PetInfo*	getPetInfo() const;
@@ -521,7 +501,7 @@ protected:
 public:
     // get / set PowerPoint
     int getPowerPoint() const { return m_PowerPoint; }
-    void setPowerPoint(int powerpoint ) { m_PowerPoint = powerpoint; }
+    void setPowerPoint( int powerpoint ) { m_PowerPoint = powerpoint; }
 
 protected:
     // 파워짱 포인트
@@ -557,6 +537,7 @@ protected:
 public:
 	BYTE				getMasterEffectColor() const { return m_MasterEffectColor; }
 	void				setMasterEffectColor(BYTE color) { m_MasterEffectColor = color; }
+	// add by sonic 2006.10.29
 	bool				canChangeMasterEffectColor();
 
 protected:

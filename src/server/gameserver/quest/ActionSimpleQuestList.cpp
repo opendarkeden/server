@@ -11,13 +11,13 @@
 #include "ScriptManager.h"
 //#include "Quest.h"
 #include "NPC.h"
-#include "GCNPCAskDynamic.h"
+#include "Gpackets/GCNPCAskDynamic.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestList::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionSimpleQuestList::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestList::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionSimpleQuestList::execute (Creature * pCreature1 , Creature * pCreatur
 	// m_ScriptID와 관련된 정보를 PublicScriptManager에 생성
 	Script* pScript = g_pPublicScriptManager->getScript(m_ScriptID);
 
-	pNPC->setSimpleQuestListScript(pScript);
+	pNPC->setSimpleQuestListScript( pScript );
 
 	// 패킷 보냄
 	GCNPCAskDynamic gcNPCAskDynamic;
@@ -81,7 +81,7 @@ void ActionSimpleQuestList::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSimpleQuestList::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

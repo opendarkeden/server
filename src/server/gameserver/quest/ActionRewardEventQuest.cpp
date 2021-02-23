@@ -15,15 +15,15 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCNPCAsk.h"
-#include "GCNPCResponse.h"
-#include "GCCreateItem.h"
+#include "Gpackets/GCNPCAsk.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRewardEventQuest::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -51,7 +51,7 @@ void ActionRewardEventQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRewardEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -61,53 +61,53 @@ void ActionRewardEventQuest::execute (Creature * pCreature1 , Creature * pCreatu
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	if (pPC->getQuestItem() != NULL )
+	if ( pPC->getQuestItem() != NULL )
 	{
 		TPOINT pt;
 
 		Item* pItem = pPC->getQuestItem();
-		if (pItem == NULL || !pPC->getInventory()->getEmptySlot(pItem, pt ) )
+		if ( pItem == NULL || !pPC->getInventory()->getEmptySlot( pItem, pt ) )
 		{
 			GCNPCResponse gcNPCResponse;
-			gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-			gcNPCResponse.setParameter(COMPLETE_FAIL_NO_INVENTORY_SPACE);
-			pPC->getPlayer()->sendPacket(&gcNPCResponse);
+			gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+			gcNPCResponse.setParameter( COMPLETE_FAIL_NO_INVENTORY_SPACE );
+			pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 			return;
 		}
 
-		if (pPC->getInventory()->addItem(pItem, pt ) )
+		if ( pPC->getInventory()->addItem( pItem, pt ) )
 		{
-			pPC->setQuestItem(NULL);
-			pPC->getZone()->registerObject(pItem);
+			pPC->setQuestItem( NULL );
+			pPC->getZone()->registerObject( pItem );
 
-			pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
-			if (pItem->isUnique() || pItem->isTimeLimitItem() )
+			pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y );
+			if ( pItem->isUnique() || pItem->isTimeLimitItem() )
 			{
-				pPC->addTimeLimitItem(pItem, 604800);
+				pPC->addTimeLimitItem( pItem, 604800 );
 				pPC->sendTimeLimitItemInfo();
 			}
 
 			GCCreateItem gcCreateItem;
-			makeGCCreateItem(&gcCreateItem, pItem, pt.x, pt.y);
-			pPC->getPlayer()->sendPacket(&gcCreateItem);
+			makeGCCreateItem( &gcCreateItem, pItem, pt.x, pt.y );
+			pPC->getPlayer()->sendPacket( &gcCreateItem );
 			
 			GCNPCResponse gcNPCResponse;
-			gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-			gcNPCResponse.setParameter(COMPLETE_SUCCESS);
-			pPC->getPlayer()->sendPacket(&gcNPCResponse);
+			gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+			gcNPCResponse.setParameter( COMPLETE_SUCCESS );
+			pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
-			remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+			remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 			return;
 		}
 		else
 		{
 			GCNPCResponse gcNPCResponse;
-			gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-			gcNPCResponse.setParameter(COMPLETE_FAIL_NO_INVENTORY_SPACE);
-			pPC->getPlayer()->sendPacket(&gcNPCResponse);
+			gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+			gcNPCResponse.setParameter( COMPLETE_FAIL_NO_INVENTORY_SPACE );
+			pPC->getPlayer()->sendPacket( &gcNPCResponse );
 			return;
 		}
 
@@ -117,14 +117,14 @@ void ActionRewardEventQuest::execute (Creature * pCreature1 , Creature * pCreatu
 	ScriptID_t sID = m_ScriptID[ questLevel ];
 	QuestID_t qID;
 
-	if (!pPC->getQuestManager()->successEventQuest(questLevel, qID ) ) sID = m_CounterScriptID;
-	if (pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus(questLevel) == EventQuestAdvance::EVENT_QUEST_INIT &&
+	if ( !pPC->getQuestManager()->successEventQuest( questLevel, qID ) ) sID = m_CounterScriptID;
+	if ( pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus(questLevel) == EventQuestAdvance::EVENT_QUEST_INIT &&
 			questLevel > 1 ) sID = m_CancelScriptID;
 
 	GCNPCAsk gcNPCAsk;
 	gcNPCAsk.setObjectID(pCreature1->getObjectID());
 	gcNPCAsk.setScriptID(sID);
-	gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+	gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNPCAsk);
@@ -137,7 +137,7 @@ void ActionRewardEventQuest::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRewardEventQuest::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

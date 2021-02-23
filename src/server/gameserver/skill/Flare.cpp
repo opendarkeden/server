@@ -6,13 +6,13 @@
 
 #include "Flare.h"
 #include "EffectFlare.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ void Flare::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkil
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
-		bool bHitRoll    = HitRoll::isSuccessFlare(pTargetCreature, SkillLevel) && canAttack(pSlayer, pTargetCreature);
+		bool bHitRoll    = HitRoll::isSuccessFlare(pTargetCreature, SkillLevel) && canAttack( pSlayer, pTargetCreature );
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_FLARE);
 
 		//if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected)

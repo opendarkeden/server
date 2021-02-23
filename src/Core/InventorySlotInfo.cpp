@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
-void InventorySlotInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void InventorySlotInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -18,8 +18,8 @@ void InventorySlotInfo::read (SocketInputStream & iStream )
 	PCItemInfo::read(iStream);
 
 	// 이 클래스에 해당하는 데이터를 읽어들인다.
-	iStream.read(m_InvenX);
-	iStream.read(m_InvenY);
+	iStream.read( m_InvenX );
+	iStream.read( m_InvenY );
 
 	__END_CATCH
 }
@@ -27,8 +27,8 @@ void InventorySlotInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
-void InventorySlotInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void InventorySlotInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -36,8 +36,8 @@ void InventorySlotInfo::write (SocketOutputStream & oStream ) const
 	PCItemInfo::write(oStream);
 
 	// 이 클래스에 해당하는 데이터를 쓴다.
-	oStream.write(m_InvenX);
-	oStream.write(m_InvenY);
+	oStream.write( m_InvenX );
+	oStream.write( m_InvenY );
 
 	__END_CATCH
 }
@@ -46,7 +46,7 @@ void InventorySlotInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string InventorySlotInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

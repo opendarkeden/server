@@ -77,7 +77,7 @@ VariableManager::VariableManager()
 	m_Variables[RANK_EXP_GAIN_PERCENT] 	= 100;	// 100이면 원래 그대로
 	m_Variables[ITEM_LUCK_PERCENT] 		= 100;	// 200이면 두배(200%)라는 의미다.
 
-	// 대박 이벤트 용 (code name : lotto event )
+	// 대박 이벤트 용 ( code name : lotto event )
 	// 2003. 1. 12 by bezz. Sequoia. dew
 	m_Variables[LOTTO_ITEM_RATIO]		= 0;
 	m_Variables[LOTTO_ITEM_BONUS_NUM]	= 0;
@@ -212,14 +212,13 @@ VariableManager::VariableManager()
 	m_Variables[EVENT_MUGWORT_RICE_CAKE_SOUP_RATIO] = 80000;
 
 	m_Variables[TIME_PERIOD_EXP_2X] = 0;
-	m_Variables[COUNT_KILL_MONSTER] = 0;
-	m_Variables[DONATION_EVENT_200505] = 0;
-	m_Variables[FAMILY_COIN_EVENT] = 0;
-	m_Variables[FAMILY_COIN_RATIO] = 200;
-	m_Variables[BALLOON_HEADBAND_EVENT] = 0;
-	m_Variables[BALLOON_HEADBAND_RATIO] = 0;
-	m_Variables[FULL_PARTY_EXP_EVENT] = 0;			// 142
 
+#if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
+	
+	m_fRemoveAllGame = false;
+	m_fEggDummyDB    = false;
+
+#endif
 	__END_CATCH
 }
 
@@ -252,27 +251,27 @@ void VariableManager::init()
 	load();
 
 	// 특별히 다른 초기값을 설정하는 경우
-	setVariable(AUTO_START_RACE_WAR, g_pConfig->getPropertyInt("ActiveRaceWar"));
-	setVariable(GUILD_WAR_ACTIVE, g_pConfig->getPropertyInt("ActiveGuildWar"));
-	setVariable(ACTIVE_FLAG_WAR, g_pConfig->getPropertyInt("ActiveFlagWar"));
-	setVariable(ACTIVE_LEVEL_WAR, g_pConfig->getPropertyInt("ActiveLevelWar"));
-	setVariable(HEAD_COUNT, g_pConfig->getPropertyInt("HeadCount"));
-	setVariable(KILL_DAEMONCTL, 0);
+	setVariable( AUTO_START_RACE_WAR, g_pConfig->getPropertyInt("ActiveRaceWar") );
+	setVariable( GUILD_WAR_ACTIVE, g_pConfig->getPropertyInt("ActiveGuildWar") );
+	setVariable( ACTIVE_FLAG_WAR, g_pConfig->getPropertyInt("ActiveFlagWar") );
+	setVariable( ACTIVE_LEVEL_WAR, g_pConfig->getPropertyInt("ActiveLevelWar") );
+	setVariable( HEAD_COUNT, g_pConfig->getPropertyInt("HeadCount") );
+	setVariable( KILL_DAEMONCTL, 0 );
 
-	if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_HOLY_LAND_WAR ) )
-		setVariable(WAR_ACTIVE, 0);
+	if ( !SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_HOLY_LAND_WAR ) )
+		setVariable( WAR_ACTIVE, 0 );
 
-	if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_GUILD_WAR ) )
-		setVariable(GUILD_WAR_ACTIVE, 0);
+	if ( !SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GUILD_WAR ) )
+		setVariable( GUILD_WAR_ACTIVE, 0 );
 
-	if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_RACE_WAR ) )
-		setVariable(AUTO_START_RACE_WAR, 0);
+	if ( !SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_RACE_WAR ) )
+		setVariable( AUTO_START_RACE_WAR, 0 );
 
-	if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_FLAG_WAR ) )
-		setVariable(ACTIVE_FLAG_WAR, 0);
+	if ( !SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_FLAG_WAR ) )
+		setVariable( ACTIVE_FLAG_WAR, 0 );
 
-	if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_MASTER_LAIR ) )
-		setVariable(ACTIVE_MASTER_LAIR, 0);
+	if ( !SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_MASTER_LAIR ) )
+		setVariable( ACTIVE_MASTER_LAIR, 0 );
 
 	__END_CATCH
 }
@@ -282,7 +281,7 @@ void VariableManager::load()
 	throw(Error)
 {
 	__BEGIN_TRY
-    cout << "[VariableManager] Loading..." << endl;
+
 	Statement* pStmt = NULL;
 	Result*    pResult = NULL;
 	
@@ -300,7 +299,7 @@ void VariableManager::load()
 		pResult->next();
 		int maxAttr = pResult->getInt(1);
 		m_Variables.clear();
-		m_Variables.resize(max((maxAttr+1), (int)VARIABLE_MAX));
+		m_Variables.resize( max((maxAttr+1), (int)VARIABLE_MAX) );
 
 		pResult = pStmt->executeQuery("SELECT attrID, attr1, attr2 FROM AttrInfo");
 
@@ -318,12 +317,12 @@ void VariableManager::load()
 
 
 			setVariable(attrID, attr1);
-			//cout << toString(attrID).c_str() << endl;
+			cout << toString(attrID).c_str() << endl;
 		}
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt);
-    cout << "[VariableManager] Loaded." << endl;
+
 	__END_CATCH
 }
 
@@ -334,7 +333,7 @@ VariableManager::getVariableType(const string& variableName) const
 	strcpy(str, variableName.c_str());
 	strlwr(str);
 
-	VARIABLE_NAME::const_iterator itr = m_VariableNames.find(str);
+	VARIABLE_NAME::const_iterator itr = m_VariableNames.find( str );
 
 	if (itr==m_VariableNames.end())
 	{
@@ -376,9 +375,9 @@ VariableManager::setVariable(VariableType vt, int value)
 	try {
 
 		// RACE_WAR_TIMEBAND 범위 체크
-		if (vt == RACE_WAR_TIMEBAND )
+		if ( vt == RACE_WAR_TIMEBAND )
 		{
-			if (value < 0 || value > 3 )
+			if ( value < 0 || value > 3 )
 				return;
 		}
 
@@ -616,13 +615,13 @@ VariableManager::toString(VariableType vt) const
 
 		case RACE_WAR_TIMEBAND:
 			msg << "종족 전쟁시 Timeband : ";
-			if (attr1 == 0 )
+			if ( attr1 == 0 )
 				msg << "새벽";
-			else if (attr1 == 1 )
+			else if ( attr1 == 1 )
 				msg << "낮";
-			else if (attr1 == 2 )
+			else if ( attr1 == 2 )
 				msg << "저녁";
-			else if (attr1 == 3 )
+			else if ( attr1 == 3 )
 				msg << "밤";
 			else
 				msg << "알 수 없음";
@@ -695,7 +694,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case EVENT_MOON_CARD:
-			if (attr1 )
+			if ( attr1 )
 				msg << "달카드 이벤트가 진행중입니다.";
 			else
 				msg << "달카드 이벤트를 중단했습니다.";
@@ -742,7 +741,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case EVENT_LUCKY_BAG:
-			if (attr1 )
+			if ( attr1 )
 				msg << "복주머니 이벤트가 진행중입니다.";
 			else
 				msg << "복주머니 이벤트가 진행중이지 않습니다.";
@@ -765,7 +764,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case EVENT_GIFT_BOX:
-			if (attr1 )
+			if ( attr1 )
 				msg << "선물상자 교환 이벤트가 진행중입니다.";
 			else
 				msg << "선물상자 교환 이벤트가 진행중이지 않습니다.";
@@ -820,7 +819,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case TODAY_IS_HOLYDAY:
-			if (attr1 ) msg << "오늘은 국경일 입니다.";
+			if ( attr1 ) msg << "오늘은 국경일 입니다.";
 			else msg << "오늘은 국경일이 아닙니다.";
 			break;
 
@@ -941,36 +940,10 @@ VariableManager::toString(VariableType vt) const
 			msg << "시간대별 경험치 2배 이벤트 : " << ((attr1)?"on":"off");
 			break;
 
-		case COUNT_KILL_MONSTER:
-			msg << "죽인 몬스터 숫자 세기 : " << ((attr1)?"on":"off");
-			break;
-
-		case DONATION_EVENT_200505:
-			msg << "결혼 축의금 이벤트 : " << ((attr1)?"on":"off");
-			break;
-
-		case FAMILY_COIN_EVENT:
-			msg << "패밀리 코인 이벤트 : " << ((attr1)?"on":"off");
-			break;
-
-		case FAMILY_COIN_RATIO:
-			msg << "패밀리 코인 아이템 확률 : 1 / " << attr1;
-			break;
-
-		case BALLOON_HEADBAND_EVENT:
-			msg << "풍선 머리띠 이벤트 : " << ((attr1)?"on":"off");
-			break;
-
-		case BALLOON_HEADBAND_RATIO:
-			msg << "풍선 머리띠 아이템 확률 : 1 / " << attr1;
-			break;
-
-		case FULL_PARTY_EXP_EVENT:
-			msg << "풀 파티 경험치 이벤트 : " << ((attr1)?"on":"off");
-			break;
-
 		default:
-			msg << VariableType2String[vt] << ": " << attr1;
+                       if(vt<VARIABLE_MAX) //add by viva
+                        msg << VariableType2String[vt] << ": " << attr1;
+//			msg << VariableType2String[vt] << ": " << attr1;
 			break;
 	}
 

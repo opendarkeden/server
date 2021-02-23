@@ -12,10 +12,8 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -50,9 +48,9 @@ void EffectAcidSwamp::affect()
 
 	// 이펙트 사용자를 가져온다.
 	// 존에 없을 수 있으므로 NULL 이 될 수 있다.
-	Creature * pCastCreature = m_pZone->getCreature(m_UserObjectID);
+	Creature * pCastCreature = m_pZone->getCreature( m_UserObjectID );
 
-	if (pCastCreature == NULL && !isForce() )
+	if ( pCastCreature == NULL && !isForce() )
 	{
 		setNextTime(m_Tick);
 
@@ -63,8 +61,8 @@ void EffectAcidSwamp::affect()
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -79,7 +77,7 @@ void EffectAcidSwamp::affect()
 
 			// 무적상태 체크. by sigi. 2002.9.5
 			// 산 면역. by sigi. 2002.9.13
-			if (!canAttack(pCastCreature, pCreature )
+			if ( !canAttack( pCastCreature, pCreature )
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_ACID)
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA) 
 			)
@@ -89,7 +87,7 @@ void EffectAcidSwamp::affect()
 
 			// 2003.1.10 by Sequoia
 			// 안전지대 체크
-			if(!checkZoneLevelToHitTarget(pCreature ) ) continue;
+			if( !checkZoneLevelToHitTarget( pCreature ) ) continue;
 
 			int AcidDamage = computeMagicDamage(pCreature, m_Damage, SKILL_ACID_SWAMP, m_bVampire, pCastCreature);
 
@@ -102,7 +100,7 @@ void EffectAcidSwamp::affect()
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-					::setDamage(pSlayer, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false);
+					::setDamage( pSlayer, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false );
 
 					Player* pPlayer = pSlayer->getPlayer();
 					Assert(pPlayer != NULL);
@@ -112,7 +110,7 @@ void EffectAcidSwamp::affect()
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-					::setDamage(pVampire, AcidDamage/2, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false);
+					::setDamage( pVampire, AcidDamage/2, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false );
 
 					Player* pPlayer = pVampire->getPlayer();
 					Assert(pPlayer != NULL);
@@ -122,7 +120,7 @@ void EffectAcidSwamp::affect()
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
-					::setDamage(pOusters, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false);
+					::setDamage( pOusters, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, &gcDefenderMI, &gcAttackerMI, false );
 
 					Player* pPlayer = pOusters->getPlayer();
 					Assert(pPlayer != NULL);
@@ -132,19 +130,19 @@ void EffectAcidSwamp::affect()
 				{
 					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 				
-					::setDamage(pMonster, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, NULL, &gcAttackerMI, false);
+					::setDamage( pMonster, AcidDamage, pCastCreature, SKILL_ACID_SWAMP, NULL, &gcAttackerMI, false );
 				}
 
 				bool modifiedAttacker = false;
 
 				// 죽었으면 경험치준다. 음.....
-				if (pCastCreature != NULL )
+				if ( pCastCreature != NULL )
 				{
 					if (pCreature->isDead() && pCastCreature->isVampire())
 					{
 						int exp = computeCreatureExp(pCreature, KILL_EXP);
-						Vampire* pCastVampire = dynamic_cast<Vampire*>(pCastCreature);
-						Assert(pCastVampire != NULL);
+						Vampire* pCastVampire = dynamic_cast<Vampire*>( pCastCreature );
+						Assert( pCastVampire != NULL );
 
 						shareVampExp(pCastVampire, exp, gcAttackerMI);
 						modifiedAttacker = true;
@@ -152,18 +150,18 @@ void EffectAcidSwamp::affect()
 				}
 
 				// 성향 계산하기
-				if (pCastCreature != NULL
+				if ( pCastCreature != NULL
 					&& pCastCreature->isPC()
 					&& pCreature->isPC()
-					&& (pCreature->getObjectID() == m_TargetObjectID[0]
+					&& ( pCreature->getObjectID() == m_TargetObjectID[0]
 						|| pCreature->getObjectID() == m_TargetObjectID[1] )
 				)
 				{
-					computeAlignmentChange(pCreature, AcidDamage, pCastCreature, &gcDefenderMI, &gcAttackerMI);
+					computeAlignmentChange( pCreature, AcidDamage, pCastCreature, &gcDefenderMI, &gcAttackerMI );
 					modifiedAttacker = true;
 				}
 
-				if (modifiedAttacker) pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
+				if (modifiedAttacker) pCastCreature->getPlayer()->sendPacket( &gcAttackerMI );
 			}
 		}
 	}
@@ -258,36 +256,36 @@ void EffectAcidSwampLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_ACID_SWAMP);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_ACID_SWAMP);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-			for (int X = left ; X <= right ; X++ )
-			for (int Y = top ; Y <= bottom ; Y++ )
+			for ( int X = left ; X <= right ; X++ )
+			for ( int Y = top ; Y <= bottom ; Y++ )
 			{
-				if (rect.ptInRect(X, Y) )
+				if ( rect.ptInRect(X, Y) )
 				{
 					Tile& tile = pZone->getTile(X,Y);
-					if (tile.canAddEffect() ) 
+					if ( tile.canAddEffect() ) 
 					{
 						EffectAcidSwamp* pEffect = new EffectAcidSwamp(pZone, X, Y);
 						pEffect->setForce(true);
-						pEffect->setTick(value2);
-						pEffect->setDamage(value3);
+						pEffect->setTick( value2 );
+						pEffect->setDamage( value3 );
 						pEffect->setNextTime(0);
-						pEffect->setLevel(100);
+						pEffect->setLevel( 100 );
 
 						// 존 및 타일에다가 이펙트를 추가한다.
 						pZone->registerObject(pEffect);

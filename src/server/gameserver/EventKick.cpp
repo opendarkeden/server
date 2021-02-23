@@ -8,7 +8,7 @@
 #include "GamePlayer.h"
 #include "StringPool.h"
 	
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -46,21 +46,21 @@ void EventKick::sendMessage()
 	Turn_t       RemainTime = max(0, (int)(m_Deadline.tv_sec-currentTime.tv_sec));
 
     char msg[50];
-    sprintf(msg, g_pStringPool->c_str(STRID_DISCONNECT_COUNT_DOWN ),
-                    (int)RemainTime);
+    sprintf( msg, g_pStringPool->c_str( STRID_DISCONNECT_COUNT_DOWN ),
+                    (int)RemainTime );
 
-    string sMsg(msg);
+    string sMsg( msg );
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(sMsg);
-	pCreature->getPlayer()->sendPacket(&gcSystemMessage);
+	pCreature->getPlayer()->sendPacket( &gcSystemMessage );
 
 	__END_CATCH
 }
 
 
 void EventKick::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -76,7 +76,7 @@ void EventKick::activate ()
 }
 
 string EventKick::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventKick("

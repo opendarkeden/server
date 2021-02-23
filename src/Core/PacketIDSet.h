@@ -14,8 +14,8 @@
 #include "PlayerStatus.h"
 
 #if __LINUX__
-	#include <set>
-	typedef set<PacketID_t> PACKET_ID_SET;
+	#include <hash_set>
+	typedef hash_set<PacketID_t> PACKET_ID_SET;
 #elif __WINDOWS__
 	#include <set>
 	typedef set<PacketID_t> PACKET_ID_SET;
@@ -43,25 +43,25 @@ public :
 public :
 
 	// constructor
-	PacketIDSet (PlayerStatus playerStatus, PacketIDSetType packetIDSetType = PIST_NORMAL) throw();
+	PacketIDSet (PlayerStatus playerStatus, PacketIDSetType packetIDSetType = PIST_NORMAL) throw ();
 
 	// destructor
-	~PacketIDSet () throw();
+	~PacketIDSet () throw ();
 
 	// add packet id to set
-	void addPacketID (PacketID_t packetID) throw(DuplicatedException);
+	void addPacketID (PacketID_t packetID) throw (DuplicatedException);
 
 	// delete packet id from set
-	void deletePacketID (PacketID_t packetID) throw(NoSuchElementException);
+	void deletePacketID (PacketID_t packetID) throw (NoSuchElementException);
 
 	// has packet id?
-	bool hasPacketID (PacketID_t packetID) const throw(NoSuchElementException, IgnorePacketException);
+	bool hasPacketID (PacketID_t packetID) const throw (NoSuchElementException, IgnorePacketException);
 
 	// get player status 
-	PlayerStatus getPlayerStatus () const throw() { return m_PlayerStatus; }
+	PlayerStatus getPlayerStatus () const throw () { return m_PlayerStatus; }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 private :
 

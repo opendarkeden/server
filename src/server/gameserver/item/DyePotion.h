@@ -29,8 +29,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -69,13 +69,12 @@ class DyePotionInfo : public ItemInfo
 public:
 	enum ITEM_FUNCTION
 	{
-		FUNCTION_HAIR = 0,					// 머리색을 바꾼다.
-		FUNCTION_SKIN = 1,					// 피부색을 바꾼다.
-		FUNCTION_SEX = 2,					// 성별을 바꾼다.
-		FUNCTION_BAT = 3,					// 박쥐 색을 바꾼다.
-		FUNCTION_REGEN = 4,					// 회복~
-		FUNCTION_MASTER_EFFECT = 5,			// 마스터 이펙트 색을 바꾼다.
-		FUNCTION_ADVANCEMENT_EFFECT = 6,	// 승직 캐릭터 이펙트 색을 바꾼다.
+		FUNCTION_HAIR = 0,				// 머리색을 바꾼다.
+		FUNCTION_SKIN = 1,				// 피부색을 바꾼다.
+		FUNCTION_SEX = 2,				// 성별을 바꾼다.
+		FUNCTION_BAT = 3,				// 박쥐 색을 바꾼다.
+		FUNCTION_REGEN = 4,				// 회복~
+		FUNCTION_MASTER_EFFECT = 5,		// 마스터 이펙트 색을 바꾼다.
 	};
 
 public:

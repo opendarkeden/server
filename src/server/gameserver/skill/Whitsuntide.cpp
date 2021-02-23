@@ -7,15 +7,15 @@
 #include "EffectWhitsuntide.h"
 #include "Properties.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -80,7 +80,7 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		if (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 )
+		if ( g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 )
 		{
 			executeSkillFailException(pSlayer, getSkillType());
 			return;
@@ -149,25 +149,25 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 				if(tile.hasCreature(Creature::MOVE_MODE_WALKING))
 					pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
-				if(pTargetCreature != NULL && pTargetCreature->isSlayer() && pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA ))
+				if(pTargetCreature != NULL && pTargetCreature->isSlayer() && pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA ))
 				{
-					EffectComa* pEffectComa = dynamic_cast<EffectComa*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_COMA ));
-					if (pEffectComa != NULL && pEffectComa->canResurrect() )
+					EffectComa* pEffectComa = dynamic_cast<EffectComa*>(pTargetCreature->findEffect( Effect::EFFECT_CLASS_COMA ));
+					if ( pEffectComa != NULL && pEffectComa->canResurrect() )
 					{
 						Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-						pTargetSlayer->removeFlag(Effect::EFFECT_CLASS_COMA);
-						pTargetSlayer->deleteEffect(Effect::EFFECT_CLASS_COMA);
+						pTargetSlayer->removeFlag( Effect::EFFECT_CLASS_COMA );
+						pTargetSlayer->deleteEffect( Effect::EFFECT_CLASS_COMA );
 
 						GCRemoveEffect gcRemoveEffect;
-						gcRemoveEffect.setObjectID(pTargetSlayer->getObjectID());
-						gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_COMA);
-						pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect);
+						gcRemoveEffect.setObjectID( pTargetSlayer->getObjectID() );
+						gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_COMA );
+						pZone->broadcastPacket( pTargetSlayer->getX(), pTargetSlayer->getY(), &gcRemoveEffect );
 
-						EffectWhitsuntide* pEffect = new EffectWhitsuntide(pTargetSlayer);
-						pEffect->setDeadline(output.Duration);
-						pEffect->setBonus(output.Range);
-						pTargetSlayer->setFlag(Effect::EFFECT_CLASS_WHITSUNTIDE);
-						pTargetSlayer->addEffect(pEffect);
+						EffectWhitsuntide* pEffect = new EffectWhitsuntide( pTargetSlayer );
+						pEffect->setDeadline( output.Duration );
+						pEffect->setBonus( output.Range );
+						pTargetSlayer->setFlag( Effect::EFFECT_CLASS_WHITSUNTIDE );
+						pTargetSlayer->addEffect( pEffect );
 
 						// 이펙트를 붙였으니, 능력치를 재계산한다.
 						SLAYER_RECORD prev;
@@ -208,16 +208,16 @@ void Whitsuntide::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 						gcStatusCurrentHP.setCurrentHP(pTargetSlayer->getHP(ATTR_CURRENT));
 						pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &gcStatusCurrentHP);
 
-						_GCSkillToTileOK2.addCListElement(pTargetSlayer->getObjectID());
+						_GCSkillToTileOK2.addCListElement( pTargetSlayer->getObjectID() );
 						_GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
 						_GCSkillToTileOK2.setSkillType(SkillType);
 						_GCSkillToTileOK2.setX(X);
 						_GCSkillToTileOK2.setY(Y);
-						pTargetSlayer->getPlayer()->sendPacket(&_GCSkillToTileOK2);
+						pTargetSlayer->getPlayer()->sendPacket( &_GCSkillToTileOK2 );
 
-						_GCSkillToTileOK1.addCListElement(pTargetSlayer->getObjectID());
-						_GCSkillToTileOK4.addCListElement(pTargetSlayer->getObjectID());
-						_GCSkillToTileOK5.addCListElement(pTargetSlayer->getObjectID());
+						_GCSkillToTileOK1.addCListElement( pTargetSlayer->getObjectID() );
+						_GCSkillToTileOK4.addCListElement( pTargetSlayer->getObjectID() );
+						_GCSkillToTileOK5.addCListElement( pTargetSlayer->getObjectID() );
 					}
 				}
 			}

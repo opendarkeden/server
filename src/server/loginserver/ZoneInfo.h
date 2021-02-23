@@ -28,15 +28,15 @@ class ZoneInfo {
 public :
 
 	// get/set zone id
-	ZoneID_t getZoneID () const throw() { return m_ZoneID; }
-	void setZoneID (ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
+	ZoneID_t getZoneID () const throw () { return m_ZoneID; }
+	void setZoneID ( ZoneID_t zoneID ) throw () { m_ZoneID = zoneID; }
 
 	// get/set zone group id
-	ZoneGroupID_t getZoneGroupID () const throw() { return m_ZoneGroupID; }
-	void setZoneGroupID (ZoneGroupID_t zoneGroupID ) throw() { m_ZoneGroupID = zoneGroupID; }
+	ZoneGroupID_t getZoneGroupID () const throw () { return m_ZoneGroupID; }
+	void setZoneGroupID ( ZoneGroupID_t zoneGroupID ) throw () { m_ZoneGroupID = zoneGroupID; }
 
 	// get debug string
-	string toString () const throw()
+	string toString () const throw ()
 	{
 		StringStream msg;
 		msg << "ZoneInfo(ZoneID:" << m_ZoneID << ",ZoneGroupID:" << m_ZoneGroupID << ")";

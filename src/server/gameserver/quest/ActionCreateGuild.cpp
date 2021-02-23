@@ -8,7 +8,7 @@
 #include "ActionCreateGuild.h"
 #include "Creature.h"
 #include "GamePlayer.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include "SystemAvailabilitiesManager.h"
 
@@ -16,7 +16,7 @@
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCreateGuild::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -30,7 +30,7 @@ void ActionCreateGuild::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCreateGuild::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void ActionCreateGuild::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionCreateGuild::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

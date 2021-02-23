@@ -5,14 +5,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #include "OpenCasket.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCAddEffect.h"
 #include "HitRoll.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -54,14 +54,14 @@ void OpenCasket::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
 			EffectManager* pEffectManager = pVampire->getEffectManager();
 			Assert(pEffectManager!=NULL);
 
-			Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_CASKET);
+			Effect* pEffect = pEffectManager->findEffect( Effect::EFFECT_CLASS_CASKET );
 
 			if (pEffect!=NULL)
 			{
 				pEffect->setDeadline(0);
 //				pEffect->unaffect();
-//				pEffectManager->deleteEffect(Effect::EFFECT_CLASS_CASKET);
-//				pVampire->removeFlag(Effect::EFFECT_CLASS_CASKET);
+//				pEffectManager->deleteEffect( Effect::EFFECT_CLASS_CASKET );
+//				pVampire->removeFlag( Effect::EFFECT_CLASS_CASKET );
 			}
 
 			// 패킷을 만들어 보낸다.

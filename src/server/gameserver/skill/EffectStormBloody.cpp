@@ -13,9 +13,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -65,9 +65,9 @@ void EffectStormBloody::affect(Creature* pCreature)
 	// 사용자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.3.13
-	Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 	// 캐스터가 없으면 무시한다.
-	if (pCastCreature == NULL )
+	if ( pCastCreature == NULL )
 		return;
 
 	// EffectStormBloody은 AcidStorm, PoisonStorm, BloodyStorm위를 지나갈때 붙는다.
@@ -78,7 +78,7 @@ void EffectStormBloody::affect(Creature* pCreature)
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(pCastCreature, pCreature )
+		&& canAttack( pCastCreature, pCreature )
 		)
 	{
 		if (pCreature->isSlayer())
@@ -86,7 +86,7 @@ void EffectStormBloody::affect(Creature* pCreature)
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pSlayer, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI);
+			setDamage( pSlayer, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI );
 
 			pSlayer->getPlayer()->sendPacket(&gcMI);
 		}
@@ -95,7 +95,7 @@ void EffectStormBloody::affect(Creature* pCreature)
 			Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pVampire, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI);
+			setDamage( pVampire, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI );
 
 			pVampire->getPlayer()->sendPacket(&gcMI);
 		}
@@ -104,7 +104,7 @@ void EffectStormBloody::affect(Creature* pCreature)
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pOusters, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI);
+			setDamage( pOusters, StormDamage, pCastCreature, SKILL_BLOODY_STORM, &gcMI, &GCAttackerMI );
 
 			pOusters->getPlayer()->sendPacket(&gcMI);
 		}
@@ -112,15 +112,15 @@ void EffectStormBloody::affect(Creature* pCreature)
 		{
 			Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-			setDamage(pMonster, StormDamage, pCastCreature, SKILL_BLOODY_STORM, NULL, &GCAttackerMI);
+			setDamage( pMonster, StormDamage, pCastCreature, SKILL_BLOODY_STORM, NULL, &GCAttackerMI );
 		}
 
-		if (pCastCreature->isVampire() && pCreature->isDead() )
+		if ( pCastCreature->isVampire() && pCreature->isDead() )
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pCastCreature);
 			int exp = computeCreatureExp(pCreature, KILL_EXP);
 			shareVampExp(pVampire, exp, GCAttackerMI);
-			pVampire->getPlayer()->sendPacket(&GCAttackerMI);
+			pVampire->getPlayer()->sendPacket( &GCAttackerMI );
 		}
 
 		// m_CasterName이 pCreature를 죽인 경우의 KillCount 처리
@@ -129,7 +129,7 @@ void EffectStormBloody::affect(Creature* pCreature)
 		// by bezz. 2002.12.31
 /*		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+			Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 			if (pAttacker!=NULL)
 			{ 

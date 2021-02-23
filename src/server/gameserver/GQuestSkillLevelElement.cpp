@@ -2,9 +2,9 @@
 #include "PlayerCreature.h"
 #include "skill/SkillSlot.h"
 
-bool GQuestSkillLevelMission::isSuccess(SkillSlot* pSkillSlot )
+bool GQuestSkillLevelMission::isSuccess( SkillSlot* pSkillSlot )
 {
-	if (pSkillSlot->getExpLevel() >= m_Goal )
+	if ( pSkillSlot->getExpLevel() >= m_Goal )
 		m_bSuccess = true;
 	else
 		m_bSuccess = false;
@@ -15,9 +15,9 @@ bool GQuestSkillLevelMission::isSuccess(SkillSlot* pSkillSlot )
 GQuestElement::ResultType GQuestSkillLevelElement::checkMission(GQuestMission* pStatus) const
 {
 	GQuestSkillLevelMission* pSkillLevelMission = dynamic_cast<GQuestSkillLevelMission*>(pStatus);
-	if (pSkillLevelMission == NULL ) return FAIL;
+	if ( pSkillLevelMission == NULL ) return FAIL;
 
-	if (pSkillLevelMission->isSuccess() ) return OK;
+	if ( pSkillLevelMission->isSuccess() ) return OK;
 	return WAIT;
 }
 

@@ -2,13 +2,13 @@
 #include "PlayerCreature.h"
 #include "Slayer.h"
 #include "skill/SkillUtil.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
-GQuestElement::ResultType GQuestGiveAdvancementClassExpElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveAdvancementClassExpElement::checkCondition( PlayerCreature* pPC ) const
 {
-	pPC->increaseAdvancementClassExp(m_Amount);
+	pPC->increaseAdvancementClassExp( m_Amount );
 
 	return OK;
 }

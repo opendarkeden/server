@@ -1,11 +1,11 @@
 #include "GQuestRideMotorcycleElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestRideMotorcycleElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestRideMotorcycleMission* pRideMotorcycleMission = dynamic_cast<GQuestRideMotorcycleMission*>(pMission);
-	if (pRideMotorcycleMission == NULL ) return FAIL;
-	if (pRideMotorcycleMission->isRide() ) return OK;
+	if ( pRideMotorcycleMission == NULL ) return FAIL;
+	if ( pRideMotorcycleMission->isRide() ) return OK;
 
 	return WAIT;
 }

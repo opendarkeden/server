@@ -9,7 +9,7 @@
 #include "SimpleTileMissileSkill.h"
 #include "EffectSwordOfThor.h"
 #include "ZoneUtil.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
 #include <list>
 
 void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
@@ -29,7 +29,7 @@ void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
 		return;
 	}
 
-	execute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
+	execute( pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID );
 
 	__END_CATCH
 }
@@ -61,8 +61,8 @@ void SwordOfThor::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 	param.bAdd          = false;
 	param.bExpForTotalDamage = false;
 
-	for (int i=-2; i<=2; ++i )
-	for (int j=-2; j<=2; ++j )
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
 	{
 		param.addMask(i, j, 100);
 	}
@@ -70,50 +70,50 @@ void SwordOfThor::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 	SIMPLE_SKILL_OUTPUT result;
 
 	// 목표위치+4방향
-/*	param.addMask(0 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
+/*	param.addMask( 0 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
-	param.addMask(0 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
+	param.addMask( 0 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
-	param.addMask(0 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);*/
+	param.addMask( 0 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);*/
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
-	if (result.bSuccess )
+	if ( result.bSuccess )
 	{
-		for (int i=-2; i<=2; ++i )
-		for (int j=-2; j<=2; ++j )
+		for ( int i=-2; i<=2; ++i )
+		for ( int j=-2; j<=2; ++j )
 		{
 			ZoneCoord_t tx = X+i;
 			ZoneCoord_t ty = Y+j;
 
-			if (!isValidZoneCoord(pZone, tx, ty) ) continue;
+			if ( !isValidZoneCoord(pZone, tx, ty) ) continue;
 			Tile& rTile = pZone->getTile(tx, ty);
-			if (!rTile.canAddEffect() ) continue;
+			if ( !rTile.canAddEffect() ) continue;
 
 			EffectSwordOfThor* pEffect = new EffectSwordOfThor(pZone, tx, ty);
-			pEffect->setLevel(input.SkillLevel);
-			pEffect->setDeadline(output.Duration);
-			pZone->registerObject(pEffect);
+			pEffect->setLevel( input.SkillLevel );
+			pEffect->setDeadline( output.Duration );
+			pZone->registerObject( pEffect );
 
-			if (i != 0 || j != 0 ) pEffect->setBroadcastingEffect(false);
+			if ( i != 0 || j != 0 ) pEffect->setBroadcastingEffect(false);
 			else
 			{
 				GCAddEffectToTile gcAE;
-				gcAE.setEffectID(pEffect->getSendEffectClass());
-				gcAE.setXY(tx, ty);
-				gcAE.setObjectID(pEffect->getObjectID());
-				gcAE.setDuration(output.Duration);
-				pZone->broadcastPacket(tx, ty, &gcAE);
+				gcAE.setEffectID( pEffect->getSendEffectClass() );
+				gcAE.setXY( tx, ty );
+				gcAE.setObjectID( pEffect->getObjectID() );
+				gcAE.setDuration( output.Duration );
+				pZone->broadcastPacket( tx, ty, &gcAE );
 
 //				cout << tx << ", " << ty << " Effect broadcast" << endl;
 			}
 
-			pZone->addEffect(pEffect);
-			rTile.addEffect(pEffect);
+			pZone->addEffect( pEffect );
+			rTile.addEffect( pEffect );
 //			cout << tx << ", " << ty << " add Effect" << endl;
 		}
 	}

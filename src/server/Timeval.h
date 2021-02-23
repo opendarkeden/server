@@ -25,22 +25,21 @@ extern Timeval gCurrentTime;
 	#define getCurrentTime(t) gettimeofday((&t),NULL)
 #endif
 
-bool operator > (const Timeval & left , const Timeval & right);
-bool operator >= (const Timeval & left , const Timeval & right);
-bool operator == (const Timeval & left , const Timeval & right);
-bool operator <= (const Timeval & left , const Timeval & right);
-bool operator < (const Timeval & left , const Timeval & right);
+bool operator > ( const Timeval & left , const Timeval & right );
+bool operator >= ( const Timeval & left , const Timeval & right );
+bool operator == ( const Timeval & left , const Timeval & right );
+bool operator <= ( const Timeval & left , const Timeval & right );
+bool operator < ( const Timeval & left , const Timeval & right );
 
 // timediff의 결과값끼리 더할 경우에 사용한다.
 // (사실 현재 시간끼리 더한다는 것은 우스운 짓이다. - -; )
-Timeval operator + (const Timeval & left , const Timeval & right);
+Timeval operator + ( const Timeval & left , const Timeval & right );
 
 //
 // 두 Timeval 간의 시간차를 구한다. 
 //
-Timeval timediff (const Timeval & left , const Timeval & right);
+Timeval timediff ( const Timeval & left , const Timeval & right );
 
-void getCurrentYearTime (unsigned long int & currentYearTime);
-void getCurrentYearTime (unsigned int & currentYearTime);
+void getCurrentYearTime ( unsigned long int & currentYearTime );
 
 #endif

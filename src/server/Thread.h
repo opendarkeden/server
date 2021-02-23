@@ -19,7 +19,7 @@
 // delete dt;
 //
 // virtual destructor 가 정의된 이유는, 다음과 같은 상황에서 제대로
-// 동작하게 하기 위해서이다. (만일 정의하지 않으면 하위 클래스의
+// 동작하게 하기 위해서이다. ( 만일 정의하지 않으면 하위 클래스의
 // destructor 는 호출되지 않는다. )
 //
 // Thread * t = new DerivedThread (...);
@@ -81,10 +81,10 @@ public :
 public :
 
 	// constructor
-	Thread (ThreadAttr * attr = NULL ) throw();
+	Thread ( ThreadAttr * attr = NULL ) throw ();
 
 	// destructor
-	virtual ~Thread() {};
+	virtual ~Thread () throw ();
 
 
 //////////////////////////////////////////////////
@@ -96,11 +96,11 @@ public :
 	// 쓰레드가 최초로 동작하도록 해주는 trigger 의 역할을 하는 함수. 쓰레드 
 	// 객체를 생성한 후에, 이 함수를 호출하면 내부적으로 derived 클래스의 
 	// run() 멤버함수를 호출하게 된다. 
-	void start () throw(ThreadException , Error);
+	void start () throw ( ThreadException , Error );
 	
 	// 동작중인 쓰레드를 중단시킨다.
 	// 내부에 뮤텍스를 사용하는 하위 쓰레드 클래스에서만 가능하다.
-	virtual void stop () throw(Error);
+	virtual void stop () throw ( Error );
 
 	// 쓰레드가 종료할 때까지 기다린다. 역시 쓰레드간에 사용된다. 보통은 
 	// 쓰레드를 새로 생성시켜 특정 작업을 시킨 후 그 처리가 완료될 때까지
@@ -112,14 +112,14 @@ public :
 	// 또다른 특정 쓰레드를 기다리게 할 수는 없다.
 	//
 	// ex> Thread t;
-	//     Thread::Join (t);
-	static void join (const Thread & t ) throw(ThreadException , Error);
-	static void join (const Thread * t ) throw(ThreadException , Error);
-	static void join (const Thread & t , void * retval ) throw(ThreadException , Error);
-	static void join (const Thread * t , void * retval ) throw(ThreadException , Error);
+	//     Thread::Join ( t );
+	static void join ( const Thread & t ) throw ( ThreadException , Error );
+	static void join ( const Thread * t ) throw ( ThreadException , Error );
+	static void join ( const Thread & t , void * retval ) throw ( ThreadException , Error );
+	static void join ( const Thread * t , void * retval ) throw ( ThreadException , Error );
 
 	// 쓰레드를 Detached 모드로 바꾼다.
-	void detach () throw(Error);
+	void detach () throw ( Error );
 
 	// 현재 쓰레드들 종료한다. 즉 특정 쓰레드를 종료시킨다는 말이 아니라,
 	// 이 메쏘드를 수행하는 쓰레드를 종료시킨다는 말이다. 이때, 특정
@@ -129,11 +129,11 @@ public :
 	// ex> Thread::Exit();
 	//     or
 	//     Thread::Exit(retval);
-	static void exit (void * retval = NULL ) throw();
+	static void exit ( void * retval = NULL ) throw ();
 
 	// 쓰레드에서 독립적으로 실행되는 코드가 들어가는 부분이다. Thread 
 	// 클래스를 상속받은 하위 클래스는 항상 이 함수를 재정의해줘야 한다.
-	virtual void run () {};
+	virtual void run () throw () {};
 
 
 //////////////////////////////////////////////////
@@ -142,20 +142,20 @@ public :
 public :
 
 	// get current thread's tid
-	static TID self () throw();
+	static TID self () throw ();
 
 	// 디버깅용이다. 쓰레드에 대한 정보를 string 의 형태로 반환한다.
-	virtual string toString () const throw();
+	virtual string toString () const throw ();
 
 	// get thread identifier
-	TID getTID () const throw() { return m_TID; }
+	TID getTID () const throw () { return m_TID; }
 	
 	// get/set thread's status
-	ThreadStatus getStatus () const throw() { return m_Status; }
-	void setStatus (ThreadStatus status ) throw() { m_Status = status; }
+	ThreadStatus getStatus () const throw () { return m_Status; }
+	void setStatus ( ThreadStatus status ) throw () { m_Status = status; }
 	
 	// get thread name
-	virtual string getName () const throw() { return "Thread"; }
+	virtual string getName () const throw () { return "Thread"; }
 	
 
 //////////////////////////////////////////////////
@@ -172,12 +172,13 @@ private :
 	
 	// thread status
 	ThreadStatus m_Status;
+
 };
 
 
 //////////////////////////////////////////////////
 // thread function used at pthread_create()
 //////////////////////////////////////////////////
-void * start_routine (void * derivedThread ) throw();
+void * start_routine ( void * derivedThread ) throw ();
 
 #endif

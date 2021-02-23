@@ -10,11 +10,11 @@
 #include "EffectPoison.h"
 #include "EffectProtectionFromPoison.h"
 
-#include "GCAttackMeleeOK1.h"
-#include "GCAttackMeleeOK2.h"
-#include "GCAttackMeleeOK3.h"
-#include "GCRemoveEffect.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAttackMeleeOK1.h"
+#include "Gpackets/GCAttackMeleeOK2.h"
+#include "Gpackets/GCAttackMeleeOK3.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
 		// NPC를 공격할 수는 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -102,7 +102,7 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 
 				if (pWeapon != NULL)
 				{
-					if (bIncreaseDomainExp )
+					if ( bIncreaseDomainExp )
 					{
 						if (pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE) 
 						{
@@ -227,7 +227,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 	
 		// NoSuch제거 때문에. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -259,8 +259,8 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 
 			// 데미지를 주고, 내구도를 떨어뜨린다.
 			setDamage(pTargetCreature, Damage, pVampire, SKILL_ATTACK_MELEE, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
-            computeAlignmentChange(pTargetCreature, Damage, pVampire, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
-            decreaseDurability(pVampire, pTargetCreature, NULL, &_GCAttackMeleeOK1, &_GCAttackMeleeOK2);
+			computeAlignmentChange(pTargetCreature, Damage, pVampire, &_GCAttackMeleeOK2, &_GCAttackMeleeOK1);
+			decreaseDurability(pVampire, pTargetCreature, NULL, &_GCAttackMeleeOK1, &_GCAttackMeleeOK2);
 
 			// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 			if (bCriticalHit)
@@ -355,7 +355,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 	
 		// NoSuch제거 때문에. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 		   )
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -382,7 +382,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 
 		if (bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK)
 		{
-			Damage += computeElementalCombatSkill(pOusters, pTargetCreature, _GCAttackMeleeOK1);
+			Damage += computeElementalCombatSkill( pOusters, pTargetCreature, _GCAttackMeleeOK1 );
 			CheckCrossCounter(pOusters, pTargetCreature, Damage);
 
 			// 데미지를 주고, 내구도를 떨어뜨린다.

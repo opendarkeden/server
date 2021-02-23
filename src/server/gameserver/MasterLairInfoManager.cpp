@@ -9,9 +9,7 @@
 #include "ZoneInfo.h"
 #include "ZoneInfoManager.h"
 #include "DB.h"
-#include "Assert1.h"
-
-#include <map>
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
@@ -55,7 +53,7 @@ void MasterLairInfo::setSayText(vector<string>& sayWords, const string& text)
 
 	if (text.empty()) return;
 
-    size_t a=0, b=0, c=0;
+	uint a=0, b=0, c=0;
 	while (c < text.size())
 	{
 		a = text.find_first_of('\"', c);
@@ -67,7 +65,7 @@ void MasterLairInfo::setSayText(vector<string>& sayWords, const string& text)
 
 		string words = text.substr(a+1, b-a-1);
 
-		sayWords.push_back(words);
+		sayWords.push_back( words );
 
 //		cout << "SayWord: " << words.c_str() << endl;
 	}
@@ -179,7 +177,7 @@ MasterLairInfo::toString()
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 MasterLairInfoManager::MasterLairInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -190,11 +188,11 @@ MasterLairInfoManager::MasterLairInfoManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 MasterLairInfoManager::~MasterLairInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.begin();
+	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.begin();
 	for (; itr != m_MasterLairInfos.end(); itr++)
 	{
 		MasterLairInfo* pInfo = itr->second;
@@ -212,7 +210,7 @@ MasterLairInfoManager::~MasterLairInfoManager ()
 // initialize zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void MasterLairInfoManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -229,7 +227,7 @@ void MasterLairInfoManager::init ()
 // load from database
 //////////////////////////////////////////////////////////////////////////////
 void MasterLairInfoManager::load ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -250,15 +248,15 @@ void MasterLairInfoManager::load ()
 
 			ZoneID_t zoneID = pResult->getInt(++i);
 
-			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zoneID);
-			Assert(pZoneInfo!=NULL);
+			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneID );
+			Assert( pZoneInfo!=NULL );
 
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 			
 			if(pZoneInfo->isAvailable())
 			{
 
-				//cout << "LOAD MASTER LAIR : ZoneID(" << (int)zoneID << ") , Enable " << endl;
+				cout << "LOAD MASTER LAIR : ZoneID(" << (int)zoneID << ") , Enable " << endl;
 			
 #endif
 			
@@ -267,32 +265,32 @@ void MasterLairInfoManager::load ()
 				MasterLairInfo* pMasterLairInfo = new MasterLairInfo();
 				//cout << "new OK" << endl;
 
-				pMasterLairInfo->setZoneID(zoneID);
-				pMasterLairInfo->setMasterNotReadyMonsterType(pResult->getInt(++i));
-				pMasterLairInfo->setMasterMonsterType(pResult->getInt(++i));
-				pMasterLairInfo->setMasterRemainNotReady(pResult->getInt(++i)!=0);
-				pMasterLairInfo->setMasterX(pResult->getInt(++i));
-				pMasterLairInfo->setMasterY(pResult->getInt(++i));
-				pMasterLairInfo->setMasterDir(pResult->getInt(++i));
-				pMasterLairInfo->setMaxPassPlayer(pResult->getInt(++i));
-				//pMasterLairInfo->setMaxSummonMonster(pResult->getInt(++i));
-				pMasterLairInfo->setSummonX(pResult->getInt(++i));
-				pMasterLairInfo->setSummonY(pResult->getInt(++i));
-				pMasterLairInfo->setFirstRegenDelay(pResult->getInt(++i));
-				pMasterLairInfo->setRegenDelay(pResult->getInt(++i));
-				pMasterLairInfo->setStartDelay(pResult->getInt(++i));
-				pMasterLairInfo->setEndDelay(pResult->getInt(++i));
-				pMasterLairInfo->setKickOutDelay(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneID(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneX(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneY(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackTick(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackMinNumber(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackMaxNumber(pResult->getInt(++i));
-				pMasterLairInfo->setMasterSummonSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterDeadSlayerSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterDeadVampireSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterNotDeadSay(pResult->getString(++i));
+				pMasterLairInfo->setZoneID( zoneID );
+				pMasterLairInfo->setMasterNotReadyMonsterType( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterMonsterType( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterRemainNotReady( pResult->getInt(++i)!=0 );
+				pMasterLairInfo->setMasterX( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterY( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterDir( pResult->getInt(++i) );
+				pMasterLairInfo->setMaxPassPlayer( pResult->getInt(++i) );
+				//pMasterLairInfo->setMaxSummonMonster( pResult->getInt(++i) );
+				pMasterLairInfo->setSummonX( pResult->getInt(++i) );
+				pMasterLairInfo->setSummonY( pResult->getInt(++i) );
+				pMasterLairInfo->setFirstRegenDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setRegenDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setStartDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setEndDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setKickOutDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneID( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneX( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneY( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackTick( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackMinNumber( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackMaxNumber( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterSummonSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterDeadSlayerSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterDeadVampireSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterNotDeadSay( pResult->getString(++i) );
 
 				addMasterLairInfo(pMasterLairInfo);
 
@@ -301,7 +299,7 @@ void MasterLairInfoManager::load ()
 				// 체크 코드
 				// 마스터의 몬스터 정보가 있는지 체크한다.
 				try {
-					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMasterLairInfo->getMasterMonsterType());
+					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( pMasterLairInfo->getMasterMonsterType() );
 
 					if (pMonsterInfo==NULL)	// 나중을 위해서. -_-;
 					{
@@ -327,7 +325,7 @@ void MasterLairInfoManager::load ()
 			}//isAvailable
 			else
 			{
-				//cout << "LOAD MASTER LAIR : ZoneID(" << (int)zoneID << "), Disable " << endl;
+				cout << "LOAD MASTER LAIR : ZoneID(" << (int)zoneID << "), Disable " << endl;
 			}
 #endif
 		}
@@ -343,7 +341,7 @@ void MasterLairInfoManager::load ()
 // reload from database
 //////////////////////////////////////////////////////////////////////////////
 void MasterLairInfoManager::reload ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	
@@ -366,43 +364,43 @@ void MasterLairInfoManager::reload ()
 
 			ZoneID_t zoneID = pResult->getInt(++i);
 
-			MasterLairInfo* pMasterLairInfo = getMasterLairInfo(zoneID);
+			MasterLairInfo* pMasterLairInfo = getMasterLairInfo( zoneID );
 			//cout << "new OK" << endl;
 
 			if (pMasterLairInfo!=NULL)
 			{
 				//cout << "Reload: " << zoneID << endl;
-				pMasterLairInfo->setZoneID(zoneID);
-				pMasterLairInfo->setMasterNotReadyMonsterType(pResult->getInt(++i));
-				pMasterLairInfo->setMasterMonsterType(pResult->getInt(++i));
-				pMasterLairInfo->setMasterRemainNotReady(pResult->getInt(++i)!=0);
-				pMasterLairInfo->setMasterX(pResult->getInt(++i));
-				pMasterLairInfo->setMasterY(pResult->getInt(++i));
-				pMasterLairInfo->setMasterDir(pResult->getInt(++i));
-				pMasterLairInfo->setMaxPassPlayer(pResult->getInt(++i));
-				//pMasterLairInfo->setMaxSummonMonster(pResult->getInt(++i));
-				pMasterLairInfo->setSummonX(pResult->getInt(++i));
-				pMasterLairInfo->setSummonY(pResult->getInt(++i));
-				pMasterLairInfo->setFirstRegenDelay(pResult->getInt(++i));
-				pMasterLairInfo->setRegenDelay(pResult->getInt(++i));
-				pMasterLairInfo->setStartDelay(pResult->getInt(++i));
-				pMasterLairInfo->setEndDelay(pResult->getInt(++i));
-				pMasterLairInfo->setKickOutDelay(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneID(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneX(pResult->getInt(++i));
-				pMasterLairInfo->setKickZoneY(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackTick(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackMinNumber(pResult->getInt(++i));
-				pMasterLairInfo->setLairAttackMaxNumber(pResult->getInt(++i));
-				pMasterLairInfo->setMasterSummonSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterDeadSlayerSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterDeadVampireSay(pResult->getString(++i));
-				pMasterLairInfo->setMasterNotDeadSay(pResult->getString(++i));
+				pMasterLairInfo->setZoneID( zoneID );
+				pMasterLairInfo->setMasterNotReadyMonsterType( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterMonsterType( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterRemainNotReady( pResult->getInt(++i)!=0 );
+				pMasterLairInfo->setMasterX( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterY( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterDir( pResult->getInt(++i) );
+				pMasterLairInfo->setMaxPassPlayer( pResult->getInt(++i) );
+				//pMasterLairInfo->setMaxSummonMonster( pResult->getInt(++i) );
+				pMasterLairInfo->setSummonX( pResult->getInt(++i) );
+				pMasterLairInfo->setSummonY( pResult->getInt(++i) );
+				pMasterLairInfo->setFirstRegenDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setRegenDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setStartDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setEndDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setKickOutDelay( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneID( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneX( pResult->getInt(++i) );
+				pMasterLairInfo->setKickZoneY( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackTick( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackMinNumber( pResult->getInt(++i) );
+				pMasterLairInfo->setLairAttackMaxNumber( pResult->getInt(++i) );
+				pMasterLairInfo->setMasterSummonSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterDeadSlayerSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterDeadVampireSay( pResult->getString(++i) );
+				pMasterLairInfo->setMasterNotDeadSay( pResult->getString(++i) );
 
 				// 체크 코드
 				// 마스터의 몬스터 정보가 있는지 체크한다.
 				try {
-					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMasterLairInfo->getMasterMonsterType());
+					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( pMasterLairInfo->getMasterMonsterType() );
 
 					if (pMonsterInfo==NULL)	// 나중을 위해서. -_-;
 					{
@@ -438,12 +436,12 @@ void MasterLairInfoManager::reload ()
 // add zone info to zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void MasterLairInfoManager::addMasterLairInfo (MasterLairInfo* pMasterLairInfo) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(pMasterLairInfo->getZoneID());
+	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(pMasterLairInfo->getZoneID());
 	
 	if (itr != m_MasterLairInfos.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -459,11 +457,11 @@ void MasterLairInfoManager::addMasterLairInfo (MasterLairInfo* pMasterLairInfo)
 // Delete zone info from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void MasterLairInfoManager::deleteMasterLairInfo (ZoneID_t zoneID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
-	map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
+	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
 	
 	if (itr != m_MasterLairInfos.end()) 
 	{
@@ -489,13 +487,13 @@ void MasterLairInfoManager::deleteMasterLairInfo (ZoneID_t zoneID)
 // get zone from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 MasterLairInfo* MasterLairInfoManager::getMasterLairInfo (ZoneID_t zoneID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
 	MasterLairInfo* pMasterLairInfo = NULL;
 
-	map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
+	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
 	
 	if (itr != m_MasterLairInfos.end()) {
 
@@ -523,7 +521,7 @@ MasterLairInfo* MasterLairInfoManager::getMasterLairInfo (ZoneID_t zoneID)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string MasterLairInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -534,7 +532,7 @@ string MasterLairInfoManager::toString () const
 	if (m_MasterLairInfos.empty()) msg << "EMPTY";
 	else 
 	{
-		for (map< ZoneID_t , MasterLairInfo* >::const_iterator itr = m_MasterLairInfos.begin() ; itr != m_MasterLairInfos.end() ; itr ++) 
+		for (hash_map< ZoneID_t , MasterLairInfo* >::const_iterator itr = m_MasterLairInfos.begin() ; itr != m_MasterLairInfos.end() ; itr ++) 
 		{
 			msg << itr->second->toString();
 		}

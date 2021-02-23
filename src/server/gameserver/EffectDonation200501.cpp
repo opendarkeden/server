@@ -9,8 +9,8 @@
 #include "Slayer.h"
 #include "Player.h"
 #include "Zone.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ void EffectDonation200501::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }

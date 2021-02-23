@@ -57,14 +57,14 @@ public:
 public :
 	void	setPacket_Type(BillingPacketType bpt)	{ Packet_Type = bpt; }
 	void	setResult(int result) 					{ Result = result; }
-	void	setUser_CC() throw(Error);
+	void	setUser_CC() throw (Error);
 	void	setSession(const string& session) 		{ memset(Session, 0, sizeof(Session)); memcpy(Session, session.c_str(), session.length()); }
 	void	setUser_ID(const string& PlayerID) 		{ strcpy(User_ID, PlayerID.c_str()); }
 	void	setUser_No(int uno) 					{ sprintf(User_No, "%d", uno); }
 	void	setUser_IP(const string& IP) 			{ strcpy(User_IP, IP.c_str()); }
 	void	setGame_No(int gameNo) 					{ Game_No = gameNo; }
 	void	setUser_Status(const string& UserStatus){ strcpy(User_Status, UserStatus.c_str()); }
-	void	setExpire_Date(const string& PlayerID) throw(Error);
+	void	setExpire_Date(const string& PlayerID) throw (Error);
 
 	string	getExpire_DateToString() const;
 
@@ -120,8 +120,8 @@ private :
 	static void executeBillingRemain(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
 	static void executeBillingCheck(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
 	static void executeBillingLoginCheckVerify(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void disconnectGamePlayer(GamePlayer* pGamePlayer, Turn_t delay) throw(Error);
-	static void sendBillingRemainMessage(CommonBillingPacket* pPacket, GamePlayer* pGamePlayer) throw(Error);
+	static void disconnectGamePlayer(GamePlayer* pGamePlayer, Turn_t delay) throw (Error);
+	static void sendBillingRemainMessage(CommonBillingPacket* pPacket, GamePlayer* pGamePlayer) throw (Error);
 
 };
 

@@ -8,7 +8,7 @@
 
 // include files
 #include "LoginServer.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "GameServerInfoManager.h"
 #include "GameServerGroupInfoManager.h"
 #include "GameServerManager.h"
@@ -24,7 +24,7 @@
 //#include "gameserver/billing/BillingPlayerManager.h"
 #include "chinabilling/CBillingPlayerManager.h"
 
-////#include "LogClient.h"
+#include "LogClient.h"
 
 #ifdef __THAILAND_SERVER__
 
@@ -40,7 +40,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 LoginServer::LoginServer ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 	
@@ -104,58 +104,58 @@ LoginServer::LoginServer ()
 //
 //////////////////////////////////////////////////////////////////////
 LoginServer::~LoginServer ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 		
-	if (g_pClientManager != NULL ) {
+	if ( g_pClientManager != NULL ) {
 		delete g_pClientManager;
 		g_pClientManager = NULL;
 	}
 
-	if (g_pGameServerManager != NULL ) {
+	if ( g_pGameServerManager != NULL ) {
 		delete g_pGameServerManager;
 		g_pGameServerManager = NULL;
 	}
 	
-	if (g_pPacketValidator != NULL ) {
+	if ( g_pPacketValidator != NULL ) {
 		delete g_pPacketValidator;
 		g_pPacketValidator = NULL;
 	}
 
-	if (g_pPacketFactoryManager != NULL ) {
+	if ( g_pPacketFactoryManager != NULL ) {
 		delete g_pPacketFactoryManager;
 		g_pPacketFactoryManager = NULL;
 	}
 
-	if (g_pZoneGroupInfoManager != NULL ) {
+	if ( g_pZoneGroupInfoManager != NULL ) {
 		delete g_pZoneGroupInfoManager;
 		g_pZoneGroupInfoManager = NULL;
 	}
 	
-	if (g_pZoneInfoManager != NULL ) {
+	if ( g_pZoneInfoManager != NULL ) {
 		delete g_pZoneInfoManager;
 		g_pZoneInfoManager = NULL;
 	}
 	
-	if (g_pGameServerInfoManager != NULL ) {
+	if ( g_pGameServerInfoManager != NULL ) {
 		delete g_pGameServerInfoManager;
 		g_pGameServerInfoManager = NULL;
 	}
 
-	if (g_pGameServerGroupInfoManager != NULL ) {
+	if ( g_pGameServerGroupInfoManager != NULL ) {
 		delete g_pGameServerGroupInfoManager;
 		g_pGameServerGroupInfoManager = NULL;
 	}
-	if (g_pDatabaseManager != NULL ) {
+	if ( g_pDatabaseManager != NULL ) {
 		delete g_pDatabaseManager;
 		g_pDatabaseManager = NULL;
 	}
-	if (g_pUserInfoManager != NULL ) {
+	if ( g_pUserInfoManager != NULL ) {
 		delete g_pUserInfoManager;
 		g_pUserInfoManager = NULL;
 	}
-	if (g_pGameWorldInfoManager != NULL ) {
+	if ( g_pGameWorldInfoManager != NULL ) {
 		delete g_pGameWorldInfoManager;
 		g_pGameWorldInfoManager = NULL;
 	}
@@ -163,7 +163,7 @@ LoginServer::~LoginServer ()
 	// login 서버에서는 빌링을 빼기로 한다.
 	// 애드빌 요청. by bezz 2003.04.22
 //#ifdef __CONNECT_BILLING_SYSTEM__
-	//if (g_pBillingPlayerManager != NULL ) {
+	//if ( g_pBillingPlayerManager != NULL ) {
 		//delete g_pBillingPlayerManager;
 		//g_pBillingPlayerManager = NULL;
 	//}
@@ -172,14 +172,14 @@ LoginServer::~LoginServer ()
 	// 중국 빌링
 #ifdef __CONNECT_CBILLING_SYSTEM__
 	// destroy CBillingPlayerManager
-	if (g_pCBillingPlayerManager != NULL ) {
+	if ( g_pCBillingPlayerManager != NULL ) {
 		delete g_pCBillingPlayerManager;
 		g_pCBillingPlayerManager = NULL;
 	}
 #endif
 
 #ifdef __THAILAND_SERVER__
-	if (g_pTimeChecker != NULL )
+	if ( g_pTimeChecker != NULL )
 	{
 		delete g_pTimeChecker;
 		g_pTimeChecker = NULL;
@@ -198,7 +198,7 @@ LoginServer::~LoginServer ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginServer::init ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -255,7 +255,7 @@ void LoginServer::init ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginServer::start ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -299,7 +299,7 @@ void LoginServer::start ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginServer::stop ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 

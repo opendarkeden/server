@@ -8,56 +8,56 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void PCSlayerInfo3::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void PCSlayerInfo3::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try 
 	{
 		// read OID
-		iStream.read(m_ObjectID);
+		iStream.read( m_ObjectID );
 
 		// read name
 		BYTE szName;
-		iStream.read(szName);
+		iStream.read( szName );
 
-		if (szName == 0 )
+		if ( szName == 0 )
 			throw InvalidProtocolException("szName == 0");
 
-		if (szName > 20 )
+		if ( szName > 20 )
 			throw InvalidProtocolException("too large name length");
 
-		iStream.read(m_Name , szName);
+		iStream.read( m_Name , szName );
 
 		// read (X,Y,Dir)
-		iStream.read(m_X);
-		iStream.read(m_Y);
-		iStream.read(m_Dir);
+		iStream.read( m_X );
+		iStream.read( m_Y );
+		iStream.read( m_Dir );
 
 		// read outlook bitset
 		DWORD outlook;
-		iStream.read(outlook);
+		iStream.read( outlook);
 		m_Outlook = bitset<SLAYER_BIT_MAX>(outlook);
 		
 		// read colors
-		for (uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
-			iStream.read(m_Colors[i]);
+		for ( uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
+			iStream.read( m_Colors[i] );
 
-		iStream.read(m_MasterEffectColor);
-		iStream.read(m_CurrentHP);
-		iStream.read(m_MaxHP);
-		iStream.read(m_AttackSpeed);
-		iStream.read(m_Alignment);
+		iStream.read( m_MasterEffectColor );
+		iStream.read( m_CurrentHP );
+		iStream.read( m_MaxHP );
+		iStream.read( m_AttackSpeed );
+		iStream.read( m_Alignment );
 
-		iStream.read(m_Competence);
-		iStream.read(m_GuildID);
-		iStream.read(m_UnionID);
+		iStream.read( m_Competence );
+		iStream.read( m_GuildID );
+		iStream.read( m_UnionID );
 
-		iStream.read(m_Rank);
-		iStream.read(m_AdvancementLevel);
+		iStream.read( m_Rank );
+		iStream.read( m_AdvancementLevel );
 	}
-	catch (Throwable & t ) 
+	catch ( Throwable & t ) 
 	{
 		cout << t.toString() << endl;
 	}
@@ -68,59 +68,59 @@ void PCSlayerInfo3::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void PCSlayerInfo3::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void PCSlayerInfo3::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try 
 	{
 		// write OID
-		oStream.write(m_ObjectID);
+		oStream.write( m_ObjectID );
 
 		// write name
 		BYTE szName = m_Name.size();
 
-		if (szName == 0 )
+		if ( szName == 0 )
 			throw InvalidProtocolException("szName == 0");
 
-		if (szName > 20 )
+		if ( szName > 20 )
 			throw InvalidProtocolException("too large name length");
 
-		oStream.write(szName);
-		oStream.write(m_Name);
+		oStream.write( szName );
+		oStream.write( m_Name );
 
 		// write (X,Y,Dir)
-		oStream.write(m_X);
-		oStream.write(m_Y);
-		oStream.write(m_Dir);
+		oStream.write( m_X );
+		oStream.write( m_Y );
+		oStream.write( m_Dir );
 
 		// write outlook bitset
 		DWORD outlook = m_Outlook.to_ulong();
-		oStream.write(outlook);
+		oStream.write( outlook );
 		
 		// write colors
-		for (uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
-			oStream.write(m_Colors[i]);
+		for ( uint i = 0 ; i < SLAYER_COLOR_MAX ; i ++ )
+			oStream.write( m_Colors[i] );
 
-		oStream.write(m_MasterEffectColor);
-		oStream.write(m_CurrentHP);
-		oStream.write(m_MaxHP);
+		oStream.write( m_MasterEffectColor );
+		oStream.write( m_CurrentHP );
+		oStream.write( m_MaxHP );
 
-		oStream.write(m_AttackSpeed);
+		oStream.write( m_AttackSpeed );
 
-		oStream.write(m_Alignment);
+		oStream.write( m_Alignment );
 		
-		oStream.write(m_Competence);
-		oStream.write(m_GuildID);
-		oStream.write(m_UnionID);
+		oStream.write( m_Competence );
+		oStream.write( m_GuildID);
+		oStream.write( m_UnionID);
 
-		oStream.write(m_Rank);
-		oStream.write(m_AdvancementLevel);
+		oStream.write( m_Rank );
+		oStream.write( m_AdvancementLevel );
 
 		//cout << "승직 레벨 : " << (int)m_AdvancementLevel << endl;
 	} 
-	catch (Throwable & t ) 
+	catch ( Throwable & t ) 
 	{
 		cout << t.toString() << endl;
 	}
@@ -132,7 +132,7 @@ void PCSlayerInfo3::write (SocketOutputStream & oStream ) const
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
 string PCSlayerInfo3::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

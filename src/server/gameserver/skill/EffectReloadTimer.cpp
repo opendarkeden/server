@@ -8,7 +8,7 @@
 #include "Creature.h"
 #include "Slayer.h"
 #include "Player.h"
-#include "GCReloadOK.h"
+#include "Gpackets/GCReloadOK.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
 #include "item/Magazine.h"

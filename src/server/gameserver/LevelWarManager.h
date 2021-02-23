@@ -11,7 +11,7 @@
 #include "SweeperSet.h"
 #include "VSDateTime.h"
 
-#include "GCWarList.h"
+#include "Gpackets/GCWarList.h"
 
 class PlayerCreature;
 
@@ -33,7 +33,7 @@ public:
 		m_pLevelWarSchedule = NULL;
 		m_MutexWarList.setName("WarList");
 	}
-	virtual ~LevelWarManager() throw()
+	virtual ~LevelWarManager()
 	{ 
 		SAFE_DELETE(m_pLevelWarSchedule);
 	}
@@ -47,16 +47,16 @@ public:
 	void endWar();
 	void manualStart();
 
-	bool isSafe(MonsterCorpse* pCorpse ) const { return m_SweeperSetManager.getSafeIndex(pCorpse ) != -1; }
-	bool putSweeper(PlayerCreature* pPC, Item* pItem , MonsterCorpse* pCorpse);
-	int getSafeIndex(MonsterCorpse* pCorpse ) const { return m_SweeperSetManager.getSafeIndex(pCorpse); }
+	bool isSafe( MonsterCorpse* pCorpse ) const { return m_SweeperSetManager.getSafeIndex( pCorpse ) != -1; }
+	bool putSweeper( PlayerCreature* pPC, Item* pItem , MonsterCorpse* pCorpse);
+	int getSafeIndex( MonsterCorpse* pCorpse ) const { return m_SweeperSetManager.getSafeIndex( pCorpse ); }
 
 	VSDateTime getNextLevelWarTime() const;
 
-	void fixTimeband(uint timeband ) throw(Error);
+	void fixTimeband( uint timeband ) throw(Error);
 	void resumeTimeband() throw(Error);
 
-	void killAllMonsters() throw(Error);
+	void killAllMonsters() throw (Error);
 
 	int getStartHour();
 

@@ -13,13 +13,13 @@
 #include "BloodBibleBonus.h"
 #include "BloodBibleBonusManager.h"
 
-#include "GCBloodBibleSignInfo.h"
+#include "Gpackets/GCBloodBibleSignInfo.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionClearBloodBible::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionClearBloodBible::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionClearBloodBible::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -50,19 +50,19 @@ void ActionClearBloodBible::execute (Creature * pCreature1 , Creature * pCreatur
 	Assert(pCreature2->isPC());
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	BloodBibleSignInfo* pInfo = pPC->getBloodBibleSign();
 	pInfo->getList().clear();
 	GCBloodBibleSignInfo gcInfo;
-	gcInfo.setSignInfo(pInfo);
-	pPlayer->sendPacket(&gcInfo);
+	gcInfo.setSignInfo( pInfo );
+	pPlayer->sendPacket( &gcInfo );
 
 	pPC->initAllStatAndSend();
 
@@ -74,7 +74,7 @@ void ActionClearBloodBible::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionClearBloodBible::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

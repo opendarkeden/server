@@ -8,14 +8,14 @@
 #include "EffectHallucination.h"
 #include "EffectProtectionFromCurse.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ void Hallucination::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampir
 		// NPC는 공격할 수 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_HALLUCINATION)
 			|| pTargetCreature->isNPC()
 			)

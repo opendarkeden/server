@@ -11,10 +11,8 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -50,8 +48,8 @@ void EffectBloodyWallBlocked::affect()
 	HP_t RemainHP  = 0;
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -66,7 +64,7 @@ void EffectBloodyWallBlocked::affect()
 
 			// 무적상태 체크. by sigi. 2002.9.5
 			// 산 면역. by sigi. 2002.9.13
-			if (!canAttack(NULL, pCreature )
+			if ( !canAttack( NULL, pCreature )
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN)
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 				|| pCreature->isDead())
@@ -154,7 +152,7 @@ void EffectBloodyWallBlocked::affect()
 
 					pMonster->setHP(RemainHP, ATTR_CURRENT);
 
-					if(m_CasterName != "" ) {
+					if( m_CasterName != "" ) {
 						// 시전자의 데미지를 추가해 준다.
 						// 맞는 놈이 몬스터이고, 공격자가 사람이라면,
 						// 데미지에 따라서 변하는 우선권 테이블을 갱신해 주어야 한다.
@@ -174,7 +172,7 @@ void EffectBloodyWallBlocked::affect()
 				// by sigi. 2002.8.31
 				if (pCreature->isDead())
 				{
-					Creature* pAttacker = m_pZone->getCreature(m_CasterName);
+					Creature* pAttacker = m_pZone->getCreature( m_CasterName );
 
 					if (pAttacker!=NULL)
 					{ 

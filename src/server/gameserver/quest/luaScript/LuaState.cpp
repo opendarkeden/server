@@ -10,25 +10,29 @@
 //--------------------------------------------------------------------------------
 // constructor / destructor
 //--------------------------------------------------------------------------------
-LuaState::LuaState() : m_pState(NULL){}
+LuaState::LuaState()
+: m_pState(NULL)
+{
+}
 
-LuaState::~LuaState() {
+LuaState::~LuaState()
+{
 	release();
 }
 
 //--------------------------------------------------------------------------------
 // init
 //--------------------------------------------------------------------------------
-void LuaState::init(int stackSize) {
+void
+LuaState::init(int stackSize)
+{
 	open(stackSize);
 
-	luaL_openlibs(m_pState);
-
-	// ï¿½ï¿½ï¿½ï¿½ libï¿½ï¿½ loadï¿½Ñ´ï¿½.. 
-	//baselibopen();
-	//mathlibopen();
-	//strlibopen();
-	//iolibopen();
+	// ¸ðµç lib¸¦ loadÇÑ´Ù.. 
+	baselibopen();
+	mathlibopen();
+	strlibopen();
+	iolibopen();
 
 	randomseed();
 }
@@ -37,19 +41,26 @@ void LuaState::init(int stackSize) {
 //--------------------------------------------------------------------------------
 // release
 //--------------------------------------------------------------------------------
-void LuaState::release() {
+void
+LuaState::release()
+{
 	if (m_pState!=NULL)
+	{
 		lua_close(m_pState);
+	}
 	m_pState = NULL;
 }
 
 //--------------------------------------------------------------------------------
 // dofile
 //--------------------------------------------------------------------------------
-int LuaState::dofile(const string& filename) throw(Error) {
+int
+LuaState::dofile(const string& filename)
+	throw (Error)
+{
 	__BEGIN_TRY
 
-	return luaL_loadfile(m_pState, filename.c_str());
+	return lua_dofile(m_pState, filename.c_str());
 
 	__END_CATCH
 }
@@ -57,88 +68,115 @@ int LuaState::dofile(const string& filename) throw(Error) {
 //--------------------------------------------------------------------------------
 // randomseed
 //--------------------------------------------------------------------------------
-void LuaState::randomseed() {
+void
+LuaState::randomseed()
+{
 	char str[80];
 	srand((unsigned int)time(NULL));
 	sprintf(str,"randomseed(%d)", rand()%10000);
-	luaL_dostring(m_pState, str);
+	lua_dostring(m_pState, str);
 }
 
 //--------------------------------------------------------------------------------
 // open
 //--------------------------------------------------------------------------------
-void LuaState::open(int stackSize) {
+void
+LuaState::open(int stackSize)
+{
 	release();
-	m_pState = lua_open();
+	m_pState = lua_open(stackSize);
 }
 
 //--------------------------------------------------------------------------------
 // close
 //--------------------------------------------------------------------------------
-void LuaState::close() {
+void
+LuaState::close()
+{
 	if (m_pState!=NULL)
+	{
 		lua_close(m_pState);
+	}
 }
 
 //--------------------------------------------------------------------------------
 // baselibopen
 //--------------------------------------------------------------------------------
-void LuaState::baselibopen() {
-	luaopen_base(m_pState);
+void
+LuaState::baselibopen()
+{
+	lua_baselibopen(m_pState);
 }
 
 //--------------------------------------------------------------------------------
 // mathlibopen
 //--------------------------------------------------------------------------------
 void
-LuaState::mathlibopen() {
-	luaopen_math(m_pState);
+LuaState::mathlibopen()
+{
+	lua_mathlibopen(m_pState);
 }
 
 //--------------------------------------------------------------------------------
 // strlibopen
 //--------------------------------------------------------------------------------
-void LuaState::strlibopen() {
-	luaopen_string(m_pState);
+void
+LuaState::strlibopen()
+{
+	lua_strlibopen(m_pState);
 }
 
 //--------------------------------------------------------------------------------
 // iolibopen
 //--------------------------------------------------------------------------------
-void LuaState::iolibopen() {
-	luaopen_io(m_pState);
+void
+LuaState::iolibopen()
+{
+	lua_iolibopen(m_pState);
 }
 
 //--------------------------------------------------------------------------------
 // getError to String
 //--------------------------------------------------------------------------------
-const string& LuaState::getErrorToString(int result) {
-	switch (result) {
-		case LUA_ERRRUN: {
+const string& 
+LuaState::getErrorToString(int result)
+{
+	switch (result)
+	{
+		case LUA_ERRRUN :
+		{
 			static string e =  "error while running the chunk";
 			return e;
-			}
-			break;
-		case LUA_ERRSYNTAX: {
+		}
+		break;
+
+		case LUA_ERRSYNTAX :
+		{
 			static string e = "syntax error during pre-compilation";
 			return e;
-			}
-			break;
-		case LUA_ERRMEM: {
+		}
+		break;
+
+		case LUA_ERRMEM :
+		{
 			static string e = "memory allocation error";
 			return e;
-			}
-			break;
-		case LUA_ERRERR: {
+		}
+		break;
+
+		case LUA_ERRERR :
+		{
 			static string e = "error while running _ERRORMESSAGE.";
 			return e;
-			}
-			break;
-		case LUA_ERRFILE: {
+		}
+		break;
+
+		case LUA_ERRFILE :
+		{
 			static string e = "error opening the file.";
 			return e;
-			}
-			break;
+		}
+		break;
 	}
 
 	static string e = "unknown error";
@@ -148,7 +186,12 @@ const string& LuaState::getErrorToString(int result) {
 //--------------------------------------------------------------------------------
 // log Error
 //--------------------------------------------------------------------------------
-void LuaState::logError(int result) {
+void
+LuaState::logError(int result)
+{
 	if (isError(result))
+	{
 		filelog("luaError.log", "%s", getErrorToString(result).c_str());
+	}
 }
+

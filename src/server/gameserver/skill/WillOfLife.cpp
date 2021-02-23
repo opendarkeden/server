@@ -7,15 +7,15 @@
 #include "EffectWillOfLife.h"
 #include "RankBonus.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 #include "HitRoll.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
 		//SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
 		// 스킬 레벨에 따라 데미지 보너스가 달라진다.
-		SkillInput input(pVampire);
+		SkillInput input( pVampire );
 		SkillOutput output;
 		computeOutput(input, output);
 
@@ -82,8 +82,8 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
 
 			GCStatusCurrentHP gcStatusCurrentHP;
 
-			gcStatusCurrentHP.setObjectID(pVampire->getObjectID());
-			gcStatusCurrentHP.setCurrentHP(pVampire->getHP());
+			gcStatusCurrentHP.setObjectID( pVampire->getObjectID() );
+			gcStatusCurrentHP.setCurrentHP( pVampire->getHP() );
 		
 			pZone->broadcastPacket(pVampire->getX(), pVampire->getY(),  &_GCSkillToSelfOK2, pVampire);
 			pZone->broadcastPacket(pVampire->getX(), pVampire->getY(),  &gcStatusCurrentHP);
@@ -101,7 +101,7 @@ void WillOfLife::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot,
 		}
 
 		// set Next Run Time
-		if (bTimeCheck ) pVampireSkillSlot->setRunTime(output.Delay);
+		if ( bTimeCheck ) pVampireSkillSlot->setRunTime(output.Delay);
 	} 
 	catch (Throwable & t) 
 	{

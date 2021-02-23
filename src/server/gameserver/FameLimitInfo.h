@@ -21,13 +21,13 @@ public:
 	~FameLimitInfo() throw();
 
 public:
-	void setDomainType(SkillDomainType_t domainType ) { m_DomainType = domainType; }
+	void setDomainType( SkillDomainType_t domainType ) { m_DomainType = domainType; }
 	SkillDomainType_t getDomainType() const { return m_DomainType; }
 
-	void setLevel(uint level ) { m_Level = level; }
+	void setLevel( uint level ) { m_Level = level; }
 	uint getLevel() const { return m_Level; }
 
-	void setFame(Fame_t fame ) { m_Fame = fame; }
+	void setFame( Fame_t fame ) { m_Fame = fame; }
 	Fame_t getFame() const { return m_Fame; }
 
 	string toString() const throw();
@@ -54,7 +54,7 @@ public:
 	void load() throw(Error);
 	void clear() throw(Error);
 
-	FameLimitInfo* getFameLimitInfo(SkillDomainType_t domainType, uint level) const throw(Error);
+	FameLimitInfo* getFameLimitInfo(SkillDomainType_t domainType, uint level) const throw (Error);
 	void addFameLimitInfo(FameLimitInfo* pFameLimitInfo) throw();
 
 	string toString() const throw();

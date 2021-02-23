@@ -10,7 +10,7 @@ void NewbieFlagWar::executeEnd() throw(Error)
 	FlagWar::executeEnd();
 	ZoneCoord_t	ZoneX, ZoneY;
 
-	switch (g_pFlagManager->getWinnerRace() )
+	switch ( g_pFlagManager->getWinnerRace() )
 	{
 		case RACE_SLAYER:
 			ZoneX = 90;
@@ -48,21 +48,21 @@ VSDateTime NewbieFlagWar::getNextFlagWarTime()
 	VSDateTime dt = VSDateTime::currentDateTime();
 
 	VSDateTime nextWarDateTime;
-	nextWarDateTime = dt.addDays(NextFlagWarDay[dt.date().dayOfWeek()]);
+	nextWarDateTime = dt.addDays( NextFlagWarDay[dt.date().dayOfWeek()] );
 
-	nextWarDateTime.setTime(VSTime(18, 55, 0 ));
+	nextWarDateTime.setTime( VSTime( 18, 55, 0 ) );
 
-	if (nextWarDateTime < VSDateTime::currentDateTime() )
+	if ( nextWarDateTime < VSDateTime::currentDateTime() )
 	{
-		nextWarDateTime = nextWarDateTime.addDays(1);
-		nextWarDateTime = nextWarDateTime.addDays(NextFlagWarDay[nextWarDateTime.date().dayOfWeek()]);
+		nextWarDateTime = nextWarDateTime.addDays( 1 );
+		nextWarDateTime = nextWarDateTime.addDays( NextFlagWarDay[nextWarDateTime.date().dayOfWeek()] );
 	}
 
-	filelog("FlagWar.log", "%s에 초보존 깃발 뺏기 이벤트 시작", nextWarDateTime.toString().c_str());
+	filelog( "FlagWar.log", "%s에 초보존 깃발 뺏기 이벤트 시작", nextWarDateTime.toString().c_str() );
 	return nextWarDateTime;
 }
 
 void NewbieFlagWar::addFlags()
 {
-	addFlagsRandom(1122, 20);
+	addFlagsRandom( 1122, 20 );
 }

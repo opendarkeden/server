@@ -4,7 +4,7 @@
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectAlignmentRecovery.h"
 #include "Zone.h"
 #include "DB.h"
@@ -14,15 +14,15 @@
 #include "Player.h"
 #include "AlignmentManager.h"
 
-#include "GCModifyInformation.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectAlignmentRecovery member methods
 //////////////////////////////////////////////////////////////////////////////
 
 EffectAlignmentRecovery::EffectAlignmentRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ EffectAlignmentRecovery::EffectAlignmentRecovery ()
 }
 
 EffectAlignmentRecovery::EffectAlignmentRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -51,7 +51,7 @@ EffectAlignmentRecovery::EffectAlignmentRecovery (Zone* pZone , ZoneCoord_t x , 
 }
 
 EffectAlignmentRecovery::~EffectAlignmentRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -105,7 +105,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 			pSlayer->setAlignment(NewAlignment);
 
 			gcModifyInformation.addLongData(MODIFY_ALIGNMENT, NewAlignment);
-			pSlayer->getPlayer()->sendPacket(&gcModifyInformation);
+			pSlayer->getPlayer()->sendPacket( &gcModifyInformation );
 
 			WORD AlignmentSaveCount = pSlayer->getAlignmentSaveCount();
 			if (AlignmentSaveCount > ALIGNMENT_SAVE_PERIOD)
@@ -144,7 +144,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 			pVampire->setAlignment(NewAlignment);
 
 			gcModifyInformation.addLongData(MODIFY_ALIGNMENT, NewAlignment);
-			pVampire->getPlayer()->sendPacket(&gcModifyInformation);
+			pVampire->getPlayer()->sendPacket( &gcModifyInformation );
 
 			WORD AlignmentSaveCount = pVampire->getAlignmentSaveCount();
 			if (AlignmentSaveCount > ALIGNMENT_SAVE_PERIOD)
@@ -183,7 +183,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 			pOusters->setAlignment(NewAlignment);
 
 			gcModifyInformation.addLongData(MODIFY_ALIGNMENT, NewAlignment);
-			pOusters->getPlayer()->sendPacket(&gcModifyInformation);
+			pOusters->getPlayer()->sendPacket( &gcModifyInformation );
 
 			WORD AlignmentSaveCount = pOusters->getAlignmentSaveCount();
 			if (AlignmentSaveCount > ALIGNMENT_SAVE_PERIOD)
@@ -230,7 +230,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 }
 
 void EffectAlignmentRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -373,14 +373,14 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectAlignmentRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string EffectAlignmentRecovery::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -8,15 +8,15 @@
 #include "EffectObservingEye.h"
 #include "PacketUtil.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -70,13 +70,13 @@ void ObservingEye::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 			pEffect->setDamageBonus(output.Damage*2 - 1);
 			pEffect->setCriticalHitBonus(output.Damage*10 - 49);
 			pEffect->setVisionBonus(output.Damage);
-//			pEffect->setSkillLevel(pSkillSlot->getExpLevel());
-			pEffect->setSkillLevel(max(100,(int)pSlayer->getSkillDomainLevel(SKILL_DOMAIN_GUN )));
+//			pEffect->setSkillLevel( pSkillSlot->getExpLevel() );
+			pEffect->setSkillLevel( max(100,(int)pSlayer->getSkillDomainLevel( SKILL_DOMAIN_GUN )) );
 			pSlayer->setFlag(Effect::EFFECT_CLASS_OBSERVING_EYE);
 			pSlayer->addEffect(pEffect);
 
 			// 이 이펙트가 붙음으로써, 안 보이던 것이 보인다.
-			pZone->updateInvisibleScan(pSlayer);
+			pZone->updateInvisibleScan( pSlayer );
 
 			// 이펙트를 붙였으니, 능력치를 재계산한다.
 			SLAYER_RECORD prev;

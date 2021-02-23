@@ -13,7 +13,7 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void EffectFuryOfGnome::unaffect()
 	gcDT.setXY(m_X, m_Y);
 	gcDT.setObjectID(getObjectID());
 	gcDT.setEffectID(Effect::EFFECT_CLASS_FURY_OF_GNOME);
-	m_pZone->broadcastPacket(m_X, m_Y, &gcDT);
+	m_pZone->broadcastPacket( m_X, m_Y, &gcDT );
 
 	//cout << "EffectFuryOfGnome" << "unaffect END" << endl;
 

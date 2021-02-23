@@ -22,13 +22,13 @@ class Money : public Item
 {
 public:
 	Money() throw();
-	Money(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	Money(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) throw();
 	
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 
 	static void initItemIDRegistry(void) throw();
 
@@ -44,7 +44,12 @@ public:
 	virtual Weight_t getWeight() const throw(Error);
 
 	virtual string toString() const throw();
+// add by sonic 2006.10.30
+	virtual ItemNum_t getNum() const throw() { return m_Num; }
+	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
 
+	bool    isStackable() const throw() { return true; }
+// end 
 public:
 	DWORD getAmount() const throw() { return m_Amount; }
 	void setAmount(DWORD amount) throw() { m_Amount = amount; }
@@ -65,6 +70,9 @@ public:
 private:
 	ItemType_t m_ItemType; // 아이템 타입
 	DWORD      m_Amount;   // 액수
+	//  add by sonci 2006.10.30
+	ItemNum_t  m_Num;
+	// end
 	
 	static Mutex    m_Mutex;          // 아이템 ID 관련 락
 	static ItemID_t m_ItemIDRegistry; // 클래스별 고유 아이템 아이디 발급기
@@ -108,7 +116,7 @@ public:
 	virtual string getItemClassName() const throw() { return "Money"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Money(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Money(ItemType,OptionType,1); }
 };
 
 

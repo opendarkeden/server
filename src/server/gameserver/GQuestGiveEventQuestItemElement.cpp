@@ -2,15 +2,13 @@
 #include "PlayerCreature.h"
 #include "GQuestInventory.h"
 #include "Player.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "CreatureUtil.h"
 #include "skill/SkillUtil.h"
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
 #include "DB.h"
-
-#include <map>
 
 Exp_t ExpRewardTable[3][25] =
 {
@@ -28,56 +26,58 @@ Gold_t GoldRewardTable[3][4] =
 	{ 85000, 102000, 119000, 136000 }
 };
 
-void giveMemberReward(PlayerCreature* pPC, uint type )
+void giveMemberReward( PlayerCreature* pPC, uint type )
 {
 	Exp_t exp = ExpRewardTable[pPC->getRace()][pPC->getLevel()];
 	Gold_t gold = GoldRewardTable[pPC->getRace()][type];
 
-	pPC->increaseGoldEx(gold);
+	cout << exp << " °æÇèÄ¡ , " << gold << " µ·" << endl;
+
+	pPC->increaseGoldEx( gold );
 	GCModifyInformation gcMI;
 	gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
 
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), exp, gcMI);
-		pSlayer->getPlayer()->sendPacket(&gcMI);
+		increaseDomainExp(pSlayer, pSlayer->getHighestSkillDomain(), exp, gcMI );
+		pSlayer->getPlayer()->sendPacket( &gcMI );
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		increaseVampExp(pVampire, exp, gcMI);
-		pVampire->getPlayer()->sendPacket(&gcMI);
+		increaseVampExp( pVampire, exp, gcMI );
+		pVampire->getPlayer()->sendPacket( &gcMI );
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		GCModifyInformation gcMI;
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		increaseOustersExp(pOusters, exp, gcMI);
+		increaseOustersExp( pOusters, exp, gcMI );
 	}
 }
 
-GQuestElement::ResultType GQuestGiveEventQuestItemElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveEventQuestItemElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (m_Grade == 0 )
+	if ( m_Grade == 0 )
 	{
 		GQuestInventory& inventory = pPC->getGQuestManager()->getGQuestInventory();
 		ItemType_t base;
-		if (pPC->isVampire() )
+		if ( pPC->isVampire() )
 		{
 			base = 4 + m_Type - 1;
 		}
-		else if (pPC->isSlayer() )
+		else if ( pPC->isSlayer() )
 		{
 			base = 7 + m_Type - 1;
 		}
-		else if (pPC->isOusters() )
+		else if ( pPC->isOusters() )
 		{
 			base = 10 + m_Type - 1;
 		}
 
-		inventory.getItems().push_back(base);
-		pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
+		inventory.getItems().push_back( base );
+		pPC->getPlayer()->sendPacket( inventory.getInventoryPacket() );
 
 		Statement* pStmt = NULL;
 
@@ -86,24 +86,24 @@ GQuestElement::ResultType GQuestGiveEventQuestItemElement::checkCondition(Player
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 			pStmt->executeQuery("INSERT INTO GQuestItemObject(ItemType, OwnerID) VALUES (%u, '%s')",
 					base, pPC->getName().c_str());
-			SAFE_DELETE(pStmt);
+			SAFE_DELETE( pStmt );
 		}
 		END_DB(pStmt)
 	}
 
-	giveLotto(pPC, m_Type, m_Grade+1);
+	giveLotto( pPC, m_Type, m_Grade+1 );
 
-	Party* pParty = pPC->getLocalPartyManager()->getParty(pPC->getPartyID());
-	if (pParty != NULL )
+	Party* pParty = pPC->getLocalPartyManager()->getParty( pPC->getPartyID() );
+	if ( pParty != NULL )
 	{
-		map<string, Creature*> members = pParty->getMemberMap();
-		map<string, Creature*>::iterator itr = members.begin();
+		hash_map<string, Creature*> members = pParty->getMemberMap();
+		hash_map<string, Creature*>::iterator itr = members.begin();
 
-		for (; itr != members.end() ; ++itr )
+		for ( ; itr != members.end() ; ++itr )
 		{
 			PlayerCreature* pMember = dynamic_cast<PlayerCreature*>(itr->second);
-			if (pMember == NULL || pMember == pPC ) continue;
-			if (pMember->getLevel() < 25 )
+			if ( pMember == NULL || pMember == pPC ) continue;
+			if ( pMember->getLevel() < 25 )
 			{
 				giveMemberReward(pMember, m_Type);
 			}
@@ -117,11 +117,11 @@ GQuestGiveEventQuestItemElement* GQuestGiveEventQuestItemElement::makeElement(XM
 {
 	GQuestGiveEventQuestItemElement* pRet = new GQuestGiveEventQuestItemElement;
 
-	Assert(pTree->GetAttribute("type", pRet->m_Type));
-	Assert(pRet->m_Type <= 3 && pRet->m_Type >= 1);
+	Assert( pTree->GetAttribute("type", pRet->m_Type) );
+	Assert( pRet->m_Type <= 3 && pRet->m_Type >= 1 );
 	string grade;
-	Assert(pTree->GetAttribute("grade", grade));
-	switch (grade[0] )
+	Assert( pTree->GetAttribute("grade", grade) );
+	switch ( grade[0] )
 	{
 		case 'A' :
 			pRet->m_Grade = 0;
@@ -137,7 +137,7 @@ GQuestGiveEventQuestItemElement* GQuestGiveEventQuestItemElement::makeElement(XM
 			break;
 
 		default:
-			Assert(false);
+			Assert( false );
 	}
 
 	return pRet;

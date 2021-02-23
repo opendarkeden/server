@@ -19,7 +19,7 @@
 #include "Encrypter.h"
 #include <queue>
 #include <vector>
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // forward declaration
@@ -192,7 +192,7 @@ public:
 	void resetSafeZone() throw();
 
 	// 오브젝트 등록
-	void registerObject(Object* pObject ) throw() { getObjectRegistry().registerObject(pObject); }
+	void registerObject( Object* pObject ) throw() { getObjectRegistry().registerObject( pObject ); }
 
 public:
 	void heartbeat() throw(Error);
@@ -261,7 +261,7 @@ public:
 	ZoneCoord_t getHeight() const throw() { return m_Height; }
 
 	uint getTimeband() const { return m_Timeband; }
-	void setTimeband(uint timeband ) { m_Timeband = timeband; }
+	void setTimeband( uint timeband ) { m_Timeband = timeband; }
 
 	bool isTimeStop() { return m_bTimeStop; }
 	void stopTime() { m_bTimeStop = true; }
@@ -272,7 +272,7 @@ public:
 	// ABCD add item to item hash map
 	void addToItemList(Item* pItem) throw();
 	void deleteFromItemList(ObjectID_t id) throw();
-	map<ObjectID_t, Item*> getItems(void) throw() { return m_Items; }
+	hash_map<ObjectID_t, Item*> getItems(void) throw() { return m_Items; }
 
 	EffectManager* getEffectManager() throw() { return m_pEffectManager; }
 	EffectManager* getVampirePortalManager() throw() { return m_pVampirePortalManager; }
@@ -287,7 +287,7 @@ public:
 	bool removeNPCInfo(NPC* pNPC);
 
 	// 존 전체의 NPC에게 MarketCondition을 설정한다. default(100, 25)
-	//void setNPCMarketCondition(MarketCond_t NPCSell, MarketCond_t NPCBuy) throw(Error);
+	//void setNPCMarketCondition(MarketCond_t NPCSell, MarketCond_t NPCBuy) throw (Error);
 
 	void addVampirePortal(ZoneCoord_t cx, ZoneCoord_t cy, Vampire* pVampire, const ZONE_COORD& ZoneCoord) throw();
 	void deleteMotorcycle(ZoneCoord_t cx, ZoneCoord_t cy, Motorcycle* pMotorcycle) throw(Error);
@@ -295,7 +295,7 @@ public:
 	void addItemDelayed(Item* pItem, ZoneCoord_t cx, ZoneCoord_t cy, bool bAllowCreature=true) throw(Error);
 	void addItemToCorpseDelayed(Item* pItem, ObjectID_t corpseObjectID) throw(Error);
 	void deleteItemDelayed(Object* pObject, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
-	void transportItem(ZoneCoord_t x, ZoneCoord_t y, Item* pItem, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy) throw(Error);
+	void transportItem(ZoneCoord_t x, ZoneCoord_t y, Item* pItem, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t y) throw(Error);
 	void transportItemToCorpse(Item* pItem, Zone* pTargetZone, ObjectID_t corpseObjectID) throw(Error);
 
 	LocalPartyManager* getLocalPartyManager(void) const { return m_pLocalPartyManager; }
@@ -317,8 +317,8 @@ public:
 	WarScheduler* getWarScheduler(void) const { return m_pWarScheduler; }
 	LevelWarManager* getLevelWarManager() const { return m_pLevelWarManager; }
 
-	void	killAllMonsters() throw(Error);
-	void	killAllMonsters_UNLOCK() throw(Error);
+	void	killAllMonsters() throw (Error);
+	void	killAllMonsters_UNLOCK() throw (Error);
 
 	void	killAllPCs() throw(Error);
 
@@ -364,8 +364,8 @@ public :
 	bool deleteRelicItem() throw(Error); 
 
 	// Holy Land Race Bonus 변화에 따른 플레이어 refresh
-	void setRefreshHolyLandPlayer(bool bRefresh ) { m_pPCManager->setRefreshHolyLandPlayer(bRefresh); }
-//	void setRefreshLevelWarBonusZonePlayer(bool bRefresh ) { m_pPCManager->setRefreshLevelWarBonusZonePlayer(bRefresh); }
+	void setRefreshHolyLandPlayer( bool bRefresh ) { m_pPCManager->setRefreshHolyLandPlayer( bRefresh ); }
+//	void setRefreshLevelWarBonusZonePlayer( bool bRefresh ) { m_pPCManager->setRefreshLevelWarBonusZonePlayer( bRefresh ); }
 
 	void    remainRaceWarPlayers() throw(Error);
 
@@ -379,7 +379,7 @@ public :
 
 public:
 	bool			isDynamicZone() const { return m_pDynamicZone != NULL; }
-	void			setDynamicZone(DynamicZone* pDynamicZone ) { m_pDynamicZone = pDynamicZone; }
+	void			setDynamicZone( DynamicZone* pDynamicZone ) { m_pDynamicZone = pDynamicZone; }
 	DynamicZone*	getDynamicZone() const { return m_pDynamicZone; }
 
 ////////////////////////////////////////////////////////////
@@ -433,7 +433,7 @@ private:
 	list< Creature* > m_PCListQueue;
 
 	// zone바닥에 떨어진 item hashmap
-	map<ObjectID_t, Item*> m_Items;
+	hash_map<ObjectID_t, Item*> m_Items;
 	
 	// Monster AI를 위해 존의 영역을 구분지어 놓은 사각형들...
 	VSRect m_OuterRect;

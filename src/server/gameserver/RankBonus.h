@@ -113,18 +113,18 @@ public:
 
 public:
 	RankBonus() throw();
-	RankBonus(DWORD type, DWORD point, Rank_t rank ) throw();
+	RankBonus( DWORD type, DWORD point, Rank_t rank ) throw();
 	~RankBonus() throw();
 
 public:
 	DWORD getType() const throw() { return m_Type; }
-	void setType(DWORD type ) throw() { m_Type = type; }
+	void setType( DWORD type ) throw() { m_Type = type; }
 
 	DWORD getPoint() const throw() { return m_Point; }
-	void setPoint(DWORD point ) throw() { m_Point = point; }
+	void setPoint( DWORD point ) throw() { m_Point = point; }
 
 	Rank_t getRank() const throw() { return m_Rank; }
-	void setRank(Rank_t rank ) throw() { m_Rank = rank; }
+	void setRank( Rank_t rank ) throw() { m_Rank = rank; }
 
 protected:
 	DWORD m_Type;

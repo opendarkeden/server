@@ -9,13 +9,13 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "GCNoticeEvent.h"
+#include "Gpackets/GCNoticeEvent.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -37,7 +37,7 @@ void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2)
 	GCNoticeEvent gcNoticeEvent;
 	gcNoticeEvent.setCode(NOTICE_EVENT_MINI_GAME);
 	gcNoticeEvent.setParameter((uint)m_GameType);
-//	gcNoticeEvent.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+//	gcNoticeEvent.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNoticeEvent);
@@ -62,7 +62,7 @@ void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionMiniGame::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

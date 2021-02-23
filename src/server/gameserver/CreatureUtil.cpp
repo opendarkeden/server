@@ -46,27 +46,25 @@
 #include "LevelWarManager.h"
 #include "VariableManager.h"
 #include "TimeChecker.h"
-#include "item/SubInventory.h"
-#include "TradeManager.h"
 
 #include "GamePlayer.h"
 #include "PetInfo.h"
 #include "Store.h"
 
-#include "CGSay.h"
+#include "Cpackets/CGSay.h"
 #include "ZoneGroupManager.h"
 #include "GameWorldInfoManager.h"
 #include "Properties.h"
-#include "GCNotifyWin.h"
+#include "Gpackets/GCNotifyWin.h"
 
-#include "GCAddEffect.h"
-#include "GCAddSlayer.h"
-#include "GCAddVampire.h"
-#include "GCDeleteObject.h"
-#include "GCDeleteInventoryItem.h"
-#include "GCPetInfo.h"
-#include "GCNoticeEvent.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddSlayer.h"
+#include "Gpackets/GCAddVampire.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
+#include "Gpackets/GCPetInfo.h"
+#include "Gpackets/GCNoticeEvent.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <cstdio>
 
@@ -551,79 +549,6 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
 	__END_CATCH
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-//// ItemClass로 아이템 있는지 확인
-//////////////////////////////////////////////////////////////////////////////////
-bool hasItemWithItemClass(Creature* pCreature, Item::ItemClass ItemClass )
-{
-	Assert(pCreature != NULL);
-	Assert(ItemClass < Item::ITEM_CLASS_MAX);
-
-	PlayerCreature* pPC        = dynamic_cast<PlayerCreature*>(pCreature);
-	Inventory*      pInventory = pPC->getInventory();
-	Stash*          pStash     = pPC->getStash();
-	Item*           pItem      = NULL;
-
-	// 인벤토리 검색
-	if (pInventory->hasItemWithItemClass(ItemClass ) )
-		return true;
-
-	// 기어창 검색
-	if (pCreature->isSlayer() )
-	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-
-		for (int i=0; i<Slayer::WEAR_MAX; i++ )
-		{
-			pItem = pSlayer->getWearItem((Slayer::WearPart)i);
-			if (pItem != NULL && pItem->getItemClass() == ItemClass )
-				return true;
-		}
-	}
-	else if (pCreature->isVampire())
-	{
-		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-
-		for (int i=0; i<Vampire::VAMPIRE_WEAR_MAX; i++ )
-		{
-			pItem = pVampire->getWearItem((Vampire::WearPart)i);
-			if (pItem != NULL && pItem->getItemClass() == ItemClass )
-				return true;
-		}
-	}
-	else if (pCreature->isOusters())
-	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-
-		for (int i=0; i<Ousters::OUSTERS_WEAR_MAX; i++ )
-		{
-			pItem = pOusters->getWearItem((Ousters::WearPart)i);
-			if (pItem != NULL && pItem->getItemClass() == ItemClass )
-				return true;
-		}
-	}
-
-	// 마우스 검색
-	pItem = pPC->getExtraInventorySlotItem();
-	if (pItem != NULL && pItem->getItemClass() == ItemClass )
-		return true;
-
-	// 보관함 검색
-	for (int r=0; r<STASH_RACK_MAX; r++ )
-	{
-		for (int i=0; i<STASH_INDEX_MAX; i++ )
-		{
-			pItem = pStash->get(r, i);
-			if (pItem != NULL && pItem->getItemClass() == ItemClass )
-				return true;
-		}
-	}
-
-	return false;
-}
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // 경험치 계산하기
 // 뱀파이어가 어떤 크리쳐를 흡혈하거나, 죽였을 경우에 올라가는 경험치를 
@@ -650,31 +575,35 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 		}
 		else
 		{
-			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+			//change exp to 1,chengh modified 2005 11 06
+			/*Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 			exp += pSlayer->getSTR(ATTR_BASIC);
 			exp += pSlayer->getDEX(ATTR_BASIC);
-			exp += pSlayer->getINT(ATTR_BASIC);
+			exp += pSlayer->getINT(ATTR_BASIC);*/
+			exp = 1;
 		}
 
 		// 만약 슬레이어를 흡혈한 경우에는 BLOODDRAIN과 KILL의 exp를 교환한다.
 		if (g_pCombatInfoManager->isCombat())
 		{
-			if (percent == BLOODDRAIN_EXP)
+			if ( percent == BLOODDRAIN_EXP)
 				percent = KILL_EXP;
-			else if (percent == KILL_EXP)
+			else if ( percent == KILL_EXP)
 				percent = BLOODDRAIN_EXP;
 		}
 	}
 	else if (pCreature->isVampire())
 	{
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH ) )
+		if ( pCreature->isFlag(Effect::EFFECT_CLASS_KILL_AFTERMATH ) )
 			exp = 0;
-		else if (pOusters != NULL )	
+		else if ( pOusters != NULL )	
 		{
-			Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
+			//change exp to 1,chengh modified 2005 11 06
+			/*Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 			exp += pVampire->getSTR(ATTR_MAX);
 			exp += pVampire->getDEX(ATTR_MAX);
-			exp += pVampire->getINT(ATTR_MAX);
+			exp += pVampire->getINT(ATTR_MAX);*/
+			exp = 1;
 		}
 	}
 	else if (pCreature->isOusters())
@@ -689,24 +618,31 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 		}
 		else
 		{
-			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+			//change exp to 1,chengh modified 2005 11 06
+			/*Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 			exp += pOusters->getSTR(ATTR_BASIC);
 			exp += pOusters->getDEX(ATTR_BASIC);
-			exp += pOusters->getINT(ATTR_BASIC);
+			exp += pOusters->getINT(ATTR_BASIC);*/
+			exp = 1;
 		}
 	}
 	else if (pCreature->isMonster())
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		if (pMonster->getMonsterType() == GROUND_ELEMENTAL_TYPE )
+		// 錦맣753沂밗잚謹밍膠槨轟쒔駱 edit by coffee 2007-7-7
+		if ( pMonster->getMonsterType() == 753 )
+		{
+			return 0;
+		}
+		if ( pMonster->getMonsterType() == GROUND_ELEMENTAL_TYPE )
 		{
 			return 0;
 		}
 		
 		// 아우스터스는 따로 처리해준다. 우하하..ㅡㅡ;
-		if (pOusters != NULL )
+		if ( pOusters != NULL )
 		{
-			return getPercentValue(getPercentValue((int)(pMonster->getOustersExp(pOusters ) ), g_pVariableManager->getVariable(MONSTER_EXP_RATIO ) ), percent);
+			return getPercentValue(getPercentValue((int)( pMonster->getOustersExp( pOusters ) ), g_pVariableManager->getVariable( MONSTER_EXP_RATIO ) ), percent);
 		}
 
 		exp += pMonster->getSTR();
@@ -721,6 +657,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 		else if(MonsterType==360 || MonsterType==361)
 			exp = 1076;
 
+		//cout << pMonster->getName() << " exp = " << exp << "  percent=" << percent << endl;
 		// Enhance 필드에 의한 변화 경험치를 계산해 준다.
 		/*
 		const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMonster->getMonsterType());
@@ -738,7 +675,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 	// 능력치 보상을 위한 코드...
 	//exp = (int)((float)exp * 1.5);
 	exp = getPercentValue(exp, percent);
-	exp = getPercentValue(exp, g_pVariableManager->getVariable(MONSTER_EXP_RATIO ));
+	exp = getPercentValue(exp, g_pVariableManager->getVariable( MONSTER_EXP_RATIO ) );
 	
 	return exp;
 
@@ -761,17 +698,19 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 
 	if (pCreature->isSlayer())
 	{
-		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
+   		//change exp to 1,chengh modified 2005 11 06
+		/*Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		exp += pSlayer->getSTR(ATTR_BASIC);
 		exp += pSlayer->getDEX(ATTR_BASIC);
-		exp += pSlayer->getINT(ATTR_BASIC);
+		exp += pSlayer->getINT(ATTR_BASIC);*/
+		exp = 1;
 
 		// 만약 슬레이어를 흡혈한 경우에는 BLOODDRAIN과 KILL의 exp를 교환한다.
 		if (g_pCombatInfoManager->isCombat())
 		{
-			if (percent == BLOODDRAIN_EXP)
+			if ( percent == BLOODDRAIN_EXP)
 				percent = KILL_EXP;
-			else if (percent == KILL_EXP)
+			else if ( percent == KILL_EXP)
 				percent = BLOODDRAIN_EXP;
 		}
 	}
@@ -786,14 +725,22 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 	}
 	else if (pCreature->isOusters())
 	{
-		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
+		//change exp to 1,chengh modified 2005 11 06
+		/*Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		exp += pOusters->getSTR(ATTR_BASIC);
 		exp += pOusters->getDEX(ATTR_BASIC);
-		exp += pOusters->getINT(ATTR_BASIC);
+		exp += pOusters->getINT(ATTR_BASIC);*/
+		exp = 1;
 	}
 	else if (pCreature->isMonster())
 	{
-		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
+		Monster* pMonster = dynamic_cast<Monster*>(pCreature);\
+
+		// 錦맣753沂밗잚謹밍膠槨轟쒔駱 edit by coffee 2007-7-7
+		if ( pMonster->getMonsterType() == 753 )
+		{
+			return 0;
+		}
 
 		exp += pMonster->getSTR();
 		exp += pMonster->getDEX();
@@ -807,6 +754,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 		else if(MonsterType==360 || MonsterType==361)
 			exp = 1076;
 
+		//cout << pMonster->getName() << " exp = " << exp << "  percent=" << percent << endl;
 		// Enhance 필드에 의한 변화 경험치를 계산해 준다.
 		/*
 		const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(pMonster->getMonsterType());
@@ -902,9 +850,9 @@ bool isAbleToMove(Creature* pCreature)
 		|| pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER)
 	) return false;
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
@@ -916,7 +864,7 @@ bool isAbleToMove(Creature* pCreature)
 bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType)
 {
 	Assert(pCreature != NULL);
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
 
 	// 하이드 걸린 상태에서는 기술을 사용할 수 없다.
 	// 죽은 상태에서는 Eternity 외의기술을 사용할 수 없다.
@@ -927,7 +875,7 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType)
 	if ((pCreature->isDead() || pCreature->isFlag(Effect::EFFECT_CLASS_COMA)) && SkillType != SKILL_ETERNITY ) return false;
 
 	// Dragon Eye 상태는 스킬을 쓸 수 없다.
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
+	if ( pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
 		return false;
 		
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_HIDE)
@@ -959,7 +907,10 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType)
 	// 늑대 상테애서는 울기나 시체 먹기 외에는 스킬을 사용할 수 없다.
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF))
 	{
-		if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_UN_TRANSFORM)
+		// edit by coffee 2006-12-29  錦攣낚의딜窟狂痙
+		if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE || SkillType != SKILL_UN_TRANSFORM)
+		// end  edit
+		//if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_UN_TRANSFORM)
 		{
 			return false;
 		}
@@ -989,14 +940,14 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType)
 		}
 	}
 
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET ) )
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_INSTALL_TURRET ) )
 	{
-		if (SkillType != SKILL_UN_TRANSFORM && SkillType != SKILL_TURRET_FIRE ) return false;
+		if ( SkillType != SKILL_UN_TRANSFORM && SkillType != SKILL_TURRET_FIRE ) return false;
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
@@ -1005,10 +956,10 @@ bool isAbleToUseSelfSkill(Creature* pCreature, SkillType_t SkillType)
 bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType)
 {
 	Assert(pCreature != NULL);
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
 
 	// Dragon Eye 상태는 스킬을 쓸 수 없다.
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
+	if ( pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
 		return false;
 
 	// 하이드 걸린 상태에서는 기술을 사용할 수 없다.
@@ -1042,7 +993,10 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType)
 	// 늑대 상테애서는 울기나 시체 먹기 외에는 스킬을 사용할 수 없다.
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF))
 	{
-		if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_ATTACK_MELEE)
+		// edit by coffee 2006-12-29  錦攣낚의딜窟狂痙
+		if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE || SkillType != SKILL_ATTACK_MELEE)
+		// end  edit
+		//if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE && SkillType != SKILL_ATTACK_MELEE)
 		{
 			return false;
 		}
@@ -1063,9 +1017,9 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType)
 		if (pSlayer->hasRideMotorcycle()) return false;
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
@@ -1074,10 +1028,10 @@ bool isAbleToUseObjectSkill(Creature* pCreature, SkillType_t SkillType)
 bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType)
 {
 	Assert(pCreature != NULL);
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
 
 	// Dragon Eye 상태는 스킬을 쓸 수 없다.
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
+	if ( pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
 		return false;
 
 	// 하이드 걸린 상태에서는 기술을 사용할 수 없다.
@@ -1111,7 +1065,10 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType)
 	// 늑대 상테애서는 울기나 시체 먹기 외에는 스킬을 사용할 수 없다.
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF))
 	{
-		if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
+		// edit by coffee 2006-12-29  錦攣낚의딜窟狂痙
+		//if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
+		if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE)
+		// end  edit
 		{
 			return false;
 		}
@@ -1132,9 +1089,9 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType)
 		if (pSlayer->hasRideMotorcycle()) return false;
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
@@ -1143,10 +1100,10 @@ bool isAbleToUseTileSkill(Creature* pCreature, SkillType_t SkillType)
 bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYTE TY, SkillType_t SkillType)
 {
 	Assert(pCreature != NULL);
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
 
 	// Dragon Eye 상태는 스킬을 쓸 수 없다.
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
+	if ( pCreature->isFlag(Effect::EFFECT_CLASS_DRAGON_EYE) )
 		return false;
 	
 	// 인벤토리 좌표가 넘어가는 경우에는 사용할 수 없다.
@@ -1183,7 +1140,10 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
 	// 늑대 상테애서는 울기나 시체 먹기 외에는 스킬을 사용할 수 없다.
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF))
 	{
-		if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
+		// edit by coffee 2006-12-29  錦攣낚의딜窟狂痙
+		//if (SkillType != SKILL_HOWL && SkillType != SKILL_EAT_CORPSE)
+		if (SkillType != SKILL_HOWL || SkillType != SKILL_EAT_CORPSE)
+		// end  edit
 		{
 			return false;
 		}
@@ -1204,9 +1164,9 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
 		if (pSlayer->hasRideMotorcycle()) return false;
 	}
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
@@ -1241,10 +1201,10 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 
 	// 생추어리 안에 있으면 못 집는다.
 	Zone* pZone = pCreature->getZone();
-	if (pZone != NULL )
+	if ( pZone != NULL )
 	{
-		Tile& rTile = pZone->getTile(pCreature->getX(), pCreature->getY());
-		if (rTile.getEffect(Effect::EFFECT_CLASS_SANCTUARY ) != NULL )
+		Tile& rTile = pZone->getTile( pCreature->getX(), pCreature->getY() );
+		if ( rTile.getEffect( Effect::EFFECT_CLASS_SANCTUARY ) != NULL )
 		{
 			return false;
 		}
@@ -1280,60 +1240,24 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 			return false;
 	}
 
-	if (itemClass==Item::ITEM_CLASS_SUB_INVENTORY && pCreature->isPC() )
-	{
-		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-		Inventory* pInventory = pPC->getInventory();
-
-		TradeManager* pTradeManager = pPC->getZone()->getTradeManager();
-		if (pTradeManager->hasTradeInfo(pPC->getName()) )
-		{
-			return false;
-		}
-
-		// 마우스에 갖고 있거나
-		Item* pMouseItem = pPC->getExtraInventorySlotItem();
-
-		if (pMouseItem!=NULL && pMouseItem->getItemClass()==Item::ITEM_CLASS_SUB_INVENTORY )
-			return false;
-
-		// 인벤토리에 있는 경우
-		Item* pInvenItem = pInventory->findItem(Item::ITEM_CLASS_SUB_INVENTORY);
-
-		if (pInvenItem!=NULL && pInvenItem->getItemClass()==Item::ITEM_CLASS_SUB_INVENTORY )
-			return false;
-
-		// 보관함에 있는 경우
-		Stash* pStash = pPC->getStash();
-
-		for (BYTE i=0; i<STASH_RACK_MAX; ++i )
-		{
-			for (BYTE j=0; j<STASH_INDEX_MAX; ++j )
-			{
-				Item* pStashItem = pStash->get(i, j);
-				if (pStashItem != NULL && pStashItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY ) return false;
-			}
-		}
-	}
-
-	if (itemClass == Item::ITEM_CLASS_EVENT_ITEM && pCreature->isPC() && pItem->getItemType() == 30 )
+	if ( itemClass == Item::ITEM_CLASS_EVENT_ITEM && pCreature->isPC() && pItem->getItemType() == 30 )
 	{
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		Inventory* pInventory = pPC->getInventory();
 
 		Item* pMouseItem = pPC->getExtraInventorySlotItem();
-		if (pMouseItem != NULL && pMouseItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pMouseItem->getItemType() == 30 )
+		if ( pMouseItem != NULL && pMouseItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pMouseItem->getItemType() == 30 )
 			return false;
 
 		Item* pInvenItem = pInventory->findItem(Item::ITEM_CLASS_EVENT_ITEM, (ItemType_t)30);
-		if (pInvenItem != NULL ) return false;
+		if ( pInvenItem != NULL ) return false;
 	}
 
 	// 퀘스트 아이템 (시간제한 아이템) 은 주울 수 없다.
-	if (pItem->isTimeLimitItem() ) return false;
+	if ( pItem->isTimeLimitItem() ) return false;
 
 	// 성물, 피의 성서, 성의 상징..등의 아이템인 경우
-	if (isRelicItem(itemClass ))
+	if (isRelicItem( itemClass ))
 	{
 		// Relic을 주울 수 없다는 Effect가 걸려있는 경우이거나
 		// 특정 기술 사용중에는 Relic을 주울 수 없다.
@@ -1377,16 +1301,16 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 				}
 
 				BloodBible* pBloodBible = dynamic_cast<BloodBible*>(pItem);
-				Assert(pBloodBible != NULL);
+				Assert( pBloodBible != NULL );
 
-				if (!g_pShrineInfoManager->canPickupBloodBible(pCreature->getRace(), pBloodBible ) )
+				if ( !g_pShrineInfoManager->canPickupBloodBible( pCreature->getRace(), pBloodBible ) )
 				{
 					return false;
 				}
 
 				// 줏는 넘이 안전지대에 있으면 주울 수 없다.
-				ZoneLevel_t zoneLevel = pCreature->getZone()->getZoneLevel(pCreature->getX(), pCreature->getY());
-				if (zoneLevel & SAFE_ZONE )
+				ZoneLevel_t zoneLevel = pCreature->getZone()->getZoneLevel( pCreature->getX(), pCreature->getY() );
+				if ( zoneLevel & SAFE_ZONE )
 				{
 					return false;
 				}
@@ -1402,14 +1326,14 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 				}
 
 				ZoneID_t castleZoneID = 0;
-				if (g_pCastleInfoManager->getCastleZoneID(pCreature->getZone()->getZoneID(), castleZoneID ) )
+				if ( g_pCastleInfoManager->getCastleZoneID( pCreature->getZone()->getZoneID(), castleZoneID ) )
 				{
-					CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(castleZoneID);
-					if (pCreature->getRace() != pCastleInfo->getRace() ) return false;
+					CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( castleZoneID );
+					if ( pCreature->getRace() != pCastleInfo->getRace() ) return false;
 				}
 				else
 				{
-					if (pCreature->getZoneID() == 1500 ) return true;
+					if ( pCreature->getZoneID() == 1500 ) return true;
 					return false;
 				}
 			}
@@ -1419,7 +1343,7 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 			{
 				// 150 레벨 이상만 들 수 있다.
 				Level_t level = pCreature->getLevel();
-				if (level < 150 )
+				if ( level < 150 )
 					return false;
 			}
 			break;
@@ -1429,15 +1353,15 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 		}
 	}
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 	{
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER ) ) return false;
+		if ( pCreature->isFlag( Effect::EFFECT_CLASS_HAS_SWEEPER ) ) return false;
 		LevelWarManager* pLevelWarManager = NULL;
-		if (pZone != NULL ) pLevelWarManager = pZone->getLevelWarManager();
+		if ( pZone != NULL ) pLevelWarManager = pZone->getLevelWarManager();
 
-		if (pLevelWarManager == NULL || !pLevelWarManager->hasWar() ) return false;
+		if ( pLevelWarManager == NULL || !pLevelWarManager->hasWar() ) return false;
 
-		if (pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)
+		if ( pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_HIDE)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_FADE_OUT)
@@ -1448,11 +1372,11 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 	}
 
 	// 깃발갖고 있으면 깃발 못 집는다.
-	if (pItem->isFlagItem() )
+	if ( pItem->isFlagItem() )
 	{
-		if (!g_pFlagManager->hasFlagWar() ) return false;
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
-		if (pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)
+		if ( !g_pFlagManager->hasFlagWar() ) return false;
+		if ( pCreature->isFlag( Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
+		if ( pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_HIDE)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)
 			|| pCreature->isFlag(Effect::EFFECT_CLASS_FADE_OUT)
@@ -1465,8 +1389,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 	///*
 	if (pCreature->isSlayer())
 	{
-		if (pItem->isFlag(Effect::EFFECT_CLASS_VAMPIRE_ONLY ) ) return false;
-		if (pItem->isFlag(Effect::EFFECT_CLASS_OUSTERS_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_VAMPIRE_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_OUSTERS_ONLY ) ) return false;
 
 		// Slayer인 경우는 vampire 아이템만 못 줍는다.
 		// Ousters 아이템도 못 줍는다
@@ -1497,12 +1421,13 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 			case Item::ITEM_CLASS_PERSONA :
 			case Item::ITEM_CLASS_FASCIA :
 			case Item::ITEM_CLASS_MITTEN :
-
+			//case Item::ITEM_CLASS_MONEY :
+				// vampire 돈이면 못 줍는다.
+				// edit by sonic 2006.10.31
+				//if (pItem->getItemType()==1) return false;
 			return false;
 
-			case Item::ITEM_CLASS_MONEY :
-				// vampire 돈이면 못 줍는다.
-				if (pItem->getItemType()==1) return false;
+
 			break;
 
 			default :
@@ -1513,8 +1438,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 	} 
 	else if (pCreature->isVampire())
 	{
-		if (pItem->isFlag(Effect::EFFECT_CLASS_SLAYER_ONLY ) ) return false;
-		if (pItem->isFlag(Effect::EFFECT_CLASS_OUSTERS_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_SLAYER_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_OUSTERS_ONLY ) ) return false;
 
 		// Vampire인 경우는 Vampire 아이템과
 		// event 아이템만 주울 수 있다.
@@ -1557,12 +1482,13 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 			case Item::ITEM_CLASS_WAR_ITEM :
 			case Item::ITEM_CLASS_DERMIS :
 			case Item::ITEM_CLASS_PERSONA :
-			case Item::ITEM_CLASS_SUB_INVENTORY :
-				return true;
-
 			case Item::ITEM_CLASS_MONEY :
 				// vampire 돈이면 줍는다.
-				if (pItem->getItemType()==1) return true;
+				// edit by sonic 2006.10.31
+				//if (pItem->getItemType()==1) return true;
+				return true;
+
+
 			break;
 
 			default :
@@ -1574,8 +1500,8 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 	}
 	else if (pCreature->isOusters())
 	{
-		if (pItem->isFlag(Effect::EFFECT_CLASS_SLAYER_ONLY ) ) return false;
-		if (pItem->isFlag(Effect::EFFECT_CLASS_VAMPIRE_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_SLAYER_ONLY ) ) return false;
+		if ( pItem->isFlag( Effect::EFFECT_CLASS_VAMPIRE_ONLY ) ) return false;
 
 		// Ousters인 경우는 Ousters 아이템과
 		// event 아이템만 주울 수 있다.
@@ -1620,13 +1546,13 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 			case Item::ITEM_CLASS_WAR_ITEM :
 			case Item::ITEM_CLASS_FASCIA :
 			case Item::ITEM_CLASS_MITTEN :
-			case Item::ITEM_CLASS_SUB_INVENTORY :
-
-				return true;
-
 			case Item::ITEM_CLASS_MONEY :
 				// Ousters 돈이면 줍는다.
-				if (pItem->getItemType()==1) return true;
+				// edit by sonic 2006.10.31
+				//if (pItem->getItemType()==1) return true;
+				return true;
+
+
 			break;
 
 			default :
@@ -1637,29 +1563,34 @@ bool isAbleToPickupItem(Creature* pCreature, Item* pItem)
 	}
 	//*/
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
-		if (dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
+		if ( dynamic_cast<PlayerCreature*>(pCreature)->getStore()->isOpen() ) return false;
 	}
 
 	return true;
 }
 
-bool canDropToZone(Creature* pCreature, Item* pItem )
+bool canDropToZone( Creature* pCreature, Item* pItem )
 {
 	// 퀘스트 아이템 (시간제한 아이템) 떨굴 수 없다.
-	if (pItem->isTimeLimitItem() ) return false;
+	if ( pItem->isTimeLimitItem() ) return false;
 
-	if (!pCreature->isPC() ) return false;
+	if ( !pCreature->isPC() ) return false;
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	switch (pItem->getItemClass() )
+	switch ( pItem->getItemClass() )
 	{
+	case Item::ITEM_CLASS_MONEY:
+		{
+			// edit by sonic
+			//return false;
+		}
 	case Item::ITEM_CLASS_COUPLE_RING:
 	case Item::ITEM_CLASS_VAMPIRE_COUPLE_RING:
 		{
-			if (PartnerWaitInfo::getItemClass(pPC ) == pItem->getItemClass()
-			&&	PartnerWaitInfo::getItemType(pPC ) == pItem->getItemType() )
+			if ( PartnerWaitInfo::getItemClass( pPC ) == pItem->getItemClass()
+			&&	PartnerWaitInfo::getItemType( pPC ) == pItem->getItemType() )
 			{
 				return false;
 			}
@@ -1669,43 +1600,37 @@ bool canDropToZone(Creature* pCreature, Item* pItem )
 	case Item::ITEM_CLASS_MOON_CARD:
 		// 반달 카드는 바닥에 버릴 수 없다.
 		{
-			if (pItem->getItemType() == 0 )
+			if ( pItem->getItemType() == 0 )
 				return false;
 		}
 		break;
 	case Item::ITEM_CLASS_LUCKY_BAG:
 		{
-			if (pItem->getItemType() == 3 )
+			if ( pItem->getItemType() == 3 )
 				return false;
 		}
 		break;
 	case Item::ITEM_CLASS_EVENT_ITEM:
 		{
-			if (pItem->getItemType() == 28 || pItem->getItemType() == 30 )
+			if ( pItem->getItemType() == 28 || pItem->getItemType() == 30 )
 				return false;
 		}
 		break;
 	case Item::ITEM_CLASS_EFFECT_ITEM:
 		{
-			if (pItem->getItemType() >= 4 && pItem->getItemType() <= 6 ) return false;
+			if ( pItem->getItemType() >= 4 && pItem->getItemType() <= 6 ) return false;
 		}
 		break;
 	case Item::ITEM_CLASS_EVENT_STAR:
 		{
-			if (pItem->getItemType() >= 17 && pItem->getItemType() <= 21 )
+			if ( pItem->getItemType() >= 17 && pItem->getItemType() <= 21 )
 				return false;
 		}
 		break;
 	case Item::ITEM_CLASS_MIXING_ITEM:
 		{
-			if (pItem->getItemType() == 18 )
+			if ( pItem->getItemType() == 18 )
 				return false;
-		}
-		break;
-	case Item::ITEM_CLASS_SUB_INVENTORY:
-		{
-			SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-			if (pSubInventory->getInventory()->getItemNum() != 0 ) return false;
 		}
 		break;
 
@@ -1721,28 +1646,28 @@ bool canDropToZone(Creature* pCreature, Item* pItem )
 // 사용되지 않음. -.-
 /*void confirmGrandMaster(Creature* pCreature)
 {
-	if(pCreature == NULL ) return;
-	if(!pCreature->isPC() ) return;
+	if( pCreature == NULL ) return;
+	if( !pCreature->isPC() ) return;
 
-	if(pCreature->isSlayer() )
+	if( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
-		if(!pSlayer->isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER ) ) return;
-		EffectGrandMasterSlayer* pEffect = dynamic_cast<EffectGrandMasterSlayer*>(pSlayer->findEffect(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER ));
-		if(pEffect == NULL ) return;
+		if( !pSlayer->isFlag( Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER ) ) return;
+		EffectGrandMasterSlayer* pEffect = dynamic_cast<EffectGrandMasterSlayer*>( pSlayer->findEffect( Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER ) );
+		if( pEffect == NULL ) return;
 
 		pEffect->affect();
 	}
-	else if(pCreature->isVampire() )
+	else if( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
-		if(!pVampire->isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE ) ) return;
-		EffectGrandMasterVampire* pEffect = dynamic_cast<EffectGrandMasterVampire*>(pVampire->findEffect(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE ));
-		if(pEffect == NULL ) return;
+		if( !pVampire->isFlag( Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE ) ) return;
+		EffectGrandMasterVampire* pEffect = dynamic_cast<EffectGrandMasterVampire*>( pVampire->findEffect( Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE ) );
+		if( pEffect == NULL ) return;
 
 		pEffect->affect();
 	}
@@ -1801,8 +1726,8 @@ getGuildIDFromDB(const string& Name, Race_t race, GuildID_t& guildID)
 	BEGIN_DB
 	{
 		string table;
-		if (race == RACE_SLAYER ) table = "Slayer";
-		else if (race == RACE_VAMPIRE ) table = "Vampire";
+		if ( race == RACE_SLAYER ) table = "Slayer";
+		else if ( race == RACE_VAMPIRE ) table = "Vampire";
 		else table = "Ousters";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -1835,7 +1760,7 @@ getGuildIDFromDB(const string& Name, Race_t race, GuildID_t& guildID)
 	__END_CATCH
 }
 
-bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEffectObservingEye, EffectGnomesWhisper* pEffectGnomesWhisper )
+bool canSee( const Creature* pSource, Creature* pTarget, EffectObservingEye* pEffectObservingEye, EffectGnomesWhisper* pEffectGnomesWhisper )
 {
 	// Target이 Ghost 이면 무조건 볼 수 없다.
 	if (pTarget->isFlag(Effect::EFFECT_CLASS_GHOST))
@@ -1844,13 +1769,13 @@ bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEff
 	//ZoneCoord_t targetX = pTarget->getX(), targetY = pTarget->getY();
 
 	// ObservingEye 이펙트를 가져온다.
-	if (pEffectObservingEye == NULL && pSource->isFlag(Effect::EFFECT_CLASS_OBSERVING_EYE) )
+	if ( pEffectObservingEye == NULL && pSource->isFlag(Effect::EFFECT_CLASS_OBSERVING_EYE) )
 	{
 		pEffectObservingEye = dynamic_cast<EffectObservingEye*>(pSource->findEffect(Effect::EFFECT_CLASS_OBSERVING_EYE));
 	}
 
 	// GnomesWhisper 이펙트를 가져온다.
-	if (pEffectGnomesWhisper == NULL && pSource->isFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER) )
+	if ( pEffectGnomesWhisper == NULL && pSource->isFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER) )
 	{
 		pEffectGnomesWhisper = dynamic_cast<EffectGnomesWhisper*>(pSource->findEffect(Effect::EFFECT_CLASS_GNOMES_WHISPER));
 	}
@@ -1861,21 +1786,21 @@ bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEff
 		// 뱀파이어 끼리는 무조건 본다.
 		if (pSource->isVampire() && pTarget->isVampire()) return true;
 
-		if ((!pTarget->isFlag(Effect::EFFECT_CLASS_HIDE)
+		if ( ( !pTarget->isFlag(Effect::EFFECT_CLASS_HIDE)
 					|| pSource->isFlag(Effect::EFFECT_CLASS_DETECT_HIDDEN)
 					// 이제 Revealer도 하이드 한놈 볼 수 있다.
 					|| pSource->isFlag(Effect::EFFECT_CLASS_REVEALER)
-					|| (pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeHide() )
+					|| ( pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeHide() )
 			 )
 			&& (!pTarget->isFlag(Effect::EFFECT_CLASS_INVISIBILITY)
 					|| pSource->isFlag(Effect::EFFECT_CLASS_DETECT_INVISIBILITY)
 					|| pSource->isVampire()
-					|| (pEffectObservingEye != NULL && pEffectObservingEye->canSeeInvisibility(pTarget ) )
-					|| (pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeInvisibility() )
+					|| ( pEffectObservingEye != NULL && pEffectObservingEye->canSeeInvisibility( pTarget ) )
+					|| ( pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeInvisibility() )
 			 )
 			&& (!pTarget->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE)
 					|| pSource->isFlag(Effect::EFFECT_CLASS_DETECT_INVISIBILITY)
-					|| (pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeSniping() )
+					|| ( pEffectGnomesWhisper != NULL && pEffectGnomesWhisper->canSeeSniping() )
 			 )
 		)
 		{
@@ -1886,39 +1811,39 @@ bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEff
 	return false;
 }
 
-int changeSexEx(PlayerCreature* pPC )
+int changeSexEx( PlayerCreature* pPC )
 {
 	Zone* pZone = pPC->getZone();
-	if (pZone == NULL ) return 3;
+	if ( pZone == NULL ) return 3;
 
-	if (pPC->getFlagSet()->isOn(FLAGSET_IS_COUPLE ) ) return 2;
+	if ( pPC->getFlagSet()->isOn( FLAGSET_IS_COUPLE ) ) return 2;
 
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
-		if (pSlayer->isWear(Slayer::WEAR_BODY ) || pSlayer->isWear(Slayer::WEAR_LEG ) ) return 1;
+		if ( pSlayer->isWear( Slayer::WEAR_BODY ) || pSlayer->isWear( Slayer::WEAR_LEG ) ) return 1;
 
-		if (pSlayer->getSex() == MALE ) pSlayer->setSex(FEMALE);
+		if ( pSlayer->getSex() == MALE ) pSlayer->setSex(FEMALE);
 		else pSlayer->setSex(MALE);
 
 //		char query[50];
-//		sprintf(query, "SEX = '%s'", Sex2String[pPC->getSex()].c_str());
+//		sprintf( query, "SEX = '%s'", Sex2String[pPC->getSex()].c_str() );
 //		pSlayer->tinysave(query);
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
-		if (pVampire->isWear(Vampire::WEAR_BODY ) ) return 1;
+		if ( pVampire->isWear( Vampire::WEAR_BODY ) ) return 1;
 
-		if (pVampire->getSex() == MALE ) pVampire->setSex(FEMALE);
+		if ( pVampire->getSex() == MALE ) pVampire->setSex(FEMALE);
 		else pVampire->setSex(MALE);
 
 //		char query[50];
-//		sprintf(query, "SEX = '%s'", Sex2String[pPC->getSex()].c_str());
+//		sprintf( query, "SEX = '%s'", Sex2String[pPC->getSex()].c_str() );
 //		pVampire->tinysave(query);
 	}
 	else return 3;
@@ -1932,9 +1857,9 @@ int changeSexEx(PlayerCreature* pPC )
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		pStmt->executeQuery(
-				"UPDATE Slayer SET SEX='%s' WHERE Name='%s'", Sex2String[pPC->getSex()].c_str(), pPC->getName().c_str());
+				"UPDATE Slayer SET SEX='%s' WHERE Name='%s'", Sex2String[pPC->getSex()].c_str(), pPC->getName().c_str() );
 		pStmt->executeQuery(
-				"UPDATE Vampire SET SEX='%s' WHERE Name='%s'", Sex2String[pPC->getSex()].c_str(), pPC->getName().c_str());
+				"UPDATE Vampire SET SEX='%s' WHERE Name='%s'", Sex2String[pPC->getSex()].c_str(), pPC->getName().c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -1943,12 +1868,12 @@ int changeSexEx(PlayerCreature* pPC )
 	return 0;
 }
 
-void initAllStatAndSendChange(PlayerCreature* pPC )
+void initAllStatAndSendChange( PlayerCreature* pPC )
 {
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
 		SLAYER_RECORD prev;
 		pSlayer->getSlayerRecord(prev);
@@ -1956,10 +1881,10 @@ void initAllStatAndSendChange(PlayerCreature* pPC )
 		pSlayer->sendModifyInfo(prev);
 		pSlayer->sendRealWearingInfo();
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		VAMPIRE_RECORD prev;
 		pVampire->getVampireRecord(prev);
@@ -1967,10 +1892,10 @@ void initAllStatAndSendChange(PlayerCreature* pPC )
 		pVampire->sendModifyInfo(prev);
 		pVampire->sendRealWearingInfo();
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 
 		OUSTERS_RECORD prev;
 		pOusters->getOustersRecord(prev);
@@ -1980,80 +1905,82 @@ void initAllStatAndSendChange(PlayerCreature* pPC )
 	}
 }
 
-void addSimpleCreatureEffect(Creature* pCreature, Effect::EffectClass eClass, int time, bool isSend)
+void addSimpleCreatureEffect( Creature* pCreature, Effect::EffectClass eClass, int time = -1, bool isSend = true )
 {
-	SimpleCreatureEffect* pEffect = new SimpleCreatureEffect(eClass, pCreature);
-	Assert(pEffect != NULL);
+	SimpleCreatureEffect* pEffect = new SimpleCreatureEffect( eClass, pCreature );
+	Assert( pEffect != NULL );
 
-	if (time != -1 ) pEffect->setDeadline(time);
-	pEffect->setBroadcastingEffect(isSend);
+	if ( time != -1 ) pEffect->setDeadline( time );
+	pEffect->setBroadcastingEffect( isSend );
 
-	pCreature->addEffect(pEffect);
-	pCreature->setFlag(eClass);
+	pCreature->addEffect( pEffect );
+	pCreature->setFlag( eClass );
 
-	if (isSend )
+	if ( isSend )
 	{
 		GCAddEffect gcAddEffect;
-		gcAddEffect.setObjectID(pCreature->getObjectID());
-		gcAddEffect.setEffectID(pEffect->getSendEffectClass());
+		gcAddEffect.setObjectID( pCreature->getObjectID() );
+		gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
 		
-		if (time == -1 ) gcAddEffect.setDuration(65535);
+		if ( time == -1 ) gcAddEffect.setDuration( 65535 );
 		else
 		{
-			if (pEffect->getSendEffectClass() == Effect::EFFECT_CLASS_BLOOD_DRAIN
+			if ( pEffect->getSendEffectClass() == Effect::EFFECT_CLASS_BLOOD_DRAIN
 				|| pEffect->getSendEffectClass() == Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR )
-				gcAddEffect.setDuration(time/10);
+				gcAddEffect.setDuration( time/10 );
 			else
-				gcAddEffect.setDuration(time);
+				gcAddEffect.setDuration( time );
 		}
 
-		pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
+		pCreature->getZone()->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffect );
 	}
 }
 
-void deleteCreatureEffect(Creature* pCreature, Effect::EffectClass eClass)
+void deleteCreatureEffect( Creature* pCreature, Effect::EffectClass eClass)
 {
 	Effect* pEffect = pCreature->findEffect(eClass);
-	if (pEffect != NULL ) pEffect->setDeadline(0);
+	if ( pEffect != NULL ) pEffect->setDeadline(0);
 }
 
 bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
-	throw(Error)
+	throw (Error)
 {
 	Zone* pZone = pPC->getZone();
 	Assert(pZone!=NULL);
 
+	//cout << "깃발 찾았다" << endl;
+
 	// 일단 아이템을 바닥에 떨어뜨린다.
 	// 시체와 겹칠 수도 있으므로.. 캐릭터가 없는 곳에 떨어뜨린다.
-	//	TPOINT pt = pZone->addItem(pItem, pPC->getX(), pPC->getY(), false);
-	pZone->addItemDelayed(pItem, pPC->getX(), pPC->getY(), false);
+//	TPOINT pt = pZone->addItem( pItem, pPC->getX(), pPC->getY(), false );
+	pZone->addItemDelayed( pItem, pPC->getX(), pPC->getY(), false );
 
-	Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
-	if (pEffect != NULL ) pEffect->setDeadline(0);
+	Effect* pEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_FLAG );
+	if ( pEffect != NULL ) pEffect->setDeadline(0);
 
-	if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK ))
+	if (!pItem->isFlag( Effect::EFFECT_CLASS_RELIC_LOCK ))
 	{
 		EffectRelicLock* pLock = new EffectRelicLock(pItem);
-		pLock->setDeadline(10*10); // 10초
-		pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
-		pItem->getEffectManager().addEffect(pLock);
+		pLock->setDeadline( 10*10 ); // 10초
+		pItem->setFlag( Effect::EFFECT_CLASS_RELIC_LOCK );
+		pItem->getEffectManager().addEffect( pLock );
 	}
 
-/*	if (pt.x != -1 )           // 떨어뜨리는데 성공했다면
+/*	if ( pt.x != -1 )           // 떨어뜨리는데 성공했다면
 	{
 		char pField[80];
 		sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 		pItem->tinysave(pField);
 
-		Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
-		if (pEffect != NULL ) pEffect->setDeadline(0);
+		Effect* pEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_FLAG );
+		if ( pEffect != NULL ) pEffect->setDeadline(0);
 
-		if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK ))
+		if (!pItem->isFlag( Effect::EFFECT_CLASS_RELIC_LOCK ))
 		{
 			EffectRelicLock* pLock = new EffectRelicLock(pItem);
-			pLock->setDeadline(10*10); // 10초
-			pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
-			pItem->getEffectManager().addEffect(pLock);
+			pLock->setDeadline( 10*10 ); // 10초
+			pItem->setFlag( Effect::EFFECT_CLASS_RELIC_LOCK );
+			pItem->getEffectManager().addEffect( pLock );
 		}
 	}
 	else
@@ -2064,12 +1991,12 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
 			pt.x = rand()%(pZone->getWidth());
 			pt.y = rand()%(pZone->getHeight());
 		}
-		while (!rect.ptInRect(pt.x, pt.y) 
+		while ( !rect.ptInRect(pt.x, pt.y) 
 				|| pZone->getTile(pt.x, pt.y).hasItem() 
 				|| pZone->getTile(pt.x, pt.y).isBlocked(Creature::MOVE_MODE_WALKING) 
-				|| ((pZone->getZoneLevel(pt.x, pt.y))&SAFE_ZONE == 0 ));
-		pt = pZone->addItem(pItem, pPC->getX(), pPC->getY(), false);
-		if (pt.x == -1 )
+				|| ( (pZone->getZoneLevel(pt.x, pt.y))&SAFE_ZONE == 0 ) );
+		pt = pZone->addItem( pItem, pPC->getX(), pPC->getY(), false );
+		if ( pt.x == -1 )
 		{
 			filelog("FlagWar.log", "-_- 그래도 깃발 떨어뜨릴 자리가 없다.... X됐다.");
 			//throw Error("깃발 떨어뜨릴 자리가 없다.");
@@ -2081,10 +2008,10 @@ bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
 	return true;
 }
 
-bool dropFlagToZone(Creature* pCreature, bool bSendPacket )
+bool dropFlagToZone( Creature* pCreature, bool bSendPacket )
 {
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	if (!pPC->isFlag(Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
+	if ( !pPC->isFlag( Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
 
 	bool bDrop = false;
 
@@ -2094,7 +2021,7 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket )
 	if (pSlotItem!=NULL 
 		&& pSlotItem->isFlagItem() )
 	{
-		if (dropFlagToZone(pPC, pSlotItem ))
+		if (dropFlagToZone( pPC, pSlotItem ))
 		{
 			pPC->deleteItemFromExtraInventorySlot();
 
@@ -2105,9 +2032,9 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket )
 			if (bSendPacket)
 			{
 				GCDeleteInventoryItem gcDeleteInventoryItem;
-				gcDeleteInventoryItem.setObjectID(pSlotItem->getObjectID());
+				gcDeleteInventoryItem.setObjectID( pSlotItem->getObjectID() );
 
-				pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+				pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 			}
 
 			bDrop = true;
@@ -2115,71 +2042,36 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket )
 	}
 
 	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+	Assert( pInventory != NULL );
 	
 	// 인벤토리에서 Relic Item을 찾아본다.
-	for (CoordInven_t y = 0; y < pInventory->getHeight(); y++ )
+	for ( CoordInven_t y = 0; y < pInventory->getHeight(); y++ )
 	{
-		for (CoordInven_t x = 0; x < pInventory->getWidth(); x++ )
+		for ( CoordInven_t x = 0; x < pInventory->getWidth(); x++ )
 		{
-			Item* pItem = pInventory->getItem(x, y);
-			if (pItem != NULL 
+			Item* pItem = pInventory->getItem( x, y );
+			if ( pItem != NULL 
 				&& pItem->isFlagItem() )
 			{
 				// 일단 아이템을 바닥에 떨어뜨린다.
 				if (dropFlagToZone(pPC, pItem))
 				{
 					// 인벤토리에서 뺀다.
-					pInventory->deleteItem(pItem->getObjectID());
+					pInventory->deleteItem( pItem->getObjectID() );
 
 					// player의 inventory에서 제거한다.
 					if (bSendPacket)
 					{
 						GCDeleteInventoryItem gcDeleteInventoryItem;
-						gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
+						gcDeleteInventoryItem.setObjectID( pItem->getObjectID() );
 
-						pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+						pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 					}
 
 					bDrop = true;
-				}
-			}
-			else if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-			{
-				SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-				Assert(pSubInventoryItem != NULL);
-				Inventory* pSubInventory = pSubInventoryItem->getInventory();
-				Assert(pSubInventory != NULL);
-
-				for (CoordInven_t sy = 0; sy < pSubInventory->getHeight(); ++sy )
-				{
-					for (CoordInven_t sx = 0; sx < pSubInventory->getWidth(); ++sx )
-					{
-						Item* pSubItem = pSubInventory->getItem(sx, sy);
-						if (pSubItem != NULL
-							&& pSubItem->isFlagItem() )
-						{
-							// 일단 아이템을 바닥에 떨어뜨린다.
-							if (dropFlagToZone(pPC, pSubItem ) )
-							{
-								// 인벤토리에서 뺀다.
-								pSubInventory->deleteItem(pSubItem->getObjectID());
-
-								if (bSendPacket )
-								{
-									GCDeleteInventoryItem gcDeleteInventoryItem;
-									gcDeleteInventoryItem.setObjectID(pSubItem->getObjectID());
-
-									pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
-								}
-							}
-
-							bDrop = true;
-						}
-					}
 				}
 			}
 		}
@@ -2188,16 +2080,16 @@ bool dropFlagToZone(Creature* pCreature, bool bSendPacket )
 	return bDrop;
 }
 
-void disableFlags(Creature *pCreature, Zone* pZone, SkillType_t SkillType)
+void disableFlags( Creature *pCreature, Zone* pZone, SkillType_t SkillType)
 {
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		if (pCreature->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE))
 		{
 			g_Sniping.checkRevealRatio(pCreature, 20, 10);
 		}
 	}
-	else if (pCreature->isVampire() && pZone != NULL )
+	else if ( pCreature->isVampire() && pZone != NULL )
 	{
 		if (pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
 		{
@@ -2209,9 +2101,9 @@ void disableFlags(Creature *pCreature, Zone* pZone, SkillType_t SkillType)
 			if(!(SkillType == SKILL_ACID_TOUCH) && !(SkillType == SKILL_POISONOUS_HANDS) && !(SkillType == SKILL_BLOODY_NAIL))
 			{
 				EffectManager * pEffectManager = pCreature->getEffectManager();
-				Assert(pEffectManager != NULL);
-				Effect * pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_EXTREME);
-				if (pEffect != NULL ) 
+				Assert( pEffectManager != NULL );
+				Effect * pEffect = pEffectManager->findEffect( Effect::EFFECT_CLASS_EXTREME );
+				if ( pEffect != NULL ) 
 				{
 					pEffect->setDeadline(0);
 				}
@@ -2219,31 +2111,31 @@ void disableFlags(Creature *pCreature, Zone* pZone, SkillType_t SkillType)
 		} */
 
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 	}
 }
 
-bool canEnterBeginnerZone(Creature* pCreature )
+bool canEnterBeginnerZone( Creature* pCreature )
 {
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
 		return pSlayer->getTotalAttr(ATTR_BASIC) <= 150;
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		return pVampire->getLevel() <= 30; 
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 
 		return pOusters->getLevel() <= 30;
 	}
@@ -2252,40 +2144,40 @@ bool canEnterBeginnerZone(Creature* pCreature )
 }
 
 #ifdef __UNDERWORLD__
-void giveUnderworldGift(Creature* pCreature )
+void giveUnderworldGift( Creature* pCreature )
 {
-	if (!pCreature->isPC() ) return;
+	if ( !pCreature->isPC() ) return;
 
 	string PlayerName;
 
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 		PlayerName = pSlayer->getName();
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 		PlayerName = pVampire->getName();
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 		PlayerName = pOusters->getName();
 	}
 	else return;
 
 	Player* pPlayer = pCreature->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	string PlayerID = pPlayer->getID();
 
 	Statement* pStmt = NULL;
 
-	filelog("Underworld.log", "[%s:%s] 언더월드 예매권에 당첨되었습니다.", PlayerID.c_str(), PlayerName.c_str());
+	filelog( "Underworld.log", "[%s:%s] 언더월드 예매권에 당첨되었습니다.", PlayerID.c_str(), PlayerName.c_str() );
 
 	try {
 	BEGIN_DB
@@ -2293,53 +2185,53 @@ void giveUnderworldGift(Creature* pCreature )
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 		pStmt->executeQuery(
 				"INSERT INTO UnderworldEvent (WorldID, ServerID, PlayerID, CharacterID, KillTime) VALUES (%u, %u, '%s', '%s', now())",
-				g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID"), PlayerID.c_str(), PlayerName.c_str());
+				g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID"), PlayerID.c_str(), PlayerName.c_str() );
 	}
 	END_DB(pStmt)
 	} catch (Throwable& t)
 	{
-		filelog("Underworld.log", "DB에 업데이트를 실패했습니다. : %s", t.toString().c_str());
+		filelog( "Underworld.log", "DB에 업데이트를 실패했습니다. : %s", t.toString().c_str() );
 	}
 
 	GCNotifyWin gcNW;
-	gcNW.setGiftID(101);
-	gcNW.setName(PlayerName);
+	gcNW.setGiftID( 101 );
+	gcNW.setName( PlayerName );
 
-	g_pZoneGroupManager->broadcast(&gcNW);
+	g_pZoneGroupManager->broadcast( &gcNW );
 
 	char ggCommand[200];
-	string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt("WorldID" ))->getName();
-	sprintf(ggCommand, "*allworld *command NotifyWin %s(%s) %u", PlayerName.c_str(), worldName.c_str(), 101);
-	CGSayHandler::opworld(NULL, ggCommand, 0, false);
+	string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt( "WorldID" ))->getName();
+	sprintf( ggCommand, "*allworld *command NotifyWin %s(%s) %u", PlayerName.c_str(), worldName.c_str(), 101 );
+	CGSayHandler::opworld( NULL, ggCommand, 0, false );
 }
 #endif
 
 bool dropSweeperToZone(PlayerCreature* pPC, Item* pItem)
-	throw(Error)
+	throw (Error)
 {
 	Zone* pZone = pPC->getZone();
 	Assert(pZone!=NULL);
 
-	pZone->addItemDelayed(pItem, pPC->getX(), pPC->getY(), false);
+	pZone->addItemDelayed( pItem, pPC->getX(), pPC->getY(), false );
 
-	Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_SWEEPER);
-	if (pEffect != NULL ) pEffect->setDeadline(0);
+	Effect* pEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_SWEEPER );
+	if ( pEffect != NULL ) pEffect->setDeadline(0);
 
-	if (!pItem->isFlag(Effect::EFFECT_CLASS_RELIC_LOCK ))
+	if (!pItem->isFlag( Effect::EFFECT_CLASS_RELIC_LOCK ))
 	{
 		EffectRelicLock* pLock = new EffectRelicLock(pItem);
-		pLock->setDeadline(10*10); // 10초
-		pItem->setFlag(Effect::EFFECT_CLASS_RELIC_LOCK);
-		pItem->getEffectManager().addEffect(pLock);
+		pLock->setDeadline( 10*10 ); // 10초
+		pItem->setFlag( Effect::EFFECT_CLASS_RELIC_LOCK );
+		pItem->getEffectManager().addEffect( pLock );
 	}
 
 	return true;
 }
 
-bool dropSweeperToZone(Creature* pCreature, bool bSendPacket )
+bool dropSweeperToZone( Creature* pCreature, bool bSendPacket )
 {
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	if (!pPC->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER ) ) return false;
+	if ( !pPC->isFlag( Effect::EFFECT_CLASS_HAS_SWEEPER ) ) return false;
 
 	bool bDrop = false;
 
@@ -2349,7 +2241,7 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket )
 	if (pSlotItem!=NULL 
 		&& pSlotItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 	{
-		if (dropSweeperToZone(pPC, pSlotItem ))
+		if (dropSweeperToZone( pPC, pSlotItem ))
 		{
 			pPC->deleteItemFromExtraInventorySlot();
 
@@ -2360,9 +2252,9 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket )
 			if (bSendPacket)
 			{
 				GCDeleteInventoryItem gcDeleteInventoryItem;
-				gcDeleteInventoryItem.setObjectID(pSlotItem->getObjectID());
+				gcDeleteInventoryItem.setObjectID( pSlotItem->getObjectID() );
 
-				pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+				pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 			}
 
 			bDrop = true;
@@ -2370,71 +2262,36 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket )
 	}
 
 	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+	Assert( pInventory != NULL );
 	
 	// 인벤토리에서 Relic Item을 찾아본다.
-	for (CoordInven_t y = 0; y < pInventory->getHeight(); y++ )
+	for ( CoordInven_t y = 0; y < pInventory->getHeight(); y++ )
 	{
-		for (CoordInven_t x = 0; x < pInventory->getWidth(); x++ )
+		for ( CoordInven_t x = 0; x < pInventory->getWidth(); x++ )
 		{
-			Item* pItem = pInventory->getItem(x, y);
-			if (pItem != NULL 
+			Item* pItem = pInventory->getItem( x, y );
+			if ( pItem != NULL 
 				&& pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 			{
 				// 일단 아이템을 바닥에 떨어뜨린다.
 				if (dropSweeperToZone(pPC, pItem))
 				{
 					// 인벤토리에서 뺀다.
-					pInventory->deleteItem(pItem->getObjectID());
+					pInventory->deleteItem( pItem->getObjectID() );
 
 					// player의 inventory에서 제거한다.
 					if (bSendPacket)
 					{
 						GCDeleteInventoryItem gcDeleteInventoryItem;
-						gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
+						gcDeleteInventoryItem.setObjectID( pItem->getObjectID() );
 
-						pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+						pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 					}
 
 					bDrop = true;
-				}
-			}
-			else if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-			{
-				SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-				Assert(pSubInventoryItem != NULL);
-				Inventory* pSubInventory = pSubInventoryItem->getInventory();
-				Assert(pSubInventory != NULL);
-
-				for (CoordInven_t sy = 0; sy < pSubInventory->getHeight(); ++sy )
-				{
-					for (CoordInven_t sx = 0; sx < pSubInventory->getWidth(); ++sx )
-					{
-						Item* pSubItem = pSubInventory->getItem(sx, sy);
-						if (pSubItem != NULL
-							&& pSubItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
-						{
-							// 일단 아이템을 바닥에 떨어뜨린다.
-							if (dropSweeperToZone(pPC, pSubItem ) )
-							{
-								// 인벤토리에서 뺀다.
-								pSubInventory->deleteItem(pSubItem->getObjectID());
-
-								if (bSendPacket )
-								{
-									GCDeleteInventoryItem gcDeleteInventoryItem;
-									gcDeleteInventoryItem.setObjectID(pSubItem->getObjectID());
-
-									pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
-								}
-							}
-
-							bDrop = true;
-						}
-					}
 				}
 			}
 		}
@@ -2443,19 +2300,19 @@ bool dropSweeperToZone(Creature* pCreature, bool bSendPacket )
 	return bDrop;
 }
 
-Level_t getPCLevel(PlayerCreature* pPC )
+Level_t getPCLevel( PlayerCreature* pPC )
 {
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 		return pSlayer->getHighestSkillDomainLevel();
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 		return pVampire->getLevel();
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 		return pOusters->getLevel();
@@ -2464,33 +2321,33 @@ Level_t getPCLevel(PlayerCreature* pPC )
 	return 0;
 }
 
-void sendPetInfo(GamePlayer* pGamePlayer, bool bBroadcast, bool bSummon )
+void sendPetInfo( GamePlayer* pGamePlayer, bool bBroadcast, bool bSummon )
 {
-	if (pGamePlayer == NULL ) return;
+	if ( pGamePlayer == NULL ) return;
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	if (pPC == NULL ) return;
+	if ( pPC == NULL ) return;
 
 	PetInfo* pPetInfo = pPC->getPetInfo();
 
 	GCPetInfo gcPetInfo;
-	gcPetInfo.setPetInfo(pPetInfo);
-	gcPetInfo.setSummonInfo((bSummon)?1:0);
-	gcPetInfo.setObjectID(pPC->getObjectID());
-	pGamePlayer->sendPacket(&gcPetInfo);
+	gcPetInfo.setPetInfo( pPetInfo );
+	gcPetInfo.setSummonInfo( (bSummon)?1:0 );
+	gcPetInfo.setObjectID( pPC->getObjectID() );
+	pGamePlayer->sendPacket( &gcPetInfo );
 
-	if (bBroadcast )
+	if ( bBroadcast )
 	{
-		pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcPetInfo, pPC);
+		pPC->getZone()->broadcastPacket( pPC->getX(), pPC->getY(), &gcPetInfo, pPC );
 	}
 }
 
-void giveGoldMedal(PlayerCreature* pPC ) throw(Error)
+void giveGoldMedal( PlayerCreature* pPC ) throw(Error)
 {
 	__BEGIN_TRY
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	Statement* pStmt = NULL;
 
@@ -2502,12 +2359,12 @@ void giveGoldMedal(PlayerCreature* pPC ) throw(Error)
 		addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10);
 
 		GCSystemMessage gcSM;
-		gcSM.setMessage("You won a Gold Medal.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "삿돤錤듕쏜탬寧철." );
+		pGamePlayer->sendPacket( &gcSM );
 /*		pStmt->executeQuery("UPDATE GoldMedalCount SET GoldMedalCount=GoldMedalCount+1 WHERE PlayerID='%s'",
 				pGamePlayer->getID().c_str());
 
-		if (pStmt->getAffectedRowCount() < 1 )
+		if ( pStmt->getAffectedRowCount() < 1 )
 		{
 			pStmt->executeQuery("REPLACE INTO GoldMedalCount (PlayerID,GoldMedalCount) VALUES ('%s',1)",
 					pGamePlayer->getID().c_str());
@@ -2516,7 +2373,7 @@ void giveGoldMedal(PlayerCreature* pPC ) throw(Error)
 		Result* pResult = pStmt->executeQuery("SELECT GoldMedalCount FROM GoldMedalCount WHERE PlayerID='%s'",
 				pGamePlayer->getID().c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			GCNoticeEvent gcNE;
 			gcNE.setCode(NOTICE_EVENT_GOLD_MEDALS);
@@ -2524,19 +2381,19 @@ void giveGoldMedal(PlayerCreature* pPC ) throw(Error)
 			pGamePlayer->sendPacket(&gcNE);
 		}
 */
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
 	END_DB(pStmt);
 
 	__END_CATCH
 }
 
-void giveLotto(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
+void giveLotto( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 {
 	__BEGIN_TRY
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	Statement* pStmt = NULL;
 
@@ -2548,12 +2405,12 @@ void giveLotto(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 		addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10);
 
 		GCSystemMessage gcSM;
-		gcSM.setMessage("아테네 금메달을 1개 획득했습니다. 넷마블 이벤트 페이지에서 상품을 확인하세요.");
-		pGamePlayer->sendPacket(&gcSM);*/
+		gcSM.setMessage( "아테네 금메달을 1개 획득했습니다. 넷마블 이벤트 페이지에서 상품을 확인하세요." );
+		pGamePlayer->sendPacket( &gcSM );*/
 		pStmt->executeQuery("UPDATE EventLotto SET count=count+%u WHERE PlayerID='%s' AND Type=%u",
 				num, pGamePlayer->getID().c_str(), type);
 
-		if (pStmt->getAffectedRowCount() < 1 )
+		if ( pStmt->getAffectedRowCount() < 1 )
 		{
 			pStmt->executeQuery("REPLACE INTO EventLotto (PlayerID,Type,count) VALUES ('%s',%u,%u)",
 					pGamePlayer->getID().c_str(), type, num);
@@ -2562,32 +2419,32 @@ void giveLotto(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 		Result* pResult = pStmt->executeQuery("SELECT count FROM EventLotto WHERE PlayerID='%s' AND Type=%u",
 				pGamePlayer->getID().c_str(), type);
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			char buffer[256];
-			sprintf(buffer, "You have %d Lotto Event counts.",
+			sprintf(buffer, "삶땡꽈튿鑒綠댐돕%d몸.圈玖코휭헝꽝옘바렘寮女.",
 					pResult->getInt(1));
 			GCSystemMessage gcSM;
-			gcSM.setMessage(buffer);
+			gcSM.setMessage( buffer );
 			pGamePlayer->sendPacket(&gcSM);
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
 	END_DB(pStmt);
 
 	__END_CATCH
 }
 
-void addOlympicStat(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
+void addOlympicStat( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 {
 	__BEGIN_TRY
 
-/*	if (!g_pVariableManager->getVariable(OLYMPIC_EVENT ) )
+/*	if ( !g_pVariableManager->getVariable( OLYMPIC_EVENT ) )
 		return;
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	Statement* pStmt = NULL;
 
@@ -2598,7 +2455,7 @@ void addOlympicStat(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 		pStmt->executeQuery("UPDATE OlympicStat SET count=count+%u WHERE PlayerID='%s' AND OwnerID='%s' AND Type=%u AND Day=now()",
 				num, pGamePlayer->getID().c_str(), pPC->getName().c_str(), type);
 
-		if (pStmt->getAffectedRowCount() < 1 )
+		if ( pStmt->getAffectedRowCount() < 1 )
 		{
 			pStmt->executeQuery("REPLACE INTO OlympicStat (PlayerID,OwnerID,Race,Type,count,Day) VALUES ('%s','%s',%u,%u,%u, now())",
 					pGamePlayer->getID().c_str(), pPC->getName().c_str(), (uint)pPC->getRace(), type, num);
@@ -2607,24 +2464,24 @@ void addOlympicStat(PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 /*		Result* pResult = pStmt->executeQuery("SELECT count FROM EventLotto WHERE PlayerID='%s' AND Type=%u",
 				pGamePlayer->getID().c_str(), type);
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			char buffer[256];
 			sprintf(buffer, "%u단계 복권이 %d개가 되었습니다. 자세한 내용은 홈페이지를 참조하세요.",
 					type, pResult->getInt(1));
 			GCSystemMessage gcSM;
-			gcSM.setMessage(buffer);
+			gcSM.setMessage( buffer );
 			pGamePlayer->sendPacket(&gcSM);
 		}*/
 /*
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
 	END_DB(pStmt);
 */
 	__END_CATCH
 }
 
-void deletePC(PlayerCreature* pPC ) throw(Error)
+void deletePC( PlayerCreature* pPC ) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -2670,7 +2527,7 @@ void deletePC(PlayerCreature* pPC ) throw(Error)
 		////////////////////////////////////////////////////////////
 		// 계급 보너스를 지워준다.
 		////////////////////////////////////////////////////////////
-		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPC->getName().c_str());
+		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPC->getName().c_str() );
 
 		////////////////////////////////////////////////////////////
 		// 아이템을 깡그리 지운다.
@@ -2800,16 +2657,16 @@ void deletePC(PlayerCreature* pPC ) throw(Error)
 		pStmt->executeQuery("DELETE FROM EventQuestAdvance WHERE OwnerID='%s'", pPC->getName().c_str());
 
 	}
-	END_DB(pStmt);
+	END_DB( pStmt );
 
 	__END_CATCH
 }
 
 bool isAffectExp2X()
 {
-	if (g_pVariableManager->getVariable(TIME_PERIOD_EXP_2X) != 0 )
+	if ( g_pVariableManager->getVariable(TIME_PERIOD_EXP_2X) != 0 )
 	{
-		if (g_pTimeChecker->isInPeriod(TIME_PERIOD_AFTER_SCHOOL)
+		if ( g_pTimeChecker->isInPeriod(TIME_PERIOD_AFTER_SCHOOL)
 			|| g_pTimeChecker->isInPeriod(TIME_PERIOD_AFTER_WORK)
 			|| g_pTimeChecker->isInPeriod(TIME_PERIOD_MIDNIGHT)
 		   )

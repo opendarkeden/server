@@ -12,14 +12,14 @@
 #include "GamePlayer.h"
 #include "VariableManager.h"
 
-#include "GCNPCResponse.h"
-#include "GCGoodsList.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCGoodsList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTakeOutGoods::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionTakeOutGoods::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -48,14 +48,14 @@ void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
+	Assert( pPC != NULL );
 
-	if (g_pVariableManager->getVariable(CAN_BUY_SHOP )==0 )
+	if ( g_pVariableManager->getVariable( CAN_BUY_SHOP )==0 )
 	{
 		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode(NPC_RESPONSE_CANNOT_BUY);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_CANNOT_BUY );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
@@ -67,9 +67,9 @@ void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2)
 	int count = 0;
 	GCGoodsList gcGoodsList;
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		if (count++ >= MAX_GOODS_LIST ) break;
+		if ( count++ >= MAX_GOODS_LIST ) break;
 
 		Item* pItem = (*itr).m_pItem;
 		
@@ -80,20 +80,20 @@ void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2)
 		pGI->grade = pItem->getGrade();
 		pGI->optionType = pItem->getOptionTypeList();
 		pGI->num = pItem->getNum();
-		if (pItem->isTimeLimitItem() )
+		if ( pItem->isTimeLimitItem() )
 		{
-			if (pItem->getHour() == 0 ) pGI->timeLimit = 1;
+			if ( pItem->getHour() == 0 ) pGI->timeLimit = 1;
 			else pGI->timeLimit = pItem->getHour() * 3600;
 		}
 		else
 			pGI->timeLimit = 0;
 
-		gcGoodsList.addGoodsInfo(pGI);
+		gcGoodsList.addGoodsInfo( pGI );
 
 //		cout << pGI->toString() << endl;
 	}
 
-	pPC->getPlayer()->sendPacket(&gcGoodsList);
+	pPC->getPlayer()->sendPacket( &gcGoodsList );
 
 	__END_CATCH
 }
@@ -103,7 +103,7 @@ void ActionTakeOutGoods::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTakeOutGoods::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -43,7 +43,7 @@ ConditionAttrComp::~ConditionAttrComp()
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -182,7 +182,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionAttrComp::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -234,7 +234,7 @@ void ConditionAttrComp::read (PropertyBuffer & propertyBuffer)
 			else
 			{
 				cout << "ConditionAttrComp::read() : Unknown attribute type[" << attr << "]" << endl;
-				throw("ConditionAttrComp::read() : Unknown attribute type");
+				throw ("ConditionAttrComp::read() : Unknown attribute type");
 			}
 
 		} // while (d < text.size() - 1)
@@ -259,7 +259,7 @@ void ConditionAttrComp::parseOperator(string& op, uint& var)
 	else
 	{
 		cout << "ConditionAttrComp::parseOperator() : Unknown operator[" << op << "]" << endl;
-		throw("ConditionAttrComp::parseOperator() : Unknown operator");
+		throw ("ConditionAttrComp::parseOperator() : Unknown operator");
 	}
 
 	__END_CATCH
@@ -298,7 +298,7 @@ bool ConditionAttrComp::satisfy(uint op, uint current, uint restriction) const
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionAttrComp::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

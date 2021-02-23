@@ -9,7 +9,7 @@
 #include "Exception.h"
 
 #include <string>
-#include <map>
+#include <hash_map>
 
 enum StringID
 {
@@ -393,7 +393,7 @@ class StringPool
 {
 
 public:
-	typedef map<uint, string>		StringHashMap;
+	typedef hash_map<uint, string>		StringHashMap;
 	typedef StringHashMap::iterator			StringHashMapItor;
 	typedef StringHashMap::const_iterator	StringHashMapConstItor;
 
@@ -405,11 +405,11 @@ public:
 	void clear() throw(Error);
 	void load() throw(Error);
 
-	void addString(uint strID, string sString ) throw(DuplicatedException, Error);
+	void addString( uint strID, string sString ) throw( DuplicatedException, Error );
 	
-	string getString(uint strID ) throw(NoSuchElementException, Error);
+	string getString( uint strID ) throw( NoSuchElementException, Error );
 
-	const char* c_str(uint strID ) throw(NoSuchElementException, Error);
+	const char* c_str( uint strID ) throw( NoSuchElementException, Error );
 
 private:
 	StringHashMap m_Strings;

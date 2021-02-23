@@ -10,33 +10,33 @@ GCQuestStatus* GatherItemQuestStatus::makeStatusPacket() const
 {
 	GCQuestStatus* pPacket = new GCQuestStatus();
 
-	pPacket->setQuestID((WORD)getQuestID());
-	pPacket->setCurrentNum((WORD)m_CurrentNum);
-	pPacket->setRemainTime((DWORD)max(VSDateTime::currentDateTime().secsTo(m_Deadline ), 0));
+	pPacket->setQuestID( (WORD)getQuestID() );
+	pPacket->setCurrentNum( (WORD)m_CurrentNum );
+	pPacket->setRemainTime( (DWORD)max(VSDateTime::currentDateTime().secsTo( m_Deadline ), 0) );
 
 	return pPacket;
 }
 
-/*bool GatherItemQuestStatus::got(Item* pItem ) throw(Error)
+/*bool GatherItemQuestStatus::got( Item* pItem ) throw(Error)
 {
 	__BEGIN_TRY
 
 	bool ret = false;
-	if (m_TargetNum > m_CurrentNum && isTarget(pItem ) ){ ++m_CurrentNum; ret = true; }
-	if (m_TargetNum <= m_CurrentNum && m_State == QUEST_STARTED ){ setSuccess(); ret = true; }
+	if ( m_TargetNum > m_CurrentNum && isTarget( pItem ) ){ ++m_CurrentNum; ret = true; }
+	if ( m_TargetNum <= m_CurrentNum && m_State == QUEST_STARTED ){ setSuccess(); ret = true; }
 
 	return ret;
 
 	__END_CATCH
 }
 */
-bool GatherItemQuestStatus::isTarget(Item* pItem ) const throw(Error)
+bool GatherItemQuestStatus::isTarget( Item* pItem ) const throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pItem != NULL);
+	Assert( pItem != NULL );
 
-	return (pItem->getItemClass() == m_TargetItemClass && (m_TargetItemType == 999 || pItem->getItemType() == m_TargetItemType ));
+	return ( pItem->getItemClass() == m_TargetItemClass && ( m_TargetItemType == 999 || pItem->getItemType() == m_TargetItemType ) );
 
 	__END_CATCH
 }
@@ -68,21 +68,21 @@ bool GatherItemQuestStatus::isSuccess() const throw(Error)
 				if (itr == ItemList.end())
 				{
 					i += pItem->getVolumeWidth() - 1;
-					if (isTarget(pItem ) )
+					if ( isTarget( pItem ) )
 					{
 						++m_CurrentNum;
-						if (m_CurrentNum >= m_TargetNum ) break;
+						if ( m_CurrentNum >= m_TargetNum ) break;
 					}
 				}
 				ItemList[pItem->getObjectID()] = pItem;
 			}
 		}
-		if (m_CurrentNum >= m_TargetNum ) break;
+		if ( m_CurrentNum >= m_TargetNum ) break;
 	}
 
-	if (m_TargetNum <= m_CurrentNum )
+	if ( m_TargetNum <= m_CurrentNum )
 	{
-		if (!QuestStatus::isSuccess() && !isRewarded() ) setSuccess();
+		if ( !QuestStatus::isSuccess() && !isRewarded() ) setSuccess();
 		return true;
 	}
 

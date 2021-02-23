@@ -21,8 +21,6 @@
 #include "GQuestManager.h"
 #include <list>
 
-#include "VariableManager.h"
-
 #include "skill/SkillUtil.h"
 #include "skill/EffectRevealer.h"
 #include "skill/EffectDetectHidden.h"
@@ -34,16 +32,14 @@
 
 #include "EffectCanEnterGDRLair.h"
 
-#include "GCPartyLeave.h"
-#include "GCPartyInvite.h"
-#include "GCPartyJoined.h"
-#include "GCAddEffect.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCOtherModifyInfo.h"
-#include "GCOtherGuildName.h"
-
-#include <map>
+#include "Gpackets/GCPartyLeave.h"
+#include "Gpackets/GCPartyInvite.h"
+#include "Gpackets/GCPartyJoined.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCOtherGuildName.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // global varible 
@@ -92,7 +88,7 @@ PartyInviteInfoManager::~PartyInviteInfoManager()
 {
 	__BEGIN_TRY
 
-	map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.begin();
+	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.begin();
 	for (; itr != m_InfoMap.end(); itr++)
 	{
 		PartyInviteInfo* pInfo = itr->second;
@@ -105,11 +101,11 @@ PartyInviteInfoManager::~PartyInviteInfoManager()
 }
 
 bool PartyInviteInfoManager::hasInviteInfo(const string& HostName) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
 	if (itr == m_InfoMap.end())
 	{
 		return false;
@@ -121,7 +117,7 @@ bool PartyInviteInfoManager::hasInviteInfo(const string& HostName)
 }
 
 bool PartyInviteInfoManager::canInvite(Creature* pHost, Creature* pGuest) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -147,7 +143,7 @@ bool PartyInviteInfoManager::canInvite(Creature* pHost, Creature* pGuest)
 }
 
 bool PartyInviteInfoManager::isInviting(Creature* pHost, Creature* pGuest) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -171,7 +167,7 @@ bool PartyInviteInfoManager::isInviting(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::initInviteInfo(Creature* pHost, Creature* pGuest) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -207,7 +203,7 @@ void PartyInviteInfoManager::initInviteInfo(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -235,7 +231,7 @@ void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::cancelInvite(Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -250,33 +246,33 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 		const string& HostName  = pInfo->getHostName();	// &추가. by sigi. 2002.5.8
 		const string& GuestName = pInfo->getGuestName();
 
-		Creature* pTargetCreature = NULL;
-		/*
-		try
-		{
+			Creature* pTargetCreature = NULL;
+			/*
+			try
+			{
+				pTargetCreature = pZone->getCreature(GuestName);
+			}
+			catch (NoSuchElementException)
+			{
+				pTargetCreature = NULL;
+			}
+			*/
+	
+			// NoSuch.. 제거. by sigi. 2002.5.2
 			pTargetCreature = pZone->getCreature(GuestName);
-		}
-		catch (NoSuchElementException)
-		{
-			pTargetCreature = NULL;
-		}
-		*/
-
-		// NoSuch.. 제거. by sigi. 2002.5.2
-		pTargetCreature = pZone->getCreature(GuestName);
-
-		// 파티 초대 상대가 같은 존에 존재할 경우, 상대방에게 초대가 
-		// 거부되었다는 정보를 날려준다.
-		GCPartyInvite gcPartyInvite;
-		gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
-		gcPartyInvite.setCode(GC_PARTY_INVITE_REJECT);
-
-		if (pTargetCreature != NULL)
-		{
-			Player* pTargetPlayer = pTargetCreature->getPlayer();
-			Assert(pTargetPlayer != NULL);
-			pTargetPlayer->sendPacket(&gcPartyInvite);
-		}
+	
+			// 파티 초대 상대가 같은 존에 존재할 경우, 상대방에게 초대가 
+			// 거부되었다는 정보를 날려준다.
+			GCPartyInvite gcPartyInvite;
+			gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
+			gcPartyInvite.setCode(GC_PARTY_INVITE_REJECT);
+	
+			if (pTargetCreature != NULL)
+			{
+				Player* pTargetPlayer = pTargetCreature->getPlayer();
+				Assert(pTargetPlayer != NULL);
+				pTargetPlayer->sendPacket(&gcPartyInvite);
+			}
 		
 		deleteInviteInfo(HostName);
 		deleteInviteInfo(GuestName);
@@ -285,7 +281,7 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 	else
 	{
 		cerr << "PartyInviteInfoManager::cancelInvite() : Error" << endl;
-		throw("PartyInviteInfoManager::cancelInvite() : Error");
+		throw ("PartyInviteInfoManager::cancelInvite() : Error");
 	}
 	*/
 
@@ -293,11 +289,11 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 }
 
 bool PartyInviteInfoManager::addInviteInfo(PartyInviteInfo* pInfo) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(pInfo->getHostName());
+	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(pInfo->getHostName());
 	if (itr != m_InfoMap.end())
 	{
 		cerr << "PartyInviteInfoManager::addInviteInfo() : DuplicatedException" << endl;
@@ -315,11 +311,11 @@ bool PartyInviteInfoManager::addInviteInfo(PartyInviteInfo* pInfo)
 }
 	
 void PartyInviteInfoManager::deleteInviteInfo(const string& HostName) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
 	if (itr != m_InfoMap.end())
 	{
 		m_InfoMap.erase(itr);
@@ -334,11 +330,11 @@ void PartyInviteInfoManager::deleteInviteInfo(const string& HostName)
 }
 	
 PartyInviteInfo* PartyInviteInfoManager::getInviteInfo(const string& HostName) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
 
 	if (itr == m_InfoMap.end())
 	{
@@ -397,7 +393,7 @@ Party::~Party()
 
 // 이름으로 파티에 멤버를 찾아서 리턴한다.
 Creature* Party::getMember(const string& name) const
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -407,7 +403,7 @@ Creature* Party::getMember(const string& name) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
 	if (itr == m_MemberMap.end())
 	{
 		cerr << "Party::getMember() : NoSuchElementException" << endl;
@@ -427,7 +423,7 @@ Creature* Party::getMember(const string& name) const
 
 // 멤버를 더한다.
 void Party::addMember(Creature* pCreature) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
@@ -442,7 +438,7 @@ void Party::addMember(Creature* pCreature)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::iterator itr = m_MemberMap.find(pCreature->getName());
+	hash_map<string, Creature*>::iterator itr = m_MemberMap.find(pCreature->getName());
 	if (itr == m_MemberMap.end())
 	{
 		m_MemberMap[pCreature->getName()] = pCreature;
@@ -464,7 +460,7 @@ void Party::addMember(Creature* pCreature)
 
 // 파티에서 멤버를 삭제한다.
 void Party::deleteMember(const string& name) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -472,7 +468,7 @@ void Party::deleteMember(const string& name)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::iterator itr = m_MemberMap.find(name);
+	hash_map<string, Creature*>::iterator itr = m_MemberMap.find(name);
 	if (itr == m_MemberMap.end())
 	{
 		//cerr << "Party::deleteMember() : NoSuchElementException" << endl;
@@ -482,7 +478,7 @@ void Party::deleteMember(const string& name)
 		return;
 	}
 
-//	itr->second->removeFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR);
+//	itr->second->removeFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR );
 	m_MemberMap.erase(itr);
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -494,7 +490,7 @@ void Party::deleteMember(const string& name)
 
 // 파티에 특정 이름을 가진 멤버가 있는지 조사한다.
 bool Party::hasMember(const string& name) const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -502,7 +498,7 @@ bool Party::hasMember(const string& name) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
 	if (itr == m_MemberMap.end())
 	{
 		//cout << "Party::hasMember() : END" << endl;
@@ -532,13 +528,13 @@ void Party::destroyParty(void)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
 		Assert(pCreature != NULL);
 		pCreature->setPartyID(0);
-//		pCreature->removeFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR);
+//		pCreature->removeFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR );
 
 		//cout << "파티에 남아있는 크리쳐[" << pCreature->getName() << "]의 파티 ID를 0으로 만들었습니다." << endl;
 
@@ -561,7 +557,7 @@ void Party::destroyParty(void)
 
 // 파티 멤버들에게 패킷을 날린다.
 void Party::broadcastPacket(Packet* pPacket, Creature* pOwner) 
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -569,7 +565,7 @@ void Party::broadcastPacket(Packet* pPacket, Creature* pOwner)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
@@ -599,7 +595,7 @@ void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
@@ -625,7 +621,7 @@ void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
 			pInfo->hair_style = 0;
 			pInfo->ip         = pVampire->getIP();
 		}
-		else if (pCreature->isOusters() )
+		else if ( pCreature->isOusters() )
 		{
 			// 아우스터스 추가. by bezz 2003.04.19
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
@@ -660,7 +656,7 @@ int Party::getSize(void) const
 	__END_CATCH
 }
 
-map<string, Creature*> Party::getMemberMap(void) throw() 
+hash_map<string, Creature*> Party::getMemberMap(void) throw() 
 { 
 	__BEGIN_TRY
 
@@ -686,7 +682,7 @@ int Party::getAdjacentMemberSize(Creature* pLeader) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
@@ -730,7 +726,7 @@ int Party::getAdjacentMemberSize_LOCKED(Creature* pLeader) const
 
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
@@ -776,7 +772,7 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 (경험치를 올려줄) 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -843,17 +839,7 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		case 3: amount = getPercentValue(amount, 195); break;
 		case 4: amount = getPercentValue(amount, 225); break;
 		case 5: amount = getPercentValue(amount, 250); break;
-		case 6: 
-			// 풀파티 경험치 이벤트
-			if (g_pVariableManager->getVariable(FULL_PARTY_EXP_EVENT ) != 0 )
-			{
-				amount = getPercentValue(amount, 295);
-			}
-			else
-			{
-				amount = getPercentValue(amount, 270);
-			}
-			break;
+		case 6: amount = getPercentValue(amount, 270); break;
 		default: break;
 	}
 
@@ -946,7 +932,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 (경험치를 올려줄) 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -960,7 +946,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		// 무리가 있다고 생각하는데, 같은 존에 있으면 경험치 보너스를 받는
 		// 쪽이 좋지 않을까? -- 김성민
 		// 박쥐상태에서는 파티경험치 못 먹는다. by Sequoia
-		if (pCreature->getDistance(cx, cy) <= 8 && !pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ) )
+		if (pCreature->getDistance(cx, cy) <= 8 && !pCreature->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ) )
 		{
 			MemberList.push_back(pCreature);
 
@@ -1003,17 +989,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		case 3: amount = getPercentValue(amount, 195); break;
 		case 4: amount = getPercentValue(amount, 225); break;
 		case 5: amount = getPercentValue(amount, 250); break;
-		case 6:
-			// 풀파티 경험치 이벤트
-			if (g_pVariableManager->getVariable(FULL_PARTY_EXP_EVENT ) != 0 )
-			{
-				amount = getPercentValue(amount, 295);
-			}
-			else
-			{
-				amount = getPercentValue(amount, 270);
-			}
-			break;
+		case 6: amount = getPercentValue(amount, 270); break;
 		default: break;
 	}
 
@@ -1029,7 +1005,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		Assert(pCreature->isVampire());
 
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-		int myQuota = (int)((float)amount * (float)pVampire->getLevel() / (float)LevelSum);
+		int myQuota = (int)( (float)amount * (float)pVampire->getLevel() / (float)LevelSum );
 
 		//cout << "나의 몫 : " << myQuota << endl;
 
@@ -1075,7 +1051,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 (경험치를 올려줄) 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1125,17 +1101,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		case 3: amount = getPercentValue(amount, 195); break;
 		case 4: amount = getPercentValue(amount, 225); break;
 		case 5: amount = getPercentValue(amount, 250); break;
-		case 6:
-			// 풀파티 경험치 이벤트
-			if (g_pVariableManager->getVariable(FULL_PARTY_EXP_EVENT ) != 0 )
-			{
-				amount = getPercentValue(amount, 295);
-			}
-			else
-			{
-				amount = getPercentValue(amount, 270);
-			}
-			break;
+		case 6: amount = getPercentValue(amount, 270); break;
 		default: break;
 	}
 
@@ -1148,7 +1114,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		Assert(pCreature->isOusters());
 
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-		int myQuota = (int)((float)amount * (float)pOusters->getLevel() / (float)LevelSum);
+		int myQuota = (int)( (float)amount * (float)pOusters->getLevel() / (float)LevelSum );
 
 		if (pCreature != pLeader)
 		{
@@ -1194,7 +1160,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 (경험치를 올려줄) 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1226,7 +1192,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 
 				LevelSum2 += pVampire->getLevel();
 			}
-			else if (pCreature->isOusters() )
+			else if ( pCreature->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 				LevelSum += pOusters->getLevel();
@@ -1240,7 +1206,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 	int nMemberSize = MemberList.size();
 
 	// 파티원 평균 레벨에 의한 경험치를 구한다.
-	int amount = (int) computeRankExp(LevelSum2 / nMemberSize, otherLevel);
+	int amount = (int) computeRankExp( LevelSum2 / nMemberSize, otherLevel );
 
 	//cout << "파티원의 숫자 : " << nMemberSize << endl;
 	//cout << "원래 경험치 : " << amount << endl;
@@ -1294,7 +1260,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 			int myQuota = amount * level / LevelSum;
 			pVampire->increaseRankExp(myQuota);
 		}
-		else if (pCreature->isOusters() )
+		else if ( pCreature->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 			level = pOusters->getLevel();
@@ -1328,7 +1294,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 (경험치를 올려줄) 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		PlayerCreature* pCreature = dynamic_cast<PlayerCreature*>(mitr->second);
@@ -1361,7 +1327,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pLeader);
 
 		// 파티원이 하나라면 (근처에 다른 파티원이 없다면) 그냥 혼자 올려주고, 리턴한다.
-		if (pPC->isAdvanced() )
+		if ( pPC->isAdvanced() )
 			pPC->increaseAdvancementClassExp(amount);
 		return;
 	}
@@ -1372,17 +1338,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 		case 3: amount = getPercentValue(amount, 195); break;
 		case 4: amount = getPercentValue(amount, 225); break;
 		case 5: amount = getPercentValue(amount, 250); break;
-		case 6:
-			// 풀파티 경험치 이벤트
-			if (g_pVariableManager->getVariable(FULL_PARTY_EXP_EVENT ) != 0 )
-			{
-				amount = getPercentValue(amount, 295);
-			}
-			else
-			{
-				amount = getPercentValue(amount, 270);
-			}
-			break;
+		case 6: amount = getPercentValue(amount, 270); break;
 		default: break;
 	}
 
@@ -1409,7 +1365,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 }
 
 void Party::shareRevealer(Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1422,7 +1378,7 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1439,16 +1395,16 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 		return;
 	}
 
-	if (!pCaster->isFlag(Effect::EFFECT_CLASS_REVEALER ) )
+	if ( !pCaster->isFlag( Effect::EFFECT_CLASS_REVEALER ) )
 	{
-		throw Error("Revealer 이펙트가 걸려 있지 않음");
+		throw Error( "Revealer 이펙트가 걸려 있지 않음" );
 	}
 
 	// Caster 의 Revelaer 스킬 레벨을 가져온다
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCaster);
-	Assert(pSlayer != NULL);
-	SkillSlot* pSkillSlot = pSlayer->getSkill(SKILL_REVEALER);
-	Assert(pSkillSlot != NULL);
+	Assert( pSlayer != NULL );
+	SkillSlot* pSkillSlot = pSlayer->getSkill( SKILL_REVEALER );
+	Assert( pSkillSlot != NULL );
 	ExpLevel_t ExpLevel = pSkillSlot->getExpLevel();
 
 	list<Creature*>::iterator litr = MemberList.begin();
@@ -1463,15 +1419,15 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 			EffectRevealer* pEffectRevealer = new EffectRevealer(pSlayer);
-			pEffectRevealer->setSkillLevel(ExpLevel);
+			pEffectRevealer->setSkillLevel( ExpLevel );
 			pEffectRevealer->setDeadline(Duration);
 			EffectManager* pEffectManager = pSlayer->getEffectManager();
 			pEffectManager->addEffect(pEffectRevealer);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_REVEALER);
 
 			pZone->updateMineScan(pSlayer);
-//			pZone->updateInvisibleScan(pSlayer);
-			pZone->updateHiddenScan(pSlayer);
+//			pZone->updateInvisibleScan( pSlayer );
+			pZone->updateHiddenScan( pSlayer );
 
 			GCAddEffect gcAddEffect;
 			gcAddEffect.setObjectID(pSlayer->getObjectID());
@@ -1487,7 +1443,7 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 }
 
 void Party::shareActivation(Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1500,7 +1456,7 @@ void Party::shareActivation(Creature* pCaster, int Duration)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1549,7 +1505,7 @@ void Party::shareActivation(Creature* pCaster, int Duration)
 
 
 void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1562,7 +1518,7 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1591,12 +1547,12 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
             // 이팩트 클래스를 만들어 붙인다.
 			EffectGnomesWhisper* pEffect = new EffectGnomesWhisper(pOusters);
-			pEffect->setDeadline(Duration);
-			pEffect->setLevel(SkillLevel);
+			pEffect->setDeadline( Duration );
+			pEffect->setLevel( SkillLevel );
 			pOusters->addEffect(pEffect);
 			pOusters->setFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER);
 
-			pZone->updateDetectScan(pOusters);
+			pZone->updateDetectScan( pOusters );
 
 			GCAddEffect gcAddEffect;
 			gcAddEffect.setObjectID(pOusters->getObjectID());
@@ -1612,7 +1568,7 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 }
 
 void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1625,7 +1581,7 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1655,8 +1611,8 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
             // 이팩트 클래스를 만들어 붙인다.
 			EffectHolyArmor* pEffect = new EffectHolyArmor(pSlayer);
-			pEffect->setDeadline(Duration);
-			pEffect->setDefBonus(DefBonus);
+			pEffect->setDeadline( Duration );
+			pEffect->setDefBonus( DefBonus );
 			pSlayer->addEffect(pEffect);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_HOLY_ARMOR);
 
@@ -1679,7 +1635,7 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 }
 	
 bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1694,7 +1650,7 @@ bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1719,32 +1675,32 @@ bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
 		Assert(pCreature->isOusters());
 
 		Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-		Assert(pTargetOusters != NULL);
+		Assert(pTargetOusters != NULL );
 
-		if (pTargetOusters != pCaster && pTargetOusters->getHP() < pTargetOusters->getHP(ATTR_MAX ) && pTargetOusters->getHP() > 0 )
+		if (pTargetOusters != pCaster && pTargetOusters->getHP() < pTargetOusters->getHP( ATTR_MAX ) && pTargetOusters->getHP() > 0 )
 		{
 			ret = true;
 			GCModifyInformation gcMI;
-			HP_t final = min((int)pTargetOusters->getHP(ATTR_MAX), pTargetOusters->getHP() + HealPoint);
-			if (final > pTargetOusters->getHP(ATTR_MAX) - pTargetOusters->getSilverDamage() )
+			HP_t final = min( (int)pTargetOusters->getHP(ATTR_MAX), pTargetOusters->getHP() + HealPoint );
+			if ( final > pTargetOusters->getHP(ATTR_MAX) - pTargetOusters->getSilverDamage() )
 			{
-				pTargetOusters->setSilverDamage(pTargetOusters->getHP(ATTR_MAX) - final);
+				pTargetOusters->setSilverDamage( pTargetOusters->getHP(ATTR_MAX) - final );
 				gcMI.addShortData(MODIFY_SILVER_DAMAGE, pTargetOusters->getSilverDamage());
 			}
 
-			if (pTargetOusters->getHP() != final )
+			if ( pTargetOusters->getHP() != final )
 			{
-				pTargetOusters->setHP(final);
+				pTargetOusters->setHP( final );
 				gcMI.addShortData(MODIFY_CURRENT_HP, final);
 			}
 
 			GCStatusCurrentHP gcHP;
-			gcHP.setObjectID(pTargetOusters->getObjectID());
-			gcHP.setCurrentHP(final);
+			gcHP.setObjectID( pTargetOusters->getObjectID() );
+			gcHP.setCurrentHP( final );
 
 			pZone->broadcastPacket(pTargetOusters->getX(), pTargetOusters->getY(), &gcHP);
 			
-			pTargetOusters->getPlayer()->sendPacket(&gcMI);
+			pTargetOusters->getPlayer()->sendPacket( &gcMI );
 
 			GCAddEffect gcAddEffect;
 			gcAddEffect.setObjectID(pTargetOusters->getObjectID());
@@ -1762,7 +1718,7 @@ bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
 }
 
 void Party::shareGDRLairEnter(Creature* pLeader)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1775,7 +1731,7 @@ void Party::shareGDRLairEnter(Creature* pLeader)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1798,25 +1754,25 @@ void Party::shareGDRLairEnter(Creature* pLeader)
 		Creature* pCreature = (*litr);
 		Assert(pCreature != NULL);
 
-//		pCreature->setFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR);
-		if (!pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR) )
+//		pCreature->setFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR );
+		if ( !pCreature->isFlag(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR) )
 		{
 			EffectCanEnterGDRLair* pEffect = new EffectCanEnterGDRLair(pCreature);
 			pEffect->setDeadline(216000);
 
-			pCreature->setFlag(pEffect->getEffectClass());
-			pCreature->addEffect(pEffect);
+			pCreature->setFlag( pEffect->getEffectClass() );
+			pCreature->addEffect( pEffect );
 
-			pEffect->create(pCreature->getName());
+			pEffect->create( pCreature->getName() );
 
 			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pCreature->getObjectID());
-			gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-			gcAddEffect.setDuration(21600);
+			gcAddEffect.setObjectID( pCreature->getObjectID() );
+			gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+			gcAddEffect.setDuration( 21600 );
 
-			pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
+			pCreature->getZone()->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffect );
 		}
-//			addSimpleCreatureEffect(pCreature, Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR, 216000);
+//			addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR, 216000 );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -1826,7 +1782,7 @@ void Party::shareGDRLairEnter(Creature* pLeader)
 
 
 void Party::shareDetectHidden(Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1839,7 +1795,7 @@ void Party::shareDetectHidden(Creature* pCaster, int Duration)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1889,7 +1845,7 @@ void Party::shareDetectHidden(Creature* pCaster, int Duration)
 }
 
 void Party::shareDetectInvisibility(Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1902,7 +1858,7 @@ void Party::shareDetectInvisibility(Creature* pCaster, int Duration)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -1952,7 +1908,7 @@ void Party::shareDetectInvisibility(Creature* pCaster, int Duration)
 }
 
 void Party::shareExpansion(Creature* pCaster, int Duration, int Percent) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1965,7 +1921,7 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -2035,9 +1991,9 @@ void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) throw(Er
 {
 	__BEGIN_TRY
 
-	//cout << __PRETTY_FUNCTION__ << endl;
-	if (getSize() != 2 ) return;
-	//cout << "dissectCorpse!" << endl;
+	cout << __PRETTY_FUNCTION__ << endl;
+	if ( getSize() != 2 ) return;
+	cout << "dissectCorpse!" << endl;
 
 	Zone*       pZone = pDissecter->getZone();
 	ZoneCoord_t cx    = pDissecter->getX();
@@ -2048,7 +2004,7 @@ void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) throw(Er
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 근처에 있는 이펙트를 걸어줄 파티원의 리스트를 가져온다.
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
@@ -2071,7 +2027,7 @@ void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) throw(Er
 	for (; litr != MemberList.end(); litr++)
 	{
 		Creature* pCreature = (*litr);
-		if (pCreature == pDissecter ) continue;
+		if ( pCreature == pDissecter ) continue;
 		Assert(pCreature != NULL);
 		Assert(pCreature->isPC());
 
@@ -2086,11 +2042,11 @@ void Party::eventPartyCrash() throw(Error)
 {
 	__BEGIN_TRY
 
-	//cout << __PRETTY_FUNCTION__ << endl;
+	cout << __PRETTY_FUNCTION__ << endl;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(mitr->second);
@@ -2110,15 +2066,15 @@ void Party::refreshFamilyPay()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
-		Assert(pCreature->isPC());
+		Assert( pCreature->isPC() );
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-		Assert(pGamePlayer != NULL);
+		Assert( pGamePlayer != NULL );
 
-		if (pGamePlayer->isFamilyPayAvailable() )
+		if ( pGamePlayer->isFamilyPayAvailable() )
 		{
 			m_bFamilyPay = true;
 			break;
@@ -2127,28 +2083,28 @@ void Party::refreshFamilyPay()
 
 	// 패밀리 요금제 적용이 바뀌면 모든 파티원들에게 적용시킨다.
 	// 단 패밀리 요금제 가입자는 제외한다.
-	if (oldFamilyPay != m_bFamilyPay )
+	if ( oldFamilyPay != m_bFamilyPay )
 	{
 		mitr = m_MemberMap.begin();
 
 		for (; mitr != m_MemberMap.end(); mitr++)
 		{
 			Creature* pCreature = mitr->second;
-			Assert(pCreature->isPC());
+			Assert( pCreature->isPC() );
 			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-			Assert(pGamePlayer != NULL);
+			Assert( pGamePlayer != NULL );
 
-			if (!pGamePlayer->isFamilyPayAvailable() )
+			if ( !pGamePlayer->isFamilyPayAvailable() )
 			{
-				if (m_bFamilyPay )
+				if ( m_bFamilyPay )
 				{
 					// 패밀리 요금제 적용
-					pGamePlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_FREE_PASS);
+					pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS );
 				}
 				else
 				{
 					// 패밀리 요금제 적용이 끝났음을 알려야한다.
-					pGamePlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_FREE_PASS_END);
+					pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 				}
 			}
 		}
@@ -2170,7 +2126,7 @@ string Party::toString(void) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
+	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.begin();
 	for (; itr != m_MemberMap.end(); itr++)
 	{
 		Creature* pCreature = itr->second;
@@ -2213,14 +2169,14 @@ PartyManager::~PartyManager()
 }
 
 bool PartyManager::createParty(int ID, Creature::CreatureClass CClass) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 중첩되는 파티를 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr != m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2240,12 +2196,12 @@ bool PartyManager::createParty(int ID, Creature::CreatureClass CClass)
 }
 
 Party* PartyManager::getParty(int ID) 	// by sigi. 2002.10.14
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		return NULL;
@@ -2258,14 +2214,14 @@ Party* PartyManager::getParty(int ID) 	// by sigi. 2002.10.14
 
 
 bool PartyManager::addPartyMember(int ID, Creature* pCreature) 
-	throw(NoSuchElementException, DuplicatedException, Error)
+	throw (NoSuchElementException, DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		// 없다면 여기서 생성해준다.
@@ -2305,14 +2261,14 @@ bool PartyManager::addPartyMember(int ID, Creature* pCreature)
 }
 
 bool PartyManager::deletePartyMember(int ID, Creature* pCreature) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2355,14 +2311,14 @@ LocalPartyManager::~LocalPartyManager()
 }
 
 void LocalPartyManager::heartbeat(void)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	map<int, Party*>::iterator before  = m_PartyMap.end();
-	map<int, Party*>::iterator current = m_PartyMap.begin(); 
+	hash_map<int, Party*>::iterator before  = m_PartyMap.end();
+	hash_map<int, Party*>::iterator current = m_PartyMap.begin(); 
 	
 	while (current != m_PartyMap.end()) 
 	{
@@ -2408,7 +2364,7 @@ int LocalPartyManager::getAdjacentMemberSize(int PartyID, Creature* pLeader) con
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2439,7 +2395,7 @@ int LocalPartyManager::shareAttrExp(int PartyID, Creature* pLeader, int amount,
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2468,7 +2424,7 @@ int LocalPartyManager::shareVampireExp(int PartyID, Creature* pLeader, int amoun
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2497,7 +2453,7 @@ int LocalPartyManager::shareOustersExp(int PartyID, Creature* pLeader, int amoun
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2526,7 +2482,7 @@ int LocalPartyManager::shareRankExp(int PartyID, Creature* pLeader, int amount) 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2546,14 +2502,14 @@ int LocalPartyManager::shareRankExp(int PartyID, Creature* pLeader, int amount) 
 }
 
 void LocalPartyManager::shareRevealer(int PartyID, Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2571,14 +2527,14 @@ void LocalPartyManager::shareRevealer(int PartyID, Creature* pCaster, int Durati
 }
 
 void LocalPartyManager::shareDetectHidden(int PartyID, Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2596,14 +2552,14 @@ void LocalPartyManager::shareDetectHidden(int PartyID, Creature* pCaster, int Du
 }
 
 void LocalPartyManager::shareDetectInvisibility(int PartyID, Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2621,14 +2577,14 @@ void LocalPartyManager::shareDetectInvisibility(int PartyID, Creature* pCaster, 
 }
 
 void LocalPartyManager::shareExpansion(int PartyID, Creature* pCaster, int Duration, int percent) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2646,14 +2602,14 @@ void LocalPartyManager::shareExpansion(int PartyID, Creature* pCaster, int Durat
 }
 
 void LocalPartyManager::shareActivation(int PartyID, Creature* pCaster, int Duration) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2671,14 +2627,14 @@ void LocalPartyManager::shareActivation(int PartyID, Creature* pCaster, int Dura
 }
 
 void LocalPartyManager::shareGnomesWhisper(int PartyID, Creature* pCaster, int Duration, int SkillLevel)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2696,14 +2652,14 @@ void LocalPartyManager::shareGnomesWhisper(int PartyID, Creature* pCaster, int D
 }
 
 void LocalPartyManager::shareHolyArmor(int PartyID, Creature* pCaster, int DefBonus, int SkillLevel)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2721,7 +2677,7 @@ void LocalPartyManager::shareHolyArmor(int PartyID, Creature* pCaster, int DefBo
 }
 
 bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, int HealPoint)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -2730,7 +2686,7 @@ bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2750,14 +2706,14 @@ bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, 
 }
 
 void LocalPartyManager::shareGDRLairEnter(int PartyID, Creature* pLeader)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2783,7 +2739,7 @@ int LocalPartyManager::shareAdvancementExp(int PartyID, Creature* pLeader, int a
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
 	// 해당하는 파티가 있는지 찾아본다.
-	map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2812,7 +2768,7 @@ string LocalPartyManager::toString(void) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	map<int, Party*>::const_iterator itr = m_PartyMap.begin();
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.begin();
 	for (; itr != m_PartyMap.end(); itr++)
 	{
 		Party* pParty = itr->second;
@@ -2854,13 +2810,13 @@ GlobalPartyManager::~GlobalPartyManager()
 }
 
 bool GlobalPartyManager::canAddMember(int ID) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2883,7 +2839,7 @@ bool GlobalPartyManager::canAddMember(int ID)
 }
 
 bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature) 
-	throw(NoSuchElementException, DuplicatedException, Error)
+	throw (NoSuchElementException, DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
@@ -2892,7 +2848,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 	//cout << "GlobalPartyManager::addPartyMember() : BEGIN" << endl;
 
 	// 먼저 해당파티를 찾아서 피티원의 숫자를 확인한다.
-	map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		m_Mutex.unlock();
@@ -2915,7 +2871,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 		return false;
 	}
 
-	if (pParty->getSize() == 2 )
+	if ( pParty->getSize() == 2 )
 	{
 		pParty->eventPartyCrash();
 	}
@@ -2937,24 +2893,24 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 		pParty->makeGCPartyJoined(&gcPartyJoined);
 		pParty->broadcastPacket(&gcPartyJoined);
 
-		map<string, Creature*> memberMap = pParty->getMemberMap();
-		map<string, Creature*>::iterator itr = memberMap.begin();
+		hash_map<string, Creature*> memberMap = pParty->getMemberMap();
+		hash_map<string, Creature*>::iterator itr = memberMap.begin();
 		GCOtherGuildName gcOtherGuildName;
 
-		for (; itr != memberMap.end() ; ++itr )
+		for ( ; itr != memberMap.end() ; ++itr )
 		{
 			Creature* pTargetCreature = itr->second;
-			if (pTargetCreature != NULL && pTargetCreature->isPC() )
+			if ( pTargetCreature != NULL && pTargetCreature->isPC() )
 			{
 				PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
 
-				if (pPC != NULL && pPC->getGuildID() != pPC->getCommonGuildID() )
+				if ( pPC != NULL && pPC->getGuildID() != pPC->getCommonGuildID() )
 				{
-					gcOtherGuildName.setObjectID(pPC->getObjectID());
-					gcOtherGuildName.setGuildID(pPC->getGuildID());
-					gcOtherGuildName.setGuildName(pPC->getGuildName());
+					gcOtherGuildName.setObjectID( pPC->getObjectID() );
+					gcOtherGuildName.setGuildID( pPC->getGuildID() );
+					gcOtherGuildName.setGuildName( pPC->getGuildName() );
 
-					pParty->broadcastPacket(&gcOtherGuildName);
+					pParty->broadcastPacket( &gcOtherGuildName );
 				}
 			}
 		}
@@ -2962,14 +2918,14 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 
 	// 패밀리 요금제 적용 처리
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-	if (pGamePlayer != NULL )
+	if ( pGamePlayer != NULL )
 	{
-		if (pParty->isFamilyPay() && !pGamePlayer->isFamilyPayAvailable() )
+		if ( pParty->isFamilyPay() && !pGamePlayer->isFamilyPayAvailable() )
 		{
 			// 패밀리 요금제 적용 파티라면 유료존 출입권을 준다.
-			pGamePlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_FREE_PASS);
+			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS );
 		}
-		else if (pGamePlayer->isFamilyPayAvailable() )
+		else if ( pGamePlayer->isFamilyPayAvailable() )
 		{
 			// 패밀리 요금제인 파티원이 참가하게 될 경우 파티를 패밀리 요금제 적용 파티로 만든다.
 			pParty->refreshFamilyPay();
@@ -2986,7 +2942,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 }
 
 bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -2994,7 +2950,7 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		//m_Mutex.unlock();
@@ -3028,17 +2984,17 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 
 	// 패밀리 요금제 적용 처리
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-	if (pGamePlayer != NULL )
+	if ( pGamePlayer != NULL )
 	{
-		if (pGamePlayer->isFamilyPayAvailable() )
+		if ( pGamePlayer->isFamilyPayAvailable() )
 		{
 			// 패밀리 요금제인 파티원이 떠나하게 될 경우 패밀리 요금제 적용을 새로 계산한다.
 			pParty->refreshFamilyPay();
 		}
-		else if (pParty->isFamilyPay() )
+		else if ( pParty->isFamilyPay() )
 		{
 			// 패밀리 요금제 적용 파티일 경우 패밀리 적용을 끝낸다.
-			pGamePlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_FREE_PASS_END);
+			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 		}
 	}
 
@@ -3067,7 +3023,7 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 }
 
 bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const string& ExpelleeName) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -3076,7 +3032,7 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 먼저 해당파티를 찾는다.
-	map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		cerr << "GlobalPartyManager::expelPartyMember() : NoSuchElementException" << endl;
@@ -3133,17 +3089,17 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 
 	// 패밀리 요금제 적용 처리
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pExpellee->getPlayer());
-	if (pGamePlayer != NULL )
+	if ( pGamePlayer != NULL )
 	{
-		if (pGamePlayer->isFamilyPayAvailable() )
+		if ( pGamePlayer->isFamilyPayAvailable() )
 		{
 			// 패밀리 요금제인 파티원이 떠나하게 될 경우 패밀리 요금제 적용을 새로 계산한다.
 			pParty->refreshFamilyPay();
 		}
-		else if (pParty->isFamilyPay() )
+		else if ( pParty->isFamilyPay() )
 		{
 			// 패밀리 요금제 적용 파티일 경우 패밀리 적용을 끝낸다.
-			pGamePlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_FREE_PASS_END);
+			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 		}
 	}
 
@@ -3179,12 +3135,12 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 	__END_CATCH
 }
 
-void GlobalPartyManager::refreshFamilyPay(int ID )
+void GlobalPartyManager::refreshFamilyPay( int ID )
 {
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// 먼저 해당파티를 찾는다.
-	map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		cerr << "GlobalPartyManager::refreshFamilyPay() : NoSuchElementException" << endl;
@@ -3201,7 +3157,7 @@ void GlobalPartyManager::refreshFamilyPay(int ID )
 }
 
 int GlobalPartyManager::registerParty(void) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -3228,7 +3184,7 @@ string GlobalPartyManager::toString(void) const
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map<int, Party*>::const_iterator itr = m_PartyMap.begin();
+	hash_map<int, Party*>::const_iterator itr = m_PartyMap.begin();
 	for (; itr != m_PartyMap.end(); itr++)
 	{
 		Party* pParty = itr->second;

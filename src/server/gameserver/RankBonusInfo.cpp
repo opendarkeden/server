@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "RankBonusInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // class RankBonusInfo member methods
@@ -82,15 +82,15 @@ void RankBonusInfoManager::clear()
 {
 	__BEGIN_TRY
 	
-	if (m_RankBonusInfoList != NULL )
+	if ( m_RankBonusInfoList != NULL )
 	{
-		for (uint i = 0; i < m_Count; i++ )
+		for ( uint i = 0; i < m_Count; i++ )
 		{
-			if (m_RankBonusInfoList[i] != NULL )
-				SAFE_DELETE(m_RankBonusInfoList[i]);
+			if ( m_RankBonusInfoList[i] != NULL )
+				SAFE_DELETE( m_RankBonusInfoList[i] );
 		}
 	}
-	SAFE_DELETE_ARRAY(m_RankBonusInfoList);
+	SAFE_DELETE_ARRAY( m_RankBonusInfoList );
 
 	__END_CATCH
 }
@@ -135,11 +135,11 @@ void RankBonusInfoManager::load()
 			RankBonusInfo* pRankBonusInfo = new RankBonusInfo();
 			int i = 0;
 
-			pRankBonusInfo->setType(pResult->getInt(++i));
-			pRankBonusInfo->setName(pResult->getString(++i));
-			pRankBonusInfo->setRank(pResult->getInt(++i));
-			pRankBonusInfo->setPoint(pResult->getInt(++i));
-			pRankBonusInfo->setRace(pResult->getInt(++i));
+			pRankBonusInfo->setType( pResult->getInt(++i) );
+			pRankBonusInfo->setName( pResult->getString(++i) );
+			pRankBonusInfo->setRank( pResult->getInt(++i) );
+			pRankBonusInfo->setPoint( pResult->getInt(++i) );
+			pRankBonusInfo->setRace( pResult->getInt(++i) );
 
 			addRankBonusInfo(pRankBonusInfo);
 		}
@@ -162,18 +162,18 @@ void RankBonusInfoManager::save()
 	__END_CATCH
 }
 
-RankBonusInfo* RankBonusInfoManager::getRankBonusInfo(DWORD rankBonusType ) const
-	throw(NoSuchElementException, OutOfBoundException, Error )
+RankBonusInfo* RankBonusInfoManager::getRankBonusInfo( DWORD rankBonusType ) const
+	throw( NoSuchElementException, OutOfBoundException, Error )
 {
 	__BEGIN_TRY
 
-	if (rankBonusType >= m_Count )
+	if ( rankBonusType >= m_Count )
 	{
 		cerr << "RankBonusInfoManager::getRankBonusInfo() : out of bound" << endl;
 		throw OutOfBoundException();
 	}
 
-	if (m_RankBonusInfoList[rankBonusType] == NULL )
+	if ( m_RankBonusInfoList[rankBonusType] == NULL )
 	{
 		cerr << "RankBonusInfoManager::getRankBonusInfo() : no such element" << endl;
 		throw NoSuchElementException();

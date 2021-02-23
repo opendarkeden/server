@@ -7,8 +7,8 @@
 #include "Eternity.h"
 #include "EffectEternity.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프
@@ -41,19 +41,19 @@ void Eternity::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEf
 		ZoneCoord_t X = pSlayer->getX();
 		ZoneCoord_t Y = pSlayer->getY();
 
-		Tile& rTile = pZone->getTile(pSlayer->getX(), pSlayer->getY());
+		Tile& rTile = pZone->getTile( pSlayer->getX(), pSlayer->getY() );
 
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
-		bool bHitRoll    = pSlayer->isFlag(Effect::EFFECT_CLASS_COMA ) && HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
+		bool bHitRoll    = pSlayer->isFlag( Effect::EFFECT_CLASS_COMA ) && HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 		bool bEffected   = pSlayer->isFlag(Effect::EFFECT_CLASS_ETERNITY) || rTile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION)!=NULL;
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected)
 		{
-			Effect* pComa = pSlayer->findEffect(Effect::EFFECT_CLASS_COMA);
-			if (pComa == NULL )
+			Effect* pComa = pSlayer->findEffect( Effect::EFFECT_CLASS_COMA );
+			if ( pComa == NULL )
 			{
 				executeSkillFailException(pSlayer, getSkillType());
 				return;
@@ -73,10 +73,10 @@ void Eternity::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEf
 //			pSlayer->addEffect(pEffect);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_ETERNITY);
 
-			pZone->registerObject(pEffect);
-			pZone->addEffect(pEffect);
+			pZone->registerObject( pEffect );
+			pZone->addEffect( pEffect );
 
-			pComa->setDeadline(output.Duration + 10); //11초. 스킬 발동 전에 부활위치로 튕기는거 방지
+			pComa->setDeadline( output.Duration + 10 ); //11초. 스킬 발동 전에 부활위치로 튕기는거 방지
 
 			// 경험치를 올린다.
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));

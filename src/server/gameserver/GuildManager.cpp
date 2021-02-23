@@ -21,15 +21,13 @@
 	#include "GuildUnion.h"
 #endif
 #ifdef __SHARED_SERVER__
-	#include "SGGuildInfo.h"
-	#include "SGExpelGuildMemberOK.h"
+	#include "Spackets/SGGuildInfo.h"
+	#include "Spackets/SGExpelGuildMemberOK.h"
 	#include "GameServerManager.h"
 #endif
 
-#include "GCWaitGuildList.h"
-#include "GCActiveGuildList.h"
-
-#include <map>
+#include "Gpackets/GCWaitGuildList.h"
+#include "Gpackets/GCActiveGuildList.h"
 
 ////////////////////////////////////////////////////////////////////////
 // global varible initialization
@@ -47,7 +45,7 @@ GuildManager::GuildManager()
 {
 	__BEGIN_TRY
 
-	m_Mutex.setName("GuildManager");
+	m_Mutex.setName( "GuildManager" );
 
 	__END_CATCH
 }
@@ -57,10 +55,10 @@ GuildManager::~GuildManager()
 {
 	__BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	// 모든 길드 객체들을 메모리에서 삭제한다.
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.begin();
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.begin();
 	for (; itr != m_Guilds.end(); itr++)
 	{
 		Guild* pGuild = itr->second;
@@ -69,7 +67,7 @@ GuildManager::~GuildManager()
 
 	m_Guilds.clear();
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 }
@@ -85,7 +83,7 @@ void GuildManager::init()
 	Statement* pStmt   = NULL;
 	Result*    pResult = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	BEGIN_DB
 	{
@@ -101,66 +99,66 @@ void GuildManager::init()
 
 		if (pResult->getInt(1) == 0)
 		{
-			Guild::setMaxGuildID(g_pConfig->getPropertyInt("Dimension") * 10000 + g_pConfig->getPropertyInt("WorldID") * 3000 + 100);
+			Guild::setMaxGuildID( g_pConfig->getPropertyInt("Dimension") * 10000 + g_pConfig->getPropertyInt("WorldID") * 3000 + 100 );
 		}
 		else
 		{
 			// get & set MaxGuildID
 			pResult = pStmt->executeQuery("SELECT MAX(GuildID) FROM GuildInfo");
 			pResult->next();
-			Guild::setMaxGuildID(pResult->getInt(1));
+			Guild::setMaxGuildID( pResult->getInt(1) );
 		}
 
-		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_SLAYER);
+		pResult = pStmt->executeQuery( "SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_SLAYER );
 		pResult->next();
 
-		if (pResult->getInt(1) == 0 )
+		if ( pResult->getInt(1) == 0 )
 		{
-			Guild::setMaxSlayerZoneID(Guild::getMaxSlayerZoneID() + 1);
+			Guild::setMaxSlayerZoneID( Guild::getMaxSlayerZoneID() + 1 );
 		}
 		else
 		{
 			// get & set MaxSlayerZoneID
-			pResult = pStmt->executeQuery("SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_SLAYER);
+			pResult = pStmt->executeQuery( "SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_SLAYER );
 			pResult->next();
-			Guild::setMaxSlayerZoneID(max(pResult->getInt(1), Guild::getMaxSlayerZoneID() + 1 ));
+			Guild::setMaxSlayerZoneID( max( pResult->getInt(1), Guild::getMaxSlayerZoneID() + 1 ) );
 		}
 
-		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_VAMPIRE);
+		pResult = pStmt->executeQuery( "SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_VAMPIRE );
 		pResult->next();
 
-		if (pResult->getInt(1) == 0 )
+		if ( pResult->getInt(1) == 0 )
 		{
-			Guild::setMaxVampireZoneID(Guild::getMaxVampireZoneID() + 1);
+			Guild::setMaxVampireZoneID( Guild::getMaxVampireZoneID() + 1 );
 		}
 		else
 		{
 			// get & set MaxVampireZoneID
-			pResult = pStmt->executeQuery("SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_VAMPIRE);
+			pResult = pStmt->executeQuery( "SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_VAMPIRE );
 			pResult->next();
-			Guild::setMaxVampireZoneID(max(pResult->getInt(1), Guild::getMaxVampireZoneID() + 1 ));
+			Guild::setMaxVampireZoneID( max( pResult->getInt(1), Guild::getMaxVampireZoneID() + 1 ) );
 		}
 
-		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_OUSTERS);
+		pResult = pStmt->executeQuery( "SELECT COUNT(*) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_OUSTERS );
 		pResult->next();
 
-		if (pResult->getInt(1) == 0 )
+		if ( pResult->getInt(1) == 0 )
 		{
-			Guild::setMaxOustersZoneID(Guild::getMaxOustersZoneID() + 1);
+			Guild::setMaxOustersZoneID( Guild::getMaxOustersZoneID() + 1 );
 		}
 		else
 		{
 			// get & set MaxOustersZoneID
-			pResult = pStmt->executeQuery("SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_OUSTERS);
+			pResult = pStmt->executeQuery( "SELECT MAX(GuildZoneID) FROM GuildInfo WHERE GuildRace = %d", Guild::GUILD_RACE_OUSTERS );
 			pResult->next();
-			Guild::setMaxOustersZoneID(max(pResult->getInt(1), Guild::getMaxOustersZoneID() + 1 ));
+			Guild::setMaxOustersZoneID( max( pResult->getInt(1), Guild::getMaxOustersZoneID() + 1 ) );
 		}
 
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	load();
 
@@ -178,82 +176,82 @@ void GuildManager::load()
 	Statement*	pStmt	= NULL;
 	Result*		pResult	= NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	BEGIN_DB
 	{
 		// 길드 정보를 DB로 부터 읽어온다.
-		pStmt	= g_pDatabaseManager->getConnection("DARKEDEN" )->createStatement();
-		pResult	= pStmt->executeQuery("SELECT GuildID, GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, Master, Date, Intro FROM GuildInfo WHERE GuildState IN (%d, %d )",
-										Guild::GUILD_STATE_WAIT, Guild::GUILD_STATE_ACTIVE);
+		pStmt	= g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+		pResult	= pStmt->executeQuery( "SELECT GuildID, GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, Master, Date, Intro FROM GuildInfo WHERE GuildState IN ( %d, %d )",
+										Guild::GUILD_STATE_WAIT, Guild::GUILD_STATE_ACTIVE );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			GuildState_t state = pResult->getInt(5);
 
 			// 현재 월드의 등록 대기중인 길드와 활동 중인 길드만 추가한다.
-			if (state == Guild::GUILD_STATE_WAIT || state == Guild::GUILD_STATE_ACTIVE )
+			if ( state == Guild::GUILD_STATE_WAIT || state == Guild::GUILD_STATE_ACTIVE )
 			{
 				Guild* pGuild = new Guild();
 
-				pGuild->setID(pResult->getInt(1));
-				pGuild->setName(pResult->getString(2));
-				pGuild->setType(pResult->getInt(3));
-				pGuild->setRace(pResult->getInt(4));
-				pGuild->setState(state);
-				pGuild->setServerGroupID(pResult->getInt(6));
-				pGuild->setZoneID(pResult->getInt(7));
-				pGuild->setMaster(pResult->getString(8));
-				pGuild->setDate(pResult->getString(9));
-				pGuild->setIntro(pResult->getString(10));
+				pGuild->setID( pResult->getInt(1) );
+				pGuild->setName( pResult->getString(2) );
+				pGuild->setType( pResult->getInt(3) );
+				pGuild->setRace( pResult->getInt(4) );
+				pGuild->setState( state );
+				pGuild->setServerGroupID( pResult->getInt(6) );
+				pGuild->setZoneID( pResult->getInt(7) );
+				pGuild->setMaster( pResult->getString(8) );
+				pGuild->setDate( pResult->getString(9) );
+				pGuild->setIntro( pResult->getString(10) );
 
-				addGuild_NOBLOCKED(pGuild);
+				addGuild_NOBLOCKED( pGuild );
 /*
 #ifdef __GAME_SERVER__
 				// 길드가 Active 이고 이 게임 서버에 아지트가 존재한다면 아지트 Zone을 만든다.
-				if (pGuild->getServerGroupID() == g_pConfig->getPropertyInt("ServerID") && state == Guild::GUILD_STATE_ACTIVE )
+				if ( pGuild->getServerGroupID() == g_pConfig->getPropertyInt("ServerID") && state == Guild::GUILD_STATE_ACTIVE )
 				{
 					//////////////
 					// Zone Info
 					//////////////
 					ZoneInfo* pZoneInfo = new ZoneInfo();
-					pZoneInfo->setZoneID(pGuild->getZoneID());
-					pZoneInfo->setZoneGroupID(6);
-					pZoneInfo->setZoneType("NPC_SHOP");
-					pZoneInfo->setZoneLevel(0);
-					pZoneInfo->setZoneAccessMode("PUBLIC");
-					pZoneInfo->setZoneOwnerID("");
-					pZoneInfo->setPayPlay("");
-					if (pGuild->getRace() == Guild::GUILD_RACE_SLAYER )
+					pZoneInfo->setZoneID( pGuild->getZoneID() );
+					pZoneInfo->setZoneGroupID( 6 );
+					pZoneInfo->setZoneType( "NPC_SHOP" );
+					pZoneInfo->setZoneLevel( 0 );
+					pZoneInfo->setZoneAccessMode( "PUBLIC" );
+					pZoneInfo->setZoneOwnerID( "" );
+					pZoneInfo->setPayPlay( "" );
+					if ( pGuild->getRace() == Guild::GUILD_RACE_SLAYER )
 					{
-						pZoneInfo->setSMPFilename("team_hdqrs.smp");
-						pZoneInfo->setSSIFilename("team_hdqrs.ssi");
+						pZoneInfo->setSMPFilename( "team_hdqrs.smp" );
+						pZoneInfo->setSSIFilename( "team_hdqrs.ssi" );
 						string Name = "team - " + pGuild->getName();
-						pZoneInfo->setFullName(Name);
-						pZoneInfo->setShortName(Name);
+						pZoneInfo->setFullName( Name );
+						pZoneInfo->setShortName( Name );
 					}
-					else if (pGuild->getRace() == Guild::GUILD_RACE_VAMPIRE )
+					else if ( pGuild->getRace() == Guild::GUILD_RACE_VAMPIRE )
 					{
-						pZoneInfo->setSMPFilename("clan_hdqrs.smp");
-						pZoneInfo->setSSIFilename("clan_hdqrs.ssi");
+						pZoneInfo->setSMPFilename( "clan_hdqrs.smp" );
+						pZoneInfo->setSSIFilename( "clan_hdqrs.ssi" );
 						string Name = "clan - " + pGuild->getName();
-						pZoneInfo->setFullName(Name);
-						pZoneInfo->setShortName(Name);
+						pZoneInfo->setFullName( Name );
+						pZoneInfo->setShortName( Name );
 					}
 
-					g_pZoneInfoManager->addZoneInfo(pZoneInfo);
+					g_pZoneInfoManager->addZoneInfo( pZoneInfo );
 
 					/////////
 					// Zone
 					/////////
-					Zone* pZone = new Zone(pGuild->getZoneID());
-					Assert(pZone != NULL);
+					Zone* pZone = new Zone( pGuild->getZoneID() );
+					Assert( pZone != NULL );
 
 					ZoneGroup* pZoneGroup = g_pZoneGroupManager->getZoneGroup(6);
-					Assert(pZoneGroup != NULL);
+					Assert( pZoneGroup != NULL );
 
-					pZone->setZoneGroup(pZoneGroup);
-					pZoneGroup->addZone(pZone);
+					pZone->setZoneGroup( pZoneGroup );
+					pZoneGroup->addZone( pZone );
 					pZone->init();
 				}
 #endif
@@ -262,64 +260,64 @@ void GuildManager::load()
 		}
 
 		// 길드 멤버 정보를 DB로 부터 읽어온다.
-		pResult = pStmt->executeQuery("SELECT GuildID, Name, Rank, RequestDateTime, LogOn FROM GuildMember WHERE Rank IN (0, 1, 2, 3 )");
+		pResult = pStmt->executeQuery( "SELECT GuildID, Name, Rank, RequestDateTime, LogOn FROM GuildMember WHERE Rank IN ( 0, 1, 2, 3 )" );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			GuildMember* pMember = new GuildMember();
 
-			pMember->setGuildID(pResult->getInt(1));
-			pMember->setName(pResult->getString(2));
-			pMember->setRank(pResult->getInt(3));
+			pMember->setGuildID( pResult->getInt(1) );
+			pMember->setName( pResult->getString(2) );
+			pMember->setRank( pResult->getInt(3) );
 
-			if (pMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT )
-				pMember->setRequestDateTime(pResult->getString(4));
+			if ( pMember->getRank() == GuildMember::GUILDMEMBER_RANK_WAIT )
+				pMember->setRequestDateTime( pResult->getString(4) );
 
-			pMember->setLogOn(pResult->getInt(5));
+			pMember->setLogOn( pResult->getInt(5) );
 
-			Guild* pGuild = getGuild_NOBLOCKED(pMember->getGuildID());
+			Guild* pGuild = getGuild_NOBLOCKED( pMember->getGuildID() );
 
-			if (pGuild != NULL )
-				pGuild->addMember(pMember);
+			if ( pGuild != NULL )
+				pGuild->addMember( pMember );
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
 	END_DB(pStmt)
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 }
 
 
 void GuildManager::addGuild(Guild* pGuild)
-	throw(DuplicatedException)
+	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
 	Assert(pGuild != NULL);
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
 	if (itr != m_Guilds.end()) throw DuplicatedException();
 	m_Guilds[pGuild->getID()] = pGuild;
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 	
 	__END_CATCH
 }
 
 
 void GuildManager::addGuild_NOBLOCKED(Guild* pGuild)
-	throw(DuplicatedException)
+	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
 	Assert(pGuild != NULL);
 
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
 	if (itr != m_Guilds.end()) throw DuplicatedException();
 	m_Guilds[pGuild->getID()] = pGuild;
 
@@ -328,47 +326,47 @@ void GuildManager::addGuild_NOBLOCKED(Guild* pGuild)
 
 
 void GuildManager::deleteGuild(GuildID_t id)
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 	if (itr == m_Guilds.end()) throw NoSuchElementException();
 
 #ifdef __GAME_SERVER__
 
-	list<CastleInfo*> pGuildCastleInfoList = g_pCastleInfoManager->getGuildCastleInfos(id);
+	list<CastleInfo*> pGuildCastleInfoList = g_pCastleInfoManager->getGuildCastleInfos( id );
 
-	if (!pGuildCastleInfoList.empty() )
+	if ( !pGuildCastleInfoList.empty() )
 	{
 		// 성을 갖고 있는 길드다.. 공용성으로 바꿔줘야 된다.
 		list<CastleInfo*>::iterator itr = pGuildCastleInfoList.begin();
-		for (; itr != pGuildCastleInfoList.end() ; itr++ )
+		for ( ; itr != pGuildCastleInfoList.end() ; itr++ )
 		{
-			if ((*itr)->getRace() == RACE_SLAYER )
-				g_pCastleInfoManager->modifyCastleOwner((*itr)->getZoneID(), RACE_SLAYER, 99);
-			else if ((*itr)->getRace() == RACE_VAMPIRE )
-				g_pCastleInfoManager->modifyCastleOwner((*itr)->getZoneID(), RACE_VAMPIRE, 0);
+			if ( (*itr)->getRace() == RACE_SLAYER )
+				g_pCastleInfoManager->modifyCastleOwner( (*itr)->getZoneID(), RACE_SLAYER, 99 );
+			else if ( (*itr)->getRace() == RACE_VAMPIRE )
+				g_pCastleInfoManager->modifyCastleOwner( (*itr)->getZoneID(), RACE_VAMPIRE, 0 );
 			else
-				g_pCastleInfoManager->modifyCastleOwner((*itr)->getZoneID(), RACE_OUSTERS, 66);
+				g_pCastleInfoManager->modifyCastleOwner( (*itr)->getZoneID(), RACE_OUSTERS, 66 );
 		}
 	}
 
 	{
-		const map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
+		const hash_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
 
-		map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
-		map<ZoneID_t, CastleInfo*>::const_iterator endItr = castleInfos.end();
+		hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
+		hash_map<ZoneID_t, CastleInfo*>::const_iterator endItr = castleInfos.end();
 
-		for (; itr != endItr ; ++itr )
+		for ( ; itr != endItr ; ++itr )
 		{
-			Zone* pZone = getZoneByZoneID(itr->first);
-			if (pZone != NULL )
+			Zone* pZone = getZoneByZoneID( itr->first );
+			if ( pZone != NULL )
 			{
 				WarScheduler* pWarScheduler = pZone->getWarScheduler();
-				if (pWarScheduler != NULL && pWarScheduler->hasSchedule(id ) )
+				if ( pWarScheduler != NULL && pWarScheduler->hasSchedule( id ) )
 				{
 					pWarScheduler->load();
 				}
@@ -401,7 +399,7 @@ void GuildManager::deleteGuild(GuildID_t id)
 		pStmt->executeQuery("DELETE FROM GuildMember WHERE GuildID=%d", id);
 
 		// GuildUnionMember 에서 길드를 지운다
-		pStmt->executeQuery("DELETE FROM GuildUnionMember WHERE OwnerGuildID=%d", id);
+		pStmt->executeQuery( "DELETE FROM GuildUnionMember WHERE OwnerGuildID=%d", id );
 		
 		pStmt->executeQuery("UPDATE WarScheduleInfo SET Status='CANCEL' WHERE AttackGuildID=%d", id);
 
@@ -410,23 +408,23 @@ void GuildManager::deleteGuild(GuildID_t id)
 	END_DB(pStmt)
 #endif
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 }
 
 
 Guild* GuildManager::getGuild(GuildID_t id)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	// 리턴 할 길드 포인터
 	Guild* pGuild;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 
 	if (itr == m_Guilds.end())
 	{
@@ -437,7 +435,7 @@ Guild* GuildManager::getGuild(GuildID_t id)
 
 	pGuild = itr->second;
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	return pGuild;
 
@@ -446,14 +444,14 @@ Guild* GuildManager::getGuild(GuildID_t id)
 	
 
 Guild* GuildManager::getGuild_NOBLOCKED(GuildID_t id)
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	// 리턴 할 길드 포인터
 	Guild* pGuild;
 
-	map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
 
 	if (itr == m_Guilds.end())
 	{
@@ -473,17 +471,17 @@ void GuildManager::clear()
 {
 	__BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	HashMapGuildItor itr = m_Guilds.begin();
-	for (; itr != m_Guilds.end(); itr++ )
+	for ( ; itr != m_Guilds.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_Guilds.clear();
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 }
@@ -493,9 +491,9 @@ void GuildManager::clear_NOBLOCKED()
 	__BEGIN_TRY
 
 	HashMapGuildItor itr = m_Guilds.begin();
-	for (; itr != m_Guilds.end(); itr++ )
+	for ( ; itr != m_Guilds.end(); itr++ )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_Guilds.clear();
@@ -504,74 +502,74 @@ void GuildManager::clear_NOBLOCKED()
 }
 
 #ifdef __SHARED_SERVER__
-void GuildManager::makeSGGuildInfo(SGGuildInfo& sgGuildInfo )
+void GuildManager::makeSGGuildInfo( SGGuildInfo& sgGuildInfo )
 	throw()
 {
 	__BEGIN_TRY
 	
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	HashMapGuildConstItor itr = m_Guilds.begin();
-	for (; itr != m_Guilds.end(); itr++ )
+	for ( ; itr != m_Guilds.end(); itr++ )
 	{
 		GuildInfo2* pGuildInfo = new GuildInfo2();
-		itr->second->makeInfo(pGuildInfo);
-		sgGuildInfo.addGuildInfo(pGuildInfo);
+		itr->second->makeInfo( pGuildInfo );
+		sgGuildInfo.addGuildInfo( pGuildInfo );
 	}
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 	
 	__END_CATCH
 }
 #endif
 
-void GuildManager::makeWaitGuildList(GCWaitGuildList& gcWaitGuildList, GuildRace_t race )
+void GuildManager::makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRace_t race )
 	throw()
 {
 	__BEGIN_TRY
 	
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	HashMapGuildConstItor itr = m_Guilds.begin();
-	for (; itr != m_Guilds.end(); itr++ )
+	for ( ; itr != m_Guilds.end(); itr++ )
 	{
 		Guild* pGuild = itr->second;
-		if (pGuild->getState() == Guild::GUILD_STATE_WAIT && pGuild->getRace() == race )
+		if ( pGuild->getState() == Guild::GUILD_STATE_WAIT && pGuild->getRace() == race )
 		{
 			GuildInfo* pGuildInfo = new GuildInfo();
-			pGuild->makeInfo(pGuildInfo);
+			pGuild->makeInfo( pGuildInfo );
 
-			gcWaitGuildList.addGuildInfo(pGuildInfo);
+			gcWaitGuildList.addGuildInfo( pGuildInfo );
 		}
 	}
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 
 }
 
-void GuildManager::makeActiveGuildList(GCActiveGuildList& gcActiveGuildList, GuildRace_t race )
+void GuildManager::makeActiveGuildList( GCActiveGuildList& gcActiveGuildList, GuildRace_t race )
 	throw()
 {
 	__BEGIN_TRY
 	
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	HashMapGuildConstItor itr = m_Guilds.begin();
-	for (; itr != m_Guilds.end(); itr++ )
+	for ( ; itr != m_Guilds.end(); itr++ )
 	{
 		Guild* pGuild = itr->second;
-		if (pGuild->getState() == Guild::GUILD_STATE_ACTIVE && pGuild->getRace() == race )
+		if ( pGuild->getState() == Guild::GUILD_STATE_ACTIVE && pGuild->getRace() == race )
 		{
 			GuildInfo* pGuildInfo = new GuildInfo();
-			pGuild->makeInfo(pGuildInfo);
+			pGuild->makeInfo( pGuildInfo );
 
-			gcActiveGuildList.addGuildInfo(pGuildInfo);
+			gcActiveGuildList.addGuildInfo( pGuildInfo );
 		}
 	}
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 
@@ -584,43 +582,43 @@ void GuildManager::heartbeat()
 
 #ifdef __SHARED_SERVER__
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
 	////////////////////////////////////////////////////////
 	// 길드 가입 신청 대기 시간이 넘어간 멤버를 지운다.
 	////////////////////////////////////////////////////////
-	if (currentTime > m_WaitMemberClearTime )
+	if ( currentTime > m_WaitMemberClearTime )
 	{
-		__ENTER_CRITICAL_SECTION(m_Mutex )
+		__ENTER_CRITICAL_SECTION( m_Mutex )
 
 		VSDateTime currentDateTime = VSDateTime::currentDateTime();
 
 		HashMapGuildConstItor itr = m_Guilds.begin();
-		for (; itr != m_Guilds.end(); itr++ )
+		for ( ; itr != m_Guilds.end(); itr++ )
 		{
 			Guild* pGuild = itr->second;
 
 			list<string> mList;
 
-			pGuild->expireTimeOutWaitMember(currentDateTime, mList);
+			pGuild->expireTimeOutWaitMember( currentDateTime, mList );
 
 			list<string>::const_iterator itr2 = mList.begin();
 
-			for (; itr2 != mList.end(); itr2++ )
+			for ( ; itr2 != mList.end(); itr2++ )
 			{
 				// 가입이 취소되었음을 게임서버에 알린다.
 				SGExpelGuildMemberOK sgExpelGuildMemberOK;
-				sgExpelGuildMemberOK.setGuildID(pGuild->getID());
-				sgExpelGuildMemberOK.setName(*itr2);
-				sgExpelGuildMemberOK.setSender(pGuild->getMaster());
+				sgExpelGuildMemberOK.setGuildID( pGuild->getID() );
+				sgExpelGuildMemberOK.setName( *itr2 );
+				sgExpelGuildMemberOK.setSender( pGuild->getMaster() );
 
-				g_pGameServerManager->broadcast(&sgExpelGuildMemberOK);
+				g_pGameServerManager->broadcast( &sgExpelGuildMemberOK );
 			}
 		}
 
 		m_WaitMemberClearTime.tv_sec = currentTime.tv_sec + 3600;			// 1시간 주기
 
-		__LEAVE_CRITICAL_SECTION(m_Mutex )
+		__LEAVE_CRITICAL_SECTION( m_Mutex )
 	}
 #endif
 
@@ -638,17 +636,18 @@ string GuildManager::toString() const
 	__END_CATCH
 }
 
-bool GuildManager::isGuildMaster(GuildID_t guildID, PlayerCreature* pPC )
+bool GuildManager::isGuildMaster( GuildID_t guildID, PlayerCreature* pPC )
 	throw(Error)
 {
 #ifdef __GAME_SERVER__
 	__BEGIN_TRY
 
-	Guild* pGuild = getGuild(guildID);
+	Guild* pGuild = getGuild( guildID );
 
-	if (pGuild == NULL ) return false;
+	if ( pGuild == NULL ) return false;
 
-	return (pGuild->getMaster() == pPC->getName());
+//	cout << "isGuildMaster : " << pGuild->getMaster() << ", " << pPC->getName() << endl;
+	return ( pGuild->getMaster() == pPC->getName() );
 
 	__END_CATCH
 #else
@@ -657,7 +656,7 @@ bool GuildManager::isGuildMaster(GuildID_t guildID, PlayerCreature* pPC )
 }
 
 // 길드가 성을 가졌나?
-bool GuildManager::hasCastle(GuildID_t guildID ) 
+bool GuildManager::hasCastle( GuildID_t guildID ) 
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -696,7 +695,7 @@ bool GuildManager::hasCastle(GuildID_t guildID )
 }
 
 // 길드가 성을 가졌나?
-bool GuildManager::hasCastle(GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) 
+bool GuildManager::hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) 
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -733,7 +732,7 @@ bool GuildManager::hasCastle(GuildID_t guildID, ServerID_t& serverID, ZoneID_t& 
 }
 
 // 길드가 전쟁신청을 했나?
-bool GuildManager::hasWarSchedule(GuildID_t guildID ) 
+bool GuildManager::hasWarSchedule( GuildID_t guildID ) 
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -792,7 +791,7 @@ bool GuildManager::hasWarSchedule(GuildID_t guildID )
 	__END_CATCH
 }
 
-bool GuildManager::hasActiveWar(GuildID_t guildID )
+bool GuildManager::hasActiveWar( GuildID_t guildID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -804,7 +803,7 @@ bool GuildManager::hasActiveWar(GuildID_t guildID )
 	ServerID_t	serverID;
 	ZoneID_t	zoneID;
 
-	if (hasCastle(guildID, serverID, zoneID ) )
+	if ( hasCastle( guildID, serverID, zoneID ) )
 	{
 		// 성을 소유하고 있다면 그 성을 상대로 하는 길드 전쟁이 있는지 확인한다.
 		Statement* pStmt = NULL;
@@ -813,21 +812,21 @@ bool GuildManager::hasActiveWar(GuildID_t guildID )
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 			Result* pResult = pStmt->executeQuery(
-				"SELECT count(*) FROM WarScheduleInfo WHERE ServerID = %u AND ZoneID = %u AND Status = 'START'", serverID, zoneID);
+				"SELECT count(*) FROM WarScheduleInfo WHERE ServerID = %u AND ZoneID = %u AND Status = 'START'", serverID, zoneID );
 
-			if (pResult->next() )
+			if ( pResult->next() )
 			{
 				int count = pResult->getInt(1);
 
-				if (count > 0 )
+				if ( count > 0 )
 				{
 					bHasActiveWar = true;
 				}
 			}
 
-			SAFE_DELETE(pStmt);
+			SAFE_DELETE( pStmt );
 		}
-		END_DB(pStmt )
+		END_DB( pStmt )
 	}
 	else
 	{
@@ -863,14 +862,14 @@ bool GuildManager::hasActiveWar(GuildID_t guildID )
 }
 
 
-string GuildManager::getGuildName(GuildID_t guildID )
-	throw(Error)
+string GuildManager::getGuildName( GuildID_t guildID )
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	Guild* pGuild = getGuild(guildID);
+	Guild* pGuild = getGuild( guildID );
 
-	if (pGuild != NULL )
+	if ( pGuild != NULL )
 		return pGuild->getName();
 
 	return "";

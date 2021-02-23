@@ -204,7 +204,7 @@ public:
 
 	string toString(void) throw();
 
-	bool hasCondition(int condition ) const { return find(m_Conditions.begin(), m_Conditions.end(), condition)!=m_Conditions.end(); }
+	bool hasCondition( int condition ) const { return find(m_Conditions.begin(), m_Conditions.end(), condition)!=m_Conditions.end(); }
 
 ///// Member data /////
 	
@@ -248,13 +248,13 @@ public:
 	string getName(void) const throw() { return m_Name; }
 	void setName(const string& name) throw() { m_Name = name; }
 
-	bool hasCondition(int condition ) const;
+	bool hasCondition( int condition ) const;
 
 	bool canAttackAir() const { return m_bAttackAir; }
 	void setAttackAir(bool bAA) { m_bAttackAir = bAA; }
 
 	bool canSeeSafeZone() const { return m_bSeeSafeZone; }
-	void setSeeSafeZone(bool bSS ) { m_bSeeSafeZone = bSS; }
+	void setSeeSafeZone( bool bSS ) { m_bSeeSafeZone = bSS; }
 
 ///// Member data /////
 protected:

@@ -10,17 +10,17 @@
 #include "Vampire.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -72,10 +72,10 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
 		// Knowledge of Poison 이 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -110,7 +110,7 @@ void GreenStalker::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 			pEffectGreenStalker->setDeadline(output.Duration);
 			pEffectGreenStalker->setTick(output.Tick);
 			pEffectGreenStalker->setNextTime(0);
-			pEffectGreenStalker->setUserObjectID(pVampire->getObjectID());
+			pEffectGreenStalker->setUserObjectID( pVampire->getObjectID() );
 			pEffectGreenStalker->setVampire();
 
 			pTargetCreature->addEffect(pEffectGreenStalker);
@@ -251,7 +251,7 @@ void GreenStalker::execute(Monster* pMonster, Creature* pEnemy)
 			pEffectGreenStalker->setDeadline(output.Duration);
 			pEffectGreenStalker->setTick(output.Tick);
 			pEffectGreenStalker->setNextTime(0);
-			pEffectGreenStalker->setUserObjectID(pMonster->getObjectID());
+			pEffectGreenStalker->setUserObjectID( pMonster->getObjectID() );
 			pEnemy->addEffect(pEffectGreenStalker);
 			pEnemy->setFlag(Effect::EFFECT_CLASS_GREEN_STALKER);
 

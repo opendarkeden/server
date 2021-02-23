@@ -31,7 +31,7 @@ public:
 	void processEntering();
 
 public:
-	void setRace(Race_t race ) { m_Race = race; }
+	void setRace( Race_t race ) { m_Race = race; }
 
 private:
 	int m_AOBStatus;
@@ -40,7 +40,7 @@ private:
 };
 
 
-DECLARE_DYNAMIC_ZONE_FACTORY(DynamicZoneAlterOfBlood )
+DECLARE_DYNAMIC_ZONE_FACTORY( DynamicZoneAlterOfBlood )
 
 #endif
 

@@ -11,10 +11,10 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -78,7 +78,7 @@ void EffectIntimateGrail::unaffect(Creature* pCreature)
 
 	pCreature->removeFlag(Effect::EFFECT_CLASS_INTIMATE_GRAIL);
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		pPC->initAllStatAndSend();

@@ -15,7 +15,6 @@
 #include "Utility.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 MixingItemInfoManager* g_pMixingItemInfoManager = NULL;
 
@@ -41,7 +40,7 @@ MixingItem::MixingItem(ItemType_t itemType, const list<OptionType_t>& optionType
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "MixingItem::MixingItem() : Invalid item type or option type");
-		throw("MixingItem::MixingItem() : Invalid item type or optionType");
+		throw ("MixingItem::MixingItem() : Invalid item type or optionType");
 	}
 }
 
@@ -101,7 +100,7 @@ void MixingItem::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MixingItemObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE MixingItemObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -138,8 +137,8 @@ void MixingItem::save(const string & ownerID, Storage storage, StorageID_t stora
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MixingItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE MixingItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -251,11 +250,11 @@ void MixingItemInfoManager::load()
 			pMixingItemInfo->setPrice(pResult->getInt(++i));
 			pMixingItemInfo->setVolumeType(pResult->getInt(++i));
 			pMixingItemInfo->setWeight(pResult->getInt(++i));
-			pMixingItemInfo->setTarget((MixingItemInfo::Target)pResult->getInt(++i));
-			pMixingItemInfo->setType((MixingItemInfo::Type)pResult->getInt(++i));
-			pMixingItemInfo->setSlayerLevel(pResult->getInt(++i));
-			pMixingItemInfo->setVampireLevel(pResult->getInt(++i));
-			pMixingItemInfo->setOustersLevel(pResult->getInt(++i));
+			pMixingItemInfo->setTarget( (MixingItemInfo::Target)pResult->getInt(++i) );
+			pMixingItemInfo->setType( (MixingItemInfo::Type)pResult->getInt(++i) );
+			pMixingItemInfo->setSlayerLevel( pResult->getInt(++i) );
+			pMixingItemInfo->setVampireLevel( pResult->getInt(++i) );
+			pMixingItemInfo->setOustersLevel( pResult->getInt(++i) );
 
 			addItemInfo(pMixingItemInfo);
 		}
@@ -296,8 +295,8 @@ void MixingItemLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM MixingItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM MixingItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -317,7 +316,7 @@ void MixingItemLoader::load(Creature* pCreature)
 				BYTE x = pResult->getBYTE(++i);
 				BYTE y = pResult->getBYTE(++i);
 
-				pMixingItem->setNum(pResult->getInt(++i));
+				pMixingItem->setNum( pResult->getInt(++i) );
 				pMixingItem->setCreateType((Item::CreateType)pResult->getInt(++i));
 
 				Inventory*  pInventory      = NULL;
@@ -357,18 +356,6 @@ void MixingItemLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pMixingItem);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pMixingItem))
 						{
 							pInventory->addItemEx(x, y, pMixingItem);

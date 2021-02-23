@@ -23,26 +23,26 @@ NPCInfo::~NPCInfo()
 }
 
 void NPCInfo::read(SocketInputStream& iStream)
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
 	BYTE m_NameLength = 0;
-	iStream.read(m_NameLength);
+	iStream.read( m_NameLength );
 
 	if (m_NameLength > 0)
 	{
-		iStream.read(m_Name, m_NameLength);
-		iStream.read(m_NPCID);
-		iStream.read(m_X);
-		iStream.read(m_Y);
+		iStream.read( m_Name, m_NameLength );
+		iStream.read( m_NPCID );
+		iStream.read( m_X );
+		iStream.read( m_Y );
 	}
 
 	__END_CATCH
 }
 
 void NPCInfo::write(SocketOutputStream& oStream) const
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -51,10 +51,10 @@ void NPCInfo::write(SocketOutputStream& oStream) const
 
 	if (m_NameLength > 0)
 	{
-		oStream.write(m_Name);
-		oStream.write(m_NPCID);
-		oStream.write(m_X);
-		oStream.write(m_Y);
+		oStream.write( m_Name );
+		oStream.write( m_NPCID );
+		oStream.write( m_X );
+		oStream.write( m_Y );
 	}
 
 	__END_CATCH

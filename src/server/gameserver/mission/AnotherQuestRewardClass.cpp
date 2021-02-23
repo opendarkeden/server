@@ -1,13 +1,13 @@
 #include "AnotherQuestRewardClass.h"
 #include "RewardInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 
-QuestMessage AnotherQuestRewardClass::giveReward(PlayerCreature* pPC ) const
+QuestMessage AnotherQuestRewardClass::giveReward( PlayerCreature* pPC ) const
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	vector<RewardInfo*>::size_type index = rand() % m_RewardInfos.size();
 	return m_RewardInfos[ index ]->giveReward(pPC);

@@ -8,13 +8,13 @@
 #include "EffectShadowOfStorm.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -40,7 +40,7 @@ void ShadowOfStorm::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, getSkillType(), 0);
@@ -109,7 +109,7 @@ void ShadowOfStorm::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -133,11 +133,11 @@ void ShadowOfStorm::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 				pZone->deleteEffect(effectID);
 			}
 
-			checkMine(pZone, X, Y);
+			checkMine( pZone, X, Y );
 
 			// 이펙트 오브젝트를 생성한다.
 			EffectShadowOfStorm* pEffect = new EffectShadowOfStorm(pZone, X, Y);
-			pEffect->setUserObjectID(pOusters->getObjectID());
+			pEffect->setUserObjectID( pOusters->getObjectID() );
 			pEffect->setDeadline(output.Duration);
 			pEffect->setNextTime(10);
 			pEffect->checkPosition();
@@ -153,12 +153,12 @@ void ShadowOfStorm::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 			tile.addEffect(pEffect);
 
 			GCAddEffectToTile gcAddEffect;
-			gcAddEffect.setXY(X, Y);
-			gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-			gcAddEffect.setObjectID(pEffect->getObjectID());
-			gcAddEffect.setDuration(output.Duration);
+			gcAddEffect.setXY( X, Y );
+			gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+			gcAddEffect.setObjectID( pEffect->getObjectID() );
+			gcAddEffect.setDuration( output.Duration );
 
-			pZone->broadcastPacket(X, Y, &gcAddEffect, pOusters);
+			pZone->broadcastPacket( X, Y, &gcAddEffect, pOusters );
 
 			ZoneCoord_t myX = pOusters->getX();
 			ZoneCoord_t myY = pOusters->getY();

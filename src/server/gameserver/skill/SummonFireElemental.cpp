@@ -7,9 +7,9 @@
 #include "SummonFireElemental.h"
 #include "EffectSummonFireElemental.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -53,7 +53,7 @@ void SummonFireElemental::execute(Ousters* pOusters, OustersSkillSlot* pOustersS
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_FIRE_ELEMENTAL) || pOusters->isFlag(Effect::EFFECT_CLASS_WATER_ELEMENTAL);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -75,7 +75,7 @@ void SummonFireElemental::execute(Ousters* pOusters, OustersSkillSlot* pOustersS
 			EffectSummonFireElemental* pEffect = new EffectSummonFireElemental(pOusters);
 			pEffect->setDeadline(output.Duration);
 			pEffect->setDamage(Damage);
-			pEffect->setRange(output.Range);
+			pEffect->setRange( output.Range );
 			pEffect->setNextTime(20);
 
 			pOusters->addEffect(pEffect);

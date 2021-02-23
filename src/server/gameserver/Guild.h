@@ -8,10 +8,10 @@
 #define __GUILD_H__
 
 #include "Types.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Exception.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 #include <list>
 
 #include "VSDateTime.h"
@@ -180,7 +180,7 @@ public: // DB methods
 	void expire() throw();
 	void leave() throw();
 	
-	void saveIntro(const string& intro ) throw();
+	void saveIntro( const string& intro ) throw();
 	string getIntro() const throw();
 
 	
@@ -195,15 +195,15 @@ public: // identity methods
 	void setRank(GuildMemberRank_t rank) throw();		// Guild class 에서 처리한다.
 
 	bool getLogOn() const throw() { return m_bLogOn; }
-	void setLogOn(bool logOn ) throw() { m_bLogOn = logOn; }
+	void setLogOn( bool logOn ) throw() { m_bLogOn = logOn; }
 
 	ServerID_t	getServerID()	const throw() { return m_ServerID; }
-	void		setServerID(ServerID_t ServerID ) throw() { m_ServerID = ServerID; }
+	void		setServerID( ServerID_t ServerID ) throw() { m_ServerID = ServerID; }
 	
 	string getRequestDateTime() const throw();
-	void setRequestDateTime(const VSDateTime& vsdatetime ) throw() { m_RequestDateTime = vsdatetime; }
-	void setRequestDateTime(const string& rdatetime ) throw();
-	bool isRequestDateTimeOut(const VSDateTime& currentDateTime ) const throw();
+	void setRequestDateTime( const VSDateTime& vsdatetime ) throw() { m_RequestDateTime = vsdatetime; }
+	void setRequestDateTime( const string& rdatetime ) throw();
+	bool isRequestDateTimeOut( const VSDateTime& currentDateTime ) const throw();
 
 public: // debug
 	string toString() const throw();
@@ -212,7 +212,7 @@ public: // debug
 ///// operator overloadgin /////
 
 public:
-	GuildMember& operator = (GuildMember& Member);
+	GuildMember& operator = ( GuildMember& Member );
 
 
 ///// Member data /////
@@ -249,7 +249,7 @@ protected:
 #endif
 #define MAX_GUILDMEMBER_WAIT_COUNT			15
 
-typedef map<string, GuildMember*> HashMapGuildMember;
+typedef hash_map<string, GuildMember*> HashMapGuildMember;
 typedef HashMapGuildMember::iterator HashMapGuildMemberItor;
 typedef HashMapGuildMember::const_iterator HashMapGuildMemberConstItor;
 
@@ -311,41 +311,41 @@ public: // identity methods
 	void setType(GuildType_t type) throw() { m_Type = type; }
 
 	GuildRace_t getRace() const throw() { return m_Race; }
-	void setRace(GuildRace_t race ) throw() { m_Race = race; }
+	void setRace( GuildRace_t race ) throw() { m_Race = race; }
 
 	GuildState_t getState() const throw() { return m_State; }
 	void setState(GuildState_t state) throw() { m_State = state; }
 
 	ServerGroupID_t getServerGroupID() const throw() { return m_ServerGroupID; }
-	void setServerGroupID(ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
+	void setServerGroupID( ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
 
 	ZoneID_t getZoneID() const throw() { return m_ZoneID; }
-	void setZoneID(ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
+	void setZoneID( ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
 
 	string getMaster() const throw() { return m_Master; }
 	void setMaster(const string& master) throw() { m_Master = master; }
 
 	string getDate() const throw() { return m_Date; }
-	void setDate(const string& Date ) throw() { m_Date = Date; }
+	void setDate( const string& Date ) throw() { m_Date = Date; }
 
 	string getIntro() const throw() { return m_Intro; }
-	void setIntro(const string& intro ) throw() { m_Intro = intro; }
+	void setIntro( const string& intro ) throw() { m_Intro = intro; }
 
 #ifdef __SHARED_SERVER__
-	void saveIntro(const string& intro ) throw();
-	void tinysave(const char* field ) const throw();
+	void saveIntro( const string& intro ) throw();
+	void tinysave( const char* field ) const throw();
 	void saveCount() const throw();
 #endif
 
 
 ///// GuildMember get/add/delete/modify /////
-	GuildMember* getMember(const string& name ) const throw();
-	GuildMember* getMember_NOLOCKED(const string& name ) const throw();
-	void addMember(GuildMember* pMember ) throw(DuplicatedException, Error);
-	void deleteMember(const string& name ) throw();
-	void modifyMember(GuildMember& Member ) throw();
+	GuildMember* getMember( const string& name ) const throw();
+	GuildMember* getMember_NOLOCKED( const string& name ) const throw();
+	void addMember( GuildMember* pMember ) throw( DuplicatedException, Error );
+	void deleteMember( const string& name ) throw();
+	void modifyMember( GuildMember& Member ) throw();
 
-	void modifyMemberRank(const string& name, GuildMemberRank_t rank ) throw();
+	void modifyMemberRank( const string& name, GuildMemberRank_t rank ) throw();
 
 	HashMapGuildMember& getMembers() throw() { return m_Members; }
 
@@ -353,17 +353,17 @@ public: // identity methods
 	int getWaitMemberCount() const throw() { return m_WaitMemberCount; }
 
 #ifdef __GAME_SERVER__
-	void addCurrentMember(const string& name ) throw(DuplicatedException, Error);
-	void deleteCurrentMember(const string& name ) throw(NoSuchElementException);
+	void addCurrentMember( const string& name ) throw( DuplicatedException, Error );
+	void deleteCurrentMember( const string& name ) throw( NoSuchElementException );
 	list<string> getCurrentMembers() throw();
 #endif
 
 #ifdef __SHARED_SERVER__
-	void makeInfo(GuildInfo2* pGulidInfo ) throw();
+	void makeInfo( GuildInfo2* pGulidInfo ) throw();
 #endif
 
-	void makeInfo(GuildInfo* pGuildInfo ) throw();
-	void makeMemberInfo(GCGuildMemberList& gcGuildMemberList ) throw();
+	void makeInfo( GuildInfo* pGuildInfo ) throw();
+	void makeMemberInfo( GCGuildMemberList& gcGuildMemberList ) throw();
 
 
 public: // static
@@ -371,21 +371,21 @@ public: // static
 	static void setMaxGuildID(GuildID_t id) throw() { m_MaxGuildID = id; }
 
 	static ZoneID_t getMaxSlayerZoneID() throw() { return m_MaxSlayerZoneID; }
-	static void setMaxSlayerZoneID(ZoneID_t zoneID ) throw() { m_MaxSlayerZoneID = zoneID; }
+	static void setMaxSlayerZoneID( ZoneID_t zoneID ) throw() { m_MaxSlayerZoneID = zoneID; }
 
 	static ZoneID_t getMaxVampireZoneID() throw() { return m_MaxVampireZoneID; }
-	static void setMaxVampireZoneID(ZoneID_t zoneID ) throw() { m_MaxVampireZoneID = zoneID; }
+	static void setMaxVampireZoneID( ZoneID_t zoneID ) throw() { m_MaxVampireZoneID = zoneID; }
 
 	static ZoneID_t getMaxOustersZoneID() throw() { return m_MaxOustersZoneID; }
-	static void setMaxOustersZoneID(ZoneID_t zoneID ) throw() { m_MaxOustersZoneID = zoneID; }
+	static void setMaxOustersZoneID( ZoneID_t zoneID ) throw() { m_MaxOustersZoneID = zoneID; }
 
 public:
-	void expireTimeOutWaitMember(VSDateTime currentDateTime, list<string>& mList ) throw(Error);
+	void expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList ) throw(Error);
 
 public: // debug
 	string toString() const throw();
 
-	static string correctString(const string& str ) throw();
+	static string correctString( const string& str ) throw();
 
 
 ///// Member data /////

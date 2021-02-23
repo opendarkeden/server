@@ -14,8 +14,8 @@
 // RCSayHander::execute()
 // 
 //----------------------------------------------------------------------
-void RCSayHandler::execute (RCSay * pPacket )
-	 throw(ProtocolException , Error )
+void RCSayHandler::execute ( RCSay * pPacket )
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	

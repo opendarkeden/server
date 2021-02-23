@@ -12,8 +12,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -34,8 +34,12 @@ void EffectShareHP::affect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectShareHP " << "begin begin" << endl;
+
 	Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
 	affect(pCreature);
+
+	//cout << "EffectShareHP " << "begin end" << endl;
 
 	__END_CATCH 
 
@@ -47,6 +51,9 @@ void EffectShareHP::affect(Creature* pCreature)
 	throw(Error)
 {
 	__BEGIN_TRY
+
+	//cout << "EffectShareHP " << "begin" << endl;
+	//cout << "EffectShareHP " << "end" << endl;
 
 	__END_CATCH
 }

@@ -33,7 +33,7 @@ public:
     void setSkillType(SkillType_t Type) throw() { m_SkillType = Type; }
 
 	ExpLevel_t getExpLevel() const throw() { return m_ExpLevel; }
-	void setExpLevel(ExpLevel_t ExpLevel ) throw() { m_ExpLevel = ExpLevel; }
+	void setExpLevel( ExpLevel_t ExpLevel ) throw() { m_ExpLevel = ExpLevel; }
 
     ulong getInterval() throw() { return m_Interval; }
     void setInterval(ulong Interval) throw() { m_Interval = Interval; }
@@ -49,7 +49,7 @@ public:
 	void setName(const string & Name) { m_Name = Name; }
 
 	// 다음 캐스팅이 가능할때까지 남은 시간
-	Turn_t getRemainTurn(Timeval currentTime ) const throw();
+	Turn_t getRemainTurn( Timeval currentTime ) const throw();
 
 private:
 	string       m_Name;

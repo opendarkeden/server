@@ -11,7 +11,7 @@
 
 #include "Creature.h"
 #include "Zone.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Timeval.h"
 #include "Inventory.h"
 
@@ -60,7 +60,7 @@ class NPC : public Creature
 public: 
 	NPC() throw();
 	NPC(const string & name) throw();
-	virtual ~NPC() throw();
+	virtual ~NPC() throw (Error);
 
 public: 
 	virtual CreatureClass getCreatureClass() const throw() { return CREATURE_CLASS_NPC; }
@@ -151,25 +151,25 @@ public:
 	virtual void setClanType(ClanType_t clan) { m_ClanType = clan; }
 	
 	// SimpleQuest by sigi. 2002.12.3
-//	bool regenSimpleQuest() throw(Error);
-//	bool giveSimpleQuest(Creature* pPC, QuestID_t qid) throw(Error);
-//	void setSimpleQuestListScript(Script* pScript) throw(Error);
-	//void sendSimpleQuestListPacket(Creature* pCreature) throw(Error);
+//	bool regenSimpleQuest() throw (Error);
+//	bool giveSimpleQuest(Creature* pPC, QuestID_t qid) throw (Error);
+//	void setSimpleQuestListScript(Script* pScript) throw (Error);
+	//void sendSimpleQuestListPacket(Creature* pCreature) throw (Error);
 	
-	void setCoupleRegisterManager(PartnerWaitingManager* pPWM ) 	{ m_pCoupleRegisterManager = pPWM; }
-	void setCoupleUnregisterManager(PartnerWaitingManager* pPWM ) 	{ m_pCoupleUnregisterManager = pPWM; }
+	void setCoupleRegisterManager( PartnerWaitingManager* pPWM ) 	{ m_pCoupleRegisterManager = pPWM; }
+	void setCoupleUnregisterManager( PartnerWaitingManager* pPWM ) 	{ m_pCoupleUnregisterManager = pPWM; }
 
 	PartnerWaitingManager* getCoupleRegisterManager() const { return m_pCoupleRegisterManager; }
 	PartnerWaitingManager* getCoupleUnregisterManager() const { return m_pCoupleUnregisterManager; }
 
-	void setQuestInfoManager(QuestInfoManager* pQIM ) { m_pQuestInfoManager = pQIM; }
-	void setRewardClassInfoManager(RewardClassInfoManager* pRIM ) { m_pRewardClassInfoManager = pRIM; }
+	void setQuestInfoManager( QuestInfoManager* pQIM ) { m_pQuestInfoManager = pQIM; }
+	void setRewardClassInfoManager( RewardClassInfoManager* pRIM ) { m_pRewardClassInfoManager = pRIM; }
 
 	QuestInfoManager* getQuestInfoManager() const { return m_pQuestInfoManager; }
 	RewardClassInfoManager* getRewardClassInfoManager() const { return m_pRewardClassInfoManager; }
 
 	ZoneID_t	getTaxingCastleZoneID() const { return m_TaxingCastleZoneID; }
-	void		setTaxingCastleZoneID(ZoneID_t castleZoneID ) { m_TaxingCastleZoneID = castleZoneID; }
+	void		setTaxingCastleZoneID( ZoneID_t castleZoneID ) { m_TaxingCastleZoneID = castleZoneID; }
 
 	int			getTaxRatio(PlayerCreature* pPC) const;
 

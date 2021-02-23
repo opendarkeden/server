@@ -16,7 +16,6 @@
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
 #include "ZoneGroupManager.h"
-#include "SubInventory.h"
 
 // global variable declaration
 LarvaInfoManager* g_pLarvaInfoManager = NULL;
@@ -41,7 +40,7 @@ Larva::Larva(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "Larva::Larva() : Invalid item type or option type");
-		throw("Larva::Larva() : Invalid item type or optionType");
+		throw ("Larva::Larva() : Invalid item type or optionType");
 	}
 }
 
@@ -89,8 +88,8 @@ void Larva::create(const string & ownerID, Storage storage, StorageID_t storageI
 		*/
 
 		// StringStreamÁ¦°Å. by sigi. 2002.5.13
-		pStmt->executeQuery("INSERT INTO LarvaObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
-								m_ItemID, m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, x, y, (int)m_Num);
+		pStmt->executeQuery( "INSERT INTO LarvaObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, Num) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, %d)",
+								m_ItemID, m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, x, y, (int)m_Num );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -145,7 +144,7 @@ void Larva::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE LarvaObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE LarvaObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -169,8 +168,8 @@ void Larva::save(const string & ownerID, Storage storage, StorageID_t storageID,
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE LarvaObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE LarvaObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -345,7 +344,7 @@ void LarvaInfo::parseEffect(const string& effect)
 
 	if (effect.size() < 5) return;
 
-    size_t a = 0, b = 0, c = 0, d = 0, e = 0;
+	uint a = 0, b = 0, c = 0, d = 0, e = 0;
 	
 	while (e < effect.size() - 1)
 	{
@@ -476,8 +475,8 @@ void LarvaLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM LarvaObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM LarvaObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{
@@ -534,18 +533,6 @@ void LarvaLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pLarva);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pLarva))
 						{
 							pInventory->addItemEx(x, y, pLarva);

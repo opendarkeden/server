@@ -20,8 +20,8 @@
 #include <list>
 
 #include "PacketUtil.h"
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include "VariableManager.h"
 
@@ -56,7 +56,7 @@ ActionGiveEventItem::~ActionGiveEventItem()
 //  load
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::load()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 	
@@ -72,7 +72,7 @@ void ActionGiveEventItem::load()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -98,7 +98,7 @@ void ActionGiveEventItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -114,10 +114,10 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	Assert(pPlayer != NULL);
 
 	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+	Assert( pInventory != NULL );
 
 	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	FlagSet* pFlagSet = pPC->getFlagSet();
 
@@ -132,12 +132,12 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	if (!g_pVariableManager->isActiveGiveEventItem())
 	{
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_GIVE_EVENT_ITEM_FAIL_NOW);
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_GIVE_EVENT_ITEM_FAIL_NOW );
+		pPlayer->sendPacket( &response );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
@@ -145,15 +145,15 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	// 이 값과 관련해서
 	// 캐릭터 생성시에 FlagSet을 바꿔줘야한다. (default ON 으로)
 	// 이미 선물을 교환해 갔다면
-	if (pFlagSet->isOn(m_FlagSetType ) )
+	if ( pFlagSet->isOn( m_FlagSetType ) )
 	{
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_GIVE_EVENT_ITEM_FAIL);
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_GIVE_EVENT_ITEM_FAIL );
+		pPlayer->sendPacket( &response );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
@@ -161,26 +161,26 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	LuaSelectItem*	pLuaSelectItem = NULL;
 	string			luaFileName;
 
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		// 루아에 슬레이어 능력치의 합을 set한다.
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
-		Attr_t sum = pSlayer->getSTR(ATTR_BASIC )
-				   + pSlayer->getDEX(ATTR_BASIC )
-				   + pSlayer->getINT(ATTR_BASIC);
+		Attr_t sum = pSlayer->getSTR( ATTR_BASIC )
+				   + pSlayer->getDEX( ATTR_BASIC )
+				   + pSlayer->getINT( ATTR_BASIC );
 
 		m_pLuaSlayerItem->setSum(sum);
 		pLuaSelectItem = m_pLuaSlayerItem;
 		luaFileName = m_SlayerFilename;
 
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		// 루아에 뱀파이어의 레벨을 set한다.
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		int level = pVampire->getLevel();
 		m_pLuaVampireItem->setLevel(level);
@@ -200,7 +200,7 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		// 루아의 계산 결과를 받아 아이템을 생성한다.
 		pLuaSelectItem->prepare();
 		
-		int result = pLuaSelectItem->executeFile(luaFileName);
+		int result = pLuaSelectItem->executeFile( luaFileName );
 		LuaState::logError(result);
 		pLuaSelectItem->clear();
 	}
@@ -216,7 +216,7 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	// 루아의 계산 결과를 받아 아이템을 생성한다.
 	pLuaSelectItem->prepare();
 	
-	int result = pLuaSelectItem->executeFile(luaFileName);
+	int result = pLuaSelectItem->executeFile( luaFileName );
 	LuaState::logError(result);
 
 	ItemClass 	= pLuaSelectItem->getItemClass();
@@ -226,26 +226,26 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 
 	pLuaSelectItem->clear();
 
-	if(ItemClass >= Item::ITEM_CLASS_MAX )
+	if( ItemClass >= Item::ITEM_CLASS_MAX )
 	//||  ItemType  >= ITEM_TYPE_MAX || ItemType  < 0
 	//	|| OptionType == 0)
 	{
-		filelog("GiveEventItemError.txt", "[ ItemInfo Error ] : ItemClass = %d , ItemType = %d , OptionType = %d", ItemClass, ItemType, OptionType);
+		filelog( "GiveEventItemError.txt", "[ ItemInfo Error ] : ItemClass = %d , ItemType = %d , OptionType = %d", ItemClass, ItemType, OptionType );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
 
 	// 선물(Item)을 만든다.
 	list<OptionType_t> optionTypeList;
-	if (OptionType != 0 ) optionTypeList.push_back(OptionType);
-	if (OptionType2 != 0 ) optionTypeList.push_back(OptionType2);
+	if ( OptionType != 0 ) optionTypeList.push_back( OptionType );
+	if ( OptionType2 != 0 ) optionTypeList.push_back( OptionType2 );
 
-	pItem = g_pItemFactoryManager->createItem(ItemClass, ItemType, optionTypeList);
-	Assert(pItem != NULL);
+	pItem = g_pItemFactoryManager->createItem( ItemClass, ItemType, optionTypeList );
+	Assert( pItem != NULL );
 
 	_TPOINT pt;
 	if (!pInventory->getEmptySlot(pItem, pt))
@@ -253,12 +253,12 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		SAFE_DELETE(pItem);
 
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_NO_EMPTY_SLOT);
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_NO_EMPTY_SLOT );
+		pPlayer->sendPacket( &response );
 
 		GCNPCResponse quit;
-		quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPlayer->sendPacket(&quit);
+		quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPlayer->sendPacket( &quit );
 
 		return;
 	}
@@ -267,37 +267,37 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	CoordInven_t Y = pt.y;
 
 	// 선물을 인벤토리에 추가한다.
-	pZone->getObjectRegistry().registerObject(pItem);
-	pInventory->addItem(X, Y, pItem);
-	pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, X, Y);
+	pZone->getObjectRegistry().registerObject( pItem );
+	pInventory->addItem( X, Y, pItem );
+	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, X, Y );
 
 	// ItemTraceLog 를 남긴다
-	if (pItem != NULL && pItem->isTraceItem() )
+	if ( pItem != NULL && pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+		remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 
-		remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC, pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY());
+		remainTraceLogNew( pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC, pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY() );
 	}
 
 	// 클라이언트에 선물이 추가되었음을 알린다.
 	GCCreateItem gcCreateItem;
-	makeGCCreateItem(&gcCreateItem, pItem, X, Y);
+	makeGCCreateItem( &gcCreateItem, pItem, X, Y );
 	pPlayer->sendPacket(&gcCreateItem);
 
 	// Flag을 켠다.
-	pFlagSet->turnOn(m_FlagSetType);
+	pFlagSet->turnOn( m_FlagSetType );
 
 	// Flag을 저장한다.
-	pFlagSet->save(pPC->getName());
+	pFlagSet->save( pPC->getName() );
 
 	// 아이템 교환이 이루어 졌다고 클라이언트에 알린다.
 	GCNPCResponse response;
-	response.setCode(NPC_RESPONSE_GIVE_EVENT_ITEM_OK);
-	pPlayer->sendPacket(&response);
+	response.setCode( NPC_RESPONSE_GIVE_EVENT_ITEM_OK );
+	pPlayer->sendPacket( &response );
 
 	GCNPCResponse quit;
-	quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPlayer->sendPacket(&quit);
+	quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+	pPlayer->sendPacket( &quit );
 
 	__END_CATCH
 }
@@ -307,7 +307,7 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveEventItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

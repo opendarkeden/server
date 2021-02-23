@@ -15,14 +15,14 @@
 #include "Slayer.h"
 #include "Vampire.h"
 #include "SkillInfo.h"
-#include "GCTeachSkillInfo.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCTeachSkillInfo.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionTeachSkill::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void ActionTeachSkill::execute (Creature * pCreature1 , Creature * pCreature2)
 
 	if (pCreature2->isSlayer())       executeSlayer(pCreature1, pCreature2);
 	else if (pCreature2->isVampire()) executeVampire(pCreature1, pCreature2);
-	else throw("ActionTeachSkill::execute() : 알 수 없는 플레이어 크리쳐입니다!");
+	else throw ("ActionTeachSkill::execute() : 알 수 없는 플레이어 크리쳐입니다!");
 
 	__END_CATCH
 }
@@ -80,7 +80,7 @@ void ActionTeachSkill::execute (Creature * pCreature1 , Creature * pCreature2)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeSlayer (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void ActionTeachSkill::executeSlayer (Creature * pCreature1 , Creature * pCreatu
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeVampire (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -190,7 +190,7 @@ void ActionTeachSkill::executeVampire (Creature * pCreature1 , Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTeachSkill::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

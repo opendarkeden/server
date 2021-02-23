@@ -53,7 +53,7 @@ public:
 	void init() throw(Error);
 	void load() throw(Error);
 
-	STRBalanceInfo* getSTRBalanceInfo(uint value) const throw(InvalidProtocolException);
+	STRBalanceInfo* getSTRBalanceInfo(uint value) const throw (InvalidProtocolException);
 	void addSTRBalanceInfo(STRBalanceInfo* pSTRBalanceInfo) throw();
 
 	string toString() const throw();
@@ -107,7 +107,7 @@ public:
 	void init() throw(Error);
 	void load() throw(Error);
 
-	DEXBalanceInfo* getDEXBalanceInfo(uint value) const throw(InvalidProtocolException);
+	DEXBalanceInfo* getDEXBalanceInfo(uint value) const throw (InvalidProtocolException);
 	void addDEXBalanceInfo(DEXBalanceInfo* pDEXBalanceInfo) throw();
 
 	string toString() const throw();
@@ -162,7 +162,7 @@ public:
 	void init() throw(Error);
 	void load() throw(Error);
 
-	INTBalanceInfo* getINTBalanceInfo(uint value) const throw(InvalidProtocolException);
+	INTBalanceInfo* getINTBalanceInfo(uint value) const throw (InvalidProtocolException);
 	void addINTBalanceInfo(INTBalanceInfo* pINTBalanceInfo) throw();
 
 	string toString() const throw();

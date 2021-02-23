@@ -24,18 +24,18 @@ class SubOustersSkillInfo {
 public :
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get size of object
-	uint getSize () const throw() { return szSkillType + szTurn + szTurn; }
+	uint getSize () const throw () { return szSkillType + szTurn + szTurn; }
 	// get max size of object
-	static uint getMaxSize () throw() { return szSkillType + szTurn + szTurn; }
+	static uint getMaxSize () throw () { return szSkillType + szTurn + szTurn; }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 public :
 
@@ -45,7 +45,7 @@ public :
 
 	// get /set Skill ExpLevel
 	ExpLevel_t getExpLevel() const throw() { return m_ExpLevel; }
-	void setExpLevel(ExpLevel_t ExpLevel ) throw() { m_ExpLevel = ExpLevel; }
+	void setExpLevel( ExpLevel_t ExpLevel ) throw() { m_ExpLevel = ExpLevel; }
 
 	// get / set Turn
 	Turn_t getSkillTurn() const throw() { return m_Interval ; }

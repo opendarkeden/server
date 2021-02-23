@@ -31,7 +31,7 @@ public:
 	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot,
 			    const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 				    CEffectID_t CEffectID)
-		    throw(Error);
+		    throw (Error);
 
 
 

@@ -9,13 +9,13 @@
 #include "EffectKillAftermath.h"
 #include "Properties.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -44,7 +44,7 @@ void Resurrect::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot * 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
 			|| !pTargetCreature->isSlayer()
-			|| (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 ) )
+			|| ( g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 ) )
 		{
 			executeSkillFailException(pSlayer, getSkillType());
 			return;

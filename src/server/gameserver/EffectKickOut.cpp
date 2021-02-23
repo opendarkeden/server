@@ -1,20 +1,20 @@
 #include "EffectKickOut.h"
 #include "Zone.h"
 #include "PCManager.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include <cstdio>
 
 void EffectKickOut::affect() throw(Error)
 {
 	// 1盒俊 茄锅
-	setNextTime(600);
+	setNextTime( 600 );
 	m_MinutesCount--;
 
 	char msg[200];
-	sprintf(msg, "Timeout in %d minutes.", m_MinutesCount);
+	sprintf(msg, "离规定时间还剩下%d分.", m_MinutesCount);
 	GCSystemMessage gcSM;
 	gcSM.setMessage(msg);
-	m_pZone->broadcastPacket(&gcSM);
+	m_pZone->broadcastPacket( &gcSM );
 }
 
 void EffectKickOut::unaffect() throw(Error)
@@ -22,10 +22,10 @@ void EffectKickOut::unaffect() throw(Error)
 	__BEGIN_TRY
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("Limit time was reached, teleporting to ressurection point in 10 seconds.");
-	m_pZone->broadcastPacket(&gcSM);
+	gcSM.setMessage("已过规定时间. 10秒后移动到复活地点.");
+	m_pZone->broadcastPacket( &gcSM );
 
-	if (m_pZone != NULL ) m_pZone->getPCManager()->transportAllCreatures(0xffff);
+	if ( m_pZone != NULL ) m_pZone->getPCManager()->transportAllCreatures(0xffff);
 
 	__END_CATCH
 }

@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "LandMineExplosion.h"
-//#include "GCSkillToSelfOK1.h"
-#include "GCAddEffectToTile.h"
+//#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCAddEffectToTile.h"
 #include "SimpleTileMeleeSkill.h"
 
 
@@ -21,10 +21,10 @@ LandMineExplosion::LandMineExplosion()
 
 	int index=0;
 
-	for (int i=-3; i<=3; ++i )
-		for (int j=-3; j<=3; ++j )
+	for ( int i=-3; i<=3; ++i )
+		for ( int j=-3; j<=3; ++j )
 		{
-			if (i==0 && j==0 ) continue;
+			if ( i==0 && j==0 ) continue;
 			m_pLandMineExplosionMask[index++].set(i, j);
 		}
 
@@ -105,7 +105,7 @@ void LandMineExplosion::execute(Monster* pMonster)
 			gcAE.setEffectID(Effect::EFFECT_CLASS_LAND_MINE_EXPLOSION);
 			gcAE.setObjectID(0);
 			gcAE.setDuration(0);
-			pZone->broadcastPacket(x, y, &gcAE);
+			pZone->broadcastPacket( x, y, &gcAE );
 		} 
 		else 
 		{

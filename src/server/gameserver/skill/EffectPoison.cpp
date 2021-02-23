@@ -13,9 +13,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void EffectPoison::affect(Creature* pCreature)
 	// 스킬 사용자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
 	// EffectPoison이 크리쳐에게 걸리게 되는 경우에는 현재로서는 
 	// GreenPoison에 의해 타일 위에 생긴 
@@ -77,7 +77,7 @@ void EffectPoison::affect(Creature* pCreature)
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(pCastCreature, pCreature )
+		&& canAttack( pCastCreature, pCreature )
 		)
 	{
 		if (pCreature->isSlayer())
@@ -85,7 +85,7 @@ void EffectPoison::affect(Creature* pCreature)
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 			GCModifyInformation gcMI;
-			::setDamage(pSlayer, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI);
+			::setDamage( pSlayer, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI );
 			pSlayer->getPlayer()->sendPacket(&gcMI);
 		}
 		else if (pCreature->isVampire())
@@ -93,7 +93,7 @@ void EffectPoison::affect(Creature* pCreature)
 			Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 			GCModifyInformation gcMI;
-			::setDamage(pVampire, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI);
+			::setDamage( pVampire, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI );
 			pVampire->getPlayer()->sendPacket(&gcMI);
 		}
 		else if (pCreature->isOusters())
@@ -101,21 +101,21 @@ void EffectPoison::affect(Creature* pCreature)
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 			GCModifyInformation gcMI;
-			::setDamage(pOusters, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI);
+			::setDamage( pOusters, PoisonDamage, pCastCreature, SKILL_GREEN_POISON, &gcMI );
 			pOusters->getPlayer()->sendPacket(&gcMI);
 		}
 		else if (pCreature->isMonster())
 		{
 			Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-			::setDamage(pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_POISON);
+			::setDamage( pMonster, PoisonDamage, pCastCreature, SKILL_GREEN_POISON );
 		}
 
 		// m_CasterName이 pCreature를 죽인 경우의 KillCount 처리
 		// by sigi. 2002.9.9
 /*		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+			Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 			if (pAttacker!=NULL)
 			{ 

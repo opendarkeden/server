@@ -2,7 +2,7 @@
 #define __SOMETHING_GROWING_UP_H__
 
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 #include <vector>
 #include <string>
@@ -31,8 +31,8 @@ public:
 	virtual const string getDBQueryCondition() const { return ""; }
 
 	// 쿼리하기
-	GoalExpType getGoalExp(LevelType level ) const { Assert(level <= MaxLevel && level >= MinLevel); return m_Records[level].m_GoalExp; }
-	TotalExpType getAccumExp(LevelType level ) const { Assert(level <= MaxLevel && level >= MinLevel); return m_Records[level].m_AccumExp; }
+	GoalExpType getGoalExp( LevelType level ) const { Assert( level <= MaxLevel && level >= MinLevel ); return m_Records[level].m_GoalExp; }
+	TotalExpType getAccumExp( LevelType level ) const { Assert( level <= MaxLevel && level >= MinLevel ); return m_Records[level].m_AccumExp; }
 
 private:
 	class TableRecord
@@ -57,29 +57,29 @@ void ExpTable<GoalExpType, LevelType, MinLevel, MaxLevel, TotalExpType>::load()
 	int size = QueryTemplate.size() + getDBTableName().size() + getDBGoalExpFieldName().size() + getDBAccumExpFieldName().size() + getDBLevelFieldName().size() + getDBQueryCondition().size();
 	char* query = new char[size];
 
-	snprintf(query, size, QueryTemplate.c_str(), getDBLevelFieldName().c_str(), getDBGoalExpFieldName().c_str(), getDBAccumExpFieldName().c_str(), getDBTableName().c_str(), getDBQueryCondition().c_str());
+	snprintf( query, size, QueryTemplate.c_str(), getDBLevelFieldName().c_str(), getDBGoalExpFieldName().c_str(), getDBAccumExpFieldName().c_str(), getDBTableName().c_str(), getDBQueryCondition().c_str() );
 
 	Statement* pStmt;
 
-    BEGIN_DB
+	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(query);
+		Result* pResult = pStmt->executeQuery( query );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			LevelType level = pResult->getInt(1);
-			Assert(level >= MinLevel);
-			Assert(level <= MaxLevel);
+			Assert( level >= MinLevel );
+			Assert( level <= MaxLevel );
 			m_Records[level].m_GoalExp = pResult->getInt(2);
 			m_Records[level].m_AccumExp = pResult->getInt(3);
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
-	END_DB(pStmt);
+	END_DB( pStmt );
 
-	SAFE_DELETE(query);
+	SAFE_DELETE( query );
 
 	__END_CATCH
 }
@@ -100,17 +100,17 @@ public:
 
 	LevelType	getLevel() const { return m_Level; }
 	GoalExpType	getGoalExp() const { return m_GoalExp; }
-	TotalExpType	getTotalExp() const { return m_ExpTable.getAccumExp(m_Level ) - m_GoalExp; }
+	TotalExpType	getTotalExp() const { return m_ExpTable.getAccumExp( m_Level ) - m_GoalExp; }
 
-	bool increaseExp(GoalExpType exp, bool canLevelUp = true, bool giveRemainExp = false);
+	bool increaseExp( GoalExpType exp, bool canLevelUp = true, bool giveRemainExp = false );
 	bool levelUp();
 	bool levelDown();
 
 	// 꼭 필요할때만 씁시다.
-	bool SET_LEVEL(LevelType level);
+	bool SET_LEVEL( LevelType level );
 
 private:
-	void setLevel(LevelType level);
+	void setLevel( LevelType level );
 
 	LevelType		m_Level;
 	GoalExpType		m_GoalExp;
@@ -118,16 +118,16 @@ private:
 };
 
 template <class ExpTableClass>
-bool SomethingGrowingUp<ExpTableClass>::increaseExp(GoalExpType exp, bool canLevelUp, bool giveRemainExp )
+bool SomethingGrowingUp<ExpTableClass>::increaseExp( GoalExpType exp, bool canLevelUp, bool giveRemainExp )
 {
-	if (m_GoalExp <= exp )
+	if ( m_GoalExp <= exp )
 	{
-		if (canLevelUp )
+		if ( canLevelUp )
 		{
 			GoalExpType remainExp = exp - m_GoalExp;
-			if (levelUp() )
+			if ( levelUp() )
 			{
-				if (giveRemainExp ) increaseExp(remainExp, true, true);
+				if ( giveRemainExp ) increaseExp( remainExp, true, true );
 				return true;
 			}
 		}
@@ -139,33 +139,33 @@ bool SomethingGrowingUp<ExpTableClass>::increaseExp(GoalExpType exp, bool canLev
 }
 
 template <class ExpTableClass>
-bool SomethingGrowingUp<ExpTableClass>::SET_LEVEL(LevelType level )
+bool SomethingGrowingUp<ExpTableClass>::SET_LEVEL( LevelType level )
 {
-	if (level < MinLevel || level > MaxLevel ) return false;
-	setLevel(level);
+	if ( level < MinLevel || level > MaxLevel ) return false;
+	setLevel( level );
 	return true;
 }
 
 template <class ExpTableClass>
-void SomethingGrowingUp<ExpTableClass>::setLevel(LevelType level )
+void SomethingGrowingUp<ExpTableClass>::setLevel( LevelType level )
 {
 	m_Level = level;
-	m_GoalExp = m_ExpTable.getGoalExp(level);
+	m_GoalExp = m_ExpTable.getGoalExp( level );
 }
 
 template <class ExpTableClass>
 bool SomethingGrowingUp<ExpTableClass>::levelUp()
 {
-	if (m_Level == MaxLevel ) return false;
-	setLevel(m_Level + 1);
+	if ( m_Level == MaxLevel ) return false;
+	setLevel( m_Level + 1 );
 	return true;
 }
 
 template <class ExpTableClass>
 bool SomethingGrowingUp<ExpTableClass>::levelDown()
 {
-	if (m_Level == MinLevel ) return false;
-	setLevel(m_Level - 1);
+	if ( m_Level == MinLevel ) return false;
+	setLevel( m_Level - 1 );
 	return true;
 }
 

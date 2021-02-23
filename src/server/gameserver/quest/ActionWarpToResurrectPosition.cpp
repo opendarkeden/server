@@ -14,13 +14,13 @@
 
 #include "couple/PartnerWaitingManager.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -40,7 +40,7 @@ void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -48,12 +48,12 @@ void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * 
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	if (pPC == NULL ) return;
+	if ( pPC == NULL ) return;
 
 	ZONE_COORD zoneCoord;
-	g_pResurrectLocationManager->getPosition(pPC, zoneCoord);
+	g_pResurrectLocationManager->getPosition( pPC, zoneCoord );
 
-	transportCreature(pCreature2, zoneCoord.id, zoneCoord.x, zoneCoord.y);
+	transportCreature( pCreature2, zoneCoord.id, zoneCoord.x, zoneCoord.y );
 
 	__END_CATCH
 }
@@ -63,7 +63,7 @@ void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * 
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpToResurrectPosition::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

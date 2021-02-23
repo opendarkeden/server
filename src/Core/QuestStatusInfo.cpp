@@ -6,7 +6,7 @@ void QuestStatusInfo::read(SocketInputStream& iStream) throw(ProtocolException, 
 	iStream.read(m_Status);
 	BYTE size;
 	iStream.read(size);
-	for (int i=0; i<size; ++i )
+	for ( int i=0; i<size; ++i )
 	{
 		MissionInfo* temp = new MissionInfo;
 		temp->read(iStream);
@@ -22,7 +22,7 @@ void QuestStatusInfo::write(SocketOutputStream& oStream) const throw(ProtocolExc
 	oStream.write(size);
 
 	list<MissionInfo*>::const_iterator itr = m_Missions.begin();
-	for (; itr != m_Missions.end(); ++itr )
+	for ( ; itr != m_Missions.end(); ++itr )
 	{
 		(*itr)->write(oStream);
 	}
@@ -32,7 +32,7 @@ PacketSize_t QuestStatusInfo::getSize() const
 {
 	PacketSize_t ret = szDWORD + szBYTE + szBYTE;
 	list<MissionInfo*>::const_iterator itr = m_Missions.begin();
-	for (; itr != m_Missions.end(); ++itr )
+	for ( ; itr != m_Missions.end(); ++itr )
 	{
 		ret += (*itr)->getSize();
 	}

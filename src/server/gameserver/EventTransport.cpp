@@ -17,7 +17,7 @@
 #include "CreatureUtil.h"
 #include "StringPool.h"
 	
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -58,24 +58,24 @@ void EventTransport::sendMessage()
 //	msg << (int)RemainTime << "초 후에 " << m_ZoneName << "로 이동됩니다.";
 
     char msg[50];
-    sprintf(msg, g_pStringPool->c_str(STRID_TRANSPORT_CREATURE ),
+    sprintf( msg, g_pStringPool->c_str( STRID_TRANSPORT_CREATURE ),
                     (int)RemainTime,
-                    m_ZoneName.c_str());
+                    m_ZoneName.c_str() );
 
-    string sMsg(msg);
+    string sMsg( msg );
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(sMsg);
-	pCreature->getPlayer()->sendPacket(&gcSystemMessage);
+	pCreature->getPlayer()->sendPacket( &gcSystemMessage );
 
-	//setNextTime(m_MessageTick);
+	//setNextTime( m_MessageTick );
 
 	__END_CATCH
 }
 
 
 void EventTransport::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -92,16 +92,16 @@ void EventTransport::activate ()
 	Assert(pPC!=NULL);
 
 	bool bSendPacket = true;
-	dropRelicToZone(pPC, bSendPacket);
-	dropFlagToZone(pPC, bSendPacket);
-	dropSweeperToZone(pPC, bSendPacket);
+	dropRelicToZone( pPC, bSendPacket );
+	dropFlagToZone( pPC, bSendPacket );
+	dropSweeperToZone( pPC, bSendPacket );
 
 	// Zone에서 제거한다.
-	pOldZone->deleteCreature(pCreature, pCreature->getX(), pCreature->getY());
+	pOldZone->deleteCreature( pCreature, pCreature->getX(), pCreature->getY() );
 
 	// 이동해야할 Zone을 설정한다.
-	pCreature->setNewZone(getZoneByZoneID(m_ZoneID));
-	pCreature->setNewXY(m_X, m_Y);
+	pCreature->setNewZone( getZoneByZoneID(m_ZoneID) );
+	pCreature->setNewXY( m_X, m_Y );
 
 	try 
 	{
@@ -129,7 +129,7 @@ void EventTransport::activate ()
 }
 
 string EventTransport::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventTransport("

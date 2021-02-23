@@ -13,7 +13,7 @@
 #include "ShopTemplate.h"
 #include "OptionInfo.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "ItemFactoryManager.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -51,7 +51,7 @@ ActionRegenShop::~ActionRegenShop()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegenShop::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void ActionRegenShop::read (PropertyBuffer & propertyBuffer)
 // NOTE : ShopTemplate은 이 액션이 실행되기 전에 모두 로드되어 있어야 한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -235,7 +235,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 		// 종류가 6가지라면, 3개까지 집어넣을 수 있다.
 		// 이 시도 횟수를 trialMax 변수에다 집어넣는다.
 		if (combi[i] == 0) trialMax = 0;
-		else trialMax = (int)(SHOP_RACK_INDEX_MAX/combi[i]);
+		else trialMax = (int)(floor(SHOP_RACK_INDEX_MAX/combi[i]));
 
 		// 만일 샵 타입이 노멀이라면, 같은 아이템을 여러 개
 		// 생성하는 것은 의미가 없으므로, 한번만 아이템을 생성한다.
@@ -283,7 +283,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 					list<OptionType_t> optionTypes;
 
 					if (optionType!=0)
-						optionTypes.push_back(optionType);
+						optionTypes.push_back( optionType );
 
 					Item* pItem = g_pItemFactoryManager->createItem(IClass, itemType, optionTypes);
 					Assert(pItem != NULL);
@@ -322,7 +322,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRegenShop::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

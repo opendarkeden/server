@@ -9,14 +9,14 @@
 #include "EffectProtectionFromCurse.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ void Tendril::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
 		// NoSuchÁ¦°Å. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE)
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -76,7 +76,7 @@ void Tendril::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
 		SkillOutput output;
 		computeOutput(input, output);
 
-		Tile& rTile = pZone->getTile(pTargetCreature->getX(), pTargetCreature->getY());
+		Tile& rTile = pZone->getTile( pTargetCreature->getX(), pTargetCreature->getY() );
 
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP() + pSkillSlot->getExpLevel();
 		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
@@ -85,24 +85,24 @@ void Tendril::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkill
 
 		int Ratio = 0;
 
-		if (input.SkillLevel <= 15 )
+		if ( input.SkillLevel <= 15 )
 		{
 			Ratio = pOusters->getLevel() + input.SkillLevel * 8 / 3 - pTargetCreature->getLevel();
 		}
 		else
 		{
 			Ratio = pOusters->getLevel() + 20 + input.SkillLevel * 4 / 3 - pTargetCreature->getLevel();
-			if (input.SkillLevel == 30 ) Ratio = (int)(Ratio * 1.1);
+			if ( input.SkillLevel == 30 ) Ratio *= 1.1;
 		}
 
-		Ratio = min(80, max(20, Ratio ));
+		Ratio = min( 80, max( 20, Ratio ) );
 
 		bool bHitRoll	 = (rand()%100) < Ratio;
 		bool bHitRoll2   = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
 		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_TENDRIL) || rTile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION)!=NULL;
 		bool bPK         = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		ZoneCoord_t targetX = pTargetCreature->getX();
 		ZoneCoord_t targetY = pTargetCreature->getY();

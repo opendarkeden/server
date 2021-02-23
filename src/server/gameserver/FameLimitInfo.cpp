@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "FameLimitInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // class FameLimitInfo member methods
@@ -68,17 +68,17 @@ FameLimitInfoManager::~FameLimitInfoManager()
 }
 
 void FameLimitInfoManager::clear()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 	
-	if (m_FameLimitInfoList != NULL )
+	if ( m_FameLimitInfoList != NULL )
 	{
-		for (int i = 0; i < SKILL_DOMAIN_MAX; i++ )
+		for ( int i = 0; i < SKILL_DOMAIN_MAX; i++ )
 		{
-			for (int j = 0; j <= 150; j++ )
-				SAFE_DELETE(m_FameLimitInfoList[i][j]);
-			SAFE_DELETE_ARRAY(m_FameLimitInfoList[i]);
+			for ( int j = 0; j <= 150; j++ )
+				SAFE_DELETE( m_FameLimitInfoList[i][j] );
+			SAFE_DELETE_ARRAY( m_FameLimitInfoList[i] );
 		}
 	}
 
@@ -106,11 +106,11 @@ void FameLimitInfoManager::load()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		for (int i = 0; i < SKILL_DOMAIN_MAX; i++ )
+		for ( int i = 0; i < SKILL_DOMAIN_MAX; i++ )
 		{
 			pResult = pStmt->executeQuery("SELECT MAX(Level) FROM FameLimitInfo WHERE DomainType=%d", i);
 
-			if (pResult->getRowCount() == 0 )
+			if ( pResult->getRowCount() == 0 )
 			{
 				SAFE_DELETE(pStmt);
 				throw Error ("There is no data in FameLimitInfo Table");
@@ -121,21 +121,21 @@ void FameLimitInfoManager::load()
 
 			int count = pResult->getInt(1) + 1;
 
-			Assert(count > 0);
-			Assert(count <= 151);
+			Assert( count > 0 );
+			Assert( count <= 151 );
 
 			m_FameLimitInfoList[i] = new FameLimitInfo * [count];
 
-			for (int j = 0; j < count; j++ )
+			for ( int j = 0; j < count; j++ )
 				m_FameLimitInfoList[i][j] = NULL;
 
-			pResult = pStmt->executeQuery("SELECT DomainType, Level, Fame FROM FameLimitInfo WHERE DomainType = %d", i);
+			pResult = pStmt->executeQuery( "SELECT DomainType, Level, Fame FROM FameLimitInfo WHERE DomainType = %d", i );
 			while (pResult->next()) 
 			{
 				FameLimitInfo * pFameLimitInfo = new FameLimitInfo ();
 				int i = 0;
 
-				pFameLimitInfo->setDomainType(pResult->getInt(++i));
+				pFameLimitInfo->setDomainType( pResult->getInt(++i));
 				pFameLimitInfo->setLevel(pResult->getInt(++i));
 				pFameLimitInfo->setFame(pResult->getInt(++i));
 
@@ -156,22 +156,22 @@ void FameLimitInfoManager::addFameLimitInfo(FameLimitInfo * pFameLimitInfo)
 {
 	__BEGIN_TRY
 
-  	Assert(pFameLimitInfo != NULL);
+  	Assert( pFameLimitInfo != NULL );
 
 	SkillDomainType_t DomainType = pFameLimitInfo->getDomainType();
 	uint Level = pFameLimitInfo->getLevel();
 
-	Assert(DomainType < SKILL_DOMAIN_MAX);
-	Assert(Level < 151);
-	Assert(m_FameLimitInfoList[DomainType][Level] == NULL);
+	Assert( DomainType < SKILL_DOMAIN_MAX );
+	Assert( Level < 151 );
+	Assert( m_FameLimitInfoList[DomainType][Level] == NULL);
 
 	m_FameLimitInfoList[DomainType][Level] = pFameLimitInfo;
 	
 	__END_CATCH
 }
 
-FameLimitInfo * FameLimitInfoManager::getFameLimitInfo(SkillDomainType_t DomainType, uint Level ) const 
-	throw(Error)
+FameLimitInfo * FameLimitInfoManager::getFameLimitInfo( SkillDomainType_t DomainType, uint Level ) const 
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -194,11 +194,11 @@ string FameLimitInfoManager::toString() const
 
 	msg << "FameLimitInfoManager(";
 
-	for (int i = 0; i < SKILL_DOMAIN_MAX; i ++) 
+	for ( int i = 0; i < SKILL_DOMAIN_MAX; i ++) 
 	{
-		for (int j = 0; j <= 150; j++ )
+		for ( int j = 0; j <= 150; j++ )
 		{
-			if (m_FameLimitInfoList[i][j] == NULL )
+			if ( m_FameLimitInfoList[i][j] == NULL )
 			{
 				msg << "NULL" ;
 			}

@@ -5,10 +5,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "LuckInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "VariableManager.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global Variable initialization
@@ -24,7 +24,7 @@ LuckInfoManager::LuckInfoManager()
 {
 	__BEGIN_TRY
 
-	for (int i=0; i<3; ++i )
+	for ( int i=0; i<3; ++i )
 	{
 		m_ItemTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);
 		m_OptionTypeUpgradeRatio[i].reserve(MAX_LUCK_LEVEL);

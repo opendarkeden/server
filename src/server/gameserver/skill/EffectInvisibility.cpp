@@ -10,7 +10,7 @@
 #include "Slayer.h"
 #include "Vampire.h"
 #include "ZoneUtil.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -42,13 +42,13 @@ void EffectInvisibility::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (!pCreature->isVampire() ) return;
+	if ( !pCreature->isVampire() ) return;
 
 	Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 	HP_t currentHP = pVampire->getHP();
 
-	if (currentHP == 1 )
+	if ( currentHP == 1 )
 	{
 		setDeadline(0);
 		return;
@@ -57,14 +57,14 @@ void EffectInvisibility::affect(Creature* pCreature)
 	HP_t decreaseHP = 3 + pVampire->getINT()/250 + pVampire->getDEX()/60 + pVampire->getSTR()/200;
 	int finalHP = currentHP - decreaseHP;
 
-	if (finalHP < 1 ) finalHP = 1;
-	pVampire->setHP(finalHP);
+	if ( finalHP < 1 ) finalHP = 1;
+	pVampire->setHP( finalHP );
 	
 	GCStatusCurrentHP gcHP;
-	gcHP.setObjectID(pVampire->getObjectID());
-	gcHP.setCurrentHP(finalHP);
+	gcHP.setObjectID( pVampire->getObjectID() );
+	gcHP.setCurrentHP( finalHP );
 	
-	pVampire->getZone()->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcHP);
+	pVampire->getZone()->broadcastPacket( pVampire->getX(), pVampire->getY(), &gcHP );
 
 	setNextTime(10);
 

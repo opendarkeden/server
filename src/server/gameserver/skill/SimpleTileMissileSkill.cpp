@@ -7,12 +7,12 @@
 #include "SimpleTileMissileSkill.h"
 #include "ZoneUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
 
 SimpleTileMissileSkill g_SimpleTileMissileSkill;
 
@@ -22,7 +22,7 @@ SimpleTileMissileSkill g_SimpleTileMissileSkill;
 
 void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 							bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 							bool bHitRoll		 = false;
 
-							if (param.bMagicHitRoll )
+							if ( param.bMagicHitRoll )
 							{
 								bHitRoll = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 							}
@@ -141,14 +141,14 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 								bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel);
 							}
 
-							if (param.SkillType == SKILL_INFINITY_THUNDERBOLT&& mask.x == 0 && mask.y == 0 )
+							if ( param.SkillType == SKILL_INFINITY_THUNDERBOLT&& mask.x == 0 && mask.y == 0 )
 							{
 								bRaceCheck = !pTargetCreature->isNPC();
 							}
 
-//							bool bHitRoll        = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel);
+//							bool bHitRoll        = HitRoll::isSuccess( pSlayer, pTargetCreature, SkillLevel );
 
-							if (!canAttack(pSlayer, pTargetCreature )
+							if ( !canAttack( pSlayer, pTargetCreature )
 								|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 							{
 								bHitRoll = false; 
@@ -202,7 +202,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 								if (!pTargetCreature->isSlayer())
 								{
 									bHit = true;
-									if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+									if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 									EnemyNum++;
 								}
 							}
@@ -231,7 +231,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 			}
 
 			// 공격자의 아이템 내구성을 떨어뜨린다.
-			if (pSkillInfo->getDomainType() != SKILL_DOMAIN_GUN )
+			if ( pSkillInfo->getDomainType() != SKILL_DOMAIN_GUN )
 			{
 				decreaseDurability(pSlayer, NULL, pSkillInfo, &_GCSkillToTileOK1, NULL);
 			}
@@ -246,7 +246,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 			_GCSkillToTileOK1.setY(Y);
 			_GCSkillToTileOK1.setRange(dir);
 			_GCSkillToTileOK1.setDuration(0);
-			_GCSkillToTileOK1.setGrade(param.Level);
+			_GCSkillToTileOK1.setGrade( param.Level );
 
 			_GCSkillToTileOK2.setObjectID(pSlayer->getObjectID());
 			_GCSkillToTileOK2.setSkillType(param.SkillType);
@@ -254,7 +254,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 			_GCSkillToTileOK2.setY(Y);
 			_GCSkillToTileOK2.setRange(dir);
 			_GCSkillToTileOK2.setDuration(0);
-			_GCSkillToTileOK2.setGrade(param.Level);
+			_GCSkillToTileOK2.setGrade( param.Level );
 
 			_GCSkillToTileOK5.setObjectID(pSlayer->getObjectID());
 			_GCSkillToTileOK5.setSkillType(param.SkillType);
@@ -262,7 +262,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 			_GCSkillToTileOK5.setY(Y);
 			_GCSkillToTileOK5.setRange(dir);
 			_GCSkillToTileOK5.setDuration(0);
-			_GCSkillToTileOK5.setGrade(param.Level);
+			_GCSkillToTileOK5.setGrade( param.Level );
 
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 
@@ -296,12 +296,12 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 					// 아이템의 내구력을 떨어뜨린다.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-//					if (param.SkillType == SKILL_WILD_TYPHOON )
+//					if ( param.SkillType == SKILL_WILD_TYPHOON )
 //					{
 //						int ratio = pSlayer->getSTR() / 10;
-//						if ((rand()%100) < ratio )
+//						if ( (rand()%100) < ratio )
 //						{
-//							_GCSkillToTileOK2.setSkillType(SKILL_ATTACK_MELEE);
+//							_GCSkillToTileOK2.setSkillType( SKILL_ATTACK_MELEE );
 //						}
 //					}
 
@@ -322,7 +322,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 
 			pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK5 , cList);
 
-			if (param.Delay != 0xffffffff )
+			if ( param.Delay != 0xffffffff )
 			{
 				// set Next Run Time
 				pSkillSlot->setRunTime(param.Delay);
@@ -345,7 +345,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 
 void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -370,10 +370,10 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 		bool bTimeCheck  = param.Delay == 0xffffffff || verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck = verifyDistance(pVampire, X, Y, pSkillInfo->getRange());
 
-		if (bRangeCheck && param.SkillType == SKILL_NOOSE_OF_WRAITH )
+		if ( bRangeCheck && param.SkillType == SKILL_NOOSE_OF_WRAITH )
 		{
 			int ratio = 20 + pVampire->getINT()/6;
-			ratio = min(95, ratio);
+			ratio = min( 95, ratio );
 
 			bRangeCheck = (rand()%100) < ratio;
 		}
@@ -439,7 +439,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 							bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 							bool bHitRoll		 = false;
 
-							if (param.bMagicHitRoll )
+							if ( param.bMagicHitRoll )
 							{
 								bHitRoll = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
 							}
@@ -448,14 +448,14 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 								bHitRoll = HitRoll::isSuccess(pVampire, pTargetCreature);
 							}
 
-							if (param.SkillType == SKILL_NOOSE_OF_WRAITH && mask.x == 0 && mask.y == 0 )
+							if ( param.SkillType == SKILL_NOOSE_OF_WRAITH && mask.x == 0 && mask.y == 0 )
 							{
 								bRaceCheck = !pTargetCreature->isNPC();
 							}
 
 //							bool bHitRoll        = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
 
-							if (!canAttack(pVampire, pTargetCreature )
+							if ( !canAttack( pVampire, pTargetCreature )
 								|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 							{
 								bHitRoll = false; 
@@ -585,7 +585,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
 			pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK5 , cList);
 
-			if (param.Delay != 0xffffffff )
+			if ( param.Delay != 0xffffffff )
 			{
 				// set Next Run Time
 				pVampireSkillSlot->setRunTime(param.Delay);
@@ -608,7 +608,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
 void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSkillSlot* pOustersSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -660,8 +660,8 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
 				bool canSteal = true;
 
-				if (
-					(param.SkillType == SKILL_DESTRUCTION_SPEAR || param.SkillType == SKILL_ICE_LANCE )
+				if ( 
+					( param.SkillType == SKILL_DESTRUCTION_SPEAR || param.SkillType == SKILL_ICE_LANCE )
 				&&  (mask.x != 0 || mask.y != 0)
 				)
 				{
@@ -705,12 +705,12 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
 							bool bHitRoll		 = false;
 
-							if (param.SkillType == SKILL_DESTRUCTION_SPEAR && mask.x == 0 && mask.y == 0 )
+							if ( param.SkillType == SKILL_DESTRUCTION_SPEAR && mask.x == 0 && mask.y == 0 )
 							{
 								bRaceCheck = pTargetCreature->isNPC();
 							}
 
-							if (param.bMagicHitRoll )
+							if ( param.bMagicHitRoll )
 							{
 								bHitRoll = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot, HitBonus);
 							}
@@ -719,7 +719,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 								bHitRoll = HitRoll::isSuccess(pOusters, pTargetCreature);
 							}
 
-							if (!canAttack(pOusters, pTargetCreature )
+							if ( !canAttack( pOusters, pTargetCreature )
 								|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 							{
 								bHitRoll = false; 
@@ -738,7 +738,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 								if (param.bMagicDamage)
 								{
 //									Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true);
-									Damage += computeOustersMagicDamage(pOusters, pTargetCreature, param.SkillDamage, param.SkillType);
+									Damage += computeOustersMagicDamage( pOusters, pTargetCreature, param.SkillDamage, param.SkillType );
 								}
 								else
 								{
@@ -856,7 +856,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
 			pZone->broadcastPacket(myX, myY, &_GCSkillToTileOK5 , cList);
 
-			if (param.Delay != 0xffffffff )
+			if ( param.Delay != 0xffffffff )
 			{
 				// set Next Run Time
 				pOustersSkillSlot->setRunTime(param.Delay);
@@ -879,7 +879,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
 void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y,
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -899,7 +899,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y,
 		bool bRangeCheck = verifyDistance(pMonster, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pMonster, pSkillInfo);
 
-		if (param.SkillType == SKILL_ICE_LANCE ) bRangeCheck = true;
+		if ( param.SkillType == SKILL_ICE_LANCE ) bRangeCheck = true;
 
 		if (bRangeCheck && bHitRoll)
 		{
@@ -952,10 +952,10 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y,
 						Creature* pEnemy = (*itr);
 						Assert(pEnemy != NULL);
 
-						//cout << pMonster->getName() << " checks enemy " << pEnemy->getName() << endl;
+						cout << pMonster->getName() << " checks enemy " << pEnemy->getName() << endl;
 
 						// 공격 대상이 맞는 경우에..
-						if (pMonster->isEnemyToAttack(pEnemy ))
+						if (pMonster->isEnemyToAttack( pEnemy ))
 						{
 							bool bPK             = verifyPK(pMonster, pEnemy);
 							bool bRaceCheck      = !pEnemy->isNPC(); //pEnemy->isSlayer() || pEnemy->isVampire();
@@ -995,7 +995,7 @@ void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y,
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								if (param.SkillType == SKILL_GORE_GLAND_FIRE || param.SkillType == SKILL_SUMMON_MIGA_ATTACK )
+								if ( param.SkillType == SKILL_GORE_GLAND_FIRE || param.SkillType == SKILL_SUMMON_MIGA_ATTACK )
 								{
 									// 일단 맞는 놈이 받을 패킷은 널 상태로 한 채로, 데미지를 준다.
 									setDamage(pEnemy, Damage, pMonster, param.SkillType, NULL, NULL, false);

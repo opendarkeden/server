@@ -15,11 +15,9 @@
 
 #include "EffectHellFireToEnemy.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -52,14 +50,14 @@ void EffectHellFire::affect()
 	// 이펙트를 사용한 크리쳐를 가져온다.
 	// !! 이미 존을 나갔을 수도 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
+	Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
 
 	// 현재 이펙트가 붙어있는 타일을 받아온다.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -77,17 +75,17 @@ void EffectHellFire::affect()
 			// 자기 자신이면 안 맞는다.
 			// 안전지대 체크
 			// 2003.1.10 by bezz, Sequoia
-			if (!canAttack(pCastCreature, pCreature )
+			if ( !canAttack( pCastCreature, pCreature )
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 				|| pCreature->getObjectID()==m_CasterID
-				|| !checkZoneLevelToHitTarget(pCreature )
+				|| !checkZoneLevelToHitTarget( pCreature )
 			)
 			{
 				continue;
 			}
 			
 			// 같은 조직(--;)이면 안 맞는다.
-			if (pCreature->isOusters() && !isForce() )
+			if ( pCreature->isOusters() && !isForce() )
 			{
 				continue;
 			}
@@ -108,7 +106,7 @@ void EffectHellFire::affect()
 				gcAddEffect.setEffectID(Effect::EFFECT_CLASS_HELLFIRE_TO_ENEMY);
 				gcAddEffect.setDuration(m_Duration);
 
-				m_pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
+				m_pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffect );
 			}
 		}
 	}

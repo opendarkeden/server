@@ -1,25 +1,23 @@
 #include "GQuestEventPartyElement.h"
 #include "Party.h"
 #include "PlayerCreature.h"
-#include "Assert1.h"
+#include "Assert.h"
 
-#include <map>
-
-GQuestElement::ResultType GQuestEventPartyElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestEventPartyElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (pPC->getPartyID() == 0 ) return WAIT;
-	Party* pParty = g_pGlobalPartyManager->getParty(pPC->getPartyID());
-	if (pParty == NULL ) return FAIL;
-	if (pParty->getSize() != 2 ) return FAIL;
+	if ( pPC->getPartyID() == 0 ) return WAIT;
+	Party* pParty = g_pGlobalPartyManager->getParty( pPC->getPartyID() );
+	if ( pParty == NULL ) return FAIL;
+	if ( pParty->getSize() != 2 ) return FAIL;
 
-	map<string, Creature*> members = pParty->getMemberMap();
-	map<string, Creature*>::iterator itr = members.begin();
+	hash_map<string, Creature*> members = pParty->getMemberMap();
+	hash_map<string, Creature*>::iterator itr = members.begin();
 
-	for (; itr != members.end() ; ++itr )
+	for ( ; itr != members.end() ; ++itr )
 	{
-		if (itr->second != pPC )
+		if ( itr->second != pPC )
 		{
-			if (itr->second->getLevel() < 25 ) return OK;
+			if ( itr->second->getLevel() < 25 ) return OK;
 			return FAIL;
 		}
 	}
@@ -30,8 +28,8 @@ GQuestElement::ResultType GQuestEventPartyElement::checkCondition(PlayerCreature
 GQuestElement::ResultType GQuestEventPartyElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestEventPartyMission* pEventPartyMission = dynamic_cast<GQuestEventPartyMission*>(pMission);
-	if (pEventPartyMission == NULL ) return FAIL;
-	if (pEventPartyMission->isMet() ) return OK;
+	if ( pEventPartyMission == NULL ) return FAIL;
+	if ( pEventPartyMission->isMet() ) return OK;
 
 	return WAIT;
 }

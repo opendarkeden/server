@@ -9,17 +9,17 @@
 #include "EffectProtectionFromPoison.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -71,10 +71,10 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 
 		// Knowledge of Poison 이 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -104,7 +104,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 			Damage_t Damage = computeMagicDamage(pTargetCreature, output.Damage, SkillType, true, pVampire);
 
 			// 아우스터즈는 절반의 시간만 받는다.
-			if (pTargetCreature->isOusters() ) output.Duration/=2;
+			if ( pTargetCreature->isOusters() ) output.Duration/=2;
 
 			// 이펙트 오브젝트를 생성해서 붙인다.
 			EffectDarkBluePoison* pEffectDarkBluePoison = new EffectDarkBluePoison(pTargetCreature);

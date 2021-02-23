@@ -28,46 +28,46 @@ public:
 	};
 
 public:
-	War(WarState warState, WarID_t warID=0);
+	War( WarState warState, WarID_t warID=0 );
 	virtual ~War();
 
 	virtual WarType_t	getWarType() const = 0;
 	virtual string 		getWarType2DBString() const = 0;
-	virtual string		getWarName() const throw(Error) = 0;
+	virtual string		getWarName() const throw (Error) = 0;
 
 	WarID_t			getWarID()	const				{ return m_WarID; }
-	void			setWarID(WarID_t warID )		{ m_WarID = warID; }
+	void			setWarID( WarID_t warID )		{ m_WarID = warID; }
 
 	WarState		getState()	const				{ return m_State; }
 	const string&	getState2DBString() const;
-	void			setState(WarState warState )	{ m_State = warState; }
+	void			setState( WarState warState )	{ m_State = warState; }
 
 	const VSDateTime&	getWarStartTime() const		{ return m_StartTime; }
 	void				setWarStartTime(VSDateTime dt) { m_StartTime = dt; }
 
 public:
-	virtual bool	isModifyCastleOwner(PlayerCreature* pPC ) throw(Error) { return false; }
+	virtual bool	isModifyCastleOwner( PlayerCreature* pPC ) throw (Error) { return false; }
 
-	virtual void	sendWarStartMessage() const throw(ProtocolException, Error);
-	virtual void	sendWarEndMessage() const throw(ProtocolException, Error);
-
-public:
-	static void		initWarIDRegistry() throw(Error);
+	virtual void	sendWarStartMessage() const throw (ProtocolException, Error);
+	virtual void	sendWarEndMessage() const throw (ProtocolException, Error);
 
 public:
-	virtual void 	execute() throw(Error);
+	static void		initWarIDRegistry() throw (Error);
+
+public:
+	virtual void 	execute() throw (Error);
 	virtual bool    endWar(PlayerCreature* pPC) throw(Error) { return false; }
 
 protected :
-	virtual void 	executeStart() throw(Error) = 0;
-	virtual void 	executeEnd() throw(Error) = 0;
+	virtual void 	executeStart() throw (Error) = 0;
+	virtual void 	executeEnd() throw (Error) = 0;
 
 
 public :
-	virtual void	makeWarScheduleInfo(WarScheduleInfo* pWSI ) const throw(Error) = 0;
-	virtual void 	makeWarInfo(WarInfo* pWarInfo) const throw(Error) = 0;
+	virtual void	makeWarScheduleInfo( WarScheduleInfo* pWSI ) const throw (Error) = 0;
+	virtual void 	makeWarInfo(WarInfo* pWarInfo) const throw (Error) = 0;
 
-	virtual string	toString() const throw(Error) = 0;
+	virtual string	toString() const throw (Error) = 0;
 
 private:
 	WarID_t				m_WarID;

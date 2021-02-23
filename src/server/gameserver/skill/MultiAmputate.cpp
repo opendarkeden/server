@@ -39,11 +39,11 @@ void MultiAmputate::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	Creature* pTargetCreature = pSlayer->getZone()->getCreature(TargetObjectID);
-	bool bRangeCheck = pTargetCreature != NULL && verifyDistance(pSlayer, pTargetCreature, output.Range);
+	Creature* pTargetCreature = pSlayer->getZone()->getCreature( TargetObjectID );
+	bool bRangeCheck = pTargetCreature != NULL && verifyDistance(pSlayer, pTargetCreature, output.Range );
 
 	// 저 안에서는 Max Range 만 체크한다. -_-;
-	if (!bRangeCheck )
+	if ( !bRangeCheck )
 	{
 		executeSkillFailNormal(pSlayer, param.SkillType, pTargetCreature);
 		return;

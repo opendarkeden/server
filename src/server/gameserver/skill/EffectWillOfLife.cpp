@@ -10,9 +10,9 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectWillOfLife::EffectWillOfLife(Creature* pCreature)
 	throw(Error)
@@ -29,9 +29,9 @@ void EffectWillOfLife::affect()
 {
 	__BEGIN_TRY
 
-	if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 	{
-		affect(dynamic_cast<Creature*>(m_pTarget));
+		affect( dynamic_cast<Creature*>(m_pTarget) );
 	}
 
 	__END_CATCH
@@ -42,21 +42,21 @@ void EffectWillOfLife::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	if (pCreature == NULL ) return;
+	if ( pCreature == NULL ) return;
 
-	if (!pCreature->isVampire() ) return;
+	if ( !pCreature->isVampire() ) return;
 
-	Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-	Assert(pVampire != NULL);
+	Vampire* pVampire = dynamic_cast<Vampire*>( pCreature );
+	Assert( pVampire != NULL );
 
-	HP_t	curHP = pVampire->getHP(ATTR_CURRENT);
-	HP_t	maxHP = pVampire->getHP(ATTR_MAX ) - pVampire->getSilverDamage();
+	HP_t	curHP = pVampire->getHP( ATTR_CURRENT );
+	HP_t	maxHP = pVampire->getHP( ATTR_MAX ) - pVampire->getSilverDamage();
 
 	HP_t	nextHP = curHP + getBonus();
 
-	if (maxHP - getBonus() <= curHP ) nextHP = maxHP;
+	if ( maxHP - getBonus() <= curHP ) nextHP = maxHP;
 
-	pVampire->setHP(nextHP);
+	pVampire->setHP( nextHP );
 
 	setNextTime(10);
 
@@ -100,9 +100,9 @@ void EffectWillOfLife::unaffect(Creature* pCreature)
 	pVampire->getZone()->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcRemoveEffect);
 
 	GCStatusCurrentHP gcHP;
-	gcHP.setObjectID(pVampire->getObjectID());
-	gcHP.setCurrentHP(pVampire->getHP(ATTR_CURRENT ));
-	pVampire->getPlayer()->sendPacket(&gcHP);
+	gcHP.setObjectID( pVampire->getObjectID() );
+	gcHP.setCurrentHP( pVampire->getHP( ATTR_CURRENT ) );
+	pVampire->getPlayer()->sendPacket( &gcHP );
 
 	//cout << "EffectWillOfLife" << "unaffect END" << endl;
 

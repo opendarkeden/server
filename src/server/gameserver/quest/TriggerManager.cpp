@@ -5,17 +5,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "TriggerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include <stdio.h>
-#include <algorithm>
 #include "TriggerParser.h"
 #include "Properties.h"
 #include "ScriptManager.h"
 
 class isSameTriggerID {
 public :
-	isSameTriggerID(TriggerID_t triggerID) throw() : m_TriggerID(triggerID) {}
+	isSameTriggerID(TriggerID_t triggerID) throw () : m_TriggerID(triggerID) {}
 	bool operator () (Trigger * pTrigger)
 	{
 		return pTrigger->getTriggerID() == m_TriggerID;
@@ -28,7 +27,7 @@ private :
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 TriggerManager::TriggerManager () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,7 +38,7 @@ TriggerManager::TriggerManager ()
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 TriggerManager::~TriggerManager () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -50,7 +49,7 @@ TriggerManager::~TriggerManager ()
 // NPC 이름을 파라미터로 주면, NPC와 관련된 트리거들을 DB에서 로딩한다.
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::load (const string & name)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -93,10 +92,10 @@ void TriggerManager::load (const string & name)
 	END_DB(pStmt)
 
 //	XMLTree* pXML = parser.getResult();
-//	if (pXML != NULL )
+//	if ( pXML != NULL )
 //	{
 //		pXML->SaveToFile((g_pConfig->getProperty("HomePath") + "/data/" + name + ".xml").c_str());
-//		SAFE_DELETE(pXML);
+//		SAFE_DELETE( pXML );
 //	}
 
 	__END_CATCH
@@ -106,7 +105,7 @@ void TriggerManager::load (const string & name)
 // 존 좌표를 파라미터로 주면, 그 좌표와 관련된 트리거들을 DB에서 로딩한다.
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::load (ZoneID_t zoneid, int left, int top, int right, int bottom)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -151,7 +150,7 @@ void TriggerManager::load (ZoneID_t zoneid, int left, int top, int right, int bo
 // refresh condition set
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::refresh ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -169,7 +168,7 @@ void TriggerManager::refresh ()
 // add trigger
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::addTrigger (Trigger * pTrigger) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -192,7 +191,7 @@ void TriggerManager::addTrigger (Trigger * pTrigger)
 // delete trigger
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::deleteTrigger (TriggerID_t triggerID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -218,7 +217,7 @@ void TriggerManager::deleteTrigger (TriggerID_t triggerID)
 // get trigger
 ////////////////////////////////////////////////////////////////////////////////
 Trigger * TriggerManager::getTrigger (TriggerID_t triggerID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -237,7 +236,7 @@ Trigger * TriggerManager::getTrigger (TriggerID_t triggerID)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string TriggerManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

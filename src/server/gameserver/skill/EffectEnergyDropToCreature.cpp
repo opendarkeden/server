@@ -12,9 +12,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 	// 이펙트 사용자를 가져온다.
 	// !! 이미 존을 나갔을 수 있으므로 NULL 이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
 	// EffectEnergyDropToCreature은 AcidStorm, PoisonStorm, BloodyStorm위를 지나갈때 붙는다.
 	// 이는 3번의 연속 데미지를 주고 사라진다.
@@ -74,7 +74,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		// 무적상태 체크. by sigi. 2002.9.5
-        && canAttack(pCastCreature, pCreature )
+        && canAttack( pCastCreature, pCreature )
 		&& !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 		)
 	{
@@ -83,7 +83,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pSlayer, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI);
+			setDamage( pSlayer, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI );
 
 			pSlayer->getPlayer()->sendPacket(&gcMI);
 		}
@@ -92,7 +92,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 			Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pVampire, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI);
+			setDamage( pVampire, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI );
 
 			pVampire->getPlayer()->sendPacket(&gcMI);
 		}
@@ -101,7 +101,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 			GCModifyInformation gcMI;
-			setDamage(pOusters, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI);
+			setDamage( pOusters, DropDamage, pCastCreature, SKILL_ENERGY_DROP, &gcMI );
 
 			pOusters->getPlayer()->sendPacket(&gcMI);
 		}
@@ -109,7 +109,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 		{
 			Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-			setDamage(pMonster, DropDamage, pCastCreature, SKILL_ENERGY_DROP);
+			setDamage( pMonster, DropDamage, pCastCreature, SKILL_ENERGY_DROP );
 		}
 
 		// m_CasterName이 pCreature를 죽인 경우의 KillCount 처리
@@ -118,7 +118,7 @@ void EffectEnergyDropToCreature::affect(Creature* pCreature)
 		// by bezz. 2002.12.31 다시 주석 처리
 /*		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_CasterName);
+			Creature* pAttacker = pZone->getCreature( m_CasterName );
 
 			if (pAttacker!=NULL && pAttacker->isPC())
 			{ 

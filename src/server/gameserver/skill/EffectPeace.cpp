@@ -13,9 +13,9 @@
 #include "DarkLightInfo.h"
 #include "MonsterInfo.h"
 
-#include "GCModifyInformation.h"
-#include "GCChangeDarkLight.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ void EffectPeace::affect(Creature* pCreature)
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-		pMonster->deleteEnemy(pCreature->getObjectID());
+		pMonster->deleteEnemy( pCreature->getObjectID() );
 	}
 
 	__END_CATCH
@@ -73,7 +73,7 @@ void EffectPeace::unaffect(Creature* pCreature)
 	pCreature->removeFlag(Effect::EFFECT_CLASS_PEACE);
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	// 이펙트가 사라졌다고 알려준다.
 	GCRemoveEffect gcRemoveEffect;

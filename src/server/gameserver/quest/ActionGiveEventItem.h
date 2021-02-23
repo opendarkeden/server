@@ -30,7 +30,7 @@ public:
 	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
 	virtual string toString() const throw();
 
-	void						load() throw(Error);
+	void						load() throw (Error);
 
 private :
 	FlagSetType					m_FlagSetType;

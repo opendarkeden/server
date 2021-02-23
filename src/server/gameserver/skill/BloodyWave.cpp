@@ -144,10 +144,10 @@ void BloodyWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 
     // Knowledge of Blood 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

@@ -9,44 +9,42 @@
 #include "Creature.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCSkillFailed1.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 HellFire::HellFire()
 	throw()
 {
-	m_HellFireMask[0][0].set(0, 0);
+	m_HellFireMask[0][0].set( 0, 0 );
 	m_MaskNum[0] = 1;
 
-	m_HellFireMask[1][0].set(-1, 0);
-	m_HellFireMask[1][1].set(0, 0);
-	m_HellFireMask[1][2].set(1, 0);
+	m_HellFireMask[1][0].set( -1, 0 );
+	m_HellFireMask[1][1].set( 0, 0 );
+	m_HellFireMask[1][2].set( 1, 0 );
 	m_MaskNum[1] = 3;
 
-	m_HellFireMask[2][0].set(-1, 0);
-	m_HellFireMask[2][1].set(1, 0);
-	m_HellFireMask[2][2].set(0, 0);
-	m_HellFireMask[2][3].set(0, 1);
-	m_HellFireMask[2][4].set(0, -1);
+	m_HellFireMask[2][0].set( -1, 0 );
+	m_HellFireMask[2][1].set( 1, 0 );
+	m_HellFireMask[2][2].set( 0, 0 );
+	m_HellFireMask[2][3].set( 0, 1 );
+	m_HellFireMask[2][4].set( 0, -1 );
 	m_MaskNum[2] = 5;
 
-	m_HellFireMask[3][0].set(-1, -1);
-	m_HellFireMask[3][1].set(-1, 0);
-	m_HellFireMask[3][2].set(-1, 1);
-	m_HellFireMask[3][3].set(0, -1);
-	m_HellFireMask[3][4].set(0, 0);
-	m_HellFireMask[3][5].set(0, 1);
-	m_HellFireMask[3][6].set(1, -1);
-	m_HellFireMask[3][7].set(1, 0);
-	m_HellFireMask[3][8].set(1, 1);
+	m_HellFireMask[3][0].set( -1, -1 );
+	m_HellFireMask[3][1].set( -1, 0 );
+	m_HellFireMask[3][2].set( -1, 1 );
+	m_HellFireMask[3][3].set( 0, -1 );
+	m_HellFireMask[3][4].set( 0, 0 );
+	m_HellFireMask[3][5].set( 0, 1 );
+	m_HellFireMask[3][6].set( 1, -1 );
+	m_HellFireMask[3][7].set( 1, 0 );
+	m_HellFireMask[3][8].set( 1, 1 );
 	m_MaskNum[3] = 9;
 
 };
@@ -74,7 +72,7 @@ void HellFire::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -144,7 +142,7 @@ void HellFire::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 		
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -156,9 +154,9 @@ void HellFire::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 
 			int grade = 0;
 
-			if (input.SkillLevel <= 10 ) grade = 0;
-			else if (input.SkillLevel <= 20 ) grade = 1;
-			else if (input.SkillLevel < 30 ) grade = 2;
+			if ( input.SkillLevel <= 10 ) grade = 0;
+			else if ( input.SkillLevel <= 20 ) grade = 1;
+			else if ( input.SkillLevel < 30 ) grade = 2;
 			else grade = 3;
 
 			list<Creature*> cList;	// denier list
@@ -173,7 +171,8 @@ void HellFire::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 				if (rect.ptInRect(tileX, tileY))
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
-					if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
+					if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
+					if ( tile.getEffect(Effect::EFFECT_CLASS_HEAVEN_GROUND) ) continue;
 
 					// 현재 타일에다 이펙트를 추가할 수 있다면...
 					if (tile.canAddEffect())
@@ -188,8 +187,8 @@ void HellFire::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 
 						// 이펙트 클래스를 생성한다.
 						EffectHellFire* pEffect = new EffectHellFire(pZone , tileX, tileY);
-						pEffect->setCasterName(pOusters->getName());
-						pEffect->setCasterID(pOusters->getObjectID());
+						pEffect->setCasterName( pOusters->getName() );
+						pEffect->setCasterID( pOusters->getObjectID() );
 						pEffect->setDeadline(output.Duration);
 						pEffect->setDuration(output.Range);
 						pEffect->setDamage(output.ToHit);
@@ -202,18 +201,18 @@ void HellFire::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
-							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isVampire() )
-								&& checkZoneLevelToHitTarget(pTargetCreature ) && canAttack(pOusters, pTargetCreature )
+							if ( pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isVampire() )
+								&& checkZoneLevelToHitTarget( pTargetCreature ) && canAttack( pOusters, pTargetCreature )
 							) 
 							{
 								GCModifyInformation gcMI;
-								setDamage(pTargetCreature, output.Damage, pOusters, pOustersSkillSlot->getSkillType(), &gcMI, NULL, true, false);
+								setDamage( pTargetCreature, output.Damage, pOusters, pOustersSkillSlot->getSkillType(), &gcMI, NULL, true, false );
 
 								if (pTargetCreature->isDead())
 								{

@@ -6,7 +6,7 @@
 
 #include "ConnectionInfoManager.h"
 #include "StringStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include "ZoneGroup.h"
 #include "ZoneGroupManager.h"
@@ -16,9 +16,7 @@
 #include "LogDef.h"
 #include <stdio.h>
 
-#include "GMServerInfo.h"
-
-#include <map>
+#include "Gpackets/GMServerInfo.h"
 
 // global variable definition
 ConnectionInfoManager* g_pConnectionInfoManager = NULL;
@@ -27,7 +25,7 @@ ConnectionInfoManager* g_pConnectionInfoManager = NULL;
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfoManager::ConnectionInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -47,7 +45,7 @@ ConnectionInfoManager::ConnectionInfoManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfoManager::~ConnectionInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -68,7 +66,7 @@ ConnectionInfoManager::~ConnectionInfoManager ()
 // add connection info to connection info manager
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::addConnectionInfo (ConnectionInfo* pConnectionInfo) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -115,7 +113,7 @@ void ConnectionInfoManager::addConnectionInfo (ConnectionInfo* pConnectionInfo)
 // Delete connection info from connection info manager
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::deleteConnectionInfo (const string& clientIP) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 		
@@ -148,7 +146,7 @@ void ConnectionInfoManager::deleteConnectionInfo (const string& clientIP)
 // get connection info from connection info manager
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfo* ConnectionInfoManager::getConnectionInfo (const string& clientIP) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 		
@@ -178,7 +176,7 @@ ConnectionInfo* ConnectionInfoManager::getConnectionInfo (const string& clientIP
 // expire 된 Connection Info 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::heartbeat ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -253,12 +251,13 @@ void ConnectionInfoManager::heartbeat ()
 
 		GMServerInfo gmServerInfo;
 
-		static int worldID = g_pConfig->getPropertyInt("WorldID");
+		static int worldID = g_pConfig->getPropertyInt("WorldID" );
 		static int serverID = g_pConfig->getPropertyInt("ServerID");
 
-		gmServerInfo.setWorldID(worldID);
-		gmServerInfo.setServerID(serverID);
+		gmServerInfo.setWorldID( worldID );
+		gmServerInfo.setServerID( serverID );
 
+		//cout << "GroupCount: " << GroupCount << endl;
 		uint numPC = 0;
 
 		for (int i = 1; i < GroupCount; i++) 
@@ -292,14 +291,14 @@ void ConnectionInfoManager::heartbeat ()
 				{
 					pStmt = g_pDatabaseManager->getUserInfoConnection()->createStatement();
 
-					pStmt->executeQuery(
+					pStmt->executeQuery( 
 							"UPDATE UserStatus SET CurrentUser=%d WHERE WorldID=%d AND ServerID=%d", 
 							numPC, worldID, serverID);
 
 					// 없다면 추가해야지
 					if (pStmt->getAffectedRowCount()==0)
 					{
-						pStmt->executeQuery(
+						pStmt->executeQuery( 
 								"INSERT IGNORE INTO UserStatus (WorldID, ServerID, CurrentUser) Values (%d, %d, %d)",
 								worldID, serverID, numPC);
 					}
@@ -320,12 +319,12 @@ void ConnectionInfoManager::heartbeat ()
 		static int loginServerBaseUDPPort = g_pConfig->getPropertyInt("LoginServerBaseUDPPort");
 
 		// 기본
-		g_pLoginServerManager->sendPacket(loginServerIP, loginServerUDPPort, &gmServerInfo);
+		g_pLoginServerManager->sendPacket( loginServerIP, loginServerUDPPort, &gmServerInfo);
 
 		// 여러가지 -_-;
 		if (portNum > 1)
 		{
-			for (int j = 0 ; j < portNum ; j++ )
+			for ( int j = 0 ; j < portNum ; j++ )
 			{
 				g_pLoginServerManager->sendPacket(loginServerIP, loginServerBaseUDPPort+j, &gmServerInfo);
 			}
@@ -342,13 +341,13 @@ void ConnectionInfoManager::heartbeat ()
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ConnectionInfoManager::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
 	msg << "ConnectionInfoManager(";
 
-	for (map<string, ConnectionInfo*>::const_iterator itr = m_ConnectionInfos.begin() ; itr != m_ConnectionInfos.end() ;itr++)
+	for (hash_map<string, ConnectionInfo*>::const_iterator itr = m_ConnectionInfos.begin() ; itr != m_ConnectionInfos.end() ;itr++)
 	{
 		Assert(itr->second != NULL);
 		msg << itr->second->toString();

@@ -18,7 +18,7 @@ class Creature;
 class EffectPKZoneResurrection : public Effect 
 {
 public:
-	EffectPKZoneResurrection(Creature* pCreature);
+	EffectPKZoneResurrection( Creature* pCreature );
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PK_ZONE_RESURRECTION; }

@@ -11,7 +11,7 @@ public:
 	GQuestTimeMission(Timeval end) : m_EndTime(end) { }
 	Timeval	getEndTime() const { return m_EndTime; }
 
-	void updateArg() { m_NumArg = timediff(gCurrentTime, m_EndTime ).tv_sec / 60; }
+	void updateArg() { m_NumArg = timediff( gCurrentTime, m_EndTime ).tv_sec / 60; }
 
 	string	getMissionName() const { return "TimeMission"; }
 private:

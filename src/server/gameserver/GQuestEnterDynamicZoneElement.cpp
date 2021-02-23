@@ -1,11 +1,11 @@
 #include "GQuestEnterDynamicZoneElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestEnterDynamicZoneElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestEnterDynamicZoneMission* pEnterDynamicZoneMission = dynamic_cast<GQuestEnterDynamicZoneMission*>(pMission);
-	if (pEnterDynamicZoneMission == NULL ) return WAIT;
-	if (pEnterDynamicZoneMission->isEnter() ) return OK;
+	if ( pEnterDynamicZoneMission == NULL ) return WAIT;
+	if ( pEnterDynamicZoneMission->isEnter() ) return OK;
 
 	return WAIT;
 }

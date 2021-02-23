@@ -1,0 +1,306 @@
+CombatMonsterManager.cpp:	if(!findPoistion(m_MonsterTypes[iType], x, y))
+CombatMonsterManager.cpp:		if(!findPosition(m_MonsterTypes[i], x, y)){
+CombatMonsterManager.cpp:	hash_map<ObjectID_t, Creature* >::iterator itr = m_Creatures.find(creatureID);
+CombatMonsterManager.cpp:				if(!findPosition(MType, x, y)){
+CombatMonsterManager.cpp:bool CombatMonsterManager::findPosition(MonsterType_t monsterType, ZoneCoord_t& RX, ZoneCoord_t& RY) const throw() {
+ConnectionInfoManager.cpp:	HashMapConnectionInfo::iterator itr = m_ConnectionInfos.find(pConnectionInfo->getClientIP());
+ConnectionInfoManager.cpp:	HashMapConnectionInfo::iterator itr = m_ConnectionInfos.find(clientIP);
+ConnectionInfoManager.cpp:	HashMapConnectionInfo::iterator itr = m_ConnectionInfos.find(clientIP);
+Creature.cpp:Effect* Creature::findEffect(Effect::EffectClass EClass) 
+Creature.cpp:	return m_pEffectManager->findEffect(EClass);
+CreatureManager.cpp:#include <algorithm>		// find_if ()
+CreatureManager.cpp:	hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(pCreature->getObjectID());
+CreatureManager.cpp:		hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(objectID);
+CreatureManager.cpp:	hash_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.find(objectID);
+CreatureManager.cpp:	hash_map< ObjectID_t , Creature* >::const_iterator itr = find_if (m_Creatures.begin(), m_Creatures.end(), isSameNAME(Name));
+CreatureUtil.cpp:Item* findItemOID(Creature* pCreature, ObjectID_t id) 
+CreatureUtil.cpp:	return findItemOID(pCreature, id, storage, x, y);
+CreatureUtil.cpp:Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass) 
+CreatureUtil.cpp:	return findItemOID(pCreature, id, IClass, storage, x, y);
+CreatureUtil.cpp:Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int &y) 
+CreatureUtil.cpp:	pItem = pInventory->findItemOID(id, tx, ty);
+CreatureUtil.cpp:Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, int& storage, int& x, int &y) 
+CreatureUtil.cpp:	pItem = pInventory->findItemOID(id, IClass, tx, ty);
+CreatureUtil.cpp:Item* findItemIID(Creature* pCreature, ItemID_t id) 
+CreatureUtil.cpp:	return findItemIID(pCreature, id, storage, x, y);
+CreatureUtil.cpp:Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass) 
+CreatureUtil.cpp:	return findItemIID(pCreature, id, IClass, storage, x, y);
+CreatureUtil.cpp:Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int &y) 
+CreatureUtil.cpp:	pItem = pInventory->findItemIID(id, tx, ty);
+CreatureUtil.cpp:Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int& storage, int& x, int &y) 
+CreatureUtil.cpp:	pItem = pInventory->findItemIID(id, IClass, tx, ty);
+Directive.cpp:		start = text.find(beginToken, end);
+Directive.cpp:		end   = text.find(endToken,   start+1);
+Directive.cpp:			i = directive.find_first_of('(', k);
+Directive.cpp:			j = directive.find_first_of(':', i+1);
+Directive.cpp:			k = directive.find_first_of(')', j+1);
+Directive.cpp:			start = deadtext.find(beginToken, end);
+Directive.cpp:			end   = deadtext.find(endToken,   start+1);
+Directive.cpp:				i = directive.find_first_of('(', k);
+Directive.cpp:				j = directive.find_first_of(':', i+1);
+Directive.cpp:				k = directive.find_first_of(')', j+1);
+Directive.cpp:		pos    = text.find_first_of(',', oldpos);
+EffectManager.cpp:	list<Effect*>::const_iterator itr = find_if (m_Effects.begin(), m_Effects.end(), isSameEffectClass(EClass)); 
+EffectManager.cpp:	list<Effect*>::iterator itr = find_if (m_Effects.begin(), m_Effects.end(), isSameEffectClass(EClass)); 
+EffectManager.cpp:	list<Effect*>::iterator itr = find_if (m_Effects.begin(), m_Effects.end(), isSameEffectClass(EClass)); 
+EffectManager.cpp:Effect* EffectManager::findEffect(Effect::EffectClass EClass)
+EffectManager.cpp:	list<Effect*>::iterator itr = find_if (m_Effects.begin(), m_Effects.end(), isSameEffectClass(EClass)); 
+EffectManager.cpp:Effect* EffectManager::findEffect(ObjectID_t ObjectID)
+EffectManager.cpp:Effect* EffectManager::findEffect(Effect::EffectClass EClass, string EnemyName)
+EffectSchedule.cpp:					TPOINT pt = findSuitablePositionForEffect(pZone, cx, cy, Effect::EFFECT_CLASS_VAMPIRE_PORTAL);
+EffectSchedule.cpp:						// OID를 등록받아야 find라든지 하는 작업을 실행할 수 있다.
+EventMonsterManager.cpp:		if (!findPosition(m_MonsterTypes[i], x, y))
+EventMonsterManager.cpp:	hash_map<ObjectID_t, Creature* >::iterator itr = m_Creatures.find(creatureID);
+EventMonsterManager.cpp:				if (!findPosition(MType, x, y))
+EventMonsterManager.cpp:bool EventMonsterManager::findPosition(MonsterType_t monsterType, ZoneCoord_t& RX, ZoneCoord_t& RY) const
+EventMonsterNameManager.cpp:		hash_map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
+Guild.cpp:	itr = m_Members.find( name );
+Guild.cpp:	itr = m_Members.find( pMember->getName() );
+Guild.cpp:	itr = m_Members.find( name );
+Guild.cpp:	itr = m_Members.find( Member.getName() );
+GuildManager.cpp:	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+GuildManager.cpp:	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(pGuild->getID());
+GuildManager.cpp:	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+GuildManager.cpp:	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+GuildManager.cpp:	hash_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
+IncomingPlayerManager.cpp:	list<GamePlayer *>::iterator itr = find_if (m_PlayerListQueue.begin(), m_PlayerListQueue.end(), isSamePlayerbyID(id));
+IncomingPlayerManager.cpp:	list<GamePlayer *>::iterator itr = find_if (m_PlayerOutListQueue.begin(), m_PlayerOutListQueue.end(), isSamePlayer(pGamePlayer));
+InitAllStat.cpp:		EffectBless* pBless = dynamic_cast<EffectBless*>(findEffect(Effect::EFFECT_CLASS_BLESS));
+InitAllStat.cpp:		EffectPotentialExplosion* pPotentialExplosion = dynamic_cast<EffectPotentialExplosion*>(findEffect(Effect::EFFECT_CLASS_POTENTIAL_EXPLOSION));
+InitAllStat.cpp:		EffectStriking* pStriking = dynamic_cast<EffectStriking*>(findEffect(Effect::EFFECT_CLASS_STRIKING));
+InitAllStat.cpp:		EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
+InitAllStat.cpp:		EffectSeduction* pSeduction = dynamic_cast<EffectSeduction*>(findEffect(Effect::EFFECT_CLASS_SEDUCTION));
+InitAllStat.cpp:		EffectParalyze* pParalyze = dynamic_cast<EffectParalyze*>(findEffect(Effect::EFFECT_CLASS_PARALYZE));
+InitAllStat.cpp:		EffectChargingPower* pChargingPower= dynamic_cast<EffectChargingPower*>(findEffect(Effect::EFFECT_CLASS_CHARGING_POWER));
+InitAllStat.cpp:		EffectDancingSword* pDancingSword = dynamic_cast<EffectDancingSword*>(findEffect(Effect::EFFECT_CLASS_DANCING_SWORD));
+InitAllStat.cpp:		EffectGhostBlade* pGhostBlade = dynamic_cast<EffectGhostBlade*>(findEffect(Effect::EFFECT_CLASS_GHOST_BLADE));
+InitAllStat.cpp:		EffectMindControl* pMindControl = dynamic_cast<EffectMindControl*>(findEffect(Effect::EFFECT_CLASS_MIND_CONTROL));
+InitAllStat.cpp:		EffectProtectionFromPoison* pProtectionFromPoison = dynamic_cast<EffectProtectionFromPoison*>(findEffect(Effect::EFFECT_CLASS_PROTECTION_FROM_POISON));
+InitAllStat.cpp:		EffectProtectionFromCurse* pProtectionFromCurse = dynamic_cast<EffectProtectionFromCurse*>(findEffect(Effect::EFFECT_CLASS_PROTECTION_FROM_CURSE));
+InitAllStat.cpp:		EffectProtectionFromAcid* pProtectionFromAcid = dynamic_cast<EffectProtectionFromAcid*>(findEffect(Effect::EFFECT_CLASS_PROTECTION_FROM_ACID));
+InitAllStat.cpp:		EffectExpansion* pExpansion = dynamic_cast<EffectExpansion*>(findEffect(Effect::EFFECT_CLASS_EXPANSION));
+InitAllStat.cpp:		EffectBerserker* pBerserker= dynamic_cast<EffectBerserker*>(findEffect(Effect::EFFECT_CLASS_BERSERKER));
+InitAllStat.cpp:		EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
+InitAllStat.cpp:		EffectSeduction* pSeduction = dynamic_cast<EffectSeduction*>(findEffect(Effect::EFFECT_CLASS_SEDUCTION));
+InitAllStat.cpp:		EffectParalyze* pParalyze = dynamic_cast<EffectParalyze*>(findEffect(Effect::EFFECT_CLASS_PARALYZE));
+InitAllStat.cpp:		EffectTransformToWolf* pTransformToWolf= dynamic_cast<EffectTransformToWolf*>(findEffect(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF));
+InitAllStat.cpp:		EffectTransformToBat* pTransformToBat = dynamic_cast<EffectTransformToBat*>(findEffect(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT));
+InitAllStat.cpp:		EffectExtreme* pExtreme = dynamic_cast<EffectExtreme*>(findEffect(Effect::EFFECT_CLASS_EXTREME));
+InitAllStat.cpp:		EffectDoom* pDoom = dynamic_cast<EffectDoom*>(findEffect(Effect::EFFECT_CLASS_DOOM));
+InitAllStat.cpp:		EffectSeduction* pSeduction = dynamic_cast<EffectSeduction*>(findEffect(Effect::EFFECT_CLASS_SEDUCTION));
+InitAllStat.cpp:		EffectParalyze* pParalyze = dynamic_cast<EffectParalyze*>(findEffect(Effect::EFFECT_CLASS_PARALYZE));
+InitAllStat.cpp:		EffectTransformToWolf* pTransformToWolf= dynamic_cast<EffectTransformToWolf*>(findEffect(Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF));
+InitAllStat.cpp:		EffectTransformToBat* pTransformToBat = dynamic_cast<EffectTransformToBat*>(findEffect(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT));
+Inventory.cpp:	if (findItemOID(ObjectID, x, y) != NULL) return true;
+Inventory.cpp:	if (findItemIID(ItemID, x, y) != NULL) return true;
+Inventory.cpp:	pTargetItem = findItemOID(ObjectID, x, y);
+Inventory.cpp:	return findItemIID(itemID, x, y);
+Inventory.cpp:	return findItemIID(itemID, Item::ITEM_CLASS_BELT, x, y);
+Inventory.cpp:	return findItemOID(objectID, x, y);
+Inventory.cpp:Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
+Inventory.cpp:Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
+Inventory.cpp:Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
+Inventory.cpp:Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
+ItemFactoryManager.cpp:	hash_map<string, Item::ItemClass>::const_iterator ClassType = m_ItemClassMap.find( ClassName );
+ItemInfo.cpp:		a = req.find_first_of('(', c);
+ItemInfo.cpp:		b = req.find_first_of(',', a+1);
+ItemInfo.cpp:		c = req.find_first_of(')', b+1);
+ItemMap.cpp:	ITEM_MAP::const_iterator itr = find(key);
+Monster.cpp:		Effect* pEffect = pMonster->getEffectManager()->findEffect(EFFECT_CLASS_PEACE);
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:							itr = find_if (m_Enemies.begin() , m_Enemies.end() , StrongerSlayer(m_pZone , pSlayer->getSkillDomainLevelSum()));
+Monster.cpp:							itr = find_if (m_Enemies.begin() , m_Enemies.end() , StrongerVampire(m_pZone , pVampire->getLevel()));
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:							itr = find_if (m_Enemies.begin() , m_Enemies.end() , WeakerSlayer(m_pZone , pSlayer->getSkillDomainLevelSum()));
+Monster.cpp:							itr = find_if (m_Enemies.begin() , m_Enemies.end() , WeakerVampire(m_pZone , pVampire->getLevel()));
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
+Monster.cpp:		Effect* pEffect = pMonster->getEffectManager()->findEffect(EFFECT_CLASS_PEACE);
+Monster.cpp:	list<ObjectID_t>::iterator itr = find(m_Enemies.begin(), m_Enemies.end(), pCreature->getObjectID());
+Monster.cpp:	list<ObjectID_t>::iterator itr = find(m_Enemies.begin(), m_Enemies.end() , enemyID);
+MonsterInfo.cpp:		a = enhance.find_first_of('(',c);
+MonsterInfo.cpp:		b = enhance.find_first_of(',',a+1);
+MonsterInfo.cpp:		c = enhance.find_first_of(')',b+1);
+MonsterManager.cpp:		i = text.find_first_of('(',k);
+MonsterManager.cpp:		j = text.find_first_of(',',i+1);
+MonsterManager.cpp:		k = text.find_first_of(')',j+1);
+MonsterManager.cpp:		hash_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(spriteType);
+MonsterManager.cpp:			if (!findPosition(monsterType, x, y))
+MonsterManager.cpp:	hash_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(pMonster->getSpriteType());
+MonsterManager.cpp:	hash_map<ObjectID_t , Creature* >::iterator itr = m_Creatures.find(creatureID);
+MonsterManager.cpp:	hash_map< SpriteType_t , MonsterCounter *>::iterator itr2 = m_Monsters.find(pMonster->getSpriteType());
+MonsterManager.cpp:				hash_map< SpriteType_t , MonsterCounter *>::iterator itr = m_Monsters.find(pMonster->getSpriteType());
+MonsterManager.cpp:		// 몬스터 재생 코드에 findPosition이라는 무한 루프 함수가 하나 있다.
+MonsterManager.cpp:			if (!findPosition(monsterType, x, y))
+MonsterManager.cpp:bool MonsterManager::findPosition(MonsterType_t monsterType, ZoneCoord_t& RX, ZoneCoord_t& RY) const
+MonsterManager.cpp:			cerr << "MonsterManager::findPosition() : Max Count Exceeded" << endl;
+MonsterManager.cpp:			throw ("MonsterManager::findPosition() : Max Count Exceeded");
+MonsterManager.cpp:		pt = findSuitablePosition(m_pZone, x, y, Creature::MOVE_MODE_WALKING);
+MonsterNameManager.cpp:		hash_map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
+OptionInfo.cpp:		a = req.find_first_of('(', c);
+OptionInfo.cpp:		b = req.find_first_of(',', a+1);
+OptionInfo.cpp:		c = req.find_first_of(')', b+1);
+OptionInfo.cpp:	hash_map<uint, OptionType_t>::iterator itr = m_OptionTypes.find(level);
+OptionInfo.cpp:	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
+OptionInfo.cpp:	hash_map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
+OptionInfo.cpp:	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(OptionType);
+OptionInfo.cpp:	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+OptionInfo.cpp:	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+PCFinder.cpp:	hash_map< string , Creature* >::iterator itr = m_PCs.find(pCreature->getName());
+PCFinder.cpp:	hash_map< string , Creature* >::iterator itr = m_PCs.find(name);
+PCFinder.cpp:	itr = m_PCs.find(name);
+PCFinder.cpp:	itr = m_PCs.find(name);
+PCManager.cpp:#include <algorithm>		// find_if ()
+PCManager.cpp:					EffectComa* pEffectComa = (EffectComa*)(pEffectManager->findEffect(Effect::EFFECT_CLASS_COMA));
+ParkingCenter.cpp:	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(pMotorcycleBox->getItemID());
+ParkingCenter.cpp:	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+ParkingCenter.cpp:	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+ParkingCenter.cpp:		hash_map< ItemID_t , MotorcycleBox* >::const_iterator itr = m_Motorcycles.find(keyTargetID);
+Party.cpp:	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+Party.cpp:	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(pInfo->getHostName());
+Party.cpp:	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+Party.cpp:	hash_map<string, PartyInviteInfo*>::iterator itr = m_InfoMap.find(HostName);
+Party.cpp:	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
+Party.cpp:	hash_map<string, Creature*>::iterator itr = m_MemberMap.find(pCreature->getName());
+Party.cpp:	hash_map<string, Creature*>::iterator itr = m_MemberMap.find(name);
+Party.cpp:	hash_map<string, Creature*>::const_iterator itr = m_MemberMap.find(name);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
+Party.cpp:	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+Party.cpp:	hash_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
+PlayerCreature.cpp:				list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
+PlayerCreature.cpp:	list<string>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , Name);
+PlayerCreature.cpp:    list<string>::iterator itr = find(m_Enemies.begin(), m_Enemies.end() , Name);
+PlayerCreature.cpp:    list<string>::const_iterator itr = find(m_Enemies.begin(), m_Enemies.end() , Name);
+Portal.cpp:	list<PortalTargetInfo*>::iterator itr = find_if (m_Targets.begin(), m_Targets.end(), isSameZoneID(ZoneID)); 
+PrecedenceTable.cpp:		hash_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(pCreature->getName());
+PrecedenceTable.cpp:		hash_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
+PrecedenceTable.cpp:		hash_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(Name);
+PrecedenceTable.cpp:		hash_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
+ResurrectLocationManager.cpp:	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+ResurrectLocationManager.cpp:	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+ResurrectLocationManager.cpp:	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+ResurrectLocationManager.cpp:	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+ScriptManager.cpp:				end   = subject.find(seperator, start);
+ScriptManager.cpp:				end   = content.find(seperator, start);
+ScriptManager.cpp:	hash_map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
+ScriptManager.cpp:	hash_map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
+Sector.cpp:	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
+Sector.cpp:	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+Sector.cpp:	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+ShopTemplate.cpp:	hash_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.find(id);
+ShopTemplate.cpp:	hash_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.find(id);
+SkillParentInfo.cpp:		list<SkillType_t>::iterator itr = find(m_Parents.begin(), m_Parents.end() , SkillType);
+Slayer.cpp:SlotID_t Slayer::findEmptyPhoneSlot()
+Slayer.cpp:	hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+Slayer.cpp:	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(pSkillSlot->getSkillType());
+Slayer.cpp:	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+Slayer.cpp:			Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_STRIKING);
+Slayer.cpp:				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
+Slayer.cpp:				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
+TelephoneCenter.cpp:	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(pSlayer ->getPhoneNumber());
+TelephoneCenter.cpp:	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(PhoneNumber);
+TelephoneCenter.cpp:	hash_map< PhoneNumber_t , const Slayer* >::const_iterator itr = m_PCs.find(PhoneNumber);
+ThreadPool.cpp:// function object for find_if ()
+ThreadPool.cpp:	list<Thread*>::iterator itr = find_if (m_Threads.begin() , m_Threads.end() , isSameTID(tid));
+ThreadPool.cpp:	list<Thread*>::iterator itr = find_if (m_Threads.begin() , m_Threads.end() , isSameTID(tid));
+TimeManager.cpp:		int yearEnd = strBaseGameTime.find('-' , 0);
+TimeManager.cpp:		int monEnd = strBaseGameTime.find('-' , yearEnd + 1);
+TimeManager.cpp:		int dayEnd = strBaseGameTime.find_last_not_of(' ');
+TimeManager.cpp:		yearEnd = strBaseRealTime.find('-' , 0);
+TimeManager.cpp:		monEnd = strBaseRealTime.find('-' , yearEnd + 1);
+TimeManager.cpp:		dayEnd = strBaseRealTime.find_last_not_of(' ');
+TradeManager.cpp:	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+TradeManager.cpp:	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+TradeManager.cpp:	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(pInfo->getMainName());
+TradeManager.cpp:	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+Treasure.cpp:	uint a = text.find_first_of(',', 0);
+Treasure.cpp:	uint i = text.find_first_of('(', 0);
+Treasure.cpp:	uint j = text.find_first_of(',', i+1);
+Treasure.cpp:	uint k = text.find_first_of(')', j+1);
+Treasure.cpp:			a = newText.find_first_of('(', b);
+Treasure.cpp:			b = newText.find_first_of(')', a);
+Treasure.cpp:	uint i = text.find_first_of('(', 0);
+Treasure.cpp:	uint j = text.find_first_of(',', i+1);
+Treasure.cpp:	uint k = text.find_first_of(')', j+1);
+Treasure.cpp:		a = newText.find_first_of('<', b);
+Treasure.cpp:		b = newText.find_first_of('>', a);
+Treasure.cpp:	uint i = text.find_first_of('(');
+Treasure.cpp:	uint j = text.find_first_of(',');
+Treasure.cpp:	uint k = text.find_first_of(')');
+Treasure.cpp:		a = newText.find(btoken, b);
+Treasure.cpp:		b = newText.find(etoken, a+1);
+Treasure.cpp:		a = text.find(bToken, b);
+Treasure.cpp:		b = text.find(eToken, a+1);
+Vampire.cpp:	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+Vampire.cpp:	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+Vampire.cpp:	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(pVampireSkillSlot->getSkillType());
+Vampire.cpp:				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
+Vampire.cpp:				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
+WayPoint.cpp:	WayPointMap::const_iterator itr = find(key);
+WayPoint.cpp:	WayPointMap::const_iterator itr = find(key);
+Zone.cpp:// STL find_if 알고리즘을 이용하기 위한 비교 클래스
+Zone.cpp:	TPOINT pt = findSuitablePosition(this, cx, cy, pCreature->getMoveMode());
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp:	TPOINT pt = findSuitablePosition(this, cx, cy, pCreature->getMoveMode());
+Zone.cpp://										pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp:	TPOINT          pt     = findSuitablePositionForItem(this, cx, cy, bAllowCreature);
+Zone.cpp:	list<Creature*>::iterator itr = find_if (m_PCListQueue.begin(), m_PCListQueue.end(), isSameCreature(pCreature));
+Zone.cpp://								pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://								pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://							pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>( pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://												pEffectRevealerCreature = dynamic_cast<EffectRevealer*>( pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp://								pEffectRevealerCreature = dynamic_cast<EffectRevealer*>( pCreature->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+Zone.cpp://						pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp://							pEffectRevealer = dynamic_cast<EffectRevealer*>(pCreature->findEffect(Effect::EFFECT_CLASS_REVEALER));
+Zone.cpp:	hash_map< ObjectID_t, Item*>::iterator itr = m_Items.find(id);
+Zone.cpp://		pEffectRevealer = dynamic_cast<EffectRevealer*>(pPC->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+ZoneGroup.cpp:	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
+ZoneGroup.cpp:	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
+ZoneGroup.cpp:	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+ZoneGroup.cpp:	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+ZoneGroupManager.cpp:	hash_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(pZoneGroup->getZoneGroupID());
+ZoneGroupManager.cpp:	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(ZoneGroupID);
+ZoneGroupManager.cpp:	hash_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(zoneID);
+ZoneGroupManager.cpp:	hash_map< ZoneGroupID_t , ZoneGroup *>::const_iterator itr = m_ZoneGroups.find(zoneID);
+ZoneInfoManager.cpp:	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(pZoneInfo->getZoneID());
+ZoneInfoManager.cpp:	hash_map<string, ZoneInfo*>::iterator fitr = m_FullNameMap.find(pZoneInfo->getFullName());
+ZoneInfoManager.cpp:	hash_map<string, ZoneInfo*>::iterator sitr = m_ShortNameMap.find(pZoneInfo->getShortName());
+ZoneInfoManager.cpp:	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
+ZoneInfoManager.cpp:	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
+ZoneInfoManager.cpp:	hash_map<string, ZoneInfo*>::const_iterator short_itr = m_ShortNameMap.find(ZoneName);
+ZoneInfoManager.cpp:	hash_map<string, ZoneInfo*>::const_iterator full_itr = m_FullNameMap.find(ZoneName);
+ZonePlayerManager.cpp:	list<GamePlayer *>::iterator itr = find_if (m_PlayerOutListQueue.begin(), m_PlayerOutListQueue.end(), isSamePlayer(pGamePlayer));
+ZoneUtil.cpp:TPOINT findSuitablePosition(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, Creature::MoveMode MMode) 
+ZoneUtil.cpp:TPOINT findSuitablePositionForItem(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, bool bAllowCreature) 
+ZoneUtil.cpp:TPOINT findSuitablePositionForEffect(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, Effect::EffectClass EClass) 
+ZoneUtil.cpp:	TPOINT pt = findSuitablePosition(pZone, cx, cy, Creature::MOVE_MODE_BURROWING);
+ZoneUtil.cpp:	TPOINT pt = findSuitablePosition(pZone, cx, cy, Creature::MOVE_MODE_WALKING);
+ZoneUtil.cpp:			cerr << "addUnburrowCreature() : Cannot find suitable position" << endl;
+ZoneUtil.cpp:	TPOINT pt = findSuitablePosition(pZone, cx, cy, Creature::MOVE_MODE_WALKING);
+ZoneUtil.cpp://						pEffectRevealer = dynamic_cast<EffectRevealer*>(pViewer->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+ZoneUtil.cpp://					pEffectRevealer = dynamic_cast<EffectRevealer*>(pViewer->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+ZoneUtil.cpp://						pEffectRevealer = dynamic_cast<EffectRevealer*>(pViewer->findEffect( Effect::EFFECT_CLASS_REVEALER ) );
+ZoneUtil.cpp://					pEffectRevealer = dynamic_cast<EffectRevealer*>(pViewer->findEffect(Effect::EFFECT_CLASS_REVEALER));

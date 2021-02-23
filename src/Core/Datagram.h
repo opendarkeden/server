@@ -12,6 +12,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include "SocketAPI.h"
+#include "Packet.h"
 
 #if __LINUX__
 	#include <sys/socket.h>
@@ -38,68 +39,71 @@ class Datagram {
 public :
 
 	// constructor
-	Datagram () throw();
+	Datagram () throw ();
 
 	// destructor
-	~Datagram () throw();
+	~Datagram () throw ();
 
 	// read DatagramPacket from datagram's internal buffer
-	void read (char* buf, uint len) throw(Error);
-	void read (string & str, uint len) throw(Error);
-	void read (DatagramPacket* & pPacket) throw(ProtocolException, Error);
+	void read (char* buf, uint len) throw (Error);
+	void read (string & str, uint len) throw (Error);
+	void read (DatagramPacket* & pPacket) throw (ProtocolException, Error);
 
-	void read (char   & buf) throw(Error) { read((char*)&buf, szchar ); }
-    void read (uchar  & buf) throw(Error) { read((char*)&buf, szuchar); }
-    void read (short  & buf) throw(Error) { read((char*)&buf, szshort); }
-    void read (ushort & buf) throw(Error) { read((char*)&buf, szushort); }
-    void read (int    & buf) throw(Error) { read((char*)&buf, szint  ); }
-    void read (uint   & buf) throw(Error) { read((char*)&buf, szuint ); }
-    void read (long   & buf) throw(Error) { read((char*)&buf, szlong ); }
-    void read (ulong  & buf) throw(Error) { read((char*)&buf, szulong); }
+	void read (char   & buf) throw (Error) { read((char*)&buf, szchar  ); }
+    void read (uchar  & buf) throw (Error) { read((char*)&buf, szuchar ); }
+    void read (short  & buf) throw (Error) { read((char*)&buf, szshort ); }
+    void read (ushort & buf) throw (Error) { read((char*)&buf, szushort); }
+    void read (int    & buf) throw (Error) { read((char*)&buf, szint   ); }
+    void read (uint   & buf) throw (Error) { read((char*)&buf, szuint  ); }
+    void read (long   & buf) throw (Error) { read((char*)&buf, szlong  ); }
+    void read (ulong  & buf) throw (Error) { read((char*)&buf, szulong ); }
 
 	// write DatagramPacket into datagram's internal buffer
-	void write (const char* buf, uint len) throw(Error);
-	void write (const string & buf) throw(Error);
-	void write (const DatagramPacket* pPacket) throw(ProtocolException, Error);
+	void write (const char* buf, uint len) throw (Error);
+	void write (const string & buf) throw (Error);
+	void write (const DatagramPacket* pPacket) throw (ProtocolException, Error);
 
-	void write (char   buf) throw(Error) { write((char*)&buf, szchar ); }
-    void write (uchar  buf) throw(Error) { write((char*)&buf, szuchar); }
-    void write (short  buf) throw(Error) { write((char*)&buf, szshort); }
-    void write (ushort buf) throw(Error) { write((char*)&buf, szushort); }
-    void write (int    buf) throw(Error) { write((char*)&buf, szint  ); }
-    void write (uint   buf) throw(Error) { write((char*)&buf, szuint ); }
-    void write (long   buf) throw(Error) { write((char*)&buf, szlong ); }
-    void write (ulong  buf) throw(Error) { write((char*)&buf, szulong); }
+	void write (char   buf) throw (Error) { write((char*)&buf, szchar  ); }
+    void write (uchar  buf) throw (Error) { write((char*)&buf, szuchar ); }
+    void write (short  buf) throw (Error) { write((char*)&buf, szshort ); }
+    void write (ushort buf) throw (Error) { write((char*)&buf, szushort); }
+    void write (int    buf) throw (Error) { write((char*)&buf, szint   ); }
+    void write (uint   buf) throw (Error) { write((char*)&buf, szuint  ); }
+    void write (long   buf) throw (Error) { write((char*)&buf, szlong  ); }
+    void write (ulong  buf) throw (Error) { write((char*)&buf, szulong ); }
 
 	// get data
-	char* getData () throw() { return m_Data; }
+	char* getData () throw () { return m_Data; }
 
 	// set data
-	void setData (char* data, uint len) throw(Error);
-	void setData (uint len) throw(Error); 
+	void setData (char* data, uint len) throw (Error);
+	void setData (uint len) throw (Error); 
 	
 	// get length
-	uint getLength () const throw() { return m_Length; }
+	uint getLength () const throw () { return m_Length; }
 
 	// get address
-	SOCKADDR* getAddress () throw() { return (SOCKADDR*)&m_SockAddr; }
+	SOCKADDR* getAddress () throw () { return (SOCKADDR*)&m_SockAddr; }
 
 	// set address
-	void setAddress (SOCKADDR_IN* pSockAddr) throw(Error);
+	void setAddress (SOCKADDR_IN* pSockAddr) throw (Error);
 
 	// get host
-	string getHost () const throw() { return string(inet_ntoa(m_SockAddr.sin_addr)); }
+	string getHost () const throw () { return string(inet_ntoa(m_SockAddr.sin_addr)); }
 
 	// set host
-	void setHost (const string & host) throw() { m_SockAddr.sin_addr.s_addr = inet_addr(host.c_str()); }
+	void setHost (const string & host) throw () { m_SockAddr.sin_addr.s_addr = inet_addr(host.c_str()); }
 
 	// get port 
-	uint getPort () const throw() { return ntohs(m_SockAddr.sin_port); }
+	uint getPort () const throw () { return ntohs(m_SockAddr.sin_port); }
 
 	// set port
-	void setPort (uint port) throw() { m_SockAddr.sin_port = htons(port); }
+	void setPort (uint port) throw () { m_SockAddr.sin_port = htons(port); }
 
-	string toString () const throw();
+	string toString () const throw ();
+
+	//判断是否是udp报文
+	bool isDatagram(PacketID_t packetID);
 
 private :
 

@@ -47,7 +47,7 @@ public:
 	void setForce(bool force) { m_bForce = force; }
 
 	Damage_t    getDamage() const { return m_Damage; }
-	void        setDamage(Damage_t Damage ) { m_Damage = Damage; }
+	void        setDamage( Damage_t Damage ) { m_Damage = Damage; }
 
 private:
 	string 			m_CasterName;

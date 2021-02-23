@@ -22,9 +22,9 @@
 
 #include "item/Key.h"
 
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include "PriceManager.h"
 
@@ -32,7 +32,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeEventItem::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -53,7 +53,7 @@ void ActionTradeEventItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 //		buf << "축구공의 개수가 부족합니다. 더 모아 오세요";
 
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_REQUIRE_MORE_SOCCER_BALL ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_REQUIRE_MORE_SOCCER_BALL ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 
 		GCNPCResponse response;
@@ -108,11 +108,11 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 	Item* pItem1;
 	Item* pItem2;
 
-	list<OptionType_t> option1; option1.push_back(1);
-	list<OptionType_t> option2; option2.push_back(2);
-	list<OptionType_t> option3; option3.push_back(3);
-	list<OptionType_t> option4; option4.push_back(4);
-	list<OptionType_t> option5; option5.push_back(5);
+	list<OptionType_t> option1; option1.push_back( 1 );
+	list<OptionType_t> option2; option2.push_back( 2 );
+	list<OptionType_t> option3; option3.push_back( 3 );
+	list<OptionType_t> option4; option4.push_back( 4 );
+	list<OptionType_t> option5; option5.push_back( 5 );
 
 	if(pPC->isSlayer())
 	{
@@ -125,31 +125,31 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 0, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 0, option4);
 //					message << "STR+4 플렛 제킷과 STR+4 슬랙을 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_1 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_1 ) );
 					break;
 				case 125:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 2, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 2, option5);
 //					message << "STR+5 베스트와 STR+5 트라우져를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_2 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_2 ) );
 					break;
 				case 175:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option1);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option1);
 //					message << "STR+1 배틀슈트와 STR+1 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_3 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_3 ) );
 					break;
 				case 225:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option2);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option2);
 //					message << "STR+2 배틀슈트와 STR+2 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_4 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_4 ) );
 					break;
 				case 275:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 4, option3);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 4, option3);
 //					message << "STR+3 배틀슈트와 STR+3 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_5 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_5 ) );
 					break;
 				default:
 					return;
@@ -163,31 +163,31 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 1, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 1, option4);
 //					message << "STR+4 플렛 제킷과 STR+4 슬랙을 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_6 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_6 ) );
 					break;
 				case 125:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 3, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 3, option5);
 //					message << "STR+5 베스트와 STR+5 트라우져를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_7 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_7 ) );
 					break;
 				case 175:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option1);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option1);
 //					message << "STR+1 배틀슈트와 STR+1 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_8 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_8 ) );
 					break;
 				case 225:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option2);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option2);
 //					message << "STR+2 배틀슈트와 STR+2 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_9 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_9 ) );
 					break;
 				case 275:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, 5, option3);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, 5, option3);
 //					message << "STR+3 배틀슈트와 STR+3 레깅즈를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_10 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_10 ) );
 					break;
 				default:
 					return;
@@ -207,31 +207,31 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 1, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 2, option4);
 //					message << "STR+4 바디슈트와 STR+4 커시피드 네크리스를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_11 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_11 ) );
 					break;
 				case 125:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, option4);
 //					message << "STR+4 점프슈트와 STR+4 젯 네크리스를 지급해 드렸습니다.코리아팀 파이팅!";;
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_12 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_12 ) );
 					break;
 				case 175:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 4, option3);
 //					message << "STR+5 점프슈트와 STR+4 아이돌 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_13 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_13 ) );
 					break;
 				case 225:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 5, option3);
 //					message << "STR+5 점프슈트와 STR+4 역십자가(Anti-Cross)를 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_14 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_14 ) );
 					break;
 				case 275:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 3, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 6, option3);
 //					message << "STR+5 점프슈트와 STR+4 데스스타(Death-Star) 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_15 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_15 ) );
 					break;
 				default:
 					return;
@@ -245,31 +245,31 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 0, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 2, option4);
 //					message << "STR+4 스윙코트와 STR+4 커시피드 네크리스를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_16 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_16 ) );
 					break;
 				case 125:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option4);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 3, option4);
 //					message << "STR+4 프록코트와 STR+4 젯 네크리스를 지급해 드렸습니다.코리아팀 파이팅!";;
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_17 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_17 ) );
 					break;
 				case 175:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 4, option3);
 //					message << "STR+5 프록코트와 STR+4 아이돌 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_18 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_18 ) );
 					break;
 				case 225:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 5, option3);
 //					message << "STR+5 프록코트와 STR+4 역십자가(Anti-Cross)를 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_19 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_19 ) );
 					break;
 				case 275:
 					pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_COAT, 2, option5);
 					pItem2 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_NECKLACE, 6, option3);
 //					message << "STR+5 프록코트와 STR+4 데스스타(Death-Star) 팬던트를 지급해 드렸습니다. 코리아팀 파이팅!";
-					sprintf(message, g_pStringPool->c_str(STRID_KOREA_FIGHTING_20 ));
+					sprintf( message, g_pStringPool->c_str( STRID_KOREA_FIGHTING_20 ) );
 					break;
 				default:
 					return;
@@ -294,15 +294,15 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 			pItem2->create(pPC->getName(), STORAGE_INVENTORY, 0, pt2.x, pt2.y);
 
 			// ItemTraceLog 를 남긴다
-			if (pItem1 != NULL && pItem1->isTraceItem() )
+			if ( pItem1 != NULL && pItem1->isTraceItem() )
 			{
-				remainTraceLog(pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+				remainTraceLog( pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 			}
 
 			// ItemTraceLog 를 남긴다
-			if (pItem2 != NULL && pItem2->isTraceItem() )
+			if ( pItem2 != NULL && pItem2->isTraceItem() )
 			{
-				remainTraceLog(pItem2, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+				remainTraceLog( pItem2, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 			}
 			//pItem1->save(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
 			GCCreateItem gcCreateItem;
@@ -331,7 +331,7 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 
 			//축구공을 줄인다.
 			pInventory->decreaseStar(star);
-			//cout << "플레이어의 축구공을 " << star.amount << " 개 줄였습니다." << endl;
+			cout << "플레이어의 축구공을 " << star.amount << " 개 줄였습니다." << endl;
 
 			GCNPCResponse   gcNPCResponse;
 			gcNPCResponse.setCode(NPC_RESPONSE_DECREASE_BALL);
@@ -353,7 +353,7 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 //			buf << "인벤토리에 공간이 부족합니다";
 
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NOT_ENOUGH_INVENTORY_SPACE ) );
 			pPlayer->sendPacket(&gcSystemMessage);
 		}
 	}
@@ -363,7 +363,7 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 //		buf << "인벤토리에 공간이 부족합니다";
 
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NOT_ENOUGH_INVENTORY_SPACE ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 	}
 
@@ -379,7 +379,7 @@ void ActionTradeEventItem::execute(Creature * pCreature1 , Creature * pCreature2
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeEventItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -12,17 +12,17 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include "Zone.h"
 #include "GameTime.h"
-#include "GMServerInfo.h"
+#include "Gpackets/GMServerInfo.h"
 
 // forward declaration
 class ZoneThread;
 class ZonePlayerManager;
 
 // type redefinition
-//typedef map<ZoneID_t,Zone*> ZONE_HASHMAP;
+//typedef hash_map<ZoneID_t,Zone*> ZONE_HASHMAP;
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -91,16 +91,16 @@ public:
 	GameTime getGameTime() const throw() { return m_GameTime; }
 	void setGameTime(const GameTime & gameTime) throw() { m_GameTime = gameTime; }
 
-	void makeZoneUserInfo (GMServerInfo & gmServerInfo ) throw(Error);
+	void makeZoneUserInfo ( GMServerInfo & gmServerInfo ) throw(Error);
 
-	const map< ZoneID_t, Zone* >& getZones() const { return m_Zones; }
+	const hash_map< ZoneID_t, Zone* >& getZones() const { return m_Zones; }
 
 	// get debug string
 	string toString() const throw();
 
 public :
-	void 	lock() throw(Error)		{ m_Mutex.lock(); }
-	void 	unlock() throw(Error)		{ m_Mutex.unlock(); }
+	void 	lock() throw (Error)		{ m_Mutex.lock(); }
+	void 	unlock() throw (Error)		{ m_Mutex.unlock(); }
 
 	  void   initLoadValue();
       DWORD  getLoadValue() const;
@@ -115,7 +115,7 @@ private:
 	ZoneGroupID_t m_ZoneGroupID;
 	
 	// zone ÀÇ ÇØ½¬¸Ê
-	map< ZoneID_t, Zone* > m_Zones;
+	hash_map< ZoneID_t, Zone* > m_Zones;
 
 	// zone player manager
 	ZonePlayerManager* m_pZonePlayerManager;

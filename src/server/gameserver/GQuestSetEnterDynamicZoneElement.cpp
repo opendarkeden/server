@@ -3,9 +3,9 @@
 #include "Zone.h"
 #include "CreatureUtil.h"
 
-GQuestElement::ResultType GQuestSetEnterDynamicZoneElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestSetEnterDynamicZoneElement::checkCondition( PlayerCreature* pPC ) const
 {
-	pPC->getGQuestManager()->setEnterDynamicZone(m_DynamicZoneID, m_CanEnter);
+	pPC->getGQuestManager()->setEnterDynamicZone( m_DynamicZoneID, m_CanEnter );
 
 	return OK;
 }
@@ -19,6 +19,9 @@ GQuestSetEnterDynamicZoneElement* GQuestSetEnterDynamicZoneElement::makeElement(
 	pRet->m_DynamicZoneID = temp;
 	Assert(pTree->GetAttribute("canenter", temp));
 	pRet->m_CanEnter = temp;
+
+	cout << (int)pRet->m_DynamicZoneID << endl;
+	cout << (int)pRet->m_CanEnter << endl;
 
 	return pRet;
 }

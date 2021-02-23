@@ -32,7 +32,7 @@ class IncomingPlayerManager : public PlayerManager
 {
 public:
 	IncomingPlayerManager() throw(Error);
-	~IncomingPlayerManager() throw();
+	~IncomingPlayerManager() throw(Error);
 
 public:
 	// initialize 

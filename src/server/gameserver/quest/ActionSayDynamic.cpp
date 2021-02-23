@@ -10,13 +10,13 @@
 #include "Script.h"
 #include "ScriptManager.h"
 
-#include "GCNPCSayDynamic.h"
+#include "Gpackets/GCNPCSayDynamic.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSayDynamic::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionSayDynamic::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSayDynamic::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void ActionSayDynamic::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSayDynamic::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

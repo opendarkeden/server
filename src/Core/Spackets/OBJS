@@ -1,0 +1,14 @@
+OBJS	= \
+		SGAddGuildOK.o SGAddGuildOKHandler.o \
+		SGAddGuildMemberOK.o SGAddGuildMemberOKHandler.o \
+		SGQuitGuildOK.o SGQuitGuildOKHandler.o \
+		SGExpelGuildMemberOK.o SGExpelGuildMemberOKHandler.o \
+		SGModifyGuildMemberOK.o SGModifyGuildMemberOKHandler.o \
+		SGDeleteGuildOK.o SGDeleteGuildOKHandler.o \
+		SGModifyGuildOK.o SGModifyGuildOKHandler.o \
+		SGGuildInfo.o SGGuildInfoHandler.o \
+		SGModifyGuildIntroOK.o SGModifyGuildIntroOKHandler.o \
+		SGGuildMemberLogOnOK.o SGGuildMemberLogOnOKHandler.o
+
+SRCS	= $(OBJS1:.o=.cpp)
+

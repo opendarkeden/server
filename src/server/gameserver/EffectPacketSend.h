@@ -31,7 +31,7 @@ public:
 
 public:
 	Packet* getPacket() const { return m_pPacket; }
-	void setPacket(Packet* pPacket ) { m_pPacket = pPacket; }
+	void setPacket( Packet* pPacket ) { m_pPacket = pPacket; }
 
 private:
 	Packet* m_pPacket;

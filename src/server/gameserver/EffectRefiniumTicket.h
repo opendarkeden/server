@@ -26,16 +26,16 @@ public:
 	void unaffect(Creature* pCreature) throw(Error);
 	void unaffect() throw(Error);
 
-	void setExit(uint exit ) { m_Exit = exit; }
+	void setExit( uint exit ) { m_Exit = exit; }
 	uint getExit() const { return m_Exit; }
 
 	ZoneID_t getPrevExitZoneID(){ return m_PrevExitZoneID; }
 	ZoneCoord_t getPrevExitX(){ return m_PrevExitX; }
 	ZoneCoord_t getPrevExitY(){ return m_PrevExitY; }
 
-	void setPrevExitZoneID(ZoneID_t PrevExitZoneID ) { m_PrevExitZoneID=PrevExitZoneID; }
-	void setPrevExitX(ZoneCoord_t PrevExitX ) { m_PrevExitX=PrevExitX; }
-	void setPrevExitY(ZoneCoord_t PrevExitY ) { m_PrevExitY=PrevExitY; }
+	void setPrevExitZoneID( ZoneID_t PrevExitZoneID ) { m_PrevExitZoneID=PrevExitZoneID; }
+	void setPrevExitX( ZoneCoord_t PrevExitX ) { m_PrevExitX=PrevExitX; }
+	void setPrevExitY( ZoneCoord_t PrevExitY ) { m_PrevExitY=PrevExitY; }
 
 	string toString() const throw();
 

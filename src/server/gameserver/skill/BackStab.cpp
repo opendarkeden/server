@@ -7,7 +7,7 @@
 #include "BackStab.h"
 #include "SimpleMeleeSkill.h"
 #include "RankBonus.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -21,10 +21,10 @@ void BackStab::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 	SkillOutput output;
 	computeOutput(input, output);
 
-	Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
-	if (pWeapon == NULL )
+	Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
+	if ( pWeapon == NULL )
 	{
-		executeSkillFailException(pOusters, getSkillType());
+		executeSkillFailException( pOusters, getSkillType() );
 		return;
 	}
 
@@ -33,11 +33,11 @@ void BackStab::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 //	param.SkillDamage   = output.Damage;
 
 	bool bCritical = false;
-	if (HitRoll::isSuccessBackStab(pOusters ) )
+	if ( HitRoll::isSuccessBackStab( pOusters ) )
 	{
-		double ratio = (1.0 + (2 * input.SkillLevel / 30.0 ));
-		param.SkillDamage = (short unsigned int)(max(1, Random(pWeapon->getMinDamage(), pWeapon->getMaxDamage() ) ) * ratio);
-		if (input.SkillLevel == 30 ) param.SkillDamage = (short unsigned int)(param.SkillDamage * 1.1);
+		double ratio = ( 1.0 + ( 2 * input.SkillLevel / 30.0 ) );
+		param.SkillDamage = max( 1, Random( pWeapon->getMinDamage(), pWeapon->getMaxDamage() ) ) * ratio;
+		if ( input.SkillLevel == 30 ) param.SkillDamage *= 1.1;
 		bCritical = true;
 	}
 	else
@@ -54,31 +54,31 @@ void BackStab::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 	param.bMagicDamage  = false;
 	param.bAdd = true;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
+	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID );
 
-	if (bCritical && result.bSuccess )
+	if ( bCritical && result.bSuccess )
 	{
 		GCAddEffect gcAddEffect;
-		gcAddEffect.setObjectID(TargetObjectID);
-		if (param.Grade == 0 ) gcAddEffect.setEffectID(Effect::EFFECT_CLASS_BACK_STAB);
-		else if (param.Grade == 1 ) gcAddEffect.setEffectID(Effect::EFFECT_CLASS_BACK_STAB_2);
-		else gcAddEffect.setEffectID(Effect::EFFECT_CLASS_BACK_STAB_3);
+		gcAddEffect.setObjectID( TargetObjectID );
+		if ( param.Grade == 0 ) gcAddEffect.setEffectID( Effect::EFFECT_CLASS_BACK_STAB );
+		else if ( param.Grade == 1 ) gcAddEffect.setEffectID( Effect::EFFECT_CLASS_BACK_STAB_2 );
+		else gcAddEffect.setEffectID( Effect::EFFECT_CLASS_BACK_STAB_3 );
 
-		gcAddEffect.setDuration(0);
+		gcAddEffect.setDuration( 0 );
 
 		Zone* pZone = pOusters->getZone();
-		if (pZone != NULL ) 
+		if ( pZone != NULL ) 
 		{
-			Creature* pCreature = pZone->getCreature(TargetObjectID);
-			if (pCreature != NULL )
+			Creature* pCreature = pZone->getCreature( TargetObjectID );
+			if ( pCreature != NULL )
 			{
-				pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffect );
 			}
 		}
 	}

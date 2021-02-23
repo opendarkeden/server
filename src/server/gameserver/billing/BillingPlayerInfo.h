@@ -27,19 +27,19 @@ class BillingPlayerInfo {
 public :
 
 	// constructor
-	BillingPlayerInfo () throw(Error);
+	BillingPlayerInfo () throw (Error);
 	
 	// destructor
-	virtual ~BillingPlayerInfo () throw(Error);
+	virtual ~BillingPlayerInfo () throw (Error);
 
 	// get debug string
-	virtual string toString () const throw(Error);
+	virtual string toString () const throw (Error);
 
 public :
 	void            setBillingUserKey(int buid) { m_BillingUserKey = buid; }
 	int				getBillingUserKey() const  { return m_BillingUserKey; }
 
-	void            setBillingSession(Player* pPlayer) throw(Error);
+	void            setBillingSession(Player* pPlayer) throw (Error);
 	const string&   getBillingSession() const  { return m_BillingSession; }
 	
 	void            setBillingUserStatus(const string& us)	{ m_BillingUserStatus = us; }
@@ -47,7 +47,7 @@ public :
 
 	bool			isBillingPlayAvaiable() const	{ return !m_BillingUserStatus.empty(); }
 
-	virtual bool	sendBillingLogin() throw(Error) = 0;
+	virtual bool	sendBillingLogin() throw (Error) = 0;
 	int				getBillingLoginRequestCount() const	{ return m_BillingLoginRequestCount; }
 
 	void			setBillingLoginVerified(bool bVerified=true)	{ m_BillingLoginVerified = bVerified; }

@@ -38,17 +38,17 @@ public:
 //	void setPartyID(int PartyID) { m_PartyID = PartyID; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 	HP_t getHP() const { return m_HP; }
-	void setHP(HP_t hp ) { m_HP = hp; }
-	void decreaseHP(Damage_t damage ) throw();
+	void setHP( HP_t hp ) { m_HP = hp; }
+	void decreaseHP( Damage_t damage ) throw();
 
 	Damage_t getDamage() const { return m_Damage; }
-	void setDamage(Damage_t damage ) { m_Damage = damage; }
+	void setDamage( Damage_t damage ) { m_Damage = damage; }
 
 	Turn_t getDelay() const { return m_Delay; }
-	void setDelay(Turn_t delay ) { m_Delay = delay; }
+	void setDelay( Turn_t delay ) { m_Delay = delay; }
 
 private:
 	ObjectID_t	m_UserObjectID;	// ½ÃÀüÀÚ Object ID

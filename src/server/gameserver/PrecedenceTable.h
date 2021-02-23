@@ -13,7 +13,7 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Forward declaration
@@ -88,15 +88,15 @@ public:
 	void setComputeFlag(bool bFlag) { m_bComputeFlag = bFlag; }
 
 	string getQuestHostName() const { return m_QuestHostName; }
-	void setQuestHostName(const string& name ) { m_QuestHostName = name; }
+	void setQuestHostName( const string& name ) { m_QuestHostName = name; }
 
 	double getDamagePercent(const string& Name, int PartyID) const;
 
 	string toString(void) const;
 
 protected:
-	map<string, PrecedenceElement*> m_CreatureMap;
-	map<int, PrecedenceElement*> m_PartyMap;
+	hash_map<string, PrecedenceElement*> m_CreatureMap;
+	hash_map<int, PrecedenceElement*> m_PartyMap;
 
 	string m_FirstAttackerName; // 제일 먼저 선공을 가한 자의 이름
 	int m_FirstAttackerPartyID; // 제일 먼저 선공을 가한 자의 파티 ID

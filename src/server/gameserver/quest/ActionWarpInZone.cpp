@@ -11,8 +11,8 @@
 
 #include "PacketUtil.h"
 
-#include "GCDeleteObject.h"
-#include "GCAddNPC.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddNPC.h"
 
 static const POINT d [] = {
     POINT(-1, 0),   // 0 == LEFT
@@ -30,7 +30,7 @@ static const POINT d [] = {
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpInZone::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -52,13 +52,13 @@ void ActionWarpInZone::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	Assert(pCreature1 != NULL);
 
-	Assert(pCreature1->isNPC());
+	Assert( pCreature1->isNPC() );
 
 	// 이번 턴에 움직일 것인지 체크한다.
 	uint diceResult = Dice(1,100);
@@ -72,27 +72,27 @@ void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2)
 
 		int count = 0;
 
-		while (!pCreature1->canMove(tx,ty) )
+		while ( !pCreature1->canMove(tx,ty) )
 		{
 			tx = rand() % (pZone->getWidth() - 10 ) + 5;
 			ty = rand() % (pZone->getHeight() - 10 ) + 5;
 
 			// 10 넘게 못 찾으면 걍 둔다.
-			if (++count > 10 )
+			if ( ++count > 10 )
 				return;
 		}
 
 		Dir_t		dir = rand()% 8;
 
-		pZone->getTile(pCreature1->getX(), pCreature1->getY() ).deleteCreature(pCreature1->getObjectID());
-		GCDeleteObject gcDeleteObject(pCreature1->getObjectID());
-		pZone->broadcastPacket(pCreature1->getX(), pCreature1->getY(), &gcDeleteObject);
+		pZone->getTile( pCreature1->getX(), pCreature1->getY() ).deleteCreature( pCreature1->getObjectID() );
+		GCDeleteObject gcDeleteObject( pCreature1->getObjectID() );
+		pZone->broadcastPacket( pCreature1->getX(), pCreature1->getY(), &gcDeleteObject );
 
-		pZone->getTile(tx, ty ).addCreature(pCreature1, false);
+		pZone->getTile( tx, ty ).addCreature( pCreature1, false );
 		pCreature1->setXYDir(tx, ty, dir);
 		GCAddNPC gcAddNPC;
 		makeGCAddNPC(&gcAddNPC, dynamic_cast<NPC*>(pCreature1));
-		pZone->broadcastPacket(tx, ty, &gcAddNPC);
+		pZone->broadcastPacket( tx, ty, &gcAddNPC );
 
 	}
 
@@ -104,7 +104,7 @@ void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpInZone::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

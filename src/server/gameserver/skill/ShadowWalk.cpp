@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ShadowWalk.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -89,8 +89,8 @@ void ShadowWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 				// 데미지를 준다. (스킬 데미지는 없다.)
 				Damage_t Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel/5, bCriticalHit);
 				// HitRoll에 실패했다면 7%의 데미지를 준다. - by bezz
-				if (!bHitRoll )
-					Damage = (Damage_t)getPercentValue(Damage, 7);
+				if ( !bHitRoll )
+					Damage = (Damage_t)getPercentValue( Damage, 7 );
 				setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
 				computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
 

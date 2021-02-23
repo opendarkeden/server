@@ -8,12 +8,12 @@
 
 #include "Exception.h"
 #include "Types.h"
-#include <map>
+#include <hash_map>
 
 class GCSweeperBonusInfo;
 class SweeperBonus;
 
-typedef map<SweeperBonusType_t, SweeperBonus*>		SweeperBonusHashMap;
+typedef hash_map<SweeperBonusType_t, SweeperBonus*>		SweeperBonusHashMap;
 typedef SweeperBonusHashMap::iterator 					SweeperBonusHashMapItor;
 typedef SweeperBonusHashMap::const_iterator 			SweeperBonusHashMapConstItor;
 
@@ -56,10 +56,10 @@ public:
 	string toString() const throw();
 
 public:
-	void setSweeperBonusRace(SweeperBonusType_t sweeperBonusType, Race_t race ) throw(Error);
+	void setSweeperBonusRace( SweeperBonusType_t sweeperBonusType, Race_t race ) throw( Error );
 
-	void makeSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo ) throw(Error);
-	void makeVoidSweeperBonusInfo(GCSweeperBonusInfo& gcSweeperBonusInfo ) throw(Error);
+	void makeSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) throw( Error );
+	void makeVoidSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) throw( Error );
 
 
 private:

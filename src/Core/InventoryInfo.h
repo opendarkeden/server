@@ -21,30 +21,23 @@
 class InventoryInfo 
 {
 public:
-	InventoryInfo () throw();
-	~InventoryInfo () throw();
+	InventoryInfo () throw ();
+	~InventoryInfo () throw ();
 	
 public:
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	PacketSize_t getSize () throw();
+	PacketSize_t getSize () throw ();
 
 	static uint getMaxSize() throw() 
 	{
-		//return szBYTE + szBYTE + szBYTE + (InventorySlotInfo::getMaxSize() * 60);
-		return szBYTE + (InventorySlotInfo::getMaxSize() * 60);
+		return szBYTE + (InventorySlotInfo::getMaxSize()* 60);
 	}
 
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
-	CoordInven_t getWidth() const { return m_Width; }
-	void setWidth(CoordInven_t Width ) { m_Width = Width; }
-
-	CoordInven_t getHeight() const { return m_Height; }
-	void setHeight(CoordInven_t Height ) { m_Height = Height; }
-
 	BYTE getListNum() const throw() { return m_ListNum; }
 	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
 
@@ -58,10 +51,9 @@ public:
 	}
 
 private:
-	CoordInven_t	m_Width, m_Height;
-
 	BYTE m_ListNum; // number of item in inventory
 	list<InventorySlotInfo*> m_InventorySlotInfoList; // actual item info
+
 };
 
 #endif

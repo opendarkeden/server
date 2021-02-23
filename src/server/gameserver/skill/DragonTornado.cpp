@@ -8,7 +8,7 @@
 #include "SimpleMeleeSkill.h"
 #include "EffectDragonTornado.h"
 
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -48,7 +48,7 @@ void DragonTornado::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSl
 		Zone* pZone = pSlayer->getZone();
 		Assert(pZone!=NULL);
 
-		Creature* pCreature = pZone->getCreature(TargetObjectID);
+		Creature* pCreature = pZone->getCreature( TargetObjectID );
 
 		if (pCreature!=NULL)
 		{
@@ -58,7 +58,7 @@ void DragonTornado::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSl
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-				// delay설정 (+ 1초 )
+				// delay설정 ( + 1초 )
 				if (!pMonster->isMaster())
 				{
 					Timeval delay;
@@ -68,26 +68,26 @@ void DragonTornado::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSl
 				}
 			}
 
-			Tile& tile = pZone->getTile(pCreature->getX(), pCreature->getY());
+			Tile& tile = pZone->getTile( pCreature->getX(), pCreature->getY() );
 
-			if (tile.canAddEffect() )
+			if ( tile.canAddEffect() )
 			{
-				EffectDragonTornado* pEffect = new EffectDragonTornado(pZone, pCreature->getX(), pCreature->getY());
-				pEffect->setUserOID(pSlayer->getObjectID());
-				pEffect->setDamage(output.Range);
-				pEffect->setChildDamage(output.Tick);
-				pEffect->setDeadline(output.Duration);
+				EffectDragonTornado* pEffect = new EffectDragonTornado( pZone, pCreature->getX(), pCreature->getY() );
+				pEffect->setUserOID( pSlayer->getObjectID() );
+				pEffect->setDamage( output.Range );
+				pEffect->setChildDamage( output.Tick );
+				pEffect->setDeadline( output.Duration );
 				pEffect->setNextTime(10);
-				pZone->registerObject(pEffect);
-				tile.addEffect(pEffect);
-				pZone->addEffect(pEffect);
+				pZone->registerObject( pEffect );
+				tile.addEffect( pEffect );
+				pZone->addEffect( pEffect );
 
 				GCAddEffectToTile gcAE;
-				gcAE.setEffectID(pEffect->getSendEffectClass());
-				gcAE.setObjectID(pEffect->getObjectID());
-				gcAE.setDuration(output.Duration);
-				gcAE.setXY(pCreature->getX(), pCreature->getY());
-				pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAE);
+				gcAE.setEffectID( pEffect->getSendEffectClass() );
+				gcAE.setObjectID( pEffect->getObjectID() );
+				gcAE.setDuration( output.Duration );
+				gcAE.setXY( pCreature->getX(), pCreature->getY() );
+				pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAE );
 			}
 		}
 	}

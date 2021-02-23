@@ -12,14 +12,14 @@
 #include "Ousters.h"
 #include "Item.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 EventRegeneration::EventRegeneration (GamePlayer* pGamePlayer) 
-	throw(Error)
+	throw (Error)
 : Event(pGamePlayer)
 {
 }
@@ -29,7 +29,7 @@ EventRegeneration::EventRegeneration (GamePlayer* pGamePlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 EventRegeneration::~EventRegeneration () 
-	throw()
+	throw ()
 {
 }
 
@@ -38,7 +38,7 @@ EventRegeneration::~EventRegeneration ()
 // activate
 //////////////////////////////////////////////////////////////////////////////
 void EventRegeneration::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -178,7 +178,7 @@ void EventRegeneration::activate ()
 
 				pOusters->setHP(newHP, ATTR_CURRENT);
 
-				if (oldMP < newMP ) pOusters->setMP(newMP, ATTR_CURRENT);
+				if ( oldMP < newMP ) pOusters->setMP(newMP, ATTR_CURRENT);
 				newMP = pOusters->getMP(ATTR_CURRENT);
 
 				GCModifyInformation GCMI;

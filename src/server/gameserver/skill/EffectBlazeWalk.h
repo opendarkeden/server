@@ -38,10 +38,10 @@ public:
 	ObjectID_t getUserObjectID() const throw() { return m_UserObjectID; }
 
 	uint getAttackNum() const { return m_AttackNum; }
-	void setAttackNum(uint AttackNum ) { m_AttackNum = AttackNum; }
+	void setAttackNum( uint AttackNum ) { m_AttackNum = AttackNum; }
 
 	SkillType_t getSkillType() const { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType ) { m_SkillType = SkillType; }
+	void setSkillType( SkillType_t SkillType ) { m_SkillType = SkillType; }
 
 private:
 	HP_t    m_Point;

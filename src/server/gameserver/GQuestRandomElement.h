@@ -11,7 +11,7 @@ public:
 	GQuestRandomElement() { }
 	string		 				getElementName() const { return "Random"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestRandomElement*	makeElement(XMLTree* pTree);
 

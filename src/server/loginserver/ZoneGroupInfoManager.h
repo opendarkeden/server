@@ -13,15 +13,15 @@
 #include "Types.h"
 #include "Exception.h"
 #include "ZoneGroupInfo.h"
-#include <map>
+#include <hash_map>
 
-typedef map< ZoneGroupID_t , ZoneGroupInfo * > HashMapZoneGroupInfo;
+typedef hash_map< ZoneGroupID_t , ZoneGroupInfo * > HashMapZoneGroupInfo;
 
 //----------------------------------------------------------------------
 //
 // class ZoneGroupInfoManager;
 //
-// 존그룹 아이디를 키값으로 하는 존 정보의 map 을 가지고 있다.
+// 존그룹 아이디를 키값으로 하는 존 정보의 hash_map 을 가지고 있다.
 //
 //----------------------------------------------------------------------
 
@@ -30,31 +30,31 @@ class ZoneGroupInfoManager {
 public :
 	
 	// constructor
-	ZoneGroupInfoManager () throw();
+	ZoneGroupInfoManager () throw ();
 	
 	// destructor
-	~ZoneGroupInfoManager () throw();
+	~ZoneGroupInfoManager () throw ();
 
 	// initialize manager
-	void init () throw(Error);
+	void init () throw ( Error );
 
 	// load from database
-	void load () throw(Error);
+	void load () throw ( Error );
 	
 	// add info
-	void addZoneGroupInfo (ZoneGroupInfo * pZoneGroupInfo ) throw(DuplicatedException);
+	void addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) throw ( DuplicatedException );
 	
 	// delete info
-	void deleteZoneGroupInfo (ZoneGroupID_t zoneGroupID ) throw(NoSuchElementException);
+	void deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) throw ( NoSuchElementException );
 	
 	// get info
-	ZoneGroupInfo * getZoneGroupInfo (ZoneGroupID_t zoneGroupID ) const throw(NoSuchElementException);
+	ZoneGroupInfo * getZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) const throw ( NoSuchElementException );
 
 	// get count of info
-	uint getSize () const throw() { return m_ZoneGroupInfos.size(); }
+	uint getSize () const throw () { return m_ZoneGroupInfos.size(); }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 private :
 	

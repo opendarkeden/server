@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 #include <vector>
 
@@ -21,30 +21,30 @@ public:
 		EVENT_QUEST_ADVANCED		// 보상으로 다음 퀘스트로의 진행을 선택했다.
 	};
 
-	EventQuestAdvance(const EventQuestAdvance& org ) : m_QuestLevel(org.m_QuestLevel), m_Status(org.m_Status) { }
+	EventQuestAdvance( const EventQuestAdvance& org ) : m_QuestLevel(org.m_QuestLevel), m_Status(org.m_Status) { }
 
-	explicit EventQuestAdvance(int qLevel, Status status = EVENT_QUEST_INIT ) : m_QuestLevel(qLevel), m_Status(status ) { }
+	explicit EventQuestAdvance( int qLevel, Status status = EVENT_QUEST_INIT ) : m_QuestLevel(qLevel), m_Status( status ) { }
 	virtual ~EventQuestAdvance() { }
 
 	int		getLevel() const { return m_QuestLevel; }
 	Status	getStatus() const { return m_Status; }
 
-	bool	start() { return transition(EVENT_QUEST_INIT, EVENT_QUEST_STARTED); }
-	bool	success() { Assert(false); return transition(EVENT_QUEST_STARTED, EVENT_QUEST_SUCCESS); }
-	bool	rewarded() { return transition(EVENT_QUEST_STARTED, EVENT_QUEST_REWARDED); }
-	bool	advanced() { return transition(EVENT_QUEST_STARTED, EVENT_QUEST_ADVANCED); }
-	void	reset() { setStatus(EVENT_QUEST_INIT); }
+	bool	start() { return transition( EVENT_QUEST_INIT, EVENT_QUEST_STARTED ); }
+	bool	success() { Assert(false); return transition( EVENT_QUEST_STARTED, EVENT_QUEST_SUCCESS ); }
+	bool	rewarded() { return transition( EVENT_QUEST_STARTED, EVENT_QUEST_REWARDED ); }
+	bool	advanced() { return transition( EVENT_QUEST_STARTED, EVENT_QUEST_ADVANCED ); }
+	void	reset() { setStatus( EVENT_QUEST_INIT ); }
 
-	void	save(const string& name ) throw(Error);
+	void	save( const string& name ) throw(Error);
 
 protected:
-	bool	transition(Status I, Status O )
+	bool	transition( Status I, Status O )
 	{
-		if (getStatus() != I ) return false;
+		if ( getStatus() != I ) return false;
 		setStatus(O);
 		return true;
 	}
-	void	setStatus(Status status ) { m_Status = status; }
+	void	setStatus( Status status ) { m_Status = status; }
 
 private:
 	int		m_QuestLevel;
@@ -54,23 +54,23 @@ private:
 class EventQuestAdvanceManager
 {
 public:
-	EventQuestAdvanceManager(PlayerCreature* pPC);
+	EventQuestAdvanceManager( PlayerCreature* pPC );
 	~EventQuestAdvanceManager();
 	void	clear();
 
 public:
-	bool	start(int questLevel);
-	bool	success(int questLevel);
-	bool	rewarded(int questLevel);
-	bool	advanced(int questLevel);
+	bool	start( int questLevel );
+	bool	success( int questLevel );
+	bool	rewarded( int questLevel );
+	bool	advanced( int questLevel );
 
-	EventQuestAdvance::Status	getStatus(int questLevel);
+	EventQuestAdvance::Status	getStatus( int questLevel );
 
 	void	save() throw(Error);
-	void	save(int questLevel ) throw(Error);
+	void	save( int questLevel ) throw(Error);
 	void	load() throw(Error);
 
-	bool	canExecute(int questLevel);
+	bool	canExecute( int questLevel );
 	int		getQuestLevel();
 	static const int EVENT_QUEST_LEVEL_MAX = 5;
 

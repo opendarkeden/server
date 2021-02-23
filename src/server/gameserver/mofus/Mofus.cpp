@@ -6,7 +6,7 @@
 #include "Mofus.h"
 #include "DB.h"
 
-int loadPowerPoint(const string& name )
+int loadPowerPoint( const string& name )
 {
     __BEGIN_TRY
 
@@ -17,32 +17,32 @@ int loadPowerPoint(const string& name )
     try
     {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-        pResult = pStmt->executeQuery("SELECT Point FROM MofusPowerPoint WHERE OwnerID='%s'", name.c_str());
+        pResult = pStmt->executeQuery( "SELECT Point FROM MofusPowerPoint WHERE OwnerID='%s'", name.c_str() );
 
-        if (pResult->next() )
+        if ( pResult->next() )
         {
             powerpoint = pResult->getInt(1);
         }
     }
-    catch(SQLQueryException& sql )
+    catch( SQLQueryException& sql )
     {
         // SQL 에러는 무시한다.
     }
-    catch(... )
+    catch( ... )
     {
-        SAFE_DELETE(pStmt);
+        SAFE_DELETE( pStmt );
 
         throw;
     }
 
-    SAFE_DELETE(pStmt);
+    SAFE_DELETE( pStmt );
 
 	return powerpoint;
 
     __END_CATCH
 }
 
-int savePowerPoint(const string& name, int amount )
+int savePowerPoint( const string& name, int amount )
 {
     __BEGIN_TRY
 
@@ -54,39 +54,39 @@ int savePowerPoint(const string& name, int amount )
     try
     {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-        pStmt->executeQuery("Update MofusPowerPoint SET Point = Point + %d WHERE OwnerID='%s'", amount, name.c_str());
+        pStmt->executeQuery( "Update MofusPowerPoint SET Point = Point + %d WHERE OwnerID='%s'", amount, name.c_str() );
 
-        if (pStmt->getAffectedRowCount() == 0 )
+        if ( pStmt->getAffectedRowCount() == 0 )
         {
-            pStmt->executeQuery("Insert Into MofusPowerPoint Values ('%s',%d)", name.c_str(), amount);
+            pStmt->executeQuery( "Insert Into MofusPowerPoint Values ('%s',%d)", name.c_str(), amount );
         }
 
-        pResult = pStmt->executeQuery("SELECT Point FROM MofusPowerPoint WHERE OwnerID='%s'", name.c_str());
+        pResult = pStmt->executeQuery( "SELECT Point FROM MofusPowerPoint WHERE OwnerID='%s'", name.c_str() );
 
-        if (pResult->next() )
+        if ( pResult->next() )
         {
             powerpoint = pResult->getInt(1);
         }
     }
-    catch(SQLQueryException& sql )
+    catch( SQLQueryException& sql )
     {
         // SQL 에러는 무시한다.
     }
-    catch(... )
+    catch( ... )
     {
-        SAFE_DELETE(pStmt);
+        SAFE_DELETE( pStmt );
 
         throw;
     }
 
-    SAFE_DELETE(pStmt);
+    SAFE_DELETE( pStmt );
 
 	return powerpoint;
 
     __END_CATCH
 }
 
-void logPowerPoint(const string& name, int recvPoint, int savePoint )
+void logPowerPoint( const string& name, int recvPoint, int savePoint )
 {
     __BEGIN_TRY
 
@@ -95,21 +95,21 @@ void logPowerPoint(const string& name, int recvPoint, int savePoint )
     try
     {
         pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-        pStmt->executeQuery("INSERT INTO MofusLog (OwnerID, SaveTime, RecvPoint, SavePoint) VALUES ('%s', now(), %u, %u)",
-				name.c_str(), recvPoint, savePoint);
+        pStmt->executeQuery( "INSERT INTO MofusLog (OwnerID, SaveTime, RecvPoint, SavePoint) VALUES ('%s', now(), %u, %u)",
+				name.c_str(), recvPoint, savePoint );
     }
-    catch(SQLQueryException& sql )
+    catch( SQLQueryException& sql )
     {
         // SQL 에러는 무시한다.
     }
-    catch(... )
+    catch( ... )
     {
-        SAFE_DELETE(pStmt);
+        SAFE_DELETE( pStmt );
 
         throw;
     }
 
-    SAFE_DELETE(pStmt);
+    SAFE_DELETE( pStmt );
 
     __END_CATCH
 }

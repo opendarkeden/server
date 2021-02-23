@@ -6,21 +6,20 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectDecayMotorcycle.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
 #include "ZoneUtil.h"
-#include "Effect.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
 EffectDecayMotorcycle::EffectDecayMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB)
-	throw(Error)
-: Effect(pZone,x,y,pItem,delay)
+	throw (Error)
+: Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
 
@@ -41,16 +40,16 @@ EffectDecayMotorcycle::EffectDecayMotorcycle (Zone* pZone , ZoneCoord_t x , Zone
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-EffectDecayMotorcycle::~EffectDecayMotorcycle ()
-	throw(Error)
+EffectDecayMotorcycle::~EffectDecayMotorcycle () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
-    //unaffect(m_pZone , m_X , m_Y , m_pTarget);
+	unaffect(m_pZone , m_X , m_Y , m_pTarget);
 
 	__END_CATCH
 }
-
+			
 
 //----------------------------------------------------------------------
 // affect to target
@@ -58,12 +57,12 @@ EffectDecayMotorcycle::~EffectDecayMotorcycle ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 //	throw UnsupportedError();
-
+	
 	__END_CATCH
 }
 
@@ -72,7 +71,7 @@ void EffectDecayMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget, Slayer* pSlayer)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -114,9 +113,9 @@ void EffectDecayMotorcycle::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 		}
 	}
 
-	// heartbeat시 EffectDecayMotorcycle이 처리된다. 그 이후 다음 heartbeat시에
+	// heartbeat시 EffectDecayMotorcycle이 처리된다. 그 이후 다음 heartbeat시에 
 	// 사용자에게 오토바이를 호출해 주어야 한다.
-	// 사용자는 오토바이의 오브젝트와
+	// 사용자는 오토바이의 오브젝트와 
 
 	//EffectCallMotorcycle* pEffectCallMotorcycle = new EffectCallMotorcycle(pMotorcycleObject, pSlayer);
 	//pTarget = NULL;
@@ -128,7 +127,7 @@ void EffectDecayMotorcycle::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -138,7 +137,7 @@ void EffectDecayMotorcycle::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -147,8 +146,8 @@ void EffectDecayMotorcycle::unaffect (Creature* pCreature)
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string EffectDecayMotorcycle::toString () const
-	throw()
+string EffectDecayMotorcycle::toString () const 
+	throw ()
 {
 	StringStream msg;
 
@@ -160,7 +159,7 @@ string EffectDecayMotorcycle::toString () const
 	if (m_pTarget) msg << ",Target:" << m_pTarget->toString();
 	else           msg << ",Target:NULL";
 
-	msg << ",Deadline:" << (int)m_Deadline.tv_sec
+	msg << ",Deadline:" << (int)m_Deadline.tv_sec 
 			<< "." << (int)m_Deadline.tv_usec;
 
 	msg << ")";

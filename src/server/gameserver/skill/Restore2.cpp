@@ -14,11 +14,11 @@
 #include "EffectBloodDrain.h"
 #include "EffectRestore.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCMorph1.h"
-#include "GCMorphSlayer2.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCMorph1.h"
+#include "Gpackets/GCMorphSlayer2.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -29,7 +29,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 	__BEGIN_TRY
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
-	//cout << "Restore2 Start" << endl;
+	cout << "Restore2 Start" << endl;
 
 	Assert(pSlayer != NULL);
 	Assert(pSkillSlot != NULL);
@@ -135,8 +135,8 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 			g_pPCFinder->addCreature(pNewSlayer);
 
 			// 길드 현재 접속 멤버 리스트에서 삭제한다.
-			if (pVampire->getGuildID() != 0 )
-				g_pGuildManager->getGuild(pVampire->getGuildID() )->deleteCurrentMember(pVampire->getName());
+			if ( pVampire->getGuildID() != 0 )
+				g_pGuildManager->getGuild( pVampire->getGuildID() )->deleteCurrentMember( pVampire->getName() );
 
 			// 인벤토리 교체.
 			Inventory* pInventory = pVampire->getInventory();
@@ -316,7 +316,7 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 	__BEGIN_TRY
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin" << endl;
-	//cout << "NPC Restore start" << endl;
+	cout << "NPC Restore start" << endl;
 
 	Assert(pNPC != NULL);
 	Assert(pFromCreature != NULL);
@@ -415,8 +415,8 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 			g_pPCFinder->addCreature(pNewSlayer);
 
 			// 길드 현재 접속 멤버 리스트에서 삭제한다.
-			if (pVampire->getGuildID() != 0 )
-				g_pGuildManager->getGuild(pVampire->getGuildID() )->deleteCurrentMember(pVampire->getName());
+			if ( pVampire->getGuildID() != 0 )
+				g_pGuildManager->getGuild( pVampire->getGuildID() )->deleteCurrentMember( pVampire->getName() );
 
 			// 인벤토리 교체.
 			Inventory* pInventory = pVampire->getInventory();

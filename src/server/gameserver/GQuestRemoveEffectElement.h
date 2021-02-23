@@ -9,7 +9,7 @@ class GQuestRemoveEffectElement : public GQuestElement
 public:
 	GQuestRemoveEffectElement() : m_EffectClass(Effect::EFFECT_CLASS_MAX) { }
 	string 				getElementName() const { return "RemoveEffect"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestRemoveEffectElement*	makeElement(XMLTree* pTree);
 
 private:

@@ -5,8 +5,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "VisionInfo.h"
-#include "Assert1.h"
-//#include "LogClient.h"
+#include "Assert.h"
+#include "LogClient.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // global variable definition
@@ -139,7 +139,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 		}
 	}
 	
-	if (sight == 13 ) filelog("VisionInfo.log", "%s", toString().c_str());
+	if ( sight == 13 ) filelog("VisionInfo.log", "%s", toString().c_str());
 
 	__END_CATCH
 }
@@ -163,7 +163,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 //--------------------------------------------------------------------------------
 
 VisionState VisionInfo::getVisionState (ZoneCoord_t cx , ZoneCoord_t cy , ZoneCoord_t x , ZoneCoord_t y) const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VisionState VisionInfo::getVisionState (ZoneCoord_t cx , ZoneCoord_t cy , ZoneCo
 // get debug string
 //--------------------------------------------------------------------------------
 string VisionInfo::toString () const
-	throw()
+	throw ()
 {
 
 	__BEGIN_TRY
@@ -224,7 +224,7 @@ string VisionInfo::toString () const
 // destructor
 //--------------------------------------------------------------------------------
 VisionInfoManager::~VisionInfoManager () 
-	throw()
+	throw ()
 {
 
 	__BEGIN_TRY
@@ -255,7 +255,7 @@ VisionInfoManager::~VisionInfoManager ()
 //
 //--------------------------------------------------------------------------------
 void VisionInfoManager::init () 
-	throw()
+	throw ()
 {
 
 	__BEGIN_TRY
@@ -284,7 +284,7 @@ void VisionInfoManager::init ()
 //--------------------------------------------------------------------------------
 /*
 VisionInfo* VisionInfoManager::getVisionInfo (Sight_t sight , Dir_t dir) 
-	throw(OutOfBoundException)
+	throw (OutOfBoundException)
 {
 	__BEGIN_TRY
 
@@ -303,7 +303,7 @@ VisionInfo* VisionInfoManager::getVisionInfo (Sight_t sight , Dir_t dir)
 // get debug string
 //--------------------------------------------------------------------------------
 string VisionInfoManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

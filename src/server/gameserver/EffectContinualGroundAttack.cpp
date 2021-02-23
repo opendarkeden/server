@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectContinualGroundAttack.h"
 #include "EffectGroundAttack.h"
 #include "EffectMeteorStrike.h"
@@ -15,13 +15,13 @@
 #include "Zone.h"
 #include "ZoneUtil.h"
 #include "SkillUtil.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
 EffectContinualGroundAttack::EffectContinualGroundAttack (Zone* pZone , EffectClass attackEffect, Turn_t delay) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ EffectContinualGroundAttack::EffectContinualGroundAttack (Zone* pZone , EffectCl
 // destructor
 //----------------------------------------------------------------------
 EffectContinualGroundAttack::~EffectContinualGroundAttack () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -73,6 +73,8 @@ void EffectContinualGroundAttack::affect()
 		// zone의 특정 위치에 effect를 출력하고 damage를 준다.
 		int range = min(100, (m_MaxNumber-m_MinNumber));		// 동시에 1~100사이
 		int number = (range>0? m_MinNumber + rand()%range : m_MinNumber);
+
+		//cout << "EffectContinualGroundAttack: " << (int)m_pZone->getZoneID() << ", num= " << number << endl;
 
 		VSRect rect(0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1);
 
@@ -105,13 +107,13 @@ void EffectContinualGroundAttack::affect()
 					if (pOldEffect != NULL)
 					{
 						EffectGroundAttack* pGAEffect = dynamic_cast<EffectGroundAttack*>(pOldEffect);
-						pGAEffect->setDamagePercent(max(DamagePercent, pGAEffect->getDamagePercent()));
+						pGAEffect->setDamagePercent( max(DamagePercent, pGAEffect->getDamagePercent()) );
 						continue;
 					}
 
 					EffectGroundAttack* pEffect = new EffectGroundAttack(m_pZone, X, Y);
-					pEffect->setDeadline(22); // 2초+알파
-					pEffect->setDamagePercent(DamagePercent);
+					pEffect->setDeadline( 22 ); // 2초+알파
+					pEffect->setDamagePercent( DamagePercent );
 
 					pAttackEffect = pEffect;
 				}
@@ -121,19 +123,19 @@ void EffectContinualGroundAttack::affect()
 				{
 					// 같은 이펙트가 있다면 삭제한다.
 					Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_METEOR_STRIKE);
-					if (pOldEffect != NULL )
+					if ( pOldEffect != NULL )
 					{
 						ObjectID_t effectID = pOldEffect->getObjectID();
 						m_pZone->deleteEffect(effectID);
 					}
 
 					EffectMeteorStrike* pEffect = new EffectMeteorStrike(m_pZone, X, Y);
-					pEffect->setDeadline(10); // 1초
+					pEffect->setDeadline( 10 ); // 1초
 
 					// 400 ~ 600 100%
 					// 200 ~ 300 50%
 					// 100 ~ 150 25%
-					pEffect->setDamage(400+rand()%200);
+					pEffect->setDamage( 400+rand()%200 );
 
 					pAttackEffect = pEffect;
 				}
@@ -156,10 +158,10 @@ void EffectContinualGroundAttack::affect()
 
 				// 가운데꺼만 이펙트를 보여준다.
 				GCAddEffectToTile gcAddEffectToTile;
-				gcAddEffectToTile.setEffectID(pAttackEffect->getEffectClass());
-				gcAddEffectToTile.setObjectID(pAttackEffect->getObjectID());
+				gcAddEffectToTile.setEffectID( pAttackEffect->getEffectClass() );
+				gcAddEffectToTile.setObjectID( pAttackEffect->getObjectID());
 				gcAddEffectToTile.setXY(X, Y);
-				gcAddEffectToTile.setDuration(20);	// 2초
+				gcAddEffectToTile.setDuration( 20 );	// 2초
 
 				m_pZone->broadcastPacket(X, Y, &gcAddEffectToTile);
 			}
@@ -186,7 +188,7 @@ void EffectContinualGroundAttack::unaffect()
 // get debug string
 //----------------------------------------------------------------------
 string EffectContinualGroundAttack::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

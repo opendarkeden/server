@@ -30,7 +30,7 @@ public:
 	string toString() const throw();
 
 public:
-	void setLevel(SkillLevel_t level ) { m_SkillLevel = level; }
+	void setLevel( SkillLevel_t level ) { m_SkillLevel = level; }
 	SkillLevel_t getLevel() const { return m_SkillLevel; }
 
 private:

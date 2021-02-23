@@ -34,7 +34,7 @@ public:
 	string toString() const throw();
 
 public:
-	void setLevel(uint level ) { m_Level = level; }
+	void setLevel( uint level ) { m_Level = level; }
 	uint getLevel() const { return m_Level; }
 
 private:

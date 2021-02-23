@@ -11,18 +11,16 @@
 #include "MonsterCorpse.h"
 #include "ctf/FlagManager.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCSkillFailed1.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSkillFailed1.h"
 
-#include <list>
-
-int normalizeCoord_DARKNESS(int x, int y, int edge )
+int normalizeCoord_DARKNESS( int x, int y, int edge )
 {
 	return x * (edge * 2 + 1 ) + y;
 }
@@ -103,10 +101,10 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -116,7 +114,7 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 		bool bTimeCheck  = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck = verifyDistance(pVampire, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pVampire, pSkillInfo, pVampireSkillSlot, HitBonus);
-		bool bSlayerSafeZone = pZone->getZoneLevel(X, Y ) & SLAYER_SAFE_ZONE;
+		bool bSlayerSafeZone = pZone->getZoneLevel( X, Y ) & SLAYER_SAFE_ZONE;
 		
 		bool bTileCheck = false;
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
@@ -132,12 +130,12 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 			computeOutput(input, output);
 
 			// Wisdom of Darkness 이 있다면 지속시간 30% 증가
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_DARKNESS ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WISDOM_OF_DARKNESS ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_DARKNESS);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WISDOM_OF_DARKNESS );
+				Assert( pRankBonus != NULL );
 
-				output.Duration += getPercentValue(output.Duration, pRankBonus->getPoint());
+				output.Duration += getPercentValue( output.Duration, pRankBonus->getPoint() );
 			}
 
 			Range_t    Range    = 3;
@@ -149,17 +147,38 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 			int edge = 1;
 
 			// Wide Darkness 이 있다면 범위가 5*5 로 수정. skill type 을 수정한다.
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WIDE_DARKNESS ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WIDE_DARKNESS ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WIDE_DARKNESS);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WIDE_DARKNESS );
+				Assert( pRankBonus != NULL );
 
 				Range = pRankBonus->getPoint();
-				edge = (pRankBonus->getPoint() - 1 ) / 2;
+				edge = ( pRankBonus->getPoint() - 1 ) / 2;
 
 				SkillType = SKILL_DARKNESS_WIDE;
 			}
+			//////////////////////////////////////////////////////////////////////////
+			// check
+			for(oY = -edge; oY <= edge; oY++)
+			for(oX = -edge; oX <= edge; oX++)
+			{
+				int tileX = X+oX;
+				int tileY = Y+oY;
+				if (rect.ptInRect(tileX, tileY))
+				{
+					Tile& tile = pZone->getTile(tileX, tileY);
+					if (tile.canAddEffect())
+					{
+						if ( tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY) != NULL )
+						{
+							executeSkillFailNormal(pVampire, getSkillType(), NULL);
+							return;
+						}
 
+					}
+
+				}
+			}
 //			map<int, uint> canAddMap;
 
 			for(oY = -edge; oY <= edge; oY++)
@@ -171,32 +190,33 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
 
-//					if (canAddMap[normalizeCoord_DARKNESS(oX, oY, edge )] == 1 ) continue;
+//					if ( canAddMap[normalizeCoord_DARKNESS( oX, oY, edge )] == 1 ) continue;
 
-					if (tile.hasItem() )
+					if ( tile.hasItem() )
 					{
 						Item* pItem = tile.getItem();
-						if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_CORPSE && pItem->getItemType() == MONSTER_CORPSE )
+						if ( pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_CORPSE && pItem->getItemType() == MONSTER_CORPSE )
 						{
 							MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
-							if (g_pFlagManager->isFlagPole(pMonsterCorpse ) )
+							if ( g_pFlagManager->isFlagPole( pMonsterCorpse ) )
 							{
-//								canAddMap[normalizeCoord_DARKNESS(oX+1, oY, edge )] = 1;
-//								canAddMap[normalizeCoord_DARKNESS(oX+1, oY+1, edge )] = 1;
-//								canAddMap[normalizeCoord_DARKNESS(oX, oY+1, edge )] = 1;
+//								canAddMap[normalizeCoord_DARKNESS( oX+1, oY, edge )] = 1;
+//								canAddMap[normalizeCoord_DARKNESS( oX+1, oY+1, edge )] = 1;
+//								canAddMap[normalizeCoord_DARKNESS( oX, oY+1, edge )] = 1;
 								continue;
 							}
 						}
 					}
 
-					if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION ) != NULL ) continue;
-
+					if ( tile.getEffect( Effect::EFFECT_CLASS_TRYING_POSITION ) != NULL ) continue;
+					
 					// 현재 타일에다 이펙트를 추가할 수 있다면...
 					if (tile.canAddEffect())
 					{
 						// 머시 그라운드 있음 추가 못한당.
-						if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
-						if (tile.getEffect(Effect::EFFECT_CLASS_DARKNESS_FORBIDDEN) != NULL ) continue;
+						if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
+						if ( tile.getEffect(Effect::EFFECT_CLASS_DARKNESS_FORBIDDEN) != NULL ) continue;
+/*						if ( tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY) != NULL ) continue;*/
 
 						// 같은 effect가 있으면 지운다.
 						Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_DARKNESS);
@@ -219,13 +239,13 @@ void Darkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireS
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
 							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
 							) 
 							{
 								cList.push_back(pTargetCreature);
@@ -418,13 +438,13 @@ void Darkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
 
-					if (tile.hasItem() )
+					if ( tile.hasItem() )
 					{
 						Item* pItem = tile.getItem();
-						if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_CORPSE && pItem->getItemType() == MONSTER_CORPSE )
+						if ( pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_CORPSE && pItem->getItemType() == MONSTER_CORPSE )
 						{
 							MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pItem);
-							if (g_pFlagManager->isFlagPole(pMonsterCorpse ) ) continue;
+							if ( g_pFlagManager->isFlagPole( pMonsterCorpse ) ) continue;
 						}
 					}
 
@@ -432,7 +452,8 @@ void Darkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					if (tile.canAddEffect())
 					{
 						// 머시 그라운드 있음 추가 못한당.
-						if (tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
+						if ( tile.getEffect(Effect::EFFECT_CLASS_MERCY_GROUND) != NULL ) continue;
+						if ( tile.getEffect(Effect::EFFECT_CLASS_SUMMON_CLAY) != NULL ) continue;
 
 						// 같은 effect가 있으면 지운다.
 						Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_DARKNESS);
@@ -456,13 +477,13 @@ void Darkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
 							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
 							) 
 							{
 								cList.push_back(pTargetCreature);

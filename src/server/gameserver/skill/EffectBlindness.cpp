@@ -5,8 +5,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 #include "Zone.h"
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectBlindness::EffectBlindness(Creature* pCreature) throw(Error)
 {
@@ -21,9 +21,9 @@ void EffectBlindness::affect() throw(Error)
 {
 	__BEGIN_TRY
 
-	if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 	{
-		affect(dynamic_cast<Creature*>(m_pTarget));
+		affect( dynamic_cast<Creature*>(m_pTarget) );
 	}
 
 //	setNextTime(10);
@@ -35,26 +35,26 @@ void EffectBlindness::affect(Creature* pCreature) throw(Error)
 {
 	__BEGIN_TRY
 
-	if (pCreature == NULL ) return;
+	if ( pCreature == NULL ) return;
 	
 	Zone* pZone = pCreature->getZone();
-	if (pZone == NULL ) return;
+	if ( pZone == NULL ) return;
 
 	GCModifyInformation gcMI;
 
-	if (!pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
+	if ( !pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
 	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
 	{
-		if (pCreature->isPC() )
+		if ( pCreature->isPC() )
 		{
 			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-			::setDamage(pPC, getDamage(), NULL, SKILL_ATTACK_MELEE, &gcMI, NULL);
-			pPC->getPlayer()->sendPacket(&gcMI);
+			::setDamage( pPC, getDamage(), NULL, SKILL_ATTACK_MELEE, &gcMI, NULL );
+			pPC->getPlayer()->sendPacket( &gcMI );
 		}
-		else if (pCreature->isMonster() )
+		else if ( pCreature->isMonster() )
 		{
-			::setDamage(pCreature, getDamage(), NULL, SKILL_ATTACK_MELEE, NULL, NULL);
+			::setDamage( pCreature, getDamage(), NULL, SKILL_ATTACK_MELEE, NULL, NULL );
 		}
 	}
 
@@ -67,19 +67,19 @@ void EffectBlindness::unaffect() throw(Error)
 {
 	__BEGIN_TRY
 
-	if (m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 	{
-		unaffect(dynamic_cast<Creature*>(m_pTarget));
+		unaffect( dynamic_cast<Creature*>(m_pTarget) );
 	}
 
 	__END_CATCH
 }
 
-void EffectBlindness::unaffect(Creature* pCreature ) throw(Error)
+void EffectBlindness::unaffect( Creature* pCreature ) throw (Error)
 {
 	__BEGIN_TRY
 
-	pCreature->removeFlag(getEffectClass());
+	pCreature->removeFlag( getEffectClass() );
 
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
@@ -87,7 +87,7 @@ void EffectBlindness::unaffect(Creature* pCreature ) throw(Error)
 	// 이펙트가 사라졌다고 알려준다.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(getSendEffectClass());
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	__END_CATCH

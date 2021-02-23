@@ -10,9 +10,9 @@
 #include "DB.h"
 #include "DarkLightInfo.h"
 
-#include "GCModifyInformation.h"
-#include "GCChangeDarkLight.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -77,7 +77,7 @@ void EffectYellowPoisonToCreature::unaffect(Creature* pCreature)
 		pZone->updateScan(pCreature, YELLOW_POISON_SIGHT, NewSight);
 
 		// Yellow Poison의 효과가 풀릴때 Update Scan은 물론 밝기의 조절까지 해준다.
-	//	DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo(pZone);
+	//	DarkLightInfo* pDIInfo    = g_pDarkLightInfoManager->getCurrentDarkLightInfo( pZone );
 		//DarkLevel_t    darkLevel  = pDIInfo->getDarkLevel();
 		//LightLevel_t   lightLevel = pDIInfo->getLightLevel();
 

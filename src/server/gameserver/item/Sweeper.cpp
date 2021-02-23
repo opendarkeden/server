@@ -42,7 +42,7 @@ Sweeper::Sweeper(ItemType_t itemType, const list<OptionType_t>& optionType)
 		if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 		{
 			filelog("itembug.log", "Sweeper::Sweeper() : Invalid item type or option type");
-			throw("Sweeper::Sweeper() : Invalid item type or optionType");
+			throw ("Sweeper::Sweeper() : Invalid item type or optionType");
 		}
 	} catch (Throwable& t) {
 		cout << t.toString().c_str() << endl;
@@ -90,7 +90,7 @@ void Sweeper::create(const string & ownerID, Storage storage, StorageID_t storag
 			<<(int)x << ", " <<(int)y << ", " << m_Durability << ")";
 
 		pStmt->executeQuery(sql.toString());
-		filelog("WarLog.txt", "%s", sql.toString().c_str());
+		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -116,10 +116,10 @@ void Sweeper::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		sprintf(query, "UPDATE SweeperObject SET %s WHERE ItemID=%ld",
+		sprintf( query, "UPDATE SweeperObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
-		pStmt->executeQuery(query);
-		filelog("WarLog.txt", "%s", query);
+		pStmt->executeQuery( query );
+		filelog( "WarLog.txt", "%s", query );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -161,8 +161,8 @@ void Sweeper::save(const string & ownerID, Storage storage, StorageID_t storageI
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE SweeperObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d WHERE ItemID=%ld",
-									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Durability, (int)m_EnchantLevel, m_ItemID);
+		pStmt->executeQuery( "UPDATE SweeperObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d WHERE ItemID=%ld",
+									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Durability, (int)m_EnchantLevel, m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -371,13 +371,13 @@ void SweeperLoader::load(Creature* pCreature)
 		// Sweeper load할게 있다는것은..
 		// 현재로서는 이전에 서버다운이 되었다는 의미이다.
 		// 그래서, 지운다. by sigi
-		pStmt->executeQuery(
+		pStmt->executeQuery( 
 				"DELETE FROM SweeperObject WHERE OwnerID = '%s'", 
-				pCreature->getName().c_str());
+				pCreature->getName().c_str() );
 
 		/*
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, EnchantLevel FROM SweeperObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, EnchantLevel FROM SweeperObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())

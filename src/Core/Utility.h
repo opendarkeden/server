@@ -9,9 +9,7 @@
 #define __UTILITY_H__
 
 #include "Types.h"
-#include <stdlib.h>
-#include <string.h>
-//#include "Assert1.h"
+//#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 포인터 지우기
@@ -145,7 +143,7 @@ inline uint Dice(uint num, uint dice)
 //////////////////////////////////////////////////////////////////////////////
 // 긴 문자열에서 한 라인 가져오기
 //////////////////////////////////////////////////////////////////////////////
-string getline(const string & str, size_t & pos) throw();
+string getline(const string & str, uint & pos) throw();
 
 //////////////////////////////////////////////////////////////////////////////
 // 문자열 앞 뒤의 공백 제거하기
@@ -198,7 +196,7 @@ inline int getPercentValue(int value, int percent)
 //////////////////////////////////////////////////////////////////////////////
 // 주어진 숫자의 %값 알아내기  -  소수 첫재자리 보정
 //////////////////////////////////////////////////////////////////////////////
-int getPercentValueEx(int value, int percent);
+int getPercentValueEx( int value, int percent );
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -214,27 +212,27 @@ const POINT dirMoveMask[] =
 {
 	POINT(-1,  0), // 0 == LEFT
 	POINT(-1,  1), // 1 == LEFTDOWN
-	POINT(0,  1), // 2 == DOWN
-	POINT(1,  1), // 3 == RIGHTDOWN
-	POINT(1,  0), // 4 == RIGHT
-	POINT(1, -1), // 5 == RIGHTUP
-	POINT(0, -1), // 6 == UP
+	POINT( 0,  1), // 2 == DOWN
+	POINT( 1,  1), // 3 == RIGHTDOWN
+	POINT( 1,  0), // 4 == RIGHT
+	POINT( 1, -1), // 5 == RIGHTUP
+	POINT( 0, -1), // 6 == UP
 	POINT(-1, -1), // 7 == LEFTUP
-	POINT(0,  0)  // 8 == DIR_MAX, NONE
+	POINT( 0,  0)  // 8 == DIR_MAX, NONE
 };
 
 //////////////////////////////////////////////////////////////////////////////
 // 2개의 WORD 를 DWORD 로 바꿔준다. HIWORD, LOWORD
 //////////////////////////////////////////////////////////////////////////////
-DWORD makeDWORD(WORD hiWord, WORD loWord);
+DWORD makeDWORD( WORD hiWord, WORD loWord );
 
 //////////////////////////////////////////////////////////////////////////////
 // DWORD 의 HIWORD, LOWORD 가져오기
 //////////////////////////////////////////////////////////////////////////////
-WORD getHIWORD(DWORD dwValue);
-WORD getLOWORD(DWORD dwValue);
+WORD getHIWORD( DWORD dwValue );
+WORD getLOWORD( DWORD dwValue );
 
-inline int getDistance(int sx, int sy, int tx, int ty )
+inline int getDistance( int sx, int sy, int tx, int ty )
 {
 	return max(abs(sx-tx),abs(sy-ty));
 }

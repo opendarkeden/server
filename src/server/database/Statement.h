@@ -44,7 +44,7 @@ public:
     Result * executeQuery() throw(SQLQueryException, Error);
 	
 	// SQL 문을 받아서 쿼리한다.
-	Result * executeQuery(const char *,...) throw(SQLQueryException, Error);
+	Result * executeQuery(char *,...) throw(SQLQueryException, Error);
 	Result * executeQuery(const string& sqlStatement) throw(SQLQueryException, Error);
 	
 	// get SQL statement

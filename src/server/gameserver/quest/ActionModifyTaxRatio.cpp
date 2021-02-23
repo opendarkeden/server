@@ -13,13 +13,13 @@
 #include "GuildManager.h"
 #include "CastleInfoManager.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionModifyTaxRatio::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -31,7 +31,7 @@ void ActionModifyTaxRatio::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionModifyTaxRatio::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -45,68 +45,68 @@ void ActionModifyTaxRatio::execute (Creature * pCreature1 , Creature * pCreature
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
 	Player* pPlayer = pPC->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	GuildID_t guildID = pPC->getGuildID();
 	GCNPCResponse deny;
 
 	Guild* pGuild = g_pGuildManager->getGuild(guildID);
-	if(bSuccess && pGuild == NULL ) 
+	if( bSuccess && pGuild == NULL ) 
 	{
 		// 길드가 없다.
 		bSuccess = false;
-		deny.setCode(NPC_RESPONSE_NO_GUILD);
+		deny.setCode( NPC_RESPONSE_NO_GUILD );
 	}
 
-	if(bSuccess && pGuild->getMaster() != pPC->getName() )
+	if( bSuccess && pGuild->getMaster() != pPC->getName() )
 	{
 		// 길드 마스터가 아니다.
 		bSuccess = false;
-		deny.setCode(NPC_RESPONSE_NOT_GUILD_MASTER);
+		deny.setCode( NPC_RESPONSE_NOT_GUILD_MASTER );
 	}
 
 	// 길드 마스터이다.
-	list<CastleInfo*> pCastleInfoList = g_pCastleInfoManager->getGuildCastleInfos(guildID);
-	if(bSuccess && pCastleInfoList.empty() )
+	list<CastleInfo*> pCastleInfoList = g_pCastleInfoManager->getGuildCastleInfos( guildID );
+	if( bSuccess && pCastleInfoList.empty() )
 	{
 		// 길드가 소유한 성이 없다.
 		bSuccess = false;
-		deny.setCode(NPC_RESPONSE_HAS_NO_CASTLE);
+		deny.setCode( NPC_RESPONSE_HAS_NO_CASTLE );
 	}
 
     list<CastleInfo*>::iterator itr = pCastleInfoList.begin();
     CastleInfo* pCastleInfo = NULL;
 
-	for (; itr != pCastleInfoList.end() ; itr++ )
+	for ( ; itr != pCastleInfoList.end() ; itr++ )
 	{
-		if ((*itr)->getZoneID() == pCreature1->getZoneID() )
+		if ( (*itr)->getZoneID() == pCreature1->getZoneID() )
 		{
 			pCastleInfo = (*itr);
 			break;
 		}
 	}
 
-	if(bSuccess && pCastleInfo == NULL)
+	if( bSuccess && pCastleInfo == NULL)
 	{
 		bSuccess = false;
-		deny.setCode(NPC_RESPONSE_NOT_YOUR_CASTLE);
+		deny.setCode( NPC_RESPONSE_NOT_YOUR_CASTLE );
 	}
 
-	if (bSuccess )
+	if ( bSuccess )
 	{
 		GCNPCResponse response;
-		response.setCode(NPC_RESPONSE_SHOW_TAX_RATIO);
-		response.setParameter((uint)pCastleInfo->getItemTaxRatio());
-		pPlayer->sendPacket(&response);
+		response.setCode( NPC_RESPONSE_SHOW_TAX_RATIO );
+		response.setParameter( (uint)pCastleInfo->getItemTaxRatio() );
+		pPlayer->sendPacket( &response );
 	}
 	else
 	{
-		pPlayer->sendPacket(&deny);
+		pPlayer->sendPacket( &deny );
 	}
 	
 	GCNPCResponse quit;
-	quit.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPlayer->sendPacket(&quit);
+	quit.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+	pPlayer->sendPacket( &quit );
 
 	__END_CATCH
 }
@@ -116,7 +116,7 @@ void ActionModifyTaxRatio::execute (Creature * pCreature1 , Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionModifyTaxRatio::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

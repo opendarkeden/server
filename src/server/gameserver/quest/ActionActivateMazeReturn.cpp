@@ -19,22 +19,22 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
 #include "StringPool.h"
 #include "EffectRefiniumTicket.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeReturn::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -56,7 +56,7 @@ void ActionActivateMazeReturn::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeReturn::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -64,11 +64,11 @@ void ActionActivateMazeReturn::execute (Creature * pNPC , Creature * pCreature)
 	Assert(pCreature != NULL);
 	Assert(pCreature->isPC());
 
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
 	{
-		EffectRefiniumTicket* pEffect = dynamic_cast<EffectRefiniumTicket*>(pCreature->findEffect(Effect::EFFECT_CLASS_REFINIUM_TICKET ));
+		EffectRefiniumTicket* pEffect = dynamic_cast<EffectRefiniumTicket*>(pCreature->findEffect( Effect::EFFECT_CLASS_REFINIUM_TICKET ));
 
-		if (pEffect != NULL )
+		if ( pEffect != NULL )
 		{
 			ZoneID_t ZoneID = pEffect->getPrevExitZoneID();
 			ZoneCoord_t X = pEffect->getPrevExitX();
@@ -90,7 +90,7 @@ void ActionActivateMazeReturn::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionActivateMazeReturn::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

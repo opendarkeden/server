@@ -53,76 +53,76 @@ namespace SocketAPI {
 // exception version of socket ()
 //
 SOCKET socket_ex (int domain, int type, int protocol) 
-	throw(Error);
+	throw (Error);
 
 
 //
 // exception version of bind ()
 //
 void bind_ex (SOCKET s, const struct sockaddr* name, uint namelen) 
-	throw(BindException, Error);
+	throw (BindException, Error);
 
 
 //
 // exception version of connect ()
 //
 void connect_ex (SOCKET s, const struct sockaddr* name, uint namelen)
-	throw(ConnectException, NonBlockingIOException, Error);
+	throw (ConnectException, NonBlockingIOException, Error);
 
 //
 // exception version of listen ()
 //
 void listen_ex (SOCKET s, uint backlog) 
-	throw(Error);
+	throw (Error);
 
 
 //
 // exception version of accept ()
 //
 SOCKET accept_ex (SOCKET s, struct sockaddr* addr, uint* addrlen)
-	throw(NonBlockingIOException, ConnectException, Error);
+	throw (NonBlockingIOException, ConnectException, Error);
 
 
 //
 // exception version of getsockopt ()
 //
 void getsockopt_ex (SOCKET s, int level, int optname, void* optval, uint* optlen)
-	throw(Error);
+	throw (Error);
 
 uint getsockopt_ex2 (SOCKET s, int level, int optname, void* optval, uint* optlen)
-	throw(Error);
+	throw (Error);
 
 //
 // exception version of setsockopt ()
 //
 void setsockopt_ex (SOCKET s, int level, int optname, const void* optval, uint optlen)
-	throw(Error);
+	throw (Error);
 
 //
 // exception version of send()
 //
 uint send_ex (SOCKET s, const void* buf, uint len, uint flags)
-	throw(NonBlockingIOException, ConnectException, Error, ProtocolException);
+	throw (NonBlockingIOException, ConnectException, Error, ProtocolException);
 
 
 //
 // exception version of sendto()
 //
 uint sendto_ex (SOCKET s, const void* buf, int len, unsigned int flags, const struct sockaddr* to, int tolen)
-	throw(NonBlockingIOException, ConnectException, Error);
+	throw (NonBlockingIOException, ConnectException, Error);
 
 //
 // exception version of recv()
 //
 uint recv_ex (SOCKET s, void* buf, uint len, uint flags)
-	throw(NonBlockingIOException, ConnectException, Error);
+	throw (NonBlockingIOException, ConnectException, Error);
 
 
 //
 // exception version of recvfrom()
 //
 uint recvfrom_ex (SOCKET s, void* buf, int len, uint flags, struct sockaddr* from, uint* fromlen)
-	throw(NonBlockingIOException, ConnectException, Error);
+	throw (NonBlockingIOException, ConnectException, Error);
  
 
 //
@@ -133,7 +133,7 @@ uint recvfrom_ex (SOCKET s, void* buf, int len, uint flags, struct sockaddr* fro
 // in UNIX, close() used instead
 //
 void closesocket_ex (SOCKET s)
-	throw(FileNotOpenedException, Error);
+	throw (FileNotOpenedException, Error);
 
 
 //
@@ -144,42 +144,42 @@ void closesocket_ex (SOCKET s)
 // in UNIX, ioctl() used instead
 //
 void ioctlsocket_ex (SOCKET s, long cmd, ulong* argp)
-	throw(Error);
+	throw (Error);
 
 
 //
 // check if socket is nonblocking mode
 //
 bool getsocketnonblocking_ex (SOCKET s)
-	throw(Error);
+	throw (Error);
 
 
 //
 // make socket nonblocking mode
 //
 void setsocketnonblocking_ex (SOCKET s, bool on)
-	throw(Error);
+	throw (Error);
 
 
 //
 // get amount of data in socket input buffer
 //
 uint availablesocket_ex (SOCKET s)
-	throw(Error);
+	throw (Error);
 
 
 //
 // exception version of shutdown()
 //
 void shutdown_ex (SOCKET s, uint how)
-	throw(Error);
+	throw (Error);
 
 
 //
 // exception version of select()
 //
 int select_ex (int maxfdp1, fd_set* readset, fd_set* writeset, fd_set* exceptset, struct timeval* timeout)
-	throw(TimeoutException, InterruptedException, Error);
+	throw (TimeoutException, InterruptedException, Error);
 
 
 };//end of namespace 

@@ -17,7 +17,7 @@ class PlayerCreature;
 //--------------------------------------------------------------------------------
 class LimitInfo {
 public :
-	LimitInfo(int limit ) : m_nCurrent(0 ), m_nLimit(limit) {}
+	LimitInfo( int limit ) : m_nCurrent( 0 ), m_nLimit(limit) {}
 
 	int		getCurrent() const			{ return m_nCurrent; }
 	void	setCurrent(int current) 	{ m_nCurrent = current; }
@@ -47,7 +47,7 @@ protected :
 //--------------------------------------------------------------------------------
 class LevelLimitInfo : public LimitInfo {
 public :
-	LevelLimitInfo(int ID, int minLevel, int maxLevel, int limit ) : LimitInfo(limit)
+	LevelLimitInfo( int ID, int minLevel, int maxLevel, int limit ) : LimitInfo(limit)
 	{
 		m_ID = ID;
 		m_MinLevel = minLevel;
@@ -95,21 +95,21 @@ public :
 
 	virtual void		clear();
 
-	virtual void		load() throw(Error) = 0;
+	virtual void		load() throw (Error) = 0;
 
-	virtual bool 		join(PlayerCreature* pPC) throw(Error) = 0;
-	virtual bool		leave(PlayerCreature* pPC) throw(Error) = 0;
+	virtual bool 		join(PlayerCreature* pPC) throw (Error) = 0;
+	virtual bool		leave(PlayerCreature* pPC) throw (Error) = 0;
 
 	int					getSize() const						{ return m_LimitInfos.size(); }
-	LimitInfo_t* 		getLimitInfoByIndex(int index) throw(Error);
+	LimitInfo_t* 		getLimitInfoByIndex(int index) throw (Error);
 
 protected :
 	void 				lock() throw(Error) 	{ m_Mutex.lock(); }
 	void 				unlock() throw(Error) 	{ m_Mutex.unlock(); }
 
-	void				addLimitInfo(const LimitInfo_t& limitInfo)	{ m_LimitInfos.push_back(limitInfo); }
+	void				addLimitInfo(const LimitInfo_t& limitInfo)	{ m_LimitInfos.push_back( limitInfo ); }
 
-	virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC) throw(Error) = 0;
+	virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC) throw (Error) = 0;
 
 protected:
 	LimitInfos			m_LimitInfos;
@@ -145,9 +145,9 @@ PCLimiter<T>::clear()
 }
 
 template <class T>
-typename PCLimiter<T>::LimitInfo_t* 
+PCLimiter<T>::LimitInfo_t* 
 PCLimiter<T>::getLimitInfoByIndex(int index) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 

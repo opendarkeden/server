@@ -13,10 +13,8 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -54,14 +52,14 @@ void EffectBloodyWall::affect()
 	// 이펙트를 사용한 크리쳐를 가져온다.
 	// !! 이미 존을 나갔을 수도 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature *pCastCreature = m_pZone->getCreature(m_CasterID);
+	Creature *pCastCreature = m_pZone->getCreature( m_CasterID );
 
 	// 현재 이펙트가 붙어있는 타일을 받아온다.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -79,10 +77,10 @@ void EffectBloodyWall::affect()
 			// 자기 자신이면 안 맞는다.
 			// 안전지대 체크
 			// 2003.1.10 by bezz, Sequoia
-			if (!canAttack(pCastCreature, pCreature )
+			if ( !canAttack( pCastCreature, pCreature )
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 				|| pCreature->getObjectID()==m_CasterID
-				|| !checkZoneLevelToHitTarget(pCreature )
+				|| !checkZoneLevelToHitTarget( pCreature )
 			)
 			{
 				continue;
@@ -98,7 +96,7 @@ void EffectBloodyWall::affect()
 				}
 				else if (m_CreatureClass==Creature::CREATURE_CLASS_MONSTER)
 				{
-					Creature* pAttacker = m_pZone->getCreature(m_CasterID);
+					Creature* pAttacker = m_pZone->getCreature( m_CasterID );
 					if (pAttacker!=NULL && pAttacker->isMonster())
 					{
 						Monster* pAttackMonster = dynamic_cast<Monster*>(pAttacker);
@@ -121,7 +119,7 @@ void EffectBloodyWall::affect()
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pSlayer, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI);
+					::setDamage( pSlayer, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI );
 
 					Player* pPlayer = pSlayer->getPlayer();
 					Assert(pPlayer != NULL);
@@ -144,7 +142,7 @@ void EffectBloodyWall::affect()
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pVampire, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI);
+					::setDamage( pVampire, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI );
 
 					Player* pPlayer = pVampire->getPlayer();
 					Assert(pPlayer != NULL);
@@ -167,7 +165,7 @@ void EffectBloodyWall::affect()
 					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pOusters, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI);
+					::setDamage( pOusters, Damage, pCastCreature, SKILL_BLOODY_WALL, &gcMI );
 
 					Player* pPlayer = pOusters->getPlayer();
 					Assert(pPlayer != NULL);
@@ -189,11 +187,11 @@ void EffectBloodyWall::affect()
 				{
 					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-					::setDamage(pMonster, Damage, pCastCreature, SKILL_BLOODY_WALL);
+					::setDamage( pMonster, Damage, pCastCreature, SKILL_BLOODY_WALL );
 
-					if (pCastCreature != NULL && pCastCreature->isPC() )
+					if ( pCastCreature != NULL && pCastCreature->isPC() )
 					{
-						pMonster->addEnemy(pCastCreature);
+						pMonster->addEnemy( pCastCreature );
 					}
 
 					// knockback체크
@@ -210,18 +208,18 @@ void EffectBloodyWall::affect()
 				}
 
 				// 상대가 죽었다면 경험치를 올려준다.
-				if (pCreature->isDead() )
+				if ( pCreature->isDead() )
 				{
-					if (pCastCreature != NULL && pCastCreature->isVampire() )
+					if ( pCastCreature != NULL && pCastCreature->isVampire() )
 					{
 						Vampire* pVampire = dynamic_cast<Vampire*>(pCastCreature);
-						Assert(pVampire != NULL);
+						Assert( pVampire != NULL );
 
 						GCModifyInformation gcAttackerMI;
 						int exp = computeCreatureExp(pCreature, KILL_EXP);
 						shareVampExp(pVampire, exp, gcAttackerMI);
 
-						pVampire->getPlayer()->sendPacket(&gcAttackerMI);
+						pVampire->getPlayer()->sendPacket( &gcAttackerMI );
 					}
 				}
 
@@ -231,7 +229,7 @@ void EffectBloodyWall::affect()
 				// by bezz. 2003.1.3
 /*				if (pCreature->isDead())
 				{
-					Creature* pAttacker = m_pZone->getCreature(m_CasterID);
+					Creature* pAttacker = m_pZone->getCreature( m_CasterID );
 
 					if (pAttacker!=NULL)
 					{ 
@@ -333,34 +331,34 @@ void EffectBloodyWallLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_BLOODY_WALL);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_BLOODY_WALL);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-			for (int X = left ; X <= right ; X++ )
-			for (int Y = top ; Y <= bottom ; Y++ )
+			for ( int X = left ; X <= right ; X++ )
+			for ( int Y = top ; Y <= bottom ; Y++ )
 			{
-				if (rect.ptInRect(X, Y) )
+				if ( rect.ptInRect(X, Y) )
 				{
 					Tile& tile = pZone->getTile(X,Y);
-					if (tile.canAddEffect() ) 
+					if ( tile.canAddEffect() ) 
 					{
 						EffectBloodyWall* pEffect = new EffectBloodyWall(pZone, X, Y);
-						pEffect->setDamage(value3);
-						pEffect->setTick(value2);
-						pEffect->setLevel(300);
+						pEffect->setDamage( value3 );
+						pEffect->setTick( value2 );
+						pEffect->setLevel( 300 );
 
 						// 존 및 타일에다가 이펙트를 추가한다.
 						pZone->registerObject(pEffect);

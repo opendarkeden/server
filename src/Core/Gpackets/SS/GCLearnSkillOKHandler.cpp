@@ -1,0 +1,27 @@
+//////////////////////////////////////////////////////////////////////
+//
+// Filename    : GCLearnSkillOK1Handler.cc
+// Written By  : elca@ewestsoft.com
+// Description :
+//
+//////////////////////////////////////////////////////////////////////
+
+// include files
+#include "GCLearnSkillOK.h"
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+void GCLearnSkillOKHandler::execute ( GCLearnSkillOK * pGCLearnSkillOK , Player * pPlayer )
+	 throw ( Error )
+{
+	__BEGIN_TRY __BEGIN_DEBUG_EX
+		
+#if __TEST_CLIENT__
+
+	//cout << pGCLearnSkillOK1->toString() << endl;
+	
+#elif __WINDOWS__
+#endif
+
+	__END_DEBUG_EX __END_CATCH
+}

@@ -13,13 +13,13 @@
 
 #include "couple/PartnerWaitingManager.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAcceptApartCouple::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionAcceptApartCouple::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAcceptApartCouple::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -48,36 +48,36 @@ void ActionAcceptApartCouple::execute (Creature * pCreature1 , Creature * pCreat
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
 
 	GCNPCResponse gcNPCResponse;
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	Assert(pNPC != NULL);
-	Assert(pPC != NULL);
+	Assert( pNPC != NULL );
+	Assert( pPC != NULL );
 
 	PartnerWaitingManager *pPWM = pNPC->getCoupleUnregisterManager();
-	Assert(pPWM != NULL);
+	Assert( pPWM != NULL );
 
-	PlayerCreature* pWaitingPC = pPWM->getWaitingPartner(pPC);
+	PlayerCreature* pWaitingPC = pPWM->getWaitingPartner( pPC );
 
-	uint result = pPWM->acceptPartner(pPC);
-	if (result != 0 )
+	uint result = pPWM->acceptPartner( pPC );
+	if ( result != 0 )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_NOT_COUPLE);
-		gcNPCResponse.setParameter(result);
+		gcNPCResponse.setCode( NPC_RESPONSE_NOT_COUPLE );
+		gcNPCResponse.setParameter( result );
 	}
 	else
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_COUPLE_APART_SUCCESS);
+		gcNPCResponse.setCode( NPC_RESPONSE_COUPLE_APART_SUCCESS );
 	}
 
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
-	if (pWaitingPC != NULL )
-		pWaitingPC->getPlayer()->sendPacket(&gcNPCResponse);
+	if ( pWaitingPC != NULL )
+		pWaitingPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 	__END_CATCH
 }
@@ -87,7 +87,7 @@ void ActionAcceptApartCouple::execute (Creature * pCreature1 , Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionAcceptApartCouple::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

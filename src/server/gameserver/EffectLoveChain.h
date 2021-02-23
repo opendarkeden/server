@@ -35,13 +35,13 @@ public:
 
 	// get/set Target Name
 	const string& getTargetName() const throw(Error) { return m_TargetName; }
-	void setTargetName(const string& targetName ) throw(Error) { m_TargetName = targetName; }
+	void setTargetName( const string& targetName ) throw(Error) { m_TargetName = targetName; }
 
 	Zone* getZone() const throw() { return m_pZone; }
-	void setZone(Zone* pZone ) throw() { m_pZone = pZone; }
+	void setZone( Zone* pZone ) throw() { m_pZone = pZone; }
 
 	ObjectID_t getItemObjectID() const throw() { return m_ItemObjectID; }
-	void setItemObjectID(ObjectID_t itemObjectID ) throw() { m_ItemObjectID = itemObjectID; }
+	void setItemObjectID( ObjectID_t itemObjectID ) throw() { m_ItemObjectID = itemObjectID; }
 	
 private:
 

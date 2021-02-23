@@ -38,10 +38,10 @@ void AcidBall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
 	// Knowledge of Acid 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}
@@ -101,7 +101,7 @@ void AcidBall::execute(Monster* pMonster, Creature* pEnemy)
 		
 			if (pMonster!=pTargetCreature)
 			{
-				//cout << "Master's AcidBall: " << i << endl;
+				cout << "Master's AcidBall: " << i << endl;
 				i++;
 				g_SimpleMissileSkill.execute(pMonster, pTargetCreature, param, result);
 			}

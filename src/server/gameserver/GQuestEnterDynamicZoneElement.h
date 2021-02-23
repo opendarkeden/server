@@ -10,7 +10,7 @@ public:
 	GQuestEnterDynamicZoneMission(ZoneID_t targetZoneID) : m_bEnter(false), m_TargetZoneID(targetZoneID) { }
 
 	bool	isEnter() const { return m_bEnter; }
-	void	enter(ZoneID_t zoneID) { if (m_TargetZoneID == zoneID ) m_bEnter = true; }
+	void	enter(ZoneID_t zoneID) { if ( m_TargetZoneID == zoneID ) m_bEnter = true; }
 
 	string	getMissionName() const { return "EnterDynamicZoneMission"; }
 private:

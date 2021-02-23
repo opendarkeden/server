@@ -9,14 +9,14 @@
 
 #include "CreatureUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffect.h"
 
 #include "MonsterAI.h"
 
@@ -38,9 +38,9 @@ void SummonMiga::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() <= 10 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() <= 20 ) Grade = 1;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 2;
+	if ( pOustersSkillSlot->getExpLevel() <= 10 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() <= 20 ) Grade = 1;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 2;
 	else Grade = 3;
 
     try
@@ -88,8 +88,8 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -127,7 +127,7 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		bool bTileCheck = false;
 
@@ -142,34 +142,34 @@ void SummonMiga::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 			decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
 			Monster* pMiga = new Monster(MIGA_TYPE);
-			pMiga->setName("미가");
+			pMiga->setName( "미가" );
 			pMiga->setClanType(33);
 			pMiga->setTreasure(false);
 			pMiga->setScanEnemy(true);
-			pMiga->setOwnerObjectID(pOusters->getObjectID());
-			pMiga->setFlag(Effect::EFFECT_CLASS_NO_DAMAGE);
-			pMiga->removeFlag(Effect::EFFECT_CLASS_HIDE);
-			pMiga->setMoveMode(Creature::MOVE_MODE_WALKING);
-			pMiga->setDEX(input.SkillLevel);
-			pMiga->setINT(pOusters->getINT());
+			pMiga->setOwnerObjectID( pOusters->getObjectID() );
+			pMiga->setFlag( Effect::EFFECT_CLASS_NO_DAMAGE );
+			pMiga->removeFlag( Effect::EFFECT_CLASS_HIDE );
+			pMiga->setMoveMode( Creature::MOVE_MODE_WALKING );
+			pMiga->setDEX( input.SkillLevel );
+			pMiga->setINT( pOusters->getINT() );
 
-			pZone->addCreature(pMiga, X, Y, 2);
+			pZone->addCreature( pMiga, X, Y, 2 );
 			X = pMiga->getX();
 			Y = pMiga->getY();
 
-			//cout << pMiga->toString() << " 을 " << X << ", " << Y << " 에 불러냈습니다." << endl;
+			cout << pMiga->toString() << " 을 " << X << ", " << Y << " 에 불러냈습니다." << endl;
 
-			EffectKillTimer* pCreatureEffect = new EffectKillTimer(pMiga);
-			pCreatureEffect->setDeadline(output.Duration);
+			EffectKillTimer* pCreatureEffect = new EffectKillTimer( pMiga );
+			pCreatureEffect->setDeadline( output.Duration );
 
-			pMiga->setFlag(pCreatureEffect->getEffectClass());
-			pMiga->addEffect(pCreatureEffect);
-			pZone->monsterScan(pMiga, X, Y, 0);
+			pMiga->setFlag( pCreatureEffect->getEffectClass() );
+			pMiga->addEffect( pCreatureEffect );
+			pZone->monsterScan( pMiga, X, Y, 0 );
 
 			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pMiga->getObjectID());
-			gcAddEffect.setEffectID(pCreatureEffect->getSendEffectClass());
-			pZone->broadcastPacket(X, Y, &gcAddEffect);
+			gcAddEffect.setObjectID( pMiga->getObjectID() );
+			gcAddEffect.setEffectID( pCreatureEffect->getSendEffectClass() );
+			pZone->broadcastPacket( X, Y, &gcAddEffect );
 
 			ZoneCoord_t myX = pOusters->getX();
 			ZoneCoord_t myY = pOusters->getY();

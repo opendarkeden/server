@@ -9,14 +9,14 @@
 #include "EffectProtectionFromCurse.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -82,15 +82,15 @@ void ReputoFactum::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 
 		int Ratio = 50 + pOusters->getLevel() - pTargetCreature->getLevel();
 
-//		Ratio = min(80, max(20, Ratio ));
-		//cout << "reputo factum ratio : " << Ratio << endl;
+//		Ratio = min( 80, max( 20, Ratio ) );
+		cout << "reputo factum ratio : " << Ratio << endl;
 
 		bool bHitRoll	 = (rand()%100) < Ratio;
 		bool bHitRoll2   = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
 		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_REPUTO_FACTUM);
 		bool bPK         = verifyPK(pOusters, pTargetCreature);
-//		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+//		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		ZoneCoord_t targetX = pTargetCreature->getX();
 		ZoneCoord_t targetY = pTargetCreature->getY();
@@ -109,7 +109,7 @@ void ReputoFactum::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 			pTargetCreature->addEffect(pEffect);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_REPUTO_FACTUM);
 
-			//cout << pTargetCreature->getName() << " got reputo factum" << endl;
+			cout << pTargetCreature->getName() << " got reputo factum" << endl;
 
 			_GCSkillToObjectOK1.setSkillType(SkillType);
 			_GCSkillToObjectOK1.setCEffectID(CEffectID);

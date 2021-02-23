@@ -10,8 +10,8 @@
 
 #include "item/Potion.h"
 
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToInventoryOK2.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToInventoryOK2.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -20,6 +20,8 @@ void CreateHolyPotion::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, Coor
 	throw(Error)
 {
 	__BEGIN_TRY
+
+	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(slayerinventory)" << endl;
 
 	Assert(pSlayer != NULL);
 	Assert(pSkillSlot != NULL);
@@ -117,7 +119,7 @@ void CreateHolyPotion::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, Coor
 				
 				// 위부분의 decreaseItemNum() 함수 부분에서 아이템 숫자를 감소시키므로, 
 				// 여기서 다시 인벤토리의 아이템 숫자를 증가시킨다.
-				pInventory->increaseNum(pHolyPotion->getNum());
+				pInventory->increaseNum( pHolyPotion->getNum() );
 
 				// 방금 만들어진 성수는 기존의 성수에 더해졌으므로 삭제한다.
 				SAFE_DELETE(pHolyPotion);

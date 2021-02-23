@@ -15,14 +15,13 @@ ExtraSlotInfo::ExtraSlotInfo()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 ExtraSlotInfo::~ExtraSlotInfo()
-    throw()
 {
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ExtraSlotInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void ExtraSlotInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -33,8 +32,8 @@ void ExtraSlotInfo::read (SocketInputStream & iStream )
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ExtraSlotInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void ExtraSlotInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -47,7 +46,7 @@ void ExtraSlotInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ExtraSlotInfo::toString () const 
-	throw()
+	throw ()
 {
 	return PCItemInfo::toString();
 }

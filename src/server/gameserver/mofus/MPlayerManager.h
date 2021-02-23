@@ -38,7 +38,7 @@ public:
 	void run() throw();
 
 public:
-	void addJob(const string& userID, const string& name, const string& cellnum);
+	void addJob( const string& userID, const string& name, const string& cellnum );
 
 	void processResult();
 

@@ -21,7 +21,7 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
@@ -33,18 +33,18 @@
 
 #include <stdio.h>
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
 
 #include "SystemAvailabilitiesManager.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterPKZone::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -64,7 +64,7 @@ void ActionEnterPKZone::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterPKZone::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -72,18 +72,18 @@ void ActionEnterPKZone::execute (Creature * pNPC , Creature * pCreature)
 	Assert(pCreature != NULL);
 	Assert(pCreature->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_PK_ZONE);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_PK_ZONE );
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	bool bTransport = true;
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_ZoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -103,11 +103,11 @@ void ActionEnterPKZone::execute (Creature * pNPC , Creature * pCreature)
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE ) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER ) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -121,64 +121,64 @@ void ActionEnterPKZone::execute (Creature * pNPC , Creature * pCreature)
 	}
 #endif
 
-	if (bTransport )
+	if ( bTransport )
 	{
-		if (pPC->isPLAYER() && !g_pPKZoneInfoManager->canEnterPKZone(m_ZoneID ) ) bTransport = false;
+		if ( pPC->isPLAYER() && !g_pPKZoneInfoManager->canEnterPKZone( m_ZoneID ) ) bTransport = false;
 	}
 
 	if (bTransport)
 	{
-		PKZoneInfo* pPKZoneInfo = g_pPKZoneInfoManager->getPKZoneInfo(m_ZoneID);
+		PKZoneInfo* pPKZoneInfo = g_pPKZoneInfoManager->getPKZoneInfo( m_ZoneID );
 
-		if (pPKZoneInfo == NULL )
+		if ( pPKZoneInfo == NULL )
 		{
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER ) );
 			pGamePlayer->sendPacket (&gcSystemMessage);
 		}
 
 		// 운영자는 인원 제한 안 받고 들어간다. -_-;
-		if (!pPC->isPLAYER() || pPKZoneInfo->enterZone() )
+		if ( !pPC->isPLAYER() || pPKZoneInfo->enterZone() )
 		{
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-				Assert(pSlayer != NULL);
+				Assert( pSlayer != NULL );
 
 				// 오토바이를 타고 있으면 오토바이에서 내린다.
-				if (pSlayer->hasRideMotorcycle() )
+				if ( pSlayer->hasRideMotorcycle() )
 				{
 					pSlayer->getOffMotorcycle();
 				}
 			}
 
-			if (pPC->isOusters() )
+			if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-				Assert(pOusters != NULL);
+				Assert( pOusters != NULL );
 
 				// 실프 타고 있으면 내려준다
-				if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
+				if ( pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 				{
 					Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_SUMMON_SYLPH);
-					if (pEffect != NULL ) pEffect->setDeadline(0);
+					if ( pEffect != NULL ) pEffect->setDeadline(0);
 				}
 			}
 
-			if (pNPC != NULL ) pPC->getGQuestManager()->illegalWarp();
+			if ( pNPC != NULL ) pPC->getGQuestManager()->illegalWarp();
 			transportCreature(pCreature, m_ZoneID, pPKZoneInfo->getEnterX(), pPKZoneInfo->getEnterY(), true);
 		}
 		else
 		{
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_PKZONE_PC_LIMITED ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_PKZONE_PC_LIMITED ) );
 			pGamePlayer->sendPacket (&gcSystemMessage);
 		}
 	}
 	else
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_PKZONE_PC_LIMITED ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_PKZONE_PC_LIMITED ) );
 		pGamePlayer->sendPacket (&gcSystemMessage);
 	}
 
@@ -191,7 +191,7 @@ void ActionEnterPKZone::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterPKZone::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

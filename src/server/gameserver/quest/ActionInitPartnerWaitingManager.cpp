@@ -16,7 +16,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitPartnerWaitingManager::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,20 +36,20 @@ void ActionInitPartnerWaitingManager::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitPartnerWaitingManager::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	Assert(pCreature1 != NULL);
 	Assert(pCreature1->isNPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
 	Assert(pNPC != NULL);
 
-	pNPC->setCoupleRegisterManager(new PartnerWaitingManager(WAIT_FOR_MEET ));
-	pNPC->setCoupleUnregisterManager(new PartnerWaitingManager(WAIT_FOR_APART ));
+	pNPC->setCoupleRegisterManager( new PartnerWaitingManager( WAIT_FOR_MEET ) );
+	pNPC->setCoupleUnregisterManager( new PartnerWaitingManager( WAIT_FOR_APART ) );
 
 	__END_CATCH
 }
@@ -59,7 +59,7 @@ void ActionInitPartnerWaitingManager::execute (Creature * pCreature1 , Creature 
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionInitPartnerWaitingManager::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

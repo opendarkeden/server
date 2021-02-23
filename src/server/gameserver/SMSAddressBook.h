@@ -3,10 +3,10 @@
 
 #include "Types.h"
 
-#include "GCSMSAddressList.h"
+#include "Gpackets/GCSMSAddressList.h"
 
 #include <string>
-#include <map>
+#include <hash_map>
 
 #define MAX_ADDRESS_NUM 30
 
@@ -16,7 +16,7 @@ class SMSAddressBook;
 class SMSAddressElement
 {
 public:
-	SMSAddressElement(DWORD eID, const string& name, const string& cName, const string& number ) :
+	SMSAddressElement( DWORD eID, const string& name, const string& cName, const string& number ) :
 		m_ElementID(eID), m_CharacterName(name), m_CustomName(cName), m_Number(number) { }
 
 	AddressUnit*	getAddressUnit() const;
@@ -34,21 +34,21 @@ private:
 class SMSAddressBook
 {
 public:
-	SMSAddressBook(PlayerCreature* pOwner ) : m_pOwner(pOwner) { m_Addresses.clear(); }
+	SMSAddressBook( PlayerCreature* pOwner ) : m_pOwner(pOwner) { m_Addresses.clear(); }
 	~SMSAddressBook();
 
 	void load() throw(Error);
 
 	GCSMSAddressList*	getGCSMSAddressList() const;
 
-	int addAddressElement(SMSAddressElement* pElement);
-	int removeAddressElement(DWORD eID);
+	int addAddressElement( SMSAddressElement* pElement );
+	int removeAddressElement( DWORD eID );
 
 	DWORD	popNextEID() { return m_NextEID++; }
 
 private:
 	PlayerCreature*						m_pOwner;
-	map<DWORD, SMSAddressElement*>	m_Addresses;
+	hash_map<DWORD, SMSAddressElement*>	m_Addresses;
 
 	DWORD								m_NextEID;
 };

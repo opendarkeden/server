@@ -6,21 +6,20 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectAddMonster.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
 #include "ZoneUtil.h"
-#include "Monster.h"
-#include "Creature.h"
+
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
 EffectAddMonster::EffectAddMonster (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay)
-	throw(Error)
-: Effect(pZone,x,y,pCreature,delay)
+	throw (Error)
+: Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
 
@@ -40,8 +39,8 @@ EffectAddMonster::EffectAddMonster (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-EffectAddMonster::~EffectAddMonster ()
-	throw(Error)
+EffectAddMonster::~EffectAddMonster () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,7 +48,7 @@ EffectAddMonster::~EffectAddMonster ()
 
 	__END_CATCH
 }
-
+			
 
 //----------------------------------------------------------------------
 // affect to target
@@ -57,12 +56,12 @@ EffectAddMonster::~EffectAddMonster ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectAddMonster::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 //	throw UnsupportedError();
-
+	
 	__END_CATCH
 }
 
@@ -71,7 +70,7 @@ void EffectAddMonster::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Cre
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -85,13 +84,15 @@ void EffectAddMonster::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , C
 	{
 		//pZone->getObjectRegistry().registerObject(pMonster);
 
-//		TPOINT pt = pZone->addCreature(pMonster, x, y, 2);
+		TPOINT pt = pZone->addCreature(pMonster, x, y, 2);
 
-//		if (pt.x == -1)
-//		{
-//			SAFE_DELETE(pMonster);
-//			throw Error("Zone에 몬스터 들어갈 자리가 없다");
-//		}
+		cout << pZone->getZoneID() << "존의 (" << x << "," << y << ")에 몬스터가 추가되었습니다" << endl;
+
+		if (pt.x == -1)
+		{
+			SAFE_DELETE(pMonster);
+			throw Error("Zone에 몬스터 들어갈 자리가 없다");
+		}
 	}
 	else
 	{
@@ -108,7 +109,7 @@ void EffectAddMonster::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , C
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -118,7 +119,7 @@ void EffectAddMonster::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -127,8 +128,8 @@ void EffectAddMonster::unaffect (Creature* pCreature)
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string EffectAddMonster::toString () const
-	throw()
+string EffectAddMonster::toString () const 
+	throw ()
 {
 	StringStream msg;
 
@@ -140,7 +141,7 @@ string EffectAddMonster::toString () const
 	if (m_pTarget) msg << ",Target:" << m_pTarget->toString();
 	else           msg << ",Target:NULL";
 
-	msg << ",Deadline:" << (int)m_Deadline.tv_sec
+	msg << ",Deadline:" << (int)m_Deadline.tv_sec 
 			<< "." << (int)m_Deadline.tv_usec;
 
 	msg << ")";

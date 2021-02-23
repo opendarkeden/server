@@ -10,8 +10,8 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -49,14 +49,14 @@ bool EffectGreenPoison::affectCreature(Creature* pTargetCreature, bool bAffectBy
 
 	// 안전지대인지 체크한다.
 	// 2003.1.10 by bezz.Sequoia
-	if (!checkZoneLevelToHitTarget(pTargetCreature ) )
+	if ( !checkZoneLevelToHitTarget( pTargetCreature ) )
 	{
 		return false;
 	}
 	
 	Zone* pZone = pTargetCreature->getZone();
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 	// 상대방에게 미칠 독 데미지를 계산한다.
 	int PoisonDamage = computeMagicDamage(pTargetCreature, m_Damage, SKILL_GREEN_POISON, m_bVampire, pAttacker);
 
@@ -68,7 +68,7 @@ bool EffectGreenPoison::affectCreature(Creature* pTargetCreature, bool bAffectBy
 		pEffectPoison->setPoint(PoisonDamage);
 		pEffectPoison->setDeadline(m_Duration); // 이부분 바꿔야 한다.
 		pEffectPoison->setTick(50);             // 이부분도 바꿔야 한다.
-		pEffectPoison->setUserObjectID(m_UserObjectID);
+		pEffectPoison->setUserObjectID( m_UserObjectID );
 		pEffectPoison->affect(pTargetCreature);
 		pTargetCreature->addEffect(pEffectPoison);
 		pTargetCreature->setFlag(Effect::EFFECT_CLASS_POISON);
@@ -160,34 +160,34 @@ void EffectGreenPoisonLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_GREEN_POISON);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_GREEN_POISON);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-			for (int X = left ; X <= right ; X++ )
-			for (int Y = top ; Y <= bottom ; Y++ )
+			for ( int X = left ; X <= right ; X++ )
+			for ( int Y = top ; Y <= bottom ; Y++ )
 			{
-				if (rect.ptInRect(X, Y) )
+				if ( rect.ptInRect(X, Y) )
 				{
 					Tile& tile = pZone->getTile(X,Y);
-					if (tile.canAddEffect() ) 
+					if ( tile.canAddEffect() ) 
 					{
 						EffectGreenPoison* pEffect = new EffectGreenPoison(pZone, X, Y);
-						pEffect->setDuration(value1);
-						pEffect->setNextTime(value2);
-						pEffect->setDamage(value3);
+						pEffect->setDuration( value1 );
+						pEffect->setNextTime( value2 );
+						pEffect->setDamage( value3 );
 
 						// 존 및 타일에다가 이펙트를 추가한다.
 						pZone->registerObject(pEffect);

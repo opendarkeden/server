@@ -13,13 +13,13 @@
 #include "BloodBibleSignInfo.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
 BloodBibleSignInfo::BloodBibleSignInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ BloodBibleSignInfo::BloodBibleSignInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 BloodBibleSignInfo::~BloodBibleSignInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
@@ -44,19 +44,19 @@ BloodBibleSignInfo::~BloodBibleSignInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void BloodBibleSignInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void BloodBibleSignInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	iStream.read(m_OpenNum);
 	BYTE num;
 	iStream.read(num);
-	for (int i=0; i<num; ++i )
+	for ( int i=0; i<num; ++i )
 	{
 		ItemType_t type;
-		iStream.read(type);
-		m_SignList.push_back(type);
+		iStream.read( type );
+		m_SignList.push_back( type );
 	}
 
 	__END_CATCH
@@ -66,15 +66,15 @@ void BloodBibleSignInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void BloodBibleSignInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void BloodBibleSignInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	oStream.write(m_OpenNum);
 	BYTE num = m_SignList.size();
-	oStream.write(num);
-	for (int i=0; i<num; ++i )
+	oStream.write( num );
+	for ( int i=0; i<num; ++i )
 	{
 		oStream.write(m_SignList[i]);
 	}

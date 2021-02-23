@@ -6,7 +6,7 @@
 
 #include "Item.h"
 #include "ItemUtil.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "ItemFactoryManager.h"
 #include "ItemInfoManager.h"
 #include "StringStream.h"
@@ -100,9 +100,6 @@
 #include "Persona.h"
 #include "Fascia.h"
 #include "Mitten.h"
-#include "SubInventory.h"
-
-#include <map>
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -110,7 +107,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 ItemFactoryManager::ItemFactoryManager () 
-	throw()
+	throw ()
 : m_Factories(NULL) , m_Size(Item::ITEM_CLASS_MAX)
 {
 	__BEGIN_TRY
@@ -133,7 +130,7 @@ ItemFactoryManager::ItemFactoryManager ()
 //
 //////////////////////////////////////////////////////////////////////
 ItemFactoryManager::~ItemFactoryManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 		
@@ -156,7 +153,7 @@ ItemFactoryManager::~ItemFactoryManager ()
 //
 //////////////////////////////////////////////////////////////////////
 void ItemFactoryManager::init ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -424,9 +421,6 @@ void ItemFactoryManager::init ()
 	m_Factories[Item::ITEM_CLASS_MITTEN] = new MittenFactory();
 	m_ItemClassMap[m_Factories[Item::ITEM_CLASS_MITTEN]->getItemClassName()] = Item::ITEM_CLASS_MITTEN;
 
-	m_Factories[Item::ITEM_CLASS_SUB_INVENTORY] = new SubInventoryFactory();
-	m_ItemClassMap[m_Factories[Item::ITEM_CLASS_SUB_INVENTORY]->getItemClassName()] = Item::ITEM_CLASS_SUB_INVENTORY;
-
 	__END_CATCH
 }
 
@@ -436,7 +430,7 @@ void ItemFactoryManager::init ()
 //
 //////////////////////////////////////////////////////////////////////
 Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemType, const list<OptionType_t>& OptionType) 
-	   throw(NoSuchElementException, Error)
+	   throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
@@ -461,8 +455,8 @@ Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemTyp
 
 	Item* pItem = m_Factories[IClass]->createItem(ItemType, OptionType);
 	
-	pItem->setTraceItem(bTraceLog(pItem ));
-	pItem->setUnique(g_pItemInfoManager->getItemInfo(IClass, ItemType )->isUnique());
+	pItem->setTraceItem( bTraceLog( pItem ) );
+	pItem->setUnique( g_pItemInfoManager->getItemInfo( IClass, ItemType )->isUnique() );
 	
 	return pItem;
 
@@ -475,7 +469,7 @@ Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemTyp
 //
 //////////////////////////////////////////////////////////////////////
 string ItemFactoryManager::getItemName (Item::ItemClass IClass) 
-	   throw()
+	   throw ()
 {
 	__BEGIN_TRY
 
@@ -491,12 +485,12 @@ string ItemFactoryManager::getItemName (Item::ItemClass IClass)
 	__END_CATCH
 }
 
-Item::ItemClass ItemFactoryManager::getItemClassByName(const string & ClassName )
+Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName )
 	throw()
 {
 	__BEGIN_TRY
 
-	map<string, Item::ItemClass>::const_iterator itr = m_ItemClassMap.begin();
+	hash_map<string, Item::ItemClass>::const_iterator itr = m_ItemClassMap.begin();
 	for (; itr != m_ItemClassMap.end(); itr++)
 	{
 		// 대,소문자를 무시하고, 비교를 수행한다.
@@ -509,7 +503,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName(const string & ClassName 
 	return Item::ITEM_CLASS_MAX;
 
 	/*
-	map<string, Item::ItemClass>::const_iterator ClassType = m_ItemClassMap.find(ClassName);
+	hash_map<string, Item::ItemClass>::const_iterator ClassType = m_ItemClassMap.find( ClassName );
 
     if (ClassType==m_ItemClassMap.end())
 	{
@@ -529,7 +523,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName(const string & ClassName 
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string ItemFactoryManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

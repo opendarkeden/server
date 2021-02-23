@@ -7,7 +7,7 @@
 #include "EffectGnomesWhisper.h"
 #include "Ousters.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ void EffectGnomesWhisper::unaffect(Creature* pCreature)
 	pZone->updateInvisibleScan(pCreature);
 
 //	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-//	Assert(pTargetOusters != NULL);
+//	Assert( pTargetOusters != NULL );
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;

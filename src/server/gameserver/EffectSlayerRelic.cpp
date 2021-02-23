@@ -13,11 +13,11 @@
 #include "Player.h"
 #include "ZoneGroupManager.h"
 #include "StringPool.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include <stdio.h>
 
@@ -78,22 +78,22 @@ void EffectSlayerRelic::affect(Creature* pCreature)
 */
 
     char msg[50];
-    sprintf(msg, g_pStringPool->c_str(STRID_TAKE_SLAYER_RELIC ),
-                    pCreature->getName().c_str());
+    sprintf( msg, g_pStringPool->c_str( STRID_TAKE_SLAYER_RELIC ),
+                    pCreature->getName().c_str() );
 
 	GCSystemMessage gcSystemMessage;
 
 	gcSystemMessage.setType(SYSTEM_MESSAGE_COMBAT);
 	gcSystemMessage.setMessage(msg);
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 
 	// Effect붙인다.
 	GCAddEffect gcAddEffect;
-	gcAddEffect.setObjectID(pCreature->getObjectID());
-	gcAddEffect.setEffectID(getSendEffectClass());
-	gcAddEffect.setDuration(65000);
+	gcAddEffect.setObjectID( pCreature->getObjectID() );
+	gcAddEffect.setEffectID( getSendEffectClass() );
+	gcAddEffect.setDuration( 65000 );
 	pCreature->getZone()->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcAddEffect);
 
 	setNextTime(m_Tick);
@@ -132,7 +132,7 @@ void EffectSlayerRelic::affect(Item* pItem)
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage(msg.toString());
 
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	setNextTime(m_Tick);
 	*/
@@ -178,6 +178,8 @@ void EffectSlayerRelic::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectSlayerRelic" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -192,6 +194,8 @@ void EffectSlayerRelic::unaffect(Creature* pCreature)
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SLAYER_RELIC);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
+	//cout << "EffectSlayerRelic" << "unaffect END" << endl;
+
 	__END_DEBUG
 	__END_CATCH
 }
@@ -203,6 +207,8 @@ void EffectSlayerRelic::unaffect(Item* pItem)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
+
+	//cout << "EffectSlayerRelic" << "unaffect BEGIN" << endl;
 
 	Assert(pItem != NULL);
 
@@ -220,6 +226,8 @@ void EffectSlayerRelic::unaffect(Item* pItem)
 	gcRemoveEffect.setObjectID(pItem->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_SLAYER_RELIC);
 	pZone->broadcastPacket(pCorpse->getX(), pCorpse->getY(), &gcRemoveEffect);
+
+	//cout << "EffectSlayerRelic" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

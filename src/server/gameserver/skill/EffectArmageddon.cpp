@@ -11,8 +11,8 @@
 #include "SkillUtil.h"
 #include "Player.h"
 
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -35,9 +35,9 @@ void EffectArmageddon::affect()
 {
 	__BEGIN_TRY
 
-	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
+	Creature* pCreature = dynamic_cast<Creature*>( m_pTarget );
 
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
 	affect(pCreature);
 
@@ -51,20 +51,20 @@ void EffectArmageddon::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	// 이펙트를 건 크리쳐를 가져온다.
 	// !! 이미 존을 떠났을 수도 있으므로 NULL 이 될 수 있다.
 	// by bezz. 2003.1.4 
-	//Creature* pCastCreature = pZone->getCreature(m_UserObjectID);
+	//Creature* pCastCreature = pZone->getCreature( m_UserObjectID );
 
 	//ZoneCoord_t X = pCreature->getX();
 	//ZoneCoord_t Y = pCreature->getY();
 
-	//if (pCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE ) )
+	//if ( pCreature->isFlag( Effect::EFFECT_CLASS_NO_DAMAGE ) )
 	//{
 	//	return;
 	//}
@@ -72,30 +72,30 @@ void EffectArmageddon::affect(Creature* pCreature)
 	//cout << "EffectArmageddon affect damage :" << m_Damage << endl;
 
 	// 매초 데미지 주는거 잠시 막아놓음. by Sequoia
-	/*if (pCreature->isSlayer() )
+	/*if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 		GCModifyInformation gcMI;
-		::setDamage(pSlayer, m_Damage, pCastCreature, SKILL_ARMAGEDDON, &gcMI);
+		::setDamage( pSlayer, m_Damage, pCastCreature, SKILL_ARMAGEDDON, &gcMI );
 
-		pSlayer->getPlayer()->sendPacket(&gcMI);
+		pSlayer->getPlayer()->sendPacket( &gcMI );
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		GCModifyInformation gcMI;
-		::setDamage(pVampire, m_Damage, pCastCreature, SKILL_ARMAGEDDON, &gcMI);
+		::setDamage( pVampire, m_Damage, pCastCreature, SKILL_ARMAGEDDON, &gcMI );
 
-		pVampire->getPlayer()->sendPacket(&gcMI);
+		pVampire->getPlayer()->sendPacket( &gcMI );
 	}
-	else if (pCreature->isMonster() )
+	else if ( pCreature->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		::setDamage(pMonster, m_Damage, pCastCreature, SKILL_ARMAGEDDON);
+		::setDamage( pMonster, m_Damage, pCastCreature, SKILL_ARMAGEDDON );
 	}*/
 
-	setNextTime(m_Delay);
+	setNextTime( m_Delay );
 
 	__END_CATCH
 }
@@ -159,15 +159,15 @@ string EffectArmageddon::toString()
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void EffectArmageddon::decreaseHP(Damage_t damage )
+void EffectArmageddon::decreaseHP( Damage_t damage )
 	throw()
 {
 	//cout << "EffectArmageddon Damaged : " << (int)damage << endl;
 
-	HP_t RemainHP = max(0, m_HP - damage);
+	HP_t RemainHP = max( 0, m_HP - damage );
 
-	setHP(RemainHP);
+	setHP( RemainHP );
 	// 남은 HP가 0일 경우 다음 EffectManager::heartbeat() 에서 이펙트를 날려준다.
-	if(RemainHP == 0 )
+	if( RemainHP == 0 )
 		setDeadline(0);
 }

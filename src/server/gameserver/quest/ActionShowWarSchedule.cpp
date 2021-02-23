@@ -17,14 +17,14 @@
 #include "PlayerCreature.h"
 #include "VariableManager.h"
 
-#include "GCNPCResponse.h"
-#include "GCWarScheduleList.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCWarScheduleList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowWarSchedule::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -46,7 +46,7 @@ void ActionShowWarSchedule::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowWarSchedule::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -55,20 +55,20 @@ void ActionShowWarSchedule::execute (Creature * pCreature1 , Creature * pCreatur
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
 
 	GCWarScheduleList gcWarScheduleList;
 
-	if (g_pVariableManager->isWarActive()
-		&& makeGCWarScheduleList(&gcWarScheduleList, m_ZoneID ) )
+	if ( g_pVariableManager->isWarActive()
+		&& makeGCWarScheduleList( &gcWarScheduleList, m_ZoneID ) )
 	{
-		pPC->getPlayer()->sendPacket(&gcWarScheduleList);
+		pPC->getPlayer()->sendPacket( &gcWarScheduleList );
 	}
 	else
 	{
 		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 	}
 
 	__END_CATCH
@@ -79,7 +79,7 @@ void ActionShowWarSchedule::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionShowWarSchedule::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

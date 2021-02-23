@@ -21,8 +21,8 @@
 #include "Properties.h"
 #include "CastleInfoManager.h"
 
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
 
 #include "SystemAvailabilitiesManager.h"
 
@@ -30,7 +30,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegisterSiege::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -52,7 +52,7 @@ void ActionRegisterSiege::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegisterSiege::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -63,145 +63,145 @@ void ActionRegisterSiege::execute (Creature * pCreature1 , Creature * pCreature2
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_GUILD_WAR);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_GUILD_WAR );
 
 	GCNPCResponse gcNPCResponse;
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
 	GuildID_t guildID = pPC->getGuildID();
 
-	if (!g_pVariableManager->isWarActive() || !g_pVariableManager->isActiveGuildWar() )
+	if ( !g_pVariableManager->isWarActive() || !g_pVariableManager->isActiveGuildWar() )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_UNAVAILABLE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_UNAVAILABLE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	if (!g_pGuildManager->isGuildMaster(guildID, pPC ) )
+	if ( !g_pGuildManager->isGuildMaster( guildID, pPC ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_NOT_GUILD_MASTER);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_NOT_GUILD_MASTER );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	Gold_t warRegistrationFee = g_pVariableManager->getVariable(WAR_REGISTRATION_FEE);
-	if (pPC->getGold() < warRegistrationFee )
+	Gold_t warRegistrationFee = g_pVariableManager->getVariable( WAR_REGISTRATION_FEE );
+	if ( pPC->getGold() < warRegistrationFee )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_NOT_ENOUGH_MONEY);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_NOT_ENOUGH_MONEY );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	Zone* pZone = getZoneByZoneID(m_ZoneID);
-	Assert(pZone != NULL);
-	Assert(pZone->isCastle());
+	Zone* pZone = getZoneByZoneID( m_ZoneID );
+	Assert( pZone != NULL );
+	Assert( pZone->isCastle() );
 
 	WarScheduler* pWarScheduler = pZone->getWarScheduler();
-	Assert(pWarScheduler != NULL);
+	Assert( pWarScheduler != NULL );
 
 	/* 성을 소유했어도 전쟁 신청이 되도록 수정함 (자기 성에는 신청 못하겠지 -_-;;)
 	// 이미 성을 소유한 길드인가?
-	if (g_pGuildManager->hasCastle(guildID ) )
+	if ( g_pGuildManager->hasCastle( guildID ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_ALREADY_HAS_CASTLE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_ALREADY_HAS_CASTLE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 	*/
 
 //	ServerID_t serverID;
 //	ZoneID_t zoneID;
-//	bool bHasCastle = g_pGuildManager->hasCastle(guildID , serverID , zoneID);
+//	bool bHasCastle = g_pGuildManager->hasCastle( guildID , serverID , zoneID );
 
-//	if (bHasCastle && serverID == g_pConfig->getPropertyInt("ServerID" ) && zoneID == m_ZoneID )
+//	if ( bHasCastle && serverID == g_pConfig->getPropertyInt( "ServerID" ) && zoneID == m_ZoneID )
 
-	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_ZoneID);
+	CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_ZoneID );
 	GuildID_t ownerGuildID = pCastleInfo->getGuildID();
 
-	if (guildID == ownerGuildID )
+	if ( guildID == ownerGuildID )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_ALREADY_HAS_CASTLE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_ALREADY_HAS_CASTLE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
 	// 이미 전쟁 신청을 했는가?
-	if (g_pGuildManager->hasWarSchedule(guildID ) )
+	if ( g_pGuildManager->hasWarSchedule( guildID ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_ALREADY_REGISTERED);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_ALREADY_REGISTERED );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
 	// 전쟁 스케쥴이 다 찼는가?
-/*	if (!pWarScheduler->canAddWar(WAR_GUILD ) )
+/*	if ( !pWarScheduler->canAddWar( WAR_GUILD ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_SCHEDULE_FULL);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_SCHEDULE_FULL );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 		return;
 	}
 
-	GuildWar* pWar = new GuildWar(m_ZoneID, guildID, War::WAR_STATE_WAIT);
+	GuildWar* pWar = new GuildWar( m_ZoneID, guildID, War::WAR_STATE_WAIT );
 
-	pWar->setRegistrationFee(warRegistrationFee);
+	pWar->setRegistrationFee( warRegistrationFee );
 
-	if (!pWarScheduler->addWar(pWar ) )
+	if ( !pWarScheduler->addWar( pWar ) )
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_SCHEDULE_FULL);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_SCHEDULE_FULL );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
-		SAFE_DELETE(pWar);
+		SAFE_DELETE( pWar );
 		return;
 	}*/
 
 	Schedule* pNextSchedule = pWarScheduler->getRecentSchedule();
 
 	Work* pNextWork = NULL;
-	if (pNextSchedule != NULL ) pNextWork = pNextSchedule->getWork();
+	if ( pNextSchedule != NULL ) pNextWork = pNextSchedule->getWork();
 
 	SiegeWar* pNextWar = dynamic_cast<SiegeWar*>(pNextWork);
 
-	if (pNextWar == NULL )
+	if ( pNextWar == NULL )
 	{
-		pNextWar = new SiegeWar(m_ZoneID, War::WAR_STATE_WAIT);
-		pNextWar->addRegistrationFee(warRegistrationFee);
+		pNextWar = new SiegeWar( m_ZoneID, War::WAR_STATE_WAIT );
+		pNextWar->addRegistrationFee( warRegistrationFee );
 		pNextWar->addChallengerGuild(guildID);
 
-		if (!pWarScheduler->addWar(pNextWar ) )
+		if ( !pWarScheduler->addWar( pNextWar ) )
 		{
-			gcNPCResponse.setCode(NPC_RESPONSE_WAR_SCHEDULE_FULL);
-			pPC->getPlayer()->sendPacket(&gcNPCResponse);
+			gcNPCResponse.setCode( NPC_RESPONSE_WAR_SCHEDULE_FULL );
+			pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
-			SAFE_DELETE(pNextWar);
+			SAFE_DELETE( pNextWar );
 			return;
 		}
 	}
-	else if (pNextWar->getChallengerGuildCount() < 5 )
+	else if ( pNextWar->getChallengerGuildCount() < 5 )
 	{
 		WarSchedule* pNextWarSchedule = dynamic_cast<WarSchedule*>(pNextSchedule);
-		Assert(pNextWarSchedule != NULL);
+		Assert( pNextWarSchedule != NULL );
 
-		pNextWar->addRegistrationFee(warRegistrationFee);
+		pNextWar->addRegistrationFee( warRegistrationFee );
 		pNextWar->addChallengerGuild(guildID);
 		pNextWarSchedule->save();
 	}
 	else
 	{
-		gcNPCResponse.setCode(NPC_RESPONSE_WAR_SCHEDULE_FULL);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setCode( NPC_RESPONSE_WAR_SCHEDULE_FULL );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
-//		SAFE_DELETE(pNextWar);
+//		SAFE_DELETE( pNextWar );
 		return;
 	}
 
-	pPC->decreaseGoldEx(warRegistrationFee);
+	pPC->decreaseGoldEx( warRegistrationFee );
 
 	GCModifyInformation gcMI;
-	gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
-	pPC->getPlayer()->sendPacket(&gcMI);
+	gcMI.addLongData( MODIFY_GOLD, pPC->getGold() );
+	pPC->getPlayer()->sendPacket( &gcMI );
 
-	gcNPCResponse.setCode(NPC_RESPONSE_WAR_REGISTRATION_OK);
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	gcNPCResponse.setCode( NPC_RESPONSE_WAR_REGISTRATION_OK );
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 	return;
 
 #endif
@@ -213,7 +213,7 @@ void ActionRegisterSiege::execute (Creature * pCreature1 , Creature * pCreature2
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRegisterSiege::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

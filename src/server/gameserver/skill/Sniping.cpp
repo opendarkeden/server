@@ -10,9 +10,9 @@
 #include "EffectFadeOut.h"
 #include "EffectSnipingMode.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -57,7 +57,7 @@ void Sniping::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
 		ZoneCoord_t x = pSlayer->getX();
 		ZoneCoord_t y = pSlayer->getY();
 
-		Tile& rTile = pZone->getTile(pSlayer->getX(), pSlayer->getY());
+		Tile& rTile = pZone->getTile( pSlayer->getX(), pSlayer->getY() );
 		int  RequiredMP  = pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);

@@ -15,7 +15,6 @@
 #include "Utility.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 DyePotionInfoManager* g_pDyePotionInfoManager = NULL;
 
@@ -41,7 +40,7 @@ DyePotion::DyePotion(ItemType_t itemType, const list<OptionType_t>& optionType, 
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "DyePotion::DyePotion() : Invalid item type or option type");
-		throw("DyePotion::DyePotion() : Invalid item type or optionType");
+		throw ("DyePotion::DyePotion() : Invalid item type or optionType");
 	}
 }
 
@@ -101,7 +100,7 @@ void DyePotion::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE DyePotionObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE DyePotionObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -122,8 +121,8 @@ void DyePotion::save(const string & ownerID, Storage storage, StorageID_t storag
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE DyePotionObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)getNum(), m_ItemID);
+		pStmt->executeQuery( "UPDATE DyePotionObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, (int)getNum(), m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -268,8 +267,8 @@ void DyePotionLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM DyePotionObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM DyePotionObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{
@@ -327,18 +326,6 @@ void DyePotionLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pDyePotion);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pDyePotion))
 						{
 							pInventory->addItemEx(x, y, pDyePotion);

@@ -12,11 +12,9 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffectToTile.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 POINT EffectBloodySnake::getNextPosition()
 {
@@ -65,14 +63,14 @@ void EffectBloodySnake::affect()
 	// 스킬 사용자를 가져온다.
 	// !! 이미 존을 떠났을 수도 있으므로 NULL 이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = m_pZone->getCreature(m_CasterID);
+	Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
 
 	// 현재 이펙트가 붙어있는 타일을 받아온다.
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+    const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);
@@ -88,7 +86,7 @@ void EffectBloodySnake::affect()
 			// 무적상태 체크. by sigi. 2002.9.5
 			// 산 면역. by sigi. 2002.9.13
 			// 자기 자신이면 안 맞는다.
-			if (!canAttack(pCastCreature, pCreature )
+			if ( !canAttack( pCastCreature, pCreature )
 				|| pCreature->getObjectID()==m_CasterID)
 			{
 				continue;
@@ -99,7 +97,7 @@ void EffectBloodySnake::affect()
 			{
 				if (m_CreatureClass==Creature::CREATURE_CLASS_MONSTER)
 				{
-					Creature* pAttacker = m_pZone->getCreature(m_CasterID);
+					Creature* pAttacker = m_pZone->getCreature( m_CasterID );
 					if (pAttacker!=NULL)
 					{
 						Monster* pAttackMonster = dynamic_cast<Monster*>(pAttacker);
@@ -122,7 +120,7 @@ void EffectBloodySnake::affect()
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pSlayer, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI);
+					::setDamage( pSlayer, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI );
 
 					Player* pPlayer = pSlayer->getPlayer();
 					Assert(pPlayer != NULL);
@@ -145,7 +143,7 @@ void EffectBloodySnake::affect()
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pVampire, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI);
+					::setDamage( pVampire, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI );
 
 					Player* pPlayer = pVampire->getPlayer();
 					Assert(pPlayer != NULL);
@@ -168,7 +166,7 @@ void EffectBloodySnake::affect()
 					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 					GCModifyInformation gcMI;
-					::setDamage(pOusters, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI);
+					::setDamage( pOusters, Damage, pCastCreature, SKILL_BLOODY_SNAKE, &gcMI );
 
 					Player* pPlayer = pOusters->getPlayer();
 					Assert(pPlayer != NULL);
@@ -190,7 +188,7 @@ void EffectBloodySnake::affect()
 				{
 					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-					::setDamage(pMonster, Damage, pCastCreature, SKILL_BLOODY_SNAKE);
+					::setDamage( pMonster, Damage, pCastCreature, SKILL_BLOODY_SNAKE );
 
 					// knockback체크
 					bool bKnockback = rand()%100 < 20;	// 20%의 확률로 knockback
@@ -210,7 +208,7 @@ void EffectBloodySnake::affect()
 				// by sigi. 2002.8.31
 /*				if (pCreature->isDead())
 				{
-					Creature* pAttacker = m_pZone->getCreature(m_CasterID);
+					Creature* pAttacker = m_pZone->getCreature( m_CasterID );
 
 					if (pAttacker!=NULL)
 					{ 
@@ -235,7 +233,7 @@ void EffectBloodySnake::affect()
 	VSRect rect(0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1);
 	if (rect.ptInRect(pt.x, pt.y))
 	{
-		Tile& newTile = m_pZone->getTile(pt.x, pt.y);
+		Tile& newTile = m_pZone->getTile( pt.x, pt.y );
 		if ((!newTile.isGroundBlocked()
 			|| newTile.hasCreature(Creature::MOVE_MODE_WALKING))
 			&& newTile.canAddEffect())
@@ -258,10 +256,10 @@ void EffectBloodySnake::affect()
 			m_Y = pt.y;
 
 			GCAddEffectToTile gcAddEffectToTile;
-			gcAddEffectToTile.setEffectID(Effect::EFFECT_CLASS_BLOODY_SNAKE);
-			gcAddEffectToTile.setDuration(m_Tick+(m_Tick>>1));
-			gcAddEffectToTile.setObjectID(m_ObjectID);
-			gcAddEffectToTile.setXY(m_X, m_Y);
+			gcAddEffectToTile.setEffectID( Effect::EFFECT_CLASS_BLOODY_SNAKE );
+			gcAddEffectToTile.setDuration( m_Tick+(m_Tick>>1) );
+			gcAddEffectToTile.setObjectID( m_ObjectID );
+			gcAddEffectToTile.setXY( m_X, m_Y );
 
 			m_pZone->broadcastPacket(m_X, m_Y, &gcAddEffectToTile);
 	
@@ -269,12 +267,12 @@ void EffectBloodySnake::affect()
 		}
 		else
 		{
-			setDeadline(0);
+			setDeadline( 0 );
 		}
 	}
 	else
 	{
-		setDeadline(0);
+		setDeadline( 0 );
 	}
 
 	//cout << "EffectBloodySnake" << "affect END" << endl;

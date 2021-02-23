@@ -2,23 +2,23 @@
 #include "PlayerCreature.h"
 #include "Ousters.h"
 #include "skill/SkillUtil.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
-GQuestElement::ResultType GQuestGiveOustersExpElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveOustersExpElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (!pPC->isOusters() ) return FAIL;
+	if ( !pPC->isOusters() ) return FAIL;
 
 	GCModifyInformation gcMI;
 	Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-	increaseOustersExp(pOusters, m_Amount, gcMI);
+	increaseOustersExp( pOusters, m_Amount, gcMI );
 
-	pOusters->getPlayer()->sendPacket(&gcMI);
+	pOusters->getPlayer()->sendPacket( &gcMI );
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("°æÇèÄ¡¸¦ È¹µæÇß½À´Ï´Ù.");
-	pOusters->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("»ñµÃ¾­ÑéÖµ.");
+	pOusters->getPlayer()->sendPacket( &gcSM );
 
 	return OK;
 }

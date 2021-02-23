@@ -13,7 +13,7 @@
 #include "mission/QuestManager.h"
 #include "mission/QuestStatus.h"
 #include "mission/RewardClassInfoManager.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include "CreatureUtil.h"
 
@@ -23,7 +23,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionQuestReward::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -43,7 +43,7 @@ void ActionQuestReward::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionQuestReward::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -53,19 +53,19 @@ void ActionQuestReward::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	QuestMessage result = COMPLETE_FAIL_INVALID_NPC;
 
 	RewardClassInfoManager* pRIM = pNPC->getRewardClassInfoManager();
-	Assert(pRIM != NULL);
+	Assert( pRIM != NULL );
 
 	pPC->getQuestManager()->adjustQuestStatus();
 
-	if (!pPC->getQuestManager()->hasQuest() )
+	if ( !pPC->getQuestManager()->hasQuest() )
 	{
 		result = COMPLETE_FAIL_NOT_IN_QUEST;
 		pPC->sendCurrentQuestInfo();
@@ -74,27 +74,27 @@ void ActionQuestReward::execute (Creature * pCreature1 , Creature * pCreature2)
 	{
 		list<RewardClass_t> rList;
 		list<QuestID_t> qList;
-		pPC->getQuestManager()->getCompletedQuestRewards(back_inserter(qList), back_inserter(rList));
+		pPC->getQuestManager()->getCompletedQuestRewards( back_inserter(qList), back_inserter(rList) );
 
-		if (!rList.empty() )
+		if ( !rList.empty() )
 		{
 			list<RewardClass_t>::iterator itr = rList.begin();
 			list<QuestID_t>::iterator qitr = qList.begin();
 
-			for (; itr != rList.end(); ++itr, ++qitr )
+			for ( ; itr != rList.end(); ++itr, ++qitr )
 			{
-				//cout << "Quest Reward : " << (int)*itr << " checking.." << endl;
 				result = pRIM->canGiveReward(*itr, pPC);
-				if (result == COMPLETE_SUCCESS && !pRIM->getRewardClass(*itr)->anotherQuestReward() )
+
+				if ( result == COMPLETE_SUCCESS && !pRIM->getRewardClass(*itr)->anotherQuestReward() )
 				{
 					QuestStatus* pQS = pPC->getQuestManager()->getQuestStatus((*qitr));
-					if (pQS != NULL && pQS->getQuestClass() == QUEST_CLASS_MONSTER_KILL )
+					if ( pQS != NULL && pQS->getQuestClass() == QUEST_CLASS_MONSTER_KILL )
 					{
-						addOlympicStat(pPC, 10);
+						addOlympicStat( pPC, 10 );
 					}
 
-					pPC->getQuestManager()->questRewarded(*qitr);
-					Assert (pRIM->getRewardClass(*itr )->giveReward(pPC) == COMPLETE_SUCCESS);
+					pPC->getQuestManager()->questRewarded( *qitr );
+					Assert ( pRIM->getRewardClass( *itr )->giveReward(pPC) == COMPLETE_SUCCESS );
 					break;
 				}
 			}
@@ -109,10 +109,10 @@ void ActionQuestReward::execute (Creature * pCreature1 , Creature * pCreature2)
 
 	GCNPCResponse gcNPCResponse;
 
-	gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
-	gcNPCResponse.setParameter((uint)result);
+	gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
+	gcNPCResponse.setParameter( (uint)result );
 
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 	__END_CATCH
 }
@@ -122,7 +122,7 @@ void ActionQuestReward::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionQuestReward::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

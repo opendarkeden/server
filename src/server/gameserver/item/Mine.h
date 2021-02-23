@@ -27,8 +27,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -51,10 +51,10 @@ public:
 	void setDir(Dir_t R) throw(Error) { m_Dir = R;}
 
 	string getInstallerName() const throw() { return m_InstallerName; }
-	void setInstallerName(const string & InstallerName ) throw() { m_InstallerName = InstallerName; }
+	void setInstallerName( const string & InstallerName ) throw() { m_InstallerName = InstallerName; }
 
 	int getInstallerPartyID() const throw() { return m_InstallerPartyID; }
-	void setInstallerPartyID(int InstallerPartyID ) throw() { m_InstallerPartyID = InstallerPartyID; }
+	void setInstallerPartyID( int InstallerPartyID ) throw() { m_InstallerPartyID = InstallerPartyID; }
 
 	virtual Damage_t getMinDamage() const throw(Error);
 	virtual Damage_t getMaxDamage() const throw(Error);

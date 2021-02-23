@@ -10,7 +10,7 @@
 #include "Exception.h"
 #include "Types.h"
 #include "Item.h"
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Class ItemMineInfo
@@ -24,16 +24,16 @@ public:
 
 public:
 	int getID() const { return m_ID; }
-	void setID(int id ) { m_ID = id; }
+	void setID( int id ) { m_ID = id; }
 
 	ItemClass_t getItemClass() const { return m_ItemClass; }
-	void setItemClass(ItemClass_t itemClass ) { m_ItemClass = itemClass; }
+	void setItemClass( ItemClass_t itemClass ) { m_ItemClass = itemClass; }
 
 	ItemType_t getItemType() const { return m_ItemType; }
-	void setItemType(ItemType_t itemType ) { m_ItemType = itemType; }
+	void setItemType( ItemType_t itemType ) { m_ItemType = itemType; }
 
 	const list<OptionType_t>& getItemOptions() const { return m_ItemOptions; }
-	void setItemOptions(const list<OptionType_t>& itemOptions ) { m_ItemOptions = itemOptions; }
+	void setItemOptions( const list<OptionType_t>& itemOptions ) { m_ItemOptions = itemOptions; }
 
 	Item* getItem();
 
@@ -50,7 +50,7 @@ private:
 // Class ItemMineInfoManager
 //////////////////////////////////////////////////////////////////////////////
 
-typedef map<int, ItemMineInfo*>			HashMapItemMineInfo;
+typedef hash_map<int, ItemMineInfo*>			HashMapItemMineInfo;
 typedef HashMapItemMineInfo::iterator			HashMapItemMineInfoItor;
 typedef HashMapItemMineInfo::const_iterator		HashMapItemMineInfoConstItor;
 

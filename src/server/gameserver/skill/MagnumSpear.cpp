@@ -8,12 +8,12 @@
 #include "RankBonus.h"
 #include "EffectMagnumSpear.h"
 #include "SkillUtil.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -33,7 +33,7 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
+		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
 		if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
 		{
 			executeSkillFailException(pOusters, pOustersSkillSlot->getSkillType());
@@ -45,7 +45,7 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, SkillType);
@@ -64,10 +64,10 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 		
 		int HitBonus = 0;
 		/*
-		if (pOusters->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
+		if ( pOusters->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
 		{
-			RankBonus* pRankBonus = pOusters->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pOusters->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -81,7 +81,7 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot, HitBonus);
 		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
 		bool bPK         = verifyPK(pOusters, pTargetCreature);
-		bool bEffect	 = pTargetCreature->isFlag(Effect::EFFECT_CLASS_MAGNUM_SPEAR);
+		bool bEffect	 = pTargetCreature->isFlag( Effect::EFFECT_CLASS_MAGNUM_SPEAR );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && !bEffect)
 		{
@@ -99,10 +99,10 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 
 			Damage_t Damage = output.Damage;
 
-			OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_MAGNUM_SPEAR_MASTERY);
-			if (pMastery != NULL )
+			OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_MAGNUM_SPEAR_MASTERY );
+			if ( pMastery != NULL )
 			{
-				Damage += (pMastery->getExpLevel() * 5 / 3 ) + 15;
+				Damage += ( pMastery->getExpLevel() * 5 / 3 ) + 15;
 			}
 			else
 			{
@@ -110,21 +110,21 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 				computeCriticalBonus(pOusters, getSkillType(), Damage, dummy);
 			}
 
-			EffectMagnumSpear* pEffect = new EffectMagnumSpear(pTargetCreature);
-			pEffect->setDamage(computeOustersMagicDamage(pOusters, pTargetCreature, Damage, SKILL_MAGNUM_SPEAR ));
+			EffectMagnumSpear* pEffect = new EffectMagnumSpear( pTargetCreature );
+			pEffect->setDamage( computeOustersMagicDamage( pOusters, pTargetCreature, Damage, SKILL_MAGNUM_SPEAR ) );
 
 			int spearNum = 2;
 
-			if (pOustersSkillSlot->getExpLevel() <= 15 )
+			if ( pOustersSkillSlot->getExpLevel() <= 15 )
 				spearNum = 2;
-			else if (pOustersSkillSlot->getExpLevel() < 30 )
+			else if ( pOustersSkillSlot->getExpLevel() < 30 )
 				spearNum = 4;
-			else if (pOustersSkillSlot->getExpLevel() == 30 )
+			else if ( pOustersSkillSlot->getExpLevel() == 30 )
 				spearNum = 6;
 
 			int Grade = spearNum/2 - 1;
 
-			if (pMastery != NULL ) 
+			if ( pMastery != NULL ) 
 			{
 				spearNum = 1;
 				Grade = 4;
@@ -134,10 +134,10 @@ void MagnumSpear::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 			pEffect->setTimes(spearNum);
 			pEffect->setTick(5);
 			pEffect->setNextTime(5);
-			pEffect->setCasterOID(pOusters->getObjectID());
+			pEffect->setCasterOID( pOusters->getObjectID() );
 
-			pTargetCreature->addEffect(pEffect);
-			pTargetCreature->setFlag(pEffect->getEffectClass());
+			pTargetCreature->addEffect( pEffect );
+			pTargetCreature->setFlag( pEffect->getEffectClass() );
 
 			_GCSkillToObjectOK1.setSkillType(SkillType);
 			_GCSkillToObjectOK1.setCEffectID(CEffectID);

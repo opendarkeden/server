@@ -9,8 +9,8 @@
 #include "Slayer.h"
 #include "Player.h"
 #include "Zone.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -27,12 +27,12 @@ EffectGrandMasterSlayer::EffectGrandMasterSlayer(Creature* pCreature)
 Effect::EffectClass EffectGrandMasterSlayer::getSendEffectClass() const throw()
 {
 	Slayer* pSlayer = dynamic_cast<Slayer*>(m_pTarget);
-	if (pSlayer == NULL ) return getEffectClass();
+	if ( pSlayer == NULL ) return getEffectClass();
 
 	SkillLevel_t level = pSlayer->getHighestSkillDomainLevel();
 
-	if (level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER_150;
-	else if (level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER_130;
+	if ( level == 150 ) return Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER_150;
+	else if ( level >= 130 ) return Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER_130;
 	else return getEffectClass();
 }
 
@@ -44,7 +44,7 @@ void EffectGrandMasterSlayer::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
@@ -89,6 +89,8 @@ void EffectGrandMasterSlayer::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectGrandMasterSlayer" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -102,6 +104,8 @@ void EffectGrandMasterSlayer::unaffect(Creature* pCreature)
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GRAND_MASTER_SLAYER);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	//cout << "EffectGrandMasterSlayer" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

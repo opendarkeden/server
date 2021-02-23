@@ -6,7 +6,6 @@
 
 #include "VSDateTime.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
 #include <sys/time.h>
@@ -177,7 +176,7 @@ VSDate VSDate::currentDate()
 {
 	time_t ltime = time(NULL);
 	tm     t;
-	localtime_r(&ltime, &t);
+	localtime_r( &ltime, &t );
 
 	VSDate d;
 	d.jd = greg2jul(t.tm_year + 1900, t.tm_mon + 1, t.tm_mday);
@@ -189,9 +188,9 @@ VSDate VSDate::fromString(string text)
 	VSDate vsd = VSDate::currentDate();
 
 	// trim white space
-    uint begin = text.find_first_not_of(whiteSpaces);
-    uint end = text.find_last_not_of(whiteSpaces);
-    text = text.substr(begin , end - begin + 1);
+    uint begin = text.find_first_not_of( whiteSpaces );
+    uint end = text.find_last_not_of( whiteSpaces );
+    text = text.substr( begin , end - begin + 1 );
 
 	/////////////////////////////////////////
 	// 2001.1.1
@@ -201,12 +200,12 @@ VSDate VSDate::fromString(string text)
 	uint a=0;
 	uint b=0;
 
-	a = text.find_first_of('.', 0 );
+	a = text.find_first_of('.', 0  );
 	b = text.find_first_of('.', a+1);
 
 	if (a > b || b > text.size()) return vsd;
 
-	int year  = atoi(text.substr( 0, a).c_str());
+	int year  = atoi(text.substr(  0, a).c_str());
 	int month = atoi(text.substr(a+1, b-a-1).c_str());
 	int day   = atoi(text.substr(b+1, text.size()-b-1).c_str());
 
@@ -224,7 +223,7 @@ bool VSDate::isValid(int y, int m, int d)
 
 bool VSDate::leapYear(int y)
 {
-	return ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0);
+	return (y % 4 == 0 && y % 100 != 0 || y % 400 == 0);
 }
 
 uint VSDate::greg2jul(int y, int m, int d)
@@ -421,9 +420,9 @@ VSTime VSTime::fromString(string text)
 	VSTime vst = VSTime::currentTime();
 
 	// trim white space
-    uint begin = text.find_first_not_of(whiteSpaces);
-    uint end = text.find_last_not_of(whiteSpaces);
-    text = text.substr(begin , end - begin + 1);
+    uint begin = text.find_first_not_of( whiteSpaces );
+    uint end = text.find_last_not_of( whiteSpaces );
+    text = text.substr( begin , end - begin + 1 );
 
 	/////////////////////////////////////////
 	// 1:1:1
@@ -432,13 +431,13 @@ VSTime VSTime::fromString(string text)
 
 	uint a=0, b=0, c=0;
 
-	a = text.find_first_of(':', 0 );
+	a = text.find_first_of(':', 0  );
 	b = text.find_first_of(':', a+1);
 	c = text.find_first_of(':', b+1);
 
 	if (a > b || b > text.size()) return vst;
 
-	int hour    = atoi(text.substr( 0, a                  ).c_str());
+	int hour    = atoi(text.substr(  0, a                  ).c_str());
 	int minute  = atoi(text.substr(a+1, b           - a - 1).c_str());
 	int second  = atoi(text.substr(b+1, c           - b - 1).c_str());
 	int msecond = atoi(text.substr(c+1, text.size() - c - 1).c_str());
@@ -456,7 +455,7 @@ bool VSTime::currentTime(VSTime *ct)
 	time_t ltime = tv.tv_sec;
 	tm t;
 	//tm *t = localtime(&ltime);
-	localtime_r(&ltime, &t);
+	localtime_r( &ltime, &t );
 	//ct->ds = (uint)(MSECS_PER_HOUR*t->tm_hour + MSECS_PER_MIN*t->tm_min + 1000*t->tm_sec + tv.tv_usec/1000);
 	ct->ds = (uint)(MSECS_PER_HOUR*t.tm_hour + MSECS_PER_MIN*t.tm_min + 1000*t.tm_sec + tv.tv_usec/1000);
 	return (t.tm_hour== 0 && t.tm_min == 0);
@@ -515,12 +514,12 @@ VSDateTime::VSDateTime(const string& DateTime)
 {
 	if (DateTime.size()==19)
 	{
-		int year  = atoi(DateTime.substr(0,4).c_str());
-		int month = atoi(DateTime.substr(5,2).c_str());
-		int day   = atoi(DateTime.substr(8,2).c_str());
-		int hour  = atoi(DateTime.substr(11,2).c_str());
-		int min   = atoi(DateTime.substr(14,2).c_str());
-		int sec   = atoi(DateTime.substr(17,2).c_str());
+		int year  = atoi( DateTime.substr(0,4).c_str() );
+		int month = atoi( DateTime.substr(5,2).c_str() );
+		int day   = atoi( DateTime.substr(8,2).c_str() );
+		int hour  = atoi( DateTime.substr(11,2).c_str() );
+		int min   = atoi( DateTime.substr(14,2).c_str() );
+		int sec   = atoi( DateTime.substr(17,2).c_str() );
 
 		d.setYMD(year, month, day);
 		t.setHMS(hour, min, sec);
@@ -690,9 +689,9 @@ VSDateTime VSDateTime::fromString(string text)
 	VSDateTime vsdt = VSDateTime::currentDateTime();
 	uint       a    = 0;
 
-    uint begin = text.find_first_not_of(whiteSpaces);
-    uint end = text.find_last_not_of(whiteSpaces);
-    text = text.substr(begin , end - begin + 1);
+    uint begin = text.find_first_not_of( whiteSpaces );
+    uint end = text.find_last_not_of( whiteSpaces );
+    text = text.substr( begin , end - begin + 1 );
 
 	/////////////////////////////////////////
 	// 2000.1.1-1:1:1:1
@@ -703,7 +702,7 @@ VSDateTime VSDateTime::fromString(string text)
 
 	if (a > text.size()) return vsdt;
 
-	string date_text = text.substr( 0, a);
+	string date_text = text.substr(  0, a);
 	string time_text = text.substr(a+1, text.size() - a -1);
 
 	vsdt.d = VSDate::fromString(date_text);
@@ -715,45 +714,45 @@ VSDateTime VSDateTime::fromString(string text)
 ////////////////////////////////////////////////////////////////////////////////
 // return VSDateTime Object from YYYYMMDDHHMMSS style string
 // 스트링의 형식이 지정한데 까지만 세팅한다.
-// (단 YYYYMMDD 까지는 있어야 한다. 없으면 현재시간. 흠. 구리다.)
+// ( 단 YYYYMMDD 까지는 있어야 한다. 없으면 현재시간. 흠. 구리다.)
 //  YYYYMMDD 형식의 스트링이라면 년,월,일 까지만 세팅
 // 나머지 부분은 bEndOfDay 가 true 면 23시 59분 59초
 // false 이면 0시 0분 0초
 ////////////////////////////////////////////////////////////////////////////////
-VSDateTime VSDateTime::fromYYYYMMDDHHMMSS(string text, bool bEndOfDay )
+VSDateTime VSDateTime::fromYYYYMMDDHHMMSS( string text, bool bEndOfDay )
 {
 	uint szText = text.size();
 
-	if (szText < 8 )
+	if ( szText < 8 )
 		return VSDateTime::currentDateTime();
 
-	int year  = atoi(text.substr(0,4).c_str());
-	int month = atoi(text.substr(4,2).c_str());
-	int day   = atoi(text.substr(6,2).c_str());
+	int year  = atoi( text.substr(0,4).c_str() );
+	int month = atoi( text.substr(4,2).c_str() );
+	int day   = atoi( text.substr(6,2).c_str() );
 	int hour  = 23;
 	int min   = 59;
 	int sec   = 59;
 
-	if (!bEndOfDay )
+	if ( !bEndOfDay )
 	{
 		hour = 0;
 		min  = 0;
 		sec  = 0;
 	}
 
-	if (szText >= 10 )
-		hour = atoi(text.substr(8,2).c_str());
+	if ( szText >= 10 )
+		hour = atoi( text.substr(8,2).c_str() );
 	
-	if (szText >= 12 )
-		min = atoi(text.substr(10,2).c_str());
+	if ( szText >= 12 )
+		min = atoi( text.substr(10,2).c_str() );
 
-	if (szText >= 14 )
-		sec = atoi(text.substr(12,2).c_str());
+	if ( szText >= 14 )
+		sec = atoi( text.substr(12,2).c_str() );
 
-	VSDate vsdate(year, month, day);
-	VSTime vstime(hour, min, sec);
+	VSDate vsdate( year, month, day );
+	VSTime vstime( hour, min, sec );
 
-	VSDateTime vsdt(vsdate, vstime);
+	VSDateTime vsdt( vsdate, vstime );
 
 	return vsdt;
 }
@@ -762,22 +761,22 @@ VSTime VSTime::fromStringHM(string text)
     VSTime vst = VSTime::currentTime();
 
     // trim white space
-    uint begin = text.find_first_not_of(whiteSpaces);
-    uint end = text.find_last_not_of(whiteSpaces);
-    text = text.substr(begin , end - begin + 1);
+    uint begin = text.find_first_not_of( whiteSpaces );
+    uint end = text.find_last_not_of( whiteSpaces );
+    text = text.substr( begin , end - begin + 1 );
 
     /////////////////////////////////////////
     // 1:1
     /////////////////////////////////////////
     if (text.size() < 3) return vst;
 
-    size_t a=0;
+    uint a=0;
 
     a = text.find_first_of(':', 0);
 
-    if (a == string::npos ) return vst;
+    if ( a == string::npos ) return vst;
 
-    int hour    = atoi(text.substr( 0, a                  ).c_str());
+    int hour    = atoi(text.substr(  0, a                  ).c_str());
     int minute  = atoi(text.substr(a+1, text.size() - a - 1).c_str());
 
     vst.setHMS(hour, minute, 0, 0);

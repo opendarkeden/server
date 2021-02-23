@@ -196,13 +196,12 @@ public:
 		ACTION_SHOW_DONATION_DIALOG,			// 기부창 보여주기
 		ACTION_ENTER_QUEST_ZONE,				// DynamicZone 입장
 		ACTION_SHOW_CONFIRM_GET_EVENT_ITEM_DIALOG,	// 이벤트 아이템 받기 확인창
-		ACTION_GIVE_COMMON_EVENT_ITEM,			// 공용 이벤트 아이템 주기
 
 		ACTION_MAX
 	};
 
 public:
-	virtual ~Action() {}
+	virtual ~Action() throw(Error) {}
 	virtual ActionType_t getActionType() const throw() = 0;
 	virtual void read(PropertyBuffer & buffer) throw(Error) = 0;
 	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error) = 0;	

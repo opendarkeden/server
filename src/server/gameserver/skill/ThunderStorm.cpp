@@ -59,15 +59,15 @@ void ThunderStorm::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 	SIMPLE_SKILL_OUTPUT result;
 
 	// 목표위치+4방향
-	param.addMask(0,  0, 100);
+	param.addMask( 0,  0, 100);
 	param.addMask(-1, -1, 100);
-	param.addMask(0, -1, 100);
-	param.addMask(1, -1, 100);
+	param.addMask( 0, -1, 100);
+	param.addMask( 1, -1, 100);
 	param.addMask(-1,  0, 100);
-	param.addMask(1,  0, 100);
+	param.addMask( 1,  0, 100);
 	param.addMask(-1,  1, 100);
-	param.addMask(0,  1, 100);
-	param.addMask(1,  1, 100);
+	param.addMask( 0,  1, 100);
+	param.addMask( 1,  1, 100);
 
 	// 자신의 주변에 떨어뜨린다.
 	// 아니다.. --;
@@ -92,7 +92,7 @@ void ThunderStorm::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 	Zone* pZone = pSlayer->getZone();
 	Assert(pZone!=NULL);
 
-	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
 
 	if (pTargetCreature!=NULL)
 	{

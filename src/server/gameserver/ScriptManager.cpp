@@ -8,15 +8,13 @@
 #include "DB.h"
 #include "SXml.h"
 #include "Properties.h"
-#include "Assert1.h"
-
-#include <map>
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // load from database with NPC ID
 //////////////////////////////////////////////////////////////////////////////
 void ScriptManager::load (const string & ownerID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	
@@ -43,11 +41,11 @@ void ScriptManager::load (const string & ownerID)
 			pChild->AddAttribute("ScriptID", scriptID);
 //			pChild->AddAttribute("Owner", owner);
 
-			if (m_XMLS[owner] == NULL ) m_XMLS[owner] = new XMLTree("Scripts");
+			if ( m_XMLS[owner] == NULL ) m_XMLS[owner] = new XMLTree("Scripts");
 
 			string     seperator    = "**";
-            size_t       start        = 0;
-            size_t       end          = 0;
+			uint       start        = 0;
+			uint       end          = 0;
 			string     msg;
 
 			////////////////////////////////////////////////////////////
@@ -106,13 +104,13 @@ void ScriptManager::load (const string & ownerID)
 
 			setScript(scriptID, pScript);
 			m_XMLS[owner]->AddChild(pChild);
-			Assert(m_ScriptXMLs[scriptID] == NULL);
+			Assert( m_ScriptXMLs[scriptID] == NULL );
 			m_ScriptXMLs[scriptID] = pChild;
 //			pTree->AddChild(pChild);
 		}
 
-//		pTree->SaveToFile((g_pConfig->getProperty("HomePath") + "/data/Script.xml").c_str());
-//		SAFE_DELETE(pTree);
+//		pTree->SaveToFile( (g_pConfig->getProperty("HomePath") + "/data/Script.xml").c_str() );
+//		SAFE_DELETE( pTree );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -126,11 +124,11 @@ void ScriptManager::load (const string & ownerID)
 // get script
 //////////////////////////////////////////////////////////////////////////////
 Script* ScriptManager::getScript (ScriptID_t scriptID) const 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
+	hash_map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
 
 	if (itr == m_Scripts.end()) 
 	{
@@ -150,11 +148,11 @@ Script* ScriptManager::getScript (ScriptID_t scriptID) const
 // set script
 //////////////////////////////////////////////////////////////////////////////
 void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
-	map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
+	hash_map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
 
 	if (itr != m_Scripts.end()) 
 	{
@@ -173,7 +171,7 @@ void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ScriptManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -181,7 +179,7 @@ string ScriptManager::toString () const
 
 	msg << "ScriptManager(";
 
-	map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
+	hash_map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
 	for (; i != m_Scripts.end() ; i++) 
 	{
 		msg << "(ScriptID:" << (int)(i->first) << ",";

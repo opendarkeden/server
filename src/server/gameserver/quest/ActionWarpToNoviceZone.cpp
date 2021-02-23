@@ -19,21 +19,21 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
 #include "StringPool.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToNoviceZone::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -59,7 +59,7 @@ void ActionWarpToNoviceZone::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -67,26 +67,26 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 	Assert(pCreature != NULL);
 	Assert(pCreature->isPC());
 
-	if (!pCreature->isSlayer() ) return;
+	if ( !pCreature->isSlayer() ) return;
 
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
 	ZoneID_t ZoneID = pSlayer->getZoneID();
 	ZoneCoord_t	X = pSlayer->getX();
 	ZoneCoord_t Y = pSlayer->getY();
-	Attr_t totalAttr = pSlayer->getTotalAttr(ATTR_BASIC);
+	Attr_t totalAttr = pSlayer->getTotalAttr( ATTR_BASIC );
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 
 	bool bTransport = true;
 
-	if (totalAttr <= 40 )
+	if ( totalAttr <= 40 )
 	{
 		ZoneID = m_NoviceZoneID;
 		X = m_NoviceX;
 		Y = m_NoviceY;
 	}
-	else if (totalAttr <= 60 )
+	else if ( totalAttr <= 60 )
 	{
 		ZoneID = m_BeginnerZoneID;
 		X = m_BeginnerX;
@@ -95,7 +95,7 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 	else
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_BEGINNER ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NOT_BEGINNER ) );
 		pGamePlayer->sendPacket (&gcSystemMessage);
 
 		bTransport = false;
@@ -107,7 +107,7 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( ZoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -127,11 +127,11 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -149,7 +149,7 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 	}
 	else
 	{
-		if (pNPC != NULL )
+		if ( pNPC != NULL )
 		{
 			GCNPCResponse response;
 			response.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
@@ -166,7 +166,7 @@ void ActionWarpToNoviceZone::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpToNoviceZone::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -8,13 +8,13 @@
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 #include "StringStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 PCItemInfo::PCItemInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ PCItemInfo::PCItemInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 PCItemInfo::~PCItemInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
@@ -55,39 +55,39 @@ PCItemInfo::~PCItemInfo ()
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void PCItemInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void PCItemInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	iStream.read(m_ObjectID);
-	iStream.read(m_IClass);
-	iStream.read(m_ItemType);
+	iStream.read( m_ObjectID );
+	iStream.read( m_IClass );
+	iStream.read( m_ItemType );
 
 	BYTE optionSize;
-	iStream.read(optionSize);
+	iStream.read( optionSize );
 
 	m_OptionType.clear();
 	for (int i = 0; i < optionSize; i++) 
 	{
 		OptionType_t optionType;
-		iStream.read(optionType);
-		m_OptionType.push_back(optionType);
+		iStream.read( optionType );
+		m_OptionType.push_back( optionType );
 	}
 
-	iStream.read(m_Durability);
-	iStream.read(m_Silver);
-	iStream.read(m_Grade);
-	iStream.read(m_EnchantLevel);
-	iStream.read(m_ItemNum);
-	iStream.read(m_MainColor);
-	iStream.read(m_ListNum);
+	iStream.read( m_Durability );
+	iStream.read( m_Silver );
+	iStream.read( m_Grade );
+	iStream.read( m_EnchantLevel );
+	iStream.read( m_ItemNum );
+	iStream.read( m_MainColor );
+	iStream.read( m_ListNum );
 
 	for (int i = 0; i < m_ListNum; i++) 
 	{
 		SubItemInfo* pSubItemInfo = new SubItemInfo();
 		pSubItemInfo->read(iStream);
-		m_SubItemInfoList.push_back(pSubItemInfo);
+		m_SubItemInfoList.push_back( pSubItemInfo );
 	}
 
 	__END_CATCH
@@ -97,32 +97,32 @@ void PCItemInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void PCItemInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void PCItemInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
-	oStream.write(m_ObjectID);
-	oStream.write(m_IClass);
-	oStream.write(m_ItemType);
+	oStream.write( m_ObjectID );
+	oStream.write( m_IClass );
+	oStream.write( m_ItemType );
 
 	BYTE optionSize = m_OptionType.size();
-	oStream.write(optionSize);
+	oStream.write( optionSize );
 
 	list<OptionType_t>::const_iterator iOption = m_OptionType.begin();
     for (; iOption!= m_OptionType.end(); iOption++) 
 	{
 		OptionType_t optionType = *iOption;
-		oStream.write(optionType);
+		oStream.write( optionType );
 	}
 
-	oStream.write(m_Durability);
-	oStream.write(m_Silver);
-	oStream.write(m_Grade);
-	oStream.write(m_EnchantLevel);
-	oStream.write(m_ItemNum);
-	oStream.write(m_MainColor);
-	oStream.write(m_ListNum);
+	oStream.write( m_Durability );
+	oStream.write( m_Silver );
+	oStream.write( m_Grade );
+	oStream.write( m_EnchantLevel );
+	oStream.write( m_ItemNum );
+	oStream.write( m_MainColor );
+	oStream.write( m_ListNum );
 
 	list<SubItemInfo*>::const_iterator itr = m_SubItemInfoList.begin();
     for (; itr!= m_SubItemInfoList.end(); itr++) 

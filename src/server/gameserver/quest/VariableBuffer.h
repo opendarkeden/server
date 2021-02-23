@@ -33,12 +33,12 @@ public:
 	
 public:
 	int getCount() const { return m_VariableInfos.size(); }
-	VariableInfo* getVariableInfo(int index ) throw(OutOfBoundException, Error);
+	VariableInfo* getVariableInfo( int index ) throw(OutOfBoundException, Error);
 
 	string toString() const throw();
 	
 private:
-	void parse() throw(Error);
+	void parse() throw (Error);
 	
 	void clear();
 

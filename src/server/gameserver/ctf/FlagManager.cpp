@@ -12,9 +12,9 @@
 #include "EffectManager.h"
 #include "NPCInfo.h"
 
-#include "GCFlagWarStatus.h"
-#include "GCDeleteInventoryItem.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCFlagWarStatus.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
+#include "Gpackets/GCAddEffect.h"
 
 #include "SystemAvailabilitiesManager.h"
 
@@ -36,17 +36,17 @@ FlagManager::FlagManager()
 	m_PutTime[RACE_SLAYER] = m_PutTime[RACE_VAMPIRE] = m_PutTime[RACE_OUSTERS] = VSDateTime::currentDateTime();
 
 	FlagWar* pFlagWar = new FlagWar();
-	addSchedule(new Schedule(pFlagWar, pFlagWar->getNextFlagWarTime() ));
+	addSchedule( new Schedule( pFlagWar, pFlagWar->getNextFlagWarTime() ) );
 
 	pFlagWar = new NewbieFlagWar();
-	addSchedule(new Schedule(pFlagWar, pFlagWar->getNextFlagWarTime() ));
+	addSchedule( new Schedule( pFlagWar, pFlagWar->getNextFlagWarTime() ) );
 }
 
-FlagManager::~FlagManager() throw() { }
+FlagManager::~FlagManager() { }
 
 void FlagManager::init()
 {
-	SYSTEM_RETURN_IF_NOT(SYSTEM_FLAG_WAR);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_FLAG_WAR );
 	Statement* pStmt = NULL;
 	Result* pResult  = NULL;
 
@@ -55,10 +55,10 @@ void FlagManager::init()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery("SELECT ZoneID, CenterX, CenterY, Width, Height, Race-1, MonsterType FROM FlagPolePosition");
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			ZoneID_t zoneID = (ZoneID_t) pResult->getInt(1);
-			Zone* pZone = getZoneByZoneID(zoneID);
+			Zone* pZone = getZoneByZoneID( zoneID );
 
 			ZoneCoord_t left = (ZoneCoord_t) pResult->getInt(2);
 			ZoneCoord_t top  = (ZoneCoord_t) pResult->getInt(3);
@@ -67,70 +67,70 @@ void FlagManager::init()
 			Race_t race = (Race_t) pResult->getInt(6);
 			MonsterType_t type = (MonsterType_t) pResult->getInt(7);
 
-			addPoleField(pZone, left, top, width, height, race, type);
+			addPoleField( pZone, left, top, width, height, race, type );
 		}
 	}
 	END_DB(pStmt)
 }
 
-void FlagManager::addPoleField(Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, uint width, uint height, Race_t race, MonsterType_t type )
+void FlagManager::addPoleField( Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, uint width, uint height, Race_t race, MonsterType_t type )
 {
-	Assert(pZone != NULL);
-	Assert(isValidZoneCoord(pZone, left, top ));
-	Assert(isValidZoneCoord(pZone, left+width, top+height ));
+	Assert( pZone != NULL );
+	Assert( isValidZoneCoord( pZone, left, top ) );
+	Assert( isValidZoneCoord( pZone, left+width, top+height ) );
 
 	NPCInfo* pNPCInfo = new NPCInfo();
-	pNPCInfo->setName("±ê¼Ç");
-	pNPCInfo->setNPCID(type);
-	pNPCInfo->setX(left);
-	pNPCInfo->setY(top);
+	pNPCInfo->setName( "±ê¼Ç" );
+	pNPCInfo->setNPCID( type );
+	pNPCInfo->setX( left );
+	pNPCInfo->setY( top );
 
-	pZone->addNPCInfo(pNPCInfo);
+	pZone->addNPCInfo( pNPCInfo );
 
-	for (uint i=0; i<width; ++i )
-	for (uint j=0; j<height; ++j )
+	for ( uint i=0; i<width; ++i )
+	for ( uint j=0; j<height; ++j )
 	{
-		MonsterCorpse* pFlagPole = new MonsterCorpse(type, "±ê¼Ç", 2);
-		Assert(pFlagPole != NULL);
+		MonsterCorpse* pFlagPole = new MonsterCorpse( type, "±ê¼Ç", 2 );
+		Assert( pFlagPole != NULL );
 
-		pFlagPole->setZone(pZone);
-		pFlagPole->setShrine(true);
-		pZone->registerObject(pFlagPole);
+		pFlagPole->setZone( pZone );
+		pFlagPole->setShrine( true );
+		pZone->registerObject( pFlagPole );
 
 		m_FlagPoles[pFlagPole] = race;
 
-		TPOINT tp = pZone->addItem(pFlagPole, left+(i*2), top+(j*2));
-		Assert(tp.x != -1);
+		TPOINT tp = pZone->addItem( pFlagPole, left+(i*2), top+(j*2) );
+		Assert( tp.x != -1 );
 
-		forbidDarkness(pZone, tp.x, tp.y, 1);
+		forbidDarkness( pZone, tp.x, tp.y, 1 );
 	}
 
-	m_PoleFields.push_back(PoleFieldInfo(pZone->getZoneID(), left, top, width*2, height*2 ));
+	m_PoleFields.push_back( PoleFieldInfo( pZone->getZoneID(), left, top, width*2, height*2 ) );
 }
 
 void FlagManager::manualStart()
 {
-	if (!isEmpty() )
+	if ( !isEmpty() )
 	{
-		//cout << "½ºÄÉÁÙ ¶¯±â±â.." << endl;
-		addSchedule(new Schedule(popRecentWork(), VSDateTime::currentDateTime() ));
+		cout << "½ºÄÉÁÙ ¶¯±â±â.." << endl;
+		addSchedule( new Schedule( popRecentWork(), VSDateTime::currentDateTime() ) );
 	}
 	else
 	{
-		//cout << "½ºÄÉÁÙ ¸¸µé±â.." << endl;
-		addSchedule(new Schedule(new FlagWar(), VSDateTime::currentDateTime() ));
+		cout << "½ºÄÉÁÙ ¸¸µé±â.." << endl;
+		addSchedule( new Schedule( new FlagWar(), VSDateTime::currentDateTime() ) );
 	}
 }
 
 bool FlagManager::startFlagWar()
 {
-	if (m_bHasFlagWar ) return false;
+	if ( m_bHasFlagWar ) return false;
 	m_bHasFlagWar = true;
 
 	Work* pWork = m_RecentSchedules.top()->getWork();
 	FlagWar* pFlagWar = dynamic_cast<FlagWar*>(pWork);
 
-	if (pFlagWar != NULL )
+	if ( pFlagWar != NULL )
 		m_EndTime = VSDateTime::currentDateTime().addSecs(pFlagWar->getWarTime());
 	else
 		m_EndTime = VSDateTime::currentDateTime().addSecs(3600);
@@ -150,7 +150,7 @@ bool FlagManager::startFlagWar()
 
 bool FlagManager::endFlagWar()
 {
-	if (m_bHasFlagWar )
+	if ( m_bHasFlagWar )
 	{
 		recordFlagWarHistory();
 
@@ -164,7 +164,7 @@ bool FlagManager::endFlagWar()
 						g_pConfig->getPropertyInt("ServerID"),
 						m_FlagCount[SLAYER],
 						m_FlagCount[VAMPIRE],
-						m_FlagCount[OUSTERS]);
+						m_FlagCount[OUSTERS] );
 
 		filelog("script.log", cmd);
 		system(cmd);
@@ -176,18 +176,18 @@ bool FlagManager::endFlagWar()
 	return false;
 }
 
-bool FlagManager::putFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole )
+bool FlagManager::putFlag( PlayerCreature* pPC, MonsterCorpse* pFlagPole )
 {
-	if (!isFlagPole(pFlagPole ) ) return false;
-	if (pPC->getRace() != m_FlagPoles[pFlagPole] ) return false;
-	if (!pPC->isFlag(Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
+	if ( !isFlagPole( pFlagPole ) ) return false;
+	if ( pPC->getRace() != m_FlagPoles[pFlagPole] ) return false;
+	if ( !pPC->isFlag( Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
 
 	lock();
 	m_FlagCount[(RACEINDEX)(pPC->getRace())]++;
-	m_StatusPacket.setFlagCount(pPC->getRace(), m_FlagCount[(RACEINDEX)(pPC->getRace())]);
+	m_StatusPacket.setFlagCount( pPC->getRace(), m_FlagCount[(RACEINDEX)(pPC->getRace())] );
 	m_PutTime[pPC->getRace()] = VSDateTime::currentDateTime();
-	filelog("FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» ±ê´ë¿¡ ²ÈÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
-			m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS]);
+	filelog( "FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» ±ê´ë¿¡ ²ÈÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
+			m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS] );
 	unlock();
 
 	broadcastStatus();
@@ -195,18 +195,18 @@ bool FlagManager::putFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole )
 	return true;
 }
 
-bool FlagManager::getFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole )
+bool FlagManager::getFlag( PlayerCreature* pPC, MonsterCorpse* pFlagPole )
 {
-	if (!isFlagPole(pFlagPole ) ) return false;
-	if (pPC->getRace() == m_FlagPoles[pFlagPole] ) return false;
-	if (pPC->isFlag(Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
-	if (m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])] == 0 ) return false;
+	if ( !isFlagPole( pFlagPole ) ) return false;
+	if ( pPC->getRace() == m_FlagPoles[pFlagPole] ) return false;
+	if ( pPC->isFlag( Effect::EFFECT_CLASS_HAS_FLAG ) ) return false;
+	if ( m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])] == 0 ) return false;
 
 	lock();
 	m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])]--;
-	m_StatusPacket.setFlagCount(m_FlagPoles[pFlagPole], m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])]);
-	filelog("FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» »ÌÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
-			m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS]);
+	m_StatusPacket.setFlagCount( m_FlagPoles[pFlagPole], m_FlagCount[(RACEINDEX)(m_FlagPoles[pFlagPole])] );
+	filelog( "FlagWar.log", "%s ´ÔÀÌ ±ê¹ßÀ» »ÌÀ¸¼Ì½À´Ï´ç. S : %d, V : %d, O : %d", pPC->getName().c_str(),
+			m_FlagCount[SLAYER], m_FlagCount[VAMPIRE], m_FlagCount[OUSTERS] );
 	unlock();
 
 	broadcastStatus();
@@ -214,40 +214,40 @@ bool FlagManager::getFlag(PlayerCreature* pPC, MonsterCorpse* pFlagPole )
 	return true;
 }
 
-bool FlagManager::putFlag(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pFlagPole )
+bool FlagManager::putFlag( PlayerCreature* pPC, Item* pItem, MonsterCorpse* pFlagPole )
 {
-	Assert(pItem->getObjectID() == pPC->getExtraInventorySlotItem()->getObjectID());
+	Assert( pItem->getObjectID() == pPC->getExtraInventorySlotItem()->getObjectID() );
 
-	if (pPC->getRace() != getFlagPoleRace(pFlagPole ) ) return false;
-	if (pFlagPole->getTreasureCount() != 0 ) return false;
-	if (!putFlag(pPC, pFlagPole ) ) return false;
+	if ( pPC->getRace() != getFlagPoleRace( pFlagPole ) ) return false;
+	if ( pFlagPole->getTreasureCount() != 0 ) return false;
+	if ( !putFlag( pPC, pFlagPole ) ) return false;
 
 	pPC->deleteItemFromExtraInventorySlot();
 	GCDeleteInventoryItem gcDeleteInventoryItem;
-	gcDeleteInventoryItem.setObjectID(pItem->getObjectID());
+	gcDeleteInventoryItem.setObjectID( pItem->getObjectID() );
 
-	pPC->getPlayer()->sendPacket(&gcDeleteInventoryItem);
+	pPC->getPlayer()->sendPacket( &gcDeleteInventoryItem );
 
-	Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_HAS_FLAG);
-	if (pEffect != NULL ){
+	Effect* pEffect = pPC->findEffect( Effect::EFFECT_CLASS_HAS_FLAG );
+	if ( pEffect != NULL ){
 		//cout << "ÀÌÆåÆ®µµ ¾ø¾ÖÁÖ°í.." << endl;
 		pEffect->setDeadline(0);
 	}
 
-	pFlagPole->addTreasure(pItem);
+	pFlagPole->addTreasure( pItem );
 
-	pFlagPole->setFlag(Effect::EFFECT_CLASS_FLAG_INSERT);
+	pFlagPole->setFlag( Effect::EFFECT_CLASS_FLAG_INSERT );
 	EffectFlagInsert* pFlagEffect = new EffectFlagInsert(pFlagPole);
-	pFlagPole->getEffectManager().addEffect(pFlagEffect);
+	pFlagPole->getEffectManager().addEffect( pFlagEffect );
 
 	GCAddEffect gcAddEffect;
-	gcAddEffect.setEffectID(Effect::EFFECT_CLASS_FLAG_INSERT);
-	gcAddEffect.setObjectID(pFlagPole->getObjectID());
-	gcAddEffect.setDuration(65535);
+	gcAddEffect.setEffectID( Effect::EFFECT_CLASS_FLAG_INSERT );
+	gcAddEffect.setObjectID( pFlagPole->getObjectID() );
+	gcAddEffect.setDuration( 65535 );
 
-	recordPutFlag(pPC, pItem);
+	recordPutFlag( pPC, pItem );
 
-	pFlagPole->getZone()->broadcastPacket(pFlagPole->getX(), pFlagPole->getY(), &gcAddEffect);
+	pFlagPole->getZone()->broadcastPacket( pFlagPole->getX(), pFlagPole->getY(), &gcAddEffect );
 
 	return true;
 }
@@ -260,12 +260,12 @@ Race_t FlagManager::getWinnerRace()
 	map<RACEINDEX,uint>::const_iterator itr = m_FlagCount.begin();
 	map<RACEINDEX,uint>::const_iterator endItr = m_FlagCount.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		if (itr->second > max ) { maxRace = itr->first; max = itr->second; }
-		if (itr->second == max )
+		if ( itr->second > max ) { maxRace = itr->first; max = itr->second; }
+		if ( itr->second == max )
 		{
-			if (m_PutTime[(Race_t)itr->first] > m_PutTime[(Race_t)maxRace] ){ maxRace = itr->first; max = itr->second; }
+			if ( m_PutTime[(Race_t)itr->first] > m_PutTime[(Race_t)maxRace] ){ maxRace = itr->first; max = itr->second; }
 		}
 	}
 
@@ -286,18 +286,18 @@ void FlagManager::resetFlagCounts()
 	// ÇÊµåÀÇ ±ê¹ßµéÀº ¹®Á¦°¡ ¾øÁö¸¸ ±ê´ë¿¡ ²ÈÈù ±ê¹ßÀº ¹Ýµå½Ã Áö¿öÁà¾ß ÇÑ´Ù
 	list<PoleFieldInfo>::iterator itr = m_PoleFields.begin();
 	list<PoleFieldInfo>::iterator endItr = m_PoleFields.end();
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
 		Zone* pZone = getZoneByZoneID(itr->zoneID);
 
 		ZoneCoord_t ix, iy;
-		for(ix = itr->l ; ix <= (itr->l + itr->w*2) ; ix+=2 )
-		for(iy = itr->t ; iy <= (itr->t + itr->h*2) ; iy+=2 )
+		for( ix = itr->l ; ix <= (itr->l + itr->w*2) ; ix+=2 )
+		for( iy = itr->t ; iy <= (itr->t + itr->h*2) ; iy+=2 )
 		{
-			if (!isValidZoneCoord(pZone, ix, iy ) ) continue;
-			Tile& tile = pZone->getTile(ix, iy);
+			if ( !isValidZoneCoord( pZone, ix, iy ) ) continue;
+			Tile& tile = pZone->getTile( ix, iy );
 			Item* pCorpse = tile.getItem();
-			if (pCorpse == NULL 
+			if ( pCorpse == NULL 
 				|| pCorpse->getItemClass() != Item::ITEM_CLASS_CORPSE
 				|| pCorpse->getItemType() != MONSTER_CORPSE )
 			{
@@ -307,7 +307,7 @@ void FlagManager::resetFlagCounts()
 			MonsterCorpse* pMonsterCorpse = dynamic_cast<MonsterCorpse*>(pCorpse);
 			Item* pItem = pMonsterCorpse->getTreasure();
 
-			if (pItem != NULL 
+			if ( pItem != NULL 
 				&& pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM
 				&& pItem->getItemType() == 27)
 			{
@@ -330,20 +330,20 @@ void FlagManager::resetFlagCounts()
 	END_DB(pStmt)
 }
 
-bool FlagManager::isInPoleField(ZONE_COORD zc )
+bool FlagManager::isInPoleField( ZONE_COORD zc )
 {
 	list<PoleFieldInfo>::iterator itr = m_PoleFields.begin();
 	list<PoleFieldInfo>::iterator endItr = m_PoleFields.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		if (itr->isInField(zc) ) return true;
+		if ( itr->isInField(zc) ) return true;
 	}
 
 	return false;
 }
 
-void FlagManager::recordPutFlag(PlayerCreature* pPC, Item* pItem ) 
+void FlagManager::recordPutFlag( PlayerCreature* pPC, Item* pItem ) 
 	throw(Error)
 {
 	Statement* pStmt = NULL;
@@ -354,17 +354,17 @@ void FlagManager::recordPutFlag(PlayerCreature* pPC, Item* pItem )
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery("SELECT Name FROM FlagWarStat WHERE Name = '%s' AND ItemID = %d", 
 								pPC->getName().c_str(), 
-								pItem->getItemID());
+								pItem->getItemID() );
 
 		// ÀÖÀ¸¸é ¹«½Ã ¾øÀ¸¸é INSERT
-		if (!pResult->next() )
+		if ( !pResult->next() )
 		{
 			pResult = pStmt->executeQuery("INSERT INTO FlagWarStat (PlayerID, Name, Race, ServerID, ItemID) VALUES ('%s','%s',%d,%d,%d)",
 									pPC->getPlayer()->getID().c_str(),
 									pPC->getName().c_str(),
 									(int)pPC->getRace(),
 									g_pConfig->getPropertyInt("ServerID"),
-									pItem->getItemID());
+									pItem->getItemID() );
 		}
 
 	}
@@ -400,7 +400,7 @@ void FlagManager::recordFlagWarHistory()
 							name.c_str(),
 							(int)race,
 							serverID,
-							num);
+							num );
 		}
 
 		SAFE_DELETE(pStmt2);
@@ -408,14 +408,14 @@ void FlagManager::recordFlagWarHistory()
 	END_DB(pStmt)
 }
 
-void FlagManager::broadcastPacket(Packet* pPacket ) const
+void FlagManager::broadcastPacket( Packet* pPacket ) const
 {
 	map<ZoneID_t, uint>::const_iterator itr = m_FlagAllowMap.begin();
 	map<ZoneID_t, uint>::const_iterator endItr = m_FlagAllowMap.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		Zone* pZone = getZoneByZoneID(itr->first);
-		pZone->broadcastPacket(pPacket);
+		Zone* pZone = getZoneByZoneID( itr->first );
+		pZone->broadcastPacket( pPacket );
 	}
 }

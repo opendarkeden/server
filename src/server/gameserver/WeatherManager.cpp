@@ -10,13 +10,13 @@
 #include "GameTime.h"
 #include "TimeManager.h"
 #include "WeatherInfo.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "DarkLightInfo.h"
 #include "Zone.h"
 #include "PKZoneInfoManager.h"
-#include "GCChangeDarkLight.h"
-#include "GCChangeWeather.h"
-#include "GCLightning.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCChangeWeather.h"
+#include "Gpackets/GCLightning.h"
 
 //--------------------------------------------------------------------------------
 //
@@ -26,7 +26,7 @@
 //
 //--------------------------------------------------------------------------------
 WeatherManager::~WeatherManager ()
-	throw(Error)
+	throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -37,7 +37,7 @@ WeatherManager::~WeatherManager ()
 // initialize current zone's weather, darklevel, lightlevel
 //--------------------------------------------------------------------------------
 void WeatherManager::init ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void WeatherManager::init ()
 
 	// tm 스트럭처로 변환, 시/분/초 값을 알아낸다.
 	tm ltm;
-	localtime_r(&gmtime, &ltm);
+	localtime_r( &gmtime, &ltm );
 	//struct tm* ptm = localtime(&gmtime);
 
 	// 게임 시간으로 내일까지 남은 초를 계산한다.
@@ -118,7 +118,7 @@ void WeatherManager::init ()
 	//--------------------------------------------------------------------------------
 	// 현재의 존의 밝기와 어둡기 레벨, 다음 변경시간을 설정한다.
 	//--------------------------------------------------------------------------------
-	DarkLightInfo* pDIInfo = g_pDarkLightInfoManager->getCurrentDarkLightInfo(m_pZone);
+	DarkLightInfo* pDIInfo = g_pDarkLightInfoManager->getCurrentDarkLightInfo( m_pZone );
 	m_pZone->setDarkLevel(pDIInfo->getDarkLevel());
 	m_pZone->setLightLevel(pDIInfo->getLightLevel());
 
@@ -134,13 +134,13 @@ void WeatherManager::init ()
 // 지정 시간이 되면 날씨를 알아서 바꿔준다. 존의 heartbeat 에서 호출되어야 한다.
 //--------------------------------------------------------------------------------
 void WeatherManager::heartbeat () 
-	throw(Error)
+	throw (Error)
 {
 	// 노멀 필드가 아니라면 아무 것도 할 필요가 없다.
 	if (m_pZone->getZoneType() != ZONE_NORMAL_FIELD) return;
 
 	// PK 존도 아무것도 할 필요가 없다.
-	if (g_pPKZoneInfoManager->isPKZone(m_pZone->getZoneID() ) )
+	if ( g_pPKZoneInfoManager->isPKZone( m_pZone->getZoneID() ) )
 		return;
 
 	time_t currentTime = time(0);
@@ -179,7 +179,7 @@ void WeatherManager::heartbeat ()
 
 		// tm 스트럭처로 변환, 시/분/초 값을 알아낸다.
 		tm ltm;
-		localtime_r(&gmtime, &ltm);
+		localtime_r( &gmtime, &ltm );
 		//struct tm* ptm = localtime(&gmtime);
 
 		// 게임 시간으로 내일까지 남은 초를 계산한다.
@@ -220,9 +220,9 @@ void WeatherManager::heartbeat ()
 		gcChangeWeather.setWeather(m_CurrentWeather);
 		gcChangeWeather.setWeatherLevel(m_WeatherLevel);
 
-		//StringStream msg;
-		//msg << "ZONE[" << m_pZone->getZoneID() << "] : " << gcChangeWeather.toString();
-		//log(LOG_DEBUG_MSG, "", "", msg.toString());
+		StringStream msg;
+		msg << "ZONE[" << m_pZone->getZoneID() << "] : " << gcChangeWeather.toString();
+		log(LOG_DEBUG_MSG, "", "", msg.toString());
 
 		m_pZone->broadcastPacket(&gcChangeWeather , NULL);
 	}
@@ -253,7 +253,7 @@ void WeatherManager::heartbeat ()
 	//--------------------------------------------------------------------------------
 	if (currentTime > m_Next10Min) 
 	{
-		DarkLightInfo* pDIInfo = g_pDarkLightInfoManager->getCurrentDarkLightInfo(m_pZone);
+		DarkLightInfo* pDIInfo = g_pDarkLightInfoManager->getCurrentDarkLightInfo( m_pZone );
 
 		DarkLevel_t darkLevel = pDIInfo->getDarkLevel();
 		LightLevel_t lightLevel = pDIInfo->getLightLevel();
@@ -290,7 +290,7 @@ void WeatherManager::heartbeat ()
 // get debug string
 //--------------------------------------------------------------------------------
 string WeatherManager::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
@@ -302,10 +302,10 @@ string WeatherManager::toString () const
 
 	time_t currentTime = time(0);
 
-	msg << "       현재시간 : " << ctime(&currentTime);
-	msg << "  게임상의 내일 : " << ctime(&m_Tomorrow);
-	msg << "다음날씨변경시간: " << ctime(&m_NextWeatherChangingTime);
-	msg << "다음번개체크시간: " << ctime(&m_NextLightning);
+	msg << "       현재시간 : " << (int)ctime(&currentTime);
+	msg << "  게임상의 내일 : " << (int)ctime(&m_Tomorrow);
+	msg << "다음날씨변경시간: " << (int)ctime(&m_NextWeatherChangingTime);
+	msg << "다음번개체크시간: " << (int)ctime(&m_NextLightning);
 
 	return msg.toString();
 }

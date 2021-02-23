@@ -34,7 +34,7 @@ public:
 
 	void removeAllDragonEyes() throw(Error);
 
-	void warpToDefaultPosition(Creature* pCreature ) throw(Error);
+	void warpToDefaultPosition( Creature* pCreature ) throw(Error);
 
 private:
 	VectorWarItem		m_DragonEyes;

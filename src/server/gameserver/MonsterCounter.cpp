@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "MonsterCounter.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 DWORD MonsterCounter::s_MonsterCounter = 0;
 

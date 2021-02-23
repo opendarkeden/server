@@ -11,10 +11,10 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ void EffectObservingEye::unaffect(Creature* pCreature)
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	// 이 이펙트로 보고 있었던 크리쳐들을 삭제한다.
-	pZone->updateInvisibleScan(pCreature);
+	pZone->updateInvisibleScan( pCreature );
 
 	GCOtherModifyInfo gcOtherModifyInfo;
 	makeGCOtherModifyInfo(&gcOtherModifyInfo, pSlayer, &prev);
@@ -119,25 +119,25 @@ void EffectObservingEye::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-bool EffectObservingEye::canSeeInvisibility(Creature* pTarget ) const
-	throw(Error )
+bool EffectObservingEye::canSeeInvisibility( Creature* pTarget ) const
+	throw( Error )
 {
-	if (!pTarget->isFlag(Effect::EFFECT_CLASS_INVISIBILITY ) )
+	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_INVISIBILITY ) )
 		return true;
 
 	Level_t level;
 
-	if (pTarget->isVampire() )
+	if ( pTarget->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pTarget);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		level = pVampire->getLevel();
 	}
-	else if (pTarget->isMonster() )
+	else if ( pTarget->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pTarget);
-		Assert(pMonster != NULL);
+		Assert( pMonster != NULL );
 
 		level = pMonster->getLevel();
 	}
@@ -147,7 +147,7 @@ bool EffectObservingEye::canSeeInvisibility(Creature* pTarget ) const
 		return false;
 	}
 
-	if (m_SkillLevel < level + 40 )
+	if ( m_SkillLevel < level + 40 )
 		return false;
 	else
 		return true;

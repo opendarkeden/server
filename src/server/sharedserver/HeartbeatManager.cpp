@@ -6,57 +6,108 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+// include files
 #include "HeartbeatManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include <unistd.h>
 
-HeartbeatManager::HeartbeatManager() throw(Error) {
-    __BEGIN_TRY
-    __END_CATCH
+//////////////////////////////////////////////////////////////////////
+//
+// constructor
+//
+// 하위 매니저 객체를 생성하는 곳이다.
+//
+//////////////////////////////////////////////////////////////////////
+HeartbeatManager::HeartbeatManager () 
+	throw ( Error )
+{
+	__BEGIN_TRY
+
+	__END_CATCH
 }
 
 
-HeartbeatManager::~HeartbeatManager() throw(Error) {
-    __BEGIN_TRY
-    __END_CATCH
+//////////////////////////////////////////////////////////////////////
+//
+// destructor
+//
+// 하위 매니저 객체를 삭제하는 곳이다.
+//
+//////////////////////////////////////////////////////////////////////
+HeartbeatManager::~HeartbeatManager () 
+	throw ( Error )
+{
+	__BEGIN_TRY
+
+	__END_CATCH
 }
 
 
-void HeartbeatManager::init() throw(Error) {
-    __BEGIN_TRY
-    __END_CATCH
+//////////////////////////////////////////////////////////////////////
+//
+// 하위 매니저 객체를 초기화하고, 자신을 초기화한다.
+//
+//////////////////////////////////////////////////////////////////////
+void HeartbeatManager::init ()
+	throw ( Error )
+{
+	__BEGIN_TRY
+
+	__END_CATCH
 }
 
 
-void HeartbeatManager::start() throw(Error) {
-    __BEGIN_TRY
+//////////////////////////////////////////////////////////////////////
+//
+// 서비스를 시작한다.
+//
+//////////////////////////////////////////////////////////////////////
+void HeartbeatManager::start ()
+	throw ( Error )
+{
+	__BEGIN_TRY
 
-    run();        // 바로 run() 메쏘드를 호출한다. ^^;
+	run();		// 바로 run() 메쏘드를 호출한다. ^^;
 
-    __END_CATCH
+	__END_CATCH
 }
 
 
-void HeartbeatManager::stop() throw(Error) {
-    __BEGIN_TRY
+//////////////////////////////////////////////////////////////////////
+//
+// 자신의 서비스를 중단한 후, 하위 매니저 객체들의 서비스를 중단시킨다.
+//
+//////////////////////////////////////////////////////////////////////
+void HeartbeatManager::stop ()
+	throw ( Error )
+{
+	__BEGIN_TRY
 
-    throw UnsupportedError("[HeartbeatManager] Stopping manager is not supported.");
+	throw UnsupportedError("stopping manager not supported.");
 
-    __END_CATCH
+	__END_CATCH
 }
 
 
-void HeartbeatManager::run() throw(Error) {
-    __BEGIN_TRY
+//////////////////////////////////////////////////////////////////////
+// 클라이언트 매니저의 메인 루프이다.
+//////////////////////////////////////////////////////////////////////
+void HeartbeatManager::run ()
+	throw ( Error )
+{
+	__BEGIN_TRY
 
-    while (true) {
-        // *TODO
-        // 각종 HeartBeat들을 여기서 처리하면 된다.
+	while ( true ) 
+	{
+		// *TODO
+		// 각종 HeartBeat들을 여기서 처리하면 된다.
 
-        usleep(100);
-    }
+		usleep(100);
+	}
 
-    __END_CATCH
+	__END_CATCH
 }
+	
 
+// global variable definition
 HeartbeatManager * g_pHeartbeatManager = NULL;

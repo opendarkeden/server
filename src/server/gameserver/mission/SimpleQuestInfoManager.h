@@ -7,7 +7,7 @@ class SimpleQuestInfoManager : public QuestInfoManager
 {
 public:
 	SimpleQuestInfoManager(NPC* pNPC) : QuestInfoManager(pNPC) { }
-	virtual ~SimpleQuestInfoManager() throw() { }
+	virtual ~SimpleQuestInfoManager() { }
 
 public:
 	void	load(const string& name) throw(Error);

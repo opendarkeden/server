@@ -24,17 +24,17 @@
 
 #include <stdio.h>
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
-#include "GCGuildMemberList.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCGuildMemberList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRecallSiege::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionRecallSiege::read (PropertyBuffer & pb)
 // ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRecallSiege::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -62,7 +62,7 @@ void ActionRecallSiege::execute (Creature * pNPC , Creature * pCreature)
 	Assert(pCreature != NULL);
 	Assert(pCreature->isPC());
 
-/*	if (!g_pWarSystem->hasCastleActiveWar(m_ZoneID ) )
+/*	if ( !g_pWarSystem->hasCastleActiveWar( m_ZoneID ) )
 	{
 		return;
 	}*/
@@ -70,55 +70,55 @@ void ActionRecallSiege::execute (Creature * pNPC , Creature * pCreature)
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	Zone* pZone = getZoneByZoneID(m_ZoneID);
-	Assert(pZone != NULL);
+	Zone* pZone = getZoneByZoneID( m_ZoneID );
+	Assert( pZone != NULL );
 
 	WarScheduler* pWS = pZone->getWarScheduler();
-	Assert(pWS != NULL);
+	Assert( pWS != NULL );
 
-	ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID(m_ZoneID);
-	Assert(siegeZoneID != 0);
+	ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID( m_ZoneID );
+	Assert(siegeZoneID != 0 );
 
 /*	WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(pWS->getRecentSchedule());
-	if (pSchedule == NULL )
+	if ( pSchedule == NULL )
 	{
 		return;
 	}
 
 	SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(pSchedule->getWork());
-	if (pSiegeWar == NULL )
+	if ( pSiegeWar == NULL )
 	{
 		return;
 	}
 
-	int side = pSiegeWar->getGuildSide(pPC->getGuildID());
-	if (side == 0 )
+	int side = pSiegeWar->getGuildSide( pPC->getGuildID() );
+	if ( side == 0 )
 	{
 		return;
 	}*/
 	
-	if (!g_pGuildManager->isGuildMaster(pPC->getGuildID(), pPC ) )
+	if ( !g_pGuildManager->isGuildMaster( pPC->getGuildID(), pPC ) )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("±æµå ¸¶½ºÅÍ¸¸ °¡´ÉÇÕ´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "Ö»ÓÐÐÐ»á»á³¤,²Å¿ÉÒÔ½øÐÐÉêÇë.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
 	// ¼±ÅÃÇÑ ±æµå¸¦ °¡Á®¿Â´Ù.
-	Guild* pGuild = g_pGuildManager->getGuild(pPC->getGuildID());
-	//try { Assert(pGuild != NULL); } catch (Throwable& ) { return; }
+	Guild* pGuild = g_pGuildManager->getGuild( pPC->getGuildID() );
+	//try { Assert( pGuild != NULL ); } catch ( Throwable& ) { return; }
 	if (pGuild==NULL)
 		return;
 
 	GCGuildMemberList gcGuildMemberList;
 
-	pGuild->makeMemberInfo(gcGuildMemberList);
+	pGuild->makeMemberInfo( gcGuildMemberList );
 	gcGuildMemberList.setType(1);
 
-	pGamePlayer->sendPacket(&gcGuildMemberList);
+	pGamePlayer->sendPacket( &gcGuildMemberList );
 
 	__END_DEBUG
 	__END_CATCH
@@ -128,7 +128,7 @@ void ActionRecallSiege::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRecallSiege::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

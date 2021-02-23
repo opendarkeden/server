@@ -9,15 +9,13 @@
 // include files
 #include "ReconnectLoginInfoManager.h"
 #include "StringStream.h"
-#include "Assert1.h"
-
-#include <map>
+#include "Assert.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
 ReconnectLoginInfoManager::ReconnectLoginInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -32,12 +30,12 @@ ReconnectLoginInfoManager::ReconnectLoginInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 ReconnectLoginInfoManager::~ReconnectLoginInfoManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	// 모든 ReconnectLoginInfo 를 삭제해야 한다.
-	for (HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.begin() ;
+	for ( HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.begin() ;
 		itr != m_ReconnectLoginInfos.end() ;
 		itr ++ ) {
 		delete itr->second;
@@ -54,16 +52,16 @@ ReconnectLoginInfoManager::~ReconnectLoginInfoManager ()
 //----------------------------------------------------------------------
 // add connection info to connection info manager
 //----------------------------------------------------------------------
-void ReconnectLoginInfoManager::addReconnectLoginInfo (ReconnectLoginInfo * pReconnectLoginInfo ) 
-	throw(DuplicatedException , Error )
+void ReconnectLoginInfoManager::addReconnectLoginInfo ( ReconnectLoginInfo * pReconnectLoginInfo ) 
+	throw ( DuplicatedException , Error )
 {
 	__BEGIN_TRY
 
-	Assert(pReconnectLoginInfo != NULL);
+	Assert( pReconnectLoginInfo != NULL );
 
-	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find(pReconnectLoginInfo->getClientIP());
+	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find( pReconnectLoginInfo->getClientIP() );
 	
-	if (itr != m_ReconnectLoginInfos.end() )
+	if ( itr != m_ReconnectLoginInfos.end() )
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
 		throw DuplicatedException("duplicated connection info id");
 
@@ -77,25 +75,25 @@ void ReconnectLoginInfoManager::addReconnectLoginInfo (ReconnectLoginInfo * pRec
 //----------------------------------------------------------------------
 // delete connection info from connection info manager
 //----------------------------------------------------------------------
-void ReconnectLoginInfoManager::deleteReconnectLoginInfo (string clientIP ) 
-	throw(NoSuchElementException , Error )
+void ReconnectLoginInfoManager::deleteReconnectLoginInfo ( string clientIP ) 
+	throw ( NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 		
-	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find(clientIP);
+	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find( clientIP );
 	
-	if (itr != m_ReconnectLoginInfos.end() ) {
+	if ( itr != m_ReconnectLoginInfos.end() ) {
 
 		// ReconnectLoginInfo 를 삭제한다.
 		delete itr->second;
 
 		// pair를 삭제한다.
-		m_ReconnectLoginInfos.erase(itr);
+		m_ReconnectLoginInfos.erase( itr );
 
 	} else {
 
 		// not found
-		throw NoSuchElementException(clientIP);
+		throw NoSuchElementException( clientIP );
 
 	}
 
@@ -106,23 +104,23 @@ void ReconnectLoginInfoManager::deleteReconnectLoginInfo (string clientIP )
 //----------------------------------------------------------------------
 // get connection info from connection info manager
 //----------------------------------------------------------------------
-ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo (string clientIP ) 
-	throw(NoSuchElementException , Error )
+ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo ( string clientIP ) 
+	throw ( NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 		
 	ReconnectLoginInfo * pReconnectLoginInfo = NULL;
 
-	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find(clientIP);
+	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find( clientIP );
 	
-	if (itr != m_ReconnectLoginInfos.end() ) {
+	if ( itr != m_ReconnectLoginInfos.end() ) {
 
 		pReconnectLoginInfo = itr->second;
 
 	} else {
 
 		// not found
-		throw NoSuchElementException(clientIP);
+		throw NoSuchElementException( clientIP );
 
 	}
 
@@ -136,14 +134,14 @@ ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo (string cl
 // expire 된 ReconnectLogin Info 객체를 삭제한다.
 //----------------------------------------------------------------------
 void ReconnectLoginInfoManager::heartbeat ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	if (m_NextHeartbeat < currentTime ) {
+	if ( m_NextHeartbeat < currentTime ) {
 
 		m_NextHeartbeat = currentTime;
 		m_NextHeartbeat.tv_sec += 5;
@@ -151,9 +149,9 @@ void ReconnectLoginInfoManager::heartbeat ()
 	    HashMapReconnectLoginInfo::iterator before  = m_ReconnectLoginInfos.end() ;
 		HashMapReconnectLoginInfo::iterator current = m_ReconnectLoginInfos.begin() ;
 
-		while (current != m_ReconnectLoginInfos.end() ) 
+		while ( current != m_ReconnectLoginInfos.end() ) 
 		{
-			if (current->second->getExpireTime() < currentTime ) 
+			if ( current->second->getExpireTime() < currentTime ) 
 			{
 				ReconnectLoginInfo * pReconnectLoginInfo = current->second;
 
@@ -161,7 +159,7 @@ void ReconnectLoginInfoManager::heartbeat ()
 
 				delete pReconnectLoginInfo;
 
-				if (before == m_ReconnectLoginInfos.end() ) 	// case of first
+				if ( before == m_ReconnectLoginInfos.end() ) 	// case of first
 				{  
 					current = m_ReconnectLoginInfos.begin();
 				} 
@@ -186,13 +184,13 @@ void ReconnectLoginInfoManager::heartbeat ()
 // get debug string
 //----------------------------------------------------------------------
 string ReconnectLoginInfoManager::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 
 	msg << "ReconnectLoginInfoManager(";
 
-	for (map<string, ReconnectLoginInfo*>::const_iterator itr = m_ReconnectLoginInfos.begin() ; itr != m_ReconnectLoginInfos.end() ;itr++)
+	for (hash_map<string, ReconnectLoginInfo*>::const_iterator itr = m_ReconnectLoginInfos.begin() ; itr != m_ReconnectLoginInfos.end() ;itr++)
 	{
 		Assert(itr->second != NULL);
 		msg << itr->second->toString();

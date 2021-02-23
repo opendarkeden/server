@@ -6,14 +6,14 @@
 
 #include "Armageddon.h"
 #include "EffectArmageddon.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Vampire.h"
 #include "RankBonus.h"
 
@@ -44,7 +44,7 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 		// 면역이거나. by sigi. 2002.9.13
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -63,10 +63,10 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 
 		// Knowledge of Blood 가 있다면 hit bonus
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -97,16 +97,16 @@ void Armageddon::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 
 			// 이펙트 오브젝트를 생성해서 붙인다.
 			EffectArmageddon* pEffectArmageddon = new EffectArmageddon(pTargetCreature);
-//			pEffectArmageddon->setCasterName(pVampire->getName());
-//			pEffectArmageddon->setPartyID(pVampire->getPartyID());
-			pEffectArmageddon->setUserObjectID(pVampire->getObjectID());
-			pEffectArmageddon->setHP(400);	// 하드코딩됨 --; by Sequoia
-			pEffectArmageddon->setDelay(output.Tick);
-			pEffectArmageddon->setDamage(output.Damage);
-			pEffectArmageddon->setNextTime(output.Tick);
+//			pEffectArmageddon->setCasterName( pVampire->getName() );
+//			pEffectArmageddon->setPartyID( pVampire->getPartyID() );
+			pEffectArmageddon->setUserObjectID( pVampire->getObjectID() );
+			pEffectArmageddon->setHP( 400 );	// 하드코딩됨 --; by Sequoia
+			pEffectArmageddon->setDelay( output.Tick );
+			pEffectArmageddon->setDamage( output.Damage );
+			pEffectArmageddon->setNextTime( output.Tick );
 			pEffectArmageddon->setDeadline(output.Duration);
 
-		//	cout << "ARMAGEDDON SUCCESS (Damage:" << output.Damage << ",Tick:" << output.Tick << ",Duration:" << output.Duration << " )" << endl;
+		//	cout << "ARMAGEDDON SUCCESS ( Damage:" << output.Damage << ",Tick:" << output.Tick << ",Duration:" << output.Duration << " )" << endl;
 
 			pTargetCreature->addEffect(pEffectArmageddon);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_ARMAGEDDON);

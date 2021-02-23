@@ -4,7 +4,7 @@
 // Description :
 //               레어 마스터를 죽였을 경우 생기는 아이템을
 //               NPC와 교환하는 로직이다.
-//               생성되는 아이템은 Random하게 결정된다. (이 경우 Gameble을
+//               생성되는 아이템은 Random하게 결정된다. ( 이 경우 Gameble을
 //               잘 이용하면 쉬울 듯 하다)
 //
 // 
@@ -38,10 +38,10 @@
 #include "ItemGradeManager.h"
 #include <list>
 
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
-#include "GCDeleteInventoryItem.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
 
 #include "SystemAvailabilitiesManager.h"
 
@@ -49,7 +49,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeLairItem::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -70,7 +70,7 @@ void ActionTradeLairItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -79,9 +79,9 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	if (m_Type <= 5 )
+	if ( m_Type <= 5 )
 	{
-		SYSTEM_RETURN_IF_NOT(SYSTEM_MASTER_LAIR);
+		SYSTEM_RETURN_IF_NOT( SYSTEM_MASTER_LAIR );
 	}
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
@@ -123,11 +123,11 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 0);
 		MonsterType = BATORI_TYPE;
 
-		if (pMasterItem == NULL )
+		if ( pMasterItem == NULL )
 		{
 			pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 2);
 			MonsterType = TEPEZ_TYPE;
-			if (pMasterItem == NULL )
+			if ( pMasterItem == NULL )
 			{
 				pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //질드레 비쥬
 				MonsterType = GDR_TYPE;
@@ -144,7 +144,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		{
 			pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 3);
 			MonsterType = TEPEZ_TYPE;
-			if (pMasterItem == NULL )
+			if ( pMasterItem == NULL )
 			{
 				pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //질드레 펜던트
 				MonsterType = GDR_TYPE;
@@ -155,25 +155,25 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	else if (m_Type == 2) // 브리콜라카스, 비쥬
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 2);
-//		if (pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //질드레 비쥬
+//		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //질드레 비쥬
 		MonsterType = TEPEZ_TYPE;
 	}
 	else if (m_Type == 3) // 브리콜라카스, 팬던트
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 3);
-//		if (pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //질드레 펜던트
+//		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //질드레 펜던트
 		MonsterType = TEPEZ_TYPE;
 	}
 	else if (m_Type == 4) // 카임, 비쥬
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 0);
-//		if (pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //질드레 비쥬
+//		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 8); //질드레 비쥬
 		MonsterType = BATORI_TYPE;
 	}
 	else if (m_Type == 5) // 카임, 팬던트
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 1);
-//		if (pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //질드레 펜던트
+//		if ( pMasterItem == NULL ) pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 9); //질드레 펜던트
 		MonsterType = BATORI_TYPE;
 	}
 	else if (m_Type == 10) // 질드레, 비쥬
@@ -198,99 +198,99 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 5);
 		ItemMineInfo* pItemMineInfo;
 
-		if (pPC->isSlayer() )
+		if ( pPC->isSlayer() )
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-			Assert(pSlayer != NULL);
+			Assert( pSlayer != NULL );
 
 			Attr_t totalAttr = pSlayer->getTotalAttr(ATTR_BASIC);
 
-			if (totalAttr <= 130 )	// 하드코딩 ㅜ.ㅠ
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(0);
-			else if (totalAttr <= 210 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(1);
-			else if (totalAttr <= 270 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(2);
-			else if (totalAttr <= 300 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(3);
+			if ( totalAttr <= 130 )	// 하드코딩 ㅜ.ㅠ
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 0 );
+			else if ( totalAttr <= 210 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 1 );
+			else if ( totalAttr <= 270 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 2 );
+			else if ( totalAttr <= 300 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 3 );
 			else
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(4);
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 4 );
 		}
-		else if (pPC->isVampire() )
+		else if ( pPC->isVampire() )
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-			Assert(pVampire != NULL);
+			Assert( pVampire != NULL );
 
 			Level_t level = pVampire->getLevel();
 
-			if (level <= 20 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(5);
-			else if (level <= 40 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(6);
-			else if (level <= 60 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(7);
-			else if (level <= 90 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(8);
+			if ( level <= 20 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 5 );
+			else if ( level <= 40 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 6 );
+			else if ( level <= 60 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 7 );
+			else if ( level <= 90 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 8 );
 			else
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(9);
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 9 );
 		}
-		else if (pPC->isOusters() )
+		else if ( pPC->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-			Assert(pOusters != NULL);
+			Assert( pOusters != NULL );
 
 			Level_t level = pOusters->getLevel();
 
-			if (level <= 20 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(10);
-			else if (level <= 40 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(11);
-			else if (level <= 60 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(12);
-			else if (level <= 90 )
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(13);
+			if ( level <= 20 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 10 );
+			else if ( level <= 40 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 11 );
+			else if ( level <= 60 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 12 );
+			else if ( level <= 90 )
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 13 );
 			else
-				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo(14);
+				pItemMineInfo = g_pItemMineInfoManager->getItemMineInfo( 14 );
 		}
 		else Assert(false);
 
 		pItem1 = pItemMineInfo->getItem();
-		setItemGender(pItem1, (pPC->getSex()==FEMALE)?GENDER_FEMALE:GENDER_MALE);
+		setItemGender( pItem1, (pPC->getSex()==FEMALE)?GENDER_FEMALE:GENDER_MALE );
 	}
 	else if (m_Type == 8) // 그믐달~
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 6);
 
-		if (pPC->isSlayer() )
+		if ( pPC->isSlayer() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(15, 32);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 15, 32 );
 		}
-		else if (pPC->isVampire() )
+		else if ( pPC->isVampire() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(33, 45);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 33, 45 );
 		}
-		else if (pPC->isOusters() )
+		else if ( pPC->isOusters() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(46, 61);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 46, 61 );
 		}
 
-		setItemGender(pItem1, (pPC->getSex()==FEMALE)?GENDER_FEMALE:GENDER_MALE);
+		setItemGender( pItem1, (pPC->getSex()==FEMALE)?GENDER_FEMALE:GENDER_MALE );
 	}
 	else if (m_Type == 9) // 빨간색 복주머니
 	{
 		pMasterItem = pInventory->findItem(Item::ITEM_CLASS_QUEST_ITEM, 7);
 
-		if (pPC->isSlayer() )
+		if ( pPC->isSlayer() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(62, 81);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 62, 81 );
 		}
-		else if (pPC->isVampire() )
+		else if ( pPC->isVampire() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(82, 96);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 82, 96 );
 		}
-		else if (pPC->isOusters() )
+		else if ( pPC->isOusters() )
 		{
-			pItem1 = g_pItemMineInfoManager->getRandomItem(97, 112);
+			pItem1 = g_pItemMineInfoManager->getRandomItem( 97, 112);
 		}
 	}
 	else
@@ -298,7 +298,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		// 거래를 위한 NPC의 Property가 잘못되었다. 이런 경우에는
 		// 운영팀으로 문의를 하면 바로 처리를 할 수 있다.
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NPC_ERROR ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NPC_ERROR ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 
 		GCNPCResponse response;
@@ -310,7 +310,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 	if (pMasterItem == NULL)
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_LAIR_ITEM ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_LAIR_ITEM ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 
 		GCNPCResponse response;
@@ -322,10 +322,10 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 
 	Zone* pZone = pPC->getZone();
 
-//	if (MonsterType != 0 ) // 루팅표를 참조해서 아이템을 만들어오는 경우
-	if (pItem1 == NULL )
+//	if ( MonsterType != 0 ) // 루팅표를 참조해서 아이템을 만들어오는 경우
+	if ( pItem1 == NULL )
 	{
-		QuestItemInfo* pItemInfo = dynamic_cast<QuestItemInfo*>(g_pQuestItemInfoManager->getItemInfo(pMasterItem->getItemType() ));
+		QuestItemInfo* pItemInfo = dynamic_cast<QuestItemInfo*>(g_pQuestItemInfoManager->getItemInfo( pMasterItem->getItemType() ));
 		Assert(pItemInfo!=NULL);
 
 		///////////////////////////////////////////////////////////////////////////////
@@ -362,11 +362,11 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 
 			//cout << "TradeLairItem: BonusRatio = " << it.NextOptionRatio << endl;
 
-			if (pTreasure->getRandomItem(&it) )
+			if ( pTreasure->getRandomItem(&it) )
 			{
-/*				if (bUpgrade && isPossibleUpgradeItemType(it.ItemClass ) )
+/*				if ( bUpgrade && isPossibleUpgradeItemType( it.ItemClass ) )
 				{
-					it.ItemType = getUpgradeItemType(it.ItemClass, it.ItemType, 1);
+					it.ItemType = getUpgradeItemType( it.ItemClass, it.ItemType, 1 );
 				}
 */
 				pItem1 = g_pItemFactoryManager->createItem(it.ItemClass, it.ItemType, it.OptionType);
@@ -386,7 +386,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 			filelog("tradeLairItemBUG.txt", "%s", msg.toString().c_str());
 
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage(g_pStringPool->getString(STRID_ITEM_CREATE_ERROR ));
+			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_ITEM_CREATE_ERROR ) );
 			pPlayer->sendPacket(&gcSystemMessage);
 
 			GCNPCResponse response;
@@ -399,7 +399,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 
 	TPOINT pt;
 
-	pItem1->setGrade(min(7,ItemGradeManager::Instance().getRandomBeadGrade()));
+	pItem1->setGrade( min(7,ItemGradeManager::Instance().getRandomBeadGrade()) );
 	pZone->registerObject(pItem1);
 
 	// 만약 inventory에 공간이 있다면, 넣는다. 
@@ -416,16 +416,16 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		gcCreateItem.setItemNum(pItem1->getNum());
 		gcCreateItem.setInvenX(pt.x);
 		gcCreateItem.setInvenY(pt.y);
-		gcCreateItem.setGrade(pItem1->getGrade());*/
+		gcCreateItem.setGrade( pItem1->getGrade() );*/
 
-		makeGCCreateItem(&gcCreateItem, pItem1, pt.x, pt.y);
+		makeGCCreateItem( &gcCreateItem, pItem1, pt.x, pt.y );
 
 		pPlayer->sendPacket(&gcCreateItem);
 
 		// ItemTraceLog 를 남긴다
-		if (pItem1 != NULL && pItem1->isTraceItem() )
+		if ( pItem1 != NULL && pItem1->isTraceItem() )
 		{
-			remainTraceLog(pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+			remainTraceLog( pItem1, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 		}
 
 		// 기존의 아이템을 없앤다
@@ -436,9 +436,9 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 		// 서버에서 없애준다.
 		pInventory->deleteItem(pMasterItem->getObjectID());	// 좌표로 바꿔주면 좋을건데..
 		// ItemTraceLog 를 남긴다
-		if (pMasterItem != NULL && pMasterItem->isTraceItem() )
+		if ( pMasterItem != NULL && pMasterItem->isTraceItem() )
 		{
-			remainTraceLog(pMasterItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_DELETE, DETAIL_EVENTNPC);
+			remainTraceLog( pMasterItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_DELETE, DETAIL_EVENTNPC);
 		}
 		pMasterItem->destroy();
 		SAFE_DELETE(pMasterItem);
@@ -447,7 +447,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 //		StringStream message;
 //		message << "성공적으로 교환되었습니다";
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_TRADE_SUCCESS ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_TRADE_SUCCESS ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 	}
 	else
@@ -456,7 +456,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 //		buf << "인벤토리에 공간이 부족합니다";
 
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NOT_ENOUGH_INVENTORY_SPACE ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NOT_ENOUGH_INVENTORY_SPACE ) );
 		pPlayer->sendPacket(&gcSystemMessage);
 	}
 
@@ -472,7 +472,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeLairItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

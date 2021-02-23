@@ -9,8 +9,6 @@
 
 #include "SkillHandler.h"
 
-#include <map>
-
 //////////////////////////////////////////////////////////////////////////////
 // class DuplicateSelf;
 //////////////////////////////////////////////////////////////////////////////
@@ -33,7 +31,7 @@ public:
 
 private :
 	// [원래MType] = 분신MType
-	map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
+	hash_map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
 };
 
 // global variable declaration

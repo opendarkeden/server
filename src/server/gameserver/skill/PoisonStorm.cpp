@@ -8,14 +8,14 @@
 #include "EffectPoisonStorm.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -41,7 +41,7 @@ void PoisonStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -95,10 +95,10 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
 		// Knowledge of Poison 이 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -129,12 +129,12 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			computeOutput(input, output);
 
 			// Disruption Storm 이 있다면 데미지 20% 증가
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_DISRUPTION_STORM ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_DISRUPTION_STORM );
+				Assert( pRankBonus != NULL );
 
-				output.Damage += getPercentValue(output.Damage, pRankBonus->getPoint());
+				output.Damage += getPercentValue( output.Damage, pRankBonus->getPoint() );
 			}
 
 			Range_t Range = 3;
@@ -154,7 +154,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			pEffect->setNextTime(0);
 			pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);
-			pEffect->setUserObjectID(pVampire->getObjectID());
+			pEffect->setUserObjectID( pVampire->getObjectID() );
 			pEffect->setLevel(pSkillInfo->getLevel()/2);
 			pEffect->setVampire();
 
@@ -182,13 +182,13 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			int edge = 1;
 
 			// Wide Storm 이 있다면 범위가 5*5 로 수정. skill type 을 수정한다.
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WIDE_STORM ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WIDE_STORM ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WIDE_STORM);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WIDE_STORM );
+				Assert( pRankBonus != NULL );
 
 				Range = pRankBonus->getPoint();
-				edge = (pRankBonus->getPoint() - 1 ) / 2;
+				edge = ( pRankBonus->getPoint() - 1 ) / 2;
 
 				SkillType = SKILL_POISON_STORM_WIDE;
 			}
@@ -214,7 +214,7 @@ void PoisonStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 				if(pTargetCreature != NULL)
 				{
 					// 2003. 1. 10. Sequoia
-					if(!checkZoneLevelToHitTarget(pTargetCreature ) ) continue;
+					if( !checkZoneLevelToHitTarget( pTargetCreature ) ) continue;
 
 					if(pTargetCreature->isSlayer()||pTargetCreature->isOusters())
 					{
@@ -381,7 +381,7 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			pEffect->setNextTime(0);
 			pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);
-			pEffect->setUserObjectID(pMonster->getObjectID());
+			pEffect->setUserObjectID( pMonster->getObjectID() );
 			pEffect->setLevel(pSkillInfo->getLevel()/2);
 
 			//
@@ -423,10 +423,10 @@ void PoisonStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
 				if(pTargetCreature != NULL
-					&& pMonster->isEnemyToAttack(pTargetCreature ))
+					&& pMonster->isEnemyToAttack( pTargetCreature ))
 				{
 					// 2003.1.10 by Sequoia
-					if(!checkZoneLevelToHitTarget(pTargetCreature ) ) continue;
+					if( !checkZoneLevelToHitTarget( pTargetCreature ) ) continue;
 
 					if(pTargetCreature->isPC())
 					{

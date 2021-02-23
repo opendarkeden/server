@@ -21,7 +21,7 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
@@ -32,16 +32,16 @@
 
 #include <stdio.h>
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterGDRLair::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionEnterGDRLair::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -72,12 +72,12 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	ZoneID_t zoneID;
 	ZoneCoord_t X, Y;
 
-	if (m_PortalID == GDRLairManager::Instance().getCorrectPortal() )
+	if ( m_PortalID == GDRLairManager::Instance().getCorrectPortal() )
 	{
 		zoneID = 1412;
 		X = 142;
@@ -94,7 +94,7 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -114,11 +114,11 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE ) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER ) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -134,51 +134,51 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 
 	if (bTransport)
 	{
-		if (pPC->isSlayer() )
+		if ( pPC->isSlayer() )
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-			Assert(pSlayer != NULL);
+			Assert( pSlayer != NULL );
 
 			// 오토바이를 타고 있으면 오토바이에서 내린다.
-			if (pSlayer->hasRideMotorcycle() )
+			if ( pSlayer->hasRideMotorcycle() )
 			{
 				pSlayer->getOffMotorcycle();
 			}
 		}
 
-		if (pPC->isOusters() )
+		if ( pPC->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-			Assert(pOusters != NULL);
+			Assert( pOusters != NULL );
 
 			// 실프 타고 있으면 내려준다
-			if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
+			if ( pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 			{
 				Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_SUMMON_SYLPH);
-				if (pEffect != NULL ) pEffect->setDeadline(0);
+				if ( pEffect != NULL ) pEffect->setDeadline(0);
 			}
 		}
 
-		if (pPC->isVampire() )
+		if ( pPC->isVampire() )
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-			Assert(pVampire != NULL);
+			Assert( pVampire != NULL );
 
-			if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
+			if ( pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
 			{
-				addUntransformCreature(pVampire->getZone(), pVampire, true);
+				addUntransformCreature( pVampire->getZone(), pVampire, true );
 			}
 		}
 
 		Effect* pEffect = pPC->findEffect(Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR);
-		if (pEffect != NULL ) pEffect->setDeadline(0);
+		if ( pEffect != NULL ) pEffect->setDeadline(0);
 
 		transportCreature(pCreature, zoneID, X, Y, true);
 	}
 	else
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER ) );
 		pGamePlayer->sendPacket (&gcSystemMessage);
 	}
 
@@ -191,7 +191,7 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterGDRLair::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

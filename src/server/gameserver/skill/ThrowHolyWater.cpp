@@ -10,11 +10,11 @@
 
 #include "item/HolyWater.h"
 
-#include "GCThrowItemOK1.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCThrowItemOK2.h"
-#include "GCThrowItemOK3.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCThrowItemOK1.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCThrowItemOK2.h"
+#include "Gpackets/GCThrowItemOK3.h"
+#include "Gpackets/GCModifyInformation.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -114,7 +114,7 @@ void ThrowHolyWater::execute(Slayer* pSlayer , ObjectID_t TargetObjectID, Object
 			bool bHitRoll        = HitRoll::isSuccess(pSlayer, pTargetCreature);
 			bool bPK             = verifyPK(pSlayer, pTargetCreature);
 			bool bRangeCheck     = verifyDistance(pSlayer, pTargetCreature, 10);
-			bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature) && canAttack(pSlayer, pTargetCreature);
+			bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature) && canAttack( pSlayer, pTargetCreature );
 
 			// 명중 되었다면, 데미지를 준다..
 			// 명중이 되지 않아도 성수는 한번 던지면 끝이다.
@@ -129,8 +129,8 @@ void ThrowHolyWater::execute(Slayer* pSlayer , ObjectID_t TargetObjectID, Object
 					// 2003. 1. 12 by bezz
 					// Throw Holy Water 의 SkillInfo 가 없다.
 					// 그래서 Create Holy Water 의 Point 를 쓴다.
-					SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SKILL_CREATE_HOLY_WATER);
-					increaseDomainExp(pSlayer, SKILL_DOMAIN_ENCHANT, pSkillInfo->getPoint(), gcAttackerMI, pTargetCreature->getLevel());
+					SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo( SKILL_CREATE_HOLY_WATER );
+					increaseDomainExp( pSlayer, SKILL_DOMAIN_ENCHANT, pSkillInfo->getPoint(), gcAttackerMI, pTargetCreature->getLevel() );
 				}
 
 				if (pTargetCreature->isSlayer()) 

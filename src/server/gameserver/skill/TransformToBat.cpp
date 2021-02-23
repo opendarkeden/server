@@ -14,23 +14,20 @@
 #include "CreatureUtil.h"
 #include "GamePlayer.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
-#include "GCAddBat.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddBat.h"
 #include "GDRLairManager.h"
 #include "SiegeManager.h"
 #include "GQuestManager.h"
 #include "DynamicZone.h"
 
-#include "item/SubInventory.h"
-#include "TradeManager.h"
-
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, ObjectID_t InventoryItemObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
+void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -50,29 +47,6 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Object
 		Assert(pInventory != NULL);
 		Assert(pZone != NULL);
 
-		SubInventory* pInventoryItem = NULL;
-		int invenID = 0;
-
-		if (InventoryItemObjectID != 0 )
-		{
-			//cout << "서브 인벤토리에서 사용 : " << InventoryItemObjectID << endl;
-			CoordInven_t X, Y;
-			pInventoryItem = dynamic_cast<SubInventory*>(pInventory->findItemOID(InventoryItemObjectID, X, Y ));
-
-			TradeManager* pTradeManager = pZone->getTradeManager();
-			Assert(pTradeManager != NULL);
-
-			if (pInventoryItem == NULL || pTradeManager->hasTradeInfo(pVampire->getName()) )
-			{
-				//cout << "근데 서브 인벤토리가 없다." <<endl;
-				executeSkillFailException(pVampire, getSkillType());
-				return;
-			}
-
-			pInventory = pInventoryItem->getInventory();
-			invenID = pInventoryItem->getItemID();
-		}
-
 		Item* pItem = pInventory->getItem(X, Y);
 		// 적당한 아이템이 아니라면 당연히 변신할 수 없다.
 		// PK존이라면 변신할 수 없다.
@@ -80,8 +54,8 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Object
 			|| pItem->getItemClass() != Item::ITEM_CLASS_VAMPIRE_ETC 
 			|| pItem->getItemType() != 1
 			|| pVampire->hasRelicItem()
-			|| g_pPKZoneInfoManager->isPKZone(pZone->getZoneID() )
-			|| pVampire->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET )
+			|| g_pPKZoneInfoManager->isPKZone( pZone->getZoneID() )
+			|| pVampire->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET )
 			|| GDRLairManager::Instance().isGDRLairZone(pZone->getZoneID())
 			|| SiegeManager::Instance().isSiegeZone(pZone->getZoneID())
 			|| (pZone->isDynamicZone() && pZone->getDynamicZone()->getTemplateZoneID() == 4002 )
@@ -104,10 +78,10 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Object
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -172,16 +146,16 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Object
 
 				pVampire->setMoveMode(Creature::MOVE_MODE_FLYING);
 				newtile.addCreature(pVampire);
-				pVampire->setXYDir(pt.x, pt.y, pVampire->getDir());
+				pVampire->setXYDir(pt.x, pt.y, pVampire->getDir() );
 
-				decreaseItemNum(pItem, pInventory, pVampire->getName(), STORAGE_INVENTORY, invenID, X, Y);
+				decreaseItemNum(pItem, pInventory, pVampire->getName(), STORAGE_INVENTORY, 0, X, Y);
 
 				pSkillSlot->setRunTime(output.Delay);
 
-				if (pVampire->getPetInfo() != NULL )
+				if ( pVampire->getPetInfo() != NULL )
 				{
 					pVampire->setPetInfo(NULL);
-					sendPetInfo(dynamic_cast<GamePlayer*>(pVampire->getPlayer()), true);
+					sendPetInfo( dynamic_cast<GamePlayer*>(pVampire->getPlayer()), true );
 				}
 
 				pVampire->getGQuestManager()->rideMotorcycle();
@@ -270,7 +244,7 @@ void TransformToBat::execute(Monster* pMonster)
 			Tile& newtile = pZone->getTile(pt.x, pt.y);
 
 			newtile.addCreature(pMonster);
-			pMonster->setXYDir(pt.x, pt.y, pMonster->getDir());
+			pMonster->setXYDir(pt.x, pt.y, pMonster->getDir() );
 
 		} 
 		else 

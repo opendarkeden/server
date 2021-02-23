@@ -10,49 +10,49 @@
 #include "SocketOutputStream.h"
 
 CBillingPacketResponseIntervalValidationBody::CBillingPacketResponseIntervalValidationBody()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	memset(this, 0, szCBillingPacketResponseIntervalValidationBodyInfo);
+	memset( this, 0, szCBillingPacketResponseIntervalValidationBodyInfo );
 
 	__END_CATCH
 }
 
-void CBillingPacketResponseIntervalValidationBody::read(SocketInputStream& iStream )
-	throw(ProtocolException, Error )
+void CBillingPacketResponseIntervalValidationBody::read( SocketInputStream& iStream )
+	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
 	CBillingPacketResponseIntervalValidationBodyInfo* pInfo = this;
 
-	iStream.read((char*)pInfo, szCBillingPacketResponseIntervalValidationBodyInfo);
+	iStream.read( (char*)pInfo, szCBillingPacketResponseIntervalValidationBodyInfo );
 
 	__END_CATCH
 }
 
-void CBillingPacketResponseIntervalValidationBody::write(SocketOutputStream& oStream )
-	throw(ProtocolException, Error )
+void CBillingPacketResponseIntervalValidationBody::write( SocketOutputStream& oStream )
+	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
 	const CBillingPacketResponseIntervalValidationBodyInfo* pInfo = this;
-	oStream.write((const char*)pInfo, szCBillingPacketResponseIntervalValidationBodyInfo);
+	oStream.write( (const char*)pInfo, szCBillingPacketResponseIntervalValidationBodyInfo );
 
 	__END_CATCH
 }
 
 string CBillingPacketResponseIntervalValidationBody::toString() const
-	throw()
+	throw ()
 {
 	char str[128];
 	StringStream msg;
 	msg << "ResponseIntervalValidationBody(";
 
-	memcpy(str, Parameter_Name, 64); str[64] = '\0';
+	memcpy( str, Parameter_Name, 64 ); str[64] = '\0';
 	msg << "Parameter_Name:" << str;
 
-	memcpy(str, Parameter_Value, 64); str[64] = '\0';
+	memcpy( str, Parameter_Value, 64 ); str[64] = '\0';
 	msg << ",Parameter_Value:" << str
 		<< ")";
 

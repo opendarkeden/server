@@ -8,8 +8,6 @@
 #define __EFFECT_DECAY_ITEM_H__
 
 #include "Effect.h"
-#include "Motorcycle.h"
-#include "Slayer.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectCallMotorcycle;
@@ -39,7 +37,6 @@ public:
 	virtual void unaffect(Creature* pCreature) throw(Error);
 	virtual void unaffect(Item* pItem = NULL) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__);}	
 	virtual void unaffect(Zone* pZone, Zone* pTargetZone, ZoneCoord_t TargetX, ZoneCoord_t TargetY, Object* pTarget) throw(Error);
-    virtual void unaffect (Motorcycle* pMotorcycle, Slayer* pSlayer) throw(Error);
 
 	virtual void create(const string & ownerID) throw(Error) {}
 	virtual void save(const string & ownerID) throw(Error) {}

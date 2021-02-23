@@ -8,15 +8,15 @@
 
 #include "Visible.h"
 #include "EffectInvisibility.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ void Visible::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot 
 						bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 						bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 
-						if(bHitRoll && bEffected ) {
+						if( bHitRoll && bEffected ) {
 							// 주위에 GCAddXXX를 보내고, effect manager에서 effect를 삭제하고, GCRemoveEffect를 보낸다.
 							addVisibleCreature(pZone, pTargetCreature, true);
 
@@ -112,7 +112,7 @@ void Visible::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot 
 							Assert(pTargetPlayer != NULL);
 							pTargetPlayer->sendPacket(&_GCSkillToTileOK2);
 
-							cList.push_back(pTargetCreature);
+							cList.push_back( pTargetCreature );
 
 							bHit = true;
 						}
@@ -127,7 +127,7 @@ void Visible::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot 
 			// EXP UP!
 			Exp_t Point = pSkillInfo->getPoint();
 
-			if(bHit ) {
+			if( bHit ) {
 				shareAttrExp(pSlayer, Point, 1, 1, 8, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
@@ -282,7 +282,7 @@ void Visible::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 						bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 						bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 
-						if(bHitRoll && bEffected ) {
+						if( bHitRoll && bEffected ) {
 							// 주위에 GCAddXXX를 보내고, effect manager에서 effect를 삭제하고, GCRemoveEffect를 보낸다.
 							addVisibleCreature(pZone, pTargetCreature, true);
 
@@ -297,7 +297,7 @@ void Visible::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 							Assert(pTargetPlayer != NULL);
 							pTargetPlayer->sendPacket(&_GCSkillToTileOK2);
 
-							cList.push_back(pTargetCreature);
+							cList.push_back( pTargetCreature );
 
 							bHit = true;
 						}
@@ -309,7 +309,7 @@ void Visible::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * p
 			// EXP UP!
 			Exp_t Point = pSkillInfo->getPoint();
 
-			if(bHit ) {
+			if( bHit ) {
 				shareAttrExp(pSlayer, Point, 1, 1, 8, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType,  pSkillSlot, pSkillInfo, _GCSkillToTileOK1);

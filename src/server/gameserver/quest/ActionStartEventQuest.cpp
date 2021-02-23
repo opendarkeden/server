@@ -15,7 +15,7 @@
 #include "mission/QuestInfoManager.h"
 #include "mission/EventQuestAdvance.h"
 #include "mission/RewardClassInfoManager.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include <algorithm>
 
@@ -23,7 +23,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionStartEventQuest::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -44,7 +44,7 @@ void ActionStartEventQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionStartEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -54,34 +54,34 @@ void ActionStartEventQuest::execute (Creature * pCreature1 , Creature * pCreatur
 	Assert(pCreature2->isPC());
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCNPCResponse gcNPCResponse;
 
-	gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
+	gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
 
 	QuestInfoManager* pQIM = pNPC->getQuestInfoManager();
-	if (pQIM == NULL )
+	if ( pQIM == NULL )
 	{
-		gcNPCResponse.setParameter(START_FAIL_CANNOT_APPLY_QUEST);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
-		gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setParameter( START_FAIL_CANNOT_APPLY_QUEST );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
+		gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 		return;
 	}
 
 	vector<QuestID_t> qList;
-	pQIM->getEventQuestIDs(m_QuestLevel, pPC, back_inserter(qList));
-	if (qList.empty() )
+	pQIM->getEventQuestIDs( m_QuestLevel, pPC, back_inserter(qList) );
+	if ( qList.empty() )
 	{
-		gcNPCResponse.setParameter(START_FAIL_CANNOT_APPLY_QUEST);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
-		gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-		pPC->getPlayer()->sendPacket(&gcNPCResponse);
+		gcNPCResponse.setParameter( START_FAIL_CANNOT_APPLY_QUEST );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
+		gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+		pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 		return;
 	}
@@ -90,14 +90,14 @@ void ActionStartEventQuest::execute (Creature * pCreature1 , Creature * pCreatur
 	//cout << "Start Event Quest : " << qID << "... " << pPC->getName() << endl;
 
 	pPC->getQuestManager()->adjustQuestStatus();
-	QuestMessage result = pQIM->startQuest(qID, pPC);
-//	gcNPCResponse.setParameter((uint)result);
+	QuestMessage result = pQIM->startQuest( qID, pPC );
+//	gcNPCResponse.setParameter( (uint)result );
 
-//	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+//	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 	pPC->sendCurrentQuestInfo();
 
-	gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 	__END_CATCH
 }
@@ -107,7 +107,7 @@ void ActionStartEventQuest::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionStartEventQuest::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

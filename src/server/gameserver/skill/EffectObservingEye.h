@@ -30,7 +30,7 @@ public:
 	void unaffect() throw(Error); 
 	void unaffect(Item* pItem) throw(Error) {}
 
-	bool canSeeInvisibility(Creature* pTarget ) const throw(Error);
+	bool canSeeInvisibility( Creature* pTarget ) const throw(Error);
 
 	string toString() const throw();
 
@@ -44,7 +44,7 @@ public:
 	int getVisionBonus(void) const { return m_VisionBonus; }
 	void setVisionBonus(int bonus) { m_VisionBonus = bonus; }
 
-	void setSkillLevel(ExpLevel_t level ) throw() { m_SkillLevel = level; }
+	void setSkillLevel( ExpLevel_t level ) throw() { m_SkillLevel = level; }
 
 private :
 	int m_DamageBonus;

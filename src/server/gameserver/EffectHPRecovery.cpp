@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EffectHPRecovery.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Zone.h"
 #include "DB.h"
 #include "Slayer.h"
@@ -14,12 +14,12 @@
 #include "Player.h"
 #include "Creature.h"
 
-#include "GCHPRecoveryEndToSelf.h"
-#include "GCHPRecoveryEndToOthers.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCHPRecoveryEndToSelf.h"
+#include "Gpackets/GCHPRecoveryEndToOthers.h"
+#include "Gpackets/GCModifyInformation.h"
 
 EffectHPRecovery::EffectHPRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ EffectHPRecovery::EffectHPRecovery ()
 }
 
 EffectHPRecovery::EffectHPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -45,7 +45,7 @@ EffectHPRecovery::EffectHPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 }
 
 EffectHPRecovery::~EffectHPRecovery () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -183,22 +183,22 @@ void EffectHPRecovery::affect(Creature* pCreature)
 
 			// 한 턴에 얼마나 회복 시킬 것인가.
 			HP_t CurrentHP = pOusters->getHP(ATTR_CURRENT);
-			HP_t NewHP     = min((int)(pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage()), (int)(CurrentHP + (m_HPQuantity * (m_Period - RecoveryPeriod))));
+			HP_t NewHP     = min( (int)(pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage()), (int)(CurrentHP + ( m_HPQuantity * (m_Period - RecoveryPeriod))));
 
 			pOusters->setHP(NewHP, ATTR_CURRENT);
 
 			// 은 데미지를 치료한다.
-/*			if (pOusters->getSilverDamage() > 0 )
+/*			if ( pOusters->getSilverDamage() > 0 )
 			{
-				Silver_t silverRecovery  = max(1, m_HPQuantity / 2);
-				Silver_t newSilverDamage = max(0, (int)(pOusters->getSilverDamage() - silverRecovery));
+				Silver_t silverRecovery  = max( 1, m_HPQuantity / 2 );
+				Silver_t newSilverDamage = max( 0, (int)(pOusters->getSilverDamage() - silverRecovery));
 
 				pOusters->saveSilverDamage(newSilverDamage);
 
 				GCModifyInformation GCMI;
-				GCMI.addShortData(MODIFY_SILVER_DAMAGE, newSilverDamage);
+				GCMI.addShortData( MODIFY_SILVER_DAMAGE, newSilverDamage );
 
-				pOusters->getPlayer()->sendPacket(&GCMI);
+				pOusters->getPlayer()->sendPacket( &GCMI );
 			}*/
 		} 
 		else
@@ -214,7 +214,7 @@ void EffectHPRecovery::affect(Creature* pCreature)
 }
 
 void EffectHPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -331,14 +331,14 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectHPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string EffectHPRecovery::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

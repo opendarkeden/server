@@ -18,16 +18,16 @@ public :
 	virtual Race_t 	getRace() const = 0;
 	virtual string 	getTableName() const = 0;
 
-	void	clearCurrent() throw(Error);
+	void	clearCurrent() throw (Error);
 
-	void	load() throw(Error);
+	void	load() throw (Error);
 
-	virtual LevelLimitInfo* getLimitInfo(PlayerCreature* pPC) throw(Error) = 0;
+	virtual LevelLimitInfo* getLimitInfo(PlayerCreature* pPC) throw (Error) = 0;
 
-	bool 	join(PlayerCreature* pPC) throw(Error);
-	bool	leave(PlayerCreature* pPC) throw(Error);
+	bool 	join(PlayerCreature* pPC) throw (Error);
+	bool	leave(PlayerCreature* pPC) throw (Error);
 
-	void    saveCurrent(const LevelLimitInfo* pLI) const throw(Error);
+	void    saveCurrent(const LevelLimitInfo* pLI) const throw (Error);
 };
 
 
@@ -44,7 +44,7 @@ public :
 	Race_t 			getRace() const			{ return RACE_SLAYER; }
 	string 			getTableName() const 	{ return "RaceWarPCLimit"; }
 
-	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw(Error);
+	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw (Error);
 };
 
 //--------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ public :
 	Race_t 			getRace() const			{ return RACE_VAMPIRE; }
 	string 			getTableName() const 	{ return "RaceWarPCLimit"; }
 
-	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw(Error);
+	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw (Error);
 };
 //--------------------------------------------------------------------------------
 //
@@ -75,7 +75,7 @@ public :
 	Race_t 			getRace() const			{ return RACE_OUSTERS; }
 	string 			getTableName() const 	{ return "RaceWarPCLimit"; }
 
-	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw(Error);
+	LevelLimitInfo*	getLimitInfo(PlayerCreature* pPC) throw (Error);
 };
 
 //--------------------------------------------------------------------------------
@@ -92,20 +92,20 @@ public :
 		return &RWL;
 	}
 
-	void			clearCurrent() throw(Error);
+	void			clearCurrent() throw (Error);
 
-	void			load() throw(Error);
+	void			load() throw (Error);
 
-	bool			join(PlayerCreature* pPC) throw(Error);
-	bool			leave(PlayerCreature* pPC) throw(Error);
+	bool			join(PlayerCreature* pPC) throw (Error);
+	bool			leave(PlayerCreature* pPC) throw (Error);
 
-	LevelLimitInfo*	getLimitInfo(Race_t race, int index) throw(Error);
+	LevelLimitInfo*	getLimitInfo(Race_t race, int index) throw (Error);
 
 	// 전쟁 참가자 리스트
-	static void		clearPCList() throw(Error);
-	static void		addPCList(PlayerCreature* pPC) throw(Error);
+	static void		clearPCList() throw (Error);
+	static void		addPCList(PlayerCreature* pPC) throw (Error);
 	static bool     isInPCList(PlayerCreature* pPC) throw(Error);
-	static void		removePCList(PlayerCreature* pPC) throw(Error);
+	static void		removePCList(PlayerCreature* pPC) throw (Error);
 
 private :
 	SlayerWarLimiter	m_SlayerWarLimiter;

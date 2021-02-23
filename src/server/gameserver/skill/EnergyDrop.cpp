@@ -27,14 +27,14 @@
 #include "EffectEnergyDrop.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -60,7 +60,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* 
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -145,10 +145,10 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 			computeOutput(input, output);
 
 			// Holy Smashing 이 있다면 데미지 10% 증가
-			if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING ) )
+			if ( pSlayer->hasRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING ) )
 			{
-				RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pSlayer->getRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING );
+				Assert( pRankBonus != NULL );
 
 				output.Damage += pRankBonus->getPoint();
 			}
@@ -168,7 +168,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 			//cout << "make EffectObject to Tile" << X << " " << Y << endl;
 			pEffect = new EffectEnergyDrop(pZone, X, Y);
 
-			pEffect->setUserObjectID(pSlayer->getObjectID());
+			pEffect->setUserObjectID( pSlayer->getObjectID() );
 //			pEffect->setCasterName(pSlayer->getName());
 //			pEffect->setPartyID(pSlayer->getPartyID());
 			pEffect->setDeadline(output.Duration);
@@ -187,11 +187,11 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 			//tile.addEffect(pEffect);
 			// 이펙트 오브젝트를 생성해서 타일에 붙인다. 
 			pEffect2 = new EffectEnergyDrop(pZone, X, Y);
-			pEffect2->setUserObjectID(pSlayer->getObjectID());
+			pEffect2->setUserObjectID( pSlayer->getObjectID() );
 			pEffect2->setDeadline(output.Duration);
 			pEffect2->setNextTime(0);
 			pEffect2->setTick(output.Tick);
-			pEffect2->setDamage(output.Damage * 30 / 100);
+			pEffect2->setDamage(output.Damage * 30 / 100 );
 			pEffect2->setLevel(pSkillInfo->getLevel()/2);
 
 			// 이펙트 범위내의 모든 Creature에게 effect를 붙여준다.
@@ -226,10 +226,10 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
 				EffectEnergyDrop * pTempEffect = NULL;
 
-				if(oX == 2 || oX == -2 || oY == 2 || oY == -2 ) pTempEffect = pEffect2;
+				if( oX == 2 || oX == -2 || oY == 2 || oY == -2 ) pTempEffect = pEffect2;
 				else pTempEffect = pEffect;
 
-				if(pTargetCreature != NULL && canAttack(pSlayer, pTargetCreature ))
+				if(pTargetCreature != NULL && canAttack( pSlayer, pTargetCreature ))
 				{
 					if(pTargetCreature->isVampire()||pTargetCreature->isOusters())
 					{
@@ -241,7 +241,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 
 							bHit = true;
 
-							if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+							if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 							EnemyNum++;
 
 							bool bCanSee = canSee(pTargetCreature, pSlayer);
@@ -276,7 +276,7 @@ void EnergyDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlo
 							//cout << "EnergyDrop to Monster Success" << endl;
 							bHit = true;
 
-							if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+							if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 							EnemyNum++;
 
 							Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
@@ -455,7 +455,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			pEffect2->setDeadline(output.Duration);
 			pEffect2->setNextTime(0);
 			pEffect2->setTick(output.Tick);
-			pEffect2->setDamage(output.Damage * 30 / 100);
+			pEffect2->setDamage(output.Damage * 30 / 100 );
 			pEffect2->setLevel(pSkillInfo->getLevel()/2);
 
 
@@ -479,7 +479,7 @@ void EnergyDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 				EffectEnergyDrop * pTempEffect = NULL;
 
-				if(oX == 2 || oX == -2 || oY == 2 || oY == -2 ) pTempEffect = pEffect2;
+				if( oX == 2 || oX == -2 || oY == 2 || oY == -2 ) pTempEffect = pEffect2;
 				else pTempEffect = pEffect;
 
 				if (!rect.ptInRect(tileX, tileY)) continue;

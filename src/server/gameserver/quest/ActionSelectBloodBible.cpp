@@ -13,13 +13,13 @@
 #include "BloodBibleBonus.h"
 #include "BloodBibleBonusManager.h"
 
-#include "GCBloodBibleList.h"
+#include "Gpackets/GCBloodBibleList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSelectBloodBible::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionSelectBloodBible::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSelectBloodBible::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -50,17 +50,17 @@ void ActionSelectBloodBible::execute (Creature * pCreature1 , Creature * pCreatu
 	Assert(pCreature2->isPC());
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	GCBloodBibleList gcPacket;
 	g_pBloodBibleBonusManager->getBloodBibleByRace(pPC->getRace(), back_inserter(gcPacket.getList()));
-	pPlayer->sendPacket(&gcPacket);
+	pPlayer->sendPacket( &gcPacket );
 
 	__END_CATCH
 }
@@ -70,7 +70,7 @@ void ActionSelectBloodBible::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSelectBloodBible::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

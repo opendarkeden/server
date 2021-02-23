@@ -10,7 +10,7 @@
 
 // include files
 #include "Update.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include <list>
 #include "Resource.h"
 #include "ResourceManager.h"
@@ -41,52 +41,52 @@ class UpdateManager{
 public :
 
 	// constructor
-	UpdateManager () throw();
+	UpdateManager () throw ();
 
 	// destructor
-	~UpdateManager () throw();
+	~UpdateManager () throw ();
 	
 
 public :
 
 	// load from update file
-	void load (const string & filename) throw(Error);
+	void load (const string & filename) throw (Error);
 
 	// save to update file
-	void save (const string & filename) const throw(Error);
+	void save (const string & filename) const throw (Error);
 
 	// read from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// read from socket
-	void read (Socket* pSocket) throw(IOException, Error);
+	void read (Socket* pSocket) throw (IOException, Error);
 
 	// write to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// write to socket
-	void write (Socket* pSocket) const throw(IOException, Error);
+	void write (Socket* pSocket) const throw (IOException, Error);
 
 	// get size
-	uint getSize () const throw();
+	uint getSize () const throw ();
 
 	// get max size
-	static uint getMaxSize () throw() { return Update::getMaxSize()* maxUpdates; }
+	static uint getMaxSize () throw () { return Update::getMaxSize()* maxUpdates; }
 
 
 public :
 
 	// list methods
-	void push_back (Update* pUpdate) throw(Error) { Assert(pUpdate != NULL); m_Updates.push_back(pUpdate); }
-	void pop_front () throw(Error) { Assert(!m_Updates.empty()); m_Updates.pop_front(); }
-	Update* front () const throw(Error) { Assert(!m_Updates.empty()); return m_Updates.front(); }
-	bool empty () const throw() { return m_Updates.empty(); }
+	void push_back (Update* pUpdate) throw (Error) { Assert(pUpdate != NULL); m_Updates.push_back(pUpdate); }
+	void pop_front () throw (Error) { Assert(!m_Updates.empty()); m_Updates.pop_front(); }
+	Update* front () const throw (Error) { Assert(!m_Updates.empty()); return m_Updates.front(); }
+	bool empty () const throw () { return m_Updates.empty(); }
 
 	// get resource manager
-	ResourceManager* getResourceManager () throw(Error);
+	ResourceManager* getResourceManager () throw (Error);
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 
 private :

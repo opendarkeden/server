@@ -37,20 +37,20 @@ void TalonOfCrow::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Tiger Nail 이 있다면 데미지 10% 증가
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL );
+		Assert( pRankBonus != NULL );
 
-		param.SkillDamage += getPercentValue(param.SkillDamage, pRankBonus->getPoint());
+		param.SkillDamage += getPercentValue( param.SkillDamage, pRankBonus->getPoint() );
 	}
 
 	// Knowledge of Innate 가 있다면 hit bonus 가 있다.
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

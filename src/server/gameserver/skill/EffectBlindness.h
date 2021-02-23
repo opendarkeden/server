@@ -30,7 +30,7 @@ public:
 	string toString() const throw();
 
 public:
-	void		setDamage(Damage_t damage ) { m_Damage = damage; }
+	void		setDamage( Damage_t damage ) { m_Damage = damage; }
 	Damage_t	getDamage() const { return m_Damage; }
 
 private:

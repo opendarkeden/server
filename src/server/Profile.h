@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Profile.h
 // Written by  : excel96
-// Description :
+// Description : 
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PROFILE_H__
@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Timeval.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 
 const int MAX_PROFILE_SAMPLES = 400;
 class GMServerInfo;
@@ -28,13 +28,13 @@ public:
 public:
 	bool isUsed(void) const { return m_bUsed; }
 	void setUsed(bool bUsed) { m_bUsed = bUsed; }
-
+	
 	string getName(void) const { return m_Name; }
 	void setName(const string& name) { m_Name = name; }
 
 	int getOpenCount(void) const { return m_OpenCount; }
 	void setOpenCount(int count) { m_OpenCount = count; }
-
+	
 	int getCallCount(void) const { return m_CallCount; }
 	void setCallCount(int count) { m_CallCount = count; }
 
@@ -90,7 +90,7 @@ public:
 public:
 	bool isUsed(void) const { return m_bUsed; }
 	void setUsed(bool bUsed) { m_bUsed = bUsed; }
-
+	
 	string getName(void) const { return m_Name; }
 	void setName(const string& name) { m_Name = name; }
 
@@ -127,13 +127,13 @@ public:
 	void beginProfile(const string& name);
 	void endProfile(const string& name);
 	void outputProfile(bool bOutputOnlyRootNode=false, bool bOutputThreadID=true);
-	//void outputProfileToFile(const char* filename, bool bOutputOnlyRootNode=false, bool bOutputThreadID=true, GMServerInfo* pServerInfo=NULL);
+	void outputProfileToFile(const char* filename, bool bOutputOnlyRootNode=false, bool bOutputThreadID=true, GMServerInfo* pServerInfo=NULL);
 	void storeProfileInHistory(const string& name, float percent);
 	void getProfileFromHistory(const string& name, float& ave, float& min, float& max);
 
 protected:
 	ProfileSample m_ProfileSamples[MAX_PROFILE_SAMPLES];
-	map<string, int> m_NameMap;
+	hash_map<string, int> m_NameMap;
 };
 
 
@@ -149,11 +149,11 @@ public:
 
 public:
 	void init(void);
-	void addProfileSampleSet(TID tid, ProfileSampleSet* pSet);
+	void addProfileSampleSet(int TID, ProfileSampleSet* pSet);
 	ProfileSampleSet* getProfileSampleSet(void);
 
 protected:
-	map<TID, ProfileSampleSet*> m_ProfileSampleMap;
+	hash_map<int, ProfileSampleSet*> m_ProfileSampleMap;
 	Mutex m_Mutex;
 };
 

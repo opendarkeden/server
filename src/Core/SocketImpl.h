@@ -36,15 +36,15 @@ class SocketImpl {
 public :
 	
 	// constructor
-	SocketImpl () throw();
-	SocketImpl (uint port) throw();
-	SocketImpl (const string & host, uint port) throw();
+	SocketImpl () throw ();
+	SocketImpl (uint port) throw ();
+	SocketImpl (const string & host, uint port) throw ();
 
 	// copy constructor
-	SocketImpl (const SocketImpl & impl) throw();
+	SocketImpl (const SocketImpl & impl) throw ();
 
 	// virtual destructor
-	virtual ~SocketImpl () throw(Error);
+	virtual ~SocketImpl () throw (Error);
 
 //////////////////////////////////////////////////
 // methods
@@ -52,33 +52,33 @@ public :
 public :
 	
 	// create socket
-	void create () throw(Error);
+	void create () throw (Error);
 	
 	// close connection
-	void close () throw(Error);
+	void close () throw (Error);
 	
 	// bind socket
-	void bind () throw(BindException, Error);
-	void bind (uint port) throw(BindException, Error);
+	void bind () throw (BindException, Error);
+	void bind (uint port) throw (BindException, Error);
 	
 	// listen
-	void listen (uint backlog) throw(Error);
+	void listen (uint backlog) throw (Error);
 	
 	// connect to remote host
-	void connect () throw(ConnectException, Error);
-	void connect (const string & host, uint port) throw(ConnectException, Error);
+	void connect () throw (ConnectException, Error);
+	void connect (const string & host, uint port) throw (ConnectException, Error);
 	
 	// accept new connection 
-	SocketImpl* accept () throw(NonBlockingIOException, ConnectException, Error);
+	SocketImpl* accept () throw (NonBlockingIOException, ConnectException, Error);
 	
 	// send data to peer
-	uint send (const void* buf, uint len, uint flags = 0) throw(IOException, InvalidProtocolException, Error);
+	uint send (const void* buf, uint len, uint flags = 0) throw (IOException, InvalidProtocolException, Error);
 	
 	// receive data from peer
-	uint receive (void* buf, uint len, uint flags = 0) throw(IOException, Error);
+	uint receive (void* buf, uint len, uint flags = 0) throw (IOException, Error);
 	
 	// how much available?
-	uint available () const throw(Error);
+	uint available () const throw (Error);
 	
 
 //////////////////////////////////////////////////
@@ -87,27 +87,27 @@ public :
 public :
 
 	// get/set socket's linger status
-	uint getLinger () const throw(Error);
-	void setLinger (uint lingertime) throw(Error);
+	uint getLinger () const throw (Error);
+	void setLinger (uint lingertime) throw (Error);
 	
 	// get/set socket's reuse address status
-	bool isReuseAddr () const throw(Error);
-	void setReuseAddr (bool on = true) throw(Error);
+	bool isReuseAddr () const throw (Error);
+	void setReuseAddr (bool on = true) throw (Error);
 	
 	// get error
-	bool isSockError() const throw(Error);
+	bool isSockError() const throw (Error);
 
 	// get/set socket's nonblocking status
-	bool isNonBlocking () const throw(Error);
-	void setNonBlocking (bool on = true) throw(Error);
+	bool isNonBlocking () const throw (Error);
+	void setNonBlocking (bool on = true) throw (Error);
 	
 	// get/set receive buffer size
-	uint getReceiveBufferSize () const throw(Error);
-	void setReceiveBufferSize (uint size) throw(Error);
+	uint getReceiveBufferSize () const throw (Error);
+	void setReceiveBufferSize (uint size) throw (Error);
 	
 	// get/set send buffer size
-	uint getSendBufferSize () const throw(Error);
-	void setSendBufferSize (uint size) throw(Error);
+	uint getSendBufferSize () const throw (Error);
+	void setSendBufferSize (uint size) throw (Error);
 	
 
 //////////////////////////////////////////////////
@@ -116,15 +116,18 @@ public :
 public :
 
     // get/set host address and port of this socket
-    string getHost () const throw() { return m_Host; }
-	uint getPort () const throw() { return m_Port; }
-	IP_t getHostIP () const throw() { return (IP_t)(m_SockAddr.sin_addr.s_addr); }
+    string getHost () const throw () { return m_Host; }
+	uint getPort () const throw () { return m_Port; }
+	IP_t getHostIP () const throw () { return (IP_t)(m_SockAddr.sin_addr.s_addr); }
 
 	// check if socket is valid
-	bool isValid () const throw() { return m_SocketID != INVALID_SOCKET; }
+	bool isValid () const throw () { return m_SocketID != INVALID_SOCKET; }
 
 	// get socket descriptor
-	SOCKET getSOCKET () const throw() { return m_SocketID; }
+	SOCKET getSOCKET () const throw () { return m_SocketID; }
+
+	//add by viva
+	string getLocalHost() const throw();
 
 
 //////////////////////////////////////////////////
@@ -133,12 +136,12 @@ public :
 protected :
 
     // get/set host address from socket address structure
-    string _getHost () const throw();
-    void _setHost (const string & host) throw();
+    string _getHost () const throw ();
+    void _setHost (const string & host) throw ();
 			    
     // get/set port from socket address structure
-	uint _getPort () const throw();
-	void _setPort (uint port) throw();
+	uint _getPort () const throw ();
+	void _setPort (uint port) throw ();
 	
 	
 //////////////////////////////////////////////////
@@ -157,7 +160,8 @@ protected :
 	
 	// peer port
 	uint m_Port;
-
 };
+
+const static uint m_HashSize = 512;
 
 #endif

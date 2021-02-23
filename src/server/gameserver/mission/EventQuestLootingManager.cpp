@@ -17,7 +17,7 @@
 #include <iosfwd>
 #include <list>
 
-static int _ratio[5] = { 34,50,34,25,16 };
+int ratio[5] = { 34,50,34,25,16 };
 
 EventQuestLootingManager* g_pEventQuestLootingManager = NULL;
 
@@ -39,27 +39,27 @@ string EventQuestLootingInfo::toString() const
 	return msg.toString();
 }
 
-bool EventQuestLootingInfo::isTargetMonster(PlayerCreature* pPC, Monster* pMonster ) const
+bool EventQuestLootingInfo::isTargetMonster( PlayerCreature* pPC, Monster* pMonster ) const
 {
-	if (pPC->getRace() == m_Race )
+	if ( pPC->getRace() == m_Race )
 	{
 		QuestID_t qID;
-		if (!pPC->getQuestManager()->hasEventQuest(m_QuestLevel, qID ) ) return false;
+		if ( !pPC->getQuestManager()->hasEventQuest( m_QuestLevel, qID ) ) return false;
 
 		QuestGrade_t qGrade;
-		if (pPC->isSlayer() )
+		if ( pPC->isSlayer() )
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 
 			qGrade = pSlayer->getQuestGrade();
 		}
-		else if (pPC->isVampire() )
+		else if ( pPC->isVampire() )
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 
 			qGrade = pVampire->getLevel();
 		}
-		else if (pPC->isOusters() )
+		else if ( pPC->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 
@@ -67,20 +67,20 @@ bool EventQuestLootingInfo::isTargetMonster(PlayerCreature* pPC, Monster* pMonst
 		}
 		else
 		{
-			//cout << "³Í¹¹³Ä!" << endl;
+			cout << "³Í¹¹³Ä!" << endl;
 			qGrade = 0;
 		}
 
-		if (qGrade < m_MinGrade || qGrade > m_MaxGrade ) return false;
+		if ( qGrade < m_MinGrade || qGrade > m_MaxGrade ) return false;
 
-		if (m_Type == LOOTING_ZONE || m_Type == LOOTING_BOTH )
+		if ( m_Type == LOOTING_ZONE || m_Type == LOOTING_BOTH )
 		{
-			if (pMonster->getZoneID() != m_LootingZoneID ) return false;
+			if ( pMonster->getZoneID() != m_LootingZoneID ) return false;
 		}
 
-		if (m_Type == LOOTING_MONSTER || m_Type == LOOTING_BOTH )
+		if ( m_Type == LOOTING_MONSTER || m_Type == LOOTING_BOTH )
 		{
-			if (pMonster->getMonsterType() != m_LootingMonsterType ) return false;
+			if ( pMonster->getMonsterType() != m_LootingMonsterType ) return false;
 		}
 
 		return true;
@@ -96,13 +96,13 @@ Item* EventQuestLootingInfo::getLootingItem() throw(Error)
 	__BEGIN_TRY
 
 	int diff = m_LootingItemTypeMax - m_LootingItemTypeMin + 1;
-	Assert (diff > 0);
+	Assert ( diff > 0 );
 
 	int offset = rand() % diff;
 	ItemType_t itemType = m_LootingItemTypeMin + offset;
 
 	list<OptionType_t> oList;
-	Item* pRet = g_pItemFactoryManager->createItem(m_LootingItemClass, itemType, oList);
+	Item* pRet = g_pItemFactoryManager->createItem( m_LootingItemClass, itemType, oList );
 
 	pRet->setQuestItem();
 
@@ -111,7 +111,7 @@ Item* EventQuestLootingInfo::getLootingItem() throw(Error)
 	__END_CATCH
 }
 
-EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster(PlayerCreature* pPC, Monster* pMonster )
+EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster( PlayerCreature* pPC, Monster* pMonster )
 {
 	{
 		vector<EventQuestLootingInfo*>& infos = m_ZoneLootingInfo[ pMonster->getZoneID() ];
@@ -120,7 +120,7 @@ EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster(PlayerCreature*
 		
 		for (; itr != endItr; ++itr)
 		{
-			if ((*itr)->isTargetMonster(pPC, pMonster ) )
+			if ( (*itr)->isTargetMonster( pPC, pMonster ) )
 			{
 				return (*itr);
 			}
@@ -134,7 +134,7 @@ EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster(PlayerCreature*
 		
 		for (; itr != endItr; ++itr)
 		{
-			if ((*itr)->isTargetMonster(pPC, pMonster ) )
+			if ( (*itr)->isTargetMonster( pPC, pMonster ) )
 			{
 				return (*itr);
 			}
@@ -144,22 +144,22 @@ EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster(PlayerCreature*
 	return NULL;
 }
 
-bool EventQuestLootingManager::killed(PlayerCreature* pPC, Monster* pMonster ) throw(Error)
+bool EventQuestLootingManager::killed( PlayerCreature* pPC, Monster* pMonster ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if (!pPC->getQuestManager()->hasQuest() ) return false;
+	if ( !pPC->getQuestManager()->hasQuest() ) return false;
 
-	EventQuestLootingInfo* pInfo = isTargetMonster(pPC, pMonster);
-	if (pInfo == NULL ) return false;
+	EventQuestLootingInfo* pInfo = isTargetMonster( pPC, pMonster );
+	if ( pInfo == NULL ) return false;
 
 //	cout << "Affecting ratio : " << ratio[pInfo->m_QuestLevel] << endl;
-	if ((rand()%100) < _ratio[pInfo->m_QuestLevel] )
+	if ( (rand()%100) < ratio[pInfo->m_QuestLevel] )
 	{
 		Item* pItem = pInfo->getLootingItem();
-		if (pItem == NULL ) return false;
+		if ( pItem == NULL ) return false;
 
-		pMonster->setQuestItem(pItem);
+		pMonster->setQuestItem( pItem );
 		return true;
 	}
 
@@ -186,19 +186,19 @@ void EventQuestLootingManager::load() throw(Error)
 
 			EventQuestLootingInfo*	pInfo	=	new EventQuestLootingInfo;
 
-			pInfo->m_QuestLevel					=	pResult->getInt(++index);
-			pInfo->m_Type						=	(EventQuestLootingInfo::TYPE)pResult->getInt(++index);
-			pInfo->m_LootingZoneID				=	(ZoneID_t)pResult->getInt(++index);
-			pInfo->m_LootingMonsterType			=	(MonsterType_t)pResult->getInt(++index);
-			pInfo->m_LootingItemClass			=	(Item::ItemClass)pResult->getInt(++index);
-			pInfo->m_LootingItemTypeMin			=	(ItemType_t)	pResult->getInt(++index);
-			pInfo->m_LootingItemTypeMax			=	(ItemType_t)	pResult->getInt(++index);
-			pInfo->m_Race						=	(Race_t)		pResult->getInt(++index);
-			pInfo->m_MinGrade					=	(QuestGrade_t)	pResult->getInt(++index);
-			pInfo->m_MaxGrade					=	(QuestGrade_t)	pResult->getInt(++index);
+			pInfo->m_QuestLevel					=	pResult->getInt( ++index );
+			pInfo->m_Type						=	(EventQuestLootingInfo::TYPE)pResult->getInt( ++index );
+			pInfo->m_LootingZoneID				=	(ZoneID_t)pResult->getInt( ++index );
+			pInfo->m_LootingMonsterType			=	(MonsterType_t)pResult->getInt( ++index );
+			pInfo->m_LootingItemClass			=	(Item::ItemClass)pResult->getInt( ++index );
+			pInfo->m_LootingItemTypeMin			=	(ItemType_t)	pResult->getInt( ++index );
+			pInfo->m_LootingItemTypeMax			=	(ItemType_t)	pResult->getInt( ++index );
+			pInfo->m_Race						=	(Race_t)		pResult->getInt( ++index );
+			pInfo->m_MinGrade					=	(QuestGrade_t)	pResult->getInt( ++index );
+			pInfo->m_MaxGrade					=	(QuestGrade_t)	pResult->getInt( ++index );
 
-			if (pInfo->m_Type == EventQuestLootingInfo::LOOTING_ZONE ) m_ZoneLootingInfo[ pInfo->m_LootingZoneID ].push_back(pInfo);
-			else if (pInfo->m_Type != EventQuestLootingInfo::LOOTING_NONE ) m_MonsterLootingInfo[ pInfo->m_LootingMonsterType ].push_back(pInfo);
+			if ( pInfo->m_Type == EventQuestLootingInfo::LOOTING_ZONE ) m_ZoneLootingInfo[ pInfo->m_LootingZoneID ].push_back( pInfo );
+			else if ( pInfo->m_Type != EventQuestLootingInfo::LOOTING_NONE ) m_MonsterLootingInfo[ pInfo->m_LootingMonsterType ].push_back( pInfo );
 
 		//	cout << "Loading : " << pInfo->toString() <<endl;
 		}

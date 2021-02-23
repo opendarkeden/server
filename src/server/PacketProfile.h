@@ -9,35 +9,42 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <map>
+#include <hash_map>
 
-
-class PacketProfile {
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+class PacketProfile
+{
 public:
-    PacketProfile() {
-        PacketName = "";
-        CallCount  = 0;
-        AccuTime.tv_sec = 0;
-        AccuTime.tv_usec = 0;
-    }
+	PacketProfile()
+	{
+		PacketName = "";
+		CallCount  = 0;
+		AccuTime.tv_sec = 0;
+		AccuTime.tv_usec = 0;
+	}
 
-    string PacketName;
-    int CallCount;
-    Timeval AccuTime;
+public:
+	string  PacketName;
+	int     CallCount;
+	Timeval AccuTime;
 };
 
-
-class PacketProfileManager {
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+class PacketProfileManager
+{
 public:
-    PacketProfileManager() {};
-    ~PacketProfileManager() {};
+	PacketProfileManager();
+	~PacketProfileManager();
 
-    void init(void);
-    void addAccuTime(const string& PacketName, const Timeval& start, const Timeval& end);
-    //void outputResultToFile(const string& filename);
+public:
+	void init(void);
+	void addAccuTime(const string& PacketName, const Timeval& start, const Timeval& end);
+	void outputResultToFile(const string& filename);
 
 protected:
-    map<string, PacketProfile*> m_NameMap;
+	hash_map<string, PacketProfile*> m_NameMap;
 };
 
 extern PacketProfileManager g_PacketProfileManager;

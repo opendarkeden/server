@@ -27,7 +27,7 @@ class TimePeriod
 {
 public:
 	// constructor/destructor
-	TimePeriod(VSTime fromTime, VSTime toTime);
+	TimePeriod( VSTime fromTime, VSTime toTime );
 	~TimePeriod();
 
 public:
@@ -35,7 +35,7 @@ public:
 	bool isInPeriod() { return m_bInPeriod; }
 
 	// heartbeat
-	void heartbeat(VSTime currentTime = VSTime::currentTime());
+	void heartbeat( VSTime currentTime = VSTime::currentTime() );
 
 private:
 	VSTime		m_FromTime;
@@ -63,7 +63,7 @@ public:
 	void heartbeat();
 
 	// is in period
-	bool isInPeriod(int type);
+	bool isInPeriod( int type );
 
 private:
 	TimePeriod*		m_pTimePeriods[TIME_PERIOD_MAX];

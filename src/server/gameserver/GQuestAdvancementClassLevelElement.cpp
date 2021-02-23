@@ -1,9 +1,9 @@
 #include "GQuestAdvancementClassLevelElement.h"
 #include "PlayerCreature.h"
 
-bool GQuestAdvancementClassLevelMission::isSuccess(PlayerCreature* pPC )
+bool GQuestAdvancementClassLevelMission::isSuccess( PlayerCreature* pPC )
 {
-	if (pPC->getAdvancementClassLevel() >= m_Goal )
+	if ( pPC->getAdvancementClassLevel() >= m_Goal )
 		m_bSuccess = true;
 	else
 		m_bSuccess = false;
@@ -11,21 +11,21 @@ bool GQuestAdvancementClassLevelMission::isSuccess(PlayerCreature* pPC )
 	return m_bSuccess;
 }
 
-GQuestElement::ResultType GQuestAdvancementClassLevelElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestAdvancementClassLevelElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (pPC->getAdvancementClassLevel() <= m_Max && pPC->getAdvancementClassLevel() >= m_Min ) return OK;
-	else if (m_Index == 0 ) return FAIL;
+	if ( pPC->getAdvancementClassLevel() <= m_Max && pPC->getAdvancementClassLevel() >= m_Min ) return OK;
+	else if ( m_Index == 0 ) return FAIL;
 
-	if (pPC->getAdvancementClassLevel() < m_Min ) return WAIT;
+	if ( pPC->getAdvancementClassLevel() < m_Min ) return WAIT;
 	return FAIL;
 }
 
 GQuestElement::ResultType GQuestAdvancementClassLevelElement::checkMission(GQuestMission* pStatus) const
 {
 	GQuestAdvancementClassLevelMission* pAdvancementClassLevelMission = dynamic_cast<GQuestAdvancementClassLevelMission*>(pStatus);
-	if (pAdvancementClassLevelMission == NULL ) return FAIL;
+	if ( pAdvancementClassLevelMission == NULL ) return FAIL;
 
-	if (pAdvancementClassLevelMission->isSuccess() ) return OK;
+	if ( pAdvancementClassLevelMission->isSuccess() ) return OK;
 	return WAIT;
 }
 

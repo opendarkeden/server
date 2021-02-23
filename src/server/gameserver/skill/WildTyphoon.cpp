@@ -38,7 +38,7 @@ void WildTyphoon::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
 		return;
 	}
 
-	execute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
+	execute( pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID );
 
 	__END_CATCH
 }
@@ -70,27 +70,27 @@ void WildTyphoon::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 	param.bAdd          = true;
 	param.bExpForTotalDamage = false;
 
-	Dir_t dir = getDirectionToPosition(pSlayer->getX(), pSlayer->getY(), X, Y);
+	Dir_t dir = getDirectionToPosition( pSlayer->getX(), pSlayer->getY(), X, Y );
 
 	SIMPLE_SKILL_OUTPUT result;
 
 	// 목표위치+4방향
-	param.addMask(0 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
+	param.addMask( 0 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
-	param.addMask(0 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
+	param.addMask( 0 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0], -1 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0],  0 + dir_advance[dir][1], 100);
 	param.addMask(-1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
-	param.addMask(0 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
-	param.addMask(1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
+	param.addMask( 0 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
+	param.addMask( 1 + dir_advance[dir][0],  1 + dir_advance[dir][1], 100);
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
 	list<Creature*>::iterator itr = result.targetCreatures.begin();
 	list<Creature*>::iterator endItr = result.targetCreatures.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
 		Creature* pCreature = *itr;
 		if (pCreature!=NULL)
@@ -102,7 +102,7 @@ void WildTyphoon::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 
-				// delay설정 (+ 2초 )
+				// delay설정 ( + 2초 )
 				if (!pMonster->isMaster()
 #ifdef __UNDERWORLD__
 						&& !pMonster->isUnderworld() && pMonster->getMonsterType() != 599
@@ -123,12 +123,12 @@ void WildTyphoon::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 
 WildTyphoon g_WildTyphoon;
 
-//					if (param.SkillType == SKILL_WILD_TYPHOON )
+//					if ( param.SkillType == SKILL_WILD_TYPHOON )
 //					{
 //						int ratio = pSlayer->getSTR() / 10;
-//						if ((rand()%100) < ratio )
+//						if ( (rand()%100) < ratio )
 //						{
-//							_GCSkillToTileOK2.setSkillType(SKILL_ATTACK_MELEE);
+//							_GCSkillToTileOK2.setSkillType( SKILL_ATTACK_MELEE );
 //						}
 //					}
 //

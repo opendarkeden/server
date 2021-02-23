@@ -12,10 +12,10 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -60,8 +60,12 @@ void EffectIncreaseAttr::unaffect()
 {
 	__BEGIN_TRY	
 
+	//cout << "EffectIncreaseAttr" << "unaffect BEGIN" << endl;
+
     Creature* pCreature = dynamic_cast<Creature *>(m_pTarget);
 	unaffect(pCreature);
+
+	//cout << "EffectIncreaseAttr" << "unaffect END" << endl;
 
 	__END_CATCH
 }
@@ -72,6 +76,8 @@ void EffectIncreaseAttr::unaffect(Creature* pCreature)
 	throw(Error)
 {
 	__BEGIN_TRY
+
+	//cout << "EffectIncreaseAttr" << "unaffect BEGIN" << endl;
 
 	Assert(pCreature != NULL);
 
@@ -147,6 +153,8 @@ void EffectIncreaseAttr::unaffect(Creature* pCreature)
 		makeGCOtherModifyInfo(&gcOtherModifyInfo, pOusters, &prev);
 		pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &gcOtherModifyInfo, pOusters);
 	}
+
+	//cout << "EffectIncreaseAttr" << "unaffect END" << endl;
 
 	__END_CATCH
 }

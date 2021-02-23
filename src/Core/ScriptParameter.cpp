@@ -17,7 +17,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 ScriptParameter::ScriptParameter()
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -28,7 +28,7 @@ ScriptParameter::ScriptParameter()
 // destructor
 //////////////////////////////////////////////////////////////////////
 ScriptParameter::~ScriptParameter() 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,24 +38,24 @@ ScriptParameter::~ScriptParameter()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void ScriptParameter::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void ScriptParameter::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	BYTE szName, szValue;
 
-	iStream.read(szName);
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
+	iStream.read( szName );
+	if ( szName == 0 )
+		throw InvalidProtocolException( "szName == 0" );
 
-	iStream.read(m_Name, szName);
+	iStream.read( m_Name, szName );
 
-	iStream.read(szValue);
-	if (szValue == 0 )
-		throw InvalidProtocolException("szValue == 0");
+	iStream.read( szValue );
+	if ( szValue == 0 )
+		throw InvalidProtocolException( "szValue == 0" );
 
-	iStream.read(m_Value, szValue);
+	iStream.read( m_Value, szValue );
 
 	__END_CATCH
 }
@@ -63,23 +63,23 @@ void ScriptParameter::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void ScriptParameter::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void ScriptParameter::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szName = m_Name.size();
 	BYTE szValue = m_Value.size();
 
-	if (szName == 0 )
-		throw InvalidProtocolException("szName == 0");
-	if (szValue == 0 )
-		throw InvalidProtocolException("szValue == 0");
+	if ( szName == 0 )
+		throw InvalidProtocolException( "szName == 0" );
+	if ( szValue == 0 )
+		throw InvalidProtocolException( "szValue == 0" );
 
-	oStream.write(szName);
-	oStream.write(m_Name);
-	oStream.write(szValue);
-	oStream.write(m_Value);
+	oStream.write( szName );
+	oStream.write( m_Name );
+	oStream.write( szValue );
+	oStream.write( m_Value );
 
 	__END_CATCH
 }
@@ -108,13 +108,13 @@ PacketSize_t ScriptParameter::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string ScriptParameter::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "ScriptParameter("
+	msg << "ScriptParameter( "
 		<< "Name:" << m_Name
 		<< ",Value:" << m_Value
 		<< ")";

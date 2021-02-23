@@ -9,75 +9,73 @@
 #include "Creature.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCSkillFailed1.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCSkillFailed1.h"
 
 BloodyWall::BloodyWall()
 	throw()
 {
 	// LEFT
-	m_BloodyWallMask[0][0].set(0, -2);
-	m_BloodyWallMask[0][1].set(0, -1);
-	m_BloodyWallMask[0][2].set(0, 0);
-	m_BloodyWallMask[0][3].set(0, 1);
-	m_BloodyWallMask[0][4].set(0, 2);
+	m_BloodyWallMask[0][0].set( 0, -2 );
+	m_BloodyWallMask[0][1].set( 0, -1 );
+	m_BloodyWallMask[0][2].set( 0, 0 );
+	m_BloodyWallMask[0][3].set( 0, 1 );
+	m_BloodyWallMask[0][4].set( 0, 2 );
 
 	// LEFTDOWN
-	m_BloodyWallMask[1][0].set(-1, -1);
-	m_BloodyWallMask[1][1].set(-1, 0);
-	m_BloodyWallMask[1][2].set(0, 0);
-	m_BloodyWallMask[1][3].set(0, 1);
-	m_BloodyWallMask[1][4].set(1, 1);
+	m_BloodyWallMask[1][0].set( -1, -1 );
+	m_BloodyWallMask[1][1].set( -1, 0 );
+	m_BloodyWallMask[1][2].set( 0, 0 );
+	m_BloodyWallMask[1][3].set( 0, 1 );
+	m_BloodyWallMask[1][4].set( 1, 1 );
 
 	// DOWN
-	m_BloodyWallMask[2][0].set(-2, 0);
-	m_BloodyWallMask[2][1].set(-1, 0);
-	m_BloodyWallMask[2][2].set(0, 0);
-	m_BloodyWallMask[2][3].set(1, 0);
-	m_BloodyWallMask[2][4].set(2, 0);
+	m_BloodyWallMask[2][0].set( -2, 0 );
+	m_BloodyWallMask[2][1].set( -1, 0 );
+	m_BloodyWallMask[2][2].set( 0, 0 );
+	m_BloodyWallMask[2][3].set( 1, 0 );
+	m_BloodyWallMask[2][4].set( 2, 0 );
 
 	// RIGHTDOWN
-	m_BloodyWallMask[3][4].set(1, -1);
-	m_BloodyWallMask[3][4].set(1, 0);
-	m_BloodyWallMask[3][4].set(0, 0);
-	m_BloodyWallMask[3][4].set(0, 1);
-	m_BloodyWallMask[3][4].set(-1, 1);
+	m_BloodyWallMask[3][4].set( 1, -1 );
+	m_BloodyWallMask[3][4].set( 1, 0 );
+	m_BloodyWallMask[3][4].set( 0, 0 );
+	m_BloodyWallMask[3][4].set( 0, 1 );
+	m_BloodyWallMask[3][4].set( -1, 1 );
 
 	// RIGHT
-	m_BloodyWallMask[4][0].set(0, -2);
-	m_BloodyWallMask[4][1].set(0, -1);
-	m_BloodyWallMask[4][2].set(0, 0);
-	m_BloodyWallMask[4][3].set(0, 1);
-	m_BloodyWallMask[4][4].set(0, 2);
+	m_BloodyWallMask[4][0].set( 0, -2 );
+	m_BloodyWallMask[4][1].set( 0, -1 );
+	m_BloodyWallMask[4][2].set( 0, 0 );
+	m_BloodyWallMask[4][3].set( 0, 1 );
+	m_BloodyWallMask[4][4].set( 0, 2 );
 
 	// RIGHTUP
-	m_BloodyWallMask[5][0].set(-1, -1);
-	m_BloodyWallMask[5][1].set(0, -1);
-	m_BloodyWallMask[5][2].set(0, 0);
-	m_BloodyWallMask[5][3].set(1, 0);
-	m_BloodyWallMask[5][4].set(1, 1);
+	m_BloodyWallMask[5][0].set( -1, -1 );
+	m_BloodyWallMask[5][1].set( 0, -1 );
+	m_BloodyWallMask[5][2].set( 0, 0 );
+	m_BloodyWallMask[5][3].set( 1, 0 );
+	m_BloodyWallMask[5][4].set( 1, 1 );
 
 	// UP
-	m_BloodyWallMask[6][0].set(-2, 0);
-	m_BloodyWallMask[6][1].set(-1, 0);
-	m_BloodyWallMask[6][2].set(0, 0);
-	m_BloodyWallMask[6][3].set(1, 0);
-	m_BloodyWallMask[6][4].set(2, 0);
+	m_BloodyWallMask[6][0].set( -2, 0 );
+	m_BloodyWallMask[6][1].set( -1, 0 );
+	m_BloodyWallMask[6][2].set( 0, 0 );
+	m_BloodyWallMask[6][3].set( 1, 0 );
+	m_BloodyWallMask[6][4].set( 2, 0 );
 
 	// LEFTUP
-	m_BloodyWallMask[7][0].set(-1, 1);
-	m_BloodyWallMask[7][1].set(-1, 0);
-	m_BloodyWallMask[7][2].set(0, 0);
-	m_BloodyWallMask[7][3].set(0, -1);
-	m_BloodyWallMask[7][4].set(1, -1);
+	m_BloodyWallMask[7][0].set( -1, 1 );
+	m_BloodyWallMask[7][1].set( -1, 0 );
+	m_BloodyWallMask[7][2].set( 0, 0 );
+	m_BloodyWallMask[7][3].set( 0, -1 );
+	m_BloodyWallMask[7][4].set( 1, -1 );
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -103,7 +101,7 @@ void BloodyWall::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -158,10 +156,10 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 
 		// Knowledge of Blood 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -185,7 +183,7 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 			SkillOutput output;
 			computeOutput(input, output);
 
-			Dir_t 	   Dir		= getDirectionToPosition(myX, myY, X, Y);
+			Dir_t 	   Dir		= getDirectionToPosition( myX, myY, X, Y );
 
 			list<Creature*> cList;	// denier list
 			
@@ -199,7 +197,8 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 				if (rect.ptInRect(tileX, tileY))
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
-					if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION )!=NULL ) continue;
+					if ( tile.getEffect( Effect::EFFECT_CLASS_TRYING_POSITION )!=NULL ) continue;
+					if ( tile.getEffect( Effect::EFFECT_CLASS_HEAVEN_GROUND )!=NULL ) continue;
 
 					// 현재 타일에다 이펙트를 추가할 수 있다면...
 					if (tile.canAddEffect())
@@ -214,10 +213,10 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 					
 						// 이펙트 클래스를 생성한다.
 						EffectBloodyWall* pEffect = new EffectBloodyWall(pZone , tileX, tileY);
-						pEffect->setCasterName(pVampire->getName());
-						pEffect->setCasterID(pVampire->getObjectID());
-						pEffect->setClan(Creature::CREATURE_CLASS_VAMPIRE, pVampire->getClanType());
-						pEffect->setDamage(output.Damage);
+						pEffect->setCasterName( pVampire->getName() );
+						pEffect->setCasterID( pVampire->getObjectID() );
+						pEffect->setClan( Creature::CREATURE_CLASS_VAMPIRE, pVampire->getClanType() );
+						pEffect->setDamage( output.Damage );
 						pEffect->setDeadline(output.Duration);
 						pEffect->setLevel(pVampire->getINT());
 						pEffect->setNextTime(0);
@@ -229,14 +228,14 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
-							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
-								&& !checkZoneLevelToHitTarget(pTargetCreature )
+							if ( pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
+								&& !checkZoneLevelToHitTarget( pTargetCreature )
 							) 
 							{
 								cList.push_back(pTargetCreature);
@@ -426,7 +425,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			computeOutput(input, output);
 
 			//Range_t    Range    = 3;
-			Dir_t 	   Dir		= getDirectionToPosition(myX, myY, X, Y);
+			Dir_t 	   Dir		= getDirectionToPosition( myX, myY, X, Y );
 
 			list<Creature*> cList;	// denier list
 
@@ -440,7 +439,7 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 				if (rect.ptInRect(tileX, tileY))
 				{
 					Tile& tile = pZone->getTile(tileX, tileY);
-
+					if ( tile.getEffect( Effect::EFFECT_CLASS_HEAVEN_GROUND )!=NULL ) continue;
 					// 현재 타일에다 이펙트를 추가할 수 있다면...
 					if (tile.canAddEffect())
 					{
@@ -454,10 +453,10 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					
 						// 이펙트 클래스를 생성한다.
 						EffectBloodyWall* pEffect = new EffectBloodyWall(pZone , tileX, tileY);
-						pEffect->setCasterName(pMonster->getName());
-						pEffect->setCasterID(pMonster->getObjectID());
-						pEffect->setClan(Creature::CREATURE_CLASS_MONSTER, pMonster->getClanType());
-						pEffect->setDamage(output.Damage);
+						pEffect->setCasterName( pMonster->getName() );
+						pEffect->setCasterID( pMonster->getObjectID() );
+						pEffect->setClan( Creature::CREATURE_CLASS_MONSTER, pMonster->getClanType() );
+						pEffect->setDamage( output.Damage );
 						pEffect->setDeadline(output.Duration);
 						pEffect->setLevel(pMonster->getINT());
 						pEffect->setNextTime(0);
@@ -471,19 +470,19 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						tile.addEffect(pEffect);
 
 						GCAddEffectToTile gcAE;
-						gcAE.setObjectID(pEffect->getObjectID());
-						gcAE.setEffectID(pEffect->getSendEffectClass());
-						gcAE.setDuration(output.Duration);
-						gcAE.setXY(tileX, tileY);
-						pZone->broadcastPacket(tileX, tileY, &gcAE);
+						gcAE.setObjectID( pEffect->getObjectID() );
+						gcAE.setEffectID( pEffect->getSendEffectClass() );
+						gcAE.setDuration( output.Duration );
+						gcAE.setXY( tileX, tileY );
+						pZone->broadcastPacket( tileX, tileY, &gcAE );
 
-						const list<Object*>& oList = tile.getObjectList();
-						for(list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const slist<Object*>& oList = tile.getObjectList();
+						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
 							if (pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE 
-								&& ((pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
+								&& ( (pTargetCreature = dynamic_cast<Creature*>(pTarget))->isSlayer() || pTargetCreature->isOusters() )
 							) 
 							{
 								cList.push_back(pTargetCreature);

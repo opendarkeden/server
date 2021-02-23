@@ -14,7 +14,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 OustersArmsbandInfoManager* g_pOustersArmsbandInfoManager = NULL;
@@ -41,9 +40,9 @@ OustersArmsband::OustersArmsband(ItemType_t itemType, const list<OptionType_t>& 
 {
 	setItemType(itemType);
 	setOptionType(optionType);
-	OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo(getItemType() ));
+	OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo( getItemType() ) );
 
-	m_pInventory = new Inventory(pOustersArmsbandInfo->getPocketCount(), 1);
+	m_pInventory = new Inventory( pOustersArmsbandInfo->getPocketCount(), 1 );
 
 //	m_EnchantLevel = 0;
 
@@ -52,7 +51,7 @@ OustersArmsband::OustersArmsband(ItemType_t itemType, const list<OptionType_t>& 
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "OustersArmsband::OustersArmsband() : Invalid item type or option type");
-		throw("OustersArmsband::OustersArmsband() : Invalid item type or optionType");
+		throw ("OustersArmsband::OustersArmsband() : Invalid item type or optionType");
 	}
 }
 
@@ -96,7 +95,7 @@ void OustersArmsband::create(const string & ownerID, Storage storage, StorageID_
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO OustersArmsbandObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -180,7 +179,7 @@ void OustersArmsband::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE OustersArmsbandObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE OustersArmsbandObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -224,9 +223,9 @@ void OustersArmsband::save(const string & ownerID, Storage storage, StorageID_t 
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE OustersArmsbandObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE OustersArmsbandObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 		// 일일이 아이템을 하나씩 꺼내서 바로 UPDATE 하도록 한다.
 		for (int i = 0; i < m_pInventory->getHeight(); i++)
@@ -346,8 +345,8 @@ PocketNum_t OustersArmsband::getPocketCount(void) const
 {
 	__BEGIN_TRY
 
-	OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo(getItemType()));
-	Assert(pOustersArmsbandInfo != NULL);
+	OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo(getItemType()) );
+	Assert( pOustersArmsbandInfo != NULL );
 	return pOustersArmsbandInfo->getPocketCount();
 
 	__END_CATCH
@@ -495,8 +494,8 @@ void OustersArmsbandLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM OustersArmsbandObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM OustersArmsbandObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -513,10 +512,10 @@ void OustersArmsbandLoader::load(Creature* pCreature)
 				if (g_pOustersArmsbandInfoManager->getItemInfo(pOustersArmsband->getItemType())->isUnique())
 					pOustersArmsband->setUnique();
 
-				OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo(pOustersArmsband->getItemType() ));
-				Inventory* pOustersArmsbandInventory = new Inventory(pOustersArmsbandInfo->getPocketCount(), 1);
+				OustersArmsbandInfo* pOustersArmsbandInfo = dynamic_cast<OustersArmsbandInfo*>(g_pOustersArmsbandInfoManager->getItemInfo( pOustersArmsband->getItemType() ) );
+				Inventory* pOustersArmsbandInventory = new Inventory( pOustersArmsbandInfo->getPocketCount(), 1);
 
-				pOustersArmsband->setInventory(pOustersArmsbandInventory);
+				pOustersArmsband->setInventory( pOustersArmsbandInventory );
 
 				Storage storage =(Storage)pResult->getInt(++i);
 				StorageID_t storageID = pResult->getDWORD(++i);
@@ -567,18 +566,6 @@ void OustersArmsbandLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pOustersArmsband);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pOustersArmsband))
 						{
 							pInventory->addItemEx(x, y, pOustersArmsband);

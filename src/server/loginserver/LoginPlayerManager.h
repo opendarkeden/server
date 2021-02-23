@@ -30,67 +30,67 @@ class LoginPlayerManager : public PlayerManager {
 public :
 
 	// constructor
-	LoginPlayerManager () throw(Error);
+	LoginPlayerManager () throw ( Error );
 
 	// destructor
-	~LoginPlayerManager () throw();
+	~LoginPlayerManager () throw ( Error );
 
 public :
 
 	// 클라이언트 매니저를 초기화한다.
-	void init () throw(Error);
+	void init () throw ( Error );
 
 	// accept new connection
-	void acceptNewConnection () throw(Error);
+	void acceptNewConnection () throw ( Error );
 
 	// select() 시스템콜을 사용해서 I/O Multiplexing을 한다.
-	void select () throw(Error);
+	void select () throw ( Error );
 
 	// 접속한 모든 사용자의 입력을 입력 버퍼로 복사한다.
-	void processInputs () throw(Error);
+	void processInputs () throw ( Error );
 
 	// 접속한 모든 사용자의 출력을 클라이언트로 전송한다.
-	void processOutputs () throw(Error);
+	void processOutputs () throw ( Error );
 
 	// 접속한 모든 사용자의 패킷을 처리한다.
-	void processCommands () throw(Error);
+	void processCommands () throw ( Error );
 
 	// OOB 데이타를 처리한다. ^^;
-	void processExceptions () throw(Error);
+	void processExceptions () throw ( Error );
 
 public :
 
 	// 로그인 서버에 접속한 모든 플레이어들에게 특정 패킷을 전달한다.
-	void broadcastPacket (Packet * pPacket ) throw(Error);
+	void broadcastPacket ( Packet * pPacket ) throw ( Error );
 
 	// 특정 아이디의 플레이어에게 특정 패킷을 전달한다.
-	void sendPacket (const string & id , Packet * pPacket ) throw(Error);
+	void sendPacket ( const string & id , Packet * pPacket ) throw ( Error );
 
 	// 플레이어 객체를 추가한다.
-	void addPlayer (Player * pPlayer ) throw(DuplicatedException , Error);
-	void addPlayer_NOLOCKED (Player * pPlayer ) throw(DuplicatedException , Error);
+	void addPlayer ( Player * pPlayer ) throw ( DuplicatedException , Error );
+	void addPlayer_NOLOCKED ( Player * pPlayer ) throw ( DuplicatedException , Error );
 
 	// 플레이어 객체를 삭제한다.
-	void deletePlayer (SOCKET fd ) throw(OutOfBoundException , NoSuchElementException , Error);
-	void deletePlayer_NOLOCKED (SOCKET fd ) throw(OutOfBoundException , NoSuchElementException , Error);
+	void deletePlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
+	void deletePlayer_NOLOCKED ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
 
 	// 플레이어 객체에 접근한다.
-	LoginPlayer * getPlayer (const string & PCName ) const throw(NoSuchElementException , Error);
-	LoginPlayer * getPlayer_NOLOCKED (const string & PCName ) const throw(NoSuchElementException , Error);
+	LoginPlayer * getPlayer ( const string & PCName ) const throw ( NoSuchElementException , Error );
+	LoginPlayer * getPlayer_NOLOCKED ( const string & PCName ) const throw ( NoSuchElementException , Error );
 
 	// lock/unlock
-	void lock () throw(Error ) { m_Mutex.lock(); }
-	void unlock () throw(Error ) { m_Mutex.unlock(); }
+	void lock () throw ( Error ) { m_Mutex.lock(); }
+	void unlock () throw ( Error ) { m_Mutex.unlock(); }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 private :
 
 	// 서버 소켓
 	ServerSocket * m_pServerSocket;
 
-	// 서버 소켓 디스크립터 (for fast reference )
+	// 서버 소켓 디스크립터 ( for fast reference )
 	SOCKET m_ServerFD;
 
 	// 소속된 플레이어들의 소켓 디스크립터의 집합이다.

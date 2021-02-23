@@ -87,9 +87,9 @@ public:
 		//__END_CATCH
 	}*/
 
-	static VisionState getVisionState(ZoneCoord_t SourceX, ZoneCoord_t SourceY, ZoneCoord_t TargetX, ZoneCoord_t TargetY )
+	static VisionState getVisionState( ZoneCoord_t SourceX, ZoneCoord_t SourceY, ZoneCoord_t TargetX, ZoneCoord_t TargetY )
 	{
-		int diffX = abs(TargetX-SourceX);
+		int diffX = abs( TargetX-SourceX );
 		int diffY = (int)TargetY-(int)SourceY;
 
 		bool isInX = diffX <= maxViewportWidth;

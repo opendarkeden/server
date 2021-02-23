@@ -6,12 +6,12 @@
 
 #include "DivineGuidance.h"
 #include "EffectDivineGuidance.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -38,7 +38,7 @@ void DivineGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSl
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 		)
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -49,7 +49,7 @@ void DivineGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSl
 		// 이펙트의 효과와 지속시간을 계산한다.
 		SkillInput input(pSlayer, pSkillSlot);
 		SkillOutput output;
-		if (pTargetCreature->isPC() )
+		if ( pTargetCreature->isPC() )
 		{
 			input.TargetType = SkillInput::TARGET_PC;
 		}
@@ -89,7 +89,7 @@ void DivineGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSl
 				//Exp_t      ExpUp = 10* (Grade + 1);
 				//shareAttrExp(pSlayer, ExpUp, 1, 1, 8, _GCSkillToObjectOK1);
 				//
-				if (bIncreaseDomainExp )
+				if ( bIncreaseDomainExp )
 				{
 					increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1, pTargetCreature->getLevel());
 				}
@@ -103,7 +103,7 @@ void DivineGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSl
 			pEffect->setDeadline(output.Duration);
 			pEffect->setTick(output.Tick);
 			pEffect->setPoint(output.Damage); 
-			pEffect->setUserObjectID(pSlayer->getObjectID());
+			pEffect->setUserObjectID( pSlayer->getObjectID() );
 			pEffect->setNextTime(0);
 
 			pTargetCreature->addEffect(pEffect);
@@ -133,10 +133,10 @@ void DivineGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSl
 				Assert(pTargetPlayer != NULL);
 				pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
 			}
-			else if (pTargetCreature->isMonster() )
+			else if ( pTargetCreature->isMonster() )
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-				if (pMonster != NULL ) pMonster->addEnemy(pSlayer);
+				if ( pMonster != NULL ) pMonster->addEnemy(pSlayer);
 			}
 
 			list<Creature*> cList;

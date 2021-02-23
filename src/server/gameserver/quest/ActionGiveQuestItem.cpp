@@ -16,23 +16,23 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCNPCAsk.h"
-#include "GCCreateItem.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCNPCAsk.h"
+#include "Gpackets/GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveQuestItem::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
 	try 
 	{
 		// read script id
-		m_CounterScriptID = propertyBuffer.getPropertyInt("CounterScriptID");
+		m_CounterScriptID = propertyBuffer.getPropertyInt( "CounterScriptID" );
 	} 
 	catch (NoSuchElementException & nsee)
 	{
@@ -47,7 +47,7 @@ void ActionGiveQuestItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveQuestItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -57,36 +57,36 @@ void ActionGiveQuestItem::execute (Creature * pCreature1 , Creature * pCreature2
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	TPOINT pt;
 
 	Item* pItem = pPC->getQuestItem();
-	if (pItem == NULL || !pPC->getInventory()->getEmptySlot(pItem, pt ) )
+	if ( pItem == NULL || !pPC->getInventory()->getEmptySlot( pItem, pt ) )
 	{
 		GCNPCAsk gcNPCAsk;
-		gcNPCAsk.setObjectID(pCreature1->getObjectID());
-		gcNPCAsk.setScriptID(m_CounterScriptID);
-		gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+		gcNPCAsk.setObjectID( pCreature1->getObjectID() );
+		gcNPCAsk.setScriptID( m_CounterScriptID );
+		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
-		pPC->getPlayer()->sendPacket(&gcNPCAsk);
+		pPC->getPlayer()->sendPacket( &gcNPCAsk );
 		return;
 	}
 
-	if (pPC->getInventory()->addItem(pItem, pt ) )
+	if ( pPC->getInventory()->addItem( pItem, pt ) )
 	{
-		pPC->setQuestItem(NULL);
-		pPC->getZone()->registerObject(pItem);
+		pPC->setQuestItem( NULL );
+		pPC->getZone()->registerObject( pItem );
 
-		pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
-		if (pItem->isUnique() || pItem->isTimeLimitItem() )
+		pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y );
+		if ( pItem->isUnique() || pItem->isTimeLimitItem() )
 		{
-			pPC->addTimeLimitItem(pItem, 43200);
+			pPC->addTimeLimitItem( pItem, 43200 );
 		}
 
 		GCCreateItem gcCreateItem;
-		makeGCCreateItem(&gcCreateItem, pItem, pt.x, pt.y);
-		pPC->getPlayer()->sendPacket(&gcCreateItem);
+		makeGCCreateItem( &gcCreateItem, pItem, pt.x, pt.y );
+		pPC->getPlayer()->sendPacket( &gcCreateItem );
 	}
 
 	__END_CATCH
@@ -97,7 +97,7 @@ void ActionGiveQuestItem::execute (Creature * pCreature1 , Creature * pCreature2
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveQuestItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

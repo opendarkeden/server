@@ -22,10 +22,10 @@
 #include "PaySystem.h"
 #include "billing/BillingPlayerInfo.h"
 #include "chinabilling/CBillingPlayerInfo.h"
-#include "GCReconnectLogin.h"
+#include "Gpackets/GCReconnectLogin.h"
 #include <bitset>
 
-//#include "gameguard/CSAuth.h"
+#include "gameguard/CSAuth.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GamePlayer
@@ -51,7 +51,7 @@ public:
 	const static BYTE nPacketHistorySize = 10;
 
 public:
-	GamePlayer (Socket * pSocket) throw(Error);
+	GamePlayer (Socket * pSocket) throw ( Error );
 	~GamePlayer() throw(Error);
 
 public:
@@ -69,7 +69,7 @@ public:
 
 	// disconnect
 	// Á¤½Ä ·Î±×¾Æ¿ôÀÇ °æ¿ì disconnect(LOGOUT)
-	virtual void disconnect(bool bDisconnected = DISCONNECTED) throw(InvalidProtocolException, Error);
+	virtual void disconnect(bool bDisconnected = DISCONNECTED) throw (InvalidProtocolException, Error);
 	
 	// get debug string
 	virtual string toString() const throw(Error);
@@ -143,49 +143,49 @@ public :
     void unlock() throw(Error) { m_Mutex.unlock(); }
 
 public :
-	void    setBillingSession() throw(Error)	{ BillingPlayerInfo::setBillingSession(this); }
-	bool    sendBillingLogin() throw(Error);
+	void    setBillingSession() throw (Error)	{ BillingPlayerInfo::setBillingSession(this); }
+	bool    sendBillingLogin() throw (Error);
 
-	void	sendCBillingPayInfo() throw(Error);
+	void	sendCBillingPayInfo() throw ( Error );
 
 	// ÆÐÅ¶ ¾ÏÈ£È­ °ü·Ã
 	// by sigi. 2002.11.27
-	void	setEncryptCode() throw(Error);
+	void	setEncryptCode() throw (Error);
 
 public :
 
-	void kickPlayer(uint nSeconds, uint KickMessageType ) throw(Error);
+	void kickPlayer( uint nSeconds, uint KickMessageType ) throw (Error);
 
 	//////////////////////////////////////////////////
 	// PaySystem °ü·Ã
 	//////////////////////////////////////////////////
 public:
-	bool	loginPayPlay(PayType payType,
+	bool	loginPayPlay( PayType payType,
 						const string& PayPlayDate, int PayPlayHours, uint payPlayFlag,
 						const string& ip, const string& playerID )
-				throw(Error);
+				throw (Error);
 
-	bool	loginPayPlay(const string& ip, const string& playerID )
-				throw(Error);
+	bool	loginPayPlay( const string& ip, const string& playerID )
+				throw (Error);
 
-	bool	updatePayPlayTime(const string& playerID,
+	bool	updatePayPlayTime( const string& playerID,
 							const VSDateTime& currentDateTime,
 							const Timeval& currentTime )
-				throw(ProtocolException, Error);
+				throw (ProtocolException, Error );
 
-	void	logoutPayPlay(const string& playerID, bool bClear=false, bool bDecreaseTime=true )
-				throw(Error);
+	void	logoutPayPlay( const string& playerID, bool bClear=false, bool bDecreaseTime=true )
+				throw (Error);
 
 	bool	isPayPlaying() const;
 
 	bool	isMetroFreePlayer() const { return m_bMetroFreePlayer; }
-	void	setMetroFreePlayer(bool bMetroFreePlayer = true ) { m_bMetroFreePlayer = bMetroFreePlayer; }
+	void	setMetroFreePlayer( bool bMetroFreePlayer = true ) { m_bMetroFreePlayer = bMetroFreePlayer; }
 
 	int getItemRatioBonusPoint(void) const { return m_ItemRatioBonusPoint; }
 	void setItemRatioBonusPoint(int point) { m_ItemRatioBonusPoint = point; }
 
-	bool	startPacketLog(uint sec);
-//	CCSAuth&	getCSAuth() { return m_NProtectCSAuth; }
+	bool	startPacketLog( uint sec );
+	CCSAuth&	getCSAuth() { return m_NProtectCSAuth; }
 
 	void logLoginoutDateTime();
 	
@@ -198,10 +198,11 @@ public:
 private:
 
 	void setPCRoomLottoStartTime();
-	void checkPCRoomLotto(const Timeval& currentTime);
+	void checkPCRoomLotto( const Timeval& currentTime );
 	void savePCRoomLottoTime();
 	void giveLotto();
-
+	// add by Coffee 2007-6-25
+	void tv_sub(struct timeval *out,struct timeval *in);
 private:
 
 	// creature
@@ -259,7 +260,7 @@ private:
 	bool			m_bPacketLog;
 	Timeval			m_PacketLogEndTime;
 
-//	CCSAuth			m_NProtectCSAuth;
+	CCSAuth			m_NProtectCSAuth;
 
 	VSDateTime		m_LoginDateTime;
 
@@ -267,6 +268,9 @@ private:
 #ifdef __THAILAND_SERVER__
 	bool            m_bPermission;
 #endif
+	// add by Coffee 2007-7-15 Ôö¼Ó·â°ü³äÁÐ¼ì²â
+	private:
+		BYTE m_Sequence;
 };
 
 //////////////////////////////////////////////////////////////////////////////

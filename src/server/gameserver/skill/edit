@@ -1,0 +1,3 @@
+# !/bin/sh
+
+vi Berserker.cpp BloodyMarker.cpp BloodyTunnel.cpp ChargingPower.cpp CreateHolyWater.cpp CrossCounter.cpp EatCorpse.cpp EffectReloadTimer.cpp EffectStriking.old.cpp Expansion.cpp FlashSliding.cpp GhostBlade.cpp LightningHand.cpp MiracleShield.cpp MultiShot.cpp PotentialExplosion.cpp Restore.cpp ShadowDancing.cpp ShadowWalk.cpp SimpleLinearMeleeSkill.cpp SimpleMeleeSkill.cpp SimpleTileMeleeSkill.cpp SimpleTileMissileSkill.cpp SkillUtil.cpp Sniping.cpp Striking.cpp ThrowHolyWater.cpp ThunderFlash.cpp TransformToBat.cpp TransformToWolf.cpp 

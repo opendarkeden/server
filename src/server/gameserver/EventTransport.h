@@ -31,7 +31,7 @@ public:
 		m_Y = ZoneY;
 	}
 	void setZoneName(const string& zoneName) { m_ZoneName = zoneName; }
-	void sendMessage() throw(Error);
+	void sendMessage() throw (Error);
 	
 	virtual string toString() const throw();
 

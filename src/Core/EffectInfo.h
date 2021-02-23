@@ -28,27 +28,27 @@ class EffectInfo {
 public :
 	
 	// constructor
-	EffectInfo () throw();
+	EffectInfo () throw ();
 	
 	// destructor
-	~EffectInfo () throw();
+	~EffectInfo () throw ();
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () const throw() { return szBYTE + szWORD* m_ListNum* 2; }
+	PacketSize_t getSize () const throw () { return szBYTE + szWORD* m_ListNum* 2; }
 	static PacketSize_t getMaxSize() throw() { return 255;}
 
 	// get packet's debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 	// get / set ListNumber
 	BYTE getListNum() const throw() { return m_ListNum; }

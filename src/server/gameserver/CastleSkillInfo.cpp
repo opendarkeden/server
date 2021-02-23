@@ -6,7 +6,7 @@
 
 #include "CastleSkillInfo.h"
 #include "Skill.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -69,9 +69,9 @@ void CastleSkillInfoManager::clear()
 
 	HashMapCastleSkillInfoItor itr = m_CastleSkillInfos.begin();
 
-	for (; itr != m_CastleSkillInfos.end() ; ++itr )
+	for ( ; itr != m_CastleSkillInfos.end() ; ++itr )
 	{
-		SAFE_DELETE(itr->second);
+		SAFE_DELETE( itr->second );
 	}
 
 	m_CastleSkillInfos.clear();
@@ -100,10 +100,10 @@ void CastleSkillInfoManager::load()
 
 			CastleSkillInfo* pCastleSkillInfo = new CastleSkillInfo();
 
-			pCastleSkillInfo->setSkillType(pResult->getInt(++count ));
-			pCastleSkillInfo->setZoneID(pResult->getInt(++count ));
+			pCastleSkillInfo->setSkillType( pResult->getInt( ++count ) );
+			pCastleSkillInfo->setZoneID( pResult->getInt( ++count ) );
 
-			addCastleSkillInfo(pCastleSkillInfo);
+			addCastleSkillInfo( pCastleSkillInfo );
 		}
 		
 		SAFE_DELETE(pStmt);
@@ -114,16 +114,16 @@ void CastleSkillInfoManager::load()
 	__END_CATCH
 }
 
-void CastleSkillInfoManager::addCastleSkillInfo(CastleSkillInfo* pCastleSkillInfo )
+void CastleSkillInfoManager::addCastleSkillInfo( CastleSkillInfo* pCastleSkillInfo )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pCastleSkillInfo != NULL);
+	Assert( pCastleSkillInfo != NULL );
 
-	HashMapCastleSkillInfoItor itr = m_CastleSkillInfos.find(pCastleSkillInfo->getSkillType());
+	HashMapCastleSkillInfoItor itr = m_CastleSkillInfos.find( pCastleSkillInfo->getSkillType() );
 
-	if (itr != m_CastleSkillInfos.end() )
+	if ( itr != m_CastleSkillInfos.end() )
 	{
 		throw Error("CastleSkillInfoManager::addCastleSkillInfo : 이미 들어가있는 SkillType입니다.");
 	}
@@ -133,15 +133,15 @@ void CastleSkillInfoManager::addCastleSkillInfo(CastleSkillInfo* pCastleSkillInf
 	__END_CATCH
 }
 
-SkillType_t	CastleSkillInfoManager::getSkillType(ZoneID_t ZoneID ) const
+SkillType_t	CastleSkillInfoManager::getSkillType( ZoneID_t ZoneID ) const
 {
 	HashMapCastleSkillInfoConstItor itr = m_CastleSkillInfos.begin();
 
-	for (; itr != m_CastleSkillInfos.end() ; ++itr )
+	for ( ; itr != m_CastleSkillInfos.end() ; ++itr )
 	{
 		CastleSkillInfo* pCastleSkillInfo = itr->second;
 
-		if (pCastleSkillInfo != NULL && pCastleSkillInfo->getZoneID() == ZoneID )
+		if ( pCastleSkillInfo != NULL && pCastleSkillInfo->getZoneID() == ZoneID )
 		{
 			return pCastleSkillInfo->getSkillType();
 		}
@@ -151,11 +151,11 @@ SkillType_t	CastleSkillInfoManager::getSkillType(ZoneID_t ZoneID ) const
 	return SKILL_MAX;
 }
 
-ZoneID_t CastleSkillInfoManager::getZoneID(SkillType_t SkillType ) const
+ZoneID_t CastleSkillInfoManager::getZoneID( SkillType_t SkillType ) const
 {
-	HashMapCastleSkillInfoConstItor itr = m_CastleSkillInfos.find(SkillType);
+	HashMapCastleSkillInfoConstItor itr = m_CastleSkillInfos.find( SkillType );
 
-	if (itr != m_CastleSkillInfos.end() )
+	if ( itr != m_CastleSkillInfos.end() )
 	{
 		return itr->second->getZoneID();
 	}
@@ -174,7 +174,7 @@ string CastleSkillInfoManager::toString() const
 
 	HashMapCastleSkillInfoConstItor itr = m_CastleSkillInfos.begin();
 
-	for (; itr != m_CastleSkillInfos.end() ; ++itr )
+	for ( ; itr != m_CastleSkillInfos.end() ; ++itr )
 	{
 		msg << itr->second->toString();
 	}

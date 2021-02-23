@@ -13,9 +13,9 @@
 #include "CrossCounter.h"
 #include "EffectSetAfire.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -25,8 +25,8 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 {
 	__BEGIN_TRY
 
-	Assert(pVampire != NULL);
-	Assert(pVampireSkillSlot != NULL);
+	Assert( pVampire != NULL );
+	Assert( pVampireSkillSlot != NULL );
 
 	try
 	{
@@ -41,7 +41,7 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -54,26 +54,26 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
 		SkillType_t       SkillType  = pVampireSkillSlot->getSkillType();
 		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-		Range_t			  Range		 = 2 + pVampire->getSTR()/80 + pVampire->getDEX()/120 + pVampire->getINT()/240;
-		Range = min((Range_t)6, Range);
+		Range_t			  Range		 = 2 + pVampire->getSTR()/20 + pVampire->getDEX()/220 + pVampire->getINT()/440;
+		Range = min( (Range_t)6, Range );
 
 		int  RequiredMP         = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck         = hasEnoughMana(pVampire, RequiredMP);
 		bool bTimeCheck         = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck        = verifyDistance(pVampire, pTargetCreature, Range);
-		bool bHitRoll           = HitRoll::isSuccess(pVampire, pTargetCreature);
+		bool bHitRoll           = HitRoll::isSuccess( pVampire, pTargetCreature );
 		bool bCanHit            = canHit(pVampire, pTargetCreature, getSkillType());
 		bool bPK                = verifyPK(pVampire, pTargetCreature);
 		bool bFastMove			= false;
 
-		if (getDistance(pVampire->getX(), pVampire->getY(), pTargetCreature->getX(), pTargetCreature->getY() ) > 1 )
+		if ( getDistance( pVampire->getX(), pVampire->getY(), pTargetCreature->getX(), pTargetCreature->getY() ) > 1 )
 		{
 			bFastMove = true;
 		//	pZone->moveFastPC(pVampire, pVampire->getX(), pVampire->getY(), pTargetCreature->getX(), pTargetCreature->getY(), getSkillType());
 		}
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK &&
-				(!bFastMove || pZone->moveFastPC(pVampire, pVampire->getX(), pVampire->getY(), pTargetCreature->getX(), pTargetCreature->getY(), getSkillType()) )
+				( !bFastMove || pZone->moveFastPC(pVampire, pVampire->getX(), pVampire->getY(), pTargetCreature->getX(), pTargetCreature->getY(), getSkillType()) )
 				)
 		{
 			SkillInput input(pVampire);
@@ -83,12 +83,12 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 			bool bCriticalHit = false;
 			Damage += computeDamage(pVampire, pTargetCreature, 0, bCriticalHit);
 
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL );
+				Assert( pRankBonus != NULL );
 
-				Damage += getPercentValue(Damage, pRankBonus->getPoint());
+				Damage += getPercentValue( Damage, pRankBonus->getPoint() );
 			}
 
 			CheckCrossCounter(pVampire, pTargetCreature, Damage);
@@ -120,8 +120,8 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 				pEffect->setTick(3);
 				pEffect->setNextTime(3);
 				pEffect->setTimes(2);
-				pEffect->setCasterOID(pVampire->getObjectID());
-				pTargetCreature->addEffect(pEffect);
+				pEffect->setCasterOID( pVampire->getObjectID() );
+				pTargetCreature->addEffect( pEffect );
 //			}
 
 			increaseAlignment(pVampire, pTargetCreature, _GCSkillToObjectOK1);
@@ -167,12 +167,12 @@ void SetAfire::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 		} 
 		else
 		{
-			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature);
+			executeSkillFailNormal(pVampire, getSkillType(), pTargetCreature );
 		}
 	}
 	catch(Throwable & t)
 	{
-		executeSkillFailException(pVampire, getSkillType());
+		executeSkillFailException( pVampire, getSkillType() );
 	}
 
 	__END_CATCH

@@ -7,7 +7,7 @@
 #include "EffectBlockHead.h"
 #include "Ousters.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ void EffectBlockHead::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 //	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-//	Assert(pTargetOusters != NULL);
+//	Assert( pTargetOusters != NULL );
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;

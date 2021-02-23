@@ -5,17 +5,15 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PleasureExplosion.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCModifyInformation.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCAddEffectToTile.h"
 #include "Tile.h"
 #include "Creature.h"
 #include "CreatureUtil.h"
 #include "Slayer.h"
 #include "Ousters.h"
 #include "Player.h"
-
-#include <list>
 
 //////////////////////////////////////////////////////////////////////////////
 // »ý¼ºÀÚ
@@ -55,51 +53,51 @@ void PleasureExplosion::execute(Monster* pMonster)
 
 		if (bRangeCheck)
 		{
-			for (int i=-2; i<=2; ++i )
-				for (int j=-2; j<=2; ++j )
+			for ( int i=-2; i<=2; ++i )
+				for ( int j=-2; j<=2; ++j )
 				{
 					ZoneCoord_t tx = x+i;
 					ZoneCoord_t ty = y+j;
-					if (!isValidZoneCoord(pZone, tx, ty ) ) continue;
-					Tile& rTile = pZone->getTile(tx, ty);
-					list<Object*>& oList = rTile.getObjectList();
-					list<Object*>::iterator itr = oList.begin();
+					if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
+					Tile& rTile = pZone->getTile( tx, ty );
+					slist<Object*>& oList = rTile.getObjectList();
+					slist<Object*>::iterator itr = oList.begin();
 
-					for (; itr != oList.end(); ++itr )
+					for ( ; itr != oList.end(); ++itr )
 					{
-						if ((*itr)->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+						if ( (*itr)->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 						Creature* pCreature = dynamic_cast<Creature*>(*itr);
-						if (pCreature == NULL || !pCreature->isPC() ) continue;
-						addSimpleCreatureEffect(pCreature, Effect::EFFECT_CLASS_PLEASURE_EXPLOSION, 300);
-						//cout << pCreature->getName() << ", please" << endl;
+						if ( pCreature == NULL || !pCreature->isPC() ) continue;
+						addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_PLEASURE_EXPLOSION, 300 );
+						cout << pCreature->getName() << ", please" << endl;
 
-						if (pCreature->isSlayer() )
+						if ( pCreature->isSlayer() )
 						{
 							Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 							pSlayer->setMP(0);
 							GCModifyInformation gcMI;
-							gcMI.addLongData(MODIFY_CURRENT_MP, 0);
-							pSlayer->getPlayer()->sendPacket(&gcMI);
+							gcMI.addLongData( MODIFY_CURRENT_MP, 0 );
+							pSlayer->getPlayer()->sendPacket( &gcMI );
 						}
-						else if (pCreature->isOusters() )
+						else if ( pCreature->isOusters() )
 						{
 							Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 							pOusters->setMP(0);
 							GCModifyInformation gcMI;
-							gcMI.addLongData(MODIFY_CURRENT_MP, 0);
-							pOusters->getPlayer()->sendPacket(&gcMI);
+							gcMI.addLongData( MODIFY_CURRENT_MP, 0 );
+							pOusters->getPlayer()->sendPacket( &gcMI );
 						}
 					}
 				}
 
-			pZone->broadcastPacket(x, y, &_GCSkillToSelfOK2);
+			pZone->broadcastPacket( x, y, &_GCSkillToSelfOK2 );
 
 			GCAddEffectToTile gcAE;
 			gcAE.setXY(x, y);
 			gcAE.setEffectID(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION);
 			gcAE.setObjectID(0);
 			gcAE.setDuration(0);
-			pZone->broadcastPacket(x, y, &gcAE);
+			pZone->broadcastPacket( x, y, &gcAE );
 		} 
 		else 
 		{

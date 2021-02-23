@@ -12,7 +12,7 @@ class MonsterCorpse;
 class EffectTryRegenZone : public Effect
 {
 public:
-	EffectTryRegenZone(MonsterCorpse* pTower);
+	EffectTryRegenZone( MonsterCorpse* pTower );
 
 	EffectClass	getEffectClass() const throw() { return (EffectClass)(Effect::EFFECT_CLASS_SLAYER_TRYING_1 + (m_OwnerRace*3)); }
 	EffectClass	getSendEffectClass() const throw() { return (EffectClass)(getEffectClass() + m_Progress); }
@@ -21,10 +21,10 @@ public:
 	void unaffect() throw(Error);
 
 	Race_t getOwnerRace() const { return m_OwnerRace; }
-	void setOwnerRace(Race_t race ) { m_OwnerRace = race; }
+	void setOwnerRace( Race_t race ) { m_OwnerRace = race; }
 
 	uint getProgress() const { return m_Progress; }
-	void setProgress(uint pro ) { m_Progress = pro; }
+	void setProgress( uint pro ) { m_Progress = pro; }
 
 	string toString() const throw() { return "EffectTryRegenZone"; }
 

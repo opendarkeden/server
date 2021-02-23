@@ -9,8 +9,8 @@
 // include files
 #include "LoginServerManager.h"
 #include "Properties.h"
-//#include "LogClient.h"
-#include "Assert1.h"
+#include "LogClient.h"
+#include "Assert.h"
 #include "TimeChecker.h"
 
 #include "ThreadManager.h"
@@ -27,7 +27,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 LoginServerManager::LoginServerManager () 
-	throw(Error)
+	throw (Error)
 : m_pDatagramSocket(NULL)
 {
 	__BEGIN_TRY
@@ -39,12 +39,12 @@ LoginServerManager::LoginServerManager ()
 	{
 		try
 		{
-			m_pDatagramSocket = new DatagramSocket(g_pConfig->getPropertyInt("GameServerUDPPort"));
+			m_pDatagramSocket = new DatagramSocket(g_pConfig->getPropertyInt("GameServerUDPPort") );
 			break;
 		}
-		catch (BindException& be )
+		catch ( BindException& be )
 		{
-			SAFE_DELETE(m_pDatagramSocket);
+			SAFE_DELETE( m_pDatagramSocket );
 			cout << "LoginServerManager(" << g_pConfig->getPropertyInt("GameServerUDPPort") << ") : " << be.toString() << endl;
 			sleep(1);
 		}
@@ -59,7 +59,7 @@ LoginServerManager::LoginServerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 LoginServerManager::~LoginServerManager () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -72,7 +72,7 @@ LoginServerManager::~LoginServerManager ()
 // stop thread
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::stop () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ void LoginServerManager::stop ()
 // main method
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::run () 
-	throw()
+	throw ()
 {
 	try 
 	{
@@ -94,22 +94,22 @@ void LoginServerManager::run ()
 		string user     = g_pConfig->getProperty("DB_USER");
 		string password = g_pConfig->getProperty("DB_PASSWORD");
 		uint port		= 0;
-		if (g_pConfig->hasKey("DB_PORT") )
+		if ( g_pConfig->hasKey("DB_PORT") )
 			port = g_pConfig->getPropertyInt("DB_PORT");
 
 		Connection* pConnection = new Connection(host, db, user, password, port);
-        g_pDatabaseManager->addConnection(Thread::self(), pConnection);
-		//cout << "************************************************************************" << endl;
-		//cout << "************************************************************************" << endl;
-		//cout << "************************************************************************" << endl;
-		//cout << "************************************************************************" << endl;
-	    //cout << "OPEN LOGIN DB" << endl;
-		//cout << "************************************************************************" << endl;
-		//cout << "************************************************************************" << endl;
-		//cout << "************************************************************************" << endl;
+		g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+		cout << "************************************************************************" << endl;
+		cout << "************************************************************************" << endl;
+		cout << "************************************************************************" << endl;
+		cout << "************************************************************************" << endl;
+	    cout << "OPEN LOGIN DB" << endl;
+		cout << "************************************************************************" << endl;
+		cout << "************************************************************************" << endl;
+		cout << "************************************************************************" << endl;
 
 		Timeval dummyQueryTime;
-		getCurrentTime(dummyQueryTime);
+		getCurrentTime( dummyQueryTime );
 
 		while (true) 
 		{
@@ -196,7 +196,7 @@ void LoginServerManager::run ()
 
 			if (dummyQueryTime < currentTime)
 			{
-				g_pDatabaseManager->executeDummyQuery(pConnection);
+				g_pDatabaseManager->executeDummyQuery( pConnection );
 
 				// 1시간 ~ 1시간 30분 사이에서 dummy query 시간을 설정한다.
 				// timeout이 되지 않게 하기 위해서이다.
@@ -220,7 +220,7 @@ void LoginServerManager::run ()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::sendDatagram (Datagram* pDatagram)
-	throw(ProtocolException , Error)
+	throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 
@@ -233,7 +233,7 @@ void LoginServerManager::sendDatagram (Datagram* pDatagram)
 // send datagram packet to login server
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::sendPacket (const string& host , uint port , DatagramPacket* pPacket)
-	throw(ProtocolException , Error)
+	throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

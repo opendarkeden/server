@@ -10,7 +10,7 @@
 
 #include "Creature.h"
 #include "Zone.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Timeval.h"
 #include "Directive.h"
 

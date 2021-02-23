@@ -19,13 +19,13 @@
 #include "RelicUtil.h"
 #include "SharedServerManager.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCMorph1.h"
-#include "GCMorphSlayer2.h"
-#include "GCRemoveEffect.h"
-#include "GCDeleteObject.h"
-#include "GSGuildMemberLogOn.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCMorph1.h"
+#include "Gpackets/GCMorphSlayer2.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GSGuildMemberLogOn.h"
 
 #include <stdio.h>
 
@@ -148,31 +148,31 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 			g_pPCFinder->addCreature(pNewSlayer);
 
 			// 길드 현재 접속 멤버 리스트에서 삭제한다.
-			if (pVampire->getGuildID() != 0 )
+			if ( pVampire->getGuildID() != 0 )
 			{
-				Guild* pGuild = g_pGuildManager->getGuild(pVampire->getGuildID());
-				if (pGuild != NULL )
+				Guild* pGuild = g_pGuildManager->getGuild( pVampire->getGuildID() );
+				if ( pGuild != NULL )
 				{
-					pGuild->deleteCurrentMember(pVampire->getName());
+					pGuild->deleteCurrentMember( pVampire->getName() );
 
 					GSGuildMemberLogOn gsGuildMemberLogOn;
-					gsGuildMemberLogOn.setGuildID(pGuild->getID());
-					gsGuildMemberLogOn.setName(pVampire->getName());
-					gsGuildMemberLogOn.setLogOn(false);
+					gsGuildMemberLogOn.setGuildID( pGuild->getID() );
+					gsGuildMemberLogOn.setName( pVampire->getName() );
+					gsGuildMemberLogOn.setLogOn( false );
 
-					g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
+					g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 
 					Statement* pStmt = NULL;
 					// 디비에 업데이트 한다.
 					BEGIN_DB
 					{
 						pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-						pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pVampire->getName().c_str());
+						pStmt->executeQuery( "UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pVampire->getName().c_str() );
 					}
 					END_DB(pStmt)
 				}
 				else
-					filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str());
+					filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str() );
 			}
 
 			// 인벤토리 교체.
@@ -234,12 +234,12 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 						pInventory->addItem(point.x, point.y, pItem);
 						pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
 					}
-					else if (pItem->isTimeLimitItem() )
+					else if ( pItem->isTimeLimitItem() )
 					{
-						pVampire->deleteItemByMorph(pItem);
+						pVampire->deleteItemByMorph( pItem );
 
 						pItem->destroy();
-						SAFE_DELETE(pItem);
+						SAFE_DELETE( pItem );
 					}
 					// 자리가 없으면 바닥에 떨어뜨린다.
 					else
@@ -256,19 +256,19 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 							pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 							// ItemTraceLog 를 남긴다
-							if (pItem != NULL && pItem->isTraceItem() )
+							if ( pItem != NULL && pItem->isTraceItem() )
 							{
 								char zoneName[15];
-								sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-								remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+								sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+								remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
 							}
 						} 
 						else 
 						{
 							// ItemTraceLog 를 남긴다
-							if (pItem != NULL && pItem->isTraceItem() )
+							if ( pItem != NULL && pItem->isTraceItem() )
 							{
-								remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+								remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
 							}
 
 							pItem->destroy();
@@ -289,12 +289,12 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 					pInventory->addItem(point.x, point.y, pItem);
 					pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
 				}
-				else if (pItem->isTimeLimitItem() )
+				else if ( pItem->isTimeLimitItem() )
 				{
-					pVampire->deleteItemByMorph(pItem);
+					pVampire->deleteItemByMorph( pItem );
 
 					pItem->destroy();
-					SAFE_DELETE(pItem);
+					SAFE_DELETE( pItem );
 				}
 				// 자리가 없으면 바닥에 떨어뜨린다.
 				else
@@ -310,19 +310,19 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 						pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 						// ItemTraceLog 를 남긴다
-						if (pItem != NULL && pItem->isTraceItem() )
+						if ( pItem != NULL && pItem->isTraceItem() )
 						{
 							char zoneName[15];
-							sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-							remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+							sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+							remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
 						}
 					} 
 					else 
 					{
 						// ItemTraceLog 를 남긴다
-						if (pItem != NULL && pItem->isTraceItem() )
+						if ( pItem != NULL && pItem->isTraceItem() )
 						{
-							remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+							remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
 						}
 
 						pItem->destroy();
@@ -379,7 +379,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
 	
 			GCDeleteObject _GCDeleteObject;
-			_GCDeleteObject.setObjectID(TargetObjectID);
+			_GCDeleteObject.setObjectID( TargetObjectID );
 			pZone->broadcastPacket(x, y, &_GCDeleteObject, pNewSlayer);
 			pZone->broadcastPacket(x, y, &_GCMorphSlayer2, pNewSlayer);
 
@@ -521,13 +521,13 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 			g_pPCFinder->addCreature(pNewSlayer);
 
 			// 길드 현재 접속 멤버 리스트에서 삭제한다.
-			if (pVampire->getGuildID() != 0 )
+			if ( pVampire->getGuildID() != 0 )
 			{
-				Guild* pGuild = g_pGuildManager->getGuild(pVampire->getGuildID());
-				if (pGuild != NULL )
-					pGuild->deleteCurrentMember(pVampire->getName());
+				Guild* pGuild = g_pGuildManager->getGuild( pVampire->getGuildID() );
+				if ( pGuild != NULL )
+					pGuild->deleteCurrentMember( pVampire->getName() );
 				else
-					filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str());
+					filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str() );
 			}
 
 			// 인벤토리 교체.
@@ -576,12 +576,12 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 						pInventory->addItem(point.x, point.y, pItem);
 						pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
 					}
-					else if (pItem->isTimeLimitItem() )
+					else if ( pItem->isTimeLimitItem() )
 					{
-						pVampire->deleteItemByMorph(pItem);
+						pVampire->deleteItemByMorph( pItem );
 
 						pItem->destroy();
-						SAFE_DELETE(pItem);
+						SAFE_DELETE( pItem );
 					}
 					// 자리가 없으면 바닥에 떨어뜨린다.
 					else
@@ -598,19 +598,19 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 							pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 							// ItemTraceLog 를 남긴다
-							if (pItem != NULL && pItem->isTraceItem() )
+							if ( pItem != NULL && pItem->isTraceItem() )
 							{
 								char zoneName[15];
-								sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-								remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+								sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+								remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
 							}
 						} 
 						else 
 						{
 							// ItemTraceLog 를 남긴다
-							if (pItem != NULL && pItem->isTraceItem() )
+							if ( pItem != NULL && pItem->isTraceItem() )
 							{
-								remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+								remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
 							}
 
 							pItem->destroy();
@@ -631,12 +631,12 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 					pInventory->addItem(point.x, point.y, pItem);
 					pItem->save(pNewSlayer->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
 				}
-				else if (pItem->isTimeLimitItem() )
+				else if ( pItem->isTimeLimitItem() )
 				{
-					pVampire->deleteItemByMorph(pItem);
+					pVampire->deleteItemByMorph( pItem );
 
 					pItem->destroy();
-					SAFE_DELETE(pItem);
+					SAFE_DELETE( pItem );
 				}
 				// 자리가 없으면 바닥에 떨어뜨린다.
 				else
@@ -652,19 +652,19 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 						pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 						// ItemTraceLog 를 남긴다
-						if (pItem != NULL && pItem->isTraceItem() )
+						if ( pItem != NULL && pItem->isTraceItem() )
 						{
 							char zoneName[15];
-							sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-							remainTraceLog(pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
+							sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+							remainTraceLog( pItem, pFromCreature->getName(), zoneName, ITEM_LOG_MOVE, DETAIL_DROP);
 						}
 					} 
 					else 
 					{
 						// ItemTraceLog 를 남긴다
-						if (pItem != NULL && pItem->isTraceItem() )
+						if ( pItem != NULL && pItem->isTraceItem() )
 						{
-							remainTraceLog(pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
+							remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
 						}
 
 						pItem->destroy();
@@ -710,7 +710,7 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 
 
 			GCDeleteObject _GCDeleteObject;
-			_GCDeleteObject.setObjectID(pFromCreature->getObjectID());
+			_GCDeleteObject.setObjectID( pFromCreature->getObjectID() );
 			pZone->broadcastPacket(x, y, &_GCDeleteObject, pNewSlayer);
 			pZone->broadcastPacket(x, y, &_GCMorphSlayer2, pNewSlayer);
 

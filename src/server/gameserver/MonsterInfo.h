@@ -9,17 +9,18 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Creature.h"
 #include "MonsterSummonInfo.h"
 #include "MonsterInfoTypes.h"
 #include "Treasure.h"
 #include <list>
 #include <vector>
-#include <map>
+#include <hash_map>
 
 // 몬스터 스프라이트 종류 최대 숫자
-const int MAX_SPRITE_TYPE = 255;
+// add by viva
+const int MAX_SPRITE_TYPE = 1000;
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터가 기억할 수 있는 적의 최대 개수, 또는 적의 리스트에 접근하는 인덱스
@@ -326,15 +327,15 @@ public:
 
 	// 임의의 스프라이트 타입을 가진 몬스터의 타입 리스트를 가져온다.
 	// (여러 몬스터가 하나의 스프라이트 타입을 가질 수 있기 때문에) 
-	const vector<MonsterType_t>& getMonsterTypeBySprite(SpriteType_t spriteType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	const vector<MonsterType_t>& getMonsterTypeBySprite(SpriteType_t spriteType) const throw (NoSuchElementException, OutOfBoundException, Error);
 	string	getNameBySpriteType(SpriteType_t spriteType) const;
 
-	SpriteType_t getSpriteTypeByName(const string& monsterName) const throw(NoSuchElementException, Error);
-	MonsterType_t getChiefMonsterTypeByName(const string& monsterName) const throw(NoSuchElementException, Error);
+	SpriteType_t getSpriteTypeByName(const string& monsterName) const throw (NoSuchElementException, Error);
+	MonsterType_t getChiefMonsterTypeByName(const string& monsterName) const throw (NoSuchElementException, Error);
 	vector<MonsterType_t>& getMonsterTypesByMonsterClass(int MonsterClass) { return m_MonsterClassMap[MonsterClass]; }
 
 	uint	getMaxMonsterType() const	{ return m_MaxMonsterType; }
-	MonsterType_t	getRandomMonsterByClass(int minClass, int maxClass);
+	MonsterType_t	getRandomMonsterByClass( int minClass, int maxClass );
 
 	// get debug string
 	string toString() const throw();
@@ -346,9 +347,9 @@ private:
 	uint                  m_MaxMonsterType;      // size of MonsterInfo* array
 	MonsterInfo**         m_MonsterInfos;          // array of monster info
 	vector<MonsterType_t> m_MonsterSpriteSet[MAX_SPRITE_TYPE]; // array of MonsterType by SpriteType
-	map<string, SpriteType_t> m_MonsterSpriteTypes; 	// 이름으로 SpriteType_t찾기
-	map<string, MonsterType_t> m_ChiefMonster; 	// Chief 몬스터 정보 가지고 있기
-	map<int, vector<SpriteType_t> > m_MonsterClassMap; // 몬스터 클래스로 몬스터 타입 찾기
+	hash_map<string, SpriteType_t> m_MonsterSpriteTypes; 	// 이름으로 SpriteType_t찾기
+	hash_map<string, MonsterType_t> m_ChiefMonster; 	// Chief 몬스터 정보 가지고 있기
+	hash_map<int, vector<SpriteType_t> > m_MonsterClassMap; // 몬스터 클래스로 몬스터 타입 찾기
 
 	TreasureLists 			m_SlayerTreasureLists;       // 슬레이어를 위한 보물의 리스트
 	TreasureLists    		m_VampireTreasureLists;      // 뱀파이어를 위한 보물의 리스트

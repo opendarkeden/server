@@ -12,32 +12,32 @@
 //----------------------------------------------------------------------
 // read data from socket input stream
 //----------------------------------------------------------------------
-void SlotInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void SlotInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_IClass);
-	iStream.read(m_ItemType);
+	iStream.read( m_ObjectID );
+	iStream.read( m_IClass );
+	iStream.read( m_ItemType );
 
 	BYTE optionSize;
-	iStream.read(optionSize);
+	iStream.read( optionSize );
 
 	for (int i=0; i<optionSize; i++)
 	{
 		OptionType_t optionType;
-		iStream.read(optionType);
-		addOptionType(optionType);
+		iStream.read( optionType );
+		addOptionType( optionType );
 	}
 
-	iStream.read(m_InvenX);
-	iStream.read(m_InvenY);
-	iStream.read(m_ItemNum);
-	iStream.read(m_MainColor);
+	iStream.read( m_InvenX );
+	iStream.read( m_InvenY );
+	iStream.read( m_ItemNum );
+	iStream.read( m_MainColor );
 
-	} catch(Throwable & t ) {
+	} catch( Throwable & t ) {
 		cout << t.toString() << endl;
 	}
 
@@ -47,31 +47,31 @@ void SlotInfo::read (SocketInputStream & iStream )
 //----------------------------------------------------------------------
 // write data to socket output stream
 //----------------------------------------------------------------------
-void SlotInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void SlotInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try {
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_IClass);
-	oStream.write(m_ItemType);
+	oStream.write( m_ObjectID );
+	oStream.write( m_IClass );
+	oStream.write( m_ItemType );
 
 	BYTE optionSize = m_OptionType.size();
-	oStream.write(optionSize);
+	oStream.write( optionSize );
 
 	list<OptionType_t>::const_iterator itr = m_OptionType.begin();
 	for (; itr!=m_OptionType.end(); itr++)
 	{
 		OptionType_t optionType = *itr;
-		oStream.write(optionType);
+		oStream.write( optionType );
 	}
 
-	oStream.write(m_InvenX);
-	oStream.write(m_InvenY);
-	oStream.write(m_ItemNum);
-	oStream.write(m_MainColor);
+	oStream.write( m_InvenX );
+	oStream.write( m_InvenY );
+	oStream.write( m_ItemNum );
+	oStream.write( m_MainColor );
 
 	} catch (Throwable & t ) {
 		cout << t.toString() << endl;
@@ -84,7 +84,7 @@ void SlotInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SlotInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterInfo.cpp
-// Written By  : ï¿½è¼ºï¿½ï¿½
+// Written By  : ±è¼º¹Î
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -18,16 +18,14 @@
 #include <stdio.h>
 #include <functional>
 #include <algorithm>
-#include <iterator>
-#include <map>
 
 int DefaultClanID[CLAN_MAX] =
 {
-	0, //CLAN_NONE,							// ï¿½ï¿½ï¿½ð¿¡µï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½Ö´ï¿½.. 0
-	1, //CLAN_VAMPIRE_MONSTER,				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -_-;     1
-	2, //CLAN_VAMPIRE_BATHORY_MONSTER,		// ï¿½ï¿½ï¿½ä¸® ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½          2
-	3, //CLAN_VAMPIRE_TEPEZ_MONSTER,			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½          3
-	4, //CLAN_SLAYER_MONSTER,				// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - -;;       4
+	0, //CLAN_NONE,							// ¾îµð¿¡µµ ¼ÓÇÏÁö ¾Ê´Â ¾Ö´ú.. 0
+	1, //CLAN_VAMPIRE_MONSTER,				// ¶°µ¹ÀÌ ¹ìÆÄ ¸ó½ºÅÍ -_-;     1
+	2, //CLAN_VAMPIRE_BATHORY_MONSTER,		// ¹ÙÅä¸® ¼Ò¼Ó ¸ó½ºÅÍ          2
+	3, //CLAN_VAMPIRE_TEPEZ_MONSTER,			// Å×ÆäÁî ¼Ò¼Ó ¸ó½ºÅÍ          3
+	4, //CLAN_SLAYER_MONSTER,				// ½½·¹ÀÌ¾î ¸ó½ºÅÍ - -;;       4
 };
 
 extern int DefaultClanID[CLAN_MAX];
@@ -49,7 +47,7 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 	const list<Treasure*>& TList = pTreasureList->getTreasures();
 	int TreasureCount = TList.size();
 
-	file.write((char*)&TreasureCount, sizeof(int));
+	file.write(&TreasureCount, sizeof(int));
 
 	list<Treasure*>::const_iterator itr = TList.begin();
 	for (; itr != TList.end(); itr++)
@@ -59,13 +57,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 		int ItemRatio           = pTreasure->m_ItemRatio;
 		int OptionRatio         = pTreasure->m_OptionRatio;
 
-		file.write((char*)&ItemRatio, sizeof(int));
-		file.write((char*)&OptionRatio, sizeof(int));
+		file.write(&ItemRatio, sizeof(int));
+		file.write(&OptionRatio, sizeof(int));
 
 		vector<TreasureItemClass*> TICs = pTreasure->m_TreasureItemClasses;
 		int ItemClassCount = TICs.size();
 
-		file.write((char*)&ItemClassCount, sizeof(int));
+		file.write(&ItemClassCount, sizeof(int));
 
 		for (uint i=0; i<TICs.size(); i++)
 		{
@@ -74,13 +72,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 			int ItemClass          = (int)pTIC->m_ItemClass;
 			int ItemClassRatio     = pTIC->m_Ratio;
 
-			file.write((char*)&ItemClass, sizeof(int));
-			file.write((char*)&ItemClassRatio, sizeof(int));
+			file.write(&ItemClass, sizeof(int));
+			file.write(&ItemClassRatio, sizeof(int));
 
 			vector<TreasureItemType*> TITs = pTIC->m_TreasureItemTypes;
 			int ItemTypeCount = TITs.size();
 
-			file.write((char*)&ItemTypeCount, sizeof(int));
+			file.write(&ItemTypeCount, sizeof(int));
 
 			for (uint j=0; j<TITs.size(); j++)
 			{
@@ -89,13 +87,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 				int ItemType             = pTIT->m_ItemType;
 				int ItemTypeRatio        = pTIT->m_Ratio;
 
-				file.write((char*)&ItemType, sizeof(int));
-				file.write((char*)&ItemTypeRatio, sizeof(int));
+				file.write(&ItemType, sizeof(int));
+				file.write(&ItemTypeRatio, sizeof(int));
 
 				vector<TreasureOptionType*> TOTs = pTIT->m_TreasureOptionTypes;
 				int OptionTypeCount = TOTs.size();
 
-				file.write((char*)&OptionTypeCount, sizeof(int));
+				file.write(&OptionTypeCount, sizeof(int));
 
 				for (uint k=0; k<TOTs.size(); k++)
 				{
@@ -104,8 +102,8 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 					int OptionType  = pTOT->m_OptionType;
 					int OptionRatio = pTOT->m_Ratio;
 
-					file.write((char*)&OptionType, sizeof(int));
-					file.write((char*)&OptionRatio, sizeof(int));
+					file.write(&OptionType, sizeof(int));
+					file.write(&OptionRatio, sizeof(int));
 				}
 			}
 		}
@@ -175,7 +173,7 @@ MonsterInfo::~MonsterInfo()
 {
 	__BEGIN_TRY
 
-	// ï¿½Ì°Å´ï¿½ MonsterInfoï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// ÀÌ°Å´Â MonsterInfo¿¡¼­ °ü¸®ÇÑ´Ù.
 	//SAFE_DELETE(m_pSlayerTreasureList);
 	//SAFE_DELETE(m_pVampireTreasureList);
 
@@ -192,26 +190,26 @@ void MonsterInfo::setRegenType(RegenType rt, int percent)
 { 
 	m_RegenType[rt] = percent;
 
-	// REGENTYPE_NORMALï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ã¼­ 100%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ ï¿½Ç¹Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï¿ï¿½.. - -;  by sigi
+	// REGENTYPE_NORMALÀÇ È®·üÀ» ¹Ù²ã¼­ 100%·Î ¸ÂÃâ·Á°í ÇßÁö¸¸
+	// º° ÀÇ¹Ì°¡ ¾øÀ» µí ÇÏ¿©.. - -;  by sigi
 }
 
 //---------------------------------------------------------------------------
 // select RegenType
 //---------------------------------------------------------------------------
-// Hideï¿½ï¿½ Portalï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Øºï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Æ´Ï¸ï¿½.. Normalï¿½Ì´ï¿½. by sigi
+// Hide¿Í PortalÀÇ È®·üÀ» ¸ÕÀú Ã¼Å©ÇØº»ÈÄ µÑ ´Ù ¾Æ´Ï¸é.. NormalÀÌ´Ù. by sigi
 //---------------------------------------------------------------------------
 RegenType MonsterInfo::selectRegenType() const
 {
-	// ï¿½Óµï¿½ ï¿½à°£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	// 100ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½Æ´Ï°ï¿½ 128ï¿½Ð·ï¿½ï¿½Ì´ï¿½ - -;
+	// ¼Óµµ ¾à°£ ³ôÈú·Á°í
+	// 100ºÐ·üÀÌ ¾Æ´Ï°í 128ºÐ·üÀÌ´Ù - -;
 	int dice = rand() & 0x0000007F; //rand()%100;
 
 	int acc = 0;
 	const int REGENTYPE_MAX_1 = REGENTYPE_MAX-1;
 	for (int i=0; i<REGENTYPE_MAX_1; i++)
 	{
-		// ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¼ï¿½ ï¿½ï¿½~ Ã¼Å©
+		// °¢ È®·üº°·Î ´©Àû½ÃÄÑ¼­ Àß~ Ã¼Å©
 		acc += m_RegenType[i];
 		if (dice < acc)
 		{
@@ -223,7 +221,7 @@ RegenType MonsterInfo::selectRegenType() const
 }
 
 void MonsterInfo::setMoveMode(const string& moveMode)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -247,7 +245,7 @@ void MonsterInfo::parseEnhanceAttr(const string& enhance)
 
 	if (enhance.size() < 1) return;
 
-    size_t a = 0 , b = 0 , c = 0;
+	uint a = 0 , b = 0 , c = 0;
 
 	while (c < enhance.size() - 1)
 	{
@@ -284,7 +282,7 @@ void MonsterInfo::parseSlayerTreasureString(const string& text)
 	if (newtext.size() < 10)
 	{
 		cerr << "MonsterInfo::parseSlayerTreasureString() : Too short treasure string" << endl;
-		throw("MonsterInfo::parseSlayerTreasureString() : Too short treasure string");
+		throw ("MonsterInfo::parseSlayerTreasureString() : Too short treasure string");
 	}
 	*/
 
@@ -315,7 +313,7 @@ void MonsterInfo::parseVampireTreasureString(const string& text)
 	if (newtext.size() < 10)
 	{
 		cerr << "MonsterInfo::parseVampireTreasureString() : Too short treasure string" << endl;
-		throw("MonsterInfo::parseVampireTreasureString() : Too short treasure string");
+		throw ("MonsterInfo::parseVampireTreasureString() : Too short treasure string");
 	}
 	*/
 
@@ -368,7 +366,7 @@ void MonsterInfo::setMonsterSummonInfo(const string& text)
 	{
 		m_pMonsterSummonInfo = new MonsterSummonInfo;
 
-		m_pMonsterSummonInfo->parseString(text);
+		m_pMonsterSummonInfo->parseString( text );
 
 //		cout << "[SummonInfo] " 
 //			<< getHName().c_str() << " : " 
@@ -408,23 +406,22 @@ void MonsterInfo::setDefaultEffects(const string& text)
 
 	if (text.size() < 1) return;
 
-    size_t a = 0 , b = 0;
+	uint a = 0 , b = 0;
 
 	while (b < text.size() - 1)
 	{
 		b = text.find_first_of(',',a);
 
-		string part  = trim(text.substr(a, b-a));	//b-1 -a+1);
+		string part  = trim( text.substr(a, b-a) );	//b-1 -a+1);
 
-		if (part == "IMMUNE_TO_BLOOD_DRAIN")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN);
-		else if (part == "IMMUNE_TO_PARALYZE")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_PARALYZE);
-		else if (part == "IMMUNE_TO_POISON")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_POISON);
-		else if (part == "IMMUNE_TO_ACID")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_ACID);
-		else if (part == "IMMUNE_TO_CURSE")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE);
-		else if (part == "IMMUNE_TO_HALLUCINATION")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_HALLUCINATION);
-        else if (part == "IMMUNE_TO_ROTTEN_APPLE") m_DefaultEffects.push_back(Effect::EFFECT_CLASS_IMMUNE_TO_ROTTEN_APPLE);
-		else if (part == "DETECT_INVISIBILITY")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_DETECT_INVISIBILITY);
-		else if (part == "OBSERVING_EYE")	m_DefaultEffects.push_back(Effect::EFFECT_CLASS_OBSERVING_EYE);
+		if (part == "IMMUNE_TO_BLOOD_DRAIN")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN );
+		else if (part == "IMMUNE_TO_PARALYZE")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_PARALYZE );
+		else if (part == "IMMUNE_TO_POISON")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_POISON );
+		else if (part == "IMMUNE_TO_ACID")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_ACID );
+		else if (part == "IMMUNE_TO_CURSE")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_CURSE );
+		else if (part == "IMMUNE_TO_HALLUCINATION")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_IMMUNE_TO_HALLUCINATION );
+		else if (part == "DETECT_INVISIBILITY")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_DETECT_INVISIBILITY );
+		else if (part == "OBSERVING_EYE")	m_DefaultEffects.push_back( Effect::EFFECT_CLASS_OBSERVING_EYE );
 		else 
 		{
 			cout << "MonsterInfo::setDefaultEffects() - Wrong EffectClass: " << part.c_str() << endl;
@@ -443,11 +440,11 @@ void MonsterInfo::addDefaultEffects(Creature* pCreature) const
 	{
 		Effect::EffectClass effectClass = *itr;
 
-		pCreature->setFlag(effectClass);
+		pCreature->setFlag( effectClass );
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ effectï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½Ø´ï¿½.
-		// ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ effectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. by sigi. 2002.10.25
-		// ï¿½Ùµï¿½.. ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ assert(isSlayer())ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö¾î¼­ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½. by sigi. 2002.10.28
+		// ½ÇÁ¦·Î effect¸¦ ºÙ¿©ÁØ´Ù.
+		// ´Ù¸¥ °÷¿¡¼­ effect¸¦ ÂüÁ¶ÇÏ±â ¶§¹®ÀÌ´Ù. by sigi. 2002.10.25
+		// ±Ùµ¥.. ´Ù¸¥ °÷¿¡¼­ assert(isSlayer())ÇØ³õÀº°Ô Á» ÀÖ¾î¼­ ÀÏ´Ü Á¦°Å. by sigi. 2002.10.28
 		/*
 		switch (effectClass)
 		{
@@ -458,7 +455,7 @@ void MonsterInfo::addDefaultEffects(Creature* pCreature) const
 				pEffect->setDamageBonus(13);
 				pEffect->setCriticalHitBonus(50);
 				pEffect->setVisionBonus(1);
-				pEffect->setSkillLevel(99);
+				pEffect->setSkillLevel( 99 );
 
 				pCreature->addEffect(pEffect);
 			}																					
@@ -482,7 +479,7 @@ void MonsterInfo::addDefaultEffects(Creature* pCreature) const
 
 
 string MonsterInfo::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -525,7 +522,7 @@ string MonsterInfo::toString () const
 ////////////////////////////////////////////////////////////////////////////////
 
 MonsterInfoManager::MonsterInfoManager ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -535,7 +532,7 @@ MonsterInfoManager::MonsterInfoManager ()
 }
 
 MonsterInfoManager::~MonsterInfoManager ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 		
@@ -545,7 +542,7 @@ MonsterInfoManager::~MonsterInfoManager ()
 }
 
 void MonsterInfoManager::init ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -562,11 +559,11 @@ void MonsterInfoManager::clearTreasures()
 }
 
 void MonsterInfoManager::load () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
-    cout << "[MonsterInfoManager] Loading..." << endl;
+
 	Statement* pStmt   = NULL;
 	Result*    pResult = NULL;
 
@@ -575,27 +572,27 @@ void MonsterInfoManager::load ()
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery("SELECT MAX(MType) FROM MonsterInfo");
 
-		// MonsterInfo ï¿½ï¿½ï¿½Ìºí¿¡ï¿½ï¿½ ï¿½Ö´ï¿½ MonsterType ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
-		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ MonsterInfoManagerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ MonsterInfo* ï¿½è¿­ï¿½ï¿½ Å©ï¿½â°¡ ï¿½È´ï¿½.
+		// MonsterInfo Å×ÀÌºí¿¡¼­ ÃÖ´ë MonsterType °ªÀ» °¡Á®¿Â´Ù.
+		// ÀÌ °ªÀº MonsterInfoManagerÀÇ ³»ºÎ MonsterInfo* ¹è¿­ÀÇ Å©±â°¡ µÈ´Ù.
 		if (pResult->getRowCount() == 0)
 		{
-			// ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ç¿¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
+			// Å×ÀÌºíÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ¿¡·¯´Ù...
 			SAFE_DELETE(pStmt);
 			throw Error("MonsterInfo table is empty.. insert any row."); 
 		}
 
-		// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-NPC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½,
-		// ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í·Î¼ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°Ú´ï¿½. -_-; ï¿½ï¿½ï¿½ï¿½ ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		// Å¬¶óÀÌ¾ðÆ®¿¡¼­´Â ½½·¹ÀÌ¾î-¹ìÆÄÀÌ¾î-¸ó½ºÅÍ-NPC ¸¦ ±¸ºÐÇÏÁö ¾Ê°í,
+		// ´ÜÁö Ä³¸¯ÅÍ·Î¼­ ÀÎµ¦½ÌÀ» ÇÏ±â ¶§¹®¿¡, µµ·®ÀÌ ³ÐÀº ¿ì¸®°¡ ÀÌÇØÇØ¼­
+		// ¸ÂÃçÁà¾ß ÇÏ°Ú´Ù. -_-; ½ÇÁ¦ ¸Æ½ºº¸´Ù 4¸¦ ´õÇØ¼­ ¹è¿­À» »ý¼ºÇÑ´Ù.
 		// 0:Male Slayer, 1:Female Slayer, 2:Male Vampire, 3:Female Vampire
 		pResult->next();
 		m_MaxMonsterType = pResult->getInt(1) + 4 + 1;
-		m_MonsterInfos = new MonsterInfo*[m_MaxMonsterType];
+		m_MonsterInfos = new (MonsterInfo*)[m_MaxMonsterType];
 
 		for (uint i = 0 ; i < m_MaxMonsterType ; i ++)
 			m_MonsterInfos[i] = NULL;
 
-		// MonsterInfo ï¿½ï¿½ï¿½Ìºï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾î¼­ MonsterInfo ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, add ï¿½Ñ´ï¿½.
+		// MonsterInfo Å×ÀÌºí·ÎºÎÅÍ ¸ó½ºÅÍ Á¤º¸¸¦ ÀÐ¾î¼­ MonsterInfo °´Ã¼¿¡ ÀúÀå, add ÇÑ´Ù.
 		//RegenInvisible, RegenBat, 
 		/*
 		StringStream sql;
@@ -610,7 +607,15 @@ void MonsterInfoManager::load ()
 
 		//pResult = pStmt->executeQuery(sql.toString());
 
-		pResult = pStmt->executeQuery("SELECT MType, SType, HName, EName, Level, STR, DEX, INTE, BSize, Exp, MColor, SColor, Align, AOrder, Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, RegenPortal, RegenInvisible, RegenBat, MMode, AIType, Enhance, UnburrowChance, Master, ClanType, DefaultEffects, Chief, NormalRegen, HasTreasure, MonsterClass, SkullType FROM MonsterInfo");
+		pResult = pStmt->executeQuery( 
+			"SELECT MType, SType, HName, EName, 
+				Level, STR, DEX, INTE, BSize, Exp, 
+				MColor, SColor, Align, AOrder, 
+				Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, 
+				RegenPortal, RegenInvisible, RegenBat, 
+				MMode, AIType, Enhance, UnburrowChance, 
+				Master, ClanType, DefaultEffects, Chief, NormalRegen, HasTreasure, MonsterClass, SkullType
+				FROM MonsterInfo");
 
 		while (pResult->next()) 
 		{
@@ -655,7 +660,7 @@ void MonsterInfoManager::load ()
 			pMonsterInfo->setClanType(pResult->getInt(++i));
 			//pMonsterInfo->setMonsterSummonInfo(pResult->getString(++i));
 			pMonsterInfo->setDefaultEffects(pResult->getString(++i));
-			pMonsterInfo->setChief(pResult->getInt(++i)!=0);
+			pMonsterInfo->setChief( pResult->getInt(++i)!=0 );
 			pMonsterInfo->setNormalRegen(pResult->getInt(++i)!=0);
 			pMonsterInfo->setHasTreasure(pResult->getInt(++i)!=0);
 			pMonsterInfo->setMonsterClass(pResult->getInt(++i));
@@ -664,9 +669,9 @@ void MonsterInfoManager::load ()
 			addMonsterInfo(pMonsterInfo->getMonsterType(), pMonsterInfo);
 		}
 
-		// MonsterSummonInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-		// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. (ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
-		pResult = pStmt->executeQuery(
+		// MonsterSummonInfo´Â µû·Î ¼³Á¤ÇÑ´Ù.
+		// ÀÏ´Ü ¸ó½ºÅÍ Á¤º¸°¡ loadµÈ »óÅÂ¿©¾ß ÇÏ±â ¶§¹®ÀÌ´Ù. (ÀÌ¸§ ºñ±³ ¶§¹®¿¡)
+		pResult = pStmt->executeQuery( 
 			"SELECT MType, MonsterSummonInfo FROM MonsterInfo");
 
 		while (pResult->next()) 
@@ -678,9 +683,8 @@ void MonsterInfoManager::load ()
 
 			pMonsterInfo->setMonsterSummonInfo(pResult->getString(++i));
 		}
-        cout << "[MonsterInfoManager] Loaded." << endl;
 
-        cout << "[MonsterInfoManager] Loading Treasures..." << endl;
+
 		clearTreasures();
 
 		for (uint i=0; i<m_MaxMonsterType; i++)
@@ -694,15 +698,11 @@ void MonsterInfoManager::load ()
 					string vampire_filename;
 					string ousters_filename;
 
-					if (pInfo->getMonsterClass() == 0 )
+					if ( pInfo->getMonsterClass() == 0 )
 					{
-//						slayer_filename  = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".slayer.bin";
-//						vampire_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".vampire.bin";
-//						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".ousters.bin";
-
-						slayer_filename  = g_pConfig->getProperty("HomePath") + "/data/Class1.slayer.bin";
-						vampire_filename = g_pConfig->getProperty("HomePath") + "/data/Class1.vampire.bin";
-						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/Class1.ousters.bin";
+						slayer_filename  = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".slayer.bin";
+						vampire_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".vampire.bin";
+						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".ousters.bin";
 					}
 					else
 					{
@@ -713,28 +713,28 @@ void MonsterInfoManager::load ()
 						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + buffer + ".ousters.bin";
 					}
 
-					TreasureList* pSlayerTreasureList = m_SlayerTreasureLists.getTreasure(slayer_filename);
-					TreasureList* pVampireTreasureList = m_VampireTreasureLists.getTreasure(vampire_filename);
-					TreasureList* pOustersTreasureList = m_OustersTreasureLists.getTreasure(ousters_filename);
+					TreasureList* pSlayerTreasureList = m_SlayerTreasureLists.getTreasure( slayer_filename );
+					TreasureList* pVampireTreasureList = m_VampireTreasureLists.getTreasure( vampire_filename );
+					TreasureList* pOustersTreasureList = m_OustersTreasureLists.getTreasure( ousters_filename );
 
 					if (pSlayerTreasureList==NULL) 
 					{
-						//printf("Load - slayer_filename:%s\n", slayer_filename.c_str());
-						pSlayerTreasureList = m_SlayerTreasureLists.loadTreasure(slayer_filename);
+						printf("Load - slayer_filename:%s\n", slayer_filename.c_str());
+						pSlayerTreasureList = m_SlayerTreasureLists.loadTreasure( slayer_filename );
 						Assert(pSlayerTreasureList!=NULL); 
 					}
 
 					if (pVampireTreasureList==NULL)
 					{
-						//printf("Load - vampire_filename:%s\n", vampire_filename.c_str());
-						pVampireTreasureList = m_VampireTreasureLists.loadTreasure(vampire_filename);
+						printf("Load - vampire_filename:%s\n", vampire_filename.c_str());
+						pVampireTreasureList = m_VampireTreasureLists.loadTreasure( vampire_filename );
 						Assert(pVampireTreasureList!=NULL); 
 					}
 					
 					if (pOustersTreasureList==NULL)
 					{
-						//printf("Load - ousters_filename:%s\n", ousters_filename.c_str());
-						pOustersTreasureList = m_OustersTreasureLists.loadTreasure(ousters_filename);
+						printf("Load - ousters_filename:%s\n", ousters_filename.c_str());
+						pOustersTreasureList = m_OustersTreasureLists.loadTreasure( ousters_filename );
 						Assert(pOustersTreasureList!=NULL); 
 					}
 
@@ -742,7 +742,7 @@ void MonsterInfoManager::load ()
 					pInfo->setVampireTreasureList(pVampireTreasureList);
 					pInfo->setOustersTreasureList(pOustersTreasureList);
 
-					// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// °ËÁõÇÑ´Ù.
 					//cout << "MonsterType:" << pInfo->getMonsterType() 
 					//	<< ",MonsterName:" << pInfo->getEName()
 					//	<< ",SlayerTreasure:" << pInfo->getSlayerTreasureList()->getTreasures().size()
@@ -751,11 +751,10 @@ void MonsterInfoManager::load ()
 				}
 				else
 				{
-					//cout << "[NoTreasureFile] " << pInfo->getHName().c_str() << endl;
+					cout << "[NoTreasureFile] " << pInfo->getHName().c_str() << endl;
 				}
 			}
 		}
-        cout << "[MonsterInfoManager] Treasures Loaded." << endl;
 
 		/*
 
@@ -793,7 +792,7 @@ void MonsterInfoManager::load ()
 					pMonsterInfo->parseSlayerTreasureString(slayer_treasure);
 					pMonsterInfo->parseVampireTreasureString(vampire_treasure);
 
-					// ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+					// ÆÄÀÏ¿¡´Ù ¾´´Ù.
 					//saveTreasure((string)(hname + ".slayer"), pSlayerTreasureList);
 					//saveTreasure((string)(hname + ".vampire"), pVampireTreasureList);
 				}
@@ -803,7 +802,7 @@ void MonsterInfoManager::load ()
 					pMonsterInfo->setVampireTreasureList(pVampireTreasureList);
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+				// °ËÁõÇÑ´Ù.
 				cout << "MonsterType:" << pMonsterInfo->getMonsterType() 
 					<< ",MonsterName:" << pMonsterInfo->getEName()
 					<< ",SlayerTreasure:" << pMonsterInfo->getSlayerTreasureList()->getTreasures().size()
@@ -821,23 +820,23 @@ void MonsterInfoManager::load ()
 	} 
 	END_DB(pStmt)
 
-	map<int, vector<SpriteType_t> >::iterator itr = m_MonsterClassMap.begin();
-	map<int, vector<SpriteType_t> >::iterator endItr = m_MonsterClassMap.end();
-/*
-	for (; itr != endItr ; ++itr )
+	hash_map<int, vector<SpriteType_t> >::iterator itr = m_MonsterClassMap.begin();
+	hash_map<int, vector<SpriteType_t> >::iterator endItr = m_MonsterClassMap.end();
+
+	for ( ; itr != endItr ; ++itr )
 	{
 		cout << "Class[" << itr->first << "] : ";
-		copy(itr->second.begin(), itr->second.end(), ostream_iterator<SpriteType_t>(cout, ", " ));
+		copy( itr->second.begin(), itr->second.end(), ostream_iterator<SpriteType_t>( cout, ", " ) );
 		cout << endl;
 	}
-*/
+
 	__END_DEBUG
 	__END_CATCH
 }
 
 
 void MonsterInfoManager::reload (MonsterType_t monsterType) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -853,15 +852,16 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 		pResult = pStmt->executeQuery("SELECT MAX(MType) FROM MonsterInfo");
 
 		StringStream sql;
-		sql << "SELECT MType, SType, HName, EName, Level, STR, DEX, INTE, BSize, Exp, MColor, SColor, Align, AOrder, Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, RegenPortal, RegenInvisible, RegenBat, MMode, AIType, Enhance, UnburrowChance, Master, ClanType, MonsterSummonInfo, DefaultEffects, NormalRegen FROM MonsterInfo";
+		sql << "SELECT MType, SType, HName, EName, Level, STR, DEX, INTE, BSize, Exp, MColor, SColor, Align, AOrder, Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, RegenPortal, RegenInvisible, RegenBat, MMode, AIType, Enhance, UnburrowChance, Master, ClanType, MonsterSummonInfo, DefaultEffects, NormalRegen "
+			<< " FROM MonsterInfo";
 
-		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ loadingï¿½Ï´Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ MonsterTypeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		// ÀüºÎ ´Ù loadingÇÏ´Â°Ô ¾Æ´Ï¶ó¸é Æ¯Á¤ MonsterTypeÀ» ¼³Á¤ÇÑ´Ù.
 		if (!bLoadAll)
 		{
 			sql << " WHERE MType=" << monsterType;
 		}
 
-		pResult = pStmt->executeQuery(sql.toString().c_str());
+		pResult = pStmt->executeQuery( sql.toString().c_str() );
 
 		while (pResult->next()) 
 		{
@@ -916,7 +916,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 		int startType = 0; 
 		int endType   = m_MaxMonsterType;
 
-		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ loadingï¿½Ï´Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ MonsterTypeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		// ÀüºÎ ´Ù loadingÇÏ´Â°Ô ¾Æ´Ï¶ó¸é Æ¯Á¤ MonsterTypeÀ» ¼³Á¤ÇÑ´Ù.
 		if (!bLoadAll)
 		{
 			startType = monsterType;
@@ -936,15 +936,15 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 					string vampire_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".vampire.bin";
 					string ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".ousters.bin";
 
-					TreasureList* pSlayerTreasureList = m_SlayerTreasureLists.getTreasure(slayer_filename);
-					TreasureList* pVampireTreasureList = m_VampireTreasureLists.getTreasure(vampire_filename);
-					TreasureList* pOustersTreasureList = m_OustersTreasureLists.getTreasure(ousters_filename);
+					TreasureList* pSlayerTreasureList = m_SlayerTreasureLists.getTreasure( slayer_filename );
+					TreasureList* pVampireTreasureList = m_VampireTreasureLists.getTreasure( vampire_filename );
+					TreasureList* pOustersTreasureList = m_OustersTreasureLists.getTreasure( ousters_filename );
 
 					if (pSlayerTreasureList==NULL) 
 					{
 						printf("Load - slayer_filename:%s\n", slayer_filename.c_str());
 
-						pSlayerTreasureList = m_SlayerTreasureLists.loadTreasure(slayer_filename);
+						pSlayerTreasureList = m_SlayerTreasureLists.loadTreasure( slayer_filename );
 						Assert(pSlayerTreasureList!=NULL); 
 					}
 
@@ -952,7 +952,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 					{
 						printf("Load - vampire_filename:%s\n", vampire_filename.c_str());
 						
-						pVampireTreasureList = m_VampireTreasureLists.loadTreasure(vampire_filename);
+						pVampireTreasureList = m_VampireTreasureLists.loadTreasure( vampire_filename );
 						Assert(pVampireTreasureList!=NULL); 
 					}
 
@@ -960,7 +960,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 					{
 						printf("Load - ousters_filename:%s\n", ousters_filename.c_str());
 						
-						pOustersTreasureList = m_OustersTreasureLists.loadTreasure(ousters_filename);
+						pOustersTreasureList = m_OustersTreasureLists.loadTreasure( ousters_filename );
 						Assert(pOustersTreasureList!=NULL); 
 					}
 
@@ -968,7 +968,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 					pInfo->setVampireTreasureList(pVampireTreasureList);
 					pInfo->setOustersTreasureList(pOustersTreasureList);
 
-					// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+					// °ËÁõÇÑ´Ù.
 //					cout << "MonsterType:" << pInfo->getMonsterType() 
 //						<< ",MonsterName:" << pInfo->getEName()
 //						<< ",SlayerTreasure:" << pInfo->getSlayerTreasureList()->getTreasures().size()
@@ -987,7 +987,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 }
 
 void MonsterInfoManager::addMonsterInfo (MonsterType_t monsterType , MonsterInfo* pMonsterInfo) 
-	throw(DuplicatedException , OutOfBoundException , Error)
+	throw (DuplicatedException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1017,18 +1017,18 @@ void MonsterInfoManager::addMonsterInfo (MonsterType_t monsterType , MonsterInfo
 		m_ChiefMonster[pMonsterInfo->getHName()] = pMonsterInfo->getMonsterType();
 	}
 
-	if (pMonsterInfo->getMonsterClass() != 0 && pMonsterInfo->isNormalRegen() )
+	if ( pMonsterInfo->getMonsterClass() != 0 && pMonsterInfo->isNormalRegen() )
 	{
 		vector<SpriteType_t>& mList = m_MonsterClassMap[pMonsterInfo->getMonsterClass()];
-		vector<SpriteType_t>::iterator itr = find_if(mList.begin(), mList.end(), bind2nd(greater_equal<int>(), pMonsterInfo->getSpriteType() ));
-		if (itr == mList.end() || *itr != pMonsterInfo->getSpriteType() ) mList.insert(itr, pMonsterInfo->getSpriteType());
+		vector<SpriteType_t>::iterator itr = find_if( mList.begin(), mList.end(), bind2nd( greater_equal<int>(), pMonsterInfo->getSpriteType() ) );
+		if ( itr == mList.end() || *itr != pMonsterInfo->getSpriteType() ) mList.insert( itr, pMonsterInfo->getSpriteType() );
 	}
 
 	__END_CATCH
 }
 
 const MonsterInfo* MonsterInfoManager::getMonsterInfo (MonsterType_t monsterType) const 
-	throw(NoSuchElementException , OutOfBoundException , Error)
+	throw (NoSuchElementException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1044,14 +1044,14 @@ const MonsterInfo* MonsterInfoManager::getMonsterInfo (MonsterType_t monsterType
 		throw NoSuchElementException();
 	}
 
-	// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Ç¸ï¿½ [] ï¿½ï¿½ ï¿½áµµ ï¿½È´ï¿½.
+	// ÀÏ´Ü À§¿¡¼­ ÇÑ¹ø Ã¼Å©°¡ µÇ¸é [] ¸¦ ½áµµ µÈ´Ù.
 	return m_MonsterInfos[monsterType]; 
 
 	__END_CATCH
 }
 
 const vector<MonsterType_t>& MonsterInfoManager::getMonsterTypeBySprite(SpriteType_t spriteType) const
-	throw(NoSuchElementException , OutOfBoundException , Error)
+	throw (NoSuchElementException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1094,11 +1094,11 @@ string MonsterInfoManager::getNameBySpriteType(SpriteType_t spriteType) const
 }
 
 SpriteType_t MonsterInfoManager::getSpriteTypeByName(const string& monsterName) const
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	map<string, SpriteType_t>::const_iterator itr = m_MonsterSpriteTypes.find(monsterName);
+	hash_map<string, SpriteType_t>::const_iterator itr = m_MonsterSpriteTypes.find( monsterName );
 	
 	if (itr==m_MonsterSpriteTypes.end())
 	{
@@ -1114,11 +1114,11 @@ SpriteType_t MonsterInfoManager::getSpriteTypeByName(const string& monsterName) 
 }
 
 MonsterType_t MonsterInfoManager::getChiefMonsterTypeByName(const string& monsterName) const
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	map<string, SpriteType_t>::const_iterator itr = m_ChiefMonster.find(monsterName);
+	hash_map<string, SpriteType_t>::const_iterator itr = m_ChiefMonster.find( monsterName );
 	
 	if (itr==m_ChiefMonster.end())
 	{
@@ -1133,10 +1133,10 @@ MonsterType_t MonsterInfoManager::getChiefMonsterTypeByName(const string& monste
 	__END_CATCH
 }
 
-MonsterType_t MonsterInfoManager::getRandomMonsterByClass(int minClass, int maxClass )
+MonsterType_t MonsterInfoManager::getRandomMonsterByClass( int minClass, int maxClass )
 {
 	int totalCand = 0;
-	for (int i = minClass; i <= maxClass; ++i )
+	for ( int i = minClass; i <= maxClass; ++i )
 	{
 		totalCand += m_MonsterClassMap[i].size();
 	}
@@ -1145,10 +1145,10 @@ MonsterType_t MonsterInfoManager::getRandomMonsterByClass(int minClass, int maxC
 	SpriteType_t Target;
 	int index = minClass;
 
-	while (true )
+	while ( true )
 	{
 		vector<SpriteType_t>& sList = m_MonsterClassMap[index];
-		if (value >= sList.size() )
+		if ( value >= sList.size() )
 		{
 			value -= sList.size();
 			++index;
@@ -1164,7 +1164,7 @@ MonsterType_t MonsterInfoManager::getRandomMonsterByClass(int minClass, int maxC
 }
 
 string MonsterInfoManager::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

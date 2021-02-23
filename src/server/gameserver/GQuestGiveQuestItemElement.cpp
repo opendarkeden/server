@@ -2,21 +2,21 @@
 #include "PlayerCreature.h"
 #include "GQuestInventory.h"
 #include "Player.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include "DB.h"
 
-GQuestElement::ResultType GQuestGiveQuestItemElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveQuestItemElement::checkCondition( PlayerCreature* pPC ) const
 {
 	GQuestInventory& inventory = pPC->getGQuestManager()->getGQuestInventory();
 	inventory.getItems().push_back(m_ItemType);
 	pPC->getPlayer()->sendPacket(inventory.getInventoryPacket());
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("Äù½ºÆ® ¾ÆÀÌÅÛÀ» È¹µæÇß½À´Ï´Ù.");
-	pPC->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage("»ñµÃÈÎÎñµÀ¾ß.");
+	pPC->getPlayer()->sendPacket( &gcSM );
 
-	if (m_bSave )
+	if ( m_bSave )
 	{
 		Statement* pStmt = NULL;
 		BEGIN_DB
@@ -24,7 +24,7 @@ GQuestElement::ResultType GQuestGiveQuestItemElement::checkCondition(PlayerCreat
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 			pStmt->executeQuery("INSERT INTO GQuestItemObject(ItemType, OwnerID) VALUES (%u, '%s')",
 					m_ItemType, pPC->getName().c_str());
-			SAFE_DELETE(pStmt);
+			SAFE_DELETE( pStmt );
 		}
 		END_DB(pStmt)
 	}
@@ -37,7 +37,7 @@ GQuestGiveQuestItemElement* GQuestGiveQuestItemElement::makeElement(XMLTree* pTr
 	GQuestGiveQuestItemElement* pRet = new GQuestGiveQuestItemElement;
 
 	DWORD itemType;
-	if (pTree->GetAttribute("id", itemType ) ) pRet->m_ItemType = itemType;
+	if ( pTree->GetAttribute("id", itemType ) ) pRet->m_ItemType = itemType;
 	pTree->GetAttribute("save", pRet->m_bSave);
 
 	return pRet;

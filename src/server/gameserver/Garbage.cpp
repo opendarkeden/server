@@ -9,7 +9,7 @@
 #include "Garbage.h"
 #include "Item.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class Garbage member methods

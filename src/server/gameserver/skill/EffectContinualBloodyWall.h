@@ -46,10 +46,10 @@ public:
 	void setDamage(Damage_t damage) throw(Error) { m_Damage = damage; }
 	Damage_t getDamage() const throw() { return m_Damage; }
   
-	void setTick(Turn_t tick ) throw(Error) { m_Tick = tick; }
+	void setTick( Turn_t tick ) throw(Error) { m_Tick = tick; }
 	Turn_t getTick() const throw() { return m_Tick; }
 
-	void setDuration(Turn_t duration ) throw(Error) { m_Duration = duration; }
+	void setDuration( Turn_t duration ) throw(Error) { m_Duration = duration; }
 	Turn_t getDuration() const throw() { return m_Duration; }
 
 	void setRect(ZoneCoord_t left, ZoneCoord_t right, ZoneCoord_t top, ZoneCoord_t bottom) throw(Error) { m_Left = left; m_Right = right; m_Top = top; m_Bottom = bottom; }

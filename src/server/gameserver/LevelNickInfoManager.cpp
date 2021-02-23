@@ -2,21 +2,19 @@
 #include "DB.h"
 #include "Creature.h"
 
-#include <map>
-
 void LevelNickInfoManager::clear()
 {
-	map<Level_t, vector<LevelNickInfo*> >::iterator itr = m_LevelNickInfoMap.begin();
-	map<Level_t, vector<LevelNickInfo*> >::iterator endItr = m_LevelNickInfoMap.end();
+	hash_map<Level_t, vector<LevelNickInfo*> >::iterator itr = m_LevelNickInfoMap.begin();
+	hash_map<Level_t, vector<LevelNickInfo*> >::iterator endItr = m_LevelNickInfoMap.end();
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
 		vector<LevelNickInfo*>::iterator vitr = itr->second.begin();
 		vector<LevelNickInfo*>::iterator eitr = itr->second.end();
 
-		for (; vitr != eitr ; ++vitr )
+		for ( ; vitr != eitr ; ++vitr )
 		{
-			SAFE_DELETE((*vitr));
+			SAFE_DELETE( (*vitr) );
 		}
 	}
 
@@ -31,9 +29,9 @@ void LevelNickInfoManager::load()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery("SELECT NickIndex, Race, Level10 FROM NicknameIndex WHERE NickType='LEVEL'");
+		Result* pResult = pStmt->executeQuery( "SELECT NickIndex, Race, Level10 FROM NicknameIndex WHERE NickType='LEVEL'" );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			DWORD index = pResult->getInt(1);
 			Race_t race = pResult->getInt(2);
@@ -41,12 +39,12 @@ void LevelNickInfoManager::load()
 
 			LevelNickInfo* pInfo = new LevelNickInfo(race, level10, index);
 
-			m_LevelNickInfoMap[level10].push_back(pInfo);
+			m_LevelNickInfoMap[level10].push_back( pInfo );
 		}
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 }
 
 bool LevelNickInfo::isFitRace(Creature* pCreature) const

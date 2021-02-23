@@ -19,22 +19,22 @@
 #include "PaySystem.h"
 #include "GamePlayer.h"
 #include "IncomingPlayerManager.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PacketUtil.h"
 #include "ZoneUtil.h"
 #include "Properties.h"
 #include "StringPool.h"
 #include "EffectRefiniumTicket.h"
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeEnter::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -56,7 +56,7 @@ void ActionActivateMazeEnter::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivateMazeEnter::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -72,7 +72,7 @@ void ActionActivateMazeEnter::execute (Creature * pNPC , Creature * pCreature)
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_ZoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -85,18 +85,18 @@ void ActionActivateMazeEnter::execute (Creature * pNPC , Creature * pCreature)
 			{
 				sendPayInfo(pGamePlayer);
 			}
-			else if (!pGamePlayer->isFamilyFreePass() ) // 패밀리 프리 패스는 유료존으로 갈 수 있다.
+			else if ( !pGamePlayer->isFamilyFreePass() ) // 패밀리 프리 패스는 유료존으로 갈 수 있다.
 			{
 				// 유료 서비스 사용 불가인 경우
 				GCSystemMessage gcSystemMessage;
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -110,10 +110,10 @@ void ActionActivateMazeEnter::execute (Creature * pNPC , Creature * pCreature)
 
 	if (bTransport)
 	{
-		EffectRefiniumTicket* pEffect = new EffectRefiniumTicket(pCreature);
-		pEffect->setExit(rand()%6);
+		EffectRefiniumTicket* pEffect = new EffectRefiniumTicket( pCreature );
+		pEffect->setExit( rand()%6 );
 
-		pCreature->setFlag(pEffect->getEffectClass());
+		pCreature->setFlag( pEffect->getEffectClass() );
 		pCreature->addEffect(pEffect);
 		transportCreature(pCreature, m_ZoneID, m_X, m_Y, true);
 	}
@@ -133,7 +133,7 @@ void ActionActivateMazeEnter::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionActivateMazeEnter::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

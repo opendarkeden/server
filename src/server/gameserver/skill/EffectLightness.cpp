@@ -9,9 +9,9 @@
 #include "Creature.h"
 #include "Zone.h"
 #include "Player.h"
-#include "GCRemoveEffect.h"
-#include "GCChangeDarkLight.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCModifyInformation.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -55,19 +55,19 @@ void EffectLightness::unaffect()
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	Player* pPlayer = pCreature->getPlayer();
-	if (pPlayer != NULL )
+	if ( pPlayer != NULL )
 	{
 		GCModifyInformation gcMI;
 
 		Sight_t oldSight = pCreature->getSight();
 		Sight_t newSight = pCreature->getEffectedSight();
 
-		if (oldSight != newSight )
+		if ( oldSight != newSight )
 		{
-			pCreature->setSight(newSight);
+			pCreature->setSight( newSight );
 			pZone->updateScan(pCreature, oldSight, newSight);
 			gcMI.addShortData(MODIFY_VISION, newSight);
-			pPlayer->sendPacket(&gcMI);
+			pPlayer->sendPacket( &gcMI );
 		}
 
 		GCChangeDarkLight gcChangeDarkLight;

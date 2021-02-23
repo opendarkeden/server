@@ -10,14 +10,14 @@
 #include "Vampire.h"
 #include "Ousters.h"
 #include "PriceManager.h"
-#include "GCStashSell.h"
+#include "Gpackets/GCStashSell.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionStashSell::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY 
 	__END_CATCH
@@ -28,7 +28,7 @@ void ActionStashSell::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionStashSell::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY 
 
@@ -90,7 +90,7 @@ void ActionStashSell::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionStashSell::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

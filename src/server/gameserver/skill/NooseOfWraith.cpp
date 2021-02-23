@@ -91,8 +91,8 @@ void NooseOfWraith::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 
 	SIMPLE_SKILL_OUTPUT result;
 	
-	for (int i=-2; i<=2; ++i )
-	for (int j=-2; j<=2; ++j )
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
 	{
 		param.addMask(i, j, 100);
 	}
@@ -132,8 +132,8 @@ void NooseOfWraith::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	for (int i=-2; i<=2; ++i )
-	for (int j=-2; j<=2; ++j )
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
 	{
 		param.addMask(i, j, 100);
 	}

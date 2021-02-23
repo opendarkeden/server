@@ -7,9 +7,9 @@
 #include "BurningSolCharging.h"
 #include "EffectBurningSolCharging.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK5.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -78,7 +78,7 @@ void BurningSolCharging::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, 
 			// 경험치를 올린다.
 /*			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10* (Grade + 1);
-			if (bIncreaseDomainExp )
+			if ( bIncreaseDomainExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 8, 1, 1, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);

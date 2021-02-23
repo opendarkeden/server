@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // Object Priority
@@ -58,7 +58,7 @@ public:
 
 public:
 	Object(ObjectID_t objectID = 0) throw() : m_ObjectID(objectID) {}
-	virtual ~Object() {}
+	virtual ~Object() throw() {}
 	
 public:
 	// get/set object id

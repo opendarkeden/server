@@ -7,8 +7,6 @@
 #include "ShopTemplate.h"
 #include "DB.h"
 
-#include <map>
-
 ////////////////////////////////////////////////////////////////////////////////
 // global varible initialization
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +40,7 @@ ShopTemplate::~ShopTemplate()
 }
 
 string ShopTemplate::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -79,7 +77,7 @@ ShopTemplateManager::~ShopTemplateManager()
 {
 	__BEGIN_TRY
 		
-	map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.begin();
+	hash_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.begin();
 	for (; itr != m_Entries.end(); itr++)
 	{
 		ShopTemplate* pTemplate = itr->second;
@@ -92,7 +90,7 @@ ShopTemplateManager::~ShopTemplateManager()
 }
 
 void ShopTemplateManager::init() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -102,7 +100,7 @@ void ShopTemplateManager::init()
 }
 
 void ShopTemplateManager::load() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -137,11 +135,11 @@ void ShopTemplateManager::load()
 }
 
 ShopTemplate* ShopTemplateManager::getTemplate(ShopTemplateID_t id) const 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.find(id);
+	hash_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.find(id);
 
 	if (itr == m_Entries.end())
 	{
@@ -155,13 +153,13 @@ ShopTemplate* ShopTemplateManager::getTemplate(ShopTemplateID_t id) const
 }
 
 void ShopTemplateManager::setTemplate(ShopTemplateID_t id, ShopTemplate* pTemplate) 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
-	map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.find(id);
+	hash_map<ShopTemplateID_t, ShopTemplate*>::iterator itr = m_Entries.find(id);
 
-	if (itr != m_Entries.end()) throw("ShopTemplateManager::setTemplate() : Same ID already exist!");
+	if (itr != m_Entries.end()) throw ("ShopTemplateManager::setTemplate() : Same ID already exist!");
 
 	m_Entries[id] = pTemplate;
 
@@ -169,13 +167,13 @@ void ShopTemplateManager::setTemplate(ShopTemplateID_t id, ShopTemplate* pTempla
 }
 
 string ShopTemplateManager::toString() const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 	msg << "ShopTemplateManager(";
-	map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.begin();
+	hash_map<ShopTemplateID_t, ShopTemplate*>::const_iterator itr = m_Entries.begin();
 	for (; itr != m_Entries.end(); itr++) 
 		msg << "(ShopTemplate:" << (int)(itr->first) << "," << itr->second->toString() << ")"; msg << ")";
 	return msg.toString();

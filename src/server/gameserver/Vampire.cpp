@@ -43,7 +43,6 @@
 #include "item/PetItem.h"
 #include "item/Belt.h"
 #include "item/Skull.h"
-#include "item/SubInventory.h"
 
 #include "skill/VampireCastleSkillSlot.h"
 #include "skill/EffectBless.h"
@@ -54,14 +53,14 @@
 #include "EffectGrandMasterVampire.h"
 #include "RaceWarLimiter.h"
 
-#include "GCModifyInformation.h"
-#include "GCChangeShape.h"
-#include "GCSkillInfo.h"
-#include "GCRealWearingInfo.h"
-#include "GCStatusCurrentHP.h"
-#include "GCTakeOff.h"
-#include "GCOtherModifyInfo.h"
-#include "GCPetStashList.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeShape.h"
+#include "Gpackets/GCSkillInfo.h"
+#include "Gpackets/GCRealWearingInfo.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCTakeOff.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCPetStashList.h"
 
 #include "MonsterInfo.h"
 #include "GuildUnion.h"
@@ -70,8 +69,6 @@
 #include "DynamicZone.h"
 
 #include "SystemAvailabilitiesManager.h"
-
-#include <map>
 
 const Color_t UNIQUE_COLOR = 0xFFFF;
 const Color_t QUEST_COLOR = 0xFFFE;
@@ -105,7 +102,7 @@ const Level_t MAX_VAMPIRE_LEVEL_OLD = 100;
 		else ExpSaveCount++;
 		setExpSaveCount(ExpSaveCount);
 
-		setExp(NewExp);
+		setExp( NewExp );
 
 		return;
 	}
@@ -189,7 +186,7 @@ const Level_t MAX_VAMPIRE_LEVEL_OLD = 100;
 	if (Point <= 0) return;
 
 	// PK존 안에서는 경험치를 주지 않는다.
-	if (g_pPKZoneInfoManager->isPKZone(getZoneID() ) )
+	if ( g_pPKZoneInfoManager->isPKZone( getZoneID() ) )
 		return;
 
 	Rank_t curRank = getRank();
@@ -211,7 +208,7 @@ const Level_t MAX_VAMPIRE_LEVEL_OLD = 100;
 		else ExpSaveCount++;
 		setRankExpSaveCount(ExpSaveCount);
 
-		setRankExp(NewExp);
+		setRankExp( NewExp );
 
 		return;
 	}
@@ -297,7 +294,7 @@ const Level_t MAX_VAMPIRE_LEVEL_OLD = 100;
 
 
 Vampire::Vampire () 
-	throw() 
+	throw () 
 : PlayerCreature(0, NULL)
 {
 	__BEGIN_TRY
@@ -344,7 +341,7 @@ Vampire::Vampire ()
 }
 
 Vampire::~Vampire() 
-    throw()
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -392,7 +389,7 @@ Vampire::~Vampire()
 		deleteAllPartyInfo(this);
 
 		// 기술들을 삭제
-		map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
+		hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
 			VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -415,7 +412,7 @@ Vampire::~Vampire()
 // Zone에 종속된 ObjectRegistry를 사용해서, Vampire 와 소유아이템들의
 // ObjectID를 할당받는다.
 void Vampire::registerObject ()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -463,10 +460,10 @@ void Vampire::registerObject ()
 
 	m_Garbage.registerObject(OR);
 
-	for (int i=0; i<MAX_PET_STASH; ++i )
+	for ( int i=0; i<MAX_PET_STASH; ++i )
 	{
 		Item* pItem = getPetStashItem(i);
-		if (pItem != NULL ) registerItem(pItem, OR);
+		if ( pItem != NULL ) registerItem( pItem, OR );
 	}
 
     __LEAVE_CRITICAL_SECTION(OR)
@@ -480,7 +477,7 @@ void Vampire::registerObject ()
 // Zone에 종속된 ObjectRegistry를 사용해서, Vampire 와 소유아이템들의
 // ObjectID를 할당받는다. ItemTrace 를 남길지 여부 결정을 위해 따로 뺐다
 void Vampire::registerInitObject ()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -512,7 +509,7 @@ void Vampire::registerInitObject ()
 		if (pItem != NULL) 
 		{
 			// ItemTrace 를 남길 것인지 결정
-			pItem->setTraceItem(bTraceLog(pItem ));
+			pItem->setTraceItem( bTraceLog( pItem ) );
 
 			bool bCheck = true;
 
@@ -530,7 +527,7 @@ void Vampire::registerInitObject ()
 	if (pSlotItem != NULL)
 	{
 		// ItemTrace 를 남길 것인지 결정
-		pSlotItem->setTraceItem(bTraceLog(pSlotItem ));
+		pSlotItem->setTraceItem( bTraceLog( pSlotItem ) );
 		registerItem(pSlotItem, OR);
 	}
 
@@ -545,7 +542,7 @@ void Vampire::registerInitObject ()
 
 // 시간제한 아이템을 체크한다.
 // 모든 아이템이 이미 register 되어있어야 한다.
-void Vampire::checkItemTimeLimit() throw(Error)
+void Vampire::checkItemTimeLimit() throw (Error)
 {
 	__BEGIN_TRY
 
@@ -569,10 +566,10 @@ void Vampire::checkItemTimeLimit() throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						if (wasteIfTimeLimitExpired(pItem ) )
+						if ( wasteIfTimeLimitExpired( pItem ) )
 						{
-							m_pInventory->deleteItem(pItem->getObjectID());
-							SAFE_DELETE(pItem);
+							m_pInventory->deleteItem( pItem->getObjectID() );
+							SAFE_DELETE( pItem );
 						}
 						else
 						{
@@ -580,47 +577,6 @@ void Vampire::checkItemTimeLimit() throw(Error)
 							// 같은 아이템을 두번 체크하지 않기 위해서
 							// 리스트에다가 아이템을 집어넣는다.
 							ItemList.push_back(pItem);
-						}
-
-						// 서브 인벤토리일 경우 안에도 찾는다.
-						if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-						{
-							SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-							Assert(pSubInventoryItem != NULL);
-							Inventory* pSubInventory = pSubInventoryItem->getInventory();
-							Assert(pSubInventory != NULL);
-
-							list<Item*> SubItemList;
-
-							for (CoordInven_t sy = 0; sy < pSubInventory->getHeight(); ++sy )
-							{
-								for (CoordInven_t sx = 0; sx < pSubInventory->getWidth(); ++sx )
-								{
-									Item* pSubItem = pSubInventory->getItem(sx, sy);
-
-									if (pSubItem != NULL )
-									{
-										// 체크된 아이템의 리스트에서 현재 아이템을 찾는다.
-										list<Item*>::iterator itr = find(SubItemList.begin(), SubItemList.end(), pSubItem);
-
-										if (itr == SubItemList.end() )
-										{
-											if (wasteIfTimeLimitExpired(pSubItem ) )
-											{
-												pSubInventory->deleteItem(pSubItem->getObjectID());
-												SAFE_DELETE(pSubItem);
-											}
-										}
-										else
-										{
-											// 리스트에 아이템이 없으면
-											// 같은 아이템을 두번 체크하지 않기 위해서
-											// 리스트에다가 아이템을 집어넣는다.
-											SubItemList.push_back(pSubItem);
-										}
-									}
-								}
-							}
 						}
 					}
 				}
@@ -645,12 +601,12 @@ void Vampire::checkItemTimeLimit() throw(Error)
 
 				if (bCheck) 
 				{
-					if (wasteIfTimeLimitExpired(pItem ) )
+					if ( wasteIfTimeLimitExpired( pItem ) )
 					{
-						deleteWearItem((WearPart)i);
-						if (i == WEAR_LEFTHAND && isTwohandWeapon(pItem) )
-							deleteWearItem(WEAR_RIGHTHAND);
-						SAFE_DELETE(pItem);
+						deleteWearItem( (WearPart)i );
+						if ( i == WEAR_LEFTHAND && isTwohandWeapon(pItem) )
+							deleteWearItem( WEAR_RIGHTHAND );
+						SAFE_DELETE( pItem );
 					}
 				}
 			}
@@ -660,17 +616,17 @@ void Vampire::checkItemTimeLimit() throw(Error)
 	// 마우스에 들고 있는 아이템을 체크한다.
 	{
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
-		if (pSlotItem != NULL && wasteIfTimeLimitExpired(pSlotItem ))
+		if (pSlotItem != NULL && wasteIfTimeLimitExpired( pSlotItem ))
 		{
 			deleteItemFromExtraInventorySlot();
-			SAFE_DELETE(pSlotItem);
+			SAFE_DELETE( pSlotItem );
 		}
 	}
 
 	__END_CATCH
 }
 
-void Vampire::updateEventItemTime(DWORD time ) throw(Error)
+void Vampire::updateEventItemTime( DWORD time ) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -694,7 +650,7 @@ void Vampire::updateEventItemTime(DWORD time ) throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						updateItemTimeLimit(pItem, time);
+						updateItemTimeLimit( pItem, time );
 
 						// 리스트에 아이템이 없으면
 						// 같은 아이템을 두번 체크하지 않기 위해서
@@ -723,7 +679,7 @@ void Vampire::updateEventItemTime(DWORD time ) throw(Error)
 
 				if (bCheck) 
 				{
-					updateItemTimeLimit(pItem, time);
+					updateItemTimeLimit( pItem, time );
 				}
 			}
 		}
@@ -734,7 +690,7 @@ void Vampire::updateEventItemTime(DWORD time ) throw(Error)
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
 		if (pSlotItem != NULL)
 		{
-			updateItemTimeLimit(pSlotItem, time);
+			updateItemTimeLimit( pSlotItem, time );
 		}
 	}
 
@@ -745,8 +701,8 @@ void Vampire::updateEventItemTime(DWORD time ) throw(Error)
 //	Vampire와 Slayer사이의 변신을 위해서
 //	아템 로딩은 따로 처리한다.
 //
-void Vampire::loadItem(bool checkTimeLimit )
-	throw(InvalidProtocolException, Error)
+void Vampire::loadItem( bool checkTimeLimit )
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -766,7 +722,7 @@ void Vampire::loadItem(bool checkTimeLimit )
 	// 로드한 아이템들을 등록시키고
     registerInitObject();
 
-	if (checkTimeLimit )
+	if ( checkTimeLimit )
 	{
 		checkItemTimeLimit();
 	}
@@ -781,11 +737,11 @@ void Vampire::loadItem(bool checkTimeLimit )
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Vampire::load ()
-	throw(InvalidProtocolException, Error)
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
-	if (!PlayerCreature::load() ) return false;
+	if ( !PlayerCreature::load() ) return false;
 
 	Statement* pStmt   = NULL;
 	Result*    pResult = NULL;
@@ -795,7 +751,30 @@ bool Vampire::load ()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, BatColor, SkinColor, MasterEffectColor, STR, DEX, INTE, HP, CurrentHP, Fame, GoalExp, Level, Bonus, Gold, GuildID, ZoneID, XCoord, YCoord, Sight, Alignment, StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge, Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'", m_Name.c_str());
+		/*
+		pResult = pStmt->executeQuery(
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, BatColor, SkinColor, 
+			STR, DEX, INTE, HP, CurrentHP, Fame, 
+			GoalExp, Level, Bonus, Gold, GuildID,
+			ZoneID, XCoord, YCoord, Sight, Alignment,
+			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,
+			Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
+			m_Name.c_str()
+		);
+		*/
+		// add by Sonic 2006.10.28
+		pResult = pStmt->executeQuery(
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, 
+			MasterEffectColor,
+			BatColor, SkinColor, 
+			STR, DEX, INTE, HP, CurrentHP, Fame, 
+			GoalExp, Level, Bonus, Gold, GuildID,
+			ZoneID, XCoord, YCoord, Sight, Alignment,
+			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,
+			Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
+			m_Name.c_str()
+		);
+		// end by Sonic 
 
 		if (pResult->getRowCount() == 0) 
 		{
@@ -813,14 +792,15 @@ bool Vampire::load ()
 		Level_t advLevel = pResult->getInt(++i);
 		Exp_t	advGoalExp = pResult->getInt(++i);
 
-		m_pAdvancementClass = new AdvancementClass(advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable);
-		if (getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
+		m_pAdvancementClass = new AdvancementClass( advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable );
+		if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
 
 		setSex(pResult->getString(++i));
-//		setMasterEffectColor(pResult->getInt(++i));
+		// edit by sonic 2006.10.28
+		setMasterEffectColor(pResult->getInt(++i));
+		// end by sonic
 		setBatColor(pResult->getInt(++i));
 		setSkinColor(pResult->getInt(++i));
-		setMasterEffectColor(pResult->getInt(++i));
 
 		m_STR[ATTR_BASIC]   = pResult->getInt(++i);
 		m_STR[ATTR_CURRENT] = m_STR[ATTR_BASIC];
@@ -867,7 +847,7 @@ bool Vampire::load ()
 		
 		m_Competence = pResult->getBYTE(++i);
 
-		if (m_Competence >= 4 )
+		if ( m_Competence >= 4 )
 			m_Competence = 3;
 
 		m_CompetenceShape = pResult->getBYTE(++i);
@@ -877,38 +857,38 @@ bool Vampire::load ()
 		m_SilverDamage = pResult->getInt(++i);
 
 		reward = pResult->getInt(++i);
-		setSMSCharge(pResult->getInt(++i));
+		setSMSCharge( pResult->getInt(++i) );
 
 		Rank_t CurRank               = pResult->getInt(++i);
 		RankExp_t RankGoalExp        = pResult->getInt(++i);
 
-		m_pRank = new Rank(CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_VAMPIRE]);
+		m_pRank = new Rank( CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_VAMPIRE] );
 
-//		setRank(pResult->getInt(++i));
-//		setRankExp(pResult->getInt(++i));
-//		setRankGoalExp(pResult->getInt(++i));
+//		setRank( pResult->getInt(++i) );
+//		setRankExp( pResult->getInt(++i) );
+//		setRankGoalExp( pResult->getInt(++i) );
 
 		// maxHP를 다시 계산해서 설정해준다.
 		// 2002.7.15 by sigi
 		// 공식 바뀌면 AbilityBalance.cpp의 computeHP도 수정해야한다.
 		int maxHP = m_STR[ATTR_CURRENT]*2 + m_INT[ATTR_CURRENT] + m_DEX[ATTR_CURRENT] + m_Level;
 		maxHP = min((int)maxHP, VAMPIRE_MAX_HP);
-		setHP(maxHP, ATTR_MAX);
+		setHP( maxHP, ATTR_MAX );
 
 		try
 		{
-			setZoneID(zoneID);
+			setZoneID( zoneID );
 		}
-		catch (Error& e )
+		catch ( Error& e )
 		{
 			// 길드 아지트 문제로 본다.
 			// 길드 아지트가 한 게임 서버에만 존재하므로 다른 게임서버로 접속할 때 그 아지트로 들어가지 못한다.
 			// 길드 아지트 입구로 옮긴다.
 			ZONE_COORD ResurrectCoord;
-			g_pResurrectLocationManager->getVampirePosition(1003, ResurrectCoord);
-			setZoneID(ResurrectCoord.id);
-			setX(ResurrectCoord.x);
-			setY(ResurrectCoord.y);
+			g_pResurrectLocationManager->getVampirePosition( 1003, ResurrectCoord );
+			setZoneID( ResurrectCoord.id );
+			setX( ResurrectCoord.x );
+			setY( ResurrectCoord.y );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -1007,13 +987,13 @@ bool Vampire::load ()
 	//----------------------------------------------------------------------
 	// by sigi. 2002.11.8
 	if (m_Level>=100
-		&& SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
+		&& SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
 	{
 		if (!isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE))
 		{
 			EffectGrandMasterVampire* pEffect = new EffectGrandMasterVampire(this);
 			pEffect->setDeadline(999999);
-			getEffectManager()->addEffect(pEffect);
+			getEffectManager()->addEffect( pEffect );
 			setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_VAMPIRE);
 		}
 	}
@@ -1035,7 +1015,7 @@ bool Vampire::load ()
 	}
 	*/
 
-	m_VampireInfo.setCoatType(0);
+	m_VampireInfo.setCoatType( 0 );
 	m_VampireInfo.setCoatColor(JACKET_BASIC);
 	m_VampireInfo.setCoatColor(377);
 	m_VampireInfo.setAdvancementLevel(getAdvancementClassLevel());
@@ -1113,20 +1093,20 @@ bool Vampire::load ()
 	initAllStat();
 
 	// 전쟁 참가 Flag 체크
-	if (RaceWarLimiter::isInPCList(this ) )
+	if ( RaceWarLimiter::isInPCList( this ) )
 	{
-		setFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+		setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 	}
 
 	if (m_pZone->isHolyLand()
         && g_pWarSystem->hasActiveRaceWar()
-        && !isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
+        && !isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
     {
         ZONE_COORD ResurrectCoord;
-        g_pResurrectLocationManager->getPosition(this, ResurrectCoord);
-        setZoneID(ResurrectCoord.id);
-        setX(ResurrectCoord.x);
-        setY(ResurrectCoord.y);
+        g_pResurrectLocationManager->getPosition( this, ResurrectCoord );
+        setZoneID( ResurrectCoord.id );
+        setX( ResurrectCoord.x );
+        setY( ResurrectCoord.y );
     }
 
 
@@ -1139,7 +1119,7 @@ bool Vampire::load ()
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void Vampire::save () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1251,7 +1231,7 @@ VampireSkillSlot* Vampire::getSkill (SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -1283,7 +1263,7 @@ void Vampire::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
 	if (itr == m_SkillSlot.end())
 	{
@@ -1326,7 +1306,7 @@ void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 			break;
 	}
 
-	map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(pVampireSkillSlot->getSkillType());
+	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(pVampireSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1348,17 +1328,17 @@ void Vampire::removeCastleSkill(SkillType_t SkillType)
 	__BEGIN_TRY
 
 	// 성지 스킬만 지울 수 있다.
-	if (g_pCastleSkillInfoManager->getZoneID(SkillType ) == 0 ) return;
+	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
-	map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
 		VampireCastleSkillSlot* pCastleSkillSlot = dynamic_cast<VampireCastleSkillSlot*>(itr->second);
 
-		SAFE_DELETE(pCastleSkillSlot);
+		SAFE_DELETE( pCastleSkillSlot );
 
-		m_SkillSlot.erase(itr);
+		m_SkillSlot.erase( itr );
 	}
 
 	__END_CATCH
@@ -1370,14 +1350,14 @@ void Vampire::removeAllCastleSkill()
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
-	while (itr != m_SkillSlot.end() )
+	while ( itr != m_SkillSlot.end() )
 	{
-		if (itr->second != NULL )
+		if ( itr->second != NULL )
 		{
 			VampireSkillSlot* pSkillSlot = itr->second;
-			if (g_pCastleSkillInfoManager->getZoneID(pSkillSlot->getSkillType() ) == 0 )
+			if ( g_pCastleSkillInfoManager->getZoneID( pSkillSlot->getSkillType() ) == 0 )
 			{
 				// 성지스킬이 아니면 다음껄로 넘어간다.
 				++itr;
@@ -1385,11 +1365,11 @@ void Vampire::removeAllCastleSkill()
 			}
 
 			// 성지스킬이면 지워준다. 반복자 사용에 주의
-			SAFE_DELETE(pSkillSlot);
-			map<SkillType_t, VampireSkillSlot*>::iterator prevItr = itr;
+			SAFE_DELETE( pSkillSlot );
+			hash_map<SkillType_t, VampireSkillSlot*>::iterator prevItr = itr;
 			
 			++itr;
-			m_SkillSlot.erase(prevItr);
+			m_SkillSlot.erase( prevItr );
 		}
 		else
 		{
@@ -1565,10 +1545,10 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
 	// 현재로서는 옷 타입이 하나이므로, 색깔만 세팅해준다.
 	if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT) 
 	{
-		m_VampireInfo.setCoatColor(getItemShapeColor(pItem ));
+		m_VampireInfo.setCoatColor( getItemShapeColor( pItem ) );
 
 		// item type을 설정해준다. 
-		m_VampireInfo.setCoatType(pItem->getItemType());
+		m_VampireInfo.setCoatType( pItem->getItemType() );
 	}
 
 	__END_CATCH
@@ -1755,9 +1735,9 @@ void Vampire::wearItem(WearPart Part)
 	{
 		if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT) 
 		{
-			Color_t color = getItemShapeColor(pItem);
-			m_VampireInfo.setCoatColor(color);
-			m_VampireInfo.setCoatType(pItem->getItemType());
+			Color_t color = getItemShapeColor( pItem );
+			m_VampireInfo.setCoatColor( color );
+			m_VampireInfo.setCoatType( pItem->getItemType() );
 
 			// 옷을 갈아입었으니, 주위에다가 옷 갈아입었다고 정보를 날린다.
 			GCChangeShape pkt;
@@ -1768,7 +1748,7 @@ void Vampire::wearItem(WearPart Part)
 			pkt.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
 
 			if (color == QUEST_COLOR )
-				pkt.setFlag(SHAPE_FLAG_QUEST);
+				pkt.setFlag( SHAPE_FLAG_QUEST );
 
 			Zone* pZone = getZone();
 			pZone->broadcastPacket(m_X, m_Y , &pkt, this);
@@ -1865,7 +1845,7 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 	if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT)
 	{
 		m_VampireInfo.setCoatColor(377);
-		m_VampireInfo.setCoatType(0);
+		m_VampireInfo.setCoatType( 0 );
 
 		GCTakeOff pkt;
 		pkt.setObjectID(getObjectID());
@@ -1895,7 +1875,7 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 // 장착 아이템을 Delete 한다.
 //----------------------------------------------------------------------
 void Vampire::destroyGears() 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1954,7 +1934,7 @@ bool Vampire::isRealWearing(WearPart part) const
 	if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4)
 	{
 		// 해당 위치에 반지도 있어야 된다.
-		if (m_pWearItem[part-WEAR_ZAP1+WEAR_FINGER1]==NULL ) return false;
+		if ( m_pWearItem[part-WEAR_ZAP1+WEAR_FINGER1]==NULL ) return false;
 	}
 
 	return isRealWearing(m_pWearItem[part]);
@@ -1970,29 +1950,27 @@ bool Vampire::isRealWearing(Item* pItem) const
 	__BEGIN_TRY
 
 	if (pItem == NULL) return false;
-	if (pItem->getDurability() == 0 ) return false;
 
-/*	if (m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4004 )
+/*	if ( m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4004 )
 	{
-		if (!isVampireWeapon(pItem->getItemClass() ) ) return false;
+		if ( !isVampireWeapon( pItem->getItemClass() ) ) return false;
 	}*/
 
 	ItemInfo*       pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 
 	Level_t			ReqAdvancedLevel = pItemInfo->getReqAdvancedLevel();
-	if (ReqAdvancedLevel > 0 && (!isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
+	if ( ReqAdvancedLevel > 0 && ( !isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
 
-/*	if (pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT || pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_WEAPON )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COAT || pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_WEAPON )
 	{
-		if (ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
+		if ( ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
 	}
-	*/
 
-	if (pItem->isTimeLimitItem() )
+	if ( pItem->isTimeLimitItem() )
 	{
 		Attr_t    ReqGender = pItemInfo->getReqGender();
-		if ((m_Sex == MALE && ReqGender == GENDER_FEMALE ) ||
-			 (m_Sex == FEMALE && ReqGender == GENDER_MALE ) ) return false;
+		if ( ( m_Sex == MALE && ReqGender == GENDER_FEMALE ) ||
+			 ( m_Sex == FEMALE && ReqGender == GENDER_MALE ) ) return false;
 		return true;
 	}
 
@@ -2010,7 +1988,7 @@ bool Vampire::isRealWearing(Item* pItem) const
 		}
 	}
 
-	if (isCoupleRing(pItem ) ) return true;
+	if ( isCoupleRing( pItem ) ) return true;
 
 	Item::ItemClass IClass    = pItem->getItemClass();
 	Level_t         ReqLevel  = pItemInfo->getReqLevel();
@@ -2019,7 +1997,7 @@ bool Vampire::isRealWearing(Item* pItem) const
 	// 베이스 아이템의 요구치가 레벨 100을 넘을 경우 옵션을 포함해서 요구치가 150까지 올라갈 수 있다.
 	// 그렇지 않을 경우 요구치가 옵션을 포함해도 100으로 제한된다.
 	// 2003.3.21 by Sequoia
-	Level_t			ReqLevelMax = ((ReqLevel > MAX_VAMPIRE_LEVEL_OLD ) ? MAX_VAMPIRE_LEVEL : MAX_VAMPIRE_LEVEL_OLD);
+	Level_t			ReqLevelMax = ( ( ReqLevel > MAX_VAMPIRE_LEVEL_OLD ) ? MAX_VAMPIRE_LEVEL : MAX_VAMPIRE_LEVEL_OLD );
 
 	// 아이템이 옵션을 가지고 있다면,
 	// 옵션의 종류에 따라서 능력치 제한을 올려준다.
@@ -2028,7 +2006,7 @@ bool Vampire::isRealWearing(Item* pItem) const
 
 	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 	{
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 		ReqLevel += pOptionInfo->getReqLevel();
 	}
 
@@ -2090,7 +2068,7 @@ DWORD Vampire::sendRealWearingInfo(void) const
 ////////////////////////////////////////////////////////////////////////////////
 
 PCVampireInfo2* Vampire::getVampireInfo2 ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2139,15 +2117,15 @@ PCVampireInfo2* Vampire::getVampireInfo2 ()
 
 	pInfo->setCompetence(m_CompetenceShape);
 	pInfo->setGuildID(m_GuildID);
-	pInfo->setGuildName(getGuildName());
-	pInfo->setGuildMemberRank(getGuildMemberRank());
+	pInfo->setGuildName( getGuildName() );
+	pInfo->setGuildMemberRank( getGuildMemberRank() );
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) pInfo->setUnionID(0);
-	else pInfo->setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) pInfo->setUnionID( 0 );
+	else pInfo->setUnionID( pUnion->getUnionID() );
 
-	pInfo->setAdvancementLevel(getAdvancementClassLevel());
-	pInfo->setAdvancementGoalExp(getAdvancementClassGoalExp());
+	pInfo->setAdvancementLevel( getAdvancementClassLevel() );
+	pInfo->setAdvancementGoalExp( getAdvancementClassGoalExp() );
 
 	return pInfo;
 
@@ -2160,7 +2138,7 @@ PCVampireInfo2* Vampire::getVampireInfo2 ()
 // Vampire Outlook Information
 //----------------------------------------------------------------------
 PCVampireInfo3 Vampire::getVampireInfo3 () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2181,11 +2159,11 @@ PCVampireInfo3 Vampire::getVampireInfo3 () const
 	Item* pItem = m_pWearItem[WEAR_BODY];
 	if (pItem!=NULL)
 	{
-		m_VampireInfo.setCoatType(pItem->getItemType());
+		m_VampireInfo.setCoatType( pItem->getItemType() );
 	}
 	else
 	{
-		m_VampireInfo.setCoatType(0);
+		m_VampireInfo.setCoatType( 0 );
 	}
 	*/
 
@@ -2212,11 +2190,11 @@ PCVampireInfo3 Vampire::getVampireInfo3 () const
 	m_VampireInfo.setSkinColor(m_SkinColor);
 	m_VampireInfo.setMasterEffectColor(m_MasterEffectColor);
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) m_VampireInfo.setUnionID(0);
-	else m_VampireInfo.setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) m_VampireInfo.setUnionID( 0 );
+	else m_VampireInfo.setUnionID( pUnion->getUnionID() );
 
-	m_VampireInfo.setAdvancementLevel(getAdvancementClassLevel());
+	m_VampireInfo.setAdvancementLevel( getAdvancementClassLevel() );
 
 	return m_VampireInfo;
 
@@ -2246,7 +2224,7 @@ ExtraInfo* Vampire::getExtraInfo() const
 //		Item::ItemClass IClass = pItem->getItemClass();
 
 		ExtraSlotInfo* pExtraSlotInfo = new ExtraSlotInfo();
-		pItem->makePCItemInfo(*pExtraSlotInfo);
+		pItem->makePCItemInfo( *pExtraSlotInfo );
 
 /*		pExtraSlotInfo->setObjectID(pItem->getObjectID());
 		pExtraSlotInfo->setItemClass(pItem->getItemClass());
@@ -2353,7 +2331,7 @@ GearInfo* Vampire::getGearInfo() const
 			//Item::ItemClass IClass = pItem->getItemClass();
 
 			GearSlotInfo* pGearSlotInfo = new GearSlotInfo();
-			pItem->makePCItemInfo(*pGearSlotInfo);
+			pItem->makePCItemInfo( *pGearSlotInfo );
 
 /*			pGearSlotInfo->setObjectID(pItem->getObjectID());
 			pGearSlotInfo->setItemClass(pItem->getItemClass());
@@ -2425,32 +2403,37 @@ GearInfo* Vampire::getGearInfo() const
 //////////////////////////////////////////////////////////////////////////////
 // get Inventory Info
 //////////////////////////////////////////////////////////////////////////////
-InventoryInfo* Vampire::getInventoryInfo() const throw() {
+InventoryInfo* Vampire::getInventoryInfo() const
+    throw()
+{
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
 	BYTE ItemCount = 0;
 
-    list<Item*> ItemList;
 	InventoryInfo* pInventoryInfo = new InventoryInfo();
+	list<Item*> ItemList;
 	VolumeHeight_t Height = m_pInventory->getHeight();
 	VolumeWidth_t Width = m_pInventory->getWidth();
 
-	for (int j = 0; j < Height; j++) {
-		for (int i = 0; i < Width; i++) {
-			if (m_pInventory->hasItem(i, j)) {
-				Item* pItem = m_pInventory->getItem(i, j);
+	for (int j = 0; j < Height; j++) 
+	{
+		for (int i = 0 ; i < Width ; i ++) 
+		{
+			if (m_pInventory->hasItem(i, j)) 
+			{
+				Item* pItem = m_pInventory->getItem(i , j);
 				VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
 //				Item::ItemClass IClass = pItem->getItemClass();
+				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
 
-				list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
-
-				if (itr == ItemList.end()) {
+				if (itr == ItemList.end()) 
+				{
 					ItemList.push_back(pItem);
 
 					// InventorySlotInfo를 구성
 					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
-					pItem->makePCItemInfo(*pInventorySlotInfo);
+					pItem->makePCItemInfo( *pInventorySlotInfo );
 					pInventorySlotInfo->setInvenX(i);
 					pInventorySlotInfo->setInvenY(j);
 
@@ -2490,13 +2473,13 @@ InventoryInfo* Vampire::getInventoryInfo() const throw() {
 						PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
 						PetInfo* pPetInfo = pPetItem->getPetInfo();
 
-						if (pPetInfo != NULL )
+						if ( pPetInfo != NULL )
 						{
-							pInventorySlotInfo->setOptionType(list<OptionType_t>(pPetInfo->getPetOption()));
-							pInventorySlotInfo->setDurability(pPetInfo->getPetHP());
-							pInventorySlotInfo->setEnchantLevel(pPetInfo->getPetAttr());
-							pInventorySlotInfo->setSilver(pPetInfo->getPetAttrLevel());
-							pInventorySlotInfo->setItemNum(pPetInfo->getPetLevel());
+							pInventorySlotInfo->setOptionType( list<OptionType_t>(pPetInfo->getPetOption()) );
+							pInventorySlotInfo->setDurability( pPetInfo->getPetHP() );
+							pInventorySlotInfo->setEnchantLevel( pPetInfo->getPetAttr() );
+							pInventorySlotInfo->setSilver( pPetInfo->getPetAttrLevel() );
+							pInventorySlotInfo->setItemNum( pPetInfo->getPetLevel() );
 						}
 					}
 
@@ -2563,9 +2546,9 @@ void Vampire::sendVampireSkillInfo()
 
 	// 현재 시간, 남은 캐스팅 타임을 계산하기 위해
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
-	map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -2579,7 +2562,7 @@ void Vampire::sendVampireSkillInfo()
 			pSubVampireSkillInfo->setSkillTurn(pVampireSkillSlot->getInterval());
 			// casting time 항목을 다음 캐스팅까지 남은 시간으로 한다.
 			//pSubVampireSkillInfo->setCastingTime(pVampireSkillSlot->getCastingTime());
-			pSubVampireSkillInfo->setCastingTime(pVampireSkillSlot->getRemainTurn(currentTime ));
+			pSubVampireSkillInfo->setCastingTime(pVampireSkillSlot->getRemainTurn( currentTime ) );
 
 			pVampireSkillInfo->addListElement(pSubVampireSkillInfo);
 
@@ -2627,7 +2610,7 @@ void Vampire::setGold(Gold_t gold)
 
     // MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	m_Gold = min((Gold_t)MAX_MONEY, gold);
+	m_Gold = min( (Gold_t)MAX_MONEY, gold );
 
 	__END_CATCH
 }
@@ -2662,7 +2645,7 @@ void Vampire::increaseGoldEx(Gold_t gold)
 
 	// MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	if (m_Gold + gold > MAX_MONEY )
+	if ( m_Gold + gold > MAX_MONEY )
 		gold = MAX_MONEY - m_Gold;
 
 	setGold(m_Gold+gold);
@@ -2690,7 +2673,7 @@ void Vampire::decreaseGoldEx(Gold_t gold)
 
 	// 0 미만이 되는 걸 막는다. 0 미만이 되면 underflow 되서 난리가 난다.
 	// 2003.1.8  by bezz.
-	if (m_Gold < gold )
+	if ( m_Gold < gold )
         gold = m_Gold;
 	
 	setGold(m_Gold-gold);
@@ -2721,7 +2704,7 @@ bool Vampire::checkGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT Gold FROM Vampire WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_Gold;
 		}
@@ -2747,7 +2730,7 @@ bool Vampire::checkStashGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT StashGold FROM Vampire WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_StashGold;
 		}
@@ -2800,7 +2783,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
 	}
 #endif*/
 
-	PlayerCreature::heartbeat(currentTime);
+	PlayerCreature::heartbeat( currentTime );
 
 	// 주기적으로 HP를 회복시켜준다.
 	if (m_HPRegenTime < currentTime)
@@ -2814,7 +2797,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
 			// 3. Mephisto 이펙트가 붙어있지 않다면.
 			if (isAlive() 
 				&& !isFlag(Effect::EFFECT_CLASS_COMA)
-				&& (!isFlag(Effect::EFFECT_CLASS_MEPHISTO) || isFlag(Effect::EFFECT_CLASS_CASKET) )
+				&& ( !isFlag(Effect::EFFECT_CLASS_MEPHISTO) || isFlag(Effect::EFFECT_CLASS_CASKET) )
 			)
 			{
 
@@ -2828,8 +2811,8 @@ void Vampire::heartbeat(const Timeval& currentTime)
 				// SilverDamage를 먼저 치료한다.
 				if (bInCasket && m_SilverDamage > 0)
 				{
-					NewHP = (10 + m_HPRegenBonus ) * diffTime.tv_sec;
-					if (isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) ) NewHP/=2;
+					NewHP = ( 10 + m_HPRegenBonus ) * diffTime.tv_sec;
+					if ( isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) ) NewHP/=2;
 
 					int remainSilver = (int)m_SilverDamage - (int)NewHP;
 
@@ -2859,7 +2842,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
 					// Bat          : 0
 					if (isFlag(Effect::EFFECT_CLASS_HIDE))
 					{
-						NewHP = (4 + m_HPRegenBonus ) * diffTime.tv_sec;
+						NewHP = ( 4 + m_HPRegenBonus ) * diffTime.tv_sec;
 					}
 					else if (isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT))
 					{
@@ -2868,14 +2851,14 @@ void Vampire::heartbeat(const Timeval& currentTime)
 					// by sigi. 2002.6.19
 					else if (isFlag(Effect::EFFECT_CLASS_CASKET))
 					{
-						NewHP = (10 + m_HPRegenBonus ) * diffTime.tv_sec;
+						NewHP = ( 10 + m_HPRegenBonus ) * diffTime.tv_sec;
 					}
 					else
 					{
-						NewHP = (2 + m_HPRegenBonus ) * diffTime.tv_sec;
+						NewHP = ( 2 + m_HPRegenBonus ) * diffTime.tv_sec;
 					}
 
-					if (isFlag(Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) ) NewHP/=2;
+					if ( isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) ) NewHP/=2;
 					m_HP[ATTR_CURRENT] = min((int)MaxHP, (int)(CurHP + NewHP));
 				}
 			}
@@ -3020,7 +3003,7 @@ void Vampire::saveAlignment(Alignment_t alignment)
 // get debug string
 //----------------------------------------------------------------------
 string Vampire::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -3056,11 +3039,11 @@ string Vampire::toString () const
 }
 
 void Vampire::saveSkills(void) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -3085,7 +3068,7 @@ IP_t Vampire::getIP(void) const
 }
 
 void Vampire::saveGears(void) const
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -3113,7 +3096,7 @@ void Vampire::saveGears(void) const
 
 
 void Vampire::saveExps(void) const
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -3149,8 +3132,8 @@ void Vampire::saveExps(void) const
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("UPDATE Vampire SET Alignment=%d, Fame=%d, GoalExp=%lu%s, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
-							m_Alignment, m_Fame, m_GoalExp, silverDam, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str());
+		pStmt->executeQuery( "UPDATE Vampire SET Alignment=%d, Fame=%d, GoalExp=%lu%s, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
+							m_Alignment, m_Fame, m_GoalExp, silverDam, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -3174,7 +3157,7 @@ void Vampire::saveExps(void) const
 // colors[1]은 coatColor만 있기 때문이다.
 //----------------------------------------------------------------------
 void Vampire::getShapeInfo (DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_COLOR_MAX]) const
-//	throw()
+//	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -3199,7 +3182,7 @@ void Vampire::getShapeInfo (DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_C
 	{
 		ItemType_t IType = pItem->getItemType();
 
-		colors[vampireColor] = getItemShapeColor(pItem);
+		colors[vampireColor] = getItemShapeColor( pItem );
 
 		//colors[vampireColor] = pItem->getOptionType();
 		//flag |= (getVampireCoatType(IType) << vampireBit);
@@ -3277,8 +3260,8 @@ Vampire::addShape(Item::ItemClass IClass, ItemType_t IType, Color_t color)
 		{
 			bisChange = true;
 
-			m_VampireInfo.setCoatColor(color);
-			m_VampireInfo.setCoatType(IType);
+			m_VampireInfo.setCoatColor( color );
+			m_VampireInfo.setCoatType( IType );
 		}
 		break;
 
@@ -3300,7 +3283,7 @@ Vampire::removeShape(Item::ItemClass IClass, bool bSendPacket)
 		case Item::ITEM_CLASS_VAMPIRE_COAT :
 		{
 			m_VampireInfo.setCoatColor(377);
-			m_VampireInfo.setCoatType(0);
+			m_VampireInfo.setCoatType( 0 );
 
 			if (bSendPacket)	// by sigi. 2002.11.6
 			{
@@ -3421,31 +3404,31 @@ void Vampire::initPetQuestTarget()
 {
 	int minClass = 1, maxClass = 1;
 
-	if (getLevel() <= 50 )
+	if ( getLevel() <= 50 )
 	{
 		minClass = 8; maxClass = 9;
 	}
-	else if (getLevel() <= 60 )
+	else if ( getLevel() <= 60 )
 	{
 		minClass = maxClass = 9;
 	}
-	else if (getLevel() <= 70 )
+	else if ( getLevel() <= 70 )
 	{
 		minClass = maxClass = 10;
 	}
-	else if (getLevel() <= 80 )
+	else if ( getLevel() <= 80 )
 	{
 		minClass = 10; maxClass = 11;
 	}
-	else if (getLevel() <= 90 )
+	else if ( getLevel() <= 90 )
 	{
 		minClass = 10; maxClass = 11;
 	}
-	else if (getLevel() <= 110 )
+	else if ( getLevel() <= 110 )
 	{
 		minClass = 11; maxClass = 12;
 	}
-	else if (getLevel() <= 130 )
+	else if ( getLevel() <= 130 )
 	{
 		minClass = 11; maxClass = 12;
 	}
@@ -3454,7 +3437,7 @@ void Vampire::initPetQuestTarget()
 		minClass = 12; maxClass = 13;
 	}
 
-	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass(minClass, maxClass);
+	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass( minClass, maxClass );
 	m_TargetNum = 80;
 	m_TimeLimit = 3600;
 }

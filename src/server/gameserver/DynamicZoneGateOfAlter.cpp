@@ -13,15 +13,14 @@
 #include "EffectTilePortal.h"
 #include "GQuestManager.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 
-#include "GCSystemMessage.h"
-#include "GCAddEffectToTile.h"
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <map>
 
 const BYTE EffectMask[32][32] =
 {
@@ -84,101 +83,123 @@ DynamicZoneGateOfAlter::~DynamicZoneGateOfAlter()
 void DynamicZoneGateOfAlter::init()
 {
 	m_GOAStatus = ADD_TILE_EFFECT_STATUS;
-	getCurrentTime(m_Deadline);
+	getCurrentTime( m_Deadline );
 	m_Deadline.tv_sec += 60;
 }
 
 void DynamicZoneGateOfAlter::heartbeat()
 {
-	switch (m_GOAStatus )
+	switch ( m_GOAStatus )
 	{
 	case ADD_TILE_EFFECT_STATUS:
-		if (addTileEffect() )
+		if ( addTileEffect() )
+		{
 			m_GOAStatus = WAIT_FOR_PC;
+			cout << "WAIT_FOR_PC" << endl;
+		}
 		break;
 
 	case WAIT_FOR_PC:
-		if (checkPC() )
+		if ( checkPC() )
 		{
 			processEntering();
 			addFakeEffect();
 			m_GOAStatus = DELETE_TILE_EFFECT_STATUS;
+			cout << "DELETE_TILE_EFFECT_STATUS" << endl;
 		}
 		break;
 
 	case DELETE_TILE_EFFECT_STATUS:
-		if (checkNoEffect() )
+		if ( checkNoEffect() )
+		{
 			m_GOAStatus = OPEN_GATE_TO_ALTER;
+			cout << "OPEN_GATE_TO_ALTER" << endl;
+		}
 		break;
 
 	case OPEN_GATE_TO_ALTER:
-		if (openGateToAlter() )
+		if ( openGateToAlter() )
+		{
 			m_GOAStatus = WAIT_FOR_CLEAR;
+			cout << "WAIT_FOR_CLEAR" << endl;
+		}
 		break;
 
 	case WAIT_FOR_CLEAR:
-		if (!checkPC() )
+		if ( !checkPC() )
+		{
 			m_GOAStatus = REMOVE_TILE_EFFECT;
+			cout << "REMOVE_TILE_EFFECT" << endl;
+		}
 		break;
 
 	case REMOVE_TILE_EFFECT:
-		if (removeTileEffect() )
+		if ( removeTileEffect() )
+		{
 			m_GOAStatus = WAIT_FOR_NO_EFFECT;
+			cout << "WAIT_FOR_NO_EFFECT" << endl;
+		}
 		break;
 
 	case WAIT_FOR_NO_EFFECT:
-		if (checkNoEffect() )
+		if ( checkNoEffect() )
 		{
 			m_GOAStatus = GATE_OF_ALTER_STATUS_END;
 			m_Status = DYNAMIC_ZONE_STATUS_READY;
+			cout << "READY" << endl;
 		}
 		break;
 	}
 
-	if (!checkPC() )
+	if ( !checkPC() )
 	{
-		if (m_GOAStatus == WAIT_FOR_PC || m_GOAStatus == ADD_TILE_EFFECT_STATUS )
+		if ( m_GOAStatus == WAIT_FOR_PC || m_GOAStatus == ADD_TILE_EFFECT_STATUS )
 		{
 			Timeval current;
-			getCurrentTime(current);
+			getCurrentTime( current );
 
-			if (current > m_Deadline )
+			if ( current > m_Deadline )
+			{
+				cout << "----------------------------Wait Time Out" << endl;
 				m_GOAStatus = WAIT_FOR_CLEAR;
+			}
 		}
-		else if (m_GOAStatus == DELETE_TILE_EFFECT_STATUS  )
+		else if ( m_GOAStatus == DELETE_TILE_EFFECT_STATUS  )
+		{
 			m_GOAStatus = REMOVE_TILE_EFFECT;
+		}
 	}
 }
 
 bool DynamicZoneGateOfAlter::addTileEffect()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 바닥에 이펙트를 깐다.
-	for (ZoneCoord_t x = 0; x < m_pZone->getWidth(); ++x )
-	//for (ZoneCoord_t x = 15; x <= 17; ++x )
+	for ( ZoneCoord_t x = 0; x < m_pZone->getWidth(); ++x )
+	//for ( ZoneCoord_t x = 15; x <= 17; ++x )
 	{
-		for (ZoneCoord_t y = 0; y < m_pZone->getHeight(); ++y )
-		//for (ZoneCoord_t y = 15; y <= 17; ++y )
+		for ( ZoneCoord_t y = 0; y < m_pZone->getHeight(); ++y )
+		//for ( ZoneCoord_t y = 15; y <= 17; ++y )
 		{
-			if (EffectMask[y][x] != 0 )
+			if ( EffectMask[y][x] != 0 )
 			{
 				// 타일을 가져와서 이펙트를 생성할 수 있는지 확인
-				Tile& tile = m_pZone->getTile(x, y);
+				Tile& tile = m_pZone->getTile( x, y );
 
-				if (!tile.canAddEffect() || tile.hasEffect() )
+				if ( !tile.canAddEffect() || tile.hasEffect() )
 					continue;
 
 				// 이펙트 오브젝트 생성
-				EffectDeleteTile* pEffect = new EffectDeleteTile(m_pZone, x, y);
-				pEffect->setDeadline(999999);
+				EffectDeleteTile* pEffect = new EffectDeleteTile( m_pZone, x, y );
+				pEffect->setDeadline( 999999 );
 				
 				// 존에 OID 등록
-				m_pZone->registerObject(pEffect);
-				m_pZone->addEffect(pEffect);
+				m_pZone->registerObject( pEffect );
+				m_pZone->addEffect( pEffect );
 
 				// 타일 에 붙이기
-				tile.addEffect(pEffect);
+				tile.addEffect( pEffect );
 			}
 		}
 	}
@@ -188,7 +209,7 @@ bool DynamicZoneGateOfAlter::addTileEffect()
 
 bool DynamicZoneGateOfAlter::checkPC()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// PC 수 체크
 	uint size = m_pZone->getPCManager()->getSize();
@@ -198,36 +219,36 @@ bool DynamicZoneGateOfAlter::checkPC()
 
 bool DynamicZoneGateOfAlter::checkNoEffect()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 이펙트 수 체크
 	uint size = m_pZone->getEffectManager()->getSize();
 
 //		char msg[8];
-//		sprintf(msg, "%u", size);
+//		sprintf( msg, "%u", size );
 //		GCSystemMessage gcmsg;
-//		gcmsg.setMessage(msg);
-//		m_pZone->broadcastPacket(&gcmsg);
+//		gcmsg.setMessage( msg );
+//		m_pZone->broadcastPacket( &gcmsg );
 
 	return size == 0;
 }
 
 bool DynamicZoneGateOfAlter::openGateToAlter()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 퀘스트를 진행시킨다.
-	map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-	map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+	hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+	hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		Assert(itr->second != NULL);
+		Assert( itr->second != NULL );
 		
-		if (itr->second->isPC() )
+		if ( itr->second->isPC() )
 		{
 			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-			Assert(pPC != NULL);
+			Assert( pPC != NULL );
 
 			pPC->getGQuestManager()->clearDynamicZone(m_TemplateZoneID);
 		}
@@ -250,14 +271,14 @@ bool DynamicZoneGateOfAlter::openGateToAlter()
 		}
 	}
 
-	if (tx != -1 )
+	if ( tx != -1 )
 	{
 		GCAddEffectToTile gcAddEffectToTile;
-		gcAddEffectToTile.setEffectID(Effect::EFFECT_CLASS_TILE_PORTAL);
-		gcAddEffectToTile.setDuration(999999);
-		gcAddEffectToTile.setXY(tx, ty);
+		gcAddEffectToTile.setEffectID( Effect::EFFECT_CLASS_TILE_PORTAL );
+		gcAddEffectToTile.setDuration( 999999 );
+		gcAddEffectToTile.setXY( tx, ty );
 
-		m_pZone->broadcastPacket(&gcAddEffectToTile);
+		m_pZone->broadcastPacket( &gcAddEffectToTile );
 	}
 
 	return true;
@@ -265,7 +286,7 @@ bool DynamicZoneGateOfAlter::openGateToAlter()
 
 bool DynamicZoneGateOfAlter::removeTileEffect()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 모든 이펙트를 지운다.
 	m_pZone->getEffectManager()->setTimeOutAllEffect();
@@ -273,23 +294,23 @@ bool DynamicZoneGateOfAlter::removeTileEffect()
 	return true;
 }
 
-void DynamicZoneGateOfAlter::removeEffect(ZoneCoord_t x, ZoneCoord_t y )
+void DynamicZoneGateOfAlter::removeEffect( ZoneCoord_t x, ZoneCoord_t y )
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	VSRect rect(0,0,m_pZone->getWidth()-1,m_pZone->getHeight()-1);
-	for (int i = (int)x-1; i<=(int)x+1; i++ )
+	for ( int i = (int)x-1; i<=(int)x+1; i++ )
 	{
-		for (int j = (int)y-1; j<=(int)y+1; j++ )
+		for ( int j = (int)y-1; j<=(int)y+1; j++ )
 		{
-			if (!rect.ptInRect(i,j) )
+			if ( !rect.ptInRect(i,j) )
 				continue;
 
 			Tile& tile = m_pZone->getTile(i,j);
 
-			Effect* pEffect = tile.getEffect(Effect::EFFECT_CLASS_DELETE_TILE);
+			Effect* pEffect = tile.getEffect( Effect::EFFECT_CLASS_DELETE_TILE );
 
-			if (pEffect != NULL )
+			if ( pEffect != NULL )
 			{
 				pEffect->setDeadline(0);
 			}
@@ -299,7 +320,7 @@ void DynamicZoneGateOfAlter::removeEffect(ZoneCoord_t x, ZoneCoord_t y )
 
 void DynamicZoneGateOfAlter::addFakeEffect()
 {
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	// 모든 포탈위치로 FakeEffect 를 보낸다.
 	for (int x=0; x<m_pZone->getWidth(); x++)
@@ -311,7 +332,7 @@ void DynamicZoneGateOfAlter::addFakeEffect()
 			if (tile.hasPortal())
 			{
 				GCDeleteEffectFromTile gcDeleteEffectFromTile;
-				gcDeleteEffectFromTile.setEffectID(Effect::EFFECT_CLASS_DELETE_TILE);
+				gcDeleteEffectFromTile.setEffectID( Effect::EFFECT_CLASS_DELETE_TILE );
 				gcDeleteEffectFromTile.setXY(x,y);
 				m_pZone->broadcastPacket(&gcDeleteEffectFromTile);
 			}
@@ -322,17 +343,17 @@ void DynamicZoneGateOfAlter::addFakeEffect()
 void DynamicZoneGateOfAlter::processEntering()
 {
 	// 퀘스트 존에 들어왔음을 알린다.
-	map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-	map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+	hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+	hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		Assert(itr->second != NULL);
+		Assert( itr->second != NULL );
 		
-		if (itr->second->isPC() )
+		if ( itr->second->isPC() )
 		{
 			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(itr->second);
-			Assert(pPC != NULL);
+			Assert( pPC != NULL );
 
 			pPC->getGQuestManager()->enterDynamicZone(m_TemplateZoneID);
 		}
@@ -340,5 +361,5 @@ void DynamicZoneGateOfAlter::processEntering()
 }
 
 
-DEFINE_DYNAMIC_ZONE_FACTORY(DynamicZoneGateOfAlter, DYNAMIC_ZONE_GATE_OF_ALTER )
+DEFINE_DYNAMIC_ZONE_FACTORY( DynamicZoneGateOfAlter, DYNAMIC_ZONE_GATE_OF_ALTER )
 

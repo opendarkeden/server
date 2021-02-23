@@ -25,7 +25,7 @@ public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRYING_POSITION; }
 
 	void affect(Creature* pCreature) throw(Error);
-	void unaffect(Creature* pCreature ) throw(Error);
+	void unaffect( Creature* pCreature ) throw(Error);
 
 	void unaffect() throw(Error); 
 	MonsterCorpse* getTower() const { return m_pTower; }

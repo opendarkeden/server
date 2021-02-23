@@ -8,13 +8,13 @@
 
 // include files
 #include "MPacket.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 // 에러 코드
 enum MSERR_CODE
 {
 	MSERR_MATCH = 0x01,			// 회원을 확인했으나 정보가 서로 매치 되지
-								// 않을 경우 (즉 요청자와 파워짱 정보가
+								// 않을 경우 ( 즉 요청자와 파워짱 정보가
 								// 일치 되지 않을 경우 )
 };
 
@@ -49,22 +49,22 @@ public:
 	MPacket* create()
 	{
 		MPacket* pPacket = new PKTSError;
-		Assert(pPacket != NULL);
+		Assert( pPacket != NULL );
 		return pPacket;
 	}
 
 	// 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-	void read(SocketInputStream& iStream);
+	void read( SocketInputStream& iStream );
 
 	// 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-	void write(SocketOutputStream& oStream);
+	void write( SocketOutputStream& oStream );
 
 	// debug message
 	string toString() const;
 
 public:
 	// 에러 코드 설정
-	void setErrorCode(int errorCode ) { nError = errorCode; }
+	void setErrorCode( int errorCode ) { nError = errorCode; }
 };
 
 #endif

@@ -9,22 +9,22 @@
 
 #include "PacketUtil.h"
 
-#include "GCMiniGameScores.h"
+#include "Gpackets/GCMiniGameScores.h"
 
 GCQuestStatus* MiniGameQuestStatus::makeStatusPacket() const
 {
 	GCQuestStatus* pPacket = new GCQuestStatus();
 
-	pPacket->setQuestID((WORD)getQuestID());
-	pPacket->setCurrentNum((WORD)m_GameType);
+	pPacket->setQuestID( (WORD)getQuestID() );
+	pPacket->setCurrentNum( (WORD)m_GameType );
 
-	if (m_State == QUEST_REWARDED )
+	if ( m_State == QUEST_REWARDED )
 	{
-		pPacket->setRemainTime(0);
+		pPacket->setRemainTime( 0 );
 	}
 	else
 	{
-		pPacket->setRemainTime((DWORD)VSDateTime::currentDateTime().secsTo(m_Deadline ));
+		pPacket->setRemainTime( (DWORD)VSDateTime::currentDateTime().secsTo( m_Deadline ) );
 	}
 
 	return pPacket;
@@ -32,9 +32,9 @@ GCQuestStatus* MiniGameQuestStatus::makeStatusPacket() const
 
 void MiniGameQuestStatus::executeWhenStart()
 {
-	sendGCMiniGameScores(getOwnerPC(), m_GameType, 0);
+	sendGCMiniGameScores( getOwnerPC(), m_GameType, 0 );
 /*	GCMiniGameScores gcMGS;
-	gcMGS.setGameType((GameType)m_GameType);
+	gcMGS.setGameType( (GameType)m_GameType );
 	gcMGS.setLevel(0);
 
 	int index=0;
@@ -51,16 +51,16 @@ void MiniGameQuestStatus::executeWhenStart()
 
 		if (pResult->next())
 		{
-			gcMGS.setScore(index++, pResult->getString(1), pResult->getInt(2));
+			gcMGS.setScore( index++, pResult->getString(1), pResult->getInt(2) );
 		}
 
 		pResult = pStmt->executeQuery(
 				"SELECT Score FROM MiniGameScores WHERE Type=%u AND Level=0 AND Name='%s' ORDER BY Score DESC LIMIT 1",
-					m_GameType, getOwnerPC()->getName().c_str());
+					m_GameType, getOwnerPC()->getName().c_str() );
 
 		if (pResult->next())
 		{
-			gcMGS.setScore(index++, getOwnerPC()->getName(), pResult->getInt(1));
+			gcMGS.setScore( index++, getOwnerPC()->getName(), pResult->getInt(1) );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -73,18 +73,18 @@ void MiniGameQuestStatus::executeWhenStart()
 void MiniGameQuestStatus::executeWhenFail()
 {
 	PlayerCreature* pPC = getOwnerPC();
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	// 실패하면 죽는다.
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		dynamic_cast<Slayer*>(pPC)->setHP(0);
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
 		dynamic_cast<Vampire*>(pPC)->setHP(0);
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
 		dynamic_cast<Ousters*>(pPC)->setHP(0);
 	}

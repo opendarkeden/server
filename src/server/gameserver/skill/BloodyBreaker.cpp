@@ -9,12 +9,12 @@
 #include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,36 +46,36 @@ BloodyBreaker::BloodyBreaker()
 	mask[7].x = -1;
 	mask[7].y = -1;
 
-	for (int k = 0; k < 8; k++ )
+	for ( int k = 0; k < 8; k++ )
 	{
 		int l = 0;
-		for (int i = 1; i <= 6; i++ )
+		for ( int i = 1; i <= 6; i++ )
 		{
 			int x = 0;
 			int y = 0;
 
-			for (int j = 0; j <= width[i]; j++ )
+			for ( int j = 0; j <= width[i]; j++ )
 			{
 				x = mask[k].x * i;
 				y = mask[k].y * i;
 
-				if (j == 0 )
+				if ( j == 0 )
 				{
-					m_pBloodyBreakerMask[k][l++].set(x, y);
+					m_pBloodyBreakerMask[k][l++].set( x, y );
 				}
 				else 
 				{
-					int left  = (k % 2 == 0 ? (k + 2 ) % 8 : (k + 3 ) % 8);
-					int right = (k % 2 == 0 ? (k + 6 ) % 8 : (k + 5 ) % 8);
+					int left  = ( k % 2 == 0 ? ( k + 2 ) % 8 : ( k + 3 ) % 8 );
+					int right = ( k % 2 == 0 ? ( k + 6 ) % 8 : ( k + 5 ) % 8 );
 
-					int xl = x + (mask[left].x * j);
-					int yl = y + (mask[left].y * j);
+					int xl = x + ( mask[left].x * j );
+					int yl = y + ( mask[left].y * j );
 
-					int xr = x + (mask[right].x * j);
-					int yr = y + (mask[right].y * j);
+					int xr = x + ( mask[right].x * j );
+					int yr = y + ( mask[right].y * j );
 
-					m_pBloodyBreakerMask[k][l++].set(xl, yl);
-					m_pBloodyBreakerMask[k][l++].set(xr, yr);
+					m_pBloodyBreakerMask[k][l++].set( xl, yl );
+					m_pBloodyBreakerMask[k][l++].set( xr, yr );
 				}
 			}
 		}
@@ -139,10 +139,10 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}
@@ -153,7 +153,7 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 		SkillOutput output;
 		computeOutput(input, output);
 
-		Dir_t	Dir		= getDirectionToPosition(pVampire->getX(), pVampire->getY(), X, Y);
+		Dir_t	Dir		= getDirectionToPosition( pVampire->getX(), pVampire->getY(), X, Y );
 
 		// 강제로 knockback시킬 확률
 //		bool bForceKnockback = rand()%100 < output.ToHit;
@@ -164,7 +164,7 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 		Assert(pZone != NULL);
 
 		VSRect rect(1, 1, pZone->getWidth()-2, pZone->getHeight()-2);
-		if (!rect.ptInRect(X, Y ))
+		if (!rect.ptInRect( X, Y ))
 		{
 			executeSkillFailException(pVampire, SkillType);
 			return;
@@ -178,7 +178,7 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 		GCSkillToTileOK5 _GCSkillToTileOK5;
 //		GCSkillToTileOK6 _GCSkillToTileOK6;
 
-		SkillInfo*  pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
+		SkillInfo*  pSkillInfo = g_pSkillInfoManager->getSkillInfo( SkillType );
 
 		int  RequiredMP  = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck  = hasEnoughMana(pVampire, RequiredMP);
@@ -199,7 +199,7 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 
 			// knockback 때문에 recursive 하게 데미지를 먹는 경우가 있다.
 			// 그래서 제일 먼쪽에 있는 마스크부터 체크한다.
-			for (int i = 21; i >= 0; i-- )
+			for ( int i = 21; i >= 0; i-- )
 			{
 				int tileX   = myX + m_pBloodyBreakerMask[Dir][i].x;
 				int tileY   = myY + m_pBloodyBreakerMask[Dir][i].y;
@@ -233,7 +233,7 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 						Creature* pTargetCreature = (*itr);
 						Assert(pTargetCreature != NULL);
 
-						if (!canAttack(pVampire, pTargetCreature )
+						if ( !canAttack( pVampire, pTargetCreature )
 							|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) )
 						{
 							continue;
@@ -248,24 +248,24 @@ void BloodyBreaker::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vam
 
 							int EnemyLevel = 0;
 
-							if (pTargetCreature->isSlayer() )
+							if ( pTargetCreature->isSlayer() )
 							{
 								Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 								EnemyLevel = pSlayer->getHighestSkillDomainLevel();
 							}
-							else if (pTargetCreature->isOusters() )
+							else if ( pTargetCreature->isOusters() )
 							{
 								Ousters* pOusters = dynamic_cast<Ousters*>(pTargetCreature);
 								EnemyLevel = pOusters->getLevel();
 							}
-							else if (pTargetCreature->isMonster() )
+							else if ( pTargetCreature->isMonster() )
 							{
 								Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 								EnemyLevel = pMonster->getLevel();
 							}
 
 							// min : 20, max : 100
-							int hitRatio = max(20, 50 + pVampire->getLevel() - EnemyLevel + HitBonus);
+							int hitRatio = max( 20, 50 + pVampire->getLevel() - EnemyLevel + HitBonus );
 							bHitRoll = (rand()%100) < hitRatio;
 
 							if (bPK && bRaceCheck && bZoneLevelCheck && bHitRoll)

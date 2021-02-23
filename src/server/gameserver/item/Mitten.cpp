@@ -14,7 +14,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 MittenInfoManager* g_pMittenInfoManager = NULL;
@@ -43,7 +42,7 @@ Mitten::Mitten(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "Mitten::Mitten() : Invalid item type or option type");
-		throw("Mitten::Mitten() : Invalid item type or optionType");
+		throw ("Mitten::Mitten() : Invalid item type or optionType");
 	}
 }
 
@@ -79,7 +78,7 @@ void Mitten::create(const string & ownerID, Storage storage, StorageID_t storage
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO MittenObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -113,7 +112,7 @@ void Mitten::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE MittenObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE MittenObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -138,9 +137,9 @@ void Mitten::save(const string & ownerID, Storage storage, StorageID_t storageID
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE MittenObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE MittenObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -274,7 +273,7 @@ void MittenLoader::load(Creature* pCreature)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM MittenObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)", pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM MittenObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)", pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{
@@ -339,18 +338,6 @@ void MittenLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pMitten);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pMitten))
 						{
 							pInventory->addItemEx(x, y, pMitten);

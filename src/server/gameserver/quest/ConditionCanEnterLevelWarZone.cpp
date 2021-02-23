@@ -13,14 +13,14 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterLevelWarZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
-//	if (g_pVariableManager->getVariable(ACTIVE_LEVEL_WAR ) == 0 ) return false;
+//	if ( g_pVariableManager->getVariable( ACTIVE_LEVEL_WAR ) == 0 ) return false;
 
-	if (g_pLevelWarZoneInfoManager->getCreatureLevelGrade(pCreature2 ) != -1 )
+	if ( g_pLevelWarZoneInfoManager->getCreatureLevelGrade( pCreature2 ) != -1 )
 		return true;
 	
 	return false;
@@ -30,7 +30,7 @@ bool ConditionCanEnterLevelWarZone::isSatisfied (Creature * pCreature1 , Creatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterLevelWarZone::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -38,7 +38,7 @@ void ConditionCanEnterLevelWarZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterLevelWarZone::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

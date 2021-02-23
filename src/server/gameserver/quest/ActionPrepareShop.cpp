@@ -13,7 +13,7 @@
 #include "ShopTemplate.h"
 #include "OptionInfo.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "ItemFactoryManager.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -50,7 +50,7 @@ ActionPrepareShop::~ActionPrepareShop()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ActionPrepareShop::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void ActionPrepareShop::read (PropertyBuffer & propertyBuffer)
 // NOTE : ShopTemplate은 이 액션이 실행되기 전에 모두 로드되어 있어야 한다.
 //////////////////////////////////////////////////////////////////////////////
 void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 		// ex) 전체 아이템의 조합이 9가지이라면, 20/9 = 3. 즉 한 클래스의
 		// 한 타입 아이템은 최대 3개까지 진열장에 나타날 수 있다.
 		if (combi[i] == 0) trialMax = 0;
-		else trialMax = (int)(SHOP_RACK_INDEX_MAX/combi[i]);
+		else trialMax = (int)(floor(SHOP_RACK_INDEX_MAX/combi[i]));
 
 		// 만일 샵 타입이 노멀이라면, 같은 아이템을 여러 개 
 		// 생성하는 것은 의미가 없으므로, 한번만 아이템을 생성한다.
@@ -188,7 +188,7 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 						optionType = optionVector[(rand()%optionVector.size())];
 
 						if (optionType!=0)
-							optionTypes.push_back(optionType);
+							optionTypes.push_back( optionType );
 					}
 					
 					// 실제로 아이템을 만든다.
@@ -205,7 +205,7 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 
 						count[i] = count[i]++;
 
-						//log(LOG_SHOP_CREATE_ITEM, pNPC->getName(), "", pItem->toString());
+						log(LOG_SHOP_CREATE_ITEM, pNPC->getName(), "", pItem->toString());
 					}
 				}
 			}
@@ -236,7 +236,7 @@ void ActionPrepareShop::addListElement(ShopTemplateID_t id)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string ActionPrepareShop::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

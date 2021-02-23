@@ -30,7 +30,7 @@ public:
 
 	string toString() const throw();
 
-	void setDamageReduce(int dr ) { m_DamageReduce = dr; }
+	void setDamageReduce( int dr ) { m_DamageReduce = dr; }
 	int getDamageReduce() const { return m_DamageReduce; }
 
 public:

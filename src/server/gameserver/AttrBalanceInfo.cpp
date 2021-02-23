@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "AttrBalanceInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global Variable initialization
@@ -52,6 +52,7 @@ string STRBalanceInfo::toString() const
 
 	__END_CATCH
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // class STRBalanceInfoManager member methods
@@ -163,7 +164,7 @@ void STRBalanceInfoManager::addSTRBalanceInfo(STRBalanceInfo * pSTRBalanceInfo)
 }
 
 STRBalanceInfo * STRBalanceInfoManager::getSTRBalanceInfo(uint value) const 
-	throw(InvalidProtocolException)
+	throw (InvalidProtocolException)
 {
 	__BEGIN_TRY
 
@@ -205,6 +206,22 @@ string STRBalanceInfoManager::toString() const
 
 	__END_CATCH
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // class DEXBalanceInfo member methods
@@ -353,7 +370,7 @@ void DEXBalanceInfoManager::addDEXBalanceInfo(DEXBalanceInfo * pDEXBalanceInfo)
 }
 
 DEXBalanceInfo * DEXBalanceInfoManager::getDEXBalanceInfo(uint value) const 
-	throw(InvalidProtocolException)
+	throw (InvalidProtocolException)
 {
 	__BEGIN_TRY
 
@@ -395,6 +412,22 @@ string DEXBalanceInfoManager::toString() const
 
 	__END_CATCH
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // class INTBalanceInfo member methods
@@ -546,7 +579,7 @@ void INTBalanceInfoManager::addINTBalanceInfo(INTBalanceInfo * pINTBalanceInfo)
 }
 
 INTBalanceInfo * INTBalanceInfoManager::getINTBalanceInfo(uint value) const 
-	throw(InvalidProtocolException)
+	throw (InvalidProtocolException)
 {
 	__BEGIN_TRY
 

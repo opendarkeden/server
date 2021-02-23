@@ -14,13 +14,13 @@
 #include "Zone.h"
 #include "PacketUtil.h"
 
-#include "GCCreateItem.h"
+#include "Gpackets/GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveItem::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -42,7 +42,7 @@ void ActionGiveItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -50,20 +50,20 @@ void ActionGiveItem::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	list<OptionType_t> optionTypeList;
 
-	Item* pItem = g_pItemFactoryManager->createItem(m_ItemClass, m_ItemType, optionTypeList);
-	Assert(pItem != NULL);
+	Item* pItem = g_pItemFactoryManager->createItem( m_ItemClass, m_ItemType, optionTypeList );
+	Assert( pItem != NULL );
 	
 	_TPOINT pt;
 
 	Inventory* pInventory = pPC->getInventory();
-	Assert(pInventory != NULL);
+	Assert( pInventory != NULL );
 	
 	if (!pInventory->getEmptySlot(pItem, pt))
 	{
@@ -74,19 +74,19 @@ void ActionGiveItem::execute (Creature * pCreature1 , Creature * pCreature2)
 	CoordInven_t X = pt.x;
 	CoordInven_t Y = pt.y;
 
-	pPC->getZone()->getObjectRegistry().registerObject(pItem);
-	pInventory->addItem(X, Y, pItem);
-	pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, X, Y);
+	pPC->getZone()->getObjectRegistry().registerObject( pItem );
+	pInventory->addItem( X, Y, pItem );
+	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, X, Y );
 
-	if (pItem != NULL && pItem->isTraceItem() )
+	if ( pItem != NULL && pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, "ActionGiveItem", pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
-		remainTraceLogNew(pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC , pCreature2->getZone()->getZoneID());
+		remainTraceLog( pItem, "ActionGiveItem", pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+		remainTraceLogNew( pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC , pCreature2->getZone()->getZoneID() );
 	}
 
 	// 클라이언트에 선물이 추가되었음을 알린다.
 	GCCreateItem gcCreateItem;
-	makeGCCreateItem(&gcCreateItem, pItem, X, Y);
+	makeGCCreateItem( &gcCreateItem, pItem, X, Y );
 	pPlayer->sendPacket(&gcCreateItem);
 
 	__END_CATCH
@@ -97,7 +97,7 @@ void ActionGiveItem::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

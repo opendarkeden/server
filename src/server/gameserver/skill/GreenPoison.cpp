@@ -8,13 +8,13 @@
 #include "EffectGreenPoison.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -40,7 +40,7 @@ void GreenPoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -93,10 +93,10 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
 		// Knowledge of Poison 이 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -113,7 +113,9 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 		{
 			Tile& tile = pZone->getTile(X, Y);
 			if (tile.canAddEffect()) bTileCheck = true;
+			if ( tile.getEffect( Effect::EFFECT_CLASS_HEAVEN_GROUND )!=NULL ) bTileCheck= false;
 		}
+		
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bTileCheck)
 		{
@@ -137,7 +139,7 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
 			// 이펙트 오브젝트를 생성한다.
 			EffectGreenPoison* pEffect = new EffectGreenPoison(pZone, X, Y);
-			pEffect->setUserObjectID(pVampire->getObjectID());
+			pEffect->setUserObjectID( pVampire->getObjectID() );
 			pEffect->setDeadline(output.Duration);
 			pEffect->setDuration(output.Duration);
 			pEffect->setDamage(output.Damage);
@@ -167,7 +169,7 @@ void GreenPoison::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			// 하지만 이렇게 되면 몬스터가 쓰는 그린 포이즌에 의해서 다른 몬스터가 중독되는
 			// 현상이 발생하게 되는데...
 			//if (pTargetCreature != NULL && pTargetCreature->isSlayer())
-			if (pTargetCreature != NULL )
+			if ( pTargetCreature != NULL )
 			{
 				if (pEffect->affectCreature(pTargetCreature, false) == true)
 				{
@@ -328,8 +330,9 @@ void GreenPoison::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		{
 			Tile& tile = pZone->getTile(X, Y);
 			if (tile.canAddEffect()) bTileCheck = true;
+			if ( tile.getEffect( Effect::EFFECT_CLASS_HEAVEN_GROUND )!=NULL ) bTileCheck= false;
 		}
-
+		
 		if (bRangeCheck && bHitRoll && bTileCheck)
 		{
 			Tile&   tile  = pZone->getTile(X, Y);

@@ -10,7 +10,7 @@ public:
 	GQuestRaceElement() : m_Race(RACE_SLAYER) { }
 	string		 				getElementName() const { return "Race"; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 
 	GQuestRaceElement*	makeElement(XMLTree* pTree);
 

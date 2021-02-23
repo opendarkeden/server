@@ -39,11 +39,11 @@ public:
 	int getLevel(void) const { return m_Level; }
 	void setLevel(int level) { m_Level = level; }
 
-	void setForce(bool force ) { m_bForce = force; }
+	void setForce( bool force ) { m_bForce = force; }
 	bool isForce() const { return m_bForce; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 private:
 	EffectClass m_SendEffectClass;

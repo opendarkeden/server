@@ -7,10 +7,10 @@
 #include "Rebuke.h"
 #include "EffectSleep.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -64,16 +64,16 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
 			Level_t maxEnemyLevel = 0;
 			uint EnemyNum = 0;
 
-			for(int ox = -2 ; ox <= 2 ; ox++ )
-			for(int oy = -2 ; oy <= 2 ; oy++ )
+			for( int ox = -2 ; ox <= 2 ; ox++ )
+			for( int oy = -2 ; oy <= 2 ; oy++ )
 			{
 				int tileX = X+ox;
 				int tileY = Y+oy;
 
-				if(!rect.ptInRect(tileX,tileY) ) continue;
+				if( !rect.ptInRect(tileX,tileY) ) continue;
 
-				Tile& tile = pZone->getTile(tileX, tileY);
-				if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION ) ) continue;
+				Tile& tile = pZone->getTile( tileX, tileY );
+				if ( tile.getEffect( Effect::EFFECT_CLASS_TRYING_POSITION ) ) continue;
 
 				list<Creature*> targetList;
 				if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
@@ -93,71 +93,71 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
 				}
 
 				list<Creature*>::iterator itr = targetList.begin();
-				for (; itr != targetList.end() ; itr++ )
+				for ( ; itr != targetList.end() ; itr++ )
 				{
 					Creature* pTargetCreature = (*itr);
-					Assert(pTargetCreature != NULL);
+					Assert( pTargetCreature != NULL );
 
 					// 안전지대 체크
 					// 2003.1.10 by bezz, Sequoia
 					// NPC도 체크
 					// 2003.3.14 by Sequoia
-					if (
+					if ( 
 						pTargetCreature->isNPC()
 						|| !checkZoneLevelToHitTarget(pTargetCreature)
-				  		|| !canAttack(pSlayer, pTargetCreature )
-						|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA )
+				  		|| !canAttack( pSlayer, pTargetCreature )
+						|| pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA )
 					)
 						continue;
 
-					if(HitRoll::isSuccessRebuke(pSlayer, pSkillSlot, pTargetCreature ) )
+					if( HitRoll::isSuccessRebuke( pSlayer, pSkillSlot, pTargetCreature ) )
 					{
 						HP_t RemainHP = 0;
 						// 맞는 넘한테 데미지를 주고 남은 HP 를 구한다.
-						if (pTargetCreature->isVampire() )
+						if ( pTargetCreature->isVampire() )
 						{
 							GCModifyInformation gcMI;
-							setDamage(pTargetCreature, output.Damage, pSlayer, SkillType, &gcMI);
+							setDamage( pTargetCreature, output.Damage, pSlayer, SkillType, &gcMI );
 
-							pTargetCreature->getPlayer()->sendPacket(&gcMI);
+							pTargetCreature->getPlayer()->sendPacket( &gcMI );
 
 							Vampire* pVampire = dynamic_cast<Vampire*>(pTargetCreature);
 							RemainHP = pVampire->getHP(ATTR_CURRENT);
 						}
-						else if (pTargetCreature->isMonster() )
+						else if ( pTargetCreature->isMonster() )
 						{
-							setDamage(pTargetCreature, output.Damage, pSlayer, SkillType);
+							setDamage( pTargetCreature, output.Damage, pSlayer, SkillType );
 							Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 							RemainHP = pMonster->getHP(ATTR_CURRENT);
 						}
 
 						// 이미 SLEEP 이펙트가 걸려있으면 먼저 걸려있던 이펙트를 삭제한다.
-						if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_SLEEP ) )
+						if ( pTargetCreature->isFlag( Effect::EFFECT_CLASS_SLEEP ) )
 						{
-							pTargetCreature->deleteEffect(Effect::EFFECT_CLASS_SLEEP);
+							pTargetCreature->deleteEffect( Effect::EFFECT_CLASS_SLEEP );
 						}
 
-						EffectSleep* pEffect = new EffectSleep(pTargetCreature);
+						EffectSleep* pEffect = new EffectSleep( pTargetCreature );
 
 						// 맞는 넘한테 SLEEP 이펙트를 걸어준다.
-						pEffect->setDeadline(output.Duration);
-						pTargetCreature->addEffect(pEffect);
-						pTargetCreature->setFlag(Effect::EFFECT_CLASS_SLEEP);
+						pEffect->setDeadline( output.Duration );
+						pTargetCreature->addEffect( pEffect );
+						pTargetCreature->setFlag( Effect::EFFECT_CLASS_SLEEP );
 
 						GCAddEffect gcAddEffect;
-						gcAddEffect.setObjectID(pTargetCreature->getObjectID());
-						gcAddEffect.setEffectID(Effect::EFFECT_CLASS_SLEEP);
-						gcAddEffect.setDuration(output.Duration);
-						pZone->broadcastPacket(tileX, tileY, &gcAddEffect);
+						gcAddEffect.setObjectID( pTargetCreature->getObjectID() );
+						gcAddEffect.setEffectID( Effect::EFFECT_CLASS_SLEEP );
+						gcAddEffect.setDuration( output.Duration );
+						pZone->broadcastPacket( tileX, tileY, &gcAddEffect );
 
 						bHit = true;
 
 						// 성향을 올린다.
 						// 타겟이 슬레이어이면 먼가 문제가 있다.
-						if (!pTargetCreature->isSlayer() )
+						if ( !pTargetCreature->isSlayer() )
 						{
-						//	increaseAlignment(pSlayer, pTargetCreature, &_GCSkillToSelfOK1);
-							if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+						//	increaseAlignment( pSlayer, pTargetCreature, &_GCSkillToSelfOK1 );
+							if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 							EnemyNum++;
 						}
 					}
@@ -165,7 +165,7 @@ void Rebuke::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffect
 			}
 
 			// 경험치를 올린다.
-			if(bHit )
+			if( bHit )
 			{
 				SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 				Exp_t ExpUp = 10* (Grade + 1);

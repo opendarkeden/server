@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////
 
 #include "FileAPI.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 
 #if __WINDOWS__
@@ -37,8 +37,8 @@ extern int errno;
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-int FileAPI::open_ex (const char * filename , int flags ) 
-    throw(IOException , Error )
+int FileAPI::open_ex ( const char * filename , int flags ) 
+    throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -47,10 +47,10 @@ int FileAPI::open_ex (const char * filename , int flags )
 #elif __WINDOWS__
 	int fd = _open(filename,flags);
 #endif
-	if (fd < 0 ) {
+	if ( fd < 0 ) {
 
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EEXIST : 
 			throw FileAlreadyExistException(filename);
 		case ENOENT  : 
@@ -98,8 +98,8 @@ int FileAPI::open_ex (const char * filename , int flags )
 
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-int FileAPI::open_ex (const char * filename , int flags , int mode ) 
-    throw(IOException , Error )
+int FileAPI::open_ex ( const char * filename , int flags , int mode ) 
+    throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -109,9 +109,9 @@ int FileAPI::open_ex (const char * filename , int flags , int mode )
 	int fd = _open(filename,flags,mode);
 #endif
 
-	if (fd < 0 ) {
+	if ( fd < 0 ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EEXIST : 
 			throw FileAlreadyExistException("pathname already exists and O_CREAT and O_EXCL were used.");
 		case EISDIR : 
@@ -160,8 +160,8 @@ int FileAPI::open_ex (const char * filename , int flags , int mode )
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint FileAPI::read_ex (int fd , void * buf , uint len ) 
-//      throw(IOException , Error);
+// uint FileAPI::read_ex ( int fd , void * buf , uint len ) 
+//      throw ( IOException , Error );
 //
 // exception version of read()
 //
@@ -177,21 +177,21 @@ int FileAPI::open_ex (const char * filename , int flags , int mode )
 //     ...
 //
 //////////////////////////////////////////////////////////////////////
-uint FileAPI::read_ex (int fd , void * buf , uint len ) 
-	throw(IOException , Error )
+uint FileAPI::read_ex ( int fd , void * buf , uint len ) 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int result = read (fd , buf , len);
+	int result = read ( fd , buf , len );
 #elif __WINDOWS__
-	int result = _read (fd , buf , len);
+	int result = _read ( fd , buf , len );
 #endif
 
-	if (result < 0 ) {
+	if ( result < 0 ) {
 
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 			case EINTR : 
 				throw InterruptedIOException("The call was interrupted by a signal before any data was read.");
 			case EAGAIN : 
@@ -214,7 +214,7 @@ uint FileAPI::read_ex (int fd , void * buf , uint len )
 #elif __WINDOWS__
 	// ...
 #endif
-	} else if (result == 0 ) {
+	} else if ( result == 0 ) {
 		throw EOFException();
 	}
 
@@ -225,8 +225,8 @@ uint FileAPI::read_ex (int fd , void * buf , uint len )
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint FileAPI::write_ex (int fd , void * buf , uint len ) 
-//      throw(IOException);
+// uint FileAPI::write_ex ( int fd , void * buf , uint len ) 
+//      throw ( IOException );
 //
 // exception version of write()
 //
@@ -242,21 +242,21 @@ uint FileAPI::read_ex (int fd , void * buf , uint len )
 //     ...
 //
 //////////////////////////////////////////////////////////////////////
-uint FileAPI::write_ex (int fd , const void * buf , uint len ) 
-     throw(IOException , Error )
+uint FileAPI::write_ex ( int fd , const void * buf , uint len ) 
+     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int result = write (fd , buf , len);
+	int result = write ( fd , buf , len );
 #elif __WINDOWS__
-	int result = _write (fd , buf , len);
+	int result = _write ( fd , buf , len );
 #endif
 
-	if (result < 0 ) {
+	if ( result < 0 ) {
 		
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 			case EAGAIN : 
 				throw NonBlockingIOException("Non-blocking I/O has been selected using O_NONBLOCK and there was no room in the pipe or socket connected to fd to write the data immediately.");
 			case EINTR : 
@@ -291,8 +291,8 @@ uint FileAPI::write_ex (int fd , const void * buf , uint len )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void FileAPI::close_ex (int fd ) 
-//      throw(FileNotOpenedException , Error )
+// void FileAPI::close_ex ( int fd ) 
+//      throw ( FileNotOpenedException , Error )
 //
 // exception version of close()
 //
@@ -307,14 +307,14 @@ uint FileAPI::write_ex (int fd , const void * buf , uint len )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::close_ex (int fd ) 
-     throw(FileNotOpenedException , Error )
+void FileAPI::close_ex ( int fd ) 
+     throw ( FileNotOpenedException , Error )
 {
 	__BEGIN_TRY
 
-	if (close(fd) < 0 ) {
+	if ( close(fd) < 0 ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 			case EBADF : 
 				throw FileNotOpenedException("fd isn't a valid open file descriptor.");
 			default :
@@ -329,8 +329,8 @@ void FileAPI::close_ex (int fd )
 
 //////////////////////////////////////////////////////////////////////
 //
-// int FileAPI::fcntl_ex (int fd , int cmd ) 
-//     throw(Error);
+// int FileAPI::fcntl_ex ( int fd , int cmd ) 
+//     throw ( Error );
 //
 // Parameters
 //     fd  - file descriptor
@@ -343,15 +343,15 @@ void FileAPI::close_ex (int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex (int fd , int cmd ) 
-	throw(Error )
+int FileAPI::fcntl_ex ( int fd , int cmd ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int result = fcntl (fd , cmd);
-	if (result < 0 ) {
-		switch (errno ) {
+	int result = fcntl ( fd , cmd );
+	if ( result < 0 ) {
+		switch ( errno ) {
 			case EINTR : 
 				throw Error("The F_SETLKW command was interrupted by a signal.");
 			case EBADF : 
@@ -380,8 +380,8 @@ int FileAPI::fcntl_ex (int fd , int cmd )
 
 //////////////////////////////////////////////////////////////////////
 //
-// int FileAPI::fcntl_ex (int fd , int cmd , long arg ) 
-//     throw(Error);
+// int FileAPI::fcntl_ex ( int fd , int cmd , long arg ) 
+//     throw ( Error );
 //
 // Parameters
 //     fd  - file descriptor
@@ -395,15 +395,15 @@ int FileAPI::fcntl_ex (int fd , int cmd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::fcntl_ex (int fd , int cmd , long arg ) 
-	throw(Error )
+int FileAPI::fcntl_ex ( int fd , int cmd , long arg ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int result = fcntl (fd , cmd , arg);
-	if (result < 0 ) {
-		switch (errno ) {
+	int result = fcntl ( fd , cmd , arg );
+	if ( result < 0 ) {
+		switch ( errno ) {
 			case EINTR : 
 				throw Error("The F_SETLKW command was interrupted by a signal.");
 			case EINVAL : 
@@ -435,8 +435,8 @@ int FileAPI::fcntl_ex (int fd , int cmd , long arg )
 
 //////////////////////////////////////////////////////////////////////
 //
-// bool getfilenonblocking_ex (int fd ) 
-//      throw(Error);
+// bool getfilenonblocking_ex ( int fd ) 
+//      throw ( Error );
 //
 // check if this file is nonblocking mode
 //
@@ -450,13 +450,13 @@ int FileAPI::fcntl_ex (int fd , int cmd , long arg )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-bool FileAPI::getfilenonblocking_ex (int fd ) 
-     throw(Error )
+bool FileAPI::getfilenonblocking_ex ( int fd ) 
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int flags = fcntl_ex(fd , F_GETFL , 0);
+	int flags = fcntl_ex( fd , F_GETFL , 0 );
 	return flags | O_NONBLOCK;
 #elif __WINDOWS__
 	throw UnsupportedError();
@@ -467,8 +467,8 @@ bool FileAPI::getfilenonblocking_ex (int fd )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void setfilenonblocking_ex (int fd , bool on ) 
-//      throw(Error);
+// void setfilenonblocking_ex ( int fd , bool on ) 
+//      throw ( Error );
 //
 // make this file blocking/nonblocking
 //
@@ -483,22 +483,22 @@ bool FileAPI::getfilenonblocking_ex (int fd )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::setfilenonblocking_ex (int fd , bool on ) 
-     throw(Error )
+void FileAPI::setfilenonblocking_ex ( int fd , bool on ) 
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	int flags = fcntl_ex(fd , F_GETFL , 0);
+	int flags = fcntl_ex( fd , F_GETFL , 0 );
 
-	if (on )
+	if ( on )
 		// make nonblocking fd
 		flags |= O_NONBLOCK;
 	else
 		// make blocking fd
 		flags &= ~O_NONBLOCK;
 
-	fcntl_ex(fd , F_SETFL , flags);
+	fcntl_ex( fd , F_SETFL , flags );
 #elif __WINDOWS__
 	throw UnsupportedError();
 #endif
@@ -508,8 +508,8 @@ void FileAPI::setfilenonblocking_ex (int fd , bool on )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void FileAPI::ioctl_ex (int fd , int request , void * argp )
-//     throw(Error )
+// void FileAPI::ioctl_ex ( int fd , int request , void * argp )
+//     throw ( Error )
 //
 // exception version of ioctl()
 //
@@ -525,14 +525,14 @@ void FileAPI::setfilenonblocking_ex (int fd , bool on )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::ioctl_ex (int fd , int request , void * argp )
-    throw(Error )
+void FileAPI::ioctl_ex ( int fd , int request , void * argp )
+    throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	if (ioctl(fd,request,argp) < 0 ) {
-		switch (errno ) {
+	if ( ioctl(fd,request,argp) < 0 ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("fd is not a valid descriptor.");
 		case ENOTTY : 
@@ -554,8 +554,8 @@ void FileAPI::ioctl_ex (int fd , int request , void * argp )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void FileAPI::setfilenonblocking_ex2 (int fd , bool on )
-//      throw(Error )
+// void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
+//      throw ( Error )
 //
 // make this stream blocking/nonblocking using ioctl_ex()
 //
@@ -570,13 +570,13 @@ void FileAPI::ioctl_ex (int fd , int request , void * argp )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void FileAPI::setfilenonblocking_ex2 (int fd , bool on )
-     throw(Error )
+void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	ulong arg = (on == true ? 1 : 0);
+	ulong arg = ( on == true ? 1 : 0 );
 	ioctl_ex(fd,FIONBIO,&arg);
 #elif __WINDOWS__
 	throw UnsupportedError();
@@ -588,8 +588,8 @@ void FileAPI::setfilenonblocking_ex2 (int fd , bool on )
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint FileAPI::available_ex (int fd )
-//      throw(Error )
+// uint FileAPI::available_ex ( int fd )
+//      throw ( Error )
 //
 // how much bytes available in this stream? using ioctl_ex()
 //
@@ -603,8 +603,8 @@ void FileAPI::setfilenonblocking_ex2 (int fd , bool on )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-uint FileAPI::availablefile_ex (int fd )
-     throw(Error )
+uint FileAPI::availablefile_ex ( int fd )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -624,12 +624,12 @@ uint FileAPI::availablefile_ex (int fd )
 
 //////////////////////////////////////////////////////////////////////
 //
-// int FileAPI::dup_ex (int fd )
-//     throw(Error )
+// int FileAPI::dup_ex ( int fd )
+//     throw ( Error )
 //
 //////////////////////////////////////////////////////////////////////
-int FileAPI::dup_ex (int fd )
-    throw(Error )
+int FileAPI::dup_ex ( int fd )
+    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -639,9 +639,9 @@ int FileAPI::dup_ex (int fd )
 	int newfd = _dup(fd);
 #endif
 
-	if (newfd < 0 ) {
+	if ( newfd < 0 ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("oldfd isn't an open file descriptor, or newfd is out of the allowed range for file descriptors.");
 		case EMFILE : 
@@ -661,19 +661,19 @@ int FileAPI::dup_ex (int fd )
 
 //////////////////////////////////////////////////////////////////////
 //
-// long FileAPI::lseek_ex (int fd , long offset , int whence )
-//      throw(Error);
+// long FileAPI::lseek_ex ( int fd , long offset , int whence )
+//      throw ( Error );
 //
 //////////////////////////////////////////////////////////////////////
-long FileAPI::lseek_ex (int fd , long offset , int whence )
-     throw(Error )
+long FileAPI::lseek_ex ( int fd , long offset , int whence )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
 	long result = lseek(fd,offset,whence);
-	if (result < 0 ) {
-		switch (errno ) {
+	if ( result < 0 ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("Fildes is not an open file descriptor.");
 		case ESPIPE : 
@@ -686,7 +686,7 @@ long FileAPI::lseek_ex (int fd , long offset , int whence )
 	}
 #elif __WINDOWS__
 	long result = _lseek(fd,offset,whence);
-	if (result < 0 ) {
+	if ( result < 0 ) {
 	}
 #endif
 

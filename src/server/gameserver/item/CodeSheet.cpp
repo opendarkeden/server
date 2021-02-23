@@ -16,9 +16,8 @@
 #include "ItemUtil.h"
 
 #include <algorithm>
-#include "SubInventory.h"
 
-void setStoneNum(vector<OptionType_t>& OptionType, CoordInven_t x, CoordInven_t y, uint Num); // CGAddItemToCodeSheetHandler.cpp 에 정의되어있는데. 될라나
+void setStoneNum( vector<OptionType_t>& OptionType, CoordInven_t x, CoordInven_t y, uint Num ); // CGAddItemToCodeSheetHandler.cpp 에 정의되어있는데. 될라나
 
 // global variable declaration
 CodeSheetInfoManager* g_pCodeSheetInfoManager = NULL;
@@ -39,24 +38,24 @@ CodeSheet::CodeSheet(ItemType_t itemType, const list<OptionType_t>& optionType)
 	throw()
 : m_ItemType(itemType), m_OptionType(optionType)
 {
-	if (m_OptionType.size() == 0 )
+	if ( m_OptionType.size() == 0 )
 	{
 		vector<OptionType_t> OptionType;
-		while (OptionType.size() < 30 )
+		while ( OptionType.size() < 30 )
 		{
 			OptionType.push_back((OptionType_t)0xff);
 		}
 
-		for (int i=0; i<10; ++i )
-			for (int j=0; j<6; ++j )
-				if (((i+j)%2) == 0 )
+		for ( int i=0; i<10; ++i )
+			for ( int j=0; j<6; ++j )
+				if ( ((i+j)%2) == 0 )
 				{
 					setStoneNum(OptionType, i, j, (rand()%5)+1);
 				}
 
-		copy(OptionType.begin(), OptionType.end(), back_inserter(m_OptionType));
+		copy( OptionType.begin(), OptionType.end(), back_inserter(m_OptionType) );
 	}
-	else while (m_OptionType.size() < 30 )
+	else while ( m_OptionType.size() < 30 )
 	{
 		m_OptionType.push_back((OptionType_t)0xff);
 	}
@@ -64,7 +63,7 @@ CodeSheet::CodeSheet(ItemType_t itemType, const list<OptionType_t>& optionType)
 //	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, m_OptionType))
 //	{
 //		filelog("itembug.log", "CodeSheet::CodeSheet() : Invalid item type or option type");
-//		throw("CodeSheet::CodeSheet() : Invalid item type or optionType");
+//		throw ("CodeSheet::CodeSheet() : Invalid item type or optionType");
 //	}
 }
 
@@ -100,7 +99,7 @@ void CodeSheet::create(const string & ownerID, Storage storage, StorageID_t stor
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(m_OptionType, optionField);
+		setOptionTypeToField( m_OptionType, optionField );
 
 		sql << "INSERT INTO CodeSheetObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -135,7 +134,7 @@ void CodeSheet::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE CodeSheetObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE CodeSheetObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -179,9 +178,9 @@ void CodeSheet::save(const string & ownerID, Storage storage, StorageID_t storag
 		*/
 
 		string optionField;
-		setOptionTypeToField(m_OptionType, optionField);
-		pStmt->executeQuery("UPDATE CodeSheetObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s' WHERE ItemID=%ld",
-									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), m_ItemID);
+		setOptionTypeToField( m_OptionType, optionField );
+		pStmt->executeQuery( "UPDATE CodeSheetObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s' WHERE ItemID=%ld",
+									m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -354,8 +353,8 @@ void CodeSheetLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType FROM CodeSheetObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType FROM CodeSheetObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -419,18 +418,6 @@ void CodeSheetLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pCodeSheet);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pCodeSheet))
 						{
 							pInventory->addItemEx(x, y, pCodeSheet);

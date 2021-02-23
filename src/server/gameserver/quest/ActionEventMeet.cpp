@@ -10,14 +10,14 @@
 #include "GamePlayer.h"
 #include "mission/QuestManager.h"
 
-#include "GCNPCAsk.h"
-#include "GCNoticeEvent.h"
+#include "Gpackets/GCNPCAsk.h"
+#include "Gpackets/GCNoticeEvent.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEventMeet::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -41,7 +41,7 @@ void ActionEventMeet::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEventMeet::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -51,21 +51,21 @@ void ActionEventMeet::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature1);
-	Assert(pNPC != NULL);
+	Assert( pNPC != NULL );
 
-	if (pPC->getQuestManager()->isTargetNPC(pNPC ) )
+	if ( pPC->getQuestManager()->isTargetNPC( pNPC ) )
 	{
-		if (m_bGiveInfo ) pPC->getQuestManager()->metNPC(pNPC);
+		if ( m_bGiveInfo ) pPC->getQuestManager()->metNPC( pNPC );
 
 		Player* pPlayer = pCreature2->getPlayer();
 
 		GCNPCAsk gcNPCAsk;
 		gcNPCAsk.setObjectID(pCreature1->getObjectID());
 		gcNPCAsk.setScriptID(m_ScriptID);
-		gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 		pPlayer->sendPacket(&gcNPCAsk);
 
@@ -76,7 +76,7 @@ void ActionEventMeet::execute (Creature * pCreature1 , Creature * pCreature2)
 		GCNPCAsk gcNPCAsk;
 		gcNPCAsk.setObjectID(pCreature1->getObjectID());
 		gcNPCAsk.setScriptID(m_CounterScriptID);
-		gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 		Player* pPlayer = pCreature2->getPlayer();
 		pPlayer->sendPacket(&gcNPCAsk);
@@ -90,7 +90,7 @@ void ActionEventMeet::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEventMeet::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

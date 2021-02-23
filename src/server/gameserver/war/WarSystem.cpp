@@ -1,5 +1,5 @@
 #include "WarSystem.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "War.h"
 #include "RaceWar.h"
 #include "WarSchedule.h"
@@ -9,10 +9,10 @@
 #include "ZoneGroupManager.h"
 #include "CastleInfoManager.h"
 #include "StringStream.h"
-#include "GCSystemMessage.h"
-#include "GCWarList.h"
-#include "GCWarScheduleList.h"
-#include "GCNoticeEvent.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCWarList.h"
+#include "Gpackets/GCWarScheduleList.h"
+#include "Gpackets/GCNoticeEvent.h"
 #include "VariableManager.h"
 #include "GuildWar.h"
 #include "SiegeWar.h"
@@ -53,7 +53,7 @@ WarSystem::WarSystem()
 }
 
 WarSystem::~WarSystem()
-	throw()
+	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ WarSystem::~WarSystem()
 }
 
 void WarSystem::init()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -75,34 +75,34 @@ void WarSystem::init()
 }
 
 void WarSystem::prepareRaceWar()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	SAFE_DELETE(m_pRaceWarSchedule);
 
 	// 종족 전쟁을 준비해둔다.
-	VSDateTime warStartTime = WarScheduler::getNextWarDateTime(WAR_RACE, VSDateTime::currentDateTime());
+	VSDateTime warStartTime = WarScheduler::getNextWarDateTime( WAR_RACE, VSDateTime::currentDateTime() );
 
-	War* pRaceWar 		= new RaceWar(War::WAR_STATE_WAIT);
-	pRaceWar->setWarStartTime(warStartTime);
-	m_pRaceWarSchedule 	= new Schedule(pRaceWar, warStartTime);
+	War* pRaceWar 		= new RaceWar( War::WAR_STATE_WAIT );
+	pRaceWar->setWarStartTime( warStartTime );
+	m_pRaceWarSchedule 	= new Schedule( pRaceWar, warStartTime );
 
 	filelog("WarLog.txt", "[WarID=%d,Time=%s] 종족 전쟁을 추가합니다.", (int)pRaceWar->getWarID(), warStartTime.toString().c_str());
 
 //	m_RaceWarTimeParam = ((DWORD)((DWORD)warStartTime.date().month() << 24)) | ((DWORD)((DWORD)warStartTime.date().day() << 16)) | ((DWORD)((DWORD)warStartTime.time().hour() << 8));
-	VSDateTime sendStartTime = warStartTime.addDays(-4);
+	VSDateTime sendStartTime = warStartTime.addDays(-7);
 	m_RaceWarTimeParam = ((DWORD)((DWORD)(sendStartTime.date().year() - 2000))*1000000) + ((DWORD)((DWORD)sendStartTime.date().month())*10000)
 					   + ((DWORD)((DWORD)sendStartTime.date().day())*100);//	   + ((DWORD)((DWORD)sendStartTime.time().hour()));
 
-	//cout << "종족전쟁 패킷 보내는 날짜 : " << m_RaceWarTimeParam << endl;
+	cout << "종족전쟁 패킷 보내는 날짜 : " << m_RaceWarTimeParam << endl;
 
 	__END_CATCH
 }
 
 
 void WarSystem::load()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -120,22 +120,22 @@ VSDateTime WarSystem::getWarEndTime(WarType_t warType) const
 	{
 		// 길드전은 1시간
 		case WAR_GUILD :
-			seconds = g_pVariableManager->getVariable(GUILD_WAR_TIME);
+			seconds = g_pVariableManager->getVariable( GUILD_WAR_TIME );
 		break;
 
 		// 종족전은 2시간
 		case WAR_RACE :
-			seconds = g_pVariableManager->getVariable(RACE_WAR_TIME);
+			seconds = g_pVariableManager->getVariable( RACE_WAR_TIME );
 		break;
 	}
 
 	VSDateTime dt(VSDateTime::currentDateTime());
 
-	return dt.addSecs(seconds);
+	return dt.addSecs( seconds );
 }
 
 bool WarSystem::addWarDelayed(War* pWar)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ bool WarSystem::addWarDelayed(War* pWar)
 
 	__ENTER_CRITICAL_SECTION(m_MutexWarQueue);
 
-	m_WarQueue.push_back(pWar);
+	m_WarQueue.push_back( pWar );
 
 	__LEAVE_CRITICAL_SECTION(m_MutexWarQueue);
 	
@@ -158,7 +158,7 @@ bool WarSystem::addWarDelayed(War* pWar)
 }
 
 bool WarSystem::addQueuedWar()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ bool WarSystem::addQueuedWar()
 
 		m_WarQueue.pop_front();
 
-		addWar(pWar);
+		addWar( pWar );
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_MutexWarQueue);
@@ -183,7 +183,7 @@ bool WarSystem::addQueuedWar()
 
 // WarSystem 안에서만 호출되는 함수이므로 LOCK필요없다.
 bool WarSystem::addWar(War* pWar)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -191,15 +191,15 @@ bool WarSystem::addWar(War* pWar)
 	Assert(pWar->getState()==War::WAR_STATE_CURRENT);
 
 	WarType_t 	warType 	= pWar->getWarType();
-	VSDateTime 	warEndTime 	= getWarEndTime(warType);
+	VSDateTime 	warEndTime 	= getWarEndTime( warType );
 
 	Schedule::ScheduleType scheduleType;
 	
 	scheduleType = Schedule::SCHEDULE_TYPE_ONCE;
 		
-	WarSchedule* pWarSchedule = new WarSchedule(pWar, warEndTime, scheduleType);
+	WarSchedule* pWarSchedule = new WarSchedule( pWar, warEndTime, scheduleType);
 
-	addSchedule(pWarSchedule);
+	addSchedule( pWarSchedule );
 
 	// 일단 모든 존에 뿌린다.
 	if (makeGCWarList_LOCKED())
@@ -212,7 +212,7 @@ bool WarSystem::addWar(War* pWar)
 
    	 	__LEAVE_CRITICAL_SECTION(m_MutexWarList)
 
-		g_pZoneGroupManager->broadcast(&gcWarList);
+		g_pZoneGroupManager->broadcast( &gcWarList );
 	}
 
 	// 이미 만들어졌다. WarScheduler의 execute에서 tinysave했기 때메 Status바꿀 필요도 없다.
@@ -230,13 +230,13 @@ bool WarSystem::addWar(War* pWar)
 		Assert(pSiegeWar!=NULL);
 
 		// 성지에 있는 유저의 상태를 Refresh 해준다.
-		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
-		pEvent->setDeadline(0);
-		g_pClientManager->addEvent(pEvent);
+		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
+		pEvent->setDeadline( 0 );
+		g_pClientManager->addEvent( pEvent );
 
 		__ENTER_CRITICAL_SECTION(m_MutexActiveWars)
 
-		m_ActiveWars.push_back(ActiveWarInfo(pSiegeWar->getCastleZoneID(), pSiegeWar->getChallangerGuildID() ));
+		m_ActiveWars.push_back( ActiveWarInfo(pSiegeWar->getCastleZoneID(), pSiegeWar->getChallangerGuildID() ) );
 
 		__LEAVE_CRITICAL_SECTION(m_MutexActiveWars)
 	}
@@ -245,9 +245,9 @@ bool WarSystem::addWar(War* pWar)
 		m_bHasRaceWar = true;
 
 		// 성지에 있는 유저의 상태를 Refresh 해준다.
-		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
-		pEvent->setDeadline(0);
-		g_pClientManager->addEvent(pEvent);
+		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
+		pEvent->setDeadline( 0 );
+		g_pClientManager->addEvent( pEvent );
 
 		// 아담의 성지 전역에 피의 성서 위치를 보내준다.
 		g_pShrineInfoManager->broadcastBloodBibleStatus();
@@ -263,7 +263,7 @@ bool WarSystem::addWar(War* pWar)
 
 
 bool WarSystem::makeGCWarList_LOCKED()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -299,9 +299,9 @@ bool WarSystem::makeGCWarList_LOCKED()
 			default : throw Error("WarType이 잘못됐다.");
 		}
 
-		pWarSchedule->makeWarInfo(pWarInfo);
+		pWarSchedule->makeWarInfo( pWarInfo );
 
-		m_GCWarList.addWarInfo(pWarInfo);
+		m_GCWarList.addWarInfo( pWarInfo );
 	}
 
     __LEAVE_CRITICAL_SECTION(m_MutexWarList)
@@ -312,7 +312,7 @@ bool WarSystem::makeGCWarList_LOCKED()
 }
 
 bool WarSystem::makeGCWarList()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -332,7 +332,7 @@ bool WarSystem::makeGCWarList()
 }
 
 void WarSystem::sendGCWarList(Player* pPlayer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -340,7 +340,7 @@ void WarSystem::sendGCWarList(Player* pPlayer)
 
 	if (!m_GCWarList.isEmpty())
 	{
-		pPlayer->sendPacket(&m_GCWarList);
+		pPlayer->sendPacket( &m_GCWarList );
 		//cout << m_GCWarList.toString().c_str() << endl;
 	}
 
@@ -361,47 +361,47 @@ Work* WarSystem::heartbeat()
 	addQueuedWar();
 
 	Schedule* pSchedule = m_pRaceWarSchedule;
-	if (pSchedule != NULL )
+	if ( pSchedule != NULL )
 	{
 		War* pWar = dynamic_cast<War*>(pSchedule->getWork());
-		if (pWar != NULL && pWar->getWarType() == WAR_RACE )
+		if ( pWar != NULL && pWar->getWarType() == WAR_RACE )
 		{
-			int lastSec = VSDateTime::currentDateTime().secsTo(pSchedule->getScheduledTime());
+			int lastSec = VSDateTime::currentDateTime().secsTo( pSchedule->getScheduledTime() );
 			// 20분전
-			if (lastSec < 20 * 60 && !m_b20Minutes )
+			if ( lastSec < 20 * 60 && !m_b20Minutes )
 			{
 				m_b20Minutes = true;
 
 				// 성지에 있는 유저의 상태를 Refresh 해준다.
-				EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
-				pEvent->setDeadline(0);
-				g_pClientManager->addEvent(pEvent);
+				EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
+				pEvent->setDeadline( 0 );
+				g_pClientManager->addEvent( pEvent );
 
 				GCNoticeEvent gcNE;
-				gcNE.setCode(NOTICE_EVENT_RACE_WAR_IN_20);
-				g_pZoneGroupManager->broadcast(&gcNE);
+				gcNE.setCode( NOTICE_EVENT_RACE_WAR_IN_20 );
+				g_pZoneGroupManager->broadcast( &gcNE );
 			}
-			else if (lastSec < 5 * 60 && !m_b5Minutes )
+			else if ( lastSec < 5 * 60 && !m_b5Minutes )
 			{
 				m_b5Minutes = true;
 
 				GCNoticeEvent gcNE;
-				gcNE.setCode(NOTICE_EVENT_RACE_WAR_IN_5);
-				g_pZoneGroupManager->broadcast(&gcNE);
+				gcNE.setCode( NOTICE_EVENT_RACE_WAR_IN_5 );
+				g_pZoneGroupManager->broadcast( &gcNE );
 			}
-			if (m_b20Minutes && !g_pVariableManager->isAutoStartRaceWar() )
+			if ( m_b20Minutes && !g_pVariableManager->isAutoStartRaceWar() )
 			{
-				if (lastSec > 20 * 60 ) m_b20Minutes = m_b5Minutes = false;
+				if ( lastSec > 20 * 60 ) m_b20Minutes = m_b5Minutes = false;
 			}
 
-			if (lastSec < 0 && !g_pVariableManager->isAutoStartRaceWar() )
+			if ( lastSec < 0 && !g_pVariableManager->isAutoStartRaceWar() )
 			{
 				GCNoticeEvent gcNE;
-				gcNE.setCode(NOTICE_EVENT_RACE_WAR_STARTED_IN_OTHER_SERVER);
-				g_pZoneGroupManager->broadcast(&gcNE);
+				gcNE.setCode( NOTICE_EVENT_RACE_WAR_STARTED_IN_OTHER_SERVER );
+				g_pZoneGroupManager->broadcast( &gcNE );
 
-				VSDateTime warStartTime = WarScheduler::getNextWarDateTime(WAR_RACE, VSDateTime::currentDateTime());
-				dynamic_cast<RaceWar*>(m_pRaceWarSchedule->getWork())->setWarStartTime(warStartTime);
+				VSDateTime warStartTime = WarScheduler::getNextWarDateTime( WAR_RACE, VSDateTime::currentDateTime() );
+				dynamic_cast<RaceWar*>(m_pRaceWarSchedule->getWork())->setWarStartTime( warStartTime );
 				m_pRaceWarSchedule->setScheduledTime(warStartTime);
 			}
 		}
@@ -428,12 +428,12 @@ Work* WarSystem::heartbeat()
 			// 진행 중인 전쟁 리스트에서 제거시켜준다.
 			__ENTER_CRITICAL_SECTION(m_MutexActiveWars)
 
-			list<ActiveWarInfo>::iterator itr = find(m_ActiveWars.begin(), 
+			list<ActiveWarInfo>::iterator itr = find( m_ActiveWars.begin(), 
 													m_ActiveWars.end(), 
-													ActiveWarInfo(pSiegeWar->getCastleZoneID() ));
+													ActiveWarInfo( pSiegeWar->getCastleZoneID() ) );
 			Assert (itr!=m_ActiveWars.end());
 
-			m_ActiveWars.erase(itr);
+			m_ActiveWars.erase( itr );
 
 			__LEAVE_CRITICAL_SECTION(m_MutexActiveWars)
 		}
@@ -442,9 +442,9 @@ Work* WarSystem::heartbeat()
 			m_bHasRaceWar = false;
 
 			// 성지에 있는 유저의 상태를 Refresh 해준다.
-			EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer(NULL);
-			pEvent->setDeadline(0);
-			g_pClientManager->addEvent(pEvent);
+			EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
+			pEvent->setDeadline( 0 );
+			g_pClientManager->addEvent( pEvent );
 
 			m_b20Minutes = false;
 		}
@@ -458,13 +458,13 @@ Work* WarSystem::heartbeat()
 		&& g_pVariableManager->isAutoStartRaceWar())
 	{
 		checkStartRaceWar();
-		m_bRaceWarToday = VSDateTime::currentDateTime().daysTo(m_pRaceWarSchedule->getScheduledTime() ) <= 4;
+		m_bRaceWarToday = VSDateTime::currentDateTime().daysTo( m_pRaceWarSchedule->getScheduledTime() ) <= 4;
 	}
 
 	// WarList를 갱신해준다.
 	static Timeval nextTime = {0,0};
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
 	if (currentTime > nextTime)
 	{
@@ -481,7 +481,7 @@ Work* WarSystem::heartbeat()
 
 bool
 WarSystem::checkStartRaceWar()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -491,7 +491,7 @@ WarSystem::checkStartRaceWar()
 		Assert(pWork!=NULL);
 
 		War* pRaceWar = dynamic_cast<War*>(pWork);
-		addWarDelayed(pRaceWar);
+		addWarDelayed( pRaceWar );
 
 		prepareRaceWar();
 		m_b5Minutes = false;
@@ -504,7 +504,7 @@ WarSystem::checkStartRaceWar()
 	__END_CATCH
 }
 
-bool WarSystem::getAttackGuildID(ZoneID_t zoneID, GuildID_t& guildID ) const 
+bool WarSystem::getAttackGuildID( ZoneID_t zoneID, GuildID_t& guildID ) const 
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -513,7 +513,7 @@ bool WarSystem::getAttackGuildID(ZoneID_t zoneID, GuildID_t& guildID ) const
 
     __ENTER_CRITICAL_SECTION(m_MutexActiveWars)
 
-	list<ActiveWarInfo>::const_iterator itr = find(m_ActiveWars.begin(), m_ActiveWars.end(), ActiveWarInfo(zoneID));
+	list<ActiveWarInfo>::const_iterator itr = find( m_ActiveWars.begin(), m_ActiveWars.end(), ActiveWarInfo(zoneID) );
 
 	if (itr!=m_ActiveWars.end())
 	{
@@ -528,7 +528,7 @@ bool WarSystem::getAttackGuildID(ZoneID_t zoneID, GuildID_t& guildID ) const
 	__END_CATCH
 }
 
-bool WarSystem::hasCastleActiveWar(ZoneID_t zoneID ) const
+bool WarSystem::hasCastleActiveWar( ZoneID_t zoneID ) const
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -537,7 +537,7 @@ bool WarSystem::hasCastleActiveWar(ZoneID_t zoneID ) const
 
     __ENTER_CRITICAL_SECTION(m_MutexActiveWars)
 
-	list<ActiveWarInfo>::const_iterator itr = find(m_ActiveWars.begin(), m_ActiveWars.end(), ActiveWarInfo(zoneID));
+	list<ActiveWarInfo>::const_iterator itr = find( m_ActiveWars.begin(), m_ActiveWars.end(), ActiveWarInfo(zoneID) );
 
 	if (itr!=m_ActiveWars.end())
 	{
@@ -554,12 +554,12 @@ bool WarSystem::hasCastleActiveWar(ZoneID_t zoneID ) const
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
-		War* pWar = dynamic_cast<War*>((*itr)->getWork());
-		if(pWar == NULL ) continue;
+		War* pWar = dynamic_cast<War*>( (*itr)->getWork() );
+		if( pWar == NULL ) continue;
 
-		if(pWar->getCastleZoneID() == zoneID )
+		if( pWar->getCastleZoneID() == zoneID )
 		{
 			m_Mutex.unlock();
 			return true;
@@ -574,7 +574,7 @@ bool WarSystem::hasCastleActiveWar(ZoneID_t zoneID ) const
 	__END_CATCH
 }
 
-WarSchedule* WarSystem::getActiveWarSchedule(ZoneID_t zoneID )
+WarSchedule* WarSystem::getActiveWarSchedule( ZoneID_t zoneID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -583,7 +583,7 @@ WarSchedule* WarSystem::getActiveWarSchedule(ZoneID_t zoneID )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	pWarSchedule =  getActiveWarSchedule_LOCKED(zoneID);
+	pWarSchedule =  getActiveWarSchedule_LOCKED( zoneID );
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 
@@ -593,7 +593,7 @@ WarSchedule* WarSystem::getActiveWarSchedule(ZoneID_t zoneID )
 }
 
  
-WarSchedule* WarSystem::getActiveWarSchedule_LOCKED(ZoneID_t zoneID )
+WarSchedule* WarSystem::getActiveWarSchedule_LOCKED( ZoneID_t zoneID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -601,15 +601,15 @@ WarSchedule* WarSystem::getActiveWarSchedule_LOCKED(ZoneID_t zoneID )
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
 		WarSchedule* pWarSchedule = dynamic_cast<WarSchedule*>(*itr);
 		Assert(pWarSchedule!=NULL);
 
-		War* pWar = dynamic_cast<War*>(pWarSchedule->getWork());
-		if(pWar == NULL )
+		War* pWar = dynamic_cast<War*>( pWarSchedule->getWork() );
+		if( pWar == NULL )
 		{
-			//cout << "WarSystem에 들어있는 Schedule의 Work객체가 War가 아니거나 NULL입니다. 삽질삽질~~~~" << endl;
+			cout << "WarSystem에 들어있는 Schedule의 Work객체가 War가 아니거나 NULL입니다. 삽질삽질~~~~" << endl;
 			continue;
 		}
 
@@ -622,7 +622,7 @@ WarSchedule* WarSystem::getActiveWarSchedule_LOCKED(ZoneID_t zoneID )
 #endif
 			Assert(pSiegeWar!=NULL);
 
-			if(pSiegeWar->getCastleZoneID() == zoneID )
+			if( pSiegeWar->getCastleZoneID() == zoneID )
 			{
 				return pWarSchedule;
 			}
@@ -634,7 +634,7 @@ WarSchedule* WarSystem::getActiveWarSchedule_LOCKED(ZoneID_t zoneID )
 	__END_CATCH
 }
 
-War* WarSystem::getActiveWar(ZoneID_t zoneID ) const
+War* WarSystem::getActiveWar( ZoneID_t zoneID ) const
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -644,10 +644,10 @@ War* WarSystem::getActiveWar(ZoneID_t zoneID ) const
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
-		War* pWar = dynamic_cast<War*>((*itr)->getWork());
-		if(pWar == NULL ) continue;
+		War* pWar = dynamic_cast<War*>( (*itr)->getWork() );
+		if( pWar == NULL ) continue;
 
 		if (pWar->getWarType()==WAR_GUILD)
 		{
@@ -658,7 +658,7 @@ War* WarSystem::getActiveWar(ZoneID_t zoneID ) const
 #endif
 			Assert(pSiegeWar!=NULL);
 
-			if(pSiegeWar->getCastleZoneID() == zoneID )
+			if( pSiegeWar->getCastleZoneID() == zoneID )
 			{
 				m_Mutex.unlock();
 				return pWar;
@@ -674,7 +674,7 @@ War* WarSystem::getActiveWar(ZoneID_t zoneID ) const
 }
 
 bool    WarSystem::isEndCondition(Item* pItem, MonsterCorpse* pMonsterCorpse) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -689,12 +689,12 @@ bool    WarSystem::isEndCondition(Item* pItem, MonsterCorpse* pMonsterCorpse)
 	__END_CATCH
 }
 
-bool	WarSystem::isModifyCastleOwner(ZoneID_t castleZoneID, PlayerCreature* pPC )
-	throw(Error)
+bool	WarSystem::isModifyCastleOwner( ZoneID_t castleZoneID, PlayerCreature* pPC )
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	War* pWar = getActiveWar(castleZoneID);
+	War* pWar = getActiveWar( castleZoneID );
 	Assert(pWar!=NULL);
 
 	return pWar->isModifyCastleOwner(pPC);
@@ -704,7 +704,7 @@ bool	WarSystem::isModifyCastleOwner(ZoneID_t castleZoneID, PlayerCreature* pPC )
 
 // pPC가 castleZoneID와 관련된 전쟁에 승리했다.
 bool    WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -714,7 +714,7 @@ bool    WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID)
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	WarSchedule* pWarSchedule = getActiveWarSchedule_LOCKED(castleZoneID);
+	WarSchedule* pWarSchedule = getActiveWarSchedule_LOCKED( castleZoneID );
 
 	if (pWarSchedule!=NULL)
 	{
@@ -726,8 +726,8 @@ bool    WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID)
 
 		if (pWar->endWar(pPC))
 		{
-			// 전쟁 제거(시간 수정으로 자동으로 빠지도록 하자)
-			pWarSchedule->setScheduledTime(VSDateTime::currentDateTime());
+			// 전쟁 제거( 시간 수정으로 자동으로 빠지도록 하자)
+			pWarSchedule->setScheduledTime( VSDateTime::currentDateTime() );
 
 			// heap을 다시 구성해야 한다.
 			m_RecentSchedules.arrange();
@@ -745,7 +745,7 @@ bool    WarSystem::endWar(PlayerCreature* pPC, ZoneID_t castleZoneID)
 
 // castleZoneID의 진행중인 전쟁을 제거한다.
 bool    WarSystem::removeWar(ZoneID_t castleZoneID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -753,12 +753,12 @@ bool    WarSystem::removeWar(ZoneID_t castleZoneID)
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-	WarSchedule* pWarSchedule = getActiveWarSchedule_LOCKED(castleZoneID);
+	WarSchedule* pWarSchedule = getActiveWarSchedule_LOCKED( castleZoneID );
 
 	if (pWarSchedule!=NULL)
 	{
-		// 전쟁 제거(시간 수정으로 자동으로 빠지도록 하자)
-		pWarSchedule->setScheduledTime(VSDateTime::currentDateTime());
+		// 전쟁 제거( 시간 수정으로 자동으로 빠지도록 하자)
+		pWarSchedule->setScheduledTime( VSDateTime::currentDateTime() );
 
 		// heap을 다시 구성해야 한다.
 		m_RecentSchedules.arrange();
@@ -775,7 +775,7 @@ bool    WarSystem::removeWar(ZoneID_t castleZoneID)
 
 // castleZoneID의 진행중인 전쟁을 제거한다.
 bool    WarSystem::removeRaceWar()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -786,16 +786,16 @@ bool    WarSystem::removeRaceWar()
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
 		Schedule* pSchedule = *itr;
-		War* pWar = dynamic_cast<War*>(pSchedule->getWork());
-		if(pWar == NULL ) continue;
+		War* pWar = dynamic_cast<War*>( pSchedule->getWork() );
+		if( pWar == NULL ) continue;
 
-		if(pWar->getWarType() == WAR_RACE )
+		if( pWar->getWarType() == WAR_RACE )
 		{
-			// 전쟁 제거(시간 수정으로 자동으로 빠지도록 하자)
-			pSchedule->setScheduledTime(VSDateTime::currentDateTime());
+			// 전쟁 제거( 시간 수정으로 자동으로 빠지도록 하자)
+			pSchedule->setScheduledTime( VSDateTime::currentDateTime() );
 
 			// heap을 다시 구성해야 한다.
 			m_RecentSchedules.arrange();
@@ -812,8 +812,8 @@ bool    WarSystem::removeRaceWar()
 }
 
 // 특정한 플레이어에게 현재 진행중인 전쟁의 리스트를 보내준다.
-void WarSystem::broadcastWarList(GamePlayer* pGamePlayer ) const
-	throw(Error)
+void WarSystem::broadcastWarList( GamePlayer* pGamePlayer ) const
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -825,41 +825,41 @@ void WarSystem::broadcastWarList(GamePlayer* pGamePlayer ) const
 	GCSystemMessage gcSystemMessage;
 	bool warExist = false;
 
-	if (isEmpty() ) 
+	if ( isEmpty() ) 
 	{
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_WAR_IN_ACTIVE ));
-		pGamePlayer->sendPacket(&gcSystemMessage);
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_WAR_IN_ACTIVE ) );
+		pGamePlayer->sendPacket( &gcSystemMessage );
 
 		m_Mutex.unlock();
 		return;
 	}
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
-		WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(*itr);
-		if(pSchedule == NULL ) continue;
+		WarSchedule* pSchedule = dynamic_cast<WarSchedule*>( *itr );
+		if( pSchedule == NULL ) continue;
 
-		War* pWar = dynamic_cast<War*>(pSchedule->getWork());
-		if(pWar == NULL ) continue;
+		War* pWar = dynamic_cast<War*>( pSchedule->getWork() );
+		if( pWar == NULL ) continue;
 
 		warExist = true;
 
 /*		StringStream msg;
 		msg << pWar->getWarName() << "이 "
-			<< (pSchedule->getScheduledTime() ).toString() << " 까지 진행됩니다.";
+			<< ( pSchedule->getScheduledTime() ).toString() << " 까지 진행됩니다.";
 */
 
 		char msg[100];
-		sprintf(msg, g_pStringPool->c_str(STRID_WAR_STATUS ),
-						pWar->getWarName().c_str(), (pSchedule->getScheduledTime() ).toString().c_str());
-		gcSystemMessage.setMessage(msg);
-		pGamePlayer->sendPacket(&gcSystemMessage);
+		sprintf( msg, g_pStringPool->c_str( STRID_WAR_STATUS ),
+						pWar->getWarName().c_str(), ( pSchedule->getScheduledTime() ).toString().c_str() );
+		gcSystemMessage.setMessage( msg );
+		pGamePlayer->sendPacket( &gcSystemMessage );
 	}
 
-	if (!warExist ) 
+	if ( !warExist ) 
 	{
-		gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_WAR_IN_ACTIVE ));
-		pGamePlayer->sendPacket(&gcSystemMessage);
+		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_WAR_IN_ACTIVE ) );
+		pGamePlayer->sendPacket( &gcSystemMessage );
 	}
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -874,11 +874,11 @@ War* WarSystem::getActiveRaceWar() const
 
 	War* pWar = NULL;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
 	pWar = getActiveRaceWarAtSameThread();
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	return pWar;
 
@@ -890,29 +890,29 @@ bool WarSystem::startRaceWar()
 {
 	__BEGIN_TRY
 
-	if (hasActiveRaceWar() ) return false;
+	if ( hasActiveRaceWar() ) return false;
 
-	__ENTER_CRITICAL_SECTION(m_Mutex);
+	__ENTER_CRITICAL_SECTION( m_Mutex );
 
 	if (m_pRaceWarSchedule!=NULL)
 	{
-		if (m_b5Minutes )
+		if ( m_b5Minutes )
 		{
-			m_pRaceWarSchedule->setScheduledTime(VSDateTime::currentDateTime());
+			m_pRaceWarSchedule->setScheduledTime( VSDateTime::currentDateTime() );
 		}
-		else if (m_b20Minutes )
+		else if ( m_b20Minutes )
 		{
-			m_pRaceWarSchedule->setScheduledTime(VSDateTime::currentDateTime().addSecs(60*5));
+			m_pRaceWarSchedule->setScheduledTime( VSDateTime::currentDateTime().addSecs(60*5) );
 		}
 		else
 		{
-			m_pRaceWarSchedule->setScheduledTime(VSDateTime::currentDateTime().addSecs(60*20));
+			m_pRaceWarSchedule->setScheduledTime( VSDateTime::currentDateTime().addSecs(60*20) );
 		}
 
 		checkStartRaceWar();
 	}
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex);
+	__LEAVE_CRITICAL_SECTION( m_Mutex );
 
 	return true;
 	
@@ -927,11 +927,11 @@ War* WarSystem::getActiveRaceWarAtSameThread() const
 	const RecentSchedules::container_type& schedules = m_RecentSchedules.getSchedules();
 	RecentSchedules::const_iterator itr = schedules.begin();
 
-	for(; itr != schedules.end(); itr++ )
+	for( ; itr != schedules.end(); itr++ )
 	{
-		War* pWar = dynamic_cast<War*>((*itr)->getWork());
-		if(pWar == NULL ) continue;
-		if(pWar->getWarType() == WAR_RACE )
+		War* pWar = dynamic_cast<War*>( (*itr)->getWork() );
+		if( pWar == NULL ) continue;
+		if( pWar->getWarType() == WAR_RACE )
 		{
 			return pWar;
 		}
@@ -943,7 +943,7 @@ War* WarSystem::getActiveRaceWarAtSameThread() const
 }
 
 bool    WarSystem::addRaceWarScheduleInfo(WarScheduleInfo* pWSI) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -951,7 +951,7 @@ bool    WarSystem::addRaceWarScheduleInfo(WarScheduleInfo* pWSI)
 
 	Assert(pWSI!=NULL);
 
-	__ENTER_CRITICAL_SECTION(m_Mutex);
+	__ENTER_CRITICAL_SECTION( m_Mutex );
 
 	const VSDateTime& DT = m_pRaceWarSchedule->getScheduledTime();
 
@@ -961,13 +961,13 @@ bool    WarSystem::addRaceWarScheduleInfo(WarScheduleInfo* pWSI)
 	War* pWar = dynamic_cast<War*>(pWork);
 	Assert(pWar!=NULL);
 
-	pWar->makeWarScheduleInfo(pWSI);
+	pWar->makeWarScheduleInfo( pWSI );
 	pWSI->year    = DT.date().year();
 	pWSI->month   = DT.date().month();
 	pWSI->day     = DT.date().day();
 	pWSI->hour    = DT.time().hour();
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex);
+	__LEAVE_CRITICAL_SECTION( m_Mutex );
 
 	return true;
 

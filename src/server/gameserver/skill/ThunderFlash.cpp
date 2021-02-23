@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ThunderFlash.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 #include "ZoneUtil.h"
 #include <list>
 
@@ -206,7 +206,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 							if (!pTargetCreature->isSlayer())
 							{
 								bHit = true;
-								if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+								if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 								EnemyNum++;
 							}
 						}

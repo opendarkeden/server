@@ -34,7 +34,7 @@ public:
 	void setTick(Turn_t tick) { m_Tick = tick; }
 	Turn_t getTick() const { return m_Tick; }
 
-	void setUserOID(ObjectID_t oid ) { m_UserOID = oid; }
+	void setUserOID( ObjectID_t oid ) { m_UserOID = oid; }
 	ObjectID_t getUserOID() const { return m_UserOID; }
 
 private:

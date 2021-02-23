@@ -41,7 +41,7 @@ public:
 //	void setCasterName(const string & CasterName ) { m_CasterName = CasterName; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 
 private:

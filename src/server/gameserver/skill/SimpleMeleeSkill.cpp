@@ -7,9 +7,9 @@
 #include "SimpleMeleeSkill.h"
 #include "CrossCounter.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
 
 SimpleMeleeSkill g_SimpleMeleeSkill;
 
@@ -41,7 +41,7 @@ void SimpleMeleeSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pSlayer, param.SkillType);
@@ -112,9 +112,9 @@ void SimpleMeleeSkill::execute(
 		}
 
 		// 도 계열의 기술은 맞지 않더라도 7%의 데미지를 가진다 - by bezz
-		if (param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
+		if ( param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
 		{
-			Damage = getPercentValue(Damage, 7);
+			Damage = getPercentValue( Damage, 7 );
 			bHitRoll = true;
 		}
 
@@ -165,50 +165,50 @@ void SimpleMeleeSkill::execute(
 			_GCSkillToObjectOK5.setTargetObjectID (TargetObjectID);
 			_GCSkillToObjectOK5.setDuration(0);
 
-			if (param.SkillType == SKILL_TYPHOON )
+			if ( param.SkillType == SKILL_TYPHOON )
 			{
-				if (!pTargetCreature->isMonster() )
+				if ( !pTargetCreature->isMonster() )
 				{
 					int TargetLevel = 0;
 
-					if (pTargetCreature->isSlayer() )
+					if ( pTargetCreature->isSlayer() )
 					{
 						Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
-						Assert(pTargetSlayer != NULL);
+						Assert( pTargetSlayer != NULL );
 
 						TargetLevel = pTargetSlayer->getHighestSkillDomainLevel();
 					}
-					else if (pTargetCreature->isVampire() )
+					else if ( pTargetCreature->isVampire() )
 					{
 						Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTargetCreature);
-						Assert(pTargetVampire != NULL);
+						Assert( pTargetVampire != NULL );
 
 						TargetLevel = pTargetVampire->getLevel();
 					}
-					else if (pTargetCreature->isOusters() )
+					else if ( pTargetCreature->isOusters() )
 					{
 						Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTargetCreature);
-						Assert(pTargetOusters != NULL);
+						Assert( pTargetOusters != NULL );
 
 						TargetLevel = pTargetOusters->getLevel();
 					}
 					
-					int LevelDiff = pSlayer->getSkillDomainLevel(SKILL_DOMAIN_BLADE ) - TargetLevel;
+					int LevelDiff = pSlayer->getSkillDomainLevel( SKILL_DOMAIN_BLADE ) - TargetLevel;
 					int Ratio = 0;
 
-					if (LevelDiff >= 10 )
+					if ( LevelDiff >= 10 )
 					{
 						Ratio = 100;
 					}
-					else if (LevelDiff > 0 )
+					else if ( LevelDiff > 0 )
 					{
 						Ratio = 80;
 					}
-					else if (LevelDiff == 0 )
+					else if ( LevelDiff == 0 )
 					{
 						Ratio = 60;
 					}
-					else if (LevelDiff > -10 )
+					else if ( LevelDiff > -10 )
 					{
 						Ratio = 40;
 					}
@@ -217,7 +217,7 @@ void SimpleMeleeSkill::execute(
 						Ratio = 20;
 					}
 
-					if ((rand()%100)<Ratio )
+					if ( (rand()%100)<Ratio )
 					{
 						// 스턴 당해뿌따!
 						_GCSkillToObjectOK1.setGrade(1);
@@ -259,7 +259,7 @@ void SimpleMeleeSkill::execute(
 		} 
 		else 
 		{
-			executeSkillFailNormal(pSlayer, param.SkillType, pTargetCreature);
+			executeSkillFailNormal(pSlayer, param.SkillType, pTargetCreature );
 		}
 	} 
 	catch (Throwable & t) 
@@ -274,7 +274,7 @@ void SimpleMeleeSkill::execute(
 	Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -294,7 +294,7 @@ void SimpleMeleeSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, param.SkillType);
@@ -417,7 +417,7 @@ void SimpleMeleeSkill::execute(
 		} 
 		else
 		{
-			executeSkillFailNormal(pVampire, param.SkillType, pTargetCreature);
+			executeSkillFailNormal(pVampire, param.SkillType, pTargetCreature );
 		}
 	} 
 	catch(Throwable & t) 
@@ -433,7 +433,7 @@ void SimpleMeleeSkill::execute(
 	Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -452,7 +452,7 @@ void SimpleMeleeSkill::execute(
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, param.SkillType, param.Grade);
@@ -492,7 +492,7 @@ void SimpleMeleeSkill::execute(
 		{
 			// 만일 스킬 데미지가 마법 데미지라면, 마법 데미지 계산 함수를 이용해 계산을 해준다.
 			//Damage += computeMagicDamage(pTargetCreature, param.SkillDamage, param.SkillType, true);
-			Damage += computeOustersMagicDamage(pOusters, pTargetCreature, param.SkillDamage, param.SkillType);
+			Damage += computeOustersMagicDamage( pOusters, pTargetCreature, param.SkillDamage, param.SkillType );
 		}
 		else
 		{
@@ -508,7 +508,7 @@ void SimpleMeleeSkill::execute(
 		bool bHitRoll           = false;
 		bool bCanHit            = canHit(pOusters, pTargetCreature, param.SkillType);
 		bool bPK                = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (param.bMagicHitRoll)
 		{
@@ -517,10 +517,10 @@ void SimpleMeleeSkill::execute(
 		else 
 		{
 			int Bonus = 0;
-			if (pSkillInfo->getType() == SKILL_FATAL_SNICK )
+			if ( pSkillInfo->getType() == SKILL_FATAL_SNICK )
 			{
-				OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_FATAL_SNICK_MASTERY);
-				if (pMastery != NULL )
+				OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_FATAL_SNICK_MASTERY );
+				if ( pMastery != NULL )
 				{
 					Bonus = pMastery->getExpLevel();
 				}
@@ -531,8 +531,8 @@ void SimpleMeleeSkill::execute(
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && bSatisfyRequire )
 		{
-			if (pSkillInfo->getElementalDomain() == ELEMENTAL_DOMAIN_COMBAT )
-				Damage += computeElementalCombatSkill(pOusters, pTargetCreature, _GCSkillToObjectOK1);
+			if ( pSkillInfo->getElementalDomain() == ELEMENTAL_DOMAIN_COMBAT )
+				Damage += computeElementalCombatSkill( pOusters, pTargetCreature, _GCSkillToObjectOK1 );
 			CheckCrossCounter(pOusters, pTargetCreature, Damage);
 
 			// 마나를 깍는다.
@@ -604,7 +604,7 @@ void SimpleMeleeSkill::execute(
 		} 
 		else
 		{
-			executeSkillFailNormal(pOusters, param.SkillType, pTargetCreature, param.Grade);
+			executeSkillFailNormal(pOusters, param.SkillType, pTargetCreature, param.Grade );
 		}
 	} 
 	catch(Throwable & t) 
@@ -619,7 +619,7 @@ void SimpleMeleeSkill::execute(
 	Monster* pMonster, Creature* pEnemy, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 

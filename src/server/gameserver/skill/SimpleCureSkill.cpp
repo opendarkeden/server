@@ -8,15 +8,15 @@
 #include "EffectBloodDrain.h"
 #include "EffectAftermath.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 SimpleCureSkill g_SimpleCureSkill;
 
@@ -27,7 +27,7 @@ SimpleCureSkill g_SimpleCureSkill;
 void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -113,10 +113,10 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 			// 실제 회복 수치를 계산한다.
 			int RealHealPoint = 0;
-			if(CurrentHP + HealPoint <= MaxHP ) {
-				RealHealPoint = max((unsigned int)0, HealPoint);
+			if( CurrentHP + HealPoint <= MaxHP ) {
+				RealHealPoint = max( (unsigned int)0, HealPoint );
 			} else {
-				RealHealPoint = max(0, MaxHP - CurrentHP);
+				RealHealPoint = max( 0, MaxHP - CurrentHP );
 			}
 
 			// 경험치를 올려준다.
@@ -169,7 +169,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -278,10 +278,10 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 
 			// 실제 회복 수치를 계산한다.
 			int RealHealPoint = 0;
-			if(CurrentHP + HealPoint <= MaxHP ) {
-				RealHealPoint = max((unsigned int)0, HealPoint);
+			if( CurrentHP + HealPoint <= MaxHP ) {
+				RealHealPoint = max( (unsigned int)0, HealPoint );
 			} else {
-				RealHealPoint = max(0, MaxHP - CurrentHP);
+				RealHealPoint = max( 0, MaxHP - CurrentHP );
 			}
 
 			// 경험치를 올려준다.

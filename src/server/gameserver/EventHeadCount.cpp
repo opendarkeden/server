@@ -22,11 +22,11 @@ EventHeadCount::EventHeadCount(GamePlayer* pGamePlayer)
 : Event(pGamePlayer)
 {
 	Creature * pCreature = m_pGamePlayer->getCreature();
-	if (pCreature == NULL || !pCreature->isPC() ) return;
+	if ( pCreature == NULL || !pCreature->isPC() ) return;
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
-	m_LastLevel = getPCLevel(pPC);
+	Assert( pPC != NULL );
+	m_LastLevel = getPCLevel( pPC );
 
 	m_Count = 0;
 }
@@ -37,7 +37,7 @@ EventHeadCount::~EventHeadCount()
 }
 
 void EventHeadCount::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -45,18 +45,18 @@ void EventHeadCount::activate ()
 	Assert(m_pGamePlayer != NULL);
 
 	Creature * pCreature = m_pGamePlayer->getCreature();
-	if (pCreature == NULL || !pCreature->isPC() )
+	if ( pCreature == NULL || !pCreature->isPC() )
 	{
-		setDeadline(18000);
+		setDeadline( 18000 );
 		return;
 	}
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Level_t level = getPCLevel(pPC);
 
-	if (level < 50 && (level > 35 || level < 30 ) )
+	if ( level < 50 && (level > 35 || level < 30 ) )
 	{
 		setDeadline(18000);
 		return;
@@ -67,8 +67,8 @@ void EventHeadCount::activate ()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("INSERT INTO HeadCount (Name, Time, FirstLevel, LastLevel, HeadCount) VALUES ('%s', now(), %u, %u, %u)",
-				pPC->getName().c_str(), m_LastLevel, level, m_Count);
+		pStmt->executeQuery( "INSERT INTO HeadCount (Name, Time, FirstLevel, LastLevel, HeadCount) VALUES ('%s', now(), %u, %u, %u)",
+				pPC->getName().c_str(), m_LastLevel, level, m_Count );
 	}
 	END_DB(pStmt);
 
@@ -81,7 +81,7 @@ void EventHeadCount::activate ()
 }
 
 string EventHeadCount::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventHeadCount("

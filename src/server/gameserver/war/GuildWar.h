@@ -13,41 +13,41 @@ class PlayerCreature;
 class GuildWar : public War
 {
 public:
-	GuildWar(ZoneID_t castleZoneID, GuildID_t challenger, WarState warState, WarID_t warID=0);
+	GuildWar( ZoneID_t castleZoneID, GuildID_t challenger, WarState warState, WarID_t warID=0 );
 	virtual ~GuildWar();
 
 	ZoneID_t		getCastleZoneID()	const				{ return m_CastleZoneID; }
-	void			setCastleZoneID(ZoneID_t zoneID )		{ m_CastleZoneID = zoneID; }
+	void			setCastleZoneID( ZoneID_t zoneID )		{ m_CastleZoneID = zoneID; }
 
 	WarType_t		getWarType() const				{ return WAR_GUILD; }
 	string 			getWarType2DBString() const		{ return "GUILD"; }
-	string			getWarName() const throw(Error); 
+	string			getWarName() const throw (Error); 
 
 	GuildID_t		getChallangerGuildID() const	{ return m_ChallangerGuildID; }
 
 	Gold_t			getRegistrationFee() const		{ return m_RegistrationFee; }
-	void			setRegistrationFee(Gold_t fee ){ m_RegistrationFee = fee; }
+	void			setRegistrationFee( Gold_t fee ){ m_RegistrationFee = fee; }
 
 public:
-	bool			isModifyCastleOwner(PlayerCreature* pPC ) throw(Error);
-	GuildID_t		getWinnerGuildID(PlayerCreature* pPC ) throw(Error);
+	bool			isModifyCastleOwner( PlayerCreature* pPC ) throw (Error);
+	GuildID_t		getWinnerGuildID( PlayerCreature* pPC ) throw (Error);
 
-	//void			sendWarStartMessage() const throw(ProtocolException, Error);
-	void			sendWarEndMessage() const throw(ProtocolException, Error);
+	//void			sendWarStartMessage() const throw (ProtocolException, Error);
+	void			sendWarEndMessage() const throw (ProtocolException, Error);
 
 	bool 			endWar(PlayerCreature* pPC) throw(Error);
 
 protected :
-	void 			executeStart() throw(Error);
-	void 			executeEnd() throw(Error);
+	void 			executeStart() throw (Error);
+	void 			executeEnd() throw (Error);
 
-	void 			recordGuildWarStart() throw(Error);
-	void 			recordGuildWarEnd() throw(Error);
+	void 			recordGuildWarStart() throw (Error);
+	void 			recordGuildWarEnd() throw (Error);
 
 public :
-	void    makeWarScheduleInfo(WarScheduleInfo* pWSI ) const throw(Error);
-	void    makeWarInfo(WarInfo* pWarInfo ) const throw(Error);
-	virtual string	toString() const throw(Error);
+	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const throw (Error);
+	void    makeWarInfo( WarInfo* pWarInfo ) const throw (Error);
+	virtual string	toString() const throw (Error);
 
 private:
 	ZoneID_t			m_CastleZoneID;			// 傈里苞 包访等 己狼 ZoneID

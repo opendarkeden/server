@@ -9,13 +9,13 @@
 #include "EffectKillAftermath.h"
 #include "Properties.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -43,7 +43,7 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 		// 아우스터즈만 되살릴 수 있다.
 		if (pTargetCreature==NULL
 			|| !pTargetCreature->isOusters()
-			|| (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 ) )
+			|| ( g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 ) )
 		{
 			executeSkillFailException(pOusters, getSkillType());
 			return;
@@ -79,16 +79,16 @@ void SoulRebirth::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersS
 
 		int HealRatio = 10;
 
-		OustersSkillSlot* pPassiveSkill = pOusters->getSkill(SKILL_SOUL_REBIRTH_MASTERY);
-		if (pPassiveSkill != NULL )
+		OustersSkillSlot* pPassiveSkill = pOusters->getSkill( SKILL_SOUL_REBIRTH_MASTERY );
+		if ( pPassiveSkill != NULL )
 		{
 			output.Range += pPassiveSkill->getExpLevel()/10;
-			if (pOustersSkillSlot->getExpLevel() > 15 )
+			if ( pOustersSkillSlot->getExpLevel() > 15 )
 				output.Tick += pPassiveSkill->getExpLevel()*2;
 
-			if (pPassiveSkill->getExpLevel() >= 30 ) HealRatio = 50;
-			else if (pPassiveSkill->getExpLevel() >= 26 ) HealRatio = 40;
-			else if (pPassiveSkill->getExpLevel() >= 16 ) HealRatio = 25;
+			if ( pPassiveSkill->getExpLevel() >= 30 ) HealRatio = 50;
+			else if ( pPassiveSkill->getExpLevel() >= 26 ) HealRatio = 40;
+			else if ( pPassiveSkill->getExpLevel() >= 16 ) HealRatio = 25;
 		}
 
 		int  RequiredMP    = (int)pSkillInfo->getConsumeMP() + pOustersSkillSlot->getExpLevel()*3/2;

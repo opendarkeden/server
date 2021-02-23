@@ -27,7 +27,7 @@ public:
 
 public:
 	ZoneID_t	getZoneID() const { return m_ZoneID; }
-	void		setZoneID(ZoneID_t ZoneID ) { m_ZoneID = ZoneID; }
+	void		setZoneID( ZoneID_t ZoneID ) { m_ZoneID = ZoneID; }
 
 private:
 	ZoneID_t	m_ZoneID;	// 전쟁을 신청한 성의 ZoneID

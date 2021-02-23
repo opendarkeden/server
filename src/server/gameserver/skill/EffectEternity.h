@@ -29,7 +29,7 @@ public:
 
 	string toString() const throw();
 
-	void setHPPenalty(int pen ) { m_HPPenalty = pen; }
+	void setHPPenalty( int pen ) { m_HPPenalty = pen; }
 	int getHPPenalty() const { return m_HPPenalty; }
 
 public:

@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
-void RideMotorcycleSlotInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void RideMotorcycleSlotInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -18,10 +18,10 @@ void RideMotorcycleSlotInfo::read (SocketInputStream & iStream )
 	{
 		PCItemInfo::read(iStream);
 
-		iStream.read(m_InvenX);
-		iStream.read(m_InvenY);
+		iStream.read( m_InvenX );
+		iStream.read( m_InvenY );
 	} 
-	catch(Throwable & t ) 
+	catch( Throwable & t ) 
 	{
 		cout << t.toString() << endl;
 	}
@@ -32,8 +32,8 @@ void RideMotorcycleSlotInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
-void RideMotorcycleSlotInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void RideMotorcycleSlotInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -41,8 +41,8 @@ void RideMotorcycleSlotInfo::write (SocketOutputStream & oStream ) const
 	{
 		PCItemInfo::write(oStream);
 
-		oStream.write(m_InvenX);
-		oStream.write(m_InvenY);
+		oStream.write( m_InvenX );
+		oStream.write( m_InvenY );
 	} 
 	catch (Throwable & t ) 
 	{
@@ -56,7 +56,7 @@ void RideMotorcycleSlotInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string RideMotorcycleSlotInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

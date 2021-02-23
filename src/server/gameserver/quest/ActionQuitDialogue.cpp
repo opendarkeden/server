@@ -6,14 +6,14 @@
 
 #include "ActionQuitDialogue.h"
 #include "Creature.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionQuitDialogue::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -27,7 +27,7 @@ void ActionQuitDialogue::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionQuitDialogue::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionQuitDialogue::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionQuitDialogue::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

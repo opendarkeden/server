@@ -15,7 +15,7 @@
 #include "ZoneUtil.h"
 #include "VisionInfo.h"
 
-#include "GCSay.h"
+#include "Gpackets/GCSay.h"
 #include "Effect.h"
 //#include "EffectHPRecovery.h"
 
@@ -24,7 +24,7 @@
 // Constructor
 //////////////////////////////////////////////////////////////////////////////
 Creature::Creature (ObjectID_t objectID , Player* pPlayer) 
-	throw() 
+	throw () 
 : Object(objectID)
 {
 	__BEGIN_TRY
@@ -53,18 +53,18 @@ Creature::Creature (ObjectID_t objectID , Player* pPlayer)
 // Destructor
 //////////////////////////////////////////////////////////////////////////////
 Creature::~Creature () 
-    throw()
+    throw (Error)
 {
 	__BEGIN_TRY
 
 	m_pPlayer = NULL;	// delete는 외부에서 한다.
 	SAFE_DELETE(m_pEffectManager);
 
-	if (m_CClass == CREATURE_CLASS_SLAYER || m_CClass == CREATURE_CLASS_VAMPIRE )
+	if ( m_CClass == CREATURE_CLASS_SLAYER || m_CClass == CREATURE_CLASS_VAMPIRE )
 	{
-		if (!m_bDeriveDestructed )
+		if ( !m_bDeriveDestructed )
 		{
-			filelog("destructor.log", "Name : %s Class : %d value : %d" , m_Owner.c_str(), (int)m_CClass, m_Value);
+			filelog( "destructor.log", "Name : %s Class : %d value : %d" , m_Owner.c_str(), (int)m_CClass, m_Value );
 		}
 	}
 
@@ -77,7 +77,7 @@ Creature::~Creature ()
 // 크리처의 경우, 이동 모드에 따라서 이 우선순위가 결정된다.
 //////////////////////////////////////////////////////////////////////////////
 ObjectPriority Creature::getObjectPriority () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ ObjectPriority Creature::getObjectPriority () const
 // vision state 관련 메쏘드
 //////////////////////////////////////////////////////////////////////////////
 VisionState Creature::getVisionState (ZoneCoord_t x , ZoneCoord_t y) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_DEBUG
 
@@ -104,18 +104,18 @@ VisionState Creature::getVisionState (ZoneCoord_t x , ZoneCoord_t y)
 	//if (isFlag(Effect::EFFECT_CLASS_DARKNESS))
 	//	return g_pVisionInfoManager->getVisionInfo(DARKNESS_SIGHT,m_Dir)->getVisionState(m_X,m_Y,x,y);
 	//return g_pVisionInfoManager->getVisionInfo(m_Sight,m_Dir)->getVisionState(m_X,m_Y,x,y);
-	return VisionInfoManager::getVisionState(m_X, m_Y, x, y);
+	return VisionInfoManager::getVisionState( m_X, m_Y, x, y );
 
 	__END_DEBUG
 }
 
 VisionState Creature::getVisionState (Coord_t x , Coord_t y, Sight_t sight) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_DEBUG
 
 //	return g_pVisionInfoManager->getVisionInfo(sight,m_Dir)->getVisionState(m_X,m_Y,x,y);
-	return VisionInfoManager::getVisionState(m_X, m_Y, x, y);
+	return VisionInfoManager::getVisionState( m_X, m_Y, x, y );
 
 	__END_DEBUG
 }
@@ -124,13 +124,13 @@ VisionState Creature::getVisionState (Coord_t x , Coord_t y, Sight_t sight)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 ZoneID_t Creature::getZoneID () const
-	throw()
+	throw ()
 {
 	return (m_pZone) ? m_pZone->getZoneID() : 0 ;
 }
 
 ZoneID_t Creature::getNewZoneID () const
-	throw()
+	throw ()
 {
 	return (m_pNewZone) ? m_pNewZone->getZoneID() : 0 ;
 }
@@ -144,7 +144,7 @@ ZoneID_t Creature::getNewZoneID () const
 // (4) ZoneGroup 에서 ZoneID 를 사용해서 Zone 에 접근한다.
 //////////////////////////////////////////////////////////////////////////////
 void Creature::setZoneID (ZoneID_t zoneID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -178,7 +178,7 @@ void Creature::setZoneID (ZoneID_t zoneID)
 // (nx,ny)로 이동할 수 있는가?
 //////////////////////////////////////////////////////////////////////////////
 bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
-	throw(Error)
+	throw (Error)
 {
 	Assert(m_pZone != NULL);
 
@@ -226,7 +226,7 @@ bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 
 	Tile& rNewTile = m_pZone->getTile(getX(), getY());
 
-	if (rNewTile.getEffect(Effect::EFFECT_CLASS_SANCTUARY) )
+	if ( rNewTile.getEffect(Effect::EFFECT_CLASS_SANCTUARY) )
 		return false;
 
 	return true;
@@ -236,7 +236,7 @@ bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 // (nx,ny)이 맵에 의해 막히는가?
 //////////////////////////////////////////////////////////////////////////////
 bool Creature::isBlockedByCreature (ZoneCoord_t nx , ZoneCoord_t ny) const
-	throw(Error)
+	throw (Error)
 {
 	Assert(m_pZone != NULL);
 
@@ -286,7 +286,7 @@ void Creature::recoverHP(HP_t addHP) throw()
 // 거리 계산 함수
 //////////////////////////////////////////////////////////////////////////////
 Distance_t Creature::getDistance (ZoneCoord_t x1 , ZoneCoord_t y1 , ZoneCoord_t x2 , ZoneCoord_t y2) const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -296,7 +296,7 @@ Distance_t Creature::getDistance (ZoneCoord_t x1 , ZoneCoord_t y1 , ZoneCoord_t 
 }
 
 Distance_t Creature::getDistance (ZoneCoord_t x1 , ZoneCoord_t y1) const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -306,7 +306,7 @@ Distance_t Creature::getDistance (ZoneCoord_t x1 , ZoneCoord_t y1) const
 }
 
 bool Creature::isEffect(Effect::EffectClass EClass) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	
@@ -317,7 +317,7 @@ bool Creature::isEffect(Effect::EffectClass EClass)
 }
 
 void Creature::deleteEffect(Effect::EffectClass EClass) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -328,7 +328,7 @@ void Creature::deleteEffect(Effect::EffectClass EClass)
 }
 
 Effect* Creature::findEffect(Effect::EffectClass EClass) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -339,7 +339,7 @@ Effect* Creature::findEffect(Effect::EffectClass EClass) const
 }
 
 void Creature::addEffect(Effect* pEffect) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -376,13 +376,13 @@ bool Creature::hasRelicItem() const
 Sight_t Creature::getEffectedSight()
 	throw()
 {
-	if (isFlag(Effect::EFFECT_CLASS_LIGHTNESS ) )
+	if ( isFlag( Effect::EFFECT_CLASS_LIGHTNESS ) )
 		return LIGHTNESS_SIGHT;
 
-	if (isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE ) )
+	if ( isFlag( Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE ) )
 		return YELLOW_POISON_SIGHT;
 
-	if (isFlag(Effect::EFFECT_CLASS_FLARE ) )
+	if ( isFlag( Effect::EFFECT_CLASS_FLARE ) )
 		return FLARE_SIGHT;
 
 	return DEFAULT_SIGHT;

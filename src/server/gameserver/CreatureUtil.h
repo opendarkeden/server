@@ -42,11 +42,6 @@ Item* findItemIID(Creature* pCreature, ItemID_t itemID, int& storage, int& x, in
 Item* findItemIID(Creature* pCreature, ItemID_t itemID, Item::ItemClass IClass, int& storage, int& x, int& y) throw();
 
 ////////////////////////////////////////////////////////////////////////////////
-// ItemClass로 아이템 있는지 확인
-////////////////////////////////////////////////////////////////////////////////
-bool hasItemWithItemClass(Creature* pCreature, Item::ItemClass ItemClass);
-
-////////////////////////////////////////////////////////////////////////////////
 // 경험치 계산하기
 // 뱀파이어가 어떤 크리쳐를 흡혈하거나, 죽였을 경우에 올라가는 경험치를
 // 계산하는 함수
@@ -80,40 +75,40 @@ bool isAbleToUseInventorySkill(Creature* pCreature, BYTE X, BYTE Y, BYTE TX, BYT
 // 임의의 크리쳐가 아이템을 주을 수 있는 상태인가를 검사하는 함수
 ////////////////////////////////////////////////////////////////////////////////
 bool isAbleToPickupItem(Creature* pCreature, Item* pItem);
-bool canDropToZone(Creature* pCreature, Item* pItem);
+bool canDropToZone( Creature* pCreature, Item* pItem );
 
 //void confirmGrandMaster(Creature* pCreature);
 
-bool getRaceFromDB(const string& name, Race_t& race) throw(Error);
-bool getGuildIDFromDB(const string& name, Race_t race, GuildID_t& guildID) throw(Error);
+bool getRaceFromDB(const string& name, Race_t& race) throw (Error);
+bool getGuildIDFromDB(const string& name, Race_t race, GuildID_t& guildID) throw (Error);
 
-bool canSee(const Creature* pSource, Creature* pTarget, EffectObservingEye* pEffectObservingEye = NULL, EffectGnomesWhisper* pEffectGnomesWhisper = NULL);
+bool canSee( const Creature* pSource, Creature* pTarget, EffectObservingEye* pEffectObservingEye = NULL, EffectGnomesWhisper* pEffectGnomesWhisper = NULL );
 
-int changeSexEx(PlayerCreature* pPC);
-void initAllStatAndSendChange(PlayerCreature* pPC);
+int changeSexEx( PlayerCreature* pPC );
+void initAllStatAndSendChange( PlayerCreature* pPC );
 
-void addSimpleCreatureEffect(Creature* pCreature, Effect::EffectClass eClass, int time = -1, bool isSend = true);
-void deleteCreatureEffect(Creature* pCreature, Effect::EffectClass eClass);
-bool dropFlagToZone(Creature* pPC, bool bSendPacket = true);
+void addSimpleCreatureEffect( Creature* pCreature, Effect::EffectClass eClass, int time = -1, bool isSend = true );
+void deleteCreatureEffect( Creature* pCreature, Effect::EffectClass eClass);
+bool dropFlagToZone( Creature* pPC, bool bSendPacket = true );
 
-void disableFlags(Creature *pCreature, Zone* pZone, SkillType_t SkillType);
-bool canEnterBeginnerZone(Creature* pCreature);
+void disableFlags( Creature *pCreature, Zone* pZone, SkillType_t SkillType);
+bool canEnterBeginnerZone( Creature* pCreature );
 
 #ifdef __UNDERWORLD__
-void giveUnderworldGift(Creature* pCreature);
+void giveUnderworldGift( Creature* pCreature );
 #endif
 
-void disableFlags(Creature *pCreature, Zone* pZone, SkillType_t SkillType);
-bool dropSweeperToZone(Creature* pPC, bool bSendPacket = true);
+void disableFlags( Creature *pCreature, Zone* pZone, SkillType_t SkillType);
+bool dropSweeperToZone( Creature* pPC, bool bSendPacket = true );
 
-Level_t getPCLevel(PlayerCreature* pPC);
-void sendPetInfo(GamePlayer* pGamePlayer, bool bBroadcast = false, bool bSummon = false);
-void giveGoldMedal(PlayerCreature* pPC ) throw(Error);
-void giveLotto(PlayerCreature* pPC, BYTE type, uint num ) throw(Error);
+Level_t getPCLevel( PlayerCreature* pPC );
+void sendPetInfo( GamePlayer* pGamePlayer, bool bBroadcast = false, bool bSummon = false );
+void giveGoldMedal( PlayerCreature* pPC ) throw(Error);
+void giveLotto( PlayerCreature* pPC, BYTE type, uint num ) throw(Error);
 
-void addOlympicStat(PlayerCreature* pPC, BYTE type, uint num = 1 ) throw(Error);
+void addOlympicStat( PlayerCreature* pPC, BYTE type, uint num = 1 ) throw(Error);
 
-void deletePC(PlayerCreature* pPC ) throw(Error);
+void deletePC( PlayerCreature* pPC ) throw(Error);
 
 bool isAffectExp2X();
 

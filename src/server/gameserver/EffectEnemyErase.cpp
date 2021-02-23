@@ -11,8 +11,8 @@
 #include "Ousters.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCRemoveInjuriousCreature.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveInjuriousCreature.h"
 #include "DB.h"
 
 EffectEnemyErase::EffectEnemyErase(Creature* pCreature)
@@ -65,7 +65,7 @@ void EffectEnemyErase::unaffect (Creature* pCreature)
 		pTargetSlayer->deleteEnemy(m_EnemyName);
 
 		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName(m_EnemyName);
+		gcRemoveInjuriousCreature.setName( m_EnemyName );
 
 		pTargetSlayer->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
@@ -76,7 +76,7 @@ void EffectEnemyErase::unaffect (Creature* pCreature)
 		pTargetVampire->deleteEnemy(m_EnemyName);
 
 		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName(m_EnemyName);
+		gcRemoveInjuriousCreature.setName( m_EnemyName );
 
 		pTargetVampire->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
@@ -87,7 +87,7 @@ void EffectEnemyErase::unaffect (Creature* pCreature)
 		pTargetOusters->deleteEnemy(m_EnemyName);
 
 		GCRemoveInjuriousCreature gcRemoveInjuriousCreature;
-		gcRemoveInjuriousCreature.setName(m_EnemyName);
+		gcRemoveInjuriousCreature.setName( m_EnemyName );
 
 		pTargetOusters->getPlayer()->sendPacket(&gcRemoveInjuriousCreature);
 
@@ -95,14 +95,14 @@ void EffectEnemyErase::unaffect (Creature* pCreature)
 	else
 	{
 	}
-	destroy(pCreature->getName());
+	destroy( pCreature->getName() );
 
 	__END_DEBUG
 	__END_CATCH
 }
 
 void EffectEnemyErase::create (const string & ownerID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -142,7 +142,7 @@ void EffectEnemyErase::create (const string & ownerID)
 }
 
 void EffectEnemyErase::destroy (const string & ownerID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -170,7 +170,7 @@ void EffectEnemyErase::destroy (const string & ownerID)
 }
 
 void EffectEnemyErase::save (const string & ownerID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -221,7 +221,7 @@ string EffectEnemyErase::toString()
 }
 
 void EffectEnemyEraseLoader::load (Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -248,8 +248,8 @@ void EffectEnemyEraseLoader::load (Creature* pCreature)
 		*/
 
 		// StringStreamÁ¦°Å. by sigi. 2002.5.8
-		Result* pResult = pStmt->executeQuery("SELECT DayTime, EnemyName FROM EnemyErase WHERE OwnerID = '%s'",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT DayTime, EnemyName FROM EnemyErase WHERE OwnerID = '%s'",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{

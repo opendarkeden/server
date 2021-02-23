@@ -3,11 +3,11 @@
 #include "Zone.h"
 #include "CreatureUtil.h"
 
-GQuestElement::ResultType GQuestAddEffectElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestAddEffectElement::checkCondition( PlayerCreature* pPC ) const
 {
-	if (!pPC->isFlag(m_EffectClass ) )
+	if ( !pPC->isFlag( m_EffectClass ) )
 	{
-		addSimpleCreatureEffect(pPC, m_EffectClass);
+		addSimpleCreatureEffect( pPC, m_EffectClass );
 	}
 
 	return OK;

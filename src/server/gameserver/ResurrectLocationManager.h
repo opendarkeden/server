@@ -11,7 +11,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class ResurrectLocationManager
@@ -50,9 +50,9 @@ public:
 
 
 protected:
-	map<ZoneID_t, ZONE_COORD> m_SlayerPosition;
-	map<ZoneID_t, ZONE_COORD> m_VampirePosition;
-	map<ZoneID_t, ZONE_COORD> m_OustersPosition;
+	hash_map<ZoneID_t, ZONE_COORD> m_SlayerPosition;
+	hash_map<ZoneID_t, ZONE_COORD> m_VampirePosition;
+	hash_map<ZoneID_t, ZONE_COORD> m_OustersPosition;
 };
 
 

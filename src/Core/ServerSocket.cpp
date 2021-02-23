@@ -14,8 +14,8 @@
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-ServerSocket::ServerSocket (uint port , uint backlog ) 
-	throw(BindException , Error )
+ServerSocket::ServerSocket ( uint port , uint backlog ) 
+	throw ( BindException , Error )
 : m_Impl(NULL)
 {
 	__BEGIN_TRY
@@ -34,8 +34,8 @@ ServerSocket::ServerSocket (uint port , uint backlog )
 	// 이미 port가 m_Impl에 저장되어 있으므로, 파라미터없는 Bind()를 호출해도 된다.
 	m_Impl->bind();
 
-//	m_Impl->setSendBufferSize(9000);
-//	m_Impl->setReceiveBufferSize(9000);
+//	m_Impl->setSendBufferSize( 9000 );
+//	m_Impl->setReceiveBufferSize( 9000 );
 	
 	// set listening queue size
 	m_Impl->listen(backlog);
@@ -47,11 +47,11 @@ ServerSocket::ServerSocket (uint port , uint backlog )
 // destructor
 //////////////////////////////////////////////////////////////////////
 ServerSocket::~ServerSocket () 
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 		
-	if (m_Impl != NULL ) 
+	if ( m_Impl != NULL ) 
 	{
 		m_Impl->close();
 		delete m_Impl;
@@ -66,7 +66,7 @@ ServerSocket::~ServerSocket ()
 // close socket
 //////////////////////////////////////////////////////////////////////
 void ServerSocket::close ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -79,7 +79,7 @@ void ServerSocket::close ()
 // accept new connection
 //////////////////////////////////////////////////////////////////////
 Socket * ServerSocket::accept () 
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -89,15 +89,15 @@ Socket * ServerSocket::accept ()
 
 		SocketImpl * impl = m_Impl->accept();
 
-		if (impl == NULL )
+		if ( impl == NULL )
 			throw UnknownError("impl == NULL");
 		
 		Client = new Socket(impl);	
 //		Client->setNonBlocking();
 
-	} catch (NonBlockingIOException& ) {
+	} catch ( NonBlockingIOException& ) {
 		// ignore
-	} catch (ConnectException& ) {
+	} catch ( ConnectException& ) {
 		// ignore
 	}
 

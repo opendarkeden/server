@@ -32,7 +32,7 @@
 #include <list>
 #include <vector>
 #include <fstream>
-#include <map>
+#include <hash_map>
 
 //class XMLTree;
 
@@ -95,6 +95,10 @@ public:
 	int m_Ratio;
 	int m_OptionTypeTotalRatio;
 	vector<TreasureOptionType*> m_TreasureOptionTypes;
+
+	void setRndItemOptionMax( int Value=2 ){ m_OptionRatioMax=Value; }
+	int  getRndItemOptionMax( ) { return m_OptionRatioMax ; }
+	int  m_OptionRatioMax;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -125,6 +129,12 @@ public:
 	int m_Ratio;
 	int m_ItemTypeTotalRatio;
 	vector<TreasureItemType*> m_TreasureItemTypes;
+	
+	// Add By Sonic 2006.10.21  增加一个掉宝属性最大值变量
+	void setRndItemOptionMax( int Value=2 ){ m_OptionRatioMax=Value; }
+	int  getRndItemOptionMax( ) { return m_OptionRatioMax ; }
+	int  m_OptionRatioMax;
+	// End By Sonic 2006.10.21
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -141,6 +151,7 @@ public:
 	void parseString(const string& text) throw();
 	bool getRandomItem(ITEM_TEMPLATE* pTemplate) throw();
 	bool getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent) throw();
+	
 	string toString(void) const throw();
 //	XMLTree*	makeXMLTree() const;
 
@@ -149,6 +160,11 @@ public:
 	int m_OptionRatio; // 唱柯 酒捞袍俊 可记捞 嘿阑 犬伏
 	int m_ItemClassTotalRatio; // 葛电 酒捞袍 努贰胶狼 犬伏狼 钦
 	vector<TreasureItemClass*> m_TreasureItemClasses;
+	// Add By Sonic 2006.10.21  增加一个掉宝属性最大值变量
+	void setRndItemOptionMax( int Value=2 ){ m_OptionRatioMax=Value; }
+	int  getRndItemOptionMax( ) { return m_OptionRatioMax ; }
+	int  m_OptionRatioMax;
+	// End By Sonic 2006.10.21
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -189,7 +205,7 @@ public :
     TreasureList*   loadTreasure(const string& filename);
 
 private :
-    map<string, TreasureList*>     m_TreasureLists;
+    hash_map<string, TreasureList*>     m_TreasureLists;
 };
 
 #endif

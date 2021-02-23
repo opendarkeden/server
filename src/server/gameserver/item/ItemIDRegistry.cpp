@@ -96,7 +96,6 @@
 #include "Persona.h"
 #include "Fascia.h"
 #include "Mitten.h"
-#include "SubInventory.h"
 
 #define ITEMIDREGISTRY(CLASS,TABLE) \
 \
@@ -132,6 +131,8 @@ void CLASS::initItemIDRegistry(void) \
 \
 	__LEAVE_CRITICAL_SECTION(m_Mutex) \
 \
+	cout << TABLE << "...ItemIDRegistry:" << m_ItemIDRegistry << endl; \
+\
 	__END_CATCH \
 }
 
@@ -141,7 +142,6 @@ ITEMIDREGISTRY(Dermis,"DermisObject");
 ITEMIDREGISTRY(Persona,"PersonaObject");
 ITEMIDREGISTRY(Fascia,"FasciaObject");
 ITEMIDREGISTRY(Mitten,"MittenObject");
-ITEMIDREGISTRY(SubInventory,"SubInventoryObject");
 
 void Motorcycle::initItemIDRegistry(void)
 	throw()
@@ -174,6 +174,8 @@ void Motorcycle::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Motorcycle...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -212,6 +214,8 @@ void Potion::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Potion...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -246,6 +250,8 @@ void Water::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Water...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -282,6 +288,8 @@ void HolyWater::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "HolyWater...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -316,6 +324,8 @@ void Magazine::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Magazine...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -352,6 +362,8 @@ void BombMaterial::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "BombMaterial...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -386,6 +398,8 @@ void ETC::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "ETC...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -422,6 +436,8 @@ void Key::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Key...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -456,6 +472,8 @@ void Ring::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Ring...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -492,6 +510,8 @@ void Bracelet::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Bracelet...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -526,6 +546,8 @@ void Necklace::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Necklace...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -562,6 +584,8 @@ void Coat::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Coat...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -596,6 +620,8 @@ void Trouser::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Trouser...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -632,6 +658,8 @@ void Shoes::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Shoes...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -666,6 +694,8 @@ void Sword::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Sword...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -702,6 +732,8 @@ void Blade::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Blade...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -736,6 +768,8 @@ void Shield::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Shield...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -772,6 +806,8 @@ void Cross::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Cross...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -806,6 +842,8 @@ void Mace::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Mace...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -842,6 +880,8 @@ void Glove::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Glove...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -876,6 +916,8 @@ void Helm::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Helm...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -912,6 +954,8 @@ void SG::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "SG...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -946,6 +990,8 @@ void SMG::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "SMG...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -982,6 +1028,8 @@ void AR::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "AR...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1016,6 +1064,8 @@ void SR::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "SR...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1052,6 +1102,8 @@ void Bomb::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Bomb...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1086,6 +1138,8 @@ void Mine::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Mine...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1122,6 +1176,8 @@ void Belt::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Belt...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1156,6 +1212,8 @@ void LearningItem::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "LearningItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1192,6 +1250,8 @@ void Money::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Money...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1226,6 +1286,8 @@ void VampireRing::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "VampireRing...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1263,6 +1325,8 @@ void VampireBracelet::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "VampireBracelet...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1297,6 +1361,8 @@ void VampireNecklace::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "VampireNecklace...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1333,6 +1399,8 @@ void VampireCoat::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "VampireCoat...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1367,6 +1435,8 @@ void Skull::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Skull...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1403,6 +1473,8 @@ void Serum::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Serum...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1437,6 +1509,8 @@ void VampireETC::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "VampireETC...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1473,6 +1547,8 @@ void SlayerPortalItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "SlayerPortalItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1507,6 +1583,8 @@ void VampirePortalItem::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "VampirePortalItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1543,6 +1621,8 @@ void EventGiftBox::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "GiftBox...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1577,6 +1657,8 @@ void EventStar::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "EventStar...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1613,6 +1695,8 @@ void VampireEarring::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "VampireEarring...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1647,6 +1731,8 @@ void Relic::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "RelicObject...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1683,6 +1769,8 @@ void VampireWeapon::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "VampireWeaponObject...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1717,6 +1805,8 @@ void VampireAmulet::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "VampireAmuletObject...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1753,6 +1843,8 @@ void QuestItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "QuestItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1787,6 +1879,8 @@ void EventTree::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "EventTree...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1823,6 +1917,8 @@ void EventETC::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "EventETC...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1857,6 +1953,8 @@ void BloodBible::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "BloodBible...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1893,6 +1991,8 @@ void CastleSymbol::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "CastleSymbol...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1927,6 +2027,8 @@ void CoupleRing::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "CoupleRing...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -1963,6 +2065,8 @@ void VampireCoupleRing::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "CoupleRing...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -1997,6 +2101,8 @@ void EventItem::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "EventItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2033,6 +2139,8 @@ void DyePotion::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "DyePotion...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 	
@@ -2067,6 +2175,8 @@ void ResurrectItem::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "ResurrectItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2103,6 +2213,8 @@ void MixingItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "MixingItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2137,6 +2249,8 @@ void OustersArmsband::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersArmsband...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2173,6 +2287,8 @@ void OustersBoots::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "OustersBoots...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2207,6 +2323,8 @@ void OustersChakram::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersChakram...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2243,6 +2361,8 @@ void OustersCirclet::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "OustersCirclet...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2277,6 +2397,8 @@ void OustersCoat::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersCoat...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2313,6 +2435,8 @@ void OustersPendent::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "OustersPendent...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2347,6 +2471,8 @@ void OustersRing::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersRing...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2383,6 +2509,8 @@ void OustersStone::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "OustersStone...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2417,6 +2545,8 @@ void OustersWristlet::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersWristlet...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2453,6 +2583,8 @@ void Larva::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "Larva...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2487,6 +2619,8 @@ void Pupa::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Pupa...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2523,6 +2657,8 @@ void ComposMei::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "ComposMei...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2557,6 +2693,8 @@ void OustersSummonItem::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "OustersSummonItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2593,6 +2731,8 @@ void EffectItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "EffectItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 	
@@ -2627,6 +2767,8 @@ void CodeSheet::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "CodeSheet...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2663,6 +2805,8 @@ void MoonCard::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "MoonCard...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2697,6 +2841,8 @@ void Sweeper::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "Sweeper...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2733,6 +2879,8 @@ void PetItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "PetItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2767,6 +2915,8 @@ void PetFood::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "PetFood...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2803,6 +2953,8 @@ void PetEnchantItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "PetEnchantItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2837,6 +2989,8 @@ void LuckyBag::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "LuckyBag...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2873,6 +3027,8 @@ void SMSItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "SMSItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2907,6 +3063,8 @@ void CoreZap::initItemIDRegistry(void)
 	END_DB(pStmt)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
+	cout << "CoreZap...ItemIDRegistry:" << m_ItemIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -2943,6 +3101,8 @@ void TrapItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "TrapItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
 
@@ -2978,5 +3138,9 @@ void WarItem::initItemIDRegistry(void)
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
+	cout << "WarItem...ItemIDRegistry:" << m_ItemIDRegistry << endl;
+
 	__END_CATCH
 }
+
+

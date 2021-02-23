@@ -6,11 +6,9 @@
 
 #include "ZoneGroup.h"
 #include "ZonePlayerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "VSDateTime.h"
 #include "Profile.h"
-
-#include <map>
 
 //#define __FULL_PROFILE__
 
@@ -25,7 +23,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroup::ZoneGroup (ZoneGroupID_t zoneGroupID) 
-	throw()
+	throw ()
 : m_ZoneGroupID(zoneGroupID), m_pZonePlayerManager(NULL)
 {
 	__BEGIN_TRY
@@ -44,7 +42,7 @@ ZoneGroup::ZoneGroup (ZoneGroupID_t zoneGroupID)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroup::~ZoneGroup () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -58,7 +56,7 @@ ZoneGroup::~ZoneGroup ()
 // initialize zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -72,7 +70,7 @@ void ZoneGroup::init ()
 // load from database
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::load ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -86,7 +84,7 @@ void ZoneGroup::load ()
 // save to database
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::save ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -100,7 +98,7 @@ void ZoneGroup::save ()
 // process all players in zone player manager
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::processPlayers ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -190,7 +188,7 @@ void ZoneGroup::processPlayers ()
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::heartbeat()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -200,7 +198,7 @@ void ZoneGroup::heartbeat()
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
+	for (hash_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
 	{
 		Zone* pZone = itr->second;
 		pZone->heartbeat();
@@ -218,7 +216,7 @@ void ZoneGroup::heartbeat()
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -227,11 +225,11 @@ void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
 	//vstime.start();
 
 	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
+	for (hash_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
 	{
 		Zone* pZone = itr->second;
 
-		gmServerInfo.addZoneUserData(pZone->getZoneID(), pZone->getPCCount());
+		gmServerInfo.addZoneUserData( pZone->getZoneID(), pZone->getPCCount() );
 	}
 
 	//filelog("ZoneGroupHeartbeat.txt", "ZoneGroupID[%d]ZoneGroupHeartbeat:%d", m_ZoneGroupID, vstime.elapsed());
@@ -244,12 +242,12 @@ void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
 // add zone to zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::addZone (Zone* pZone) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
+	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
 	
 	if (itr != m_Zones.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -264,11 +262,11 @@ void ZoneGroup::addZone (Zone* pZone)
 // Delete zone from zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::deleteZone (ZoneID_t zoneID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
-	map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
+	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -294,11 +292,11 @@ void ZoneGroup::deleteZone (ZoneID_t zoneID)
 // delete하지 않고 node만 지워준다.
 //////////////////////////////////////////////////////////////////////////////
 Zone* ZoneGroup::removeZone (ZoneID_t zoneID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
-	map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
+	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -328,13 +326,13 @@ Zone* ZoneGroup::removeZone (ZoneID_t zoneID)
 // get zone from zone group
 //////////////////////////////////////////////////////////////////////////////
 Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
 	Zone* pZone = NULL;
 
-	map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -355,13 +353,13 @@ Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
 
 //#ifdef __NO_COMBAT__
 Zone* ZoneGroup::getCombatZone (ZoneID_t zoneID) const
-	throw(Error)
+	throw (Error)
 {
 	Zone* pZone = NULL;
 
 	__BEGIN_TRY
 		
-	map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
 	
 	if(itr != m_Zones.end()){ 
 		pZone = itr->second;
@@ -381,7 +379,7 @@ ZoneGroup::initLoadValue()
 
 	__BEGIN_TRY
 		
-	map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
+	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
 	
 	while (itr != m_Zones.end())
 	{ 
@@ -403,7 +401,7 @@ ZoneGroup::getLoadValue() const
 
 	__BEGIN_TRY
 
-	map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
+	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
 	
 	while (itr != m_Zones.end())
 	{ 
@@ -424,7 +422,7 @@ ZoneGroup::getLoadValue() const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ZoneGroup::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "ZoneGroup("

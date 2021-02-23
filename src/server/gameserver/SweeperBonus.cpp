@@ -6,11 +6,11 @@
 #include "DB.h"
 #include "SweeperBonus.h"
 
-void SweeperBonus::setRace(Race_t race )
+void SweeperBonus::setRace( Race_t race )
 {
 	__BEGIN_TRY
 
-	if (m_Race != race) 
+	if ( m_Race != race) 
 	{
 		m_Race = race;
 		Statement* pStmt    = NULL;
@@ -18,7 +18,7 @@ void SweeperBonus::setRace(Race_t race )
 		BEGIN_DB
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt->executeQuery("UPDATE SweeperBonusInfo SET OwnerRace = %d WHERE Type = %d", m_Race, m_Type);
+			pStmt->executeQuery( "UPDATE SweeperBonusInfo SET OwnerRace = %d WHERE Type = %d", m_Race, m_Type);
 
 			SAFE_DELETE(pStmt);
 		}
@@ -38,7 +38,7 @@ string SweeperBonus::toString() const
 	msg << "SweeperBonus(\n";
 
 	OptionTypeListConstItor itr = m_OptionTypeList.begin();
-	for (; itr != m_OptionTypeList.end() ; itr++) 
+	for ( ; itr != m_OptionTypeList.end() ; itr++) 
 	{
 		msg << (int)(*itr) << ",";
 	}

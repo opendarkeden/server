@@ -19,10 +19,10 @@ enum RankType
 class RankExpTable : public ExpTable<RankExp_t, Rank_t, 1, 50>
 {
 public:
-	RankExpTable(RankType type )
+	RankExpTable( RankType type )
 	{
 		static const char* QueryTemplate = "where RankType=%1d";
-		snprintf(m_QueryCondition, 19, QueryTemplate, type);
+		snprintf( m_QueryCondition, 19, QueryTemplate, type );
 		m_QueryCondition[19] = '\0';
 	}
 

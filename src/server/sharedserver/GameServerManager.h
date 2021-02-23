@@ -16,29 +16,49 @@
 #include "Mutex.h"
 
 
-class GameServerManager: public Thread {
+//////////////////////////////////////////////////////////////////////////////
+//
+// class GameServerManager;
+//
+//////////////////////////////////////////////////////////////////////////////
+
+class GameServerManager : public Thread
+{
 public:
 	GameServerManager() throw(Error);
 	~GameServerManager() throw(Error);
 
+public:
+
 	// 쉐어드서버에서 받아들이는 최대 게임서버 수
 	const static uint nMaxGameServers = 100;
 
+	// initialize 
 	void init() throw(Error);
-	void run() throw(Error);
+
+	void run() throw ();
 
 	// broadcast packet to all players
 	void broadcast(Packet* pPacket) throw(Error);
 	void broadcast(Packet* pPacket, Player* pPlayer) throw(Error);
 
+
 	// select 
 	void select() throw(TimeoutException, InterruptedException, Error);
 
+	// process all inputs
 	void processInputs() throw(IOException, Error);
+
+	// process all outputs
 	void processOutputs() throw(IOException, Error);
-    void processExceptions() throw(IOException, Error);
+
+	// process all exceptions
+	void processExceptions() throw(IOException, Error);
+	
+	// process all commands
 	void processCommands() throw(IOException, Error);
 
+	// accept new connection
 	void acceptNewConnection() throw(Error);
 
 	// add/delete player
@@ -52,6 +72,7 @@ public:
 	void heartbeat() throw(Error);
 
 private:
+
 	// TCP 서버 소켓과 소켓 디스크립터
 	ServerSocket* m_pServerSocket;
 	SOCKET m_SocketID;
@@ -75,9 +96,13 @@ private:
 	// mutex
 	mutable Mutex m_Mutex;
 
+
 	// 게임서버의 포인터 배열. 소켓 디스크립터를 인덱스로 사용한다.
 	GameServerPlayer* m_pGameServerPlayers[nMaxGameServers];
+
 };
 
+// external variable declaration
 extern GameServerManager* g_pGameServerManager;
+
 #endif

@@ -13,15 +13,15 @@
 #include "Types.h"
 #include "Exception.h"
 #include "UserInfo.h"
-#include <map>
+#include <hash_map>
 
-typedef map< ZoneGroupID_t , UserInfo * > HashMapUserInfo;
+typedef hash_map< ZoneGroupID_t , UserInfo * > HashMapUserInfo;
 
 //----------------------------------------------------------------------
 //
 // class UserInfoManager;
 //
-// 존그룹 아이디를 키값으로 하는 존 정보의 map 을 가지고 있다.
+// 존그룹 아이디를 키값으로 하는 존 정보의 hash_map 을 가지고 있다.
 //
 //----------------------------------------------------------------------
 
@@ -30,31 +30,31 @@ class UserInfoManager {
 public :
 	
 	// constructor
-	UserInfoManager () throw();
+	UserInfoManager () throw ();
 	
 	// destructor
-	~UserInfoManager () throw();
+	~UserInfoManager () throw ();
 
 	// initialize manager
-	void init () throw(Error);
+	void init () throw ( Error );
 
 	// add info
-	void addUserInfo (UserInfo * pUserInfo ) throw(DuplicatedException);
+	void addUserInfo ( UserInfo * pUserInfo ) throw ( DuplicatedException );
 	
 	// delete info
-	void deleteUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) throw(NoSuchElementException);
+	void deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
 	
 	// get info
-	UserInfo * getUserInfo (ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const throw(NoSuchElementException);
+	UserInfo * getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const throw ( NoSuchElementException );
 
 	// get count of info
-	uint getSize (WorldID_t WorldID ) const throw() { return m_UserInfos[WorldID].size(); }
+	uint getSize ( WorldID_t WorldID ) const throw () { return m_UserInfos[WorldID].size(); }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 	// load from database
-	void load () throw(Error);
+	void load () throw ( Error );
 	
 private :
 	

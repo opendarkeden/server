@@ -7,7 +7,7 @@
 
 // include files
 #include "ResourceManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Socket.h"
 #include "SocketOutputStream.h"
 
@@ -15,7 +15,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 ResourceManager::ResourceManager () 
-	throw()
+	throw ()
 {
 }
 
@@ -24,9 +24,9 @@ ResourceManager::ResourceManager ()
 // destructor
 //--------------------------------------------------------------------------------
 ResourceManager::~ResourceManager () 
-	throw()
+	throw ()
 {
-	while (!m_Resources.empty() ) 
+	while ( !m_Resources.empty() ) 
 	{
 		Resource * pResource = m_Resources.front();
 		SAFE_DELETE(pResource);
@@ -38,14 +38,14 @@ ResourceManager::~ResourceManager ()
 //--------------------------------------------------------------------------------
 // load from resource file
 //--------------------------------------------------------------------------------
-void ResourceManager::load (const string & filename ) 
-	throw(Error )
+void ResourceManager::load ( const string & filename ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	ifstream ifile(filename.c_str() , ios::in | ios::binary);
+	ifstream ifile( filename.c_str() , ios::in | ios::binary | ios::nocreate );
 
-	if (!ifile ) {
+	if ( !ifile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with read mode";
 		throw Error(msg.toString());
@@ -55,17 +55,17 @@ void ResourceManager::load (const string & filename )
 	// read #Resources
 	//--------------------------------------------------------------------------------
 	WORD nResources;
-	ifile.read((char *)&nResources, szWORD);
-	if (nResources > maxResources )
+	ifile.read( (char *)&nResources, szWORD );
+	if ( nResources > maxResources )
 		throw Error("too many resources");
 
 	//--------------------------------------------------------------------------------
 	// read each recource
 	//--------------------------------------------------------------------------------
-	for (int i = 0 ; i < nResources ; i ++ ) {
+	for ( int i = 0 ; i < nResources ; i ++ ) {
 		Resource * pResource = new Resource();
-		pResource->load(ifile);
-		push_back(pResource);
+		pResource->load( ifile );
+		push_back( pResource );
 	}
 
 	ifile.close();
@@ -77,25 +77,14 @@ void ResourceManager::load (const string & filename )
 //--------------------------------------------------------------------------------
 // save to resource file
 //--------------------------------------------------------------------------------
-void ResourceManager::save (const string & filename ) const 
-	throw(Error )
+void ResourceManager::save ( const string & filename ) const 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	ofstream ofile(filename.c_str() , ios::in);
+	ofstream ofile( filename.c_str() , ios::out | ios::noreplace );
 
-    if(!ofile)
-	{
-		// file doesn't exist; create a new one
-		ofile.open(filename.c_str(), ios::out); 
-	}
-	else //ok, file exists; close and reopen in write mode
-	{
-		ofile.close();
-		ofile.open(filename.c_str(), ios::out); // reopen for write
-	}
-
-	if (!ofile ) {
+	if ( !ofile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with write mode";
 		throw Error(msg.toString());
@@ -105,15 +94,15 @@ void ResourceManager::save (const string & filename ) const
 	// write #Resource
 	//--------------------------------------------------------------------------------
 	WORD nResources = m_Resources.size();
-	if (nResources > maxResources )
+	if ( nResources > maxResources )
 		throw Error("too many resources");
-	ofile.write((const char *)&nResources , szWORD);
+	ofile.write( (const char *)&nResources , szWORD );
 
 	//--------------------------------------------------------------------------------
 	// write each resource
 	//--------------------------------------------------------------------------------
-	for (list< Resource * >::const_iterator itr = m_Resources.begin() ; itr != m_Resources.end() ; itr ++ ) {
-		(*itr)->save(ofile);
+	for ( list< Resource * >::const_iterator itr = m_Resources.begin() ; itr != m_Resources.end() ; itr ++ ) {
+		(*itr)->save( ofile );
 	}
 
 	ofile.close();
@@ -127,7 +116,7 @@ void ResourceManager::save (const string & filename ) const
 // 일단은 실행 파일의 중복 여부만을 체크한다.
 //--------------------------------------------------------------------------------
 void ResourceManager::optimize ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -138,7 +127,7 @@ void ResourceManager::optimize ()
 	list< Resource * >::reverse_iterator before = m_Resources.rend();
 	list< Resource * >::reverse_iterator current = m_Resources.rbegin();
 
-	while (current != m_Resources.rend() ) {
+	while ( current != m_Resources.rend() ) {
 
 		// 파일명을 받아온다.
 		string filename = (*current)->getFilename();
@@ -148,16 +137,16 @@ void ResourceManager::optimize ()
 		filename = filename.substr(0,i);
 
 		// 이 파일명안에 darkeden.exe 가 포함될 경우, 중복 체크에 들어간다.
-		if (filename == "DarkEden.exe" ) {
-			if (exefileFound == false ) {
+		if ( filename == "DarkEden.exe" ) {
+			if ( exefileFound == false ) {
 				exefileFound = true;
 			} else {
 				// 노드를 삭제한다.
-				if (before == m_Resources.rend() ) {
-					m_Resources.erase(current);
+				if ( before == m_Resources.rend() ) {
+					m_Resources.erase( current );
 					current = m_Resources.rbegin();
 				} else {
-					m_Resources.erase(current);
+					m_Resources.erase( current );
 					current = before;
 					current ++;
 				}
@@ -174,13 +163,13 @@ void ResourceManager::optimize ()
 // get debug string
 //--------------------------------------------------------------------------------
 string ResourceManager::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
 	msg << "ResourceManager(\n";
 		
-	for (list< Resource * >::const_iterator itr = m_Resources.begin() ; itr != m_Resources.end() ; itr ++ ) 
+	for ( list< Resource * >::const_iterator itr = m_Resources.begin() ; itr != m_Resources.end() ; itr ++ ) 
 	{
 		msg << (*itr)->toString();
 	}

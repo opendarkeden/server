@@ -7,12 +7,12 @@
 #include "TurnUndead.h"
 #include "RankBonus.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -34,7 +34,7 @@ void TurnUndead::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t C
 		Assert(pZone != NULL);
 
 		Player* pPlayer = pSlayer->getPlayer();
-		Assert(pPlayer != NULL);
+		Assert( pPlayer != NULL );
 
 		GCSkillToSelfOK1 _GCSkillToSelfOK1;
 		GCSkillToSelfOK2 _GCSkillToSelfOK2;
@@ -76,7 +76,7 @@ void TurnUndead::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t C
 				int tileX = X+oX;
 				int tileY = Y+oY;
 
-				if (oX == 0 && oY == 0 ) continue;
+				if ( oX == 0 && oY == 0 ) continue;
 				if (!rect.ptInRect(tileX, tileY)) continue;
 
 				Tile& tile = pZone->getTile(tileX, tileY);
@@ -86,28 +86,28 @@ void TurnUndead::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t C
 				if(tile.hasCreature(Creature::MOVE_MODE_WALKING))
 				{
 					Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
-					targetList.push_back(pCreature);
+					targetList.push_back( pCreature );
 				}
 				if(tile.hasCreature(Creature::MOVE_MODE_FLYING))
 				{
 					Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_FLYING);
-					targetList.push_back(pCreature);
+					targetList.push_back( pCreature );
 				}
 				if(tile.hasCreature(Creature::MOVE_MODE_BURROWING))
 				{
 					Creature* pCreature = tile.getCreature(Creature::MOVE_MODE_BURROWING);
-					targetList.push_back(pCreature);
+					targetList.push_back( pCreature );
 				}
 
 				list<Creature*>::iterator itr = targetList.begin();
-				for (; itr != targetList.end(); itr++ )
+				for ( ; itr != targetList.end(); itr++ )
 				{
 					Creature* pTargetCreature = (*itr);
-					Assert(pTargetCreature != NULL);
+					Assert( pTargetCreature != NULL );
 
-					if(checkZoneLevelToHitTarget(pTargetCreature ) && !pTargetCreature->isSlayer()
-						   	&& !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)
-						   	&& canAttack(pSlayer, pTargetCreature )
+					if( checkZoneLevelToHitTarget( pTargetCreature ) && !pTargetCreature->isSlayer()
+						   	&& !pTargetCreature->isFlag( Effect::EFFECT_CLASS_COMA)
+						   	&& canAttack( pSlayer, pTargetCreature )
 					)
 					{
 						if(pTargetCreature->isVampire() || pTargetCreature->isOusters())
@@ -118,14 +118,14 @@ void TurnUndead::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t C
 
 							// 데미지를 적용시킨다.
 							GCModifyInformation gcMI;
-							::setDamage(pTargetCreature, output.Damage, pSlayer, pSkillSlot->getSkillType(), &gcMI);
+							::setDamage( pTargetCreature, output.Damage, pSlayer, pSkillSlot->getSkillType(), &gcMI );
 
 							// HP 가 변했다고 당사자에게 보낸다.
 							pTargetPlayer->sendPacket(&gcMI);
 
 							GCSkillToObjectOK2 gcSkillToObjectOK2;
-							gcSkillToObjectOK2.setObjectID(1);    // 의미 없다.
-							gcSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
+							gcSkillToObjectOK2.setObjectID( 1 );    // 의미 없다.
+							gcSkillToObjectOK2.setSkillType( SKILL_ATTACK_MELEE );
 							gcSkillToObjectOK2.setDuration(0);
 						}
 						else if(pTargetCreature->isMonster())
@@ -133,25 +133,25 @@ void TurnUndead::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t C
 							Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 							bHit = true;
 
-							::setDamage(pMonster, output.Damage, pSlayer, pSkillSlot->getSkillType());
-							pMonster->addEnemy(pSlayer);
+							::setDamage( pMonster, output.Damage, pSlayer, pSkillSlot->getSkillType() );
+							pMonster->addEnemy( pSlayer );
 						}
 						else
 						{
 							continue;
 						}
 
-						if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+						if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 						EnemyNum++;
 
 						GCSkillToObjectOK4 gcSkillToObjectOK4;
-						gcSkillToObjectOK4.setTargetObjectID(pTargetCreature->getObjectID());
-						gcSkillToObjectOK4.setSkillType(SKILL_ATTACK_MELEE);
+						gcSkillToObjectOK4.setTargetObjectID( pTargetCreature->getObjectID() );
+						gcSkillToObjectOK4.setSkillType( SKILL_ATTACK_MELEE );
 						gcSkillToObjectOK4.setDuration(0);
-						pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcSkillToObjectOK4);
+						pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcSkillToObjectOK4 );
 
 						// 성향을 올린다.
-						increaseAlignment(pSlayer, pTargetCreature, _GCSkillToSelfOK1);
+						increaseAlignment( pSlayer, pTargetCreature, _GCSkillToSelfOK1 );
 					}
 				}
 			}

@@ -14,28 +14,28 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanPetQuest::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 	int level=0;
 
-	if (pCreature2->isSlayer() )
+	if ( pCreature2->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature2);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 		level = pSlayer->getHighestSkillDomainLevel();
 	}
-	else if (pCreature2->isVampire() )
+	else if ( pCreature2->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature2);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 		level = pVampire->getLevel();
 	}
-	else if (pCreature2->isOusters() )
+	else if ( pCreature2->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature2);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 		level = pOusters->getLevel();
 	}
 
@@ -46,7 +46,7 @@ bool ConditionCanPetQuest::isSatisfied (Creature * pCreature1 , Creature * pCrea
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanPetQuest::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -54,7 +54,7 @@ void ConditionCanPetQuest::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanPetQuest::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

@@ -23,15 +23,15 @@ class MonsterCorpse : public Corpse
 {
 public:
 	MonsterCorpse(Monster* pMonster) throw(Error);
-	MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir) throw(Error);
+	MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir) throw (Error);
 	virtual ~MonsterCorpse() throw();
 
 public:
 	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual bool destroy() throw(Error);
 	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error) { tinysave(field.c_str()); }
-    void tinysave(const char* field) const throw(Error) {}
+	void tinysave(const string & field) const throw (Error) { tinysave(field.c_str()); }
+    void tinysave(const char* field) const throw (Error) {}
 
 	virtual ItemClass getItemClass() const throw() { return ITEM_CLASS_CORPSE; }
 
@@ -67,10 +67,10 @@ public:
 	void setHostPartyID(int ID) { m_HostPartyID = ID; }
 
 	const string& getQuestHostName() const { return m_QuestHostName; }
-	void setQuestHostName(const string& name ) { m_QuestHostName = name; }
+	void setQuestHostName( const string& name ) { m_QuestHostName = name; }
 
 	bool isShrine() const { return m_bShrine; }
-	void setShrine(bool bShrine = true ) { m_bShrine = bShrine; }
+	void setShrine( bool bShrine = true ) { m_bShrine = bShrine; }
 
 	void setLastKiller(ObjectID_t id) { m_LastKiller = id; }
 	ObjectID_t getLastKiller() const { return m_LastKiller; }

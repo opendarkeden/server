@@ -37,10 +37,10 @@ public:
 	virtual MPacket* create() = 0;
 
 	// 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
-	virtual void read(SocketInputStream& iStream ) = 0;
+	virtual void read( SocketInputStream& iStream ) = 0;
 
 	// 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
-	virtual void write(SocketOutputStream& oStream ) = 0;
+	virtual void write( SocketOutputStream& oStream ) = 0;
 
 	// debug message
 	virtual string toString() const = 0;

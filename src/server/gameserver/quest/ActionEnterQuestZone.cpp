@@ -21,14 +21,14 @@
 #include "DynamicZoneInfo.h"
 #include "GQuestManager.h"
 
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterQuestZone::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionEnterQuestZone::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -61,13 +61,13 @@ void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature)
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	bool bTransport = true;
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 	try {
 
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_ZoneID);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_ZoneID );
 
 		// 유료존인데 유료사용자가 아니면...
 		if (pZoneInfo==NULL
@@ -87,11 +87,11 @@ void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature)
 
 				if (g_pConfig->getPropertyInt("IsNetMarble")==0)
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER_PAY_ZONE ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER_PAY_ZONE ) );
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_CANNOT_ENTER ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_ENTER ) );
 				}
 
 				pGamePlayer->sendPacket (&gcSystemMessage);
@@ -106,30 +106,30 @@ void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature)
 	if (bTransport)
 	{
 		// Dynamic 존인지 확인.
-		int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID(m_ZoneID);
+		int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID( m_ZoneID );
 
-		if (targetDynamicZoneType != DYNAMIC_ZONE_MAX )
+		if ( targetDynamicZoneType != DYNAMIC_ZONE_MAX )
 		{
 			// Dynamic 존일 경우
-			DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup(targetDynamicZoneType);
-			Assert(pDynamicZoneGroup != NULL);
+			DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup( targetDynamicZoneType );
+			Assert( pDynamicZoneGroup != NULL );
 
 			DynamicZone* pDynamicZone = pDynamicZoneGroup->getAvailableDynamicZone();
-			Assert(pDynamicZone != NULL);
+			Assert( pDynamicZone != NULL );
 
 			transportCreature(pCreature, pDynamicZone->getZoneID(), m_X, m_Y, true);
 
-			if (targetDynamicZoneType == DYNAMIC_ZONE_ALTER_OF_BLOOD )
+			if ( targetDynamicZoneType == DYNAMIC_ZONE_ALTER_OF_BLOOD )
 			{
 				DynamicZoneAlterOfBlood* pAlterOfBlood = dynamic_cast<DynamicZoneAlterOfBlood*>(pDynamicZone);
-				Assert(pAlterOfBlood != NULL);
-				pAlterOfBlood->setRace(pPC->getRace());
+				Assert( pAlterOfBlood != NULL );
+				pAlterOfBlood->setRace( pPC->getRace() );
 			}
 		}
 		else
 		{
 			// Dynamic 존이 아닐 경우
-			transportCreature(pCreature, m_ZoneID, m_X, m_Y, true);
+			transportCreature( pCreature, m_ZoneID, m_X, m_Y, true );
 		}
 	}
 	else
@@ -148,7 +148,7 @@ void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterQuestZone::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

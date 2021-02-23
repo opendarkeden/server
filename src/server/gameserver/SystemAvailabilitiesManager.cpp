@@ -1,6 +1,6 @@
 #include "SystemAvailabilitiesManager.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 void SystemAvailabilitiesManager::load() throw(Error)
 {
@@ -14,37 +14,37 @@ void SystemAvailabilitiesManager::load() throw(Error)
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT * FROM SystemAvailabilities");
 
-		while(pResult->next() )
+		while( pResult->next() )
 		{
 			int ID = pResult->getInt(1);
 			bool Avail = pResult->getInt(2) != 0;
 
-			if (ID == OpenDegreeID )
+			if ( ID == OpenDegreeID )
 			{
 				m_ZoneOpenDegree = pResult->getInt(2);
 				continue;
 			}
 
-			if (ID == SkillLimitID )
+			if ( ID == SkillLimitID )
 			{
 				m_SkillLevelLimit= pResult->getInt(2);
 				continue;
 			}
 			
-			if (ID == ItemLevelLimitID )
+			if ( ID == ItemLevelLimitID )
 			{
 				m_ItemLevelLimit = pResult->getInt(2);
 				continue;
 			}
 
-			if (ID >= (int)SYSTEM_MAX )
+			if ( ID >= (int)SYSTEM_MAX )
 			{
 				cout << "SystemAvailabilitiesManager::load() : Invalid System Kind!" << ID << endl;
 				Assert(false);
 			}
 
 			SystemKind kind = (SystemKind)ID;
-			setAvailable(kind, Avail);
+			setAvailable( kind, Avail );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -52,14 +52,14 @@ void SystemAvailabilitiesManager::load() throw(Error)
 	END_DB(pStmt)
 
 #else
-	for (int i=0; i<SYSTEM_MAX; ++i ) setAvailable((SystemKind)i, true);
+	for ( int i=0; i<SYSTEM_MAX; ++i ) setAvailable( (SystemKind)i, true );
 
 #endif
 
-	if (m_pAvailabilitiesPacket == NULL ) m_pAvailabilitiesPacket = new GCSystemAvailabilities();
-	m_pAvailabilitiesPacket->setFlag((DWORD)m_SystemFlags.to_ulong());
-	m_pAvailabilitiesPacket->setOpenDegree(m_ZoneOpenDegree);
-	m_pAvailabilitiesPacket->setSkillLimit(m_SkillLevelLimit);
+	if ( m_pAvailabilitiesPacket == NULL ) m_pAvailabilitiesPacket = new GCSystemAvailabilities();
+	m_pAvailabilitiesPacket->setFlag( (DWORD)m_SystemFlags.to_ulong() );
+	m_pAvailabilitiesPacket->setOpenDegree( m_ZoneOpenDegree );
+	m_pAvailabilitiesPacket->setSkillLimit( m_SkillLevelLimit );
 	m_bEdited = false;
 
 	__END_CATCH

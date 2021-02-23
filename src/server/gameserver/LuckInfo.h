@@ -27,7 +27,7 @@ public:
 	void init() throw(Error);
 	void load() throw(Error);
 
-	const LuckInfo& getLuckInfo(int level) const throw(Error);
+	const LuckInfo& getLuckInfo(int level) const throw (Error);
 
 	string toString() const throw();
 

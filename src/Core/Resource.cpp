@@ -13,8 +13,8 @@
 //--------------------------------------------------------------------------------
 // constructor
 //--------------------------------------------------------------------------------
-Resource::Resource (Version_t version , const string & str )
-	throw(ProtocolException , Error )
+Resource::Resource ( Version_t version , const string & str )
+	throw ( ProtocolException , Error )
 : m_Version(version), m_Filename(""), m_FileSize(0)
 {
 	__BEGIN_TRY
@@ -30,16 +30,16 @@ Resource::Resource (Version_t version , const string & str )
 	//      firstspace = 12 
 	//
 	//--------------------------------------------------------------------------------
-	if (str != "" ) {
+	if ( str != "" ) {
 
 		// 첫번째와 마지막 스페이스의 인덱스를 구한다.
-		size_t firstspace = str.find_first_of(' ');
+		uint firstspace = str.find_first_of(' ');
 
-		if (firstspace == string::npos )
+		if ( firstspace == string::npos )
 			throw InvalidProtocolException("invalid resource format");
 
-		m_Filename = str.substr(0 , firstspace);	
-		m_FileSize = atoi(str.substr(firstspace + 1 , str.size() - firstspace ).c_str());	
+		m_Filename = str.substr( 0 , firstspace );	
+		m_FileSize = atoi( str.substr( firstspace + 1 , str.size() - firstspace ).c_str() );	
 
 		cout << toString() << endl;
 	}
@@ -51,8 +51,8 @@ Resource::Resource (Version_t version , const string & str )
 //--------------------------------------------------------------------------------
 // copy constructor
 //--------------------------------------------------------------------------------
-Resource::Resource (const Resource & resource )
-	throw()
+Resource::Resource ( const Resource & resource )
+	throw ()
 : m_Version(resource.m_Version), m_Filename(resource.m_Filename), m_FileSize(resource.m_FileSize)
 {
 }
@@ -61,28 +61,32 @@ Resource::Resource (const Resource & resource )
 //--------------------------------------------------------------------------------
 // load from resource file
 //--------------------------------------------------------------------------------
-void Resource::load (ifstream & ifile ) 
-	throw(Error )
+void Resource::load ( ifstream & ifile ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// read version
 	//--------------------------------------------------------------------------------
-	ifile.read((char*)&m_Version , szVersion);
+	ifile.read( (char*)&m_Version , szVersion );
 
 	//--------------------------------------------------------------------------------
 	// read filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename;
-	ifile.read((char*)&szFilename , szBYTE);
+	ifile.read( (char*)&szFilename , szBYTE );
 
-	if (szFilename == 0 ) {
+	if ( szFilename == 0 ) {
 		throw Error("szFilename == 0");
 	}
 
+	if ( szFilename > maxFilename ) {
+		throw Error("too large filename length");
+	}
+
 	char filename[maxFilename+1];
-	ifile.read(filename , szFilename);
+	ifile.read( filename , szFilename );
 	filename[szFilename] = 0;
 
 	m_Filename = filename;
@@ -90,7 +94,7 @@ void Resource::load (ifstream & ifile )
 	//--------------------------------------------------------------------------------
 	// read filesize
 	//--------------------------------------------------------------------------------
-	ifile.read((char*)&m_FileSize , szFileSize);
+	ifile.read( (char*)&m_FileSize , szFileSize );
 
 	__END_CATCH
 }
@@ -99,35 +103,35 @@ void Resource::load (ifstream & ifile )
 //--------------------------------------------------------------------------------
 // save to resource file
 //--------------------------------------------------------------------------------
-void Resource::save (ofstream & ofile ) const 
-	throw(Error )
+void Resource::save ( ofstream & ofile ) const 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// write version
 	//--------------------------------------------------------------------------------
-	ofile.write((const char *)&m_Version , szVersion);
+	ofile.write( (const char *)&m_Version , szVersion );
 
 	//--------------------------------------------------------------------------------
 	// write filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename = m_Filename.size();
 
-	if (szFilename == 0 )
+	if ( szFilename == 0 )
 		throw Error("szFilename == 0");
 
-	if (szFilename > 20 )
+	if ( szFilename > 20 )
 		throw Error("too large Filename length");
 
-	ofile.write((const char *)&szFilename , szBYTE);
+	ofile.write( (const char *)&szFilename , szBYTE );
 
-	ofile.write(m_Filename.c_str() , szFilename);
+	ofile.write( m_Filename.c_str() , szFilename );
 
 	//--------------------------------------------------------------------------------
 	// write filesize
 	//--------------------------------------------------------------------------------
-	ofile.write((const char *)&m_FileSize , szFileSize);
+	ofile.write( (const char *)&m_FileSize , szFileSize );
 
 	__END_CATCH
 }
@@ -136,34 +140,34 @@ void Resource::save (ofstream & ofile ) const
 //--------------------------------------------------------------------------------
 // read from socket input stream
 //--------------------------------------------------------------------------------
-void Resource::read (SocketInputStream & iStream ) 
-	throw(IOException , Error )
+void Resource::read ( SocketInputStream & iStream ) 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// read version
 	//--------------------------------------------------------------------------------
-	iStream.read(m_Version);
+	iStream.read( m_Version );
 
 	//--------------------------------------------------------------------------------
 	// read filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename;
-	iStream.read(szFilename);
+	iStream.read( szFilename );
 
-	if (szFilename == 0 )
+	if ( szFilename == 0 )
 		throw InvalidProtocolException("szFilename == 0");
 
-	if (szFilename > maxFilename )
+	if ( szFilename > maxFilename )
 		throw InvalidProtocolException("too large filename length");
 
-	iStream.read(m_Filename , szFilename);
+	iStream.read( m_Filename , szFilename );
 
 	//--------------------------------------------------------------------------------
 	// read filesize
 	//--------------------------------------------------------------------------------
-	iStream.read(m_FileSize);
+	iStream.read( m_FileSize );
 
 	__END_CATCH
 }
@@ -172,30 +176,30 @@ void Resource::read (SocketInputStream & iStream )
 //--------------------------------------------------------------------------------
 // read from socket
 //--------------------------------------------------------------------------------
-void Resource::read (Socket * pSocket ) 
-	throw(IOException , Error )
+void Resource::read ( Socket * pSocket ) 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// read version
 	//--------------------------------------------------------------------------------
-	pSocket->receive(&m_Version , szVersion);
+	pSocket->receive( &m_Version , szVersion );
 
 	//--------------------------------------------------------------------------------
 	// read filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename;
-	pSocket->receive(&szFilename , szBYTE);
+	pSocket->receive( &szFilename , szBYTE );
 
-	if (szFilename == 0 )
+	if ( szFilename == 0 )
 		throw InvalidProtocolException("szFilename == 0");
 
-	if (szFilename > maxFilename )
+	if ( szFilename > maxFilename )
 		throw InvalidProtocolException("too large filename length");
 
 	char filename[maxFilename+1];
-	pSocket->receive(filename , szFilename);
+	pSocket->receive( filename , szFilename );
 	filename[szFilename] = 0;
 
 	m_Filename = filename;
@@ -203,7 +207,7 @@ void Resource::read (Socket * pSocket )
 	//--------------------------------------------------------------------------------
 	// read filesize
 	//--------------------------------------------------------------------------------
-	pSocket->receive(&m_FileSize , szFileSize);
+	pSocket->receive( &m_FileSize , szFileSize );
 
 	__END_CATCH
 }
@@ -212,35 +216,35 @@ void Resource::read (Socket * pSocket )
 //--------------------------------------------------------------------------------
 // write to socket output stream
 //--------------------------------------------------------------------------------
-void Resource::write (SocketOutputStream & oStream ) const 
-	throw(IOException , Error )
+void Resource::write ( SocketOutputStream & oStream ) const 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// write version
 	//--------------------------------------------------------------------------------
-	oStream.write(m_Version);
+	oStream.write( m_Version );
 	
 	//--------------------------------------------------------------------------------
 	// write filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename = m_Filename.size();
 
-	if (szFilename == 0 )
+	if ( szFilename == 0 )
 		throw InvalidProtocolException("szFilename == 0");
 
-	if (szFilename > maxFilename )
+	if ( szFilename > maxFilename )
 		throw InvalidProtocolException("too large filename length");
 
-	oStream.write(szFilename);
+	oStream.write( szFilename );
 
-	oStream.write(m_Filename);
+	oStream.write( m_Filename );
 
 	//--------------------------------------------------------------------------------
 	// write filesize
 	//--------------------------------------------------------------------------------
-	oStream.write(m_FileSize);
+	oStream.write( m_FileSize );
 
 	__END_CATCH
 }
@@ -249,35 +253,35 @@ void Resource::write (SocketOutputStream & oStream ) const
 //--------------------------------------------------------------------------------
 // write to socket
 //--------------------------------------------------------------------------------
-void Resource::write (Socket * pSocket ) const 
-	throw(IOException , Error )
+void Resource::write ( Socket * pSocket ) const 
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
 	// write version
 	//--------------------------------------------------------------------------------
-	pSocket->send(&m_Version , szVersion);
+	pSocket->send( &m_Version , szVersion );
 
 	//--------------------------------------------------------------------------------
 	// write filename
 	//--------------------------------------------------------------------------------
 	BYTE szFilename = m_Filename.size();
 
-	if (szFilename == 0 )
+	if ( szFilename == 0 )
 		throw InvalidProtocolException("szFilename == 0");
 
-	if (szFilename > maxFilename )
+	if ( szFilename > maxFilename )
 		throw InvalidProtocolException("too large filename length");
 
-	pSocket->send(&szFilename , szBYTE);
+	pSocket->send( &szFilename , szBYTE );
 
-	pSocket->send(m_Filename.c_str() , szFilename);
+	pSocket->send( m_Filename.c_str() , szFilename );
 
 	//--------------------------------------------------------------------------------
 	// write filesize
 	//--------------------------------------------------------------------------------
-	pSocket->send(&m_FileSize , szFileSize);
+	pSocket->send( &m_FileSize , szFileSize );
 
 	__END_CATCH
 }
@@ -287,7 +291,7 @@ void Resource::write (Socket * pSocket ) const
 // get debug string
 //--------------------------------------------------------------------------------
 string Resource::toString () const
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "Resource("

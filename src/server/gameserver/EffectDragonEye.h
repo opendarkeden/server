@@ -31,7 +31,7 @@ public:
 
 	// get/set ItemID
 	ItemID_t getItemID() const { return m_ItemID; }
-	void setItemID(ItemID_t itemID ) { m_ItemID = itemID; }
+	void setItemID( ItemID_t itemID ) { m_ItemID = itemID; }
 
 private:
 	// DragonEye 아이템의 ID. GlobalPostionLoader 를 위한 멤버

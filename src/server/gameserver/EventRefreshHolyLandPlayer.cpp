@@ -11,35 +11,37 @@
 #include "ZoneGroupManager.h"
 #include "ZoneGroup.h"
 
-//#include "GCHolyLandBonusInfo.h"
-
-#include <map>
+//#include "Gpackets/GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventRefreshHolyLandPlayer member methods
 //////////////////////////////////////////////////////////////////////////////
 
-EventRefreshHolyLandPlayer::EventRefreshHolyLandPlayer(GamePlayer* pGamePlayer )
-	throw()
+EventRefreshHolyLandPlayer::EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer )
+	throw ()
 	:Event(pGamePlayer)
 {
 }
 
 void EventRefreshHolyLandPlayer::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	const map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
+	const hash_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
 
-	map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
+	hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
 
-	for (; itr != zoneGroups.end(); ++itr) {
-		const map< ZoneID_t, Zone* >& zones = itr->second->getZones();
-		map< ZoneID_t, Zone* >::const_iterator zItr = zones.begin();
+	for ( ; itr != zoneGroups.end(); ++itr )
+	{
+		const hash_map< ZoneID_t, Zone* >& zones = itr->second->getZones();
+		hash_map< ZoneID_t, Zone* >::const_iterator zItr = zones.begin();
 
-		for (; zItr != zones.end(); ++zItr )
+		for ( ; zItr != zones.end(); ++zItr )
+		{
+//			cout << zItr->second->getZoneID() << " 존 update" << endl;
 			zItr->second->setRefreshHolyLandPlayer(true);
+		}
 	}
 
 	// 아담의 성지에 있는 플레이어들의 정보를 새로 계산한다.(피의 성서 보너스)
@@ -47,14 +49,14 @@ void EventRefreshHolyLandPlayer::activate ()
 
 /*	// 아담의 성지 전역에 피의 성서 보너스 정보를 뿌린다.
 	GCHolyLandBonusInfo gcHolyLandBonusInfo;
-	g_pBloodBibleBonusManager->makeHolyLandBonusInfo(gcHolyLandBonusInfo);
-	g_pHolyLandManager->broadcast(&gcHolyLandBonusInfo);
+	g_pBloodBibleBonusManager->makeHolyLandBonusInfo( gcHolyLandBonusInfo );
+	g_pHolyLandManager->broadcast( &gcHolyLandBonusInfo );
 */
 	__END_CATCH
 }
 
 string EventRefreshHolyLandPlayer::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventRefreshHolyLandPlayer("

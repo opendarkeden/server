@@ -8,12 +8,12 @@ LuaTradeEventVampireItem::LuaTradeEventVampireItem(LuaState* pState)
 
 void
 LuaTradeEventVampireItem::prepare()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	lua_pushnumber(m_pState->getState(), m_Level);
-	lua_setglobal(m_pState->getState(), "Level");
+	lua_pushnumber( m_pState->getState(), m_Level );
+	lua_setglobal( m_pState->getState(), "Level" );
 
 	__END_CATCH
 }

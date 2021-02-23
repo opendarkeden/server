@@ -69,23 +69,23 @@ void IceLance::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 	param.bMagicDamage  = true;
 	param.bAdd          = false;
 
-/*	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+/*	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;*/
 
 	int offset = 0;
 
-	OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_ICE_LANCE_MASTERY);
-	if (pMastery != NULL )
+	OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_ICE_LANCE_MASTERY );
+	if ( pMastery != NULL )
 	{
 		offset = 1;
 		param.SkillDamage += (pMastery->getExpLevel() * 2 / 3) + 10;
 		param.Grade=4;
 	}
 
-	for (int i=-offset; i<=offset; ++i )
-	for (int j=-offset; j<=offset; ++j )
-		param.addMask(i, j, 100);
+	for ( int i=-offset; i<=offset; ++i )
+	for ( int j=-offset; j<=offset; ++j )
+		param.addMask( i, j, 100 );
 
 	SIMPLE_SKILL_OUTPUT result;
 
@@ -124,9 +124,9 @@ void IceLance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 	param.SkillDamage += 30;
 	param.Grade=4;
 
-	for (int i=-1; i<=1; ++i )
-	for (int j=-1; j<=1; ++j )
-		param.addMask(i, j, 100);
+	for ( int i=-1; i<=1; ++i )
+	for ( int j=-1; j<=1; ++j )
+		param.addMask( i, j, 100 );
 
 	g_SimpleTileMissileSkill.execute(pMonster, X, Y, param, result);
 

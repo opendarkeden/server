@@ -7,8 +7,6 @@
 #include "Sector.h"
 #include "Object.h"
 
-#include <map>
-
 //////////////////////////////////////////////////////////////////////////////
 // class Sector member methods
 //////////////////////////////////////////////////////////////////////////////
@@ -35,13 +33,13 @@ Sector::~Sector()
 }
 
 void Sector::addObject(Object* pObject) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
 	Assert(pObject != NULL);
 
-	map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
+	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
 	if (itr != m_Objects.end())
 	{
 		cerr << "Sector::addObjectID() : DuplicatedException" << endl;
@@ -54,11 +52,11 @@ void Sector::addObject(Object* pObject)
 }
 
 void Sector::deleteObject(ObjectID_t id) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
 	if (itr == m_Objects.end())
 	{
 		cerr << "Sector::deleteObjectID() : NoSuchElementException" << endl;
@@ -71,11 +69,11 @@ void Sector::deleteObject(ObjectID_t id)
 }
 
 Object* Sector::getObject(ObjectID_t id) 
-	throw(NoSuchElementException, Error)
+	throw (NoSuchElementException, Error)
 {
 	__BEGIN_TRY
 
-	map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
 	if (itr == m_Objects.end())
 	{
 		cerr << "Sector::getObjectID() : NoSuchElementException" << endl;
@@ -88,7 +86,7 @@ Object* Sector::getObject(ObjectID_t id)
 }
 
 Sector* Sector::getNearbySector(uint dir) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -99,7 +97,7 @@ Sector* Sector::getNearbySector(uint dir)
 }
 
 void Sector::setNearbySector(uint dir, Sector* pSector) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -118,7 +116,7 @@ string Sector::toString(void) const
 	msg << "Sector("
 		<< "Size:" << (int)m_Objects.size() << ",";
 
-	map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
+	hash_map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
 	for (; itr != m_Objects.end(); itr++)
 	{
 		msg << itr->second->toString() << ",";

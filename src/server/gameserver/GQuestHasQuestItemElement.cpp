@@ -3,7 +3,7 @@
 #include "GQuestManager.h"
 #include "PlayerCreature.h"
 
-GQuestElement::ResultType GQuestHasQuestItemElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestHasQuestItemElement::checkCondition( PlayerCreature* pPC ) const
 {
 	const list<ItemType_t>&	inventory = pPC->getGQuestManager()->getGQuestInventory().getItems();
 
@@ -12,12 +12,12 @@ GQuestElement::ResultType GQuestHasQuestItemElement::checkCondition(PlayerCreatu
 
 	int count=0;
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		if ((*itr) == m_Type )
+		if ( (*itr) == m_Type )
 		{
 			++count;
-			if (count >= m_Num ) return OK;
+			if ( count >= m_Num ) return OK;
 		}
 	}
 
@@ -29,11 +29,11 @@ GQuestHasQuestItemElement* GQuestHasQuestItemElement::makeElement(XMLTree* pTree
 	GQuestHasQuestItemElement* pRet = new GQuestHasQuestItemElement;
 
 	DWORD type;
-	Assert(pTree->GetAttribute("type", type));
+	Assert( pTree->GetAttribute("type", type) );
 	pRet->m_Type = type;
 
 	DWORD num;
-	if (pTree->GetAttribute("num", num) ) pRet->m_Num = num;
+	if ( pTree->GetAttribute("num", num) ) pRet->m_Num = num;
 
 	return pRet;
 }

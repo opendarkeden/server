@@ -15,17 +15,17 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCDeleteInventoryItem.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
 
-#include "CGLotterySelect.h"
+#include "Cpackets/CGLotterySelect.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveLotto::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void ActionGiveLotto::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -57,37 +57,37 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	QuestID_t	qID;
 	int questLevel = m_QuestLevel;
 
-	if (questLevel < 0 ) questLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() - 1;
+	if ( questLevel < 0 ) questLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() - 1;
 
-	//cout << "Activated : " << toString() << " ... " << pPC->getName() << " ...  " << questLevel << endl;
+	cout << "Activated : " << toString() << " ... " << pPC->getName() << " ...  " << questLevel << endl;
 
-	EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus(questLevel);
+	EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus( questLevel );
 	int ownerQuestLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel();
 
-	if (
-		(ownerQuestLevel > questLevel && status == EventQuestAdvance::EVENT_QUEST_ADVANCED )
-	||	((questLevel == 4 && ownerQuestLevel == -1 ) || pPC->getQuestManager()->successEventQuest(questLevel, qID ) )
+	if ( 
+		( ownerQuestLevel > questLevel && status == EventQuestAdvance::EVENT_QUEST_ADVANCED )
+	||	( ( questLevel == 4 && ownerQuestLevel == -1 ) || pPC->getQuestManager()->successEventQuest( questLevel, qID ) )
 	)
 	{
-		GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPC->getPlayer());
-		Assert (pGP != NULL);
+		GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPC->getPlayer() );
+		Assert ( pGP != NULL );
 
-//		if (g_pConfig->getPropertyInt("IsNetMarble" ) || !pGP->isPayPlaying() )
-		if (true )
+//		if ( g_pConfig->getPropertyInt( "IsNetMarble" ) || !pGP->isPayPlaying() )
+		if ( true )
 		{
-			pPC->getQuestManager()->getEventQuestAdvanceManager()->rewarded(questLevel);
+			pPC->getQuestManager()->getEventQuestAdvanceManager()->rewarded( questLevel );
 			pPC->getQuestManager()->getEventQuestAdvanceManager()->save();
-			if (questLevel != 4 )
-				pPC->getQuestManager()->questRewarded(qID);
+			if ( questLevel != 4 )
+				pPC->getQuestManager()->questRewarded( qID );
 			else
 				pPC->getQuestManager()->cancelQuest();
 
-			pPC->setLottoQuestLevel(questLevel);
+			pPC->setLottoQuestLevel( questLevel );
 
 			list<Item*> iList;
 			pPC->getInventory()->clearQuestItem(iList);
@@ -95,13 +95,13 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 			list<Item*>::iterator itr = iList.begin();
 			list<Item*>::iterator endItr = iList.end();
 
-			for (; itr != endItr ; ++itr )
+			for ( ; itr != endItr ; ++itr )
 			{
 				GCDeleteInventoryItem gcDII;
-				gcDII.setObjectID((*itr)->getObjectID());
-				pPC->getPlayer()->sendPacket(&gcDII);
+				gcDII.setObjectID( (*itr)->getObjectID() );
+				pPC->getPlayer()->sendPacket( &gcDII );
 				(*itr)->destroy();
-				SAFE_DELETE(*itr);
+				SAFE_DELETE( *itr );
 			}
 
 			iList.clear();
@@ -110,8 +110,8 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 			cgLS.setType(TYPE_FINISH_SCRATCH);
 			cgLS.setQuestLevel(0);
 			cgLS.setGiftID(0);
-			CGLotterySelectHandler::execute(&cgLS, pPC->getPlayer());
-//			cgLS.execute(pPC->getPlayer());
+			CGLotterySelectHandler::execute( &cgLS, pPC->getPlayer() );
+//			cgLS.execute( pPC->getPlayer() );
 
 		}
 		else
@@ -121,17 +121,17 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 
 			GCNPCResponse gcNPCResponse;
 			gcNPCResponse.setCode(NPC_RESPONSE_LOTTERY);
-			gcNPCResponse.setParameter((uint)questLevel);
+			gcNPCResponse.setParameter( (uint)questLevel );
 
-			pPlayer->sendPacket(&gcNPCResponse);
+			pPlayer->sendPacket( &gcNPCResponse );
 
-			filelog("EventQuest.log","ActionGiveLotto : %d to %s", questLevel, pPC->getName().c_str());
+			filelog("EventQuest.log","ActionGiveLotto : %d to %s", questLevel, pPC->getName().c_str() );
 		}
 	}
 
 	GCNPCResponse gcNPCResponse;
 	gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-	pPC->getPlayer()->sendPacket(&gcNPCResponse);
+	pPC->getPlayer()->sendPacket( &gcNPCResponse );
 
 	__END_CATCH
 }
@@ -141,7 +141,7 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveLotto::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

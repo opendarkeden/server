@@ -2,23 +2,22 @@
 #include "GQuestAllElements.h"
 #include "PlayerCreature.h"
 
-#include <map>
-
-void GQuestElement::whenMissionStart(PlayerCreature* pOwner, GQuestMission* pMission )
+void GQuestElement::whenMissionStart( PlayerCreature* pOwner, GQuestMission* pMission )
 {
-	if (getEventType() == GQuestManager::MAX ) return;
-
+	if ( getEventType() == GQuestManager::MAX ) return;
+	cout << "Mission " << pMission->getMissionName() << " inserts into Event " << (int)getEventType() << endl;
 	pOwner->getGQuestManager()->getEventMission(getEventType()).push_back(pMission);
 }
 
-void GQuestElement::whenMissionEnd(PlayerCreature* pOwner, GQuestMission* pMission )
+void GQuestElement::whenMissionEnd( PlayerCreature* pOwner, GQuestMission* pMission )
 {
-	if (getEventType() == GQuestManager::MAX ) return;
-
+	if ( getEventType() == GQuestManager::MAX ) return;
+	cout << "Mission " << pMission->getMissionName() << " removes from Event " << (int)getEventType() << endl;
 	list<GQuestMission*>& missions = pOwner->getGQuestManager()->getEventMission(getEventType());
 	list<GQuestMission*>::iterator itr = find(missions.begin(), missions.end(), pMission);
 
-	if (itr != missions.end() ) missions.erase(itr);
+	if ( itr != missions.end() ) missions.erase(itr);
+	else cout << "****** but cannot find! ******" << endl;
 }
 
 void GQuestElementFactory::init()
@@ -67,6 +66,12 @@ void GQuestElementFactory::init()
 	addProtoType(&g_AdvanceClassElement);
 	addProtoType(&g_WarpElement);
 
-	map<string, GQuestElement*>::iterator itr = m_ProtoTypes.begin();
-	map<string, GQuestElement*>::iterator endItr = m_ProtoTypes.end();
+	hash_map<string, GQuestElement*>::iterator itr = m_ProtoTypes.begin();
+	hash_map<string, GQuestElement*>::iterator endItr = m_ProtoTypes.end();
+
+	for ( ; itr != endItr ; ++itr )
+	{
+		cout << "Prototype : " << itr->second->getElementName() << endl;
+	}
 }
+

@@ -9,8 +9,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
-void GearSlotInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void GearSlotInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -26,8 +26,8 @@ void GearSlotInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
-void GearSlotInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void GearSlotInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void GearSlotInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string GearSlotInfo::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

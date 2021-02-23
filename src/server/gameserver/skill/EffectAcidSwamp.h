@@ -44,19 +44,19 @@ public:
 	void setLevel(int level) { m_Level = level; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
-	void setVampire(bool bVampire = true ) { m_bVampire = bVampire; }
+	void setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
 	bool isVampire() const { return m_bVampire; }
 
-	void setForce(bool force ) { m_bForce = force; }
+	void setForce( bool force ) { m_bForce = force; }
 	bool isForce() const { return m_bForce; };
 
 	ObjectID_t getBurrowingTargetObjectID() const { return m_TargetObjectID[0]; }
-	void setBurrowingTargetObjectID(ObjectID_t oid ) { m_TargetObjectID[0] = oid; }
+	void setBurrowingTargetObjectID( ObjectID_t oid ) { m_TargetObjectID[0] = oid; }
 
 	ObjectID_t getWalkingTargetObjectID() const { return m_TargetObjectID[1]; }
-	void setWalkingTargetObjectID(ObjectID_t oid ) { m_TargetObjectID[1] = oid; }
+	void setWalkingTargetObjectID( ObjectID_t oid ) { m_TargetObjectID[1] = oid; }
 
 private:
 	int     m_Damage;

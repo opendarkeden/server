@@ -28,19 +28,16 @@
 #include "EffectProminence.h"
 
 #include "EffectCanEnterGDRLair.h"
-#include "EffectBehemothForceScroll.h"
-#include "EffectSafeForceScroll.h"
-#include "EffectCarnelianForceScroll.h"
 
 EffectLoaderManager::EffectLoaderManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 EffectLoaderManager::~EffectLoaderManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -62,15 +59,12 @@ EffectLoaderManager::~EffectLoaderManager ()
 
 	SAFE_DELETE(g_pEffectOnBridgeLoader);
 	SAFE_DELETE(g_pEffectCanEnterGDRLairLoader);
-	SAFE_DELETE(g_pEffectBehemothForceScrollLoader);
-	SAFE_DELETE(g_pEffectSafeForceScrollLoader);
-	SAFE_DELETE(g_pEffectCarnelianForceScrollLoader);
 
 	__END_CATCH
 }
 
 void EffectLoaderManager::init () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -92,15 +86,12 @@ void EffectLoaderManager::init ()
 
 	m_pEffectLoaders[Effect::EFFECT_CLASS_ON_BRIDGE] = g_pEffectOnBridgeLoader = new EffectOnBridgeLoader();
 	m_pEffectLoaders[Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR] = g_pEffectCanEnterGDRLairLoader = new EffectCanEnterGDRLairLoader();
-	m_pEffectLoaders[Effect::EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL] = g_pEffectBehemothForceScrollLoader = new EffectBehemothForceScrollLoader();
-	m_pEffectLoaders[Effect::EFFECT_CLASS_SAFE_FORCE_SCROLL] = g_pEffectSafeForceScrollLoader = new EffectSafeForceScrollLoader();
-	m_pEffectLoaders[Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL] = g_pEffectCarnelianForceScrollLoader = new EffectCarnelianForceScrollLoader();
 
 	__END_CATCH
 }
 
 void EffectLoaderManager::load (Slayer* pSlayer) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -112,15 +103,12 @@ void EffectLoaderManager::load (Slayer* pSlayer)
 	g_pEffectKillAftermathLoader->load(pSlayer);
 	g_pEffectMuteLoader->load(pSlayer);
 	g_pEffectCanEnterGDRLairLoader->load(pSlayer);
-	g_pEffectBehemothForceScrollLoader->load(pSlayer);
-	g_pEffectSafeForceScrollLoader->load(pSlayer);
-	g_pEffectCarnelianForceScrollLoader->load(pSlayer);
 
 	__END_CATCH
 }
 
 void EffectLoaderManager::load (Vampire* pVampire) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -132,15 +120,12 @@ void EffectLoaderManager::load (Vampire* pVampire)
 	g_pEffectKillAftermathLoader->load(pVampire);
 	g_pEffectMuteLoader->load(pVampire);
 	g_pEffectCanEnterGDRLairLoader->load(pVampire);
-	g_pEffectBehemothForceScrollLoader->load(pVampire);
-	g_pEffectSafeForceScrollLoader->load(pVampire);
-	g_pEffectCarnelianForceScrollLoader->load(pVampire);
 
 	__END_CATCH
 }
 
 void EffectLoaderManager::load (Ousters* pOusters) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -149,15 +134,12 @@ void EffectLoaderManager::load (Ousters* pOusters)
 	g_pEffectKillAftermathLoader->load(pOusters);
 	g_pEffectMuteLoader->load(pOusters);
 	g_pEffectCanEnterGDRLairLoader->load(pOusters);
-	g_pEffectBehemothForceScrollLoader->load(pOusters);
-	g_pEffectSafeForceScrollLoader->load(pOusters);
-	g_pEffectCarnelianForceScrollLoader->load(pOusters);
 
 	__END_CATCH
 }
 
 void EffectLoaderManager::load (Zone* pZone)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -174,7 +156,7 @@ void EffectLoaderManager::load (Zone* pZone)
 }
 
 string EffectLoaderManager::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

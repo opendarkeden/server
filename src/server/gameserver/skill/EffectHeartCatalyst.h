@@ -34,7 +34,7 @@ public:
 	void setHealPoint(HP_t HealPoint) throw(Error) { m_HealPoint = HealPoint; }
 
 	int getTick() const { return m_Tick; }
-	void setTick(int tick ) { m_Tick = tick; }
+	void setTick( int tick ) { m_Tick = tick; }
 
 	bool canGiveExp() { return m_GiveExp=!m_GiveExp; }
 

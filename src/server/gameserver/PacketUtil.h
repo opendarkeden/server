@@ -113,18 +113,18 @@ void sendPayInfo(GamePlayer* pGamePlayer) throw(Error);
 void makeGCCreateItem(GCCreateItem* pGCCreateItem, Item* pItem, CoordInven_t x, CoordInven_t y) throw(Error);
 
 // 레벨 업 이펙트를 보여준다.
-void sendEffectLevelUp(Creature* pCreature) throw(Error);
+void sendEffectLevelUp(Creature* pCreature) throw (Error);
 
 // GamePlayer에게 GCSystemMessage(msg)를 보낸다. incoming에 있는 경우는 zone에 가면 뿌려준다.
-void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg) throw(Error);
+void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg) throw (Error);
 
 bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneID) throw(Error);
 
 // 이름이 붙는 아이템 정보를 보내주는 패킷
 //void makeGCItemNameInfoList(GCItemNameInfoList* pInfo, PlayerCreature* pPC) throw(Error);
 
-void sendGCMiniGameScores(PlayerCreature* pPC, BYTE gameType, BYTE Level);
+void sendGCMiniGameScores( PlayerCreature* pPC, BYTE gameType, BYTE Level );
 
-void makeGCPetStashList(GCPetStashList* pPacket, PlayerCreature* pPC);
+void makeGCPetStashList( GCPetStashList* pPacket, PlayerCreature* pPC );
 
 #endif

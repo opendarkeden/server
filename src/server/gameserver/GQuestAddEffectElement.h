@@ -9,7 +9,7 @@ class GQuestAddEffectElement : public GQuestElement
 public:
 	GQuestAddEffectElement() : m_EffectClass(Effect::EFFECT_CLASS_MAX) { }
 	string 				getElementName() const { return "AddEffect"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestAddEffectElement*	makeElement(XMLTree* pTree);
 
 private:

@@ -7,14 +7,14 @@
 
 #include <vector>
 #include <queue>
-#include <map>
+#include <hash_map>
 #include "Exception.h"
 #include "Work.h"
 #include "Schedule.h"
 
 class Latter {
 public :
-	bool operator () (const Schedule* pt1, const Schedule* pt2 ) const
+	bool operator () ( const Schedule* pt1, const Schedule* pt2 ) const
 	{
 		return pt1->getScheduledTime() > pt2->getScheduledTime();
 	}
@@ -42,13 +42,13 @@ public:
 	bool 			isEmpty() const						{ return m_RecentSchedules.empty(); }
 
 public:
-	void 			addSchedule(Schedule* pSchedule ) throw(Error);
+	void 			addSchedule( Schedule* pSchedule ) throw (Error);
 
 	virtual Work* 	heartbeat() throw(Error);
 	Schedule*		getRecentSchedule() const { return (isEmpty())?NULL:m_RecentSchedules.top(); }
 
 protected :
-	Work* 			popRecentWork() throw(Error);
+	Work* 			popRecentWork() throw (Error);
 
 protected:
 	RecentSchedules m_RecentSchedules;

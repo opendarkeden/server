@@ -18,7 +18,7 @@ class MPacketHandler
 public:
 	virtual MPacketID_t getID() const = 0;
 
-	virtual void execute(MPlayer* pPlayer, MPacket* pPacket ) = 0;
+	virtual void execute( MPlayer* pPlayer, MPacket* pPacket ) = 0;
 };
 
 #endif

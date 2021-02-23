@@ -21,11 +21,11 @@
 #include "Mutex.h"
 #include "ModifyInfo.h"
 #include "CreatureUtil.h"
-#include <map>
+#include <hash_map>
 
 #include "skill/OustersSkillSlot.h"
 
-#include "GCModifyInformation.h"
+#include "Gpackets/GCModifyInformation.h"
 
 class SkillInfo;
 
@@ -107,7 +107,7 @@ public:
 ////////////////////////////////////////////////////
 public:
 	Ousters() throw();
-	virtual ~Ousters() throw();
+	virtual ~Ousters() throw (Error);
 
 ////////////////////////////////////////////////////
 // 하위 클래스(Creature) 상속 함수
@@ -119,15 +119,15 @@ public:
 	virtual void registerObject() throw(Error);
 	virtual void registerInitObject() throw(Error);
 
-	virtual bool load() throw(InvalidProtocolException, Error);
-	void loadItem(bool checkTimeLimit = false ) throw(InvalidProtocolException, Error);
+	virtual bool load() throw (InvalidProtocolException, Error);
+	void loadItem( bool checkTimeLimit = false ) throw (InvalidProtocolException, Error);
 
-	virtual void save() const throw(Error);
-	virtual void tinysave(const string & field) const throw(Error);
-//	virtual void tinysave(const char* field) const throw(Error);
-	void saveSkills(void) const throw(Error);
-	void saveGears(void) const throw(Error);
-	void saveExps(void) const throw(Error);
+	virtual void save() const throw (Error);
+	virtual void tinysave(const string & field) const throw (Error);
+//	virtual void tinysave(const char* field) const throw (Error);
+	void saveSkills(void) const throw (Error);
+	void saveGears(void) const throw (Error);
+	void saveExps(void) const throw (Error);
 
 	virtual void act(const Timeval& currentTime) throw(Error) {}
 
@@ -140,8 +140,8 @@ public:
 // 시간제한 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	void checkItemTimeLimit() throw(Error);
-	void updateEventItemTime(DWORD time ) throw(Error);
+	void checkItemTimeLimit() throw (Error);
+	void updateEventItemTime( DWORD time ) throw(Error);
 
 ////////////////////////////////////////////////////
 // 상태 관련 함수(Dead or Alive!)
@@ -205,7 +205,7 @@ public:
 	void setHP(HP_t current, HP_t max) throw() { m_HP[ATTR_CURRENT] = current; m_HP[ATTR_MAX] = max; }
 
 	MP_t getMP(AttrType attrType = ATTR_CURRENT) const throw() { return m_MP[attrType]; }
-	void setMP(MP_t mp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = mp; }
+	void setMP(MP_t hp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = hp; }
 	void setMP(MP_t current, MP_t max) throw() { m_MP[ATTR_CURRENT] = current; m_MP[ATTR_MAX] = max; }
 
 ////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ public:
 	void    setBonus(Bonus_t bonus) throw() { m_Bonus = bonus; }
 
 	SkillBonus_t	getSkillBonus() const throw() { return m_SkillBonus; }
-	void			setSkillBonus(SkillBonus_t skillBonus ) throw() { m_SkillBonus = skillBonus; }
+	void			setSkillBonus( SkillBonus_t skillBonus ) throw() { m_SkillBonus = skillBonus; }
 
 	SkillBonus_t	getSumOfUsedSkillBonus() const throw();
 
@@ -434,17 +434,17 @@ public:
 
 	Resist_t getSilverResist() const { return m_SilverResist; }
 
-	bool satisfySkillRequire(SkillInfo* pSkillInfo);
+	bool satisfySkillRequire( SkillInfo* pSkillInfo );
 
 //////////////////////////////
 // 정령 속성 관련 함수
 //////////////////////////////
 	bool isPassiveAvailable(SkillType_t type) { return m_PassiveSkillMap.find(type) != m_PassiveSkillMap.end() && m_PassiveSkillMap[type].first; }
-	uint getPassiveBonus(SkillType_t type) { return (m_PassiveSkillMap.find(type) != m_PassiveSkillMap.end() ) ? m_PassiveSkillMap[type].second : 0; }
+	uint getPassiveBonus(SkillType_t type) { return ( m_PassiveSkillMap.find(type) != m_PassiveSkillMap.end() ) ? m_PassiveSkillMap[type].second : 0; }
 	int getPassiveRatio() const { return m_PassiveRatio; }
 
-	SkillBonus_t getSkillPointCount(ElementalDomain eDomain);
-	bool canLearnSkill(SkillType_t skill);
+	SkillBonus_t getSkillPointCount( ElementalDomain eDomain );
+	bool canLearnSkill( SkillType_t skill );
 
 public :
 	 // by sigi. 2002.11.19
@@ -522,7 +522,7 @@ private:
 
 	// SkillSlot
 	//OustersSkillSlot* m_pSkillSlot[MAX_OUSTERS_SKILL_SLOT];
-	map<SkillType_t, OustersSkillSlot*> m_SkillSlot;
+	hash_map<SkillType_t, OustersSkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[OUSTERS_WEAR_MAX];
@@ -568,7 +568,7 @@ private:
 	// 은 저항
 	Resist_t m_SilverResist;
 
-	map<SkillType_t, pair<bool, uint> > m_PassiveSkillMap;
+	hash_map<SkillType_t, pair<bool, uint> > m_PassiveSkillMap;
 	int m_PassiveRatio;
 
 	// 각종 경험치 세이브 카운트

@@ -5,14 +5,14 @@
 #include "BillingInfo.h"
 #include "Utility.h"
 #include <string>
-#include <map>
+#include <hash_map>
 
 class BillingResultLoginErrorMessage
 {
 public:
 	static BillingResultLoginErrorMessage* Instance();
 
-	string getMessage(int index ) const;
+	string getMessage( int index ) const;
 
 protected:
 	BillingResultLoginErrorMessage();
@@ -22,7 +22,7 @@ protected:
 private:
 	static BillingResultLoginErrorMessage* _instance;
 
-	typedef map<int, string>			HashMapMessage;
+	typedef hash_map<int, string>			HashMapMessage;
 	typedef HashMapMessage::iterator		HashMapMessageItr;
 	typedef HashMapMessage::const_iterator	HashMapMessageConstItr;
 
@@ -34,7 +34,7 @@ BillingResultLoginErrorMessage* BillingResultLoginErrorMessage::_instance = 0;
 
 BillingResultLoginErrorMessage* BillingResultLoginErrorMessage::Instance()
 {
-	if (_instance == 0 )
+	if ( _instance == 0 )
 	{
 		_instance = new BillingResultLoginErrorMessage;
 	}
@@ -59,7 +59,7 @@ void BillingResultLoginErrorMessage::initMessage()
 	m_Messages[BILLING_RESULT_LOGIN_NO_MACHINE]		= "해당 장비에 접속할 수 없습니다.";
 	m_Messages[BILLING_RESULT_LOGIN_BAD_GAME_NO]	= "빌링 서버에 등록된 게임번호와 다릅니다.";
 	m_Messages[BILLING_RESULT_LOGIN_ACCOUNT_ERROR]	= "빌링 어카운트의 서비스 에러";
-	m_Messages[BILLING_RESULT_LOGIN_DENY]			= "해당 게임에 사용 불가능 (결제 정보는 있음 )";
+	m_Messages[BILLING_RESULT_LOGIN_DENY]			= "해당 게임에 사용 불가능 ( 결제 정보는 있음 )";
 	m_Messages[BILLING_RESULT_LOGIN_TIME_OVER]		= "유효 기간이 지남";
 	m_Messages[BILLING_RESULT_LOGIN_BUSY]			= "빌링 서버 사용자가 많습니다.";
 	m_Messages[BILLING_RESULT_LOGIN_UNKNOWN_ERROR]	= "정의 되지 않은 오류 번호입니다.";
@@ -69,13 +69,13 @@ void BillingResultLoginErrorMessage::initMessage()
 	m_Messages[BILLING_RESULT_LOGIN_NO_KEY]			= "인증키를 찾지 못했습니다.";
 }
 
-string BillingResultLoginErrorMessage::getMessage(int index ) const
+string BillingResultLoginErrorMessage::getMessage( int index ) const
 {
-	HashMapMessageConstItr itr = m_Messages.find(index);
+	HashMapMessageConstItr itr = m_Messages.find( index );
 
-	if (itr == m_Messages.end() )
+	if ( itr == m_Messages.end() )
 	{
-		filelog("BillingResultLoginErrorMessage.txt", "No Message ID : %d", index);
+		filelog( "BillingResultLoginErrorMessage.txt", "No Message ID : %d", index );
 		return "";
 	}
 

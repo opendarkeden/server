@@ -9,14 +9,14 @@
 #include "EffectProtectionFromCurse.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ void Death::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSl
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE)
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -67,10 +67,10 @@ void Death::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSl
 
 		// Knowledge of Curse 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -107,11 +107,11 @@ void Death::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSl
 				TargetObjectID = pVampire->getObjectID();
 			}
 
-			Resist_t resist = pTargetCreature->getResist(MAGIC_DOMAIN_CURSE);
-			if ((resist*10/3) > output.Duration ) output.Duration=0;
+			Resist_t resist = pTargetCreature->getResist( MAGIC_DOMAIN_CURSE );
+			if ( (resist*10/3) > output.Duration ) output.Duration=0;
 			else output.Duration -= resist*10/3;
 
-			if (output.Duration < 20 ) output.Duration = 20;
+			if ( output.Duration < 20 ) output.Duration = 20;
 
 			// 이펙트 오브젝트를 생성해 붙인다.
 			EffectDeath* pEffect = new EffectDeath(pTargetCreature);
@@ -379,11 +379,11 @@ void Death::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
 			pEnemy = (Creature*)pMonster;
 		}
 
-		Resist_t resist = pEnemy->getResist(MAGIC_DOMAIN_CURSE);
-		if ((resist*10/3) > output.Duration ) output.Duration=0;
+		Resist_t resist = pEnemy->getResist( MAGIC_DOMAIN_CURSE );
+		if ( (resist*10/3) > output.Duration ) output.Duration=0;
 		else output.Duration -= resist*10/3;
 
-		if (output.Duration < 20 ) output.Duration = 20;
+		if ( output.Duration < 20 ) output.Duration = 20;
 		
 		// 이펙트 오브젝트를 생성해 붙인다.
 		EffectDeath* pEffect = new EffectDeath(pEnemy);

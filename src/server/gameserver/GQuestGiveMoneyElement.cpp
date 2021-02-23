@@ -1,36 +1,36 @@
 #include "GQuestGiveMoneyElement.h"
 #include "PlayerCreature.h"
-#include "GCModifyInformation.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 #include <cstdio>
 
-GQuestElement::ResultType GQuestGiveMoneyElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestGiveMoneyElement::checkCondition( PlayerCreature* pPC ) const
 {
 	GCModifyInformation gcMI;
 	pPC->increaseGoldEx(m_Amount);
 	gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
-	pPC->getPlayer()->sendPacket(&gcMI);
+	pPC->getPlayer()->sendPacket( &gcMI );
 
 	GCSystemMessage gcSM;
 	char buffer[256];
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
-		sprintf(buffer, "%ld·¹ÀÌ¸¦ È¹µæÇß½À´Ï´Ù.", m_Amount);
-		gcSM.setMessage(buffer);
-		pPC->getPlayer()->sendPacket(&gcSM);
+		sprintf(buffer, "»ñµÃ%ld Òø±Ò.", m_Amount);
+		gcSM.setMessage( buffer );
+		pPC->getPlayer()->sendPacket( &gcSM );
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
-		sprintf(buffer, "%ld°Öµå¸¦ È¹µæÇß½À´Ï´Ù.", m_Amount);
-		gcSM.setMessage(buffer);
-		pPC->getPlayer()->sendPacket(&gcSM);
+		sprintf(buffer, "»ñµÃ%ld Òø±Ò.", m_Amount);
+		gcSM.setMessage( buffer );
+		pPC->getPlayer()->sendPacket( &gcSM );
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
-		sprintf(buffer, "%ldÀÚµå¸¦ È¹µæÇß½À´Ï´Ù.", m_Amount);
-		gcSM.setMessage(buffer);
-		pPC->getPlayer()->sendPacket(&gcSM);
+		sprintf(buffer, "»ñµÃ%ld Òø±Ò.", m_Amount);
+		gcSM.setMessage( buffer );
+		pPC->getPlayer()->sendPacket( &gcSM );
 	}
 
 	return OK;

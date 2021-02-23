@@ -15,7 +15,7 @@ string BloodBibleBonus::toString() const
 	msg << "BloodBibleBonus(\n";
 
 	OptionTypeListConstItor itr = m_OptionTypeList.begin();
-	for (; itr != m_OptionTypeList.end() ; itr++) 
+	for ( ; itr != m_OptionTypeList.end() ; itr++) 
 	{
 		msg << (int)(*itr) << ",";
 	}

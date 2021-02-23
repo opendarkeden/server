@@ -31,7 +31,7 @@ public:
 public:
 
 	Damage_t getDamage() const { return m_Damage; }
-	void setDamage(Damage_t damage ) { m_Damage = damage; }
+	void setDamage( Damage_t damage ) { m_Damage = damage; }
 	
 	void setDelay(Turn_t delay) { m_Delay = delay; }
 	Turn_t getDelay() const { return m_Delay; }

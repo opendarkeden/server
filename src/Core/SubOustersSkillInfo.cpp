@@ -12,18 +12,18 @@
 //----------------------------------------------------------------------
 // read data from socket input stream
 //----------------------------------------------------------------------
-void SubOustersSkillInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void SubOustersSkillInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
 
-	iStream.read(m_SkillType);
-	iStream.read(m_ExpLevel);
-	iStream.read(m_Interval);
-	iStream.read(m_CastingTime);
+	iStream.read( m_SkillType );
+	iStream.read( m_ExpLevel );
+	iStream.read( m_Interval );
+	iStream.read( m_CastingTime );
 
-	} catch(Throwable & t ) {
+	} catch( Throwable & t ) {
 		cout << t.toString() << endl;
 	}
 
@@ -33,17 +33,17 @@ void SubOustersSkillInfo::read (SocketInputStream & iStream )
 //----------------------------------------------------------------------
 // write data to socket output stream
 //----------------------------------------------------------------------
-void SubOustersSkillInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void SubOustersSkillInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try {
 
-	oStream.write(m_SkillType);
-	oStream.write(m_ExpLevel);
-	oStream.write(m_Interval);
-	oStream.write(m_CastingTime);
+	oStream.write( m_SkillType );
+	oStream.write( m_ExpLevel );
+	oStream.write( m_Interval );
+	oStream.write( m_CastingTime );
 
 	} catch (Throwable & t ) {
 		cout << t.toString() << endl;
@@ -56,7 +56,7 @@ void SubOustersSkillInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SubOustersSkillInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

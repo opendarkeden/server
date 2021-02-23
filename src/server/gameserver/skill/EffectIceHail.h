@@ -42,7 +42,7 @@ public:
 	void setRange(int range) { m_Range = range; }
 
 	Damage_t getDamage() const { return m_Damage; }
-	void setDamage(Damage_t damage ) { m_Damage = damage; }
+	void setDamage( Damage_t damage ) { m_Damage = damage; }
 
 private:
 	ObjectID_t  m_CasterID;

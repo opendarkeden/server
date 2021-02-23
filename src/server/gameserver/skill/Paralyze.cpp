@@ -6,17 +6,17 @@
 
 #include "Paralyze.h"
 #include "EffectParalyze.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Vampire.h"
 #include "Ousters.h"
 #include "Reflection.h"
@@ -51,7 +51,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_PARALYZE)
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -70,15 +70,15 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 
 		// Knowledge of Curse 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_CURSE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
 
-		Tile& rTile = pZone->getTile(pTargetCreature->getX(), pTargetCreature->getY());
+		Tile& rTile = pZone->getTile( pTargetCreature->getX(), pTargetCreature->getY() );
 
 		int  RequiredMP  = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck  = hasEnoughMana(pVampire, RequiredMP);
@@ -107,12 +107,12 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 			computeOutput(input, output);
 
 			// Wisdom of Silence 이 있다면 지속시간 20% 증가
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_SILENCE ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WISDOM_OF_SILENCE ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WISDOM_OF_SILENCE);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WISDOM_OF_SILENCE );
+				Assert( pRankBonus != NULL );
 
-				output.Duration += getPercentValue(output.Duration, pRankBonus->getPoint());
+				output.Duration += getPercentValue( output.Duration, pRankBonus->getPoint() );
 			}
 
 			// pTargetCreature가 저주마법을 반사하는 경우
@@ -122,11 +122,11 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 				TargetObjectID = pVampire->getObjectID();
 			}
 
-			Resist_t resist = pTargetCreature->getResist(MAGIC_DOMAIN_CURSE);
-			if (resist > output.Duration ) resist = output.Duration;
+			Resist_t resist = pTargetCreature->getResist( MAGIC_DOMAIN_CURSE );
+			if ( resist > output.Duration ) resist = output.Duration;
 			output.Duration -= resist;
 
-			if (output.Duration < 20 ) output.Duration = 20;
+			if ( output.Duration < 20 ) output.Duration = 20;
 
 			// 이펙트 오브젝트를 생성해서 붙인다.
 			EffectParalyze* pEffectParalyze = new EffectParalyze(pTargetCreature);
@@ -136,10 +136,10 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 			pTargetCreature->addEffect(pEffectParalyze);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_PARALYZE);
 
-			if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
+			if ( pTargetCreature->isFlag( Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
 			{
-				Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1);
-				if (pEffect != NULL ) pEffect->setDeadline(0);
+				Effect* pEffect = pTargetCreature->findEffect( Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 );
+				if ( pEffect != NULL ) pEffect->setDeadline(0);
 			}
 
 			// 저주에 걸리면 디펜스가 떨어진다.
@@ -358,11 +358,11 @@ void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
 			pEnemy = (Creature*)pMonster;
 		}
 
-		Resist_t resist = pEnemy->getResist(MAGIC_DOMAIN_CURSE);
-		if (resist > output.Duration ) resist = output.Duration;
+		Resist_t resist = pEnemy->getResist( MAGIC_DOMAIN_CURSE );
+		if ( resist > output.Duration ) resist = output.Duration;
 		output.Duration -= resist;
 
-		if (output.Duration < 20 ) output.Duration=20;
+		if ( output.Duration < 20 ) output.Duration=20;
 
 		// 이펙트 오브젝트를 생성해서 붙인다.
 		EffectParalyze* pEffectParalyze = new EffectParalyze(pEnemy);

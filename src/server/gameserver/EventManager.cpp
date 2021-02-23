@@ -4,13 +4,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "EventManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 EventManager::EventManager () 
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ EventManager::EventManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 EventManager::~EventManager () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ EventManager::~EventManager ()
 // priority_queue에 등록하고, affect한다.
 //////////////////////////////////////////////////////////////////////////////
 void EventManager::addEvent (Event* pEvent) 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	__END_DEBUG
@@ -58,7 +58,7 @@ void EventManager::addEvent (Event* pEvent)
 	else 
 	{
 		//cerr << "EventManager::addEvent() : Duplicated event class" << endl;
-		throw("EventManager::addEvent() : Duplicated event class");
+		throw ("EventManager::addEvent() : Duplicated event class");
 	}
 
 	__BEGIN_DEBUG
@@ -88,7 +88,7 @@ Event* EventManager::getEvent(Event::EventClass EClass)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EventManager::deleteEvent (Event::EventClass EClass) 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 
@@ -115,7 +115,7 @@ void EventManager::deleteEvent (Event::EventClass EClass)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EventManager::heartbeat () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 		

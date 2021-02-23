@@ -9,14 +9,14 @@
 #include "EffectProtectionFromCurse.h"
 #include "RankBonus.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "Reflection.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -43,18 +43,18 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 		//Assert(pTargetCreature != NULL);
 		//
 		
-		Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
+		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
 
 		// NPC는 공격할 수 없다.
 		// 저주 면역. by sigi. 2002.9.13
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_CURSE)
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC()
 			|| pWeapon == NULL
 			|| pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM
-			|| !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND )
+			|| !pOusters->isRealWearingEx( Ousters::WEAR_RIGHTHAND )
 		)
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -85,7 +85,7 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLUNTING);
 		bool bPK         = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		ZoneCoord_t targetX = pTargetCreature->getX();
 		ZoneCoord_t targetY = pTargetCreature->getY();
@@ -140,7 +140,7 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
 				pTargetVampire->getVampireRecord(prev);
 				pTargetVampire->initAllStat();
-				if (bCanSeeCaster )
+				if ( bCanSeeCaster )
 				{
 					pTargetVampire->addModifyInfo(prev, _GCSkillToObjectOK2);
 				}
@@ -156,7 +156,7 @@ void Blunting::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 
 				pTargetOusters->getOustersRecord(prev);
 				pTargetOusters->initAllStat();
-				if (bCanSeeCaster )
+				if ( bCanSeeCaster )
 				{
 					pTargetOusters->addModifyInfo(prev, _GCSkillToObjectOK2);
 				}

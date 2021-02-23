@@ -58,7 +58,7 @@ public:
 	bool canUse() const throw() { return m_Enable; } 
 
 	// 다음 캐스팅이 가능할때까지 남은 시간
-	Turn_t getRemainTurn(Timeval currentTime ) const throw();
+	Turn_t getRemainTurn( Timeval currentTime ) const throw();
 
 protected :
 	string       m_Name;

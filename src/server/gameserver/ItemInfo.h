@@ -139,7 +139,7 @@ public:
 	void		setNextItemType(ItemType_t nextItemType) { m_NextItemType = nextItemType; }
 
 	Ratio_t		getDowngradeRatio() const { return m_DowngradeRatio; }
-	void		setDowngradeRatio(Ratio_t ratio ) { m_DowngradeRatio = ratio; }
+	void		setDowngradeRatio( Ratio_t ratio ) { m_DowngradeRatio = ratio; }
 
 // member data
 protected:

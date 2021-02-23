@@ -8,12 +8,12 @@
 #include "EffectDarkness.h"
 #include "EffectGrayDarkness.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 타일 핸들러
@@ -59,7 +59,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 		{
 			Tile& rTile = pZone->getTile(X, Y);
 			Effect* pTestEffect = rTile.getEffect(Effect::EFFECT_CLASS_DARKNESS);
-			if (pTestEffect == NULL ) pTestEffect = rTile.getEffect(Effect::EFFECT_CLASS_GRAY_DARKNESS);
+			if ( pTestEffect == NULL ) pTestEffect = rTile.getEffect( Effect::EFFECT_CLASS_GRAY_DARKNESS );
 
 			if (pTestEffect != NULL) {
 				bTileCheck = true;
@@ -101,7 +101,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 							// 성공할 확률
 							// min(0) - max(150) 에서
 							// min(25) - max(75) 로 조정  2002.7.9 장홍창 
-							int ratio =  min(max(25, SkillLevel - pEffect->getLevel()/3), 75);
+							int ratio =  min( max(25, SkillLevel - pEffect->getLevel()/3), 75);
 
 							if (rand()%100 < ratio) Remove = true;
 
@@ -130,7 +130,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 							// 성공할 확률
 							// min(0) - max(150) 에서
 							// min(25) - max(75) 로 조정  2002.7.9 장홍창 
-							int ratio =  min(max(20, SkillLevel - (int)(pGrayEffect->getLevel()/2.8)), 70);
+							int ratio =  min( max(20, SkillLevel - (int)(pGrayEffect->getLevel()/2.8)), 70);
 
 							if (rand()%100 < ratio) Remove = true;
 
@@ -144,7 +144,7 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 //								if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
 //									pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 //
-//								if (pTargetCreature != NULL && (pTargetCreature->isSlayer() || pTargetCreature->isOusters() ))
+//								if (pTargetCreature != NULL && ( pTargetCreature->isSlayer() || pTargetCreature->isOusters() ))
 //									cList.push_back(pTargetCreature);
 
 								GCDeleteEffectFromTile gcDeleteEffectFromTile;
@@ -157,14 +157,14 @@ void ContinualLight::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skil
 							}
 						}
 
-						if (success )
+						if ( success )
 						{
 							// 타일에 걸어다니는 크리쳐가 존재한다면 포인터를 받아온다.
 							Creature* pTargetCreature = NULL;
 							if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
 								pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
-							if (pTargetCreature != NULL && (pTargetCreature->isSlayer() || pTargetCreature->isOusters() ))
+							if (pTargetCreature != NULL && ( pTargetCreature->isSlayer() || pTargetCreature->isOusters() ))
 								cList.push_back(pTargetCreature);
 						}
 					}

@@ -13,7 +13,7 @@ class PetTypeInfoManager;
 class PetTypeInfo
 {
 public:
-	PetTypeInfo(PetType_t PetType ) : m_PetType(PetType) { }
+	PetTypeInfo( PetType_t PetType ) : m_PetType(PetType) { }
 
 	PetType_t		getPetType() const { return m_PetType; }
 	MonsterType_t	getOriginalMonsterType() const { return m_OriginalMonsterType; }
@@ -39,8 +39,8 @@ public:
 	void clear();
 	void load();
 
-	void addPetTypeInfo(PetTypeInfo* pPetTypeInfo);
-	PetTypeInfo* getPetTypeInfo(PetType_t PetType);
+	void addPetTypeInfo( PetTypeInfo* pPetTypeInfo );
+	PetTypeInfo* getPetTypeInfo( PetType_t PetType );
 
 	static PetTypeInfoManager* getInstance()
 	{

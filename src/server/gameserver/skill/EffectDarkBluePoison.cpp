@@ -11,8 +11,8 @@
 #include "Player.h"
 #include "SkillHandler.h"
 
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ void EffectDarkBluePoison::affect(Creature* pCreature)
 
 	Assert(pCreature != NULL);
 
-	if (canAttack(NULL, pCreature ) )
+	if ( canAttack( NULL, pCreature ) )
 	{
 		// 슬레이어일 경우에만 독 데미지가 존재한다.
 		if (pCreature->isSlayer())

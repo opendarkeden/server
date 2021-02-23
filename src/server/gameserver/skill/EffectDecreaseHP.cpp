@@ -12,8 +12,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 		&& !pCreature->isDead()
 		&& !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(NULL, pCreature )
+		&& canAttack( NULL, pCreature )
 	   )
 	{
 		if (pCreature->isSlayer())
@@ -133,7 +133,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 				pVampire->getPlayer()->sendPacket(&gcMI);
 
 				// 공격(흡혈) 당하는 경우에는 공격자의 성향이 바뀜 by sigi. 2002.12.27
-				Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+				Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 				if (pAttacker!=NULL && pAttacker->isVampire())
 				{
 					Vampire* pAttackVampire = dynamic_cast<Vampire*>(pAttacker);
@@ -172,7 +172,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 				pOusters->getPlayer()->sendPacket(&gcMI);
 
 				// 공격(흡혈) 당하는 경우에는 공격자의 성향이 바뀜 by sigi. 2002.12.27
-				Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+				Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 				if (pAttacker!=NULL && pAttacker->isOusters())
 				{
 					Ousters* pAttackOusters = dynamic_cast<Ousters*>(pAttacker);
@@ -212,18 +212,18 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 				pkt.setCurrentHP(RemainHP);
 				pZone->broadcastPacket(pMonster->getX(), pMonster->getY(), &pkt);
 
-				if (RemainHP == 0 )
+				if ( RemainHP == 0 )
 				{
-					Creature* pAttacker = pZone->getCreature(m_UserObjectID);
-					if (pAttacker != NULL && pAttacker->isVampire() )
+					Creature* pAttacker = pZone->getCreature( m_UserObjectID );
+					if ( pAttacker != NULL && pAttacker->isVampire() )
 					{
 						Vampire* pAttackVampire = dynamic_cast<Vampire*>(pAttacker);
 
 						GCModifyInformation gcMI;
-						increaseAlignment(pAttackVampire, pCreature, gcMI);
+						increaseAlignment( pAttackVampire, pCreature, gcMI );
 
-						if (gcMI.getShortCount() > 0 || gcMI.getLongCount() > 0 )
-							pAttackVampire->getPlayer()->sendPacket(&gcMI);
+						if ( gcMI.getShortCount() > 0 || gcMI.getLongCount() > 0 )
+							pAttackVampire->getPlayer()->sendPacket( &gcMI );
 					}
 				}
 			}
@@ -234,7 +234,7 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 		// by sigi. 2002.9.9
 		if (pCreature->isDead())
 		{
-			Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+			Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 			if (pAttacker!=NULL)
 			{ 
@@ -247,25 +247,25 @@ void EffectDecreaseHP::unaffect(Creature* pCreature)
 					int exp = computeCreatureExp(pCreature, KILL_EXP);
 					shareVampExp(pVampire, exp, mi);
 
-					if (pCreature->isMonster() )
+					if ( pCreature->isMonster() )
 					{
-//                        increaseFame(pVampire, decreaseHP);
-//                        mi.addLongData(MODIFY_FAME, pVampire->getFame());
-                    }
+						increaseFame( pVampire, decreaseHP );
+						mi.addLongData( MODIFY_FAME, pVampire->getFame() );
+					}
 
-//                    pAttacker->getPlayer()->sendPacket(&mi);
+					pAttacker->getPlayer()->sendPacket( &mi );
 				}
-				else if (pAttacker->isOusters() )
+				else if ( pAttacker->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pAttacker);
 					GCModifyInformation mi;
 					int exp = computeCreatureExp(pCreature, 100);
-					shareOustersExp(pOusters, exp, mi);
+					shareOustersExp( pOusters, exp, mi );
 
-					if (pCreature->isMonster() )
+					if ( pCreature->isMonster() )
 					{
-						increaseFame(pOusters, decreaseHP);
-						mi.addLongData(MODIFY_FAME, pOusters->getFame());
+						increaseFame( pOusters, decreaseHP );
+						mi.addLongData( MODIFY_FAME, pOusters->getFame() );
 					}
 				}
 

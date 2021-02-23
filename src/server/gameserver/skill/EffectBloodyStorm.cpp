@@ -7,9 +7,9 @@
 #include "SkillUtil.h"
 #include "EffectStormBloody.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 EffectBloodyStorm::EffectBloodyStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
 	throw(Error)
@@ -47,7 +47,7 @@ bool EffectBloodyStorm::affectCreature(Creature* pTargetCreature, bool bAffectBy
 	
 	Zone* pZone = pTargetCreature->getZone();
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 	// 상대방에게 미칠 독 데미지를 계산한다.
 	int StormDamage = computeMagicDamage(pTargetCreature, m_Damage, SKILL_BLOODY_STORM, m_bVampire, pAttacker);
 
@@ -59,7 +59,7 @@ bool EffectBloodyStorm::affectCreature(Creature* pTargetCreature, bool bAffectBy
 		pEffectStormBloody->setPoint(StormDamage/3);
 		pEffectStormBloody->setDeadline(16); // 이부분 바꿔야 한다.
 		pEffectStormBloody->setTick(5);             // 이부분도 바꿔야 한다.
-		pEffectStormBloody->setUserObjectID(m_UserObjectID);
+		pEffectStormBloody->setUserObjectID( m_UserObjectID );
 		pEffectStormBloody->affect(pTargetCreature);
 		pTargetCreature->addEffect(pEffectStormBloody);
 		pTargetCreature->setFlag(Effect::EFFECT_CLASS_STORM_BLOODY);
@@ -94,8 +94,8 @@ void EffectBloodyStorm::affect()
 	HP_t RemainHP = 0;
 
 	//
-	const list<Object*>& oList = tile.getObjectList();
-	list<Object*>::const_iterator itr = oList.begin();
+	const slist<Object*>& oList = tile.getObjectList();
+	slist<Object*>::const_iterator itr = oList.begin();
 
 	for(; itr != oList.end(); itr++)
 	{

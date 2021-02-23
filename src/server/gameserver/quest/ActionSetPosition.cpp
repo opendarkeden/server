@@ -15,7 +15,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSetPosition::read (PropertyBuffer & propertyBuffer)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionSetPosition::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSetPosition::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void ActionSetPosition::execute (Creature * pCreature1 , Creature * pCreature2)
 			pNPCInfo->setY(pNPC->getY());
 
 			pZone->addNPCInfo(pNPCInfo);
-			pZone->getTile(m_X-1, m_Y ).setBlocked(Creature::MOVE_MODE_WALKING);
+			pZone->getTile( m_X-1, m_Y ).setBlocked(Creature::MOVE_MODE_WALKING);
 		}
 	} catch (Throwable &t) {
 		cout << t.toString() << endl;
@@ -89,7 +89,7 @@ void ActionSetPosition::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSetPosition::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

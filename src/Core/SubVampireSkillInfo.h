@@ -29,18 +29,18 @@ class SubVampireSkillInfo {
 public :
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// get size of object
-	uint getSize () const throw() { return szSkillType + szTurn + szTurn; }
+	uint getSize () const throw () { return szSkillType + szTurn + szTurn; }
 	// get max size of object
-	static uint getMaxSize () throw() { return szSkillType + szTurn + szTurn; }
+	static uint getMaxSize () throw () { return szSkillType + szTurn + szTurn; }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 public :
 

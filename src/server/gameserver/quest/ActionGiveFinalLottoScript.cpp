@@ -15,24 +15,24 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCSystemMessage.h"
-#include "GCNPCAsk.h"
-#include "GCDeleteInventoryItem.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCAsk.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveFinalLottoScript::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
 	try 
 	{
 		// read script id
-		m_SuccessScriptID = propertyBuffer.getPropertyInt("SuccessScriptID");
-		m_FailScriptID = propertyBuffer.getPropertyInt("FailScriptID");
-		m_CounterScriptID = propertyBuffer.getPropertyInt("CounterScriptID");
+		m_SuccessScriptID = propertyBuffer.getPropertyInt( "SuccessScriptID" );
+		m_FailScriptID = propertyBuffer.getPropertyInt( "FailScriptID" );
+		m_CounterScriptID = propertyBuffer.getPropertyInt( "CounterScriptID" );
 	} 
 	catch (NoSuchElementException & nsee)
 	{
@@ -47,7 +47,7 @@ void ActionGiveFinalLottoScript::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -57,26 +57,26 @@ void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCr
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCNPCAsk gcNPCAsk;
-	gcNPCAsk.setObjectID(pCreature1->getObjectID());
-	gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+	gcNPCAsk.setObjectID( pCreature1->getObjectID() );
+	gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 	QuestID_t	qID;
 
-	if (pPC->getQuestManager()->successEventQuest(4, qID ) )
+	if ( pPC->getQuestManager()->successEventQuest( 4, qID ) )
 	{
 		ItemType_t fitItem = rand()%10;
 
-		if (pPC->getInventory()->findItem(Item::ITEM_CLASS_EVENT_ITEM, fitItem ) != NULL )
+		if ( pPC->getInventory()->findItem( Item::ITEM_CLASS_EVENT_ITEM, fitItem ) != NULL )
 		{
 			pPC->getQuestManager()->getEventQuestAdvanceManager()->advanced(EventQuestAdvanceManager::EVENT_QUEST_LEVEL_MAX-1);
-			gcNPCAsk.setScriptID(m_SuccessScriptID);
+			gcNPCAsk.setScriptID( m_SuccessScriptID );
 		}
 		else
 		{
-			gcNPCAsk.setScriptID(m_FailScriptID);
+			gcNPCAsk.setScriptID( m_FailScriptID );
 		}
 
 		list<Item*> iList;
@@ -85,13 +85,13 @@ void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCr
 		list<Item*>::iterator itr = iList.begin();
 		list<Item*>::iterator endItr = iList.end();
 
-		for (; itr != endItr ; ++itr )
+		for ( ; itr != endItr ; ++itr )
 		{
 			GCDeleteInventoryItem gcDII;
-			gcDII.setObjectID((*itr)->getObjectID());
-			pPC->getPlayer()->sendPacket(&gcDII);
+			gcDII.setObjectID( (*itr)->getObjectID() );
+			pPC->getPlayer()->sendPacket( &gcDII );
 			(*itr)->destroy();
-			SAFE_DELETE(*itr);
+			SAFE_DELETE( *itr );
 		}
 
 		iList.clear();
@@ -99,10 +99,10 @@ void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCr
 	}
 	else
 	{
-		gcNPCAsk.setScriptID(m_CounterScriptID); 
+		gcNPCAsk.setScriptID( m_CounterScriptID ); 
 	}
 
-	pPC->getPlayer()->sendPacket(&gcNPCAsk);
+	pPC->getPlayer()->sendPacket( &gcNPCAsk );
 
 	__END_CATCH
 }
@@ -112,7 +112,7 @@ void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCr
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveFinalLottoScript::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

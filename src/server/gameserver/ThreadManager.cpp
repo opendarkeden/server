@@ -9,8 +9,8 @@
 #include "ThreadManager.h"
 #include "ThreadPool.h"
 #include "ZoneGroupThread.h"
-#include "Assert1.h"
-//#include "LogClient.h"
+#include "Assert.h"
+#include "LogClient.h"
 #include "ZoneGroupManager.h"
 #include "Properties.h"
 #include "DB.h"
@@ -20,7 +20,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 ThreadManager::ThreadManager () 
-     throw(Error)
+     throw (Error)
 : m_pZoneGroupThreadPool(NULL)
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ ThreadManager::ThreadManager ()
 //
 //--------------------------------------------------------------------------------
 ThreadManager::~ThreadManager () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ ThreadManager::~ThreadManager ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::init () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -79,7 +79,7 @@ void ThreadManager::init ()
 		{
 			ZoneGroupID_t zoneGroupID = pResult->getInt(1);
 			ZoneGroupThread* pZoneGroupThread = new ZoneGroupThread(g_pZoneGroupManager->getZoneGroup(zoneGroupID));
-            m_pZoneGroupThreadPool->addThread(pZoneGroupThread);
+			m_pZoneGroupThreadPool->addThread(pZoneGroupThread);
 		}
 
 		SAFE_DELETE(pStmt);
@@ -98,7 +98,7 @@ void ThreadManager::init ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::start () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void ThreadManager::start ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::stop () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 

@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Hide.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "ZoneUtil.h"
 #include "RankBonus.h"
 
@@ -43,15 +43,15 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
 		
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
 
-		Tile& rTile = pZone->getTile(pVampire->getX(), pVampire->getY());
+		Tile& rTile = pZone->getTile( pVampire->getX(), pVampire->getY() );
 		int  RequiredMP     = decreaseConsumeMP(pVampire, pSkillInfo);
 		bool bManaCheck     = hasEnoughMana(pVampire, RequiredMP);
 		bool bTimeCheck     = verifyRunTime(pSkillSlot);

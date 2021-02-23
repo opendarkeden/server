@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SkillInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 #include "SkillPropertyManager.h"
 #include "SkillUtil.h"
 
-#include <algorithm>
+#include <algo.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // class SkillInfo member methods
@@ -45,10 +45,10 @@ SkillInfo::~SkillInfo()
 	__END_CATCH
 }
 
-void SkillInfo::setRequireSkill(const string& requireSkill )
+void SkillInfo::setRequireSkill( const string& requireSkill )
 {
 
-	if (requireSkill == "" ) return;
+	if ( requireSkill == "" ) return;
 
 	/////////////////////////////
 	// 012345678901234567890
@@ -57,33 +57,33 @@ void SkillInfo::setRequireSkill(const string& requireSkill )
 	//     c  d
 	//         c  d
 	/////////////////////////////
-    size_t a = requireSkill.find_first_of('(', 0);
-    size_t b = requireSkill.find_first_of(')', a+1);
+	uint a = requireSkill.find_first_of('(', 0 );
+	uint b = requireSkill.find_first_of(')', a+1 );
 
-	if (a > b ) return;
+	if ( a > b ) return;
 
-	string requires = trim(requireSkill.substr(a+1, b-a-1 ));
+	string requires = trim( requireSkill.substr( a+1, b-a-1 ) );
 
-    size_t c = 0;
-    size_t d;
+	uint c = 0;
+	uint d;
 	do
 	{
-		d = requires.find_first_of(',', c+1);
-		if (d == string::npos )
+		d = requires.find_first_of(',', c+1 );
+		if ( d == string::npos )
 			d = requires.size();
 
-		SkillType_t skillType = (SkillType_t)atoi(trim(requires.substr(c, d-c ) ).c_str());
-		addRequireSkill(skillType);
+		SkillType_t skillType = (SkillType_t)atoi( trim( requires.substr( c, d-c ) ).c_str() );
+		addRequireSkill( skillType );
 		
 		c = d + 1;
-	} while (c < requires.size() - 1);
+	} while ( c < requires.size() - 1 );
 }
 
-void SkillInfo::setCondition(const string& condition )
+void SkillInfo::setCondition( const string& condition )
 {
-	if (condition == "" ) return;
+	if ( condition == "" ) return;
 
-    size_t a = 0, b = 0, c = 0;
+	uint a = 0, b = 0, c = 0;
 
 	do
 	{
@@ -96,25 +96,25 @@ void SkillInfo::setCondition(const string& condition )
 		b = condition.find_first_of(',', a+1);
 		c = condition.find_first_of(')', b+1);
 
-		if (a > b || b > c ) break;
+		if ( a > b || b > c ) break;
 
-		Assert(a+1<b && b+1<c);
+		Assert( a+1<b && b+1<c );
 
-		string identifier = trim(condition.substr(a+1, b-a-1 ));
-		string require    = trim(condition.substr(b+1, c-b-1 ));
+		string identifier = trim( condition.substr( a+1, b-a-1 ) );
+		string require    = trim( condition.substr( b+1, c-b-1 ) );
 
-		if (identifier == "Fire" ) setRequireFire(atoi(require.c_str() ));
-		else if (identifier == "Water" ) setRequireWater(atoi(require.c_str() ));
-		else if (identifier == "Earth" ) setRequireEarth(atoi(require.c_str() ));
-		else if (identifier == "Wind" ) setRequireWind(atoi(require.c_str() ));
-		else if (identifier == "Sum" ) setRequireSum(atoi(require.c_str() ));
-		else if (identifier == "Wristlet" ) setRequireWristletElemental(getElementalTypeFromString(require ));
-		else if (identifier == "Stone1" ) setRequireStone1Elemental(getElementalTypeFromString(require ));
-		else if (identifier == "Stone2" ) setRequireStone2Elemental(getElementalTypeFromString(require ));
-		else if (identifier == "Stone3" ) setRequireStone3Elemental(getElementalTypeFromString(require ));
-		else if (identifier == "Stone4" ) setRequireStone4Elemental(getElementalTypeFromString(require ));
+		if ( identifier == "Fire" ) setRequireFire( atoi( require.c_str() ) );
+		else if ( identifier == "Water" ) setRequireWater( atoi( require.c_str() ) );
+		else if ( identifier == "Earth" ) setRequireEarth( atoi( require.c_str() ) );
+		else if ( identifier == "Wind" ) setRequireWind( atoi( require.c_str() ) );
+		else if ( identifier == "Sum" ) setRequireSum( atoi( require.c_str() ) );
+		else if ( identifier == "Wristlet" ) setRequireWristletElemental( getElementalTypeFromString( require ) );
+		else if ( identifier == "Stone1" ) setRequireStone1Elemental( getElementalTypeFromString( require ) );
+		else if ( identifier == "Stone2" ) setRequireStone2Elemental( getElementalTypeFromString( require ) );
+		else if ( identifier == "Stone3" ) setRequireStone3Elemental( getElementalTypeFromString( require ) );
+		else if ( identifier == "Stone4" ) setRequireStone4Elemental( getElementalTypeFromString( require ) );
 
-	} while (c < condition.size() - 1);
+	} while ( c < condition.size() - 1 );
 }
 
 string SkillInfo::toString() const
@@ -151,7 +151,7 @@ string SkillInfo::toString() const
 		<< ",RequireStone4Elemental:"	<< (int)m_RequireStone4Elemental
 		<< ",SkillPoint:"				<< (int)m_SkillPoint
 		<< ",LevelUpPoint:"				<< (int)m_LevelUpPoint;
-	for (list<SkillType_t>::const_iterator itr = m_RequireSkills.begin() ; itr != m_RequireSkills.end() ; itr++ )
+	for ( list<SkillType_t>::const_iterator itr = m_RequireSkills.begin() ; itr != m_RequireSkills.end() ; itr++ )
 	{
 		msg << ",SkillType:" << (int)(*itr);
 	}
@@ -195,20 +195,20 @@ void SkillInfoManager::init()
 
 	load();
 
-	for (uint i=0; i<m_SkillCount; ++i )
+	for ( uint i=0; i<m_SkillCount; ++i )
 	{
-		if (m_SkillInfoList[i] != NULL )
+		if ( m_SkillInfoList[i] != NULL )
 		{
 			list<SkillType_t>& rSkills = m_SkillInfoList[i]->getRequireSkills();
 			list<SkillType_t>::iterator itr = rSkills.begin();
 
-			for (; itr != rSkills.end(); ++itr )
+			for ( ; itr != rSkills.end(); ++itr )
 			{
 				SkillInfo* pRequireSkillInfo = m_SkillInfoList[(*itr)];
 
-				if (pRequireSkillInfo == NULL )
+				if ( pRequireSkillInfo == NULL )
 				{
-					//cout << "스킬 로드 순서가 틀려먹었습니다. : " << (int)m_SkillInfoList[i]->getType() << " / " << (int)(*itr) << endl;
+					cout << "스킬 로드 순서가 틀려먹었습니다. : " << (int)m_SkillInfoList[i]->getType() << " / " << (int)(*itr) << endl;
 					Assert(false);
 				}
 
@@ -355,12 +355,16 @@ void SkillInfoManager::load()
 		for (uint i=0 ; i < m_SkillCount; i++)
 			m_SkillInfoList[i] = NULL;
 
-		pResult = pStmt->executeQuery("Select Type, Name, Level, MinDam, MaxDam, MinDelay, MaxDelay, MinDur, MaxDur, Mana, MinRange, MaxRange, Target, SubExp, Point, Domain, MagicDomain, Melee, Magic, Physic, SkillPoint, LevelUpPoint, RequireSkill, `Condition`, ElementalDomain, CanDelete from SkillBalance");
+		pResult = pStmt->executeQuery("Select 
+			Type, Name, Level, MinDam, MaxDam, MinDelay, MaxDelay, MinDur, MaxDur, 
+			Mana, MinRange, MaxRange, Target, SubExp, Point, Domain, MagicDomain,
+			Melee, Magic, Physic, SkillPoint, LevelUpPoint, RequireSkill, Condition, ElementalDomain, CanDelete
+			from SkillBalance");
 
 		while (pResult->next()) 
 		{
 			SkillInfo* pSkillInfo = new SkillInfo ();
-			int i = 0;
+			int        i          = 0;
 
 			pSkillInfo->setType(pResult->getInt(++i));
 			pSkillInfo->setName (pResult->getString(++i));
@@ -385,21 +389,21 @@ void SkillInfoManager::load()
 			// Skill Property 추가
 			SkillProperty* pSkillProperty = new SkillProperty();
 
-			pSkillProperty->setType(pSkillInfo->getType());
-			pSkillProperty->setMelee(pResult->getInt(++i));
-			pSkillProperty->setMagic(pResult->getInt(++i));
-			pSkillProperty->setPhysic(pResult->getInt(++i));
+			pSkillProperty->setType( pSkillInfo->getType() );
+			pSkillProperty->setMelee( pResult->getInt(++i) );
+			pSkillProperty->setMagic( pResult->getInt(++i) );
+			pSkillProperty->setPhysic( pResult->getInt(++i) );
 
-			g_pSkillPropertyManager->addSkillProperty(pSkillProperty);
+			g_pSkillPropertyManager->addSkillProperty( pSkillProperty );
 
-			if (pSkillInfo->getDomainType() == SKILL_DOMAIN_OUSTERS )
+			if ( pSkillInfo->getDomainType() == SKILL_DOMAIN_OUSTERS )
 			{
-				pSkillInfo->setSkillPoint(pResult->getInt(++i));
-				pSkillInfo->setLevelUpPoint(pResult->getInt(++i));
-				pSkillInfo->setRequireSkill(pResult->getString(++i));
-				pSkillInfo->setCondition(pResult->getString(++i));
-				pSkillInfo->setElementalDomain(pResult->getInt(++i));
-				pSkillInfo->setCanDelete(pResult->getInt(++i));
+				pSkillInfo->setSkillPoint( pResult->getInt(++i) );
+				pSkillInfo->setLevelUpPoint( pResult->getInt(++i) );
+				pSkillInfo->setRequireSkill( pResult->getString(++i) );
+				pSkillInfo->setCondition( pResult->getString(++i) );
+				pSkillInfo->setElementalDomain( pResult->getInt(++i) );
+				pSkillInfo->setCanDelete( pResult->getInt(++i) );
 			}
 
 			// Skill Info 추가
@@ -441,11 +445,11 @@ void SkillInfoManager::addSkillInfo(SkillInfo* pSkillInfo)
 /*	list<SkillType_t>& rSkills = pSkillInfo->getRequireSkills();
 	list<SkillType_t>::iterator itr = rSkills.begin();
 
-	for (; itr != rSkills.end(); ++itr )
+	for ( ; itr != rSkills.end(); ++itr )
 	{
 		SkillInfo* pRequireSkillInfo = m_SkillInfoList[(*itr)];
 
-		if (pRequireSkillInfo == NULL )
+		if ( pRequireSkillInfo == NULL )
 		{
 			cout << "스킬 로드 순서가 틀려먹었습니다. : " << (int)pSkillInfo->getType() << " / " << (int)(*itr) << endl;
 			Assert(false);

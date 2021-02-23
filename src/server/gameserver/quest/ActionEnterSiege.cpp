@@ -24,16 +24,16 @@
 
 #include <stdio.h>
 
-#include "GCUpdateInfo.h"
-#include "GCMoveOK.h"
-#include "GCSystemMessage.h"
-#include "GCNPCResponse.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GCMoveOK.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCModifyInformation.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterSiege::read (PropertyBuffer & pb)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -53,7 +53,7 @@ void ActionEnterSiege::read (PropertyBuffer & pb)
 // ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -62,56 +62,56 @@ void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature)
 	Assert(pCreature->isPC());
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
-	if (!g_pWarSystem->hasCastleActiveWar(m_ZoneID ) )
+	if ( !g_pWarSystem->hasCastleActiveWar( m_ZoneID ) )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("°ø¼±Àü Áß¿¡¸¸ ÀÔÀåÇÏ½Ç ¼ö ÀÖ½À´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "Ö»ÄÜÔÚ½øÐÐ¹¥³ÇÕ½ÖÐ½øÈë.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	Zone* pZone = getZoneByZoneID(m_ZoneID);
-	Assert(pZone != NULL);
+	Zone* pZone = getZoneByZoneID( m_ZoneID );
+	Assert( pZone != NULL );
 
 	WarScheduler* pWS = pZone->getWarScheduler();
-	Assert(pWS != NULL);
+	Assert( pWS != NULL );
 
-	ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID(m_ZoneID);
-	Assert(siegeZoneID != 0);
+	ZoneID_t siegeZoneID = SiegeManager::Instance().getSiegeZoneID( m_ZoneID );
+	Assert(siegeZoneID != 0 );
 
 /*	WarSchedule* pSchedule = dynamic_cast<WarSchedule*>(pWS->getRecentSchedule());
-	if (pSchedule == NULL )
+	if ( pSchedule == NULL )
 	{
 		return;
 	}*/
 
-	SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(g_pWarSystem->getActiveWar(m_ZoneID ));
-	if (pSiegeWar == NULL )
+	SiegeWar* pSiegeWar = dynamic_cast<SiegeWar*>(g_pWarSystem->getActiveWar( m_ZoneID ));
+	if ( pSiegeWar == NULL )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("Å¸ÀÔ 1 ¼­¹ö ¿À·ùÀÔ´Ï´Ù. ¿î¿µÆÀ¿¡ ¹®ÀÇÇÏ¼¼¿ä.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "µÚ1¸ö·þÎñÆ÷·¢Éú¹ÊÕÏ£¬ÇëÓëÔËÓªÉÌÁªÏµ.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
-	int side = pSiegeWar->getGuildSide(pPC->getGuildID());
-	if (side == 0 )
+	int side = pSiegeWar->getGuildSide( pPC->getGuildID() );
+	if ( side == 0 )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("ÀüÀï¿¡ Âü°¡ÇÑ ±æµå°¡ ¾Æ´Õ´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "²»ÊÇÉêÇëÕ½¶·µÄÐÐ»á.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 	
-	if (!g_pGuildManager->isGuildMaster(pPC->getGuildID(), pPC ) )
+	if ( !g_pGuildManager->isGuildMaster( pPC->getGuildID(), pPC ) )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("±æµå ¸¶½ºÅÍ¸¸ °¡´ÉÇÕ´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "Ö»ÓÐÐÐ»á»á³¤,²Å¿ÉÒÔ½øÐÐÉêÇë.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
@@ -131,15 +131,15 @@ void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature)
 	Coord_t ZoneX = targetPos[side-1].x;
 	Coord_t ZoneY = targetPos[side-1].y;
 
-	for (int i=0; i<7; ++i )
+	for ( int i=0; i<7; ++i )
 	{
-		deleteCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + i));
+		deleteCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + i) );
 	}
 
-	if (side < 8 && side > 0 )
+	if ( side < 8 && side > 0 )
 	{
-		//cout << "side : " << side << endl;
-		addSimpleCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + side - 1));
+		cout << "side : " << side << endl;
+		addSimpleCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_SIEGE_DEFENDER + side - 1) );
 	}
 
 	EventTransport* pEvent = dynamic_cast<EventTransport*>(pGamePlayer->getEvent(Event::EVENT_CLASS_TRANSPORT));
@@ -151,11 +151,11 @@ void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature)
 	}
 
 //		pEvent = new EventTransport(pGamePlayer);
-	pEvent->setTargetZone(ZoneNum, ZoneX, ZoneY);
+	pEvent->setTargetZone( ZoneNum, ZoneX, ZoneY );
 	pEvent->setDeadline(0);
 
-	if (newEvent )
-		pGamePlayer->addEvent(pEvent);
+	if ( newEvent )
+		pGamePlayer->addEvent( pEvent );
 
 	__END_DEBUG
 	__END_CATCH
@@ -165,7 +165,7 @@ void ActionEnterSiege::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterSiege::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -20,7 +20,7 @@ LogNameManager::init()
 			while (pResult->next()) 
 			{
 				// 0 은 의미없다.
-				add(pResult->getString(1), 0);
+				add( pResult->getString(1), 0 );
 			}
 
 			SAFE_DELETE(pStmt);

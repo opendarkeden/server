@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Tile.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Player.h"
 #include "Slayer.h"
 #include "Vampire.h"
@@ -21,13 +21,11 @@
 #include "EffectDarkness.h"
 #include "EffectTryingPosition.h"
 
-#include <list>
-
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Tile::Tile (WORD wFlags , WORD wOption)
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
@@ -41,7 +39,7 @@ Tile::Tile (WORD wFlags , WORD wOption)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Tile::~Tile ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -62,7 +60,7 @@ Tile::~Tile ()
 // return값은 그냥 이동인가(true), Portal을 activate 시킨건가(false)에 대한 값
 //////////////////////////////////////////////////////////////////////////////
 bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPortal) 
-	throw(GameException , DuplicatedException , Error)
+	throw (GameException , DuplicatedException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -81,9 +79,9 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 	{
 		StringStream msg;
 
-		Creature* pWalkingCreature = getCreature(Creature::MOVE_MODE_WALKING);
-		Creature* pFlyingCreature = getCreature(Creature::MOVE_MODE_FLYING);
-		Creature* pBurrowingCreature = getCreature(Creature::MOVE_MODE_BURROWING);
+		Creature* pWalkingCreature = getCreature( Creature::MOVE_MODE_WALKING );
+		Creature* pFlyingCreature = getCreature( Creature::MOVE_MODE_FLYING );
+		Creature* pBurrowingCreature = getCreature( Creature::MOVE_MODE_BURROWING );
 		Item* pItem = getItem();
 
 		msg << "TileInfo: ";
@@ -128,7 +126,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 		if (hasPortal() && pCreature->isPC()) 
 		{
 			Portal* pPortal = getPortal();
-			if (pPortal->activate(pCreature ) ) return false;
+			if ( pPortal->activate( pCreature ) ) return false;
 
 /*			if (pCreature->isSlayer()) 
 			{
@@ -242,12 +240,12 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 				pEGP->affectCreature(pCreature, true);
 			}
 			EffectYellowPoison* pEYP = NULL;
-			if ((pCreature->isSlayer() || pCreature->isOusters() ) && (pEYP = (EffectYellowPoison*)getEffect(Effect::EFFECT_CLASS_YELLOW_POISON)))
+			if ( (pCreature->isSlayer() || pCreature->isOusters() ) && (pEYP = (EffectYellowPoison*)getEffect(Effect::EFFECT_CLASS_YELLOW_POISON)))
 			{
 				pEYP->affectCreature(pCreature, true);
 			}
 			// 무조건 적용되야 되는 거면 적용시킨다
-			else if ((pEYP = (EffectYellowPoison*)getEffect(Effect::EFFECT_CLASS_YELLOW_POISON)) && pEYP->isForce() )
+			else if ( (pEYP = (EffectYellowPoison*)getEffect(Effect::EFFECT_CLASS_YELLOW_POISON)) && pEYP->isForce() )
 			{
 				pEYP->affectCreature(pCreature, true);
 			}
@@ -259,15 +257,15 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 			}
 
 			EffectTryingPosition* pTP;
-			if (pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
+			if ( pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
 			{
-				pTP->affect(pCreature);
+				pTP->affect( pCreature );
 			}
 		}
 	}
 	else
 	{
-		if ((pCreature->isOusters() || pCreature->isSlayer() ) && pCreature->isFlag(Effect::EFFECT_CLASS_DARKNESS))
+		if ( ( pCreature->isOusters() || pCreature->isSlayer() ) && pCreature->isFlag(Effect::EFFECT_CLASS_DARKNESS))
 		{
 			pCreature->removeFlag(Effect::EFFECT_CLASS_DARKNESS);
 		}
@@ -285,7 +283,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 // 최적화할 필요가 있다. (검색 + 삭제)
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (ObjectID_t creatureID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -316,12 +314,12 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 			return;
 		}
 
-		if (hasEffect() )
+		if ( hasEffect() )
 		{
 			EffectTryingPosition* pTP;
-			if (pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
+			if ( pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
 			{
-				pTP->unaffect(pCreature);
+				pTP->unaffect( pCreature );
 			}
 		}
 
@@ -350,7 +348,7 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 // 특정 위치(행위)의 크리처를 리스트에서 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (Creature::MoveMode mode) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -360,13 +358,13 @@ void Tile::deleteCreature (Creature::MoveMode mode)
 	// 현재 크리처가 존재해야 한다.
 	Assert(hasCreature(mode));
 
-	if (hasEffect() )
+	if ( hasEffect() )
 	{
 		EffectTryingPosition* pTP;
-		Creature* pCreature = getCreature(mode);
-		if (pCreature != NULL && pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
+		Creature* pCreature = getCreature( mode );
+		if ( pCreature != NULL && pCreature->isPC() && (pTP = dynamic_cast<EffectTryingPosition*>(getEffect(Effect::EFFECT_CLASS_TRYING_POSITION))) )
 		{
-			pTP->unaffect(pCreature);
+			pTP->unaffect( pCreature );
 		}
 	}
 
@@ -386,7 +384,7 @@ void Tile::deleteCreature (Creature::MoveMode mode)
 // 특정 ID를 가진 크리처를 리턴한다.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (ObjectID_t creatureID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -401,7 +399,7 @@ Creature* Tile::getCreature (ObjectID_t creatureID)
 // 특정 위치(행위)의 크리처를 리턴한다.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (Creature::MoveMode mode) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -416,7 +414,7 @@ Creature* Tile::getCreature (Creature::MoveMode mode)
 // (아이템은 타일당 하나다.)
 //////////////////////////////////////////////////////////////
 void Tile::addItem (Item* pItem) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -444,7 +442,7 @@ void Tile::addItem (Item* pItem)
 // 아이템을 타일에서 삭제한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteItem () 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -468,7 +466,7 @@ void Tile::deleteItem ()
 // 타일의 아이템을 리턴한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 Item* Tile::getItem () 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -484,7 +482,7 @@ Item* Tile::getItem ()
 // 장애물을 타일에 추가한다.
 //////////////////////////////////////////////////////////////
 void Tile::addObstacle (Obstacle* pObstacle) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -512,7 +510,7 @@ void Tile::addObstacle (Obstacle* pObstacle)
 // 장애물을 타일에서 삭제한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObstacle () 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -529,7 +527,7 @@ void Tile::deleteObstacle ()
 // 타일의 장애물을 리턴한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 Obstacle* Tile::getObstacle () 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -553,7 +551,7 @@ bool Tile::canAddEffect()
 // 중복되는 마법에 대한 정책이 필요하다.... (같은 마법을 한자리에..)
 //////////////////////////////////////////////////////////////
 void Tile::addEffect (Effect* pEffect) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -582,11 +580,11 @@ void Tile::addEffect (Effect* pEffect)
 // 최적화할 필요성이 있다.. (search - unaffect - flag clear를 한번에..)
 //////////////////////////////////////////////////////////////
 void Tile::deleteEffect (ObjectID_t effectID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	if (!hasEffect() )
+	if ( !hasEffect() )
 	{
 		filelog("TileEffectBug.txt", "there is no effect with effect id %d", effectID);
 		return;
@@ -626,7 +624,7 @@ void Tile::deleteEffect (ObjectID_t effectID)
 // 특정 ID를 가진 마법 효과를 리턴한다.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (ObjectID_t effectID) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -640,13 +638,13 @@ Effect* Tile::getEffect (ObjectID_t effectID)
 // EffectClass를 가진 마법 효과를 리턴한다.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (Effect::EffectClass effectClass) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	if (hasEffect())
 	{
-		for (list<Object*>::const_iterator itr = m_Objects.begin() ; 
+		for (slist<Object*>::const_iterator itr = m_Objects.begin() ; 
 			itr != m_Objects.end() ; 
 			itr ++) 
 		{
@@ -674,7 +672,7 @@ Effect* Tile::getEffect (Effect::EffectClass effectClass)
 // 현재 타일을 건물로 설정한다. 
 //////////////////////////////////////////////////////////////
 void Tile::addBuilding (BuildingID_t buildingID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -699,7 +697,7 @@ void Tile::addBuilding (BuildingID_t buildingID)
 // 현재 타일에서 건물을 삭제한다. 어차피 하나이므로 특별히 지정할 필요는 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteBuilding () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -716,7 +714,7 @@ void Tile::deleteBuilding ()
 // 현재 타일에 해당하는 건물 아이디를 리턴한다.
 //////////////////////////////////////////////////////////////
 BuildingID_t Tile::getBuilding () const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -731,7 +729,7 @@ BuildingID_t Tile::getBuilding () const
 // 포탈을 타일에 추가한다.
 //////////////////////////////////////////////////////////////
 void Tile::addPortal (Portal* pPortal) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -760,7 +758,7 @@ void Tile::addPortal (Portal* pPortal)
 // 포탈을 타일에서 삭제한다. 어차피 하나이므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deletePortal () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -777,7 +775,7 @@ void Tile::deletePortal ()
 // 포탈 객체를 리턴한다.
 //////////////////////////////////////////////////////////////
 Portal* Tile::getPortal () const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -792,7 +790,7 @@ Portal* Tile::getPortal () const
 // terrain 을 타일에 추가한다. 
 //////////////////////////////////////////////////////////////
 void Tile::addTerrain (TerrainID_t terrainID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -815,7 +813,7 @@ void Tile::addTerrain (TerrainID_t terrainID)
 // terrain 을 타일에서 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteTerrain () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -834,7 +832,7 @@ void Tile::deleteTerrain ()
 // terrain 아이디를 리턴한다.
 //////////////////////////////////////////////////////////////
 TerrainID_t Tile::getTerrain () const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -850,7 +848,7 @@ TerrainID_t Tile::getTerrain () const
 // get debug string
 //////////////////////////////////////////////////////////////
 string Tile::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -859,7 +857,7 @@ string Tile::toString () const
 	msg << "Tile(";
 	msg << "Flag:" << m_wFlags;
 	msg << "\nObjects:";
-	list<Object*>::const_iterator itr = m_Objects.begin();
+	slist<Object*>::const_iterator itr = m_Objects.begin();
 	for (; itr != m_Objects.end(); itr++)
 	{
 		msg << (*itr)->toString() << "\n";
@@ -877,7 +875,7 @@ string Tile::toString () const
 // add object into object list
 //////////////////////////////////////////////////////////////
 void Tile::addObject (Object* pObject) 
-	throw(DuplicatedException)
+	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -885,8 +883,8 @@ void Tile::addObject (Object* pObject)
 	Assert(pObject != NULL);
 	Assert(pObject->getObjectID()!= 0);
 
-	list<Object*>::iterator before = m_Objects.end();
-	list<Object*>::iterator current = m_Objects.begin();
+	slist<Object*>::iterator before = m_Objects.end();
+	slist<Object*>::iterator current = m_Objects.begin();
 
 	/*
 	// 우선 섹터에 집어넣는다.
@@ -910,7 +908,7 @@ void Tile::addObject (Object* pObject)
 			{
 				// 리스트의 가운데에 넣는다.
 				// O(1) insertion
-				m_Objects.insert(current , pObject);
+				m_Objects.insert_after(before , pObject);
 			}
 			return;
 		} 
@@ -925,7 +923,7 @@ void Tile::addObject (Object* pObject)
 				}
 				else
 				{
-					m_Objects.insert(current , pObject);
+					m_Objects.insert_after(before , pObject);
 				}
 				return;
 			}
@@ -954,7 +952,7 @@ void Tile::addObject (Object* pObject)
 		{
 			// OBJECT_PRIORITY가 가장 큰 객체이므로, 리스트의 맨 뒤에 넣는다.
 			// O(1) insertion
-			m_Objects.insert(current , pObject);
+			m_Objects.insert_after(before , pObject);
 		}
 	}
 
@@ -966,7 +964,7 @@ void Tile::addObject (Object* pObject)
 // Delete object from object list
 //////////////////////////////////////////////////////////////
 void Tile::deleteObject (ObjectID_t objectID) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -974,9 +972,9 @@ void Tile::deleteObject (ObjectID_t objectID)
 	// 먼저 섹터에서 삭제한다.
 	m_pSector->deleteObject(objectID);
 	*/
-/*
-	list<Object*>::iterator before = m_Objects.end();
-	list<Object*>::iterator current = m_Objects.begin();
+
+	slist<Object*>::iterator before = m_Objects.end();
+	slist<Object*>::iterator current = m_Objects.begin();
 
 	int i = 0;
 	for (; current != m_Objects.end() ; before = current++) 
@@ -998,16 +996,6 @@ void Tile::deleteObject (ObjectID_t objectID)
 			return;
 		}
 		i++;
-	}
-*/
-
-	for(list<Object*>::iterator it= m_Objects.begin(); it != m_Objects.end(); it++)
-	{
-		if(objectID == (*it)->getObjectID())
-		{
-			m_Objects.erase(it);
-			return;
-		}
 	}
 
 	Assert(false);
@@ -1033,19 +1021,19 @@ void Tile::deleteObject (ObjectID_t objectID)
 // 특정 Tile Priority를 가진 객체를 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObject (ObjectPriority objectPriority) 
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	list<Object*>::iterator before = m_Objects.end();
-	list<Object*>::iterator current = m_Objects.begin() ;
+	slist<Object*>::iterator before = m_Objects.end();
+	slist<Object*>::iterator current = m_Objects.begin() ;
 
 	/*
 	// 먼저 섹터에서 삭제하자...
 	Object* pObject = getObject(objectPriority);
 	m_pSector->deleteObject(pObject->getObjectID());
 	*/
-/*
+
 	for (; current != m_Objects.end() ; before = current ++) 
 	{
 		if (objectPriority == (*current)->getObjectPriority()) 
@@ -1073,19 +1061,6 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 			break;
 		}
 	}
-*/
-
-	for(list<Object*>::iterator it= m_Objects.begin(); it != m_Objects.end(); it++)
-	{
-		if(objectPriority == (*it)->getObjectPriority())
-		{
-			m_Objects.erase(it);
-			return;
-		} else if (objectPriority < (*it)->getObjectPriority())
-		{
-			break;
-		}
-	}
 
 	// NoSuch제거. by sigi. 2002.5.2
 	//throw NoSuchElementException("invalid object priority");
@@ -1097,11 +1072,11 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 // 리스트를 모두 검색해야 한다.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectID_t objectID) const
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	for (list<Object*>::const_iterator itr = m_Objects.begin(); itr != m_Objects.end() ; itr ++) 
+	for (slist<Object*>::const_iterator itr = m_Objects.begin(); itr != m_Objects.end() ; itr ++) 
 	{
 		if (objectID == (*itr)->getObjectID()) 
 		{
@@ -1124,11 +1099,11 @@ Object* Tile::getObject (ObjectID_t objectID) const
 // 특정 Tile Priority 를 가진 객체를 리턴한다.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectPriority objectPriority) const
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	for (list<Object*>::const_iterator itr = m_Objects.begin() ; itr != m_Objects.end() ; itr ++) 
+	for (slist<Object*>::const_iterator itr = m_Objects.begin() ; itr != m_Objects.end() ; itr ++) 
 	{
 		if (objectPriority == (*itr)->getObjectPriority()) 
 		{

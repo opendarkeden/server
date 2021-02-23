@@ -29,7 +29,7 @@ void BombingStar::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
 		return;
 	}
 
-	execute(pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID);
+	execute( pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID );
 
 	__END_CATCH
 }
@@ -59,8 +59,8 @@ void BombingStar::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 	param.bMagicDamage  = true;
 	param.bAdd          = false;
 
-	for (int i=-2; i<=2; ++i )
-	for (int j=-2; j<=2; ++j )
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
 	{
 		param.addMask(i, j, 100);
 	}
@@ -69,17 +69,17 @@ void BombingStar::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Holy Smashing 이 있다면 데미지 10% 증가
-	if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING ) )
+	if ( pSlayer->hasRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING ) )
 	{
-		RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_HOLY_SMASHING);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pSlayer->getRankBonus( RankBonus::RANK_BONUS_HOLY_SMASHING );
+		Assert( pRankBonus != NULL );
 
 		param.SkillDamage += pRankBonus->getPoint();
 	}
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		executeSkillFailException(pSlayer, getSkillType());
 	}
 

@@ -1,11 +1,11 @@
 #include "GQuestTamePetElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestTamePetElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestTamePetMission* pTamePetMission = dynamic_cast<GQuestTamePetMission*>(pMission);
-	if (pTamePetMission == NULL ) return FAIL;
-	if (pTamePetMission->isTamed() ) return OK;
+	if ( pTamePetMission == NULL ) return FAIL;
+	if ( pTamePetMission->isTamed() ) return OK;
 
 	return WAIT;
 }

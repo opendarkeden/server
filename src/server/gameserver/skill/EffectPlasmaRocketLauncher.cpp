@@ -12,11 +12,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
-
-#include <list>
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -64,14 +62,14 @@ void EffectPlasmaRocketLauncher::affect(Creature* pCreature)
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 	VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
 	int cX = pCreature->getX();
 	int cY = pCreature->getY();
 	
-	for(int x = -1; x <= 1; x++)
+	for( int x = -1; x <= 1; x++)
 	{
 		for(int y= -1; y <= 1; y++)
 		{
@@ -81,8 +79,8 @@ void EffectPlasmaRocketLauncher::affect(Creature* pCreature)
 			if(!rect.ptInRect(X, Y)) continue;
 			Tile& tile = pZone->getTile(X, Y);
 			
-			const list<Object*>& oList = tile.getObjectList();
-			list<Object*>::const_iterator itr = oList.begin();
+			const slist<Object*>& oList = tile.getObjectList();
+			slist<Object*>::const_iterator itr = oList.begin();
 			for(; itr != oList.end(); itr++)
 			{
 				Assert(*itr != NULL);
@@ -94,36 +92,36 @@ void EffectPlasmaRocketLauncher::affect(Creature* pCreature)
 					Creature* pCreature2 = dynamic_cast<Creature*>(pObject);
 					Assert(pCreature2 != NULL);
 
-					if (pCreature2 != pCreature && pCreature2->isSlayer() ) continue;
+					if ( pCreature2 != pCreature && pCreature2->isSlayer() ) continue;
 	
 					if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 						&& !pCreature2->isDead()
 						&& !pCreature2->isFlag(Effect::EFFECT_CLASS_COMA)
 						// 무적상태 체크. by sigi. 2002.9.5
-						&& canAttack(pAttacker, pCreature2 )
+						&& canAttack( pAttacker, pCreature2 )
 					   )
 					{
 						GCModifyInformation gcMI, gcAttackerMI;
-						setDamage(pCreature2, m_Point, pAttacker, SKILL_PLASMA_ROCKET_LAUNCHER, &gcMI, &gcAttackerMI);
-						if (pCreature2->isPC() ) pCreature2->getPlayer()->sendPacket(&gcMI);
+						setDamage( pCreature2, m_Point, pAttacker, SKILL_PLASMA_ROCKET_LAUNCHER, &gcMI, &gcAttackerMI );
+						if ( pCreature2->isPC() ) pCreature2->getPlayer()->sendPacket( &gcMI );
 
 						if (pAttacker!=NULL) 
 						{
-							computeAlignmentChange(pCreature2, m_Point, pAttacker, &gcMI, &gcAttackerMI);
-							if (pAttacker->isPC() )
+							computeAlignmentChange( pCreature2, m_Point, pAttacker, &gcMI, &gcAttackerMI );
+							if ( pAttacker->isPC() )
 							{ 
-								if (pAttacker->isSlayer() && !pCreature2->isSlayer() )
+								if ( pAttacker->isSlayer() && !pCreature2->isSlayer() )
 								{
 									Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
 
-									if (pSlayer != NULL )
+									if ( pSlayer != NULL )
 									{
 										GCModifyInformation gcMI;
-										shareAttrExp(pSlayer, m_Point, 1, 8, 1, gcAttackerMI);
+										shareAttrExp( pSlayer, m_Point, 1, 8, 1, gcAttackerMI );
 									}
 								}
 
-								if (pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket(&gcAttackerMI);
+								if ( pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket( &gcAttackerMI );
 							}
 						}
 					}
@@ -150,7 +148,7 @@ void EffectPlasmaRocketLauncher::unaffect()
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
 //	unaffect(pCreature);
 
-	if (pCreature == NULL ) return;
+	if ( pCreature == NULL ) return;
 
 	pCreature->removeFlag(Effect::EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER);
 
@@ -158,9 +156,9 @@ void EffectPlasmaRocketLauncher::unaffect()
 	Assert(pZone != NULL);
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);				
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect );				
 
 	__END_CATCH
 }

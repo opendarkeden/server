@@ -17,7 +17,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GuildInfo::GuildInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -28,7 +28,7 @@ GuildInfo::GuildInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GuildInfo::~GuildInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,39 +38,39 @@ GuildInfo::~GuildInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void GuildInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	BYTE szGuildName, szGuildMaster, szGuildExpireDate;
 
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_GuildID);
-	iStream.read(szGuildName);
+	iStream.read( m_GuildID );
+	iStream.read( szGuildName );
 
-	if (szGuildName == 0 )
-		throw InvalidProtocolException("szGuildName == 0");
-	if (szGuildName > 30 )
-		throw InvalidProtocolException("too long szGuildName size");
+	if ( szGuildName == 0 )
+		throw InvalidProtocolException( "szGuildName == 0" );
+	if ( szGuildName > 30 )
+		throw InvalidProtocolException( "too long szGuildName size" );
 
-	iStream.read(m_GuildName, szGuildName);
-	iStream.read(szGuildMaster);
+	iStream.read( m_GuildName, szGuildName );
+	iStream.read( szGuildMaster );
 
-	if (szGuildMaster == 0 )
-		throw InvalidProtocolException("szGuildMaster == 0");
-	if (szGuildMaster > 20 )
-		throw InvalidProtocolException("too long szGuildMaster size");
+	if ( szGuildMaster == 0 )
+		throw InvalidProtocolException( "szGuildMaster == 0" );
+	if ( szGuildMaster > 20 )
+		throw InvalidProtocolException( "too long szGuildMaster size" );
 
-	iStream.read(m_GuildMaster, szGuildMaster);
-	iStream.read(m_GuildMemberCount);
-	iStream.read(szGuildExpireDate);
+	iStream.read( m_GuildMaster, szGuildMaster );
+	iStream.read( m_GuildMemberCount );
+	iStream.read( szGuildExpireDate );
 
-	if (szGuildExpireDate > 11 )
-		throw InvalidProtocolException("too long szGuildExpireDate size");
+	if ( szGuildExpireDate > 11 )
+		throw InvalidProtocolException( "too long szGuildExpireDate size" );
 
-	if (szGuildExpireDate != 0 )
-		iStream.read(m_GuildExpireDate, szGuildExpireDate);
+	if ( szGuildExpireDate != 0 )
+		iStream.read( m_GuildExpireDate, szGuildExpireDate );
 	else
 		m_GuildExpireDate = "";
 
@@ -80,8 +80,8 @@ void GuildInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void GuildInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void GuildInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -89,31 +89,31 @@ void GuildInfo::write (SocketOutputStream & oStream )
 	BYTE szGuildMaster = m_GuildMaster.size();
 	BYTE szGuildExpireDate = m_GuildExpireDate.size();
 	
-	if (szGuildName == 0 )
-		throw InvalidProtocolException("szGuildName == 0");
-	if (szGuildName > 30 )
-		throw InvalidProtocolException("too long szGuildName size");
+	if ( szGuildName == 0 )
+		throw InvalidProtocolException( "szGuildName == 0" );
+	if ( szGuildName > 30 )
+		throw InvalidProtocolException( "too long szGuildName size" );
 
-	if (szGuildMaster == 0 )
-		throw InvalidProtocolException("szGuildMaster == 0");
-	if (szGuildMaster > 20 )
-		throw InvalidProtocolException("too long szGuildMaster size");
+	if ( szGuildMaster == 0 )
+		throw InvalidProtocolException( "szGuildMaster == 0" );
+	if ( szGuildMaster > 20 )
+		throw InvalidProtocolException( "too long szGuildMaster size" );
 
-	if (szGuildExpireDate > 11 )
-		throw InvalidProtocolException("too long szGuildExpireDate size");
+	if ( szGuildExpireDate > 11 )
+		throw InvalidProtocolException( "too long szGuildExpireDate size" );
 
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_GuildID);
-	oStream.write(szGuildName);
-	oStream.write(m_GuildName);
-	oStream.write(szGuildMaster);
-	oStream.write(m_GuildMaster);
-	oStream.write(m_GuildMemberCount);
+	oStream.write( m_GuildID );
+	oStream.write( szGuildName );
+	oStream.write( m_GuildName );
+	oStream.write( szGuildMaster );
+	oStream.write( m_GuildMaster );
+	oStream.write( m_GuildMemberCount );
 
-	oStream.write(szGuildExpireDate);
+	oStream.write( szGuildExpireDate );
 
-	if (szGuildExpireDate != 0 )
-		oStream.write(m_GuildExpireDate);
+	if ( szGuildExpireDate != 0 )
+		oStream.write( m_GuildExpireDate );
 
 	__END_CATCH
 }
@@ -142,13 +142,13 @@ PacketSize_t GuildInfo::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string GuildInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "GuildInfo("
+	msg << "GuildInfo( "
 		<< "GuildID:" << m_GuildID
 		<< "GuildName:" << m_GuildName
 		<< "GuildMaster:" << m_GuildMaster

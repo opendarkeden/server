@@ -15,14 +15,14 @@
 #include "mission/QuestManager.h"
 #include "mission/MonsterKillQuestInfo.h"
 
-#include "GCNPCResponse.h"
-#include "GCNPCAsk.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCancelQuest::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -44,7 +44,7 @@ void ActionCancelQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionCancelQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -52,18 +52,18 @@ void ActionCancelQuest::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Player* pPlayer = pCreature2->getPlayer();
-	Assert(pPlayer != NULL);
+	Assert( pPlayer != NULL );
 
 	GCNPCResponse gcNPCResponse;
-	gcNPCResponse.setCode(NPC_RESPONSE_QUEST);
+	gcNPCResponse.setCode( NPC_RESPONSE_QUEST );
 
 	QuestManager* pQM = pPC->getQuestManager();
 	QuestMessage result;
 
-	if (pQM != NULL )
+	if ( pQM != NULL )
 	{
 		result = pQM->cancelQuest();
 	}
@@ -72,30 +72,30 @@ void ActionCancelQuest::execute (Creature * pCreature1 , Creature * pCreature2)
 		result = CANCEL_NOT_IN_QUEST;
 	}
 
-	gcNPCResponse.setParameter((uint)result);
-	pPlayer->sendPacket(&gcNPCResponse);
+	gcNPCResponse.setParameter( (uint)result );
+	pPlayer->sendPacket( &gcNPCResponse );
 
-	if (pCreature1 != NULL && pCreature1->isNPC() )
+	if ( pCreature1 != NULL && pCreature1->isNPC() )
 	{
 		ScriptID_t	sID;
-		if (result == CANCEL_SUCCESS )
+		if ( result == CANCEL_SUCCESS )
 			sID = m_ScriptID;
 		else
 			sID = m_CounterScriptID;
 
-		if (sID != 0 )
+		if ( sID != 0 )
 		{
 			GCNPCAsk gcNPCAsk;
 			gcNPCAsk.setObjectID(pCreature1->getObjectID());
-			gcNPCAsk.setScriptID(sID);
-			gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+			gcNPCAsk.setScriptID( sID );
+			gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
-			pPlayer->sendPacket(&gcNPCAsk);
+			pPlayer->sendPacket( &gcNPCAsk );
 		}
 		else
 		{
-			gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
-			pPlayer->sendPacket(&gcNPCResponse);
+			gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
+			pPlayer->sendPacket( &gcNPCResponse );
 		}
 	}
 
@@ -107,7 +107,7 @@ void ActionCancelQuest::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionCancelQuest::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

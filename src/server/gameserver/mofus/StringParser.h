@@ -10,27 +10,27 @@
 
 // include files
 #include <string>
-#include <map>
+#include <hash_map>
 
 // forward declaration;
 
 //////////////////////////////////////////////
 // tringParser class
 //////////////////////////////////////////////
-using namespace std;
+
 class StringParser
 {
 public:
 	// type define
-    typedef map< int, string >				HashMapString;
+	typedef hash_map< int, string >				HashMapString;
 	typedef HashMapString::iterator				HashMapStringItr;
 	typedef HashMapString::const_iterator		HashMapStringConstItr;
 
 public:
 	// constructor & destructor
 	StringParser();
-	StringParser(const string& str);
-	StringParser(const StringParser& stringParser);
+	StringParser( const string& str );
+	StringParser( const StringParser& stringParser );
 	virtual ~StringParser();
 
 protected:
@@ -42,8 +42,8 @@ protected:
 
 public:
 	// get part of string
-	const string& getPart(int index);
-	int getPartInt(int index);
+	const string& getPart( int index );
+	int getPartInt( int index );
 
 	// size
 	int size() const { return (int)(m_Parts.size()); }

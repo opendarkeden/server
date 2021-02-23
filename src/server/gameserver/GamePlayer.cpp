@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GamePlayer.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Creature.h"
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Zone.h"
 #include "RelicUtil.h"
 #include "PacketFactoryManager.h"
@@ -32,10 +32,10 @@
 #include "EventKick.h"
 #include "StringPool.h"
 
-#include "CGConnect.h"
-#include "GSGuildMemberLogOn.h"
-#include "GCKickMessage.h"
-#include "GCSystemMessage.h"
+#include "Cpackets/CGConnect.h"
+#include "Gpackets/GSGuildMemberLogOn.h"
+#include "Gpackets/GCKickMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include "ServiceDeadline.h"
 
@@ -44,7 +44,6 @@
 	#include "chinabilling/CBillingPlayerManager.h"
 #endif
 
-#include "zlog.h"
 #include <stdio.h>
 
 
@@ -64,11 +63,11 @@
 const int defaultGamePlayerInputStreamSize = 1024;
 const int defaultGamePlayerOutputStreamSize = 20480;
 
-static int maxIdleSec         = 60* 5;		// 5ºÐ
+static int maxIdleSec         = 60* 5;		// ÎÞ¶¯×÷Ê±¼ä×î´ó±£³ÖÁ¬½ÓÊ±¼ä 60 * 5 = 300Ãë(5·Ö)
 //static int maxSpeedVerifyTime = 2;  		// 0.3 ÃÊ
-static int maxVerifyCount     = 3;      	// 3 ¹ø.
-static int maxTimeGap         =	5;			// 5ÃÊ
-static int SpeedCheckDelay    = 60;			// 1ºÐ
+static int maxVerifyCount     = 3;      	// ×î´ó´íÎóÐ£Ñé´ÎÊý 3´Î
+static int maxTimeGap         =	5;			// Ê±¼äÐ£ÑéÆ«²îÃëÊý º«·þÎª5´Î ÐÞ¸ÄÎª8´Î
+static int SpeedCheckDelay    = 60;			// Ê±¼äÐ£Ñé¼ä¸ô60ÃëÒ»´Î
 
 const int PCRoomLottoSec = 3600;			// 3600 ÃÊ. 1½Ã°£
 const int PCRoomLottoMaxAmount = 3;			// ÇÑ¹ø¿¡ ½×ÀÏ ¼ö ÀÖ´Â ÃÖ´ë º¹±Ç¼ö
@@ -81,31 +80,31 @@ void addLogoutPlayerData(Player* pPlayer);
 //////////////////////////////////////////////////////////////////////////////
 
 GamePlayer::GamePlayer (Socket* pSocket)
-	 throw(Error)
+	 throw (Error)
 : //Player(pSocket), 	// by sigi. 2002.11.12
-	m_pCreature(NULL), m_PlayerStatus(GPS_NONE), m_pReconnectPacket(NULL)
+	m_pCreature(NULL), m_PlayerStatus(GPS_NONE), m_pReconnectPacket(NULL),m_Sequence(0)
 {
 	__BEGIN_TRY
 
-	Assert(pSocket != NULL);
+	Assert( pSocket != NULL );
 	m_pSocket = pSocket;
 
 #ifdef __USE_ENCRYPTER__
 	// create socket input stream
-	m_pInputStream = new SocketEncryptInputStream(m_pSocket, defaultGamePlayerInputStreamSize);
-	Assert(m_pInputStream != NULL);
+	m_pInputStream = new SocketEncryptInputStream( m_pSocket, defaultGamePlayerInputStreamSize );
+	Assert( m_pInputStream != NULL );
 	
 	// create socket output stream
-	m_pOutputStream = new SocketEncryptOutputStream(m_pSocket, defaultGamePlayerOutputStreamSize);
-	Assert(m_pOutputStream != NULL);
+	m_pOutputStream = new SocketEncryptOutputStream( m_pSocket, defaultGamePlayerOutputStreamSize );
+	Assert( m_pOutputStream != NULL );
 #else
 	// create socket input stream
-	m_pInputStream = new SockettInputStream(m_pSocket, defaultGamePlayerInputStreamSize);
-	Assert(m_pInputStream != NULL);
+	m_pInputStream = new SockettInputStream( m_pSocket, defaultGamePlayerInputStreamSize );
+	Assert( m_pInputStream != NULL );
 	
 	// create socket output stream
-	m_pOutputStream = new SockettOutputStream(m_pSocket, defaultGamePlayerOutputStreamSize);
-	Assert(m_pOutputStream != NULL);
+	m_pOutputStream = new SockettOutputStream( m_pSocket, defaultGamePlayerOutputStreamSize );
+	Assert( m_pOutputStream != NULL );
 #endif
 
 	m_Mutex.setName("GamePlayer");
@@ -130,7 +129,7 @@ GamePlayer::GamePlayer (Socket* pSocket)
 
 	m_bMetroFreePlayer = false;
 
-//	if (m_bPCRoomPlay )
+//	if ( m_bPCRoomPlay )
 //		m_ItemRatioBonusPoint = g_pVariableManager->getPCRoomItemRatioBonusPercent();
 //	else
 		m_ItemRatioBonusPoint = 0;
@@ -148,7 +147,7 @@ GamePlayer::GamePlayer (Socket* pSocket)
 	m_bPermission = false;
 #endif
 	
-//	m_NProtectCSAuth.Init();
+	m_NProtectCSAuth.Init();
 
 	__END_CATCH
 }
@@ -159,7 +158,7 @@ GamePlayer::GamePlayer (Socket* pSocket)
 //////////////////////////////////////////////////////////////////////////////
 
 GamePlayer::~GamePlayer ()
-	 throw(Error)
+	 throw (Error)
 {
 	__BEGIN_TRY
 
@@ -175,13 +174,13 @@ GamePlayer::~GamePlayer ()
 		if (m_pCreature != NULL) 
 		{
 			// ¼º¼­ ¶³¾î¶ß¸®±â
-			if (m_pCreature->hasRelicItem() )
+			if ( m_pCreature->hasRelicItem() )
 			{
-				dropRelicToZone(m_pCreature, false);
+				dropRelicToZone( m_pCreature, false );
 			}
 
-			dropFlagToZone(m_pCreature, false);
-			dropSweeperToZone(m_pCreature);
+			dropFlagToZone( m_pCreature, false );
+			dropSweeperToZone( m_pCreature );
 
 			//try 
 			//{
@@ -194,103 +193,103 @@ GamePlayer::~GamePlayer ()
 
 		#ifdef __CONNECT_BILLING_SYSTEM__
 			// Pay Á¾·áÇÑ´Ù°í ¾Ë·ÁÁØ´Ù. by sigi. 2002.11.18
-			if (isBillingPlayAvaiable() && !m_bMetroFreePlayer )	// by sigi. 2002.11.23
+			if ( isBillingPlayAvaiable() && !m_bMetroFreePlayer )	// by sigi. 2002.11.23
 			{
-				g_pBillingPlayerManager->sendPayLogout(this);
+				g_pBillingPlayerManager->sendPayLogout( this );
 			}
 		#elif defined(__CONNECT_CBILLING_SYSTEM__ )
 			// Áß±¹ ºô¸µ ¼­¹ö¿¡ logout ÆÐÅ¶À» º¸³½´Ù.
-			g_pCBillingPlayerManager->sendLogout(this);
+			g_pCBillingPlayerManager->sendLogout( this );
 		#endif
 
 			Statement* pStmt = NULL;
 
 			// ±æµå ÇöÀç Á¢¼Ó ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
-			if (m_pCreature->isSlayer() )
+			if ( m_pCreature->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(m_pCreature);
-				if (pSlayer->getGuildID() != 99 )
+				if ( pSlayer->getGuildID() != 99 )
 				{
-					Guild* pGuild = g_pGuildManager->getGuild(pSlayer->getGuildID());
-					if (pGuild != NULL )
+					Guild* pGuild = g_pGuildManager->getGuild( pSlayer->getGuildID() );
+					if ( pGuild != NULL )
 					{
-						pGuild->deleteCurrentMember(pSlayer->getName());
+						pGuild->deleteCurrentMember( pSlayer->getName() );
 
 						GSGuildMemberLogOn gsGuildMemberLogOn;
-						gsGuildMemberLogOn.setGuildID(pGuild->getID());
-						gsGuildMemberLogOn.setName(pSlayer->getName());
-						gsGuildMemberLogOn.setLogOn(false);
+						gsGuildMemberLogOn.setGuildID( pGuild->getID() );
+						gsGuildMemberLogOn.setName( pSlayer->getName() );
+						gsGuildMemberLogOn.setLogOn( false );
 
-						g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
+						g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 						
 						// µðºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
 						BEGIN_DB
 						{
 							pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-							pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pSlayer->getName().c_str());
+							pStmt->executeQuery( "UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pSlayer->getName().c_str() );
 						}
 						END_DB(pStmt)
 					}
 					else
-						filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pSlayer->getGuildID(), pSlayer->getName().c_str());
+						filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pSlayer->getGuildID(), pSlayer->getName().c_str() );
 				}
 			}
-			else if (m_pCreature->isVampire() )
+			else if ( m_pCreature->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(m_pCreature);
-				if (pVampire->getGuildID() != 0 )
+				if ( pVampire->getGuildID() != 0 )
 				{
-					Guild* pGuild = g_pGuildManager->getGuild(pVampire->getGuildID());
-					if (pGuild != NULL )
+					Guild* pGuild = g_pGuildManager->getGuild( pVampire->getGuildID() );
+					if ( pGuild != NULL )
 					{
-						pGuild->deleteCurrentMember(pVampire->getName());
+						pGuild->deleteCurrentMember( pVampire->getName() );
 
 						GSGuildMemberLogOn gsGuildMemberLogOn;
-						gsGuildMemberLogOn.setGuildID(pGuild->getID());
-						gsGuildMemberLogOn.setName(pVampire->getName());
-						gsGuildMemberLogOn.setLogOn(false);
+						gsGuildMemberLogOn.setGuildID( pGuild->getID() );
+						gsGuildMemberLogOn.setName( pVampire->getName() );
+						gsGuildMemberLogOn.setLogOn( false );
 
-						g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
+						g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 
 						// µðºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
 						BEGIN_DB
 						{
 							pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-							pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pVampire->getName().c_str());
+							pStmt->executeQuery( "UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pVampire->getName().c_str() );
 						}
 						END_DB(pStmt)
 					}
 					else
-						filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str());
+						filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pVampire->getGuildID(), pVampire->getName().c_str() );
 				}
 			}
-			else if (m_pCreature->isOusters() )
+			else if ( m_pCreature->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(m_pCreature);
-				if (pOusters->getGuildID() != 66 )
+				if ( pOusters->getGuildID() != 66 )
 				{
-					Guild* pGuild = g_pGuildManager->getGuild(pOusters->getGuildID());
-					if (pGuild != NULL )
+					Guild* pGuild = g_pGuildManager->getGuild( pOusters->getGuildID() );
+					if ( pGuild != NULL )
 					{
-						pGuild->deleteCurrentMember(pOusters->getName());
+						pGuild->deleteCurrentMember( pOusters->getName() );
 
 						GSGuildMemberLogOn gsGuildMemberLogOn;
-						gsGuildMemberLogOn.setGuildID(pGuild->getID());
-						gsGuildMemberLogOn.setName(pOusters->getName());
-						gsGuildMemberLogOn.setLogOn(false);
+						gsGuildMemberLogOn.setGuildID( pGuild->getID() );
+						gsGuildMemberLogOn.setName( pOusters->getName() );
+						gsGuildMemberLogOn.setLogOn( false );
 
-						g_pSharedServerManager->sendPacket(&gsGuildMemberLogOn);
+						g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 
 						// µðºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
 						BEGIN_DB
 						{
 							pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-							pStmt->executeQuery("UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pOusters->getName().c_str());
+							pStmt->executeQuery( "UPDATE GuildMember SET LogOn = 0 WHERE Name = '%s'", pOusters->getName().c_str() );
 						}
 						END_DB(pStmt)
 					}
 					else
-						filelog("GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pOusters->getGuildID(), pOusters->getName().c_str());
+						filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pOusters->getGuildID(), pOusters->getName().c_str() );
 				}
 			}
 
@@ -307,17 +306,17 @@ GamePlayer::~GamePlayer ()
 			}
 
 			SAFE_DELETE(m_pCreature);
-			//m_pCreature->setPlayer(NULL);
+			//m_pCreature->setPlayer( NULL );
 		}
 	}
 	catch (NoSuchElementException& nsee)
 	{
 		cerr << "GamePlayer::~GamePlayer() : " << nsee.toString() << endl;
-		throw("GamePlayer::~GamePlayer() : NoSuchElementException");
+		throw ("GamePlayer::~GamePlayer() : NoSuchElementException");
 	}
 	catch (Throwable& t )
 	{
-		t.addStack(__PRETTY_FUNCTION__);
+		t.addStack( __PRETTY_FUNCTION__ );
 		throw;
 	}
 
@@ -335,15 +334,28 @@ GamePlayer::~GamePlayer ()
 
 	__END_CATCH
 }
-
-
+//////////////////////////////////////////////////////////////////////////
+//
+// Á½¸ötimeval½á¹¹Ïà¼õ
+//
+//////////////////////////////////////////////////////////////////////////
+void GamePlayer::tv_sub(struct timeval *out,struct timeval *in) 
+{ 
+	if( (out->tv_usec-=in->tv_usec)<0) 
+	{ 
+		--out->tv_sec; 
+		out->tv_usec +=1000000; 
+	} 
+	out->tv_sec-=in->tv_sec; 
+} 
+/*------------- The End -----------*/
 //////////////////////////////////////////////////////////////////////
 //
 // parse packet and execute handler for the packet
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::processCommand (bool Option) 
-     throw(IOException , Error)
+     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -351,13 +363,16 @@ void GamePlayer::processCommand (bool Option)
 	char header[szPacketHeader];
 	PacketID_t packetID;
 	PacketSize_t packetSize;
+	// add by Coffee Ôö¼Ó·â°üÐòÁÐ
+	SequenceSize_t packetSequence;
+
 	Packet* pPacket = NULL;
 
 	try {
 
 		// ÆÐ³ÎÆ¼¸¦ ¹Þ°í ÀÖ´Â »ç¿ëÀÚ ÀÏ °æ¿ì ÀÌ ºÎºÐ¿¡¼­ Ã³¸® ÇØÁØ´Ù.
 		// ÆÐ³ÎÆ¼¸¦ ¹Þ´Â °æ¿ì ¾î¶² ¿¹¿Ü »óÈ²ÀÌ ¹ß»ýÇÒÁö ¸ð¸£¹Ç·Î,
-		// Á¤»óÀûÀÎ Ã³¸®¸¦ ´Ù ÇÑ´ÙÀ½ ÆÐ³ÎÆ¼¸¦ Ã³¸®ÇÏµµ·Ï ÇÑ´Ù.
+		// ¾ö¶ÏÊÇ·ñÐèÒª¶Ï¿ªµ±Ç°IDÁ¬½Ó
 		if (isPenaltyFlag(PENALTY_TYPE_KICKED))
 		{
 			filelog("GamePlayer.txt", "Penalty Kicked. Name[%s],Host[%s],Type[%d]", 
@@ -400,8 +415,20 @@ void GamePlayer::processCommand (bool Option)
 			// ÀÌ¶§ ÆÐÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
 			memcpy(&packetID   , &header[0] , szPacketID);	
 			memcpy(&packetSize , &header[szPacketID] , szPacketSize);
+			// ¶ÁÈ¡·â°üÐòÁÐ
 
-			// ÆÐÅ¶ ¾ÆÀÌµð°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			memcpy( &packetSequence , &header[szPacketID+szPacketSize] , szSequenceSize );
+			// ÅÐ¶Ï·â°üÐòÁÐÊÇ·ñºÏ·¨
+			if ( packetSequence!= m_Sequence)
+			{
+				filelog("SequenceError.txt", "Timeout Disconnect1. Name[%s],Host[%s]", 
+					((getCreature()==NULL)?"NULL":getCreature()->getName().c_str()), 
+					((getSocket()==NULL)?"NULL":getSocket()->getHost().c_str()));
+				throw DisconnectException("·â°üÐòÁÐ´íÎó");
+			}
+			m_Sequence++;
+
+			// ÅÐ¶Ï·â°üIDÊÇ·ñºÏ·¨
 			if (packetID >= (int)Packet::PACKET_MAX)
 			{
 				filelog("GamePlayer.txt", "Packet ID exceed MAX, RECV [%d/%d],ID[%s],Host[%s]", 
@@ -426,6 +453,17 @@ void GamePlayer::processCommand (bool Option)
 						getSocket()->getHost().c_str());
 					throw InvalidProtocolException("invalid packet order");
 				}
+
+//Ìø¹ýµ¼ÖÂµ±»úµÄ·Ç·¨±¨ÎÄ
+				if (packetID==Packet::PACKET_GC_OTHER_STORE_INFO || packetID==Packet::PACKET_GC_MY_STORE_INFO)
+				{
+					filelog("GamePlayer.txt", "Not Valid Packet, RECV [%d],ID[%s],Host[%s]", 
+						packetID, 
+						m_ID.c_str(),
+//						getCreature()->getName().c_str(), 
+						getSocket()->getHost().c_str());
+					throw InvalidProtocolException("invalid packet order");
+				}
 			
 				// ÆÐÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
 				if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
@@ -438,13 +476,12 @@ void GamePlayer::processCommand (bool Option)
 					throw InvalidProtocolException("too large packet size");
 				}
 			
-				// ÀÔ·Â¹öÆÛ³»¿¡ ÆÐÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-				// ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+				// ÅÐ¶Ï·â°üÊý¾ÝÊÇ·ñ½ÓÊÕÍê±Ï
 				if (m_pInputStream->length() < szPacketHeader + packetSize)
 					//throw InsufficientDataException();
 					break;
 
-				// ÆÐÅ¶ ÇÏ³ª¸¦ ÀÐ¾úÀ¸´Ï, expire time À» ¿¬±âÇÑ´Ù.
+				// µ±Ç°Ê±¼ä
 				getCurrentTime(m_ExpireTime);
 				m_ExpireTime.tv_sec += maxIdleSec;
 			
@@ -461,41 +498,50 @@ void GamePlayer::processCommand (bool Option)
 				// ÇöÀç ÆÐÅ¶À» ÆÐÅ¶ È÷½ºÅä¸®ÀÇ ¸Ç µÚ¿¡ ³Ö´Â´Ù.
 				m_PacketHistory.push_back(pPacket);
 
-                dzlog_debug("%s\n", pPacket->toString().c_str());
 				// packet file log¸¦ ³²±ä´Ù.
-				if (m_bPacketLog )
+				if ( m_bPacketLog )
 				{
 					Timeval currentTime;
-					getCurrentTime(currentTime);
+					getCurrentTime( currentTime );
 
-					if (currentTime >= m_PacketLogEndTime )
+					if ( currentTime >= m_PacketLogEndTime )
 					{
 						m_bPacketLog = false;
 					}
 					else
 					{
-						filelog(m_PacketLogFileName.c_str(), "%s", pPacket->toString().c_str());
+						filelog( m_PacketLogFileName.c_str(), "%s", pPacket->toString().c_str() );
 					}
 				}
 
+				//cout << "[" << (int)Thread::self() << "] execute before : " << pPacket->getPacketName().c_str() << endl;
+	
 				// ÀÌÁ¦ ÀÌ ÆÐÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆÐÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
 				// ÆÐÅ¶¾ÆÀÌµð°¡ Àß¸øµÉ °æ¿ì´Â ÆÐÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
 				try
 				{
 				#ifdef __PROFILE_PACKETS__
 					
-					beginProfileEx(	pPacket->getPacketName().c_str());
+					beginProfileEx(	pPacket->getPacketName().c_str() );
 					pPacket->execute(this);
-					endProfileEx(pPacket->getPacketName().c_str());
+					endProfileEx( pPacket->getPacketName().c_str() );
 
 				#else
+					verifySpeed(pPacket);
 					pPacket->execute(this);
 				#endif
-				} catch (Throwable& t )
+				}  /*catch ( Throwable& t )
 				{
-                    dzlog_error("%s PacketID : %d", t.toString().c_str(), packetID);
-					throw;
-				}
+					filelog( "GPPC.txt", "%s PacketID : %d", t.toString().c_str(), packetID );
+					throw DisconnectException("GamePlayer Error 1!");
+				}*/catch(...)
+					{
+						filelog("GamePlayerError.txt","Player:[%s], IP:[%s],MAC:[%02x%02x%02x%02x%02x%02x],Packet is:%s",m_ID.c_str(),getSocket()->getHost().c_str(),
+							m_MacAddress[0],m_MacAddress[1],m_MacAddress[2],m_MacAddress[3],m_MacAddress[4],m_MacAddress[5],
+							pPacket->toString().c_str());
+						throw DisconnectException("GamePlayer Error 2!");
+					}
+				//cout << "[" << (int)Thread::self() << "] execute after : " << pPacket->getPacketName().c_str() << endl;
 
 				// ÆÐÅ¶À» nPacketHistorySize °³¸¸Å­¸¸ ÀúÀåÇÑ´Ù.
 				while (m_PacketHistory.size() > nPacketHistorySize) 
@@ -577,7 +623,7 @@ void GamePlayer::processCommand (bool Option)
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::processOutput () 
-     throw(IOException , Error)
+     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -611,7 +657,7 @@ void GamePlayer::processOutput ()
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::sendPacket (Packet* pPacket) 
-	 throw(ProtocolException , Error)
+	 throw (ProtocolException , Error)
 {	
 	__BEGIN_TRY
 	
@@ -620,22 +666,25 @@ void GamePlayer::sendPacket (Packet* pPacket)
 	try 
 	{
 		// packet file log¸¦ ³²±ä´Ù.
-		if (m_bPacketLog )
+		if ( m_bPacketLog )
 		{
 			Timeval currentTime;
-			getCurrentTime(currentTime);
+			getCurrentTime( currentTime );
 
-			if (currentTime >= m_PacketLogEndTime )
+			if ( currentTime >= m_PacketLogEndTime )
 			{
 				m_bPacketLog = false;
 			}
 			else
 			{
-				filelog(m_PacketLogFileName.c_str(), "%s", pPacket->toString().c_str());
+				filelog( m_PacketLogFileName.c_str(), "%s", pPacket->toString().c_str() );
 			}
 		}
-        dzlog_debug("sendPacket:%s\n", pPacket->toString().c_str());
+
 		Player::sendPacket(pPacket);
+
+		//cout << "GamePlayer::sendPacket() : " << pPacket->toString() << endl;
+		//cout << "GamePlayer::sendPacket() PACKET SIZE : " << pPacket->getPacketSize() << endl;
 
 		/*
 		if (getCreature() != NULL)
@@ -695,7 +744,7 @@ void GamePlayer::sendPacket (Packet* pPacket)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::disconnect (bool bDisconnected)
-	throw(InvalidProtocolException, Error)
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -754,7 +803,7 @@ void GamePlayer::disconnect (bool bDisconnected)
 //            pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
             // ·Î±×¿ÀÇÁ·Î º¯°æÇÑ´Ù.
 	      	//pStmt1 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt1 = g_pDatabaseManager->getDistConnection("PLAYER_DB" )->createStatement();
+			pStmt1 = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 
 			// LogOnÀÌ GAME»óÅÂÀÎ °æ¿ì¸¸ LOGOFF·Î ¹Ù²Û´Ù. by sigi. 2002.5.15
             pStmt1->executeQuery("UPDATE Player SET LogOn='LOGOFF', LastLogoutDate=now() WHERE PlayerID = '%s' AND LogOn='GAME'" , m_ID.c_str());
@@ -773,7 +822,7 @@ void GamePlayer::disconnect (bool bDisconnected)
 #if defined(__PAY_SYSTEM_LOGIN__) || defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 			if (isPayPlaying() || isPremiumPlay())
 			{
-				logoutPayPlay(m_ID);
+				logoutPayPlay( m_ID );
 			}
 #endif
 
@@ -798,10 +847,12 @@ void GamePlayer::disconnect (bool bDisconnected)
 	// ¿ø·¡´Â LGIncomingConnectionOKHandler¿¡¼­ Ã³¸®Çß´Ù. by sigi. 2002.6.19
 	if (m_pReconnectPacket!=NULL)
 	{
+		//cout << "[SendReconnect] " << m_pReconnectPacket->toString().c_str() << endl;
+
 		try 
 		{
-			//sendPacket(m_pReconnectPacket);
-			Player::sendPacket(m_pReconnectPacket);
+			//sendPacket( m_pReconnectPacket );
+			Player::sendPacket( m_pReconnectPacket );
 			// Ãâ·Â ¹öÆÛ¿¡ ³²¾ÆÀÖ´Â µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÑ´Ù.
 			m_pOutputStream->flush();
 		} 
@@ -853,7 +904,7 @@ void GamePlayer::disconnect (bool bDisconnected)
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket (uint prev)
-	throw(OutOfBoundException , NoSuchElementException)
+	throw (OutOfBoundException , NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -879,7 +930,7 @@ Packet* GamePlayer::getOldPacket (uint prev)
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket (PacketID_t packetID)
-	throw(NoSuchElementException)
+	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -906,7 +957,7 @@ Packet* GamePlayer::getOldPacket (PacketID_t packetID)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::addEvent (Event* pEvent)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -919,7 +970,7 @@ void GamePlayer::addEvent (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::deleteEvent (Event::EventClass EClass)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -932,7 +983,7 @@ void GamePlayer::deleteEvent (Event::EventClass EClass)
 //
 //--------------------------------------------------------------------------------
 Event* GamePlayer::getEvent (Event::EventClass EClass)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -947,7 +998,7 @@ Event* GamePlayer::getEvent (Event::EventClass EClass)
 //
 //////////////////////////////////////////////////////////////////////
 string GamePlayer::toString () const
-       throw(Error)
+       throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -976,63 +1027,90 @@ string GamePlayer::toString () const
 //
 //////////////////////////////////////////////////////////////////////
 bool GamePlayer::verifySpeed(Packet* pPacket)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
+	PacketID_t PacketID = pPacket->getPacketID();
 
 	bool SpeedCheck = false;
 
 	Timeval CurrentTime;
-	getCurrentTime(CurrentTime);
+	getCurrentTime( CurrentTime );
 
-	if(m_SpeedVerify.tv_sec == 0 )
-	{
-//		getCurrentTime(m_SpeedVerify);
-//		m_SpeedVerify.tv_sec += SpeedCheckDelay;
-		// m_SpeedVerify ¸¦ ÇöÀç ½Ã°£À¸·Î ±»ÀÌ ¹Þ¾Æ¿Ã ÇÊ¿ä¾øÀÌ
-		// ÇÔ¼ö Ã¹ ºÎºÐ¿¡¼­ ¹Þ¾Æ ³õÀº °É °Á ¾´´Ù.
-		// 2002.1.7 by bezz
-		m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
+	//////////////////////////////////////////////////////////////////////////
+	// ·â°üÐÄÌø¼ì²â 
+	// ¿§·È 2007-6-25  kf_168@hotmail.com
+	//
 
-		SpeedCheck = true;
-	}
-	else
+	if (PacketID == Packet::PACKET_CG_VERIFY_TIME )
 	{
-		// ¿ø·¡ ³¯¾Æ¿Í¾ßµÉ ¾àÁ¤ ½Ã°£¿¡¼­ 5ÃÊ »¡¸® ³¯¾Æ¿À¸é ½ºÇÇµåÇÙÀÌ´Ù.
-		if(CurrentTime.tv_sec > m_SpeedVerify.tv_sec - maxTimeGap )
+		if( m_SpeedVerify.tv_sec == 0 )
 		{
-			// ½ºÇÇµå ÇÙ Åë°ú¸¦ Çß´Ù¸é ´ÙÀ½ ³¯¾Æ¿Ã ¾àÁ¤ ½Ã°£À» ¼ÂÆÃ ÇØ¾ß ÇÑ´Ù.
-//			getCurrentTime(m_SpeedVerify);
-//			m_SpeedVerify.tv_sec += SpeedCheckDelay;
-			// m_SpeedVerify ¸¦ ÇöÀç ½Ã°£À¸·Î ±»ÀÌ ¹Þ¾Æ¿Ã ÇÊ¿ä¾øÀÌ
-			// ÇÔ¼ö Ã¹ ºÎºÐ¿¡¼­ ¹Þ¾Æ ³õÀº °É °Á ¾´´Ù.
-			// 2002.1.7 by bezz
+			// Èç¹ûÎ´»ñÈ¡ÐÄÌø¼ì²â³õÊ¼»¯Öµ,ÔòÈ¡µ±Ç°Ê±¼ä+SpeedCheckDelya×÷Îª³õÊ¼Öµ
+			// ÉèÖÃ¼ì²âÍ¨¹ý SpeedCheck = true;
 			m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
-
+			
 			SpeedCheck = true;
-			m_VerifyCount = max(0, m_VerifyCount-1);
 		}
 		else
 		{
-//			getCurrentTime(m_SpeedVerify);
-//			m_SpeedVerify.tv_sec += SpeedCheckDelay;
-			// m_SpeedVerify ¸¦ ÇöÀç ½Ã°£À¸·Î ±»ÀÌ ¹Þ¾Æ¿Ã ÇÊ¿ä¾øÀÌ
-			// ÇÔ¼ö Ã¹ ºÎºÐ¿¡¼­ ¹Þ¾Æ ³õÀº °É °Á ¾´´Ù.
-			// 2002.1.7 by bezz
-			m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
-
-			if(m_VerifyCount > maxVerifyCount )
+			// ÒÔÏÂ¿ªÊ¼¼ì²â
+			// Èç¹ûµ±Ç°Ê±¼ä´óÓÚÉÏ´Î¼ì²âÊ±¼ä+ÉÏÆ«ÒÆÖµ,Ôò¼ì²âÍ¨¹ý
+			if( CurrentTime.tv_sec > m_SpeedVerify.tv_sec - maxTimeGap )
 			{
-				SpeedCheck = false;
+				m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
+
+				SpeedCheck = true;
+				// ×î´ó´íÎóÐ£Ñé-1,Èç¹ûµ±Ç°´íÎóÐ£Ñé³¬¹ýÔ¤ÉèÖµ,Ôò·µ»Ø¼Ù
+				m_VerifyCount = max(0, m_VerifyCount-1);
 			}
 			else
 			{
-				SpeedCheck = true;
+				// ¸üÐÂÏÂ´ÎÐ£ÑéÊ±¼ä,×¢ÒâÕâÀïÊÇÈ¡Ç°Ê±¼ä+ÏÂ´ÎÐ£ÑéÊ±¼ä.
+				m_SpeedVerify.tv_sec = CurrentTime.tv_sec + SpeedCheckDelay;
+
+				if( m_VerifyCount > maxVerifyCount )
+				{
+					SpeedCheck = false;
+				}
+				else
+				{
+					SpeedCheck = true;
+				}
+				m_VerifyCount++;
 			}
-			m_VerifyCount++;
 		}
 	}
+	//
+	// ¼ì²â·â°ü·¢ËÍ¿ÉÄÜÐÔ½áÊø
+	// Add by Coffee 2007-6-25 kf_168@hotmail.com
+	//////////////////////////////////////////////////////////////////////////
+	
 
+	//////////////////////////////////////////////////////////////////////////
+	// Ôö¼ÓÒÆ¶¯¼ì²â·â°ü¼ì²â
+	// Add by Coffee 2007-6-25 E-mail: kf_168@hotmail.com
+	if (PacketID == Packet::PACKET_CG_MOVE)
+	{
+		if (CurrentTime <= m_MoveSpeedVerify)
+		{
+			// Ê¹ÓÃ¼ÓËÙ
+		}
+		//Timeval UseTimer=CurrentTime-m_MoveSpeedVerify;
+		tv_sub(&CurrentTime,&m_MoveSpeedVerify);
+		double rtt;
+		// ÒÔºÁÃëÎªµ¥Î»¼ÆËãrtt
+		rtt =CurrentTime.tv_sec * 1000 + CurrentTime.tv_usec / 1000;
+		
+		getCurrentTime(m_MoveSpeedVerify);
+		//add by viva for notice
+		//filelog("MoveLog.txt", "MoveTime:=%.3f ms\n",rtt);
+		//end
+	}
+	
+	// End by Coffee 
+	//////////////////////////////////////////////////////////////////////////
+	
 	/*
 	// Å©¸®Ã³ÀÇ ½ºÇÇµå¸¦ ¹Þ¾Æ¿Â´Ù.
 	if (m_pCreature == NULL || pPacket == NULL) {
@@ -1348,7 +1426,7 @@ void GamePlayer::loadSpecialEventCount(void)
 	BEGIN_DB
 	{
 //		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt   = g_pDatabaseManager->getDistConnection("PLAYER_DB" )->createStatement();
+		pStmt   = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 
 		pResult = pStmt->executeQuery("SELECT SpecialEventCount FROM Player WHERE PlayerID='%s'", m_ID.c_str());
 
@@ -1360,7 +1438,7 @@ void GamePlayer::loadSpecialEventCount(void)
 		else
 		{
 			SAFE_DELETE(pStmt);
-			throw("GamePlayer::loadSpecialEventCount() : unable to dispatch data");
+			throw ("GamePlayer::loadSpecialEventCount() : unable to dispatch data");
 			return;
 		}
 
@@ -1381,7 +1459,7 @@ void GamePlayer::saveSpecialEventCount(void)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
-//		pStmt = g_pDatabaseManager->getConnection((int)Thread::self() )->createStatement();
+//		pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
 
 		pStmt->executeQuery("UPDATE Player SET SpecialEventCount=%d WHERE PlayerID='%s'", m_SpecialEventCount, m_ID.c_str());
 		SAFE_DELETE(pStmt);	
@@ -1392,7 +1470,7 @@ void GamePlayer::saveSpecialEventCount(void)
 }
 
 bool    GamePlayer::sendBillingLogin() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1403,15 +1481,15 @@ bool    GamePlayer::sendBillingLogin()
 
 		if (currentTime > m_BillingNextLoginRequestTime)
 		{
-			g_pBillingPlayerManager->sendPayLogin(this);
+			g_pBillingPlayerManager->sendPayLogin( this );
 
 			Timeval afterTime;
-			getCurrentTime(afterTime);
+			getCurrentTime( afterTime );
 
 			// 1ÃÊ ÀÌ»ó °É¸®¸é ·Î±× ³²±ä´Ù.
-			if (afterTime.tv_sec > currentTime.tv_sec + 1 )
+			if ( afterTime.tv_sec > currentTime.tv_sec + 1 )
 			{
-				filelog("billingLoginTime.txt", "PlayerID : %s, CallTime : %d sec, Try : %d", m_ID.c_str(), (int)(afterTime.tv_sec - currentTime.tv_sec), m_BillingLoginRequestCount);
+				filelog( "billingLoginTime.txt", "PlayerID : %s, CallTime : %d sec, Try : %d", m_ID.c_str(), (int)(afterTime.tv_sec - currentTime.tv_sec), m_BillingLoginRequestCount );
 			}
 
 			// PayLogin ¿äÃ»ÇÑ È¸¼ö ±â¾ï
@@ -1430,37 +1508,37 @@ bool    GamePlayer::sendBillingLogin()
 }
 
 void GamePlayer::sendCBillingPayInfo()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	char m[200];
-	if (m_CBPlayerType == CBILLING_PLAYER_TYPE_MONTHLY )
+	if ( m_CBPlayerType == CBILLING_PLAYER_TYPE_MONTHLY )
 	{
 		VSDate currentDate;
 		currentDate = VSDate::currentDate();
 
-		sprintf(m, g_pStringPool->c_str(STRID_CB_MONTHLY_PLAYER ),
+		sprintf( m, g_pStringPool->c_str( STRID_CB_MONTHLY_PLAYER ),
 						m_CBEndDateTime.date().year(),
 						m_CBEndDateTime.date().month(),
 						m_CBEndDateTime.date().day(),
 						currentDate.year(),
 						currentDate.month(),
-						currentDate.day());
+						currentDate.day() );
 
 		GCSystemMessage msg;
-		msg.setMessage(m);
+		msg.setMessage( m );
 
-		sendPacket(&msg);
+		sendPacket( &msg );
 	}
-	else if (m_CBPlayerType == CBILLING_PLAYER_TYPE_POINT )
+	else if ( m_CBPlayerType == CBILLING_PLAYER_TYPE_POINT )
 	{
-		sprintf(m, g_pStringPool->c_str(STRID_CB_POINT_PLAYER ), m_CBLeftTime / 10);
+		sprintf( m, g_pStringPool->c_str( STRID_CB_POINT_PLAYER ), m_CBLeftTime / 10 );
 
 		GCSystemMessage msg;
-		msg.setMessage(m);
+		msg.setMessage( m );
 
-		sendPacket(&msg);
+		sendPacket( &msg );
 	}
 
 	__END_CATCH
@@ -1468,7 +1546,7 @@ void GamePlayer::sendCBillingPayInfo()
 
 // ¾ÏÈ£È­ ÄÚµå¸¦ ¼³Á¤ÇÑ´Ù.
 void GamePlayer::setEncryptCode()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -1485,7 +1563,7 @@ void GamePlayer::setEncryptCode()
 //	if (objectID!=0)
 //	{
 		//uchar code = (uchar)(objectID / zoneID + objectID);
-		//uchar code = (uchar)(((zoneID >> 8 ) ^ zoneID ) ^ ((serverID + 1 ) << 4 ));
+		//uchar code = (uchar)( ( ( zoneID >> 8 ) ^ zoneID ) ^ ( ( serverID + 1 ) << 4 ) );
 		uchar code = m_pCreature->getZone()->getEncryptCode();
 
 #ifdef __ACTIVE_SERVICE_DEADLINE__
@@ -1510,24 +1588,24 @@ void GamePlayer::setEncryptCode()
 	__END_CATCH
 }
 
-void GamePlayer::kickPlayer(uint nSeconds, uint KickMessageType )
-	throw(Error)
+void GamePlayer::kickPlayer( uint nSeconds, uint KickMessageType )
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// ÀÌ¹Ì EventKick ÀÌ ÀÖ´Ù¸é ¹«½ÃÇÑ´Ù.
-	if (m_EventManager.getEvent(Event::EVENT_CLASS_KICK ) != NULL )
+	if ( m_EventManager.getEvent( Event::EVENT_CLASS_KICK ) != NULL )
 		return;
 
-	EventKick* pEventKick = new EventKick(this);
-	pEventKick->setDeadline(nSeconds * 10);
-	addEvent(pEventKick);
+	EventKick* pEventKick = new EventKick( this );
+	pEventKick->setDeadline( nSeconds * 10 );
+	addEvent( pEventKick );
 
 	// ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
 	GCKickMessage gcKickMessage;
-	gcKickMessage.setType(KickMessageType);
-	gcKickMessage.setSeconds(nSeconds);
-	sendPacket(&gcKickMessage);
+	gcKickMessage.setType( KickMessageType );
+	gcKickMessage.setSeconds( nSeconds );
+	sendPacket( &gcKickMessage );
 
 	__END_CATCH
 }
@@ -1535,28 +1613,28 @@ void GamePlayer::kickPlayer(uint nSeconds, uint KickMessageType )
 //////////////////////////////////////////////////////////////////
 // PaySystem °ü·Ã
 //////////////////////////////////////////////////////////////////
-bool GamePlayer::loginPayPlay(PayType payType, const string& PayPlayDate, int PayPlayHours, uint payPlayFlag, const string& ip, const string& playerID )
-	throw(Error)
+bool GamePlayer::loginPayPlay( PayType payType, const string& PayPlayDate, int PayPlayHours, uint payPlayFlag, const string& ip, const string& playerID )
+	throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
 	return BillingPlayerInfo::isBillingPlayAvaiable();
 #else
-	return PaySystem::loginPayPlay(payType, PayPlayDate, PayPlayHours, payPlayFlag, ip, playerID);
+	return PaySystem::loginPayPlay( payType, PayPlayDate, PayPlayHours, payPlayFlag, ip, playerID );
 #endif
 	__END_CATCH
 }
 
-bool GamePlayer::loginPayPlay(const string& ip, const string& playerID )
-    throw(Error)
+bool GamePlayer::loginPayPlay( const string& ip, const string& playerID )
+    throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
 	return BillingPlayerInfo::isBillingPlayAvaiable();
 #else
-	bool bRet = PaySystem::loginPayPlay(ip, playerID);
+	bool bRet = PaySystem::loginPayPlay( ip, playerID );
 
-	if (bRet )
+	if ( bRet )
 		setPCRoomLottoStartTime();
 
 	return bRet;
@@ -1564,31 +1642,31 @@ bool GamePlayer::loginPayPlay(const string& ip, const string& playerID )
 	__END_CATCH
 }
 
-bool GamePlayer::updatePayPlayTime(const string& playerID, const VSDateTime& currentDateTime, const Timeval& currentTime )
-    throw(ProtocolException, Error )
+bool GamePlayer::updatePayPlayTime( const string& playerID, const VSDateTime& currentDateTime, const Timeval& currentTime )
+    throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
 	return BillingPlayerInfo::isBillingPlayAvaiable();
 #else
-	checkPCRoomLotto(currentTime);
+	checkPCRoomLotto( currentTime );
 
-	return PaySystem::updatePayPlayTime(playerID, currentDateTime, currentTime);
+	return PaySystem::updatePayPlayTime( playerID, currentDateTime, currentTime );
 #endif
 	__END_CATCH
 }
 
-void GamePlayer::logoutPayPlay(const string& playerID, bool bClear, bool bDecreaseTime )
-    throw(Error)
+void GamePlayer::logoutPayPlay( const string& playerID, bool bClear, bool bDecreaseTime )
+    throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
-	if (!BillingPlayerInfo::isBillingPlayAvaiable() )
-		setPremiumPlay(false);
+	if ( !BillingPlayerInfo::isBillingPlayAvaiable() )
+		setPremiumPlay( false );
 #else
 	savePCRoomLottoTime();
 
-	PaySystem::logoutPayPlay(playerID, bClear, bDecreaseTime);
+	PaySystem::logoutPayPlay( playerID, bClear, bDecreaseTime );
 #endif
 	__END_CATCH
 }
@@ -1636,8 +1714,8 @@ void addLogoutPlayerData(Player* pPlayer)
 		StringStream sql;
 		sql << "INSERT INTO USERINFO.LogoutPlayerData (PlayerID,IP,Date,Time) VALUES ('"
 			<< ID << "','" << ip << "','"
-			<< currentDT.substr(0, 10 ).c_str() << "','"
-			<< currentDT.substr(11 ).c_str() << "')";
+			<< currentDT.substr( 0, 10 ).c_str() << "','"
+			<< currentDT.substr( 11 ).c_str() << "')";
 
 		pStmt->executeQuery(sql.toString());
 
@@ -1648,10 +1726,10 @@ void addLogoutPlayerData(Player* pPlayer)
 
 void GamePlayer::setPCRoomLottoStartTime()
 {
-	if (!g_pVariableManager->isPCRoomLottoEvent() )
+	if ( !g_pVariableManager->isPCRoomLottoEvent() )
 		return;
 
-	if (!m_bPCRoomPlay )
+	if ( !m_bPCRoomPlay )
 		return;
 
 	m_PCRoomLottoStartTime.tv_sec = m_PayPlayStartTime.tv_sec - m_PCRoomLottoSumTime;
@@ -1659,35 +1737,35 @@ void GamePlayer::setPCRoomLottoStartTime()
 
 void GamePlayer::savePCRoomLottoTime()
 {
-	if (!g_pVariableManager->isPCRoomLottoEvent() )
+	if ( !g_pVariableManager->isPCRoomLottoEvent() )
 		return;
 
-	if (!m_bPCRoomPlay )
+	if ( !m_bPCRoomPlay )
 		return;
 
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
 	m_PCRoomLottoSumTime = currentTime.tv_sec - m_PCRoomLottoStartTime.tv_sec;
 	m_PCRoomLottoStartTime.tv_sec = 0;
 }
 
-void GamePlayer::checkPCRoomLotto(const Timeval& currentTime )
+void GamePlayer::checkPCRoomLotto( const Timeval& currentTime )
 {
-	if (!g_pVariableManager->isPCRoomLottoEvent() )
+	if ( !g_pVariableManager->isPCRoomLottoEvent() )
 		return;
 
-	if (!m_bPCRoomPlay )
+	if ( !m_bPCRoomPlay )
 		return;
 
-	if (m_PCRoomLottoStartTime.tv_sec == 0 )
+	if ( m_PCRoomLottoStartTime.tv_sec == 0 )
 	{
 		m_PCRoomLottoStartTime.tv_sec = currentTime.tv_sec - m_PCRoomLottoSumTime;
 	}
 
 	int time = currentTime.tv_sec - m_PCRoomLottoStartTime.tv_sec;	
 
-	if (time >= PCRoomLottoSec )
+	if ( time >= PCRoomLottoSec )
 	{
 		giveLotto();
 
@@ -1699,7 +1777,7 @@ void GamePlayer::checkPCRoomLotto(const Timeval& currentTime )
 
 void GamePlayer::giveLotto()
 {
-	if (m_pCreature == NULL )
+	if ( m_pCreature == NULL )
 		return;
 
 	Statement* pStmt = NULL;
@@ -1707,63 +1785,63 @@ void GamePlayer::giveLotto()
 
 	BEGIN_DB
 	{
-		static uint DimensionID	= g_pConfig->getPropertyInt("Dimension");
-		static uint WorldID		= g_pConfig->getPropertyInt("WorldID");
+		static uint DimensionID	= g_pConfig->getPropertyInt( "Dimension" );
+		static uint WorldID		= g_pConfig->getPropertyInt( "WorldID" );
 		string PlayerID		= getID();
 		string Name			= m_pCreature->getName();
 		Race_t Race			= m_pCreature->getRace();
 		int Amount			= 0;
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Amount FROM PCRoomLottoObject WHERE PlayerID = '%s' AND Name = '%s' AND DimensionID = %u AND WorldID = %u",
-										PlayerID.c_str(), Name.c_str(), DimensionID, WorldID);
+		pResult = pStmt->executeQuery( "SELECT Amount FROM PCRoomLottoObject WHERE PlayerID = '%s' AND Name = '%s' AND DimensionID = %u AND WorldID = %u",
+										PlayerID.c_str(), Name.c_str(), DimensionID, WorldID );
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
-			Amount = pResult->getInt(1);
+			Amount = pResult->getInt( 1 );
 
-			if (Amount < PCRoomLottoMaxAmount )
+			if ( Amount < PCRoomLottoMaxAmount )
 			{
-				pStmt->executeQuery("UPDATE PCRoomLottoObject SET Amount = %d WHERE PlayerID = '%s' AND Name = '%s' AND DimensionID = %u AND WorldID = %u",
-										Amount + 1, PlayerID.c_str(), Name.c_str(), DimensionID, WorldID);
+				pStmt->executeQuery( "UPDATE PCRoomLottoObject SET Amount = %d WHERE PlayerID = '%s' AND Name = '%s' AND DimensionID = %u AND WorldID = %u",
+										Amount + 1, PlayerID.c_str(), Name.c_str(), DimensionID, WorldID );
 			}
 		}
 		else
 		{
 			// º¹±ÇÀÌ ¾ø¾ú´Ù. »õ·Î ³Ö¾îÁØ´Ù.
-			pStmt->executeQuery("INSERT INTO PCRoomLottoObject VALUES (0, %u, '%s', %u, %u, '%s', %u, 1 )",
-									m_PCRoomID, PlayerID.c_str(), DimensionID, WorldID, Name.c_str(), Race);
+			pStmt->executeQuery( "INSERT INTO PCRoomLottoObject VALUES ( 0, %u, '%s', %u, %u, '%s', %u, 1 )",
+									m_PCRoomID, PlayerID.c_str(), DimensionID, WorldID, Name.c_str(), Race );
 		}
 
-		if (Amount < PCRoomLottoMaxAmount )
+		if ( Amount < PCRoomLottoMaxAmount )
 		{
 			char msg[100];
-			sprintf(msg, g_pStringPool->c_str(STRID_GIVE_LOTTO ), Amount + 1); 
+			sprintf( msg, g_pStringPool->c_str( STRID_GIVE_LOTTO ), Amount + 1 ); 
 
 			GCSystemMessage gcMsg;
-			gcMsg.setMessage(msg);
-			sendPacket(&gcMsg);
+			gcMsg.setMessage( msg );
+			sendPacket( &gcMsg );
 
-			if (Amount >= PCRoomLottoMaxAmount - 1 )
+			if ( Amount >= PCRoomLottoMaxAmount - 1 )
 			{
-				gcMsg.setMessage(g_pStringPool->getString(STRID_CANNOT_GIVE_LOTTO ));
-				sendPacket(&gcMsg);
+				gcMsg.setMessage( g_pStringPool->getString( STRID_CANNOT_GIVE_LOTTO ) );
+				sendPacket( &gcMsg );
 			}
 		}
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 }
 
-bool GamePlayer::startPacketLog(uint sec )
+bool GamePlayer::startPacketLog( uint sec )
 {
-	if (m_pCreature == NULL )
+	if ( m_pCreature == NULL )
 		return false;
 
 	m_bPacketLog = true;
-	getCurrentTime(m_PacketLogEndTime);
+	getCurrentTime( m_PacketLogEndTime );
 	m_PacketLogEndTime.tv_sec += sec;
 
 	char filename[100];
-	sprintf(filename, "log/%s.log", m_pCreature->getName().c_str());
+	sprintf( filename, "log/%s.log", m_pCreature->getName().c_str() );
 	m_PacketLogFileName = filename;
 
 	return true;
@@ -1771,12 +1849,12 @@ bool GamePlayer::startPacketLog(uint sec )
 
 void GamePlayer::logLoginoutDateTime()
 {
-	if (m_pCreature == NULL )
+	if ( m_pCreature == NULL )
 		return;
 
 	// DimensionID ±¸ÇÏ±â
 	uint dimensionID = g_pConfig->getPropertyInt("Dimension");
-	if (g_pConfig->getPropertyInt("IsNetMarble") == 0 )
+	if ( g_pConfig->getPropertyInt("IsNetMarble") == 0 )
 	{
 		// ³Ý¸¶ºí ÀÏ °æ¿ì¿£ 2
 		dimensionID = 2;
@@ -1788,10 +1866,10 @@ void GamePlayer::logLoginoutDateTime()
 	// Á¾Á· ÄÚµå
 	uint racecode;
 	uint str,dex,inte;
-	if (m_pCreature->isSlayer() )
+	if ( m_pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(m_pCreature);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
 		racecode = (uint)pSlayer->getHighestSkillDomain();
 
@@ -1799,25 +1877,25 @@ void GamePlayer::logLoginoutDateTime()
 		dex = pSlayer->getDEX();
 		inte = pSlayer->getINT();
 	}
-	else if (m_pCreature->isVampire() )
+	else if ( m_pCreature->isVampire() )
 	{
 		// ¹ìÆÄÀÌ¾î´Â  10
 		racecode = 10;
 
 		Vampire* pVampire = dynamic_cast<Vampire*>(m_pCreature);
-		Assert(pVampire != NULL);
+		Assert( pVampire != NULL );
 
 		str = pVampire->getSTR();
 		dex = pVampire->getDEX();
 		inte = pVampire->getINT();
 	}
-	else if (m_pCreature->isOusters() )
+	else if ( m_pCreature->isOusters() )
 	{
 		// ¾Æ¿ì½ºÅÍÁî´Â 20
 		racecode = 20;
 
 		Ousters* pOusters = dynamic_cast<Ousters*>(m_pCreature);
-		Assert(pOusters != NULL);
+		Assert( pOusters != NULL );
 
 		str = pOusters->getSTR();
 		dex = pOusters->getDEX();
@@ -1836,11 +1914,11 @@ void GamePlayer::logLoginoutDateTime()
 
 	// filename
 	char filename[20];
-	sprintf(filename, "log/%s.txt", logoutDateTime.toStringforWeb().c_str());
+	sprintf( filename, "log/%s.txt", logoutDateTime.toStringforWeb().c_str() );
 
 	try
 	{
-		ofstream file(filename, ios::out | ios::app);
+		ofstream file( filename, ios::out | ios::app );
 		file << dimensionID << "\t" << worldID << "\t" << m_ID << "\t"
 			 << m_pCreature->getName() << "\t" << racecode << "\t"
 			 << level << "\t" << str << "\t" << dex << "\t" << inte << "\t"

@@ -6,21 +6,20 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectCallMotorcycle.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
 #include "ZoneUtil.h"
-#include "Slayer.h"
 
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-EffectCallMotorcycle::EffectCallMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB)
-	throw(Error)
-: Effect(pZone,x,y,pItem,delay)
+EffectCallMotorcycle::EffectCallMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB) 
+	throw (Error)
+: Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
 
@@ -41,16 +40,16 @@ EffectCallMotorcycle::EffectCallMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCo
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-EffectCallMotorcycle::~EffectCallMotorcycle ()
-	throw(Error)
+EffectCallMotorcycle::~EffectCallMotorcycle () 
+	throw (Error)
 {
 	__BEGIN_TRY
 
-//	unaffect(m_pZone , m_X , m_Y , m_pTarget);
+	unaffect(m_pZone , m_X , m_Y , m_pTarget);
 
 	__END_CATCH
 }
-
+			
 
 //----------------------------------------------------------------------
 // affect to target
@@ -58,12 +57,12 @@ EffectCallMotorcycle::~EffectCallMotorcycle ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 //	throw UnsupportedError();
-
+	
 	__END_CATCH
 }
 
@@ -72,17 +71,17 @@ void EffectCallMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y ,
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect (Motorcycle* pMotorcycle, Slayer* pSlayer)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// Slayer의 정보(Zone, x, y)를 구한다.
 	Zone* pZone = pSlayer->getZone();
 	Coord_t  x  = pSlayer->getX();
-	Coord_t  y  = pSlayer->getY();
+	Coord_t  y  = pSlayer->get();
 
 	// Slayer의 정보가 유효한지 검사한다.
-
+	
 	// 존의 타일 정보를 가져온다.
 	Tile & tile = pZone->getTile(x, y);
 
@@ -105,7 +104,7 @@ void EffectCallMotorcycle::unaffect (Motorcycle* pMotorcycle, Slayer* pSlayer)
 // unaffect()
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -115,7 +114,7 @@ void EffectCallMotorcycle::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -124,8 +123,8 @@ void EffectCallMotorcycle::unaffect (Creature* pCreature)
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string EffectCallMotorcycle::toString () const
-	throw()
+string EffectCallMotorcycle::toString () const 
+	throw ()
 {
 	StringStream msg;
 
@@ -137,7 +136,7 @@ string EffectCallMotorcycle::toString () const
 	if (m_pTarget) msg << ",Target:" << m_pTarget->toString();
 	else           msg << ",Target:NULL";
 
-	msg << ",Deadline:" << (int)m_Deadline.tv_sec
+	msg << ",Deadline:" << (int)m_Deadline.tv_sec 
 			<< "." << (int)m_Deadline.tv_usec;
 
 	msg << ")";

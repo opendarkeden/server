@@ -17,7 +17,7 @@ void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* p
 	Assert(pZone != NULL);
 	
 	Creature* pTargetCreature = pZone->getCreature(targetObjectID);
-	if (pTargetCreature == NULL )
+	if ( pTargetCreature == NULL )
 	{
 		executeSkillFailException(pSlayer, getSkillType());
 		return;
@@ -29,7 +29,7 @@ void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* p
 	SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(getSkillType());
 	bool bRangeCheck = verifyDistance(pSlayer, pTargetCreature, pSkillInfo->getRange());
 
-	if (!bRangeCheck || !pZone->moveFastPC(pSlayer, pSlayer->getX(), pSlayer->getY(), X, Y, getSkillType()) )
+	if ( !bRangeCheck || !pZone->moveFastPC( pSlayer, pSlayer->getX(), pSlayer->getY(), X, Y, getSkillType()) )
 	{
 		executeSkillFailNormal(pSlayer, getSkillType(), pTargetCreature);
 		return;
@@ -55,8 +55,8 @@ void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* p
 	param.bAdd          = true;
 	param.bExpForTotalDamage = false;
 
-	for (int i=-2; i<=2; ++i )
-	for (int j=-2; j<=2; ++j )
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
 	{
 		param.addMask(i, j, 100);
 	}

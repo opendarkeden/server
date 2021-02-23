@@ -57,32 +57,32 @@ public :
 public :
 	
 	// constructor
-	Properties () throw();
-	Properties (const string & filename) throw();
+	Properties () throw ();
+	Properties (const string & filename) throw ();
 	
 	// destructor
-	~Properties () throw();
+	~Properties () throw ();
 	
 
 public :
 	
 	// load from file
-	void load () throw(IOException, Error);
-	void load (const string & filename) throw(IOException, Error) { m_Filename = filename; load(); }
+	void load () throw (IOException, Error);
+	void load (const string & filename) throw (IOException, Error) { m_Filename = filename; load(); }
 
 	// save to file
-	void save () throw(IOException);
-	void save (const string & filename) throw(IOException) { m_Filename = filename; save(); }
+	void save () throw (IOException);
+	void save (const string & filename) throw (IOException) { m_Filename = filename; save(); }
 
 	// get/set property
-	string getProperty (string key) const throw(NoSuchElementException);
-	int getPropertyInt (string key) const throw(NoSuchElementException);
-	void setProperty (string key, string value) throw();
+	string getProperty (string key) const throw (NoSuchElementException);
+	int getPropertyInt (string key) const throw (NoSuchElementException);
+	void setProperty (string key, string value) throw ();
 
 	bool hasKey(const string& key) const { return m_Properties.find(key) != m_Properties.end(); }
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 	
 private :
 	
@@ -98,4 +98,6 @@ private :
 // global variable declaration
 //////////////////////////////////////////////////
 extern Properties* g_pConfig;
+extern Properties* g_pTestConfig;	// by sigi. 2002.12.26
+
 #endif

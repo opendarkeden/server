@@ -6,10 +6,10 @@
 
 #include "RapidGliding.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 타일 핸들러 
@@ -40,7 +40,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  Vam
 		GCSkillToTileOK5 _GCSkillToTileOK5;
 
 		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
-		if (!rect.ptInRect(X, Y) )
+		if ( !rect.ptInRect(X, Y) )
 		{
 			executeSkillFailException(pVampire, getSkillType());
 		}
@@ -58,7 +58,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  Vam
 		bool bEffected	 = pVampire->hasRelicItem() 
 							|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_FLAG) 
 							|| pVampire->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER);
-		bool bPassLine	 = isPassLine(pZone, pVampire->getX(), pVampire->getY(), X, Y);
+		bool bPassLine	 = isPassLine( pZone, pVampire->getX(), pVampire->getY(), X, Y );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected && bPassLine )
 		{
@@ -83,7 +83,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  Vam
 				_GCSkillToTileOK5.setDuration(0);
 
 				// 자신에게 바뀐 HP를 알려준다.
-				pPlayer->sendPacket(&_GCSkillToTileOK1);
+				pPlayer->sendPacket( &_GCSkillToTileOK1);
 
 				// 주위에 HP가 바꼈다고 알린다.
 				GCStatusCurrentHP gcStatusCurrentHP;
@@ -149,7 +149,7 @@ void RapidGliding::execute(Vampire * pVampire, ObjectID_t TargetObjectID, Vampir
 
 //		bool bIncreaseDomainExp = pVampire->isRealWearingEx(Vampire::WEAR_RIGHTHAND);
 
-		execute(pVampire, pTargetCreature->getX(), pTargetCreature->getY(), pVampireSkillSlot, CEffectID);
+		execute( pVampire, pTargetCreature->getX(), pTargetCreature->getY(), pVampireSkillSlot, CEffectID );
 /*
 		SkillInput input(pVampire);
 		SkillOutput output;
@@ -174,7 +174,7 @@ void RapidGliding::execute(Vampire * pVampire, ObjectID_t TargetObjectID, Vampir
 				decreaseMana(pVampire, RequiredMP, gcMI);
 
 				// 자신에게 바뀐 HP를 알려준다.
-				pPlayer->sendPacket(&gcMI);
+				pPlayer->sendPacket( &gcMI );
 
 				// 주위에 HP가 바꼈다고 알린다.
 				GCStatusCurrentHP gcStatusCurrentHP;

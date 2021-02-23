@@ -5,8 +5,6 @@
 #include "ZoneUtil.h"
 #include "LevelWarZoneInfoManager.h"
 
-#include <map>
-
 LevelWarZoneInfo::LevelWarZoneInfo()
 {
 }
@@ -15,25 +13,25 @@ LevelWarZoneInfo::~LevelWarZoneInfo()
 {
 }
 
-void LevelWarZoneInfo::setZoneIDList(const string& zoneIDs )	
+void LevelWarZoneInfo::setZoneIDList( const string& zoneIDs )	
 	throw()
 {
 	__BEGIN_TRY
 
-	makeZoneIDList(zoneIDs, m_LevelWarBonusZoneIDList);
+	makeZoneIDList( zoneIDs, m_LevelWarBonusZoneIDList );
 
 	__END_CATCH
 }
 
 bool LevelWarZoneInfo::isBonusZone(ZoneID_t targetZoneID) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	list<ZoneID_t>::const_iterator itr = m_LevelWarBonusZoneIDList.begin();
 	list<ZoneID_t>::const_iterator endItr = m_LevelWarBonusZoneIDList.end();
 
-	for (; itr != endItr ; itr++)
+	for ( ; itr != endItr ; itr++)
 	{
 		ZoneID_t zoneID = *itr;
 
@@ -51,19 +49,19 @@ bool LevelWarZoneInfo::isCreatureThisLevel(Creature* pCreature) const
 {
 	__BEGIN_TRY
 
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		
-		return (pSlayer->getTotalAttr(ATTR_BASIC ) >= getMinSlayerSum() && pSlayer->getTotalAttr(ATTR_BASIC ) <= getMaxSlayerSum());
+		return (pSlayer->getTotalAttr( ATTR_BASIC ) >= getMinSlayerSum() && pSlayer->getTotalAttr( ATTR_BASIC ) <= getMaxSlayerSum());
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
 		return (pVampire->getLevel() >= getMinVampireLevel() && pVampire->getLevel() <= getMaxVampireLevel());
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		return (pOusters->getLevel() >= getMinOustersLevel() && pOusters->getLevel() <= getMaxOustersLevel());
@@ -125,8 +123,8 @@ LevelWarZoneInfoManager::~LevelWarZoneInfoManager()
 {
 	__BEGIN_TRY
 
-	map< ZoneID_t , LevelWarZoneInfo* >::iterator itr = m_LevelWarZoneInfos.begin();
-	map< ZoneID_t , LevelWarZoneInfo* >::iterator endItr = m_LevelWarZoneInfos.end();
+	hash_map< ZoneID_t , LevelWarZoneInfo* >::iterator itr = m_LevelWarZoneInfos.begin();
+	hash_map< ZoneID_t , LevelWarZoneInfo* >::iterator endItr = m_LevelWarZoneInfos.end();
 	for (; itr != endItr ; itr++)
 	{
 		LevelWarZoneInfo* pLevelWarZoneInfo = itr->second;
@@ -173,24 +171,24 @@ void LevelWarZoneInfoManager::load()
 
 			LevelWarZoneInfo* pLevelWarZoneInfo = new LevelWarZoneInfo();
 
-			pLevelWarZoneInfo->setGrade(pResult->getInt(++i));
-			pLevelWarZoneInfo->setZoneID(pResult->getInt(++i));
+			pLevelWarZoneInfo->setGrade( pResult->getInt(++i) );
+			pLevelWarZoneInfo->setZoneID( pResult->getInt(++i) );
 
-			pLevelWarZoneInfo->setMinSweeperBonusType(pResult->getInt(++i));
-			pLevelWarZoneInfo->setMaxSweeperBonusType(pResult->getInt(++i));
+			pLevelWarZoneInfo->setMinSweeperBonusType( pResult->getInt(++i) );
+			pLevelWarZoneInfo->setMaxSweeperBonusType( pResult->getInt(++i) );
 
-			pLevelWarZoneInfo->setMinSlayerSum(pResult->getInt(++i));
-			pLevelWarZoneInfo->setMaxSlayerSum(pResult->getInt(++i));
+			pLevelWarZoneInfo->setMinSlayerSum( pResult->getInt(++i) );
+			pLevelWarZoneInfo->setMaxSlayerSum( pResult->getInt(++i) );
 
-			pLevelWarZoneInfo->setMinVampireLevel(pResult->getInt(++i));
-			pLevelWarZoneInfo->setMaxVampireLevel(pResult->getInt(++i));
+			pLevelWarZoneInfo->setMinVampireLevel( pResult->getInt(++i) );
+			pLevelWarZoneInfo->setMaxVampireLevel( pResult->getInt(++i) );
 
-			pLevelWarZoneInfo->setMinOustersLevel(pResult->getInt(++i));
-			pLevelWarZoneInfo->setMaxOustersLevel(pResult->getInt(++i));
+			pLevelWarZoneInfo->setMinOustersLevel( pResult->getInt(++i) );
+			pLevelWarZoneInfo->setMaxOustersLevel( pResult->getInt(++i) );
 
-			pLevelWarZoneInfo->setZoneIDList(pResult->getString(++i));
+			pLevelWarZoneInfo->setZoneIDList( pResult->getString(++i) );
 
-			addLevelWarZoneInfo(pLevelWarZoneInfo);
+			addLevelWarZoneInfo( pLevelWarZoneInfo );
 
 		}
 		
@@ -200,12 +198,12 @@ void LevelWarZoneInfoManager::load()
 	__END_CATCH
 }
 
-void LevelWarZoneInfoManager::addLevelWarZoneInfo(LevelWarZoneInfo* pLevelWarZoneInfo ) 
+void LevelWarZoneInfoManager::addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZoneInfo ) 
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.find(pLevelWarZoneInfo->getZoneID());
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.find(pLevelWarZoneInfo->getZoneID());
 
 	if (itr != m_LevelWarZoneInfos.end())
 		throw Error("duplicated zone id");
@@ -217,57 +215,57 @@ void LevelWarZoneInfoManager::addLevelWarZoneInfo(LevelWarZoneInfo* pLevelWarZon
 	list<ZoneID_t>::const_iterator zitr = zoneIDs.begin();
 	list<ZoneID_t>::const_iterator zendItr = zoneIDs.end();
 
-	for (; zitr != zendItr ; zitr++ )
+	for ( ; zitr != zendItr ; zitr++ )
 	{
 		ZoneID_t zoneID = *zitr;
-		setLevelWarZoneID(zoneID, pLevelWarZoneInfo->getZoneID());
+		setLevelWarZoneID( zoneID, pLevelWarZoneInfo->getZoneID() );
 	}
 
 	__END_CATCH
 }
 
-int LevelWarZoneInfoManager::getCreatureLevelGrade(Creature* pCreature )
+int LevelWarZoneInfoManager::getCreatureLevelGrade( Creature* pCreature )
 	throw(Error)
 {
-	map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
-	map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
 
-	for (; itr != endItr ; itr++ )
+	for ( ; itr != endItr ; itr++ )
 	{
-		if (itr->second->isCreatureThisLevel(pCreature ) )
+		if ( itr->second->isCreatureThisLevel( pCreature ) )
 			return itr->second->getGrade();
 	}
 	
 	return -1;
 }
 
-ZoneID_t LevelWarZoneInfoManager::getCreatureZoneID(Creature* pCreature )
+ZoneID_t LevelWarZoneInfoManager::getCreatureZoneID( Creature* pCreature )
 	throw(Error)
 {
-	map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
-	map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
 
-	for (; itr != endItr ; itr++ )
+	for ( ; itr != endItr ; itr++ )
 	{
-		if (itr->second->isCreatureThisLevel(pCreature ) )
+		if ( itr->second->isCreatureThisLevel( pCreature ) )
 			return itr->second->getZoneID();
 	}
 	
 	return 1;
 }
 
-bool LevelWarZoneInfoManager::isCreatureBonusZone(Creature* pCreature, ZoneID_t zoneID ) const
+bool LevelWarZoneInfoManager::isCreatureBonusZone( Creature* pCreature, ZoneID_t zoneID ) const
 	throw(Error)
 {
-	map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.begin();
-	map< ZoneID_t , LevelWarZoneInfo*>::const_iterator endItr = m_LevelWarZoneInfos.end();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.begin();
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator endItr = m_LevelWarZoneInfos.end();
 
-	for (; itr != endItr ; itr++ )
+	for ( ; itr != endItr ; itr++ )
 	{
 		LevelWarZoneInfo* pLevelWarZoneInfo = itr->second;
 
-		if (pLevelWarZoneInfo->isCreatureThisLevel(pCreature )
-			&& pLevelWarZoneInfo->isZoneThisLevel(zoneID ) )
+		if (pLevelWarZoneInfo->isCreatureThisLevel( pCreature )
+			&& pLevelWarZoneInfo->isZoneThisLevel( zoneID ) )
 		{
 			return true;
 		}
@@ -276,12 +274,12 @@ bool LevelWarZoneInfoManager::isCreatureBonusZone(Creature* pCreature, ZoneID_t 
 	return false;
 }
 
-LevelWarZoneInfo* LevelWarZoneInfoManager::getLevelWarZoneInfo(ZoneID_t zoneID ) const 
+LevelWarZoneInfo* LevelWarZoneInfoManager::getLevelWarZoneInfo( ZoneID_t zoneID ) const 
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
+	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
 
 	if (itr != m_LevelWarZoneInfos.end())
 		return NULL;
@@ -298,10 +296,10 @@ void LevelWarZoneInfoManager::refreshSweeperBonusZonePlayer()
 {
 	__BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
-	map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
+	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
+	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
 
 	for (; itr != endItr ;itr++)
 	{
@@ -309,14 +307,14 @@ void LevelWarZoneInfoManager::refreshSweeperBonusZonePlayer()
 		list<ZoneID_t>::const_iterator zitr = pLevelWarZoneInfo->getZoneIDList().begin();
 		list<ZoneID_t>::const_iterator zendItr = pLevelWarZoneInfo->getZoneIDList().end();
 
-		for (; zitr != zendItr ; zitr++ )
+		for ( ; zitr != zendItr ; zitr++ )
 		{
-			Zone* pZone = getZoneByZoneID(*zitr);
-			pZone->setRefreshLevelWarBonusZonePlayer(true);
+			Zone* pZone = getZoneByZoneID( *zitr );
+			pZone->setRefreshLevelWarBonusZonePlayer( true );
 		}
 	}
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 
@@ -324,14 +322,14 @@ void LevelWarZoneInfoManager::refreshSweeperBonusZonePlayer()
 }
 */
 
-void LevelWarZoneInfoManager::broadcast(ZoneID_t zoneID, Packet* pPacket ) const
+void LevelWarZoneInfoManager::broadcast( ZoneID_t zoneID, Packet* pPacket ) const
     throw(Error)
 {
 	__BEGIN_TRY
 
-	__ENTER_CRITICAL_SECTION(m_Mutex )
+	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
+	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
 
 //	cout << VSDateTime::currentDateTime().toString() << endl;
 	if (itr != m_LevelWarZoneInfos.end())
@@ -340,16 +338,16 @@ void LevelWarZoneInfoManager::broadcast(ZoneID_t zoneID, Packet* pPacket ) const
 		list<ZoneID_t>::const_iterator zitr = pLevelWarZoneInfo->getZoneIDList().begin();
 		list<ZoneID_t>::const_iterator zendItr = pLevelWarZoneInfo->getZoneIDList().end();
 
-		for (; zitr != zendItr ; zitr++ )
+		for ( ; zitr != zendItr ; zitr++ )
 		{
 //			cout << *zitr << endl;
-			Zone* pZone = getZoneByZoneID(*zitr);
-			pZone->broadcastLevelWarBonusPacket(pPacket);
+			Zone* pZone = getZoneByZoneID( *zitr );
+			pZone->broadcastLevelWarBonusPacket( pPacket );
 		}
 	}
 //	cout << VSDateTime::currentDateTime().toString() << endl;
 
-	__LEAVE_CRITICAL_SECTION(m_Mutex )
+	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
 	__END_CATCH
 }
@@ -364,15 +362,15 @@ void LevelWarZoneInfoManager::clearLevelWarZoneIDs()
 	__END_CATCH
 }
 
-bool LevelWarZoneInfoManager::getLevelWarZoneID(ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const 
+bool LevelWarZoneInfoManager::getLevelWarZoneID( ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const 
 	throw(Error)
 {
 
 	__BEGIN_TRY
 
-	map< ZoneID_t , ZoneID_t >::const_iterator itr = m_LevelWarZoneIDs.find(zoneID);
+	hash_map< ZoneID_t , ZoneID_t >::const_iterator itr = m_LevelWarZoneIDs.find( zoneID );
 	
-	if (itr != m_LevelWarZoneIDs.end() )
+	if ( itr != m_LevelWarZoneIDs.end() )
 	{
 		levelWarZoneID = itr->second;
 		return true;
@@ -382,8 +380,8 @@ bool LevelWarZoneInfoManager::getLevelWarZoneID(ZoneID_t zoneID, ZoneID_t &level
 
 	__END_CATCH
 }
-void LevelWarZoneInfoManager::setLevelWarZoneID(ZoneID_t zoneID, ZoneID_t levelWarZoneID )
-	throw(Error)
+void LevelWarZoneInfoManager::setLevelWarZoneID( ZoneID_t zoneID, ZoneID_t levelWarZoneID )
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -404,8 +402,8 @@ string LevelWarZoneInfoManager::toString() const
 	if (m_LevelWarZoneInfos.empty()) msg << "EMPTY";
 	else
 	{
-		map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
-		map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
+		hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
+		hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
 		for (; itr != endItr ;itr++)
 		{
 			msg << itr->second->toString();

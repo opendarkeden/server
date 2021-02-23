@@ -10,8 +10,8 @@
 
 #include "item/Mine.h"
 
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToInventoryOK2.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToInventoryOK2.h"
 
 int MaterialType2MineTypeMap[] =
 {
@@ -34,6 +34,8 @@ void CreateMine::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 {
 	__BEGIN_TRY
 
+	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(Create Mine)" << endl;
+
 	Assert(pSlayer != NULL);
 	Assert(pSkillSlot != NULL);
 
@@ -51,7 +53,8 @@ void CreateMine::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 		// OID가 틀리다면 사용할 수 없다.
 		Item* pBombMaterial = pInventory->getItem(X, Y);
 		if (pBombMaterial == NULL || pBombMaterial->getItemClass() != Item::ITEM_CLASS_BOMB_MATERIAL || 
-			pBombMaterial->getObjectID() != InvenObjectID) {
+			pBombMaterial->getObjectID() != InvenObjectID)
+		{
 			executeSkillFailException(pSlayer, getSkillType());
 			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayerinventory)" << endl;
 			return;
@@ -150,7 +153,7 @@ void CreateMine::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven
 
 				// 지뢰를 Inventory로 집어 넣고 DB에다가 생성한다.
 				pInventory->addItem(TargetX, TargetY, pMine);
-				pMine->setNum(1);
+				pMine->setNum( 1 );
 				pMine->create(pSlayer->getName(), STORAGE_INVENTORY, 0, TargetX, TargetY);
 
 				_GCSkillToInventoryOK1.setObjectID(pMine->getObjectID());

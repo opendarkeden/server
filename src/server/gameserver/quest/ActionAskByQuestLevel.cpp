@@ -13,14 +13,14 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "GCNPCAsk.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCAsk.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAskByQuestLevel::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -46,7 +46,7 @@ void ActionAskByQuestLevel::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAskByQuestLevel::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -56,23 +56,23 @@ void ActionAskByQuestLevel::execute (Creature * pCreature1 , Creature * pCreatur
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	ScriptID_t sID = m_ScriptID[ pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() ];
 
-	if (sID == 0 )
+	if ( sID == 0 )
 	{
 		GCNPCResponse gcNPCResponse;
-		gcNPCResponse.setCode(NPC_RESPONSE_QUIT_DIALOGUE);
+		gcNPCResponse.setCode( NPC_RESPONSE_QUIT_DIALOGUE );
 		Player* pPlayer = pCreature2->getPlayer();
-		pPlayer->sendPacket(&gcNPCResponse);
+		pPlayer->sendPacket( &gcNPCResponse );
 	}
 	else
 	{
 		GCNPCAsk gcNPCAsk;
 		gcNPCAsk.setObjectID(pCreature1->getObjectID());
 		gcNPCAsk.setScriptID(sID);
-		gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+		gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 		Player* pPlayer = pCreature2->getPlayer();
 		pPlayer->sendPacket(&gcNPCAsk);
@@ -86,7 +86,7 @@ void ActionAskByQuestLevel::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionAskByQuestLevel::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

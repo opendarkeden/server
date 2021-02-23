@@ -6,13 +6,13 @@
 
 #include "BlitzSliding.h"
 #include "EffectBlazeWalk.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -97,7 +97,7 @@ void BlitzSliding::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 				Damage_t Damage = BasicDamage + output.Damage;
 				setDamage(pTargetCreature, Damage, pSlayer, SkillType, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
 				computeAlignmentChange(pTargetCreature, Damage, pSlayer, &_GCSkillToObjectOK2, &_GCSkillToObjectOK1);
-				decreaseDurability(pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2);
+				decreaseDurability( pSlayer, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK2 );
 
 				// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 				if (bCriticalHit)
@@ -107,7 +107,7 @@ void BlitzSliding::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
 				if (!pTargetCreature->isSlayer())
 				{
-					if (bIncreaseDomainExp )
+					if ( bIncreaseDomainExp )
 					{
 						shareAttrExp(pSlayer, Damage, 8, 1, 1, _GCSkillToObjectOK1);
 						increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToObjectOK1, pTargetCreature->getLevel());
@@ -116,25 +116,25 @@ void BlitzSliding::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlo
 					increaseAlignment(pSlayer, pTargetCreature, _GCSkillToObjectOK1);
 				}
 
-/*				if (!pTargetCreature->isFlag(Effect::EFFECT_CLASS_DECREASE_HP ) )
+/*				if ( !pTargetCreature->isFlag( Effect::EFFECT_CLASS_DECREASE_HP ) )
 				{
-					EffectDecreaseHP* pEffect = new EffectDecreaseHP(pTargetCreature);
-					pEffect->setPoint(BasicDamage + output.Damage);
-					pEffect->setUserObjectID(pSlayer->getObjectID());
+					EffectDecreaseHP* pEffect = new EffectDecreaseHP( pTargetCreature );
+					pEffect->setPoint( BasicDamage + output.Damage );
+					pEffect->setUserObjectID( pSlayer->getObjectID() );
 					pEffect->setDeadline(10);
 
-					pTargetCreature->setFlag(Effect::EFFECT_CLASS_DECREASE_HP);
-					pTargetCreature->addEffect(pEffect);
+					pTargetCreature->setFlag( Effect::EFFECT_CLASS_DECREASE_HP );
+					pTargetCreature->addEffect( pEffect );
 				}*/
 
-				EffectBlazeWalk* pEffect = new EffectBlazeWalk(pTargetCreature);
-				pEffect->setPoint(BasicDamage + output.Damage);
-				pEffect->setUserObjectID(pSlayer->getObjectID());
-				pEffect->setAttackNum(1);
+				EffectBlazeWalk* pEffect = new EffectBlazeWalk( pTargetCreature );
+				pEffect->setPoint( BasicDamage + output.Damage );
+				pEffect->setUserObjectID( pSlayer->getObjectID() );
+				pEffect->setAttackNum( 1 );
 				pEffect->setNextTime(10);
-				pEffect->setSkillType(SKILL_BLITZ_SLIDING);
-				pTargetCreature->setFlag(Effect::EFFECT_CLASS_BLAZE_WALK);
-				pTargetCreature->addEffect(pEffect);
+				pEffect->setSkillType( SKILL_BLITZ_SLIDING );
+				pTargetCreature->setFlag( Effect::EFFECT_CLASS_BLAZE_WALK );
+				pTargetCreature->addEffect( pEffect );
 
 				// 패킷을 준비하고 보낸다.
 				_GCSkillToObjectOK1.setSkillType(SkillType);

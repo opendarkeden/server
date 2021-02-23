@@ -41,7 +41,7 @@ public:
 //	void setPartyID(int PartyID) { m_PartyID = PartyID; }
 
 	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID(ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
 
 	Level_t getLevel() const throw() { return m_Level; }
 	void setLevel(Level_t Level) throw() { m_Level = Level; }

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+ln -s ../Belt.h Belt.h
+ln -s ../Bracelet.h Bracelet.h
+ln -s ../Coat.h Coat.h
+ln -s ../Glove.h Glove.h
+ln -s ../Helm.h Helm.h
+ln -s ../Necklace.h Necklace.h 
+ln -s ../Ring.h Ring.h
+ln -s ../Shield.h Shield.h
+ln -s ../Shoes.h Shoes.h
+ln -s ../Trouser.h Trouser.h
+ln -s ../VampireBracelet.h VampireBracelet.h
+ln -s ../VampireCoat.h VampireCoat.h
+ln -s ../VampireNecklace.h VampireNecklace.h
+ln -s ../VampireRing.h VampireRing.h
+
+
+ln -s ../Belt.cpp Belt.cpp
+ln -s ../Bracelet.cpp Bracelet.cpp
+ln -s ../Coat.cpp Coat.cpp
+ln -s ../Glove.cpp Glove.cpp
+ln -s ../Helm.cpp Helm.cpp
+ln -s ../Necklace.cpp Necklace.cpp 
+ln -s ../Ring.cpp Ring.cpp
+ln -s ../Shield.cpp Shield.cpp
+ln -s ../Shoes.cpp Shoes.cpp
+ln -s ../Trouser.cpp Trouser.cpp
+ln -s ../VampireBracelet.cpp VampireBracelet.cpp
+ln -s ../VampireCoat.cpp VampireCoat.cpp
+ln -s ../VampireNecklace.cpp VampireNecklace.cpp
+ln -s ../VampireRing.cpp VampireRing.cpp
+

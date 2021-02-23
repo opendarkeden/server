@@ -7,7 +7,7 @@
 #include "EffectLoud.h"
 #include "Ousters.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -31,6 +31,8 @@ void EffectLoud::unaffect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
+	//cout << "EffectLoud" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 //	Assert(pCreature->isOusters());
 
@@ -41,13 +43,15 @@ void EffectLoud::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 //	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
-//	Assert(pTargetOusters != NULL);
+//	Assert( pTargetOusters != NULL );
 
 	// 이펙트를 삭제하라고 알려준다.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_LOUD);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	//cout << "EffectLoud" << "unaffect END" << endl;
 
 	__END_CATCH
 }

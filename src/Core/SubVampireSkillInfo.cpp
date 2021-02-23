@@ -12,17 +12,17 @@
 //----------------------------------------------------------------------
 // read data from socket input stream
 //----------------------------------------------------------------------
-void SubVampireSkillInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void SubVampireSkillInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
 
-	iStream.read(m_SkillType);
-	iStream.read(m_Interval);
-	iStream.read(m_CastingTime);
+	iStream.read( m_SkillType );
+	iStream.read( m_Interval );
+	iStream.read( m_CastingTime );
 
-	} catch(Throwable & t ) {
+	} catch( Throwable & t ) {
 		cout << t.toString() << endl;
 	}
 
@@ -32,16 +32,16 @@ void SubVampireSkillInfo::read (SocketInputStream & iStream )
 //----------------------------------------------------------------------
 // write data to socket output stream
 //----------------------------------------------------------------------
-void SubVampireSkillInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void SubVampireSkillInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try {
 
-	oStream.write(m_SkillType);
-	oStream.write(m_Interval);
-	oStream.write(m_CastingTime);
+	oStream.write( m_SkillType );
+	oStream.write( m_Interval );
+	oStream.write( m_CastingTime );
 
 	} catch (Throwable & t ) {
 		cout << t.toString() << endl;
@@ -54,7 +54,7 @@ void SubVampireSkillInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SubVampireSkillInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

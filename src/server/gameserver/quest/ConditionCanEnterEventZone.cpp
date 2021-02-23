@@ -12,15 +12,15 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterEventZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
-	ZoneEventInfo* pZoneEventInfo = EventZoneInfoManager::Instance().getZoneEventInfo(m_EventID);
+	ZoneEventInfo* pZoneEventInfo = EventZoneInfoManager::Instance().getZoneEventInfo( m_EventID );
 	EventZoneInfo* pEventZoneInfo = pZoneEventInfo->getCurrentEventZoneInfo();
 
-	if (pEventZoneInfo == NULL || !pEventZoneInfo->canEnter() ) return false;
+	if ( pEventZoneInfo == NULL || !pEventZoneInfo->canEnter() ) return false;
 
 	return true;
 }
@@ -29,7 +29,7 @@ bool ConditionCanEnterEventZone::isSatisfied (Creature * pCreature1 , Creature *
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterEventZone::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	m_EventID = propertyBuffer.getPropertyInt("EventID");
 }
@@ -38,7 +38,7 @@ void ConditionCanEnterEventZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterEventZone::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

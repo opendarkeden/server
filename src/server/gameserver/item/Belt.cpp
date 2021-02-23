@@ -14,7 +14,6 @@
 #include "Stash.h"
 #include "ItemUtil.h"
 #include "PCItemInfo.h"
-#include "SubInventory.h"
 
 // global variable declaration
 BeltInfoManager* g_pBeltInfoManager = NULL;
@@ -55,7 +54,7 @@ Belt::Belt(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "Belt::Belt() : Invalid item type or option type");
-		throw("Belt::Belt() : Invalid item type or optionType");
+		throw ("Belt::Belt() : Invalid item type or optionType");
 	}
 
 	__END_CATCH
@@ -114,9 +113,9 @@ void Belt::create(const string & ownerID, Storage storage, StorageID_t storageID
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("INSERT INTO BeltObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, OptionType, Durability, Grade, ItemFlag) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, '%s', %d, %d, %d)",
-								m_ItemID, m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)m_CreateType);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "INSERT INTO BeltObject (ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID, X, Y, OptionType, Durability, Grade, ItemFlag) VALUES(%ld, %ld, %d, '%s', %d, %ld, %d, %d, '%s', %d, %d, %d)",
+								m_ItemID, m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)m_CreateType );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -190,7 +189,7 @@ void Belt::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE BeltObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE BeltObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -234,8 +233,8 @@ void Belt::save(const string & ownerID, Storage storage, StorageID_t storageID, 
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE BeltObject SET ObjectID=%ld, ItemType=%d, OwnerID= '%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE BeltObject SET ObjectID=%ld, ItemType=%d, OwnerID= '%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, Grade=%d, EnchantLevel=%d WHERE ItemID=%ld",
 								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), getGrade(), (int)getEnchantLevel(), m_ItemID);
 
 		// 일일이 아이템을 하나씩 꺼내서 바로 UPDATE 하도록 한다.
@@ -503,8 +502,8 @@ void BeltLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM BeltObject WHERE OwnerID = '%s' AND Storage IN (0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM BeltObject WHERE OwnerID = '%s' AND Storage IN (0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -570,18 +569,6 @@ void BeltLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pBelt);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pBelt))
 						{
 							pInventory->addItemEx(x, y, pBelt);

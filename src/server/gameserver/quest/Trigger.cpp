@@ -9,7 +9,7 @@
 #include "ConditionFactoryManager.h"
 #include "Action.h"
 #include "ActionFactoryManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Utility.h"
 #include "PropertyBuffer.h"
 
@@ -18,7 +18,7 @@
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 Trigger::Trigger () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ Trigger::Trigger ()
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 Trigger::~Trigger () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -45,7 +45,7 @@ Trigger::~Trigger ()
 // add condition
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addCondition (Condition * pCondition)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ void Trigger::addCondition (Condition * pCondition)
 // add action
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addAction (Action * pAction)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void Trigger::addAction (Action * pAction)
 // add counter action
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addCounterAction (Action * pAction)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void Trigger::addCounterAction (Action * pAction)
 // is all conditions satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::isAllSatisfied (TriggerMode triggerMode , Creature * pCreature1 , Creature * pCreature2, void* pParam) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ bool Trigger::isAllSatisfied (TriggerMode triggerMode , Creature * pCreature1 , 
 // activate trigger
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::activate (Creature * pCreature1 , Creature * pCreature2) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ bool Trigger::activate (Creature * pCreature1 , Creature * pCreature2) const
 	for (uint i = 0 ; i < nActions ; i ++)
 	{
 		Assert(m_Actions[i] != NULL);
-
+		
 		m_Actions[i]->execute(pCreature1 , pCreature2);
 	}
 
@@ -142,7 +142,7 @@ bool Trigger::activate (Creature * pCreature1 , Creature * pCreature2) const
 // activate trigger
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::activateCounter (Creature * pCreature1 , Creature * pCreature2) const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -178,7 +178,7 @@ bool Trigger::activateCounter (Creature * pCreature1 , Creature * pCreature2) co
 //            Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setConditions (const string & str)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -262,7 +262,7 @@ void Trigger::setConditions (const string & str)
 //         Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setActions (const string & str)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -351,7 +351,7 @@ void Trigger::setActions (const string & str)
 //         Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setCounterActions (const string & str)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -429,7 +429,7 @@ void Trigger::setCounterActions (const string & str)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string Trigger::toString () const
-	throw()
+	throw ()
 {
 
 	__BEGIN_TRY

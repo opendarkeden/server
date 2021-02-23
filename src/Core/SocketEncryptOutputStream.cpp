@@ -7,13 +7,13 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "SocketEncryptOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketEncryptOutputStream::SocketEncryptOutputStream (Socket * sock , uint BufferLen ) 
-	throw(Error )
+SocketEncryptOutputStream::SocketEncryptOutputStream ( Socket * sock , uint BufferLen ) 
+	throw ( Error )
 : SocketOutputStream(sock, BufferLen)
 {
 	__BEGIN_TRY
@@ -21,7 +21,7 @@ SocketEncryptOutputStream::SocketEncryptOutputStream (Socket * sock , uint Buffe
 }
 
 SocketEncryptOutputStream::~SocketEncryptOutputStream()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

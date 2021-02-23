@@ -12,7 +12,7 @@
 #include "Item.h"
 
 #include <list>
-#include <map>
+#include <hash_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Class GoodsInfo
@@ -32,25 +32,25 @@ public:
 	void setName(string name) { m_Name = name ; }
 
 	Item::ItemClass getItemClass() const { return m_ItemClass; }
-	void setItemClass(Item::ItemClass itemClass ) { m_ItemClass = itemClass; }
+	void setItemClass( Item::ItemClass itemClass ) { m_ItemClass = itemClass; }
 
 	ItemType_t getItemType() const { return m_ItemType; }
-	void setItemType(ItemType_t itemType ) { m_ItemType = itemType; }
+	void setItemType( ItemType_t itemType ) { m_ItemType = itemType; }
 
 	Grade_t getGrade() const { return m_Grade; }
-	void setGrade(Grade_t grade ) { m_Grade = grade; }
+	void setGrade( Grade_t grade ) { m_Grade = grade; }
 
 	const list<OptionType_t>& getOptionTypeList() const { return m_OptionTypes; }
-	void setOptionTypeList(const list<OptionType_t>& optionTypes ) { m_OptionTypes = optionTypes; }
+	void setOptionTypeList( const list<OptionType_t>& optionTypes ) { m_OptionTypes = optionTypes; }
 
 	int getNum() const { return m_Num; }
-	void setNum(int num ) { m_Num = num; }
+	void setNum( int num ) { m_Num = num; }
 
 	bool isTimeLimit() const { return m_bTimeLimit; }
-	void setTimeLimit(bool bTimeLimit = true ) { m_bTimeLimit = bTimeLimit; }
+	void setTimeLimit( bool bTimeLimit = true ) { m_bTimeLimit = bTimeLimit; }
 
 	int getHour() const { return m_Hour; }
-	void setHour(int hour ) { m_Hour = hour; }
+	void setHour( int hour ) { m_Hour = hour; }
 
 	// toString
 	string toString() const ;
@@ -74,7 +74,7 @@ private:
 class GoodsInfoManager 
 {
 public:
-	typedef map<DWORD, GoodsInfo*>			HashMapGoodsInfo;
+	typedef hash_map<DWORD, GoodsInfo*>			HashMapGoodsInfo;
 	typedef HashMapGoodsInfo::iterator			HashMapGoodsInfoItr;
 	typedef HashMapGoodsInfo::const_iterator	HashMapGoodsInfoConstItr;
 
@@ -97,7 +97,7 @@ public:
 	void addGoodsInfo(GoodsInfo* pGoodsInfo) throw(DuplicatedException, Error);
 
 	// get GoodsInfo
-	GoodsInfo* getGoodsInfo(DWORD id ) const throw();
+	GoodsInfo* getGoodsInfo( DWORD id ) const throw();
 
 	// toString for Debug
 	string toString() const throw();

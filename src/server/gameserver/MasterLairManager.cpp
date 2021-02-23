@@ -7,7 +7,7 @@
 
 #include "MasterLairManager.h"
 #include "MasterLairInfoManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Zone.h"
 #include "VariableManager.h"
 #include "Timeval.h"
@@ -28,14 +28,13 @@
 #include "ZoneGroupManager.h"
 #include "StringPool.h"
 
-#include "GCNoticeEvent.h"
-#include "GCSystemMessage.h"
-#include "GCCreateItem.h"
-#include "GCAddEffect.h"
-#include "GCSay.h"
+#include "Gpackets/GCNoticeEvent.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSay.h"
 
 #include <stdio.h>
-#include <map>
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -43,14 +42,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 MasterLairManager::MasterLairManager (Zone* pZone) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 		
 	Assert(pZone != NULL);
 	m_pZone = pZone;
 
-	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
 	m_MasterID = 0;           // 마스터 한 마리 
@@ -91,7 +90,7 @@ MasterLairManager::MasterLairManager (Zone* pZone)
 //
 ////////////////////////////////////////////////////////////////////////////////
 MasterLairManager::~MasterLairManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -100,7 +99,7 @@ MasterLairManager::~MasterLairManager ()
 	
 ////////////////////////////////////////////////////////////////////////////////
 //
-// enterCreature (Creature* )
+// enterCreature ( Creature* )
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -146,11 +145,11 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 	EffectMasterLairPass* pPassEffect = NULL;
 
 	// 현재 Zone의 EffectMasterLairPass를 갖고 있는가?
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
+	if (pCreature->isFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
 	{
 		if (g_pVariableManager->isRetryMasterLair())
 		{
-			Effect* pEffect = pCreature->getEffectManager()->findEffect(Effect::EFFECT_CLASS_MASTER_LAIR_PASS);
+			Effect* pEffect = pCreature->getEffectManager()->findEffect( Effect::EFFECT_CLASS_MASTER_LAIR_PASS );
 			Assert(pEffect!=NULL);
 
 			pPassEffect = dynamic_cast<EffectMasterLairPass*>(pEffect);
@@ -207,11 +206,11 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 	}
 	else
 	{
-		pPassEffect->setZoneID(m_pZone->getZoneID());
+		pPassEffect->setZoneID( m_pZone->getZoneID() );
 	}
 
-	pCreature->getEffectManager()->addEffect(pPassEffect);
-	pCreature->setFlag(Effect::EFFECT_CLASS_MASTER_LAIR_PASS);
+	pCreature->getEffectManager()->addEffect( pPassEffect );
+	pCreature->setFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS );
 	
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
@@ -248,10 +247,10 @@ ENTER_OK :
 		int timeGap = m_EventTime.tv_sec - currentTime.tv_sec;
 
 		GCNoticeEvent gcNoticeEvent;
-		gcNoticeEvent.setCode(NOTICE_EVENT_MASTER_COMBAT_TIME);
-		gcNoticeEvent.setParameter(timeGap);
-		//m_pZone->broadcastPacket(&gcNoticeEvent);
-		pCreature->getPlayer()->sendPacket(&gcNoticeEvent);
+		gcNoticeEvent.setCode( NOTICE_EVENT_MASTER_COMBAT_TIME );
+		gcNoticeEvent.setParameter( timeGap );
+		//m_pZone->broadcastPacket( &gcNoticeEvent );
+		pCreature->getPlayer()->sendPacket( &gcNoticeEvent );
 	}
 
 	return true;
@@ -259,7 +258,7 @@ ENTER_OK :
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// leaveCreature (Creature* )
+// leaveCreature ( Creature* )
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -291,10 +290,10 @@ bool MasterLairManager::leaveCreature(Creature* pCreature)
 	// 나갈 때 EffectMasterLairPass를 제거한다.
 	if (!g_pVariableManager->isRetryMasterLair())
 	{
-		if (pCreature->isFlag(Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
+		if (pCreature->isFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
 		{
-			pCreature->getEffectManager()->deleteEffect(Effect::EFFECT_CLASS_MASTER_LAIR_PASS);
-			pCreature->removeFlag(Effect::EFFECT_CLASS_MASTER_LAIR_PASS);
+			pCreature->getEffectManager()->deleteEffect( Effect::EFFECT_CLASS_MASTER_LAIR_PASS );
+			pCreature->removeFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS );
 		}
 	}
 	
@@ -315,7 +314,7 @@ bool MasterLairManager::leaveCreature(Creature* pCreature)
 // 
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::heartbeat() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -360,7 +359,7 @@ bool MasterLairManager::heartbeat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingPlayer() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -372,29 +371,29 @@ void MasterLairManager::processEventWaitingPlayer()
 	if (currentTime >= m_EventTime)
 	{
 		// 마스터 레어가 열려있다고 사람들에게 알려준다.
-//		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID());
+//		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //		Assert(pZoneInfo!=NULL);
 
 //		StringStream msg;
 //		msg << "마스터 레어(" << pZoneInfo->getFullName().c_str() << ")가 닫혔습니다.";
 
 //        char msg[50];
- //       sprintf(msg, g_pStringPool->c_str(STRID_MASTER_LAIR_CLOSED ),
-  //                      pZoneInfo->getFullName().c_str());
+ //       sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_CLOSED ),
+  //                      pZoneInfo->getFullName().c_str() );
 //
- //       string sMsg(msg);
+ //       string sMsg( msg );
 //
 //		GCSystemMessage gcSystemMessage;
 //		gcSystemMessage.setType(SYSTEM_MESSAGE_MASTER_LAIR);
-//		gcSystemMessage.setMessage(sMsg);
-//		g_pZoneGroupManager->broadcast(&gcSystemMessage);
+//		gcSystemMessage.setMessage( sMsg );
+//		g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 		GCNoticeEvent gcNoticeEvent;
 
 		gcNoticeEvent.setCode(NOTICE_EVENT_MASTER_LAIR_CLOSED);
-		gcNoticeEvent.setParameter(m_pZone->getZoneID());
+		gcNoticeEvent.setParameter( m_pZone->getZoneID() );
 
-		g_pZoneGroupManager->broadcast(&gcNoticeEvent);
+		g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
 		// Minion과의 싸움 시작
 		activeEventMinionCombat();
@@ -407,7 +406,7 @@ void MasterLairManager::processEventWaitingPlayer()
 		if (remainSec!=m_EventValue && remainSec!=0 && remainSec % 60 == 0)
 		{
 			// 마스터 레어가 열려있다고 사람들에게 알려준다.
-//			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID());
+//			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //			Assert(pZoneInfo!=NULL);
 
 //			StringStream msg;
@@ -415,16 +414,16 @@ void MasterLairManager::processEventWaitingPlayer()
 //				<< (remainSec/60) << "분 남았습니다.";
 
 //            char msg[100];
- //           sprintf(msg, g_pStringPool->c_str(STRID_MASTER_LAIR_OPENING_COUNT_DOWN ),
+ //           sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_OPENING_COUNT_DOWN ),
   //                          pZoneInfo->getFullName().c_str(),
-   //                         (int)(remainSec/60));
+   //                         (int)(remainSec/60) );
 //
- //           string sMsg(msg);
+ //           string sMsg( msg );
 //
 //			GCSystemMessage gcSystemMessage;
 //			gcSystemMessage.setType(SYSTEM_MESSAGE_MASTER_LAIR);
-//			gcSystemMessage.setMessage(sMsg);
-//			g_pZoneGroupManager->broadcast(&gcSystemMessage);
+//			gcSystemMessage.setMessage( sMsg );
+//			g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 			GCNoticeEvent gcNoticeEvent;
 
@@ -432,9 +431,9 @@ void MasterLairManager::processEventWaitingPlayer()
 
 			int remainMin = remainSec/60;
 			uint param = (remainMin << 16) | ((int)m_pZone->getZoneID());
-			gcNoticeEvent.setParameter(param);
+			gcNoticeEvent.setParameter( param );
 
-			g_pZoneGroupManager->broadcast(&gcNoticeEvent);
+			g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
 
 			m_EventValue = remainSec;
@@ -451,7 +450,7 @@ void MasterLairManager::processEventWaitingPlayer()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventMinionCombat() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -464,8 +463,8 @@ void MasterLairManager::processEventMinionCombat()
 	if (currentTime >= m_EventTime)
 	{
 		GCNoticeEvent gcNoticeEvent;
-		gcNoticeEvent.setCode(NOTICE_EVENT_MASTER_COMBAT_END);
-		m_pZone->broadcastPacket(&gcNoticeEvent);
+		gcNoticeEvent.setCode( NOTICE_EVENT_MASTER_COMBAT_END );
+		m_pZone->broadcastPacket( &gcNoticeEvent );
 
 		activeEventWaitingKickOut();
 	}
@@ -495,14 +494,14 @@ void MasterLairManager::processEventMinionCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventMasterCombat() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	Creature* pMaster = m_pZone->getMonsterManager()->getCreature(m_MasterID);
+	Creature* pMaster = m_pZone->getMonsterManager()->getCreature( m_MasterID );
 
 	if (pMaster==NULL)
 	{
@@ -551,7 +550,7 @@ void MasterLairManager::processEventMasterCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingKickOut() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -575,7 +574,7 @@ void MasterLairManager::processEventWaitingKickOut()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingRegen() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -593,7 +592,7 @@ void MasterLairManager::processEventWaitingRegen()
 		else
 		{
 			// 아니면 다음 리젠 시간까지 대기한다.
-			MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+			MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 			Assert(pInfo!=NULL);
 
 			m_RegenTime.tv_sec += pInfo->getRegenDelay();
@@ -609,11 +608,11 @@ void MasterLairManager::processEventWaitingRegen()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingPlayer() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
 	deleteAllMonsters();
@@ -624,7 +623,7 @@ void MasterLairManager::activeEventWaitingPlayer()
 	m_nPassPlayer = 0;
 
 	// 5분 대기 시간
-	getCurrentTime(m_RegenTime);
+	getCurrentTime( m_RegenTime );
 	m_EventTime.tv_sec = m_RegenTime.tv_sec + pInfo->getStartDelay();
 	m_EventTime.tv_usec = m_RegenTime.tv_usec;
 	m_EventValue = 0;
@@ -642,55 +641,55 @@ void MasterLairManager::activeEventWaitingPlayer()
 		// 기존에 있던 공격 Effect를 모두 지운다.
 		for (int i=0; i<10; i++) // 무한루프 방지 -_-;
 		{
-			Effect* pOldEffect = m_pZone->findEffect(Effect::EFFECT_CLASS_CONTINUAL_GROUND_ATTACK);
+			Effect* pOldEffect = m_pZone->findEffect( Effect::EFFECT_CLASS_CONTINUAL_GROUND_ATTACK );
 			if (pOldEffect==NULL)
 				break;
-			m_pZone->deleteEffect(pOldEffect->getObjectID());
+			m_pZone->deleteEffect( pOldEffect->getObjectID() );
 		}
 
 		EffectContinualGroundAttack* pEffect = new EffectContinualGroundAttack(m_pZone, Effect::EFFECT_CLASS_GROUND_ATTACK, lairAttackTick);
 		//EffectContinualGroundAttack* pEffect = new EffectContinualGroundAttack(m_pZone, Effect::EFFECT_CLASS_METEOR_STRIKE, lairAttackTick);
-		pEffect->setDeadline(pInfo->getStartDelay()*10);
-		pEffect->setNumber(lairAttackMinNumber, lairAttackMaxNumber);
+		pEffect->setDeadline( pInfo->getStartDelay()*10 );
+		pEffect->setNumber( lairAttackMinNumber, lairAttackMaxNumber );
 
 		ObjectRegistry & objectregister = m_pZone->getObjectRegistry();
 		objectregister.registerObject(pEffect);
 
 		// 존에다가 이펙트를 추가한다.
-		m_pZone->addEffect(pEffect);
+		m_pZone->addEffect( pEffect );
 
 		// 불기둥
 		GCNoticeEvent gcNoticeEvent;
-		gcNoticeEvent.setCode(NOTICE_EVENT_CONTINUAL_GROUND_ATTACK);
-		gcNoticeEvent.setParameter(pInfo->getStartDelay());	// 초
+		gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK );
+		gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// 초
 
-		m_pZone->broadcastPacket(&gcNoticeEvent);
+		m_pZone->broadcastPacket( &gcNoticeEvent );
 	}
 
 	// 마스터 레어가 열렸다고 사람들에게 알려준다.
-//	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(m_pZone->getZoneID());
+//	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //	Assert(pZoneInfo!=NULL);
 
 //	StringStream msg;
 //	msg << "마스터 레어(" << pZoneInfo->getFullName().c_str() << ")가 열렸습니다.";
 
 //    char msg[50];
- //   sprintf(msg, g_pStringPool->c_str(STRID_MASTER_LAIR_OPENED ),
-  //                  pZoneInfo->getFullName().c_str());
+ //   sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_OPENED ),
+  //                  pZoneInfo->getFullName().c_str() );
 //
- //   string sMsg(msg);
+ //   string sMsg( msg );
 //
 //	GCSystemMessage gcSystemMessage;
 //	gcSystemMessage.setType(SYSTEM_MESSAGE_MASTER_LAIR);
-//	gcSystemMessage.setMessage(sMsg);
-//	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+//	gcSystemMessage.setMessage( sMsg );
+//	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
 	GCNoticeEvent gcNoticeEvent;
 
 	gcNoticeEvent.setCode(NOTICE_EVENT_MASTER_LAIR_OPEN);
-	gcNoticeEvent.setParameter(m_pZone->getZoneID());
+	gcNoticeEvent.setParameter( m_pZone->getZoneID() );
 
-	g_pZoneGroupManager->broadcast(&gcNoticeEvent);
+	g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
 	// 다음 리젠 시간 설정
 	m_RegenTime.tv_sec += pInfo->getRegenDelay();
@@ -708,32 +707,32 @@ void MasterLairManager::activeEventWaitingPlayer()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventMinionCombat() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
 	// 불기둥 끝났다는 신호
 	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_CONTINUAL_GROUND_ATTACK_END);
-	m_pZone->broadcastPacket(&gcNoticeEvent);
+	gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK_END );
+	m_pZone->broadcastPacket( &gcNoticeEvent );
 
-	gcNoticeEvent.setCode(NOTICE_EVENT_MASTER_COMBAT_TIME);
-	gcNoticeEvent.setParameter(pInfo->getEndDelay());
-	m_pZone->broadcastPacket(&gcNoticeEvent);
+	gcNoticeEvent.setCode( NOTICE_EVENT_MASTER_COMBAT_TIME );
+	gcNoticeEvent.setParameter( pInfo->getEndDelay() );
+	m_pZone->broadcastPacket( &gcNoticeEvent );
 
 
 	// tile에서는 지우고 packet은 안 보낸다.
 	deleteAllMonsters();
 
 	// 마스터 생성
-	Monster* pMaster = new Monster(pInfo->getMasterNotReadyMonsterType());
+	Monster* pMaster = new Monster( pInfo->getMasterNotReadyMonsterType() );
 	Assert(pMaster != NULL);
 
 	// 시체에서 아이템이 안 나오도록 한다.
-	pMaster->setTreasure(false);
+	pMaster->setTreasure( false );
 
 	// 무적 상태로 설정
 	pMaster->setFlag(Effect::EFFECT_CLASS_NO_DAMAGE);
@@ -760,7 +759,7 @@ void MasterLairManager::activeEventMinionCombat()
 	m_EventValue = 0;
 
 	// 언제까지 싸울까?
-	getCurrentTime(m_EventTime);
+	getCurrentTime( m_EventTime );
 	m_EventTime.tv_sec += pInfo->getEndDelay();
 
 	//cout << "[" << (int)m_pZone->getZoneID() << "] MasterLairManager::activeEventMinionCombat" << endl;
@@ -774,16 +773,16 @@ void MasterLairManager::activeEventMinionCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventMasterCombat() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	Creature* pMaster = m_pZone->getMonsterManager()->getCreature(m_MasterID);
+	Creature* pMaster = m_pZone->getMonsterManager()->getCreature( m_MasterID );
 	// 여기서 마스터 관련 하드코딩을 해도 되겠지. - -;
 
 	if (pMaster!=NULL)
 	{
-		MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+		MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 		Assert(pInfo!=NULL);
 
 		Monster* pMasterMonster = dynamic_cast<Monster*>(pMaster);
@@ -792,11 +791,11 @@ void MasterLairManager::activeEventMasterCombat()
 		if (pInfo->getMasterMonsterType()!=pMasterMonster->getMonsterType())
 		{
 		  	// 마스터 생성
-			Monster* pNewMaster = new Monster(pInfo->getMasterMonsterType());
+			Monster* pNewMaster = new Monster( pInfo->getMasterMonsterType() );
 			Assert(pNewMaster != NULL);
 
 			// 시체에서 아이템이 안 나오도록 한다.
-			pNewMaster->setTreasure(false);
+			pNewMaster->setTreasure( false );
 
 			try
 			{
@@ -831,12 +830,12 @@ void MasterLairManager::activeEventMasterCombat()
 
 				/*
 				// 아이템으로 남겨둘랬는데.. AI제거하고 그냥 두는게 나을거 같아서
-				m_pZone->deleteCreature(pMaster, pMaster->getX(), pMaster->getY());
+				m_pZone->deleteCreature( pMaster, pMaster->getX(), pMaster->getY() );
 
 				ZoneCoord_t cx = pMasterMonster->getX();
 				ZoneCoord_t cy = pMasterMonster->getY();
 
-				Tile& tile = m_pZone->getTile(cx, cy);
+				Tile& tile = m_pZone->getTile( cx, cy );
 
 				bool bCreateCorpse = true;
 
@@ -869,7 +868,7 @@ void MasterLairManager::activeEventMasterCombat()
 			}
 			else
 			{
-				m_pZone->deleteCreature(pMaster, pMaster->getX(), pMaster->getY());
+				m_pZone->deleteCreature( pMaster, pMaster->getX(), pMaster->getY() );
 
 				SAFE_DELETE(pMaster);
 			}
@@ -900,22 +899,22 @@ void MasterLairManager::activeEventMasterCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingKickOut() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
 	// 마스터가 안 죽었다면 메세지 출력
-	Creature* pMaster = m_pZone->getMonsterManager()->getCreature(m_MasterID);
+	Creature* pMaster = m_pZone->getMonsterManager()->getCreature( m_MasterID );
 
 	if (pMaster!=NULL && pMaster->isAlive())
 	{
 		GCSay gcSay;
-		gcSay.setObjectID(pMaster->getObjectID());
-		gcSay.setColor(MASTER_SAY_COLOR);
-		gcSay.setMessage(pInfo->getRandomMasterNotDeadSay());
+		gcSay.setObjectID( pMaster->getObjectID() );
+		gcSay.setColor( MASTER_SAY_COLOR );
+		gcSay.setMessage( pInfo->getRandomMasterNotDeadSay() );
 		if (!gcSay.getMessage().empty())
 			m_pZone->broadcastPacket(pMaster->getX(), pMaster->getY(), &gcSay);
 	}
@@ -924,15 +923,15 @@ void MasterLairManager::activeEventWaitingKickOut()
 	m_Event = EVENT_WAITING_KICK_OUT;
 	m_EventValue = 0;
 
-	getCurrentTime(m_EventTime);
+	getCurrentTime( m_EventTime );
 	m_EventTime.tv_sec += pInfo->getKickOutDelay();
 
 	// Lair의 유저들에게 종료 시간을 보내준다.
 	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_KICK_OUT_FROM_ZONE);
-	gcNoticeEvent.setParameter(pInfo->getKickOutDelay());
+	gcNoticeEvent.setCode( NOTICE_EVENT_KICK_OUT_FROM_ZONE );
+	gcNoticeEvent.setParameter( pInfo->getKickOutDelay() );
 
-	m_pZone->broadcastPacket(&gcNoticeEvent);
+	m_pZone->broadcastPacket( &gcNoticeEvent );
 
 	//cout << "[" << (int)m_pZone->getZoneID() << "] MasterLairManager::activeEventKickOut" << endl;
 
@@ -945,7 +944,7 @@ void MasterLairManager::activeEventWaitingKickOut()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingRegen() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -972,15 +971,15 @@ void MasterLairManager::activeEventWaitingRegen()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::deleteAllMonsters()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// Zone의 MonsterManager에서 제거한 다음에 지워준다.
-	//m_pZone->getMonsterManager()->deleteCreature(m_pMaster->getObjectID());
+	//m_pZone->getMonsterManager()->deleteCreature( m_pMaster->getObjectID() );
 	//SAFE_DELETE(m_pMaster);
 	bool bDeleteFromZone = true;
-	m_pZone->getMonsterManager()->deleteAllMonsters(bDeleteFromZone);
+	m_pZone->getMonsterManager()->deleteAllMonsters( bDeleteFromZone );
 
 	m_MasterID = 0;
 	m_MasterX = 0;
@@ -995,7 +994,7 @@ void MasterLairManager::deleteAllMonsters()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::killAllMonsters()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1003,11 +1002,11 @@ void MasterLairManager::killAllMonsters()
 
 	/*
 	// 강제로 죽이지 않을 몬스터
-	map<ObjectID_t, ObjectID_t> exceptCreatures;
+	hash_map<ObjectID_t, ObjectID_t> exceptCreatures;
 	exceptCreatures[m_MasterID] = m_MasterID;
 
 	// 모든 몬스터를 죽인다.
-	m_pZone->getMonsterManager()->killAllMonsters(exceptCreatures);
+	m_pZone->getMonsterManager()->killAllMonsters( exceptCreatures );
 	*/
 
 	__END_CATCH
@@ -1019,7 +1018,7 @@ void MasterLairManager::killAllMonsters()
 ////////////////////////////////////////////////////////////////////////////////
 /*
 void MasterLairManager::increaseSummonedMonsterNumber(int num) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1038,7 +1037,7 @@ void MasterLairManager::increaseSummonedMonsterNumber(int num)
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::startEvent()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1053,7 +1052,7 @@ void MasterLairManager::startEvent()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::stopEvent()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1069,11 +1068,11 @@ void MasterLairManager::stopEvent()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::kickOutPlayers()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo(m_pZone->getZoneID());
+	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
 	/*
@@ -1085,7 +1084,7 @@ void MasterLairManager::kickOutPlayers()
 
 	// 존의 모든 사용자들을 다른 곳으로 이동시킨다.
 	PCManager* pPCManager = (PCManager*)(m_pZone->getPCManager());
-	pPCManager->transportAllCreatures(zoneID, zoneX, zoneY);
+	pPCManager->transportAllCreatures( zoneID, zoneX, zoneY );
 	*/
 
 
@@ -1095,21 +1094,21 @@ void MasterLairManager::kickOutPlayers()
 	int lairAttackMaxNumber = pInfo->getLairAttackMaxNumber();
 
 	EffectContinualGroundAttack* pEffect = new EffectContinualGroundAttack(m_pZone, Effect::EFFECT_CLASS_METEOR_STRIKE, lairAttackTick);
-	pEffect->setDeadline(pInfo->getStartDelay()*10);
-	pEffect->setNumber(lairAttackMinNumber, lairAttackMaxNumber);
+	pEffect->setDeadline( pInfo->getStartDelay()*10 );
+	pEffect->setNumber( lairAttackMinNumber, lairAttackMaxNumber );
 
 	ObjectRegistry & objectregister = m_pZone->getObjectRegistry();
 	objectregister.registerObject(pEffect);
 
 	// 존에다가 이펙트를 추가한다.
-	m_pZone->addEffect(pEffect);
+	m_pZone->addEffect( pEffect );
 
 	// 메테오 공격
 	GCNoticeEvent gcNoticeEvent;
-	gcNoticeEvent.setCode(NOTICE_EVENT_CONTINUAL_GROUND_ATTACK);
-	gcNoticeEvent.setParameter(pInfo->getStartDelay());	// 초
+	gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK );
+	gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// 초
 
-	m_pZone->broadcastPacket(&gcNoticeEvent);
+	m_pZone->broadcastPacket( &gcNoticeEvent );
 
 	__END_CATCH
 }
@@ -1125,13 +1124,13 @@ void MasterLairManager::kickOutPlayers()
 // 이미 가지고 있는 사람은 주울 수 없다.
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::giveKillingReward() 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	const PCManager* pPCManager = m_pZone->getPCManager();
-	const map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
-	map< ObjectID_t, Creature* >::const_iterator itr;
+	const hash_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
+	hash_map< ObjectID_t, Creature* >::const_iterator itr;
 
 	if (creatures.empty())
 		return;
@@ -1156,7 +1155,7 @@ void MasterLairManager::giveKillingReward()
 			//
 			if (pPC->getDistance(m_MasterX, m_MasterY) <= 7)
 			{
-				pPC->increaseRankExp(MASTER_KILL_RANK_EXP);
+				pPC->increaseRankExp( MASTER_KILL_RANK_EXP );
 			}
 
 			//------------------------------------------------------------
@@ -1198,16 +1197,16 @@ void MasterLairManager::giveKillingReward()
 	            pItem->create(pCreature->getName(), STORAGE_INVENTORY, 0, p.x, p.y);
 
 				// ItemTrace 에 Log 를 남긴다
-				if (pItem != NULL && pItem->isTraceItem() )
+				if ( pItem != NULL && pItem->isTraceItem() )
 				{
-					remainTraceLog(pItem, "LairMaster", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
-					remainTraceLogNew(pItem, pCreature->getName(), ITL_GET, ITLD_EVENTNPC, m_pZone->getZoneID());
+					remainTraceLog( pItem, "LairMaster", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+					remainTraceLogNew( pItem, pCreature->getName(), ITL_GET, ITLD_EVENTNPC, m_pZone->getZoneID() );
 				}
 
 				// 인벤토리에 아이템 생성 패킷을 보내준다.
 				GCCreateItem gcCreateItem;
 
-				makeGCCreateItem(&gcCreateItem, pItem, p.x, p.y);
+				makeGCCreateItem( &gcCreateItem, pItem, p.x, p.y );
 
 				pCreature->getPlayer()->sendPacket(&gcCreateItem);
 			}
@@ -1218,15 +1217,15 @@ void MasterLairManager::giveKillingReward()
 				TPOINT p = m_pZone->addItem(pItem, pCreature->getX(), pCreature->getY());
 				if (p.x != -1)
 				{
-					pItem->create("", STORAGE_ZONE, m_pZone->getZoneID(), p.x, p.y);
+					pItem->create("", STORAGE_ZONE, m_pZone->getZoneID(), p.x, p.y );
 
 					// ItemTrace 에 Log 를 남긴다
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
-						sprintf(zoneName , "%4d%3d%3d", m_pZone->getZoneID(), p.x, p.y);
-						remainTraceLog(pItem, "LairMaster", zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
-						remainTraceLogNew(pItem, zoneName, ITL_GET , ITLD_EVENTNPC, m_pZone->getZoneID(), p.x, p.y);
+						sprintf( zoneName , "%4d%3d%3d", m_pZone->getZoneID(), p.x, p.y);
+						remainTraceLog( pItem, "LairMaster", zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+						remainTraceLogNew( pItem, zoneName, ITL_GET , ITLD_EVENTNPC, m_pZone->getZoneID(), p.x, p.y);
 					}
 				}
 				else

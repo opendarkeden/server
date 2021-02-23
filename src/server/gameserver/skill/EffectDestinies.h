@@ -37,7 +37,7 @@ public:
 	Damage_t getDamage(void) const { return m_Damage; }
 	void setDamage(Damage_t Damage ) { m_Damage = Damage; }
 
-	void setTargetType(Creature* pCreature);
+	void setTargetType( Creature* pCreature );
 
 private:
 	Creature::CreatureClass	m_TargetClass;

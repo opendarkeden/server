@@ -24,7 +24,7 @@
 #include "WarScheduler.h"
 #include "ShrineInfoManager.h"
 #include "StringPool.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "RaceWarLimiter.h"
 #include "mission/QuestInfoManager.h"
 #include "GoodsInfoManager.h"
@@ -48,7 +48,7 @@ EventReloadInfo::~EventReloadInfo()
 }
 
 void EventReloadInfo::activate () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -67,7 +67,7 @@ void EventReloadInfo::activate ()
 			if (m_InfoValue==0)
 			{
 				// 전부 다 loading
-				g_pMonsterInfoManager->reload(0);
+				g_pMonsterInfoManager->reload( 0 );
 			}
 			else
 			{
@@ -78,7 +78,7 @@ void EventReloadInfo::activate ()
 
 				for (; itr!=monsters.end(); itr++)
 				{
-					g_pMonsterInfoManager->reload(*itr);
+					g_pMonsterInfoManager->reload( *itr );
 				}
 			}
 		}
@@ -98,7 +98,7 @@ void EventReloadInfo::activate ()
 		case ITEM_INFO :
 		{
 			// m_InfoValue는 loading할 ItemInfo의 Class이다
-			g_pItemInfoManager->getInfoManager((Item::ItemClass)m_InfoValue )->reload();
+			g_pItemInfoManager->getInfoManager( (Item::ItemClass)m_InfoValue )->reload();
 		}
 		break;
 
@@ -128,7 +128,7 @@ void EventReloadInfo::activate ()
 		{
 			ZoneID_t zoneID = (ZoneID_t)m_InfoValue;
 
-			Zone* pZone = getZoneByZoneID(zoneID);
+			Zone* pZone = getZoneByZoneID( zoneID );
 
 			if (m_pGamePlayer!=NULL)
 			{
@@ -146,21 +146,21 @@ void EventReloadInfo::activate ()
 //						msg << "[" << (int)zoneID << "] 성에는 " << pWarScheduler->getSize() << " 개의 전쟁이 준비중입니다.";
 
 						char msg[100];
-						sprintf(msg, g_pStringPool->c_str(STRID_WAR_SCHEDULE_INFO ),
-										(int)zoneID, pWarScheduler->getSize());
-						gcSystemMessage.setMessage(msg);
+						sprintf( msg, g_pStringPool->c_str( STRID_WAR_SCHEDULE_INFO ),
+										(int)zoneID, pWarScheduler->getSize() );
+						gcSystemMessage.setMessage( msg );
 					}
 					else
 					{
-						gcSystemMessage.setMessage(g_pStringPool->getString(STRID_THIS_ZONE_IS_NOT_CASTLE ));
+						gcSystemMessage.setMessage( g_pStringPool->getString( STRID_THIS_ZONE_IS_NOT_CASTLE ) );
 					}
 				}
 				else
 				{
-					gcSystemMessage.setMessage(g_pStringPool->getString(STRID_NO_SUCH_ZONE ));
+					gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_SUCH_ZONE ) );
 				}
 
-				m_pGamePlayer->sendPacket(&gcSystemMessage);
+				m_pGamePlayer->sendPacket( &gcSystemMessage );
 			}
 		}
 		break;
@@ -172,8 +172,8 @@ void EventReloadInfo::activate ()
 			if (m_pGamePlayer!=NULL)
 			{
 				GCSystemMessage gcSystemMessage;
-				gcSystemMessage.setMessage(g_pStringPool->getString(STRID_LOAD_BLOOD_BIBLE_OWNER_INFO ));
-				m_pGamePlayer->sendPacket(&gcSystemMessage);
+				gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_BLOOD_BIBLE_OWNER_INFO ) );
+				m_pGamePlayer->sendPacket( &gcSystemMessage );
 			}
 		}
 		break;
@@ -187,8 +187,8 @@ void EventReloadInfo::activate ()
 			if (m_pGamePlayer!=NULL)
 			{
 				GCSystemMessage gcSystemMessage;
-				gcSystemMessage.setMessage("Quest_Info_Loaded");
-				m_pGamePlayer->sendPacket(&gcSystemMessage);
+				gcSystemMessage.setMessage( "Quest_Info_Loaded" );
+				m_pGamePlayer->sendPacket( &gcSystemMessage );
 			}
 		break;*/
 
@@ -209,7 +209,7 @@ void EventReloadInfo::activate ()
 }
 
 string EventReloadInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 	msg << "EventReloadInfo("

@@ -21,15 +21,15 @@
 
 #include "item/Key.h"
 
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveSpecialEventItem::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -39,7 +39,7 @@ void ActionGiveSpecialEventItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 	BEGIN_DB
 	{
-        pStmt = g_pDatabaseManager->getConnection(Thread::self() )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
 		pResult = pStmt->executeQuery("SELECT Count FROM SpecialEvent WHERE Name='%s'", pPlayer->getID().c_str());
 
 		// 해당 로우가 없다는 말은 이 사람이 이벤트 아이템을 받을 자격이 없다는 것을 말한다.
@@ -74,8 +74,8 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 //			buf << pPlayer->getID() << " 님은 피의 전쟁 이벤트에 참가하지 않으셨습니다.";
 
 			char buf[100];
-			sprintf(buf, g_pStringPool->c_str(STRID_DO_NOT_JOIN_BLOOD_WAR_EVENT ),
-							pPlayer->getID().c_str());
+			sprintf( buf, g_pStringPool->c_str( STRID_DO_NOT_JOIN_BLOOD_WAR_EVENT ),
+							pPlayer->getID().c_str() );
 
 			GCSystemMessage gcSystemMessage;
 			gcSystemMessage.setMessage(buf);
@@ -99,8 +99,8 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 //		buf << pPlayer->getID() << " 님은 이미 피의 전쟁 이벤트 관련 아이템을 받으셨습니다.";
 
 		char buf[100];
-		sprintf(buf, g_pStringPool->c_str(STRID_ALREADY_TAKE_BLOOD_WAR_EVET_ITEM ),
-						pPlayer->getID().c_str());
+		sprintf( buf, g_pStringPool->c_str( STRID_ALREADY_TAKE_BLOOD_WAR_EVET_ITEM ),
+						pPlayer->getID().c_str() );
 
 		GCSystemMessage gcSystemMessage;
 		gcSystemMessage.setMessage(buf);
@@ -120,7 +120,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 	if (pPC->isSlayer())
 	{
-		list<OptionType_t> option50;	option50.push_back(50);
+		list<OptionType_t> option50;	option50.push_back( 50 );
 		list<OptionType_t> optionNULL;
 
 		Item* pItem1      = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_BRACELET, 3, option50);
@@ -169,9 +169,9 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 				msg << "Inventory Adding Succeeded : " << pItem->toString() << "\n";
 
 				// ItemTraceLog 를 남긴다
-				if (pItem != NULL && pItem->isTraceItem() )
+				if ( pItem != NULL && pItem->isTraceItem() )
 				{
-					remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+					remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 				}
 			}
 			else
@@ -184,11 +184,11 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 					// ItemTraceLog 를 남긴다
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
-						sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-						remainTraceLog(pItem, pCreature1->getName(), zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+						sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+						remainTraceLog( pItem, pCreature1->getName(), zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 					}
 				}
 				else
@@ -202,7 +202,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 	}
 	else
 	{
-		list<OptionType_t> option50;	option50.push_back(50);
+		list<OptionType_t> option50;	option50.push_back( 50 );
 		list<OptionType_t> optionNULL;
 
 		Item* pItem1 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_RING, 3, option50);
@@ -247,9 +247,9 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 				msg << "Inventory Adding Succeeded : " << pItem->toString() << "\n";
 
 				// ItemTraceLog 를 남긴다
-				if (pItem != NULL && pItem->isTraceItem() )
+				if ( pItem != NULL && pItem->isTraceItem() )
 				{
-					remainTraceLog(pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+					remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 				}
 			}
 			else
@@ -262,11 +262,11 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
 					// ItemTraceLog 를 남긴다
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
-						sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
-						remainTraceLog(pItem, pCreature1->getName(), zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+						sprintf( zoneName, "%4d%3d%3d", pZone->getZoneID(), pt.x, pt.y);
+						remainTraceLog( pItem, pCreature1->getName(), zoneName, ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 					}
 
 				}
@@ -283,7 +283,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 	msg << "Deleting SpecialEvent Count, ";
 	BEGIN_DB
 	{
-        pStmt = g_pDatabaseManager->getConnection(Thread::self() )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
 		pStmt->executeQuery("UPDATE SpecialEvent SET Count = 0 WHERE Name='%s'", pPlayer->getID().c_str());
 		SAFE_DELETE(pStmt);
 	}
@@ -300,7 +300,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveSpecialEventItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

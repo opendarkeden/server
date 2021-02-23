@@ -23,13 +23,13 @@ class ExtraSlotInfo : public PCItemInfo
 {
 public:
 	ExtraSlotInfo();
-	virtual ~ExtraSlotInfo() throw();
+	virtual ~ExtraSlotInfo();
 
 public:
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	string toString () const throw();
+	string toString () const throw ();
 };
 
 #endif

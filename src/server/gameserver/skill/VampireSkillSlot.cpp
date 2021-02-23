@@ -66,8 +66,8 @@ void VampireSkillSlot::create(const string & OwnerID)
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("INSERT INTO VampireSkillSave (OwnerID, SkillType, Delay, CastingTime, NextTime) VALUES ('%s', %d, %d, %d, %d )",
-								OwnerID.c_str(), m_SkillType, m_Interval, m_CastingTime, m_runTime.tv_sec);
+		pStmt->executeQuery( "INSERT INTO VampireSkillSave (OwnerID, SkillType, Delay, CastingTime, NextTime) VALUES ( '%s', %d, %d, %d, %d )",
+								OwnerID.c_str(), m_SkillType, m_Interval, m_CastingTime, m_runTime.tv_sec );
 
 
 		SAFE_DELETE(pStmt); 	// by sigi
@@ -100,7 +100,7 @@ void VampireSkillSlot::save(const string & OwnerID)
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE VampireSkillSave SET Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
+		pStmt->executeQuery( "UPDATE VampireSkillSave SET Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
 								m_Interval, OwnerID.c_str(), m_SkillType);
 
 		SAFE_DELETE(pStmt);
@@ -133,7 +133,7 @@ void VampireSkillSlot::save()
 		*/
 
 
-		pStmt->executeQuery("UPDATE VampireSkillSave SET Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
+		pStmt->executeQuery( "UPDATE VampireSkillSave SET Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
 								m_Interval, m_Name.c_str(), m_SkillType);
 
 		SAFE_DELETE(pStmt);
@@ -143,11 +143,11 @@ void VampireSkillSlot::save()
 	__END_CATCH
 }
 
-Turn_t VampireSkillSlot::getRemainTurn(Timeval currentTime ) const
+Turn_t VampireSkillSlot::getRemainTurn( Timeval currentTime ) const
 	throw()
 {
-	Turn_t remainTurn = (m_runTime.tv_sec - currentTime.tv_sec ) * 10
-					  + (m_runTime.tv_usec - currentTime.tv_usec ) / 100000;
+	Turn_t remainTurn = ( m_runTime.tv_sec - currentTime.tv_sec ) * 10
+					  + ( m_runTime.tv_usec - currentTime.tv_usec ) / 100000;
 
 	return remainTurn;
 }

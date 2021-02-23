@@ -18,8 +18,6 @@
 #include "VariableManager.h"
 #include "DB.h"
 
-#include <map>
-
 //////////////////////////////////////////////////////////////////////////////
 // ZONEID const Variable
 //////////////////////////////////////////////////////////////////////////////
@@ -57,7 +55,7 @@ ResurrectLocationManager::~ResurrectLocationManager()
 }
 
 void ResurrectLocationManager::init() 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -67,7 +65,7 @@ void ResurrectLocationManager::init()
 }
 
 void ResurrectLocationManager::load() 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -82,7 +80,7 @@ void ResurrectLocationManager::load()
 		if (pResult->getRowCount() == 0)
 		{
 			//cerr << "ResurrectLocationManager::load() : TABLE DOES NOT EXIST!" << endl;
-			throw("ResurrectLocationManager::load() : TABLE DOES NOT EXIST!");
+			throw ("ResurrectLocationManager::load() : TABLE DOES NOT EXIST!");
 		}
 
 		while (pResult->next())
@@ -116,11 +114,11 @@ void ResurrectLocationManager::load()
 }
 
 bool ResurrectLocationManager::getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const 
-	throw()//NoSuchElementException)
+	throw ()//NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
 
 	if (itr == m_SlayerPosition.end())
 	{
@@ -141,11 +139,11 @@ bool ResurrectLocationManager::getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCo
 
 
 void ResurrectLocationManager::addSlayerPosition(ZoneID_t id, const ZONE_COORD& coord) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
 
 	if (itr != m_SlayerPosition.end())
 	{
@@ -159,11 +157,11 @@ void ResurrectLocationManager::addSlayerPosition(ZoneID_t id, const ZONE_COORD& 
 }
 
 bool ResurrectLocationManager::getVampirePosition(ZoneID_t id, ZONE_COORD& zoneCoord) const 
-	throw()//NoSuchElementException)
+	throw ()//NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
 
 	if (itr == m_VampirePosition.end())
 	{
@@ -184,11 +182,11 @@ bool ResurrectLocationManager::getVampirePosition(ZoneID_t id, ZONE_COORD& zoneC
 
 
 void ResurrectLocationManager::addVampirePosition(ZoneID_t id, const ZONE_COORD& coord) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
 
 	if (itr != m_VampirePosition.end())
 	{
@@ -203,11 +201,11 @@ void ResurrectLocationManager::addVampirePosition(ZoneID_t id, const ZONE_COORD&
 
 
 bool ResurrectLocationManager::getOustersPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const 
-	throw()//NoSuchElementException)
+	throw ()//NoSuchElementException)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
 
 	if (itr == m_OustersPosition.end())
 	{
@@ -223,11 +221,11 @@ bool ResurrectLocationManager::getOustersPosition(ZoneID_t id, ZONE_COORD& zoneC
 
 
 void ResurrectLocationManager::addOustersPosition(ZoneID_t id, const ZONE_COORD& coord) 
-	throw(DuplicatedException, Error)
+	throw (DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
-	map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
+	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
 
 	if (itr != m_OustersPosition.end())
 	{
@@ -239,45 +237,45 @@ void ResurrectLocationManager::addOustersPosition(ZoneID_t id, const ZONE_COORD&
 	__END_CATCH
 }
 
-bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zoneCoord ) const
+bool ResurrectLocationManager::getPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) const
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	try
 	{
 		bool bFindPosition = false;
 
 		ZoneID_t castleZoneID;
-		bool isCastleZone = g_pCastleInfoManager->getCastleZoneID(pPC->getResurrectZoneID(), castleZoneID);
+		bool isCastleZone = g_pCastleInfoManager->getCastleZoneID( pPC->getResurrectZoneID(), castleZoneID );
 
-		if (g_pWarSystem->hasActiveRaceWar() && pPC->getZone()->isHolyLand() )
+		if ( g_pWarSystem->hasActiveRaceWar() && pPC->getZone()->isHolyLand() )
 		{
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
-				if (rand()%2 ) castleZoneID = 1201;
+				if ( rand()%2 ) castleZoneID = 1201;
 				else castleZoneID = 1203;
 			}
-			else if (pPC->isVampire() )
+			else if ( pPC->isVampire() )
 			{
-				if (rand()%2 ) castleZoneID = 1202;
+				if ( rand()%2 ) castleZoneID = 1202;
 				else castleZoneID = 1204;
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
-				if (rand()%2 ) castleZoneID = 1205;
+				if ( rand()%2 ) castleZoneID = 1205;
 				else castleZoneID = 1206;
 			}
 			else castleZoneID = 0;
 
-			if (castleZoneID != 0 )
+			if ( castleZoneID != 0 )
 			{
-				CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(castleZoneID);
-				if (pCastleInfo != NULL )
+				CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( castleZoneID );
+				if ( pCastleInfo != NULL )
 				{
-					pCastleInfo->getResurrectPosition(CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST, zoneCoord);
+					pCastleInfo->getResurrectPosition( CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST, zoneCoord );
 					bFindPosition = true;
 				}
 			}
@@ -293,19 +291,19 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 			if (pPC->getResurrectZoneID()!=0)
 			{
 				try {
-					pResZoneInfo = g_pZoneInfoManager->getZoneInfo(pPC->getResurrectZoneID());
+					pResZoneInfo = g_pZoneInfoManager->getZoneInfo( pPC->getResurrectZoneID() );
 				} catch (Throwable& t) {
-					filelog("ResurrectLocationError.txt", "%s", t.toString().c_str());
+					filelog( "ResurrectLocationError.txt", "%s", t.toString().c_str() );
 				}
 			}
 	
 			// 아담의 성지로 들어가는 경우.. 전쟁 신청을 안 했다면..
-			if ((pResZoneInfo!=NULL && pResZoneInfo->isHolyLand() 
+			if ( ( pResZoneInfo!=NULL && pResZoneInfo->isHolyLand() 
 					|| pPC->getZone()->isHolyLand() )
-				&& !pPC->isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
+				&& !pPC->isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
 			{
 				// 각 종족의 기본 부활위치로 보낸다.
-				if (getRaceDefaultPosition(pPC->getRace(), zoneCoord ) )
+				if ( getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 				{
 					bFindPosition = true;
 				}
@@ -318,11 +316,11 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 
 		if (!bFindPosition)
 		{
-			if (isCastleZone )
+			if ( isCastleZone )
 			{
-				if (!g_pCastleInfoManager->getResurrectPosition(pPC, zoneCoord ) )
+				if ( !g_pCastleInfoManager->getResurrectPosition( pPC, zoneCoord ) )
 				{
-					if (!getRaceDefaultPosition(pPC->getRace(), zoneCoord ) )
+					if ( !getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 					{
 						throw Error("Critical Error : ResurrectInfo is not established!2");
 					}
@@ -330,7 +328,7 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 			}
 			else
 			{
-				if (!getBasicPosition(pPC, zoneCoord ) )
+				if ( !getBasicPosition( pPC, zoneCoord ) )
 				{
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 				}
@@ -339,7 +337,7 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 		// 유료존 체크
-		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(zoneCoord.id);
+		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneCoord.id );
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
 		Assert(pGamePlayer!=NULL);
 
@@ -359,20 +357,20 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 			{
 				// 유료 서비스 사용 불가인 경우
 				// 각 종족의 default 존으로 설정한다.
-				if (!getRaceDefaultPosition(pPC->getRace(), zoneCoord ) )
+				if ( !getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
 		}
 #endif
 	}
-	catch (Error& e )
+	catch ( Error& e )
 	{
-		filelog("ResurrectLocationError.txt", "%s", e.toString().c_str());
+		filelog( "ResurrectLocationError.txt", "%s", e.toString().c_str() );
 		return false;
 	}
-	catch (Throwable& t )
+	catch ( Throwable& t )
 	{
-		filelog("ResurrectLocationError.txt", "%s", t.toString().c_str());
+		filelog( "ResurrectLocationError.txt", "%s", t.toString().c_str() );
 		return false;
 	}
 
@@ -381,56 +379,56 @@ bool ResurrectLocationManager::getPosition(PlayerCreature* pPC, ZONE_COORD& zone
 	__END_CATCH
 }
 
-bool ResurrectLocationManager::getBasicPosition(PlayerCreature* pPC, ZONE_COORD& zoneCoord ) const
+bool ResurrectLocationManager::getBasicPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) const
 	throw(Error)
 {
 	__BEGIN_TRY
 
 	// 일단 PlayerCreature에 지정되어 있는 부활 위치를 가져온다.
-	if (pPC->isSlayer() )
+	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		Assert(pSlayer != NULL);
+		Assert( pSlayer != NULL );
 
 		// 초보자 이면 초보자존에 부활하도록 한다.
-		if (pSlayer->isNovice() )
+		if ( pSlayer->isNovice() )
 		{
-			pPC->setResurrectZoneID(SLAYER_NOVICE_ZONE_ID);
+			pPC->setResurrectZoneID( SLAYER_NOVICE_ZONE_ID );
 		}
 
-		if (!getSlayerPosition(pPC->getResurrectZoneID(), zoneCoord ) )
+		if ( !getSlayerPosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
 			// 만약 지정된 부활 존이 없다면 현재 있는 존의 부활 위치를 가져온다.
-			if (!getSlayerPosition(pPC->getZone()->getZoneID(), zoneCoord ) )
+			if ( !getSlayerPosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
 				// 현재 존도 없다면 Default 다.
-				if (!getSlayerPosition(SLAYER_DEFAULT_ZONE_ID, zoneCoord ) )
+				if ( !getSlayerPosition( SLAYER_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
 		}
 	}
-	else if (pPC->isVampire() )
+	else if ( pPC->isVampire() )
 	{
-		if (!getVampirePosition(pPC->getResurrectZoneID(), zoneCoord ) )
+		if ( !getVampirePosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
 			// 만약 지정된 부활 존이 없다면 현재 있는 존의 부활 위치를 가져온다.
-			if (!getVampirePosition(pPC->getZone()->getZoneID(), zoneCoord ) )
+			if ( !getVampirePosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
 				// 현재 존도 없다면 Default 다.
-				if (!getVampirePosition(VAMPIRE_DEFAULT_ZONE_ID, zoneCoord ) )
+				if ( !getVampirePosition( VAMPIRE_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
 		}
 	}
-	else if (pPC->isOusters() )
+	else if ( pPC->isOusters() )
 	{
-		if (!getOustersPosition(pPC->getResurrectZoneID(), zoneCoord ) )
+		if ( !getOustersPosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
 			// 만약 지정된 부활 존이 없다면 현재 있는 존의 부활 위치를 가져온다.
-			if (!getOustersPosition(pPC->getZone()->getZoneID(), zoneCoord ) )
+			if ( !getOustersPosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
 				// 현재 존도 없다면 Default 다.
-				if (!getOustersPosition(OUSTERS_DEFAULT_ZONE_ID, zoneCoord ) )
+				if ( !getOustersPosition( OUSTERS_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
 		}
@@ -441,17 +439,17 @@ bool ResurrectLocationManager::getBasicPosition(PlayerCreature* pPC, ZONE_COORD&
 	__END_CATCH
 }
 
-bool ResurrectLocationManager::getRaceDefaultPosition(Race_t race, ZONE_COORD& zoneCoord ) const
+bool ResurrectLocationManager::getRaceDefaultPosition( Race_t race, ZONE_COORD& zoneCoord ) const
 	throw()
 {
 	__BEGIN_TRY
 
-	if (race == RACE_SLAYER )
-		return getSlayerPosition(SLAYER_DEFAULT_ZONE_ID, zoneCoord);
-	else if (race == RACE_VAMPIRE )
-		return getVampirePosition(VAMPIRE_DEFAULT_ZONE_ID, zoneCoord);
-	else if (race == RACE_OUSTERS )
-		return getOustersPosition(OUSTERS_DEFAULT_ZONE_ID, zoneCoord);
+	if ( race == RACE_SLAYER )
+		return getSlayerPosition( SLAYER_DEFAULT_ZONE_ID, zoneCoord );
+	else if ( race == RACE_VAMPIRE )
+		return getVampirePosition( VAMPIRE_DEFAULT_ZONE_ID, zoneCoord );
+	else if ( race == RACE_OUSTERS )
+		return getOustersPosition( OUSTERS_DEFAULT_ZONE_ID, zoneCoord );
 
 	return false;
 

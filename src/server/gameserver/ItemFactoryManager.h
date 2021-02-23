@@ -9,7 +9,7 @@
 
 #include "Item.h"
 #include "ItemFactory.h"
-#include <map>
+#include <hash_map>
 
 #define CREATE_ITEM(C, T, O) g_pItemFactoryManager->createItem(C, T, O)
 
@@ -32,14 +32,14 @@ public:
 
 	string getItemName(Item::ItemClass IClass) throw();
 
-	Item::ItemClass getItemClassByName(const string & ClassName ) throw();
+	Item::ItemClass getItemClassByName( const string & ClassName ) throw();
 
 	string toString() const throw();
 
 private:
 	ItemFactory ** m_Factories; // 아이템팩토리의 배열
 	ushort         m_Size;      // 아이템팩토리배열의 크기
-	map<string, Item::ItemClass> m_ItemClassMap;
+	hash_map<string, Item::ItemClass> m_ItemClassMap;
 
 };
 

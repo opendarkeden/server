@@ -12,20 +12,20 @@
 //----------------------------------------------------------------------
 // read data from socket input stream
 //----------------------------------------------------------------------
-void SubSlayerSkillInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void SubSlayerSkillInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
 
-	iStream.read(m_SkillType);
-	iStream.read(m_Exp);
-	iStream.read(m_ExpLevel);
-	iStream.read(m_Interval);
-	iStream.read(m_CastingTime);
-	iStream.read(m_Enable);
+	iStream.read( m_SkillType );
+	iStream.read( m_Exp );
+	iStream.read( m_ExpLevel );
+	iStream.read( m_Interval );
+	iStream.read( m_CastingTime );
+	iStream.read( m_Enable );
 
-	} catch(Throwable & t ) {
+	} catch( Throwable & t ) {
 		cout << t.toString() << endl;
 	}
 
@@ -35,19 +35,19 @@ void SubSlayerSkillInfo::read (SocketInputStream & iStream )
 //----------------------------------------------------------------------
 // write data to socket output stream
 //----------------------------------------------------------------------
-void SubSlayerSkillInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void SubSlayerSkillInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try {
 
-	oStream.write(m_SkillType);
-	oStream.write(m_Exp);
-	oStream.write(m_ExpLevel);
-	oStream.write(m_Interval);
-	oStream.write(m_CastingTime);
-	oStream.write(m_Enable);
+	oStream.write( m_SkillType );
+	oStream.write( m_Exp );
+	oStream.write( m_ExpLevel );
+	oStream.write( m_Interval );
+	oStream.write( m_CastingTime );
+	oStream.write( m_Enable );
 
 	} catch (Throwable & t ) {
 		cout << t.toString() << endl;
@@ -60,7 +60,7 @@ void SubSlayerSkillInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SubSlayerSkillInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

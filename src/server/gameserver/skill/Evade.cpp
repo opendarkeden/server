@@ -7,9 +7,9 @@
 #include "Evade.h"
 #include "EffectEvade.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -35,8 +35,8 @@ void Evade::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEff
 		GCSkillToSelfOK1 _GCSkillToSelfOK1;
 		GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
-		Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
-		if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
+		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
+		if ( pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_CHAKRAM || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
 		{
 			executeSkillFailException(pOusters, getSkillType());
 			return;
@@ -53,7 +53,7 @@ void Evade::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEff
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_EVADE);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{

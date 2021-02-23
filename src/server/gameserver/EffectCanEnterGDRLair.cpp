@@ -11,8 +11,8 @@
 #include "Ousters.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "DB.h"
 
 EffectCanEnterGDRLair::EffectCanEnterGDRLair(Creature* pCreature)
@@ -69,13 +69,13 @@ void EffectCanEnterGDRLair::unaffect (Creature* pCreature)
 
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	destroy(pCreature->getName());
+	destroy( pCreature->getName() );
 
 	__END_CATCH
 }
 
 void EffectCanEnterGDRLair::create (const string & ownerID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -114,7 +114,7 @@ void EffectCanEnterGDRLair::create (const string & ownerID)
 }
 
 void EffectCanEnterGDRLair::destroy (const string & ownerID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -136,7 +136,7 @@ void EffectCanEnterGDRLair::destroy (const string & ownerID)
 }
 
 void EffectCanEnterGDRLair::save (const string & ownerID) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ string EffectCanEnterGDRLair::toString()
 }
 
 void EffectCanEnterGDRLairLoader::load (Creature* pCreature) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -201,8 +201,8 @@ void EffectCanEnterGDRLairLoader::load (Creature* pCreature)
 		*/
 
 		// StringStreamÁ¦°Å. by sigi. 2002.5.8
-		Result* pResult = pStmt->executeQuery("SELECT DayTime FROM CanEnterGDRLair WHERE OwnerID = '%s'",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM CanEnterGDRLair WHERE OwnerID = '%s'",
+												pCreature->getName().c_str() );
 
 		while (pResult->next())
 		{

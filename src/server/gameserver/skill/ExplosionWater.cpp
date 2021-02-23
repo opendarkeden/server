@@ -7,13 +7,13 @@
 #include "ExplosionWater.h"
 #include "EffectExplosionWater.h"
 
-#include "GCAddEffect.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -39,17 +39,17 @@ void ExplosionWater::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
 		// NPC는 공격할 수가 없다.
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, getSkillType(), Grade);
 			return;
 		}
 
-		if (pTargetCreature->isMonster() )
+		if ( pTargetCreature->isMonster() )
 		{
 			Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-			if (pMonster != NULL && pMonster->isMaster() )
+			if ( pMonster != NULL && pMonster->isMaster() )
 			{
 				executeSkillFailNormal(pOusters, getSkillType(), pTargetCreature, Grade);
 				return;
@@ -79,7 +79,7 @@ void ExplosionWater::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
 		bool bHitRoll           = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bCanHit            = canHit(pOusters, pTargetCreature, getSkillType());
 		bool bPK                = verifyPK(pOusters, pTargetCreature);
-		bool bSatisfyRequire	= pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire	= pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && bSatisfyRequire )
 		{
@@ -113,18 +113,18 @@ void ExplosionWater::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouste
 				decreaseDurability(pOusters, pTargetCreature, pSkillInfo, &_GCSkillToObjectOK1, &_GCSkillToObjectOK6);
 			}
 
-			EffectExplosionWater* pEffect = new EffectExplosionWater(pTargetCreature);
-			pEffect->setDamageReduce(output.Tick);
-			pEffect->setDeadline(output.Duration);
-			pTargetCreature->setFlag(pEffect->getEffectClass());
-			pTargetCreature->addEffect(pEffect);
+			EffectExplosionWater* pEffect = new EffectExplosionWater( pTargetCreature );
+			pEffect->setDamageReduce( output.Tick );
+			pEffect->setDeadline( output.Duration );
+			pTargetCreature->setFlag( pEffect->getEffectClass() );
+			pTargetCreature->addEffect( pEffect );
 
 			GCAddEffect gcAddEffect;
-			gcAddEffect.setObjectID(pTargetCreature->getObjectID());
-			gcAddEffect.setEffectID(pEffect->getEffectClass());
-			gcAddEffect.setDuration(output.Duration);
+			gcAddEffect.setObjectID( pTargetCreature->getObjectID() );
+			gcAddEffect.setEffectID( pEffect->getEffectClass() );
+			gcAddEffect.setDuration( output.Duration );
 			
-			pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect);
+			pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect );
 
 			if (pTargetCreature->isDead())
 			{

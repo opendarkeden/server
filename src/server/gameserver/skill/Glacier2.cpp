@@ -8,14 +8,12 @@
 #include "EffectIceField.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 몬스터 타일 핸들러
@@ -54,9 +52,9 @@ void Glacier2::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			SkillOutput output;
 			computeOutput(input, output);
 
-			for (int i=-2; i<=2; ++i )
+			for ( int i=-2; i<=2; ++i )
 			{
-				for (int j=-2; j<=2; ++j )
+				for ( int j=-2; j<=2; ++j )
 				{
 					VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
@@ -66,18 +64,18 @@ void Glacier2::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 					Tile&   tile  = pZone->getTile(tX, tY);
 
-					list<Object*>& oList = tile.getObjectList();
-					list<Object*>::iterator itr = oList.begin();
-					list<Object*>::iterator endItr = oList.end();
+					slist<Object*>& oList = tile.getObjectList();
+					slist<Object*>::iterator itr = oList.begin();
+					slist<Object*>::iterator endItr = oList.end();
 
-					for (; itr != endItr; ++itr )
+					for ( ; itr != endItr; ++itr )
 					{
-						if ((*itr)->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+						if ( (*itr)->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 						Creature* pCreature = dynamic_cast<Creature*>(*itr);
-						if (pCreature == NULL || pCreature->getObjectID() == pMonster->getObjectID() ) continue;
-						if (pCreature->isFlag(Effect::EFFECT_CLASS_GLACIER ) ) continue;
+						if ( pCreature == NULL || pCreature->getObjectID() == pMonster->getObjectID() ) continue;
+						if ( pCreature->isFlag( Effect::EFFECT_CLASS_GLACIER ) ) continue;
 
-						addSimpleCreatureEffect(pCreature, Effect::EFFECT_CLASS_GLACIER, output.Duration);
+						addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_GLACIER, output.Duration );
 					}
 				}
 			}

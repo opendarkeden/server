@@ -20,7 +20,7 @@ CoupleRingBase::CoupleRingBase()
 	m_PartnerItemID = 0;
 }
 
-void CoupleRingBase::setPartnerItemID(ItemID_t partnerItemID )
+void CoupleRingBase::setPartnerItemID( ItemID_t partnerItemID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -29,23 +29,23 @@ void CoupleRingBase::setPartnerItemID(ItemID_t partnerItemID )
 	StringStream msg;
 	msg << "PartnerItemID=" << (uint)partnerItemID;
 
-	tinysave(msg.toString().c_str());
+	tinysave( msg.toString().c_str() );
 
 	__END_CATCH
 }
 
-ItemInfo* CoupleRingBase::getItemInfo(ItemType_t itemType, Race_t race )
+ItemInfo* CoupleRingBase::getItemInfo( ItemType_t itemType, Race_t race )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	switch(race )
+	switch( race )
 	{
 		case RACE_SLAYER:
-			return g_pCoupleRingInfoManager->getItemInfo(itemType);
+			return g_pCoupleRingInfoManager->getItemInfo( itemType );
 			break;
 		case RACE_VAMPIRE:
-			return g_pVampireCoupleRingInfoManager->getItemInfo(itemType);
+			return g_pVampireCoupleRingInfoManager->getItemInfo( itemType );
 			break;
 		default:
 			Assert(false);

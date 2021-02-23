@@ -28,13 +28,13 @@ public:
 	};
 
 public:
-	PCType getPCType () const throw() { return PC_OUSTERS; }
+	PCType getPCType () const throw () { return PC_OUSTERS; }
 
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	uint getSize () const throw()
+	uint getSize () const throw ()
 	{
 		return szBYTE					// 이름길이
 			+ m_Name.size() 			// 아우스터스 이름
@@ -56,7 +56,7 @@ public:
 	}
 
 	// get max size of object
-	static uint getMaxSize () throw()
+	static uint getMaxSize () throw ()
 	{
 		return szBYTE + 20				// 아우스터스 이름
 			+ szSlot					// 슬롯
@@ -76,15 +76,15 @@ public:
 			+ szLevel;
 	}
 
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
-    string getName () const throw() { return m_Name; }
-    void setName (string name) throw() { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
+    string getName () const throw () { return m_Name; }
+    void setName (string name) throw () { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
 
-	Slot getSlot () const throw() { return m_Slot; }
-	void setSlot (Slot slot) throw() { m_Slot = slot; }
-	void setSlot (string slot) throw(InvalidProtocolException)
+	Slot getSlot () const throw () { return m_Slot; }
+	void setSlot (Slot slot) throw () { m_Slot = slot; }
+	void setSlot (string slot) throw (InvalidProtocolException)
 	{
 		if (slot == Slot2String[SLOT1])
 			m_Slot = SLOT1;
@@ -99,12 +99,12 @@ public:
 	Alignment_t getAlignment() const throw() { return m_Alignment; }
 	void setAlignment(Alignment_t Alignment) throw() { m_Alignment = Alignment; }
 
-	Fame_t getFame () const throw() { return m_Fame; }
-	void setFame (Fame_t f) throw() { m_Fame = f; }
+	Fame_t getFame () const throw () { return m_Fame; }
+	void setFame (Fame_t f) throw () { m_Fame = f; }
 
-	Sex getSex () const throw() { return m_Sex; }
-	void setSex (Sex sex) throw() { m_Sex = sex; }
-	void setSex (string sex) throw(InvalidProtocolException)
+	Sex getSex () const throw () { return m_Sex; }
+	void setSex (Sex sex) throw () { m_Sex = sex; }
+	void setSex (string sex) throw (InvalidProtocolException)
 	{
 		if (sex == Sex2String[MALE]) 
 			m_Sex = MALE;
@@ -117,52 +117,52 @@ public:
 	Color_t getCoatColor() const throw() { return m_CoatColor; }
 	void setCoatColor(Color_t CoatColor) throw() { m_CoatColor = CoatColor; }
 
-	Color_t getHairColor () const throw() { return m_HairColor; }
-	void setHairColor (Color_t hairColor) throw() { m_HairColor = hairColor; }
+	Color_t getHairColor () const throw () { return m_HairColor; }
+	void setHairColor (Color_t hairColor) throw () { m_HairColor = hairColor; }
 
-	Color_t getArmColor () const throw() { return m_ArmColor; }
-	void setArmColor (Color_t armColor) throw() { m_ArmColor = armColor; }
+	Color_t getArmColor () const throw () { return m_ArmColor; }
+	void setArmColor (Color_t armColor) throw () { m_ArmColor = armColor; }
 
-	Color_t getBootsColor () const throw() { return m_BootsColor; }
-	void setBootsColor (Color_t bootsColor) throw() { m_BootsColor = bootsColor; }
+	Color_t getBootsColor () const throw () { return m_BootsColor; }
+	void setBootsColor (Color_t bootsColor) throw () { m_BootsColor = bootsColor; }
 
 	OustersCoatType getCoatType() const throw() { return m_CoatType; }
 	void setCoatType(OustersCoatType coatType) throw() { m_CoatType = coatType; }
 
 	OustersArmType getArmType() const throw() { return m_ArmType; }
-	void setArmType(OustersArmType armType ) throw() { m_ArmType = armType; }
+	void setArmType( OustersArmType armType ) throw() { m_ArmType = armType; }
 
-    Attr_t getSTR () const throw(Error) { if (m_STR > maxOustersAttr) throw Error("STR out of range"); return m_STR; }
-	void setSTR (Attr_t str) throw(Error) { if (str > maxOustersAttr) throw Error("STR out of range"); m_STR = str; }
+    Attr_t getSTR () const throw (Error) { if (m_STR > maxOustersAttr) throw Error("STR out of range"); return m_STR; }
+	void setSTR (Attr_t str) throw (Error) { if (str > maxOustersAttr) throw Error("STR out of range"); m_STR = str; }
 
-	Attr_t getDEX () const throw(Error) { if (m_DEX > maxOustersAttr) throw Error("DEX out of range"); return m_DEX; }
-	void setDEX (Attr_t dex) throw(Error) { if (dex > maxOustersAttr) throw Error("DEX out of range"); m_DEX = dex; }
+	Attr_t getDEX () const throw (Error) { if (m_DEX > maxOustersAttr) throw Error("DEX out of range"); return m_DEX; }
+	void setDEX (Attr_t dex) throw (Error) { if (dex > maxOustersAttr) throw Error("DEX out of range"); m_DEX = dex; }
 
-	Attr_t getINT () const throw(Error) { if (m_INT > maxOustersAttr) throw Error("INT out of range"); return m_INT; }
-	void setINT (Attr_t inte) throw(Error) { if (inte > maxOustersAttr) throw Error("INT out of range"); m_INT = inte; }
+	Attr_t getINT () const throw (Error) { if (m_INT > maxOustersAttr) throw Error("INT out of range"); return m_INT; }
+	void setINT (Attr_t inte) throw (Error) { if (inte > maxOustersAttr) throw Error("INT out of range"); m_INT = inte; }
 
-	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw() { return m_HP[attrType]; }
-	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw() { m_HP[attrType] = hp; }
-	void setHP (HP_t curHP, HP_t maxHP) throw() { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
+	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw () { return m_HP[attrType]; }
+	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw () { m_HP[attrType] = hp; }
+	void setHP (HP_t curHP, HP_t maxHP) throw () { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
 
-	MP_t getMP (AttrType attrType = ATTR_CURRENT) const throw() { return m_MP[attrType]; }
-	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT) throw() { m_MP[attrType] = mp; }
-	void setMP (MP_t curMP, MP_t maxMP) throw() { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
+	MP_t getMP (AttrType attrType = ATTR_CURRENT) const throw () { return m_MP[attrType]; }
+	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT) throw () { m_MP[attrType] = mp; }
+	void setMP (MP_t curMP, MP_t maxMP) throw () { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
 
-	Level_t getLevel () const throw() { return m_Level; }
-	void setLevel (Level_t exp) throw() { m_Level = exp; }
+	Level_t getLevel () const throw () { return m_Level; }
+	void setLevel (Level_t exp) throw () { m_Level = exp; }
 
-	Exp_t getExp () const throw() { return m_Exp; }
-	void setExp (Exp_t exp) throw() { m_Exp = exp; }
+	Exp_t getExp () const throw () { return m_Exp; }
+	void setExp (Exp_t exp) throw () { m_Exp = exp; }
 
-	Rank_t getRank () const throw() { return m_Rank; }
-	void setRank (Rank_t rank) throw() { m_Rank = rank; }
+	Rank_t getRank () const throw () { return m_Rank; }
+	void setRank (Rank_t rank) throw () { m_Rank = rank; }
 
-	Bonus_t getBonus() const throw() { return m_Bonus; }
-	void setBonus(Bonus_t Bonus) throw() { m_Bonus = Bonus; }
+	Bonus_t getBonus() const throw () { return m_Bonus; }
+	void setBonus(Bonus_t Bonus) throw () { m_Bonus = Bonus; }
 
-	SkillBonus_t getSkillBonus() const throw() { return m_SkillBonus; }
-	void setSkillBonus(SkillBonus_t skillBonus ) throw() { m_SkillBonus = skillBonus; }
+	SkillBonus_t getSkillBonus() const throw () { return m_SkillBonus; }
+	void setSkillBonus( SkillBonus_t skillBonus ) throw () { m_SkillBonus = skillBonus; }
 
 	Level_t getAdvancementLevel() const { return m_AdvancementLevel; }
 	void	setAdvancementLevel(Level_t level) { m_AdvancementLevel = level; }

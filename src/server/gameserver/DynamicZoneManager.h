@@ -8,7 +8,7 @@
 
 #include "Types.h"
 #include "Mutex.h"
-#include <map>
+#include <hash_map>
 
 class DynamicZoneGroup;
 
@@ -18,7 +18,7 @@ class DynamicZoneGroup;
 class DynamicZoneManager
 {
 public:
-	typedef map<int,DynamicZoneGroup*>			HashMapDynamicZoneGroup;
+	typedef hash_map<int,DynamicZoneGroup*>			HashMapDynamicZoneGroup;
 	typedef HashMapDynamicZoneGroup::iterator		HashMapDynamicZoneGroupItor;
 	typedef HashMapDynamicZoneGroup::const_iterator	HashMapDynamicZoneGroupConstItor;
 
@@ -31,15 +31,15 @@ public:
 	void clear();
 
 	// 새로 DynamicZoneGroup 을 추가한다.
-	void addDynamicZoneGroup(DynamicZoneGroup* pDynamicZoneGroup);
+	void addDynamicZoneGroup( DynamicZoneGroup* pDynamicZoneGroup );
 
 	// DynamicZoneGroup 을 찾아서 반환한다.
-	DynamicZoneGroup* getDynamicZoneGroup(int dynamicZoneType);
+	DynamicZoneGroup* getDynamicZoneGroup( int dynamicZoneType );
 
 	// get new dynamic zone id
 	ZoneID_t getNewDynamicZoneID();
 
-	static bool isDynamicZone(ZoneID_t zoneID);
+	static bool isDynamicZone( ZoneID_t zoneID );
 
 private:
 	Mutex m_Mutex;

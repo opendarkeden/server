@@ -7,11 +7,11 @@
 #include "EffectManager.h"
 #include "EffectInfo.h"
 #include "EffectEnemyErase.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Creature.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAddEffect.h"
 
 #include "Profile.h"
 
@@ -33,7 +33,7 @@ class isSameEffectClass
 {
 public:
 	isSameEffectClass(Effect::EffectClass EClass) : m_EClass(EClass) {}
-	bool operator () (Effect* pEffect) throw()
+	bool operator () (Effect* pEffect) throw ()
 	{
 		return pEffect->getEffectClass() == m_EClass;
 	}
@@ -46,7 +46,7 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectManager::EffectManager () 
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ EffectManager::EffectManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectManager::~EffectManager () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 		
@@ -115,7 +115,7 @@ void EffectManager::deleteEffect(ObjectID_t effectID)
 
 	int i = 0;
 
-	if (effectID == 0 )
+	if ( effectID == 0 )
 	{
 		for(current = m_Effects.begin(); current != m_Effects.end(); current++)
 		{
@@ -202,7 +202,7 @@ void EffectManager::deleteEffect(Creature* pCreature, Effect::EffectClass EClass
 
 			pEffect->destroy(pCreature->getName());
 		}
-
+	
 		//pEffect->unaffect(); // 이거하면 안되네
 		SAFE_DELETE(pEffect);
 	}
@@ -282,19 +282,19 @@ EffectInfo* EffectManager::getEffectInfo()
 
 	EffectInfo* pEffectInfo;
 
-	__BEGIN_PROFILE_EM("EM_GETEFFECTINFO");
+	__BEGIN_PROFILE_EM( "EM_GETEFFECTINFO" );
 	
-	__BEGIN_PROFILE_EM("EM_NEW_EFFECTINFO");
+	__BEGIN_PROFILE_EM( "EM_NEW_EFFECTINFO" );
 	pEffectInfo = new EffectInfo();
-	__END_PROFILE_EM("EM_NEW_EFFECTINFO");
+	__END_PROFILE_EM( "EM_NEW_EFFECTINFO" );
 
 	BYTE ListNum = 0;
 
 	Timeval currentTime;
 
-	__BEGIN_PROFILE_EM("EM_GETTIME");
+	__BEGIN_PROFILE_EM( "EM_GETTIME" );
 	getCurrentTime(currentTime);
-	__END_PROFILE_EM("EM_GETTIME");
+	__END_PROFILE_EM( "EM_GETTIME" );
 
 	// 이펙트 정보 구성.
 	for(list<Effect*>::const_iterator itr = m_Effects.begin(); itr != m_Effects.end(); itr++) 
@@ -329,11 +329,11 @@ EffectInfo* EffectManager::getEffectInfo()
 			Timeval DeadLine;
 			Turn_t Duration;
 
-			__BEGIN_PROFILE_EM("EM_COMPUTE_TIME" )
+			__BEGIN_PROFILE_EM( "EM_COMPUTE_TIME" )
 			// 데드라인과 현재 시간을 빼서 남은 시간을 날려줘야 한다.
 			DeadLine = (*itr)->getDeadline();
 			Duration = DeadLine.tv_sec - currentTime.tv_sec;
-			__END_PROFILE_EM("EM_COMPUTE_TIME" )
+			__END_PROFILE_EM( "EM_COMPUTE_TIME" )
 
 			if (EffectID == Effect::EFFECT_CLASS_BLOOD_DRAIN || EffectID == Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR) 
 			{
@@ -355,7 +355,11 @@ EffectInfo* EffectManager::getEffectInfo()
 
 	pEffectInfo->setListNum(ListNum);
 
-	__END_PROFILE_EM("EM_GETEFFECTINFO");
+	//int tempNum = ListNum;
+
+	//cout << "EffectManager.cpp listNum" << tempNum << endl;
+
+	__END_PROFILE_EM( "EM_GETEFFECTINFO" );
 
 	return pEffectInfo;
 
@@ -377,7 +381,7 @@ void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	__BEGIN_PROFILE_EM("SEND_EFFECT_INFO");
+	__BEGIN_PROFILE_EM( "SEND_EFFECT_INFO" );
 
 	Assert(pCreature!=NULL);
 	Assert(isValidZoneCoord(pZone, x, y));
@@ -421,7 +425,7 @@ void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t
 		}
 	}
 
-	__END_PROFILE_EM("SEND_EFFECT_INFO");
+	__END_PROFILE_EM( "SEND_EFFECT_INFO" );
 
 	__END_DEBUG
 	__END_CATCH
@@ -430,7 +434,7 @@ void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectManager::addEffect (Effect* pEffect) 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 
@@ -444,7 +448,7 @@ void EffectManager::addEffect (Effect* pEffect)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 /*int EffectManager::heartbeat () 
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 	__END_DEBUG
@@ -515,14 +519,14 @@ void EffectManager::addEffect (Effect* pEffect)
 // getCurrentTime() 안 할려고.. 음하하.. by sigi. 2002.5.8
 //////////////////////////////////////////////////////////////////////////////
 int EffectManager::heartbeat (const Timeval& currentTime)
-     throw(Error)
+     throw (Error)
 {
 	__BEGIN_TRY
 	__END_DEBUG
 
 	int rvalue = 0;
 
-	__BEGIN_PROFILE_EM("EM_HEARTBEAT");
+	__BEGIN_PROFILE_EM( "EM_HEARTBEAT" );
 
 	list<Effect*>::iterator before  = m_Effects.end();
 	list<Effect*>::iterator current = m_Effects.begin();
@@ -577,7 +581,7 @@ int EffectManager::heartbeat (const Timeval& currentTime)
 
 	}
 
-	__END_PROFILE_EM("EM_HEARTBEAT");
+	__END_PROFILE_EM( "EM_HEARTBEAT" );
 
 	return rvalue;
 
@@ -593,12 +597,12 @@ void EffectManager::setTimeOutAllEffect()
 	list<Effect*>::iterator itr = m_Effects.begin();
 	list<Effect*>::iterator endItr = m_Effects.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
-		Assert(*itr != NULL);
+		Assert( *itr != NULL );
 		Effect* pEffect = *itr;
 
-		pEffect->setDeadline(0);
+		pEffect->setDeadline( 0 );
 	}
 
 	__END_CATCH

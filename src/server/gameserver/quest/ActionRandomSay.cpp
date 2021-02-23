@@ -11,13 +11,13 @@
 #include "ScriptManager.h"
 #include "GamePlayer.h"
 
-#include "GCNPCSay.h"
+#include "Gpackets/GCNPCSay.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRandomSay::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -39,7 +39,7 @@ void ActionRandomSay::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRandomSay::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -75,7 +75,7 @@ void ActionRandomSay::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRandomSay::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -83,7 +83,7 @@ string ActionRandomSay::toString () const
 	msg << "ActionRandomSay("
 		<< ",ScriptID:"  << (int)m_StartScriptID << "-" << (int)m_EndScriptID
 		<< ")";
+	
 	return msg.toString();
-
 	__END_CATCH
 }

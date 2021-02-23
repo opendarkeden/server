@@ -24,16 +24,16 @@ public:
 
 	virtual PacketSize_t getSize() const
 	{
-		if (m_PetType == PET_NONE ) return szPetType;
+		if ( m_PetType == PET_NONE ) return szPetType;
 
-//		if (type == MY_INFO )
+//		if ( type == MY_INFO )
 			return szPetType + szMonsterType + szPetLevel + szPetExp + szPetHP + szPetAttr + szPetAttrLevel + szOptionType + szItemType + szBYTE + szBYTE + szBYTE + szBYTE + szObjectID + szBYTE + m_Nickname.size();
 //		else
 //			return szPetType + szMonsterType + szPetLevel + szPetExp + szPetAttr + szPetAttrLevel + szOptionType + szItemType + szObjectID;
 	}
 	static PacketSize_t getMaxSize()
 	{
-//		if (type == MY_INFO )
+//		if ( type == MY_INFO )
 			return szPetType + szMonsterType + szPetLevel + szPetExp + szPetHP + szPetAttr + szPetAttrLevel + szOptionType + szItemType + szBYTE + szBYTE + szBYTE + szBYTE + szObjectID + szBYTE + 22;
 //		else
 //			return szPetType + szMonsterType + szPetLevel + szPetExp + szPetAttr + szPetAttrLevel + szOptionType + szItemType + szObjectID;
@@ -80,7 +80,7 @@ public:
 	PetItem*	getPetItem() const { return m_pPetItem; }
 
 	BYTE		isSummonInfo() const { return m_IsSummonInfo; }
-	void		setSummonInfo(BYTE isSummon ) { m_IsSummonInfo = isSummon; }
+	void		setSummonInfo( BYTE isSummon ) { m_IsSummonInfo = isSummon; }
 
 	// -_- 게임서버쪽에 정의해야쥐 PetItem.cpp 에 있음
 	ObjectID_t	getItemObjectID() const;

@@ -15,7 +15,6 @@
 #include "Utility.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 PetFoodInfoManager* g_pPetFoodInfoManager = NULL;
 
@@ -42,7 +41,7 @@ PetFood::PetFood(ItemType_t itemType, const list<OptionType_t>& optionType, Item
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "PetFood::PetFood() : Invalid item type or option type");
-		throw("PetFood::PetFood() : Invalid item type or optionType");
+		throw ("PetFood::PetFood() : Invalid item type or optionType");
 	}
 }
 
@@ -102,7 +101,7 @@ void PetFood::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE PetFoodObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE PetFoodObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -139,8 +138,8 @@ void PetFood::save(const string & ownerID, Storage storage, StorageID_t storageI
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE PetFoodObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%u WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Num, m_ItemID);
+		pStmt->executeQuery( "UPDATE PetFoodObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%u WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Num, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -295,8 +294,8 @@ void PetFoodLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM PetFoodObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM PetFoodObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -316,7 +315,7 @@ void PetFoodLoader::load(Creature* pCreature)
 				BYTE x = pResult->getBYTE(++i);
 				BYTE y = pResult->getBYTE(++i);
 
-				pPetFood->setNum(pResult->getInt(++i));
+				pPetFood->setNum( pResult->getInt(++i) );
 				pPetFood->setCreateType((Item::CreateType)pResult->getInt(++i));
 
 				Inventory*  pInventory      = NULL;
@@ -356,18 +355,6 @@ void PetFoodLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pPetFood);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pPetFood))
 						{
 							pInventory->addItemEx(x, y, pPetFood);

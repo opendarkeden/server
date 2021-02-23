@@ -10,12 +10,12 @@
 #include "EffectTrapTriggered.h"
 #include "Monster.h"
 
-#include "GCDeleteEffectFromTile.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectMercyGround::EffectMercyGround(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
+EffectMercyGround::EffectMercyGround( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -34,7 +34,7 @@ void EffectMercyGround::affect()
 {
 	__BEGIN_TRY
 
-	Assert(m_pZone != NULL);
+	Assert( m_pZone != NULL );
 
 	__END_CATCH
 }
@@ -58,15 +58,15 @@ void EffectMercyGround::unaffect()
 {
 	__BEGIN_TRY
 
-	Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
+	Tile& tile = m_pZone->getTile( m_X, m_Y );
+	tile.deleteEffect( m_ObjectID );
 
 	GCDeleteEffectFromTile gcDeleteEffect;
-	gcDeleteEffect.setXY(m_X, m_Y);
-	gcDeleteEffect.setObjectID(getObjectID());
-	gcDeleteEffect.setEffectID(getSendEffectClass());
+	gcDeleteEffect.setXY( m_X, m_Y );
+	gcDeleteEffect.setObjectID( getObjectID() );
+	gcDeleteEffect.setEffectID( getSendEffectClass() );
 
-	m_pZone->broadcastPacket(m_X, m_Y, &gcDeleteEffect);
+	m_pZone->broadcastPacket( m_X, m_Y, &gcDeleteEffect );
 	
 	__END_CATCH
 }

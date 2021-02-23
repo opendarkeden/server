@@ -67,8 +67,8 @@ public:
 	DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) throw(OutOfBoundException, Error);
 	const DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) const throw(OutOfBoundException, Error);
 
-	DarkLightInfo* getCurrentDarkLightInfo(Zone* pZone ) throw(Error);
-	const DarkLightInfo* getCurrentDarkLightInfo(Zone* pZone ) const throw(Error);
+	DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) throw(Error);
+	const DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) const throw(Error);
 
 	string toString() const throw();
 

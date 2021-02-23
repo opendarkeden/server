@@ -6,17 +6,17 @@
 #include "Types.h"
 #include "Exception.h"
 
-#include "GCSystemAvailabilities.h"
+#include "Gpackets/GCSystemAvailabilities.h"
 
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__)
 #define SYSTEM_ASSERT(KIND) SystemAvailabilitiesManager::AssertAvailable(SystemAvailabilitiesManager::KIND,\
 		string() + __PRETTY_FUNCTION__ + " : 잘못된 클라이언트를 사용했거나 클라이언트와 서버의 정보가 맞지 않습니다.")
 #define SYSTEM_RETURN_IF_NOT(KIND) \
-		if (!SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::KIND) ) \
-		{ filelog("SystemAvailabilities.log", \
-		(string() + __PRETTY_FUNCTION__ + " : 잘못된 클라이언트를 사용했거나 클라이언트와 서버의 정보가 맞지 않습니다.").c_str()); \
+		if ( !SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::KIND) ) \
+		{ filelog( "SystemAvailabilities.log", \
+		(string() + __PRETTY_FUNCTION__ + " : 잘못된 클라이언트를 사용했거나 클라이언트와 서버의 정보가 맞지 않습니다.").c_str() ); \
 		return; }
-#define SEND_SYSTEM_AVAILABILITIES(PLAYER) PLAYER->sendPacket(SystemAvailabilitiesManager::getInstance()->getAvailabilitiesPacket() )
+#define SEND_SYSTEM_AVAILABILITIES(PLAYER) PLAYER->sendPacket( SystemAvailabilitiesManager::getInstance()->getAvailabilitiesPacket() )
 #else
 #define SYSTEM_ASSERT(X) (void)(0)
 #define SYSTEM_RETURN_IF_NOT(X) (void)(0)
@@ -55,20 +55,20 @@ public:
 
 	void load() throw(Error);
 
-	bool isAvailable(SystemKind kind ) const { return m_SystemFlags.test(kind); }
-	void setAvailable(SystemKind kind, bool avail = true ) {
+	bool isAvailable( SystemKind kind ) const { return m_SystemFlags.test(kind); }
+	void setAvailable( SystemKind kind, bool avail = true ) {
 		m_SystemFlags.set(kind,avail);
 		m_bEdited = true;
 	}
 
 	Packet* getAvailabilitiesPacket() const
 	{
-		if (m_bEdited ) 
+		if ( m_bEdited ) 
 		{
-			if (m_pAvailabilitiesPacket == NULL ) m_pAvailabilitiesPacket = new GCSystemAvailabilities();
-			m_pAvailabilitiesPacket->setFlag((DWORD)m_SystemFlags.to_ulong());
-			m_pAvailabilitiesPacket->setOpenDegree(m_ZoneOpenDegree);
-			m_pAvailabilitiesPacket->setSkillLimit(m_SkillLevelLimit);
+			if ( m_pAvailabilitiesPacket == NULL ) m_pAvailabilitiesPacket = new GCSystemAvailabilities();
+			m_pAvailabilitiesPacket->setFlag( (DWORD)m_SystemFlags.to_ulong() );
+			m_pAvailabilitiesPacket->setOpenDegree( m_ZoneOpenDegree );
+			m_pAvailabilitiesPacket->setSkillLimit( m_SkillLevelLimit );
 			m_bEdited = false;
 		}
 		return m_pAvailabilitiesPacket;
@@ -81,11 +81,11 @@ public:
 		return &theInstance;
 	}
 
-	static void AssertAvailable(SystemKind kind, const string& msg ) throw(DisconnectException)
+	static void AssertAvailable( SystemKind kind, const string& msg ) throw (DisconnectException)
 	{
-		if (getInstance()->isAvailable(kind ) ) return;
-		filelog("SystemAvailabilities.log", msg.c_str());
-		throw DisconnectException(msg);
+		if ( getInstance()->isAvailable( kind ) ) return;
+		filelog( "SystemAvailabilities.log", msg.c_str() );
+		throw DisconnectException( msg );
 	}
 
 	int getZoneOpenDegree() const { return m_ZoneOpenDegree; }

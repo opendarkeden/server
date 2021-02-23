@@ -27,14 +27,14 @@ public: // constructor & destructor
 	virtual ~Stash() throw();
 
 public: // public methods
-	bool  isExist(BYTE rack, BYTE index) const throw();
-	void  insert(BYTE rack, BYTE index, Item* pItem) throw();
-	void  remove(BYTE rack, BYTE index) throw();
-	Item* get(BYTE rack, BYTE index) throw();
-	void  clear(void) throw();
+	bool  isExist(BYTE rack, BYTE index) const ;
+	void  insert(BYTE rack, BYTE index, Item* pItem) ;
+	void  remove(BYTE rack, BYTE index) ;
+	Item* get(BYTE rack, BYTE index) ;
+	void  clear(void) ;
 
-	BYTE getFirstEmptySlot(BYTE rack) const throw();
-	BYTE getLastEmptySlot(BYTE rack) const throw();
+	BYTE getFirstEmptySlot(BYTE rack) const ;
+	BYTE getLastEmptySlot(BYTE rack) const ;
 
 ///// Member data /////
 

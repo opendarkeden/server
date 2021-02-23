@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Timeval.h"
 #include <list>
-#include <map>
+#include <hash_map>
 
 ////////////////////////////////////////////////////////////////////////////////
 // 교환 상태 플래그
@@ -114,7 +114,7 @@ public:
 
 ///// Member data /////
 protected:
-	map<string, TradeInfo*> m_InfoMap;
+	hash_map<string, TradeInfo*> m_InfoMap;
 };
 
 #endif

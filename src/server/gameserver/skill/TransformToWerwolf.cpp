@@ -11,11 +11,11 @@
 #include "RankBonus.h"
 #include "PKZoneInfoManager.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
-#include "GCAddWolf.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCAddWolf.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러
@@ -48,8 +48,8 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
 		if (pItem->getItemClass() != Item::ITEM_CLASS_SKULL 
 			|| pItem->getItemType() != 39
 			|| pVampire->hasRelicItem()
-			|| g_pPKZoneInfoManager->isPKZone(pZone->getZoneID() )
-			|| pVampire->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET )
+			|| g_pPKZoneInfoManager->isPKZone( pZone->getZoneID() )
+			|| pVampire->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET )
 		)
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -67,10 +67,10 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -113,14 +113,14 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
 
 			DWORD dummyFlag;
 			Color_t color[PCVampireInfo::VAMPIRE_COLOR_MAX];
-			pVampire->getShapeInfo(dummyFlag, color);
+			pVampire->getShapeInfo( dummyFlag, color );
 
 			// 뱀파이어 대신 늑대를 더하라고 알려준다.
 			GCAddWolf gcAddWerwolf;
 			gcAddWerwolf.setObjectID(pVampire->getObjectID());
 			gcAddWerwolf.setName(pVampire->getName());
 			gcAddWerwolf.setXYDir(x, y, pVampire->getDir());
-			gcAddWerwolf.setMainColor(color[PCVampireInfo::VAMPIRE_COLOR_COAT]);
+			gcAddWerwolf.setMainColor( color[PCVampireInfo::VAMPIRE_COLOR_COAT] );
 			gcAddWerwolf.setItemType(pItem->getItemType());
 			gcAddWerwolf.setCurrentHP(pVampire->getHP());
 			gcAddWerwolf.setMaxHP(pVampire->getHP(ATTR_MAX));
@@ -128,7 +128,7 @@ void TransformToWerwolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Co
 			pZone->broadcastPacket(x, y, &gcAddWerwolf, pVampire);
 
 /*			GCAddVampire gcAddVampire;
-			makeGCAddVampire(&gcAddVampire, pVampire);
+			makeGCAddVampire( &gcAddVampire, pVampire );
 
 			pZone->broadcastPacket(x, y, &gcAddVampire, pVampire);*/
 

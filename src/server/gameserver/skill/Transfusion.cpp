@@ -10,15 +10,15 @@
 #include "RankBonus.h"
 #include "Properties.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffectToTile.h"
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffectToTile.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -50,7 +50,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 			// HIDE 인 놈은 되살려내면 이상하게 된다. 일단 막아놓음.
 			// 2003. 1. 17. DEW
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_HIDE)
-			|| (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 && pTargetCreature->isDead() ) )
+			|| ( g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 && pTargetCreature->isDead() ) )
 		{
 			executeSkillFailException(pVampire, getSkillType());
 			//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
@@ -73,10 +73,10 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 
 		// Knowledge of Innate 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_INNATE );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -143,7 +143,7 @@ void Transfusion::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 				HP_t currentHP = pTargetVampire->getHP(ATTR_CURRENT);
 				HP_t newHP = min((int)maxHP, currentHP + RecoverHP);
 		
-				pTargetVampire->setHP(newHP);
+				pTargetVampire->setHP( newHP );
 
 				// HP가 30%가 되면(33% -_-;) 살아나게 된다.
 				if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA))
@@ -294,9 +294,9 @@ void Transfusion::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
 			if (rTile.hasWalkingCreature())
 			{
-				Creature* pCreature = rTile.getCreature(Creature::MOVE_MODE_WALKING);
+				Creature* pCreature = rTile.getCreature( Creature::MOVE_MODE_WALKING );
 
-				execute(pVampire, pCreature->getObjectID(), pVampireSkillSlot, CEffectID);
+				execute( pVampire, pCreature->getObjectID(), pVampireSkillSlot, CEffectID);
 			}
 			else
 			{

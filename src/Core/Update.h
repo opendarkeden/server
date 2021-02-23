@@ -12,7 +12,7 @@
 #include "Types.h"
 #include "UpdateDef.h"
 #include "Exception.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 
@@ -68,42 +68,42 @@ class Update {
 public :
 
 	// load from file
-	void load (ifstream & ifile) throw(IOException, Error);
+	void load (ifstream & ifile) throw (IOException, Error);
 
 	// save to file
-	void save (ofstream & ofile) const throw(IOException, Error);
+	void save (ofstream & ofile) const throw (IOException, Error);
 
 	// read from socket input stream
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
 
 	// read from socket directly
-	void read (Socket* pSocket) throw(IOException, Error);
+	void read (Socket* pSocket) throw (IOException, Error);
 
 	// write to socket output stream
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	// write to socket directly
-	void write (Socket* pSocket) const throw(IOException, Error);
+	void write (Socket* pSocket) const throw (IOException, Error);
 
 	// get size
-	uint getSize () const throw();
+	uint getSize () const throw ();
 
 	// get max size
-	static uint getMaxSize () throw();
+	static uint getMaxSize () throw ();
 
 	// execute update
-	void execute () throw(Error);
+	void execute () throw (Error);
 
 
 public :
 
 	// get/set update type
-	Version_t getVersion () const throw() { return m_Version; }
-	void setVersion (Version_t version) throw() { m_Version = version; }
+	Version_t getVersion () const throw () { return m_Version; }
+	void setVersion (Version_t version) throw () { m_Version = version; }
 
 	// get update type
 	UPDATETYPE getUpdateType () const 
-		throw(Error) 
+		throw (Error) 
 	{ 
 		Assert(m_UpdateType < UPDATETYPE_MAX); 
 		return m_UpdateType; 
@@ -111,7 +111,7 @@ public :
 
 	// set update type
 	void setUpdateType (UPDATETYPE updateType) 
-		throw(Error) 
+		throw (Error) 
 	{ 
 		Assert(updateType < UPDATETYPE_MAX); 
 		m_UpdateType = updateType; 
@@ -119,7 +119,7 @@ public :
 
 	// get parameter
 	string getParam (uint i) const 
-		throw(Error) 
+		throw (Error) 
 	{ 
 		Assert(i < maxParams); 
 		return m_Params[i]; 
@@ -127,7 +127,7 @@ public :
 
 	// set parameter
 	void setParam (uint i, const string & param) 
-		throw(Error) 
+		throw (Error) 
 	{ 
 		Assert(i < maxParams); 
 		Assert(param.size() < maxParameterLen);
@@ -135,7 +135,7 @@ public :
 	}
 
 	// get debug string
-	string toString () const throw();
+	string toString () const throw ();
 
 
 private :

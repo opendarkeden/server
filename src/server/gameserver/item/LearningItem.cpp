@@ -13,7 +13,6 @@
 #include "Stash.h"
 #include "ItemInfoManager.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 LearningItemInfoManager* g_pLearningItemInfoManager = NULL;
@@ -37,7 +36,7 @@ LearningItem::LearningItem(ItemType_t itemType, const list<OptionType_t>& option
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "LearningItem::LearningItem() : Invalid item type or option type");
-		throw("LearningItem::LearningItem() : Invalid item type or optionType");
+		throw ("LearningItem::LearningItem() : Invalid item type or optionType");
 	}
 }
 
@@ -104,7 +103,7 @@ void LearningItem::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE LearningItemObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE LearningItemObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -144,8 +143,8 @@ void LearningItem::save(const string & ownerID, Storage storage, StorageID_t sto
 		pStmt->executeQuery(sql.toString());
 		*/
 
-		pStmt->executeQuery("UPDATE LearningItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%s, StorageID=%ld, X=%d, Y=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_ItemID);
+		pStmt->executeQuery( "UPDATE LearningItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%s, StorageID=%ld, X=%d, Y=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_ItemID );
 
 
 		SAFE_DELETE(pStmt);
@@ -321,8 +320,8 @@ void LearningItemLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y FROM LearningItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y FROM LearningItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -372,18 +371,6 @@ void LearningItemLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pLearningItem);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pLearningItem))
 						{
 							pInventory->addItemEx(x, y, pLearningItem);

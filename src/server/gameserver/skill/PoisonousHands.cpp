@@ -37,20 +37,20 @@ void PoisonousHands::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Tiger Nail 이 있다면 데미지 10% 증가
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_TIGER_NAIL);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_TIGER_NAIL );
+		Assert( pRankBonus != NULL );
 
-		param.SkillDamage += getPercentValue(param.SkillDamage, pRankBonus->getPoint());
+		param.SkillDamage += getPercentValue( param.SkillDamage, pRankBonus->getPoint() );
 	}
 
 	// Knowledge of Poison 이 있다면 hit bonus 10
 	int HitBonus = 0;
-	if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
+	if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON ) )
 	{
-		RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_POISON );
+		Assert( pRankBonus != NULL );
 
 		HitBonus = pRankBonus->getPoint();
 	}

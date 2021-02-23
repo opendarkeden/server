@@ -28,33 +28,33 @@ class ReconnectLoginInfo {
 public :
 
 	// constructor
-	ReconnectLoginInfo () throw() : m_Key(0) 
+	ReconnectLoginInfo () throw () : m_Key(0) 
 	{ 
 		m_ExpireTime.tv_sec = 0; 
 		m_ExpireTime.tv_usec = 0; 
 	}
 
 	// destructor
-	~ReconnectLoginInfo () throw() {}
+	~ReconnectLoginInfo () throw () {}
 
 	// get/set client ip
-	string getClientIP () const throw() { return m_ClientIP; }
-	void setClientIP (const string & clientIP ) throw() { m_ClientIP = clientIP; }
+	string getClientIP () const throw () { return m_ClientIP; }
+	void setClientIP ( const string & clientIP ) throw () { m_ClientIP = clientIP; }
 
 	// get/set PlayerID
 	string getPlayerID() const throw() { return m_PlayerID; }
-	void setPlayerID(const string & PlayerID ) throw() { m_PlayerID = PlayerID; }
+	void setPlayerID( const string & PlayerID ) throw() { m_PlayerID = PlayerID; }
 
 	// get/set expire time
-	Timeval getExpireTime () const throw() { return m_ExpireTime; }
-	void setExpireTime (Timeval tv ) throw() { m_ExpireTime = tv; }
+	Timeval getExpireTime () const throw () { return m_ExpireTime; }
+	void setExpireTime ( Timeval tv ) throw () { m_ExpireTime = tv; }
 	
 	// get/set validation key
-	DWORD getKey () const throw() { return m_Key; }
-	void setKey (DWORD key ) throw() { m_Key = key; }
+	DWORD getKey () const throw () { return m_Key; }
+	void setKey ( DWORD key ) throw () { m_Key = key; }
 
 	// get debug string
-	string toString () const throw() 
+	string toString () const throw () 
 	{
 		StringStream msg;
 		msg << "ReconnectLoginInfo(ClientIP:" << m_ClientIP 
@@ -97,7 +97,7 @@ class CompareReconnectLoginInfo {
 public :
 
 	// compare which is more recent
-    bool operator () (const ReconnectLoginInfo & left , const ReconnectLoginInfo & right )
+    bool operator () ( const ReconnectLoginInfo & left , const ReconnectLoginInfo & right )
     {
 		// Ascending Order
         return left.getExpireTime() > right.getExpireTime();

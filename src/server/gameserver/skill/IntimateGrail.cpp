@@ -8,15 +8,15 @@
 #include "EffectIntimateGrail.h"
 #include "PacketUtil.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCAddEffect.h"
-#include "GCOtherModifyInfo.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -71,7 +71,7 @@ void IntimateGrail::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 
 			// 기술의 효과치 및 지속시간을 계산한다.
 			SkillInput input(pSlayer, pSkillSlot);
-			if(pTargetCreature->getCreatureClass() == Creature::CREATURE_CLASS_SLAYER )
+			if( pTargetCreature->getCreatureClass() == Creature::CREATURE_CLASS_SLAYER )
 				input.TargetType = SkillInput::TARGET_SELF;
 			else
 				input.TargetType = SkillInput::TARGET_OTHER;
@@ -92,7 +92,7 @@ void IntimateGrail::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 			pTargetSlayer->sendRealWearingInfo();
 			pTargetSlayer->addModifyInfo(prev, _GCSkillToObjectOK2);*/
 
-			if (pTargetCreature->isPC() )
+			if ( pTargetCreature->isPC() )
 			{
 				PlayerCreature* pTargetPC = dynamic_cast<PlayerCreature*>(pTargetCreature);
 				pTargetPC->initAllStatAndSend();

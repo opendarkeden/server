@@ -14,9 +14,7 @@
 #include "Statement.h"
 #include "Properties.h"
 
-#include <map>
-
-DatabaseManager::DatabaseManager ()
+DatabaseManager::DatabaseManager () 
 	throw()
 {
 	__BEGIN_TRY
@@ -28,13 +26,13 @@ DatabaseManager::DatabaseManager ()
 	__END_CATCH
 }
 
-DatabaseManager::~DatabaseManager ()
-	throw()
+DatabaseManager::~DatabaseManager () 
+	throw ()
 {
 	__BEGIN_TRY
-
+	
 	// 모든 Connection 를 삭제해야 한다.
-	map<TID, Connection*>::iterator itr = m_Connections.begin();
+	hash_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
 		SAFE_DELETE(itr->second);
 
@@ -48,11 +46,11 @@ DatabaseManager::~DatabaseManager ()
 }
 
 void DatabaseManager::init ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	try
+	try 
 	{
 
 		string host     = g_pConfig->getProperty("DB_HOST");
@@ -74,9 +72,9 @@ void DatabaseManager::init ()
 		pStmt = m_pDefaultConnection->createStatement();
 		Result * pResult = NULL;
 
-		pResult = pStmt->executeQuery("SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo WHERE WorldID = 0");
-		while(pResult->next() ) {
-			//cout << "Connecting....... Another DB Server" << endl;
+		pResult = pStmt->executeQuery( "SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo WHERE WorldID = 0" );
+		while( pResult->next() ) {
+			cout << "Connecting....... Another DB Server" << endl;
 
 			WorldID_t WorldID = pResult->getInt(1);
 			string whost = pResult->getString(2);
@@ -91,9 +89,9 @@ void DatabaseManager::init ()
 
 #ifdef __LOGIN_SERVER__
 
-		pResult = pStmt->executeQuery("SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo");
-		while(pResult->next() ) {
-			//cout << "Connecting....... Another DB Server" << endl;
+		pResult = pStmt->executeQuery( "SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo" );
+		while( pResult->next() ) {
+			cout << "Connecting....... Another DB Server" << endl;
 
 			WorldID_t WorldID = pResult->getInt(1);
 			string whost = pResult->getString(2);
@@ -102,40 +100,40 @@ void DatabaseManager::init ()
 			string wpassword = pResult->getString(5);
 
 			Connection * pConnection = new Connection(whost, wdb, wuser, wpassword);
-			addConnection(WorldID , pConnection);
+			addConnection( WorldID , pConnection );
 
 		}
 #endif
 
 		SAFE_DELETE(pStmt);
 
-	}
-	catch (SQLConnectException & sce )
+	} 
+	catch ( SQLConnectException & sce ) 
 	{
-		throw Error(sce.toString());
+		throw Error( sce.toString() );
 	}
 
 	__END_CATCH
 }
 
-void DatabaseManager::addConnection (TID tid,  Connection * pConnection )
-	throw(DuplicatedException )
+void DatabaseManager::addConnection ( int TID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
-	//cout << "Adding TID connection BEGIN" << endl;
+	cout << "Adding TID connection BEGIN" << endl;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< TID , Connection * >::iterator itr = m_Connections.find(tid);
-
-	if (itr != m_Connections.end() )
+	hash_map< int , Connection * >::iterator itr = m_Connections.find( TID );
+	
+	if ( itr != m_Connections.end() )
 	{
 		cout << "duplicated connection info id" << endl;
 		throw DuplicatedException("duplicated connection info id");
 	}
 
-	m_Connections[ tid ] = pConnection;
+	m_Connections[ TID ] = pConnection;
 
 #ifdef __GAME_SERVER
 
@@ -144,9 +142,9 @@ void DatabaseManager::addConnection (TID tid,  Connection * pConnection )
 	pStmt = m_pDefaultConnection->createStatement();
 	Result * pResult = NULL;
 
-	pResult = pStmt->executeQuery("SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo WHERE WorldID = 0");
-	while(pResult->next() ) {
-		//cout << "Connecting....... Another DB Server" << endl;
+	pResult = pStmt->executeQuery( "SELECT WorldID, Host, DB, User, Password FROM WorldDBInfo WHERE WorldID = 0" );
+	while( pResult->next() ) {
+		cout << "Connecting....... Another DB Server" << endl;
 
 		WorldID_t WorldID = pResult->getInt(1);
 		string whost = pResult->getString(2);
@@ -162,25 +160,25 @@ void DatabaseManager::addConnection (TID tid,  Connection * pConnection )
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	//cout << "Adding TID connection END" << endl;
+	cout << "Adding TID connection END" << endl;
 
 	__END_CATCH
 }
-
-Connection * DatabaseManager::getConnection (const string& connName )
-	throw(NoSuchElementException )
+	
+Connection * DatabaseManager::getConnection ( string connName ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 
-	map<TID, Connection*>::iterator itr = m_Connections.find(Thread::self());
+	hash_map<int, Connection*>::iterator itr = m_Connections.find(Thread::self());
 
 	if (itr == m_Connections.end())
 	{
 		pTempConnection = m_pDefaultConnection;
-	}
-	else
+	} 
+	else 
 	{
 		pTempConnection = itr->second;
 	}
@@ -191,8 +189,8 @@ Connection * DatabaseManager::getConnection (const string& connName )
 }
 
 /*
-void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnection )
-	throw(DuplicatedException )
+void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnection ) 
+	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -200,9 +198,9 @@ void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnectio
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find(WorldID);
-
-	if (itr != m_WorldConnections.end() )
+	hash_map< WorldID_t , Connection * >::iterator itr = m_WorldConnections.find( WorldID );
+	
+	if ( itr != m_WorldConnections.end() )
 	{
 		cout << "duplicated connection info id" << endl;
 		throw DuplicatedException("duplicated connection info id");
@@ -217,24 +215,24 @@ void DatabaseManager::addConnection (WorldID_t WorldID,  Connection * pConnectio
 	__END_CATCH
 }
 */
-
-Connection * DatabaseManager::getConnection (TID tid )
-	throw(NoSuchElementException )
+	
+Connection * DatabaseManager::getConnection ( int TID ) 
+	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
-
+		
 	Connection * pTempConnection = NULL;
 #ifdef __GAME_SERVER__
 	pTempConnection = m_pWorldDefaultConnection;
 
 #elif __LOGIN_SERVER__
-	map<int, Connection*>::iterator itr = m_WorldConnections.find(TID);
+	hash_map<int, Connection*>::iterator itr = m_WorldConnections.find(TID);
 
 	if (itr == m_WorldConnections.end())
 	{
 		pTempConnection = m_pWorldDefaultConnection;
-	}
-	else
+	} 
+	else 
 	{
 		pTempConnection = itr->second;
 	}

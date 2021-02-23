@@ -6,7 +6,7 @@
 #define __DYNAMIC_ZONE_INFO__
 
 #include "Types.h"
-#include <map>
+#include <hash_map>
 
 enum DYNAMIC_ZONE_TYPE
 {
@@ -31,10 +31,10 @@ public:
 public:
 	// get / set methods
 	int getDynamicZoneType() const { return m_DynamicZoneType; }
-	void setDynamicZoneType(int dynamicZoneType ) { m_DynamicZoneType = dynamicZoneType; }
+	void setDynamicZoneType( int dynamicZoneType ) { m_DynamicZoneType = dynamicZoneType; }
 
 	ZoneID_t getTemplateZoneID() const { return m_TemplateZoneID; }
-	void setTemplateZoneID(ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
+	void setTemplateZoneID( ZoneID_t templateZoneID ) { m_TemplateZoneID = templateZoneID; }
 
 private:
 	int			m_DynamicZoneType;		// DynamicZoneType
@@ -48,11 +48,11 @@ private:
 class DynamicZoneInfoManager
 {
 public:
-	typedef map<int,DynamicZoneInfo*>			HashMapDynamicZoneInfo;
+	typedef hash_map<int,DynamicZoneInfo*>			HashMapDynamicZoneInfo;
 	typedef HashMapDynamicZoneInfo::iterator		HashMapDynamicZoneInfoItor;
 	typedef HashMapDynamicZoneInfo::const_iterator	HashMapDynamicZoneInfoConstItor;
 
-	typedef map<ZoneID_t,int>					HashMapDynamicZoneType;
+	typedef hash_map<ZoneID_t,int>					HashMapDynamicZoneType;
 	typedef HashMapDynamicZoneType::iterator		HashMapDynamicZoneTypeItor;
 	typedef HashMapDynamicZoneType::const_iterator	HashMapDynamicZoneTypeConstItor;
 
@@ -63,10 +63,10 @@ public:
 public:
 	void init();
 	void clear();
-	void addDynamicZoneInfo(DynamicZoneInfo* pDynamicZoneInfo);
-	DynamicZoneInfo* getDynamicZoneInfo(int DynamicZoneType ) const;
+	void addDynamicZoneInfo( DynamicZoneInfo* pDynamicZoneInfo );
+	DynamicZoneInfo* getDynamicZoneInfo( int DynamicZoneType ) const;
 
-	int getDynamicZoneTypeByZoneID(ZoneID_t zoneID ) const;
+	int getDynamicZoneTypeByZoneID( ZoneID_t zoneID ) const;
 
 private:
 	HashMapDynamicZoneInfo	m_DynamicZoneInfos;

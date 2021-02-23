@@ -10,11 +10,11 @@ LuaSelectItem::LuaSelectItem(LuaState* pState)
 
 int
 LuaSelectItem::executeFile(const string& filename)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	int result = luaL_loadfile(m_pState->getState(), filename.c_str());
+	int result = lua_dofile(m_pState->getState(), filename.c_str());
 
 	lua_getglobal(m_pState->getState(), "ItemClass");
 	lua_getglobal(m_pState->getState(), "ItemType");

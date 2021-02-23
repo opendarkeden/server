@@ -7,7 +7,7 @@
 
 // include files
 #include "UpdateManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Socket.h"
 #include "SocketOutputStream.h"
 
@@ -15,7 +15,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 UpdateManager::UpdateManager () 
-	throw()
+	throw ()
 : m_pResourceManager(NULL)
 {
 }
@@ -25,17 +25,17 @@ UpdateManager::UpdateManager ()
 // destructor
 //--------------------------------------------------------------------------------
 UpdateManager::~UpdateManager () 
-	throw()
+	throw ()
 {
 	// delete all update
-	while (!m_Updates.empty() ) {
+	while ( !m_Updates.empty() ) {
 		Update * pUpdate = m_Updates.front();
 		delete pUpdate;
 		m_Updates.pop_front();
 	}
 
 	// delete resource manager
-	if (m_pResourceManager != NULL ) {
+	if ( m_pResourceManager != NULL ) {
 		delete m_pResourceManager;
 		m_pResourceManager = NULL;
 	}
@@ -45,13 +45,13 @@ UpdateManager::~UpdateManager ()
 //--------------------------------------------------------------------------------
 // load from update file
 //--------------------------------------------------------------------------------
-void UpdateManager::load (const string & filename ) 
-	throw(Error )
+void UpdateManager::load ( const string & filename ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	ifstream ifile(filename.c_str() , ios::in | ios::binary);
-	if (!ifile ) {
+	ifstream ifile( filename.c_str() , ios::in | ios::binary | ios::nocreate );
+	if ( !ifile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with read mode";
 		throw Error(msg.toString());
@@ -61,21 +61,21 @@ void UpdateManager::load (const string & filename )
 	// read #Updates
 	//--------------------------------------------------------------------------------
 	WORD size;
-	ifile.read((char *)&size , szWORD);
+	ifile.read( (char *)&size , szWORD );
 
 	//--------------------------------------------------------------------------------
 	// read each recource
 	//--------------------------------------------------------------------------------
-	for (int i = 0 ; i < size ; i ++ ) {
+	for ( int i = 0 ; i < size ; i ++ ) {
 
 		Update * pUpdate = new Update();
-		pUpdate->load(ifile);
+		pUpdate->load( ifile );
 
-		push_back(pUpdate);
+		push_back( pUpdate );
 	
 	}
 
-	//cout << "filename = " << filename.c_str() << " num = " << size << endl;
+	cout << "filename = " << filename.c_str() << " num = " << size << endl;
 
 	ifile.close();
 
@@ -86,25 +86,13 @@ void UpdateManager::load (const string & filename )
 //--------------------------------------------------------------------------------
 // save to update file
 //--------------------------------------------------------------------------------
-void UpdateManager::save (const string & filename ) const 
-	throw(Error )
+void UpdateManager::save ( const string & filename ) const 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
-	ofstream ofile(filename.c_str() , ios::out | ios::binary);
-
-    if(!ofile)
-	{
-		// file doesn't exist; create a new one
-		ofile.open(filename.c_str(), ios::out); 
-	}
-	else //ok, file exists; close and reopen in write mode
-	{
-		ofile.close();
-		ofile.open(filename.c_str(), ios::out); // reopen for write
-	}
-
-	if (!ofile ) {
+	ofstream ofile( filename.c_str() , ios::out | ios::binary | ios::noreplace );
+	if ( !ofile ) {
 		StringStream msg;
 		msg << "cannot open " << filename << " with write mode";
 		throw Error(msg.toString());
@@ -114,13 +102,13 @@ void UpdateManager::save (const string & filename ) const
 	// write #Update
 	//--------------------------------------------------------------------------------
 	WORD size = m_Updates.size();
-	ofile.write((const char *)&size , szWORD);
+	ofile.write( (const char *)&size , szWORD );
 
-	for (list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
+	for ( list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
 
 		Update * pUpdate = *itr;
 
-		pUpdate->save(ofile);
+		pUpdate->save( ofile );
 
 	}
 
@@ -133,8 +121,8 @@ void UpdateManager::save (const string & filename ) const
 //--------------------------------------------------------------------------------
 // read from socket 
 //--------------------------------------------------------------------------------
-void UpdateManager::read (Socket * pSocket )
-	throw(IOException , Error )
+void UpdateManager::read ( Socket * pSocket )
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -143,17 +131,17 @@ void UpdateManager::read (Socket * pSocket )
 	//--------------------------------------------------------------------------------
 	WORD nUpdates;
 
-	pSocket->receive(&nUpdates , szWORD);
+	pSocket->receive( &nUpdates , szWORD );
 
-	if (nUpdates > maxUpdates )
+	if ( nUpdates > maxUpdates )
 		throw InvalidProtocolException("too many updates");
 
-	for (int i = 0 ; i < nUpdates ; i ++ ) {
+	for ( int i = 0 ; i < nUpdates ; i ++ ) {
 
 		Update * pUpdate = new Update();
-		pUpdate->read(pSocket);
+		pUpdate->read( pSocket );
 
-		push_back(pUpdate);
+		push_back( pUpdate );
 	}
 
 	__END_CATCH
@@ -163,8 +151,8 @@ void UpdateManager::read (Socket * pSocket )
 //--------------------------------------------------------------------------------
 // write to socket 
 //--------------------------------------------------------------------------------
-void UpdateManager::write (Socket * pSocket ) const
-	throw(IOException , Error )
+void UpdateManager::write ( Socket * pSocket ) const
+	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -177,16 +165,16 @@ void UpdateManager::write (Socket * pSocket ) const
 	//cout << "업데이트할 항목의 갯수는 얼마 일까요? : " << (int)nUpdates << endl;
 	//cout << "============================================"<< endl;
 
-	if (nUpdates > maxUpdates )
+	if ( nUpdates > maxUpdates )
 		throw InvalidProtocolException("too many updates");
 
-	pSocket->send(&nUpdates , szWORD);
+	pSocket->send( &nUpdates , szWORD );
 
 	//--------------------------------------------------------------------------------
 	// write each update
 	//--------------------------------------------------------------------------------
-	for (list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
-		(*itr)->write(pSocket);
+	for ( list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
+		(*itr)->write( pSocket );
 	}
 
 	__END_CATCH
@@ -197,23 +185,23 @@ void UpdateManager::write (Socket * pSocket ) const
 // get resource manager
 //--------------------------------------------------------------------------------
 ResourceManager * UpdateManager::getResourceManager ()
-	throw(Error )
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	// 아직 리소스매니저를 생성하지 않았으며, 업데이트 리스트가 empty 가 아닐 경우
-	if (m_pResourceManager == NULL && !m_Updates.empty() ) {
+	if ( m_pResourceManager == NULL && !m_Updates.empty() ) {
 
 		// 리소스 매니저를 생성하자.
 		m_pResourceManager = new ResourceManager();
 
 		Resource * pResource;
 	
-		for (list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
+		for ( list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
 		
 			// 어떤 업데이트 명령의 특정 파라미터는 리소스를 나타낸다. 
 			// 그런 파라미터를 리소스 객체로 만들어서 리소스 매니저에 등록시키자.	
-			switch ((*itr)->getUpdateType() ) {
+			switch ( (*itr)->getUpdateType() ) {
 	
 				// 다음 명령들에는 리소스가 존재하지 않는다.
 				case UPDATETYPE_CREATE_DIRECTORY :
@@ -226,62 +214,62 @@ ResourceManager * UpdateManager::getResourceManager ()
 				// param[0]
 				case UPDATETYPE_CREATE_FILE :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0], param[2]
 				case UPDATETYPE_APPEND_SPRITE_PACK :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(2));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(2) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0], param[2]
 				case UPDATETYPE_DELETE_SPRITE_PACK :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(2));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(2) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0], param[1]
 				case UPDATETYPE_UPDATE_SPRITE_PACK :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(1));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(1) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0]
 				case UPDATETYPE_APPEND_FRAME_PACK :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0]
 				case UPDATETYPE_APPEND_INFO :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
 				// param[0]
 				case UPDATETYPE_VERIFY :
 					{
-						pResource = new Resource((*itr)->getVersion() , (*itr)->getParam(0));
-						m_pResourceManager->push_back(pResource);
+						pResource = new Resource( (*itr)->getVersion() , (*itr)->getParam(0) );
+						m_pResourceManager->push_back( pResource );
 					}
 					break;
 	
@@ -306,11 +294,11 @@ ResourceManager * UpdateManager::getResourceManager ()
 // get size
 //--------------------------------------------------------------------------------
 uint UpdateManager::getSize () const
-	throw()
+	throw ()
 {
 	uint size = szWORD;	// nUpdates
 
-	for (list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
+	for ( list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) {
 		size += (*itr)->getSize();
 	}
 
@@ -322,13 +310,13 @@ uint UpdateManager::getSize () const
 // get debug string
 //--------------------------------------------------------------------------------
 string UpdateManager::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 
 	msg << "UpdateManager(\n";
 		
-	for (list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) 
+	for ( list< Update * >::const_iterator itr = m_Updates.begin() ; itr != m_Updates.end() ; itr ++ ) 
 	{
 		msg << (*itr)->toString();
 	}

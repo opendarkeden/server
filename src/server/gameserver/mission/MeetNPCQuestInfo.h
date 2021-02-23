@@ -25,7 +25,7 @@ public:
 
 	virtual string					toString() const throw();
 
-	MeetNPCQuestStatus*	makeQuestStatus(PlayerCreature* pPC ) const throw(Error);
+	MeetNPCQuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const throw(Error);
 
 private:
 	NPCID_t		m_NPCID[2];

@@ -31,7 +31,7 @@ void StoneAuger::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 
 		// NoSuch¡¶∞≈. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			)
 		{
 			executeSkillFailException(pOusters, getSkillType());
@@ -71,17 +71,17 @@ void StoneAuger::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouster
 	param.bMagicDamage  = true;
 	param.bAdd          = false;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	param.addMask(0, 0, 100);
-	param.addMask(1, 0, 100);
-	param.addMask(-1, 0, 100);
-	param.addMask(0, 1, 100);
-	param.addMask(0,-1, 100);
+	param.addMask( 0, 0, 100 );
+	param.addMask( 1, 0, 100 );
+	param.addMask(-1, 0, 100 );
+	param.addMask( 0, 1, 100 );
+	param.addMask( 0,-1, 100 );
 
 	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID);
 

@@ -11,7 +11,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
-InventoryInfo::InventoryInfo() throw() {
+InventoryInfo::InventoryInfo () 
+     throw ()
+{
 	__BEGIN_TRY
 
 	m_ListNum = 0;
@@ -23,10 +25,13 @@ InventoryInfo::InventoryInfo() throw() {
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-InventoryInfo::~InventoryInfo() throw() {
+InventoryInfo::~InventoryInfo () 
+    throw ()
+{
 	__BEGIN_TRY
 
-	while (!m_InventorySlotInfoList.empty()) {
+	while ( !m_InventorySlotInfoList.empty() ) 
+	{
 		InventorySlotInfo * pInventorySlotInfo = m_InventorySlotInfoList.front();
 		SAFE_DELETE(pInventorySlotInfo);
 		m_InventorySlotInfoList.pop_front();
@@ -39,19 +44,18 @@ InventoryInfo::~InventoryInfo() throw() {
 //////////////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
-void InventoryInfo::read(SocketInputStream & iStream) throw(ProtocolException, Error)
+void InventoryInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
-
-//	iStream.read(m_Width);
-//	iStream.read(m_Height);
 		
-	iStream.read(m_ListNum);
+	iStream.read( m_ListNum );
 
-	for(int i = 0; i < m_ListNum; i++) {
+	for( int i = 0; i < m_ListNum; i++ ) 
+	{
 		InventorySlotInfo * pInventorySlotInfo = new InventorySlotInfo();
-		pInventorySlotInfo->read(iStream);
-		m_InventorySlotInfoList.push_back(pInventorySlotInfo);
+		pInventorySlotInfo->read( iStream );
+		m_InventorySlotInfoList.push_back( pInventorySlotInfo );
 	}
 
 	__END_CATCH
@@ -61,17 +65,17 @@ void InventoryInfo::read(SocketInputStream & iStream) throw(ProtocolException, E
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void InventoryInfo::write (SocketOutputStream & oStream) const throw(ProtocolException, Error) {
+void InventoryInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
+{
 	__BEGIN_TRY
+		
+	oStream.write( m_ListNum );
 
-//	oStream.write(m_Width);
-//	oStream.write(m_Height);
-
-	oStream.write(m_ListNum);
-
-    for (list<InventorySlotInfo*>:: const_iterator itr = m_InventorySlotInfoList.begin(); itr != m_InventorySlotInfoList.end(); itr++) {
-        Assert(*itr != NULL);
-		(*itr)->write(oStream);
+	list<InventorySlotInfo*>:: const_iterator itr = m_InventorySlotInfoList.begin();
+    for (; itr!= m_InventorySlotInfoList.end(); itr++) 
+	{
+		(*itr)->write( oStream );
 	}
 
 	__END_CATCH
@@ -81,12 +85,17 @@ void InventoryInfo::write (SocketOutputStream & oStream) const throw(ProtocolExc
 //////////////////////////////////////////////////////////////////////////////
 // getSize
 //////////////////////////////////////////////////////////////////////////////
-PacketSize_t InventoryInfo::getSize() throw() {
-	//PacketSize_t PacketSize = szBYTE + szBYTE + szBYTE;
+PacketSize_t InventoryInfo::getSize()
+	throw()
+{
+
 	PacketSize_t PacketSize = szBYTE;
 
-	for (list< InventorySlotInfo* >::const_iterator itr = m_InventorySlotInfoList.begin(); itr != m_InventorySlotInfoList.end(); itr++)
+	for ( list< InventorySlotInfo* >::const_iterator itr = m_InventorySlotInfoList.begin() ; itr != m_InventorySlotInfoList.end() ; itr ++ ) {
+
 		PacketSize += (*itr)->getSize();
+
+	}
 
 	return PacketSize;
 }
@@ -95,15 +104,19 @@ PacketSize_t InventoryInfo::getSize() throw() {
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string InventoryInfo::toString() const throw() {
+string InventoryInfo::toString () 
+	const throw ()
+{
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "InventoryInfo(ListNum:" << (int)m_ListNum << " ListSet(";
+	msg << "InventoryInfo( ListNum:" << (int)m_ListNum 
+		<< " ListSet( " ;
 
-	for (list<InventorySlotInfo*>::const_iterator itr = m_InventorySlotInfoList.begin(); itr!= m_InventorySlotInfoList.end(); itr++)
+	for ( list<InventorySlotInfo*>::const_iterator itr = m_InventorySlotInfoList.begin(); itr!= m_InventorySlotInfoList.end() ; itr++ ) {
 		msg << (*itr)->toString() << ",";
+	}
 
 	msg << ")";
 
@@ -111,3 +124,5 @@ string InventoryInfo::toString() const throw() {
 
 	__END_CATCH
 }
+
+

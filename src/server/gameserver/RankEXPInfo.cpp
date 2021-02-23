@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "RankEXPInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
-#include <algorithm>
+#include <algo.h>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global Variable initialization
@@ -162,7 +162,7 @@ void RankEXPInfoManager::addRankEXPInfo(RankEXPInfo * pRankEXPInfo)
 }
 
 RankEXPInfo * RankEXPInfoManager::getRankEXPInfo(uint value) const 
-	throw(InvalidProtocolException)
+	throw (InvalidProtocolException)
 {
 	__BEGIN_TRY
 

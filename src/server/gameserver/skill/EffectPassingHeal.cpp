@@ -22,14 +22,12 @@
 #include "Slayer.h"
 #include "ZoneUtil.h"
 
-#include "GCRemoveEffect.h"
-#include "GCChangeDarkLight.h"
-#include "GCModifyInformation.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCStatusCurrentHP.h"
-
-#include <list>
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 TPOINT PassingHealSearchTiles[] = 
 {
@@ -81,7 +79,7 @@ void EffectPassingHeal::affect()
 	__BEGIN_TRY
 
 	Creature* pTargetCreature = dynamic_cast<Creature*>(m_pTarget);
-	if (pTargetCreature != NULL ) affect(pTargetCreature);
+	if ( pTargetCreature != NULL ) affect( pTargetCreature );
 
 	__END_CATCH
 }
@@ -92,9 +90,9 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 	__BEGIN_TRY
 
 	setDeadline(0);
-	if (pTargetCreature == NULL ) return;
+	if ( pTargetCreature == NULL ) return;
 
-	//cout << "affect passing heal : " << pTargetCreature->getName() << endl;
+	cout << "affect passing heal : " << pTargetCreature->getName() << endl;
 
 	Zone* pZone = pTargetCreature->getZone();
 
@@ -126,28 +124,28 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 	// 저주 계열 해소
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_DOOM)) 
 	{
-		pEffectDoom = dynamic_cast<EffectDoom*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_DOOM));
+		pEffectDoom = dynamic_cast<EffectDoom*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_DOOM) );
 		Assert(pEffectDoom != NULL);
 
 		bDoom = HitRoll::isSuccessRemoveCurse(50, 100, 10, pEffectDoom->getLevel(), 10);
 	}
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_BLUNTING)) 
 	{
-		pEffectBlunting = dynamic_cast<EffectBlunting*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLUNTING));
+		pEffectBlunting = dynamic_cast<EffectBlunting*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLUNTING) );
 		Assert(pEffectBlunting != NULL);
 
 		bBlunting = HitRoll::isSuccessRemoveCurse(50, 100, 15, pEffectBlunting->getLevel(), 10);
 	}
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_PARALYZE)) 
 	{
-		pEffectParalyze = dynamic_cast<EffectParalyze*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_PARALYZE));
+		pEffectParalyze = dynamic_cast<EffectParalyze*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_PARALYZE) );
 		Assert(pEffectParalyze != NULL);
 
 		bParalyze = HitRoll::isSuccessRemoveCurse(50, 100, 20, pEffectParalyze->getLevel(), 10);
 	}
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_SEDUCTION)) 
 	{
-		pEffectSeduction = dynamic_cast<EffectSeduction*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_SEDUCTION));
+		pEffectSeduction = dynamic_cast<EffectSeduction*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_SEDUCTION) );
 		Assert(pEffectSeduction != NULL);
 
 		bSeduction = HitRoll::isSuccessRemoveCurse(50, 100, 30, pEffectSeduction->getLevel(), 10);
@@ -166,7 +164,7 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_POISON)) 
 	{
-		pEffectPoison = dynamic_cast<EffectPoison*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_POISON));
+		pEffectPoison = dynamic_cast<EffectPoison*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_POISON) );
 		Assert(pEffectPoison != NULL);
 
 		bGreenPoison = HitRoll::isSuccessCurePoison(50, 100, 10, pEffectPoison->getLevel(), 10);
@@ -174,7 +172,7 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE)) 
 	{
-		pEffectYellowPoisonToCreature = dynamic_cast<EffectYellowPoisonToCreature*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE));
+		pEffectYellowPoisonToCreature = dynamic_cast<EffectYellowPoisonToCreature*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE) );
 		Assert(pEffectYellowPoisonToCreature != NULL);
 
 		bYellowPoison = HitRoll::isSuccessCurePoison(50, 100, 20, pEffectYellowPoisonToCreature->getLevel(), 10);
@@ -182,7 +180,7 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_DARKBLUE_POISON)) 
 	{
-		pEffectDBP = dynamic_cast<EffectDarkBluePoison*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_DARKBLUE_POISON));
+		pEffectDBP = dynamic_cast<EffectDarkBluePoison*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_DARKBLUE_POISON) );
 		Assert(pEffectDBP != NULL);
 
 		bDarkBluePoison = HitRoll::isSuccessCurePoison(50, 100, 30, pEffectDBP->getLevel(), 10);
@@ -190,7 +188,7 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 
 	if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_GREEN_STALKER)) 
 	{
-		pEffectGreenStalker = dynamic_cast<EffectGreenStalker*>(pTargetCreature->findEffect(Effect::EFFECT_CLASS_GREEN_STALKER));
+		pEffectGreenStalker = dynamic_cast<EffectGreenStalker*>( pTargetCreature->findEffect(Effect::EFFECT_CLASS_GREEN_STALKER) );
 		Assert(pEffectGreenStalker != NULL);
 
 		bGreenStalker = HitRoll::isSuccessCurePoison(50, 100, 40, pEffectGreenStalker->getLevel(), 10);
@@ -291,78 +289,78 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 		++cureCount;
 	}
 
-	if (gcRemoveEffect.getListNum() > 0 )
+	if ( gcRemoveEffect.getListNum() > 0 )
 	{
-		pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcRemoveEffect);
+		pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcRemoveEffect );
 	}
 
-	if (pTargetCreature->isSlayer() )
+	if ( pTargetCreature->isSlayer() )
 	{
 		Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
 		HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
 		HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
-		int healpoint	= min(m_HealPoint, MaxHP - CurrentHP);
-		if (healpoint > 0 )
+		int healpoint	= min( m_HealPoint, MaxHP - CurrentHP );
+		if ( healpoint > 0 )
 		{
-			pTargetSlayer->setHP(CurrentHP + healpoint, ATTR_CURRENT);
+			pTargetSlayer->setHP( CurrentHP + healpoint, ATTR_CURRENT );
 			GCStatusCurrentHP gcStatusCurrentHP;
-			gcStatusCurrentHP.setObjectID(pTargetSlayer->getObjectID());
+			gcStatusCurrentHP.setObjectID( pTargetSlayer->getObjectID() );
 			gcStatusCurrentHP.setCurrentHP(CurrentHP);
 			pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
 			gcMI.addShortData(MODIFY_CURRENT_HP, CurrentHP);
 		}
 	}
 
-	if (pTargetCreature->isPC() ) pTargetCreature->getPlayer()->sendPacket(&gcMI);
+	if ( pTargetCreature->isPC() ) pTargetCreature->getPlayer()->sendPacket( &gcMI );
 
-	if (m_PassingCount > 0 )
-	for (int i=0; i<24; ++i )
+	if ( m_PassingCount > 0 )
+	for ( int i=0; i<24; ++i )
 	{
 		bool bAffected = false;
-		if (PassingHealSearchTiles[i].x == 255 ) break;
+		if ( PassingHealSearchTiles[i].x == 255 ) break;
 		ZoneCoord_t X = pTargetCreature->getX() + PassingHealSearchTiles[i].x;
 		ZoneCoord_t Y = pTargetCreature->getY() + PassingHealSearchTiles[i].y;
 
-		if (!isValidZoneCoord(pZone, X, Y ) ) continue;
-		Tile& rTile = pZone->getTile(X, Y);
-		list<Object*>& oList = rTile.getObjectList();
+		if ( !isValidZoneCoord( pZone, X, Y ) ) continue;
+		Tile& rTile = pZone->getTile( X, Y );
+		slist<Object*>& oList = rTile.getObjectList();
 
-		list<Object*>::iterator itr = oList.begin();
-		for (; itr != oList.end() ; ++itr )
+		slist<Object*>::iterator itr = oList.begin();
+		for ( ; itr != oList.end() ; ++itr )
 		{
 			Object* pObject = *itr;
-			if (pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
+			if ( pObject == NULL || pObject->getObjectClass() != Object::OBJECT_CLASS_CREATURE ) continue;
 			Creature* pCreature = dynamic_cast<Creature*>(pObject);
-			if (pCreature != NULL && pCreature->isSlayer() && !pCreature->isFlag(Effect::EFFECT_CLASS_PASSING_HEAL ) )
+			if ( pCreature != NULL && pCreature->isSlayer() && !pCreature->isFlag( Effect::EFFECT_CLASS_PASSING_HEAL ) )
 			{
-				EffectPassingHeal* pPassingHeal = new EffectPassingHeal(pCreature);
+				EffectPassingHeal* pPassingHeal = new EffectPassingHeal( pCreature );
 				pPassingHeal->setBroadcastingEffect(false);
 				pPassingHeal->setNextTime(5);
-				pPassingHeal->setPassingCount(m_PassingCount-1);
-				pPassingHeal->setCureCount(m_CureCount-1);
-				pPassingHeal->setHealPoint((int)(m_HealPoint*0.8));
-				pCreature->addEffect(pPassingHeal);
-				pCreature->setFlag(Effect::EFFECT_CLASS_PASSING_HEAL);
+				pPassingHeal->setPassingCount( m_PassingCount-1 );
+				pPassingHeal->setCureCount( m_CureCount-1 );
+				pPassingHeal->setHealPoint( m_HealPoint*0.8 );
+				pCreature->addEffect( pPassingHeal );
+				pCreature->setFlag( Effect::EFFECT_CLASS_PASSING_HEAL );
 
-				if (pTargetCreature->isPC() )
+				if ( pTargetCreature->isPC() )
 				{
 					GCSkillToObjectOK1 OK1;
-					OK1.setSkillType(SKILL_HEAL_PASS);
-					OK1.setCEffectID(0);
-					OK1.setTargetObjectID(pCreature->getObjectID());
-					OK1.setDuration(0);
-					pTargetCreature->getPlayer()->sendPacket(&OK1);
+					OK1.setSkillType( SKILL_HEAL_PASS );
+					OK1.setCEffectID( 0 );
+					OK1.setTargetObjectID( pCreature->getObjectID() );
+					OK1.setDuration( 0 );
+					pTargetCreature->getPlayer()->sendPacket( &OK1 );
 				}
 
-				_GCSkillToObjectOK5.setSkillType(SKILL_HEAL_PASS);
-				_GCSkillToObjectOK5.setObjectID(pTargetCreature->getObjectID());
-				_GCSkillToObjectOK5.setTargetObjectID(pCreature->getObjectID());
+				_GCSkillToObjectOK5.setSkillType( SKILL_HEAL_PASS );
+				_GCSkillToObjectOK5.setObjectID( pTargetCreature->getObjectID() );
+				_GCSkillToObjectOK5.setTargetObjectID( pCreature->getObjectID() );
 				_GCSkillToObjectOK5.setDuration(0);
 
 				list<Creature*> cList;
-				cList.push_back(pTargetCreature);
+				cList.push_back( pTargetCreature );
 				pZone->broadcastSkillPacket(pTargetCreature->getX(), pTargetCreature->getY(), pCreature->getX(), pCreature->getY(), &_GCSkillToObjectOK5, cList);
 
 				bAffected = true;
@@ -370,10 +368,10 @@ void EffectPassingHeal::affect(Creature* pTargetCreature)
 			}
 		}
 
-		if (bAffected ) break;
+		if ( bAffected ) break;
 	}
 
-	//cout << "affected passing heal : " << pTargetCreature->getName() << endl;
+	cout << "affected passing heal : " << pTargetCreature->getName() << endl;
 
 	__END_CATCH
 }

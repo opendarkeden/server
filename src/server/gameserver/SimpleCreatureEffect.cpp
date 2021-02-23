@@ -8,7 +8,7 @@
 #include "Ousters.h"
 #include "Player.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -44,14 +44,14 @@ void SimpleCreatureEffect::unaffect(Creature* pCreature)
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(getSendEffectClass());
 
-	if (isBroadcastingEffect() )
+	if ( isBroadcastingEffect() )
 	{
 		pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 	}
 	else
 	{
 		Player* pPlayer = pCreature->getPlayer();
-		if (pPlayer != NULL ) pPlayer->sendPacket(&gcRemoveEffect);
+		if ( pPlayer != NULL ) pPlayer->sendPacket( &gcRemoveEffect );
 	}
 
 	__END_CATCH

@@ -19,7 +19,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	/*if (!g_pVariableManager->isActiveHolyLand())
 	{
@@ -62,9 +62,9 @@ bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature 
 	// 돈 낸 사람만 castle 에 들어갈 수 있다.
 	if (bPayPlay)
 	{
-		bool hasGuildWar = g_pWarSystem->hasCastleActiveWar(m_CastleZoneID);
+		bool hasGuildWar = g_pWarSystem->hasCastleActiveWar( m_CastleZoneID );
 
-		CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo(m_CastleZoneID);
+		CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( m_CastleZoneID );
 		Assert(pCastleInfo!=NULL);
 
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
@@ -75,7 +75,7 @@ bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature 
 
 		// 전쟁이 없을 때 --> 성 소유 길드만 들어갈 수 있다.
 		// 길드 전쟁 중 --> 공격 길드도 들어갈 수 있다.
-		if (OwnerGuildID!=SlayerCommon && OwnerGuildID!=VampireCommon && OwnerGuildID!=OustersCommon
+		if ( OwnerGuildID!=SlayerCommon && OwnerGuildID!=VampireCommon && OwnerGuildID!=OustersCommon
 			&& GuildID==OwnerGuildID)
 		{
 			return true;
@@ -84,7 +84,7 @@ bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature 
 		if (hasGuildWar)
 		{
 			GuildID_t AttackGuildID;
-			g_pWarSystem->getAttackGuildID(m_CastleZoneID, AttackGuildID);
+			g_pWarSystem->getAttackGuildID( m_CastleZoneID, AttackGuildID );
 			if (GuildID==AttackGuildID)
 			{
 				return true;
@@ -99,7 +99,7 @@ bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature 
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEnterCastleDungeon::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -116,7 +116,7 @@ void ConditionEnterCastleDungeon::read (PropertyBuffer & propertyBuffer)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEnterCastleDungeon::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

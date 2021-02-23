@@ -26,7 +26,7 @@ Gun::Gun()
 
 Gun::Gun(ItemType_t itemType, const list<OptionType_t>& optionType)
 	throw()
-: m_OptionType(optionType )
+: m_OptionType( optionType )
 {
 	m_ItemType    = itemType;
 	m_BulletCount = 0;
@@ -48,5 +48,5 @@ Gun::~Gun()
 void Gun::makePCItemInfo(PCItemInfo& result) const
 {
 	Item::makePCItemInfo(result);
-	result.setItemNum(getBulletCount());
+	result.setItemNum( getBulletCount() );
 }

@@ -10,13 +10,13 @@
 #include "GamePlayer.h"
 
 #include "PacketUtil.h"
-#include "GCPetStashList.h"
+#include "Gpackets/GCPetStashList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -46,13 +46,13 @@ void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2)
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCPetStashList gcPetStashList;
-	makeGCPetStashList(&gcPetStashList, pPC);
+	makeGCPetStashList( &gcPetStashList, pPC );
 
 	gcPetStashList.setCode(0);
-	pPC->getPlayer()->sendPacket(&gcPetStashList);
+	pPC->getPlayer()->sendPacket( &gcPetStashList );
 
 	__END_CATCH
 }
@@ -62,7 +62,7 @@ void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionPetWithdraw::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

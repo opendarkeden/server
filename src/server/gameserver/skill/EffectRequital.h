@@ -31,7 +31,7 @@ public:
 	string toString() const throw();
 
 public:
-	void setReflection(int ref ) { m_Reflection = ref; }
+	void setReflection( int ref ) { m_Reflection = ref; }
 	int getReflection() const { return m_Reflection; }
 
 private:

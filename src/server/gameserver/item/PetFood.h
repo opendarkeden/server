@@ -28,8 +28,8 @@ public:
 public:
 	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
 	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw(Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw(Error);
+	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const throw (Error);
 	virtual string toString() const throw();
 
 	static void initItemIDRegistry(void) throw();
@@ -69,13 +69,13 @@ public:
 	virtual string toString() const throw();
 
 	PetHP_t getPetHP() const { return m_PetHP; }
-	void setPetHP(PetHP_t PetHP ) { m_PetHP = PetHP; }
+	void setPetHP( PetHP_t PetHP ) { m_PetHP = PetHP; }
 
 	int getTameRatio() const { return m_TameRatio; }
-	void setTameRatio(int ratio ) { m_TameRatio = ratio; }
+	void setTameRatio( int ratio ) { m_TameRatio = ratio; }
 
 	int getTarget() const { return m_Target; }
-	void setTarget(int Target ) { m_Target = Target; }
+	void setTarget( int Target ) { m_Target = Target; }
 
 private :
 	PetHP_t m_PetHP;

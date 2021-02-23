@@ -11,10 +11,10 @@
 #include "Zone.h"
 #include "Tile.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프
@@ -63,7 +63,7 @@ void InstallTurret::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
-		bool bEffected   = pSlayer->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET);
+		bool bEffected   = pSlayer->isFlag( Effect::EFFECT_CLASS_INSTALL_TURRET );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected)
 		{
@@ -73,23 +73,23 @@ void InstallTurret::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_
 			SkillOutput output;
 			computeOutput(input, output);
 
-			EffectInstallTurret* pEffect = new EffectInstallTurret(pSlayer);
+			EffectInstallTurret* pEffect = new EffectInstallTurret( pSlayer );
 			pEffect->setDeadline(output.Duration);
-			pEffect->setDamage(output.Damage);
-			pEffect->setDefense(output.ToHit);
+			pEffect->setDamage( output.Damage );
+			pEffect->setDefense( output.ToHit );
 
-			//cout << "Turret Duration : " << output.Duration << endl;
-			//cout << "Turret Delay : " << output.Delay << endl;
+			cout << "Turret Duration : " << output.Duration << endl;
+			cout << "Turret Delay : " << output.Delay << endl;
 
-			pSlayer->setFlag(pEffect->getEffectClass());
-			pSlayer->addEffect(pEffect);
+			pSlayer->setFlag( pEffect->getEffectClass() );
+			pSlayer->addEffect( pEffect );
 
 			GCAddEffect gcAE;
-			gcAE.setObjectID(pSlayer->getObjectID());
-			gcAE.setDuration(output.Duration);
-			gcAE.setEffectID(pEffect->getSendEffectClass());
+			gcAE.setObjectID( pSlayer->getObjectID() );
+			gcAE.setDuration( output.Duration );
+			gcAE.setEffectID( pEffect->getSendEffectClass() );
 
-			pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcAE);
+			pZone->broadcastPacket( pSlayer->getX(), pSlayer->getY(), &gcAE );
 
 			SLAYER_RECORD prev;
 			pSlayer->getSlayerRecord(prev);

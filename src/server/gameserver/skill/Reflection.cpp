@@ -7,9 +7,9 @@
 #include "Reflection.h"
 #include "EffectReflection.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -160,7 +160,7 @@ bool CheckReflection(Creature* pAttacker, Creature* pTargetCreature, SkillType_t
 			_GCSkillToSelfOK2.setObjectID(pTargetCreature->getObjectID());
 			_GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
 			_GCSkillToSelfOK2.setDuration(0);
-			pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &_GCSkillToSelfOK2, pTargetCreature);
+			pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &_GCSkillToSelfOK2, pTargetCreature );
 
 
 			return true;

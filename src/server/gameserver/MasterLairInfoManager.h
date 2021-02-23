@@ -9,8 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
-#include <vector>
+#include <hash_map>
 
 // 마스터 죽였을때 개인이 받는 계급 경험치
 const int MASTER_KILL_RANK_EXP = 23300;
@@ -171,7 +170,7 @@ public:
 	string toString() const throw();
 
 private:
-	map<ZoneID_t, MasterLairInfo*> m_MasterLairInfos; // zone info 의 해쉬맵
+	hash_map<ZoneID_t, MasterLairInfo*> m_MasterLairInfos; // zone info 의 해쉬맵
 };
 
 extern MasterLairInfoManager* g_pMasterLairInfoManager;

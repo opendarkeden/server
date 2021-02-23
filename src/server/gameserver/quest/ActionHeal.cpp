@@ -12,19 +12,19 @@
 #include "GamePlayer.h"
 #include "Zone.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
-#include "GCNPCResponse.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 #include "EffectAftermath.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionHeal::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -34,7 +34,7 @@ void ActionHeal::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 	pPlayer->sendPacket(&okpkt);
 
 	// 죽었거나 코마 걸려있으면 안 치료해준다.
-	if (pCreature2->isDead() || pCreature2->isFlag(Effect::EFFECT_CLASS_COMA ) )
+	if ( pCreature2->isDead() || pCreature2->isFlag( Effect::EFFECT_CLASS_COMA ) )
 	{
 		return;
 	}
@@ -146,7 +146,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 		pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &removePkt);
 		pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &hpPkt, pSlayer);
 
-		//log(LOG_HEAL, pSlayer->getName(), "");
+		log(LOG_HEAL, pSlayer->getName(), "");
 	}
 	else if (pCreature2->isVampire())
 	{
@@ -172,7 +172,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 		pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &removePkt);
 		pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &hpPkt, pVampire);
 
-		//log(LOG_HEAL, pVampire->getName(), "");
+		log(LOG_HEAL, pVampire->getName(), "");
 	}
 	else if (pCreature2->isOusters())
 	{
@@ -187,7 +187,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 		{
 			Silver_t prev = pOusters->getSilverDamage();
 
-			if (prev != 0 )
+			if ( prev != 0 )
 			{
 				pOusters->setSilverDamage(0);
 				modifyPkt.addShortData(MODIFY_SILVER_DAMAGE, pOusters->getSilverDamage());
@@ -260,7 +260,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 		pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &removePkt);
 		pZone->broadcastPacket(pOusters->getX(), pOusters->getY(), &hpPkt, pOusters);
 
-		//log(LOG_HEAL, pOusters->getName(), "");
+		log(LOG_HEAL, pOusters->getName(), "");
 
 	}
 	__END_CATCH
@@ -270,7 +270,7 @@ void ActionHeal::execute (Creature * pCreature1 , Creature * pCreature2)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 string ActionHeal::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -36,8 +36,8 @@ using namespace FileAPI;
 
 //////////////////////////////////////////////////////////////////////
 //
-// SOCKET SocketAPI::socket_ex (int domain , int type , int protocol ) 
-//		throw(Error )
+// SOCKET SocketAPI::socket_ex ( int domain , int type , int protocol ) 
+//		throw ( Error )
 //
 // exception version of socket()
 //
@@ -53,16 +53,16 @@ using namespace FileAPI;
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-SOCKET SocketAPI::socket_ex (int domain , int type , int protocol ) 
-	throw(Error )
+SOCKET SocketAPI::socket_ex ( int domain , int type , int protocol ) 
+	throw ( Error )
 {
 	__BEGIN_TRY
 
 	SOCKET s = ::socket(domain,type,protocol);
 
-	if (s == INVALID_SOCKET ) {
+	if ( s == INVALID_SOCKET ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EPROTONOSUPPORT :
 			throw Error("The protocol type or the specified protocol is not supported within this domain.");
 		case EMFILE : 
@@ -77,7 +77,7 @@ SOCKET SocketAPI::socket_ex (int domain , int type , int protocol )
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -110,15 +110,15 @@ SOCKET SocketAPI::socket_ex (int domain , int type , int protocol )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::bind_ex (SOCKET s , const struct sockaddr * addr , uint addrlen ) 
-//      throw(MBindException , 
-//              Error);
+// void SocketAPI::bind_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen ) 
+//      throw ( MBindException , 
+//              Error );
 //
 // exception version of bind()
 //
 // Parameters
 //     s       - socket descriptor 
-//     addr    - socket address structure (normally struct sockaddr_in )
+//     addr    - socket address structure ( normally struct sockaddr_in )
 //     addrlen - length of socket address structure
 //
 // Return
@@ -129,15 +129,15 @@ SOCKET SocketAPI::socket_ex (int domain , int type , int protocol )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::bind_ex (SOCKET s , const struct sockaddr * addr , uint addrlen ) 
-     throw(BindException , 
+void SocketAPI::bind_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen ) 
+     throw ( BindException , 
              Error )
 {
 	__BEGIN_TRY
 
-	if (bind (s , addr , addrlen ) == SOCKET_ERROR ) {
+	if ( bind ( s , addr , addrlen ) == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EADDRINUSE :
 			throw BindException("The address is already in use. kill another server or use another port. 소켓의 주소 혹은 포트가 이미 사용중입니다. 기존의 서버 소켓을 종료하거나, 다른 포트를 사용하시기 바랍니다.");
 		case EINVAL : 
@@ -166,7 +166,7 @@ void SocketAPI::bind_ex (SOCKET s , const struct sockaddr * addr , uint addrlen 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -197,10 +197,10 @@ void SocketAPI::bind_ex (SOCKET s , const struct sockaddr * addr , uint addrlen 
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::connect_ex (SOCKET s , const struct sockaddr * addr , uint addrlen )
-//      throw(ConnectException , 
+// void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen )
+//      throw ( ConnectException , 
 //              NonBlockingIOException , 
-//              Error);
+//              Error );
 //
 // exception version of connect() system call
 //
@@ -218,16 +218,16 @@ void SocketAPI::bind_ex (SOCKET s , const struct sockaddr * addr , uint addrlen 
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::connect_ex (SOCKET s , const struct sockaddr * addr , uint addrlen )
-     throw(ConnectException , 
+void SocketAPI::connect_ex ( SOCKET s , const struct sockaddr * addr , uint addrlen )
+     throw ( ConnectException , 
              NonBlockingIOException , 
              Error )
 {
 	__BEGIN_TRY
 
-	if (connect(s,addr,addrlen) == SOCKET_ERROR ) {
+	if ( connect(s,addr,addrlen) == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EALREADY : 
 			throw NonBlockingIOException("The socket is non-blocking and a previous connection attempt has not yet been completed.");
 		case EINPROGRESS : 
@@ -252,7 +252,7 @@ void SocketAPI::connect_ex (SOCKET s , const struct sockaddr * addr , uint addrl
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -299,8 +299,8 @@ void SocketAPI::connect_ex (SOCKET s , const struct sockaddr * addr , uint addrl
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::listen_ex (SOCKET s , uint backlog )
-//      throw(Error);
+// void SocketAPI::listen_ex ( SOCKET s , uint backlog )
+//      throw ( Error );
 //
 // exception version of listen()
 //
@@ -315,14 +315,14 @@ void SocketAPI::connect_ex (SOCKET s , const struct sockaddr * addr , uint addrl
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::listen_ex (SOCKET s , uint backlog ) 
-     throw(Error )
+void SocketAPI::listen_ex ( SOCKET s , uint backlog ) 
+     throw ( Error )
 {
 	__BEGIN_TRY
 
-	if (listen(s , backlog ) == SOCKET_ERROR ) {
+	if ( listen( s , backlog ) == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("Bad descriptor.");
 		case ENOTSOCK :
@@ -333,7 +333,7 @@ void SocketAPI::listen_ex (SOCKET s , uint backlog )
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -366,10 +366,10 @@ void SocketAPI::listen_ex (SOCKET s , uint backlog )
 
 //////////////////////////////////////////////////////////////////////
 //
-//SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen ) 
-//       throw(NonBlockingIOException , 
+//SOCKET SocketAPI::accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen ) 
+//       throw ( NonBlockingIOException , 
 //               ConnectException ,
-//               Error);
+//               Error );
 //
 // exception version of accept()
 //
@@ -386,20 +386,20 @@ void SocketAPI::listen_ex (SOCKET s , uint backlog )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen )
-       throw(NonBlockingIOException , ConnectException , Error )
+SOCKET SocketAPI::accept_ex ( SOCKET s , struct sockaddr * addr , uint * addrlen )
+       throw ( NonBlockingIOException , ConnectException , Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	SOCKET client = accept(s , addr , addrlen);
+	SOCKET client = accept( s , addr , addrlen );
 #elif __WINDOWS__
-	SOCKET client = accept(s , addr , (int*)addrlen);
+	SOCKET client = accept( s , addr , (int*)addrlen );
 #endif
 	
-	if (client == INVALID_SOCKET ) {
+	if ( client == INVALID_SOCKET ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 
 		case EWOULDBLOCK : 
 			throw NonBlockingIOException();
@@ -422,7 +422,7 @@ SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen 
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this FUNCTION.");
 		case WSAENETDOWN : 
@@ -454,24 +454,24 @@ SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen 
 		struct timeval tm;
 		struct timeval tm2;
 
-//		int time = getsockopt(client, SOL_SOCKET, SO_SNDTIMEO, &tm, &socklen);
-//		int time2 = getsockopt(client, SOL_SOCKET, SO_RCVTIMEO, &tm2, &socklen2);
+//		int time = getsockopt( client, SOL_SOCKET, SO_SNDTIMEO, &tm, &socklen );
+//		int time2 = getsockopt( client, SOL_SOCKET, SO_RCVTIMEO, &tm2, &socklen2 );
 
 //		cout << "Socket Option Time Out Sec Value : " << tm.tv_sec << endl;
 //		cout << "Socket Option Time Out Usec Value : " << tm.tv_usec << endl;
 		// Send Time out
 //		tm.tv_sec = 0;
 //		tm.tv_usec = 20;
-//		socklen_t socklen = sizeof(tm);
+//		socklen_t socklen = sizeof( tm );
 
 		// Recv Time out
 		tm2.tv_sec = 0;
 		tm2.tv_usec = 10000;
-		socklen_t socklen2 = sizeof(tm2);
+		socklen_t socklen2 = sizeof( tm2 );
 
-		socklen2 = sizeof(tm2);
-//		setsockopt(client, SOL_SOCKET, SO_SNDTIMEO, &tm, socklen);
-		setsockopt(client, SOL_SOCKET, SO_RCVTIMEO, &tm2, socklen2);
+		socklen2 = sizeof( tm2 );
+//		setsockopt( client, SOL_SOCKET, SO_SNDTIMEO, &tm, socklen );
+		setsockopt( client, SOL_SOCKET, SO_RCVTIMEO, &tm2, socklen2 );
 */
 	}
 
@@ -483,15 +483,15 @@ SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen 
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::getsockopt_ex (SOCKET s , int level , int optname , void * optval , uint * optlen )
-//      throw(Error);
+// void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
+//      throw ( Error );
 //
 // exception version of getsockopt()
 //
 // Parameters
 //     s       - socket descriptor
-//     level   - socket option level (SOL_SOCKET , ... )
-//     optname - socket option name (SO_REUSEADDR , SO_LINGER , ... )
+//     level   - socket option level ( SOL_SOCKET , ... )
+//     optname - socket option name ( SO_REUSEADDR , SO_LINGER , ... )
 //     optval  - pointer to contain option value
 //     optlen  - length of optval
 //
@@ -502,14 +502,14 @@ SOCKET SocketAPI::accept_ex (SOCKET s , struct sockaddr * addr , uint * addrlen 
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::getsockopt_ex (SOCKET s , int level , int optname , void * optval , uint * optlen )
-     throw(Error )
+void SocketAPI::getsockopt_ex ( SOCKET s , int level , int optname , void * optval , uint * optlen )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	if (getsockopt(s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
-		switch (errno ) {
+	if ( getsockopt( s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("Bad descriptor.");
 		case ENOTSOCK : 
@@ -523,8 +523,8 @@ void SocketAPI::getsockopt_ex (SOCKET s , int level , int optname , void * optva
 		}//end of switch
 	}
 #elif __WINDOWS__
-	if (getsockopt(s , level , optname , (char*)optval , (int*)optlen ) == SOCKET_ERROR ) {
-		switch (WSAGetLastError() ) {
+	if ( getsockopt( s , level , optname , (char*)optval , (int*)optlen ) == SOCKET_ERROR ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -548,14 +548,14 @@ void SocketAPI::getsockopt_ex (SOCKET s , int level , int optname , void * optva
 	__END_CATCH
 }
 
-uint SocketAPI::getsockopt_ex2 (SOCKET s , int level , int optname , void * optval , uint * optlen )
-     throw(Error )
+uint SocketAPI::getsockopt_ex2 ( SOCKET s , int level , int optname , void * optval , uint * optlen )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	if (getsockopt(s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
-		switch (errno ) {
+	if ( getsockopt( s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
+		switch ( errno ) {
 		case EBADF : 
 			return 1;
 		case ENOTSOCK : 
@@ -576,15 +576,15 @@ uint SocketAPI::getsockopt_ex2 (SOCKET s , int level , int optname , void * optv
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::setsockopt_ex (SOCKET s , int level , int optname , const void * optval , uint optlen )
-//      throw(Error);
+// void SocketAPI::setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
+//      throw ( Error );
 //
 // exception version of setsockopt()
 //
 // Parameters
 //     s       - socket descriptor
-//     level   - socket option level (SOL_SOCKET , ... )
-//     optname - socket option name (SO_REUSEADDR , SO_LINGER , ... )
+//     level   - socket option level ( SOL_SOCKET , ... )
+//     optname - socket option name ( SO_REUSEADDR , SO_LINGER , ... )
 //     optval  - pointer to contain option value
 //     optlen  - length of optval
 //
@@ -595,14 +595,14 @@ uint SocketAPI::getsockopt_ex2 (SOCKET s , int level , int optname , void * optv
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::setsockopt_ex (SOCKET s , int level , int optname , const void * optval , uint optlen )
-     throw(Error )
+void SocketAPI::setsockopt_ex ( SOCKET s , int level , int optname , const void * optval , uint optlen )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
-	if (setsockopt(s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
-		switch (errno ) {
+	if ( setsockopt( s , level , optname , optval , optlen ) == SOCKET_ERROR ) {
+		switch ( errno ) {
 			case EBADF : 
 				throw Error("Bad descriptor.");
 			case ENOTSOCK : 
@@ -616,8 +616,8 @@ void SocketAPI::setsockopt_ex (SOCKET s , int level , int optname , const void *
 		}//end of switch
 	}
 #elif __WINDOWS__
-	if (setsockopt(s , level , optname , (char*)optval , optlen ) == SOCKET_ERROR ) {
-		switch (WSAGetLastError() ) {
+	if ( setsockopt( s , level , optname , (char*)optval , optlen ) == SOCKET_ERROR ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -648,8 +648,8 @@ void SocketAPI::setsockopt_ex (SOCKET s , int level , int optname , const void *
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
-//      throw(NonBlockingIOException , ConnectException , Error )
+// uint SocketAPI::send_ex ( SOCKET s , const void * buf , uint len , uint flags )
+//      throw ( NonBlockingIOException , ConnectException , Error )
 // 
 // exception version of send()
 // 
@@ -668,8 +668,8 @@ void SocketAPI::setsockopt_ex (SOCKET s , int level , int optname , const void *
 //     Error 
 // 
 //////////////////////////////////////////////////////////////////////
-uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
-     throw(NonBlockingIOException ,
+uint SocketAPI::send_ex ( SOCKET s , const void * buf , uint len , uint flags )
+     throw ( NonBlockingIOException ,
              ConnectException ,
              Error,
 			 ProtocolException )
@@ -686,9 +686,9 @@ uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
 	nSent = send(s,(const char *)buf,len,flags);
 #endif
 
-	if (nSent == SOCKET_ERROR ) {
+	if ( nSent == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 
 		case EWOULDBLOCK : 
 			//throw NonBlockingIOException();
@@ -710,7 +710,7 @@ uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
 			throw UnknownError(strerror(errno),errno);
 		}//end of switch
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -754,12 +754,12 @@ uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
 		}//end of switch
 #endif
 	} 
-	else if (nSent == 0 )
+	else if ( nSent == 0 )
 	{
 		throw ConnectException("connect closed.");
 	}
 
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		cout << "SocketAPI::send_ex Exception Check!" << endl;
 		cout << t.toString() << endl;
 		throw InvalidProtocolException("씨바 누가 끊기노");
@@ -774,8 +774,8 @@ uint SocketAPI::send_ex (SOCKET s , const void * buf , uint len , uint flags )
 //////////////////////////////////////////////////////////////////////
 // exception version of sendto()
 //////////////////////////////////////////////////////////////////////
-uint SocketAPI::sendto_ex (SOCKET s , const void * buf , int len , unsigned int flags , const struct sockaddr * to , int tolen )
-    throw(NonBlockingIOException , ConnectException , Error )
+uint SocketAPI::sendto_ex ( SOCKET s , const void * buf , int len , unsigned int flags , const struct sockaddr * to , int tolen )
+    throw ( NonBlockingIOException , ConnectException , Error )
 {
 	__BEGIN_TRY
 
@@ -785,9 +785,9 @@ uint SocketAPI::sendto_ex (SOCKET s , const void * buf , int len , unsigned int 
 	int nSent = sendto(s,(const char *)buf,len,flags,to,tolen);
 #endif
 
-	if (nSent == SOCKET_ERROR ) {
+	if ( nSent == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 
 		case EWOULDBLOCK : 
 			//throw NonBlockingIOException();
@@ -821,8 +821,8 @@ uint SocketAPI::sendto_ex (SOCKET s , const void * buf , int len , unsigned int 
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
-//      throw(NonBlockingIOException , ConnectException , Error )
+// uint SocketAPI::recv_ex ( SOCKET s , void * buf , uint len , uint flags )
+//      throw ( NonBlockingIOException , ConnectException , Error )
 //
 // exception version of recv()
 //
@@ -841,8 +841,8 @@ uint SocketAPI::sendto_ex (SOCKET s , const void * buf , int len , unsigned int 
 //     Error 
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
-     throw(NonBlockingIOException ,
+uint SocketAPI::recv_ex ( SOCKET s , void * buf , uint len , uint flags )
+     throw ( NonBlockingIOException ,
              ConnectException ,
              Error )
 {
@@ -854,9 +854,9 @@ uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
 	int nrecv = recv(s,(char*)buf,len,flags);
 #endif
 
-	if (nrecv == SOCKET_ERROR ) {
+	if ( nrecv == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 
 		case EWOULDBLOCK : 
 			// by sigi. 2002.5.17
@@ -879,7 +879,7 @@ uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
 		}//end of switch
 
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -917,7 +917,7 @@ uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
 		}//end of switch
 #endif
 	} 
-	else if (nrecv == 0 )
+	else if ( nrecv == 0 )
 	{
 		throw ConnectException("connect closed.");
 	}
@@ -931,8 +931,8 @@ uint SocketAPI::recv_ex (SOCKET s , void * buf , uint len , uint flags )
 /////////////////////////////////////////////////////////////////////
 // exception version of recvfrom()
 /////////////////////////////////////////////////////////////////////
-uint SocketAPI::recvfrom_ex (SOCKET s , void * buf , int len , uint flags , struct sockaddr * from , uint * fromlen )
-    throw(NonBlockingIOException , ConnectException , Error )
+uint SocketAPI::recvfrom_ex ( SOCKET s , void * buf , int len , uint flags , struct sockaddr * from , uint * fromlen )
+    throw ( NonBlockingIOException , ConnectException , Error )
 {
 	__BEGIN_TRY
 
@@ -946,9 +946,9 @@ uint SocketAPI::recvfrom_ex (SOCKET s , void * buf , int len , uint flags , stru
 	int nReceived = recvfrom(s,(char*)buf,len,flags,from,(int*)fromlen);
 #endif
 
-	if (nReceived == SOCKET_ERROR ) {
+	if ( nReceived == SOCKET_ERROR ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 
 		case EWOULDBLOCK : 
 			//throw NonBlockingIOException();
@@ -981,8 +981,8 @@ uint SocketAPI::recvfrom_ex (SOCKET s , void * buf , int len , uint flags , stru
 
 /////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::closesocket_ex (SOCKET s )
-//      throw(Error )
+// void SocketAPI::closesocket_ex ( SOCKET s )
+//      throw ( Error )
 //
 // exception version of closesocket()
 //
@@ -996,8 +996,8 @@ uint SocketAPI::recvfrom_ex (SOCKET s , void * buf , int len , uint flags , stru
 //     Error
 //
 /////////////////////////////////////////////////////////////////////
-void SocketAPI::closesocket_ex (SOCKET s )
-     throw(FileNotOpenedException, Error )
+void SocketAPI::closesocket_ex ( SOCKET s )
+     throw ( FileNotOpenedException, Error )
 {
 	__BEGIN_TRY
 
@@ -1005,8 +1005,8 @@ void SocketAPI::closesocket_ex (SOCKET s )
 	// using close_ex()
 	FileAPI::close_ex(s);
 #elif __WINDOWS__
-	if (closesocket(s) == SOCKET_ERROR ) {
-		switch (WSAGetLastError() ) {
+	if ( closesocket(s) == SOCKET_ERROR ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN : 
@@ -1031,22 +1031,22 @@ void SocketAPI::closesocket_ex (SOCKET s )
 
 /////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::ioctlsocket_ex (SOCKET s , long cmd , ulong * argp )
-//      throw(Error )
+// void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
+//      throw ( Error )
 //
 // exception version of ioctlsocket()
 //
 /////////////////////////////////////////////////////////////////////
-void SocketAPI::ioctlsocket_ex (SOCKET s , long cmd , ulong * argp )
-     throw(Error )
+void SocketAPI::ioctlsocket_ex ( SOCKET s , long cmd , ulong * argp )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
 	throw UnsupportedError(__PRETTY_FUNCTION__);
 #elif __WINDOWS__
-	if (ioctlsocket(s,cmd,argp) == SOCKET_ERROR ) {
-		switch (WSAGetLastError() ) {
+	if ( ioctlsocket(s,cmd,argp) == SOCKET_ERROR ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function. ");
 		case WSAENETDOWN : 
@@ -1069,8 +1069,8 @@ void SocketAPI::ioctlsocket_ex (SOCKET s , long cmd , ulong * argp )
 
 //////////////////////////////////////////////////////////////////////
 //
-// bool SocketAPI::getsocketnonblocking_ex (SOCKET s ) 
-//      throw(Error);
+// bool SocketAPI::getsocketnonblocking_ex ( SOCKET s ) 
+//      throw ( Error );
 //
 // check if this socket is nonblocking mode
 //
@@ -1084,8 +1084,8 @@ void SocketAPI::ioctlsocket_ex (SOCKET s , long cmd , ulong * argp )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-bool SocketAPI::getsocketnonblocking_ex (SOCKET s )
-     throw(Error )
+bool SocketAPI::getsocketnonblocking_ex ( SOCKET s )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -1101,8 +1101,8 @@ bool SocketAPI::getsocketnonblocking_ex (SOCKET s )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::setsocketnonblocking_ex (SOCKET s , bool on ) 
-//      throw(Error);
+// void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on ) 
+//      throw ( Error );
 //
 // make this socket blocking/nonblocking
 //
@@ -1117,15 +1117,15 @@ bool SocketAPI::getsocketnonblocking_ex (SOCKET s )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::setsocketnonblocking_ex (SOCKET s , bool on )
-     throw(Error )
+void SocketAPI::setsocketnonblocking_ex ( SOCKET s , bool on )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
 #if __LINUX__
 	FileAPI::setfilenonblocking_ex(s,on);
 #elif __WINDOWS__
-	ulong argp = (on == true ) ? 1 : 0;
+	ulong argp = ( on == true ) ? 1 : 0;
 	ioctlsocket_ex(s,FIONBIO,&argp);
 #endif
 	
@@ -1134,8 +1134,8 @@ void SocketAPI::setsocketnonblocking_ex (SOCKET s , bool on )
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint SocketAPI::availablesocket_ex (SOCKET s )
-//      throw(Error )
+// uint SocketAPI::availablesocket_ex ( SOCKET s )
+//      throw ( Error )
 //
 // get amount of data in socket input buffer
 //
@@ -1149,8 +1149,8 @@ void SocketAPI::setsocketnonblocking_ex (SOCKET s , bool on )
 //    Error
 //
 //////////////////////////////////////////////////////////////////////
-uint SocketAPI::availablesocket_ex (SOCKET s )
-     throw(Error )
+uint SocketAPI::availablesocket_ex ( SOCKET s )
+     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -1168,14 +1168,14 @@ uint SocketAPI::availablesocket_ex (SOCKET s )
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketAPI::shutdown_ex (SOCKET s , uint how )
-// 	    throw(Error )
+// void SocketAPI::shutdown_ex ( SOCKET s , uint how )
+// 	    throw ( Error )
 //
 // shutdown all or part of connection of socket
 //
 // Parameters
 //     s   - socket descriptor
-//     how - how to close (all , send , receive )
+//     how - how to close ( all , send , receive )
 //
 // Return
 //     none
@@ -1184,14 +1184,14 @@ uint SocketAPI::availablesocket_ex (SOCKET s )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-void SocketAPI::shutdown_ex (SOCKET s , uint how )
-	 throw(Error )
+void SocketAPI::shutdown_ex ( SOCKET s , uint how )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 
-	if (shutdown(s,how) < 0 ) {
+	if ( shutdown(s,how) < 0 ) {
 #if __LINUX__
-		switch (errno ) {
+		switch ( errno ) {
 		case EBADF : 
 			throw Error("s is not a valid descriptor.");
 		case ENOTSOCK : 
@@ -1202,7 +1202,7 @@ void SocketAPI::shutdown_ex (SOCKET s , uint how )
 			throw UnknownError(strerror(errno),errno);
 		}
 #elif __WINDOWS__
-		switch (WSAGetLastError() ) {
+		switch ( WSAGetLastError() ) {
 		case WSANOTINITIALISED : 
 			throw Error("A successful WSAStartup must occur before using this function.");
 		case WSAENETDOWN :
@@ -1226,8 +1226,8 @@ void SocketAPI::shutdown_ex (SOCKET s , uint how )
 
 //////////////////////////////////////////////////////////////////////
 //
-// int SocketAPI::select_ex (int maxfdp1 , fd_set * readset , fd_set * writeset , fd_set * exceptset , struct timeval * timeout )
-//		throw(Error )
+// int SocketAPI::select_ex ( int maxfdp1 , fd_set * readset , fd_set * writeset , fd_set * exceptset , struct timeval * timeout )
+//		throw ( Error )
 //
 // system call for I/O multiplexing
 //
@@ -1247,8 +1247,8 @@ void SocketAPI::shutdown_ex (SOCKET s , uint how )
 //     Error
 //
 //////////////////////////////////////////////////////////////////////
-int SocketAPI::select_ex (int maxfdp1 , fd_set * readset , fd_set * writeset , fd_set * exceptset , struct timeval * timeout )
-	throw(TimeoutException , InterruptedException , Error )
+int SocketAPI::select_ex ( int maxfdp1 , fd_set * readset , fd_set * writeset , fd_set * exceptset , struct timeval * timeout )
+	throw ( TimeoutException , InterruptedException , Error )
 {
 	__BEGIN_TRY
 #if __LINUX__
@@ -1256,17 +1256,17 @@ int SocketAPI::select_ex (int maxfdp1 , fd_set * readset , fd_set * writeset , f
 
 	try {
 
-		result = select(maxfdp1 , readset , writeset , exceptset , timeout);
+		result = select( maxfdp1 , readset , writeset , exceptset , timeout );
 
-		if (result == 0 )
+		if ( result == 0 )
 			// by sigi. 2002.5.17
 			return 0;
 			//throw TimeoutException();
 
 		/*
 	    // 주석처리 by sigi. 2002.5.17
-		if (result < 0 ) {
-			switch (errno ) {
+		if ( result < 0 ) {
+			switch ( errno ) {
 			case EINTR : 
 				throw InterruptedException("A non blocked signal was caught.");
 			case EBADF : 
@@ -1281,7 +1281,7 @@ int SocketAPI::select_ex (int maxfdp1 , fd_set * readset , fd_set * writeset , f
 		}
 		*/
 
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		// 어떤 에러가 나든 무시한다.
 //		cout << "셀렉트에서 이상한 에러가 난당.." << endl;
 //		throw TimeoutException();

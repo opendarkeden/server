@@ -20,20 +20,20 @@
 class InventorySlotInfo : public PCItemInfo 
 {
 public:
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
-	uint getSize () throw()
+	uint getSize () throw ()
 	{ 
 		return PCItemInfo::getSize() + szCoordInven* 2;
 	}
 
-	static uint getMaxSize () throw()
+	static uint getMaxSize () throw ()
 	{ 
 		return PCItemInfo::getMaxSize() + szCoordInven* 2;
 	}
 
-	string toString () const throw();
+	string toString () const throw ();
 
 public:
 	void setInvenX(CoordInven_t InvenX) throw() { m_InvenX = InvenX; }

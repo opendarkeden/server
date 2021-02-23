@@ -7,19 +7,17 @@
 #include "BloodyMarker.h"
 #include "ZoneUtil.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToInventoryOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToInventoryOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCDeleteObject.h"
 
 #include "item/VampirePortalItem.h"
-#include "item/SubInventory.h"
-#include "TradeManager.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, ObjectID_t InventoryItemObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
+void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -59,29 +57,6 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, ObjectID
 			return;
 		}
 		//*/
-
-		SubInventory* pInventoryItem = NULL;
-		int invenID = 0;
-
-		if (InventoryItemObjectID != 0 )
-		{
-			//cout << "서브 인벤토리에서 사용 : " << InventoryItemObjectID << endl;
-			CoordInven_t X, Y;
-			pInventoryItem = dynamic_cast<SubInventory*>(pInventory->findItemOID(InventoryItemObjectID, X, Y ));
-
-			TradeManager* pTradeManager = pZone->getTradeManager();
-			Assert(pTradeManager != NULL);
-
-			if (pInventoryItem == NULL || pTradeManager->hasTradeInfo(pVampire->getName()) )
-			{
-				//cout << "근데 서브 인벤토리가 없다." <<endl;
-				executeSkillFailException(pVampire, getSkillType());
-				return;
-			}
-
-			pInventory = pInventoryItem->getInventory();
-			invenID = pInventoryItem->getItemID();
-		}
 
 		Item* pItem = pInventory->getItem(X, Y);
 		// 아이템이 널이거나, 포탈 아이템이 아니거나, 오브젝트ID가 틀리다면...
@@ -126,7 +101,7 @@ void BloodyMarker::execute(Vampire* pVampire, ObjectID_t InvenObjectID, ObjectID
 			pVampirePortalItem->setZoneID(pZone->getZoneID());
 			pVampirePortalItem->setX(pVampire->getX());
 			pVampirePortalItem->setY(pVampire->getY());
-			pVampirePortalItem->save(pVampire->getName(), STORAGE_INVENTORY, invenID, X, Y);
+			pVampirePortalItem->save(pVampire->getName(), STORAGE_INVENTORY, 0, X, Y);
 
 			_GCSkillToInventoryOK1.setSkillType(SkillType);
 			_GCSkillToInventoryOK1.setObjectID(InvenObjectID);

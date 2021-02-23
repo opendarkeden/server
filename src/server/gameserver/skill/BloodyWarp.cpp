@@ -105,9 +105,9 @@ void BloodyWarp::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 	int myX = pVampire->getX(); 
 	int myY = pVampire->getY();
 
-	POINT& pt = getWarpPosition(myX, myY, X, Y);
+	POINT& pt = getWarpPosition(myX, myY, X, Y );
 
-	if (moveFastPC(pVampire, myX, myY, X, Y ))
+	if (moveFastPC( pVampire, myX, myY, X, Y ))
 	{
 		decreaseMana(pVampire, RequiredMP, _GCSkillToObjectOK1);
 	}
@@ -141,12 +141,12 @@ void BloodyWarp::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 	int myX = pMonster->getX(); 
 	int myY = pMonster->getY();
 
-	POINT pt = getWarpPosition(myX, myY, X, Y);
+	POINT pt = getWarpPosition(myX, myY, X, Y );
 
 	// BLOODY_WALL를 적의 위치에 사용한다.
 	SkillType_t SkillType  = SKILL_BLOODY_WALL;
 
-	if (pMonster->getMonsterType() >= 717 )
+	if ( pMonster->getMonsterType() >= 717 )
 		SkillType = SKILL_BLOODY_SNAKE;
 
 	SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);
@@ -155,7 +155,7 @@ void BloodyWarp::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 	pSkillHandler->execute(pMonster, X, Y);
 
 
-	if (pZone->moveFastMonster(pMonster, myX, myY, pt.x, pt.y, getSkillType() ))
+	if (pZone->moveFastMonster( pMonster, myX, myY, pt.x, pt.y, getSkillType() ))
 	{
 		// BLOODY_WAVE를 pMonster의 도착지점에 사용한다.
 		SkillType = (pMonster->isMaster()? SKILL_BLOODY_MASTER_WAVE : SKILL_BLOODY_WAVE);

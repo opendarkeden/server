@@ -12,8 +12,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -60,8 +60,8 @@ void EffectBlazeWalk::affect(Creature* pCreature)
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
-	if (pAttacker == NULL )
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
+	if ( pAttacker == NULL )
 	{
 		setDeadline(0);
 		return;
@@ -69,36 +69,36 @@ void EffectBlazeWalk::affect(Creature* pCreature)
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		&& !pCreature->isDead()
-		&& !pCreature->isFlag(Effect::EFFECT_CLASS_COMA )
+		&& !pCreature->isFlag( Effect::EFFECT_CLASS_COMA )
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(pAttacker, pCreature )
+		&& canAttack( pAttacker, pCreature )
 	   )
 	{
 		GCModifyInformation gcMI, gcAttackerMI;
-		setDamage(pCreature, m_Point, pAttacker, m_SkillType, &gcMI, &gcAttackerMI);
+		setDamage( pCreature, m_Point, pAttacker, m_SkillType, &gcMI, &gcAttackerMI );
 
-		if (pAttacker->isPC() ) computeAlignmentChange(pCreature, m_Point, pAttacker, &gcMI, &gcAttackerMI);
-		if (pCreature->isPC() ) pCreature->getPlayer()->sendPacket(&gcMI);
+		if ( pAttacker->isPC() ) computeAlignmentChange( pCreature, m_Point, pAttacker, &gcMI, &gcAttackerMI );
+		if ( pCreature->isPC() ) pCreature->getPlayer()->sendPacket( &gcMI );
 
-		if (pAttacker->isSlayer() && !pCreature->isSlayer() )
+		if ( pAttacker->isSlayer() && !pCreature->isSlayer() )
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
 
-			if (pSlayer != NULL )
+			if ( pSlayer != NULL )
 			{
 				GCModifyInformation gcMI;
-				shareAttrExp(pSlayer, m_Point, 8, 1, 1, gcAttackerMI);
+				shareAttrExp( pSlayer, m_Point, 8, 1, 1, gcAttackerMI );
 			}
 		}
 
-		if (pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket(&gcAttackerMI);
+		if ( pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket( &gcAttackerMI );
 
-		if (pCreature->isDead() ) setDeadline(0);
+		if ( pCreature->isDead() ) setDeadline(0);
 	}
 
 	m_AttackNum--;
 
-	if (m_AttackNum > 0 )
+	if ( m_AttackNum > 0 )
 	{
 		setNextTime(5);
 	}

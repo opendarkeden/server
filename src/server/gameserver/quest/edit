@@ -1,0 +1,3 @@
+# !/bin/sh
+
+vi ActionGiveSpecialEventItem.cpp ActionPrepareShop.cpp ActionRedeemMotorcycle.cpp ActionRedistributeAttr.cpp ActionRegenEventShop.cpp ActionRegenShop.cpp TriggerManager.cpp 

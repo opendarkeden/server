@@ -12,19 +12,19 @@
 //----------------------------------------------------------------------
 // read data from socket input stream
 //----------------------------------------------------------------------
-void SubItemInfo::read (SocketInputStream & iStream ) 
-	throw(ProtocolException , Error )
+void SubItemInfo::read ( SocketInputStream & iStream ) 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
 
-	iStream.read(m_ObjectID);
-	iStream.read(m_IClass);
-	iStream.read(m_ItemType);
-	iStream.read(m_ItemNum);
-	iStream.read(m_SlotID);
+	iStream.read( m_ObjectID );
+	iStream.read( m_IClass );
+	iStream.read( m_ItemType );
+	iStream.read( m_ItemNum );
+	iStream.read( m_SlotID );
 
-	} catch(Throwable & t ) {
+	} catch( Throwable & t ) {
 		cout << t.toString() << endl;
 	}
 
@@ -34,18 +34,18 @@ void SubItemInfo::read (SocketInputStream & iStream )
 //----------------------------------------------------------------------
 // write data to socket output stream
 //----------------------------------------------------------------------
-void SubItemInfo::write (SocketOutputStream & oStream ) const 
-	throw(ProtocolException , Error )
+void SubItemInfo::write ( SocketOutputStream & oStream ) const 
+	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
 	try {
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_IClass);
-	oStream.write(m_ItemType);
-	oStream.write(m_ItemNum);
-	oStream.write(m_SlotID);
+	oStream.write( m_ObjectID );
+	oStream.write( m_IClass );
+	oStream.write( m_ItemType );
+	oStream.write( m_ItemNum );
+	oStream.write( m_SlotID );
 
 	} catch (Throwable & t ) {
 		cout << t.toString() << endl;
@@ -58,7 +58,7 @@ void SubItemInfo::write (SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SubItemInfo::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

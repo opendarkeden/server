@@ -4,9 +4,8 @@
 #include "Types.h"
 #include "Exception.h"
 #include <list>
-#include <map>
-#include <algorithm>
-#include "GCUnionOfferList.h"
+#include <hash_map>
+#include "Gpackets/GCUnionOfferList.h"
 
 #include "Mutex.h"
 
@@ -20,11 +19,11 @@ public:
 	GuildID_t	getMasterGuildID() const { return m_MasterGuildID; }
 
 	uint		getUnionID() const { return m_UnionID; }
-	void		setUnionID(uint ID ) { m_UnionID = ID; }
+	void		setUnionID( uint ID ) { m_UnionID = ID; }
 
-	bool		hasGuild(GuildID_t gID ) const;
-	bool		addGuild(GuildID_t gID ) throw(Error);
-	bool		removeGuild(GuildID_t gId ) throw(Error);
+	bool		hasGuild( GuildID_t gID ) const;
+	bool		addGuild( GuildID_t gID ) throw(Error);
+	bool		removeGuild( GuildID_t gId ) throw(Error);
 
 	void		create() throw(Error);
 	void		destroy() throw(Error);
@@ -32,8 +31,8 @@ public:
 	list<GuildID_t>	getGuildList()	const	{ return m_Guilds; }
 	
 protected:
-	list<GuildID_t>::const_iterator findGuildItr(GuildID_t gID ) const { return find(m_Guilds.begin(), m_Guilds.end(), gID); }
-	list<GuildID_t>::iterator findGuildItr(GuildID_t gID ) { return find(m_Guilds.begin(), m_Guilds.end(), gID); }
+	list<GuildID_t>::const_iterator findGuildItr( GuildID_t gID ) const { return find( m_Guilds.begin(), m_Guilds.end(), gID ); }
+	list<GuildID_t>::iterator findGuildItr( GuildID_t gID ) { return find( m_Guilds.begin(), m_Guilds.end(), gID ); }
 
 private:
 	uint		m_UnionID;
@@ -51,13 +50,13 @@ public:
 
 	void	reload()	throw(Error);
 	void	load() throw(Error);
-	void	addGuildUnion(GuildUnion* pUnion);
-	GuildUnion*	getGuildUnion(GuildID_t gID ) { return m_GuildUnionMap[gID]; }
-	GuildUnion* getGuildUnionByUnionID(uint uID ) { return m_UnionIDMap[uID]; }
+	void	addGuildUnion( GuildUnion* pUnion );
+	GuildUnion*	getGuildUnion( GuildID_t gID ) { return m_GuildUnionMap[gID]; }
+	GuildUnion* getGuildUnionByUnionID( uint uID ) { return m_UnionIDMap[uID]; }
 
-	bool	addGuild(uint uID, GuildID_t gID ) throw(Error);
+	bool	addGuild( uint uID, GuildID_t gID ) throw(Error);
 	bool 	removeMasterGuild(GuildID_t gID) throw(Error);
-	bool	removeGuild(uint uID, GuildID_t gID ) throw(Error);
+	bool	removeGuild( uint uID, GuildID_t gID ) throw(Error);
 
 	void	sendRefreshCommand()	throw(Error);
 	void	sendModifyUnionInfo(uint gID)	throw(Error);
@@ -70,8 +69,8 @@ public:
 
 private:
 	list<GuildUnion*>					m_GuildUnionList;
-	map<GuildID_t, GuildUnion*>	m_GuildUnionMap;
-	map<uint, GuildUnion*>			m_UnionIDMap;
+	hash_map<GuildID_t, GuildUnion*>	m_GuildUnionMap;
+	hash_map<uint, GuildUnion*>			m_UnionIDMap;
 
 
 	// Mutex
@@ -114,19 +113,19 @@ public:
 			
 		
 	};
-	uint	offerJoin(GuildID_t gID, GuildID_t MasterGID ) throw(Error);	// 연합가입 신청
-	uint	offerQuit(GuildID_t gID ) throw(Error);						// 연합탈퇴 신청
+	uint	offerJoin( GuildID_t gID, GuildID_t MasterGID ) throw(Error);	// 연합가입 신청
+	uint	offerQuit( GuildID_t gID ) throw(Error);						// 연합탈퇴 신청
 
-	uint	acceptJoin(GuildID_t gID ) throw(Error);						// 연합가입 수락
-	uint	acceptQuit(GuildID_t gID ) throw(Error);						// 연합탈퇴 수락
+	uint	acceptJoin( GuildID_t gID ) throw(Error);						// 연합가입 수락
+	uint	acceptQuit( GuildID_t gID ) throw(Error);						// 연합탈퇴 수락
 
-	uint	denyJoin(GuildID_t gID ) throw(Error);							// 연합가입 거부
-	uint	denyQuit(GuildID_t gID ) throw(Error);							// 엽합탈퇴 거부
+	uint	denyJoin( GuildID_t gID ) throw(Error);							// 연합가입 거부
+	uint	denyQuit( GuildID_t gID ) throw(Error);							// 엽합탈퇴 거부
 
-	void	clearOffer(GuildID_t gID ) throw(Error);	
-	bool	hasOffer(GuildID_t gID ) throw(Error);
+	void	clearOffer( GuildID_t gID ) throw(Error);	
+	bool	hasOffer( GuildID_t gID ) throw(Error);
 
-	bool	makeOfferList(uint uID, GCUnionOfferList& offerList ) throw(Error);	// 목록요청
+	bool	makeOfferList( uint uID, GCUnionOfferList& offerList ) throw(Error);	// 목록요청
 
 	static GuildUnionOfferManager& Instance()
 	{

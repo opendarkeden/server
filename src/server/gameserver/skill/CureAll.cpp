@@ -6,13 +6,13 @@
 
 #include "CureAll.h"
 #include "SimpleCureSkill.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
 #include "EffectDoom.h"
 #include "EffectParalyze.h"
 #include "EffectSeduction.h"
@@ -23,8 +23,8 @@
 #include "EffectGreenStalker.h"
 #include "EffectBloodDrain.h"
 #include "EffectBlunting.h"
-#include "GCRemoveEffect.h"
-#include "GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
 #include "EffectAftermath.h"
 
 const uint CureAllBloodDrainLevel = 75;
@@ -307,7 +307,7 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 				gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GREEN_STALKER);
 			}
 
-			if(bEffected ) {
+			if( bEffected ) {
 				pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcRemoveEffect);
 			}
 
@@ -317,10 +317,10 @@ void CureAll::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 
 			// 실제 회복 수치를 계산한다.
 			int RealHealPoint = 0;
-			if(CurrentHP + HealPoint <= MaxHP ) {
-				RealHealPoint = max((unsigned int)0, HealPoint);
+			if( CurrentHP + HealPoint <= MaxHP ) {
+				RealHealPoint = max( (unsigned int)0, HealPoint );
 			} else {
-				RealHealPoint = max(0, MaxHP - CurrentHP);
+				RealHealPoint = max( 0, MaxHP - CurrentHP );
 			}
 
 			// 경험치를 올려준다.
@@ -659,7 +659,7 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
 				gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GREEN_STALKER);
 			}
 
-			if(bEffected ) {
+			if( bEffected ) {
 				pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcRemoveEffect);
 			}
 
@@ -670,10 +670,10 @@ void CureAll::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffec
 
 			// 실제 회복 수치를 계산한다.
 			int RealHealPoint = 0;
-			if(CurrentHP + HealPoint <= MaxHP ) {
-				RealHealPoint = max((unsigned int)0, HealPoint);
+			if( CurrentHP + HealPoint <= MaxHP ) {
+				RealHealPoint = max( (unsigned int)0, HealPoint );
 			} else {
-				RealHealPoint = max(0, MaxHP - CurrentHP);
+				RealHealPoint = max( 0, MaxHP - CurrentHP );
 			}
 			// 경험치를 올려준다.
 			shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToSelfOK1);

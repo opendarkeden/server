@@ -9,7 +9,7 @@
 #include "Zone.h"
 #include "ZoneUtil.h"
 #include "Tile.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "DB.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -94,18 +94,18 @@ void WayPointManager::load(void)
 			WayPoint* pWayPoint = new WayPoint;
 			Assert(pWayPoint != NULL);
 			pWayPoint->setZoneCoord(ZID, ZX, ZY);
-			pWayPoint->setRace(Race);
+			pWayPoint->setRace( Race );
 
 			addWayPoint(pWayPoint);
 
 			// ¾Æ¿ì½ºÅÍÁî ¿þÀÌÆ÷ÀÎÆ®´Â ºí·°ÇØÁà¾ß µÈ´Ù.
-			if (Race == RACE_OUSTERS )
+			if ( Race == RACE_OUSTERS )
 			{
 				Zone* pZone = getZoneByZoneID(ZID);
-				Tile& rTile = pZone->getTile(ZX, ZY);
+				Tile& rTile = pZone->getTile( ZX, ZY );
 
-				rTile.setBlocked(Creature::MOVE_MODE_WALKING);
-				rTile.setBlocked(Creature::MOVE_MODE_BURROWING);
+				rTile.setBlocked( Creature::MOVE_MODE_WALKING );
+				rTile.setBlocked( Creature::MOVE_MODE_BURROWING );
 			}
 		}
 
@@ -148,7 +148,7 @@ void WayPointManager::addWayPoint(WayPoint* pWayPoint)
 	{
 		cerr << "WayPointManager::addWayPoint() : Duplicated WayPoint" << endl;
 		cerr << "¾Æ¸¶ Çï±â¶û ´ëÁöÁ¤·É»ÔÀÌ¶û ÁÂÇ¥°¡ °ãÃÆÀ»Áöµµ...¤»¤»¤».Áñ~" << endl;
-		throw("WayPointManager::addWayPoint() : Duplicated WayPoint");
+		throw ("WayPointManager::addWayPoint() : Duplicated WayPoint");
 	}
 
 	insert(WayPointMap::value_type(key, pWayPoint));

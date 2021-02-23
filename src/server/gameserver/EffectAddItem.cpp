@@ -6,9 +6,9 @@
 //----------------------------------------------------------------------
 
 // include files
-#include "Assert1.h"
+#include "Assert.h"
 #include "EffectAddItem.h"
-#include "GCDeleteObject.h"
+#include "Gpackets/GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"
@@ -21,7 +21,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectAddItem::EffectAddItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bAllowCreature) 
-	throw(Error)
+	throw (Error)
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -44,7 +44,7 @@ EffectAddItem::EffectAddItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item
 // destructor
 //----------------------------------------------------------------------
 EffectAddItem::~EffectAddItem () 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ EffectAddItem::~EffectAddItem ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectAddItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -74,9 +74,11 @@ void EffectAddItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectAddItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
+
+	//cout << "EffectAddItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)" << endl;
 
 	// 올바른 좌표이어야 한다.
 	Assert(pTarget!=NULL);
@@ -106,7 +108,7 @@ void EffectAddItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obje
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddItem::unaffect ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -116,7 +118,7 @@ void EffectAddItem::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddItem::unaffect (Creature* pCreature)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -126,7 +128,7 @@ void EffectAddItem::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectAddItem::toString () const 
-	throw()
+	throw ()
 {
 	StringStream msg;
 

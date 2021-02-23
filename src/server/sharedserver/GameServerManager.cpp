@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include "GameServerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "SocketAPI.h"
 #include "Socket.h"
 #include <algorithm>
@@ -16,20 +16,33 @@
 #include "Packet.h"
 #include "DB.h"
 
-GameServerManager::GameServerManager() throw(Error): m_pServerSocket(NULL), m_SocketID(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1) {
+
+//////////////////////////////////////////////////////////////////////////////
+// constructor
+// 하위 매니저 및 데이타 멤버들을 생성한다.
+//////////////////////////////////////////////////////////////////////////////
+
+GameServerManager::GameServerManager () 
+	throw (Error)
+: m_pServerSocket(NULL), m_SocketID(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1)
+{
 	__BEGIN_TRY
 
 	m_Mutex.setName("GameServerManager");
 
-	try {
+	try 
+	{
 		// create  server socket
-		while (true) {
-			try {
+		while ( true )
+		{
+			try
+			{
 				m_pServerSocket = new ServerSocket(g_pConfig->getPropertyInt("TCPPort"));
 				break;
 			}
-			catch (BindException& b) {
-				SAFE_DELETE(m_pServerSocket);
+			catch ( BindException& b )
+			{
+				SAFE_DELETE( m_pServerSocket );
 				cout << "GameServerManager(" << g_pConfig->getPropertyInt("TCPPort") << ") : " << b.toString() << endl;
 				sleep(1);
 			}
@@ -39,22 +52,36 @@ GameServerManager::GameServerManager() throw(Error): m_pServerSocket(NULL), m_So
 
 		// 서버 소켓 디스크립터를 지정한다.
 		m_SocketID = m_pServerSocket->getSOCKET();
-	}
-	catch (NoSuchElementException & nsee) {
+	} 
+	catch (NoSuchElementException & nsee) 
+	{
+		// 환경 파일에 그런 element가 없을 경우
 		throw Error(nsee.toString());
-    }
+	}
 
 	__END_CATCH
 }
 
 
-GameServerManager::~GameServerManager() throw(Error) {
+//////////////////////////////////////////////////////////////////////////////
+// destructor
+//////////////////////////////////////////////////////////////////////////////
+
+GameServerManager::~GameServerManager () 
+	throw (Error)
+{
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 
-void GameServerManager::init() throw(Error) {
+//////////////////////////////////////////////////////////////////////////////
+// 하위 매니저 및 데이터 멤버를 초기화한다.
+//////////////////////////////////////////////////////////////////////////////
+
+void GameServerManager::init ()
+	throw (Error)
+{
 	__BEGIN_TRY
 
 	// fd_set 들을 0 으로 초기화한다.
@@ -78,44 +105,50 @@ void GameServerManager::init() throw(Error) {
 }
 
 
-void GameServerManager::run() throw(Error) {
+void GameServerManager::run()
+	throw ()
+{
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
 	try {
-		Timeval dummyQueryTime;
-		getCurrentTime(dummyQueryTime);
 
-		while (true) {
-			try {
+		Timeval dummyQueryTime;
+		getCurrentTime( dummyQueryTime );
+
+		while ( true )
+		{
+			try
+			{
 				usleep(100);
 
 				select();
 
 				processInputs();
+
 				processOutputs();
 			}
-			catch (Throwable& t) {
-				filelog("SSGSManager.txt", "%s", t.toString().c_str());
-            }
+			catch ( Throwable& t )
+			{
+				filelog( "SSGSManager.txt", "%s", t.toString().c_str() );
+			}
 
 			processCommands();
 
 			g_pGuildManager->heartbeat();
 
 			Timeval currentTime;
-			getCurrentTime(currentTime);
+			getCurrentTime( currentTime );
 
-			if (dummyQueryTime < currentTime)
+			if ( dummyQueryTime < currentTime )
 			{
-				g_pDatabaseManager->executeDummyQuery(g_pDatabaseManager->getConnection("DARKEDEN"));
+				g_pDatabaseManager->executeDummyQuery( g_pDatabaseManager->getConnection( "DARKEDEN" ) );
 
-				dummyQueryTime.tv_sec = (60 + rand() % 30) * 60;
+				dummyQueryTime.tv_sec = ( 60 + rand() % 30 ) * 60;
 			}
 		}
 
-	}
-    catch (Throwable& t) {
+	} catch (Throwable& t) {
 		filelog("sharedserverBug.txt", "%s", t.toString().c_str());
 		throw;
 	}
@@ -127,27 +160,38 @@ void GameServerManager::run() throw(Error) {
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void GameServerManager::broadcast(Packet* pPacket) throw(Error) {
+void GameServerManager::broadcast (Packet* pPacket)
+	throw (Error)
+{
 	__BEGIN_TRY
+
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	try {
+	try
+	{
 		for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
 			if (i != m_SocketID && m_pGameServerPlayers[i] != NULL)
 				m_pGameServerPlayers[i]->sendPacket(pPacket);
 		}
 	}
-	catch (ProtocolException e) {
-		filelog("SSException.log", "%s\n%s", e.toString().c_str(), pPacket->toString().c_str());
-    }
+	catch ( ProtocolException e )
+	{
+		filelog( "SSException.log", "%s\n%s", e.toString().c_str(), pPacket->toString().c_str() );
+	}
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
 
-void GameServerManager::broadcast(Packet* pPacket, Player* pPlayer) throw(Error) {
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+void GameServerManager::broadcast (Packet* pPacket, Player* pPlayer)
+	throw (Error)
+{
 	__BEGIN_TRY
+
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
@@ -156,14 +200,20 @@ void GameServerManager::broadcast(Packet* pPacket, Player* pPlayer) throw(Error)
 	}
 
     __LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
 
+//////////////////////////////////////////////////////////////////////////////
+// call select() system call
+// 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
+//////////////////////////////////////////////////////////////////////////////
 void GameServerManager::select ()
-	throw(TimeoutException , InterruptedException , Error)
+	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
+
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// m_Timeout[0] 을 m_Timeout[1] 으로 복사한다.
@@ -175,13 +225,19 @@ void GameServerManager::select ()
 	m_WriteFDs[1]  = m_WriteFDs[0];
 	m_ExceptFDs[1] = m_ExceptFDs[0];
 
-	try {
+	try 
+	{
 		// 이제 m_XXXFDs[1] 을 가지고 select() 를 호출한다.
 		SocketAPI::select_ex(m_MaxFD + 1 , &m_ReadFDs[1] , &m_WriteFDs[1] , &m_ExceptFDs[1] , &m_Timeout[1]);
 	} 
-	catch(InterruptedException & ie) {}
+	catch (InterruptedException & ie) 
+	{
+		// 시그널이 올 리가 엄찌~~
+		//log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
+	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+	
 	__END_CATCH
 }
 
@@ -192,106 +248,152 @@ void GameServerManager::select ()
 // 이를 처리하고, 다른 소켓의 read flag가 켜졌을 경우, 새로운 패킷이
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
-void GameServerManager::processInputs() throw(IOException , Error) {
+void GameServerManager::processInputs () 
+	throw (IOException , Error)
+{
 	__BEGIN_TRY
+
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
-    if (m_MinFD == -1 && m_MaxFD == -1) { // no player exist 
+    if (m_MinFD == -1 && m_MaxFD == -1) // no player exist
+	{ 
 		//m_Mutex.unlock();
 		return;
 	}
 
-	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
-		if (FD_ISSET(i , &m_ReadFDs[1])) {
-			if (i == m_SocketID)
+	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) 
+	{
+		if (FD_ISSET(i , &m_ReadFDs[1])) 
+		{
+			if (i == m_SocketID) 
+			{
+				//  서버 소켓일 경우 새로운 연결이 도착했다는 뜻이다.
 				acceptNewConnection();
-			else {
-				if (m_pGameServerPlayers[i] != NULL) {
+			} 
+			else 
+			{
+				if (m_pGameServerPlayers[i] != NULL) 
+				{
 					GameServerPlayer* pGameServerPlayer = m_pGameServerPlayers[i];
 					Assert(pGameServerPlayer != NULL);
 					Assert(m_pGameServerPlayers[i] != NULL);
 
-					if (pGameServerPlayer->getSocket()->getSockError()) {
-						try {
+					if (pGameServerPlayer->getSocket()->getSockError()) 
+					{
+						try 
+						{
+							// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 							pGameServerPlayer->disconnect(DISCONNECTED);
-                        }
-						catch (Throwable & t) {
+						} 
+						catch (Throwable & t) 
+						{
 							cerr << t.toString() << endl;
-                        }
+						}
 
 						deleteGameServerPlayer(i);
+
 						delete pGameServerPlayer;
-					} else {
-						try {
+					} 
+					else 
+					{
+						try 
+						{
 							pGameServerPlayer->processInput();
-                        }
-						catch (ConnectException & ce) {
+						} 
+						catch (ConnectException & ce) 
+						{
 							// Blocking 소켓이므로, ConnectException과 Error를 제외한 어떤 예외도 발생하지 않는다.
 							// 연결이 끊겼을 경우, 로그하고 플레이어 정보를 저장한 후에 (로드되었다면)
 							// 플레이어 객체를 삭제한다.
-							try {
+							try 
+							{
 								pGameServerPlayer->disconnect();
-                            }
-							catch (Throwable & t) {
+							} 
+							catch (Throwable & t) 
+							{
 								cerr << t.toString() << endl;
-                            }
+							}
 
 							deleteGameServerPlayer(i);
+
 							delete pGameServerPlayer;
 						}
-					}
-				}
-			}
+					} // else
+				} // else
+			} // if
 		}
 	}
 
 //	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
 
-void GameServerManager::processCommands() throw(IOException , Error) {
+//////////////////////////////////////////////////////////////////////////////
+// process all players' commands
+//////////////////////////////////////////////////////////////////////////////
+
+void GameServerManager::processCommands() 
+	throw (IOException , Error)
+{
 	__BEGIN_TRY
 	__BEGIN_DEBUG
+
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	if (m_MinFD == -1 && m_MaxFD == -1) { // no player exist
+	if (m_MinFD == -1 && m_MaxFD == -1) // no player exist
+	{ 
 		//m_Mutex.unlock();
 		return;
 	}
 
 	//copyPlayers();
 
-	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
-		if (i != m_SocketID && m_pGameServerPlayers[i] != NULL) {
+	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) 
+	{
+		if (i != m_SocketID && m_pGameServerPlayers[i] != NULL) 
+		{
 			GameServerPlayer* pGameServerPlayer = m_pGameServerPlayers[i];
 			Assert(pGameServerPlayer != NULL);
 			Assert(m_pGameServerPlayers[i] != NULL);
 
-			if (pGameServerPlayer->getSocket()->getSockError()) {
-				try {
+			if (pGameServerPlayer->getSocket()->getSockError()) 
+			{
+				try 
+				{
+					// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 					pGameServerPlayer->disconnect();
-                }
-				catch (Throwable & t) {
+				} 
+				catch (Throwable & t) 
+				{
 					cerr << t.toString() << endl;
-                }
+				}
 
 				deleteGameServerPlayer(i);
+
 				delete pGameServerPlayer;
-			} else {
-				try {
+			} 
+			else 
+			{
+				try 
+				{
 					pGameServerPlayer->processCommand();
-                }
-				catch (ProtocolException & pe) {
-					try {
+				} 
+				catch (ProtocolException & pe) 
+				{
+					try 
+					{
 						pGameServerPlayer->disconnect();
 						cout << pe.toString().c_str() << endl;
 					} 
-					catch (Throwable & t) {
+					catch (Throwable & t) 
+					{
 						cerr << t.toString() << endl;
-                    }
+					}
 
 					deleteGameServerPlayer(i);
+
 					delete pGameServerPlayer;
 				}
 			}
@@ -299,77 +401,109 @@ void GameServerManager::processCommands() throw(IOException , Error) {
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_DEBUG
 	__END_CATCH
 }
 
 
-void GameServerManager::processOutputs() throw(IOException , Error) {
+//////////////////////////////////////////////////////////////////////////////
+// process all players' outputs
+//////////////////////////////////////////////////////////////////////////////
+
+void GameServerManager::processOutputs () 
+	throw (IOException , Error)
+{
 	__BEGIN_TRY
+
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	if (m_MinFD == -1 && m_MaxFD == -1) { // no player exist
+	if (m_MinFD == -1 && m_MaxFD == -1) // no player exist
+	{ 
 		//m_Mutex.unlock();
 		return;
 	}
 
 	//copyPlayers();
 
-	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
-		if (FD_ISSET(i , &m_WriteFDs[1])) {
-			if (i == m_SocketID) throw IOException("[GameServerManager] Server Socket's write bit is selected.");
+	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) 
+	{
+		if (FD_ISSET(i , &m_WriteFDs[1])) 
+		{
+			if (i == m_SocketID) throw IOException("server socket's write bit is selected.");
 
-			if (m_pGameServerPlayers[i] != NULL) {
+			if (m_pGameServerPlayers[i] != NULL) 
+			{
 				GameServerPlayer* pGameServerPlayer = m_pGameServerPlayers[i];
 
-				Assert(pGameServerPlayer != NULL);
+				Assert( pGameServerPlayer != NULL );
 				Assert(m_pGameServerPlayers[i] != NULL);
 
-				if (pGameServerPlayer->getSocket()->getSockError()) {
-					try {
+				if (pGameServerPlayer->getSocket()->getSockError()) 
+				{
+					try 
+					{
+						// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 						pGameServerPlayer->disconnect(DISCONNECTED);
-                    }
-					catch (Throwable & t) {
+					} 
+					catch (Throwable & t) 
+					{
 						cerr << t.toString() << endl;
-                    }
+					}
 
 					GameServerPlayer* pGameServerPlayer = pGameServerPlayer;
+
 					deleteGameServerPlayer(i);
+
 					delete pGameServerPlayer;
-				} else {
-					try {
+				} 
+				else 
+				{
+					try 
+					{
 						pGameServerPlayer->processOutput();
-                    }
-					catch (ConnectException & ce) {
+					} 
+					catch (ConnectException & ce) 
+					{
 						StringStream msg;
-						msg << "DISCONNECT " << pGameServerPlayer->getID() << "(" << ce.toString() << ")";
+						msg << "DISCONNECT " << pGameServerPlayer->getID() 
+							<< "(" << ce.toString() << ")";
 						//log(LOG_GAMESERVER_ERROR, "", "", msg.toString());
 
-						try {
+						try 
+						{
+							// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 							pGameServerPlayer->disconnect(DISCONNECTED);
-                        }
-						catch (Throwable & t) {
+						} 
+						catch (Throwable & t) 
+						{
 							cerr << t.toString() << endl;
-                        }
+						}
 
 						deleteGameServerPlayer(i);
+
 						delete pGameServerPlayer;
 					} 
-					catch (ProtocolException & cp) {
+					catch (ProtocolException & cp) 
+					{
 						StringStream msg;
-						msg << "DISCONNECT " << pGameServerPlayer->getID() << "(" << cp.toString() << ")";
+						msg << "DISCONNECT " << pGameServerPlayer->getID() 
+							<< "(" << cp.toString() << ")";
 						//log(LOG_GAMESERVER_ERROR, "", "", cp.toString());
 
 						// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 
-						try {
+						try 
+						{
 							pGameServerPlayer->disconnect(DISCONNECTED);
-                        }
-						catch (Throwable & t) {
+						} 
+						catch (Throwable & t) 
+						{
 							cerr << t.toString() << endl;
-                        }
+						}
 
 						deleteGameServerPlayer(i);
+
 						delete pGameServerPlayer;
 					}
 				}
@@ -378,6 +512,7 @@ void GameServerManager::processOutputs() throw(IOException , Error) {
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
@@ -388,43 +523,59 @@ void GameServerManager::processOutputs() throw(IOException , Error) {
 // 따라서, 만약 OOB가 켜져 있다면 에러로 간주하고 접속을 확 짤라 버린다.
 //////////////////////////////////////////////////////////////////////////////
 
-void GameServerManager::processExceptions() throw(IOException , Error) {
+void GameServerManager::processExceptions () 
+	throw (IOException , Error)
+{
 	__BEGIN_TRY
+
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	if (m_MinFD == -1 && m_MaxFD == -1) { // no player exist
+	if (m_MinFD == -1 && m_MaxFD == -1) // no player exist
+	{ 
 		//m_Mutex.unlock();
 		return;
 	}
 
 	//copyPlayers();
 
-	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) {
-		if (FD_ISSET(i , &m_ExceptFDs[1])) {
-			if (i != m_SocketID) {
-				if (m_pGameServerPlayers[i] != NULL) {
+	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) 
+	{
+		if (FD_ISSET(i , &m_ExceptFDs[1])) 
+		{
+			if (i != m_SocketID) 
+			{
+				if (m_pGameServerPlayers[i] != NULL) 
+				{
 					GameServerPlayer* pGameServerPlayer = m_pGameServerPlayers[i];
-					Assert(pGameServerPlayer != NULL);
+					Assert(pGameServerPlayer != NULL );
 					Assert(i != m_SocketID);
 					Assert(m_pGameServerPlayers[i] != NULL);
 					StringStream msg;
 					msg << "OOB from " << pGameServerPlayer->toString();
 
-					try {
+					try 
+					{
 						pGameServerPlayer->disconnect();
-                    }
-					catch (Throwable & t) {}
+					} 
+					catch (Throwable & t) 
+					{
+						//cerr << t.toString() << endl;
+					} 
 
 					deleteGameServerPlayer(i);
+
 					delete pGameServerPlayer;
 				}
+			} 
+			else 
+			{
+				//cerr << "Exception in Loginserver to Gameserver" << endl;
 			}
-            else
-                cerr << "Exception in Loginserver to Gameserver" << endl;
 		}
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 	
@@ -432,7 +583,9 @@ void GameServerManager::processExceptions() throw(IOException , Error) {
 //////////////////////////////////////////////////////////////////////////////
 // select 기반에서는 nonblocking 소켓을 사용하지 않는다.
 //////////////////////////////////////////////////////////////////////////////
-void GameServerManager::acceptNewConnection() throw(Error) {
+void GameServerManager::acceptNewConnection ()
+	throw (Error)
+{
 	__BEGIN_TRY
 
 	// 블록킹 방식으로 connection을 기다릴 경우
@@ -442,23 +595,26 @@ void GameServerManager::acceptNewConnection() throw(Error) {
 
 	try {
 		client = m_pServerSocket->accept();
-    }
-	catch (Throwable & t) {}
+	} catch ( Throwable & t ) {
+	}
 
 	if (client == NULL) 
-        return;
+	{
+		return;
+	}
 
-	try {
+	try 
+	{
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다
 		// Thread 관련 처리를 끝내기 전까지 임시로 들어간다.
-		if (client->getSockError()) throw Error();
+		if( client->getSockError() ) throw Error();
 		client->setNonBlocking();
 
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다
 		// Thread 관련 처리를 끝내기 전까지 임시로 들어간다.
-		if (client->getSockError()) throw Error();
+		if( client->getSockError() ) throw Error();
 		// set socket option (!NonBlocking, NoLinger)
 		client->setLinger(0);
 
@@ -469,38 +625,52 @@ void GameServerManager::acceptNewConnection() throw(Error) {
 		GameServerPlayer* pGameServerPlayer = new GameServerPlayer(client);
 
 		// IPM 에 등록한다.
-		try {
+		try 
+		{
 			addGameServerPlayer(pGameServerPlayer);
-        }
-		catch (DuplicatedException&) {
+		}
+		catch ( DuplicatedException& ) 
+		{
 			client->close();
 			SAFE_DELETE(client);
 			SAFE_DELETE(pGameServerPlayer);
 			return;
 		}
 	} 
-	catch (NoSuchElementException&) {
+	catch (NoSuchElementException&) 
+	{
 		StringStream msg2;
 		msg2 << "ILLEGAL ACCESS FROM " << client->getHost() << ":" <<  client->getPort();
 		//log(LOG_GAMESERVER, "", "", msg2.toString());
 
 		// 인증되지 못한 연결이므로 짜른다. -_-;
-		client->send("Error : Unauthorized access", 27);
+		client->send("Error : Unauthorized access",27);
 		client->close();
 		SAFE_DELETE(client);
 	}
-	catch (Throwable & t) {
-		try	{
-			if(client != NULL) {
+	catch (Throwable & t)
+	{
+		try
+		{
+			if( client != NULL ) 
+			{
 //				client->close();
 				SAFE_DELETE(client);
 			}
 		}
-		catch (Throwable & t) {}
-		catch (...) {}
+		catch (Throwable & t)
+		{
+		}
+		catch (...)
+		{
+		}
 	}
-	catch (exception& e) {}
-	catch (...) {}
+	catch (exception& e)
+	{
+	}
+	catch (...)
+	{
+	}
 
 	__END_CATCH
 }
@@ -510,8 +680,11 @@ void GameServerManager::acceptNewConnection() throw(Error) {
 // 새로운 연결에 관련된 플레이어 객체를 IPM에 추가한다.
 //
 //////////////////////////////////////////////////////////////////////
-void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer) throw(DuplicatedException , Error) {
+void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer) 
+	throw (DuplicatedException , Error)
+{
 	__BEGIN_TRY
+
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	SOCKET fd = pGameServerPlayer->getSocket()->getSOCKET();
@@ -529,6 +702,7 @@ void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer)
 	m_pGameServerPlayers[fd] = pGameServerPlayer;
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
@@ -537,20 +711,26 @@ void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer)
 // 특정 플레이어를 IPM 에서 삭제한다.
 //
 //////////////////////////////////////////////////////////////////////
-void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundException , NoSuchElementException , Error) {
+void GameServerManager::deleteGameServerPlayer(SOCKET fd) 
+	throw (OutOfBoundException , NoSuchElementException , Error)
+{
 	__BEGIN_TRY
+
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	m_pGameServerPlayers[fd] = NULL;
 
 	// m_MinFD , m_MaxFD 를 재조정한다.
 	// fd == m_MinFD && fd == m_MaxFD 인 경우는 첫번째 if 에서 처리된다.
-	if (fd == m_MinFD) {
+	if (fd == m_MinFD) 
+	{
 		// 앞에서부터 제일 작은 fd 를 찾는다.
 		// m_MinFD 자리는 현재 NULL 이 되어 있음을 유의하라.
 		int i = m_MinFD;
-		for (i = m_MinFD ; i <= m_MaxFD ; i ++) {
-			if (m_pGameServerPlayers[i] != NULL || i == m_SocketID) {
+		for (i = m_MinFD ; i <= m_MaxFD ; i ++) 
+		{
+			if (m_pGameServerPlayers[i] != NULL || i == m_SocketID) 
+			{
 				m_MinFD = i;	
 				break;
 			}
@@ -559,9 +739,10 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
 		// 적절한 m_MinFD를 찾지 못했을 경우,
 		// 이때에는 m_MinFD == m_MaxFD 인 경우이다.
 		// 이때에는 둘 다 -1 로 설정해주자.
-		if (i > m_MaxFD)
-            m_MinFD = m_MaxFD = -1;
-	} else if (fd == m_MaxFD) {
+		if (i > m_MaxFD) m_MinFD = m_MaxFD = -1;
+	} 
+	else if (fd == m_MaxFD) 
+	{
 		// 뒤에서부터 가장 큰 fd 를 찾는다.
 		// SocketID 에 유의할 것! (SocketID 의 경우 Player 포인터는 NULL 이다.)
 		int i = m_MaxFD;
@@ -573,8 +754,9 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
 		}
 
 		// 적절한 m_MinFD를 찾지 못했을 경우,
-		if (i < m_MinFD)
+		if (i < m_MinFD) {
 			throw UnknownError("m_MinFD & m_MaxFD problem.");
+		}
 	}
 
 	// 모든 fd_set 에 fd 비트를 off 시킨다.
@@ -588,14 +770,21 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundExcept
 	FD_CLR(fd , &m_ExceptFDs[1]);
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
-void GameServerManager::heartbeat() throw(Error) {
+void GameServerManager::heartbeat()
+	throw(Error) 
+{
 	__BEGIN_TRY
+
 	__ENTER_CRITICAL_SECTION(m_Mutex)
+
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
+	
 	__END_CATCH
 }
 
+// external variable definition
 GameServerManager* g_pGameServerManager = NULL;

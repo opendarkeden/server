@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include <vector>
 
 class Creature;
@@ -31,12 +31,12 @@ public:
 	void clear();
 	void load();
 
-	vector<LevelNickInfo*>& getLevelNickInfo(Level_t Level ) { return m_LevelNickInfoMap[Level/10]; }
+	vector<LevelNickInfo*>& getLevelNickInfo( Level_t Level ) { return m_LevelNickInfoMap[Level/10]; }
 
 	static LevelNickInfoManager& Instance() { static LevelNickInfoManager theInstance; return theInstance; }
 
 private:
-	map<Level_t, vector<LevelNickInfo*> > m_LevelNickInfoMap;
+	hash_map<Level_t, vector<LevelNickInfo*> > m_LevelNickInfoMap;
 };
 
 #endif

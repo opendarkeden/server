@@ -23,7 +23,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEnterCastle::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	/*if (!g_pVariableManager->isActiveCastle())
 	{
@@ -80,9 +80,9 @@ bool ConditionEnterCastle::isSatisfied (Creature * pCreature1 , Creature * pCrea
 		// 동족간 전쟁중에는 타종족을 통과시켜서는 안 된다.
 		// 평시에는 NPC를 통해야 하므로 누구도 통과시킬 수 없다.
 		// 전쟁시스템 만들때 이거 다 추가시켜야 된다. 2003. 1.20.
-		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
+		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pCreature2 );
 
-		return g_pCastleInfoManager->canPortalActivate(m_TargetZoneID, pPC);
+		return g_pCastleInfoManager->canPortalActivate( m_TargetZoneID, pPC );
 	}
 
 	return false;
@@ -92,7 +92,7 @@ bool ConditionEnterCastle::isSatisfied (Creature * pCreature1 , Creature * pCrea
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEnterCastle::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -109,7 +109,7 @@ void ConditionEnterCastle::read (PropertyBuffer & propertyBuffer)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEnterCastle::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

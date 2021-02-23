@@ -31,30 +31,30 @@ class CBillingPlayer;
 class CBillingPlayerManager : public Thread
 {
 public:
-	CBillingPlayerManager() throw(Error);
-	~CBillingPlayerManager() throw(Error);
+	CBillingPlayerManager() throw ( Error );
+	~CBillingPlayerManager() throw ( Error );
 
 public:
-	void init() throw(Error ) {}
-	void stop() throw(Error);
-	void run() throw();
+	void init() throw ( Error ) {}
+	void stop() throw ( Error );
+	void run() throw ();
 
 	// 빌링 관련 패킷 보내기 함수
 #ifdef __LOGIN_SERVER__
-	void sendLogin(LoginPlayer* pLoginPlayer ) throw(ProtocolException, Error);
+	void sendLogin( LoginPlayer* pLoginPlayer ) throw ( ProtocolException, Error );
 #elif defined(__GAME_SERVER__)
-	bool sendLogin(GamePlayer* pGamePlayer ) throw(ProtocolException, Error);
-	void sendIntervalValidation() throw(ProtocolException, Error);
-	bool sendMinusPoint(GamePlayer* pGamePlayer ) throw(ProtocolException, Error);
-	void sendMinusMinute(GamePlayer* pGamePlayer ) throw(ProtocolException, Error);
-	void sendLogout(GamePlayer* pGamePlayer ) throw(ProtocolException, Error);
+	bool sendLogin( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
+	void sendIntervalValidation() throw ( ProtocolException, Error );
+	bool sendMinusPoint( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
+	void sendMinusMinute( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
+	void sendLogout( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
 #endif
 
-	void setForceDisconnect(bool bForceDisconnect = true ) { m_bForceDisconnect = bForceDisconnect; }
+	void setForceDisconnect( bool bForceDisconnect = true ) { m_bForceDisconnect = bForceDisconnect; }
 
 	int getVersionNumber() const throw();
-	int getMinusIntervalInt() const throw();
-	string getMinusInterval() const throw();
+	int getMinusIntervalInt() const throw ();
+	string getMinusInterval() const throw ();
 
 private:
 	CBillingPlayer*		m_pCBillingPlayer;

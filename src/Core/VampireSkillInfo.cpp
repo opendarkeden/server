@@ -13,13 +13,13 @@
 #include "VampireSkillInfo.h"
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
 VampireSkillInfo::VampireSkillInfo () 
-     throw()
+     throw ()
 {
 	__BEGIN_TRY
 	m_bLearnNewSkill = false;
@@ -32,12 +32,12 @@ VampireSkillInfo::VampireSkillInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 VampireSkillInfo::~VampireSkillInfo () 
-    throw()
+    throw ()
 {
 	__BEGIN_TRY
 
 	// 소속된 모든 객체들을 삭제한다.
-	while (!m_SubVampireSkillInfoList.empty() ) 
+	while ( !m_SubVampireSkillInfoList.empty() ) 
 	{
 		SubVampireSkillInfo * pSubVampireSkillInfo = m_SubVampireSkillInfoList.front();
 		SAFE_DELETE(pSubVampireSkillInfo);
@@ -51,19 +51,19 @@ VampireSkillInfo::~VampireSkillInfo ()
 //////////////////////////////////////////////////////////////////////
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
-void VampireSkillInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+void VampireSkillInfo::read ( SocketInputStream & iStream ) 
+	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	iStream.read(m_bLearnNewSkill);
-	iStream.read(m_ListNum);
+	iStream.read( m_bLearnNewSkill);
+	iStream.read( m_ListNum );
 
-	for(int i = 0; i < m_ListNum; i++ ) {
+	for( int i = 0; i < m_ListNum; i++ ) {
 		SubVampireSkillInfo * pSubVampireSkillInfo = new SubVampireSkillInfo();
-		pSubVampireSkillInfo->read(iStream);
-		m_SubVampireSkillInfoList.push_back(pSubVampireSkillInfo);
+		pSubVampireSkillInfo->read( iStream );
+		m_SubVampireSkillInfoList.push_back( pSubVampireSkillInfo );
 
 	}
 
@@ -74,18 +74,18 @@ void VampireSkillInfo::read (SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void VampireSkillInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+void VampireSkillInfo::write ( SocketOutputStream & oStream ) 
+     const throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
 	// 최적화 작업시 실제 크기를 명시하도록 한다.
-	oStream.write(m_bLearnNewSkill);
-	oStream.write(m_ListNum);
+	oStream.write( m_bLearnNewSkill );
+	oStream.write( m_ListNum );
 
-    for (list<SubVampireSkillInfo*>:: const_iterator itr = m_SubVampireSkillInfoList.begin(); itr!= m_SubVampireSkillInfoList.end(); itr++) {
-		Assert(*itr != NULL);
-		(*itr)->write(oStream);
+    for ( list<SubVampireSkillInfo*>:: const_iterator itr = m_SubVampireSkillInfoList.begin(); itr!= m_SubVampireSkillInfoList.end(); itr++) {
+		Assert( *itr != NULL );
+		(*itr)->write( oStream );
 	}
 
 	__END_CATCH
@@ -100,7 +100,7 @@ PacketSize_t VampireSkillInfo::getSize()
 
 	PacketSize_t PacketSize = szBYTE + szBYTE;
 
-	for (list< SubVampireSkillInfo* >::const_iterator itr = m_SubVampireSkillInfoList.begin() ; itr != m_SubVampireSkillInfoList.end() ; itr ++ ) {
+	for ( list< SubVampireSkillInfo* >::const_iterator itr = m_SubVampireSkillInfoList.begin() ; itr != m_SubVampireSkillInfoList.end() ; itr ++ ) {
 
 		PacketSize += (*itr)->getSize();
 
@@ -117,17 +117,17 @@ PacketSize_t VampireSkillInfo::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string VampireSkillInfo::toString () 
-	const throw()
+	const throw ()
 {
 	__BEGIN_TRY
 
 	StringStream msg;
 
-	msg << "VampireSkillInfo(ListNum:" << (int)m_ListNum 
-		<< " ListSet(" ;
+	msg << "VampireSkillInfo( ListNum:" << (int)m_ListNum 
+		<< " ListSet( " ;
 
-	for (list<SubVampireSkillInfo*>::const_iterator itr = m_SubVampireSkillInfoList.begin(); itr!= m_SubVampireSkillInfoList.end() ; itr++ ) {
-		Assert(*itr != NULL);
+	for ( list<SubVampireSkillInfo*>::const_iterator itr = m_SubVampireSkillInfoList.begin(); itr!= m_SubVampireSkillInfoList.end() ; itr++ ) {
+		Assert( *itr != NULL );
 		msg << (*itr)->toString() << ",";
 	}
 

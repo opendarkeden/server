@@ -13,7 +13,6 @@
 #include "ItemInfoManager.h"
 #include "Stash.h"
 #include "ItemUtil.h"
-#include "SubInventory.h"
 
 // global variable declaration
 SMGInfoManager* g_pSMGInfoManager = NULL;
@@ -46,7 +45,7 @@ SMG::SMG(ItemType_t itemType, const list<OptionType_t>& optionType)
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), getItemType(), getOptionTypeList()))
 	{
 		filelog("itembug.log", "SMG::SMG() : Invalid item type or option type");
-		throw("SMG::SMG() : Invalid item type or optionType");
+		throw ("SMG::SMG() : Invalid item type or optionType");
 	}
 }
 
@@ -91,7 +90,7 @@ void SMG::create(const string & ownerID, Storage storage, StorageID_t storageID,
 		StringStream sql;
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
+		setOptionTypeToField( getOptionTypeList(), optionField );
 
 		sql << "INSERT INTO SMGObject "
 			<< "(ItemID,  ObjectID, ItemType, OwnerID, Storage, StorageID ,"
@@ -127,7 +126,7 @@ void SMG::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE SMGObject SET %s, BulletCount=%d WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE SMGObject SET %s, BulletCount=%d WHERE ItemID=%ld",
 								field, (int)getBulletCount(), m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -173,9 +172,9 @@ void SMG::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 		*/
 
 		string optionField;
-		setOptionTypeToField(getOptionTypeList(), optionField);
-		pStmt->executeQuery("UPDATE SMGObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, BulletCount=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
-								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getEnchantLevel(), (int)getBulletCount(), (int)getSilver(), (int)getGrade(), m_ItemID);
+		setOptionTypeToField( getOptionTypeList(), optionField );
+		pStmt->executeQuery( "UPDATE SMGObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, OptionType='%s', Durability=%d, EnchantLevel=%d, BulletCount=%d, Silver=%d, Grade=%d WHERE ItemID=%ld",
+								m_ObjectID, getItemType(), ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, optionField.c_str(), getDurability(), (int)getEnchantLevel(), (int)getBulletCount(), (int)getSilver(), (int)getGrade(), m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -187,7 +186,7 @@ void SMG::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 //--------------------------------------------------------------------------------
 // save item
 //--------------------------------------------------------------------------------
-void SMG::saveBullet() throw(Error)
+void SMG::saveBullet() throw (Error)
 {
 	__BEGIN_TRY
 
@@ -210,7 +209,7 @@ void SMG::saveBullet() throw(Error)
 void SMG::makePCItemInfo(PCItemInfo& result) const
 {
 	Item::makePCItemInfo(result);
-	result.setItemNum(getBulletCount());
+	result.setItemNum( getBulletCount() );
 }
 
 //--------------------------------------------------------------------------------
@@ -399,7 +398,7 @@ void SMGInfoManager::load()
             m_pItemInfos[i] = NULL;
 
         pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Durability, minDamage, maxDamage, ToHitBonus, `Range`, Speed, ReqAbility, ItemLevel, CriticalBonus, DefaultOption, UpgradeRatio, UpgradeCrashPercent, NextOptionRatio, NextItemType, DowngradeRatio FROM SMGInfo"
+			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Durability, minDamage, maxDamage, ToHitBonus, Range, Speed, ReqAbility, ItemLevel, CriticalBonus, DefaultOption, UpgradeRatio, UpgradeCrashPercent, NextOptionRatio, NextItemType, DowngradeRatio FROM SMGInfo"
 		);
 
 		while (pResult->next()) 
@@ -471,8 +470,8 @@ void SMGLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		Result* pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, EnchantLevel, BulletCount, Silver, Grade, ItemFlag FROM SMGObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-								pCreature->getName().c_str());
+		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y,OptionType, Durability, EnchantLevel, BulletCount, Silver, Grade, ItemFlag FROM SMGObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+								pCreature->getName().c_str() );
 
 
 		while (pResult->next())
@@ -536,18 +535,6 @@ void SMGLoader::load(Creature* pCreature)
 				switch(storage)
 				{
 					case STORAGE_INVENTORY:
-						if (storageID != 0 )
-						{
-							SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-							if (pInventoryItem == NULL )
-							{
-								processItemBugEx(pCreature, pSMG);
-								break;
-							}
-
-							pInventory = pInventoryItem->getInventory();
-						}
-
 						if (pInventory->canAddingEx(x, y, pSMG))
 						{
 							pInventory->addItemEx(x, y, pSMG);

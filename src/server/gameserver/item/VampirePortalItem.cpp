@@ -15,7 +15,6 @@
 #include "ItemUtil.h"
 
 #include "skill/EffectVampirePortal.h"
-#include "SubInventory.h"
 
 ItemID_t VampirePortalItem::m_ItemIDRegistry = 0;
 Mutex    VampirePortalItem::m_Mutex;
@@ -84,7 +83,7 @@ VampirePortalItem::VampirePortalItem(ItemType_t itemType, const list<OptionType_
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
 	{
 		filelog("itembug.log", "VampirePortalItem::VampirePortalItem() : Invalid item type or option type");
-		throw("VampirePortalItem::VampirePortalItem() : Invalid item type or optionType");
+		throw ("VampirePortalItem::VampirePortalItem() : Invalid item type or optionType");
 	}
 
 	//m_pEffectVampirePortal[0] = NULL;
@@ -154,7 +153,7 @@ void VampirePortalItem::tinysave(const char* field) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE VampirePortalItemObject SET %s WHERE ItemID=%ld",
+		pStmt->executeQuery( "UPDATE VampirePortalItemObject SET %s WHERE ItemID=%ld",
 								field, m_ItemID);
 
 		SAFE_DELETE(pStmt);
@@ -192,8 +191,8 @@ void VampirePortalItem::save(const string & ownerID, Storage storage, StorageID_
 		*/
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("UPDATE VampirePortalItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Charge=%d, TargetZID=%d, TargetX=%d, TargetY=%d WHERE ItemID=%ld",
-								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Charge, (int)m_ZoneID, (int)m_X, (int)m_Y, m_ItemID);
+		pStmt->executeQuery( "UPDATE VampirePortalItemObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Charge=%d, TargetZID=%d, TargetX=%d, TargetY=%d WHERE ItemID=%ld",
+								m_ObjectID, m_ItemType, ownerID.c_str(), (int)storage, storageID, (int)x, (int)y, m_Charge, (int)m_ZoneID, (int)m_X, (int)m_Y, m_ItemID );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -402,8 +401,8 @@ void VampirePortalItemLoader::load(Creature* pCreature)
 		pResult = pStmt->executeQuery(sql.toString());
 		*/
 
-		pResult = pStmt->executeQuery("SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge, TargetZID, TargetX, TargetY FROM VampirePortalItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
-												pCreature->getName().c_str());
+		pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge, TargetZID, TargetX, TargetY FROM VampirePortalItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
+												pCreature->getName().c_str() );
 
 
 
@@ -463,18 +462,6 @@ void VampirePortalItemLoader::load(Creature* pCreature)
 
 				if (storage == STORAGE_INVENTORY)
 				{
-					if (storageID != 0 )
-					{
-						SubInventory* pInventoryItem = dynamic_cast<SubInventory*>(findItemIID(pCreature, storageID ));
-						if (pInventoryItem == NULL )
-						{
-							processItemBugEx(pCreature, pVampirePortalItem);
-							break;
-						}
-
-						pInventory = pInventoryItem->getInventory();
-					}
-
 					if (pInventory->canAddingEx(x, y, pVampirePortalItem))
 					{
 						pInventory->addItemEx(x, y, pVampirePortalItem);

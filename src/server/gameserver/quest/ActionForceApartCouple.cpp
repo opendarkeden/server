@@ -10,13 +10,13 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionForceApartCouple::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionForceApartCouple::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionForceApartCouple::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -45,10 +45,10 @@ void ActionForceApartCouple::execute (Creature * pCreature1 , Creature * pCreatu
 	Assert(pCreature1->isNPC());
 	Assert(pCreature2->isPC());
 
-	SYSTEM_RETURN_IF_NOT(SYSTEM_COUPLE);
+	SYSTEM_RETURN_IF_NOT( SYSTEM_COUPLE );
 
 	GCNPCResponse gcNPCResponse;
-	gcNPCResponse.setCode(NPC_RESPONSE_APART_COUPLE_FORCE);
+	gcNPCResponse.setCode( NPC_RESPONSE_APART_COUPLE_FORCE );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNPCResponse);
@@ -61,7 +61,7 @@ void ActionForceApartCouple::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionForceApartCouple::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -24,7 +24,7 @@ public:
 	string 				getElementName() const { return "EventParty"; }
 	GQuestManager::EventTypes	getEventType() const { return GQuestManager::EVENT_PARTY; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	ResultType			checkMission(GQuestMission* pStatus) const;
 
 	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;

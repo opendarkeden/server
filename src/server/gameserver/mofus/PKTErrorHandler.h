@@ -17,7 +17,7 @@ public:
 	MPacketID_t getID() const;
 
 	// 실행 함수
-	void execute(MPlayer* pPlayer, MPacket* pPacket);
+	void execute( MPlayer* pPlayer, MPacket* pPacket );
 };
 
 #endif

@@ -8,10 +8,10 @@
 #include "EffectHeartCatalyst.h"
 #include "ItemUtil.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프
@@ -89,7 +89,7 @@ void HeartCatalyst::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_
 			// 경험치를 올린다.
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10*(Grade+1);
-			if (bIncreaseDomainExp )
+			if ( bIncreaseDomainExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);

@@ -9,7 +9,7 @@
 #include "Types.h"
 #include "Exception.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include <vector>
 
@@ -22,7 +22,7 @@ class PlayerCreature;
 class RewardInfo 
 {
 public:
-	RewardInfo(RewardID_t rID, RewardClass_t rClass);
+	RewardInfo( RewardID_t rID, RewardClass_t rClass );
 	virtual ~RewardInfo();
 
 public:

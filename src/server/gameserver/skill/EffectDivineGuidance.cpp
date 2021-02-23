@@ -13,9 +13,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -62,42 +62,42 @@ void EffectDivineGuidance::affect(Creature* pCreature)
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
-	Creature* pAttacker = pZone->getCreature(m_UserObjectID);
+	Creature* pAttacker = pZone->getCreature( m_UserObjectID );
 
 	if (!(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE)
 		&& !pCreature->isDead()
 		&& !pCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 		// 무적상태 체크. by sigi. 2002.9.5
-		&& canAttack(pAttacker, pCreature )
+		&& canAttack( pAttacker, pCreature )
 	   )
 	{
 		GCModifyInformation gcMI, gcAttackerMI;
-		setDamage(pCreature, m_Point, pAttacker, SKILL_DIVINE_GUIDANCE, &gcMI, &gcAttackerMI);
-		if (pCreature->isPC() ) pCreature->getPlayer()->sendPacket(&gcMI);
+		setDamage( pCreature, m_Point, pAttacker, SKILL_DIVINE_GUIDANCE, &gcMI, &gcAttackerMI );
+		if ( pCreature->isPC() ) pCreature->getPlayer()->sendPacket( &gcMI );
 
 		if (pAttacker!=NULL) 
 		{
-			computeAlignmentChange(pCreature, m_Point, pAttacker, &gcMI, &gcAttackerMI);
-			if (pAttacker->isPC() )
+			computeAlignmentChange( pCreature, m_Point, pAttacker, &gcMI, &gcAttackerMI );
+			if ( pAttacker->isPC() )
 			{ 
-				if (pAttacker->isSlayer() && !pCreature->isSlayer() )
+				if ( pAttacker->isSlayer() && !pCreature->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pAttacker);
 
-					if (pSlayer != NULL )
+					if ( pSlayer != NULL )
 					{
 						GCModifyInformation gcMI;
-						shareAttrExp(pSlayer, m_Point, 1, 1, 8, gcAttackerMI);
+						shareAttrExp( pSlayer, m_Point, 1, 1, 8, gcAttackerMI );
 					}
 				}
 
-				if (pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket(&gcAttackerMI);
+				if ( pAttacker->isPC() ) pAttacker->getPlayer()->sendPacket( &gcAttackerMI );
 			}
 		}
 
 	}
 
-	setNextTime(m_Tick);
+	setNextTime( m_Tick );
 
 	__END_CATCH
 }
@@ -119,9 +119,9 @@ void EffectDivineGuidance::unaffect(Creature* pCreature)
 	Assert(pZone != NULL);
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_DIVINE_GUIDANCE);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_DIVINE_GUIDANCE );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect );
 
 	__END_DEBUG
 	__END_CATCH

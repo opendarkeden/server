@@ -9,12 +9,14 @@
 #ifndef __PLAYER_MANAGER_H__
 #define __PLAYER_MANAGER_H__
 
+// include files
 #include "Types.h"
 #include "Exception.h"
 #include "Timeval.h"
 #include "SocketAPI.h"
 #include "Mutex.h"
 
+// forward declaration
 class Player;
 class Packet;
 
@@ -29,37 +31,59 @@ class Packet;
 //
 // 한 존그룹에 평균 100명의 플레이어가 있다면, 
 //
-//         900 x 4(byte) x 10(#ZoneGroup) = 36k 
+// 		900 x 4(byte) x 10(#ZoneGroup) = 36k 
 //
 // 정도의 낭비가 있다.
 //
 //--------------------------------------------------------------------------------
 
 class PlayerManager {
-public:
-    const static uint nMaxPlayers = 2000;
 
-    PlayerManager() throw();
-    virtual ~PlayerManager() throw();
+public :
 
-    virtual void broadcastPacket(Packet * pPacket) throw(Error);
+	// 내부 플레이어 배열의 크기
+	const static uint nMaxPlayers = 2000;
 
-    virtual void addPlayer(Player * pPlayer) throw(DuplicatedException, Error);
+public :
 
-    virtual void deletePlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
+	// constructor
+	PlayerManager () throw ();
 
-    virtual Player * getPlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
+	// destructor
+	virtual ~PlayerManager () throw ();
 
-    virtual Player * getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber ) throw(OutOfBoundException, NoSuchElementException, Error) { return NULL; }
+	// broadcast message
+	virtual void broadcastPacket ( Packet * pPacket ) throw ( Error );
 
-    uint size() const throw() { return m_nPlayers; }
+	// 특정 플레이어를 매니저에 추가한다.
+	virtual void addPlayer ( Player * pPlayer ) throw ( DuplicatedException , Error );
 
-    void copyPlayers() throw();
+	// 특정 플레이어를 매니저에서 삭제한다.
+	virtual void deletePlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
 
-protected:
-    Player * m_pPlayers[nMaxPlayers];
-    uint m_nPlayers;
-    Player * m_pCopyPlayers[nMaxPlayers];
+	// 특정 플레이어 객체를 가져온다.
+	virtual Player * getPlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
+
+	// 특정 폰을 가진 플레이어의 객체를 가져온다.
+	virtual Player * getPlayerByPhoneNumber( PhoneNumber_t PhoneNumber ) throw( OutOfBoundException, NoSuchElementException, Error ) { return NULL; }
+
+	// 현재 관리중인 플레이어 숫자를 리턴한다.
+	uint size () const throw () { return m_nPlayers; }
+
+	// Copy Player
+	void copyPlayers() throw();
+
+protected :
+
+	// 플레이어의 포인터의 배열이다. 소켓 디스크립터를 인덱스로 사용한다.
+	Player * m_pPlayers[nMaxPlayers];
+
+	// number of Players
+	uint m_nPlayers;
+
+	// Player의 복사본을 저장하는 곳이다.
+	Player * m_pCopyPlayers[nMaxPlayers];
+
 };
 
 #endif

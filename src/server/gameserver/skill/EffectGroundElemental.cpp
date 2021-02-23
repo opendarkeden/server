@@ -10,9 +10,9 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -38,19 +38,19 @@ void EffectGroundElemental::unaffect(Creature* pCreature)
 
 	pCreature->removeFlag(Effect::EFFECT_CLASS_GROUND_ELEMENTAL_CENTER);
 
-	if (pCreature->isMonster() )
+	if ( pCreature->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		if (pMonster != NULL ) pMonster->setHP(0);
+		if ( pMonster != NULL ) pMonster->setHP(0);
 	}
 
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_GROUND_ELEMENTAL_CENTER);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_GROUND_ELEMENTAL_CENTER );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect );
 
 	__END_DEBUG
 	__END_CATCH

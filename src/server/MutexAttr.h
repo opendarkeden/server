@@ -19,47 +19,85 @@
 #ifndef __MUTEX_ATTR_H__
 #define __MUTEX_ATTR_H__
 
+//////////////////////////////////////////////////
+// include
+//////////////////////////////////////////////////
 #include <pthread.h>
 #include "Types.h"
 #include "pthreadAPI.h"
 #include "Exception.h"
 
 
+//////////////////////////////////////////////////
+// forward declaration
+//////////////////////////////////////////////////
+
+
+//////////////////////////////////////////////////////////////////////
+//
+// class MutexAttr;
+//
+//////////////////////////////////////////////////////////////////////
+
 class MutexAttr {
-public:
-    MutexAttr() throw(Error) { pthread_mutexattr_init(&m_Attr); }
-    ~MutexAttr() throw(Error) { pthread_mutexattr_destroy(&m_Attr); }
 
-    //
-    // return mutex-attribute object
-    //
-    // *CAUTION* 
-    //
-    // do not return pthread_mutexattr_t value !!
-    // use pthread_mutexattr_t pointer instead.
-    // (pthread_mutexattr_t 에 대해 assignment 가 지원되지 않을 
-    // 가능성 있음)
-    //
-    pthread_mutexattr_t * getAttr() throw() { return &m_Attr; }
+//////////////////////////////////////////////////
+// constructor / destructor
+//////////////////////////////////////////////////
 
-    /*
-    bool isFastMutex() const throw(MutexAttrException) { return getMutexKind() == PTHREAD_MUTEX_FAST_NP; }
-    bool isRecursiveMutex() const throw(MutexAttrException) { return getMutexKind() == PTHREAD_MUTEX_RECURSIVE_NP; }
-    bool isErrorCheckMutex() const throw(MutexAttrException) { return getMutexKind() == PTHREAD_MUTEX_ERRORCHECK_NP; }
+public :
+	
+	// constructor
+	MutexAttr () throw ( Error ) { pthread_mutexattr_init( &m_Attr ); }
 
-    void setFastMutex() throw(MutexAttrException) { setMutexKind(PTHREAD_MUTEX_FAST_NP); }
-    void setRecursiveMutex() throw(MutexAttrException) { setMutexKind(PTHREAD_MUTEX_RECURSIVE_NP); }
-    void setErrorCheckMutex() throw(MutexAttrException) { setMutexKind(PTHREAD_MUTEX_ERRORCHECK_NP); }
+	// destructor
+	~MutexAttr () throw ( Error ) { pthread_mutexattr_destroy( &m_Attr ); }
+	
 
-    // get mutex kind
-    int getMutexKind() const throw(MutexAttrException);
+//////////////////////////////////////////////////
+// public methods
+//////////////////////////////////////////////////
 
-    // set mutex kind
-    void setMutexKind(int Kind) throw(MutexAttrException);
-    */
+public :
 
-private:
-    pthread_mutexattr_t m_Attr;
+	//
+	// return mutex-attribute object
+	//
+	// *CAUTION* 
+	//
+	// do not return pthread_mutexattr_t value !!
+	// use pthread_mutexattr_t pointer instead.
+	// (pthread_mutexattr_t 에 대해 assignment 가 지원되지 않을 
+	// 가능성 있음)
+	//
+	pthread_mutexattr_t * getAttr () throw () { return &m_Attr; }
+	
+	/*
+	bool isFastMutex () const throw ( MutexAttrException ) { return getMutexKind() == PTHREAD_MUTEX_FAST_NP; }
+	bool isRecursiveMutex () const throw ( MutexAttrException ) { return getMutexKind() == PTHREAD_MUTEX_RECURSIVE_NP; }
+	bool isErrorCheckMutex () const throw ( MutexAttrException ) { return getMutexKind() == PTHREAD_MUTEX_ERRORCHECK_NP; }
+	
+	void setFastMutex () throw ( MutexAttrException ) { setMutexKind( PTHREAD_MUTEX_FAST_NP ); }
+	void setRecursiveMutex () throw ( MutexAttrException ) { setMutexKind( PTHREAD_MUTEX_RECURSIVE_NP ); }
+	void setErrorCheckMutex () throw ( MutexAttrException ) { setMutexKind( PTHREAD_MUTEX_ERRORCHECK_NP ); }
+
+	// get mutex kind
+	int getMutexKind () const throw ( MutexAttrException );
+
+	// set mutex kind
+	void setMutexKind ( int Kind ) throw ( MutexAttrException );
+	*/
+
+
+//////////////////////////////////////////////////
+// attributes
+//////////////////////////////////////////////////
+
+private :
+	
+	// mutex attribute
+	pthread_mutexattr_t m_Attr;
+
 };
 
 #endif

@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CommonBillingPacket.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Properties.h"
 #include <netinet/in.h>
 #include "DB.h"
@@ -15,7 +15,7 @@ void CommonBillingPacket::test ()
 {
 	__BEGIN_TRY
 
-	//cout << "CommonBillingPacket Test... ";
+	cout << "CommonBillingPacket Test... ";
 
 	Packet_Type = 1;
 	Result = 2;
@@ -98,14 +98,14 @@ void CommonBillingPacket::test ()
 	Assert(Remain_Time==500);
 
 
-	//cout << "OK" << endl;
+	cout << "OK" << endl;
 
 
 	__END_CATCH
 }
 
 void CommonBillingPacket::setUser_CC() 
-	throw(Error)
+	throw (Error)
 { 
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void CommonBillingPacket::setUser_CC()
 }
 
 void CommonBillingPacket::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ void CommonBillingPacket::read (SocketInputStream & iStream)
 }
 
 void CommonBillingPacket::write (SocketOutputStream & oStream) const
-     throw(ProtocolException , Error)
+     throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 		
@@ -226,7 +226,7 @@ void CommonBillingPacket::write (SocketOutputStream & oStream) const
 }
 
 void CommonBillingPacket::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 		
@@ -236,7 +236,7 @@ void CommonBillingPacket::execute (Player* pPlayer)
 }
 
 void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	
@@ -261,12 +261,12 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 			// YYYY-MM-DD HH:MM:SS
 			if (pat.size()==19)
 			{
-				year  = atoi(pat.substr(0,4).c_str());
-				month = atoi(pat.substr(5,2).c_str());
-				day   = atoi(pat.substr(8,2).c_str());
-				hour  = atoi(pat.substr(11,2).c_str());
-				min   = atoi(pat.substr(14,2).c_str());
-				//sec   = atoi(pat.substr(16,2).c_str());
+				year  = atoi( pat.substr(0,4).c_str() );
+				month = atoi( pat.substr(5,2).c_str() );
+				day   = atoi( pat.substr(8,2).c_str() );
+				hour  = atoi( pat.substr(11,2).c_str() );
+				min   = atoi( pat.substr(14,2).c_str() );
+				//sec   = atoi( pat.substr(16,2).c_str() );
 			}
 		}
 
@@ -329,7 +329,7 @@ string  CommonBillingPacket::getExpire_DateToString() const
 }
 
 string CommonBillingPacket::toString () const
-       throw()
+       throw ()
 {
 	__BEGIN_TRY
 		

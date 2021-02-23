@@ -26,7 +26,7 @@ public:
 	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
 	void execute(Monster* pMonster, Creature* pEnemy) throw(Error);
 
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) throw(Error);
+	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) throw (Error);
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

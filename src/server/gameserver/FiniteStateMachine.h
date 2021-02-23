@@ -3,8 +3,8 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <map>
-#include "Assert1.h"
+#include <hash_map>
+#include "Assert.h"
 #include "VSDateTime.h"
 
 /**
@@ -67,7 +67,7 @@ class TimerState : public State
 {
 public:
 	// 수명은 초단위이다.
-	TimerState(DWORD nState, Turn_t life ) : m_TimeOutState(nState), m_LifeSpan(life) { }
+	TimerState( DWORD nState, Turn_t life ) : m_TimeOutState(nState), m_LifeSpan(life) { }
 	void		start();
 	DWORD		heartbeat(Timeval currentTime);
 	void		expire();
@@ -81,14 +81,14 @@ private:
 class SetTimeState : public State
 {
 public:
-	SetTimeState(DWORD nState, const VSDateTime& date ) : m_TimeOutState(nState), m_SetTime(date) { }
+	SetTimeState( DWORD nState, const VSDateTime& date ) : m_TimeOutState(nState), m_SetTime(date) { }
 
 	void	start();
 	DWORD	heartbeat(Timeval currentTime);
 	void	expire();
 
 protected:
-	void				setTimer(const VSDateTime& date ) { m_SetTime = date; }
+	void				setTimer( const VSDateTime& date ) { m_SetTime = date; }
 	const VSDateTime&	getTimer() const { return m_SetTime; }
 private:
 	DWORD		m_TimeOutState;
@@ -101,11 +101,11 @@ private:
 class FlyweightStateFactory : public StateFactory
 {
 public:
-	void	registerState(State* pState ) { Assert(m_StateMap[pState->getStateType()] == NULL); m_StateMap[pState->getStateType()] = pState; }
+	void	registerState( State* pState ) { Assert(m_StateMap[pState->getStateType()] == NULL); m_StateMap[pState->getStateType()] = pState; }
 	State*	makeState(DWORD sType) { return m_StateMap[sType]; }
 
 private:
-	map<DWORD, State*>	m_StateMap;
+	hash_map<DWORD, State*>	m_StateMap;
 };
 
 #endif

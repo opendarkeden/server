@@ -26,7 +26,7 @@ public:
 	string		 				getElementName() const { return "AdvancementClassLevel"; }
 	GQuestManager::EventTypes	getEventType() const { return GQuestManager::ADVANCEMENT_LEVELUP; }
 
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	ResultType			checkMission(GQuestMission* pStatus) const;
 
 	GQuestMission*		makeInitMission(PlayerCreature* pPC) const;

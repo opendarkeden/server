@@ -97,7 +97,7 @@ void computeCriticalBonus(Ousters* pOusters, SkillType_t skillType, Damage_t& Da
 //////////////////////////////////////////////////////////////////////////////
 
 // 직접적으로 데미지를 세팅한다.
-HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType = 0, ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL, bool canKillTarget = true, bool canSteal = true);
+HP_t setDamage(Creature* pTargetCreature, Damage_t Damage, Creature* pAttacker, SkillType_t SkillType = 0, ModifyInfo* pMI = NULL, ModifyInfo* pAttackerMI = NULL, bool canKillTarget = true, bool canSteal = true );
 
 // 아이템 내구도를 떨어뜨린다.
 void decreaseDurability(Creature* pCreature, Creature* pTargetCreature, SkillInfo* pSkillInfo, ModifyInfo*, ModifyInfo*);
@@ -243,21 +243,28 @@ Dir_t getDirectionToPosition(int originX, int originY, int destX, int destY);
 Exp_t computeSkillPointBonus(SkillDomainType_t Domain, SkillLevel_t DomainLevel, Item* pWeapon, Exp_t Point);
 
 
-// 점과 점사이를 걸어서 갈 수 있는가? (크리쳐로 막힌 경우는 제외 )
-bool isPassLine(Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, bool blockByCreature = false);
+// 점과 점사이를 걸어서 갈 수 있는가? ( 크리쳐로 막힌 경우는 제외 )
+bool isPassLine( Zone* pZone, ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, bool blockByCreature = false );
 
 // 두 점사이의 진선을 이루는 점들을 구한다.
-void getLinePoint(ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList);
+void getLinePoint( ZoneCoord_t sX, ZoneCoord_t sY, ZoneCoord_t eX, ZoneCoord_t eY, list<TPOINT>& tpList );
 
-ElementalType getElementalTypeFromString(const string& type);
+ElementalType getElementalTypeFromString( const string& type );
 
-Damage_t computeElementalCombatSkill(Ousters* pOusters, Creature* pTargetCreature, ModifyInfo& AttackerMI);
+Damage_t computeElementalCombatSkill( Ousters* pOusters, Creature* pTargetCreature, ModifyInfo& AttackerMI );
 
 //////////////////////////////////////////////////////////////////////////////
 // 공격할 수 있는가?
 // 무적 상태나 non PK 를 위해서 공격할 수 있는지를 체크한다.
 //////////////////////////////////////////////////////////////////////////////
-bool canAttack(Creature* pAttacker, Creature* pDefender);
+bool canAttack( Creature* pAttacker, Creature* pDefender );
+
+//////////////////////////////////////////////////////////////////////////
+// add by Coffee 2007-6-9
+// 藤속劤세콘힛痢賈痰劤세콘 왱뇜세콘엥駱聯
+//////////////////////////////////////////////////////////////////////////
+bool useSkillCrad( Creature* pCreature);
+
 
 #endif
 

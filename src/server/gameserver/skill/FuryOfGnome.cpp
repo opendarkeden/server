@@ -7,9 +7,9 @@
 #include "FuryOfGnome.h"
 #include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
-#include "GCAddEffect.h"
-#include "GCModifyInformation.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 #include "Player.h"
 #include "EffectFuryOfGnome.h"
@@ -59,19 +59,19 @@ void FuryOfGnome::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 	__BEGIN_TRY
 
 	Zone* pZone = pOusters->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-/*	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+/*	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
 
 	if (pTargetCreature==NULL
-		|| !canAttack(pOusters, pTargetCreature )
+		|| !canAttack( pOusters, pTargetCreature )
 		|| pTargetCreature->isNPC())
 	{
 		executeSkillFailException(pOusters, getSkillType());
 		return;
 	}*/
 
-/*	if (pTargetCreature->isSlayer() )
+/*	if ( pTargetCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 		targetLevel = pSlayer->getHighestSkillDomainLevel();
@@ -85,10 +85,10 @@ void FuryOfGnome::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 	SkillOutput output;
 	computeOutput(input, output);
 
-	Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
-	if (pWeapon == NULL )
+	Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
+	if ( pWeapon == NULL )
 	{
-		executeSkillFailException(pOusters, getSkillType());
+		executeSkillFailException( pOusters, getSkillType() );
 		return;
 	}
 
@@ -109,51 +109,51 @@ void FuryOfGnome::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 
 	int offset = 2;
 
-	for (int i=-offset; i<=offset; ++i )
-	for (int j=-offset; j<=offset; ++j )
-		param.addMask(i, j, 100);
+	for ( int i=-offset; i<=offset; ++i )
+	for ( int j=-offset; j<=offset; ++j )
+		param.addMask( i, j, 100 );
 
-	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID);
+	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID );
 
 	if(result.bSuccess)
 	{
 		Tile& markTile = pZone->getTile(X, Y);
 
-		if (markTile.canAddEffect() )
+		if ( markTile.canAddEffect() )
 		{
 			Effect* pOldEffect = markTile.getEffect(Effect::EFFECT_CLASS_FURY_OF_GNOME_MARK);
 
-			if (pOldEffect != NULL )
+			if ( pOldEffect != NULL )
 			{
 				pZone->deleteEffect(pOldEffect->getObjectID());
 			}
 
-			EffectFuryOfGnomeMark* pMarkEffect = new EffectFuryOfGnomeMark(pZone, X, Y);
+			EffectFuryOfGnomeMark* pMarkEffect = new EffectFuryOfGnomeMark(pZone, X, Y );
 			pMarkEffect->setDeadline(output.Duration);
-			pZone->registerObject(pMarkEffect);
+			pZone->registerObject( pMarkEffect );
 			pZone->addEffect(pMarkEffect);
 
 			markTile.addEffect(pMarkEffect);
 
 			GCAddEffectToTile gcMarkEffect;
 			
-			gcMarkEffect.setEffectID(pMarkEffect->getSendEffectClass());
-			gcMarkEffect.setDuration(output.Duration);
-			gcMarkEffect.setObjectID(pMarkEffect->getObjectID());
-			gcMarkEffect.setXY(X, Y);
+			gcMarkEffect.setEffectID( pMarkEffect->getSendEffectClass() );
+			gcMarkEffect.setDuration( output.Duration );
+			gcMarkEffect.setObjectID( pMarkEffect->getObjectID() );
+			gcMarkEffect.setXY( X, Y );
 
-			pZone->broadcastPacket(X, Y, &gcMarkEffect);
+			pZone->broadcastPacket( X, Y, &gcMarkEffect );
 		}
 
-		for (int i=-offset; i<=offset; ++i )
-		for (int j=-offset; j<=offset; ++j )
+		for ( int i=-offset; i<=offset; ++i )
+		for ( int j=-offset; j<=offset; ++j )
 		{
 			int targetX = X + i;
 			int targetY = Y + j;
-			if(isValidZoneCoord(pZone, targetX, targetY ) )
+			if( isValidZoneCoord( pZone, targetX, targetY ) )
 			{
 				Tile& tile = pZone->getTile(targetX, targetY);
-				if (tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
+				if ( tile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION) ) continue;
 
 				// 현재 타일에다 이펙트를 추가할 수 있다면...
 				if (tile.canAddEffect())
@@ -177,12 +177,12 @@ void FuryOfGnome::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ouste
 					tile.addEffect(pEffect);
 
 					GCAddEffectToTile gcEffect;
-					gcEffect.setEffectID(pEffect->getSendEffectClass());
-					gcEffect.setDuration(output.Duration);
-					gcEffect.setObjectID(pEffect->getObjectID());
-					gcEffect.setXY(targetX, targetY);
+					gcEffect.setEffectID( pEffect->getSendEffectClass() );
+					gcEffect.setDuration( output.Duration );
+					gcEffect.setObjectID( pEffect->getObjectID() );
+					gcEffect.setXY( targetX, targetY );
 
-					pZone->broadcastPacket(targetX, targetY, &gcEffect);
+					pZone->broadcastPacket( targetX, targetY, &gcEffect );
 				}
 			}
 		}

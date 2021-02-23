@@ -7,7 +7,7 @@
 
 // include files
 #include <stdio.h>
-#include "Assert1.h"
+#include "Assert.h"
 #include "Player.h"
 #include "Socket.h"
 #include "BillingPlayerInfo.h"
@@ -19,7 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 BillingPlayerInfo::BillingPlayerInfo ()
-	 throw(Error )
+	 throw ( Error )
 : m_BillingLoginRequestCount(0), m_BillingLoginVerified(false),
 	m_BillingUserKey(0), m_BillingUserStatus("")
 {
@@ -33,7 +33,7 @@ BillingPlayerInfo::BillingPlayerInfo ()
 //
 //////////////////////////////////////////////////////////////////////
 BillingPlayerInfo::~BillingPlayerInfo ()
-	 throw(Error )
+	 throw ( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -90,7 +90,7 @@ void BillingPlayerInfo::setBillingSession (Player* pPlayer)
 //
 //////////////////////////////////////////////////////////////////////
 string BillingPlayerInfo::toString () const
-       throw(Error )
+       throw ( Error )
 {
 	__BEGIN_TRY
 		

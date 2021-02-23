@@ -38,9 +38,9 @@ public:
 	const Timeval&	getBalanceZoneGroupTime() const		{ return m_BalanceZoneGroupTime; }
 
 	// by sigi. 2002.9.26
-	void addEvent(Event* pEvent) throw(Error);
-	void addEvent_LOCKED(Event* pEvent) throw(Error);
-	bool deleteEvent(Event::EventClass EClass) throw(Error);
+	void addEvent(Event* pEvent) throw (Error);
+	void addEvent_LOCKED(Event* pEvent) throw (Error);
+	bool deleteEvent(Event::EventClass EClass) throw (Error);
 
 private :
 	Timeval	m_BalanceZoneGroupTime;	// test -_-;

@@ -8,8 +8,8 @@
 #include "Creature.h"
 #include "Player.h"
 #include "ZoneInfoManager.h"
-#include "GCSystemMessage.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -36,7 +36,7 @@ void EffectMasterLairPass::affect()
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
@@ -71,6 +71,8 @@ void EffectMasterLairPass::unaffect(Creature* pCreature)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
+	//cout << "EffectMasterLairPass" << "unaffect BEGIN" << endl;
+
 	Assert(pCreature != NULL);
 
 	// 능력치를 정상적으로 되돌리기 위해서는 플래그를 끄고,
@@ -87,6 +89,8 @@ void EffectMasterLairPass::unaffect(Creature* pCreature)
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
 	*/
+
+	//cout << "EffectMasterLairPass" << "unaffect END" << endl;
 
 	__END_DEBUG
 	__END_CATCH

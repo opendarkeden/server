@@ -4,9 +4,6 @@
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
-#include <stdio.h>
-#include <map>
-
 #include "Ousters.h"
 #include "Player.h"
 #include "OptionInfo.h"
@@ -35,7 +32,7 @@
 #include "ResurrectLocationManager.h"
 #include "PKZoneInfoManager.h"
 #include "TimeLimitItemManager.h"
-#include "EffectManager.h"
+#include <stdio.h>
 
 #include "item/AR.h"
 #include "item/SR.h"
@@ -46,7 +43,6 @@
 #include "item/OustersWristlet.h"
 #include "item/OustersStone.h"
 #include "item/OustersArmsband.h"
-#include "item/SubInventory.h"
 
 #include "skill/EffectBless.h"
 #include "skill/EffectParalyze.h"
@@ -56,14 +52,14 @@
 #include "EffectGrandMasterOusters.h"
 #include "RaceWarLimiter.h"
 
-#include "GCModifyInformation.h"
-#include "GCChangeShape.h"
-#include "GCSkillInfo.h"
-#include "GCRealWearingInfo.h"
-#include "GCStatusCurrentHP.h"
-#include "GCTakeOff.h"
-#include "GCOtherModifyInfo.h"
-#include "GCPetStashList.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCChangeShape.h"
+#include "Gpackets/GCSkillInfo.h"
+#include "Gpackets/GCRealWearingInfo.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCTakeOff.h"
+#include "Gpackets/GCOtherModifyInfo.h"
+#include "Gpackets/GCPetStashList.h"
 
 #include "MonsterInfo.h"
 #include "CastleSkillInfo.h"
@@ -106,7 +102,7 @@ const Level_t MAX_OUSTERS_LEVEL = 150;
 		else ExpSaveCount++;
 		setExpSaveCount(ExpSaveCount);
 
-		setExp(NewExp);
+		setExp( NewExp );
 
 		return;
 	}
@@ -181,7 +177,7 @@ const Level_t MAX_OUSTERS_LEVEL = 150;
 	if (Point <= 0) return;
 
 	// PK존 안에서는 경험치를 주지 않는다.
-	if (g_pPKZoneInfoManager->isPKZone(getZoneID() ) )
+	if ( g_pPKZoneInfoManager->isPKZone( getZoneID() ) )
 		return;
 
 	Rank_t curRank = getRank();
@@ -203,7 +199,7 @@ const Level_t MAX_OUSTERS_LEVEL = 150;
 		else ExpSaveCount++;
 		setRankExpSaveCount(ExpSaveCount);
 
-		setRankExp(NewExp);
+		setRankExp( NewExp );
 
 		return;
 	}
@@ -285,7 +281,7 @@ const Level_t MAX_OUSTERS_LEVEL = 150;
 
 
 Ousters::Ousters () 
-	throw() 
+	throw () 
 : PlayerCreature(0, NULL)
 {
 	__BEGIN_TRY
@@ -345,7 +341,7 @@ Ousters::Ousters ()
 }
 
 Ousters::~Ousters() 
-    throw()
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -356,7 +352,7 @@ Ousters::~Ousters()
 					m_OustersInfo.getArmType(),
 					m_OustersInfo.getCoatColor(),
 					m_OustersInfo.getArmColor(),
-					m_OustersInfo.getBootsColor());
+					m_OustersInfo.getBootsColor() );
 
 	tinysave(pField);
 
@@ -387,7 +383,7 @@ Ousters::~Ousters()
 	deleteAllPartyInfo(this);
 
 	// 기술들을 삭제
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -401,7 +397,7 @@ Ousters::~Ousters()
 // Zone에 종속된 ObjectRegistry를 사용해서, Ousters 와 소유아이템들의
 // ObjectID를 할당받는다.
 void Ousters::registerObject ()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -449,10 +445,10 @@ void Ousters::registerObject ()
 
 	m_Garbage.registerObject(OR);
 
-	for (int i=0; i<MAX_PET_STASH; ++i )
+	for ( int i=0; i<MAX_PET_STASH; ++i )
 	{
 		Item* pItem = getPetStashItem(i);
-		if (pItem != NULL ) registerItem(pItem, OR);
+		if ( pItem != NULL ) registerItem( pItem, OR );
 	}
 
     __LEAVE_CRITICAL_SECTION(OR)
@@ -466,7 +462,7 @@ void Ousters::registerObject ()
 // Zone에 종속된 ObjectRegistry를 사용해서, Ousters 와 소유아이템들의
 // ObjectID를 할당받는다. ItemTrace 를 남길지 여부 결정을 위해 따로 뺐다
 void Ousters::registerInitObject ()
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -498,7 +494,7 @@ void Ousters::registerInitObject ()
 		if (pItem != NULL) 
 		{
 			// ItemTrace 를 남길 것인지 결정
-			pItem->setTraceItem(bTraceLog(pItem ));
+			pItem->setTraceItem( bTraceLog( pItem ) );
 
 			bool bCheck = true;
 
@@ -516,7 +512,7 @@ void Ousters::registerInitObject ()
 	if (pSlotItem != NULL)
 	{
 		// ItemTrace 를 남길 것인지 결정
-		pSlotItem->setTraceItem(bTraceLog(pSlotItem ));
+		pSlotItem->setTraceItem( bTraceLog( pSlotItem ) );
 		registerItem(pSlotItem, OR);
 	}
 
@@ -531,7 +527,7 @@ void Ousters::registerInitObject ()
 
 // 시간제한 아이템을 체크한다.
 // 모든 아이템이 이미 register 되어있어야 한다.
-void Ousters::checkItemTimeLimit() throw(Error)
+void Ousters::checkItemTimeLimit() throw (Error)
 {
 	__BEGIN_TRY
 
@@ -555,10 +551,10 @@ void Ousters::checkItemTimeLimit() throw(Error)
 					{
 						i += pItem->getVolumeWidth() - 1;
 
-						if (wasteIfTimeLimitExpired(pItem ) )
+						if ( wasteIfTimeLimitExpired( pItem ) )
 						{
-							m_pInventory->deleteItem(pItem->getObjectID());
-							SAFE_DELETE(pItem);
+							m_pInventory->deleteItem( pItem->getObjectID() );
+							SAFE_DELETE( pItem );
 						}
 						else
 						{
@@ -566,47 +562,6 @@ void Ousters::checkItemTimeLimit() throw(Error)
 							// 같은 아이템을 두번 체크하지 않기 위해서
 							// 리스트에다가 아이템을 집어넣는다.
 							ItemList.push_back(pItem);
-						}
-
-						// 서브 인벤토리일 경우 안에도 찾는다.
-						if (pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-						{
-							SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-							Assert(pSubInventoryItem != NULL);
-							Inventory* pSubInventory = pSubInventoryItem->getInventory();
-							Assert(pSubInventory != NULL);
-
-							list<Item*> SubItemList;
-
-							for (CoordInven_t sy = 0; sy < pSubInventory->getHeight(); ++sy )
-							{
-								for (CoordInven_t sx = 0; sx < pSubInventory->getWidth(); ++sx )
-								{
-									Item* pSubItem = pSubInventory->getItem(sx, sy);
-
-									if (pSubItem != NULL )
-									{
-										// 체크된 아이템의 리스트에서 현재 아이템을 찾는다.
-										list<Item*>::iterator itr = find(SubItemList.begin(), SubItemList.end(), pSubItem);
-
-										if (itr == SubItemList.end() )
-										{
-											if (wasteIfTimeLimitExpired(pSubItem ) )
-											{
-												pSubInventory->deleteItem(pSubItem->getObjectID());
-												SAFE_DELETE(pSubItem);
-											}
-										}
-										else
-										{
-											// 리스트에 아이템이 없으면
-											// 같은 아이템을 두번 체크하지 않기 위해서
-											// 리스트에다가 아이템을 집어넣는다.
-											SubItemList.push_back(pSubItem);
-										}
-									}
-								}
-							}
 						}
 					}
 				}
@@ -631,12 +586,12 @@ void Ousters::checkItemTimeLimit() throw(Error)
 
 				if (bCheck) 
 				{
-					if (wasteIfTimeLimitExpired(pItem ) )
+					if ( wasteIfTimeLimitExpired( pItem ) )
 					{
-						deleteWearItem((WearPart)i);
-						if (i == WEAR_LEFTHAND && isTwohandWeapon(pItem) )
-							deleteWearItem(WEAR_RIGHTHAND);
-						SAFE_DELETE(pItem);
+						deleteWearItem( (WearPart)i );
+						if ( i == WEAR_LEFTHAND && isTwohandWeapon(pItem) )
+							deleteWearItem( WEAR_RIGHTHAND );
+						SAFE_DELETE( pItem );
 					}
 				}
 			}
@@ -646,17 +601,17 @@ void Ousters::checkItemTimeLimit() throw(Error)
 	// 마우스에 들고 있는 아이템을 체크한다.
 	{
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
-		if (pSlotItem != NULL && wasteIfTimeLimitExpired(pSlotItem ))
+		if (pSlotItem != NULL && wasteIfTimeLimitExpired( pSlotItem ))
 		{
 			deleteItemFromExtraInventorySlot();
-			SAFE_DELETE(pSlotItem);
+			SAFE_DELETE( pSlotItem );
 		}
 	}
 
 	__END_CATCH
 }
 
-void Ousters::updateEventItemTime(DWORD time ) throw(Error)
+void Ousters::updateEventItemTime( DWORD time ) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -679,7 +634,7 @@ void Ousters::updateEventItemTime(DWORD time ) throw(Error)
 					if (itr == ItemList.end())
 					{
 						i += pItem->getVolumeWidth() - 1;
-						updateItemTimeLimit(pItem, time);
+						updateItemTimeLimit( pItem, time );
 						// 리스트에 아이템이 없으면
 						// 같은 아이템을 두번 체크하지 않기 위해서
 						// 리스트에다가 아이템을 집어넣는다.
@@ -707,7 +662,7 @@ void Ousters::updateEventItemTime(DWORD time ) throw(Error)
 
 				if (bCheck) 
 				{
-					updateItemTimeLimit(pItem, time);
+					updateItemTimeLimit( pItem, time );
 				}
 			}
 		}
@@ -718,7 +673,7 @@ void Ousters::updateEventItemTime(DWORD time ) throw(Error)
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
 		if (pSlotItem != NULL)
 		{
-			updateItemTimeLimit(pSlotItem, time);
+			updateItemTimeLimit( pSlotItem, time );
 		}
 	}
 
@@ -729,8 +684,8 @@ void Ousters::updateEventItemTime(DWORD time ) throw(Error)
 //	Ousters와 Slayer사이의 변신을 위해서
 //	아템 로딩은 따로 처리한다.
 //
-void Ousters::loadItem(bool checkTimeLimit )
-	throw(InvalidProtocolException, Error)
+void Ousters::loadItem( bool checkTimeLimit )
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -750,17 +705,17 @@ void Ousters::loadItem(bool checkTimeLimit )
     registerInitObject();
 
 	// 처음 접속한 사람일 경우 초보자용 아이템세트를 일단 준 다음..
-	if(!m_pFlagSet->isOn(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
+	if( !m_pFlagSet->isOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
 	{
-		addNewbieItemToInventory(this);
-		addNewbieGoldToInventory(this);
-		addNewbieItemToGear(this);
+		addNewbieItemToInventory( this );
+		addNewbieGoldToInventory( this );
+		addNewbieItemToGear( this );
 		// 주었을 경우 줬다는 플래그를 꺼준다.
-		m_pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO);
-		m_pFlagSet->save(getName());
+		m_pFlagSet->turnOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO );
+		m_pFlagSet->save( getName() );
 	}
 
-	if (checkTimeLimit )
+	if ( checkTimeLimit )
 	{
 		checkItemTimeLimit();
 	}
@@ -775,11 +730,11 @@ void Ousters::loadItem(bool checkTimeLimit )
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Ousters::load ()
-	throw(InvalidProtocolException, Error)
+	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
-	if (!PlayerCreature::load() ) return false;
+	if ( !PlayerCreature::load() ) return false;
 
 	Statement* pStmt   = NULL;
 	Result*    pResult = NULL;
@@ -787,7 +742,15 @@ bool Ousters::load ()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, MasterEffectColor, STR, DEX, INTE, HP, CurrentHP, MP, CurrentMP, Fame, GoalExp, Level, Bonus, SkillBonus, Gold, GuildID, ZoneID, XCoord, YCoord, Sight, Alignment, StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge, Rank, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'", m_Name.c_str());
+		pResult = pStmt->executeQuery(
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex,MasterEffectColor,
+			STR, DEX, INTE, HP, CurrentHP, MP, CurrentMP, Fame, 
+			GoalExp, Level, Bonus, SkillBonus, Gold, GuildID,
+			ZoneID, XCoord, YCoord, Sight, Alignment, 
+			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge,
+			Rank, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'",
+			m_Name.c_str()
+		);
 
 		if (pResult->getRowCount() == 0) 
 		{
@@ -805,8 +768,8 @@ bool Ousters::load ()
 		Level_t advLevel = pResult->getInt(++i);
 		Exp_t	advGoalExp = pResult->getInt(++i);
 
-		m_pAdvancementClass = new AdvancementClass(advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable);
-		if (getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
+		m_pAdvancementClass = new AdvancementClass( advLevel, advGoalExp, AdvancementClassExpTable::s_AdvancementClassExpTable );
+		if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
 
 		setSex(pResult->getString(++i));
 		setMasterEffectColor(pResult->getInt(++i));
@@ -856,7 +819,7 @@ bool Ousters::load ()
 		
 		m_Competence = pResult->getBYTE(++i);
 
-		if (m_Competence >= 4 )
+		if ( m_Competence >= 4 )
 			m_Competence = 3;
 
 		m_CompetenceShape = pResult->getBYTE(++i);
@@ -864,16 +827,16 @@ bool Ousters::load ()
 		setResurrectZoneID(pResult->getInt(++i));
 		setSilverDamage(pResult->getInt(++i));
 
-		setSMSCharge(pResult->getInt(++i));
+		setSMSCharge( pResult->getInt(++i) );
 
 		Rank_t CurRank               = pResult->getInt(++i);
 		RankExp_t RankGoalExp        = pResult->getInt(++i);
 
-		m_pRank = new Rank(CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_OUSTERS]);
+		m_pRank = new Rank( CurRank, RankGoalExp, RankExpTable::s_RankExpTables[RANK_TYPE_OUSTERS] );
 
-//		setRank(pResult->getInt(++i));
-//		setRankExp(pResult->getInt(++i));
-//		setRankGoalExp(pResult->getInt(++i));
+//		setRank( pResult->getInt(++i) );
+//		setRankExp( pResult->getInt(++i) );
+//		setRankGoalExp( pResult->getInt(++i) );
 
 		setHairColor(pResult->getInt(++i));
 
@@ -882,19 +845,19 @@ bool Ousters::load ()
 		// 공식 바뀌면 AbilityBalance.cpp의 computeHP도 수정해야한다.
 		int maxHP = m_STR[ATTR_CURRENT]*2 + m_INT[ATTR_CURRENT] + m_DEX[ATTR_CURRENT] + m_Level;
 		maxHP = min((int)maxHP, OUSTERS_MAX_HP);
-		setHP(maxHP, ATTR_MAX);
+		setHP( maxHP, ATTR_MAX );
 
 		try
 		{
-			setZoneID(zoneID);
+			setZoneID( zoneID );
 		}
-		catch (Error& e )
+		catch ( Error& e )
 		{
 			ZONE_COORD ResurrectCoord;
-			g_pResurrectLocationManager->getOustersPosition(1311, ResurrectCoord);
-			setZoneID(ResurrectCoord.id);
-			setX(ResurrectCoord.x);
-			setY(ResurrectCoord.y);
+			g_pResurrectLocationManager->getOustersPosition( 1311, ResurrectCoord );
+			setZoneID( ResurrectCoord.id );
+			setX( ResurrectCoord.x );
+			setY( ResurrectCoord.y );
 		}
 
 		SAFE_DELETE(pStmt);
@@ -960,13 +923,13 @@ bool Ousters::load ()
 	//----------------------------------------------------------------------
 	// by sigi. 2002.11.8
 	if (m_Level>=100
-		&& SystemAvailabilitiesManager::getInstance()->isAvailable(SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
+		&& SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
 	{
 		if (!isFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS))
 		{
 			EffectGrandMasterOusters* pEffect = new EffectGrandMasterOusters(this);
 			pEffect->setDeadline(999999);
-			getEffectManager()->addEffect(pEffect);
+			getEffectManager()->addEffect( pEffect );
 			setFlag(Effect::EFFECT_CLASS_GRAND_MASTER_OUSTERS);
 		}
 	}
@@ -984,13 +947,13 @@ bool Ousters::load ()
 	m_OustersInfo.setSylphType(OUSTERS_SYLPH_NONE);
 	m_OustersInfo.setHairColor(m_HairColor);
 
-	m_OustersInfo.setCoatColor(377);
-	m_OustersInfo.setAdvancementLevel(getAdvancementClassLevel());
+	m_OustersInfo.setCoatColor( 377 );
+	m_OustersInfo.setAdvancementLevel( getAdvancementClassLevel() );
 
 	// 잘못된 경험치를 재조정 해준다.
 /*	OustersEXPInfo* pOustersEXPInfo = g_pOustersEXPInfoManager->getOustersEXPInfo(m_Level);
 
-	if ((pOustersEXPInfo->getAccumExp() != m_Exp + m_GoalExp) 
+	if ( (pOustersEXPInfo->getAccumExp() != m_Exp + m_GoalExp) 
 		&& m_Level > 1 && m_Level < OUSTERS_MAX_LEVEL ) 
 	{
 		// 현재 누적 경험치 = 현재 레벨의 총 경험치 - 목표 경험치
@@ -1025,20 +988,20 @@ bool Ousters::load ()
 	initAllStat();
 
 	// 전쟁 참가 Flag 체크
-	if (RaceWarLimiter::isInPCList(this ) )
+	if ( RaceWarLimiter::isInPCList( this ) )
 	{
-		setFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET);
+		setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
 	}
 
 	if (m_pZone->isHolyLand()
         && g_pWarSystem->hasActiveRaceWar()
-        && !isFlag(Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
+        && !isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
 	{
         ZONE_COORD ResurrectCoord;
-        g_pResurrectLocationManager->getPosition(this, ResurrectCoord);
-        setZoneID(ResurrectCoord.id);
-        setX(ResurrectCoord.x);
-        setY(ResurrectCoord.y);
+        g_pResurrectLocationManager->getPosition( this, ResurrectCoord );
+        setZoneID( ResurrectCoord.id );
+        setX( ResurrectCoord.x );
+        setY( ResurrectCoord.y );
     }
 
 	return true;
@@ -1049,7 +1012,7 @@ bool Ousters::load ()
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void Ousters::save () const
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1139,7 +1102,7 @@ OustersSkillSlot* Ousters::getSkill (SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -1171,7 +1134,7 @@ void Ousters::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
 	if (itr == m_SkillSlot.end())
 	{
@@ -1215,7 +1178,7 @@ void Ousters::addSkill(OustersSkillSlot* pOustersSkillSlot)
 			break;
 	}
 
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1235,15 +1198,15 @@ void Ousters::removeSkill(SkillType_t SkillType)
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
 		OustersSkillSlot* pSkillSlot = itr->second;
 
-		SAFE_DELETE(pSkillSlot);
+		SAFE_DELETE( pSkillSlot );
 
-		m_SkillSlot.erase(itr);
+		m_SkillSlot.erase( itr );
 	}
 
 	__END_CATCH
@@ -1256,17 +1219,17 @@ void Ousters::removeCastleSkill(SkillType_t SkillType)
 	__BEGIN_TRY
 
 	// 성지 스킬만 지울 수 있다.
-	if (g_pCastleSkillInfoManager->getZoneID(SkillType ) == 0 ) return;
+	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
 		OustersCastleSkillSlot* pCastleSkillSlot = dynamic_cast<OustersCastleSkillSlot*>(itr->second);
 
-		SAFE_DELETE(pCastleSkillSlot);
+		SAFE_DELETE( pCastleSkillSlot );
 
-		m_SkillSlot.erase(itr);
+		m_SkillSlot.erase( itr );
 	}
 
 	__END_CATCH
@@ -1278,14 +1241,14 @@ void Ousters::removeAllCastleSkill()
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
-	while (itr != m_SkillSlot.end() )
+	while ( itr != m_SkillSlot.end() )
 	{
-		if (itr->second != NULL )
+		if ( itr->second != NULL )
 		{
 			OustersSkillSlot* pSkillSlot = itr->second;
-			if (g_pCastleSkillInfoManager->getZoneID(pSkillSlot->getSkillType() ) == 0 )
+			if ( g_pCastleSkillInfoManager->getZoneID( pSkillSlot->getSkillType() ) == 0 )
 			{
 				// 성지스킬이 아니면 다음껄로 넘어간다.
 				++itr;
@@ -1293,11 +1256,11 @@ void Ousters::removeAllCastleSkill()
 			}
 
 			// 성지스킬이면 지워준다. 반복자 사용에 주의
-			SAFE_DELETE(pSkillSlot);
-			map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
+			SAFE_DELETE( pSkillSlot );
+			hash_map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
 			
 			++itr;
-			m_SkillSlot.erase(prevItr);
+			m_SkillSlot.erase( prevItr );
 		}
 		else
 		{
@@ -1456,23 +1419,23 @@ void Ousters::wearItem(WearPart Part, Item* pItem)
 	// 옷이라면 옷에 따른 색깔을 정해준다.
 	// 나중에라도 옷 타입이 여러 가지가 될 수 있으리라 생각하는데,
 	// 현재로서는 옷 타입이 하나이므로, 색깔만 세팅해준다.
-	switch (pItem->getItemClass() )
+	switch ( pItem->getItemClass() )
 	{
 		case Item::ITEM_CLASS_OUSTERS_COAT:
 			// item type을 설정해준다. 
-			m_OustersInfo.setCoatType(getOustersCoatType(pItem->getItemType() ));
-			m_OustersInfo.setCoatColor(getItemShapeColor(pItem ));
+			m_OustersInfo.setCoatType( getOustersCoatType( pItem->getItemType() ) );
+			m_OustersInfo.setCoatColor( getItemShapeColor( pItem ) );
 			break;
 		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-			m_OustersInfo.setArmType(OUSTERS_ARM_CHAKRAM);
-			m_OustersInfo.setArmColor(getItemShapeColor(pItem ));
+			m_OustersInfo.setArmType( OUSTERS_ARM_CHAKRAM );
+			m_OustersInfo.setArmColor( getItemShapeColor( pItem ) );
 			break;
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-			m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
-			m_OustersInfo.setArmColor(getItemShapeColor(pItem ));
+			m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
+			m_OustersInfo.setArmColor( getItemShapeColor( pItem ) );
 			break;
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
-			m_OustersInfo.setBootsColor(getItemShapeColor(pItem ));
+			m_OustersInfo.setBootsColor( getItemShapeColor( pItem ) );
 			break;
 		default:
 			break;
@@ -1643,12 +1606,12 @@ void Ousters::wearItem(WearPart Part)
 	// 실제 적용되는 아이템만 복장을 바꾼다. by sigi. 2002.10.30
 	if (m_pRealWearingCheck[Part])
 	{
-		if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT
+		if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT
 			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_WRISTLET
 			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_CHAKRAM
 			|| pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS ) 
 		{
-			Color_t color = getItemShapeColor(pItem);
+			Color_t color = getItemShapeColor( pItem );
 
 			// 옷을 갈아입었으니, 주위에다가 옷 갈아입었다고 정보를 날린다.
 			GCChangeShape pkt;
@@ -1658,30 +1621,30 @@ void Ousters::wearItem(WearPart Part)
 			pkt.setOptionType(pItem->getFirstOptionType());
 			pkt.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
 
-			if (color == QUEST_COLOR )
-				pkt.setFlag(SHAPE_FLAG_QUEST);
+			if ( color == QUEST_COLOR )
+				pkt.setFlag( SHAPE_FLAG_QUEST );
 
 			Zone* pZone = getZone();
 			pZone->broadcastPacket(m_X, m_Y , &pkt, this);
 
 			// PCOustersInfo3 정보를 바꿔준다.
-			switch (pItem->getItemClass() )
+			switch ( pItem->getItemClass() )
 			{
 				case Item::ITEM_CLASS_OUSTERS_COAT:
 					// item type을 설정해준다. 
-					m_OustersInfo.setCoatType(getOustersCoatType(pItem->getItemType() ));
-					m_OustersInfo.setCoatColor(color);
+					m_OustersInfo.setCoatType( getOustersCoatType( pItem->getItemType() ) );
+					m_OustersInfo.setCoatColor( color );
 					break;
 				case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-					m_OustersInfo.setArmType(OUSTERS_ARM_CHAKRAM);
-					m_OustersInfo.setArmColor(color);
+					m_OustersInfo.setArmType( OUSTERS_ARM_CHAKRAM );
+					m_OustersInfo.setArmColor( color );
 					break;
 				case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-					m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
-					m_OustersInfo.setArmColor(color);
+					m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
+					m_OustersInfo.setArmColor( color );
 					break;
 				case Item::ITEM_CLASS_OUSTERS_BOOTS:
-					m_OustersInfo.setBootsColor(color);
+					m_OustersInfo.setBootsColor( color );
 					break;
 				default:
 					break;
@@ -1772,12 +1735,12 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
         pItem->tinysave(pField);
 	}
 
-	switch (pItem->getItemClass() )
+	switch ( pItem->getItemClass() )
 	{
 		case Item::ITEM_CLASS_OUSTERS_COAT:
 			{
-				m_OustersInfo.setCoatType(OUSTERS_COAT_BASIC);
-				m_OustersInfo.setCoatColor(377);
+				m_OustersInfo.setCoatType( OUSTERS_COAT_BASIC );
+				m_OustersInfo.setCoatColor( 377 );
 				GCTakeOff pkt;
 				pkt.setObjectID(getObjectID());
 				pkt.setSlotID((SlotID_t)ADDON_COAT);
@@ -1786,8 +1749,8 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 			break;
 		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
 			{
-				m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
-				m_OustersInfo.setArmColor(377);
+				m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
+				m_OustersInfo.setArmColor( 377 );
 				GCTakeOff pkt;
 				pkt.setObjectID(getObjectID());
 				pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
@@ -1796,8 +1759,8 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 			break;
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
 			{
-				m_OustersInfo.setArmType(OUSTERS_ARM_GAUNTLET);
-				m_OustersInfo.setArmColor(377);
+				m_OustersInfo.setArmType( OUSTERS_ARM_GAUNTLET );
+				m_OustersInfo.setArmColor( 377 );
 				GCTakeOff pkt;
 				pkt.setObjectID(getObjectID());
 				pkt.setSlotID((SlotID_t)ADDON_LEFTHAND);
@@ -1806,7 +1769,7 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 			break;
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
 			{
-				m_OustersInfo.setBootsColor(377);
+				m_OustersInfo.setBootsColor( 377 );
 				GCTakeOff pkt;
 				pkt.setObjectID(getObjectID());
 				pkt.setSlotID((SlotID_t)ADDON_TROUSER);
@@ -1828,67 +1791,6 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 		}
 	}
 
-    if (isFlag(Effect::EFFECT_CLASS_HANDS_OF_FIRE)) {
-        SkillInfo* HoF = g_pSkillInfoManager->getSkillInfo(SKILL_HANDS_OF_FIRE);
-        if (HoF->getRequireFire() < getElementalFire()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_HANDS_OF_FIRE);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_RING_OF_FLARE)) {
-        SkillInfo* RoF = g_pSkillInfoManager->getSkillInfo(SKILL_RING_OF_FLARE);
-        if (RoF->getRequireFire() < getElementalFire()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_RING_OF_FLARE);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_FIRE_ELEMENTAL)) {
-        SkillInfo* RoF = g_pSkillInfoManager->getSkillInfo(SKILL_SUMMON_FIRE_ELEMENTAL);
-        if (RoF->getRequireFire() < getElementalFire()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_FIRE_ELEMENTAL);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_REACTIVE_ARMOR)) {
-        SkillInfo* RA = g_pSkillInfoManager->getSkillInfo(SKILL_REACTIVE_ARMOR);
-        if (RA->getRequireEarth() < getElementalEarth()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_REACTIVE_ARMOR);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER)) {
-        SkillInfo* GW = g_pSkillInfoManager->getSkillInfo(SKILL_GNOMES_WHISPER);
-        if (GW->getRequireEarth() < getElementalEarth()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_GNOMES_WHISPER);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_FROZEN_ARMOR)) {
-        SkillInfo* FA = g_pSkillInfoManager->getSkillInfo(SKILL_FROZEN_ARMOR);
-        if (FA->getRequireWater() < getElementalWater()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_FROZEN_ARMOR);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_WATER_BARRIER)) {
-        SkillInfo* WB = g_pSkillInfoManager->getSkillInfo(SKILL_WATER_BARRIER);
-        if (WB->getRequireWater() < getElementalWater()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_WATER_BARRIER);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-    if (isFlag(Effect::EFFECT_CLASS_WATER_ELEMENTAL)) {
-        SkillInfo* WB = g_pSkillInfoManager->getSkillInfo(SKILL_SUMMON_WATER_ELEMENTAL);
-        if (WB->getRequireWater() < getElementalWater()) {
-            getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_WATER_ELEMENTAL);
-            if (isFlag(Effect::EFFECT_CLASS_WATER_ELEMENTAL_HEAL))
-                getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_WATER_ELEMENTAL_HEAL);
-            if (isFlag(Effect::EFFECT_CLASS_WATER_ELEMENTAL_HEALED))
-                getEffectManager()->deleteEffect(this, Effect::EFFECT_CLASS_WATER_ELEMENTAL_HEALED);
-            getEffectManager()->sendEffectInfo(this, getZone(), getX(), getY());
-        }
-    }
-
 	__END_CATCH
 }
 
@@ -1900,7 +1802,7 @@ void Ousters::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 // 장착 아이템을 Delete 한다.
 //----------------------------------------------------------------------
 void Ousters::destroyGears() 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1959,7 +1861,7 @@ bool Ousters::isRealWearing(WearPart part) const
 	if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4)
 	{
 		// 해당 위치에 정령석도 있어야 된다.
-		if (m_pWearItem[part-WEAR_ZAP1+WEAR_STONE1]==NULL ) return false;
+		if ( m_pWearItem[part-WEAR_ZAP1+WEAR_STONE1]==NULL ) return false;
 	}
 
 	return isRealWearing(m_pWearItem[part]);
@@ -1975,15 +1877,14 @@ bool Ousters::isRealWearing(Item* pItem) const
 	__BEGIN_TRY
 
 	if (pItem == NULL) return false;
-	if (pItem->getDurability() == 0 ) return false;
 
-/*	if (m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4005 )
+/*	if ( m_pZone != NULL && m_pZone->isDynamicZone() && m_pZone->getDynamicZone()->getTemplateZoneID() == 4005 )
 	{
-		if (!isOustersWeapon(pItem->getItemClass() ) ) return false;
+		if ( !isOustersWeapon( pItem->getItemClass() ) ) return false;
 	}*/
 
 	// 시간제한아이템은 레어나 유니크나 무료사용자도 쓸 수 있다....... 2003.5.4
-	if (pItem->isTimeLimitItem() )
+	if ( pItem->isTimeLimitItem() )
 	{
 		return true;
 	}
@@ -2006,13 +1907,13 @@ bool Ousters::isRealWearing(Item* pItem) const
 	ItemInfo*       pItemInfo = g_pItemInfoManager->getItemInfo(IClass, pItem->getItemType());
 
 	Level_t			ReqAdvancedLevel = pItemInfo->getReqAdvancedLevel();
-	if (ReqAdvancedLevel > 0 && (!isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
+	if ( ReqAdvancedLevel > 0 && ( !isAdvanced() || getAdvancementClassLevel() < ReqAdvancedLevel ) ) return false;
 
-/*	if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT || pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS ||
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_COAT || pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_BOOTS ||
 		isOustersWeapon(pItem->getItemClass()) )
 	{
-		if (ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
-	}*/
+		if ( ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
+	}
 	
 	Level_t         ReqLevel  = pItemInfo->getReqLevel();
 	Attr_t			ReqSTR    = pItemInfo->getReqSTR();
@@ -2027,7 +1928,7 @@ bool Ousters::isRealWearing(Item* pItem) const
 
 	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 	{
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 		if (ReqLevel != 0) ReqLevel += pOptionInfo->getReqLevel();
 		if (ReqSTR != 0) ReqSTR += (pOptionInfo->getReqSum() * 2);
 		if (ReqDEX != 0) ReqDEX += (pOptionInfo->getReqSum() * 2);
@@ -2035,7 +1936,7 @@ bool Ousters::isRealWearing(Item* pItem) const
 		if (ReqSum != 0) ReqSum += pOptionInfo->getReqSum();
 	}
 
-	ReqLevel = min(ReqLevel, MAX_OUSTERS_LEVEL);
+	ReqLevel = min(ReqLevel, MAX_OUSTERS_LEVEL );
 //	ReqSum = min((int)ReqSum, OUSTERS_MAX_SUM);
 //	ReqSTR = min((int)ReqSTR, OUSTERS_MAX_ATTR);
 //	ReqDEX = min((int)ReqDEX, OUSTERS_MAX_ATTR);
@@ -2048,7 +1949,7 @@ bool Ousters::isRealWearing(Item* pItem) const
 	Attr_t CINT = m_INT[ATTR_CURRENT];
 	Attr_t CSUM = CSTR + CDEX + CINT;
 
-	if (CSTR < ReqSTR || CDEX < ReqDEX || CINT < ReqINT || CSUM < ReqSum || m_Level < ReqLevel )
+	if ( CSTR < ReqSTR || CDEX < ReqDEX || CINT < ReqINT || CSUM < ReqSum || m_Level < ReqLevel )
 	{
 		return false;
 	}
@@ -2098,7 +1999,7 @@ DWORD Ousters::sendRealWearingInfo(void) const
 ////////////////////////////////////////////////////////////////////////////////
 
 PCOustersInfo2* Ousters::getOustersInfo2 ()
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2128,7 +2029,7 @@ PCOustersInfo2* Ousters::getOustersInfo2 ()
 	
 	pInfo->setHP(m_HP[ATTR_CURRENT] , m_HP[ATTR_MAX]);
 	pInfo->setMP(m_MP[ATTR_CURRENT] , m_MP[ATTR_MAX]);
-	pInfo->setSilverDamage(m_SilverDamage);
+	pInfo->setSilverDamage( m_SilverDamage );
 
 	pInfo->setFame(m_Fame);
 	pInfo->setExp(m_GoalExp);
@@ -2143,15 +2044,15 @@ PCOustersInfo2* Ousters::getOustersInfo2 ()
 
 	pInfo->setCompetence(m_CompetenceShape);
 	pInfo->setGuildID(m_GuildID);
-	pInfo->setGuildName(getGuildName());
-	pInfo->setGuildMemberRank(getGuildMemberRank());
+	pInfo->setGuildName( getGuildName() );
+	pInfo->setGuildMemberRank( getGuildMemberRank() );
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) pInfo->setUnionID(0);
-	else pInfo->setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) pInfo->setUnionID( 0 );
+	else pInfo->setUnionID( pUnion->getUnionID() );
 
-	pInfo->setAdvancementLevel(getAdvancementClassLevel());
-	pInfo->setAdvancementGoalExp(getAdvancementClassGoalExp());
+	pInfo->setAdvancementLevel( getAdvancementClassLevel() );
+	pInfo->setAdvancementGoalExp( getAdvancementClassGoalExp() );
 
 	return pInfo;
 
@@ -2164,7 +2065,7 @@ PCOustersInfo2* Ousters::getOustersInfo2 ()
 // Ousters Outlook Information
 //----------------------------------------------------------------------
 PCOustersInfo3 Ousters::getOustersInfo3 () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2185,11 +2086,11 @@ PCOustersInfo3 Ousters::getOustersInfo3 () const
     m_OustersInfo.setHairColor(m_HairColor);
     m_OustersInfo.setMasterEffectColor(m_MasterEffectColor);
 
-	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion(m_GuildID);
-	if (pUnion == NULL ) m_OustersInfo.setUnionID(0);
-	else m_OustersInfo.setUnionID(pUnion->getUnionID());
+	GuildUnion* pUnion = GuildUnionManager::Instance().getGuildUnion( m_GuildID );
+	if ( pUnion == NULL ) m_OustersInfo.setUnionID( 0 );
+	else m_OustersInfo.setUnionID( pUnion->getUnionID() );
 
-	m_OustersInfo.setAdvancementLevel(getAdvancementClassLevel());
+	m_OustersInfo.setAdvancementLevel( getAdvancementClassLevel() );
 
 	return m_OustersInfo;
 
@@ -2219,7 +2120,7 @@ ExtraInfo* Ousters::getExtraInfo() const
 	//	Item::ItemClass IClass = pItem->getItemClass();
 
 		ExtraSlotInfo* pExtraSlotInfo = new ExtraSlotInfo();
-		pItem->makePCItemInfo(*pExtraSlotInfo);
+		pItem->makePCItemInfo( *pExtraSlotInfo );
 
 /*		pExtraSlotInfo->setObjectID(pItem->getObjectID());
 		pExtraSlotInfo->setItemClass(pItem->getItemClass());
@@ -2302,7 +2203,7 @@ GearInfo* Ousters::getGearInfo() const
 			//Item::ItemClass IClass = pItem->getItemClass();
 
 			GearSlotInfo* pGearSlotInfo = new GearSlotInfo();
-			pItem->makePCItemInfo(*pGearSlotInfo);
+			pItem->makePCItemInfo( *pGearSlotInfo );
 			pGearSlotInfo->setSlotID(i);
 /*
 			pGearSlotInfo->setObjectID(pItem->getObjectID());
@@ -2392,7 +2293,6 @@ InventoryInfo* Ousters::getInventoryInfo() const
 				Item* pItem = m_pInventory->getItem(i , j);
 				VolumeWidth_t ItemWidth = pItem->getVolumeWidth();
 				//Item::ItemClass IClass = pItem->getItemClass();
-
 				list<Item*>::iterator itr = find(ItemList.begin() , ItemList.end() , pItem);
 
 				if (itr == ItemList.end()) 
@@ -2401,7 +2301,7 @@ InventoryInfo* Ousters::getInventoryInfo() const
 
 					// InventorySlotInfo를 구성
 					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
-					pItem->makePCItemInfo(*pInventorySlotInfo);
+					pItem->makePCItemInfo( *pInventorySlotInfo );
 					pInventorySlotInfo->setInvenX(i);
 					pInventorySlotInfo->setInvenY(j);
 /*
@@ -2479,9 +2379,9 @@ void Ousters::sendOustersSkillInfo()
 
 	// 현재 시간, 남은 캐스팅 타임을 계산하기 위해
 	Timeval currentTime;
-	getCurrentTime(currentTime);
+	getCurrentTime( currentTime );
 
-	map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -2494,7 +2394,7 @@ void Ousters::sendOustersSkillInfo()
 			pSubOustersSkillInfo->setSkillType(pOustersSkillSlot->getSkillType());
 			pSubOustersSkillInfo->setExpLevel(pOustersSkillSlot->getExpLevel());
 			pSubOustersSkillInfo->setSkillTurn(pOustersSkillSlot->getInterval());
-			pSubOustersSkillInfo->setCastingTime(pOustersSkillSlot->getRemainTurn(currentTime ));
+			pSubOustersSkillInfo->setCastingTime(pOustersSkillSlot->getRemainTurn( currentTime ) );
 
 			pOustersSkillInfo->addListElement(pSubOustersSkillInfo);
 
@@ -2542,7 +2442,7 @@ void Ousters::setGold(Gold_t gold)
 
     // MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	m_Gold = min((Gold_t)MAX_MONEY, gold);
+	m_Gold = min( (Gold_t)MAX_MONEY, gold );
 
 	__END_CATCH
 }
@@ -2570,7 +2470,7 @@ void Ousters::increaseGoldEx(Gold_t gold)
 
 	// MAX_MONEY 를 넘어가는 걸 막는다
 	// 2003.1.8  by bezz.
-	if (m_Gold + gold > MAX_MONEY )
+	if ( m_Gold + gold > MAX_MONEY )
 		gold = MAX_MONEY - m_Gold;
 
 	setGold(m_Gold+gold);
@@ -2598,7 +2498,7 @@ void Ousters::decreaseGoldEx(Gold_t gold)
 
 	// 0 미만이 되는 걸 막는다. 0 미만이 되면 underflow 되서 난리가 난다.
 	// 2003.1.8  by bezz.
-	if (m_Gold < gold )
+	if ( m_Gold < gold )
         gold = m_Gold;
 	
 	setGold(m_Gold-gold);
@@ -2644,7 +2544,7 @@ bool Ousters::checkGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT Gold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_Gold;
 		}
@@ -2670,7 +2570,7 @@ bool Ousters::checkStashGoldIntegrity()
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		Result* pResult = pStmt->executeQuery("SELECT StashGold FROM Ousters WHERE NAME='%s'", m_Name.c_str());
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			ret = pResult->getInt(1) == m_StashGold;
 		}
@@ -2694,26 +2594,26 @@ void Ousters::heartbeat(const Timeval& currentTime)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	PlayerCreature::heartbeat(currentTime);
+	PlayerCreature::heartbeat( currentTime );
 
 	OustersSkillSlot* pDriftingSoul = hasSkill(SKILL_DRIFTING_SOUL);
 
-	if (pDriftingSoul != NULL && m_MPRegenTime < currentTime && !isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
+	if ( pDriftingSoul != NULL && m_MPRegenTime < currentTime && !isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
 	{
 		SkillLevel_t level = pDriftingSoul->getExpLevel();
 		int bonus = 0;
 
-		if (getMP() < getMP(ATTR_MAX ) )
+		if ( getMP() < getMP(ATTR_MAX ) )
 		{
-			if (level <= 15 ) bonus +=1;
-			else if (level <= 25 ) bonus += 2;
-			else if (level <= 29 ) bonus += 3;
-			else if (level <= 30 ) bonus += 4;
+			if ( level <= 15 ) bonus +=1;
+			else if ( level <= 25 ) bonus += 2;
+			else if ( level <= 29 ) bonus += 3;
+			else if ( level <= 30 ) bonus += 4;
 
 			MP_t oldMP = getMP();
-			MP_t newMP = min((int)getMP(ATTR_MAX), oldMP + bonus);
+			MP_t newMP = min( (int)getMP(ATTR_MAX), oldMP + bonus );
 
-			if (oldMP != newMP )
+			if ( oldMP != newMP )
 			{
 				setMP(newMP);
 
@@ -2804,7 +2704,7 @@ void Ousters::saveAlignment(Alignment_t alignment)
 // get debug string
 //----------------------------------------------------------------------
 string Ousters::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -2839,11 +2739,11 @@ string Ousters::toString () const
 }
 
 void Ousters::saveSkills(void) const 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -2865,9 +2765,9 @@ Sight_t Ousters::getEffectedSight() throw()
 
 	Sight_t sight = Creature::getEffectedSight();
 
-	if (sight == DEFAULT_SIGHT )
+	if ( sight == DEFAULT_SIGHT )
 	{
-//		if (isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
+//		if ( isFlag( Effect::EFFECT_CLASS_BLOOD_DRAIN ) )
 //		{
 //			sight = (Sight_t) 3;
 //		}
@@ -2887,7 +2787,7 @@ IP_t Ousters::getIP(void) const
 }
 
 void Ousters::saveGears(void) const
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -2915,17 +2815,28 @@ void Ousters::saveGears(void) const
 
 
 void Ousters::saveExps(void) const
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
+	// 스킬 핸들러에서 쿼리 숫자를 줄이기 위해서 10으로 나누는 부분들은,
+	// 서버 다운이 되지 않고, 정상적으로 로그아웃하는 경우에 
+	// 세이브를 명시적으로 해주지 않으면 10 이하 올라간 부분은 날아가 버리게 된다.
+	// 그러므로 여기서 세이브를 해 준다. 
 	Statement* pStmt = NULL;
+
+/*	char silverDam[40];
+	if (m_SilverDamage != 0)
+	{
+		sprintf(silverDam, ",SilverDamage = %d", m_SilverDamage);
+	}
+	else silverDam[0]='\0'; */
 
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
-							m_Alignment, m_Fame, m_GoalExp, m_SilverDamage, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str());
+		pStmt->executeQuery( "UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
+							m_Alignment, m_Fame, m_GoalExp, m_SilverDamage, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str() );
 
 		SAFE_DELETE(pStmt);
 	}
@@ -2949,7 +2860,7 @@ void Ousters::saveExps(void) const
 // colors[1]은 coatColor만 있기 때문이다.
 //----------------------------------------------------------------------
 /*void Ousters::getShapeInfo (DWORD& flag, Color_t colors[PCOustersInfo::OUSTERS_COLOR_MAX]) const
-//	throw()
+//	throw ()
 {
 	__BEGIN_DEBUG
 
@@ -2974,7 +2885,7 @@ void Ousters::saveExps(void) const
 	{
 		ItemType_t IType = pItem->getItemType();
 
-		colors[oustersColor] = getItemShapeColor(pItem);
+		colors[oustersColor] = getItemShapeColor( pItem );
 
 		// itemType을 넣어준다.
 		flag = IType;
@@ -3034,8 +2945,8 @@ Ousters::addShape(Item::ItemClass IClass, ItemType_t IType, Color_t color)
 		{
 			bisChange = true;
 
-			m_OustersInfo.setCoatColor(color);
-			m_OustersInfo.setCoatType(IType);
+			m_OustersInfo.setCoatColor( color );
+			m_OustersInfo.setCoatType( IType );
 		}
 		break;
 */
@@ -3057,7 +2968,7 @@ Ousters::removeShape(Item::ItemClass IClass, bool bSendPacket)
 		/*case Item::ITEM_CLASS_OUSTERS_COAT :
 		{
 			m_OustersInfo.setCoatColor(377);
-			m_OustersInfo.setCoatType(0);
+			m_OustersInfo.setCoatType( 0 );
 
 			if (bSendPacket)	// by sigi. 2002.11.6
 			{
@@ -3120,107 +3031,107 @@ bool Ousters::canPlayFree()
 	__END_CATCH
 }
 
-bool Ousters::satisfySkillRequire(SkillInfo* pSkillInfo )
+bool Ousters::satisfySkillRequire( SkillInfo* pSkillInfo )
 {
-	if (isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
+	if ( isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 		return false;
-	if (pSkillInfo->getRequireFire() > m_ElementalFire )
+	if ( pSkillInfo->getRequireFire() > m_ElementalFire )
 		return false;
-	if (pSkillInfo->getRequireWater() > m_ElementalWater )
+	if ( pSkillInfo->getRequireWater() > m_ElementalWater )
 		return false;
-	if (pSkillInfo->getRequireEarth() > m_ElementalEarth )
+	if ( pSkillInfo->getRequireEarth() > m_ElementalEarth )
 		return false;
-	if (pSkillInfo->getRequireWind() > m_ElementalWind )
+	if ( pSkillInfo->getRequireWind() > m_ElementalWind )
 		return false;
-	if (pSkillInfo->getRequireSum() > getElementalSum() )
+	if ( pSkillInfo->getRequireSum() > getElementalSum() )
 		return false;
 
-	if (pSkillInfo->getRequireWristletElemental() != ELEMENTAL_ANY )
+	if ( pSkillInfo->getRequireWristletElemental() != ELEMENTAL_ANY )
 	{
-		if (!isRealWearing(WEAR_LEFTHAND)
+		if ( !isRealWearing(WEAR_LEFTHAND)
 				|| m_pWearItem[WEAR_LEFTHAND]->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET )
 			return false;
 
 		OustersWristlet* pWristlet = dynamic_cast<OustersWristlet*>(m_pWearItem[WEAR_LEFTHAND]);
-		Assert(pWristlet != NULL);
+		Assert( pWristlet != NULL );
 
-		if (pSkillInfo->getRequireWristletElemental() != pWristlet->getElementalType() )
+		if ( pSkillInfo->getRequireWristletElemental() != pWristlet->getElementalType() )
 			return false;
 	}
 
-	if (pSkillInfo->getRequireStone1Elemental() != ELEMENTAL_ANY )
+	if ( pSkillInfo->getRequireStone1Elemental() != ELEMENTAL_ANY )
 	{
-		if (!isRealWearing(WEAR_STONE1)
+		if ( !isRealWearing(WEAR_STONE1)
 				|| m_pWearItem[WEAR_STONE1]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
 			return false;
 
 		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE1]);
-		Assert(pStone != NULL);
+		Assert( pStone != NULL );
 
-		if (pSkillInfo->getRequireStone1Elemental() != pStone->getElementalType() )
+		if ( pSkillInfo->getRequireStone1Elemental() != pStone->getElementalType() )
 			return false;
 	}
 
-	if (pSkillInfo->getRequireStone2Elemental() != ELEMENTAL_ANY )
+	if ( pSkillInfo->getRequireStone2Elemental() != ELEMENTAL_ANY )
 	{
-		if (!isRealWearing(WEAR_STONE2)
+		if ( !isRealWearing(WEAR_STONE2)
 				|| m_pWearItem[WEAR_STONE2]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
 			return false;
 
 		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE2]);
-		Assert(pStone != NULL);
+		Assert( pStone != NULL );
 
-		if (pSkillInfo->getRequireStone2Elemental() != pStone->getElementalType() )
+		if ( pSkillInfo->getRequireStone2Elemental() != pStone->getElementalType() )
 			return false;
 	}
 
-	if (pSkillInfo->getRequireStone3Elemental() != ELEMENTAL_ANY )
+	if ( pSkillInfo->getRequireStone3Elemental() != ELEMENTAL_ANY )
 	{
-		if (!isRealWearing(WEAR_STONE3)
+		if ( !isRealWearing(WEAR_STONE3)
 				|| m_pWearItem[WEAR_STONE3]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
 			return false;
 
 		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE3]);
-		Assert(pStone != NULL);
+		Assert( pStone != NULL );
 
-		if (pSkillInfo->getRequireStone3Elemental() != pStone->getElementalType() )
+		if ( pSkillInfo->getRequireStone3Elemental() != pStone->getElementalType() )
 			return false;
 	}
 
-	if (pSkillInfo->getRequireStone4Elemental() != ELEMENTAL_ANY )
+	if ( pSkillInfo->getRequireStone4Elemental() != ELEMENTAL_ANY )
 	{
-		if (!isRealWearing(WEAR_STONE4)
+		if ( !isRealWearing(WEAR_STONE4)
 				|| m_pWearItem[WEAR_STONE4]->getItemClass() != Item::ITEM_CLASS_OUSTERS_STONE )
 			return false;
 
 		OustersStone* pStone = dynamic_cast<OustersStone*>(m_pWearItem[WEAR_STONE4]);
-		Assert(pStone != NULL);
+		Assert( pStone != NULL );
 
-		if (pSkillInfo->getRequireStone4Elemental() != pStone->getElementalType() )
+		if ( pSkillInfo->getRequireStone4Elemental() != pStone->getElementalType() )
 			return false;
 	}
 
 	return true;
 }
 
-SkillBonus_t Ousters::getSkillPointCount(ElementalDomain eDomain )
+SkillBonus_t Ousters::getSkillPointCount( ElementalDomain eDomain )
 {
-	map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 	SkillBonus_t ret = 0;
 
-	for (; itr != m_SkillSlot.end() ; ++itr )
+	for ( ; itr != m_SkillSlot.end() ; ++itr )
 	{
 		OustersSkillSlot* pSlot = itr->second;
-		if (pSlot->getSkillType() < SKILL_DOUBLE_IMPACT ) continue;
-		SkillInfo* pInfo = g_pSkillInfoManager->getSkillInfo(pSlot->getSkillType());
-		if (pInfo == NULL ) continue;
-		if (pInfo->getElementalDomain() == eDomain )
+		if ( pSlot->getSkillType() < SKILL_DOUBLE_IMPACT ) continue;
+		SkillInfo* pInfo = g_pSkillInfoManager->getSkillInfo( pSlot->getSkillType() );
+		if ( pInfo == NULL ) continue;
+		if ( pInfo->getElementalDomain() == eDomain )
 		{
 			ret += (pInfo->getSkillPoint() + pInfo->getLevelUpPoint() * (pSlot->getExpLevel()-1));
 		}
 	}
 
-	//cout << (int)eDomain << "에 넣은 스킬포인트 : " << ret << endl;
+	cout << (int)eDomain << "에 넣은 스킬포인트 : " << ret << endl;
 
 	return ret;
 }
@@ -3281,31 +3192,31 @@ void Ousters::initPetQuestTarget()
 {
 	int minClass = 1, maxClass = 1;
 
-	if (getLevel() <= 50 )
+	if ( getLevel() <= 50 )
 	{
 		minClass = 6; maxClass = 7;
 	}
-	else if (getLevel() <= 60 )
+	else if ( getLevel() <= 60 )
 	{
 		minClass = 7; maxClass = 8;
 	}
-	else if (getLevel() <= 70 )
+	else if ( getLevel() <= 70 )
 	{
 		minClass = maxClass = 9;
 	}
-	else if (getLevel() <= 80 )
+	else if ( getLevel() <= 80 )
 	{
 		minClass = 9; maxClass = 10;
 	}
-	else if (getLevel() <= 90 )
+	else if ( getLevel() <= 90 )
 	{
 		minClass = maxClass = 10;
 	}
-	else if (getLevel() <= 110 )
+	else if ( getLevel() <= 110 )
 	{
 		minClass = 10; maxClass = 11;
 	}
-	else if (getLevel() <= 130 )
+	else if ( getLevel() <= 130 )
 	{
 		minClass = 11; maxClass = 12;
 	}
@@ -3314,7 +3225,7 @@ void Ousters::initPetQuestTarget()
 		minClass = 12; maxClass = 13;
 	}
 
-	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass(minClass, maxClass);
+	m_TargetMonster = g_pMonsterInfoManager->getRandomMonsterByClass( minClass, maxClass );
 	m_TargetNum = 80;
 	m_TimeLimit = 3600;
 }
@@ -3322,18 +3233,47 @@ void Ousters::initPetQuestTarget()
 bool Ousters::canLearnSkill(SkillType_t skill)
 {
 	SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(skill);
-	if (pSkillInfo == NULL ) return false;
-
-	if (pSkillInfo->getLevel() >= 150 )
+	if ( pSkillInfo == NULL ) return false;
+	// add by Coffee 藤속랗瘻세콘
+	/*
+	SKILL_DUMMY_DRAKE,							// 382 돠잉옹웨잔(삽)
+		SKILL_HYDRO_CONVERGENCE,					// 383 릿북彊좟(彊)
+		SKILL_SUMMON_CLAY,							// 384 瀾皐梁뻥(皐)
+		HETER_CHAKRAM,								// 385 謳꼈적샘凜(濫却)
+	*/
+	if (skill == SKILL_DUMMY_DRAKE ||
+		skill == SKILL_HYDRO_CONVERGENCE ||
+		skill == SKILL_SUMMON_CLAY ||
+		skill == SKILL_HETER_CHAKRAM
+		)
 	{
-		map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
-
-		for (; itr != m_SkillSlot.end() ; ++itr )
+		hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+		for ( ; itr != m_SkillSlot.end() ; ++itr )
 		{
-			if (itr->first < SKILL_DOUBLE_IMPACT ) continue;
-			SkillInfo* pHasSkillInfo = g_pSkillInfoManager->getSkillInfo(itr->first);
-			if (pHasSkillInfo == NULL ) continue;
-			if (pHasSkillInfo->getLevel() == pSkillInfo->getLevel() ) return false;
+			if ( itr->first < SKILL_DOUBLE_IMPACT ) continue;
+			SkillInfo* pHasSkillInfo = g_pSkillInfoManager->getSkillInfo( itr->first );
+			if ( pHasSkillInfo == NULL ) continue;
+			if ( pHasSkillInfo->getType() == SKILL_DUMMY_DRAKE ||
+				 pHasSkillInfo->getType() == SKILL_HYDRO_CONVERGENCE ||
+				 pHasSkillInfo->getType() == SKILL_SUMMON_CLAY ||
+				 pHasSkillInfo->getType() == SKILL_HETER_CHAKRAM 
+				) 
+				return false;
+		}
+		return true;
+	}
+	// end by Coffee
+	
+	if ( pSkillInfo->getLevel() >= 150 )
+	{
+		hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+
+		for ( ; itr != m_SkillSlot.end() ; ++itr )
+		{
+			if ( itr->first < SKILL_DOUBLE_IMPACT ) continue;
+			SkillInfo* pHasSkillInfo = g_pSkillInfoManager->getSkillInfo( itr->first );
+			if ( pHasSkillInfo == NULL ) continue;
+			if ( pHasSkillInfo->getLevel() == pSkillInfo->getLevel() ) return false;
 		}
 	}
 

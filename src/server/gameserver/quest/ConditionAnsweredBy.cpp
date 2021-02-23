@@ -9,7 +9,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
-bool ConditionAnsweredBy::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const throw()
+bool ConditionAnsweredBy::isSatisfied(Creature* pCreature1, Creature* pCreature2, void* pParam) const throw ()
 {
 	// check parameter
 	if (pParam == NULL) return false;
@@ -25,7 +25,7 @@ bool ConditionAnsweredBy::isSatisfied(Creature* pCreature1, Creature* pCreature2
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionAnsweredBy::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	try
 	{
@@ -43,7 +43,7 @@ void ConditionAnsweredBy::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionAnsweredBy::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

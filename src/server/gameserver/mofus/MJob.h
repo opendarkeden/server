@@ -9,7 +9,7 @@
 class MJob
 {
 public:
-	MJob(const string& userID, const string& name, const string& cellnum )
+	MJob( const string& userID, const string& name, const string& cellnum )
 		: m_UserID(userID), m_Name(name), m_CellNum(cellnum),
 		m_PowerPoint(0), m_ErrorCode(0), m_bEnd(false)
 	{
@@ -17,7 +17,7 @@ public:
 
 public:
 	// 포인트 누적
-	void addPowerPoint(int point ) { m_PowerPoint += point; }
+	void addPowerPoint( int point ) { m_PowerPoint += point; }
 
 	// get
 	int getPowerPoint() const { return m_PowerPoint; }
@@ -27,11 +27,11 @@ public:
 
 	// get/set errorcode
 	int getErrorCode() const { return m_ErrorCode; }
-	void setErrorCode(int errorCode ) { m_ErrorCode = errorCode; }
+	void setErrorCode( int errorCode ) { m_ErrorCode = errorCode; }
 
 	// get/set end job
 	bool isEnd() const { return m_bEnd; }
-	void setEnd(bool bEnd = true ) { m_bEnd = bEnd; }
+	void setEnd( bool bEnd = true ) { m_bEnd = bEnd; }
 
 private:
 	// 사용자 ID 

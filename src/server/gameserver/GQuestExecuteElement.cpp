@@ -1,18 +1,18 @@
 #include "GQuestExecuteElement.h"
 #include "PlayerCreature.h"
 #include "GQuestInfo.h"
-#include "GCExecuteElement.h"
+#include "Gpackets/GCExecuteElement.h"
 #include "Player.h"
 
-GQuestElement::ResultType GQuestExecuteElement::checkCondition(PlayerCreature* pPC ) const
+GQuestElement::ResultType GQuestExecuteElement::checkCondition( PlayerCreature* pPC ) const
 {
 	GCExecuteElement gcEE;
 
-	gcEE.setQuestID(m_pParent->getQuestID());
-	gcEE.setCondition(m_Condition);
-	gcEE.setIndex(m_Index);
+	gcEE.setQuestID( m_pParent->getQuestID() );
+	gcEE.setCondition( m_Condition );
+	gcEE.setIndex( m_Index );
 
-	pPC->getPlayer()->sendPacket(&gcEE);
+	pPC->getPlayer()->sendPacket( &gcEE );
 
 	return OK;
 }

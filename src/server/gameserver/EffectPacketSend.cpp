@@ -27,11 +27,11 @@ void EffectPacketSend::unaffect()
 {
 	__BEGIN_TRY	
 
-	Assert(m_pZone != NULL);
-	Assert(m_pPacket != NULL);
-	m_pZone->broadcastPacket(m_X, m_Y, m_pPacket);
+	Assert( m_pZone != NULL );
+	Assert( m_pPacket != NULL );
+	m_pZone->broadcastPacket( m_X, m_Y, m_pPacket );
 
-	SAFE_DELETE(m_pPacket);
+	SAFE_DELETE( m_pPacket );
 
 	__END_CATCH
 }

@@ -24,10 +24,10 @@ public:
 		return theInstance;
 	}
 
-	void	putItem(PlayerCreature* pPC, MonsterCorpse* pCorpse, Item* pItem);
-	void	recallGuild(ZoneID_t currentZoneID, ZoneID_t siegeZoneID, GuildID_t guildID, int side, int num);
+	void	putItem( PlayerCreature* pPC, MonsterCorpse* pCorpse, Item* pItem );
+	void	recallGuild( ZoneID_t currentZoneID, ZoneID_t siegeZoneID, GuildID_t guildID, int side, int num );
 
-	bool	isSiegeZone(ZoneID_t zID);
+	bool	isSiegeZone( ZoneID_t zID );
 
 private:
 };

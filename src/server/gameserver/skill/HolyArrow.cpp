@@ -37,10 +37,10 @@ void HolyArrow::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot * 
 	SIMPLE_SKILL_OUTPUT result;
 
 	// Soul Smashing 이 있다면 데미지 10% 증가
-	if (pSlayer->hasRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING ) )
+	if ( pSlayer->hasRankBonus( RankBonus::RANK_BONUS_SOUL_SMASHING ) )
 	{
-		RankBonus* pRankBonus = pSlayer->getRankBonus(RankBonus::RANK_BONUS_SOUL_SMASHING);
-		Assert(pRankBonus != NULL);
+		RankBonus* pRankBonus = pSlayer->getRankBonus( RankBonus::RANK_BONUS_SOUL_SMASHING );
+		Assert( pRankBonus != NULL );
 
 		param.SkillDamage += pRankBonus->getPoint();
 	}

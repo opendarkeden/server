@@ -18,7 +18,6 @@
 
 #include <string>
 #include <list>
-#include <iostream>
 
 #define inaddrr(x) (*(struct in_addr *) &ifr->x[sizeof sa.sin_port])
 #define IFRSIZE   ((int)(size * sizeof (struct ifreq)))
@@ -74,10 +73,10 @@ list<string> getLocalIP()
 
 		//    printf("Interface:  %s\n", ifr->ifr_name);
 
-		if (strcmp(ifr->ifr_name, "lo" ) )
+		if ( strcmp( ifr->ifr_name, "lo" ) )
 		{
-			//cout << "IP Address: " << inet_ntoa(inaddrr(ifr_addr.sa_data)) << endl;
-			ret.push_back(inet_ntoa(inaddrr(ifr_addr.sa_data)));
+			printf("IP Address: %s\n", inet_ntoa(inaddrr(ifr_addr.sa_data)));
+			ret.push_back( inet_ntoa(inaddrr(ifr_addr.sa_data)) );
 		}
 
 	}
@@ -85,3 +84,4 @@ list<string> getLocalIP()
 	close(sockfd);
 	return ret;
 }
+

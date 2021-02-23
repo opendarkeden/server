@@ -7,16 +7,16 @@
 #include "ReactiveArmor.h"
 #include "EffectReactiveArmor.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -60,7 +60,7 @@ void ReactiveArmor::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_REACTIVE_ARMOR);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -74,8 +74,8 @@ void ReactiveArmor::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 			uint damageReduce = 0;
 			uint grade = 0;
 
-			OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_REACTIVE_ARMOR_MASTERY);
-			if (pMastery != NULL )
+			OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_REACTIVE_ARMOR_MASTERY );
+			if ( pMastery != NULL )
 			{
 				output.Damage += 5 + (pMastery->getExpLevel()*2/5);
 				damageReduce = 20 + pMastery->getExpLevel();
@@ -185,7 +185,7 @@ void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ouste
 		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange());
 		bool bHitRoll	 = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
 		bool bEffected   = pTargetCreature->isFlag(Effect::EFFECT_CLASS_REACTIVE_ARMOR);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		ZoneCoord_t targetX = pTargetCreature->getX();
 		ZoneCoord_t targetY = pTargetCreature->getY();
@@ -198,8 +198,8 @@ void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ouste
 
         	bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
 
-			OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_REACTIVE_ARMOR_MASTERY);
-			if (pMastery != NULL )
+			OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_REACTIVE_ARMOR_MASTERY );
+			if ( pMastery != NULL )
 			{
 				output.Damage += 5 + (pMastery->getExpLevel()*2/5);
 			}
@@ -212,7 +212,7 @@ void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ouste
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_REACTIVE_ARMOR);
 
 			Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTargetCreature);
-			if (pTargetOusters != NULL ) pTargetOusters->initAllStatAndSend();
+			if ( pTargetOusters != NULL ) pTargetOusters->initAllStatAndSend();
 							
 			_GCSkillToObjectOK1.setSkillType(SkillType);
 			_GCSkillToObjectOK1.setCEffectID(CEffectID);
@@ -253,7 +253,7 @@ void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ouste
 
 			Player* pTargetPlayer = pTargetCreature->getPlayer();
 
-			if (pTargetPlayer != NULL )
+			if ( pTargetPlayer != NULL )
 			{
 				if (bCanSeeCaster) pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
 				else pTargetPlayer->sendPacket(&_GCSkillToObjectOK6);

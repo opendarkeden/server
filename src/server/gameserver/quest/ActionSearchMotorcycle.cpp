@@ -10,16 +10,16 @@
 #include "GamePlayer.h"
 #include "Slayer.h"
 #include "item/Key.h"
-#include "GCNPCResponse.h"
-#include "GCSearchMotorcycleOK.h"
-#include "GCSearchMotorcycleFail.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSearchMotorcycleOK.h"
+#include "Gpackets/GCSearchMotorcycleFail.h"
 #include "ParkingCenter.h"
 #include "DB.h"
 #include "Belt.h"
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSearchMotorcycle::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
     __END_CATCH
@@ -29,7 +29,7 @@ void ActionSearchMotorcycle::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSearchMotorcycle::execute (Creature * pCreature1 , Creature* pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ bool ActionSearchMotorcycle::search(Item* pItem, uint& zoneid, uint& x, uint& y)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSearchMotorcycle::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

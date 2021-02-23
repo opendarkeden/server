@@ -16,27 +16,27 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterDynamicZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature2);
 
-	int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID(m_DynamicZoneID);
+	int targetDynamicZoneType = g_pDynamicZoneInfoManager->getDynamicZoneTypeByZoneID( m_DynamicZoneID );
 
-	DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup(targetDynamicZoneType);
-	Assert(pDynamicZoneGroup != NULL);
+	DynamicZoneGroup* pDynamicZoneGroup = g_pDynamicZoneManager->getDynamicZoneGroup( targetDynamicZoneType );
+	Assert( pDynamicZoneGroup != NULL );
 
-	return (pPC->getGQuestManager()->canEnterDynamicZone(m_DynamicZoneID )
-			&& pDynamicZoneGroup->canEnter());
+	return ( pPC->getGQuestManager()->canEnterDynamicZone( m_DynamicZoneID )
+			&& pDynamicZoneGroup->canEnter() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterDynamicZone::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 	m_DynamicZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
@@ -45,7 +45,7 @@ void ConditionCanEnterDynamicZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterDynamicZone::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

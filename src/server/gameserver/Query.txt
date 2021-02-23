@@ -1,0 +1,96 @@
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM STRBalanceInfo");
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from STRBalanceInfo ");
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM DEXBalanceInfo");
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from DEXBalanceInfo ");
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM INTBalanceInfo");
+AttrBalanceInfo.cpp:		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from INTBalanceInfo ");
+ConnectionInfoManager.cpp:		Result* pResult = pStmt->executeQuery("SELECT MAX(ZoneGroupID) FROM ZoneGroupInfo");
+DarkLightInfo.cpp:		pResult = pStmt->executeQuery("SELECT Month , Hour , Minute , DarkLevel , LightLevel FROM DarkLightInfo");
+Directive.cpp:		pResult = pStmt->executeQuery("SELECT MAX(ID) FROM DirectiveSet");
+Directive.cpp:		pResult = pStmt->executeQuery("SELECT ID, Name, Content, DeadContent FROM DirectiveSet");
+EffectAftermath.cpp:		pStmt->executeQuery(sql.toString());
+EffectAftermath.cpp:		pStmt->executeQuery(sql.toString());
+EffectAftermath.cpp:		pStmt->executeQuery(sql.toString());
+EffectAftermath.cpp:		Result* pResult = pStmt->executeQuery(sql.toString());
+EffectEnemyErase.cpp:		pStmt->executeQuery(sql.toString());
+EffectEnemyErase.cpp:		pStmt->executeQuery(sql.toString());
+EffectEnemyErase.cpp:		pStmt->executeQuery(sql.toString());
+EffectEnemyErase.cpp:		Result* pResult = pStmt->executeQuery(sql.toString());
+EffectShutDown.cpp:		pResult = pStmt->executeQuery("SELECT MAX(ZoneGroupID) FROM ZoneGroupInfo");
+EffectShutDown.cpp:		pResult = pStmt->executeQuery("SELECT MAX(ZoneGroupID) FROM ZoneGroupInfo");
+FlagSet.cpp:		pStmt->executeQuery(sql.toString());
+FlagSet.cpp:		Result* pResult = pStmt->executeQuery(sql.toString());
+FlagSet.cpp:		pStmt->executeQuery(sql.toString());
+FlagSet.cpp:		pStmt->executeQuery(sql.toString());
+GamePlayer.cpp:            pStmt1->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE PlayerID = '%s'" , m_ID.c_str());
+GamePlayer.cpp:            pStmt2->executeQuery("DELETE FROM UserIPInfo WHERE Name = '%s'", CreatureName.c_str());
+GamePlayer.cpp:		pResult = pStmt->executeQuery("SELECT SpecialEventCount FROM Player WHERE PlayerID='%s'", m_ID.c_str());
+GamePlayer.cpp:		pStmt->executeQuery("UPDATE Player SET SpecialEventCount=%d WHERE PlayerID='%s'", m_SpecialEventCount, m_ID.c_str());
+GuildManager.cpp:		pStmt->executeQuery(sql.toString());
+GuildManager.cpp:		pResult = pStmt->executeQuery(
+GuildManager.cpp:		pStmt->executeQuery(sql.toString());
+GuildManager.cpp:		pStmt->executeQuery("DELETE FROM GuildInfo WHERE GuildID = %d", m_ID);
+GuildManager.cpp:		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildInfo");
+GuildManager.cpp:			pResult = pStmt->executeQuery("SELECT MAX(GuildID) FROM GuildInfo");
+GuildRegistrationManager.cpp:		pStmt->executeQuery(sql.toString());
+GuildRegistrationManager.cpp:		pStmt->executeQuery("DELETE FROM GuildRegistrationInfo WHERE GuildID = %d", m_ID);
+GuildRegistrationManager.cpp:		pResult = pStmt->executeQuery("SELECT GuildID, GuildType, Deadline FROM GuildRegistrationInfo");
+GuildVoteManager.cpp:		pStmt->executeQuery(sql.toString());
+GuildVoteManager.cpp:		pStmt->executeQuery("DELETE FROM GuildVoteDataInfo 
+GuildVoteManager.cpp:		pResult = pStmt->executeQuery("SELECT Name, Casted, Vote FROM GuildVoteDataInfo WHERE VoteID=%d", m_VoteID);
+GuildVoteManager.cpp:		pStmt->executeQuery("DELETE FROM GuildVoteInfo WHERE VoteID = %d", m_VoteID);
+GuildVoteManager.cpp:		pStmt->executeQuery("DELETE FROM GuildVoteDataInfo WHERE VoteID = %d", m_VoteID);
+GuildVoteManager.cpp:		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildVoteInfo");
+GuildVoteManager.cpp:			pResult = pStmt->executeQuery("SELECT MAX(VoteID) FROM GuildVoteInfo");
+GuildVoteManager.cpp:		pResult = pStmt->executeQuery("SELECT VoteID, GuildID, VoteType, Deadline FROM GuildVoteInfo");
+IncomingPlayerManager.cpp:		pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE LogOn = 'GAME' AND CurrentServerGroupID = %d", g_pConfig->getPropertyInt("ServerID") );
+IncomingPlayerManager.cpp:		pStmt->executeQuery("DELETE FROM UserIPInfo WHERE ServerID = %d", g_pConfig->getPropertyInt("ServerID") );
+Item.cpp:		pStmt->executeQuery("DELETE FROM %s WHERE ItemID = %ld", getObjectTableName().c_str(), m_ItemID);
+MonsterInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(MType) FROM MonsterInfo");
+MonsterInfo.cpp:		//pResult = pStmt->executeQuery(sql.toString());
+MonsterInfo.cpp:		pResult = pStmt->executeQuery( 
+MonsterInfo.cpp:		pResult = pStmt->executeQuery(
+MonsterManager.cpp:		pResult = pStmt->executeQuery(
+MonsterNameManager.cpp:		pResult = pStmt->executeQuery("SELECT * FROM FirstNameInfo");
+MonsterNameManager.cpp:		pResult = pStmt->executeQuery("SELECT * FROM MiddleNameInfo");
+MonsterNameManager.cpp:		pResult = pStmt->executeQuery("SELECT * FROM LastNameInfo");
+NPCManager.cpp:		pResult = pStmt->executeQuery(sql.toString());
+OptionInfo.cpp:		pResult = pStmt->executeQuery(sql.toString());
+PlayerCreature.cpp:		pStmt->executeQuery(sqlSlayer.toString());
+PlayerCreature.cpp:		pStmt->executeQuery(sqlVampire.toString());
+PlayerCreature.cpp:		pStmt->executeQuery(sqlSlayer.toString());
+PlayerCreature.cpp:		pStmt->executeQuery(sqlVampire.toString());
+ResurrectLocationManager.cpp:		pResult = pStmt->executeQuery("SELECT ZoneID, SResurrectZoneID, SResurrectX, SResurrectY, VResurrectZoneID, VResurrectX, VResurrectY FROM ZoneInfo");
+ScriptManager.cpp:		//pResult = pStmt->executeQuery("SELECT ScriptID, Subject, Content FROM Script WHERE OwnerID='%s'", ownerID.c_str());
+ScriptManager.cpp:		pResult = pStmt->executeQuery("SELECT ScriptID, Subject, Content FROM Script");
+ShopTemplate.cpp:		pResult = pStmt->executeQuery("SELECT ID, ShopType, ItemClass, MinItemType, MaxItemType, MinOptionLevel, MaxOptionLevel FROM ShopTemplate");
+SkillDomainInfoManager.cpp:			pResult = pStmt->executeQuery("SELECT MAX(Level) FROM SkillDomainInfo WHERE DomainType = %d", i);
+SkillDomainInfoManager.cpp:			pResult = pStmt->executeQuery("Select DomainType, Level, GoalExp, AccumExp from SkillDomainInfo WHERE DomainType = %d", i);
+SkillInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(Type) FROM SkillBalance");
+SkillInfo.cpp:		//Result = pStmt->executeQuery("SELECT MAX(Type) FROM SkillInfo");
+SkillInfo.cpp:		pResult = pStmt->executeQuery("Select 
+SkillParentInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(SkillType) FROM SkillTreeInfo");
+SkillParentInfo.cpp:		pResult = pStmt->executeQuery("SELECT SkillType, Parent FROM SkillTreeInfo ");
+Slayer.cpp:		pResult = pStmt->executeQuery(
+Slayer.cpp:		pResult = pStmt->executeQuery("SELECT SkillType, SkillLevel, SkillExp, Delay, CastingTime, NextTime FROM SkillSave WHERE OwnerID = '%s'", m_Name.c_str());
+Slayer.cpp:		pStmt->executeQuery(sql.toString());
+Slayer.cpp:		pStmt->executeQuery("UPDATE Slayer SET %s WHERE NAME='%s'", field.c_str(), m_Name.c_str());
+Slayer.cpp:		pStmt->executeQuery(sql.toString());
+ThreadManager.cpp:		pResult = pStmt->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo");
+VampEXPInfo.cpp:		pResult = pStmt->executeQuery("SELECT MAX(Level) FROM VampEXPBalanceInfo");
+VampEXPInfo.cpp:		pResult = pStmt->executeQuery("Select Level, GoalExp, AccumExp from VampEXPBalanceInfo");
+Vampire.cpp:		pResult = pStmt->executeQuery(
+Vampire.cpp:		pResult = pStmt->executeQuery("SELECT SkillType, Delay, CastingTime, NextTime FROM VampireSkillSave WHERE OwnerID = '%s'", m_Name.c_str());
+Vampire.cpp:		pStmt->executeQuery(sql.toString());
+Vampire.cpp:		pStmt->executeQuery("UPDATE Vampire SET %s WHERE Name='%s'", field.c_str(), m_Name.c_str());
+Vampire.cpp:		pStmt->executeQuery(sql.toString());
+WayPoint.cpp:		pResult = pStmt->executeQuery("SELECT ZoneID, X, Y FROM WayPointInfo");
+WeatherInfo.cpp:		pResult = pStmt->executeQuery("SELECT Month, Clear, Rainy, Snowy FROM WeatherInfo");
+Zone.cpp:		pResult = pStmt->executeQuery("SELECT X1, Y1, X2, Y2 FROM ZoneTriggers WHERE ZoneID=%d", m_ZoneID);
+ZoneGroupManager.cpp:		Result* pResult = pStmt->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo");
+ZoneGroupManager.cpp:			//Result* pResult = pStmt->executeQuery("SELECT ZoneID FROM ZoneInfo WHERE ZoneGroupID = %d", ID);
+ZoneGroupManager.cpp:			Result* pResult = pStmt->executeQuery(sql.toString());
+ZoneGroupManager.cpp:		//Result* pResult1 = pStmt1->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo ORDER BY ZoneGroupID");
+ZoneGroupManager.cpp:		Result* pResult1 = pStmt1->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo");
+ZoneGroupManager.cpp:				Result* pResult2 = pStmt2->executeQuery("SELECT ZoneID FROM ZoneInfo WHERE ZoneGroupID = %d", zoneGroupID);
+ZoneInfoManager.cpp:		Result* pResult = pStmt->executeQuery(

@@ -16,12 +16,12 @@
 class InstallMine: public SkillHandler 
 {
 public:
-	InstallMine () throw() {}
-	~InstallMine () throw() {}
+	InstallMine () throw () {}
+	~InstallMine () throw () {}
 	
 public :
-    string getSkillHandlerName () const throw() { return "InstallMine"; }
-	SkillType_t getSkillType () const throw() { return SKILL_INSTALL_MINE; }
+    string getSkillHandlerName () const throw () { return "InstallMine"; }
+	SkillType_t getSkillType () const throw () { return SKILL_INSTALL_MINE; }
 
 	// 인벤토리용 기술이다.
 	void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) throw(Error);

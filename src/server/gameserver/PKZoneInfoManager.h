@@ -3,15 +3,15 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <map>
+#include <hash_map>
 #include "Mutex.h"
 
-#include "CGSay.h"
+#include "Cpackets/CGSay.h"
 
 class PKZoneInfo
 {
 public:
-	PKZoneInfo(ZoneID_t zoneID, ZoneCoord_t enterX, ZoneCoord_t enterY, ZoneCoord_t resX, ZoneCoord_t resY, Race_t race, int pcLimit )
+	PKZoneInfo( ZoneID_t zoneID, ZoneCoord_t enterX, ZoneCoord_t enterY, ZoneCoord_t resX, ZoneCoord_t resY, Race_t race, int pcLimit )
 	{
 		m_ZoneID=zoneID;
 		m_EnterPosition.x=enterX;
@@ -36,8 +36,8 @@ public:
 	int			getCurrentPCNum() const { return m_CurrentPCNum; }
 
 	bool		canEnter() const { return m_CurrentPCNum < m_PCLimit; }
-	bool		enterZone() { if (canEnter() ) m_CurrentPCNum++; else return false; return true; }
-	bool		leaveZone() { if (m_CurrentPCNum > 0 ) m_CurrentPCNum--; else return false; return true; }
+	bool		enterZone() { if ( canEnter() ) m_CurrentPCNum++; else return false; return true; }
+	bool		leaveZone() { if ( m_CurrentPCNum > 0 ) m_CurrentPCNum--; else return false; return true; }
 
 	void		lock() throw(Error) { m_Mutex.lock(); }
 	void		unlock() throw(Error) { m_Mutex.unlock(); }
@@ -45,7 +45,7 @@ public:
 	string		toString() throw(Error);
 
 protected:
-	void		setCurrentPCNum(int num ) { if (num <= m_PCLimit && num >= 0 ) m_CurrentPCNum = num; }
+	void		setCurrentPCNum( int num ) { if ( num <= m_PCLimit && num >= 0 ) m_CurrentPCNum = num; }
 	friend		void CGSayHandler::opcommand(GamePlayer*, string, int);
 
 private:
@@ -63,22 +63,22 @@ private:
 class PKZoneInfoManager
 {
 public:
-	typedef map<ZoneID_t,PKZoneInfo*> PKZoneInfoMap;
+	typedef hash_map<ZoneID_t,PKZoneInfo*> PKZoneInfoMap;
 public:
 	PKZoneInfoManager() { }
 	~PKZoneInfoManager() { }
 
 	void		load() throw(Error);
 
-	void		addPKZoneInfo(PKZoneInfo* pPKZoneInfo ) throw(Error);
-	PKZoneInfo*	getPKZoneInfo(ZoneID_t	zoneID ) const throw(Error);
-	bool		isPKZone(ZoneID_t zoneID ) const throw(Error);
+	void		addPKZoneInfo( PKZoneInfo* pPKZoneInfo ) throw(Error);
+	PKZoneInfo*	getPKZoneInfo( ZoneID_t	zoneID ) const throw(Error);
+	bool		isPKZone( ZoneID_t zoneID ) const throw(Error);
 
-	bool		canEnterPKZone(ZoneID_t zoneID ) throw(Error);
-	bool		enterPKZone(ZoneID_t zoneID ) throw(Error);
-	bool		leavePKZone(ZoneID_t zoneID ) throw(Error);
+	bool		canEnterPKZone( ZoneID_t zoneID ) throw(Error);
+	bool		enterPKZone( ZoneID_t zoneID ) throw(Error);
+	bool		leavePKZone( ZoneID_t zoneID ) throw(Error);
 
-	bool		getResurrectPosition(ZoneID_t zoneID, ZONE_COORD& zoneCoord ) const throw(Error);
+	bool		getResurrectPosition( ZoneID_t zoneID, ZONE_COORD& zoneCoord ) const throw(Error);
 
 private:
 	PKZoneInfoMap m_PKZoneInfos;

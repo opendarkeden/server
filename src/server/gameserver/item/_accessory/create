@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ln -s ../Bracelet.h Bracelet.h
+ln -s ../Necklace.h Necklace.h
+ln -s ../Ring.h Ring.h
+ln -s ../VampireBracelet.h VampireBracelet.h
+ln -s ../VampireNecklace.h VampireNecklace.h
+ln -s ../VampireRing.h VampireRing.h
+
+ln -s ../Bracelet.cpp Bracelet.cpp
+ln -s ../Necklace.cpp Necklace.cpp
+ln -s ../Ring.cpp Ring.cpp
+ln -s ../VampireBracelet.cpp VampireBracelet.cpp
+ln -s ../VampireNecklace.cpp VampireNecklace.cpp
+ln -s ../VampireRing.cpp VampireRing.cpp

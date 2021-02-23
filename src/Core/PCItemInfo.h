@@ -15,7 +15,7 @@
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
 #include "SubItemInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class PCItemInfo
@@ -28,8 +28,8 @@ public:
 	virtual ~PCItemInfo() throw();
 
 public:
-	void read (SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
 
 	string toString() const throw();
 
@@ -43,7 +43,7 @@ public:
 	void setItemType (ItemType_t ItemType) throw() { m_ItemType = ItemType; }
 	ItemType_t getItemType() const throw() { return m_ItemType; }
 
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
+	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back( OptionType ); }
 	void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
 	int getOptionTypeSize() const throw() { return m_OptionType.size(); }
 	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }

@@ -8,14 +8,14 @@
 #include "EffectAcidStorm.h"
 #include "RankBonus.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -40,7 +40,7 @@ void AcidStorm::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
 		//Assert(pTargetCreature != NULL);
 
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -94,10 +94,10 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 
 		// Knowledge of Acid 가 있다면 hit bonus 10
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -129,12 +129,12 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 			computeOutput(input, output);
 
 			// Disruption Storm 이 있다면 데미지 20% 증가
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_DISRUPTION_STORM ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_DISRUPTION_STORM);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_DISRUPTION_STORM );
+				Assert( pRankBonus != NULL );
 
-				output.Damage += getPercentValue(output.Damage, pRankBonus->getPoint());
+				output.Damage += getPercentValue( output.Damage, pRankBonus->getPoint() );
 			}
 
 			Range_t Range = 3;
@@ -156,7 +156,7 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 			pEffect->setNextTime(0);
 			pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);
-			pEffect->setUserObjectID(pVampire->getObjectID());
+			pEffect->setUserObjectID( pVampire->getObjectID() );
 			pEffect->setLevel(pSkillInfo->getLevel()/2);
 			pEffect->setVampire();
 
@@ -184,13 +184,13 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 			int edge = 1;
 
 			// Wide Storm 이 있다면 범위가 5*5 로 수정
-			if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_WIDE_STORM ) )
+			if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_WIDE_STORM ) )
 			{
-				RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_WIDE_STORM);
-				Assert(pRankBonus != NULL);
+				RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_WIDE_STORM );
+				Assert( pRankBonus != NULL );
 
 				Range = pRankBonus->getPoint();
-				edge = (pRankBonus->getPoint() - 1 ) / 2;
+				edge = ( pRankBonus->getPoint() - 1 ) / 2;
 
 				SkillType = SKILL_ACID_STORM_WIDE;
 			}
@@ -203,7 +203,7 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 				int tileY = Y+oY;
 				if (!rect.ptInRect(tileX, tileY)) continue;
 
-				checkMine(pZone, tileX, tileY);
+				checkMine( pZone, tileX, tileY );
 
 				Tile& tile = pZone->getTile(tileX, tileY);
 		    	if (!tile.canAddEffect()) continue; 
@@ -215,7 +215,7 @@ void AcidStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampire
 				if(pTargetCreature != NULL)
 				{
 					// 2003. 1. 10. Sequoia
-					if(!checkZoneLevelToHitTarget(pTargetCreature ) ) continue;
+					if( !checkZoneLevelToHitTarget( pTargetCreature ) ) continue;
 
 					if(pTargetCreature->isSlayer()||pTargetCreature->isOusters())
 					{
@@ -393,7 +393,7 @@ void AcidStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			pEffect->setNextTime(0);
 			pEffect->setTick(output.Tick);
 			pEffect->setDamage(output.Damage);
-			pEffect->setUserObjectID(pMonster->getObjectID());
+			pEffect->setUserObjectID( pMonster->getObjectID() );
 			pEffect->setLevel(pSkillInfo->getLevel()/2);
 
 			//
@@ -426,8 +426,8 @@ void AcidStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 				if(!rect.ptInRect(tileX, tileY)) continue;
 
-				if(rand() % 100 < 70 ) {
-					checkMine(pZone, tileX, tileY);
+				if( rand() % 100 < 70 ) {
+					checkMine( pZone, tileX, tileY );
 				}
 
 				Tile& tile = pZone->getTile(tileX, tileY);
@@ -439,10 +439,10 @@ void AcidStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 					pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
 				if (pTargetCreature != NULL
-					&& pMonster->isEnemyToAttack(pTargetCreature ))
+					&& pMonster->isEnemyToAttack( pTargetCreature ))
 				{
 					// 2003. 1. 10. Sequoia
-					if(!checkZoneLevelToHitTarget(pTargetCreature ) ) continue;
+					if( !checkZoneLevelToHitTarget( pTargetCreature ) ) continue;
 
 					if(pTargetCreature->isPC())
 					{

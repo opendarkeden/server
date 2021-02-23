@@ -7,13 +7,13 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "SocketEncryptInputStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////
-SocketEncryptInputStream::SocketEncryptInputStream (Socket * sock , uint BufferLen ) 
-	throw(Error )
+SocketEncryptInputStream::SocketEncryptInputStream ( Socket * sock , uint BufferLen ) 
+	throw ( Error )
 : SocketInputStream(sock, BufferLen)
 {
 	__BEGIN_TRY
@@ -22,7 +22,7 @@ SocketEncryptInputStream::SocketEncryptInputStream (Socket * sock , uint BufferL
 
 
 SocketEncryptInputStream::~SocketEncryptInputStream ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH

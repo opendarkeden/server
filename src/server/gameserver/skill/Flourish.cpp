@@ -32,13 +32,13 @@ void Flourish::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 	param.bMagicDamage  = false;
 	param.bAdd          = true;
 
-	if (input.SkillLevel < 15 ) param.Grade = 0;
-	else if (input.SkillLevel < 30 ) param.Grade = 1;
+	if ( input.SkillLevel < 15 ) param.Grade = 0;
+	else if ( input.SkillLevel < 30 ) param.Grade = 1;
 	else param.Grade = 2;
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
+	g_SimpleMeleeSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID );
 
 	__END_CATCH
 }

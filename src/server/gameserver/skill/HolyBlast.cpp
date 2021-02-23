@@ -10,15 +10,15 @@
 #include "EffectBloodDrain.h"
 #include "EffectAftermath.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 
 
@@ -109,7 +109,7 @@ void HolyBlast::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlo
 
 	SIMPLE_SKILL_OUTPUT result;
 
-	//cout << "Tile X :" << (int)X << "Tile Y : " << (int)Y << endl;
+	cout << "Tile X :" << (int)X << "Tile Y : " << (int)Y << endl;
 	g_SimpleTileCureSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
 	__END_CATCH
@@ -122,7 +122,7 @@ void HolyBlast::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlo
 
 void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID) throw(Error)
+	CEffectID_t CEffectID) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -224,12 +224,12 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 							HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
 							HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
-							if (CurrentHP < MaxHP )
+							if ( CurrentHP < MaxHP )
 							{
 								bHPCheck = true;
 							}
 
-							if (pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
+							if ( pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN))
 							{
 								Effect* pEffect = pTargetCreature->findEffect(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 								pEffectBloodDrain = dynamic_cast<EffectBloodDrain*>(pEffect);
@@ -243,7 +243,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 
 							bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 
-							if (bHitRoll && bHPCheck && pTargetCreature->isAlive())
+							if ( bHitRoll && bHPCheck && pTargetCreature->isAlive())
 							{
 								// 힐 효과 broadcast
 								_GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
@@ -253,7 +253,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 								_GCSkillToSelfOK2.setObjectID(pTargetSlayer->getObjectID());
 								_GCSkillToSelfOK2.setSkillType(SKILL_CURE_EFFECT);
 								_GCSkillToSelfOK2.setDuration(0);
-								pZone->broadcastPacket(pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2, pTargetSlayer);
+								pZone->broadcastPacket( pTargetSlayer->getX(), pTargetSlayer->getY(), &_GCSkillToSelfOK2, pTargetSlayer);
 
 
 								// 흡혈당한 상태라면 흡혈 상태를 날려준다.
@@ -285,7 +285,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 									pTargetSlayer->initAllStat();
 									pTargetSlayer->sendRealWearingInfo();
 
-									if(pTargetSlayer == pSlayer ) {
+									if( pTargetSlayer == pSlayer ) {
 										pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK1);
 									} else {
 										pTargetSlayer->addModifyInfo(prev, _GCSkillToTileOK2);
@@ -303,10 +303,10 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 								HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
 								// 실제 회복 수치를 계산한다.
-								if(CurrentHP + HealPoint <= MaxHP ) {
-									RealHealPoint = max(0, (int)HealPoint);
+								if( CurrentHP + HealPoint <= MaxHP ) {
+									RealHealPoint = max( 0, (int)HealPoint );
 								} else {
-									RealHealPoint = max(0, (MaxHP - CurrentHP));
+									RealHealPoint = max( 0, (MaxHP - CurrentHP) );
 								}
 
 								CurrentHP = min((int)MaxHP, (int)(CurrentHP + HealPoint));
@@ -321,7 +321,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 					{
 						bool bPK             = verifyPK(pSlayer, pTargetCreature);
 						bool bRaceCheck      = pTargetCreature->isVampire() || pTargetCreature->isMonster();
-						bool bHitRoll        = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel);
+						bool bHitRoll        = HitRoll::isSuccess( pSlayer, pTargetCreature, SkillLevel );
 						
 						if (bPK && bRaceCheck && bZoneLevelCheck && bHitRoll )
 						{
@@ -370,7 +370,7 @@ void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 
 			if (bHit)
 			{
-				if (bIncreaseDomainExp )
+				if ( bIncreaseDomainExp )
 				{
 					if (param.bExpForTotalDamage)
 					{

@@ -10,7 +10,7 @@
 #include "Vampire.h"
 #include "Ousters.h"
 #include "Monster.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "RankBonus.h"
 #include "Skill.h"
 #include "Zone.h"
@@ -28,7 +28,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 	Assert(pDefender != NULL);
 
 	Zone* pZone = pAttacker->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	// 무적상태 체크. by sigi. 2002.9.5
 	if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
@@ -65,7 +65,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 		// Creature에다가 Penalty관련 member들을 넣는게 나을 것이다.
 		if (pAttacker->isFlag(Effect::EFFECT_CLASS_HYMN))
 		{
-			EffectHymn* pHymn = dynamic_cast<EffectHymn*>(pAttacker->getEffectManager()->findEffect(Effect::EFFECT_CLASS_HYMN ));	
+			EffectHymn* pHymn = dynamic_cast<EffectHymn*>( pAttacker->getEffectManager()->findEffect( Effect::EFFECT_CLASS_HYMN ) );	
 
 			ToHit = ToHit*(100-pHymn->getToHitPenalty())/100;
 		}
@@ -90,7 +90,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 		// Creature에다가 Penalty관련 member들을 넣는게 나을 것이다.
 		if (pAttacker->isFlag(Effect::EFFECT_CLASS_HYMN))
 		{
-			EffectHymn* pHymn = dynamic_cast<EffectHymn*>(pAttacker->getEffectManager()->findEffect(Effect::EFFECT_CLASS_HYMN ));
+			EffectHymn* pHymn = dynamic_cast<EffectHymn*>( pAttacker->getEffectManager()->findEffect( Effect::EFFECT_CLASS_HYMN ) );
 
 			ToHit = ToHit*(100-pHymn->getToHitPenalty())/100;
 		}
@@ -149,7 +149,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 #ifdef __CHINA_SERVER__
 		Result = min(90, (int)(((ToHit - Defense) / 1.5) + 60) + ToHitBonus);
 #else
-		if (isMonster ) 
+		if ( isMonster ) 
 		{
 			Result = min(95, (int)(((ToHit - Defense) / 3) + 50) + ToHitBonus/2);
 		}
@@ -163,13 +163,13 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 	{
 		// 투힛이 디펜스보다 낮은 경우에는 맞출 확률이 많이 떨어진다.
 #ifdef __CHINA_SERVER__
-		if(isMonster ) {
+		if( isMonster ) {
 			Result = max(10, (int)(60 - ((Defense - ToHit) / 1.5) + ToHitBonus));
 		} else {
 			Result = max(20, (int)(60 - ((Defense - ToHit) / 1.5) + ToHitBonus));
 		}
 #else
-		if(isMonster ) {
+		if( isMonster ) {
 			Result = max(5, (int)(50 - ((Defense - ToHit) / 3) + ToHitBonus/2));
 		} else {
 			Result = max(10, (int)(50 - ((Defense - ToHit) / 3) + ToHitBonus/2));
@@ -192,7 +192,7 @@ bool HitRoll::isSuccess(Creature* pAttacker, Creature* pDefender, int ToHitBonus
 	Assert(pDefender != NULL);
 
 	Zone* pZone = pDefender->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	// 무적상태 체크. by sigi. 2002.9.5
 	if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
@@ -280,8 +280,8 @@ bool HitRoll::isSuccessMagic(Slayer* pSlayer, SkillInfo* pSkillInfo, SkillSlot* 
 #endif
 
 	// 슬레이어 셀프 스킬일 경우 최소 확률이 50%이다.
-	if (isSlayerSelfSkill(pSkillSlot->getSkillType() ) )
-		SuccessRatio = max(50, SuccessRatio);
+	if ( isSlayerSelfSkill( pSkillSlot->getSkillType() ) )
+		SuccessRatio = max( 50, SuccessRatio );
 
 	if (RandValue < SuccessRatio ) return true;
 
@@ -301,12 +301,12 @@ bool HitRoll::isSuccessMagic(Vampire* pVampire, SkillInfo* pSkillInfo, VampireSk
 	int RandValue = Random(1, 100); 
 	int Success = (int)(45 - pSkillInfo->getLevel() / 2 + (pVampire->getINT() + pVampire->getLevel()) / 4);
 
-	if (BonusPoint != 0 )
+	if ( BonusPoint != 0 )
 	{
-		Success = getPercentValue(Success, 100 + BonusPoint);
+		Success = getPercentValue( Success, 100 + BonusPoint );
 	}
 	
-	if (RandValue < Success ) return true;
+	if ( RandValue < Success ) return true;
 	
 //	if (RandValue < (int)(45 - pSkillInfo->getLevel() / 2 + (pVampire->getINT() + pVampire->getLevel()) / 4)) return true;
 
@@ -324,20 +324,20 @@ bool HitRoll::isSuccessMagic(Ousters* pOusters, SkillInfo* pSkillInfo, OustersSk
 	Assert(pOustersSkillSlot != NULL);
 
 	int RandValue = Random(1, 100); 
-//	int Success = (int)(45 - pSkillInfo->getLevel() / 2 + (pOusters->getINT() + pOusters->getLevel())/10);
-	int Success = (int)(45 + (pOusters->getINT() + pOusters->getLevel())/4 + pOustersSkillSlot->getExpLevel()/3);
+//	int Success = (int)( 45 - pSkillInfo->getLevel() / 2 + (pOusters->getINT() + pOusters->getLevel())/10 );
+	int Success = (int)( 45 + (pOusters->getINT() + pOusters->getLevel())/4 + pOustersSkillSlot->getExpLevel()/3 );
 
-	if (isOustersSelfSkill(pOustersSkillSlot->getSkillType() ) )
+	if ( isOustersSelfSkill( pOustersSkillSlot->getSkillType() ) )
 	{
-		Success = max(Success, 60);
+		Success = max( Success, 60 );
 	}
 
-	if (BonusPoint != 0 )
+	if ( BonusPoint != 0 )
 	{
-		Success = getPercentValue(Success, 100 + BonusPoint);
+		Success = getPercentValue( Success, 100 + BonusPoint );
 	}
 	
-	if (RandValue < Success ) return true;
+	if ( RandValue < Success ) return true;
 	
 	return false;
 }
@@ -370,7 +370,7 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 	Assert(pDefender != NULL);
 
 	Zone* pZone = pAttacker->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	// 무적상태 체크. by sigi. 2002.9.5
 	if (pDefender->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE))
@@ -553,7 +553,7 @@ bool HitRoll::isSuccessCurse(int MagicLevel, Resist_t resist)
 #else
 	int prob_penalty = (int)(MagicLevel*2/1.5 - resist);
 	int curse_prob   = 75 + prob_penalty;
-	curse_prob = max(5, curse_prob);
+	curse_prob = max( 5, curse_prob );
 #endif
 	int randomValue  = rand()%100;
 
@@ -576,9 +576,9 @@ bool HitRoll::isSuccessVampireCurse(int MagicLevel, Resist_t resist)
 	// curse_prob = 110이고, 저주는 항상 성공하게 된다.
 	// MagicLevel이 30이고, 저항이 100이라면...
 	// curse_prob = 30이고, 마법은 70% 확률로 실패하게 된다.
-	int prob_penalty = (int)((int)(MagicLevel/1.5) - resist);
+	int prob_penalty = (int)( (int)(MagicLevel/1.5) - resist);
 	int curse_prob   = 75 + prob_penalty;
-	curse_prob = max(5, curse_prob);
+	curse_prob = max( 5, curse_prob );
 
 	int randomValue  = rand()%100;
 
@@ -597,7 +597,7 @@ bool HitRoll::isSuccessCurePoison(int Base, int SkillLevel, int Difficulty, int 
 	int ratio = Base + SkillLevel - Difficulty - MagicLevel;
 
 	// 최소확률을 집어넣었다. by Sequoia 2003. 3. 20
-	ratio = max(MinRatio, ratio);
+	ratio = max( MinRatio, ratio );
 
 	if (rand()%100 < ratio) return true;
 	return false;
@@ -647,12 +647,12 @@ bool HitRoll::isSuccessFlare(Creature* pTargetCreature, int SkillLevel)
 //////////////////////////////////////////////////////////////////////////////
 // RemoveCurse 명중굴림 함수
 //////////////////////////////////////////////////////////////////////////////
-bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio)
+bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio = 0)
 {
 	int ratio = Base + SkillLevel - Difficulty - MagicLevel;
 
 	// 최소확률을 집어넣었다. by Sequoia 2003. 3. 20
-	ratio = max(MinRatio, ratio);
+	ratio = max( MinRatio, ratio );
 
 	if (rand()%100 < ratio) return true;
 	return false;
@@ -663,27 +663,27 @@ bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* pDefender)
 {
-	if(pDefender->isSlayer() ) return false;
+	if( pDefender->isSlayer() ) return false;
 
 	// 80레벨 이상의 뱀파이어는 잠들지 않는다.
-	if (pDefender->isVampire() )
+	if ( pDefender->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pDefender);
-		if (pVampire->getLevel() >= 80 )
+		if ( pVampire->getLevel() >= 80 )
 			return false;
 	}
-	else if (pDefender->isOusters() )
+	else if ( pDefender->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pDefender);
-		if (pOusters->getLevel() >= 80 )
+		if ( pOusters->getLevel() >= 80 )
 			return false;
 	}
 
 	// 마스터 (바토리, 테페즈)는 잠들지 않는다.
-	if(pDefender->isMonster() )
+	if( pDefender->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pDefender);
-		if(pMonster->isMaster()
+		if( pMonster->isMaster()
 #ifdef __UNDERWORLD__
 				|| pMonster->isUnderworld() || pMonster->getMonsterType() == 599 
 #endif
@@ -694,8 +694,8 @@ bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* 
 	Attr_t			INTE		= pSlayer->getINT(ATTR_CURRENT);
 	SkillLevel_t	SkillLevel	= pSkillSlot->getExpLevel();
 
-//	int ratio = (INTE / 10 ) + (SkillLevel / 3);
-	int ratio = 20 + (INTE / 10 ) + (SkillLevel / 2);
+//	int ratio = ( INTE / 10 ) + ( SkillLevel / 3 );
+	int ratio = 20 + ( INTE / 10 ) + ( SkillLevel / 2 );
 	if (rand()%100 < ratio ) return true;
 	return false;
 }
@@ -705,7 +705,7 @@ bool HitRoll::isSuccessRebuke(Slayer* pSlayer, SkillSlot* pSkillSlot, Creature* 
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessMagicElusion(Slayer* pSlayer)
 {
-	Attr_t	SUM		=	pSlayer->getTotalAttr(ATTR_CURRENT);
+	Attr_t	SUM		=	pSlayer->getTotalAttr( ATTR_CURRENT );
 	int		Ratio	=	50 + (SUM/15);
 
 	return (rand()%100) < Ratio;
@@ -726,7 +726,7 @@ bool HitRoll::isSuccessPoisonMesh(Vampire* pVampire)
 //////////////////////////////////////////////////////////////////////////////
 bool HitRoll::isSuccessIllusionOfAvenge(Slayer* pSlayer)
 {
-	Attr_t	SUM		=	pSlayer->getTotalAttr(ATTR_CURRENT);
+	Attr_t	SUM		=	pSlayer->getTotalAttr( ATTR_CURRENT );
 	int		Ratio	=	50 + (SUM/15);
 
 	return (rand()%100) < Ratio;
@@ -760,9 +760,9 @@ bool HitRoll::isCriticalHit(Creature* pCreature, int CriticalBonus)
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 스킬인가를 체크하는 함수
 //////////////////////////////////////////////////////////////////////////////
-bool HitRoll::isSlayerSelfSkill(SkillType_t skillType )
+bool HitRoll::isSlayerSelfSkill( SkillType_t skillType )
 {
-	switch (skillType )
+	switch ( skillType )
 	{
 		case SKILL_DANCING_SWORD:
 		case SKILL_CROSS_COUNTER:
@@ -809,9 +809,9 @@ bool HitRoll::isSlayerSelfSkill(SkillType_t skillType )
 	}
 }
 
-bool HitRoll::isOustersSelfSkill(SkillType_t skillType )
+bool HitRoll::isOustersSelfSkill( SkillType_t skillType )
 {
-	switch (skillType )
+	switch ( skillType )
 	{
 		case SKILL_EVADE:
 		case SKILL_BLUNTING:
@@ -823,29 +823,29 @@ bool HitRoll::isOustersSelfSkill(SkillType_t skillType )
 			return false;
 	}
 }
-bool HitRoll::isSuccessHallucination(Vampire* pAttacker, Creature* pTarget )
+bool HitRoll::isSuccessHallucination( Vampire* pAttacker, Creature* pTarget )
 {
-	if (pTarget->isMonster() ) return true;
+	if ( pTarget->isMonster() ) return true;
 
 	Attr_t attackTotalAttr = pAttacker->getSTR() + pAttacker->getDEX() + pAttacker->getINT();
 	Attr_t targetTotalAttr = 0;
 	int minRatio = 0, maxRatio = 100;
 
-	if (pTarget->isSlayer() )
+	if ( pTarget->isSlayer() )
 	{
 		Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTarget);
 		targetTotalAttr = pTargetSlayer->getTotalAttr();
 		minRatio = 30;
 		maxRatio = 60;
 	}
-	else if (pTarget->isVampire() )
+	else if ( pTarget->isVampire() )
 	{
 		Vampire* pTargetVampire = dynamic_cast<Vampire*>(pTarget);
 		targetTotalAttr = pTargetVampire->getSTR() + pTargetVampire->getDEX() + pTargetVampire->getINT();
 		minRatio = 10;
 		maxRatio = 40;
 	}
-	else if (pTarget->isOusters() )
+	else if ( pTarget->isOusters() )
 	{
 		Ousters* pTargetOusters = dynamic_cast<Ousters*>(pTarget);
 		targetTotalAttr = pTargetOusters->getSTR() + pTargetOusters->getDEX() + pTargetOusters->getINT();
@@ -856,15 +856,15 @@ bool HitRoll::isSuccessHallucination(Vampire* pAttacker, Creature* pTarget )
 	else return false;
 
 	int Ratio = attackTotalAttr - targetTotalAttr;
-	Ratio = max(minRatio, Ratio);
-	Ratio = min(maxRatio, Ratio);
+	Ratio = max( minRatio, Ratio );
+	Ratio = min( maxRatio, Ratio );
 
-	return (rand() % 100 ) < Ratio;
+	return ( rand() % 100 ) < Ratio;
 }
 
-bool HitRoll::isSuccessBackStab(Ousters* pAttacker )
+bool HitRoll::isSuccessBackStab( Ousters* pAttacker )
 {
-	int Ratio = min(50, (pAttacker->getINT()/5) + (pAttacker->getDEX()/5));
-	if (rand() % 100 < Ratio ) return true;
+	int Ratio = min( 50, (pAttacker->getINT()/5) + (pAttacker->getDEX()/5) );
+	if ( rand() % 100 < Ratio ) return true;
 	return false;
 }

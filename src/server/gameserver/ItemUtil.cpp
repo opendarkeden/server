@@ -31,13 +31,10 @@
 #include "item/SlayerPortalItem.h"
 #include "item/Relic.h"
 #include "item/OustersSummonItem.h"
-#include "item/SubInventory.h"
-#include "item/Belt.h"
-#include "item/OustersArmsband.h"
 #include "ItemFactoryManager.h"
 #include "VariableManager.h"
 
-#include "GCCreateItem.h"
+#include "Gpackets/GCCreateItem.h"
 
 #include <fstream>
 #include <stdio.h>
@@ -50,7 +47,6 @@
 #include "PetExpInfo.h"
 #include "PetTypeInfo.h"
 #include "item/PetItem.h"
-#include "Item.h"
 
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 	
@@ -63,7 +59,8 @@
 //////////////////////////////////////////////////////////////////////////////
 bool isStackable(Item::ItemClass IClass)
 {
-	switch (IClass) {
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_POTION:
 		case Item::ITEM_CLASS_MAGAZINE:
 		case Item::ITEM_CLASS_EVENT_STAR:
@@ -87,6 +84,7 @@ bool isStackable(Item::ItemClass IClass)
 		case Item::ITEM_CLASS_PET_ENCHANT_ITEM:
 		case Item::ITEM_CLASS_LUCKY_BAG:
 		case Item::ITEM_CLASS_PET_FOOD:
+		case Item::ITEM_CLASS_MONEY://add by sonic 2006.10.30  ½«½ðÇ®ÉèÎª¿Éµþ¼Ó
 			return true;
 		default:
 			return false;
@@ -98,7 +96,8 @@ bool isStackable(Item::ItemClass IClass)
 //////////////////////////////////////////////////////////////////////////////
 // ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isStackable(const Item* pItem) {
+bool isStackable(const Item* pItem)
+{
 	//if (pItem == NULL) return false;
 
 	/*
@@ -122,20 +121,24 @@ bool isStackable(const Item* pItem) {
 	*/
 
 	// by sigi. 2002.5.13
-	return pItem != NULL && pItem->isStackable();
+	return pItem!=NULL 
+			&& pItem->isStackable();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // °°Àº Å¬·¡½º, Å¸ÀÔÀÇ ¾ÆÀÌÅÛÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSameItem(Item::ItemClass IClass1, Item::ItemClass IClass2, ItemType_t type1, ItemType_t type2) {
-	return IClass1 == IClass2 && type1 == type2;
+bool isSameItem(Item::ItemClass IClass1, Item::ItemClass IClass2, ItemType_t type1, ItemType_t type2)
+{
+	return IClass1 == IClass2 
+			&& type1 == type2;
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // °°Àº Å¬·¡½º, Å¸ÀÔÀÇ ¾ÆÀÌÅÛÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSameItem(const Item* pItem1, const Item* pItem2) {
+bool isSameItem(const Item* pItem1, const Item* pItem2)
+{
 	return pItem1!=NULL && pItem2!=NULL
 			&& pItem1->getItemClass() == pItem2->getItemClass() 
 			&& pItem1->getItemType() == pItem2->getItemType();
@@ -144,17 +147,21 @@ bool isSameItem(const Item* pItem1, const Item* pItem2) {
 //////////////////////////////////////////////////////////////////////////////
 // µÎ ¾ÆÀÌÅÛÀ» ½×À» ¼ö ÀÖ´Â°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool canStack(const Item* pItem1, const Item* pItem2) {
-	return isStackable(pItem1) && isSameItem(pItem1, pItem2);
+bool canStack(const Item* pItem1, const Item* pItem2)
+{
+	return isStackable(pItem1) 
+			&& isSameItem(pItem1, pItem2);
 }
 
 //////////////////////////////////////////////////////////////////////////////
 // µÎ ¼Õ ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isTwohandWeapon(const Item* pItem) {
+bool isTwohandWeapon(const Item* pItem)
+{
 	if (pItem == NULL) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_BLADE:
 		case Item::ITEM_CLASS_AR:
 		case Item::ITEM_CLASS_SR:
@@ -163,8 +170,6 @@ bool isTwohandWeapon(const Item* pItem) {
 		case Item::ITEM_CLASS_CROSS:
 		case Item::ITEM_CLASS_MACE:
 		case Item::ITEM_CLASS_VAMPIRE_WEAPON:
-		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
-		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
 			return true;
 		default:
 			return false;
@@ -176,10 +181,12 @@ bool isTwohandWeapon(const Item* pItem) {
 //////////////////////////////////////////////////////////////////////////////
 // Á¢±ÙÀü ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isMeleeWeapon(const Item* pItem) {
+bool isMeleeWeapon(const Item* pItem)
+{
 	if (pItem == NULL) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_SWORD:
 		case Item::ITEM_CLASS_BLADE:
 		case Item::ITEM_CLASS_CROSS:
@@ -198,10 +205,12 @@ bool isMeleeWeapon(const Item* pItem) {
 //////////////////////////////////////////////////////////////////////////////
 // Àü»ç, ±ºÀÎ ¼ºÁ÷ÀÚ ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isFighterWeapon(const Item* pItem) {
+bool isFighterWeapon(const Item* pItem)
+{
 	if (pItem == NULL) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_SWORD:
 		case Item::ITEM_CLASS_BLADE:
 			return true;
@@ -212,10 +221,12 @@ bool isFighterWeapon(const Item* pItem) {
 	return false;
 }
 
-bool isArmsWeapon(const Item* pItem) {
+bool isArmsWeapon(const Item* pItem)
+{
 	if (pItem == NULL) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_AR:
 		case Item::ITEM_CLASS_SR:
 		case Item::ITEM_CLASS_SG:
@@ -249,37 +260,39 @@ bool isClericWeapon(const Item* pItem)
 //////////////////////////////////////////////////////////////////////////////
 // ÃÑ¿¡ ¸Â´Â ÅºÃ¢ÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSuitableMagazine(const Item* pGun, const Item* pMagazine, bool hasVivid) {
+bool isSuitableMagazine(const Item* pGun, const Item* pMagazine, bool hasVivid)
+{
 	if (pGun == NULL || pMagazine == NULL) return false;
 	if (pMagazine->getItemClass() != Item::ITEM_CLASS_MAGAZINE) return false;
 
 	ItemType_t magazineType = pMagazine->getItemType();
-	MagazineInfo* pInfo = dynamic_cast<MagazineInfo*>(g_pItemInfoManager->getItemInfo(Item::ITEM_CLASS_MAGAZINE, magazineType ));
+	MagazineInfo* pInfo = dynamic_cast<MagazineInfo*>(g_pItemInfoManager->getItemInfo( Item::ITEM_CLASS_MAGAZINE, magazineType ));
 
-	switch (pGun->getItemClass()) {
+	switch (pGun->getItemClass())
+	{
 		case Item::ITEM_CLASS_SG:
-			if (pInfo->getGunType() != MagazineInfo::SG ) return false;
+			if ( pInfo->getGunType() != MagazineInfo::SG ) return false;
 //			if (magazineType == 0) return true;
 //			if (magazineType == 1) return true;
 //			if (magazineType == 8) return true;
 //			if (magazineType == 9) return true;
 			break;
 		case Item::ITEM_CLASS_AR:
-			if (pInfo->getGunType() != MagazineInfo::AR ) return false;
+			if ( pInfo->getGunType() != MagazineInfo::AR ) return false;
 //			if (magazineType == 2) return true;
 //			if (magazineType == 3) return true;
 //			if (magazineType == 10) return true;
 //			if (magazineType == 11) return true;
 			break;
 		case Item::ITEM_CLASS_SMG:
-			if (pInfo->getGunType() != MagazineInfo::SMG ) return false;
+			if ( pInfo->getGunType() != MagazineInfo::SMG ) return false;
 //			if (magazineType == 4) return true;
 //			if (magazineType == 5) return true;
 //			if (magazineType == 12) return true;
 //			if (magazineType == 13) return true;
 			break;
 		case Item::ITEM_CLASS_SR:
-			if (pInfo->getGunType() != MagazineInfo::SR ) return false;
+			if ( pInfo->getGunType() != MagazineInfo::SR ) return false;
 //			if (magazineType == 6) return true;
 //			if (magazineType == 7) return true;
 //			if (magazineType == 14) return true;
@@ -289,7 +302,7 @@ bool isSuitableMagazine(const Item* pGun, const Item* pMagazine, bool hasVivid) 
 			return false;
 	}
 
-	if (pInfo->isVivid() && !hasVivid ) return false;
+	if ( pInfo->isVivid() && !hasVivid ) return false;
 
 	return true;
 }
@@ -297,8 +310,10 @@ bool isSuitableMagazine(const Item* pGun, const Item* pMagazine, bool hasVivid) 
 //////////////////////////////////////////////////////////////////////////////
 // ½½·¹ÀÌ¾î¿ë ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSlayerWeapon(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isSlayerWeapon(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_SWORD:
 		case Item::ITEM_CLASS_BLADE:
 		case Item::ITEM_CLASS_CROSS:
@@ -318,8 +333,10 @@ bool isSlayerWeapon(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ¹ìÆÄÀÌ¾î¿ë ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isVampireWeapon(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isVampireWeapon(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_VAMPIRE_WEAPON:
 			return true;
 		default:
@@ -332,8 +349,10 @@ bool isVampireWeapon(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ¾Æ¿ì½ºÅÍ½º¿ë ¹«±âÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isOustersWeapon(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isOustersWeapon(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
 			return true;
@@ -347,8 +366,10 @@ bool isOustersWeapon(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ½½·¹ÀÌ¾î¿ë ¹æ¾î±¸ÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSlayerArmor(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isSlayerArmor(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_COAT:
 		case Item::ITEM_CLASS_TROUSER:
 		case Item::ITEM_CLASS_GLOVE:
@@ -367,8 +388,10 @@ bool isSlayerArmor(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ¹ìÆÄÀÌ¾î¿ë ¹æ¾î±¸ÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isVampireArmor(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isVampireArmor(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_VAMPIRE_COAT:
 		case Item::ITEM_CLASS_PERSONA:
 			return true;
@@ -382,8 +405,10 @@ bool isVampireArmor(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ¾Æ¿ì½ºÅÍ½º ¹æ¾î±¸ÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isOustersArmor(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isOustersArmor(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_OUSTERS_COAT:
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
 		case Item::ITEM_CLASS_OUSTERS_CIRCLET:
@@ -400,8 +425,10 @@ bool isOustersArmor(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ½½·¹ÀÌ¾î¿ë ¾Ç¼¼»ç¸®ÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isSlayerAccessory(Item::ItemClass IClass) {
-	switch (IClass) {
+bool isSlayerAccessory(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
 		case Item::ITEM_CLASS_NECKLACE:
 		case Item::ITEM_CLASS_BRACELET:
 		case Item::ITEM_CLASS_RING:
@@ -459,10 +486,13 @@ bool isOustersAccessory(Item::ItemClass IClass)
 bool isRepairableItem(const Item* pItem)
 {
 	// À¯´ÏÅ© ¾ÆÀÌÅÛÀº ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-	if (pItem == NULL || pItem->isUnique() || pItem->isTimeLimitItem()) return false;
-	if (pItem->isFlagItem()) return false;
+	if (pItem == NULL
+		|| pItem->isUnique()
+		|| pItem->isTimeLimitItem()) return false;
+	if ( pItem->isFlagItem() ) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_MOTORCYCLE:
 		case Item::ITEM_CLASS_POTION:
 		case Item::ITEM_CLASS_MAGAZINE:
@@ -509,17 +539,26 @@ bool isRepairableItem(const Item* pItem)
 //////////////////////////////////////////////////////////////////////////////
 // ¾ÆÀÌÅÛÀ» ¼ö¸®ÇÑ´Ù.
 //////////////////////////////////////////////////////////////////////////////
-void repairItem(Item* pItem) {
-	if (pItem != NULL && !pItem->isUnique() && isRepairableItem(pItem)) {
+void repairItem(Item* pItem)
+{
+	if (pItem != NULL
+		&& !pItem->isUnique()
+		&& isRepairableItem(pItem))
+	{
 		Item::ItemClass IClass = pItem->getItemClass();
 
-		if (IClass == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM) {
+		if (IClass == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM)
+		{
 			SlayerPortalItem* pSlayerPortalItem = dynamic_cast<SlayerPortalItem*>(pItem);
 			pSlayerPortalItem->setCharge(pSlayerPortalItem->getMaxCharge());
-		} else if (IClass == Item::ITEM_CLASS_OUSTERS_SUMMON_ITEM) {
+		}
+		else if ( IClass == Item::ITEM_CLASS_OUSTERS_SUMMON_ITEM )
+		{
 			OustersSummonItem* pOustersSummonItem = dynamic_cast<OustersSummonItem*>(pItem);
 			pOustersSummonItem->setCharge(pOustersSummonItem->getMaxCharge());
-		} else {
+		}
+		else
+		{
 			// ÃÖ³» ³»±¸Ä¡¸¦ ¾ò¾î³»¼­
 			Durability_t maxDurability = computeMaxDurability(pItem);
 			// ¼ö¸®ÇÑ´Ù.
@@ -548,20 +587,24 @@ Durability_t computeMaxDurability(Item* pItem)
 
 	list<OptionType_t>::const_iterator itr;
 
-	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++) {
+	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
+	{
 		OptionType_t OptionType = *itr;
 
-		if (OptionType != 0) {
+		if (OptionType != 0)
+		{
 			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(OptionType);
 
 			if (pOptionInfo->getClass() == OPTION_DURABILITY)
+			{
 				plusPoint += (pOptionInfo->getPlusPoint()-100);
+			}
 		}
 	}
 
 	maxDurability = (maxDurability * plusPoint / 100);
 	// 65000 ³Ñ¾î°¡¸é »à»ç¸®³­´Ù -_-;;;
-//	maxDurability = min((unsigned long)65000, maxDurability);
+//	maxDurability = min( (unsigned long)65000, maxDurability );
 
 	return (Durability_t)maxDurability;
 }
@@ -584,22 +627,29 @@ Bullet_t reloadArmsItem(Item* pGun, Item* pMagazine)
 	Bullet_t        BulletCount   = pMagazineInfo->getMaxBullets();
 	Silver_t        Silver        = pMagazineInfo->getMaxSilver();
 
-	if (IClass == Item::ITEM_CLASS_AR) {
+	if (IClass == Item::ITEM_CLASS_AR)
+	{
 		AR* pAR = dynamic_cast<AR*>(pGun);
 		pAR->setBulletCount(BulletCount);
 		pAR->setSilver(Silver);
 		return pAR->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SR) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SR)
+	{
 		SR* pSR = dynamic_cast<SR*>(pGun);
 		pSR->setBulletCount(BulletCount);
 		pSR->setSilver(Silver);
 		return pSR->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SG)
+	{
 		SG* pSG = dynamic_cast<SG*>(pGun);
 		pSG->setBulletCount(BulletCount);
 		pSG->setSilver(Silver);
 		return pSG->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SMG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SMG)
+	{
 		SMG* pSMG = dynamic_cast<SMG*>(pGun);
 		pSMG->setBulletCount(BulletCount);
 		pSMG->setSilver(Silver);
@@ -616,7 +666,8 @@ Bullet_t decreaseBullet(Item* pWeapon)
 {
 	__BEGIN_TRY
 
-	if (pWeapon == NULL) {
+	if (pWeapon == NULL)
+	{
 		ofstream file("bulletBug.txt", ios::out | ios::app);
 		file << "decreaseBullet() : pWeapon is NULL" <<  endl;
 		return 0;
@@ -644,42 +695,51 @@ Bullet_t decreaseBullet(Item* pWeapon)
 	else
 	{
 		filelog("bulletBug.log", "decreaseBullet() : Invalid item class : %s\n", ItemClass2String[IClass].c_str());
-		throw("decreaseBullet() : Invalid item class");
+		throw ("decreaseBullet() : Invalid item class");
 	}
 	*/
 
 	///*
-	if (IClass == Item::ITEM_CLASS_AR) {
+	if (IClass == Item::ITEM_CLASS_AR)
+	{
 		AR* pAR = dynamic_cast<AR*>(pWeapon);
 		bullet = max(0, (int)(pAR->getBulletCount() - 1));
 		pAR->setBulletCount(bullet);
 
 		silver = max(0, (int)(pAR->getSilver() - 1));
 		pAR->setSilver(silver);
-	} else if (IClass == Item::ITEM_CLASS_SR) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SR)
+	{
 		SR* pSR = dynamic_cast<SR*>(pWeapon);
 		bullet = max(0, (int)(pSR->getBulletCount() - 1));
 		pSR->setBulletCount(bullet);
 
 		silver = max(0, (int)(pSR->getSilver() - 1));
 		pSR->setSilver(silver);
-	} else if (IClass == Item::ITEM_CLASS_SG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SG)
+	{
 		SG* pSG = dynamic_cast<SG*>(pWeapon);
 		bullet = max(0, (int)(pSG->getBulletCount() - 1));
 		pSG->setBulletCount(bullet);
 
 		silver = max(0, (int)(pSG->getSilver() - 1));
 		pSG->setSilver(silver);
-	} else if (IClass == Item::ITEM_CLASS_SMG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SMG)
+	{
 		SMG* pSMG = dynamic_cast<SMG*>(pWeapon);
 		bullet = max(0, (int)(pSMG->getBulletCount() - 1));
 		pSMG->setBulletCount(bullet);
 
 		silver = max(0, (int)(pSMG->getSilver() - 1));
 		pSMG->setSilver(silver);
-	} else {
+	}
+	else
+	{
 		filelog("bulletBug.log", "decreaseBullet() : Invalid item class : %s\n", ItemClass2String[IClass].c_str());
-		throw("decreaseBullet() : Invalid item class");
+		throw ("decreaseBullet() : Invalid item class");
 	}
 	//*/
 
@@ -698,7 +758,9 @@ Bullet_t getRemainBullet(Item* pWeapon)
 	__BEGIN_TRY
 
 	if (pWeapon == NULL) 
+	{
 		return 0;
+	}
 
 	Item::ItemClass IClass = pWeapon->getItemClass();
 
@@ -711,21 +773,30 @@ Bullet_t getRemainBullet(Item* pWeapon)
 		return pGun->getBulletCount();
 	}
 	*/
-	if (IClass == Item::ITEM_CLASS_AR) {
+	if (IClass == Item::ITEM_CLASS_AR)
+	{
 		AR* pAR = dynamic_cast<AR*>(pWeapon);
 		return pAR->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SR) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SR)
+	{
 		SR* pSR = dynamic_cast<SR*>(pWeapon);
 		return pSR->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SG)
+	{
 		SG* pSG = dynamic_cast<SG*>(pWeapon);
 		return pSG->getBulletCount();
-	} else if (IClass == Item::ITEM_CLASS_SMG) {
+	}
+	else if (IClass == Item::ITEM_CLASS_SMG)
+	{
 		SMG* pSMG = dynamic_cast<SMG*>(pWeapon);
 		return pSMG->getBulletCount();
-	} else {
+	}
+	else
+	{
 		filelog("bullet.log", "getRemainBullet() : Invalid item class : %s\n", ItemClass2String[IClass].c_str());
-		throw("getRemainBullet() : Invalid item class");
+		throw ("getRemainBullet() : Invalid item class");
 	}
 
 	return 0;
@@ -736,12 +807,14 @@ Bullet_t getRemainBullet(Item* pWeapon)
 //////////////////////////////////////////////////////////////////////////////
 // ÁÖÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡? 
 //////////////////////////////////////////////////////////////////////////////
-bool isPortableItem(Item* pItem) {
+bool isPortableItem(Item* pItem)
+{
 	Assert(pItem != NULL);
 
-//	if (pItem->isTimeLimitItem() ) return false;
+//	if ( pItem->isTimeLimitItem() ) return false;
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_CORPSE:
 		case Item::ITEM_CLASS_MOTORCYCLE:
 		case Item::ITEM_CLASS_COUPLE_RING:
@@ -758,7 +831,8 @@ bool isPortableItem(Item* pItem) {
 // »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
 // ¿©±â¼­ÀÇ »ç¿ëÀÌ¶õ, »ç¿ëÇØ¼­ »ç¶óÁö´Â ¼Ò¸ð¼º ¾ÆÀÌÅÛÀ» ¸»ÇÑ´Ù.
 //////////////////////////////////////////////////////////////////////////////
-bool isUsableItem(Item* pItem, Creature* pUser) {
+bool isUsableItem(Item* pItem, Creature* pUser)
+{
 	Assert(pItem != NULL);
 	Assert(pUser != NULL);
 
@@ -766,7 +840,8 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 	// ¾î¶² °ÍÀº »ç¿ëÇÒ ¼ö ¾ø´Â °ÍÀÌ ³ª¿ÀÁö ¾ÊÀ»±î?
 	//ItemType_t IType = pItem->getItemType();
 
-	switch (pItem->getItemClass()) {
+	switch (pItem->getItemClass())
+	{
 		case Item::ITEM_CLASS_POTION:
 			if (pUser->isSlayer()) return true;
 			break;
@@ -789,7 +864,7 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 			if (pUser->isSlayer()) return true;
 			break;
 		case Item::ITEM_CLASS_EVENT_TREE:
-			if (pItem->getItemType() == 12 || (pItem->getItemType() >= 26 && pItem->getItemType() <=28 ) ) return true;	// ¿Ï¼ºµÈ Æ®¸®
+			if ( pItem->getItemType() == 12 || ( pItem->getItemType() >= 26 && pItem->getItemType() <=28 ) ) return true;	// ¿Ï¼ºµÈ Æ®¸®
 			break;
 
 		case Item::ITEM_CLASS_EVENT_ETC:
@@ -797,17 +872,17 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 			break;
 
 		case Item::ITEM_CLASS_COUPLE_RING:
-			if (pUser->isSlayer() ) return true;
+			if ( pUser->isSlayer() ) return true;
 			break;
 		case Item::ITEM_CLASS_VAMPIRE_COUPLE_RING:
-			if (pUser->isVampire() ) return true;
+			if ( pUser->isVampire() ) return true;
 			break;
 
 		case Item::ITEM_CLASS_DYE_POTION:
 			return true;
 
 		case Item::ITEM_CLASS_RESURRECT_ITEM:
-			if (pUser->isFlag(Effect::EFFECT_CLASS_COMA) ) return true;
+			if ( pUser->isFlag(Effect::EFFECT_CLASS_COMA) ) return true;
 			break;
 
 		case Item::ITEM_CLASS_PUPA:
@@ -830,8 +905,8 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 			break;
 
 		case Item::ITEM_CLASS_EVENT_GIFT_BOX:
-			if (pItem->getItemType() >= 6  && pItem->getItemType() <= 15 ) return true;
-			if (pItem->getItemType() >= 19 && pItem->getItemType() <= 21 ) return true;
+			if ( pItem->getItemType() >= 6  && pItem->getItemType() <= 15 ) return true;
+			if ( pItem->getItemType() >= 19 && pItem->getItemType() <= 21 ) return true;
 			break;
 
 		case Item::ITEM_CLASS_SMS_ITEM:
@@ -841,11 +916,10 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 		case Item::ITEM_CLASS_TRAP_ITEM:
 			return true;
 			break;
-
-		case Item::ITEM_CLASS_SUB_INVENTORY:
-			return true;
+		// add by Coffee 2007-6-9
+		case Item::ITEM_CLASS_MOON_CARD:
+			if ( pItem->getItemType() >=5 && pItem->getItemType() <=7 ) return true;
 			break;
-
 		default :
 			return false;
 	}
@@ -857,13 +931,15 @@ bool isUsableItem(Item* pItem, Creature* pUser) {
 // ¾ÆÀÌÅÛÀÇ ¼ýÀÚ¸¦ ÁÙÀÎ´Ù.
 //////////////////////////////////////////////////////////////////////////////
 ItemNum_t decreaseItemNum(Item* pItem, Inventory* pInventory, 
-	const string& OwnerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) {
+	const string& OwnerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y)
+{
 	Assert(pItem != NULL);
 	Assert(pInventory != NULL);
 	Assert(OwnerID != "");
 	Assert(isStackable(pItem));
 
-	if (pItem->getNum() > 1) {
+	if (pItem->getNum() > 1)
+	{
 		pItem->setNum(pItem->getNum() - 1); // ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ÇÏ³ª ÁÙÀÎ´Ù.
 		pInventory->decreaseItemNum(); // ÀÎº¥Åä¸® ÃÑ °¹¼ö¸¦ ÁÙÀÎ´Ù.
 		pInventory->decreaseWeight(pItem->getWeight()); // ÀÎº¥Åä¸® ÃÑ ¹«°Ô¸¦ ÁÙÀÎ´Ù.
@@ -875,7 +951,9 @@ ItemNum_t decreaseItemNum(Item* pItem, Inventory* pInventory,
 
 
 		return pItem->getNum();
-	} else { // ¾ÆÀÌÅÛÀÌ 1°³Â¥¸®¿´À¸´Ï, »èÁ¦ÇÑ´Ù.
+	}
+	else // ¾ÆÀÌÅÛÀÌ 1°³Â¥¸®¿´À¸´Ï, »èÁ¦ÇÑ´Ù.
+	{
 		pInventory->deleteItem(x, y);
 		pItem->destroy();
 		SAFE_DELETE(pItem);
@@ -887,7 +965,8 @@ ItemNum_t decreaseItemNum(Item* pItem, Inventory* pInventory,
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void processItemBug(Creature* pCreature, Item* pItem) {
+void processItemBug(Creature* pCreature, Item* pItem)
+{
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 	Assert(pPC != NULL);
 	Assert(pItem != NULL);
@@ -895,7 +974,8 @@ void processItemBug(Creature* pCreature, Item* pItem) {
 	pPC->addItemToGarbage(pItem);
 }
 
-void processItemBugEx(Creature* pCreature, Item* pItem) {
+void processItemBugEx(Creature* pCreature, Item* pItem)
+{
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 	Assert(pPC != NULL);
 	Assert(pItem != NULL);
@@ -904,13 +984,15 @@ void processItemBugEx(Creature* pCreature, Item* pItem) {
 	pItem->save(pCreature->getName(), STORAGE_GARBAGE, 0, 0, 0);
 }
 
-bool hasOptionType(const list<OptionType_t>& optionTypes, OptionType_t optionType) {
+bool hasOptionType(const list<OptionType_t>& optionTypes, OptionType_t optionType)
+{
 	if (optionTypes.empty())
 		return false;
 
 	list<OptionType_t>::const_iterator itr;
 
-	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++) {
+	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
+	{
 		if (*itr==optionType)
 			return true;
 	}
@@ -918,12 +1000,14 @@ bool hasOptionType(const list<OptionType_t>& optionTypes, OptionType_t optionTyp
 	return false;
 }
 
-bool hasOptionClass(const list<OptionType_t>& optionTypes, OptionType_t optionType) {
+bool hasOptionClass(const list<OptionType_t>& optionTypes, OptionType_t optionType)
+{
 	if (optionTypes.empty())
 		return false;
 
 	try {
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(optionType);
+
+		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( optionType );
 
 		if (pOptionInfo==NULL)
 			return false;
@@ -932,8 +1016,9 @@ bool hasOptionClass(const list<OptionType_t>& optionTypes, OptionType_t optionTy
 			
 		list<OptionType_t>::const_iterator itr;
 
-		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++) {
-			pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
+		{
+			pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 			if (pOptionInfo==NULL) return false;
 			if (pOptionInfo->getClass()==newOptionClass)
 				return true;
@@ -946,33 +1031,50 @@ bool hasOptionClass(const list<OptionType_t>& optionTypes, OptionType_t optionTy
 	return false;
 }
 
-void setOptionTypeFromField(list<OptionType_t>& optionTypes, const string& optionField) {
+void setOptionTypeFromField(list<OptionType_t>& optionTypes, const string& optionField)
+{
 	if (optionField.empty()) return;
+
+	//cout << "setOptionType: " << optionField.c_str() << " --> ";
 
 	const char* pOptionField = optionField.c_str();
 	unsigned char ch;
 	while (ch=*pOptionField++)
-		optionTypes.push_back((OptionType_t)ch);
+	{
+		optionTypes.push_back( (OptionType_t)ch );
+		//cout << (int)ch << " ";
+	}
+	//cout << endl;
 }
 
-void setOptionTypeToField(const list<OptionType_t>& optionTypes, string& optionField) {
+void setOptionTypeToField(const list<OptionType_t>& optionTypes, string& optionField)
+{
 	if (optionTypes.empty()) return;
 
+	//cout << "setOptionType: ";
 	unsigned char ch;
 
 	list<OptionType_t>::const_iterator itr;
-	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++) {
+	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
+	{
 		ch = *itr;
 
 		// Æ¯¼ö~¹®ÀÚÀÎ °æ¿ì¿¡´Â ÀÌ°Å ÇØÁà¾ßµÈ´ç.
 		if (ch=='\'' || ch=='\\')
+		{
 			optionField += '\\';
+		}
 
 		optionField += ch;
+
+		//cout << (int)ch << " ";
 	}
+
+	//cout << " --> " << optionField.c_str() << endl;
 }
 
-string getOptionTypeToString(const list<OptionType_t>& optionTypes) {
+string getOptionTypeToString(const list<OptionType_t>& optionTypes)
+{
 	if (optionTypes.empty()) return string("NONE");
 
 	string optionField;
@@ -981,7 +1083,8 @@ string getOptionTypeToString(const list<OptionType_t>& optionTypes) {
 	char str[12];
 
 	list<OptionType_t>::const_iterator itr;
-	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++) {
+	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
+	{
 		ch = *itr;
 		sprintf(str, "%d", (int)ch);
 		optionField += str;
@@ -995,9 +1098,10 @@ string getOptionTypeToString(const list<OptionType_t>& optionTypes) {
 //////////////////////////////////////////////////////////////////////////////
 // ·¹¾î ¾ÆÀÌÅÛ : ´ÙÀ½ ¿É¼ÇÀ» ºÙÀÏ±î?
 //////////////////////////////////////////////////////////////////////////////
-bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate) {
+bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate)
+{
 	// ÇöÀç´Â ¿É¼ÇÀÌ 2°³±îÁö¹Û¿¡ ¾È ºÙ´Â´Ù.
-	if (pTemplate->OptionType.size()>=2)
+	if (pTemplate->OptionType.size()>=5)
 		return false;
 
 	// ¾Æ¹«°Íµµ ¾ø´Ù¸é ¹«Á¶°Ç ºÙÀÎ´Ù...°í ÇÏ´Â°Ç ¾Æ´ÏÁö¸¸ ¾îÂ¶µç ±×·¸´Ù - -;
@@ -1005,9 +1109,10 @@ bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate) {
 		return true;
 
 	// ¾ÆÀÌÅÛ¿¡ Æ¯º°È÷ Àû¿ëµÇ¾î ÀÖ´Â ¿É¼Ç È®·üÀ» Àû¿ë½ÃÅ²´Ù.
-	if (pTemplate->NextOptionRatio!=0) {
+	if (pTemplate->NextOptionRatio!=0)
+	{
 		int dice = rand()%100;
-
+		//cout << "NextOptionRatio : " << dice << " < " << (int)pTemplate->NextOptionRatio << endl;
 		return dice < pTemplate->NextOptionRatio;
 	}
 
@@ -1020,8 +1125,9 @@ bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate) {
 		list<OptionType_t>::const_iterator itr = pTemplate->OptionType.begin();
 		Ratio_t nextOptionRatio = nextItemRatio;	// °è»ê ÁÙÀÏ·Á°í..
 		Ratio_t baseMultiplier = 100;				// 100%
-		for (; itr!=pTemplate->OptionType.end(); itr++) {
-			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+		for (; itr!=pTemplate->OptionType.end(); itr++)
+		{
+			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 			if (pOptionInfo==NULL)
 				return false;
 			nextOptionRatio *= pOptionInfo->getNextOptionRatio();
@@ -1051,7 +1157,7 @@ bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate) {
 		Ratio_t selectRatio = rand()%baseMultiplier;
 
 		// ·¹¾î ¾ÆÀÌÅÛ ·çÆÃ È®·üÀ» Àû¿ë½ÃÅ²´Ù.
-		nextOptionRatio = getPercentValue(nextOptionRatio, g_pVariableManager->getRareItemRatio());
+		nextOptionRatio = getPercentValue( nextOptionRatio, g_pVariableManager->getRareItemRatio() );
 
 		// È®·ü Ã¼Å©
 		return selectRatio < nextOptionRatio;
@@ -1067,12 +1173,14 @@ bool isPossibleNextOption(ITEM_TEMPLATE* pTemplate) {
 //////////////////////////////////////////////////////////////////////////////
 // °·ºí ¾ÆÀÌÅÛ »ý¼º
 //////////////////////////////////////////////////////////////////////////////
-Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, int maxLevel) throw(Error) {
+Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, int maxLevel)
+	throw(Error)
+{
 	__BEGIN_TRY
 
 	Assert(pCreature!=NULL);
 
-	InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager(itemClass);
+	InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager( itemClass );
 	Assert(pInfoClass!=NULL);
 
 	ItemType_t itemType = 0;
@@ -1083,7 +1191,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 	//----------------------------------------------------------------------
 	// SlayerÀÎ °æ¿ì
 	//----------------------------------------------------------------------
-	if (pCreature->isSlayer()) {
+	if (pCreature->isSlayer())
+	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		
 		Attr_t CSTR = pSlayer->getSTR(ATTR_BASIC);
@@ -1104,7 +1213,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 		CSUM += 5;
 
 		// levelÁ¦ÇÑ
-		if (maxLevel!=0) {
+		if (maxLevel!=0)
+		{
 			int maxAttr = maxLevel * 2 / 3;	// attrÀº SUMÀÇ 2/3À¸·Î º»´Ù.
 			CSTR = min((int)maxAttr, (int)CSTR);
 			CDEX = min((int)maxAttr, (int)CDEX);
@@ -1114,7 +1224,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 
 		// 10¹ø¸¸ µ¹·Áº»´Ù.
 		int i = 10;
-		do {
+		do
+		{
 			itemType = pInfoClass->getRandomItemType();
 
 			// ÀÌ itemTypeÀ» »ý¼ºÇØµµ µÇ´Â levelÀÎÁö È®ÀÎÇÑ´Ù.
@@ -1126,25 +1237,32 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 			ReqSum2 = ReqSum    = pItemInfo->getReqSum();
 			ReqGender = pItemInfo->getReqGender();
 
-			if (CSTR >= ReqSTR &&
-				CDEX >= ReqDEX &&
-				CINT >= ReqINT &&
-				CSUM >= ReqSum &&
-				(ReqGender==GENDER_BOTH || pSlayer->getSex() == MALE &&
-				ReqGender == GENDER_MALE || pSlayer->getSex() == FEMALE &&
-				ReqGender == GENDER_FEMALE)) {
+			if (CSTR >= ReqSTR
+				&& CDEX >= ReqDEX
+				&& CINT >= ReqINT
+				&& CSUM >= ReqSum
+				&& (ReqGender==GENDER_BOTH
+					|| pSlayer->getSex() == MALE && ReqGender == GENDER_MALE
+					|| pSlayer->getSex() == FEMALE && ReqGender == GENDER_FEMALE))
+			{
 				// ÀÌ item typeÀ¸·Î °áÁ¤ÇÑ´Ù.
 				break;
 			}
 
 		} while (--i);
 
-		if (i == 0) {
+		if (i==0)
+		{
 			// ¿©ÀÚÀÎ °æ¿ì´Â ±âº» item typeÀÌ ´Ù¸£´Ù.
-			if ((itemClass==Item::ITEM_CLASS_COAT || itemClass==Item::ITEM_CLASS_TROUSER) && pSlayer->getSex()==FEMALE)
+			if ((itemClass==Item::ITEM_CLASS_COAT || itemClass==Item::ITEM_CLASS_TROUSER)
+				&& pSlayer->getSex()==FEMALE)
+			{
 				itemType = 1;
+			}
 			else
+			{
 				itemType = 0;
+			}
 
 			// ¹Ø¿¡¼­ Ã¼Å©ÇÒ¶§ ¹«½ÃÇÏ±â À§ÇØ¼­..
 			pItemInfo = NULL;
@@ -1158,10 +1276,22 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 		const vector<OptionType_t>& optionVector = g_pOptionInfoManager->getPossibleGambleOptionVector((Item::ItemClass)itemClass, maxOptionLevel);
 		vector<OptionType_t>::const_iterator iOption;
 
+		/*
+		cout << "optionVector[" << (int)itemClass << "][" << (int)maxOptionLevel << "] = (" << optionVector.size() << ") = ";
+
+		for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+		{
+			cout << (int)*iOption << "  ";
+		}
+		cout << endl;
+		*/
+
 		// Total OptionRatio¸¦ ±¸ÇÑ´Ù.
 		int itemOptionRatio = g_pOptionInfoManager->getTotalGambleRatio((Item::ItemClass)itemClass, maxOptionLevel);
 
-		if (optionVector.size() > 0 && itemOptionRatio > 0 && (pItemInfo == NULL || !pItemInfo->isUnique())) {
+		if (optionVector.size()>0 && itemOptionRatio>0
+			&& (pItemInfo==NULL || !pItemInfo->isUnique()))
+		{
 			// 10¹ø¸¸ µ¹·Áº»´Ù.
 			int i = 10;
 			
@@ -1170,16 +1300,23 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				int optionRatio = random()%itemOptionRatio;
 				int ratioSum      = 0;
 
+				//cout << "Ratio = " << optionRatio << "/" << itemOptionRatio << endl;
+
 				OptionInfo* pOptionInfo = NULL;
 
-				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++) {
+				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+				{
 					optionType = *iOption;
 
-					pOptionInfo = g_pOptionInfoManager->getOptionInfo(optionType);
+					pOptionInfo = g_pOptionInfoManager->getOptionInfo( optionType );
 					ratioSum += pOptionInfo->getRatio();
 
 					if (optionRatio < ratioSum)
+					{
+						// ÀÌ optionÀ» ¼±ÅÃÇÑ´Ù.
+						//cout << "select : " << (int)optionType << endl;
 						break;
+					}
 				}
 
 				// optionÀÇ ¿ä±¸ ´É·ÂÄ¡¸¦ ´õÇØ¼­
@@ -1198,15 +1335,22 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				//	<< "CINT=" << CINT << endl;
 
 				// playerÀÇ ´É·ÂÄ¡¿¡ ¸Â´Â ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÑ´Ù.
-				if (CSTR >= ReqSTR && CDEX >= ReqDEX && CINT >= ReqINT && CSUM >= ReqSum) {
+				if (CSTR >= ReqSTR
+					&& CDEX >= ReqDEX
+					&& CINT >= ReqINT
+					&& CSUM >= ReqSum)
+				{
 					// ÀÌ option typeÀ¸·Î °áÁ¤ÇÑ´Ù.
 					//cout << "OK!" << endl;
 					break;
 				}
+
 			} while (--i);
 
 			if (i==0)
+			{
 				optionType = 0;	//(rand()%3==0? 1: (rand()%2? 6:11));
+			}
 		}
 		// ¹«¿É 	// ÀûÀýÇÑ°Ô ¾øÀ¸¸é STR+1, DEX+1, INT+1 Áß¿¡¼­ ¾Ï°Å³ª..
 		else optionType = 0;	//(rand()%3==0? 1: (rand()%2? 6:11));
@@ -1214,7 +1358,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 	//----------------------------------------------------------------------
 	// VampireÀÎ °æ¿ì
 	//----------------------------------------------------------------------
-	else if (pCreature->isVampire()) {
+	else if (pCreature->isVampire())
+	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 	
 		Level_t	CLevel = pVampire->getLevel();
@@ -1224,7 +1369,9 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 
 		// levelÁ¦ÇÑ
 		if (maxLevel!=0)
+		{
 			CLevel = min((int)maxLevel, (int)CLevel);
+		}
 
 		Attr_t    ReqLevel, ReqLevel2;
 		Attr_t    ReqGender;
@@ -1232,7 +1379,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 
 		// 10¹ø¸¸ µ¹·Áº»´Ù.
 		int i = 10;
-		do {
+		do
+		{
 			itemType = pInfoClass->getRandomItemType();
 
 			// ÀÌ itemTypeÀ» »ý¼ºÇØµµ µÇ´Â levelÀÎÁö È®ÀÎÇÑ´Ù.
@@ -1243,21 +1391,28 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 
 			// ·¹º§ Á¦ÇÑÀÌ ¾ø°Å³ª Á¦ÇÑ ·¹º§ÀÌ ³ô°í
 			// ¼ºº°ÀÌ ¸Â¾Æ¾ß ÇÑ´Ù.
-			if ((ReqLevel <= 0 || CLevel >= ReqLevel) &&
-				(ReqGender==GENDER_BOTH ||
-				pVampire->getSex()==MALE && ReqGender==GENDER_MALE ||
-				pVampire->getSex()==FEMALE && ReqGender==GENDER_FEMALE)) {
+			if ((ReqLevel <= 0 || CLevel >= ReqLevel)
+				&& (ReqGender==GENDER_BOTH
+					|| pVampire->getSex()==MALE && ReqGender==GENDER_MALE
+					|| pVampire->getSex()==FEMALE && ReqGender==GENDER_FEMALE)
+				)
+			{
 				break;
 			}
 
 		} while (--i);
 
-		if (i==0) {
+		if (i==0)
+		{
 			// ¿©ÀÚÀÎ °æ¿ì´Â ±âº» item typeÀÌ ´Ù¸£´Ù.
 			if (Item::ITEM_CLASS_VAMPIRE_COAT && pVampire->getSex()==FEMALE)
+			{
 				itemType = 1;
+			}
 			else
+			{
 				itemType = 0;
+			}
 		}
 
 		// ¾ÆÀÌÅÛÀÌ ¿É¼ÇÀ» °¡Áö°í ÀÖ´Ù¸é, 
@@ -1270,7 +1425,20 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 		// Total OptionRatio¸¦ ±¸ÇÑ´Ù.
 		int itemOptionRatio = g_pOptionInfoManager->getTotalGambleRatio((Item::ItemClass)itemClass, maxOptionLevel);
 
-		if (optionVector.size() > 0 && itemOptionRatio > 0 && (pItemInfo == NULL || !pItemInfo->isUnique())) {
+		/*
+		cout << "optionVector[" << (int)itemClass << "][" << (int)maxOptionLevel << "] = (" << optionVector.size() << ") = ";
+
+		for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+		{
+			cout << (int)*iOption << "  ";
+		}
+		cout << endl;
+		*/
+
+
+		if (optionVector.size()>0 && itemOptionRatio>0
+			&& (pItemInfo==NULL || !pItemInfo->isUnique()))
+		{
 			// 10¹ø¸¸ µ¹·Áº»´Ù.
 			int i = 10;
 			
@@ -1279,15 +1447,19 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				int optionRatio = random()%itemOptionRatio;
 				int ratioSum      = 0;
 
+				//cout << "Ratio = " << optionRatio << "/" << itemOptionRatio << endl;
+
 				OptionInfo* pOptionInfo = NULL;
 
-				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++) {
+				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+				{
 					optionType = *iOption;
 
-					pOptionInfo = g_pOptionInfoManager->getOptionInfo(optionType);
+					pOptionInfo = g_pOptionInfoManager->getOptionInfo( optionType );
 					ratioSum += pOptionInfo->getRatio();
 
-					if (optionRatio < ratioSum) {
+					if (optionRatio < ratioSum)
+					{
 						// ÀÌ optionÀ» ¼±ÅÃÇÑ´Ù.
 						break;
 					}
@@ -1297,7 +1469,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				ReqLevel = ReqLevel2 + pOptionInfo->getReqLevel();
 
 				// playerÀÇ ´É·ÂÄ¡¿¡ ¸Â´Â ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÑ´Ù.
-				if (ReqLevel <= 0 || CLevel >= ReqLevel) {
+				if (ReqLevel <= 0 || CLevel >= ReqLevel)
+				{
 					// ÀÌ option typeÀ¸·Î °áÁ¤ÇÑ´Ù.
 					break;
 				}
@@ -1305,7 +1478,9 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 			} while (--i);
 
 			if (i==0)
+			{
 				optionType = 0;//(rand()%3==0? 1: (rand()%2? 6:11));
+			}
 		}
 		// ¹«¿É!  // ÀûÀýÇÑ°Ô ¾øÀ¸¸é STR+1, DEX+1, INT+1 Áß¿¡¼­ ¾Ï°Å³ª..
 		else optionType = 0;//(rand()%3==0? 1: (rand()%2? 6:11));
@@ -1313,7 +1488,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 	//----------------------------------------------------------------------
 	// OustersÀÎ °æ¿ì
 	//----------------------------------------------------------------------
-	else if (pCreature->isOusters()) {
+	else if (pCreature->isOusters())
+	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 	
 		Level_t	CLevel = pOusters->getLevel();
@@ -1323,13 +1499,16 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 
 		// levelÁ¦ÇÑ
 		if (maxLevel!=0)
+		{
 			CLevel = min((int)maxLevel, (int)CLevel);
+		}
 
 		Attr_t    ReqLevel, ReqLevel2;
 
 		// 10¹ø¸¸ µ¹·Áº»´Ù.
 		int i = 10;
-		do {
+		do
+		{
 			itemType = pInfoClass->getRandomItemType();
 
 			// ÀÌ itemTypeÀ» »ý¼ºÇØµµ µÇ´Â levelÀÎÁö È®ÀÎÇÑ´Ù.
@@ -1340,11 +1519,16 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 			// ·¹º§ Á¦ÇÑÀÌ ¾ø°Å³ª Á¦ÇÑ ·¹º§ÀÌ ³ô°í
 			// ¼ºº°ÀÌ ¸Â¾Æ¾ß ÇÑ´Ù.
 			if ((ReqLevel <= 0 || CLevel >= ReqLevel))
+			{
 				break;
+			}
+
 		} while (--i);
 
 		if (i==0)
+		{
 			itemType = 0;
+		}
 
 		// ¾ÆÀÌÅÛÀÌ ¿É¼ÇÀ» °¡Áö°í ÀÖ´Ù¸é, 
 		// ¿É¼ÇÀÇ Á¾·ù¿¡ µû¶ó¼­ ´É·ÂÄ¡ Á¦ÇÑÀ» ¿Ã·ÁÁØ´Ù.
@@ -1356,7 +1540,20 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 		// Total OptionRatio¸¦ ±¸ÇÑ´Ù.
 		int itemOptionRatio = g_pOptionInfoManager->getTotalGambleRatio((Item::ItemClass)itemClass, maxOptionLevel);
 
-		if (optionVector.size() > 0 && itemOptionRatio > 0 && (pItemInfo == NULL || !pItemInfo->isUnique())) {
+		/*
+		cout << "optionVector[" << (int)itemClass << "][" << (int)maxOptionLevel << "] = (" << optionVector.size() << ") = ";
+
+		for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+		{
+			cout << (int)*iOption << "  ";
+		}
+		cout << endl;
+		*/
+
+
+		if (optionVector.size()>0 && itemOptionRatio>0
+			&& (pItemInfo==NULL || !pItemInfo->isUnique()))
+		{
 			// 10¹ø¸¸ µ¹·Áº»´Ù.
 			int i = 10;
 			
@@ -1365,15 +1562,19 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				int optionRatio = random()%itemOptionRatio;
 				int ratioSum      = 0;
 
+				//cout << "Ratio = " << optionRatio << "/" << itemOptionRatio << endl;
+
 				OptionInfo* pOptionInfo = NULL;
 
-				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++) {
+				for (iOption=optionVector.begin(); iOption!=optionVector.end(); iOption++)
+				{
 					optionType = *iOption;
 
-					pOptionInfo = g_pOptionInfoManager->getOptionInfo(optionType);
+					pOptionInfo = g_pOptionInfoManager->getOptionInfo( optionType );
 					ratioSum += pOptionInfo->getRatio();
 
-					if (optionRatio < ratioSum) {
+					if (optionRatio < ratioSum)
+					{
 						// ÀÌ optionÀ» ¼±ÅÃÇÑ´Ù.
 						break;
 					}
@@ -1383,7 +1584,8 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 				ReqLevel = ReqLevel2 + pOptionInfo->getReqLevel();
 
 				// playerÀÇ ´É·ÂÄ¡¿¡ ¸Â´Â ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÑ´Ù.
-				if (ReqLevel <= 0 || CLevel >= ReqLevel) {
+				if (ReqLevel <= 0 || CLevel >= ReqLevel)
+				{
 					// ÀÌ option typeÀ¸·Î °áÁ¤ÇÑ´Ù.
 					break;
 				}
@@ -1391,7 +1593,9 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 			} while (--i);
 
 			if (i==0)
+			{
 				optionType = 0;//(rand()%3==0? 1: (rand()%2? 6:11));
+			}
 		}
 		// ¹«¿É!  // ÀûÀýÇÑ°Ô ¾øÀ¸¸é STR+1, DEX+1, INT+1 Áß¿¡¼­ ¾Ï°Å³ª..
 		else optionType = 0;//(rand()%3==0? 1: (rand()%2? 6:11));
@@ -1400,10 +1604,10 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 	// itemÀ» »ý¼ºÇØ¼­ ³Ñ°ÜÁØ´Ù.
 	list<OptionType_t> optionTypes;
 	if (optionType!=0)
-		optionTypes.push_back(optionType);
+		optionTypes.push_back( optionType );
 	Item* pItem = g_pItemFactoryManager->createItem(itemClass, itemType, optionTypes);
 
-	pItem->setGrade(min(6,ItemGradeManager::Instance().getRandomGambleGrade()));
+	pItem->setGrade( min(6,ItemGradeManager::Instance().getRandomGambleGrade()) );
 
 	return pItem;
 
@@ -1413,38 +1617,40 @@ Item* getRandomMysteriousItem(Creature* pCreature, Item::ItemClass itemClass, in
 //////////////////////////////////////////////////////////////////////////////
 // ¿É¼ÇÀÌ ºÙÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÎ°¡?
 //////////////////////////////////////////////////////////////////////////////
-bool isPossibleOptionItemClass(Item::ItemClass IClass) {
-	switch (IClass) {
-		case Item::ITEM_CLASS_HELM:
-		case Item::ITEM_CLASS_NECKLACE:
-		case Item::ITEM_CLASS_RING:
-		case Item::ITEM_CLASS_BRACELET:
-		case Item::ITEM_CLASS_SHIELD:
-		case Item::ITEM_CLASS_GLOVE:
-		case Item::ITEM_CLASS_COAT:
-		case Item::ITEM_CLASS_BELT:
-		case Item::ITEM_CLASS_TROUSER:
-		case Item::ITEM_CLASS_SHOES:
-		case Item::ITEM_CLASS_SWORD:
-		case Item::ITEM_CLASS_BLADE:
-		case Item::ITEM_CLASS_CROSS:
-		case Item::ITEM_CLASS_MACE:
-		case Item::ITEM_CLASS_AR:
-		case Item::ITEM_CLASS_SR:
-		case Item::ITEM_CLASS_SG:
-		case Item::ITEM_CLASS_SMG:
-		case Item::ITEM_CLASS_CARRYING_RECEIVER:
-		case Item::ITEM_CLASS_SHOULDER_ARMOR:
+bool isPossibleOptionItemClass(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
+		case Item::ITEM_CLASS_HELM :
+		case Item::ITEM_CLASS_NECKLACE :
+		case Item::ITEM_CLASS_RING :
+		case Item::ITEM_CLASS_BRACELET :
+		case Item::ITEM_CLASS_SHIELD :
+		case Item::ITEM_CLASS_GLOVE :
+		case Item::ITEM_CLASS_COAT :
+		case Item::ITEM_CLASS_BELT :
+		case Item::ITEM_CLASS_TROUSER :
+		case Item::ITEM_CLASS_SHOES :
+		case Item::ITEM_CLASS_SWORD :
+		case Item::ITEM_CLASS_BLADE :
+		case Item::ITEM_CLASS_CROSS :
+		case Item::ITEM_CLASS_MACE :
+		case Item::ITEM_CLASS_AR :
+		case Item::ITEM_CLASS_SR :
+		case Item::ITEM_CLASS_SG :
+		case Item::ITEM_CLASS_SMG :
+		case Item::ITEM_CLASS_CARRYING_RECEIVER :
+		case Item::ITEM_CLASS_SHOULDER_ARMOR :
 
-		case Item::ITEM_CLASS_VAMPIRE_NECKLACE:
-		case Item::ITEM_CLASS_VAMPIRE_RING:
-		case Item::ITEM_CLASS_VAMPIRE_BRACELET:
-		case Item::ITEM_CLASS_VAMPIRE_EARRING:
-		case Item::ITEM_CLASS_VAMPIRE_COAT:
-		case Item::ITEM_CLASS_VAMPIRE_WEAPON:
-		case Item::ITEM_CLASS_VAMPIRE_AMULET:
-		case Item::ITEM_CLASS_DERMIS:
-		case Item::ITEM_CLASS_PERSONA:
+		case Item::ITEM_CLASS_VAMPIRE_NECKLACE :
+		case Item::ITEM_CLASS_VAMPIRE_RING :
+		case Item::ITEM_CLASS_VAMPIRE_BRACELET :
+		case Item::ITEM_CLASS_VAMPIRE_EARRING :
+		case Item::ITEM_CLASS_VAMPIRE_COAT :
+		case Item::ITEM_CLASS_VAMPIRE_WEAPON :
+		case Item::ITEM_CLASS_VAMPIRE_AMULET :
+		case Item::ITEM_CLASS_DERMIS :
+		case Item::ITEM_CLASS_PERSONA :
 
 		case Item::ITEM_CLASS_OUSTERS_ARMSBAND:
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
@@ -1455,11 +1661,13 @@ bool isPossibleOptionItemClass(Item::ItemClass IClass) {
 		case Item::ITEM_CLASS_OUSTERS_RING:
 		case Item::ITEM_CLASS_OUSTERS_STONE:
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
-		case Item::ITEM_CLASS_FASCIA:
-		case Item::ITEM_CLASS_MITTEN:
+		case Item::ITEM_CLASS_FASCIA :
+		case Item::ITEM_CLASS_MITTEN :
 
 		case Item::ITEM_CLASS_CORE_ZAP:
+
 			return true;
+
 		default :
 			return false;
 	}
@@ -1470,34 +1678,36 @@ bool isPossibleOptionItemClass(Item::ItemClass IClass) {
 //////////////////////////////////////////////////////////////////////////////
 // ´ÙÀ½ ´Ü°è·Î ¾÷±×·¹ÀÌµåµÉ ¼ö ÀÖ´Â ItemTypeÀÎ°¡
 //////////////////////////////////////////////////////////////////////////////
-bool isPossibleUpgradeItemType(Item::ItemClass IClass) {
-	switch (IClass) {
-		case Item::ITEM_CLASS_HELM:
-		case Item::ITEM_CLASS_NECKLACE:
-		case Item::ITEM_CLASS_RING:
-		case Item::ITEM_CLASS_BRACELET:
-		case Item::ITEM_CLASS_SHIELD:
-		case Item::ITEM_CLASS_GLOVE:
-		case Item::ITEM_CLASS_COAT:
-		case Item::ITEM_CLASS_BELT:
-		case Item::ITEM_CLASS_TROUSER:
-		case Item::ITEM_CLASS_SHOES:
-		case Item::ITEM_CLASS_SWORD:
-		case Item::ITEM_CLASS_BLADE:
-		case Item::ITEM_CLASS_CROSS:
-		case Item::ITEM_CLASS_MACE:
-		case Item::ITEM_CLASS_AR:
-		case Item::ITEM_CLASS_SR:
-		case Item::ITEM_CLASS_SG:
-		case Item::ITEM_CLASS_SMG:
+bool isPossibleUpgradeItemType(Item::ItemClass IClass)
+{
+	switch (IClass)
+	{
+		case Item::ITEM_CLASS_HELM :
+		case Item::ITEM_CLASS_NECKLACE :
+		case Item::ITEM_CLASS_RING :
+		case Item::ITEM_CLASS_BRACELET :
+		case Item::ITEM_CLASS_SHIELD :
+		case Item::ITEM_CLASS_GLOVE :
+		case Item::ITEM_CLASS_COAT :
+		case Item::ITEM_CLASS_BELT :
+		case Item::ITEM_CLASS_TROUSER :
+		case Item::ITEM_CLASS_SHOES :
+		case Item::ITEM_CLASS_SWORD :
+		case Item::ITEM_CLASS_BLADE :
+		case Item::ITEM_CLASS_CROSS :
+		case Item::ITEM_CLASS_MACE :
+		case Item::ITEM_CLASS_AR :
+		case Item::ITEM_CLASS_SR :
+		case Item::ITEM_CLASS_SG :
+		case Item::ITEM_CLASS_SMG :
 
-		case Item::ITEM_CLASS_VAMPIRE_NECKLACE:
-		case Item::ITEM_CLASS_VAMPIRE_RING:
-		case Item::ITEM_CLASS_VAMPIRE_BRACELET:
-		case Item::ITEM_CLASS_VAMPIRE_EARRING:
-		case Item::ITEM_CLASS_VAMPIRE_COAT:
-		case Item::ITEM_CLASS_VAMPIRE_WEAPON:
-		case Item::ITEM_CLASS_VAMPIRE_AMULET:
+		case Item::ITEM_CLASS_VAMPIRE_NECKLACE :
+		case Item::ITEM_CLASS_VAMPIRE_RING :
+		case Item::ITEM_CLASS_VAMPIRE_BRACELET :
+		case Item::ITEM_CLASS_VAMPIRE_EARRING :
+		case Item::ITEM_CLASS_VAMPIRE_COAT :
+		case Item::ITEM_CLASS_VAMPIRE_WEAPON :
+		case Item::ITEM_CLASS_VAMPIRE_AMULET :
 
 		case Item::ITEM_CLASS_OUSTERS_ARMSBAND:
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
@@ -1508,7 +1718,9 @@ bool isPossibleUpgradeItemType(Item::ItemClass IClass) {
 		case Item::ITEM_CLASS_OUSTERS_RING:
 		case Item::ITEM_CLASS_OUSTERS_STONE:
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
+
 			return true;
+
 		default :
 			return false;
 	}
@@ -1516,7 +1728,8 @@ bool isPossibleUpgradeItemType(Item::ItemClass IClass) {
 	return false;
 }
 
-ItemType_t getUpgradeItemType(Item::ItemClass IClass, ItemType_t itemType, ItemType_t upgradeCount) {
+ItemType_t getUpgradeItemType(Item::ItemClass IClass, ItemType_t itemType, ItemType_t upgradeCount)
+{
 	if (upgradeCount==0)
 		return itemType;
 
@@ -1526,25 +1739,32 @@ ItemType_t getUpgradeItemType(Item::ItemClass IClass, ItemType_t itemType, ItemT
 	// ¾ÆÀÌÅÛ ¾÷±×·¹ÀÌµå Á¤º¸°¡ DB¿¡ µé¾î°£´Ù. ¿©±â¼­´Â ÁÖ¾îÁø È¸¼ö¸¸Å­ ´ÙÀ½ ItemTypeÀ¸·Î ¿Å°Ü°£´Ù.
 	ItemType_t newItemType = itemType;
 
-	for (int i=0; i<upgradeCount; i++) {
-		ItemInfo* pItemInfo = pInfoClass->getItemInfo(newItemType);
+	for ( int i=0; i<upgradeCount; i++ )
+	{
+		ItemInfo* pItemInfo = pInfoClass->getItemInfo( newItemType );
 		Assert(pItemInfo!=NULL);
 
 		newItemType = pItemInfo->getNextItemType();
 	}
 
+	//cout << "ItemType Upgrade By Luck: " << itemType << " --[+" << upgradeCount << "]--> ";
+
 /*	int maxItemType = pInfoClass->getInfoCount()-1;
 
 	// ÀÌ¹Ì ÃÖ°í ¾ÆÀÌÅÛÀÎ °æ¿ì
 	if (itemType==maxItemType)
+	{
+		//cout << itemType << "(max)" << endl;
 		return itemType;
+	}
 
 	int itemTypeGap = 1;
 
 	// ¾ÆÀÌÅÛ ´Ü°è ¼ø¼­°¡ 2´Ü°è¾¿ µÇ¾î ÀÖ´Â ¾ÆÀÌÅÛ
 	if (IClass==Item::ITEM_CLASS_COAT
 		|| IClass==Item::ITEM_CLASS_TROUSER
-		|| IClass==Item::ITEM_CLASS_VAMPIRE_COAT) {
+		|| IClass==Item::ITEM_CLASS_VAMPIRE_COAT)
+	{
 		itemTypeGap = 2;
 	}
 
@@ -1557,27 +1777,30 @@ ItemType_t getUpgradeItemType(Item::ItemClass IClass, ItemType_t itemType, ItemT
 	// ÃÖ°í ¾ÆÀÌÅÛÀÌ À¯´ÏÅ©ÀÏ ¼öµµ ÀÖ´Âµ¥.. ÀÌ°Ç »©ÁÖÀÚ..
 	while (newItemType > itemType)
 	{
-		ItemInfo* pItemInfo = pInfoClass->getItemInfo(newItemType);
+		ItemInfo* pItemInfo = pInfoClass->getItemInfo( newItemType );
 		Assert(pItemInfo!=NULL);
 
 		// À¯´ÏÅ©¶ó¸é.. ÇÑ ´Ü°è¾¿ ³·ÃçÁØ´Ù.
 		if (pItemInfo->isUnique()) newItemType-=itemTypeGap;
 		else break;
-	}*/
+	}
+
+	//cout << newItemType << endl;*/
 
 	return newItemType;
 }
 
-ItemType_t getDowngradeItemType(Item::ItemClass IClass, ItemType_t itemType) {
+ItemType_t getDowngradeItemType(Item::ItemClass IClass, ItemType_t itemType)
+{
 	InfoClassManager* pInfoClass = g_pItemInfoManager->getInfoManager(IClass);
 	Assert(pInfoClass!=NULL);
 
-	for (int i=0; i<pInfoClass->getInfoCount(); ++i) {
-		ItemInfo* pItemInfo = pInfoClass->getItemInfo(i);
+	for ( int i=0; i<pInfoClass->getInfoCount(); ++i )
+	{
+		ItemInfo* pItemInfo = pInfoClass->getItemInfo( i );
 		Assert(pItemInfo!=NULL);
 
-		if (pItemInfo->getNextItemType() == itemType)
-			return i;
+		if ( pItemInfo->getNextItemType() == itemType ) return i;
 	}
 
 	return itemType;
@@ -1588,20 +1811,20 @@ ItemType_t getDowngradeItemType(Item::ItemClass IClass, ItemType_t itemType) {
 // Å©¸®½º¸¶½º Æ®¸® ÀÌº¥Æ®¿ë
 //////////////////////////////////////////////////////////////////////////////
 // Æ®¸® Á¶°¢À» °Ë»ö
-TPOINT checkEventTree(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
+TPOINT checkEventTree( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	TPOINT pt;
 	pt.x = -1;
 	pt.y = -1;
 
 	Inventory*		pInventory		= pPC->getInventory();
-	Item*			pCurItem		= pInventory->getItem(iX, iY);
+	Item*			pCurItem		= pInventory->getItem( iX, iY );
 
-	if (pCurItem == NULL )
+	if ( pCurItem == NULL )
 		return pt;
 
 	ItemType_t		itemType		= pCurItem->getItemType();
@@ -1609,24 +1832,24 @@ TPOINT checkEventTree(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 	CoordInven_t	startX = iX - itemType % 3; 
 	CoordInven_t	startY = iY - itemType / 3;
 
-	if (pInventory->getWidth() - 3 < startX )
+	if ( pInventory->getWidth() - 3 < startX )
 		return pt;
-	if (pInventory->getHeight() - 4 < startY )
+	if ( pInventory->getHeight() - 4 < startY )
 		return pt;
 
 	CoordInven_t curIX = 0, curIY = 0;
 	ItemType_t compType = 0;
 
 	// Æ®¸® Á¶°¢ÀÌ Á¦´ë·Î ¸ÂÃçÁ® ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-	for (curIY = startY; curIY < startY + 4; curIY++ )
+	for ( curIY = startY; curIY < startY + 4; curIY++ )
 	{
-		for (curIX = startX; curIX < startX + 3; curIX++ )
+		for ( curIX = startX; curIX < startX + 3; curIX++ )
 		{
-			pCurItem = pInventory->getItem(curIX, curIY);
-			if (pCurItem == NULL )
+			pCurItem = pInventory->getItem( curIX, curIY );
+			if ( pCurItem == NULL )
 				return pt;
 
-			if (pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
+			if ( pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
 				 pCurItem->getItemType() != compType )
 				return pt;
 
@@ -1643,20 +1866,20 @@ TPOINT checkEventTree(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 }
 
 // °í´ë¹®Çå
-TPOINT checkEventDocument(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
+TPOINT checkEventDocument( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	TPOINT pt;
 	pt.x = -1;
 	pt.y = -1;
 
 	Inventory*		pInventory		= pPC->getInventory();
-	Item*			pCurItem		= pInventory->getItem(iX, iY);
+	Item*			pCurItem		= pInventory->getItem( iX, iY );
 
-	if (pCurItem == NULL )
+	if ( pCurItem == NULL )
 		return pt;
 
 	ItemType_t		itemType		= pCurItem->getItemType();
@@ -1667,9 +1890,9 @@ TPOINT checkEventDocument(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY 
 	CoordInven_t	startX = iX - itemType % 3; 
 	CoordInven_t	startY = iY - itemType / 3;
 
-	if (pInventory->getWidth() - 3 < startX )
+	if ( pInventory->getWidth() - 3 < startX )
 		return pt;
-	if (pInventory->getHeight() - 4 < startY )
+	if ( pInventory->getHeight() - 4 < startY )
 		return pt;
 
 	CoordInven_t curIX = 0, curIY = 0;
@@ -1678,15 +1901,15 @@ TPOINT checkEventDocument(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY 
 	ItemType_t compType = 13;
 
 	// °í´ë ¹«Çå Á¶°¢ÀÌ Á¦´ë·Î ¸ÂÃçÁ® ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-	for (curIY = startY; curIY < startY + 4; curIY++ )
+	for ( curIY = startY; curIY < startY + 4; curIY++ )
 	{
-		for (curIX = startX; curIX < startX + 3; curIX++ )
+		for ( curIX = startX; curIX < startX + 3; curIX++ )
 		{
-			pCurItem = pInventory->getItem(curIX, curIY);
-			if (pCurItem == NULL )
+			pCurItem = pInventory->getItem( curIX, curIY );
+			if ( pCurItem == NULL )
 				return pt;
 
-			if (pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
+			if ( pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
 				 pCurItem->getItemType() != compType )
 				return pt;
 
@@ -1704,20 +1927,20 @@ TPOINT checkEventDocument(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY 
 
 // ÀÎÇü -_-;; ÀÌ°Å ÀÏ¹ÝÈ­ ±Ý¹æ ½ÃÅ³ °Í °°Àºµ¥ ;; ÀÎÀÚ¸¸ ÇÏ³ª ´õ ¹Þµµ·Ï ÇÏ¸é -_-;
 // ´ã¿¡ Äù½ºÆ® ¶§´Â ÀÏ¹ÝÈ­ ½ÃÅ°µµ·Ï ÇÏÀÚ. ¤Ñ.¤Ña
-TPOINT checkEventDoll(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
+TPOINT checkEventDoll( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 {
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	TPOINT pt;
 	pt.x = -1;
 	pt.y = -1;
 
 	Inventory*		pInventory		= pPC->getInventory();
-	Item*			pCurItem		= pInventory->getItem(iX, iY);
+	Item*			pCurItem		= pInventory->getItem( iX, iY );
 
-	if (pCurItem == NULL )
+	if ( pCurItem == NULL )
 		return pt;
 
 	ItemType_t		itemType		= pCurItem->getItemType();
@@ -1728,9 +1951,9 @@ TPOINT checkEventDoll(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 	CoordInven_t	startX = iX - itemType % 3; 
 	CoordInven_t	startY = iY - itemType / 3;
 
-	if (pInventory->getWidth() - 3 < startX )
+	if ( pInventory->getWidth() - 3 < startX )
 		return pt;
-	if (pInventory->getHeight() - 4 < startY )
+	if ( pInventory->getHeight() - 4 < startY )
 		return pt;
 
 	CoordInven_t curIX = 0, curIY = 0;
@@ -1739,15 +1962,15 @@ TPOINT checkEventDoll(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 	ItemType_t compType = 29;
 
 	// °í´ë ¹«Çå Á¶°¢ÀÌ Á¦´ë·Î ¸ÂÃçÁ® ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-	for (curIY = startY; curIY < startY + 4; curIY++ )
+	for ( curIY = startY; curIY < startY + 4; curIY++ )
 	{
-		for (curIX = startX; curIX < startX + 3; curIX++ )
+		for ( curIX = startX; curIX < startX + 3; curIX++ )
 		{
-			pCurItem = pInventory->getItem(curIX, curIY);
-			if (pCurItem == NULL )
+			pCurItem = pInventory->getItem( curIX, curIY );
+			if ( pCurItem == NULL )
 				return pt;
 
-			if (pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
+			if ( pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
 				 pCurItem->getItemType() != compType )
 				return pt;
 
@@ -1765,19 +1988,20 @@ TPOINT checkEventDoll(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY )
 */
 
 // ÀÏ¹ÝÈ­ ½ÃÅ² °Å checkEventTree ¶û checkEventDocument ¶û checkEventDoll Àº Áö¿ìÀÚ
-TPOINT checkEventPuzzle(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, int start) {
+TPOINT checkEventPuzzle( PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, int start)
+{
 	__BEGIN_TRY
 
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	TPOINT pt;
 	pt.x = -1;
 	pt.y = -1;
 
-	Inventory* pInventory = pPC->getInventory();
-	Item* pCurItem = pInventory->getItem(iX, iY);
+	Inventory*		pInventory		= pPC->getInventory();
+	Item*			pCurItem		= pInventory->getItem( iX, iY );
 
-	if (pCurItem == NULL )
+	if ( pCurItem == NULL )
 		return pt;
 
 	ItemType_t		itemType		= pCurItem->getItemType();
@@ -1787,22 +2011,24 @@ TPOINT checkEventPuzzle(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, i
 	CoordInven_t	startX = iX - itemType % 3; 
 	CoordInven_t	startY = iY - itemType / 3;
 
-	if (pInventory->getWidth() - 3 < startX )
+	if ( pInventory->getWidth() - 3 < startX )
 		return pt;
-	if (pInventory->getHeight() - 4 < startY )
+	if ( pInventory->getHeight() - 4 < startY )
 		return pt;
 
 	CoordInven_t curIX = 0, curIY = 0;
 
 	ItemType_t compType = start;
 
-	for (curIY = startY; curIY < startY + 4; curIY++) {
-		for (curIX = startX; curIX < startX + 3; curIX++) {
-			pCurItem = pInventory->getItem(curIX, curIY);
-			if (pCurItem == NULL )
+	for ( curIY = startY; curIY < startY + 4; curIY++ )
+	{
+		for ( curIX = startX; curIX < startX + 3; curIX++ )
+		{
+			pCurItem = pInventory->getItem( curIX, curIY );
+			if ( pCurItem == NULL )
 				return pt;
 
-			if (pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
+			if ( pCurItem->getItemClass() != Item::ITEM_CLASS_EVENT_TREE || 
 				 pCurItem->getItemType() != compType )
 				return pt;
 
@@ -1819,25 +2045,29 @@ TPOINT checkEventPuzzle(PlayerCreature* pPC, CoordInven_t iX, CoordInven_t iY, i
 }
 
 // ÀÎº¥Åä¸®ÀÇ (X0, Y0) - (X1, y1) ¹üÀ§ÀÇ ¾ÆÀÌÅÛÀ» Áö¿î´Ù.
-void deleteInventoryItem(Inventory* pInventory, CoordInven_t invenX0, CoordInven_t invenY0, CoordInven_t invenX1, CoordInven_t invenY1) {
+void deleteInventoryItem( Inventory* pInventory, CoordInven_t invenX0, CoordInven_t invenY0, CoordInven_t invenX1, CoordInven_t invenY1 )
+{
 	__BEGIN_TRY
 	
 	CoordInven_t curIX = 0, curIY = 0;
 	Item* pCurItem = 0;
 
 	// ¸ÂÃçÁø Æ®¸® Á¶°¢À» Áö¿î´Ù.
-	for (curIY = invenY0; curIY <= invenY1; curIY++) {
-		for (curIX = invenX0; curIX <= invenX1; curIX++) {
-			pCurItem = pInventory->getItem(curIX, curIY);
+	for ( curIY = invenY0; curIY <= invenY1; curIY++ )
+	{
+		for ( curIX = invenX0; curIX <= invenX1; curIX++ )
+		{
+			pCurItem = pInventory->getItem( curIX, curIY );
 
-			if (pCurItem != NULL) {
+			if ( pCurItem != NULL )
+			{
 				// ÀÎº¥Åä¸®¿¡¼­ Áö¿î´Ù.
-				pInventory->deleteItem(pCurItem->getObjectID());
+				pInventory->deleteItem( pCurItem->getObjectID() );
 
 				// DB ¿¡¼­ ³¯¸°´Ù.
 				pCurItem->destroy();
 
-				SAFE_DELETE(pCurItem);
+				SAFE_DELETE( pCurItem );
 			}
 		}
 	}
@@ -1857,21 +2087,24 @@ const int maxNewbieItemNum = 8;
 
 const NewbieItem NewbieItems[maxNewbieItemNum] =
 {
-	{Item::ITEM_CLASS_SWORD,	0, 4, 3, 1},
-	{Item::ITEM_CLASS_BLADE,	0, 2, 3, 1},
-	{Item::ITEM_CLASS_CROSS,	9, 0, 3, 1},
-	{Item::ITEM_CLASS_MACE,		0, 0, 0, 1},
-	{Item::ITEM_CLASS_AR,		0, 2, 0, 1},
-	{Item::ITEM_CLASS_MAGAZINE,	2, 4, 0, 20},
-	{Item::ITEM_CLASS_POTION,	0, 9, 4, 9},
-	{Item::ITEM_CLASS_POTION,	5, 9, 5, 9},
+	{ Item::ITEM_CLASS_SWORD,	0, 4, 3, 1 },
+	{ Item::ITEM_CLASS_BLADE,	0, 2, 3, 1 },
+	{ Item::ITEM_CLASS_CROSS,	0, 0, 3, 1 },
+	{ Item::ITEM_CLASS_MACE,	0, 0, 0, 1 },
+	{ Item::ITEM_CLASS_AR,		0, 2, 0, 1 },
+	{ Item::ITEM_CLASS_MAGAZINE,2, 4, 0, 20 },
+	{ Item::ITEM_CLASS_POTION,	0, 9, 4, 9 },
+	{ Item::ITEM_CLASS_POTION,	5, 9, 5, 9 },
 };
 
 // ÀÎº¥Åä¸®¿¡ ÃÊº¸ÀÚ¿ë ¾ÆÀÌÅÛÀ» ³Ö¾îÁØ´Ù.
-bool addNewbieItemToInventory(Slayer* pSlayer, bool sendPacket) throw(Error) {
+bool addNewbieItemToInventory( Slayer* pSlayer, bool sendPacket )
+	throw(Error)
+{
 	__BEGIN_TRY
 
-	if(sendPacket) {
+	if( sendPacket )
+	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieItemToInventory() function!");
 		return false;
 	}
@@ -1880,45 +2113,50 @@ bool addNewbieItemToInventory(Slayer* pSlayer, bool sendPacket) throw(Error) {
 	Inventory* pInventory = pSlayer->getInventory();
 	ObjectRegistry& objectRegister = pZone->getObjectRegistry();
 
-	if(pInventory == NULL) return false;
-	if(pZone == NULL) return false;
+	if( pInventory == NULL ) return false;
+	if( pZone == NULL ) return false;
 
-	if(pInventory->getItemNum() != 0) return false;
+	if( pInventory->getItemNum() != 0 ) return false;
 
 	list<OptionType_t> olist;
 	GCCreateItem gcCreateItem;
 
-	Item::ItemClass bestWeapon = getBestNewbieWeaponClass(pSlayer);
+	Item::ItemClass bestWeapon = getBestNewbieWeaponClass( pSlayer );
 
-	for(int i=0; i<maxNewbieItemNum; i++) {
-		Item* pItem = g_pItemFactoryManager->createItem(NewbieItems[i].itemClass, NewbieItems[i].itemType, olist);
-		pItem->setCreateType(Item::CREATE_TYPE_GAME);
-		objectRegister.registerObject(pItem);
+	for( int i=0; i<maxNewbieItemNum; i++ )
+	{
+		Item* pItem = g_pItemFactoryManager->createItem( NewbieItems[i].itemClass, NewbieItems[i].itemType, olist );
+		pItem->setCreateType( Item::CREATE_TYPE_GAME );
+		objectRegister.registerObject( pItem );
 
-		pItem->setNum(NewbieItems[i].num);
+		pItem->setNum( NewbieItems[i].num );
 
 		bool weared = false;
 
-		if(pItem->getItemClass() == bestWeapon) {
+		if( pItem->getItemClass() == bestWeapon )
+		{
 
-			if(!pSlayer->isWear(Slayer::WEAR_RIGHTHAND)) {
-				pSlayer->wearItem(Slayer::WEAR_RIGHTHAND , pItem);
-				pItem->create(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0, pItem->getItemID());
+			if( !pSlayer->isWear( Slayer::WEAR_RIGHTHAND ) )
+			{
+				pSlayer->wearItem( Slayer::WEAR_RIGHTHAND , pItem );
+				pItem->create( pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0, pItem->getItemID() );
 				weared = true;
 			}
 			
 		}
-		if(!weared)
-		if(pInventory->addItem(NewbieItems[i].x, NewbieItems[i].y, pItem)) {
-			pItem->create(pSlayer->getName(), STORAGE_INVENTORY, 0, NewbieItems[i].x, NewbieItems[i].y, pItem->getItemID());
+		if( !weared )
+		if( pInventory->addItem( NewbieItems[i].x, NewbieItems[i].y, pItem ) )
+		{
+			pItem->create( pSlayer->getName(), STORAGE_INVENTORY, 0, NewbieItems[i].x, NewbieItems[i].y, pItem->getItemID() );
 
-			if(sendPacket) {
-			/*gcCreateItem.setObjectID(pItem->getObjectID());
-			gcCreateItem.setItemClass(pItem->getItemClass());
-			gcCreateItem.setItemType(pItem->getItemType());
-			gcCreateItem.setObjectType(pItem->getOptionTypeList());
-			gcCreateItem.setDurability(pItem->getDurability());
-			gcCreateItem.setSilver(pItem->getSilver());
+			if( sendPacket )
+			{
+			/*gcCreateItem.setObjectID( pItem->getObjectID() );
+			gcCreateItem.setItemClass( pItem->getItemClass() );
+			gcCreateItem.setItemType( pItem->getItemType() );
+			gcCreateItem.setObjectType( pItem->getOptionTypeList() );
+			gcCreateItem.setDurability( pItem->getDurability() );
+			gcCreateItem.setSilver( pItem->getSilver() );
 			if (pItem->getItemClass() == Item::ITEM_CLASS_MAGAZINE)
 			{
 				Magazine* pMag = dynamic_cast<Magazine*>(pItem);
@@ -1929,29 +2167,32 @@ bool addNewbieItemToInventory(Slayer* pSlayer, bool sendPacket) throw(Error) {
 				gcCreateItem.setItemNum(pItem->getNum());
 			}
 
-			gcCreateItem.setInvenX(NewbieItems[i][2]);
-			gcCreateItem.setInvenY(NewbieItems[i][3]);
+			gcCreateItem.setInvenX( NewbieItems[i][2] );
+			gcCreateItem.setInvenY( NewbieItems[i][3] );
 
-			pPlayer->sendPacket(&gcCreateItem);*/
+			pPlayer->sendPacket( &gcCreateItem );*/
 			}
 		}
 	}
 
 	return true;
+	
 	__END_CATCH
 }
 
-bool addNewbieGoldToInventory(Slayer* pSlayer, bool sendPacket )
-	throw(Error) {
+bool addNewbieGoldToInventory( Slayer* pSlayer, bool sendPacket )
+	throw(Error)
+{
 	__BEGIN_TRY
 
-	if(sendPacket) {
+	if( sendPacket )
+	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieGoldToInventory() function!");
 		return false;
 	}
 
-	if(pSlayer == NULL) return false;
-	if(pSlayer->getGold() != 0) return false;
+	if( pSlayer == NULL ) return false;
+	if( pSlayer->getGold() != 0 ) return false;
 
 	pSlayer->setGoldEx(500);
 
@@ -1960,38 +2201,41 @@ bool addNewbieGoldToInventory(Slayer* pSlayer, bool sendPacket )
 	__END_CATCH
 }
 
-bool addNewbieItemToGear(Slayer* pSlayer, bool sendPacket) throw(Error) {
+bool addNewbieItemToGear( Slayer* pSlayer, bool sendPacket )
+	throw(Error)
+{
 	__BEGIN_TRY
 
-	if(sendPacket) {
+	if( sendPacket )
+	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieItemToGear() function!");
 		return false;
 	}
 
-	if(pSlayer == NULL) return false;
+	if( pSlayer == NULL ) return false;
 
 	Zone* pZone = pSlayer->getZone();
 	ObjectRegistry& objectRegister = pZone->getObjectRegistry();
 
-	if(pZone == NULL ) return false;
+	if( pZone == NULL ) return false;
 	
 	list<OptionType_t> olist;
 
-	if(!pSlayer->isWear(Slayer::WEAR_BODY ) && !pSlayer->isWear(Slayer::WEAR_LEG ) )
+	if( !pSlayer->isWear( Slayer::WEAR_BODY ) && !pSlayer->isWear( Slayer::WEAR_LEG ) )
 	{
-		Item* pCoat = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_COAT, ((pSlayer->getSex()==MALE)?0:1), olist);
-		Item* pTrouser = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_TROUSER, ((pSlayer->getSex()==MALE)?0:1), olist);
-		pCoat->setCreateType(Item::CREATE_TYPE_GAME);
-		pTrouser->setCreateType(Item::CREATE_TYPE_GAME);
+		Item* pCoat = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_COAT, ((pSlayer->getSex()==MALE)?0:1), olist );
+		Item* pTrouser = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_TROUSER, ((pSlayer->getSex()==MALE)?0:1), olist );
+		pCoat->setCreateType( Item::CREATE_TYPE_GAME );
+		pTrouser->setCreateType( Item::CREATE_TYPE_GAME );
 
-		objectRegister.registerObject(pCoat);
-		objectRegister.registerObject(pTrouser);
+		objectRegister.registerObject( pCoat );
+		objectRegister.registerObject( pTrouser );
 
-		pCoat->create(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_BODY, 0, pCoat->getItemID());
-		pTrouser->create(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_LEG, 0, pTrouser->getItemID());
+		pCoat->create( pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_BODY, 0, pCoat->getItemID() );
+		pTrouser->create( pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_LEG, 0, pTrouser->getItemID() );
 		
-		pSlayer->wearItem(Slayer::WEAR_BODY, pCoat);
-		pSlayer->wearItem(Slayer::WEAR_LEG , pTrouser);
+		pSlayer->wearItem( Slayer::WEAR_BODY, pCoat );
+		pSlayer->wearItem( Slayer::WEAR_LEG , pTrouser );
 	}
 
 	return true;
@@ -1999,18 +2243,18 @@ bool addNewbieItemToGear(Slayer* pSlayer, bool sendPacket) throw(Error) {
 	__END_CATCH
 }
 
-bool addNewbieGoldToInventory(Ousters* pOusters, bool sendPacket) throw(Error)
+bool addNewbieGoldToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if(sendPacket )
+	if( sendPacket )
 	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieItemToInventory() function!");
 		return false;
 	}
 
-	if(pOusters == NULL ) return false;
-	if(pOusters->getGold() != 0 ) return false;
+	if( pOusters == NULL ) return false;
+	if( pOusters->getGold() != 0 ) return false;
 
 	pOusters->setGoldEx(500);
 
@@ -2019,82 +2263,84 @@ bool addNewbieGoldToInventory(Ousters* pOusters, bool sendPacket) throw(Error)
 	__END_CATCH
 }
 
-bool addNewbieItemToInventory(Ousters* pOusters, bool sendPacket) throw(Error)
+bool addNewbieItemToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if(sendPacket )
+	if( sendPacket )
 	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieGoldToInventory() function!");
 		return false;
 	}
 
-	if(pOusters == NULL ) return false;
+	if( pOusters == NULL ) return false;
 
 	Zone* pZone = pOusters->getZone();
-	if (pZone == NULL ) return false;
+	if ( pZone == NULL ) return false;
 	
 	Inventory* pInventory = pOusters->getInventory();
-	if (pInventory == NULL ) return false;
+	if ( pInventory == NULL ) return false;
 
-	if (pInventory->getItemNum() != 0 ) return false;
+	if ( pInventory->getItemNum() != 0 ) return false;
 
-	Item* pPupa = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_PUPA, 0, list<OptionType_t>());
-	Item* pLarva = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_LARVA, 0, list<OptionType_t>());
+	Item* pPupa = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_PUPA, 0, list<OptionType_t>() );
+	Item* pLarva = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_LARVA, 0, list<OptionType_t>() );
 
-	Assert(pPupa != NULL);
-	Assert(pLarva != NULL);
+	Assert( pPupa != NULL );
+	Assert( pLarva != NULL );
 
 	pPupa->setNum(9);
 	pLarva->setNum(9);
-	pPupa->setCreateType(Item::CREATE_TYPE_GAME);
-	pLarva->setCreateType(Item::CREATE_TYPE_GAME);
+	pPupa->setCreateType( Item::CREATE_TYPE_GAME );
+	pLarva->setCreateType( Item::CREATE_TYPE_GAME );
 
-	pZone->registerObject(pPupa);
-	pZone->registerObject(pLarva);
+	pZone->registerObject( pPupa );
+	pZone->registerObject( pLarva );
 	
 	_TPOINT tp;
-	pInventory->addItem(pPupa, tp);
-	pPupa->create(pOusters->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y, pPupa->getItemID());
-	pInventory->addItem(pLarva, tp);
-	pLarva->create(pOusters->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y, pLarva->getItemID());
+	pInventory->addItem( pPupa, tp );
+	pPupa->create( pOusters->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y, pPupa->getItemID() );
+	pInventory->addItem( pLarva, tp );
+	pLarva->create( pOusters->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y, pLarva->getItemID() );
 
 	return true;
 
 	__END_CATCH
 }
 
-bool addNewbieItemToGear(Ousters* pOusters, bool sendPacket) throw(Error)
+bool addNewbieItemToGear( Ousters* pOusters, bool sendPacket = false ) throw(Error)
 {
 	__BEGIN_TRY
 
-	if(sendPacket )
+	if( sendPacket )
 	{
 		filelog("NewbieItemError.log", "Someone request packet to addNewbieItemToInventory() function!");
 		return false;
 	}
 
-	if(pOusters == NULL ) return false;
+	if( pOusters == NULL ) return false;
 	Zone* pZone = pOusters->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	if (pOusters->getWearItem(Ousters::WEAR_RIGHTHAND) != NULL ) return false;
+	if ( pOusters->getWearItem(Ousters::WEAR_RIGHTHAND) != NULL ) return false;
 
-	Item* pWeapon = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_OUSTERS_CHAKRAM, 0, list<OptionType_t>());
-	Assert(pWeapon != NULL);
+	Item* pWeapon = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_OUSTERS_CHAKRAM, 0, list<OptionType_t>() );
+	Assert( pWeapon != NULL );
 
-	pWeapon->setCreateType(Item::CREATE_TYPE_GAME);
-	pZone->registerObject(pWeapon);
+	pWeapon->setCreateType( Item::CREATE_TYPE_GAME );
+	pZone->registerObject( pWeapon );
 
 	pOusters->wearItem(Ousters::WEAR_RIGHTHAND, pWeapon);
-	pWeapon->create(pOusters->getName(), STORAGE_GEAR, 0, Ousters::WEAR_RIGHTHAND, 0, pWeapon->getItemID());
+	pWeapon->create( pOusters->getName(), STORAGE_GEAR, 0, Ousters::WEAR_RIGHTHAND, 0, pWeapon->getItemID() );
 
 	return true;
 
 	__END_CATCH
 }
 
-Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer) throw(Error) {
+Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer)
+	throw (Error)
+{
 	__BEGIN_TRY
 
 	Assert(pSlayer!=NULL);
@@ -2105,10 +2351,14 @@ Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer) throw(Error) {
 
 	// STR
 	if (STR>=DEX && STR>=INT)
+	{
 		return (rand()%2? Item::ITEM_CLASS_SWORD : Item::ITEM_CLASS_BLADE);
+	}
 	// DEX
 	else if (DEX>=STR && DEX>=INT)
+	{
 		return Item::ITEM_CLASS_AR;
+	}
 
 	// INT
 	return (rand()%2? Item::ITEM_CLASS_CROSS : Item::ITEM_CLASS_MACE);
@@ -2120,7 +2370,7 @@ Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer) throw(Error) {
 void makeOptionList(const string& options, list<OptionType_t>& optionList)
 	throw(Error)
 {
-    size_t a = 0, b = 0;
+	uint a = 0, b = 0;
 
 	//////////////////////////////////////////////
 	// DEX+1,INT+2
@@ -2133,7 +2383,7 @@ void makeOptionList(const string& options, list<OptionType_t>& optionList)
 	{
 		b = options.find_first_of(',', a);
 
-		string  optionName = trim(options.substr(a, b-a));
+		string  optionName = trim( options.substr(a, b-a) );
 
 		OptionType_t optionType;
 		
@@ -2143,7 +2393,7 @@ void makeOptionList(const string& options, list<OptionType_t>& optionList)
 			throw Error("±×·± ¿É¼ÇÀÌ ¾ø´Ü´Ù.");
 		}
 
-		optionList.push_back(optionType);
+		optionList.push_back( optionType );
 
 		a = b+1;
 
@@ -2152,7 +2402,7 @@ void makeOptionList(const string& options, list<OptionType_t>& optionList)
 
 void
 saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -2164,21 +2414,26 @@ saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y)
 	switch (pTreasure->getItemClass())
 	{	
 		case Item::ITEM_CLASS_RELIC:
-		// RelicÀº DB¿¡ ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù.
+		{
+			// RelicÀº DB¿¡ ÀúÀåÇÒ ÇÊ¿ä ¾ø´Ù.
+		}
 		break;
 
 		case Item::ITEM_CLASS_BLOOD_BIBLE:
 		case Item::ITEM_CLASS_CASTLE_SYMBOL:
-		case Item::ITEM_CLASS_SWEEPER: {
+		case Item::ITEM_CLASS_SWEEPER:
+		{
 			char query[128];
 
-			sprintf(query, "ObjectID = %lu, Storage=%u, StorageID=%u, X=%u, Y=%u", pTreasure->getObjectID(), STORAGE_ZONE, pCreature->getZone()->getZoneID(), x, y);
-			pTreasure->tinysave(query);
+			sprintf( query, "ObjectID = %lu, Storage=%u, StorageID=%u, X=%u, Y=%u",
+					pTreasure->getObjectID(), STORAGE_ZONE, pCreature->getZone()->getZoneID(), x, y);
+			pTreasure->tinysave( query );
 		}
 		break;
 
-		default: {
-			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pTreasure->getItemClass(), pTreasure->getItemType());
+		default:
+		{
+			ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pTreasure->getItemClass(), pTreasure->getItemType() );
 			Assert(pItemInfo!=NULL);
 
 			// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì´Â
@@ -2192,7 +2447,8 @@ saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y)
 			//     CGDissectionCorpse¸¦ ÅëÇØ¼­ »ý¼º(!)µÇ°í
 			//     EffectDecayItemÀ» ÅëÇØ¼­¸¸ Á¦°ÅµÈ´Ù.
 
-			if (pItemInfo->isUnique()) {
+			if (pItemInfo->isUnique())
+			{
 				pTreasure->setUnique();
 				UniqueItemManager::createItem(pTreasure->getItemClass(), pTreasure->getItemType());
 				filelog("uniqueItem.txt", "[CGDissectionCorpse] %s %s", pCreature->getName().c_str(), pTreasure->toString().c_str());
@@ -2201,26 +2457,26 @@ saveDissectionItem(Creature* pCreature, Item* pTreasure, int x, int y)
 			// ±âÁ¸ÀÇ ItemID¸¦ ±×´ë·Î À¯ÁöÇÑ´Ù.
 			// ItemID°¡ 0ÀÌ¸é.. create()ÇÒ¶§ ´Ù½Ã ItemID¸¦ ¹Þ´Â´Ù.
 			// by sigi. 2002.10.28
-			pTreasure->create("", STORAGE_ZONE, pCreature->getZone()->getZoneID(), x, y, pTreasure->getItemID());
+			pTreasure->create("", STORAGE_ZONE, pCreature->getZone()->getZoneID(), x, y, pTreasure->getItemID() );
 		}
 	}
 
 	__END_CATCH
 }
 
-bool canDecreaseDurability(Item* pItem )
+bool canDecreaseDurability( Item* pItem )
 	throw(Error)
 {
 	__BEGIN_TRY
 
-	if (pItem == NULL ) return false;
-	if (pItem->isUnique() ) return false;
-	if (pItem->isTimeLimitItem() ) return false;
-	if (pItem->isQuestItem() ) return false;
-	if (pItem->isFlagItem() ) return false;
-	if (pItem->getDurability() == 0 ) return false;
+	if ( pItem == NULL ) return false;
+	if ( pItem->isUnique() ) return false;
+	if ( pItem->isTimeLimitItem() ) return false;
+	if ( pItem->isQuestItem() ) return false;
+	if ( pItem->isFlagItem() ) return false;
 
-	switch (pItem->getItemClass()) {
+	switch ( pItem->getItemClass() )
+	{
 		case Item::ITEM_CLASS_VAMPIRE_AMULET:
 		case Item::ITEM_CLASS_COUPLE_RING:
 		case Item::ITEM_CLASS_VAMPIRE_COUPLE_RING:
@@ -2238,149 +2494,103 @@ bool canDecreaseDurability(Item* pItem )
 	__END_CATCH
 }
 
-bool canSell(Item* pItem) {
-	if (pItem==NULL ) return false;
-	if (pItem->isTimeLimitItem()) return true;
-	if (pItem->isUnique() ) return false;
-	if (isCoupleRing(pItem ) ) return false;
-	if (pItem->isQuestItem() ) return false;
-	if (pItem->isFlagItem() ) return false;
-	// Äù½ºÆ® ¾ÆÀÌÅÛÀº 50¿ø¿¡ ÆÈ ¼ö ÀÖ´Ù.
-	//if (pItem->isTimeLimitItem() ) return false;
-
-	Item::ItemClass itemClass = pItem->getItemClass();
-
-	if (itemClass==Item::ITEM_CLASS_MOTORCYCLE ||
-		itemClass==Item::ITEM_CLASS_KEY ||
-		itemClass==Item::ITEM_CLASS_CORPSE ||
-		itemClass==Item::ITEM_CLASS_MONEY ||
-		itemClass==Item::ITEM_CLASS_PET_ITEM ||
-		//|| itemClass==Item::ITEM_CLASS_EVENT_GIFT_BOX
-		isRelicItem(itemClass)) {
-		return false;
-	}
-	if (itemClass == Item::ITEM_CLASS_SWEEPER ) return false;
-	if (itemClass==Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() != 28 ) return false;
-
-	if (itemClass == Item::ITEM_CLASS_SUB_INVENTORY) {
-		SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-		if (pSubInventory->getInventory()->getItemNum() != 0 ) return false;
-	}
-
-	return true;
-}
-
-bool canPutInStash(Item* pItem )
+bool canSell( Item* pItem )
 {
-	if (pItem==NULL ) return false;
-	if (pItem->isUnique() ) return false;
-	if (pItem->isTimeLimitItem() ) return false;
-	if (isRelicItem(pItem ) ) return false;
-	if (isCoupleRing(pItem ) ) return false;
-	if (pItem->isQuestItem() ) return false;
-	if (pItem->isFlagItem() ) return false;
+
+
+
+	if ( pItem==NULL ) return false;
+	if ( pItem->isTimeLimitItem() ) return true;
+
+	if ( pItem->isUnique() ) return false;
+	if ( isCoupleRing( pItem ) ) return false;
+
+
+	if ( pItem->isQuestItem() ) return false;
+	if ( pItem->isFlagItem() ) return false;
+	// Äù½ºÆ® ¾ÆÀÌÅÛÀº 50¿ø¿¡ ÆÈ ¼ö ÀÖ´Ù.
+	//if ( pItem->isTimeLimitItem() ) return false;
 
 	Item::ItemClass itemClass = pItem->getItemClass();
 
-	if (itemClass == Item::ITEM_CLASS_EVENT_ITEM ) return false;
-	if (itemClass == Item::ITEM_CLASS_SWEEPER ) return false;
-
-	if (itemClass == Item::ITEM_CLASS_LUCKY_BAG && pItem->getItemType() == 3 ) return false;
-	if (itemClass == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 28 ) return false;
-
-	if (itemClass == Item::ITEM_CLASS_SUB_INVENTORY) {
-		SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-		if (pSubInventory->getInventory()->getItemNum() != 0 ) return false;
-	}
-
-	ItemType_t iType = pItem->getItemType();
-
-	// ÆÐ¹Ð¸® ÄÚÀÎ. ½ºÅÂ½¬¿¡ ³Ö±â ºÒ°¡
-	if (itemClass == Item::ITEM_CLASS_EVENT_ETC && iType == 18 )
+	if ( itemClass==Item::ITEM_CLASS_MOTORCYCLE
+		|| itemClass==Item::ITEM_CLASS_KEY
+		|| itemClass==Item::ITEM_CLASS_CORPSE
+		|| itemClass==Item::ITEM_CLASS_MONEY
+		|| itemClass==Item::ITEM_CLASS_PET_ITEM
+		//          || itemClass==Item::ITEM_CLASS_EVENT_GIFT_BOX
+		|| isRelicItem( itemClass )
+	)
 		return false;
+	if ( itemClass == Item::ITEM_CLASS_SWEEPER ) return false;
+
+	// edit by coffee 2007-7-7 ÐÞ¸ÄÈÎÎñÎïÆ· ÉúÃüÂÝÐýÎª¿É³öÊÛ
+	if ( itemClass==Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 31 ) return true;
+
+	if ( itemClass==Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() != 28 ) return false;
 
 	return true;
 }
 
-bool canTrade(Item* pItem) {
-	if (pItem==NULL ) return false;
-	if (isRelicItem(pItem ) ) return false;
-	if (isCoupleRing(pItem ) ) return false;
-	if (pItem->isTimeLimitItem() ) return false;
-	if (pItem->isQuestItem() ) return false;
-	if (pItem->isFlagItem() ) return false;
+bool canPutInStash( Item* pItem )
+{
+	if ( pItem==NULL ) return false;
+	if ( pItem->isUnique() ) return false;
+	if ( pItem->isTimeLimitItem() ) return false;
+	if ( isRelicItem( pItem ) ) return false;
+	if ( isCoupleRing( pItem ) ) return false;
+	if ( pItem->isQuestItem() ) return false;
+	if ( pItem->isFlagItem() ) return false;
+
+	Item::ItemClass itemClass = pItem->getItemClass();
+
+	if ( itemClass == Item::ITEM_CLASS_EVENT_ITEM ) return false;
+	if ( itemClass == Item::ITEM_CLASS_SWEEPER ) return false;
+
+	if ( itemClass == Item::ITEM_CLASS_LUCKY_BAG && pItem->getItemType() == 3 ) return false;
+	if ( itemClass == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 28 ) return false;
+
+	return true;
+}
+
+bool canTrade( Item* pItem )
+{
+	if ( pItem==NULL ) return false;
+	if ( isRelicItem( pItem ) ) return false;
+	if ( isCoupleRing( pItem ) ) return false;
+	if ( pItem->isTimeLimitItem() ) return false;
+	if ( pItem->isQuestItem() ) return false;
+	if ( pItem->isFlagItem() ) return false;
 
 	Item::ItemClass itemClass = pItem->getItemClass();
 	ItemType_t itemType = pItem->getItemType();
 
-	if (itemClass == Item::ITEM_CLASS_EVENT_ITEM )
+	if ( itemClass == Item::ITEM_CLASS_EVENT_ITEM )
 		return false;
-	if (itemClass == Item::ITEM_CLASS_SWEEPER )
-		return false;
+	if ( itemClass == Item::ITEM_CLASS_SWEEPER ) return false;
 
 	// ¹Ý´Þ Ä«µå´Â Æ®·¹ÀÌµå ÇÒ ¼ö ¾ø´Ù.
-	if (itemClass == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 0 )
+	if ( itemClass == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 0 )
 		return false;
 
 	// ÇÁ¸®¹Ì¾ö Ã¼Çè±Ç Á¶°¢ -_-
-	if (itemClass == Item::ITEM_CLASS_LUCKY_BAG && pItem->getItemType() == 3 ) return false;
-	if (itemClass == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 28 ) return false;
-	if (itemClass == Item::ITEM_CLASS_EFFECT_ITEM && pItem->getItemType() >= 4 && pItem->getItemType() <= 6 ) return false;
+	if ( itemClass == Item::ITEM_CLASS_LUCKY_BAG && pItem->getItemType() == 3 ) return false;
+	if ( itemClass == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 28 ) return false;
+	if ( itemClass == Item::ITEM_CLASS_EFFECT_ITEM && pItem->getItemType() >= 4 && pItem->getItemType() <= 6 ) return false;
 
 	// ÀÌº¥Æ® ¶±±¹Àº ±³È¯ ºÒ°¡.
-	if (itemClass == Item::ITEM_CLASS_EVENT_STAR && (itemType >= 17 && itemType <= 21 ) )
+	if ( itemClass == Item::ITEM_CLASS_EVENT_STAR && ( itemType >= 17 && itemType <= 21 ) )
 		return false;
 
 	// º¹Á¶¸® ¾ÆÀÌÅÛ ±³È¯ ºÒ°¡
-	if (itemClass == Item::ITEM_CLASS_MIXING_ITEM && itemType == 18 )
+	if ( itemClass == Item::ITEM_CLASS_MIXING_ITEM && itemType == 18 )
 		return false;
 
-	if (itemClass == Item::ITEM_CLASS_SUB_INVENTORY )
-	{
-		SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-		Assert(pSubInventory != NULL);
-
-		if (pSubInventory->getInventory()->getItemNum() != 0 ) return false;
-	}
-
 	return true;
 }
-
-bool canTradeInventoryItem(Item* pItem) {
-	if (pItem==NULL ) return false;
-
-	Item::ItemClass itemClass = pItem->getItemClass();
-
-	if (itemClass == Item::ITEM_CLASS_SUB_INVENTORY )
-	{
-		SubInventory* pSubInventory = dynamic_cast<SubInventory*>(pItem);
-		Assert(pSubInventory != NULL);
-
-		if (pSubInventory->getInventory()->getItemNum() != 0 ) return false;
-	}
-
-	if (itemClass == Item::ITEM_CLASS_BELT )
-	{
-		Belt* pBelt = dynamic_cast<Belt*>(pItem);
-		Assert(pBelt != NULL);
-
-		if (pBelt->getInventory()->getItemNum() != 0 ) return false;
-	}
-
-	if (itemClass == Item::ITEM_CLASS_OUSTERS_ARMSBAND )
-	{
-		OustersArmsband* pArmsband = dynamic_cast<OustersArmsband*>(pItem);
-		Assert(pArmsband != NULL);
-
-		if (pArmsband->getInventory()->getItemNum() != 0 ) return false;
-	}
-
-	return true;
-}
-
-bool isCoupleRing(Item* pItem )
+bool isCoupleRing( Item* pItem )
 {
-	switch (pItem->getItemClass() )
+	switch ( pItem->getItemClass() )
 	{
 		case Item::ITEM_CLASS_COUPLE_RING:
 		case Item::ITEM_CLASS_VAMPIRE_COUPLE_RING:
@@ -2390,163 +2600,165 @@ bool isCoupleRing(Item* pItem )
 	}
 }
 
-bool suitableItemClass(Item::ItemClass iClass, SkillDomainType_t domainType )
+bool suitableItemClass( Item::ItemClass iClass, SkillDomainType_t domainType )
 {
-	switch (domainType )
+	switch ( domainType )
 	{
 		case SKILL_DOMAIN_BLADE:
-			if (iClass == Item::ITEM_CLASS_BLADE ) return true;
+			if ( iClass == Item::ITEM_CLASS_BLADE ) return true;
 			return false;
 			
 		case SKILL_DOMAIN_SWORD:
-			if (iClass == Item::ITEM_CLASS_SWORD ) return true;
+			if ( iClass == Item::ITEM_CLASS_SWORD ) return true;
 			return false;
 			
 		case SKILL_DOMAIN_GUN:
-			if (iClass == Item::ITEM_CLASS_AR ||
+			if ( iClass == Item::ITEM_CLASS_AR ||
 				 iClass == Item::ITEM_CLASS_SR ||
 				 iClass == Item::ITEM_CLASS_SMG ||
 				 iClass == Item::ITEM_CLASS_SG ) return true;
 			return false;
 			
 		case SKILL_DOMAIN_HEAL:
-			if (iClass == Item::ITEM_CLASS_CROSS ) return true;
+			if ( iClass == Item::ITEM_CLASS_CROSS ) return true;
 			return false;
 			
 		case SKILL_DOMAIN_ENCHANT:
-			if (iClass == Item::ITEM_CLASS_MACE ) return true;
+			if ( iClass == Item::ITEM_CLASS_MACE ) return true;
 			return false;
 			
 		case SKILL_DOMAIN_ETC:
 			return false;
 			
 		case SKILL_DOMAIN_VAMPIRE:
-			if (iClass == Item::ITEM_CLASS_VAMPIRE_WEAPON ) return true;
+			if ( iClass == Item::ITEM_CLASS_VAMPIRE_WEAPON ) return true;
 			return false;
 			
 		default:
 			return false;
 	}
 
-	Assert(false);
+	Assert( false );
 }
 
-void setItemGender(Item* pItem, GenderRestriction gender )
+void setItemGender( Item* pItem, GenderRestriction gender )
 {
-	if (gender == GENDER_BOTH || gender == GENDER_MAX ) return;
+	if ( gender == GENDER_BOTH || gender == GENDER_MAX ) return;
 
-	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
-	if (pItemInfo->getReqGender() == gender ) return;
-	if (pItemInfo->getReqGender() == GENDER_BOTH || pItemInfo->getReqGender() == GENDER_MAX ) return;
+	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() );
+	if ( pItemInfo->getReqGender() == gender ) return;
+	if ( pItemInfo->getReqGender() == GENDER_BOTH || pItemInfo->getReqGender() == GENDER_MAX ) return;
 
 	int genderDiff = (int)gender - (int)pItemInfo->getReqGender();
-	Assert(genderDiff == 1 || genderDiff == -1);
+	Assert( genderDiff == 1 || genderDiff == -1 );
 
-	pItem->setItemType(pItem->getItemType() + genderDiff);
+	pItem->setItemType( pItem->getItemType() + genderDiff );
 }
 
-bool bTraceLog(Item* pItem )
+bool bTraceLog( Item* pItem )
 {
 	Item::ItemClass iClass = pItem->getItemClass();
 
 	// PetItem Àº ¹«Á¶°Ç ³²±ä´Ù
-	if (iClass == Item::ITEM_CLASS_PET_ITEM || iClass == Item::ITEM_CLASS_CORE_ZAP || iClass == Item::ITEM_CLASS_SUB_INVENTORY )
+	if ( iClass == Item::ITEM_CLASS_PET_ITEM || iClass == Item::ITEM_CLASS_CORE_ZAP )
 		return true;
 
 	// Æ÷¼ÇÀÇ ÆÄ¶õ »çÅÁÀÌ¶û Èò»ö ¶±±¹Àº ³²±ä´Ù
-	if (iClass == Item::ITEM_CLASS_POTION && (pItem->getItemType() == 10 || pItem->getItemType() == 11))
+	if ( iClass == Item::ITEM_CLASS_POTION &&
+			( pItem->getItemType() == 10 || pItem->getItemType() == 11 ) )
 		return true;
 
 	// Serum ¿¡ »¡°£ »çÅÁÀº ³²±ä´Ù
-	if (iClass == Item::ITEM_CLASS_SERUM && (pItem->getItemType() == 4 || pItem->getItemType() == 5 ) )
+	if ( iClass == Item::ITEM_CLASS_SERUM && 
+			( pItem->getItemType() == 4 || pItem->getItemType() == 5 ) )
 		return true;
 
-	switch (iClass) {
+	switch ( iClass )
+	{
 		case Item::ITEM_CLASS_CARRYING_RECEIVER:
 		case Item::ITEM_CLASS_SHOULDER_ARMOR:
 		case Item::ITEM_CLASS_DERMIS:
 		case Item::ITEM_CLASS_PERSONA:
 		case Item::ITEM_CLASS_FASCIA:
 		case Item::ITEM_CLASS_MITTEN:
-		case Item::ITEM_CLASS_RESURRECT_ITEM:
 			return true;
 			break;
 		default:
 			break;
 	}
 
-	if (iClass == Item::ITEM_CLASS_MOTORCYCLE ||
-		iClass == Item::ITEM_CLASS_POTION ||
-		iClass == Item::ITEM_CLASS_WATER ||
-		iClass == Item::ITEM_CLASS_HOLYWATER ||
-		iClass == Item::ITEM_CLASS_ETC ||
-		iClass == Item::ITEM_CLASS_KEY ||
-		iClass == Item::ITEM_CLASS_MAGAZINE ||
-		iClass == Item::ITEM_CLASS_BOMB_MATERIAL ||
-		iClass == Item::ITEM_CLASS_BOMB ||
-		iClass == Item::ITEM_CLASS_MINE ||
-		iClass == Item::ITEM_CLASS_LEARNINGITEM ||
-		iClass == Item::ITEM_CLASS_MONEY ||
-		iClass == Item::ITEM_CLASS_CORPSE ||
-		iClass == Item::ITEM_CLASS_SKULL ||
-		iClass == Item::ITEM_CLASS_SERUM ||
-		iClass == Item::ITEM_CLASS_VAMPIRE_ETC ||
-		iClass == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM ||
-		iClass == Item::ITEM_CLASS_VAMPIRE_PORTAL_ITEM ||
-		iClass == Item::ITEM_CLASS_RELIC ||
-		iClass == Item::ITEM_CLASS_BLOOD_BIBLE ||
-		iClass == Item::ITEM_CLASS_CASTLE_SYMBOL ||
-		iClass == Item::ITEM_CLASS_DYE_POTION ||
-		iClass == Item::ITEM_CLASS_RESURRECT_ITEM ||
-		iClass == Item::ITEM_CLASS_SWEEPER ||
-		pItem->isTimeLimitItem()) {
-		return false;
-		}
+	if ( iClass == Item::ITEM_CLASS_MOTORCYCLE ||
+		 iClass == Item::ITEM_CLASS_POTION ||
+		 iClass == Item::ITEM_CLASS_WATER ||
+		 iClass == Item::ITEM_CLASS_HOLYWATER ||
+		 iClass == Item::ITEM_CLASS_ETC ||
+		 iClass == Item::ITEM_CLASS_KEY ||
+		 iClass == Item::ITEM_CLASS_MAGAZINE ||
+		 iClass == Item::ITEM_CLASS_BOMB_MATERIAL ||
+		 iClass == Item::ITEM_CLASS_BOMB ||
+		 iClass == Item::ITEM_CLASS_MINE ||
+		 iClass == Item::ITEM_CLASS_LEARNINGITEM ||
+		 iClass == Item::ITEM_CLASS_MONEY ||
+		 iClass == Item::ITEM_CLASS_CORPSE ||
+		 iClass == Item::ITEM_CLASS_SKULL ||
+		 iClass == Item::ITEM_CLASS_SERUM ||
+		 iClass == Item::ITEM_CLASS_VAMPIRE_ETC ||
+		 iClass == Item::ITEM_CLASS_SLAYER_PORTAL_ITEM ||
+		 iClass == Item::ITEM_CLASS_VAMPIRE_PORTAL_ITEM ||
+		 iClass == Item::ITEM_CLASS_RELIC ||
+		 iClass == Item::ITEM_CLASS_BLOOD_BIBLE ||
+		 iClass == Item::ITEM_CLASS_CASTLE_SYMBOL ||
+		 iClass == Item::ITEM_CLASS_DYE_POTION ||
+		 iClass == Item::ITEM_CLASS_RESURRECT_ITEM ||
+		 iClass == Item::ITEM_CLASS_SWEEPER ||
+		 pItem->isTimeLimitItem() ) return false;
 
 	const list<OptionType_t>& optionList = pItem->getOptionTypeList();
 	list<OptionType_t>::const_iterator itr;
 
 	// ÀúÇ× ¿É¼ÇÀÌ ÀÖ´Â °Ç ±â·Ï ³²±ä´Ù
-	for (itr=optionList.begin(); itr!=optionList.end(); itr++) {
-		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(*itr);
+	for (itr=optionList.begin(); itr!=optionList.end(); itr++)
+	{
+		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo( *itr );
 		if (pOptionInfo==NULL) return false;
 
 		OptionClass optionClass = pOptionInfo->getClass();
 
-		if (optionClass == OPTION_POISON ||
-			optionClass == OPTION_ACID ||
-			optionClass == OPTION_CURSE ||
-			optionClass == OPTION_BLOOD ) return true;
+		if ( optionClass == OPTION_POISON ||
+			 optionClass == OPTION_ACID ||
+			 optionClass == OPTION_CURSE ||
+			 optionClass == OPTION_BLOOD ) return true;
 	}
 
 	// ºñÁê¶û Ææ´øÆ®´Â ±â·Ï ³²±ä´Ù
 	// Event Star ´Â ±â·Ï ³²±ä´Ù
-	if (iClass == Item::ITEM_CLASS_QUEST_ITEM ||
-		iClass == Item::ITEM_CLASS_EVENT_STAR ||
-		iClass == Item::ITEM_CLASS_MIXING_ITEM ) return true;
+	if ( iClass == Item::ITEM_CLASS_QUEST_ITEM ||
+		 iClass == Item::ITEM_CLASS_EVENT_STAR ||
+		 iClass == Item::ITEM_CLASS_MIXING_ITEM ) return true;
 
 	// ±× ¿ÜÀÇ ¾ÆÀÌÅÛÀÎ °æ¿ì 3´Ü ÀÌÇÏ´Â ±â·Ï ³²±âÁö ¾Ê´Â´Ù
-	if ((int)(pItem->getItemType()) < 3 ) return false;
+	if ( (int)(pItem->getItemType()) < 3 ) return false;
 
 	return true;
 }
 
-void remainTraceLog (Item* pItem, const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType )
-	throw(Error)
+void remainTraceLog ( Item* pItem, const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType )
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	Assert(pItem != NULL);
+	Assert( pItem != NULL);
 
 	Statement* pStmt = NULL;
 
-	BEGIN_DB {
+	BEGIN_DB
+	{
 		string optionName = getOptionTypeToString(pItem->getOptionTypeList());
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		pStmt->executeQuery(
-				"INSERT INTO ItemTraceLog (ItemID, ItemClass, ItemType, OptionType, PreOwnerID, OwnerID, LogType, DetailType, Time) VALUES (%u,'%s',%u,'%s','%s','%s','%s','%s',now() )",
+				"INSERT INTO ItemTraceLog (ItemID, ItemClass, ItemType, OptionType, PreOwnerID, OwnerID, LogType, DetailType, Time) VALUES ( %u,'%s',%u,'%s','%s','%s','%s','%s',now() )",
 				pItem->getItemID(),
 				ItemClass2ShortString[ (int)(pItem->getItemClass()) ].c_str(),
 				pItem->getItemType(),
@@ -2554,20 +2766,22 @@ void remainTraceLog (Item* pItem, const string& preOwner, const string& owner, I
 				preOwner.c_str(),
 				owner.c_str(),
 				ItemTraceLogType2String[ (int)logType ].c_str(),
-				ItemTraceLogDetailType2String[ (int)detailType ].c_str());
+				ItemTraceLogDetailType2String[ (int)detailType ].c_str()
+				);
 
 		SAFE_DELETE(pStmt);
-	} END_DB(pStmt)
+	}
+	END_DB(pStmt)
 
 	__END_CATCH
 }
 
-void remainTraceLogNew (Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid, int x, int y)
-	throw(Error)
+void remainTraceLogNew ( Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid=0, int x=0, int y=0)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	Assert(pItem != NULL);
+	Assert( pItem != NULL);
 
 /*	Statement* pStmt = NULL;
 
@@ -2578,7 +2792,7 @@ void remainTraceLogNew (Item* pItem, const string& owner, ITLType logType, ITLDT
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		pStmt->executeQuery(
-				"INSERT INTO ItemTrace2Log (ItemID, ItemClass, ItemType, OptionType, OwnerID, ActionType, DetailType, Zone, X, Y ,Time) VALUES (%u,'%s',%u,'%s','%s','%s','%s','%s','%d','%d','%d',now() )",
+				"INSERT INTO ItemTrace2Log (ItemID, ItemClass, ItemType, OptionType, OwnerID, ActionType, DetailType, Zone, X, Y ,Time) VALUES ( %u,'%s',%u,'%s','%s','%s','%s','%s','%d','%d','%d',now() )",
 				pItem->getItemID(),
 				ItemClass2ShortString[ (int)(pItem->getItemClass()) ].c_str(),
 				pItem->getItemType(),
@@ -2598,8 +2812,8 @@ void remainTraceLogNew (Item* pItem, const string& owner, ITLType logType, ITLDT
 	__END_CATCH
 }
 
-void remainMoneyTraceLog (const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType, int amount )
-	throw(Error)
+void remainMoneyTraceLog ( const string& preOwner, const string& owner, ItemTraceLogType logType, ItemTraceDetailType detailType, int amount )
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -2610,7 +2824,7 @@ void remainMoneyTraceLog (const string& preOwner, const string& owner, ItemTrace
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		pStmt->executeQuery(
-				"INSERT INTO MoneyTraceLog (PreOwnerID, OwnerID, LogType, DetailType, Amount, Time) VALUES ('%s','%s','%s','%s', %d, now() )",
+				"INSERT INTO MoneyTraceLog (PreOwnerID, OwnerID, LogType, DetailType, Amount, Time) VALUES ( '%s','%s','%s','%s', %d, now() )",
 				preOwner.c_str(),
 				owner.c_str(),
 				ItemTraceLogType2String[ (int)logType ].c_str(),
@@ -2626,12 +2840,12 @@ void remainMoneyTraceLog (const string& preOwner, const string& owner, ItemTrace
 }
 
 // Web ¿¡¼­ »ê ¾ÆÀÌÅÛÀ» ¸¸µå´Â ÇÔ¼ö
-Item* createItemByGoodsID(DWORD goodsID )
+Item* createItemByGoodsID( DWORD goodsID )
 {
-	GoodsInfo* pGoodsInfo = g_pGoodsInfoManager->getGoodsInfo(goodsID);
-	if (pGoodsInfo == NULL )
+	GoodsInfo* pGoodsInfo = g_pGoodsInfoManager->getGoodsInfo( goodsID );
+	if ( pGoodsInfo == NULL )
 	{
-		filelog("buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â »óÇ°ÀÌ ¾ø½À´Ï´Ù.", (int)goodsID);
+		filelog( "buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â »óÇ°ÀÌ ¾ø½À´Ï´Ù.", (int)goodsID );
 		return NULL;
 	}
 
@@ -2643,63 +2857,65 @@ Item* createItemByGoodsID(DWORD goodsID )
 	bool bTimeLimit = pGoodsInfo->isTimeLimit();
 	int Hour = pGoodsInfo->getHour();
 
-	if (!g_pItemInfoManager->isPossibleItem(ItemClass, ItemType, optionTypeList ) )
+	if ( !g_pItemInfoManager->isPossibleItem( ItemClass, ItemType, optionTypeList ) )
 	{
-		filelog("buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀº ¸¸µé ¼ö ¾ø½À´Ï´Ù.", (int)goodsID);
+		filelog( "buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀº ¸¸µé ¼ö ¾ø½À´Ï´Ù.", (int)goodsID );
 		return NULL;
 	}
 
-	Item* pItem	= g_pItemFactoryManager->createItem(ItemClass, ItemType, optionTypeList);
-	if (pItem == NULL )
+	Item* pItem	= g_pItemFactoryManager->createItem( ItemClass, ItemType, optionTypeList );
+	if ( pItem == NULL )
 	{
-		filelog("buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛ ¸¸µé±â¿¡ ½ÇÆÐÇß½À´Ï´Ù.", (int)goodsID);
+		filelog( "buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛ ¸¸µé±â¿¡ ½ÇÆÐÇß½À´Ï´Ù.", (int)goodsID );
 		return NULL;
 	}
 
 	pItem->setGrade(Grade);
 	pItem->setNum(Num);
-	pItem->setTimeLimitItem(bTimeLimit);
-	pItem->setHour(Hour);
-	pItem->setCreateType(Item::CREATE_TYPE_MALL);
+	pItem->setTimeLimitItem( bTimeLimit );
+	pItem->setHour( Hour );
+	pItem->setCreateType( Item::CREATE_TYPE_MALL );
 
-	if (ItemClass == Item::ITEM_CLASS_PET_ITEM )
+	if ( ItemClass == Item::ITEM_CLASS_PET_ITEM )
 	{
 		PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
-		Assert(pPetItem != NULL);
+		Assert( pPetItem != NULL );
 
 		PetType_t petType = ItemType;
 		PetTypeInfo* pPetTypeInfo = PetTypeInfoManager::getInstance()->getPetTypeInfo(petType);
-		PetExpInfo* pPetExpInfo = PetExpInfoManager::Instance().getPetExpInfo(14);
-		if (pPetTypeInfo == NULL || pPetExpInfo == NULL )
+		PetExpInfo* pPetExpInfo = PetExpInfoManager::Instance().getPetExpInfo(48);//modify by viva for PetInfo
+		if ( pPetTypeInfo == NULL || pPetExpInfo == NULL )
 		{
-			filelog("buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â Æê ¾ÆÀÌÅÛ Á¤º¸°¡ ÀÌ»óÇÕ´Ï´Ù.", (int)goodsID);
-			SAFE_DELETE(pItem);
+			filelog( "buyItemBug.txt", "buyID(%d) ¿¡ ÇØ´çÇÏ´Â Æê ¾ÆÀÌÅÛ Á¤º¸°¡ ÀÌ»óÇÕ´Ï´Ù.", (int)goodsID );
+			SAFE_DELETE( pItem );
 			return NULL;
 		}
 
 		PetInfo* pPetInfo = new PetInfo;
 
-		pPetInfo->setPetType(petType);
-		pPetInfo->setPetLevel(15);
-		pPetInfo->setPetCreatureType(pPetTypeInfo->getPetCreatureType(15));
-		pPetInfo->setPetAttr(0xff);
-		pPetInfo->setPetExp(pPetExpInfo->getPetGoalExp());
-		pPetInfo->setPetAttrLevel(0);
+		pPetInfo->setPetType( petType );
+		pPetInfo->setPetLevel(49);//modify by viva for PetInfo
+		pPetInfo->setPetCreatureType(pPetTypeInfo->getPetCreatureType(49));//modify by viva for PetInfo
+		pPetInfo->setPetAttr(23);//modify by viva for PetInfo
+		pPetInfo->setPetExp( pPetExpInfo->getPetGoalExp() );
+		//pPetInfo->setPetExp(1999998000);
+		pPetInfo->setPetAttrLevel(11);//modify by viva for PetInfo
 		pPetInfo->setFoodType(0);
-		pPetInfo->setGamble(0);
-		pPetInfo->setCutHead(0);
-		pPetInfo->setPetHP(1920);
-		pPetInfo->setFeedTime(VSDateTime::currentDateTime());
+		pPetInfo->setGamble(1);//modify by viva for PetInfo
+		pPetInfo->setCutHead(0);//modify by viva for PetInfo
+		pPetInfo->setAttack(1);//modify by viva for PetInfo
+		pPetInfo->setPetHP(5760);
+		pPetInfo->setFeedTime( VSDateTime::currentDateTime() );
 
 		// ¾ç¹æÇâ ¸µÅ©
-		pPetItem->setPetInfo(pPetInfo);
-		pPetInfo->setPetItem(pPetItem);
+		pPetItem->setPetInfo( pPetInfo );
+		pPetInfo->setPetItem( pPetItem );
 	}
 
 	return pItem;
 }
 
-bool bWinPrize(DWORD rewardID, DWORD questLevel )
+bool bWinPrize( DWORD rewardID, DWORD questLevel )
 {
 	bool Lotto = false;
 	Statement* pStmt = NULL;
@@ -2709,9 +2925,9 @@ bool bWinPrize(DWORD rewardID, DWORD questLevel )
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		pStmt->executeQuery(
-				"UPDATE EventQuestRewardSchedule SET Count = Count - 1 WHERE Count > 0 AND RewardID = %d AND QuestLevel = %d AND Time < now() LIMIT 1", rewardID, questLevel);
+				"UPDATE EventQuestRewardSchedule SET Count = Count - 1 WHERE Count > 0 AND RewardID = %d AND QuestLevel = %d AND Time < now() LIMIT 1", rewardID, questLevel );
 
-		if (pStmt->getAffectedRowCount() > 0 )
+		if ( pStmt->getAffectedRowCount() > 0 )
 			Lotto = true;
 
 		SAFE_DELETE(pStmt);
@@ -2721,14 +2937,14 @@ bool bWinPrize(DWORD rewardID, DWORD questLevel )
 	return Lotto;
 }
 
-void deleteFlagEffect(Corpse* pFlagPole, Item* pFlag )
+void deleteFlagEffect( Corpse* pFlagPole, Item* pFlag )
 {
-	if (pFlag == NULL ) return;
-	if (!pFlag->isFlagItem() ) return;
+	if ( pFlag == NULL ) return;
+	if ( !pFlag->isFlagItem() ) return;
 
-	if (!pFlagPole->isFlag(Effect::EFFECT_CLASS_FLAG_INSERT ) ) return;
+	if ( !pFlagPole->isFlag( Effect::EFFECT_CLASS_FLAG_INSERT ) ) return;
 	Effect* pEffect = pFlagPole->getEffectManager().findEffect(Effect::EFFECT_CLASS_FLAG_INSERT);
-	if (pEffect != NULL ) pEffect->setDeadline(0);
+	if ( pEffect != NULL ) pEffect->setDeadline(0);
 }
 
 void countResurrectItem()
@@ -2749,16 +2965,16 @@ void countResurrectItem()
 	__END_CATCH
 }
 
-Item* fitToPC(Item* pItem, PlayerCreature* pPC )
+Item* fitToPC( Item* pItem, PlayerCreature* pPC )
 {
-	if (pItem == NULL || pPC == NULL ) return pItem;
+	if ( pItem == NULL || pPC == NULL ) return pItem;
 
-	if (isSlayerWeapon(pItem->getItemClass() ) && pPC->isSlayer() )
+	if ( isSlayerWeapon( pItem->getItemClass() ) && pPC->isSlayer() )
 	{
 		Item::ItemClass targetClass = Item::ITEM_CLASS_MAX;
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 		int add = 0;
-		switch (pSlayer->getHighestSkillDomain() )
+		switch ( pSlayer->getHighestSkillDomain() )
 		{
 			case SKILL_DOMAIN_BLADE:
 				{
@@ -2791,29 +3007,29 @@ Item* fitToPC(Item* pItem, PlayerCreature* pPC )
 				break;
 		}
 
-		if (targetClass != Item::ITEM_CLASS_MAX && targetClass != pItem->getItemClass() )
+		if ( targetClass != Item::ITEM_CLASS_MAX && targetClass != pItem->getItemClass() )
 		{
-			Item* pNewItem = g_pItemFactoryManager->createItem(targetClass, pItem->getItemType() + add, pItem->getOptionTypeList());
-			if (pNewItem != NULL )
+			Item* pNewItem = g_pItemFactoryManager->createItem( targetClass, pItem->getItemType() + add, pItem->getOptionTypeList() );
+			if ( pNewItem != NULL )
 			{
-				SAFE_DELETE(pItem);
+				SAFE_DELETE( pItem );
 				pItem = pNewItem;
 			}
 		}
 	}
 
-	if (isOustersWeapon(pItem->getItemClass() ) && pPC->isOusters() )
+	if ( isOustersWeapon( pItem->getItemClass() ) && pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 		ElementalDomain maxDomain = ELEMENTAL_DOMAIN_FIRE;
-		SkillBonus_t maxBonus = pOusters->getSkillPointCount(maxDomain);
+		SkillBonus_t maxBonus = pOusters->getSkillPointCount( maxDomain );
 
-		for (ElementalDomain domain = ELEMENTAL_DOMAIN_WATER ; domain <= ELEMENTAL_DOMAIN_COMBAT ; ++(int&)domain )
+		for ( ElementalDomain domain = ELEMENTAL_DOMAIN_WATER ; domain <= ELEMENTAL_DOMAIN_COMBAT ; ++(int&)domain )
 		{
-			if (domain == ELEMENTAL_DOMAIN_WIND ) continue;
-			SkillBonus_t bonus = pOusters->getSkillPointCount(domain);
-			if (domain == ELEMENTAL_DOMAIN_COMBAT ) bonus += pOusters->getSkillPointCount(ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT);
-			if (bonus > maxBonus )
+			if ( domain == ELEMENTAL_DOMAIN_WIND ) continue;
+			SkillBonus_t bonus = pOusters->getSkillPointCount( domain );
+			if ( domain == ELEMENTAL_DOMAIN_COMBAT ) bonus += pOusters->getSkillPointCount( ELEMENTAL_DOMAIN_ELEMENTAL_COMBAT );
+			if ( bonus > maxBonus )
 			{
 				maxBonus = bonus;
 				maxDomain = domain;
@@ -2823,7 +3039,7 @@ Item* fitToPC(Item* pItem, PlayerCreature* pPC )
 		Item::ItemClass targetClass = Item::ITEM_CLASS_OUSTERS_WRISTLET;
 		int add = 0;
 
-		switch (maxDomain )
+		switch ( maxDomain )
 		{
 			case ELEMENTAL_DOMAIN_FIRE:
 				{
@@ -2852,31 +3068,31 @@ Item* fitToPC(Item* pItem, PlayerCreature* pPC )
 				break;
 		}
 
-		if (targetClass == pItem->getItemClass() )
+		if ( targetClass == pItem->getItemClass() )
 		{
-			pItem->setItemType(pItem->getItemType() + add);
+			pItem->setItemType( pItem->getItemType() + add );
 		}
 		else
 		{
-			Item* pNewItem = g_pItemFactoryManager->createItem(targetClass, pItem->getItemType() + add, pItem->getOptionTypeList());
-			if (pNewItem != NULL )
+			Item* pNewItem = g_pItemFactoryManager->createItem( targetClass, pItem->getItemType() + add, pItem->getOptionTypeList() );
+			if ( pNewItem != NULL )
 			{
-				SAFE_DELETE(pItem);
+				SAFE_DELETE( pItem );
 				pItem = pNewItem;
 			}
 		}
 	}
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_STONE && pPC->isOusters() )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_STONE && pPC->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 		ElementalDomain maxDomain = ELEMENTAL_DOMAIN_FIRE;
-		SkillBonus_t maxBonus = pOusters->getSkillPointCount(maxDomain);
+		SkillBonus_t maxBonus = pOusters->getSkillPointCount( maxDomain );
 
-		for (ElementalDomain domain = ELEMENTAL_DOMAIN_WATER ; domain <= ELEMENTAL_DOMAIN_EARTH ; ++(int&)domain )
+		for ( ElementalDomain domain = ELEMENTAL_DOMAIN_WATER ; domain <= ELEMENTAL_DOMAIN_EARTH ; ++(int&)domain )
 		{
-			SkillBonus_t bonus = pOusters->getSkillPointCount(domain);
-			if (bonus > maxBonus )
+			SkillBonus_t bonus = pOusters->getSkillPointCount( domain );
+			if ( bonus > maxBonus )
 			{
 				maxBonus = bonus;
 				maxDomain = domain;
@@ -2885,7 +3101,7 @@ Item* fitToPC(Item* pItem, PlayerCreature* pPC )
 
 		int add = 0;
 
-		switch (maxDomain )
+		switch ( maxDomain )
 		{
 			case ELEMENTAL_DOMAIN_FIRE:
 				{
@@ -2905,27 +3121,27 @@ Item* fitToPC(Item* pItem, PlayerCreature* pPC )
 				break;
 		}
 
-		pItem->setItemType(pItem->getItemType() + add);
+		pItem->setItemType( pItem->getItemType() + add );
 	}
 
-	setItemGender(pItem, (pPC->getSex()==MALE)?GENDER_MALE:GENDER_FEMALE);
+	setItemGender( pItem, (pPC->getSex()==MALE)?GENDER_MALE:GENDER_FEMALE );
 
 	return pItem;
 }
 
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
 	
-ItemType_t getItemTypeByItemLimit(Item::ItemClass itemClass, ItemType_t itemType )
+ItemType_t getItemTypeByItemLimit( Item::ItemClass itemClass, ItemType_t itemType )
 {
 	static ItemType_t limitItemType = (ItemType_t)SystemAvailabilitiesManager::getInstance()->getItemLevelLimit();
 	ItemType_t rItemType = itemType;
 
 	//  cout << "Original itemType : " << itemType << " , SystemItemLimit : " << limitItemType << endl;
 
-	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(itemClass, rItemType);
+	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( itemClass, rItemType );
 
 	// ¿¹¿Ü»çÇ×. ¾ÆÀÌÅÛ ·¹º§ÀÌ ¾ø´Â ¾ÆÀÌÅÛÀÏ °æ¿ì ÆÐ½º
-	if (pItemInfo->getItemLevel() == 99 || pItemInfo->getItemLevel() == 255 )
+	if ( pItemInfo->getItemLevel() == 99 || pItemInfo->getItemLevel() == 255 )
 	{
 		return true;
 	}
@@ -2934,10 +3150,10 @@ ItemType_t getItemTypeByItemLimit(Item::ItemClass itemClass, ItemType_t itemType
 
 	//cout << "i. ItemLevel : " << pItemInfo->getItemLevel() << endl;
 
-	while (limitItemType <= pItemInfo->getItemLevel() && counter++ < 10 )
+	while ( limitItemType <= pItemInfo->getItemLevel() && counter++ < 10 )
 	{
-		rItemType = getDowngradeItemType(itemClass, rItemType);
-		pItemInfo = g_pItemInfoManager->getItemInfo(itemClass, rItemType);
+		rItemType = getDowngradeItemType( itemClass, rItemType );
+		pItemInfo = g_pItemInfoManager->getItemInfo( itemClass, rItemType );
 	}
 
 	//  cout << "o. ItemLevel : " << pItemInfo->getItemLevel() << endl;
@@ -2946,23 +3162,3 @@ ItemType_t getItemTypeByItemLimit(Item::ItemClass itemClass, ItemType_t itemType
 }
 
 #endif // __THAILAND_SERVER__
-
-void increaseEventItemCount(Item* pItem, int num )
-{
-	if (num != NULL && pItem != NULL )
-	{
-		Statement* pStmt = NULL;
-
-		BEGIN_DB
-		{
-			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-
-			pStmt->executeQuery("UPDATE EventItemCount SET Count = Count + %d WHERE ItemClass = %u AND ItemType = %u",
-					num, pItem->getItemClass(), pItem->getItemType());
-
-			SAFE_DELETE(pStmt);
-		}
-		END_DB(pStmt)
-	}
-}
-

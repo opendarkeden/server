@@ -21,16 +21,16 @@ public:
 	
 public:
 	string 	getName() const { return m_Name; }
-	void 	setName(string name ) { m_Name = name; }
+	void 	setName( string name ) { m_Name = name; }
 
 	ItemID_t 	getPartnerItemID() const { return m_PartnerItemID; }
-	void 		setPartnerItemID(ItemID_t partnerItemID ) throw(Error);
+	void 		setPartnerItemID( ItemID_t partnerItemID ) throw(Error);
 
 public:
 	virtual bool	hasPartnerItem() throw(Error) = 0;
 
 public:
-	static ItemInfo*	getItemInfo(ItemType_t itemType, Race_t race ) throw(Error);
+	static ItemInfo*	getItemInfo( ItemType_t itemType, Race_t race ) throw(Error);
 
 private:
 	string		 		m_Name;

@@ -9,8 +9,8 @@
 #include "Tile.h"
 #include "DB.h"
 
-#include "GCAddEffect.h"
-#include "GCDeleteEffectFromTile.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCDeleteEffectFromTile.h"
 #include "SkillHandler.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -52,6 +52,8 @@ void EffectTilePortal::unaffect()
 {
 	__BEGIN_TRY
 
+	//cout << "EffectTilePortal::unaffect() begin" << endl;
+
 	// 타일에서 이펙트를 삭제하고...
 	Tile& tile = m_pZone->getTile(m_X, m_Y);
 	tile.deleteEffect(m_ObjectID);
@@ -62,6 +64,8 @@ void EffectTilePortal::unaffect()
 	gcDeleteEffectFromTile.setObjectID(m_ObjectID);
 	gcDeleteEffectFromTile.setXY(m_X, m_Y);
 	m_pZone->broadcastPacket(m_X, m_Y, &gcDeleteEffectFromTile);
+
+	//cout << "EffectTilePortal::unaffect() end" << endl;
 
 	__END_CATCH
 }

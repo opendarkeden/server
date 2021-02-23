@@ -8,9 +8,9 @@
 #include "CrossCounter.h"
 #include "ZoneUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK5.h"
 
 SimpleTileMeleeSkill g_SimpleTileMeleeSkill;
 
@@ -20,7 +20,7 @@ SimpleTileMeleeSkill g_SimpleTileMeleeSkill;
 
 void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -142,13 +142,13 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 							}
 
 							// 도 계열의 기술은 맞지 않더라도 7%의 데미지를 가진다 - by bezz
-							if (param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
+							if ( param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
 							{
 								bHitRoll = true;
 								bSetMinDamage = true;
 							}
 
-							if (!canAttack(pSlayer, pTargetCreature )
+							if ( !canAttack( pSlayer, pTargetCreature )
 							||	pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) // 2003.3.14
 							{
 								bHitRoll = false; 
@@ -176,9 +176,9 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								}
 
 								// HitRoll 에서 실패한 도 계열의 기술의 경우 7%의 데미지를 갖도록 한다 - by bezz
-								if (bSetMinDamage )
+								if ( bSetMinDamage )
 								{
-									Damage = getPercentValue(Damage, 7);
+									Damage = getPercentValue( Damage, 7 );
 								}
 
 								MaxDamage = max(Damage, MaxDamage);
@@ -209,7 +209,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								if (!pTargetCreature->isSlayer())
 								{
 									bHit = true;
-									if (maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
+									if ( maxEnemyLevel < pTargetCreature->getLevel() ) maxEnemyLevel = pTargetCreature->getLevel();
 									EnemyNum++;
 								}
 							}
@@ -309,7 +309,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 
 void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -399,7 +399,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 							bool bPK             = verifyPK(pVampire, pTargetCreature);
 							bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
-							if (param.SkillType == SKILL_VIOLENT_PHANTOM && mask.x == 0 && mask.y == 0 )
+							if ( param.SkillType == SKILL_VIOLENT_PHANTOM && mask.x == 0 && mask.y == 0 )
 							{
 								bRaceCheck = pTargetCreature->isNPC();
 							}
@@ -413,7 +413,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 								bHitRoll = HitRoll::isSuccess(pVampire, pTargetCreature, 0);
 							}
 
-							if (!canAttack(pVampire, pTargetCreature ) 
+							if ( !canAttack( pVampire, pTargetCreature ) 
 								||	pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) // 2003.3.14
 							{
 								bHitRoll = false; 
@@ -556,7 +556,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkillSlot* pOustersSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -671,7 +671,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 								bHitRoll = HitRoll::isSuccess(pOusters, pTargetCreature, SkillLevel/2);
 							}
 
-							if (!canAttack(pOusters, pTargetCreature )
+							if ( !canAttack( pOusters, pTargetCreature )
 							||	pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) // 2003.3.14
 							{
 								bHitRoll = false; 
@@ -699,9 +699,9 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 								}
 
 								// HitRoll 에서 실패한 도 계열의 기술의 경우 7%의 데미지를 갖도록 한다 - by bezz
-								if (bSetMinDamage )
+								if ( bSetMinDamage )
 								{
-									Damage = getPercentValue(Damage, 7);
+									Damage = getPercentValue( Damage, 7 );
 								}
 
 								MaxDamage = max(Damage, MaxDamage);
@@ -827,7 +827,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 
 void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw(Error)
+	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
 {
 	__BEGIN_TRY
 
@@ -899,12 +899,12 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 						Assert(pTargetCreature != NULL);
 
 						// 공격 대상이 맞는지 확인한다.
-						if (pMonster->isEnemyToAttack(pTargetCreature ))
+						if (pMonster->isEnemyToAttack( pTargetCreature ))
 						{
 							bool bMoveModeCheck  = (pTargetCreature->getMoveMode() == Creature::MOVE_MODE_WALKING) ? true : false;
 							bool bRaceCheck      = pTargetCreature->isNPC();// || pTargetCreature->isMonster();
 							bool bHitRoll        = 0;
-							bool bCanHit         = canHit(pMonster, pTargetCreature, param.SkillType) && canAttack(pMonster, pTargetCreature);
+							bool bCanHit         = canHit(pMonster, pTargetCreature, param.SkillType) && canAttack( pMonster, pTargetCreature );
 							bool bPK             = verifyPK(pMonster, pTargetCreature);
 							bool bZoneLevelCheck = checkZoneLevelToHitTarget(pTargetCreature);
 
@@ -955,7 +955,7 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 
 								// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 								// 걸어다니는 놈들만 knockback시킨다.
-								if (bMoveModeCheck && (bCriticalHit || bForceKnockback) )
+								if ( bMoveModeCheck && (bCriticalHit || bForceKnockback) )
 								{
 									knockbackCreature(pZone, pTargetCreature, pMonster->getX(), pMonster->getY());
 								}

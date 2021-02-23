@@ -7,9 +7,9 @@
 #include "GnomesWhisper.h"
 #include "EffectGnomesWhisper.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -58,7 +58,7 @@ void GnomesWhisper::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 		bool bRangeCheck = checkZoneLevelToUseSkill(pOusters);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
 		bool bEffected   = pOusters->isFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected && bSatisfyRequire)
 		{
@@ -67,11 +67,11 @@ void GnomesWhisper::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 			// 이팩트 클래스를 만들어 붙인다.
 			EffectGnomesWhisper* pEffect = new EffectGnomesWhisper(pOusters);
 			pEffect->setDeadline(output.Duration);
-			pEffect->setLevel(input.SkillLevel);
+			pEffect->setLevel( input.SkillLevel );
 			pOusters->addEffect(pEffect);
 			pOusters->setFlag(Effect::EFFECT_CLASS_GNOMES_WHISPER);
 
-			pZone->updateDetectScan(pOusters);
+			pZone->updateDetectScan( pOusters );
 
 			_GCSkillToSelfOK1.setSkillType(SkillType);
 			_GCSkillToSelfOK1.setCEffectID(CEffectID);
@@ -93,10 +93,10 @@ void GnomesWhisper::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 			pOustersSkillSlot->setRunTime(output.Delay);
 
 			uint PartyID = pOusters->getPartyID();
-			if (PartyID != 0 )
+			if ( PartyID != 0 )
 			{
 				LocalPartyManager* pLPM = pZone->getLocalPartyManager();
-				pLPM->shareGnomesWhisper(PartyID, pOusters, output.Duration, input.SkillLevel);
+				pLPM->shareGnomesWhisper( PartyID, pOusters, output.Duration, input.SkillLevel );
 			}
 		} 
 		else 

@@ -5,18 +5,18 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "BulletOfLight.h"
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void BulletOfLight::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -37,7 +37,7 @@ void BulletOfLight::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillS
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()) 
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -70,7 +70,7 @@ void BulletOfLight::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillS
 		computeOutput(input, output);
 
 		// ToHit 페널티 값을 계산한다.
-//		int ToHitPenalty = getPercentValue(pSlayer->getToHit(), output.ToHit);
+//		int ToHitPenalty = getPercentValue( pSlayer->getToHit(), output.ToHit );
 
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
 		bool bManaCheck   = hasEnoughMana(pSlayer, RequiredMP);
@@ -103,7 +103,7 @@ void BulletOfLight::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillS
 
 			// 데미지 보너스를 계산한다.
 			int Damage = computeDamage(pSlayer, pTargetCreature, SkillLevel/5, bCriticalHit);
-			Damage += getPercentValue(Damage, output.Damage);
+			Damage += getPercentValue( Damage, output.Damage );
 			Damage = max(0, Damage);
 
 			//cout << "BulletOfLightDamage:" << Damage << endl;
@@ -118,7 +118,7 @@ void BulletOfLight::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillS
 				knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
 			}
 
-			if(!pTargetCreature->isSlayer() ) 
+			if( !pTargetCreature->isSlayer() ) 
 			{
 				if (bIncreaseExp)
 				{

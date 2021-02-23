@@ -25,9 +25,9 @@
 
 #include "item/Key.h"
 
-#include "GCCreateItem.h"
-#include "GCNPCResponse.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCCreateItem.h"
+#include "Gpackets/GCNPCResponse.h"
+#include "Gpackets/GCSystemMessage.h"
 
 #include "PriceManager.h"
 
@@ -35,7 +35,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGQuestEventItem::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionTradeGQuestEventItem::read(PropertyBuffer & propertyBuffer)
 // ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -80,52 +80,52 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 
 	int count[3] = {0,0,0};
 
-	for (; itr != endItr ; ++itr )
+	for ( ; itr != endItr ; ++itr )
 	{
-		if ((*itr) < 4 || (*itr) > 12 ) continue;
+		if ( (*itr) < 4 || (*itr) > 12 ) continue;
 		int level = (*itr)%3;
 		count[level]++;
 	}
 
-	if (count[0] < 5 || count[1] < 5 || count[2] < 5 )
+	if ( count[0] < 5 || count[1] < 5 || count[2] < 5 )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("15°³ÀÇ Äù½ºÆ® ¾ÆÀÌÅÛÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
-		pPC->getPlayer()->sendPacket(&gcSM);
+		gcSM.setMessage( "ÐèÒª15¸öÈÎÎñµÀ¾ß." );
+		pPC->getPlayer()->sendPacket( &gcSM );
 		return;
 	}
 
 	_TPOINT tp;
-	if (!pPC->getInventory()->getEmptySlot(1, 1, tp ) )
+	if ( !pPC->getInventory()->getEmptySlot( 1, 1, tp ) )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("ÀÎº¥Åä¸®¿¡ °ø°£ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
-		pPC->getPlayer()->sendPacket(&gcSM);
+		gcSM.setMessage( "µÀ¾ßÀ¸¿Õ¼ä²»×ã." );
+		pPC->getPlayer()->sendPacket( &gcSM );
 		return;
 	}
 
-	for (itr = inven.getItems().begin() ; itr != endItr ; )
+	for ( itr = inven.getItems().begin() ; itr != endItr ; )
 	{
-		if ((*itr) < 4 || (*itr) > 12 ) continue;
-		inven.removeOne(pPC->getName(), *itr);
-		inven.getItems().erase(itr++);
+		if ( (*itr) < 4 || (*itr) > 12 ) continue;
+		inven.removeOne( pPC->getName(), *itr );
+		inven.getItems().erase( itr++ );
 	}
 
-	pPC->getPlayer()->sendPacket(inven.getInventoryPacket());
+	pPC->getPlayer()->sendPacket( inven.getInventoryPacket() );
 
 	Item::ItemClass iClass;
 	ItemType_t iType;
 	list<OptionType_t> optionList;
 
-	if (pPC->isSlayer() ) iClass = Item::ITEM_CLASS_RING;
-	else if (pPC->isVampire() ) iClass = Item::ITEM_CLASS_VAMPIRE_RING;
+	if ( pPC->isSlayer() ) iClass = Item::ITEM_CLASS_RING;
+	else if ( pPC->isVampire() ) iClass = Item::ITEM_CLASS_VAMPIRE_RING;
 	else iClass = Item::ITEM_CLASS_OUSTERS_RING;
 
-	if (pPC->getLevel() <= 50 )
+	if ( pPC->getLevel() <= 50 )
 	{
 		iType = 5;
 	}
-	else if (pPC->getLevel() <= 90 )
+	else if ( pPC->getLevel() <= 90 )
 	{
 		iType = 6;
 	}
@@ -134,7 +134,7 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 	int value = rand()%6;
 	string option;
 
-	switch (value )
+	switch ( value )
 	{
 		case 0:
 			option = "DAM+4,MPSTL+3";
@@ -158,24 +158,24 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 			break;
 	}
 
-	makeOptionList(option, optionList);
-	if (optionList.size() != 2 )
+	makeOptionList( option, optionList );
+	if ( optionList.size() != 2 )
 	{
 		filelog("GQuestEventBug.log", "¿É¼ÇÀÌ Æ²·È½À´Ï´Ù. : %d/%s", value, option.c_str());
 	}
 
-	Item* pItem = g_pItemFactoryManager->createItem(iClass, iType, optionList);
+	Item* pItem = g_pItemFactoryManager->createItem( iClass, iType, optionList );
 	pItem->setGrade(4);
 
-	pPC->getZone()->registerObject(pItem);
-	Assert(pPC->getInventory()->addItem(pItem, tp ));
-	Assert(tp.x != -1);
+	pPC->getZone()->registerObject( pItem );
+	Assert( pPC->getInventory()->addItem( pItem, tp ) );
+	Assert( tp.x != -1 );
 
-	pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y);
+	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y );
 
 	GCCreateItem gcCI;
-	makeGCCreateItem(&gcCI, pItem, tp.x, tp.y);
-	pPC->getPlayer()->sendPacket(&gcCI);
+	makeGCCreateItem( &gcCI, pItem, tp.x, tp.y );
+	pPC->getPlayer()->sendPacket( &gcCI );
 
 	filelog("GQuestEvent.log", "ÀÌº¥Æ® Äù½ºÆ® ¾ÆÀÌÅÛÀ» Áá½À´Ï´Ù. : [%s]%u/%s/%u", pPC->getName().c_str(), iType, option.c_str(), pItem->getItemID());
 
@@ -184,8 +184,8 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 	pPlayer->sendPacket(&response);
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("º¸»ó ¾ÆÀÌÅÛÀ» Áö±ÞÇß½À´Ï´Ù.");
-	pPC->getPlayer()->sendPacket(&gcSM);
+	gcSM.setMessage( "½±Æ·ÒÑ·¢·Å." );
+	pPC->getPlayer()->sendPacket( &gcSM );
 
 	__END_CATCH
 }
@@ -195,7 +195,7 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeGQuestEventItem::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

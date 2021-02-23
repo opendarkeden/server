@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include "IncomingPlayerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "SocketAPI.h"
 #include "Socket.h"
 #include "Player.h"
@@ -19,7 +19,7 @@
 #include "ZoneGroup.h"
 #include "ZonePlayerManager.h"
 #include "DB.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "PaySystem.h"
 #include "MasterLairManager.h"
 #include "Encrypter.h"
@@ -28,9 +28,9 @@
 #include "PKZoneInfoManager.h"
 #include "CreatureUtil.h"
 
-#include "GCUpdateInfo.h"
-#include "GLIncomingConnection.h"
-#include "GLKickVerify.h"
+#include "Gpackets/GCUpdateInfo.h"
+#include "Gpackets/GLIncomingConnection.h"
+#include "Gpackets/GLKickVerify.h"
 
 //#include "UserGateway.h"
 #include "SystemAvailabilitiesManager.h"
@@ -42,7 +42,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 IncomingPlayerManager::IncomingPlayerManager () 
-	throw(Error)
+	throw (Error)
 : m_pServerSocket(NULL), m_SocketID(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -54,15 +54,18 @@ IncomingPlayerManager::IncomingPlayerManager ()
 	try 
 	{
 		// create  server socket
-		while (1) {
-			try {
+		while ( 1 )
+		{
+			try
+			{
 				m_pServerSocket = new ServerSocket(g_pConfig->getPropertyInt("TCPPort"));
 				break;
 			}
-			catch (BindException& b) {
-				SAFE_DELETE(m_pServerSocket);
-				cout << "[IncomingPlayerManager:" << g_pConfig->getPropertyInt("TCPPort") << "] " << b.toString() << endl;
-				sleep(1);
+			catch ( BindException& b )
+			{
+				SAFE_DELETE( m_pServerSocket );
+				cout << "IncomingPlayerManager(" << g_pConfig->getPropertyInt("TCPPort") << ") : " << b.toString() << endl;
+				sleep( 1);
 			}
 		}
 
@@ -88,7 +91,7 @@ IncomingPlayerManager::IncomingPlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 IncomingPlayerManager::~IncomingPlayerManager () 
-	throw()
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -103,7 +106,7 @@ IncomingPlayerManager::~IncomingPlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::init ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -138,16 +141,21 @@ void IncomingPlayerManager::init ()
 		g_pConnectionInfoManager.addConnectionInfo(pConnectionInfo);
 	}
 	*/
+
 	string dist_host     = g_pConfig->getProperty("UI_DB_HOST");
 	string dist_db       = "DARKEDEN";
 	string dist_user     = g_pConfig->getProperty("UI_DB_USER");
 	string dist_password = g_pConfig->getProperty("UI_DB_PASSWORD");
 	uint dist_port		= 0;
-	if (g_pConfig->hasKey("UI_DB_PORT") )
+	if ( g_pConfig->hasKey("UI_DB_PORT") )
 		dist_port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 	Connection* pDistConnection = new Connection(dist_host, dist_db, dist_user, dist_password, dist_port);
-    g_pDatabaseManager->addDistConnection((Thread::self()), pDistConnection);
+	g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+	cout << "******************************************************" << endl;
+	cout << " THREAD CONNECT UIIRIBUTION DB " << endl;
+	cout << " TID Number = " << (int)Thread::self()<< endl;
+	cout << "******************************************************" << endl;
 
 	/*
     // Login DB 의 PCRoomDBInfo Table 읽어서 Connection 만들기
@@ -173,48 +181,56 @@ void IncomingPlayerManager::init ()
         Connection * pConnection = new Connection(host, db, user, password);
         Assert(pConnection!=NULL);
 
-        g_pDatabaseManager->addPCRoomConnection((int)(Thread::self()) , pConnection);
+        g_pDatabaseManager->addPCRoomConnection((int)(Thread::self()) , pConnection );
     }
 	*/
 
 	// Player.LogOn 를 정리해준다.
     Statement * pStmt = NULL;
 	Statement* pStmt2 = NULL;
-	BEGIN_DB {
+	BEGIN_DB
+	{
 		//pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		//pStmt = g_pDatabaseManager->getDistConnection((int)Thread::self() )->createStatement();
-		//pStmt2 = g_pDatabaseManager->getDistConnection((int)Thread::self() )->createStatement();
+		//pStmt = g_pDatabaseManager->getDistConnection( (int)Thread::self() )->createStatement();
+		//pStmt2 = g_pDatabaseManager->getDistConnection( (int)Thread::self() )->createStatement();
 
-		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB" )->createStatement();
-		pStmt2 = g_pDatabaseManager->getDistConnection("PLAYER_DB" )->createStatement();
+		pStmt = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
+		pStmt2 = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 
-		Result* pResult = pStmt->executeQuery("SELECT PlayerID from Player WHERE LogOn='GAME' AND CurrentWorldID=%d AND CurrentServerGroupID=%d", g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID"));
+		Result* pResult = pStmt->executeQuery("SELECT PlayerID from Player WHERE LogOn='GAME' AND CurrentWorldID=%d AND CurrentServerGroupID=%d",
+													g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID") );
 
 		// 겜방에서 놀던애들 정리해준다.
 		// 빌링~ by sigi 2002.5.31 
-		while (pResult->next()) {
+		while (pResult->next())
+		{
 			string playerID = pResult->getString(1);
 
-			pStmt2->executeQuery("DELETE FROM PCRoomUserInfo WHERE PlayerID='%s'", playerID.c_str());
+			pStmt2->executeQuery( "DELETE FROM PCRoomUserInfo WHERE PlayerID='%s'",
+						                    playerID.c_str());
 		}
 
-		pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE LogOn = 'GAME' AND CurrentWorldID=%d AND CurrentServerGroupID=%d", g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID"));
+		pStmt->executeQuery("UPDATE Player SET LogOn = 'LOGOFF' WHERE LogOn = 'GAME' AND CurrentWorldID=%d AND CurrentServerGroupID=%d",
+			g_pConfig->getPropertyInt("WorldID"), g_pConfig->getPropertyInt("ServerID") );
 
 		/*
 		// 두번 하는거 제거. by sigi. 2002.5.9
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("DELETE FROM UserIPInfo WHERE ServerID = %d", g_pConfig->getPropertyInt("ServerID"));
+		pStmt->executeQuery("DELETE FROM UserIPInfo WHERE ServerID = %d", g_pConfig->getPropertyInt("ServerID") );
 		*/
 		SAFE_DELETE(pStmt);
 		SAFE_DELETE(pStmt2);
-	} END_DB(pStmt)
+	}
+	END_DB(pStmt)
 
-	BEGIN_DB {
+	BEGIN_DB
+	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("DELETE FROM UserIPInfo WHERE ServerID = %d", g_pConfig->getPropertyInt("ServerID"));
+		pStmt->executeQuery("DELETE FROM UserIPInfo WHERE ServerID = %d", g_pConfig->getPropertyInt("ServerID") );
 		SAFE_DELETE(pStmt);
-	} END_DB(pStmt)
+	}
+	END_DB(pStmt)
 
 	__END_CATCH
 }
@@ -240,7 +256,7 @@ void IncomingPlayerManager::copyPlayers()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::broadcast (Packet* pPacket)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -262,7 +278,7 @@ void IncomingPlayerManager::broadcast (Packet* pPacket)
 // 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::select ()
-	throw(TimeoutException , InterruptedException , Error)
+	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
 
@@ -282,10 +298,17 @@ void IncomingPlayerManager::select ()
 		// 이제 m_XXXFDs[1] 을 가지고 select() 를 호출한다.
 		SocketAPI::select_ex(m_MaxFD + 1 , &m_ReadFDs[1] , &m_WriteFDs[1] , &m_ExceptFDs[1] , &m_Timeout[1]);
 	} 
+	/*
+	// 주석처리 by sigi. 2002.5.14
+	catch (TimeoutException&) 
+	{
+		// do nothing
+	} 
+	*/
 	catch (InterruptedException & ie) 
 	{
 		// 시그널이 올 리가 엄찌~~
-		//log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
+		log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -301,7 +324,7 @@ void IncomingPlayerManager::select ()
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::processInputs () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -339,7 +362,7 @@ void IncomingPlayerManager::processInputs ()
 
 					if (pTempPlayer->getSocket()->getSockError()) 
 					{
-						FILELOG_INCOMING_CONNECTION("ICMPISocketErr.log", "[Input] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+						FILELOG_INCOMING_CONNECTION( "ICMPISocketErr.log", "[Input] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 
 						try 
 						{
@@ -353,17 +376,22 @@ void IncomingPlayerManager::processInputs ()
 
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_INPUT_ERROR);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_INPUT_ERROR );
 
 						// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 						// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 						// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 						// ProcessCommand에서 사라졌다는 말이다.
-						deletePlayer(i);
-						deleteQueuePlayer(pTempPlayer);
+						try {
+							deletePlayer(i);
+							deleteQueuePlayer(pTempPlayer);
+						} catch (Throwable & t) {
+							filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 389");
+							filelog("IncomingPlayerManager.txt", "Exception catched here: 0");
+						}
 
 						Creature* pCreature = pTempPlayer->getCreature();
-						if (pCreature != NULL )
+						if ( pCreature != NULL )
 							pCreature->setValue(1);
 						SAFE_DELETE(pTempPlayer);
 					} 
@@ -375,7 +403,7 @@ void IncomingPlayerManager::processInputs ()
 						} 
 						catch (ConnectException & ce) 
 						{
-							FILELOG_INCOMING_CONNECTION("ICMPIConectionErr.log", "[Input] %s, PlayerID : %s, PlayerStatus : %d", ce.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+							FILELOG_INCOMING_CONNECTION( "ICMPIConectionErr.log", "[Input] %s, PlayerID : %s, PlayerStatus : %d", ce.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 							// Blocking 소켓이므로, ConnectException과 Error를 제외한 어떤 예외도 발생하지 않는다.
 							// 연결이 끊겼을 경우, 로그하고 플레이어 정보를 저장한 후에 (로드되었다면)
 							// 플레이어 객체를 삭제한다.
@@ -389,17 +417,22 @@ void IncomingPlayerManager::processInputs ()
 							}
 
 							// by sigi. 2002.12.30
-//							UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_INPUT_DISCONNECT);
+//							UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_INPUT_DISCONNECT );
 
 							// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 							// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 							// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 							// ProcessCommand에서 사라졌다는 말이다.
-							deletePlayer(i);
-							deleteQueuePlayer(pTempPlayer);
+							try {
+								deletePlayer(i);
+								deleteQueuePlayer(pTempPlayer);
+							} catch (Throwable & t) {
+								filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 430");
+								filelog("IncomingPlayerManager.txt", "Exception catched here: 1"); 
+							}
 
 							Creature* pCreature = pTempPlayer->getCreature();
-							if (pCreature != NULL )
+							if ( pCreature != NULL )
 								pCreature->setValue(2);
 							SAFE_DELETE(pTempPlayer);
 						}
@@ -420,7 +453,7 @@ void IncomingPlayerManager::processInputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processCommands() 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -445,7 +478,7 @@ void IncomingPlayerManager::processCommands()
 
 			if (pTempPlayer->getSocket()->getSockError()) 
 			{
-				FILELOG_INCOMING_CONNECTION("ICMPCSocketErr.log", "[Command] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+				FILELOG_INCOMING_CONNECTION( "ICMPCSocketErr.log", "[Command] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 				try 
 				{
 					// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
@@ -457,17 +490,22 @@ void IncomingPlayerManager::processCommands()
 				}
 
 				// by sigi. 2002.12.30
-//				UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_COMMAND_ERROR);
+//				UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_COMMAND_ERROR );
 
 				// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 				// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 				// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 				// ProcessCommand에서 사라졌다는 말이다.
-				deletePlayer(i);
-				deleteQueuePlayer(pTempPlayer);
+				try {
+					deletePlayer(i);
+					deleteQueuePlayer(pTempPlayer);
+				} catch (Throwable & t) {
+					filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 503");
+					filelog("IncomingPlayerManager.txt", "Exception catched here: 2");
+				}
 
 				Creature* pCreature = pTempPlayer->getCreature();
-				if (pCreature != NULL )
+				if ( pCreature != NULL )
 					pCreature->setValue(3);
 				try
 				{
@@ -476,7 +514,7 @@ void IncomingPlayerManager::processCommands()
 				catch (Throwable& t)
 				{
 					cerr << t.toString() << endl;
-					filelog("Destructor.log", "IncommingPlayerManager.cpp +509 : %s" , t.toString().c_str());
+					filelog( "Destructer.log", "IncommingPlayerManager.cpp +509 : %s" , t.toString().c_str() );
 				}
 			} 
 			else 
@@ -489,7 +527,7 @@ void IncomingPlayerManager::processCommands()
 				{
 					try 
 					{
-						FILELOG_INCOMING_CONNECTION("ICMPCProtocolExcpt.log", "[Command] %s, PlayerID : %s, PlayerStatus : %d", pe.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+						FILELOG_INCOMING_CONNECTION( "ICMPCProtocolExcpt.log", "[Command] %s, PlayerID : %s, PlayerStatus : %d", pe.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 						pTempPlayer->disconnect();
 					} 
 					catch (Throwable & t) 
@@ -498,17 +536,22 @@ void IncomingPlayerManager::processCommands()
 					}
 
 					// by sigi. 2002.12.30
-//					UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_COMMAND_DISCONNECT);
+//					UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_COMMAND_DISCONNECT );
 
 					// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 					// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 					// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 					// ProcessCommand에서 사라졌다는 말이다.
-					deletePlayer(i);
-					deleteQueuePlayer(pTempPlayer);
+					try {
+						deletePlayer(i);
+						deleteQueuePlayer(pTempPlayer);
+					} catch (Throwable & t) {
+						filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 549");
+						filelog("IncomingPlayerManager.txt", "Exception catched here: 3");
+					}
 
 					Creature* pCreature = pTempPlayer->getCreature();
-					if (pCreature != NULL )
+					if ( pCreature != NULL )
 						pCreature->setValue(4);
 					try
 					{
@@ -517,7 +560,7 @@ void IncomingPlayerManager::processCommands()
 					catch (Throwable& t)
 					{
 						cerr << t.toString() << endl;
-						filelog("Destructor.log", "IncommingPlayerManager.cpp +509 : %s" , t.toString().c_str());
+						filelog( "Destructer.log", "IncommingPlayerManager.cpp +509 : %s" , t.toString().c_str() );
 					}
 				}
 			}
@@ -536,7 +579,7 @@ void IncomingPlayerManager::processCommands()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processOutputs () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -556,7 +599,7 @@ void IncomingPlayerManager::processOutputs ()
 		{
 			if (i == m_SocketID)
 			{
-				FILELOG_INCOMING_CONNECTION("ICMFD.txt", "[ i == m_SocketID ] FD : %d, ServerSocket : %d, MinFD : %d, MaxFD : %d, nPlayers : %d:", i, m_SocketID, m_MinFD, m_MaxFD, m_nPlayers);
+				FILELOG_INCOMING_CONNECTION( "ICMFD.txt", "[ i == m_SocketID ] FD : %d, ServerSocket : %d, MinFD : %d, MaxFD : %d, nPlayers : %d:", i, m_SocketID, m_MinFD, m_MaxFD, m_nPlayers );
 				throw IOException("server socket's write bit is selected.");	
 			}
 
@@ -564,12 +607,12 @@ void IncomingPlayerManager::processOutputs ()
 			{
 				GamePlayer* pTempPlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
 
-				Assert(pTempPlayer != NULL);
+				Assert( pTempPlayer != NULL );
 				Assert(m_pPlayers[i] != NULL);
 
 				if (pTempPlayer->getSocket()->getSockError()) 
 				{
-					FILELOG_INCOMING_CONNECTION("ICMPOSocketErr.log", "[Output] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+					FILELOG_INCOMING_CONNECTION( "ICMPOSocketErr.log", "[Output] PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 					try 
 					{
 						// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
@@ -581,17 +624,22 @@ void IncomingPlayerManager::processOutputs ()
 					}
 
 					// by sigi. 2002.12.30
-//					UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_OUTPUT_ERROR);
+//					UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_OUTPUT_ERROR );
 
 					// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 					// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 					// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 					// ProcessCommand에서 사라졌다는 말이다.
-					deletePlayer(i);
-					deleteQueuePlayer(pTempPlayer);
+					try {
+						deletePlayer(i);
+						deleteQueuePlayer(pTempPlayer);
+					} catch (Throwable & t) {
+						filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 637");
+						filelog("IncomingPlayerManager.txt", "Exception catched here: 4");
+					}
 
 					Creature* pCreature = pTempPlayer->getCreature();
-					if (pCreature != NULL )
+					if ( pCreature != NULL )
 						pCreature->setValue(5);
 					SAFE_DELETE(pTempPlayer);
 				} 
@@ -603,11 +651,11 @@ void IncomingPlayerManager::processOutputs ()
 					} 
 					catch (ConnectException & ce) 
 					{
-						FILELOG_INCOMING_CONNECTION("ICMPOConnectExcept.log", "[Output] %s, PlayerID : %s, PlayerStatus : %d", ce.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+						FILELOG_INCOMING_CONNECTION( "ICMPOConnectExcept.log", "[Output] %s, PlayerID : %s, PlayerStatus : %d", ce.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 						StringStream msg;
 						msg << "DISCONNECT " << pTempPlayer->getID() 
 							<< "(" << ce.toString() << ")";
-						//log(LOG_GAMESERVER_ERROR, "", "", msg.toString());
+						log(LOG_GAMESERVER_ERROR, "", "", msg.toString());
 
 						try 
 						{
@@ -620,55 +668,73 @@ void IncomingPlayerManager::processOutputs ()
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_OUTPUT_DISCONNECT);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_OUTPUT_DISCONNECT );
 
 						// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 						// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 						// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 						// ProcessCommand에서 사라졌다는 말이다.
-						deletePlayer(i);
-						deleteQueuePlayer(pTempPlayer);
+						try {
+							deletePlayer(i);
+							deleteQueuePlayer(pTempPlayer);
+						} catch (Throwable & t) {
+							filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 681");
+							filelog("IncomingPlayerManager.txt", "Exception catched here: 5");
+						}
 
 						Creature* pCreature = pTempPlayer->getCreature();
-						if (pCreature != NULL )
+						if ( pCreature != NULL )
 							pCreature->setValue(6);
 						SAFE_DELETE(pTempPlayer);
-					} catch (ProtocolException & cp) {
-						FILELOG_INCOMING_CONNECTION("ICMPOProtocolExcept.log", "[Output] %s, PlayerID : %s, PlayerStatus : %d", cp.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
-						//StringStream msg;
-						//msg << "DISCONNECT " << pTempPlayer->getID() << "(" << cp.toString() << ")";
-						//log(LOG_GAMESERVER_ERROR, "", "", cp.toString());
+					} 
+					catch (ProtocolException & cp) 
+					{
+						FILELOG_INCOMING_CONNECTION( "ICMPOProtocolExcept.log", "[Output] %s, PlayerID : %s, PlayerStatus : %d", cp.toString().c_str(), pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
+						StringStream msg;
+						msg << "DISCONNECT " << pTempPlayer->getID() 
+							<< "(" << cp.toString() << ")";
+						log(LOG_GAMESERVER_ERROR, "", "", cp.toString());
 
 						// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 
-						try {
+						try 
+						{
 							pTempPlayer->disconnect(DISCONNECTED);
-						} catch (Throwable & t) {
+						} 
+						catch (Throwable & t) 
+						{
 							cerr << t.toString() << endl;
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_OUTPUT_DISCONNECT2);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_OUTPUT_DISCONNECT2 );
 
 						// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 						// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 						// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 						// ProcessCommand에서 사라졌다는 말이다.
-						deletePlayer(i);
-						deleteQueuePlayer(pTempPlayer);
+						try {
+							deletePlayer(i);
+							deleteQueuePlayer(pTempPlayer);
+						} catch (Throwable & t) {
+							filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 720");
+							filelog("IncomingPlayerManager.txt", "Exception catched here: 6");
+						}
 
 						Creature* pCreature = pTempPlayer->getCreature();
-						if (pCreature != NULL)
+						if ( pCreature != NULL )
 							pCreature->setValue(7);
 						SAFE_DELETE(pTempPlayer);
 					}
 				}
 			}
+
 			//pTempPlayer->processOutput();
 		}
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
+
 	__END_CATCH
 }
 
@@ -680,7 +746,7 @@ void IncomingPlayerManager::processOutputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processExceptions () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -703,13 +769,13 @@ void IncomingPlayerManager::processExceptions ()
 				if (m_pPlayers[i] != NULL) 
 				{
 					GamePlayer* pTempPlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
-					Assert(pTempPlayer != NULL);
+					Assert(pTempPlayer != NULL );
 					Assert(i != m_SocketID);
 					Assert(m_pPlayers[i] != NULL);
 					StringStream msg;
 					msg << "OOB from " << pTempPlayer->toString();
 					
-					FILELOG_INCOMING_CONNECTION("ICMPEOOB.log", "PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus());
+					FILELOG_INCOMING_CONNECTION( "ICMPEOOB.log", "PlayerID : %s, PlayerStatus : %d", pTempPlayer->getID().c_str(), (int)pTempPlayer->getPlayerStatus() );
 					try 
 					{
 						pTempPlayer->disconnect();
@@ -720,17 +786,22 @@ void IncomingPlayerManager::processExceptions ()
 					} 
 
 					// by sigi. 2002.12.30
-//					UserGateway::getInstance()->passUser(UserGateway::USER_OUT_INCOMING_EXCEPTION);
+//					UserGateway::getInstance()->passUser( UserGateway::USER_OUT_INCOMING_EXCEPTION );
 
 					// 플레이어가 없다는 말은? 다른 곳에서 지워 졌거나,
 					// 다른 곳에서 deletePlayer를 하는 곳은 없다.
 					// 오로지 각 PlayerManager에서만 Player를 지울 수 있다.
 					// ProcessCommand에서 사라졌다는 말이다.
-					deletePlayer(i);
-					deleteQueuePlayer(pTempPlayer);
+					try {
+						deletePlayer(i);
+						deleteQueuePlayer(pTempPlayer);
+					} catch (Throwable & t) {
+						filelog("deletePlayer.log", "called in IncomingPlayerManager.cpp line 799");
+						filelog("IncomingPlayerManager.txt", "Exception catched here: 7");
+					}
 
 					Creature* pCreature = pTempPlayer->getCreature();
-					if (pCreature != NULL )
+					if ( pCreature != NULL )
 						pCreature->setValue(8);
 					SAFE_DELETE(pTempPlayer);
 				}
@@ -752,7 +823,7 @@ void IncomingPlayerManager::processExceptions ()
 // select 기반에서는 nonblocking 소켓을 사용하지 않는다.
 //////////////////////////////////////////////////////////////////////////////
 bool IncomingPlayerManager::acceptNewConnection ()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -771,7 +842,7 @@ bool IncomingPlayerManager::acceptNewConnection ()
 		m_CheckValue = 1;
 		client = m_pServerSocket->accept();
 		m_CheckValue = 2;
-	} catch (Throwable & t ) {
+	} catch ( Throwable & t ) {
 		m_CheckValue += 10000;
 	}
 
@@ -785,11 +856,11 @@ bool IncomingPlayerManager::acceptNewConnection ()
 	{
 
 		fd = (int)client->getSOCKET();
-		FILELOG_INCOMING_CONNECTION("acceptNewConnection.log", "Accept FD : %d (MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str());
+		FILELOG_INCOMING_CONNECTION("acceptNewConnection.log", "Accept FD : %d ( MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str() );
 
 		if (fd<=0 || fd>=nMaxPlayers)
 		{
-			FILELOG_INCOMING_CONNECTION("acceptNewConnectionError.log", "Accept FD : %d (MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str());
+			FILELOG_INCOMING_CONNECTION("acceptNewConnectionError.log", "Accept FD : %d ( MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str() );
 
 			throw Error();
 		}
@@ -797,7 +868,7 @@ bool IncomingPlayerManager::acceptNewConnection ()
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다
 		// Thread 관련 처리를 끝내기 전까지 임시로 들어간다.
-		if(client->getSockError() ) 
+		if( client->getSockError() ) 
 		{
 			m_CheckValue = 4;
 			throw Error();
@@ -810,7 +881,7 @@ bool IncomingPlayerManager::acceptNewConnection ()
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다
 		// Thread 관련 처리를 끝내기 전까지 임시로 들어간다.
-		if(client->getSockError() ) 
+		if( client->getSockError() ) 
 		{
 			m_CheckValue = 7;
 			throw Error();
@@ -820,9 +891,9 @@ bool IncomingPlayerManager::acceptNewConnection ()
 		client->setLinger(0);
 		m_CheckValue = 9;
 
-		//StringStream msg;
-		//msg << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort();
-		//log(LOG_GAMESERVER, "", "", msg.toString());
+		StringStream msg;
+		msg << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort();
+		log(LOG_GAMESERVER, "", "", msg.toString());
 		m_CheckValue = 10;
 		
 		//----------------------------------------------------------------------
@@ -851,11 +922,11 @@ bool IncomingPlayerManager::acceptNewConnection ()
 			m_CheckValue = 15;
 
 			// by sigi. 2002.12.30
-//			UserGateway::getInstance()->passUser(UserGateway::USER_IN_NORMAL);
+//			UserGateway::getInstance()->passUser( UserGateway::USER_IN_NORMAL );
 		}
-		catch (DuplicatedException & de) 
+		catch ( DuplicatedException & de) 
 		{
-			FILELOG_INCOMING_CONNECTION("ancDupExcept.log", "[Output] %s, FD : %d (MinFD : %d , MaxFD : %d ) %s", de.toString().c_str(), fd, MinFD, MaxFD, client->getHost().c_str());
+			FILELOG_INCOMING_CONNECTION( "ancDupExcept.log", "[Output] %s, FD : %d ( MinFD : %d , MaxFD : %d ) %s", de.toString().c_str(), fd, MinFD, MaxFD, client->getHost().c_str() );
 
 			m_CheckValue += 1000;
 			client->close();
@@ -869,13 +940,13 @@ bool IncomingPlayerManager::acceptNewConnection ()
 	} 
 	catch (NoSuchElementException&) 
 	{
-		FILELOG_INCOMING_CONNECTION("ancNoSuch.log", "FD : %d (MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str());
+		FILELOG_INCOMING_CONNECTION( "ancNoSuch.log", "FD : %d ( MinFD : %d , MaxFD : %d ) %s", fd, MinFD, MaxFD, client->getHost().c_str() );
 
 		m_CheckValue += 20000;
 		m_CheckValue += 1000;
-		//StringStream msg2;
-		//msg2 << "ILLEGAL ACCESS FROM " << client->getHost() << ":" <<  client->getPort();
-		//log(LOG_GAMESERVER, "", "", msg2.toString());
+		StringStream msg2;
+		msg2 << "ILLEGAL ACCESS FROM " << client->getHost() << ":" <<  client->getPort();
+		log(LOG_GAMESERVER, "", "", msg2.toString());
 
 		m_CheckValue += 1000;
 
@@ -891,12 +962,12 @@ bool IncomingPlayerManager::acceptNewConnection ()
 	}
 	catch (Throwable & t)
 	{
-		FILELOG_INCOMING_CONNECTION("ancThrowable.log", "FD : %d (MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue);
+		FILELOG_INCOMING_CONNECTION( "ancThrowable.log", "FD : %d ( MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue );
 		m_CheckValue += 30000;
 		try
 		{
 			m_CheckValue = 25;
-			if(client != NULL ) 
+			if( client != NULL ) 
 			{
 				client->close();
 				m_CheckValue = 26;
@@ -917,12 +988,12 @@ bool IncomingPlayerManager::acceptNewConnection ()
 	catch (exception& e)
 	{
 		m_CheckValue += 40000;
-		FILELOG_INCOMING_CONNECTION("ancException.log", "FD : %d (MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue);
+		FILELOG_INCOMING_CONNECTION( "ancException.log", "FD : %d ( MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue );
 	}
 	catch (...)
 	{
 		m_CheckValue += 50000;
-		FILELOG_INCOMING_CONNECTION("ancEtc.log", "FD : %d (MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue);
+		FILELOG_INCOMING_CONNECTION( "ancEtc.log", "FD : %d ( MinFD : %d , MaxFD : %d ) %s checkValue : %d", fd, MinFD, MaxFD, client->getHost().c_str(), m_CheckValue );
 	}
 	m_CheckValue = 33;
 
@@ -937,7 +1008,7 @@ bool IncomingPlayerManager::acceptNewConnection ()
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::addPlayer (Player* pGamePlayer) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -969,7 +1040,7 @@ void IncomingPlayerManager::addPlayer (Player* pGamePlayer)
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::addPlayer_NOBLOCKED (Player* pGamePlayer) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -992,11 +1063,12 @@ void IncomingPlayerManager::addPlayer_NOBLOCKED (Player* pGamePlayer)
 }
 
 void IncomingPlayerManager::deletePlayer_NOBLOCKED (SOCKET fd) 
-	throw(OutOfBoundException , NoSuchElementException , Error)
+	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
 	// call base class's method
+	//filelog("deletePlayer.log", "Call in deletePlayer_NOBLOCKED"); 
 	PlayerManager::deletePlayer(fd);
 
 	Assert(m_pPlayers[fd] == NULL);
@@ -1035,7 +1107,7 @@ void IncomingPlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 
 		// 적절한 m_MinFD를 찾지 못했을 경우,
 		if (i < m_MinFD) {
-			FILELOG_INCOMING_CONNECTION("ICMFD.txt", "[ i < m_MinFD nbl] nPlayers : %d, MinFD : %d, MaxFD : %d, ServerSocket : %d", m_nPlayers, (int)m_MinFD, (int)m_MaxFD, (int)m_SocketID);
+			FILELOG_INCOMING_CONNECTION( "ICMFD.txt", "[ i < m_MinFD nbl] nPlayers : %d, MinFD : %d, MaxFD : %d, ServerSocket : %d", m_nPlayers, (int)m_MinFD, (int)m_MaxFD, (int)m_SocketID );
 			throw UnknownError("m_MinFD & m_MaxFD problem.");
 		}
 	}
@@ -1067,13 +1139,14 @@ void IncomingPlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::deletePlayer (SOCKET fd) 
-	throw(OutOfBoundException , NoSuchElementException , Error)
+	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// call base class's method
+	//filelog("deletePlayer.log", "Call in deletePlayer(...) in IncomingPlayerManager.cpp"); 
 	PlayerManager::deletePlayer(fd);
 
 	Assert(m_pPlayers[fd] == NULL);
@@ -1113,7 +1186,7 @@ void IncomingPlayerManager::deletePlayer (SOCKET fd)
 
 		// 적절한 m_MinFD를 찾지 못했을 경우,
 		if (i < m_MinFD) {
-			FILELOG_INCOMING_CONNECTION("ICMFD.txt", "[ i < m_MinFD ] nPlayers : %d, MinFD : %d, MaxFD : %d, ServerSocket : %d", m_nPlayers, (int)m_MinFD, (int)m_MaxFD, (int)m_SocketID);
+			FILELOG_INCOMING_CONNECTION( "ICMFD.txt", "[ i < m_MinFD ] nPlayers : %d, MinFD : %d, MaxFD : %d, ServerSocket : %d", m_nPlayers, (int)m_MinFD, (int)m_MaxFD, (int)m_SocketID );
 			throw UnknownError("m_MinFD & m_MaxFD problem.");
 		}
 	}
@@ -1134,7 +1207,7 @@ void IncomingPlayerManager::deletePlayer (SOCKET fd)
 }
 
 GamePlayer* IncomingPlayerManager::getPlayer_NOBLOCKED (const string & id)
-    throw(NoSuchElementException , Error)
+    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1153,7 +1226,7 @@ GamePlayer* IncomingPlayerManager::getPlayer_NOBLOCKED (const string & id)
 	}
 
 	if (pGamePlayer == NULL) 
-		throw NoSuchElementException("Player ID not found.");
+		throw NoSuchElementException("그런 아이디를 가진 플레이어는 존재하지 않습니다.");
 
 	return pGamePlayer;
 
@@ -1162,7 +1235,7 @@ GamePlayer* IncomingPlayerManager::getPlayer_NOBLOCKED (const string & id)
 }
 
 GamePlayer* IncomingPlayerManager::getPlayer (const string & id)
-    throw(NoSuchElementException , Error)
+    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1180,7 +1253,7 @@ GamePlayer* IncomingPlayerManager::getPlayer (const string & id)
 }
 
 GamePlayer* IncomingPlayerManager::getReadyPlayer (const string & id)
-    throw(NoSuchElementException , Error)
+    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1256,7 +1329,7 @@ void IncomingPlayerManager::heartbeat()
 
 		if (pGamePlayer == NULL)
 		{
-			filelog("ZoneBug.txt", "%s : %s", "Zone::heartbeat(1)", "pGamePlayer is NULL.");
+			filelog("ZoneBug.txt", "%s : %s", "Zone::heartbeat(1)", "pGamePlayer가 NULL입니다.");
 			continue;
 		}
 
@@ -1275,22 +1348,23 @@ void IncomingPlayerManager::heartbeat()
 		// 불안정한 지원이 있을지도 모르는 경우를 대비해서 이다.
 		// 실제적으로도 불안정한 현상이 나타나고 있다.
 		//-----------------------------------------------------------------------------
-		if(pGamePlayer->isPenaltyFlag(PENALTY_TYPE_KICKED) ) {
+		if( pGamePlayer->isPenaltyFlag(PENALTY_TYPE_KICKED) ) {
 			// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
 			int fd = -1;
 			Socket* pSocket = pGamePlayer->getSocket();
 			if (pSocket!=NULL) fd = (int)pSocket->getSOCKET();
 
-			FILELOG_INCOMING_CONNECTION("incomingDisconnect.log", "FD : %d, %s", fd, (pSocket==NULL? "NULL" : pSocket->getHost().c_str()));
+			FILELOG_INCOMING_CONNECTION("incomingDisconnect.log", "FD : %d, %s", 
+					fd, (pSocket==NULL? "NULL" : pSocket->getHost().c_str()) );
 
 			// by sigi. 2002.12.30
 			if (pGamePlayer->getReconnectPacket()!=NULL)
 			{
-//				UserGateway::getInstance()->passUser(UserGateway::USER_OUT_NORMAL);
+//				UserGateway::getInstance()->passUser( UserGateway::USER_OUT_NORMAL );
 			}
 			else
 			{
-//				UserGateway::getInstance()->passUser(UserGateway::USER_OUT_KICKED);
+//				UserGateway::getInstance()->passUser( UserGateway::USER_OUT_KICKED );
 			}
 
 			try 
@@ -1305,19 +1379,25 @@ void IncomingPlayerManager::heartbeat()
 					// send GLKickVerify to LoginServer. 2002.5.6
 					GLKickVerify glKickVerify;
 					glKickVerify.setKicked(true);
-					glKickVerify.setID(pGamePlayer->getSocket()->getSOCKET());
-					glKickVerify.setPCName(pGamePlayer->getCreature()->getName());
+					glKickVerify.setID( pGamePlayer->getSocket()->getSOCKET() );
+					glKickVerify.setPCName( pGamePlayer->getCreature()->getName() );
 
-					g_pLoginServerManager->sendPacket(pGamePlayer->getKickRequestHost(), 
+					g_pLoginServerManager->sendPacket( pGamePlayer->getKickRequestHost(), 
 														pGamePlayer->getKickRequestPort(), 
-														&glKickVerify);
+														&glKickVerify );
+
+					cout << "LGKickVerify Send Packet to ServerIP : " << pGamePlayer->getKickRequestHost() << endl;
+					cout << "LGKickVerify Send Packet to ServerPort : " << pGamePlayer->getKickRequestPort() << endl;
 				}
-			} catch (Throwable & t) {
+
+			} 
+			catch (Throwable & t) 
+			{
 				cerr << t.toString() << endl;
 			}
 
 			Creature* pCreature = pGamePlayer->getCreature();
-			if (pCreature != NULL)
+			if ( pCreature != NULL )
 				pCreature->setValue(9);
 			SAFE_DELETE(pGamePlayer);
 
@@ -1351,13 +1431,13 @@ void IncomingPlayerManager::heartbeat()
 				{
 					MasterLairManager* pMasterLairManager = pOldZone->getMasterLairManager();
 					Assert(pMasterLairManager!=NULL);
-					pMasterLairManager->leaveCreature(pCreature);
+					pMasterLairManager->leaveCreature( pCreature );
 				}
 
 				// PK 존에서 플레이어가 나가는 경우
 				if (pCreature->isPLAYER() && pZone != NULL && pOldZone->getZoneID() != pZone->getZoneID())
 				{
-					if(g_pPKZoneInfoManager->isPKZone(pOldZone->getZoneID() )) g_pPKZoneInfoManager->leavePKZone(pOldZone->getZoneID());
+					if(g_pPKZoneInfoManager->isPKZone( pOldZone->getZoneID() )) g_pPKZoneInfoManager->leavePKZone( pOldZone->getZoneID() );
 				}
 			}
 
@@ -1368,10 +1448,10 @@ void IncomingPlayerManager::heartbeat()
 			}
 			else
 			{
-				pCreature->setZone(pZone);
-				pCreature->setNewZone(NULL);
+				pCreature->setZone( pZone );
+				pCreature->setNewZone( NULL );
 
-				pCreature->setXY(pCreature->getNewX(), pCreature->getNewY());
+				pCreature->setXY( pCreature->getNewX(), pCreature->getNewY() );
 
 				// 새 Zone에 들어가게 되는 경우
 				pCreature->registerObject();
@@ -1385,20 +1465,25 @@ void IncomingPlayerManager::heartbeat()
 			#if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
 				// 빌링
 				// 유료존 --> 무료존으로 갈 경우 30레벨 이하의 종량제는 지불 끝이다.
-				if ((pGamePlayer->isPayPlaying() || pGamePlayer->isPremiumPlay() )
+				if ( ( pGamePlayer->isPayPlaying() || pGamePlayer->isPremiumPlay() )
 					&& pGamePlayer->getPayType() == PAY_TYPE_TIME )
 				{
-					Assert(pCreature->isPC());
+					Assert( pCreature->isPC() );
 					PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-					Assert(pPC != NULL);
+					Assert( pPC != NULL );
 
-					if (pPC->canPlayFree() && !pZone->isPayPlay() && !pZone->isPremiumZone() )
-						pGamePlayer->logoutPayPlay(pGamePlayer->getID());
+					if ( pPC->canPlayFree() && !pZone->isPayPlay() && !pZone->isPremiumZone() )
+					{
+						//cout << "LogoutPayPlay:[" << (int)pZone->getZoneID() << "] " 
+						//		<< (int)pZone->isPayPlay() << " , "
+						//		<< (int)pZone->isPremiumZone() << endl;
+						pGamePlayer->logoutPayPlay( pGamePlayer->getID() );
+					}
 				}
 			#endif
 
 			// System Availabilities 정보를 보내준다.
-			//SEND_SYSTEM_AVAILABILITIES(pGamePlayer);
+			SEND_SYSTEM_AVAILABILITIES(pGamePlayer);
 
 			//--------------------------------------------------------------------------------
 			// GCUpdateInfo 패킷을 만들어 날린다.
@@ -1412,12 +1497,14 @@ void IncomingPlayerManager::heartbeat()
 		// 로그아웃을 하는 경우이다.
 		} else if (pGamePlayer->getPlayerStatus() == GPS_AFTER_SENDING_GL_INCOMING_CONNECTION) {
 
+//			cout << "Logout..." << pGamePlayer->getID() << endl;
+
 /*			Creature * pCreature = pGamePlayer->getCreature();
 
 			// PK 존에서 플레이어가 나가는 경우
-			if (pCreature != NULL && g_pPKZoneInfoManager->isPKZone(pCreature->getZoneID() ))
+			if ( pCreature != NULL && g_pPKZoneInfoManager->isPKZone( pCreature->getZoneID() ))
 			{
-				g_pPKZoneInfoManager->leavePKZone(pCreature->getZoneID());
+				g_pPKZoneInfoManager->leavePKZone( pCreature->getZoneID() );
 			}
 */
    			// 로그인 서버로 GLIncomingConnection을 보낸다.
@@ -1431,10 +1518,17 @@ void IncomingPlayerManager::heartbeat()
 			int port;
 			
 			if (portNum > 1)
-				port = g_pConfig->getPropertyInt("LoginServerBaseUDPPort") + rand()%portNum;
+			{
+				port = g_pConfig->getPropertyInt("LoginServerBaseUDPPort") 
+						+ rand()%portNum;
+			}
 			else
+			{
 				port = g_pConfig->getPropertyInt("LoginServerUDPPort");
+			}
 	
+			//cout << "ReconnectAddress = " << g_pConfig->getProperty("LoginServerIP").c_str() << ":" << port << endl;
+
 			/*
 			if (g_pConfig->getProperty("User") == "excel96")
 				g_pLoginServerManager->sendPacket(g_pConfig->getProperty("LoginServerIP") , port, &glIncomingConnection);
@@ -1467,7 +1561,8 @@ void IncomingPlayerManager::heartbeat()
 
 		m_PlayerOutListQueue.pop_front();
 
-		Assert(pGamePlayer != NULL);
+		try{
+			Assert(pGamePlayer != NULL);
 
 		Creature * pCreature = pGamePlayer->getCreature();
 		Assert(pCreature != NULL);
@@ -1494,7 +1589,10 @@ void IncomingPlayerManager::heartbeat()
 
 		// Push 한다.
 		pZonePlayerManager->pushPlayer(pGamePlayer);
-
+			}
+		catch(...){
+			filelog("IncomingPlayerManager.txt","AssertionError! IncomingPlayManager.cpp line 1594");
+			}
 
 	}
 
@@ -1533,77 +1631,77 @@ void IncomingPlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
 // IncomingPlayerManager 에 있는 모든 사용자를 정리한다.
 ////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::clearPlayers()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// PlayerListQueue 에 있는 애들을 정리한다.
-	while (!m_PlayerListQueue.empty() )
+	while ( !m_PlayerListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerListQueue.front();
 
 		m_PlayerListQueue.pop_front();
 
-		if (pGamePlayer != NULL )
+		if ( pGamePlayer != NULL )
 		{
 			try
 			{
 				pGamePlayer->disconnect();
 			}
-			catch (Throwable& t )
+			catch ( Throwable& t )
 			{
 				// 무시
 			}
 
-			SAFE_DELETE(pGamePlayer);
+			SAFE_DELETE( pGamePlayer );
 		}
 	}
 
 	// PlayerOutListQueue 에 있는 애들을 정리한다.
-	while (!m_PlayerOutListQueue.empty() )
+	while ( !m_PlayerOutListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerOutListQueue.front();
 
 		m_PlayerOutListQueue.pop_front();
 
-		if (pGamePlayer != NULL )
+		if ( pGamePlayer != NULL )
 		{
 			try
 			{
 				pGamePlayer->disconnect();
 			}
-			catch (Throwable& t )
+			catch ( Throwable& t )
 			{
 				// 무시
 			}
 
-			SAFE_DELETE(pGamePlayer);
+			SAFE_DELETE( pGamePlayer );
 		}
 	}
 
 
-	if (m_MinFD == -1 && m_MaxFD == -1 )
+	if ( m_MinFD == -1 && m_MaxFD == -1 )
 		return;
 
 	// 플레이어를 정리한다.
-	for (int i = m_MinFD; i <= m_MaxFD; i++ )
+	for ( int i = m_MinFD; i <= m_MaxFD; i++ )
 	{
-		if (i != m_SocketID && m_pPlayers[i] != NULL )
+		if ( i != m_SocketID && m_pPlayers[i] != NULL )
 		{
 			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
 
-			if (pGamePlayer != NULL )
+			if ( pGamePlayer != NULL )
 			{
 				try
 				{
 					pGamePlayer->disconnect();
 				}
-				catch (Throwable& t )
+				catch ( Throwable& t )
 				{
 					// 무시
 				}
 
-				SAFE_DELETE(pGamePlayer);
+				SAFE_DELETE( pGamePlayer );
 			}
 		}
 	}

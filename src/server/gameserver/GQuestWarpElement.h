@@ -8,7 +8,7 @@ class GQuestWarpElement : public GQuestElement
 public:
 	GQuestWarpElement() : m_ZoneID(0), m_X(0), m_Y(0) { }
 	string 				getElementName() const { return "Warp"; }
-	ResultType	 		checkCondition(PlayerCreature* pPC ) const;
+	ResultType	 		checkCondition( PlayerCreature* pPC ) const;
 	GQuestWarpElement*	makeElement(XMLTree* pTree);
 
 private:

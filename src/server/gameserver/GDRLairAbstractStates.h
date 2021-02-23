@@ -43,7 +43,7 @@ public:
 	public:
 		ActionWait(Monster* pTarget, Turn_t delay) : Action(pTarget), m_bWait(false), m_Delay(delay) { }
 		ActionType	getActionType() const { return ACTION_WAIT; }
-		Turn_t		execute() { if (!m_bWait ) { m_bWait = true; return m_Delay; } else return 0; }
+		Turn_t		execute() { if ( !m_bWait ) { m_bWait = true; return m_Delay; } else return 0; }
 	};
 
 	class ActionSay : public Action
@@ -71,7 +71,7 @@ public:
 	{
 		Effect::EffectClass m_EffectClass;
 		Turn_t				m_Duration;
-    public:
+	public:
 		ActionEffect(Monster* pTarget, Effect::EffectClass eClass, Turn_t duration) : Action(pTarget), m_EffectClass(eClass), m_Duration(duration) { }
 		ActionType	getActionType() const { return ACTION_EFFECT; }
 		Turn_t		execute();
@@ -79,8 +79,8 @@ public:
 
 	class ActionRemoveEffect : public Action
 	{
-	    Effect::EffectClass m_EffectClass;
-    public:
+		Effect::EffectClass m_EffectClass;
+	public:
 		ActionRemoveEffect(Monster* pTarget, Effect::EffectClass eClass) : Action(pTarget), m_EffectClass(eClass) { }
 		ActionType	getActionType() const { return ACTION_EFFECT; }
 		Turn_t		execute();
@@ -104,6 +104,7 @@ public:
 		Turn_t		execute();
 	};
 
+protected:
 	list<Action*>	m_ActionList;
 	list<Action*>::iterator	m_NextAction;
 	Timeval			m_NextActionTurn;
@@ -112,7 +113,8 @@ public:
 	Monster*		getGDR() const;
 	void			setGDR(Monster* pGDR) const;
 
-	GDRScene(DWORD nState ) : m_NextState(nState) { }
+public:
+	GDRScene( DWORD nState ) : m_NextState(nState) { }
 	// 하위 클래스에서는 반드시 세팅을 끝낸 뒤에 이 start 를 불러줘야 된다.
 	void			start();
 	DWORD			heartbeat(Timeval currentTime);
@@ -142,13 +144,13 @@ public:
 		list<SummonInfo*>&			getSummonInfos() { return m_SummonInfos; }
 		const list<SummonInfo*>&	getSummonInfos() const { return m_SummonInfos; }
 
-		void						executeSummon(Zone* pZone);
+		void						executeSummon( Zone* pZone );
 	};
 
-	MonsterSummonState(Zone* pZone, DWORD clearState, DWORD failState, DWORD timeoutState, Turn_t timeLimit ) :
-		TimerState(timeoutState, timeLimit ), m_pZone(pZone ), m_ClearState(clearState ), m_FailState(failState ), m_TimeLimit(true ) { }
-	MonsterSummonState(Zone* pZone, DWORD clearState, DWORD failState ) :
-		TimerState(clearState, 999999999 ), m_pZone(pZone), m_ClearState(clearState ), m_FailState(failState ), m_TimeLimit(false) { }
+	MonsterSummonState( Zone* pZone, DWORD clearState, DWORD failState, DWORD timeoutState, Turn_t timeLimit ) :
+		TimerState( timeoutState, timeLimit ), m_pZone( pZone ), m_ClearState( clearState ), m_FailState( failState ), m_TimeLimit( true ) { }
+	MonsterSummonState( Zone* pZone, DWORD clearState, DWORD failState ) :
+		TimerState( clearState, 999999999 ), m_pZone(pZone), m_ClearState( clearState ), m_FailState( failState ), m_TimeLimit(false) { }
 
 	void	start();
 	DWORD	heartbeat(Timeval currentTime);

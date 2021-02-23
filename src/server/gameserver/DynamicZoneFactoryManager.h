@@ -23,10 +23,10 @@ public:
 
 public:
 	void init();
-	void addFactory(DynamicZoneFactory* pFactory);
-	DynamicZone* createDynamicZone(int dynamicZoneType ) const;
-	string getDynamicZoneName(int dynamicZoneType ) const;
-	int getDynamicZoneType(const string & dynamicZoneName ) const;
+	void addFactory( DynamicZoneFactory* pFactory );
+	DynamicZone* createDynamicZone( int dynamicZoneType ) const;
+	string getDynamicZoneName( int dynamicZoneType ) const;
+	int getDynamicZoneType( const string & dynamicZoneName ) const;
 	string toString() const;
 
 private:

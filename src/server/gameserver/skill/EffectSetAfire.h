@@ -31,16 +31,16 @@ public:
 
 public:
 	Damage_t	getDamage() const { return m_Damage; }
-	void		setDamage(Damage_t Damage ) { m_Damage = Damage; }
+	void		setDamage( Damage_t Damage ) { m_Damage = Damage; }
 	
 	int			getTimes() const { return m_Times; }
-	void		setTimes(int Times ) { m_TotalTimes = m_Times = Times; }
+	void		setTimes( int Times ) { m_TotalTimes = m_Times = Times; }
 
 	Turn_t		getTick() const { return m_Tick; }
-	void		setTick(Turn_t Tick ) { m_Tick = Tick; }
+	void		setTick( Turn_t Tick ) { m_Tick = Tick; }
 
 	ObjectID_t	getCasterOID() const { return m_CasterOID; }
-	void		setCasterOID(ObjectID_t CasterOID ) { m_CasterOID = CasterOID; }
+	void		setCasterOID( ObjectID_t CasterOID ) { m_CasterOID = CasterOID; }
 	
 private:
 	Damage_t	m_Damage;

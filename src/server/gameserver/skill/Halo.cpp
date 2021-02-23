@@ -128,23 +128,23 @@ void Halo::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlo
 
 	g_SimpleMissileSkill.execute(pOusters, TargetObjectID, pOustersSkillSlot, param, result, CEffectID);
 
-	if (result.bSuccess )
+	if ( result.bSuccess )
 	{
-		//cout << "Halo 성공" << endl;
-		Dir_t dir = getDirection_Halo(pOusters->getX(), pOusters->getY(), result.pTargetCreature->getX(), result.pTargetCreature->getY());
+		cout << "Halo 성공" << endl;
+		Dir_t dir = getDirection_Halo( pOusters->getX(), pOusters->getY(), result.pTargetCreature->getX(), result.pTargetCreature->getY() );
 
 		ZoneCoord_t effectX = result.pTargetCreature->getX() + dirMoveMask[(int)dir].x*3;
 		ZoneCoord_t effectY = result.pTargetCreature->getY() + dirMoveMask[(int)dir].y*3;
 
 		Zone* pZone = pOusters->getZone();
-		if (isValidZoneCoord(pZone, effectX, effectY ) )
+		if ( isValidZoneCoord( pZone, effectX, effectY ) )
 		{
-			EffectHalo* pEffect = new EffectHalo(pZone, effectX, effectY);
-			pEffect->setTargetOID(TargetObjectID);
-			pEffect->setUserOID(pOusters->getObjectID());
-			pEffect->setDamage(output.Range);
-			pEffect->setDeadline(output.Duration);
-			pEffect->setNextTime(10);
+			EffectHalo* pEffect = new EffectHalo( pZone, effectX, effectY );
+			pEffect->setTargetOID( TargetObjectID );
+			pEffect->setUserOID( pOusters->getObjectID() );
+			pEffect->setDamage( output.Range );
+			pEffect->setDeadline( output.Duration );
+			pEffect->setNextTime( 10 );
 			pEffect->setBroadcastingEffect(false);
 
 			pZone->registerObject(pEffect);

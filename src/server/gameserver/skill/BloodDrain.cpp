@@ -10,13 +10,13 @@
 #include "EffectDecreaseHP.h"
 #include "GQuestManager.h"
 
-#include "GCBloodDrainOK1.h"
-#include "GCBloodDrainOK2.h"
-#include "GCBloodDrainOK3.h"
-#include "GCStatusCurrentHP.h"
-#include "GCChangeDarkLight.h"
+#include "Gpackets/GCBloodDrainOK1.h"
+#include "Gpackets/GCBloodDrainOK2.h"
+#include "Gpackets/GCBloodDrainOK3.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCChangeDarkLight.h"
 
-//#include "LogClient.h"
+#include "LogClient.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -47,7 +47,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 		if (pTargetCreature==NULL		// NoSuch 제거. by sigi. 2002.5.2
 			|| pTargetCreature->isNPC()
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN)
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)
 			|| pTargetCreature->isDead()
 		)
@@ -93,10 +93,10 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 				pTargetSlayer->addModifyInfo(prev, _GCBloodDrainOK2);
 
 				// 로그를 남긴다.
-				//log(LOG_BLOODDRAINED, pTargetCreature->getName(), pVampire->getName());
+				log(LOG_BLOODDRAINED, pTargetCreature->getName(), pVampire->getName());
 			}
 			// 아우스터즈의 경우엔..... -_-; 제한시간 없는 이펙트를 생성한다. 엄밀히 말해 제한시간이 없는 건 아니지만..
-//			else if (pTargetCreature->isOusters() )
+//			else if ( pTargetCreature->isOusters() )
 //			{
 //				EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pTargetCreature);
 //				pEffectBloodDrain->setLevel(pVampire->getLevel());
@@ -110,7 +110,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 //				Sight_t oldSight = pTargetCreature->getSight();
 //				Sight_t newSight = pTargetCreature->getEffectedSight();
 //
-//				if (oldSight != newSight )
+//				if ( oldSight != newSight )
 //				{
 //					pTargetCreature->setSight(newSight);
 //					pZone->updateScan(pTargetCreature, oldSight, pTargetCreature->getSight());
@@ -217,8 +217,8 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 				//decreaseHP(pZone, pTargetCreature, drainDamage, pVampire->getObjectID()); 
 				EffectDecreaseHP* pEffect = new EffectDecreaseHP(pTargetCreature);
 				pEffect->setPoint(drainDamage);
-				pEffect->setDeadline(20);	// 2초 후
-				pEffect->setUserObjectID(pVampire->getObjectID());
+				pEffect->setDeadline( 20 );	// 2초 후
+				pEffect->setUserObjectID( pVampire->getObjectID() );
 				pTargetCreature->addEffect(pEffect);
 				pTargetCreature->setFlag(Effect::EFFECT_CLASS_DECREASE_HP);
 			}
@@ -245,7 +245,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 				if (pTargetPlayer != NULL) 
 				{ 
 					_GCBloodDrainOK2.setObjectID(pVampire->getObjectID());
-//					_GCBloodDrainOK2.addLongData(MODIFY_DURATION, BLOODDRAIN_DURATION);
+					_GCBloodDrainOK2.addLongData(MODIFY_DURATION, BLOODDRAIN_DURATION);
 					pTargetPlayer->sendPacket(&_GCBloodDrainOK2);
 				}
 			}
@@ -365,7 +365,7 @@ void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -429,10 +429,10 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 			}
 
 			// 로그를 남긴다.
-			//log(LOG_BLOODDRAINED, pEnemy->getName(), "게임 내의 몬스터");
+			log(LOG_BLOODDRAINED, pEnemy->getName(), "게임 내의 몬스터");
 		}
 		// 아우스터즈의 경우엔..... -_-; 제한시간 없는 이펙트를 생성한다. 엄밀히 말해 제한시간이 없는 건 아니지만..
-//		else if (pEnemy->isOusters() && !isMaster )
+//		else if ( pEnemy->isOusters() && !isMaster )
 //		{
 //			EffectBloodDrain* pEffectBloodDrain = new EffectBloodDrain(pEnemy);
 //			pEffectBloodDrain->setLevel(pMonster->getLevel());
@@ -445,7 +445,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 //			Sight_t oldSight = pEnemy->getSight();
 //			Sight_t newSight = pEnemy->getEffectedSight();
 //
-//			if (oldSight != newSight )
+//			if ( oldSight != newSight )
 //			{
 //				pEnemy->setSight(newSight);
 //				pZone->updateScan(pEnemy, oldSight, pEnemy->getSight());
@@ -478,7 +478,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 	
 				if (!isMaster)
 				{
-					// _GCBloodDrainOK2.addLongData(MODIFY_DURATION, BLOODDRAIN_DURATION);
+					_GCBloodDrainOK2.addLongData(MODIFY_DURATION, BLOODDRAIN_DURATION);
 				}
 				pTargetPlayer->sendPacket(&_GCBloodDrainOK2);
 			}
@@ -516,7 +516,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 			DelayTurn.tv_usec = 500000;
 			pEnemyMonster->addAccuDelay(DelayTurn);
 
-			if ((pMonster->isMaster()
+			if ( ( pMonster->isMaster()
 #ifdef __UNDERWORLD__
 				|| pMonster->isUnderworld() || pMonster->getMonsterType() == 599 
 #endif
@@ -539,7 +539,7 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 		HP_t drainHP = maxHP*(rand()%11+15)/100; // 15~25%
 
 		// 한번에 1000이상 안 찬다.
-		if (pMonster->getMonsterType() >= 717 )
+		if ( pMonster->getMonsterType() >= 717 )
 			drainHP = min((int)drainHP, 2000);
 		else
 			drainHP = min((int)drainHP, 1000);
@@ -579,8 +579,8 @@ bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
 			//decreaseHP(pZone, pEnemy, drainDamage);
 			EffectDecreaseHP* pEffect = new EffectDecreaseHP(pEnemy);
 			pEffect->setPoint(drainDamage);
-			pEffect->setDeadline(20);	// 2초 후
-			pEffect->setUserObjectID(pMonster->getObjectID());
+			pEffect->setDeadline( 20 );	// 2초 후
+			pEffect->setUserObjectID( pMonster->getObjectID() );
 			pEnemy->addEffect(pEffect);
 			pEnemy->setFlag(Effect::EFFECT_CLASS_DECREASE_HP);
 		}

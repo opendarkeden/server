@@ -7,8 +7,8 @@
 #include "DestructionSpear.h"
 #include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
-#include "GCAddEffect.h"
-#include "GCModifyInformation.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
 #include "Player.h"
 #include "EffectDestructionSpear.h"
 
@@ -56,19 +56,19 @@ void DestructionSpear::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, 
 	__BEGIN_TRY
 
 	Zone* pZone = pOusters->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-/*	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+/*	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
 
 	if (pTargetCreature==NULL
-		|| !canAttack(pOusters, pTargetCreature )
+		|| !canAttack( pOusters, pTargetCreature )
 		|| pTargetCreature->isNPC())
 	{
 		executeSkillFailException(pOusters, getSkillType());
 		return;
 	}*/
 
-/*	if (pTargetCreature->isSlayer() )
+/*	if ( pTargetCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 		targetLevel = pSlayer->getHighestSkillDomainLevel();
@@ -82,10 +82,10 @@ void DestructionSpear::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, 
 	SkillOutput output;
 	computeOutput(input, output);
 
-	Item* pWeapon = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
-	if (pWeapon == NULL )
+	Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
+	if ( pWeapon == NULL )
 	{
-		executeSkillFailException(pOusters, getSkillType());
+		executeSkillFailException( pOusters, getSkillType() );
 		return;
 	}
 
@@ -106,35 +106,35 @@ void DestructionSpear::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, 
 
 	int offset = 0;
 
-	OustersSkillSlot* pMastery = pOusters->hasSkill(SKILL_DESTRUCTION_SPEAR_MASTERY);
-	if (pMastery != NULL )
+	OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_DESTRUCTION_SPEAR_MASTERY );
+	if ( pMastery != NULL )
 	{
 		offset = 1;
-		if (pMastery->getExpLevel() <= 15 )
+		if ( pMastery->getExpLevel() <= 15 )
 			param.SkillDamage = min(70,param.SkillDamage + 10 + pMastery->getExpLevel()/3);
 		else
 			param.SkillDamage = min(90,param.SkillDamage + 10 + pMastery->getExpLevel()/2);
 		param.Grade=4;
 	}
 
-	for (int i=-offset; i<=offset; ++i )
-	for (int j=-offset; j<=offset; ++j )
-		param.addMask(i, j, 100);
+	for ( int i=-offset; i<=offset; ++i )
+	for ( int j=-offset; j<=offset; ++j )
+		param.addMask( i, j, 100 );
 
-	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID);
+	g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID );
 
 	list<Creature*>::iterator itr = result.targetCreatures.begin();
-	for (; itr != result.targetCreatures.end() ; ++itr )
+	for ( ; itr != result.targetCreatures.end() ; ++itr )
 	{
 		Creature* pTargetCreature = *itr;
-		if (pTargetCreature->getX() == X && pTargetCreature->getY() == Y )
+		if ( pTargetCreature->getX() == X && pTargetCreature->getY() == Y )
 		{
 			GCModifyInformation gcMI, gcAttackerMI;
-			Damage_t damage = computeElementalCombatSkill(pOusters, pTargetCreature, gcAttackerMI);
-			if (damage != 0 )
+			Damage_t damage = computeElementalCombatSkill( pOusters, pTargetCreature, gcAttackerMI );
+			if ( damage != 0 )
 			{
-				::setDamage(pTargetCreature, damage, pOusters, SKILL_DESTRUCTION_SPEAR, &gcMI, &gcAttackerMI);
-				if (pTargetCreature->isPC() ) pTargetCreature->getPlayer()->sendPacket(&gcMI);
+				::setDamage( pTargetCreature, damage, pOusters, SKILL_DESTRUCTION_SPEAR, &gcMI, &gcAttackerMI );
+				if ( pTargetCreature->isPC() ) pTargetCreature->getPlayer()->sendPacket( &gcMI );
 
 				if (pTargetCreature->isDead())
 				{
@@ -142,47 +142,47 @@ void DestructionSpear::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, 
 					shareOustersExp(pOusters, exp, gcAttackerMI);
 				}
 
-				pOusters->getPlayer()->sendPacket(&gcAttackerMI);
+				pOusters->getPlayer()->sendPacket( &gcAttackerMI );
 			}
 		}
 
-		if (!pTargetCreature->isFlag(Effect::EFFECT_CLASS_DESTRUCTION_SPEAR ) && result.bSuccess )
+		if ( !pTargetCreature->isFlag( Effect::EFFECT_CLASS_DESTRUCTION_SPEAR ) && result.bSuccess )
 		{
 			int targetLevel = pTargetCreature->getLevel();
 			int ratio = 0;
 
-			if (input.SkillLevel <= 15 )
+			if ( input.SkillLevel <= 15 )
 			{
-				ratio = max(20, min(80, (int)(pOusters->getLevel() + (input.SkillLevel * 8.0 / 3.0) - targetLevel ) ));
+				ratio = max(20, min(80, (int)( pOusters->getLevel() + (input.SkillLevel * 8.0 / 3.0) - targetLevel ) ));
 			}
 			else
 			{
-				ratio = max(20, min(80, (int)(pOusters->getLevel() + 20.0 + (input.SkillLevel * 4.0 / 3.0) - targetLevel ) ));
+				ratio = max(20, min(80, (int)( pOusters->getLevel() + 20.0 + (input.SkillLevel * 4.0 / 3.0) - targetLevel ) ));
 			}
 
-			if (rand() % 100 < ratio )
+			if ( rand() % 100 < ratio )
 			{
 
-				EffectDestructionSpear* pEffect = new EffectDestructionSpear(pTargetCreature);
-				Assert(pEffect != NULL);
+				EffectDestructionSpear* pEffect = new EffectDestructionSpear( pTargetCreature );
+				Assert( pEffect != NULL );
 
-				pEffect->setDamage(2 + (input.SkillLevel/3 ));
+				pEffect->setDamage( 2 + ( input.SkillLevel/3 ) );
 				pEffect->setNextTime(20);
-				pEffect->setCasterID(pOusters->getObjectID());
-				pEffect->setDeadline(output.Duration);
+				pEffect->setCasterID( pOusters->getObjectID() );
+				pEffect->setDeadline( output.Duration );
 
-				if (pTargetCreature->getX() == X && pTargetCreature->getY() == Y )
+				if ( pTargetCreature->getX() == X && pTargetCreature->getY() == Y )
 					pEffect->setSteal(true);
 
-				pTargetCreature->setFlag(Effect::EFFECT_CLASS_DESTRUCTION_SPEAR);
-				pTargetCreature->addEffect(pEffect);
+				pTargetCreature->setFlag( Effect::EFFECT_CLASS_DESTRUCTION_SPEAR );
+				pTargetCreature->addEffect( pEffect );
 
 				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pTargetCreature->getObjectID());
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-				gcAddEffect.setDuration(output.Duration);
+				gcAddEffect.setObjectID( pTargetCreature->getObjectID() );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+				gcAddEffect.setDuration( output.Duration );
 
-				pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect );
 			}
 		}
 	}

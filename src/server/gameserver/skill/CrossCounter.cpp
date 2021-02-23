@@ -8,13 +8,13 @@
 #include "EffectCrossCounter.h"
 #include "SkillHandlerManager.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCCrossCounterOK1.h"
-#include "GCCrossCounterOK2.h"
-#include "GCCrossCounterOK3.h"
-#include "GCAddEffect.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCCrossCounterOK1.h"
+#include "Gpackets/GCCrossCounterOK2.h"
+#include "Gpackets/GCCrossCounterOK3.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -79,7 +79,7 @@ void CrossCounter::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t
 			// 경험치를 올린다.
 			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10*(Grade+1);
-			if (bIncreaseDomainExp )
+			if ( bIncreaseDomainExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 8, 1, 1, _GCSkillToSelfOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);
@@ -159,7 +159,7 @@ bool CheckCrossCounter(Creature* pAttacker, Creature* pTargetCreature, Damage_t 
 		Assert(pSkillInfo != NULL);
 		Assert(pZone != NULL);
 
-		Item* pWeapon = pTargetSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
+		Item* pWeapon = pTargetSlayer->getWearItem( Slayer::WEAR_RIGHTHAND );
 
 		if (!verifyDistance(pAttacker, pTargetCreature, 1) ||
 		// 검을 들고 있지 않으면 발동되지 않는다. by Sequoia 2003.3.25

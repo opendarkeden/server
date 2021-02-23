@@ -14,10 +14,10 @@
 #include "SkillUtil.h"
 #include "HitRoll.h"
 
-#include "GCModifyInformation.h"
-#include "GCRemoveEffect.h"
-#include "GCChangeDarkLight.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCRemoveEffect.h"
+#include "Gpackets/GCChangeDarkLight.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
 
 	// 안전지대인지 체크한다.
 	// 2003.1.10 by bezz.Sequoia
-	if (!checkZoneLevelToHitTarget(pTargetCreature ) )
+	if ( !checkZoneLevelToHitTarget( pTargetCreature ) )
 	{
 		return false;
 	}
@@ -72,7 +72,7 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
 	Resist_t resist = pTargetCreature->getResist(MAGIC_DOMAIN_POISON);
 
 	// poison 저항력에 의해서 걸리지 않았다.
-	if (m_bVampire )
+	if ( m_bVampire )
 	{
 		if (!HitRoll::isSuccessVampireCurse(m_Level, resist)) return false;
 	}
@@ -123,7 +123,7 @@ bool EffectYellowPoison::affectCreature(Creature* pTargetCreature, bool bAffectB
 		GCModifyInformation gcMI;
 		
 		// 시야가 변했으므로.. 시야 update..
-		if (oldSight != pTargetCreature->getSight() )
+		if ( oldSight != pTargetCreature->getSight() )
 		{
 			pZone->updateScan(pTargetCreature, oldSight, pTargetCreature->getSight());
 			gcMI.addShortData(MODIFY_VISION, pTargetCreature->getSight());
@@ -216,34 +216,34 @@ void EffectYellowPoisonLoader::load(Zone* pZone)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_YELLOW_POISON);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY, Value1, Value2, Value3 FROM ZoneEffectInfo WHERE ZoneID = %d AND EffectID = %d", pZone->getZoneID(), (int)Effect::EFFECT_CLASS_YELLOW_POISON);
 
 		while (pResult->next())
 		{
 			int count = 0;
 			
-			ZoneCoord_t left 	= pResult->getInt(++count);
-			ZoneCoord_t top 	= pResult->getInt(++count);
-			ZoneCoord_t right 	= pResult->getInt(++count);
-			ZoneCoord_t	bottom	= pResult->getInt(++count);
-			int 		value1	= pResult->getInt(++count);
-			int 		value2	= pResult->getInt(++count);
-			int 		value3	= pResult->getInt(++count);
+			ZoneCoord_t left 	= pResult->getInt( ++count );
+			ZoneCoord_t top 	= pResult->getInt( ++count );
+			ZoneCoord_t right 	= pResult->getInt( ++count );
+			ZoneCoord_t	bottom	= pResult->getInt( ++count );
+			int 		value1	= pResult->getInt( ++count );
+			int 		value2	= pResult->getInt( ++count );
+			int 		value3	= pResult->getInt( ++count );
 
 			VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 
-			for (int X = left ; X <= right ; X++ )
-			for (int Y = top ; Y <= bottom ; Y++ )
+			for ( int X = left ; X <= right ; X++ )
+			for ( int Y = top ; Y <= bottom ; Y++ )
 			{
-				if (rect.ptInRect(X, Y) )
+				if ( rect.ptInRect(X, Y) )
 				{
 					Tile& tile = pZone->getTile(X,Y);
-					if (tile.canAddEffect() ) 
+					if ( tile.canAddEffect() ) 
 					{
 						EffectYellowPoison* pEffect = new EffectYellowPoison(pZone, X, Y);
 						pEffect->setForce(true);
-						pEffect->setDuration(value1);
-						pEffect->setLevel(100);
+						pEffect->setDuration( value1 );
+						pEffect->setLevel( 100 );
 
 						// 존 및 타일에다가 이펙트를 추가한다.
 						pZone->registerObject(pEffect);

@@ -8,14 +8,14 @@
 #define __BLOOD_BIBLE_BONUS_INFO_MANAGER_H__
 
 #include "Exception.h"
-#include "BloodBibleBonus.h"
+#include "Exception.h"
 #include "Types.h"
-#include <map>
+#include <hash_map>
 
 class GCHolyLandBonusInfo;
 class BloodBibleBonus;
 
-typedef map<BloodBibleBonusType_t, BloodBibleBonus*>	BloodBibleBonusHashMap;
+typedef hash_map<BloodBibleBonusType_t, BloodBibleBonus*>	BloodBibleBonusHashMap;
 typedef BloodBibleBonusHashMap::iterator 					BloodBibleBonusHashMapItor;
 typedef BloodBibleBonusHashMap::const_iterator 				BloodBibleBonusHashMapConstItor;
 
@@ -54,17 +54,17 @@ public:
 	string toString() const throw();
 
 public:
-	void setBloodBibleBonusRace(BloodBibleBonusType_t bloodBibleBonusType, Race_t race ) throw(Error);
+	void setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race ) throw( Error );
 
-	void makeHolyLandBonusInfo(GCHolyLandBonusInfo& gcHolyLandBonusInfo ) throw(Error);
+	void makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo ) throw( Error );
 
 	template <typename ITR> void getBloodBibleByRace(Race_t race, ITR oItr) const
 	{
 		BloodBibleBonusHashMapConstItor itr = m_BloodBibleBonuses.begin();
 
-		for (; itr != m_BloodBibleBonuses.end() ; ++itr )
+		for ( ; itr != m_BloodBibleBonuses.end() ; ++itr )
 		{
-			if (itr->second->getRace() == race )
+			if ( itr->second->getRace() == race )
 			{
 				(*oItr) = itr->first;
 				++oItr;

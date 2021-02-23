@@ -1,0 +1,20 @@
+#!/bin/sh
+
+ln -s ../Sword.h Sword.h
+ln -s ../Blade.h Blade.h
+ln -s ../Cross.h Cross.h
+ln -s ../Mace.h Mace.h
+ln -s ../AR.h AR.h
+ln -s ../SR.h SR.h
+ln -s ../SG.h SG.h
+ln -s ../SMG.h SMG.h
+
+ln -s ../Sword.cpp Sword.cpp
+ln -s ../Blade.cpp Blade.cpp
+ln -s ../Cross.cpp Cross.cpp
+ln -s ../Mace.cpp Mace.cpp
+ln -s ../AR.cpp AR.cpp
+ln -s ../SR.cpp SR.cpp
+ln -s ../SG.cpp SG.cpp
+ln -s ../SMG.cpp SMG.cpp
+

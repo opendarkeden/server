@@ -9,7 +9,7 @@
 
 #include "Exception.h"
 #include "Types.h"
-#include <map>
+#include <hash_map>
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ public:
 	void setSkillType(SkillType_t SkillType) { m_SkillType = SkillType; }
 
 	ZoneID_t getZoneID() const { return m_ZoneID; }
-	void setZoneID(ZoneID_t ZoneID ) { m_ZoneID = ZoneID; }
+	void setZoneID( ZoneID_t ZoneID ) { m_ZoneID = ZoneID; }
 
 	string toString() const;
 
@@ -47,7 +47,7 @@ public:
 	CastleSkillInfoManager() throw();
 	~CastleSkillInfoManager() throw();
 
-	typedef map<SkillType_t, CastleSkillInfo*>		HashMapCastleSkillInfo;
+	typedef hash_map<SkillType_t, CastleSkillInfo*>		HashMapCastleSkillInfo;
 	typedef HashMapCastleSkillInfo::iterator			HashMapCastleSkillInfoItor;
 	typedef HashMapCastleSkillInfo::const_iterator		HashMapCastleSkillInfoConstItor;
 
@@ -58,9 +58,9 @@ public:
 
 	void clear() throw(Error);
 
-	void addCastleSkillInfo(CastleSkillInfo* pCastleSkillInfo ) throw(Error);
+	void addCastleSkillInfo( CastleSkillInfo* pCastleSkillInfo ) throw(Error);
 	
-	SkillType_t getSkillType(ZoneID_t ZoneID ) const;
+	SkillType_t getSkillType( ZoneID_t ZoneID ) const;
 	ZoneID_t getZoneID(SkillType_t SkillType) const;
 	
 	// toString for Debug

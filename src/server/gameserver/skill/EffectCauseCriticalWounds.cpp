@@ -8,74 +8,74 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCRemoveEffect.h"
 
-EffectCauseCriticalWounds::EffectCauseCriticalWounds(Creature* pCreature )
-	throw(Error )
+EffectCauseCriticalWounds::EffectCauseCriticalWounds( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
-	setTarget(pCreature);
+	setTarget( pCreature );
 
 	__END_CATCH
 }
 
 void EffectCauseCriticalWounds::affect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	affect(pCreature);
+	affect( pCreature );
 
 	__END_CATCH
 }
 
-void EffectCauseCriticalWounds::affect(Creature* pCreature )
-	throw(Error )
+void EffectCauseCriticalWounds::affect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
-void EffectCauseCriticalWounds::unaffect(Creature* pCreature )
-	throw(Error )
+void EffectCauseCriticalWounds::unaffect( Creature* pCreature )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	//cout << "EffectCauseCriticalWounds " << "unaffect BEGIN" << endl;
 
-	Assert(pCreature != NULL);
-	Assert(pCreature->isVampire() || pCreature->isOusters() || pCreature->isMonster());
+	Assert( pCreature != NULL );
+	Assert( pCreature->isVampire() || pCreature->isOusters() || pCreature->isMonster() );
 
-	pCreature->removeFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS);
+	pCreature->removeFlag( Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS );
 
 	Zone* pZone = pCreature->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
 	GCRemoveEffect gcRemoveEffect;
-	gcRemoveEffect.setObjectID(pCreature->getObjectID());
-	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS);
-	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature);
+	gcRemoveEffect.setObjectID( pCreature->getObjectID() );
+	gcRemoveEffect.addEffectList( Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS );
+	pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcRemoveEffect, pCreature );
 
-	if (pCreature->isPC() )
+	if ( pCreature->isPC() )
 	{
 		Player* pPlayer = pCreature->getPlayer();
-		Assert(pPlayer != NULL);
+		Assert( pPlayer != NULL );
 
-		pPlayer->sendPacket(&gcRemoveEffect);
+		pPlayer->sendPacket( &gcRemoveEffect );
 	}
 
 	__END_CATCH
 }
 
 void EffectCauseCriticalWounds::unaffect()
-	throw(Error )
+	throw( Error )
 {
 	__BEGIN_TRY
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
-	unaffect(pCreature);
+	unaffect( pCreature );
 
 	__END_CATCH
 }

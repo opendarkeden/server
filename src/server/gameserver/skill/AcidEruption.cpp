@@ -7,12 +7,12 @@
 #include "AcidEruption.h"
 #include "RankBonus.h"
 #include "EffectAcidEruption.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -37,7 +37,7 @@ void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, SkillType);
@@ -54,10 +54,10 @@ void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 		SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 
 		int HitBonus = 0;
-		if (pVampire->hasRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
+		if ( pVampire->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
 		{
-			RankBonus* pRankBonus = pVampire->getRankBonus(RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID);
-			Assert(pRankBonus != NULL);
+			RankBonus* pRankBonus = pVampire->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
+			Assert( pRankBonus != NULL );
 
 			HitBonus = pRankBonus->getPoint();
 		}
@@ -85,15 +85,15 @@ void AcidEruption::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 			SkillOutput output;
 			computeOutput(input, output);
 
-			EffectAcidEruption* pEffect = new EffectAcidEruption(pTargetCreature);
-			pEffect->setDamage(computeMagicDamage(pTargetCreature, output.Damage, SKILL_ACID_ERUPTION, true, pVampire ));
+			EffectAcidEruption* pEffect = new EffectAcidEruption( pTargetCreature );
+			pEffect->setDamage( computeMagicDamage( pTargetCreature, output.Damage, SKILL_ACID_ERUPTION, true, pVampire ) );
 			pEffect->setTimes(5);
 			pEffect->setTick(5);
 			pEffect->setNextTime(5);
-			pEffect->setCasterOID(pVampire->getObjectID());
+			pEffect->setCasterOID( pVampire->getObjectID() );
 
-			pTargetCreature->addEffect(pEffect);
-			pTargetCreature->setFlag(pEffect->getEffectClass());
+			pTargetCreature->addEffect( pEffect );
+			pTargetCreature->setFlag( pEffect->getEffectClass() );
 
 			_GCSkillToObjectOK1.setSkillType(SkillType);
 			_GCSkillToObjectOK1.setCEffectID(CEffectID);
@@ -210,9 +210,9 @@ void AcidEruption::execute(Monster* pMonster, Creature* pEnemy)
 			pEffectAcidEruption->setTick(5);
 			pEffectAcidEruption->setNextTime(5);
 			pEffectAcidEruption->setTimes(5);
-			pEffectAcidEruption->setCasterOID(pMonster->getObjectID());
+			pEffectAcidEruption->setCasterOID( pMonster->getObjectID() );
 			pEnemy->addEffect(pEffectAcidEruption);
-			pEnemy->setFlag(pEffectAcidEruption->getEffectClass());
+			pEnemy->setFlag( pEffectAcidEruption->getEffectClass() );
 
 			// 이펙트가 붙었으니, 붙었다고 브로드캐스팅해준다.
 /*			GCAddEffect gcAddEffect;

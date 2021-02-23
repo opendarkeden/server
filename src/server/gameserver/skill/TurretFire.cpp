@@ -14,9 +14,9 @@ void TurretFire::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 {
 	__BEGIN_TRY
 
-	if (!pSlayer->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET ) )
+	if ( !pSlayer->isFlag( Effect::EFFECT_CLASS_INSTALL_TURRET ) )
 	{
-		executeSkillFailException(pSlayer, getSkillType());
+		executeSkillFailException( pSlayer, getSkillType() );
 	}
 
 	Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
@@ -62,15 +62,15 @@ void TurretFire::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSl
 	SIMPLE_SKILL_OUTPUT result;
 
 	// 목표위치+4방향
-	param.addMask(0,  0, 100);
+	param.addMask( 0,  0, 100);
 	param.addMask(-1, -1, 100);
-	param.addMask(0, -1, 100);
-	param.addMask(1, -1, 100);
+	param.addMask( 0, -1, 100);
+	param.addMask( 1, -1, 100);
 	param.addMask(-1,  0, 100);
-	param.addMask(1,  0, 100);
+	param.addMask( 1,  0, 100);
 	param.addMask(-1,  1, 100);
-	param.addMask(0,  1, 100);
-	param.addMask(1,  1, 100);
+	param.addMask( 0,  1, 100);
+	param.addMask( 1,  1, 100);
 
 	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
@@ -88,7 +88,7 @@ void TurretFire::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot 
 	Zone* pZone = pSlayer->getZone();
 	Assert(pZone!=NULL);
 
-	Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+	Creature* pTargetCreature = pZone->getCreature( TargetObjectID );
 
 	if (pTargetCreature!=NULL)
 	{

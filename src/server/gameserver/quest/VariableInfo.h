@@ -21,18 +21,18 @@ public:
 	static const char ParamSeperator;
 
 public:
-	VariableInfo(const string& buffer);
+	VariableInfo( const string& buffer );
 	~VariableInfo();
 
 	const string& getName() const { return m_Name; }
 	const string& getKeyword() const { return m_Keyword; }
 
-	const string& getParameter(int index ) const throw(OutOfBoundException, Error);
+	const string& getParameter( int index ) const throw(OutOfBoundException, Error);
 
 	string toString() const throw();
 
 private:
-	void 	parse() throw(Error);
+	void 	parse() throw (Error);
 
 private:
 	string 			m_Name;

@@ -10,8 +10,8 @@
 #include "Item.h"
 #include "ItemUtil.h"
 
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 EffectHeartCatalyst::EffectHeartCatalyst(Creature* pCreature)
 	throw(Error)
@@ -40,16 +40,16 @@ void EffectHeartCatalyst::affect(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 
-	if (!pCreature->isSlayer() )
+	if ( !pCreature->isSlayer() )
 	{
 		setDeadline(0);
 		return;
 	}
 
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-	Assert(pSlayer != NULL);
+	Assert( pSlayer != NULL );
 
 	Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 	if (pWeapon == NULL || !isArmsWeapon(pWeapon))
@@ -59,21 +59,21 @@ void EffectHeartCatalyst::affect(Creature* pCreature)
 		return;
 	}
 
-	if (pSlayer->getHP(ATTR_CURRENT) >= pSlayer->getHP(ATTR_MAX) )
+	if ( pSlayer->getHP(ATTR_CURRENT) >= pSlayer->getHP(ATTR_MAX) )
 	{
-		setNextTime(m_Tick);
+		setNextTime( m_Tick );
 		return;
 	}
 
 	HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
-	HP_t NewHP = min((int)pSlayer->getHP(ATTR_MAX), CurrentHP + m_HealPoint);
+	HP_t NewHP = min( (int)pSlayer->getHP(ATTR_MAX), CurrentHP + m_HealPoint );
 
-	pSlayer->setHP(NewHP);
+	pSlayer->setHP( NewHP );
 	GCStatusCurrentHP gcHP;
-	gcHP.setObjectID(pSlayer->getObjectID());
-	gcHP.setCurrentHP(pSlayer->getHP());
+	gcHP.setObjectID( pSlayer->getObjectID() );
+	gcHP.setCurrentHP( pSlayer->getHP() );
 
-	pSlayer->getZone()->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcHP);
+	pSlayer->getZone()->broadcastPacket( pSlayer->getX(), pSlayer->getY(), &gcHP );
 
 	setNextTime(m_Tick);
 

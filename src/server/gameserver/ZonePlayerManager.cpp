@@ -7,18 +7,18 @@
 #include <stdio.h>
 #include "ZonePlayerManager.h"
 #include "IncomingPlayerManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "SocketAPI.h"
 #include "Socket.h"
 #include "GamePlayer.h"
 #include "Slayer.h"
 #include "PlayerCreature.h"
 #include "GamePlayer.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Zone.h"
 #include <algorithm>
 #include "StringStream.h"
-#include "CGLogout.h"
+#include "Cpackets/CGLogout.h"
 #include "Profile.h"
 #include "ZoneInfoManager.h"
 #include "PaySystem.h"
@@ -37,9 +37,8 @@
 
 #include "chinabilling/CBillingInfo.h"
 
-#include "GCSystemMessage.h"
-#include "GCKickMessage.h"
-#include "zlog.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCKickMessage.h"
 
 #ifdef __THAILAND_SERVER__
 	
@@ -57,14 +56,14 @@
 #define endProfileEx(name) ((void)0)
 #endif
 
-bool checkZonePlayerManager(GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, const string& str);
+bool checkZonePlayerManager( GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, const string& str );
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 // 하위 매니저 객체를 생성한다.
 //////////////////////////////////////////////////////////////////////////////
 ZonePlayerManager::ZonePlayerManager () 
-	throw()
+	throw ()
 : m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -117,7 +116,7 @@ ZonePlayerManager::ZonePlayerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZonePlayerManager::~ZonePlayerManager () 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 
@@ -130,7 +129,7 @@ ZonePlayerManager::~ZonePlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::broadcastPacket (Packet* pPacket)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -146,7 +145,7 @@ void ZonePlayerManager::broadcastPacket (Packet* pPacket)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::broadcastPacket_NOBLOCKED (Packet* pPacket)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -157,8 +156,8 @@ void ZonePlayerManager::broadcastPacket_NOBLOCKED (Packet* pPacket)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void ZonePlayerManager::pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter )
-	throw(Error)
+void ZonePlayerManager::pushBroadcastPacket( Packet* pPacket, BroadcastFilter* pFilter )
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -171,10 +170,10 @@ void ZonePlayerManager::pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pF
 	// 필터와 패킷을 큐에 넣는다.
 	// 필터는 새로 생성한 객체(클론)를 넣는다.
 	// 패킷을 스트림에 써서 큐에 넣는다.
-	SocketOutputStream* pStream = new SocketOutputStream(NULL, szPacketHeader + pPacket->getPacketSize());
-	pPacket->writeHeaderNBody(*pStream);
+	SocketOutputStream* pStream = new SocketOutputStream( NULL, szPacketHeader + pPacket->getPacketSize() );
+	pPacket->writeHeaderNBody( *pStream );
 
-	m_BroadcastQueue.push_back(PairFilterStream(pFilter->Clone(), pStream ));
+	m_BroadcastQueue.push_back( PairFilterStream( pFilter->Clone(), pStream ) );
 
 	__LEAVE_CRITICAL_SECTION(m_MutexBroadcast)
 
@@ -184,7 +183,7 @@ void ZonePlayerManager::pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pF
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::flushBroadcastPacket()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -193,42 +192,42 @@ void ZonePlayerManager::flushBroadcastPacket()
 	list<PairFilterStream>::iterator itr = m_BroadcastQueue.begin();
 	list<PairFilterStream>::iterator endItr = m_BroadcastQueue.end();
 
-	for (; itr != endItr; ++itr )
+	for ( ; itr != endItr; ++itr )
 	{
 		BroadcastFilter*	pFilter	= itr->first;
 		SocketOutputStream*	pStream	= itr->second;
 
-		if (pStream == NULL )
+		if ( pStream == NULL )
 		{
 			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pStream이 NULL입니다.");
 			continue;
 		}
 
-		for (uint i=0; i<nMaxPlayers; ++i )
+		for ( uint i=0; i<nMaxPlayers; ++i )
 		{
-			if (m_pPlayers[i] != NULL )
+			if ( m_pPlayers[i] != NULL )
 			{
 				GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
-				if (pFilter == NULL || pFilter->isSatisfy(pGamePlayer) )
+				if ( pFilter == NULL || pFilter->isSatisfy(pGamePlayer) )
 				{
-//					try
-//					{
-//						pGamePlayer->sendStream(pStream);
-//					}
-//					catch (Throwable& t )
-//					{
-//						filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str());
-//					}
+					try
+					{
+						pGamePlayer->sendStream( pStream );
+					}
+					catch ( Throwable& t )
+					{
+						filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str() );
+					}
 				}
 			}
 		}
 	}
 
-/*	for (; itr != endItr; ++itr )
+/*	for ( ; itr != endItr; ++itr )
 	{
 		Packet* pPacket = *itr;
 
-		if (pPacket == NULL )
+		if ( pPacket == NULL )
 		{
 			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pPacket가 NULL입니다.");
 			continue;
@@ -237,32 +236,32 @@ void ZonePlayerManager::flushBroadcastPacket()
 		bool bSend = false;
 
 		// Ranger Say 인 경우
-		if (pPacket->getPacketID() == Packet::PACKET_GC_SYSTEM_MESSAGE )
+		if ( pPacket->getPacketID() == Packet::PACKET_GC_SYSTEM_MESSAGE )
 		{
 			GCSystemMessage* pSystemMessage = dynamic_cast<GCSystemMessage*>(pPacket);
-			Assert(pSystemMessage != NULL);
+			Assert( pSystemMessage != NULL );
 
-			if (pSystemMessage->getType() == SYSTEM_MESSAGE_RANGER_SAY )
+			if ( pSystemMessage->getType() == SYSTEM_MESSAGE_RANGER_SAY )
 			{
 				bSend = true;
 
 				Race_t race = pSystemMessage->getRace();
 
-				for (uint i=0; i<nMaxPlayers; ++i )
+				for ( uint i=0; i<nMaxPlayers; ++i )
 				{
-					if (m_pPlayers[i] != NULL )
+					if ( m_pPlayers[i] != NULL )
 					{
 						GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
 
-						if (pGamePlayer->getCreature()->getRace() == race )
+						if ( pGamePlayer->getCreature()->getRace() == race )
 						{
 							try
 							{
-								m_pPlayers[i]->sendPacket(pPacket);
+								m_pPlayers[i]->sendPacket( pPacket );
 							}
-							catch (Throwable& t )
+							catch ( Throwable& t )
 							{
-								filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str());
+								filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str() );
 							}
 						}
 					}
@@ -270,19 +269,19 @@ void ZonePlayerManager::flushBroadcastPacket()
 			}
 		}
 
-		if (!bSend )
+		if ( !bSend )
 		{
-			for (uint i=0; i<nMaxPlayers; ++i )
+			for ( uint i=0; i<nMaxPlayers; ++i )
 			{
-				if (m_pPlayers[i] != NULL )
+				if ( m_pPlayers[i] != NULL )
 				{
 					try
 					{
-						m_pPlayers[i]->sendPacket(pPacket);
+						m_pPlayers[i]->sendPacket( pPacket );
 					}
-					catch (Throwable& t )
+					catch ( Throwable& t )
 					{
-						filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str());
+						filelog("ZonePlayerManager.log", "broadcastPacket: %s", t.toString().c_str() );
 					}
 				}
 			}
@@ -290,7 +289,7 @@ void ZonePlayerManager::flushBroadcastPacket()
 
 		// 이때 패킷을 동적으로 할당되어 있다.
 		// 그러므로 메모리에서 삭제해야한다.
-		SAFE_DELETE(pPacket);
+		SAFE_DELETE( pPacket );
 	}
 */
 	m_BroadcastQueue.clear();
@@ -322,7 +321,7 @@ void ZonePlayerManager::copyPlayers()
 // 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::select ()
-	throw(TimeoutException , InterruptedException , Error)
+	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
 
@@ -352,7 +351,7 @@ void ZonePlayerManager::select ()
 	catch (InterruptedException & ie) 
 	{
 	    // 시그널이 올 리가 엄찌~~
-		//log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
+		log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
     }
 
 	__END_CATCH
@@ -366,7 +365,7 @@ void ZonePlayerManager::select ()
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processInputs () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -391,37 +390,36 @@ void ZonePlayerManager::processInputs ()
 				Assert (pTempPlayer != NULL);
 				Assert (m_pPlayers[i] != NULL);
 
-				if (g_pVariableManager->getVariable(PCROOM_ITEM_RATIO_BONUS ) == 100 && !checkZonePlayerManager(pTempPlayer, this, "PI" ) )
+				if ( g_pVariableManager->getVariable( PCROOM_ITEM_RATIO_BONUS ) == 100 && !checkZonePlayerManager( pTempPlayer, this, "PI" ) )
 				{
 					try
 					{
-						CGLogoutHandler::execute(NULL, pTempPlayer);
+						CGLogoutHandler::execute( NULL, pTempPlayer );
 					}
-					catch (DisconnectException& de )
+					catch ( DisconnectException& de )
 					{
-						deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-						pushOutPlayer(pTempPlayer);
+						deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+						pushOutPlayer( pTempPlayer );
 					}
 				}
 				else if (pTempPlayer->getSocket()->getSockError()) 
 				{
-                    dzlog_debug("fuck:client close the socket!!!");
 					pTempPlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
 					pTempPlayer->setItemRatioBonusPoint(7);
 					
 					try
 					{
-						CGLogoutHandler::execute(NULL, pTempPlayer);
+						CGLogoutHandler::execute( NULL, pTempPlayer );
 					}
-					catch (DisconnectException& de )
+					catch ( DisconnectException& de )
 					{
-						filelog("DIFF_ZG.log", "%s ZPM+PI+SOCKERR", de.toString().c_str());
-						deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-						pushOutPlayer(pTempPlayer);
+						filelog( "DIFF_ZG.log", "%s ZPM+PI+SOCKERR", de.toString().c_str() );
+						deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+						pushOutPlayer( pTempPlayer );
 					}
 
 					// by sigi. 2002.12.30
-//					UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_INPUT_ERROR);
+//					UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_INPUT_ERROR );
 
 					/*
 					try 
@@ -454,17 +452,17 @@ void ZonePlayerManager::processInputs ()
 						
 						try
 						{
-							CGLogoutHandler::execute(NULL, pTempPlayer);
+							CGLogoutHandler::execute( NULL, pTempPlayer );
 						}
-						catch (DisconnectException& de )
+						catch ( DisconnectException& de )
 						{
-							filelog("DIFF_ZG.log", "%s ZPM+PI+CE", de.toString().c_str());
-							deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-							pushOutPlayer(pTempPlayer);
+							filelog( "DIFF_ZG.log", "%s ZPM+PI+CE", de.toString().c_str() );
+							deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+							pushOutPlayer( pTempPlayer );
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_INPUT_DISCONNECT);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_INPUT_DISCONNECT );
 
 						/*
 						try 
@@ -491,17 +489,17 @@ void ZonePlayerManager::processInputs ()
 
 						try
 						{
-							CGLogoutHandler::execute(NULL, pTempPlayer);
+							CGLogoutHandler::execute( NULL, pTempPlayer );
 						}
-						catch (DisconnectException& de )
+						catch ( DisconnectException& de )
 						{
-							filelog("DIFF_ZG.log", "%s ZPM+PI+IOE", de.toString().c_str());
-							deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-							pushOutPlayer(pTempPlayer);
+							filelog( "DIFF_ZG.log", "%s ZPM+PI+IOE", de.toString().c_str() );
+							deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+							pushOutPlayer( pTempPlayer );
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_INPUT_DISCONNECT2);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_INPUT_DISCONNECT2 );
 
 						/*
 						try 
@@ -533,7 +531,7 @@ void ZonePlayerManager::processInputs ()
 // process all players' commands
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processCommands() 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -562,7 +560,7 @@ void ZonePlayerManager::processCommands()
 
 	//copyPlayers();
 
-	VSDateTime currentDateTime(VSDate::currentDate(), VSTime::currentTime());
+	VSDateTime currentDateTime( VSDate::currentDate(), VSTime::currentTime() );
 
 	Timeval currentTime;
 	getCurrentTime(currentTime);
@@ -577,23 +575,22 @@ void ZonePlayerManager::processCommands()
 
 			if (pTempPlayer->getSocket()->getSockError()) 
 			{
-                dzlog_error("getSockError, kick the player");
 				pTempPlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
 				pTempPlayer->setItemRatioBonusPoint(10);
 
 				try
 				{
-					CGLogoutHandler::execute(NULL, pTempPlayer);
+					CGLogoutHandler::execute( NULL, pTempPlayer );
 				}
-				catch (DisconnectException& de )
+				catch ( DisconnectException& de )
 				{
-					filelog("DIFF_ZG.log", "%s ZPM+PC+SOCKERR", de.toString().c_str());
-					deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-					pushOutPlayer(pTempPlayer);
+					filelog( "DIFF_ZG.log", "%s ZPM+PC+SOCKERR", de.toString().c_str() );
+					deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+					pushOutPlayer( pTempPlayer );
 				}
 
 				// by sigi. 2002.12.30
-//				UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_COMMAND_ERROR);
+//				UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_COMMAND_ERROR );
 
 				/*
 				try 
@@ -623,16 +620,16 @@ void ZonePlayerManager::processCommands()
 					pTempPlayer->processCommand();
 					endProfileEx("ZPM_PACKET");
 
-					if (g_pVariableManager->getVariable(PCROOM_ITEM_RATIO_BONUS ) == 100 && !checkZonePlayerManager(pTempPlayer, this, "PC" ) )
+					if ( g_pVariableManager->getVariable( PCROOM_ITEM_RATIO_BONUS ) == 100 && !checkZonePlayerManager( pTempPlayer, this, "PC" ) )
 					{
 						try
 						{
-							CGLogoutHandler::execute(NULL, pTempPlayer);
+							CGLogoutHandler::execute( NULL, pTempPlayer );
 						}
-						catch (DisconnectException& de )
+						catch ( DisconnectException& de )
 						{
-							deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-							pushOutPlayer(pTempPlayer);
+							deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+							pushOutPlayer( pTempPlayer );
 						}
 					}
 
@@ -647,7 +644,7 @@ void ZonePlayerManager::processCommands()
 						// 아직 빌링 시스템에서 검증되지 않았다면..
 						if (!pTempPlayer->isBillingLoginVerified())
 						{
-							if (!pTempPlayer->isMetroFreePlayer() )
+							if ( !pTempPlayer->isMetroFreePlayer() )
 								pTempPlayer->sendBillingLogin();
 						}
 						// 빌링 시스템 검증이 된 경우이고..
@@ -658,13 +655,13 @@ void ZonePlayerManager::processCommands()
 #endif
 
 						// 패밀리 요금제 적용이 끝난 경우. 유료존에 있는 무료 파티원들을 무료존으로 옮겨야한다.
-						if (pTempPlayer->isFamilyFreePassEnd() )
+						if ( pTempPlayer->isFamilyFreePassEnd() )
 						{
 							Creature* pCreature = pTempPlayer->getCreature();
 							Zone* pZone = pCreature->getZone();
 							Assert(pZone!=NULL);
 
-							if (pZone->isPayPlay() )
+							if ( pZone->isPayPlay() )
 							{
 								// 무료 사용자일 경우 아래 if 문에서 유료 체크를 하고 무료존으로 옮겨간다.
 								pTempPlayer->setPremiumPlay();
@@ -681,26 +678,26 @@ void ZonePlayerManager::processCommands()
 							Assert(pZone!=NULL);
 
 							// 유료 서비스 종료
-							pTempPlayer->logoutPayPlay(pTempPlayer->getID());
+							pTempPlayer->logoutPayPlay( pTempPlayer->getID() );
 
 							// 패밀리 요금 사용자인 경우 FamilyPayAvailable flag 을 꺼준다.
 							// 패밀리 요금 디폴트 옵션을 끊다.
-							if (pTempPlayer->isFamilyPayAvailable() )
+							if ( pTempPlayer->isFamilyPayAvailable() )
 							{
-								pTempPlayer->setFamilyPayAvailable(false);
+								pTempPlayer->setFamilyPayAvailable( false );
 
 								// 파티원일 경우 Family Pay를 refresh 한다.
 								int PartyID = pCreature->getPartyID();
-								if (PartyID != 0 )
+								if ( PartyID != 0 )
 								{
-									g_pGlobalPartyManager->refreshFamilyPay(PartyID);
+									g_pGlobalPartyManager->refreshFamilyPay( PartyID );
 								}
 
 								PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-								Assert(pPC != NULL);
+								Assert( pPC != NULL );
 
-								pPC->removeDefaultOptionSet(DEFAULT_OPTION_SET_FAMILY_PAY);
-								pPC->setFlag(Effect::EFFECT_CLASS_INIT_ALL_STAT);
+								pPC->removeDefaultOptionSet( DEFAULT_OPTION_SET_FAMILY_PAY );
+								pPC->setFlag( Effect::EFFECT_CLASS_INIT_ALL_STAT );
 							}
 
 							// by sigi. 2002.12.30
@@ -717,9 +714,9 @@ void ZonePlayerManager::processCommands()
 							{
 								ZONE_COORD zoneCoord;
 
-								Assert(pCreature->isPC());
+								Assert( pCreature->isPC() );
 								PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-								Assert(pPC != NULL);
+								Assert( pPC != NULL );
 
 								// 클라이언트에 유료 사용이 끝났다는 메시지를 출력하도록한다.
 								// 일단 무료존으로 이동하게 되므로 지금 보내줘서는 소용이 없다.
@@ -731,21 +728,21 @@ void ZonePlayerManager::processCommands()
 									uint strID = STRID_END_PAY_PLAY;
 
 									// 패밀리 요금제 해제로 인한 무료존 이동시 메시지
-									if (pTempPlayer->isFamilyFreePassEnd() )
+									if ( pTempPlayer->isFamilyFreePassEnd() )
 										strID = STRID_FAMILY_FREE_PLAY_END;
 
-									pStmt = g_pDatabaseManager->getConnection("DARKEDEN" )->createStatement();
-									pStmt->executeQuery("INSERT INTO Messages (Receiver, Message ) VALUES ('%s', '%s')", pPC->getName().c_str(), g_pStringPool->c_str(strID ));
+									pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+									pStmt->executeQuery( "INSERT INTO Messages ( Receiver, Message ) VALUES ( '%s', '%s')", pPC->getName().c_str(), g_pStringPool->c_str( strID ) );
 									
-									if (pCreature->isFlag(Effect::EFFECT_CLASS_LOGIN_GUILD_MESSAGE ) )
-										pCreature->removeFlag(Effect::EFFECT_CLASS_LOGIN_GUILD_MESSAGE);
+									if ( pCreature->isFlag( Effect::EFFECT_CLASS_LOGIN_GUILD_MESSAGE ) )
+										pCreature->removeFlag( Effect::EFFECT_CLASS_LOGIN_GUILD_MESSAGE );
 
 									SAFE_DELETE(pStmt);
 								}
 								END_DB(pStmt)
 							
 								// 무료존으로 옮긴다.
-								if (g_pResurrectLocationManager->getRaceDefaultPosition(pPC->getRace(), zoneCoord ) )
+								if ( g_pResurrectLocationManager->getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 								{
 									transportCreature(pCreature, zoneCoord.id, zoneCoord.x, zoneCoord.y, true);
 								}
@@ -769,11 +766,11 @@ void ZonePlayerManager::processCommands()
 								{
 									ZONE_COORD zoneCoord;
 
-									Assert(pCreature->isPC());
+									Assert( pCreature->isPC() );
 									PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-									Assert(pPC != NULL);
+									Assert( pPC != NULL );
 									
-									if (g_pResurrectLocationManager->getRaceDefaultPosition(pPC->getRace(), zoneCoord ) )
+									if ( g_pResurrectLocationManager->getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 									{
 										transportCreature(pCreature, zoneCoord.id, zoneCoord.x, zoneCoord.y, true);
 									}
@@ -786,22 +783,22 @@ void ZonePlayerManager::processCommands()
 								else
 								{
 									GCSystemMessage gcSystemMessage;
-									gcSystemMessage.setMessage(g_pStringPool->getString(STRID_EXPIRE_PREMIUM_SERVICE ));
-									pTempPlayer->sendPacket(&gcSystemMessage);
+									gcSystemMessage.setMessage( g_pStringPool->getString( STRID_EXPIRE_PREMIUM_SERVICE ) );
+									pTempPlayer->sendPacket( &gcSystemMessage );
 								}
 							}
 							else
 							{
-								pTempPlayer->kickPlayer(30, KICK_MESSAGE_PAY_TIMEOUT);
+								pTempPlayer->kickPlayer( 30, KICK_MESSAGE_PAY_TIMEOUT );
 /*								EventKick* pEventKick = new EventKick(pTempPlayer);
 								pEventKick->setDeadline(30*10);
 								pTempPlayer->addEvent(pEventKick);
 
 								// 몇 초후에 짤린다..고 보내준다.
 								GCKickMessage gcKickMessage;
-								gcKickMessage.setType(KICK_MESSAGE_PAY_TIMEOUT);
-								gcKickMessage.setSeconds(30);
-								pTempPlayer->sendPacket(&gcKickMessage); */
+								gcKickMessage.setType( KICK_MESSAGE_PAY_TIMEOUT );
+								gcKickMessage.setSeconds( 30 );
+								pTempPlayer->sendPacket( &gcKickMessage ); */
 							}
 
 						#endif
@@ -824,9 +821,9 @@ void ZonePlayerManager::processCommands()
                             //if(pTempPlayer->getPermission())      cout << "Player Permission : ALLOW"<<endl;
                             //else                                  cout << "Player Permission : DENY"<<endl;
 
-							if(bChildGuardArea && !pTempPlayer->getPermission() )
+							if( bChildGuardArea && !pTempPlayer->getPermission() )
 							{
-								pTempPlayer->kickPlayer(m_nChildGuardKickTime, KICK_MESSAGE_CHILDGUARD);
+								pTempPlayer->kickPlayer( m_nChildGuardKickTime, KICK_MESSAGE_CHILDGUARD );
 							}
 
 							m_tmChildGuardCheckTerm = cTime;
@@ -836,28 +833,28 @@ void ZonePlayerManager::processCommands()
 						*/
 #ifdef __THAILAND_SERVER__
 						// child guard check !
-						if (!pTempPlayer->getPermission() && g_pTimeChecker->isInPeriod(TIME_PERIOD_CHILD_GUARD ) )
+						if ( !pTempPlayer->getPermission() && g_pTimeChecker->isInPeriod( TIME_PERIOD_CHILD_GUARD ) )
 						{
-							pTempPlayer->kickPlayer(30, KICK_MESSAGE_CHILDGUARD);
+							pTempPlayer->kickPlayer( 30, KICK_MESSAGE_CHILDGUARD );
 						}
 #endif
 
 						// 패밀리 요금제 적용이 끝났다면, 다시 체크하지 않게 하기위에 타입을 바꿔준다.
-						if (pTempPlayer->isFamilyFreePassEnd() )
+						if ( pTempPlayer->isFamilyFreePassEnd() )
 						{
-							pTempPlayer->setFamilyPayPartyType(FAMILY_PAY_PARTY_TYPE_NONE);
+							pTempPlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_NONE );
 						}
 
 #ifdef __CONNECT_CBILLING_SYSTEM__
-						if (!pTempPlayer->isPayPlayer() )
+						if ( !pTempPlayer->isPayPlayer() )
 						{
 							// 유료 시간 끝났음. 짜른다.
-							pTempPlayer->kickPlayer(30, KICK_MESSAGE_PAY_TIMEOUT);
+							pTempPlayer->kickPlayer( 30, KICK_MESSAGE_PAY_TIMEOUT );
 						}
 						else
 						{
 							// 유료 사용자의 경우 pay info 를 아직 안 보내줬다면 보내준다.
-							if (pTempPlayer->isCBillingVerified() && !pTempPlayer->isCBShowPayInfo() )
+							if ( pTempPlayer->isCBillingVerified() && !pTempPlayer->isCBShowPayInfo() )
 							{
 								pTempPlayer->sendCBillingPayInfo();
 								pTempPlayer->setCBShowPayInfo();
@@ -874,25 +871,25 @@ void ZonePlayerManager::processCommands()
 
 					try
 					{
-						CGLogoutHandler::execute(NULL, pTempPlayer);
+						CGLogoutHandler::execute( NULL, pTempPlayer );
 					}
-					catch (DisconnectException& de )
+					catch ( DisconnectException& de )
 					{
-						filelog("DIFF_ZG.log", "%s ZPM+PC+PE", de.toString().c_str());
-						deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-						pushOutPlayer(pTempPlayer);
+						filelog( "DIFF_ZG.log", "%s ZPM+PC+PE", de.toString().c_str() );
+						deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+						pushOutPlayer( pTempPlayer );
 					}
 
 					// by sigi. 2002.12.30
 					if (IsPayPlayEnd)
 					{
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_COMMAND_PAYPLAY_END);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_COMMAND_PAYPLAY_END );
 					}
 					else
 					{
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_COMMAND_ERROR);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_COMMAND_ERROR );
 					}
 
 					/*
@@ -991,7 +988,7 @@ void ZonePlayerManager::processCommands()
 //
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processOutputs () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -1022,17 +1019,17 @@ void ZonePlayerManager::processOutputs ()
 
 					try
 					{
-						CGLogoutHandler::execute(NULL, pTempPlayer);
+						CGLogoutHandler::execute( NULL, pTempPlayer );
 					}
-					catch (DisconnectException& de )
+					catch ( DisconnectException& de )
 					{
-						filelog("DIFF_ZG.log", "%s ZPM+PO+SOCKERR", de.toString().c_str());
-						deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-						pushOutPlayer(pTempPlayer);
+						filelog( "DIFF_ZG.log", "%s ZPM+PO+SOCKERR", de.toString().c_str() );
+						deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+						pushOutPlayer( pTempPlayer );
 					}
 
 					// by sigi. 2002.12.30
-//					UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_OUTPUT_ERROR);
+//					UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_OUTPUT_ERROR );
 					/*
 					try 
 					{
@@ -1064,17 +1061,17 @@ void ZonePlayerManager::processOutputs ()
 
 						try
 						{
-							CGLogoutHandler::execute(NULL, pTempPlayer);
+							CGLogoutHandler::execute( NULL, pTempPlayer );
 						}
-						catch (DisconnectException& de )
+						catch ( DisconnectException& de )
 						{
-							filelog("DIFF_ZG.log", "%s ZPM+PO+CE", de.toString().c_str());
-							deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-							pushOutPlayer(pTempPlayer);
+							filelog( "DIFF_ZG.log", "%s ZPM+PO+CE", de.toString().c_str() );
+							deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+							pushOutPlayer( pTempPlayer );
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_OUTPUT_DISCONNECT);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_OUTPUT_DISCONNECT );
 
 						/*
 						try 
@@ -1101,17 +1098,17 @@ void ZonePlayerManager::processOutputs ()
 
 						try
 						{
-							CGLogoutHandler::execute(NULL, pTempPlayer);
+							CGLogoutHandler::execute( NULL, pTempPlayer );
 						}
-						catch (DisconnectException& de )
+						catch ( DisconnectException& de )
 						{
-							filelog("DIFF_ZG.log", "%s ZPM+PO+PE", de.toString().c_str());
-							deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-							pushOutPlayer(pTempPlayer);
+							filelog( "DIFF_ZG.log", "%s ZPM+PO+PE", de.toString().c_str() );
+							deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+							pushOutPlayer( pTempPlayer );
 						}
 
 						// by sigi. 2002.12.30
-//						UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_OUTPUT_DISCONNECT2);
+//						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_OUTPUT_DISCONNECT2 );
 
 						/*
 						// 이미 연결이 종료되었으므로, 출력 버퍼를 플러시해서는 안된다.
@@ -1151,7 +1148,7 @@ void ZonePlayerManager::processOutputs ()
 //
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processExceptions () 
-	throw(IOException , Error)
+	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -1179,17 +1176,17 @@ void ZonePlayerManager::processExceptions ()
 
 				try
 				{
-					CGLogoutHandler::execute(NULL, pTempPlayer);
+					CGLogoutHandler::execute( NULL, pTempPlayer );
 				}
-				catch (DisconnectException& de )
+				catch ( DisconnectException& de )
 				{
-					filelog("DIFF_ZG.log", "%s ZPM+PE", de.toString().c_str());
-					deletePlayer(pTempPlayer->getSocket()->getSOCKET());
-					pushOutPlayer(pTempPlayer);
+					filelog( "DIFF_ZG.log", "%s ZPM+PE", de.toString().c_str() );
+					deletePlayer( pTempPlayer->getSocket()->getSOCKET() );
+					pushOutPlayer( pTempPlayer );
 				}
 
 				// by sigi. 2002.12.30
-//				UserGateway::getInstance()->passUser(UserGateway::USER_OUT_ZPM_EXCEPTION);
+//				UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_EXCEPTION );
 
 				/*
 				try 
@@ -1222,7 +1219,7 @@ void ZonePlayerManager::processExceptions ()
 // 특정 플레이어를 매니저에 추가한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1260,7 +1257,7 @@ void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer)
 // 특정 플레이어를 매니저에 추가한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1294,7 +1291,7 @@ void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer)
 // 특정 플레이어를 매니저에서 삭제한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd) 
-	throw(OutOfBoundException , NoSuchElementException , Error)
+	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1361,7 +1358,7 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 // 특정 플레이어를 매니저에서 삭제한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer (SOCKET fd) 
-	throw(OutOfBoundException , NoSuchElementException , Error)
+	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1372,24 +1369,24 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 		// 플레이어 포인터를 플레이어 배열에서 삭제한다.
 		PlayerManager::deletePlayer(fd);
 	}
-	catch (OutOfBoundException& o )
+	catch ( OutOfBoundException& o )
 	{
-		filelog("ZPMError.txt", "OOB: %s, Socket: %d", o.toString().c_str(), fd);
+		filelog( "ZPMError.txt", "OOB: %s, Socket: %d", o.toString().c_str(), fd );
 		throw;
 	}
-	catch (NoSuchElementException& n )
+	catch ( NoSuchElementException& n )
 	{
-		filelog("ZPMError.txt", "NSEE: %s, Socket: %d", n.toString().c_str(), fd);
+		filelog( "ZPMError.txt", "NSEE: %s, Socket: %d", n.toString().c_str(), fd );
 		throw;
 	}
-	catch (Error& e)
+	catch ( Error& e)
 	{
-		filelog("ZPMError.txt", "Error: %s, Socket: %d", e.toString().c_str(), fd);
+		filelog( "ZPMError.txt", "Error: %s, Socket: %d", e.toString().c_str(), fd );
 		throw;
 	}
 	catch (...)
 	{
-		filelog("ZPMError.txt", "난 몰라. Socket: %d", fd);
+		filelog( "ZPMError.txt", "난 몰라. Socket: %d", fd );
 		throw;
 	}
 
@@ -1453,7 +1450,7 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 //
 //////////////////////////////////////////////////////////////////////
 Player* ZonePlayerManager::getPlayer (SOCKET fd)
-	throw(OutOfBoundException , NoSuchElementException , Error)
+	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1579,10 +1576,10 @@ void ZonePlayerManager::processPlayerListQueue()
 		}
 		else
 		{
-			pCreature->setZone(pZone);
-			pCreature->setNewZone(NULL);
+			pCreature->setZone( pZone );
+			pCreature->setNewZone( NULL );
 
-			pCreature->setXY(pCreature->getNewX(), pCreature->getNewY());
+			pCreature->setXY( pCreature->getNewX(), pCreature->getNewY() );
 
 			// 새 Zone에 들어가게 되는 경우
 			//pCreature->registerObject();
@@ -1620,7 +1617,7 @@ void ZonePlayerManager::heartbeat()
 	}
 
 	// broadcast packet queue 를 처리한다.
-	if (!m_BroadcastQueue.empty() )
+	if ( !m_BroadcastQueue.empty() )
 		flushBroadcastPacket();
 
 	__END_CATCH
@@ -1663,13 +1660,13 @@ void    ZonePlayerManager::removeFlag (Effect::EffectClass EC)
 
 		if (pPlayer != NULL) 
 		{
-			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
+			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>( pPlayer );
 			Assert(pGamePlayer!=NULL);
 
 			Creature* pCreature = pGamePlayer->getCreature();
 			Assert(pCreature != NULL);
 
-			pCreature->removeFlag(EC);
+			pCreature->removeFlag( EC );
 		}
     }
 
@@ -1682,76 +1679,76 @@ void    ZonePlayerManager::removeFlag (Effect::EffectClass EC)
 // ZonePlayerManager 에 있는 모든 사용자를 정리한다.
 ////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::clearPlayers()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
 	// PlayerListQueue 에 있는 애들을 정리한다.
-	while (!m_PlayerListQueue.empty() )
+	while ( !m_PlayerListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerListQueue.front();
 
 		m_PlayerListQueue.pop_front();
 
-		if (pGamePlayer != NULL )
+		if ( pGamePlayer != NULL )
 		{
 			try
 			{
 				pGamePlayer->disconnect();
 			}
-			catch (Throwable& t )
+			catch ( Throwable& t )
 			{
 				// 무시
 			}
 
-			SAFE_DELETE(pGamePlayer);
+			SAFE_DELETE( pGamePlayer );
 		}
 	}
 
 	// PlayerOutListQueue 에 있는 애들을 정리한다.
-	while (!m_PlayerOutListQueue.empty() )
+	while ( !m_PlayerOutListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerOutListQueue.front();
 
 		m_PlayerOutListQueue.pop_front();
 
-		if (pGamePlayer != NULL )
+		if ( pGamePlayer != NULL )
 		{
 			try
 			{
 				pGamePlayer->disconnect();
 			}
-			catch (Throwable& t )
+			catch ( Throwable& t )
 			{
 				// 무시
 			}
 
-			SAFE_DELETE(pGamePlayer);
+			SAFE_DELETE( pGamePlayer );
 		}
 	}
 
-	if (m_MinFD == -1 && m_MaxFD == -1 )
+	if ( m_MinFD == -1 && m_MaxFD == -1 )
 		return;
 
 	// 플레이어를 정리한다.
-	for (int i = m_MinFD; i <= m_MaxFD; i ++ )
+	for ( int i = m_MinFD; i <= m_MaxFD; i ++ )
 	{
-		if (m_pPlayers[i] != NULL )
+		if ( m_pPlayers[i] != NULL )
 		{
-			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(m_pPlayers[i]);
+			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>( m_pPlayers[i] );
 
-			if (pGamePlayer != NULL )
+			if ( pGamePlayer != NULL )
 			{
 				try
 				{
 					pGamePlayer->disconnect();
 				}
-				catch (Throwable& t )
+				catch ( Throwable& t )
 				{
 					// 무시
 				}
 
-				SAFE_DELETE(pGamePlayer);
+				SAFE_DELETE( pGamePlayer );
 			}
 		}
 	}
@@ -1759,36 +1756,36 @@ void ZonePlayerManager::clearPlayers()
 	__END_CATCH
 }
 
-bool checkZonePlayerManager(GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, const string& str )
+bool checkZonePlayerManager( GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, const string& str )
 {
-	if (pGamePlayer == NULL )
+	if ( pGamePlayer == NULL )
 		return true;
 
 	Creature* pCreature = pGamePlayer->getCreature();
-	if (pCreature == NULL )
+	if ( pCreature == NULL )
 		return true;
 
 	Zone* pZone = pCreature->getZone();
-	if (pZone == NULL )
+	if ( pZone == NULL )
 		return true;
 
 	ZoneGroup* pZoneGroup = pZone->getZoneGroup();
-	if (pZoneGroup == NULL )
+	if ( pZoneGroup == NULL )
 		return true;
 
 	ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
-	if (pZonePlayerManager == NULL )
+	if ( pZonePlayerManager == NULL )
 		return true;
 
-	if (pZPM != pZonePlayerManager )
+	if ( pZPM != pZonePlayerManager )
 	{
-		filelog("ZPMCheck.log", "CZPM:%u GZPM:%u SOCK:%d ZID:%u NAME:%s P:%s",
+		filelog( "ZPMCheck.log", "CZPM:%u GZPM:%u SOCK:%d ZID:%u NAME:%s P:%s",
 					pZPM->getZGID(), 
 					pZonePlayerManager->getZGID(),
 					pGamePlayer->getSocket()->getSOCKET(),
 					pZone->getZoneID(),
 					pCreature->getName().c_str(),
-					str.c_str());
+					str.c_str() );
 
 		return false;
 	}
@@ -1813,7 +1810,7 @@ bool ZonePlayerManager::onChildGuardTimeArea(int pm, int am, bool bSwitch)
         bool returnValue = false;
         tm Timem;
         time_t daytime = time(0);
-        localtime_r(&daytime, &Timem);
+        localtime_r( &daytime, &Timem );
 
         int Hour    = Timem.tm_hour;
         int Min     = Timem.tm_min;

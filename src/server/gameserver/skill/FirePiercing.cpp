@@ -7,14 +7,12 @@
 #include "FirePiercing.h"
 #include "ZoneUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-
-#include <list>
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러
@@ -30,8 +28,8 @@ void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
     try
@@ -45,7 +43,7 @@ void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pOusters, pTargetCreature )
+			|| !canAttack( pOusters, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pOusters, getSkillType(), Grade);
@@ -80,8 +78,8 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 	Assert(pOustersSkillSlot != NULL);
 
 	BYTE Grade = 0;
-	if (pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
-	else if (pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
+	if ( pOustersSkillSlot->getExpLevel() < 15 ) Grade = 0;
+	else if ( pOustersSkillSlot->getExpLevel() < 30 ) Grade = 1;
 	else Grade = 2;
 
 	try 
@@ -99,11 +97,11 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 			return;
 		}
 
-		Dir_t dir = computeDirection(pOusters->getX(), pOusters->getY(), tX, tY);
+		Dir_t dir = computeDirection( pOusters->getX(), pOusters->getY(), tX, tY );
 		int X = (int)pOusters->getX() + dirMoveMask[dir].x * 2;
 		int Y = (int)pOusters->getY() + dirMoveMask[dir].y * 2;
 
-		if (X<0 || Y<0 || !isValidZoneCoord(pZone, X, Y ) )
+		if ( X<0 || Y<0 || !isValidZoneCoord( pZone, X, Y ) )
 		{
 			executeSkillFailNormal(pOusters, getSkillType(), NULL, Grade);
 			return;
@@ -129,7 +127,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot);
-		bool bSatisfyRequire = pOusters->satisfySkillRequire(pSkillInfo);
+		bool bSatisfyRequire = pOusters->satisfySkillRequire( pSkillInfo );
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bSatisfyRequire)
 		{
@@ -140,7 +138,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 			int oX, oY;
 
 			_GCSkillToTileOK2.setObjectID(pOusters->getObjectID());
-			_GCSkillToTileOK2.setSkillType(SKILL_FIRE_PIERCING);
+			_GCSkillToTileOK2.setSkillType( SKILL_FIRE_PIERCING );
 			_GCSkillToTileOK2.setX(X);
 			_GCSkillToTileOK2.setY(Y);
 			_GCSkillToTileOK2.setRange(dir);
@@ -151,16 +149,16 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 			bool bCritical = false;
 			computeCriticalBonus(pOusters, getSkillType(), Damage, bCritical);
 
-			for (oX = (int)X - 1 ; oX <= (int)X + 1 ; ++oX )
-			for (oY = (int)Y - 1 ; oY <= (int)Y + 1 ; ++oY )
+			for ( oX = (int)X - 1 ; oX <= (int)X + 1 ; ++oX )
+			for ( oY = (int)Y - 1 ; oY <= (int)Y + 1 ; ++oY )
 			{
-				if (!isValidZoneCoord(pZone, oX, oY )) continue;
+				if (!isValidZoneCoord( pZone, oX, oY )) continue;
 
 				Tile&   tile  = pZone->getTile(oX, oY);
 
 				// 타일 안에 존재하는 오브젝트들을 검색한다.
-				const list<Object*>& oList = tile.getObjectList();
-				list<Object*>::const_iterator itr = oList.begin();
+				const slist<Object*>& oList = tile.getObjectList();
+				slist<Object*>::const_iterator itr = oList.begin();
 				for (; itr != oList.end(); itr++) 
 				{
 					Assert(*itr != NULL);
@@ -175,10 +173,10 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 
 						// 무적상태 체크. by sigi. 2002.9.5
 						// 산 면역. by sigi. 2002.9.13
-						if (pCreature->getObjectID() == pOusters->getObjectID()
-							|| !canAttack(pOusters, pCreature )
+						if ( pCreature->getObjectID() == pOusters->getObjectID()
+							|| !canAttack( pOusters, pCreature )
 							|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA) 
-							|| !canHit(pOusters, pCreature, SKILL_FIRE_PIERCING, pOustersSkillSlot->getExpLevel() )
+							|| !canHit( pOusters, pCreature, SKILL_FIRE_PIERCING, pOustersSkillSlot->getExpLevel() )
 							)
 						{
 							continue;
@@ -186,7 +184,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 
 						// 2003.1.10 by Sequoia
 						// 안전지대 체크
-						if(!checkZoneLevelToHitTarget(pCreature ) ) continue;
+						if( !checkZoneLevelToHitTarget( pCreature ) ) continue;
 
 						if (pCreature->getMoveMode() != Creature::MOVE_MODE_FLYING)
 						{
@@ -194,7 +192,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 							{
 								Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-								::setDamage(pSlayer, Damage, pOusters, SKILL_FIRE_PIERCING, &_GCSkillToTileOK2, &_GCSkillToTileOK1);
+								::setDamage( pSlayer, Damage, pOusters, SKILL_FIRE_PIERCING, &_GCSkillToTileOK2, &_GCSkillToTileOK1 );
 
 								Player* pPlayer = pSlayer->getPlayer();
 								Assert(pPlayer != NULL);
@@ -204,7 +202,7 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 							{
 								Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 
-								::setDamage(pVampire, Damage, pOusters, SKILL_FIRE_PIERCING, &_GCSkillToTileOK2, &_GCSkillToTileOK1);
+								::setDamage( pVampire, Damage, pOusters, SKILL_FIRE_PIERCING, &_GCSkillToTileOK2, &_GCSkillToTileOK1 );
 
 								Player* pPlayer = pVampire->getPlayer();
 								Assert(pPlayer != NULL);
@@ -214,17 +212,17 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 							{
 								Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 							
-								::setDamage(pMonster, Damage, pOusters, SKILL_FIRE_PIERCING, NULL, &_GCSkillToTileOK1);
+								::setDamage( pMonster, Damage, pOusters, SKILL_FIRE_PIERCING, NULL, &_GCSkillToTileOK1 );
 							}
 							else continue; // 아우스터즈나 NPC 상대로... -_-
 
 							// 죽었으면 경험치준다. 음.....
-							if (pOusters != NULL )
+							if ( pOusters != NULL )
 							{
 								if (pCreature->isDead() && pOusters->isOusters())
 								{
-									Ousters* pCastOusters = dynamic_cast<Ousters*>(pOusters);
-									Assert(pCastOusters != NULL);
+									Ousters* pCastOusters = dynamic_cast<Ousters*>( pOusters );
+									Assert( pCastOusters != NULL );
 
 //									int exp = computeCreatureExp(pCreature, 100, pCastOusters);
 									int exp = computeCreatureExp(pCreature, 70, pCastOusters);
@@ -232,34 +230,34 @@ void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, Ou
 								}
 							}
 
-							cList.push_back(pCreature);
-							if (pCreature->isPC() )
+							cList.push_back( pCreature );
+							if ( pCreature->isPC() )
 							{
-								pCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
+								pCreature->getPlayer()->sendPacket( &_GCSkillToTileOK2 );
 							}
 
 							_GCSkillToTileOK2.clearList();
 
-//							if (_GCSkillToTileOK1.getShortCount() != 0 || _GCSkillToTileOK1.getLongCount() != 0 ) pOusters->getPlayer()->sendPacket(&_GCSkillToTileOK1);
+//							if ( _GCSkillToTileOK1.getShortCount() != 0 || _GCSkillToTileOK1.getLongCount() != 0 ) pOusters->getPlayer()->sendPacket(&_GCSkillToTileOK1);
 						}
 					}
 				}
 			}
 
-			if (bCritical )
+			if ( bCritical )
 			{
 				cout << "크리티컬 발동" << endl;
 
 				list<Creature*>::iterator itr = cList.begin();
 				list<Creature*>::iterator endItr = cList.end();
 
-				for (; itr != endItr ; ++itr )
+				for ( ; itr != endItr ; ++itr )
 				{
 					Creature* pTargetCreature = *itr;
-					if (pTargetCreature != NULL )
+					if ( pTargetCreature != NULL )
 					{
 						cout << pTargetCreature->getName() << " 낙백~" << endl;
-						knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
+						knockbackCreature( pZone, pTargetCreature, pOusters->getX(), pOusters->getY() );
 					}
 				}
 			}

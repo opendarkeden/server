@@ -7,9 +7,9 @@
 #include "SpiritGuard.h"
 #include "EffectSpiritGuard.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러
@@ -60,9 +60,9 @@ void SpiritGuard::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CE
 			EffectSpiritGuard* pEffect = new EffectSpiritGuard(pSlayer);
 			pEffect->setDeadline(output.Duration);
 			pEffect->setLevel(SkillLevel);
-			pEffect->setDamage(output.Damage);
-			pEffect->setNextTime(0);			// 일단 단번에 발동한다. by Sequoia
-			pEffect->setDelay(output.Tick);	// added by Sequoia
+			pEffect->setDamage( output.Damage );
+			pEffect->setNextTime( 0 );			// 일단 단번에 발동한다. by Sequoia
+			pEffect->setDelay( output.Tick );	// added by Sequoia
 			pSlayer->addEffect(pEffect);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_SPIRIT_GUARD_1);
 

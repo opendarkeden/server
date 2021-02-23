@@ -22,7 +22,7 @@ const char * PropertyBuffer::SpaceTab = " \t";
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 PropertyBuffer::PropertyBuffer (const string & buffer) 
-	throw()
+	throw ()
 {
 	m_Index  = 0;
 	m_Buffer = buffer;
@@ -33,16 +33,16 @@ PropertyBuffer::PropertyBuffer (const string & buffer)
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 PropertyBuffer::~PropertyBuffer () 
-	throw()
+	throw ()
 {
 }
 
 string PropertyBuffer::getProperty (string key)
-	    throw(NoSuchElementException , Error)
+	    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-    size_t bufferLen = m_Buffer.size();
+	uint bufferLen = m_Buffer.size();
 
 	while (m_Index < bufferLen)
 	{
@@ -51,7 +51,7 @@ string PropertyBuffer::getProperty (string key)
 		// 빈 라인 또는 코멘트 라인이 아닌 경우
 		if (line.size() != 0 && line[0] != Comment)
 		{
-            size_t i = line.find(Separator);
+			uint i = line.find(Separator);
 
 			if (i == string::npos)
 			{
@@ -78,7 +78,7 @@ string PropertyBuffer::getProperty (string key)
 }
 
 int PropertyBuffer::getPropertyInt (string key)
-	    throw(NoSuchElementException , Error)
+	    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -88,11 +88,11 @@ int PropertyBuffer::getPropertyInt (string key)
 }
 
 bool PropertyBuffer::getProperty (string key, string& value)
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-    size_t bufferLen = m_Buffer.size();
+	uint bufferLen = m_Buffer.size();
 
     while (m_Index < bufferLen)
     {
@@ -101,7 +101,7 @@ bool PropertyBuffer::getProperty (string key, string& value)
         // 빈 라인 또는 코멘트 라인이 아닌 경우
         if (line.size() != 0 && line[0] != Comment)
         {
-            size_t i = line.find(Separator);
+            uint i = line.find(Separator);
 
             if (i == string::npos)
             {
@@ -128,7 +128,7 @@ bool PropertyBuffer::getProperty (string key, string& value)
 }
 
 bool PropertyBuffer::getPropertyInt (string key, int& value)
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ bool PropertyBuffer::getPropertyInt (string key, int& value)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string PropertyBuffer::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

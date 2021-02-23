@@ -1,11 +1,11 @@
 #include "GQuestIllegalWarpElement.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 GQuestElement::ResultType GQuestIllegalWarpElement::checkMission(GQuestMission* pMission) const
 {
 	GQuestIllegalWarpMission* pIllegalWarpMission = dynamic_cast<GQuestIllegalWarpMission*>(pMission);
-	if (pIllegalWarpMission == NULL ) return FAIL;
-	if (pIllegalWarpMission->isRide() ) return OK;
+	if ( pIllegalWarpMission == NULL ) return FAIL;
+	if ( pIllegalWarpMission->isRide() ) return OK;
 
 	return WAIT;
 }

@@ -6,7 +6,7 @@
 #include "SXml.h"
 #include "GQuestManager.h"
 
-#include <map>
+#include <hash_map>
 
 class PlayerCreature;
 class GQuestStatus;
@@ -33,13 +33,13 @@ public:
 	virtual	GQuestMission*	makeInitMission(PlayerCreature* pPC) const { return NULL; }
 
 	virtual GQuestManager::EventTypes	getEventType() const { return GQuestManager::MAX; }
-	virtual void						whenMissionStart(PlayerCreature* pOwner, GQuestMission* pMission);
-	virtual void						whenMissionEnd(PlayerCreature* pOwner, GQuestMission* pMission);
+	virtual void						whenMissionStart( PlayerCreature* pOwner, GQuestMission* pMission );
+	virtual void						whenMissionEnd( PlayerCreature* pOwner, GQuestMission* pMission );
 
 	virtual GQuestElement*	makeElement(XMLTree* pTree) = 0;
 
-	void	setParent(GQuestInfo* pParent ) { m_pParent = pParent; }
-	void	setCondition(BYTE cond ) { m_Condition = cond; }
+	void	setParent( GQuestInfo* pParent ) { m_pParent = pParent; }
+	void	setCondition( BYTE cond ) { m_Condition = cond; }
 
 	DWORD	getIndex() const { return m_Index; }
 
@@ -54,9 +54,10 @@ class GQuestElementFactory
 public:
 	GQuestElement* makeElement(XMLTree* pTree)
 	{
+		cout << "make Element : " << pTree->GetName() << endl;
 		GQuestElement* pProtoType = m_ProtoTypes[pTree->GetName()];
-		if (pProtoType == NULL ) return NULL;
-		return pProtoType->makeElement(pTree);
+		if ( pProtoType == NULL ) return NULL;
+		return pProtoType->makeElement( pTree );
 	}
 
 	void init();
@@ -68,11 +69,12 @@ public:
 	}
 
 	void addProtoType(GQuestElement* pQE) {
+		cout << "add Prototype : " << pQE->getElementName() << endl;
 		m_ProtoTypes[pQE->getElementName()] = pQE;
 	}
 
 private:
-	map<string, GQuestElement*> m_ProtoTypes;
+	hash_map<string, GQuestElement*> m_ProtoTypes;
 };
 
 #endif

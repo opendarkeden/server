@@ -10,11 +10,10 @@
 #include "MasterLairManager.h"
 #include "MasterLairInfoManager.h"
 #include "MonsterManager.h"
-#include "GCSkillToTileOK5.h"
-#include "GCFakeMove.h"
-#include "GCSay.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCFakeMove.h"
+#include "Gpackets/GCSay.h"
 
-#include <map>
 
 //////////////////////////////////////////////////////////////////////////////
 // 생성자
@@ -128,7 +127,7 @@ void DuplicateSelf::execute(Monster* pMonster)
 	//cout << "DuplicateSelf" << endl;
 	MonsterType_t MType = pMonster->getMonsterType();
 
-	map<MonsterType_t, MonsterType_t>::const_iterator itr = m_DuplicateMonsterTypes.find(MType);
+	hash_map<MonsterType_t, MonsterType_t>::const_iterator itr = m_DuplicateMonsterTypes.find( MType );
 
 	// 분신할 MonsterType이 없으면 분신 모하지..
 	if (itr==m_DuplicateMonsterTypes.end())
@@ -173,7 +172,7 @@ void DuplicateSelf::execute(Monster* pMonster)
 			_GCSkillToTileOK5.setSkillType(getSkillType());
 			_GCSkillToTileOK5.setX(x);
 			_GCSkillToTileOK5.setY(y);
-			_GCSkillToTileOK5.setDuration( 0);
+			_GCSkillToTileOK5.setDuration(  0);
 
 			pZone->broadcastPacket(x, y,  &_GCSkillToTileOK5);
 
@@ -220,10 +219,10 @@ void DuplicateSelf::execute(Monster* pMonster)
 				Monster* pFakeMonster = *iMonster;
 
 				GCFakeMove gcFakeMove;
-				gcFakeMove.setObjectID(pMonster->getObjectID());
-				gcFakeMove.setXY(pFakeMonster->getX(), pFakeMonster->getY());
+				gcFakeMove.setObjectID( pMonster->getObjectID() );
+				gcFakeMove.setXY( pFakeMonster->getX(), pFakeMonster->getY() );
 				
-				pZone->broadcastPacket(x, y,  &gcFakeMove);
+				pZone->broadcastPacket( x, y,  &gcFakeMove);
 			}
 
 			// 괜히 몬스터도 어딘가로 이동해본다.

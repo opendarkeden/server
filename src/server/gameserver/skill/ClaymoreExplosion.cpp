@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ClaymoreExplosion.h"
-//#include "GCSkillToSelfOK1.h"
-#include "GCAddEffectToTile.h"
+//#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCAddEffectToTile.h"
 #include "SimpleTileMeleeSkill.h"
 
 
@@ -21,10 +21,10 @@ ClaymoreExplosion::ClaymoreExplosion()
 
 	int index=0;
 
-	for (int i=0; i<5; ++i )
-		for (int j=i-4; j<=0; ++j )
+	for ( int i=0; i<5; ++i )
+		for ( int j=i-4; j<=0; ++j )
 		{
-//			if (i==0 && j==0 ) continue;
+//			if ( i==0 && j==0 ) continue;
 			m_pClaymoreExplosionMask[index++].set(j, i);
 		}
 
@@ -104,7 +104,7 @@ void ClaymoreExplosion::execute(Monster* pMonster)
 			gcAE.setEffectID(Effect::EFFECT_CLASS_CLAYMORE_EXPLOTION);
 			gcAE.setObjectID(0);
 			gcAE.setDuration(0);
-			pZone->broadcastPacket(x, y, &gcAE);
+			pZone->broadcastPacket( x, y, &gcAE );
 		} 
 		else 
 		{

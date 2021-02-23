@@ -10,8 +10,6 @@
 #include "Tile.h"
 #include "DB.h"
 
-#include <list>
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
@@ -115,8 +113,8 @@ void EffectDarkness::unaffect()
 	Tile & tile = m_pZone->getTile(m_X, m_Y);
 
 	// unaffect creatures on tile
-	const list<Object*>& oList = tile.getObjectList();
-	for (list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+	const slist<Object*>& oList = tile.getObjectList();
+	for (slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 	{
 		if (*itr != this) 
 		{
@@ -152,8 +150,8 @@ string EffectDarkness::toString() const
 	__END_CATCH
 }
 
-void EffectDarknessLoader::load(Zone* pZone )
-	throw(Error)
+void EffectDarknessLoader::load( Zone* pZone )
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -163,41 +161,41 @@ void EffectDarknessLoader::load(Zone* pZone )
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT LeftX, TopY, RightX, BottomY FROM ZoneEffectInfo WHERE ZoneID = %u AND EffectID = %d", pZone->getZoneID(), Effect::EFFECT_CLASS_DARKNESS);
+		pResult = pStmt->executeQuery( "SELECT LeftX, TopY, RightX, BottomY FROM ZoneEffectInfo WHERE ZoneID = %u AND EffectID = %d", pZone->getZoneID(), Effect::EFFECT_CLASS_DARKNESS );
 
-		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
+		VSRect rect( 0, 0, pZone->getWidth()-1, pZone->getHeight()-1 );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			int left	= pResult->getInt(1);
 			int top		= pResult->getInt(2);
 			int right	= pResult->getInt(3);
 			int bottom	= pResult->getInt(4);
 
-			for (int x = left ; x <= right ; x++ )
+			for ( int x = left ; x <= right ; x++ )
 			{
-				for (int y = top ; y <= bottom ; y++ )
+				for ( int y = top ; y <= bottom ; y++ )
 				{
-					if (!rect.ptInRect(x, y ) )
+					if ( !rect.ptInRect( x, y ) )
 						continue;
 
-					Tile& tile = pZone->getTile(x, y);
+					Tile& tile = pZone->getTile( x, y );
 
-					if (tile.canAddEffect() )
+					if ( tile.canAddEffect() )
 					{
-						EffectDarkness* pEffect = new EffectDarkness(pZone, x, y);
+						EffectDarkness* pEffect = new EffectDarkness( pZone, x, y );
 						pEffect->setLevel(300);
 						pEffect->setStartTime();
 
-						pZone->registerObject(pEffect);
-						pZone->addEffect(pEffect);
-						tile.addEffect(pEffect);
+						pZone->registerObject( pEffect );
+						pZone->addEffect( pEffect );
+						tile.addEffect( pEffect );
 					}
 				}
 			}
 		}
 	}
-	END_DB(pStmt )
+	END_DB( pStmt )
 
 	__END_CATCH
 }

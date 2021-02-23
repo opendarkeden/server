@@ -39,8 +39,8 @@ public:
 
 	Item::ItemClass getItemClass() const { return m_ItemClass; }
 	ItemID_t		getItemID() const { return m_ItemID; }
-	void	setTargetItem(Item* pItem ) { m_ItemClass = pItem->getItemClass(); m_ItemID = pItem->getItemID(); }
-	bool	isTargetItem(Item* pItem ) { return m_ItemClass == pItem->getItemClass() && m_ItemID == pItem->getItemID(); }
+	void	setTargetItem( Item* pItem ) { m_ItemClass = pItem->getItemClass(); m_ItemID = pItem->getItemID(); }
+	bool	isTargetItem( Item* pItem ) { return m_ItemClass == pItem->getItemClass() && m_ItemID == pItem->getItemID(); }
 
 private :
 	Damage_t   m_DamageBonus;

@@ -10,14 +10,14 @@
 
 #include "ItemUtil.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
@@ -40,7 +40,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()
 			)
 		{
@@ -78,10 +78,10 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 		Assert(pZone != NULL);
 
 		// 총을 들고 있는지 확인한다.
-		Item* pItem = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
-		if (pItem == NULL || isArmsWeapon(pItem ) == false )
+		Item* pItem = pSlayer->getWearItem( Slayer::WEAR_RIGHTHAND );
+		if ( pItem == NULL || isArmsWeapon( pItem ) == false )
 		{
-			executeSkillFailException(pSlayer, getSkillType());
+			executeSkillFailException( pSlayer, getSkillType() );
 			return;
 		}
 
@@ -99,14 +99,14 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
-		bool bEffected	 = pSlayer->isFlag(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
+		bool bEffected	 = pSlayer->isFlag( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
 
 		bool bTileCheck = false;
-		VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
-		if (rect.ptInRect(X, Y ) )
+		VSRect rect( 0, 0, pZone->getWidth()-1, pZone->getHeight()-1 );
+		if ( rect.ptInRect( X, Y ) )
 		{
 			Tile& tile = pZone->getTile(X,Y);
-			if (tile.canAddEffect() ) bTileCheck = true;
+			if ( tile.canAddEffect() ) bTileCheck = true;
 		}
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && !bEffected && bTileCheck )
@@ -118,7 +118,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 			SkillOutput output;
 			computeOutput(input, output);
 
-			Tile& tile = pZone->getTile(X, Y);
+			Tile& tile = pZone->getTile( X, Y );
 
 			// 같은 이펙트가 이미 존재한다면 삭제한다.
 			Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_POINT);
@@ -133,8 +133,8 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 			pEffect->setDamage(output.Damage);
 			pEffect->setDeadline(output.Duration);
 
-			pSlayer->addEffect(pEffect);
-			pSlayer->setFlag(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
+			pSlayer->addEffect( pEffect );
+			pSlayer->setFlag( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
 
 			ZoneCoord_t myX = pSlayer->getX();
 			ZoneCoord_t myY = pSlayer->getY();
@@ -176,30 +176,30 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 
 			// GunShotGuidanceAim 이펙트를 브로드캐스팅 한다.
 			GCAddEffect gcAddAimEffect;
-			gcAddAimEffect.setObjectID(pSlayer->getObjectID());
-			gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
-			gcAddAimEffect.setDuration(output.Duration);
-			pZone->broadcastPacket(myX, myY, &gcAddAimEffect);
+			gcAddAimEffect.setObjectID( pSlayer->getObjectID() );
+			gcAddAimEffect.setEffectID( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
+			gcAddAimEffect.setDuration( output.Duration );
+			pZone->broadcastPacket( myX, myY, &gcAddAimEffect );
 
 			///////////////////////////////////////////////////////////////////
 			// GunShotGuidancePoint 이펙트를 만들어서 붙이고 브로드캐스팅 한다.
 			///////////////////////////////////////////////////////////////////
-			EffectGunShotGuidancePoint* pPointEffect = new EffectGunShotGuidancePoint(pZone, X, Y);
-			pPointEffect->setDeadline(output.Duration);
+			EffectGunShotGuidancePoint* pPointEffect = new EffectGunShotGuidancePoint( pZone, X, Y );
+			pPointEffect->setDeadline( output.Duration );
 
 			ObjectRegistry & objectRegister = pZone->getObjectRegistry();
-			objectRegister.registerObject(pPointEffect);
+			objectRegister.registerObject( pPointEffect );
 
-			pZone->addEffect(pPointEffect);
-			tile.addEffect(pPointEffect);
+			pZone->addEffect( pPointEffect );
+			tile.addEffect( pPointEffect );
 
 			GCAddEffectToTile gcAddEffectToTile;
-			gcAddEffectToTile.setObjectID(pPointEffect->getObjectID());
-			gcAddEffectToTile.setEffectID(pPointEffect->getEffectClass());
-			gcAddEffectToTile.setXY(X, Y);
-			gcAddEffectToTile.setDuration(output.Duration);
+			gcAddEffectToTile.setObjectID( pPointEffect->getObjectID() );
+			gcAddEffectToTile.setEffectID( pPointEffect->getEffectClass() );
+			gcAddEffectToTile.setXY( X, Y );
+			gcAddEffectToTile.setDuration( output.Duration );
 
-			pZone->broadcastPacket(X, Y, &gcAddEffectToTile);
+			pZone->broadcastPacket( X, Y, &gcAddEffectToTile );
 
 			pSkillSlot->setRunTime(output.Delay);
 		} 
@@ -222,7 +222,7 @@ void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) t
 
 	try 
 	{
-		//cout << pMonster->getName() << " use gunshotguiadance" << endl;
+		cout << pMonster->getName() << " use gunshotguiadance" << endl;
 		Zone* pZone = pMonster->getZone();
 		Assert(pZone != NULL);
 
@@ -266,8 +266,8 @@ void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) t
 			pEffect->setDeadline(output.Duration);
 			pEffect->setDamage(output.Damage);
 
-			pMonster->setFlag(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
-			pMonster->addEffect(pEffect);
+			pMonster->setFlag( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
+			pMonster->addEffect( pEffect );
 
 			_GCSkillToTileOK3.setObjectID(pMonster->getObjectID());
 			_GCSkillToTileOK3.setSkillType(SkillType);
@@ -297,27 +297,27 @@ void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) t
 
 			// GunShotGuidanceAim 이펙트를 브로드캐스팅 한다.
 			GCAddEffect gcAddAimEffect;
-			gcAddAimEffect.setObjectID(pMonster->getObjectID());
-			gcAddAimEffect.setEffectID(Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM);
-			gcAddAimEffect.setDuration(output.Duration);
-			pZone->broadcastPacket(myX, myY, &gcAddAimEffect);
+			gcAddAimEffect.setObjectID( pMonster->getObjectID() );
+			gcAddAimEffect.setEffectID( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
+			gcAddAimEffect.setDuration( output.Duration );
+			pZone->broadcastPacket( myX, myY, &gcAddAimEffect );
 
-			EffectGunShotGuidancePoint* pPointEffect = new EffectGunShotGuidancePoint(pZone, X, Y);
-			pPointEffect->setDeadline(output.Duration);
+			EffectGunShotGuidancePoint* pPointEffect = new EffectGunShotGuidancePoint( pZone, X, Y );
+			pPointEffect->setDeadline( output.Duration );
 
 			ObjectRegistry & objectRegister = pZone->getObjectRegistry();
-			objectRegister.registerObject(pPointEffect);
+			objectRegister.registerObject( pPointEffect );
 
-			pZone->addEffect(pPointEffect);
-			tile.addEffect(pPointEffect);
+			pZone->addEffect( pPointEffect );
+			tile.addEffect( pPointEffect );
 
 			GCAddEffectToTile gcAddEffectToTile;
-			gcAddEffectToTile.setObjectID(pPointEffect->getObjectID());
-			gcAddEffectToTile.setEffectID(pPointEffect->getEffectClass());
-			gcAddEffectToTile.setXY(X, Y);
-			gcAddEffectToTile.setDuration(output.Duration);
+			gcAddEffectToTile.setObjectID( pPointEffect->getObjectID() );
+			gcAddEffectToTile.setEffectID( pPointEffect->getEffectClass() );
+			gcAddEffectToTile.setXY( X, Y );
+			gcAddEffectToTile.setDuration( output.Duration );
 
-			pZone->broadcastPacket(X, Y, &gcAddEffectToTile);
+			pZone->broadcastPacket( X, Y, &gcAddEffectToTile );
 		} 
 		else 
 		{

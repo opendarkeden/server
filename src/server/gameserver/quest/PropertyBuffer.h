@@ -42,7 +42,7 @@ public:
 	string toString() const throw();
 	
 private:
-    size_t   m_Index;
+	uint   m_Index;
 	string m_Buffer;
 	
 };

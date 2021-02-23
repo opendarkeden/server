@@ -7,12 +7,12 @@
 #include "DeleoEfficio.h"
 #include "Effect.h"
 
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "Gpackets/GCSkillToObjectOK1.h"
+#include "Gpackets/GCSkillToObjectOK2.h"
+#include "Gpackets/GCSkillToObjectOK3.h"
+#include "Gpackets/GCSkillToObjectOK4.h"
+#include "Gpackets/GCSkillToObjectOK5.h"
+#include "Gpackets/GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -75,7 +75,7 @@ void DeleoEfficio::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange());
 
 		int Ratio = 50 + pOusters->getLevel() - pTargetCreature->getLevel();
-		//cout << "Deleo Efficio Ratio : " << Ratio << endl;
+		cout << "Deleo Efficio Ratio : " << Ratio << endl;
 
 		bool bHitRoll	 = (rand()%100) < Ratio;
 		bool bHitRoll2   = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pSkillSlot);
@@ -90,7 +90,7 @@ void DeleoEfficio::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bHitRoll2 && bCanHit && bPK)
 		{
 			decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
-			//cout << pTargetCreature->getName() << " deleo efficio" << endl;
+			cout << pTargetCreature->getName() << " deleo efficio" << endl;
 
         	bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
 
@@ -172,12 +172,12 @@ void DeleoEfficio::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 				Effect::EFFECT_CLASS_MAX
 			};
 
-			for (int i=0; targetEffects[i] != Effect::EFFECT_CLASS_MAX; ++i )
+			for ( int i=0; targetEffects[i] != Effect::EFFECT_CLASS_MAX; ++i )
 			{
-				if (pTargetCreature->isFlag(targetEffects[i] ) )
+				if ( pTargetCreature->isFlag( targetEffects[i] ) )
 				{
-					Effect* pEffect = pTargetCreature->findEffect(targetEffects[i]);
-					if (pEffect != NULL ) pEffect->setDeadline(0);
+					Effect* pEffect = pTargetCreature->findEffect( targetEffects[i] );
+					if ( pEffect != NULL ) pEffect->setDeadline(0);
 				}
 			}
 

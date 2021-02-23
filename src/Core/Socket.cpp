@@ -7,10 +7,10 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "Socket.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 Socket::Socket () 
-	throw() 
+	throw () 
 : m_pSocketImpl(NULL) 
 { 
 	__BEGIN_TRY
@@ -21,8 +21,8 @@ Socket::Socket ()
 	__END_CATCH
 }
 
-Socket::Socket (const string & host , uint port ) 
-	throw() 
+Socket::Socket ( const string & host , uint port ) 
+	throw () 
 : m_pSocketImpl(NULL) 
 { 
 	__BEGIN_TRY
@@ -33,13 +33,13 @@ Socket::Socket (const string & host , uint port )
 	__END_CATCH
 }
 
-Socket::Socket (SocketImpl * impl ) 
-	throw() 
+Socket::Socket ( SocketImpl * impl ) 
+	throw () 
 : m_pSocketImpl(NULL) 
 { 
 	__BEGIN_TRY
 
-	Assert(impl != NULL);
+	Assert( impl != NULL );
 
 	m_pSocketImpl = impl;
 	
@@ -47,11 +47,11 @@ Socket::Socket (SocketImpl * impl )
 }
 
 Socket::~Socket () 
-	throw(Error ) 
+	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
-	if (m_pSocketImpl != NULL ) { 
+	if ( m_pSocketImpl != NULL ) { 
 		delete m_pSocketImpl; 
 		m_pSocketImpl = NULL; 
 	} 
@@ -60,8 +60,8 @@ Socket::~Socket ()
 }
 
 // close previous connection and connect to another server socket
-void Socket::reconnect (const string & host , uint port )
-	throw(ConnectException , Error )
+void Socket::reconnect ( const string & host , uint port )
+	throw ( ConnectException , Error )
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void Socket::reconnect (const string & host , uint port )
 	delete m_pSocketImpl;
 
 	// create new socket impl object
-	m_pSocketImpl = new SocketImpl(host , port);
+	m_pSocketImpl = new SocketImpl( host , port );
 	m_pSocketImpl->create();
 
 	// try to connect
@@ -80,7 +80,7 @@ void Socket::reconnect (const string & host , uint port )
 }
 
 void Socket::close () 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void Socket::close ()
 }
 	
 void Socket::connect () 
-	throw(ConnectException, Error) 
+	throw (ConnectException, Error) 
 { 
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void Socket::connect ()
 }
 
 void Socket::connect (const string & host, uint port) 
-	throw(ConnectException, Error)
+	throw (ConnectException, Error)
 { 
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ void Socket::connect (const string & host, uint port)
 }
 
 uint Socket::send (const void* buf, uint len, uint flags) 
-	throw(IOException, Error)
+	throw (IOException, Error)
 { 
 	__BEGIN_TRY
 
@@ -120,7 +120,7 @@ uint Socket::send (const void* buf, uint len, uint flags)
 }
 
 uint Socket::receive (void* buf, uint len, uint flags) 
-	throw(IOException, ConnectException, Error) 
+	throw (IOException, ConnectException, Error) 
 { 
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ uint Socket::receive (void* buf, uint len, uint flags)
 }
 
 uint Socket::available () const
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -140,7 +140,7 @@ uint Socket::available () const
 }
 
 uint Socket::getLinger () const 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ uint Socket::getLinger () const
 }
 
 void Socket::setLinger (uint lingertime) 
-	throw(Error) 
+	throw (Error) 
 {
 	__BEGIN_TRY
 
@@ -160,7 +160,7 @@ void Socket::setLinger (uint lingertime)
 }
 
 uint Socket::getSockError() const 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -170,7 +170,7 @@ uint Socket::getSockError() const
 }
 
 bool Socket::isNonBlocking () const 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -179,8 +179,8 @@ bool Socket::isNonBlocking () const
 	__END_CATCH
 }
 
-void Socket::setNonBlocking (bool on) 
-	throw(Error) 
+void Socket::setNonBlocking (bool on = true) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -190,7 +190,7 @@ void Socket::setNonBlocking (bool on)
 }
 
 uint Socket::getReceiveBufferSize () const 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -200,7 +200,7 @@ uint Socket::getReceiveBufferSize () const
 }
 
 void Socket::setReceiveBufferSize (uint size)
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ void Socket::setReceiveBufferSize (uint size)
 }
 
 uint Socket::getSendBufferSize () const 
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -220,7 +220,7 @@ uint Socket::getSendBufferSize () const
 }
 
 void Socket::setSendBufferSize (uint size)
-	throw(Error) 
+	throw (Error) 
 { 
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ void Socket::setSendBufferSize (uint size)
 }
 
 string Socket::getHost () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -240,7 +240,7 @@ string Socket::getHost () const
 }
 
 uint Socket::getPort () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -250,7 +250,7 @@ uint Socket::getPort () const
 }
 
 IP_t Socket::getHostIP () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ IP_t Socket::getHostIP () const
 }
 
 bool Socket::isValid () const 
-	throw() 
+	throw () 
 {
 	__BEGIN_TRY
 
@@ -270,7 +270,7 @@ bool Socket::isValid () const
 }
 
 SOCKET Socket::getSOCKET () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 
@@ -281,7 +281,7 @@ SOCKET Socket::getSOCKET () const
 
 // return debug string
 string Socket::toString () const
-       throw()
+       throw ()
 {
 	__BEGIN_TRY
 		

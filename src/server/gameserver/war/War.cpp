@@ -8,7 +8,7 @@
 #include "WarSystem.h"
 #include "Properties.h"
 #include "DB.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "ZoneGroupManager.h"
 #include "HolyLandRaceBonus.h"
 #include "Zone.h"
@@ -22,8 +22,8 @@
 #include "StringStream.h"
 #include "StringPool.h"
 
-#include "GCSystemMessage.h"
-#include "GCNoticeEvent.h"
+#include "Gpackets/GCSystemMessage.h"
+#include "Gpackets/GCNoticeEvent.h"
 
 //--------------------------------------------------------------------------------
 // static members
@@ -36,8 +36,8 @@ WarID_t	War::m_WarIDRegistry = 0;
 // constructor / destructor
 //
 //--------------------------------------------------------------------------------
-War::War(WarState warState, WarID_t warID )
-: m_State(warState )
+War::War( WarState warState, WarID_t warID )
+: m_State( warState )
 {
 	if (warID==0)
 	{
@@ -96,7 +96,7 @@ void War::initWarIDRegistry()
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	//cout << "War::WarIDRegistry:" << m_WarIDRegistry << endl;
+	cout << "War::WarIDRegistry:" << m_WarIDRegistry << endl;
 
 	__END_CATCH
 }
@@ -122,11 +122,11 @@ const string& War::getState2DBString() const
 //
 //--------------------------------------------------------------------------------
 void War::execute()
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
-	switch (m_State )
+	switch ( m_State )
 	{
 		case WAR_STATE_WAIT:
 			executeStart();
@@ -159,19 +159,19 @@ void War::execute()
 // 전쟁 시작할 때
 //--------------------------------------------------------------------------------
 void War::sendWarStartMessage() const
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 		
 	GCSystemMessage gcSystemMessage;
 	char str[80];
 	//sprintf(str, "%s이 시작되었습니다.", getWarName().c_str());
-	sprintf(str, g_pStringPool->c_str(STRID_WAR_START ), getWarName().c_str());
+	sprintf(str, g_pStringPool->c_str( STRID_WAR_START ), getWarName().c_str());
 
-	gcSystemMessage.setMessage(str);
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	gcSystemMessage.setMessage( str );
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
-	filelog("WarLog.txt", "[WarID=%u] %s", (int)m_WarID, str);
+	filelog( "WarLog.txt", "[WarID=%u] %s", (int)m_WarID, str );
 
 	__END_CATCH
 }
@@ -180,19 +180,19 @@ void War::sendWarStartMessage() const
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void War::sendWarEndMessage() const
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 		
 	GCSystemMessage gcSystemMessage;
 	char str[80];
 //	sprintf(str, "%s이 끝났습니다.", getWarName().c_str());
-	sprintf(str, g_pStringPool->c_str(STRID_WAR_END ), getWarName().c_str());
+	sprintf(str, g_pStringPool->c_str( STRID_WAR_END ), getWarName().c_str());
 
-	gcSystemMessage.setMessage(str);
-	g_pZoneGroupManager->broadcast(&gcSystemMessage);
+	gcSystemMessage.setMessage( str );
+	g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
-	filelog("WarLog.txt", "[WarID=%u] %s", (int)m_WarID, str);
+	filelog( "WarLog.txt", "[WarID=%u] %s", (int)m_WarID, str );
 
 	__END_CATCH
 }

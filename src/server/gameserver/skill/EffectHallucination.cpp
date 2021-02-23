@@ -10,9 +10,9 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "GCModifyInformation.h"
-#include "GCStatusCurrentHP.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCModifyInformation.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -71,10 +71,10 @@ void EffectHallucination::unaffect(Creature* pCreature)
 	gcRemoveEffect.addEffectList(Effect::EFFECT_CLASS_HALLUCINATION);
 	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-	if (pCreature->isMonster() )
+	if ( pCreature->isMonster() )
 	{
 		Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-		Assert(pMonster != NULL);
+		Assert( pMonster != NULL );
 
 		pMonster->deleteAllEnemy();
 		pZone->monsterScan(pMonster, pMonster->getX(), pMonster->getY(), pMonster->getDir());

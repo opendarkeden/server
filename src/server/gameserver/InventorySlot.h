@@ -8,7 +8,7 @@
 #define __INVENTORY_SLOT_H__
 
 #include "Item.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class InventorySlot

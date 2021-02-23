@@ -7,24 +7,24 @@
 #include "ConditionSiegeDefenderSide.h"
 #include "GDRLairManager.h"
 #include "Effect.h"
-#include "GCSystemMessage.h"
+#include "Gpackets/GCSystemMessage.h"
 #include "Player.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionSiegeDefenderSide::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw() 
+	throw () 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
 
-	if (!pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_DEFENDER )
-		&& !pCreature2->isFlag(Effect::EFFECT_CLASS_SIEGE_REINFORCE )
+	if ( !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_DEFENDER )
+		&& !pCreature2->isFlag( Effect::EFFECT_CLASS_SIEGE_REINFORCE )
 		)
 	{
 /*		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("수비측만 사용할 수 있습니다.");
+		gcSystemMessage.setMessage( "수비측만 사용할 수 있습니다." );
 		pCreature2->getPlayer()->sendPacket (&gcSystemMessage);*/
 		return false;
 	}
@@ -36,7 +36,7 @@ bool ConditionSiegeDefenderSide::isSatisfied (Creature * pCreature1 , Creature *
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionSiegeDefenderSide::read (PropertyBuffer & propertyBuffer) 
-	throw(Error)
+	throw (Error)
 {
 }
 
@@ -44,7 +44,7 @@ void ConditionSiegeDefenderSide::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionSiegeDefenderSide::toString () const 
-	throw() 
+	throw () 
 { 
 	__BEGIN_TRY
 

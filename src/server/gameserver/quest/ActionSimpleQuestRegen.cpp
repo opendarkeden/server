@@ -44,7 +44,7 @@ ActionSimpleQuestRegen::~ActionSimpleQuestRegen()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestRegen::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void ActionSimpleQuestRegen::read (PropertyBuffer & propertyBuffer)
 // NOTE : ShopTemplate은 이 액션이 실행되기 전에 모두 로드되어 있어야 한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -169,7 +169,7 @@ void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSimpleQuestRegen::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

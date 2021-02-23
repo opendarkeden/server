@@ -7,7 +7,7 @@
 #include "EffectSchedule.h"
 #include "Effect.h"
 #include "EffectManager.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
 #include "Tile.h"
@@ -15,7 +15,7 @@
 
 #include "skill/EffectVampirePortal.h"
 
-#include "GCAddVampirePortal.h"
+#include "Gpackets/GCAddVampirePortal.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

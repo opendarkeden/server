@@ -11,10 +11,10 @@
 #include "Zone.h"
 #include "Tile.h"
 
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK2.h"
-#include "GCStatusCurrentHP.h"
-#include "GCAddEffectToTile.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK2.h"
+#include "Gpackets/GCStatusCurrentHP.h"
+#include "Gpackets/GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프
@@ -65,7 +65,7 @@ void InstallTrap::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t 
 		bool bRangeCheck = checkZoneLevelToUseSkill(pSlayer);
 		bool bHitRoll    = HitRoll::isSuccessMagic(pSlayer, pSkillInfo, pSkillSlot);
 		bool bEffected   = rTile.getEffect(Effect::EFFECT_CLASS_TRAP_INSTALLED) != NULL
-						|| rTile.getEffect(Effect::EFFECT_CLASS_TRYING_POSITION ) != NULL;
+						|| rTile.getEffect( Effect::EFFECT_CLASS_TRYING_POSITION ) != NULL;
 
 		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && !bEffected)
 		{
@@ -78,7 +78,7 @@ void InstallTrap::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t 
 			// 이펙트 클래스를 만들어 붙인다.
 			EffectTrapInstalled* pEffect = new EffectTrapInstalled(pZone, X, Y);
 			pEffect->setDeadline(output.Duration);
-			pEffect->setUserOID(pSlayer->getObjectID());
+			pEffect->setUserOID( pSlayer->getObjectID() );
 			pEffect->setTick(output.Tick);
 
 			pZone->registerObject(pEffect);
@@ -88,7 +88,7 @@ void InstallTrap::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t 
 			// 경험치를 올린다.
 /*			SkillGrade Grade = g_pSkillInfoManager->getGradeByDomainLevel(pSlayer->getSkillDomainLevel(DomainType));
 			Exp_t ExpUp = 10*(Grade+1);
-			if (bIncreaseDomainExp )
+			if ( bIncreaseDomainExp )
 			{
 				shareAttrExp(pSlayer, ExpUp, 1, 8, 1, _GCSkillToSelfOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToSelfOK1);

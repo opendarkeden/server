@@ -5,11 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Untransform.h"
-#include "GCSkillToSelfOK1.h"
-#include "GCSkillToSelfOK3.h"
-#include "GCSkillFailed1.h"
-#include "GCDeleteObject.h"
-#include "GCRemoveEffect.h"
+#include "Gpackets/GCSkillToSelfOK1.h"
+#include "Gpackets/GCSkillToSelfOK3.h"
+#include "Gpackets/GCSkillFailed1.h"
+#include "Gpackets/GCDeleteObject.h"
+#include "Gpackets/GCRemoveEffect.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -25,17 +25,17 @@ void Untransform::execute(Slayer * pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 
 	try 
 	{
-		if (pSlayer->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET) )
+		if ( pSlayer->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET) )
 		{
 			Zone* pZone = pSlayer->getZone();
 			Assert(pZone != NULL);
 
 			Effect* pEffect = pSlayer->findEffect(Effect::EFFECT_CLASS_INSTALL_TURRET);
-			if (pEffect != NULL ) pEffect->setDeadline(0);
+			if ( pEffect != NULL ) pEffect->setDeadline(0);
 
 			GCSkillToSelfOK1 gcOK1;
 
-			gcOK1.setSkillType(SKILL_UN_TRANSFORM);
+			gcOK1.setSkillType( SKILL_UN_TRANSFORM );
 			pSlayer->getPlayer()->sendPacket(&gcOK1);
 
 			// EffectSummonSylph에 unaffect에서 다 해준다.
@@ -60,7 +60,7 @@ void Untransform::execute(Slayer * pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 		else
 		{
 			GCSkillFailed1 gcFail;
-			gcFail.setSkillType(SKILL_UN_TRANSFORM);
+			gcFail.setSkillType( SKILL_UN_TRANSFORM );
 			pSlayer->getPlayer()->sendPacket(&gcFail);
 		}
 	} 
@@ -117,17 +117,17 @@ void Untransform::execute(Ousters * pOusters)
 
 	try 
 	{
-		if (pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
+		if ( pOusters->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 		{
 			Zone* pZone = pOusters->getZone();
 			Assert(pZone != NULL);
 
 			Effect* pEffect = pOusters->findEffect(Effect::EFFECT_CLASS_SUMMON_SYLPH);
-			if (pEffect != NULL ) pEffect->setDeadline(0);
+			if ( pEffect != NULL ) pEffect->setDeadline(0);
 
 			GCSkillToSelfOK1 gcOK1;
 
-			gcOK1.setSkillType(SKILL_UN_TRANSFORM);
+			gcOK1.setSkillType( SKILL_UN_TRANSFORM );
 			pOusters->getPlayer()->sendPacket(&gcOK1);
 
 			// EffectSummonSylph에 unaffect에서 다 해준다.
@@ -152,7 +152,7 @@ void Untransform::execute(Ousters * pOusters)
 		else
 		{
 			GCSkillFailed1 gcFail;
-			gcFail.setSkillType(SKILL_UN_TRANSFORM);
+			gcFail.setSkillType( SKILL_UN_TRANSFORM );
 			pOusters->getPlayer()->sendPacket(&gcFail);
 		}
 	} 

@@ -1,9 +1,9 @@
 #include "NicknameInfo.h"
-#include "Assert1.h"
+#include "Assert.h"
 
 PacketSize_t NicknameInfo::getSize() const
 {
-	switch (m_NicknameType )
+	switch ( m_NicknameType )
 	{
 		case NICK_NONE:
 			return szWORD + szBYTE;
@@ -22,14 +22,14 @@ PacketSize_t NicknameInfo::getSize() const
 }
 
 void NicknameInfo::read(SocketInputStream& iStream)
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
-	iStream.read(m_NicknameID);
-	iStream.read(m_NicknameType);
+	iStream.read( m_NicknameID );
+	iStream.read( m_NicknameType );
 
-	switch (m_NicknameType )
+	switch ( m_NicknameType )
 	{
 		case NICK_NONE:
 			{
@@ -39,15 +39,15 @@ void NicknameInfo::read(SocketInputStream& iStream)
 		case NICK_QUEST:
 		case NICK_FORCED:
 			{
-				iStream.read(m_NicknameIndex);
+				iStream.read( m_NicknameIndex );
 				break;
 			}
 		case NICK_CUSTOM_FORCED:
 		case NICK_CUSTOM:
 			{
 				BYTE szSTR;
-				iStream.read(szSTR);
-				iStream.read(m_Nickname, szSTR);
+				iStream.read( szSTR );
+				iStream.read( m_Nickname, szSTR );
 				break;
 			}
 		default:
@@ -58,14 +58,14 @@ void NicknameInfo::read(SocketInputStream& iStream)
 }
 
 void NicknameInfo::write(SocketOutputStream& oStream) const
-	throw(ProtocolException, Error)
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
-	oStream.write(m_NicknameID);
-	oStream.write(m_NicknameType);
+	oStream.write( m_NicknameID );
+	oStream.write( m_NicknameType );
 
-	switch (m_NicknameType )
+	switch ( m_NicknameType )
 	{
 		case NICK_NONE:
 			{
@@ -75,15 +75,15 @@ void NicknameInfo::write(SocketOutputStream& oStream) const
 		case NICK_QUEST:
 		case NICK_FORCED:
 			{
-				oStream.write(m_NicknameIndex);
+				oStream.write( m_NicknameIndex );
 				break;
 			}
 		case NICK_CUSTOM_FORCED:
 		case NICK_CUSTOM:
 			{
 				BYTE szSTR = m_Nickname.size();
-				oStream.write(szSTR);
-				oStream.write(m_Nickname);
+				oStream.write( szSTR );
+				oStream.write( m_Nickname );
 				break;
 			}
 		default:

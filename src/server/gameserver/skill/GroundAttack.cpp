@@ -7,13 +7,13 @@
 #include "GroundAttack.h"
 #include "EffectGroundAttack.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러
@@ -38,7 +38,7 @@ void GroundAttack::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampire
 
 		// NPC는 공격할 수가 없다.
 		if (pTargetCreature==NULL	// NoSuch제거 때문에.. by sigi. 2002.5.2
-			|| !canAttack(pVampire, pTargetCreature )
+			|| !canAttack( pVampire, pTargetCreature )
 			|| pTargetCreature->isNPC())
 		{
 			executeSkillFailException(pVampire, getSkillType());
@@ -116,7 +116,7 @@ void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 				pZone->deleteEffect(effectID);
 			}
 
-			checkMine(pZone, X, Y);
+			checkMine( pZone, X, Y );
 			
 			// 데미지와 지속 시간을 계산한다.
 			SkillInput input(pVampire);
@@ -132,7 +132,7 @@ void GroundAttack::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 
 			// 우선권 시스템을 위하여 이름과 파티 아이디를 넣는다.
 			//pEffect->setCasterName(pVampire->getName());
-			pEffect->setUserObjectID(pVampire->getObjectID());
+			pEffect->setUserObjectID( pVampire->getObjectID() );
 
 			// 타일에 붙은 이펙트는 OID를 받아야 한다.
 			ObjectRegistry & objectregister = pZone->getObjectRegistry();
@@ -295,8 +295,8 @@ void GroundAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 		if (bRangeCheck && bHitRoll && bTileCheck)
 		{
 
-			if(rand() % 100 < 50 ) {
-				checkMine(pZone, X, Y);
+			if( rand() % 100 < 50 ) {
+				checkMine( pZone, X, Y );
 			}
 
 			Tile&   tile  = pZone->getTile(X, Y);

@@ -8,13 +8,13 @@
 #include "ActionDownSkill.h"
 #include "Creature.h"
 #include "GamePlayer.h"
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionDownSkill::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -28,7 +28,7 @@ void ActionDownSkill::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionDownSkill::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void ActionDownSkill::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionDownSkill::toString () const
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

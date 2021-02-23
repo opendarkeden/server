@@ -1,19 +1,18 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : Profile.cpp
 // Written by  : excel96
-// Description :
+// Description : 
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Profile.h"
 #include "StringStream.h"
-#include "Assert1.h"
+#include "Assert.h"
 #include "Thread.h"
 #include "VSDateTime.h"
-#include "GMServerInfo.h"
+#include "Gpackets/GMServerInfo.h"
 #include <stdio.h>
-#include <iomanip>
+#include <iomanip.h>
 #include <fstream>
-#include <map>
 
 //////////////////////////////////////////////////////////////////////////////
 // global varibles
@@ -134,7 +133,7 @@ void ProfileSampleSet::initProfile(void)
 
 void ProfileSampleSet::beginProfile(const string& name)
 {
-	map<string, int>::iterator itr = m_NameMap.find(name);
+	hash_map<string, int>::iterator itr = m_NameMap.find(name);
 
 	// 이미 같은 이름의 샘플이 존재한다면...
 	if (itr != m_NameMap.end())
@@ -180,7 +179,7 @@ void ProfileSampleSet::beginProfile(const string& name)
 
 void ProfileSampleSet::endProfile(const string& name)
 {
-	map<string, int>::iterator itr = m_NameMap.find(name);
+	hash_map<string, int>::iterator itr = m_NameMap.find(name);
 
 	// 그런 이름을 가진 프로파일 샘플이 존재하지 않는다면 에러다...
 	if (itr == m_NameMap.end())
@@ -224,8 +223,8 @@ void ProfileSampleSet::endProfile(const string& name)
 			}
 		}
 	}
-
-	// 현재 샘플에게 부모의 갯수를 알려준다.
+	
+	// 현재 샘플에게 부모의 갯수를 알려준다. 
 	m_ProfileSamples[index].setParentCount(ParentCount);
 
 	// 현재 샘플의 누적 시간에 현재 수행 시간을 누적시킨다.
@@ -284,9 +283,11 @@ void ProfileSampleSet::outputProfile(bool bOutputOnlyRootNode, bool bOutputThrea
 
 	cout << "==================================================" << endl;
 }
-/*
+
 void ProfileSampleSet::outputProfileToFile(const char* filename, bool bOutputOnlyRootNode, bool bOutputThreadID, GMServerInfo* pServerInfo)
 {
+	//add by viva for Notice
+	/*
 	string real_filename = string(filename) + itos(Thread::self()) + ".txt";
 
 	ofstream file(real_filename.c_str(), ios::out | ios::app);
@@ -343,8 +344,10 @@ void ProfileSampleSet::outputProfileToFile(const char* filename, bool bOutputOnl
 	file << "==================================================" << endl;
 
 	file.close();
+	*/
+	//end
 }
-*/
+
 void ProfileSampleSet::storeProfileInHistory(const string& name, float percent)
 {
 }
@@ -364,7 +367,7 @@ ProfileSampleManager::ProfileSampleManager()
 
 ProfileSampleManager::~ProfileSampleManager()
 {
-	map<TID, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.begin();
+	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.begin();
 	for (; itr != m_ProfileSampleMap.end(); itr++)
 	{
 		SAFE_DELETE(itr->second);
@@ -378,12 +381,12 @@ void ProfileSampleManager::init(void)
 	m_Mutex.setName("ProfileSampleManager");
 }
 
-void ProfileSampleManager::addProfileSampleSet(TID tid, ProfileSampleSet* pSet)
+void ProfileSampleManager::addProfileSampleSet(int TID, ProfileSampleSet* pSet)
 {
-	map<TID, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(tid);
+	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(TID);
 	if (itr == m_ProfileSampleMap.end())
 	{
-		m_ProfileSampleMap[tid] = pSet;
+		m_ProfileSampleMap[TID] = pSet;
 	}
 	else
 	{
@@ -393,8 +396,8 @@ void ProfileSampleManager::addProfileSampleSet(TID tid, ProfileSampleSet* pSet)
 
 ProfileSampleSet* ProfileSampleManager::getProfileSampleSet(void)
 {
-	map<TID, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(Thread::self());
-
+	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(Thread::self());
+	
 	// 없다면 생성해서 리턴한다.
 	if (itr == m_ProfileSampleMap.end())
 	{
@@ -402,7 +405,7 @@ ProfileSampleSet* ProfileSampleManager::getProfileSampleSet(void)
 		m_ProfileSampleMap[Thread::self()] = pProfileSampleSet;
 		return pProfileSampleSet;
 	}
-
+	
 	return itr->second;
 }
 

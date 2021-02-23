@@ -46,42 +46,42 @@ void DefaultOptionSetInfoManager::load()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Type, OptionList FROM DefaultOptionSetInfo");
+		pResult = pStmt->executeQuery( "SELECT Type, OptionList FROM DefaultOptionSetInfo" );
 
-		while (pResult->next() )
+		while ( pResult->next() )
 		{
 			uint i = 0;
 
 			DefaultOptionSetInfo* pDefaultOptionSetInfo = new DefaultOptionSetInfo();
 
-			pDefaultOptionSetInfo->setType((DefaultOptionSetType_t)pResult->getInt(++i));
+			pDefaultOptionSetInfo->setType( (DefaultOptionSetType_t)pResult->getInt(++i) );
 			string optionField = pResult->getString(++i);
 			list<OptionType_t> optionList;
-			makeOptionList(optionField, optionList);
-			pDefaultOptionSetInfo->setOptionTypeList(optionList);
+			makeOptionList( optionField, optionList );
+			pDefaultOptionSetInfo->setOptionTypeList( optionList );
 
-			addDefaultOptionSetInfo(pDefaultOptionSetInfo);
+			addDefaultOptionSetInfo( pDefaultOptionSetInfo );
 		}
 	}
 	END_DB(pStmt)
 }
 
-DefaultOptionSetInfo* DefaultOptionSetInfoManager::getDefaultOptionSetInfo(DefaultOptionSetType_t type )
+DefaultOptionSetInfo* DefaultOptionSetInfoManager::getDefaultOptionSetInfo( DefaultOptionSetType_t type )
 {
-	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find(type);
+	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find( type );
 
-	if (itr == m_DefaultOptionSetInfos.end() )
+	if ( itr == m_DefaultOptionSetInfos.end() )
 		return NULL;
 
 	return itr->second;
 }
 
-void DefaultOptionSetInfoManager::addDefaultOptionSetInfo(DefaultOptionSetInfo* pDefaultOptionSetInfo )
+void DefaultOptionSetInfoManager::addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo )
 	throw(DuplicatedException, Error)
 {
-	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find(pDefaultOptionSetInfo->getType());
+	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find( pDefaultOptionSetInfo->getType() );
 
-	if (itr != m_DefaultOptionSetInfos.end() )
+	if ( itr != m_DefaultOptionSetInfos.end() )
 	{
 		throw DuplicatedException();
 		return;

@@ -44,7 +44,7 @@ public:
 	void removeAllItemInfo() throw(Error);
 
 	// for Mysterious Item
-	ItemType_t  getRandomItemType() const throw(Error);
+	ItemType_t  getRandomItemType() const throw (Error);
 
 	Price_t		getAveragePrice() const 	{ return m_AveragePrice; }
 

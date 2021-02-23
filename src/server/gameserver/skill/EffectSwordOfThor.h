@@ -27,7 +27,7 @@ public:
 
 public:
 	Level_t getLevel() const { return m_Level; }
-	void setLevel(Level_t level ) { m_Level = level; }
+	void setLevel( Level_t level ) { m_Level = level; }
 	
 private:
 	Level_t m_Level;

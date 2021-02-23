@@ -8,14 +8,12 @@
 // include files
 #include "TelephoneCenter.h"
 
-#include <map>
-
 //--------------------------------------------------------------------------------
-// add creature to map
+// add creature to hash_map
 // execute just once at PC's login
 //--------------------------------------------------------------------------------
 void TelephoneCenter::addSlayer (Slayer* pSlayer) 
-	throw(DuplicatedException , Error)
+	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -23,7 +21,7 @@ void TelephoneCenter::addSlayer (Slayer* pSlayer)
 
 	Assert(pSlayer != NULL);
 
-	map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(pSlayer ->getPhoneNumber());
+	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(pSlayer ->getPhoneNumber());
 
 	if (itr != m_PCs.end())
 	{
@@ -39,17 +37,17 @@ void TelephoneCenter::addSlayer (Slayer* pSlayer)
 
 
 //--------------------------------------------------------------------------------
-// Delete creature from map
+// Delete creature from hash_map
 // execute just once at PC's logout
 //--------------------------------------------------------------------------------
 void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber) 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(PhoneNumber);
+	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(PhoneNumber);
 
 	if (itr == m_PCs.end())
 	{
@@ -68,11 +66,11 @@ void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber)
 // get creature with PC-name
 //--------------------------------------------------------------------------------
 Slayer* TelephoneCenter::getSlayer(PhoneNumber_t PhoneNumber) const 
-	throw(NoSuchElementException , Error)
+	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
-	map< PhoneNumber_t , const Slayer* >::const_iterator itr = m_PCs.find(PhoneNumber);
+	hash_map< PhoneNumber_t , const Slayer* >::const_iterator itr = m_PCs.find(PhoneNumber);
 
 	if (itr == m_PCs.end())
 	{

@@ -9,13 +9,13 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "GCNPCAsk.h"
+#include "Gpackets/GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAsk::read (PropertyBuffer & propertyBuffer)
-    throw(Error)
+    throw (Error)
 {
     __BEGIN_TRY
 
@@ -37,7 +37,7 @@ void ActionAsk::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionAsk::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void ActionAsk::execute (Creature * pCreature1 , Creature * pCreature2)
 	GCNPCAsk gcNPCAsk;
 	gcNPCAsk.setObjectID(pCreature1->getObjectID());
 	gcNPCAsk.setScriptID(m_ScriptID);
-	gcNPCAsk.setNPCID(dynamic_cast<NPC*>(pCreature1)->getNPCID());
+	gcNPCAsk.setNPCID( dynamic_cast<NPC*>(pCreature1)->getNPCID() );
 
 	Player* pPlayer = pCreature2->getPlayer();
 	pPlayer->sendPacket(&gcNPCAsk);
@@ -62,7 +62,7 @@ void ActionAsk::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionAsk::toString () const 
-	throw()
+	throw ()
 {
 	__BEGIN_TRY
 

@@ -6,19 +6,19 @@
 
 #include "JabbingVein.h"
 #include "EffectJabbingVein.h"
-#include "GCAttackArmsOK1.h"
-#include "GCAttackArmsOK2.h"
-#include "GCAttackArmsOK3.h"
-#include "GCAttackArmsOK4.h"
-#include "GCAttackArmsOK5.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCAttackArmsOK1.h"
+#include "Gpackets/GCAttackArmsOK2.h"
+#include "Gpackets/GCAttackArmsOK3.h"
+#include "Gpackets/GCAttackArmsOK4.h"
+#include "Gpackets/GCAttackArmsOK5.h"
+#include "Gpackets/GCAddEffect.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	throw (Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -39,7 +39,7 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 
 		// NoSuch제거. by sigi. 2002.5.2
 		if (pTargetCreature==NULL
-			|| !canAttack(pSlayer, pTargetCreature )
+			|| !canAttack( pSlayer, pTargetCreature )
 			|| pTargetCreature->isNPC()) 
 		{
 			executeSkillFailException(pSlayer, getSkillType());
@@ -77,7 +77,7 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 		SkillInput input(pSlayer, pSkillSlot);
 		SkillOutput output;
 
-		if (pTargetCreature->isPC() )
+		if ( pTargetCreature->isPC() )
 		{
 			input.TargetType = SkillInput::TARGET_PC;
 		}
@@ -137,22 +137,22 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 			if (pTargetCreature->isMonster())
 			{
 				Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-				if (pMonster->isMaster() ) bAffect = false;
+				if ( pMonster->isMaster() ) bAffect = false;
 			}
 
-			if (bAffect && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_JABBING_VEIN) && rand()%100 < output.Range )
+			if ( bAffect && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_JABBING_VEIN) && rand()%100 < output.Range )
 			{
-				EffectJabbingVein* pEffect = new EffectJabbingVein(pTargetCreature);
-				pEffect->setDeadline(output.Duration);
-				pTargetCreature->addEffect(pEffect);
-				pTargetCreature->setFlag(pEffect->getEffectClass());
+				EffectJabbingVein* pEffect = new EffectJabbingVein( pTargetCreature );
+				pEffect->setDeadline( output.Duration );
+				pTargetCreature->addEffect( pEffect );
+				pTargetCreature->setFlag( pEffect->getEffectClass() );
 
 				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pTargetCreature->getObjectID());
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-				gcAddEffect.setDuration(output.Duration);
+				gcAddEffect.setObjectID( pTargetCreature->getObjectID() );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+				gcAddEffect.setDuration( output.Duration );
 
-				pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pTargetCreature->getX(), pTargetCreature->getY(), &gcAddEffect );
 			}
 
 			// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
@@ -161,7 +161,7 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 				knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
 			}
 
-			if(!pTargetCreature->isSlayer() ) 
+			if( !pTargetCreature->isSlayer() ) 
 			{
 				if (bIncreaseExp)
 				{
@@ -179,7 +179,7 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 				Player* pTargetPlayer = pTargetCreature->getPlayer();
 				if (pTargetPlayer != NULL) 
 				{ 
-					_GCAttackArmsOK2.setObjectID(getSkillType());
+					_GCAttackArmsOK2.setObjectID(getSkillType() );
 					_GCAttackArmsOK2.setObjectID(pSlayer->getObjectID());
 					pTargetPlayer->sendPacket(&_GCAttackArmsOK2);
 				}
@@ -303,19 +303,19 @@ void JabbingVein::execute(Monster* pMonster, Creature* pEnemy)
 			setDamage(pEnemy, Damage, pMonster, SkillType, &_GCAttackArmsOK2);
 			//computeAlignmentChange(pEnemy, Damage, pMonster, &_GCAttackArmsOK2, &_GCAttackArmsOK1);
 
-			if (!pEnemy->isFlag(Effect::EFFECT_CLASS_JABBING_VEIN) && rand()%100 <= output.Range )
+			if ( !pEnemy->isFlag(Effect::EFFECT_CLASS_JABBING_VEIN) && rand()%100 <= output.Range )
 			{
-				EffectJabbingVein* pEffect = new EffectJabbingVein(pEnemy);
-				pEffect->setDeadline(output.Duration);
-				pEnemy->addEffect(pEffect);
-				pEnemy->setFlag(pEffect->getEffectClass());
+				EffectJabbingVein* pEffect = new EffectJabbingVein( pEnemy );
+				pEffect->setDeadline( output.Duration );
+				pEnemy->addEffect( pEffect );
+				pEnemy->setFlag( pEffect->getEffectClass() );
 
 				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pEnemy->getObjectID());
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
-				gcAddEffect.setDuration(output.Duration);
+				gcAddEffect.setObjectID( pEnemy->getObjectID() );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
+				gcAddEffect.setDuration( output.Duration );
 
-				pZone->broadcastPacket(pEnemy->getX(), pEnemy->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pEnemy->getX(), pEnemy->getY(), &gcAddEffect );
 			}
 
 			// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.

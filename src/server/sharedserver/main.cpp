@@ -2,84 +2,124 @@
 //
 // Filename    : main.cpp
 // Written By  : reiot@ewestsoft.com
-// Description : ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
+// Description : ·Î±×ÀÎ ¼­¹ö¿ë ¸ÞÀÎ ÇÔ¼ö
 //
 //////////////////////////////////////////////////////////////////////
 
+// include files
 #include "Types.h"
 #include "Exception.h"
 #include "SharedServer.h"
-//#include "LogClient.h"
+#include "LogClient.h"
 #include "Properties.h"
 #include "StringStream.h"
 #include <stdlib.h>
 #include <new>
 #include <sys/resource.h>
 
-void memoryError() {
-    cout << "CRITICAL ERROR! NOT ENOUGH MEMORY!" << endl;
-    exit(0);
+void memoryError()
+{
+	cout << "CRITICAL ERROR! NOT ENOUGH MEMORY!" << endl;
+	exit(0);
 }
 
-int main()
+//////////////////////////////////////////////////////////////////////
+//
+// main()
+//
+//////////////////////////////////////////////////////////////////////
+int main ( int argc , char * argv[] )
 {
-    // ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.. ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-    set_new_handler(memoryError);
+	// ¸Þ¸ð¸® ¾ø´Ù.. ÇÔ¼ö¸¦ ¼³Á¤ÇÑ´Ù.
+	set_new_handler(memoryError);
 
-    g_pConfig = new Properties();
-    g_pConfig->load("../conf/sharedserver.conf");
+	if ( argc < 3 ) {
+		cout << "Usage : sharedserver -f È¯°æÆÄÀÏ" << endl;
+		exit(1);
+	}
 
-    // ï¿½Î±ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½Å²ï¿½ï¿½.
-    // ï¿½Î±ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    // ï¿½ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ ï¿½Ï¹Ç·ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ø¼ï¿½ï¿½ï¿½ ï¿½ÈµÈ´ï¿½.
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±×¸Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,
-    // ï¿½Ê±ï¿½È­ï¿½Ç¾ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+	// command-line parameter¸¦ string À¸·Î º¯È¯ÇÑ´Ù. ^^;
+	string * Argv;
 
-    try {
-        string LogServerIP = g_pConfig->getProperty("LogServerIP");
-        int LogServerPort = g_pConfig->getPropertyInt("LogServerPort");
- //       g_pLogClient = new LogClient(LogServerIP, LogServerPort);
- //       LogClient::setLogLevel(g_pConfig->getPropertyInt("LogLevel"));
+	Argv = new string[argc];
+	for ( int i = 0 ; i < argc ; i ++ )
+		Argv[i] = argv[i];
 
-        //log(LOG_SHAREDSERVER, "", "", "Shared Server Start");
-    }
-    catch (Throwable & t) {
-        cout << t.toString() << endl;
-    }
+	// È¯°æ ÆÄÀÏÀ» ÀÐ¾îµéÀÎ´Ù.
+	// ´Ü ½ÇÇà ÆÄÀÏÀº $VSHOME/bin¿¡, È¯°æ ÆÄÀÏÀº $VSHOME/conf ¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.½
+	// command line ¿¡¼­ È¯°æ ÆÄÀÏÀ» ÁöÁ¤ÇÒ ¼ö ÀÖµµ·Ï ÇÑ´Ù.
 
-    //
-    // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½Å²ï¿½ï¿½.
-    //
-    try {
-        struct rlimit rl;
-        rl.rlim_cur = RLIM_INFINITY;
-        rl.rlim_max = RLIM_INFINITY;
-        setrlimit(RLIMIT_CORE, &rl);
+	try {
 
-        // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
-        g_pSharedServer = new SharedServer();
+		if ( Argv[1] != "-f" ) {
+			throw Error("Usage : sharedserver -f È¯°æÆÄÀÏ"); 
+		}
 
-        // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
-        g_pSharedServer->init();
+		// Ã¹¹øÂ° ÆÄ¶ó¹ÌÅÍ°¡ -f ÀÏ °æ¿ì, µÎ¹øÂ° ÆÄ¶ó¹ÌÅÍ´Â È¯°æÆÄÀÏÀÇ À§Ä¡°¡ µÈ´Ù.
+		g_pConfig = new Properties();
+		g_pConfig->load(Argv[2]);
+		
+		cout << g_pConfig->toString() << endl;
 
-        // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½Å²ï¿½ï¿½.
-        g_pSharedServer->start();
-    }
-    catch (Throwable & e) {
-        // ï¿½Î±×°ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½
-        ofstream ofile("../log/instant.log", ios::out);
-        ofile << e.toString() << endl;
-        ofile.close();
+	} catch ( Error & e ) {
+		cout << e.toString() << endl;
+	}
 
-        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
-        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ LEVEL1ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½)
-        //log(LOG_SHAREDSERVER_ERROR, "", "", e.toString());
+	// ·Î±× ¸Å´ÏÀú¸¦ »ý¼ºÇÏ°í ÃÊ±âÈ­ÇÑÈÄ È°¼ºÈ­½ÃÅ²´Ù.
+	// ·Î±× ¸Å´ÏÀú´Â ·Î±×ÀÎ ¼­¹öÀÇ ÃÊ±âÈ­°úÁ¤¿¡¼­ ¹ß»ýÇÒ °¡´É¼ºÀÌ ÀÖ´Â ¿¡·¯±îÁöµµ
+	// °ËÃâÇØ³»¾ß ÇÏ¹Ç·Î ·Î±×ÀÎ ¼­¹ö ³»ºÎ¿¡¼­ ÃÊ±âÈ­ÇØ¼­´Â ¾ÈµÈ´Ù.
+	// ¶ÇÇÑ ´Ù¸¥ °´Ã¼¸¦ »ý¼ºÇÏ°í ÃÊ±âÈ­ÇÏ±âÀü¿¡ ·Î±×¸Å´ÏÀú°¡ ¿ì¼±ÀûÀ¸·Î »ý¼º,
+	// ÃÊ±âÈ­µÇ¾î¾ß ÇÑ´Ù.
+	
+	try 
+	{
+		string LogServerIP   = g_pConfig->getProperty("LogServerIP");
+		int    LogServerPort = g_pConfig->getPropertyInt("LogServerPort");
+		g_pLogClient = new LogClient(LogServerIP, LogServerPort);
+		LogClient::setLogLevel(g_pConfig->getPropertyInt("LogLevel"));
 
-        // Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
-        cout << e.toString() << endl;
+		log(LOG_SHAREDSERVER, "", "", "Shared Server Start");
+	} 
+	catch ( Throwable & t ) 
+	{
+		cout << t.toString() << endl;
+	}
 
-        // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´Ü½ï¿½Å²ï¿½ï¿½.
-        // ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ÜµÇ¾ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
-        g_pSharedServer->stop();
-    }
+	//
+	// ·Î±×ÀÎ ¼­¹ö °´Ã¼¸¦ »ý¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ²´Ù.
+	//
+	try 
+	{
+		struct rlimit rl;
+		rl.rlim_cur = RLIM_INFINITY;
+		rl.rlim_max = RLIM_INFINITY;
+		setrlimit(RLIMIT_CORE, &rl);
+
+		// ·Î±×ÀÎ ¼­¹ö °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+		g_pSharedServer = new SharedServer();
+
+		// ·Î±×ÀÎ ¼­¹ö °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		g_pSharedServer->init();
+
+		// ·Î±×ÀÎ ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ²´Ù.
+		g_pSharedServer->start();
+	} 
+	catch ( Throwable & e ) 
+	{
+		// ·Î±×°¡ ÀÌ·ïÁö±â Àü¿¡ ¼­¹ö°¡ ³¡³¯ °æ¿ì¸¦ ´ëºñÇØ¼­
+		ofstream ofile("../log/instant.log",ios::out);
+		ofile << e.toString() << endl;
+		ofile.close();
+
+		// ÇÏÀ§¿¡¼­ Ä³Ä¡µÇÁö ¾ÊÀº ¿¹¿Ü ¶Ç´Â ¿¡·¯°¡ ¹ß»ýÇß´Ù´Â ¶æÀÌ´Ù.
+		// ÀÌ °æ¿ì LEVEL1·Î ·Î±×ÇØ¾ß ÇÑ´Ù. (¹«Á¶°Ç ·Î±×ÇÑ´Ù´Â ¶æ)
+		log(LOG_SHAREDSERVER_ERROR, "", "", e.toString());
+
+		// Ç¥ÁØ Ãâ·ÂÀ¸·Îµµ Ãâ·ÂÇØÁØ´Ù.
+		cout << e.toString() << endl;
+
+		// ·Î±×ÀÎ ¼­¹ö¸¦ Áß´Ü½ÃÅ²´Ù.
+		// ÀÌ ³»ºÎ¿¡¼­ ÇÏÀ§ ¸Å´ÏÀú ¿ª½Ã Áß´ÜµÇ¾î¾ß ÇÑ´Ù.
+		g_pSharedServer->stop();
+	}
 }

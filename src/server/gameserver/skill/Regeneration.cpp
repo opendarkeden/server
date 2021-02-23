@@ -7,18 +7,18 @@
 #include "Regeneration.h"
 #include "EffectRegeneration.h"
 
-#include "GCSkillToTileOK1.h"
-#include "GCSkillToTileOK2.h"
-#include "GCSkillToTileOK3.h"
-#include "GCSkillToTileOK4.h"
-#include "GCSkillToTileOK5.h"
-#include "GCSkillToTileOK6.h"
-#include "GCAddEffect.h"
+#include "Gpackets/GCSkillToTileOK1.h"
+#include "Gpackets/GCSkillToTileOK2.h"
+#include "Gpackets/GCSkillToTileOK3.h"
+#include "Gpackets/GCSkillToTileOK4.h"
+#include "Gpackets/GCSkillToTileOK5.h"
+#include "Gpackets/GCSkillToTileOK6.h"
+#include "Gpackets/GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void Regeneration::execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
+void Regeneration::execute( Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -59,7 +59,7 @@ void Regeneration::execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSki
 	__END_CATCH
 }
 
-void Regeneration::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
+void Regeneration::execute( Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
 	throw(Error)
 {
 	__BEGIN_TRY
@@ -113,23 +113,23 @@ void Regeneration::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 			SkillOutput output;
 			computeOutput(input, output);
 
-			Tile& tile = pZone->getTile(X, Y);
+			Tile& tile = pZone->getTile( X, Y );
 
 			Range_t Range = 3;
 
 			Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_REGENERATION);
-			if(pOldEffect != NULL )
+			if( pOldEffect != NULL )
 			{
 				ObjectID_t effectID = pOldEffect->getObjectID();
-				pZone->deleteEffect(effectID);
+				pZone->deleteEffect( effectID );
 			}
 
 			// 이팩트 클래스를 만들어 붙인다.
 			EffectRegeneration* pEffect = new EffectRegeneration(pZone, X, Y);
 			pEffect->setDeadline(output.Duration);
-			pEffect->setDamage(output.Damage);
-			pEffect->setDelay(output.Tick);
-			pEffect->setNextTime(0);
+			pEffect->setDamage( output.Damage );
+			pEffect->setDelay( output.Tick );
+			pEffect->setNextTime( 0 );
 
 			ObjectRegistry& objectRegister = pZone->getObjectRegistry();
 			objectRegister.registerObject(pEffect);
@@ -173,12 +173,12 @@ void Regeneration::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 
 			list<Creature*> cList;
-			cList.push_back(pSlayer);
+			cList.push_back( pSlayer );
 
-			cList = pZone->broadcastSkillPacket(X, Y, X, Y, &_GCSkillToTileOK5, cList);
+			cList = pZone->broadcastSkillPacket( X, Y, X, Y, &_GCSkillToTileOK5, cList );
 
-			//pZone->broadcastPacket(X, Y, &_GCSkillToTileOK3, cList);
-			//pZone->broadcastPacket(X, Y, &_GCSkillToTileOK4, cList);
+			//pZone->broadcastPacket( X, Y, &_GCSkillToTileOK3, cList );
+			//pZone->broadcastPacket( X, Y, &_GCSkillToTileOK4, cList );
 
 			pSkillSlot->setRunTime(output.Delay);
 		} 
