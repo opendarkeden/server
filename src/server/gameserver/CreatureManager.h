@@ -9,7 +9,7 @@
 
 #include "Creature.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 
 class Packet;
 
@@ -38,13 +38,13 @@ public:
 
 	WORD getSize() const throw() { return m_Creatures.size(); }
 
-	hash_map< ObjectID_t, Creature* > & getCreatures() throw() { return m_Creatures; }
-	const hash_map< ObjectID_t, Creature* > & getCreatures() const throw() { return m_Creatures; }
+	unordered_map< ObjectID_t, Creature* > & getCreatures() throw() { return m_Creatures; }
+	const unordered_map< ObjectID_t, Creature* > & getCreatures() const throw() { return m_Creatures; }
 
 	string toString() const throw();
 
 protected:
-	hash_map< ObjectID_t, Creature* > m_Creatures;
+	unordered_map< ObjectID_t, Creature* > m_Creatures;
 	mutable Mutex m_Mutex;
 };
 

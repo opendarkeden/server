@@ -133,7 +133,7 @@ void ProfileSampleSet::initProfile(void)
 
 void ProfileSampleSet::beginProfile(const string& name)
 {
-	hash_map<string, int>::iterator itr = m_NameMap.find(name);
+	unordered_map<string, int>::iterator itr = m_NameMap.find(name);
 
 	// 이미 같은 이름의 샘플이 존재한다면...
 	if (itr != m_NameMap.end())
@@ -179,7 +179,7 @@ void ProfileSampleSet::beginProfile(const string& name)
 
 void ProfileSampleSet::endProfile(const string& name)
 {
-	hash_map<string, int>::iterator itr = m_NameMap.find(name);
+	unordered_map<string, int>::iterator itr = m_NameMap.find(name);
 
 	// 그런 이름을 가진 프로파일 샘플이 존재하지 않는다면 에러다...
 	if (itr == m_NameMap.end())
@@ -363,7 +363,7 @@ ProfileSampleManager::ProfileSampleManager()
 
 ProfileSampleManager::~ProfileSampleManager()
 {
-	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.begin();
+	unordered_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.begin();
 	for (; itr != m_ProfileSampleMap.end(); itr++)
 	{
 		SAFE_DELETE(itr->second);
@@ -379,7 +379,7 @@ void ProfileSampleManager::init(void)
 
 void ProfileSampleManager::addProfileSampleSet(int TID, ProfileSampleSet* pSet)
 {
-	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(TID);
+	unordered_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(TID);
 	if (itr == m_ProfileSampleMap.end())
 	{
 		m_ProfileSampleMap[TID] = pSet;
@@ -392,7 +392,7 @@ void ProfileSampleManager::addProfileSampleSet(int TID, ProfileSampleSet* pSet)
 
 ProfileSampleSet* ProfileSampleManager::getProfileSampleSet(void)
 {
-	hash_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(Thread::self());
+	unordered_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(Thread::self());
 	
 	// 없다면 생성해서 리턴한다.
 	if (itr == m_ProfileSampleMap.end())

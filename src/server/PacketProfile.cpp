@@ -26,7 +26,7 @@ PacketProfileManager::~PacketProfileManager()
 
 void PacketProfileManager::init(void)
 {
-	hash_map<string, PacketProfile*>::iterator itr = m_NameMap.begin();
+	unordered_map<string, PacketProfile*>::iterator itr = m_NameMap.begin();
 	for (; itr != m_NameMap.end(); itr++)
 	{
 		PacketProfile* pProfile = itr->second;
@@ -40,7 +40,7 @@ void PacketProfileManager::addAccuTime(const string& PacketName, const Timeval& 
 {
 	PacketProfile* pProfile = NULL;
 
-	hash_map<string, PacketProfile*>::iterator itr = m_NameMap.find(PacketName);
+	unordered_map<string, PacketProfile*>::iterator itr = m_NameMap.find(PacketName);
 	if (itr != m_NameMap.end())
 	{
 		pProfile = itr->second;
@@ -70,7 +70,7 @@ void PacketProfileManager::outputResultToFile(const string& filename)
 		 << setw(30) << "Name"
 		 << endl;
 
-	hash_map<string, PacketProfile*>::iterator itr = m_NameMap.begin();
+	unordered_map<string, PacketProfile*>::iterator itr = m_NameMap.begin();
 	for (; itr != m_NameMap.end(); itr++)
 	{
 		PacketProfile* pProfile = itr->second;

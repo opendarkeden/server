@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Mutex.h"
 
 class Packet;
@@ -112,8 +112,8 @@ public:
 
 private:
 
-	hash_map<ZoneID_t, LevelWarZoneInfo*>		m_LevelWarZoneInfos;
-	hash_map<ZoneID_t, ZoneID_t>				m_LevelWarZoneIDs;
+	unordered_map<ZoneID_t, LevelWarZoneInfo*>		m_LevelWarZoneInfos;
+	unordered_map<ZoneID_t, ZoneID_t>				m_LevelWarZoneIDs;
 
 	mutable Mutex 								m_Mutex;
 

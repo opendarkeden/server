@@ -1,7 +1,7 @@
 #ifndef __PARTNER_WAITING_MANAGER_H__
 #define __PARTNER_WAITING_MANAGER_H__
 
-#include <hash_map>
+#include <unordered_map>
 #include "Exception.h"
 #include "Types.h"
 #include "Timeval.h"
@@ -56,7 +56,7 @@ private:
 class PartnerWaitingManager
 {
 public:
-	typedef hash_map<string, PartnerWaitInfo*>	WaitInfoHashMap;
+	typedef unordered_map<string, PartnerWaitInfo*>	WaitInfoHashMap;
 public:
 	PartnerWaitingManager( WaitType waitType ) : m_WaitType( waitType ) { };
 	virtual ~PartnerWaitingManager();

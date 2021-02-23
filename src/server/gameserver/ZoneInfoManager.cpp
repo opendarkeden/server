@@ -29,7 +29,7 @@ ZoneInfoManager::~ZoneInfoManager ()
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.begin();
+	unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.begin();
 	for (; itr != m_ZoneInfos.end(); itr++)
 	{
 		ZoneInfo* pInfo = itr->second;
@@ -94,7 +94,7 @@ void ZoneInfoManager::load ()
 			
 			if (bReload)
 			{
-				hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
+				unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
 				
 				if (itr != m_ZoneInfos.end()) 
 				{
@@ -178,7 +178,7 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(pZoneInfo->getZoneID());
+	unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(pZoneInfo->getZoneID());
 	
 	if (itr != m_ZoneInfos.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -188,7 +188,7 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 
 	// Zone full name 맵에다 존 ID를 집어넣어둔다.
 	// 운영자 명령어를 위한 기능이다.
-	hash_map<string, ZoneInfo*>::iterator fitr = m_FullNameMap.find(pZoneInfo->getFullName());
+	unordered_map<string, ZoneInfo*>::iterator fitr = m_FullNameMap.find(pZoneInfo->getFullName());
 	if (fitr != m_FullNameMap.end())
 	{
 		cerr << "Duplicated Zone Full Name" << endl;
@@ -199,7 +199,7 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 
 	// Zone short name 맵에다 존 ID를 집어넣어둔다.
 	// 운영자 명령어를 위한 기능이다.
-	hash_map<string, ZoneInfo*>::iterator sitr = m_ShortNameMap.find(pZoneInfo->getShortName());
+	unordered_map<string, ZoneInfo*>::iterator sitr = m_ShortNameMap.find(pZoneInfo->getShortName());
 	if (sitr != m_ShortNameMap.end())
 	{
 		cerr << "Duplicated Zone Short Name" << endl;
@@ -220,7 +220,7 @@ void ZoneInfoManager::deleteZoneInfo (ZoneID_t zoneID)
 {
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
+	unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
 	
 	if (itr != m_ZoneInfos.end()) 
 	{
@@ -252,7 +252,7 @@ ZoneInfo* ZoneInfoManager::getZoneInfo (ZoneID_t zoneID)
 		
 	ZoneInfo* pZoneInfo = NULL;
 
-	hash_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
+	unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(zoneID);
 	
 	if (itr != m_ZoneInfos.end()) {
 
@@ -278,14 +278,14 @@ ZoneInfo* ZoneInfoManager::getZoneInfo (ZoneID_t zoneID)
 ZoneInfo* ZoneInfoManager::getZoneInfoByName(const string & ZoneName)
 {
 	// 먼저 short name map을 검색한다.
-	hash_map<string, ZoneInfo*>::const_iterator short_itr = m_ShortNameMap.find(ZoneName);
+	unordered_map<string, ZoneInfo*>::const_iterator short_itr = m_ShortNameMap.find(ZoneName);
 	if (short_itr != m_ShortNameMap.end())
 	{
 		return short_itr->second;
 	}
 
 	// 없다면 full name map을 검색한다.
-	hash_map<string, ZoneInfo*>::const_iterator full_itr = m_FullNameMap.find(ZoneName);
+	unordered_map<string, ZoneInfo*>::const_iterator full_itr = m_FullNameMap.find(ZoneName);
 	if (full_itr != m_FullNameMap.end())
 	{
 		return full_itr->second;
@@ -299,8 +299,8 @@ vector<Zone*> ZoneInfoManager::getNormalFields() const
 {
 	vector<Zone*> ret;
 
-//	hash_map< ZoneID_t , ZoneInfo *>::const_iterator itr = m_ZoneInfos.begin();
-//	hash_map< ZoneID_t , ZoneInfo *>::const_iterator endItr = m_ZoneInfos.end();
+//	unordered_map< ZoneID_t , ZoneInfo *>::const_iterator itr = m_ZoneInfos.begin();
+//	unordered_map< ZoneID_t , ZoneInfo *>::const_iterator endItr = m_ZoneInfos.end();
 //	
 //	for ( ; itr != endItr ; ++itr )
 //	{
@@ -328,7 +328,7 @@ string ZoneInfoManager::toString () const
 	if (m_ZoneInfos.empty()) msg << "EMPTY";
 	else 
 	{
-		for (hash_map< ZoneID_t , ZoneInfo* >::const_iterator itr = m_ZoneInfos.begin() ; itr != m_ZoneInfos.end() ; itr ++) 
+		for (unordered_map< ZoneID_t , ZoneInfo* >::const_iterator itr = m_ZoneInfos.begin() ; itr != m_ZoneInfos.end() ; itr ++) 
 		{
 			msg << itr->second->toString();
 		}

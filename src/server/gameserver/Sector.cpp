@@ -39,7 +39,7 @@ void Sector::addObject(Object* pObject)
 
 	Assert(pObject != NULL);
 
-	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
+	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(pObject->getObjectID());
 	if (itr != m_Objects.end())
 	{
 		cerr << "Sector::addObjectID() : DuplicatedException" << endl;
@@ -56,7 +56,7 @@ void Sector::deleteObject(ObjectID_t id)
 {
 	__BEGIN_TRY
 
-	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
 	if (itr == m_Objects.end())
 	{
 		cerr << "Sector::deleteObjectID() : NoSuchElementException" << endl;
@@ -73,7 +73,7 @@ Object* Sector::getObject(ObjectID_t id)
 {
 	__BEGIN_TRY
 
-	hash_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
+	unordered_map<ObjectID_t, Object*>::iterator itr = m_Objects.find(id);
 	if (itr == m_Objects.end())
 	{
 		cerr << "Sector::getObjectID() : NoSuchElementException" << endl;
@@ -116,7 +116,7 @@ string Sector::toString(void) const
 	msg << "Sector("
 		<< "Size:" << (int)m_Objects.size() << ",";
 
-	hash_map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
+	unordered_map<ObjectID_t, Object*>::const_iterator itr = m_Objects.begin();
 	for (; itr != m_Objects.end(); itr++)
 	{
 		msg << itr->second->toString() << ",";

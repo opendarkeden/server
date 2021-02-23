@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include <vector>
 
 class Creature;
@@ -36,7 +36,7 @@ public:
 	static LevelNickInfoManager& Instance() { static LevelNickInfoManager theInstance; return theInstance; }
 
 private:
-	hash_map<Level_t, vector<LevelNickInfo*> > m_LevelNickInfoMap;
+	unordered_map<Level_t, vector<LevelNickInfo*> > m_LevelNickInfoMap;
 };
 
 #endif

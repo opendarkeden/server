@@ -19,7 +19,7 @@
 #include "StringStream.h"
 
 
-const hash_map<QuestID_t, QuestStatus*>::size_type QuestManager::MAX_QUEST_NUM = 1;
+const unordered_map<QuestID_t, QuestStatus*>::size_type QuestManager::MAX_QUEST_NUM = 1;
 
 QuestManager::QuestManager(PlayerCreature* pOwner)
 {
@@ -33,8 +33,8 @@ QuestManager::~QuestManager() throw (Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr;
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr;
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
 	for ( itr = m_Quests.begin() ; itr != endItr ; ++itr )
 	{
@@ -75,7 +75,7 @@ QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.find( qID );
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.find( qID );
 
 	if ( itr == m_Quests.end() ) return COMPLETE_FAIL_NOT_IN_QUEST;
 
@@ -103,7 +103,7 @@ QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const throw(Error)
 		if ( code != COMPLETE_SUCCESS ) return code;
 	}
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.find( qID );
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.find( qID );
 	Assert( itr != m_Quests.end() );
 
 	QuestStatus* pQuestStatus = itr->second;
@@ -128,7 +128,7 @@ QuestStatus* QuestManager::getQuestStatus( QuestID_t qID ) throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.find(qID);
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.find(qID);
 
 	if ( itr == m_Quests.end() ) return NULL;
 	return itr->second;
@@ -140,8 +140,8 @@ void QuestManager::sendQuestInfo() throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -166,8 +166,8 @@ void QuestManager::sendQuestInfo() throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -187,8 +187,8 @@ MonsterKillQuestStatus*	QuestManager::getMonsterKillQuestStatus( SpriteType_t sT
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -209,8 +209,8 @@ QuestMessage QuestManager::rewardCompleteQuest() throw(Error)
 
 	if ( m_Quests.size() == 0 ) return COMPLETE_FAIL_NOT_IN_QUEST;
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
 	QuestMessage ret = COMPLETE_FAIL_NOT_COMPLETE;
 
@@ -232,14 +232,14 @@ void QuestManager::adjustQuestStatus() throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
 
 	while ( itr != m_Quests.end() )
 	{
 		if ( itr->second != NULL && ( itr->second->timeExpired() || itr->second->isRewarded() ) )
 		{
 			SAFE_DELETE( itr->second );
-			hash_map<QuestID_t, QuestStatus*>::iterator prevItr = itr++;
+			unordered_map<QuestID_t, QuestStatus*>::iterator prevItr = itr++;
 
 			m_Quests.erase(prevItr);
 		}
@@ -261,8 +261,8 @@ QuestMessage QuestManager::cancelQuest() throw(Error)
 		return CANCEL_NOT_IN_QUEST;
 	}
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 	QuestMessage result = CANCEL_NOT_IN_QUEST;
 
 	for ( ; itr != endItr ; ++itr )
@@ -291,8 +291,8 @@ QuestMessage QuestManager::failQuest() throw(Error)
 		return CANCEL_NOT_IN_QUEST;
 	}
 
-	hash_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 	QuestMessage result = CANCEL_NOT_IN_QUEST;
 
 	for ( ; itr != endItr ; ++itr )
@@ -314,8 +314,8 @@ QuestMessage QuestManager::failQuest() throw(Error)
 
 bool QuestManager::hasEventQuest( int questLevel, QuestID_t& qID ) const
 {
-	hash_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -332,8 +332,8 @@ bool QuestManager::hasEventQuest( int questLevel, QuestID_t& qID ) const
 
 bool QuestManager::successEventQuest( int questLevel, QuestID_t& qID ) const
 {
-	hash_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -354,8 +354,8 @@ QuestStatus* QuestManager::getQuestStatusByQuestClass( QuestClass qClass ) const
 {
 	__BEGIN_TRY
 
-	hash_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
-	hash_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin();
+	unordered_map<QuestID_t, QuestStatus*>::const_iterator endItr = m_Quests.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{

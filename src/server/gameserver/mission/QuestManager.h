@@ -8,7 +8,7 @@
 
 #include "Gpackets/GCNPCResponse.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 const DWORD PET_QUEST_ID = 0xffff;
 
@@ -44,7 +44,7 @@ public:
 	template<class QOutItr, class ROutItr>
 	void				getCompletedQuestRewards(QOutItr qitr, ROutItr oitr) const
 	{
-		for ( hash_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin() ;
+		for ( unordered_map<QuestID_t, QuestStatus*>::const_iterator itr = m_Quests.begin() ;
 				itr != m_Quests.end(); ++itr )
 		{
 			if ( itr->second->isSuccess() )
@@ -79,10 +79,10 @@ protected:
 	friend class		QuestStatus;
 
 private:
-	static const hash_map<QuestID_t, QuestStatus*>::size_type MAX_QUEST_NUM;
+	static const unordered_map<QuestID_t, QuestStatus*>::size_type MAX_QUEST_NUM;
 	PlayerCreature*		m_pOwner;
 	EventQuestAdvanceManager*	m_pEventQuestAdvanceManager;
-	hash_map<QuestID_t, QuestStatus*>	m_Quests;
+	unordered_map<QuestID_t, QuestStatus*>	m_Quests;
 };
 
 #endif// __QUEST_MANAGER_H__

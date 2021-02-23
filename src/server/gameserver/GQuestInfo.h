@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "SXml.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include <vector>
 
 class GQuestElement;
@@ -62,12 +62,12 @@ public:
 		return theInstance;
 	}
 
-	hash_map<DWORD, GQuestInfo*>&	getInfos() { return m_Infos; }
-	const hash_map<DWORD, GQuestInfo*>&	getInfos() const { return m_Infos; }
+	unordered_map<DWORD, GQuestInfo*>&	getInfos() { return m_Infos; }
+	const unordered_map<DWORD, GQuestInfo*>&	getInfos() const { return m_Infos; }
 
 private:
 	XMLTree*	m_pXMLInfo;
-	hash_map<DWORD, GQuestInfo*>	m_Infos;
+	unordered_map<DWORD, GQuestInfo*>	m_Infos;
 };
 
 #endif

@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Zone.h"
 #include "ZoneInfo.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class ZoneInfoManager;
@@ -39,9 +39,9 @@ public:
 	string toString() const throw();
 
 private:
-	hash_map<ZoneID_t, ZoneInfo*> m_ZoneInfos; // zone info ÀÇ ÇØ½¬¸Ê
-	hash_map<string, ZoneInfo*> m_FullNameMap;
-	hash_map<string, ZoneInfo*> m_ShortNameMap;
+	unordered_map<ZoneID_t, ZoneInfo*> m_ZoneInfos; // zone info ÀÇ ÇØ½¬¸Ê
+	unordered_map<string, ZoneInfo*> m_FullNameMap;
+	unordered_map<string, ZoneInfo*> m_ShortNameMap;
 };
 
 extern ZoneInfoManager* g_pZoneInfoManager;

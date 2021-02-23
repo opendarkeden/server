@@ -236,7 +236,7 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
 		NameKey |= nMiddleNameIndex < 16;
 		NameKey |= nLastNameIndex       ;
 
-		hash_map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
+		unordered_map<ulonglong, string>::iterator itr = m_UsedName.find(NameKey);
 
 		if (itr == m_UsedName.end())
 		{

@@ -21,7 +21,7 @@ public:
 
 public:
 	Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) throw();
-	virtual ~Schedule() throw();
+	virtual ~Schedule() throw(Error);
 
 public:
 	virtual bool 		heartbeat() throw(Error);

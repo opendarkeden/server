@@ -21,7 +21,7 @@
 #include "Gpackets/GCMonsterKillQuestInfo.h"
 #include "OptionInfo.h"
 
-#include <hash_map>
+#include <unordered_map>
 #include <bitset>
 #include <forward_list>
 #include <vector>
@@ -55,7 +55,7 @@ class Store;
 //class GCMonsterKillQuestInfo;
 //struct GCMonsterKillQuestInfo::QuestInfo;
 
-typedef hash_map<DWORD, RankBonus*> HashMapRankBonus;
+typedef unordered_map<DWORD, RankBonus*> HashMapRankBonus;
 typedef HashMapRankBonus::iterator HashMapRankBonusItor;
 typedef HashMapRankBonus::const_iterator HashMapRankBonusConstItor;
 
@@ -67,7 +67,7 @@ class PlayerCreature : public Creature
 ////////////////////////////////////////////////////////////
 public:
 	PlayerCreature(ObjectID_t objectID = 0, Player* pPlayer = NULL) throw();
-	virtual ~PlayerCreature() throw();
+	virtual ~PlayerCreature() throw(Error);
 
 	virtual bool load() throw (InvalidProtocolException, Error);
 	virtual void tinysave(const string & field) const throw (Error) = 0;

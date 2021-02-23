@@ -123,8 +123,8 @@ LevelWarZoneInfoManager::~LevelWarZoneInfoManager()
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , LevelWarZoneInfo* >::iterator itr = m_LevelWarZoneInfos.begin();
-	hash_map< ZoneID_t , LevelWarZoneInfo* >::iterator endItr = m_LevelWarZoneInfos.end();
+	unordered_map< ZoneID_t , LevelWarZoneInfo* >::iterator itr = m_LevelWarZoneInfos.begin();
+	unordered_map< ZoneID_t , LevelWarZoneInfo* >::iterator endItr = m_LevelWarZoneInfos.end();
 	for (; itr != endItr ; itr++)
 	{
 		LevelWarZoneInfo* pLevelWarZoneInfo = itr->second;
@@ -203,7 +203,7 @@ void LevelWarZoneInfoManager::addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZo
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.find(pLevelWarZoneInfo->getZoneID());
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.find(pLevelWarZoneInfo->getZoneID());
 
 	if (itr != m_LevelWarZoneInfos.end())
 		throw Error("duplicated zone id");
@@ -227,8 +227,8 @@ void LevelWarZoneInfoManager::addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZo
 int LevelWarZoneInfoManager::getCreatureLevelGrade( Creature* pCreature )
 	throw(Error)
 {
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
 
 	for ( ; itr != endItr ; itr++ )
 	{
@@ -242,8 +242,8 @@ int LevelWarZoneInfoManager::getCreatureLevelGrade( Creature* pCreature )
 ZoneID_t LevelWarZoneInfoManager::getCreatureZoneID( Creature* pCreature )
 	throw(Error)
 {
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::iterator itr = m_LevelWarZoneInfos.begin();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::iterator endItr = m_LevelWarZoneInfos.end();
 
 	for ( ; itr != endItr ; itr++ )
 	{
@@ -257,8 +257,8 @@ ZoneID_t LevelWarZoneInfoManager::getCreatureZoneID( Creature* pCreature )
 bool LevelWarZoneInfoManager::isCreatureBonusZone( Creature* pCreature, ZoneID_t zoneID ) const
 	throw(Error)
 {
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.begin();
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator endItr = m_LevelWarZoneInfos.end();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.begin();
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator endItr = m_LevelWarZoneInfos.end();
 
 	for ( ; itr != endItr ; itr++ )
 	{
@@ -279,7 +279,7 @@ LevelWarZoneInfo* LevelWarZoneInfoManager::getLevelWarZoneInfo( ZoneID_t zoneID 
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
+	unordered_map< ZoneID_t , LevelWarZoneInfo*>::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
 
 	if (itr != m_LevelWarZoneInfos.end())
 		return NULL;
@@ -298,8 +298,8 @@ void LevelWarZoneInfoManager::refreshSweeperBonusZonePlayer()
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
-	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
+	unordered_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
+	unordered_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
 
 	for (; itr != endItr ;itr++)
 	{
@@ -329,7 +329,7 @@ void LevelWarZoneInfoManager::broadcast( ZoneID_t zoneID, Packet* pPacket ) cons
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
+	unordered_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.find(zoneID);
 
 //	cout << VSDateTime::currentDateTime().toString() << endl;
 	if (itr != m_LevelWarZoneInfos.end())
@@ -368,7 +368,7 @@ bool LevelWarZoneInfoManager::getLevelWarZoneID( ZoneID_t zoneID, ZoneID_t &leve
 
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , ZoneID_t >::const_iterator itr = m_LevelWarZoneIDs.find( zoneID );
+	unordered_map< ZoneID_t , ZoneID_t >::const_iterator itr = m_LevelWarZoneIDs.find( zoneID );
 	
 	if ( itr != m_LevelWarZoneIDs.end() )
 	{
@@ -402,8 +402,8 @@ string LevelWarZoneInfoManager::toString() const
 	if (m_LevelWarZoneInfos.empty()) msg << "EMPTY";
 	else
 	{
-		hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
-		hash_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
+		unordered_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator itr = m_LevelWarZoneInfos.begin();
+		unordered_map< ZoneID_t , LevelWarZoneInfo* >::const_iterator endItr = m_LevelWarZoneInfos.end();
 		for (; itr != endItr ;itr++)
 		{
 			msg << itr->second->toString();

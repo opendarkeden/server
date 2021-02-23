@@ -22,7 +22,7 @@
 #include "ModifyInfo.h"
 #include "CreatureUtil.h"
 //#include "RankExpTable.h"
-#include <hash_map>
+#include <unordered_map>
 
 #include "skill/VampireSkillSlot.h"
 
@@ -479,7 +479,7 @@ private:
 
 	// SkillSlot
 	//VampireSkillSlot* m_pSkillSlot[MAX_VAMPIRE_SKILL_SLOT];
-	hash_map<SkillType_t, VampireSkillSlot*> m_SkillSlot;
+	unordered_map<SkillType_t, VampireSkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[VAMPIRE_WEAR_MAX];

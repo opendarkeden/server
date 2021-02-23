@@ -7,7 +7,7 @@
 #include "Item.h"
 
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 #include <list>
 
 class GCTimeLimitItemInfo;
@@ -35,7 +35,7 @@ private:
 	};
 
 public:
-	typedef hash_map<ObjectID_t,VSDateTime> ItemTimeLimitMap;
+	typedef unordered_map<ObjectID_t,VSDateTime> ItemTimeLimitMap;
 
 public:
 	TimeLimitItemManager( PlayerCreature* pOwner ) { m_pOwnerPC = pOwner; m_ItemTimeLimits.clear(); m_TableRecords.clear(); }

@@ -12,7 +12,7 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Zone.h"
 #include "GameTime.h"
 #include "Gpackets/GMServerInfo.h"
@@ -22,7 +22,7 @@ class ZoneThread;
 class ZonePlayerManager;
 
 // type redefinition
-//typedef hash_map<ZoneID_t,Zone*> ZONE_HASHMAP;
+//typedef unordered_map<ZoneID_t,Zone*> ZONE_HASHMAP;
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -93,7 +93,7 @@ public:
 
 	void makeZoneUserInfo ( GMServerInfo & gmServerInfo ) throw(Error);
 
-	const hash_map< ZoneID_t, Zone* >& getZones() const { return m_Zones; }
+	const unordered_map< ZoneID_t, Zone* >& getZones() const { return m_Zones; }
 
 	// get debug string
 	string toString() const throw();
@@ -115,7 +115,7 @@ private:
 	ZoneGroupID_t m_ZoneGroupID;
 	
 	// zone ÀÇ ÇØ½¬¸Ê
-	hash_map< ZoneID_t, Zone* > m_Zones;
+	unordered_map< ZoneID_t, Zone* > m_Zones;
 
 	// zone player manager
 	ZonePlayerManager* m_pZonePlayerManager;

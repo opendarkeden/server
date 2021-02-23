@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ public:
 	void outputResultToFile(const string& filename);
 
 protected:
-	hash_map<string, PacketProfile*> m_NameMap;
+	unordered_map<string, PacketProfile*> m_NameMap;
 };
 
 extern PacketProfileManager g_PacketProfileManager;

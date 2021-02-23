@@ -13,7 +13,7 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Forward declaration
@@ -95,8 +95,8 @@ public:
 	string toString(void) const;
 
 protected:
-	hash_map<string, PrecedenceElement*> m_CreatureMap;
-	hash_map<int, PrecedenceElement*> m_PartyMap;
+	unordered_map<string, PrecedenceElement*> m_CreatureMap;
+	unordered_map<int, PrecedenceElement*> m_PartyMap;
 
 	string m_FirstAttackerName; // 제일 먼저 선공을 가한 자의 이름
 	int m_FirstAttackerPartyID; // 제일 먼저 선공을 가한 자의 파티 ID

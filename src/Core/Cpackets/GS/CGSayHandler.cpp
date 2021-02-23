@@ -2568,7 +2568,7 @@ void CGSayHandler::opcredit(GamePlayer* pGamePlayer , string msg, int i)
 
 	if (pGamePlayer==NULL) return;
 
-	static hash_map<string, string> Credits;
+	static unordered_map<string, string> Credits;
 
 	// 하드코딩으로 유지하길... ㅇㅎㅎ  by sigi.
 	if (Credits.empty())
@@ -2592,7 +2592,7 @@ void CGSayHandler::opcredit(GamePlayer* pGamePlayer , string msg, int i)
 	uint j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
-	hash_map<string, string>::const_iterator itr = Credits.find( Name );
+	unordered_map<string, string>::const_iterator itr = Credits.find( Name );
 
 	if (itr!=Credits.end())
 	{
@@ -4329,8 +4329,8 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			Creature* pCreature = pGamePlayer->getCreature();
 			Zone* pZone = pCreature->getZone();
 			MonsterManager* pMM = pZone->getMonsterManager();
-			hash_map< ObjectID_t, Creature* > & monsters = pMM->getCreatures();
-			hash_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
+			unordered_map< ObjectID_t, Creature* > & monsters = pMM->getCreatures();
+			unordered_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
 
 			for (; itr!=monsters.end(); itr++)
 			{
@@ -4353,8 +4353,8 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			Creature* pCreature = pGamePlayer->getCreature();
 			Zone* pZone = pCreature->getZone();
 			PCManager* pPM = (PCManager*)pZone->getPCManager();
-			hash_map< ObjectID_t, Creature* > & pcs = pPM->getCreatures();
-			hash_map< ObjectID_t, Creature* >::iterator itr = pcs.begin();
+			unordered_map< ObjectID_t, Creature* > & pcs = pPM->getCreatures();
+			unordered_map< ObjectID_t, Creature* >::iterator itr = pcs.begin();
 
 			for (; itr!=pcs.end(); itr++)
 			{

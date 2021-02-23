@@ -235,7 +235,7 @@ Slayer::~Slayer()
 		deleteAllPartyInfo(this);
 
 		// 기술들을 삭제
-		hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
+		unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
 			SkillSlot* pSkillSlot = itr->second;
@@ -1517,7 +1517,7 @@ SkillSlot* Slayer::getSkill(SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -1550,7 +1550,7 @@ void Slayer::addSkill(SkillSlot* pSkillSlot)
 			break;
 	}
 
-	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(pSkillSlot->getSkillType());
+	unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(pSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1587,7 +1587,7 @@ void Slayer::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1618,7 +1618,7 @@ void Slayer::removeCastleSkill(SkillType_t SkillType)
 	// 성지 스킬만 지울 수 있다.
 	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
-	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
@@ -1638,7 +1638,7 @@ void Slayer::removeAllCastleSkill()
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
 
 	while ( itr != m_SkillSlot.end() )
 	{
@@ -1654,7 +1654,7 @@ void Slayer::removeAllCastleSkill()
 
 			// 성지스킬이면 지워준다. 반복자 사용에 주의
 			SAFE_DELETE( pSkillSlot );
-			hash_map<SkillType_t, SkillSlot*>::iterator prevItr = itr;
+			unordered_map<SkillType_t, SkillSlot*>::iterator prevItr = itr;
 			
 			++itr;
 			m_SkillSlot.erase( prevItr );
@@ -3204,7 +3204,7 @@ void Slayer::sendSlayerSkillInfo()
 		Timeval currentTime;
 		getCurrentTime( currentTime );
 
-		hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+		unordered_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
 			SkillSlot* pSkillSlot = itr->second;
@@ -3792,7 +3792,7 @@ void Slayer::saveSkills(void) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, SkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		SkillSlot* pSkillSlot = itr->second;

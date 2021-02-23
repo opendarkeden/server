@@ -28,14 +28,14 @@ void EventRefreshHolyLandPlayer::activate ()
 {
 	__BEGIN_TRY
 
-	const hash_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
+	const unordered_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
 
-	hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
+	unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
 
 	for ( ; itr != zoneGroups.end(); ++itr )
 	{
-		const hash_map< ZoneID_t, Zone* >& zones = itr->second->getZones();
-		hash_map< ZoneID_t, Zone* >::const_iterator zItr = zones.begin();
+		const unordered_map< ZoneID_t, Zone* >& zones = itr->second->getZones();
+		unordered_map< ZoneID_t, Zone* >::const_iterator zItr = zones.begin();
 
 		for ( ; zItr != zones.end(); ++zItr )
 		{

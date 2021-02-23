@@ -490,7 +490,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName
 {
 	__BEGIN_TRY
 
-	hash_map<string, Item::ItemClass>::const_iterator itr = m_ItemClassMap.begin();
+	unordered_map<string, Item::ItemClass>::const_iterator itr = m_ItemClassMap.begin();
 	for (; itr != m_ItemClassMap.end(); itr++)
 	{
 		// 대,소문자를 무시하고, 비교를 수행한다.
@@ -503,7 +503,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName
 	return Item::ITEM_CLASS_MAX;
 
 	/*
-	hash_map<string, Item::ItemClass>::const_iterator ClassType = m_ItemClassMap.find( ClassName );
+	unordered_map<string, Item::ItemClass>::const_iterator ClassType = m_ItemClassMap.find( ClassName );
 
     if (ClassType==m_ItemClassMap.end())
 	{

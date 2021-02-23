@@ -9,7 +9,7 @@
 
 #include "Exception.h"
 #include "Types.h"
-#include <hash_map>
+#include <unordered_map>
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ public:
 	CastleSkillInfoManager() throw();
 	~CastleSkillInfoManager() throw();
 
-	typedef hash_map<SkillType_t, CastleSkillInfo*>		HashMapCastleSkillInfo;
+	typedef unordered_map<SkillType_t, CastleSkillInfo*>		HashMapCastleSkillInfo;
 	typedef HashMapCastleSkillInfo::iterator			HashMapCastleSkillInfoItor;
 	typedef HashMapCastleSkillInfo::const_iterator		HashMapCastleSkillInfoConstItor;
 

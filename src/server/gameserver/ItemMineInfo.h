@@ -10,7 +10,7 @@
 #include "Exception.h"
 #include "Types.h"
 #include "Item.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Class ItemMineInfo
@@ -50,7 +50,7 @@ private:
 // Class ItemMineInfoManager
 //////////////////////////////////////////////////////////////////////////////
 
-typedef hash_map<int, ItemMineInfo*>			HashMapItemMineInfo;
+typedef unordered_map<int, ItemMineInfo*>			HashMapItemMineInfo;
 typedef HashMapItemMineInfo::iterator			HashMapItemMineInfoItor;
 typedef HashMapItemMineInfo::const_iterator		HashMapItemMineInfoConstItor;
 

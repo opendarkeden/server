@@ -61,7 +61,7 @@ CreatureManager::~CreatureManager ()
 {
 	__BEGIN_TRY
 
-	hash_map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
+	unordered_map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
 
 	for (; itr != m_Creatures.end(); itr++)	
 	{
@@ -85,7 +85,7 @@ void CreatureManager::addCreature (Creature* pCreature)
 
 	Assert(pCreature != NULL);
 
-	hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(pCreature->getObjectID());
+	unordered_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(pCreature->getObjectID());
 
 	if (itr != m_Creatures.end())	
 		throw DuplicatedException();
@@ -109,7 +109,7 @@ void CreatureManager::deleteCreature (ObjectID_t objectID)
 
 	//try 
 	{
-		hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(objectID);
+		unordered_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.find(objectID);
 
 		if (itr == m_Creatures.end())
 		{
@@ -123,7 +123,7 @@ void CreatureManager::deleteCreature (ObjectID_t objectID)
 			return; // by sigi 2002.5.2
 		}
 
-		// 단지 hash_map 의 노드만을 삭제할 뿐, 크리처 자체는 삭제하지 않는다.
+		// 단지 unordered_map 의 노드만을 삭제할 뿐, 크리처 자체는 삭제하지 않는다.
 		m_Creatures.erase(itr);
 	} 
 	//catch (Throwable & t) 
@@ -146,7 +146,7 @@ Creature* CreatureManager::getCreature (ObjectID_t objectID) const
 {
 	__BEGIN_TRY
 		
-	hash_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.find(objectID);
+	unordered_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.find(objectID);
 
 	if (itr == m_Creatures.end())
 	{
@@ -168,7 +168,7 @@ Creature* CreatureManager::getCreature (const string& Name) const
 {
 	__BEGIN_TRY
 		
-	hash_map< ObjectID_t , Creature* >::const_iterator itr = find_if (m_Creatures.begin(), m_Creatures.end(), isSameNAME(Name));
+	unordered_map< ObjectID_t , Creature* >::const_iterator itr = find_if (m_Creatures.begin(), m_Creatures.end(), isSameNAME(Name));
 
 	if (itr == m_Creatures.end())
 	{
@@ -189,8 +189,8 @@ void CreatureManager::processCreatures ()
 {
 	__BEGIN_TRY
 
-	hash_map< ObjectID_t , Creature* >::iterator before = m_Creatures.end();
-	hash_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::iterator before = m_Creatures.end();
+	unordered_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
 
 	Timeval currentTime;
 	getCurrentTime(currentTime);
@@ -248,7 +248,7 @@ void CreatureManager::broadcastPacket (Packet* pPacket , Creature* pCreature)
 
 	Assert(pPacket != NULL);
 
-	hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
+	unordered_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
 
 	for (; itr != m_Creatures.end() ; itr ++) 
 	{
@@ -283,7 +283,7 @@ void CreatureManager::broadcastDarkLightPacket (Packet* pPacket1, Packet* pPacke
 
 	Creature* pTargetCreature = NULL;
 
-	hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
+	unordered_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
 
 	for (; itr != m_Creatures.end() ; itr ++) 
 	{
@@ -334,7 +334,7 @@ void CreatureManager::broadcastLevelWarBonusPacket (Packet* pPacket , Creature* 
 
 	Assert(pPacket != NULL);
 
-	hash_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
+	unordered_map< ObjectID_t , Creature* >::iterator itr = m_Creatures.begin ();
 
 	for (; itr != m_Creatures.end() ; itr ++) 
 	{
@@ -369,7 +369,7 @@ string CreatureManager::toString () const
 {
 	StringStream msg;
 	msg << "CreatureManager(" << "Size:" << (int)m_Creatures.size();
-	for (hash_map<ObjectID_t, Creature*>::const_iterator itr = m_Creatures.begin(); itr != m_Creatures.end(); itr++)
+	for (unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_Creatures.begin(); itr != m_Creatures.end(); itr++)
 	{
 		msg << itr->second->toString();
 	}

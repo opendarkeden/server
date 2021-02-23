@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Timeval.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 
 const int MAX_PROFILE_SAMPLES = 400;
 class GMServerInfo;
@@ -133,7 +133,7 @@ public:
 
 protected:
 	ProfileSample m_ProfileSamples[MAX_PROFILE_SAMPLES];
-	hash_map<string, int> m_NameMap;
+	unordered_map<string, int> m_NameMap;
 };
 
 
@@ -153,7 +153,7 @@ public:
 	ProfileSampleSet* getProfileSampleSet(void);
 
 protected:
-	hash_map<int, ProfileSampleSet*> m_ProfileSampleMap;
+	unordered_map<int, ProfileSampleSet*> m_ProfileSampleMap;
 	Mutex m_Mutex;
 };
 

@@ -9,7 +9,7 @@
 #include "TelephoneCenter.h"
 
 //--------------------------------------------------------------------------------
-// add creature to hash_map
+// add creature to unordered_map
 // execute just once at PC's login
 //--------------------------------------------------------------------------------
 void TelephoneCenter::addSlayer (Slayer* pSlayer) 
@@ -21,7 +21,7 @@ void TelephoneCenter::addSlayer (Slayer* pSlayer)
 
 	Assert(pSlayer != NULL);
 
-	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(pSlayer ->getPhoneNumber());
+	unordered_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(pSlayer ->getPhoneNumber());
 
 	if (itr != m_PCs.end())
 	{
@@ -37,7 +37,7 @@ void TelephoneCenter::addSlayer (Slayer* pSlayer)
 
 
 //--------------------------------------------------------------------------------
-// Delete creature from hash_map
+// Delete creature from unordered_map
 // execute just once at PC's logout
 //--------------------------------------------------------------------------------
 void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber) 
@@ -47,7 +47,7 @@ void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(PhoneNumber);
+	unordered_map< PhoneNumber_t , const Slayer* >::iterator itr = m_PCs.find(PhoneNumber);
 
 	if (itr == m_PCs.end())
 	{
@@ -70,7 +70,7 @@ Slayer* TelephoneCenter::getSlayer(PhoneNumber_t PhoneNumber) const
 {
 	__BEGIN_TRY
 
-	hash_map< PhoneNumber_t , const Slayer* >::const_iterator itr = m_PCs.find(PhoneNumber);
+	unordered_map< PhoneNumber_t , const Slayer* >::const_iterator itr = m_PCs.find(PhoneNumber);
 
 	if (itr == m_PCs.end())
 	{

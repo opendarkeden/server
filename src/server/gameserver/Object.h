@@ -58,7 +58,7 @@ public:
 
 public:
 	Object(ObjectID_t objectID = 0) throw() : m_ObjectID(objectID) {}
-	virtual ~Object() throw() {}
+	virtual ~Object() throw(Error) {}
 	
 public:
 	// get/set object id

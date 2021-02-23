@@ -128,7 +128,7 @@ Script* ScriptManager::getScript (ScriptID_t scriptID) const
 {
 	__BEGIN_TRY
 
-	hash_map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
+	unordered_map<ScriptID_t , Script*>::const_iterator itr = m_Scripts.find(scriptID);
 
 	if (itr == m_Scripts.end()) 
 	{
@@ -152,7 +152,7 @@ void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript)
 {
 	__BEGIN_TRY
 
-	hash_map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
+	unordered_map<ScriptID_t , Script*>::iterator itr = m_Scripts.find(scriptID);
 
 	if (itr != m_Scripts.end()) 
 	{
@@ -179,7 +179,7 @@ string ScriptManager::toString () const
 
 	msg << "ScriptManager(";
 
-	hash_map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
+	unordered_map<ScriptID_t, Script*>::const_iterator i = m_Scripts.begin();
 	for (; i != m_Scripts.end() ; i++) 
 	{
 		msg << "(ScriptID:" << (int)(i->first) << ",";

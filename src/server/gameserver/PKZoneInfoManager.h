@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Mutex.h"
 
 #include "Cpackets/CGSay.h"
@@ -63,7 +63,7 @@ private:
 class PKZoneInfoManager
 {
 public:
-	typedef hash_map<ZoneID_t,PKZoneInfo*> PKZoneInfoMap;
+	typedef unordered_map<ZoneID_t,PKZoneInfo*> PKZoneInfoMap;
 public:
 	PKZoneInfoManager() { }
 	~PKZoneInfoManager() { }

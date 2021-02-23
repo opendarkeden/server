@@ -9,7 +9,7 @@
 #ifdef __GAME_SERVER__
 	#include "GamePlayer.h"
 	#include "NPC.h"
-	#include <fstream.h>
+	#include <fstream>
 
 	#include "quest/TriggerManager.h"
 	#include "quest/Trigger.h"

@@ -140,7 +140,7 @@ TradeManager::~TradeManager()
 {
 	__BEGIN_TRY
 
-	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.begin();
+	unordered_map<string, TradeInfo*>::iterator itr = m_InfoMap.begin();
 	for (; itr != m_InfoMap.end(); itr++)
 	{
 		TradeInfo* pInfo = itr->second;
@@ -164,7 +164,7 @@ bool TradeManager::hasTradeInfo(const string & Name)
 {
 	__BEGIN_TRY
 
-	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	unordered_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end()) return false;
 	return true;
 
@@ -176,7 +176,7 @@ TradeInfo* TradeManager::getTradeInfo(const string & Name)
 {
 	__BEGIN_TRY
 
-	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	unordered_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end()) return NULL;
 	return itr->second;
 
@@ -189,7 +189,7 @@ void TradeManager::addTradeInfo(TradeInfo* pInfo)
 	__BEGIN_TRY
 
 	Assert(pInfo != NULL);
-	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(pInfo->getMainName());
+	unordered_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(pInfo->getMainName());
 	if (itr != m_InfoMap.end()) throw DuplicatedException();
 	m_InfoMap[pInfo->getMainName()] = pInfo;
 		
@@ -201,7 +201,7 @@ void TradeManager::removeTradeInfo(const string & Name)
 {
 	__BEGIN_TRY
 	
-	hash_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
+	unordered_map<string, TradeInfo*>::iterator itr = m_InfoMap.find(Name);
 	if (itr == m_InfoMap.end())
 	{
 		cerr << "TradeManager::removeTradeInfo() : NoSuchElementException" << endl;

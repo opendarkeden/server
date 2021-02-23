@@ -21,7 +21,7 @@
 #include "Mutex.h"
 #include "ModifyInfo.h"
 #include "CreatureUtil.h"
-#include <hash_map>
+#include <unordered_map>
 
 #include "skill/OustersSkillSlot.h"
 
@@ -522,7 +522,7 @@ private:
 
 	// SkillSlot
 	//OustersSkillSlot* m_pSkillSlot[MAX_OUSTERS_SKILL_SLOT];
-	hash_map<SkillType_t, OustersSkillSlot*> m_SkillSlot;
+	unordered_map<SkillType_t, OustersSkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[OUSTERS_WEAR_MAX];
@@ -568,7 +568,7 @@ private:
 	// 은 저항
 	Resist_t m_SilverResist;
 
-	hash_map<SkillType_t, pair<bool, uint> > m_PassiveSkillMap;
+	unordered_map<SkillType_t, pair<bool, uint> > m_PassiveSkillMap;
 	int m_PassiveRatio;
 
 	// 각종 경험치 세이브 카운트

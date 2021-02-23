@@ -158,7 +158,7 @@ PlayerCreature::~PlayerCreature()
 	// 플래그 셋 삭제
 	SAFE_DELETE(m_pFlagSet);
 
-	// RankBonus hash_map 삭제
+	// RankBonus unordered_map 삭제
 	for ( HashMapRankBonusItor itr = m_RankBonuses.begin(); itr != m_RankBonuses.end(); itr++ )
 	{
 		SAFE_DELETE( itr->second );

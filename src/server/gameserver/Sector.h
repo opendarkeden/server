@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 
 const int SECTOR_SIZE = 13;
 
@@ -33,13 +33,13 @@ public:
 	Sector* getNearbySector(uint dir) throw (Error);
 	void setNearbySector(uint dir, Sector* pSector) throw (Error);
 
-	const hash_map<ObjectID_t, Object*>& getObjects(void) const { return m_Objects; }
+	const unordered_map<ObjectID_t, Object*>& getObjects(void) const { return m_Objects; }
 	uint getSize(void) const throw() { return m_Objects.size(); }
 
 	string toString(void) const throw();
 
 protected:
-	hash_map<ObjectID_t, Object*> m_Objects;
+	unordered_map<ObjectID_t, Object*> m_Objects;
 	Sector* m_pNearbySectors[9];
 };
 

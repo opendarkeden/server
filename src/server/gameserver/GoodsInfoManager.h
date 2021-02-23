@@ -12,7 +12,7 @@
 #include "Item.h"
 
 #include <list>
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // Class GoodsInfo
@@ -74,7 +74,7 @@ private:
 class GoodsInfoManager 
 {
 public:
-	typedef hash_map<DWORD, GoodsInfo*>			HashMapGoodsInfo;
+	typedef unordered_map<DWORD, GoodsInfo*>			HashMapGoodsInfo;
 	typedef HashMapGoodsInfo::iterator			HashMapGoodsInfoItr;
 	typedef HashMapGoodsInfo::const_iterator	HashMapGoodsInfoConstItr;
 

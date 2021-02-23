@@ -48,7 +48,7 @@ class FlagManager : public Scheduler
 	};
 public:
 	FlagManager();
-	virtual ~FlagManager();
+	virtual ~FlagManager() throw (Error);
 
 public:
 	void init();

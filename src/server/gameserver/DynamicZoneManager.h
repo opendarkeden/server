@@ -8,7 +8,7 @@
 
 #include "Types.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 
 class DynamicZoneGroup;
 
@@ -18,7 +18,7 @@ class DynamicZoneGroup;
 class DynamicZoneManager
 {
 public:
-	typedef hash_map<int,DynamicZoneGroup*>			HashMapDynamicZoneGroup;
+	typedef unordered_map<int,DynamicZoneGroup*>			HashMapDynamicZoneGroup;
 	typedef HashMapDynamicZoneGroup::iterator		HashMapDynamicZoneGroupItor;
 	typedef HashMapDynamicZoneGroup::const_iterator	HashMapDynamicZoneGroupConstItor;
 

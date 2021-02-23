@@ -216,7 +216,7 @@ CastleInfoManager::~CastleInfoManager ()
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.begin();
+	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.begin();
 	for (; itr != m_CastleInfos.end(); itr++)
 	{
 		CastleInfo* pInfo = itr->second;
@@ -375,7 +375,7 @@ void CastleInfoManager::addCastleInfo (CastleInfo* pCastleInfo)
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	hash_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(pCastleInfo->getZoneID());
+	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(pCastleInfo->getZoneID());
 	
 	if (itr != m_CastleInfos.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -405,7 +405,7 @@ void CastleInfoManager::deleteCastleInfo (ZoneID_t zoneID)
 {
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(zoneID);
+	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(zoneID);
 	
 	if (itr != m_CastleInfos.end()) 
 	{
@@ -434,7 +434,7 @@ CastleInfo* CastleInfoManager::getCastleInfo (ZoneID_t zoneID) const
 		
 	CastleInfo* pCastleInfo = NULL;
 
-	hash_map< ZoneID_t , CastleInfo *>::const_iterator itr = m_CastleInfos.find(zoneID);
+	unordered_map< ZoneID_t , CastleInfo *>::const_iterator itr = m_CastleInfos.find(zoneID);
 	
 	if (itr != m_CastleInfos.end()) {
 
@@ -468,7 +468,7 @@ string CastleInfoManager::toString () const
 	if (m_CastleInfos.empty()) msg << "EMPTY";
 	else 
 	{
-		for (hash_map< ZoneID_t , CastleInfo* >::const_iterator itr = m_CastleInfos.begin() ; itr != m_CastleInfos.end() ; itr ++) 
+		for (unordered_map< ZoneID_t , CastleInfo* >::const_iterator itr = m_CastleInfos.begin() ; itr != m_CastleInfos.end() ; itr ++) 
 		{
 			msg << itr->second->toString();
 		}
@@ -926,7 +926,7 @@ CastleInfo* CastleInfoManager::getGuildCastleInfo( GuildID_t guildID ) const
 		return NULL;
 	}
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -960,7 +960,7 @@ list<CastleInfo*> CastleInfoManager::getGuildCastleInfos( GuildID_t guildID ) co
 		return castleList;
 	}
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1086,7 +1086,7 @@ void    CastleInfoManager::deleteAllNPCs()
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1112,7 +1112,7 @@ void    CastleInfoManager::releaseAllSafeZone()
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1136,7 +1136,7 @@ void    CastleInfoManager::resetAllSafeZone()
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1160,7 +1160,7 @@ void	CastleInfoManager::transportAllOtherRace()
 {	
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1201,7 +1201,7 @@ void	CastleInfoManager::loadAllNPCs()
 {	
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1227,7 +1227,7 @@ ZoneID_t    CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for (; itr!=m_CastleInfos.end(); itr++)
 	{
@@ -1281,7 +1281,7 @@ bool CastleInfoManager::isCastleZone(ZoneID_t zoneID) const
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = m_CastleInfos.begin();
 
 	for ( ; itr != m_CastleInfos.end() ; ++itr )
 	{
@@ -1310,7 +1310,7 @@ CastleInfoManager::getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) cons
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZoneID_t>::const_iterator itr = m_CastleZoneIDs.find( zoneID );
+	unordered_map<ZoneID_t, ZoneID_t>::const_iterator itr = m_CastleZoneIDs.find( zoneID );
 
 	if (itr!=m_CastleZoneIDs.end())
 	{

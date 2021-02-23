@@ -6,7 +6,7 @@
 
 #include "Gpackets/GCNPCResponse.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 class QuestInfo;
 class QuestStatus;
@@ -16,7 +16,7 @@ class NPC;
 class QuestInfoManager
 {
 protected:
-	typedef hash_map<QuestID_t, QuestInfo*> QuestInfoHashMap;
+	typedef unordered_map<QuestID_t, QuestInfo*> QuestInfoHashMap;
 
 public:
 	QuestInfoManager( NPC* pNPC ) { m_QuestInfos.clear(); m_pOwnerNPC = pNPC; }

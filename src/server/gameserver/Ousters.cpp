@@ -383,7 +383,7 @@ Ousters::~Ousters()
 	deleteAllPartyInfo(this);
 
 	// 기술들을 삭제
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -1102,7 +1102,7 @@ OustersSkillSlot* Ousters::getSkill (SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -1134,7 +1134,7 @@ void Ousters::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
 	if (itr == m_SkillSlot.end())
 	{
@@ -1178,7 +1178,7 @@ void Ousters::addSkill(OustersSkillSlot* pOustersSkillSlot)
 			break;
 	}
 
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(pOustersSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1198,7 +1198,7 @@ void Ousters::removeSkill(SkillType_t SkillType)
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
@@ -1221,7 +1221,7 @@ void Ousters::removeCastleSkill(SkillType_t SkillType)
 	// 성지 스킬만 지울 수 있다.
 	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 	
 	if (itr != m_SkillSlot.end())
 	{
@@ -1241,7 +1241,7 @@ void Ousters::removeAllCastleSkill()
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
 	while ( itr != m_SkillSlot.end() )
 	{
@@ -1257,7 +1257,7 @@ void Ousters::removeAllCastleSkill()
 
 			// 성지스킬이면 지워준다. 반복자 사용에 주의
 			SAFE_DELETE( pSkillSlot );
-			hash_map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
+			unordered_map<SkillType_t, OustersSkillSlot*>::iterator prevItr = itr;
 			
 			++itr;
 			m_SkillSlot.erase( prevItr );
@@ -2381,7 +2381,7 @@ void Ousters::sendOustersSkillInfo()
 	Timeval currentTime;
 	getCurrentTime( currentTime );
 
-	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -2743,7 +2743,7 @@ void Ousters::saveSkills(void) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, OustersSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		OustersSkillSlot* pOustersSkillSlot = itr->second;
@@ -3116,7 +3116,7 @@ bool Ousters::satisfySkillRequire( SkillInfo* pSkillInfo )
 
 SkillBonus_t Ousters::getSkillPointCount( ElementalDomain eDomain )
 {
-	hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 	SkillBonus_t ret = 0;
 
 	for ( ; itr != m_SkillSlot.end() ; ++itr )
@@ -3247,7 +3247,7 @@ bool Ousters::canLearnSkill(SkillType_t skill)
 		skill == SKILL_HETER_CHAKRAM
 		)
 	{
-		hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+		unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 		for ( ; itr != m_SkillSlot.end() ; ++itr )
 		{
 			if ( itr->first < SKILL_DOUBLE_IMPACT ) continue;
@@ -3266,7 +3266,7 @@ bool Ousters::canLearnSkill(SkillType_t skill)
 	
 	if ( pSkillInfo->getLevel() >= 150 )
 	{
-		hash_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
+		unordered_map<SkillType_t, OustersSkillSlot*>::iterator itr = m_SkillSlot.begin();
 
 		for ( ; itr != m_SkillSlot.end() ; ++itr )
 		{

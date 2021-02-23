@@ -12,7 +12,7 @@
 // include files
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include <vector>
 #include <map>
 #include "ZoneGroup.h"
@@ -91,7 +91,7 @@ public:
 	uint size() const throw() { return m_ZoneGroups.size(); }
 
 	// getZoneGroups
-	const hash_map<ZoneGroupID_t, ZoneGroup*>& getZoneGroups() const { return m_ZoneGroups; }
+	const unordered_map<ZoneGroupID_t, ZoneGroup*>& getZoneGroups() const { return m_ZoneGroups; }
 
 	void   broadcast(Packet* pPacket) throw (Error); 
 	void   pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter=NULL) throw (Error); 
@@ -119,7 +119,7 @@ public:
 private:
 	
 	// zone ÀÇ ÇØ½¬¸Ê
-	hash_map< ZoneGroupID_t, ZoneGroup* > m_ZoneGroups;
+	unordered_map< ZoneGroupID_t, ZoneGroup* > m_ZoneGroups;
 
 	mutable Mutex	m_Mutex;
 };

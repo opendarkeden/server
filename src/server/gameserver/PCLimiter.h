@@ -145,7 +145,7 @@ PCLimiter<T>::clear()
 }
 
 template <class T>
-PCLimiter<T>::LimitInfo_t* 
+typename PCLimiter<T>::LimitInfo_t* 
 PCLimiter<T>::getLimitInfoByIndex(int index) 
 	throw (Error)
 {

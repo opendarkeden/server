@@ -35,8 +35,8 @@ void EventShutdown::activate ()
 
 	try
 	{
-		const hash_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
-		hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
+		const unordered_map<ZoneGroupID_t, ZoneGroup*>& zoneGroups = g_pZoneGroupManager->getZoneGroups();
+		unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = zoneGroups.begin();
 
 		for ( ; itr != zoneGroups.end(); itr++ )
 		{

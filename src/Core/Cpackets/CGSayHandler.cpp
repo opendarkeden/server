@@ -705,7 +705,8 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 	else if(set_type == "evnet_activate")
 	{
 		if(g_pVariableManager->getEventActivate() == 1)
-			message << "事件正在进行中..." << endl;
+			// message << "事件正在进行中..." << endl;
+			message << "event ongoing..." << endl;
 		else
 			message << "事件已停止" << endl;
 		gcSystemMessage.setMessage(message.toString());

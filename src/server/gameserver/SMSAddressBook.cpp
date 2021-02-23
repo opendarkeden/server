@@ -16,8 +16,8 @@ AddressUnit* SMSAddressElement::getAddressUnit() const
 
 SMSAddressBook::~SMSAddressBook()
 {
-	hash_map<DWORD, SMSAddressElement*>::iterator itr = m_Addresses.begin();
-	hash_map<DWORD, SMSAddressElement*>::iterator endItr = m_Addresses.end();
+	unordered_map<DWORD, SMSAddressElement*>::iterator itr = m_Addresses.begin();
+	unordered_map<DWORD, SMSAddressElement*>::iterator endItr = m_Addresses.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -67,8 +67,8 @@ GCSMSAddressList* SMSAddressBook::getGCSMSAddressList() const
 {
 	GCSMSAddressList* pRet = new GCSMSAddressList;
 
-	hash_map<DWORD,SMSAddressElement*>::const_iterator itr = m_Addresses.begin();
-	hash_map<DWORD,SMSAddressElement*>::const_iterator endItr = m_Addresses.end();
+	unordered_map<DWORD,SMSAddressElement*>::const_iterator itr = m_Addresses.begin();
+	unordered_map<DWORD,SMSAddressElement*>::const_iterator endItr = m_Addresses.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -104,7 +104,7 @@ int SMSAddressBook::addAddressElement( SMSAddressElement* pElement )
 
 int SMSAddressBook::removeAddressElement( DWORD eID )
 {
-	hash_map<DWORD, SMSAddressElement*>::iterator itr = m_Addresses.find( eID );
+	unordered_map<DWORD, SMSAddressElement*>::iterator itr = m_Addresses.find( eID );
 
 	if ( itr == m_Addresses.end() ) return GCAddressListVerify::DELETE_FAIL_NO_SUCH_EID;
 

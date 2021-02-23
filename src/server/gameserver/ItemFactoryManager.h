@@ -9,7 +9,7 @@
 
 #include "Item.h"
 #include "ItemFactory.h"
-#include <hash_map>
+#include <unordered_map>
 
 #define CREATE_ITEM(C, T, O) g_pItemFactoryManager->createItem(C, T, O)
 
@@ -39,7 +39,7 @@ public:
 private:
 	ItemFactory ** m_Factories; // 아이템팩토리의 배열
 	ushort         m_Size;      // 아이템팩토리배열의 크기
-	hash_map<string, Item::ItemClass> m_ItemClassMap;
+	unordered_map<string, Item::ItemClass> m_ItemClassMap;
 
 };
 

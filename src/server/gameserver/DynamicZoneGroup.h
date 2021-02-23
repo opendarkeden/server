@@ -6,7 +6,7 @@
 #define __DYNAMIC_ZONE_GROUP_H__
 
 #include "Types.h"
-#include <hash_map>
+#include <unordered_map>
 
 // forward declaration
 class DynamicZone;
@@ -17,7 +17,7 @@ class DynamicZone;
 class DynamicZoneGroup
 {
 public:
-	typedef hash_map<ZoneID_t,DynamicZone*>		HashMapDynamicZone;
+	typedef unordered_map<ZoneID_t,DynamicZone*>		HashMapDynamicZone;
 	typedef HashMapDynamicZone::iterator		HashMapDynamicZoneItor;
 	typedef HashMapDynamicZone::const_iterator	HashMapDynamicZoneConstItor;
 

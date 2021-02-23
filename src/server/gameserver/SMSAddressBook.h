@@ -6,7 +6,7 @@
 #include "Gpackets/GCSMSAddressList.h"
 
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 
 #define MAX_ADDRESS_NUM 30
 
@@ -48,7 +48,7 @@ public:
 
 private:
 	PlayerCreature*						m_pOwner;
-	hash_map<DWORD, SMSAddressElement*>	m_Addresses;
+	unordered_map<DWORD, SMSAddressElement*>	m_Addresses;
 
 	DWORD								m_NextEID;
 };

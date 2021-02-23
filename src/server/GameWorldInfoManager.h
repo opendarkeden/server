@@ -13,15 +13,15 @@
 #include "Types.h"
 #include "Exception.h"
 #include "GameWorldInfo.h"
-#include <hash_map>
+#include <unordered_map>
 
-typedef hash_map< WorldID_t , GameWorldInfo* > HashMapGameWorldInfo;
+typedef unordered_map< WorldID_t , GameWorldInfo* > HashMapGameWorldInfo;
 
 //----------------------------------------------------------------------
 //
 // class GameWorldInfoManager;
 //
-// 게임 서버의 ID 를 키값으로 하는 GameWorldInfo의 hash_map 을 
+// 게임 서버의 ID 를 키값으로 하는 GameWorldInfo의 unordered_map 을 
 // 내부에 가지고 있다.
 //
 //----------------------------------------------------------------------

@@ -34,7 +34,7 @@ class Scheduler
 {
 public:
 	Scheduler() throw();
-	virtual ~Scheduler() throw();
+	virtual ~Scheduler() throw(Error);
 
 	void			clear() throw(Error);
 

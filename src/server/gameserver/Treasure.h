@@ -32,7 +32,7 @@
 #include <list>
 #include <vector>
 #include <fstream>
-#include <hash_map>
+#include <unordered_map>
 
 //class XMLTree;
 
@@ -205,7 +205,7 @@ public :
     TreasureList*   loadTreasure(const string& filename);
 
 private :
-    hash_map<string, TreasureList*>     m_TreasureLists;
+    unordered_map<string, TreasureList*>     m_TreasureLists;
 };
 
 #endif

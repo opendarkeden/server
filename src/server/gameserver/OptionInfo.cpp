@@ -414,7 +414,7 @@ void OptionInfoSet::addOptionType(uint level, OptionType_t type)
 {
 	__BEGIN_TRY
 
-	hash_map<uint, OptionType_t>::iterator itr = m_OptionTypes.find(level);
+	unordered_map<uint, OptionType_t>::iterator itr = m_OptionTypes.find(level);
 
 	if (itr != m_OptionTypes.end())
 	{
@@ -436,7 +436,7 @@ void OptionInfoSet::getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<
 {
 	__BEGIN_TRY
 
-	hash_map<uint, OptionType_t>::iterator itr = m_OptionTypes.begin();
+	unordered_map<uint, OptionType_t>::iterator itr = m_OptionTypes.begin();
 	for (; itr != m_OptionTypes.end(); itr++)
 	{
 		uint level = itr->first;
@@ -459,7 +459,7 @@ string OptionInfoSet::toString(void) const
 
 	msg << "OptionInfoSet(";
 
-	hash_map<uint, OptionType_t>::const_iterator itr = m_OptionTypes.begin();
+	unordered_map<uint, OptionType_t>::const_iterator itr = m_OptionTypes.begin();
 	for (; itr != m_OptionTypes.end(); itr++)
 		msg << (int)itr->first << ":" << (int)itr->second << ",";
 
@@ -508,7 +508,7 @@ OptionInfoManager::release()
 
 	m_nOptionCount = 0;
 
-	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.begin();
+	unordered_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.begin();
 	for (; itr != m_OptionInfos.end(); itr++)
 	{
 		OptionInfo* pInfo = itr->second;
@@ -687,7 +687,7 @@ void OptionInfoManager::load()
 
 			int key = level*10 + total;
 
-			hash_map<int,RareOptionUpgradeInfo*>::iterator itr = m_RareEnchantInfo.find(key);
+			unordered_map<int,RareOptionUpgradeInfo*>::iterator itr = m_RareEnchantInfo.find(key);
 
 			if ( itr == m_RareEnchantInfo.end() )
 			{
@@ -773,7 +773,7 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 	__BEGIN_TRY
 
 	// OptionType으로 구분되는 해쉬맵에다 집어넣는다.
-	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
+	unordered_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
 
 	if (itr != m_OptionInfos.end())
 	{
@@ -787,7 +787,7 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 	m_OptionInfos[pOptionInfo->getType()] = pOptionInfo;
 
 	// Nickname으로 구분되는 해쉬맵에다 집어넣는다.
-	hash_map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
+	unordered_map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
 
 	if (itr2 != m_NicknameOptionInfos.end())
 	{
@@ -810,7 +810,7 @@ OptionInfo* OptionInfoManager::getOptionInfo(OptionType_t OptionType)
 
 	//cout << "getOptionInfo(" << (int)OptionType << ") " << endl;
 
-	hash_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(OptionType);
+	unordered_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(OptionType);
 
 	if (itr == m_OptionInfos.end())
 	{
@@ -831,7 +831,7 @@ OptionInfo* OptionInfoManager::getOptionInfo(const string& nickname)
 {
 	__BEGIN_TRY
 
-	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+	unordered_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
 
 	if (itr == m_NicknameOptionInfos.end())
 	{
@@ -852,7 +852,7 @@ OptionType_t OptionInfoManager::getOptionType(const string& nickname)
 {
 	__BEGIN_TRY
 
-	hash_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
+	unordered_map<string, OptionInfo*>::iterator itr = m_NicknameOptionInfos.find(nickname);
 
 	if (itr == m_NicknameOptionInfos.end())
 	{

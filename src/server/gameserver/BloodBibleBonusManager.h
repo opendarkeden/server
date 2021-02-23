@@ -10,12 +10,12 @@
 #include "Exception.h"
 #include "Exception.h"
 #include "Types.h"
-#include <hash_map>
+#include <unordered_map>
 
 class GCHolyLandBonusInfo;
 class BloodBibleBonus;
 
-typedef hash_map<BloodBibleBonusType_t, BloodBibleBonus*>	BloodBibleBonusHashMap;
+typedef unordered_map<BloodBibleBonusType_t, BloodBibleBonus*>	BloodBibleBonusHashMap;
 typedef BloodBibleBonusHashMap::iterator 					BloodBibleBonusHashMapItor;
 typedef BloodBibleBonusHashMap::const_iterator 				BloodBibleBonusHashMapConstItor;
 

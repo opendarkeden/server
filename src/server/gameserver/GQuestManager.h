@@ -5,7 +5,7 @@
 #include "Exception.h"
 #include "GQuestInventory.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 class Packet;
 class PlayerCreature;
@@ -93,14 +93,14 @@ public:
 
 private:
 	PlayerCreature* m_pOwner;
-	hash_map<DWORD, GQuestStatus*>	m_QuestStatuses;
+	unordered_map<DWORD, GQuestStatus*>	m_QuestStatuses;
 
 	list<GQuestMission*>	m_EventMissions[MAX];
 	GQuestInventory			m_GQuestInventory;
 
 	bool					m_bPartyQuest;
 
-	hash_map<ZoneID_t, BYTE>	m_DynamicZoneInfo;
+	unordered_map<ZoneID_t, BYTE>	m_DynamicZoneInfo;
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 #include "Gpackets/GCNPCResponse.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 class RewardClass;
 class PlayerCreature;
@@ -15,7 +15,7 @@ class NPC;
 class RewardClassInfoManager
 {
 protected:
-	typedef hash_map<RewardClass_t,RewardClass*> RewardClassHashMap;
+	typedef unordered_map<RewardClass_t,RewardClass*> RewardClassHashMap;
 
 public:
 	RewardClassInfoManager( NPC* pNPC );

@@ -10,8 +10,8 @@ GQuestElement::ResultType GQuestEventPartyElement::checkCondition( PlayerCreatur
 	if ( pParty == NULL ) return FAIL;
 	if ( pParty->getSize() != 2 ) return FAIL;
 
-	hash_map<string, Creature*> members = pParty->getMemberMap();
-	hash_map<string, Creature*>::iterator itr = members.begin();
+	unordered_map<string, Creature*> members = pParty->getMemberMap();
+	unordered_map<string, Creature*>::iterator itr = members.begin();
 
 	for ( ; itr != members.end() ; ++itr )
 	{

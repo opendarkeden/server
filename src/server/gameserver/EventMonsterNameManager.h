@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class MonsterNameManager
@@ -42,7 +42,7 @@ protected:
 	short   m_nMiddleNameCount;
 	short   m_nLastNameCount;
 
-	hash_map<ulonglong, string> m_UsedName;
+	unordered_map<ulonglong, string> m_UsedName;
 
 };
 

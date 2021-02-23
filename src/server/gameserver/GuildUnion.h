@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include <list>
-#include <hash_map>
+#include <unordered_map>
 #include "Gpackets/GCUnionOfferList.h"
 
 #include "Mutex.h"
@@ -69,8 +69,8 @@ public:
 
 private:
 	list<GuildUnion*>					m_GuildUnionList;
-	hash_map<GuildID_t, GuildUnion*>	m_GuildUnionMap;
-	hash_map<uint, GuildUnion*>			m_UnionIDMap;
+	unordered_map<GuildID_t, GuildUnion*>	m_GuildUnionMap;
+	unordered_map<uint, GuildUnion*>			m_UnionIDMap;
 
 
 	// Mutex

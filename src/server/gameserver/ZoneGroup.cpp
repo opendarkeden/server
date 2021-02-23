@@ -198,7 +198,7 @@ void ZoneGroup::heartbeat()
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (hash_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
+	for (unordered_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
 	{
 		Zone* pZone = itr->second;
 		pZone->heartbeat();
@@ -225,7 +225,7 @@ void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
 	//vstime.start();
 
 	// now process each zones' NPCs, MOBs, weather, quest, ...
-	for (hash_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
+	for (unordered_map< ZoneID_t , Zone* >::iterator itr = m_Zones.begin() ; itr != m_Zones.end() ; itr ++) 
 	{
 		Zone* pZone = itr->second;
 
@@ -247,7 +247,7 @@ void ZoneGroup::addZone (Zone* pZone)
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
+	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
 	
 	if (itr != m_Zones.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -266,7 +266,7 @@ void ZoneGroup::deleteZone (ZoneID_t zoneID)
 {
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
+	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -296,7 +296,7 @@ Zone* ZoneGroup::removeZone (ZoneID_t zoneID)
 {
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
+	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -332,7 +332,7 @@ Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
 		
 	Zone* pZone = NULL;
 
-	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
 	
 	if (itr != m_Zones.end()) 
 	{
@@ -359,7 +359,7 @@ Zone* ZoneGroup::getCombatZone (ZoneID_t zoneID) const
 
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
+	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.find(zoneID);
 	
 	if(itr != m_Zones.end()){ 
 		pZone = itr->second;
@@ -379,7 +379,7 @@ ZoneGroup::initLoadValue()
 
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
+	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
 	
 	while (itr != m_Zones.end())
 	{ 
@@ -401,7 +401,7 @@ ZoneGroup::getLoadValue() const
 
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
+	unordered_map< ZoneID_t , Zone *>::const_iterator itr = m_Zones.begin();
 	
 	while (itr != m_Zones.end())
 	{ 

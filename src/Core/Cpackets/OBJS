@@ -1,30 +1,13 @@
 OBJS	= \
-		CGAttack.o CGAttackHandler.o \
-		CGAddGearToMouse.o CGAddGearToMouseHandler.o \
 		CGAddInventoryToMouse.o CGAddInventoryToMouseHandler.o \
-		CGAddMouseToGear.o CGAddMouseToGearHandler.o \
-		CGAddMouseToInventory.o CGAddMouseToInventoryHandler.o \
-		CGAddMouseToQuickSlot.o CGAddMouseToQuickSlotHandler.o \
-		CGAddMouseToZone.o CGAddMouseToZoneHandler.o \
-		CGAddQuickSlotToMouse.o CGAddQuickSlotToMouseHandler.o \
-		CGAddZoneToInventory.o CGAddZoneToInventoryHandler.o \
-		CGAddZoneToMouse.o CGAddZoneToMouseHandler.o \
-		CGBloodDrain.o CGBloodDrainHandler.o \
-		CGCastingSkill.o CGCastingSkillHandler.o \
-		CGConnect.o CGConnectHandler.o \
 		CLReconnectLogin.o CLReconnectLoginHandler.o \
-		CGDissectionCorpse.o CGDissectionCorpseHandler.o \
 		CGGlobalChat.o CGGlobalChatHandler.o \
-		CGLearnSkill.o CGLearnSkillHandler.o \
-		CGLogout.o CGLogoutHandler.o \
-		CGMakeItem.o CGMakeItemHandler.o \
 		CGMove.o CGMoveHandler.o \
 		CGReady.o CGReadyHandler.o \
 		CGReloadFromInventory.o CGReloadFromInventoryHandler.o \
 		CGReloadFromQuickSlot.o CGReloadFromQuickSlotHandler.o \
 		CGRideMotorCycle.o CGRideMotorCycleHandler.o \
 		CGGetOffMotorCycle.o CGGetOffMotorCycleHandler.o \
-		CGSay.o CGSayHandler.o \
 		CGSkillToInventory.o CGSkillToInventoryHandler.o \
 		CGSelectPortal.o CGSelectPortalHandler.o \
 		CGThrowItem.o CGThrowItemHandler.o \
@@ -161,6 +144,23 @@ OBJS	= \
 		CGUsePowerPoint.o CGUsePowerPointHandler.o \
 		CGDonationMoney.o CGDonationMoneyHandler.o \
 		CGGetEventItem.o CGGetEventItemHandler.o \
+		CGAttack.o CGAttackHandler.o \
+		CGAddGearToMouse.o CGAddGearToMouseHandler.o \
+		CGAddMouseToGear.o CGAddMouseToGearHandler.o \
+		CGAddMouseToInventory.o CGAddMouseToInventoryHandler.o \
+		CGAddMouseToQuickSlot.o CGAddMouseToQuickSlotHandler.o \
+		CGAddMouseToZone.o CGAddMouseToZoneHandler.o \
+		CGAddQuickSlotToMouse.o CGAddQuickSlotToMouseHandler.o \
+		CGAddZoneToInventory.o CGAddZoneToInventoryHandler.o \
+		CGAddZoneToMouse.o CGAddZoneToMouseHandler.o \
+		CGBloodDrain.o CGBloodDrainHandler.o \
+		CGCastingSkill.o CGCastingSkillHandler.o \
+		CGConnect.o CGConnectHandler.o \
+		CGDissectionCorpse.o CGDissectionCorpseHandler.o \
+		CGLearnSkill.o CGLearnSkillHandler.o \
+		CGLogout.o CGLogoutHandler.o \
+		CGMakeItem.o CGMakeItemHandler.o \
+		CGSay.o CGSayHandler.o \
 		CGConnectSetKey.o CGConnectSetKeyHandler.o
 SRCS    = $(OBJS:.o=.cpp)
 

@@ -85,7 +85,7 @@ void CGRelicToObjectHandler::execute (CGRelicToObject* pPacket , Player* pPlayer
 
 	if ( pItem != NULL && pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 31 )
 	{
-		static hash_map<string, string> scripts;
+		static unordered_map<string, string> scripts;
 		if ( scripts.empty() )
 		{
 			cout << "스크립트 초기화" << endl;

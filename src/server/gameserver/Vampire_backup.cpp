@@ -221,7 +221,7 @@ Vampire::~Vampire()
 	deleteAllPartyInfo(this);
 
 	// 기술들을 삭제
-	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -674,7 +674,7 @@ VampireSkillSlot* Vampire::getSkill (SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.find(SkillType);
 	if (itr != m_SkillSlot.end())
 	{
 		return itr->second;
@@ -706,7 +706,7 @@ void Vampire::addSkill(SkillType_t SkillType)
 			break;
 	}
 
-	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
+	unordered_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
 
 	if (itr == m_SkillSlot.end())
 	{
@@ -749,7 +749,7 @@ void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 			break;
 	}
 
-	hash_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(pVampireSkillSlot->getSkillType());
+	unordered_map<SkillType_t, VampireSkillSlot*>::iterator itr = m_SkillSlot.find(pVampireSkillSlot->getSkillType());
 	
 	if (itr == m_SkillSlot.end())
 	{
@@ -1588,7 +1588,7 @@ void Vampire::sendVampireSkillInfo()
 
 	BYTE SkillCount = 0;
 
-	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		VampireSkillSlot* pVampireSkillSlot = itr->second;
@@ -1945,7 +1945,7 @@ void Vampire::saveSkills(void) const
 {
 	__BEGIN_TRY
 
-	hash_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
+	unordered_map<SkillType_t, VampireSkillSlot*>::const_iterator itr = m_SkillSlot.begin();
 	for (; itr != m_SkillSlot.end(); itr++)
 	{
 		VampireSkillSlot* pVampireSkillSlot = itr->second;

@@ -4,8 +4,8 @@
 
 void PetAttrInfoManager::clear()
 {
-	hash_map<PetAttr_t, PetAttrInfo*>::iterator itr = m_PetAttrInfoMap.begin();
-	hash_map<PetAttr_t, PetAttrInfo*>::iterator endItr = m_PetAttrInfoMap.end();
+	unordered_map<PetAttr_t, PetAttrInfo*>::iterator itr = m_PetAttrInfoMap.begin();
+	unordered_map<PetAttr_t, PetAttrInfo*>::iterator endItr = m_PetAttrInfoMap.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -55,8 +55,8 @@ bool PetAttrInfoManager::enchantRandomAttr( PetInfo* pPetInfo, int ratio )
 	cout << "ratio : " << ratio << endl;
 	cout << "value : " << value << endl;
 
-	hash_map<PetAttr_t, PetAttrInfo*>::iterator itr = m_PetAttrInfoMap.begin();
-	hash_map<PetAttr_t, PetAttrInfo*>::iterator endItr = m_PetAttrInfoMap.end();
+	unordered_map<PetAttr_t, PetAttrInfo*>::iterator itr = m_PetAttrInfoMap.begin();
+	unordered_map<PetAttr_t, PetAttrInfo*>::iterator endItr = m_PetAttrInfoMap.end();
 
 	if ( pPetInfo->getPetLevel() < 10 ) return false;
 	if ( value < ratio ) return false;
@@ -108,7 +108,7 @@ bool PetAttrInfoManager::enchantSpecAttr( PetInfo* pPetInfo, PetAttr_t PetAttr )
 
 PetAttrInfo* PetAttrInfoManager::getPetAttrInfo( PetAttr_t PetAttr ) const
 {
-	hash_map<PetAttr_t,PetAttrInfo*>::const_iterator itr = m_PetAttrInfoMap.find(PetAttr);
+	unordered_map<PetAttr_t,PetAttrInfo*>::const_iterator itr = m_PetAttrInfoMap.find(PetAttr);
 
 	if ( itr == m_PetAttrInfoMap.end() ) return NULL;
 

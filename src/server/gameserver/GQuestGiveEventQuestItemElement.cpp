@@ -96,8 +96,8 @@ GQuestElement::ResultType GQuestGiveEventQuestItemElement::checkCondition( Playe
 	Party* pParty = pPC->getLocalPartyManager()->getParty( pPC->getPartyID() );
 	if ( pParty != NULL )
 	{
-		hash_map<string, Creature*> members = pParty->getMemberMap();
-		hash_map<string, Creature*>::iterator itr = members.begin();
+		unordered_map<string, Creature*> members = pParty->getMemberMap();
+		unordered_map<string, Creature*>::iterator itr = members.begin();
 
 		for ( ; itr != members.end() ; ++itr )
 		{

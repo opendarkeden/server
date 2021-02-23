@@ -5,7 +5,7 @@
 #include "Exception.h"
 
 #include <vector>
-#include <hash_map>
+#include <unordered_map>
 
 class Zone;
 class EventZoneInfoManager;
@@ -57,7 +57,7 @@ public:
 
 private:
 	WORD								m_EventID;
-	hash_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
+	unordered_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
 };
 
 class EventZoneInfoManager
@@ -71,8 +71,8 @@ public:
 	static EventZoneInfoManager& Instance() { static EventZoneInfoManager theInstance; return theInstance; }
 
 private:
-	hash_map<WORD, ZoneEventInfo*>		m_ZoneEventInfos;
-	hash_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
+	unordered_map<WORD, ZoneEventInfo*>		m_ZoneEventInfos;
+	unordered_map<ZoneID_t, EventZoneInfo*>	m_EventZoneInfos;
 };
 
 #endif

@@ -119,7 +119,7 @@ void NPCManager::processCreatures ()
 
 	try
 	{
-		hash_map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
+		unordered_map<ObjectID_t, Creature*>::iterator itr = m_Creatures.begin();
 		for (; itr != m_Creatures.end() ; itr++)
 		{
 			itr->second->act(currentTime);

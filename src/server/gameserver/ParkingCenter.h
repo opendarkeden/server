@@ -12,7 +12,7 @@
 #include "Zone.h"
 #include "item/Motorcycle.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 #include <list>
 
 //////////////////////////////////////////////////////////////////////////////
@@ -84,7 +84,7 @@ public:
 
 private:
 	// 여기서 ItemID_t는 오토바이의 ItemID를 말한다.
-	hash_map< ItemID_t, MotorcycleBox* > 	m_Motorcycles;
+	unordered_map< ItemID_t, MotorcycleBox* > 	m_Motorcycles;
 	list< MotorcycleBox* > 					m_RemoveMotorcycles;
 
 	mutable Mutex m_Mutex;

@@ -87,15 +87,15 @@ void GQuestManager::refreshQuest(bool sendPacket)
 {
 	__BEGIN_TRY
 
-	hash_map<DWORD, GQuestInfo*>& infos = GQuestInfoManager::Instance().getInfos();
+	unordered_map<DWORD, GQuestInfo*>& infos = GQuestInfoManager::Instance().getInfos();
 
-	hash_map<DWORD, GQuestInfo*>::iterator itr = infos.begin();
-	hash_map<DWORD, GQuestInfo*>::iterator endItr = infos.end();
+	unordered_map<DWORD, GQuestInfo*>::iterator itr = infos.begin();
+	unordered_map<DWORD, GQuestInfo*>::iterator endItr = infos.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
 //		if ( m_QuestStatuses[itr->first] != NULL ) continue;
-		hash_map<DWORD, GQuestStatus*>::iterator finditr = m_QuestStatuses.find(itr->first);
+		unordered_map<DWORD, GQuestStatus*>::iterator finditr = m_QuestStatuses.find(itr->first);
 		if ( finditr != m_QuestStatuses.end() )
 		{
 			if ( finditr->second->getStatus() == QuestStatusInfo::CAN_ACCEPT )
@@ -131,8 +131,8 @@ Packet* GQuestManager::getStatusInfoPacket() const
 {
 	GCGQuestStatusInfo* pRet = new GCGQuestStatusInfo;
 
-	hash_map<DWORD, GQuestStatus*>::const_iterator itr = m_QuestStatuses.begin();
-	hash_map<DWORD, GQuestStatus*>::const_iterator endItr = m_QuestStatuses.end();
+	unordered_map<DWORD, GQuestStatus*>::const_iterator itr = m_QuestStatuses.begin();
+	unordered_map<DWORD, GQuestStatus*>::const_iterator endItr = m_QuestStatuses.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -144,7 +144,7 @@ Packet* GQuestManager::getStatusInfoPacket() const
 
 void GQuestManager::accept(DWORD qID)
 {
-	hash_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
+	unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
 	if ( itr == m_QuestStatuses.end() )
 	{
 		cout << "accept : 없다 -_- " << qID << endl;
@@ -176,7 +176,7 @@ void GQuestManager::accept(DWORD qID)
 
 void GQuestManager::cancel(DWORD qID)
 {
-	hash_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
+	unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
 	if ( itr == m_QuestStatuses.end() )
 	{
 		cout << "accept : 없다 -_- " << qID << endl;
@@ -409,8 +409,8 @@ void GQuestManager::rideMotorcycle(bool isParty)
 		Party* pParty = g_pGlobalPartyManager->getParty( m_pOwner->getPartyID() );
 		if ( pParty != NULL && pParty->getSize() == 2 )
 		{
-			hash_map<string, Creature*> members = pParty->getMemberMap();
-			hash_map<string, Creature*>::iterator itr = members.begin();
+			unordered_map<string, Creature*> members = pParty->getMemberMap();
+			unordered_map<string, Creature*>::iterator itr = members.begin();
 
 			for ( ; itr != members.end() ; ++itr )
 			{
@@ -465,8 +465,8 @@ void GQuestManager::touchWayPoint(MonsterCorpse* pWayPoint)
 		Party* pParty = g_pGlobalPartyManager->getParty( m_pOwner->getPartyID() );
 		if ( pParty != NULL && pParty->getSize() == 2 )
 		{
-			hash_map<string, Creature*> members = pParty->getMemberMap();
-			hash_map<string, Creature*>::iterator itr = members.begin();
+			unordered_map<string, Creature*> members = pParty->getMemberMap();
+			unordered_map<string, Creature*>::iterator itr = members.begin();
 
 			for ( ; itr != members.end() ; ++itr )
 			{
@@ -624,8 +624,8 @@ void GQuestManager::fastMove(bool isParty)
 		Party* pParty = g_pGlobalPartyManager->getParty( m_pOwner->getPartyID() );
 		if ( pParty != NULL && pParty->getSize() == 2 )
 		{
-			hash_map<string, Creature*> members = pParty->getMemberMap();
-			hash_map<string, Creature*>::iterator itr = members.begin();
+			unordered_map<string, Creature*> members = pParty->getMemberMap();
+			unordered_map<string, Creature*>::iterator itr = members.begin();
 
 			for ( ; itr != members.end() ; ++itr )
 			{
@@ -668,8 +668,8 @@ void GQuestManager::illegalWarp(bool isParty)
 		Party* pParty = g_pGlobalPartyManager->getParty( m_pOwner->getPartyID() );
 		if ( pParty != NULL && pParty->getSize() == 2 )
 		{
-			hash_map<string, Creature*> members = pParty->getMemberMap();
-			hash_map<string, Creature*>::iterator itr = members.begin();
+			unordered_map<string, Creature*> members = pParty->getMemberMap();
+			unordered_map<string, Creature*>::iterator itr = members.begin();
 
 			for ( ; itr != members.end() ; ++itr )
 			{
@@ -774,7 +774,7 @@ void GQuestManager::enterDynamicZone(ZoneID_t zoneID)
 
 GQuestStatus* GQuestManager::getGQuestStatus(DWORD qID)
 {
-	hash_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
+	unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
 
 	if ( itr == m_QuestStatuses.end() ) return NULL;
 
@@ -783,7 +783,7 @@ GQuestStatus* GQuestManager::getGQuestStatus(DWORD qID)
 
 void GQuestManager::eraseQuest(DWORD qID)
 {
-	hash_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
+	unordered_map<DWORD, GQuestStatus*>::iterator itr = m_QuestStatuses.find(qID);
 	if ( itr != m_QuestStatuses.end() ) m_QuestStatuses.erase(itr);
 
 	Statement* pStmt = NULL;

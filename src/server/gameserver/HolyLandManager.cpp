@@ -83,8 +83,8 @@ void HolyLandManager::broadcast( Packet* pPacket ) const
 		__ENTER_CRITICAL_SECTION((*pZone))
 
 		const PCManager* pPCManager = pZone->getPCManager();
-		const hash_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
-		hash_map< ObjectID_t, Creature* >::const_iterator itr;
+		const unordered_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
+		unordered_map< ObjectID_t, Creature* >::const_iterator itr;
 
 		for (itr=creatures.begin(); itr!=creatures.end(); itr++)
 		{

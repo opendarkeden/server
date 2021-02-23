@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "NicknameInfo.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 class PlayerCreature;
 class Packet;
@@ -25,7 +25,7 @@ public:
 
 private:
 	PlayerCreature*					m_pOwner;
-	hash_map<WORD, NicknameInfo*>	m_Nicknames;
+	unordered_map<WORD, NicknameInfo*>	m_Nicknames;
 	WORD							m_NextNicknameID;
 };
 

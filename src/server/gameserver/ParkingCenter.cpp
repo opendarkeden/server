@@ -83,7 +83,7 @@ ParkingCenter::~ParkingCenter()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.begin();
+	unordered_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.begin();
 
 	for (; itr != m_Motorcycles.end(); itr++)
 	{
@@ -107,7 +107,7 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 
 	Assert(pMotorcycleBox != NULL);
 
-	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(pMotorcycleBox->getItemID());
+	unordered_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(pMotorcycleBox->getItemID());
 
 	if (itr != m_Motorcycles.end())
 	{
@@ -121,7 +121,7 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 	__END_CATCH
 }
 
-// hash_map에서 열쇠의 TargetID에 해당하는 오토바이를 지우는 함수이다.
+// unordered_map에서 열쇠의 TargetID에 해당하는 오토바이를 지우는 함수이다.
 // 여기서 오토바이 전체를 삭제하게 됨으로 존에서 오토바이를 지운다음.
 // 최종적으로 이 함수를 불러야 할 것이다.
 void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID) 
@@ -133,7 +133,7 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+	unordered_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
 
 	if (itr == m_Motorcycles.end())
 	{
@@ -177,7 +177,7 @@ bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
+	unordered_map< ItemID_t , MotorcycleBox* >::iterator itr = m_Motorcycles.find(keyTargetID);
 
 	if (itr == m_Motorcycles.end())
 	{
@@ -203,7 +203,7 @@ MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const
 	{
 		__ENTER_CRITICAL_SECTION(m_Mutex)
 
-		hash_map< ItemID_t , MotorcycleBox* >::const_iterator itr = m_Motorcycles.find(keyTargetID);
+		unordered_map< ItemID_t , MotorcycleBox* >::const_iterator itr = m_Motorcycles.find(keyTargetID);
 
 		if (itr == m_Motorcycles.end())
 		{

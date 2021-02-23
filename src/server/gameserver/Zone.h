@@ -19,7 +19,7 @@
 #include "Encrypter.h"
 #include <queue>
 #include <vector>
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // forward declaration
@@ -187,7 +187,7 @@ public:
 	bool moveFastPC(Creature* pPC, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2, SkillType_t skillType) throw(ProtocolException, Error);
 	bool moveFastMonster(Monster* pMonster, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2, SkillType_t skillType) throw(ProtocolException, Error);
 
-	// ÀüÀï½Ã ¼º ¾ÈÀº ¾ÈÀüÁö´ë°¡ µÇ¾ú´Ù°¡ ¸»¾Ò´Ù°¡ ÇÑ´Ù. Á¸À» ¼¼ÀÌÇÁÁ¸ÀÌ ¾Æ´Ï°Ô ¸¸µé°Å³ª ¿ø»óº¹±¸½ÃÅ²´Ù.
+	// ÀüÀï½Ã ¼º ¾ÈÀº ¾ÈÀüÁö´ë°¡ µÇ¾ú´Ù°¡ ¸»¾Ò´Ù°¡ ÇÑ´Ù. Á¸À» ¼¼ÀÌÇÁÁ¸ÀÌ ¾Æ´Ï°Ô ¸¸µé°Å³ª ¿ø»óº¹±¸½ÃÅ®´Ù.
 	void releaseSafeZone() throw();
 	void resetSafeZone() throw();
 
@@ -272,7 +272,7 @@ public:
 	// ABCD add item to item hash map
 	void addToItemList(Item* pItem) throw();
 	void deleteFromItemList(ObjectID_t id) throw();
-	hash_map<ObjectID_t, Item*> getItems(void) throw() { return m_Items; }
+	unordered_map<ObjectID_t, Item*> getItems(void) throw() { return m_Items; }
 
 	EffectManager* getEffectManager() throw() { return m_pEffectManager; }
 	EffectManager* getVampirePortalManager() throw() { return m_pVampirePortalManager; }
@@ -295,7 +295,7 @@ public:
 	void addItemDelayed(Item* pItem, ZoneCoord_t cx, ZoneCoord_t cy, bool bAllowCreature=true) throw(Error);
 	void addItemToCorpseDelayed(Item* pItem, ObjectID_t corpseObjectID) throw(Error);
 	void deleteItemDelayed(Object* pObject, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
-	void transportItem(ZoneCoord_t x, ZoneCoord_t y, Item* pItem, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t y) throw(Error);
+	void transportItem(ZoneCoord_t x, ZoneCoord_t y, Item* pItem, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy) throw(Error);
 	void transportItemToCorpse(Item* pItem, Zone* pTargetZone, ObjectID_t corpseObjectID) throw(Error);
 
 	LocalPartyManager* getLocalPartyManager(void) const { return m_pLocalPartyManager; }
@@ -304,7 +304,7 @@ public:
 	TradeManager* getTradeManager(void) const { return m_pTradeManager; }
 
 
-	// pPC°¡ pMonster¸¦ º¼¶§ Monster´Â ¾î¶² packetÀ¸·Î addµÇ´Â°¡?
+	// pPC°¡ pMonster¸¦ º¼¶§ Monster´Â ¾î¶® packetÀ¸·Î addµÇ´Â°¡?
 	// pPC°¡ NULLÀÎ °æ¿ì ´Ù º¸ÀÌ´Â »óÅÂ¶ó°í °¡Á¤ÇÑ´Ù.
 	Packet*	createMonsterAddPacket(Monster* pMonster, Creature* pPC) const throw();
 
@@ -389,7 +389,7 @@ private:
 	// Á¸ÀÇ ±âº» ÀûÀÎ Á¤º¸
 	ZoneID_t       m_ZoneID;           // zone id
 	ZoneGroup*     m_pZoneGroup;       // parent zone group
-	ZoneType       m_ZoneType;         // Á¸ Å¸ÀÔ(Á¸ Å¸ÀÔÀÌ ¹Ù²î¸é DB¿¡ ÀúÀåµÇ¾î¾ß ÇÑ´Ù.)
+	ZoneType       m_ZoneType;         // Á¸ Å¸ÀÔ(Á¸ Å¸ÀÔÀÌ ¹Ù®î¸é DB¿¡ ÀúÀåµÇ¾î¾ß ÇÑ´Ù.)
 	ZoneLevel_t    m_ZoneLevel;        // Á¸ÀÇ ·¹º§.
 	ZoneAccessMode m_ZoneAccessMode;   // Á¸¿¡ ´ëÇÑ Á¢±Ù ¸ðµå { PUBLIC | PRIVATE }
 	string         m_OwnerID;          // Á¸ ¼ÒÀ¯ÀÚ ¾ÆÀÌµð(½½·¹ÀÌ¾î ±æµå ¾ÆÀÌµð È¤Àº ¹ìÆÄÀÌ¾î ¸¶½ºÅÍ ¾ÆÀÌµð)
@@ -433,7 +433,7 @@ private:
 	list< Creature* > m_PCListQueue;
 
 	// zone¹Ù´Ú¿¡ ¶³¾îÁø item hashmap
-	hash_map<ObjectID_t, Item*> m_Items;
+	unordered_map<ObjectID_t, Item*> m_Items;
 	
 	// Monster AI¸¦ À§ÇØ Á¸ÀÇ ¿µ¿ªÀ» ±¸ºÐÁö¾î ³õÀº »ç°¢Çüµé...
 	VSRect m_OuterRect;

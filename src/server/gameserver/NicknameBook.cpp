@@ -123,8 +123,8 @@ Packet* NicknameBook::getNicknameBookListPacket() const
 
 	vector<NicknameInfo*>& nickList = pPacket->getNicknames();
 
-	hash_map<WORD, NicknameInfo*>::const_iterator itr = m_Nicknames.begin();
-	hash_map<WORD, NicknameInfo*>::const_iterator endItr = m_Nicknames.end();
+	unordered_map<WORD, NicknameInfo*>::const_iterator itr = m_Nicknames.begin();
+	unordered_map<WORD, NicknameInfo*>::const_iterator endItr = m_Nicknames.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{

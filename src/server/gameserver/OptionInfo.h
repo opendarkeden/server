@@ -12,7 +12,7 @@
 #include "Item.h"
 #include <list>
 #include <vector>
-#include <hash_map>
+#include <unordered_map>
  
 //////////////////////////////////////////////////////////////////////////////
 // 옵션 레벨의 맥스
@@ -341,7 +341,7 @@ public:
 	string toString(void) const throw();
 
 private:
-	hash_map<uint, OptionType_t> m_OptionTypes;
+	unordered_map<uint, OptionType_t> m_OptionTypes;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -415,13 +415,13 @@ private:
 	void addOptionClassInfo( OptionClassInfo* pInfo ) { m_OptionClassInfos[pInfo->getOptionClass()] = pInfo; }
 
 	uint                                m_nOptionCount;
-	hash_map<OptionType_t, OptionInfo*> m_OptionInfos;
-	hash_map<string, OptionInfo*>       m_NicknameOptionInfos;
+	unordered_map<OptionType_t, OptionInfo*> m_OptionInfos;
+	unordered_map<string, OptionInfo*>       m_NicknameOptionInfos;
 	OptionInfoSet                       m_OptionInfoSet[OPTION_MAX];
 	vector<OptionClassInfo*>			m_OptionClassInfos;
 	vector<OptionType_t>                m_GambleOptions[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
 	int					                m_TotalGambleRatio[Item::ITEM_CLASS_MAX][GAMBLE_OPTION_LEVEL_MAX+1];
-	hash_map<int,RareOptionUpgradeInfo*>		m_RareEnchantInfo;
+	unordered_map<int,RareOptionUpgradeInfo*>		m_RareEnchantInfo;
 
 	list<PetEnchantOption*> 			m_PetEnchantOptionList;
 	int									m_ToTalPetEnchantOption;

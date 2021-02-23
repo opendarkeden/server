@@ -8,7 +8,7 @@
 #define __NPC_MANANGER_H__
 
 #include "CreatureManager.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class NPCManager

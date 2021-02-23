@@ -8,12 +8,12 @@
 
 #include "Exception.h"
 #include "Types.h"
-#include <hash_map>
+#include <unordered_map>
 
 class GCSweeperBonusInfo;
 class SweeperBonus;
 
-typedef hash_map<SweeperBonusType_t, SweeperBonus*>		SweeperBonusHashMap;
+typedef unordered_map<SweeperBonusType_t, SweeperBonus*>		SweeperBonusHashMap;
 typedef SweeperBonusHashMap::iterator 					SweeperBonusHashMapItor;
 typedef SweeperBonusHashMap::const_iterator 			SweeperBonusHashMapConstItor;
 

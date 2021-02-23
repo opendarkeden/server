@@ -1002,7 +1002,7 @@ void MasterLairManager::killAllMonsters()
 
 	/*
 	// 강제로 죽이지 않을 몬스터
-	hash_map<ObjectID_t, ObjectID_t> exceptCreatures;
+	unordered_map<ObjectID_t, ObjectID_t> exceptCreatures;
 	exceptCreatures[m_MasterID] = m_MasterID;
 
 	// 모든 몬스터를 죽인다.
@@ -1129,8 +1129,8 @@ void MasterLairManager::giveKillingReward()
 	__BEGIN_TRY
 
 	const PCManager* pPCManager = m_pZone->getPCManager();
-	const hash_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::const_iterator itr;
+	const unordered_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::const_iterator itr;
 
 	if (creatures.empty())
 		return;

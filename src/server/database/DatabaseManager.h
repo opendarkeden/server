@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Connection.h"
 #include "Mutex.h"
 
@@ -62,19 +62,19 @@ public:
 
 private:
 	// 각 쓰레드별로 존재하는 DB 연결
-	hash_map<int, Connection*> m_Connections;
+	unordered_map<int, Connection*> m_Connections;
 
 	// 각 쓰레드별로 존재하는 Distribute DB 연결
-	hash_map<int, Connection*> m_DistConnections;
+	unordered_map<int, Connection*> m_DistConnections;
 
-//	hash_map<WorldID_t, Connection*> m_WorldConnections;
-	hash_map<int, Connection*> m_WorldConnections;
+//	unordered_map<WorldID_t, Connection*> m_WorldConnections;
+	unordered_map<int, Connection*> m_WorldConnections;
 
 	// 각 쓰레드별로 존재하는 CBilling DB 연결
-	hash_map<int, Connection*> m_CBillingConnections;
+	unordered_map<int, Connection*> m_CBillingConnections;
 
 	// PC방 통합용 DB 연결
-//	hash_map<int, Connection*> m_PCRoomConnections;
+//	unordered_map<int, Connection*> m_PCRoomConnections;
 
 	// 각 월드별로 존재하는 DB 연결
 

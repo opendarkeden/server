@@ -118,7 +118,7 @@ bool ResurrectLocationManager::getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCo
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
 
 	if (itr == m_SlayerPosition.end())
 	{
@@ -143,7 +143,7 @@ void ResurrectLocationManager::addSlayerPosition(ZoneID_t id, const ZONE_COORD& 
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_SlayerPosition.find(id);
 
 	if (itr != m_SlayerPosition.end())
 	{
@@ -161,7 +161,7 @@ bool ResurrectLocationManager::getVampirePosition(ZoneID_t id, ZONE_COORD& zoneC
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
 
 	if (itr == m_VampirePosition.end())
 	{
@@ -186,7 +186,7 @@ void ResurrectLocationManager::addVampirePosition(ZoneID_t id, const ZONE_COORD&
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_VampirePosition.find(id);
 
 	if (itr != m_VampirePosition.end())
 	{
@@ -205,7 +205,7 @@ bool ResurrectLocationManager::getOustersPosition(ZoneID_t id, ZONE_COORD& zoneC
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
 
 	if (itr == m_OustersPosition.end())
 	{
@@ -225,7 +225,7 @@ void ResurrectLocationManager::addOustersPosition(ZoneID_t id, const ZONE_COORD&
 {
 	__BEGIN_TRY
 
-	hash_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
+	unordered_map<ZoneID_t, ZONE_COORD>::const_iterator itr = m_OustersPosition.find(id);
 
 	if (itr != m_OustersPosition.end())
 	{

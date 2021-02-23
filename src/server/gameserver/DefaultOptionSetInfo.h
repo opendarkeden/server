@@ -11,7 +11,7 @@
 #include "Exception.h"
 #include "Types.h"
 #include "OptionInfo.h"
-#include <hash_map>
+#include <unordered_map>
 #include <list>
 
 
@@ -41,7 +41,7 @@ private:
 
 };
 
-typedef hash_map<DefaultOptionSetType_t, DefaultOptionSetInfo*>		HashMapDefaultOptionSetInfo;
+typedef unordered_map<DefaultOptionSetType_t, DefaultOptionSetInfo*>		HashMapDefaultOptionSetInfo;
 typedef HashMapDefaultOptionSetInfo::iterator						HashMapDefaultOptionSetInfoItor;
 typedef HashMapDefaultOptionSetInfo::const_iterator					HashMapDefaultOptionSetInfoConstItor;
 

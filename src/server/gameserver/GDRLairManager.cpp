@@ -683,10 +683,10 @@ DWORD GDRLairIcepole::heartbeat(Timeval currentTime)
 	__ENTER_CRITICAL_SECTION( (*(pZone->getZoneGroup())) )
 
 	const PCManager* pPM = pZone->getPCManager();
-	const hash_map<ObjectID_t, Creature*>& pCL = pPM->getCreatures();
+	const unordered_map<ObjectID_t, Creature*>& pCL = pPM->getCreatures();
 
-	hash_map<ObjectID_t, Creature*>::const_iterator itr = pCL.begin();
-	hash_map<ObjectID_t, Creature*>::const_iterator endItr = pCL.end();
+	unordered_map<ObjectID_t, Creature*>::const_iterator itr = pCL.begin();
+	unordered_map<ObjectID_t, Creature*>::const_iterator endItr = pCL.end();
 
 	for ( ; itr != endItr; ++itr )
 	{
@@ -1285,8 +1285,8 @@ void GDRLairScene6::start()
 
 	// ºñÁê ÁÖÀÚ
 	const PCManager* pPCManager = pZone->getPCManager();
-	const hash_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::const_iterator itr;
+	const unordered_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::const_iterator itr;
 
 	for (itr=creatures.begin(); itr!=creatures.end(); itr++)
 	{
@@ -1375,8 +1375,8 @@ void GDRLairEnding::start()
 	Zone* pZone = GDRLairManager::Instance().getZone( GDRLairManager::GDR_LAIR_CORE );
 
 	const PCManager* pPCManager = pZone->getPCManager();
-	const hash_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::const_iterator itr;
+	const unordered_map< ObjectID_t, Creature* > & creatures = pPCManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::const_iterator itr;
 
 	int CoreZapNum = 2;
 	int PendentNum = 3;

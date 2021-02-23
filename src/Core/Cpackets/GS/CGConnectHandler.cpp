@@ -62,7 +62,7 @@
 	#include "Gpackets/GCUpdateInfo.h"
 	#include "Gpackets/GCSystemMessage.h"
 	#include "Gpackets/GSGuildMemberLogOn.h"
-	#include "Gpackets/GCLoadInventory.h"
+// #include "Gpackets/GCLoadInventory.h"
 	#include "SystemAvailabilitiesManager.h"
 	#include "types/ServerType.h"
 	#include "GDRLairManager.h"

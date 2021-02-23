@@ -147,7 +147,7 @@ string GCGuildMemberList::toString () const
 	
 	msg << "GCGuildMemberList(";
 
-	slist<GuildMemberInfo*>::const_iterator itr = m_GuildMemberInfoList.begin();
+	list<GuildMemberInfo*>::const_iterator itr = m_GuildMemberInfoList.begin();
 	for ( ; itr != m_GuildMemberInfoList.end(); itr++ )
 	{
 		msg << (*itr)->toString();

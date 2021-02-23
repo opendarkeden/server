@@ -330,8 +330,8 @@ bool RegenZoneManager::canRegen( PlayerCreature* pPC, uint ID )
 					if ( !SiegeManager::Instance().isSiegeZone( pPC->getZoneID() ) ) return false;
 					Zone* pZone = pPC->getZone();
 					MonsterManager* pMM = pZone->getMonsterManager();
-					hash_map< ObjectID_t, Creature* >& cmap = pMM->getCreatures();
-					hash_map< ObjectID_t, Creature* >::iterator itr = cmap.begin();
+					unordered_map< ObjectID_t, Creature* >& cmap = pMM->getCreatures();
+					unordered_map< ObjectID_t, Creature* >::iterator itr = cmap.begin();
 
 					// 성문이 있으면 안된다.
 					for ( ; itr != cmap.end(); ++itr )

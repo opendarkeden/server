@@ -347,7 +347,7 @@ string ConnectionInfoManager::toString () const
 
 	msg << "ConnectionInfoManager(";
 
-	for (hash_map<string, ConnectionInfo*>::const_iterator itr = m_ConnectionInfos.begin() ; itr != m_ConnectionInfos.end() ;itr++)
+	for (unordered_map<string, ConnectionInfo*>::const_iterator itr = m_ConnectionInfos.begin() ; itr != m_ConnectionInfos.end() ;itr++)
 	{
 		Assert(itr->second != NULL);
 		msg << itr->second->toString();

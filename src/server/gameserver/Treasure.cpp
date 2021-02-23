@@ -1130,7 +1130,7 @@ TreasureLists::~TreasureLists()
 void 
 TreasureLists::clear()
 {
-	hash_map<string, TreasureList*>::iterator itr = m_TreasureLists.begin();
+	unordered_map<string, TreasureList*>::iterator itr = m_TreasureLists.begin();
 	for (; itr!=m_TreasureLists.end(); itr++)
 	{
 		TreasureList* pTreasureList = itr->second;
@@ -1142,7 +1142,7 @@ TreasureLists::clear()
 TreasureList*   
 TreasureLists::getTreasure(const string& filename) const
 {
-	hash_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
+	unordered_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
 
 	if (itr!=m_TreasureLists.end())
 	{
@@ -1155,7 +1155,7 @@ TreasureLists::getTreasure(const string& filename) const
 void            
 TreasureLists::addTreasure(const string& filename, TreasureList* pTreasureList)
 {
-	hash_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
+	unordered_map<string, TreasureList*>::const_iterator itr = m_TreasureLists.find( filename );
 
 	if (itr!=m_TreasureLists.end())
 	{

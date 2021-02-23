@@ -10,7 +10,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class HolyLandManager;
@@ -19,9 +19,9 @@
 class Zone;
 class Packet;
 
-typedef hash_map<ZoneID_t, Zone*> HashMapZone;
-typedef hash_map<ZoneID_t, Zone*>::iterator HashMapZoneItor;
-typedef hash_map<ZoneID_t, Zone*>::const_iterator HashMapZoneConstItor;
+typedef unordered_map<ZoneID_t, Zone*> HashMapZone;
+typedef unordered_map<ZoneID_t, Zone*>::iterator HashMapZoneItor;
+typedef unordered_map<ZoneID_t, Zone*>::const_iterator HashMapZoneConstItor;
 
 class HolyLandManager 
 {

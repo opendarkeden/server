@@ -6,7 +6,7 @@
 #include "SXml.h"
 #include "GQuestManager.h"
 
-#include <hash_map>
+#include <unordered_map>
 
 class PlayerCreature;
 class GQuestStatus;
@@ -74,7 +74,7 @@ public:
 	}
 
 private:
-	hash_map<string, GQuestElement*> m_ProtoTypes;
+	unordered_map<string, GQuestElement*> m_ProtoTypes;
 };
 
 #endif

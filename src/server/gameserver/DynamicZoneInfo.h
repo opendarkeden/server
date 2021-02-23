@@ -6,7 +6,7 @@
 #define __DYNAMIC_ZONE_INFO__
 
 #include "Types.h"
-#include <hash_map>
+#include <unordered_map>
 
 enum DYNAMIC_ZONE_TYPE
 {
@@ -48,11 +48,11 @@ private:
 class DynamicZoneInfoManager
 {
 public:
-	typedef hash_map<int,DynamicZoneInfo*>			HashMapDynamicZoneInfo;
+	typedef unordered_map<int,DynamicZoneInfo*>			HashMapDynamicZoneInfo;
 	typedef HashMapDynamicZoneInfo::iterator		HashMapDynamicZoneInfoItor;
 	typedef HashMapDynamicZoneInfo::const_iterator	HashMapDynamicZoneInfoConstItor;
 
-	typedef hash_map<ZoneID_t,int>					HashMapDynamicZoneType;
+	typedef unordered_map<ZoneID_t,int>					HashMapDynamicZoneType;
 	typedef HashMapDynamicZoneType::iterator		HashMapDynamicZoneTypeItor;
 	typedef HashMapDynamicZoneType::const_iterator	HashMapDynamicZoneTypeConstItor;
 

@@ -49,8 +49,8 @@ void CGRangerSayHandler::execute (CGRangerSay* pPacket , Player* pPlayer)
 	// 모든 사용자에게 뿌리기
 	g_pZoneGroupManager->pushBroadcastPacket( &gcSystemMessage, &filter );
 
-/*	hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = g_pZoneGroupManager->getZoneGroups().begin();
-	hash_map<ZoneGroupID_t, ZoneGroup*>::const_iterator endItr = g_pZoneGroupManager->getZoneGroups().end();
+/*	unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator itr = g_pZoneGroupManager->getZoneGroups().begin();
+	unordered_map<ZoneGroupID_t, ZoneGroup*>::const_iterator endItr = g_pZoneGroupManager->getZoneGroups().end();
 
 	for ( ; itr != endItr; ++itr )
 	{

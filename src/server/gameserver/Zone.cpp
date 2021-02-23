@@ -2442,8 +2442,8 @@ void Zone::initSpriteCount ()
 	m_MonsterCount = 0;
 
 	// NPC 스프라이트 타입의 갯수를 계산한다.
-	const hash_map<ObjectID_t, Creature*>& NPCMap = m_pNPCManager->getCreatures();
-	for (hash_map<ObjectID_t, Creature*>::const_iterator i = NPCMap.begin(); i != NPCMap.end(); i++)
+	const unordered_map<ObjectID_t, Creature*>& NPCMap = m_pNPCManager->getCreatures();
+	for (unordered_map<ObjectID_t, Creature*>::const_iterator i = NPCMap.begin(); i != NPCMap.end(); i++)
 	{
 		NPC* pNPC = dynamic_cast<NPC*>(i->second);
 		bool bAdd = true;
@@ -2465,8 +2465,8 @@ void Zone::initSpriteCount ()
 	}
 
 	// 몬스터 스프라이트 타입의 갯수를 계산한다.
-	const hash_map<SpriteType_t, MonsterCounter*>& MONSTER = m_pMonsterManager->getMonsters();
-	for (hash_map<SpriteType_t, MonsterCounter*>::const_iterator i = MONSTER.begin(); i != MONSTER.end(); i++)
+	const unordered_map<SpriteType_t, MonsterCounter*>& MONSTER = m_pMonsterManager->getMonsters();
+	for (unordered_map<SpriteType_t, MonsterCounter*>::const_iterator i = MONSTER.begin(); i != MONSTER.end(); i++)
 	{
 		Assert ( m_MonsterCount < maxMonsterPerZone );	// by sigi
 
@@ -4255,8 +4255,8 @@ void Zone::addCreature(Creature* pCreature, ZoneCoord_t cx, ZoneCoord_t cy, Dir_
 				case 724:
 				case 725:
 					{
-						hash_map<ObjectID_t, Creature*>::iterator itr = m_pPCManager->getCreatures().begin();
-						hash_map<ObjectID_t, Creature*>::iterator endItr = m_pPCManager->getCreatures().end();
+						unordered_map<ObjectID_t, Creature*>::iterator itr = m_pPCManager->getCreatures().begin();
+						unordered_map<ObjectID_t, Creature*>::iterator endItr = m_pPCManager->getCreatures().end();
 
 						for ( ; itr != endItr ; ++itr )
 						{
@@ -4690,7 +4690,7 @@ Item*
 Zone::getItem(ObjectID_t id) const
 	throw (Error)
 {
-    hash_map<ObjectID_t, Item*>::const_iterator iItem = m_Items.find(id);
+    unordered_map<ObjectID_t, Item*>::const_iterator iItem = m_Items.find(id);
 
 	if (iItem != m_Items.end())
 	{
@@ -8505,7 +8505,7 @@ void Zone::heartbeat ()
 
 		int i = 0;
 
-		for (hash_map<ObjectID_t, Item*>::iterator itr = m_Items.begin(); itr != m_Items.end() ; itr++)
+		for (unordered_map<ObjectID_t, Item*>::iterator itr = m_Items.begin(); itr != m_Items.end() ; itr++)
 		{
 			Item* pItem = itr->second;
 			Assert(pItem != NULL);
@@ -8896,7 +8896,7 @@ void Zone::deleteFromItemList(ObjectID_t id) throw()
 {
 	__BEGIN_TRY
 
-	hash_map< ObjectID_t, Item*>::iterator itr = m_Items.find(id);
+	unordered_map< ObjectID_t, Item*>::iterator itr = m_Items.find(id);
 
 	if (itr == m_Items.end())
 		//throw NoSuchElementException();
@@ -9484,8 +9484,8 @@ void Zone::monsterScan(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y, Dir_t di
 		case 724:
 		case 725:
 			{
-				hash_map<ObjectID_t, Creature*>::iterator itr = m_pPCManager->getCreatures().begin();
-				hash_map<ObjectID_t, Creature*>::iterator endItr = m_pPCManager->getCreatures().end();
+				unordered_map<ObjectID_t, Creature*>::iterator itr = m_pPCManager->getCreatures().begin();
+				unordered_map<ObjectID_t, Creature*>::iterator endItr = m_pPCManager->getCreatures().end();
 
 				for ( ; itr != endItr ; ++itr )
 				{
@@ -9586,8 +9586,8 @@ void Zone::setNPCMarketCondition(MarketCond_t NPCSell, MarketCond_t NPCBuy)
 {
 	__BEGIN_TRY
 
-	hash_map<ObjectID_t, Creature*> NPCMap = m_pNPCManager->getCreatures();
-	for (hash_map<ObjectID_t, Creature*>::const_iterator i = NPCMap.begin(); i != NPCMap.end(); i++)
+	unordered_map<ObjectID_t, Creature*> NPCMap = m_pNPCManager->getCreatures();
+	for (unordered_map<ObjectID_t, Creature*>::const_iterator i = NPCMap.begin(); i != NPCMap.end(); i++)
 	{
 		NPC* pNPC = dynamic_cast<NPC*>(i->second);
 
@@ -9671,8 +9671,8 @@ void Zone::deleteNPCs(Race_t race)
 {
 	__BEGIN_TRY
 
-	const hash_map< ObjectID_t, Creature* >& NPCs = m_pNPCManager->getCreatures();	// hash_map을 복사해서 써야한다.
-	hash_map< ObjectID_t, Creature* >::const_iterator itr = NPCs.begin();
+	const unordered_map< ObjectID_t, Creature* >& NPCs = m_pNPCManager->getCreatures();	// unordered_map을 복사해서 써야한다.
+	unordered_map< ObjectID_t, Creature* >::const_iterator itr = NPCs.begin();
 
 	list<ObjectID_t> creatures;
 
@@ -9864,8 +9864,8 @@ Zone::killAllMonsters()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ObjectID_t, Creature* > & monsters = m_pMonsterManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
+	unordered_map< ObjectID_t, Creature* > & monsters = m_pMonsterManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
 
 	for (; itr!=monsters.end(); itr++)
 	{
@@ -9889,8 +9889,8 @@ Zone::killAllMonsters_UNLOCK()
 {
 	__BEGIN_TRY
 
-	hash_map< ObjectID_t, Creature* > & monsters = m_pMonsterManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
+	unordered_map< ObjectID_t, Creature* > & monsters = m_pMonsterManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::iterator itr = monsters.begin();
 
 	for (; itr!=monsters.end(); itr++)
 	{
@@ -9910,8 +9910,8 @@ void Zone::killAllPCs() throw(Error)
 {
 	__BEGIN_TRY
 
-	hash_map< ObjectID_t, Creature* > & pcs = m_pPCManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::iterator itr = pcs.begin();
+	unordered_map< ObjectID_t, Creature* > & pcs = m_pPCManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::iterator itr = pcs.begin();
 
 	for (; itr!=pcs.end(); itr++)
 	{
@@ -9948,8 +9948,8 @@ void    Zone::remainRaceWarPlayers()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ObjectID_t, Creature* > & creatures = m_pPCManager->getCreatures();
-	hash_map< ObjectID_t, Creature* >::iterator itr = creatures.begin();
+	unordered_map< ObjectID_t, Creature* > & creatures = m_pPCManager->getCreatures();
+	unordered_map< ObjectID_t, Creature* >::iterator itr = creatures.begin();
 
 	for (; itr!=creatures.end(); itr++)
 	{
@@ -10030,8 +10030,8 @@ void    Zone::remainPayPlayer()
 
 	try {
 
-		hash_map< ObjectID_t, Creature* > & creatures = m_pPCManager->getCreatures();
-		hash_map< ObjectID_t, Creature* >::iterator itr = creatures.begin();
+		unordered_map< ObjectID_t, Creature* > & creatures = m_pPCManager->getCreatures();
+		unordered_map< ObjectID_t, Creature* >::iterator itr = creatures.begin();
 
 		for (; itr!=creatures.end(); itr++)
 		{

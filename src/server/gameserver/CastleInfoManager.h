@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "PlayerCreature.h"
 
 class Zone;
@@ -110,7 +110,7 @@ public:
 	bool decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) throw(Error);
 
 	bool setItemTaxRatio( Zone* pZone, int itemTaxRatio ) throw(Error);
-	const hash_map<ZoneID_t, CastleInfo*>& getCastleInfos() const 	{ return m_CastleInfos; }
+	const unordered_map<ZoneID_t, CastleInfo*>& getCastleInfos() const 	{ return m_CastleInfos; }
 
 	int getItemTaxRatio( const PlayerCreature* pPC, const NPC* pNPC = NULL ) const throw(Error);
 	Gold_t getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC ) const  throw(Error);
@@ -155,8 +155,8 @@ public:
 	string toString() const throw();
 
 private:
-	hash_map<ZoneID_t, CastleInfo*> m_CastleInfos;
-	hash_map<ZoneID_t, ZoneID_t> 	m_CastleZoneIDs;
+	unordered_map<ZoneID_t, CastleInfo*> m_CastleInfos;
+	unordered_map<ZoneID_t, ZoneID_t> 	m_CastleZoneIDs;
 };
 
 extern CastleInfoManager* g_pCastleInfoManager;

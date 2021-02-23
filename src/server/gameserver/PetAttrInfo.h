@@ -5,7 +5,7 @@
 #include "types/PetTypes.h"
 #include "Exception.h"
 #include <vector>
-#include <hash_map>
+#include <unordered_map>
 #include "PetExpInfo.h"
 
 class PetInfo;
@@ -44,7 +44,7 @@ public:
 	bool enchantRandomAttr( PetInfo* pPetInfo, int ratio );
 	bool enchantSpecAttr( PetInfo* pPetInfo, PetAttr_t PetAttr );
 private:
-	hash_map<PetAttr_t, PetAttrInfo*> m_PetAttrInfoMap;
+	unordered_map<PetAttr_t, PetAttrInfo*> m_PetAttrInfoMap;
 };
 
 #endif

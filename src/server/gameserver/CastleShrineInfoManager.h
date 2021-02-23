@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "Exception.h"
 #include "ShrineInfoManager.h"
-#include <hash_map>
+#include <unordered_map>
 
 class PlayerCreature;
 class ZoneItemPosition;
@@ -36,7 +36,7 @@ public :
 class CastleShrineInfoManager
 {
 public:
-	typedef hash_map<ShrineID_t, CastleShrineSet*>	HashMapShrineSet;
+	typedef unordered_map<ShrineID_t, CastleShrineSet*>	HashMapShrineSet;
 	typedef HashMapShrineSet::iterator			HashMapShrineSetItor;
 	typedef HashMapShrineSet::const_iterator	HashMapShrineSetConstItor;
 

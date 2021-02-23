@@ -59,7 +59,7 @@ PrecedenceTable::PrecedenceTable()
 PrecedenceTable::~PrecedenceTable()
 {
 	// 크리쳐 맵을 비운다.
-	hash_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.begin();
+	unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.begin();
 	for (; itr != m_CreatureMap.end(); itr++)
 	{
 		SAFE_DELETE(itr->second);
@@ -67,7 +67,7 @@ PrecedenceTable::~PrecedenceTable()
 	m_CreatureMap.clear();
 
 	// 파티 맵을 비운다.
-	hash_map<int, PrecedenceElement*>::iterator itr2 = m_PartyMap.begin();
+	unordered_map<int, PrecedenceElement*>::iterator itr2 = m_PartyMap.begin();
 	for (; itr2 != m_PartyMap.end(); itr2++)
 	{
 		SAFE_DELETE(itr2->second);
@@ -95,7 +95,7 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
 	}
 	else
 	{
-		hash_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(pCreature->getName());
+		unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(pCreature->getName());
 		if (itr == m_CreatureMap.end())
 		{
 			// 이전에 공격을 하지 않았다면 데이터를 새로 생성해 준다. 
@@ -129,7 +129,7 @@ void PrecedenceTable::addPrecedence(Creature* pCreature, int damage)
 	}
 	else
 	{
-		hash_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
+		unordered_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
 		if (itr == m_PartyMap.end())
 		{
 			PrecedenceElement* pElement = new PrecedenceElement;
@@ -166,7 +166,7 @@ void PrecedenceTable::addPrecedence(const string & Name, int PartyID, int damage
 	}
 	else
 	{
-		hash_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(Name);
+		unordered_map<string, PrecedenceElement*>::iterator itr = m_CreatureMap.find(Name);
 		if (itr == m_CreatureMap.end())
 		{
 			// 이전에 공격을 하지 않았다면 데이터를 새로 생성해 준다. 
@@ -200,7 +200,7 @@ void PrecedenceTable::addPrecedence(const string & Name, int PartyID, int damage
 	}
 	else
 	{
-		hash_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
+		unordered_map<int, PrecedenceElement*>::iterator itr = m_PartyMap.find(PartyID);
 		if (itr == m_PartyMap.end())
 		{
 			PrecedenceElement* pElement = new PrecedenceElement;
@@ -223,8 +223,8 @@ void PrecedenceTable::addPrecedence(const string & Name, int PartyID, int damage
 
 void PrecedenceTable::heartbeat(const Timeval& currentTime)
 {
-	hash_map<string, PrecedenceElement*>::iterator c_before = m_CreatureMap.end();
-	hash_map<string, PrecedenceElement*>::iterator c_current = m_CreatureMap.begin();
+	unordered_map<string, PrecedenceElement*>::iterator c_before = m_CreatureMap.end();
+	unordered_map<string, PrecedenceElement*>::iterator c_current = m_CreatureMap.begin();
 
 	while (c_current != m_CreatureMap.end())
 	{
@@ -251,8 +251,8 @@ void PrecedenceTable::heartbeat(const Timeval& currentTime)
 		}
 	}
 
-	hash_map<string, PrecedenceElement*>::iterator p_before = m_CreatureMap.end();
-	hash_map<string, PrecedenceElement*>::iterator p_current = m_CreatureMap.begin();
+	unordered_map<string, PrecedenceElement*>::iterator p_before = m_CreatureMap.end();
+	unordered_map<string, PrecedenceElement*>::iterator p_current = m_CreatureMap.begin();
 
 	while (p_current != m_CreatureMap.end())
 	{
@@ -295,7 +295,7 @@ void PrecedenceTable::compute(void)
 	Damage_t TotalDamage = 0;
 
 	// 먼저 크리쳐 맵을 검색한다.
-	hash_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.begin();
+	unordered_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.begin();
 	for (; itr != m_CreatureMap.end(); itr++)
 	{
 		PrecedenceElement* pElement = itr->second;
@@ -363,7 +363,7 @@ void PrecedenceTable::compute(void)
 	MaxDamagePartyID = -1;
 	SecondDamagePartyID    = -1;
 
-	hash_map<int, PrecedenceElement*>::const_iterator itr2 = m_PartyMap.begin();
+	unordered_map<int, PrecedenceElement*>::const_iterator itr2 = m_PartyMap.begin();
 	for (; itr2 != m_PartyMap.end(); itr2++)
 	{
 		PrecedenceElement* pElement = itr2->second;
@@ -446,7 +446,7 @@ bool PrecedenceTable::canDrainBlood(Creature* pCreature) const
 bool PrecedenceTable::canGainRankExp(Creature* pCreature) const
 {
 	// 몬스터가 받은 데미지의 총합에서 1/4을 초과한 만큼 데미지를 줬다면 계급 경험치를 얻을 수 있다.
-	hash_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.find( pCreature->getName() );
+	unordered_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.find( pCreature->getName() );
 	if ( itr == m_CreatureMap.end() )
 		return false;
 
@@ -459,7 +459,7 @@ double PrecedenceTable::getDamagePercent(const string& Name, int PartyID) const
 		return 0.0;
 
 	double ownDamage = 0.0;
-	hash_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.find(Name);
+	unordered_map<string, PrecedenceElement*>::const_iterator itr = m_CreatureMap.find(Name);
 	if ( itr != m_CreatureMap.end() )
 	{
 		ownDamage = (double)(itr->second->getDamage());
@@ -468,7 +468,7 @@ double PrecedenceTable::getDamagePercent(const string& Name, int PartyID) const
 	double partyDamage = 0.0;
 	if ( PartyID != 0 )
 	{
-		hash_map<int, PrecedenceElement*>::const_iterator itr = m_PartyMap.find(PartyID);
+		unordered_map<int, PrecedenceElement*>::const_iterator itr = m_PartyMap.find(PartyID);
 		if ( itr != m_PartyMap.end() )
 		{
 			partyDamage = (double)(itr->second->getDamage());
@@ -492,7 +492,7 @@ string PrecedenceTable::toString(void) const
 
 	msg << "\n,CreatureMap:\n";
 
-	hash_map<string, PrecedenceElement*>::const_iterator itr1 = m_CreatureMap.begin();
+	unordered_map<string, PrecedenceElement*>::const_iterator itr1 = m_CreatureMap.begin();
 	for (; itr1 != m_CreatureMap.end(); itr1++)
 	{
 		msg << itr1->second->toString() << ",";
@@ -500,7 +500,7 @@ string PrecedenceTable::toString(void) const
 
 	msg << "\n,PartyMap:\n";
 
-	hash_map<int, PrecedenceElement*>::const_iterator itr2 = m_PartyMap.begin();
+	unordered_map<int, PrecedenceElement*>::const_iterator itr2 = m_PartyMap.begin();
 	for (; itr2 != m_PartyMap.end(); itr2++)
 	{
 		msg << itr2->second->toString() << ",";

@@ -141,7 +141,7 @@ void MonsterManager::load ()
 
 	// 이미 있다면 기존의 MonsterCounter들을 모두 지운다.
 	bool bReload = false;
-	hash_map< SpriteType_t, MonsterCounter* >::iterator iMC = m_Monsters.begin();
+	unordered_map< SpriteType_t, MonsterCounter* >::iterator iMC = m_Monsters.begin();
 	while (iMC!=m_Monsters.end())
 	{
 		MonsterCounter* pMC = iMC->second;
@@ -229,7 +229,7 @@ void MonsterManager::parseMonsterList(const string& text, bool bReload)
 		SpriteType_t spriteType = pMonsterInfo->getSpriteType();
 
 		// 이미 존재하는지의 여부를 체크한다.
-		hash_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(spriteType);
+		unordered_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(spriteType);
 
 		if (itr != m_Monsters.end()) 
 		{
@@ -239,7 +239,7 @@ void MonsterManager::parseMonsterList(const string& text, bool bReload)
 		} 
 		else 
 		{
-			// 몬스터카운터 객체를 생성, hash_map 에 등록한다.
+			// 몬스터카운터 객체를 생성, unordered_map 에 등록한다.
 			MonsterCounter* pMonsterCounter = new MonsterCounter(monsterType , maxMonsters, 0);
 
 			// 존재하지 않는 경우, 추가한다.
@@ -473,7 +473,7 @@ void MonsterManager::addCreature (Creature* pCreature)
 	}
 
 	// 그런 몬스터 타입이 존에 존재할 수 있는지 체크한다.
-	hash_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(pMonster->getSpriteType());
+	unordered_map< SpriteType_t , MonsterCounter* >::iterator itr = m_Monsters.find(pMonster->getSpriteType());
 
 	if (itr == m_Monsters.end()) 
 	{
@@ -501,7 +501,7 @@ void MonsterManager::deleteCreature (ObjectID_t creatureID)
 	__BEGIN_TRY
 
 	// 크리처 해쉬맵에 그런 OID 를 가진 몬스터가 존재하는지 체크한다.
-	hash_map<ObjectID_t , Creature* >::iterator itr = m_Creatures.find(creatureID);
+	unordered_map<ObjectID_t , Creature* >::iterator itr = m_Creatures.find(creatureID);
 
 	if (itr == m_Creatures.end()) 
 	{
@@ -541,7 +541,7 @@ void MonsterManager::deleteCreature (ObjectID_t creatureID)
 	}
 
 	// 몬스터 카운터에 그런 몬스터 타입이 존재하는지 체크한다.
-	hash_map< SpriteType_t , MonsterCounter *>::iterator itr2 = m_Monsters.find(pMonster->getSpriteType());
+	unordered_map< SpriteType_t , MonsterCounter *>::iterator itr2 = m_Monsters.find(pMonster->getSpriteType());
 
 	if (itr2 == m_Monsters.end()) 
 	{
@@ -569,7 +569,7 @@ void MonsterManager::addPotentialEnemy(Monster* pAttackedMonster, Creature* pCre
 
 	//cout << "MonsterManager::addPotentialEnemy()" << endl;
 		
-	hash_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.begin();
 
 	for (; itr!=m_Creatures.end(); itr++) 
 	{
@@ -603,7 +603,7 @@ void MonsterManager::addEnemy(Monster* pAttackedMonster, Creature* pCreature)
 		
 	//cout << "MonsterManager::addEnemy()" << endl;
 
-	hash_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::const_iterator itr = m_Creatures.begin();
 
 	for (; itr!=m_Creatures.end(); itr++) 
 	{
@@ -641,8 +641,8 @@ void MonsterManager::processCreatures ()
 
 	try
 	{
-		hash_map< ObjectID_t , Creature* >::iterator before = m_Creatures.end();
-		hash_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
+		unordered_map< ObjectID_t , Creature* >::iterator before = m_Creatures.end();
+		unordered_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
 
 		while (current != m_Creatures.end()) 
 		{
@@ -668,7 +668,7 @@ void MonsterManager::processCreatures ()
 					ZoneCoord_t cy 		= pMonster->getY();
 					ObjectID_t 	monsterID = pMonster->getObjectID();
 
-					hash_map< SpriteType_t , MonsterCounter *>::iterator itr = m_Monsters.find(pMonster->getSpriteType());
+					unordered_map< SpriteType_t , MonsterCounter *>::iterator itr = m_Monsters.find(pMonster->getSpriteType());
 
 					if (itr == m_Monsters.end()) 
 					{
@@ -746,7 +746,7 @@ void MonsterManager::processCreatures ()
 					else
 					{
 						// 몬스터 카운터를 하나 줄인다.
-						hash_map< SpriteType_t , MonsterCounter *>::iterator itr = m_Monsters.find(pMonster->getSpriteType());
+						unordered_map< SpriteType_t , MonsterCounter *>::iterator itr = m_Monsters.find(pMonster->getSpriteType());
 
 						if (itr == m_Monsters.end()) 
 						{
@@ -864,7 +864,7 @@ void MonsterManager::regenerateCreatures ()
 			return;
 	}
 
-	hash_map<SpriteType_t, MonsterCounter*>::iterator itr = m_Monsters.begin();
+	unordered_map<SpriteType_t, MonsterCounter*>::iterator itr = m_Monsters.begin();
 	for (; itr != m_Monsters.end() ; itr ++) 
 	{
 		MonsterCounter* pCounter = itr->second;
@@ -2288,7 +2288,7 @@ void MonsterManager::deleteAllMonsters (bool bDeleteFromZone)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	hash_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
 
 	while (current != m_Creatures.end()) 
 	{
@@ -2339,13 +2339,13 @@ void MonsterManager::deleteAllMonsters (bool bDeleteFromZone)
 ////////////////////////////////////////////////////////////////////////////////
 // 모든 크리처를 죽인다.
 ////////////////////////////////////////////////////////////////////////////////
-void MonsterManager::killAllMonsters (const hash_map<ObjectID_t, ObjectID_t>& exceptCreatures)
+void MonsterManager::killAllMonsters (const unordered_map<ObjectID_t, ObjectID_t>& exceptCreatures)
 	throw (Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	hash_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin();
 
 	while (current != m_Creatures.end()) 
 	{
@@ -2357,7 +2357,7 @@ void MonsterManager::killAllMonsters (const hash_map<ObjectID_t, ObjectID_t>& ex
 		{
 			if (pCreature->isMonster())
 			{
-				hash_map<ObjectID_t, ObjectID_t>::const_iterator itr = exceptCreatures.find( pCreature->getObjectID() );
+				unordered_map<ObjectID_t, ObjectID_t>::const_iterator itr = exceptCreatures.find( pCreature->getObjectID() );
 
 				if (itr==exceptCreatures.end())
 				{
@@ -2384,7 +2384,7 @@ string MonsterManager::toString () const
 	StringStream msg;
 	msg << "MonsterManager(" << CreatureManager::toString();
 
-	hash_map< SpriteType_t , MonsterCounter* >::const_iterator itr = m_Monsters.begin();
+	unordered_map< SpriteType_t , MonsterCounter* >::const_iterator itr = m_Monsters.begin();
 	for (; itr != m_Monsters.end() ; itr ++) msg << itr->second->toString();
 
 	msg << ")" ;

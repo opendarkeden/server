@@ -16,7 +16,7 @@
 #include "Treasure.h"
 #include <list>
 #include <vector>
-#include <hash_map>
+#include <unordered_map>
 
 // 몬스터 스프라이트 종류 최대 숫자
 // add by viva
@@ -347,9 +347,9 @@ private:
 	uint                  m_MaxMonsterType;      // size of MonsterInfo* array
 	MonsterInfo**         m_MonsterInfos;          // array of monster info
 	vector<MonsterType_t> m_MonsterSpriteSet[MAX_SPRITE_TYPE]; // array of MonsterType by SpriteType
-	hash_map<string, SpriteType_t> m_MonsterSpriteTypes; 	// 이름으로 SpriteType_t찾기
-	hash_map<string, MonsterType_t> m_ChiefMonster; 	// Chief 몬스터 정보 가지고 있기
-	hash_map<int, vector<SpriteType_t> > m_MonsterClassMap; // 몬스터 클래스로 몬스터 타입 찾기
+	unordered_map<string, SpriteType_t> m_MonsterSpriteTypes; 	// 이름으로 SpriteType_t찾기
+	unordered_map<string, MonsterType_t> m_ChiefMonster; 	// Chief 몬스터 정보 가지고 있기
+	unordered_map<int, vector<SpriteType_t> > m_MonsterClassMap; // 몬스터 클래스로 몬스터 타입 찾기
 
 	TreasureLists 			m_SlayerTreasureLists;       // 슬레이어를 위한 보물의 리스트
 	TreasureLists    		m_VampireTreasureLists;      // 뱀파이어를 위한 보물의 리스트

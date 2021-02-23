@@ -21,8 +21,8 @@ HolyLandRaceBonus::refresh()
 	// 기존꺼는 지우고..
 	clear();
 
-	const hash_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
-	hash_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
+	const unordered_map<ZoneID_t, CastleInfo*>& castleInfos = g_pCastleInfoManager->getCastleInfos();
+	unordered_map<ZoneID_t, CastleInfo*>::const_iterator itr = castleInfos.begin();
 
 
 	// 현재 성의 소유종족에 따라서 보너스를 설정한다.

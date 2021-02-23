@@ -192,7 +192,7 @@ MasterLairInfoManager::~MasterLairInfoManager ()
 {
 	__BEGIN_TRY
 
-	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.begin();
+	unordered_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.begin();
 	for (; itr != m_MasterLairInfos.end(); itr++)
 	{
 		MasterLairInfo* pInfo = itr->second;
@@ -441,7 +441,7 @@ void MasterLairInfoManager::addMasterLairInfo (MasterLairInfo* pMasterLairInfo)
 	__BEGIN_TRY
 
 	// 일단 같은 아이디의 존이 있는지 체크해본다.
-	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(pMasterLairInfo->getZoneID());
+	unordered_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(pMasterLairInfo->getZoneID());
 	
 	if (itr != m_MasterLairInfos.end())
 		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
@@ -461,7 +461,7 @@ void MasterLairInfoManager::deleteMasterLairInfo (ZoneID_t zoneID)
 {
 	__BEGIN_TRY
 		
-	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
+	unordered_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
 	
 	if (itr != m_MasterLairInfos.end()) 
 	{
@@ -493,7 +493,7 @@ MasterLairInfo* MasterLairInfoManager::getMasterLairInfo (ZoneID_t zoneID)
 		
 	MasterLairInfo* pMasterLairInfo = NULL;
 
-	hash_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
+	unordered_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(zoneID);
 	
 	if (itr != m_MasterLairInfos.end()) {
 
@@ -532,7 +532,7 @@ string MasterLairInfoManager::toString () const
 	if (m_MasterLairInfos.empty()) msg << "EMPTY";
 	else 
 	{
-		for (hash_map< ZoneID_t , MasterLairInfo* >::const_iterator itr = m_MasterLairInfos.begin() ; itr != m_MasterLairInfos.end() ; itr ++) 
+		for (unordered_map< ZoneID_t , MasterLairInfo* >::const_iterator itr = m_MasterLairInfos.begin() ; itr != m_MasterLairInfos.end() ; itr ++) 
 		{
 			msg << itr->second->toString();
 		}

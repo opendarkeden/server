@@ -128,8 +128,8 @@ void PCManager::processCreatures ()
 
 	try
 	{
-		hash_map< ObjectID_t , Creature* >::iterator before  = m_Creatures.end();
-		hash_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin(); 
+		unordered_map< ObjectID_t , Creature* >::iterator before  = m_Creatures.end();
+		unordered_map< ObjectID_t , Creature* >::iterator current = m_Creatures.begin(); 
 		
 		while (current != m_Creatures.end()) 
 		{
@@ -1699,7 +1699,7 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 	// 일단 존에 있는 모든 Creature의 ID를 기억해두고...
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< ObjectID_t , Creature* >::const_iterator iCreature  = m_Creatures.begin();
+	unordered_map< ObjectID_t , Creature* >::const_iterator iCreature  = m_Creatures.begin();
 	while (iCreature != m_Creatures.end()) 
 	{
 		Creature* pCreature = iCreature->second;
@@ -1797,7 +1797,7 @@ vector<uint> PCManager::getPCNumByRace() const
 	ret.push_back(0);
 	ret.push_back(0);
 
-	hash_map<ObjectID_t, Creature*>::const_iterator itr = getCreatures().begin();
+	unordered_map<ObjectID_t, Creature*>::const_iterator itr = getCreatures().begin();
 
 	for ( ; itr != getCreatures().end() ; ++itr )
 	{

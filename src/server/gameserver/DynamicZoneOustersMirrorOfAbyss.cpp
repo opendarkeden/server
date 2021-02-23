@@ -189,8 +189,8 @@ bool DynamicZoneOustersMirrorOfAbyss::openGateToOut()
 	Assert( m_pZone != NULL );
 
     // 퀘스트를 진행시킨다.
-    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
     for ( ; itr != endItr; ++itr )
     {
@@ -227,8 +227,8 @@ void DynamicZoneOustersMirrorOfAbyss::processEntering()
 	Assert( m_pZone != NULL );
 
     // 퀘스트 존에 들어왔음을 알린다.
-    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
     for ( ; itr != endItr; ++itr )
     {
@@ -260,8 +260,8 @@ void DynamicZoneOustersMirrorOfAbyss::killPC()
 	Assert( m_pZone != NULL );
 
     // PC 를 죽인다.
-    hash_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
-    hash_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
+    unordered_map<ObjectID_t, Creature*>::const_iterator itr = m_pZone->getPCManager()->getCreatures().begin();
+    unordered_map<ObjectID_t, Creature*>::const_iterator endItr = m_pZone->getPCManager()->getCreatures().end();
 
     for ( ; itr != endItr; ++itr )
     {

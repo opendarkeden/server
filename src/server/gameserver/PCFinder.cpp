@@ -33,7 +33,7 @@ PCFinder::~PCFinder()
 	__END_CATCH
 }
 
-// add creature to hash_map
+// add creature to unordered_map
 // execute just once at PC's login
 void PCFinder::addCreature (Creature* pCreature) 
 	throw (DuplicatedException , Error)
@@ -47,8 +47,8 @@ void PCFinder::addCreature (Creature* pCreature)
 	const string& Name = pCreature->getName();
 	const string& ID = pCreature->getPlayer()->getID();
 
-	hash_map< string , Creature* >::iterator itr = m_PCs.find(Name);
-	hash_map< string , Creature* >::iterator itr2 = m_IDs.find(ID); // for BillingServer. by sigi. 2002.11.18
+	unordered_map< string , Creature* >::iterator itr = m_PCs.find(Name);
+	unordered_map< string , Creature* >::iterator itr2 = m_IDs.find(ID); // for BillingServer. by sigi. 2002.11.18
 
 	if (itr != m_PCs.end() 
 		|| itr2 != m_IDs.end())
@@ -71,7 +71,7 @@ void PCFinder::addCreature (Creature* pCreature)
 	__END_CATCH
 }
 
-// Delete creature from hash_map
+// Delete creature from unordered_map
 // execute just once at PC's logout
 void PCFinder::deleteCreature (const string & name) 
 	throw ()//NoSuchElementException , Error)
@@ -80,7 +80,7 @@ void PCFinder::deleteCreature (const string & name)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	hash_map< string , Creature* >::iterator itr = m_PCs.find(name);
+	unordered_map< string , Creature* >::iterator itr = m_PCs.find(name);
 
 	if (itr == m_PCs.end())
 	{
@@ -100,7 +100,7 @@ void PCFinder::deleteCreature (const string & name)
 
 	const string& ID = pPlayer->getID();
 
-	hash_map< string , Creature* >::iterator itr2 = m_IDs.find(ID);
+	unordered_map< string , Creature* >::iterator itr2 = m_IDs.find(ID);
 
 	if (itr != m_IDs.end())
 	{
@@ -135,7 +135,7 @@ Creature* PCFinder::getCreature_LOCKED (const string & name) const
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -166,7 +166,7 @@ Creature* PCFinder::getCreatureByID_LOCKED (const string & ID) const
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -199,7 +199,7 @@ Creature* PCFinder::getCreature (const string & name) const
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -230,7 +230,7 @@ Creature* PCFinder::getCreatureByID (const string & ID) const
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -263,7 +263,7 @@ IP_t PCFinder::getIP (const string & name) const
 
 	IP_t IP = 0;
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -296,7 +296,7 @@ IP_t PCFinder::getIP (const string & name) const
 
 list<Creature*> PCFinder::getGuildCreatures(GuildID_t gID, uint Num)
 {
-	hash_map<string, Creature*>::iterator itr = m_PCs.begin();
+	unordered_map<string, Creature*>::iterator itr = m_PCs.begin();
 	list<Creature*> ret;
 
 	for ( uint i=0 ; itr != m_PCs.end() && i < Num ; ++itr, ++i )
@@ -315,7 +315,7 @@ bool PCFinder::sendPacket (const string& name, Packet* pPacket) const
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -350,7 +350,7 @@ bool PCFinder::setKickCharacter (const string & name, const string& host, uint p
 {
 	__BEGIN_TRY
 
-	hash_map< string , Creature* >::const_iterator itr;
+	unordered_map< string , Creature* >::const_iterator itr;
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -399,7 +399,7 @@ void PCFinder::addNPC(NPC *pNPC) throw(DuplicatedException, Error)
 
     const string& Name = pNPC->getName();
 
-    hash_map< string , NPC* >::iterator itr = m_NPCs.find(Name);
+    unordered_map< string , NPC* >::iterator itr = m_NPCs.find(Name);
 
     if (itr != m_NPCs.end())
     {
@@ -424,7 +424,7 @@ void PCFinder::deleteNPC (const string & name)
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
-    hash_map< string , NPC* >::iterator itr = m_NPCs.find(name);
+    unordered_map< string , NPC* >::iterator itr = m_NPCs.find(name);
 
     if (itr == m_NPCs.end())
     {
@@ -444,7 +444,7 @@ NPC* PCFinder::getNPC (const string & name) const
 {
     __BEGIN_TRY
 
-    hash_map< string , NPC* >::const_iterator itr;
+    unordered_map< string , NPC* >::const_iterator itr;
 
     __ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -470,7 +470,7 @@ NPC* PCFinder::getNPC_LOCKED (const string & name) const
 {
     __BEGIN_TRY
 
-    hash_map< string , NPC* >::const_iterator itr;
+    unordered_map< string , NPC* >::const_iterator itr;
 
     itr = m_NPCs.find(name);
 

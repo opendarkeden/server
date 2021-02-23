@@ -820,8 +820,8 @@ void MonsterInfoManager::load ()
 	} 
 	END_DB(pStmt)
 
-	hash_map<int, vector<SpriteType_t> >::iterator itr = m_MonsterClassMap.begin();
-	hash_map<int, vector<SpriteType_t> >::iterator endItr = m_MonsterClassMap.end();
+	unordered_map<int, vector<SpriteType_t> >::iterator itr = m_MonsterClassMap.begin();
+	unordered_map<int, vector<SpriteType_t> >::iterator endItr = m_MonsterClassMap.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -1098,7 +1098,7 @@ SpriteType_t MonsterInfoManager::getSpriteTypeByName(const string& monsterName) 
 {
 	__BEGIN_TRY
 
-	hash_map<string, SpriteType_t>::const_iterator itr = m_MonsterSpriteTypes.find( monsterName );
+	unordered_map<string, SpriteType_t>::const_iterator itr = m_MonsterSpriteTypes.find( monsterName );
 	
 	if (itr==m_MonsterSpriteTypes.end())
 	{
@@ -1118,7 +1118,7 @@ MonsterType_t MonsterInfoManager::getChiefMonsterTypeByName(const string& monste
 {
 	__BEGIN_TRY
 
-	hash_map<string, SpriteType_t>::const_iterator itr = m_ChiefMonster.find( monsterName );
+	unordered_map<string, SpriteType_t>::const_iterator itr = m_ChiefMonster.find( monsterName );
 	
 	if (itr==m_ChiefMonster.end())
 	{

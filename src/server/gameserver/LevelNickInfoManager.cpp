@@ -4,8 +4,8 @@
 
 void LevelNickInfoManager::clear()
 {
-	hash_map<Level_t, vector<LevelNickInfo*> >::iterator itr = m_LevelNickInfoMap.begin();
-	hash_map<Level_t, vector<LevelNickInfo*> >::iterator endItr = m_LevelNickInfoMap.end();
+	unordered_map<Level_t, vector<LevelNickInfo*> >::iterator itr = m_LevelNickInfoMap.begin();
+	unordered_map<Level_t, vector<LevelNickInfo*> >::iterator endItr = m_LevelNickInfoMap.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{

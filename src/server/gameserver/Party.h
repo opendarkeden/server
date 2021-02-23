@@ -11,7 +11,7 @@
 #include "Mutex.h"
 #include "ModifyInfo.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 #include <list>
 
 // 파티의 최대 크기
@@ -75,7 +75,7 @@ public:
 	PartyInviteInfo* getInviteInfo(const string& HostName) throw (NoSuchElementException, Error);
 
 protected:
-	hash_map<string, PartyInviteInfo*> m_InfoMap;
+	unordered_map<string, PartyInviteInfo*> m_InfoMap;
 	Mutex m_Mutex;
 };
 
@@ -117,7 +117,7 @@ public:
 
 public:
 	int getSize(void) const throw();
-	hash_map<string, Creature*> getMemberMap(void) throw();
+	unordered_map<string, Creature*> getMemberMap(void) throw();
 
 	// 근접한 거리(8타일) 내에 있는 멤버들의 숫자를 리턴한다.
 	int getAdjacentMemberSize(Creature* pLeader) const throw();
@@ -155,7 +155,7 @@ public:
 protected:
 	int                          m_ID;            // 파티 ID
 	Creature::CreatureClass      m_CreatureClass; // 파티의 종류
-	hash_map<string, Creature*>  m_MemberMap;     // 파티 멤버
+	unordered_map<string, Creature*>  m_MemberMap;     // 파티 멤버
 	mutable Mutex                m_Mutex;         // 내부에서 쓰는 락
 	bool						 m_bFamilyPay;	  // 패밀리 요금제 적용 파티인가?
 };
@@ -181,7 +181,7 @@ public:
 	virtual string toString(void) const throw() = 0;
 
 protected:
-	hash_map<int, Party*> m_PartyMap; // 파티 집합
+	unordered_map<int, Party*> m_PartyMap; // 파티 집합
 	mutable Mutex m_Mutex;
 };
 

@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Mutex.h"
 
 class PlayerCreature;
@@ -117,7 +117,7 @@ private :
 class ShrineInfoManager
 {
 public:
-	typedef hash_map<ShrineID_t, ShrineSet*>	HashMapShrineSet;
+	typedef unordered_map<ShrineID_t, ShrineSet*>	HashMapShrineSet;
 	typedef HashMapShrineSet::iterator			HashMapShrineSetItor;
 	typedef HashMapShrineSet::const_iterator	HashMapShrineSetConstItor;
 

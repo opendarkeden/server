@@ -28,7 +28,7 @@ bool EventZoneInfo::canEnter() const
 
 EventZoneInfo* ZoneEventInfo::getEventZoneInfo( ZoneID_t zoneID ) const
 {
-	hash_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
+	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
 
 	if ( itr == m_EventZoneInfos.end() ) return NULL;
 	return itr->second;
@@ -41,8 +41,8 @@ void ZoneEventInfo::addEventZoneInfo( EventZoneInfo* pEventZoneInfo )
 
 EventZoneInfo* ZoneEventInfo::getCurrentEventZoneInfo() const
 {
-	hash_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.begin();
-	hash_map<ZoneID_t, EventZoneInfo*>::const_iterator endItr = m_EventZoneInfos.end();
+	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.begin();
+	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator endItr = m_EventZoneInfos.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{
@@ -54,7 +54,7 @@ EventZoneInfo* ZoneEventInfo::getCurrentEventZoneInfo() const
 
 ZoneEventInfo* EventZoneInfoManager::getZoneEventInfo( WORD eventID ) const 
 {
-	hash_map<WORD, ZoneEventInfo*>::const_iterator itr = m_ZoneEventInfos.find( eventID );
+	unordered_map<WORD, ZoneEventInfo*>::const_iterator itr = m_ZoneEventInfos.find( eventID );
 
 	if ( itr == m_ZoneEventInfos.end() ) return NULL;
 	return itr->second;
@@ -62,7 +62,7 @@ ZoneEventInfo* EventZoneInfoManager::getZoneEventInfo( WORD eventID ) const
 
 EventZoneInfo* EventZoneInfoManager::getEventZoneInfo( ZoneID_t zoneID ) const 
 {
-	hash_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
+	unordered_map<ZoneID_t, EventZoneInfo*>::const_iterator itr = m_EventZoneInfos.find( zoneID );
 
 	if ( itr == m_EventZoneInfos.end() ) return NULL;
 	return itr->second;

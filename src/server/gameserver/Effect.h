@@ -710,7 +710,7 @@ public:
 public:
 	Effect() throw();
 	Effect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget, Turn_t delay) throw();
-	virtual ~Effect() throw();
+	virtual ~Effect() throw(Error);
 			
 
 // methods from Object

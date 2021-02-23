@@ -24,7 +24,7 @@
 #include "CreatureUtil.h"
 #include "ModifyInfo.h"
 #include "Mutex.h"
-#include <hash_map>
+#include <unordered_map>
 //#include "RankExpTable.h"
 #include "SlayerAttrExpTable.h"
 
@@ -596,7 +596,7 @@ private:
 
 	// SkillSlot
 	//SkillSlot* m_pSkillSlot[MAX_SLAYER_SKILL_SLOT];
-	hash_map<SkillType_t, SkillSlot*> m_SkillSlot;
+	unordered_map<SkillType_t, SkillSlot*> m_SkillSlot;
 
 	// WearItem Field
 	Item* m_pWearItem[WEAR_MAX];

@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class ShopTemplate
@@ -95,7 +95,7 @@ public:
 ///// Member data ///// 
 
 private:
-	hash_map<ShopTemplateID_t, ShopTemplate*> m_Entries; // hash map of script
+	unordered_map<ShopTemplateID_t, ShopTemplate*> m_Entries; // hash map of script
 
 };
 

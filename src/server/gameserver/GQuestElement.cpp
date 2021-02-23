@@ -66,8 +66,8 @@ void GQuestElementFactory::init()
 	addProtoType(&g_AdvanceClassElement);
 	addProtoType(&g_WarpElement);
 
-	hash_map<string, GQuestElement*>::iterator itr = m_ProtoTypes.begin();
-	hash_map<string, GQuestElement*>::iterator endItr = m_ProtoTypes.end();
+	unordered_map<string, GQuestElement*>::iterator itr = m_ProtoTypes.begin();
+	unordered_map<string, GQuestElement*>::iterator endItr = m_ProtoTypes.end();
 
 	for ( ; itr != endItr ; ++itr )
 	{

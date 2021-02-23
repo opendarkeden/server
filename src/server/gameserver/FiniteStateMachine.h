@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Timeval.h"
-#include <hash_map>
+#include <unordered_map>
 #include "Assert.h"
 #include "VSDateTime.h"
 
@@ -42,7 +42,7 @@ class FiniteStateMachine
 {
 public:
 	FiniteStateMachine() : m_pCurrentState(NULL), m_pStateFactory(NULL), m_bReset(false), m_ResetState(0) { }
-	virtual ~FiniteStateMachine() { }
+	virtual ~FiniteStateMachine() throw (Error) { }
 
 	virtual void init() = 0;
 	virtual void heartbeat(Timeval currentTime);
@@ -105,7 +105,7 @@ public:
 	State*	makeState(DWORD sType) { return m_StateMap[sType]; }
 
 private:
-	hash_map<DWORD, State*>	m_StateMap;
+	unordered_map<DWORD, State*>	m_StateMap;
 };
 
 #endif
