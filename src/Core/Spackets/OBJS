@@ -10,5 +10,5 @@ OBJS	= \
 		SGModifyGuildIntroOK.o SGModifyGuildIntroOKHandler.o \
 		SGGuildMemberLogOnOK.o SGGuildMemberLogOnOKHandler.o
 
-SRCS	= $(OBJS1:.o=.cpp)
+SRCS	= $(OBJS:.o=.cpp)
 
