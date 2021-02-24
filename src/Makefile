@@ -63,10 +63,6 @@ cleanall :
 	$(MAKE) -C server cleanall
 #	$(MAKE) -C util cleanall
 
-depall :
-	$(MAKE) -C Core depall
-	$(MAKE) -C server depall
-
 cleanbin :
 	rm -rf $(BINDIR)/gameserver $(BINDIR)/loginserver $(BINDIR)/gameclient \
 			$(BINDIR)/updateserver $(BINDIR)/updateclient
