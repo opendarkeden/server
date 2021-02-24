@@ -53,78 +53,56 @@ TARGET_LS  = $(LIBDIR)/libLoginServerCBilling.a
 
 
 #	main.o
-OBJS = \
-	CBillingPacketErrorBody.o \
-	CBillingPacketResponseLoginBody.o \
-	CBillingPacketHeader.o \
-	CBillingPacketResponseLogoutBody.o \
-	CBillingPacketRequestIntervalValidationBody.o \
-	CBillingPacketResponseMinusMinuteBody.o \
-	CBillingPacketRequestLoginBody.o \
-	CBillingPacketResponseMinusPointBody.o \
-	CBillingPacketRequestLogoutBody.o \
-	CBillingPlayer.o \
-	CBillingPacketRequestMinusMinuteBody.o \
-	CBillingPlayerInfo.o \
-	CBillingPacketRequestMinusPointBody.o \
-	CBillingPlayerManager.o \
-	CBillingPacketResponseIntervalValidationBody.o \
+SRCS = \
+	CBillingPacketErrorBody.cpp \
+	CBillingPacketResponseLoginBody.cpp \
+	CBillingPacketHeader.cpp \
+	CBillingPacketResponseLogoutBody.cpp \
+	CBillingPacketRequestIntervalValidationBody.cpp \
+	CBillingPacketResponseMinusMinuteBody.cpp \
+	CBillingPacketRequestLoginBody.cpp \
+	CBillingPacketResponseMinusPointBody.cpp \
+	CBillingPacketRequestLogoutBody.cpp \
+	CBillingPlayer.cpp \
+	CBillingPacketRequestMinusMinuteBody.cpp \
+	CBillingPlayerInfo.cpp \
+	CBillingPacketRequestMinusPointBody.cpp \
+	CBillingPlayerManager.cpp \
+	CBillingPacketResponseIntervalValidationBody.cpp \
 
-GS_OBJS = \
-	CBillingPacketErrorBody.gs.o \
-	CBillingPacketResponseLoginBody.gs.o \
-	CBillingPacketHeader.gs.o \
-	CBillingPacketResponseLogoutBody.gs.o \
-	CBillingPacketRequestIntervalValidationBody.gs.o \
-	CBillingPacketResponseMinusMinuteBody.gs.o \
-	CBillingPacketRequestLoginBody.gs.o \
-	CBillingPacketResponseMinusPointBody.gs.o \
-	CBillingPacketRequestLogoutBody.gs.o \
-	CBillingPlayer.gs.o \
-	CBillingPacketRequestMinusMinuteBody.gs.o \
-	CBillingPlayerInfo.gs.o \
-	CBillingPacketRequestMinusPointBody.gs.o \
-	CBillingPlayerManager.gs.o \
-	CBillingPacketResponseIntervalValidationBody.gs.o \
+GS_OBJS = $(SRCS:%.cpp=%.gs.o)
+LS_OBJS = $(SRCS:%.cpp=%.ls.o)
+DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.d)
 
-LS_OBJS = \
-	CBillingPacketErrorBody.ls.o \
-	CBillingPacketResponseLoginBody.ls.o \
-	CBillingPacketHeader.ls.o \
-	CBillingPacketResponseLogoutBody.ls.o \
-	CBillingPacketRequestIntervalValidationBody.ls.o \
-	CBillingPacketResponseMinusMinuteBody.ls.o \
-	CBillingPacketRequestLoginBody.ls.o \
-	CBillingPacketResponseMinusPointBody.ls.o \
-	CBillingPacketRequestLogoutBody.ls.o \
-	CBillingPlayer.ls.o \
-	CBillingPacketRequestMinusMinuteBody.ls.o \
-	CBillingPlayerInfo.ls.o \
-	CBillingPacketRequestMinusPointBody.ls.o \
-	CBillingPlayerManager.ls.o \
-	CBillingPacketResponseIntervalValidationBody.ls.o \
+DEPDIR = .deps
+DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
+COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CCFLAGS) $(TARGET_ARCH) $(DEFS) $(INCLUDES) -c
+%.o : %.cpp
 
-SRCS = $(GS_OBJS:.gs.o=.cpp)
+%.gs.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
+	$(COMPILE.c) -D__GAME_SERVER__ $(INCLUDES_GS) $(OUTPUT_OPTION) $<
 
-
+%.ls.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
+	$(COMPILE.c) -D__LOGIN_SERVER__ $(INCLUDES_LS) $(OUTPUT_OPTION) $<
 
 #.cpp.o :
 #	$(CC) $(CCFLAGS) $(DEFS) $(INCLUDES) $<
 
-.cpp.o :
-	$(CC) $(CCFLAGS) $(DEFS)  $(INCLUDES) -o $*.o $<
+# .cpp.o :
+# 	$(CC) $(CCFLAGS) $(DEFS)  $(INCLUDES) -o $*.o $<
 
-.cpp.gs.o :
-	$(CC) $(CCFLAGS) $(DEFS)  -D__GAME_SERVER__ $(INCLUDES_GS) -o $*.gs.o $<
+# .cpp.gs.o :
+# 	$(CC) $(CCFLAGS) $(DEFS)  -D__GAME_SERVER__ $(INCLUDES_GS) -o $*.gs.o $<
 
-.cpp.ls.o :
-	$(CC) $(CCFLAGS) $(DEFS)  -D__LOGIN_SERVER__ $(INCLUDES_LS) -o $*.ls.o $<
+# .cpp.ls.o :
+# 	$(CC) $(CCFLAGS) $(DEFS)  -D__LOGIN_SERVER__ $(INCLUDES_LS) -o $*.ls.o $<
 
 #----------------------------------------------------------------------
 # actions
 #----------------------------------------------------------------------
 #all : $(TARGET)
-all : $(TARGET_GS) $(TARGET_LS) $(TARGET)
+# all : $(TARGET_GS) $(TARGET_LS) $(TARGET)
+all : $(TARGET_GS) $(TARGET_LS)
 
 allgameserver : $(TARGET_GS)
 
