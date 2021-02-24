@@ -4,3 +4,4 @@ data/
 build/
 *.o
 *.a
+.deps
