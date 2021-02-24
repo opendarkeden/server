@@ -22,8 +22,6 @@ SSDIR   = $(SERVDIR)/sharedserver
 SKILLDIR= $(GSDIR)/skill
 ITEMDIR = $(GSDIR)/item
 BILLINGDIR = $(GSDIR)/billing
-DEPDIR = .deps
-
 
 #--------------------------------------------------------------------------------
 # General Rules
@@ -38,7 +36,6 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 CCFLAGS  = -Wall -c -g
 #CCFLAGS  = -Wall -c -g
 
-COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CCFLAGS) $(TARGET_ARCH) $(DEFS) $(INCLUDES) -c
 
 TARGET_GS  = $(LIBDIR)/libGameServerPackets.a
 TARGET_LS  = $(LIBDIR)/libLoginServerPackets.a
@@ -48,8 +45,9 @@ TARGET = $(TARGET_LS)
 
 include ../OBJS
 
+DEPDIR = .deps
 DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.d)
-
+COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CCFLAGS) $(TARGET_ARCH) $(DEFS) $(INCLUDES) -c
 %.o : %.cpp
 %.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
 	$(COMPILE.c) $(OUTPUT_OPTION) $<
@@ -68,12 +66,6 @@ clean :
 
 cleanall :
 	rm -rf *.o
-
-depall :
-	gccmakedep	$(SRCS) $(INCLUDES) $(DEFS)
-
-dep :
-	gccmakedep	$(SRCS) $(INCLUDES) $(DEFS)
 
 $(DEPDIR):
 	@mkdir -p $@
