@@ -228,8 +228,8 @@ void BloodyWall::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
@@ -476,8 +476,8 @@ void BloodyWall::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						gcAE.setXY( tileX, tileY );
 						pZone->broadcastPacket( tileX, tileY, &gcAE );
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;

@@ -113,8 +113,8 @@ void EffectDarkness::unaffect()
 	Tile & tile = m_pZone->getTile(m_X, m_Y);
 
 	// unaffect creatures on tile
-	const slist<Object*>& oList = tile.getObjectList();
-	for (slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+	const forward_list<Object*>& oList = tile.getObjectList();
+	for (forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 	{
 		if (*itr != this) 
 		{

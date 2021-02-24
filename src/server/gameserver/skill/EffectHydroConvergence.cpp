@@ -123,8 +123,8 @@ void EffectHydroConvergence::affect()
 // 		if ( tx < 0 || ty < 0 ) continue;
 // 		if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
 // 
-// 		slist<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
-// 		slist<Object*>::iterator itr = olist.begin();
+// 		forward_list<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
+// 		forward_list<Object*>::iterator itr = olist.begin();
 // 		for ( ; itr != olist.end() ; ++itr )
 // 		{
 // 			Object* pObject = *itr;
@@ -258,8 +258,8 @@ void EffectHydroConvergence::unaffect()
 	 		if ( tx < 0 || ty < 0 ) continue;
 	 		if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
 	 
-	 		slist<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
-	 		slist<Object*>::iterator itr = olist.begin();
+	 		forward_list<Object*>& olist = pZone->getTile(tx, ty).getObjectList();
+	 		forward_list<Object*>::iterator itr = olist.begin();
 	 		for ( ; itr != olist.end() ; ++itr )
 	 		{
 	 			Object* pObject = *itr;

@@ -101,8 +101,8 @@ void EffectDragonTornado::affect()
 
 	Tile& tile = m_pZone->getTile(m_X, m_Y);
 
-	slist<Object*>& oList = tile.getObjectList();
-	slist<Object*>::iterator itr = oList.begin();
+	forward_list<Object*>& oList = tile.getObjectList();
+	forward_list<Object*>::iterator itr = oList.begin();
 
 	for ( ; itr != oList.end(); ++itr )
 	{

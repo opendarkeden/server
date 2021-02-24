@@ -71,8 +71,8 @@ void EffectCannonade::unaffect(Creature* pCastCreature)
 
 			// 타일안에 존재하는 오브젝트를 가져온다.
 			Tile& tile = m_pZone->getTile( X, Y );
-			const slist<Object*>& oList = tile.getObjectList();
-			slist<Object*>::const_iterator itr = oList.begin();
+			const forward_list<Object*>& oList = tile.getObjectList();
+			forward_list<Object*>::const_iterator itr = oList.begin();
 
 			Damage_t Damage = m_Damage;
 

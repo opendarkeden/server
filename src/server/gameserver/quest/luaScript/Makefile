@@ -12,6 +12,7 @@ SERVDIR  = ../../..
 DBDIR    = ../../../database
 GSDIR    = ../..
 LSDIR    = ../../../loginserver
+LUADIR = /mnt/c/Users/genius/Downloads/lua-4.0.1
 
 #----------------------------------------------------------------------
 # General Rules
@@ -20,7 +21,7 @@ LSDIR    = ../../../loginserver
 
 CC       = g++
 DEFS     = -D__LINUX__ -D_REENTRANT
-INCLUDES = -I$(STLDIR) -I$(COREDIR) -I$(SERVDIR) -I$(GSDIR)
+INCLUDES = -I$(STLDIR) -I$(COREDIR) -I$(SERVDIR) -I$(GSDIR) -I$(LUADIR)/include
 CCFLAGS  = -Wall -c -g  
 #CCFLAGS  = -Wall -c -g 
 #LIBS     = -L$(LIBDIR) -lItems -lQuest -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lSimpleQuest

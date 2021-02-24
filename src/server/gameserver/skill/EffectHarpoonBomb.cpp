@@ -68,8 +68,8 @@ void EffectHarpoonBomb::crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
 			if(!rect.ptInRect(X+x, Y+y)) continue;
 			Tile& tile = pZone->getTile(X+x, Y+y);
 			
-			const slist<Object*>& oList = tile.getObjectList();
-			slist<Object*>::const_iterator itr = oList.begin();
+			const forward_list<Object*>& oList = tile.getObjectList();
+			forward_list<Object*>::const_iterator itr = oList.begin();
 			for(; itr != oList.end(); itr++)
 			{
 				Object* pObject = *itr;
@@ -209,8 +209,8 @@ void EffectHarpoonBomb::affect()
 			if(!rect.ptInRect(X, Y)) continue;
 			Tile& tile = pZone->getTile(X, Y);
 
-			const slist<Object*>& oList = tile.getObjectList();
-			slist<Object*>::const_iterator itr = oList.begin();
+			const forward_list<Object*>& oList = tile.getObjectList();
+			forward_list<Object*>::const_iterator itr = oList.begin();
 			for(; itr != oList.end(); itr++)
 			{
 				Object* pObject = *itr;

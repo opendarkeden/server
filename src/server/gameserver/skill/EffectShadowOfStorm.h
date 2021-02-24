@@ -8,7 +8,7 @@
 #define __EFFECT_SHADOW_OF_STORM__
 
 #include "Effect.h"
-#include <hash_map>
+#include <unordered_map>
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectShadowOfStorm
@@ -38,7 +38,7 @@ public:
 private:
 	int     						m_Damage;
 	ObjectID_t						m_UserObjectID;
-	hash_map<ObjectID_t, TPOINT>	m_TargetPositions;
+	unordered_map<ObjectID_t, TPOINT>	m_TargetPositions;
 };
 
 #endif // __EFFECT_SHADOW_OF_STORM__

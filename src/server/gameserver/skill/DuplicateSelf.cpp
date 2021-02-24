@@ -127,7 +127,7 @@ void DuplicateSelf::execute(Monster* pMonster)
 	//cout << "DuplicateSelf" << endl;
 	MonsterType_t MType = pMonster->getMonsterType();
 
-	hash_map<MonsterType_t, MonsterType_t>::const_iterator itr = m_DuplicateMonsterTypes.find( MType );
+	unordered_map<MonsterType_t, MonsterType_t>::const_iterator itr = m_DuplicateMonsterTypes.find( MType );
 
 	// 분신할 MonsterType이 없으면 분신 모하지..
 	if (itr==m_DuplicateMonsterTypes.end())

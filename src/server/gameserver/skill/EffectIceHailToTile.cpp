@@ -12,10 +12,10 @@ void EffectIceHailToTile::affect() throw(Error)
 	__BEGIN_TRY
 
 	Tile& rTile = m_pZone->getTile( m_X, m_Y );
-	const slist<Object*>& rList = rTile.getObjectList();
+	const forward_list<Object*>& rList = rTile.getObjectList();
 
-	slist<Object*>::const_iterator itr = rList.begin();
-	slist<Object*>::const_iterator endItr = rList.end();
+	forward_list<Object*>::const_iterator itr = rList.begin();
+	forward_list<Object*>::const_iterator endItr = rList.end();
 
 //	cout << "¾ÆÇÁ³Ä?" << endl;
 

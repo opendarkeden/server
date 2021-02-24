@@ -65,9 +65,9 @@ void Glacier1::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 					Tile&   tile  = pZone->getTile(tX, tY);
 
-					slist<Object*>& oList = tile.getObjectList();
-					slist<Object*>::iterator itr = oList.begin();
-					slist<Object*>::iterator endItr = oList.end();
+					forward_list<Object*>& oList = tile.getObjectList();
+					forward_list<Object*>::iterator itr = oList.begin();
+					forward_list<Object*>::iterator endItr = oList.end();
 
 					for ( ; itr != endItr; ++itr )
 					{

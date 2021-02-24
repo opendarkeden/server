@@ -22,7 +22,7 @@ Schedule::Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type )
 }
 
 Schedule::~Schedule()
-	throw()
+  throw(Error)
 {
 	__BEGIN_TRY
 

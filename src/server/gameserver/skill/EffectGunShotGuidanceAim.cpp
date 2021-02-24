@@ -98,8 +98,8 @@ void EffectGunShotGuidanceAim::unaffect(Creature* pCastCreature)
 
 			// 타일안에 존재하는 오브젝트를 가져온다.
 			Tile& tile = m_pZone->getTile( X, Y );
-			const slist<Object*>& oList = tile.getObjectList();
-			slist<Object*>::const_iterator itr = oList.begin();
+			const forward_list<Object*>& oList = tile.getObjectList();
+			forward_list<Object*>::const_iterator itr = oList.begin();
 
 			int DamageModifier = GSGDamageModify[x+2][y+2];
 			Damage_t Damage = getPercentValue( m_Damage, DamageModifier );

@@ -195,8 +195,8 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 							pZone->broadcastPacket(X, Y, &gcAddEffectToTile, pSlayer);
 						}
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							//Creature* pTargetCreature = NULL;

@@ -31,7 +31,7 @@ public:
 
 private :
 	// [원래MType] = 분신MType
-	hash_map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
+	unordered_map<MonsterType_t, MonsterType_t> m_DuplicateMonsterTypes;
 };
 
 // global variable declaration

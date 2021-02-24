@@ -164,8 +164,8 @@ void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 
 
 
-					const slist<Object*>& oList = tile.getObjectList();
-					for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+					const forward_list<Object*>& oList = tile.getObjectList();
+					for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 					{
 						Object* pTarget = *itr;
 						Creature* pTargetCreature = NULL;
@@ -418,8 +418,8 @@ void BloodySnake::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 
 						pZone->broadcastPacket(tileX, tileY, &gcAddEffectToTile);
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;

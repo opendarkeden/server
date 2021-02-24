@@ -46,8 +46,8 @@ void EffectRapidFreeze::checkPosition()
 		if ( !isValidZoneCoord( m_pZone, tx, ty ) ) continue;
 		Tile& tile = m_pZone->getTile(tx, ty);
 		// 타일 안에 존재하는 오브젝트들을 검색한다.
-		const slist<Object*>& oList = tile.getObjectList();
-		slist<Object*>::const_iterator itr = oList.begin();
+		const forward_list<Object*>& oList = tile.getObjectList();
+		forward_list<Object*>::const_iterator itr = oList.begin();
 		for (; itr != oList.end(); itr++) 
 		{
 			Assert(*itr != NULL);
@@ -97,8 +97,8 @@ void EffectRapidFreeze::affect()
 		Tile& tile = m_pZone->getTile(tx, ty);
 
 		// 타일 안에 존재하는 오브젝트들을 검색한다.
-		const slist<Object*>& oList = tile.getObjectList();
-		slist<Object*>::const_iterator itr = oList.begin();
+		const forward_list<Object*>& oList = tile.getObjectList();
+		forward_list<Object*>::const_iterator itr = oList.begin();
 		for (; itr != oList.end(); itr++) 
 		{
 			Assert(*itr != NULL);
@@ -132,7 +132,7 @@ void EffectRapidFreeze::affect()
 					GCModifyInformation gcDefenderMI;
 
 					Damage_t damage = m_Damage;
-					hash_map<ObjectID_t, TPOINT>::iterator itr = m_TargetPositions.find( pCreature->getObjectID() );
+					unordered_map<ObjectID_t, TPOINT>::iterator itr = m_TargetPositions.find( pCreature->getObjectID() );
 
 					if ( itr == m_TargetPositions.end() )
 					{

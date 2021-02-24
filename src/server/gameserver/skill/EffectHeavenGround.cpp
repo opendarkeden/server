@@ -63,8 +63,8 @@ void EffectHeavenGround::affect()
 	Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 获取地图物品链表
-	const slist<Object*>& oList = tile.getObjectList();
-	slist<Object*>::const_iterator itr = oList.begin();
+	const forward_list<Object*>& oList = tile.getObjectList();
+	forward_list<Object*>::const_iterator itr = oList.begin();
 	for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);

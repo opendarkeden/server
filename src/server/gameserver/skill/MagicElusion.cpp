@@ -148,8 +148,8 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 						pEffect->setBroadcastingEffect(false);
 					}
 
-					const slist<Object*>& oList = tile.getObjectList();
-					for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+					const forward_list<Object*>& oList = tile.getObjectList();
+					for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 					{
 						Object* pTarget = *itr;
 						if ( pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )

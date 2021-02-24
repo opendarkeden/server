@@ -10,7 +10,7 @@ Scheduler::Scheduler()
 {
 }
 Scheduler::~Scheduler()
-	throw()
+	throw(Error)
 {
 	clear();
 }

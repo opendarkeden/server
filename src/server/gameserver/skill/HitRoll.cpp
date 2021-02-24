@@ -647,7 +647,7 @@ bool HitRoll::isSuccessFlare(Creature* pTargetCreature, int SkillLevel)
 //////////////////////////////////////////////////////////////////////////////
 // RemoveCurse 명중굴림 함수
 //////////////////////////////////////////////////////////////////////////////
-bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio = 0)
+bool HitRoll::isSuccessRemoveCurse(int Base, int SkillLevel, int Difficulty, int MagicLevel, int MinRatio /* = 0 */)
 {
 	int ratio = Base + SkillLevel - Difficulty - MagicLevel;
 

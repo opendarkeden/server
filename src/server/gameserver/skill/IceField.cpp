@@ -199,8 +199,8 @@ void IceField::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;

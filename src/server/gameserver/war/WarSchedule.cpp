@@ -11,7 +11,8 @@
 #include "Gpackets/GCWarScheduleList.h"
 #include "Gpackets/GCWarList.h"
 
-WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) 
+WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type // = SCHEDULE_TYPE_ONCE
+                          )
 	throw(Error)
 : Schedule(pWork, Time, type)
 {

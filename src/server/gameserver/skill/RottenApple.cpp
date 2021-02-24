@@ -129,8 +129,8 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 
 				if ( !isValidZoneCoord( pZone, X, Y ) ) continue;
 				Tile& rTile = pZone->getTile( X, Y );
-				slist<Object*>& oList = rTile.getObjectList();
-				slist<Object*>::iterator itr = oList.begin();
+				forward_list<Object*>& oList = rTile.getObjectList();
+				forward_list<Object*>::iterator itr = oList.begin();
 				for ( ; itr != oList.end(); ++itr )
 				{
 					Object* pObject = *itr;

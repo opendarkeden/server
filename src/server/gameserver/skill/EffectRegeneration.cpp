@@ -74,8 +74,8 @@ void EffectRegeneration::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
 			// 타일안에 존재하는 오브젝트를 가져온다.
 			Tile& tile = pZone->getTile( X, Y );
 
-			const slist<Object*>& oList = tile.getObjectList();
-			for ( slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++ )
+			const forward_list<Object*>& oList = tile.getObjectList();
+			for ( forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++ )
 			{
 				Object* pTargetObject = (*itr);
 				if ( pTargetObject != NULL

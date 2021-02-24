@@ -60,8 +60,8 @@ void EffectPenetrateWheel::affect()
     Tile& tile = m_pZone->getTile(m_X, m_Y);
 
 	// 타일 안에 존재하는 오브젝트들을 검색한다.
-    const slist<Object*>& oList = tile.getObjectList();
-	slist<Object*>::const_iterator itr = oList.begin();
+    const forward_list<Object*>& oList = tile.getObjectList();
+	forward_list<Object*>::const_iterator itr = oList.begin();
     for (; itr != oList.end(); itr++) 
 	{
 		Assert(*itr != NULL);

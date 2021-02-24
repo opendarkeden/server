@@ -95,8 +95,8 @@ void EffectTileStorm::affect()
 
 		Tile& tile = m_pZone->getTile(tileX, tileY);
 
-		const slist<Object*>& oList = tile.getObjectList();
-		slist<Object*>::const_iterator itr = oList.begin();
+		const forward_list<Object*>& oList = tile.getObjectList();
+		forward_list<Object*>::const_iterator itr = oList.begin();
 		for ( ; itr != oList.end(); itr++ )
 		{
 			Object* pObject = *itr;
@@ -237,7 +237,7 @@ string EffectTileStorm::toString()
 
 	msg << "EffectTileStorm("
 		<< "ObjectID:" << (int)getObjectID()
-		<< ",Zone:" << (int)m_pZone
+		<< ",Zone:" << (int64_t)m_pZone
 		<< ",X:" << (int)m_X
 		<< ",Y:" << (int)m_Y
 		<< ",Damage:" << (int)m_Damage

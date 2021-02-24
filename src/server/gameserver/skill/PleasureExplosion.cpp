@@ -60,8 +60,8 @@ void PleasureExplosion::execute(Monster* pMonster)
 					ZoneCoord_t ty = y+j;
 					if ( !isValidZoneCoord( pZone, tx, ty ) ) continue;
 					Tile& rTile = pZone->getTile( tx, ty );
-					slist<Object*>& oList = rTile.getObjectList();
-					slist<Object*>::iterator itr = oList.begin();
+					forward_list<Object*>& oList = rTile.getObjectList();
+					forward_list<Object*>::iterator itr = oList.begin();
 
 					for ( ; itr != oList.end(); ++itr )
 					{

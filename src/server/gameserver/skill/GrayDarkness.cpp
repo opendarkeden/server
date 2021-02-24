@@ -231,8 +231,8 @@ void GrayDarkness::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;
@@ -468,8 +468,8 @@ void GrayDarkness::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						pZone->addEffect(pEffect);
 						tile.addEffect(pEffect);
 
-						const slist<Object*>& oList = tile.getObjectList();
-						for(slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
+						const forward_list<Object*>& oList = tile.getObjectList();
+						for(forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++) 
 						{
 							Object* pTarget = *itr;
 							Creature* pTargetCreature = NULL;

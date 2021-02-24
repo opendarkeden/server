@@ -54,10 +54,10 @@ void EffectIceHail::affect()
 		for ( int j = -m_Range; j <= m_Range; ++j )
 		{
 			Tile& rTile = m_pZone->getTile( m_X + i, m_Y + j );
-			const slist<Object*>& rList = rTile.getObjectList();
+			const forward_list<Object*>& rList = rTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = rList.begin();
-			slist<Object*>::const_iterator endItr = rList.end();
+			forward_list<Object*>::const_iterator itr = rList.begin();
+			forward_list<Object*>::const_iterator endItr = rList.end();
 
 		//	cout << "¾ÆÇÁ³Ä?" << endl;
 
