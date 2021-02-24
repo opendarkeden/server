@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <hash_map>
+#include <unordered_map>
 
 #include "UpdateServer.h"
 #include "Assert.h"
@@ -156,8 +156,8 @@ void UpdateServer::run ()
 		getCurrentTime(currentTime);
 		nextTime.tv_sec = currentTime.tv_sec + 10;
 
-		hash_map<string, int> IPs;
-		hash_map<string, int> DenyLists;
+		unordered_map<string, int> IPs;
+		unordered_map<string, int> DenyLists;
 
 		// main loop
 		while ( true ) {
@@ -198,7 +198,7 @@ void UpdateServer::run ()
 
 				const string& IP = pSocket->getHost();
 
-				hash_map<string, int>::iterator itr = IPs.find(IP);
+				unordered_map<string, int>::iterator itr = IPs.find(IP);
 				if (itr==IPs.end())
 				{
 					IPs[IP] = 1;	
@@ -208,7 +208,7 @@ void UpdateServer::run ()
 					itr->second ++;
 				}
 
-				hash_map<string, int>::iterator itrdeny = DenyLists.find(IP);
+				unordered_map<string, int>::iterator itrdeny = DenyLists.find(IP);
 				if (itrdeny!=DenyLists.end())
 				{
 					delete pSocket;
@@ -244,7 +244,7 @@ void UpdateServer::run ()
 				if (nextTime.tv_sec < currentTime.tv_sec)
 				{
 					// 접속지 기록
-					hash_map<string, int>::const_iterator itr = IPs.begin();
+					unordered_map<string, int>::const_iterator itr = IPs.begin();
 					for (; itr!=IPs.end(); itr++)
 					{
 						const string& IP = itr->first;

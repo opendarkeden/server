@@ -18,8 +18,8 @@
 #include <sys/stat.h>
 #include <sys/resource.h>
 
-#include <iostream.h>
-#include <stdlib.h>
+#include <iostream>
+#include <cstdlib>
 #include <list>
 #include <algorithm>
 #include "UpdateManager.h"
@@ -145,7 +145,7 @@ void main(void) {
 		// ÆĞÄ¡ µğ·ºÅä¸®¸¦ ¿ÀÇÂÇÑ´Ù.
 		DIR * pDIR = opendir( patchDir.c_str() );
 
-		// ÆĞÄ¡ µğ·ºÅä¸®°¡ ¾øÀ¸¸é ¸»Â¯ È²!
+		// ÆĞÄ¡ µğ·ºÅä¸®°¡ ¾øÀ¸¸é ¸»Â¯ È®!
 		Assert( pDIR != NULL );
 
 		// ÆĞÄ¡ µğ·ºÅä¸®ÀÇ ÇÏÀ§ µğ·ºÅä¸®(¹öÀü µğ·ºÅä¸®)µéÀ» ÀĞ¾îµéÀÎ´Ù.
@@ -371,7 +371,7 @@ void create_Index() {
 	int beforeVersion = 0;
 	int version = 0;
 
-	// ¹öÁ¯ÀÎÆ÷¿¡¼­ ÆÄÀÏÀ» ÇÏ³ª¾¿ ²¨³»¸é¼­ ÆÄÀÏÀÌ µé¾î°¥ À§Ä¡¸¦ »Ì¾Æ³½´Ù.
+	// ¹öÁ¯ÀÎÆ÷¿¡¼­ ÆÄÀÏÀ» ÇÏ³ª¾¿ ®¨³»¸é¼­ ÆÄÀÏÀÌ µé¾î°¥ À§Ä¡¸¦ »Ì¾Æ³½´Ù.
 	for( ; itr != VersionInfoList.end(); itr++ ) {
 
 		StringStream msg1;
@@ -429,7 +429,7 @@ void create_Index() {
 
 		char filename[256];
 		sprintf(filename,"%s/v%05d/index.dat", g_pConfig->getProperty("PatchDirectory").c_str() , i );
-		ifstream ifile( filename, ios::in | ios::binary | ios::nocreate );
+		ifstream ifile( filename, ios::in | ios::binary );
 		// ÆÄÀÏÀÌ ¾øÀ¸¸é ºó ÀÎµ¦½º¸¦ »ı¼ºÇÑ´Ù.
 		if ( !ifile ) {
 			int Count = 0;
@@ -512,7 +512,7 @@ int main ( int argc , char * argv[] )
 
 
 	//
-	// ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ²´Ù.
+	// ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ »ı¼ºÇÏ°í ÃÊ±âÈ­ÇÑ ÈÄ È°¼ºÈ­½ÃÅ®´Ù.
 	//
 	try {
 
@@ -527,7 +527,7 @@ int main ( int argc , char * argv[] )
 		// ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù.
 		g_pUpdateServer->init();
 
-		// ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ²´Ù.
+		// ¾÷µ¥ÀÌÆ® ¼­¹ö °´Ã¼¸¦ È°¼ºÈ­½ÃÅ®´Ù.
 		g_pUpdateServer->start();
 
 	} catch ( Throwable & e ) {
@@ -540,7 +540,7 @@ int main ( int argc , char * argv[] )
 		// Ç¥ÁØ Ãâ·ÂÀ¸·Îµµ Ãâ·ÂÇØÁØ´Ù.
 		//cout << e.toString() << endl;
 
-		// ¾÷µ¥ÀÌÆ® ¼­¹ö¸¦ Áß´Ü½ÃÅ²´Ù.
+		// ¾÷µ¥ÀÌÆ® ¼­¹ö¸¦ Áß´Ü½ÃÅ®´Ù.
 		// ÀÌ ³»ºÎ¿¡¼­ ÇÏÀ§ ¸Å´ÏÀú ¿ª½Ã Áß´ÜµÇ¾î¾ß ÇÑ´Ù.
 		g_pUpdateServer->stop();
 

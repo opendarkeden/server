@@ -97,15 +97,16 @@ void CURequestHandler::execute ( CURequest * pPacket , Player * pPlayer )
 	//cout << "=======================================================================" << endl;
 	//cout << resource.getFilename() << " (" << filesize << "bytes) : ";
 
+  // TODO: make fd() work??
 	// 파일 내용을 전송한다.
-	DWORD nSent = sendfile( pSocket->getSOCKET() , ifile.rdbuf()->fd() , &offset, filesize );
+	// DWORD nSent = sendfile( pSocket->getSOCKET() , ifile.rdbuf()->fd() , &offset, filesize );
 
 	//cout << nSent << " bytes sent to client." << endl;
 	//cout << "=======================================================================" << endl;
 
-	if ( nSent != filesize ) {
-		throw Error("파일 전송 오류");
-	}
+	// if ( nSent != filesize ) {
+	// 	throw Error("파일 전송 오류");
+	// }
 
 	// 파일을 닫는다.
 	ifile.close();

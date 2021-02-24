@@ -42,7 +42,7 @@ OBJS1	= \
 		UCUpdate.us.o UCUpdateHandler.us.o \
 		UCUpdateList.us.o UCUpdateListHandler.us.o \
 		UCRequestLoginMode.us.o UCRequestLoginModeHandler.us.o \
-	# CURequestHandler.us.o
+	  CURequestHandler.us.o
 
 OBJS2	= \
 		CUBeginUpdate.uc.o CUBeginUpdateHandler.uc.o \
@@ -52,7 +52,7 @@ OBJS2	= \
 		UCUpdate.uc.o UCUpdateHandler.uc.o \
 		UCUpdateList.uc.o UCUpdateListHandler.uc.o \
 		UCRequestLoginMode.uc.o UCRequestLoginModeHandler.uc.o \
-	# CURequestHandler.uc.o 
+	  CURequestHandler.uc.o 
 
 SRCS	= $(OBJS1:.us.o=.cpp)
 
