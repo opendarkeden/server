@@ -9,7 +9,6 @@
 # Directories
 #--------------------------------------------------------------------------------
 VSHOME  = ../../../..
-STLDIR  = /usr/include/STL
 BINDIR  = $(VSHOME)/bin
 LIBDIR  = $(VSHOME)/lib
 SRCDIR  = $(VSHOME)/src
@@ -30,7 +29,7 @@ BILLINGDIR = $(GSDIR)/billing
 
 CC       = g++
 DEFS     = -D__LINUX__ -D_REENTRANT -D__LOGIN_SERVER__
-INCLUDES = -I$(STLDIR) -I$(COREDIR) -I$(SERVDIR) -I$(DBDIR) -I$(GSDIR) -I$(SKILLDIR) -I$(ITEMDIR) -I$(BILLINGDIR)
+INCLUDES = -I$(COREDIR) -I$(SERVDIR) -I$(DBDIR) -I$(GSDIR) -I$(SKILLDIR) -I$(ITEMDIR) -I$(BILLINGDIR)
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 
 CCFLAGS  = -Wall -c -g
