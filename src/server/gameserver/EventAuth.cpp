@@ -47,7 +47,8 @@ void EventAuth::activate ()
 	{
 		Assert(m_pGamePlayer != NULL);
 
-		if ( !m_pGamePlayer->getCSAuth().IsAuth() )
+		// if ( !m_pGamePlayer->getCSAuth().IsAuth() )
+    if (true)
 		{
 			filelog("CSAuth.log", "[%s] 인증 시간 제한을 초과했습니다.", m_pGamePlayer->getID().c_str() );
 
@@ -64,10 +65,10 @@ void EventAuth::activate ()
 		}
 		else
 		{
-			DWORD key = m_pGamePlayer->getCSAuth().GetAuthDword();
-			GCAuthKey gcKey;
-			gcKey.setKey(key);
-			m_pGamePlayer->sendPacket(&gcKey);
+			// DWORD key = m_pGamePlayer->getCSAuth().GetAuthDword();
+			// GCAuthKey gcKey;
+			// gcKey.setKey(key);
+			// m_pGamePlayer->sendPacket(&gcKey);
 		}
 	}
 

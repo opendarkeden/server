@@ -12,7 +12,6 @@
 #include "SXml.h"
 #include <iostream>
 #include <iosfwd>
-// #include <cassert>
 #include <cstdio>
 #include <cstdarg>
 #include <ctime>
@@ -37,6 +36,10 @@ void itoa( int value, char* buf, int r )
 	#include "xercesc/framework/MemBufInputSource.hpp"
 	#include "xercesc/util/PlatformUtils.hpp"
 	#include "xercesc/util/XMLString.hpp"
+
+// The Assert macro definitation pollute the include head files, result in build error.
+#undef Assert
+
 	#include "xercesc/sax2/XMLReaderFactory.hpp"
 	#include "xercesc/sax2/SAX2XMLReader.hpp"
 	#include "xercesc/sax2/Attributes.hpp"
@@ -45,7 +48,7 @@ void itoa( int value, char* buf, int r )
 
 //#pragma warning(disable:4100)
 
-// XERCES_CPP_NAMESPACE_USE
+XERCES_CPP_NAMESPACE_USE
 
 //////////////////////////////////////////////////////////////////////////////
 /// \class XMLUtil
@@ -782,6 +785,8 @@ XMLTreeGenerator::startElement( const XMLCh* const uri,
 
 	m_pBuffer = pTree;
 }
+
+// #include <cassert>
 
 void
 XMLTreeGenerator::endElement(	const XMLCh* const uri, 

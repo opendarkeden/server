@@ -270,7 +270,7 @@ void GameServer::start ()
 	// Å×½ºÆ® by sigi. 2002.12.26
 	if (g_pTestConfig!=NULL)
 	{
-		testGameServer();
+		// testGameServer();
 	}
 
 	try {

@@ -735,11 +735,11 @@ void ObjectManager::load ()
 	printf("ObjectManager::load() : SiegeManager Initialization Success\n");
 
 	printf("ObjectManager::load() : CSAuth Table Initialization Start\n");
-	LoadAuthTable((g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str());
+	// LoadAuthTable((g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str());
 	printf("ObjectManager::load() : CSAuth Table Initialization Success\n");
 
 	printf("ObjectManager::load() : CSAuth Index Initialization Start\n");
-	LoadAuthIndex((g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str());
+	// LoadAuthIndex((g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str());
 	printf("ObjectManager::load() : CSAuth Index Initialization Success\n");
 
 	printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Start\n");

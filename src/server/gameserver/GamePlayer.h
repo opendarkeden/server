@@ -25,7 +25,7 @@
 #include "Gpackets/GCReconnectLogin.h"
 #include <bitset>
 
-#include "gameguard/CSAuth.h"
+// #include "gameguard/CSAuth.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class GamePlayer
@@ -185,7 +185,7 @@ public:
 	void setItemRatioBonusPoint(int point) { m_ItemRatioBonusPoint = point; }
 
 	bool	startPacketLog( uint sec );
-	CCSAuth&	getCSAuth() { return m_NProtectCSAuth; }
+	// CCSAuth&	getCSAuth() { return m_NProtectCSAuth; }
 
 	void logLoginoutDateTime();
 	
@@ -260,7 +260,7 @@ private:
 	bool			m_bPacketLog;
 	Timeval			m_PacketLogEndTime;
 
-	CCSAuth			m_NProtectCSAuth;
+	// CCSAuth			m_NProtectCSAuth;
 
 	VSDateTime		m_LoginDateTime;
 

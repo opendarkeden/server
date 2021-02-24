@@ -35,21 +35,21 @@ void CGAuthKeyHandler::execute ( CGAuthKey * pPacket , Player * pPlayer )
 	Assert( pGamePlayer != NULL );
 
 	DWORD key = pPacket->getKey();
-	if ( !pGamePlayer->getCSAuth().CheckAuthDword(key) )
-	{
-		filelog("CSAuth.log", "[%s] ÀÎÁõ °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.", pGamePlayer->getID().c_str());
+// 	if ( !pGamePlayer->getCSAuth().CheckAuthDword(key) )
+// 	{
+// 		filelog("CSAuth.log", "[%s] ÀÎÁõ °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.", pGamePlayer->getID().c_str());
 
-		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("nProtect GameGuardÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
-		pGamePlayer->sendPacket( &gcSystemMessage );
+// 		GCSystemMessage gcSystemMessage;
+// 		gcSystemMessage.setMessage("nProtect GameGuardÈÏÖ¤Ê§°Ü.Ö´ÐÐÎÄ¼þ´íÎó»òGameGuardÎÄ¼þËð»µ.");
+// 		pGamePlayer->sendPacket( &gcSystemMessage );
 
-		EventKick* pKick = new EventKick( pGamePlayer );
-		pKick->setDeadline(100);
-//		pKick->setMessage("GameGuard ÀÎÁõ ÄÚµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù. 10ÃÊ µÚ¿¡ ¿¬°áÀÌ Á¾·áµË´Ï´Ù.");
-		pKick->sendMessage();
+// 		EventKick* pKick = new EventKick( pGamePlayer );
+// 		pKick->setDeadline(100);
+// //		pKick->setMessage("GameGuard ÀÎÁõ ÄÚµå°¡ Àß¸øµÇ¾ú½À´Ï´Ù. 10ÃÊ µÚ¿¡ ¿¬°áÀÌ Á¾·áµË´Ï´Ù.");
+// 		pKick->sendMessage();
 
-		pGamePlayer->addEvent(pKick);
-	}
+// 		pGamePlayer->addEvent(pKick);
+// 	}
 
 #endif
 	

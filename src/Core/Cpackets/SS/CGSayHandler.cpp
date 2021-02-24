@@ -5364,8 +5364,8 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if ( command == "ReloadAuthTable" )
 	{
-		LoadAuthTable( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str() );
-		LoadAuthIndex( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str() );
+		// LoadAuthTable( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str() );
+		// LoadAuthIndex( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str() );
 		gcSystemMessage.setMessage("启动认证程序.");
 	}
 	else if ( command == "SetAuthIndex" )

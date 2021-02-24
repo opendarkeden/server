@@ -46,7 +46,7 @@ CCFLAGS  = -Wall -c -g
 #LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lGameServerTest -lWar -lCouple -lMission -lCTF -lGameServerCBilling -lxerces-c -lsicuuc -lsicudata -lCSAuth
 LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lWar -lCouple -lMission -lCTF -lGameServerCBilling
 #SYSLIBS  = -L$(MYSQLDIR) -static -lpthread -lnsl -lutil -ldl -lmysqlclient -llua -llualib -lz -lcppunit
-SYSLIBS  = -L$(MYSQLDIR) -static -lpthread -lnsl -lutil -ldl -lmysqlclient -L$(LUADIR)/lib -llua -llualib -lz
+SYSLIBS  = -L$(MYSQLDIR) -lpthread -lnsl -lutil -ldl -lmysqlclient -L/mnt/c/xerces-c-3.2.3/xerces-c-3.2.3/src/.libs/ -lxerces-c -L$(LUADIR)/lib -llua -llualib -lz
 
 .cpp.o :
 	$(CC) $(CCFLAGS) $(DEFS) $(INCLUDES) $<
@@ -171,7 +171,7 @@ all :
 	$(MAKE) -C ctf
 	$(MAKE) -C mofus
 	$(MAKE) $(TARGET)
-	$(MAKE) -C test
+	# $(MAKE) -C test
 
 gameserver :
 	$(MAKE) -C mission

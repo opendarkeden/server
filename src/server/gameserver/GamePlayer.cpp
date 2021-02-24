@@ -147,7 +147,7 @@ GamePlayer::GamePlayer (Socket* pSocket)
 	m_bPermission = false;
 #endif
 	
-	m_NProtectCSAuth.Init();
+  //	m_NProtectCSAuth.Init();
 
 	__END_CATCH
 }

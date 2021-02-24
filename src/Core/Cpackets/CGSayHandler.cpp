@@ -5363,20 +5363,20 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	{
 		SiegeManager::Instance().start(pGamePlayer->getCreature()->getZoneID());
 	}
-	else if ( command == "ReloadAuthTable" )
-	{
-		LoadAuthTable( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str() );
-		LoadAuthIndex( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str() );
-		gcSystemMessage.setMessage("启动认证程序.");
-	}
-	else if ( command == "SetAuthIndex" )
-	{
-		DWORD index = atoi(trim(value1).c_str());
-		SetAuthIndex(index);
-		char buffer[100];
-		sprintf(buffer, "把认证索引设置为%u.", index);
-		gcSystemMessage.setMessage( buffer );
-	}
+	// else if ( command == "ReloadAuthTable" )
+	// {
+	// 	LoadAuthTable( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str() );
+	// 	LoadAuthIndex( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str() );
+	// 	gcSystemMessage.setMessage("启动认证程序.");
+	// }
+	// else if ( command == "SetAuthIndex" )
+	// {
+	// 	DWORD index = atoi(trim(value1).c_str());
+	// 	SetAuthIndex(index);
+	// 	char buffer[100];
+	// 	sprintf(buffer, "把认证索引设置为%u.", index);
+	// 	gcSystemMessage.setMessage( buffer );
+	// }
 	else if ( command == "IAmAttacker" )
 	{
 		Creature* pCreature = pGamePlayer->getCreature();

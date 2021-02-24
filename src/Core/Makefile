@@ -66,9 +66,7 @@ CORE_OBJS = WarInfo.o RaceWarInfo.o GuildWarInfo.o LevelWarInfo.o BloodBibleBonu
 			Encrypter.o	SocketEncryptInputStream.o SocketEncryptOutputStream.o \
 			OustersSkillInfo.o PCOustersInfo.o PCOustersInfo2.o PCOustersInfo3.o SubOustersSkillInfo.o \
 			ItemNameInfo.o SweeperBonusInfo.o PetInfo.o NicknameInfo.o QuestStatusInfo.o \
-			BloodBibleSignInfo.o StoreInfo.o
-
-# SXml.o
+			BloodBibleSignInfo.o StoreInfo.o SXml.o
 
 CORE_SRCS = $(CORE_OBJS:.o=.cpp)
 CORE_LIB = $(LIBDIR)/libCore.a
