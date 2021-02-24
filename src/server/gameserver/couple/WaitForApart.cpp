@@ -167,7 +167,7 @@ bool WaitForApart::removeCoupleItem( PlayerCreature* pPC )
 		Slayer* pSlayer = dynamic_cast<Slayer*>( pPC );
 		Assert( pSlayer != NULL );
 
-		for ( Slayer::WearPart i = Slayer::WEAR_FINGER1 ; i <= Slayer::WEAR_FINGER4 ; ++(int)i )
+		for ( Slayer::WearPart i = Slayer::WEAR_FINGER1 ; i <= Slayer::WEAR_FINGER4 ; i = static_cast<Slayer::WearPart>(static_cast<int>(i) + 1) )
 		{
 			Item* pRing = pSlayer->getWearItem( i );
 			if ( pRing != NULL )
@@ -194,7 +194,7 @@ bool WaitForApart::removeCoupleItem( PlayerCreature* pPC )
 		Vampire* pVampire = dynamic_cast<Vampire*>( pPC );
 		Assert( pVampire != NULL );
 
-		for ( Vampire::WearPart i = Vampire::WEAR_FINGER1 ; i <= Vampire::WEAR_FINGER4 ; ++(int)i )
+		for ( Vampire::WearPart i = Vampire::WEAR_FINGER1 ; i <= Vampire::WEAR_FINGER4 ; i = static_cast<Vampire::WearPart>(static_cast<int>(i) + 1) )
 		{
 			Item* pRing = pVampire->getWearItem( i );
 			if ( pRing != NULL )
@@ -268,7 +268,7 @@ Item* WaitForApart::getCoupleItem( PlayerCreature* pPC ) throw(Error)
 		Slayer* pSlayer = dynamic_cast<Slayer*>( pPC );
 		Assert( pSlayer != NULL );
 
-		for ( Slayer::WearPart i = Slayer::WEAR_FINGER1 ; i <= Slayer::WEAR_FINGER4 ; ++(int)i )
+		for ( Slayer::WearPart i = Slayer::WEAR_FINGER1 ; i <= Slayer::WEAR_FINGER4 ; i = static_cast<Slayer::WearPart>(static_cast<int>(i) + 1) )
 		{
 			Item* pRing = pSlayer->getWearItem( i );
 			if ( pRing != NULL )
@@ -285,7 +285,7 @@ Item* WaitForApart::getCoupleItem( PlayerCreature* pPC ) throw(Error)
 		Vampire* pVampire = dynamic_cast<Vampire*>( pPC );
 		Assert( pVampire != NULL );
 
-		for ( Vampire::WearPart i = Vampire::WEAR_FINGER1 ; i <= Vampire::WEAR_FINGER4 ; ++(int)i )
+		for ( Vampire::WearPart i = Vampire::WEAR_FINGER1 ; i <= Vampire::WEAR_FINGER4 ; i = static_cast<Vampire::WearPart>(static_cast<int>(i) + 1) )
 		{
 			Item* pRing = pVampire->getWearItem( i );
 			if ( pRing != NULL )
