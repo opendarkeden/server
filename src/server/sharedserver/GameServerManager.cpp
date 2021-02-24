@@ -609,7 +609,7 @@ void GameServerManager::acceptNewConnection ()
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다
 		// Thread 관련 처리를 끝내기 전까지 임시로 들어간다.
 		if( client->getSockError() ) throw Error();
-		client->setNonBlocking();
+		client->setNonBlocking(true);
 
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..
 		// 아마도 Thread의 소켓 관리 부분에서 문제가 생기지 않을까 생각 한다

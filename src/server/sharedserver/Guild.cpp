@@ -277,7 +277,7 @@ string GuildMember::toString() const
 	__BEGIN_TRY
 	
 	StringStream msg;
-	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << endl;
+	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << "\n";
 
 	return msg.toString();
 
@@ -1049,7 +1049,7 @@ string Guild::toString() const
 		<< " GuildZoneID = " << (int)m_ZoneID
 		<< " Master = " << m_Master
 		<< " Date = " << m_Date
-		<< endl;
+		<< "\n";
 
 	return msg.toString();
 
