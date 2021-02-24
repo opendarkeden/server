@@ -22,4 +22,3 @@ OBJS	= \
 		LGKickCharacter.o LGKickCharacterHandler.o
 
 SRCS	= $(OBJS:.o=.cpp)
-
