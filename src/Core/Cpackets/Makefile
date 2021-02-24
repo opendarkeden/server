@@ -66,13 +66,3 @@ cleanall :
 	$(MAKE) -C GS cleanll
 	$(MAKE) -C LS cleanll
 	$(MAKE) -C SS cleanll
-
-depall :
-	refreshSrc
-	$(MAKE) -C GS depall
-	$(MAKE) -C LS depall
-	$(MAKE) -C SS depall
-
-dep :
-
-# DO NOT DELETE
