@@ -302,10 +302,10 @@ string WeatherManager::toString () const
 
 	time_t currentTime = time(0);
 
-	msg << "       현재시간 : " << (int)ctime(&currentTime);
-	msg << "  게임상의 내일 : " << (int)ctime(&m_Tomorrow);
-	msg << "다음날씨변경시간: " << (int)ctime(&m_NextWeatherChangingTime);
-	msg << "다음번개체크시간: " << (int)ctime(&m_NextLightning);
+	msg << "       현재시간 : " << (int64_t)ctime(&currentTime);
+	msg << "  게임상의 내일 : " << (int64_t)ctime(&m_Tomorrow);
+	msg << "다음날씨변경시간: " << (int64_t)ctime(&m_NextWeatherChangingTime);
+	msg << "다음번개체크시간: " << (int64_t)ctime(&m_NextLightning);
 
 	return msg.toString();
 }

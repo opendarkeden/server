@@ -31,8 +31,25 @@ public:
 	list<GuildID_t>	getGuildList()	const	{ return m_Guilds; }
 	
 protected:
-	list<GuildID_t>::const_iterator findGuildItr( GuildID_t gID ) const { return find( m_Guilds.begin(), m_Guilds.end(), gID ); }
-	list<GuildID_t>::iterator findGuildItr( GuildID_t gID ) { return find( m_Guilds.begin(), m_Guilds.end(), gID ); }
+	list<GuildID_t>::const_iterator findGuildItr( GuildID_t gID ) const {
+    list<GuildID_t>::const_iterator itr = m_Guilds.begin();
+    for (;itr != m_Guilds.end(); itr++) {
+      if (*itr == gID) {
+        break;
+      }
+    }
+    return itr;
+  }
+	list<GuildID_t>::iterator findGuildItr( GuildID_t gID ) {
+    // return find( m_Guilds.begin(), m_Guilds.end(), gID );
+    list<GuildID_t>::iterator itr = m_Guilds.begin();
+    for (;itr != m_Guilds.end(); itr++) {
+      if (*itr == gID) {
+        break;
+      }
+    }
+    return itr;
+  }
 
 private:
 	uint		m_UnionID;

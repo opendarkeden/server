@@ -49,7 +49,7 @@ Effect::Effect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget , 
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::~Effect () 
-	throw ()	
+	throw (Error)	
 {
 }
 

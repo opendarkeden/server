@@ -9,6 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
+#include <vector>
 #include <unordered_map>
 
 // 마스터 죽였을때 개인이 받는 계급 경험치

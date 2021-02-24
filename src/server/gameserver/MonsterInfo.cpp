@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <functional>
 #include <algorithm>
+#include<iterator>
 
 int DefaultClanID[CLAN_MAX] =
 {
@@ -47,7 +48,7 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 	const list<Treasure*>& TList = pTreasureList->getTreasures();
 	int TreasureCount = TList.size();
 
-	file.write(&TreasureCount, sizeof(int));
+	file.write((char*)&TreasureCount, sizeof(int));
 
 	list<Treasure*>::const_iterator itr = TList.begin();
 	for (; itr != TList.end(); itr++)
@@ -57,13 +58,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 		int ItemRatio           = pTreasure->m_ItemRatio;
 		int OptionRatio         = pTreasure->m_OptionRatio;
 
-		file.write(&ItemRatio, sizeof(int));
-		file.write(&OptionRatio, sizeof(int));
+		file.write((char*)&ItemRatio, sizeof(int));
+		file.write((char*)&OptionRatio, sizeof(int));
 
 		vector<TreasureItemClass*> TICs = pTreasure->m_TreasureItemClasses;
 		int ItemClassCount = TICs.size();
 
-		file.write(&ItemClassCount, sizeof(int));
+		file.write((char*)&ItemClassCount, sizeof(int));
 
 		for (uint i=0; i<TICs.size(); i++)
 		{
@@ -72,13 +73,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 			int ItemClass          = (int)pTIC->m_ItemClass;
 			int ItemClassRatio     = pTIC->m_Ratio;
 
-			file.write(&ItemClass, sizeof(int));
-			file.write(&ItemClassRatio, sizeof(int));
+			file.write((char*)&ItemClass, sizeof(int));
+			file.write((char*)&ItemClassRatio, sizeof(int));
 
 			vector<TreasureItemType*> TITs = pTIC->m_TreasureItemTypes;
 			int ItemTypeCount = TITs.size();
 
-			file.write(&ItemTypeCount, sizeof(int));
+			file.write((char*)&ItemTypeCount, sizeof(int));
 
 			for (uint j=0; j<TITs.size(); j++)
 			{
@@ -87,13 +88,13 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 				int ItemType             = pTIT->m_ItemType;
 				int ItemTypeRatio        = pTIT->m_Ratio;
 
-				file.write(&ItemType, sizeof(int));
-				file.write(&ItemTypeRatio, sizeof(int));
+				file.write((char*)&ItemType, sizeof(int));
+				file.write((char*)&ItemTypeRatio, sizeof(int));
 
 				vector<TreasureOptionType*> TOTs = pTIT->m_TreasureOptionTypes;
 				int OptionTypeCount = TOTs.size();
 
-				file.write(&OptionTypeCount, sizeof(int));
+				file.write((char*)&OptionTypeCount, sizeof(int));
 
 				for (uint k=0; k<TOTs.size(); k++)
 				{
@@ -102,8 +103,8 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 					int OptionType  = pTOT->m_OptionType;
 					int OptionRatio = pTOT->m_Ratio;
 
-					file.write(&OptionType, sizeof(int));
-					file.write(&OptionRatio, sizeof(int));
+					file.write((char*)&OptionType, sizeof(int));
+					file.write((char*)&OptionRatio, sizeof(int));
 				}
 			}
 		}
@@ -587,7 +588,7 @@ void MonsterInfoManager::load ()
 		// 0:Male Slayer, 1:Female Slayer, 2:Male Vampire, 3:Female Vampire
 		pResult->next();
 		m_MaxMonsterType = pResult->getInt(1) + 4 + 1;
-		m_MonsterInfos = new (MonsterInfo*)[m_MaxMonsterType];
+		m_MonsterInfos = new MonsterInfo*[m_MaxMonsterType];
 
 		for (uint i = 0 ; i < m_MaxMonsterType ; i ++)
 			m_MonsterInfos[i] = NULL;
@@ -608,13 +609,13 @@ void MonsterInfoManager::load ()
 		//pResult = pStmt->executeQuery(sql.toString());
 
 		pResult = pStmt->executeQuery( 
-			"SELECT MType, SType, HName, EName, 
-				Level, STR, DEX, INTE, BSize, Exp, 
-				MColor, SColor, Align, AOrder, 
-				Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, 
-				RegenPortal, RegenInvisible, RegenBat, 
-				MMode, AIType, Enhance, UnburrowChance, 
-				Master, ClanType, DefaultEffects, Chief, NormalRegen, HasTreasure, MonsterClass, SkullType
+			"SELECT MType, SType, HName, EName,\
+				Level, STR, DEX, INTE, BSize, Exp,\
+				MColor, SColor, Align, AOrder,\
+				Moral, Delay, ADelay, Sight, MeleeRange, MissileRange,\
+				RegenPortal, RegenInvisible, RegenBat,\
+				MMode, AIType, Enhance, UnburrowChance,\
+				Master, ClanType, DefaultEffects, Chief, NormalRegen, HasTreasure, MonsterClass, SkullType\
 				FROM MonsterInfo");
 
 		while (pResult->next()) 

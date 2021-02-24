@@ -7,7 +7,7 @@
 #include "AlignmentManager.h"
 #include "Assert.h"
 #include "DB.h"
-#include <algo.h>
+// #include <algo.h>
 
 AlignmentManager* g_pAlignmentManager = NULL;
 

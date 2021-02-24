@@ -115,10 +115,10 @@ void EffectIcicle::affect() throw(Error)
 		if ( !isValidZoneCoord( m_pZone, X, Y ) ) continue;
 
 		Tile& rTile = m_pZone->getTile( X, Y );
-		const slist<Object*>& rList = rTile.getObjectList();
+		const forward_list<Object*>& rList = rTile.getObjectList();
 
-		slist<Object*>::const_iterator itr = rList.begin();
-		slist<Object*>::const_iterator endItr = rList.end();
+		forward_list<Object*>::const_iterator itr = rList.begin();
+		forward_list<Object*>::const_iterator endItr = rList.end();
 
 	//	cout << "¾ÆÇÁ³Ä?" << endl;
 
@@ -209,10 +209,10 @@ void EffectLargeIcicle::affect() throw(Error)
 		if ( isValidZoneCoord( m_pZone, X, Y ) )
 		{
 			Tile& rTile = m_pZone->getTile( X, Y );
-			const slist<Object*>& rList = rTile.getObjectList();
+			const forward_list<Object*>& rList = rTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = rList.begin();
-			slist<Object*>::const_iterator endItr = rList.end();
+			forward_list<Object*>::const_iterator itr = rList.begin();
+			forward_list<Object*>::const_iterator endItr = rList.end();
 
 			for ( ; itr != endItr ; ++itr )
 			{
@@ -293,16 +293,16 @@ void EffectSideTrap::affect() throw(Error)
 
 	for ( int i=0; i<6; ++i )
 	{
-		slist<Creature*> targetList;
+		forward_list<Creature*> targetList;
 		targetList.clear();
 
 		if ( isValidZoneCoord( m_pZone, X, Y ) )
 		{
 			Tile& rTile = m_pZone->getTile( X, Y );
-			const slist<Object*>& rList = rTile.getObjectList();
+			const forward_list<Object*>& rList = rTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = rList.begin();
-			slist<Object*>::const_iterator endItr = rList.end();
+			forward_list<Object*>::const_iterator itr = rList.begin();
+			forward_list<Object*>::const_iterator endItr = rList.end();
 
 			for ( ; itr != endItr ; ++itr )
 			{
@@ -372,8 +372,8 @@ void EffectSideTrap::affect() throw(Error)
 			}
 		}
 
-		slist<Creature*>::iterator itr = targetList.begin();
-		slist<Creature*>::iterator endItr = targetList.end();
+		forward_list<Creature*>::iterator itr = targetList.begin();
+		forward_list<Creature*>::iterator endItr = targetList.end();
 
 		for ( ; itr != endItr; ++itr )
 		{

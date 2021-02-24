@@ -7,7 +7,7 @@
 #include "RankBonusInfo.h"
 #include "Assert.h"
 #include "DB.h"
-#include <algo.h>
+// #include <algo.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // class RankBonusInfo member methods

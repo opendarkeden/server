@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "LogClient.h"
 #include "EffectManager.h"
-#include <algo.h>
+// #include <algo.h>
 #include <algorithm>
 #include <stdlib.h>
 #include <stdio.h>
@@ -639,26 +639,26 @@ bool Slayer::load ()
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery(
-			"SELECT Name, AdvancementClass, AdvancementGoalExp, Competence, CompetenceShape, Sex,MasterEffectColor, 
-			HairStyle, HairColor, SkinColor, Phone, 
-			STR, STRGoalExp,
-			DEX, DEXGoalExp,
-			INTE, INTGoalExp,
-			AdvancedSTR, AdvancedDEX, AdvancedINT, Bonus, 
-			Rank, RankGoalExp, 
-			CurrentHP, HP, CurrentMP, MP, 
-			Fame, Gold, GuildID, 
-			BladeLevel, BladeGoalExp, 
-			SwordLevel, SwordGoalExp, 
-			GunLevel, GunGoalExp, 
-			EnchantLevel, EnchantGoalExp, 
-			HealLevel, HealGoalExp, 
-			ETCLevel, ETCGoalExp, 
-			ZoneID, XCoord, YCoord, Sight, 
-			GunBonusExp, RifleBonusExp, 
-			Alignment,
-			StashGold, StashNum, ResurrectZone, Reward,
-			SMSCharge
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Competence, CompetenceShape, Sex,MasterEffectColor, \
+			HairStyle, HairColor, SkinColor, Phone, \
+			STR, STRGoalExp,\
+			DEX, DEXGoalExp,\
+			INTE, INTGoalExp,\
+			AdvancedSTR, AdvancedDEX, AdvancedINT, Bonus,\
+			Rank, RankGoalExp,\
+			CurrentHP, HP, CurrentMP, MP,\
+			Fame, Gold, GuildID,\
+			BladeLevel, BladeGoalExp,\
+			SwordLevel, SwordGoalExp,\
+			GunLevel, GunGoalExp,\
+			EnchantLevel, EnchantGoalExp,\
+			HealLevel, HealGoalExp,\
+			ETCLevel, ETCGoalExp,\
+			ZoneID, XCoord, YCoord, Sight,\
+			GunBonusExp, RifleBonusExp,\
+			Alignment,\
+			StashGold, StashNum, ResurrectZone, Reward,\
+			SMSCharge \
 			FROM Slayer WHERE Name = '%s' AND Active = 'ACTIVE'",
 			m_Name.c_str()
 		);

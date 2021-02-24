@@ -828,9 +828,13 @@ void Zone::load(bool bOutput)
 try {
 
 	DWORD  versionLen;
+  char* pVersionLen = (char*)(&versionLen);
 	WORD   zoneID;
+  char* pZoneID = (char*)(&zoneID);
 	WORD   zoneGroupID;
+  char* pZoneGroupID = (char*)(&zoneGroupID);
 	DWORD  zonenameLen;
+  char* pZonenameLen;
 	BYTE   zoneType;
 	BYTE   zoneLevel;
 	DWORD  descLen;
@@ -869,12 +873,12 @@ try {
 
 	// SMP 정보 파일을 연다.
 	string SMPFilename = g_pConfig->getProperty("HomePath") + "/data/" + pZoneInfo->getSMPFilename();
-	ifstream SMP(SMPFilename.c_str(), ios::in | ios::binary | ios::nocreate);
+	ifstream SMP(SMPFilename.c_str(), ios::in | ios::binary );
 	if (!SMP)
 	{
 		strcpy(lwrFilename, SMPFilename.c_str());
 		strlwr( lwrFilename );
-		SMP.open(lwrFilename, ios::in | ios::binary | ios::nocreate);
+		SMP.open(lwrFilename, ios::in | ios::binary );
 
 		//cout << "second chk : " << lwrFilename.c_str() << endl;
 
@@ -888,18 +892,18 @@ try {
 	}
 
     // read zone version
-	SMP.read(&versionLen,szDWORD);
+	SMP.read(pVersionLen,szDWORD);
 	SMP.read(version,versionLen);
 	version[versionLen] = 0;
 	
 	// read zone id
-	SMP.read(&zoneID,szWORD);
+	SMP.read(pZoneID,szWORD);
 	
 	// read zone group id (no use)
-	SMP.read(&zoneGroupID,szWORD);
+	SMP.read(pZoneGroupID,szWORD);
 	
 	// read zone name
-	SMP.read(&zonenameLen,szDWORD);
+	SMP.read(pZonenameLen,szDWORD);
 	if (zonenameLen > 0)
 	{
 		SMP.read(zonename,zonenameLen);
@@ -907,11 +911,11 @@ try {
 	}
 
     // read zone type & level 
-	SMP.read(&zoneType,szBYTE);
-	SMP.read(&zoneLevel,szBYTE);
+	SMP.read((char*)&zoneType,szBYTE);
+	SMP.read((char*)&zoneLevel,szBYTE);
 
 	// read zone description
-	SMP.read(&descLen,szDWORD);
+	SMP.read((char*)&descLen,szDWORD);
 	if (descLen > 0)
 	{
 		pDesc = new char[descLen+1];
@@ -922,8 +926,8 @@ try {
 	}
 
 	// read zone width & height
-	SMP.read(&m_Width, szWORD);
-	SMP.read(&m_Height ,szWORD);
+	SMP.read((char*)&m_Width, szWORD);
+	SMP.read((char*)&m_Height ,szWORD);
 
 	Assert(m_Width <= maxZoneWidth);
 	Assert(m_Height <= maxZoneHeight);
@@ -938,7 +942,7 @@ try {
 	// 섹터를 2차원 배열로 만들어 메모리를 할당한다.
 	m_SectorWidth = (int)ceil((float)m_Width/(float)SECTOR_SIZE);
 	m_SectorHeight = (int)ceil((float)m_Height/(float)SECTOR_SIZE);
-	m_pSectors = new (Sector*)[m_SectorWidth];
+	m_pSectors = new Sector*[m_SectorWidth];
 	for (int x=0; x<m_SectorWidth; x++)
 	{
 		m_pSectors[x] = new Sector[m_SectorHeight];
@@ -997,7 +1001,7 @@ try {
 		for (ZoneCoord_t x=0; x<m_Width; x++)
 		{
 			BYTE flag = 0;
-			SMP.read(&flag, szBYTE);
+			SMP.read((char*)&flag, szBYTE);
 
 			// 순서대로 지하, 지상, 공중 블록
 			if (flag & 0x01) m_pTiles[x][y].setBlocked(Creature::MOVE_MODE_BURROWING);
@@ -1023,7 +1027,7 @@ try {
 				BYTE	type;
 				ZoneID_t targetZoneID;
 				BYTE     targetX, targetY;
-				SMP.read(&type, szBYTE);
+				SMP.read((char*)&type, szBYTE);
 
 				PortalType_t portalType = PORTAL_NORMAL;
 
@@ -1031,9 +1035,9 @@ try {
 
 				if (type == PORTAL_NORMAL)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1052,9 +1056,9 @@ try {
 				}
 				else if (type == PORTAL_SLAYER)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1075,9 +1079,9 @@ try {
 				}
 				else if (type == PORTAL_VAMPIRE)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1099,16 +1103,16 @@ try {
 				else if (type == PORTAL_MULTI_TARGET)
 				{
 					BYTE size;
-					SMP.read(&size, szBYTE);
+					SMP.read((char*)&size, szBYTE);
 
 					// 포탈을 생성해 준다.
 					MultiPortal* pMultiPortal = new MultiPortal();
 
 					for(int i = 0; i < size; i++) 
 					{
-						SMP.read(&targetZoneID, szZoneID);
-						SMP.read(&targetX,      szBYTE);
-						SMP.read(&targetY,      szBYTE);
+						SMP.read((char*)&targetZoneID, szZoneID);
+						SMP.read((char*)&targetX,      szBYTE);
+						SMP.read((char*)&targetY,      szBYTE);
 
 						pMultiPortal->setObjectType(PORTAL_SLAYER);
 
@@ -1132,9 +1136,9 @@ try {
 				}
 				else if ( type == PORTAL_GUILD )
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					GuildPortal* pGuildPortal = new GuildPortal();
@@ -1154,9 +1158,9 @@ try {
 				}
 				else if ( type == PORTAL_BATTLE )
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1175,9 +1179,9 @@ try {
 				}
 				else if (type == PORTAL_OUSTERS)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1517,7 +1521,7 @@ try {
 	m_ZoneLevel = pZoneInfo->getZoneLevel();
 
 	// 메모리 할당해주고...
-	m_ppLevel = new (ZoneLevel_t*) [ m_Width ];
+	m_ppLevel = new ZoneLevel_t* [ m_Width ];
 	for (uint i = 0; i < m_Width; i++)
 		m_ppLevel[i] = new ZoneLevel_t[m_Height];
 
@@ -1528,12 +1532,12 @@ try {
 
 	// SSI 정보 파일을 연다.
 	string SSIFilename = g_pConfig->getProperty("HomePath") + "/data/" + pZoneInfo->getSSIFilename();
-	ifstream SSI(SSIFilename.c_str(), ios::in | ios::binary | ios::nocreate);
+	ifstream SSI(SSIFilename.c_str(), ios::in | ios::binary );
 	if (!SSI)
 	{
 		strcpy(lwrFilename, SSIFilename.c_str());
 		strlwr( lwrFilename );
-		SSI.open(lwrFilename, ios::in | ios::binary | ios::nocreate);
+		SSI.open(lwrFilename, ios::in | ios::binary );
 
 		//cout << "second chk : " << lwrFilename.c_str() << endl;
 
@@ -1546,16 +1550,16 @@ try {
 	}
 
 	int size = 0;
-	SSI.read(&size, szint);
+	SSI.read((char*)&size, szint);
 
 	BYTE left, top, right, bottom, level;
 	for (int i=0; i<size; i++)
 	{
-		SSI.read(&level, szBYTE);
-		SSI.read(&left, szBYTE);
-		SSI.read(&top, szBYTE);
-		SSI.read(&right, szBYTE);
-		SSI.read(&bottom, szBYTE);
+		SSI.read((char*)&level, szBYTE);
+		SSI.read((char*)&left, szBYTE);
+		SSI.read((char*)&top, szBYTE);
+		SSI.read((char*)&right, szBYTE);
+		SSI.read((char*)&bottom, szBYTE);
 
 		if (bOutput)
 		{
@@ -1690,12 +1694,12 @@ try {
 
 	// SMP 정보 파일을 연다.
 	string SMPFilename = g_pConfig->getProperty("HomePath") + "/data/" + pZoneInfo->getSMPFilename();
-	ifstream SMP(SMPFilename.c_str(), ios::in | ios::binary | ios::nocreate);
+	ifstream SMP(SMPFilename.c_str(), ios::in | ios::binary );
 	if (!SMP)
 	{
 		strcpy( lwrFilename, SMPFilename.c_str());
 		strlwr( lwrFilename );
-		SMP.open(lwrFilename, ios::in | ios::binary | ios::nocreate);
+		SMP.open(lwrFilename, ios::in | ios::binary );
 
 		//cout << "second chk : " << lwrFilename << endl;
 
@@ -1709,18 +1713,18 @@ try {
 	}
 
     // read zone version
-	SMP.read(&versionLen,szDWORD);
+	SMP.read((char*)&versionLen,szDWORD);
 	SMP.read(version,versionLen);
 	version[versionLen] = 0;
 	
 	// read zone id
-	SMP.read(&zoneID,szWORD);
+	SMP.read((char*)&zoneID,szWORD);
 	
 	// read zone group id (no use)
-	SMP.read(&zoneGroupID,szWORD);
+	SMP.read((char*)&zoneGroupID,szWORD);
 	
 	// read zone name
-	SMP.read(&zonenameLen,szDWORD);
+	SMP.read((char*)&zonenameLen,szDWORD);
 	if (zonenameLen > 0)
 	{
 		SMP.read(zonename,zonenameLen);
@@ -1728,11 +1732,11 @@ try {
 	}
 
     // read zone type & level 
-	SMP.read(&zoneType,szBYTE);
-	SMP.read(&zoneLevel,szBYTE);
+	SMP.read((char*)&zoneType,szBYTE);
+	SMP.read((char*)&zoneLevel,szBYTE);
 
 	// read zone description
-	SMP.read(&descLen,szDWORD);
+	SMP.read((char*)&descLen,szDWORD);
 	if (descLen > 0)
 	{
 		pDesc = new char[descLen+1];
@@ -1743,8 +1747,8 @@ try {
 	}
 
 	// read zone width & height
-	SMP.read(&m_Width, szWORD);
-	SMP.read(&m_Height ,szWORD);
+	SMP.read((char*)&m_Width, szWORD);
+	SMP.read((char*)&m_Height ,szWORD);
 
 	Assert(m_Width <= maxZoneWidth);
 	Assert(m_Height <= maxZoneHeight);
@@ -1757,7 +1761,7 @@ try {
 		// 섹터를 2차원 배열로 만들어 메모리를 할당한다.
 		m_SectorWidth = (int)ceil((float)m_Width/(float)SECTOR_SIZE);
 		m_SectorHeight = (int)ceil((float)m_Height/(float)SECTOR_SIZE);
-		m_pSectors = new (Sector*)[m_SectorWidth];
+		m_pSectors = new Sector*[m_SectorWidth];
 		for (x=0; (int)x<m_SectorWidth; x++)
 		{
 			m_pSectors[x] = new Sector[m_SectorHeight];
@@ -1835,7 +1839,7 @@ try {
 		for (ZoneCoord_t x=0; x<m_Width; x++)
 		{
 			BYTE flag = 0;
-			SMP.read(&flag, szBYTE);
+			SMP.read((char*)&flag, szBYTE);
 
 			// 순서대로 지하, 지상, 공중 블록
 			if (flag & 0x01) m_pTiles[x][y].setBlocked(Creature::MOVE_MODE_BURROWING);
@@ -1861,7 +1865,7 @@ try {
 				BYTE	type;
 				ZoneID_t targetZoneID;
 				BYTE     targetX, targetY;
-				SMP.read(&type, szBYTE);
+				SMP.read((char*)&type, szBYTE);
 
 				PortalType_t portalType = PORTAL_NORMAL;
 
@@ -1877,9 +1881,9 @@ try {
 
 				if (type == PORTAL_NORMAL)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1898,9 +1902,9 @@ try {
 				}
 				else if (type == PORTAL_SLAYER)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1921,9 +1925,9 @@ try {
 				}
 				else if (type == PORTAL_VAMPIRE)
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -1945,16 +1949,16 @@ try {
 				else if (type == PORTAL_MULTI_TARGET)
 				{
 					BYTE size;
-					SMP.read(&size, szBYTE);
+					SMP.read((char*)&size, szBYTE);
 
 					// 포탈을 생성해 준다.
 					MultiPortal* pMultiPortal = new MultiPortal();
 
 					for(int i = 0; i < size; i++) 
 					{
-						SMP.read(&targetZoneID, szZoneID);
-						SMP.read(&targetX,      szBYTE);
-						SMP.read(&targetY,      szBYTE);
+						SMP.read((char*)&targetZoneID, szZoneID);
+						SMP.read((char*)&targetX,      szBYTE);
+						SMP.read((char*)&targetY,      szBYTE);
 
 						pMultiPortal->setObjectType(PORTAL_SLAYER);
 
@@ -1978,9 +1982,9 @@ try {
 				}
 				else if ( type == PORTAL_GUILD )
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					GuildPortal* pGuildPortal = new GuildPortal();
@@ -2000,9 +2004,9 @@ try {
 				}
 				else if ( type == PORTAL_BATTLE )
 				{
-					SMP.read(&targetZoneID, szZoneID);
-					SMP.read(&targetX,      szBYTE);
-					SMP.read(&targetY,      szBYTE);
+					SMP.read((char*)&targetZoneID, szZoneID);
+					SMP.read((char*)&targetX,      szBYTE);
+					SMP.read((char*)&targetY,      szBYTE);
 
 					// 포탈을 생성해 준다.
 					NormalPortal* pNormalPortal = new NormalPortal();
@@ -2211,7 +2215,7 @@ try {
 	SAFE_DELETE_ARRAY( m_ppLevel );
 
 	// 메모리 할당해주고...
-	m_ppLevel = new (ZoneLevel_t*) [ m_Width ];
+	m_ppLevel = new ZoneLevel_t* [ m_Width ];
 	for (uint i = 0; i < m_Width; i++)
 		m_ppLevel[i] = new ZoneLevel_t[m_Height];
 
@@ -2222,12 +2226,12 @@ try {
 
 	// SSI 정보 파일을 연다.
 	string SSIFilename = g_pConfig->getProperty("HomePath") + "/data/" + pZoneInfo->getSSIFilename();
-	ifstream SSI(SSIFilename.c_str(), ios::in | ios::binary | ios::nocreate);
+	ifstream SSI(SSIFilename.c_str(), ios::in | ios::binary );
 	if (!SSI)
 	{
 		strcpy( lwrFilename, SSIFilename.c_str());
 		strlwr( lwrFilename );
-		SSI.open(lwrFilename, ios::in | ios::binary | ios::nocreate);
+		SSI.open(lwrFilename, ios::in | ios::binary );
 
 		//cout << "second chk : " << lwrFilename << endl;
 
@@ -2240,16 +2244,16 @@ try {
 	}
 
 	int size = 0;
-	SSI.read(&size, szint);
+	SSI.read((char*)&size, szint);
 
 	BYTE left, top, right, bottom, level;
 	for (int i=0; i<size; i++)
 	{
-		SSI.read(&level, szBYTE);
-		SSI.read(&left, szBYTE);
-		SSI.read(&top, szBYTE);
-		SSI.read(&right, szBYTE);
-		SSI.read(&bottom, szBYTE);
+		SSI.read((char*)&level, szBYTE);
+		SSI.read((char*)&left, szBYTE);
+		SSI.read((char*)&top, szBYTE);
+		SSI.read((char*)&right, szBYTE);
+		SSI.read((char*)&bottom, szBYTE);
 
 		if (bOutput)
 		{
@@ -3842,8 +3846,8 @@ void Zone::updateInvisibleScan(Creature* pCreature)
 			// 사실 pCreature는 당연히 slayer다.(updateInvisibleScan이므로..)
 			if (pCreature->isSlayer() || pCreature->isOusters())
 			{
-				const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-				slist<Object*>::const_iterator itr = objectList.begin();
+				const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 
 				for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE ; itr++) 
 				{
@@ -3968,9 +3972,9 @@ void Zone::updateHiddenScan(Creature* pCreature)
 			// 사실 pCreature는 당연히 slayer다.(updateHiddenScan이므로..)
 			if (pCreature->isSlayer())
 			{
-				const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+				const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 
-				for (slist<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE ; itr++) 
+				for (forward_list<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE ; itr++) 
 				{
 
 					if ((*itr)->getObjectClass() == Object::OBJECT_CLASS_CREATURE)
@@ -4042,8 +4046,8 @@ void Zone::updateDetectScan(Creature* pCreature)
 
 			if (pCreature->isOusters())
 			{
-				const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-				slist<Object*>::const_iterator itr = objectList.begin();
+				const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 
 				for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE ; itr++) 
 				{
@@ -5090,9 +5094,9 @@ void Zone::broadcastSayPacket(ZoneCoord_t cx, ZoneCoord_t cy, Packet* pPacket, C
 			// 타일에 크리처가 있는 경우에만
 			if (rTile.hasCreature()) 
 			{
-				const slist<Object*> & objectList = rTile.getObjectList();
+				const forward_list<Object*> & objectList = rTile.getObjectList();
 
-				for (slist<Object*>::const_iterator itr = objectList.begin() ; 
+				for (forward_list<Object*>::const_iterator itr = objectList.begin() ; 
 					itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; 
 					itr++) 
 				{
@@ -5196,9 +5200,9 @@ void Zone::broadcastPacket(ZoneCoord_t cx, ZoneCoord_t cy, Packet* pPacket, Crea
 			// 타일에 크리처가 있는 경우에만
 			if (rTile.hasCreature()) 
 			{
-				const slist<Object*> & objectList = rTile.getObjectList();
+				const forward_list<Object*> & objectList = rTile.getObjectList();
 
-				for (slist<Object*>::const_iterator itr = objectList.begin() ; 
+				for (forward_list<Object*>::const_iterator itr = objectList.begin() ; 
 					itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; 
 					itr++) 
 				{
@@ -5687,9 +5691,9 @@ list<Creature*> Zone::broadcastSkillPacket(ZoneCoord_t x1, ZoneCoord_t y1, ZoneC
 			// 타일에 크리처가 있는 경우에만
 			if (rTile.hasCreature()) 
 			{
-				const slist<Object*> & objectList = rTile.getObjectList();
+				const forward_list<Object*> & objectList = rTile.getObjectList();
 
-				for (slist<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr++) 
+				for (forward_list<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr++) 
 				{
 
 					Creature* pCreature = dynamic_cast<Creature*>(*itr);		
@@ -5805,8 +5809,8 @@ void Zone::broadcastPacket(ZoneCoord_t cx, ZoneCoord_t cy, Packet* pPacket, cons
 			// 타일에 크리처가 있는 경우에만
 			if (rTile.hasCreature()) 
 			{
-				const slist<Object*> & objectList = rTile.getObjectList();
-				slist<Object*>::const_iterator itr = objectList.begin();
+				const forward_list<Object*> & objectList = rTile.getObjectList();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 
                 for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr++) 
 				{
@@ -5890,9 +5894,9 @@ void Zone::scan (Creature* pPC, ZoneCoord_t cx, ZoneCoord_t cy, Packet* pPacket)
 //			bool bCanSeeThere = (pPC->getVisionState(ix, iy) >= IN_SIGHT);	// 순수 시야만으로 볼 수 있나?
 			if ( pPC->getVisionState( ix, iy ) == OUT_OF_SIGHT ) continue;
 			
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 
-			for (slist<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() ; itr++) 
+			for (forward_list<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() ; itr++) 
 			{
 				Assert(*itr != NULL);
 
@@ -6350,8 +6354,8 @@ void Zone::scanPC (Creature* pCreature)
 	{
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(m_Height - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy++) 
 		{
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-			slist<Object*>::const_iterator itr = objectList.begin();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE ; itr++) 
 			{
@@ -6638,9 +6642,9 @@ bool Zone::moveFastPC(Creature* pPC, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t
 	{
 		for (ZoneCoord_t iy = minY ; iy <= maxY ; iy++) 
 		{
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 
 			// visionInfo 때문에..
 			// if - do~while()로 구조 변경 by sigi. 2002.5.8
@@ -7301,9 +7305,9 @@ bool Zone::moveFastMonster(Monster* pMonster, ZoneCoord_t x1, ZoneCoord_t y1, Zo
 		{
 			for (ZoneCoord_t iy = minY ; iy <= maxY ; iy++) 
 			{
-				const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+				const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 
-				slist<Object*>::const_iterator itr = objectList.begin();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 
 				// visionInfo 때문에..
 				// if - do~while()로 구조 변경 by sigi. 2002.5.8
@@ -7682,9 +7686,9 @@ void Zone::movePCBroadcast (Creature* pPC, ZoneCoord_t x1, ZoneCoord_t y1, ZoneC
 				//if (pPC->isFlag(Effect::EFFECT_CLASS_DARKNESS)) sight = DARKNESS_SIGHT;
 
 				// 현재 타일 위에 있는 모든 오브젝트들에 대해 반복한다.
-				const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+				const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 
-				slist<Object*>::const_iterator itr = objectList.begin();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 
 				// 
 				// object가 있는 경우만 
@@ -8278,8 +8282,8 @@ void Zone::moveCreatureBroadcast(Creature* pCreature, ZoneCoord_t x1, ZoneCoord_
 	{
 		for (ZoneCoord_t iy = max(0, y2 - maxViewportUpperHeight - 1), endy = min(m_Height - 1, y2 + maxViewportLowerHeight + 1) ; iy <= endy ; iy++) 
 		{
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-			slist<Object*>::const_iterator itr = objectList.begin();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr++) 
 			{
 				Assert(*itr != NULL);
@@ -8841,8 +8845,8 @@ list<Creature*> Zone::getWatcherList(ZoneCoord_t x, ZoneCoord_t y, Creature* pTa
 	{
 		for (ZoneCoord_t iy = max(0, y - maxViewportUpperHeight - 1), endy = min(m_Height - 1, y + maxViewportLowerHeight + 1) ; iy <= endy ; iy++) 
 		{
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-			slist<Object*>::const_iterator itr = objectList.begin();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr++) 
 			{
 				Assert(*itr != NULL);
@@ -9513,10 +9517,10 @@ void Zone::monsterScan(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y, Dir_t di
 			//if (pPC->isFlag(Effect::EFFECT_CLASS_DARKNESS)) sight = DARKNESS_SIGHT;
 			
 			// 현재 타일 위에 있는 모든 오브젝트들에 대해 반복한다.
-			//const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
-			const slist<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			//const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
+			const forward_list<Object*> & objectList = m_pTiles[ix][iy].getObjectList();
 	
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 
 			// 
 			// object가 있는 경우만 

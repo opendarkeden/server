@@ -277,7 +277,7 @@ string GuildMember::toString() const
 	__BEGIN_TRY
 	
 	StringStream msg;
-	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << endl;
+	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << "\n";
 
 	return msg.toString();
 
@@ -305,7 +305,7 @@ string GuildMember::getRequestDateTime() const
 			m_RequestDateTime.date().year(), m_RequestDateTime.date().month(), m_RequestDateTime.date().day(),
 			m_RequestDateTime.time().hour(), m_RequestDateTime.time().minute(), m_RequestDateTime.time().second() );
 
-	cout << buf << endl;
+	cout << buf << "\n";
 
 	return string(buf);
 
@@ -1049,7 +1049,7 @@ string Guild::toString() const
 		<< " GuildZoneID = " << (int)m_ZoneID
 		<< " Master = " << m_Master
 		<< " Date = " << m_Date
-		<< endl;
+		<< "\n";
 
 	return msg.toString();
 

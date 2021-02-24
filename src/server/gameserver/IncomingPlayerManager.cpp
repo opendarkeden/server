@@ -69,7 +69,7 @@ IncomingPlayerManager::IncomingPlayerManager ()
 			}
 		}
 
-		m_pServerSocket->setNonBlocking();
+		m_pServerSocket->setNonBlocking(true);
 
 		// 서버 소켓 디스크립터를 지정한다.
 		m_SocketID = m_pServerSocket->getSOCKET();
@@ -875,7 +875,7 @@ bool IncomingPlayerManager::acceptNewConnection ()
 		}
 
 		m_CheckValue = 5;
-		client->setNonBlocking();
+		client->setNonBlocking(true);
 		m_CheckValue = 6;
 
 		// 에러 처리를 위하여 넣어 두었는데 원인을 꼭 밝혀야 한다..

@@ -679,9 +679,9 @@ void addBurrowingCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zone
 			for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 			{
 				Tile& curTile = pZone->getTile(ix, iy);
-				const slist<Object*> & objectList = curTile.getObjectList();
+				const forward_list<Object*> & objectList = curTile.getObjectList();
 
-				slist<Object*>::const_iterator itr = objectList.begin();
+				forward_list<Object*>::const_iterator itr = objectList.begin();
 				for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 				{
 					Assert(*itr != NULL);
@@ -1114,9 +1114,9 @@ void addInvisibleCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zone
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 		{
 			Tile& curTile = pZone->getTile(ix, iy);
-			const slist<Object*> & objectList = curTile.getObjectList();
+			const forward_list<Object*> & objectList = curTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 			{
 				Assert(*itr != NULL);
@@ -1297,9 +1297,9 @@ void addVisibleCreature(Zone* pZone, Creature* pCreature, bool bForced)
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 		{
 			Tile& curTile = pZone->getTile(ix, iy);
-			const slist<Object*> & objectList = curTile.getObjectList();
+			const forward_list<Object*> & objectList = curTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 			{
 				Assert(*itr != NULL);
@@ -1433,9 +1433,9 @@ void addSnipingModeCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zo
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 		{
 			Tile& curTile = pZone->getTile(ix, iy);
-			const slist<Object*> & objectList = curTile.getObjectList();
+			const forward_list<Object*> & objectList = curTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 			{
 				Assert(*itr != NULL);
@@ -1555,9 +1555,9 @@ void addUnSnipingModeCreature(Zone* pZone, Creature* pCreature, bool bForced)
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 		{
 			Tile& curTile = pZone->getTile(ix, iy);
-			const slist<Object*> & objectList = curTile.getObjectList();
+			const forward_list<Object*> & objectList = curTile.getObjectList();
 
-			slist<Object*>::const_iterator itr = objectList.begin();
+			forward_list<Object*>::const_iterator itr = objectList.begin();
 			for (; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 			{
 				Assert(*itr != NULL);
@@ -1675,9 +1675,9 @@ void addInstalledMine(Zone* pZone, Mine* pMine, ZoneCoord_t cx, ZoneCoord_t cy)
 		for (ZoneCoord_t iy = max(0, cy - maxViewportUpperHeight - 1), endy = min(pZone->getHeight() - 1, cy + maxViewportLowerHeight + 1) ; iy <= endy ; iy ++) 
 		{
 			Tile& rTile2 = pZone->getTile(ix, iy);
-			const slist<Object*> & objectList = rTile2.getObjectList();
+			const forward_list<Object*> & objectList = rTile2.getObjectList();
 
-			for (slist<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
+			for (forward_list<Object*>::const_iterator itr = objectList.begin() ; itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; itr ++) 
 			{
 				Assert(*itr != NULL);
 
@@ -1814,10 +1814,10 @@ bool checkMine(Zone* pZone, Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y)
 
 //			if( tileX != X || tileY != Y ) checkMine( pZone, tileX, tileY );
 			const Tile& tile = pZone->getTile(tileX, tileY);
-			const slist<Object*>& oList = tile.getObjectList();
+			const forward_list<Object*>& oList = tile.getObjectList();
 			
 			// 타일 위의 모든 오브젝트에 대해서 조사를 한다.
-			for (slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++)
+			for (forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++)
 			{
 				// 조건을 확인
 				Object* pObject = *itr;
@@ -1994,10 +1994,10 @@ bool checkMine( Zone * pZone, ZoneCoord_t X, ZoneCoord_t Y )
 //			if( tileX != X || tileY != Y ) checkMine( pZone, tileX, tileY );
 
 			const Tile& tile = pZone->getTile(tileX, tileY);
-			const slist<Object*>& oList = tile.getObjectList();
+			const forward_list<Object*>& oList = tile.getObjectList();
 			
 			// 타일 위의 모든 오브젝트에 대해서 조사를 한다.
-			for (slist<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++)
+			for (forward_list<Object*>::const_iterator itr = oList.begin(); itr != oList.end(); itr++)
 			{
 				// 조건을 확인
 				Object* pObject = *itr;

@@ -1170,7 +1170,7 @@ TreasureList*
 TreasureLists::loadTreasure(const string& filename)
 {
 	TreasureList* pTreasureList = new TreasureList;
-	ifstream file(filename.c_str(), ios::in | ios::nocreate | ios::binary);
+	ifstream file(filename.c_str(), ios::in | ios::binary);
 
 	if (!file)
 	{

@@ -172,7 +172,7 @@ void MPlayer::connect()
 		m_pSocket->connect();
 
 		// make nonblocking socket
-		m_pSocket->setNonBlocking();
+		m_pSocket->setNonBlocking(true);
 
 		// make no-linger socket
 		m_pSocket->setLinger(0);

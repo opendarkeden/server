@@ -743,11 +743,11 @@ bool Ousters::load ()
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery(
-			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex,MasterEffectColor,
-			STR, DEX, INTE, HP, CurrentHP, MP, CurrentMP, Fame, 
-			GoalExp, Level, Bonus, SkillBonus, Gold, GuildID,
-			ZoneID, XCoord, YCoord, Sight, Alignment, 
-			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge,
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex,MasterEffectColor,\
+			STR, DEX, INTE, HP, CurrentHP, MP, CurrentMP, Fame, \
+			GoalExp, Level, Bonus, SkillBonus, Gold, GuildID, \
+			ZoneID, XCoord, YCoord, Sight, Alignment,\
+			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge,\
 			Rank, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'",
 			m_Name.c_str()
 		);

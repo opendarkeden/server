@@ -24,7 +24,7 @@ ItemRack::ItemRack()
 ItemRack::ItemRack(int size)
 {
 	// 포인터 배열 할당
-	m_ppItem = new (Item*)[size];
+	m_ppItem = new Item*[size];
 	Assert(m_ppItem != NULL);
 
 	// 포인터 배열 초기화
@@ -70,7 +70,7 @@ void ItemRack::init(int size)
 	}
 	
 	// 포인터 배열 할당
-	m_ppItem = new (Item*)[size];
+	m_ppItem = new Item*[size];
 	Assert(m_ppItem != NULL);
 
 	// 포인터 배열 초기화

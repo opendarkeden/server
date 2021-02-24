@@ -477,7 +477,7 @@ void Slayer::initAllStat(int numPartyMember) throw()
 	//////////////////////////////////////////////////////////////////////////////
 	// 기본적으로 가지고 있는 옵션들을 계산한다.
 	//////////////////////////////////////////////////////////////////////////////
-	slist<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
+	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
 	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
 		DefaultOptionSetInfo* pDefaultOptionSetInfo = g_pDefaultOptionSetInfoManager->getDefaultOptionSetInfo( (*itr) );
@@ -2448,7 +2448,7 @@ void Vampire::initAllStat(int numPartyMember)
 	//////////////////////////////////////////////////////////////////////////////
 	// 기본적으로 가지고 있는 옵션들을 계산한다.
 	//////////////////////////////////////////////////////////////////////////////
-	slist<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
+	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
 	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
 		DefaultOptionSetInfo* pDefaultOptionSetInfo = g_pDefaultOptionSetInfoManager->getDefaultOptionSetInfo( (*itr) );
@@ -3895,7 +3895,7 @@ void Ousters::initAllStat(int numPartyMember)
 	//////////////////////////////////////////////////////////////////////////////
 	// 기본적으로 가지고 있는 옵션들을 계산한다.
 	//////////////////////////////////////////////////////////////////////////////
-	slist<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
+	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
 	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
 		DefaultOptionSetInfo* pDefaultOptionSetInfo = g_pDefaultOptionSetInfoManager->getDefaultOptionSetInfo( (*itr) );

@@ -10,7 +10,7 @@
 #include "SkillPropertyManager.h"
 #include "SkillUtil.h"
 
-#include <algo.h>
+// #include <algo.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // class SkillInfo member methods
@@ -355,10 +355,10 @@ void SkillInfoManager::load()
 		for (uint i=0 ; i < m_SkillCount; i++)
 			m_SkillInfoList[i] = NULL;
 
-		pResult = pStmt->executeQuery("Select 
-			Type, Name, Level, MinDam, MaxDam, MinDelay, MaxDelay, MinDur, MaxDur, 
-			Mana, MinRange, MaxRange, Target, SubExp, Point, Domain, MagicDomain,
-			Melee, Magic, Physic, SkillPoint, LevelUpPoint, RequireSkill, Condition, ElementalDomain, CanDelete
+		pResult = pStmt->executeQuery("Select \
+			Type, Name, Level, MinDam, MaxDam, MinDelay, MaxDelay, MinDur, MaxDur,\
+			Mana, MinRange, MaxRange, Target, SubExp, Point, Domain, MagicDomain,\
+			Melee, Magic, Physic, SkillPoint, LevelUpPoint, RequireSkill, Condition, ElementalDomain, CanDelete\
 			from SkillBalance");
 
 		while (pResult->next()) 

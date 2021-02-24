@@ -263,7 +263,7 @@ void DirectiveSetManager::load()
 		// 읽어들인 숫자만큼 메모리를 할당하고...
 		if (m_ppSet==NULL)
 		{
-			m_ppSet = new (DirectiveSet*)[m_nSetCount];
+			m_ppSet = new DirectiveSet*[m_nSetCount];
 			Assert(m_ppSet != NULL);
 			for (uint i=0; i<m_nSetCount; i++)
 			{

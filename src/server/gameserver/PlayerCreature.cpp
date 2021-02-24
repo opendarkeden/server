@@ -120,7 +120,7 @@ PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 PlayerCreature::~PlayerCreature()
-	throw()
+	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -1388,7 +1388,7 @@ void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
 	throw()
 {
 	// 이미 있는 것인지 확인한다.
-	slist<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
+	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
 	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
 		if ( (*itr) == type )
@@ -1401,8 +1401,8 @@ void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
 void PlayerCreature::removeDefaultOptionSet( DefaultOptionSetType_t type )
 	throw()
 {
-	slist<DefaultOptionSetType_t>::iterator before = m_DefaultOptionSet.end();
-	slist<DefaultOptionSetType_t>::iterator current = m_DefaultOptionSet.begin();
+	forward_list<DefaultOptionSetType_t>::iterator before = m_DefaultOptionSet.end();
+	forward_list<DefaultOptionSetType_t>::iterator current = m_DefaultOptionSet.begin();
 
 	for ( ; current != m_DefaultOptionSet.end(); before = current++ )
 	{

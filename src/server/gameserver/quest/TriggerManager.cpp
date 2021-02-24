@@ -174,7 +174,13 @@ void TriggerManager::addTrigger (Trigger * pTrigger)
 
 	Assert(pTrigger != NULL);
 
-	list<Trigger*>::iterator itr = find(m_Triggers.begin() , m_Triggers.end(), pTrigger);
+	// auto itr = find(m_Triggers.begin() , m_Triggers.end(), pTrigger);
+  list<Trigger*>::iterator itr = m_Triggers.begin();
+  for (; itr != m_Triggers.end(); itr++ ) {
+      if ((*itr) == pTrigger) {
+        break;
+      }
+  }
 
 	if (itr != m_Triggers.end())
 		throw DuplicatedException("duplicated trigger");
@@ -195,7 +201,13 @@ void TriggerManager::deleteTrigger (TriggerID_t triggerID)
 {
 	__BEGIN_TRY
 
-	list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+	// list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+  list<Trigger*>::iterator itr;
+  for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
+    if ((*itr)->getTriggerID() == triggerID) {
+      break;
+    }
+  }
 
 	if (itr != m_Triggers.end())
 		throw NoSuchElementException();
@@ -221,7 +233,13 @@ Trigger * TriggerManager::getTrigger (TriggerID_t triggerID)
 {
 	__BEGIN_TRY
 
-	list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+	// list<Trigger*>::iterator itr = find_if(m_Triggers.begin() , m_Triggers.end() , isSameTriggerID(triggerID));
+  list<Trigger*>::iterator itr;
+  for (itr = m_Triggers.begin(); itr != m_Triggers.end(); itr++) {
+    if ((*itr)->getTriggerID() == triggerID) {
+      break;
+    }
+  }
 
 	if (itr != m_Triggers.end())
 		throw NoSuchElementException();

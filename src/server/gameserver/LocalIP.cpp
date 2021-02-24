@@ -22,9 +22,11 @@
 #define inaddrr(x) (*(struct in_addr *) &ifr->x[sizeof sa.sin_port])
 #define IFRSIZE   ((int)(size * sizeof (struct ifreq)))
 
-#include "LocalIP.h"
+// #include "LocalIP.h"
 
-list<string> getLocalIP()
+using namespace std;
+
+list< string > getLocalIP()
 {
 //	unsigned char      *u;
 	int                sockfd, size  = 1;

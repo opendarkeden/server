@@ -644,7 +644,7 @@ Effect* Tile::getEffect (Effect::EffectClass effectClass)
 
 	if (hasEffect())
 	{
-		for (slist<Object*>::const_iterator itr = m_Objects.begin() ; 
+		for (forward_list<Object*>::const_iterator itr = m_Objects.begin() ; 
 			itr != m_Objects.end() ; 
 			itr ++) 
 		{
@@ -857,7 +857,7 @@ string Tile::toString () const
 	msg << "Tile(";
 	msg << "Flag:" << m_wFlags;
 	msg << "\nObjects:";
-	slist<Object*>::const_iterator itr = m_Objects.begin();
+	forward_list<Object*>::const_iterator itr = m_Objects.begin();
 	for (; itr != m_Objects.end(); itr++)
 	{
 		msg << (*itr)->toString() << "\n";
@@ -883,8 +883,8 @@ void Tile::addObject (Object* pObject)
 	Assert(pObject != NULL);
 	Assert(pObject->getObjectID()!= 0);
 
-	slist<Object*>::iterator before = m_Objects.end();
-	slist<Object*>::iterator current = m_Objects.begin();
+	forward_list<Object*>::iterator before = m_Objects.end();
+	forward_list<Object*>::iterator current = m_Objects.begin();
 
 	/*
 	// 우선 섹터에 집어넣는다.
@@ -973,8 +973,8 @@ void Tile::deleteObject (ObjectID_t objectID)
 	m_pSector->deleteObject(objectID);
 	*/
 
-	slist<Object*>::iterator before = m_Objects.end();
-	slist<Object*>::iterator current = m_Objects.begin();
+	forward_list<Object*>::iterator before = m_Objects.end();
+	forward_list<Object*>::iterator current = m_Objects.begin();
 
 	int i = 0;
 	for (; current != m_Objects.end() ; before = current++) 
@@ -1025,8 +1025,8 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 {
 	__BEGIN_TRY
 
-	slist<Object*>::iterator before = m_Objects.end();
-	slist<Object*>::iterator current = m_Objects.begin() ;
+	forward_list<Object*>::iterator before = m_Objects.end();
+	forward_list<Object*>::iterator current = m_Objects.begin() ;
 
 	/*
 	// 먼저 섹터에서 삭제하자...
@@ -1076,7 +1076,7 @@ Object* Tile::getObject (ObjectID_t objectID) const
 {
 	__BEGIN_TRY
 
-	for (slist<Object*>::const_iterator itr = m_Objects.begin(); itr != m_Objects.end() ; itr ++) 
+	for (forward_list<Object*>::const_iterator itr = m_Objects.begin(); itr != m_Objects.end() ; itr ++) 
 	{
 		if (objectID == (*itr)->getObjectID()) 
 		{
@@ -1103,7 +1103,7 @@ Object* Tile::getObject (ObjectPriority objectPriority) const
 {
 	__BEGIN_TRY
 
-	for (slist<Object*>::const_iterator itr = m_Objects.begin() ; itr != m_Objects.end() ; itr ++) 
+	for (forward_list<Object*>::const_iterator itr = m_Objects.begin() ; itr != m_Objects.end() ; itr ++) 
 	{
 		if (objectPriority == (*itr)->getObjectPriority()) 
 		{

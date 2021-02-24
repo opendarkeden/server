@@ -46,7 +46,7 @@ MasterLairInfo::~MasterLairInfo()
 
 // a      bc
 // "hihihi", "dsfsdfsd sdfds, sfd", "anfdsf"
-void MasterLairInfo::setSayText(vector<string>& sayWords, const string& text) 
+void MasterLairInfo::setSayText(vector<string>& sayWords, const string& text)
 	throw()
 {
 	sayWords.clear();

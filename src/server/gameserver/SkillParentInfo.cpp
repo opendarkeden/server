@@ -9,7 +9,7 @@
 #include "SkillParentInfo.h"
 #include "DB.h"
 #include "Assert.h"
-#include <algo.h>
+// #include <algo.h>
 
 //----------------------------------------------------------------------
 //
@@ -70,7 +70,12 @@ bool SkillParentInfo::hasParent (SkillType_t SkillType)
 
 		if (FirstType == 0) return true;
 
-		list<SkillType_t>::iterator itr = find(m_Parents.begin(), m_Parents.end() , SkillType);
+		list<SkillType_t>::iterator itr;
+    for (itr = m_Parents.begin(); itr != m_Parents.end(); itr++) {
+      if (*itr == SkillType) {
+        break;
+      }
+    }
 
 		if (itr == m_Parents.end()) return false;
 
@@ -94,7 +99,7 @@ SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
 {
 	__BEGIN_TRY
 
-	for (list<SkillType_t>::const_iterator itr = m_Parents.begin() ; itr != m_Parents.end() ; itr ++) 
+	for (list<SkillType_t>::const_iterator itr = m_Parents.begin() ; itr != m_Parents.end() ; itr ++)
 	{
 		if (SkillType == (*itr)) return *itr;
 	}

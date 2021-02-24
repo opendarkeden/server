@@ -92,7 +92,7 @@ string EffectDeleteTile::toString()
 
 	msg << "EffectDeleteTile("
 		<< "ObjectID:" << (int)getObjectID()
-		<< ",Zone:" << (int)m_pZone
+    << ",Zone:" << m_pZone->getZoneID()
 		<< ",X:" << (int)m_X
 		<< ",Y:" << (int)m_Y
 		<< ")";

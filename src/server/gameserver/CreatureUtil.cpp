@@ -1905,7 +1905,7 @@ void initAllStatAndSendChange( PlayerCreature* pPC )
 	}
 }
 
-void addSimpleCreatureEffect( Creature* pCreature, Effect::EffectClass eClass, int time = -1, bool isSend = true )
+void addSimpleCreatureEffect( Creature* pCreature, Effect::EffectClass eClass, int time /* = -1 */, bool isSend /* = true */ )
 {
 	SimpleCreatureEffect* pEffect = new SimpleCreatureEffect( eClass, pCreature );
 	Assert( pEffect != NULL );
@@ -2356,7 +2356,7 @@ void giveGoldMedal( PlayerCreature* pPC ) throw(Error)
 		pStmt = g_pDatabaseManager->getDistConnection("USERINFO")->createStatement();
 		pStmt->executeQuery("INSERT INTO GoldMedalCount (PlayerID, getTime) VALUES ('%s', now())",
 				pGamePlayer->getID().c_str());
-		addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10);
+		addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_GOLD_MEDAL, 10, true);
 
 		GCSystemMessage gcSM;
 		gcSM.setMessage( "获得雅典金牌一枚." );

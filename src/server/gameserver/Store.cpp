@@ -99,16 +99,16 @@ bool Store::hasItem(ObjectID_t oid) const
 	vector<StoreItem>::const_iterator itr = m_StoreItems.begin();
 
 	for ( ; itr != m_StoreItems.end(); ++itr )
-	{
-		//add by viva for server crash : itr != NULL
-		if( itr != NULL)
-		{
-			if ( itr->isExists() )
-			{
-				if ( itr->getItem()->getObjectID() == oid ) return true;
-			}
-		}
-	}
+    {
+      //add by viva for server crash : itr != NULL
+      // if( !itr ) { continue; }
+      // {
+      if ( itr->isExists() )
+        {
+          if ( itr->getItem()->getObjectID() == oid ) return true;
+        }
+      // }
+    }
 
 	return false;
 }

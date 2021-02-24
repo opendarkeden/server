@@ -230,8 +230,8 @@ string TimeManager::toString () const
 	StringStream msg;
 
 	msg << "TimeManager:(" 
-			<< "BaseGameTime:" << (int)ctime(&m_BaseGameTime)
-			<< "BaseRealTime:" << (int)ctime(&m_BaseRealTime)
+			<< "BaseGameTime:" << (int64_t)ctime(&m_BaseGameTime)
+			<< "BaseRealTime:" << (int64_t)ctime(&m_BaseRealTime)
 			<< ")";
 
 	return msg.toString();

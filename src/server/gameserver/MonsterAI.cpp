@@ -2150,9 +2150,9 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 				// 타일에 크리처가 있는 경우에만
 				if (rTile.hasCreature()) 
 				{
-					const slist<Object*> & objectList = rTile.getObjectList();
+					const forward_list<Object*> & objectList = rTile.getObjectList();
 
-					for (slist<Object*>::const_iterator itr = objectList.begin() ; 
+					for (forward_list<Object*>::const_iterator itr = objectList.begin() ; 
 						itr != objectList.end() && (*itr)->getObjectPriority() <= OBJECT_PRIORITY_BURROWING_CREATURE; 
 						itr++) 
 					{

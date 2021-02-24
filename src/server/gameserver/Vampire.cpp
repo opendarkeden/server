@@ -764,13 +764,13 @@ bool Vampire::load ()
 		*/
 		// add by Sonic 2006.10.28
 		pResult = pStmt->executeQuery(
-			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, 
-			MasterEffectColor,
-			BatColor, SkinColor, 
-			STR, DEX, INTE, HP, CurrentHP, Fame, 
-			GoalExp, Level, Bonus, Gold, GuildID,
-			ZoneID, XCoord, YCoord, Sight, Alignment,
-			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,
+			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, \
+			MasterEffectColor, \
+			BatColor, SkinColor,\
+			STR, DEX, INTE, HP, CurrentHP, Fame,\
+			GoalExp, Level, Bonus, Gold, GuildID,\
+			ZoneID, XCoord, YCoord, Sight, Alignment,\
+			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,\
 			Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
 			m_Name.c_str()
 		);

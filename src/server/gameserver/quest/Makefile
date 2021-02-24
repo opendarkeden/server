@@ -46,7 +46,7 @@ CCFLAGS  = -Wall -c -g
 # Objects
 #----------------------------------------------------------------------
 
-QUEST_OBJS = Trigger.o TriggerManager.o PropertyBuffer.o VariableBuffer.o VariableInfo.o TriggerParser.o
+QUEST_OBJS = Trigger.o PropertyBuffer.o VariableBuffer.o VariableInfo.o TriggerParser.o TriggerManager.o
 
 CONDITION_OBJS = \
 	ConditionFactoryManager.o \
@@ -192,7 +192,7 @@ ACTION_OBJS = \
 	ActionShowConfirmGetEventItemDialog.o
 
               
-OBJS = $(QUEST_OBJS) $(CONDITION_OBJS) $(ACTION_OBJS)
+OBJS = $(CONDITION_OBJS) $(ACTION_OBJS) $(QUEST_OBJS)
 
 SRCS = $(OBJS:.o=.cpp)
 

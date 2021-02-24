@@ -52,8 +52,8 @@ void EffectTurretLaser::affect(Zone* pZone, ZoneCoord_t Cx, ZoneCoord_t Cy)
 
 	if ( !isValidZoneCoord( pZone, Cx, Cy ) ) return;
 	Tile& rTile = pZone->getTile(Cx, Cy);
-	slist<Object*>& oList = rTile.getObjectList();
-	slist<Object*>::iterator itr = oList.begin();
+	forward_list<Object*>& oList = rTile.getObjectList();
+	forward_list<Object*>::iterator itr = oList.begin();
 
 	for ( ; itr != oList.end(); ++itr )
 	{

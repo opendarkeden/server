@@ -2243,7 +2243,7 @@ bool addNewbieItemToGear( Slayer* pSlayer, bool sendPacket )
 	__END_CATCH
 }
 
-bool addNewbieGoldToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error)
+bool addNewbieGoldToInventory( Ousters* pOusters, bool sendPacket /*= false*/ ) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -2263,7 +2263,7 @@ bool addNewbieGoldToInventory( Ousters* pOusters, bool sendPacket = false ) thro
 	__END_CATCH
 }
 
-bool addNewbieItemToInventory( Ousters* pOusters, bool sendPacket = false ) throw(Error)
+bool addNewbieItemToInventory( Ousters* pOusters, bool sendPacket /*= false */) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -2308,7 +2308,7 @@ bool addNewbieItemToInventory( Ousters* pOusters, bool sendPacket = false ) thro
 	__END_CATCH
 }
 
-bool addNewbieItemToGear( Ousters* pOusters, bool sendPacket = false ) throw(Error)
+bool addNewbieItemToGear( Ousters* pOusters, bool sendPacket /*= false */) throw(Error)
 {
 	__BEGIN_TRY
 
@@ -2776,7 +2776,7 @@ void remainTraceLog ( Item* pItem, const string& preOwner, const string& owner, 
 	__END_CATCH
 }
 
-void remainTraceLogNew ( Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid=0, int x=0, int y=0)
+void remainTraceLogNew ( Item* pItem, const string& owner, ITLType logType, ITLDType detailType, ZoneID_t zid /*=0*/, int x /*=0*/, int y /*=0 */)
 	throw (Error)
 {
 	__BEGIN_TRY

@@ -43,7 +43,7 @@
 #include "ItemGradeManager.h"
 #include "StringPool.h"
 
-#include <fstream.h>
+#include <fstream>
 
 #include "Gpackets/GCCreatureDied.h"
 #include "Gpackets/GCAddEffect.h"
