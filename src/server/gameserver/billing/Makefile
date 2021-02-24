@@ -61,18 +61,18 @@ SRCS = \
 
 GS_OBJS = $(SRCS:%.cpp=%.gs.o)
 LS_OBJS = $(SRCS:%.cpp=%.ls.o)
-DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.d)
+GS_DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.gs.d)
+LS_DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.ls.d)
 
+DEPFLAGS = -MT $@ -MMD -MP -MF 
 DEPDIR = .deps
-DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
-COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CCFLAGS) $(TARGET_ARCH) $(DEFS) $(INCLUDES) -c
 %.o : %.cpp
 
-%.gs.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
-	$(COMPILE.c) -D__GAME_SERVER__ $(OUTPUT_OPTION) $<
+%.gs.o : %.cpp $(DEPDIR)/%.gs.d | $(DEPDIR)
+	$(CC) $(DEPFLAGS) $(DEPDIR)/$*.gs.d $(CCFLAGS) $(DEFS) -D__GAME_SERVER__ $(INCLUDES) -c $(OUTPUT_OPTION) $<
 
-%.ls.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
-	$(COMPILE.c) -D__LOGIN_SERVER__ $(OUTPUT_OPTION) $<
+%.ls.o : %.cpp $(DEPDIR)/%.ls.d | $(DEPDIR)
+	$(CC) $(DEPFLAGS) $(DEPDIR)/$*.ls.d $(CCFLAGS) $(DEFS)-D__LOGIN_SERVER__ $(INCLUDES) -c $(OUTPUT_OPTION) $<
 
 #----------------------------------------------------------------------
 # actions
@@ -111,6 +111,8 @@ cleangameserver :
 $(DEPDIR):
 	@mkdir -p $@
 
-$(DEPS):
+$(GS_DEPS):
+$(LS_DEPS):
 
-include $(wildcard $(DEPS))
+include $(wildcard $(GS_DEPS))
+include $(wildcard $(LS_DEPS))
