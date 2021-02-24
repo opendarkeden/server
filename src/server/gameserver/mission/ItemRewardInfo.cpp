@@ -186,7 +186,7 @@ string ItemRewardInfo::toString() const throw()
 		<< ", ItemType : " << (int) m_IType
 		<< ", ItemOption : " << getOptionTypeToString( m_OptionType ).c_str()
 		<< ", TimeLimitSec : " << m_TimeLimit
-		<< ") : " << endl << RewardInfo::toString().c_str();
+		<< ") : " << "\n" << RewardInfo::toString().c_str();
 
 	return msg.toString();
 

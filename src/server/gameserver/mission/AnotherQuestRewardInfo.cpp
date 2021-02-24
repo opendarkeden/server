@@ -45,7 +45,7 @@ string AnotherQuestRewardInfo::toString() const throw()
 
 	msg << "AnotherQuestRewardInfo("
 		<< "QuestID : " << (uint)m_QuestID
-		<< ") : " << endl << RewardInfo::toString().c_str();
+		<< ") : " << "\n" << RewardInfo::toString().c_str();
 
 	return msg.toString();
 

@@ -5,7 +5,7 @@
 #include "BillingInfo.h"
 #include "Utility.h"
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 
 class BillingResultLoginErrorMessage
 {
@@ -22,7 +22,7 @@ protected:
 private:
 	static BillingResultLoginErrorMessage* _instance;
 
-	typedef hash_map<int, string>			HashMapMessage;
+	typedef unordered_map<int, string>			HashMapMessage;
 	typedef HashMapMessage::iterator		HashMapMessageItr;
 	typedef HashMapMessage::const_iterator	HashMapMessageConstItr;
 

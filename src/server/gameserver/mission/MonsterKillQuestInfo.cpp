@@ -30,7 +30,7 @@ string MonsterKillQuestInfo::toString () const throw ()
 		<< "Target Monster Sprite Type : " << m_TargetMonsterSpriteType
 		<< ", Chief Monster Quest : " << ( (m_IsChief)?"yes":"no" )
 		<< ", Goal Monster Num : " << m_GoalNum
-		<< ") : " << endl << QuestInfo::toString().c_str();
+		<< ") : " << "\n" << QuestInfo::toString().c_str();
 
 	return msg.toString();
 }

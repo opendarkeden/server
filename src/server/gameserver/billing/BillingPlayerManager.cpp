@@ -131,7 +131,7 @@ void BillingPlayerManager::run ()
 					pSocket->connect();
 
 					// make nonblocking socket
-					pSocket->setNonBlocking();
+					pSocket->setNonBlocking(true);
 
 					// make no-linger socket
 					pSocket->setLinger(0);

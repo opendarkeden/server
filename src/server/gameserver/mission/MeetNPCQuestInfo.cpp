@@ -27,7 +27,7 @@ string MeetNPCQuestInfo::toString () const throw ()
 
 	msg << "MeetNPCQuestInfo("
 		<< m_NPCID[0] << ", " << m_NPCID[1]
-		<< ") : " << endl << QuestInfo::toString().c_str();
+		<< ") : " << "\n" << QuestInfo::toString().c_str();
 
 	return msg.toString();
 }
