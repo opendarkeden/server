@@ -54,8 +54,8 @@ DEPS = $(SERVER_CORE_SRCS:%.cpp=$(DEPDIR)/%.d)
 all : $(SERVER_CORE_LIB)
 	$(MAKE) -C database
 	$(MAKE) -C chinabilling
-	$(MAKE) -C loginserver
 	$(MAKE) -C gameserver
+	$(MAKE) -C loginserver
 	$(MAKE) -C updateserver
 	$(MAKE) -C sharedserver
 
