@@ -43,7 +43,7 @@ typedef unsigned long ulong;
 #if defined(__LINUX__) || defined(__WIN_CONSOLE__)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
-	typedef unsigned long DWORD;
+	typedef unsigned int DWORD;
 	typedef unsigned long long ulonglong;
 #else
 	typedef unsigned __int64 ulonglong;
