@@ -206,7 +206,7 @@ void MonsterManager::parseMonsterList(const string& text, bool bReload)
 	//
 	//--------------------------------------------------------------------------------
 	
-	uint i = 0 , j = 0 , k = 0;
+	size_t i = 0 , j = 0 , k = 0;
 
 	do 
 	{
@@ -309,7 +309,7 @@ void MonsterManager::parseEventMonsterList(const string& text, bool bReload)
 	//
 	//--------------------------------------------------------------------------------
 	
-	uint i = 0 , j = 0 , k = 0, l = 0, m = 0, n = 0;
+	size_t i = 0 , j = 0 , k = 0, l = 0, m = 0, n = 0;
 
 	do 
 	{

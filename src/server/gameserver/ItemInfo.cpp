@@ -70,7 +70,7 @@ VolumeHeight_t ItemInfo::getVolumeHeight () const
 void ItemInfo::setReqAbility(const string& req)
 	throw()
 {
-	uint a = 0, b = 0, c = 0;
+	size_t a = 0, b = 0, c = 0;
 
 	do
 	{

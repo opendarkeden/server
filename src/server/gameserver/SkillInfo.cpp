@@ -57,15 +57,15 @@ void SkillInfo::setRequireSkill( const string& requireSkill )
 	//     c  d
 	//         c  d
 	/////////////////////////////
-	uint a = requireSkill.find_first_of('(', 0 );
-	uint b = requireSkill.find_first_of(')', a+1 );
+	size_t a = requireSkill.find_first_of('(', 0 );
+	size_t b = requireSkill.find_first_of(')', a+1 );
 
 	if ( a > b ) return;
 
 	string requires = trim( requireSkill.substr( a+1, b-a-1 ) );
 
-	uint c = 0;
-	uint d;
+	size_t c = 0;
+	size_t d;
 	do
 	{
 		d = requires.find_first_of(',', c+1 );

@@ -1102,9 +1102,9 @@ bool isBlockIP(const string& ip)
 
 	BEGIN_DB
 	{
-		uint i = ip.find_first_of('.',0);
-		uint j = ip.find_first_of('.',i+1);
-		uint k = ip.find_first_of('.',j+1);
+		size_t i = ip.find_first_of('.',0);
+		size_t j = ip.find_first_of('.',i+1);
+		size_t k = ip.find_first_of('.',j+1);
 
 		/*
 		 * ip = 61.78.53.228

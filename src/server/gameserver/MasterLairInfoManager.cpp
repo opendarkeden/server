@@ -53,7 +53,7 @@ void MasterLairInfo::setSayText(vector<string>& sayWords, const string& text)
 
 	if (text.empty()) return;
 
-	uint a=0, b=0, c=0;
+	size_t a=0, b=0, c=0;
 	while (c < text.size())
 	{
 		a = text.find_first_of('\"', c);

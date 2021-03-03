@@ -67,7 +67,7 @@ void VariableBuffer::parse()
 
 	do
 	{
-		uint j = subStr.find_first_of( Separator, i );
+		size_t j = subStr.find_first_of( Separator, i );
 
 		// separator 가 없다면 마지막 Variable 이다.
 		if ( j == string::npos )

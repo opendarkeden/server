@@ -250,6 +250,7 @@ void VariableManager::init()
 
 	load();
 
+
 	// 특별히 다른 초기값을 설정하는 경우
 	setVariable( AUTO_START_RACE_WAR, g_pConfig->getPropertyInt("ActiveRaceWar") );
 	setVariable( GUILD_WAR_ACTIVE, g_pConfig->getPropertyInt("ActiveGuildWar") );
@@ -410,211 +411,211 @@ VariableManager::toString(VariableType vt) const
 	switch (vt)
 	{
 		case EVENT_ACTIVE:
-			msg << "Event발생여부: " << attr1;
+			msg << "Event ACTIVE: " << attr1;
 			break;
 		case EVENT_RATIO:
-			msg << "Event발생빈도: " << attr1;
+			msg << "Event RATIO: " << attr1;
 			break;
 		case ITEM_PROBE_RATIO:
-			msg << "Item추가발생확률:  " << attr1;
+			msg << "Item PROBE RATIO:  " << attr1;
 			break;
 		case EXP_RATIO:
-			msg << "경험치 추가 발생확률: " << attr1;
+			msg << "EXP RATIO: " << attr1;
 			break;
 		case COMBAT_BONUS_TIME:
-			msg << "전쟁 승리 유지시간: " << attr1;
+			msg << "COMBAT BONUM TIME: " << attr1;
 			break;
 
 		case COMBAT_SLAYER_HP_BONUS_RATIO:
-			msg << "슬레이어 전쟁 HP 보너스: " << attr1;
+			msg << "COMBAT SLAYER HP BONUS RATIO: " << attr1;
 			break;
 
 		case COMBAT_VAMPIRE_HP_BONUS_RATIO:
-			msg << "뱀파이어 전쟁 HP 보너스: " << attr1;
+			msg << "COMBAT VAMPIREE  HP BONUS RATIO: " << attr1;
 			break;
 
 		case PREMIUM_EXP_BONUS_PERCENT:
-			msg << "프리미엄 사용자의 경험치 보너스: " << attr1;
+			msg << "PREMIUM EXP BONUS PERCENT: " << attr1;
 			break;
 
 		case PREMIUM_ITEM_PROBE_PERCENT:
-			msg << "프리미엄 존의 아이템 루팅 확률: " << attr1;
+			msg << "PREMIUM ITEM PROBE PERCENT: " << attr1;
 			break;
 
 		case ZONE_GROUP_BALANCING_MINUTE:
-			msg << "ZoneGroupBalancing 시간 주기: " << attr1 << "분";
+			msg << "ZoneGroupBalancing minute: " << attr1 << "분";
 			break;
 
 		case GAMBLE_ITEM_TYPE_RATIO:
-			msg << "갬블 ItemType 확률: " << attr1;
+			msg << "GAMBLE_ITEM_TYPE_RATIO: " << attr1;
 			break;
 
 		case GAMBLE_ITEM_OPTION_RATIO:
-			msg << "갬블 ItemOption 확률: " << attr1;
+			msg << "GAMBLE_ITEM_OPTION_RATIO: " << attr1;
 			break;
 
 		case SUMMON_MOTORCYCLE:
-			msg << "오토바이 소환기능: " << (attr1? "ON":"OFF");
+			msg << "SUMMON_MOTORCYCLE: " << (attr1? "ON":"OFF");
 			break;
 
 		case ENEMY_LIMIT_TIME:
-			msg << "몬스터 연속 적 설정 시간: " << attr1 << "초"; 
+			msg << "ENEMY_LIMIT_TIME: " << attr1 << "초"; 
 			break;
 
 		case COMBAT_SLAYER_DAMAGE_BONUS:
-			msg << "슬레이어 전쟁 Damage 보너스: " << attr1;
+			msg << "COMBAT_SLAYER_DAMAGE_BONUS: " << attr1;
 			break;
 
 		case COMBAT_VAMPIRE_DAMAGE_BONUS:
-			msg << "뱀파이어 전쟁 Damage 보너스: " << attr1;
+			msg << "COMBAT_VAMPIRE_DAMAGE_BONUS: " << attr1;
 			break;
 
 		case RARE_ITEM_RATIO:
-			msg << "레어 아이템 루팅 확률: " << attr1;
+			msg << "RARE_ITEM_RATIO: " << attr1;
 			break;
 
 		case UNIQUE_ITEM_RATIO:
-			msg << "유니크 아이템 루팅 확률: " << attr1; 
+			msg << "UNIQUE_ITEM_RATIO: " << attr1; 
 			break;
 
 		case ACTIVE_MASTER_LAIR:
-			msg << "마스터 레어 작동: " << (attr1? "ON":"OFF");
+			msg << "ACTIVE_MASTER_LAIR: " << (attr1? "ON":"OFF");
 			break;
 
 		case RETRY_MASTER_LAIR:
-			msg << "마스터 레어에 죽고 다시 들어가기: " << (attr1? "ON":"OFF");
+			msg << "RETRY_MASTER_LAIR: " << (attr1? "ON":"OFF");
 			break;
 
 
 		case HARVEST_FESTIVAL_ITEM_RATIO:
 			if (attr1==0)
 			{
-				msg << "추석 송편 아이템 확률 : 0";
+				msg << "HARVEST_FESTIVAL_ITEM_RATIO: 0";
 			}
 			else
 			{
-				msg << "추석 송편 아이템 확률 : 1/" << attr1;
+				msg << "HARVEST_FESTIVAL_ITEM_RATIO: 1/" << attr1;
 			}
 			break;
 
 		case MASTER_BLOOD_DRAIN_START_HP:
-			msg << "마스터 흡혈 시작 HP : " << attr1 << "%";
+			msg << "MASTER_BLOOD_DRAIN_START_HP: " << attr1 << "%";
 			break;
 		case MASTER_BLOOD_DRAIN_START_BD:
-			msg << "마스터 흡혈 시작 BD : " << attr1 << "%";
+			msg << "MASTER_BLOOD_DRAIN_START_BD: " << attr1 << "%";
 			break;
 		case MASTER_BLOOD_DRAIN_END_HP:
-			msg << "마스터 흡혈 끝 HP : " << attr1 << "%";
+			msg << "MASTER_BLOOD_DRAIN_END_HP: " << attr1 << "%";
 			break;
 		case MASTER_BLOOD_DRAIN_END_BD:
-			msg << "마스터 흡혈 끝 BD : " << attr1 << "%";
+			msg << "MASTER_BLOOD_DRAIN_END_BD: " << attr1 << "%";
 			break;
 
 		case ACTIVE_CHIEF_MONSTER:
-			msg << "치프 몬스터 등장 " << (attr1? "ON":"OFF");
+			msg << "ACTIVE_CHIEF_MONSTER: " << (attr1? "ON":"OFF");
 			break;
 		case CHIEF_MONSTER_RARE_ITEM_RATIO:
-			msg << "치프 몬스터 레어 아이템 루팅 확률 : " << attr1 << "%";
+			msg << "CHIEF_MONSTER_RARE_ITEM_RATIO: " << attr1 << "%";
 			break;
 
 		case NEWBIE_TRANSPORT_TO_GUILD:
-			msg << "능력치 40된 애들 길드로 이동 : " << (attr1? "ON":"OFF");
+			msg << "NEWBIE_TRANSPORT_TO_GUILD: " << (attr1? "ON":"OFF");
 			break;
 
 		case FREE_PLAY_SLAYER_DOMAIN_SUM:
-			msg << "슬레이어 무료 사용 가능 도메인레벨합: " << attr1;
+			msg << "FREE_PLAY_SLAYER_DOMAIN_SUM: " << attr1;
 			break;
 
 		case FREE_PLAY_VAMPIRE_LEVEL:
-			msg << "뱀파이어 무료 사용 가능 레벨: " << attr1;
+			msg << "FREE_PLAY_VAMPIRE_LEVEL: " << attr1;
 			break;
 
 		case LOG_INCOMING_CONNECTION:
-			msg << "IncomingConnection관련된 Log: " << (attr1? "ON":"OFF");
+			msg << "LOG_INCOMING_CONNECTION: " << (attr1? "ON":"OFF");
 			break;
 
 		case CHRISTMAS_FIRE_CRACKER_RATIO:
-			msg << "크리스마스 폭죽 루팅 확률 : " << attr1 << " / 10000 ";
+			msg << "CHRISTMAS_FIRE_CRACKER_RATIO: " << attr1 << " / 10000 ";
 			break;
 
 		case CHRISTMAS_TREE_PART_RATIO:
-			msg << "크리스마스 트리 조각 루팅 확률 : " << attr1 << " / 10000 ";
+			msg << "CHRISTMAS_TREE_PART_RATIO: " << attr1 << " / 10000 ";
 			break;
 
 		case CHRISTMAS_GIFT_BOX_RATIO :
-			msg << "크리스마스 선물 상자 루팅 확률: " << attr1 << " / 10000 ";
+			msg << "christmas_gift_box_ratio: " << attr1 << " / 10000 ";
 			break;
 
 		case CHRISTMAS_TREE_DECAY_TIME :
-			msg << "크리스마스 트리 지속 시간: " << attr1/600 << "분";
+			msg << "CHRISTMAS_TREE_DECAY_TIME: " << attr1/600 << "분";
 			break;
 
 		case MASTER_LAIR_PLAYER_NUM :
-			msg << "마스터 레어 출입 가능 인원 수: " << attr1 << "명";
+			msg << "MASTER_LAIR_PLAYER_NUM: " << attr1 << "명";
 			break;
 
 		case RANK_EXP_GAIN_PERCENT :
-			msg << "계급 경험치는 기본 경험치의 " << attr1 << "%";
+			msg << "RANK_EXP_GAIN_PERCENT: " << attr1 << "%";
 			break;
 
 		case ITEM_LUCK_PERCENT :
-			msg << "Luck 보너스는 기본 확률의 " << attr1 << "%";
+			msg << "ITEM_LUCK_PERCENT: " << attr1 << "%";
 			break;
 
 		case LOTTO_ITEM_RATIO :
-			msg << "대박 아이템 확률 : " << attr1 << " / 10000";
+			msg << "LOTTO_ITEM_RATIO: " << attr1 << " / 10000";
 			break;
 
 		case LOTTO_ITEM_BONUS_NUM:
-			msg << "대박 아이템 추가 아이템 개수 : " << attr1;
+			msg << "LOTTO_ITEM_BONUS_NUM: " << attr1;
 			break;
 
 		case LOTTO_SKULL_RATIO :
-			msg << "대박 해골 확률 : " << attr1 << " / 10000";
+			msg << "LOTTO_SKULL_RATIO: " << attr1 << " / 10000";
 			break;
 
 		case PREMIUM_HALF_EVENT :
-			msg << "유료 사용자 앰플, 혈청 반값 이벤트 : " << (attr1?"ON":"OFF");
+			msg << "PREMIUM_HALF_EVENT: " << (attr1?"ON":"OFF");
 			break;
 
 		case COMMON_CASTLE_ENTRANCE_FEE :
-			msg << "공용성 입장료 : " << attr1;
+			msg << "COMMON_CASTLE_ENTRANCE_FEE: " << attr1;
 			break;
 
 		case GUILD_CASTLE_ENTRANCE_FEE :
-			msg << "길드성 입장료 : " << attr1;
+			msg << "GUILD_CASTLE_ENTRANCE_FEE: " << attr1;
 			break;
 
 		case COMMON_CASTLE_ITEM_TAX_RATIO :
-			msg << "공용성 아이템 세금 : " << attr1;
+			msg << "COMMON_CASTLE_ITEM_TAX_RATIO: " << attr1;
 			break;
 
 		case GUILD_CASTLE_ITEM_TAX_RATIO :
-			msg << "길드성 아이템 세금 : " << attr1;
+			msg << "GUILD_CASTLE_ITEM_TAX_RATIO: " << attr1;
 			break;
 
 		case WAR_REGISTRATION_FEE :
-			msg << "전쟁 신청금 : " << attr1;
+			msg << "WAR_REGISTRATION_FEE: " << attr1;
 			break;
 
 		case GUILD_WAR_TIME :
-			msg << "길드 전쟁 시간 : " << attr1 << " 초 == " << attr1/60 << "분";
+			msg << "GUILD_WAR_TIME : " << attr1 << " 초 == " << attr1/60 << "분";
 			break;
 
 		case RACE_WAR_TIME :
-			msg << "종족 전쟁 시간 : " << attr1 << " 초 == " << attr1/60 << "분";
+			msg << "RACE_WAR_TIME :" << attr1 << " 초 == " << attr1/60 << "분";
 			break;
 
 		case WAR_PERIOD_WEEK :
-			msg << "전쟁주기 : " << (attr1? "주 단위":"일 단위");
+			msg << "WAR_PERIOD_WEEK :" << (attr1? "주 단위":"일 단위");
 			break;
 
 		case WAR_ACTIVE :
-			msg << "아담의 성지 전쟁 기능 : " << (attr1?"ON":"OFF");
+			msg << "WAR_ACTIVE :" << (attr1?"ON":"OFF");
 			break;
 
 		case RACE_WAR_TIMEBAND:
-			msg << "종족 전쟁시 Timeband : ";
+			msg << "RACE_WAR_TIMEBAND:";
 			if ( attr1 == 0 )
 				msg << "새벽";
 			else if ( attr1 == 1 )
@@ -628,60 +629,60 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case AUTO_START_RACE_WAR:
-			msg << "종족 전쟁 자동 시작 기능: " << (attr1?"ON":"OFF");
+			msg << "AUTO_START_RACE_WAR:" << (attr1?"ON":"OFF");
 			break;
 
 		case ACTIVE_RACE_WAR_LIMITER :
-			msg << "종족 전쟁 참가 인원 제한: " << (attr1?"ON":"OFF");
+			msg << "ACTIVE_RACE_WAR_LIMITER :" << (attr1?"ON":"OFF");
 			break;
 
 		case CHIEF_ITEM_BONUS_NUM:
-			msg << "치프 몬스터 추가 아이템 개수: " << attr1 << " 개";
+			msg << "CHIEF_ITEM_BONUS_NUM:" << attr1 << " 개";
 			break;
 
 		case ACTIVE_EVENT_GIVE_ITEM :
-			msg << "아이템 주는 이벤트: " << (attr1?"ON":"OFF");
+			msg << "ACTIVE_EVENT_GIVE_ITEM :" << (attr1?"ON":"OFF");
 			break;
 
 		case VAMPIRE_REDISTRIBUTE_ATTR_PRICE:
-			msg << "뱀파이어 능력치 재분배 비용: " << attr1;
+			msg << "VAMPIRE_REDISTRIBUTE_ATTR_PRICE:" << attr1;
 			break;
 
 		case ACTIVATE_COUPLE:
-			msg << "커플 성사 기능: " << (attr1?"ON":"OFF");
+			msg << "ACTIVATE_COUPLE:" << (attr1?"ON":"OFF");
 			break;
 
 		case CAN_RECOUPLE:
-			msg << "헤어진 적 있는 사람이 또 커플이 될 수 있는가: " << (attr1?"Y":"N");
+			msg << "CAN_RECOUPLE:" << (attr1?"Y":"N");
 			break;
 
 		case GUILD_WAR_ACTIVE:
-			msg << "길드 전쟁을 하는가?: " << (attr1?"Yes":"No");
+			msg << "GUILD_WAR_ACTIVE:" << (attr1?"Yes":"No");
 			break;
 
 		case FREE_PLAY_OUSTERS_LEVEL:
-			msg << "아우스터스 무료 사용 가능 레벨: " << attr1;
+			msg << "FREE_PLAY_OUSTERS_LEVEL: " << attr1;
 			break;
 
 		case CAN_APPLY_QUEST:
-			msg << "퀘스트를 신청할 수 있는가?: " << (attr1?"Yes":"No");
+			msg << "CAN_APPLY_QUEST:" << (attr1?"Yes":"No");
 			break;
 
 		case SEND_QUEST_INFO:
-			msg << "퀘스트 정보를 보내줘야 하는가?: " << (attr1?"Yes":"No");
+			msg << "SEND_QUEST_INFO:" << (attr1?"Yes":"No");
 			break;
 
 		case CAN_BUY_SHOP:
-			msg << "아이템 상점 기능이 켜져있는가: " << (attr1?"Yes":"No");
+			msg << "CAN_BUY_SHOP:" << (attr1?"Yes":"No");
 			break;
 		case PCROOM_EXP_BONUS:
-			msg << "PC방 경험치 보너스: " << attr1;
+			msg << "PCROOM_EXP_BONUS:" << attr1;
 			break;
 		case PCROOM_ITEM_RATIO_BONUS:
-			msg << "PC방 아이템 획득 확률 보너스: " << attr1;
+			msg << "PCROOM_ITEM_RATIO_BONUS:" << attr1;
 			break;
 		case MONEY_TRACE_LOG_LIMIT:
-			msg << "돈 로그 남기는 최소 금액: " << attr1;
+			msg << "MONEY_TRACE_LOG_LIMIT:" << attr1;
 			break;
 		case PC_ROOM_LOTTO_EVENT:
 			msg << "피씨방 복권 이벤트: " << attr1;
@@ -709,7 +710,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case NEW_MOON_CARD_RATIO:
-			msg << "초승달 카드 나올 확률: 1 / " << attr1;
+			msg << "NEW_MOON_CARD_RATIO:" << attr1;
 			break;
 
 		case OLD_MOON_CARD_RATIO:
@@ -729,11 +730,11 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case HEAD_PRICE_BONUS:
-			msg << "머리 가격 보너스 : " << attr1;
+			msg << "HEAD_PRICE_BONUS:" << attr1;
 			break;
 
 		case LEVEL_WAR_ZONE_FREE_ENTER:
-			msg << "레벨별 전쟁 존에 자유롭게 들어갈 수 있는가? : " << (attr1?"yes":"no");
+			msg << "LEVEL_WAR_ZONE_FREE_ENTER:" << (attr1?"yes":"no");
 			break;
 
 		case PET_EXP_RATIO:
@@ -783,7 +784,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case YELLOW_GIFT_BOX_RATIO:
-			msg << "노란색 선물상자 나올 확률 : 1 / " << attr1;
+			msg << "YELLOW_GIFT_BOX_RATIO:" << attr1;
 			break;
 
 		case NETMARBLE_CARD_RATIO:
@@ -807,11 +808,11 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case RACE_PET_FOOD_RATIO:
-			msg << "종족별 펫 먹이 확률 : " << attr1 << "%";
+			msg << "RACE_PET_FOOD_RATIO:" << attr1 << "%";
 			break;
 
 		case PET_FOOD_RATIO:
-			msg << "펫 먹이 루팅 확률 : " << attr1 << " / 100000";
+			msg << "PET_FOOD_RATIO:" << attr1 << " / 100000";
 			break;
 
 		case REVIVAL_SET_RATIO:
@@ -893,51 +894,51 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case GUILD_UNION_MAX:
-			msg << "연합 길드 갯수 제한 : " << attr1;
+			msg << "GUILD_UNION_MAX:" << attr1;
 			break;
 
 		case LUCK_CHARM_RATIO:
-			msg << "수능 대박 아이템 확률 : " << attr1;
+			msg << "LUCK_CHARM_RATIO:" << attr1;
 			break;
 
 		case GDR_LAIR_PC_LIMIT:
-			msg << "질드레 레어 인원 제한 : " << attr1;
+			msg << "GDR_LAIR_PC_LIMIT:" << attr1;
 			break;
 
 		case DONATION_EVENT_200501:
-			msg << "기부 이벤트 2005.01 : " << ((attr1)?"on":"off");
+			msg << "DONATION_EVENT_200501:" << ((attr1)?"on":"off");
 			break;
 
 		case EVENT_NEW_YEAR_2005:
-			msg << "2005년 새해 맞이 이벤트 : " << ((attr1)?"on":"off");
+			msg << "EVENT_NEW_YEAR_2005: " << ((attr1)?"on":"off");
 			break;
 
 		case BOKJORY_RATIO:
-			msg << "복조리 아이템 확률 : 1 / " << attr1;
+			msg << "BOKJORY_RATIO:" << attr1;
 			break;
 			
 		case EVENT_RED_RICE_CAKE_SOUP_RATIO:
-			msg << "이벤트 빨간 떡국 아이템 확률 : 1 / " << attr1;
+			msg << "EVENT_RED_RICE_CAKE_SOUP_RATIO:" << attr1;
 			break;
 			
 		case EVENT_GREEN_RICE_CAKE_SOUP_RATIO:
-			msg << "이벤트 녹색 떡국 아이템 확률 : 1 / " << attr1;
+			msg << "EVENT_GREEN_RICE_CAKE_SOUP_RATIO:" << attr1;
 			break;
 			
 		case EVENT_BLUE_RICE_CAKE_SOUP_RATIO:
-			msg << "이벤트 파란 떡국 아이템 확률 : 1 / " << attr1;
+			msg << "EVENT_BLUE_RICE_CAKE_SOUP_RATIO:" << attr1;
 			break;
 			
 		case EVENT_BLACK_RICE_CAKE_SOUP_RATIO:
-			msg << "이벤트 검은 떡국 아이템 확률 : 1 / " << attr1;
+			msg << "EVENT_BLACK_RICE_CAKE_SOUP_RATIO:" << attr1;
 			break;
 			
 		case EVENT_MUGWORT_RICE_CAKE_SOUP_RATIO:
-			msg << "이벤트 쑥색 떡국 아이템 확률 : 1 / " << attr1;
+			msg << "EVENT_MUGWORT_RICE_CAKE_SOUP_RATIO:" << attr1;
 			break;
 
 		case TIME_PERIOD_EXP_2X:
-			msg << "시간대별 경험치 2배 이벤트 : " << ((attr1)?"on":"off");
+			msg << "TIME_PERIOD_EXP_2X:" << ((attr1)?"on":"off");
 			break;
 
 		default:

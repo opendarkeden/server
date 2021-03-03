@@ -21,9 +21,9 @@ void TimeManager::init ()
 		string strBaseGameTime = g_pConfig->getProperty("BaseGameTime");
 		string strBaseRealTime = g_pConfig->getProperty("BaseRealTime");
 
-		int yearEnd = strBaseGameTime.find('-' , 0);
-		int monEnd = strBaseGameTime.find('-' , yearEnd + 1);
-		int dayEnd = strBaseGameTime.find_last_not_of(' ');
+		size_t yearEnd = strBaseGameTime.find('-' , 0);
+		size_t monEnd = strBaseGameTime.find('-' , yearEnd + 1);
+		size_t dayEnd = strBaseGameTime.find_last_not_of(' ');
 
 		string year = strBaseGameTime.substr(0 , yearEnd);
 		string month = strBaseGameTime.substr(yearEnd + 1 , monEnd - yearEnd);

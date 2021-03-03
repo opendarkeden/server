@@ -2370,7 +2370,7 @@ Item::ItemClass getBestNewbieWeaponClass(Slayer* pSlayer)
 void makeOptionList(const string& options, list<OptionType_t>& optionList)
 	throw(Error)
 {
-	uint a = 0, b = 0;
+	size_t a = 0, b = 0;
 
 	//////////////////////////////////////////////
 	// DEX+1,INT+2

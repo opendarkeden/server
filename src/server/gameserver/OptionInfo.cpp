@@ -289,7 +289,7 @@ void OptionInfo::setReqAbility(const string& req)
 {
 	__BEGIN_TRY
 
-	uint a = 0, b = 0, c = 0;
+	size_t a = 0, b = 0, c = 0;
 
 	do
 	{
@@ -599,7 +599,7 @@ void OptionInfoManager::load()
 		while (pResult->next())
 		{
 			OptionInfo* pInfo = new OptionInfo;
-			int         i     = 0;
+      int         i     = 0;
 
 			pInfo->setType(pResult->getInt(++i));
 			pInfo->setName(pResult->getString(++i));
@@ -646,7 +646,6 @@ void OptionInfoManager::load()
 					for (uint l=gambleLevel; l<=GAMBLE_OPTION_LEVEL_MAX; l++)
 					{
 						m_GambleOptions[ic][l].push_back( type );
-						//cout << "GambleOption[" << ic << "][" << l << "] = " << (int)type << endl;
 					}
 				}
 			}
@@ -700,6 +699,7 @@ void OptionInfoManager::load()
 			m_RareEnchantInfo[key]->setRatio( grade, false, pResult->getInt(4) );
 			m_RareEnchantInfo[key]->setRatio( grade, true, pResult->getInt(5) );
 		}
+
 
 		pResult = pStmt->executeQuery("SELECT OptionType, Ratio FROM PetEnchantOptionRatioInfo");
 
@@ -757,7 +757,6 @@ void OptionInfoManager::load()
             m_TotalGambleRatio[ic][l] = totalRatio;
         }
     }
-
 
 	} catch (Throwable& t) {
 		cerr << t.toString().c_str() << endl;

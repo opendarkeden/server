@@ -505,9 +505,9 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 {
 	__BEGIN_TRY
 
-	uint oldpos     = 0;
-	uint pos        = 0;
-	uint paramCount = 0;
+	size_t oldpos     = 0;
+	size_t pos        = 0;
+	size_t paramCount = 0;
 
 	while (oldpos < text.size() && pos < text.size())
 	{
@@ -519,7 +519,7 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 		// ","를 찾으면 맥스 값이 무조건 나온다. 
 		// 이걸로는 서브스트링 함수를 제대로 부를 수가 
 		// 없기 때문에 문자열의 길이로 pos 값을 세팅해준다.
-		if (pos == string::npos) pos = text.size();
+    if (pos == string::npos) pos = text.size();
 		pos++;
 
 		string token = text.substr(oldpos, (pos-1)-oldpos);
@@ -553,7 +553,7 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 
 
 						default :
-							cerr << "DirectiveSetManager::parseParameter() : There's two or more parameters in condition" << endl;
+							cerr << "DirectiveSetManager::parseParameter() : There's two or more parameters in action" << endl;
 							cerr << "ParsingText: " << text.c_str() << endl;
 							throw Error("No Need Parameter!");
 					}
@@ -570,7 +570,6 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 			default:
 				break;
 		}
-
 		paramCount++;
 	}
 

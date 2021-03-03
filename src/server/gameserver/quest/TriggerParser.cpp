@@ -61,7 +61,7 @@ bool TriggerParser::parseElement(XMLTree* pTree, const string& key, const string
 		string line = trim(getline(element, index));
 		if ( line.size() == 0 || line[0] == Comment ) continue;
 
-		uint i = line.find(Separator);
+		size_t i = line.find(Separator);
 
 		if ( i == string::npos ) return false;
 		string name = trim(line.substr(0, i-1));

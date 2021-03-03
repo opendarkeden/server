@@ -39,9 +39,9 @@ void VariableInfo::parse()
 {
 	__BEGIN_TRY
 
-	uint i = m_Buffer.find( Seperator );
-	uint j = m_Buffer.find( LParen );
-	uint k = m_Buffer.find( RParen );
+	size_t i = m_Buffer.find( Seperator );
+	size_t j = m_Buffer.find( LParen );
+	size_t k = m_Buffer.find( RParen );
 
 	if ( i == string::npos
 		|| j == string::npos

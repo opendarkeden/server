@@ -2960,7 +2960,7 @@ void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList )
 
 	__BEGIN_TRY
 
-    uint a = 0, b = 0;
+    size_t a = 0, b = 0;
 
     //////////////////////////////////////////////
     // 12345,67890,

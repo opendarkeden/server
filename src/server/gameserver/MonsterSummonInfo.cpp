@@ -36,12 +36,12 @@ void MonsterCollectionInfo::parseString(const string& text)
 	if (text.size() < 5)
 		return;
 
-	uint a = text.find_first_of('(');
-	uint b = text.find_first_of(',');
-	uint c = text.find_first_of(')');
+	size_t a = text.find_first_of('(');
+	size_t b = text.find_first_of(',');
+	size_t c = text.find_first_of(')');
 
-	uint d = text.find_first_of('{', a);
-	uint e = text.find_first_of('}', d);
+	size_t d = text.find_first_of('{', a);
+	size_t e = text.find_first_of('}', d);
 
 	bool bMonsterType = (d!=string::npos && e!=string::npos);
 
@@ -119,7 +119,7 @@ void MonsterCollection::parseString(const string& text)
 {
 	Infos.clear();
 
-	uint a, b, c = 0;
+	size_t a, b, c = 0;
 
 	while (1)
 	{
@@ -201,13 +201,13 @@ void MonsterSummonStep::parseString(const string& text)
 	Collections.clear();
 
 	// 개수 알아내기
-	int l = text.find_first_of('[');
-	int r = text.find_first_of(']');
+	size_t l = text.find_first_of('[');
+	size_t r = text.find_first_of(']');
 
 	if (l >= r)
 		return;
 
-	uint a, b, c=0;
+	size_t a, b, c=0;
 	while (1)
 	{
 		a = text.find_first_of('(', c);
@@ -295,7 +295,7 @@ bool MonsterSummonInfo::hasNextMonsterCollection(int step) const
 void MonsterSummonInfo::parseString(const string& text)
 {
 	// 개수 알아내기
-	uint a, b=0;
+	size_t a, b=0;
 	while (1)
 	{
 		a = text.find_first_of('[', b);

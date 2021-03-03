@@ -45,7 +45,7 @@ void CGGlobalChatHandler::execute (CGGlobalChat* pPacket , Player* pPlayer)
 		// 서버에서 클라이언트로 전송하므로 GC- 패킷을 사용해야 한다.
 		GCGlobalChat gcGlobalChat;
 
-		uint i = pPacket->getMessage().find_first_of('*' , 0);
+		size_t i = pPacket->getMessage().find_first_of('*' , 0);
 
 		if (i == 0) return;
 

@@ -51,7 +51,7 @@ string PropertyBuffer::getProperty (string key)
 		// 빈 라인 또는 코멘트 라인이 아닌 경우
 		if (line.size() != 0 && line[0] != Comment)
 		{
-			uint i = line.find(Separator);
+			size_t i = line.find(Separator);
 
 			if (i == string::npos)
 			{
@@ -101,7 +101,7 @@ bool PropertyBuffer::getProperty (string key, string& value)
         // 빈 라인 또는 코멘트 라인이 아닌 경우
         if (line.size() != 0 && line[0] != Comment)
         {
-            uint i = line.find(Separator);
+            size_t i = line.find(Separator);
 
             if (i == string::npos)
             {

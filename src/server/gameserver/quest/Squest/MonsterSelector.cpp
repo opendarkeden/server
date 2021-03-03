@@ -15,7 +15,7 @@ MonsterSelector::setMonster(const string& text)
 	int SType = 0;
 	int Num   = 1;
 
-	uint a=0, b=0, c=0;
+	size_t a=0, b=0, c=0;
 
 	while (c < text.size() - 1)
 	{

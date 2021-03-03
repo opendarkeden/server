@@ -44,8 +44,8 @@ void ScriptManager::load (const string & ownerID)
 			if ( m_XMLS[owner] == NULL ) m_XMLS[owner] = new XMLTree("Scripts");
 
 			string     seperator    = "**";
-			uint       start        = 0;
-			uint       end          = 0;
+			size_t       start        = 0;
+			size_t       end          = 0;
 			string     msg;
 
 			////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ void ScriptManager::load (const string & ownerID)
 
 				XMLTree* pContent = new XMLTree("Content");
 				pContent->SetText(msg);
-				pContent->AddAttribute("AnswerID", ++answerid);
+				pContent->AddAttribute("AuintnswerID", ++answerid);
 				pChild->AddChild(pContent);
 
 				//cout << "CONTENT:" << msg << endl;

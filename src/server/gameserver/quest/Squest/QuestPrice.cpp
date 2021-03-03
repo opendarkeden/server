@@ -20,7 +20,7 @@ QuestPrice::setPrice(const string& text)
 	RankExp_t RankExp 	= 0;
 	Fame_t    Fame 		= 0;
 
-	uint a=0, b=0, c=0;
+	size_t a=0, b=0, c=0;
 
 	while (c < text.size() - 1)
 	{

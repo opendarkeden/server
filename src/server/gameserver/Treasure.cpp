@@ -71,7 +71,7 @@ void TreasureOptionType::parseString(const string& text)
 
 	if (text.size() < 3) return;
 
-	uint a = text.find_first_of(',', 0);
+	size_t a = text.find_first_of(',', 0);
 
 	if (a != string::npos)
 	{
@@ -213,9 +213,9 @@ void TreasureItemType::parseString(int itemClass, const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// 먼저 item type을 읽어들인다.
-	uint i = text.find_first_of('(', 0);
-	uint j = text.find_first_of(',', i+1);
-	uint k = text.find_first_of(')', j+1);
+	size_t i = text.find_first_of('(', 0);
+	size_t j = text.find_first_of(',', i+1);
+	size_t k = text.find_first_of(')', j+1);
 
 	if (i == string::npos || j == string::npos || k == string::npos)
 	{
@@ -241,8 +241,8 @@ void TreasureItemType::parseString(int itemClass, const string& text)
 	// 옵션 정보를 읽어들인다.
 	string newText = text.substr(k+1, text.size()-k-1);
 
-	uint a = 0;
-	uint b = 0;
+	size_t a = 0;
+	size_t b = 0;
 
 	if (newText.size() > 0)
 	{
@@ -475,9 +475,9 @@ void TreasureItemClass::parseString(const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// 아이템 클래스 및 확률을 읽어들인다. 
-	uint i = text.find_first_of('(', 0);
-	uint j = text.find_first_of(',', i+1);
-	uint k = text.find_first_of(')', j+1);
+	size_t i = text.find_first_of('(', 0);
+	size_t j = text.find_first_of(',', i+1);
+	size_t k = text.find_first_of(')', j+1);
 
 	string itemClassString = trim(text.substr(i+1, j-i-1));
 	m_Ratio = atoi(trim(text.substr(j+1, k-j-1)).c_str());
@@ -489,8 +489,8 @@ void TreasureItemClass::parseString(const string& text)
 
 	//cout << "TIC::newText\n" << newText << endl << endl;
 
-	uint a = 0;
-	uint b = 0;
+	size_t a = 0;
+	size_t b = 0;
 
 	while (b < newText.size()-1)
 	{
@@ -727,9 +727,9 @@ void Treasure::parseString(const string& text)
 	////////////////////////////////////////////////////////////
 	
 	// 먼저 아이템 자체가 나올 확률과, 그 아이템에 옵션이 붙을 확률을 읽어들인다.
-	uint i = text.find_first_of('(');
-	uint j = text.find_first_of(',');
-	uint k = text.find_first_of(')');
+	size_t i = text.find_first_of('(');
+	size_t j = text.find_first_of(',');
+	size_t k = text.find_first_of(')');
 
 	if (i == string::npos || j == string::npos || k == string::npos) 
 	{
@@ -753,8 +753,8 @@ void Treasure::parseString(const string& text)
 	string etoken = "END_ITEMCLASS";
 	uint   BTOKENSIZE = btoken.size();
 
-	uint a = 0;
-	uint b = 0;
+	size_t a = 0;
+	size_t b = 0;
 
 	while (b < newText.size()-1)
 	{
@@ -1044,8 +1044,8 @@ void TreasureList::parseString(const string& text)
 	string eToken = "END_TREASURE";
 	uint   BTOKENSIZE = bToken.size();
 
-	uint a = 0;
-	uint b = 0;
+	size_t a = 0;
+	size_t b = 0;
 
 	int count = 0;
 
