@@ -160,12 +160,12 @@ uint Dice(uint num , uint dice)
 // 긴 문자열에서 한 라인 가져오기
 // pos 값은 \n 의 인덱스값이 된다.
 //////////////////////////////////////////////////////////////////////////////
-string getline(const string & str , uint & pos)
+string getline(const string & str , size_t & pos)
 	throw()
 {
 	if(pos > str.size()) return "";
 
-	uint oldpos = pos;
+	size_t oldpos = pos;
 	pos = str.find_first_of('\n',oldpos);
 
 	if(pos == string::npos) pos = str.size()+1;
@@ -190,8 +190,8 @@ string trim(const string & str)
 	if(str.size() == 0) return "";
 
 	static const char * WhiteSpaces = " \t\n\r";
-	uint begin = str.find_first_not_of(WhiteSpaces);
-	uint end = str.find_last_not_of(WhiteSpaces);
+	size_t begin = str.find_first_not_of(WhiteSpaces);
+	size_t end = str.find_last_not_of(WhiteSpaces);
 
 	if(begin == string::npos) begin = 0;
 	if(end   == string::npos) end   = str.size();

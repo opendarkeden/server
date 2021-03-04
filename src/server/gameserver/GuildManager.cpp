@@ -260,7 +260,7 @@ void GuildManager::load()
 		}
 
 		// 길드 멤버 정보를 DB로 부터 읽어온다.
-		pResult = pStmt->executeQuery( "SELECT GuildID, Name, Rank, RequestDateTime, LogOn FROM GuildMember WHERE Rank IN ( 0, 1, 2, 3 )" );
+		pResult = pStmt->executeQuery( "SELECT GuildID, Name, `Rank`, RequestDateTime, LogOn FROM GuildMember WHERE `Rank` IN ( 0, 1, 2, 3 )" );
 
 		while ( pResult->next() )
 		{

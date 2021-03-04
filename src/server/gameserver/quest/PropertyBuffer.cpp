@@ -42,7 +42,7 @@ string PropertyBuffer::getProperty (string key)
 {
 	__BEGIN_TRY
 
-	uint bufferLen = m_Buffer.size();
+	size_t bufferLen = m_Buffer.size();
 
 	while (m_Index < bufferLen)
 	{
@@ -92,7 +92,7 @@ bool PropertyBuffer::getProperty (string key, string& value)
 {
 	__BEGIN_TRY
 
-	uint bufferLen = m_Buffer.size();
+	size_t bufferLen = m_Buffer.size();
 
     while (m_Index < bufferLen)
     {

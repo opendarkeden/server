@@ -203,7 +203,7 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 					{
 						pNPC->insertShopItem(i, count[i], pItem);
 
-						count[i] = count[i]++;
+						count[i] = count[i] + 1;
 
 						log(LOG_SHOP_CREATE_ITEM, pNPC->getName(), "", pItem->toString());
 					}

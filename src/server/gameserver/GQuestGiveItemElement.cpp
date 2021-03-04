@@ -32,7 +32,8 @@ GQuestElement::ResultType GQuestGiveItemElement::checkCondition( PlayerCreature*
 		}
 		else
 		{
-			pItem->create("", STORAGE_ZONE, (DWORD)pPC->getZone(), pt.x, pt.y );
+      DWORD zoneID = pPC->getZone()->getZoneID();
+			pItem->create("", STORAGE_ZONE, zoneID, pt.x, pt.y );
 		}
 	}
 	else

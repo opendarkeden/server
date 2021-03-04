@@ -830,11 +830,8 @@ try {
 	DWORD  versionLen;
   char* pVersionLen = (char*)(&versionLen);
 	WORD   zoneID;
-  char* pZoneID = (char*)(&zoneID);
 	WORD   zoneGroupID;
-  char* pZoneGroupID = (char*)(&zoneGroupID);
 	DWORD  zonenameLen;
-  char* pZonenameLen;
 	BYTE   zoneType;
 	BYTE   zoneLevel;
 	DWORD  descLen;
@@ -897,13 +894,13 @@ try {
 	version[versionLen] = 0;
 	
 	// read zone id
-	SMP.read(pZoneID,szWORD);
+	SMP.read((char*)&zoneID,szWORD);
 	
 	// read zone group id (no use)
-	SMP.read(pZoneGroupID,szWORD);
+	SMP.read((char*)&zoneGroupID,szWORD);
 	
 	// read zone name
-	SMP.read(pZonenameLen,szDWORD);
+	SMP.read((char*)&zonenameLen,szDWORD);
 	if (zonenameLen > 0)
 	{
 		SMP.read(zonename,zonenameLen);
@@ -931,6 +928,13 @@ try {
 
 	Assert(m_Width <= maxZoneWidth);
 	Assert(m_Height <= maxZoneHeight);
+
+  // DEBUG by tiancaiamao
+  // cout << "szWORD: " << szWORD << " szDWORD: " << szDWORD << endl;
+  // cout << "szVersion: " << versionLen << endl;
+  // cout << "zone id: " << zoneID << " zone group id:"  << zoneGroupID << endl;
+  // cout << "zone name len:" << zonenameLen << " desc len:" << descLen << endl;
+  // cout << " type: " << (uint8_t)zoneType << " level: " << (uint8_t)zoneLevel << " width: " << m_Width << " height: " << m_Height << endl;
 
 	// 타일을 2차원배열로 만들어 메모리를 할당한다.
 	m_pTiles = new Tile* [ m_Width ];

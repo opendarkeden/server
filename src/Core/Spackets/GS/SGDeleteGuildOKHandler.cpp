@@ -168,11 +168,11 @@ void SGDeleteGuildOKHandler::execute ( SGDeleteGuildOK* pPacket )
 					Gold_t Gold = pPlayerCreature->getGold();
 					if ( pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_MASTER )
 					{
-						Gold = min( Gold + (uint)RETURN_SLAYER_MASTER_GOLD, (long unsigned int)2000000000 );
+						Gold = min( (long unsigned int)(Gold + (uint)RETURN_SLAYER_MASTER_GOLD), (long unsigned int)2000000000 );
 					}
 					else if ( pGuildMember->getRank() == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
 					{
-						Gold = min( Gold + (uint)RETURN_SLAYER_SUBMASTER_GOLD, (long unsigned int)2000000000 );
+						Gold = min( (long unsigned int)(Gold + (uint)RETURN_SLAYER_SUBMASTER_GOLD), (long unsigned int)2000000000 );
 					}
 
 					pPlayerCreature->setGoldEx( Gold );

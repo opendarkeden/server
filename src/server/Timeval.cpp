@@ -109,7 +109,7 @@ Timeval timediff ( const Timeval & left , const Timeval & right )
     return result;
 }
 
-void getCurrentYearTime ( unsigned long int & currentYearTime )
+void getCurrentYearTime ( unsigned int & currentYearTime )
 {
 	time_t daytime = time(0);
 

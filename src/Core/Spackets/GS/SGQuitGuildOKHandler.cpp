@@ -112,7 +112,7 @@ void SGQuitGuildOKHandler::execute ( SGQuitGuildOK* pPacket )
 			// 대기 중인 길드의 서브 마스터라면 등록비를 환불한다.
 			///////////////////////////////////////////////////////////
 			Gold_t Gold = pPlayerCreature->getGold();
-			Gold = min( Gold + (uint)RETURN_SLAYER_SUBMASTER_GOLD, (long unsigned int)2000000000 );
+			Gold = min( (long unsigned int)(Gold + (uint)RETURN_SLAYER_SUBMASTER_GOLD), (long unsigned int)2000000000 );
 			pPlayerCreature->setGoldEx( Gold );
 
 			GCModifyInformation gcModifyInformation;

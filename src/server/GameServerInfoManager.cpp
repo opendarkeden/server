@@ -75,7 +75,7 @@ void GameServerInfoManager::load ()
 	__BEGIN_TRY
 
 	// clear GameServerInfos
-	clear();
+	// clear();
 
 	Statement* pStmt = NULL;
 

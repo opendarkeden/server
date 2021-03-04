@@ -33,7 +33,7 @@ Resource::Resource ( Version_t version , const string & str )
 	if ( str != "" ) {
 
 		// 첫번째와 마지막 스페이스의 인덱스를 구한다.
-		uint firstspace = str.find_first_of(' ');
+		size_t firstspace = str.find_first_of(' ');
 
 		if ( firstspace == string::npos )
 			throw InvalidProtocolException("invalid resource format");

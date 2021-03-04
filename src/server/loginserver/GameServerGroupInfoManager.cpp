@@ -88,7 +88,7 @@ void GameServerGroupInfoManager::load ()
 {
 	__BEGIN_TRY
 
-	clear();
+    // clear();
 
 	Statement * pStmt = NULL;
 

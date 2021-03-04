@@ -40,6 +40,6 @@ Timeval operator + ( const Timeval & left , const Timeval & right );
 //
 Timeval timediff ( const Timeval & left , const Timeval & right );
 
-void getCurrentYearTime ( unsigned long int & currentYearTime );
+void getCurrentYearTime ( unsigned int & currentYearTime );
 
 #endif

@@ -51,8 +51,8 @@ void TriggerParser::parseTrigger(const string& type, const string& condition, co
 
 bool TriggerParser::parseElement(XMLTree* pTree, const string& key, const string& element)
 {
-	uint len = element.size();
-	uint index = 0;
+	size_t len = element.size();
+	size_t index = 0;
 
 	XMLTree* pChild = NULL;
 

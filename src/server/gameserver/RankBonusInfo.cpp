@@ -128,7 +128,7 @@ void RankBonusInfoManager::load()
 		for (uint i=0 ; i < m_Count; i++)
 			m_RankBonusInfoList[i] = NULL;
 
-		pResult = pStmt->executeQuery("SELECT Type, Name, Rank, Point, Race FROM RankBonusInfo");
+		pResult = pStmt->executeQuery("SELECT Type, Name, `Rank`, Point, Race FROM RankBonusInfo");
 
 		while (pResult->next()) 
 		{
