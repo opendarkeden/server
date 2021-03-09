@@ -488,7 +488,8 @@ void LoginPlayerManager::acceptNewConnection ()
 	StringStream msg;
 	msg << "NEW CONNECTION FROM [" << client->getHost().c_str() << ":" << client->getPort() << "]";
 	log(LOG_LOGINSERVER, "", "", msg.toString());
-	//cout << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort() << endl;
+	cout << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort() << endl;
+	cerr << "NEW CONNECTION FROM " << client->getHost() << ":" << client->getPort() << endl;
 
 	//--------------------------------------------------
 	// BAN DB에 쿼리해서 현재 IP가 올바른지 확인해본다.

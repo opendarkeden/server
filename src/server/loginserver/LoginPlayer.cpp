@@ -202,13 +202,14 @@ void LoginPlayer::processCommand ( bool Option )
 				m_pInputStream->length()
 			);
 
+			*/
+      // DEBUG by tiancaiamao
 			StringStream msg;
 			msg << "RECV PACKET from " << m_ID << ", " 
-				<< g_pPacketFactoryManager->getPacketName( packetID ) << "(" << packetID << ") " 
-				<< szPacketHeader + packetSize << "/" << m_pInputStream->length() << eos;
+          << g_pPacketFactoryManager->getPacketName( packetID ) << "(" << packetID << ") " 
+          << szPacketHeader + packetSize << "/" << m_pInputStream->length() << eos;
 			cout << msg.toString() << endl;
-			*/
-			
+
 			// 패킷 아이디가 이상하면 프로토콜 에러로 간주한다.
 			if ( packetID >= Packet::PACKET_MAX )
 				// 디버깅을 위해서 에러를 구체적으로 표시해둔다.
