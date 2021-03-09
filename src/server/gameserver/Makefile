@@ -29,7 +29,6 @@ MISSIONDIR = ./mission
 CTFDIR = ./ctf
 PYLIBDIR = /usr/local/lib/python2.2/config
 PYINCDIR = /usr/local/include/python2.2
-LUADIR = /mnt/c/Users/genius/Downloads/lua-4.0.1
 #GQUESTDIR = ./gq
 #SIMPLEQUESTDIR  = ./quest/Squest
 
@@ -46,7 +45,7 @@ CCFLAGS  = -Wall -c -g
 #LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lGameServerTest -lWar -lCouple -lMission -lCTF -lGameServerCBilling -lxerces-c -lsicuuc -lsicudata -lCSAuth
 LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lWar -lCouple -lMission -lCTF -lGameServerCBilling
 #SYSLIBS  = -L$(MYSQLDIR) -static -lpthread -lnsl -lutil -ldl -lmysqlclient -llua -llualib -lz -lcppunit
-SYSLIBS  = -L$(MYSQLDIR) -lpthread -lnsl -lutil -ldl -lmysqlclient -L/mnt/c/xerces-c-3.2.3/xerces-c-3.2.3/src/.libs/ -lxerces-c -L$(LUADIR)/lib -llua -llualib -lz
+SYSLIBS  = -L$(MYSQLDIR) -lpthread -lnsl -lutil -lmysqlclient -lxerces-c -ldl -llua -llualib -lz
 
 DEPDIR = .deps
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d

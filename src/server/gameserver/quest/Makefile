@@ -25,8 +25,6 @@ ITEMDIR  = ../item
 WARDIR  = ../war
 #SIMPLEQUESTDIR  = ./Squest
 LUASCRIPTDIR  = ./luaScript
-LUADIR = /mnt/c/Users/genius/Downloads/lua-4.0.1
-
 
 #----------------------------------------------------------------------
 # General Rules
@@ -35,7 +33,7 @@ LUADIR = /mnt/c/Users/genius/Downloads/lua-4.0.1
 
 CC       = g++
 DEFS     = -D__LINUX__ -D_REENTRANT -D__GAME_SERVER__
-INCLUDES = -I$(STLDIR) -I$(COREDIR) -I$(SERVDIR) -I$(DBDIR) -I$(GSDIR) -I$(SKILLDIR) -I$(ITEMDIR) -I$(WARDIR) -I$(LUASCRIPTDIR) -I$(LUADIR)/include -I.
+INCLUDES = -I$(STLDIR) -I$(COREDIR) -I$(SERVDIR) -I$(DBDIR) -I$(GSDIR) -I$(SKILLDIR) -I$(ITEMDIR) -I$(WARDIR) -I$(LUASCRIPTDIR) -I.
 CCFLAGS  = -Wall -c -g  
 #CCFLAGS  = -Wall -c -g 
 
@@ -195,7 +193,6 @@ ACTION_OBJS = \
 	ActionEnterQuestZone.o \
 	ActionShowConfirmGetEventItemDialog.o
 
-              
 OBJS = $(CONDITION_OBJS) $(ACTION_OBJS) $(QUEST_OBJS)
 
 SRCS = $(OBJS:.o=.cpp)

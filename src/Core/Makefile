@@ -14,9 +14,6 @@ STLDIR = /usr/include/STL
 BINDIR = $(VSHOME)/bin
 LIBDIR = $(VSHOME)/lib
 LOGDIR = $(VSHOME)/log
-# XMLDIR = /usr/lib/xerces-c/include
-XMLDIR = /mnt/c/xerces-c-3.2.3/xerces-c-3.2.3/src
-
 
 #----------------------------------------------------------------------
 # Core Library
@@ -53,9 +50,8 @@ CORE_LIB = $(LIBDIR)/libCore.a
 
 CC       = g++
 DEFS     = -D__LINUX__ -D_REENTRANT
-INCLUDES = -I$(STLDIR) -I$(XMLDIR) -I./loki -I.
+INCLUDES = -I$(STLDIR) -I./loki -I.
 CCFLAGS  = -Wall -c -g  
-#CCFLAGS  = -Wall -c -g 
 
 # .cpp.o : 
 # 	$(CC) $(CCFLAGS) $(DEFS) $(INCLUDES) $<
