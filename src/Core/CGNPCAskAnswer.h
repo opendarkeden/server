@@ -24,39 +24,39 @@ public:
 	CGNPCAskAnswer() {};
     ~CGNPCAskAnswer() {};
 	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
 		    
 	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_NPC_ASK_ANSWER; }
+	PacketID_t getPacketID() const  { return PACKET_CG_NPC_ASK_ANSWER; }
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
 	// const static CGNPCAskAnswerPacketSize 를 정의해서 리턴하라.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szScriptID + szAnswerID; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szScriptID + szAnswerID; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGNPCAskAnswer"; }
+	string getPacketName() const  { return "CGNPCAskAnswer"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 	
 public:
 
 	// get / set ObjectID
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 	
-	ScriptID_t getScriptID() throw() { return m_ScriptID;}
-	void setScriptID(ScriptID_t scriptID) throw() { m_ScriptID = scriptID;}
+	ScriptID_t getScriptID()  { return m_ScriptID;}
+	void setScriptID(ScriptID_t scriptID)  { m_ScriptID = scriptID;}
 	
-	AnswerID_t getAnswerID() throw() { return m_AnswerID;}
-	void setAnswerID(AnswerID_t answerID) throw() { m_AnswerID = answerID;}
+	AnswerID_t getAnswerID()  { return m_AnswerID;}
+	void setAnswerID(AnswerID_t answerID)  { m_AnswerID = answerID;}
 
 private :
 	
@@ -81,18 +81,18 @@ class CGNPCAskAnswerFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGNPCAskAnswer(); }
+	Packet* createPacket()  { return new CGNPCAskAnswer(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGNPCAskAnswer"; }
+	string getPacketName() const  { return "CGNPCAskAnswer"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_NPC_ASK_ANSWER; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_NPC_ASK_ANSWER; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static CGNPCAskAnswerPacketSize 를 정의해서 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szScriptID + szAnswerID; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szScriptID + szAnswerID; }
 
 };
 
@@ -108,7 +108,7 @@ class CGNPCAskAnswerHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGNPCAskAnswer* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGNPCAskAnswer* pPacket, Player* player) ;
 };
 
 #endif

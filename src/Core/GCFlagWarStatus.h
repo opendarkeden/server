@@ -21,17 +21,17 @@
 class GCFlagWarStatus : public Packet 
 {
 public:
-	GCFlagWarStatus() throw();
-	~GCFlagWarStatus() throw();
+	GCFlagWarStatus() ;
+	~GCFlagWarStatus() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_FLAG_WAR_STATUS; }
-	PacketSize_t getPacketSize() const throw() { return szWORD + szBYTE*3; }
-	string getPacketName() const throw() { return "GCFlagWarStatus"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_FLAG_WAR_STATUS; }
+	PacketSize_t getPacketSize() const  { return szWORD + szBYTE*3; }
+	string getPacketName() const  { return "GCFlagWarStatus"; }
+	string toString() const ;
 
 public:
 	WORD	getTimeRemain() const { return m_TimeRemain; }
@@ -53,14 +53,14 @@ private :
 class GCFlagWarStatusFactory : public PacketFactory 
 {
 public :
-	GCFlagWarStatusFactory() throw() {}
-	virtual ~GCFlagWarStatusFactory() throw() {}
+	GCFlagWarStatusFactory()  {}
+	virtual ~GCFlagWarStatusFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCFlagWarStatus(); }
-	string getPacketName() const throw() { return "GCFlagWarStatus"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_FLAG_WAR_STATUS; }
-	PacketSize_t getPacketMaxSize() const throw() { return szWORD + szBYTE * 3; }
+	Packet* createPacket()  { return new GCFlagWarStatus(); }
+	string getPacketName() const  { return "GCFlagWarStatus"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_FLAG_WAR_STATUS; }
+	PacketSize_t getPacketMaxSize() const  { return szWORD + szBYTE * 3; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public:
 class GCFlagWarStatusHandler 
 {
 public:
-	static void execute(GCFlagWarStatus* pGCFlagWarStatus, Player* pPlayer) throw(Error);
+	static void execute(GCFlagWarStatus* pGCFlagWarStatus, Player* pPlayer) ;
 
 };
 

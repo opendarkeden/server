@@ -21,17 +21,17 @@
 class GCExecuteElement : public Packet 
 {
 public:
-	GCExecuteElement() throw();
-	~GCExecuteElement() throw();
+	GCExecuteElement() ;
+	~GCExecuteElement() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error) { iStream.read(m_QuestID); iStream.read(m_Condition); iStream.read(m_Index); }
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error) { oStream.write(m_QuestID); oStream.write(m_Condition); oStream.write(m_Index); }
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_EXECUTE_ELEMENT; }
-	PacketSize_t getPacketSize() const throw() { return szDWORD + szBYTE + szWORD; }
-	string getPacketName() const throw() { return "GCExecuteElement"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream)  { iStream.read(m_QuestID); iStream.read(m_Condition); iStream.read(m_Index); }
+    void write(SocketOutputStream & oStream) const  { oStream.write(m_QuestID); oStream.write(m_Condition); oStream.write(m_Index); }
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_EXECUTE_ELEMENT; }
+	PacketSize_t getPacketSize() const  { return szDWORD + szBYTE + szWORD; }
+	string getPacketName() const  { return "GCExecuteElement"; }
+	string toString() const ;
 
 public:
 	DWORD	getQuestID() const { return m_QuestID; }
@@ -57,14 +57,14 @@ private:
 class GCExecuteElementFactory : public PacketFactory 
 {
 public :
-	GCExecuteElementFactory() throw() {}
-	virtual ~GCExecuteElementFactory() throw() {}
+	GCExecuteElementFactory()  {}
+	virtual ~GCExecuteElementFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCExecuteElement(); }
-	string getPacketName() const throw() { return "GCExecuteElement"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_EXECUTE_ELEMENT; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szWORD; }
+	Packet* createPacket()  { return new GCExecuteElement(); }
+	string getPacketName() const  { return "GCExecuteElement"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_EXECUTE_ELEMENT; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szWORD; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ public:
 class GCExecuteElementHandler 
 {
 public:
-	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) throw(Error);
+	static void execute(GCExecuteElement* pGCExecuteElement, Player* pPlayer) ;
 
 };
 

@@ -17,7 +17,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 ScriptParameter::ScriptParameter()
-     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -28,7 +27,6 @@ ScriptParameter::ScriptParameter()
 // destructor
 //////////////////////////////////////////////////////////////////////
 ScriptParameter::~ScriptParameter() 
-    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,7 +37,6 @@ ScriptParameter::~ScriptParameter()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void ScriptParameter::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -63,8 +60,7 @@ void ScriptParameter::read ( SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void ScriptParameter::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+void ScriptParameter::write ( SocketOutputStream & oStream ) const
 {
 	__BEGIN_TRY
 		
@@ -88,7 +84,6 @@ void ScriptParameter::write ( SocketOutputStream & oStream )
 // getSize
 //--------------------------------------------------------------------
 PacketSize_t ScriptParameter::getSize()
-	throw()
 {
 	__BEGIN_TRY
 
@@ -107,8 +102,7 @@ PacketSize_t ScriptParameter::getSize()
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string ScriptParameter::toString () 
-	const throw ()
+string ScriptParameter::toString () const
 {
 	__BEGIN_TRY
 

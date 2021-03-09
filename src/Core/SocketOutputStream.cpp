@@ -15,7 +15,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen ) 
-	throw ( Error )
 : m_Socket(sock), m_Buffer(NULL), m_BufferLen(BufferLen), m_Head(0), m_Tail(0), m_Sequence(0)
 {
 	__BEGIN_TRY
@@ -38,7 +37,6 @@ SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen )
 // destructor
 //////////////////////////////////////////////////////////////////////
 SocketOutputStream::~SocketOutputStream () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -68,7 +66,6 @@ SocketOutputStream::~SocketOutputStream ()
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketOutputStream::write ( const char * buf , uint len ) 
-     throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -133,7 +130,6 @@ uint SocketOutputStream::write ( const char * buf , uint len )
 // write packet to stream (output buffer)
 //////////////////////////////////////////////////////////////////////
 void SocketOutputStream::writePacket ( const Packet * pPacket )
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -173,7 +169,6 @@ void SocketOutputStream::writePacket ( const Packet * pPacket )
 // flush stream (output buffer) to socket
 //////////////////////////////////////////////////////////////////////
 uint SocketOutputStream::flush () 
-     throw (IOException, ProtocolException, InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -309,7 +304,6 @@ uint SocketOutputStream::flush ()
 // resize buffer
 //////////////////////////////////////////////////////////////////////
 void SocketOutputStream::resize ( int size )
-	 throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
@@ -391,7 +385,6 @@ void SocketOutputStream::resize ( int size )
 // get data's size in buffer
 //////////////////////////////////////////////////////////////////////
 uint SocketOutputStream::length () const
-     throw ()
 {
     if ( m_Head < m_Tail )
         return m_Tail - m_Head;
@@ -404,7 +397,6 @@ uint SocketOutputStream::length () const
 
 //add by viva 2008-12-31
 /*WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
-	throw()
 {
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;

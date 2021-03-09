@@ -18,7 +18,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 Datagram::Datagram () 
-	throw () 
 : m_Length(0), m_InputOffset(0), m_OutputOffset(0), m_Data(NULL) 
 {
 	__BEGIN_TRY
@@ -34,7 +33,6 @@ Datagram::Datagram ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 Datagram::~Datagram () 
-	throw () 
 { 
 	__BEGIN_TRY
 
@@ -77,7 +75,6 @@ bool Datagram::isDatagram(PacketID_t packetID)
 // 내부 버퍼에 들어있는 내용을 외부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::read ( char * buf , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -96,7 +93,6 @@ void Datagram::read ( char * buf , uint len )
 // 내부 버퍼에 들어있는 내용을 외부 스트링으로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::read ( string & str , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -129,7 +125,6 @@ void Datagram::read ( string & str , uint len )
 // 
 //////////////////////////////////////////////////////////////////////
 void Datagram::read ( DatagramPacket * & pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -187,7 +182,6 @@ void Datagram::read ( DatagramPacket * & pPacket )
 // 외부 버퍼에 들어있는 내용을 내부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void Datagram::write ( const char * buf , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -216,7 +210,6 @@ void Datagram::write ( const char * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 void Datagram::write ( const string & str )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -241,7 +234,6 @@ void Datagram::write ( const string & str )
 //
 //////////////////////////////////////////////////////////////////////
 void Datagram::write ( const DatagramPacket * pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -272,7 +264,6 @@ void Datagram::write ( const DatagramPacket * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void Datagram::setData ( char * data , uint len ) 
-	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
@@ -289,7 +280,6 @@ void Datagram::setData ( char * data , uint len )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void Datagram::setData ( uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -306,7 +296,6 @@ void Datagram::setData ( uint len )
 // set address
 //////////////////////////////////////////////////////////////////////
 void Datagram::setAddress ( SOCKADDR_IN * pSockAddr ) 
-	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
@@ -327,7 +316,6 @@ void Datagram::setAddress ( SOCKADDR_IN * pSockAddr )
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string Datagram::toString () const
-	throw ()
 {
 	StringStream msg;
 	msg << "Datagram("

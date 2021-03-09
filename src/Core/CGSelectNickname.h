@@ -26,16 +26,16 @@ class CGSelectNickname : public Packet
 public:
     CGSelectNickname() {};
     virtual ~CGSelectNickname() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SELECT_NICKNAME; }
-	PacketSize_t getPacketSize() const throw() { return szWORD; }
-	string getPacketName() const throw() { return "CGSelectNickname"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_SELECT_NICKNAME; }
+	PacketSize_t getPacketSize() const  { return szWORD; }
+	string getPacketName() const  { return "CGSelectNickname"; }
+	string toString() const ;
 
-	WORD getNicknameID() const throw() { return m_NicknameID; }
-	void setNicknameID(WORD NicknameID ) throw() { m_NicknameID = NicknameID; }
+	WORD getNicknameID() const  { return m_NicknameID; }
+	void setNicknameID(WORD NicknameID )  { m_NicknameID = NicknameID; }
 
 private :
 	WORD m_NicknameID;
@@ -53,15 +53,15 @@ private :
 class CGSelectNicknameFactory : public PacketFactory {
 
 public:
-	CGSelectNicknameFactory() throw() {}
-	virtual ~CGSelectNicknameFactory() throw() {}
+	CGSelectNicknameFactory()  {}
+	virtual ~CGSelectNicknameFactory()  {}
 
 	
 public:
-	Packet* createPacket() throw() { return new CGSelectNickname(); }
-	string getPacketName() const throw() { return "CGSelectNickname"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SELECT_NICKNAME; }
-	PacketSize_t getPacketMaxSize() const throw() { return szWORD; }
+	Packet* createPacket()  { return new CGSelectNickname(); }
+	string getPacketName() const  { return "CGSelectNickname"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SELECT_NICKNAME; }
+	PacketSize_t getPacketMaxSize() const  { return szWORD; }
 };
 
 
@@ -76,7 +76,7 @@ class CGSelectNicknameHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSelectNickname* pCGSelectNickname, Player* pPlayer) throw(Error);
+	static void execute(CGSelectNickname* pCGSelectNickname, Player* pPlayer) ;
 
 };
 

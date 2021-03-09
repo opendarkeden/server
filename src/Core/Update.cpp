@@ -13,7 +13,6 @@
 // load from file
 //--------------------------------------------------------------------------------
 void Update::load ( ifstream & ifile ) 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -65,7 +64,6 @@ void Update::load ( ifstream & ifile )
 // save to file
 //--------------------------------------------------------------------------------
 void Update::save ( ofstream & ofile ) const 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -112,7 +110,6 @@ void Update::save ( ofstream & ofile ) const
 // read from socket input stream
 //--------------------------------------------------------------------------------
 void Update::read ( SocketInputStream & iStream ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -163,7 +160,6 @@ void Update::read ( SocketInputStream & iStream )
 // read from socket
 //--------------------------------------------------------------------------------
 void Update::read ( Socket * pSocket ) 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -217,7 +213,6 @@ void Update::read ( Socket * pSocket )
 // write to socket output stream
 //--------------------------------------------------------------------------------
 void Update::write ( SocketOutputStream & oStream ) const 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -264,7 +259,6 @@ void Update::write ( SocketOutputStream & oStream ) const
 // write to socket
 //--------------------------------------------------------------------------------
 void Update::write ( Socket * pSocket ) const 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -312,7 +306,6 @@ void Update::write ( Socket * pSocket ) const
 // execute update
 //--------------------------------------------------------------------------------
 void Update::execute () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -383,7 +376,6 @@ void Update::execute ()
 // get size
 //--------------------------------------------------------------------------------
 uint Update::getSize () const
-	throw ()
 {
 	// [Version] [UpdateType] 
 	uint size = szVersion + szBYTE;
@@ -400,7 +392,6 @@ uint Update::getSize () const
 // get max size
 //--------------------------------------------------------------------------------
 uint Update::getMaxSize ()
-	throw ()
 {
 	// [Version] [UpdateType] [ParameterLen] [Parameter0] ... [ParameterLen] [Parameter5]
 	return szVersion + szBYTE + ( szParameterLen + maxParameterLen ) * maxParams;
@@ -411,7 +402,6 @@ uint Update::getMaxSize ()
 // get debug string
 //--------------------------------------------------------------------------------
 string Update::toString () const
-	throw ()
 {
 	StringStream msg;
 

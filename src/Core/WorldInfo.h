@@ -27,42 +27,42 @@ class WorldInfo {
 public :
 	
 	// constructor
-	WorldInfo () throw ();
+	WorldInfo () ;
 	
 	// destructor
-	~WorldInfo () throw ();
+	~WorldInfo () ;
 
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () throw ();
+	PacketSize_t getSize () ;
 
-	static uint getMaxSize() throw() {
+	static uint getMaxSize()  {
 		return (szBYTE + szBYTE + 20 + szBYTE)* 37;
 	}
 
 	// get packet's debug string
-	string toString () const throw ();
+	string toString () const ;
 
 	// get / set ID
-	BYTE getID() const throw() { return m_ID; }
-	void setID(WorldID_t ID) throw() { m_ID = ID; }
+	BYTE getID() const  { return m_ID; }
+	void setID(WorldID_t ID)  { m_ID = ID; }
 
 	// get / set Name
-	string getName() const throw() { return m_Name; }
-	void setName(string Name) throw() { m_Name = Name; }
+	string getName() const  { return m_Name; }
+	void setName(string Name)  { m_Name = Name; }
 
 	// get / set  Stat
-	BYTE getStat() const throw() { return m_Stat; }
-	void setStat(BYTE Stat) throw() { m_Stat = Stat; }
+	BYTE getStat() const  { return m_Stat; }
+	void setStat(BYTE Stat)  { m_Stat = Stat; }
 
 private :
 

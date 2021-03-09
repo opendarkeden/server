@@ -29,50 +29,50 @@ class GCShopSellOK : public Packet
 
 public :
 
-	GCShopSellOK() throw();
-	virtual ~GCShopSellOK() throw();
+	GCShopSellOK() ;
+	virtual ~GCShopSellOK() ;
 	
 	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
 		    
 	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SHOP_SELL_OK; }
+	PacketID_t getPacketID() const  { return PACKET_GC_SHOP_SELL_OK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szObjectID + szShopVersion + szObjectID + szPrice;
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GCShopSellOK"; }
+	string getPacketName() const  { return "GCShopSellOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 
 public :
 
 	// get/set NPC's object id
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
 	// get/set shop version	
-	ShopVersion_t getShopVersion(void) const throw() { return m_Version;}
-	void setShopVersion(const ShopVersion_t ver) throw() { m_Version = ver;}
+	ShopVersion_t getShopVersion(void) const  { return m_Version;}
+	void setShopVersion(const ShopVersion_t ver)  { m_Version = ver;}
 
 	// get/set item object id
-	ObjectID_t getItemObjectID() const throw() { return m_ItemObjectID;}
-	void setItemObjectID(ObjectID_t id) throw() { m_ItemObjectID = id;}
+	ObjectID_t getItemObjectID() const  { return m_ItemObjectID;}
+	void setItemObjectID(ObjectID_t id)  { m_ItemObjectID = id;}
 
 	// get/set price
-	Price_t getPrice() const throw() { return m_Price;}
+	Price_t getPrice() const  { return m_Price;}
 	void setPrice(Price_t price) { m_Price = price;}
 
 private :
@@ -107,16 +107,16 @@ class GCShopSellOKFactory : public PacketFactory
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCShopSellOK(); }
+	Packet* createPacket()  { return new GCShopSellOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCShopSellOK"; }
+	string getPacketName() const  { return "GCShopSellOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SHOP_SELL_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SHOP_SELL_OK; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szObjectID + szShopVersion + szObjectID + szPrice;
 	}
@@ -136,7 +136,7 @@ class GCShopSellOKHandler
 public :
 	
 	// execute packet's handler
-	static void execute(GCShopSellOK* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCShopSellOK* pPacket, Player* pPlayer) ;
 
 };
 

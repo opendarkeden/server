@@ -38,7 +38,6 @@ extern int errno;
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 int FileAPI::open_ex ( const char * filename , int flags ) 
-    throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -99,7 +98,6 @@ int FileAPI::open_ex ( const char * filename , int flags )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 int FileAPI::open_ex ( const char * filename , int flags , int mode ) 
-    throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -178,7 +176,6 @@ int FileAPI::open_ex ( const char * filename , int flags , int mode )
 //
 //////////////////////////////////////////////////////////////////////
 uint FileAPI::read_ex ( int fd , void * buf , uint len ) 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -243,7 +240,6 @@ uint FileAPI::read_ex ( int fd , void * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 uint FileAPI::write_ex ( int fd , const void * buf , uint len ) 
-     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -308,7 +304,6 @@ uint FileAPI::write_ex ( int fd , const void * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::close_ex ( int fd ) 
-     throw ( FileNotOpenedException , Error )
 {
 	__BEGIN_TRY
 
@@ -344,7 +339,6 @@ void FileAPI::close_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 int FileAPI::fcntl_ex ( int fd , int cmd ) 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -396,7 +390,6 @@ int FileAPI::fcntl_ex ( int fd , int cmd )
 //
 //////////////////////////////////////////////////////////////////////
 int FileAPI::fcntl_ex ( int fd , int cmd , long arg ) 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -451,7 +444,6 @@ int FileAPI::fcntl_ex ( int fd , int cmd , long arg )
 //
 //////////////////////////////////////////////////////////////////////
 bool FileAPI::getfilenonblocking_ex ( int fd ) 
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -484,7 +476,6 @@ bool FileAPI::getfilenonblocking_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::setfilenonblocking_ex ( int fd , bool on ) 
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -526,7 +517,6 @@ void FileAPI::setfilenonblocking_ex ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::ioctl_ex ( int fd , int request , void * argp )
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -571,7 +561,6 @@ void FileAPI::ioctl_ex ( int fd , int request , void * argp )
 //
 //////////////////////////////////////////////////////////////////////
 void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -604,7 +593,6 @@ void FileAPI::setfilenonblocking_ex2 ( int fd , bool on )
 //
 //////////////////////////////////////////////////////////////////////
 uint FileAPI::availablefile_ex ( int fd )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -629,7 +617,6 @@ uint FileAPI::availablefile_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 int FileAPI::dup_ex ( int fd )
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -666,7 +653,6 @@ int FileAPI::dup_ex ( int fd )
 //
 //////////////////////////////////////////////////////////////////////
 long FileAPI::lseek_ex ( int fd , long offset , int whence )
-     throw ( Error )
 {
 	__BEGIN_TRY
 

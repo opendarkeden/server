@@ -60,32 +60,32 @@ class Item;
 class GCStashList : public Packet 
 {
 public:
-	GCStashList() throw();
-	virtual ~GCStashList() throw();
+	GCStashList() ;
+	virtual ~GCStashList() ;
 
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_STASH_LIST; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCStashList"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_STASH_LIST; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCStashList"; }
+	string toString() const ;
 
 public:
-	bool isExist(BYTE rack, BYTE index) const throw();
+	bool isExist(BYTE rack, BYTE index) const ;
 
-	STASHITEM getStashItem(BYTE rack, BYTE index) const throw();
-	void setStashItem(BYTE rack, BYTE index, Item* pItem) throw();
+	STASHITEM getStashItem(BYTE rack, BYTE index) const ;
+	void setStashItem(BYTE rack, BYTE index, Item* pItem) ;
 
-	list<SubItemInfo*>& getSubItems(BYTE rack, BYTE index) throw();
+	list<SubItemInfo*>& getSubItems(BYTE rack, BYTE index) ;
 
-	BYTE getSubItemCount(BYTE rack, BYTE index) throw();
+	BYTE getSubItemCount(BYTE rack, BYTE index) ;
 
-	Gold_t getStashGold() const throw() { return m_StashGold; }
-	void setStashGold(Gold_t gold) throw() { m_StashGold = gold; }
+	Gold_t getStashGold() const  { return m_StashGold; }
+	void setStashGold(Gold_t gold)  { m_StashGold = gold; }
 
-	BYTE getStashNum() const throw() { return m_StashNum; }
-	void setStashNum(BYTE num) throw() { m_StashNum = num; }
+	BYTE getStashNum() const  { return m_StashNum; }
+	void setStashNum(BYTE num)  { m_StashNum = num; }
 	
 private:
 	bool               m_bExist[STASH_RACK_MAX][STASH_INDEX_MAX];
@@ -104,10 +104,10 @@ private:
 class GCStashListFactory : public PacketFactory 
 {
 public :
-	Packet* createPacket() throw() { return new GCStashList(); }
-	string getPacketName() const throw() { return "GCStashList"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_STASH_LIST; }
-	PacketSize_t getPacketMaxSize() const throw() 
+	Packet* createPacket()  { return new GCStashList(); }
+	string getPacketName() const  { return "GCStashList"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_STASH_LIST; }
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		PacketSize_t size = 0;
 		PacketSize_t unit_size = 
@@ -135,7 +135,7 @@ public :
 class GCStashListHandler 
 {
 public :
-	static void execute(GCStashList* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCStashList* pPacket, Player* pPlayer) ;
 
 };
 

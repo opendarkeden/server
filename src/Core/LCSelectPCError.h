@@ -39,29 +39,29 @@ public:
 	LCSelectPCError() {};
     ~LCSelectPCError() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_LC_SELECT_PC_ERROR; }
+	PacketID_t getPacketID() const  { return PACKET_LC_SELECT_PC_ERROR; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szBYTE; }
+	PacketSize_t getPacketSize() const  { return szBYTE; }
 	
 	// get packet's name
-	string getPacketName() const throw() { return "LCSelectPCError"; }
+	string getPacketName() const  { return "LCSelectPCError"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 	
 	// get/set error message
-	BYTE getCode() const throw() { return m_Code; }
-	void setCode(BYTE code) throw() { m_Code = code; }
+	BYTE getCode() const  { return m_Code; }
+	void setCode(BYTE code)  { m_Code = code; }
 
 private : 
 
@@ -84,16 +84,16 @@ class LCSelectPCErrorFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new LCSelectPCError(); }
+	Packet* createPacket()  { return new LCSelectPCError(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LCSelectPCError"; }
+	string getPacketName() const  { return "LCSelectPCError"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_LC_SELECT_PC_ERROR; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_LC_SELECT_PC_ERROR; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
 	
 };
 
@@ -109,7 +109,7 @@ class LCSelectPCErrorHandler {
 public:
 
 	// execute packet's handler
-	static void execute(LCSelectPCError* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(LCSelectPCError* pPacket, Player* pPlayer) ;
 
 };
 

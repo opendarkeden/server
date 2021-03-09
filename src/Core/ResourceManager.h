@@ -26,34 +26,34 @@ class ResourceManager{
 public :
 
 	// constructor
-	ResourceManager () throw ();
+	ResourceManager () ;
 
 	// destructor
-	~ResourceManager () throw ();
+	~ResourceManager () ;
 	
 
 public :
 
 	// load from resource file
-	void load (const string & filename) throw (Error);
+	void load (const string & filename) ;
 
 	// save to resource file
-	void save (const string & filename) const throw (Error);
+	void save (const string & filename) const ;
 
 
 public :
 
 	// list methods
-	void push_back (Resource* pResource) throw (Error) { Assert(pResource != NULL); m_Resources.push_back(pResource); }
-	void pop_front () throw (Error) { Assert(!m_Resources.empty()); m_Resources.pop_front(); }
-	Resource* front () const throw (Error) { Assert(!m_Resources.empty()); return m_Resources.front(); }
-	bool empty () const throw () { return m_Resources.empty(); }
+	void push_back (Resource* pResource)  { Assert(pResource != NULL); m_Resources.push_back(pResource); }
+	void pop_front ()  { Assert(!m_Resources.empty()); m_Resources.pop_front(); }
+	Resource* front () const  { Assert(!m_Resources.empty()); return m_Resources.front(); }
+	bool empty () const  { return m_Resources.empty(); }
 
 	// 동일한 파일일 경우, 가장 최신 버전만을 유지하고 구버전의 파일은 삭제한다.
-	void optimize () throw (Error);
+	void optimize () ;
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 
 private :

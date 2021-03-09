@@ -34,46 +34,46 @@ public:
 public:
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CL_LOGIN; }
+	PacketID_t getPacketID() const  { return PACKET_CL_LOGIN; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw();
+	PacketSize_t getPacketSize() const ;
 
 	// get packet name
-	string getPacketName() const throw() { return "CLLogin"; }
+	string getPacketName() const  { return "CLLogin"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set player's id
-	string getID() const throw() { return m_ID; }
-	void setID(string id) throw() { m_ID = id; }
+	string getID() const  { return m_ID; }
+	void setID(string id)  { m_ID = id; }
 
 	// get/set player's password
-	string getPassword() const throw() { return m_Password; }
-	void setPassword(string password) throw() { m_Password = password; }
+	string getPassword() const  { return m_Password; }
+	void setPassword(string password)  { m_Password = password; }
 
 	// get/set Cpsso imformation
-	bool isNetmarble() const throw() { return m_bNetmarble; }
-	void setNetmarble(bool netmarble) throw() { m_bNetmarble = netmarble; }
+	bool isNetmarble() const  { return m_bNetmarble; }
+	void setNetmarble(bool netmarble)  { m_bNetmarble = netmarble; }
 
-	bool isAdult() const throw() { return m_bAdult; }
-	void setAdult(bool adult) throw() { m_bAdult = adult; }
+	bool isAdult() const  { return m_bAdult; }
+	void setAdult(bool adult)  { m_bAdult = adult; }
 
 	// add - inthesky
-	bool checkMacAddress(string currentMac) const throw();
-	string getMacAddress() const throw() { return m_strMacAddress; }
+	bool checkMacAddress(string currentMac) const ;
+	string getMacAddress() const  { return m_strMacAddress; }
 
 	const BYTE* getRareMacAddress() const { return m_cMacAddress; }
 
@@ -113,16 +113,16 @@ class CLLoginFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CLLogin(); }
+	Packet* createPacket()  { return new CLLogin(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CLLogin"; }
+	string getPacketName() const  { return "CLLogin"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CL_LOGIN; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CL_LOGIN; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() { return szint + 2048 + szBYTE + 30 + 6 + szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szint + 2048 + szBYTE + 30 + 6 + szBYTE; }
 
 };
 
@@ -138,12 +138,12 @@ class CLLoginHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CLLogin* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CLLogin* pPacket, Player* pPlayer) ;
 
 private :
-	static bool checkFreePass(CLLogin* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static bool	checkNetMarbleClient (CLLogin* pPacket , Player* pPlayer) throw(ProtocolException , Error);
-	static bool checkWebLogin(CLLogin* pPacket, Player* pPlayer ) throw(ProtocolException, Error);
+	static bool checkFreePass(CLLogin* pPacket, Player* pPlayer) ;
+	static bool	checkNetMarbleClient (CLLogin* pPacket , Player* pPlayer) ;
+	static bool checkWebLogin(CLLogin* pPacket, Player* pPlayer ) ;
 #ifdef __THAILAND_SERVER__
 	static bool onChildGuardTimeArea(int pm, int am, string enable);
 #endif

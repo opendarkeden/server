@@ -27,29 +27,29 @@ public :
 	GCModifyMoney() {};
     ~GCModifyMoney() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MODIFY_MONEY; }
+	PacketID_t getPacketID() const  { return PACKET_GC_MODIFY_MONEY; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szGold; }
+	PacketSize_t getPacketSize() const  { return szGold; }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCModifyMoney"; }
+	string getPacketName() const  { return "GCModifyMoney"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set Amount
-	Gold_t getAmount() const throw() { return m_Amount; }
-	void setAmount(Gold_t amount ) throw() { m_Amount = amount; }
+	Gold_t getAmount() const  { return m_Amount; }
+	void setAmount(Gold_t amount )  { m_Amount = amount; }
 	
 
 private :
@@ -73,18 +73,18 @@ class GCModifyMoneyFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCModifyMoney(); }
+	Packet* createPacket()  { return new GCModifyMoney(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCModifyMoney"; }
+	string getPacketName() const  { return "GCModifyMoney"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MODIFY_MONEY; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MODIFY_MONEY; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCSystemMessagePacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szGold; }
+	PacketSize_t getPacketMaxSize() const  { return szGold; }
 
 };
 
@@ -100,7 +100,7 @@ class GCModifyMoneyHandler {
 public :
 	
 	// execute packet's handler
-	static void execute(GCModifyMoney* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCModifyMoney* pPacket, Player* pPlayer) ;
 
 };
 

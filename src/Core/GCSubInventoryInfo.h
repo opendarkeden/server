@@ -16,16 +16,16 @@
 class GCSubInventoryInfo : public Packet
 {
 public:
-	GCSubInventoryInfo() throw();
-	virtual ~GCSubInventoryInfo() throw();
+	GCSubInventoryInfo() ;
+	virtual ~GCSubInventoryInfo() ;
 
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SUB_INVENTORY_INFO; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + m_pInventoryInfo->getSize(); }
-	string getPacketName() const throw() { return "GCSubInventoryInfo"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SUB_INVENTORY_INFO; }
+	PacketSize_t getPacketSize() const  { return szObjectID + m_pInventoryInfo->getSize(); }
+	string getPacketName() const  { return "GCSubInventoryInfo"; }
+	string toString() const ;
 
 public:
 	void		setObjectID(ObjectID_t ObjectID) { m_ObjectID = ObjectID; }
@@ -42,16 +42,16 @@ class GCSubInventoryInfoFactory : public PacketFactory {
 
 public :
 	
-	Packet* createPacket() throw() { return new GCSubInventoryInfo(); }
-	string getPacketName() const throw() { return "GCSubInventoryInfo"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SUB_INVENTORY_INFO; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + InventoryInfo::getMaxSize(); }
+	Packet* createPacket()  { return new GCSubInventoryInfo(); }
+	string getPacketName() const  { return "GCSubInventoryInfo"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SUB_INVENTORY_INFO; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + InventoryInfo::getMaxSize(); }
 };
 
 class GCSubInventoryInfoHandler {
 	
 public :
-	static void execute(GCSubInventoryInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCSubInventoryInfo* pPacket, Player* pPlayer) ;
 
 };
 

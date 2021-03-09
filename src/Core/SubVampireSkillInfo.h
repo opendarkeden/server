@@ -29,32 +29,32 @@ class SubVampireSkillInfo {
 public :
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const ;
 
 	// get size of object
-	uint getSize () const throw () { return szSkillType + szTurn + szTurn; }
+	uint getSize () const  { return szSkillType + szTurn + szTurn; }
 	// get max size of object
-	static uint getMaxSize () throw () { return szSkillType + szTurn + szTurn; }
+	static uint getMaxSize ()  { return szSkillType + szTurn + szTurn; }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 public :
 
 	// get / set SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get / set Turn
-	Turn_t getSkillTurn() const throw() { return m_Interval ; }
-	void setSkillTurn(Turn_t SkillTurn) throw() { m_Interval = SkillTurn; }
+	Turn_t getSkillTurn() const  { return m_Interval ; }
+	void setSkillTurn(Turn_t SkillTurn)  { m_Interval = SkillTurn; }
 
 	// get / set CastingTime
-	Turn_t getCastingTime() const throw() { return m_CastingTime; }
-	void setCastingTime(Turn_t CastingTime) throw() { m_CastingTime = CastingTime; }
+	Turn_t getCastingTime() const  { return m_CastingTime; }
+	void setCastingTime(Turn_t CastingTime)  { m_CastingTime = CastingTime; }
 
 private :
 

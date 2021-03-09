@@ -26,91 +26,77 @@ namespace FileAPI {
 //
 // exception version of open ()
 //
-int open_ex (const char* filename, int flags)
-    throw (IOException, Error);
+  int open_ex (const char* filename, int flags);
 
-int open_ex (const char* filename, int flags, int mode)
-    throw (IOException, Error);
+  int open_ex (const char* filename, int flags, int mode);
 
 //
 // exception version of close ()
 //
-void close_ex (int fd) 
-	throw (FileNotOpenedException, Error);
+  void close_ex (int fd);
 
 //
 // exception version of read ()
 //
-uint read_ex (int fd, void* buf, uint len) 
-     throw (IOException, Error);
+  uint read_ex (int fd, void* buf, uint len) ;
 
 //
 // exception version of write ()
 //
-uint write_ex (int fd, const void* buf, uint len) 
-     throw (IOException, Error);
+  uint write_ex (int fd, const void* buf, uint len) ;
 
 //
 // exception version of fcntl ()
 //
-int fcntl_ex (int fd, int cmd) 
-	throw (Error);
+  int fcntl_ex (int fd, int cmd) ;
 
 //
 // exception version of fcntl ()
 //
-int fcntl_ex (int fd, int cmd, long arg) 
-	throw (Error);
+  int fcntl_ex (int fd, int cmd, long arg) ;
 
 //
 // is this stream is nonblocking?
 //
 // using fcntl_ex()
 //
-bool getfilenonblocking_ex (int fd) 
-	throw (Error);
+  bool getfilenonblocking_ex (int fd) ;
 
 //
 // make this strema blocking/nonblocking
 //
 // using fcntl_ex()
 //
-void setfilenonblocking_ex (int fd, bool on) 
-	throw (Error);
+  void setfilenonblocking_ex (int fd, bool on) ;
 
 //
 // exception version of ioctl ()
 //
-void ioctl_ex (int fd, int request, void* argp)
-    throw (Error);
+  void ioctl_ex (int fd, int request, void* argp);
 	
 //
 // make this stream blocking/nonblocking
 //
 // using ioctl_ex()
 //
-void setfilenonblocking_ex2 (int fd, bool on)
-     throw (Error);
+  void setfilenonblocking_ex2 (int fd, bool on);
 
 //
 // how much bytes available in this stream?
 //
 // using ioctl_ex()
 //
-uint availablefile_ex (int fd)
-     throw (Error);
+  uint availablefile_ex (int fd);
 
 //
 // exception version of dup()
 //
-int dup_ex (int fd)
-    throw (Error);
+  int dup_ex (int fd);
 
 //
 // exception version of lseek()
 //
-long lseek_ex(int fd, long offset, int whence)
-     throw (Error);
+  long lseek_ex(int fd, long offset, int whence);
 
 };//end of namespace FileAPI
 

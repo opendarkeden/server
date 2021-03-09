@@ -34,27 +34,27 @@ public :
 	virtual ~ItemNameInfo() {}
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    virtual void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    virtual void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    virtual void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    virtual void write(SocketOutputStream & oStream) const ;
 
-	virtual PacketSize_t getSize() const throw();
+	virtual PacketSize_t getSize() const ;
 
-	static PacketSize_t getMaxSize() throw()
+	static PacketSize_t getMaxSize() 
 	{
 		return (szObjectID + szBYTE + (szBYTE * 20));
 	}
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	void setObjectID( ObjectID_t objectID ) throw(Error) { m_ObjectID = objectID; }
-	ObjectID_t getObjectID() const throw(Error) { return m_ObjectID; }
+	void setObjectID( ObjectID_t objectID )  { m_ObjectID = objectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
 
-	void setName( string name ) throw(Error) { m_Name = name; }
-	string getName() const throw(Error) { return m_Name; }
+	void setName( string name )  { m_Name = name; }
+	string getName() const  { return m_Name; }
 
 protected :
 	ObjectID_t		m_ObjectID;

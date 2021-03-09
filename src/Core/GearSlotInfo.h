@@ -20,24 +20,24 @@
 class GearSlotInfo : public PCItemInfo 
 {
 public:
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	uint getSize () throw ()
+	uint getSize () 
 	{ 
 		return PCItemInfo::getSize() + szSlotID;
 	}
 
-	static uint getMaxSize () throw ()
+	static uint getMaxSize () 
 	{ 
 		return PCItemInfo::getMaxSize() + szSlotID;
 	}
 
-	string toString () const throw ();
+	string toString () const ;
 
 public:
-	void setSlotID(SlotID_t SlotID) throw() { m_SlotID = SlotID; }
-	SlotID_t getSlotID() const throw() { return m_SlotID; }
+	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
+	SlotID_t getSlotID() const  { return m_SlotID; }
 
 private:
 	SlotID_t m_SlotID;

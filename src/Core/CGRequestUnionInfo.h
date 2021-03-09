@@ -28,25 +28,25 @@ public:
 	CGRequestUnionInfo() {};
     virtual ~CGRequestUnionInfo() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_REQUEST_UNION_INFO; }
+	PacketID_t getPacketID() const  { return PACKET_CG_REQUEST_UNION_INFO; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return 0; }
+	PacketSize_t getPacketSize() const  { return 0; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGRequestUnionInfo"; }
+	string getPacketName() const  { return "CGRequestUnionInfo"; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 
 };
@@ -65,25 +65,25 @@ class CGRequestUnionInfoFactory : public PacketFactory {
 public:
 	
 	// constructor
-	CGRequestUnionInfoFactory() throw() {}
+	CGRequestUnionInfoFactory()  {}
 	
 	// destructor
-	virtual ~CGRequestUnionInfoFactory() throw() {}
+	virtual ~CGRequestUnionInfoFactory()  {}
 
 	
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGRequestUnionInfo(); }
+	Packet* createPacket()  { return new CGRequestUnionInfo(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGRequestUnionInfo"; }
+	string getPacketName() const  { return "CGRequestUnionInfo"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_REQUEST_UNION_INFO; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_REQUEST_UNION_INFO; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return 0; }
+	PacketSize_t getPacketMaxSize() const  { return 0; }
 };
 
 
@@ -99,7 +99,7 @@ public:
     CGRequestUnionInfoHandler() {};
     ~CGRequestUnionInfoHandler() {};
 	// execute packet's handler
-	static void execute(CGRequestUnionInfo* pCGRequestUnionInfo, Player* pPlayer) throw(Error);
+	static void execute(CGRequestUnionInfo* pCGRequestUnionInfo, Player* pPlayer) ;
 
 };
 

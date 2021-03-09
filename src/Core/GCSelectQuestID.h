@@ -27,22 +27,22 @@ public:
 #ifdef __GAME_SERVER__
 	// inItr은 container<QuestID_t>::input_iterator 여야 한다.
 	template<class inItr>
-	explicit GCSelectQuestID(inItr b, inItr e ) throw()
+	explicit GCSelectQuestID(inItr b, inItr e ) 
 	{
 		copy(b, e, back_inserter(m_QuestIDList ));
 	}
 #endif
-	GCSelectQuestID() throw() { }
-	virtual ~GCSelectQuestID() throw();
+	GCSelectQuestID()  { }
+	virtual ~GCSelectQuestID() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SELECT_QUEST_ID; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCSelectQuestID"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SELECT_QUEST_ID; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCSelectQuestID"; }
+	string toString() const ;
 
 public:
 	bool		empty() const { return m_QuestIDList.empty(); }
@@ -59,10 +59,10 @@ private:
 class GCSelectQuestIDFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCSelectQuestID(); }
-	string getPacketName() const throw() { return "GCSelectQuestID"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SELECT_QUEST_ID; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCSelectQuestID(); }
+	string getPacketName() const  { return "GCSelectQuestID"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SELECT_QUEST_ID; }
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szBYTE
 			 + szQuestID * maxQuestNum;
@@ -76,7 +76,7 @@ public:
 class GCSelectQuestIDHandler 
 {
 public:
-	static void execute(GCSelectQuestID* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCSelectQuestID* pPacket, Player* pPlayer) ;
 };
 
 #endif

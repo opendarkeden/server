@@ -24,30 +24,30 @@
 class PCItemInfo 
 {
 public:
-	PCItemInfo() throw();
-	virtual ~PCItemInfo() throw();
+	PCItemInfo() ;
+	virtual ~PCItemInfo() ;
 
 public:
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
 
-	void setItemClass (BYTE IClass) throw() { m_IClass = IClass; }
-	BYTE getItemClass () const throw() { return m_IClass; }
+	void setItemClass (BYTE IClass)  { m_IClass = IClass; }
+	BYTE getItemClass () const  { return m_IClass; }
 
-	void setItemType (ItemType_t ItemType) throw() { m_ItemType = ItemType; }
-	ItemType_t getItemType() const throw() { return m_ItemType; }
+	void setItemType (ItemType_t ItemType)  { m_ItemType = ItemType; }
+	ItemType_t getItemType() const  { return m_ItemType; }
 
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back( OptionType ); }
-	void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
-	int getOptionTypeSize() const throw() { return m_OptionType.size(); }
-	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }
-	OptionType_t popOptionType() throw() 
+	void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back( OptionType ); }
+	void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
+	int getOptionTypeSize() const  { return m_OptionType.size(); }
+	const list<OptionType_t>& getOptionType() const  { return m_OptionType; }
+	OptionType_t popOptionType()  
 	{ 
 		if (m_OptionType.empty()) return 0;
 		OptionType_t optionType = m_OptionType.front(); 
@@ -55,36 +55,36 @@ public:
 		return optionType; 
 	}
 
-	void setSilver(Silver_t amount) throw() { m_Silver = amount; }
-	Silver_t getSilver() const throw() { return m_Silver; }
+	void setSilver(Silver_t amount)  { m_Silver = amount; }
+	Silver_t getSilver() const  { return m_Silver; }
 
-	void setGrade(Grade_t grade) throw() { m_Grade = grade; }
-	Grade_t getGrade() const throw() { return m_Grade; }
+	void setGrade(Grade_t grade)  { m_Grade = grade; }
+	Grade_t getGrade() const  { return m_Grade; }
 
-	void setDurability(Durability_t Durability) throw() { m_Durability = Durability; }
-	Durability_t getDurability() const throw() { return m_Durability; }
+	void setDurability(Durability_t Durability)  { m_Durability = Durability; }
+	Durability_t getDurability() const  { return m_Durability; }
 
-	void setEnchantLevel(EnchantLevel_t level) throw() { m_EnchantLevel = level; }
-	EnchantLevel_t getEnchantLevel() throw() { return m_EnchantLevel; }
+	void setEnchantLevel(EnchantLevel_t level)  { m_EnchantLevel = level; }
+	EnchantLevel_t getEnchantLevel()  { return m_EnchantLevel; }
 
-	void setItemNum(ItemNum_t ItemNum) throw() { m_ItemNum = ItemNum; }
-	ItemNum_t getItemNum() const throw() { return m_ItemNum; }
+	void setItemNum(ItemNum_t ItemNum)  { m_ItemNum = ItemNum; }
+	ItemNum_t getItemNum() const  { return m_ItemNum; }
 
-	void setMainColor(WORD MainColor) throw() { m_MainColor = MainColor; }
-	WORD getMainColor() const throw() { return m_MainColor; }
+	void setMainColor(WORD MainColor)  { m_MainColor = MainColor; }
+	WORD getMainColor() const  { return m_MainColor; }
 
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
-	void addListElement(SubItemInfo* pSubItemInfo) throw() 
+	void addListElement(SubItemInfo* pSubItemInfo)  
 	{ 
 		m_SubItemInfoList.push_back(pSubItemInfo); 
 		m_ListNum++;
 	}
 
-	void clearList() throw() { m_SubItemInfoList.clear(); m_ListNum = 0; }
+	void clearList()  { m_SubItemInfoList.clear(); m_ListNum = 0; }
 
-	SubItemInfo* popFrontListElement() throw() 
+	SubItemInfo* popFrontListElement()  
 	{ 
 		SubItemInfo* TempSubItemInfo = m_SubItemInfoList.front(); 
 		m_SubItemInfoList.pop_front(); 
@@ -92,7 +92,7 @@ public:
 	}
 
 public:
-	uint getSize() const throw()
+	uint getSize() const 
 	{
 		return szObjectID +
 			szBYTE +
@@ -108,7 +108,7 @@ public:
 			SubItemInfo::getMaxSize()*m_ListNum;
 	}
 
-	static uint getMaxSize() throw()
+	static uint getMaxSize() 
 	{
 		return szObjectID +
 			szBYTE +

@@ -1,6 +1,6 @@
 #include "QuestStatusInfo.h"
 
-void QuestStatusInfo::read(SocketInputStream& iStream) throw(ProtocolException, Error)
+void QuestStatusInfo::read(SocketInputStream& iStream)
 {
 	iStream.read(m_QuestID);
 	iStream.read(m_Status);
@@ -14,7 +14,7 @@ void QuestStatusInfo::read(SocketInputStream& iStream) throw(ProtocolException, 
 	}
 }
 
-void QuestStatusInfo::write(SocketOutputStream& oStream) const throw(ProtocolException, Error)
+void QuestStatusInfo::write(SocketOutputStream& oStream) const
 {
 	oStream.write(m_QuestID);
 	oStream.write(m_Status);

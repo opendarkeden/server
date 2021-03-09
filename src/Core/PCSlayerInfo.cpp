@@ -14,7 +14,6 @@
 //----------------------------------------------------------------------
 void 
 PCSlayerInfo::setShapeInfo(DWORD flag, Color_t color[SLAYER_COLOR_MAX]) 
-	throw()
 {
 	m_Outlook = bitset<SLAYER_BIT_MAX>(flag);
 
@@ -32,7 +31,6 @@ PCSlayerInfo::setShapeInfo(DWORD flag, Color_t color[SLAYER_COLOR_MAX])
 // read data from socket input stream
 //----------------------------------------------------------------------
 void PCSlayerInfo::read ( SocketInputStream & iStream ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	try {
@@ -141,7 +139,6 @@ void PCSlayerInfo::read ( SocketInputStream & iStream )
 // write data to socket output stream
 //----------------------------------------------------------------------
 void PCSlayerInfo::write ( SocketOutputStream & oStream ) const 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -238,7 +235,6 @@ void PCSlayerInfo::write ( SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string PCSlayerInfo::toString () const 
-	throw ()
 {
 	StringStream msg;
 

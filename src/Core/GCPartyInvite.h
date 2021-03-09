@@ -35,16 +35,16 @@ class GCPartyInvite : public Packet
 public:
     GCPartyInvite() {};
     ~GCPartyInvite() {};
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PARTY_INVITE; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szObjectID; }
-	string getPacketName() const throw() { return "GCPartyInvite"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_PARTY_INVITE; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szObjectID; }
+	string getPacketName() const  { return "GCPartyInvite"; }
+	string toString() const ;
 
 public:
-	BYTE getCode() const throw() { return m_Code; }
+	BYTE getCode() const  { return m_Code; }
 	void setCode(BYTE code) { m_Code = code; }
 
 	ObjectID_t getTargetObjectID(void) const { return m_TargetObjectID; }
@@ -63,10 +63,10 @@ private :
 class GCPartyInviteFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCPartyInvite(); }
-	string getPacketName() const throw() { return "GCPartyInvite"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PARTY_INVITE; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szObjectID; }
+	Packet* createPacket()  { return new GCPartyInvite(); }
+	string getPacketName() const  { return "GCPartyInvite"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PARTY_INVITE; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szObjectID; }
 };
 
 
@@ -77,7 +77,7 @@ public:
 class GCPartyInviteHandler 
 {
 public:
-	static void execute(GCPartyInvite* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCPartyInvite* pPacket, Player* pPlayer) ;
 };
 
 #endif

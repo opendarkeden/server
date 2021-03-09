@@ -33,46 +33,46 @@ class GCAddVampireFromBurrowing : public Packet {
 public :
 
 	// constructor
-	GCAddVampireFromBurrowing() throw() : m_pEffectInfo(NULL) {}
-	GCAddVampireFromBurrowing(const PCVampireInfo3 & vampireInfo) throw() : m_VampireInfo(vampireInfo), m_pEffectInfo(NULL) {}
+	GCAddVampireFromBurrowing()  : m_pEffectInfo(NULL) {}
+	GCAddVampireFromBurrowing(const PCVampireInfo3 & vampireInfo)  : m_VampireInfo(vampireInfo), m_pEffectInfo(NULL) {}
 
-	virtual ~GCAddVampireFromBurrowing() throw();
+	virtual ~GCAddVampireFromBurrowing() ;
 
 	
 public :
 
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_VAMPIRE_FROM_BURROWING; }
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_VAMPIRE_FROM_BURROWING; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return m_VampireInfo.getSize() + m_pEffectInfo->getSize(); }
+	PacketSize_t getPacketSize() const  { return m_VampireInfo.getSize() + m_pEffectInfo->getSize(); }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCAddVampireFromBurrowing"; }
+	string getPacketName() const  { return "GCAddVampireFromBurrowing"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 
 public :
 
 	// get/set vampire info
-	PCVampireInfo3 & getVampireInfo() throw() { return m_VampireInfo; }
-	const PCVampireInfo3 & getVampireInfo() const throw() { return m_VampireInfo; }
-	void setVampireInfo(const PCVampireInfo3 & vampireInfo) throw() { m_VampireInfo = vampireInfo; }
+	PCVampireInfo3 & getVampireInfo()  { return m_VampireInfo; }
+	const PCVampireInfo3 & getVampireInfo() const  { return m_VampireInfo; }
+	void setVampireInfo(const PCVampireInfo3 & vampireInfo)  { m_VampireInfo = vampireInfo; }
 
 	// get /set Effect Info
-	EffectInfo* getEffectInfo() const throw() { return m_pEffectInfo; }
-	void setEffectInfo(EffectInfo* pEffectInfo) throw() { m_pEffectInfo = pEffectInfo; }
+	EffectInfo* getEffectInfo() const  { return m_pEffectInfo; }
+	void setEffectInfo(EffectInfo* pEffectInfo)  { m_pEffectInfo = pEffectInfo; }
 
 
 private :
@@ -99,16 +99,16 @@ class GCAddVampireFromBurrowingFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCAddVampireFromBurrowing(); }
+	Packet* createPacket()  { return new GCAddVampireFromBurrowing(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCAddVampireFromBurrowing"; }
+	string getPacketName() const  { return "GCAddVampireFromBurrowing"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_VAMPIRE_FROM_BURROWING; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_VAMPIRE_FROM_BURROWING; }
 
 	// get packet's body size
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{ 
 		return PCVampireInfo3::getMaxSize() + EffectInfo::getMaxSize();
 	}
@@ -127,7 +127,7 @@ class GCAddVampireFromBurrowingHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddVampireFromBurrowing* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddVampireFromBurrowing* pPacket, Player* pPlayer) ;
 
 };
 

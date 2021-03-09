@@ -21,31 +21,31 @@
 class InventoryInfo 
 {
 public:
-	InventoryInfo () throw ();
-	~InventoryInfo () throw ();
+	InventoryInfo () ;
+	~InventoryInfo () ;
 	
 public:
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
+    void write (SocketOutputStream & oStream) const ;
 
-	PacketSize_t getSize () throw ();
+	PacketSize_t getSize () ;
 
-	static uint getMaxSize() throw() 
+	static uint getMaxSize()  
 	{
 		return szBYTE + (InventorySlotInfo::getMaxSize()* 60);
 	}
 
-	string toString () const throw ();
+	string toString () const ;
 
 public:
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
-	void addListElement(InventorySlotInfo* pInventorySlotInfo) throw() { m_InventorySlotInfoList.push_back(pInventorySlotInfo); }
+	void addListElement(InventorySlotInfo* pInventorySlotInfo)  { m_InventorySlotInfoList.push_back(pInventorySlotInfo); }
 
-	void clearList() throw() { m_InventorySlotInfoList.clear(); m_ListNum = 0; }
+	void clearList()  { m_InventorySlotInfoList.clear(); m_ListNum = 0; }
 
-	InventorySlotInfo* popFrontListElement() throw() 
+	InventorySlotInfo* popFrontListElement()  
 	{ 
 		InventorySlotInfo* TempInventorySlotInfo = m_InventorySlotInfoList.front(); m_InventorySlotInfoList.pop_front(); return TempInventorySlotInfo; 
 	}

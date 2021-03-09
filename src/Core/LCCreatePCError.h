@@ -22,17 +22,17 @@ class LCCreatePCError : public Packet
 public:
     LCCreatePCError() {};
     ~LCCreatePCError() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_LC_CREATE_PC_ERROR; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE; }
-	string getPacketName() const throw() { return "LCCreatePCError"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_LC_CREATE_PC_ERROR; }
+	PacketSize_t getPacketSize() const  { return szBYTE; }
+	string getPacketName() const  { return "LCCreatePCError"; }
+	string toString() const ;
 
 public:
-	BYTE getErrorID() const throw() { return m_ErrorID; }
-	void setErrorID(BYTE ErrorID) throw() { m_ErrorID = ErrorID; }
+	BYTE getErrorID() const  { return m_ErrorID; }
+	void setErrorID(BYTE ErrorID)  { m_ErrorID = ErrorID; }
 
 private: 
 	BYTE m_ErrorID;
@@ -47,16 +47,16 @@ class LCCreatePCErrorFactory : public PacketFactory
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new LCCreatePCError(); }
+	Packet* createPacket()  { return new LCCreatePCError(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LCCreatePCError"; }
+	string getPacketName() const  { return "LCCreatePCError"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_LC_CREATE_PC_ERROR; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_LC_CREATE_PC_ERROR; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
 	
 };
 
@@ -72,7 +72,7 @@ class LCCreatePCErrorHandler {
 public:
 
 	// execute packet's handler
-	static void execute(LCCreatePCError* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(LCCreatePCError* pPacket, Player* pPlayer) ;
 
 };
 

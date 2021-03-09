@@ -22,7 +22,6 @@ PacketSize_t NicknameInfo::getSize() const
 }
 
 void NicknameInfo::read(SocketInputStream& iStream)
-	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -58,7 +57,6 @@ void NicknameInfo::read(SocketInputStream& iStream)
 }
 
 void NicknameInfo::write(SocketOutputStream& oStream) const
-	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 

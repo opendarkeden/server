@@ -17,32 +17,32 @@
 class CGAddZoneToInventory : public Packet 
 {
 public:
-	CGAddZoneToInventory() throw();
-	~CGAddZoneToInventory() throw();
+	CGAddZoneToInventory() ;
+	~CGAddZoneToInventory() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_ZONE_TO_INVENTORY; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoord + szCoord + szCoordInven + szCoordInven; }
-	string getPacketName() const throw() { return "CGAddZoneToInventory"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_ZONE_TO_INVENTORY; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord + szCoordInven + szCoordInven; }
+	string getPacketName() const  { return "CGAddZoneToInventory"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
-	Coord_t getZoneX() const throw() { return m_ZoneX; }
-	void setZoneX(Coord_t ZoneX) throw() { m_ZoneX = ZoneX; }
+	Coord_t getZoneX() const  { return m_ZoneX; }
+	void setZoneX(Coord_t ZoneX)  { m_ZoneX = ZoneX; }
 
-	Coord_t getZoneY() const throw() { return m_ZoneY; }
-	void setZoneY(Coord_t ZoneY) throw() { m_ZoneY = ZoneY; }
+	Coord_t getZoneY() const  { return m_ZoneY; }
+	void setZoneY(Coord_t ZoneY)  { m_ZoneY = ZoneY; }
 
-	CoordInven_t getInvenX() const throw() { return m_InvenX; }
-	void setInvenX(CoordInven_t InvenX) throw() { m_InvenX = InvenX; }
+	CoordInven_t getInvenX() const  { return m_InvenX; }
+	void setInvenX(CoordInven_t InvenX)  { m_InvenX = InvenX; }
 
-	CoordInven_t getInvenY() const throw() { return m_InvenY; }
+	CoordInven_t getInvenY() const  { return m_InvenY; }
 	void setInvenY(CoordInven_t InvenY) { m_InvenY = InvenY; }
 
 private:
@@ -60,10 +60,10 @@ private:
 class CGAddZoneToInventoryFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddZoneToInventory(); }
-	string getPacketName() const throw() { return "CGAddZoneToInventory"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_ZONE_TO_INVENTORY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord + szCoord + szCoordInven + szCoordInven; }
+	Packet* createPacket()  { return new CGAddZoneToInventory(); }
+	string getPacketName() const  { return "CGAddZoneToInventory"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_ZONE_TO_INVENTORY; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoord + szCoord + szCoordInven + szCoordInven; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ public:
 class CGAddZoneToInventoryHandler 
 {
 public:
-	static void execute(CGAddZoneToInventory* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddZoneToInventory* pPacket, Player* player) ;
 };
 
 #endif

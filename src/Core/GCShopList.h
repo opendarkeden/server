@@ -37,38 +37,38 @@ class Item;
 class GCShopList : public Packet 
 {
 public:
-	GCShopList() throw();
-	virtual ~GCShopList() throw();
+	GCShopList() ;
+	virtual ~GCShopList() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SHOP_LIST; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCShopList"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SHOP_LIST; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCShopList"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
-	ShopVersion_t getShopVersion(void) const throw() { return m_Version;}
-	void setShopVersion(ShopVersion_t ver) throw() { m_Version = ver;}
+	ShopVersion_t getShopVersion(void) const  { return m_Version;}
+	void setShopVersion(ShopVersion_t ver)  { m_Version = ver;}
 	
-	ShopRackType_t getShopType(void) const throw() { return m_RackType; }
+	ShopRackType_t getShopType(void) const  { return m_RackType; }
 	void setShopType(const ShopRackType_t type) { m_RackType = type; }
 
-	MarketCond_t getMarketCondBuy(void) const throw() { return m_MarketCondBuy;}
-	void setMarketCondBuy(MarketCond_t cond) throw() { m_MarketCondBuy = cond;}
+	MarketCond_t getMarketCondBuy(void) const  { return m_MarketCondBuy;}
+	void setMarketCondBuy(MarketCond_t cond)  { m_MarketCondBuy = cond;}
 
-	MarketCond_t getMarketCondSell(void) const throw() { return m_MarketCondSell;}
-	void setMarketCondSell(MarketCond_t cond) throw() { m_MarketCondSell = cond;}
+	MarketCond_t getMarketCondSell(void) const  { return m_MarketCondSell;}
+	void setMarketCondSell(MarketCond_t cond)  { m_MarketCondSell = cond;}
 	
-	SHOPLISTITEM getShopItem(BYTE index) const throw();
+	SHOPLISTITEM getShopItem(BYTE index) const ;
 
 #ifndef __GAME_CLIENT__
-	void setShopItem(BYTE index, const Item* pItem) throw();
+	void setShopItem(BYTE index, const Item* pItem) ;
 #endif
 
 	BYTE getNPCShopType(void) const { return m_ShopType; }
@@ -91,12 +91,12 @@ private:
 class GCShopListFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCShopList(); }
-	string getPacketName() const throw() { return "GCShopList"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SHOP_LIST; }
+	Packet* createPacket()  { return new GCShopList(); }
+	string getPacketName() const  { return "GCShopList"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SHOP_LIST; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		PacketSize_t unit = 0;
 		unit += szBYTE;         // shop rack index
@@ -128,7 +128,7 @@ public:
 class GCShopListHandler 
 {
 public:
-	static void execute(GCShopList* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCShopList* pPacket, Player* pPlayer) ;
 
 };
 

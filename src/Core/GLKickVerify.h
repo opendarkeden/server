@@ -29,41 +29,41 @@ public :
 	GLKickVerify() {};
     ~GLKickVerify() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GL_KICK_VERIFY; }
+	PacketID_t getPacketID() const  { return PACKET_GL_KICK_VERIFY; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE + szBYTE + m_PCName.size() + szuint;
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GLKickVerify"; }
+	string getPacketName() const  { return "GLKickVerify"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set playerID
-	bool isKicked() const throw() { return m_bKicked; }
-	void setKicked(bool bKicked=true) throw() { m_bKicked = bKicked; }
+	bool isKicked() const  { return m_bKicked; }
+	void setKicked(bool bKicked=true)  { m_bKicked = bKicked; }
 
   	// get/set pcName
-    string getPCName() const throw() { return m_PCName; }
-    void setPCName(const string& pcName) throw() { m_PCName = pcName; }
+    string getPCName() const  { return m_PCName; }
+    void setPCName(const string& pcName)  { m_PCName = pcName; }
 
-    uint getID() const throw() { return m_ID; }
-    void setID(uint id) throw() { m_ID = id; }
+    uint getID() const  { return m_ID; }
+    void setID(uint id)  { m_ID = id; }
 
 	
 private :
@@ -90,18 +90,18 @@ class GLKickVerifyFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GLKickVerify(); }
+	Packet* createPacket()  { return new GLKickVerify(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GLKickVerify"; }
+	string getPacketName() const  { return "GLKickVerify"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GL_KICK_VERIFY; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GL_KICK_VERIFY; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GLKickVerifyPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE + szBYTE + 20 + szuint;
 	}
@@ -120,7 +120,7 @@ class GLKickVerifyHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GLKickVerify* pPacket) throw(ProtocolException, Error);
+	static void execute(GLKickVerify* pPacket) ;
 
 };
 

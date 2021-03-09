@@ -21,7 +21,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 Player::Player ()
-	 throw ( Error )
 : m_pSocket(NULL), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 //add by viva
@@ -29,7 +28,6 @@ Player::Player ()
 }
 
 Player::Player ( Socket * pSocket )
-	 throw ( Error )
 : m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
@@ -58,7 +56,7 @@ Player::Player ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 Player::~Player ()
-	 throw ( Error )
+  throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -92,7 +90,6 @@ Player::~Player ()
 //
 //////////////////////////////////////////////////////////////////////
 void Player::processInput ()
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -115,7 +112,6 @@ void Player::processInput ()
 //
 //////////////////////////////////////////////////////////////////////
 void Player::processCommand ( bool Option ) 
-     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -196,7 +192,6 @@ void Player::processCommand ( bool Option )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::processOutput ()
-	throw ( IOException , Error, ProtocolException )
 {
 	__BEGIN_TRY
 
@@ -220,7 +215,6 @@ void Player::processOutput ()
 //
 //////////////////////////////////////////////////////////////////////
 void Player::sendPacket ( Packet * pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -243,7 +237,6 @@ void Player::sendPacket ( Packet * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::sendStream ( SocketOutputStream* pOutputStream )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -260,7 +253,6 @@ void Player::sendStream ( SocketOutputStream* pOutputStream )
 //
 //////////////////////////////////////////////////////////////////////
 void Player::disconnect ( bool bDisconnected )
-	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -292,7 +284,6 @@ void Player::disconnect ( bool bDisconnected )
 // set socket
 //////////////////////////////////////////////////////////////////////
 void Player::setSocket ( Socket * pSocket )
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -318,7 +309,6 @@ void Player::setSocket ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 string Player::toString () const
-       throw ( Error )
 {
 	__BEGIN_TRY
 		

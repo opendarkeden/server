@@ -18,7 +18,7 @@
 // 그렇지 않은 경우 Assert가 실패하면 파일에 로그를 한후, AssertError를 리턴한다.
 //
 //--------------------------------------------------------------------------------
-void __assert__ (const char* file, uint line, const char* func, const char* expr) throw (AssertionError);
+void __assert__ (const char* file, uint line, const char* func, const char* expr);
 
 //--------------------------------------------------------------------------------
 //
@@ -26,7 +26,7 @@ void __assert__ (const char* file, uint line, const char* func, const char* expr
 // 그 연결을 종료시키는 역할을 한다.
 //
 //--------------------------------------------------------------------------------
-void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr) throw (InvalidProtocolException);
+void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr);
 
 #if defined(NDEBUG)
 	#define Assert(expr) ((void)0)

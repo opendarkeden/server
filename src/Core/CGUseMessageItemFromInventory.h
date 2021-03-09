@@ -22,21 +22,21 @@ class CGUseMessageItemFromInventory : public CGUseItemFromInventory
 public:
     CGUseMessageItemFromInventory() {};
     virtual ~CGUseMessageItemFromInventory() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY; }
-	PacketSize_t getPacketSize() const throw() 
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY; }
+	PacketSize_t getPacketSize() const  
 	{ 
 		return CGUseItemFromInventory::getPacketSize() 
 				+ szBYTE + m_Message.size(); 
 	}
-	string getPacketName() const throw() { return "CGUseMessageItemFromInventory"; }
-	string toString() const throw();
+	string getPacketName() const  { return "CGUseMessageItemFromInventory"; }
+	string toString() const ;
 	
 public:
-	const string& getMessage() const throw() { return m_Message; }
-	void setMessage(const string& msg) throw() { m_Message = msg; }
+	const string& getMessage() const  { return m_Message; }
+	void setMessage(const string& msg)  { m_Message = msg; }
 
 private:
 	string m_Message;
@@ -50,10 +50,10 @@ private:
 class CGUseMessageItemFromInventoryFactory : public CGUseItemFromInventoryFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGUseMessageItemFromInventory(); }
-	string getPacketName() const throw() { return "CGUseMessageItemFromInventory"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY; }
-	PacketSize_t getPacketMaxSize() const throw() 
+	Packet* createPacket()  { return new CGUseMessageItemFromInventory(); }
+	string getPacketName() const  { return "CGUseMessageItemFromInventory"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY; }
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return CGUseItemFromInventoryFactory::getPacketMaxSize() 
 				+ szBYTE + 128; 
@@ -68,10 +68,10 @@ public:
 class CGUseMessageItemFromInventoryHandler 
 {
 public:
-	static void execute(CGUseMessageItemFromInventory* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGUseMessageItemFromInventory* pPacket, Player* player) ;
 
 protected:
-	static void executeEventTree(CGUseMessageItemFromInventory* pPacket, Player* player) throw(ProtocolException, Error);
+	static void executeEventTree(CGUseMessageItemFromInventory* pPacket, Player* player) ;
 };
 
 #endif

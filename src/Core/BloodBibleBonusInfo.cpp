@@ -16,7 +16,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 BloodBibleBonusInfo::BloodBibleBonusInfo () 
-     throw ()
 {
 	__BEGIN_TRY
 	
@@ -31,7 +30,6 @@ BloodBibleBonusInfo::BloodBibleBonusInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 BloodBibleBonusInfo::~BloodBibleBonusInfo () 
-    throw ()
 {
 	__BEGIN_TRY
 
@@ -45,7 +43,6 @@ BloodBibleBonusInfo::~BloodBibleBonusInfo ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void BloodBibleBonusInfo::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -68,8 +65,7 @@ void BloodBibleBonusInfo::read ( SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
-void BloodBibleBonusInfo::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+void BloodBibleBonusInfo::write ( SocketOutputStream & oStream ) const 
 {
 	__BEGIN_TRY
 	
@@ -94,8 +90,7 @@ void BloodBibleBonusInfo::write ( SocketOutputStream & oStream )
 // get packet's debug string
 //
 //////////////////////////////////////////////////////////////////////
-string BloodBibleBonusInfo::toString () 
-	const throw ()
+string BloodBibleBonusInfo::toString () const
 {
 	__BEGIN_TRY
 

@@ -16,7 +16,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SerialDatagram::SerialDatagram () 
-	throw () 
 : m_Length(0), m_InputOffset(0), m_OutputOffset(0), m_Data(NULL) 
 {
 	__BEGIN_TRY
@@ -32,7 +31,6 @@ SerialDatagram::SerialDatagram ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 SerialDatagram::~SerialDatagram () 
-	throw () 
 { 
 	__BEGIN_TRY
 
@@ -49,7 +47,6 @@ SerialDatagram::~SerialDatagram ()
 // 내부 버퍼에 들어있는 내용을 외부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::read ( char * buf , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -68,7 +65,6 @@ void SerialDatagram::read ( char * buf , uint len )
 // 내부 버퍼에 들어있는 내용을 외부 스트링으로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::read ( string & str , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -101,7 +97,6 @@ void SerialDatagram::read ( string & str , uint len )
 // 
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::read ( SerialDatagramPacket * & pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -157,7 +152,6 @@ void SerialDatagram::read ( SerialDatagramPacket * & pPacket )
 // 외부 버퍼에 들어있는 내용을 내부 버퍼로 복사한다.
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::write ( const char * buf , uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -186,7 +180,6 @@ void SerialDatagram::write ( const char * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::write ( const string & str )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -211,7 +204,6 @@ void SerialDatagram::write ( const string & str )
 //
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::write ( const SerialDatagramPacket * pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -244,7 +236,6 @@ void SerialDatagram::write ( const SerialDatagramPacket * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::setData ( char * data , uint len ) 
-	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
@@ -261,7 +252,6 @@ void SerialDatagram::setData ( char * data , uint len )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::setData ( uint len )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -278,7 +268,6 @@ void SerialDatagram::setData ( uint len )
 // set address
 //////////////////////////////////////////////////////////////////////
 void SerialDatagram::setAddress ( SOCKADDR_IN * pSockAddr ) 
-	throw ( Error ) 
 { 
 	__BEGIN_TRY
 
@@ -293,7 +282,6 @@ void SerialDatagram::setAddress ( SOCKADDR_IN * pSockAddr )
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string SerialDatagram::toString () const
-	throw ()
 {
 	StringStream msg;
 	msg << "SerialDatagram("

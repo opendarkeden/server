@@ -18,8 +18,8 @@
 class GCAddMonster : public Packet 
 {
 public:
-	GCAddMonster() throw(Error);
-	virtual ~GCAddMonster() throw(Error);
+	GCAddMonster();
+	virtual ~GCAddMonster();
 
 public:
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);

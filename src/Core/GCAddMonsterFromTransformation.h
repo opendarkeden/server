@@ -18,15 +18,15 @@
 class GCAddMonsterFromTransformation : public Packet 
 {
 public:
-	GCAddMonsterFromTransformation() throw(Error);
-	virtual ~GCAddMonsterFromTransformation() throw(Error);
+	GCAddMonsterFromTransformation() ;
+	virtual ~GCAddMonsterFromTransformation() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_MONSTER_FROM_TRANSFORMATION; }
-	PacketSize_t getPacketSize() const throw() 
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_MONSTER_FROM_TRANSFORMATION; }
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szObjectID + // object id
 			szMonsterType + // monster type
@@ -40,42 +40,42 @@ public:
 			m_pEffectInfo->getSize() + // effects info on monster
 			szHP* 2; // current & max hp
 	}
-	string getPacketName() const throw() { return "GCAddMonsterFromTransformation"; }
-	string toString() const throw();
+	string getPacketName() const  { return "GCAddMonsterFromTransformation"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
-	MonsterType_t getMonsterType() const throw() { return m_MonsterType; }
-	void setMonsterType(MonsterType_t monsterType) throw() { m_MonsterType = monsterType; }
+	MonsterType_t getMonsterType() const  { return m_MonsterType; }
+	void setMonsterType(MonsterType_t monsterType)  { m_MonsterType = monsterType; }
 
-	string getMonsterName() const throw() { return m_MonsterName; }
-	void setMonsterName(string name) throw() { m_MonsterName = name; }
+	string getMonsterName() const  { return m_MonsterName; }
+	void setMonsterName(string name)  { m_MonsterName = name; }
 
-	Color_t getMainColor() const throw() { return m_MainColor; }
-	void setMainColor(Color_t color) throw() { m_MainColor = color; }
+	Color_t getMainColor() const  { return m_MainColor; }
+	void setMainColor(Color_t color)  { m_MainColor = color; }
 
-	Color_t getSubColor() const throw() { return m_SubColor; }
-	void setSubColor(Color_t color) throw() { m_SubColor = color; }
+	Color_t getSubColor() const  { return m_SubColor; }
+	void setSubColor(Color_t color)  { m_SubColor = color; }
 
-	Coord_t getX() const throw() { return m_X; }
-	void setX(Coord_t x) throw() { m_X = x; }
+	Coord_t getX() const  { return m_X; }
+	void setX(Coord_t x)  { m_X = x; }
 	
-	Coord_t getY() const throw() { return m_Y; }
-	void setY(Coord_t y) throw() { m_Y = y; }
+	Coord_t getY() const  { return m_Y; }
+	void setY(Coord_t y)  { m_Y = y; }
 
-	Dir_t getDir() const throw() { return m_Dir; }
-	void setDir(Dir_t dir) throw() { m_Dir = dir; }
+	Dir_t getDir() const  { return m_Dir; }
+	void setDir(Dir_t dir)  { m_Dir = dir; }
 
-	EffectInfo* getEffectInfo() const throw() { return m_pEffectInfo; }
-	void setEffectInfo(EffectInfo* pEffectInfo) throw() { m_pEffectInfo = pEffectInfo; }
+	EffectInfo* getEffectInfo() const  { return m_pEffectInfo; }
+	void setEffectInfo(EffectInfo* pEffectInfo)  { m_pEffectInfo = pEffectInfo; }
 
-	HP_t getMaxHP() const throw() { return m_MaxHP; }
-	void setMaxHP(HP_t MaxHP) throw() { m_MaxHP = MaxHP; }
+	HP_t getMaxHP() const  { return m_MaxHP; }
+	void setMaxHP(HP_t MaxHP)  { m_MaxHP = MaxHP; }
 
-	HP_t getCurrentHP() const throw() { return m_CurrentHP; }
-	void setCurrentHP(HP_t CurrentHP) throw() { m_CurrentHP = CurrentHP; }
+	HP_t getCurrentHP() const  { return m_CurrentHP; }
+	void setCurrentHP(HP_t CurrentHP)  { m_CurrentHP = CurrentHP; }
 
 private :
     ObjectID_t    m_ObjectID;    // object id
@@ -100,10 +100,10 @@ private :
 class GCAddMonsterFromTransformationFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCAddMonsterFromTransformation(); }
-	string getPacketName() const throw() { return "GCAddMonsterFromTransformation"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_MONSTER_FROM_TRANSFORMATION; }
-	PacketSize_t getPacketMaxSize() const throw() 
+	Packet* createPacket()  { return new GCAddMonsterFromTransformation(); }
+	string getPacketName() const  { return "GCAddMonsterFromTransformation"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_MONSTER_FROM_TRANSFORMATION; }
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szObjectID               // object id
 			+ szMonsterType             // monster type
@@ -124,7 +124,7 @@ public:
 class GCAddMonsterFromTransformationHandler 
 {
 public:
-	static void execute(GCAddMonsterFromTransformation* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddMonsterFromTransformation* pPacket, Player* pPlayer) ;
 
 };
 

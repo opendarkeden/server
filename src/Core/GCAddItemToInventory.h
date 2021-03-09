@@ -20,49 +20,49 @@
 class GCAddItemToInventory 
 {
 public:
-	GCAddItemToInventory() throw();
-	~GCAddItemToInventory() throw();
+	GCAddItemToInventory() ;
+	~GCAddItemToInventory() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + m_OptionType.size() + szDurability; }
-	string getPacketName() const throw() { return "GCAddItemToInventory"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord + szBYTE + szItemType + szBYTE + m_OptionType.size() + szDurability; }
+	string getPacketName() const  { return "GCAddItemToInventory"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ID) throw() { m_ObjectID = ID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ID)  { m_ObjectID = ID; }
 
-	CoordInven_t getX() const throw() { return m_X; }
-	void setX(CoordInven_t x) throw() { m_X = x; }
+	CoordInven_t getX() const  { return m_X; }
+	void setX(CoordInven_t x)  { m_X = x; }
 	
-	CoordInven_t getY() const throw() { return m_Y; }
-	void setY(CoordInven_t y) throw() { m_Y = y; }
+	CoordInven_t getY() const  { return m_Y; }
+	void setY(CoordInven_t y)  { m_Y = y; }
 
-	BYTE getItemClass() const throw() { return m_ItemClass; }
-	void setItemClass(BYTE Class) throw() { m_ItemClass = Class; }
+	BYTE getItemClass() const  { return m_ItemClass; }
+	void setItemClass(BYTE Class)  { m_ItemClass = Class; }
 
-	ItemType_t getItemType() const throw() { return m_ItemType; }
-	void setItemType(ItemType_t ItemType) throw() { m_ItemType = ItemType; }
+	ItemType_t getItemType() const  { return m_ItemType; }
+	void setItemType(ItemType_t ItemType)  { m_ItemType = ItemType; }
 
-	int getOptionTypeSize() const throw() { return m_OptionType.size(); }
-	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }
-	OptionType_t popOptionType() throw()
+	int getOptionTypeSize() const  { return m_OptionType.size(); }
+	const list<OptionType_t>& getOptionType() const  { return m_OptionType; }
+	OptionType_t popOptionType() 
 	{
 		if (m_OptionType.empty()) return 0;
 		OptionType_t optionType = m_OptionType.front();
 		m_OptionType.pop_front();
 		return optionType;
 	}
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
-	void setOptionType(const list<OptionType_t>& OptionTypes) throw() { m_OptionType = OptionTypes; }
+	void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back(OptionType); }
+	void setOptionType(const list<OptionType_t>& OptionTypes)  { m_OptionType = OptionTypes; }
 
-	Durability_t getDurability() const throw() { return m_Durability; }
-	void setDurability(Durability_t Durability) throw() { m_Durability = Durability; }
+	Durability_t getDurability() const  { return m_Durability; }
+	void setDurability(Durability_t Durability)  { m_Durability = Durability; }
 
-	ItemNum_t getItemNum() const throw() { return m_ItemNum; }
-	void setItemNum(ItemNum_t ItemNum) throw() { m_ItemNum = ItemNum; }
+	ItemNum_t getItemNum() const  { return m_ItemNum; }
+	void setItemNum(ItemNum_t ItemNum)  { m_ItemNum = ItemNum; }
 
 protected:
     ObjectID_t    		m_ObjectID;     // item object id

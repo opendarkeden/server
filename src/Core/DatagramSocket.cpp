@@ -21,7 +21,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::DatagramSocket () 
-	throw ( Error, BindException )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -42,7 +41,6 @@ DatagramSocket::DatagramSocket ()
 //
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::DatagramSocket ( uint port ) 
-	throw ( Error, BindException )
 : m_SocketID(INVALID_SOCKET)
 {
 	__BEGIN_TRY 
@@ -67,7 +65,6 @@ DatagramSocket::DatagramSocket ( uint port )
 // destructor
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::~DatagramSocket ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 	
@@ -82,7 +79,6 @@ DatagramSocket::~DatagramSocket ()
 // send datagram to peer
 //////////////////////////////////////////////////////////////////////
 uint DatagramSocket::send ( Datagram * pDatagram )
-	throw ( ConnectException , Error )
 {
 	__BEGIN_TRY 
 
@@ -112,7 +108,6 @@ uint DatagramSocket::send ( Datagram * pDatagram )
 //
 //////////////////////////////////////////////////////////////////////
 Datagram * DatagramSocket::receive ()
-	throw ( ConnectException , Error )
 {
 	__BEGIN_TRY 
 

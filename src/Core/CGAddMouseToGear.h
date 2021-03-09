@@ -17,24 +17,24 @@
 class CGAddMouseToGear : public Packet 
 {
 public:
-	CGAddMouseToGear() throw();
-	~CGAddMouseToGear() throw();
+	CGAddMouseToGear() ;
+	~CGAddMouseToGear() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_MOUSE_TO_GEAR; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szSlotID; }
-	string getPacketName() const throw() { return "CGAddMouseToGear"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_MOUSE_TO_GEAR; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szSlotID; }
+	string getPacketName() const  { return "CGAddMouseToGear"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
-	SlotID_t getSlotID() const throw() { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID) throw() { m_SlotID = SlotID; }
+	SlotID_t getSlotID() const  { return m_SlotID; }
+	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
 
 private:
 	ObjectID_t m_ObjectID;
@@ -49,10 +49,10 @@ private:
 class CGAddMouseToGearFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddMouseToGear(); }
-	string getPacketName() const throw() { return "CGAddMouseToGear"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_MOUSE_TO_GEAR; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szSlotID; }
+	Packet* createPacket()  { return new CGAddMouseToGear(); }
+	string getPacketName() const  { return "CGAddMouseToGear"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_MOUSE_TO_GEAR; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szSlotID; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ public:
 class CGAddMouseToGearHandler 
 {
 public:
-	static void execute(CGAddMouseToGear* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddMouseToGear* pPacket, Player* player) ;
 };
 
 #endif

@@ -26,33 +26,33 @@ public:
 	LGIncomingConnectionError() {};
     ~LGIncomingConnectionError() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_LG_INCOMING_CONNECTION_ERROR; }
+	PacketID_t getPacketID() const  { return PACKET_LG_INCOMING_CONNECTION_ERROR; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szBYTE + m_Message.size(); }
+	PacketSize_t getPacketSize() const  { return szBYTE + m_Message.size(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnectionError"; }
+	string getPacketName() const  { return "LGIncomingConnectionError"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set error message
-	string getMessage() const throw() { return m_Message; }
-	void setMessage(string message) throw() { m_Message = message; }
+	string getMessage() const  { return m_Message; }
+	void setMessage(string message)  { m_Message = message; }
 
 	// get/set player id
-	string getPlayerID() const throw() { return m_PlayerID; }
-	void setPlayerID(string playerID) throw() { m_PlayerID = playerID; }
+	string getPlayerID() const  { return m_PlayerID; }
+	void setPlayerID(string playerID)  { m_PlayerID = playerID; }
 
 private :
 
@@ -78,18 +78,18 @@ class LGIncomingConnectionErrorFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new LGIncomingConnectionError(); }
+	Packet* createPacket()  { return new LGIncomingConnectionError(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnectionError"; }
+	string getPacketName() const  { return "LGIncomingConnectionError"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_LG_INCOMING_CONNECTION_ERROR; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_LG_INCOMING_CONNECTION_ERROR; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionErrorPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + 128; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + 128; }
 
 };
 
@@ -105,7 +105,7 @@ class LGIncomingConnectionErrorHandler {
 public:
 
 	// execute packet's handler
-	static void execute(LGIncomingConnectionError* pPacket) throw(ProtocolException, Error);
+	static void execute(LGIncomingConnectionError* pPacket) ;
 
 };
 

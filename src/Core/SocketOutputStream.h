@@ -34,10 +34,10 @@ class SocketOutputStream {
 public :
 	
 	// constructor
-	SocketOutputStream (Socket* sock, uint BufferSize = DefaultSocketOutputBufferSize) throw (Error);
+	SocketOutputStream (Socket* sock, uint BufferSize = DefaultSocketOutputBufferSize);
 	
 	// destructor
-	virtual ~SocketOutputStream () throw (Error);
+	virtual ~SocketOutputStream ();
 
 	
 //////////////////////////////////////////////////
@@ -51,43 +51,43 @@ public :
 	// 그러나, string 의 크기를 BYTE/WORD 중 어느 것으로 할 건지는 의문이다.
 	// 패킷의 크기는 작을 수록 좋다는 정책하에서 필요에 따라서 string size 값을
 	// BYTE 또는 WORD 를 수동으로 사용하도록 한다.
-	uint write (const char* buf, uint len) throw (Error);
-	uint write (const string & buf) throw (Error) { return write(buf.c_str(),buf.size()); }
-	void writePacket (const Packet* pPacket) throw (ProtocolException, Error);
+	uint write (const char* buf, uint len);
+	uint write (const string & buf) { return write(buf.c_str(),buf.size()); }
+	void writePacket (const Packet* pPacket);
 	
 	template<typename T>
-		uint write( T buf ) throw (Error);
-/*	uint write (bool   buf) throw (ProtocolException, Error) { return write((const char*)&buf, szbool  ); }
-	uint write (char   buf) throw (ProtocolException, Error) { return write((const char*)&buf, szchar  ); }
-	uint write (uchar  buf) throw (ProtocolException, Error) { return write((const char*)&buf, szuchar ); }
-	uint write (short  buf) throw (ProtocolException, Error) { return write((const char*)&buf, szshort ); }
-	uint write (ushort buf) throw (ProtocolException, Error) { return write((const char*)&buf, szushort); }
-	uint write (int    buf) throw (ProtocolException, Error) { return write((const char*)&buf, szint   ); }
-	uint write (uint   buf) throw (ProtocolException, Error) { return write((const char*)&buf, szuint  ); }
-	uint write (long   buf) throw (ProtocolException, Error) { return write((const char*)&buf, szlong  ); }
-	uint write (ulong  buf) throw (ProtocolException, Error) { return write((const char*)&buf, szulong ); }
+		uint write( T buf );
+/*	uint write (bool   buf)  { return write((const char*)&buf, szbool  ); }
+	uint write (char   buf)  { return write((const char*)&buf, szchar  ); }
+	uint write (uchar  buf)  { return write((const char*)&buf, szuchar ); }
+	uint write (short  buf)  { return write((const char*)&buf, szshort ); }
+	uint write (ushort buf)  { return write((const char*)&buf, szushort); }
+	uint write (int    buf)  { return write((const char*)&buf, szint   ); }
+	uint write (uint   buf)  { return write((const char*)&buf, szuint  ); }
+	uint write (long   buf)  { return write((const char*)&buf, szlong  ); }
+	uint write (ulong  buf)  { return write((const char*)&buf, szulong ); }
 */
 	// flush stream (output buffer) to socket
-	uint flush () throw (IOException, ProtocolException, InvalidProtocolException, Error);
+	uint flush ();
 
 	// resize buffer 
-	void resize (int size) throw (IOException, Error);
+	void resize (int size);
 
 	// get buffer length
-	int capacity () const throw () { return m_BufferLen; }
+	int capacity () const { return m_BufferLen; }
  
     // get data length in buffer
-    uint length () const throw ();
-    uint size () const throw () { return length(); }
+    uint length () const;
+    uint size () const { return length(); }
 
 	// get data in buffer
 	char* getBuffer() const { return m_Buffer; }
  
     // check if buffer is empty
-    bool isEmpty () const throw () { return m_Head == m_Tail; }
+    bool isEmpty () const { return m_Head == m_Tail; }
 
     // get debug string
-    string toString () const throw ()
+    string toString () const
     {
         StringStream msg;
         msg << "SocketOutputStream(m_BufferLen:"<<m_BufferLen<<",m_Head:"<<m_Head<<",m_Tail:"<<m_Tail
@@ -119,8 +119,8 @@ private :
 //public :
 //	WORD m_EncryptKey;
 //	BYTE* m_HashTable;
-//	void setKey(WORD EncryptKey, BYTE* HashTable) throw() { m_EncryptKey = EncryptKey; m_HashTable = HashTable;};
-//	WORD EncryptData(WORD EncryptKey, char* buf, int len) throw();
+//	void setKey(WORD EncryptKey, BYTE* HashTable)  { m_EncryptKey = EncryptKey; m_HashTable = HashTable;};
+//	WORD EncryptData(WORD EncryptKey, char* buf, int len) ;
 //end
 };
 
@@ -140,7 +140,6 @@ private :
 //////////////////////////////////////////////////////////////////////
 template<typename T>
 uint SocketOutputStream::write ( T buf ) 
-     throw ( Error )
 {
 	__BEGIN_TRY
 

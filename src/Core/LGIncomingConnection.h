@@ -39,19 +39,19 @@ public:
 	LGIncomingConnection() {};
     ~LGIncomingConnection() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_LG_INCOMING_CONNECTION; }
+	PacketID_t getPacketID() const  { return PACKET_LG_INCOMING_CONNECTION; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return + szBYTE + m_PlayerID.size()	// Player ID
 			+ szBYTE + m_PCName.size() 		// PC name
@@ -59,24 +59,24 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnection"; }
+	string getPacketName() const  { return "LGIncomingConnection"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set playerID
-	string getPlayerID() const throw() { return m_PlayerID; }
-	void setPlayerID(const string& playerID) throw() { m_PlayerID = playerID; }
+	string getPlayerID() const  { return m_PlayerID; }
+	void setPlayerID(const string& playerID)  { m_PlayerID = playerID; }
 	
 	// get/set pcName
-	string getPCName() const throw() { return m_PCName; }
-	void setPCName(const string& pcName) throw() { m_PCName = pcName; }
+	string getPCName() const  { return m_PCName; }
+	void setPCName(const string& pcName)  { m_PCName = pcName; }
 	
 	// get/set client ip
-	string getClientIP() const throw() { return m_ClientIP; }
-	void setClientIP(const string& ip) throw() { m_ClientIP = ip; }
+	string getClientIP() const  { return m_ClientIP; }
+	void setClientIP(const string& ip)  { m_ClientIP = ip; }
 	
 private :
 
@@ -105,18 +105,18 @@ class LGIncomingConnectionFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new LGIncomingConnection(); }
+	Packet* createPacket()  { return new LGIncomingConnection(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnection"; }
+	string getPacketName() const  { return "LGIncomingConnection"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_LG_INCOMING_CONNECTION; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_LG_INCOMING_CONNECTION; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return + szBYTE + 20 	// creature name
 			+ szBYTE + 20 		// PC name
@@ -137,7 +137,7 @@ class LGIncomingConnectionHandler {
 public:
 
 	// execute packet's handler
-	static void execute(LGIncomingConnection* pPacket) throw(ProtocolException, Error);
+	static void execute(LGIncomingConnection* pPacket) ;
 
 };
 

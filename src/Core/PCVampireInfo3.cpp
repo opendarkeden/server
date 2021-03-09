@@ -10,7 +10,6 @@
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
 void PCVampireInfo3::read ( SocketInputStream & iStream ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -77,7 +76,6 @@ void PCVampireInfo3::read ( SocketInputStream & iStream )
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
 void PCVampireInfo3::write ( SocketOutputStream & oStream ) const 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -146,7 +144,6 @@ void PCVampireInfo3::write ( SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string PCVampireInfo3::toString () const 
-	throw ()
 {
 
 	StringStream msg;

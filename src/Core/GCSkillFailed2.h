@@ -27,47 +27,47 @@ class GCSkillFailed2 : public Packet {
 public :
 	
 	// constructor
-	GCSkillFailed2() throw();
+	GCSkillFailed2() ;
 	
 	// destructor
-	~GCSkillFailed2() throw();
+	~GCSkillFailed2() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_FAILED_2; }
+	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_FAILED_2; }
 	
 	// get packet size
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szObjectID + szSkillType + szBYTE; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szObjectID + szSkillType + szBYTE; }
 	
 	// get packet's name
-	string getPacketName() const throw() { return "GCSkillFailed2"; }
+	string getPacketName() const  { return "GCSkillFailed2"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 	
 	// get/set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 	// get/set TargetObjectID
-	ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t TargetObjectID) throw() { m_TargetObjectID = TargetObjectID; }
+	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
+	void setTargetObjectID(ObjectID_t TargetObjectID)  { m_TargetObjectID = TargetObjectID; }
 
 	// get/set SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	BYTE getGrade() const { return m_Grade; }
 	void setGrade(BYTE grade ) { m_Grade = grade; }
@@ -101,25 +101,25 @@ class  GCSkillFailed2Factory : public PacketFactory {
 public :
 	
 	// constructor
-	 GCSkillFailed2Factory() throw() {}
+	 GCSkillFailed2Factory()  {}
 	
 	// destructor
-	virtual ~GCSkillFailed2Factory() throw() {}
+	virtual ~GCSkillFailed2Factory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCSkillFailed2(); }
+	Packet* createPacket()  { return new GCSkillFailed2(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCSkillFailed2"; }
+	string getPacketName() const  { return "GCSkillFailed2"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SKILL_FAILED_2; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_FAILED_2; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return  szObjectID + szObjectID + szSkillType + szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return  szObjectID + szObjectID + szSkillType + szBYTE; }
 
 };
 
@@ -135,7 +135,7 @@ class  GCSkillFailed2Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillFailed2* pGCSkillFailed2, Player* pPlayer) throw(Error);
+	static void execute(GCSkillFailed2* pGCSkillFailed2, Player* pPlayer) ;
 
 };
 

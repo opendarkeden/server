@@ -18,8 +18,8 @@
 class GCAddMonsterFromBurrowing : public Packet 
 {
 public:
-	GCAddMonsterFromBurrowing() throw(Error);
-	virtual ~GCAddMonsterFromBurrowing() throw(Error);
+	GCAddMonsterFromBurrowing();
+	virtual ~GCAddMonsterFromBurrowing();
 	
 public:
     void read(SocketInputStream & iStream) throw(ProtocolException, Error);

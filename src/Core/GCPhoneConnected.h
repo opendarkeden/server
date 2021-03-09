@@ -29,46 +29,46 @@ class GCPhoneConnected : public Packet {
 public :
 	
 	// constructor
-	GCPhoneConnected() throw();
+	GCPhoneConnected() ;
 	
 	// destructor
-	~GCPhoneConnected() throw();
+	~GCPhoneConnected() ;
 
 	
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PHONE_CONNECTED; }
+	PacketID_t getPacketID() const  { return PACKET_GC_PHONE_CONNECTED; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szPhoneNumber + szSlotID + szBYTE + m_Name.size(); }
+	PacketSize_t getPacketSize() const  { return szPhoneNumber + szSlotID + szBYTE + m_Name.size(); }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCPhoneConnected"; }
+	string getPacketName() const  { return "GCPhoneConnected"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set PhoneNumber
-	PhoneNumber_t getPhoneNumber() const throw() { return m_PhoneNumber; }
-	void setPhoneNumber(PhoneNumber_t PhoneNumber) throw() { m_PhoneNumber = PhoneNumber; }
+	PhoneNumber_t getPhoneNumber() const  { return m_PhoneNumber; }
+	void setPhoneNumber(PhoneNumber_t PhoneNumber)  { m_PhoneNumber = PhoneNumber; }
 
 	// get/set SlotID
-	SlotID_t getSlotID() const throw() { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID) throw() { m_SlotID = SlotID; }
+	SlotID_t getSlotID() const  { return m_SlotID; }
+	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
 
 	// get/set Name
-	string getName() const throw() { return m_Name; }
+	string getName() const  { return m_Name; }
 	void setName(const string & Name) { m_Name = Name; }
 
 private :
@@ -98,25 +98,25 @@ class GCPhoneConnectedFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCPhoneConnectedFactory() throw() {}
+	GCPhoneConnectedFactory()  {}
 	
 	// destructor
-	virtual ~GCPhoneConnectedFactory() throw() {}
+	virtual ~GCPhoneConnectedFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCPhoneConnected(); }
+	Packet* createPacket()  { return new GCPhoneConnected(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCPhoneConnected"; }
+	string getPacketName() const  { return "GCPhoneConnected"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PHONE_CONNECTED; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PHONE_CONNECTED; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szPhoneNumber + szSlotID + szBYTE + 20; }
+	PacketSize_t getPacketMaxSize() const  { return szPhoneNumber + szSlotID + szBYTE + 20; }
 
 };
 
@@ -132,7 +132,7 @@ class GCPhoneConnectedHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCPhoneConnected* pGCPhoneConnected, Player* pPlayer) throw(Error);
+	static void execute(GCPhoneConnected* pGCPhoneConnected, Player* pPlayer) ;
 
 };
 

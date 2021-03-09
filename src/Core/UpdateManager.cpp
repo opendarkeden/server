@@ -15,7 +15,6 @@
 // constructor
 //--------------------------------------------------------------------------------
 UpdateManager::UpdateManager () 
-	throw ()
 : m_pResourceManager(NULL)
 {
 }
@@ -25,7 +24,6 @@ UpdateManager::UpdateManager ()
 // destructor
 //--------------------------------------------------------------------------------
 UpdateManager::~UpdateManager () 
-	throw ()
 {
 	// delete all update
 	while ( !m_Updates.empty() ) {
@@ -46,7 +44,6 @@ UpdateManager::~UpdateManager ()
 // load from update file
 //--------------------------------------------------------------------------------
 void UpdateManager::load ( const string & filename ) 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -87,7 +84,6 @@ void UpdateManager::load ( const string & filename )
 // save to update file
 //--------------------------------------------------------------------------------
 void UpdateManager::save ( const string & filename ) const 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -122,7 +118,6 @@ void UpdateManager::save ( const string & filename ) const
 // read from socket 
 //--------------------------------------------------------------------------------
 void UpdateManager::read ( Socket * pSocket )
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -152,7 +147,6 @@ void UpdateManager::read ( Socket * pSocket )
 // write to socket 
 //--------------------------------------------------------------------------------
 void UpdateManager::write ( Socket * pSocket ) const
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -185,7 +179,6 @@ void UpdateManager::write ( Socket * pSocket ) const
 // get resource manager
 //--------------------------------------------------------------------------------
 ResourceManager * UpdateManager::getResourceManager ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -294,7 +287,6 @@ ResourceManager * UpdateManager::getResourceManager ()
 // get size
 //--------------------------------------------------------------------------------
 uint UpdateManager::getSize () const
-	throw ()
 {
 	uint size = szWORD;	// nUpdates
 
@@ -310,7 +302,6 @@ uint UpdateManager::getSize () const
 // get debug string
 //--------------------------------------------------------------------------------
 string UpdateManager::toString () const 
-	throw ()
 {
 	StringStream msg;
 

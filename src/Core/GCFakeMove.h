@@ -28,42 +28,42 @@ class GCFakeMove : public Packet {
 public :
 
 	// constructor
-	GCFakeMove() throw() {}
-	GCFakeMove(ObjectID_t objectID, Coord_t x, Coord_t y, Coord_t x2, Coord_t y2) throw(): m_ObjectID(objectID), m_ToX(x2), m_ToY(y2) {}
+	GCFakeMove()  {}
+	GCFakeMove(ObjectID_t objectID, Coord_t x, Coord_t y, Coord_t x2, Coord_t y2) : m_ObjectID(objectID), m_ToX(x2), m_ToY(y2) {}
     ~GCFakeMove() {};
 
 
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_FAKE_MOVE; }
+	PacketID_t getPacketID() const  { return PACKET_GC_FAKE_MOVE; }
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
 	// const static GCFakeMovePacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + 2*szCoord; }
+	PacketSize_t getPacketSize() const  { return szObjectID + 2*szCoord; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCFakeMove"; }
+	string getPacketName() const  { return "GCFakeMove"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 
 public :
 
 	// get/set Creature ID 
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t objectID) throw() { m_ObjectID = objectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t objectID)  { m_ObjectID = objectID; }
 
 	void setXY(Coord_t x2, Coord_t y2)
 	{
@@ -72,8 +72,8 @@ public :
 	}
 
 	// get
-	Coord_t getToX() const throw() { return m_ToX; }
-	Coord_t getToY() const throw() { return m_ToY; }
+	Coord_t getToX() const  { return m_ToX; }
+	Coord_t getToY() const  { return m_ToY; }
 	
 
 
@@ -97,18 +97,18 @@ class GCFakeMoveFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCFakeMove(); }
+	Packet* createPacket()  { return new GCFakeMove(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCFakeMove"; }
+	string getPacketName() const  { return "GCFakeMove"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_FAKE_MOVE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_FAKE_MOVE; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCFakeMovePacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + 2*szCoord ; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + 2*szCoord ; }
 
 };
 
@@ -124,7 +124,7 @@ class GCFakeMoveHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCFakeMove* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCFakeMove* pPacket, Player* pPlayer) ;
 
 };
 

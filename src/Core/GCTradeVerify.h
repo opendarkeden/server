@@ -64,17 +64,17 @@ class GCTradeVerify : public Packet
 public:
     GCTradeVerify() {};
     ~GCTradeVerify() {};
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_TRADE_VERIFY; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE ; }
-	string getPacketName() const throw() { return "GCTradeVerify"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_TRADE_VERIFY; }
+	PacketSize_t getPacketSize() const  { return szBYTE ; }
+	string getPacketName() const  { return "GCTradeVerify"; }
+	string toString() const ;
 
 public:
-	BYTE getCode() const throw() { return m_Code; }
-	void setCode(BYTE code) throw() { m_Code = code; }
+	BYTE getCode() const  { return m_Code; }
+	void setCode(BYTE code)  { m_Code = code; }
 
 private:
 	BYTE       m_Code;           // ÄÚµå
@@ -91,10 +91,10 @@ private:
 class GCTradeVerifyFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCTradeVerify(); }
-	string getPacketName() const throw() { return "GCTradeVerify"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_TRADE_VERIFY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE; }
+	Packet* createPacket()  { return new GCTradeVerify(); }
+	string getPacketName() const  { return "GCTradeVerify"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_TRADE_VERIFY; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
 
 };
 
@@ -108,7 +108,7 @@ public:
 class GCTradeVerifyHandler 
 {
 public:
-	static void execute(GCTradeVerify* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCTradeVerify* pPacket, Player* pPlayer) ;
 
 };
 

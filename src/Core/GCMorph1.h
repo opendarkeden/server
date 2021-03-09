@@ -32,25 +32,25 @@ class GCMorph1 : public Packet {
 public :
 
 	// constructor
-	GCMorph1() throw();
+	GCMorph1() ;
 
 	// destructor
-	~GCMorph1() throw();
+	~GCMorph1() ;
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MORPH_1; }
+	PacketID_t getPacketID() const  { return PACKET_GC_MORPH_1; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		// [PCType][PCInfo]
 		// [GameTime][Weather][WeatherLevel][DarkLevel][LightLevel]
@@ -63,10 +63,10 @@ public :
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GCMorph1"; }
+	string getPacketName() const  { return "GCMorph1"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 
 //--------------------------------------------------
@@ -75,20 +75,20 @@ public :
 public :
 
 	// get/set PC info
-	PCInfo* getPCInfo2() const throw() { return m_pPCInfo; }
-	void setPCInfo2(PCInfo* pPCInfo) throw(Error) { m_pPCInfo = pPCInfo; }
+	PCInfo* getPCInfo2() const  { return m_pPCInfo; }
+	void setPCInfo2(PCInfo* pPCInfo)  { m_pPCInfo = pPCInfo; }
 
 	// get/set Inventory Info
-	InventoryInfo* getInventoryInfo() const throw() { return m_pInventoryInfo; }
-	void setInventoryInfo(InventoryInfo* pInventoryInfo) throw(Error) { m_pInventoryInfo = pInventoryInfo; }
+	InventoryInfo* getInventoryInfo() const  { return m_pInventoryInfo; }
+	void setInventoryInfo(InventoryInfo* pInventoryInfo)  { m_pInventoryInfo = pInventoryInfo; }
 
 	// get/set Gear Info
-	GearInfo* getGearInfo() const throw() { return m_pGearInfo; }
-	void setGearInfo(GearInfo* pGearInfo) throw(Error) { m_pGearInfo = pGearInfo; }
+	GearInfo* getGearInfo() const  { return m_pGearInfo; }
+	void setGearInfo(GearInfo* pGearInfo)  { m_pGearInfo = pGearInfo; }
 
 	// get/set ExtraInfo
-	ExtraInfo* getExtraInfo() const throw() { return m_pExtraInfo; }
-	void setExtraInfo(ExtraInfo* pExtraInfo) throw(Error) { m_pExtraInfo = pExtraInfo; }
+	ExtraInfo* getExtraInfo() const  { return m_pExtraInfo; }
+	void setExtraInfo(ExtraInfo* pExtraInfo)  { m_pExtraInfo = pExtraInfo; }
 
 //--------------------------------------------------
 // data members
@@ -142,18 +142,18 @@ class GCMorph1Factory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCMorph1(); }
+	Packet* createPacket()  { return new GCMorph1(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCMorph1"; }
+	string getPacketName() const  { return "GCMorph1"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MORPH_1; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MORPH_1; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCMorph1PacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE + PCSlayerInfo2::getMaxSize() 
 			+ InventoryInfo::getMaxSize()
@@ -177,7 +177,7 @@ class GCMorph1Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCMorph1* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCMorph1* pPacket, Player* pPlayer) ;
 
 };
 

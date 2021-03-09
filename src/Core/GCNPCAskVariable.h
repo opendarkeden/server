@@ -24,27 +24,27 @@ typedef HashMapScriptParameter::const_iterator	HashMapScriptParameterConstItor;
 class GCNPCAskVariable : public Packet
 {
 public:
-	GCNPCAskVariable() throw();
-	virtual ~GCNPCAskVariable() throw();
+	GCNPCAskVariable() ;
+	virtual ~GCNPCAskVariable() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_NPC_ASK_VARIABLE; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCNPCAskVariable"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_NPC_ASK_VARIABLE; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCNPCAskVariable"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID(void) const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID(void) const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
-	ScriptID_t getScriptID(void) const throw() { return m_ScriptID; }
-	void setScriptID(ScriptID_t id) throw() { m_ScriptID = id; }
+	ScriptID_t getScriptID(void) const  { return m_ScriptID; }
+	void setScriptID(ScriptID_t id)  { m_ScriptID = id; }
 
 	void addScriptParameter(ScriptParameter* pParam ) throw(DuplicatedException);
-	void clearScriptParameters() throw();
+	void clearScriptParameters() ;
 	HashMapScriptParameter& getScriptParameters() { return m_ScriptParameters; }
 	string getValue(const string& name ) const throw(NoSuchElementException);
 
@@ -61,10 +61,10 @@ private:
 class GCNPCAskVariableFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCNPCAskVariable(); }
-	string getPacketName() const throw() { return "GCNPCAskVariable"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_NPC_ASK_VARIABLE; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCNPCAskVariable(); }
+	string getPacketName() const  { return "GCNPCAskVariable"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_NPC_ASK_VARIABLE; }
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szObjectID
 			 + szScriptID
@@ -80,7 +80,7 @@ public:
 class GCNPCAskVariableHandler 
 {
 public:
-	static void execute(GCNPCAskVariable* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCNPCAskVariable* pPacket, Player* pPlayer) ;
 };
 
 #endif

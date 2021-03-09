@@ -30,19 +30,19 @@ public:
 	GSAddGuildMember() {};
     ~GSAddGuildMember() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream& iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream& iStream) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GS_ADD_GUILD_MEMBER; }
+	PacketID_t getPacketID() const  { return PACKET_GS_ADD_GUILD_MEMBER; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szGuildID +					// guild id
 			   szBYTE +						// member name length
@@ -54,32 +54,32 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GSAddGuildMember"; }
+	string getPacketName() const  { return "GSAddGuildMember"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set guild ID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t id ) throw() { m_GuildID = id; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID(GuildID_t id )  { m_GuildID = id; }
 
 	// get/set name
-	const string& getName() const throw() { return m_Name; }
-	void setName(const string& name ) throw() { m_Name = name; }
+	const string& getName() const  { return m_Name; }
+	void setName(const string& name )  { m_Name = name; }
 
 	// get/set Guild Member Rank
-	GuildMemberRank_t getGuildMemberRank() const throw() { return m_GuildMemberRank; }
-	void setGuildMemberRank(GuildMemberRank_t GuildMemberRank ) throw() { m_GuildMemberRank = GuildMemberRank; }
+	GuildMemberRank_t getGuildMemberRank() const  { return m_GuildMemberRank; }
+	void setGuildMemberRank(GuildMemberRank_t GuildMemberRank )  { m_GuildMemberRank = GuildMemberRank; }
 
 	// get/set Guild Member Intro
-	const string& getGuildMemberIntro() const throw() { return m_GuildMemberIntro; }
-	void setGuildMemberIntro(const string& GuildMemberIntro ) throw() { m_GuildMemberIntro = GuildMemberIntro; }
+	const string& getGuildMemberIntro() const  { return m_GuildMemberIntro; }
+	void setGuildMemberIntro(const string& GuildMemberIntro )  { m_GuildMemberIntro = GuildMemberIntro; }
 
 	// get/set server group ID
-	ServerGroupID_t getServerGroupID() const throw() { return m_ServerGroupID; }
-	void setServerGroupID(ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
+	ServerGroupID_t getServerGroupID() const  { return m_ServerGroupID; }
+	void setServerGroupID(ServerGroupID_t serverGroupID )  { m_ServerGroupID = serverGroupID; }
 
 private :
 
@@ -114,18 +114,18 @@ class GSAddGuildMemberFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new GSAddGuildMember(); }
+	Packet* createPacket()  { return new GSAddGuildMember(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GSAddGuildMember"; }
+	string getPacketName() const  { return "GSAddGuildMember"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GS_ADD_GUILD_MEMBER; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GS_ADD_GUILD_MEMBER; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szGuildID +					// guild id
 			   szBYTE +						// member name length
@@ -150,7 +150,7 @@ class GSAddGuildMemberHandler {
 public:
 
 	// execute packet's handler
-	static void execute(GSAddGuildMember* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GSAddGuildMember* pPacket, Player* pPlayer) ;
 
 };
 

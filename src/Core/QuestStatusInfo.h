@@ -30,7 +30,7 @@ struct MissionInfo
 
 	MissionInfo() : m_StrArg(""), m_NumArg(0) { }
 
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error)
+	void read(SocketInputStream& iStream) 
 	{
 		iStream.read(m_Condition);
 		iStream.read(m_Index);
@@ -43,7 +43,7 @@ struct MissionInfo
 		iStream.read(m_NumArg);
 	}
 
-	void write(SocketOutputStream& oStream) const throw(ProtocolException, Error)
+	void write(SocketOutputStream& oStream) const 
 	{
 		oStream.write(m_Condition);
 		oStream.write(m_Index);
@@ -78,8 +78,8 @@ public:
 
 	QuestStatusInfo(DWORD qID) : m_QuestID(qID), m_Status(CANNOT) { }
 
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+	void read(SocketInputStream& iStream) ;
+	void write(SocketOutputStream& oStream) const ;
 	PacketSize_t getSize() const;
 	static PacketSize_t getMaxSize();
 

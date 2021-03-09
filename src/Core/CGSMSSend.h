@@ -31,13 +31,13 @@ class CGSMSSend : public Packet {
 public:
     CGSMSSend() {};
     virtual ~CGSMSSend() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SMS_SEND; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "CGSMSSend"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_SMS_SEND; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "CGSMSSend"; }
+	string toString() const ;
 	
 public:
 	list<string>& getNumbersList() { return m_Numbers; }
@@ -65,10 +65,10 @@ private:
 
 class CGSMSSendFactory : public PacketFactory {
 public:
-	Packet* createPacket() throw() { return new CGSMSSend(); }
-	string getPacketName() const throw() { return "CGSMSSend"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SMS_SEND; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + (szBYTE + MAX_NUMBER_LENGTH)*MAX_RECEVIER_NUM + szBYTE + MAX_RECEVIER_NUM + szBYTE + MAX_MESSAGE_LENGTH; }
+	Packet* createPacket()  { return new CGSMSSend(); }
+	string getPacketName() const  { return "CGSMSSend"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SMS_SEND; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + (szBYTE + MAX_NUMBER_LENGTH)*MAX_RECEVIER_NUM + szBYTE + MAX_RECEVIER_NUM + szBYTE + MAX_MESSAGE_LENGTH; }
 };
 
 
@@ -80,7 +80,7 @@ public:
 
 class CGSMSSendHandler {
 public:
-	static void execute(CGSMSSend* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGSMSSend* pPacket, Player* player) ;
 };
 
 #endif

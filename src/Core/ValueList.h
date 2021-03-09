@@ -18,21 +18,21 @@ template <class T>
 class ValueList 
 {
 public:
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
+    void write (SocketOutputStream & oStream) const ;
 
-	PacketSize_t 	getPacketSize () const throw()		{ return szBYTE + sizeof(T) * m_Values.size(); }
-	static uint 	getPacketMaxSize() throw() 	{ return szBYTE + sizeof(T) * 255; }
+	PacketSize_t 	getPacketSize () const 		{ return szBYTE + sizeof(T) * m_Values.size(); }
+	static uint 	getPacketMaxSize()  	{ return szBYTE + sizeof(T) * 255; }
 
-	string toString () const throw ();
+	string toString () const ;
 
 public:
-	int 	getSize() const throw() 			{ return m_Values.size(); }
-	bool 	isEmpty() const throw() 			{ return m_Values.empty(); }
+	int 	getSize() const  			{ return m_Values.size(); }
+	bool 	isEmpty() const  			{ return m_Values.empty(); }
 
-	void addValue(const T& info) throw() 	{ m_Values.push_back(info); }
+	void addValue(const T& info)  	{ m_Values.push_back(info); }
 
-	T popValue() throw() 
+	T popValue()  
 	{ 
 		const T info = m_Values.front(); 
 		m_Values.pop_front(); 
@@ -72,7 +72,6 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 template <class T>
 void ValueList<T>::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -95,8 +94,7 @@ void ValueList<T>::read ( SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 template <class T>
-void ValueList<T>::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+void ValueList<T>::write ( SocketOutputStream & oStream ) const
 {
 	__BEGIN_TRY
 		
@@ -118,7 +116,7 @@ void ValueList<T>::write ( SocketOutputStream & oStream )
 //////////////////////////////////////////////////////////////////////////////
 template <class T>
 string ValueList<T>::toString () 
-	const throw ()
+	const 
 {
 	__BEGIN_TRY
 

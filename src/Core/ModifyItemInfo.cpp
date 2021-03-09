@@ -18,7 +18,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 ModifyItemInfo::ModifyItemInfo () 
-     throw ()
 {
 	__BEGIN_TRY
 	m_ListNum = 0;
@@ -30,7 +29,6 @@ ModifyItemInfo::ModifyItemInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 ModifyItemInfo::~ModifyItemInfo () 
-    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -41,7 +39,6 @@ ModifyItemInfo::~ModifyItemInfo ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void ModifyItemInfo::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -71,7 +68,7 @@ void ModifyItemInfo::read ( SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void ModifyItemInfo::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+     const
 {
 	__BEGIN_TRY
 		
@@ -93,7 +90,6 @@ void ModifyItemInfo::write ( SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void ModifyItemInfo::addListElement( ObjectID_t ObjectID, ModifyType List , DWORD Value )
-	throw()
 {
 	__BEGIN_TRY
 
@@ -117,7 +113,7 @@ void ModifyItemInfo::addListElement( ObjectID_t ObjectID, ModifyType List , DWOR
 //
 //////////////////////////////////////////////////////////////////////
 string ModifyItemInfo::toString () 
-	const throw ()
+	const
 {
 	__BEGIN_TRY
 

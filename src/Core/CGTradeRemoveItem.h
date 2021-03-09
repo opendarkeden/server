@@ -21,20 +21,20 @@ class CGTradeRemoveItem : public Packet
 public:
     CGTradeRemoveItem() {};
     virtual ~CGTradeRemoveItem() {};
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_TRADE_REMOVE_ITEM; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID*2; }
-	string getPacketName() const throw() { return "CGTradeRemoveItem"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_TRADE_REMOVE_ITEM; }
+	PacketSize_t getPacketSize() const  { return szObjectID*2; }
+	string getPacketName() const  { return "CGTradeRemoveItem"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t id) throw() { m_TargetObjectID = id; }
+	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
+	void setTargetObjectID(ObjectID_t id)  { m_TargetObjectID = id; }
 
-	ObjectID_t getItemObjectID() const throw() { return m_ItemObjectID; }
-	void setItemObjectID(ObjectID_t id) throw() { m_ItemObjectID = id; }
+	ObjectID_t getItemObjectID() const  { return m_ItemObjectID; }
+	void setItemObjectID(ObjectID_t id)  { m_ItemObjectID = id; }
 
 private:
 	ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 ObjectID
@@ -52,10 +52,10 @@ private:
 class CGTradeRemoveItemFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGTradeRemoveItem(); }
-	string getPacketName() const throw() { return "CGTradeRemoveItem"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_TRADE_REMOVE_ITEM; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID*2; }
+	Packet* createPacket()  { return new CGTradeRemoveItem(); }
+	string getPacketName() const  { return "CGTradeRemoveItem"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_TRADE_REMOVE_ITEM; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID*2; }
 };
 
 
@@ -68,11 +68,11 @@ public:
 class CGTradeRemoveItemHandler 
 {
 public:
-	static void execute(CGTradeRemoveItem* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeSlayer(CGTradeRemoveItem* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeVampire(CGTradeRemoveItem* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeOusters(CGTradeRemoveItem* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeError(CGTradeRemoveItem* pPacket, Player* player, BYTE ErrorCode) throw(ProtocolException, Error);
+	static void execute(CGTradeRemoveItem* pPacket, Player* player) ;
+	static void executeSlayer(CGTradeRemoveItem* pPacket, Player* player) ;
+	static void executeVampire(CGTradeRemoveItem* pPacket, Player* player) ;
+	static void executeOusters(CGTradeRemoveItem* pPacket, Player* player) ;
+	static void executeError(CGTradeRemoveItem* pPacket, Player* player, BYTE ErrorCode) ;
 };
 
 #endif

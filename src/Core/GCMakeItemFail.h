@@ -30,36 +30,36 @@ class GCMakeItemFail : public GCChangeInventoryItemNum, public ModifyInfo {
 public :
 	
 	// constructor
-	GCMakeItemFail() throw();
+	GCMakeItemFail() ;
 	
 	// destructor
-	~GCMakeItemFail() throw();
+	~GCMakeItemFail() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MAKE_ITEM_FAIL; }
+	PacketID_t getPacketID() const  { return PACKET_GC_MAKE_ITEM_FAIL; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return GCChangeInventoryItemNum::getPacketSize() + ModifyInfo::getPacketSize(); }
+	PacketSize_t getPacketSize() const  { return GCChangeInventoryItemNum::getPacketSize() + ModifyInfo::getPacketSize(); }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCMakeItemFail"; }
+	string getPacketName() const  { return "GCMakeItemFail"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 private :
 	
 
@@ -79,26 +79,26 @@ class GCMakeItemFailFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCMakeItemFailFactory() throw() {}
+	GCMakeItemFailFactory()  {}
 	
 	// destructor
-	virtual ~GCMakeItemFailFactory() throw() {}
+	virtual ~GCMakeItemFailFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCMakeItemFail(); }
+	Packet* createPacket()  { return new GCMakeItemFail(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCMakeItemFail"; }
+	string getPacketName() const  { return "GCMakeItemFail"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MAKE_ITEM_FAIL; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MAKE_ITEM_FAIL; }
 
 	// get Packet Max Size
-	// PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE* m_ListNum* 2 ; }
-	PacketSize_t getPacketMaxSize() const throw() { return 255 + ModifyInfo::getPacketMaxSize(); }
+	// PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE* m_ListNum* 2 ; }
+	PacketSize_t getPacketMaxSize() const  { return 255 + ModifyInfo::getPacketMaxSize(); }
 };
 
 
@@ -113,7 +113,7 @@ class GCMakeItemFailHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCMakeItemFail* pGCMakeItemFail, Player* pPlayer) throw(Error);
+	static void execute(GCMakeItemFail* pGCMakeItemFail, Player* pPlayer) ;
 
 };
 

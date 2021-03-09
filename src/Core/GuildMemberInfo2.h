@@ -27,42 +27,42 @@ class GuildMemberInfo2 {
 public :
 	
 	// constructor
-	GuildMemberInfo2 () throw ();
+	GuildMemberInfo2 () ;
 	
 	// destructor
-	~GuildMemberInfo2 () throw ();
+	~GuildMemberInfo2 () ;
 
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () throw ();
+	PacketSize_t getSize () ;
 
-	static uint getMaxSize() throw() {
+	static uint getMaxSize()  {
 		return szGuildID + szBYTE + 20 + szGuildMemberRank + szbool;
 	}
 
 	// get packet's debug string
-	string toString () const throw ();
+	string toString () const ;
 
 	// get/set guild ID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID( GuildID_t guildID ) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID( GuildID_t guildID )  { m_GuildID = guildID; }
 
 	// get/set Name
-	string getName() const throw() { return m_Name; }
-	void setName( const string& Name ) throw() { m_Name = Name; }
+	string getName() const  { return m_Name; }
+	void setName( const string& Name )  { m_Name = Name; }
 
 	// get/set GuildMemberRank
-	GuildMemberRank_t getRank() const throw() { return m_Rank; }
-	void setRank( GuildMemberRank_t rank ) throw() { m_Rank = rank; }
+	GuildMemberRank_t getRank() const  { return m_Rank; }
+	void setRank( GuildMemberRank_t rank )  { m_Rank = rank; }
 
 	// get/set logon
 	bool getLogOn() const { return m_bLogOn; }

@@ -17,17 +17,17 @@
 class CGAddSMSAddress : public Packet 
 {
 public:
-	CGAddSMSAddress() throw();
-	~CGAddSMSAddress() throw();
+	CGAddSMSAddress() ;
+	~CGAddSMSAddress() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_SMS_ADDRESS; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + m_CharacterName.size() + szBYTE + m_CustomName.size() + szBYTE + m_Number.size(); }
-	string getPacketName() const throw() { return "CGAddSMSAddress"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_SMS_ADDRESS; }
+	PacketSize_t getPacketSize() const  { return szBYTE + m_CharacterName.size() + szBYTE + m_CustomName.size() + szBYTE + m_Number.size(); }
+	string getPacketName() const  { return "CGAddSMSAddress"; }
+	string toString() const ;
 	
 public:
 	const string&	getCharacterName() const { return m_CharacterName; }
@@ -52,10 +52,10 @@ private:
 class CGAddSMSAddressFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddSMSAddress(); }
-	string getPacketName() const throw() { return "CGAddSMSAddress"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_SMS_ADDRESS; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + 20 + szBYTE + 40 + szBYTE + 11; }
+	Packet* createPacket()  { return new CGAddSMSAddress(); }
+	string getPacketName() const  { return "CGAddSMSAddress"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_SMS_ADDRESS; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + 20 + szBYTE + 40 + szBYTE + 11; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ public:
 class CGAddSMSAddressHandler 
 {
 public:
-	static void execute(CGAddSMSAddress* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddSMSAddress* pPacket, Player* player) ;
 };
 
 #endif

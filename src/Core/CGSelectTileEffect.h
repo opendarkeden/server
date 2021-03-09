@@ -21,13 +21,13 @@ class CGSelectTileEffect : public Packet
 public:
     CGSelectTileEffect() {};
     virtual ~CGSelectTileEffect() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SELECT_TILE_EFFECT; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID; }
-	string getPacketName() const throw() { return "CGSelectTileEffect"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_SELECT_TILE_EFFECT; }
+	PacketSize_t getPacketSize() const  { return szObjectID; }
+	string getPacketName() const  { return "CGSelectTileEffect"; }
+	string toString() const ;
 
 public:
 	ObjectID_t getEffectObjectID(void) const { return m_EffectObjectID; }
@@ -44,10 +44,10 @@ private:
 
 class CGSelectTileEffectFactory : public PacketFactory 
 {
-	Packet* createPacket() throw() { return new CGSelectTileEffect(); }
-	string getPacketName() const throw() { return "CGSelectTileEffect"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SELECT_TILE_EFFECT; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID; }
+	Packet* createPacket()  { return new CGSelectTileEffect(); }
+	string getPacketName() const  { return "CGSelectTileEffect"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SELECT_TILE_EFFECT; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
 };
 
 
@@ -60,8 +60,8 @@ class Effect;
 class CGSelectTileEffectHandler 
 {
 public:
-	static void execute(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer) throw(Error);
-	static void executeVampirePortal(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer, Effect* pEffect) throw(Error);
+	static void execute(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer) ;
+	static void executeVampirePortal(CGSelectTileEffect* pCGSelectTileEffect, Player* pPlayer, Effect* pEffect) ;
 };
 
 #endif

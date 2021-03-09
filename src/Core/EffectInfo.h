@@ -28,40 +28,40 @@ class EffectInfo {
 public :
 	
 	// constructor
-	EffectInfo () throw ();
+	EffectInfo () ;
 	
 	// destructor
-	~EffectInfo () throw ();
+	~EffectInfo () ;
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () const throw () { return szBYTE + szWORD* m_ListNum* 2; }
-	static PacketSize_t getMaxSize() throw() { return 255;}
+	PacketSize_t getSize () const  { return szBYTE + szWORD* m_ListNum* 2; }
+	static PacketSize_t getMaxSize()  { return 255;}
 
 	// get packet's debug string
-	string toString () const throw ();
+	string toString () const ;
 
 	// get / set ListNumber
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
 	// add / delete / clear S List
-	void addListElement(EffectID_t EffectID, WORD Value) throw(); 
+	void addListElement(EffectID_t EffectID, WORD Value) ; 
 
 	// ClearList
-	void clearList() throw() { m_EList.clear(); m_ListNum = 0; }
+	void clearList()  { m_EList.clear(); m_ListNum = 0; }
 
 	// pop front Element in Status List
-	WORD popFrontListElement() throw() { WORD EffectList = m_EList.front(); m_EList.pop_front(); return EffectList; }
+	WORD popFrontListElement()  { WORD EffectList = m_EList.front(); m_EList.pop_front(); return EffectList; }
 
 protected :
 	

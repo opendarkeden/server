@@ -21,27 +21,27 @@
 class GCAddEffect : public Packet 
 {
 public:
-	GCAddEffect() throw();
-	~GCAddEffect() throw();
+	GCAddEffect() ;
+	~GCAddEffect() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_EFFECT; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szEffectID + szDuration; }
-	string getPacketName() const throw() { return "GCAddEffect"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_EFFECT; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szEffectID + szDuration; }
+	string getPacketName() const  { return "GCAddEffect"; }
+	string toString() const ;
 
 public:
-	EffectID_t getEffectID() const throw() { return m_EffectID; }
-	void setEffectID(EffectID_t e) throw() { m_EffectID = e; }
+	EffectID_t getEffectID() const  { return m_EffectID; }
+	void setEffectID(EffectID_t e)  { m_EffectID = e; }
 	
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t o) throw() { m_ObjectID = o; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t o)  { m_ObjectID = o; }
 
-	Duration_t getDuration() const throw() { return m_Duration; }
-	void setDuration(Duration_t d) throw() { m_Duration = d; }
+	Duration_t getDuration() const  { return m_Duration; }
+	void setDuration(Duration_t d)  { m_Duration = d; }
 	
 private :
 	ObjectID_t m_ObjectID;
@@ -57,14 +57,14 @@ private :
 class GCAddEffectFactory : public PacketFactory 
 {
 public :
-	GCAddEffectFactory() throw() {}
-	virtual ~GCAddEffectFactory() throw() {}
+	GCAddEffectFactory()  {}
+	virtual ~GCAddEffectFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCAddEffect(); }
-	string getPacketName() const throw() { return "GCAddEffect"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_EFFECT; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szEffectID + szDuration; }
+	Packet* createPacket()  { return new GCAddEffect(); }
+	string getPacketName() const  { return "GCAddEffect"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_EFFECT; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szEffectID + szDuration; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ public:
 class GCAddEffectHandler 
 {
 public:
-	static void execute(GCAddEffect* pGCAddEffect, Player* pPlayer) throw(Error);
+	static void execute(GCAddEffect* pGCAddEffect, Player* pPlayer) ;
 
 };
 

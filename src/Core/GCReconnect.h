@@ -29,19 +29,19 @@ public :
 	GCReconnect() {};
     ~GCReconnect() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_RECONNECT; }
+	PacketID_t getPacketID() const  { return PACKET_GC_RECONNECT; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE + m_Name.size() 		// 캐릭터 이름
 			+ szPCType 						// 슬레이어 or 뱀파이어?
@@ -50,28 +50,28 @@ public :
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GCReconnect"; }
+	string getPacketName() const  { return "GCReconnect"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set creature name
-	string getName() const throw() { return m_Name; }
-	void setName(const string & name) throw() { m_Name = name; }
+	string getName() const  { return m_Name; }
+	void setName(const string & name)  { m_Name = name; }
 
 	// get/set pc type
-	PCType getPCType() const throw() { return m_PCType; }
-	void setPCType(PCType pcType) throw() { m_PCType = pcType; }
+	PCType getPCType() const  { return m_PCType; }
+	void setPCType(PCType pcType)  { m_PCType = pcType; }
 
 	// get/set server ip
-	string getServerIP() const throw() { return m_ServerIP; }
-	void setServerIP(const string & serverIP) throw() { m_ServerIP = serverIP; }
+	string getServerIP() const  { return m_ServerIP; }
+	void setServerIP(const string & serverIP)  { m_ServerIP = serverIP; }
 
 	// get/set key
-	DWORD getKey() const throw() { return m_Key; }
-	void setKey(DWORD key) throw() { m_Key = key; }
+	DWORD getKey() const  { return m_Key; }
+	void setKey(DWORD key)  { m_Key = key; }
 
 private :
 	
@@ -103,18 +103,18 @@ class GCReconnectFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCReconnect(); }
+	Packet* createPacket()  { return new GCReconnect(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCReconnect"; }
+	string getPacketName() const  { return "GCReconnect"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_RECONNECT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_RECONNECT; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCReconnectPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szBYTE + 20 		 		// 캐릭터 이름
 			+ szPCType 					// 슬레이어 or 뱀파이어?
@@ -136,7 +136,7 @@ class GCReconnectHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCReconnect* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCReconnect* pPacket, Player* pPlayer) ;
 
 };
 

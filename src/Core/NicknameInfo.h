@@ -27,8 +27,8 @@ public:
 	PacketSize_t		getSize() const;
 	static PacketSize_t	getMaxSize() { return szWORD + szBYTE + szBYTE + MAX_NICKNAME_SIZE; }
 
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+	void read(SocketInputStream& iStream) ;
+	void write(SocketOutputStream& oStream) const ;
 
 	WORD	getNicknameID() const { return m_NicknameID; }
 	BYTE	getNicknameType() const { return m_NicknameType; }

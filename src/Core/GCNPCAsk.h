@@ -18,27 +18,27 @@
 class GCNPCAsk : public Packet 
 {
 public:
-	GCNPCAsk() throw();
-	virtual ~GCNPCAsk() throw();
+	GCNPCAsk() ;
+	virtual ~GCNPCAsk() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_NPC_ASK; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szScriptID + szNPCID; }
-	string getPacketName() const throw() { return "GCNPCAsk"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_NPC_ASK; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szScriptID + szNPCID; }
+	string getPacketName() const  { return "GCNPCAsk"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID(void) const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID(void) const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
-	ScriptID_t getScriptID(void) const throw() { return m_ScriptID; }
-	void setScriptID(ScriptID_t id) throw() { m_ScriptID = id; }
+	ScriptID_t getScriptID(void) const  { return m_ScriptID; }
+	void setScriptID(ScriptID_t id)  { m_ScriptID = id; }
 
-	NPCID_t	getNPCID() const throw() { return m_NPCID; }
-	void setNPCID(NPCID_t npcID ) throw() { m_NPCID = npcID; }
+	NPCID_t	getNPCID() const  { return m_NPCID; }
+	void setNPCID(NPCID_t npcID )  { m_NPCID = npcID; }
 
 private:
 	ObjectID_t m_ObjectID; // NPC's object id
@@ -53,10 +53,10 @@ private:
 class GCNPCAskFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCNPCAsk(); }
-	string getPacketName() const throw() { return "GCNPCAsk"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_NPC_ASK; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szScriptID + szNPCID; }
+	Packet* createPacket()  { return new GCNPCAsk(); }
+	string getPacketName() const  { return "GCNPCAsk"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_NPC_ASK; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szScriptID + szNPCID; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ public:
 class GCNPCAskHandler 
 {
 public:
-	static void execute(GCNPCAsk* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCNPCAsk* pPacket, Player* pPlayer) ;
 };
 
 #endif

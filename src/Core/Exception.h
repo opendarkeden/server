@@ -35,25 +35,25 @@ class Throwable : public std::exception
 public:
 
 	// constructor
-	Throwable () throw () {}
+	Throwable ()  {}
 	
 	// constructor
-	Throwable (const string& message) throw () : m_Message(message) {}
+	Throwable (const string& message)  : m_Message(message) {}
 
 	// destructor
-	virtual ~Throwable () throw () {}
+	virtual ~Throwable ()  {}
 
 	// return class's name
-	virtual string getName () const throw () { return what(); }
+	virtual string getName () const  { return what(); }
 
 	// add function name to throwable object's function stack
-	void addStack (const string & stackname) throw ()
+	void addStack (const string & stackname) 
 	{
 		m_Stacks.push_front(stackname);
 	}
 
 	// return debug string - throwable object's function stack trace
-	string getStackTrace () const throw ()
+	string getStackTrace () const 
 	{
 		StringStream buf;
 		int i = 1;
@@ -70,13 +70,13 @@ public:
 	}
 
 	// get throwable object's message
-	const string& getMessage () const throw () { return m_Message; }
+	const string& getMessage () const  { return m_Message; }
 	
 	// set throwable object's message
-	void setMessage (const string & message) throw () { m_Message = message; }
+	void setMessage (const string & message)  { m_Message = message; }
 	
 	// return debug string - throwable object's detailed information
-	virtual string toString () const throw ()
+	virtual string toString () const 
 	{
 		StringStream buf;
 		buf << getName() << " : " << m_Message << '\n'
@@ -165,9 +165,9 @@ private :
 //////////////////////////////////////////////////////////////////////
 class Exception : public Throwable {
 public :
-	Exception () throw () : Throwable() {}
-	Exception (const string& msg) throw () : Throwable(msg) {}
-	string getName () const throw () { return "Exception"; }
+	Exception ()  : Throwable() {}
+	Exception (const string& msg)  : Throwable(msg) {}
+	string getName () const  { return "Exception"; }
 };
 
 	//////////////////////////////////////////////////////////////////////
@@ -180,9 +180,9 @@ public :
 	// 파일, 소켓, IPC 입출력시 발생할 수 있는 예외
 	class IOException : public Exception {
 	public :
-		IOException () throw () : Exception () {}
-		IOException (const string& msg) throw () : Exception (msg) {}
-		string getName () const throw () { return "IOException"; }
+		IOException ()  : Exception () {}
+		IOException (const string& msg)  : Exception (msg) {}
+		string getName () const  { return "IOException"; }
 	};
 
 		//////////////////////////////////////////////////////////////////////
@@ -194,9 +194,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class NonBlockingIOException : public IOException {
 		public :
-			NonBlockingIOException () throw () : IOException () {}
-			NonBlockingIOException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "NonBlockingIOException"; }
+			NonBlockingIOException ()  : IOException () {}
+			NonBlockingIOException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "NonBlockingIOException"; }
 		};
 	
 		//////////////////////////////////////////////////////////////////////
@@ -208,9 +208,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedIOException : public IOException {
 		public :
-			InterruptedIOException () throw () : IOException () {}
-			InterruptedIOException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "InterruptedIOException"; }
+			InterruptedIOException ()  : IOException () {}
+			InterruptedIOException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "InterruptedIOException"; }
 		};
 	
 		//////////////////////////////////////////////////////////////////////
@@ -222,9 +222,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class EOFException : public IOException {
 		public :
-			EOFException () throw () : IOException () {}
-			EOFException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "EOFException"; }
+			EOFException ()  : IOException () {}
+			EOFException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "EOFException"; }
 		};
 	
 		//////////////////////////////////////////////////////////////////////
@@ -234,9 +234,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class FileNotOpenedException : public IOException {
 		public :
-			FileNotOpenedException () throw () : IOException() {}
-			FileNotOpenedException (const string& msg) throw () : IOException(msg) {}
-			string getName () const throw () { return "FileNotOpenedException"; }
+			FileNotOpenedException ()  : IOException() {}
+			FileNotOpenedException (const string& msg)  : IOException(msg) {}
+			string getName () const  { return "FileNotOpenedException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -246,9 +246,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class FileAlreadyExistException : public IOException {
 		public :
-			FileAlreadyExistException () throw () : IOException() {}
-			FileAlreadyExistException (const string& msg) throw () : IOException(msg) {}
-			string getName () const throw () { return "FileAlreadyExistException"; }
+			FileAlreadyExistException ()  : IOException() {}
+			FileAlreadyExistException (const string& msg)  : IOException(msg) {}
+			string getName () const  { return "FileAlreadyExistException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -258,9 +258,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class FileNotExistException : public IOException {
 		public :
-			FileNotExistException () throw () : IOException() {}
-			FileNotExistException (const string& msg) throw () : IOException(msg) {}
-			string getName () const throw () { return "FileNotExistException"; }
+			FileNotExistException ()  : IOException() {}
+			FileNotExistException (const string& msg)  : IOException(msg) {}
+			string getName () const  { return "FileNotExistException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -272,9 +272,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class TimeoutException : public IOException {
 		public :
-			TimeoutException () throw () : IOException () {}
-			TimeoutException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "TimeoutException"; }
+			TimeoutException ()  : IOException () {}
+			TimeoutException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "TimeoutException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -286,9 +286,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class SocketException : public IOException {
 		public :
-			SocketException () throw () : IOException () {}
-			SocketException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "SocketException"; }
+			SocketException ()  : IOException () {}
+			SocketException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "SocketException"; }
 		};
 	
 			//////////////////////////////////////////////////////////////////////
@@ -300,9 +300,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class BindException : public SocketException {
 			public :
-				BindException () throw () : SocketException () {}
-				BindException (const string& msg) throw () : SocketException (msg) {}
-				string getName () const throw () { return "BindException"; }
+				BindException ()  : SocketException () {}
+				BindException (const string& msg)  : SocketException (msg) {}
+				string getName () const  { return "BindException"; }
 			};
 	
 			//////////////////////////////////////////////////////////////////////
@@ -314,9 +314,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class ConnectException : public SocketException {
 			public :
-				ConnectException () throw () : SocketException () {}
-				ConnectException (const string& msg) throw () : SocketException (msg) {}
-				string getName () const throw () { return "ConnectException"; }
+				ConnectException ()  : SocketException () {}
+				ConnectException (const string& msg)  : SocketException (msg) {}
+				string getName () const  { return "ConnectException"; }
 			};
 			
 		//////////////////////////////////////////////////////////////////////
@@ -328,9 +328,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class ProtocolException : public IOException {
 		public :
-			ProtocolException () throw () : IOException () {}
-			ProtocolException (const string& msg) throw () : IOException (msg) {}
-			string getName () const throw () { return "ProtocolException"; }
+			ProtocolException ()  : IOException () {}
+			ProtocolException (const string& msg)  : IOException (msg) {}
+			string getName () const  { return "ProtocolException"; }
 		};
 	
 			//////////////////////////////////////////////////////////////////////
@@ -342,9 +342,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class IdleException : public ProtocolException {
 			public :
-				IdleException () throw () : ProtocolException () {}
-				IdleException (const string& msg) throw () : ProtocolException (msg) {}
-				string getName () const throw () { return "IdleException"; }
+				IdleException ()  : ProtocolException () {}
+				IdleException (const string& msg)  : ProtocolException (msg) {}
+				string getName () const  { return "IdleException"; }
 			};
 	
 
@@ -357,9 +357,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class InvalidProtocolException : public ProtocolException {
 			public :
-				InvalidProtocolException () throw () : ProtocolException () {}
-				InvalidProtocolException (const string& msg) throw () : ProtocolException (msg) {}
-				string getName () const throw () { return "InvalidProtocolException"; }
+				InvalidProtocolException ()  : ProtocolException () {}
+				InvalidProtocolException (const string& msg)  : ProtocolException (msg) {}
+				string getName () const  { return "InvalidProtocolException"; }
 			};
 	
 			//////////////////////////////////////////////////////////////////////
@@ -371,11 +371,11 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class InsufficientDataException : public ProtocolException {
 			public :
-				InsufficientDataException (uint size = 0) throw () : ProtocolException (), m_Size(size) {}
-				InsufficientDataException (const string& msg, uint size = 0) throw () : ProtocolException (msg), m_Size(size) {}
-				string getName () const throw () { return "InsufficientDataException"; }
-				uint getSize () const throw () { return m_Size; }
-				string toString () const throw ()
+				InsufficientDataException (uint size = 0)  : ProtocolException (), m_Size(size) {}
+				InsufficientDataException (const string& msg, uint size = 0)  : ProtocolException (msg), m_Size(size) {}
+				string getName () const  { return "InsufficientDataException"; }
+				uint getSize () const  { return m_Size; }
+				string toString () const 
 				{
 					StringStream buf;
 					buf << getName() << " : " << getMessage();
@@ -399,9 +399,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class DisconnectException : public ProtocolException {
 			public :
-				DisconnectException () throw () : ProtocolException () {}
-				DisconnectException (const string& msg) throw () : ProtocolException (msg) {}
-				string getName () const throw () { return "DisconnectException"; }
+				DisconnectException ()  : ProtocolException () {}
+				DisconnectException (const string& msg)  : ProtocolException (msg) {}
+				string getName () const  { return "DisconnectException"; }
 			};
 
 			//////////////////////////////////////////////////////////////////////
@@ -411,9 +411,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class IgnorePacketException : public ProtocolException {
 			public :
-				IgnorePacketException () throw () : ProtocolException () {}
-				IgnorePacketException (const string& msg) throw () : ProtocolException (msg) {}
-				string getName () const throw () { return "IgnorePacketException"; }
+				IgnorePacketException ()  : ProtocolException () {}
+				IgnorePacketException (const string& msg)  : ProtocolException (msg) {}
+				string getName () const  { return "IgnorePacketException"; }
 			};
 
 
@@ -426,9 +426,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class ThreadException : public Exception {
 	public :
-		ThreadException () throw () : Exception () {}
-		ThreadException (const string& msg) throw () : Exception (msg) {}
-		string getName () const throw () { return "ThreadException"; }
+		ThreadException ()  : Exception () {}
+		ThreadException (const string& msg)  : Exception (msg) {}
+		string getName () const  { return "ThreadException"; }
 	};
 
 		//////////////////////////////////////////////////////////////////////
@@ -440,9 +440,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class MutexException : public ThreadException {
 		public :
-			MutexException () throw () : ThreadException () {}
-			MutexException (const string& msg) throw () : ThreadException (msg) {}
-			string getName () const throw () { return "MutexException"; }
+			MutexException ()  : ThreadException () {}
+			MutexException (const string& msg)  : ThreadException (msg) {}
+			string getName () const  { return "MutexException"; }
 		};
 
 			//////////////////////////////////////////////////////////////////////
@@ -454,9 +454,9 @@ public :
 			//////////////////////////////////////////////////////////////////////
 			class MutexAttrException : public MutexException {
 			public :
-				MutexAttrException () throw () : MutexException () {}
-				MutexAttrException (const string& msg) throw () : MutexException (msg) {}
-				string getName () const throw () { return "MutexAttrException"; }
+				MutexAttrException ()  : MutexException () {}
+				MutexAttrException (const string& msg)  : MutexException (msg) {}
+				string getName () const  { return "MutexAttrException"; }
 			};
 
 
@@ -469,9 +469,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class CondVarException : public ThreadException {
 		public :
-			CondVarException () throw () : ThreadException () {}
-			CondVarException (const string& msg) throw () : ThreadException (msg) {}
-			string getName () const throw () { return "CondVarException"; }
+			CondVarException ()  : ThreadException () {}
+			CondVarException (const string& msg)  : ThreadException (msg) {}
+			string getName () const  { return "CondVarException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -483,9 +483,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class SemaphoreException : public ThreadException {
 		public :
-			SemaphoreException () throw () : ThreadException () {}
-			SemaphoreException (const string& msg) throw () : ThreadException (msg) {}
-			string getName () const throw () { return "SemaphoreException"; }
+			SemaphoreException ()  : ThreadException () {}
+			SemaphoreException (const string& msg)  : ThreadException (msg) {}
+			string getName () const  { return "SemaphoreException"; }
 		};
 
 
@@ -498,9 +498,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class SQLException : public Exception {
 	public :
-		SQLException () throw () : Exception() {}
-		SQLException (const string& msg) throw () : Exception(msg) {}
-		string getName () const throw () { return "SQLException"; }
+		SQLException ()  : Exception() {}
+		SQLException (const string& msg)  : Exception(msg) {}
+		string getName () const  { return "SQLException"; }
 	};
 
 		//////////////////////////////////////////////////////////////////////
@@ -512,9 +512,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class SQLWarning : public SQLException {
 		public :
-			SQLWarning () throw () : SQLException() {}
-			SQLWarning (const string& msg) throw () : SQLException(msg) {}
-			string getName () const throw () { return "SQLWarning"; }
+			SQLWarning ()  : SQLException() {}
+			SQLWarning (const string& msg)  : SQLException(msg) {}
+			string getName () const  { return "SQLWarning"; }
 		};
 
 
@@ -527,9 +527,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class SQLConnectException : public SQLException {
 		public :
-			SQLConnectException () throw () : SQLException() {}
-			SQLConnectException (const string& msg) throw () : SQLException(msg) {}
-			string getName () const throw () { return "SQLConnectException"; }
+			SQLConnectException ()  : SQLException() {}
+			SQLConnectException (const string& msg)  : SQLException(msg) {}
+			string getName () const  { return "SQLConnectException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -539,9 +539,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class SQLQueryException : public SQLException {
 		public :
-			SQLQueryException () throw () : SQLException() {}
-			SQLQueryException (const string& msg) throw () : SQLException(msg) {}
-			string getName () const throw () { return "SQLQueryException"; }
+			SQLQueryException ()  : SQLException() {}
+			SQLQueryException (const string& msg)  : SQLException(msg) {}
+			string getName () const  { return "SQLQueryException"; }
 		};
 
 
@@ -554,9 +554,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class RuntimeException : public Exception {
 	public :
-		RuntimeException () throw () : Exception () {}
-		RuntimeException (const string& msg) throw () : Exception (msg) {}
-		string getName () const throw () { return "RuntimeException"; }
+		RuntimeException ()  : Exception () {}
+		RuntimeException (const string& msg)  : Exception (msg) {}
+		string getName () const  { return "RuntimeException"; }
 	};
 	
 		//////////////////////////////////////////////////////////////////////
@@ -568,9 +568,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class InvalidArgumentException : public RuntimeException {
 		public :
-			InvalidArgumentException () throw () : RuntimeException () {}
-			InvalidArgumentException (const string& msg) throw () : RuntimeException (msg) {}
-			string getName () const throw () { return "InvalidArgumentException"; }
+			InvalidArgumentException ()  : RuntimeException () {}
+			InvalidArgumentException (const string& msg)  : RuntimeException (msg) {}
+			string getName () const  { return "InvalidArgumentException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -582,9 +582,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class OutOfBoundException : public RuntimeException {
 		public :
-			OutOfBoundException () throw () : RuntimeException () {}
-			OutOfBoundException (const string& msg) throw () : RuntimeException (msg) {}
-			string getName () const throw () { return "OutOfBoundException"; }
+			OutOfBoundException ()  : RuntimeException () {}
+			OutOfBoundException (const string& msg)  : RuntimeException (msg) {}
+			string getName () const  { return "OutOfBoundException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -596,9 +596,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedException : public RuntimeException {
 		public :
-			InterruptedException () throw () : RuntimeException () {}
-			InterruptedException (const string& msg) throw () : RuntimeException (msg) {}
-			string getName () const throw () { return "InterruptedException"; }
+			InterruptedException ()  : RuntimeException () {}
+			InterruptedException (const string& msg)  : RuntimeException (msg) {}
+			string getName () const  { return "InterruptedException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -610,9 +610,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class NoSuchElementException : public RuntimeException {
 		public :
-			NoSuchElementException () throw () : RuntimeException () {}
-			NoSuchElementException (const string& msg) throw () : RuntimeException (msg) {}
-			string getName () const throw () { return "NoSuchElementException"; }
+			NoSuchElementException ()  : RuntimeException () {}
+			NoSuchElementException (const string& msg)  : RuntimeException (msg) {}
+			string getName () const  { return "NoSuchElementException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -624,9 +624,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class DuplicatedException : public RuntimeException {
 		public :
-			DuplicatedException () throw () : RuntimeException () {}
-			DuplicatedException (const string& msg) throw () : RuntimeException (msg) {}
-			string getName () const throw () { return "DuplicatedException"; }
+			DuplicatedException ()  : RuntimeException () {}
+			DuplicatedException (const string& msg)  : RuntimeException (msg) {}
+			string getName () const  { return "DuplicatedException"; }
 		};
 
 	//////////////////////////////////////////////////////////////////////
@@ -638,9 +638,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class GameException : public Exception {
 	public :
-		GameException () throw () : Exception () {}
-		GameException (const string& msg) throw () : Exception (msg) {}
-		string getName () const throw () { return "GameException"; }
+		GameException ()  : Exception () {}
+		GameException (const string& msg)  : Exception (msg) {}
+		string getName () const  { return "GameException"; }
 	};
 	
 		//////////////////////////////////////////////////////////////////////
@@ -652,9 +652,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class PortalException : public GameException {
 		public :
-			PortalException () throw () : GameException () {}
-			PortalException (const string& msg) throw () : GameException (msg) {}
-			string getName () const throw () { return "PortalException"; }
+			PortalException ()  : GameException () {}
+			PortalException (const string& msg)  : GameException (msg) {}
+			string getName () const  { return "PortalException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -664,9 +664,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class EmptyTileNotExistException : public GameException {
 		public :
-			EmptyTileNotExistException () throw () : GameException () {}
-			EmptyTileNotExistException (const string& msg) throw () : GameException (msg) {}
-			string getName () const throw () { return "EmptyTileNotExistException"; }
+			EmptyTileNotExistException ()  : GameException () {}
+			EmptyTileNotExistException (const string& msg)  : GameException (msg) {}
+			string getName () const  { return "EmptyTileNotExistException"; }
 		};
 
 		//////////////////////////////////////////////////////////////////////
@@ -676,9 +676,9 @@ public :
 		//////////////////////////////////////////////////////////////////////
 		class InventoryFullException : public GameException {
 		public :
-			InventoryFullException () throw () : GameException () {}
-			InventoryFullException (const string& msg) throw () : GameException (msg) {}
-			string getName () const throw () { return "InventoryFullException"; }
+			InventoryFullException ()  : GameException () {}
+			InventoryFullException (const string& msg)  : GameException (msg) {}
+			string getName () const  { return "InventoryFullException"; }
 		};
 
 
@@ -689,9 +689,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 class Error : public Throwable {
 public :
-	Error () throw () : Throwable() {}
-	Error (const string & msg) throw () : Throwable(msg) {}
-	string getName () const throw () { return "Error"; }
+	Error ()  : Throwable() {}
+	Error (const string & msg)  : Throwable(msg) {}
+	string getName () const  { return "Error"; }
 };	
 	//////////////////////////////////////////////////////////////////////
 	//
@@ -700,9 +700,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class GameError : public Error {
 	public :
-		GameError () throw () : Error () {}
-		GameError (const string& msg) throw () : Error(msg) {}
-		string getName () const throw () { return "GameError"; }
+		GameError ()  : Error () {}
+		GameError (const string& msg)  : Error(msg) {}
+		string getName () const  { return "GameError"; }
 	};
 
 
@@ -713,9 +713,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class AssertionError : public Error {
 	public :
-		AssertionError () throw () : Error () {}
-		AssertionError (const string& msg) throw () : Error(msg) {}
-		string getName () const throw () { return "AssertionError"; }
+		AssertionError ()  : Error () {}
+		AssertionError (const string& msg)  : Error(msg) {}
+		string getName () const  { return "AssertionError"; }
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -725,9 +725,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class UnsupportedError : public Error {
 	public :
-		UnsupportedError () throw () : Error () {}
-		UnsupportedError (const string& msg) throw () : Error(msg) {}
-		string getName () const throw () { return "UnsupportedError"; }
+		UnsupportedError ()  : Error () {}
+		UnsupportedError (const string& msg)  : Error(msg) {}
+		string getName () const  { return "UnsupportedError"; }
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -740,9 +740,9 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class LogError : public Error {
 	public :
-		LogError () throw () : Error () {}
-		LogError (const string& msg) throw () : Error(msg) {}
-		string getName () const throw () { return "LogError"; }
+		LogError ()  : Error () {}
+		LogError (const string& msg)  : Error(msg) {}
+		string getName () const  { return "LogError"; }
 	};
 
 	//////////////////////////////////////////////////////////////////////
@@ -752,12 +752,12 @@ public :
 	//////////////////////////////////////////////////////////////////////
 	class UnknownError : public Error {
 	public :
-		UnknownError () throw () : Error() {}
-		UnknownError (const string & msg) throw () : Error(msg) {}
-		UnknownError (const string & msg, uint ErrorCode) throw () : Error(msg), m_ErrorCode(ErrorCode) {}
-		string getName () const throw () { return "UnknownError"; }
-		uint getErrorCode () const throw () { return m_ErrorCode; }
-		string toString () const throw ()
+		UnknownError ()  : Error() {}
+		UnknownError (const string & msg)  : Error(msg) {}
+		UnknownError (const string & msg, uint ErrorCode)  : Error(msg), m_ErrorCode(ErrorCode) {}
+		string getName () const  { return "UnknownError"; }
+		uint getErrorCode () const  { return m_ErrorCode; }
+		string toString () const 
 		{
 			StringStream buf;
 			buf << getName() << " : " << getMessage() << " (" << getErrorCode() << ") \n"

@@ -12,7 +12,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToOthers::GCHPRecoveryEndToOthers()
-	throw( Error )
 {
 	__BEGIN_TRY
 	m_CurrentHP = 0;
@@ -24,7 +23,6 @@ GCHPRecoveryEndToOthers::GCHPRecoveryEndToOthers()
 // Destructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToOthers::~GCHPRecoveryEndToOthers()
-	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

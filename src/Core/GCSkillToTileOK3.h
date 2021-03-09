@@ -29,50 +29,50 @@ class GCSkillToTileOK3 : public Packet {
 public :
 	
 	// constructor
-	GCSkillToTileOK3() throw();
+	GCSkillToTileOK3() ;
 	
 	// destructor
-	~GCSkillToTileOK3() throw();
+	~GCSkillToTileOK3() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_TO_TILE_OK_3; }
+	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_TILE_OK_3; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-//	PacketSize_t getPacketSize() const throw() { return szSkillType + szObjectID +(szCoord* 2)
+//	PacketSize_t getPacketSize() const  { return szSkillType + szObjectID +(szCoord* 2)
 //			+ szDuration + szBYTE + szObjectID* m_CListNum; }
-	PacketSize_t getPacketSize() const throw() { return szSkillType + szObjectID +(szCoord* 2) + szBYTE;}
+	PacketSize_t getPacketSize() const  { return szSkillType + szObjectID +(szCoord* 2) + szBYTE;}
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCSkillToTileOK3"; }
+	string getPacketName() const  { return "GCSkillToTileOK3"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ObjectID 
-	CEffectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	CEffectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 	// get / set SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get / set Duration
-//	Duration_t getDuration() const throw() { return m_Duration; }
-//	void setDuration(Duration_t Duration) throw() { m_Duration = Duration; }
+//	Duration_t getDuration() const  { return m_Duration; }
+//	void setDuration(Duration_t Duration)  { m_Duration = Duration; }
 
 	// get / set X, Y
 	Coord_t getX() { return m_X; }
@@ -82,18 +82,18 @@ public :
 	void setY(Coord_t Y) { m_Y = Y; }
 
 	// get / set Creature List Number
-//	BYTE getCListNum() const throw() { return m_CListNum; }
+//	BYTE getCListNum() const  { return m_CListNum; }
 
-//	void setCListNum(BYTE CListNum) throw() { m_CListNum = CListNum; }
+//	void setCListNum(BYTE CListNum)  { m_CListNum = CListNum; }
 
 	// add / delete  Creature List
-//	void addCListElement(ObjectID_t ObjectID) throw();
+//	void addCListElement(ObjectID_t ObjectID) ;
 
 	// Clear CreatureList
-//	void clearCList() throw() { m_CList.clear(); m_CListNum = 0; }
+//	void clearCList()  { m_CList.clear(); m_CListNum = 0; }
 
 	// pop front Element in Status List
-//	ObjectID_t popCListElement() throw() { ObjectID_t CreatureList = m_CList.front(); m_CList.pop_front(); return CreatureList; }
+//	ObjectID_t popCListElement()  { ObjectID_t CreatureList = m_CList.front(); m_CList.pop_front(); return CreatureList; }
 
 	BYTE getGrade() const { return m_Grade; }
 	void setGrade(BYTE grade ) { m_Grade = grade; }
@@ -137,28 +137,28 @@ class GCSkillToTileOK3Factory : public PacketFactory {
 public :
 	
 	// constructor
-	GCSkillToTileOK3Factory() throw() {}
+	GCSkillToTileOK3Factory()  {}
 	
 	// destructor
-	virtual ~GCSkillToTileOK3Factory() throw() {}
+	virtual ~GCSkillToTileOK3Factory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCSkillToTileOK3(); }
+	Packet* createPacket()  { return new GCSkillToTileOK3(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCSkillToTileOK3"; }
+	string getPacketName() const  { return "GCSkillToTileOK3"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SKILL_TO_TILE_OK_3; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_TO_TILE_OK_3; }
 
 	// get Packet Max Size
-//	PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szObjectID +(szCoord* 2) 
+//	PacketSize_t getPacketMaxSize() const  { return szSkillType + szObjectID +(szCoord* 2) 
 //			+ szDuration + szBYTE + szObjectID + 255; }
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szObjectID +(szCoord* 2) + szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType + szObjectID +(szCoord* 2) + szBYTE; }
 };
 
 
@@ -173,7 +173,7 @@ class GCSkillToTileOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToTileOK3* pGCSkillToTileOK3, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToTileOK3* pGCSkillToTileOK3, Player* pPlayer) ;
 
 };
 

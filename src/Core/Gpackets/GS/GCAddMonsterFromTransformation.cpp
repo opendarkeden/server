@@ -11,7 +11,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCAddMonsterFromTransformation::GCAddMonsterFromTransformation()
-	throw( Error )
 :m_pEffectInfo(NULL)
 {
 	__BEGIN_TRY
@@ -22,7 +21,6 @@ GCAddMonsterFromTransformation::GCAddMonsterFromTransformation()
 // Destructor
 //--------------------------------------------------------------------
 GCAddMonsterFromTransformation::~GCAddMonsterFromTransformation()
-	throw( Error )
 {
 	__BEGIN_TRY
 

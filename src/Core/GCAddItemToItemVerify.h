@@ -45,25 +45,25 @@ class GCAddItemToItemVerify : public Packet
 {
 
 public:
-	GCAddItemToItemVerify() throw() { m_Code = ADD_ITEM_TO_ITEM_VERIFY_MAX; m_Parameter = 0;}
-	virtual ~GCAddItemToItemVerify() throw() {}
+	GCAddItemToItemVerify()  { m_Code = ADD_ITEM_TO_ITEM_VERIFY_MAX; m_Parameter = 0;}
+	virtual ~GCAddItemToItemVerify()  {}
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
 
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCAddItemToItemVerify"; }
-	string toString() const throw();
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCAddItemToItemVerify"; }
+	string toString() const ;
 	
 public:
-	BYTE getCode(void) const throw() { return m_Code;}
-	void setCode(BYTE code) throw() { m_Code = code;}
+	BYTE getCode(void) const  { return m_Code;}
+	void setCode(BYTE code)  { m_Code = code;}
 
-	uint getParameter(void) const throw() { return m_Parameter; }
-	void setParameter(uint parameter) throw() { m_Parameter = parameter; }
+	uint getParameter(void) const  { return m_Parameter; }
+	void setParameter(uint parameter)  { m_Parameter = parameter; }
 
 private: 
 	BYTE m_Code;
@@ -78,10 +78,10 @@ private:
 class GCAddItemToItemVerifyFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCAddItemToItemVerify(); }
-	string getPacketName() const throw() { return "GCAddItemToItemVerify"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szuint; }
+	Packet* createPacket()  { return new GCAddItemToItemVerify(); }
+	string getPacketName() const  { return "GCAddItemToItemVerify"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szuint; }
 };
 
 
@@ -92,7 +92,7 @@ public:
 class GCAddItemToItemVerifyHandler 
 {
 public:
-	static void execute(GCAddItemToItemVerify* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCAddItemToItemVerify* pPacket, Player* pPlayer) ;
 };
 
 #endif

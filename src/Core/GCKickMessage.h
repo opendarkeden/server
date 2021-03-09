@@ -40,33 +40,33 @@ public :
     ~GCKickMessage() {};
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_KICK_MESSAGE; }
+	PacketID_t getPacketID() const  { return PACKET_GC_KICK_MESSAGE; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szuint; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szuint; }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCKickMessage"; }
+	string getPacketName() const  { return "GCKickMessage"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set Kick Message Type
-	BYTE getType() const throw() { return m_Type; }
-	void setType(BYTE type ) throw() { m_Type = (KickMessageType)type; }
+	BYTE getType() const  { return m_Type; }
+	void setType(BYTE type )  { m_Type = (KickMessageType)type; }
 
 	// get/set seconds
-	uint getSeconds() const throw() { return m_Seconds; }
-	void setSeconds(uint seconds ) throw() { m_Seconds = seconds; }
+	uint getSeconds() const  { return m_Seconds; }
+	void setSeconds(uint seconds )  { m_Seconds = seconds; }
 
 private :
 	
@@ -90,18 +90,18 @@ class GCKickMessageFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCKickMessage(); }
+	Packet* createPacket()  { return new GCKickMessage(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCKickMessage"; }
+	string getPacketName() const  { return "GCKickMessage"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_KICK_MESSAGE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_KICK_MESSAGE; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCKickMessagePacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szuint; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szuint; }
 
 };
 
@@ -117,7 +117,7 @@ class GCKickMessageHandler {
 public :
 	
 	// execute packet's handler
-	static void execute(GCKickMessage* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCKickMessage* pPacket, Player* pPlayer) ;
 
 };
 

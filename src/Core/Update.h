@@ -68,42 +68,41 @@ class Update {
 public :
 
 	// load from file
-	void load (ifstream & ifile) throw (IOException, Error);
+	void load (ifstream & ifile);
 
 	// save to file
-	void save (ofstream & ofile) const throw (IOException, Error);
+	void save (ofstream & ofile) const;
 
 	// read from socket input stream
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream);
 
 	// read from socket directly
-	void read (Socket* pSocket) throw (IOException, Error);
+	void read (Socket* pSocket);
 
 	// write to socket output stream
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const;
 
 	// write to socket directly
-	void write (Socket* pSocket) const throw (IOException, Error);
+	void write (Socket* pSocket) const;
 
 	// get size
-	uint getSize () const throw ();
+	uint getSize () const;
 
 	// get max size
-	static uint getMaxSize () throw ();
+	static uint getMaxSize ();
 
 	// execute update
-	void execute () throw (Error);
+	void execute ();
 
 
 public :
 
 	// get/set update type
-	Version_t getVersion () const throw () { return m_Version; }
-	void setVersion (Version_t version) throw () { m_Version = version; }
+	Version_t getVersion () const { return m_Version; }
+	void setVersion (Version_t version) { m_Version = version; }
 
 	// get update type
 	UPDATETYPE getUpdateType () const 
-		throw (Error) 
 	{ 
 		Assert(m_UpdateType < UPDATETYPE_MAX); 
 		return m_UpdateType; 
@@ -111,7 +110,6 @@ public :
 
 	// set update type
 	void setUpdateType (UPDATETYPE updateType) 
-		throw (Error) 
 	{ 
 		Assert(updateType < UPDATETYPE_MAX); 
 		m_UpdateType = updateType; 
@@ -119,7 +117,6 @@ public :
 
 	// get parameter
 	string getParam (uint i) const 
-		throw (Error) 
 	{ 
 		Assert(i < maxParams); 
 		return m_Params[i]; 
@@ -127,7 +124,6 @@ public :
 
 	// set parameter
 	void setParam (uint i, const string & param) 
-		throw (Error) 
 	{ 
 		Assert(i < maxParams); 
 		Assert(param.size() < maxParameterLen);
@@ -135,7 +131,7 @@ public :
 	}
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const;
 
 
 private :

@@ -27,43 +27,43 @@ class GCLearnSkillOK : public Packet {
 public :
 	
 	// constructor
-	GCLearnSkillOK() throw();
+	GCLearnSkillOK() ;
 	
 	// destructor
-	~GCLearnSkillOK() throw();
+	~GCLearnSkillOK() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_LEARN_SKILL_OK; }
+	PacketID_t getPacketID() const  { return PACKET_GC_LEARN_SKILL_OK; }
 	
 	// get packet size
-	PacketSize_t getPacketSize() const throw() { return szSkillType+szSkillDomainType; }
+	PacketSize_t getPacketSize() const  { return szSkillType+szSkillDomainType; }
 	
 	// get packet's name
-	string getPacketName() const throw() { return "GCLearnSkillOK"; }
+	string getPacketName() const  { return "GCLearnSkillOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 	
 	// get/set m_SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get/set m_SkillDomainType
-	SkillDomainType_t getSkillDomainType() const throw() { return m_DomainType;}
-	void setSkillDomainType(SkillDomainType_t DomainType) throw() { m_DomainType = DomainType;}
+	SkillDomainType_t getSkillDomainType() const  { return m_DomainType;}
+	void setSkillDomainType(SkillDomainType_t DomainType)  { m_DomainType = DomainType;}
 
 private : 
 
@@ -88,25 +88,25 @@ class  GCLearnSkillOKFactory : public PacketFactory {
 public :
 	
 	// constructor
-	 GCLearnSkillOKFactory() throw() {}
+	 GCLearnSkillOKFactory()  {}
 	
 	// destructor
-	virtual ~GCLearnSkillOKFactory() throw() {}
+	virtual ~GCLearnSkillOKFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCLearnSkillOK(); }
+	Packet* createPacket()  { return new GCLearnSkillOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCLearnSkillOK"; }
+	string getPacketName() const  { return "GCLearnSkillOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_LEARN_SKILL_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_LEARN_SKILL_OK; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType+szSkillDomainType; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType+szSkillDomainType; }
 
 };
 
@@ -122,7 +122,7 @@ class  GCLearnSkillOKHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCLearnSkillOK* pGCLearnSkillOK, Player* pPlayer) throw(Error);
+	static void execute(GCLearnSkillOK* pGCLearnSkillOK, Player* pPlayer) ;
 
 };
 

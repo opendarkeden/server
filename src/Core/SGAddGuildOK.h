@@ -30,19 +30,19 @@ public:
 	SGAddGuildOK() {};
     ~SGAddGuildOK() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream& iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream& iStream) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_SG_ADD_GUILD_OK; }
+	PacketID_t getPacketID() const  { return PACKET_SG_ADD_GUILD_OK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szGuildID +				// guild ID
 			   szBYTE +					// guild name length
@@ -58,44 +58,44 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "SGAddGuildOK"; }
+	string getPacketName() const  { return "SGAddGuildOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set guildID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t guildID ) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
 
 	// get/set guild name
-	const string& getGuildName() const throw() { return m_GuildName; }
-	void setGuildName(const string& name ) throw() { m_GuildName = name; }
+	const string& getGuildName() const  { return m_GuildName; }
+	void setGuildName(const string& name )  { m_GuildName = name; }
 
 	// get/set guild race
-	GuildRace_t getGuildRace() const throw() { return m_GuildRace; }
-	void setGuildRace(GuildRace_t guildRace ) throw() { m_GuildRace = guildRace; }
+	GuildRace_t getGuildRace() const  { return m_GuildRace; }
+	void setGuildRace(GuildRace_t guildRace )  { m_GuildRace = guildRace; }
 
 	// get/set guild state
-	GuildState_t getGuildState() const throw() { return m_GuildState; }
-	void setGuildState(GuildState_t guildState ) throw() { m_GuildState = guildState; }
+	GuildState_t getGuildState() const  { return m_GuildState; }
+	void setGuildState(GuildState_t guildState )  { m_GuildState = guildState; }
 
 	// get/set server group ID
-	ServerGroupID_t getServerGroupID() const throw() { return m_ServerGroupID; }
-	void setServerGroupID(ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
+	ServerGroupID_t getServerGroupID() const  { return m_ServerGroupID; }
+	void setServerGroupID(ServerGroupID_t serverGroupID )  { m_ServerGroupID = serverGroupID; }
 
 	// get/set guild zone ID
-	ZoneID_t getGuildZoneID() const throw() { return m_GuildZoneID; }
-	void setGuildZoneID(ZoneID_t guildZoneID ) throw() { m_GuildZoneID = guildZoneID; }
+	ZoneID_t getGuildZoneID() const  { return m_GuildZoneID; }
+	void setGuildZoneID(ZoneID_t guildZoneID )  { m_GuildZoneID = guildZoneID; }
 
 	// get/set guild master
-	const string& getGuildMaster() const throw() { return m_GuildMaster; }
-	void setGuildMaster(const string& master ) throw() { m_GuildMaster = master; }
+	const string& getGuildMaster() const  { return m_GuildMaster; }
+	void setGuildMaster(const string& master )  { m_GuildMaster = master; }
 
 	// get/set guild intro
-	const string& getGuildIntro() const throw() { return m_GuildIntro; }
-	void setGuildIntro(const string& intro ) throw() { m_GuildIntro = intro; }
+	const string& getGuildIntro() const  { return m_GuildIntro; }
+	void setGuildIntro(const string& intro )  { m_GuildIntro = intro; }
 
 private :
 
@@ -139,18 +139,18 @@ class SGAddGuildOKFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new SGAddGuildOK(); }
+	Packet* createPacket()  { return new SGAddGuildOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "SGAddGuildOK"; }
+	string getPacketName() const  { return "SGAddGuildOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_SG_ADD_GUILD_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_SG_ADD_GUILD_OK; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szGuildID +				// guild ID
 			   szBYTE +					// guild name length
@@ -179,7 +179,7 @@ class SGAddGuildOKHandler {
 public:
 
 	// execute packet's handler
-	static void execute(SGAddGuildOK* pPacket) throw(ProtocolException, Error);
+	static void execute(SGAddGuildOK* pPacket) ;
 
 };
 

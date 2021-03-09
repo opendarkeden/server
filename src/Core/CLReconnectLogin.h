@@ -29,34 +29,34 @@ public:
 	CLReconnectLogin() {};
     virtual ~CLReconnectLogin() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CL_RECONNECT_LOGIN; }
+	PacketID_t getPacketID() const  { return PACKET_CL_RECONNECT_LOGIN; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szDWORD + szBYTE; 						// authentication key
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "CLReconnectLogin"; }
+	string getPacketName() const  { return "CLReconnectLogin"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set key
-	DWORD getKey() const throw() { return m_Key; }
-	void setKey(DWORD key) throw() { m_Key = key; }
+	DWORD getKey() const  { return m_Key; }
+	void setKey(DWORD key)  { m_Key = key; }
 
 	// Web login
 	void setWebLogin() { m_LoginMode = LOGIN_MODE_WEBLOGIN; }
@@ -86,16 +86,16 @@ class CLReconnectLoginFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CLReconnectLogin(); }
+	Packet* createPacket()  { return new CLReconnectLogin(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CLReconnectLogin"; }
+	string getPacketName() const  { return "CLReconnectLogin"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CL_RECONNECT_LOGIN; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CL_RECONNECT_LOGIN; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{ 
 		return szDWORD + szBYTE; 			// authentication key
 	}
@@ -113,7 +113,7 @@ class CLReconnectLoginHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CLReconnectLogin* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CLReconnectLogin* pPacket, Player* pPlayer) ;
 	static bool onChildGuardTimeArea(int pm, int am, string enable);
 };
 

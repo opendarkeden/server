@@ -39,11 +39,11 @@ class GCRemoveCorpseHead : public Packet {
 public :
 
 	// constructor
-	GCRemoveCorpseHead() throw()
+	GCRemoveCorpseHead() 
 	{
 	}
 
-	GCRemoveCorpseHead(ObjectID_t objectID) throw()
+	GCRemoveCorpseHead(ObjectID_t objectID) 
 		: m_ObjectID(objectID)
 	{
 	}
@@ -53,34 +53,34 @@ public :
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_REMOVE_CORPSE_HEAD; }
+	PacketID_t getPacketID() const  { return PACKET_GC_REMOVE_CORPSE_HEAD; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szObjectID; 
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GCRemoveCorpseHead"; }
+	string getPacketName() const  { return "GCRemoveCorpseHead"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set object id
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t objectID) throw() { m_ObjectID = objectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t objectID)  { m_ObjectID = objectID; }
 
 private :
 
@@ -103,16 +103,16 @@ class GCRemoveCorpseHeadFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCRemoveCorpseHead(); }
+	Packet* createPacket()  { return new GCRemoveCorpseHead(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCRemoveCorpseHead"; }
+	string getPacketName() const  { return "GCRemoveCorpseHead"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_REMOVE_CORPSE_HEAD; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_REMOVE_CORPSE_HEAD; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szObjectID; 
 	}
@@ -131,7 +131,7 @@ class GCRemoveCorpseHeadHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCRemoveCorpseHead* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(GCRemoveCorpseHead* pPacket, Player* player) ;
 
 };
 

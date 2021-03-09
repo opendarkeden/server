@@ -21,14 +21,12 @@ const char * Properties::WhiteSpaces = " \t";
 // constructor
 //--------------------------------------------------------------------------------
 Properties::Properties () 
-	throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 Properties::Properties ( const string & filename ) 
-	throw ()
 : m_Filename(filename)
 {
 	__BEGIN_TRY
@@ -40,7 +38,6 @@ Properties::Properties ( const string & filename )
 // destructor
 //--------------------------------------------------------------------------------
 Properties::~Properties () 
-	throw ()
 {	
 	__BEGIN_TRY
 		
@@ -55,7 +52,6 @@ Properties::~Properties ()
 // load from file
 //--------------------------------------------------------------------------------
 void Properties::load () 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
@@ -129,7 +125,6 @@ void Properties::load ()
 // save to file
 //--------------------------------------------------------------------------------
 void Properties::save () 
-	throw ( IOException )
 {
 	__BEGIN_TRY
 		
@@ -153,7 +148,6 @@ void Properties::save ()
 // get property
 //--------------------------------------------------------------------------------
 string Properties::getProperty ( string key ) const 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 	
@@ -176,7 +170,6 @@ string Properties::getProperty ( string key ) const
 // get property as int
 //--------------------------------------------------------------------------------
 int Properties::getPropertyInt ( string key ) const 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -190,7 +183,6 @@ int Properties::getPropertyInt ( string key ) const
 // set property
 //--------------------------------------------------------------------------------
 void Properties::setProperty ( string key , string value )
-	throw ()
 {
 	__BEGIN_TRY
 		
@@ -205,7 +197,6 @@ void Properties::setProperty ( string key , string value )
 // get debug string
 //--------------------------------------------------------------------------------
 string Properties::toString () const
-    throw ()
 {
 	__BEGIN_TRY
 		

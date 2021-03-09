@@ -32,7 +32,6 @@ CBillingPlayerInfo::~CBillingPlayerInfo()
 }
 
 string CBillingPlayerInfo::toString() const
-	throw ( Error )
 {
 	__BEGIN_TRY
 

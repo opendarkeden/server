@@ -10,7 +10,6 @@
 // read data from socket input stream
 //////////////////////////////////////////////////////////////////////////////
 void InventorySlotInfo::read ( SocketInputStream & iStream ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -28,7 +27,6 @@ void InventorySlotInfo::read ( SocketInputStream & iStream )
 // write data to socket output stream
 //////////////////////////////////////////////////////////////////////////////
 void InventorySlotInfo::write ( SocketOutputStream & oStream ) const 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 	
@@ -46,7 +44,6 @@ void InventorySlotInfo::write ( SocketOutputStream & oStream ) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string InventorySlotInfo::toString () const 
-	throw ()
 {
 	StringStream msg;
 

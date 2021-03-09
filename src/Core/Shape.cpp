@@ -9,13 +9,11 @@
 #include "Shape.h"
 
 BYTE getShoulderType(ItemType_t IType)
-	throw()
 {
 	return 1;
 }
 
 PantsType getPantsType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -53,7 +51,6 @@ PantsType getPantsType(ItemType_t IType)
 }
 
 JacketType getJacketType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -91,7 +88,6 @@ JacketType getJacketType(ItemType_t IType)
 }
 
 HelmetType getHelmetType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -118,7 +114,6 @@ HelmetType getHelmetType(ItemType_t IType)
 }
 
 ShieldType getShieldType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -145,7 +140,6 @@ ShieldType getShieldType(ItemType_t IType)
 }
 
 VampireCoatType getVampireCoatType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -180,7 +174,6 @@ VampireCoatType getVampireCoatType(ItemType_t IType)
 }
 
 MotorcycleType getMotorcycleType(ItemType_t IType)
-	throw()
 {
 	switch (IType)
 	{
@@ -199,7 +192,6 @@ MotorcycleType getMotorcycleType(ItemType_t IType)
 }
 
 OustersCoatType getOustersCoatType(ItemType_t IType)
-	throw()
 {
 	switch ( IType )
 	{
@@ -223,7 +215,6 @@ OustersCoatType getOustersCoatType(ItemType_t IType)
 }
 
 OustersArmType getOustersArmType(ItemType_t IType)
-	throw()
 {
 	switch ( IType )
 	{

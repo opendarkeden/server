@@ -12,7 +12,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCAddMonsterFromBurrowing::GCAddMonsterFromBurrowing()
-	throw( Error )
 :m_pEffectInfo(NULL)
 {
 	__BEGIN_TRY
@@ -23,7 +22,6 @@ GCAddMonsterFromBurrowing::GCAddMonsterFromBurrowing()
 // Destructor
 //--------------------------------------------------------------------
 GCAddMonsterFromBurrowing::~GCAddMonsterFromBurrowing()
-	throw( Error )
 {
 	__BEGIN_TRY
 

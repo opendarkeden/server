@@ -46,8 +46,8 @@ OBJS	= \
 	GCCrossCounterOK3.o GCCrossCounterOK3Handler.o \
 	GCDeleteandPickUpOK.o GCDeleteandPickUpOKHandler.o \
 	GCDeleteEffectFromTile.o GCDeleteEffectFromTileHandler.o \
-    GCChangeDarkLight.o GCChangeDarkLightHandler.o \
-    GCChangeInventoryItemNum.o \
+    	GCChangeDarkLight.o GCChangeDarkLightHandler.o \
+    	GCChangeInventoryItemNum.o \
 	GCCastingSkill.o GCCastingSkillHandler.o \
 	GCDeleteInventoryItem.o GCDeleteInventoryItemHandler.o \
 	GCDeleteObject.o GCDeleteObjectHandler.o \
@@ -55,9 +55,9 @@ OBJS	= \
 	GCRemoveInjuriousCreature.o GCRemoveInjuriousCreatureHandler.o \
 	GCDisconnect.o GCDisconnectHandler.o \
 	GCDropItemToZone.o GCDropItemToZoneHandler.o \
-    GCFastMove.o GCFastMoveHandler.o \
-    GCFakeMove.o GCFakeMoveHandler.o \
-    GCGetDamage.o GCGetDamageHandler.o \
+    	GCFastMove.o GCFastMoveHandler.o \
+    	GCFakeMove.o GCFakeMoveHandler.o \
+    	GCGetDamage.o GCGetDamageHandler.o \
 	GCGetOffMotorCycle.o GCGetOffMotorCycleHandler.o \
 	GCGetOffMotorCycleOK.o GCGetOffMotorCycleOKHandler.o \
 	GCGetOffMotorCycleFailed.o GCGetOffMotorCycleFailedHandler.o \
@@ -118,12 +118,12 @@ OBJS	= \
 	GCSkillToTileOK6.o GCSkillToTileOK6Handler.o \
 	GCSystemMessage.o GCSystemMessageHandler.o \
 	GCTakeOff.o GCTakeOffHandler.o \
-    GCThrowItemOK1.o GCThrowItemOK1Handler.o \
-    GCThrowItemOK2.o GCThrowItemOK2Handler.o \
-    GCThrowItemOK3.o GCThrowItemOK3Handler.o \
-    GCThrowBombOK1.o GCThrowBombOK1Handler.o \
-    GCThrowBombOK2.o GCThrowBombOK2Handler.o \
-    GCThrowBombOK3.o GCThrowBombOK3Handler.o \
+    	GCThrowItemOK1.o GCThrowItemOK1Handler.o \
+    	GCThrowItemOK2.o GCThrowItemOK2Handler.o \
+    	GCThrowItemOK3.o GCThrowItemOK3Handler.o \
+    	GCThrowBombOK1.o GCThrowBombOK1Handler.o \
+    	GCThrowBombOK2.o GCThrowBombOK2Handler.o \
+    	GCThrowBombOK3.o GCThrowBombOK3Handler.o \
 	GCUpdateInfo.o GCUpdateInfoHandler.o \
 	GCUnburrowOK.o GCUnburrowOKHandler.o \
 	GCUnburrowFail.o GCUnburrowFailHandler.o \

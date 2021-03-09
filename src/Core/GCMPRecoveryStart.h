@@ -28,48 +28,48 @@ class GCMPRecoveryStart : public Packet {
 public :
 	
 	// constructor
-	GCMPRecoveryStart() throw();
+	GCMPRecoveryStart() ;
 	
 	// destructor
-	~GCMPRecoveryStart() throw();
+	~GCMPRecoveryStart() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MP_RECOVERY_START; }
+	PacketID_t getPacketID() const  { return PACKET_GC_MP_RECOVERY_START; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szMP + szMP; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szMP + szMP; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCMPRecoveryStart"; }
+	string getPacketName() const  { return "GCMPRecoveryStart"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set Delay
-	BYTE getDelay() const throw() { return m_Delay; }
-	void setDelay(BYTE Delay) throw() { m_Delay = Delay; }
+	BYTE getDelay() const  { return m_Delay; }
+	void setDelay(BYTE Delay)  { m_Delay = Delay; }
 
 	// get / set Period
-	MP_t getPeriod() const throw() { return m_Period; }
-	void setPeriod(MP_t Period) throw() { m_Period = Period; }
+	MP_t getPeriod() const  { return m_Period; }
+	void setPeriod(MP_t Period)  { m_Period = Period; }
 
 	// get / set Quantity
-	MP_t getQuantity() const throw() { return m_Quantity; }
-	void setQuantity(MP_t Quantity) throw() { m_Quantity = Quantity; }
+	MP_t getQuantity() const  { return m_Quantity; }
+	void setQuantity(MP_t Quantity)  { m_Quantity = Quantity; }
 
 private :
 	
@@ -99,25 +99,25 @@ class GCMPRecoveryStartFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCMPRecoveryStartFactory() throw() {}
+	GCMPRecoveryStartFactory()  {}
 	
 	// destructor
-	virtual ~GCMPRecoveryStartFactory() throw() {}
+	virtual ~GCMPRecoveryStartFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCMPRecoveryStart(); }
+	Packet* createPacket()  { return new GCMPRecoveryStart(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCMPRecoveryStart"; }
+	string getPacketName() const  { return "GCMPRecoveryStart"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MP_RECOVERY_START; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MP_RECOVERY_START; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szMP + szMP; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szMP + szMP; }
 
 };
 
@@ -133,7 +133,7 @@ class GCMPRecoveryStartHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCMPRecoveryStart* pGCMPRecoveryStart, Player* pPlayer) throw(Error);
+	static void execute(GCMPRecoveryStart* pGCMPRecoveryStart, Player* pPlayer) ;
 
 };
 

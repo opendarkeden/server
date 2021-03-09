@@ -26,39 +26,39 @@ class CGCastingSkill : public Packet {
 public:
 	
 	// constructor
-	CGCastingSkill() throw();
+	CGCastingSkill() ;
 	
 	// destructor
-	~CGCastingSkill() throw();
+	~CGCastingSkill() ;
 
 	
 public:
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_CASTING_SKILL; }
+	PacketID_t getPacketID() const  { return PACKET_CG_CASTING_SKILL; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szSkillType; }
+	PacketSize_t getPacketSize() const  { return szSkillType; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGCastingSkill"; }
+	string getPacketName() const  { return "CGCastingSkill"; }
 
 	// get/set SkillType
-	SkillType_t getSkillType() const throw()  { return m_SkillType; }
-	void setObjectID(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const   { return m_SkillType; }
+	void setObjectID(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 private :
 
@@ -81,25 +81,25 @@ class CGCastingSkillFactory : public PacketFactory {
 public:
 	
 	// constructor
-	CGCastingSkillFactory() throw() {}
+	CGCastingSkillFactory()  {}
 	
 	// destructor
-	virtual ~CGCastingSkillFactory() throw() {}
+	virtual ~CGCastingSkillFactory()  {}
 
 	
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGCastingSkill(); }
+	Packet* createPacket()  { return new CGCastingSkill(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGCastingSkill"; }
+	string getPacketName() const  { return "CGCastingSkill"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_CASTING_SKILL; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_CASTING_SKILL; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType; }
 
 };
 
@@ -115,7 +115,7 @@ class CGCastingSkillHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGCastingSkill* pCGCastingSkill, Player* pPlayer) throw(Error);
+	static void execute(CGCastingSkill* pCGCastingSkill, Player* pPlayer) ;
 
 };
 

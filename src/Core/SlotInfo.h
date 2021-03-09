@@ -30,42 +30,42 @@ class SlotInfo {
 public :
 
 	// read data from socket input stream
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
 
 	// write data to socket output stream
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void write (SocketOutputStream & oStream) const ;
 
 	// get size of object
-	uint getSize () const throw ()
+	uint getSize () const 
 	{ return 0; }
 
 	// get max size of object
-	static uint getMaxSize () throw ()
+	static uint getMaxSize () 
 	{ return 0; }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 public :
 
 	// get/set ObjectID
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
 
 	// get/set ItemClass
-	void setItemClass (BYTE IClass) throw() { m_IClass = IClass; }
-	BYTE getItemClass () const throw() { return m_IClass; }
+	void setItemClass (BYTE IClass)  { m_IClass = IClass; }
+	BYTE getItemClass () const  { return m_IClass; }
 
 	// get/set ItemType
-	void setItemType (ItemType_t ItemType) throw() { m_ItemType = ItemType; }
-	ItemType_t getItemType() const throw() { return m_ItemType; }
+	void setItemType (ItemType_t ItemType)  { m_ItemType = ItemType; }
+	ItemType_t getItemType() const  { return m_ItemType; }
 
 	// get/set OptionType
-	void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back( OptionType ); }
-	void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
-	int getOptionTypeSize() const throw()	{ return m_OptionType.size(); }
-	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }
-	OptionType_t popOptionType() throw()
+	void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back( OptionType ); }
+	void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
+	int getOptionTypeSize() const 	{ return m_OptionType.size(); }
+	const list<OptionType_t>& getOptionType() const  { return m_OptionType; }
+	OptionType_t popOptionType() 
 	{
 		if (m_OptionType.empty()) return 0;
 		OptionType_t optionType = m_OptionType.front();
@@ -74,20 +74,20 @@ public :
 	}
 
 	// get/set InvenX
-	void setInvenX(CoordInven_t InvenX) throw() { m_InvenX = InvenX; }
-	CoordInven_t getInvenX() const throw() { return m_InvenX; }
+	void setInvenX(CoordInven_t InvenX)  { m_InvenX = InvenX; }
+	CoordInven_t getInvenX() const  { return m_InvenX; }
 
 	// get/set InvenY
-	void setInvenY(CoordInven_t InvenY) throw() { m_InvenY = InvenY; }
-	CoordInven_t getInvenY() const throw() { return m_InvenY; }
+	void setInvenY(CoordInven_t InvenY)  { m_InvenY = InvenY; }
+	CoordInven_t getInvenY() const  { return m_InvenY; }
 
 	// get/set ItemNum
-	void setItemNum (ItemNum_t ItemNum) throw() { m_ItemNum = ItemNum; }
-	ItemNum_t getItemNum() const throw() { return m_ItemNum; }
+	void setItemNum (ItemNum_t ItemNum)  { m_ItemNum = ItemNum; }
+	ItemNum_t getItemNum() const  { return m_ItemNum; }
 
 	// get/set MainColor
-	void setMainColor(WORD MainColor) throw() { m_MainColor = MainColor; }
-	WORD getMainColor() const throw() { return m_MainColor; }
+	void setMainColor(WORD MainColor)  { m_MainColor = MainColor; }
+	WORD getMainColor() const  { return m_MainColor; }
 
 private :
 

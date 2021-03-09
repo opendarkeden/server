@@ -15,7 +15,6 @@
 // constructor
 //--------------------------------------------------------------------------------
 ResourceManager::ResourceManager () 
-	throw ()
 {
 }
 
@@ -24,7 +23,6 @@ ResourceManager::ResourceManager ()
 // destructor
 //--------------------------------------------------------------------------------
 ResourceManager::~ResourceManager () 
-	throw ()
 {
 	while ( !m_Resources.empty() ) 
 	{
@@ -39,7 +37,6 @@ ResourceManager::~ResourceManager ()
 // load from resource file
 //--------------------------------------------------------------------------------
 void ResourceManager::load ( const string & filename ) 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -78,7 +75,6 @@ void ResourceManager::load ( const string & filename )
 // save to resource file
 //--------------------------------------------------------------------------------
 void ResourceManager::save ( const string & filename ) const 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -116,7 +112,6 @@ void ResourceManager::save ( const string & filename ) const
 // 일단은 실행 파일의 중복 여부만을 체크한다.
 //--------------------------------------------------------------------------------
 void ResourceManager::optimize ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -163,7 +158,6 @@ void ResourceManager::optimize ()
 // get debug string
 //--------------------------------------------------------------------------------
 string ResourceManager::toString () const 
-	throw ()
 {
 	StringStream msg;
 

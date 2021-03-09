@@ -25,29 +25,29 @@ class PacketFactoryManager {
 public :
 	
 	// constructor
-	PacketFactoryManager () throw ();
+	PacketFactoryManager () ;
 	
 	// destructor
-	~PacketFactoryManager () throw ();
+	~PacketFactoryManager () ;
 
 	// 패킷팩토리매니저를 초기화한다.
 	// 게임서버객체의 init()에서 호출된다.
-	void init () throw (Error);
+	void init () ;
 	
 	// 팩토리 객체를 특정 인덱스에 추가한다.
-	void addFactory (PacketFactory* pFactory) throw (Error);
+	void addFactory (PacketFactory* pFactory) ;
 	
 	// 패킷아이디로 패킷객체를 생성한다.
-	Packet* createPacket (PacketID_t packetID) throw (InvalidProtocolException, Error);
+	Packet* createPacket (PacketID_t packetID);
 
 	// 특정 패킷의 최대 크기를 리턴한다.
-	string getPacketName (PacketID_t packetID) throw (InvalidProtocolException, Error);
+	string getPacketName (PacketID_t packetID);
 
 	// 특정 패킷의 최대 크기를 리턴한다.
-	PacketSize_t getPacketMaxSize (PacketID_t packetID) throw (InvalidProtocolException, Error);
+	PacketSize_t getPacketMaxSize (PacketID_t packetID);
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 private :
 	

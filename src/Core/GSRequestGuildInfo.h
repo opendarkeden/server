@@ -30,28 +30,28 @@ public:
 	GSRequestGuildInfo() {};
     ~GSRequestGuildInfo() {};
     // Stream 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // Stream 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GS_REQUEST_GUILD_INFO; }
+	PacketID_t getPacketID() const  { return PACKET_GS_REQUEST_GUILD_INFO; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return 0;
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GSRequestGuildInfo"; }
+	string getPacketName() const  { return "GSRequestGuildInfo"; }
 	
 	// get packet's debug string
-	string toString() const throw() { return "GSRequestGuildInfo"; }
+	string toString() const  { return "GSRequestGuildInfo"; }
 };
 
 
@@ -68,18 +68,18 @@ class GSRequestGuildInfoFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new GSRequestGuildInfo(); }
+	Packet* createPacket()  { return new GSRequestGuildInfo(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GSRequestGuildInfo"; }
+	string getPacketName() const  { return "GSRequestGuildInfo"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GS_REQUEST_GUILD_INFO; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GS_REQUEST_GUILD_INFO; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return 0;
 	}
@@ -98,7 +98,7 @@ class GSRequestGuildInfoHandler {
 public:
 
 	// execute packet's handler
-	static void execute(GSRequestGuildInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GSRequestGuildInfo* pPacket, Player* pPlayer) ;
 
 };
 

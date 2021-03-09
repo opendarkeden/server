@@ -36,25 +36,25 @@ public :
 	CGVerifyTime() {};
     virtual ~CGVerifyTime() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream ) throw(ProtocolException , Error);
+    void read (SocketInputStream & iStream ) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream ) const throw(ProtocolException , Error);
+    void write (SocketOutputStream & oStream ) const ;
 
 	// execute packet's handler
-	void execute (Player * pPlayer ) throw(ProtocolException , Error);
+	void execute (Player * pPlayer ) ;
 
 	// get packet id
-	PacketID_t getPacketID () const throw() { return PACKET_CG_VERIFY_TIME; }
+	PacketID_t getPacketID () const  { return PACKET_CG_VERIFY_TIME; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize () const throw() { return 0; }
+	PacketSize_t getPacketSize () const  { return 0; }
 
 	// get packet name
-	string getPacketName () const throw() { return "CGVerifyTime"; }
+	string getPacketName () const  { return "CGVerifyTime"; }
 	
 	// get packet's debug string
-	string toString () const throw();
+	string toString () const ;
 
 private :
 	
@@ -74,17 +74,17 @@ class CGVerifyTimeFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet * createPacket () throw() { return new CGVerifyTime(); }
+	Packet * createPacket ()  { return new CGVerifyTime(); }
 
 	// get packet name
-	string getPacketName () const throw() { return "CGVerifyTime"; }
+	string getPacketName () const  { return "CGVerifyTime"; }
 	
 	// get packet id
-	PacketID_t getPacketID () const throw() { return Packet::PACKET_CG_VERIFY_TIME; }
+	PacketID_t getPacketID () const  { return Packet::PACKET_CG_VERIFY_TIME; }
 
 	// get packet's max body size
 	// message 의 최대 크기에 대한 설정이 필요하다.
-	PacketSize_t getPacketMaxSize () const throw() { return 0; }
+	PacketSize_t getPacketMaxSize () const  { return 0; }
 
 };
 
@@ -100,7 +100,7 @@ class CGVerifyTimeHandler {
 public :
 
 	// execute packet's handler
-	static void execute (CGVerifyTime * pPacket , Player * pPlayer ) throw(ProtocolException , Error);
+	static void execute (CGVerifyTime * pPacket , Player * pPlayer ) ;
 
 	// 스피드핵 사용자를 디비에 저장한다.
 	static void saveSpeedHackPlayer(Player* pPlayer);

@@ -30,11 +30,11 @@ public:
 	};
 
 public:
-	PCVampireInfo3 () throw () 
+	PCVampireInfo3 ()  
 	{
 	}
 
-	PCVampireInfo3 (const PCVampireInfo3 & vampireInfo) throw ()
+	PCVampireInfo3 (const PCVampireInfo3 & vampireInfo) 
 		: m_ObjectID(vampireInfo.m_ObjectID), m_Name(vampireInfo.m_Name), 
 		m_X(vampireInfo.m_X), m_Y(vampireInfo.m_Y), m_Dir(vampireInfo.m_Dir),
 		m_Sex(vampireInfo.m_Sex), m_CoatType(vampireInfo.m_CoatType), 
@@ -50,12 +50,12 @@ public:
 	}
 	
 public:
-	PCType getPCType () const throw () { return PC_VAMPIRE; }
+	PCType getPCType () const  { return PC_VAMPIRE; }
 
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	uint getSize () const throw ()
+	uint getSize () const 
 	{
 		return szObjectID					// ObjectID
 			+ szBYTE + m_Name.size() 		// 뱀파이어 이름
@@ -76,7 +76,7 @@ public:
 	}
 
 	// get max size of object
-	static uint getMaxSize () throw ()
+	static uint getMaxSize () 
 	{
 		return szObjectID					// ObjectID
 			+ szBYTE + 20 					// 뱀파이어 이름
@@ -95,7 +95,7 @@ public:
 			+ szLevel;
 	}
 
-	PCVampireInfo3 & operator = (const PCVampireInfo3 & vampireInfo) throw ()
+	PCVampireInfo3 & operator = (const PCVampireInfo3 & vampireInfo) 
 	{
 		if (&vampireInfo == this)
 			return *this;
@@ -127,26 +127,26 @@ public:
 		return *this;
 	}
 
-	string toString () const throw ();
+	string toString () const ;
 
 public:
-	ObjectID_t getObjectID () const throw () { return m_ObjectID; }
-	void setObjectID (ObjectID_t objectID) throw () { m_ObjectID = objectID; }
+	ObjectID_t getObjectID () const  { return m_ObjectID; }
+	void setObjectID (ObjectID_t objectID)  { m_ObjectID = objectID; }
 
-    string getName () const throw () { return m_Name; }
-    void setName (const string & name) throw (Error) { m_Name = name; Assert(m_Name != ""); }
+    string getName () const  { return m_Name; }
+    void setName (const string & name)  { m_Name = name; Assert(m_Name != ""); }
 
-	Coord_t getX () const throw () { return m_X; }
-	void setX (Coord_t x) throw () { m_X = x; }
+	Coord_t getX () const  { return m_X; }
+	void setX (Coord_t x)  { m_X = x; }
 
-	Coord_t getY () const throw () { return m_Y; }
-	void setY (Coord_t y) throw () { m_Y = y; }
+	Coord_t getY () const  { return m_Y; }
+	void setY (Coord_t y)  { m_Y = y; }
 
-	Dir_t getDir () const throw () { return m_Dir; }
-	void setDir (Dir_t dir) throw () { m_Dir = dir; }
+	Dir_t getDir () const  { return m_Dir; }
+	void setDir (Dir_t dir)  { m_Dir = dir; }
 
-	Sex getSex () const throw () { return m_Sex; }
-	void setSex (Sex sex) throw () { m_Sex = sex; }
+	Sex getSex () const  { return m_Sex; }
+	void setSex (Sex sex)  { m_Sex = sex; }
 	void setSex (const string & sex) throw (InvalidProtocolException)
 	{
 		if (sex == Sex2String[MALE]) 
@@ -157,35 +157,35 @@ public:
 			throw InvalidProtocolException("invalid sex value");
 	}
 
-	Color_t getBatColor () const throw () { return m_Colors[VAMPIRE_COLOR_BAT]; }
-	void setBatColor (Color_t batColor) throw () { m_Colors[VAMPIRE_COLOR_BAT] = batColor; }
+	Color_t getBatColor () const  { return m_Colors[VAMPIRE_COLOR_BAT]; }
+	void setBatColor (Color_t batColor)  { m_Colors[VAMPIRE_COLOR_BAT] = batColor; }
 
-	Color_t getSkinColor () const throw () { return m_Colors[VAMPIRE_COLOR_SKIN]; }
-	void setSkinColor (Color_t skinColor) throw () { m_Colors[VAMPIRE_COLOR_SKIN] = skinColor; }
+	Color_t getSkinColor () const  { return m_Colors[VAMPIRE_COLOR_SKIN]; }
+	void setSkinColor (Color_t skinColor)  { m_Colors[VAMPIRE_COLOR_SKIN] = skinColor; }
 
-	ItemType_t getCoatType() const throw() { return m_CoatType; }
-    void setCoatType(ItemType_t CoatType) throw() { m_CoatType = CoatType; }
+	ItemType_t getCoatType() const  { return m_CoatType; }
+    void setCoatType(ItemType_t CoatType)  { m_CoatType = CoatType; }
 
-	Color_t getCoatColor (ColorType colorType = MAIN_COLOR) const throw () { return m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType]; }
-	void setCoatColor (Color_t coatColor, ColorType colorType = MAIN_COLOR) throw () { m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType] = coatColor; }
+	Color_t getCoatColor (ColorType colorType = MAIN_COLOR) const  { return m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType]; }
+	void setCoatColor (Color_t coatColor, ColorType colorType = MAIN_COLOR)  { m_Colors[VAMPIRE_COLOR_COAT1 + (int)colorType] = coatColor; }
 
 	BYTE getMasterEffectColor() const { return m_MasterEffectColor; }
 	void setMasterEffectColor( BYTE color ) { m_MasterEffectColor = color; }
 
-	HP_t getCurrentHP() const throw() { return m_CurrentHP; }
-	void setCurrentHP(HP_t CurrentHP) throw() { m_CurrentHP = CurrentHP; }
+	HP_t getCurrentHP() const  { return m_CurrentHP; }
+	void setCurrentHP(HP_t CurrentHP)  { m_CurrentHP = CurrentHP; }
 
-	HP_t getMaxHP() const throw() { return m_MaxHP; }
-	void setMaxHP(HP_t MaxHP) throw() { m_MaxHP = MaxHP; }
+	HP_t getMaxHP() const  { return m_MaxHP; }
+	void setMaxHP(HP_t MaxHP)  { m_MaxHP = MaxHP; }
 
-	Speed_t getAttackSpeed() const throw() { return m_AttackSpeed; }
-	void setAttackSpeed(Speed_t AttackSpeed) throw() { m_AttackSpeed = AttackSpeed; }
+	Speed_t getAttackSpeed() const  { return m_AttackSpeed; }
+	void setAttackSpeed(Speed_t AttackSpeed)  { m_AttackSpeed = AttackSpeed; }
 
-	Alignment_t getAlignment() const throw() { return m_Alignment; }
-	void setAlignment(Alignment_t Alignment)  throw() { m_Alignment = Alignment; }
+	Alignment_t getAlignment() const  { return m_Alignment; }
+	void setAlignment(Alignment_t Alignment)   { m_Alignment = Alignment; }
 
-	Shape_t getShape() const throw() { return m_Shape; }
-	void setShape(Shape_t Shape)  throw() { m_Shape = Shape; }
+	Shape_t getShape() const  { return m_Shape; }
+	void setShape(Shape_t Shape)   { m_Shape = Shape; }
 
 	BYTE getCompetence(void) const { return m_Competence; }
 	void setCompetence(BYTE competence) { m_Competence = competence; }
@@ -196,8 +196,8 @@ public:
 	uint getUnionID(void) const { return m_UnionID; }
 	void setUnionID(uint UnionID ) { m_UnionID = UnionID; }
 
-	Rank_t getRank () const throw () { return m_Rank; }
-	void setRank (Rank_t rank) throw () { m_Rank = rank; }
+	Rank_t getRank () const  { return m_Rank; }
+	void setRank (Rank_t rank)  { m_Rank = rank; }
 
 	Level_t	getAdvancementLevel() const { return m_AdvancementLevel; }
 	void setAdvancementLevel( Level_t level ) { m_AdvancementLevel = level; }

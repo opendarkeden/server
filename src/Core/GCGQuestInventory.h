@@ -25,17 +25,17 @@
 class GCGQuestInventory : public Packet 
 {
 public:
-	GCGQuestInventory() throw();
-	~GCGQuestInventory() throw();
+	GCGQuestInventory() ;
+	~GCGQuestInventory() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_GQUEST_INVENTORY; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szItemType * m_ItemList.size(); }
-	string getPacketName() const throw() { return "GCGQuestInventory"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_GQUEST_INVENTORY; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szItemType * m_ItemList.size(); }
+	string getPacketName() const  { return "GCGQuestInventory"; }
+	string toString() const ;
 
 public:
 	list<ItemType_t>&	getItemList() { return m_ItemList; }
@@ -53,14 +53,14 @@ private:
 class GCGQuestInventoryFactory : public PacketFactory 
 {
 public :
-	GCGQuestInventoryFactory() throw() {}
-	virtual ~GCGQuestInventoryFactory() throw() {}
+	GCGQuestInventoryFactory()  {}
+	virtual ~GCGQuestInventoryFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCGQuestInventory(); }
-	string getPacketName() const throw() { return "GCGQuestInventory"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_GQUEST_INVENTORY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szItemType * MAX_GQUEST_INVENTORY_ITEM_NUM; }
+	Packet* createPacket()  { return new GCGQuestInventory(); }
+	string getPacketName() const  { return "GCGQuestInventory"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GQUEST_INVENTORY; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szItemType * MAX_GQUEST_INVENTORY_ITEM_NUM; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public:
 class GCGQuestInventoryHandler 
 {
 public:
-	static void execute(GCGQuestInventory* pGCGQuestInventory, Player* pPlayer) throw(Error);
+	static void execute(GCGQuestInventory* pGCGQuestInventory, Player* pPlayer) ;
 
 };
 

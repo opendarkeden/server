@@ -27,19 +27,19 @@ public :
 	GGServerChat() {};
     ~GGServerChat() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GG_SERVER_CHAT; }
+	PacketID_t getPacketID() const  { return PACKET_GG_SERVER_CHAT; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE + m_Sender.size() +		// Sender
 			   szBYTE + m_Receiver.size() + 	// Receiver
@@ -49,33 +49,33 @@ public :
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GGServerChat"; }
+	string getPacketName() const  { return "GGServerChat"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set Sender
-	const string& getSender() const throw() { return m_Sender; }
-	void setSender(const string& sender ) throw() { m_Sender = sender; }
+	const string& getSender() const  { return m_Sender; }
+	void setSender(const string& sender )  { m_Sender = sender; }
 
 	// get/set Receiver
-	const string& getReceiver() const throw() { return m_Receiver; }
-    void setReceiver(const string& receiver) throw() { m_Receiver= receiver; }
+	const string& getReceiver() const  { return m_Receiver; }
+    void setReceiver(const string& receiver)  { m_Receiver= receiver; }
 
 	// get/set text color
-	uint getColor() const throw() { return m_Color; }
-	void setColor(uint color ) throw() { m_Color = color; }
+	uint getColor() const  { return m_Color; }
+	void setColor(uint color )  { m_Color = color; }
 
 	// get/set message
-	const string& getMessage() const throw() { return m_Message; }
-	void setMessage(const string& message ) throw() { m_Message = message; }
+	const string& getMessage() const  { return m_Message; }
+	void setMessage(const string& message )  { m_Message = message; }
 
 	// get/set race
 	// 
-	Race_t getRace() const throw() { return m_Race; }
-	void setRace(Race_t race) throw() { m_Race = race; }
+	Race_t getRace() const  { return m_Race; }
+	void setRace(Race_t race)  { m_Race = race; }
 
 private :
 
@@ -111,18 +111,18 @@ class GGServerChatFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GGServerChat(); }
+	Packet* createPacket()  { return new GGServerChat(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GGServerChat"; }
+	string getPacketName() const  { return "GGServerChat"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GG_SERVER_CHAT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GG_SERVER_CHAT; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GGServerChatPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE + 10 +					// Sender
 			   szBYTE + 10 + 					// Receiver
@@ -145,7 +145,7 @@ class GGServerChatHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GGServerChat* pPacket) throw(ProtocolException, Error);
+	static void execute(GGServerChat* pPacket) ;
 
 };
 

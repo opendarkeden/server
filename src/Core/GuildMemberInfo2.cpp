@@ -17,7 +17,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GuildMemberInfo2::GuildMemberInfo2 () 
-     throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -28,7 +27,6 @@ GuildMemberInfo2::GuildMemberInfo2 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GuildMemberInfo2::~GuildMemberInfo2 () 
-    throw ()
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,7 +37,6 @@ GuildMemberInfo2::~GuildMemberInfo2 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GuildMemberInfo2::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -64,7 +61,7 @@ void GuildMemberInfo2::read ( SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GuildMemberInfo2::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+     const
 {
 	__BEGIN_TRY
 		
@@ -88,7 +85,6 @@ void GuildMemberInfo2::write ( SocketOutputStream & oStream )
 // getSize
 //--------------------------------------------------------------------
 PacketSize_t GuildMemberInfo2::getSize()
-	throw()
 {
 	__BEGIN_TRY
 
@@ -107,7 +103,7 @@ PacketSize_t GuildMemberInfo2::getSize()
 //
 //////////////////////////////////////////////////////////////////////
 string GuildMemberInfo2::toString () 
-	const throw ()
+	const
 {
 	__BEGIN_TRY
 

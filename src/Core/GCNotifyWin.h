@@ -20,19 +20,19 @@ class GCNotifyWin : public Packet
 public:
     GCNotifyWin() {};
     ~GCNotifyWin() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_NOTIFY_WIN; }
-	PacketSize_t getPacketSize() const throw() { return szDWORD + szBYTE + m_Name.size(); }
-	string getPacketName() const throw() { return "GCNotifyWin"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_NOTIFY_WIN; }
+	PacketSize_t getPacketSize() const  { return szDWORD + szBYTE + m_Name.size(); }
+	string getPacketName() const  { return "GCNotifyWin"; }
+	string toString() const ;
 
-	DWORD getGiftID() const throw() { return m_GiftID; }
-	void setGiftID(DWORD gID) throw() { m_GiftID = gID; }
+	DWORD getGiftID() const  { return m_GiftID; }
+	void setGiftID(DWORD gID)  { m_GiftID = gID; }
 
-	string getName() const throw() { return m_Name; }
-	void setName(const string & msg) throw() { m_Name = msg; }
+	string getName() const  { return m_Name; }
+	void setName(const string & msg)  { m_Name = msg; }
 
 private:
 	DWORD		m_GiftID; // NPC's object id
@@ -49,10 +49,10 @@ private:
 class GCNotifyWinFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCNotifyWin(); }
-	string getPacketName() const throw() { return "GCNotifyWin"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_NOTIFY_WIN; }
-	PacketSize_t getPacketMaxSize() const throw() { return szDWORD + szBYTE + 2048 ; }
+	Packet* createPacket()  { return new GCNotifyWin(); }
+	string getPacketName() const  { return "GCNotifyWin"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_NOTIFY_WIN; }
+	PacketSize_t getPacketMaxSize() const  { return szDWORD + szBYTE + 2048 ; }
 };
 
 
@@ -63,7 +63,7 @@ public:
 class GCNotifyWinHandler 
 {
 public:
-	static void execute(GCNotifyWin* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCNotifyWin* pPacket, Player* pPlayer) ;
 
 };
 

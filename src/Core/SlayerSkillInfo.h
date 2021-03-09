@@ -29,50 +29,50 @@ class SlayerSkillInfo : public PCSkillInfo {
 public :
 	
 	// constructor
-	SlayerSkillInfo () throw ();
+	SlayerSkillInfo () ;
 	
 	// destructor
-	~SlayerSkillInfo () throw ();
+	~SlayerSkillInfo () ;
 
 public :
 
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    virtual void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    virtual void read (SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    virtual void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    virtual void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () throw ();
+	PacketSize_t getSize () ;
 
-	static uint getMaxSize () throw () { 
+	static uint getMaxSize ()  { 
 		return szBYTE + szSkillDomainType + szBYTE + (SubSlayerSkillInfo::getMaxSize()* 255);
 	}
 
 	// get packet's debug string
-	string toString () const throw ();
+	string toString () const ;
 
 	// get / set New Skill
-	bool isLearnNewSkill() const throw() { return m_bLearnNewSkill; }
-	void setLearnNewSkill(bool NewSkill) throw() { m_bLearnNewSkill = NewSkill; }
+	bool isLearnNewSkill() const  { return m_bLearnNewSkill; }
+	void setLearnNewSkill(bool NewSkill)  { m_bLearnNewSkill = NewSkill; }
 
 	// get /set DomainType
-	SkillDomainType_t getDomainiType() const throw() { return m_DomainType; }
+	SkillDomainType_t getDomainiType() const  { return m_DomainType; }
 	void setDomainType(SkillDomainType_t DomainType) { m_DomainType = DomainType; }
 
 	// get / set ListNumber
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
 	// add / delete / clear S List
-	void addListElement(SubSlayerSkillInfo* pSubSlayerSkillInfo) throw() { m_SubSlayerSkillInfoList.push_back(pSubSlayerSkillInfo); }
+	void addListElement(SubSlayerSkillInfo* pSubSlayerSkillInfo)  { m_SubSlayerSkillInfoList.push_back(pSubSlayerSkillInfo); }
 
 	// ClearList
-	void clearList() throw() { m_SubSlayerSkillInfoList.clear(); m_ListNum = 0; }
+	void clearList()  { m_SubSlayerSkillInfoList.clear(); m_ListNum = 0; }
 
 	// pop front Element in Status List
-	SubSlayerSkillInfo* popFrontListElement() throw() 
+	SubSlayerSkillInfo* popFrontListElement()  
 	{ 
 		SubSlayerSkillInfo* TempSubSlayerSkillInfo = m_SubSlayerSkillInfoList.front(); m_SubSlayerSkillInfoList.pop_front(); return TempSubSlayerSkillInfo; 
 	}

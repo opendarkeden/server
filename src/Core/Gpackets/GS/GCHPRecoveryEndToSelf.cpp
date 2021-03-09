@@ -12,7 +12,6 @@
 // Constructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToSelf::GCHPRecoveryEndToSelf()
-	throw( Error )
 {
 	__BEGIN_TRY
 	m_CurrentHP = 0;
@@ -23,7 +22,6 @@ GCHPRecoveryEndToSelf::GCHPRecoveryEndToSelf()
 // Destructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToSelf::~GCHPRecoveryEndToSelf()
-	throw( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

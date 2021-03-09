@@ -33,7 +33,7 @@ public :
 	virtual ~BillingPlayerInfo () throw (Error);
 
 	// get debug string
-	virtual string toString () const throw (Error);
+	virtual string toString () const;
 
 public :
 	void            setBillingUserKey(int buid) { m_BillingUserKey = buid; }
@@ -47,7 +47,7 @@ public :
 
 	bool			isBillingPlayAvaiable() const	{ return !m_BillingUserStatus.empty(); }
 
-	virtual bool	sendBillingLogin() throw (Error) = 0;
+	virtual bool	sendBillingLogin() = 0;
 	int				getBillingLoginRequestCount() const	{ return m_BillingLoginRequestCount; }
 
 	void			setBillingLoginVerified(bool bVerified=true)	{ m_BillingLoginVerified = bVerified; }

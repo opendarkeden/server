@@ -26,19 +26,19 @@ public:
 	LGIncomingConnectionOK() {};
     ~LGIncomingConnectionOK() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_LG_INCOMING_CONNECTION_OK; }
+	PacketID_t getPacketID() const  { return PACKET_LG_INCOMING_CONNECTION_OK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE + m_PlayerID.size() 
 				+ szuint
@@ -46,24 +46,24 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnectionOK"; }
+	string getPacketName() const  { return "LGIncomingConnectionOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set player id
-	string getPlayerID() const throw() { return m_PlayerID; }
-	void setPlayerID(string playerID) throw() { m_PlayerID = playerID; }
+	string getPlayerID() const  { return m_PlayerID; }
+	void setPlayerID(string playerID)  { m_PlayerID = playerID; }
 
 	// get/set tcp port
-	uint getTCPPort() const throw() { return m_TCPPort; }
-	void setTCPPort(uint tcpPort) throw() { m_TCPPort = tcpPort; }
+	uint getTCPPort() const  { return m_TCPPort; }
+	void setTCPPort(uint tcpPort)  { m_TCPPort = tcpPort; }
 
 	// get/set auth key
-	DWORD getKey() const throw() { return m_Key; }
-	void setKey(DWORD key) throw() { m_Key = key; }
+	DWORD getKey() const  { return m_Key; }
+	void setKey(DWORD key)  { m_Key = key; }
 
 private :
 
@@ -93,18 +93,18 @@ class LGIncomingConnectionOKFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new LGIncomingConnectionOK(); }
+	Packet* createPacket()  { return new LGIncomingConnectionOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "LGIncomingConnectionOK"; }
+	string getPacketName() const  { return "LGIncomingConnectionOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_LG_INCOMING_CONNECTION_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_LG_INCOMING_CONNECTION_OK; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionOKPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE + 20
 				+ szuint
@@ -125,7 +125,7 @@ class LGIncomingConnectionOKHandler {
 public:
 
 	// execute packet's handler
-	static void execute(LGIncomingConnectionOK* pPacket) throw(ProtocolException, Error);
+	static void execute(LGIncomingConnectionOK* pPacket) ;
 
 };
 

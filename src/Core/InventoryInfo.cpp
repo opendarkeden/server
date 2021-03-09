@@ -12,7 +12,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 InventoryInfo::InventoryInfo () 
-     throw ()
 {
 	__BEGIN_TRY
 
@@ -26,7 +25,6 @@ InventoryInfo::InventoryInfo ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 InventoryInfo::~InventoryInfo () 
-    throw ()
 {
 	__BEGIN_TRY
 
@@ -45,7 +43,6 @@ InventoryInfo::~InventoryInfo ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void InventoryInfo::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -65,8 +62,7 @@ void InventoryInfo::read ( SocketInputStream & iStream )
 //////////////////////////////////////////////////////////////////////////////
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
-void InventoryInfo::write ( SocketOutputStream & oStream ) 
-     const throw ( ProtocolException , Error )
+void InventoryInfo::write ( SocketOutputStream & oStream ) const 
 {
 	__BEGIN_TRY
 		
@@ -86,7 +82,6 @@ void InventoryInfo::write ( SocketOutputStream & oStream )
 // getSize
 //////////////////////////////////////////////////////////////////////////////
 PacketSize_t InventoryInfo::getSize()
-	throw()
 {
 
 	PacketSize_t PacketSize = szBYTE;
@@ -104,8 +99,7 @@ PacketSize_t InventoryInfo::getSize()
 //////////////////////////////////////////////////////////////////////////////
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
-string InventoryInfo::toString () 
-	const throw ()
+string InventoryInfo::toString () const
 {
 	__BEGIN_TRY
 

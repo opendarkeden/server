@@ -29,39 +29,39 @@ class ModifyItemInfo {
 public :
 	
 	// constructor
-	ModifyItemInfo () throw ();
+	ModifyItemInfo () ;
 	
 	// destructor
-	~ModifyItemInfo () throw ();
+	~ModifyItemInfo () ;
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read (SocketInputStream & iStream) throw (ProtocolException, Error);
+    void read (SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+    void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getSize () const throw () { return szDWORD + szDWORD* m_ListNum* 3 ; }
+	PacketSize_t getSize () const  { return szDWORD + szDWORD* m_ListNum* 3 ; }
 
 	// get packet's debug string
-	string toString () const throw ();
+	string toString () const ;
 
 	// get / set ListNumber
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
 	// add / delete / clear S List
-	void addListElement(ObjectID_t ObjectID, ModifyType List, DWORD Value) throw(); 
+	void addListElement(ObjectID_t ObjectID, ModifyType List, DWORD Value) ; 
 
 	// ClearList
-	void clearList() throw() { m_SList.clear(); m_ListNum = 0; }
+	void clearList()  { m_SList.clear(); m_ListNum = 0; }
 
 	// pop front Element in Status List
-	DWORD popFrontListElement() throw() { DWORD StatusList = m_SList.front(); m_SList.pop_front(); return StatusList; }
+	DWORD popFrontListElement()  { DWORD StatusList = m_SList.front(); m_SList.pop_front(); return StatusList; }
 
 private :
 	

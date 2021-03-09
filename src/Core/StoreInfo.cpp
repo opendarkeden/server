@@ -1,6 +1,6 @@
 #include "StoreInfo.h"
 
-void StoreItemInfo::read(SocketInputStream& iStream) throw(ProtocolException, Error)
+void StoreItemInfo::read(SocketInputStream& iStream)
 {
 	__BEGIN_TRY
 
@@ -15,7 +15,7 @@ void StoreItemInfo::read(SocketInputStream& iStream) throw(ProtocolException, Er
 	__END_CATCH
 }
 
-void StoreItemInfo::write(SocketOutputStream& oStream) const throw(ProtocolException, Error)
+void StoreItemInfo::write(SocketOutputStream& oStream) const
 {
 	__BEGIN_TRY
 
@@ -48,7 +48,7 @@ PacketSize_t StoreInfo::getSize(bool toOther) const
 	return ret;
 }
 
-void StoreInfo::read(SocketInputStream& iStream, bool toOther) throw(ProtocolException, Error)
+void StoreInfo::read(SocketInputStream& iStream, bool toOther)
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void StoreInfo::read(SocketInputStream& iStream, bool toOther) throw(ProtocolExc
 	__END_CATCH
 }
 
-void StoreInfo::write(SocketOutputStream& oStream, bool toOther) const throw(ProtocolException, Error)
+void StoreInfo::write(SocketOutputStream& oStream, bool toOther) const
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void StoreInfo::write(SocketOutputStream& oStream, bool toOther) const throw(Pro
 	__END_CATCH
 }
 
-void StoreOutlook::read(SocketInputStream& iStream) throw(ProtocolException, Error)
+void StoreOutlook::read(SocketInputStream& iStream)
 {
 	__BEGIN_TRY
 
@@ -115,7 +115,7 @@ void StoreOutlook::read(SocketInputStream& iStream) throw(ProtocolException, Err
 	__END_CATCH
 }
 
-void StoreOutlook::write(SocketOutputStream& oStream) const throw(ProtocolException, Error)
+void StoreOutlook::write(SocketOutputStream& oStream) const
 {
 	__BEGIN_TRY
 

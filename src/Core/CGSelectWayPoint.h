@@ -22,17 +22,17 @@ class CGSelectWayPoint : public Packet
 public:
     CGSelectWayPoint() {};
     virtual ~CGSelectWayPoint() {};
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SELECT_WAYPOINT; }
-	PacketSize_t getPacketSize() const throw() { return szZoneID + szCoord*2; }
-	string getPacketName() const throw() { return "CGSelectWayPoint"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_SELECT_WAYPOINT; }
+	PacketSize_t getPacketSize() const  { return szZoneID + szCoord*2; }
+	string getPacketName() const  { return "CGSelectWayPoint"; }
+	string toString() const ;
 
 public:
-	ZoneID_t getZoneID() const throw()  { return m_ZoneID; }
-	void setZoneID(ZoneID_t ZoneID) throw() { m_ZoneID = ZoneID; }
+	ZoneID_t getZoneID() const   { return m_ZoneID; }
+	void setZoneID(ZoneID_t ZoneID)  { m_ZoneID = ZoneID; }
 
 	Coord_t getX(void) const { return m_X; }
 	void setX(Coord_t X) { m_X = X; }
@@ -53,10 +53,10 @@ private:
 
 class CGSelectWayPointFactory : public PacketFactory 
 {
-	Packet* createPacket() throw() { return new CGSelectWayPoint(); }
-	string getPacketName() const throw() { return "CGSelectWayPoint"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SELECT_WAYPOINT; }
-	PacketSize_t getPacketMaxSize() const throw() { return szZoneID + szCoord*2; }
+	Packet* createPacket()  { return new CGSelectWayPoint(); }
+	string getPacketName() const  { return "CGSelectWayPoint"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SELECT_WAYPOINT; }
+	PacketSize_t getPacketMaxSize() const  { return szZoneID + szCoord*2; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,8 +66,8 @@ class CGSelectWayPointFactory : public PacketFactory
 class CGSelectWayPointHandler 
 {
 public:
-	static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) throw(Error);
-	static void executeEnterQuestZone(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer, int targetDynamicZoneType ) throw(Error);
+	static void execute(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer) ;
+	static void executeEnterQuestZone(CGSelectWayPoint* pCGSelectWayPoint, Player* pPlayer, int targetDynamicZoneType ) ;
 };
 
 #endif

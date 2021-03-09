@@ -25,7 +25,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen ) 
-	throw ( Error )
 : m_pSocket(sock), m_Buffer(NULL), m_BufferLen(BufferLen), m_Head(0), m_Tail(0)
 {
 	__BEGIN_TRY
@@ -47,7 +46,6 @@ SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen )
 // destructor
 //////////////////////////////////////////////////////////////////////
 SocketInputStream::~SocketInputStream () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -63,7 +61,6 @@ SocketInputStream::~SocketInputStream ()
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::read ( char * buf , uint len ) 
-	throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 		
@@ -120,7 +117,6 @@ uint SocketInputStream::read ( char * buf , uint len )
 // read data from input buffer
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::read ( string & str , uint len ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -176,7 +172,6 @@ uint SocketInputStream::read ( string & str , uint len )
 // read packet from input buffer
 //////////////////////////////////////////////////////////////////////
 void SocketInputStream::readPacket ( Packet * pPacket ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -202,7 +197,6 @@ void SocketInputStream::readPacket ( Packet * pPacket )
 // peek data from buffer
 //////////////////////////////////////////////////////////////////////
 bool SocketInputStream::peek ( char * buf , uint len ) 
-	throw ( ProtocolException , Error )
 {
 //	__BEGIN_TRY
 			
@@ -258,7 +252,6 @@ bool SocketInputStream::peek ( char * buf , uint len )
 //
 //////////////////////////////////////////////////////////////////////
 void SocketInputStream::skip ( uint len ) 
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -303,7 +296,6 @@ void SocketInputStream::skip ( uint len )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::fill () 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -492,7 +484,6 @@ uint SocketInputStream::fill ()
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::fill_RAW ()
-	 throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
@@ -555,7 +546,6 @@ uint SocketInputStream::fill_RAW ()
 // resize buffer
 //////////////////////////////////////////////////////////////////////
 void SocketInputStream::resize ( int size )
-	 throw ( IOException , Error )
 {
 	__BEGIN_TRY
 		
@@ -638,7 +628,6 @@ void SocketInputStream::resize ( int size )
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketInputStream::length () const
-     throw ()
 {
 	__BEGIN_TRY
 
@@ -658,7 +647,6 @@ uint SocketInputStream::length () const
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string SocketInputStream::toString () const
-	throw ()
 {
 	StringStream msg;
 
@@ -672,7 +660,6 @@ string SocketInputStream::toString () const
 }
 //add by viva 2008-12-31
 /*WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
-	throw()
 {
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;

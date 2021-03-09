@@ -17,11 +17,11 @@
 class PCSlayerInfo2 : public PCInfo 
 {
 public:
-	PCType getPCType () const throw () { return PC_SLAYER; }
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	PCType getPCType () const  { return PC_SLAYER; }
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	uint getSize () const throw ()
+	uint getSize () const 
 	{
 		return szObjectID
 			+ szBYTE + m_Name.size() 
@@ -50,7 +50,7 @@ public:
 			+ szBonus;
 	}
 
-	static uint getMaxSize () throw ()
+	static uint getMaxSize () 
 	{
 		return szObjectID
 			+ szBYTE + 20
@@ -79,18 +79,18 @@ public:
 			+ szBonus;
 	}
 
-	string toString () const throw ();
+	string toString () const ;
 
 public :
-	ObjectID_t getObjectID () const throw () { return m_ObjectID; }
-	void setObjectID (ObjectID_t objectID) throw () { m_ObjectID = objectID; }
+	ObjectID_t getObjectID () const  { return m_ObjectID; }
+	void setObjectID (ObjectID_t objectID)  { m_ObjectID = objectID; }
 
-    string getName () const throw () { return m_Name; }
-    void setName (string name) throw () { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
+    string getName () const  { return m_Name; }
+    void setName (string name)  { m_Name = (name.size() > 20) ? name.substr(0,20) : name; }
 
-	Sex getSex () const throw () { return m_Sex; }
-	void setSex (Sex sex) throw () { m_Sex = sex; }
-	void setSex (string sex) throw (InvalidProtocolException)
+	Sex getSex () const  { return m_Sex; }
+	void setSex (Sex sex)  { m_Sex = sex; }
+	void setSex (string sex)
 	{
 		if (sex == Sex2String[MALE]) 
 			m_Sex = MALE;
@@ -100,9 +100,9 @@ public :
 			throw InvalidProtocolException("invalid sex value");
 	}
 
-	HairStyle getHairStyle () const throw () { return m_HairStyle; }
-	void setHairStyle (HairStyle hairStyle) throw () { m_HairStyle = hairStyle; }
-	void setHairStyle (string hairStyle) throw (InvalidProtocolException)
+	HairStyle getHairStyle () const  { return m_HairStyle; }
+	void setHairStyle (HairStyle hairStyle)  { m_HairStyle = hairStyle; }
+	void setHairStyle (string hairStyle)
 	{
 		if (hairStyle == HairStyle2String[HAIR_STYLE1])
 			m_HairStyle = HAIR_STYLE1;
@@ -114,93 +114,93 @@ public :
 			throw InvalidProtocolException("invalid hairstyle value");
 	}
 
-	Rank_t getRank () const throw () { return m_Rank; }
-	void setRank (Rank_t rank) throw () { m_Rank = rank; }
+	Rank_t getRank () const  { return m_Rank; }
+	void setRank (Rank_t rank)  { m_Rank = rank; }
 
-	RankExp_t getRankExp () const throw () { return m_RankExp; }
-	void setRankExp (RankExp_t rankExp) throw () { m_RankExp = rankExp; }
+	RankExp_t getRankExp () const  { return m_RankExp; }
+	void setRankExp (RankExp_t rankExp)  { m_RankExp = rankExp; }
 
-	Color_t getHairColor () const throw () { return m_HairColor; }
-	void setHairColor (Color_t hairColor) throw () { m_HairColor = hairColor; }
+	Color_t getHairColor () const  { return m_HairColor; }
+	void setHairColor (Color_t hairColor)  { m_HairColor = hairColor; }
 
-	Color_t getSkinColor () const throw () { return m_SkinColor; }
-	void setSkinColor (Color_t skinColor) throw () { m_SkinColor = skinColor; }
+	Color_t getSkinColor () const  { return m_SkinColor; }
+	void setSkinColor (Color_t skinColor)  { m_SkinColor = skinColor; }
 
-	BYTE getMasterEffectColor () const throw () { return m_MasterEffectColor; }
-	void setMasterEffectColor (BYTE masterEffectColor) throw () { m_MasterEffectColor = masterEffectColor; }
+	BYTE getMasterEffectColor () const  { return m_MasterEffectColor; }
+	void setMasterEffectColor (BYTE masterEffectColor)  { m_MasterEffectColor = masterEffectColor; }
 
-	Alignment_t getAlignment() const throw() { return m_Alignment; }
-	void setAlignment(Alignment_t Alignment) throw() { m_Alignment = Alignment; }
+	Alignment_t getAlignment() const  { return m_Alignment; }
+	void setAlignment(Alignment_t Alignment)  { m_Alignment = Alignment; }
 
-    Attr_t getSTR (AttrType attrType = ATTR_CURRENT) const throw (Error)
+    Attr_t getSTR (AttrType attrType = ATTR_CURRENT) const 
 	{ 
 		if (m_STR[attrType] > maxSlayerAttr) throw Error("STR out of range"); 
 		return m_STR[attrType]; 
 	}
-    void setSTR (Attr_t str, AttrType attrType = ATTR_CURRENT) throw (Error)
+    void setSTR (Attr_t str, AttrType attrType = ATTR_CURRENT) 
 	{ 
 		if (str > maxSlayerAttr) throw Error("STR out of range"); 
 		m_STR[attrType] = str; 
 	}
 
-	Attr_t getDEX (AttrType attrType = ATTR_CURRENT) const throw (Error)
+	Attr_t getDEX (AttrType attrType = ATTR_CURRENT) const 
 	{ 
 		if (m_DEX[attrType] > maxSlayerAttr) throw Error("DEX out of range"); 
 		return m_DEX[attrType]; 
 	}
-	void setDEX (Attr_t dex, AttrType attrType = ATTR_CURRENT) throw (Error)
+	void setDEX (Attr_t dex, AttrType attrType = ATTR_CURRENT) 
 	{ 
 		if (dex > maxSlayerAttr) throw Error("DEX out of range"); 
 		m_DEX[attrType] = dex; 
 	}
 
-	Attr_t getINT (AttrType attrType = ATTR_CURRENT) const throw (Error)
+	Attr_t getINT (AttrType attrType = ATTR_CURRENT) const 
 	{ 
 		if (m_INT[attrType] > maxSlayerAttr) throw Error("INT out of range"); 
 		return m_INT[attrType]; 
 	}
-	void setINT (Attr_t inte, AttrType attrType = ATTR_CURRENT) throw (Error)
+	void setINT (Attr_t inte, AttrType attrType = ATTR_CURRENT) 
 	{ 
 		if (inte > maxSlayerAttr) throw Error("INT out of range"); 
 		m_INT[attrType] = inte; 
 	}
 
-	Exp_t getSTRExp () const throw(Error) { return m_STRExp; };
-	void setSTRExp(Exp_t STRExp) throw(Error) { m_STRExp = STRExp; }
+	Exp_t getSTRExp () const  { return m_STRExp; };
+	void setSTRExp(Exp_t STRExp)  { m_STRExp = STRExp; }
 
-	Exp_t getDEXExp () const throw(Error) { return m_DEXExp; };
-	void setDEXExp(Exp_t DEXExp) throw(Error) { m_DEXExp = DEXExp; }
+	Exp_t getDEXExp () const  { return m_DEXExp; };
+	void setDEXExp(Exp_t DEXExp)  { m_DEXExp = DEXExp; }
 
-	Exp_t getINTExp () const throw(Error) { return m_INTExp; };
-	void setINTExp(Exp_t INTExp) throw(Error) { m_INTExp = INTExp; }
+	Exp_t getINTExp () const  { return m_INTExp; };
+	void setINTExp(Exp_t INTExp)  { m_INTExp = INTExp; }
 
-	HP_t getHP (AttrType attrType = ATTR_CURRENT) const throw () { return m_HP[attrType]; }
-	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT) throw () { m_HP[attrType] = hp; }
-	void setHP (HP_t curHP, HP_t maxHP) throw () { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
+	HP_t getHP (AttrType attrType = ATTR_CURRENT) const  { return m_HP[attrType]; }
+	void setHP (HP_t hp, AttrType attrType = ATTR_CURRENT)  { m_HP[attrType] = hp; }
+	void setHP (HP_t curHP, HP_t maxHP)  { m_HP[ATTR_CURRENT] = curHP; m_HP[ATTR_MAX] = maxHP; }
 
-	MP_t getMP (AttrType attrType = ATTR_CURRENT) const throw () { return m_MP[attrType]; }
-	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT) throw () { m_MP[attrType] = mp; }
-	void setMP (MP_t curMP, MP_t maxMP) throw () { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
+	MP_t getMP (AttrType attrType = ATTR_CURRENT) const  { return m_MP[attrType]; }
+	void setMP (MP_t mp, AttrType attrType = ATTR_CURRENT)  { m_MP[attrType] = mp; }
+	void setMP (MP_t curMP, MP_t maxMP)  { m_MP[ATTR_CURRENT] = curMP; m_MP[ATTR_MAX] = maxMP; }
 
-	Fame_t getFame () const throw () { return m_Fame; }
-	void setFame (Fame_t fame) throw () { m_Fame = fame; }
+	Fame_t getFame () const  { return m_Fame; }
+	void setFame (Fame_t fame)  { m_Fame = fame; }
 
-	Gold_t getGold () const throw () { return m_Gold; }
-	void setGold (Gold_t gold) throw () { m_Gold = gold; }
+	Gold_t getGold () const  { return m_Gold; }
+	void setGold (Gold_t gold)  { m_Gold = gold; }
 
-	SkillLevel_t getSkillDomainLevel (SkillDomain domain) const throw () { return m_DomainLevels[ domain ]; }
-	void setSkillDomainLevel (SkillDomain domain, SkillLevel_t skillLevel) throw () { m_DomainLevels[ domain ] = skillLevel; }
+	SkillLevel_t getSkillDomainLevel (SkillDomain domain) const  { return m_DomainLevels[ domain ]; }
+	void setSkillDomainLevel (SkillDomain domain, SkillLevel_t skillLevel)  { m_DomainLevels[ domain ] = skillLevel; }
 
-	SkillExp_t getSkillDomainExp (SkillDomain domain) const throw () { return m_DomainExps[ domain ]; }
-	void setSkillDomainExp (SkillDomain domain, SkillExp_t skillExp) throw () { m_DomainExps[ domain ] = skillExp; }
+	SkillExp_t getSkillDomainExp (SkillDomain domain) const  { return m_DomainExps[ domain ]; }
+	void setSkillDomainExp (SkillDomain domain, SkillExp_t skillExp)  { m_DomainExps[ domain ] = skillExp; }
 
-	void setSkillDomain (SkillDomain domain, SkillLevel_t skillLevel, SkillExp_t skillExp) throw () { m_DomainLevels[ domain ] = skillLevel; m_DomainExps[ domain ] = skillExp; }
+	void setSkillDomain (SkillDomain domain, SkillLevel_t skillLevel, SkillExp_t skillExp)  { m_DomainLevels[ domain ] = skillLevel; m_DomainExps[ domain ] = skillExp; }
 
-	Sight_t getSight () const throw () { return m_Sight; }
-	void setSight (Sight_t sight) throw () { m_Sight = sight; }
+	Sight_t getSight () const  { return m_Sight; }
+	void setSight (Sight_t sight)  { m_Sight = sight; }
 
-	SkillType_t getHotKey(BYTE pos) const throw() { return m_HotKey[pos]; }
-	void setHotKey(BYTE pos, SkillType_t SkillType) throw() { m_HotKey[pos] = SkillType; }
+	SkillType_t getHotKey(BYTE pos) const  { return m_HotKey[pos]; }
+	void setHotKey(BYTE pos, SkillType_t SkillType)  { m_HotKey[pos] = SkillType; }
 
 	BYTE getCompetence(void) const { return m_Competence; }
 	void setCompetence(BYTE competence) { m_Competence = competence; }

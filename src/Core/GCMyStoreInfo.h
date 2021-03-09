@@ -18,17 +18,17 @@
 class GCMyStoreInfo : public Packet
 {
 public:
-	GCMyStoreInfo() throw() : m_OpenUI(1) { }
-	virtual ~GCMyStoreInfo() throw();
+	GCMyStoreInfo()  : m_OpenUI(1) { }
+	virtual ~GCMyStoreInfo() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MY_STORE_INFO; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + m_pInfo->getSize(false); }
-	string getPacketName() const throw() { return "GCMyStoreInfo"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_MY_STORE_INFO; }
+	PacketSize_t getPacketSize() const  { return szBYTE + m_pInfo->getSize(false); }
+	string getPacketName() const  { return "GCMyStoreInfo"; }
+	string toString() const ;
 
 public:
 	BYTE		getOpenUI() const { return m_OpenUI; }
@@ -49,10 +49,10 @@ private:
 class GCMyStoreInfoFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCMyStoreInfo(); }
-	string getPacketName() const throw() { return "GCMyStoreInfo"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MY_STORE_INFO; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCMyStoreInfo(); }
+	string getPacketName() const  { return "GCMyStoreInfo"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MY_STORE_INFO; }
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szBYTE + StoreInfo::getMaxSize();
 	}
@@ -65,7 +65,7 @@ public:
 class GCMyStoreInfoHandler 
 {
 public:
-	static void execute(GCMyStoreInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCMyStoreInfo* pPacket, Player* pPlayer) ;
 };
 
 #endif

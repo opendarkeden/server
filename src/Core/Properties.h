@@ -57,32 +57,32 @@ public :
 public :
 	
 	// constructor
-	Properties () throw ();
-	Properties (const string & filename) throw ();
+	Properties () ;
+	Properties (const string & filename) ;
 	
 	// destructor
-	~Properties () throw ();
+	~Properties () ;
 	
 
 public :
 	
 	// load from file
-	void load () throw (IOException, Error);
-	void load (const string & filename) throw (IOException, Error) { m_Filename = filename; load(); }
+	void load () ;
+	void load (const string & filename)  { m_Filename = filename; load(); }
 
 	// save to file
-	void save () throw (IOException);
-	void save (const string & filename) throw (IOException) { m_Filename = filename; save(); }
+	void save ();
+	void save (const string & filename) { m_Filename = filename; save(); }
 
 	// get/set property
-	string getProperty (string key) const throw (NoSuchElementException);
-	int getPropertyInt (string key) const throw (NoSuchElementException);
-	void setProperty (string key, string value) throw ();
+	string getProperty (string key) const;
+	int getPropertyInt (string key) const;
+	void setProperty (string key, string value) ;
 
 	bool hasKey(const string& key) const { return m_Properties.find(key) != m_Properties.end(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 	
 private :
 	

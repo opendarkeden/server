@@ -14,7 +14,6 @@
 // constructor
 //--------------------------------------------------------------------------------
 Resource::Resource ( Version_t version , const string & str )
-	throw ( ProtocolException , Error )
 : m_Version(version), m_Filename(""), m_FileSize(0)
 {
 	__BEGIN_TRY
@@ -52,7 +51,6 @@ Resource::Resource ( Version_t version , const string & str )
 // copy constructor
 //--------------------------------------------------------------------------------
 Resource::Resource ( const Resource & resource )
-	throw ()
 : m_Version(resource.m_Version), m_Filename(resource.m_Filename), m_FileSize(resource.m_FileSize)
 {
 }
@@ -62,7 +60,6 @@ Resource::Resource ( const Resource & resource )
 // load from resource file
 //--------------------------------------------------------------------------------
 void Resource::load ( ifstream & ifile ) 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -104,7 +101,6 @@ void Resource::load ( ifstream & ifile )
 // save to resource file
 //--------------------------------------------------------------------------------
 void Resource::save ( ofstream & ofile ) const 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -141,7 +137,6 @@ void Resource::save ( ofstream & ofile ) const
 // read from socket input stream
 //--------------------------------------------------------------------------------
 void Resource::read ( SocketInputStream & iStream ) 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -177,7 +172,6 @@ void Resource::read ( SocketInputStream & iStream )
 // read from socket
 //--------------------------------------------------------------------------------
 void Resource::read ( Socket * pSocket ) 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -217,7 +211,6 @@ void Resource::read ( Socket * pSocket )
 // write to socket output stream
 //--------------------------------------------------------------------------------
 void Resource::write ( SocketOutputStream & oStream ) const 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -254,7 +247,6 @@ void Resource::write ( SocketOutputStream & oStream ) const
 // write to socket
 //--------------------------------------------------------------------------------
 void Resource::write ( Socket * pSocket ) const 
-	throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -291,7 +283,6 @@ void Resource::write ( Socket * pSocket ) const
 // get debug string
 //--------------------------------------------------------------------------------
 string Resource::toString () const
-	throw ()
 {
 	StringStream msg;
 	msg << "Resource("

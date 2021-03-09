@@ -29,57 +29,57 @@ class GCSkillToObjectOK3 : public Packet {
 public :
 	
 	// constructor
-	GCSkillToObjectOK3() throw();
+	GCSkillToObjectOK3() ;
 	
 	// destructor
-	~GCSkillToObjectOK3() throw();
+	~GCSkillToObjectOK3() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_TO_OBJECT_OK_3; }
+	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_OBJECT_OK_3; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szSkillType + szCoord*2 + szBYTE; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szSkillType + szCoord*2 + szBYTE; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCSkillToObjectOK3"; }
+	string getPacketName() const  { return "GCSkillToObjectOK3"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 	// get / set SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get / set Target X,Y
-	Coord_t getTargetX() const throw() { return m_TargetX; }
-	Coord_t getTargetY() const throw() { return m_TargetY; }
-	void setTargetXY(Coord_t X, Coord_t Y) throw() { m_TargetX = X; m_TargetY = Y; }
+	Coord_t getTargetX() const  { return m_TargetX; }
+	Coord_t getTargetY() const  { return m_TargetY; }
+	void setTargetXY(Coord_t X, Coord_t Y)  { m_TargetX = X; m_TargetY = Y; }
 
 	
 	// get / set CEffectID 
-//	CEffectID_t getCEffectID() const throw() { return m_CEffectID; }
-//	void setCEffectID(CEffectID_t e) throw() { m_CEffectID = e; }
+//	CEffectID_t getCEffectID() const  { return m_CEffectID; }
+//	void setCEffectID(CEffectID_t e)  { m_CEffectID = e; }
 
-	BYTE getGrade() const throw() { return m_Grade; }
-	void setGrade(BYTE grade ) throw() { m_Grade = grade; }
+	BYTE getGrade() const  { return m_Grade; }
+	void setGrade(BYTE grade )  { m_Grade = grade; }
 
 private :
 	
@@ -114,24 +114,24 @@ class GCSkillToObjectOK3Factory : public PacketFactory {
 public :
 	
 	// constructor
-	GCSkillToObjectOK3Factory() throw() {}
+	GCSkillToObjectOK3Factory()  {}
 	
 	// destructor
-	virtual ~GCSkillToObjectOK3Factory() throw() {}
+	virtual ~GCSkillToObjectOK3Factory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCSkillToObjectOK3(); }
+	Packet* createPacket()  { return new GCSkillToObjectOK3(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCSkillToObjectOK3"; }
+	string getPacketName() const  { return "GCSkillToObjectOK3"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SKILL_TO_OBJECT_OK_3; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_TO_OBJECT_OK_3; }
 
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szSkillType + szCoord*2 + szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szSkillType + szCoord*2 + szBYTE; }
 
 
 };
@@ -148,7 +148,7 @@ class GCSkillToObjectOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToObjectOK3* pGCSkillToObjectOK3, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToObjectOK3* pGCSkillToObjectOK3, Player* pPlayer) ;
 
 };
 

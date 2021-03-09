@@ -21,17 +21,17 @@ class CGGQuestAccept : public Packet
 public:
     CGGQuestAccept() {};
     ~CGGQuestAccept() {};
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_GQUEST_ACCEPT; }
-	PacketSize_t getPacketSize() const throw() { return szDWORD; }
-	string getPacketName() const throw() { return "CGGQuestAccept"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_GQUEST_ACCEPT; }
+	PacketSize_t getPacketSize() const  { return szDWORD; }
+	string getPacketName() const  { return "CGGQuestAccept"; }
+	string toString() const ;
 
 public:
-	DWORD getQuestID() const throw()  { return m_QuestID; }
-	void setQuestID(DWORD QuestID) throw() { m_QuestID = QuestID; }
+	DWORD getQuestID() const   { return m_QuestID; }
+	void setQuestID(DWORD QuestID)  { m_QuestID = QuestID; }
 
 private:
 	DWORD       m_QuestID;  // 기술의 종류
@@ -44,10 +44,10 @@ private:
 class CGGQuestAcceptFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGGQuestAccept(); }
-	string getPacketName() const throw() { return "CGGQuestAccept"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_GQUEST_ACCEPT; }
-	PacketSize_t getPacketMaxSize() const throw() { return szDWORD; }
+	Packet* createPacket()  { return new CGGQuestAccept(); }
+	string getPacketName() const  { return "CGGQuestAccept"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_GQUEST_ACCEPT; }
+	PacketSize_t getPacketMaxSize() const  { return szDWORD; }
 };
 
 
@@ -58,7 +58,7 @@ public:
 class CGGQuestAcceptHandler 
 {
 public:
-	static void execute(CGGQuestAccept* pCGGQuestAccept, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CGGQuestAccept* pCGGQuestAccept, Player* pPlayer) ;
 };
 
 #endif

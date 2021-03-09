@@ -32,43 +32,43 @@ class SGGuildInfo : public Packet {
 public:
 
 	// constructor
-	SGGuildInfo() throw();
+	SGGuildInfo() ;
 
 	// destructor
-	~SGGuildInfo() throw();
+	~SGGuildInfo() ;
 	
-    void read(SocketInputStream& iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream& iStream) ;
 		    
-    void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_SG_GUILD_INFO; }
+	PacketID_t getPacketID() const  { return PACKET_SG_GUILD_INFO; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw(); 
+	PacketSize_t getPacketSize() const ; 
 
 	// get packet name
-	string getPacketName() const throw() { return "SGGuildInfo"; }
+	string getPacketName() const  { return "SGGuildInfo"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get guild info list num
-	WORD getGuildInfoListNum() const throw() { return m_GuildInfoList.size(); }
+	WORD getGuildInfoListNum() const  { return m_GuildInfoList.size(); }
 
 	// add GuildInfo
-	void addGuildInfo(GuildInfo2* pGuildInfo ) throw() { m_GuildInfoList.push_front(pGuildInfo); }
+	void addGuildInfo(GuildInfo2* pGuildInfo )  { m_GuildInfoList.push_front(pGuildInfo); }
 
 	// clear GuildInfoList
-	void clearGuildInfoList() throw();
+	void clearGuildInfoList() ;
 
 	// pop front element in GuildInfoList
-	GuildInfo2* popFrontGuildInfoList() throw()
+	GuildInfo2* popFrontGuildInfoList() 
 	{
 		if (m_GuildInfoList.empty() )
 			return NULL;
@@ -99,17 +99,17 @@ class SGGuildInfoFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new SGGuildInfo(); }
+	Packet* createPacket()  { return new SGGuildInfo(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "SGGuildInfo"; }
+	string getPacketName() const  { return "SGGuildInfo"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_SG_GUILD_INFO; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_SG_GUILD_INFO; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szWORD + GuildInfo2::getMaxSize() * 500;
 	}
@@ -128,7 +128,7 @@ class SGGuildInfoHandler {
 public:
 
 	// execute packet's handler
-	static void execute(SGGuildInfo* pPacket) throw(ProtocolException, Error);
+	static void execute(SGGuildInfo* pPacket) ;
 
 };
 

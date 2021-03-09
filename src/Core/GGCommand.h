@@ -39,34 +39,34 @@ public :
 	GGCommand() {};
     ~GGCommand() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GG_COMMAND; }
+	PacketID_t getPacketID() const  { return PACKET_GG_COMMAND; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE + m_Command.size();
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GGCommand"; }
+	string getPacketName() const  { return "GGCommand"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set playerID
-	const string& getCommand() const throw() { return m_Command; }
-	void setCommand(const string& command) throw() { m_Command = command; }
+	const string& getCommand() const  { return m_Command; }
+	void setCommand(const string& command)  { m_Command = command; }
 	
 private :
 
@@ -87,18 +87,18 @@ class GGCommandFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GGCommand(); }
+	Packet* createPacket()  { return new GGCommand(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GGCommand"; }
+	string getPacketName() const  { return "GGCommand"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GG_COMMAND; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GG_COMMAND; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GGCommandPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE + 80;
 	}
@@ -117,7 +117,7 @@ class GGCommandHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GGCommand* pPacket) throw(ProtocolException, Error);
+	static void execute(GGCommand* pPacket) ;
 
 };
 

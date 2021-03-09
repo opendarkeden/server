@@ -27,7 +27,7 @@ public:
 	virtual ~CBillingPlayerInfo() throw ( Error );
 
 	// get debug string
-	virtual string toString() const throw ( Error );
+	virtual string toString() const;
 
 public:
 	// get / set CBillingVerified;

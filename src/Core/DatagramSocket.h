@@ -31,22 +31,22 @@ class DatagramSocket {
 public :
 
 	// constructor for UDP Client Socket
-	DatagramSocket () throw (Error, BindException);
+	DatagramSocket ();
 
 	// constructor for UDP Server Socket
-	DatagramSocket (uint port) throw (Error, BindException);
+	DatagramSocket (uint port);
 
 	// destructor
-	~DatagramSocket () throw (Error);
+	~DatagramSocket () ;
 
 	// send datagram to peer
-	uint send (Datagram* pDatagram) throw (ConnectException, Error);
+	uint send (Datagram* pDatagram);
 
 	// receive datagram from peer
-	Datagram* receive () throw (ConnectException, Error);
+	Datagram* receive ();
 	
 	// get socket descriptor
-	SOCKET getSOCKET () const throw () { return m_SocketID; }
+	SOCKET getSOCKET () const  { return m_SocketID; }
 
 private :
 

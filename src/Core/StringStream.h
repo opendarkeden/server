@@ -22,34 +22,34 @@ class StringStream {
 public :
 	
 	// constructor
-	StringStream () throw ();
+	StringStream () ;
 	
 	// destructor
-	~StringStream () throw ();
+	~StringStream () ;
 	
 	
 public :
 	
 	// add string to stream
-	StringStream & operator << (bool T) throw ();
-	StringStream & operator << (char T) throw ();
-	StringStream & operator << (uchar T) throw ();
-	StringStream & operator << (short T) throw ();
-	StringStream & operator << (ushort T) throw ();
-	StringStream & operator << (int T) throw ();
-	StringStream & operator << (uint T) throw ();
-	StringStream & operator << (long T) throw ();
-	StringStream & operator << (ulong T) throw ();
-	StringStream & operator << (float T) throw ();
-	StringStream & operator << (double T) throw ();
-	StringStream & operator << (const char* str) throw ();
-	StringStream & operator << (const string & str) throw ();
+	StringStream & operator << (bool T) ;
+	StringStream & operator << (char T) ;
+	StringStream & operator << (uchar T) ;
+	StringStream & operator << (short T) ;
+	StringStream & operator << (ushort T) ;
+	StringStream & operator << (int T) ;
+	StringStream & operator << (uint T) ;
+	StringStream & operator << (long T) ;
+	StringStream & operator << (ulong T) ;
+	StringStream & operator << (float T) ;
+	StringStream & operator << (double T) ;
+	StringStream & operator << (const char* str) ;
+	StringStream & operator << (const string & str) ;
 
 	// make string
-	const string& toString () const throw ();
+	const string& toString () const ;
 	
 	// true if stream is empty
-	bool isEmpty () const throw () { return m_Size == 0; }
+	bool isEmpty () const  { return m_Size == 0; }
 
 private :
 	

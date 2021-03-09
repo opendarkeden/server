@@ -30,13 +30,13 @@ class PacketValidator {
 public :
 
 	// constructor
-	PacketValidator () throw ();
+	PacketValidator () ;
 
 	// destructor
-	~PacketValidator () throw ();
+	~PacketValidator () ;
 
 	// init
-	void init () throw (Error);
+	void init () ;
 
 	// add packet id set
 	void addPacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID) throw (DuplicatedException, Error);
@@ -48,7 +48,7 @@ public :
 	bool isValidPacketID (PlayerStatus playerStatus, PacketID_t packetID) throw (NoSuchElementException, IgnorePacketException, Error);
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 private :
 

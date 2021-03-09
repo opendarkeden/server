@@ -30,34 +30,34 @@ public:
 	SGDeleteGuildOK() {};
     ~SGDeleteGuildOK() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream& iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream& iStream) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_SG_DELETE_GUILD_OK; }
+	PacketID_t getPacketID() const  { return PACKET_SG_DELETE_GUILD_OK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szGuildID; 				// guild ID
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "SGDeleteGuildOK"; }
+	string getPacketName() const  { return "SGDeleteGuildOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set guildID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t guildID ) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
 
 private :
 
@@ -80,18 +80,18 @@ class SGDeleteGuildOKFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new SGDeleteGuildOK(); }
+	Packet* createPacket()  { return new SGDeleteGuildOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "SGDeleteGuildOK"; }
+	string getPacketName() const  { return "SGDeleteGuildOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_SG_DELETE_GUILD_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_SG_DELETE_GUILD_OK; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szGuildID;				// guild ID
 	}
@@ -110,7 +110,7 @@ class SGDeleteGuildOKHandler {
 public:
 
 	// execute packet's handler
-	static void execute(SGDeleteGuildOK* pPacket) throw(ProtocolException, Error);
+	static void execute(SGDeleteGuildOK* pPacket) ;
 
 };
 

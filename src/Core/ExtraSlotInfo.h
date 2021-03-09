@@ -26,10 +26,10 @@ public:
 	virtual ~ExtraSlotInfo();
 
 public:
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	string toString () const throw ();
+	string toString () const ;
 };
 
 #endif

@@ -80,7 +80,6 @@ void addLogoutPlayerData(Player* pPlayer);
 //////////////////////////////////////////////////////////////////////////////
 
 GamePlayer::GamePlayer (Socket* pSocket)
-	 throw (Error)
 : //Player(pSocket), 	// by sigi. 2002.11.12
 	m_pCreature(NULL), m_PlayerStatus(GPS_NONE), m_pReconnectPacket(NULL),m_Sequence(0)
 {
@@ -158,7 +157,6 @@ GamePlayer::GamePlayer (Socket* pSocket)
 //////////////////////////////////////////////////////////////////////////////
 
 GamePlayer::~GamePlayer ()
-	 throw (Error)
 {
 	__BEGIN_TRY
 
@@ -355,7 +353,6 @@ void GamePlayer::tv_sub(struct timeval *out,struct timeval *in)
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::processCommand (bool Option) 
-     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -623,7 +620,6 @@ void GamePlayer::processCommand (bool Option)
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::processOutput () 
-     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -657,7 +653,6 @@ void GamePlayer::processOutput ()
 //
 //////////////////////////////////////////////////////////////////////
 void GamePlayer::sendPacket (Packet* pPacket) 
-	 throw (ProtocolException , Error)
 {	
 	__BEGIN_TRY
 	
@@ -744,7 +739,6 @@ void GamePlayer::sendPacket (Packet* pPacket)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::disconnect (bool bDisconnected)
-	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -904,7 +898,6 @@ void GamePlayer::disconnect (bool bDisconnected)
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket (uint prev)
-	throw (OutOfBoundException , NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -930,7 +923,6 @@ Packet* GamePlayer::getOldPacket (uint prev)
 //
 //////////////////////////////////////////////////////////////////////
 Packet* GamePlayer::getOldPacket (PacketID_t packetID)
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -957,7 +949,6 @@ Packet* GamePlayer::getOldPacket (PacketID_t packetID)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::addEvent (Event* pEvent)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -970,7 +961,6 @@ void GamePlayer::addEvent (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 void GamePlayer::deleteEvent (Event::EventClass EClass)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -983,7 +973,6 @@ void GamePlayer::deleteEvent (Event::EventClass EClass)
 //
 //--------------------------------------------------------------------------------
 Event* GamePlayer::getEvent (Event::EventClass EClass)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -998,7 +987,6 @@ Event* GamePlayer::getEvent (Event::EventClass EClass)
 //
 //////////////////////////////////////////////////////////////////////
 string GamePlayer::toString () const
-       throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -1027,7 +1015,6 @@ string GamePlayer::toString () const
 //
 //////////////////////////////////////////////////////////////////////
 bool GamePlayer::verifySpeed(Packet* pPacket)
-	throw (Error)
 {
 	__BEGIN_TRY
 	PacketID_t PacketID = pPacket->getPacketID();
@@ -1416,7 +1403,6 @@ bool GamePlayer::verifySpeed(Packet* pPacket)
 }
 
 void GamePlayer::loadSpecialEventCount(void)
-	throw()
 {
 	__BEGIN_TRY
 
@@ -1450,7 +1436,6 @@ void GamePlayer::loadSpecialEventCount(void)
 }
 
 void GamePlayer::saveSpecialEventCount(void)
-	throw()
 {
 	__BEGIN_TRY
 
@@ -1470,7 +1455,6 @@ void GamePlayer::saveSpecialEventCount(void)
 }
 
 bool    GamePlayer::sendBillingLogin() 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1508,7 +1492,6 @@ bool    GamePlayer::sendBillingLogin()
 }
 
 void GamePlayer::sendCBillingPayInfo()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -1546,7 +1529,6 @@ void GamePlayer::sendCBillingPayInfo()
 
 // 암호화 코드를 설정한다.
 void GamePlayer::setEncryptCode()
-    throw (Error)
 {
     __BEGIN_TRY
 
@@ -1589,7 +1571,6 @@ void GamePlayer::setEncryptCode()
 }
 
 void GamePlayer::kickPlayer( uint nSeconds, uint KickMessageType )
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -1614,7 +1595,6 @@ void GamePlayer::kickPlayer( uint nSeconds, uint KickMessageType )
 // PaySystem 관련
 //////////////////////////////////////////////////////////////////
 bool GamePlayer::loginPayPlay( PayType payType, const string& PayPlayDate, int PayPlayHours, uint payPlayFlag, const string& ip, const string& playerID )
-	throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
@@ -1626,7 +1606,6 @@ bool GamePlayer::loginPayPlay( PayType payType, const string& PayPlayDate, int P
 }
 
 bool GamePlayer::loginPayPlay( const string& ip, const string& playerID )
-    throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
@@ -1643,7 +1622,6 @@ bool GamePlayer::loginPayPlay( const string& ip, const string& playerID )
 }
 
 bool GamePlayer::updatePayPlayTime( const string& playerID, const VSDateTime& currentDateTime, const Timeval& currentTime )
-    throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__
@@ -1657,7 +1635,6 @@ bool GamePlayer::updatePayPlayTime( const string& playerID, const VSDateTime& cu
 }
 
 void GamePlayer::logoutPayPlay( const string& playerID, bool bClear, bool bDecreaseTime )
-    throw (Error)
 {
 	__BEGIN_TRY
 #ifdef __CONNECT_BILLING_SYSTEM__

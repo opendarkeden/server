@@ -12,21 +12,21 @@ template <typename TList> class AttributeListPacket;
 template <> class AttributeListPacket<NullType>
 {
 public:
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error) { }
-	void write(SocketOutputStream& iStream) throw(ProtocolException, Error) { }
+	void read(SocketInputStream& iStream)  { }
+	void write(SocketOutputStream& iStream)  { }
 
-	PacketSize_t getPacketSize() const throw() { return 0; }
-	string toString() const throw() { return ""; }
+	PacketSize_t getPacketSize() const  { return 0; }
+	string toString() const  { return ""; }
 };
 
 template <typename T, typename U> class AttributeListPacket< Typelist<T, U> >
 {
 public:
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error) { iStream.read(m_Value); m_Tail.read(iStream); }
-	void write(SocketOutputStream& iStream) throw(ProtocolException, Error) { oStream.write(m_Value); m_Tail.write(oStream); }
+	void read(SocketInputStream& iStream)  { iStream.read(m_Value); m_Tail.read(iStream); }
+	void write(SocketOutputStream& iStream)  { oStream.write(m_Value); m_Tail.write(oStream); }
 
-	PacketSize_t getPacketSize() const throw() { return sizeof(T) + m_Tail.getPacketSize(); }
-	string toString() const throw() { return string(m_Value) + ", " + m_Tail.toString(); }
+	PacketSize_t getPacketSize() const  { return sizeof(T) + m_Tail.getPacketSize(); }
+	string toString() const  { return string(m_Value) + ", " + m_Tail.toString(); }
 
 	T	getFirstValue() const { return m_Value; }
 	AttributeListPacket<U>&	getNextValues() { return m_Tail; }

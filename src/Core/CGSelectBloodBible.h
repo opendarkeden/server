@@ -28,29 +28,29 @@ public:
 	CGSelectBloodBible() {};
     virtual ~CGSelectBloodBible() {};
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SELECT_BLOOD_BIBLE; }
+	PacketID_t getPacketID() const  { return PACKET_CG_SELECT_BLOOD_BIBLE; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szItemType; }
+	PacketSize_t getPacketSize() const  { return szItemType; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGSelectBloodBible"; }
+	string getPacketName() const  { return "CGSelectBloodBible"; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set BloodBibleID
-	ItemType_t getBloodBibleID() const throw() { return m_BloodBibleID; }
-	void setBloodBibleID(ItemType_t BloodBibleID ) throw() { m_BloodBibleID = BloodBibleID; }
+	ItemType_t getBloodBibleID() const  { return m_BloodBibleID; }
+	void setBloodBibleID(ItemType_t BloodBibleID )  { m_BloodBibleID = BloodBibleID; }
 
 
 private :
@@ -74,25 +74,25 @@ class CGSelectBloodBibleFactory : public PacketFactory {
 public:
 	
 	// constructor
-	CGSelectBloodBibleFactory() throw() {}
+	CGSelectBloodBibleFactory()  {}
 	
 	// destructor
-	virtual ~CGSelectBloodBibleFactory() throw() {}
+	virtual ~CGSelectBloodBibleFactory()  {}
 
 	
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGSelectBloodBible(); }
+	Packet* createPacket()  { return new CGSelectBloodBible(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGSelectBloodBible"; }
+	string getPacketName() const  { return "CGSelectBloodBible"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SELECT_BLOOD_BIBLE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SELECT_BLOOD_BIBLE; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szItemType; }
+	PacketSize_t getPacketMaxSize() const  { return szItemType; }
 };
 
 
@@ -107,7 +107,7 @@ class CGSelectBloodBibleHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSelectBloodBible* pCGSelectBloodBible, Player* pPlayer) throw(Error);
+	static void execute(CGSelectBloodBible* pCGSelectBloodBible, Player* pPlayer) ;
 
 };
 

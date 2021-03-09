@@ -46,12 +46,12 @@ public:
 			szZoneCoord + szZoneCoord; 
 	}
 	
-	void read(SocketInputStream& iStream) throw (ProtocolException, Error);
-	void write(SocketOutputStream& oStream) const throw (ProtocolException, Error);
+	void read(SocketInputStream& iStream) ;
+	void write(SocketOutputStream& oStream) const ;
 
 	static uint getMaxSize(void) { return szBYTE + 30 + szNPCID + szZoneCoord + szZoneCoord; }
 
-	string toString(void) const throw();
+	string toString(void) const ;
 
 ///// member data /////
 

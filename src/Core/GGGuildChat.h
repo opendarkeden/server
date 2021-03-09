@@ -26,19 +26,19 @@ public :
 	GGGuildChat() {};
     ~GGGuildChat() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GG_GUILD_CHAT; }
+	PacketID_t getPacketID() const  { return PACKET_GG_GUILD_CHAT; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szBYTE +
 			   szGuildID +						// GuildID
@@ -48,31 +48,31 @@ public :
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GGGuildChat"; }
+	string getPacketName() const  { return "GGGuildChat"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
-	BYTE getType() const throw() { return m_Type; }
-	void setType(BYTE type ) throw() { m_Type = type; }
+	BYTE getType() const  { return m_Type; }
+	void setType(BYTE type )  { m_Type = type; }
 
 	// get/set Guild ID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t guildID ) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
 
 	// get/set Sender
-	const string& getSender() const throw() { return m_Sender; }
-	void setSender(const string& sender ) throw() { m_Sender = sender; }
+	const string& getSender() const  { return m_Sender; }
+	void setSender(const string& sender )  { m_Sender = sender; }
 
 	// get/set text color
-	uint getColor() const throw() { return m_Color; }
-	void setColor(uint color ) throw() { m_Color = color; }
+	uint getColor() const  { return m_Color; }
+	void setColor(uint color )  { m_Color = color; }
 
 	// get/set message
-	const string& getMessage() const throw() { return m_Message; }
-	void setMessage(const string& message ) throw() { m_Message = message; }
+	const string& getMessage() const  { return m_Message; }
+	void setMessage(const string& message )  { m_Message = message; }
 
 private :
 
@@ -105,18 +105,18 @@ class GGGuildChatFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GGGuildChat(); }
+	Packet* createPacket()  { return new GGGuildChat(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GGGuildChat"; }
+	string getPacketName() const  { return "GGGuildChat"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GG_GUILD_CHAT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GG_GUILD_CHAT; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GGGuildChatPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szBYTE +
 			   szGuildID +						// GuildID
@@ -139,7 +139,7 @@ class GGGuildChatHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GGGuildChat* pPacket) throw(ProtocolException, Error);
+	static void execute(GGGuildChat* pPacket) ;
 
 };
 

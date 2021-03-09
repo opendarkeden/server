@@ -32,13 +32,13 @@ class CGGetEventItem : public Packet
 public:
     CGGetEventItem() {};
     ~CGGetEventItem() {};
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_GET_EVENT_ITEM; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE; }
-	string getPacketName() const throw() { return "CGGetEventItem"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_GET_EVENT_ITEM; }
+	PacketSize_t getPacketSize() const  { return szBYTE; }
+	string getPacketName() const  { return "CGGetEventItem"; }
+	string toString() const ;
 	
 public:
 	// get / set Event Type
@@ -59,10 +59,10 @@ private:
 class CGGetEventItemFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGGetEventItem(); }
-	string getPacketName() const throw() { return "CGGetEventItem"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_GET_EVENT_ITEM; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE; }
+	Packet* createPacket()  { return new CGGetEventItem(); }
+	string getPacketName() const  { return "CGGetEventItem"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_GET_EVENT_ITEM; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
 };
 
 
@@ -74,12 +74,12 @@ public:
 class CGGetEventItemHandler 
 {
 public:
-	static void execute(CGGetEventItem* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGGetEventItem* pPacket, Player* player) ;
 
 #ifdef __GAME_SERVER__
-	static void executeCombackItem(CGGetEventItem* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void executeCombackPremiumItem(CGGetEventItem* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void executeCombackRecommendItem(CGGetEventItem* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void executeCombackItem(CGGetEventItem* pPacket, Player* pPlayer) ;
+	static void executeCombackPremiumItem(CGGetEventItem* pPacket, Player* pPlayer) ;
+	static void executeCombackRecommendItem(CGGetEventItem* pPacket, Player* pPlayer) ;
 #endif
 };
 

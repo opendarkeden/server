@@ -32,17 +32,17 @@ enum GameType
 class GCMiniGameScores : public Packet 
 {
 public:
-	GCMiniGameScores() throw();
-	~GCMiniGameScores() throw();
+	GCMiniGameScores() ;
+	~GCMiniGameScores() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MINI_GAME_SCORES; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCMiniGameScores"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_MINI_GAME_SCORES; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCMiniGameScores"; }
+	string toString() const ;
 
 public:
 	BYTE getGameType() const { return m_GameType; }
@@ -69,14 +69,14 @@ private:
 class GCMiniGameScoresFactory : public PacketFactory 
 {
 public :
-	GCMiniGameScoresFactory() throw() {}
-	virtual ~GCMiniGameScoresFactory() throw() {}
+	GCMiniGameScoresFactory()  {}
+	virtual ~GCMiniGameScoresFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCMiniGameScores(); }
-	string getPacketName() const throw() { return "GCMiniGameScores"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MINI_GAME_SCORES; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szBYTE + szBYTE + (szWORD+21) * 10; }
+	Packet* createPacket()  { return new GCMiniGameScores(); }
+	string getPacketName() const  { return "GCMiniGameScores"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MINI_GAME_SCORES; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szBYTE + szBYTE + (szWORD+21) * 10; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ public:
 class GCMiniGameScoresHandler 
 {
 public:
-	static void execute(GCMiniGameScores* pGCMiniGameScores, Player* pPlayer) throw(Error);
+	static void execute(GCMiniGameScores* pGCMiniGameScores, Player* pPlayer) ;
 
 };
 

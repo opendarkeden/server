@@ -18,25 +18,25 @@ class GCGuildResponse : public Packet
 {
 
 public:
-	GCGuildResponse() throw() { m_Code = 0; m_Parameter = 0;}
-	virtual ~GCGuildResponse() throw() {}
+	GCGuildResponse()  { m_Code = 0; m_Parameter = 0;}
+	virtual ~GCGuildResponse()  {}
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
 
-	PacketID_t getPacketID() const throw() { return PACKET_GC_GUILD_RESPONSE; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCGuildResponse"; }
-	string toString() const throw();
+	PacketID_t getPacketID() const  { return PACKET_GC_GUILD_RESPONSE; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCGuildResponse"; }
+	string toString() const ;
 	
 public:
-	BYTE getCode(void) const throw() { return m_Code;}
-	void setCode(WORD code) throw() { m_Code = code;}
+	BYTE getCode(void) const  { return m_Code;}
+	void setCode(WORD code)  { m_Code = code;}
 
-	uint getParameter(void) const throw() { return m_Parameter; }
-	void setParameter(uint parameter) throw() { m_Parameter = parameter; }
+	uint getParameter(void) const  { return m_Parameter; }
+	void setParameter(uint parameter)  { m_Parameter = parameter; }
 
 private: 
 	WORD m_Code;
@@ -52,10 +52,10 @@ private:
 class GCGuildResponseFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCGuildResponse(); }
-	string getPacketName() const throw() { return "GCGuildResponse"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_GUILD_RESPONSE; }
-	PacketSize_t getPacketMaxSize() const throw() { return szWORD + szuint; }
+	Packet* createPacket()  { return new GCGuildResponse(); }
+	string getPacketName() const  { return "GCGuildResponse"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GUILD_RESPONSE; }
+	PacketSize_t getPacketMaxSize() const  { return szWORD + szuint; }
 };
 
 
@@ -66,7 +66,7 @@ public:
 class GCGuildResponseHandler 
 {
 public:
-	static void execute(GCGuildResponse* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCGuildResponse* pPacket, Player* pPlayer) ;
 };
 
 #endif

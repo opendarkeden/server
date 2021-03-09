@@ -14,7 +14,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 StringStream::StringStream () 
-	throw ()
 : m_Size(0), m_bInserted(false), m_Buffer("")
 {
 }
@@ -24,7 +23,6 @@ StringStream::StringStream ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 StringStream::~StringStream () 
-    throw ()
 {
 }
 
@@ -33,7 +31,6 @@ StringStream::~StringStream ()
 // add string to stream
 //////////////////////////////////////////////////////////////////////
 StringStream & StringStream::operator << ( bool T ) 
-	throw ()
 {
 	string buf( T == true ? "true" : "false" );
 
@@ -46,7 +43,6 @@ StringStream & StringStream::operator << ( bool T )
 }
 
 StringStream & StringStream::operator << ( char T ) 
-	throw ()
 {
 	string buf(1,'\0');
 	buf[0] = T;
@@ -60,7 +56,6 @@ StringStream & StringStream::operator << ( char T )
 }
 
 StringStream & StringStream::operator << ( uchar T )
-	throw ()
 {
 	string buf(1,0);
 	buf[0] = T;
@@ -74,7 +69,6 @@ StringStream & StringStream::operator << ( uchar T )
 }
 
 StringStream & StringStream::operator << ( short T )
-	throw ()
 {
 	char buf[7];
 	sprintf( buf , "%d" , T );
@@ -90,7 +84,6 @@ StringStream & StringStream::operator << ( short T )
 }
 
 StringStream & StringStream::operator << ( ushort T )
-	throw ()
 {
 	char buf[7];
 	sprintf( buf , "%u" , T );
@@ -106,7 +99,6 @@ StringStream & StringStream::operator << ( ushort T )
 }
 
 StringStream & StringStream::operator << ( int T )
-	throw ()
 {
 	char buf[12];
 	sprintf( buf , "%d" , T );
@@ -122,7 +114,6 @@ StringStream & StringStream::operator << ( int T )
 }
 
 StringStream & StringStream::operator << ( uint T )
-	throw ()
 {	
 	char buf[12];
 	sprintf( buf , "%u" , T );
@@ -138,7 +129,6 @@ StringStream & StringStream::operator << ( uint T )
 }
 
 StringStream & StringStream::operator << ( long T )
-	throw ()
 {
 	char buf[12];
 	sprintf( buf , "%ld" , T );
@@ -154,7 +144,6 @@ StringStream & StringStream::operator << ( long T )
 }
 
 StringStream & StringStream::operator << ( ulong T )
-	throw ()
 {	
 	char buf[12];
 	sprintf( buf , "%lu" , T );
@@ -170,7 +159,6 @@ StringStream & StringStream::operator << ( ulong T )
 }
 
 StringStream & StringStream::operator << ( float T )
-	throw ()
 {
 	char buf[12];
 	sprintf( buf , "%f" , T );
@@ -186,7 +174,6 @@ StringStream & StringStream::operator << ( float T )
 }
 
 StringStream & StringStream::operator << ( double T )
-	throw ()
 {
 	char buf[22];
 	sprintf( buf , "%f" , T );
@@ -202,7 +189,6 @@ StringStream & StringStream::operator << ( double T )
 }
 
 StringStream & StringStream::operator << ( const char * buf )
-	throw ()
 {
 	string str(buf);
 
@@ -215,7 +201,6 @@ StringStream & StringStream::operator << ( const char * buf )
 }
 
 StringStream & StringStream::operator << ( const string & str )
-	throw ()
 {
 	m_Strings.push_back( str );
 
@@ -230,7 +215,6 @@ StringStream & StringStream::operator << ( const string & str )
 // make string
 //////////////////////////////////////////////////////////////////////
 const string & StringStream::toString () const
-	throw ()
 {
 	// 일단 스트링을 한번 생성해놓으면, 
 	// 그다음 호출때에는 새로 추가되지 않는 한 그대로 사용한다.

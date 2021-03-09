@@ -12,18 +12,18 @@
 #include "Types.h"
 #include "Exception.h"
 
-BYTE getShoulderType(ItemType_t IType) throw();
-PantsType getPantsType(ItemType_t IType) throw();
-JacketType getJacketType(ItemType_t IType) throw();
-HelmetType getHelmetType(ItemType_t IType) throw();
-ShieldType getShieldType(ItemType_t IType) throw();
-MotorcycleType getMotorcycleType(ItemType_t IType) throw();
+BYTE getShoulderType(ItemType_t IType) ;
+PantsType getPantsType(ItemType_t IType) ;
+JacketType getJacketType(ItemType_t IType) ;
+HelmetType getHelmetType(ItemType_t IType) ;
+ShieldType getShieldType(ItemType_t IType) ;
+MotorcycleType getMotorcycleType(ItemType_t IType) ;
 
 // 뱀파이어
-VampireCoatType getVampireCoatType(ItemType_t IType) throw();
+VampireCoatType getVampireCoatType(ItemType_t IType) ;
 
 // 아우스터스
-OustersCoatType getOustersCoatType(ItemType_t IType) throw();
-OustersArmType getOustersArmType(ItemType_t IType) throw();
+OustersCoatType getOustersCoatType(ItemType_t IType) ;
+OustersArmType getOustersArmType(ItemType_t IType) ;
 
 #endif

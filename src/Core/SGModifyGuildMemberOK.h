@@ -30,19 +30,19 @@ public:
 	SGModifyGuildMemberOK() {};
     ~SGModifyGuildMemberOK() {};
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream& iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream& iStream) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_SG_MODIFY_GUILD_MEMBER_OK; }
+	PacketID_t getPacketID() const  { return PACKET_SG_MODIFY_GUILD_MEMBER_OK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szGuildID +			// guild ID
 			   szBYTE +				// name length
@@ -53,28 +53,28 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "SGModifyGuildMemberOK"; }
+	string getPacketName() const  { return "SGModifyGuildMemberOK"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set guildID
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t guildID ) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
+	void setGuildID(GuildID_t guildID )  { m_GuildID = guildID; }
 
 	// get/set guild name
-	const string& getName() const throw() { return m_Name; }
-	void setName(const string& name ) throw() { m_Name = name; }
+	const string& getName() const  { return m_Name; }
+	void setName(const string& name )  { m_Name = name; }
 
 	// get/set guild member rank
-	GuildMemberRank_t getGuildMemberRank() const throw() { return m_GuildMemberRank; }
-	void setGuildMemberRank(GuildMemberRank_t GuildMemberRank ) throw() { m_GuildMemberRank = GuildMemberRank; }
+	GuildMemberRank_t getGuildMemberRank() const  { return m_GuildMemberRank; }
+	void setGuildMemberRank(GuildMemberRank_t GuildMemberRank )  { m_GuildMemberRank = GuildMemberRank; }
 
 	// get/set sender
-	const string& getSender() const throw() { return m_Sender; }
-	void setSender(const string& sender ) throw() { m_Sender = sender; }
+	const string& getSender() const  { return m_Sender; }
+	void setSender(const string& sender )  { m_Sender = sender; }
 
 private :
 
@@ -106,18 +106,18 @@ class SGModifyGuildMemberOKFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new SGModifyGuildMemberOK(); }
+	Packet* createPacket()  { return new SGModifyGuildMemberOK(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "SGModifyGuildMemberOK"; }
+	string getPacketName() const  { return "SGModifyGuildMemberOK"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_SG_MODIFY_GUILD_MEMBER_OK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_SG_MODIFY_GUILD_MEMBER_OK; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szGuildID +				// guild ID
 			   szBYTE +					// name length
@@ -141,7 +141,7 @@ class SGModifyGuildMemberOKHandler {
 public:
 
 	// execute packet's handler
-	static void execute(SGModifyGuildMemberOK* pPacket) throw(ProtocolException, Error);
+	static void execute(SGModifyGuildMemberOK* pPacket) ;
 
 };
 

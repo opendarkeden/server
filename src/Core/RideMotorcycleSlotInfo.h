@@ -20,27 +20,27 @@
 class RideMotorcycleSlotInfo : public PCItemInfo 
 {
 public:
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
-	uint getSize () throw ()
+	uint getSize () 
 	{ 
 		return PCItemInfo::getSize() + szCoordInven*2;
 	}
 
-	static uint getMaxSize () throw ()
+	static uint getMaxSize () 
 	{ 
 		return PCItemInfo::getMaxSize() + szCoordInven*2;
 	}
 
-	string toString () const throw ();
+	string toString () const ;
 
 public:
-	void setInvenX(CoordInven_t InvenX) throw() { m_InvenX = InvenX; }
-	CoordInven_t getInvenX() const throw() { return m_InvenX; }
+	void setInvenX(CoordInven_t InvenX)  { m_InvenX = InvenX; }
+	CoordInven_t getInvenX() const  { return m_InvenX; }
 
-	void setInvenY(CoordInven_t InvenY) throw() { m_InvenY = InvenY; }
-	CoordInven_t getInvenY() const throw() { return m_InvenY; }
+	void setInvenY(CoordInven_t InvenY)  { m_InvenY = InvenY; }
+	CoordInven_t getInvenY() const  { return m_InvenY; }
 
 private:
 	CoordInven_t m_InvenX;

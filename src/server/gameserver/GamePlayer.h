@@ -51,110 +51,110 @@ public:
 	const static BYTE nPacketHistorySize = 10;
 
 public:
-	GamePlayer (Socket * pSocket) throw ( Error );
-	~GamePlayer() throw(Error);
+	GamePlayer (Socket * pSocket);
+	~GamePlayer();
 
 public:
 	// read socket's receive buffer and fill input buffer
 	// virtual void processInput() throw(IOException, Error);
 	
 	// parse packet and execute handler for the packet
-	virtual void processCommand(bool Option = true) throw(IOException, Error);
+	virtual void processCommand(bool Option = true);
 	
 	// flush output buffer to socket's send buffer
-	virtual void processOutput() throw(IOException, Error);
+	virtual void processOutput();
 	
 	// send packet to player's output buffer
-	virtual void sendPacket(Packet* packet) throw(ProtocolException, Error);
+	virtual void sendPacket(Packet* packet);
 
 	// disconnect
 	// 정식 로그아웃의 경우 disconnect(LOGOUT)
-	virtual void disconnect(bool bDisconnected = DISCONNECTED) throw (InvalidProtocolException, Error);
+	virtual void disconnect(bool bDisconnected = DISCONNECTED);
 	
 	// get debug string
-	virtual string toString() const throw(Error);
+	virtual string toString() const;
 
 	// 스피드 체크
-	virtual bool verifySpeed(Packet* pPacket) throw(Error);
+	virtual bool verifySpeed(Packet* pPacket);
 	
 	// get creature pointer 
-	Creature* getCreature() throw() { return m_pCreature; }
-	const Creature* getCreature() const throw() { return m_pCreature; }
+	Creature* getCreature() { return m_pCreature; }
+	const Creature* getCreature() const { return m_pCreature; }
 
 	// set creature pointer
-	void setCreature(Creature* pCreature) throw() { m_pCreature = pCreature; }
+	void setCreature(Creature* pCreature) { m_pCreature = pCreature; }
 
 	// return recent N-th packet
 	// 최근 전송된 N 번째 패킷을 리턴한다.
-	Packet* getOldPacket(uint prev = 0) throw(OutOfBoundException, NoSuchElementException);
+	Packet* getOldPacket(uint prev = 0);
 
 	// return recent packet which has packetID
 	// 특정 ID를 가진 패킷 중 가장 최근의 패킷을 리턴한다.
-	Packet* getOldPacket(PacketID_t packetID) throw(NoSuchElementException);
+	Packet* getOldPacket(PacketID_t packetID);
 
 	// get player's status
-	PlayerStatus getPlayerStatus() const throw() { return m_PlayerStatus; }
+	PlayerStatus getPlayerStatus() const  { return m_PlayerStatus; }
 
 	// set player's status
-	void setPlayerStatus(PlayerStatus playerStatus) throw() { m_PlayerStatus = playerStatus; }
+	void setPlayerStatus(PlayerStatus playerStatus)  { m_PlayerStatus = playerStatus; }
 
 	//
-	void addEvent(Event* pEvent) throw(Error);
-	Event* getEvent(Event::EventClass EClass) throw(Error);
-	void deleteEvent(Event::EventClass EClass) throw(Error);
+	void addEvent(Event* pEvent) ;
+	Event* getEvent(Event::EventClass EClass) ;
+	void deleteEvent(Event::EventClass EClass) ;
 
 	// 패널티 Status 관련 함수
     //Set Flag
-	void setPenaltyFlag(PenaltyType PenaltyFlag) throw() { m_PenaltyFlag.set(PenaltyFlag); }
+	void setPenaltyFlag(PenaltyType PenaltyFlag)  { m_PenaltyFlag.set(PenaltyFlag); }
 	
 	// remove Flag
-	void removePenaltyFlag(PenaltyType PenaltyFlag) throw() { m_PenaltyFlag.reset(PenaltyFlag); }
+	void removePenaltyFlag(PenaltyType PenaltyFlag)  { m_PenaltyFlag.reset(PenaltyFlag); }
 	
 	// Is Flag?
-	bool isPenaltyFlag(PenaltyType PenaltyFlag) throw() { return m_PenaltyFlag.test(PenaltyFlag); }
+	bool isPenaltyFlag(PenaltyType PenaltyFlag)  { return m_PenaltyFlag.test(PenaltyFlag); }
 
 public:
 	uint getSpecialEventCount(void) const { return m_SpecialEventCount; }
 	void setSpecialEventCount(uint count) { m_SpecialEventCount = count; }
-	void loadSpecialEventCount(void) throw();
-	void saveSpecialEventCount(void) throw();
+	void loadSpecialEventCount(void) ;
+	void saveSpecialEventCount(void) ;
 	
 public :	// '이미 접속 중'인 경우. 강제 종료를 위해서. by sigi.
-	bool isKickForLogin() const throw()						{ return m_bKickForLogin; }
-	void setKickForLogin(bool bKickForLogin=true) throw() 	{ m_bKickForLogin = bKickForLogin; }
+	bool isKickForLogin() const 						{ return m_bKickForLogin; }
+	void setKickForLogin(bool bKickForLogin=true)  	{ m_bKickForLogin = bKickForLogin; }
 
-	const string& 	getKickRequestHost() const throw()		{ return m_KickRequestHost; }
-	uint  			getKickRequestPort() const throw()		{ return m_KickRequestPort; }
+	const string& 	getKickRequestHost() const 		{ return m_KickRequestHost; }
+	uint  			getKickRequestPort() const 		{ return m_KickRequestPort; }
 
-	void			setKickRequestHost(const string& host) throw()	{ m_KickRequestHost = host; }
-	void			setKickRequestPort(uint port) throw()			{ m_KickRequestPort = port; }
+	void			setKickRequestHost(const string& host) 	{ m_KickRequestHost = host; }
+	void			setKickRequestPort(uint port) 			{ m_KickRequestPort = port; }
 
 public :
 	// 쩝. 
-	void	setReconnectPacket(GCReconnectLogin* pPacket) throw() 	{ SAFE_DELETE(m_pReconnectPacket); m_pReconnectPacket = pPacket; }
-	GCReconnectLogin* getReconnectPacket() const throw()			{ return m_pReconnectPacket; }
+	void	setReconnectPacket(GCReconnectLogin* pPacket)  	{ SAFE_DELETE(m_pReconnectPacket); m_pReconnectPacket = pPacket; }
+	GCReconnectLogin* getReconnectPacket() const 			{ return m_pReconnectPacket; }
 
 	// by sigi. 2002.10.23
 	bool isFreePass() const { return m_bFreePass; }
 	void setFreePass(bool bFreePass=true) { m_bFreePass = bFreePass; }
 
 public :
-	void lock() throw(Error) { m_Mutex.lock(); }
-    void unlock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+    void unlock()  { m_Mutex.unlock(); }
 
 public :
-	void    setBillingSession() throw (Error)	{ BillingPlayerInfo::setBillingSession(this); }
-	bool    sendBillingLogin() throw (Error);
+	void    setBillingSession() 	{ BillingPlayerInfo::setBillingSession(this); }
+	bool    sendBillingLogin() ;
 
-	void	sendCBillingPayInfo() throw ( Error );
+	void	sendCBillingPayInfo() ;
 
 	// 패킷 암호화 관련
 	// by sigi. 2002.11.27
-	void	setEncryptCode() throw (Error);
+	void	setEncryptCode() ;
 
 public :
 
-	void kickPlayer( uint nSeconds, uint KickMessageType ) throw (Error);
+	void kickPlayer( uint nSeconds, uint KickMessageType ) ;
 
 	//////////////////////////////////////////////////
 	// PaySystem 관련
@@ -163,18 +163,18 @@ public:
 	bool	loginPayPlay( PayType payType,
 						const string& PayPlayDate, int PayPlayHours, uint payPlayFlag,
 						const string& ip, const string& playerID )
-				throw (Error);
+				;
 
 	bool	loginPayPlay( const string& ip, const string& playerID )
-				throw (Error);
+				;
 
 	bool	updatePayPlayTime( const string& playerID,
 							const VSDateTime& currentDateTime,
 							const Timeval& currentTime )
-				throw (ProtocolException, Error );
+				;
 
 	void	logoutPayPlay( const string& playerID, bool bClear=false, bool bDecreaseTime=true )
-				throw (Error);
+				;
 
 	bool	isPayPlaying() const;
 
@@ -279,7 +279,7 @@ class isSamePlayer
 {
 public:
 	isSamePlayer(GamePlayer* pGamePlayer) : m_pGamePlayer(pGamePlayer) {}
-	bool operator()(GamePlayer* pGamePlayer) throw()
+	bool operator()(GamePlayer* pGamePlayer)
 	{
 		return pGamePlayer->getID() == m_pGamePlayer->getID();
 	}
@@ -295,7 +295,7 @@ class isSamePlayerbyID
 {
 public:
 	isSamePlayerbyID(const string & ID) : m_ID(ID) {}
-	bool operator()(GamePlayer* pGamePlayer) throw()
+	bool operator()(GamePlayer* pGamePlayer) 
 	{
 		return pGamePlayer->getID() == m_ID;
 	}

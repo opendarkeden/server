@@ -90,7 +90,6 @@ void BillingPlayerInfo::setBillingSession (Player* pPlayer)
 //
 //////////////////////////////////////////////////////////////////////
 string BillingPlayerInfo::toString () const
-       throw ( Error )
 {
 	__BEGIN_TRY
 		

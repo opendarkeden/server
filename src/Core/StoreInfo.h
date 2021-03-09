@@ -19,11 +19,11 @@ class StoreItemInfo : public PCItemInfo
 public:
 	StoreItemInfo() : m_ItemExist(0), m_Price(0) { }
 
-	uint getSize() const throw() { return szBYTE + ((m_ItemExist)?(PCItemInfo::getSize() + szGold):0); }
-	static uint getMaxSize() throw() { return szBYTE + PCItemInfo::getMaxSize() + szGold; }
+	uint getSize() const  { return szBYTE + ((m_ItemExist)?(PCItemInfo::getSize() + szGold):0); }
+	static uint getMaxSize()  { return szBYTE + PCItemInfo::getMaxSize() + szGold; }
 
-	void read (SocketInputStream & iStream) throw (ProtocolException, Error);
-	void write (SocketOutputStream & oStream) const throw (ProtocolException, Error);
+	void read (SocketInputStream & iStream) ;
+	void write (SocketOutputStream & oStream) const ;
 
 	BYTE	isItemExist() const { return m_ItemExist; }
 	void	setItemExist(BYTE exist) { m_ItemExist = exist; }
@@ -43,8 +43,8 @@ public:
 	PacketSize_t getSize() const { return szBYTE + ( (m_Open==0)?0:(szBYTE+m_Sign.size()) ); }
 	static PacketSize_t getMaxSize() { return szBYTE + szBYTE + MAX_SIGN_SIZE; }
 
-	void read(SocketInputStream& iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream& oStream) const throw(ProtocolException, Error);
+	void read(SocketInputStream& iStream) ;
+	void write(SocketOutputStream& oStream) const ;
 
 	BYTE	isOpen() const { return m_Open; }
 	void	setOpen(BYTE open) { m_Open = open; }
@@ -65,8 +65,8 @@ public:
 	PacketSize_t		getSize(bool toOther) const;
 	static PacketSize_t	getMaxSize() { return szBYTE + szBYTE + MAX_SIGN_SIZE + szBYTE + MAX_ITEM_NUM * StoreItemInfo::getMaxSize(); }
 
-	void read(SocketInputStream& iStream, bool toOther) throw(ProtocolException, Error);
-	void write(SocketOutputStream& oStream, bool toOther) const throw(ProtocolException, Error);
+	void read(SocketInputStream& iStream, bool toOther) ;
+	void write(SocketOutputStream& oStream, bool toOther) const ;
 
 	BYTE	isOpen() const { return m_Open; }
 	void	setOpen(BYTE open) { m_Open = open; }

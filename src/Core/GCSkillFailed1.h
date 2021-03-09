@@ -19,17 +19,17 @@
 class GCSkillFailed1 : public ModifyInfo 
 {
 public:
-	GCSkillFailed1() throw();
-	~GCSkillFailed1() throw();
+	GCSkillFailed1() ;
+	~GCSkillFailed1() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_FAILED_1; }
-	PacketSize_t getPacketSize() const throw() { return szSkillType + szBYTE + ModifyInfo::getPacketSize(); }
-	string getPacketName() const throw() { return "GCSkillFailed1"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_FAILED_1; }
+	PacketSize_t getPacketSize() const  { return szSkillType + szBYTE + ModifyInfo::getPacketSize(); }
+	string getPacketName() const  { return "GCSkillFailed1"; }
+	string toString() const ;
 
 public:
 	SkillType_t getSkillType(void) const { return m_SkillType; }
@@ -55,14 +55,14 @@ private:
 class  GCSkillFailed1Factory : public PacketFactory 
 {
 public:
-	GCSkillFailed1Factory() throw() {}
-	virtual ~GCSkillFailed1Factory() throw() {}
+	GCSkillFailed1Factory()  {}
+	virtual ~GCSkillFailed1Factory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCSkillFailed1(); }
-	string getPacketName() const throw() { return "GCSkillFailed1"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SKILL_FAILED_1; }
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szBYTE + ModifyInfo::getPacketMaxSize(); }
+	Packet* createPacket()  { return new GCSkillFailed1(); }
+	string getPacketName() const  { return "GCSkillFailed1"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_FAILED_1; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType + szBYTE + ModifyInfo::getPacketMaxSize(); }
 };
 
 
@@ -75,7 +75,7 @@ public:
 class  GCSkillFailed1Handler 
 {
 public:
-	static void execute(GCSkillFailed1* pGCSkillFailed1, Player* pPlayer) throw(Error);
+	static void execute(GCSkillFailed1* pGCSkillFailed1, Player* pPlayer) ;
 };
 
 #endif	// __GC_SKILL_FAILED_1_H__
