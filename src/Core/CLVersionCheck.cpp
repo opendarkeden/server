@@ -7,7 +7,7 @@
 #include "CLVersionCheck.h"
 
 void CLVersionCheck::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CLVersionCheck::read (SocketInputStream & iStream)
 }
 
 void CLVersionCheck::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CLVersionCheck::write (SocketOutputStream & oStream) const
 }
 
 void CLVersionCheck::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CLVersionCheck::execute (Player* pPlayer)
 }
 
 string CLVersionCheck::toString () const
-	throw()
+	
 {
 	StringStream msg;
 	msg << "CLVersionCheck("

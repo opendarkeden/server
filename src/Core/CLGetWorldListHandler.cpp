@@ -21,7 +21,7 @@
 // 서버들의 정보를 로딩해서 LCWorldList 패킷에 담아서 전송한다.
 //////////////////////////////////////////////////////////////////////////////
 void CLGetWorldListHandler::execute (CLGetWorldList* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

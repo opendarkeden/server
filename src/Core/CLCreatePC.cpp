@@ -7,7 +7,7 @@
 #include "CLCreatePC.h"
 
 void CLCreatePC::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void CLCreatePC::read (SocketInputStream & iStream)
 }
 
 void CLCreatePC::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void CLCreatePC::write (SocketOutputStream & oStream) const
 }
 
 void CLCreatePC::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -86,7 +86,7 @@ void CLCreatePC::execute (Player* pPlayer)
 }
 
 string CLCreatePC::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

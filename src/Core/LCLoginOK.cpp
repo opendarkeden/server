@@ -13,7 +13,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 void LCLoginOK::read (SocketInputStream & iStream )
-	throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -31,7 +30,6 @@ void LCLoginOK::read (SocketInputStream & iStream )
 //
 //////////////////////////////////////////////////////////////////////
 void LCLoginOK::write (SocketOutputStream & oStream ) const
-	throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -51,7 +49,6 @@ void LCLoginOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void LCLoginOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 		

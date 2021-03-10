@@ -7,7 +7,7 @@
 #include "CLChangeServer.h"
 
 void CLChangeServer::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CLChangeServer::read (SocketInputStream & iStream)
 }
 
 void CLChangeServer::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -27,7 +27,7 @@ void CLChangeServer::write (SocketOutputStream & oStream) const
 }
 
 void CLChangeServer::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		

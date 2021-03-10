@@ -22,7 +22,7 @@
 // 비교한 후, 로그인의 성공 여부를 전송한다.
 //////////////////////////////////////////////////////////////////////////////
 void CLVersionCheckHandler::execute (CLVersionCheck* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

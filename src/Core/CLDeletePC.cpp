@@ -7,7 +7,7 @@
 #include "CLDeletePC.h"
 
 void CLDeletePC::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CLDeletePC::read (SocketInputStream & iStream)
 }
 		    
 void CLDeletePC::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -73,7 +73,7 @@ void CLDeletePC::write (SocketOutputStream & oStream) const
 }
 
 void CLDeletePC::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -83,7 +83,7 @@ void CLDeletePC::execute (Player* pPlayer)
 }
 
 string CLDeletePC::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

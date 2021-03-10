@@ -16,7 +16,7 @@
 // constructor
 //----------------------------------------------------------------------
 LCPCList::LCPCList ()
-	throw()
+	
 : m_Agree(1)
 {
 	for (uint i = 0 ; i < SLOT_MAX ; i ++ )
@@ -28,7 +28,7 @@ LCPCList::LCPCList ()
 // destructor
 //----------------------------------------------------------------------
 LCPCList::~LCPCList ()
-	throw()
+	
 {
 	// heap 에 생성된 PC Type 변수들을 삭제해야 한다.
 	for (uint i = 0 ; i < SLOT_MAX ; i ++ ) 
@@ -42,7 +42,7 @@ LCPCList::~LCPCList ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //----------------------------------------------------------------------
 void LCPCList::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void LCPCList::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void LCPCList::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ void LCPCList::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void LCPCList::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -175,7 +175,7 @@ void LCPCList::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 PacketSize_t LCPCList::getPacketSize () const 
-	throw()
+	
 {
 	PacketSize_t packetSize = 0;
 	for (uint i = 0 ; i < SLOT_MAX ; i ++ ) {
@@ -198,7 +198,7 @@ PacketSize_t LCPCList::getPacketSize () const
 //
 //////////////////////////////////////////////////////////////////////
 string LCPCList::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

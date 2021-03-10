@@ -37,7 +37,7 @@ public:
 	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const  { return PACKET_CL_AGREEMENT; }
+	PacketID_t getPacketID() const { return PACKET_CL_AGREEMENT; }
 	
 	// get packet's body size
 	PacketSize_t getPacketSize() const  { return szBYTE; }

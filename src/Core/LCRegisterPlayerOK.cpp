@@ -13,7 +13,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 void LCRegisterPlayerOK::read (SocketInputStream & iStream )
-	throw(ProtocolException , Error )
+	
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ void LCRegisterPlayerOK::read (SocketInputStream & iStream )
 //
 //////////////////////////////////////////////////////////////////////
 void LCRegisterPlayerOK::write (SocketOutputStream & oStream ) const
-	throw(ProtocolException , Error )
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void LCRegisterPlayerOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void LCRegisterPlayerOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		

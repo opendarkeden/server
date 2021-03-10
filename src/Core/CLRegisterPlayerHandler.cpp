@@ -22,7 +22,7 @@
 // 사용자 정보를 DB에 등록하고나서, 연결을 차단한다.
 //////////////////////////////////////////////////////////////////////////////
 void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

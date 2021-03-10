@@ -10,7 +10,6 @@
 # Directories Setting
 #----------------------------------------------------------------------
 VSHOME = ../..
-STLDIR = /usr/include/STL
 BINDIR = $(VSHOME)/bin
 LIBDIR = $(VSHOME)/lib
 LOGDIR = $(VSHOME)/log
@@ -43,6 +42,38 @@ CORE_OBJS = WarInfo.o RaceWarInfo.o GuildWarInfo.o LevelWarInfo.o BloodBibleBonu
 CORE_SRCS = $(CORE_OBJS:.o=.cpp)
 CORE_LIB = $(LIBDIR)/libCore.a
 
+LC_PACKET_SRC = LCCreatePCError.cpp LCLoginOK.cpp LCRegisterPlayerError.cpp LCVersionCheckOK.cpp \
+  LCDeletePCOK.cpp LCQueryResultPlayerID.cpp LCServerList.cpp \
+  LCCreatePCOK.cpp LCPCList.cpp LCRegisterPlayerOK.cpp LCWorldList.cpp \
+  LCLoginError.cpp LCReconnect.cpp LCVersionCheckError.cpp  \
+  LCDeletePCError.cpp LCQueryResultCharacterName.cpp LCSelectPCError.cpp
+
+LG_PACKET_SRC := LGIncomingConnection.cpp LGIncomingConnectionError.cpp LGIncomingConnectionOK.cpp LGKickCharacter.cpp
+
+CL_PACKET_SRC := CLCreatePC.cpp CLGetPCList.cpp CLGetWorldList.cpp \
+	CLLogout.cpp CLQueryPlayerID.cpp CLRegisterPlayer.cpp CLSelectServer.cpp \
+	CLVersionCheck.cpp CLChangeServer.cpp CLDeletePC.cpp CLGetServerList.cpp \
+	CLLogin.cpp CLQueryCharacterName.cpp CLReconnectLogin.cpp CLSelectPC.cpp CLSelectWorld.cpp
+
+GL_PACKET_SRC := GLIncomingConnection.cpp  GLIncomingConnectionError.cpp GLIncomingConnectionOK.cpp GLKickVerify.cpp
+
+L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharacterNameHandler.cpp \
+	CLRegisterPlayerHandler.cpp  CLSelectWorldHandler.cpp              GLIncomingConnectionHandler.cpp \
+	CLChangeServerHandler.cpp  CLGetPCListHandler.cpp      CLLoginHandler.cpp         CLQueryPlayerIDHandler.cpp \
+	CLSelectPCHandler.cpp        CLVersionCheckHandler.cpp             GLIncomingConnectionOKHandler.cpp \
+	CLCreatePCHandler.cpp      CLGetServerListHandler.cpp  CLLogoutHandler.cpp        CLReconnectLoginHandler.cpp \
+	CLSelectServerHandler.cpp    GLIncomingConnectionErrorHandler.cpp  GLKickVerifyHandler.cpp
+
+#----------------------------------------------------------------------
+# Packet Library for LoginServer
+#----------------------------------------------------------------------
+LS_PACKET_OBJS = PacketFactoryManager.ls.o PacketIDSet.ls.o PacketValidator.ls.o
+LS_LIB_OBJS := $(LC_PACKET_SRC:.cpp=.o) $(LG_PACKET_SRC:.cpp=.o) $(CL_PACKET_SRC:.cpp=.o) $(GL_PACKET_SRC:.cpp=.o) $(L_HANDLER_SRC:.cpp=.ls.o) $(LS_PACKET_OBJS)
+LS_PACKET_LIB  = $(LIBDIR)/libLoginServerPackets.a
+
+
+SRCS = $(CORE_SRCS) $(LC_PACKET_SRC) $(LG_PACKET_SRC) $(CL_PACKET_SRC) $(GL_PACKET_SRC) $(L_HANDLER_SRC)
+
 #----------------------------------------------------------------------
 # General Rules
 #----------------------------------------------------------------------
@@ -50,7 +81,7 @@ CORE_LIB = $(LIBDIR)/libCore.a
 
 CC       = g++
 DEFS     = -D__LINUX__ -D_REENTRANT
-INCLUDES = -I$(STLDIR) -I./loki -I.
+INCLUDES = -I./loki -I.
 CCFLAGS  = -Wall -c -g  
 
 # .cpp.o : 
@@ -58,7 +89,7 @@ CCFLAGS  = -Wall -c -g
 
 DEPDIR = .deps
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
-DEPS = $(CORE_SRCS:%.cpp=$(DEPDIR)/%.d)
+DEPS = $(SRCS:%.cpp=$(DEPDIR)/%.d)
 COMPILE.c = $(CC) $(DEPFLAGS) $(CFLAGS) $(CCFLAGS) $(TARGET_ARCH) $(DEFS) $(INCLUDES) -c
 %.o : %.cpp
 %.o : %.cpp $(DEPDIR)/%.d | $(DEPDIR)
@@ -84,13 +115,6 @@ GS_PACKET_SRCS = $(GS_PACKET_OBJS:.gs.o=.cpp)
 GS_PACKET_LIB  = $(LIBDIR)/libGameServerPackets.a
 
 #----------------------------------------------------------------------
-# Packet Library for LoginServer
-#----------------------------------------------------------------------
-LS_PACKET_OBJS = PacketFactoryManager.ls.o PacketIDSet.ls.o PacketValidator.ls.o
-LS_PACKET_SRCS = $(LS_PACKET_OBJS:.ls.o=.cpp)
-LS_PACKET_LIB  = $(LIBDIR)/libLoginServerPackets.a
-
-#----------------------------------------------------------------------
 # Packet Library for Updateserver 
 #----------------------------------------------------------------------
 US_PACKET_OBJS = PacketFactoryManager.us.o PacketIDSet.us.o PacketValidator.us.o
@@ -108,14 +132,15 @@ SS_PACKET_LIB  = $(LIBDIR)/libSharedServerPackets.a
 # All Targets
 #----------------------------------------------------------------------
 #TARGETS = $(CORE_LIB) $(LS_PACKET_LIB) $(GS_PACKET_LIB) $(LCC_PACKET_LIB) 
-SRCS = $(CORE_SRCS) $(LS_PACKET_SRCS) $(GS_PACKET_SRCS) $(LCC_PACKET_SRCS) $(US_PACKET_SRCS) $(SS_PACKET_SRCS)
-TARGETS = $(CORE_LIB) $(GS_PACKET_LIB) $(LS_PACKET_LIB) $(US_PACKET_LIB) $(SS_PACKET_LIB)
+#SRCS = $(CORE_SRCS) $(LS_PACKET_SRCS) $(GS_PACKET_SRCS) $(LCC_PACKET_SRCS) $(US_PACKET_SRCS) $(SS_PACKET_SRCS)
+TARGETS = $(CORE_LIB) $(LS_PACKET_LIB) $(GS_PACKET_LIB) $(US_PACKET_LIB) $(SS_PACKET_LIB)
 
 #----------------------------------------------------------------------
 # actions
 #----------------------------------------------------------------------
+
 all : $(TARGETS)
-	$(MAKE) -C Lpackets
+	# $(MAKE) -C Lpackets
 	$(MAKE) -C Gpackets
 	$(MAKE) -C Cpackets
 	$(MAKE) -C Upackets
@@ -151,7 +176,7 @@ alltheoneserver : $(CORE_LIB)
 $(CORE_LIB) : $(CORE_OBJS)
 	ar rc $@ $^
 
-$(LS_PACKET_LIB) : $(LS_PACKET_OBJS)
+$(LS_PACKET_LIB) : $(LS_LIB_OBJS)
 	ar rc $@ $^
 
 $(GS_PACKET_LIB) : $(GS_PACKET_OBJS)

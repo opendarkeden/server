@@ -21,7 +21,7 @@
 // 
 //--------------------------------------------------------------------------------
 void LGIncomingConnectionErrorHandler::execute (LGIncomingConnectionError * pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

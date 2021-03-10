@@ -14,7 +14,7 @@
 // 가만히 생각해보니, 삭제 실패는 크래킹 시도가 아닌가?? - -;
 //----------------------------------------------------------------------
 void LCDeletePCErrorHandler::execute (LCDeletePCError * pPacket , Player * pPlayer )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

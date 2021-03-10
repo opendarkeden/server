@@ -13,7 +13,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 void LCDeletePCOK::read (SocketInputStream & iStream )
-	throw(ProtocolException , Error )
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -24,7 +24,7 @@ void LCDeletePCOK::read (SocketInputStream & iStream )
 //
 //////////////////////////////////////////////////////////////////////
 void LCDeletePCOK::write (SocketOutputStream & oStream ) const
-	throw(ProtocolException , Error )
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -35,7 +35,7 @@ void LCDeletePCOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void LCDeletePCOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		

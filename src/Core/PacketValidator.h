@@ -39,13 +39,13 @@ public :
 	void init () ;
 
 	// add packet id set
-	void addPacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID) throw (DuplicatedException, Error);
+	void addPacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID);
 
 	// delete packet id
-	void deletePacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID) throw (NoSuchElementException, Error);
+	void deletePacketIDSet (PlayerStatus playerStatus, PacketIDSet* pPacketID);
 
 	// is valid packet?
-	bool isValidPacketID (PlayerStatus playerStatus, PacketID_t packetID) throw (NoSuchElementException, IgnorePacketException, Error);
+	bool isValidPacketID (PlayerStatus playerStatus, PacketID_t packetID);
 
 	// get debug string
 	string toString () const ;

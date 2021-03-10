@@ -7,7 +7,7 @@
 #include "CLSelectServer.h"
 
 void CLSelectServer::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CLSelectServer::read (SocketInputStream & iStream)
 }
 
 void CLSelectServer::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -27,7 +27,7 @@ void CLSelectServer::write (SocketOutputStream & oStream) const
 }
 
 void CLSelectServer::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		

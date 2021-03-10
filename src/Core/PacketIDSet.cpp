@@ -14,7 +14,6 @@
 // constructor
 //----------------------------------------------------------------------
 PacketIDSet::PacketIDSet ( PlayerStatus playerStatus , PacketIDSetType packetIDSetType ) 
-	throw ()
 : m_PacketIDSetType(packetIDSetType), m_PlayerStatus(playerStatus)
 {
 }
@@ -23,7 +22,6 @@ PacketIDSet::PacketIDSet ( PlayerStatus playerStatus , PacketIDSetType packetIDS
 // destructor
 //----------------------------------------------------------------------
 PacketIDSet::~PacketIDSet () 
-	throw ()
 {
 	m_PacketIDSet.clear();
 }
@@ -32,7 +30,6 @@ PacketIDSet::~PacketIDSet ()
 // add packet id to set
 //----------------------------------------------------------------------
 void PacketIDSet::addPacketID ( PacketID_t packetID ) 
-	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -52,7 +49,6 @@ void PacketIDSet::addPacketID ( PacketID_t packetID )
 // delete packet id from set
 //----------------------------------------------------------------------
 void PacketIDSet::deletePacketID ( PacketID_t packetID ) 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
@@ -70,7 +66,6 @@ void PacketIDSet::deletePacketID ( PacketID_t packetID )
 // has packet id ?
 //----------------------------------------------------------------------
 bool PacketIDSet::hasPacketID ( PacketID_t packetID ) const
-	throw ( NoSuchElementException , IgnorePacketException )
 {
 	__BEGIN_TRY
 
@@ -109,7 +104,6 @@ bool PacketIDSet::hasPacketID ( PacketID_t packetID ) const
 // get debug string
 //----------------------------------------------------------------------
 string PacketIDSet::toString () const
-	throw ()
 {
 	StringStream msg;
 

@@ -27,7 +27,7 @@
 // 
 //----------------------------------------------------------------------
 void GLKickVerifyHandler::execute (GLKickVerify * pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG

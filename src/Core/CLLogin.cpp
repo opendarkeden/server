@@ -9,7 +9,7 @@
 #include "Properties.h"
 
 void CLLogin::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ void CLLogin::read (SocketInputStream & iStream)
 }
 
 void CLLogin::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void CLLogin::write (SocketOutputStream & oStream) const
 }
 
 void CLLogin::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -99,7 +99,7 @@ void CLLogin::execute (Player* pPlayer)
 }
 
 string CLLogin::toString () const
-	throw()
+	
 {
 	StringStream msg;
 	msg << "CLLogin("
@@ -110,13 +110,13 @@ string CLLogin::toString () const
 }
 
 PacketSize_t CLLogin::getPacketSize() const 
-	throw()
+	
 { 
     return szBYTE + m_ID.size() + szBYTE + m_Password.size() + 6 + szBYTE; 
 }
 
 bool CLLogin::checkMacAddress(string lastMac) const 
-	throw() 
+	 
 {
 	bool retValue = false;
 

@@ -7,7 +7,7 @@
 #include "CLQueryPlayerID.h"
 
 void CLQueryPlayerID::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ void CLQueryPlayerID::read (SocketInputStream & iStream)
 }
 		    
 void CLQueryPlayerID::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void CLQueryPlayerID::write (SocketOutputStream & oStream) const
 }
 
 void CLQueryPlayerID::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -59,7 +59,7 @@ void CLQueryPlayerID::execute (Player* pPlayer)
 }
 
 string CLQueryPlayerID::toString () const
-	throw()
+	
 {
 	__BEGIN_TRY
 		

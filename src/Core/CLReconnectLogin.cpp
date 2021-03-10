@@ -7,7 +7,7 @@
 #include "CLReconnectLogin.h"
 
 void CLReconnectLogin::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -19,7 +19,7 @@ void CLReconnectLogin::read (SocketInputStream & iStream)
 }
 		    
 void CLReconnectLogin::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CLReconnectLogin::write (SocketOutputStream & oStream) const
 }
 
 void CLReconnectLogin::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CLReconnectLogin::execute (Player* pPlayer)
 }
 
 string CLReconnectLogin::toString () const
-       throw()
+       
 {
 	StringStream msg;
 	msg << "CLReconnectLogin("

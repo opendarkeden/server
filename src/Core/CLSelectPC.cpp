@@ -7,7 +7,7 @@
 #include "CLSelectPC.h"
 
 void CLSelectPC::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -36,7 +36,7 @@ void CLSelectPC::read (SocketInputStream & iStream)
 }
 		    
 void CLSelectPC::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void CLSelectPC::write (SocketOutputStream & oStream) const
 
 // execute packet's handler
 void CLSelectPC::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -75,7 +75,7 @@ void CLSelectPC::execute (Player* pPlayer)
 
 // get packet's debug string
 string CLSelectPC::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

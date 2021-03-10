@@ -25,7 +25,7 @@ bool isAvailableID(const char* pID);
 // DB 로부터 특정 플레이어 아이디를 찾아서 그 여부를 클라이언트로 리턴해준다.
 //////////////////////////////////////////////////////////////////////////////
 void CLQueryCharacterNameHandler::execute (CLQueryCharacterName* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

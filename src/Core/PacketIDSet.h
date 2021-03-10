@@ -49,13 +49,13 @@ public :
 	~PacketIDSet () ;
 
 	// add packet id to set
-	void addPacketID (PacketID_t packetID) throw (DuplicatedException);
+	void addPacketID (PacketID_t packetID);
 
 	// delete packet id from set
-	void deletePacketID (PacketID_t packetID) throw (NoSuchElementException);
+	void deletePacketID (PacketID_t packetID);
 
 	// has packet id?
-	bool hasPacketID (PacketID_t packetID) const throw (NoSuchElementException, IgnorePacketException);
+	bool hasPacketID (PacketID_t packetID) const;
 
 	// get player status 
 	PlayerStatus getPlayerStatus () const  { return m_PlayerStatus; }

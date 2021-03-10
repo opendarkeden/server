@@ -7,7 +7,7 @@
 #include "CLRegisterPlayer.h"
 
 void CLRegisterPlayer::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ void CLRegisterPlayer::read (SocketInputStream & iStream)
 }
 
 void CLRegisterPlayer::write (SocketOutputStream & oStream) const
-	throw(ProtocolException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -233,7 +233,7 @@ void CLRegisterPlayer::write (SocketOutputStream & oStream) const
 }
 
 void CLRegisterPlayer::execute (Player* pPlayer)
-	throw(ProtocolException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -243,7 +243,7 @@ void CLRegisterPlayer::execute (Player* pPlayer)
 }
 
 string CLRegisterPlayer::toString () const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

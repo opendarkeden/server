@@ -14,7 +14,7 @@
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void LGIncomingConnectionError::read (Datagram & iDatagram ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void LGIncomingConnectionError::read (Datagram & iDatagram )
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void LGIncomingConnectionError::write (Datagram & oDatagram ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -99,7 +99,7 @@ void LGIncomingConnectionError::write (Datagram & oDatagram ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void LGIncomingConnectionError::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -114,7 +114,7 @@ void LGIncomingConnectionError::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 string LGIncomingConnectionError::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		
