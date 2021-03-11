@@ -23,22 +23,22 @@
 class LoginServerManager : public Thread 
 {
 public:
-	LoginServerManager() throw(Error);
-	~LoginServerManager() throw(Error);
+	LoginServerManager() ;
+	~LoginServerManager() ;
 
 public:
-	void init() throw(Error) {}
+	void init()  {}
 
-	void stop() throw(Error);
+	void stop() ;
 
-	void run() throw();
+	void run() ;
 
-	void sendDatagram(Datagram* pDatagram) throw(ProtocolException, Error);
+	void sendDatagram(Datagram* pDatagram) ;
 
-	void sendPacket(const string& host, uint port, DatagramPacket* pPacket) throw(ProtocolException, Error);
+	void sendPacket(const string& host, uint port, DatagramPacket* pPacket) ;
 
-	void lock() const throw(Error) { m_Mutex.lock(); }
-	void unlock() const throw(Error) { m_Mutex.unlock(); }
+	void lock() const  { m_Mutex.lock(); }
+	void unlock() const  { m_Mutex.unlock(); }
 
 private:
 	DatagramSocket* m_pDatagramSocket; // UDP 서버 소켓

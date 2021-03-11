@@ -30,46 +30,46 @@ class Statement {
 public:
 	
 	// constructor
-	Statement() throw(); 
+	Statement() ; 
 
 	// constructor
-    Statement(char * fmt, ...) throw(Error);
+    Statement(char * fmt, ...) ;
 
 	// destructor
-	~Statement() throw();
+	~Statement() ;
 
 public:
     
 	// 사전에 지정된 SQL 문을 가지고 쿼리한다.
-    Result * executeQuery() throw(SQLQueryException, Error);
+    Result * executeQuery() ;
 	
 	// SQL 문을 받아서 쿼리한다.
-	Result * executeQuery(char *,...) throw(SQLQueryException, Error);
-	Result * executeQuery(const string& sqlStatement) throw(SQLQueryException, Error);
+	Result * executeQuery(char *,...) ;
+	Result * executeQuery(const string& sqlStatement) ;
 	
 	// get SQL statement
-	string getStatement() const throw() { return m_Statement; }
+	string getStatement() const  { return m_Statement; }
 
 	// SQL 문을 지정한다.
-	void setStatement(char * fmt, ...) throw(Error);
+	void setStatement(char * fmt, ...) ;
 
 	// get connection object
-	Connection * getConnection() const throw() { return m_pConnection; }
+	Connection * getConnection() const  { return m_pConnection; }
 
 	// set connection object
-	void setConnection(Connection * pConnection) throw() { m_pConnection = pConnection; }
+	void setConnection(Connection * pConnection)  { m_pConnection = pConnection; }
 
 	// get warning/error string
-	string getError() const throw() 
+	string getError() const  
 	{ 
 		return(m_pConnection == NULL) ?("Not Associated with Connection Object") :(m_pConnection->getError()); 
 	}
 
 	// get affected rows
-	uint getAffectedRowCount() const throw() { return m_nAffectedRows; }
+	uint getAffectedRowCount() const  { return m_nAffectedRows; }
 
 	// get insert id
-	uint getInsertID() const throw();
+	uint getInsertID() const ;
 
 	
 private:

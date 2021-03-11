@@ -36,10 +36,10 @@ class CondVar {
 public :
 	
 	// constructor
-	CondVar ( CondVarAttr * attr = NULL ) throw ( Error );
+	CondVar ( CondVarAttr * attr = NULL ) ;
 	
 	// destructor
-	virtual ~CondVar () throw ( CondVarException , Error );
+	virtual ~CondVar () ;
 
 	
 //////////////////////////////////////////////////
@@ -48,10 +48,10 @@ public :
 public :
 	
 	// wake up a waiting thread
-	void signal () throw ( Error );
+	void signal () ;
 	
 	// waiting until somebody wake up me
-	void wait ( Mutex & mutex ) throw ( Error );
+	void wait ( Mutex & mutex ) ;
 	
 	//
 	// waiting until somebody wake up me or specified time elapsed
@@ -59,14 +59,13 @@ public :
 	// *NOTES* 
 	// CondVarException means Timeout
 	//
-	void timedwait ( Mutex & mutex , const struct timespec * timeout ) 
-		throw ( CondVarException , InterruptedException , Error );
+	void timedwait ( Mutex & mutex , const struct timespec * timeout ) ;
 	
 	// wake up all waiting threads
-	void broadcast () throw ( Error );
+	void broadcast () ;
 	
 	// get raw conditional-variable object
-	pthread_cond_t * getCondVar () throw () { return &m_Cond; }
+	pthread_cond_t * getCondVar ()  { return &m_Cond; }
 
 
 //////////////////////////////////////////////////

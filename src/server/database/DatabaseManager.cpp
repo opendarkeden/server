@@ -17,7 +17,6 @@
 #include "DB.h"
 
 DatabaseManager::DatabaseManager () 
-	throw()
 {
 	__BEGIN_TRY
 
@@ -32,7 +31,6 @@ DatabaseManager::DatabaseManager ()
 }
 
 DatabaseManager::~DatabaseManager () 
-	throw ()
 {
 	__BEGIN_TRY
 	
@@ -51,7 +49,7 @@ DatabaseManager::~DatabaseManager ()
 }
 
 void DatabaseManager::init ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -212,7 +210,7 @@ void DatabaseManager::init ()
 }
 
 void DatabaseManager::addConnection ( int TID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -241,7 +239,7 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 // Potion 측 Thread Connection을 위한 부분
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -270,7 +268,7 @@ void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection )
 // China Billing log 저장을 위한 DB 연결 추가
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -300,7 +298,7 @@ void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection
 // PC 방 관련 Connection 저장
 ////////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addPCRoomConnection ( int TID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -327,7 +325,7 @@ void DatabaseManager::addPCRoomConnection ( int TID,  Connection * pConnection )
 */
 
 Connection * DatabaseManager::getDistConnection ( const string& connName ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -356,7 +354,7 @@ Connection * DatabaseManager::getDistConnection ( const string& connName )
 
 
 Connection * DatabaseManager::getConnection ( const string& connName ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -391,7 +389,7 @@ Connection * DatabaseManager::getConnection ( const string& connName )
 }
 
 Connection* DatabaseManager::getCBillingConnection( const string& connName ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -420,7 +418,7 @@ Connection* DatabaseManager::getCBillingConnection( const string& connName )
 // PC 방 통합용 Connection 가져오기
 ////////////////////////////////////////////////////////////////////////////
 Connection * DatabaseManager::getPCRoomConnection ( const string& connName ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -449,7 +447,7 @@ Connection * DatabaseManager::getPCRoomConnection ( const string& connName )
 */
 /*
 void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -476,7 +474,7 @@ void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnecti
 */
 	
 Connection * DatabaseManager::getConnection ( int TID ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -507,7 +505,7 @@ Connection * DatabaseManager::getConnection ( int TID )
 }
 
 void DatabaseManager::executeDummyQuery(Connection* pConnection)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

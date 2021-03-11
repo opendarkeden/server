@@ -30,10 +30,10 @@ class CondVarAttr {
 public :
 	
 	// constructor
-	CondVarAttr () throw () { pthreadAPI::pthread_condattr_init_ex(&m_Attr); }
+	CondVarAttr () { pthreadAPI::pthread_condattr_init_ex(&m_Attr); }
 	
 	// destructor
-	~CondVarAttr () throw () { pthreadAPI::pthread_condattr_destroy_ex(&m_Attr); }
+	~CondVarAttr () { pthreadAPI::pthread_condattr_destroy_ex(&m_Attr); }
 
 		
 //////////////////////////////////////////////////
@@ -42,7 +42,7 @@ public :
 public :
 	
 	// get condvar attribute
-	pthread_condattr_t * getAttr () throw () { return &m_Attr; }
+	pthread_condattr_t * getAttr () { return &m_Attr; }
 
 
 //////////////////////////////////////////////////

@@ -25,8 +25,8 @@
 class GameServerManager : public Thread
 {
 public:
-	GameServerManager() throw(Error);
-	~GameServerManager() throw(Error);
+	GameServerManager() ;
+	~GameServerManager() ;
 
 public:
 
@@ -34,42 +34,42 @@ public:
 	const static uint nMaxGameServers = 100;
 
 	// initialize 
-	void init() throw(Error);
+	void init() ;
 
-	void run() throw ();
+	void run() ;
 
 	// broadcast packet to all players
-	void broadcast(Packet* pPacket) throw(Error);
-	void broadcast(Packet* pPacket, Player* pPlayer) throw(Error);
+	void broadcast(Packet* pPacket) ;
+	void broadcast(Packet* pPacket, Player* pPlayer) ;
 
 
 	// select 
-	void select() throw(TimeoutException, InterruptedException, Error);
+	void select() ;
 
 	// process all inputs
-	void processInputs() throw(IOException, Error);
+	void processInputs() ;
 
 	// process all outputs
-	void processOutputs() throw(IOException, Error);
+	void processOutputs() ;
 
 	// process all exceptions
-	void processExceptions() throw(IOException, Error);
+	void processExceptions() ;
 	
 	// process all commands
-	void processCommands() throw(IOException, Error);
+	void processCommands() ;
 
 	// accept new connection
-	void acceptNewConnection() throw(Error);
+	void acceptNewConnection() ;
 
 	// add/delete player
-	void addGameServerPlayer(GameServerPlayer* pGameServerPlayer) throw(DuplicatedException, Error);
-	void deleteGameServerPlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
+	void addGameServerPlayer(GameServerPlayer* pGameServerPlayer) ;
+	void deleteGameServerPlayer(SOCKET fd) ;
 
 	// lock/unlock
-	void lock() throw(Error) { m_Mutex.lock(); }
-	void unlock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+	void unlock()  { m_Mutex.unlock(); }
 
-	void heartbeat() throw(Error);
+	void heartbeat() ;
 
 private:
 

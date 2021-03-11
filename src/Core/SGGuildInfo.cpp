@@ -95,11 +95,16 @@ void SGGuildInfo::clearGuildInfoList()
 //////////////////////////////////////////////////////////////////////
 void SGGuildInfo::execute (Player * pPlayer ) 
 {
+
+#ifdef __GAME_SERVER__
+
 	__BEGIN_TRY
 		
 	SGGuildInfoHandler::execute(this);
 		
 	__END_CATCH
+
+#endif
 }
 
 

@@ -40,7 +40,6 @@ using namespace pthreadAPI;
 //
 ////////////////////////////////////////////////////////////////////////////////
 Thread::Thread ( ThreadAttr * attr ) 
-	 throw ()
 : m_TID(0) , m_ThreadAttr(attr), m_Status(Thread::READY)
 {
 }
@@ -57,7 +56,6 @@ Thread::Thread ( ThreadAttr * attr )
 //
 ////////////////////////////////////////////////////////////////////////////////
 Thread::~Thread () 
-	 throw (Error)
 {
 }
 
@@ -92,7 +90,6 @@ Thread::~Thread ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Thread::start () 
-     throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 		
@@ -111,7 +108,6 @@ void Thread::start ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Thread::stop ()
-	 throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -131,7 +127,6 @@ void Thread::stop ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Thread::join ( const Thread & t )
-     throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -141,7 +136,6 @@ void Thread::join ( const Thread & t )
 }
 
 void Thread::join ( const Thread & t, void * status )
-     throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -151,7 +145,6 @@ void Thread::join ( const Thread & t, void * status )
 }
 
 void Thread::join ( const Thread * t )
-     throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -161,7 +154,6 @@ void Thread::join ( const Thread * t )
 }
 
 void Thread::join ( const Thread * t, void * status )
-     throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -182,7 +174,6 @@ void Thread::join ( const Thread * t, void * status )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Thread::detach () 
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -204,7 +195,6 @@ void Thread::detach ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void Thread::exit ( void * retval )
-	 throw ()
 {
 	pthread_exit_ex( retval );
 }
@@ -225,7 +215,6 @@ void Thread::exit ( void * retval )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void * start_routine ( void * derivedThread )
-	   throw ()
 {
 	Thread * thread = (Thread *)derivedThread;
 	
@@ -250,7 +239,6 @@ void * start_routine ( void * derivedThread )
 //
 ////////////////////////////////////////////////////////////////////////////////
 TID Thread::self ()
-	 throw ()
 {
 	return pthread_self_ex();
 }
@@ -262,7 +250,6 @@ TID Thread::self ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 string Thread::toString () const
-       throw ()
 {
 	__BEGIN_TRY
 

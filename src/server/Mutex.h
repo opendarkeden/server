@@ -21,18 +21,18 @@ class MutexAttr;
 class Mutex 
 {
 public:
-	Mutex ( MutexAttr * attr = NULL ) throw ( Error );
-	virtual ~Mutex () throw ( Error );
+	Mutex ( MutexAttr * attr = NULL ) ;
+	virtual ~Mutex () ;
 
 public:
 	string getName(void) const { return m_Name; }
 	void setName(string name) { m_Name = name; }
 
-	void lock () throw ( Error );
-	void unlock () throw ( Error );
-	void trylock () throw ( Error );
+	void lock () ;
+	void unlock () ;
+	void trylock () ;
 	
-	pthread_mutex_t * getMutex () throw () { return &m_Mutex; }
+	pthread_mutex_t * getMutex () { return &m_Mutex; }
 
 private:
 	pthread_mutex_t 	m_Mutex; 		// ¹ÂÅØ½º °´Ã¼

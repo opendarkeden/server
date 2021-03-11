@@ -61,11 +61,16 @@ void SGModifyGuildIntroOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGModifyGuildIntroOK::execute (Player * pPlayer ) 
 {
+
+#ifdef __GAME_SERVER__
+  
 	__BEGIN_TRY
 		
 	SGModifyGuildIntroOKHandler::execute(this);
 		
 	__END_CATCH
+
+#endif
 }
 
 

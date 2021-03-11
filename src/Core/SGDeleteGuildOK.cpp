@@ -41,11 +41,15 @@ void SGDeleteGuildOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGDeleteGuildOK::execute (Player * pPlayer ) 
 {
+#ifdef __GAME_SERVER__
+
 	__BEGIN_TRY
 		
 	SGDeleteGuildOKHandler::execute(this);
 		
 	__END_CATCH
+
+#endif
 }
 
 

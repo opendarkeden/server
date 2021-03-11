@@ -23,7 +23,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 GameServerManager::GameServerManager () 
-	throw (Error)
 : m_pServerSocket(NULL), m_SocketID(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -68,7 +67,6 @@ GameServerManager::GameServerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 GameServerManager::~GameServerManager () 
-	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -80,7 +78,6 @@ GameServerManager::~GameServerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::init ()
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -106,7 +103,6 @@ void GameServerManager::init ()
 
 
 void GameServerManager::run()
-	throw ()
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -161,7 +157,6 @@ void GameServerManager::run()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::broadcast (Packet* pPacket)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -188,7 +183,6 @@ void GameServerManager::broadcast (Packet* pPacket)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::broadcast (Packet* pPacket, Player* pPlayer)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -210,7 +204,6 @@ void GameServerManager::broadcast (Packet* pPacket, Player* pPlayer)
 // 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::select ()
-	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
 
@@ -249,7 +242,6 @@ void GameServerManager::select ()
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::processInputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -335,7 +327,6 @@ void GameServerManager::processInputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::processCommands() 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -412,7 +403,6 @@ void GameServerManager::processCommands()
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::processOutputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -524,7 +514,6 @@ void GameServerManager::processOutputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServerManager::processExceptions () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -584,7 +573,6 @@ void GameServerManager::processExceptions ()
 // select 기반에서는 nonblocking 소켓을 사용하지 않는다.
 //////////////////////////////////////////////////////////////////////////////
 void GameServerManager::acceptNewConnection ()
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -681,7 +669,6 @@ void GameServerManager::acceptNewConnection ()
 //
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -712,7 +699,6 @@ void GameServerManager::addGameServerPlayer(GameServerPlayer* pGameServerPlayer)
 //
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::deleteGameServerPlayer(SOCKET fd) 
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -775,7 +761,6 @@ void GameServerManager::deleteGameServerPlayer(SOCKET fd)
 }
 
 void GameServerManager::heartbeat()
-	throw(Error) 
 {
 	__BEGIN_TRY
 

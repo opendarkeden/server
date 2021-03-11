@@ -33,22 +33,22 @@ class GameServerManager : public Thread {
 public :
 
 	// constructor
-	GameServerManager () throw ( Error );
+	GameServerManager () ;
 
 	// destructor
-	~GameServerManager () throw ( Error );
+	~GameServerManager () ;
 
 	//
-	void init () throw ( Error ) {}
+	void init ()  {}
 
 	// stop thread
-	void stop () throw ( Error );
+	void stop () ;
 
 	// main method
-	void run () throw ();
+	void run () ;
 
-	void sendDatagram ( Datagram * pDatagram ) throw ( ConnectException , Error );
-	void sendPacket ( string host , uint port , DatagramPacket * pPacket ) throw ( ConnectException , Error );
+	void sendDatagram ( Datagram * pDatagram ) ;
+	void sendPacket ( string host , uint port , DatagramPacket * pPacket ) ;
 
 private :
 

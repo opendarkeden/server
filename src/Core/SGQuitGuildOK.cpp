@@ -61,11 +61,15 @@ void SGQuitGuildOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGQuitGuildOK::execute (Player * pPlayer ) 
 {
+#ifdef __GAME_SERVER__
+  
 	__BEGIN_TRY
 		
 	SGQuitGuildOKHandler::execute(this);
 		
 	__END_CATCH
+
+#endif
 }
 
 

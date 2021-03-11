@@ -76,11 +76,16 @@ void SGExpelGuildMemberOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGExpelGuildMemberOK::execute (Player * pPlayer ) 
 {
+
+#ifdef __GAME_SERVER__
+
 	__BEGIN_TRY
 		
 	SGExpelGuildMemberOKHandler::execute(this);
 		
 	__END_CATCH
+
+#endif
 }
 
 

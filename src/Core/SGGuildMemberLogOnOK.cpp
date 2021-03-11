@@ -64,11 +64,14 @@ void SGGuildMemberLogOnOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGGuildMemberLogOnOK::execute (Player * pPlayer ) 
 {
+#ifdef __GAME_SERVER__
+  
 	__BEGIN_TRY
 		
 	SGGuildMemberLogOnOKHandler::execute(this);
 		
 	__END_CATCH
+#endif
 }
 
 

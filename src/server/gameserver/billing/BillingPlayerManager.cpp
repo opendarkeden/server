@@ -38,7 +38,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 BillingPlayerManager::BillingPlayerManager () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -55,7 +54,6 @@ BillingPlayerManager::BillingPlayerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 BillingPlayerManager::~BillingPlayerManager () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -68,7 +66,6 @@ BillingPlayerManager::~BillingPlayerManager ()
 // stop thread
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::stop () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -81,7 +78,6 @@ void BillingPlayerManager::stop ()
 // main method
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::run () 
-	throw ()
 {
 	__BEGIN_TRY
 	try {
@@ -267,7 +263,6 @@ void BillingPlayerManager::run ()
 // send packet to billing server
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPacket ( Packet* pPacket )
-	throw (ProtocolException , Error)
 {
 	__BEGIN_BILLING_TRY
 
@@ -287,7 +282,6 @@ void BillingPlayerManager::sendPacket ( Packet* pPacket )
 // 게임 서버가 처음 뜰 때 보낸다.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayInit()
-	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)
@@ -308,7 +302,6 @@ void BillingPlayerManager::sendPayInit()
 // 캐릭터의 접속 상태를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayCheck( CommonBillingPacket* pPacket )
-	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 		
@@ -324,7 +317,6 @@ void BillingPlayerManager::sendPayCheck( CommonBillingPacket* pPacket )
 // 캐릭터가 게임에 처음 접속할때 보내는것
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayLogin( Player* pPlayer ) 
-	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)
@@ -342,7 +334,6 @@ void BillingPlayerManager::sendPayLogin( Player* pPlayer )
 // 캐릭터가 게임에서 나갈때 보내는것
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayLogout( Player* pPlayer ) 
-	throw( ProtocolException, Error )
 {
 	__BEGIN_BILLING_TRY
 	__ENTER_CRITICAL_SECTION(m_Mutex)

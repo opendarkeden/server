@@ -21,7 +21,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GameServerManager::GameServerManager () 
-	throw ( Error )
 : m_pDatagramSocket(NULL)
 {
 	__BEGIN_TRY
@@ -49,7 +48,6 @@ GameServerManager::GameServerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GameServerManager::~GameServerManager () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -65,7 +63,6 @@ GameServerManager::~GameServerManager ()
 // stop thread
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::stop () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -78,7 +75,6 @@ void GameServerManager::stop ()
 // main method
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::run () 
-	throw ()
 {
 	try 
 	{
@@ -190,7 +186,6 @@ void GameServerManager::run ()
 // send datagram to datagram-socket
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::sendDatagram ( Datagram * pDatagram )
-	throw ( ConnectException , Error )
 {
 	__BEGIN_TRY
 
@@ -213,7 +208,6 @@ void GameServerManager::sendDatagram ( Datagram * pDatagram )
 // send datagram-packet to datagram-socket
 //////////////////////////////////////////////////////////////////////
 void GameServerManager::sendPacket ( string host , uint port , DatagramPacket * pPacket )
-	throw ( ConnectException , Error )
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

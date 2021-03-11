@@ -13,7 +13,6 @@
 //////////////////////////////////////////////////////////////////////////////
 
 Result::Result (T_RESULT * pResult, const string& statement) 
-	throw (Error) 
 {
 	__BEGIN_TRY
 
@@ -68,7 +67,6 @@ Result::~Result ()
 //////////////////////////////////////////////////////////////////////////////
 
 bool Result::next () 
-	throw (Error)
 {
 	__BEGIN_TRY
 		
@@ -86,7 +84,6 @@ bool Result::next ()
 //////////////////////////////////////////////////////////////////////////////
 
 char * Result::getField (uint index) 
-	throw (OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 		
@@ -115,7 +112,6 @@ char * Result::getField (uint index)
 //////////////////////////////////////////////////////////////////////////////
 
 const char* Result::getString(uint index)
-	throw (OutOfBoundException, Error)
 {
 	__BEGIN_TRY
 

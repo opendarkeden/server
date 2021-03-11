@@ -46,7 +46,7 @@ DatabaseManager::~DatabaseManager ()
 }
 
 void DatabaseManager::init ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void DatabaseManager::init ()
 }
 
 void DatabaseManager::addConnection ( int TID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -166,7 +166,7 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 }
 	
 Connection * DatabaseManager::getConnection ( string connName ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		
@@ -190,7 +190,7 @@ Connection * DatabaseManager::getConnection ( string connName )
 
 /*
 void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnection ) 
-	throw ( DuplicatedException )
+	
 {
 	__BEGIN_TRY
 
@@ -217,7 +217,7 @@ void DatabaseManager::addConnection ( WorldID_t WorldID,  Connection * pConnecti
 */
 	
 Connection * DatabaseManager::getConnection ( int TID ) 
-	throw ( NoSuchElementException )
+	
 {
 	__BEGIN_TRY
 		

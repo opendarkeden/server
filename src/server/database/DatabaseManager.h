@@ -20,22 +20,22 @@
 class DatabaseManager 
 {
 public:
-	DatabaseManager() throw();
-	~DatabaseManager() throw();
+	DatabaseManager() ;
+	~DatabaseManager() ;
 	
 public:
-	void init() throw(Error);
-	void addConnection(int TID, Connection * pConnection) throw(DuplicatedException);
-	void addDistConnection(int TID, Connection * pConnection) throw(DuplicatedException);
-	void addCBillingConnection(int TID, Connection * pConnection) throw(DuplicatedException);
+	void init() ;
+	void addConnection(int TID, Connection * pConnection) ;
+	void addDistConnection(int TID, Connection * pConnection) ;
+	void addCBillingConnection(int TID, Connection * pConnection) ;
 //	void addPCRoomConnection(int TID, Connection * pConnection) throw(DuplicatedException);
 
-	Connection* getConnection(const string& ip) throw(NoSuchElementException);
-	Connection* getDistConnection(const string& ip) throw(NoSuchElementException);
-	Connection* getCBillingConnection(const string& ip) throw(NoSuchElementException);
+	Connection* getConnection(const string& ip) ;
+	Connection* getDistConnection(const string& ip) ;
+	Connection* getCBillingConnection(const string& ip) ;
 //	Connection* getPCRoomConnection(const string& ip) throw(NoSuchElementException);
-	Connection* getUserInfoConnection(void) throw() { return m_pUserInfoConnection; }
-	void	executeDummyQuery(Connection* pConnection) throw (Error);
+	Connection* getUserInfoConnection(void)  { return m_pUserInfoConnection; }
+	void	executeDummyQuery(Connection* pConnection) ;
 
 	//--------------------------------------------------------------------
 	// * elca's NOTE
@@ -57,7 +57,7 @@ public:
 	// 일반 게임 서버에서의 쿼리는 쓰레드 별로 나뉘어져 있기 때문에
 	// 신경쓰지 않도록 한다.
 	//--------------------------------------------------------------------
-	Connection* getConnection( int TID ) throw(NoSuchElementException);
+	Connection* getConnection( int TID ) ;
 //	void addConnection(WorldID_t WorldID, Connection * pConnection) throw(DuplicatedException);
 
 private:

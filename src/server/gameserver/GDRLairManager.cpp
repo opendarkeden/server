@@ -65,7 +65,7 @@ void GDRLairManager::init()
 	m_bCanEnter = false;
 }
 
-void GDRLairManager::run() throw()
+void GDRLairManager::run() 
 {
 	string host     = g_pConfig->getProperty("DB_HOST");
 	string db       = g_pConfig->getProperty("DB_DB");

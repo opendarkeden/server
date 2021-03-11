@@ -235,7 +235,7 @@
 #include "GCWarScheduleList.h"
 #include "GCWarList.h"
 
-#ifndef __GAME_CLIENT__
+#if defined(__GAME_CLIENT__) || defined(__LOGIN_SERVER__)
 	#include "GMServerInfo.h"
 	#include "GLIncomingConnection.h"
 	#include "GLIncomingConnectionError.h"
@@ -639,7 +639,7 @@ void PacketFactoryManager::init ()
 {
 	__BEGIN_TRY
 		
-#if defined(__GAME_SERVER__) || defined(__LOGIN_SERVER__) || defined(__UPDATE_SERVER__)
+#if defined(__GAME_SERVER__)
 	addFactory(new CGAttackFactory());
 	addFactory(new CGAddGearToMouseFactory());
 	addFactory(new CGAddInventoryToMouseFactory());
@@ -686,7 +686,9 @@ void PacketFactoryManager::init ()
 	addFactory(new CGRequestRepairFactory());
 	addFactory(new CGVisibleFactory());
 	addFactory(new CGVerifyTimeFactory());
+#endif
 
+#if defined(__LOGIN_SERVER__)
 	addFactory(new CLCreatePCFactory());
 	addFactory(new CLDeletePCFactory());
 	addFactory(new CLGetPCListFactory());
@@ -703,7 +705,9 @@ void PacketFactoryManager::init ()
 	addFactory(new CLReconnectLoginFactory());
 	addFactory(new CLSelectWorldFactory());
 	addFactory(new CLSelectServerFactory());
+#endif
 
+#if defined(__GAME_SERVER__)
 	// 2002.6.28
 	addFactory( new CGPortCheckFactory() );
 
@@ -795,7 +799,6 @@ void PacketFactoryManager::init ()
 	addFactory( new CGPetGambleFactory() );
 	addFactory( new CGCrashReportFactory() );
 
-#endif
 	
 	addFactory(new GCAddBatFactory());
 	addFactory(new GCAddBurrowingCreatureFactory());
@@ -992,69 +995,7 @@ void PacketFactoryManager::init ()
 	addFactory(new GCThrowBombOK1Factory());
 	addFactory(new GCThrowBombOK2Factory());
 	addFactory(new GCThrowBombOK3Factory());
-	
-	#ifndef __GAME_CLIENT__
-		addFactory(new GGCommandFactory());
-		addFactory(new GMServerInfoFactory());
-		addFactory(new GLIncomingConnectionFactory());
-		addFactory(new GLIncomingConnectionErrorFactory());
-		addFactory(new GLIncomingConnectionOKFactory());
-		addFactory(new GLKickVerifyFactory());
-	#endif
 
-	addFactory(new LCCreatePCErrorFactory());
-	addFactory(new LCCreatePCOKFactory());
-	addFactory(new LCDeletePCErrorFactory());
-	addFactory(new LCDeletePCOKFactory());
-	addFactory(new LCLoginErrorFactory());
-	addFactory(new LCLoginOKFactory());
-	addFactory(new LCPCListFactory());
-	addFactory(new LCQueryResultPlayerIDFactory());
-	addFactory(new LCQueryResultCharacterNameFactory());
-	addFactory(new LCReconnectFactory());
-	addFactory(new LCRegisterPlayerErrorFactory());
-	addFactory(new LCRegisterPlayerOKFactory());
-	addFactory(new LCSelectPCErrorFactory());
-	addFactory(new LCVersionCheckOKFactory());
-	addFactory(new LCVersionCheckErrorFactory());
-	addFactory(new LCServerListFactory());
-	addFactory(new LCWorldListFactory());
-
-	#ifndef __GAME_CLIENT__
-		addFactory(new LGIncomingConnectionFactory());
-		addFactory(new LGIncomingConnectionOKFactory());
-		addFactory(new LGIncomingConnectionErrorFactory());
-		addFactory(new LGKickCharacterFactory());
-	#endif
-
-	#ifdef __GAME_CLIENT__
-		addFactory(new CRConnectFactory());
-		addFactory(new RCConnectVerifyFactory());
-		addFactory(new CRRequestFactory());
-		addFactory(new RCPositionInfoFactory());
-		addFactory(new CRDisconnectFactory());
-		addFactory(new RCSayFactory());		
-		addFactory(new RCStatusHPFactory());		
-		addFactory(new CRWhisperFactory());
-		addFactory(new RCRequestVerifyFactory());
-		addFactory(new RCRequestedFileFactory());
-		addFactory(new RCCharacterInfoFactory());
-	#endif
-
-	#ifndef __GAME_CLIENT__
-		addFactory( new SGQuitGuildOKFactory() );
-		addFactory( new SGExpelGuildMemberOKFactory() );
-		addFactory( new SGModifyGuildMemberOKFactory() );
-		addFactory( new SGDeleteGuildOKFactory() );
-		addFactory( new SGModifyGuildOKFactory() );
-		addFactory( new GSExpelGuildMemberFactory() );
-		addFactory( new GSModifyGuildMemberFactory() );
-		addFactory( new SGAddGuildMemberOKFactory() );
-		addFactory(new SGAddGuildOKFactory() );
-		addFactory(new GSAddGuildFactory() );
-		addFactory(new GSAddGuildMemberFactory() );
-	#endif
-	
 //	addFactory( new GCShowGuildRegistFactory() );
 	addFactory( new GCWaitGuildListFactory() );
 	addFactory( new GCShowGuildInfoFactory() );
@@ -1064,33 +1005,14 @@ void PacketFactoryManager::init ()
 	addFactory( new GCShowWaitGuildInfoFactory() );
 	addFactory( new GCActiveGuildListFactory() );
 
-	#ifndef __GAME_CLIENT__
-		addFactory( new GSQuitGuildFactory());
-	#endif
-
 	addFactory( new GCShowGuildMemberInfoFactory() );
 	addFactory( new GCGuildChatFactory() );
 	addFactory( new GCGuildMemberListFactory() );
 	addFactory( new GCModifyGuildMemberInfoFactory() );
-
 	addFactory( new GCAddItemToItemVerifyFactory() );
 
 	// 2002.9.2
 	addFactory( new GCNoticeEventFactory() );
-
-	#ifndef __GAME_CLIENT__
-		addFactory( new GGGuildChatFactory() );
-		addFactory( new GSRequestGuildInfoFactory() );
-		addFactory( new SGGuildInfoFactory() );
-	#endif
-
-	#ifndef __GAME_CLIENT__
-		addFactory( new GSModifyGuildIntroFactory() );
-		addFactory( new SGModifyGuildIntroOKFactory() );
-
-		addFactory( new GSGuildMemberLogOnFactory() );
-		addFactory( new SGGuildMemberLogOnOKFactory() );
-	#endif
 
 	addFactory( new GCSelectRankBonusOKFactory() );
 	addFactory( new GCSelectRankBonusFailedFactory() );
@@ -1200,11 +1122,94 @@ void PacketFactoryManager::init ()
 	addFactory( new GCUsePowerPointResultFactory() );
 	addFactory( new CGDonationMoneyFactory() );
 	addFactory( new CGGetEventItemFactory() );
+
+
 //add by viva 2008-12-31
 	addFactory( new CGConnectSetKeyFactory() );
 	addFactory( new GCFriendChattingFactory() );
 	//addFactory( new GCUseSkillCardOKFactory() );
 //end
+
+	addFactory(new GGCommandFactory());
+	addFactory(new GMServerInfoFactory());
+
+#endif
+	
+
+#ifdef __LOGIN_SERVER__
+	addFactory(new LCCreatePCErrorFactory());
+	addFactory(new LCCreatePCOKFactory());
+	addFactory(new LCDeletePCErrorFactory());
+	addFactory(new LCDeletePCOKFactory());
+	addFactory(new LCLoginErrorFactory());
+	addFactory(new LCLoginOKFactory());
+	addFactory(new LCPCListFactory());
+	addFactory(new LCQueryResultPlayerIDFactory());
+	addFactory(new LCQueryResultCharacterNameFactory());
+	addFactory(new LCReconnectFactory());
+	addFactory(new LCRegisterPlayerErrorFactory());
+	addFactory(new LCRegisterPlayerOKFactory());
+	addFactory(new LCSelectPCErrorFactory());
+	addFactory(new LCVersionCheckOKFactory());
+	addFactory(new LCVersionCheckErrorFactory());
+	addFactory(new LCServerListFactory());
+	addFactory(new LCWorldListFactory());
+#endif
+
+
+#if defined(__GAME_CLIENT__) || defined(__LOGIN_SERVER__)
+	addFactory(new GLIncomingConnectionFactory());
+	addFactory(new GLIncomingConnectionErrorFactory());
+	addFactory(new GLIncomingConnectionOKFactory());
+	addFactory(new GLKickVerifyFactory());
+
+	addFactory(new LGIncomingConnectionFactory());
+	addFactory(new LGIncomingConnectionOKFactory());
+	addFactory(new LGIncomingConnectionErrorFactory());
+	addFactory(new LGKickCharacterFactory());
+#endif
+
+	#ifdef __GAME_CLIENT__
+		addFactory(new CRConnectFactory());
+		addFactory(new RCConnectVerifyFactory());
+		addFactory(new CRRequestFactory());
+		addFactory(new RCPositionInfoFactory());
+		addFactory(new CRDisconnectFactory());
+		addFactory(new RCSayFactory());		
+		addFactory(new RCStatusHPFactory());		
+		addFactory(new CRWhisperFactory());
+		addFactory(new RCRequestVerifyFactory());
+		addFactory(new RCRequestedFileFactory());
+		addFactory(new RCCharacterInfoFactory());
+	#endif
+
+#if defined(__GAME_SERVER__) || defined(__SHARED_SERVER__)
+		addFactory( new SGQuitGuildOKFactory() );
+		addFactory( new SGExpelGuildMemberOKFactory() );
+		addFactory( new SGModifyGuildMemberOKFactory() );
+		addFactory( new SGDeleteGuildOKFactory() );
+		addFactory( new SGModifyGuildOKFactory() );
+		addFactory( new GSExpelGuildMemberFactory() );
+		addFactory( new GSModifyGuildMemberFactory() );
+		addFactory( new SGAddGuildMemberOKFactory() );
+		addFactory(new SGAddGuildOKFactory() );
+		addFactory(new GSAddGuildFactory() );
+		addFactory(new GSAddGuildMemberFactory() );
+		addFactory( new GSQuitGuildFactory());
+
+		// addFactory( new GGGuildChatFactory() );
+		addFactory( new GSRequestGuildInfoFactory() );
+		addFactory( new SGGuildInfoFactory() );
+
+		addFactory( new GSModifyGuildIntroFactory() );
+		addFactory( new SGModifyGuildIntroOKFactory() );
+
+		addFactory( new GSGuildMemberLogOnFactory() );
+		addFactory( new SGGuildMemberLogOnOKFactory() );
+#endif
+
+
+
 #if __OUTPUT_INIT__
 	cout << toString() << endl;
 #endif

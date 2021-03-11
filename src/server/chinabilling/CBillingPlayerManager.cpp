@@ -28,7 +28,6 @@
 */
 // constructor
 CBillingPlayerManager::CBillingPlayerManager()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -44,7 +43,6 @@ CBillingPlayerManager::CBillingPlayerManager()
 
 // destructor
 CBillingPlayerManager::~CBillingPlayerManager()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -55,7 +53,6 @@ CBillingPlayerManager::~CBillingPlayerManager()
 
 // stop thread. unsupport
 void CBillingPlayerManager::stop()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -66,7 +63,6 @@ void CBillingPlayerManager::stop()
 
 // main method
 void CBillingPlayerManager::run()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -280,7 +276,6 @@ void CBillingPlayerManager::run()
 #ifdef __LOGIN_SERVER__
 
 void CBillingPlayerManager::sendLogin( LoginPlayer* pLoginPlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_SendMutex )
@@ -297,7 +292,6 @@ void CBillingPlayerManager::sendLogin( LoginPlayer* pLoginPlayer )
 #elif defined(__GAME_SERVER__)
 
 void CBillingPlayerManager::sendIntervalValidation()
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -315,7 +309,6 @@ void CBillingPlayerManager::sendIntervalValidation()
 }
 
 bool CBillingPlayerManager::sendLogin( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	bool ret = true;
 
@@ -339,7 +332,6 @@ bool CBillingPlayerManager::sendLogin( GamePlayer* pGamePlayer )
 }
 
 bool CBillingPlayerManager::sendMinusPoint( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	bool ret = true;
 
@@ -364,7 +356,6 @@ bool CBillingPlayerManager::sendMinusPoint( GamePlayer* pGamePlayer )
 }
 
 void CBillingPlayerManager::sendMinusMinute( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -379,7 +370,6 @@ void CBillingPlayerManager::sendMinusMinute( GamePlayer* pGamePlayer )
 }
 
 void CBillingPlayerManager::sendLogout( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -396,7 +386,6 @@ void CBillingPlayerManager::sendLogout( GamePlayer* pGamePlayer )
 #endif
 
 int CBillingPlayerManager::getVersionNumber() const
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -408,7 +397,6 @@ int CBillingPlayerManager::getVersionNumber() const
 }
 
 int CBillingPlayerManager::getMinusIntervalInt() const
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -420,7 +408,6 @@ int CBillingPlayerManager::getMinusIntervalInt() const
 }
 
 string CBillingPlayerManager::getMinusInterval() const
-	throw ()
 {
 	__BEGIN_TRY
 

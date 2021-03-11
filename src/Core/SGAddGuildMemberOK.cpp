@@ -65,11 +65,15 @@ void SGAddGuildMemberOK::write (SocketOutputStream& oStream ) const
 //////////////////////////////////////////////////////////////////////
 void SGAddGuildMemberOK::execute (Player * pPlayer ) 
 {
+
+#ifdef __GAME_SERVER__
+  
 	__BEGIN_TRY
 		
 	SGAddGuildMemberOKHandler::execute(this);
 		
 	__END_CATCH
+#endif
 }
 
 

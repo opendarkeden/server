@@ -27,7 +27,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 LoginServerManager::LoginServerManager () 
-	throw (Error)
 : m_pDatagramSocket(NULL)
 {
 	__BEGIN_TRY
@@ -59,7 +58,6 @@ LoginServerManager::LoginServerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 LoginServerManager::~LoginServerManager () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -72,7 +70,6 @@ LoginServerManager::~LoginServerManager ()
 // stop thread
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::stop () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -85,7 +82,6 @@ void LoginServerManager::stop ()
 // main method
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::run () 
-	throw ()
 {
 	try 
 	{
@@ -220,7 +216,6 @@ void LoginServerManager::run ()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::sendDatagram (Datagram* pDatagram)
-	throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 
@@ -233,7 +228,6 @@ void LoginServerManager::sendDatagram (Datagram* pDatagram)
 // send datagram packet to login server
 //////////////////////////////////////////////////////////////////////
 void LoginServerManager::sendPacket (const string& host , uint port , DatagramPacket* pPacket)
-	throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

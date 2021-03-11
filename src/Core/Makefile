@@ -67,7 +67,7 @@ GL_PACKET_SRC := GLIncomingConnection.cpp  GLIncomingConnectionError.cpp GLIncom
 
 SG_PACKET_SRC := SGAddGuildMemberOK.cpp SGExpelGuildMemberOK.cpp SGModifyGuildIntroOK.cpp SGQuitGuildOK.cpp \
 	SGDeleteGuildOK.cpp           SGGuildMemberLogOnOK.cpp           SGModifyGuildOK.cpp               \
-	SGAddGuildOK.cpp                 SGGuildInfo.cpp
+	SGAddGuildOK.cpp                 SGGuildInfo.cpp SGModifyGuildMemberOK.cpp
 
 GS_PACKET_SRC := GSAddGuild.cpp GSAddGuildMember.cpp GSExpelGuildMember.cpp GSGuildMemberLogOn.cpp GSModifyGuildIntro.cpp \
 	GSModifyGuildMember.cpp GSQuitGuild.cpp GSRequestGuildInfo.cpp

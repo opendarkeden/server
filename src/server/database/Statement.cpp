@@ -26,7 +26,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Statement::Statement() 
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -38,7 +37,7 @@ Statement::Statement()
 }
 
 Statement::Statement (char * fmt , ... ) 
-	throw (Error )
+	
 {
 	__BEGIN_TRY
 
@@ -73,7 +72,6 @@ Statement::Statement (char * fmt , ... )
 //////////////////////////////////////////////////////////////////////
 
 Statement::~Statement() 
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -96,7 +94,7 @@ Statement::~Statement()
 //////////////////////////////////////////////////////////////////////
 
 Result * Statement::executeQuery () 
-	throw (SQLQueryException , Error )
+	
 {
 	__BEGIN_TRY
 		
@@ -158,7 +156,7 @@ Result * Statement::executeQuery ()
 //////////////////////////////////////////////////////////////////////
 
 Result * Statement::executeQuery (const string& sqlStatement )
-	throw (SQLQueryException, Error )
+	
 {
 	__BEGIN_TRY
 		
@@ -178,7 +176,7 @@ Result * Statement::executeQuery (const string& sqlStatement )
 //////////////////////////////////////////////////////////////////////
 
 Result * Statement::executeQuery (char * fmt , ... ) 
-	throw (SQLQueryException, Error )
+	
 {
 	__BEGIN_TRY
 		
@@ -213,7 +211,7 @@ Result * Statement::executeQuery (char * fmt , ... )
 //////////////////////////////////////////////////////////////////////
 
 void Statement::setStatement (char * fmt , ... ) 
-	throw (Error ) 
+	 
 {
 	__BEGIN_TRY
 
@@ -238,7 +236,7 @@ void Statement::setStatement (char * fmt , ... )
 	__END_CATCH	
 }
 
-uint Statement::getInsertID() const throw()
+uint Statement::getInsertID() const 
 {
 	__BEGIN_TRY
 	return mysql_insert_id( m_pConnection->getMYSQL() );

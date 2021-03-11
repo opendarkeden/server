@@ -81,11 +81,15 @@ void SGModifyGuildMemberOK::write (SocketOutputStream& oStream ) const
 void SGModifyGuildMemberOK::execute (Player * pPlayer ) 
 	 
 {
+
+#ifdef __GAME_SERER__
+  
 	__BEGIN_TRY
 		
 	SGModifyGuildMemberOKHandler::execute(this);
 		
 	__END_CATCH
+#endif
 }
 
 
