@@ -7,21 +7,21 @@
 #include "CGMakeItem.h"
 
 CGMakeItem::CGMakeItem () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGMakeItem::~CGMakeItem () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGMakeItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void CGMakeItem::read (SocketInputStream & iStream)
 }
 
 void CGMakeItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGMakeItem::write (SocketOutputStream & oStream) const
 }
 
 void CGMakeItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGMakeItem::execute (Player* pPlayer)
 }
 
 string CGMakeItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

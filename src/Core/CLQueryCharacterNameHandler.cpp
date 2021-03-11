@@ -13,10 +13,10 @@
 	#include "Connection.h"
 	#include "Statement.h"
 	#include "Result.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "GameWorldInfoManager.h"
 
-	#include "LCQueryResultCharacterName.h"
+	#include "Lpackets/LCQueryResultCharacterName.h"
 #endif
 
 bool isAvailableID(const char* pID);
@@ -25,7 +25,6 @@ bool isAvailableID(const char* pID);
 // DB 로부터 특정 플레이어 아이디를 찾아서 그 여부를 클라이언트로 리턴해준다.
 //////////////////////////////////////////////////////////////////////////////
 void CLQueryCharacterNameHandler::execute (CLQueryCharacterName* pPacket , Player* pPlayer)
-	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -38,13 +37,13 @@ void CLQueryCharacterNameHandler::execute (CLQueryCharacterName* pPacket , Playe
 
 	WorldID_t WorldID = pLoginPlayer->getWorldID();
 
-	Assert(WorldID <= g_pGameWorldInfoManager->getSize());
+	Assert( WorldID <= g_pGameWorldInfoManager->getSize() );
 
 	Statement* pStmt = NULL;
 
 	try {
 
-        pStmt = g_pDatabaseManager->getConnection((TID)WorldID )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( WorldID )->createStatement();
 
 		Result* pResult = pStmt->executeQuery(
 			"SELECT Name FROM Slayer WHERE Name = '%s'" , 

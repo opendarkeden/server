@@ -11,7 +11,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCAddVampireHandler::execute (GCAddVampire * pPacket , Player * pPlayer )
-	 throw(Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

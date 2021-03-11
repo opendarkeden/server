@@ -7,7 +7,7 @@
 #include "CGStashDeposit.h"
 
 void CGStashDeposit::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGStashDeposit::read (SocketInputStream & iStream)
 }
 		    
 void CGStashDeposit::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGStashDeposit::write (SocketOutputStream & oStream) const
 }
 
 void CGStashDeposit::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGStashDeposit::execute (Player* pPlayer)
 }
 
 string CGStashDeposit::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

@@ -8,7 +8,7 @@
 
 
 void CGQuitGuild::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ void CGQuitGuild::read (SocketInputStream & iStream)
 }
 
 void CGQuitGuild::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ void CGQuitGuild::write (SocketOutputStream & oStream) const
 }
 
 void CGQuitGuild::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGQuitGuild::execute (Player* pPlayer)
 }
 
 string CGQuitGuild::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

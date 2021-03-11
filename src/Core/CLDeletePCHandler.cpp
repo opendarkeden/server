@@ -8,13 +8,13 @@
 
 #ifdef __LOGIN_SERVER__
 	#include "LoginPlayer.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "DB.h"
 	#include "ItemDestroyer.h"
 	#include "Properties.h"
 
-	#include "LCDeletePCOK.h"
-	#include "LCDeletePCError.h"
+	#include "Lpackets/LCDeletePCOK.h"
+	#include "Lpackets/LCDeletePCError.h"
 
 	#include <cstdio>
 #endif
@@ -22,7 +22,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
-	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -31,7 +30,7 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 	Assert(pPacket != NULL);
 	Assert(pPlayer != NULL);
 
-	//cout << pPacket->toString() << endl;
+	cout << pPacket->toString() << endl;
 
 	LoginPlayer*    pLoginPlayer = dynamic_cast<LoginPlayer*>(pPlayer);
 	Statement*      pStmt        = NULL;
@@ -43,7 +42,7 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 	try 
 	{
 		pLoginStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-        pStmt = g_pDatabaseManager->getConnection((TID)WorldID )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( WorldID )->createStatement();
 
 		////////////////////////////////////////////////////////////
 		// 일단 그런 슬레이어가 존재하는지 체크한다.
@@ -56,10 +55,10 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 			throw InvalidProtocolException("no such slayer exist.");
 		}
 
-		if (pResult->next() )
+		if ( pResult->next() )
 		{
 			string id = pResult->getString(1);
-			if (id != pPlayer->getID() )
+			if ( id != pPlayer->getID() )
 			{
 				filelog("DeletePC.log", "Illegal PC Delete : [%s:%s]", pPlayer->getID().c_str(), pPacket->getName().c_str());
 				throw InvalidProtocolException("illegal pc delete");
@@ -69,8 +68,15 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 		////////////////////////////////////////////////////////////
 		// 주민등록번호를 확인한다.
 		////////////////////////////////////////////////////////////
+
+//add by zdj 2005.5.11
+
+//팁귁苟충侶뙈
+
+/*
+
 #if !defined(__CHINA_SERVER__) && !defined(__THAILAND_SERVER__)
-		if ((pLoginPlayer->isFreePass() && !pLoginPlayer->isWebLogin() )
+		if ( (pLoginPlayer->isFreePass() && !pLoginPlayer->isWebLogin() )
 			|| g_pConfig->getPropertyInt("IsNetMarble")==1)
 		{
 			// 무조건 지울 수 있다.
@@ -102,7 +108,7 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 
 			string SSN = pResult->getString(1);
 
-			//cout << "DB SSN:" << SSN << endl;
+			cout << "DB SSN:" << SSN << endl;
 
 			if (SSN != pPacket->getSSN())
 			{
@@ -111,6 +117,8 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 			}
 		}
 #endif
+
+*/ //팁귁
 
 		////////////////////////////////////////////////////////////
 		// 일단 슬레이어 테이블에는 확실히 존재한다.
@@ -167,18 +175,12 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 		// 아우스터즈 스킬을 지워준다.
 		////////////////////////////////////////////////////////////
 		pStmt->executeQuery("DELETE FROM OustersSkillSave WHERE OwnerID = '%s'", pPacket->getName().c_str());
+#endif
 
 		////////////////////////////////////////////////////////////
 		// 계급 보너스를 지워준다.
 		////////////////////////////////////////////////////////////
-		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPacket->getName().c_str());
-
-		////////////////////////////////////////////////////////////
-		// 플래그 셋도 삭제해 준다.
-		////////////////////////////////////////////////////////////
-		pStmt->executeQuery("DELETE FROM FlagSet WHERE OwnerID='%s'", pPacket->getName().c_str());
-#endif
-
+		pStmt->executeQuery("DELETE FROM RankBonusData WHERE OwnerID = '%s'", pPacket->getName().c_str() );
 
 		////////////////////////////////////////////////////////////
 		// 아이템을 깡그리 지운다.
@@ -275,7 +277,6 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 		pStmt->executeQuery("DELETE FROM PersonaObject WHERE OwnerID = '" + ownerID + "'");
 		pStmt->executeQuery("DELETE FROM FasciaObject WHERE OwnerID = '" + ownerID + "'");
 		pStmt->executeQuery("DELETE FROM MittenObject WHERE OwnerID = '" + ownerID + "'");
-		pStmt->executeQuery("DELETE FROM SubInventoryObject WHERE OwnerID = '" + ownerID + "'");
 
 		////////////////////////////////////////////////////////////
 		// 커플일 경우 커플 목록에서 지워준다.
@@ -301,6 +302,11 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 		pStmt->executeQuery("DELETE FROM EffectYellowPoisonToCreature where OwnerID='%s'", pPacket->getName().c_str());
 		pStmt->executeQuery("DELETE FROM EffectMute where OwnerID='%s'", pPacket->getName().c_str());
 		pStmt->executeQuery("DELETE FROM EnemyErase where OwnerID='%s'", pPacket->getName().c_str());
+
+		////////////////////////////////////////////////////////////
+		// 플래그 셋도 삭제해 준다.
+		////////////////////////////////////////////////////////////
+		pStmt->executeQuery("DELETE FROM FlagSet WHERE OwnerID='%s'", pPacket->getName().c_str());
 
 		////////////////////////////////////////////////////////////
 		// 시간제한 아이템도 삭제해 준다.
@@ -329,7 +335,7 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 	} 
 	catch (InvalidProtocolException & ipe) 
 	{
-		//cout << "Fail to deletePC : " << ipe.toString() << endl;
+		cout << "Fail to deletePC : " << ipe.toString() << endl;
 
 		SAFE_DELETE(pStmt);
 		SAFE_DELETE(pLoginStmt);
@@ -339,7 +345,7 @@ void CLDeletePCHandler::execute (CLDeletePC* pPacket , Player* pPlayer)
 	} 
 	catch (SQLQueryException & sqe) 
 	{
-		//cout << "Fail to deletePC : " << sqe.toString() << endl;
+		cout << "Fail to deletePC : " << sqe.toString() << endl;
 
 		SAFE_DELETE(pStmt);
 		SAFE_DELETE(pLoginStmt);

@@ -9,21 +9,21 @@
 
 
 CGTakeOutGood::CGTakeOutGood () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGTakeOutGood::~CGTakeOutGood () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGTakeOutGood::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -33,7 +33,7 @@ void CGTakeOutGood::read (SocketInputStream & iStream)
 }
 
 void CGTakeOutGood::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGTakeOutGood::write (SocketOutputStream & oStream) const
 }
 
 void CGTakeOutGood::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGTakeOutGood::execute (Player* pPlayer)
 }
 
 string CGTakeOutGood::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

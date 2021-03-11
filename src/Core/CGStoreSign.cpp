@@ -7,7 +7,7 @@
 #include "CGStoreSign.h"
 
 void CGStoreSign::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -19,7 +19,7 @@ void CGStoreSign::read (SocketInputStream & iStream)
 }
 
 void CGStoreSign::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void CGStoreSign::write (SocketOutputStream & oStream) const
 }
 
 void CGStoreSign::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGStoreSign::execute (Player* pPlayer)
 }
 
 string CGStoreSign::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

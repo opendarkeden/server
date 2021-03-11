@@ -13,11 +13,11 @@
 	#include "Ousters.h"
 	#include "Stash.h"
 
-	#include "GCStashList.h"
+	#include "Gpackets/GCStashList.h"
 #endif
 
 void CGStashListHandler::execute(CGStashList* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG

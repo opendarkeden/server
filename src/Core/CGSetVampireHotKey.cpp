@@ -7,7 +7,7 @@
 #include "CGSetVampireHotKey.h"
 
 void CGSetVampireHotKey::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -20,7 +20,7 @@ void CGSetVampireHotKey::read (SocketInputStream & iStream)
 }
 
 void CGSetVampireHotKey::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ void CGSetVampireHotKey::write (SocketOutputStream & oStream) const
 }
 
 void CGSetVampireHotKey::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -43,7 +43,7 @@ void CGSetVampireHotKey::execute (Player* pPlayer)
 }
 
 string CGSetVampireHotKey::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

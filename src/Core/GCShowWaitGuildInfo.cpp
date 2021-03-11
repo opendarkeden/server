@@ -13,7 +13,7 @@
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCShowWaitGuildInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -71,7 +71,7 @@ void GCShowWaitGuildInfo::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCShowWaitGuildInfo::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -125,7 +125,7 @@ void GCShowWaitGuildInfo::write (SocketOutputStream & oStream ) const
 
 
 // get packet's body size
-PacketSize_t GCShowWaitGuildInfo::getPacketSize() const throw()
+PacketSize_t GCShowWaitGuildInfo::getPacketSize() const 
 {
 	PacketSize_t PacketSize = szGuildID +
 							  szBYTE +
@@ -154,7 +154,7 @@ PacketSize_t GCShowWaitGuildInfo::getPacketSize() const throw()
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCShowWaitGuildInfo::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -168,7 +168,7 @@ void GCShowWaitGuildInfo::execute (Player * pPlayer )
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
 string GCShowWaitGuildInfo::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

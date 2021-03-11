@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCPhoneDisconnected::GCPhoneDisconnected () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -27,7 +27,7 @@ GCPhoneDisconnected::GCPhoneDisconnected ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCPhoneDisconnected::~GCPhoneDisconnected () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,7 +38,7 @@ GCPhoneDisconnected::~GCPhoneDisconnected ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCPhoneDisconnected::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -53,7 +53,7 @@ void GCPhoneDisconnected::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCPhoneDisconnected::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ void GCPhoneDisconnected::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCPhoneDisconnected::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -82,7 +82,7 @@ void GCPhoneDisconnected::execute (Player * pPlayer )
 // toString()
 //////////////////////////////////////////////////////////////////////
 string GCPhoneDisconnected::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

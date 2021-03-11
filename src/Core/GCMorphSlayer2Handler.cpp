@@ -11,7 +11,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMorphSlayer2Handler::execute (GCMorphSlayer2 * pPacket , Player * pPlayer )
-	 throw(Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

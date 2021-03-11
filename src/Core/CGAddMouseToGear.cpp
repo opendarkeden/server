@@ -7,21 +7,21 @@
 #include "CGAddMouseToGear.h"
 
 CGAddMouseToGear::CGAddMouseToGear () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGAddMouseToGear::~CGAddMouseToGear () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGAddMouseToGear::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -32,7 +32,7 @@ void CGAddMouseToGear::read (SocketInputStream & iStream)
 }
 
 void CGAddMouseToGear::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGAddMouseToGear::write (SocketOutputStream & oStream) const
 }
 
 void CGAddMouseToGear::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGAddMouseToGear::execute (Player* pPlayer)
 }
 
 string CGAddMouseToGear::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

@@ -7,7 +7,7 @@
 #include "CGDownSkill.h"
 
 void CGDownSkill::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGDownSkill::read (SocketInputStream & iStream)
 }
 		    
 void CGDownSkill::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -27,7 +27,7 @@ void CGDownSkill::write (SocketOutputStream & oStream) const
 }
 
 void CGDownSkill::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGDownSkill::execute (Player* pPlayer)
 }
 
 string CGDownSkill::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -7,21 +7,21 @@
 #include "CGUntransform.h"
 
 void CGUntransform::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGUntransform::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGUntransform::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGUntransform::execute (Player* pPlayer)
 }
 
 string CGUntransform::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

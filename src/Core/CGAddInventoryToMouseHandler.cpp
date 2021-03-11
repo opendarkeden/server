@@ -17,18 +17,16 @@
 	#include "TradeManager.h"
 	#include "ObjectRegistry.h"
 	#include "Store.h"
-	#include "item/SubInventory.h"
 
-	#include "GCTradeVerify.h"
-	#include "GCCannotAdd.h"
-	#include "GCCreateItem.h"
+	#include "Gpackets/GCTradeVerify.h"
+	#include "Gpackets/GCCannotAdd.h"
+	#include "Gpackets/GCCreateItem.h"
 	#include <stdio.h>
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -46,7 +44,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket , Play
 	Zone* pZone = pPC->getZone();
 	Assert(pZone != NULL);
 
-	if (pPC->getStore()->isOpen() )
+	if ( pPC->getStore()->isOpen() )
 	{
 		GCCannotAdd _GCCannotAdd;
 		_GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -60,27 +58,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket , Play
 
 	Inventory* pInventory = pPC->getInventory();
 	Assert(pInventory != NULL);
-    int invenID = 0;
-/* Commenting the SubInventory stuff, since it's not supported by the client we use
-	SubInventory* pInventoryItem = NULL;
-	int invenID = 0;
 
-	if (pPacket->getInventoryItemObjectID() != 0 )
-	{
-		CoordInven_t X, Y;
-		pInventoryItem = dynamic_cast<SubInventory*>(pInventory->findItemOID(pPacket->getInventoryItemObjectID(), X, Y ));
-		if (pInventoryItem == NULL )
-		{
-			GCCannotAdd _GCCannotAdd;
-			_GCCannotAdd.setObjectID(pPacket->getObjectID());
-			pPlayer->sendPacket(&_GCCannotAdd);
-			return;
-		}
-
-		pInventory = pInventoryItem->getInventory();
-		invenID = pInventoryItem->getItemID();
-	}
-*/
 	// 인벤토리 좌표를 넘어가면 곤란하다...
 	if (InvenX >= pInventory->getWidth() || InvenY >= pInventory->getHeight())
 	{
@@ -93,7 +71,7 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket , Play
 	Item* pItem          = pInventory->getItem(InvenX, InvenY);
 	Item* pExtraSlotItem = pPC->getExtraInventorySlotItem();
 
-	if (pPC->getStore()->hasItem(pItem ) )
+	if ( pPC->getStore()->hasItem( pItem ) )
 	{
 		GCCannotAdd _GCCannotAdd;
 		_GCCannotAdd.setObjectID(pPacket->getObjectID());
@@ -191,11 +169,11 @@ void CGAddInventoryToMouseHandler::execute(CGAddInventoryToMouse* pPacket , Play
 		sprintf(pField, "Num=%d, Storage=%d, StorageID=0", 1, STORAGE_EXTRASLOT);
 		pItem->tinysave(pField);
 
-		pNewItem->create(pPC->getName(), STORAGE_INVENTORY, invenID, InvenX, InvenY);
+		pNewItem->create(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 		//pNewItem->setNum(NewNum); // 위에서 했는데 또 하네. -_-;
 		//pNewItem->save(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 		// item저장 최적화. by sigi. 2002.5.13
-		sprintf(pField, "Num=%d, Storage=%d, StorageID=%u", NewNum, STORAGE_INVENTORY, invenID);
+		sprintf(pField, "Num=%d, Storage=%d, StorageID=0", NewNum, STORAGE_INVENTORY);
 		pNewItem->tinysave(pField);
 
 

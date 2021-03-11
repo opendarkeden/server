@@ -8,7 +8,7 @@
 
 
 void CGRequestGuildMemberList::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -18,7 +18,7 @@ void CGRequestGuildMemberList::read (SocketInputStream & iStream)
 }
 
 void CGRequestGuildMemberList::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -28,7 +28,7 @@ void CGRequestGuildMemberList::write (SocketOutputStream & oStream) const
 }
 
 void CGRequestGuildMemberList::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGRequestGuildMemberList::execute (Player* pPlayer)
 }
 
 string CGRequestGuildMemberList::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

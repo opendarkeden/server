@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 void GCAddHelicopter::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -23,7 +23,7 @@ void GCAddHelicopter::read (SocketInputStream & iStream )
 }
 		    
 void GCAddHelicopter::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ void GCAddHelicopter::write (SocketOutputStream & oStream )
 }
 
 void GCAddHelicopter::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -44,7 +44,7 @@ void GCAddHelicopter::execute (Player * pPlayer )
 }
 
 string GCAddHelicopter::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

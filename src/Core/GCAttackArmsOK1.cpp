@@ -19,7 +19,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCAttackArmsOK1::GCAttackArmsOK1 ()
-     throw()
+     
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -35,7 +35,7 @@ GCAttackArmsOK1::GCAttackArmsOK1 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCAttackArmsOK1::~GCAttackArmsOK1 ()
-    throw()
+    
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -49,7 +49,7 @@ GCAttackArmsOK1::~GCAttackArmsOK1 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK1::read (SocketInputStream & iStream )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -70,7 +70,7 @@ void GCAttackArmsOK1::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK1::write (SocketOutputStream & oStream )
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -92,7 +92,7 @@ void GCAttackArmsOK1::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK1::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -110,7 +110,7 @@ void GCAttackArmsOK1::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAttackArmsOK1::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

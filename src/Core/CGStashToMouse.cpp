@@ -7,7 +7,7 @@
 #include "CGStashToMouse.h"
 
 void CGStashToMouse::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY 
 		
@@ -19,7 +19,7 @@ void CGStashToMouse::read (SocketInputStream & iStream)
 }
 
 void CGStashToMouse::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void CGStashToMouse::write (SocketOutputStream & oStream) const
 }
 
 void CGStashToMouse::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGStashToMouse::execute (Player* pPlayer)
 }
 
 string CGStashToMouse::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

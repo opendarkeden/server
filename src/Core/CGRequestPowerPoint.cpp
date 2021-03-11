@@ -12,21 +12,21 @@
 //////////////////////////////////////////////////////////////////////////////
 
 CGRequestPowerPoint::CGRequestPowerPoint () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 	
 CGRequestPowerPoint::~CGRequestPowerPoint () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGRequestPowerPoint::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ void CGRequestPowerPoint::read (SocketInputStream & iStream )
 }
 		    
 void CGRequestPowerPoint::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -64,7 +64,7 @@ void CGRequestPowerPoint::write (SocketOutputStream & oStream )
 }
 
 void CGRequestPowerPoint::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -74,7 +74,7 @@ void CGRequestPowerPoint::execute (Player * pPlayer )
 }
 
 string CGRequestPowerPoint::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

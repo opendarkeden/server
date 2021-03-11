@@ -7,21 +7,21 @@
 #include "CGSelectPortal.h"
 
 CGSelectPortal::CGSelectPortal () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGSelectPortal::~CGSelectPortal () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGSelectPortal::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGSelectPortal::read (SocketInputStream & iStream)
 }
 
 void CGSelectPortal::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGSelectPortal::write (SocketOutputStream & oStream) const
 }
 
 void CGSelectPortal::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void CGSelectPortal::execute (Player* pPlayer)
 }
 
 string CGSelectPortal::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

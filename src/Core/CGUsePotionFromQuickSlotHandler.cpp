@@ -38,24 +38,24 @@
 	#include "item/ComposMei.h"
 	#include "item/EventETC.h"
 
-	#include "GCHPRecoveryStartToSelf.h"
-	#include "GCHPRecoveryStartToOthers.h"
-	#include "GCMPRecoveryStart.h"
-	#include "GCUseOK.h"
-	#include "GCCannotUse.h"
-	#include "GCModifyInformation.h"
-	#include "GCStatusCurrentHP.h"
-	#include "CGRideMotorCycle.h"
+	#include "Gpackets/GCHPRecoveryStartToSelf.h"
+	#include "Gpackets/GCHPRecoveryStartToOthers.h"
+	#include "Gpackets/GCMPRecoveryStart.h"
+	#include "Gpackets/GCUseOK.h"
+	#include "Gpackets/GCCannotUse.h"
+	#include "Gpackets/GCModifyInformation.h"
+	#include "Gpackets/GCStatusCurrentHP.h"
+	#include "Cpackets/CGRideMotorCycle.h"
 
 bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)
 {
-	if (pPC->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
-	if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ETC )
+	if ( pPC->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) ) return false;
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ETC )
 	{
-		if (pItem->getItemType() >= 14 )
+		if ( pItem->getItemType() >= 14 )
 		{
-			EventETCInfo* pInfo = dynamic_cast<EventETCInfo*>(g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType() ));
-			Assert(pInfo != NULL);
+			EventETCInfo* pInfo = dynamic_cast<EventETCInfo*>(g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() ));
+			Assert( pInfo != NULL );
 
 			int amount = pInfo->getFunction();
 
@@ -63,47 +63,47 @@ bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)
 			GCModifyInformation gcMI;
 			bool HPRegen=false, MPRegen=false;
 			HP_t CurrentHP = 0, MaxHP = 0;
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 				CurrentHP = pSlayer->getHP();
 				MaxHP = pSlayer->getHP(ATTR_MAX);
 			}
-			else if (pPC->isVampire() )
+			else if ( pPC->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 				CurrentHP = pVampire->getHP();
 				MaxHP = pVampire->getHP(ATTR_MAX);
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 				CurrentHP = pOusters->getHP();
 				MaxHP = pOusters->getHP(ATTR_MAX);
 			}
 
-			if (CurrentHP < MaxHP )
+			if ( CurrentHP < MaxHP )
 			{
 				CurrentHP += min(amount, MaxHP-CurrentHP);
 				GCStatusCurrentHP gcHP;
 				gcHP.setObjectID(pPC->getObjectID());
 				gcHP.setCurrentHP(CurrentHP);
-				pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcHP);
+				pZone->broadcastPacket( pPC->getX(), pPC->getY(), &gcHP );
 
 				gcMI.addLongData(MODIFY_CURRENT_HP, CurrentHP);
 				HPRegen = true;
 
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 					pSlayer->setHP(CurrentHP);
 				}
-				else if (pPC->isVampire() )
+				else if ( pPC->isVampire() )
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 					pVampire->setHP(CurrentHP);
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 					pOusters->setHP(CurrentHP);
@@ -111,38 +111,38 @@ bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)
 			}
 
 			MP_t CurrentMP = 0, MaxMP = 0;
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 				CurrentMP = pSlayer->getMP();
 				MaxMP = pSlayer->getMP(ATTR_MAX);
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 				CurrentMP = pOusters->getMP();
 				MaxMP = pOusters->getMP(ATTR_MAX);
 			}
 
-			if (CurrentMP < MaxMP )
+			if ( CurrentMP < MaxMP )
 			{
 				CurrentMP += min(amount, MaxMP-CurrentMP);
 				gcMI.addLongData(MODIFY_CURRENT_MP, CurrentMP);
 				MPRegen = true;
 
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 					pSlayer->setMP(CurrentMP);
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 					pOusters->setMP(CurrentMP);
 				}
 			}
 
-			if (!HPRegen && !MPRegen )
+			if ( !HPRegen && !MPRegen )
 			{
 				return false;
 			}
@@ -163,7 +163,7 @@ bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -185,7 +185,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 
 	try 
 	{
-		if (pCreature->isSlayer() )
+		if ( pCreature->isSlayer() )
 		{
 			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 			Creature*   pCreature   = pGamePlayer->getCreature();
@@ -239,13 +239,13 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			if (ItemObjectID != pPacket->getObjectID() || (pBeltItem->getItemClass() != Item::ITEM_CLASS_POTION && pBeltItem->getItemClass() != Item::ITEM_CLASS_KEY))
 			{
 				
-				if (ItemObjectID != pPacket->getObjectID() )
+				if ( ItemObjectID != pPacket->getObjectID() )
 				{
 					GCCannotUse _GCCannotUse;
 					_GCCannotUse.setObjectID(pPacket->getObjectID());
 					pGamePlayer->sendPacket(&_GCCannotUse);
 				}
-				else if (UseYellowCandy(pSlayer, pBeltItem) )
+				else if ( UseYellowCandy(pSlayer, pBeltItem) )
 				{
 					GCUseOK _GCUseOK;
 					pGamePlayer->sendPacket(&_GCUseOK);
@@ -262,7 +262,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			}
 		
 			
-			if(pBeltItem->getItemClass() == Item::ITEM_CLASS_KEY)
+			if( pBeltItem->getItemClass() == Item::ITEM_CLASS_KEY)
 			{
 				if (!g_pVariableManager->isSummonMotorcycle()
 			        || pSlayer->hasRideMotorcycle()
@@ -271,8 +271,8 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			        || (pZone->getZoneLevel(pCreature->getX(), pCreature->getY()) & SAFE_ZONE)
 			        || pZone->isMasterLair() || pZone->isNoPortalZone()
 			        || (!pGamePlayer->isPremiumPlay() && !pGamePlayer->isPayPlaying())
-			        || g_pFlagManager->isInPoleField(ZONE_COORD(pZone->getZoneID(), pCreature->getX(), pCreature->getY() ) )
-			        || GDRLairManager::Instance().isGDRLairZone(pZone->getZoneID() )    )
+			        || g_pFlagManager->isInPoleField( ZONE_COORD( pZone->getZoneID(), pCreature->getX(), pCreature->getY() ) )
+			        || GDRLairManager::Instance().isGDRLairZone( pZone->getZoneID() )    )
 			    {
 					GCCannotUse _GCCannotUse;
 					_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -280,7 +280,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 					return;
 				}
 			   	
-				if (SiegeManager::Instance().isSiegeZone(pSlayer->getZoneID()) )
+				if ( SiegeManager::Instance().isSiegeZone(pSlayer->getZoneID()) )
 				{
 					GCCannotUse _GCCannotUse;
 					_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -297,7 +297,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 				if (targetID==0)
 				{
 					Key* pKey = dynamic_cast<Key*>(pBeltItem);
-					Assert(pKey != NULL);
+					Assert( pKey != NULL );
 
 					targetID = pKey->setNewMotorcycle(pSlayer);
 
@@ -311,10 +311,10 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 						pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 						pResult = pStmt->executeQuery("SELECT ItemID FROM MotorcycleObject WHERE ItemID=%lu", targetID);
 
-						if (!pResult->next() )
+						if ( !pResult->next() )
 						{
 							Key* pKey = dynamic_cast<Key*>(pBeltItem);
-							Assert(pKey != NULL);
+							Assert( pKey != NULL );
 
 							targetID = pKey->setNewMotorcycle(pSlayer);
 						}
@@ -334,7 +334,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 
 				if (g_pParkingCenter->hasMotorcycleBox(targetID))
 				{
-					//cout << "기존에 불려진 오토바이가 있습니다" << endl;
+					cout << "기존에 불려진 오토바이가 있습니다" << endl;
 
 					MotorcycleBox* pMotorcycleBox = g_pParkingCenter->getMotorcycleBox(targetID);
 
@@ -355,12 +355,12 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 							pMotorcycleBox->setTransport();
 
 							// motorcycle을 slayer의 zone으로 옮긴다.
-/*							pMotorZone->transportItem(motorX, motorY, pMotorcycle,
-														pZone, pSlayer->getX(), pSlayer->getY());*/
+/*							pMotorZone->transportItem( motorX, motorY, pMotorcycle,
+														pZone, pSlayer->getX(), pSlayer->getY() );*/
 							EffectRecallMotorcycle* pEffectRecallMotorcycle =
 								new EffectRecallMotorcycle(pMotorZone, motorX, motorY, pZone, pSlayer->getX(), pSlayer->getY(), pMotorcycle, pSlayer->getObjectID(), 0);
-							pMotorZone->registerObject(pEffectRecallMotorcycle);
-							pMotorZone->addEffect_LOCKING(pEffectRecallMotorcycle);
+							pMotorZone->registerObject( pEffectRecallMotorcycle );
+							pMotorZone->addEffect_LOCKING( pEffectRecallMotorcycle );
 
 							// Use OK 대용이다.
 							// Use하면 아이템이 사라지던가 그렇지 싶다. - -;
@@ -423,7 +423,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 
 
 					// 오토바이를 존에 추가한다.
-					//cout << "오토바이를 존에 추가합니다" << pSlayer->getX() << " " << pSlayer->getY() << endl;
+					cout << "오토바이를 존에 추가합니다" << pSlayer->getX() << " " << pSlayer->getY() << endl;
 					TPOINT pt = pZone->addItem(pMotorcycle, pSlayer->getX(), pSlayer->getY(), false);
 
 				   if(pt.x == -1)
@@ -456,10 +456,10 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 
 						// 타버린다.
 						CGRideMotorCycle cgRide;
-						cgRide.setObjectID(pMotorcycle->getObjectID());
+						cgRide.setObjectID( pMotorcycle->getObjectID() );
 						cgRide.setX(pt.x);
 						cgRide.setY(pt.y);
-						cgRide.execute(pGamePlayer);
+						cgRide.execute( pGamePlayer );
 					}
 
 
@@ -504,7 +504,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			// Activation Effect가 걸려있다면 회복속도가 2배가 된다.
 			if (pSlayer->isFlag(Effect::EFFECT_CLASS_ACTIVATION))
 			{
-				if (pPotion->getItemType() >= 14 && pPotion->getItemType() <= 17 )
+				if ( pPotion->getItemType() >= 14 && pPotion->getItemType() <= 17 )
 				{
 				}
 				else
@@ -718,7 +718,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 				decreaseItemNum(pBeltItem, pBeltInventory, pSlayer->getName(), STORAGE_BELT, pBelt->getItemID(), SlotID, 0);
 			}
 		}
-		else if (pCreature->isOusters() )
+		else if ( pCreature->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 			Zone*   pZone   = pOusters->getZone();
@@ -726,8 +726,8 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			// SlotID를 받는다.
 			SlotID_t SlotID = pPacket->getSlotID();
 
-			Ousters::WearPart part = (SlotID > 2 ? Ousters::WEAR_ARMSBAND2 : Ousters::WEAR_ARMSBAND1);
-			if (SlotID > 2 ) SlotID -= 3;
+			Ousters::WearPart part = ( SlotID > 2 ? Ousters::WEAR_ARMSBAND2 : Ousters::WEAR_ARMSBAND1 );
+			if ( SlotID > 2 ) SlotID -= 3;
 
 			Item* pOustersArmsband = pOusters->getWearItem(part);
 			
@@ -768,16 +768,16 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 
 			// 데이터가 일치하지 않거나, 푸파나 콤포스메이가 아니라면 사용할 수 없다.
 			if (ItemObjectID != pPacket->getObjectID()
-				|| (pOustersArmsbandItem->getItemClass() != Item::ITEM_CLASS_PUPA && pOustersArmsbandItem->getItemClass() != Item::ITEM_CLASS_COMPOS_MEI )
+				|| ( pOustersArmsbandItem->getItemClass() != Item::ITEM_CLASS_PUPA && pOustersArmsbandItem->getItemClass() != Item::ITEM_CLASS_COMPOS_MEI )
 				)
 			{
-				if (ItemObjectID != pPacket->getObjectID() )
+				if ( ItemObjectID != pPacket->getObjectID() )
 				{
 					GCCannotUse _GCCannotUse;
 					_GCCannotUse.setObjectID(pPacket->getObjectID());
 					pGamePlayer->sendPacket(&_GCCannotUse);
 				}
-				else if (UseYellowCandy(pOusters, pOustersArmsbandItem) )
+				else if ( UseYellowCandy(pOusters, pOustersArmsbandItem) )
 				{
 					GCUseOK _GCUseOK;
 					pGamePlayer->sendPacket(&_GCUseOK);
@@ -803,7 +803,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			HP_t PupaHPAmount = 0;
 			int HPAmount = 0;
 
-			if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
+			if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
 			{
 				MaxHP    = pOusters->getHP(ATTR_MAX);
 				CurrentHP= pOusters->getHP(ATTR_CURRENT);
@@ -820,7 +820,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 				
 				HPAmount = min(MaxHP - CurrentHP , (int)PupaHPAmount);
 			}
-			else if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
+			else if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
 			{
 				MaxHP    = pOusters->getHP(ATTR_MAX);
 				CurrentHP= pOusters->getHP(ATTR_CURRENT);
@@ -940,7 +940,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 			MP_t ComposMeiMPAmount = 0;
 			int MPAmount = 0;
 
-			if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
+			if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
 			{
 				MaxMP    = pOusters->getMP(ATTR_MAX);
 				CurrentMP= pOusters->getMP(ATTR_CURRENT);
@@ -958,7 +958,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 				
 				MPAmount = min(MaxMP - CurrentMP , (int)(ComposMeiMPAmount* (double)(1 + (double)((double)INT / 300.0))));
 			}
-			else if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
+			else if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
 			{
 				MaxMP    = pOusters->getMP(ATTR_MAX);
 				CurrentMP= pOusters->getMP(ATTR_CURRENT);
@@ -1054,7 +1054,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 	//			decreaseItemNum(pOustersArmsbandItem, pInventory, pOusters->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 			}
 
-			if (regenMP || regenHP )
+			if ( regenMP || regenHP )
 			{
 				decreaseItemNum(pOustersArmsbandItem, pOustersArmsbandInventory, pOusters->getName(), STORAGE_BELT, pOustersArmsband->getItemID(), SlotID, 0);
 //				decreaseItemNum(pOustersArmsbandItem, pInventory, pOusters->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
@@ -1065,7 +1065,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 				_GCCannotUse.setObjectID(pPacket->getObjectID());
 				pGamePlayer->sendPacket(&_GCCannotUse);
 			}
-/*			if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
+/*			if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_PUPA )
 			{
 				HP_t  MaxHP     = pOusters->getHP(ATTR_MAX);
 				HP_t  CurrentHP = pOusters->getHP(ATTR_CURRENT);
@@ -1199,7 +1199,7 @@ void CGUsePotionFromQuickSlotHandler::execute (CGUsePotionFromQuickSlot* pPacket
 					decreaseItemNum(pOustersArmsbandItem, pOustersArmsbandInventory, pOusters->getName(), STORAGE_BELT, pOustersArmsband->getItemID(), SlotID, 0);
 				}
 			}
-			else if (pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
+			else if ( pOustersArmsbandItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
 			{
 				MP_t    MaxMP        = pOusters->getMP(ATTR_MAX);
 				MP_t    CurrentMP    = pOusters->getMP(ATTR_CURRENT);

@@ -63,7 +63,7 @@ SocketImpl::SocketImpl ( const string & host , uint port )
 
 ////////////////////////////////////////////////////////////////////////
 //
-// SocketImpl::SocketImpl ( const SocketImpl & impl ) throw ();
+// SocketImpl::SocketImpl ( const SocketImpl & impl ) ;
 //
 // copy constructor 
 //
@@ -493,7 +493,7 @@ void SocketImpl::setSendBufferSize ( uint SendBufferSize )
 
 //////////////////////////////////////////////////////////////////////
 //
-// string SocketImpl::_getHost () const throw ();
+// string SocketImpl::_getHost () const ;
 //
 // get host address of this socket
 //
@@ -515,7 +515,7 @@ string SocketImpl::_getHost () const
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketImpl::_setHost ( const string & host ) throw ()
+// void SocketImpl::_setHost ( const string & host ) 
 //
 // set host address of this socket
 //
@@ -537,7 +537,7 @@ void SocketImpl::_setHost ( const string & host )
 
 //////////////////////////////////////////////////////////////////////
 //
-// uint SocketImpl::_getPort () const throw ()
+// uint SocketImpl::_getPort () const 
 //
 // get port of this socket
 //
@@ -559,7 +559,7 @@ uint SocketImpl::_getPort () const
 
 //////////////////////////////////////////////////////////////////////
 //
-// void SocketImpl::_setPort ( uint port ) throw ()
+// void SocketImpl::_setPort ( uint port ) 
 //
 // set host address of this socket
 //

@@ -7,21 +7,21 @@
 #include "CGReloadFromInventory.h"
 
 CGReloadFromInventory::CGReloadFromInventory () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 	
 CGReloadFromInventory::~CGReloadFromInventory () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGReloadFromInventory::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -33,7 +33,7 @@ void CGReloadFromInventory::read (SocketInputStream & iStream)
 }
 
 void CGReloadFromInventory::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ void CGReloadFromInventory::write (SocketOutputStream & oStream) const
 }
 
 void CGReloadFromInventory::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -55,7 +55,7 @@ void CGReloadFromInventory::execute (Player* pPlayer)
 }
 
 string CGReloadFromInventory::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

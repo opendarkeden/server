@@ -2,18 +2,18 @@
 #include "Assert1.h"
 
 GCTimeLimitItemInfo::GCTimeLimitItemInfo()
-	throw()
+	
 {
 	m_TimeLimitItemInfos.clear();
 }
 
 GCTimeLimitItemInfo::~GCTimeLimitItemInfo()
-	throw()
+	
 {
 }
 
 void GCTimeLimitItemInfo::read(SocketInputStream& iStream)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void GCTimeLimitItemInfo::read(SocketInputStream& iStream)
 }
 
 void GCTimeLimitItemInfo::write(SocketOutputStream& oStream ) const
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void GCTimeLimitItemInfo::write(SocketOutputStream& oStream ) const
 }
 
 void GCTimeLimitItemInfo::execute(Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void GCTimeLimitItemInfo::execute(Player* pPlayer)
 }
 
 PacketSize_t GCTimeLimitItemInfo::getPacketSize() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ PacketSize_t GCTimeLimitItemInfo::getPacketSize() const
 }
 
 DWORD GCTimeLimitItemInfo::getTimeLimit(ObjectID_t objectID) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +98,7 @@ DWORD GCTimeLimitItemInfo::getTimeLimit(ObjectID_t objectID) const
 }
 
 void GCTimeLimitItemInfo::addTimeLimit(ObjectID_t objectID, DWORD time)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void GCTimeLimitItemInfo::addTimeLimit(ObjectID_t objectID, DWORD time)
 }
 
 string GCTimeLimitItemInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

@@ -8,7 +8,7 @@
 
 
 void CGLotterySelect::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -20,7 +20,7 @@ void CGLotterySelect::read (SocketInputStream & iStream)
 }
 
 void CGLotterySelect::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void CGLotterySelect::write (SocketOutputStream & oStream) const
 }
 
 void CGLotterySelect::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -42,7 +42,7 @@ void CGLotterySelect::execute (Player* pPlayer)
 }
 
 string CGLotterySelect::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

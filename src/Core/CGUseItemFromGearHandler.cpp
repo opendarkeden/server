@@ -30,8 +30,8 @@
 
 	#include "item/CoupleRingBase.h"
 
-	#include "GCCannotUse.h"
-	#include "GCUseOK.h"
+	#include "Gpackets/GCCannotUse.h"
+	#include "Gpackets/GCUseOK.h"
 
 	#include "SystemAvailabilitiesManager.h"
 	#include "war/WarSystem.h"
@@ -40,7 +40,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -66,27 +66,27 @@ void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlay
 
 	Item* pItem;
 
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		pItem = pSlayer->getWearItem((Slayer::WearPart)(pPacket->getPart()));
+		pItem = pSlayer->getWearItem( (Slayer::WearPart)(pPacket->getPart()) );
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		pItem = pVampire->getWearItem((Vampire::WearPart)(pPacket->getPart()));
+		pItem = pVampire->getWearItem( (Vampire::WearPart)(pPacket->getPart()) );
 	}
-	else if (pCreature->isOusters() )
+	else if ( pCreature->isOusters() )
 	{
 		Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-		pItem = pOusters->getWearItem((Ousters::WearPart)(pPacket->getPart()));
+		pItem = pOusters->getWearItem( (Ousters::WearPart)(pPacket->getPart()) );
 	}
 	else
 	{
 		Assert(false);
 	}
 
-	if (pItem == NULL )
+	if ( pItem == NULL )
 	{
 		GCCannotUse _GCCannotUse;
 		_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -113,7 +113,7 @@ void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlay
 	{
 		case Item::ITEM_CLASS_COUPLE_RING:
 		case Item::ITEM_CLASS_VAMPIRE_COUPLE_RING:
-			SYSTEM_ASSERT(SYSTEM_COUPLE);
+			SYSTEM_ASSERT( SYSTEM_COUPLE );
 			executeCoupleRing(pPacket, pGamePlayer);
 			break;
 		default:
@@ -130,7 +130,7 @@ void CGUseItemFromGearHandler::execute(CGUseItemFromGear* pPacket, Player* pPlay
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, GamePlayer* pGamePlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -148,27 +148,27 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 	CoupleRingBase*	pCoupleRing			= NULL;
 
 	Zone* pZone = pPC->getZone();
-	Assert(pZone != NULL);
+	Assert( pZone != NULL );
 
-	if (pCreature->isSlayer() )
+	if ( pCreature->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-		pCoupleRing = dynamic_cast<CoupleRingBase*>(pSlayer->getWearItem((Slayer::WearPart)(pPacket->getPart()) ));
+		pCoupleRing = dynamic_cast<CoupleRingBase*>(pSlayer->getWearItem( (Slayer::WearPart)(pPacket->getPart()) ));
 	}
-	else if (pCreature->isVampire() )
+	else if ( pCreature->isVampire() )
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-		pCoupleRing = dynamic_cast<CoupleRingBase*>(pVampire->getWearItem((Vampire::WearPart)(pPacket->getPart()) ));
+		pCoupleRing = dynamic_cast<CoupleRingBase*>(pVampire->getWearItem( (Vampire::WearPart)(pPacket->getPart()) ));
 	}
 	else
 	{
 		Assert(false);
 	}
 
-	if (pCreature->isFlag(Effect::EFFECT_CLASS_HAS_FLAG ) 
-		|| pCreature->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) ) return;
+	if ( pCreature->isFlag( Effect::EFFECT_CLASS_HAS_FLAG ) 
+		|| pCreature->isFlag( Effect::EFFECT_CLASS_HAS_SWEEPER) ) return;
 
-	Assert(pCoupleRing != NULL);
+	Assert( pCoupleRing != NULL );
 
 	string 			targetName			= pCoupleRing->getName();
 	Creature*		pTargetCreature		= NULL;
@@ -190,7 +190,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
     }
 
 	Zone* pTargetZone = pTargetCreature->getZone();
-	if (pTargetZone != NULL )
+	if ( pTargetZone != NULL )
 	{
 		// 야전사령부, 시외곽지역, 이벤트경기장, 이벤트OX 존, 마스터레어, 성지, PK존, 다이나믹 존으로는 갈 수 없다.
 		bValidZone = pTargetZone->getZoneID() != 2101 && pTargetZone->getZoneID() != 2102 &&
@@ -200,13 +200,13 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 					 pTargetZone->getZoneID() != 1134 && !pTargetZone->isCastleZone() &&
 					 !pTargetZone->isMasterLair() &&
 					 (!g_pWarSystem->hasActiveRaceWar() || !pTargetZone->isHolyLand()) && !pTargetZone->isCastle() &&
-					 !g_pPKZoneInfoManager->isPKZone(pTargetZone->getZoneID() ) &&
+					 !g_pPKZoneInfoManager->isPKZone( pTargetZone->getZoneID() ) &&
 					 !pTargetZone->isDynamicZone();
 	}
     __LEAVE_CRITICAL_SECTION((*g_pPCFinder))
 
 	// 갈 수 없는 곳이라면 실패다.
-	if (!bValidZone )
+	if ( !bValidZone )
 	{
 		GCCannotUse _GCCannotUse;
 		_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -216,10 +216,10 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 
 	// 10 초 동안 움직일 수 없도록 이펙트를 붙인다.
 	EffectLoveChain* pEffect= new EffectLoveChain(pPC);
-	pEffect->setItemObjectID(pPacket->getObjectID());
+	pEffect->setItemObjectID( pPacket->getObjectID() );
 	pEffect->setDeadline(100);
-	pEffect->setTargetName(targetName);
-	pEffect->setZone(pZone);
+	pEffect->setTargetName( targetName );
+	pEffect->setZone( pZone );
 
 	ObjectRegistry & objectregister = pZone->getObjectRegistry();
 	objectregister.registerObject(pEffect);
@@ -229,7 +229,7 @@ void CGUseItemFromGearHandler::executeCoupleRing(CGUseItemFromGear* pPacket, Gam
 
 	GCUseOK gcUseOK;
 	gcUseOK.addShortData(MODIFY_EFFECT_STAT, Effect::EFFECT_CLASS_LOVE_CHAIN);
-	pGamePlayer->sendPacket(&gcUseOK);
+	pGamePlayer->sendPacket( &gcUseOK );
 
 #endif
     __END_DEBUG_EX __END_CATCH

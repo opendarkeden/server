@@ -15,25 +15,25 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGSelectRegenZoneHandler::execute(CGSelectRegenZone* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 	
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	//cout << pPC->getName() << " ... RegenZone ... " << (int)pPacket->getRegenZoneID() << endl;
+	cout << pPC->getName() << " ... RegenZone ... " << (int)pPacket->getRegenZoneID() << endl;
 
-	if (!RegenZoneManager::getInstance()->canRegen(pPC, pPacket->getRegenZoneID() ) ) return;
+	if ( !RegenZoneManager::getInstance()->canRegen( pPC, pPacket->getRegenZoneID() ) ) return;
 
-	//cout << pPC->getName() << " ... Can Regen ... " << (int)pPacket->getRegenZoneID() << endl;
+	cout << pPC->getName() << " ... Can Regen ... " << (int)pPacket->getRegenZoneID() << endl;
 
-	RegenZoneManager::getInstance()->regeneratePC(pPC, pPacket->getRegenZoneID());
+	RegenZoneManager::getInstance()->regeneratePC( pPC, pPacket->getRegenZoneID() );
 
 #endif	// __GAME_SERVER__
 		

@@ -8,7 +8,7 @@
 
 #ifdef __GAME_SERVER__
 	#include "GamePlayer.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "Slayer.h"
 	#include "Vampire.h"
 	#include "Ousters.h"
@@ -19,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGVerifyTimeHandler::execute (CGVerifyTime* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -32,7 +32,7 @@ void CGVerifyTimeHandler::execute (CGVerifyTime* pPacket , Player* pPlayer)
 
 	if (!(pGamePlayer->verifySpeed(pPacket))) 
 	{
-		saveSpeedHackPlayer(pPlayer);
+		saveSpeedHackPlayer( pPlayer );
 		throw DisconnectException("½ºÇÇµåÇÙ µü! °É·Á½á!!");
 	}
 
@@ -43,7 +43,7 @@ void CGVerifyTimeHandler::execute (CGVerifyTime* pPacket , Player* pPlayer)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGVerifyTimeHandler::saveSpeedHackPlayer(Player* pPlayer )
+void CGVerifyTimeHandler::saveSpeedHackPlayer( Player* pPlayer )
 {
 	__BEGIN_TRY
 
@@ -55,19 +55,19 @@ void CGVerifyTimeHandler::saveSpeedHackPlayer(Player* pPlayer )
 	string IP = pPlayer->getSocket()->getHost();
 	string Name = "";
 
-	if (pCreature != NULL )
+	if ( pCreature != NULL )
 	{
-		if (pCreature->isSlayer() )
+		if ( pCreature->isSlayer() )
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 			Name = "Slayer:" + pSlayer->getName();
 		}
-		else if (pCreature->isVampire() )
+		else if ( pCreature->isVampire() )
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 			Name = "Vampire:" + pVampire->getName();
 		}
-		else if (pCreature->isOusters() )
+		else if ( pCreature->isOusters() )
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 			Name = "Ousters:" + pOusters->getName();
@@ -83,26 +83,29 @@ void CGVerifyTimeHandler::saveSpeedHackPlayer(Player* pPlayer )
 
 	try 
 	{
-		static WorldID_t 		WorldID 		= g_pConfig->getPropertyInt("WorldID");
-		static ServerGroupID_t 	ServerGroupID 	= g_pConfig->getPropertyInt("ServerID");
+		static WorldID_t 		WorldID 		= g_pConfig->getPropertyInt( "WorldID" );
+		static ServerGroupID_t 	ServerGroupID 	= g_pConfig->getPropertyInt( "ServerID" );
 
 		BEGIN_DB
 		{
 			pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
-			pStmt->executeQuery("UPDATE SpeedHackPlayer SET IP = '%s', NAME = '%s', WorldID = %d, ServerGroupID = %d, Date = now(), Count = Count + 1 WHERE PlayerID = '%s'", IP.c_str(), Name.c_str(), (int)WorldID, (int)ServerGroupID, ID.c_str());
+			pStmt->executeQuery( "UPDATE SpeedHackPlayer SET IP = '%s', NAME = '%s', WorldID = %d, ServerGroupID = %d, Date = now(), Count = Count + 1 WHERE PlayerID = '%s'",
+								IP.c_str(), Name.c_str(), (int)WorldID, (int)ServerGroupID, ID.c_str() );
 
-			if (pStmt->getAffectedRowCount() == 0) {
-				pStmt->executeQuery("INSERT IGNORE INTO SpeedHackPlayer(PlayerID, IP, Name, WorldID, ServerGroupID, Date, Count ) VALUES ('%s', '%s', '%s', %d, %d, now(), 1 )", ID.c_str(), IP.c_str(), Name.c_str(), (int)WorldID, (int)ServerGroupID);
+			if ( pStmt->getAffectedRowCount() == 0 )
+			{
+				pStmt->executeQuery( "INSERT IGNORE INTO SpeedHackPlayer( PlayerID, IP, Name, WorldID, ServerGroupID, Date, Count ) VALUES ( '%s', '%s', '%s', %d, %d, now(), 1 )",
+								ID.c_str(), IP.c_str(), Name.c_str(), (int)WorldID, (int)ServerGroupID );
 			}
 
-			SAFE_DELETE(pStmt);
+			SAFE_DELETE( pStmt );
 		}
 		END_DB(pStmt)
 	}
-	catch (Throwable& t )
+	catch ( Throwable& t )
 	{
-		filelog("SpeedHackLogError.log", "%s", t.toString().c_str());
+		filelog("SpeedHackLogError.log", "%s", t.toString().c_str() );
 	}
 
 #endif

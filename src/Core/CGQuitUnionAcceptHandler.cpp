@@ -9,18 +9,18 @@
 #ifdef __GAME_SERVER__
 	#include "SystemAvailabilitiesManager.h"
 	#include "GamePlayer.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "PlayerCreature.h"
 	#include "GuildManager.h"
 	#include "GuildUnion.h"
-	#include "GCGuildResponse.h"
+	#include "Gpackets/GCGuildResponse.h"
     #include "DB.h"
     #include "StringPool.h"
     #include "Guild.h"
 
-	#include "GCModifyInformation.h"
-    #include "GCOtherModifyInfo.h"
-    #include "GCSystemMessage.h"
+	#include "Gpackets/GCModifyInformation.h"
+    #include "Gpackets/GCOtherModifyInfo.h"
+    #include "Gpackets/GCSystemMessage.h"
     #include "PacketUtil.h"
 	#include "PCFinder.h"
 	#include "Exception.h"
@@ -30,7 +30,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -40,15 +40,15 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 	Assert(pPlayer != NULL);
 
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-    Assert(pGamePlayer != NULL);
+    Assert( pGamePlayer != NULL );
 
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-    Assert(pPlayerCreature != NULL);
+    Assert( pPlayerCreature != NULL );
 
 #ifdef __OLD_GUILD_WAR__
 	GCSystemMessage gcSM;
-	gcSM.setMessage("아직 지원되지 않는 기능입니다.");
-	pGamePlayer->sendPacket(&gcSM);
+	gcSM.setMessage("뻘청唐역렴늪묘콘.");
+	pGamePlayer->sendPacket( &gcSM );
 	return;
 #endif
 
@@ -56,7 +56,7 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 
 	GCGuildResponse gcGuildResponse;
 
-	GuildUnion *pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
+	GuildUnion *pUnion = GuildUnionManager::Instance().getGuildUnion( pPlayerCreature->getGuildID() );
 	if(pUnion == NULL)
 	{
 		gcGuildResponse.setCode(GuildUnionOfferManager::NOT_IN_UNION);
@@ -66,7 +66,7 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 	}
 	
 	// 요청한놈이 지가 속한 길드의 마스터인가? || 연합의 마스터길드가 내 길드가 맞나?
-	if(!g_pGuildManager->isGuildMaster (pPlayerCreature->getGuildID(), pPlayerCreature )
+	if( !g_pGuildManager->isGuildMaster ( pPlayerCreature->getGuildID(), pPlayerCreature )
 		|| pUnion->getMasterGuildID() != pPlayerCreature->getGuildID() 		
 		)
 	{
@@ -79,7 +79,7 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 		return;
 	}
 
-	uint result = GuildUnionOfferManager::Instance().acceptQuit(pPacket->getGuildID());
+	uint result = GuildUnionOfferManager::Instance().acceptQuit( pPacket->getGuildID() );
 
 	gcGuildResponse.setCode(result);
 	pPlayer->sendPacket(&gcGuildResponse);
@@ -88,7 +88,7 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 	if(result == GuildUnionOfferManager::OK)
 	{
 	
-		Guild*  pGuild  = g_pGuildManager->getGuild(pPacket->getGuildID());
+		Guild*  pGuild  = g_pGuildManager->getGuild( pPacket->getGuildID() );
 
 		if(pGuild == NULL)
 		{
@@ -103,23 +103,23 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 
 		BEGIN_DB
 		{
-			pStmt = g_pDatabaseManager->getConnection("DARKEDEN" )->createStatement();
-			pStmt->executeQuery("INSERT INTO Messages (Receiver, Message) values('%s','%s')", TargetGuildMaster.c_str(),  g_pStringPool->c_str(375 ));
+			pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+			pStmt->executeQuery( "INSERT INTO Messages (Receiver, Message) values('%s','%s')", TargetGuildMaster.c_str(),  g_pStringPool->c_str( 375 ));
 
 			// 탈퇴수락한뒤에 나 혼자 남아있다면?
-			Result *pResult = pStmt->executeQuery("SELECT count(*) FROM GuildUnionMember WHERE UnionID='%u'", pUnion->getUnionID());
+			Result *pResult = pStmt->executeQuery("SELECT count(*) FROM GuildUnionMember WHERE UnionID='%u'", pUnion->getUnionID() );
 			pResult->next();
 
 			if(pResult->getInt(1) == 0)
 			{
 				//cout << "연합탈퇴가 수락된후..남아있는 멤버가 없으면..연합장이면 안되니까..지워버린다" << endl;
-				pStmt->executeQuery("DELETE FROM GuildUnionInfo WHERE UnionID='%u'", pUnion->getUnionID());
+				pStmt->executeQuery("DELETE FROM GuildUnionInfo WHERE UnionID='%u'", pUnion->getUnionID() );
 				GuildUnionManager::Instance().reload();
 
 			}
 		
 			
-			SAFE_DELETE(pStmt);
+			SAFE_DELETE( pStmt );
 		}
 		END_DB(pStmt)
 		
@@ -154,8 +154,8 @@ void CGQuitUnionAcceptHandler::execute (CGQuitUnionAccept* pPacket , Player* pPl
 		sendGCOtherModifyInfoGuildUnion(pCreature);
 
 		// 다른 서버에 있는 놈들에게 변경사항을 알린다.
-        GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID());
-        GuildUnionManager::Instance().sendModifyUnionInfo(dynamic_cast<PlayerCreature*>(pCreature)->getGuildID());
+        GuildUnionManager::Instance().sendModifyUnionInfo( dynamic_cast<PlayerCreature*>(pTargetCreature)->getGuildID() );
+        GuildUnionManager::Instance().sendModifyUnionInfo( dynamic_cast<PlayerCreature*>(pCreature)->getGuildID() );
 				
 			
 	}

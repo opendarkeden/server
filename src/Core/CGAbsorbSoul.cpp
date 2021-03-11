@@ -7,21 +7,21 @@
 #include "CGAbsorbSoul.h"
 
 CGAbsorbSoul::CGAbsorbSoul () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGAbsorbSoul::~CGAbsorbSoul () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGAbsorbSoul::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGAbsorbSoul::read (SocketInputStream & iStream)
 }
 		    
 void CGAbsorbSoul::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -55,7 +55,7 @@ void CGAbsorbSoul::write (SocketOutputStream & oStream) const
 }
 
 void CGAbsorbSoul::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ void CGAbsorbSoul::execute (Player* pPlayer)
 }
 
 string CGAbsorbSoul::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

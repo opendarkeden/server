@@ -15,7 +15,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCLearnSkillOK::GCLearnSkillOK () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -26,7 +26,7 @@ GCLearnSkillOK::GCLearnSkillOK ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCLearnSkillOK::~GCLearnSkillOK () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -37,7 +37,7 @@ GCLearnSkillOK::~GCLearnSkillOK ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillOK::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	iStream.read(m_SkillType);
@@ -50,7 +50,7 @@ void GCLearnSkillOK::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillOK::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	oStream.write(m_SkillType);
@@ -63,7 +63,7 @@ void GCLearnSkillOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCLearnSkillOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -79,7 +79,7 @@ void GCLearnSkillOK::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCLearnSkillOK::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

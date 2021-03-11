@@ -53,7 +53,7 @@ static void broadcastGuild(Guild* pGuild, Packet* pPacket )
 // 
 //----------------------------------------------------------------------
 void GGGuildChatHandler::execute (GGGuildChat * pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG

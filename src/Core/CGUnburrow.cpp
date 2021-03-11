@@ -7,7 +7,7 @@
 #include "CGUnburrow.h"
 
 void CGUnburrow::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -19,7 +19,7 @@ void CGUnburrow::read (SocketInputStream & iStream)
 }
 
 void CGUnburrow::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void CGUnburrow::write (SocketOutputStream & oStream) const
 }
 
 void CGUnburrow::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGUnburrow::execute (Player* pPlayer)
 }
 
 string CGUnburrow::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

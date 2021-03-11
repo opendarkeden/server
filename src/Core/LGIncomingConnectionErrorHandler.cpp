@@ -8,24 +8,25 @@
 
 // include files
 #include "LGIncomingConnectionError.h"
-#include "GamePlayer.h"
-#include "IncomingPlayerManager.h"
-#include "Assert1.h"
-#include "LogDef.h"
-#include "zlog.h"
 
+#ifdef __GAME_SERVER__
+	#include "GamePlayer.h"
+	#include "IncomingPlayerManager.h"
+	#include "Assert.h"
+	#include "LogDef.h"
+#endif
 
 //--------------------------------------------------------------------------------
 // 
 // LGIncomingConnectionErrorHander::execute()
 // 
 //--------------------------------------------------------------------------------
-void LGIncomingConnectionErrorHandler::execute (LGIncomingConnectionError * pPacket )
-	 
+void LGIncomingConnectionErrorHandler::execute ( LGIncomingConnectionError * pPacket )
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
+
 	// 로그인 플레이어에 접근한다.
 	//
 	// *CAUTION*
@@ -39,28 +40,30 @@ void LGIncomingConnectionErrorHandler::execute (LGIncomingConnectionError * pPac
 	// 시점에서 입력 버퍼에 패킷이 딱 끊겨서 들어왔다는 것을 알 수 없기 때문이다. 
 	try 
 	{
-		GamePlayer * pGamePlayer = g_pIncomingPlayerManager->getPlayer(pPacket->getPlayerID());
+		GamePlayer * pGamePlayer = g_pIncomingPlayerManager->getPlayer( pPacket->getPlayerID() );
 	
-		Assert(pGamePlayer->getPlayerStatus() == GPS_AFTER_SENDING_GL_INCOMING_CONNECTION);
+		Assert( pGamePlayer->getPlayerStatus() == GPS_AFTER_SENDING_GL_INCOMING_CONNECTION );
 
 		// 이 플레이어의 로그인이 실패했으므로 접속을 종료한다.
-		//cout << "Fail to join game server...(" << pPacket->getPlayerID() << ")" << endl;
+		cout << "Fail to join game server...(" << pPacket->getPlayerID() << ")" << endl;
 
 		int fd = -1;
 		Socket* pSocket = pGamePlayer->getSocket();
 		if (pSocket!=NULL) fd = (int)pSocket->getSOCKET();
 
-		FILELOG_INCOMING_CONNECTION("incomingPenalty.log", "Error FD : %d, %s", fd, (pSocket==NULL? "NULL" : pSocket->getHost().c_str()));
-        dzlog_error("Error FD: %d, %s", fd, (pSocket==NULL? "NULL" : pSocket->getHost().c_str()));
+		FILELOG_INCOMING_CONNECTION("incomingPenalty.log", "Error FD : %d, %s",
+							fd, (pSocket==NULL? "NULL" : pSocket->getHost().c_str()) );
 
-		pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
+
+		pGamePlayer->setPenaltyFlag( PENALTY_TYPE_KICKED );
 		pGamePlayer->setItemRatioBonusPoint(2);
 	} 
-	catch (NoSuchElementException & nsee ) 
+	catch ( NoSuchElementException & nsee ) 
 	{
-		//cout << "Player not exist or already disconnected." << endl;
+		cout << "Player not exist or already disconnected." << endl;
 	}
+
 #endif
-	
+		
 	__END_DEBUG_EX __END_CATCH
 }

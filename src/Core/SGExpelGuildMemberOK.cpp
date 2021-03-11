@@ -14,7 +14,6 @@
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void SGExpelGuildMemberOK::read (SocketInputStream& iStream ) 
-	 throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -46,7 +45,6 @@ void SGExpelGuildMemberOK::read (SocketInputStream& iStream )
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void SGExpelGuildMemberOK::write (SocketOutputStream& oStream ) const 
-     throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -77,7 +75,6 @@ void SGExpelGuildMemberOK::write (SocketOutputStream& oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void SGExpelGuildMemberOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -90,7 +87,6 @@ void SGExpelGuildMemberOK::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 string SGExpelGuildMemberOK::toString () const
-    throw()
 {
 	StringStream msg;
 

@@ -25,11 +25,11 @@
 	#include "ItemUtil.h"
 	#include "PacketUtil.h"
 	#include "CreatureUtil.h"
-	#include "GCCannotUse.h"
-	#include "GCUseOK.h"
-	#include "GCCreateItem.h"
+	#include "Gpackets/GCCannotUse.h"
+	#include "Gpackets/GCUseOK.h"
+	#include "Gpackets/GCCreateItem.h"
 
-	bool sendCannotUse(CGUseItemFromGQuestInventory* pPacket, Player* pPlayer )
+	bool sendCannotUse( CGUseItemFromGQuestInventory* pPacket, Player* pPlayer )
 	{
 		GCCannotUse _GCCannotUse;
 		_GCCannotUse.setObjectID(pPacket->getIndex());
@@ -43,7 +43,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGUseItemFromGQuestInventoryHandler::execute(CGUseItemFromGQuestInventory* pPacket, Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -69,80 +69,80 @@ void CGUseItemFromGQuestInventoryHandler::execute(CGUseItemFromGQuestInventory* 
 
 	list<ItemType_t>::iterator itr = rList.begin();
 
-	for (BYTE i=0; i<pPacket->getIndex(); ++i )
+	for ( BYTE i=0; i<pPacket->getIndex(); ++i )
 	{
 		++itr;
-		if (itr == rList.end() )
+		if ( itr == rList.end() )
 		{
-			sendCannotUse(pPacket, pPlayer);
+			sendCannotUse( pPacket, pPlayer );
 			return;
 		}
 	}
 
 	ItemType_t iType = *itr;
 
-	if (iType < 13 || iType > 20 )
+	if ( iType < 13 || iType > 20 )
 	{
-		sendCannotUse(pPacket, pPlayer);
+		sendCannotUse( pPacket, pPlayer );
 		return;
 	}
 
-	if (pPC->getLevel() < (iType-12)*5 )
+	if ( pPC->getLevel() < (iType-12)*5 )
 	{
-		sendCannotUse(pPacket, pPlayer);
+		sendCannotUse( pPacket, pPlayer );
 		return;
 	}
 
 	static int baseID[3] = { 413, 421, 429 };
 
 	int ID = baseID[(int)pPC->getRace()] + iType - 13;
-	//cout << "ID : " << ID << endl;
+	cout << "ID : " << ID << endl;
 
 	Item* pItem = g_pItemMineInfoManager->getRandomItem(ID, ID);
-	pItem = fitToPC(pItem, pPC);
+	pItem = fitToPC( pItem, pPC );
 
-	if (pItem == NULL )
+	if ( pItem == NULL )
 	{
-		sendCannotUse(pPacket, pPlayer);
+		sendCannotUse( pPacket, pPlayer );
 		return;
 	}
 
-	pItem->setCreateType(Item::CREATE_TYPE_TIME_EXTENSION);
+	pItem->setCreateType( Item::CREATE_TYPE_TIME_EXTENSION );
 
 	_TPOINT pt;
-	if (!pInventory->getEmptySlot(pItem, pt ) )
+	if ( !pInventory->getEmptySlot( pItem, pt ) )
 	{
-		sendCannotUse(pPacket, pPlayer);
-		SAFE_DELETE(pItem);
+		sendCannotUse( pPacket, pPlayer );
+		SAFE_DELETE( pItem );
 		return;
 	}
 
-	pPC->getZone()->registerObject(pItem);
+	pPC->getZone()->registerObject( pItem );
 	GCUseOK gcUseOK;
 	pGamePlayer->sendPacket(&gcUseOK);
 
-	rInventory.removeOne(pPC->getName(), iType);
+	rInventory.removeOne( pPC->getName(), iType );
 	rList.erase(itr);
-	pGamePlayer->sendPacket(rInventory.getInventoryPacket());
+	pGamePlayer->sendPacket( rInventory.getInventoryPacket() );
 
-	Assert(pInventory->addItem(pt.x, pt.y, pItem ));
+	Assert( pInventory->addItem( pt.x, pt.y, pItem ) );
 
-	pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
+	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y );
 	GCCreateItem gcCreateItem;
-	makeGCCreateItem(&gcCreateItem, pItem, pt.x, pt.y);
-	pGamePlayer->sendPacket(&gcCreateItem);
+	makeGCCreateItem( &gcCreateItem, pItem, pt.x, pt.y );
+	pGamePlayer->sendPacket( &gcCreateItem );
 
-	pPC->addTimeLimitItem(pItem, 604800);
-	pPC->updateEventItemTime(604800);
+	pPC->addTimeLimitItem( pItem, 604800 );
+	pPC->updateEventItemTime( 604800 );
 	pPC->sendTimeLimitItemInfo();
 
-	giveLotto(pPC, 4, 3);
-	filelog("ChoboEvent.log", "%s open %d box", pPC->getName().c_str(), iType);
+	giveLotto( pPC, 4, 3 );
+	filelog( "ChoboEvent.log", "%s open %d box", pPC->getName().c_str(), iType );
 
 	// ItemTraceLog 를 남긴다
-	if (pItem != NULL && pItem->isTraceItem() )
+	if ( pItem != NULL && pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, "GQuestBox", pPC->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+		remainTraceLog( pItem, "GQuestBox", pPC->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 	}
 
 #endif

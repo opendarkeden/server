@@ -7,21 +7,21 @@
 #include "CGTypeStringList.h"
 
 CGTypeStringList::CGTypeStringList () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGTypeStringList::~CGTypeStringList () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGTypeStringList::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ void CGTypeStringList::read (SocketInputStream & iStream)
 }
 
 void CGTypeStringList::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -82,7 +82,7 @@ void CGTypeStringList::write (SocketOutputStream & oStream) const
 }
 
 void CGTypeStringList::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ void CGTypeStringList::execute (Player* pPlayer)
 }
 
 string CGTypeStringList::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

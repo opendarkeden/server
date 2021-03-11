@@ -11,7 +11,7 @@
 
 
 void CGNPCAskAnswer::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGNPCAskAnswer::read (SocketInputStream & iStream)
 }
 
 void CGNPCAskAnswer::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ void CGNPCAskAnswer::write (SocketOutputStream & oStream) const
 }
 
 void CGNPCAskAnswer::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void CGNPCAskAnswer::execute (Player* pPlayer)
 }
 
 string CGNPCAskAnswer::toString () const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "CGNPCAskAnswer(" 

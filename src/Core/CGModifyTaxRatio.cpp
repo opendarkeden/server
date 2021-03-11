@@ -7,7 +7,7 @@
 #include "CGModifyTaxRatio.h"
 
 void CGModifyTaxRatio::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGModifyTaxRatio::read (SocketInputStream & iStream)
 }
 
 void CGModifyTaxRatio::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGModifyTaxRatio::write (SocketOutputStream & oStream) const
 }
 
 void CGModifyTaxRatio::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGModifyTaxRatio::execute (Player* pPlayer)
 }
 
 string CGModifyTaxRatio::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

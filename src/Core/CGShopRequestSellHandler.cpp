@@ -11,7 +11,6 @@
 	#include "NPC.h"
 	#include "Slayer.h"
 	#include "Vampire.h"
-	#include "Ousters.h"
 	#include "ItemInfo.h"
 	#include "ItemInfoManager.h"
 	#include "ItemFactoryManager.h"
@@ -31,11 +30,11 @@
 	#include "item/Magazine.h"
 	#include "item/Belt.h"
 
-	#include "GCShopSellOK.h"
-	#include "GCShopSellFail.h"
-	#include "GCShopBought.h"
-	#include "GCDeleteObject.h"
-	#include "GCCreateItem.h"
+	#include "Gpackets/GCShopSellOK.h"
+	#include "Gpackets/GCShopSellFail.h"
+	#include "Gpackets/GCShopBought.h"
+	#include "Gpackets/GCDeleteObject.h"
+	#include "Gpackets/GCCreateItem.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
@@ -43,7 +42,7 @@
 // 일반 아이템과 모터 사이클 처리 부분으로 분기한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::execute (CGShopRequestSell* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error) {
+{
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
@@ -57,17 +56,18 @@ void CGShopRequestSellHandler::execute (CGShopRequestSell* pPacket , Player* pPl
 	Creature*       pCreature   = pGamePlayer->getCreature();
 	PlayerCreature* pPC         = dynamic_cast<PlayerCreature*>(pCreature);
 
-	if (OPCODE == SHOP_REQUEST_SELL_NORMAL) {
+	if (OPCODE == SHOP_REQUEST_SELL_NORMAL)
+	{
 		// 플레이어가 팔려고 하는 아이템을 가지고 있는지 검사
 		Inventory* pInventory = pPC->getInventory();
 		if (pInventory->hasItem(ITEMOID) == false) 
 			throw ProtocolException("CGShopRequestSellHandler::execute() : No such item to sell!");
 
 		Item* pItem = pInventory->getItemWithObjectID(ITEMOID);
-		if (pItem == NULL || pPC->getStore()->hasItem(pItem))
-			return sendFailPacket(pPacket, pPlayer);
+		if (pItem == NULL) return sendFailPacket(pPacket, pPlayer);
+		if ( pPC->getStore()->hasItem( pItem ) ) return sendFailPacket(pPacket, pPlayer);
 
-		//ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
+		//ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() );
 		//Assert(pItemInfo!=NULL);
 
 		// 유니크 아이템은 못판다.
@@ -75,19 +75,38 @@ void CGShopRequestSellHandler::execute (CGShopRequestSell* pPacket , Player* pPl
 		// 선물 상자는 팔 수 있다. by bezz. 2002.12.13
 		// 커플링은 팔 수 없다. by Sequoia. 2003. 3. 3
 		// ItemUtil 안에 canSell 로 Extract 2003. 3. 3
-		if (!canSell(pItem))
+		if ( !canSell( pItem ) )
+		{
 			return sendFailPacket(pPacket, pPlayer);
+		}
+		// 唐珂쇌掘齡돨膠틔꼇횻놔簡
+		// add by Coffee 2007-8-5
+		if (pItem->isTimeLimitItem())
+		{
+			return sendFailPacket(pPacket, pPlayer);
+		}
+		
 		else if (pItem->getItemClass() == Item::ITEM_CLASS_KEY && pItem->getItemType() == 2) 
+		{
 			executeMotorcycle(pPacket, pPlayer);
+		}
 		else 
+		{
 			executeNormal(pPacket, pPlayer);
+		}
 	}
 	else if (OPCODE == SHOP_REQUEST_SELL_ALL_SKULL)
+	{
 		executeOpAllSkull(pPacket, pPlayer);
+	}
 	else if (OPCODE == SHOP_REQUEST_SWAP_ADVANCEMENT_ITEM)
+	{
 		executeOpSwapAdvancementItem(pPacket, pPlayer);
+	}
 	else
+	{
 		throw ProtocolException("CGShopRequestSellHandler::execute() : unknown op code");
+	}
 	
 #endif
 
@@ -102,7 +121,6 @@ void CGShopRequestSellHandler::execute (CGShopRequestSell* pPacket , Player* pPl
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -149,7 +167,8 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 	pInventory->deleteItem(ITEMOID);
 	pItem->whenPCLost(pPC);
 
-	if (!pItem->destroy()) {
+	if (!pItem->destroy())
+	{
 		filelog("shopDBBug.txt", "NoSuchItemInDB-destroy: %s", pItem->toString().c_str());
 
 		throw DisconnectException("아이템 지울려는데 DB에 없다.");
@@ -157,12 +176,16 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 
 	// 만약 벨트라면 안에 있는 포션을 삭제해준다.
 	// DB에서 지우는 것은 Belt::destroy()를 부르는 것만으로 포션까지 삭제된다.
-	if (pItem->getItemClass() == Item::ITEM_CLASS_BELT) {
+	if (pItem->getItemClass() == Item::ITEM_CLASS_BELT)
+	{
 		Inventory* pBeltInventory = dynamic_cast<Belt*>(pItem)->getInventory();
-		for (int y=0; y<pBeltInventory->getHeight(); y++) {
-			for (int x=0; x<pBeltInventory->getWidth(); x++) {
+		for (int y=0; y<pBeltInventory->getHeight(); y++)
+		{
+			for (int x=0; x<pBeltInventory->getWidth(); x++)
+			{
 				Item* pBeltItem = pBeltInventory->getItem(x, y);
-				if (pBeltItem != NULL) {
+				if (pBeltItem != NULL)
+				{
 					pBeltInventory->deleteItem(x, y);
 					SAFE_DELETE(pBeltItem);
 				}
@@ -172,11 +195,15 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 
 	// Skull 일 경우 Variable Manager 에서 머리값 배수 값으로 가격을 새로 계산한다
 	if (pItem->getItemClass() == Item::ITEM_CLASS_SKULL)
+	{
 		itemPrice = itemPrice * (g_pVariableManager->getHeadPriceBonus() / 100);
+	}
 
 	// ItemTrace Log 를 남겨야 한다면 남긴다
-	if (pItem != NULL && pItem->isTraceItem() )
-		remainTraceLog(pItem, pCreature->getName() , pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
+	if ( pItem != NULL && pItem->isTraceItem() )
+	{
+		remainTraceLog( pItem, pCreature->getName() , pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
+	}
 
 	// 플레이어에게 물건값을 지불한다.
 	// pPC->setGoldEx(playerMoney+itemPrice);
@@ -184,27 +211,28 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 	pPC->increaseGoldEx(itemPrice);
 
 	// 플레이어가 물건 팔 때 처리할 것들을 처리한다.
-	pPC->sellItem(pItem);
+	pPC->sellItem( pItem );
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4)
-		addOlympicStat(pPC, 4, (uint)(itemNumber));
-
-	bool bClearDefaultOptionTypes = false;
-	if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() >= 32 && pItem->getItemType() <= 36)
-		bClearDefaultOptionTypes = true;
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pItem->getItemType() == 4 )
+	{
+		addOlympicStat( pPC, 4, (uint)(itemNumber) );
+	}
 
 	// NPC에게 자리가 충분하다면 플레이어가 판 아이템을 보관한다.
 	// 운영자 명령어로 만든 아이템은 바로 없앤다.
 	// 단 스페셜 아이템만을 보관한다. 노말 아이템은 그냥 버림.
 	// 퀘스트 아이템은 보관하지 않고 버린다.
-	if (pNPC->getShopType()==SHOPTYPE_NORMAL &&
-		pItem->getCreateType()!=Item::CREATE_TYPE_CREATE &&
-		!pItem->getOptionTypeList().empty() &&
-		!pItem->isTimeLimitItem()) {
+	if (pNPC->getShopType()==SHOPTYPE_NORMAL
+		&& pItem->getCreateType()!=Item::CREATE_TYPE_CREATE
+		&& !pItem->getOptionTypeList().empty()
+		&& !pItem->isTimeLimitItem()
+	)
+	{
 		bSpecialItem = true;
 		index        = pNPC->getFirstEmptySlot(SHOP_RACK_SPECIAL);
 
-		if (index < SHOP_RACK_INDEX_MAX) {
+		if (index < SHOP_RACK_INDEX_MAX)
+		{
 			// 아이템을 추가한다.
 			pNPC->insertShopItem(SHOP_RACK_SPECIAL, index, pItem);
 
@@ -222,10 +250,13 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 
 			GCShopBought boughtpkt;
 			boughtpkt.setObjectID(NPCID);
-			if (!pItem->getOptionTypeList().empty()) {
+			if (!pItem->getOptionTypeList().empty())
+			{
 				boughtpkt.setShopVersion(pNPC->getShopVersion(SHOP_RACK_SPECIAL));
 				boughtpkt.setShopType(SHOP_RACK_SPECIAL);
-			} else {
+			}
+			else
+			{
 				boughtpkt.setShopVersion(pNPC->getShopVersion(SHOP_RACK_NORMAL));
 				boughtpkt.setShopType(SHOP_RACK_NORMAL);
 			}
@@ -319,34 +350,6 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 	okpkt.setPrice(pPC->getGold());
 	pPlayer->sendPacket(&okpkt);
 	
-	if (bClearDefaultOptionTypes )
-	{
-		pPC->clearDefaultOptionTypes();
-		pPC->initAllStatAndSend();
-
-		if (pPC->isSlayer() )
-		{
-			Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-			Assert(pSlayer != NULL);
-
-			pSlayer->sendRealWearingInfo();
-		}
-		else if (pPC->isVampire() )
-		{
-			Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-			Assert(pVampire != NULL);
-
-			pVampire->sendRealWearingInfo();
-		}
-		else if (pPC->isOusters() )
-		{
-			Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-			Assert(pOusters != NULL);
-
-			pOusters->sendRealWearingInfo();
-		}
-	}
-
 #endif
 
 	__END_DEBUG_EX __END_CATCH
@@ -359,7 +362,6 @@ void CGShopRequestSellHandler::executeNormal (CGShopRequestSell* pPacket , Playe
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeMotorcycle (CGShopRequestSell* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -502,7 +504,6 @@ void CGShopRequestSellHandler::executeMotorcycle (CGShopRequestSell* pPacket , P
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::executeOpAllSkull (CGShopRequestSell* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -585,7 +586,6 @@ void CGShopRequestSellHandler::executeOpAllSkull (CGShopRequestSell* pPacket , P
 }
 
 void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* pPacket, Player* pPlayer)
-	throw(ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -597,7 +597,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 	Creature*       pCreature    = pGamePlayer->getCreature();
 	PlayerCreature* pPC          = dynamic_cast<PlayerCreature*>(pCreature);
 
-	if (!pPC->isAdvanced() )
+	if ( !pPC->isAdvanced() )
 	{
 		return sendFailPacket(pPacket, pPlayer);
 	}
@@ -612,7 +612,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 	Inventory* pInventory  = pPC->getInventory();
 	Item*      pItem       = pInventory->getItemWithObjectID(ITEMOID);
 
-	if (pItem == NULL || pItem->isTimeLimitItem() )
+	if ( pItem == NULL || pItem->isTimeLimitItem() )
 	{
 		return sendFailPacket(pPacket, pPlayer);
 	}
@@ -622,10 +622,10 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 	Grade_t			iGrade = 0;
 	FlagSetType		fType = FLAGSET_MAX;
 
-	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
+	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() );
 	Assert(pItemInfo!=NULL);
 
-	switch (pItem->getItemClass() )
+	switch ( pItem->getItemClass() )
 	{
 		case Item::ITEM_CLASS_SWORD:
 		case Item::ITEM_CLASS_BLADE:
@@ -634,7 +634,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 		case Item::ITEM_CLASS_SG:
 		case Item::ITEM_CLASS_SMG:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 9:
 						{
@@ -667,14 +667,14 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 					default:
 						break;
 				}
-				if (iClass == Item::ITEM_CLASS_SG ) iClass = Item::ITEM_CLASS_SR;
-				if (iClass == Item::ITEM_CLASS_SMG ) iClass = Item::ITEM_CLASS_AR;
+				if ( iClass == Item::ITEM_CLASS_SG ) iClass = Item::ITEM_CLASS_SR;
+				if ( iClass == Item::ITEM_CLASS_SMG ) iClass = Item::ITEM_CLASS_AR;
 				break;
 			}
 		case Item::ITEM_CLASS_CROSS:
 		case Item::ITEM_CLASS_MACE:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 7:
 						{
@@ -713,7 +713,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 		case Item::ITEM_CLASS_COAT:
 		case Item::ITEM_CLASS_TROUSER:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 14:
 					case 15:
@@ -742,7 +742,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			}
 		case Item::ITEM_CLASS_VAMPIRE_WEAPON:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 14:
 						{
@@ -779,7 +779,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			}
 		case Item::ITEM_CLASS_VAMPIRE_COAT:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 10:
 					case 11:
@@ -808,7 +808,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			}
 		case Item::ITEM_CLASS_OUSTERS_CHAKRAM:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 9:
 						{
@@ -845,7 +845,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			}
 		case Item::ITEM_CLASS_OUSTERS_WRISTLET:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 9:
 					case 30:
@@ -885,7 +885,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 		case Item::ITEM_CLASS_OUSTERS_COAT:
 		case Item::ITEM_CLASS_OUSTERS_BOOTS:
 			{
-				switch (pItem->getItemType() )
+				switch ( pItem->getItemType() )
 				{
 					case 7:
 						{
@@ -924,7 +924,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			break;
 	}
 
-	switch (iClass )
+	switch ( iClass )
 	{
 		case Item::ITEM_CLASS_SWORD:
 		case Item::ITEM_CLASS_BLADE:
@@ -950,39 +950,39 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 			break;
 	}
 
-	if (iClass == Item::ITEM_CLASS_MAX || fType == FLAGSET_MAX )
+	if ( iClass == Item::ITEM_CLASS_MAX || fType == FLAGSET_MAX )
 	{
-		sendFailPacket(pPacket, pPlayer);
+		sendFailPacket( pPacket, pPlayer );
 		return;
 	}
 
 	FlagSet* pFlagSet = pPC->getFlagSet();
-	if (pFlagSet->isOn(fType) )
+	if ( pFlagSet->isOn(fType) )
 	{
-		sendFailPacket(pPacket, pPlayer);
+		sendFailPacket( pPacket, pPlayer );
 		return;
 	}
 
-	Item* pNewItem = g_pItemFactoryManager->createItem(iClass, iType, pItem->getOptionTypeList());
-	if (pNewItem == NULL )
+	Item* pNewItem = g_pItemFactoryManager->createItem( iClass, iType, pItem->getOptionTypeList() );
+	if ( pNewItem == NULL )
 	{
-		sendFailPacket(pPacket, pPlayer);
+		sendFailPacket( pPacket, pPlayer );
 		return;
 	}
 	pNewItem->setGrade(iGrade);
 
 	_TPOINT tp;
-	if (!pInventory->getEmptySlot(pNewItem, tp) )
+	if ( !pInventory->getEmptySlot(pNewItem, tp) )
 	{
-		SAFE_DELETE(pNewItem);
-		sendFailPacket(pPacket, pPlayer);
+		SAFE_DELETE( pNewItem );
+		sendFailPacket( pPacket, pPlayer );
 		return;
 	}
 
 	filelog("ItemSwap.log", "[%s:%s] %s <-> %s",
-			pGamePlayer->getID().c_str(), pPC->getName().c_str(), pItem->toString().c_str(), pNewItem->toString().c_str());
+			pGamePlayer->getID().c_str(), pPC->getName().c_str(), pItem->toString().c_str(), pNewItem->toString().c_str() );
 
-	pNewItem->setTraceItem(bTraceLog(pNewItem ));
+	pNewItem->setTraceItem( bTraceLog( pNewItem ) );
 
 	pInventory->deleteItem(ITEMOID);
 	pItem->whenPCLost(pPC);
@@ -994,7 +994,7 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 		throw DisconnectException("아이템 지울려는데 DB에 없다.");
 	}
 
-	pZone->registerObject(pNewItem);
+	pZone->registerObject( pNewItem );
 
 	GCShopSellOK okpkt;
 	okpkt.setObjectID(NPCID);
@@ -1003,31 +1003,28 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 	okpkt.setPrice(0);
 	pGamePlayer->sendPacket(&okpkt);
 
-	// 삭제할 아이템의 ItemTrace Log 를 남겨야 한다면 남긴다
-	if (pItem != NULL && pItem->isTraceItem() )
+	// ItemTrace Log 를 남겨야 한다면 남긴다
+	if ( pItem != NULL && pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, pCreature->getName() , pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
+		remainTraceLog( pItem, pCreature->getName() , pNPC->getName(), ITEM_LOG_DELETE, DETAIL_SHOPSELL);
 	}
 
-	// 인벤토리에 추가
-	Assert(pInventory->addItem(pNewItem, tp ));
-
-	// DB 에 생성
-	pNewItem->create(pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y);
-
-	// 교환해줄 아이템의 ItemTrace Log 를 남겨야 한다면 남긴다
-	if (pNewItem->isTraceItem() )
+	if ( pNewItem->isTraceItem() )
 	{
-		remainTraceLog(pNewItem, pNPC->getName() , pCreature->getName(), ITEM_LOG_CREATE, DETAIL_SHOPBUY);
+		remainTraceLog( pNewItem, pNPC->getName() , pCreature->getName(), ITEM_LOG_CREATE, DETAIL_SHOPBUY);
 	}
+
+	Assert( pInventory->addItem( pNewItem, tp ) );
+
+	pNewItem->create(pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y );
 
 	pFlagSet->turnOn(fType);
-	pFlagSet->save(pPC->getName());
+	pFlagSet->save( pPC->getName() );
 
 	GCCreateItem gcCI;
-	makeGCCreateItem(&gcCI, pNewItem, tp.x, tp.y);
+	makeGCCreateItem( &gcCI, pNewItem, tp.x, tp.y );
 
-	pGamePlayer->sendPacket(&gcCI);
+	pGamePlayer->sendPacket( &gcCI );
 
 #endif
 
@@ -1039,7 +1036,6 @@ void CGShopRequestSellHandler::executeOpSwapAdvancementItem(CGShopRequestSell* p
 //
 //////////////////////////////////////////////////////////////////////////////
 void CGShopRequestSellHandler::sendFailPacket (CGShopRequestSell* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

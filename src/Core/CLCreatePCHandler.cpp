@@ -9,12 +9,12 @@
 #ifdef __LOGIN_SERVER__
 	#include "LoginPlayer.h"
 	#include "PCSlayerInfo.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "GameServerInfoManager.h"
 	#include "DB.h"
 	#include <list>
-	#include "LCCreatePCOK.h"
-	#include "LCCreatePCError.h"
+	#include "Lpackets/LCCreatePCOK.h"
+	#include "Lpackets/LCCreatePCError.h"
 	#include <string.h>
 
 	#include "chinabilling/CBillingInfo.h"
@@ -45,7 +45,6 @@ bool isAllowString(string str);
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
-	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -61,32 +60,32 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 	WorldID_t		WorldID      = pLoginPlayer->getWorldID();
 
 #ifdef __CONNECT_CBILLING_SYSTEM__
-	if (pLoginPlayer->isCBillingVerified() )
+	if ( pLoginPlayer->isCBillingVerified() )
 	{
-		if (!pLoginPlayer->isPayPlayer() )
+		if ( !pLoginPlayer->isPayPlayer() )
 		{
-			lcCreatePCError.setErrorID(CANNOT_CREATE_PC_BILLING);
-			pLoginPlayer->sendPacket(&lcCreatePCError);
+			lcCreatePCError.setErrorID( CANNOT_CREATE_PC_BILLING );
+			pLoginPlayer->sendPacket( &lcCreatePCError );
 			return;
 		}
 	}
 	else
 	{
-		lcCreatePCError.setErrorID(CANNOT_AUTHORIZE_BILLING);
-		pLoginPlayer->sendPacket(&lcCreatePCError);
+		lcCreatePCError.setErrorID( CANNOT_AUTHORIZE_BILLING );
+		pLoginPlayer->sendPacket( &lcCreatePCError );
 		return;
 	}
 #endif
 
 	try 
 	{
-        pStmt = g_pDatabaseManager->getConnection((TID)WorldID )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( WorldID )->createStatement();
 
 		// 시스템에서 사용하거나, 금지된 이름은 아닌기 검증한다.
 		// NONE, ZONE***, INV***, QUICK...
 		//string text = pPacket->getName();
 
-		if (!isAvailableID(pPacket->getName().c_str() ))
+		if (!isAvailableID( pPacket->getName().c_str() ))
 		{
 			lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
 			throw DuplicatedException("이미 존재하는 아이디입니다.");
@@ -141,7 +140,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 		}
 
 		// 해당 슬랏에 캐릭터가 이미 있지는 않은지 검증한다.
-		pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE PlayerID ='%s' and Slot ='%s' AND Active='ACTIVE'", pLoginPlayer->getID().c_str(), Slot2String[pPacket->getSlot()].c_str());
+		pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE PlayerID ='%s' and Slot ='%s' AND Active='ACTIVE'", pLoginPlayer->getID().c_str(), Slot2String[pPacket->getSlot()].c_str() );
 		if (pResult->getRowCount() != 0) 
 		{
 			lcCreatePCError.setErrorID(ALREADY_REGISTER_ID);
@@ -153,7 +152,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 		pResult = pStmt->executeQuery("SELECT Name FROM Slayer WHERE Name='%s' OR PlayerID='%s' AND Slot='%s'", 
 											pPacket->getName().c_str(), 
 											pLoginPlayer->getID().c_str(), 
-											Slot2String[pPacket->getSlot()].c_str());
+											Slot2String[pPacket->getSlot()].c_str() );
 
 		if (pResult->getRowCount() != 0) 
 		{
@@ -226,7 +225,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 
 			//cout << "Slayer: " << nSTR << ", " << nDEX << ", " << nINT << endl;
 		}
-		else if (pPacket->getRace() == RACE_VAMPIRE )	// vampire인 경우. 무조건 20. by sigi. 2002.10.31
+		else if ( pPacket->getRace() == RACE_VAMPIRE )	// vampire인 경우. 무조건 20. by sigi. 2002.10.31
 		{
 			if (nSTR != 20
 				|| nDEX != 20
@@ -251,18 +250,18 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 
 			//cout << "Vampire: " << nSTR << ", " << nDEX << ", " << nINT << endl;
 		}
-		else if (pPacket->getRace() == RACE_OUSTERS )
+		else if ( pPacket->getRace() == RACE_OUSTERS )
 		{
-/*			if (nSTR < 10 ) bInvalidAttr = true;
-			if (nDEX < 10 ) bInvalidAttr = true;
-			if (nINT < 10 ) bInvalidAttr = true;*/
+/*			if ( nSTR < 10 ) bInvalidAttr = true;
+			if ( nDEX < 10 ) bInvalidAttr = true;
+			if ( nINT < 10 ) bInvalidAttr = true;*/
 
-			if (nSTR < 10 || nDEX < 10 || nINT < 10 )
+			if ( nSTR < 10 || nDEX < 10 || nINT < 10 )
 			{
 				filelog("CreatePC.log", "Illegal PC Create [%s:%s] : %u/%u/%u", pPlayer->getID().c_str(), pPacket->getName().c_str(), nSTR, nDEX, nINT);
 			}
 
-			if (nSTR + nDEX + nINT != 45 )
+			if ( nSTR + nDEX + nINT != 45 )
 				bInvalidAttr = true;
 		}
 
@@ -407,7 +406,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 		// 캐릭터 생성시에 뱀파이어를 선택할 수 있다.
 		// by sigi. 2002.10.31
 		string race;
-		switch (pPacket->getRace() )
+		switch ( pPacket->getRace() )
 		{
 			case RACE_SLAYER:
 				race = "SLAYER";
@@ -454,10 +453,10 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 		// 아우스터스로의 종족간 변신이 없으므로 둘중에 하나만 만든다.
 		// 근데 왠지 종족간 변신이 들어갈지도 모른다는 불길한 예간이 들고
 		// 항상 그런 예감들은 맞아 왔기때문에 언젠가 이 주석을 보고 둘다 풀어주는게....으아~~
-		if ( pPacket->getRace() != RACE_OUSTERS )
+		if (  pPacket->getRace() != RACE_OUSTERS )
 		{
 			pStmt->executeQuery(
-					"INSERT INTO Vampire (Name, PlayerID, Slot, ServerGroupID, Active, Sex, SkinColor, STR, DEX, INTE, HP, CurrentHP, ZoneID, XCoord, YCoord, Sight, Alignment, Exp, GoalExp, Rank, RankExp, RankGoalExp, Shape, CoatColor) VALUES ('%s', '%s', '%s', %d, 'ACTIVE', '%s', %d, 20, 20, 20, 50, 50, 1003, 62, 64, 13, 7500, 0, %d, 1, 0, %d, %d, 377 )",
+					"INSERT INTO Vampire ( Name, PlayerID, Slot, ServerGroupID, Active, Sex, SkinColor, STR, DEX, INTE, HP, CurrentHP, ZoneID, XCoord, YCoord, Sight, Alignment, Exp, GoalExp, Rank, RankExp, RankGoalExp, Shape, CoatColor) VALUES ( '%s', '%s', '%s', %d, 'ACTIVE', '%s', %d, 20, 20, 20, 50, 50, 1003, 62, 64, 13, 7500, 0, %d, 1, 0, %d, %d, 377 )",
 					pPacket->getName().c_str(),
 					pLoginPlayer->getID().c_str(),
 					Slot2String[pPacket->getSlot()].c_str(),
@@ -470,7 +469,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 		} else
 		{
 			pStmt->executeQuery(
-					"INSERT INTO Ousters (Name, PlayerID, Slot, ServerGroupID, Active, Sex, STR, DEX, INTE, BONUS, HP, CurrentHP, MP, CurrentMP, ZoneID, XCoord, YCoord, Sight, Alignment, Exp, GoalExp, Rank, RankExp, RankGoalExp, CoatColor, HairColor, ArmColor, BootsColor ) Values ('%s', '%s', '%s', %d, 'ACTIVE', 'FEMALE', %d, %d, %d, 0, 50, 50, 50, 50, 1311, 24, 73, 13, 7500, 0, %d, 1, 0,	%d, 377, %d, 377, 377 )",
+					"INSERT INTO Ousters ( Name, PlayerID, Slot, ServerGroupID, Active, Sex, STR, DEX, INTE, BONUS, HP, CurrentHP, MP, CurrentMP, ZoneID, XCoord, YCoord, Sight, Alignment, Exp, GoalExp, Rank, RankExp, RankGoalExp, CoatColor, HairColor, ArmColor, BootsColor ) Values ( '%s', '%s', '%s', %d, 'ACTIVE', 'FEMALE', %d, %d, %d, 0, 50, 50, 50, 50, 1311, 24, 73, 13, 7500, 0, %d, 1, 0,	%d, 377, %d, 377, 377 )",
 					pPacket->getName().c_str(),
 					pLoginPlayer->getID().c_str(),
 					Slot2String[pPacket->getSlot()].c_str(),
@@ -480,7 +479,7 @@ void CLCreatePCHandler::execute (CLCreatePC* pPacket , Player* pPlayer)
 					(int)pPacket->getINT(),
 					GoalExpOusters,
 					RankGoalExpOusters,
-					(int)pPacket->getHairColor());
+					(int)pPacket->getHairColor() );
 		}
 
 		if (pPacket->getRace()==RACE_SLAYER)
@@ -555,7 +554,7 @@ int extNumberic(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for (unsigned int i=0; i < srcStr.size(); i++ )
+        for ( unsigned int i=0; i < srcStr.size(); i++ )
         {
             ch = srcStr[i];
             if(ch >= '0' && ch <='9')
@@ -576,7 +575,7 @@ int extEnglish(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for ( unsigned int i=0; i < srcStr.size(); i++)
+        for (  unsigned int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
             if(ch >=97 && ch <=122)
@@ -600,7 +599,7 @@ int extAsciiSpecial(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for (int i=0; i < srcStr.size(); i++)
+        for ( int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
 
@@ -642,7 +641,7 @@ int extTis620Normal(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for (int i=0; i < srcStr.size(); i++)
+        for ( int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
 
@@ -697,7 +696,7 @@ int extNumberic(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for (unsigned int i=0; i < srcStr.size(); i++ )
+        for ( unsigned int i=0; i < srcStr.size(); i++ )
         {
             ch = srcStr[i];
             if(ch >= '0' && ch <='9')
@@ -723,7 +722,7 @@ int extEnglish(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for ( unsigned int i=0; i < srcStr.size(); i++)
+        for (  unsigned int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
             if(ch >=97 && ch <=122)
@@ -748,7 +747,7 @@ int extGb2312Normal(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for ( unsigned int i=0; i < srcStr.size(); i++)
+        for (  unsigned int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
             if(ch >= 0xB0 && ch <= 0xF7)
@@ -781,7 +780,7 @@ int extGb2312Special(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for ( unsigned int i=0; i < srcStr.size(); i++)
+        for (  unsigned int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
             if(ch >= 0xB0 && ch <= 0xF7)
@@ -813,7 +812,7 @@ int extAsciiSpecial(string srcStr)
     if(srcStr.size() <= 0 ) return 0;
     else
     {
-        for (int i=0; i < srcStr.size(); i++)
+        for ( int i=0; i < srcStr.size(); i++)
         {
             ch = srcStr[i];
 

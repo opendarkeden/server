@@ -7,7 +7,7 @@
 #include "CGUndisplayItem.h"
 
 void CGUndisplayItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -20,7 +20,7 @@ void CGUndisplayItem::read (SocketInputStream & iStream)
 }
 
 void CGUndisplayItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ void CGUndisplayItem::write (SocketOutputStream & oStream) const
 }
 
 void CGUndisplayItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -43,7 +43,7 @@ void CGUndisplayItem::execute (Player* pPlayer)
 }
 
 string CGUndisplayItem::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

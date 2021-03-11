@@ -12,21 +12,21 @@
 //////////////////////////////////////////////////////////////////////////////
 
 CGRequestIP::CGRequestIP () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 	
 CGRequestIP::~CGRequestIP () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGRequestIP::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -42,7 +42,7 @@ void CGRequestIP::read (SocketInputStream & iStream )
 }
 		    
 void CGRequestIP::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -58,7 +58,7 @@ void CGRequestIP::write (SocketOutputStream & oStream )
 }
 
 void CGRequestIP::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -68,7 +68,7 @@ void CGRequestIP::execute (Player * pPlayer )
 }
 
 string CGRequestIP::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

@@ -24,7 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeRemoveItemHandler::execute (CGTradeRemoveItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -129,7 +129,7 @@ void CGTradeRemoveItemHandler::execute (CGTradeRemoveItem* pPacket , Player* pPl
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeRemoveItemHandler::executeSlayer (CGTradeRemoveItem* pPacket, Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -213,7 +213,7 @@ void CGTradeRemoveItemHandler::executeSlayer (CGTradeRemoveItem* pPacket, Player
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeRemoveItemHandler::executeVampire (CGTradeRemoveItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -294,7 +294,7 @@ void CGTradeRemoveItemHandler::executeVampire (CGTradeRemoveItem* pPacket , Play
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeRemoveItemHandler::executeOusters (CGTradeRemoveItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -373,7 +373,7 @@ void CGTradeRemoveItemHandler::executeOusters (CGTradeRemoveItem* pPacket , Play
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeRemoveItemHandler::executeError (CGTradeRemoveItem* pPacket , Player* pPlayer, BYTE ErrorCode)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

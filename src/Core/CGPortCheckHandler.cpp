@@ -24,8 +24,8 @@
 // ConnectionInfo를 새로 추가하게 된다.
 // 
 //----------------------------------------------------------------------
-void CGPortCheckHandler::execute (CGPortCheck * pPacket )
-	 throw(ProtocolException , Error )
+void CGPortCheckHandler::execute ( CGPortCheck * pPacket )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -43,13 +43,13 @@ void CGPortCheckHandler::execute (CGPortCheck * pPacket )
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery("INSERT IGNORE INTO UserIPInfo (Name, IP, Port, ServerID) VALUES ('%s', %lu, %u, %d )",
-									pPacket->getPCName().c_str(), IP, port, g_pConfig->getPropertyInt("ServerID"));
+		pStmt->executeQuery( "INSERT IGNORE INTO UserIPInfo (Name, IP, Port, ServerID) VALUES ( '%s', %lu, %u, %d )",
+									pPacket->getPCName().c_str(), IP, port, g_pConfig->getPropertyInt("ServerID") );
 
 		if (pStmt->getAffectedRowCount()==0)
 		{
 			// 다시 한번 시도
-			pStmt->executeQuery("UPDATE UserIPInfo Set IP=%lu, Port=%u WHERE Name='%s'",
+			pStmt->executeQuery( "UPDATE UserIPInfo Set IP=%lu, Port=%u WHERE Name='%s'",
 									IP, 
 									port,
 									pPacket->getPCName().c_str());
@@ -64,7 +64,7 @@ void CGPortCheckHandler::execute (CGPortCheck * pPacket )
 		/*
 		try {
 			// 다시 한번 시도
-			pStmt->executeQuery("UPDATE UserIPInfo Set IP=%ld, Port=%d WHERE Name='%s'",
+			pStmt->executeQuery( "UPDATE UserIPInfo Set IP=%ld, Port=%d WHERE Name='%s'",
 									IP, 
 									port,
 									pPacket->getPCName().c_str());

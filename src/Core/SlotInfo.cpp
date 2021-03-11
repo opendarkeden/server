@@ -84,7 +84,7 @@ void SlotInfo::write ( SocketOutputStream & oStream ) const
 // get debug string
 //----------------------------------------------------------------------
 string SlotInfo::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

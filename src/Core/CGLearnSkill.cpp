@@ -7,7 +7,7 @@
 #include "CGLearnSkill.h"
 
 void CGLearnSkill::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -18,7 +18,7 @@ void CGLearnSkill::read (SocketInputStream & iStream)
 }
 		    
 void CGLearnSkill::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -29,7 +29,7 @@ void CGLearnSkill::write (SocketOutputStream & oStream) const
 }
 
 void CGLearnSkill::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -39,7 +39,7 @@ void CGLearnSkill::execute (Player* pPlayer)
 }
 
 string CGLearnSkill::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -20,11 +20,9 @@
 class CGUseMessageItemFromInventory : public CGUseItemFromInventory 
 {
 public:
-    CGUseMessageItemFromInventory() {};
-    virtual ~CGUseMessageItemFromInventory() {};
-    void read(SocketInputStream & iStream) ;
-    void write(SocketOutputStream & oStream) const ;
-	void execute(Player* pPlayer) ;
+    void read(SocketInputStream & iStream);
+    void write(SocketOutputStream & oStream) const;
+	void execute(Player* pPlayer);
 	PacketID_t getPacketID() const  { return PACKET_CG_USE_MESSAGE_ITEM_FROM_INVENTORY; }
 	PacketSize_t getPacketSize() const  
 	{ 
@@ -72,6 +70,8 @@ public:
 
 protected:
 	static void executeEventTree(CGUseMessageItemFromInventory* pPacket, Player* player) ;
+	// add by Coffee
+	static void executeEventFromMessage(CGUseMessageItemFromInventory* pPacket, Player* player) ;
 };
 
 #endif

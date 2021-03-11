@@ -9,7 +9,7 @@
 #include "CGShopRequestSell.h"
 
 void CGShopRequestSell::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -21,7 +21,7 @@ void CGShopRequestSell::read (SocketInputStream & iStream)
 }
 
 void CGShopRequestSell::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ void CGShopRequestSell::write (SocketOutputStream & oStream) const
 }
 
 void CGShopRequestSell::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGShopRequestSell::execute (Player* pPlayer)
 }
 
 string CGShopRequestSell::toString () const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

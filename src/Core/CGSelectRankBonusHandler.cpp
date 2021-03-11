@@ -15,8 +15,8 @@
 	#include "RankBonus.h"
 	#include "RankBonusInfo.h"
 
-	#include "GCSelectRankBonusFailed.h"
-	#include "GCSelectRankBonusOK.h"
+	#include "Gpackets/GCSelectRankBonusFailed.h"
+	#include "Gpackets/GCSelectRankBonusOK.h"
 
 	#include "SystemAvailabilitiesManager.h"
 #endif	
@@ -25,7 +25,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPlayer)
-	 throw(ProtocolException, Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -34,21 +34,21 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 	Assert(pPacket != NULL);
 	Assert(pPlayer != NULL);
 
-	SYSTEM_ASSERT(SYSTEM_RANK_BONUS);
+	SYSTEM_ASSERT( SYSTEM_RANK_BONUS );
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
-	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>( pGamePlayer->getCreature() );
+	Assert( pPC != NULL );
 
-	if (pPC->learnRankBonus(pPacket->getRankBonusType() ) )
+	if ( pPC->learnRankBonus( pPacket->getRankBonusType() ) )
 	{
 		GCSelectRankBonusOK okpkt;
-		okpkt.setRankBonusType(pPacket->getRankBonusType());
-		pPlayer->sendPacket(&okpkt);
+		okpkt.setRankBonusType( pPacket->getRankBonusType() );
+		pPlayer->sendPacket( &okpkt );
 
-		switch (pPacket->getRankBonusType() )
+		switch ( pPacket->getRankBonusType() )
 		{
 			case RankBonus::RANK_BONUS_BEHEMOTH_ARMOR:
 			case RankBonus::RANK_BONUS_DRAGON_EYE:
@@ -87,10 +87,10 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 			case RankBonus::RANK_BONUS_UNDINES_KNOWLEDGE:
 			case RankBonus::RANK_BONUS_GNOMES_KNOWLEDGE:
 			{
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-					Assert(pSlayer != NULL);
+					Assert( pSlayer != NULL );
 
 					SLAYER_RECORD prev;
 
@@ -99,10 +99,10 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 					pSlayer->sendRealWearingInfo();
 					pSlayer->sendModifyInfo(prev);
 				}
-				else if (pPC->isVampire() )
+				else if ( pPC->isVampire() )
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-					Assert(pVampire != NULL);
+					Assert( pVampire != NULL );
 
 					VAMPIRE_RECORD prev;
 					
@@ -111,10 +111,10 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 					pVampire->sendModifyInfo(prev);
 					pVampire->sendRealWearingInfo();
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-					Assert(pOusters != NULL);
+					Assert( pOusters != NULL );
 
 					OUSTERS_RECORD prev;
 					
@@ -160,24 +160,24 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 			case RankBonus::RANK_BONUS_POISON_MASTERY:
 			case RankBonus::RANK_BONUS_SKILL_MASTERY:
 			{
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-					Assert(pSlayer != NULL);
+					Assert( pSlayer != NULL );
 
 					pSlayer->initAllStat();
 				}
-				else if (pPC->isVampire() )
+				else if ( pPC->isVampire() )
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-					Assert(pVampire != NULL);
+					Assert( pVampire != NULL );
 
 					pVampire->initAllStat();
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-					Assert(pOusters != NULL);
+					Assert( pOusters != NULL );
 
 					pOusters->initAllStat();
 				}
@@ -193,8 +193,8 @@ void CGSelectRankBonusHandler::execute (CGSelectRankBonus* pPacket , Player* pPl
 	else
 	{
 		GCSelectRankBonusFailed failedpkt;
-		failedpkt.setRankBonusType(pPacket->getRankBonusType());
-		pPlayer->sendPacket(&failedpkt);
+		failedpkt.setRankBonusType( pPacket->getRankBonusType() );
+		pPlayer->sendPacket( &failedpkt );
 	}
 		
 #endif	// __GAME_SERVER__

@@ -14,16 +14,16 @@
 	#include "Item.h"
 	#include "ItemInfo.h"
 	#include "ItemInfoManager.h"
-	//#include "LogClient.h"
+	#include "LogClient.h"
 
-	#include "GCCannotAdd.h"
+	#include "Gpackets/GCCannotAdd.h"
 	#include <stdio.h>
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGStashToMouseHandler::execute (CGStashToMouse* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG
@@ -86,7 +86,7 @@ void CGStashToMouseHandler::execute (CGStashToMouse* pPacket , Player* pPlayer)
 	pStashItem->tinysave(pField);
 
 
-	//log(LOG_STASH_REMOVE_ITEM, pPC->getName(), "", pStashItem->toString());
+	log(LOG_STASH_REMOVE_ITEM, pPC->getName(), "", pStashItem->toString());
 	
 #endif	// __GAME_SERVER__
 

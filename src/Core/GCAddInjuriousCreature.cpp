@@ -7,7 +7,7 @@
 #include "GCAddInjuriousCreature.h"
 
 void GCAddInjuriousCreature::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -28,7 +28,7 @@ void GCAddInjuriousCreature::read (SocketInputStream & iStream)
 }
 		    
 void GCAddInjuriousCreature::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -49,7 +49,7 @@ void GCAddInjuriousCreature::write (SocketOutputStream & oStream) const
 }
 
 void GCAddInjuriousCreature::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -59,7 +59,7 @@ void GCAddInjuriousCreature::execute (Player* pPlayer)
 }
 
 string GCAddInjuriousCreature::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

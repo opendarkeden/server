@@ -11,7 +11,7 @@
 
 
 void CGUseItemFromGear::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -36,7 +36,7 @@ void CGUseItemFromGear::read (SocketInputStream & iStream)
 }
 		    
 void CGUseItemFromGear::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ void CGUseItemFromGear::write (SocketOutputStream & oStream) const
 }
 
 void CGUseItemFromGear::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void CGUseItemFromGear::execute (Player* pPlayer)
 }
 
 string CGUseItemFromGear::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

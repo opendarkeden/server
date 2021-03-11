@@ -7,21 +7,21 @@
 #include "CGCastingSkill.h"
 
 CGCastingSkill::CGCastingSkill () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 	
 CGCastingSkill::~CGCastingSkill () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGCastingSkill::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGCastingSkill::read (SocketInputStream & iStream)
 }
 		    
 void CGCastingSkill::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGCastingSkill::write (SocketOutputStream & oStream) const
 }
 
 void CGCastingSkill::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void CGCastingSkill::execute (Player* pPlayer)
 }
 
 string CGCastingSkill::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToSelfOK3::GCSkillToSelfOK3 () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	m_Grade = 0;
@@ -30,7 +30,7 @@ GCSkillToSelfOK3::GCSkillToSelfOK3 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToSelfOK3::~GCSkillToSelfOK3 () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -41,7 +41,7 @@ GCSkillToSelfOK3::~GCSkillToSelfOK3 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToSelfOK3::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -60,7 +60,7 @@ void GCSkillToSelfOK3::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToSelfOK3::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void GCSkillToSelfOK3::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCSkillToSelfOK3::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -96,7 +96,7 @@ void GCSkillToSelfOK3::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCSkillToSelfOK3::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

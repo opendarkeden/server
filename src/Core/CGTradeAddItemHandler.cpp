@@ -27,15 +27,14 @@
 	#include "ItemUtil.h"
 	#include "Store.h"
 
-	#include "GCTradeAddItem.h"
-	#include "GCTradeError.h"
-	#include "GCTradeVerify.h"
+	#include "Gpackets/GCTradeAddItem.h"
+	#include "Gpackets/GCTradeError.h"
+	#include "Gpackets/GCTradeVerify.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::execute (CGTradeAddItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -115,7 +114,7 @@ void CGTradeAddItemHandler::execute (CGTradeAddItem* pPacket , Player* pPlayer)
 		Ousters* pOusters1 = dynamic_cast<Ousters*>(pPC);
 		Ousters* pOusters2 = dynamic_cast<Ousters*>(pTargetPC);
 
-		if (pOusters1->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) 
+		if ( pOusters1->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) 
 			|| pOusters2->isFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH) )
 		{
 			pTradeManager->cancelTrade(pPC);
@@ -146,7 +145,6 @@ void CGTradeAddItemHandler::execute (CGTradeAddItem* pPacket , Player* pPlayer)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::executeSlayer (CGTradeAddItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -159,7 +157,7 @@ void CGTradeAddItemHandler::executeSlayer (CGTradeAddItem* pPacket , Player* pPl
 	GamePlayer*  pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 	Creature*    pPC         = pGamePlayer->getCreature();
 	Zone*        pZone       = pPC->getZone();
-	PlayerCreature*    pTargetPC   = dynamic_cast<PlayerCreature*>(pZone->getCreature(TargetOID));
+	Creature*    pTargetPC   = pZone->getCreature(TargetOID);
 
 	// NoSuch제거. by sigi. 2002.5.2
 	if (pTargetPC==NULL) return;
@@ -177,10 +175,8 @@ void CGTradeAddItemHandler::executeSlayer (CGTradeAddItem* pPacket , Player* pPl
 	// 추가할 아이템이 없다면 당연히 더 이상 처리가 불가능
 	// 추가할 아이템이 Relic이면 추가할 수 없다.
 	if (pItem == NULL
-	|| !canTrade(pItem ) 
-	|| pSender->getStore()->hasItem(pItem)
-	|| (pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY && hasItemWithItemClass(pTargetPC, Item::ITEM_CLASS_SUB_INVENTORY ) )
-	)
+	|| !canTrade( pItem ) 
+	|| pSender->getStore()->hasItem(pItem) )
 	{
 		pTradeManager->cancelTrade(pPC);
 		executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_ADD_ITEM);
@@ -260,7 +256,7 @@ void CGTradeAddItemHandler::executeSlayer (CGTradeAddItem* pPacket , Player* pPl
 		for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
 		{
 			Item* pTradeItem = (*itr);
-			if (pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
+			if ( pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
 			{
 				GCTradeVerify gcTradeVerify;
 				gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_ADD_ITEM_FAIL);
@@ -325,7 +321,6 @@ void CGTradeAddItemHandler::executeSlayer (CGTradeAddItem* pPacket , Player* pPl
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::executeVampire (CGTradeAddItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -338,7 +333,7 @@ void CGTradeAddItemHandler::executeVampire (CGTradeAddItem* pPacket , Player* pP
 	GamePlayer*  pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 	Creature*    pPC         = pGamePlayer->getCreature();
 	Zone*        pZone       = pPC->getZone();
-	PlayerCreature*    pTargetPC   = dynamic_cast<PlayerCreature*>(pZone->getCreature(TargetOID));
+	Creature*    pTargetPC   = pZone->getCreature(TargetOID);
 
 	// NoSuch제거. by sigi. 2002.5.2
 	if (pTargetPC==NULL) return;
@@ -356,10 +351,8 @@ void CGTradeAddItemHandler::executeVampire (CGTradeAddItem* pPacket , Player* pP
 	// 추가할 아이템이 없다면 당연히 더 이상 처리가 불가능
 	// Relic은 교환할 수 없다.
 	if (pItem == NULL
-	|| !canTrade(pItem )
-	|| pSender->getStore()->hasItem(pItem)
-	|| (pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY && hasItemWithItemClass(pTargetPC, Item::ITEM_CLASS_SUB_INVENTORY ) )
-	)
+	|| !canTrade( pItem )
+	|| pSender->getStore()->hasItem(pItem) )
 	{
 		pTradeManager->cancelTrade(pPC);
 		executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_ADD_ITEM);
@@ -427,7 +420,7 @@ void CGTradeAddItemHandler::executeVampire (CGTradeAddItem* pPacket , Player* pP
 		for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
 		{
 			Item* pTradeItem = (*itr);
-			if (pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
+			if ( pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
 			{
 				GCTradeVerify gcTradeVerify;
 				gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_ADD_ITEM_FAIL);
@@ -489,7 +482,6 @@ void CGTradeAddItemHandler::executeVampire (CGTradeAddItem* pPacket , Player* pP
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::executeOusters (CGTradeAddItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -502,7 +494,7 @@ void CGTradeAddItemHandler::executeOusters (CGTradeAddItem* pPacket , Player* pP
 	GamePlayer*  pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 	Creature*    pPC         = pGamePlayer->getCreature();
 	Zone*        pZone       = pPC->getZone();
-	PlayerCreature*    pTargetPC   = dynamic_cast<PlayerCreature*>(pZone->getCreature(TargetOID));
+	Creature*    pTargetPC   = pZone->getCreature(TargetOID);
 
 	// NoSuch제거. by sigi. 2002.5.2
 	if (pTargetPC==NULL) return;
@@ -520,10 +512,8 @@ void CGTradeAddItemHandler::executeOusters (CGTradeAddItem* pPacket , Player* pP
 	// 추가할 아이템이 없다면 당연히 더 이상 처리가 불가능
 	// Relic은 교환할 수 없다.
 	if (pItem == NULL
-	|| !canTrade(pItem )
-	|| pSender->getStore()->hasItem(pItem)
-	|| (pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY && hasItemWithItemClass(pTargetPC, Item::ITEM_CLASS_SUB_INVENTORY ) )
-    )
+	|| !canTrade( pItem )
+	|| pSender->getStore()->hasItem(pItem) )
 	{
 		pTradeManager->cancelTrade(pPC);
 		executeError(pPacket, pPlayer, GC_TRADE_ERROR_CODE_ADD_ITEM);
@@ -591,7 +581,7 @@ void CGTradeAddItemHandler::executeOusters (CGTradeAddItem* pPacket , Player* pP
 		for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
 		{
 			Item* pTradeItem = (*itr);
-			if (pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
+			if ( pTradeItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pTradeItem->getItemType() > 1 && pTradeItem->getItemType() < 6)	
 			{
 				GCTradeVerify gcTradeVerify;
 				gcTradeVerify.setCode(GC_TRADE_VERIFY_CODE_ADD_ITEM_FAIL);
@@ -651,7 +641,6 @@ void CGTradeAddItemHandler::executeOusters (CGTradeAddItem* pPacket , Player* pP
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::makeGCTradeAddItemPacket (GCTradeAddItem* pPacket, ObjectID_t Sender, Item* pItem, CoordInven_t X, CoordInven_t Y) 
-	throw()
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -679,20 +668,20 @@ void CGTradeAddItemHandler::makeGCTradeAddItemPacket (GCTradeAddItem* pPacket, O
 	{
 		PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
 
-		if (pPetItem->getPetInfo() != NULL )
+		if ( pPetItem->getPetInfo() != NULL )
 		{
 			list<OptionType_t> olist;
 
-			if (pPetItem->getPetInfo()->getPetOption() != 0 )
+			if ( pPetItem->getPetInfo()->getPetOption() != 0 )
 				olist.push_back(pPetItem->getPetInfo()->getPetOption());
 
-			pPacket->setOptionType(olist);
-			pPacket->setDurability(pPetItem->getPetInfo()->getPetHP());
-			pPacket->setEnchantLevel(pPetItem->getPetInfo()->getPetAttr());
-			pPacket->setSilver(pPetItem->getPetInfo()->getPetAttrLevel());
-			pPacket->setGrade((pPacket->getDurability() == 0 )?(pPetItem->getPetInfo()->getLastFeedTime().daysTo(VSDateTime::currentDateTime() )):(-1));
-			pPacket->setItemNum(pPetItem->getPetInfo()->getPetLevel());
-//			pPacket->setMainColor(0xffff);
+			pPacket->setOptionType( olist );
+			pPacket->setDurability( pPetItem->getPetInfo()->getPetHP() );
+			pPacket->setEnchantLevel( pPetItem->getPetInfo()->getPetAttr() );
+			pPacket->setSilver( pPetItem->getPetInfo()->getPetAttrLevel() );
+			pPacket->setGrade( (pPacket->getDurability() == 0 )?(pPetItem->getPetInfo()->getLastFeedTime().daysTo( VSDateTime::currentDateTime() )):(-1) );
+			pPacket->setItemNum( pPetItem->getPetInfo()->getPetLevel() );
+//			pPacket->setMainColor( 0xffff );
 		}
 
 	}
@@ -780,7 +769,6 @@ void CGTradeAddItemHandler::makeGCTradeAddItemPacket (GCTradeAddItem* pPacket, O
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeAddItemHandler::executeError(CGTradeAddItem* pPacket, Player* pPlayer, BYTE ErrorCode)
-	 throw(ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

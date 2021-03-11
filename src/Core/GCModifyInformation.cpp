@@ -10,7 +10,7 @@
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
 void GCModifyInformation::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		

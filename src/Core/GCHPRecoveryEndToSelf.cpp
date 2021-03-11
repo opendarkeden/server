@@ -12,7 +12,7 @@
 // Constructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToSelf::GCHPRecoveryEndToSelf()
-	throw(Error )
+	
 {
 	__BEGIN_TRY
 	m_CurrentHP = 0;
@@ -23,7 +23,7 @@ GCHPRecoveryEndToSelf::GCHPRecoveryEndToSelf()
 // Destructor
 //--------------------------------------------------------------------
 GCHPRecoveryEndToSelf::~GCHPRecoveryEndToSelf()
-	throw(Error )
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -33,7 +33,7 @@ GCHPRecoveryEndToSelf::~GCHPRecoveryEndToSelf()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryEndToSelf::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -47,7 +47,7 @@ void GCHPRecoveryEndToSelf::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryEndToSelf::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -61,7 +61,7 @@ void GCHPRecoveryEndToSelf::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCHPRecoveryEndToSelf::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -77,7 +77,7 @@ void GCHPRecoveryEndToSelf::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCHPRecoveryEndToSelf::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

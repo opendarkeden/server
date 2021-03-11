@@ -7,7 +7,7 @@
 #include "CGGQuestAccept.h"
 
 void CGGQuestAccept::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGGQuestAccept::read (SocketInputStream & iStream)
 }
 		    
 void CGGQuestAccept::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -27,7 +27,7 @@ void CGGQuestAccept::write (SocketOutputStream & oStream) const
 }
 
 void CGGQuestAccept::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGGQuestAccept::execute (Player* pPlayer)
 }
 
 string CGGQuestAccept::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

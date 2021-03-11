@@ -31,7 +31,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::execute (CGRequestRepair* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -94,7 +94,7 @@ void CGRequestRepairHandler::execute (CGRequestRepair* pPacket , Player* pPlayer
 // 일반 아이템을 처리한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeNormal (CGRequestRepair* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -282,7 +282,7 @@ void CGRequestRepairHandler::executeNormal (CGRequestRepair* pPacket , Player* p
 // 모터 사이클을 처리한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeMotorcycle (CGRequestRepair* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -399,7 +399,7 @@ void CGRequestRepairHandler::executeMotorcycle (CGRequestRepair* pPacket , Playe
 // 모든 아이템 수리하기
 //////////////////////////////////////////////////////////////////////////////
 void CGRequestRepairHandler::executeAll(CGRequestRepair* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

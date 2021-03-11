@@ -19,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // 뭔가에 대한 정보를 요청하는 경우이다.
 //////////////////////////////////////////////////////////////////////////////
-void CGRequestInfoHandler::execute(CGRequestInfo* pPacket , Player* pPlayer) throw(ProtocolException, Error) {
+void CGRequestInfoHandler::execute(CGRequestInfo* pPacket , Player* pPlayer)  {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__

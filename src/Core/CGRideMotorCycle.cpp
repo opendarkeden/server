@@ -7,21 +7,21 @@
 #include "CGRideMotorCycle.h"
 
 CGRideMotorCycle::CGRideMotorCycle () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGRideMotorCycle::~CGRideMotorCycle () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGRideMotorCycle::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -33,7 +33,7 @@ void CGRideMotorCycle::read (SocketInputStream & iStream)
 }
 
 void CGRideMotorCycle::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -45,7 +45,7 @@ void CGRideMotorCycle::write (SocketOutputStream & oStream) const
 }
 
 void CGRideMotorCycle::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -55,7 +55,7 @@ void CGRideMotorCycle::execute (Player* pPlayer)
 }
 
 string CGRideMotorCycle::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

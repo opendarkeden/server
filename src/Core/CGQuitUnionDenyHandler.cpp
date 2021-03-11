@@ -10,12 +10,12 @@
 #ifdef __GAME_SERVER__
 	#include "SystemAvailabilitiesManager.h"
 	#include "GamePlayer.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "PlayerCreature.h"
 	#include "GuildManager.h"
 	#include "GuildUnion.h"
-	#include "GCGuildResponse.h"
-	#include "GCSystemMessage.h"
+	#include "Gpackets/GCGuildResponse.h"
+	#include "Gpackets/GCSystemMessage.h"
     #include "DB.h"
     #include "StringPool.h"
     #include "Guild.h"
@@ -24,7 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -34,15 +34,15 @@ void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer
 	Assert(pPlayer != NULL);
 
     GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-    Assert(pGamePlayer != NULL);
+    Assert( pGamePlayer != NULL );
 
     PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-    Assert(pPlayerCreature != NULL);
+    Assert( pPlayerCreature != NULL );
 
 #ifdef __OLD_GUILD_WAR__
 	GCSystemMessage gcSM;
-	gcSM.setMessage("아직 지원되지 않는 기능입니다.");
-	pGamePlayer->sendPacket(&gcSM);
+	gcSM.setMessage("뻘청唐역렴늪묘콘.");
+	pGamePlayer->sendPacket( &gcSM );
 	return;
 #endif
 
@@ -50,7 +50,7 @@ void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer
 
 	GCGuildResponse gcGuildResponse;
 
-	GuildUnion *pUnion = GuildUnionManager::Instance().getGuildUnion(pPlayerCreature->getGuildID());
+	GuildUnion *pUnion = GuildUnionManager::Instance().getGuildUnion( pPlayerCreature->getGuildID() );
 	if(pUnion == NULL)
 	{
 		gcGuildResponse.setCode(GuildUnionOfferManager::NOT_IN_UNION);
@@ -60,7 +60,7 @@ void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer
 	}
 	
 	// 요청한놈이 지가 속한 길드의 마스터인가? || 연합의 마스터길드가 내 길드가 맞나?
-	if(!g_pGuildManager->isGuildMaster (pPlayerCreature->getGuildID(), pPlayerCreature )
+	if( !g_pGuildManager->isGuildMaster ( pPlayerCreature->getGuildID(), pPlayerCreature )
 		|| pUnion->getMasterGuildID() != pPlayerCreature->getGuildID() 		
 		)
 	{
@@ -73,14 +73,14 @@ void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer
 		return;
 	}
 
-	uint result = GuildUnionOfferManager::Instance().denyQuit(pPacket->getGuildID());
+	uint result = GuildUnionOfferManager::Instance().denyQuit( pPacket->getGuildID() );
 
 	gcGuildResponse.setCode(result);
 	pPlayer->sendPacket(&gcGuildResponse);
 
 ////////////////////
 
-	Guild*  pGuild  = g_pGuildManager->getGuild(pPacket->getGuildID());
+	Guild*  pGuild  = g_pGuildManager->getGuild( pPacket->getGuildID() );
 
     if(pGuild == NULL)
     {
@@ -95,9 +95,9 @@ void CGQuitUnionDenyHandler::execute (CGQuitUnionDeny* pPacket , Player* pPlayer
 
     BEGIN_DB
     {
-        pStmt = g_pDatabaseManager->getConnection("DARKEDEN" )->createStatement();
-        pStmt->executeQuery("INSERT INTO Messages (Receiver, Message) values('%s','%s')", TargetGuildMaster.c_str(),  g_pStringPool->c_str(376 ));
-        SAFE_DELETE(pStmt);
+        pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
+        pStmt->executeQuery( "INSERT INTO Messages (Receiver, Message) values('%s','%s')", TargetGuildMaster.c_str(),  g_pStringPool->c_str( 376 ));
+        SAFE_DELETE( pStmt );
     }
     END_DB(pStmt)
 

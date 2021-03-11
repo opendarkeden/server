@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCAddEffect::GCAddEffect () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -29,7 +29,7 @@ GCAddEffect::GCAddEffect ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCAddEffect::~GCAddEffect () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -40,7 +40,7 @@ GCAddEffect::~GCAddEffect ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAddEffect::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
     BYTE flag;
@@ -58,7 +58,7 @@ void GCAddEffect::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAddEffect::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 //	oStream.write((BYTE)48);
@@ -77,7 +77,7 @@ void GCAddEffect::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCAddEffect::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -93,7 +93,7 @@ void GCAddEffect::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAddEffect::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

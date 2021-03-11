@@ -7,7 +7,7 @@
 #include "CGStoreClose.h"
 
 void CGStoreClose::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -15,7 +15,7 @@ void CGStoreClose::read (SocketInputStream & iStream)
 }
 
 void CGStoreClose::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ void CGStoreClose::write (SocketOutputStream & oStream) const
 }
 
 void CGStoreClose::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -33,7 +33,7 @@ void CGStoreClose::execute (Player* pPlayer)
 }
 
 string CGStoreClose::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 GCShopList::GCShopList() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 
@@ -34,7 +34,7 @@ GCShopList::GCShopList()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 GCShopList::~GCShopList() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 	__END_CATCH;
@@ -44,7 +44,7 @@ GCShopList::~GCShopList()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopList::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -97,7 +97,7 @@ void GCShopList::read (SocketInputStream & iStream)
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopList::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -154,7 +154,7 @@ void GCShopList::write (SocketOutputStream & oStream) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
 void GCShopList::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -167,7 +167,7 @@ void GCShopList::execute (Player * pPlayer)
 //////////////////////////////////////////////////////////////////////////////
 
 PacketSize_t GCShopList::getPacketSize () const 
-	throw()
+	
 { 
 	PacketSize_t size = szObjectID +     // NPC id
 	                    szShopVersion +  // shop version
@@ -200,7 +200,7 @@ PacketSize_t GCShopList::getPacketSize () const
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
 string GCShopList::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		
@@ -242,7 +242,7 @@ string GCShopList::toString () const
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SHOPLISTITEM GCShopList::getShopItem(BYTE index) const
-	throw()
+	
 {
 	// check bound
 	if (index >= SHOP_RACK_INDEX_MAX) throw("GCShopList::getShopItem() : Out of Bound!");
@@ -255,7 +255,7 @@ SHOPLISTITEM GCShopList::getShopItem(BYTE index) const
 //////////////////////////////////////////////////////////////////////////////
 #ifndef __GAME_CLIENT__
 void GCShopList::setShopItem(BYTE index, const Item* pItem) 
-	throw()
+	
 {
 	// check bound
 	if (index >= SHOP_RACK_INDEX_MAX) throw("GCShopList::setShopItem() : Out of Bound!");

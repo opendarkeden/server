@@ -7,7 +7,7 @@
 #include "GCAddBat.h"
 
 void GCAddBatHandler::execute (GCAddBat * pPacket , Player * pPlayer )
-	 throw(Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

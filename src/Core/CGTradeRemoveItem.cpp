@@ -7,7 +7,7 @@
 #include "CGTradeRemoveItem.h"
 
 void CGTradeRemoveItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ void CGTradeRemoveItem::read (SocketInputStream & iStream)
 }
 
 void CGTradeRemoveItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void CGTradeRemoveItem::write (SocketOutputStream & oStream) const
 }
 
 void CGTradeRemoveItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void CGTradeRemoveItem::execute (Player* pPlayer)
 }
 
 string CGTradeRemoveItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

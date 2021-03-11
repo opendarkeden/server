@@ -7,7 +7,7 @@
 #include "CGPartyInvite.h"
 
 void CGPartyInvite::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ void CGPartyInvite::read (SocketInputStream & iStream)
 }
 		    
 void CGPartyInvite::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void CGPartyInvite::write (SocketOutputStream & oStream) const
 }
 
 void CGPartyInvite::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void CGPartyInvite::execute (Player* pPlayer)
 }
 
 string CGPartyInvite::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

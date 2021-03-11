@@ -7,7 +7,7 @@
 #include "CGDonationMoney.h"
 
 void CGDonationMoney::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ void CGDonationMoney::read (SocketInputStream & iStream)
 }
 
 void CGDonationMoney::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void CGDonationMoney::write (SocketOutputStream & oStream) const
 }
 
 void CGDonationMoney::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void CGDonationMoney::execute (Player* pPlayer)
 }
 
 string CGDonationMoney::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

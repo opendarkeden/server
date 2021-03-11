@@ -7,7 +7,7 @@
 #include "CGRequestNewbieItem.h"
 
 void CGRequestNewbieItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGRequestNewbieItem::read (SocketInputStream & iStream)
 }
 		    
 void CGRequestNewbieItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGRequestNewbieItem::write (SocketOutputStream & oStream) const
 }
 
 void CGRequestNewbieItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGRequestNewbieItem::execute (Player* pPlayer)
 }
 
 string CGRequestNewbieItem::toString () 
-	const throw()
+	const 
 {
 	StringStream msg;
 	msg << "CGRequestNewbieItem(" 

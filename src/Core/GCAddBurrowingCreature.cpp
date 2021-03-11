@@ -7,7 +7,7 @@
 #include "GCAddBurrowingCreature.h"
 
 void GCAddBurrowingCreature::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void GCAddBurrowingCreature::read (SocketInputStream & iStream )
 }
 		    
 void GCAddBurrowingCreature::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -55,7 +55,7 @@ void GCAddBurrowingCreature::write (SocketOutputStream & oStream ) const
 }
 
 void GCAddBurrowingCreature::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -71,7 +71,7 @@ void GCAddBurrowingCreature::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAddBurrowingCreature::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

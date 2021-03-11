@@ -13,14 +13,14 @@
 	#include "Zone.h"
 	#include "skill/SkillUtil.h"
 
-	#include "GCMyStoreInfo.h"
-	#include "GCOtherStoreInfo.h"
+	#include "Gpackets/GCMyStoreInfo.h"
+	#include "Gpackets/GCOtherStoreInfo.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -37,17 +37,17 @@ void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
 	Assert(pGamePlayer != NULL);
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	if (checkZoneLevelToHitTarget(pPC) )
+	if ( checkZoneLevelToHitTarget(pPC) )
 	{
 		return;
 	}
 
 	Store* pStore = pPC->getStore();
-	Assert(pStore != NULL);
+	Assert( pStore != NULL );
 
-	if (pStore->isOpen() )
+	if ( pStore->isOpen() )
 	{
 		filelog("Store.log", "[%s:%s] 이미 상점이 열려있습니다.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str());
@@ -55,17 +55,17 @@ void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
 	}
 
 	pStore->open();
-	//cout << pPC->getName() << " 의 상점이 열렸습니다." << endl;
+	cout << pPC->getName() << " 의 상점이 열렸습니다." << endl;
 
 	GCMyStoreInfo gcInfo;
-	gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pGamePlayer->sendPacket(&gcInfo);
+	gcInfo.setStoreInfo( &(pStore->getStoreInfo()) );
+	pGamePlayer->sendPacket( &gcInfo );
 
 	GCOtherStoreInfo gcOtherInfo;
-	gcOtherInfo.setObjectID(pPC->getObjectID());
+	gcOtherInfo.setObjectID( pPC->getObjectID() );
 	gcOtherInfo.setRequested(0);
-	gcOtherInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcOtherInfo, pPC);
+	gcOtherInfo.setStoreInfo( &(pStore->getStoreInfo()) );
+	pPC->getZone()->broadcastPacket( pPC->getX(), pPC->getY(), &gcOtherInfo, pPC );
 
 #endif	// __GAME_SERVER__
 		

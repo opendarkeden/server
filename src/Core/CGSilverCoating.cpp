@@ -7,7 +7,7 @@
 #include "CGSilverCoating.h"
 
 void CGSilverCoating::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGSilverCoating::read (SocketInputStream & iStream)
 }
 
 void CGSilverCoating::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGSilverCoating::write (SocketOutputStream & oStream) const
 }
 
 void CGSilverCoating::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGSilverCoating::execute (Player* pPlayer)
 }
 
 string CGSilverCoating::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

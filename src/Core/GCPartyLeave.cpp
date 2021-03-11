@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 void GCPartyLeave::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void GCPartyLeave::read (SocketInputStream & iStream)
 }
 		    
 void GCPartyLeave::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -49,7 +49,7 @@ void GCPartyLeave::write (SocketOutputStream & oStream) const
 }
 
 void GCPartyLeave::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -59,7 +59,7 @@ void GCPartyLeave::execute (Player * pPlayer)
 }
 
 string GCPartyLeave::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

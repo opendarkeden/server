@@ -22,7 +22,7 @@ GCPartyJoined::~GCPartyJoined()
 }
 
 PacketSize_t GCPartyJoined::getPacketSize() const 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -48,7 +48,7 @@ PacketSize_t GCPartyJoined::getPacketSize() const
 }
 
 void GCPartyJoined::addMemberInfo(PARTY_MEMBER_INFO* pInfo) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ void GCPartyJoined::addMemberInfo(PARTY_MEMBER_INFO* pInfo)
 }
 
 PARTY_MEMBER_INFO* GCPartyJoined::popMemberInfo(void) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,7 @@ PARTY_MEMBER_INFO* GCPartyJoined::popMemberInfo(void)
 }
 
 void GCPartyJoined::clear(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -108,7 +108,7 @@ void GCPartyJoined::clear(void)
 }
 
 void GCPartyJoined::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -138,7 +138,7 @@ void GCPartyJoined::read (SocketInputStream & iStream)
 }
 		    
 void GCPartyJoined::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -168,7 +168,7 @@ void GCPartyJoined::write (SocketOutputStream & oStream) const
 }
 
 void GCPartyJoined::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -178,7 +178,7 @@ void GCPartyJoined::execute (Player * pPlayer)
 }
 
 string GCPartyJoined::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

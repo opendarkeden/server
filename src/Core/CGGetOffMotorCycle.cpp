@@ -7,21 +7,21 @@
 #include "CGGetOffMotorCycle.h"
 
 CGGetOffMotorCycle::CGGetOffMotorCycle () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGGetOffMotorCycle::~CGGetOffMotorCycle () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGGetOffMotorCycle::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGGetOffMotorCycle::read (SocketInputStream & iStream)
 }
 
 void CGGetOffMotorCycle::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGGetOffMotorCycle::write (SocketOutputStream & oStream) const
 }
 
 void CGGetOffMotorCycle::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void CGGetOffMotorCycle::execute (Player* pPlayer)
 }
 
 string CGGetOffMotorCycle::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

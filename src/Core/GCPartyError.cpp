@@ -24,7 +24,7 @@ const string GCPartyError2String[] =
 //////////////////////////////////////////////////////////////////////////////
 
 void GCPartyError::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ void GCPartyError::read (SocketInputStream & iStream)
 }
 		    
 void GCPartyError::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -46,7 +46,7 @@ void GCPartyError::write (SocketOutputStream & oStream) const
 }
 
 void GCPartyError::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -56,7 +56,7 @@ void GCPartyError::execute (Player * pPlayer)
 }
 
 string GCPartyError::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

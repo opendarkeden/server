@@ -7,7 +7,7 @@
 #include "CGStashList.h"
 
 void CGStashList::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 	
@@ -17,7 +17,7 @@ void CGStashList::read (SocketInputStream & iStream)
 }
 		    
 void CGStashList::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGStashList::write (SocketOutputStream & oStream) const
 }
 
 void CGStashList::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -39,7 +39,7 @@ void CGStashList::execute (Player* pPlayer)
 }
 
 string CGStashList::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

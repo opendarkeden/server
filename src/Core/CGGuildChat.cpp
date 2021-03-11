@@ -7,7 +7,7 @@
 #include "CGGuildChat.h"
 
 void CGGuildChat::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGGuildChat::read (SocketInputStream & iStream)
 }
 		    
 void CGGuildChat::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -54,7 +54,7 @@ void CGGuildChat::write (SocketOutputStream & oStream) const
 }
 
 void CGGuildChat::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -64,7 +64,7 @@ void CGGuildChat::execute (Player* pPlayer)
 }
 
 string CGGuildChat::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

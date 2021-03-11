@@ -34,7 +34,7 @@
 // 
 //----------------------------------------------------------------------
 void SGModifyGuildOKHandler::execute (SGModifyGuildOK* pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

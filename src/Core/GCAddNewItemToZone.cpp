@@ -14,7 +14,7 @@
 // Constructor
 //--------------------------------------------------------------------
 GCAddNewItemToZone::GCAddNewItemToZone() 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -25,7 +25,7 @@ GCAddNewItemToZone::GCAddNewItemToZone()
 // Destructor
 //--------------------------------------------------------------------
 GCAddNewItemToZone::~GCAddNewItemToZone() 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -35,7 +35,7 @@ GCAddNewItemToZone::~GCAddNewItemToZone()
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCAddNewItemToZone::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void GCAddNewItemToZone::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAddNewItemToZone::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

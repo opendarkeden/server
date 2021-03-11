@@ -21,7 +21,7 @@ GCShopBuyFail::~GCShopBuyFail()
 }
 
 void GCShopBuyFail::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -33,7 +33,7 @@ void GCShopBuyFail::read (SocketInputStream & iStream)
 }
 		    
 void GCShopBuyFail::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -45,7 +45,7 @@ void GCShopBuyFail::write (SocketOutputStream & oStream) const
 }
 
 void GCShopBuyFail::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -55,7 +55,7 @@ void GCShopBuyFail::execute (Player * pPlayer)
 }
 
 string GCShopBuyFail::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

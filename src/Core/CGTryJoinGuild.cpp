@@ -8,7 +8,7 @@
 
 
 void CGTryJoinGuild::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -19,7 +19,7 @@ void CGTryJoinGuild::read (SocketInputStream & iStream)
 }
 
 void CGTryJoinGuild::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ void CGTryJoinGuild::write (SocketOutputStream & oStream) const
 }
 
 void CGTryJoinGuild::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -40,7 +40,7 @@ void CGTryJoinGuild::execute (Player* pPlayer)
 }
 
 string CGTryJoinGuild::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

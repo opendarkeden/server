@@ -7,7 +7,7 @@
 #include "CGSelectWayPoint.h"
 
 void CGSelectWayPoint::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -19,7 +19,7 @@ void CGSelectWayPoint::read (SocketInputStream & iStream)
 }
 		    
 void CGSelectWayPoint::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGSelectWayPoint::write (SocketOutputStream & oStream) const
 }
 
 void CGSelectWayPoint::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGSelectWayPoint::execute (Player* pPlayer)
 }
 
 string CGSelectWayPoint::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

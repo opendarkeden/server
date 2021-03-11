@@ -7,21 +7,21 @@
 #include "CGBloodDrain.h"
 
 CGBloodDrain::CGBloodDrain () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGBloodDrain::~CGBloodDrain () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGBloodDrain::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGBloodDrain::read (SocketInputStream & iStream)
 }
 		    
 void CGBloodDrain::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGBloodDrain::write (SocketOutputStream & oStream) const
 }
 
 void CGBloodDrain::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -51,7 +51,7 @@ void CGBloodDrain::execute (Player* pPlayer)
 }
 
 string CGBloodDrain::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

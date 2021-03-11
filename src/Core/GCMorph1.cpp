@@ -15,7 +15,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 GCMorph1::GCMorph1 ()
-	throw()
+	
 : m_pPCInfo(NULL), m_pInventoryInfo(NULL), m_pGearInfo(NULL), m_pExtraInfo(NULL)
 {
 }
@@ -24,7 +24,7 @@ GCMorph1::GCMorph1 ()
 // destructor
 //--------------------------------------------------------------------------------
 GCMorph1::~GCMorph1 ()
-	throw()
+	
 {
 	SAFE_DELETE(m_pPCInfo);
 	SAFE_DELETE(m_pInventoryInfo);
@@ -36,7 +36,7 @@ GCMorph1::~GCMorph1 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
 void GCMorph1::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -80,7 +80,7 @@ void GCMorph1::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
 void GCMorph1::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -121,7 +121,7 @@ void GCMorph1::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //--------------------------------------------------------------------------------
 void GCMorph1::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -135,7 +135,7 @@ void GCMorph1::execute (Player * pPlayer )
 // get packet's debug string
 //--------------------------------------------------------------------------------
 string GCMorph1::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

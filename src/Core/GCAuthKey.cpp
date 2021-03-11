@@ -7,7 +7,7 @@
 #include "GCAuthKey.h"
 
 void GCAuthKey::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void GCAuthKey::read (SocketInputStream & iStream )
 }
 		    
 void GCAuthKey::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -27,7 +27,7 @@ void GCAuthKey::write (SocketOutputStream & oStream ) const
 }
 
 void GCAuthKey::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void GCAuthKey::execute (Player * pPlayer )
 }
 
 string GCAuthKey::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

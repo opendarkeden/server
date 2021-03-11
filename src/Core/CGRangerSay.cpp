@@ -7,7 +7,7 @@
 #include "CGRangerSay.h"
 
 void CGRangerSay::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -27,7 +27,7 @@ void CGRangerSay::read (SocketInputStream & iStream)
 }
 		    
 void CGRangerSay::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -47,7 +47,7 @@ void CGRangerSay::write (SocketOutputStream & oStream) const
 }
 
 void CGRangerSay::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -57,7 +57,7 @@ void CGRangerSay::execute (Player* pPlayer)
 }
 
 string CGRangerSay::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

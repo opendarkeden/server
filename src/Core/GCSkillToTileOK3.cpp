@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToTileOK3::GCSkillToTileOK3 () 
-     throw()
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ GCSkillToTileOK3::GCSkillToTileOK3 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToTileOK3::~GCSkillToTileOK3 () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -44,7 +44,7 @@ GCSkillToTileOK3::~GCSkillToTileOK3 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK3::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -73,7 +73,7 @@ void GCSkillToTileOK3::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK3::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -102,7 +102,7 @@ void GCSkillToTileOK3::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK3::addCListElement(ObjectID_t ObjectID )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void GCSkillToTileOK3::addCListElement(ObjectID_t ObjectID )
 //
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK3::deleteCListElement()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -145,7 +145,7 @@ void GCSkillToTileOK3::deleteCListElement()
 // 
 //////////////////////////////////////////////////////////////////////
 void GCSkillToTileOK3::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -161,7 +161,7 @@ void GCSkillToTileOK3::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCSkillToTileOK3::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

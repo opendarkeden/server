@@ -28,7 +28,7 @@
 // 
 //----------------------------------------------------------------------
 void SGGuildInfoHandler::execute (SGGuildInfo* pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

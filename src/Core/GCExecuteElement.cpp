@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCExecuteElement::GCExecuteElement () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -26,7 +26,7 @@ GCExecuteElement::GCExecuteElement ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCExecuteElement::~GCExecuteElement () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,7 +38,7 @@ GCExecuteElement::~GCExecuteElement ()
 //
 //////////////////////////////////////////////////////////////////////
 void GCExecuteElement::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -54,7 +54,7 @@ void GCExecuteElement::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCExecuteElement::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

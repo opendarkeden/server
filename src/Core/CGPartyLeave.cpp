@@ -7,7 +7,7 @@
 #include "CGPartyLeave.h"
 
 void CGPartyLeave::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -22,7 +22,7 @@ void CGPartyLeave::read (SocketInputStream & iStream)
 }
 		    
 void CGPartyLeave::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGPartyLeave::write (SocketOutputStream & oStream) const
 }
 
 void CGPartyLeave::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void CGPartyLeave::execute (Player* pPlayer)
 }
 
 string CGPartyLeave::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

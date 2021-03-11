@@ -7,7 +7,7 @@
 #include "GCRequestFailed.h"
 
 void GCRequestFailed::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ void GCRequestFailed::read (SocketInputStream & iStream )
 }
 		    
 void GCRequestFailed::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -40,7 +40,7 @@ void GCRequestFailed::write (SocketOutputStream & oStream ) const
 }
 
 void GCRequestFailed::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -50,7 +50,7 @@ void GCRequestFailed::execute (Player * pPlayer )
 }
 
 string GCRequestFailed::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

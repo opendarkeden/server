@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCGQuestInventory::GCGQuestInventory () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -26,13 +26,13 @@ GCGQuestInventory::GCGQuestInventory ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCGQuestInventory::~GCGQuestInventory () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
-void GCGQuestInventory::read(SocketInputStream & iStream) throw(ProtocolException, Error)
+void GCGQuestInventory::read(SocketInputStream & iStream) 
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void GCGQuestInventory::read(SocketInputStream & iStream) throw(ProtocolExceptio
 	__END_CATCH
 }
 
-void GCGQuestInventory::write(SocketOutputStream & oStream) const throw(ProtocolException, Error)
+void GCGQuestInventory::write(SocketOutputStream & oStream) const 
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void GCGQuestInventory::write(SocketOutputStream & oStream) const throw(Protocol
 //
 //////////////////////////////////////////////////////////////////////
 void GCGQuestInventory::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -92,7 +92,7 @@ void GCGQuestInventory::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCGQuestInventory::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

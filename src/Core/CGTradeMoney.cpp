@@ -7,7 +7,7 @@
 #include "CGTradeMoney.h"
 
 void CGTradeMoney::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -19,7 +19,7 @@ void CGTradeMoney::read (SocketInputStream & iStream)
 }
 
 void CGTradeMoney::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void CGTradeMoney::write (SocketOutputStream & oStream) const
 }
 
 void CGTradeMoney::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGTradeMoney::execute (Player* pPlayer)
 }
 
 string CGTradeMoney::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

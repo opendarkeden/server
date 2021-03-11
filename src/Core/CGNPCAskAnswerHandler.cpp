@@ -26,7 +26,7 @@
 // 트리거를 탐색하면서 적절한 트리거를 찾아서 연관된 액션을 실행한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGNPCAskAnswerHandler::execute (CGNPCAskAnswer* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

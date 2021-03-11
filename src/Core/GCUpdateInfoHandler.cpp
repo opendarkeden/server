@@ -24,7 +24,7 @@
 // 끝이 나면 게임 서버로 CGReady 패킷을 보내면 된다.
 //----------------------------------------------------------------------
 void GCUpdateInfoHandler::execute (GCUpdateInfo * pPacket , Player * pPlayer )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

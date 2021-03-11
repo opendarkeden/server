@@ -7,21 +7,21 @@
 #include "CGAddQuickSlotToMouse.h"
 
 CGAddQuickSlotToMouse::CGAddQuickSlotToMouse () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGAddQuickSlotToMouse::~CGAddQuickSlotToMouse () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGAddQuickSlotToMouse::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void CGAddQuickSlotToMouse::read (SocketInputStream & iStream)
 }
 
 void CGAddQuickSlotToMouse::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGAddQuickSlotToMouse::write (SocketOutputStream & oStream) const
 }
 
 void CGAddQuickSlotToMouse::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGAddQuickSlotToMouse::execute (Player* pPlayer)
 }
 
 string CGAddQuickSlotToMouse::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

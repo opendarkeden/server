@@ -15,7 +15,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCDownSkillOK::GCDownSkillOK () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -26,7 +26,7 @@ GCDownSkillOK::GCDownSkillOK ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCDownSkillOK::~GCDownSkillOK () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -37,7 +37,7 @@ GCDownSkillOK::~GCDownSkillOK ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCDownSkillOK::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	iStream.read(m_SkillType);
@@ -49,7 +49,7 @@ void GCDownSkillOK::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCDownSkillOK::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	oStream.write(m_SkillType);
@@ -61,7 +61,7 @@ void GCDownSkillOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCDownSkillOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -77,7 +77,7 @@ void GCDownSkillOK::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCDownSkillOK::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

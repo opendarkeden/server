@@ -35,7 +35,7 @@
 // 
 //----------------------------------------------------------------------
 void SGDeleteGuildOKHandler::execute (SGDeleteGuildOK* pPacket )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 

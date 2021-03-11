@@ -30,51 +30,55 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "CGSay.h"
-#include "GCNoticeEvent.h"
-#include "GCDeleteInventoryItem.h"
-#include "GCNotifyWin.h"
-#include "GCCreateItem.h"
+#include "Cpackets/CGSay.h"
+#include "Gpackets/GCNoticeEvent.h"
+#include "Gpackets/GCDeleteInventoryItem.h"
+#include "Gpackets/GCNotifyWin.h"
+#include "Gpackets/GCCreateItem.h"
 
 #include <cstdio>
 
 #endif	// __GAME_SERVER__
 
 void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
 #ifdef __GAME_SERVER__
+	// 혤句供냥훨蛟꼇못膠틔掘齡
+	//return;
 
-	GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGP != NULL);
+	GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPlayer );
+	Assert( pGP != NULL );
 
 	Creature* pCreature = pGP->getCreature();
-	Assert(pCreature != NULL);
+	Assert( pCreature != NULL );
 		
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
-	filelog("EventQuest.log", "CGLotterySelectHandler : got [%d:%d:%d] from %s", pPacket->getType(), pPacket->getGiftID(), pPacket->getQuestLevel(),
-			pPC->getName().c_str());
+	filelog( "EventQuest.log", "CGLotterySelectHandler : got [%d:%d:%d] from %s", pPacket->getType(), pPacket->getGiftID(), pPacket->getQuestLevel(),
+			pPC->getName().c_str() );
 
-	switch (pPacket->getType() )
+
+	
+	switch ( pPacket->getType() )
 	{
 		case TYPE_SELECT_LOTTERY:
 			{
 				// 인벤에서 퀘스트 아이템 삭제
 				QuestID_t qID;
-				EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus(pPacket->getQuestLevel());
+				EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus( pPacket->getQuestLevel() );
 				int ownerQuestLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel();
-				if (
-					(ownerQuestLevel > pPacket->getQuestLevel() && status == EventQuestAdvance::EVENT_QUEST_ADVANCED ) ||	
-					(pPacket->getQuestLevel() == 4 &&  ownerQuestLevel== -1 ) ||
-					pPC->getQuestManager()->successEventQuest(pPacket->getQuestLevel(), qID ) )
+				if ( 
+					( ownerQuestLevel > pPacket->getQuestLevel() && status == EventQuestAdvance::EVENT_QUEST_ADVANCED ) ||	
+					( pPacket->getQuestLevel() == 4 &&  ownerQuestLevel== -1 ) ||
+					pPC->getQuestManager()->successEventQuest( pPacket->getQuestLevel(), qID ) )
 				{
-					pPC->getQuestManager()->getEventQuestAdvanceManager()->rewarded(pPacket->getQuestLevel());
+					pPC->getQuestManager()->getEventQuestAdvanceManager()->rewarded( pPacket->getQuestLevel() );
 					pPC->getQuestManager()->getEventQuestAdvanceManager()->save();
-					pPC->getQuestManager()->questRewarded(qID);
+					pPC->getQuestManager()->questRewarded( qID );
 					pPC->sendCurrentQuestInfo();
 
 					list<Item*> iList;
@@ -83,52 +87,52 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					list<Item*>::iterator itr = iList.begin();
 					list<Item*>::iterator endItr = iList.end();
 
-					for (; itr != endItr ; ++itr )
+					for ( ; itr != endItr ; ++itr )
 					{
 						GCDeleteInventoryItem gcDII;
-						gcDII.setObjectID((*itr)->getObjectID());
-						pPC->getPlayer()->sendPacket(&gcDII);
+						gcDII.setObjectID( (*itr)->getObjectID() );
+						pPC->getPlayer()->sendPacket( &gcDII );
 						(*itr)->destroy();
-						SAFE_DELETE(*itr);
+						SAFE_DELETE( *itr );
 					}
 
 					iList.clear();
 				}
 				else
 				{
-					filelog("EventBug.txt", "CGLotterySelectHandler : 복권 선택이 날라왔는데 완료한 퀘스트가 없다. -_-; %s[%d:%d]",
-							pPC->getName().c_str(), pPacket->getQuestLevel(), pPacket->getGiftID());
+					filelog( "EventBug.txt", "CGLotterySelectHandler : 복권 선택이 날라왔는데 완료한 퀘스트가 없다. -_-; %s[%d:%d]",
+							pPC->getName().c_str(), pPacket->getQuestLevel(), pPacket->getGiftID() );
 
 					return;
 				}
 
 				GCNoticeEvent gcNE;
-				gcNE.setCode(NOTICE_EVENT_RESULT_LOTTERY);
-				if (bWinPrize(pPacket->getGiftID(), pPacket->getQuestLevel() ) ) 
+				gcNE.setCode( NOTICE_EVENT_RESULT_LOTTERY );
+				if ( bWinPrize( pPacket->getGiftID(), pPacket->getQuestLevel() ) ) 
 				{
 					// PlayerCreature 에 정보를 저장한다
 					pPC->setLotto(true);
-					pPC->setLottoRewardID(pPacket->getGiftID());
-					pPC->setLottoQuestLevel(pPacket->getQuestLevel());
-					gcNE.setParameter((uint)1);
+					pPC->setLottoRewardID( pPacket->getGiftID() );
+					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
+					gcNE.setParameter( (uint)1 );
 				}
 				else
 				{
 					// PlayerCreature 에 정보를 저장한다
 					pPC->setLotto(false);
-					pPC->setLottoRewardID(pPacket->getGiftID());
-					pPC->setLottoQuestLevel(pPacket->getQuestLevel());
-					gcNE.setParameter((uint)0);
+					pPC->setLottoRewardID( pPacket->getGiftID() );
+					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
+					gcNE.setParameter( (uint)0 );
 				}
-				pGP->sendPacket(&gcNE);
+				pGP->sendPacket( &gcNE );
 
-				filelog("EventQuest.log", "CGLotterySelectHandler : %d to %s", gcNE.getParameter(), pPC->getName().c_str());
+				filelog( "EventQuest.log", "CGLotterySelectHandler : %d to %s", gcNE.getParameter(), pPC->getName().c_str() );
 			}
 			break;
 		case TYPE_FINISH_SCRATCH:
 			{
 				// 당첨된 경우 디비에 저장
-				if (pPC->isLotto() )
+				if ( pPC->isLotto() )
 				{
 					// 다시 false 로 만들어줘야함.
 					// 아님 담번 퀘스트에서 무조건 당첨으로 처리되니 ;;
@@ -140,10 +144,10 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					{
 						pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-						pStmt->executeQuery("INSERT INTO EventQuestRewardRecord (PlayerID, RewardID, Time, RealPlayerID) VALUES ('%s', %d, now(), '%s' )",
+						pStmt->executeQuery( "INSERT INTO EventQuestRewardRecord (PlayerID, RewardID, Time, RealPlayerID) VALUES ( '%s', %d, now(), '%s' )",
 								pCreature->getName().c_str(),
 								pPC->getLottoRewardID(),
-								pPC->getPlayer()->getID().c_str());
+								pPC->getPlayer()->getID().c_str() );
 
 						SAFE_DELETE(pStmt);
 					}
@@ -151,16 +155,16 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 
 					// 이쪽 서버에 브로드 캐스트 하고 (allworld 는 해당 서버는 처리 안함)
 					GCNotifyWin gcNW;
-					gcNW.setGiftID(pPC->getLottoRewardID());
-					gcNW.setName(pCreature->getName());
+					gcNW.setGiftID( pPC->getLottoRewardID() );
+					gcNW.setName( pCreature->getName() );
 
-					g_pZoneGroupManager->broadcast(&gcNW);
+					g_pZoneGroupManager->broadcast( &gcNW );
 
 					// 전 월드에 브로드캐스트해준다 
 					char sCommand[200];
-					string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt("WorldID" ))->getName();
-					sprintf(sCommand, "*allworld *command NotifyWin %s(%s) %lu", pCreature->getName().c_str(), worldName.c_str(), pPC->getLottoRewardID());
-					CGSayHandler::opworld(NULL, sCommand, 0, false);
+					string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt( "WorldID" ))->getName();
+					sprintf( sCommand, "*allworld *command NotifyWin %s(%s) %lu", pCreature->getName().c_str(), worldName.c_str(), pPC->getLottoRewardID() );
+					CGSayHandler::opworld( NULL, sCommand, 0, false );
 
 				}
 				else
@@ -174,11 +178,18 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					bool isUnique = false;
 					MonsterType_t masterType;
 
-					switch(pPC->getLottoQuestLevel() )
-//					switch(pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() )
+					// 뒤寧몸훨蛟꼇못훨부膠틔
+// 					if (pPC->getLottoQuestLevel()== 0 )
+// 					{
+// 						return;
+// 					}
+					switch( pPC->getLottoQuestLevel() )
+//					switch( pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel() )
 					{
 						case 0:
 							{
+								// 뒤寧몸훨蛟꼇못훨부膠틔
+								return;
 								static const string options1[] =
 								{
 									"STR+2",
@@ -196,103 +207,103 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 									"ASPD+3",
 									"HP+3"
 								};
-								if (pPC->isSlayer() )
+								if ( pPC->isSlayer() )
 								{
 									Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-									QuestGrade_t qGrade = pSlayer->getTotalAttr(ATTR_BASIC);
+									QuestGrade_t qGrade = pSlayer->getTotalAttr( ATTR_BASIC );
 
 									iClass = Item::ITEM_CLASS_RING;
 
-									if (qGrade < 131 )
+									if ( qGrade < 131 )
 									{
 										iType = 1;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (qGrade < 211 )
+									else if ( qGrade < 211 )
 									{
 										iType = 2;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (qGrade < 271 )
+									else if ( qGrade < 271 )
 									{
 										iType = 3;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
-									else if (qGrade < 300 )
+									else if ( qGrade < 300 )
 									{
 										iType = 4;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 5;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 								}
-								else if (pPC->isVampire() )
+								else if ( pPC->isVampire() )
 								{
 									Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 									Level_t level = pVampire->getLevel();
 
 									iClass = Item::ITEM_CLASS_VAMPIRE_RING;
 
-									if (level < 31 )
+									if ( level < 31 )
 									{
 										iType = 1;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (level < 51 )
+									else if ( level < 51 )
 									{
 										iType = 2;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (level < 71 )
+									else if ( level < 71 )
 									{
 										iType = 3;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
-									else if (level < 91 )
+									else if ( level < 91 )
 									{
 										iType = 4;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 5;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 								}
-								else if (pPC->isOusters() )
+								else if ( pPC->isOusters() )
 								{
 									Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 									Level_t level = pOusters->getLevel();
 
 									iClass = Item::ITEM_CLASS_OUSTERS_RING;
 
-									if (level < 31 )
+									if ( level < 31 )
 									{
 										iType = 1;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (level < 51 )
+									else if ( level < 51 )
 									{
 										iType = 2;
-										makeOptionList(options1[ rand()%5 ], oList);
+										makeOptionList( options1[ rand()%5 ], oList );
 									}
-									else if (level < 71 )
+									else if ( level < 71 )
 									{
 										iType = 3;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
-									else if (level < 91 )
+									else if ( level < 91 )
 									{
 										iType = 4;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 5;
-										makeOptionList(options2[ rand()%5 ], oList);
+										makeOptionList( options2[ rand()%5 ], oList );
 									}
 								}
 							}
@@ -331,103 +342,103 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 									"LUCK+2",
 									"HP+3"
 								};
-								if (pPC->isSlayer() )
+								if ( pPC->isSlayer() )
 								{
 									Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-									QuestGrade_t qGrade = pSlayer->getTotalAttr(ATTR_BASIC);
+									QuestGrade_t qGrade = pSlayer->getTotalAttr( ATTR_BASIC );
 
 									iClass = Item::ITEM_CLASS_RING;
 
-									if (qGrade < 131 )
+									if ( qGrade < 131 )
 									{
 										iType = 2;
-										makeOptionList(oSlayer1[ rand()%5 ], oList);
+										makeOptionList( oSlayer1[ rand()%5 ], oList );
 									}
-									else if (qGrade < 211 )
+									else if ( qGrade < 211 )
 									{
 										iType = 3;
-										makeOptionList(oSlayer1[ rand()%5 ], oList);
+										makeOptionList( oSlayer1[ rand()%5 ], oList );
 									}
-									else if (qGrade < 271 )
+									else if ( qGrade < 271 )
 									{
 										iType = 4;
-										makeOptionList(oSlayer2[ rand()%5 ], oList);
+										makeOptionList( oSlayer2[ rand()%5 ], oList );
 									}
-									else if (qGrade < 300 )
+									else if ( qGrade < 300 )
 									{
 										iType = 5;
-										makeOptionList(oSlayer2[ rand()%5 ], oList);
+										makeOptionList( oSlayer2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 6;
-										makeOptionList(oSlayer2[ rand()%5 ], oList);
+										makeOptionList( oSlayer2[ rand()%5 ], oList );
 									}
 								}
-								else if (pPC->isVampire() )
+								else if ( pPC->isVampire() )
 								{
 									Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 									Level_t level = pVampire->getLevel();
 
 									iClass = Item::ITEM_CLASS_VAMPIRE_RING;
 									
-									if (level < 31 )
+									if ( level < 31 )
 									{
 										iType = 2;
-										makeOptionList(oVampire1[ rand()%5 ], oList);
+										makeOptionList( oVampire1[ rand()%5 ], oList );
 									}
-									else if (level < 51 )
+									else if ( level < 51 )
 									{
 										iType = 3;
-										makeOptionList(oVampire1[ rand()%5 ], oList);
+										makeOptionList( oVampire1[ rand()%5 ], oList );
 									}
-									else if (level < 71 )
+									else if ( level < 71 )
 									{
 										iType = 4;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
-									else if (level < 91 )
+									else if ( level < 91 )
 									{
 										iType = 5;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 6;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
 								}
-								else if (pPC->isOusters() )
+								else if ( pPC->isOusters() )
 								{
 									Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 									Level_t level = pOusters->getLevel();
 
 									iClass = Item::ITEM_CLASS_OUSTERS_RING;
 									
-									if (level < 31 )
+									if ( level < 31 )
 									{
 										iType = 2;
-										makeOptionList(oVampire1[ rand()%5 ], oList);
+										makeOptionList( oVampire1[ rand()%5 ], oList );
 									}
-									else if (level < 51 )
+									else if ( level < 51 )
 									{
 										iType = 3;
-										makeOptionList(oVampire1[ rand()%5 ], oList);
+										makeOptionList( oVampire1[ rand()%5 ], oList );
 									}
-									else if (level < 71 )
+									else if ( level < 71 )
 									{
 										iType = 4;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
-									else if (level < 91 )
+									else if ( level < 91 )
 									{
 										iType = 5;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
 									else
 									{
 										iType = 6;
-										makeOptionList(oVampire2[ rand()%5 ], oList);
+										makeOptionList( oVampire2[ rand()%5 ], oList );
 									}
 								}
 							}
@@ -447,7 +458,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 						case 4:
 							{
 								isTimeLimit = true;
-								if (pPC->isSlayer() )
+								if ( pPC->isSlayer() )
 								{
 									isUnique = true;
 									static const Item::ItemClass iClasses[] =
@@ -477,7 +488,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 									iClass = iClasses[index];
 									iType = iTypes[index];
 								}
-								else if (pPC->isVampire() )
+								else if ( pPC->isVampire() )
 								{
 									isUnique = true;
 									static const Item::ItemClass iClasses[] =
@@ -504,7 +515,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 									iClass = iClasses[index];
 									iType = iTypes[index];
 								}
-								else if (pPC->isOusters() )
+								else if ( pPC->isOusters() )
 								{
 									static const Item::ItemClass iClasses[] =
 									{
@@ -544,9 +555,9 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 									int option1 = rand()%10;
 									int option2 = rand()%10;
 
-									while (option1 == option2 ) option2 = rand()%10;
+									while ( option1 == option2 ) option2 = rand()%10;
 
-									makeOptionList(options[ option1 ] + "," + options[ option2 ], oList);
+									makeOptionList( options[ option1 ] + "," + options[ option2 ], oList );
 								}
 							}
 							break;
@@ -556,16 +567,16 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 
 					Item* pItem;
 
-					if (isLairItem )
+					if ( isLairItem )
 					{
 						const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(masterType);
 						TreasureList *pTreasureList = NULL;
 
 						if (pPC->isSlayer())
 							pTreasureList = pMonsterInfo->getSlayerTreasureList();
-						else if (pPC->isVampire() )
+						else if ( pPC->isVampire() )
 							pTreasureList = pMonsterInfo->getVampireTreasureList();
-						else if (pPC->isOusters() )
+						else if ( pPC->isOusters() )
 							pTreasureList = pMonsterInfo->getOustersTreasureList();
 
 						const list<Treasure*>& treasures = pTreasureList->getTreasures();
@@ -585,7 +596,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 
 							//cout << "TradeLairItem: BonusRatio = " << it.NextOptionRatio << endl;
 
-							if (pTreasure->getRandomItem(&it) )
+							if ( pTreasure->getRandomItem(&it) )
 							{
 								pItem = g_pItemFactoryManager->createItem(it.ItemClass, it.ItemType, it.OptionType);
 								Assert(pItem != NULL);
@@ -595,11 +606,11 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					}
 					else
 					{
-						pItem = g_pItemFactoryManager->createItem(iClass, iType, oList);
+						pItem = g_pItemFactoryManager->createItem( iClass, iType, oList );
 					}
 
 					GenderRestriction gender = GENDER_BOTH;
-					switch(pPC->getSex() )
+					switch( pPC->getSex() )
 					{
 						case MALE:
 							gender = GENDER_MALE;
@@ -611,48 +622,48 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 							break;
 					}
 
-					setItemGender(pItem, gender);
+					setItemGender( pItem, gender );
 
 					_TPOINT tp;
 
-					if (pItem != NULL && pPC->getInventory()->addItem(pItem, tp ) )
+					if ( pItem != NULL && pPC->getInventory()->addItem( pItem, tp ) )
 					{
-						pPC->getZone()->registerObject(pItem);
-						pItem->create(pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y);
+						pPC->getZone()->registerObject( pItem );
+						pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, tp.x, tp.y );
 
-						if (isTimeLimit )
+						if ( isTimeLimit )
 						{
-							pPC->addTimeLimitItem(pItem, 604800);
+							pPC->addTimeLimitItem( pItem, 604800 );
 							pPC->sendTimeLimitItemInfo();
 						}
 
 						GCCreateItem gcCreateItem;
-						makeGCCreateItem(&gcCreateItem, pItem, tp.x, tp.y);
-						pPC->getPlayer()->sendPacket(&gcCreateItem);
+						makeGCCreateItem( &gcCreateItem, pItem, tp.x, tp.y );
+						pPC->getPlayer()->sendPacket( &gcCreateItem );
 
-						remainTraceLog(pItem, "GOD", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+						remainTraceLog( pItem, "GOD", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 					}
 					else
 					{
-						if (isUnique )
+						if ( isUnique )
 							pItem->setUnique();
 
-						if (isTimeLimit )
+						if ( isTimeLimit )
 							pItem->setTimeLimitItem();
 
-						pPC->setQuestItem(pItem);
+						pPC->setQuestItem( pItem );
 
-						remainTraceLog(pItem, "GOD", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
+						remainTraceLog( pItem, "GOD", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 					}
 
 				}
 
-				if (pPC->getLottoQuestLevel() == 4 )
+				if ( pPC->getLottoQuestLevel() == 4 )
 				{
 					pPC->getQuestManager()->cancelQuest();
 					GCNoticeEvent gcNE;
-					gcNE.setCode(NOTICE_EVENT_START_QUEST_ENDING);
-					pPC->getPlayer()->sendPacket(&gcNE);
+					gcNE.setCode( NOTICE_EVENT_START_QUEST_ENDING );
+					pPC->getPlayer()->sendPacket( &gcNE );
 				}
 			}
 			break;
@@ -660,9 +671,9 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			{
 				// 죽인다. // PlayerCreature 에서는 setHP 못 부를듯
 				//pPC->setHP(0);
-				if (pCreature != NULL )
+				if ( pCreature != NULL )
 				{
-					if (pCreature->isSlayer() )
+					if ( pCreature->isSlayer() )
 					{
 						Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 						pSlayer->setHP(0);

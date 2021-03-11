@@ -18,15 +18,15 @@
 
 	#include "item/Money.h"
 
-	#include "GCDeleteandPickUpOK.h"
-	#include "GCDeleteObject.h"
-	#include "GCSkillFailed1.h"
+	#include "Gpackets/GCDeleteandPickUpOK.h"
+	#include "Gpackets/GCDeleteObject.h"
+	#include "Gpackets/GCSkillFailed1.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGMakeItemHandler::execute (CGMakeItem* pPacket, Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG	

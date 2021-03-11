@@ -14,7 +14,7 @@
 // Constructor
 //////////////////////////////////////////////////////////////////////
 GCReloadOK::GCReloadOK()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ GCReloadOK::GCReloadOK()
 // Destructor
 //////////////////////////////////////////////////////////////////////
 GCReloadOK::~GCReloadOK()
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -38,7 +38,7 @@ GCReloadOK::~GCReloadOK()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCReloadOK::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void GCReloadOK::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCReloadOK::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ void GCReloadOK::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCReloadOK::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void GCReloadOK::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCReloadOK::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

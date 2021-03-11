@@ -28,8 +28,8 @@
 	#include "PKZoneInfoManager.h"
 	#include <stdio.h>
 
-	#include "GLIncomingConnection.h"
-	#include "GCSystemMessage.h"
+	#include "Gpackets/GLIncomingConnection.h"
+	#include "Gpackets/GCSystemMessage.h"
 #endif
 
 
@@ -38,7 +38,7 @@
 // 크리처와 아이템 정보를 DB에 저장한 후, 접속을 종료한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -69,14 +69,14 @@ void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
 	{
 		// 로그아웃할때 성물, 피의 성서 조각을 떨어뜨린다.
 //		bool bSendPacket = false;
-//		dropRelicToZone(pCreature, bSendPacket);
+//		dropRelicToZone( pCreature, bSendPacket );
 
-		if (pCreature->isPLAYER() && g_pPKZoneInfoManager->isPKZone(pCreature->getZoneID() ) )
+		if ( pCreature->isPLAYER() && g_pPKZoneInfoManager->isPKZone( pCreature->getZoneID() ) )
 		{
-			g_pPKZoneInfoManager->leavePKZone(pCreature->getZoneID());
+			g_pPKZoneInfoManager->leavePKZone( pCreature->getZoneID() );
 		}
 
-		if (g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 && pPacket==NULL )
+		if ( g_pConfig->hasKey("Hardcore") && g_pConfig->getPropertyInt("Hardcore")!=0 && pPacket==NULL )
 		{
 		}
 		else
@@ -84,17 +84,17 @@ void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
 			// 크리처의 정보를 저장한다.
 			pCreature->save();
 
-			if (pCreature->isSlayer() )
+			if ( pCreature->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 				pSlayer->tinysave("LastPlayDate=now()");
 			}
-			else if (pCreature->isVampire() )
+			else if ( pCreature->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 				pVampire->tinysave("LastPlayDate=now()");
 			}
-			else if (pCreature->isOusters() )
+			else if ( pCreature->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 				pOusters->tinysave("LastPlayDate=now()");
@@ -118,11 +118,11 @@ void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
 				ZoneCoord_t ZoneY = 0;
 				ZONE_COORD ResurrectCoord;
 
-				if (pCreature->isPC() )
+				if ( pCreature->isPC() )
 				{
 					PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-					g_pResurrectLocationManager->getPosition(pPC, ResurrectCoord);
+					g_pResurrectLocationManager->getPosition( pPC, ResurrectCoord );
 
 					ZoneID = ResurrectCoord.id;
 					ZoneX  = ResurrectCoord.x;
@@ -131,39 +131,22 @@ void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
 					char pField[80];
 					sprintf(pField, "ZoneID=%d, XCoord=%d, YCoord=%d, CurrentHP=HP", ZoneID, ZoneX, ZoneY);
 
-					if (pPC->isSlayer() )
+					if ( pPC->isSlayer() )
 					{
 						Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 						pSlayer->tinysave(pField);
 					}
-					else if (pPC->isVampire() )
+					else if ( pPC->isVampire() )
 					{
 						Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 						pVampire->tinysave(pField);
 					}
-					else if (pPC->isOusters() )
+					else if ( pPC->isOusters() )
 					{
 						Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 						pOusters->tinysave(pField);
 					}
 				}
-			}
-
-			// 포스 스크롤이 켜져 있으면 로그아웃하면저 저장한다.
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL) )
-			{
-				Effect* pEffect = pCreature->findEffect(Effect::EFFECT_CLASS_BEHEMOTH_FORCE_SCROLL);
-				pEffect->save(pCreature->getName());
-			}
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_SAFE_FORCE_SCROLL) )
-			{
-				Effect* pEffect = pCreature->findEffect(Effect::EFFECT_CLASS_SAFE_FORCE_SCROLL);
-				pEffect->save(pCreature->getName());
-			}
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL) )
-			{
-				Effect* pEffect = pCreature->findEffect(Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL);
-				pEffect->save(pCreature->getName());
 			}
 /*
 			if(pCreature->isSlayer())
@@ -260,18 +243,12 @@ void CGLogoutHandler::execute (CGLogout* pPacket , Player* pPlayer)
 
 	// 로그인 서버로 GLIncomingConnection을 보낸다.
 	// PlayerName과 ClientIP를 같이 실어서 보낸다.
-	/*
+	//add by zdj
 	GLIncomingConnection glIncomingConnection;
 	glIncomingConnection.setPlayerID(pGamePlayer->getID());
 	glIncomingConnection.setClientIP(pGamePlayer->getSocket()->getHost());
 
-	if (g_pConfig->getProperty("User") == "excel96")
-		g_pLoginServerManager->sendPacket("211.117.52.12" , g_pConfig->getPropertyInt("LoginServerUDPPort"), &glIncomingConnection);
-	else if (g_pConfig->getProperty("User") == "elcastle")
-		g_pLoginServerManager->sendPacket("211.117.52.12" , g_pConfig->getPropertyInt("LoginServerUDPPort"), &glIncomingConnection);
-	else if (g_pConfig->getProperty("User") == "elca")
-		g_pLoginServerManager->sendPacket("211.117.52.12" , g_pConfig->getPropertyInt("LoginServerUDPPort"), &glIncomingConnection);
-	*/
+	g_pLoginServerManager->sendPacket(g_pConfig->getProperty("LoginServerIP") , 9999, &glIncomingConnection);
 
 	pGamePlayer->setPlayerStatus(GPS_AFTER_SENDING_GL_INCOMING_CONNECTION);
 

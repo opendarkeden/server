@@ -15,7 +15,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 void GCNPCSayDynamicHandler::execute (GCNPCSayDynamic * pPacket , Player * pPlayer )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	

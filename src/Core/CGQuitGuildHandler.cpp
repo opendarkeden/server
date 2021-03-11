@@ -8,7 +8,7 @@
 
 #ifdef __GAME_SERVER__
 	#include "SystemAvailabilitiesManager.h"
-	#include "GSQuitGuild.h"
+	#include "Gpackets/GSQuitGuild.h"
 	#include "Guild.h"
 	#include "GuildManager.h"
 	#include "Player.h"
@@ -19,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGQuitGuildHandler::execute (CGQuitGuild* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -31,22 +31,22 @@ void CGQuitGuildHandler::execute (CGQuitGuild* pPacket , Player* pPlayer)
 	SYSTEM_ASSERT(SYSTEM_GUILD);
 
 	PlayerCreature* pPlayerCreature = dynamic_cast<PlayerCreature*>(pPlayer);
-	Assert(pPlayerCreature != NULL);
+	Assert( pPlayerCreature != NULL );
 
 	// 플레이어가 속한 길드를 가져온다.
-	Guild* pGuild = g_pGuildManager->getGuild(pPacket->getGuildID());
-	try { Assert(pGuild != NULL); } catch (Throwable& t ) { return; }
+	Guild* pGuild = g_pGuildManager->getGuild( pPacket->getGuildID() );
+	try { Assert( pGuild != NULL ); } catch ( Throwable& t ) { return; }
 
 	// 플레이어가 길드의 멤버인지 확인한다.
-	GuildMember* pGuildMember = pGuild->getMember(pPlayerCreature->getName());
-	if (pGuildMember == NULL )
+	GuildMember* pGuildMember = pGuild->getMember( pPlayerCreature->getName() );
+	if ( pGuildMember == NULL )
 		return;
 
 	GSQuitGuild gsQuitGuild;
-	gsQuitGuild.setGuildID(pGuild->getID());
-	gsQuitGuild.setName(pPlayerCreature->getName());
+	gsQuitGuild.setGuildID( pGuild->getID() );
+	gsQuitGuild.setName( pPlayerCreature->getName() );
 
-	g_pSharedServerManager->sendPacket(&gsQuitGuild);
+	g_pSharedServerManager->sendPacket( &gsQuitGuild );
 
 #endif	// __GAME_SERVER__
 		

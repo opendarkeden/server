@@ -16,7 +16,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 GCSkillInfo::GCSkillInfo ()
-	throw()
+	
 {
 }
 
@@ -24,7 +24,7 @@ GCSkillInfo::GCSkillInfo ()
 // destructor
 //--------------------------------------------------------------------------------
 GCSkillInfo::~GCSkillInfo ()
-	throw()
+	
 {
 	while(!m_pPCSkillInfoList.empty() ) 
 	{
@@ -38,7 +38,7 @@ GCSkillInfo::~GCSkillInfo ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
 void GCSkillInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -86,7 +86,7 @@ void GCSkillInfo::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
 void GCSkillInfo::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void GCSkillInfo::write (SocketOutputStream & oStream ) const
 // getSize
 //--------------------------------------------------------------------
 PacketSize_t GCSkillInfo::getPacketSize() const
-	throw()
+	
 {
 
 	PacketSize_t PacketSize = szBYTE;
@@ -130,7 +130,7 @@ PacketSize_t GCSkillInfo::getPacketSize() const
 // execute packet's handler
 //--------------------------------------------------------------------------------
 void GCSkillInfo::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -144,7 +144,7 @@ void GCSkillInfo::execute (Player * pPlayer )
 // get packet's debug string
 //--------------------------------------------------------------------------------
 string GCSkillInfo::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

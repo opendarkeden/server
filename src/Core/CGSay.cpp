@@ -11,7 +11,7 @@
 #endif
 
 void CGSay::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ void CGSay::read (SocketInputStream & iStream)
 }
 
 void CGSay::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -55,7 +55,7 @@ void CGSay::write (SocketOutputStream & oStream) const
 }
 
 void CGSay::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -65,7 +65,7 @@ void CGSay::execute (Player* pPlayer)
 }
 
 string CGSay::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

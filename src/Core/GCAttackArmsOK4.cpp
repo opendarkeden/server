@@ -19,7 +19,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCAttackArmsOK4::GCAttackArmsOK4 ()
-     throw()
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ GCAttackArmsOK4::GCAttackArmsOK4 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCAttackArmsOK4::~GCAttackArmsOK4 ()
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -44,7 +44,7 @@ GCAttackArmsOK4::~GCAttackArmsOK4 ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK4::read (SocketInputStream & iStream )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -64,7 +64,7 @@ void GCAttackArmsOK4::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK4::write (SocketOutputStream & oStream )
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -85,7 +85,7 @@ void GCAttackArmsOK4::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCAttackArmsOK4::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -101,7 +101,7 @@ void GCAttackArmsOK4::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAttackArmsOK4::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

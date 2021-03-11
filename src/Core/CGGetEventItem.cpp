@@ -7,7 +7,7 @@
 #include "CGGetEventItem.h"
 
 void CGGetEventItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CGGetEventItem::read (SocketInputStream & iStream)
 }
 
 void CGGetEventItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGGetEventItem::write (SocketOutputStream & oStream) const
 }
 
 void CGGetEventItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGGetEventItem::execute (Player* pPlayer)
 }
 
 string CGGetEventItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 void GCAddBat::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -46,7 +46,7 @@ void GCAddBat::read (SocketInputStream & iStream )
 }
 
 void GCAddBat::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void GCAddBat::write (SocketOutputStream & oStream ) const
 }
 
 void GCAddBat::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -90,7 +90,7 @@ void GCAddBat::execute (Player * pPlayer )
 }
 
 string GCAddBat::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

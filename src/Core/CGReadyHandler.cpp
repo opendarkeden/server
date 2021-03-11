@@ -20,7 +20,7 @@
 // 플레이어를 IPM에서 ZPM으로 옮긴다.
 //////////////////////////////////////////////////////////////////////////////
 void CGReadyHandler::execute (CGReady* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG_EX

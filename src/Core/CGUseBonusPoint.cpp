@@ -7,21 +7,21 @@
 #include "CGUseBonusPoint.h"
 
 CGUseBonusPoint::CGUseBonusPoint () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGUseBonusPoint::~CGUseBonusPoint () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGUseBonusPoint::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGUseBonusPoint::read (SocketInputStream & iStream)
 }
 
 void CGUseBonusPoint::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -41,7 +41,7 @@ void CGUseBonusPoint::write (SocketOutputStream & oStream) const
 }
 
 void CGUseBonusPoint::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void CGUseBonusPoint::execute (Player* pPlayer)
 }
 
 string CGUseBonusPoint::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

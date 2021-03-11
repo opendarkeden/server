@@ -7,7 +7,7 @@
 #include "CGRequestRepair.h"
 
 void CGRequestRepair::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGRequestRepair::read (SocketInputStream & iStream)
 }
 
 void CGRequestRepair::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGRequestRepair::write (SocketOutputStream & oStream) const
 }
 
 void CGRequestRepair::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGRequestRepair::execute (Player* pPlayer)
 }
 
 string CGRequestRepair::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

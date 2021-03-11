@@ -13,13 +13,13 @@
 
 	#include "item/Motorcycle.h"
 
-	#include "GCCastingSkill.h"
+	#include "Gpackets/GCCastingSkill.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGCastingSkillHandler::execute (CGCastingSkill* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

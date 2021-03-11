@@ -18,7 +18,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCAddEffectToTile::GCAddEffectToTile () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -29,7 +29,7 @@ GCAddEffectToTile::GCAddEffectToTile ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCAddEffectToTile::~GCAddEffectToTile () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -40,7 +40,7 @@ GCAddEffectToTile::~GCAddEffectToTile ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAddEffectToTile::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -59,7 +59,7 @@ void GCAddEffectToTile::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAddEffectToTile::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void GCAddEffectToTile::write (SocketOutputStream & oStream )
 //
 //////////////////////////////////////////////////////////////////////
 void GCAddEffectToTile::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -96,7 +96,7 @@ void GCAddEffectToTile::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAddEffectToTile::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

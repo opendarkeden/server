@@ -14,7 +14,7 @@
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void CGPortCheck::read (Datagram & iDatagram ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGPortCheck::read (Datagram & iDatagram )
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void CGPortCheck::write (Datagram & oDatagram ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ void CGPortCheck::write (Datagram & oDatagram ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void CGPortCheck::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -81,7 +81,7 @@ void CGPortCheck::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 string CGPortCheck::toString () const
-    throw()
+    
 {
 	StringStream msg;
 

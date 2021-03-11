@@ -28,12 +28,12 @@
 	#include "item/ComposMei.h"
 	#include "item/EventETC.h"
 
-	#include "GCCannotUse.h"
-	#include "GCUseOK.h"
-	#include "GCStatusCurrentHP.h"
-	#include "GCHPRecoveryStartToSelf.h"
-	#include "GCHPRecoveryStartToOthers.h"
-	#include "GCMPRecoveryStart.h"
+	#include "Gpackets/GCCannotUse.h"
+	#include "Gpackets/GCUseOK.h"
+	#include "Gpackets/GCStatusCurrentHP.h"
+	#include "Gpackets/GCHPRecoveryStartToSelf.h"
+	#include "Gpackets/GCHPRecoveryStartToOthers.h"
+	#include "Gpackets/GCMPRecoveryStart.h"
 #endif
 
 #define	 DELAY_PROVIDER	 2
@@ -43,7 +43,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -68,7 +68,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 	}
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
-	if (pPC == NULL ) return;
+	if ( pPC == NULL ) return;
 
 	Inventory* pInventory = pPC->getInventory();
 	Zone*      pZone      = pPC->getZone();
@@ -95,7 +95,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 		return;
 	}
 
-	if (pPC->getStore()->getItemIndex(pItem) != 0xff )
+	if ( pPC->getStore()->getItemIndex(pItem) != 0xff )
 	{
 		GCCannotUse _GCCannotUse;
 		_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -114,59 +114,59 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 		return;
 	}
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ETC )
+	if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ETC )
 	{
-		if (pItem->getItemType() >= 14 && !pCreature->isFlag(Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
+		if ( pItem->getItemType() >= 14 && !pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
 		{
-			EventETCInfo* pInfo = dynamic_cast<EventETCInfo*>(g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType() ));
-			Assert(pInfo != NULL);
+			EventETCInfo* pInfo = dynamic_cast<EventETCInfo*>(g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() ));
+			Assert( pInfo != NULL );
 
 			int amount = pInfo->getFunction();
 
 			GCModifyInformation gcMI;
 			bool HPRegen=false, MPRegen=false;
 			HP_t CurrentHP = 0, MaxHP = 0;
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 				CurrentHP = pSlayer->getHP();
 				MaxHP = pSlayer->getHP(ATTR_MAX);
 			}
-			else if (pPC->isVampire() )
+			else if ( pPC->isVampire() )
 			{
 				Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 				CurrentHP = pVampire->getHP();
 				MaxHP = pVampire->getHP(ATTR_MAX);
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 				CurrentHP = pOusters->getHP();
 				MaxHP = pOusters->getHP(ATTR_MAX);
 			}
 
-			if (CurrentHP < MaxHP )
+			if ( CurrentHP < MaxHP )
 			{
 				CurrentHP += min(amount, MaxHP-CurrentHP);
 				GCStatusCurrentHP gcHP;
 				gcHP.setObjectID(pPC->getObjectID());
 				gcHP.setCurrentHP(CurrentHP);
-				pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcHP);
+				pZone->broadcastPacket( pPC->getX(), pPC->getY(), &gcHP );
 
 				gcMI.addLongData(MODIFY_CURRENT_HP, CurrentHP);
 				HPRegen = true;
 
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 					pSlayer->setHP(CurrentHP);
 				}
-				else if (pPC->isVampire() )
+				else if ( pPC->isVampire() )
 				{
 					Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 					pVampire->setHP(CurrentHP);
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 					pOusters->setHP(CurrentHP);
@@ -174,38 +174,38 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 			}
 
 			MP_t CurrentMP = 0, MaxMP = 0;
-			if (pPC->isSlayer() )
+			if ( pPC->isSlayer() )
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 				CurrentMP = pSlayer->getMP();
 				MaxMP = pSlayer->getMP(ATTR_MAX);
 			}
-			else if (pPC->isOusters() )
+			else if ( pPC->isOusters() )
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 				CurrentMP = pOusters->getMP();
 				MaxMP = pOusters->getMP(ATTR_MAX);
 			}
 
-			if (CurrentMP < MaxMP )
+			if ( CurrentMP < MaxMP )
 			{
 				CurrentMP += min(amount, MaxMP-CurrentMP);
 				gcMI.addLongData(MODIFY_CURRENT_MP, CurrentMP);
 				MPRegen = true;
 
-				if (pPC->isSlayer() )
+				if ( pPC->isSlayer() )
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 					pSlayer->setMP(CurrentMP);
 				}
-				else if (pPC->isOusters() )
+				else if ( pPC->isOusters() )
 				{
 					Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
 					pOusters->setMP(CurrentMP);
 				}
 			}
 
-			if (!HPRegen && !MPRegen )
+			if ( !HPRegen && !MPRegen )
 			{
 				GCCannotUse _GCCannotUse;
 				_GCCannotUse.setObjectID(pPacket->getObjectID());
@@ -215,7 +215,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 			else
 			{
 				decreaseItemNum(pItem, pInventory, pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
-				pPlayer->sendPacket(&gcMI);
+				pPlayer->sendPacket( &gcMI );
 
 				GCUseOK _GCUseOK;
 				pGamePlayer->sendPacket(&_GCUseOK);
@@ -265,7 +265,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 		// Activation Effect가 걸려있다면 회복속도가 2배가 된다.
 		if (pSlayer->isFlag(Effect::EFFECT_CLASS_ACTIVATION))
 		{
-			if (pPotion->getItemType() >= 14 && pPotion->getItemType() <= 17 )
+			if ( pPotion->getItemType() >= 14 && pPotion->getItemType() <= 17 )
 			{
 				// 쓸 수는 있다.
 			}
@@ -482,7 +482,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 	{
 		Vampire*   pVampire   = dynamic_cast<Vampire*>(pCreature);
 
-		if (pItem->getItemClass() != Item::ITEM_CLASS_SERUM
+		if ( pItem->getItemClass() != Item::ITEM_CLASS_SERUM
 			// Mephisto 이펙트가 걸려있으면 혈청 못 먹는다.
 			|| pVampire->isFlag(Effect::EFFECT_CLASS_MEPHISTO)
 			)
@@ -542,7 +542,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 					GCHPRecoveryStartToOthers gcHPRecoveryStartToOthers;
 					gcHPRecoveryStartToOthers.setObjectID(pVampire->getObjectID());
 					gcHPRecoveryStartToOthers.setPeriod(NewPeriod);
-					gcHPRecoveryStartToOthers.setDelay(RegenPeriod);
+					gcHPRecoveryStartToOthers.setDelay(RegenPeriod );
 					gcHPRecoveryStartToOthers.setQuantity(RegenHPUnit);
 
 					pZone->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcHPRecoveryStartToOthers, pVampire);
@@ -615,7 +615,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 		HP_t PupaHPAmount = 0;
 		int HPAmount = 0;
 
-		if (pItem->getItemClass() == Item::ITEM_CLASS_PUPA )
+		if ( pItem->getItemClass() == Item::ITEM_CLASS_PUPA )
 		{
 			MaxHP    = pOusters->getHP(ATTR_MAX);
 			CurrentHP= pOusters->getHP(ATTR_CURRENT);
@@ -632,7 +632,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 			
 			HPAmount = min(MaxHP - CurrentHP , (int)PupaHPAmount);
 		}
-		else if (pItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
+		else if ( pItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
 		{
 			MaxHP    = pOusters->getHP(ATTR_MAX);
 			CurrentHP= pOusters->getHP(ATTR_CURRENT);
@@ -752,7 +752,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 		MP_t ComposMeiMPAmount = 0;
 		int MPAmount = 0;
 
-		if (pItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
+		if ( pItem->getItemClass() == Item::ITEM_CLASS_COMPOS_MEI )
 		{
 			MaxMP    = pOusters->getMP(ATTR_MAX);
 			CurrentMP= pOusters->getMP(ATTR_CURRENT);
@@ -770,7 +770,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 			
 			MPAmount = min(MaxMP - CurrentMP , (int)(ComposMeiMPAmount* (double)(1 + (double)((double)INT / 300.0))));
 		}
-		else if (pItem->getItemClass() == Item::ITEM_CLASS_PUPA )
+		else if ( pItem->getItemClass() == Item::ITEM_CLASS_PUPA )
 		{
 			MaxMP    = pOusters->getMP(ATTR_MAX);
 			CurrentMP= pOusters->getMP(ATTR_CURRENT);
@@ -866,7 +866,7 @@ void CGUsePotionFromInventoryHandler::execute (CGUsePotionFromInventory* pPacket
 //			decreaseItemNum(pItem, pInventory, pOusters->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 		}
 
-		if (regenMP || regenHP )
+		if ( regenMP || regenHP )
 		{
 			decreaseItemNum(pItem, pInventory, pOusters->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 		}

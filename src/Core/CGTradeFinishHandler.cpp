@@ -22,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeFinishHandler::execute (CGTradeFinish* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -133,7 +133,7 @@ void CGTradeFinishHandler::execute (CGTradeFinish* pPacket , Player* pPlayer)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeFinishHandler::executeSlayer (CGTradeFinish* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -276,7 +276,7 @@ void CGTradeFinishHandler::executeSlayer (CGTradeFinish* pPacket , Player* pPlay
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeFinishHandler::executeVampire (CGTradeFinish* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -416,7 +416,7 @@ void CGTradeFinishHandler::executeVampire (CGTradeFinish* pPacket , Player* pPla
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeFinishHandler::executeOusters (CGTradeFinish* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -556,7 +556,7 @@ void CGTradeFinishHandler::executeOusters (CGTradeFinish* pPacket , Player* pPla
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTradeFinishHandler::executeError(CGTradeFinish* pPacket, Player* pPlayer, BYTE ErrorCode)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

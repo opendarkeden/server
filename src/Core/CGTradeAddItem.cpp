@@ -7,7 +7,7 @@
 #include "CGTradeAddItem.h"
 
 void CGTradeAddItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ void CGTradeAddItem::read (SocketInputStream & iStream)
 }
 
 void CGTradeAddItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void CGTradeAddItem::write (SocketOutputStream & oStream) const
 }
 
 void CGTradeAddItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void CGTradeAddItem::execute (Player* pPlayer)
 }
 
 string CGTradeAddItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

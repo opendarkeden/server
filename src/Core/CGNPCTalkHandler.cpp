@@ -37,7 +37,7 @@ const string DiffClanSpeech[] =
 // 연관된 액션을 실행한다.
 //////////////////////////////////////////////////////////////////////////////
 void CGNPCTalkHandler::execute (CGNPCTalk* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG

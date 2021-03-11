@@ -26,7 +26,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGTypeStringListHandler::execute (CGTypeStringList* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -65,7 +65,7 @@ void CGTypeStringListHandler::execute (CGTypeStringList* pPacket , Player* pPlay
 }
 
 void CGTypeStringListHandler::executeWaitForMeet(CGTypeStringList* pPacket, Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __GAME_SERVER__
@@ -117,7 +117,7 @@ void CGTypeStringListHandler::executeWaitForMeet(CGTypeStringList* pPacket, Play
     __END_DEBUG_EX __END_CATCH
 }
 void CGTypeStringListHandler::executeWaitForApart(CGTypeStringList* pPacket, Player* pPlayer) 
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __GAME_SERVER__
@@ -168,7 +168,7 @@ void CGTypeStringListHandler::executeWaitForApart(CGTypeStringList* pPacket, Pla
 }
 
 void CGTypeStringListHandler::executeApartForce(CGTypeStringList* pPacket, Player* pPlayer )
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __GAME_SERVER__

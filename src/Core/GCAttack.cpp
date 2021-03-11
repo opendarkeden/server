@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCAttack::GCAttack () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -27,7 +27,7 @@ GCAttack::GCAttack ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCAttack::~GCAttack () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,7 +38,7 @@ GCAttack::~GCAttack ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCAttack::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -55,7 +55,7 @@ void GCAttack::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCAttack::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -72,7 +72,7 @@ void GCAttack::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCAttack::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ void GCAttack::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 string GCAttack::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

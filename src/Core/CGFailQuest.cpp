@@ -7,7 +7,7 @@
 
 
 void CGFailQuest::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CGFailQuest::read (SocketInputStream & iStream)
 }
 
 void CGFailQuest::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGFailQuest::write (SocketOutputStream & oStream) const
 }
 
 void CGFailQuest::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGFailQuest::execute (Player* pPlayer)
 }
 
 string CGFailQuest::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

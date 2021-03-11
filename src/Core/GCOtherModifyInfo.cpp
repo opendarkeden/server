@@ -7,7 +7,7 @@
 #include "GCOtherModifyInfo.h"
 
 void GCOtherModifyInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -18,7 +18,7 @@ void GCOtherModifyInfo::read (SocketInputStream & iStream )
 }
 		    
 void GCOtherModifyInfo::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 		
@@ -29,7 +29,7 @@ void GCOtherModifyInfo::write (SocketOutputStream & oStream )
 }
 
 void GCOtherModifyInfo::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -39,7 +39,7 @@ void GCOtherModifyInfo::execute (Player * pPlayer )
 }
 
 string GCOtherModifyInfo::toString () const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

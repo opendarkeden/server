@@ -12,7 +12,7 @@
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCShowUnionInfo::~GCShowUnionInfo()
-    throw()
+    
 {
     __BEGIN_TRY
     while (!m_GuildList.empty())
@@ -29,7 +29,7 @@ GCShowUnionInfo::~GCShowUnionInfo()
     __END_CATCH
 }
 
-PacketSize_t GCShowUnionInfo::getPacketSize() const throw()
+PacketSize_t GCShowUnionInfo::getPacketSize() const 
 {
 	PacketSize_t ret = m_MasterGuildInfo.getSize() + szBYTE;
 
@@ -47,7 +47,7 @@ PacketSize_t GCShowUnionInfo::getPacketSize() const throw()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCShowUnionInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void GCShowUnionInfo::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCShowUnionInfo::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ void GCShowUnionInfo::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCShowUnionInfo::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -108,7 +108,7 @@ void GCShowUnionInfo::execute (Player * pPlayer )
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
 string GCShowUnionInfo::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

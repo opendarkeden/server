@@ -49,7 +49,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -360,7 +360,7 @@ ERROR:
 //////////////////////////////////////////////////////////////////////////////
 /*
 void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

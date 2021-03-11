@@ -10,13 +10,13 @@
 	#include "GamePlayer.h"
 	#include "Zone.h"
 	#include "ZoneUtil.h"
-	#include "GCVisibleFail.h"
+	#include "Gpackets/GCVisibleFail.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGVisibleHandler::execute (CGVisible* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

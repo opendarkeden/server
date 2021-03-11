@@ -15,15 +15,15 @@
 	#include "ZonePlayerManager.h"
 	#include "ZoneUtil.h"
 
-	#include "GCAttack.h"
-	#include "GCGetDamage.h"
-	#include "GCSkillFailed1.h"
+	#include "Gpackets/GCAttack.h"
+	#include "Gpackets/GCGetDamage.h"
+	#include "Gpackets/GCSkillFailed1.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGBloodDrainHandler::execute (CGBloodDrain* pPacket , Player* pPlayer)
-	     throw(Error)
+	     
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG
@@ -50,33 +50,22 @@ void CGBloodDrainHandler::execute (CGBloodDrain* pPacket , Player* pPlayer)
 
 			// 완전 안전지대라면 기술 사용 불가. by sigi. 2002.11.14
 			ZoneLevel_t ZoneLevel = pCreature->getZone()->getZoneLevel(pCreature->getX(), pCreature->getY());
-			if ((ZoneLevel & COMPLETE_SAFE_ZONE) ||
-                (!isAbleToUseObjectSkill(pVampire, SKILL_BLOOD_DRAIN)) ||
-                (pVampire->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
-                (pVampire->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||
-                (pVampire->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER)) ||
-                (pVampire->isFlag(Effect::EFFECT_CLASS_COMA)))
+			if ((ZoneLevel & COMPLETE_SAFE_ZONE)
+				|| (!isAbleToUseObjectSkill(pVampire, SKILL_BLOOD_DRAIN)))
 			{
 				GCSkillFailed1 gcSkillFailed1;
 				gcSkillFailed1.setSkillType(SKILL_BLOOD_DRAIN);
 				pPlayer->sendPacket(&gcSkillFailed1);
 				return;
 			}
-            if (pVampire->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF)) {
-                GCSkillFailed1 gcSkillFailed1;
-                gcSkillFailed1.setSkillType(SKILL_BLOOD_DRAIN);
-                pPlayer->sendPacket(&gcSkillFailed1);
-                dynamic_cast<Vampire*>(pCreature)->sendVampireSkillInfo();
-                return;
-            }
 			
 			// Dark Revenge 상태에서 흡혈을 시도하면 풀어준다.
 			if (pVampire->isFlag(Effect::EFFECT_CLASS_EXTREME))
 			{
 				EffectManager * pEffectManager = pVampire->getEffectManager();
-				Assert(pEffectManager != NULL);
-				Effect * pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_EXTREME);
-				if (pEffect != NULL ) {
+				Assert( pEffectManager != NULL );
+				Effect * pEffect = pEffectManager->findEffect( Effect::EFFECT_CLASS_EXTREME );
+				if ( pEffect != NULL ) {
 					pEffect->setDeadline(0);
 				}
 			}

@@ -7,7 +7,7 @@
 #include "CGNPCTalk.h"
 
 void CGNPCTalk::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGNPCTalk::read (SocketInputStream & iStream)
 }
 
 void CGNPCTalk::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGNPCTalk::write (SocketOutputStream & oStream) const
 }
 
 void CGNPCTalk::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void CGNPCTalk::execute (Player* pPlayer)
 }
 
 string CGNPCTalk::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

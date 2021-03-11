@@ -13,13 +13,12 @@
 
 	#include "skill/Sniping.h"
 
-	#include "GCSkillFailed1.h"
+	#include "Gpackets/GCSkillFailed1.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* pPlayer)
-	 throw(Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -43,11 +42,7 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 
 		// 완전 안전지대라면 기술 사용 불가. by sigi. 2002.11.14
 		ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
-		if ((ZoneLevel & COMPLETE_SAFE_ZONE) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)))
+		if (ZoneLevel & COMPLETE_SAFE_ZONE)
 		{
 			GCSkillFailed1 _GCSkillFailed1;
 			_GCSkillFailed1.setSkillType(SkillType);
@@ -56,28 +51,12 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 			return;
 		}
 
-        if (pCreature->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF)) {
-            switch(SkillType) {
-                case SKILL_ATTACK_MELEE:
-                case SKILL_BITE_OF_DEATH:
-                case SKILL_UN_TRANSFORM:
-                case SKILL_RAPID_GLIDING:
-                    break;
-                default:
-                    GCSkillFailed1 _GCSkillFailed1;
-                    _GCSkillFailed1.setSkillType(SkillType);
-                    pPlayer->sendPacket(&_GCSkillFailed1);
-                    dynamic_cast<Vampire*>(pCreature)->sendVampireSkillInfo();
-                    return;
-            }
-        }
-
 		BYTE        X         = pPacket->getX();
 		BYTE        Y         = pPacket->getY();
 		BYTE        TX        = pPacket->getTargetX();
 		BYTE        TY        = pPacket->getTargetY();
 
-		disableFlags(pCreature, pZone, SkillType);
+		disableFlags( pCreature, pZone, SkillType);
 
 		if (pCreature->isSlayer()) 
 		{
@@ -86,7 +65,7 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 			bool       bSuccess   = true;
 
 			if (pSkillSlot == NULL) bSuccess = false;
-			if (SkillType == SKILL_INSTALL_MINE ) {
+			if ( SkillType == SKILL_INSTALL_MINE ) {
 				bSuccess = true;
 				TY = 0;
 			} else {
@@ -101,7 +80,7 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 			{
 				SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);
 				Assert(pSkillHandler != NULL);
-   			 	pSkillHandler->execute(pSlayer, pPacket->getObjectID(), pPacket->getInventoryItemObjectID(), X, Y, TX, TY, pSkillSlot);
+   			 	pSkillHandler->execute(pSlayer, pPacket->getObjectID(), X, Y, TX, TY, pSkillSlot);
    			 }
              else
              {
@@ -127,9 +106,9 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 	        if (pVampire->isFlag(Effect::EFFECT_CLASS_EXTREME))
 	        {
 		        EffectManager * pEffectManager = pVampire->getEffectManager();
-	   		    Assert(pEffectManager != NULL);
-	   		    Effect * pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_EXTREME);
-	   		    if (pEffect != NULL ) {
+	   		    Assert( pEffectManager != NULL );
+	   		    Effect * pEffect = pEffectManager->findEffect( Effect::EFFECT_CLASS_EXTREME );
+	   		    if ( pEffect != NULL ) {
 		   		    pEffect->setDeadline(0);
 		        }
 			} */
@@ -138,7 +117,7 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 			{
 				SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);
 				Assert(pSkillHandler != NULL);
-   			 	pSkillHandler->execute(pVampire, pPacket->getObjectID(), pPacket->getInventoryItemObjectID(), X, Y, TX, TY, pVampireSkillSlot);
+   			 	pSkillHandler->execute(pVampire, pPacket->getObjectID(), X, Y, TX, TY, pVampireSkillSlot);
    			 }
              else
              {
@@ -160,7 +139,7 @@ void CGSkillToInventoryHandler::execute (CGSkillToInventory* pPacket , Player* p
 			{
 				SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);
 				Assert(pSkillHandler != NULL);
-   			 	pSkillHandler->execute(pOusters, pPacket->getObjectID(), pPacket->getInventoryItemObjectID(), X, Y, TX, TY, pOustersSkillSlot);
+   			 	pSkillHandler->execute(pOusters, pPacket->getObjectID(), X, Y, TX, TY, pOustersSkillSlot);
    			 }
              else
              {

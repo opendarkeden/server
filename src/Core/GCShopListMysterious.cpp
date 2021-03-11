@@ -15,7 +15,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 GCShopListMysterious::GCShopListMysterious() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 
@@ -29,7 +29,7 @@ GCShopListMysterious::GCShopListMysterious()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 GCShopListMysterious::~GCShopListMysterious() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 	__END_CATCH
@@ -39,7 +39,7 @@ GCShopListMysterious::~GCShopListMysterious()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void GCShopListMysterious::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 		
@@ -112,7 +112,7 @@ void GCShopListMysterious::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -124,7 +124,7 @@ void GCShopListMysterious::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 PacketSize_t GCShopListMysterious::getPacketSize () const 
-	throw()
+	
 { 
 	PacketSize_t unit_size = szBYTE + szItemType;
 	PacketSize_t rValue    = 0;
@@ -152,7 +152,7 @@ PacketSize_t GCShopListMysterious::getPacketSize () const
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
 string GCShopListMysterious::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		
@@ -186,7 +186,7 @@ string GCShopListMysterious::toString () const
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 SHOPLISTITEM_MYSTERIOUS GCShopListMysterious::getShopItem(BYTE index) const
-	throw()
+	
 {
 	// check bound
 	if (index >= SHOP_RACK_INDEX_MAX) throw("GCShopListMysterious::getShopItem() : Out of Bound!");
@@ -198,7 +198,7 @@ SHOPLISTITEM_MYSTERIOUS GCShopListMysterious::getShopItem(BYTE index) const
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void GCShopListMysterious::setShopItem(BYTE index, const Item* pItem) 
-	throw()
+	
 {
 	// check bound
 	if (index >= SHOP_RACK_INDEX_MAX) throw("GCShopListMysterious::setShopItem() : Out of Bound!");

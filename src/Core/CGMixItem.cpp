@@ -14,7 +14,7 @@
 
 
 void CGMixItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -28,7 +28,7 @@ void CGMixItem::read (SocketInputStream & iStream)
 }
 		    
 void CGMixItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -42,7 +42,7 @@ void CGMixItem::write (SocketOutputStream & oStream) const
 }
 
 void CGMixItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void CGMixItem::execute (Player* pPlayer)
 }
 
 string CGMixItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

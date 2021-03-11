@@ -10,7 +10,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 GCSkillFailed1::GCSkillFailed1 () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	m_Grade=0;
@@ -18,14 +18,14 @@ GCSkillFailed1::GCSkillFailed1 ()
 }
 	
 GCSkillFailed1::~GCSkillFailed1 () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void GCSkillFailed1::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ void GCSkillFailed1::read (SocketInputStream & iStream )
 }
 		    
 void GCSkillFailed1::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void GCSkillFailed1::write (SocketOutputStream & oStream ) const
 }
 
 void GCSkillFailed1::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -59,7 +59,7 @@ void GCSkillFailed1::execute (Player * pPlayer )
 }
 
 string GCSkillFailed1::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

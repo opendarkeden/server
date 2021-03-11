@@ -8,7 +8,7 @@
 
 
 void CGQuitUnionDeny::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -18,7 +18,7 @@ void CGQuitUnionDeny::read (SocketInputStream & iStream)
 }
 
 void CGQuitUnionDeny::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -28,7 +28,7 @@ void CGQuitUnionDeny::write (SocketOutputStream & oStream) const
 }
 
 void CGQuitUnionDeny::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGQuitUnionDeny::execute (Player* pPlayer)
 }
 
 string CGQuitUnionDeny::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

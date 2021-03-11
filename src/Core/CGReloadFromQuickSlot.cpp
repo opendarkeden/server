@@ -7,21 +7,21 @@
 #include "CGReloadFromQuickSlot.h"
 
 CGReloadFromQuickSlot::CGReloadFromQuickSlot () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGReloadFromQuickSlot::~CGReloadFromQuickSlot () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGReloadFromQuickSlot::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void CGReloadFromQuickSlot::read (SocketInputStream & iStream)
 }
 
 void CGReloadFromQuickSlot::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGReloadFromQuickSlot::write (SocketOutputStream & oStream) const
 }
 
 void CGReloadFromQuickSlot::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGReloadFromQuickSlot::execute (Player* pPlayer)
 }
 
 string CGReloadFromQuickSlot::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

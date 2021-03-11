@@ -43,37 +43,38 @@
 	#include "CreatureUtil.h"
 	#include "MixingItem.h"
 	#include "PacketUtil.h"
-	#include "DB.h"
 
-	#include "GCAddItemToItemVerify.h"
-	#include "GCDeleteInventoryItem.h"
-	#include "GCCreateItem.h"
+	#include "Gpackets/GCAddItemToItemVerify.h"
+	#include "Gpackets/GCDeleteInventoryItem.h"
+	#include "Gpackets/GCCreateItem.h"
 
 	#include "SystemAvailabilitiesManager.h"
 
-	void executeUpGrade(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem) throw(Error);
-	void yellowDropLog(PlayerCreature* pPC, Item* pItem, int ratio, int success) throw(Error);
-	void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY) throw(Error);
-	void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY) throw(Error);
-	void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, OptionType_t addOptionType) throw(Error);
-	void executeTransKit(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem) throw(Error);
+	void executeUpGrade(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem);
+	void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY);
+	void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY);
+	void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY);
+	void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, OptionType_t addOptionType);
+	void executeTransKit(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem);
 	extern bool isPossibleOptionItemClass(Item::ItemClass IClass);
 
 	OptionInfo* getOptionInfo(OptionType_t optionType);
 
-	void    	processUpgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo* pOptionInfo) throw(Error);
-	void		crashItem(Item* pItem, Inventory* pInventory, CoordInven_t invenX, CoordInven_t invenY) throw(Error);
-	void    	downgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo* pOptionInfo) throw(Error);
+	void    	processUpgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo* pOptionInfo);
+	void		crashItem(Item* pItem, Inventory* pInventory, CoordInven_t invenX, CoordInven_t invenY);
+	void    	downgradeOptionType(Item* pItem, OptionType_t currentOptionType, OptionInfo* pOptionInfo);
 
-	void		sendEnchantImpossible(GamePlayer* pGamePlayer) throw(Error);
-	void		sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange) throw(Error);
+	void		sendEnchantImpossible(GamePlayer* pGamePlayer);
+	void		sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange);
+	// add by sonic ³åÈýÊôÐÔ·µ»ØµÄ·â°ü
+	void		sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange, DWORD optionCHange2);
 
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer)
-	 throw(Error) {
+{
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
 #ifdef __GAME_SERVER__
@@ -81,12 +82,15 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 	Assert(pPacket != NULL);
 	Assert(pPlayer != NULL);
 
+	//cout << pPacket->toString().c_str() << endl;
+
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
 	Assert(pGamePlayer != NULL);	// by sigi
 
-	if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) {
-		SYSTEM_ASSERT(SYSTEM_ENCHANT);
+	if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) 
+	{
+		SYSTEM_ASSERT( SYSTEM_ENCHANT );
 
 		Creature*  		pCreature   = pGamePlayer->getCreature();
 		PlayerCreature* pPC         = dynamic_cast<PlayerCreature*>(pCreature);
@@ -96,10 +100,11 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		CoordInven_t 	invenY      = pPacket->getY();
 
 		// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ»¶§(ÁÂÇ¥Ã¼Å©µµ ÇÏ°Ô µÈ´Ù.)
-		if (!pInventory->hasItem(invenX, invenY)) {
+		if (!pInventory->hasItem(invenX, invenY))
+		{
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 			return;
 		}
 
@@ -111,15 +116,22 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 		// ¾ÆÀÌÅÛÀÌ ¾ø°Å³ª
 		// objectID°¡ Àß¸øµÈ °æ¿ì
-		if (pMouseItem==NULL || pItem==NULL || pMouseItem->getObjectID()!=objectID || pMouseItem->getNum() != 1) {
+		if (pMouseItem==NULL
+			|| pItem==NULL
+			|| pMouseItem->getObjectID()!=objectID
+			|| pMouseItem->getNum() != 1 )
+		{
+			//cout << "Wrong Item" << endl;
+
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 			return;
 		}
 
 
-		switch (pMouseItem->getItemClass()) {
+		switch (pMouseItem->getItemClass())
+		{
 			//---------------------------------------------------------
 			//
 			// 				ITEM_CLASS_EVENT_STAR
@@ -129,24 +141,16 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			//---------------------------------------------------------
 			case Item::ITEM_CLASS_EVENT_STAR : 
 			{
-				ItemInfo* pItemInfo = g_pEventStarInfoManager->getItemInfo(pMouseItem->getItemType());
+				ItemInfo* pItemInfo = g_pEventStarInfoManager->getItemInfo( pMouseItem->getItemType() );
 				Assert(pItemInfo!=NULL);
 
 				EventStarInfo* pEventStarInfo = dynamic_cast<EventStarInfo*>(pItemInfo);
 				Assert(pEventStarInfo!=NULL);
 
 				int optionSize = pItem->getOptionTypeSize();
-
-				if ((pEventStarInfo->getFunctionFlag() & EventStarInfo::FUNCTION_UP_GRADE) != 0 )
+				//Éý¼¶×°±¸µÈ¼¶
+				if ( (pEventStarInfo->getFunctionFlag() & EventStarInfo::FUNCTION_UP_GRADE) != 0 )
 				{
-					if (pItem->getOptionTypeSize() > 1 || pItem->getGrade() < 1 || pItem->getGrade() > 5 || pItem->getItemClass() == Item::ITEM_CLASS_CORE_ZAP || pMouseItem->getNum() != 1 || pItemInfo->getReqAdvancedLevel() > 0 )
-					{
-						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
-						return;
-					}
-
 					executeUpGrade(pGamePlayer, pMouseItem, pItem);
 				}
 				else if (pEventStarInfo->isFunctionTransKit())
@@ -158,13 +162,16 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				{
 					if (pEventStarInfo->isFunctionEnchantRareOption())
 					{
-						executeEnchantRareOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
+						if(pMouseItem->getItemType()==6)// ³åÈýÊôÐÔ×°±¸
+							executeEnchantRareThreeOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
+						else
+							executeEnchantRareOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
 					}
 					else
 					{
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE);
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE );
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 						return;
 					}
 				}
@@ -181,25 +188,29 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			}
 			break;
 
-			case Item::ITEM_CLASS_PET_ENCHANT_ITEM: {
-				if (pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM) {
+			case Item::ITEM_CLASS_PET_ENCHANT_ITEM :
+			{
+				//cout << "Trying Pet Enchant... " << endl;
+				if ( pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM )
+				{
 					//cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
 					GCAddItemToItemVerify gcAddItemToItemVerify;
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-					pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+					pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					return;
 				}
 
-				PetEnchantItemInfo* pItemInfo = dynamic_cast<PetEnchantItemInfo*>(g_pPetEnchantItemInfoManager->getItemInfo(pMouseItem->getItemType() ));
-				Assert(pItemInfo != NULL);
+				PetEnchantItemInfo* pItemInfo = dynamic_cast<PetEnchantItemInfo*>(g_pPetEnchantItemInfoManager->getItemInfo( pMouseItem->getItemType() ));
+				Assert( pItemInfo != NULL );
 
 				PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
 				PetInfo* pPetInfo = NULL;
-				if (pPetItem == NULL || (pPetInfo = pPetItem->getPetInfo() ) == NULL) {
+				if ( pPetItem == NULL || ( pPetInfo = pPetItem->getPetInfo() ) == NULL )
+				{
 					//cout << "Æê ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª Æê ¾ÆÀÌÅÛ¿¡ Æê »óÅÂ°¡ ¾ø½À´Ï´Ù." << endl;
 					GCAddItemToItemVerify gcAddItemToItemVerify;
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-					pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+					pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					return;
 				}
 
@@ -209,38 +220,38 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					REVIVAL_FUNCTION = 13,
 					RARE_FUNCTION = 14
 				*/
-				switch (pItemInfo->getFunction() )
+				switch ( pItemInfo->getFunction() )
 				{
 					case PetEnchantItemInfo::ENCHANT_FUNCTION :
 					{
-						if (pPetInfo->getPetAttr() != 0xff )
+						if ( pPetInfo->getPetAttr() != 0xff )
 						{
 							//cout << "ÀÌ¹Ì ÀÎÃ¦Æ®µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 						//cout << "Ç¥ÁØ ÀÎÃ¦Æ® ½ÃµµÁßÀÔ´Ï´Ù." << endl;
 						pPC->deleteItemFromExtraInventorySlot();
 						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
+						SAFE_DELETE( pMouseItem );
 
-						if (PetAttrInfoManager::Instance().enchantRandomAttr(pPetInfo, pItemInfo->getFunctionGrade() ) )
+						if ( PetAttrInfoManager::Instance().enchantRandomAttr( pPetInfo, pItemInfo->getFunctionGrade() ) )
 						{
 							//cout << "ÀÎÃ¦Æ® ¼º°ø." << endl;
 							pPetItem->savePetInfo();
 
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-							gcAddItemToItemVerify.setParameter(((uint)pPetInfo->getPetAttr())<<16 | (uint)pPetInfo->getPetAttrLevel());
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+							gcAddItemToItemVerify.setParameter( ((uint)pPetInfo->getPetAttr())<<16 | (uint)pPetInfo->getPetAttrLevel() );
 
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
-							if (pPC->getPetInfo() == pPetInfo )
+							if ( pPC->getPetInfo() == pPetInfo )
 							{
 								//cout << "ÀÌ¹Ì ºÒ·¯Á®ÀÖ¾î¼­ ÆÐÅ¶ º¸³»´Â ÁßÀÔ´Ï´Ù." << endl;
-								sendPetInfo(pGamePlayer, true);
+								sendPetInfo( pGamePlayer, true );
 								pPC->initAllStatAndSend();
 							}
 							return;
@@ -249,39 +260,39 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 						{
 							//cout << "ÀÎÃ¦Æ® ½ÇÆÐ" << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 					}
 					break;
 					case PetEnchantItemInfo::SPEC_OPTION_FUNCTION :
 					{
-						if (pPetInfo->getPetAttr() != 0xff )
+						if ( pPetInfo->getPetAttr() != 0xff )
 						{
 							//cout << "ÀÌ¹Ì ÀÎÃ¦Æ®µÈ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 						pPC->deleteItemFromExtraInventorySlot();
 						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
+						SAFE_DELETE( pMouseItem );
 
-						if (PetAttrInfoManager::Instance().enchantSpecAttr(pPetInfo, (PetAttr_t)pItemInfo->getFunctionGrade() ) )
+						if ( PetAttrInfoManager::Instance().enchantSpecAttr( pPetInfo, (PetAttr_t)pItemInfo->getFunctionGrade() ) )
 						{
 							pPetItem->savePetInfo();
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-							gcAddItemToItemVerify.setParameter(((uint)pPetInfo->getPetAttr())<<16 | (uint)pPetInfo->getPetAttrLevel());
-//							gcAddItemToItemVerify.setParameter(pPetInfo->getPetAttr());
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+							gcAddItemToItemVerify.setParameter( ((uint)pPetInfo->getPetAttr())<<16 | (uint)pPetInfo->getPetAttrLevel() );
+//							gcAddItemToItemVerify.setParameter( pPetInfo->getPetAttr() );
 
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
-							if (pPC->getPetInfo() == pPetInfo )
+							if ( pPC->getPetInfo() == pPetInfo )
 							{
-								sendPetInfo(pGamePlayer, true);
+								sendPetInfo( pGamePlayer, true );
 								pPC->initAllStatAndSend();
 							}
 							return;
@@ -289,8 +300,8 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 						else
 						{
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 					}
@@ -298,18 +309,18 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					case PetEnchantItemInfo::RARE_FUNCTION:
 					{
 						//cout << "Æê ·¹¾î ÀÎÃ¦Æ® ÁßÀÔ´Ï´Ù." << endl;
-						if (pPetInfo->getPetLevel() != 49 )
+						if ( pPetInfo->getPetLevel() != 49 )
 						{
 							//cout << "·¹º§µµ ¾ÈµÈ ³Ñ ÀÎÃ¦Æ®ÇÏÁö ¸¶¼À" << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 
 						pPC->deleteItemFromExtraInventorySlot();
 						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
+						SAFE_DELETE( pMouseItem );
 
 						/*
 						OptionType_t targetOption = rand()%87;
@@ -322,23 +333,23 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 						list<PetEnchantOption*>::const_iterator itr = petEnchantOptions.begin();
 						list<PetEnchantOption*>::const_iterator endItr = petEnchantOptions.end();
 
-						for (; itr != endItr ; itr++ )
+						for ( ; itr != endItr ; itr++ )
 						{
 							PetEnchantOption* pPetEnchantOption = *itr;
-							if (pPetEnchantOption->getRatio() > ratio )
+							if ( pPetEnchantOption->getRatio() > ratio )
 							{
 								targetOption = pPetEnchantOption->getOptionType();
 								break;
 							}
 						}
 
-						pPetInfo->setPetOption(targetOption);
-						sendPetInfo(pGamePlayer);
+						pPetInfo->setPetOption( targetOption );
+						sendPetInfo( pGamePlayer );
 
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-						gcAddItemToItemVerify.setParameter(targetOption);
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+						gcAddItemToItemVerify.setParameter( targetOption );
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 						char query[100];
 						sprintf(query, "PetOption=%u", (uint)targetOption);
@@ -348,54 +359,54 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					case PetEnchantItemInfo::REVIVAL_FUNCTION:
 					{
 						//cout << "ºÎÈ° ½ÃµµÁß ÀÔ´Ï´Ù."  << endl;
-						if (pPetInfo->getPetHP() != 0 )
+						if ( pPetInfo->getPetHP() != 0 )
 						{
 							//cout << "¾È Á×Àº ¾Ö ºÎÈ°½ÃÅ°Áö ¸¶¼À" << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 
 						pPC->deleteItemFromExtraInventorySlot();
 						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
+						SAFE_DELETE( pMouseItem );
 
 						VSDateTime current = VSDateTime::currentDateTime();
 						int Days = pPetInfo->getLastFeedTime().daysTo(current);
-						if (Days < 0 ) Days = 0;
+						if ( Days < 0 ) Days = 0;
 
-						if (pItemInfo->getItemType() != 14 )
+						if ( pItemInfo->getItemType() != 14 )
 						{
 							int value = rand()%100;
-							if (Days >= 8 || value >= (10-Days/2)*10 )
+							if ( Days >= 8 || value >= (10-Days/2)*10 )
 							{
 								GCAddItemToItemVerify gcAddItemToItemVerify;
-								gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
-								pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+								gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL );
+								pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 								return;
 							}
 						}
 
-						pPetInfo->setPetHP(pItemInfo->getFunctionGrade());
-						pPetInfo->setFeedTime(VSDateTime::currentDateTime());
+						pPetInfo->setPetHP( pItemInfo->getFunctionGrade() );
+						pPetInfo->setFeedTime( VSDateTime::currentDateTime() );
 						pPetInfo->getPetItem()->savePetInfo();
 
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK);
-						gcAddItemToItemVerify.setParameter(pPetInfo->getPetHP());
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK );
+						gcAddItemToItemVerify.setParameter( pPetInfo->getPetHP() );
 
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					}
 					break;
 					case PetEnchantItemInfo::MUTANT_FUNCTION:
 					{
-						if (pPetInfo->getPetType() != 1 )
+						if ( pPetInfo->getPetType() != 1 )
 						{
-							//cout << "¿ïÇÁµ¶ÀÌ ¾Æ´Ï¶ø´Ï´Ù." << endl;
+							cout << "¿ïÇÁµ¶ÀÌ ¾Æ´Ï¶ø´Ï´Ù." << endl;
 							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+							gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+							pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 							return;
 						}
 
@@ -403,144 +414,54 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 						pPC->deleteItemFromExtraInventorySlot();
 						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
+						SAFE_DELETE( pMouseItem );
 
 						PetTypeInfo* pPetTypeInfo = PetTypeInfoManager::getInstance()->getPetTypeInfo(2);
-						Assert(pPetTypeInfo != NULL);
+						Assert( pPetTypeInfo != NULL );
 
 						pPetInfo->setPetType(2);
-						pPetInfo->setPetCreatureType(pPetTypeInfo->getPetCreatureType(pPetInfo->getPetLevel() ));
+						pPetInfo->setPetCreatureType( pPetTypeInfo->getPetCreatureType( pPetInfo->getPetLevel() ) );
 						pPetItem->setItemType(2);
 
-						pPetItem->tinysave("ItemType=2");
+						pPetItem->tinysave( "ItemType=2" );
 
-//						if (pPC->getPetInfo() == pPetInfo ) sendPetInfo(pGamePlayer);
-						if (summonPet )
+//						if ( pPC->getPetInfo() == pPetInfo ) sendPetInfo( pGamePlayer );
+						if ( summonPet )
 						{
-							pPC->setPetInfo(NULL);
-							sendPetInfo(pGamePlayer);
+							pPC->setPetInfo( NULL );
+							sendPetInfo( pGamePlayer );
 						}
 
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-						gcAddItemToItemVerify.setParameter(0);
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+						gcAddItemToItemVerify.setParameter( 0 );
 
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
-
-						GCDeleteInventoryItem gcDI;
-						gcDI.setObjectID(pPetItem->getObjectID());
-						pGamePlayer->sendPacket(&gcDI);
-
-						CoordInven_t X = -1, Y;
-						pPC->getInventory()->findItemOID(pPetItem->getObjectID(), X, Y);
-						Assert(X != -1);
-
-						GCCreateItem gcCI;
-						makeGCCreateItem(&gcCI, pPetItem, X, Y);
-						pGamePlayer->sendPacket(&gcCI);
-
-						if (summonPet )
-						{
-							pPC->setPetInfo(pPetInfo);
-							sendPetInfo(pGamePlayer);
-						}
-					}
-					case PetEnchantItemInfo::POLYMORPH_FUNCTION:
-					{
-						PetType_t currentPetType = pPetInfo->getPetType();
-						PetType_t afterPetType = 0;
-
-						if (pPC->isSlayer() )
-						{
-							if (currentPetType == 1 )
-								afterPetType = 3;
-							else if (currentPetType == 3 )
-								afterPetType = 1;
-						}
-						else if (pPC->isVampire() )
-						{
-							if (currentPetType == 1 )
-								afterPetType = 4;
-							else if (currentPetType == 4 )
-								afterPetType = 1;
-						}
-						else if (pPC->isOusters() )
-						{
-							if (currentPetType == 1 )
-								afterPetType = 5;
-							else if (currentPetType == 5 )
-								afterPetType = 1;
-						}
-
-						if (afterPetType == 0 )
-						{
-							//cout << "º¯È¯ ÇÒ ¼ö ¾ø´Â Æê Å¸ÀÔÀÔ´Ï´Ù.." << endl;
-							GCAddItemToItemVerify gcAddItemToItemVerify;
-							gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-							pGamePlayer->sendPacket(&gcAddItemToItemVerify);
-							return;
-						}
-
-						bool summonPet = pPC->getPetInfo() == pPetInfo;
-
-						pPC->deleteItemFromExtraInventorySlot();
-						pMouseItem->destroy();
-						SAFE_DELETE(pMouseItem);
-
-						PetTypeInfo* pPetTypeInfo = PetTypeInfoManager::getInstance()->getPetTypeInfo(afterPetType);
-						Assert(pPetTypeInfo != NULL);
-
-						pPetInfo->setPetType(afterPetType);
-						pPetInfo->setPetCreatureType(pPetTypeInfo->getPetCreatureType(pPetInfo->getPetLevel() ));
-						pPetItem->setItemType(afterPetType);
-
-						char tinySQL[16];
-						sprintf(tinySQL, "ItemType=%u", afterPetType);
-						pPetItem->tinysave(tinySQL);
-
-						// 3,4,5 ¹ø Å¸ÀÔÀ¸·Î º¯È¯½Ã 30·¹º§ ÀÌ»óÀÌ¸é Attack ±â´É ºÎ¿©
-						if (afterPetType >= 3 && afterPetType <= 5 )
-						{
-							pPetInfo->setAttack(1);
-							pPetItem->savePetInfo();
-						}
-
-						if (summonPet )
-						{
-							pPC->setPetInfo(NULL);
-							sendPetInfo(pGamePlayer);
-						}
-
-						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-						gcAddItemToItemVerify.setParameter(0);
-
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 						GCDeleteInventoryItem gcDI;
-						gcDI.setObjectID(pPetItem->getObjectID());
-						pGamePlayer->sendPacket(&gcDI);
+						gcDI.setObjectID( pPetItem->getObjectID() );
+						pGamePlayer->sendPacket( &gcDI );
 
 						CoordInven_t X = -1, Y;
-						pPC->getInventory()->findItemOID(pPetItem->getObjectID(), X, Y);
-						Assert(X != -1);
+						pPC->getInventory()->findItemOID( pPetItem->getObjectID(), X, Y );
+						Assert( X != -1 );
 
 						GCCreateItem gcCI;
-						makeGCCreateItem(&gcCI, pPetItem, X, Y);
-						pGamePlayer->sendPacket(&gcCI);
+						makeGCCreateItem( &gcCI, pPetItem, X, Y );
+						pGamePlayer->sendPacket( &gcCI );
 
-						if (summonPet )
+						if ( summonPet )
 						{
-							pPC->setPetInfo(pPetInfo);
-							sendPetInfo(pGamePlayer);
+							pPC->setPetInfo( pPetInfo );
+							sendPetInfo( pGamePlayer );
 						}
 					}
 					break;
 					default:
 					{
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 						return;
 					}
 				}
@@ -549,65 +470,68 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 			case Item::ITEM_CLASS_MIXING_ITEM :
 			{
-				if (pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM )
+				if ( pItem->getItemClass() != Item::ITEM_CLASS_PET_ITEM )
 				{
 					//cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
 					GCAddItemToItemVerify gcAddItemToItemVerify;
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-					pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+					pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					return;
 				}
 
-				MixingItemInfo* pItemInfo = dynamic_cast<MixingItemInfo*>(g_pMixingItemInfoManager->getItemInfo(pMouseItem->getItemType() ));
-				Assert(pItemInfo != NULL);
+				MixingItemInfo* pItemInfo = dynamic_cast<MixingItemInfo*>(g_pMixingItemInfoManager->getItemInfo( pMouseItem->getItemType() ));
+				Assert( pItemInfo != NULL );
 
-				if (pItemInfo->getType() != MixingItemInfo::TYPE_DETACH )
+				if ( pItemInfo->getType() != MixingItemInfo::TYPE_DETACH )
 				{
 					//cout << "Æê ¾ÆÀÌÅÛ¿¡´Ù°¡ ÇÑ°Ô ¾Æ´Ô´Ù." << endl;
 					GCAddItemToItemVerify gcAddItemToItemVerify;
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-					pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+					pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					return;
 				}
 
 				PetItem* pPetItem = dynamic_cast<PetItem*>(pItem);
 				PetInfo* pPetInfo = NULL;
-				if (pPetItem == NULL || (pPetInfo = pPetItem->getPetInfo() ) == NULL || pPetInfo->getPetOption() == 0 )
+				if ( pPetItem == NULL || ( pPetInfo = pPetItem->getPetInfo() ) == NULL || pPetInfo->getPetOption() == 0 )
 				{
 					//cout << "Æê ¾ÆÀÌÅÛÀÌ ¾Æ´Ï°Å³ª Æê ¾ÆÀÌÅÛ¿¡ Æê »óÅÂ°¡ ¾ø½À´Ï´Ù." << endl;
 					GCAddItemToItemVerify gcAddItemToItemVerify;
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-					pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+					pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 					return;
 				}
 
 				pPC->deleteItemFromExtraInventorySlot();
 				pMouseItem->destroy();
-				SAFE_DELETE(pMouseItem);
+				SAFE_DELETE( pMouseItem );
 
 				pPetInfo->setPetOption(0);
 				pPetItem->tinysave("PetOption=0");
 
 				GCAddItemToItemVerify gcAddItemToItemVerify;
-				gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
+				gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
 				gcAddItemToItemVerify.setParameter(0);
 
-				pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+				pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
-				if (pPC->getPetInfo() == pPetInfo )
+				if ( pPC->getPetInfo() == pPetInfo )
 				{
 					//cout << "ÀÌ¹Ì ºÒ·¯Á®ÀÖ¾î¼­ ÆÐÅ¶ º¸³»´Â ÁßÀÔ´Ï´Ù." << endl;
-					sendPetInfo(pGamePlayer, true);
+					sendPetInfo( pGamePlayer, true );
 					pPC->initAllStatAndSend();
 				}
 				return;
 			}
 			break;
 
-			default: {
+			default:
+			{
+				//cout << "upgrade error" << endl;
+
 				GCAddItemToItemVerify gcAddItemToItemVerify;
-				gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ERROR);
-				pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+				gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ERROR );
+				pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 				return;
 			}
 		}
@@ -621,7 +545,6 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 #ifdef __GAME_SERVER__
 	void executeUpGrade(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
@@ -629,95 +552,37 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		PlayerCreature* pPC         = dynamic_cast<PlayerCreature*>(pCreature);
 		Inventory* 		pInventory  = pPC->getInventory();
 
-		int failRatio = 0;
-		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType()); 
+		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() ); 
 
-		if (pItem->getOptionTypeSize() > 1 || pItem->getGrade() > 5 || pMouseItem->getNum() != 1 
-			|| pItemInfo == NULL || pItemInfo->getReqAdvancedLevel() > 0 )
+		int Ratio = 50;
+
+		if ( pPC->getLevel() >= 100 && pMouseItem->getNum() == 1 && pItem->getGrade() < 10 && rand()%100 < Ratio )
+		{
+			pItem->setGrade( pItem->getGrade() + 1 );
+			char buffer[80];
+			snprintf(buffer, 80, "Grade=%u", pItem->getGrade() );
+			pItem->tinysave(buffer);
+
+			pPC->deleteItemFromExtraInventorySlot();
+			pMouseItem->destroy();
+			SAFE_DELETE(pMouseItem);
+
+			GCAddItemToItemVerify gcAddItemToItemVerify;
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK );
+			gcAddItemToItemVerify.setParameter( pItem->getGrade() );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
+		}
+		else
 		{
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 			return;
 		}
 
-		InfoClassManager* pInfoClassManager = g_pItemInfoManager->getInfoManager(pItem->getItemClass());
-		ItemType_t maxItemType = pInfoClassManager->getInfoCount();
-
-		//cout << "ÃÖ´ë Å¸ÀÔ : " << maxItemType << endl;
-		//cout << "ÇöÀç Å¸ÀÔ : " << pItem->getItemType() << endl;
-
-		float typeFailRatio = 1.0 / (maxItemType - pItem->getItemType() + 2 ) / 1.25;
-		//cout << "type fail ratio : " << typeFailRatio << endl;
-
-		float optionFailRatio = 0;
-		string optionString="";
-
-		if (pItem->getOptionTypeSize() >= 1 )
-		{
-			OptionType_t option = pItem->getFirstOptionType();
-
-			OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(option);
-			const OptionClassInfo* pClassInfo = g_pOptionInfoManager->getOptionClassInfo(pOptionInfo->getClass());
-
-			int maxGrade = pClassInfo->getTotalGrade();
-			int curGrade = pOptionInfo->getGrade();
-
-			//cout << pOptionInfo->getHName() << "¿É¼Ç : " << endl;
-			//cout << "ÃÖ´ë ±×·¹ÀÌµå : " << maxGrade << endl;
-			//cout << "ÇöÀç ±×·¹ÀÌµå : " << curGrade << endl;
-
-			optionFailRatio = 1.0 / (maxGrade - curGrade + 2 ) / 2.0;
-			//cout << "°è»ê°ª : " << optionFailRatio << endl;
-
-			static float optionLevelWeight[] = { 1.0, 1.0, 1.1, 1.15, 1.2 };
-
-			optionFailRatio *= optionLevelWeight[min(4,(int)pClassInfo->getLevel())];
-			optionString = pOptionInfo->getNickname();
-		}
-
-		float gradeFailRatio = 1.0 - (4.2 / (pItem->getGrade()+1.0));
-
-		bool success = false;
-		int prevGrade = pItem->getGrade();
-		int ratio = (int)(1000000 - ((typeFailRatio + optionFailRatio + gradeFailRatio) * 1000000));
-
-		if (rand()%1000000 < ratio ) {
-			success = true;
-			pItem->setGrade(pItem->getGrade() + 1);
-			char buffer[80];
-			snprintf(buffer, 80, "Grade=%u", pItem->getGrade());
-			pItem->tinysave(buffer);
-
-			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK);
-			gcAddItemToItemVerify.setParameter(pItem->getGrade());
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
-		} else {
-			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
-		}
-
-		pPC->deleteItemFromExtraInventorySlot();
-		pMouseItem->destroy();
-		SAFE_DELETE(pMouseItem);
-
-		Statement* pStmt = NULL;
-
-		BEGIN_DB
-		{
-			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt->executeQuery("INSERT INTO `YellowDropLog` (`PlayerID`, `Name`, `ReportTime`, `IClass`, `IType`, `IID`, `IGrade`, `IOption`, `Ratio`, `Success`) VALUES ('%s', '%s', now(), %u, %u, %u, %u, '%s', %u, %u)", pGamePlayer->getID().c_str(), pPC->getName().c_str(), pItem->getItemClass(), pItem->getItemType(), pItem->getItemID(), prevGrade, optionString.c_str(), (uint)ratio, ((success)?1:0));
-			SAFE_DELETE(pStmt);
-		}
-		END_DB(pStmt);
-
 		__END_CATCH
 	}
-
-	void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY)
-		throw(Error)
+	void executeEnchantRareThreeOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY)
 	{
 		__BEGIN_TRY
 
@@ -726,20 +591,261 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 //		Inventory* 		pInventory  = pPC->getInventory();
 
 		// ½ÇÆÐÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
-		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(
+		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( 
 													pItem->getItemClass(), 
-													pItem->getItemType());
+													pItem->getItemType() );
 
 		// ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÇ ÇöÀç ¿É¼ÇÀÌ 2°³°¡ ¾Æ´Ï°Å³ª
 		// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
 		// È¤Àº º°À» 2°³ ÀÌ»ó µé°í ÀÎÃ¦Æ®ÇÒ¶ó°í ÇÒ ¶§
-		if (pItem->getOptionTypeSize()!=2
+		if (pItem->getOptionTypeSize()!=3
 			|| pItemInfo->isUnique()
 			|| pMouseItem->getNum() != 1
 		)
 		{
 			//cout << "no Option " << endl;
-			sendEnchantImpossible(pGamePlayer);
+			sendEnchantImpossible( pGamePlayer );
+			return;
+		}
+
+		bool bFirstSucceed = false;
+		uint optionChange = 0;
+		uint optionChange2 = 0;
+		int  shiftValue = 16;
+		int  diceValue = 3500;
+
+		list<OptionType_t> optionList = pItem->getOptionTypeList();
+		list<OptionType_t>::const_iterator itr = optionList.begin();
+		
+		OptionType_t thirdOption  = *itr;
+		itr++;
+		OptionType_t secondOption = *itr;
+		itr++;
+		OptionType_t firstOption  = *itr;
+		itr--;
+		itr--;
+		
+		/*
+		OptionType_t thirdOption  = *itr++;
+		OptionType_t secondOption = *itr;
+		OptionType_t firstOption  = *itr++;
+		*/
+
+		OptionInfo* pFirstOptionInfo = getOptionInfo( firstOption );
+		OptionInfo* pSecondOptionInfo = getOptionInfo( secondOption );
+		OptionInfo* pThirdOptionInfo = getOptionInfo( thirdOption );
+//		cout << "firstOption : " << pFirstOptionInfo->getName() <<  endl;
+//		cout << "secondOption : " << pSecondOptionInfo->getName() <<  endl;
+//		cout << "thirdOption : " << pThirdOptionInfo->getName() <<  endl;
+		//Éý¼¶ÎïÆ·ÊôÐÔ¼ì²é
+		if ( pFirstOptionInfo == NULL || pSecondOptionInfo == NULL || pThirdOptionInfo== NULL)
+		{
+			sendEnchantImpossible( pGamePlayer );
+			return;
+		}
+		//¼ì²âÊÇ·ñÊÇ¿ÉÉý¼¶ÎïÆ·
+		bool bFirstUpgradePossible =  pFirstOptionInfo->isUpgradePossible();
+		bool bSecondUpgradePossible = pSecondOptionInfo->isUpgradePossible();
+		bool bThirdUpgradePossible =  pThirdOptionInfo->isUpgradePossible();
+		//¼ì²âÊôÐÔÉý¼¶¿ÉÄÜ
+		if ( !bFirstUpgradePossible && !bSecondUpgradePossible && !bThirdUpgradePossible)
+		{
+			sendEnchantImpossible( pGamePlayer );
+			return;
+		}
+		//if ((rand() %6000) > diceValue)
+			//diceValue*=2;
+		if ( bFirstUpgradePossible )
+		{
+			// Ã¹¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº ºí·çµå·Ó 2ÀÇ È®·ü¿¡ µû¸¥´Ù.
+			int succeedRatio = pFirstOptionInfo->getUpgradeSecondRatio() * ( pItemInfo->getUpgradeRatio() +( rand() %50) );
+			//int dice = rand()%10000;
+			int dice = rand() % diceValue;
+			cout << "dice : " << (int)dice <<  endl;
+			cout << "diceValue : " << (int)diceValue <<  endl;
+
+			//cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+			//dice =succeedRatio-1;
+			if ( dice < succeedRatio ) //Èç¹ûÍ¨¹ý£¬ÔòÉý¼¶×°±¸
+			{
+				//cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+				processUpgradeOptionType( pItem, firstOption, pFirstOptionInfo );
+
+				OptionType_t upgradeOptionType = pFirstOptionInfo->getUpgradeType();
+				optionChange = (firstOption << (shiftValue+8)) | (upgradeOptionType << shiftValue);
+
+				bFirstSucceed = true;
+				goto EnOK;
+			}
+			else
+			{
+				if (pFirstOptionInfo->getUpgradeSecondRatio() < 5)
+				{
+					int noChangeRatio = 33;
+					int downgradeRatio = 46;
+					dice = rand() % 100;
+
+					cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+
+					if ( dice < noChangeRatio )
+					{
+						// º¯È­¾øÀ½
+					}
+					else if ( dice < noChangeRatio + downgradeRatio )
+					{
+						// ¿É¼Ç¶³¾îÁü
+						downgradeOptionType( pItem, firstOption, pFirstOptionInfo );
+
+						OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
+						optionChange = (firstOption << (shiftValue+8)) | (previousOptionType << shiftValue);
+					}
+				}
+			}
+		}
+		shiftValue -= 16;
+
+		if ( bSecondUpgradePossible )
+		{
+			// µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
+
+			int succeedRatio= g_pOptionInfoManager->getRareUpgradeRatio( secondOption, bFirstSucceed ) * ( pItemInfo->getUpgradeRatio() +( rand() %50) );
+
+			//int dice = rand() %10000;
+			int dice = rand() % diceValue;
+
+			//cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+			//dice =succeedRatio-1;
+			if ( dice < succeedRatio )
+			{
+				//cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+				processUpgradeOptionType( pItem, secondOption, pSecondOptionInfo );
+
+				OptionType_t upgradeOptionType = pSecondOptionInfo->getUpgradeType();
+				optionChange |= (secondOption << (shiftValue+8)) | (upgradeOptionType << shiftValue);
+
+				bFirstSucceed = true;
+				goto EnOK;
+			}
+			else
+			{
+				if (pSecondOptionInfo->getUpgradeSecondRatio() < 5)
+				{
+					int noChangeRatio = 33;
+					int downgradeRatio = 46;
+					dice = rand() % 100;
+
+					cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+
+					if ( dice < noChangeRatio )
+					{
+						// º¯È­¾øÀ½
+					}
+					else if ( dice < noChangeRatio + downgradeRatio )
+					{
+						// ¿É¼Ç¶³¾îÁü
+						downgradeOptionType( pItem, secondOption, pSecondOptionInfo );
+
+						OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
+						optionChange = (secondOption << (shiftValue+8)) | (previousOptionType << shiftValue);
+					}
+				}
+			}
+		}
+		shiftValue=0;
+		if ( bThirdUpgradePossible )
+		{
+			// µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
+			int succeedRatio = g_pOptionInfoManager->getRareUpgradeRatio( thirdOption, bFirstSucceed ) * ( pItemInfo->getUpgradeRatio() +( rand() %50) );
+			//int dice = rand() %10000;
+
+			int dice = rand() % diceValue;
+			//cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
+			//dice =succeedRatio-1;
+			if ( dice < succeedRatio )
+			{
+				//cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
+				processUpgradeOptionType( pItem, thirdOption, pThirdOptionInfo );
+
+				OptionType_t upgradeOptionType = pThirdOptionInfo->getUpgradeType();
+				optionChange2 |= (thirdOption << (shiftValue+8)) | (upgradeOptionType << shiftValue);
+
+				bFirstSucceed = true;
+			}
+			else
+			{
+				if (pThirdOptionInfo->getUpgradeSecondRatio() < 5)
+				{
+					int noChangeRatio = 33;
+					int downgradeRatio = 46;
+					dice = rand() % 100;
+
+					cout << "downgradeRatio" << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
+
+					if ( dice < noChangeRatio )
+					{
+						// º¯È­¾øÀ½
+					}
+					else if ( dice < noChangeRatio + downgradeRatio )
+					{
+						// ¿É¼Ç¶³¾îÁü
+						downgradeOptionType( pItem, thirdOption, pThirdOptionInfo );
+
+						OptionType_t previousOptionType = pThirdOptionInfo->getPreviousType();
+						optionChange2 |= (thirdOption << (shiftValue+8)) | (previousOptionType << shiftValue);
+					}
+				}
+			}
+		}
+EnOK:
+		//{
+			// µé°í ÀÖ´Â º° »èÁ¦
+			pPC->deleteItemFromExtraInventorySlot();
+
+			// DB¿¡¼­ »èÁ¦
+			pMouseItem->destroy();
+
+			// ¸Þ¸ð¸®¿¡¼­ »èÁ¦
+			SAFE_DELETE(pMouseItem);
+
+			// °á°ú ÆÐÅ¶ º¸³»±â
+			cout << "optionChange : " << optionChange <<  endl;
+			sendEnchantOK(pGamePlayer, optionChange,optionChange2);
+
+		//}
+
+		__END_CATCH
+	}
+	void executeEnchantRareOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY)
+	{
+		__BEGIN_TRY
+
+		Creature*  		pCreature   = pGamePlayer->getCreature();
+		PlayerCreature* pPC         = dynamic_cast<PlayerCreature*>(pCreature);
+//		Inventory* 		pInventory  = pPC->getInventory();
+
+		// ½ÇÆÐÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
+		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( 
+													pItem->getItemClass(), 
+													pItem->getItemType() );
+
+		// ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÇ ÇöÀç ¿É¼ÇÀÌ 2°³°¡ ¾Æ´Ï°Å³ª
+		// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
+		// È¤Àº º°À» 2°³ ÀÌ»ó µé°í ÀÎÃ¦Æ®ÇÒ¶ó°í ÇÒ ¶§
+/*		// add by Coffee 2006.11.2  ÅÐ¶ÏÊÇ·ñÎªÈýÊôÐÔÎïÆ·£¬Èç¹ûÊÇ¾Íµ÷ÓÃÐÂ¼ÓµÄ³äÈýÊôÐÔº¯Êý
+		if (pItem->getOptionTypeSize() ==3);
+		{
+			//³åÈýÊôÐÔ×°±¸
+			executeEnchantRareThreeOption(pGamePlayer, pMouseItem, pItem, invenX, invenY);
+			return;
+		}
+		// end */
+		if (pItem->getOptionTypeSize()!=2
+			|| pItemInfo->isUnique()
+			|| pMouseItem->getNum() != 1
+		)
+		{
+			cout << "no Option 1" << endl;
+			sendEnchantImpossible( pGamePlayer );
 			return;
 		}
 
@@ -753,25 +859,27 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		OptionType_t firstOption = *itr++;
 		OptionType_t secondOption = *itr;
 
-		OptionInfo* pFirstOptionInfo = getOptionInfo(firstOption);
-		OptionInfo* pSecondOptionInfo = getOptionInfo(secondOption);
+		OptionInfo* pFirstOptionInfo = getOptionInfo( firstOption );
+		OptionInfo* pSecondOptionInfo = getOptionInfo( secondOption );
 
-		if (pFirstOptionInfo == NULL || pSecondOptionInfo == NULL )
+		if ( pFirstOptionInfo == NULL || pSecondOptionInfo == NULL )
 		{
-			sendEnchantImpossible(pGamePlayer);
+			cout << "no Option 2" << endl;
+			sendEnchantImpossible( pGamePlayer );
 			return;
 		}
 
 		bool bFirstUpgradePossible = pFirstOptionInfo->isUpgradePossible();
 		bool bSecondUpgradePossible = pSecondOptionInfo->isUpgradePossible();
 
-		if (!bFirstUpgradePossible && !bSecondUpgradePossible )
+		if ( !bFirstUpgradePossible && !bSecondUpgradePossible )
 		{
-			sendEnchantImpossible(pGamePlayer);
+			cout << "no Option 3" << endl;
+			sendEnchantImpossible( pGamePlayer );
 			return;
 		}
 
-		if (bFirstUpgradePossible )
+		if ( bFirstUpgradePossible )
 		{
 			// Ã¹¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº ºí·çµå·Ó 2ÀÇ È®·ü¿¡ µû¸¥´Ù.
 			int succeedRatio = pFirstOptionInfo->getUpgradeSecondRatio() * pItemInfo->getUpgradeRatio();
@@ -779,10 +887,10 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 			//cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
 
-			if (dice < succeedRatio )
+			if ( dice < succeedRatio )
 			{
 				//cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
-				processUpgradeOptionType(pItem, firstOption, pFirstOptionInfo);
+				processUpgradeOptionType( pItem, firstOption, pFirstOptionInfo );
 
 				OptionType_t upgradeOptionType = pFirstOptionInfo->getUpgradeType();
 				optionChange = (firstOption << (shiftValue+8)) | (upgradeOptionType << shiftValue);
@@ -797,14 +905,14 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 				//cout << "ÀÎÃ¦Æ® ¾ÆÅÛ : " << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
 
-				if (dice < noChangeRatio )
+				if ( dice < noChangeRatio )
 				{
 					// º¯È­¾øÀ½
 				}
-				else if (dice < noChangeRatio + downgradeRatio )
+				else if ( dice < noChangeRatio + downgradeRatio )
 				{
 					// ¿É¼Ç¶³¾îÁü
-					downgradeOptionType(pItem, firstOption, pFirstOptionInfo);
+					downgradeOptionType( pItem, firstOption, pFirstOptionInfo );
 
 					OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
 					optionChange = (firstOption << (shiftValue+8)) | (previousOptionType << shiftValue);
@@ -812,12 +920,12 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				else
 				{
 					// ¿É¼Ç¾ø¾îÁü
-					pItem->removeOptionType(firstOption);
+					pItem->removeOptionType( firstOption );
 					optionChange = (firstOption << (shiftValue+8));
 
 					// DBº¯°æ
 					string optionField;
-					setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+					setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 					char pField[80];
 					sprintf(pField, "OptionType='%s'", optionField.c_str());
@@ -829,7 +937,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		{
 			OptionType_t prev = pFirstOptionInfo->getPreviousType();
 
-			if (prev != 0 )
+			if ( prev != 0 )
 			{
 				//¿É¼Ç¶³¾îÁú È®·ü °è»êÇØ¾ß µÈ´Ù.
 
@@ -839,14 +947,14 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 				//cout << "Ã¹¹øÂ° ¿É¼Ç : " << pFirstOptionInfo->getHName() << " ¿É ¶³¾îÁú È®·ü : " << downgradeRatio << endl;
 
-				if (dice < noChangeRatio )
+				if ( dice < noChangeRatio )
 				{
 					// º¯È­¾øÀ½
 				}
-				else if (dice < noChangeRatio + downgradeRatio )
+				else if ( dice < noChangeRatio + downgradeRatio )
 				{
 					// ¿É¼Ç¶³¾îÁü
-					downgradeOptionType(pItem, firstOption, pFirstOptionInfo);
+					downgradeOptionType( pItem, firstOption, pFirstOptionInfo );
 
 					OptionType_t previousOptionType = pFirstOptionInfo->getPreviousType();
 					optionChange = (firstOption << (shiftValue+8)) | (previousOptionType << shiftValue);
@@ -854,12 +962,12 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				else
 				{
 					// ¿É¼Ç¾ø¾îÁü
-					pItem->removeOptionType(firstOption);
+					pItem->removeOptionType( firstOption );
 					optionChange = (firstOption << (shiftValue+8));
 
 					// DBº¯°æ
 					string optionField;
-					setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+					setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 					char pField[80];
 					sprintf(pField, "OptionType='%s'", optionField.c_str());
@@ -871,18 +979,18 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 		shiftValue -= 16;
 
-		if (bSecondUpgradePossible )
+		if ( bSecondUpgradePossible )
 		{
 			// µÎ¹øÂ° ¿É¼ÇÀÇ ÀÎÃ¦Æ® È®·üÀº Ã¹¹øÂ° ¿É¼ÇÀÇ ¼º°ø¿©ºÎ¿¡ µû¸¥´Ù.
-			int succeedRatio = g_pOptionInfoManager->getRareUpgradeRatio(secondOption, bFirstSucceed ) * pItemInfo->getUpgradeRatio();
+			int succeedRatio = g_pOptionInfoManager->getRareUpgradeRatio( secondOption, bFirstSucceed ) * pItemInfo->getUpgradeRatio();
 			int dice = rand() %10000;
 
 			//cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ÀÎÃ¦Æ® È®·ü " << succeedRatio << endl;
 
-			if (dice < succeedRatio )
+			if ( dice < succeedRatio )
 			{
 				//cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
-				processUpgradeOptionType(pItem, secondOption, pSecondOptionInfo);
+				processUpgradeOptionType( pItem, secondOption, pSecondOptionInfo );
 
 				OptionType_t upgradeOptionType = pSecondOptionInfo->getUpgradeType();
 				optionChange |= (secondOption << (shiftValue+8)) | (upgradeOptionType << shiftValue);
@@ -897,14 +1005,14 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 				//cout << "ÀÎÃ¦Æ® ¾ÆÅÛ : " << pItemInfo->getName() << " ¿É¼Ç¶³¾îÁú È®·ü " << downgradeRatio << endl;
 
-				if (dice < noChangeRatio )
+				if ( dice < noChangeRatio )
 				{
 					// º¯È­¾øÀ½
 				}
-				else if (dice < noChangeRatio + downgradeRatio )
+				else if ( dice < noChangeRatio + downgradeRatio )
 				{
 					// ¿É¼Ç¶³¾îÁü
-					downgradeOptionType(pItem, secondOption, pSecondOptionInfo);
+					downgradeOptionType( pItem, secondOption, pSecondOptionInfo );
 
 					OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
 					optionChange |= (secondOption << (shiftValue+8)) | (previousOptionType << shiftValue);
@@ -912,12 +1020,12 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				else
 				{
 					// ¿É¼Ç¾ø¾îÁü
-					pItem->removeOptionType(secondOption);
+					pItem->removeOptionType( secondOption );
 					optionChange |= (secondOption << (shiftValue+8));
 
 					// DBº¯°æ
 					string optionField;
-					setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+					setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 					char pField[80];
 					sprintf(pField, "OptionType='%s'", optionField.c_str());
@@ -929,7 +1037,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		{
 			OptionType_t prev = pSecondOptionInfo->getPreviousType();
 
-			if (prev != 0 )
+			if ( prev != 0 )
 			{
 				//¿É¼Ç¶³¾îÁú È®·ü °è»êÇØ¾ß µÈ´Ù.
 				int noChangeRatio = 33;
@@ -938,14 +1046,14 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 				//cout << "µÎ¹øÂ° ¿É¼Ç : " << pSecondOptionInfo->getHName() << " ¿É ¶³¾îÁú È®·ü : " << downgradeRatio << endl;
 
-				if (dice < noChangeRatio )
+				if ( dice < noChangeRatio )
 				{
 					// º¯È­¾øÀ½
 				}
-				else if (dice < noChangeRatio + downgradeRatio )
+				else if ( dice < noChangeRatio + downgradeRatio )
 				{
 					// ¿É¼Ç¶³¾îÁü
-					downgradeOptionType(pItem, secondOption, pSecondOptionInfo);
+					downgradeOptionType( pItem, secondOption, pSecondOptionInfo );
 
 					OptionType_t previousOptionType = pSecondOptionInfo->getPreviousType();
 					optionChange |= (secondOption << (shiftValue+8)) | (previousOptionType << shiftValue);
@@ -953,12 +1061,12 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				else
 				{
 					// ¿É¼Ç¾ø¾îÁü
-					pItem->removeOptionType(secondOption);
+					pItem->removeOptionType( secondOption );
 					optionChange |= (secondOption << (shiftValue+8));
 
 					// DBº¯°æ
 					string optionField;
-					setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+					setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 					char pField[80];
 					sprintf(pField, "OptionType='%s'", optionField.c_str());
@@ -980,11 +1088,11 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		{
 			OptionType_t currentOptionType = *itr;
 
-			OptionInfo* pOptionInfo = getOptionInfo(currentOptionType);
+			OptionInfo* pOptionInfo = getOptionInfo( currentOptionType );
 
 			if (pOptionInfo==NULL)
 			{
-				sendEnchantImpossible(pGamePlayer);
+				sendEnchantImpossible( pGamePlayer );
 				return;
 			}
 
@@ -1018,14 +1126,14 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				//	<< pItemInfo->getUpgradeRatio() << " = "
 				//	<< succeedRatio << ", dice = " << dice << " , succeed=" << (int)bSucceed << endl;
 
-				//cout << "Before = " << getOptionTypeToString(pItem->getOptionTypeList() ) << endl;
+				//cout << "Before = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
 				//cout << "CurrentOptionType = " << (int)currentOptionType << endl;
 
 
 				if (pMouseItem->getNum()==1
 					&& bSucceed)
 				{
-					processUpgradeOptionType(pItem, currentOptionType, pOptionInfo);
+					processUpgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
 					OptionType_t upgradeOptionType = pOptionInfo->getUpgradeType();
 					optionChange = (currentOptionType << (shiftValue+8)) | (upgradeOptionType << shiftValue);
@@ -1041,18 +1149,18 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					//cout << "Failed!" << endl;
 					bool bCrashItem = pItemInfo->isUpgradeCrash();
 
-					if (bCrashItem )
+					if ( bCrashItem )
 					{
 						// ¾ÆÀÌÅÛ ºÎ¼ö±â Àü¿¡ ItemTrace Log ³²±âÀÚ ¤Ñ.¤Ñ; 
-						if (pItem != NULL && pItem->isTraceItem() )
+						if ( pItem != NULL && pItem->isTraceItem() )
 						{
-							remainTraceLog(pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
+							remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
 						}
 						crashItem(pItem, pInventory, invenX, invenY);
 
 						GCAddItemToItemVerify gcAddItemToItemVerify;
-						gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH);
-						pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+						gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH );
+						pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 						return;
 					}
@@ -1060,7 +1168,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					{
 						// À§¿¡¼­ list¸¦ reference·Î ¾²¸é ¿©±â¿¡¼­ ¿É¼ÇÀÌ Á¦°ÅµÉ ¼ö ÀÖÀ¸¹Ç·Î
 						// list iterator°¡ ´ÙÀÌ~µÉ¼öµµ ÀÖ´Ù.
-						downgradeOptionType(pItem, currentOptionType, pOptionInfo);
+						downgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
 						OptionType_t previousOptionType = pOptionInfo->getPreviousType();
 						optionChange = (currentOptionType << (shiftValue+8)) | (previousOptionType << shiftValue);
@@ -1093,7 +1201,6 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 	}
 
 	void executeEnchantOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, CoordInven_t invenX, CoordInven_t invenY)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
@@ -1108,9 +1215,9 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		int optionSize = pItem->getOptionTypeSize();
 
 		// ½ÇÆÐÇÒ È®·üÀº itemType¿¡ ÀÇÇØ¼­ °áÁ¤µÈ´Ù.
-		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(
+		const ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( 
 													pItem->getItemClass(), 
-													pItem->getItemType());
+													pItem->getItemType() );
 
 		// ÀÎÃ¦Æ® ÇÒ·Á´Â ¾ÆÀÌÅÛÀÌ ¹«¿ÉÀÌ°Å³ª
 		// ·¹¾î ¾ÆÀÌÅÛÀÌ°Å³ª
@@ -1119,15 +1226,15 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			|| pItemInfo->isUnique())
 		{
 			//cout << "no Option " << endl;
-			sendEnchantImpossible(pGamePlayer);
+			sendEnchantImpossible( pGamePlayer );
 			return;
 		}
 
-		OptionInfo* pOptionInfo = getOptionInfo(currentOptionType);
+		OptionInfo* pOptionInfo = getOptionInfo( currentOptionType );
 
 		if (pOptionInfo==NULL)
 		{
-			sendEnchantImpossible(pGamePlayer);
+			sendEnchantImpossible( pGamePlayer );
 			return;
 		}
 
@@ -1146,7 +1253,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			// ¿É¼ÇÈ®·ü * Å¸ÀÙÈ®·ü / 10000
 			int succeedRatio = 0;
 
-			if (pMouseItem->getItemType() == 15 )
+			if ( pMouseItem->getItemType() == 15 )
 			{
 				// ºí·ç µå·Ó 2~ 2003.5.11
 				succeedRatio = pOptionInfo->getUpgradeSecondRatio() * pItemInfo->getUpgradeRatio();
@@ -1169,7 +1276,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				<< succeedRatio << ", dice = " << dice << " , succeed=" << (int)bSucceed << endl;
 			*/
 
-			//cout << "Before = " << getOptionTypeToString(pItem->getOptionTypeList() ) << endl;
+			//cout << "Before = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
 			//cout << "CurrentOptionType = " << (int)currentOptionType << endl;
 
 			// ¿É¼ÇÀÌ ¿©·¯°³ ºÙ¾îÀÖ´Â °æ¿ì¿¡ ÇöÀç ÁöÁ¤ÇÑ ¿É¼ÇÀÌ upgrade°¡ ºÒ°¡´ÉÇÏ´Ù¸é ½ÇÆÐ·Î º»´Ù.
@@ -1180,12 +1287,12 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				&& bSucceed)
 			{
 //				cout << "ÀÎÃ¦Æ® ¼º°ø" << endl;
-				processUpgradeOptionType(pItem, currentOptionType, pOptionInfo);
+				processUpgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
 				OptionType_t upgradeOptionType = pOptionInfo->getUpgradeType();
 				uint optionChange = (currentOptionType << 24) | (upgradeOptionType << 16);
 
-				sendEnchantOK(pGamePlayer, optionChange);
+				sendEnchantOK( pGamePlayer, optionChange );
 
 				//cout << gcAddItemToItemVerify.toString().c_str() << endl;
 			}
@@ -1200,32 +1307,32 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 				// ½ÇÆÐ packet : ¾ÆÀÌÅÛÀÌ ºÎ¼­Áö´ÂÁö ¾Æ´ÑÁö °áÁ¤
 				GCAddItemToItemVerify gcAddItemToItemVerify;
 
-				if (bCrashItem )
+				if ( bCrashItem )
 				{
 					// ¾ÆÀÌÅÛ ºÎ¼ö±â Àü¿¡ ItemTrace Log ³²±âÀÚ ¤Ñ.¤Ñ; 
-					if (pItem != NULL && pItem->isTraceItem() )
+					if ( pItem != NULL && pItem->isTraceItem() )
 					{
-						remainTraceLog(pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
+						remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_ENCHANT);
 					}
 
-					crashItem(pItem, pInventory, invenX, invenY);
+					crashItem( pItem, pInventory, invenX, invenY );
 
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_CRASH );
 
 					//cout << "Broken" << endl;
 				}
 				else
 				{
-					downgradeOptionType(pItem, currentOptionType, pOptionInfo);
+					downgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
 					OptionType_t previousOptionType = pOptionInfo->getPreviousType();
 					uint optionChange = (currentOptionType << 24) | (previousOptionType << 16);
 
-					gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE);
-					gcAddItemToItemVerify.setParameter(optionChange);
+					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE );
+					gcAddItemToItemVerify.setParameter( optionChange );
 				}
 
-				pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+				pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 				//cout << "Upgrade Failed " << (bCrashItem? ": Crash!":" ") << endl;
 			}
@@ -1241,7 +1348,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		}
 		else
 		{
-			sendEnchantImpossible(pGamePlayer);
+			sendEnchantImpossible( pGamePlayer );
 			//cout << "upgrade impossible" << endl;
 		}
 
@@ -1250,7 +1357,6 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 	// ¹«¿É ¾ÆÀÌÅÛ¿¡ ¿É¼ÇÀ» Ãß°¡½ÃÅ²´Ù.
 	void executeAddOption(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem, OptionType_t addOptionType)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
@@ -1263,8 +1369,8 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		{
 			//cout << "no Option " << endl;
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE_NO_PREMIUM );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 			return;
 		}
 */
@@ -1279,10 +1385,10 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			&& pMouseItem->getNum()==1)
 		{
 			// ¿É¼Ç º¯°æ
-			pItem->addOptionType(addOptionType);
+			pItem->addOptionType( addOptionType );
 			
 			string optionField;
-			setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+			setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 			// DBº¯°æ
 			char pField[80];
@@ -1299,9 +1405,9 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 			// ¼º°øpacket : upgradeµÉ optionÀ» ³Ö¾îÁØ´Ù.
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-			gcAddItemToItemVerify.setParameter(optionChange);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+			gcAddItemToItemVerify.setParameter( optionChange );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 			//cout << gcAddItemToItemVerify.toString().c_str() << endl;
 		}
@@ -1312,8 +1418,8 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 			// upgrade ÇÒ ¼ö ¾ø´Â optionÀÌ´Ù.
 			// ºÒ°¡ packet
 			GCAddItemToItemVerify gcAddItemToItemVerify;
-			gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE);
-			pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+			gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE );
+			pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 			//cout << "upgrade impossible" << endl;
 		}
@@ -1321,33 +1427,33 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		__END_CATCH
 	}
 
-	void executeTransKit(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem) throw(Error)
+	void executeTransKit(GamePlayer* pGamePlayer, Item* pMouseItem, Item* pItem)
 	{
 		__BEGIN_TRY
 
 		GCAddItemToItemVerify gcResult;
 		uint optionChange;
 
-		ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
-		if (pItemInfo->getReqGender() == GENDER_BOTH || pItemInfo->getReqGender() == GENDER_MAX
+		ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pItem->getItemClass(), pItem->getItemType() );
+		if ( pItemInfo->getReqGender() == GENDER_BOTH || pItemInfo->getReqGender() == GENDER_MAX
 			|| pItemInfo->isUnique() 
 			|| pMouseItem->getNum() != 1 )
 		{
-			gcResult.setCode(ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE);
+			gcResult.setCode( ADD_ITEM_TO_ITEM_VERIFY_TRANS_IMPOSSIBLE );
 			pGamePlayer->sendPacket(&gcResult);
 			return;
 		}
 
 		ItemType_t newItemType = pItem->getItemType() ^ 1;
-		optionChange = (pItem->getItemType() << 16 ) | newItemType;
-		pItem->setItemType(newItemType);
+		optionChange = ( pItem->getItemType() << 16 ) | newItemType;
+		pItem->setItemType( newItemType );
 
 		char query[50];
-		sprintf(query, "ItemType=%u", newItemType);
+		sprintf(query, "ItemType=%u", newItemType );
 		pItem->tinysave(query);
 
-		gcResult.setCode(ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK);
-		gcResult.setParameter(optionChange);
+		gcResult.setCode( ADD_ITEM_TO_ITEM_VERIFY_TRANS_OK );
+		gcResult.setParameter( optionChange );
 		pGamePlayer->sendPacket(&gcResult);
 
 		Creature*  		pCreature   = pGamePlayer->getCreature();
@@ -1365,7 +1471,7 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		OptionInfo* pOptionInfo = NULL;
 
 		try {
-			pOptionInfo = g_pOptionInfoManager->getOptionInfo(optionType);
+			pOptionInfo = g_pOptionInfoManager->getOptionInfo( optionType );
 
 			if (pOptionInfo==NULL)
 			{
@@ -1387,7 +1493,6 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					Item* pItem,
 					OptionType_t currentOptionType,
 					OptionInfo* pOptionInfo)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
@@ -1396,16 +1501,16 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		OptionType_t upgradeOptionType = pOptionInfo->getUpgradeType();
 
 		// ¿É¼Ç º¯°æ
-		pItem->changeOptionType(currentOptionType, upgradeOptionType);
+		pItem->changeOptionType( currentOptionType, upgradeOptionType );
 
-		//cout << "Succeed = " << getOptionTypeToString(pItem->getOptionTypeList());
+		//cout << "Succeed = " << getOptionTypeToString( pItem->getOptionTypeList() );
 		
 		string optionField;
-		setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+		setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 		//list<OptionType_t> op;
-		//setOptionTypeFromField(op, optionField);
-		//cout << "Check = " << getOptionTypeToString(op ) << endl;
+		//setOptionTypeFromField( op, optionField );
+		//cout << "Check = " << getOptionTypeToString( op ) << endl;
 
 		// DBº¯°æ
 		char pField[80];
@@ -1416,12 +1521,11 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 	}
 
 	void	crashItem(Item* pItem, Inventory* pInventory, CoordInven_t invenX, CoordInven_t invenY)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
 		// inventory¿¡¼­ ¾ÆÀÌÅÛ Á¦°Å
-		pInventory->deleteItem(invenX, invenY);
+		pInventory->deleteItem( invenX, invenY );
 
 		// DB¿¡¼­ Á¦°Å
 		pItem->destroy();
@@ -1436,7 +1540,6 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 					Item* pItem,
 					OptionType_t currentOptionType,
 					OptionInfo* pOptionInfo)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
@@ -1449,18 +1552,18 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 		// ÀÌÀü ¿É¼ÇÀÌ ¾ø´Ù¸é ¾Æ¿¹ ¿É¼ÇÀ» ¾ø¾Ø´Ù.
 		if (previousOptionType==0)
 		{
-			pItem->removeOptionType(currentOptionType);
-			//cout << "Remove = " << getOptionTypeToString(pItem->getOptionTypeList() ) << endl;
+			pItem->removeOptionType( currentOptionType );
+			//cout << "Remove = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
 		}
 		else
 		{
-			pItem->changeOptionType(currentOptionType, previousOptionType);
-			//cout << "Down = " << getOptionTypeToString(pItem->getOptionTypeList() ) << endl;
+			pItem->changeOptionType( currentOptionType, previousOptionType );
+			//cout << "Down = " << getOptionTypeToString( pItem->getOptionTypeList() ) << endl;
 		}
 
 		// DBº¯°æ
 		string optionField;
-		setOptionTypeToField(pItem->getOptionTypeList(), optionField);
+		setOptionTypeToField( pItem->getOptionTypeList(), optionField );
 
 		//cout << "FailAfter : " << getOptionTypeToString(pItem->getOptionTypeList()) << endl;
 
@@ -1474,33 +1577,38 @@ void CGAddItemToItemHandler::execute (CGAddItemToItem* pPacket , Player* pPlayer
 
 
 	void	sendEnchantImpossible(GamePlayer* pGamePlayer)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
 		GCAddItemToItemVerify gcAddItemToItemVerify;
-		gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE);
-		pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+		gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_IMPOSSIBLE );
+		pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 		__END_CATCH
 	}
 
 	void	sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange)
-		throw(Error)
 	{
 		__BEGIN_TRY
 
 		GCAddItemToItemVerify gcAddItemToItemVerify;
-		gcAddItemToItemVerify.setCode(ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK);
-		gcAddItemToItemVerify.setParameter(optionChange);
-		pGamePlayer->sendPacket(&gcAddItemToItemVerify);
+		gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_OK );
+		gcAddItemToItemVerify.setParameter( optionChange );
+		gcAddItemToItemVerify.setParameter2( 0 );
+		pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 		__END_CATCH
 	}
 
-	void yellowDropLog(PlayerCreature* pPC, Item* pItem, int ratio, int success) throw(Error)
+	void	sendEnchantOK(GamePlayer* pGamePlayer, DWORD optionChange , DWORD optionChange2)
 	{
 		__BEGIN_TRY
+
+		GCAddItemToItemVerify gcAddItemToItemVerify;
+		gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK );
+		gcAddItemToItemVerify.setParameter( optionChange );
+		gcAddItemToItemVerify.setParameter2( optionChange2 );
+		pGamePlayer->sendPacket( &gcAddItemToItemVerify );
 
 		__END_CATCH
 	}

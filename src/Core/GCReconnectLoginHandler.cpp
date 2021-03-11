@@ -19,7 +19,7 @@
 // 게임 서버로 연결한 후, 인증키를 담은 CGConnect 패킷을 전송한다.
 //--------------------------------------------------------------------------------
 void GCReconnectLoginHandler::execute (GCReconnectLogin * pPacket , Player * pPlayer )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 #ifdef __GAME_CLIENT__

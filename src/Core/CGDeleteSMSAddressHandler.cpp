@@ -10,15 +10,15 @@
 	#include "GamePlayer.h"
 	#include "PlayerCreature.h"
 	#include "SMSAddressBook.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 
-	#include "GCAddressListVerify.h"
+	#include "Gpackets/GCAddressListVerify.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGDeleteSMSAddressHandler::execute (CGDeleteSMSAddress* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -28,29 +28,29 @@ void CGDeleteSMSAddressHandler::execute (CGDeleteSMSAddress* pPacket , Player* p
 	Assert(pPlayer != NULL);
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGamePlayer != NULL);
+	Assert( pGamePlayer != NULL );
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCAddressListVerify gcVerify;
 
 	SMSAddressBook* pBook = pPC->getAddressBook();
-	Assert(pBook != NULL);
+	Assert( pBook != NULL );
 	
-	int result = pBook->removeAddressElement(pPacket->getElementID());
+	int result = pBook->removeAddressElement( pPacket->getElementID() );
 
-	if (result != 0 )
+	if ( result != 0 )
 	{
-		gcVerify.setCode(GCAddressListVerify::ADDRESS_LIST_DELETE_FAIL);
-		gcVerify.setParameter(result);
-		pGamePlayer->sendPacket(&gcVerify);
+		gcVerify.setCode( GCAddressListVerify::ADDRESS_LIST_DELETE_FAIL );
+		gcVerify.setParameter( result );
+		pGamePlayer->sendPacket( &gcVerify );
 		return;
 	}
 
-	gcVerify.setCode(GCAddressListVerify::ADDRESS_LIST_DELETE_OK);
-	gcVerify.setParameter(result);
-	pGamePlayer->sendPacket(&gcVerify);
+	gcVerify.setCode( GCAddressListVerify::ADDRESS_LIST_DELETE_OK );
+	gcVerify.setParameter( result );
+	pGamePlayer->sendPacket( &gcVerify );
 
 #endif	// __GAME_SERVER__
 

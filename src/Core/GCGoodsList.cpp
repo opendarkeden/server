@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 GCGoodsList::GCGoodsList() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ GCGoodsList::GCGoodsList()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 GCGoodsList::~GCGoodsList() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ GCGoodsList::~GCGoodsList()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void GCGoodsList::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void GCGoodsList::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////////////
 void GCGoodsList::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -146,7 +146,7 @@ void GCGoodsList::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////////////
 void GCGoodsList::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -160,7 +160,7 @@ void GCGoodsList::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 PacketSize_t GCGoodsList::getPacketSize () const 
-	throw()
+	
 { 
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -186,7 +186,7 @@ PacketSize_t GCGoodsList::getPacketSize () const
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////////////
 string GCGoodsList::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

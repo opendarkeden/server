@@ -11,21 +11,21 @@
 
 
 CGTameMonster::CGTameMonster () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGTameMonster::~CGTameMonster () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGTameMonster::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -35,7 +35,7 @@ void CGTameMonster::read (SocketInputStream & iStream)
 }
 
 void CGTameMonster::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ void CGTameMonster::write (SocketOutputStream & oStream) const
 }
 
 void CGTameMonster::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -55,7 +55,7 @@ void CGTameMonster::execute (Player* pPlayer)
 }
 
 string CGTameMonster::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

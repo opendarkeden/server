@@ -7,21 +7,21 @@
 #include "CGUsePotionFromQuickSlot.h"
 
 CGUsePotionFromQuickSlot::CGUsePotionFromQuickSlot () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGUsePotionFromQuickSlot::~CGUsePotionFromQuickSlot () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGUsePotionFromQuickSlot::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -32,7 +32,7 @@ void CGUsePotionFromQuickSlot::read (SocketInputStream & iStream)
 }
 
 void CGUsePotionFromQuickSlot::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGUsePotionFromQuickSlot::write (SocketOutputStream & oStream) const
 }
 
 void CGUsePotionFromQuickSlot::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void CGUsePotionFromQuickSlot::execute (Player* pPlayer)
 }
 
 string CGUsePotionFromQuickSlot::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

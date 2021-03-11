@@ -7,7 +7,7 @@
 #include "CGWhisper.h"
 
 void CGWhisper::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -42,7 +42,7 @@ void CGWhisper::read (SocketInputStream & iStream)
 }
 		    
 void CGWhisper::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -78,7 +78,7 @@ void CGWhisper::write (SocketOutputStream & oStream) const
 }
 
 void CGWhisper::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -88,7 +88,7 @@ void CGWhisper::execute (Player* pPlayer)
 }
 
 string CGWhisper::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

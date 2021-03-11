@@ -11,21 +11,21 @@
 
 
 CGSkillToSelf::CGSkillToSelf () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGSkillToSelf::~CGSkillToSelf () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGSkillToSelf::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -50,7 +50,7 @@ void CGSkillToSelf::read (SocketInputStream & iStream)
 }
 
 void CGSkillToSelf::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -75,7 +75,7 @@ void CGSkillToSelf::write (SocketOutputStream & oStream) const
 }
 
 void CGSkillToSelf::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -85,7 +85,7 @@ void CGSkillToSelf::execute (Player* pPlayer)
 }
 
 string CGSkillToSelf::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

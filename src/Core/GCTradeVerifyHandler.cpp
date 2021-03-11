@@ -10,7 +10,7 @@
 #include "GCTradeVerify.h"
 
 void GCTradeVerifyHandler::execute (GCTradeVerify * pPacket , Player * pPlayer )
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	

@@ -14,7 +14,7 @@
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GSRequestGuildInfo::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -25,7 +25,7 @@ void GSRequestGuildInfo::read (SocketInputStream & iStream )
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GSRequestGuildInfo::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -36,7 +36,7 @@ void GSRequestGuildInfo::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GSRequestGuildInfo::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	GSRequestGuildInfoHandler::execute(this, pPlayer);

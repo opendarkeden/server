@@ -23,7 +23,7 @@ const string GCPartyInvite2String[] =
 //////////////////////////////////////////////////////////////////////////////
 
 void GCPartyInvite::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ void GCPartyInvite::read (SocketInputStream & iStream)
 }
 		    
 void GCPartyInvite::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -45,7 +45,7 @@ void GCPartyInvite::write (SocketOutputStream & oStream) const
 }
 
 void GCPartyInvite::execute (Player * pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -55,7 +55,7 @@ void GCPartyInvite::execute (Player * pPlayer)
 }
 
 string GCPartyInvite::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -8,7 +8,7 @@
 
 #ifdef __GAME_SERVER__
 	#include "GamePlayer.h"
-	#include "Assert1.h"
+	#include "Assert.h"
 	#include "Store.h"
 	#include "Inventory.h"
 	#include "ItemUtil.h"
@@ -17,14 +17,13 @@
 	#include "PacketUtil.h"
 	#include "DB.h"
 	#include "VariableManager.h"
-	#include "item/SubInventory.h"
-	#include "GCMyStoreInfo.h"
-	#include "GCRemoveStoreItem.h"
-	#include "GCShopSellOK.h"
-	#include "GCModifyInformation.h"
-	#include "GCCreateItem.h"
-	#include "GCSystemMessage.h"
-	#include "GCNoticeEvent.h"
+	#include "Gpackets/GCMyStoreInfo.h"
+	#include "Gpackets/GCRemoveStoreItem.h"
+	#include "Gpackets/GCShopSellOK.h"
+	#include "Gpackets/GCModifyInformation.h"
+	#include "Gpackets/GCCreateItem.h"
+	#include "Gpackets/GCSystemMessage.h"
+	#include "Gpackets/GCNoticeEvent.h"
 	#include <cstdio>
 #endif
 
@@ -33,7 +32,7 @@
 // »Æ¿Œ«œ∞Ì, ¿œπ› æ∆¿Ã≈€∞˙ ∏≈Õ ªÁ¿Ã≈¨ √≥∏Æ∫Œ∫–¿∏∑Œ ∫–±‚«—¥Ÿ.
 //////////////////////////////////////////////////////////////////////////////
 void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -46,30 +45,30 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 	Assert(pGamePlayer != NULL);
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	GCSystemMessage errorMsg;
 	GCNoticeEvent errorNotice;
 
-	if (pPacket->getIndex() > MAX_ITEM_NUM )
+	if ( pPacket->getIndex() > MAX_ITEM_NUM )
 	{
-		filelog("Store.log", "[%s:%s] (%u) packet index > MAX_ITEM_NUM.",
+		filelog("Store.log", "[%s:%s] (%u) ¿ﬂ∏¯µ» ¿Œµ¶Ω∫¿‘¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getIndex());
 		return;
 	}
 
 	PlayerCreature* pStorePC = dynamic_cast<PlayerCreature*>(pPC->getZone()->getCreature(pPacket->getOwnerObjectID()));
-	if (pStorePC == NULL )
+	if ( pStorePC == NULL )
 	{
 		filelog("Store.log", "[%s:%s] (%u) ±◊∑± ¿Ø¿˙∞° æ¯Ω¿¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pPacket->getOwnerObjectID());
 //		errorMsg.setMessage("«ÿ¥Á ∆«∏≈¿⁄∏¶ √£¿ª ºˆ æ¯Ω¿¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_CANNOT_FIND_STORE);
-		pGamePlayer->sendPacket(&errorNotice);
+		pGamePlayer->sendPacket( &errorNotice );
 		return;
 	}
 
-	if (pStorePC->getRace() != pPC->getRace() )
+	if ( pStorePC->getRace() != pPC->getRace() )
 	{
 		filelog("Store.log", "[%s:%s] (%s) ¥Ÿ∏• ¡æ¡∑¿« ªÛ¡°¿ª ø≠∑¡∞Ì Ω√µµ«ﬂΩ¿¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str());
@@ -77,68 +76,56 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 	}
 
 	Store* pStore = pStorePC->getStore();
-	if (pStore == NULL || !pStore->isOpen() )
+	if ( pStore == NULL || !pStore->isOpen() )
 	{
 		filelog("Store.log", "[%s:%s] (%s) ªÛ¡°¿Ã ø≠∑¡¿÷¡ˆ æ Ω¿¥œ¥Ÿ..",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str());
 //		errorMsg.setMessage("ªÛ¡°¿Ã ¿ÃπÃ ¥›«˚Ω¿¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_STORE_CLOSED);
-		pGamePlayer->sendPacket(&errorNotice);
+		pGamePlayer->sendPacket( &errorNotice );
 		return;
 	}
 
-	StoreItem& storeItem = pStore->getStoreItem(pPacket->getIndex());
-	if (!storeItem.isExists() )
+	StoreItem& storeItem = pStore->getStoreItem( pPacket->getIndex() );
+	if ( !storeItem.isExists() )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) «ÿ¥Á ¿ßƒ°ø° æ∆¿Ã≈€¿Ã æ¯Ω¿¥œ¥Ÿ..",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex());
 //		errorMsg.setMessage("æ∆¿Ã≈€¿Ã ¿ÃπÃ ∆«∏≈µ«æ˙∞≈≥™ ∆«∏≈¿⁄ø° ¿««ÿ √∂»∏µ«æ˙Ω¿¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_ITEM_NOT_FOUND);
-		pGamePlayer->sendPacket(&errorNotice);
+		pGamePlayer->sendPacket( &errorNotice );
 		return;
 	}
 
 	Item* pItem = storeItem.getItem();
 	Gold_t price = storeItem.getPrice();
 
-	Assert(pItem != NULL);
+	Assert( pItem != NULL );
 
-	if (pItem->getItemClass() == Item::ITEM_CLASS_SUB_INVENTORY )
-	{
-		SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pItem);
-		if (pSubInventoryItem->getInventory()->getItemNum() > 0 ||
-			pPC->getInventory()->findItem(Item::ITEM_CLASS_SUB_INVENTORY ) != NULL )
-		{
-			errorNotice.setCode(NOTICE_EVENT_CANNOT_SELL);
-			pGamePlayer->sendPacket(&errorNotice);
-			return;
-		}
-	}
-
-	if (pPC->getGold() < price )
+	if ( pPC->getGold() < price )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) (%u<%u) µ∑¿Ã ∏¿⁄∂¯¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pPC->getGold(), price);
 //		errorMsg.setMessage("µ∑¿Ã ∏¿⁄∂¯¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_NOT_ENOUGH_MONEY);
-		pGamePlayer->sendPacket(&errorNotice);
+		pGamePlayer->sendPacket( &errorNotice );
 		return;
 	}
 
-	if (pStorePC->getGold() > MAX_MONEY - price )
+	if ( pStorePC->getGold() > MAX_MONEY - price )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) (%u,%u) µ∑¿Ã ≥—ƒ®¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pStorePC->getGold(), price);
 //		errorMsg.setMessage("∆«∏≈¿⁄∞° ≥ π´ ∏π¿∫ µ∑¿ª ∞°¡ˆ∞Ì ¿÷æÓº≠ ±∏¿‘«“ ºˆ æ¯Ω¿¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_TOO_MUCH_MONEY);
-		pGamePlayer->sendPacket(&errorNotice);
-		errorMsg.setMessage("≥ π´ ∏π¿∫ µ∑¿ª ∞°¡ˆ∞Ì ¿÷æÓº≠ π∞«∞¿ª ∆«∏≈«“ ºˆ æ¯Ω¿¥œ¥Ÿ.");
+		pGamePlayer->sendPacket( &errorNotice );
+		errorMsg.setMessage("…Ì…œΩ±“Ã´∂‡,Œﬁ∑®Ω¯––Ωª“◊.");
 		pStorePC->getPlayer()->sendPacket(&errorMsg);
-		pGamePlayer->sendPacket(&errorMsg);
+		pGamePlayer->sendPacket( &errorMsg );
 		return;
 	}
 
-	if (pItem->isTimeLimitItem() || !canSell(pItem ) )
+	if ( pItem->isTimeLimitItem() || !canSell( pItem ) )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) (%s) ∆» ºˆ æ¯¥¬ æ∆¿Ã≈€¿‘¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pItem->toString().c_str());
@@ -148,12 +135,12 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 	Inventory* pStoreInventory = pStorePC->getInventory();
 	CoordInven_t storeX, storeY;
 
-	Item* pStoreItem = pStoreInventory->findItemOID(pItem->getObjectID(), storeX, storeY);
-	if (pStoreItem != pItem )
+	Item* pStoreItem = pStoreInventory->findItemOID( pItem->getObjectID(), storeX, storeY );
+	if ( pStoreItem != pItem )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) (%p!=%p) ∆«∏≈¿⁄∞° æ∆¿Ã≈€¿ª æ»∞Æ∞Ì ¿÷∞≈≥™ ¿ÃªÛ«— æ∆¿Ã≈€¿‘¥œ¥Ÿ.",
-				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pStoreItem, pItem);
-		errorMsg.setMessage("¿Œ∫•≈‰∏Æø° ∆«∏≈«“ æ∆¿Ã≈€¿Ã æ¯Ω¿¥œ¥Ÿ.");
+				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex(), pStoreItem, pItem );
+		errorMsg.setMessage("µ¿æﬂ¿∏ƒ⁄√ª”–ø…≥ˆ €µƒµ¿æﬂ.");
 		pStorePC->getPlayer()->sendPacket(&errorMsg);
 		return;
 	}
@@ -161,47 +148,47 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 	Inventory* pInventory = pPC->getInventory();
 	_TPOINT emptyPos;
 
-	if (!pInventory->getEmptySlot(pItem, emptyPos ) )
+	if ( !pInventory->getEmptySlot( pItem, emptyPos ) )
 	{
 		filelog("Store.log", "[%s:%s] (%s:%u) ªÏ ªÁ∂˜ ¿Œ∫•≈‰∏Æø° ¿⁄∏Æ∞° æ¯Ω¿¥œ¥Ÿ.",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str(), pStorePC->getName().c_str(), pPacket->getIndex());
 //		errorMsg.setMessage("¿Œ∫•≈‰∏Æø° ∫Û ∞˜¿Ã æ¯æÓº≠ ±∏¿‘«“ ºˆ æ¯Ω¿¥œ¥Ÿ.");
 		errorNotice.setCode(NOTICE_EVENT_NO_INVENTORY_SPACE);
-		pGamePlayer->sendPacket(&errorNotice);
+		pGamePlayer->sendPacket( &errorNotice );
 		return;
 	}
 
-	Assert(pStore->removeStoreItem(pPacket->getIndex() ) == 0);
+	Assert( pStore->removeStoreItem( pPacket->getIndex() ) == 0 );
 
-	pStoreInventory->deleteItem(storeX, storeY);
-	pStorePC->increaseGoldEx(price);
+	pStoreInventory->deleteItem( storeX, storeY );
+	pStorePC->increaseGoldEx( price );
 
 	filelog("StoreBought.log", "[%s:%u/%u] æ∆¿Ã≈€¿Ã ¡¶∞≈µ«æ˙Ω¿¥œ¥Ÿ.", pStorePC->getName().c_str(), pItem->getItemClass(), pItem->getItemID());
 	
 	GCShopSellOK gcSellOK;
-	gcSellOK.setObjectID(pPC->getObjectID());
-	gcSellOK.setShopVersion(-1);
-	gcSellOK.setItemObjectID(pItem->getObjectID());
-	gcSellOK.setPrice(price);
-	pStorePC->getPlayer()->sendPacket(&gcSellOK);
+	gcSellOK.setObjectID( pPC->getObjectID() );
+	gcSellOK.setShopVersion( -1 );
+	gcSellOK.setItemObjectID( pItem->getObjectID() );
+	gcSellOK.setPrice( price );
+	pStorePC->getPlayer()->sendPacket( &gcSellOK );
 
-	Assert(pInventory->addItem(pItem, emptyPos ));
-	pPC->decreaseGoldEx(price);
+	Assert(pInventory->addItem( pItem, emptyPos ));
+	pPC->decreaseGoldEx( price );
 
 	char pField[80];
-	sprintf(pField, "OwnerID='%s', Storage=%d, StorageID=0, X=%d, Y=%d", pPC->getName().c_str(), STORAGE_INVENTORY, emptyPos.x, emptyPos.y);
+	sprintf(pField, "OwnerID='%s', Storage=%d, X=%d, Y=%d", pPC->getName().c_str(), STORAGE_INVENTORY, emptyPos.x, emptyPos.y);
 	pItem->tinysave(pField);
 
 	filelog("StoreBought.log", "[%s:%u/%u] æ∆¿Ã≈€¿Ã ¡÷æÓ¡≥Ω¿¥œ¥Ÿ.", pPC->getName().c_str(), pItem->getItemClass(), pItem->getItemID());
 
-	if (pItem->isTraceItem() )
+	if ( pItem->isTraceItem() )
 	{
-		remainTraceLog(pItem, pStorePC->getName(), pPC->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
+		remainTraceLog( pItem, pStorePC->getName(), pPC->getName(), ITEM_LOG_TRADE, DETAIL_TRADE );
 	}
 
-	if (price > g_pVariableManager->getMoneyTraceLogLimit() )
+	if ( price > g_pVariableManager->getMoneyTraceLogLimit() )
 	{
-		remainMoneyTraceLog(pPC->getName(), pStorePC->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, price);
+		remainMoneyTraceLog( pPC->getName(), pStorePC->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, price );
 	}
 
 	Statement* pStmt = NULL;
@@ -209,7 +196,7 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery("INSERT INTO `TradeLog` (`Timeline`, `Name1`, `IP1`, `Name2`, `IP2`, `Content`) VALUES ('%s', '%s', '%s', '%s', '%s', 'Store:[%s(%s)]\n%s\n----\nBuy:[%s(%s)]\nGOLD:%u\n')",
+		pStmt->executeQuery("INSERT INTO TradeLog (Timeline, Name1, IP1, Name2, IP2, Content) VALUES ('%s', '%s', '%s', '%s', '%s', 'Store:[%s(%s)]\n%s\n----\nBuy:[%s(%s)]\nGOLD:%u\n')",
 				VSDateTime::currentDateTime().toString().c_str(),
 				pStorePC->getName().c_str(),
 				pStorePC->getPlayer()->getSocket()->getHost().c_str(),
@@ -220,26 +207,26 @@ void CGBuyStoreItemHandler::execute (CGBuyStoreItem* pPacket , Player* pPlayer)
 				pPC->getName().c_str(), pPC->getPlayer()->getID().c_str(),
 				price);
 
-		SAFE_DELETE(pStmt);
+		SAFE_DELETE( pStmt );
 	}
 	END_DB(pStmt);
 
 	GCCreateItem gcCreateItem;
-	makeGCCreateItem(&gcCreateItem, pItem, emptyPos.x, emptyPos.y);
-	pGamePlayer->sendPacket(&gcCreateItem);
+	makeGCCreateItem( &gcCreateItem, pItem, emptyPos.x, emptyPos.y );
+	pGamePlayer->sendPacket( &gcCreateItem );
 
 	GCModifyInformation gcMI;
-	gcMI.addLongData(MODIFY_GOLD, pPC->getGold());
-	pGamePlayer->sendPacket(&gcMI);
+	gcMI.addLongData( MODIFY_GOLD, pPC->getGold() );
+	pGamePlayer->sendPacket( &gcMI );
 
 	GCRemoveStoreItem gcRemoveStoreItem;
-	gcRemoveStoreItem.setOwnerObjectID(pStorePC->getObjectID());
-	gcRemoveStoreItem.setIndex(pPacket->getIndex());
-	pStorePC->getZone()->broadcastPacket(pStorePC->getX(), pStorePC->getY(), &gcRemoveStoreItem, pStorePC);
+	gcRemoveStoreItem.setOwnerObjectID( pStorePC->getObjectID() );
+	gcRemoveStoreItem.setIndex( pPacket->getIndex() );
+	pStorePC->getZone()->broadcastPacket( pStorePC->getX(), pStorePC->getY(), &gcRemoveStoreItem, pStorePC );
 
 	GCMyStoreInfo gcInfo;
-	gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pStorePC->getPlayer()->sendPacket(&gcInfo);
+	gcInfo.setStoreInfo( &(pStore->getStoreInfo()) );
+	pStorePC->getPlayer()->sendPacket( &gcInfo );
 
 #endif
 

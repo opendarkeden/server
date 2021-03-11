@@ -11,21 +11,21 @@
 
 
 CGUsePotionFromInventory::CGUsePotionFromInventory () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGUsePotionFromInventory::~CGUsePotionFromInventory () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGUsePotionFromInventory::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -52,7 +52,7 @@ void CGUsePotionFromInventory::read (SocketInputStream & iStream)
 }
 
 void CGUsePotionFromInventory::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,7 @@ void CGUsePotionFromInventory::write (SocketOutputStream & oStream) const
 }
 
 void CGUsePotionFromInventory::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void CGUsePotionFromInventory::execute (Player* pPlayer)
 }
 
 string CGUsePotionFromInventory::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

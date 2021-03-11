@@ -7,7 +7,7 @@
 #include "CGSelectTileEffect.h"
 
 void CGSelectTileEffect::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -17,7 +17,7 @@ void CGSelectTileEffect::read (SocketInputStream & iStream)
 }
 		    
 void CGSelectTileEffect::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -27,7 +27,7 @@ void CGSelectTileEffect::write (SocketOutputStream & oStream) const
 }
 
 void CGSelectTileEffect::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGSelectTileEffect::execute (Player* pPlayer)
 }
 
 string CGSelectTileEffect::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

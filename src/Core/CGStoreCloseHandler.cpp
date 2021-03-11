@@ -12,14 +12,14 @@
 	#include "Store.h"
 	#include "Zone.h"
 
-	#include "GCMyStoreInfo.h"
-	#include "GCOtherStoreInfo.h"
+	#include "Gpackets/GCMyStoreInfo.h"
+	#include "Gpackets/GCOtherStoreInfo.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGStoreCloseHandler::execute (CGStoreClose* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -32,12 +32,12 @@ void CGStoreCloseHandler::execute (CGStoreClose* pPacket , Player* pPlayer)
 	Assert(pGamePlayer != NULL);
 
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	Store* pStore = pPC->getStore();
-	Assert(pStore != NULL);
+	Assert( pStore != NULL );
 
-	if (!pStore->isOpen() )
+	if ( !pStore->isOpen() )
 	{
 		filelog("Store.log", "[%s:%s] 이미 상점이 닫혀있습니다..",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str());
@@ -45,17 +45,17 @@ void CGStoreCloseHandler::execute (CGStoreClose* pPacket , Player* pPlayer)
 	}
 
 	pStore->close();
-	//cout << pPC->getName() << " 의 상점이 닫혔습니다닏." << endl;
+	cout << pPC->getName() << " 의 상점이 닫혔습니다닏." << endl;
 
 	GCMyStoreInfo gcInfo;
-	gcInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pGamePlayer->sendPacket(&gcInfo);
+	gcInfo.setStoreInfo( &(pStore->getStoreInfo()) );
+	pGamePlayer->sendPacket( &gcInfo );
 
 	GCOtherStoreInfo gcOtherInfo;
-	gcOtherInfo.setObjectID(pPC->getObjectID());
+	gcOtherInfo.setObjectID( pPC->getObjectID() );
 	gcOtherInfo.setRequested(0);
-	gcOtherInfo.setStoreInfo(&(pStore->getStoreInfo()));
-	pPC->getZone()->broadcastPacket(pPC->getX(), pPC->getY(), &gcOtherInfo, pPC);
+	gcOtherInfo.setStoreInfo( &(pStore->getStoreInfo()) );
+	pPC->getZone()->broadcastPacket( pPC->getX(), pPC->getY(), &gcOtherInfo, pPC );
 
 	
 #endif	// __GAME_SERVER__

@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGCrashReportHandler::execute (CGCrashReport* pPacket , Player* pPlayer)
-	throw(ProtocolException, Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -35,7 +35,10 @@ void CGCrashReportHandler::execute (CGCrashReport* pPacket , Player* pPlayer)
 		BEGIN_DB
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt->executeQuery("INSERT INTO `CrashReportLog` (`PlayerID`, `Name`, `ReportTime`, `ExecutableTime`, `Version`, `Address`, `Message`, `OS`, `CallStack`) VALUES ('%s', '%s', now(), '%s', %u, '%s', '%s', '%s', '%s')", pGamePlayer->getID().c_str(), pCreature->getName().c_str(), pPacket->getExecutableTime().c_str(), pPacket->getVersion(), pPacket->getAddress().c_str(), pPacket->getMessage().c_str(), pPacket->getOS().c_str(), pPacket->getCallStack().c_str());
+			pStmt->executeQuery("INSERT INTO CrashReportLog (PlayerID, Name, ReportTime, ExecutableTime, Version, Address, Message, OS, CallStack) VALUES "
+								"('%s', '%s', now(), '%s', %u, '%s', '%s', '%s', '%s')", pGamePlayer->getID().c_str(), pCreature->getName().c_str(),
+								pPacket->getExecutableTime().c_str(), pPacket->getVersion(), pPacket->getAddress().c_str(), pPacket->getMessage().c_str(),
+								pPacket->getOS().c_str(), pPacket->getCallStack().c_str());
 
 			SAFE_DELETE(pStmt);
 		}

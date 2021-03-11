@@ -47,7 +47,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket , Player* pPlayer) throw(Error) {
+void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket , Player* pPlayer)  {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 #ifdef __GAME_SERVER__
@@ -437,7 +437,7 @@ void CGSelectWayPointHandler::execute(CGSelectWayPoint* pPacket , Player* pPlaye
 
 
 void CGSelectWayPointHandler::executeEnterQuestZone(CGSelectWayPoint* pPacket , Player* pPlayer, int targetDynamicZoneType)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY
 

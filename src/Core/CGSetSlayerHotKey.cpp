@@ -7,7 +7,7 @@
 #include "CGSetSlayerHotKey.h"
 
 void CGSetSlayerHotKey::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -20,7 +20,7 @@ void CGSetSlayerHotKey::read (SocketInputStream & iStream)
 }
 		    
 void CGSetSlayerHotKey::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ void CGSetSlayerHotKey::write (SocketOutputStream & oStream) const
 }
 
 void CGSetSlayerHotKey::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -43,7 +43,7 @@ void CGSetSlayerHotKey::execute (Player* pPlayer)
 }
 
 string CGSetSlayerHotKey::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

@@ -11,21 +11,21 @@
 
 
 CGAddMouseToZone::CGAddMouseToZone () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGAddMouseToZone::~CGAddMouseToZone () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGAddMouseToZone::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -47,7 +47,7 @@ void CGAddMouseToZone::read (SocketInputStream & iStream)
 }
 
 void CGAddMouseToZone::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void CGAddMouseToZone::write (SocketOutputStream & oStream) const
 }
 
 void CGAddMouseToZone::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,7 @@ void CGAddMouseToZone::execute (Player* pPlayer)
 }
 
 string CGAddMouseToZone::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

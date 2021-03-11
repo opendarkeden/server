@@ -12,7 +12,7 @@
 // class GCAddVampirePortal member methods
 //////////////////////////////////////////////////////////////////////////////
 void GCAddVampirePortal::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void GCAddVampirePortal::read (SocketInputStream & iStream )
 }
 		    
 void GCAddVampirePortal::write (SocketOutputStream & oStream ) 
-     const throw(ProtocolException , Error )
+     const 
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void GCAddVampirePortal::write (SocketOutputStream & oStream )
 }
 
 void GCAddVampirePortal::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -74,7 +74,7 @@ void GCAddVampirePortal::execute (Player * pPlayer )
 }
 
 string GCAddVampirePortal::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

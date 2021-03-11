@@ -16,7 +16,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCGetDamage::GCGetDamage () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -27,7 +27,7 @@ GCGetDamage::GCGetDamage ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCGetDamage::~GCGetDamage () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -38,7 +38,7 @@ GCGetDamage::~GCGetDamage ()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCGetDamage::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 	iStream.read((char*)&m_ObjectID , szObjectID);
@@ -51,7 +51,7 @@ void GCGetDamage::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCGetDamage::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 	oStream.write((char*)&m_ObjectID , szObjectID);
@@ -64,7 +64,7 @@ void GCGetDamage::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCGetDamage::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void GCGetDamage::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCGetDamage::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

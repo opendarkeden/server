@@ -15,66 +15,66 @@
 #include "mission/QuestManager.h"
 #include "mission/QuestInfoManager.h"
 
-#include "GCNPCResponse.h"
+#include "Gpackets/GCNPCResponse.h"
 
 #include <cstdio>
 
 #endif	// __GAME_SERVER__
 
 void CGSelectQuestHandler::execute (CGSelectQuest* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
 #ifdef __GAME_SERVER__
 
-	GamePlayer* pGP = dynamic_cast<GamePlayer*>(pPlayer);
-	Assert(pGP != NULL);
+	GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPlayer );
+	Assert( pGP != NULL );
 		
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGP->getCreature());
 
 	GCNPCResponse gcNPCR;
-	gcNPCR.setCode(NPC_RESPONSE_QUEST);
+	gcNPCR.setCode( NPC_RESPONSE_QUEST );
 
-	Creature* pCreature = pPC->getZone()->getCreature(pPacket->getNPCObjectID());
-	if (pCreature == NULL || !pCreature->isNPC() )
+	Creature* pCreature = pPC->getZone()->getCreature( pPacket->getNPCObjectID() );
+	if ( pCreature == NULL || !pCreature->isNPC() )
 	{
-		gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
-		pPlayer->sendPacket(&gcNPCR);
+		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
+		pPlayer->sendPacket( &gcNPCR );
 
 		return;
 	}
 
 	NPC* pNPC = dynamic_cast<NPC*>(pCreature);
-	if (pNPC == NULL )
+	if ( pNPC == NULL )
 	{
-		gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
-		pPlayer->sendPacket(&gcNPCR);
+		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
+		pPlayer->sendPacket( &gcNPCR );
 
 		return;
 	}
 
 	QuestInfoManager* pQIM = pNPC->getQuestInfoManager();
-	if (pQIM == NULL )
+	if ( pQIM == NULL )
 	{
-		gcNPCR.setParameter((uint)START_FAIL_CANNOT_APPLY_QUEST);
-		pPlayer->sendPacket(&gcNPCR);
+		gcNPCR.setParameter( (uint)START_FAIL_CANNOT_APPLY_QUEST );
+		pPlayer->sendPacket( &gcNPCR );
 
 		return;
 	}
 
 	pPC->getQuestManager()->adjustQuestStatus();
-	QuestMessage code = pQIM->startQuest(pPacket->getQuestID(), pPC);
+	QuestMessage code = pQIM->startQuest( pPacket->getQuestID(), pPC );
 
 	list<QuestID_t> qList;
-	pQIM->getEventQuestIDs(pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel(), pPC, back_inserter(qList));
+	pQIM->getEventQuestIDs( pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel(), pPC, back_inserter(qList) );
 
-	gcNPCR.setParameter((uint)code);
+	gcNPCR.setParameter( (uint)code );
 
-	if (!pQIM->isEventQuest(pPacket->getQuestID() ) )
-		pPlayer->sendPacket(&gcNPCR);
+	if ( !pQIM->isEventQuest( pPacket->getQuestID() ) )
+		pPlayer->sendPacket( &gcNPCR );
 
-	if (code == START_SUCCESS )
+	if ( code == START_SUCCESS )
 	{
 		pPC->sendCurrentQuestInfo();
 

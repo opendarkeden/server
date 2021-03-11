@@ -13,21 +13,21 @@
 
 
 CGPickupMoney::CGPickupMoney () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGPickupMoney::~CGPickupMoney () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGPickupMoney::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -54,7 +54,7 @@ void CGPickupMoney::read (SocketInputStream & iStream)
 }
 
 void CGPickupMoney::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ void CGPickupMoney::write (SocketOutputStream & oStream) const
 }
 
 void CGPickupMoney::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void CGPickupMoney::execute (Player* pPlayer)
 }
 
 string CGPickupMoney::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

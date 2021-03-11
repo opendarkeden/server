@@ -7,7 +7,7 @@
 #include "CGPhoneSay.h"
 
 void CGPhoneSay::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -29,7 +29,7 @@ void CGPhoneSay::read (SocketInputStream & iStream)
 }
 		    
 void CGPhoneSay::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	
@@ -51,7 +51,7 @@ void CGPhoneSay::write (SocketOutputStream & oStream) const
 }
 
 void CGPhoneSay::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -61,7 +61,7 @@ void CGPhoneSay::execute (Player* pPlayer)
 }
 
 string CGPhoneSay::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

@@ -12,15 +12,15 @@
 	#include "BloodBibleBonus.h"
 	#include "BloodBibleBonusManager.h"
 	#include "BloodBibleSignInfo.h"
-	#include "GCBloodBibleSignInfo.h"
-	#include "GCSystemMessage.h"
+	#include "Gpackets/GCBloodBibleSignInfo.h"
+	#include "Gpackets/GCSystemMessage.h"
 	#include <algorithm>
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGSelectBloodBibleHandler::execute (CGSelectBloodBible* pPacket , Player* pPlayer)
-	 throw(Error)
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -31,53 +31,53 @@ void CGSelectBloodBibleHandler::execute (CGSelectBloodBible* pPacket , Player* p
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pGamePlayer->getCreature());
-	Assert(pPC != NULL);
+	Assert( pPC != NULL );
 
 	BloodBibleBonus* pBonus = NULL;
 
 	try
 	{
-		pBonus = g_pBloodBibleBonusManager->getBloodBibleBonus(pPacket->getBloodBibleID());
-		if (pBonus == NULL ) return;
+		pBonus = g_pBloodBibleBonusManager->getBloodBibleBonus( pPacket->getBloodBibleID() );
+		if ( pBonus == NULL ) return;
 	}
-	catch (NoSuchElementException& e )
+	catch ( NoSuchElementException& e )
 	{
 		return;
 	}
 
-	if (pPC->getRace() != pBonus->getRace() )
+	if ( pPC->getRace() != pBonus->getRace() )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("»ç¿ëÇÒ ¼ö ¾ø´Â Â¡Ç¥ÀÔ´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "ÎÞ·¨Ê¹ÓÃµÄÊ¥Êé.");
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
 	BloodBibleSignInfo* pInfo = pPC->getBloodBibleSign();
-	if (pInfo->getOpenNum() <= pInfo->getList().size() )
+	if ( pInfo->getOpenNum() <= pInfo->getList().size() )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("ºó ½½·ÔÀÌ ¾ø½À´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "Ã»ÓÐ¿ÕÓà²Û." );
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 	
-	if (find(pInfo->getList().begin(), pInfo->getList().end(), pPacket->getBloodBibleID() ) != pInfo->getList().end() )
+	if ( find( pInfo->getList().begin(), pInfo->getList().end(), pPacket->getBloodBibleID() ) != pInfo->getList().end() )
 	{
 		GCSystemMessage gcSM;
-		gcSM.setMessage("ÀÌ¹Ì ÀåÂøÇÏ°í ÀÖ´Â Â¡Ç¥ÀÔ´Ï´Ù.");
-		pGamePlayer->sendPacket(&gcSM);
+		gcSM.setMessage( "ÒÑ×°±¸µÄÊ¥Êé." );
+		pGamePlayer->sendPacket( &gcSM );
 		return;
 	}
 
 	GCSystemMessage gcSM;
-	gcSM.setMessage("ÇÇÀÇ ¼º¼­ Â¡Ç¥°¡ ÀåÂøµÇ¾ú½À´Ï´Ù.");
-	pGamePlayer->sendPacket(&gcSM);
+	gcSM.setMessage( "ÒÑ×°±¸ÑªÖ®Ê¥Êé." );
+	pGamePlayer->sendPacket( &gcSM );
 
-	pInfo->getList().push_back(pPacket->getBloodBibleID());
+	pInfo->getList().push_back( pPacket->getBloodBibleID() );
 	GCBloodBibleSignInfo gcInfo;
-	gcInfo.setSignInfo(pInfo);
-	pGamePlayer->sendPacket(&gcInfo);
+	gcInfo.setSignInfo( pInfo );
+	pGamePlayer->sendPacket( &gcInfo );
 
 	pPC->initAllStatAndSend();
 

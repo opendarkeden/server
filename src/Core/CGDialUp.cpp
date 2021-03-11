@@ -7,21 +7,21 @@
 #include "CGDialUp.h"
 
 CGDialUp::CGDialUp () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGDialUp::~CGDialUp () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGDialUp::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGDialUp::read (SocketInputStream & iStream)
 }
 
 void CGDialUp::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGDialUp::write (SocketOutputStream & oStream) const
 }
 
 void CGDialUp::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -51,7 +51,7 @@ void CGDialUp::execute (Player* pPlayer)
 }
 
 string CGDialUp::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

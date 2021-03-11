@@ -16,21 +16,19 @@
 
 	#include "item/Motorcycle.h"
 	#include "item/Belt.h"
-	#include "item/SubInventory.h"
 	#include "CreatureUtil.h"
 
 	#include "GQuestManager.h"
 	#include "SiegeManager.h"
 
-	#include "GCRideMotorCycle.h"
-	#include "GCRideMotorCycleOK.h"
-	#include "GCRideMotorCycleFailed.h"
+	#include "Gpackets/GCRideMotorCycle.h"
+	#include "Gpackets/GCRideMotorCycleOK.h"
+	#include "Gpackets/GCRideMotorCycleFailed.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlayer)
-	 throw(Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -50,11 +48,11 @@ void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlay
 
 			Assert (pCreature != NULL);
 
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_INSTALL_TURRET ) ) return ;
-			if (pCreature->isFlag(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
+			if ( pCreature->isFlag( Effect::EFFECT_CLASS_INSTALL_TURRET ) ) return ;
+			if ( pCreature->isFlag( Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1 ) )
 			{
 				Effect* pEffect = pCreature->findEffect(Effect::EFFECT_CLASS_BURNING_SOL_CHARGE_1);
-				if (pEffect != NULL ) pEffect->setDeadline(0);
+				if ( pEffect != NULL ) pEffect->setDeadline(0);
 			}
 
 			if (pCreature->isSlayer()) 
@@ -76,9 +74,9 @@ void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlay
 				Tile& rTile = pZone->getTile(X, Y);
 				Item* pItem = rTile.getItem();
 
-				if (pSlayer->hasRelicItem()||pSlayer->isFlag(Effect::EFFECT_CLASS_REFINIUM_TICKET )
-					|| pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_FLAG )
-					|| pSlayer->isFlag(Effect::EFFECT_CLASS_HAS_SWEEPER) )
+				if (pSlayer->hasRelicItem()||pSlayer->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET )
+					|| pSlayer->isFlag( Effect::EFFECT_CLASS_HAS_FLAG )
+					|| pSlayer->isFlag( Effect::EFFECT_CLASS_HAS_SWEEPER) )
 				{
 					//cout << "성물을 가진 상태에서는 오토바이를 탈 수 없습니다" << endl;
 					GCRideMotorCycleFailed _GCRideMotorCycleFailed;
@@ -94,7 +92,7 @@ void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlay
 					return;
 				}
 
-				if (pItem->getItemType() > 5 && !pSlayer->isAdvanced() )
+				if ( pItem->getItemType() > 5 && !pSlayer->isAdvanced() )
 				{
 					GCRideMotorCycleFailed _GCRideMotorCycleFailed;
 					pGamePlayer->sendPacket(&_GCRideMotorCycleFailed);
@@ -124,12 +122,7 @@ void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlay
 						pBeltInventory = ((Belt*)pBelt)->getInventory();
 					}
 
-					SubInventory* pSubInventoryItem = dynamic_cast<SubInventory*>(pInventory->findItem(Item::ITEM_CLASS_SUB_INVENTORY));
-					Inventory* pSubInventory = NULL;
-					if (pSubInventoryItem != NULL ) pSubInventory = pSubInventoryItem->getInventory();
-
-					if (pInventory->hasKey(TargetItemID) || (pBeltInventory != NULL && pBeltInventory->hasKey(TargetItemID))
-							|| (pSubInventory != NULL && pSubInventory->hasKey(TargetItemID)) )
+					if (pInventory->hasKey(TargetItemID) || (pBeltInventory != NULL && pBeltInventory->hasKey(TargetItemID))) 
 					{
 						pSlayer->setMotorcycle(pMotorcycle);
 
@@ -148,10 +141,10 @@ void CGRideMotorCycleHandler::execute (CGRideMotorCycle* pPacket , Player* pPlay
 						pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCRideMotorCycle);
 						Success = true;
 
-						if (pSlayer->getPetInfo() != NULL )
+						if ( pSlayer->getPetInfo() != NULL )
 						{
-							pSlayer->setPetInfo(NULL);
-							sendPetInfo(pGamePlayer, true);
+							pSlayer->setPetInfo( NULL );
+							sendPetInfo( pGamePlayer, true );
 						}
 
 						pSlayer->getGQuestManager()->rideMotorcycle();

@@ -14,7 +14,7 @@
 // Datagram 객체로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GGServerChat::read (Datagram & iDatagram ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void GGServerChat::read (Datagram & iDatagram )
 // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GGServerChat::write (Datagram & oDatagram ) const 
-     throw(ProtocolException , Error )
+     
 {
 	__BEGIN_TRY
 
@@ -103,7 +103,7 @@ void GGServerChat::write (Datagram & oDatagram ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GGServerChat::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -116,7 +116,7 @@ void GGServerChat::execute (Player * pPlayer )
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 string GGServerChat::toString () const
-    throw()
+    
 {
 	StringStream msg;
 

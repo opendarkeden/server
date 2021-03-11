@@ -14,7 +14,7 @@
 // Constructor
 //--------------------------------------------------------------------
 GCAddInstalledMineToZone::GCAddInstalledMineToZone() 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -25,7 +25,7 @@ GCAddInstalledMineToZone::GCAddInstalledMineToZone()
 // Destructor
 //--------------------------------------------------------------------
 GCAddInstalledMineToZone::~GCAddInstalledMineToZone() 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -35,7 +35,7 @@ GCAddInstalledMineToZone::~GCAddInstalledMineToZone()
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCAddInstalledMineToZone::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
+	 
 {
 	__BEGIN_TRY
 		
@@ -51,7 +51,7 @@ void GCAddInstalledMineToZone::execute (Player * pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string GCAddInstalledMineToZone::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 

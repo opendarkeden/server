@@ -11,7 +11,7 @@
 
 
 void CGSMSSend::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void CGSMSSend::read (SocketInputStream & iStream)
 }
 
 void CGSMSSend::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -73,7 +73,7 @@ void CGSMSSend::write (SocketOutputStream & oStream) const
 	__END_CATCH
 }
 
-PacketSize_t CGSMSSend::getPacketSize() const throw()
+PacketSize_t CGSMSSend::getPacketSize() const 
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ PacketSize_t CGSMSSend::getPacketSize() const throw()
 }
 
 void CGSMSSend::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -106,7 +106,7 @@ void CGSMSSend::execute (Player* pPlayer)
 }
 
 string CGSMSSend::toString () const
-    throw()
+    
 {
 	__BEGIN_TRY
 		

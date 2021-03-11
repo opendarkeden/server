@@ -8,7 +8,7 @@
 
 
 void CGAppointSubmaster::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ void CGAppointSubmaster::read (SocketInputStream & iStream)
 }
 
 void CGAppointSubmaster::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void CGAppointSubmaster::write (SocketOutputStream & oStream) const
 }
 
 void CGAppointSubmaster::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -57,7 +57,7 @@ void CGAppointSubmaster::execute (Player* pPlayer)
 }
 
 string CGAppointSubmaster::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

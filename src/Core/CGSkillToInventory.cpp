@@ -11,7 +11,7 @@
 
 
 void CGSkillToInventory::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -46,7 +46,7 @@ void CGSkillToInventory::read (SocketInputStream & iStream)
 }
 
 void CGSkillToInventory::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -81,7 +81,7 @@ void CGSkillToInventory::write (SocketOutputStream & oStream) const
 }
 
 void CGSkillToInventory::execute (Player* pPlayer) 
-	throw(ProtocolException , Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -91,7 +91,7 @@ void CGSkillToInventory::execute (Player* pPlayer)
 }
 
 string CGSkillToInventory::toString () const
-	throw()
+	
 {
 	__BEGIN_TRY
 		

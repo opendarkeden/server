@@ -11,7 +11,7 @@
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void GCMorphVampire2Handler::execute (GCMorphVampire2 * pPacket , Player * pPlayer )
-	 throw(Error )
+	 
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		

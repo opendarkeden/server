@@ -21,9 +21,9 @@
 
     #include "skill/Sniping.h"
 
-	#include "GCAttack.h"
-	#include "GCGetDamage.h"
-	#include "GCSkillFailed1.h"
+	#include "Gpackets/GCAttack.h"
+	#include "Gpackets/GCGetDamage.h"
+	#include "Gpackets/GCSkillFailed1.h"
 
 	//#define __PROFILE_SKILLS__
 
@@ -35,7 +35,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAttackHandler::execute (CGAttack* pPacket , Player* pPlayer)
-	     throw(Error)
+	     
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG
@@ -67,56 +67,52 @@ void CGAttackHandler::execute (CGAttack* pPacket , Player* pPlayer)
 
 		// 완전 안전지대라면 기술 사용 불가. by sigi. 2002.11.14
 		ZoneLevel_t ZoneLevel = pZone->getZoneLevel(pCreature->getX(), pCreature->getY());
-		if ((ZoneLevel & COMPLETE_SAFE_ZONE) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_PARALYZE)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_EXPLOSION_WATER)) ||
-            (pCreature->isFlag(Effect::EFFECT_CLASS_COMA)))
+		if (ZoneLevel & COMPLETE_SAFE_ZONE)
 		{
 			GCSkillFailed1 _GCSkillFailed1;
-			_GCSkillFailed1.setSkillType(SKILL_ATTACK_MELEE);
-			pPlayer->sendPacket(&_GCSkillFailed1);
+			_GCSkillFailed1.setSkillType( SKILL_ATTACK_MELEE );
+			pPlayer->sendPacket( &_GCSkillFailed1 );
 			return;
 		}
 
-		Creature* pTarget = pZone->getCreature(pPacket->getObjectID());
-		if (pTarget == NULL )
+		Creature* pTarget = pZone->getCreature( pPacket->getObjectID() );
+		if ( pTarget == NULL )
 		{
 			GCSkillFailed1 _GCSkillFailed1;
-			_GCSkillFailed1.setSkillType(SKILL_ATTACK_MELEE);
-			pPlayer->sendPacket(&_GCSkillFailed1);
+			_GCSkillFailed1.setSkillType( SKILL_ATTACK_MELEE );
+			pPlayer->sendPacket( &_GCSkillFailed1 );
 			return;
 		}
 		
-		pCreature->setLastTarget(pTarget->getObjectID());
+		pCreature->setLastTarget( pTarget->getObjectID() );
 
 		// 만약 같은 종족의 성물 보관대라면 공격하지 않도록 한다. bezz 6.8 수정 확인바람.
 		
 		/*
-		if (pTarget->isMonster() )
+		if ( pTarget->isMonster() )
 		{
 			Monster* pMonster = dynamic_cast<Monster*>(pTarget);
-			Assert(pMonster != NULL);
+			Assert( pMonster != NULL );
 
 			MonsterType_t type = pMonster->getMonsterType();
 
-			if ((type == 371 || type == 372 || type == 373 ) && pCreature->isSlayer() )
+			if ( ( type == 371 || type == 372 || type == 373 ) && pCreature->isSlayer() )
 			{
 				GCSkillFailed1 _GCSkillFailed1;
 				_GCSkillFailed1.setSkillType(SKILL_ATTACK_MELEE);
-				pPlayer->sendPacket(&_GCSkillFailed1);
+				pPlayer->sendPacket( &_GCSkillFailed1 );
 				return;
 			}
 
-			if ((type == 374 || type == 375 || type == 376) && pCreature->isVampire() )
+			if ( ( type == 374 || type == 375 || type == 376) && pCreature->isVampire() )
 			{
 				GCSkillFailed1 _GCSkillFailed1;
 				_GCSkillFailed1.setSkillType(SKILL_ATTACK_MELEE);
-				pPlayer->sendPacket(&_GCSkillFailed1);
+				pPlayer->sendPacket( &_GCSkillFailed1 );
 				return;
 			}
 
-			if (type >= 371 && type <= 376)
+			if ( type >= 371 && type <= 376)
 			{
 				string RelicName = "";
 

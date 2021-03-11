@@ -11,21 +11,21 @@
 #endif
 
 void CGVerifyTime::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 		    
 void CGVerifyTime::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGVerifyTime::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -35,7 +35,7 @@ void CGVerifyTime::execute (Player* pPlayer)
 }
 
 string CGVerifyTime::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

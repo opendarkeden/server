@@ -11,7 +11,7 @@
 
 
 CGSkillToObject::CGSkillToObject () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	m_CEffectID = 0;
@@ -19,14 +19,14 @@ CGSkillToObject::CGSkillToObject ()
 }
 
 CGSkillToObject::~CGSkillToObject () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGSkillToObject::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -53,7 +53,7 @@ void CGSkillToObject::read (SocketInputStream & iStream)
 }
 
 void CGSkillToObject::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -80,7 +80,7 @@ void CGSkillToObject::write (SocketOutputStream & oStream) const
 }
 
 void CGSkillToObject::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -90,7 +90,7 @@ void CGSkillToObject::execute (Player* pPlayer)
 }
 
 string CGSkillToObject::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

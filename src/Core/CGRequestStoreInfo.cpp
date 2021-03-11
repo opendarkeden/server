@@ -7,7 +7,7 @@
 #include "CGRequestStoreInfo.h"
 
 void CGRequestStoreInfo::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ void CGRequestStoreInfo::read (SocketInputStream & iStream)
 }
 
 void CGRequestStoreInfo::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -27,7 +27,7 @@ void CGRequestStoreInfo::write (SocketOutputStream & oStream) const
 }
 
 void CGRequestStoreInfo::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -37,7 +37,7 @@ void CGRequestStoreInfo::execute (Player* pPlayer)
 }
 
 string CGRequestStoreInfo::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

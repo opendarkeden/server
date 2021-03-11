@@ -9,7 +9,7 @@
 #include "CGUseItemFromGQuestInventory.h"
 
 void CGUseItemFromGQuestInventory::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -19,7 +19,7 @@ void CGUseItemFromGQuestInventory::read (SocketInputStream & iStream)
 }
 		    
 void CGUseItemFromGQuestInventory::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ void CGUseItemFromGQuestInventory::write (SocketOutputStream & oStream) const
 }
 
 void CGUseItemFromGQuestInventory::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void CGUseItemFromGQuestInventory::execute (Player* pPlayer)
 }
 
 string CGUseItemFromGQuestInventory::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		

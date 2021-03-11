@@ -13,7 +13,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCActiveGuildList::GCActiveGuildList()
-	throw()
+	
 {
 }
 
@@ -21,7 +21,7 @@ GCActiveGuildList::GCActiveGuildList()
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCActiveGuildList::~GCActiveGuildList()
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -35,7 +35,6 @@ GCActiveGuildList::~GCActiveGuildList()
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::read (SocketInputStream & iStream ) 
-	 throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -57,7 +56,6 @@ void GCActiveGuildList::read (SocketInputStream & iStream )
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::write (SocketOutputStream & oStream ) const 
-     throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -78,7 +76,7 @@ void GCActiveGuildList::write (SocketOutputStream & oStream ) const
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::clearGuildInfoList()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +96,6 @@ void GCActiveGuildList::clearGuildInfoList()
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::execute (Player * pPlayer ) 
-	 throw(ProtocolException , Error )
 {
 	__BEGIN_TRY
 		
@@ -112,7 +109,7 @@ void GCActiveGuildList::execute (Player * pPlayer )
 // get packet size
 //////////////////////////////////////////////////////////////////////
 PacketSize_t GCActiveGuildList::getPacketSize() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -135,7 +132,7 @@ PacketSize_t GCActiveGuildList::getPacketSize() const
 // get packet's debug string
 //////////////////////////////////////////////////////////////////////
 string GCActiveGuildList::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

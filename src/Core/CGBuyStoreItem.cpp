@@ -10,7 +10,7 @@
 #include "CGBuyStoreItem.h"
 
 void CGBuyStoreItem::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -22,7 +22,7 @@ void CGBuyStoreItem::read (SocketInputStream & iStream)
 }
 
 void CGBuyStoreItem::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ void CGBuyStoreItem::write (SocketOutputStream & oStream) const
 }
 
 void CGBuyStoreItem::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void CGBuyStoreItem::execute (Player* pPlayer)
 }
 
 string CGBuyStoreItem::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

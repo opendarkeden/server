@@ -8,7 +8,7 @@
 
 
 void CGQuitUnionAccept::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -18,7 +18,7 @@ void CGQuitUnionAccept::read (SocketInputStream & iStream)
 }
 
 void CGQuitUnionAccept::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -28,7 +28,7 @@ void CGQuitUnionAccept::write (SocketOutputStream & oStream) const
 }
 
 void CGQuitUnionAccept::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -38,7 +38,7 @@ void CGQuitUnionAccept::execute (Player* pPlayer)
 }
 
 string CGQuitUnionAccept::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

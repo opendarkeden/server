@@ -8,7 +8,7 @@
 
 
 void CGExpelGuildMember::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ void CGExpelGuildMember::read (SocketInputStream & iStream)
 }
 
 void CGExpelGuildMember::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void CGExpelGuildMember::write (SocketOutputStream & oStream) const
 }
 
 void CGExpelGuildMember::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -57,7 +57,7 @@ void CGExpelGuildMember::execute (Player* pPlayer)
 }
 
 string CGExpelGuildMember::toString () const
-       throw()
+       
 {
 	__BEGIN_TRY
 		

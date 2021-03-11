@@ -7,7 +7,7 @@
 #include "CGConnect.h"
 
 void CGConnect::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -34,7 +34,7 @@ void CGConnect::read (SocketInputStream & iStream)
 }
 		    
 void CGConnect::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -60,7 +60,7 @@ void CGConnect::write (SocketOutputStream & oStream) const
 }
 
 void CGConnect::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -70,7 +70,7 @@ void CGConnect::execute (Player* pPlayer)
 }
 
 string CGConnect::toString () const
-       throw()
+       
 {
 	StringStream msg;
 	msg << "CGConnect("

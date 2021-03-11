@@ -7,21 +7,21 @@
 #include "CGPhoneDisconnect.h"
 
 CGPhoneDisconnect::CGPhoneDisconnect () 
-     throw()
+     
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 CGPhoneDisconnect::~CGPhoneDisconnect () 
-    throw()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void CGPhoneDisconnect::read (SocketInputStream & iStream) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -31,7 +31,7 @@ void CGPhoneDisconnect::read (SocketInputStream & iStream)
 }
 
 void CGPhoneDisconnect::write (SocketOutputStream & oStream) const 
-     throw(ProtocolException , Error)
+     
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void CGPhoneDisconnect::write (SocketOutputStream & oStream) const
 }
 
 void CGPhoneDisconnect::execute (Player* pPlayer) 
-	 throw(ProtocolException , Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -51,7 +51,7 @@ void CGPhoneDisconnect::execute (Player* pPlayer)
 }
 
 string CGPhoneDisconnect::toString () 
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 		
