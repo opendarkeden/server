@@ -27,10 +27,10 @@ class BillingPlayerInfo {
 public :
 
 	// constructor
-	BillingPlayerInfo () throw (Error);
+	BillingPlayerInfo () ;
 	
 	// destructor
-	virtual ~BillingPlayerInfo () throw (Error);
+	virtual ~BillingPlayerInfo () ;
 
 	// get debug string
 	virtual string toString () const;
@@ -39,7 +39,7 @@ public :
 	void            setBillingUserKey(int buid) { m_BillingUserKey = buid; }
 	int				getBillingUserKey() const  { return m_BillingUserKey; }
 
-	void            setBillingSession(Player* pPlayer) throw (Error);
+	void            setBillingSession(Player* pPlayer) ;
 	const string&   getBillingSession() const  { return m_BillingSession; }
 	
 	void            setBillingUserStatus(const string& us)	{ m_BillingUserStatus = us; }

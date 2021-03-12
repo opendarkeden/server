@@ -128,7 +128,7 @@ ActionGiveCommonEventItem::~ActionGiveCommonEventItem()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveCommonEventItem::read(PropertyBuffer & propertyBuffer)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -149,7 +149,7 @@ void ActionGiveCommonEventItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveCommonEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -353,7 +353,7 @@ void ActionGiveCommonEventItem::execute(Creature * pCreature1 , Creature * pCrea
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveCommonEventItem::toString () const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

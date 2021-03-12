@@ -22,7 +22,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectAddItemToCorpse::EffectAddItemToCorpse (Zone* pZone, Item* pItem, ObjectID_t corpseObjectID, Turn_t delay)
-	throw (Error)
+	
 : Effect(pZone,0,0,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -44,7 +44,7 @@ EffectAddItemToCorpse::EffectAddItemToCorpse (Zone* pZone, Item* pItem, ObjectID
 // destructor
 //----------------------------------------------------------------------
 EffectAddItemToCorpse::~EffectAddItemToCorpse () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ EffectAddItemToCorpse::~EffectAddItemToCorpse ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectAddItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void EffectAddItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectAddItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void EffectAddItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddItemToCorpse::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -119,7 +119,7 @@ void EffectAddItemToCorpse::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddItemToCorpse::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -129,7 +129,7 @@ void EffectAddItemToCorpse::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectAddItemToCorpse::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

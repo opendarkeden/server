@@ -42,46 +42,46 @@ typedef struct _ZONEUSERDATA
 class GMServerInfo : public DatagramPacket {
 
 public :
-	GMServerInfo() throw();
-	~GMServerInfo() throw();
+	GMServerInfo() ;
+	~GMServerInfo() ;
 	
     // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) throw(ProtocolException, Error);
+    void read(Datagram & iDatagram) ;
 		    
     // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const throw(ProtocolException, Error);
+    void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GM_SERVER_INFO; }
+	PacketID_t getPacketID() const  { return PACKET_GM_SERVER_INFO; }
 	
 	// get packet name
-	string getPacketName() const throw() { return "GMServerInfo"; }
+	string getPacketName() const  { return "GMServerInfo"; }
 	
 	PacketSize_t getPacketSize () const throw () { return szWorldID + szBYTE + m_ZoneCount*(szBYTE+szDWORD); }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set playerID
-	WorldID_t getWorldID() const throw() { return m_WorldID; }
-	void setWorldID(WorldID_t WorldID) throw() { m_WorldID= WorldID; }
+	WorldID_t getWorldID() const  { return m_WorldID; }
+	void setWorldID(WorldID_t WorldID)  { m_WorldID= WorldID; }
 	
 	// get/set playerID
-	BYTE getServerID() const throw() { return m_ServerID; }
-	void setServerID(BYTE ServerID) throw() { m_ServerID= ServerID; }
+	BYTE getServerID() const  { return m_ServerID; }
+	void setServerID(BYTE ServerID)  { m_ServerID= ServerID; }
 	
-	BYTE getZoneUserCount(void) const throw() { return m_ZoneCount; }
+	BYTE getZoneUserCount(void) const  { return m_ZoneCount; }
 
-	void addZoneUserData(ZoneID_t ZoneID, DWORD value) throw();
+	void addZoneUserData(ZoneID_t ZoneID, DWORD value) ;
 
-	void popZoneUserData(ZONEUSERDATA& rData) throw();
+	void popZoneUserData(ZONEUSERDATA& rData) ;
 
-	void clearList(void) throw() { m_ZoneCount = 0; m_ZoneUserList.clear(); }
+	void clearList(void)  { m_ZoneCount = 0; m_ZoneUserList.clear(); }
 
 private :
 
@@ -112,18 +112,18 @@ class GMServerInfoFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GMServerInfo(); }
+	Packet* createPacket()  { return new GMServerInfo(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GMServerInfo"; }
+	string getPacketName() const  { return "GMServerInfo"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GM_SERVER_INFO; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GM_SERVER_INFO; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GMServerInfoPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szWorldID + szBYTE + 255*(szBYTE+szDWORD); }
+	PacketSize_t getPacketMaxSize() const  { return szWorldID + szBYTE + 255*(szBYTE+szDWORD); }
 
 };
 
@@ -139,7 +139,7 @@ class GMServerInfoHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GMServerInfo* pPacket) throw(ProtocolException, Error);
+	static void execute(GMServerInfo* pPacket) ;
 
 };
 

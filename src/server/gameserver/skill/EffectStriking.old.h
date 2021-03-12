@@ -17,24 +17,24 @@
 class EffectStriking : public Effect 
 {
 public:
-	EffectStriking(Item* pItem) throw(Error);
+	EffectStriking(Item* pItem) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_STRIKING; }
 
-	void affect() throw(Error){}
-	void affect(Item* pItem) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Item* pItem) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect(Item* pItem) throw(Error);
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
-    void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error){};		
+	void unaffect(Item* pItem) ;
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+    void unaffect() ;
+	void unaffect(Creature* pCreature) {};		
 
 	string toString() const throw();
 
 public:
-	void setIncDamage(Damage_t d) throw(Error) { m_incDamage = d;}
+	void setIncDamage(Damage_t d)  { m_incDamage = d;}
 
 private :
 	Damage_t m_incDamage;

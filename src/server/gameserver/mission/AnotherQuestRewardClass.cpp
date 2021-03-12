@@ -3,7 +3,7 @@
 #include "Assert.h"
 
 QuestMessage AnotherQuestRewardClass::giveReward( PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -15,7 +15,7 @@ QuestMessage AnotherQuestRewardClass::giveReward( PlayerCreature* pPC ) const
 	__END_CATCH
 }
 
-string AnotherQuestRewardClass::toString() const throw()
+string AnotherQuestRewardClass::toString() const 
 {
 	return "AnotherQuestRewardClass() : \n" + RewardClass::toString();
 }

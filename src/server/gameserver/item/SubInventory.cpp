@@ -26,14 +26,14 @@ Mutex    SubInventory::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 SubInventory::SubInventory()
-	throw()
+	
 {
 	m_ItemType = 0;
 	m_pInventory = NULL;
 }
 
 SubInventory::SubInventory(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	m_ItemType = itemType;
 
@@ -50,7 +50,7 @@ SubInventory::SubInventory(ItemType_t itemType, const list<OptionType_t>& option
 SubInventory::~SubInventory() { SAFE_DELETE(m_pInventory); }
 
 void SubInventory::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ void SubInventory::create(const string & ownerID, Storage storage, StorageID_t s
 // save item
 //--------------------------------------------------------------------------------
 void SubInventory::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void SubInventory::tinysave(const char* field) const
 }
 
 void SubInventory::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -154,7 +154,7 @@ void SubInventory::save(const string & ownerID, Storage storage, StorageID_t sto
 }
 
 string SubInventory::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -167,7 +167,7 @@ string SubInventory::toString() const
 }
 
 VolumeWidth_t SubInventory::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -177,7 +177,7 @@ VolumeWidth_t SubInventory::getVolumeWidth() const
 }
 	
 VolumeHeight_t SubInventory::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -187,7 +187,7 @@ VolumeHeight_t SubInventory::getVolumeHeight() const
 }
 		
 Weight_t SubInventory::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -207,7 +207,7 @@ void SubInventory::makePCItemInfo(PCItemInfo& result) const
 //////////////////////////////////////////////////////////////////////////////
 
 string SubInventoryInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "SubInventoryInfo("
@@ -223,7 +223,7 @@ string SubInventoryInfo::toString() const
 }
 
 void SubInventoryInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -279,7 +279,7 @@ void SubInventoryInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void SubInventoryLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -433,7 +433,7 @@ void SubInventoryLoader::load(Creature* pCreature)
 }
 
 void SubInventoryLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -496,7 +496,7 @@ void SubInventoryLoader::load(Zone* pZone)
 }
 
 void SubInventoryLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

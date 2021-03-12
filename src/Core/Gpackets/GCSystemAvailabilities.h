@@ -21,17 +21,17 @@
 class GCSystemAvailabilities : public Packet 
 {
 public:
-	GCSystemAvailabilities() throw();
-	~GCSystemAvailabilities() throw();
+	GCSystemAvailabilities() ;
+	~GCSystemAvailabilities() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SYSTEM_AVAILABILITIES; }
-	PacketSize_t getPacketSize() const throw() { return szDWORD + szBYTE + szBYTE; }
-	string getPacketName() const throw() { return "GCSystemAvailabilities"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SYSTEM_AVAILABILITIES; }
+	PacketSize_t getPacketSize() const  { return szDWORD + szBYTE + szBYTE; }
+	string getPacketName() const  { return "GCSystemAvailabilities"; }
+	string toString() const ;
 
 public:
 	DWORD	getFlag() const { return m_Flag; }
@@ -57,14 +57,14 @@ private:
 class GCSystemAvailabilitiesFactory : public PacketFactory 
 {
 public :
-	GCSystemAvailabilitiesFactory() throw() {}
-	virtual ~GCSystemAvailabilitiesFactory() throw() {}
+	GCSystemAvailabilitiesFactory()  {}
+	virtual ~GCSystemAvailabilitiesFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCSystemAvailabilities(); }
-	string getPacketName() const throw() { return "GCSystemAvailabilities"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SYSTEM_AVAILABILITIES; }
-	PacketSize_t getPacketMaxSize() const throw() { return szDWORD + szBYTE + szBYTE; }
+	Packet* createPacket()  { return new GCSystemAvailabilities(); }
+	string getPacketName() const  { return "GCSystemAvailabilities"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SYSTEM_AVAILABILITIES; }
+	PacketSize_t getPacketMaxSize() const  { return szDWORD + szBYTE + szBYTE; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ public:
 class GCSystemAvailabilitiesHandler 
 {
 public:
-	static void execute(GCSystemAvailabilities* pGCSystemAvailabilities, Player* pPlayer) throw(Error);
+	static void execute(GCSystemAvailabilities* pGCSystemAvailabilities, Player* pPlayer) ;
 
 };
 

@@ -24,7 +24,6 @@ extern int errno;
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_create_ex ( pthread_t * thread , pthread_attr_t * attr , void * (*start_routine)(void *), void * arg )
-	throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -47,7 +46,6 @@ void pthreadAPI::pthread_create_ex ( pthread_t * thread , pthread_attr_t * attr 
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_join_ex ( pthread_t th , void ** thread_return )
-	 throw ( ThreadException , Error )
 { 
 	__BEGIN_TRY
 
@@ -74,7 +72,6 @@ void pthreadAPI::pthread_join_ex ( pthread_t th , void ** thread_return )
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_detach_ex ( pthread_t th )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -99,7 +96,6 @@ void pthreadAPI::pthread_detach_ex ( pthread_t th )
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_exit_ex ( void * retval )
-	 throw ()
 {
 	pthread_exit( retval );
 }
@@ -111,7 +107,6 @@ void pthreadAPI::pthread_exit_ex ( void * retval )
 //
 //////////////////////////////////////////////////////////////////////
 pthread_t pthreadAPI::pthread_self_ex ()
-	 throw ()
 {
 	return pthread_self();
 }
@@ -123,7 +118,6 @@ pthread_t pthreadAPI::pthread_self_ex ()
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_attr_init_ex ( pthread_attr_t * attr )
-	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -140,7 +134,6 @@ void pthreadAPI::pthread_attr_init_ex ( pthread_attr_t * attr )
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_attr_destroy_ex ( pthread_attr_t * attr )
-	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -157,7 +150,6 @@ void pthreadAPI::pthread_attr_destroy_ex ( pthread_attr_t * attr )
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_attr_getdetachstate_ex ( const pthread_attr_t * attr , int * detachstate )
-	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -174,7 +166,6 @@ void pthreadAPI::pthread_attr_getdetachstate_ex ( const pthread_attr_t * attr , 
 //
 //////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_attr_setdetachstate_ex ( pthread_attr_t * attr , int detachstate )
-	 throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -197,7 +188,6 @@ void pthreadAPI::pthread_attr_setdetachstate_ex ( pthread_attr_t * attr , int de
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutex_init_ex ( pthread_mutex_t * mutex , const pthread_mutexattr_t * mutexattr)
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -214,7 +204,6 @@ void pthreadAPI::pthread_mutex_init_ex ( pthread_mutex_t * mutex , const pthread
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutex_destroy_ex ( pthread_mutex_t * mutex )
-	throw ( MutexException , Error )
 {
 	__BEGIN_TRY
 
@@ -237,7 +226,6 @@ void pthreadAPI::pthread_mutex_destroy_ex ( pthread_mutex_t * mutex )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutex_lock_ex (pthread_mutex_t *mutex)
-	 throw ( MutexException , Error )
 {
 	__BEGIN_TRY
 
@@ -262,7 +250,6 @@ void pthreadAPI::pthread_mutex_lock_ex (pthread_mutex_t *mutex)
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutex_unlock_ex ( pthread_mutex_t * mutex )
-	 throw ( MutexException , Error )
 {
 	__BEGIN_TRY
 
@@ -287,7 +274,6 @@ void pthreadAPI::pthread_mutex_unlock_ex ( pthread_mutex_t * mutex )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutex_trylock_ex ( pthread_mutex_t * mutex )
-	 throw ( MutexException , Error )
 {
 	__BEGIN_TRY
 
@@ -311,7 +297,6 @@ void pthreadAPI::pthread_mutex_trylock_ex ( pthread_mutex_t * mutex )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutexattr_init_ex ( pthread_mutexattr_t * attr )
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -328,7 +313,6 @@ void pthreadAPI::pthread_mutexattr_init_ex ( pthread_mutexattr_t * attr )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_mutexattr_destroy_ex ( pthread_mutexattr_t * attr )
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -386,7 +370,6 @@ void pthreadAPI::pthread_mutexattr_settype_ex ( pthread_mutexattr_t * attr , int
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_init_ex ( pthread_cond_t * cond , pthread_condattr_t * cond_attr )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -403,7 +386,6 @@ void pthreadAPI::pthread_cond_init_ex ( pthread_cond_t * cond , pthread_condattr
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_destroy_ex ( pthread_cond_t * cond )
-     throw ( CondVarException , Error )
 {
 	__BEGIN_TRY
 
@@ -424,7 +406,6 @@ void pthreadAPI::pthread_cond_destroy_ex ( pthread_cond_t * cond )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_signal_ex ( pthread_cond_t * cond )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -441,7 +422,6 @@ void pthreadAPI::pthread_cond_signal_ex ( pthread_cond_t * cond )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_wait_ex ( pthread_cond_t * cond , pthread_mutex_t * mutex )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -458,7 +438,6 @@ void pthreadAPI::pthread_cond_wait_ex ( pthread_cond_t * cond , pthread_mutex_t 
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_timedwait_ex ( pthread_cond_t * cond , pthread_mutex_t * mutex , const struct timespec * abstime )
-     throw ( CondVarException , InterruptedException , Error )
 {
 	__BEGIN_TRY
 		
@@ -483,7 +462,6 @@ void pthreadAPI::pthread_cond_timedwait_ex ( pthread_cond_t * cond , pthread_mut
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_cond_broadcast_ex ( pthread_cond_t * cond )
-     throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -500,7 +478,6 @@ void pthreadAPI::pthread_cond_broadcast_ex ( pthread_cond_t * cond )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_condattr_init_ex ( pthread_condattr_t * attr )
-	 throw ()
 {
 	__BEGIN_TRY
 		
@@ -516,7 +493,6 @@ void pthreadAPI::pthread_condattr_init_ex ( pthread_condattr_t * attr )
 //
 ////////////////////////////////////////////////////////////////////////////////
 void pthreadAPI::pthread_condattr_destroy_ex ( pthread_condattr_t * attr )
-	 throw ()
 {
 	__BEGIN_TRY
 		

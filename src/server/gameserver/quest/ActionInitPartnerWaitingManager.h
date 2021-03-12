@@ -18,10 +18,10 @@
 class ActionInitPartnerWaitingManager : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_INIT_PARTNER_WAITING_MANAGER; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_INIT_PARTNER_WAITING_MANAGER; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
 
@@ -36,8 +36,8 @@ private:
 class ActionInitPartnerWaitingManagerFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_INIT_PARTNER_WAITING_MANAGER; }
-	virtual string getActionName() const throw() { return "InitPartnerWaitingManager"; }
-	virtual Action* createAction() const throw() { return new ActionInitPartnerWaitingManager(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_INIT_PARTNER_WAITING_MANAGER; }
+	virtual string getActionName() const  { return "InitPartnerWaitingManager"; }
+	virtual Action* createAction() const  { return new ActionInitPartnerWaitingManager(); }
 };
 #endif

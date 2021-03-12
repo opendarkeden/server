@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 PCFinder::PCFinder()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ PCFinder::PCFinder()
 }
 
 PCFinder::~PCFinder()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ PCFinder::~PCFinder()
 // add creature to unordered_map
 // execute just once at PC's login
 void PCFinder::addCreature (Creature* pCreature) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void PCFinder::addCreature (Creature* pCreature)
 // Delete creature from unordered_map
 // execute just once at PC's logout
 void PCFinder::deleteCreature (const string & name) 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -131,7 +131,7 @@ void PCFinder::deleteCreature (const string & name)
 
 // get creature with PC-name
 Creature* PCFinder::getCreature_LOCKED (const string & name) const 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -162,7 +162,7 @@ Creature* PCFinder::getCreature_LOCKED (const string & name) const
 
 // get creature with PlayerID
 Creature* PCFinder::getCreatureByID_LOCKED (const string & ID) const 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ Creature* PCFinder::getCreatureByID_LOCKED (const string & ID) const
 
 // get creature with PC-name
 Creature* PCFinder::getCreature (const string & name) const 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -226,7 +226,7 @@ Creature* PCFinder::getCreature (const string & name) const
 
 // get creature with PlayerID
 Creature* PCFinder::getCreatureByID (const string & ID) const 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,6 @@ Creature* PCFinder::getCreatureByID (const string & ID) const
 
 // get creature's IP address 
 IP_t PCFinder::getIP (const string & name) const 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -311,7 +310,7 @@ list<Creature*> PCFinder::getGuildCreatures(GuildID_t gID, uint Num)
 /*
 // get creature with PC-name
 bool PCFinder::sendPacket (const string& name, Packet* pPacket) const
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -346,7 +345,7 @@ bool PCFinder::sendPacket (const string& name, Packet* pPacket) const
 
 // kick
 bool PCFinder::setKickCharacter (const string & name, const string& host, uint port) const 
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -389,7 +388,7 @@ bool PCFinder::setKickCharacter (const string & name, const string& host, uint p
 }
 */
 
-void PCFinder::addNPC(NPC *pNPC) throw(DuplicatedException, Error)
+void PCFinder::addNPC(NPC *pNPC) 
 {
     __BEGIN_TRY
 
@@ -416,7 +415,7 @@ void PCFinder::addNPC(NPC *pNPC) throw(DuplicatedException, Error)
 
 
 void PCFinder::deleteNPC (const string & name)
-    throw ()
+    
 {
 
     // 실제로 사용 안 할 함수라고 생각함 그래도 그냥 add 랑 쌍을 맞추기 위해 =_=
@@ -440,7 +439,7 @@ void PCFinder::deleteNPC (const string & name)
 
 
 NPC* PCFinder::getNPC (const string & name) const
-    throw ()
+    
 {
     __BEGIN_TRY
 
@@ -466,7 +465,7 @@ NPC* PCFinder::getNPC (const string & name) const
 
 
 NPC* PCFinder::getNPC_LOCKED (const string & name) const
-    throw ()
+    
 {
     __BEGIN_TRY
 

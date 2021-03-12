@@ -6,7 +6,7 @@
 
 #include <algorithm>
 
-void EventQuestAdvance::save(const string& name) throw(Error)
+void EventQuestAdvance::save(const string& name) 
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ EventQuestAdvance::Status EventQuestAdvanceManager::getStatus( int questLevel )
 	return m_Advances[questLevel]->getStatus();
 }
 
-void EventQuestAdvanceManager::save() throw(Error)
+void EventQuestAdvanceManager::save() 
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ void EventQuestAdvanceManager::save() throw(Error)
 	__END_CATCH
 }
 
-void EventQuestAdvanceManager::save( int questLevel ) throw(Error)
+void EventQuestAdvanceManager::save( int questLevel ) 
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void EventQuestAdvanceManager::save( int questLevel ) throw(Error)
 	__END_CATCH
 }
 
-void EventQuestAdvanceManager::load() throw(Error)
+void EventQuestAdvanceManager::load() 
 {
 	__BEGIN_TRY
 

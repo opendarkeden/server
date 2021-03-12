@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGrandMasterSlayer::EffectGrandMasterSlayer(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ EffectGrandMasterSlayer::EffectGrandMasterSlayer(Creature* pCreature)
 	__END_CATCH
 }
 
-Effect::EffectClass EffectGrandMasterSlayer::getSendEffectClass() const throw()
+Effect::EffectClass EffectGrandMasterSlayer::getSendEffectClass() const 
 {
 	Slayer* pSlayer = dynamic_cast<Slayer*>(m_pTarget);
 	if ( pSlayer == NULL ) return getEffectClass();
@@ -39,7 +39,7 @@ Effect::EffectClass EffectGrandMasterSlayer::getSendEffectClass() const throw()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterSlayer::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void EffectGrandMasterSlayer::affect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterSlayer::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectGrandMasterSlayer::affect(Creature* pCreature)
 }
 
 void EffectGrandMasterSlayer::unaffect() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY	
 
@@ -84,7 +84,7 @@ void EffectGrandMasterSlayer::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterSlayer::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -114,7 +114,7 @@ void EffectGrandMasterSlayer::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string EffectGrandMasterSlayer::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

@@ -23,8 +23,8 @@ public:
     string getSkillHandlerName() const throw() { return "CureCriticalWounds"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CURE_CRITICAL_WOUNDS; }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

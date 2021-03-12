@@ -23,17 +23,17 @@
 class Dermis : public ConcreteItem<Item::ITEM_CLASS_DERMIS, NoStack, NoDurability, HasOption, AccessoryGrade, NoAttacking>
 {
 public:
-	Dermis() throw();
-	Dermis(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	Dermis() ;
+	Dermis(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 private:
 	static Mutex    m_Mutex;          // 아이템 ID 관련 락
@@ -48,18 +48,18 @@ private:
 class DermisInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_DERMIS; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_DERMIS; }
 
-	Defense_t getDefenseBonus() const throw() { return m_DefenseBonus; }
-	void setDefenseBonus(Defense_t acBonus) throw() { m_DefenseBonus = acBonus; }
+	Defense_t getDefenseBonus() const  { return m_DefenseBonus; }
+	void setDefenseBonus(Defense_t acBonus)  { m_DefenseBonus = acBonus; }
 
-	Protection_t getProtectionBonus() const throw() { return m_ProtectionBonus; }
-	void setProtectionBonus(Protection_t acBonus) throw() { m_ProtectionBonus = acBonus; }
+	Protection_t getProtectionBonus() const  { return m_ProtectionBonus; }
+	void setProtectionBonus(Protection_t acBonus)  { m_ProtectionBonus = acBonus; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	Defense_t		m_DefenseBonus;		// 명중률 보너스
@@ -76,8 +76,8 @@ private:
 class DermisInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_DERMIS; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_DERMIS; }
+	virtual void load() ;
 };
 
 // global variable declaration
@@ -91,11 +91,11 @@ extern DermisInfoManager* g_pDermisInfoManager;
 class DermisFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_DERMIS; }
-	virtual string getItemClassName() const throw() { return "Dermis"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_DERMIS; }
+	virtual string getItemClassName() const  { return "Dermis"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Dermis(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Dermis(ItemType,OptionType); }
 };
 
 
@@ -106,13 +106,13 @@ public:
 class DermisLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_DERMIS; }
-	virtual string getItemClassName() const throw() { return "Dermis"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_DERMIS; }
+	virtual string getItemClassName() const  { return "Dermis"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern DermisLoader* g_pDermisLoader;

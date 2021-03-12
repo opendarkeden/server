@@ -20,38 +20,38 @@
 class Sweeper : public Item 
 {
 public:
-	Sweeper() throw();
-	Sweeper(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	Sweeper() ;
+	Sweeper(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
-
-public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SWEEPER; }
-	virtual string getObjectTableName() const throw() { return "SweeperObject"; }
-
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
-
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual Durability_t getDurability() const throw(Error) { return m_Durability; }
-	void setDurability(Durability_t durability) throw(Error) { m_Durability = durability; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_SWEEPER; }
+	virtual string getObjectTableName() const  { return "SweeperObject"; }
 
-	virtual Defense_t getDefenseBonus() const throw(Error);
-	virtual Protection_t getProtectionBonus() const throw(Error);
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual EnchantLevel_t getEnchantLevel() const throw() { return m_EnchantLevel; }
-	virtual void setEnchantLevel(EnchantLevel_t level) throw() { m_EnchantLevel = level; }
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
+
+public:
+	virtual Durability_t getDurability() const  { return m_Durability; }
+	void setDurability(Durability_t durability)  { m_Durability = durability; }
+
+	virtual Defense_t getDefenseBonus() const ;
+	virtual Protection_t getProtectionBonus() const ;
+
+	virtual EnchantLevel_t getEnchantLevel() const  { return m_EnchantLevel; }
+	virtual void setEnchantLevel(EnchantLevel_t level)  { m_EnchantLevel = level; }
 
 private:
 	ItemType_t			m_ItemType;			// 아이템 타입
@@ -68,21 +68,21 @@ private:
 class SweeperInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SWEEPER; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SWEEPER; }
 
-	virtual Durability_t getDurability() const throw() { return m_Durability; }
-	virtual void setDurability(Durability_t durability) throw() { m_Durability = durability; }
+	virtual Durability_t getDurability() const  { return m_Durability; }
+	virtual void setDurability(Durability_t durability)  { m_Durability = durability; }
 
-	Defense_t getDefenseBonus() const throw() { return m_DefenseBonus; }
-	void setDefenseBonus(Defense_t acBonus) throw() { m_DefenseBonus = acBonus; }
+	Defense_t getDefenseBonus() const  { return m_DefenseBonus; }
+	void setDefenseBonus(Defense_t acBonus)  { m_DefenseBonus = acBonus; }
 
-	Protection_t getProtectionBonus() const throw() { return m_ProtectionBonus; }
-	void setProtectionBonus(Protection_t acBonus) throw() { m_ProtectionBonus = acBonus; }
+	Protection_t getProtectionBonus() const  { return m_ProtectionBonus; }
+	void setProtectionBonus(Protection_t acBonus)  { m_ProtectionBonus = acBonus; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	Durability_t		m_Durability;		// 내구성
@@ -100,8 +100,8 @@ private:
 class SweeperInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SWEEPER; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SWEEPER; }
+	virtual void load() ;
 };
 
 // global variable declaration
@@ -115,11 +115,11 @@ extern SweeperInfoManager* g_pSweeperInfoManager;
 class SweeperFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SWEEPER; }
-	virtual string getItemClassName() const throw() { return "Sweeper"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SWEEPER; }
+	virtual string getItemClassName() const  { return "Sweeper"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Sweeper(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Sweeper(ItemType,OptionType); }
 };
 
 
@@ -130,13 +130,13 @@ public:
 class SweeperLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SWEEPER; }
-	virtual string getItemClassName() const throw() { return "Sweeper"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SWEEPER; }
+	virtual string getItemClassName() const  { return "Sweeper"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern SweeperLoader* g_pSweeperLoader;

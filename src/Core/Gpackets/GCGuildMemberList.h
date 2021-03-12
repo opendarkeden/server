@@ -31,44 +31,44 @@ class GCGuildMemberList : public Packet {
 public :
 
 	// constructor
-	GCGuildMemberList() throw();
+	GCGuildMemberList() ;
 
 	// destructor
-	~GCGuildMemberList() throw();
+	~GCGuildMemberList() ;
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_GUILD_MEMBER_LIST; }
+	PacketID_t getPacketID() const  { return PACKET_GC_GUILD_MEMBER_LIST; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw();
+	PacketSize_t getPacketSize() const ;
 
 	// get packet name
-	string getPacketName() const throw() { return "GCGuildMemberList"; }
+	string getPacketName() const  { return "GCGuildMemberList"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
-	BYTE getListNum() const throw() { return m_GuildMemberInfoList.size(); }
+	BYTE getListNum() const  { return m_GuildMemberInfoList.size(); }
 
 	// add GuildMemberInfoList
-	void addGuildMemberInfo( GuildMemberInfo* pGuildMemberInfo ) throw() { m_GuildMemberInfoList.push_front( pGuildMemberInfo ); }
+	void addGuildMemberInfo( GuildMemberInfo* pGuildMemberInfo )  { m_GuildMemberInfoList.push_front( pGuildMemberInfo ); }
 
 	// clear GuildMemberInfoList
-	void clearGuildMemberInfoList() throw();
+	void clearGuildMemberInfoList() ;
 
 	// pop front Element in GuildMemberInfoList
-	GuildMemberInfo* popFrontGuildMemberInfoList() throw()
+	GuildMemberInfo* popFrontGuildMemberInfoList() 
 	{
 		if ( !m_GuildMemberInfoList.empty() )
 		{
@@ -102,18 +102,18 @@ class GCGuildMemberListFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCGuildMemberList(); }
+	Packet* createPacket()  { return new GCGuildMemberList(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCGuildMemberList"; }
+	string getPacketName() const  { return "GCGuildMemberList"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_GUILD_MEMBER_LIST; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GUILD_MEMBER_LIST; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCSystemMessagePacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + GuildMemberInfo::getMaxSize(); }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + GuildMemberInfo::getMaxSize(); }
 
 };
 
@@ -129,7 +129,7 @@ class GCGuildMemberListHandler {
 public :
 	
 	// execute packet's handler
-	static void execute(GCGuildMemberList* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCGuildMemberList* pPacket, Player* pPlayer) ;
 
 };
 

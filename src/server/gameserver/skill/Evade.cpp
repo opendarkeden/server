@@ -15,7 +15,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Evade::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

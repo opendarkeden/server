@@ -21,42 +21,42 @@
 class Bomb : public Item 
 {
 public:
-	Bomb() throw();
-	Bomb(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	Bomb() ;
+	Bomb(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB; }
-	virtual string getObjectTableName() const throw() { return "BombObject"; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB; }
+	virtual string getObjectTableName() const  { return "BombObject"; }
 
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
 
-	Damage_t getDamage() const throw(Error) { return m_Damage;}
-	void setDamage(Damage_t D) throw(Error) { m_Damage = D;}
+	Damage_t getDamage() const  { return m_Damage;}
+	void setDamage(Damage_t D)  { m_Damage = D;}
 
-	//Dir_t getDir() const throw(Error) { return m_Dir;}
-	//void setDir(Dir_t R) throw(Error) { m_Dir = R;}
+	//Dir_t getDir() const  { return m_Dir;}
+	//void setDir(Dir_t R)  { m_Dir = R;}
 
-	virtual Damage_t getMinDamage() const throw(Error);
-	virtual Damage_t getMaxDamage() const throw(Error);
+	virtual Damage_t getMinDamage() const ;
+	virtual Damage_t getMaxDamage() const ;
 
-	virtual ItemNum_t getNum() const throw() { return m_Num; }
-	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemNum_t getNum() const  { return m_Num; }
+	virtual void setNum(ItemNum_t Num)  { m_Num = Num; }
 
-	bool    isStackable() const throw() { return true; }
+	bool    isStackable() const  { return true; }
 
 private:
 	ItemType_t m_ItemType;			// 아이템 타입
@@ -76,14 +76,14 @@ private:
 class BombInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB; }
-	virtual string toString() const throw();
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB; }
+	virtual string toString() const ;
 
-	virtual Damage_t getMinDamage() const throw() { return m_MinDamage; }
-	virtual void setMinDamage(Damage_t minDamage) throw() { m_MinDamage = minDamage; }
+	virtual Damage_t getMinDamage() const  { return m_MinDamage; }
+	virtual void setMinDamage(Damage_t minDamage)  { m_MinDamage = minDamage; }
 
-	virtual Damage_t getMaxDamage() const throw() { return m_MaxDamage; }
-	virtual void setMaxDamage(Damage_t maxDamage) throw() { m_MaxDamage = maxDamage; }
+	virtual Damage_t getMaxDamage() const  { return m_MaxDamage; }
+	virtual void setMaxDamage(Damage_t maxDamage)  { m_MaxDamage = maxDamage; }
 
 private:
 	Damage_t m_MinDamage;     // 최소 데미지
@@ -98,8 +98,8 @@ private:
 class BombInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB; }
+	virtual void load() ;
 };
 
 extern BombInfoManager* g_pBombInfoManager;
@@ -112,11 +112,11 @@ extern BombInfoManager* g_pBombInfoManager;
 class BombFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB; }
-	virtual string getItemClassName() const throw() { return "Bomb"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB; }
+	virtual string getItemClassName() const  { return "Bomb"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Bomb(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Bomb(ItemType,OptionType); }
 };
 
 
@@ -127,13 +127,13 @@ public:
 class BombLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB; }
-	virtual string getItemClassName() const throw() { return "Bomb"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB; }
+	virtual string getItemClassName() const  { return "Bomb"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern BombLoader* g_pBombLoader;

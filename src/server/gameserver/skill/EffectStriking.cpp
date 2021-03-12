@@ -11,7 +11,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectStriking::EffectStriking(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ EffectStriking::EffectStriking(Creature* pCreature)
 }
 
 void EffectStriking::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 																															    	
@@ -32,14 +32,14 @@ void EffectStriking::affect(Creature* pCreature)
 }
 
 void EffectStriking::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectStriking::unaffect()
-	throw(Error)
+	
 {
 	//cout << "EffectStriking " << "unaffect BEGIN" << endl;
 
@@ -50,7 +50,7 @@ void EffectStriking::unaffect()
 }
 
 void EffectStriking::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void EffectStriking::unaffect(Creature* pCreature)
 }
 
 void EffectStriking::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

@@ -24,48 +24,48 @@
 class PCFinder 
 {
 public:
-	PCFinder() throw();
-	~PCFinder() throw();
+	PCFinder() ;
+	~PCFinder() ;
 
 public:
 	// add creature to unordered_map
 	// execute just once at PC's login
-	void addCreature(Creature* pCreature) throw(DuplicatedException, Error);
+	void addCreature(Creature* pCreature) ;
 
 	// delete creature from unordered_map
 	// execute just once at PC's logout
-	void deleteCreature(const string & name) throw();//NoSuchElementException, Error);
+	void deleteCreature(const string & name) ;//NoSuchElementException, Error);
 
 	// get creature with PC-name
-	Creature* getCreature(const string & name) const throw(); //NoSuchElementException, Error);
+	Creature* getCreature(const string & name) const ; //NoSuchElementException, Error);
 
 	// get creature with PC-name
-	Creature* getCreature_LOCKED(const string & name) const throw(); //NoSuchElementException, Error);
+	Creature* getCreature_LOCKED(const string & name) const ; //NoSuchElementException, Error);
 
 	// PlayerID. for BillingServer. by sigi. 2002.11.18
-	Creature* getCreatureByID(const string & ID) const throw(); //NoSuchElementException, Error);
-	Creature* getCreatureByID_LOCKED(const string & ID) const throw(); //NoSuchElementException, Error);
+	Creature* getCreatureByID(const string & ID) const ; //NoSuchElementException, Error);
+	Creature* getCreatureByID_LOCKED(const string & ID) const ; //NoSuchElementException, Error);
 
 	// add NPC to unordered_map
-	void addNPC(NPC *npc) throw(DuplicatedException, Error);
+	void addNPC(NPC *npc) ;
 	
 	// delete NPC from unordered_map
-	void deleteNPC(const string & name) throw();
+	void deleteNPC(const string & name) ;
 
 	// get NPC 
-	NPC* getNPC(const string & name) const throw();
-	NPC* getNPC_LOCKED(const string & name) const throw();
+	NPC* getNPC(const string & name) const ;
+	NPC* getNPC_LOCKED(const string & name) const ;
 
 	// get creature's IP address
-	IP_t getIP(const string & name) const throw(NoSuchElementException, Error);
+	IP_t getIP(const string & name) const ;
 
 	list<Creature*>	getGuildCreatures(GuildID_t gID, uint Num);
 
 /*	pair<multimap< GuildID_t, Creature* >::const_iterator, multimap< GuildID_t, Creature* >::const_iterator>
 		getGuildRange(GuildID_t gID) const { return m_GuildMap.equal_range(gID); }*/
 
-	void lock() throw(Error) { m_Mutex.lock(); }
-	void unlock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+	void unlock()  { m_Mutex.unlock(); }
 
 private:
 	unordered_map< string, Creature* > 	m_PCs;

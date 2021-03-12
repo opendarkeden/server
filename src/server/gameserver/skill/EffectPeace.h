@@ -18,19 +18,19 @@ class EffectPeace : public Effect
 {
 public:
 	// pCreature(나)가 pPeaceCreature한테 peace상태를 유지한다.
-	EffectPeace(Creature* pCreature, ObjectID_t PeaceCreatureID) throw(Error);
+	EffectPeace(Creature* pCreature, ObjectID_t PeaceCreatureID) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PEACE; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item*  pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item*  pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 	

@@ -66,52 +66,52 @@ class PlayerCreature : public Creature
 // 생성자 및 소멸자
 ////////////////////////////////////////////////////////////
 public:
-	PlayerCreature(ObjectID_t objectID = 0, Player* pPlayer = NULL) throw();
-	virtual ~PlayerCreature() throw(Error);
+	PlayerCreature(ObjectID_t objectID = 0, Player* pPlayer = NULL) ;
+	virtual ~PlayerCreature() ;
 
-	virtual bool load() throw (InvalidProtocolException, Error);
-	virtual void tinysave(const string & field) const throw (Error) = 0;
-//	virtual void tinysave(const char* field) const throw (Error) = 0;
+	virtual bool load() ;
+	virtual void tinysave(const string & field) const  = 0;
+//	virtual void tinysave(const char* field) const  = 0;
 
 ////////////////////////////////////////////////////////////
 // OID 등록 관련 메쏘드
 ////////////////////////////////////////////////////////////
 protected:
-	virtual void registerItem(Item* pItem, ObjectRegistry& OR) throw();
+	virtual void registerItem(Item* pItem, ObjectRegistry& OR) ;
 
 public:
-	virtual void registerInventory(ObjectRegistry& OR) throw();
-	virtual void registerInitInventory(ObjectRegistry& OR) throw();
-	virtual void registerStash(void) throw();
+	virtual void registerInventory(ObjectRegistry& OR) ;
+	virtual void registerInitInventory(ObjectRegistry& OR) ;
+	virtual void registerStash(void) ;
 
-	virtual void registerGoodsInventory(ObjectRegistry& OR) throw();
+	virtual void registerGoodsInventory(ObjectRegistry& OR) ;
 
 //////////////////////////////////////////////////////////////
 // 시간제한 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	bool wasteIfTimeLimitExpired(Item* pItem) throw (Error);
-	virtual void checkItemTimeLimit() throw (Error) = 0;
-	void sendTimeLimitItemInfo() throw(Error);
-	void addTimeLimitItem(Item* pItem, DWORD time) throw(Error);
-	void sellItem( Item* pItem ) throw(Error);
-	void deleteItemByMorph( Item* pItem ) throw(Error);
-	void updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error);
-	virtual void updateEventItemTime( DWORD time ) throw(Error) = 0;
-	void loadTimeLimitItem() throw(Error);
+	bool wasteIfTimeLimitExpired(Item* pItem) ;
+	virtual void checkItemTimeLimit()  = 0;
+	void sendTimeLimitItemInfo() ;
+	void addTimeLimitItem(Item* pItem, DWORD time) ;
+	void sellItem( Item* pItem ) ;
+	void deleteItemByMorph( Item* pItem ) ;
+	void updateItemTimeLimit( Item* pItem, DWORD time ) ;
+	virtual void updateEventItemTime( DWORD time )  = 0;
+	void loadTimeLimitItem() ;
 
 //////////////////////////////////////////////////////////////
 // 구매 상품 아이템 관련 함수
 //////////////////////////////////////////////////////////////
 public:
-	void loadGoods() throw(Error);
+	void loadGoods() ;
 
 //////////////////////////////////////////////////////////////
 // 퀘스트 매니저 관련 함수
 //////////////////////////////////////////////////////////////
 public:
 	QuestManager*	getQuestManager() const { return m_pQuestManager; }
-	void			sendCurrentQuestInfo() const throw(Error);
+	void			sendCurrentQuestInfo() const ;
 
 	virtual	int		getQuestLevel() const = 0;
 	virtual void	whenQuestLevelUpgrade();
@@ -120,41 +120,41 @@ public:
 // 인벤토리 관련 메쏘드
 ////////////////////////////////////////////////////////////
 public:
-	virtual Inventory* getInventory() const throw() { return m_pInventory; }
-	virtual void setInventory(Inventory* pInventory) throw() { m_pInventory = pInventory; }
+	virtual Inventory* getInventory() const  { return m_pInventory; }
+	virtual void setInventory(Inventory* pInventory)  { m_pInventory = pInventory; }
 
-	virtual InventorySlot* getExtraInventorySlot() throw() { return m_pExtraInventorySlot; }
-	virtual Item* getExtraInventorySlotItem() throw(Error) { return m_pExtraInventorySlot->getItem(); }
-	virtual void deleteItemFromExtraInventorySlot() throw(Error) { m_pExtraInventorySlot->deleteItem(); }
-	virtual void addItemToExtraInventorySlot(Item* pItem) throw(Error) { m_pExtraInventorySlot->addItem(pItem); }
+	virtual InventorySlot* getExtraInventorySlot()  { return m_pExtraInventorySlot; }
+	virtual Item* getExtraInventorySlotItem()  { return m_pExtraInventorySlot->getItem(); }
+	virtual void deleteItemFromExtraInventorySlot()  { m_pExtraInventorySlot->deleteItem(); }
+	virtual void addItemToExtraInventorySlot(Item* pItem)  { m_pExtraInventorySlot->addItem(pItem); }
 
 	// 2003.04.04. by Sequoia
-	virtual void loadItem() throw (InvalidProtocolException, Error);
+	virtual void loadItem() ;
 
-	virtual GoodsInventory* getGoodsInventory() const throw() { return m_pGoodsInventory; }
+	virtual GoodsInventory* getGoodsInventory() const  { return m_pGoodsInventory; }
 
 ////////////////////////////////////////////////////////////
 // 보관함 관련 메쏘드
 ////////////////////////////////////////////////////////////
 public:
-	virtual Stash* getStash(void) const throw() { return m_pStash; }
-	virtual void setStash(Stash* pStash) throw() { m_pStash = pStash; }
+	virtual Stash* getStash(void) const  { return m_pStash; }
+	virtual void setStash(Stash* pStash)  { m_pStash = pStash; }
 
-	virtual BYTE getStashNum(void) const throw() { return m_StashNum; }
-	virtual void setStashNum(BYTE num) throw() { m_StashNum = num; }
-	virtual void setStashNumEx(BYTE num) throw();
+	virtual BYTE getStashNum(void) const  { return m_StashNum; }
+	virtual void setStashNum(BYTE num)  { m_StashNum = num; }
+	virtual void setStashNumEx(BYTE num) ;
 
-	virtual Gold_t getStashGold(void) const throw() { return m_StashGold; }
-	virtual void setStashGold(Gold_t gold) throw() { m_StashGold = gold; }
-	virtual void setStashGoldEx(Gold_t gold) throw();
-	virtual void increaseStashGoldEx(Gold_t gold) throw();
-	virtual void decreaseStashGoldEx(Gold_t gold) throw();
+	virtual Gold_t getStashGold(void) const  { return m_StashGold; }
+	virtual void setStashGold(Gold_t gold)  { m_StashGold = gold; }
+	virtual void setStashGoldEx(Gold_t gold) ;
+	virtual void increaseStashGoldEx(Gold_t gold) ;
+	virtual void decreaseStashGoldEx(Gold_t gold) ;
 	virtual bool checkStashGoldIntegrity() = 0;
 
-	virtual bool getStashStatus(void) const throw() { return m_bStashStatus; }
-	virtual void setStashStatus(bool s) throw() { m_bStashStatus = s; }
+	virtual bool getStashStatus(void) const  { return m_bStashStatus; }
+	virtual void setStashStatus(bool s)  { m_bStashStatus = s; }
 
-	virtual void deleteStash(void) throw();
+	virtual void deleteStash(void) ;
 
 
 ////////////////////////////////////////////////////////////
@@ -171,40 +171,40 @@ public:
 // 아이템 검색 함수
 ////////////////////////////////////////////////////////////
 public:
-	virtual Item* findItemOID(ObjectID_t id) throw() = 0;
-	virtual Item* findItemOID(ObjectID_t id, int& storage, int& x, int& y) throw() = 0;
+	virtual Item* findItemOID(ObjectID_t id)  = 0;
+	virtual Item* findItemOID(ObjectID_t id, int& storage, int& x, int& y)  = 0;
 
-	virtual Item* findItemIID(ItemID_t id) throw() = 0;
-	virtual Item* findItemIID(ItemID_t id, int& storage, int& x, int& y) throw() = 0;
+	virtual Item* findItemIID(ItemID_t id)  = 0;
+	virtual Item* findItemIID(ItemID_t id, int& storage, int& x, int& y)  = 0;
 
-	virtual Item* findBeltOID(ObjectID_t id) throw() = 0;
-	virtual Item* findBeltOID(ObjectID_t id, int& storage, int& x, int& y) throw() = 0;
+	virtual Item* findBeltOID(ObjectID_t id)  = 0;
+	virtual Item* findBeltOID(ObjectID_t id, int& storage, int& x, int& y)  = 0;
 
-	virtual Item* findBeltIID(ItemID_t id) throw() = 0;
-	virtual Item* findBeltIID(ItemID_t id, int& storage, int& x, int& y) throw() = 0;
+	virtual Item* findBeltIID(ItemID_t id)  = 0;
+	virtual Item* findBeltIID(ItemID_t id, int& storage, int& x, int& y)  = 0;
 
 
 ////////////////////////////////////////////////////////////
 // 플래그 셋 관련 함수
 ////////////////////////////////////////////////////////////
 public:
-	FlagSet* getFlagSet(void) const throw() { return m_pFlagSet; }
-	void setFlagSet(FlagSet* pSet) throw() { m_pFlagSet = pSet; } 
-	void deleteFlagSet(void) throw();
+	FlagSet* getFlagSet(void) const  { return m_pFlagSet; }
+	void setFlagSet(FlagSet* pSet)  { m_pFlagSet = pSet; } 
+	void deleteFlagSet(void) ;
 
 
 ////////////////////////////////////////////////////////////
 // 기타 함수
 ////////////////////////////////////////////////////////////
 public:
-	virtual Fame_t getFame() const throw() = 0;
-	virtual void setFame(Fame_t fame) throw() = 0;
+	virtual Fame_t getFame() const  = 0;
+	virtual void setFame(Fame_t fame)  = 0;
 
-	virtual Gold_t getGold() const throw() = 0;
-	virtual void setGold(Gold_t gold) throw() = 0;
-	virtual void setGoldEx(Gold_t gold) throw() = 0;
-	virtual void   increaseGoldEx(Gold_t gold) throw() = 0;
-    virtual void   decreaseGoldEx(Gold_t gold) throw() = 0;
+	virtual Gold_t getGold() const  = 0;
+	virtual void setGold(Gold_t gold)  = 0;
+	virtual void setGoldEx(Gold_t gold)  = 0;
+	virtual void   increaseGoldEx(Gold_t gold)  = 0;
+    virtual void   decreaseGoldEx(Gold_t gold)  = 0;
 	virtual bool checkGoldIntegrity() = 0;
 	bool checkDBGold( Gold_t gold )
 	{
@@ -216,11 +216,11 @@ public:
 	}
 
 
-	virtual Sex	getSex() const throw() = 0;
+	virtual Sex	getSex() const  = 0;
 
-	virtual ZoneID_t getResurrectZoneID(void) const throw() = 0;
-	virtual void setResurrectZoneID(ZoneID_t id) throw() = 0;
-	virtual void setResurrectZoneIDEx(ZoneID_t id) throw() = 0;
+	virtual ZoneID_t getResurrectZoneID(void) const  = 0;
+	virtual void setResurrectZoneID(ZoneID_t id)  = 0;
+	virtual void setResurrectZoneIDEx(ZoneID_t id)  = 0;
 
 	//virtual Race_t getRace() const = 0; - Creature로 올렸다.
 	virtual GuildID_t getCommonGuildID() const = 0;
@@ -232,60 +232,60 @@ public:
 // 성향 시스템 관련
 ////////////////////////////////////////////////////////////
 	// enemy specific methods
-	void addEnemy(const string& Name) throw(Error);
-	void deleteEnemy(const string& Name) throw(NoSuchElementException, Error);
+	void addEnemy(const string& Name) ;
+	void deleteEnemy(const string& Name) ;
 
 	// 이 특정 사용자가 이미 선공을 하였는가?
-	bool hasEnemy(const string& Name) const throw();
-	uint getMaxEnemies() const throw();
+	bool hasEnemy(const string& Name) const ;
+	uint getMaxEnemies() const ;
 
-	list<string>& getEnemies(void) throw() { return m_Enemies;}
+	list<string>& getEnemies(void)  { return m_Enemies;}
 
-	bool isPK() throw() { return m_isPK; }
+	bool isPK()  { return m_isPK; }
 
-	void setPK(bool isPK) throw() { m_isPK = isPK; }
+	void setPK(bool isPK)  { m_isPK = isPK; }
 
-	void setGuildID( GuildID_t GuildID ) throw() { m_GuildID = GuildID; }
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
+	void setGuildID( GuildID_t GuildID )  { m_GuildID = GuildID; }
+	GuildID_t getGuildID() const  { return m_GuildID; }
 
-	string getGuildName() const throw();
-	GuildMemberRank_t getGuildMemberRank() const throw();
+	string getGuildName() const ;
+	GuildMemberRank_t getGuildMemberRank() const ;
 
-	Rank_t  	getRank() const throw();
-	RankExp_t   getRankExp() const throw();
-	RankExp_t   getRankGoalExp() const throw();
+	Rank_t  	getRank() const ;
+	RankExp_t   getRankExp() const ;
+	RankExp_t   getRankGoalExp() const ;
 
-//	virtual Rank_t getRank() const throw() = 0;
+//	virtual Rank_t getRank() const  = 0;
 	void increaseRankExp(RankExp_t Point);
 
 	WORD getRankExpSaveCount(void) const { return m_RankExpSaveCount; }
 	void setRankExpSaveCount(WORD count) { m_RankExpSaveCount = count; }
 
-	virtual Alignment_t getAlignment() const throw()=0;
-	virtual void setAlignment(Alignment_t Alignment) throw()=0;
+	virtual Alignment_t getAlignment() const =0;
+	virtual void setAlignment(Alignment_t Alignment) =0;
 
 ////////////////////////////////////////////////////////////
 // Rank Bonus 관련
 ////////////////////////////////////////////////////////////
-	void loadRankBonus() throw();
-	bool hasRankBonus( RankBonus::RankBonusType type ) throw() { return m_RankBonusFlag.test(type); }
-	RankBonus* getRankBonus( RankBonus::RankBonusType type ) const throw();
-	RankBonus* getRankBonusByRank( Rank_t rank ) const throw();
-	bool learnRankBonus( DWORD type ) throw();
-	void clearRankBonus() throw();
-	void clearRankBonus( Rank_t rank ) throw();
+	void loadRankBonus() ;
+	bool hasRankBonus( RankBonus::RankBonusType type )  { return m_RankBonusFlag.test(type); }
+	RankBonus* getRankBonus( RankBonus::RankBonusType type ) const ;
+	RankBonus* getRankBonusByRank( Rank_t rank ) const ;
+	bool learnRankBonus( DWORD type ) ;
+	void clearRankBonus() ;
+	void clearRankBonus( Rank_t rank ) ;
 	HashMapRankBonus& getRankBonuses() { return m_RankBonuses; }
 
-	void sendRankBonusInfo() throw();
+	void sendRankBonusInfo() ;
 
 protected:
-	void addRankBonus( RankBonus* rankBonus ) throw();
+	void addRankBonus( RankBonus* rankBonus ) ;
 
 public :
 	// by sigi. 2002.11.19
-	bool isBillingPlayAvaiable() throw(Error);
-	virtual bool isPayPlayAvaiable() throw(Error);
-	virtual bool canPlayFree() throw(Error);
+	bool isBillingPlayAvaiable() ;
+	virtual bool isPayPlayAvaiable() ;
+	virtual bool canPlayFree() ;
 
 public:
 	Item*	getQuestItem() const { return m_pQuestItem; }
@@ -293,23 +293,23 @@ public:
 
 public :
 	// by sigi. 2002.12.3
-/*	void	loadQuest() throw (Error);
+/*	void	loadQuest() ;
 	bool 	hasQuest() const 	{ return m_pQuestManager!=NULL && !m_pQuestManager->isEmpty(); }
-	bool 	addQuest(Quest* pQuest) throw (Error);
-	bool 	checkEvent(QuestEvent* pQuest) throw (Error);
-	Quest* 	removeCompleteQuest() throw (Error);
-	void 	removeAllQuest() throw (Error)	{ if (m_pQuestManager!=NULL) m_pQuestManager->release(); }*/
+	bool 	addQuest(Quest* pQuest) ;
+	bool 	checkEvent(QuestEvent* pQuest) ;
+	Quest* 	removeCompleteQuest() ;
+	void 	removeAllQuest() 	{ if (m_pQuestManager!=NULL) m_pQuestManager->release(); }*/
 
 	virtual void initAllStatAndSend() = 0;
-	virtual void initAllStat(int numPartyMember) throw() = 0;
+	virtual void initAllStat(int numPartyMember)  = 0;
 
-	virtual void computeStatOffset(void) throw() = 0;
-	virtual void computeItemStat(Item* pItem) throw() = 0;
-	virtual void computeOptionStat(Item* pItem) throw() = 0;
-	virtual void computeOptionStat(OptionType_t optionType) throw() = 0;
+	virtual void computeStatOffset(void)  = 0;
+	virtual void computeItemStat(Item* pItem)  = 0;
+	virtual void computeOptionStat(Item* pItem)  = 0;
+	virtual void computeOptionStat(OptionType_t optionType)  = 0;
 	virtual void computeOptionClassStat( OptionClass OClass, int PlusPoint ) = 0;
 
-	void heartbeat(const Timeval& currentTime) throw();
+	void heartbeat(const Timeval& currentTime) ;
 
 	virtual bool canSee( Object* pObject ) const;
 
@@ -391,8 +391,8 @@ public:
 	void				clearItemNameInfoList() { m_ItemNameInfoList.clear(); }
 	const list<ItemNameInfo*>& getItemNameInfoList() const { return m_ItemNameInfoList; }
 	void				addItemNameInfoList( ItemNameInfo* itemNameInfo ) { m_ItemNameInfoList.push_back(itemNameInfo); }
-	bool				deleteItemNameInfoList( ObjectID_t objectID ) throw(Error);
-	string				getItemName( ObjectID_t objectID ) throw(Error);*/
+	bool				deleteItemNameInfoList( ObjectID_t objectID ) ;
+	string				getItemName( ObjectID_t objectID ) ;*/
 
 protected:
 	int						m_ConsumeMPRatio;
@@ -427,8 +427,8 @@ protected:
 	// Default Option Set Info
 	//////////////////////////////////////////////
 public:
-	void	addDefaultOptionSet( DefaultOptionSetType_t type ) throw();
-	void	removeDefaultOptionSet( DefaultOptionSetType_t type ) throw();
+	void	addDefaultOptionSet( DefaultOptionSetType_t type ) ;
+	void	removeDefaultOptionSet( DefaultOptionSetType_t type ) ;
 
 protected:
 	forward_list<DefaultOptionSetType_t>		m_DefaultOptionSet;
@@ -525,8 +525,8 @@ public:
 	bool				putAdvancedBonusToDEX();
 	bool				putAdvancedBonusToINT();
 
-	virtual Bonus_t getBonus() const throw() = 0;
-	virtual void    setBonus(Bonus_t bonus) throw() = 0;
+	virtual Bonus_t getBonus() const  = 0;
+	virtual void    setBonus(Bonus_t bonus)  = 0;
 
 protected:
 	Attr_t				m_AdvancedSTR;

@@ -27,7 +27,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -254,7 +254,7 @@ void Paralyze::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkil
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Paralyze::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -314,7 +314,7 @@ void Paralyze::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 void Paralyze::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 

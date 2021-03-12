@@ -8,7 +8,7 @@ LuaTradeEventVampireItem::LuaTradeEventVampireItem(LuaState* pState)
 
 void
 LuaTradeEventVampireItem::prepare()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

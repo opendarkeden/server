@@ -14,7 +14,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRepair::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
     __END_CATCH
@@ -25,7 +25,7 @@ void ActionRepair::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRepair::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ void ActionRepair::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRepair::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

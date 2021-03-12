@@ -21,7 +21,7 @@ public:
 
 	WarType_t		getWarType() const				{ return WAR_GUILD; }
 	string 			getWarType2DBString() const		{ return "GUILD"; }
-	string			getWarName() const throw (Error); 
+	string			getWarName() const ; 
 
 	GuildID_t		getChallangerGuildID() const	{ return m_ChallangerGuildID; }
 
@@ -29,25 +29,25 @@ public:
 	void			setRegistrationFee( Gold_t fee ){ m_RegistrationFee = fee; }
 
 public:
-	bool			isModifyCastleOwner( PlayerCreature* pPC ) throw (Error);
-	GuildID_t		getWinnerGuildID( PlayerCreature* pPC ) throw (Error);
+	bool			isModifyCastleOwner( PlayerCreature* pPC ) ;
+	GuildID_t		getWinnerGuildID( PlayerCreature* pPC ) ;
 
-	//void			sendWarStartMessage() const throw (ProtocolException, Error);
-	void			sendWarEndMessage() const throw (ProtocolException, Error);
+	//void			sendWarStartMessage() const ;
+	void			sendWarEndMessage() const ;
 
-	bool 			endWar(PlayerCreature* pPC) throw(Error);
+	bool 			endWar(PlayerCreature* pPC) ;
 
 protected :
-	void 			executeStart() throw (Error);
-	void 			executeEnd() throw (Error);
+	void 			executeStart() ;
+	void 			executeEnd() ;
 
-	void 			recordGuildWarStart() throw (Error);
-	void 			recordGuildWarEnd() throw (Error);
+	void 			recordGuildWarStart() ;
+	void 			recordGuildWarEnd() ;
 
 public :
-	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const throw (Error);
-	void    makeWarInfo( WarInfo* pWarInfo ) const throw (Error);
-	virtual string	toString() const throw (Error);
+	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const ;
+	void    makeWarInfo( WarInfo* pWarInfo ) const ;
+	virtual string	toString() const ;
 
 private:
 	ZoneID_t			m_CastleZoneID;			// 傈里苞 包访等 己狼 ZoneID

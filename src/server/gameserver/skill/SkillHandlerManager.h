@@ -22,13 +22,13 @@ public :
 	
 public:
 	// 게임서버객체의 init()에서 호출된다.
-	void init() throw(Error);
+	void init() ;
 	
 	// 스킬 핸들러 객체를 초기화한다.
-	void addSkillHandler(SkillHandler* pSkillHandler) throw(Error);
+	void addSkillHandler(SkillHandler* pSkillHandler) ;
 
 	// 스킬 핸들러를 얻어낸다.
-	SkillHandler* getSkillHandler(SkillType_t SkillType) throw(Error);
+	SkillHandler* getSkillHandler(SkillType_t SkillType) ;
 
 	// toString
 	string toString() const throw();

@@ -30,7 +30,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegisterReinforce::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -52,7 +52,7 @@ void ActionRegisterReinforce::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegisterReinforce::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ void ActionRegisterReinforce::execute (Creature * pCreature1 , Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRegisterReinforce::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

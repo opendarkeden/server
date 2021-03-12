@@ -24,18 +24,18 @@
 class EffectVigorDrop : public Effect
 {
 public:
-	EffectVigorDrop(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectVigorDrop(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_VIGOR_DROP; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item* pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 
@@ -58,7 +58,7 @@ public:
 	int getLevel(void) const { return m_Level; }
 	void setLevel(int level) { m_Level = level; }
 
-	bool affectCreature(Creature* pCreature, bool bAffectByMove) throw(Error); 
+	bool affectCreature(Creature* pCreature, bool bAffectByMove) ; 
 private:
 //	string  m_CasterName;
 //	int     m_PartyID;
@@ -77,7 +77,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectVigorDrop"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 extern EffectVigorDropLoader* g_pEffectVigorDropLoader;

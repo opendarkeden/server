@@ -35,7 +35,7 @@ DeadlyClaw::DeadlyClaw()
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DeadlyClaw::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -77,7 +77,7 @@ void DeadlyClaw::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSk
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DeadlyClaw::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ void DeadlyClaw::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampir
 // 몬스터 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DeadlyClaw::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

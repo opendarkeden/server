@@ -18,15 +18,15 @@
 class EffectMagicElusion : public Effect 
 {
 public:
-	EffectMagicElusion(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY) throw(Error);
+	EffectMagicElusion(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MAGIC_ELUSION; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error) {};
+	void unaffect() ;
+	void unaffect(Creature* pCreature)  {};
 
 	string toString() const throw();
 };

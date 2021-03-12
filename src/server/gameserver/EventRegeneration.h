@@ -16,18 +16,18 @@
 class EventRegeneration : public Event 
 {
 public:
-	EventRegeneration(GamePlayer* pGamePlayer) throw(Error);
-	virtual ~EventRegeneration() throw();
+	EventRegeneration(GamePlayer* pGamePlayer) ;
+	virtual ~EventRegeneration() ;
 
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_REGENERATION; }
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_REGENERATION; }
 
-	virtual bool isTemporary() const throw() { return false; }
-	virtual bool isPermanent() const throw() { return true; }
+	virtual bool isTemporary() const  { return false; }
+	virtual bool isPermanent() const  { return true; }
 
-	virtual void activate() throw(Error);
+	virtual void activate() ;
 	
-	virtual string toString() const throw() { return "Regeneration Event"; }
+	virtual string toString() const  { return "Regeneration Event"; }
 
 };
 

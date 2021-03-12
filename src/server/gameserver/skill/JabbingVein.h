@@ -23,8 +23,8 @@ public:
     string getSkillHandlerName() const throw() { return "JabbingVein"; }
 	SkillType_t getSkillType() const throw() { return SKILL_JABBING_VEIN; }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Monster* pMonster, Creature* pEnemy) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Monster* pMonster, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

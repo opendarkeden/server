@@ -20,8 +20,8 @@ public:
 	Packet*			getNicknameBookListPacket() const;
 	WORD			popNicknameID() { return m_NextNicknameID++; }
 
-	void load() throw(Error);
-	void addNewNickname(const string& nick) throw(Error);
+	void load() ;
+	void addNewNickname(const string& nick) ;
 
 private:
 	PlayerCreature*					m_pOwner;

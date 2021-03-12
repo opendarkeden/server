@@ -102,7 +102,7 @@ static BYTE getDirection_Halo(int originX, int originY, int destX, int destY)
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Halo::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

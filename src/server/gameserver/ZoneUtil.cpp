@@ -136,7 +136,7 @@ string correctString( const string& str )
 // Creature::MoveMode MMode : 크리쳐의 무브 모드
 //////////////////////////////////////////////////////////////////////////////
 TPOINT findSuitablePosition(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, Creature::MoveMode MMode) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -218,7 +218,7 @@ TPOINT findSuitablePosition(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, Creatur
 // bool        bAllowSafeZone : Safe Zone 도 괜찮은가?
 //////////////////////////////////////////////////////////////////////////////
 TPOINT findSuitablePositionForItem(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, bool bAllowCreature, bool bAllowSafeZone, bool bForce ) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -322,7 +322,7 @@ TPOINT findSuitablePositionForItem(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, 
 // Effect::EffectClass EClass : 더하고자 하는 이펙트 클래스
 //////////////////////////////////////////////////////////////////////////////
 TPOINT findSuitablePositionForEffect(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy, Effect::EffectClass EClass) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -406,7 +406,7 @@ TPOINT findSuitablePositionForEffect(Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy
 // Creature::MoveMode MMode : 크리쳐의 무브 모드
 //////////////////////////////////////////////////////////////////////////////
 bool canAddCreature(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature::MoveMode MMode) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -435,7 +435,7 @@ bool canAddCreature(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature::MoveMod
 // ZoneCoord_t y     : 버로우하고자 하는 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 bool canBurrow(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -455,7 +455,7 @@ bool canBurrow(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
 // ZoneCoord_t y     : 버로우하고자 하는 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 bool canUnburrow(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -476,7 +476,6 @@ bool canUnburrow(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
 // ZoneCoord_t originY   : pCreature를 물러나게 한 상대방의 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 Dir_t knockbackCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t originX, ZoneCoord_t originY)
-	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -622,7 +621,6 @@ Dir_t knockbackCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t originX, Z
 // ZoneCoord_t cy        : 크리쳐의 원래 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 void addBurrowingCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, ZoneCoord_t cy) 
-	throw (EmptyTileNotExistException, Error)
 {
 	__BEGIN_TRY
 
@@ -726,7 +724,6 @@ void addBurrowingCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zone
 // Dir_t       dir       : 나온 크리쳐가 향할 방향
 //////////////////////////////////////////////////////////////////////////////
 void addUnburrowCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, ZoneCoord_t cy, Dir_t dir) 
-	throw (EmptyTileNotExistException, Error)
 {
 	__BEGIN_TRY
 
@@ -834,7 +831,7 @@ void addUnburrowCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, ZoneC
 // bool      bForce    : 이펙트의 duration이 만기가 되지 않았는데,
 //                       강제로 푸는 것인가?
 //////////////////////////////////////////////////////////////////////////////
-void addUntransformCreature(Zone* pZone, Creature* pCreature, bool bForce) throw()
+void addUntransformCreature(Zone* pZone, Creature* pCreature, bool bForce) 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1079,7 +1076,7 @@ void addUntransformCreature(Zone* pZone, Creature* pCreature, bool bForce) throw
 // ZoneCoord_t cy        : 크리쳐의 원래 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 void addInvisibleCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, ZoneCoord_t cy)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1192,7 +1189,7 @@ void addInvisibleCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zone
 // bool        bForce    : 강제로 visible 상태가 되었나?
 //////////////////////////////////////////////////////////////////////////////
 void addVisibleCreature(Zone* pZone, Creature* pCreature, bool bForced)
-	throw() 
+	 
 {
 	__BEGIN_TRY
 
@@ -1398,7 +1395,7 @@ void addVisibleCreature(Zone* pZone, Creature* pCreature, bool bForced)
 // ZoneCoord_t cy        : 크리쳐의 원래 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 void addSnipingModeCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, ZoneCoord_t cy)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1507,7 +1504,7 @@ void addSnipingModeCreature(Zone* pZone, Creature* pCreature, ZoneCoord_t cx, Zo
 // bool        bForce    : 강제로 visible 상태가 되었나?
 //////////////////////////////////////////////////////////////////////////////
 void addUnSnipingModeCreature(Zone* pZone, Creature* pCreature, bool bForced)
-	throw() 
+	 
 {
 	__BEGIN_TRY
 
@@ -1642,7 +1639,7 @@ void addUnSnipingModeCreature(Zone* pZone, Creature* pCreature, bool bForced)
 // ZoneCoord_t cy    : 지뢰를 더할 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 void addInstalledMine(Zone* pZone, Mine* pMine, ZoneCoord_t cx, ZoneCoord_t cy) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1713,7 +1710,7 @@ void addInstalledMine(Zone* pZone, Mine* pMine, ZoneCoord_t cx, ZoneCoord_t cy)
 // ZoneCoord_t Y         : 검사할 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 bool checkMine(Zone* pZone, Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1903,7 +1900,7 @@ bool checkMine(Zone* pZone, Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y)
 // ZoneCoord_t Y         : 검사할 좌표 y
 //////////////////////////////////////////////////////////////////////////////
 bool checkMine( Zone * pZone, ZoneCoord_t X, ZoneCoord_t Y ) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2119,7 +2116,7 @@ bool checkTrap( Zone* pZone, Creature* pCreature )
 // bool        bSendMoveOK  : GCMoveOK를 보내주는가에 대한 여부
 //////////////////////////////////////////////////////////////////////////////
 void transportCreature(Creature* pCreature, ZoneID_t TargetZoneID, ZoneCoord_t TX, ZoneCoord_t TY, bool bSendMoveOK) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2454,7 +2451,7 @@ void transportCreature(Creature* pCreature, ZoneID_t TargetZoneID, ZoneCoord_t T
 // ZoneID_t ZID : 찾고자 하는 존 ID
 //////////////////////////////////////////////////////////////////////////////
 Zone* getZoneByZoneID(ZoneID_t ZID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2512,7 +2509,7 @@ Zone* getZoneByZoneID(ZoneID_t ZID)
 // 운영자 명령어로서, 특정 타입의 몬스터를 존에다 추가한다.
 //////////////////////////////////////////////////////////////////////////////
 void addMonstersToZone(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, SpriteType_t SType, MonsterType_t MType, int num, const SUMMON_INFO& summonInfo, list<Monster*>* pSummonedMonsters) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2561,7 +2558,7 @@ void addMonstersToZone(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, SpriteType_t S
 // 특정 타입의 몬스터를 존에다 추가한다.
 //////////////////////////////////////////////////////////////////////////////
 void addMonstersToZone(Zone* pZone, const SUMMON_INFO2& summonInfo, list<Monster*>* pSummonedMonsters) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2666,7 +2663,7 @@ bool isValidZoneCoord(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, int offset)
 }
 
 bool enterMasterLair(Zone* pZone, Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2841,7 +2838,7 @@ checkNewbieTransportToGuild(Slayer* pSlayer)
 // Corpse가 
 bool
 addCorpseToZone(Corpse* pCorpse, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2919,7 +2916,7 @@ addCorpseToZone(Corpse* pCorpse, Zone* pZone, ZoneCoord_t cx, ZoneCoord_t cy)
 // 범위 안에 특정한 몬스터 시체가 있는지 확인한다. 
 // 있으면 true, 없으면 false
 bool checkCorpse( Zone* pZone, MonsterType_t MType, ZoneCoord_t x1, ZoneCoord_t y1, ZoneCoord_t x2, ZoneCoord_t y2 )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -2965,7 +2962,7 @@ bool checkCorpse( Zone* pZone, MonsterType_t MType, ZoneCoord_t x1, ZoneCoord_t 
 
 // 몇개의 Zone 에만 메세지를 뿌리기 위해서 성에 속한 ZoneIDList가 필요함
 void makeZoneIDList(const string& zoneIDs, list<ZoneID_t>& zoneIDList ) 
-	throw(Error)
+	
 {
 
 	__BEGIN_TRY

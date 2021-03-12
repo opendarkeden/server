@@ -40,10 +40,10 @@ public:
 	QuestClass		getQuestClass() const { return m_QuestClass; }
 
 	QuestID_t		getQuestID() const { return m_QuestID; }
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
-	virtual bool	canExecute( PlayerCreature* pPC ) const throw(Error);
-	virtual QuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const throw(Error) = 0;
+	virtual bool	canExecute( PlayerCreature* pPC ) const ;
+	virtual QuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const  = 0;
 
 	bool			isMonsterKillQuest() const { return m_QuestClass == QUEST_CLASS_MONSTER_KILL; }
 	DWORD			getTimeLimit() const { return m_TimeLimitSec; }

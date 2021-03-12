@@ -2,7 +2,7 @@
 #include "DB.h"
 #include "Assert.h"
 
-void ItemGradeManager::load() throw(Error)
+void ItemGradeManager::load() 
 {
 	__BEGIN_TRY
 

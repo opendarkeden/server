@@ -23,8 +23,8 @@ public:
     string getSkillHandlerName() const throw() { return "TransformToBat"; }
 	SkillType_t getSkillType() const throw() { return SKILL_TRANSFORM_TO_BAT; }
 
-	void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot) throw(Error);
-	void execute(Monster* pMonster) throw(Error);
+	void execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot) ;
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

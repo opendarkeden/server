@@ -14,7 +14,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionSiegeDefenderSide::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -36,7 +36,7 @@ bool ConditionSiegeDefenderSide::isSatisfied (Creature * pCreature1 , Creature *
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionSiegeDefenderSide::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 }
 
@@ -44,7 +44,7 @@ void ConditionSiegeDefenderSide::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionSiegeDefenderSide::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

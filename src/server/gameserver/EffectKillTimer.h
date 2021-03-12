@@ -17,15 +17,15 @@
 class EffectKillTimer : public Effect 
 {
 public:
-	EffectKillTimer(Creature* pCreature, bool kill = true) throw(Error);
-	~EffectKillTimer() throw(Error);
+	EffectKillTimer(Creature* pCreature, bool kill = true) ;
+	~EffectKillTimer() ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSPORT_CREATURE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_CREATURE; }
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	bool	m_bKill;

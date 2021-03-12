@@ -20,37 +20,37 @@ const uint SCRIPT_MAX_CONTENTS = 15;
 class Script 
 {
 public: 
-	Script() throw();
-	Script(const Script & script) throw();
+	Script() ;
+	Script(const Script & script) ;
 
 	void	clearContents();
 
-	const Script & operator =(const Script & script) throw();
+	const Script & operator =(const Script & script) ;
 
 public:
 	ScriptID_t getScriptID(void) const { return m_ScriptID; }
 	void setScriptID(ScriptID_t id) { m_ScriptID = id; }
 
-	string getSubject(uint index) const throw();
-	void addSubject(const string& subject, DWORD code=0) throw();
+	string getSubject(uint index) const ;
+	void addSubject(const string& subject, DWORD code=0) ;
 
 	DWORD getSubjectCode(uint index) const 			{ return m_SubjectCodes[index]; }
 	void  setSubjectCode(uint index, DWORD code) 	{ m_SubjectCodes[index] = code; }
 
 
-	string getContent(uint index) const throw();
-	void addContent(const string& content, DWORD code=0) throw();
+	string getContent(uint index) const ;
+	void addContent(const string& content, DWORD code=0) ;
 	
 	// by sigi. 2002.12.3
 	DWORD getContentCode(uint index) const 			{ return m_ContentCodes[index]; }
 	void  setContentCode(uint index, DWORD code) 	{ m_ContentCodes[index] = code; }
 
-	string getRandomSubject(void) const throw();
+	string getRandomSubject(void) const ;
 
-	uint getSubjectCount(void) const throw() { return m_SubjectCount; }
-	uint getContentCount(void) const throw() { return m_ContentCount; }
+	uint getSubjectCount(void) const  { return m_SubjectCount; }
+	uint getContentCount(void) const  { return m_ContentCount; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	ScriptID_t 	m_ScriptID;

@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "BlazeBolt"; }
 	SkillType_t getSkillType() const throw() { return SKILL_BLAZE_BOLT; }
 
-	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Ousters* pOusters, ObjectID_t ObjectID,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

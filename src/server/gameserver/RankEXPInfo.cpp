@@ -20,21 +20,21 @@ RankEXPInfoManager * g_pRankEXPInfoManager[RANK_TYPE_MAX] = { NULL, };
 ////////////////////////////////////////////////////////////////////////////////
 
 RankEXPInfo::RankEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 RankEXPInfo::~RankEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string RankEXPInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -57,7 +57,7 @@ string RankEXPInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 RankEXPInfoManager::RankEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ RankEXPInfoManager::RankEXPInfoManager()
 }
 
 RankEXPInfoManager::~RankEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ RankEXPInfoManager::~RankEXPInfoManager()
 }
 
 void RankEXPInfoManager::init(RankType rankType)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ void RankEXPInfoManager::init(RankType rankType)
 }
 
 void RankEXPInfoManager::load(RankType rankType)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void RankEXPInfoManager::load(RankType rankType)
 }
 
 void RankEXPInfoManager::addRankEXPInfo(RankEXPInfo * pRankEXPInfo)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -162,7 +162,7 @@ void RankEXPInfoManager::addRankEXPInfo(RankEXPInfo * pRankEXPInfo)
 }
 
 RankEXPInfo * RankEXPInfoManager::getRankEXPInfo(uint value) const 
-	throw (InvalidProtocolException)
+	
 {
 	__BEGIN_TRY
 
@@ -178,7 +178,7 @@ RankEXPInfo * RankEXPInfoManager::getRankEXPInfo(uint value) const
 }
 
 string RankEXPInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

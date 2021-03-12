@@ -19,25 +19,25 @@
 class EffectFadeOut : public Effect 
 {
 public:
-	EffectFadeOut(Creature* pCreature) throw(Error);
+	EffectFadeOut(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_FADE_OUT; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Item* pItem) throw(Error){}
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Item* pItem) {}
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 
 public:
-	Duration_t getDuration() const throw(Error) { return m_Duration;}
-	void setDuration(Duration_t d) throw(Error) { m_Duration = d;}
+	Duration_t getDuration() const  { return m_Duration;}
+	void setDuration(Duration_t d)  { m_Duration = d;}
 
 	bool isSniping(void) const { return m_isSniping; }
 	void setSniping() throw() { m_isSniping = true; }

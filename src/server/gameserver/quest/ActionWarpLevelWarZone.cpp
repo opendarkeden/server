@@ -27,7 +27,7 @@
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpLevelWarZone::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionWarpLevelWarZone::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpLevelWarZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void ActionWarpLevelWarZone::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpLevelWarZone::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

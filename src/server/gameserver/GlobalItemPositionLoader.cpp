@@ -6,7 +6,7 @@
 #include "CorpseItemPosition.h"
 
 GlobalItemPosition* GlobalItemPositionLoader::load( Item::ItemClass itemClass, ItemID_t itemID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ GlobalItemPosition* GlobalItemPositionLoader::load( Item::ItemClass itemClass, I
 }
 
 GlobalItemPosition*	GlobalItemPositionLoader::makeGlobalItemPosition( GlobalDBItemPosition& gip )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

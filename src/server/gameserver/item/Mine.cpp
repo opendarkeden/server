@@ -24,7 +24,7 @@ Mutex    Mine::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Mine::Mine()
-	throw()
+	
 : m_ItemType(0), m_Damage(0), m_Dir(0)
 {
 	m_Num = 1;
@@ -33,7 +33,7 @@ Mine::Mine()
 }
 
 Mine::Mine(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -53,7 +53,7 @@ Mine::Mine(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Mine::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ void Mine::create(const string & ownerID, Storage storage, StorageID_t storageID
 // save item
 //--------------------------------------------------------------------------------
 void Mine::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void Mine::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Mine::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -167,7 +167,7 @@ void Mine::save(const string & ownerID, Storage storage, StorageID_t storageID, 
 // get debug string
 //--------------------------------------------------------------------------------
 string Mine::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -185,7 +185,7 @@ string Mine::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Mine::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -199,7 +199,7 @@ VolumeWidth_t Mine::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Mine::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -213,7 +213,7 @@ VolumeHeight_t Mine::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Mine::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ Weight_t Mine::getWeight() const
 }
 
 Damage_t Mine::getMinDamage() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -233,7 +233,7 @@ Damage_t Mine::getMinDamage() const
 }
 
 Damage_t Mine::getMaxDamage() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -248,7 +248,7 @@ Damage_t Mine::getMaxDamage() const
 // get debug string
 //--------------------------------------------------------------------------------
 string MineInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -270,7 +270,7 @@ string MineInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void MineInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -326,7 +326,7 @@ void MineInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void MineLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -467,7 +467,7 @@ void MineLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void MineLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -532,7 +532,7 @@ void MineLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void MineLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -20,10 +20,10 @@
 class ActionJoinRaceWar : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_JOIN_RACE_WAR; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_JOIN_RACE_WAR; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2) ;
+	virtual string toString() const ;
 
 private:
 };
@@ -36,9 +36,9 @@ private:
 class ActionJoinRaceWarFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_JOIN_RACE_WAR; }
-	virtual string getActionName() const throw() { return "JoinRaceWar"; }
-	virtual Action* createAction() const throw() { return new ActionJoinRaceWar(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_JOIN_RACE_WAR; }
+	virtual string getActionName() const  { return "JoinRaceWar"; }
+	virtual Action* createAction() const  { return new ActionJoinRaceWar(); }
 };
 
 #endif

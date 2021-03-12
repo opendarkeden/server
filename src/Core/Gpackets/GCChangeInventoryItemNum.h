@@ -28,39 +28,39 @@ class GCChangeInventoryItemNum {
 public :
 	
 	// constructor
-	GCChangeInventoryItemNum() throw();
+	GCChangeInventoryItemNum() ;
 	
 	// destructor
-	~GCChangeInventoryItemNum() throw();
+	~GCChangeInventoryItemNum() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szObjectID* m_ChangedItemListNum + szItemNum*m_ChangedItemListNum;} 
+	PacketSize_t getPacketSize() const  { return szBYTE + szObjectID* m_ChangedItemListNum + szItemNum*m_ChangedItemListNum;} 
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ListNumber
-	BYTE getChangedItemListNum() const throw() { return m_ChangedItemListNum; }
-	void setChangedItemListNum(BYTE ListNum) throw() { m_ChangedItemListNum = ListNum; }
+	BYTE getChangedItemListNum() const  { return m_ChangedItemListNum; }
+	void setChangedItemListNum(BYTE ListNum)  { m_ChangedItemListNum = ListNum; }
 
 	// add / delete / clear S List
-	void addChangedItemListElement(ObjectID_t objectID, BYTE itemNum) throw(); 
+	void addChangedItemListElement(ObjectID_t objectID, BYTE itemNum) ; 
 
 	// ClearList
-	void clearChangedItemList() throw() { m_ChangedItemList.clear(); m_ChangedItemNumList.clear(); m_ChangedItemListNum = 0; }
+	void clearChangedItemList()  { m_ChangedItemList.clear(); m_ChangedItemNumList.clear(); m_ChangedItemListNum = 0; }
 
 	// pop front Element in Object List
-	ObjectID_t popFrontChangedItemListElement() throw() { ObjectID_t item = m_ChangedItemList.front(); m_ChangedItemList.pop_front(); return item; }
-	ItemNum_t popFrontChangedItemNumListElement() throw() { ItemNum_t itemNum = m_ChangedItemNumList.front(); m_ChangedItemNumList.pop_front(); return itemNum; }
+	ObjectID_t popFrontChangedItemListElement()  { ObjectID_t item = m_ChangedItemList.front(); m_ChangedItemList.pop_front(); return item; }
+	ItemNum_t popFrontChangedItemNumListElement()  { ItemNum_t itemNum = m_ChangedItemNumList.front(); m_ChangedItemNumList.pop_front(); return itemNum; }
 
 protected:
 	

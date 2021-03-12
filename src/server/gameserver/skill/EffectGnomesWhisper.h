@@ -17,15 +17,15 @@
 class EffectGnomesWhisper : public Effect 
 {
 public:
-	EffectGnomesWhisper(Creature* pCreature) throw(Error);
+	EffectGnomesWhisper(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GNOMES_WHISPER; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	bool canSeeHide() const { return true; }
 	bool canSeeInvisibility() const { return m_Level >= 15; }

@@ -32,7 +32,7 @@
 // SkillFail 패킷을 2번 보내준다.
 // ///////////////////////////////////////////////////////////////////////////
 void AbsorbSoul::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord_t TargetZoneX, ZoneCoord_t TargetZoneY, ObjectID_t ItemObjectID, CoordInven_t InvenX, CoordInven_t InvenY, CoordInven_t TargetInvenX, CoordInven_t TargetInvenY )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -22,43 +22,43 @@ class Monster;
 class MonsterCorpse : public Corpse 
 {
 public:
-	MonsterCorpse(Monster* pMonster) throw(Error);
-	MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir) throw (Error);
-	virtual ~MonsterCorpse() throw();
+	MonsterCorpse(Monster* pMonster) ;
+	MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir) ;
+	virtual ~MonsterCorpse() ;
 
 public:
-	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual bool destroy() throw(Error);
-	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error) { tinysave(field.c_str()); }
-    void tinysave(const char* field) const throw (Error) {}
+	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual bool destroy() ;
+	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const  { tinysave(field.c_str()); }
+    void tinysave(const char* field) const  {}
 
-	virtual ItemClass getItemClass() const throw() { return ITEM_CLASS_CORPSE; }
+	virtual ItemClass getItemClass() const  { return ITEM_CLASS_CORPSE; }
 
-	virtual ItemType_t getItemType() const throw() { return MONSTER_CORPSE; }
-	virtual void setItemType(ItemType_t monsterType) throw() { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual ItemType_t getItemType() const  { return MONSTER_CORPSE; }
+	virtual void setItemType(ItemType_t monsterType)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
 
 	bool isNextTreasureHead() { return (!m_Treasures.empty() && m_Treasures.front()->getItemClass() == ITEM_CLASS_SKULL); }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 // own methods
 public:
-	MonsterType_t getMonsterType() const throw() { return m_MonsterType; }
-	void setMonsterType(MonsterType_t monsterType) throw() { m_MonsterType = monsterType; }
+	MonsterType_t getMonsterType() const  { return m_MonsterType; }
+	void setMonsterType(MonsterType_t monsterType)  { m_MonsterType = monsterType; }
 
-	string getName() const throw() { return m_Name; }
-	void setName(string name) throw() { m_Name = name; }
+	string getName() const  { return m_Name; }
+	void setName(string name)  { m_Name = name; }
 
-	string getMonsterName() const throw() { return m_Name; }
-	void setMonsterName(string name) throw() { m_Name = name; }
+	string getMonsterName() const  { return m_Name; }
+	void setMonsterName(string name)  { m_Name = name; }
 
-	Dir_t getDir() const throw() { return m_Dir; }
-	void setDir(Dir_t dir) throw() { m_Dir = dir; }
+	Dir_t getDir() const  { return m_Dir; }
+	void setDir(Dir_t dir)  { m_Dir = dir; }
 
-	bool gethasHead() const throw() { return m_bhasHead; }
-	void addHead() throw() { m_bhasHead = true; }
-	void removeHead() throw() { m_bhasHead = false; }
+	bool gethasHead() const  { return m_bhasHead; }
+	void addHead()  { m_bhasHead = true; }
+	void removeHead()  { m_bhasHead = false; }
 
 	const string& getHostName(void) const { return m_HostName; }
 	void setHostName(const string& name) { m_HostName = name; }

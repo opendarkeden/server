@@ -83,7 +83,7 @@ bool isLottoWinning();
 //
 ////////////////////////////////////////////////////////////////////////////////
 MonsterManager::MonsterManager (Zone* pZone) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -108,7 +108,7 @@ MonsterManager::MonsterManager (Zone* pZone)
 //
 ////////////////////////////////////////////////////////////////////////////////
 MonsterManager::~MonsterManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -121,7 +121,7 @@ MonsterManager::~MonsterManager ()
 // load from database
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -192,7 +192,7 @@ void MonsterManager::load ()
 }
 
 void MonsterManager::parseMonsterList(const string& text, bool bReload)
-	throw (Error)
+	
 {
 	if (text.size() <= 0) return;
 
@@ -295,7 +295,7 @@ void MonsterManager::parseMonsterList(const string& text, bool bReload)
 }
 
 void MonsterManager::parseEventMonsterList(const string& text, bool bReload)
-	throw (Error)
+	
 {
 	if (text.size() <= 0) return;
 
@@ -442,7 +442,7 @@ void MonsterManager::parseEventMonsterList(const string& text, bool bReload)
 
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::addCreature (Creature* pCreature)
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -496,7 +496,7 @@ void MonsterManager::addCreature (Creature* pCreature)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::deleteCreature (ObjectID_t creatureID)
-	throw ()//NoSuchElementException , Error)
+	//NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -563,7 +563,7 @@ void MonsterManager::deleteCreature (ObjectID_t creatureID)
 // pAttackedMonster를 pCreature가 공격한 경우에
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::addPotentialEnemy(Monster* pAttackedMonster, Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -597,7 +597,7 @@ void MonsterManager::addPotentialEnemy(Monster* pAttackedMonster, Creature* pCre
 // pAttackedMonster를 pCreature가 공격한 경우에
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::addEnemy(Monster* pAttackedMonster, Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -630,7 +630,7 @@ void MonsterManager::addEnemy(Monster* pAttackedMonster, Creature* pCreature)
 // 크리처 매니저에 종속된 몬스터들의 AI에 의한 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::processCreatures ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -824,7 +824,7 @@ void MonsterManager::processCreatures ()
 // 몬스터의 숫자가 줄어들면 몬스터를 재생성한다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::regenerateCreatures ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1006,7 +1006,7 @@ void MonsterManager::regenerateCreatures ()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 bool MonsterManager::findPosition(MonsterType_t monsterType, ZoneCoord_t& RX, ZoneCoord_t& RY) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1058,7 +1058,7 @@ bool MonsterManager::findPosition(MonsterType_t monsterType, ZoneCoord_t& RX, Zo
 // 죽은 크리처를 처리한다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::killCreature (Creature* pDeadCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1395,7 +1395,7 @@ MonsterManager::addMonsters(ZoneCoord_t x, ZoneCoord_t y, MonsterType_t monsterT
 // 죽은 몬스터에게서 아이템을 생성한다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::addItem(Monster* pDeadMonster, MonsterCorpse* pMonsterCorpse)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2100,7 +2100,7 @@ void MonsterManager::addItem(Monster* pDeadMonster, MonsterCorpse* pMonsterCorps
 }
 
 int MonsterManager::upgradeItemTypeByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2188,7 +2188,7 @@ int MonsterManager::upgradeItemTypeByLuck(int luckLevel, Creature::CreatureClass
 	__END_CATCH
 }
 
-int MonsterManager::upgradeOptionByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) throw (Error)
+int MonsterManager::upgradeOptionByLuck(int luckLevel, Creature::CreatureClass ownerCreatureClass, ITEM_TEMPLATE& it) 
 {
 	__BEGIN_TRY
 
@@ -2283,7 +2283,7 @@ int MonsterManager::upgradeOptionByLuck(int luckLevel, Creature::CreatureClass o
 // 모든 크리처를 제거한다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::deleteAllMonsters (bool bDeleteFromZone)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2340,7 +2340,7 @@ void MonsterManager::deleteAllMonsters (bool bDeleteFromZone)
 // 모든 크리처를 죽인다.
 ////////////////////////////////////////////////////////////////////////////////
 void MonsterManager::killAllMonsters (const unordered_map<ObjectID_t, ObjectID_t>& exceptCreatures)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -2377,7 +2377,7 @@ void MonsterManager::killAllMonsters (const unordered_map<ObjectID_t, ObjectID_t
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string MonsterManager::toString () const
-       throw ()
+       
 {
 	__BEGIN_TRY
 

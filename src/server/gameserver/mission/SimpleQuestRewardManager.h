@@ -10,7 +10,7 @@ public:
 	~SimpleQuestRewardManager() { }
 
 public:
-	void load(const string& name) throw(Error);
+	void load(const string& name) ;
 };
 
 #endif// __SIMPLE_QUEST_REWARD_MANAGER_H__

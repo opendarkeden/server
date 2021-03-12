@@ -28,13 +28,13 @@ class SkillParentInfo {
 public:
 
 	// constructor
-	SkillParentInfo(SkillType_t SkillType) throw();
+	SkillParentInfo(SkillType_t SkillType) ;
 
 	// destructor
-	~SkillParentInfo() throw();
+	~SkillParentInfo() ;
 	
-	void load() throw(SQLQueryException, Error) {}
-	void save() const throw(SQLQueryException, Error) {}
+	void load()  {}
+	void save() const  {}
 
 //--------------------------------------------------
 // AI specific methods
@@ -42,29 +42,29 @@ public:
 public:
 
 	// SkillParentInfoType 을 사용해서, SkillParentInfoInfo 로부터 초기화하기
-	void init() throw(Error);
+	void init() ;
 
 	// enemy specific methods
-	void addParents(SkillType_t SkillType) throw(DuplicatedException, Error) {
+	void addParents(SkillType_t SkillType)  {
 		m_Parents.push_back(SkillType);
 	}
-	void deleteParents(SkillType_t SkillType) throw(NoSuchElementException, Error);
+	void deleteParents(SkillType_t SkillType) ;
 
-	SkillType_t getParents(SkillType_t SkillType) const throw(NoSuchElementException, Error);
+	SkillType_t getParents(SkillType_t SkillType) const ;
 
 
-	bool hasParent(SkillType_t ParentSkillType) throw(NoSuchElementException, Error);
-	bool hasParent() const throw(NoSuchElementException, Error) { return m_Parents.size() > 0; }
+	bool hasParent(SkillType_t ParentSkillType) ;
+	bool hasParent() const  { return m_Parents.size() > 0; }
 
 //--------------------------------------------------
 // get monster-class-level attributes
 //--------------------------------------------------
 public:
 
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
 
-	string toString() const throw();
+	string toString() const ;
 
 //--------------------------------------------------
 // data members
@@ -89,32 +89,32 @@ class SkillParentInfoManager {
 public:
 
 	// constructor
-	SkillParentInfoManager() throw();
+	SkillParentInfoManager() ;
 
 	// destructor
-	~SkillParentInfoManager() throw();
+	~SkillParentInfoManager() ;
 
 	// initialize Manager
-	void init() throw(Error);
+	void init() ;
 
-	// void load() throw();
+	// void load() ;
 	// Loading from Database to ParentInfoClass
-	void load() throw(Error);
+	void load() ;
 	
 	// Save to DB
-	void save() throw(Error);
+	void save() ;
 
 	// get SkillParentInfo
-	SkillParentInfo* getSkillParentInfo(SkillType_t SkillType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	SkillParentInfo* getSkillParentInfo(SkillType_t SkillType) const ;
 
 	// add SkillParentInfo
-	void addSkillParentInfo(SkillParentInfo* pSkillParentInfo) throw(DuplicatedException, Error);
+	void addSkillParentInfo(SkillParentInfo* pSkillParentInfo) ;
 
 	// get SkillCount
-	uint getSkillCount() const throw() { return m_SkillCount; }
+	uint getSkillCount() const  { return m_SkillCount; }
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 

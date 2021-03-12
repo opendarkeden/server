@@ -24,13 +24,13 @@ class GCRequestFailed : public Packet
 {
 public:
 	GCRequestFailed()	{ m_Code = REQUEST_FAILED_NULL; }
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_REQUEST_FAILED; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szBYTE + m_Name.size(); }
-	string getPacketName() const throw() { return "GCRequestFailed"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_REQUEST_FAILED; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szBYTE + m_Name.size(); }
+	string getPacketName() const  { return "GCRequestFailed"; }
+	string toString() const ;
 	
 public:
 	BYTE getCode(void) const { return m_Code;}
@@ -51,10 +51,10 @@ private:
 class GCRequestFailedFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCRequestFailed(); }
-	string getPacketName() const throw() { return "GCRequestFailed"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_REQUEST_FAILED; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szBYTE + 10; }
+	Packet* createPacket()  { return new GCRequestFailed(); }
+	string getPacketName() const  { return "GCRequestFailed"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_REQUEST_FAILED; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szBYTE + 10; }
 };
 
 
@@ -65,7 +65,7 @@ public:
 class GCRequestFailedHandler 
 {
 public:
-	static void execute( GCRequestFailed* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute( GCRequestFailed* pPacket, Player* pPlayer) ;
 };
 
 #endif

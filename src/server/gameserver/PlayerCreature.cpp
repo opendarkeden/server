@@ -61,7 +61,7 @@ const int MAX_GOODS_INVENTORY_SIZE = 10;
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
-	throw()
+	
 : Creature(OID, pPlayer), m_pAdvancementClass( NULL )
 {
 	__BEGIN_TRY
@@ -120,7 +120,7 @@ PlayerCreature::PlayerCreature(ObjectID_t OID, Player* pPlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 PlayerCreature::~PlayerCreature()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -199,7 +199,6 @@ PlayerCreature::~PlayerCreature()
 }
 
 bool PlayerCreature::load()
-	throw(InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -219,7 +218,7 @@ bool PlayerCreature::load()
 // 내부적으로는 락을 걸지 않기 때문이다.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
-    throw()
+    
 {
 	__BEGIN_TRY
 
@@ -259,7 +258,7 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 // 내부적으로는 락을 걸지 않기 때문이다.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerInventory(ObjectRegistry& OR)
-    throw()
+    
 {
 	__BEGIN_TRY
 
@@ -296,7 +295,7 @@ void PlayerCreature::registerInventory(ObjectRegistry& OR)
 }
 
 void PlayerCreature::registerInitInventory(ObjectRegistry& OR)
-    throw()
+    
 {
 	__BEGIN_TRY
 
@@ -339,7 +338,7 @@ void PlayerCreature::registerInitInventory(ObjectRegistry& OR)
 // 보관함 안에 들어있는 아이템 등록하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerStash(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -365,7 +364,7 @@ void PlayerCreature::registerStash(void)
 }
 
 void PlayerCreature::registerGoodsInventory(ObjectRegistry& OR)
-    throw()
+    
 {
 	__BEGIN_TRY
 
@@ -381,7 +380,7 @@ void PlayerCreature::registerGoodsInventory(ObjectRegistry& OR)
 }
 
 
-void PlayerCreature::loadTimeLimitItem() throw(Error)
+void PlayerCreature::loadTimeLimitItem() 
 {
 	__BEGIN_TRY
 
@@ -393,7 +392,7 @@ void PlayerCreature::loadTimeLimitItem() throw(Error)
 }
 
 void PlayerCreature::loadItem()
-	throw (InvalidProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -420,7 +419,7 @@ void PlayerCreature::loadItem()
 }
 
 bool PlayerCreature::wasteIfTimeLimitExpired(Item* pItem)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -438,7 +437,7 @@ bool PlayerCreature::wasteIfTimeLimitExpired(Item* pItem)
 }
 
 void PlayerCreature::sendTimeLimitItemInfo()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -452,12 +451,12 @@ void PlayerCreature::sendTimeLimitItemInfo()
 	__END_CATCH
 }
 
-void PlayerCreature::addTimeLimitItem(Item* pItem, DWORD time) throw(Error)
+void PlayerCreature::addTimeLimitItem(Item* pItem, DWORD time) 
 {
 	m_pTimeLimitItemManager->addTimeLimitItem( pItem, time );
 } 
 
-void PlayerCreature::sellItem( Item* pItem ) throw(Error)
+void PlayerCreature::sellItem( Item* pItem ) 
 {
 	__BEGIN_TRY
 
@@ -466,7 +465,7 @@ void PlayerCreature::sellItem( Item* pItem ) throw(Error)
 	__END_CATCH
 }
 
-void PlayerCreature::deleteItemByMorph( Item* pItem ) throw(Error)
+void PlayerCreature::deleteItemByMorph( Item* pItem ) 
 {
 	__BEGIN_TRY
 
@@ -475,7 +474,7 @@ void PlayerCreature::deleteItemByMorph( Item* pItem ) throw(Error)
 	__END_CATCH
 }
 
-void PlayerCreature::updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error)
+void PlayerCreature::updateItemTimeLimit( Item* pItem, DWORD time ) 
 {
 	__BEGIN_TRY
 
@@ -484,7 +483,7 @@ void PlayerCreature::updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error)
 	__END_CATCH
 }
 
-void PlayerCreature::sendCurrentQuestInfo() const throw(Error)
+void PlayerCreature::sendCurrentQuestInfo() const 
 {
 	m_pQuestManager->sendQuestInfo();
 }
@@ -594,7 +593,7 @@ void PlayerCreature::whenQuestLevelUpgrade()
 // 보관함 갯수 세팅하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::setStashNumEx(BYTE num)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -633,7 +632,7 @@ void PlayerCreature::setStashNumEx(BYTE num)
 // 보관함에 들어있는 돈 세팅하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::setStashGoldEx(Gold_t gold)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -673,7 +672,7 @@ void PlayerCreature::setStashGoldEx(Gold_t gold)
 // 보관함에 들어있는 돈 세팅하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::increaseStashGoldEx(Gold_t gold)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -712,7 +711,7 @@ void PlayerCreature::increaseStashGoldEx(Gold_t gold)
 // 보관함에 들어있는 돈 세팅하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -751,7 +750,7 @@ void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
 // 보관함 메모리에서 삭제하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::deleteStash(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -765,7 +764,7 @@ void PlayerCreature::deleteStash(void)
 // 플래그셋 메모리에서 삭제하기
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::deleteFlagSet(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -778,7 +777,7 @@ void PlayerCreature::deleteFlagSet(void)
 // 선공자의 리스트에 선공자를 추가하는 함수
 //----------------------------------------------------------------------
 void PlayerCreature::addEnemy(const string& Name)
-	throw(Error)
+	
 {
 	__BEGIN_DEBUG
 
@@ -798,7 +797,7 @@ void PlayerCreature::addEnemy(const string& Name)
 // 선공자의 리스트에 선공자를 삭제하는 함수
 //----------------------------------------------------------------------
 void PlayerCreature::deleteEnemy(const string& Name)
-	throw(NoSuchElementException, Error)
+	
 {
 	__BEGIN_DEBUG
 
@@ -816,7 +815,7 @@ void PlayerCreature::deleteEnemy(const string& Name)
 // 특정 이름을 가진 선공자가 이미 있는지 없는지 확인하는 함수.
 //----------------------------------------------------------------------
 bool PlayerCreature::hasEnemy(const string& Name)
-	const throw()
+	const 
 {
 	__BEGIN_DEBUG
 
@@ -838,7 +837,7 @@ bool PlayerCreature::hasEnemy(const string& Name)
 // 길드 이름을 가져오는 함수
 //----------------------------------------------------------------------
 string PlayerCreature::getGuildName() const
-	throw()
+	
 {
 	Guild* pGuild = g_pGuildManager->getGuild( m_GuildID );
 	
@@ -852,7 +851,7 @@ string PlayerCreature::getGuildName() const
 // 길드 멤버 랭크를 가져오는 함수
 //----------------------------------------------------------------------
 GuildMemberRank_t PlayerCreature::getGuildMemberRank() const
-	throw()
+	
 {
 	Guild* pGuild = g_pGuildManager->getGuild( m_GuildID );
 
@@ -868,12 +867,12 @@ GuildMemberRank_t PlayerCreature::getGuildMemberRank() const
 	return GuildMember::GUILDMEMBER_RANK_DENY;
 }
 
-Rank_t PlayerCreature::getRank() const throw() { return m_pRank->getLevel(); }
-RankExp_t PlayerCreature::getRankExp() const throw() { return m_pRank->getTotalExp(); }
-RankExp_t PlayerCreature::getRankGoalExp() const throw() { return m_pRank->getGoalExp(); }
+Rank_t PlayerCreature::getRank() const  { return m_pRank->getLevel(); }
+RankExp_t PlayerCreature::getRankExp() const  { return m_pRank->getTotalExp(); }
+RankExp_t PlayerCreature::getRankGoalExp() const  { return m_pRank->getGoalExp(); }
 
 RankBonus* PlayerCreature::getRankBonus( RankBonus::RankBonusType type ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -890,7 +889,7 @@ RankBonus* PlayerCreature::getRankBonus( RankBonus::RankBonusType type ) const
 }
 
 void PlayerCreature::addRankBonus( RankBonus* rankBonus )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -910,7 +909,7 @@ void PlayerCreature::addRankBonus( RankBonus* rankBonus )
 }
 
 void PlayerCreature::clearRankBonus()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -936,7 +935,7 @@ void PlayerCreature::clearRankBonus()
 }
 
 RankBonus* PlayerCreature::getRankBonusByRank( Rank_t rank ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -958,7 +957,7 @@ RankBonus* PlayerCreature::getRankBonusByRank( Rank_t rank ) const
 }
 
 void PlayerCreature::clearRankBonus( Rank_t rank )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -989,7 +988,7 @@ void PlayerCreature::clearRankBonus( Rank_t rank )
 }
 
 bool PlayerCreature::learnRankBonus( DWORD type )
-	throw()
+	
 {
 	//__BEGIN_TRY
 	try
@@ -1057,7 +1056,7 @@ bool PlayerCreature::learnRankBonus( DWORD type )
 }
 
 void PlayerCreature::sendRankBonusInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1076,7 +1075,7 @@ void PlayerCreature::sendRankBonusInfo()
 }
 
 void PlayerCreature::loadRankBonus()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1170,7 +1169,7 @@ void PlayerCreature::increaseRankExp(RankExp_t Point)
 }
 
 bool PlayerCreature::isBillingPlayAvaiable() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1187,7 +1186,7 @@ bool PlayerCreature::isBillingPlayAvaiable()
 
 
 bool PlayerCreature::isPayPlayAvaiable() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1202,13 +1201,13 @@ bool PlayerCreature::isPayPlayAvaiable()
 
 
 bool PlayerCreature::canPlayFree()
-	throw(Error)
+	
 {
 	return false;
 }
 
 void PlayerCreature::loadGoods()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -1255,7 +1254,7 @@ void PlayerCreature::loadGoods()
 
 
 /*void	PlayerCreature::loadQuest() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1269,7 +1268,7 @@ void PlayerCreature::loadGoods()
 }
 
 bool    PlayerCreature::addQuest(Quest* pQuest) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1293,7 +1292,7 @@ bool    PlayerCreature::addQuest(Quest* pQuest)
 }
 
 bool    PlayerCreature::checkEvent(QuestEvent* pQuestEvent) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1318,7 +1317,7 @@ bool    PlayerCreature::checkEvent(QuestEvent* pQuestEvent)
 }
 
 Quest*  PlayerCreature::removeCompleteQuest() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1339,7 +1338,7 @@ Quest*  PlayerCreature::removeCompleteQuest()
 }*/
 /*
 bool PlayerCreature::deleteItemNameInfoList( ObjectID_t objectID ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1363,7 +1362,7 @@ bool PlayerCreature::deleteItemNameInfoList( ObjectID_t objectID )
 }
 
 string PlayerCreature::getItemName( ObjectID_t objectID ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1385,7 +1384,7 @@ string PlayerCreature::getItemName( ObjectID_t objectID )
 */
 
 void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
-	throw()
+	
 {
 	// 이미 있는 것인지 확인한다.
 	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
@@ -1399,7 +1398,7 @@ void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
 }
 
 void PlayerCreature::removeDefaultOptionSet( DefaultOptionSetType_t type )
-	throw()
+	
 {
 	forward_list<DefaultOptionSetType_t>::iterator before = m_DefaultOptionSet.end();
 	forward_list<DefaultOptionSetType_t>::iterator current = m_DefaultOptionSet.begin();
@@ -1438,7 +1437,7 @@ void PlayerCreature::setPetInfo(PetInfo* pPetInfo)
 	m_pPet = Pet::makePet(this, m_pPetInfo);
 }
 
-void PlayerCreature::heartbeat(const Timeval& currentTime) throw()
+void PlayerCreature::heartbeat(const Timeval& currentTime) 
 {
 	if ( m_pPet != NULL ) m_pPet->heartbeat( currentTime );
 	m_pGQuestManager->heartbeat();

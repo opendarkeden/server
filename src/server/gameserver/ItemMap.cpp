@@ -14,7 +14,7 @@
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 ItemMap::ItemMap() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ ItemMap::ItemMap()
 // 반드시 clearAll()를 호출한 후에 부를 것.
 ////////////////////////////////////////////////////////////
 ItemMap::~ItemMap()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -42,7 +42,7 @@ ItemMap::~ItemMap()
 // 향상된 정렬을 위해 사용하는 2x2 아이템의 갯수 세팅
 ////////////////////////////////////////////////////////////
 void ItemMap::set2x2(int n) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ void ItemMap::set2x2(int n)
 // 아이템을 맵에다 더한다.
 ////////////////////////////////////////////////////////////
 bool ItemMap::addItem(Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ bool ItemMap::addItem(Item* pItem)
 // 로 표현된다.
 ////////////////////////////////////////////////////////////
 ulonglong ItemMap::getKey(Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 

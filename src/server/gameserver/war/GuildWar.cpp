@@ -55,7 +55,7 @@ GuildWar::~GuildWar()
 //     자신의 Zone(성)에 대한 처리는 lock이 필요없다.
 //--------------------------------------------------------------------------------
 void GuildWar::executeStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void GuildWar::executeStart()
 }
 
 void GuildWar::recordGuildWarStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -147,7 +147,7 @@ void GuildWar::recordGuildWarStart()
 // 전쟁이 끝나는 시점에서 처리해야 될 것들
 //--------------------------------------------------------------------------------
 void GuildWar::executeEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ void GuildWar::executeEnd()
 }
 
 void GuildWar::recordGuildWarEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -255,7 +255,7 @@ void GuildWar::recordGuildWarEnd()
 }
 
 string GuildWar::getWarName() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -295,7 +295,7 @@ string GuildWar::getWarName() const
 //--------------------------------------------------------------------------------
 bool
 GuildWar::isModifyCastleOwner( PlayerCreature* pPC )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -333,7 +333,7 @@ GuildWar::isModifyCastleOwner( PlayerCreature* pPC )
 //--------------------------------------------------------------------------------
 GuildID_t       
 GuildWar::getWinnerGuildID( PlayerCreature* pPC ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -357,7 +357,7 @@ GuildWar::getWinnerGuildID( PlayerCreature* pPC )
 }
 
 bool GuildWar::endWar(PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -382,7 +382,7 @@ bool GuildWar::endWar(PlayerCreature* pPC)
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void GuildWar::sendWarEndMessage() const
-    throw (ProtocolException, Error)
+    
 {
     __BEGIN_TRY
 
@@ -398,7 +398,7 @@ void GuildWar::sendWarEndMessage() const
 }
 
 void    GuildWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -413,7 +413,7 @@ void    GuildWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
 }
 
 void 	GuildWar::makeWarInfo(WarInfo* pWarInfo) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -463,7 +463,7 @@ void 	GuildWar::makeWarInfo(WarInfo* pWarInfo) const
 
 
 string GuildWar::toString() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

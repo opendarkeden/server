@@ -8,7 +8,7 @@
 #include "Assert.h"
 #include "DB.h"
 
-void EventQuestInfoManager::load(const string& name) throw(Error)
+void EventQuestInfoManager::load(const string& name) 
 {
 	__BEGIN_TRY
 

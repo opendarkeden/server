@@ -11,7 +11,7 @@
 #include "Gpackets/GCSystemMessage.h"
 #include <cstdio>
 
-EffectEventQuestReset::EffectEventQuestReset(Creature* pCreature, int type) throw(Error)
+EffectEventQuestReset::EffectEventQuestReset(Creature* pCreature, int type) 
 	: m_Type(type)
 {
 	__BEGIN_TRY
@@ -25,14 +25,14 @@ EffectEventQuestReset::EffectEventQuestReset(Creature* pCreature, int type) thro
 }
 
 EffectEventQuestReset::~EffectEventQuestReset()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectEventQuestReset::affect ()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void EffectEventQuestReset::affect ()
 }
 
 void EffectEventQuestReset::affect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void EffectEventQuestReset::affect (Creature* pCreature)
 }
 
 void EffectEventQuestReset::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -80,7 +80,7 @@ void EffectEventQuestReset::unaffect()
 }
 
 void EffectEventQuestReset::unaffect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void EffectEventQuestReset::unaffect (Creature* pCreature)
 }
 
 string EffectEventQuestReset::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

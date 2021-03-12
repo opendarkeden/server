@@ -13,7 +13,7 @@
 // 후 몬스터의 인벤토리 안에 들어있던 아이템을 그래도 가지고 온다.
 //////////////////////////////////////////////////////////////////////////////
 MonsterCorpse::MonsterCorpse (Monster* pMonster)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ MonsterCorpse::MonsterCorpse (Monster* pMonster)
 }
 
 MonsterCorpse::MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ MonsterCorpse::MonsterCorpse (MonsterType_t MType, const string& name, Dir_t dir
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 MonsterCorpse::~MonsterCorpse()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -64,7 +64,7 @@ MonsterCorpse::~MonsterCorpse()
 // create
 //////////////////////////////////////////////////////////////////////////////
 void MonsterCorpse::create (const string & ownerID , Storage stroage , DWORD storageID , BYTE x , BYTE y, ItemID_t itemID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -75,7 +75,7 @@ void MonsterCorpse::create (const string & ownerID , Storage stroage , DWORD sto
 // destroy
 //////////////////////////////////////////////////////////////////////////////
 bool MonsterCorpse::destroy ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ bool MonsterCorpse::destroy ()
 // save
 //////////////////////////////////////////////////////////////////////////////
 void MonsterCorpse::save (const string & ownerID , Storage stroage , DWORD storageID , BYTE x , BYTE y)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -99,7 +99,7 @@ void MonsterCorpse::save (const string & ownerID , Storage stroage , DWORD stora
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string MonsterCorpse::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

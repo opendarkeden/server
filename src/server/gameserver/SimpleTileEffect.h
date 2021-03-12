@@ -16,16 +16,16 @@
 class SimpleTileEffect : public Effect 
 {
 public:
-	SimpleTileEffect(EffectClass eClass, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
+	SimpleTileEffect(EffectClass eClass, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return m_EffectClass; }
+    EffectClass getEffectClass() const  { return m_EffectClass; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	EffectClass	m_EffectClass;

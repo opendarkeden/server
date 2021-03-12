@@ -72,7 +72,7 @@
 // 같은 크리쳐 클래스인가? 
 ////////////////////////////////////////////////////////////////////////////////
 bool isSameRace(Creature* pCreature1, Creature* pCreature2) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ bool isSameRace(Creature* pCreature1, Creature* pCreature2)
 //
 ////////////////////////////////////////////////////////////////////////////////
 Item* findItemOID(Creature* pCreature, ObjectID_t id) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id)
 }
 
 Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass)
 }
 
 Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int &y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -212,7 +212,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, int& storage, int& x, int 
 }
 
 Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, int& storage, int& x, int &y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -323,7 +323,7 @@ Item* findItemOID(Creature* pCreature, ObjectID_t id, Item::ItemClass IClass, in
 ////////////////////////////////////////////////////////////////////////////////
 
 Item* findItemIID(Creature* pCreature, ItemID_t id) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -334,7 +334,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id)
 }
 
 Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -345,7 +345,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass)
 }
 
 Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int &y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -445,7 +445,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, int& storage, int& x, int &y
 }
 
 Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int& storage, int& x, int &y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -555,7 +555,7 @@ Item* findItemIID(Creature* pCreature, ItemID_t id, Item::ItemClass IClass, int&
 // 계산하는 함수
 ////////////////////////////////////////////////////////////////////////////////
 int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -687,7 +687,7 @@ int computeCreatureExp(Creature* pCreature, int percent, Ousters* pOusters)
 // 흡혈할때 HP 올라가는거만 따로 계산한다. 중복 코드.. -_-; by sigi. 2002.11.19
 ////////////////////////////////////////////////////////////////////////////////
 int computeBloodDrainHealPoint(Creature* pCreature, int percent)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -782,7 +782,7 @@ int computeBloodDrainHealPoint(Creature* pCreature, int percent)
 // 이벤트용 몹인지 검사하기...
 ////////////////////////////////////////////////////////////////////////////////
 bool isEventMonster(Creature* pCreature) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1675,7 +1675,7 @@ bool canDropToZone( Creature* pCreature, Item* pItem )
 
 bool
 getRaceFromDB(const string& Name, Race_t& race)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1717,7 +1717,7 @@ getRaceFromDB(const string& Name, Race_t& race)
 
 bool
 getGuildIDFromDB(const string& Name, Race_t race, GuildID_t& guildID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1943,7 +1943,7 @@ void deleteCreatureEffect( Creature* pCreature, Effect::EffectClass eClass)
 }
 
 bool dropFlagToZone(PlayerCreature* pPC, Item* pItem)
-	throw (Error)
+	
 {
 	Zone* pZone = pPC->getZone();
 	Assert(pZone!=NULL);
@@ -2207,7 +2207,7 @@ void giveUnderworldGift( Creature* pCreature )
 #endif
 
 bool dropSweeperToZone(PlayerCreature* pPC, Item* pItem)
-	throw (Error)
+	
 {
 	Zone* pZone = pPC->getZone();
 	Assert(pZone!=NULL);
@@ -2342,7 +2342,7 @@ void sendPetInfo( GamePlayer* pGamePlayer, bool bBroadcast, bool bSummon )
 	}
 }
 
-void giveGoldMedal( PlayerCreature* pPC ) throw(Error)
+void giveGoldMedal( PlayerCreature* pPC ) 
 {
 	__BEGIN_TRY
 
@@ -2388,7 +2388,7 @@ void giveGoldMedal( PlayerCreature* pPC ) throw(Error)
 	__END_CATCH
 }
 
-void giveLotto( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
+void giveLotto( PlayerCreature* pPC, BYTE type, uint num ) 
 {
 	__BEGIN_TRY
 
@@ -2436,7 +2436,7 @@ void giveLotto( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 	__END_CATCH
 }
 
-void addOlympicStat( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
+void addOlympicStat( PlayerCreature* pPC, BYTE type, uint num ) 
 {
 	__BEGIN_TRY
 
@@ -2481,7 +2481,7 @@ void addOlympicStat( PlayerCreature* pPC, BYTE type, uint num ) throw(Error)
 	__END_CATCH
 }
 
-void deletePC( PlayerCreature* pPC ) throw(Error)
+void deletePC( PlayerCreature* pPC ) 
 {
 	__BEGIN_TRY
 

@@ -19,25 +19,25 @@ class MJob;
 class MPlayer : public Player
 {
 public:
-	MPlayer( MJob* pJob ) throw ( Error );
-	virtual ~MPlayer() throw ( Error );
+	MPlayer( MJob* pJob ) ;
+	virtual ~MPlayer() ;
 
 public:
 	// network read / write
-	void processInput() throw ( IOException, Error );
-	void processOutput() throw ( IOException, Error );
+	void processInput() ;
+	void processOutput() ;
 
 	// parse packet and execute handler for the packet
-	void processCommand() throw ( IOException, Error );
+	void processCommand() ;
 
 	// send packet to player's output buffer
-	void sendPacket( MPacket* pPacket ) throw ( ProtocolException, Error );
+	void sendPacket( MPacket* pPacket ) ;
 
 	// connect
 	void connect();
 
 	// disconnect
-	void disconnect( bool bDisconnected = DISCONNECTED ) throw ( InvalidProtocolException, Error );
+	void disconnect( bool bDisconnected = DISCONNECTED ) ;
 
 public:
 	// process

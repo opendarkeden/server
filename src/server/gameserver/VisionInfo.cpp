@@ -17,7 +17,7 @@ VisionInfoManager* g_pVisionInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 /*
 VisionInfo::VisionInfo (Sight_t sight , Dir_t dir) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 //--------------------------------------------------------------------------------
 
 VisionState VisionInfo::getVisionState (ZoneCoord_t cx , ZoneCoord_t cy , ZoneCoord_t x , ZoneCoord_t y) const
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VisionState VisionInfo::getVisionState (ZoneCoord_t cx , ZoneCoord_t cy , ZoneCo
 // get debug string
 //--------------------------------------------------------------------------------
 string VisionInfo::toString () const
-	throw ()
+	
 {
 
 	__BEGIN_TRY
@@ -224,7 +224,7 @@ string VisionInfo::toString () const
 // destructor
 //--------------------------------------------------------------------------------
 VisionInfoManager::~VisionInfoManager () 
-	throw ()
+	
 {
 
 	__BEGIN_TRY
@@ -255,7 +255,7 @@ VisionInfoManager::~VisionInfoManager ()
 //
 //--------------------------------------------------------------------------------
 void VisionInfoManager::init () 
-	throw ()
+	
 {
 
 	__BEGIN_TRY
@@ -284,7 +284,6 @@ void VisionInfoManager::init ()
 //--------------------------------------------------------------------------------
 /*
 VisionInfo* VisionInfoManager::getVisionInfo (Sight_t sight , Dir_t dir) 
-	throw (OutOfBoundException)
 {
 	__BEGIN_TRY
 
@@ -303,7 +302,7 @@ VisionInfo* VisionInfoManager::getVisionInfo (Sight_t sight , Dir_t dir)
 // get debug string
 //--------------------------------------------------------------------------------
 string VisionInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -32,8 +32,8 @@ class SMSServiceThread : public Thread
 public:
 	static SMSServiceThread& Instance() { static SMSServiceThread theInstance; return theInstance; }
 
-	void run() throw();
-	string	getName() const throw() { return "SMSServiceThread"; }
+	void run() ;
+	string	getName() const  { return "SMSServiceThread"; }
 
 	void pushMessage( SMSMessage* pMsg );
 	string getDBString( const string& msg ) const;

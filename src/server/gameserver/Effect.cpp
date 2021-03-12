@@ -10,7 +10,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::Effect () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ Effect::Effect ()
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::Effect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget , Turn_t delay) 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -49,12 +49,12 @@ Effect::Effect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget , 
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Effect::~Effect () 
-	throw (Error)	
+		
 {
 }
 
 void Effect::setNextTime(Turn_t delay) 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ void Effect::setNextTime(Turn_t delay)
 	__END_CATCH
 }
 
-void Effect::setDeadline (Turn_t delay) throw ()
+void Effect::setDeadline (Turn_t delay) 
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void Effect::setDeadline (Turn_t delay) throw ()
 }
 
 // 남은 duration(1/10초 단위)
-Duration_t Effect::getRemainDuration() throw()
+Duration_t Effect::getRemainDuration() 
 {
 	__BEGIN_TRY
 

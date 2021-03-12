@@ -36,7 +36,7 @@ DuplicateSelf::DuplicateSelf()
 //////////////////////////////////////////////////////////////////////////////
 /*
 void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void DuplicateSelf::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEf
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DuplicateSelf::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

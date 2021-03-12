@@ -26,15 +26,15 @@ public:
 	~DragonEyeManager();
 
 public:
-	void init() throw(Error);
-	void initDefaultPositions() throw(Error);
-	void createAllDragonEyes() throw(Error);
+	void init() ;
+	void initDefaultPositions() ;
+	void createAllDragonEyes() ;
 
-	void addAllDragonEyesToZone() throw(Error);
+	void addAllDragonEyesToZone() ;
 
-	void removeAllDragonEyes() throw(Error);
+	void removeAllDragonEyes() ;
 
-	void warpToDefaultPosition( Creature* pCreature ) throw(Error);
+	void warpToDefaultPosition( Creature* pCreature ) ;
 
 private:
 	VectorWarItem		m_DragonEyes;

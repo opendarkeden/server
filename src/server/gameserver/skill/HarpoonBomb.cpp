@@ -18,7 +18,7 @@
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void HarpoonBomb::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 

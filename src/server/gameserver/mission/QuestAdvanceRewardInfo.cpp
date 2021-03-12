@@ -14,7 +14,7 @@ QuestAdvanceRewardInfo::~QuestAdvanceRewardInfo()
 }
 
 QuestMessage QuestAdvanceRewardInfo::canGiveReward( PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -32,7 +32,7 @@ QuestMessage QuestAdvanceRewardInfo::canGiveReward( PlayerCreature* pPC ) const
 }
 
 QuestMessage QuestAdvanceRewardInfo::giveReward( PlayerCreature *pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -49,7 +49,7 @@ QuestMessage QuestAdvanceRewardInfo::giveReward( PlayerCreature *pPC ) const
 	__END_CATCH
 }
 
-string QuestAdvanceRewardInfo::toString() const throw()
+string QuestAdvanceRewardInfo::toString() const 
 {
 	__BEGIN_TRY
 

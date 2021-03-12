@@ -26,12 +26,11 @@
 #include "Gpackets/GCSystemMessage.h"
 
 // packetUtil.h에 추가해야 한다.
-extern void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg) throw (Error);
+extern void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg) ;
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::execute (CommonBillingPacket* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -79,7 +78,6 @@ void CommonBillingPacketHandler::execute (CommonBillingPacket* pPacket , Player*
 // 게임에 들어올때 보낸 packet에 대한 인증 정보
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -241,7 +239,6 @@ void CommonBillingPacketHandler::executeBillingLoginVerify(CommonBillingPacket* 
 // 로그인 서버에서 유료 사용이 가능한지 체크만 하는 경우
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPacket* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	
@@ -347,7 +344,6 @@ void CommonBillingPacketHandler::executeBillingLoginCheckVerify(CommonBillingPac
 // 남은 시간을 보여준다.	(B->G only)
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -495,7 +491,6 @@ void CommonBillingPacketHandler::executeBillingRemain(CommonBillingPacket* pPack
 // 접속 중 체크. BillingServer로 접속 정보를 보내준다.
 //////////////////////////////////////////////////////////////////////////////
 void CommonBillingPacketHandler::executeBillingCheck(CommonBillingPacket* pPacket , Player* pPlayer)
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
@@ -515,7 +510,6 @@ void CommonBillingPacketHandler::executeBillingCheck(CommonBillingPacket* pPacke
 }
 
 void CommonBillingPacketHandler::disconnectGamePlayer(GamePlayer* pGamePlayer, Turn_t delay)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -539,7 +533,6 @@ void CommonBillingPacketHandler::disconnectGamePlayer(GamePlayer* pGamePlayer, T
 }
 
 void CommonBillingPacketHandler::sendBillingRemainMessage(CommonBillingPacket* pPacket, GamePlayer* pGamePlayer)
-	throw (Error)
 {
 	__BEGIN_TRY
 

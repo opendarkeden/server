@@ -20,10 +20,10 @@
 class ActionPetWithdraw : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_PET_WITHDRAW; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_PET_WITHDRAW; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 };
 
 
@@ -34,8 +34,8 @@ public:
 class ActionPetWithdrawFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_PET_WITHDRAW; }
-	virtual string getActionName() const throw() { return "PetWithdraw"; }
-	virtual Action* createAction() const throw() { return new ActionPetWithdraw(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_PET_WITHDRAW; }
+	virtual string getActionName() const  { return "PetWithdraw"; }
+	virtual Action* createAction() const  { return new ActionPetWithdraw(); }
 };
 #endif

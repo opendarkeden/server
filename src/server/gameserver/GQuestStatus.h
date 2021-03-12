@@ -38,7 +38,7 @@ public:
 	GQuestElement::ResultType	checkElementsAND(GQuestInfo::ElementType);
 
 	void	cleanUpMissions();
-	void	save() throw(Error);
+	void	save() ;
 
 private:
 	PlayerCreature*	m_pOwner;

@@ -26,13 +26,13 @@ Mutex    MoonCard::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 MoonCard::MoonCard()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 MoonCard::MoonCard(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num      = Num;
@@ -45,7 +45,7 @@ MoonCard::MoonCard(ItemType_t itemType, const list<OptionType_t>& optionType, It
 }
 
 void MoonCard::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void MoonCard::create(const string & ownerID, Storage storage, StorageID_t stora
 // save item
 //--------------------------------------------------------------------------------
 void MoonCard::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void MoonCard::tinysave(const char* field) const
 }
 
 void MoonCard::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void MoonCard::save(const string & ownerID, Storage storage, StorageID_t storage
 }
 
 string MoonCard::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -164,7 +164,7 @@ string MoonCard::toString() const
 }
 
 VolumeWidth_t MoonCard::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ VolumeWidth_t MoonCard::getVolumeWidth() const
 }
 	
 VolumeHeight_t MoonCard::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -184,7 +184,7 @@ VolumeHeight_t MoonCard::getVolumeHeight() const
 }
 	
 Weight_t MoonCard::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -198,7 +198,7 @@ Weight_t MoonCard::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string MoonCardInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "MoonCardInfo("
@@ -213,7 +213,7 @@ string MoonCardInfo::toString() const
 }
 
 void MoonCardInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -267,7 +267,7 @@ void MoonCardInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void MoonCardLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -413,7 +413,7 @@ void MoonCardLoader::load(Creature* pCreature)
 }
 
 void MoonCardLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -477,7 +477,7 @@ void MoonCardLoader::load(Zone* pZone)
 }
 
 void MoonCardLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

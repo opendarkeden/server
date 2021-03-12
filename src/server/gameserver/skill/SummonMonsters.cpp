@@ -29,7 +29,7 @@ SummonMonsters::SummonMonsters()
 //////////////////////////////////////////////////////////////////////////////
 /*
 void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void SummonMonsters::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CE
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SummonMonsters::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

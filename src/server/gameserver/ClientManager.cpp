@@ -37,7 +37,7 @@ ClientManager* g_pClientManager = NULL;
 // 하위 매니저 객체를 생성한다.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::ClientManager ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ ClientManager::ClientManager ()
 // 하위 매니저 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::~ClientManager ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ ClientManager::~ClientManager ()
 // 하위 매니저 객체를 초기화한다.
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::init ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -88,7 +88,7 @@ void ClientManager::init ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::stop ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void ClientManager::stop ()
 // accept new connection
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::run ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -327,7 +327,7 @@ void    ClientManager::setBalanceZoneGroup(int afterMinutes, bool bForce, bool b
 //
 //--------------------------------------------------------------------------------
 void ClientManager::addEvent (Event* pEvent)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -345,7 +345,7 @@ void ClientManager::addEvent (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 void ClientManager::addEvent_LOCKED (Event* pEvent)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -361,7 +361,7 @@ void ClientManager::addEvent_LOCKED (Event* pEvent)
 //
 //--------------------------------------------------------------------------------
 bool ClientManager::deleteEvent (Event::EventClass EClass)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -380,7 +380,7 @@ bool ClientManager::deleteEvent (Event::EventClass EClass)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ClientManager::toString () const
-	   throw (Error)
+	   
 {
 	__BEGIN_TRY
 

@@ -45,7 +45,7 @@ LandMineExplosion::LandMineExplosion()
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void LandMineExplosion::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

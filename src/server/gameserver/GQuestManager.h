@@ -49,8 +49,8 @@ public:
 	};
 
 	GQuestManager(PlayerCreature* pOwner) : m_pOwner(pOwner), m_bPartyQuest(false) { }
-	void load() throw(Error);
-	void init() throw(Error);
+	void load() ;
+	void init() ;
 	void refreshQuest(bool sendPacket=true);
 
 	Packet*	getStatusInfoPacket() const;

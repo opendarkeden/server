@@ -16,13 +16,13 @@
 class EventRefreshHolyLandPlayer : public Event 
 {
 public:
-	EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer ) throw();
-	~EventRefreshHolyLandPlayer() throw() {}
+	EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer ) ;
+	~EventRefreshHolyLandPlayer()  {}
 			
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER; }
-	virtual void activate() throw(Error);
-	virtual string toString() const throw();
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_REFRESH_HOLY_LAND_PLAYER; }
+	virtual void activate() ;
+	virtual string toString() const ;
 
 private:
 };

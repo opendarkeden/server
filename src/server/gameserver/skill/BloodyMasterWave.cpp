@@ -52,7 +52,7 @@ BloodyMasterWave::BloodyMasterWave()
 // 뱀파이어 셀프
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -80,7 +80,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkil
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -124,7 +124,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vam
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -167,7 +167,7 @@ void BloodyMasterWave::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, 
 // 몬스터 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodyMasterWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

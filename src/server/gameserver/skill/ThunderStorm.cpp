@@ -9,7 +9,7 @@
 #include "SimpleTileMissileSkill.h"
 
 void ThunderStorm::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ void ThunderStorm::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Skill
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void ThunderStorm::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

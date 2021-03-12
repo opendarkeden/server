@@ -23,7 +23,7 @@ const uint TREASURE_RATIO_MODULUS = 100000;
 //////////////////////////////////////////////////////////////////////////////
 
 TreasureOptionType::TreasureOptionType()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -34,14 +34,14 @@ TreasureOptionType::TreasureOptionType()
 }
 
 TreasureOptionType::~TreasureOptionType()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void TreasureOptionType::loadFromFile(ifstream& file) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void TreasureOptionType::loadFromFile(ifstream& file)
 }
 
 void TreasureOptionType::parseString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ void TreasureOptionType::parseString(const string& text)
 }
 
 string TreasureOptionType::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -134,7 +134,7 @@ string TreasureOptionType::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 TreasureItemType::TreasureItemType()
-	throw()
+	
 {
 	__BEGIN_TRY
 		
@@ -147,7 +147,7 @@ TreasureItemType::TreasureItemType()
 }
 
 TreasureItemType::~TreasureItemType()
-	throw()
+	
 {
 	__BEGIN_TRY
 		
@@ -163,7 +163,7 @@ TreasureItemType::~TreasureItemType()
 }
 
 void TreasureItemType::loadFromFile(int itemClass, ifstream& file) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -204,7 +204,7 @@ void TreasureItemType::loadFromFile(int itemClass, ifstream& file)
 }
 
 void TreasureItemType::parseString(int itemClass, const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -283,7 +283,7 @@ void TreasureItemType::parseString(int itemClass, const string& text)
 }
 
 bool TreasureItemType::getRandomOption(ITEM_TEMPLATE* pTemplate)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -363,7 +363,7 @@ bool TreasureItemType::getRandomOption(ITEM_TEMPLATE* pTemplate)
 }
 
 string TreasureItemType::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 		
@@ -405,7 +405,7 @@ string TreasureItemType::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 TreasureItemClass::TreasureItemClass()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -419,7 +419,7 @@ TreasureItemClass::TreasureItemClass()
 }
 
 TreasureItemClass::~TreasureItemClass()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -435,7 +435,7 @@ TreasureItemClass::~TreasureItemClass()
 }
 
 void TreasureItemClass::loadFromFile(ifstream& file) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -463,7 +463,7 @@ void TreasureItemClass::loadFromFile(ifstream& file)
 }
 
 void TreasureItemClass::parseString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -530,7 +530,7 @@ void TreasureItemClass::parseString(const string& text)
 }
 
 bool TreasureItemClass::getRandomItem(ITEM_TEMPLATE* pTemplate)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -586,7 +586,7 @@ bool TreasureItemClass::getRandomItem(ITEM_TEMPLATE* pTemplate)
 }
 
 string TreasureItemClass::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -624,7 +624,7 @@ string TreasureItemClass::toString(void) const
 }*/
 
 Item::ItemClass TreasureItemClass::getItemClassFromString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -649,7 +649,7 @@ Item::ItemClass TreasureItemClass::getItemClassFromString(const string& text)
 //////////////////////////////////////////////////////////////////////////////
 
 Treasure::Treasure()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -663,7 +663,7 @@ Treasure::Treasure()
 }
 
 Treasure::~Treasure()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -679,7 +679,7 @@ Treasure::~Treasure()
 }
 
 void Treasure::loadFromFile(ifstream& file) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -708,7 +708,7 @@ void Treasure::loadFromFile(ifstream& file)
 }
 
 void Treasure::parseString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -799,7 +799,7 @@ void Treasure::parseString(const string& text)
 }
 
 bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -868,7 +868,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate)
 }
 
 bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -935,7 +935,7 @@ bool Treasure::getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent)
 }
 
 string Treasure::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -977,21 +977,21 @@ string Treasure::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 TreasureList::TreasureList()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 TreasureList::~TreasureList()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void TreasureList::loadFromFile(ifstream& file) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1021,7 +1021,7 @@ void TreasureList::loadFromFile(ifstream& file)
 }
 
 void TreasureList::parseString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1073,7 +1073,7 @@ void TreasureList::parseString(const string& text)
 }
 
 void TreasureList::addTreasure(Treasure* pTreasure)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1084,7 +1084,7 @@ void TreasureList::addTreasure(Treasure* pTreasure)
 }
 
 string TreasureList::toString(void) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

@@ -24,7 +24,7 @@ Mutex    SMG::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 SMG::SMG()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
@@ -35,7 +35,7 @@ SMG::SMG()
 }
 
 SMG::SMG(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: Gun(itemType, optionType)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ SMG::SMG(ItemType_t itemType, const list<OptionType_t>& optionType)
 // destructor
 //--------------------------------------------------------------------------------
 SMG::~SMG()
-	throw()
+	
 {
 }
 
@@ -63,7 +63,7 @@ SMG::~SMG()
 // create item
 //--------------------------------------------------------------------------------
 void SMG::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void SMG::create(const string & ownerID, Storage storage, StorageID_t storageID,
 // save item
 //--------------------------------------------------------------------------------
 void SMG::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -140,7 +140,7 @@ void SMG::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void SMG::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -186,7 +186,7 @@ void SMG::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 //--------------------------------------------------------------------------------
 // save item
 //--------------------------------------------------------------------------------
-void SMG::saveBullet() throw (Error)
+void SMG::saveBullet() 
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ void SMG::makePCItemInfo(PCItemInfo& result) const
 // get debug string
 //--------------------------------------------------------------------------------
 string SMG::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -238,7 +238,7 @@ string SMG::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t SMG::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -252,7 +252,7 @@ VolumeWidth_t SMG::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t SMG::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -266,7 +266,7 @@ VolumeHeight_t SMG::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t SMG::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -280,7 +280,7 @@ Weight_t SMG::getWeight() const
 // get/set weapon's minDamage
 //--------------------------------------------------------------------------------
 Damage_t SMG::getMinDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -294,7 +294,7 @@ Damage_t SMG::getMinDamage() const
 // get/set weapon's maxDamage
 //--------------------------------------------------------------------------------
 Damage_t SMG::getMaxDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -308,7 +308,7 @@ Damage_t SMG::getMaxDamage() const
 // get/set weapon's range
 //--------------------------------------------------------------------------------
 Range_t SMG::getRange() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -322,7 +322,7 @@ Range_t SMG::getRange() const
 // get/set weapon's ToHit Bonus
 //--------------------------------------------------------------------------------
 ToHit_t SMG::getToHitBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -334,7 +334,7 @@ ToHit_t SMG::getToHitBonus() const
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 int SMG::getCriticalBonus(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -348,7 +348,7 @@ int SMG::getCriticalBonus(void) const
 // get debug string
 //--------------------------------------------------------------------------------
 string SMGInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -376,7 +376,7 @@ string SMGInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void SMGInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -445,7 +445,7 @@ void SMGInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void SMGLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -612,7 +612,7 @@ void SMGLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void SMGLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -689,7 +689,7 @@ void SMGLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void SMGLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

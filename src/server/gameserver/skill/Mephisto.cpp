@@ -21,7 +21,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void Mephisto::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, C
 }
 
 void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -259,7 +259,7 @@ void Mephisto::execute(Vampire* pVampire, ObjectID_t TargetObjectID,  VampireSki
 }
 
 void Mephisto::execute(Vampire* pVampire)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

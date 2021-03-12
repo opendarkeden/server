@@ -23,10 +23,10 @@ public:
     string getSkillHandlerName() const throw() { return "Untransform"; }
 	SkillType_t getSkillType() const throw() { return SKILL_UN_TRANSFORM; }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Vampire* pVampire) throw(Error);
-	void execute(Ousters* pOusters) throw(Error);
-	void execute(Monster* pMonster) throw(Error);
+	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Vampire* pVampire) ;
+	void execute(Ousters* pOusters) ;
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

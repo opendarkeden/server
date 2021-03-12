@@ -41,7 +41,7 @@ void operator++ (string& id)
 	cout << "end operator++" << id << endl;
 }
 
-void SMSServiceThread::run() throw()
+void SMSServiceThread::run() 
 {
 	__BEGIN_TRY
 

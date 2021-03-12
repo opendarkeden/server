@@ -23,9 +23,9 @@ public:
     string getSkillHandlerName() const throw() { return "Mephisto"; }
 	SkillType_t getSkillType() const throw() { return SKILL_MEPHISTO; }
 
-	void execute(Vampire* pVampire ) throw(Error);
-	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Vampire* pVampire, ObjectID_t ObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Vampire* pVampire ) ;
+	void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Vampire* pVampire, ObjectID_t ObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
 
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);

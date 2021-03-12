@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectSanctuary::EffectSanctuary(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoord_t ZoneY, ZoneCoord_t CenterX, ZoneCoord_t CenterY)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ EffectSanctuary::EffectSanctuary(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoord_t Zo
 // pTarget의 시야가 변한  경우 true를 return
 //////////////////////////////////////////////////////////////////////////////
 bool EffectSanctuary::affectObject(Object* pTarget, bool bAffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ bool EffectSanctuary::affectObject(Object* pTarget, bool bAffectByMove)
 }
 
 void EffectSanctuary::unaffectObject(Object* pTarget, bool bUnaffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,7 @@ void EffectSanctuary::unaffectObject(Object* pTarget, bool bUnaffectByMove)
 // EffectSanctuary::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectSanctuary::affect(Creature* pTargetCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -89,7 +89,7 @@ void EffectSanctuary::affect(Creature* pTargetCreature)
 // EffectSanctuary::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectSanctuary::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -99,7 +99,7 @@ void EffectSanctuary::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Objec
 // unaffect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectSanctuary::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void EffectSanctuary::unaffect()
 }
 
 void EffectSanctuary::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

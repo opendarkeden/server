@@ -24,12 +24,12 @@ public:
 	ActionTradeGiftBox();
 	~ActionTradeGiftBox();
 
-	virtual ActionType_t getActionType() const throw() { return ACTION_TRADE_GIFT_BOX; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_TRADE_GIFT_BOX; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
-	void						load() throw (Error);
+	void						load() ;
 
 private :
 	LuaState*					m_pLuaState;
@@ -49,9 +49,9 @@ private :
 class ActionTradeGiftBoxFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_TRADE_GIFT_BOX; }
-	virtual string getActionName() const throw() { return "TradeGiftBox"; }
-	virtual Action* createAction() const throw() { return new ActionTradeGiftBox(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_TRADE_GIFT_BOX; }
+	virtual string getActionName() const  { return "TradeGiftBox"; }
+	virtual Action* createAction() const  { return new ActionTradeGiftBox(); }
 };
 
 #endif

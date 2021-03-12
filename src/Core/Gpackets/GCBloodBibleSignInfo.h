@@ -18,17 +18,17 @@
 class GCBloodBibleSignInfo : public Packet
 {
 public:
-	GCBloodBibleSignInfo() throw() { }
-	virtual ~GCBloodBibleSignInfo() throw();
+	GCBloodBibleSignInfo()  { }
+	virtual ~GCBloodBibleSignInfo() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_BLOOD_BIBLE_SIGN_INFO; }
-	PacketSize_t getPacketSize() const throw() { return m_pInfo->getSize(); }
-	string getPacketName() const throw() { return "GCBloodBibleSignInfo"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_BLOOD_BIBLE_SIGN_INFO; }
+	PacketSize_t getPacketSize() const  { return m_pInfo->getSize(); }
+	string getPacketName() const  { return "GCBloodBibleSignInfo"; }
+	string toString() const ;
 
 public:
 	BloodBibleSignInfo* getSignInfo() const { return m_pInfo; }
@@ -45,10 +45,10 @@ private:
 class GCBloodBibleSignInfoFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCBloodBibleSignInfo(); }
-	string getPacketName() const throw() { return "GCBloodBibleSignInfo"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_BLOOD_BIBLE_SIGN_INFO; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCBloodBibleSignInfo(); }
+	string getPacketName() const  { return "GCBloodBibleSignInfo"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_BLOOD_BIBLE_SIGN_INFO; }
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return BloodBibleSignInfo::getMaxSize();
 	}
@@ -61,7 +61,7 @@ public:
 class GCBloodBibleSignInfoHandler 
 {
 public:
-	static void execute(GCBloodBibleSignInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCBloodBibleSignInfo* pPacket, Player* pPlayer) ;
 };
 
 #endif

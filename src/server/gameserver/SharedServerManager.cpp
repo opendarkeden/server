@@ -26,7 +26,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 SharedServerManager::SharedServerManager () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ SharedServerManager::SharedServerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 SharedServerManager::~SharedServerManager () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ SharedServerManager::~SharedServerManager ()
 // stop thread
 //////////////////////////////////////////////////////////////////////
 void SharedServerManager::stop () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ void SharedServerManager::stop ()
 // main method
 //////////////////////////////////////////////////////////////////////
 void SharedServerManager::run () 
-	throw ()
+	
 {
 	try {
 
@@ -202,7 +202,6 @@ void SharedServerManager::run ()
 // send packet to shared server
 //////////////////////////////////////////////////////////////////////
 void SharedServerManager::sendPacket ( Packet* pPacket )
-	throw (ProtocolException , Error)
 {
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 		

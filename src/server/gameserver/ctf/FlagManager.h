@@ -48,7 +48,7 @@ class FlagManager : public Scheduler
 	};
 public:
 	FlagManager();
-	virtual ~FlagManager() throw (Error);
+	virtual ~FlagManager() ;
 
 public:
 	void init();
@@ -86,14 +86,14 @@ public:
 	void resetFlagCounts();
 	bool isInPoleField( ZONE_COORD zc );
 
-	void recordPutFlag( PlayerCreature* pPC, Item* pItem ) throw(Error);
-	void recordFlagWarHistory() throw(Error);
+	void recordPutFlag( PlayerCreature* pPC, Item* pItem ) ;
+	void recordFlagWarHistory() ;
 
 	void broadcastPacket( Packet* pPacket ) const;
 
 public:
-	void	lock() throw (Error)		{ m_Mutex.lock(); }
-	void	unlock() throw (Error)		{ m_Mutex.unlock(); }
+	void	lock() 		{ m_Mutex.lock(); }
+	void	unlock() 		{ m_Mutex.unlock(); }
 
 protected:
 	void addPoleField( Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, uint width, uint height, Race_t race, MonsterType_t type );

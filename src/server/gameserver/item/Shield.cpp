@@ -24,7 +24,7 @@ Mutex    Shield::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Shield::Shield()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ Shield::Shield()
 }
 
 Shield::Shield(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -55,7 +55,7 @@ Shield::Shield(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Shield::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void Shield::create(const string & ownerID, Storage storage, StorageID_t storage
 // save item
 //--------------------------------------------------------------------------------
 void Shield::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void Shield::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Shield::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void Shield::save(const string & ownerID, Storage storage, StorageID_t storageID
 // get debug string
 //--------------------------------------------------------------------------------
 string Shield::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string Shield::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Shield::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t Shield::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Shield::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t Shield::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Shield::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t Shield::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t Shield::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t Shield::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t Shield::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t Shield::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string ShieldInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string ShieldInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void ShieldInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -350,7 +350,7 @@ void ShieldInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void ShieldLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -515,7 +515,7 @@ void ShieldLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void ShieldLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -590,7 +590,7 @@ void ShieldLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void ShieldLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

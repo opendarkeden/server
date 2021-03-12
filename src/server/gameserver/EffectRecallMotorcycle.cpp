@@ -20,7 +20,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectRecallMotorcycle::EffectRecallMotorcycle (Zone* pZone , ZoneCoord_t sx, ZoneCoord_t sy, Zone* pTargetZone, ZoneCoord_t x , ZoneCoord_t y , Item* pItem , ObjectID_t ownerOID, Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pItem,delay), m_OwnerOID(ownerOID)
 {
 	__BEGIN_TRY
@@ -49,7 +49,7 @@ EffectRecallMotorcycle::EffectRecallMotorcycle (Zone* pZone , ZoneCoord_t sx, Zo
 // destructor
 //----------------------------------------------------------------------
 EffectRecallMotorcycle::~EffectRecallMotorcycle () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ EffectRecallMotorcycle::~EffectRecallMotorcycle ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectRecallMotorcycle::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -143,7 +143,7 @@ void EffectRecallMotorcycle::unaffect ()
 // get debug string
 //----------------------------------------------------------------------
 string EffectRecallMotorcycle::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

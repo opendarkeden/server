@@ -16,13 +16,13 @@
 class EventShutdown : public Event 
 {
 public:
-	EventShutdown( GamePlayer* pGamePlayer ) throw();
-	~EventShutdown() throw() {}
+	EventShutdown( GamePlayer* pGamePlayer ) ;
+	~EventShutdown()  {}
 			
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_SHUTDOWN; }
-	virtual void activate() throw(Error);
-	virtual string toString() const throw();
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_SHUTDOWN; }
+	virtual void activate() ;
+	virtual string toString() const ;
 
 private:
 };

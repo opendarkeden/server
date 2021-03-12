@@ -20,7 +20,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 ThreadManager::ThreadManager () 
-     throw (Error)
+     
 : m_pZoneGroupThreadPool(NULL)
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ ThreadManager::ThreadManager ()
 //
 //--------------------------------------------------------------------------------
 ThreadManager::~ThreadManager () 
-     throw (Error)
+     
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ ThreadManager::~ThreadManager ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::init () 
-     throw (Error)
+     
 {
 	__BEGIN_TRY
 		
@@ -98,7 +98,7 @@ void ThreadManager::init ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::start () 
-     throw (Error)
+     
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void ThreadManager::start ()
 //
 //--------------------------------------------------------------------------------
 void ThreadManager::stop () 
-     throw (Error)
+     
 {
 	__BEGIN_TRY
 

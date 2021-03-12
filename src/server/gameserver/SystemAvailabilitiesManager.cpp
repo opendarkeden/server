@@ -2,7 +2,7 @@
 #include "DB.h"
 #include "Assert.h"
 
-void SystemAvailabilitiesManager::load() throw(Error)
+void SystemAvailabilitiesManager::load() 
 {
 	__BEGIN_TRY
 

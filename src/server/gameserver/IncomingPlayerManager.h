@@ -31,65 +31,65 @@
 class IncomingPlayerManager : public PlayerManager 
 {
 public:
-	IncomingPlayerManager() throw(Error);
-	~IncomingPlayerManager() throw(Error);
+	IncomingPlayerManager() ;
+	~IncomingPlayerManager() ;
 
 public:
 	// initialize 
-	void init() throw(Error);
+	void init() ;
 
 	// broadcast packet to all players
-	void broadcast(Packet* pPacket) throw(Error);
+	void broadcast(Packet* pPacket) ;
 
 	// 다음의 메쏘드들은 ZoneThread에 의해서 호출된다.
 
 	// select 
-	void select() throw(TimeoutException, InterruptedException, Error);
+	void select() ;
 
 	// process all players' inputs
-	void processInputs() throw(IOException, Error);
+	void processInputs() ;
 
 	// process all players' outputs
-	void processOutputs() throw(IOException, Error);
+	void processOutputs() ;
 
 	// process all players' exceptions
-	void processExceptions() throw(IOException, Error);
+	void processExceptions() ;
 	
 	// process all players' commands
-	void processCommands() throw(IOException, Error);
+	void processCommands() ;
 
 	// accept new connection
-	bool acceptNewConnection() throw(Error);
+	bool acceptNewConnection() ;
 
-	void copyPlayers() throw();
+	void copyPlayers() ;
 
 	// add/delete player
-	void addPlayer(Player* pGamePlayer) throw(DuplicatedException, Error);
-	void addPlayer_NOBLOCKED(Player* pGamePlayer) throw(DuplicatedException, Error);
-	void deletePlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
-	void deletePlayer_NOBLOCKED(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
+	void addPlayer(Player* pGamePlayer) ;
+	void addPlayer_NOBLOCKED(Player* pGamePlayer) ;
+	void deletePlayer(SOCKET fd) ;
+	void deletePlayer_NOBLOCKED(SOCKET fd) ;
 
 	// get Player by string
-	GamePlayer* getPlayer_NOBLOCKED(const string & id) throw(NoSuchElementException, Error);
-	GamePlayer* getPlayer(const string & id) throw(NoSuchElementException, Error);
-	GamePlayer* getReadyPlayer(const string & id) throw(NoSuchElementException, Error);
+	GamePlayer* getPlayer_NOBLOCKED(const string & id) ;
+	GamePlayer* getPlayer(const string & id) ;
+	GamePlayer* getReadyPlayer(const string & id) ;
 
 	// lock/unlock
-	void lock() throw(Error) { m_Mutex.lock(); }
-	void unlock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+	void unlock()  { m_Mutex.unlock(); }
 
     // push Player to queue
-    void pushPlayer(GamePlayer* pGamePlayer) throw(Error);
+    void pushPlayer(GamePlayer* pGamePlayer) ;
 
-    void pushOutPlayer(GamePlayer* pGamePlayer) throw(Error);
+    void pushOutPlayer(GamePlayer* pGamePlayer) ;
 
     // Queue's Player Add Manager
-	void heartbeat() throw(Error);
+	void heartbeat() ;
 
-    void deleteQueuePlayer(GamePlayer* pGamePlayer) throw(NoSuchElementException, Error);
+    void deleteQueuePlayer(GamePlayer* pGamePlayer) ;
 
 	// 모든 플레이어를 정리한다.
-	void clearPlayers() throw(Error);
+	void clearPlayers() ;
 
 private:
 

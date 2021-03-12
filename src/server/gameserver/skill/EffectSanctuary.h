@@ -18,35 +18,35 @@
 class EffectSanctuary : public Effect 
 {
 public:
-	EffectSanctuary(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY, ZoneCoord_t CenterX, ZoneCoord_t CenterY) throw(Error);
+	EffectSanctuary(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY, ZoneCoord_t CenterX, ZoneCoord_t CenterY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SANCTUARY; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error) {};
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
+	void unaffect() ;
+	void unaffect(Creature* pCreature)  {};
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
+	void unaffect(Item* pItem)  {}
 
 	string toString() const throw();
 
 public:
 
-	void setCenterX(ZoneCoord_t x) throw(Error) { m_CenterX = x;}
+	void setCenterX(ZoneCoord_t x)  { m_CenterX = x;}
 	ZoneCoord_t getCenterX() const throw() { return m_CenterX;}
 
-	void setCenterY(ZoneCoord_t y) throw(Error) { m_CenterY = y;}
+	void setCenterY(ZoneCoord_t y)  { m_CenterY = y;}
 	ZoneCoord_t getCenterY() const throw() { return m_CenterY;}
 
-	void setLevel(Attr_t l) throw(Error) { m_Level = l;}
+	void setLevel(Attr_t l)  { m_Level = l;}
 	Attr_t getLevel() const throw() { return m_Level;}
 	
-	void setDuration(Duration_t d) throw(Error) { m_Duration = d; }
-	Duration_t getDuration() throw(Error) { return m_Duration;}
+	void setDuration(Duration_t d)  { m_Duration = d; }
+	Duration_t getDuration()  { return m_Duration;}
 	
 	void setStartTime() throw() { getCurrentTime(m_StartTime);}
 	bool isHalfTimePassed() 
@@ -65,8 +65,8 @@ public:
 		m_Deadline.tv_usec = m_StartTime.tv_usec +(m_Duration%10)* 100000;
 	}
 	
-	bool affectObject(Object*, bool bAffectByMove) throw(Error);
-	void unaffectObject(Object*, bool bUnaffectByMove) throw(Error);
+	bool affectObject(Object*, bool bAffectByMove) ;
+	void unaffectObject(Object*, bool bUnaffectByMove) ;
 	
 private :
 	// effect¿« ¡ﬂΩ…¡¬«•

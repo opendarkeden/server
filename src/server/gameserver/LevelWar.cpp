@@ -1,6 +1,6 @@
 #include "LevelWar.h"
 
-void LevelWar::execute() throw(Error)
+void LevelWar::execute() 
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void LevelWar::executeEnd()
 }
 
 string LevelWar::toString() const
-	throw(Error)
+	
 {
 	StringStream msg;
 

@@ -9,7 +9,7 @@
 #include "Ousters.h"
 
 OustersCorpse::OustersCorpse (Ousters* pOusters)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -22,13 +22,13 @@ OustersCorpse::OustersCorpse (Ousters* pOusters)
 }
 
 OustersCorpse::~OustersCorpse()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 string OustersCorpse::toString ()
-	const throw ()
+	const 
 {
 	__BEGIN_TRY
 

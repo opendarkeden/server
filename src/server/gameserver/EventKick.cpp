@@ -17,7 +17,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EventKick::EventKick(GamePlayer* pGamePlayer) 
-	throw()
+	
 : Event(pGamePlayer)
 {
 //	m_pKickZone = NULL;
@@ -25,7 +25,7 @@ EventKick::EventKick(GamePlayer* pGamePlayer)
 }
 
 EventKick::~EventKick() 
-	throw()
+	
 {
 }
 
@@ -33,7 +33,7 @@ EventKick::~EventKick()
 // affect
 //----------------------------------------------------------------------
 void EventKick::sendMessage()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ void EventKick::sendMessage()
 
 
 void EventKick::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -76,7 +76,7 @@ void EventKick::activate ()
 }
 
 string EventKick::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EventKick("

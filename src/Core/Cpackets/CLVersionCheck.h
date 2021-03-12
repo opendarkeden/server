@@ -27,31 +27,31 @@ class CLVersionCheck : public Packet {
 public:
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CL_VERSION_CHECK; }
+	PacketID_t getPacketID() const  { return PACKET_CL_VERSION_CHECK; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szDWORD; }
+	PacketSize_t getPacketSize() const  { return szDWORD; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CLVersionCheck"; }
+	string getPacketName() const  { return "CLVersionCheck"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set Client Version
-	DWORD getVersion() const throw() { return m_Version; }
-	void setVersion(DWORD Version) throw() { m_Version = Version; }
+	DWORD getVersion() const  { return m_Version; }
+	void setVersion(DWORD Version)  { m_Version = Version; }
 
 private :
 
@@ -74,16 +74,16 @@ class CLVersionCheckFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CLVersionCheck(); }
+	Packet* createPacket()  { return new CLVersionCheck(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CLVersionCheck"; }
+	string getPacketName() const  { return "CLVersionCheck"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CL_VERSION_CHECK; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CL_VERSION_CHECK; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() { return szDWORD; }
+	PacketSize_t getPacketMaxSize() const  { return szDWORD; }
 
 };
 
@@ -99,7 +99,7 @@ class CLVersionCheckHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CLVersionCheck* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CLVersionCheck* pPacket, Player* pPlayer) ;
 
 };
 

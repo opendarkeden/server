@@ -12,7 +12,7 @@
 
 list<FlagWar::FlagGenZone> FlagWar::m_FlagGenInfo;
 
-void FlagWar::execute() throw(Error)
+void FlagWar::execute() 
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void FlagWar::execute() throw(Error)
 	__END_CATCH
 }
 
-void FlagWar::executeReady() throw(Error)
+void FlagWar::executeReady() 
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void FlagWar::addFlagsRandom( ZoneID_t zoneID, uint no )
 	g_pFlagManager->getAllowMap()[zoneID] = no;
 }
 
-void FlagWar::executeStart() throw(Error)
+void FlagWar::executeStart() 
 {
 	__BEGIN_TRY
 
@@ -131,7 +131,7 @@ void FlagWar::executeStart() throw(Error)
 	__END_CATCH
 }
 
-void FlagWar::executeFinish() throw(Error)
+void FlagWar::executeFinish() 
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void FlagWar::executeFinish() throw(Error)
 	__END_CATCH
 }
 
-void FlagWar::executeEnd() throw(Error)
+void FlagWar::executeEnd() 
 {
 	__BEGIN_TRY
 

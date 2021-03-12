@@ -17,25 +17,25 @@
 class EffectShrineShield : public Effect 
 {
 public:
-	EffectShrineShield(Creature* pCreature) throw(Error);
-	EffectShrineShield(Item* pItem) throw(Error);
+	EffectShrineShield(Creature* pCreature) ;
+	EffectShrineShield(Item* pItem) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SHRINE_SHIELD; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_SHRINE_SHIELD; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Item* pItem) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
+	void affect(Item* pItem) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item* pItem) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item* pItem) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	int getTick(void) const { return m_Tick; }
-	void   setTick(Turn_t Tick) throw() { m_Tick = Tick; }
+	void   setTick(Turn_t Tick)  { m_Tick = Tick; }
 
 	int getShrineID() const { return m_ShrineID; }
 	void setShrineID(int id) { m_ShrineID = id; }

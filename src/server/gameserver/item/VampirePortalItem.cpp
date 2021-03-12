@@ -27,7 +27,7 @@ VampirePortalItemLoader*      g_pVampirePortalItemLoader = NULL;
 //////////////////////////////////////////////////////////////////////////////
 
 VampirePortalItem::VampirePortalItem()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ VampirePortalItem::VampirePortalItem()
 }
 
 VampirePortalItem::VampirePortalItem(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -93,14 +93,14 @@ VampirePortalItem::VampirePortalItem(ItemType_t itemType, const list<OptionType_
 }
 
 VampirePortalItem::~VampirePortalItem()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void VampirePortalItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -143,7 +143,7 @@ void VampirePortalItem::create(const string & ownerID, Storage storage, StorageI
 // save item
 //--------------------------------------------------------------------------------
 void VampirePortalItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ void VampirePortalItem::tinysave(const char* field) const
 }
 
 void VampirePortalItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -202,7 +202,7 @@ void VampirePortalItem::save(const string & ownerID, Storage storage, StorageID_
 }
 
 VolumeWidth_t VampirePortalItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -212,7 +212,7 @@ VolumeWidth_t VampirePortalItem::getVolumeWidth() const
 }
 	
 VolumeHeight_t VampirePortalItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -222,7 +222,7 @@ VolumeHeight_t VampirePortalItem::getVolumeHeight() const
 }
 	
 Weight_t VampirePortalItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -232,7 +232,7 @@ Weight_t VampirePortalItem::getWeight() const
 }
 
 string VampirePortalItem::toString() const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -252,7 +252,7 @@ string VampirePortalItem::toString() const
 }
 
 int VampirePortalItem::getMaxCharge(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -264,7 +264,7 @@ int VampirePortalItem::getMaxCharge(void) const
 }
 
 Durability_t VampirePortalItem::getDurability() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -276,7 +276,7 @@ Durability_t VampirePortalItem::getDurability() const
 }
 
 Silver_t VampirePortalItem::getSilver() const 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -286,7 +286,7 @@ Silver_t VampirePortalItem::getSilver() const
 }
 
 EnchantLevel_t VampirePortalItem::getEnchantLevel() const 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -300,7 +300,7 @@ EnchantLevel_t VampirePortalItem::getEnchantLevel() const
 //////////////////////////////////////////////////////////////////////////////
 
 void VampirePortalItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -351,7 +351,7 @@ void VampirePortalItemInfoManager::load()
 }
 
 string VampirePortalItemInfo::toString() const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -376,7 +376,7 @@ string VampirePortalItemInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 void VampirePortalItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -521,7 +521,7 @@ void VampirePortalItemLoader::load(Creature* pCreature)
 }
 
 void VampirePortalItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -584,7 +584,7 @@ void VampirePortalItemLoader::load(Zone* pZone)
 }
 
 void VampirePortalItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

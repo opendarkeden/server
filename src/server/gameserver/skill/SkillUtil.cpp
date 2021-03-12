@@ -124,7 +124,7 @@ public:
 
 void
 checkFreeLevelLimit( PlayerCreature* pPC ) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

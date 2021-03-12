@@ -21,7 +21,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectContinualGroundAttack::EffectContinualGroundAttack (Zone* pZone , EffectClass attackEffect, Turn_t delay) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -50,14 +50,14 @@ EffectContinualGroundAttack::EffectContinualGroundAttack (Zone* pZone , EffectCl
 // destructor
 //----------------------------------------------------------------------
 EffectContinualGroundAttack::~EffectContinualGroundAttack () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectContinualGroundAttack::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -177,7 +177,7 @@ void EffectContinualGroundAttack::affect()
 // unaffect()
 //--------------------------------------------------------------------
 void EffectContinualGroundAttack::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -188,7 +188,7 @@ void EffectContinualGroundAttack::unaffect()
 // get debug string
 //----------------------------------------------------------------------
 string EffectContinualGroundAttack::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

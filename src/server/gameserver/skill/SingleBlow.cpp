@@ -11,7 +11,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SingleBlow::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void SingleBlow::execute(Slayer * pSlayer, ObjectID_t TargetObjectID, SkillSlot 
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SingleBlow::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

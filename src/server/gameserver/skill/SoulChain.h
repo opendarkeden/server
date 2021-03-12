@@ -23,9 +23,9 @@ public:
     string getSkillHandlerName() const throw() { return "SoulChain"; }
 	SkillType_t getSkillType() const throw() { return SKILL_SOUL_CHAIN; }
 
-	void execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

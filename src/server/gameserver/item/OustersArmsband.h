@@ -23,52 +23,52 @@
 class OustersArmsband : public ConcreteItem<Item::ITEM_CLASS_OUSTERS_ARMSBAND, NoStack, HasDurability, HasOption, GroceryGrade, NoAttacking> 
 {
 public:
-	OustersArmsband() throw();
-	OustersArmsband(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
-	~OustersArmsband() throw();
+	OustersArmsband() ;
+	OustersArmsband(ItemType_t itemType, const list<OptionType_t>& optionType) ;
+	~OustersArmsband() ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual bool destroy() throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual bool destroy() ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
-
-public:
-//	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
-//	virtual string getObjectTableName() const throw() { return "OustersArmsbandObject"; }
-
-/*	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
-
-	virtual bool hasOptionType() const throw() { return !m_OptionType.empty(); }
-	virtual int getOptionTypeSize() const throw() { return m_OptionType.size(); }
-	virtual int getRandomOptionType() const throw() { if (m_OptionType.empty()) return 0; int pos = rand()%m_OptionType.size(); list<OptionType_t>::const_iterator itr = m_OptionType.begin(); for (int i=0; i<pos; i++) itr++; return *itr; }
-	virtual const list<OptionType_t>& getOptionTypeList() const throw() { return m_OptionType; }
-	virtual OptionType_t getFirstOptionType() const throw() { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
-	virtual void removeOptionType(OptionType_t OptionType) throw() { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
-	virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType) throw() { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
-	virtual void addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
-	virtual void setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
-
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual Durability_t getDurability() const throw(Error) { return m_Durability; }
-	void setDurability(Durability_t durability) throw(Error) { m_Durability = durability; }
+//	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
+//	virtual string getObjectTableName() const  { return "OustersArmsbandObject"; }
+
+/*	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
+
+	virtual bool hasOptionType() const  { return !m_OptionType.empty(); }
+	virtual int getOptionTypeSize() const  { return m_OptionType.size(); }
+	virtual int getRandomOptionType() const  { if (m_OptionType.empty()) return 0; int pos = rand()%m_OptionType.size(); list<OptionType_t>::const_iterator itr = m_OptionType.begin(); for (int i=0; i<pos; i++) itr++; return *itr; }
+	virtual const list<OptionType_t>& getOptionTypeList() const  { return m_OptionType; }
+	virtual OptionType_t getFirstOptionType() const  { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
+	virtual void removeOptionType(OptionType_t OptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
+	virtual void changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
+	virtual void addOptionType(OptionType_t OptionType)  { m_OptionType.push_back(OptionType); }
+	virtual void setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
+
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
+
+public:
+	virtual Durability_t getDurability() const  { return m_Durability; }
+	void setDurability(Durability_t durability)  { m_Durability = durability; }
 */
-	void setInventory(Inventory* pInventory) throw() { m_pInventory = pInventory; }
-	Inventory* getInventory() const throw() { return m_pInventory; }
+	void setInventory(Inventory* pInventory)  { m_pInventory = pInventory; }
+	Inventory* getInventory() const  { return m_pInventory; }
 
-	PocketNum_t getPocketCount(void) const throw();
+	PocketNum_t getPocketCount(void) const ;
 
-/*	virtual Defense_t getDefenseBonus() const throw(Error);
-	virtual Protection_t getProtectionBonus() const throw(Error);
+/*	virtual Defense_t getDefenseBonus() const ;
+	virtual Protection_t getProtectionBonus() const ;
 */
 	void makePCItemInfo(PCItemInfo& result) const;
 
@@ -90,24 +90,24 @@ private:
 class OustersArmsbandInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
 
-	virtual Durability_t getDurability() const throw() { return m_Durability; }
-	virtual void setDurability(Durability_t durability) throw() { m_Durability = durability; }
+	virtual Durability_t getDurability() const  { return m_Durability; }
+	virtual void setDurability(Durability_t durability)  { m_Durability = durability; }
 
-	uint getPocketCount() const throw() { return m_PocketCount; }
-	void setPocketCount(uint pocketCount) throw() { m_PocketCount = pocketCount; }
+	uint getPocketCount() const  { return m_PocketCount; }
+	void setPocketCount(uint pocketCount)  { m_PocketCount = pocketCount; }
 
-	Defense_t getDefenseBonus() const throw() { return m_DefenseBonus; }
-	void setDefenseBonus(Defense_t acBonus) throw() { m_DefenseBonus = acBonus; }
+	Defense_t getDefenseBonus() const  { return m_DefenseBonus; }
+	void setDefenseBonus(Defense_t acBonus)  { m_DefenseBonus = acBonus; }
 
-	Protection_t getProtectionBonus() const throw() { return m_ProtectionBonus; }
-	void setProtectionBonus(Protection_t acBonus) throw() { m_ProtectionBonus = acBonus; }
+	Protection_t getProtectionBonus() const  { return m_ProtectionBonus; }
+	void setProtectionBonus(Protection_t acBonus)  { m_ProtectionBonus = acBonus; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	Durability_t	m_Durability;		// ³»±¸¼º
@@ -125,8 +125,8 @@ private:
 class OustersArmsbandInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
+	virtual void load() ;
 };
 
 // global variable declaration
@@ -140,11 +140,11 @@ extern OustersArmsbandInfoManager* g_pOustersArmsbandInfoManager;
 class OustersArmsbandFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
-	virtual string getItemClassName() const throw() { return "OustersArmsband"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
+	virtual string getItemClassName() const  { return "OustersArmsband"; }
 
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new OustersArmsband(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new OustersArmsband(ItemType,OptionType); }
 };
 
 
@@ -155,13 +155,13 @@ public:
 class OustersArmsbandLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
-	virtual string getItemClassName() const throw() { return "OustersArmsband"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_OUSTERS_ARMSBAND; }
+	virtual string getItemClassName() const  { return "OustersArmsband"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern OustersArmsbandLoader* g_pOustersArmsbandLoader;

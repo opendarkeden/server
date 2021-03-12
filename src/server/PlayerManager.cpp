@@ -21,7 +21,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 PlayerManager::PlayerManager () 
-	throw ()
 : m_nPlayers(0)
 {
 	__BEGIN_TRY
@@ -42,7 +41,6 @@ PlayerManager::PlayerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 PlayerManager::~PlayerManager () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -62,7 +60,6 @@ PlayerManager::~PlayerManager ()
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::broadcastPacket ( Packet * pPacket )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -84,7 +81,6 @@ void PlayerManager::broadcastPacket ( Packet * pPacket )
 // 특정 플레이어를 매니저에 추가한다.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::addPlayer ( Player * pPlayer ) 
-	throw ( DuplicatedException , Error )
 {
 	__BEGIN_TRY
 
@@ -119,7 +115,6 @@ void PlayerManager::addPlayer ( Player * pPlayer )
 // 객체는 삭제하지 않으며, 슬랏만을 NULL로 만든다.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::deletePlayer ( SOCKET fd ) 
-	throw ( OutOfBoundException , NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 
@@ -145,7 +140,6 @@ void PlayerManager::deletePlayer ( SOCKET fd )
 // 특정 플레이어 객체를 가져온다.
 //////////////////////////////////////////////////////////////////////
 Player * PlayerManager::getPlayer ( SOCKET fd ) 
-	throw ( OutOfBoundException , NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 
@@ -166,7 +160,6 @@ Player * PlayerManager::getPlayer ( SOCKET fd )
 // 플레이어를 복사한다.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::copyPlayers()
-	throw()
 {
 	__BEGIN_TRY
 

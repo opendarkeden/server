@@ -26,30 +26,30 @@ struct OPTION_RATIO
 class InfoClassManager 
 {
 public:
-	InfoClassManager() throw();
-	virtual ~InfoClassManager() throw();
+	InfoClassManager() ;
+	virtual ~InfoClassManager() ;
 
 public:
-	virtual Item::ItemClass getItemClass() const throw() = 0;
+	virtual Item::ItemClass getItemClass() const  = 0;
 	
-	void init() throw(Error);
-	void reload() throw(Error);
+	void init() ;
+	void reload() ;
 
-	virtual void load() throw(Error) = 0;
+	virtual void load()  = 0;
 
-	void addItemInfo(ItemInfo* pItemInfo) throw(DuplicatedException, Error);
-	ItemInfo* getItemInfo(ItemType_t ItemType) const throw(NoSuchElementException, Error);
-	uint getInfoCount() const throw() { return m_InfoCount + 1; }
+	void addItemInfo(ItemInfo* pItemInfo) ;
+	ItemInfo* getItemInfo(ItemType_t ItemType) const ;
+	uint getInfoCount() const  { return m_InfoCount + 1; }
 
-	void removeAllItemInfo() throw(Error);
+	void removeAllItemInfo() ;
 
 	// for Mysterious Item
-	ItemType_t  getRandomItemType() const throw (Error);
+	ItemType_t  getRandomItemType() const ;
 
 	Price_t		getAveragePrice() const 	{ return m_AveragePrice; }
 
 
-	string toString() const throw();
+	string toString() const ;
 
 protected:
 	uint       m_InfoCount;  // #아이템정보

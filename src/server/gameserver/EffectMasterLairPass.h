@@ -16,22 +16,22 @@
 class EffectMasterLairPass : public Effect 
 {
 public:
-	EffectMasterLairPass(Creature* pCreature, ZoneID_t zoneID) throw(Error);
+	EffectMasterLairPass(Creature* pCreature, ZoneID_t zoneID) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MASTER_LAIR_PASS; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_MASTER_LAIR_PASS; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	ZoneID_t    getZoneID(void) const { return m_ZoneID; }
-	void   setZoneID(ZoneID_t zoneID) throw() { m_ZoneID = zoneID; }
+	void   setZoneID(ZoneID_t zoneID)  { m_ZoneID = zoneID; }
 
 private:
 	ZoneID_t m_ZoneID; 

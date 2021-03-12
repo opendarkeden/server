@@ -24,14 +24,14 @@ Mutex    Persona::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Persona::Persona()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
 }
 
 Persona::Persona(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -50,7 +50,7 @@ Persona::Persona(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Persona::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ void Persona::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void Persona::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void Persona::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Persona::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -152,7 +152,7 @@ void Persona::save(const string & ownerID, Storage storage, StorageID_t storageI
 // get debug string
 //--------------------------------------------------------------------------------
 string Persona::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -171,7 +171,7 @@ string Persona::toString() const
 // get debug string
 //--------------------------------------------------------------------------------
 string PersonaInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string PersonaInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void PersonaInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -258,7 +258,7 @@ void PersonaInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void PersonaLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -408,7 +408,7 @@ void PersonaLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void PersonaLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -420,7 +420,7 @@ void PersonaLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void PersonaLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

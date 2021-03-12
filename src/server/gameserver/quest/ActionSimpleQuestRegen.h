@@ -22,14 +22,14 @@
 class ActionSimpleQuestRegen : public Action 
 {
 public:
-	ActionSimpleQuestRegen() throw();
-	virtual ~ActionSimpleQuestRegen() throw();
+	ActionSimpleQuestRegen() ;
+	virtual ~ActionSimpleQuestRegen() ;
 	
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SIMPLE_QUEST_REGEN; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SIMPLE_QUEST_REGEN; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 private :
 	Timeval                m_Period;    // 상점을 리젠할 주기
@@ -45,9 +45,9 @@ private :
 class ActionSimpleQuestRegenFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_SIMPLE_QUEST_REGEN; }
-	virtual string getActionName() const throw() { return "SimpleQuestRegen"; }
-	virtual Action* createAction() const throw() { return new ActionSimpleQuestRegen(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_SIMPLE_QUEST_REGEN; }
+	virtual string getActionName() const  { return "SimpleQuestRegen"; }
+	virtual Action* createAction() const  { return new ActionSimpleQuestRegen(); }
 
 };
 #endif

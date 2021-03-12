@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 Sector::Sector() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ Sector::Sector()
 }
 
 Sector::~Sector() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ Sector::~Sector()
 }
 
 void Sector::addObject(Object* pObject) 
-	throw (DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void Sector::addObject(Object* pObject)
 }
 
 void Sector::deleteObject(ObjectID_t id) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void Sector::deleteObject(ObjectID_t id)
 }
 
 Object* Sector::getObject(ObjectID_t id) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -86,7 +86,7 @@ Object* Sector::getObject(ObjectID_t id)
 }
 
 Sector* Sector::getNearbySector(uint dir) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -97,7 +97,7 @@ Sector* Sector::getNearbySector(uint dir)
 }
 
 void Sector::setNearbySector(uint dir, Sector* pSector) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -108,7 +108,7 @@ void Sector::setNearbySector(uint dir, Sector* pSector)
 }
 
 string Sector::toString(void) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

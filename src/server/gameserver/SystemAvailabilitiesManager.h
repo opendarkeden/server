@@ -53,7 +53,7 @@ public:
 		SYSTEM_MAX
 	};
 
-	void load() throw(Error);
+	void load() ;
 
 	bool isAvailable( SystemKind kind ) const { return m_SystemFlags.test(kind); }
 	void setAvailable( SystemKind kind, bool avail = true ) {
@@ -81,7 +81,7 @@ public:
 		return &theInstance;
 	}
 
-	static void AssertAvailable( SystemKind kind, const string& msg ) throw (DisconnectException)
+	static void AssertAvailable( SystemKind kind, const string& msg ) 
 	{
 		if ( getInstance()->isAvailable( kind ) ) return;
 		filelog( "SystemAvailabilities.log", msg.c_str() );

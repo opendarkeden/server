@@ -16,15 +16,15 @@
 class EffectRefiniumTicket : public Effect 
 {
 public:
-	EffectRefiniumTicket(Creature* pCreature) throw(Error);
+	EffectRefiniumTicket(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REFINIUM_TICKET; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_REFINIUM_TICKET; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	void setExit( uint exit ) { m_Exit = exit; }
 	uint getExit() const { return m_Exit; }
@@ -37,7 +37,7 @@ public:
 	void setPrevExitX( ZoneCoord_t PrevExitX ) { m_PrevExitX=PrevExitX; }
 	void setPrevExitY( ZoneCoord_t PrevExitY ) { m_PrevExitY=PrevExitY; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Exit;

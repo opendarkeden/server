@@ -16,7 +16,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ void NymphRecovery::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ouster
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void NymphRecovery::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

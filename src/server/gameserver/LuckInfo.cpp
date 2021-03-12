@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 LuckInfoManager::LuckInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ LuckInfoManager::LuckInfoManager()
 }
 
 LuckInfoManager::~LuckInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -42,7 +42,7 @@ LuckInfoManager::~LuckInfoManager()
 }
 
 void LuckInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

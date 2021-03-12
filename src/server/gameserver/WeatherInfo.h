@@ -18,16 +18,16 @@ class WeatherInfo
 {
 public:
 	// 확률값을 파라미터로 넘겨주면, 오늘의 날씨를 리턴한다.
-	Weather getWeather(uint probability) const throw();
+	Weather getWeather(uint probability) const ;
 
 	// 특정 날씨의 확률을 리턴한다.
-	uint getProbability(Weather weather) const throw() { return m_Probabilities[weather]; }
+	uint getProbability(Weather weather) const  { return m_Probabilities[weather]; }
 
 	// 특정 날씨의 확률을 지정한다.
-	void setProbability(Weather weather, uint prob) throw() { m_Probabilities[weather] = prob; }
+	void setProbability(Weather weather, uint prob)  { m_Probabilities[weather] = prob; }
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Probabilities[WEATHER_MAX];
@@ -45,23 +45,23 @@ class WeatherInfoManager
 {
 public:
 	// init vision info
-	void init() throw(Error) { load(); }
+	void init()  { load(); }
 
 	// load from database
-	void load() throw(Error);
+	void load() ;
 
 	// save to database
-	void save() throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	void save()  { throw UnsupportedError(__PRETTY_FUNCTION__); }
 
 	// get vision info
-	const WeatherInfo & getWeatherInfo(int month) const throw(OutOfBoundException)
+	const WeatherInfo & getWeatherInfo(int month) const 
 	{
 		if(month > 12) throw OutOfBoundException("too large month value");
 		return m_WeatherInfos[ month - 1 ];
 	}
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	// WeatherInfo의 이차원 배열

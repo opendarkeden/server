@@ -20,19 +20,19 @@ class Slayer;
 class EffectRevealer : public Effect 
 {
 public:
-	EffectRevealer(Creature* pCreature) throw(Error);
+	EffectRevealer(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REVEALER; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item* pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 
@@ -40,9 +40,9 @@ public:
 public:
 	void setSkillLevel( ExpLevel_t level ) throw() { m_SkillLevel = level; }
 
-	bool canSeeHide( Creature* pTarget ) const throw(Error);
-	bool canSeeSniping( Creature* pTarget ) const throw(Error);
-	bool canSeeInvisibility( Creature* pTarget ) const throw(Error);
+	bool canSeeHide( Creature* pTarget ) const ;
+	bool canSeeSniping( Creature* pTarget ) const ;
+	bool canSeeInvisibility( Creature* pTarget ) const ;
 
 
 private:

@@ -37,8 +37,8 @@ public:
 	void deleteGameServerInfo ( const ServerID_t ServerID, const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) ;
 	//GameServerInfo * getGameServerInfo ( const string & name ) const throw ( NoSuchElementException );
 	GameServerInfo * getGameServerInfo ( const ServerID_t ServerID, const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const ;
-	uint getSize ( WorldID_t WorldID, const ServerGroupID_t ServerGroupID ) const throw () { return m_pGameServerInfos[WorldID][ServerGroupID].size(); }
-	string toString () const throw ();
+	uint getSize ( WorldID_t WorldID, const ServerGroupID_t ServerGroupID ) const  { return m_pGameServerInfos[WorldID][ServerGroupID].size(); }
+	string toString () const ;
 
 	// by sigi. 2002.5.30
 	int						getMaxWorldID() const		{ return m_MaxWorldID; }

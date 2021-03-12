@@ -16,18 +16,18 @@
 class EffectDonation200501 : public Effect 
 {
 public:
-	EffectDonation200501(Creature* pCreature) throw(Error);
+	EffectDonation200501(Creature* pCreature) ;
 
 public:
-	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DONATION_200501; }
+	EffectClass getEffectClass() const  { return EFFECT_CLASS_DONATION_200501; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 };

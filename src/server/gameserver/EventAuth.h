@@ -16,18 +16,18 @@
 class EventAuth : public Event 
 {
 public:
-	EventAuth(GamePlayer* pGamePlayer) throw(Error);
-	virtual ~EventAuth() throw();
+	EventAuth(GamePlayer* pGamePlayer) ;
+	virtual ~EventAuth() ;
 
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_AUTH; }
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_AUTH; }
 
-	virtual bool isTemporary() const throw() { return false; }
-	virtual bool isPermanent() const throw() { return true; }
+	virtual bool isTemporary() const  { return false; }
+	virtual bool isPermanent() const  { return true; }
 
-	virtual void activate() throw(Error);
+	virtual void activate() ;
 
-	virtual string toString() const throw() { return "Auth Event"; }
+	virtual string toString() const  { return "Auth Event"; }
 };
 
 #endif

@@ -16,19 +16,19 @@
 class EffectGrandMasterVampire : public Effect 
 {
 public:
-	EffectGrandMasterVampire(Creature* pCreature) throw(Error);
+	EffectGrandMasterVampire(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GRAND_MASTER_VAMPIRE; }
-	EffectClass getSendEffectClass() const throw();
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_GRAND_MASTER_VAMPIRE; }
+	EffectClass getSendEffectClass() const ;
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 };

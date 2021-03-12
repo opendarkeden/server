@@ -28,25 +28,25 @@ class PlayerCreature;
 class ResurrectLocationManager
 {
 public:
-	ResurrectLocationManager() throw();
-	~ResurrectLocationManager() throw();
+	ResurrectLocationManager() ;
+	~ResurrectLocationManager() ;
 
 public:
-	void init() throw();
-	void load() throw();
+	void init() ;
+	void load() ;
 
 public:
-	bool getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const throw();//NoSuchElementException);
-	bool getVampirePosition(ZoneID_t id, ZONE_COORD& zoneCoord) const throw();//NoSuchElementException);
-	bool getOustersPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const throw();//NoSuchElementException);
-	bool getRaceDefaultPosition(Race_t, ZONE_COORD& zoneCoord) const throw();
+	bool getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const ;//NoSuchElementException);
+	bool getVampirePosition(ZoneID_t id, ZONE_COORD& zoneCoord) const ;//NoSuchElementException);
+	bool getOustersPosition(ZoneID_t id, ZONE_COORD& zoneCoord) const ;//NoSuchElementException);
+	bool getRaceDefaultPosition(Race_t, ZONE_COORD& zoneCoord) const ;
 
-	bool getPosition(PlayerCreature* pPC, ZONE_COORD& zondCoord) const throw(Error);
-	bool getBasicPosition(PlayerCreature* pPC, ZONE_COORD& zondCoord) const throw(Error);
+	bool getPosition(PlayerCreature* pPC, ZONE_COORD& zondCoord) const ;
+	bool getBasicPosition(PlayerCreature* pPC, ZONE_COORD& zondCoord) const ;
 
-	void addSlayerPosition(ZoneID_t id, const ZONE_COORD& coord) throw(DuplicatedException, Error);
-	void addVampirePosition(ZoneID_t id, const ZONE_COORD& coord) throw(DuplicatedException, Error);
-	void addOustersPosition(ZoneID_t id, const ZONE_COORD& coord) throw(DuplicatedException, Error);
+	void addSlayerPosition(ZoneID_t id, const ZONE_COORD& coord) ;
+	void addVampirePosition(ZoneID_t id, const ZONE_COORD& coord) ;
+	void addOustersPosition(ZoneID_t id, const ZONE_COORD& coord) ;
 
 
 protected:

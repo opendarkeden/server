@@ -387,7 +387,7 @@ bool canGiveEventItem( PlayerCreature* pPC, Monster* pMonster )
 }
 
 void logEventItemCount(Item* pEventItem)
-	throw(Error)
+	
 {
 	if ( pEventItem == NULL ) return;
 

@@ -38,16 +38,16 @@ public:
 
 public:
 	bool			isTargetMonster( PlayerCreautre* pPC, Monster* pMonster ) const;
-	Item*			getLootingItem() const throw(Error);
+	Item*			getLootingItem() const ;
 };
 
 class EventQuestLootingManager
 {
 public:
 	bool			isTargetMonster( PlayerCreature* pPC, Monster* pMonster ) const;
-	bool			killed( PlayerCreature* pPC, Monster* pMonster ) const throw(Error);
+	bool			killed( PlayerCreature* pPC, Monster* pMonster ) const ;
 
-	void 			load() throw(Error);
+	void 			load() ;
 private:
 	map<ZoneID_t,vector<EventQuestLootingInfo*> >	m_ZoneLootingInfo;
 	map<MonsterType_t,vector<EventQuestLootingInfo*> >	m_MonsterLootingInfo;

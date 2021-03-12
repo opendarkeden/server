@@ -11,7 +11,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectCauseCriticalWounds::EffectCauseCriticalWounds( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -21,7 +21,7 @@ EffectCauseCriticalWounds::EffectCauseCriticalWounds( Creature* pCreature )
 }
 
 void EffectCauseCriticalWounds::affect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -32,14 +32,14 @@ void EffectCauseCriticalWounds::affect()
 }
 
 void EffectCauseCriticalWounds::affect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectCauseCriticalWounds::unaffect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void EffectCauseCriticalWounds::unaffect( Creature* pCreature )
 }
 
 void EffectCauseCriticalWounds::unaffect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 

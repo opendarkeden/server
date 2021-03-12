@@ -31,30 +31,30 @@ class GCAddSlayer : public Packet
 public:
 	GCAddSlayer();
 	GCAddSlayer(const PCSlayerInfo3 & slayerInfo);
-	virtual ~GCAddSlayer() throw();
+	virtual ~GCAddSlayer() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_SLAYER; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCAddSlayer"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_SLAYER; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCAddSlayer"; }
+	string toString() const ;
 
 public:
-	PCSlayerInfo3 & getSlayerInfo() throw() { return m_SlayerInfo; }
-	const PCSlayerInfo3 & getSlayerInfo() const throw() { return m_SlayerInfo; }
-	void setSlayerInfo(const PCSlayerInfo3 & slayerInfo) throw() { m_SlayerInfo = slayerInfo; }
+	PCSlayerInfo3 & getSlayerInfo()  { return m_SlayerInfo; }
+	const PCSlayerInfo3 & getSlayerInfo() const  { return m_SlayerInfo; }
+	void setSlayerInfo(const PCSlayerInfo3 & slayerInfo)  { m_SlayerInfo = slayerInfo; }
 
-	EffectInfo* getEffectInfo() const throw() { return m_pEffectInfo; }
-	void setEffectInfo(EffectInfo* pEffectInfo) throw() { m_pEffectInfo = pEffectInfo; }
+	EffectInfo* getEffectInfo() const  { return m_pEffectInfo; }
+	void setEffectInfo(EffectInfo* pEffectInfo)  { m_pEffectInfo = pEffectInfo; }
 
-	PetInfo* getPetInfo() const throw() { return m_pPetInfo; }
-	void setPetInfo(PetInfo* pPetInfo) throw() { m_pPetInfo = pPetInfo; }
+	PetInfo* getPetInfo() const  { return m_pPetInfo; }
+	void setPetInfo(PetInfo* pPetInfo)  { m_pPetInfo = pPetInfo; }
 
-	NicknameInfo* getNicknameInfo() const throw() { return m_pNicknameInfo; }
-	void setNicknameInfo(NicknameInfo* pNicknameInfo) throw() { m_pNicknameInfo = pNicknameInfo; }
+	NicknameInfo* getNicknameInfo() const  { return m_pNicknameInfo; }
+	void setNicknameInfo(NicknameInfo* pNicknameInfo)  { m_pNicknameInfo = pNicknameInfo; }
 
 	StoreOutlook	getStoreOutlook() const { return m_StoreOutlook; }
 	void		setStoreInfo(StoreInfo* pInfo) { pInfo->makeStoreOutlook(m_StoreOutlook); }
@@ -74,10 +74,10 @@ private:
 class GCAddSlayerFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCAddSlayer(); }
-	string getPacketName() const throw() { return "GCAddSlayer"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_SLAYER; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCAddSlayer(); }
+	string getPacketName() const  { return "GCAddSlayer"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_SLAYER; }
+	PacketSize_t getPacketMaxSize() const 
 	{ 
 		return PCSlayerInfo3::getMaxSize() + EffectInfo::getMaxSize() + PetInfo::getMaxSize() + NicknameInfo::getMaxSize() + StoreOutlook::getMaxSize();
 	}
@@ -90,7 +90,7 @@ public:
 class GCAddSlayerHandler 
 {
 public:
-	static void execute(GCAddSlayer* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddSlayer* pPacket, Player* pPlayer) ;
 };
 
 #endif

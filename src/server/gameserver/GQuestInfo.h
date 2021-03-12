@@ -55,7 +55,7 @@ class GQuestInfoManager
 public:
 	GQuestInfoManager() : m_pXMLInfo(NULL) { }
 
-	void load() throw(Error);
+	void load() ;
 	static GQuestInfoManager&	Instance()
 	{
 		static GQuestInfoManager theInstance;

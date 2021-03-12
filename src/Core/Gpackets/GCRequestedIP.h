@@ -32,14 +32,14 @@ public:
 	string toString () const throw ();
 
 public:
-	string getName() const throw() { return m_Name;}
-	void setName( const char* pName) throw(Error) { m_Name = pName;}
+	string getName() const  { return m_Name;}
+	void setName( const char* pName)  { m_Name = pName;}
 
-	void setIP(IP_t ip) throw() { m_IP = ip; }
-	IP_t getIP() const throw() { return m_IP; }
+	void setIP(IP_t ip)  { m_IP = ip; }
+	IP_t getIP() const  { return m_IP; }
 
-	void setPort(uint port) throw() { m_Port = port; }
-	uint getPort() const throw() { return m_Port; }
+	void setPort(uint port)  { m_Port = port; }
+	uint getPort() const  { return m_Port; }
 
 protected:
 	string m_Name;

@@ -16,7 +16,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Berserker::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

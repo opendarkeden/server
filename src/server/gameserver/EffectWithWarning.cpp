@@ -18,7 +18,7 @@
 #include "ZoneUtil.h"
 #include "Utility.h"
 
-Effect::EffectClass EffectWithWarning::getEffectClass() const throw()
+Effect::EffectClass EffectWithWarning::getEffectClass() const 
 {
 	if ( m_State ) return m_MainEffect;
 	return m_SignEffect;
@@ -43,7 +43,7 @@ void EffectWithWarning::start()
 //	cout << m_pZone->getZoneID() << ", " << m_X << ", " << m_Y << endl;
 }
 
-void EffectWithWarning::affect() throw(Error)
+void EffectWithWarning::affect() 
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void EffectWithWarning::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectWithWarning::unaffect() throw(Error)
+void EffectWithWarning::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -93,7 +93,7 @@ void EffectWithWarning::unaffect() throw(Error)
 	__END_CATCH
 }
 
-void EffectIcicle::affect() throw(Error)
+void EffectIcicle::affect() 
 {
 	__BEGIN_TRY
 
@@ -191,7 +191,7 @@ void EffectIcicle::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectLargeIcicle::affect() throw(Error)
+void EffectLargeIcicle::affect() 
 {
 	__BEGIN_TRY
 
@@ -282,7 +282,7 @@ void EffectLargeIcicle::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectSideTrap::affect() throw(Error)
+void EffectSideTrap::affect() 
 {
 	__BEGIN_TRY
 

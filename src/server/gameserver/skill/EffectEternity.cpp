@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectEternity::EffectEternity(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -28,14 +28,14 @@ EffectEternity::EffectEternity(Creature* pCreature)
 }
 
 void EffectEternity::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectEternity::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -54,7 +54,7 @@ void EffectEternity::unaffect()
 }
 
 void EffectEternity::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

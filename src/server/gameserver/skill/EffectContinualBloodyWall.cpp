@@ -19,7 +19,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectContinualBloodyWall::EffectContinualBloodyWall (Zone* pZone) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -43,14 +43,14 @@ EffectContinualBloodyWall::EffectContinualBloodyWall (Zone* pZone)
 // destructor
 //----------------------------------------------------------------------
 EffectContinualBloodyWall::~EffectContinualBloodyWall () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectContinualBloodyWall::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +98,7 @@ void EffectContinualBloodyWall::affect()
 // unaffect()
 //--------------------------------------------------------------------
 void EffectContinualBloodyWall::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -128,7 +128,7 @@ string EffectContinualBloodyWall::toString () const
 }
 
 void EffectContinualBloodyWallLoader::load(Zone* pZone)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

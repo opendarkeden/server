@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 GameWorldInfoManager::GameWorldInfoManager () 
-	throw ()
+	
 {
 }
 	
@@ -26,7 +26,7 @@ GameWorldInfoManager::GameWorldInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 GameWorldInfoManager::~GameWorldInfoManager () 
-	throw ()
+	
 {
 	// hashmap 안의 각 pair 의 second, 즉 GameWorldInfo 객체만을 삭제하고
 	// pair 자체는 그대로 둔다. (GameWorldInfo가 힙에 생성되어 있다는 것에
@@ -48,7 +48,7 @@ GameWorldInfoManager::~GameWorldInfoManager ()
 // initialize GSIM
 //----------------------------------------------------------------------
 void GameWorldInfoManager::init ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ void GameWorldInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void GameWorldInfoManager::load ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void GameWorldInfoManager::load ()
 // clear info 
 //----------------------------------------------------------------------
 void GameWorldInfoManager::clear()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,6 @@ void GameWorldInfoManager::clear()
 // add info 
 //----------------------------------------------------------------------
 void GameWorldInfoManager::addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) 
-	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -153,7 +152,6 @@ void GameWorldInfoManager::addGameWorldInfo ( GameWorldInfo * pGameWorldInfo )
 // delete info
 //----------------------------------------------------------------------
 void GameWorldInfoManager::deleteGameWorldInfo ( const WorldID_t ID ) 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -181,7 +179,6 @@ void GameWorldInfoManager::deleteGameWorldInfo ( const WorldID_t ID )
 // get Worldinfo by WorldID
 //----------------------------------------------------------------------
 GameWorldInfo * GameWorldInfoManager::getGameWorldInfo ( const WorldID_t ID ) const
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -205,7 +202,7 @@ GameWorldInfo * GameWorldInfoManager::getGameWorldInfo ( const WorldID_t ID ) co
 // get debug string
 //----------------------------------------------------------------------
 string GameWorldInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

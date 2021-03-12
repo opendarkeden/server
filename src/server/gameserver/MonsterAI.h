@@ -63,31 +63,31 @@ class MonsterAI
 public:
 
 public:
-	MonsterAI(Monster* pMonster, uint type) throw();
-	virtual ~MonsterAI() throw();
+	MonsterAI(Monster* pMonster, uint type) ;
+	virtual ~MonsterAI() ;
 
 public:
 	// 데이터 함수
-	bool getDamaged(void) const throw() { return m_bDamaged; }
-	void setDamaged(bool value) throw() { m_bDamaged = value; }
+	bool getDamaged(void) const  { return m_bDamaged; }
+	void setDamaged(bool value)  { m_bDamaged = value; }
 
 	// 다이렉티브 관련 함수
-	void addDirective(Directive* pDirective) throw();
+	void addDirective(Directive* pDirective) ;
 
 	// 조건 함수
-	bool checkCondition(int condition, Creature* pEnemy) throw();
-	bool checkDirective(Directive* pDirective, Creature* pEnemy) throw();
+	bool checkCondition(int condition, Creature* pEnemy) ;
+	bool checkDirective(Directive* pDirective, Creature* pEnemy) ;
 
 	// 행동 함수 
-	bool move(ZoneCoord_t ex, ZoneCoord_t ey) throw();
-	bool move(Creature* pEnemy, bool bRetreat=false) throw();
-	bool approach(Creature* pEnemy) throw() { return move(pEnemy, false); }
-	bool flee(Creature* pEnemy) throw();
-	int  useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio) throw();
+	bool move(ZoneCoord_t ex, ZoneCoord_t ey) ;
+	bool move(Creature* pEnemy, bool bRetreat=false) ;
+	bool approach(Creature* pEnemy)  { return move(pEnemy, false); }
+	bool flee(Creature* pEnemy) ;
+	int  useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio) ;
 
 	// 이동 함수
-	bool moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir) throw();
-	bool moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir, bool bLeft) throw();
+	bool moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir) ;
+	bool moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir, bool bLeft) ;
 	void setMoveRule(MoveRule mr) { m_MoveRule = mr; m_WallCount = 0; }
 
 	// 벽타기 --
@@ -95,12 +95,12 @@ public:
 	int			getWallCount() const		{ return m_WallCount; }
 
 	// 행동 패턴 선택 함수 
-	void deal(Creature* pEnemy, const Timeval& currentTime) throw();
-	void actDeadAction(Creature* pEnemy) throw();
+	void deal(Creature* pEnemy, const Timeval& currentTime) ;
+	void actDeadAction(Creature* pEnemy) ;
 
 	// 딜레이 관련 함수
-	void setDelay(const Timeval& currentTime) throw();
-	void setAttackDelay(const Timeval& currentTime) throw();
+	void setDelay(const Timeval& currentTime) ;
+	void setAttackDelay(const Timeval& currentTime) ;
 
 	bool canAttackAir() const { return m_pDirectiveSet->canAttackAir(); }
 	bool canSeeSafeZone() const { return m_pDirectiveSet->canSeeSafeZone(); }

@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectHellFireToEnemy::EffectHellFireToEnemy(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ EffectHellFireToEnemy::EffectHellFireToEnemy(Creature* pCreature)
 }
 
 void EffectHellFireToEnemy::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void EffectHellFireToEnemy::affect()
 }
 
 void EffectHellFireToEnemy::affect(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -91,7 +91,7 @@ void EffectHellFireToEnemy::affect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHellFireToEnemy::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -123,7 +123,7 @@ void EffectHellFireToEnemy::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectHellFireToEnemy::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -30,14 +30,14 @@
 #include "EffectCanEnterGDRLair.h"
 
 EffectLoaderManager::EffectLoaderManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 EffectLoaderManager::~EffectLoaderManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ EffectLoaderManager::~EffectLoaderManager ()
 }
 
 void EffectLoaderManager::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void EffectLoaderManager::init ()
 }
 
 void EffectLoaderManager::load (Slayer* pSlayer) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -108,7 +108,7 @@ void EffectLoaderManager::load (Slayer* pSlayer)
 }
 
 void EffectLoaderManager::load (Vampire* pVampire) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void EffectLoaderManager::load (Vampire* pVampire)
 }
 
 void EffectLoaderManager::load (Ousters* pOusters) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void EffectLoaderManager::load (Ousters* pOusters)
 }
 
 void EffectLoaderManager::load (Zone* pZone)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -156,7 +156,7 @@ void EffectLoaderManager::load (Zone* pZone)
 }
 
 string EffectLoaderManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

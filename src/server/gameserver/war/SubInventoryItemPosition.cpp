@@ -24,7 +24,7 @@
 #include "GCAddEffect.h"
 
 Item* SubInventoryItemPosition::popItem(bool bLock )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ Item* SubInventoryItemPosition::popItem(bool bLock )
 }
 
 Item* SubInventoryItemPosition::popItem_LOCKED()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ Item* SubInventoryItemPosition::popItem_LOCKED()
 }
 
 Item* SubInventoryItemPosition::popItem_UNLOCKED()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -93,7 +93,7 @@ Item* SubInventoryItemPosition::popItem_UNLOCKED()
 }
 
 Zone* SubInventoryItemPosition::getZone() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -108,7 +108,7 @@ Zone* SubInventoryItemPosition::getZone()
 }
 
 Creature* SubInventoryItemPosition::findCreature()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ Creature* SubInventoryItemPosition::findCreature()
 }
 
 Zone* SubInventoryItemPosition::getZoneByCreature(Creature* pCreature )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -151,7 +151,7 @@ Zone* SubInventoryItemPosition::getZoneByCreature(Creature* pCreature )
 }
 
 Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -218,7 +218,7 @@ Item* SubInventoryItemPosition::popItem_CORE(PlayerCreature* pPC )
 }
 
 string SubInventoryItemPosition::toString() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

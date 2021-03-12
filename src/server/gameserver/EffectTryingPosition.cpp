@@ -16,7 +16,7 @@
 #include "Gpackets/GCAddEffectToTile.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-EffectTryingPosition::EffectTryingPosition( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) throw(Error)
+EffectTryingPosition::EffectTryingPosition( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) 
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ EffectTryingPosition::EffectTryingPosition( Zone* pZone, ZoneCoord_t X, ZoneCoor
 	__END_CATCH
 }
 
-void EffectTryingPosition::affect( Creature* pCreature ) throw(Error)
+void EffectTryingPosition::affect( Creature* pCreature ) 
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void EffectTryingPosition::affect( Creature* pCreature ) throw(Error)
 }
 
 void EffectTryingPosition::unaffect( Creature* pCreature )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void EffectTryingPosition::unaffect( Creature* pCreature )
 	__END_CATCH
 }
 
-void EffectTryingPosition::unaffect() throw(Error)
+void EffectTryingPosition::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -146,7 +146,7 @@ void EffectTryingPosition::unaffect() throw(Error)
 	__END_CATCH
 }
 
-string EffectTryingPosition::toString() const throw()
+string EffectTryingPosition::toString() const 
 {
 	return "EffectTryingPosition" + m_pTower->toString();
 }

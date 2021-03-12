@@ -18,11 +18,11 @@
 class ConditionHasInvenSpace : public Condition 
 {
 public:
-	virtual ConditionType_t getConditionType() const throw() { return CONDITION_HAS_INVEN_SPACE; }
-	virtual bool isPassive() const throw() { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const throw();
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual string toString() const throw();
+	virtual ConditionType_t getConditionType() const  { return CONDITION_HAS_INVEN_SPACE; }
+	virtual bool isPassive() const  { return true; }
+	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual string toString() const ;
 private:
 	uint	m_Height, m_Width;
 };
@@ -34,9 +34,9 @@ private:
 class ConditionHasInvenSpaceFactory : public ConditionFactory 
 {
 public:
-    virtual ConditionType_t getConditionType() const throw() { return Condition::CONDITION_HAS_INVEN_SPACE; }
-    virtual Condition* createCondition() const throw() { return new ConditionHasInvenSpace(); }
-    virtual string getConditionName() const throw() { return "HasInvenSpace"; }
+    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_HAS_INVEN_SPACE; }
+    virtual Condition* createCondition() const  { return new ConditionHasInvenSpace(); }
+    virtual string getConditionName() const  { return "HasInvenSpace"; }
 };
 
 #endif

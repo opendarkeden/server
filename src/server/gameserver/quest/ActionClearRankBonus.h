@@ -19,10 +19,10 @@
 class ActionClearRankBonus : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_CLEAR_RANK_BONUS; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_CLEAR_RANK_BONUS; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 private:
 	Rank_t m_Rank;
@@ -35,9 +35,9 @@ private:
 class ActionClearRankBonusFactory : public ActionFactory 
 {
 public:
-    virtual ActionType_t getActionType() const throw() { return Action::ACTION_CLEAR_RANK_BONUS; }
-	virtual string getActionName() const throw() { return "ClearRankBonus"; }
-    virtual Action* createAction() const throw() { return new ActionClearRankBonus(); }
+    virtual ActionType_t getActionType() const  { return Action::ACTION_CLEAR_RANK_BONUS; }
+	virtual string getActionName() const  { return "ClearRankBonus"; }
+    virtual Action* createAction() const  { return new ActionClearRankBonus(); }
 };
 
 #endif

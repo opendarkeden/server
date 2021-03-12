@@ -16,16 +16,16 @@
 class EffectHasSlayerRelic : public EffectHasRelic 
 {
 public:
-	EffectHasSlayerRelic(Creature* pCreature) throw(Error);
-	EffectHasSlayerRelic(Item* pItem) throw(Error);
+	EffectHasSlayerRelic(Creature* pCreature) ;
+	EffectHasSlayerRelic(Item* pItem) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HAS_SLAYER_RELIC; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_HAS_SLAYER_RELIC; }
 
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Item* pItem) throw(Error);
+	void affect(Creature* pCreature) ;
+	void affect(Item* pItem) ;
 
-	string toString() const throw();
+	string toString() const ;
 };
 
 #endif // __EFFECT_DOOM__

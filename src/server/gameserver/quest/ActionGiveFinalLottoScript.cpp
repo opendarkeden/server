@@ -23,7 +23,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveFinalLottoScript::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void ActionGiveFinalLottoScript::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void ActionGiveFinalLottoScript::execute (Creature * pCreature1 , Creature * pCr
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveFinalLottoScript::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

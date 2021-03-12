@@ -20,7 +20,7 @@
 #include <cstdio>
 
 void GQuestManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -72,7 +72,7 @@ void GQuestManager::load()
 }
 
 void GQuestManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

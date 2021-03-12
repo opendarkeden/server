@@ -15,8 +15,8 @@ public:
 	virtual ~Work() {}
 
 public:
-	virtual void execute() throw (Error) = 0;
-	virtual string toString() const throw(Error) = 0;
+	virtual void execute()  = 0;
+	virtual string toString() const  = 0;
 };
 
 #endif // __WORK_H__

@@ -24,13 +24,13 @@ Mutex    VampireETC::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 VampireETC::VampireETC()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 VampireETC::VampireETC(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num = 1;
@@ -47,7 +47,7 @@ VampireETC::VampireETC(ItemType_t itemType, const list<OptionType_t>& optionType
 // create item
 //--------------------------------------------------------------------------------
 void VampireETC::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ void VampireETC::create(const string & ownerID, Storage storage, StorageID_t sto
 // save item
 //--------------------------------------------------------------------------------
 void VampireETC::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void VampireETC::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void VampireETC::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +158,7 @@ void VampireETC::save(const string & ownerID, Storage storage, StorageID_t stora
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireETC::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "VampireETC("
@@ -174,7 +174,7 @@ string VampireETC::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t VampireETC::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -188,7 +188,7 @@ VolumeWidth_t VampireETC::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t VampireETC::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -202,7 +202,7 @@ VolumeHeight_t VampireETC::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t VampireETC::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ Weight_t VampireETC::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireETCInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -238,7 +238,7 @@ string VampireETCInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void VampireETCInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -293,7 +293,7 @@ void VampireETCInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void VampireETCLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -433,7 +433,7 @@ void VampireETCLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void VampireETCLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -500,7 +500,7 @@ void VampireETCLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void VampireETCLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

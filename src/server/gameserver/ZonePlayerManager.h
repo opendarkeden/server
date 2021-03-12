@@ -36,73 +36,73 @@ public:
 public:
 
 	// constructor
-	ZonePlayerManager() throw();
+	ZonePlayerManager() ;
 
 	// destructor
-	~ZonePlayerManager() throw();
+	~ZonePlayerManager() ;
 
 	// select 
-	void select() throw(TimeoutException, InterruptedException, Error);
+	void select() ;
 
 	// process all players' inputs
-	void processInputs() throw(IOException, Error);
+	void processInputs() ;
 
 	// process all players' outputs
-	void processOutputs() throw(IOException, Error);
+	void processOutputs() ;
 
 	// process all players' exceptions
-	void processExceptions() throw(IOException, Error);
+	void processExceptions() ;
 	
 	// process all players' commands
-	void processCommands() throw(IOException, Error);
+	void processCommands() ;
 
 	// broadcast packet
-	void broadcastPacket(Packet* pPacket) throw(Error);
-	void broadcastPacket_NOBLOCKED(Packet* pPacket) throw(Error);
-	void pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter=NULL) throw(Error);
-	void flushBroadcastPacket() throw(Error);
+	void broadcastPacket(Packet* pPacket) ;
+	void broadcastPacket_NOBLOCKED(Packet* pPacket) ;
+	void pushBroadcastPacket(Packet* pPacket, BroadcastFilter* pFilter=NULL) ;
+	void flushBroadcastPacket() ;
 	
 	// add player to zone player manager
-	void addPlayer(GamePlayer* pGamePlayer) throw(DuplicatedException, Error);
-	void addPlayer_NOBLOCKED(GamePlayer* pGamePlayer) throw(DuplicatedException, Error);
+	void addPlayer(GamePlayer* pGamePlayer) ;
+	void addPlayer_NOBLOCKED(GamePlayer* pGamePlayer) ;
 
 	// delete player from zone player manager
-	void deletePlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
-	void deletePlayer_NOBLOCKED(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error);
-	void deletePlayer(Player* pPlayer) throw(OutOfBoundException, NoSuchElementException, Error)
+	void deletePlayer(SOCKET fd) ;
+	void deletePlayer_NOBLOCKED(SOCKET fd) ;
+	void deletePlayer(Player* pPlayer) 
 	{
 		deletePlayer(pPlayer->getSocket()->getSOCKET());
 	}
 
 	// get player
-	Player* getPlayer(SOCKET fd) throw(OutOfBoundException, NoSuchElementException, Error) ;
+	Player* getPlayer(SOCKET fd)  ;
 
 	// get Player by PhoneNumber
-	Player* getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber) throw(OutOfBoundException, NoSuchElementException, Error);
+	Player* getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber) ;
 
 	// All Member Save
-	void save() throw(Error);
+	void save() ;
 
-	void copyPlayers() throw();
+	void copyPlayers() ;
 
     // push Player to queue
-    void pushPlayer(GamePlayer* pGamePlayer) throw(Error);
-    void pushOutPlayer(GamePlayer* pGamePlayer) throw(Error);
-	void processPlayerListQueue() throw (Error);
+    void pushPlayer(GamePlayer* pGamePlayer) ;
+    void pushOutPlayer(GamePlayer* pGamePlayer) ;
+	void processPlayerListQueue() ;
 
 	// Queue's Player Add Manager
-    void heartbeat() throw(Error);
+    void heartbeat() ;
 
 	// delete Queue Player
-	void deleteQueuePlayer(GamePlayer* pGamePlayer) throw(NoSuchElementException, Error);
+	void deleteQueuePlayer(GamePlayer* pGamePlayer) ;
 
-	void    removeFlag (Effect::EffectClass EC) throw(Error);
+	void    removeFlag (Effect::EffectClass EC) ;
 
-	void lock() throw (Error) { m_Mutex.lock(); }	
-	void unlock() throw (Error) { m_Mutex.unlock(); }	
+	void lock()  { m_Mutex.lock(); }	
+	void unlock()  { m_Mutex.unlock(); }	
 
 	// 모든 플레이어를 정리한다.
-	void clearPlayers() throw (Error);
+	void clearPlayers() ;
 
 	void setZGID( ZoneGroupID_t id ) { m_ZGID = id; }
 	ZoneGroupID_t getZGID() const { return m_ZGID; }

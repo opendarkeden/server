@@ -26,13 +26,13 @@ Mutex    DyePotion::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 DyePotion::DyePotion()
-	throw()
+	
 {
 	setItemType(0);
 }
 
 DyePotion::DyePotion(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	setItemType(itemType);
 	setNum(Num);
@@ -45,7 +45,7 @@ DyePotion::DyePotion(ItemType_t itemType, const list<OptionType_t>& optionType, 
 }
 
 void DyePotion::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void DyePotion::create(const string & ownerID, Storage storage, StorageID_t stor
 // save item
 //--------------------------------------------------------------------------------
 void DyePotion::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void DyePotion::tinysave(const char* field) const
 }
 
 void DyePotion::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void DyePotion::save(const string & ownerID, Storage storage, StorageID_t storag
 }
 
 string DyePotion::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -147,7 +147,7 @@ string DyePotion::toString() const
 }
 
 /*VolumeWidth_t DyePotion::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -157,7 +157,7 @@ string DyePotion::toString() const
 }
 	
 VolumeHeight_t DyePotion::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -167,7 +167,7 @@ VolumeHeight_t DyePotion::getVolumeHeight() const
 }
 	
 Weight_t DyePotion::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -181,7 +181,7 @@ Weight_t DyePotion::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string DyePotionInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "DyePotionInfo("
@@ -199,7 +199,7 @@ string DyePotionInfo::toString() const
 }
 
 void DyePotionInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -255,7 +255,7 @@ void DyePotionInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void DyePotionLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -387,7 +387,7 @@ void DyePotionLoader::load(Creature* pCreature)
 }
 
 void DyePotionLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -451,7 +451,7 @@ void DyePotionLoader::load(Zone* pZone)
 }
 
 void DyePotionLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

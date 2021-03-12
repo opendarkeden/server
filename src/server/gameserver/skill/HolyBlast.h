@@ -24,9 +24,9 @@ public:
     string getSkillHandlerName() const throw() { return "HolyBlast"; }
 	SkillType_t getSkillType() const throw() { return SKILL_HOLY_BLAST; }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 
 
@@ -34,7 +34,7 @@ public:
 
 	void execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 			    const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-				    CEffectID_t CEffectID=0) throw (Error);
+				    CEffectID_t CEffectID=0) ;
 
 };
 

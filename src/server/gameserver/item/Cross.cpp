@@ -25,7 +25,7 @@ Mutex    Cross::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Cross::Cross()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
@@ -35,7 +35,7 @@ Cross::Cross()
 }
 
 Cross::Cross(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_OptionType( optionType )
 {
 	setItemType(itemType);
@@ -58,7 +58,7 @@ Cross::Cross(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Cross::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void Cross::create(const string & ownerID, Storage storage, StorageID_t storageI
 // save item
 //--------------------------------------------------------------------------------
 void Cross::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void Cross::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Cross::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -181,7 +181,7 @@ void Cross::save(const string & ownerID, Storage storage, StorageID_t storageID,
 // get debug string
 //--------------------------------------------------------------------------------
 string Cross::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -202,7 +202,7 @@ string Cross::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Cross::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ VolumeWidth_t Cross::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Cross::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ VolumeHeight_t Cross::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Cross::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -244,7 +244,7 @@ Weight_t Cross::getWeight() const
 // get/set weapon's minDamage
 //--------------------------------------------------------------------------------
 Damage_t Cross::getMinDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -258,7 +258,7 @@ Damage_t Cross::getMinDamage() const
 // get/set weapon's maxDamage
 //--------------------------------------------------------------------------------
 Damage_t Cross::getMaxDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -269,7 +269,7 @@ Damage_t Cross::getMaxDamage() const
 */
 
 MP_t Cross::getMPBonus() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -281,7 +281,7 @@ MP_t Cross::getMPBonus() const
 /*//--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 int Cross::getCriticalBonus(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -294,7 +294,7 @@ int Cross::getCriticalBonus(void) const
 // get debug string
 //--------------------------------------------------------------------------------
 string CrossInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -321,7 +321,7 @@ string CrossInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void CrossInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -390,7 +390,7 @@ void CrossInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void CrossLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -557,7 +557,7 @@ void CrossLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void CrossLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -633,7 +633,7 @@ void CrossLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void CrossLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

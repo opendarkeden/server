@@ -16,13 +16,13 @@
 class EffectWhitsuntide : public Effect 
 {
 public:
-	EffectWhitsuntide(Creature* pCreature) throw(Error);
+	EffectWhitsuntide(Creature* pCreature) ;
 
 public:
 	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_WHITSUNTIDE; }
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 

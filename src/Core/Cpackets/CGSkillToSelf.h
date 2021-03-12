@@ -26,43 +26,43 @@ class CGSkillToSelf : public Packet {
 public:
 	
 	// constructor
-	CGSkillToSelf() throw();
+	CGSkillToSelf() ;
 	
 	// destructor
-	~CGSkillToSelf() throw();
+	~CGSkillToSelf() ;
 
 	
 public:
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_SKILL_TO_SELF; }
+	PacketID_t getPacketID() const  { return PACKET_CG_SKILL_TO_SELF; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szSkillType + szCEffectID; }
+	PacketSize_t getPacketSize() const  { return szSkillType + szCEffectID; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGSkillToSelf"; }
+	string getPacketName() const  { return "CGSkillToSelf"; }
 
 	// get SkillType
-	SkillType_t getSkillType() const throw()  { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const   { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get CEffectID
-	CEffectID_t getCEffectID() const throw() { return m_CEffectID; }
-	void setCEffectID(CEffectID_t CEffectID) throw() { m_CEffectID = CEffectID; }
+	CEffectID_t getCEffectID() const  { return m_CEffectID; }
+	void setCEffectID(CEffectID_t CEffectID)  { m_CEffectID = CEffectID; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 private :
 
@@ -88,25 +88,25 @@ class CGSkillToSelfFactory : public PacketFactory {
 public:
 	
 	// constructor
-	CGSkillToSelfFactory() throw() {}
+	CGSkillToSelfFactory()  {}
 	
 	// destructor
-	virtual ~CGSkillToSelfFactory() throw() {}
+	virtual ~CGSkillToSelfFactory()  {}
 
 	
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGSkillToSelf(); }
+	Packet* createPacket()  { return new CGSkillToSelf(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGSkillToSelf"; }
+	string getPacketName() const  { return "CGSkillToSelf"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_SKILL_TO_SELF; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_SKILL_TO_SELF; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szCEffectID; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID; }
 
 };
 
@@ -122,7 +122,7 @@ class CGSkillToSelfHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGSkillToSelf* pCGSkillToSelf, Player* pPlayer) throw(Error);
+	static void execute(CGSkillToSelf* pCGSkillToSelf, Player* pPlayer) ;
 
 };
 

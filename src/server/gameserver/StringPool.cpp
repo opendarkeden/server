@@ -6,7 +6,7 @@
 #include "DB.h"
 
 StringPool::StringPool()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -14,7 +14,7 @@ StringPool::StringPool()
 }
 
 StringPool::~StringPool()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -24,7 +24,7 @@ StringPool::~StringPool()
 }
 
 void StringPool::clear()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ void StringPool::clear()
 }
 
 void StringPool::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -64,7 +64,6 @@ void StringPool::load()
 }
 
 void StringPool::addString( uint strID, string sString )
-	throw( DuplicatedException, Error )
 {
 	__BEGIN_TRY
 
@@ -82,7 +81,6 @@ void StringPool::addString( uint strID, string sString )
 }
 
 string StringPool::getString( uint strID )
-	throw( NoSuchElementException, Error )
 {
 	__BEGIN_TRY
 
@@ -99,7 +97,6 @@ string StringPool::getString( uint strID )
 }
 
 const char* StringPool::c_str( uint strID )
-	throw( NoSuchElementException, Error )
 {
 	__BEGIN_TRY
 

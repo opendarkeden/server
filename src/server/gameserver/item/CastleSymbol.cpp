@@ -25,14 +25,14 @@ Mutex    CastleSymbol::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 CastleSymbol::CastleSymbol()
-	throw()
+	
 : m_ItemType(0), m_Durability(0)
 {
 	m_EnchantLevel = 0;
 }
 
 CastleSymbol::CastleSymbol(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_Durability(0)
 {
 	try {
@@ -56,7 +56,7 @@ CastleSymbol::CastleSymbol(ItemType_t itemType, const list<OptionType_t>& option
 // create item
 //--------------------------------------------------------------------------------
 void CastleSymbol::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void CastleSymbol::create(const string & ownerID, Storage storage, StorageID_t s
 // save item
 //--------------------------------------------------------------------------------
 void CastleSymbol::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void CastleSymbol::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void CastleSymbol::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -177,7 +177,7 @@ void CastleSymbol::save(const string & ownerID, Storage storage, StorageID_t sto
 // get debug string
 //--------------------------------------------------------------------------------
 string CastleSymbol::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string CastleSymbol::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t CastleSymbol::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t CastleSymbol::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t CastleSymbol::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t CastleSymbol::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t CastleSymbol::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t CastleSymbol::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t CastleSymbol::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t CastleSymbol::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t CastleSymbol::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t CastleSymbol::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string CastleSymbolInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string CastleSymbolInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void CastleSymbolInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -344,7 +344,7 @@ void CastleSymbolInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void CastleSymbolLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -502,7 +502,7 @@ void CastleSymbolLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void CastleSymbolLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -571,7 +571,7 @@ void CastleSymbolLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void CastleSymbolLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

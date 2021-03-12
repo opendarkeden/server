@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectAddMonster::EffectAddMonster (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay)
-	throw (Error)
+	
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ EffectAddMonster::EffectAddMonster (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // destructor
 //----------------------------------------------------------------------
 EffectAddMonster::~EffectAddMonster () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ EffectAddMonster::~EffectAddMonster ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectAddMonster::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void EffectAddMonster::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Cre
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void EffectAddMonster::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , C
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -119,7 +119,7 @@ void EffectAddMonster::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectAddMonster::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -129,7 +129,7 @@ void EffectAddMonster::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectAddMonster::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

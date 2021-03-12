@@ -29,17 +29,17 @@ public:
 
 	static const int szQuestInfo;
 	
-	GCMonsterKillQuestInfo() throw() { }
-	virtual ~GCMonsterKillQuestInfo() throw();
+	GCMonsterKillQuestInfo()  { }
+	virtual ~GCMonsterKillQuestInfo() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_MONSTER_KILL_QUEST_INFO; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCMonsterKillQuestInfo"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_MONSTER_KILL_QUEST_INFO; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCMonsterKillQuestInfo"; }
+	string toString() const ;
 
 public:
 	bool		empty() const { return m_QuestInfoList.empty(); }
@@ -57,10 +57,10 @@ private:
 class GCMonsterKillQuestInfoFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCMonsterKillQuestInfo(); }
-	string getPacketName() const throw() { return "GCMonsterKillQuestInfo"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_MONSTER_KILL_QUEST_INFO; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCMonsterKillQuestInfo(); }
+	string getPacketName() const  { return "GCMonsterKillQuestInfo"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_MONSTER_KILL_QUEST_INFO; }
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szBYTE
 			 + GCMonsterKillQuestInfo::szQuestInfo * maxQuestNum;
@@ -74,7 +74,7 @@ public:
 class GCMonsterKillQuestInfoHandler 
 {
 public:
-	static void execute(GCMonsterKillQuestInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCMonsterKillQuestInfo* pPacket, Player* pPlayer) ;
 };
 
 #endif

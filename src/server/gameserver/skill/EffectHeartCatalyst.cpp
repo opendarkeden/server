@@ -14,7 +14,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectHeartCatalyst::EffectHeartCatalyst(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ EffectHeartCatalyst::EffectHeartCatalyst(Creature* pCreature)
 	__END_CATCH
 }
 
-void EffectHeartCatalyst::affect() throw(Error)
+void EffectHeartCatalyst::affect() 
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ void EffectHeartCatalyst::affect() throw(Error)
 }
 
 void EffectHeartCatalyst::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ void EffectHeartCatalyst::affect(Creature* pCreature)
 }
 
 void EffectHeartCatalyst::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -96,7 +96,7 @@ void EffectHeartCatalyst::unaffect()
 }
 
 void EffectHeartCatalyst::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

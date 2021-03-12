@@ -26,37 +26,37 @@ typedef BloodBibleBonusHashMap::const_iterator 				BloodBibleBonusHashMapConstIt
 class BloodBibleBonusManager 
 {
 public:
-	BloodBibleBonusManager() throw();
-	~BloodBibleBonusManager() throw();
+	BloodBibleBonusManager() ;
+	~BloodBibleBonusManager() ;
 
 public:
 
 	// initialize Manager
-	void init() throw(Error);
+	void init() ;
 
-	// void load() throw();
-	void load() throw(Error);
+	// void load() ;
+	void load() ;
 	
 	// clear list
-	void clear() throw();
+	void clear() ;
 
 	// Save to DB
-	void save() throw(Error);
+	void save() ;
 
 	// get BloodBibleBonus
-	BloodBibleBonus* getBloodBibleBonus(BloodBibleBonusType_t bloodBibleBonusType) const throw(NoSuchElementException, Error);
+	BloodBibleBonus* getBloodBibleBonus(BloodBibleBonusType_t bloodBibleBonusType) const ;
 	const BloodBibleBonusHashMap& getBloodBibleBonuses() const { return m_BloodBibleBonuses; }
 
 	// add BloodBibleBonus
-	void addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonus) throw(DuplicatedException, Error);
+	void addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonus) ;
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	void setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race ) throw( Error );
+	void setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race ) ;
 
-	void makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo ) throw( Error );
+	void makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo ) ;
 
 	template <typename ITR> void getBloodBibleByRace(Race_t race, ITR oItr) const
 	{

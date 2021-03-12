@@ -18,30 +18,30 @@
 class EffectLoveChain : public Effect 
 {
 public:
-	EffectLoveChain(Creature* pCreature) throw(Error);
+	EffectLoveChain(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_LOVE_CHAIN; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_LOVE_CHAIN; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set Target Name
-	const string& getTargetName() const throw(Error) { return m_TargetName; }
-	void setTargetName( const string& targetName ) throw(Error) { m_TargetName = targetName; }
+	const string& getTargetName() const  { return m_TargetName; }
+	void setTargetName( const string& targetName )  { m_TargetName = targetName; }
 
-	Zone* getZone() const throw() { return m_pZone; }
-	void setZone( Zone* pZone ) throw() { m_pZone = pZone; }
+	Zone* getZone() const  { return m_pZone; }
+	void setZone( Zone* pZone )  { m_pZone = pZone; }
 
-	ObjectID_t getItemObjectID() const throw() { return m_ItemObjectID; }
-	void setItemObjectID( ObjectID_t itemObjectID ) throw() { m_ItemObjectID = itemObjectID; }
+	ObjectID_t getItemObjectID() const  { return m_ItemObjectID; }
+	void setItemObjectID( ObjectID_t itemObjectID )  { m_ItemObjectID = itemObjectID; }
 	
 private:
 

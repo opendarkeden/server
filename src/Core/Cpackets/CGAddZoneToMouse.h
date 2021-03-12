@@ -17,27 +17,27 @@
 class CGAddZoneToMouse : public Packet
 {
 public:
-	CGAddZoneToMouse() throw();
-	~CGAddZoneToMouse() throw();
+	CGAddZoneToMouse() ;
+	~CGAddZoneToMouse() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_ZONE_TO_MOUSE; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoord + szCoord; }
-	string getPacketName() const throw() { return "CGAddZoneToMouse"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_ZONE_TO_MOUSE; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord; }
+	string getPacketName() const  { return "CGAddZoneToMouse"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
-	Coord_t getZoneX() const throw() { return m_ZoneX; }
-	void setZoneX(Coord_t ZoneX) throw() { m_ZoneX = ZoneX; }
+	Coord_t getZoneX() const  { return m_ZoneX; }
+	void setZoneX(Coord_t ZoneX)  { m_ZoneX = ZoneX; }
 
-	Coord_t getZoneY() const throw() { return m_ZoneY; }
-	void setZoneY(Coord_t ZoneY) throw() { m_ZoneY = ZoneY; }
+	Coord_t getZoneY() const  { return m_ZoneY; }
+	void setZoneY(Coord_t ZoneY)  { m_ZoneY = ZoneY; }
 
 private:
 	ObjectID_t m_ObjectID;
@@ -53,10 +53,10 @@ private:
 class CGAddZoneToMouseFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddZoneToMouse(); }
-	string getPacketName() const throw() { return "CGAddZoneToMouse"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_ZONE_TO_MOUSE; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord + szCoord; }
+	Packet* createPacket()  { return new CGAddZoneToMouse(); }
+	string getPacketName() const  { return "CGAddZoneToMouse"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_ZONE_TO_MOUSE; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoord + szCoord; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ public:
 class CGAddZoneToMouseHandler 
 {
 public:
-	static void execute(CGAddZoneToMouse* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddZoneToMouse* pPacket, Player* player) ;
 };
 
 #endif

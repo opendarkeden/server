@@ -23,7 +23,7 @@ public:
 
 public:
 	bool			isTargetItem( Item* pItem ) { Assert( pItem != NULL ); return m_TargetItemClass==pItem->getItemClass() && m_TargetItemType==pItem->getItemType(); }
-	GatherItemQuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const throw(Error);
+	GatherItemQuestStatus*	makeQuestStatus( PlayerCreature* pPC ) const ;
 
 private:
 	Item::ItemClass	m_TargetItemClass;

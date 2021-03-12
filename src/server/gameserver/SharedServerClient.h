@@ -28,24 +28,24 @@ public:
 	const static BYTE nPacketHistorySize = 10;
 
 public:
-	SharedServerClient(Socket* pSocket) throw(Error);
-	~SharedServerClient() throw(Error);
+	SharedServerClient(Socket* pSocket) ;
+	~SharedServerClient() ;
 
 public:
 	// read socket's receive buffer and fill input buffer
-	// virtual void processInput() throw(IOException, Error);
+	// virtual void processInput() ;
 	
 	// parse packet and execute handler for the packet
-	virtual void processCommand() throw(IOException, Error);
+	virtual void processCommand() ;
 	
 	// flush output buffer to socket's send buffer
-	virtual void processOutput() throw(IOException, Error);
+	virtual void processOutput() ;
 	
 	// send packet to player's output buffer
-	virtual void sendPacket(Packet* packet) throw(ProtocolException, Error);
+	virtual void sendPacket(Packet* packet) ;
 
 	// get debug string
-	virtual string toString() const throw(Error);
+	virtual string toString() const ;
 
 
 private:

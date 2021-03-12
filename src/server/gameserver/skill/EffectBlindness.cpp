@@ -8,7 +8,7 @@
 #include "Gpackets/GCModifyInformation.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-EffectBlindness::EffectBlindness(Creature* pCreature) throw(Error)
+EffectBlindness::EffectBlindness(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ EffectBlindness::EffectBlindness(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectBlindness::affect() throw(Error)
+void EffectBlindness::affect() 
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void EffectBlindness::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectBlindness::affect(Creature* pCreature) throw(Error)
+void EffectBlindness::affect(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void EffectBlindness::affect(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectBlindness::unaffect() throw(Error)
+void EffectBlindness::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void EffectBlindness::unaffect() throw(Error)
 	__END_CATCH
 }
 
-void EffectBlindness::unaffect( Creature* pCreature ) throw (Error)
+void EffectBlindness::unaffect( Creature* pCreature ) 
 {
 	__BEGIN_TRY
 

@@ -18,9 +18,9 @@ public:
 	RandomRewardClass( RewardClass_t rClass ) : RewardClass(rClass) { }
 
 public:
-	RewardInfo*		selectReward( PlayerCreature* pPC ) const throw(Error);
+	RewardInfo*		selectReward( PlayerCreature* pPC ) const ;
 
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
 private:
 };

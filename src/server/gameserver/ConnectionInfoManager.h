@@ -23,15 +23,15 @@ typedef unordered_map< string, ConnectionInfo* > HashMapConnectionInfo;
 class ConnectionInfoManager 
 {
 public:
-	ConnectionInfoManager() throw();
-	~ConnectionInfoManager() throw();
+	ConnectionInfoManager() ;
+	~ConnectionInfoManager() ;
 
 public:
-	void addConnectionInfo(ConnectionInfo* pConnectionInfo) throw(DuplicatedException, Error);
-	void deleteConnectionInfo(const string& ip) throw(NoSuchElementException, Error);
-	ConnectionInfo* getConnectionInfo(const string& ip) throw(NoSuchElementException, Error);
-	void heartbeat() throw(Error);	
-	string toString() const throw();
+	void addConnectionInfo(ConnectionInfo* pConnectionInfo) ;
+	void deleteConnectionInfo(const string& ip) ;
+	ConnectionInfo* getConnectionInfo(const string& ip) ;
+	void heartbeat() ;	
+	string toString() const ;
 
 private:
 	// hash map of ConnectionInfo

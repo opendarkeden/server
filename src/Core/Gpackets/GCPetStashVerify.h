@@ -28,22 +28,22 @@ enum
 class GCPetStashVerify : public Packet 
 {
 public:
-	GCPetStashVerify() throw() { m_Code = PET_STASH_OK; }
-	virtual ~GCPetStashVerify() throw() {}
+	GCPetStashVerify()  { m_Code = PET_STASH_OK; }
+	virtual ~GCPetStashVerify()  {}
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
 
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PET_STASH_VERIFY; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE; }
-	string getPacketName() const throw() { return "GCPetStashVerify"; }
-	string toString() const throw();
+	PacketID_t getPacketID() const  { return PACKET_GC_PET_STASH_VERIFY; }
+	PacketSize_t getPacketSize() const  { return szBYTE; }
+	string getPacketName() const  { return "GCPetStashVerify"; }
+	string toString() const ;
 	
 public:
-	BYTE getCode(void) const throw() { return m_Code;}
-	void setCode(BYTE code) throw() { m_Code = code;}
+	BYTE getCode(void) const  { return m_Code;}
+	void setCode(BYTE code)  { m_Code = code;}
 
 private: 
 	BYTE m_Code;
@@ -57,10 +57,10 @@ private:
 class GCPetStashVerifyFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCPetStashVerify(); }
-	string getPacketName() const throw() { return "GCPetStashVerify"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PET_STASH_VERIFY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE; }
+	Packet* createPacket()  { return new GCPetStashVerify(); }
+	string getPacketName() const  { return "GCPetStashVerify"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PET_STASH_VERIFY; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE; }
 };
 
 
@@ -71,7 +71,7 @@ public:
 class GCPetStashVerifyHandler 
 {
 public:
-	static void execute( GCPetStashVerify* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute( GCPetStashVerify* pPacket, Player* pPlayer) ;
 };
 
 #endif

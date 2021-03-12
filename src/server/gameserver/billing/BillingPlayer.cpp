@@ -34,14 +34,12 @@ const int defaultBillingPlayerOutputStreamSize = 10240;
 //
 //////////////////////////////////////////////////////////////////////
 BillingPlayer::BillingPlayer ()
-	 throw ( Error )
 //: m_pSocket(NULL), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 }
 
 
 BillingPlayer::BillingPlayer (Socket * pSocket)
-	 throw ( Error )
 //: Player( pSocket )//m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
@@ -72,7 +70,6 @@ BillingPlayer::BillingPlayer (Socket * pSocket)
 //
 //////////////////////////////////////////////////////////////////////
 BillingPlayer::~BillingPlayer ()
-	 throw ( Error )
 {
 	__BEGIN_TRY
 		
@@ -97,7 +94,6 @@ BillingPlayer::~BillingPlayer ()
 
 
 void BillingPlayer::processInput()
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -114,7 +110,6 @@ void BillingPlayer::processInput()
 
 
 void BillingPlayer::processOutput()
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -137,7 +132,6 @@ void BillingPlayer::processOutput()
 //
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::processCommand () 
-     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -226,7 +220,6 @@ void BillingPlayer::processCommand ()
 //
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPacket ( Packet * pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -250,7 +243,6 @@ void BillingPlayer::sendPacket ( Packet * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::disconnect ( bool bDisconnected )
-	throw (InvalidProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -282,7 +274,6 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 // set socket
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::setSocket ( Socket * pSocket )
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -306,7 +297,6 @@ void BillingPlayer::setSocket ( Socket * pSocket )
 // 게임 서버가 처음 뜰 때 보낸다.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayInit()
-	throw( ProtocolException, Error )
 {
 	__BEGIN_TRY
 		
@@ -334,7 +324,6 @@ void BillingPlayer::sendPayInit()
 // 캐릭터의 접속 상태를 보낸다.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
-	throw( ProtocolException, Error )
 {
 	__BEGIN_TRY
 		
@@ -394,7 +383,6 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 // 캐릭터가 게임에 처음 접속할때 보내는것
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogin( Player* pPlayer ) 
-	throw( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -501,7 +489,6 @@ void BillingPlayer::sendPayLogin( Player* pPlayer )
 // 캐릭터가 게임에서 나갈때 보내는것
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogout( Player* pPlayer ) 
-	throw( ProtocolException, Error )
 {
 	__BEGIN_TRY
 		
@@ -552,7 +539,6 @@ void BillingPlayer::sendPayLogout( Player* pPlayer )
 //
 //////////////////////////////////////////////////////////////////////
 string BillingPlayer::toString () const
-       throw ( Error )
 {
 	__BEGIN_TRY
 		

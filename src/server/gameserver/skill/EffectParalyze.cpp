@@ -18,7 +18,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectParalyze::EffectParalyze(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -28,7 +28,7 @@ EffectParalyze::EffectParalyze(Creature* pCreature)
 }
 
 void EffectParalyze::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -40,14 +40,14 @@ void EffectParalyze::affect()
 }
 
 void EffectParalyze::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectParalyze::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void EffectParalyze::unaffect(Creature* pCreature)
 }
 
 void EffectParalyze::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

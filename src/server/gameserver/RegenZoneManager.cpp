@@ -30,7 +30,7 @@
 #include "Gpackets/GCAddEffect.h"
 #include "Gpackets/GCRegenZoneStatus.h"
 
-void RegenZoneInfo::putTryingPosition() throw(Error)
+void RegenZoneInfo::putTryingPosition() 
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ void RegenZoneInfo::putTryingPosition() throw(Error)
 	__END_CATCH
 }
 
-void RegenZoneInfo::deleteTryingPosition() throw(Error)
+void RegenZoneInfo::deleteTryingPosition() 
 {
 	__BEGIN_TRY
 
@@ -88,7 +88,7 @@ RegenZoneManager::~RegenZoneManager()
 	}
 }
 
-void RegenZoneManager::reload() throw(Error)
+void RegenZoneManager::reload() 
 {
 	__BEGIN_TRY
 
@@ -159,7 +159,7 @@ void RegenZoneManager::reload() throw(Error)
 	__END_CATCH
 }
 
-void RegenZoneManager::load() throw(Error)
+void RegenZoneManager::load() 
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ void RegenZoneManager::load() throw(Error)
 	__END_CATCH
 }
 
-void RegenZoneManager::putTryingPosition() throw(Error)
+void RegenZoneManager::putTryingPosition() 
 {
 	__BEGIN_TRY
 
@@ -225,7 +225,7 @@ void RegenZoneManager::putTryingPosition() throw(Error)
 	__END_CATCH
 }
 
-void RegenZoneManager::deleteTryingPosition() throw(Error)
+void RegenZoneManager::deleteTryingPosition() 
 {
 	__BEGIN_TRY
 

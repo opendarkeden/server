@@ -16,7 +16,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitPartnerWaitingManager::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionInitPartnerWaitingManager::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitPartnerWaitingManager::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ void ActionInitPartnerWaitingManager::execute (Creature * pCreature1 , Creature 
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionInitPartnerWaitingManager::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

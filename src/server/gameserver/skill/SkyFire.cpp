@@ -11,7 +11,7 @@
 #include "Gpackets/GCAddEffectToTile.h"
 #include <list>
 
-void SkyFire::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void SkyFire::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ void SkyFire::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSk
 }
 
 void SkyFire::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

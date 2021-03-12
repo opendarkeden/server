@@ -16,15 +16,15 @@
 class EffectSummonGroundElemental : public Effect 
 {
 public:
-	EffectSummonGroundElemental(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	EffectSummonGroundElemental(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GROUND_ELEMENTAL_AURA; }
 
-	void affect() throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void affect() ;
+	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
 	string toString() const throw();
 

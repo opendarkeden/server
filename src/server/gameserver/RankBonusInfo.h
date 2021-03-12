@@ -55,31 +55,31 @@ private:
 class RankBonusInfoManager 
 {
 public:
-	RankBonusInfoManager() throw();
-	~RankBonusInfoManager() throw();
+	RankBonusInfoManager() ;
+	~RankBonusInfoManager() ;
 
 public:
 
 	// initialize Manager
-	void init() throw(Error);
+	void init() ;
 
-	// void load() throw();
-	void load() throw(Error);
+	// void load() ;
+	void load() ;
 	
 	// clear list
-	void clear() throw();
+	void clear() ;
 
 	// Save to DB
-	void save() throw(Error);
+	void save() ;
 
 	// get RankBonusInfo
-	RankBonusInfo* getRankBonusInfo(DWORD rankBonusType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	RankBonusInfo* getRankBonusInfo(DWORD rankBonusType) const ;
 
 	// add RankBonusInfo
-	void addRankBonusInfo(RankBonusInfo* pRankBonusInfo) throw(DuplicatedException, Error);
+	void addRankBonusInfo(RankBonusInfo* pRankBonusInfo) ;
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint				m_Count;

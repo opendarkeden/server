@@ -24,7 +24,7 @@ Mutex    VampireRing::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 VampireRing::VampireRing()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ VampireRing::VampireRing()
 }
 
 VampireRing::VampireRing(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ VampireRing::VampireRing(ItemType_t itemType, const list<OptionType_t>& optionTy
 // create item
 //--------------------------------------------------------------------------------
 void VampireRing::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void VampireRing::create(const string & ownerID, Storage storage, StorageID_t st
 // save item
 //--------------------------------------------------------------------------------
 void VampireRing::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void VampireRing::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void VampireRing::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ void VampireRing::save(const string & ownerID, Storage storage, StorageID_t stor
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireRing::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string VampireRing::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t VampireRing::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeWidth_t VampireRing::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t VampireRing::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ VolumeHeight_t VampireRing::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t VampireRing::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -237,7 +237,7 @@ Weight_t VampireRing::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t VampireRing::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ Defense_t VampireRing::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t VampireRing::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ Protection_t VampireRing::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireRingInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -284,7 +284,7 @@ string VampireRingInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void VampireRingInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -349,7 +349,7 @@ void VampireRingInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void VampireRingLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -514,7 +514,7 @@ void VampireRingLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void VampireRingLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -589,7 +589,7 @@ void VampireRingLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void VampireRingLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

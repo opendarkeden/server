@@ -7,7 +7,7 @@
 
 #include "Zone.h"
 
-void EffectIceHailToTile::affect() throw(Error)
+void EffectIceHailToTile::affect() 
 {
 	__BEGIN_TRY
 

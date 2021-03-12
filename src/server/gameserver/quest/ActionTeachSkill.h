@@ -25,17 +25,17 @@
 class ActionTeachSkill : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_TEACH_SKILL; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_TEACH_SKILL; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	virtual void executeSlayer(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual void executeVampire(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
+	virtual void executeSlayer(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual void executeVampire(Creature* pCreature1, Creature* pCreature2 = NULL) ;
 
-	SkillDomainType_t getDomainType(void) const throw() { return m_DomainType;}
-	void setDomainType(SkillDomainType_t domain) throw() { m_DomainType = domain;}
+	SkillDomainType_t getDomainType(void) const  { return m_DomainType;}
+	void setDomainType(SkillDomainType_t domain)  { m_DomainType = domain;}
 
 private:
 	SkillDomainType_t m_DomainType; // 가르쳐 줄 스킬의 도메인
@@ -49,9 +49,9 @@ private:
 class ActionTeachSkillFactory : public ActionFactory 
 {
 public :
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_TEACH_SKILL; }
-	virtual string getActionName() const throw() { return "TeachSkill"; }
-	virtual Action* createAction() const throw() { return new ActionTeachSkill(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_TEACH_SKILL; }
+	virtual string getActionName() const  { return "TeachSkill"; }
+	virtual Action* createAction() const  { return new ActionTeachSkill(); }
 
 };
 

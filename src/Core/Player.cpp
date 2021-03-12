@@ -56,7 +56,6 @@ Player::Player ( Socket * pSocket )
 //
 //////////////////////////////////////////////////////////////////////
 Player::~Player ()
-  throw (Error)
 {
 	__BEGIN_TRY
 		

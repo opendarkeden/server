@@ -32,8 +32,8 @@ public:
 	RegenZoneIndex getOriginalOwner() const { return m_OriginalOwner; }
 	void setOriginalOwner( RegenZoneIndex owner ) { m_OriginalOwner = owner; }
 
-	void putTryingPosition() throw(Error);
-	void deleteTryingPosition() throw(Error);
+	void putTryingPosition() ;
+	void deleteTryingPosition() ;
 
 private:
 	uint			m_ID;
@@ -51,14 +51,14 @@ class RegenZoneManager
 public:
 	~RegenZoneManager();
 
-	void load() throw(Error);
-	void reload() throw(Error);
+	void load() ;
+	void reload() ;
 
 	void lock() { m_Mutex.lock(); }
 	void unlock() { m_Mutex.unlock(); }
 
-	void putTryingPosition() throw(Error);
-	void deleteTryingPosition() throw(Error);
+	void putTryingPosition() ;
+	void deleteTryingPosition() ;
 
 	void changeRegenZoneOwner( MonsterCorpse* pTower, Race_t race );
 

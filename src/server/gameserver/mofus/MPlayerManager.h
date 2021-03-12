@@ -29,13 +29,13 @@ public:
 	typedef DequeMJob::const_iterator	DequeMJobConstItor;
 
 public:
-	MPlayerManager() throw(Error);
-	~MPlayerManager() throw(Error);
+	MPlayerManager() ;
+	~MPlayerManager() ;
 
 public:
-	void init() throw(Error) {}
-	void stop() throw(Error);
-	void run() throw();
+	void init()  {}
+	void stop() ;
+	void run() ;
 
 public:
 	void addJob( const string& userID, const string& name, const string& cellnum );

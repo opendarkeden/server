@@ -25,19 +25,19 @@ class GCGuildChat : public Packet {
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_GUILD_CHAT; }
+	PacketID_t getPacketID() const  { return PACKET_GC_GUILD_CHAT; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw()
+	PacketSize_t getPacketSize() const 
 	{
 		return ((m_Type==0)?(szBYTE):(szBYTE+szBYTE+m_SendGuildName.size())) +
 			   szBYTE +					// sender size
@@ -48,29 +48,29 @@ public :
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "GCGuildChat"; }
+	string getPacketName() const  { return "GCGuildChat"; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
-	BYTE getType() const throw() { return m_Type; }
-	void setType( BYTE type ) throw() { m_Type = type; }
-
-	// get/set sender
-	string getSendGuildName() const throw() { return m_SendGuildName; }
-	void setSendGuildName( const string& sender ) throw() { m_SendGuildName = sender; }
+	BYTE getType() const  { return m_Type; }
+	void setType( BYTE type )  { m_Type = type; }
 
 	// get/set sender
-	string getSender() const throw() { return m_Sender; }
-	void setSender( const string& sender ) throw() { m_Sender = sender; }
+	string getSendGuildName() const  { return m_SendGuildName; }
+	void setSendGuildName( const string& sender )  { m_SendGuildName = sender; }
+
+	// get/set sender
+	string getSender() const  { return m_Sender; }
+	void setSender( const string& sender )  { m_Sender = sender; }
 
 	// get/set text color
-	uint getColor() const throw() { return m_Color; }
-	void setColor( uint color ) throw() { m_Color = color; }
+	uint getColor() const  { return m_Color; }
+	void setColor( uint color )  { m_Color = color; }
 
 	// get/set chatting message
-	string getMessage() const throw() { return m_Message; }
-	void setMessage(const string & msg) throw() { m_Message = msg; }
+	string getMessage() const  { return m_Message; }
+	void setMessage(const string & msg)  { m_Message = msg; }
 	
 private :
 
@@ -101,18 +101,18 @@ class GCGuildChatFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCGuildChat(); }
+	Packet* createPacket()  { return new GCGuildChat(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCGuildChat"; }
+	string getPacketName() const  { return "GCGuildChat"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_GUILD_CHAT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GUILD_CHAT; }
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
 	// const static GCGuildChatPacketMaxSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{
 		return szBYTE +
 			   szBYTE +
@@ -138,7 +138,7 @@ class GCGuildChatHandler {
 public :
 	
 	// execute packet's handler
-	static void execute(GCGuildChat* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCGuildChat* pPacket, Player* pPlayer) ;
 
 };
 

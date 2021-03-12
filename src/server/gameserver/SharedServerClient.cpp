@@ -26,7 +26,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 SharedServerClient::SharedServerClient (Socket* pSocket)
-	 throw (Error)
+	 
 : Player(pSocket)
 {
 	__BEGIN_TRY
@@ -42,7 +42,7 @@ SharedServerClient::SharedServerClient (Socket* pSocket)
 //////////////////////////////////////////////////////////////////////////////
 
 SharedServerClient::~SharedServerClient ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,6 @@ SharedServerClient::~SharedServerClient ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::processCommand () 
-     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -166,7 +165,6 @@ void SharedServerClient::processCommand ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::processOutput () 
-     throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -193,7 +191,6 @@ void SharedServerClient::processOutput ()
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::sendPacket (Packet* pPacket) 
-	 throw (ProtocolException , Error)
 {	
 	__BEGIN_TRY
 	
@@ -218,7 +215,7 @@ void SharedServerClient::sendPacket (Packet* pPacket)
 //
 //////////////////////////////////////////////////////////////////////
 string SharedServerClient::toString () const
-       throw (Error)
+       
 {
 	__BEGIN_TRY
 		

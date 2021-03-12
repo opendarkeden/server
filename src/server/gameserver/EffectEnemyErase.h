@@ -17,26 +17,26 @@
 class EffectEnemyErase : public Effect 
 {
 public:
-	EffectEnemyErase(Creature* pCreature) throw(Error);
-	~EffectEnemyErase() throw(Error);
+	EffectEnemyErase(Creature* pCreature) ;
+	~EffectEnemyErase() ;
 
 public:
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ENEMY_ERASE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_ENEMY_ERASE; }
 
-	string getEnemyName() const throw() { return m_EnemyName ;}
-	void setEnemyName(const string & EnemyName) throw(Error) { m_EnemyName = EnemyName;}
+	string getEnemyName() const  { return m_EnemyName ;}
+	void setEnemyName(const string & EnemyName)  { m_EnemyName = EnemyName;}
 
-    virtual void create(const string & ownerID) throw(Error);
-    virtual void save(const string & ownerID) throw(Error);
-    virtual void destroy(const string & ownerID) throw(Error);
+    virtual void create(const string & ownerID) ;
+    virtual void save(const string & ownerID) ;
+    virtual void destroy(const string & ownerID) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	string m_EnemyName;
@@ -49,11 +49,11 @@ private:
 class EffectEnemyEraseLoader : public EffectLoader 
 {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_ENEMY_ERASE; }
-	virtual string getEffectClassName() const throw() { return "EffectEnemyErase"; }
+	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_ENEMY_ERASE; }
+	virtual string getEffectClassName() const  { return "EffectEnemyErase"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 };
 
 extern EffectEnemyEraseLoader* g_pEffectEnemyEraseLoader;

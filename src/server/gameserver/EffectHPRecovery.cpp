@@ -19,7 +19,7 @@
 #include "Gpackets/GCModifyInformation.h"
 
 EffectHPRecovery::EffectHPRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ EffectHPRecovery::EffectHPRecovery ()
 }
 
 EffectHPRecovery::EffectHPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -45,14 +45,14 @@ EffectHPRecovery::EffectHPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 }
 
 EffectHPRecovery::~EffectHPRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectHPRecovery::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void EffectHPRecovery::affect()
 }
 
 void EffectHPRecovery::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -214,7 +214,7 @@ void EffectHPRecovery::affect(Creature* pCreature)
 }
 
 void EffectHPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ void EffectHPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 }
 
 void EffectHPRecovery::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -235,7 +235,7 @@ void EffectHPRecovery::unaffect()
 }
 
 void EffectHPRecovery::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -331,14 +331,14 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectHPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string EffectHPRecovery::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

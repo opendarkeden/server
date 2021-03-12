@@ -28,14 +28,14 @@ public:
 
 	// add creature to unordered_map
 	// execute just once at PC's login
-	void addSlayer(Slayer* pSlayer) throw(DuplicatedException, Error);
+	void addSlayer(Slayer* pSlayer) ;
 
 	// delete creature from unordered_map
 	// execute just once at PC's logout
-	void deleteSlayer(PhoneNumber_t PhoneNumber) throw(NoSuchElementException, Error);
+	void deleteSlayer(PhoneNumber_t PhoneNumber) ;
 
 	// get creature with PC-name
-	Slayer* getSlayer(PhoneNumber_t PhoneNumber) const throw(NoSuchElementException, Error);
+	Slayer* getSlayer(PhoneNumber_t PhoneNumber) const ;
 
 private:
 

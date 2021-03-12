@@ -1,7 +1,7 @@
 #include "GQuestInventory.h"
 #include "DB.h"
 
-void GQuestInventory::load(const string& ownerName) throw (Error)
+void GQuestInventory::load(const string& ownerName) 
 {
 	__BEGIN_TRY
 

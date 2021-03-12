@@ -28,44 +28,44 @@ class GCAttackMeleeOK3 : public Packet {
 public :
 	
 	// constructor
-	GCAttackMeleeOK3() throw();
+	GCAttackMeleeOK3() ;
 	
 	// destructor
-	~GCAttackMeleeOK3() throw();
+	~GCAttackMeleeOK3() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ATTACK_MELEE_OK_3; }
+	PacketID_t getPacketID() const  { return PACKET_GC_ATTACK_MELEE_OK_3; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szObjectID; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szObjectID; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCAttackMeleeOK3"; }
+	string getPacketName() const  { return "GCAttackMeleeOK3"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 	// get / set ObjectID
-	ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t TargetObjectID) throw() { m_TargetObjectID = TargetObjectID; }
+	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
+	void setTargetObjectID(ObjectID_t TargetObjectID)  { m_TargetObjectID = TargetObjectID; }
 
 private :
 	
@@ -91,25 +91,25 @@ class GCAttackMeleeOK3Factory : public PacketFactory {
 public :
 	
 	// constructor
-	GCAttackMeleeOK3Factory() throw() {}
+	GCAttackMeleeOK3Factory()  {}
 	
 	// destructor
-	virtual ~GCAttackMeleeOK3Factory() throw() {}
+	virtual ~GCAttackMeleeOK3Factory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCAttackMeleeOK3(); }
+	Packet* createPacket()  { return new GCAttackMeleeOK3(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCAttackMeleeOK3"; }
+	string getPacketName() const  { return "GCAttackMeleeOK3"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ATTACK_MELEE_OK_3; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ATTACK_MELEE_OK_3; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szObjectID; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szObjectID; }
 
 };
 
@@ -125,7 +125,7 @@ class GCAttackMeleeOK3Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAttackMeleeOK3* pGCAttackMeleeOK3, Player* pPlayer) throw(Error);
+	static void execute(GCAttackMeleeOK3* pGCAttackMeleeOK3, Player* pPlayer) ;
 
 };
 

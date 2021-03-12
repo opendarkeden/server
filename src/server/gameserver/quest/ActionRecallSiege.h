@@ -20,10 +20,10 @@
 class ActionRecallSiege : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_RECALL_SIEGE; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_RECALL_SIEGE; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 private:
 	ZoneID_t    m_ZoneID;
@@ -37,8 +37,8 @@ private:
 class ActionRecallSiegeFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_RECALL_SIEGE; }
-	virtual string getActionName() const throw() { return "RecallSiege"; }
-	virtual Action* createAction() const throw() { return new ActionRecallSiege(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_RECALL_SIEGE; }
+	virtual string getActionName() const  { return "RecallSiege"; }
+	virtual Action* createAction() const  { return new ActionRecallSiege(); }
 };
 #endif

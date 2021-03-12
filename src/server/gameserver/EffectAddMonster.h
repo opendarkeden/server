@@ -19,31 +19,31 @@ class Item;
 class EffectAddMonster : public Effect 
 {
 public:
-	EffectAddMonster(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature, Turn_t delay) throw(Error);
-	virtual ~EffectAddMonster() throw(Error);
+	EffectAddMonster(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature, Turn_t delay) ;
+	virtual ~EffectAddMonster() ;
 
 public:
-	virtual EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ADD_MONSTER; }
+	virtual EffectClass getEffectClass() const  { return EFFECT_CLASS_ADD_MONSTER; }
 
 	// OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
-	virtual ObjectPriority getObjectPriority() const throw() { return OBJECT_PRIORITY_NONE; }
+	virtual ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_NONE; }
 
-	virtual void affect() throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void affect(Creature* pCreature) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void affect(Object* pObject) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__);}
-	virtual void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature) throw(Error);
+	virtual void affect()  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void affect(Creature* pCreature)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void affect(Object* pObject)  { throw UnsupportedError(__PRETTY_FUNCTION__);}
+	virtual void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature) ;
 	
-	virtual void unaffect() throw(Error);
-	virtual void unaffect(Object* pObject) throw(Error);
-	virtual void unaffect(Creature* pCreature = NULL) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__);}	
-	virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature) throw(Error);
+	virtual void unaffect() ;
+	virtual void unaffect(Object* pObject) ;
+	virtual void unaffect(Creature* pCreature = NULL)  { throw UnsupportedError(__PRETTY_FUNCTION__);}	
+	virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Creature* pCreature) ;
 
-	virtual void create(const string & ownerID) throw(Error) {}
-	virtual void save(const string & ownerID) throw(Error) {}
-	virtual void destroy(const string & ownerID) throw(Error) {}
+	virtual void create(const string & ownerID)  {}
+	virtual void save(const string & ownerID)  {}
+	virtual void destroy(const string & ownerID)  {}
 	
 	// get debug string
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	ObjectID_t m_ObjectID;

@@ -29,7 +29,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectShutDown::EffectShutDown () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -40,7 +40,7 @@ EffectShutDown::EffectShutDown ()
 // constructor
 //----------------------------------------------------------------------
 EffectShutDown::EffectShutDown (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Corpse* pCorpse , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pCorpse,delay) 
 {
 	__BEGIN_TRY
@@ -56,14 +56,14 @@ EffectShutDown::EffectShutDown (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Co
 // destructor
 //----------------------------------------------------------------------
 EffectShutDown::~EffectShutDown () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectShutDown::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ void EffectShutDown::affect()
 // affect
 //----------------------------------------------------------------------
 void EffectShutDown::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ void EffectShutDown::affect(Creature* pCreature)
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectShutDown::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ void EffectShutDown::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Objec
 // unaffect()
 //--------------------------------------------------------------------
 void EffectShutDown::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -241,7 +241,7 @@ void EffectShutDown::unaffect()
 // unaffect
 //--------------------------------------------------------------------
 void EffectShutDown::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -252,7 +252,7 @@ void EffectShutDown::unaffect(Creature* pCreature)
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectShutDown::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -264,7 +264,7 @@ void EffectShutDown::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 // get debug string
 //----------------------------------------------------------------------
 string EffectShutDown::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

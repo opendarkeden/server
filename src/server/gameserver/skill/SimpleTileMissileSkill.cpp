@@ -22,7 +22,7 @@ SimpleTileMissileSkill g_SimpleTileMissileSkill;
 
 void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 
@@ -345,7 +345,7 @@ void SimpleTileMissileSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* p
 
 void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) 
 {
 	__BEGIN_TRY
 
@@ -608,7 +608,7 @@ void SimpleTileMissileSkill::execute(Vampire* pVampire, int X, int Y, VampireSki
 
 void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSkillSlot* pOustersSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback, int HitBonus) 
 {
 	__BEGIN_TRY
 
@@ -879,7 +879,7 @@ void SimpleTileMissileSkill::execute(Ousters* pOusters, int X, int Y, OustersSki
 
 void SimpleTileMissileSkill::execute(Monster* pMonster, int X, int Y,
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 

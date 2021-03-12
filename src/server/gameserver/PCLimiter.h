@@ -95,21 +95,21 @@ public :
 
 	virtual void		clear();
 
-	virtual void		load() throw (Error) = 0;
+	virtual void		load()  = 0;
 
-	virtual bool 		join(PlayerCreature* pPC) throw (Error) = 0;
-	virtual bool		leave(PlayerCreature* pPC) throw (Error) = 0;
+	virtual bool 		join(PlayerCreature* pPC)  = 0;
+	virtual bool		leave(PlayerCreature* pPC)  = 0;
 
 	int					getSize() const						{ return m_LimitInfos.size(); }
-	LimitInfo_t* 		getLimitInfoByIndex(int index) throw (Error);
+	LimitInfo_t* 		getLimitInfoByIndex(int index) ;
 
 protected :
-	void 				lock() throw(Error) 	{ m_Mutex.lock(); }
-	void 				unlock() throw(Error) 	{ m_Mutex.unlock(); }
+	void 				lock()  	{ m_Mutex.lock(); }
+	void 				unlock()  	{ m_Mutex.unlock(); }
 
 	void				addLimitInfo(const LimitInfo_t& limitInfo)	{ m_LimitInfos.push_back( limitInfo ); }
 
-	virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC) throw (Error) = 0;
+	virtual LimitInfo_t* getLimitInfo(PlayerCreature* pPC)  = 0;
 
 protected:
 	LimitInfos			m_LimitInfos;
@@ -147,7 +147,7 @@ PCLimiter<T>::clear()
 template <class T>
 typename PCLimiter<T>::LimitInfo_t* 
 PCLimiter<T>::getLimitInfoByIndex(int index) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

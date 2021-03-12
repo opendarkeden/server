@@ -16,16 +16,16 @@
 class EffectSpiritGuard : public Effect 
 {
 public:
-	EffectSpiritGuard(Creature* pCreature) throw(Error);
+	EffectSpiritGuard(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return m_EffectClass; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

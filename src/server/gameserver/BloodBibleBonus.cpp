@@ -6,7 +6,7 @@
 #include "BloodBibleBonus.h"
 
 string BloodBibleBonus::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

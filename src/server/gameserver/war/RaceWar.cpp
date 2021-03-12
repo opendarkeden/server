@@ -57,7 +57,7 @@ RaceWar::~RaceWar()
 //     자신의 Zone(성)에 대한 처리는 lock이 필요없다.
 //--------------------------------------------------------------------------------
 void RaceWar::executeStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -103,7 +103,7 @@ void RaceWar::executeStart()
 }
 
 void RaceWar::recordRaceWarStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ void RaceWar::recordRaceWarStart()
 // 전쟁이 끝나는 시점에서 처리해야 될 것들
 //--------------------------------------------------------------------------------
 void RaceWar::executeEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ void RaceWar::executeEnd()
 }
 
 void RaceWar::recordRaceWarEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -282,7 +282,7 @@ void RaceWar::recordRaceWarEnd()
 }
 
 string RaceWar::getWarName() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -295,7 +295,7 @@ string RaceWar::getWarName() const
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void RaceWar::sendWarEndMessage() const
-    throw (ProtocolException, Error)
+    
 {
     __BEGIN_TRY
 
@@ -311,7 +311,7 @@ void RaceWar::sendWarEndMessage() const
 
 
 void    RaceWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -323,7 +323,7 @@ void    RaceWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
 }
 
 void 	RaceWar::makeWarInfo(WarInfo* pWarInfo) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -348,7 +348,7 @@ void 	RaceWar::makeWarInfo(WarInfo* pWarInfo) const
 
 
 string RaceWar::toString() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

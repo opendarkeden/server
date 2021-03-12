@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "PoisonMesh"; }
 	SkillType_t getSkillType() const throw() { return SKILL_POISON_MESH; }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

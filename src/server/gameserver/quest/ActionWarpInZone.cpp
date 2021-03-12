@@ -30,7 +30,7 @@ static const POINT d [] = {
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpInZone::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -52,7 +52,7 @@ void ActionWarpInZone::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void ActionWarpInZone::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpInZone::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

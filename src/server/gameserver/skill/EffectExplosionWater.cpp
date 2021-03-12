@@ -11,7 +11,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectExplosionWater::EffectExplosionWater( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -21,7 +21,7 @@ EffectExplosionWater::EffectExplosionWater( Creature* pCreature )
 }
 
 void EffectExplosionWater::affect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -32,14 +32,14 @@ void EffectExplosionWater::affect()
 }
 
 void EffectExplosionWater::affect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectExplosionWater::unaffect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void EffectExplosionWater::unaffect( Creature* pCreature )
 }
 
 void EffectExplosionWater::unaffect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 

@@ -20,7 +20,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BiteOfDeath::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		

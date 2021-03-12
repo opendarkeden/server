@@ -20,34 +20,34 @@
 class EventItem : public Item 
 {
 public:
-	EventItem() throw();
-	EventItem(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) throw();
+	EventItem() ;
+	EventItem(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 	void whenPCTake( PlayerCreature* pPC );
 
 public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_EVENT_ITEM; }
-	virtual string getObjectTableName() const throw() { return "EventItemObject"; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_EVENT_ITEM; }
+	virtual string getObjectTableName() const  { return "EventItemObject"; }
 
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
 
 public:
-	virtual ItemNum_t getNum() const throw() { return m_Num; }
-	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemNum_t getNum() const  { return m_Num; }
+	virtual void setNum(ItemNum_t Num)  { m_Num = Num; }
 
 private:
 	ItemType_t m_ItemType;
@@ -64,8 +64,8 @@ private:
 class EventItemInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_EVENT_ITEM; }
-	virtual string toString() const throw();
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_EVENT_ITEM; }
+	virtual string toString() const ;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -75,8 +75,8 @@ public:
 class EventItemInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_EVENT_ITEM; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_EVENT_ITEM; }
+	virtual void load() ;
 };
 
 extern EventItemInfoManager* g_pEventItemInfoManager;
@@ -88,11 +88,11 @@ extern EventItemInfoManager* g_pEventItemInfoManager;
 class EventItemFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_EVENT_ITEM; }
-	virtual string getItemClassName() const throw() { return "EventItem"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_EVENT_ITEM; }
+	virtual string getItemClassName() const  { return "EventItem"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new EventItem(ItemType,OptionType,1); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new EventItem(ItemType,OptionType,1); }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -102,13 +102,13 @@ public:
 class EventItemLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_EVENT_ITEM; }
-	virtual string getItemClassName() const throw() { return "EventItem"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_EVENT_ITEM; }
+	virtual string getItemClassName() const  { return "EventItem"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern EventItemLoader* g_pEventItemLoader;

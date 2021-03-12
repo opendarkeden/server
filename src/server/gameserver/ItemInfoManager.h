@@ -21,18 +21,18 @@
 class ItemInfoManager 
 {
 public:
-	ItemInfoManager() throw();
-	~ItemInfoManager() throw();
+	ItemInfoManager() ;
+	~ItemInfoManager() ;
 
 public:
-	void init() throw(Error);
-	InfoClassManager* getInfoManager(Item::ItemClass Class) const throw(Error);
-	ItemInfo* getItemInfo(Item::ItemClass Class, ItemType_t ItemType) const throw(Error);
-	uint getItemCount(Item::ItemClass Class) const throw(Error);
+	void init() ;
+	InfoClassManager* getInfoManager(Item::ItemClass Class) const ;
+	ItemInfo* getItemInfo(Item::ItemClass Class, ItemType_t ItemType) const ;
+	uint getItemCount(Item::ItemClass Class) const ;
 
-	vector<ItemType_t> getPossibleItemTypes(Item::ItemClass IClass, uint minLevel, uint maxLevel) throw();
+	vector<ItemType_t> getPossibleItemTypes(Item::ItemClass IClass, uint minLevel, uint maxLevel) ;
 
-	bool isPossibleItem(Item::ItemClass IClass, ItemType_t IType, const list<OptionType_t>& OType) throw();
+	bool isPossibleItem(Item::ItemClass IClass, ItemType_t IType, const list<OptionType_t>& OType) ;
 
 	uint getItemIDSuccessor(void) const { return m_ItemIDSuccessor; }
 	void setItemIDSuccessor(uint suc) { m_ItemIDSuccessor = suc; }
@@ -40,7 +40,7 @@ public:
 	uint getItemIDBase(void) const { return m_ItemIDBase; }
 	void setItemIDBase(uint base) { m_ItemIDBase = base; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	InfoClassManager* m_InfoClassManagers[Item::ITEM_CLASS_MAX];

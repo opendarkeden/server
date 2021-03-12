@@ -6,17 +6,17 @@
 #include "Assert.h"
 
 Scheduler::Scheduler()
-	throw()
+	
 {
 }
 Scheduler::~Scheduler()
-	throw(Error)
+	
 {
 	clear();
 }
 
 void Scheduler::clear()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void Scheduler::clear()
 // Schedule은 RecentSchedules와 Schedules에 동시에 등록되어 있다.
 //--------------------------------------------------------------------------------
 void Scheduler::addSchedule( Schedule* pSchedule )  
-	throw (Error)
+	
 { 
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ void Scheduler::addSchedule( Schedule* pSchedule )
 // pRecentSchedule의 Work는 return하고 pRecentSchedule은 지운다
 //--------------------------------------------------------------------------------
 Work* Scheduler::popRecentWork()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -83,7 +83,7 @@ Work* Scheduler::popRecentWork()
 // Schedule의 Work를 return한다. 이 때, Schedule은 지운다.
 //--------------------------------------------------------------------------------
 Work* Scheduler::heartbeat()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -25,21 +25,21 @@ class QuestManager
 {
 public:
 	QuestManager(PlayerCreature* pOwner);
-	~QuestManager() throw(Error);
+	~QuestManager() ;
 
-	void				load() throw(Error);
+	void				load() ;
 
 	bool				canStartMoreQuest() const { return m_Quests.size() < MAX_QUEST_NUM; }
 	bool				hasQuest( QuestID_t qID ) const { return m_Quests.find(qID) != m_Quests.end(); }
 
-	void				addQuest( QuestStatus* pQS ) throw(Error);
+	void				addQuest( QuestStatus* pQS ) ;
 	void				questRewarded( QuestID_t qID ) { m_Quests.erase( qID ); }
 
-	QuestMessage		isQuestComplete( QuestID_t qID ) const throw(Error);
+	QuestMessage		isQuestComplete( QuestID_t qID ) const ;
 
-	QuestStatus*		getQuestStatus( QuestID_t qID ) throw(Error);
-	void				sendQuestInfo() throw(Error);
-	void				adjustQuestStatus() throw(Error);
+	QuestStatus*		getQuestStatus( QuestID_t qID ) ;
+	void				sendQuestInfo() ;
+	void				adjustQuestStatus() ;
 
 	template<class QOutItr, class ROutItr>
 	void				getCompletedQuestRewards(QOutItr qitr, ROutItr oitr) const
@@ -55,21 +55,21 @@ public:
 		}
 	}
 
-	QuestMessage		cancelQuest() throw(Error);
-	QuestMessage		failQuest() throw(Error);
+	QuestMessage		cancelQuest() ;
+	QuestMessage		failQuest() ;
 	bool				hasQuest() const { return m_Quests.size() != 0; }
 	bool				hasEventQuest( int questLevel, QuestID_t& qID ) const;
 	bool				successEventQuest( int questLevel, QuestID_t& qID ) const;
 	RewardClass_t		getEventQuestReward( int questLevel ) const;
 
-	QuestStatus*		getQuestStatusByQuestClass( QuestClass qClass ) const throw(Error);
+	QuestStatus*		getQuestStatusByQuestClass( QuestClass qClass ) const ;
 	EventQuestAdvanceManager*	getEventQuestAdvanceManager() const { return m_pEventQuestAdvanceManager; }
 
 public:
-	bool				killedMonster( Monster* pMonster ) throw(Error);
-//	bool				gotItem( Item* pItem ) throw(Error);
-	bool				metNPC( NPC* pNPC ) throw(Error);
-	bool				isTargetNPC( NPC* pNPC ) throw(Error);
+	bool				killedMonster( Monster* pMonster ) ;
+//	bool				gotItem( Item* pItem ) ;
+	bool				metNPC( NPC* pNPC ) ;
+	bool				isTargetNPC( NPC* pNPC ) ;
 	bool				submitMiniGameScore( int GameType, uint GameScore );
 
 	bool				completeMonsterKillQuest();

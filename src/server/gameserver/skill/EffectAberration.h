@@ -16,16 +16,16 @@
 class EffectAberration : public Effect 
 {
 public:
-	EffectAberration(Creature* pCreature) throw(Error);
+	EffectAberration(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ABERRATION; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 

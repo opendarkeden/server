@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectExtreme::EffectExtreme(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectExtreme::EffectExtreme(Creature* pCreature)
 }
 
 void EffectExtreme::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectExtreme::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectExtreme::unaffect()
 }
 
 void EffectExtreme::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

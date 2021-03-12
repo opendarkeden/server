@@ -7,7 +7,7 @@
 PKZoneInfoManager* g_pPKZoneInfoManager = NULL;
 
 string PKZoneInfo::toString()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -26,7 +26,7 @@ string PKZoneInfo::toString()
 }
 
 void PKZoneInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ void PKZoneInfoManager::load()
 }
 
 void PKZoneInfoManager::addPKZoneInfo( PKZoneInfo* pPKZoneInfo )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ void PKZoneInfoManager::addPKZoneInfo( PKZoneInfo* pPKZoneInfo )
 }
 
 PKZoneInfo*	PKZoneInfoManager::getPKZoneInfo( ZoneID_t	zoneID ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +98,7 @@ PKZoneInfo*	PKZoneInfoManager::getPKZoneInfo( ZoneID_t	zoneID ) const
 }
 
 bool PKZoneInfoManager::isPKZone( ZoneID_t zoneID ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ bool PKZoneInfoManager::isPKZone( ZoneID_t zoneID ) const
 }
 
 bool PKZoneInfoManager::enterPKZone( ZoneID_t zoneID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ bool PKZoneInfoManager::enterPKZone( ZoneID_t zoneID )
 }
 
 bool PKZoneInfoManager::leavePKZone( ZoneID_t zoneID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -151,7 +151,7 @@ bool PKZoneInfoManager::leavePKZone( ZoneID_t zoneID )
 }
 	
 bool PKZoneInfoManager::canEnterPKZone( ZoneID_t zoneID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ bool PKZoneInfoManager::canEnterPKZone( ZoneID_t zoneID )
 
 
 bool PKZoneInfoManager::getResurrectPosition( ZoneID_t zoneID, ZONE_COORD& zoneCoord ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

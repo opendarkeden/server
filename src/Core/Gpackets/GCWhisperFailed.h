@@ -29,35 +29,35 @@ class GCWhisperFailed : public Packet {
 public :
 	
 	// constructor
-	GCWhisperFailed() throw();
+	GCWhisperFailed() ;
 	
 	// destructor
-	~GCWhisperFailed() throw();
+	~GCWhisperFailed() ;
 
 	
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_WHISPER_FAILED; }
+	PacketID_t getPacketID() const  { return PACKET_GC_WHISPER_FAILED; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return 0; }
+	PacketSize_t getPacketSize() const  { return 0; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCWhisperFailed"; }
+	string getPacketName() const  { return "GCWhisperFailed"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 private :
 
@@ -76,25 +76,25 @@ class GCWhisperFailedFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCWhisperFailedFactory() throw() {}
+	GCWhisperFailedFactory()  {}
 	
 	// destructor
-	virtual ~GCWhisperFailedFactory() throw() {}
+	virtual ~GCWhisperFailedFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCWhisperFailed(); }
+	Packet* createPacket()  { return new GCWhisperFailed(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCWhisperFailed"; }
+	string getPacketName() const  { return "GCWhisperFailed"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_WHISPER_FAILED; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_WHISPER_FAILED; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return 0; }
+	PacketSize_t getPacketMaxSize() const  { return 0; }
 
 };
 
@@ -110,7 +110,7 @@ class GCWhisperFailedHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCWhisperFailed* pGCWhisperFailed, Player* pPlayer) throw(Error);
+	static void execute(GCWhisperFailed* pGCWhisperFailed, Player* pPlayer) ;
 
 };
 

@@ -20,34 +20,34 @@
 class Magazine : public Item 
 {
 public:
-	Magazine() throw();
-	Magazine(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) throw();
+	Magazine() ;
+	Magazine(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
-
-public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_MAGAZINE; }
-	virtual string getObjectTableName() const throw() { return "MagazineObject"; }
-
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
-
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	static void initItemIDRegistry(void) ;
 
 public:
-	ItemNum_t getNum() const throw() { return m_Num; }
-	void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_MAGAZINE; }
+	virtual string getObjectTableName() const  { return "MagazineObject"; }
 
-	bool    isStackable() const throw() { return true; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
+
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
+
+public:
+	ItemNum_t getNum() const  { return m_Num; }
+	void setNum(ItemNum_t Num)  { m_Num = Num; }
+
+	bool    isStackable() const  { return true; }
 
 private:
 	ItemType_t			m_ItemType;		// 아이템 타입
@@ -65,8 +65,8 @@ private:
 class MagazineInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_MAGAZINE; }
-	virtual string toString() const throw();
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MAGAZINE; }
+	virtual string toString() const ;
 
 	enum GunType
 	{
@@ -74,14 +74,14 @@ public:
 	};
 
 public:
-	uint getMaxBullets() const throw() { return m_MaxBullets; }
-	void setMaxBullets(uint maxBullets) throw() { m_MaxBullets = maxBullets; }
+	uint getMaxBullets() const  { return m_MaxBullets; }
+	void setMaxBullets(uint maxBullets)  { m_MaxBullets = maxBullets; }
 
-	Silver_t getMaxSilver(void) const throw() { return m_MaxSilver; }
-	void setMaxSilver(Silver_t silver) throw() { m_MaxSilver = silver; }
+	Silver_t getMaxSilver(void) const  { return m_MaxSilver; }
+	void setMaxSilver(Silver_t silver)  { m_MaxSilver = silver; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
 	bool isVivid() const { return m_bVivid; }
 	void setVivid( bool vivid=true ) { m_bVivid = vivid; }
@@ -105,8 +105,8 @@ private:
 class MagazineInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_MAGAZINE; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MAGAZINE; }
+	virtual void load() ;
 };
 
 // global variable declaration
@@ -120,11 +120,11 @@ extern MagazineInfoManager* g_pMagazineInfoManager;
 class MagazineFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_MAGAZINE; }
-	virtual string getItemClassName() const throw() { return "Magazine"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MAGAZINE; }
+	virtual string getItemClassName() const  { return "Magazine"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Magazine(ItemType,OptionType,1); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Magazine(ItemType,OptionType,1); }
 };
 
 
@@ -135,13 +135,13 @@ public:
 class MagazineLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_MAGAZINE; }
-	virtual string getItemClassName() const throw() { return "Magazine"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_MAGAZINE; }
+	virtual string getItemClassName() const  { return "Magazine"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern MagazineLoader* g_pMagazineLoader;

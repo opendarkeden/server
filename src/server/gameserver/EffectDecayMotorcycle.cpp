@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectDecayMotorcycle::EffectDecayMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB)
-	throw (Error)
+	
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -41,7 +41,7 @@ EffectDecayMotorcycle::EffectDecayMotorcycle (Zone* pZone , ZoneCoord_t x , Zone
 // destructor
 //----------------------------------------------------------------------
 EffectDecayMotorcycle::~EffectDecayMotorcycle () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ EffectDecayMotorcycle::~EffectDecayMotorcycle ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectDecayMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget, Slayer* pSlayer)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -127,7 +127,7 @@ void EffectDecayMotorcycle::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -137,7 +137,7 @@ void EffectDecayMotorcycle::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayMotorcycle::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -147,7 +147,7 @@ void EffectDecayMotorcycle::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectDecayMotorcycle::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

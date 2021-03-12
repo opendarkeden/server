@@ -42,23 +42,23 @@ enum Timeband
 class TimeManager 
 {
 public:
-	void init() throw(Error);
+	void init() ;
 
-	GameTime getGameTime() const throw();	
+	GameTime getGameTime() const ;	
 
-	time_t getgametime() const throw();
+	time_t getgametime() const ;
 
-	time_t getBaseGameTime() const throw() { return m_BaseGameTime; }
-	time_t getBaseRealTime() const throw() { return m_BaseRealTime; }
+	time_t getBaseGameTime() const  { return m_BaseGameTime; }
+	time_t getBaseRealTime() const  { return m_BaseRealTime; }
 
-	bool isDawnTime(void) const throw();
-	bool isDayTime(void) const throw();
-	bool isDuskTime(void) const throw();
-	bool isNightTime(void) const throw();
-	uint getTimeband(void) const throw();
+	bool isDawnTime(void) const ;
+	bool isDayTime(void) const ;
+	bool isDuskTime(void) const ;
+	bool isNightTime(void) const ;
+	uint getTimeband(void) const ;
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	time_t m_BaseGameTime;

@@ -16,16 +16,16 @@
 class EffectMagnumSpear : public Effect 
 {
 public:
-	EffectMagnumSpear(Creature* pCreature) throw(Error);
+	EffectMagnumSpear(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MAGNUM_SPEAR; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 

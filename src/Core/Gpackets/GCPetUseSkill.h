@@ -22,17 +22,17 @@
 class GCPetUseSkill : public Packet 
 {
 public:
-	GCPetUseSkill() throw();
-	~GCPetUseSkill() throw();
+	GCPetUseSkill() ;
+	~GCPetUseSkill() ;
 	
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PET_USE_SKILL; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szObjectID; }
-	string getPacketName() const throw() { return "GCPetUseSkill"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_PET_USE_SKILL; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szObjectID; }
+	string getPacketName() const  { return "GCPetUseSkill"; }
+	string toString() const ;
 
 public:
 	ObjectID_t	getAttacker() const { return m_Attacker; }
@@ -53,14 +53,14 @@ private:
 class GCPetUseSkillFactory : public PacketFactory 
 {
 public :
-	GCPetUseSkillFactory() throw() {}
-	virtual ~GCPetUseSkillFactory() throw() {}
+	GCPetUseSkillFactory()  {}
+	virtual ~GCPetUseSkillFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCPetUseSkill(); }
-	string getPacketName() const throw() { return "GCPetUseSkill"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PET_USE_SKILL; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szObjectID; }
+	Packet* createPacket()  { return new GCPetUseSkill(); }
+	string getPacketName() const  { return "GCPetUseSkill"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PET_USE_SKILL; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szObjectID; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public:
 class GCPetUseSkillHandler 
 {
 public:
-	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) throw(Error);
+	static void execute(GCPetUseSkill* pGCPetUseSkill, Player* pPlayer) ;
 
 };
 

@@ -20,10 +20,10 @@
 class ActionSelectBloodBible : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SELECT_BLOOD_BIBLE; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SELECT_BLOOD_BIBLE; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
 private:
@@ -37,8 +37,8 @@ private:
 class ActionSelectBloodBibleFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_SELECT_BLOOD_BIBLE; }
-	virtual string getActionName() const throw() { return "SelectBloodBible"; }
-	virtual Action* createAction() const throw() { return new ActionSelectBloodBible(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_SELECT_BLOOD_BIBLE; }
+	virtual string getActionName() const  { return "SelectBloodBible"; }
+	virtual Action* createAction() const  { return new ActionSelectBloodBible(); }
 };
 #endif

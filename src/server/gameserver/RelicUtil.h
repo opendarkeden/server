@@ -14,27 +14,27 @@ class PlayerCreature;
 bool isRelicItem(const Item* pItem);
 bool isRelicItem(Item::ItemClass IClass);
 
-void saveItemInCorpse(Item* pItem, Corpse* pCorpse) throw (Error);
+void saveItemInCorpse(Item* pItem, Corpse* pCorpse) ;
 
-bool addRelicEffect(Creature* pCreature, Item* pItem) throw (Error);
-bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem) throw (Error);
+bool addRelicEffect(Creature* pCreature, Item* pItem) ;
+bool addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem) ;
 
-bool addEffectRelicPosition( Item* pItem, ZoneID_t zoneID, TPOINT tp ) throw(Error);
-bool deleteEffectRelicPosition( Item* pItem ) throw (Error);
-bool deleteRelicEffect( Corpse* pCorpse, Item* pItem ) throw (Error);
-bool deleteRelicEffect(Creature* pCreature, Item* pItem) throw (Error);
+bool addEffectRelicPosition( Item* pItem, ZoneID_t zoneID, TPOINT tp ) ;
+bool deleteEffectRelicPosition( Item* pItem ) ;
+bool deleteRelicEffect( Corpse* pCorpse, Item* pItem ) ;
+bool deleteRelicEffect(Creature* pCreature, Item* pItem) ;
 
 //////////////////////////////////////////////////////////////////////////////
 // relicÀ» zone¿¡ ¶³¾î¶ß¸®´Â °æ¿ì
 //////////////////////////////////////////////////////////////////////////////
-bool dropRelicToZone(PlayerCreature* pPC, Item* pItem) throw (Error);
-bool dropRelicToZone(Creature* pCreature, bool bSendPacket=true) throw (Error);
+bool dropRelicToZone(PlayerCreature* pPC, Item* pItem) ;
+bool dropRelicToZone(Creature* pCreature, bool bSendPacket=true) ;
 
-bool dissectionRelicItem( Corpse* pCorpse, Item* pItem, const TPOINT& pt ) throw (Error);
+bool dissectionRelicItem( Corpse* pCorpse, Item* pItem, const TPOINT& pt ) ;
 
-void sendBloodBibleEffect( Object* pObject, Effect::EffectClass EClass ) throw (Error);
-void sendHolyLandWarpEffect( Creature* pCreature ) throw (Error);
-void sendRelicWarpEffect(Corpse* pCorpse) throw (Error);
+void sendBloodBibleEffect( Object* pObject, Effect::EffectClass EClass ) ;
+void sendHolyLandWarpEffect( Creature* pCreature ) ;
+void sendRelicWarpEffect(Corpse* pCorpse) ;
 
 
 #endif

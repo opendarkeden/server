@@ -13,7 +13,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectDancingSword::EffectDancingSword(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,14 +23,14 @@ EffectDancingSword::EffectDancingSword(Creature* pCreature)
 }
 
 void EffectDancingSword::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectDancingSword::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -45,7 +45,7 @@ void EffectDancingSword::unaffect()
 }
 
 void EffectDancingSword::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

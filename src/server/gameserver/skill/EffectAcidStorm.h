@@ -7,18 +7,18 @@
 class EffectAcidStorm : public Effect
 {
 public:
-	EffectAcidStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectAcidStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ACID_STORM; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item* pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 
@@ -38,7 +38,7 @@ public:
 	void setVampire( bool bVampire = true ) { m_bVampire = bVampire; }
 	bool isVampire() const { return m_bVampire; }
 
-	bool affectCreature(Creature* pCreature, bool bAffectByMove) throw(Error); 
+	bool affectCreature(Creature* pCreature, bool bAffectByMove) ; 
 private:
 	int 	 	m_Damage;  	    // EffectAcidStorm Damage;
 	Turn_t 		m_Tick;			// EffectAcidStorm turn;	
@@ -56,8 +56,8 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectAcidStorm"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
-	virtual void load(Zone* pZone) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
+	virtual void load(Zone* pZone)  {}
 };
 
 extern EffectAcidStormLoader* g_pEffectAcidStormLoader;

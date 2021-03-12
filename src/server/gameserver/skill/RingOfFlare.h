@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "RingOfFlare"; }
 	SkillType_t getSkillType() const throw() { return SKILL_RING_OF_FLARE; }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

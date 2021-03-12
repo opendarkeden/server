@@ -38,30 +38,30 @@ class TradeInfo
 {
 ///// Member methods /////
 public:
-	TradeInfo() throw();
-	~TradeInfo() throw();
+	TradeInfo() ;
+	~TradeInfo() ;
 
 public:
-	const string getMainName(void) const throw() { return m_MainName; }
-	void setMainName(const string & Name) throw() { m_MainName = Name; }
+	const string getMainName(void) const  { return m_MainName; }
+	void setMainName(const string & Name)  { m_MainName = Name; }
 
-	const string getTargetName(void) const throw() { return m_TargetName; }
-	void setTargetName(const string & Name) throw() { m_TargetName = Name; }
+	const string getTargetName(void) const  { return m_TargetName; }
+	void setTargetName(const string & Name)  { m_TargetName = Name; }
 
-	list<Item*> getItemList(void) throw() { return m_ItemList; }
-	void setItemList(list<Item*> itemList) throw() { m_ItemList = itemList; }
+	list<Item*> getItemList(void)  { return m_ItemList; }
+	void setItemList(list<Item*> itemList)  { m_ItemList = itemList; }
 
-	Gold_t getGold(void) const throw() { return m_Gold; }
+	Gold_t getGold(void) const  { return m_Gold; }
 	void setGold(Gold_t gold) { m_Gold = gold; }
 
-	int getStatus(void) const throw() { return m_Status; }
-	void setStatus(int status) throw() { m_Status = status; }
+	int getStatus(void) const  { return m_Status; }
+	void setStatus(int status)  { m_Status = status; }
 
-	bool hasItem(Item* pItem) throw();
-	bool addItem(Item* pItem) throw();
-	bool removeItem(Item* pItem) throw();
+	bool hasItem(Item* pItem) ;
+	bool addItem(Item* pItem) ;
+	bool removeItem(Item* pItem) ;
 
-	void clearAll(void) throw();
+	void clearAll(void) ;
 
 	Timeval getLastOKTime(void) const { return m_LastOKTime; }
 	void setLastOKTime(const Timeval& lastOKTime) { m_LastOKTime = lastOKTime; }
@@ -88,29 +88,29 @@ class TradeManager
 {
 ///// Member methods /////
 public:
-	TradeManager() throw();
-	~TradeManager() throw();
+	TradeManager() ;
+	~TradeManager() ;
 
 public:
-	void init() throw();
+	void init() ;
 
-	bool hasTradeInfo(const string & Name) throw();
+	bool hasTradeInfo(const string & Name) ;
 
-	TradeInfo* getTradeInfo(const string & Name) throw();
+	TradeInfo* getTradeInfo(const string & Name) ;
 
-	void addTradeInfo(TradeInfo* pInfo) throw(DuplicatedException);
+	void addTradeInfo(TradeInfo* pInfo) ;
 
-	void removeTradeInfo(const string & Name) throw(NoSuchElementException);
+	void removeTradeInfo(const string & Name) ;
 
 public:
 
-	void initTrade(Creature* pCreature1, Creature* pCreature2) throw();
+	void initTrade(Creature* pCreature1, Creature* pCreature2) ;
 	// 트레이드 할 수 없으면 0, 선물 상자 조건 때문에 못하면 2, 할 수 있으면 1
-	int canTrade(Creature* pCreature1, Creature* pCreature2) throw();
-	void processTrade(Creature* pCreature1, Creature* pCreature2) throw();
-	void cancelTrade(Creature* pCreature1, Creature* pCreature2) throw();
-	void cancelTrade(Creature* pCreature1) throw();
-	bool isTrading(Creature* pCreature1, Creature* pCreature2) throw();
+	int canTrade(Creature* pCreature1, Creature* pCreature2) ;
+	void processTrade(Creature* pCreature1, Creature* pCreature2) ;
+	void cancelTrade(Creature* pCreature1, Creature* pCreature2) ;
+	void cancelTrade(Creature* pCreature1) ;
+	bool isTrading(Creature* pCreature1, Creature* pCreature2) ;
 
 ///// Member data /////
 protected:

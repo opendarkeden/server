@@ -14,7 +14,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 EventCBilling::EventCBilling (GamePlayer* pGamePlayer) 
-	throw (Error)
+	
 : Event(pGamePlayer),
   m_TrySendLoginCount(0)
 {
@@ -25,7 +25,7 @@ EventCBilling::EventCBilling (GamePlayer* pGamePlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 EventCBilling::~EventCBilling () 
-	throw ()
+	
 {
 }
 
@@ -34,7 +34,7 @@ EventCBilling::~EventCBilling ()
 // activate
 //////////////////////////////////////////////////////////////////////////////
 void EventCBilling::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

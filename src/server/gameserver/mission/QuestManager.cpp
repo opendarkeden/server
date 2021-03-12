@@ -29,7 +29,7 @@ QuestManager::QuestManager(PlayerCreature* pOwner)
 	m_pEventQuestAdvanceManager = new EventQuestAdvanceManager( pOwner );
 }
 
-QuestManager::~QuestManager() throw (Error)
+QuestManager::~QuestManager() 
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ QuestManager::~QuestManager() throw (Error)
 	__END_CATCH
 }
 
-void QuestManager::load() throw(Error)
+void QuestManager::load() 
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void QuestManager::load() throw(Error)
 	__END_CATCH
 }
 
-void QuestManager::addQuest( QuestStatus* pQS ) throw(Error)
+void QuestManager::addQuest( QuestStatus* pQS ) 
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void QuestManager::addQuest( QuestStatus* pQS ) throw(Error)
 	__END_CATCH
 }
 
-QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const throw(Error)
+QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const 
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const throw(Error)
 }
 
 
-/*QuestMessage QuestManager::completeQuest( QuestID_t qID, bool checked ) throw(Error)
+/*QuestMessage QuestManager::completeQuest( QuestID_t qID, bool checked ) 
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ QuestMessage QuestManager::isQuestComplete( QuestID_t qID ) const throw(Error)
 	__END_CATCH
 }*/
 
-QuestStatus* QuestManager::getQuestStatus( QuestID_t qID ) throw(Error)
+QuestStatus* QuestManager::getQuestStatus( QuestID_t qID ) 
 {
 	__BEGIN_TRY
 
@@ -136,7 +136,7 @@ QuestStatus* QuestManager::getQuestStatus( QuestID_t qID ) throw(Error)
 	__END_CATCH
 }
 
-void QuestManager::sendQuestInfo() throw(Error)
+void QuestManager::sendQuestInfo() 
 {
 	__BEGIN_TRY
 
@@ -162,7 +162,7 @@ void QuestManager::sendQuestInfo() throw(Error)
 }
 
 /*MonsterKillQuestStatus*	QuestManager::getMonsterKillQuestStatus()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ void QuestManager::sendQuestInfo() throw(Error)
 	__END_CATCH
 }
 
-MonsterKillQuestStatus*	QuestManager::getMonsterKillQuestStatus( SpriteType_t sType, bool isChief ) throw(Error)
+MonsterKillQuestStatus*	QuestManager::getMonsterKillQuestStatus( SpriteType_t sType, bool isChief ) 
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ MonsterKillQuestStatus*	QuestManager::getMonsterKillQuestStatus( SpriteType_t sT
 
 	__END_CATCH
 }
-QuestMessage QuestManager::rewardCompleteQuest() throw(Error)
+QuestMessage QuestManager::rewardCompleteQuest() 
 {
 	__BEGIN_TRY
 
@@ -228,7 +228,7 @@ QuestMessage QuestManager::rewardCompleteQuest() throw(Error)
 	__END_CATCH
 }
 */
-void QuestManager::adjustQuestStatus() throw(Error)
+void QuestManager::adjustQuestStatus() 
 {
 	__BEGIN_TRY
 
@@ -252,7 +252,7 @@ void QuestManager::adjustQuestStatus() throw(Error)
 	__END_CATCH
 }
 
-QuestMessage QuestManager::cancelQuest() throw(Error)
+QuestMessage QuestManager::cancelQuest() 
 {
 	__BEGIN_TRY
 
@@ -282,7 +282,7 @@ QuestMessage QuestManager::cancelQuest() throw(Error)
 	__END_CATCH
 }
 
-QuestMessage QuestManager::failQuest() throw(Error)
+QuestMessage QuestManager::failQuest() 
 {
 	__BEGIN_TRY
 
@@ -350,7 +350,7 @@ bool QuestManager::successEventQuest( int questLevel, QuestID_t& qID ) const
 //RewardClass_t QuestManager::getEventQuestReward( int questLevel ) const
 
 QuestStatus* QuestManager::getQuestStatusByQuestClass( QuestClass qClass ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -370,7 +370,7 @@ QuestStatus* QuestManager::getQuestStatusByQuestClass( QuestClass qClass ) const
 	__END_CATCH
 }
 
-bool QuestManager::killedMonster( Monster* pMonster ) throw(Error)
+bool QuestManager::killedMonster( Monster* pMonster ) 
 {
 	__BEGIN_TRY
 
@@ -385,7 +385,7 @@ bool QuestManager::killedMonster( Monster* pMonster ) throw(Error)
 	__END_CATCH
 }
 
-bool QuestManager::metNPC( NPC* pNPC ) throw(Error)
+bool QuestManager::metNPC( NPC* pNPC ) 
 {
 	__BEGIN_TRY
 
@@ -400,7 +400,7 @@ bool QuestManager::metNPC( NPC* pNPC ) throw(Error)
 	__END_CATCH
 }
 
-bool QuestManager::isTargetNPC( NPC* pNPC ) throw(Error)
+bool QuestManager::isTargetNPC( NPC* pNPC ) 
 {
 	__BEGIN_TRY
 		

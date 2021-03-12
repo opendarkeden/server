@@ -20,7 +20,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -40,7 +40,7 @@ void ActionWarpToResurrectPosition::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void ActionWarpToResurrectPosition::execute (Creature * pCreature1 , Creature * 
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarpToResurrectPosition::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

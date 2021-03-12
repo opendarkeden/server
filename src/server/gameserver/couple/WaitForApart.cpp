@@ -25,7 +25,6 @@
 #include <stdio.h>
 
 uint WaitForApart::waitPartner( PlayerCreature* pTargetPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -57,7 +56,6 @@ uint WaitForApart::waitPartner( PlayerCreature* pTargetPC )
 }
 
 uint WaitForApart::acceptPartner( PlayerCreature* pRequestedPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -141,7 +139,6 @@ uint WaitForApart::acceptPartner( PlayerCreature* pRequestedPC )
 	__END_CATCH
 }
 void WaitForApart::timeExpired()
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -157,7 +154,6 @@ void WaitForApart::timeExpired()
 }
 
 bool WaitForApart::removeCoupleItem( PlayerCreature* pPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -261,7 +257,7 @@ bool WaitForApart::removeCoupleItem( PlayerCreature* pPC )
 	__END_CATCH
 }
 
-Item* WaitForApart::getCoupleItem( PlayerCreature* pPC ) throw(Error)
+Item* WaitForApart::getCoupleItem( PlayerCreature* pPC )
 {
 	if ( pPC->isSlayer() )
 	{

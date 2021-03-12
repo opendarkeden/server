@@ -28,50 +28,50 @@ class GCDeleteEffectFromTile : public Packet {
 public :
 	
 	// constructor
-	GCDeleteEffectFromTile() throw();
+	GCDeleteEffectFromTile() ;
 	
 	// destructor
-	~GCDeleteEffectFromTile() throw();
+	~GCDeleteEffectFromTile() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_DELETE_EFFECT_FROM_TILE; }
+	PacketID_t getPacketID() const  { return PACKET_GC_DELETE_EFFECT_FROM_TILE; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoord*2 + szEffectID; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoord*2 + szEffectID; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCDeleteEffectFromTile"; }
+	string getPacketName() const  { return "GCDeleteEffectFromTile"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set EffectID 
-	EffectID_t getEffectID() const throw() { return m_EffectID; }
-	void setEffectID(EffectID_t e) throw() { m_EffectID = e; }
+	EffectID_t getEffectID() const  { return m_EffectID; }
+	void setEffectID(EffectID_t e)  { m_EffectID = e; }
 	
 
 	// get / set ObjectID 
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t d) throw() { m_ObjectID = d; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t d)  { m_ObjectID = d; }
 
 	// get & set X, Y
-	Coord_t getX() const throw() { return m_X;}
-	Coord_t getY() const throw() { return m_Y;}
-	void setXY(Coord_t x, Coord_t y) throw() { m_X = x; m_Y = y;}
+	Coord_t getX() const  { return m_X;}
+	Coord_t getY() const  { return m_Y;}
+	void setXY(Coord_t x, Coord_t y)  { m_X = x; m_Y = y;}
 	
 private :
 	
@@ -95,26 +95,26 @@ class GCDeleteEffectFromTileFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCDeleteEffectFromTileFactory() throw() {}
+	GCDeleteEffectFromTileFactory()  {}
 	
 	// destructor
-	virtual ~GCDeleteEffectFromTileFactory() throw() {}
+	virtual ~GCDeleteEffectFromTileFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCDeleteEffectFromTile(); }
+	Packet* createPacket()  { return new GCDeleteEffectFromTile(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCDeleteEffectFromTile"; }
+	string getPacketName() const  { return "GCDeleteEffectFromTile"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_DELETE_EFFECT_FROM_TILE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_DELETE_EFFECT_FROM_TILE; }
 
 	// get Packet Max Size
-	// PacketSize_t getPacketMaxSize() const throw() { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE* m_ListNum* 2 ; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord*2 + szEffectID ; }
+	// PacketSize_t getPacketMaxSize() const  { return szSkillType + szCEffectID + szDuration + szBYTE + szBYTE* m_ListNum* 2 ; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoord*2 + szEffectID ; }
 
 };
 
@@ -130,7 +130,7 @@ class GCDeleteEffectFromTileHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCDeleteEffectFromTile* pGCDeleteEffectFromTile, Player* pPlayer) throw(Error);
+	static void execute(GCDeleteEffectFromTile* pGCDeleteEffectFromTile, Player* pPlayer) ;
 
 };
 

@@ -28,14 +28,14 @@ Mutex    ComposMei::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 ComposMei::ComposMei()
-	throw()
+	
 //: m_ItemType(0)
 {
 	setItemType(0);
 }
 
 ComposMei::ComposMei(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 //: m_ItemType(itemType), m_Num(Num)
 {
 	setItemType(itemType);
@@ -53,7 +53,7 @@ ComposMei::ComposMei(ItemType_t itemType, const list<OptionType_t>& optionType, 
 // create item
 //--------------------------------------------------------------------------------
 void ComposMei::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void ComposMei::create(const string & ownerID, Storage storage, StorageID_t stor
 // destroy
 //--------------------------------------------------------------------------------
 bool ComposMei::destroy() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -138,7 +138,7 @@ bool ComposMei::destroy()
 // save item
 //--------------------------------------------------------------------------------
 void ComposMei::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -162,7 +162,7 @@ void ComposMei::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void ComposMei::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -188,7 +188,7 @@ void ComposMei::save(const string & ownerID, Storage storage, StorageID_t storag
 // get debug string
 //--------------------------------------------------------------------------------
 string ComposMei::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -206,7 +206,7 @@ string ComposMei::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t ComposMei::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -220,7 +220,7 @@ VolumeWidth_t ComposMei::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t ComposMei::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -234,7 +234,7 @@ VolumeHeight_t ComposMei::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t ComposMei::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -244,7 +244,7 @@ Weight_t ComposMei::getWeight() const
 }
 */
 int ComposMei::getHPAmount(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -255,7 +255,7 @@ int ComposMei::getHPAmount(void) const
 }
 
 int ComposMei::getMPAmount(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -266,7 +266,7 @@ int ComposMei::getMPAmount(void) const
 }
 
 int ComposMei::getHPDelay(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -277,7 +277,7 @@ int ComposMei::getHPDelay(void) const
 }
 
 int ComposMei::getMPDelay(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -288,7 +288,7 @@ int ComposMei::getMPDelay(void) const
 }
 
 int ComposMei::getHPQuantity(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -299,7 +299,7 @@ int ComposMei::getHPQuantity(void) const
 }
 
 int ComposMei::getMPQuantity(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -310,7 +310,7 @@ int ComposMei::getMPQuantity(void) const
 }
 
 int ComposMei::getHPRecoveryUnit(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -321,7 +321,7 @@ int ComposMei::getHPRecoveryUnit(void) const
 }
 
 int ComposMei::getMPRecoveryUnit(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -335,7 +335,7 @@ int ComposMei::getMPRecoveryUnit(void) const
 // parse effect string
 //--------------------------------------------------------------------------------
 void ComposMeiInfo::parseEffect(const string& effect)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -390,7 +390,7 @@ void ComposMeiInfo::parseEffect(const string& effect)
 // get debug string
 //--------------------------------------------------------------------------------
 string ComposMeiInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "ComposMeiInfo("
@@ -412,7 +412,7 @@ string ComposMeiInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void ComposMeiInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -467,7 +467,7 @@ void ComposMeiInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void ComposMeiLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -667,7 +667,7 @@ void ComposMeiLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void ComposMeiLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -734,7 +734,7 @@ void ComposMeiLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void ComposMeiLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

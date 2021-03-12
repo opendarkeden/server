@@ -20,7 +20,7 @@
 // 슬레이어 셀프
 //////////////////////////////////////////////////////////////////////////////
 void InstallTrap::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

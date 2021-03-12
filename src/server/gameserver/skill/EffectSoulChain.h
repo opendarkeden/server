@@ -19,27 +19,27 @@
 class EffectSoulChain : public Effect 
 {
 public:
-	EffectSoulChain(Creature* pCreature) throw(Error);
+	EffectSoulChain(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SOUL_CHAIN; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 
 public:
 
-	Duration_t getDuration() const throw(Error) { return m_Duration;}
-	void setDuration(Duration_t d) throw(Error) { m_Duration = d;}
+	Duration_t getDuration() const  { return m_Duration;}
+	void setDuration(Duration_t d)  { m_Duration = d;}
 
 	// get/set Target Name
-	const string& getTargetName() const throw(Error) { return m_TargetName; }
-	void setTargetName( const string& targetName ) throw(Error) { m_TargetName = targetName; }
+	const string& getTargetName() const  { return m_TargetName; }
+	void setTargetName( const string& targetName )  { m_TargetName = targetName; }
 
 	Zone* getZone() const throw() { return m_pZone; }
 	void setZone( Zone* pZone ) throw() { m_pZone = pZone; }

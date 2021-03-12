@@ -20,7 +20,7 @@ bool   FlagSet::m_bInit   = false;
 //////////////////////////////////////////////////////////////////////////////
 
 FlagSet::FlagSet()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -32,14 +32,14 @@ FlagSet::FlagSet()
 }
 
 FlagSet::~FlagSet()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void FlagSet::create(const string& owner) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ void FlagSet::create(const string& owner)
 }
 
 void FlagSet::load(const string& owner) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -115,7 +115,7 @@ void FlagSet::load(const string& owner)
 }
 
 void FlagSet::save(const string& owner) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void FlagSet::save(const string& owner)
 }
 
 void FlagSet::destroy(const string& owner) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -160,7 +160,7 @@ void FlagSet::destroy(const string& owner)
 }
 
 bool FlagSet::isOn(int index)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ bool FlagSet::isOn(int index)
 }
 
 bool FlagSet::turnOn(int index) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -186,7 +186,7 @@ bool FlagSet::turnOn(int index)
 }
 
 bool FlagSet::turnOff(int index) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -200,7 +200,7 @@ bool FlagSet::turnOff(int index)
 }
 
 bool FlagSet::isValidIndex(int index) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -211,7 +211,7 @@ bool FlagSet::isValidIndex(int index)
 }
 
 string FlagSet::toString(void) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -228,7 +228,7 @@ string FlagSet::toString(void)
 }
 
 FlagSet FlagSet::fromString(const string& text) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ FlagSet FlagSet::fromString(const string& text)
 }
 
 void FlagSet::initialize(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 

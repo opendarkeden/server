@@ -26,14 +26,14 @@ public:
 	virtual ~AnotherQuestRewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const throw(Error);
+	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const ;
 	// 쓰지 말 것.
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const throw(Error);
+	virtual QuestMessage	giveReward(PlayerCreature* pPC) const ;
 
 	bool	isAnotherQuest() const { return true; }
 	QuestID_t	getQuestID() const { return m_QuestID; }
 
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
 private:
 	QuestID_t		m_QuestID;

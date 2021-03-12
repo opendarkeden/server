@@ -9,7 +9,7 @@
 #include "ItemRack.h"
 
 Stash::Stash() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG
@@ -25,7 +25,7 @@ Stash::Stash()
 }
 
 Stash::~Stash() 
-	throw()
+	
 {
 	__BEGIN_TRY 
 	__BEGIN_DEBUG

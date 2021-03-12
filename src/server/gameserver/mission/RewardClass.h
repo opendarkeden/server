@@ -24,17 +24,17 @@ class RewardClass
 {
 public:
 	RewardClass( RewardClass_t rClass );
-	virtual ~RewardClass() throw (Error);
+	virtual ~RewardClass() ;
 
 public:
 	RewardClass_t	getRewardClass() const { return m_RewardClass; }
 
-	virtual void	addRewardInfo( RewardInfo* pRewardInfo ) throw(Error);
-	virtual QuestMessage	giveReward( PlayerCreature* pPC ) const throw(Error);
-	virtual QuestMessage	canGiveReward( PlayerCreature* pPC ) const throw(Error);
+	virtual void	addRewardInfo( RewardInfo* pRewardInfo ) ;
+	virtual QuestMessage	giveReward( PlayerCreature* pPC ) const ;
+	virtual QuestMessage	canGiveReward( PlayerCreature* pPC ) const ;
 
-	virtual RewardInfo*		selectReward( PlayerCreature* pPC ) const throw(Error) = 0;
-	virtual string	toString() const throw();
+	virtual RewardInfo*		selectReward( PlayerCreature* pPC ) const  = 0;
+	virtual string	toString() const ;
 
 	virtual bool	anotherQuestReward() const { return false; }
 

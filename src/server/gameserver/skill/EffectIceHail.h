@@ -18,16 +18,16 @@
 class EffectIceHail : public Effect 
 {
 public:
-	EffectIceHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectIceHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ICE_HAIL; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

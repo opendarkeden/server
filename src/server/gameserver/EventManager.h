@@ -20,15 +20,15 @@
 class EventManager 
 {
 public:
-	EventManager() throw(Error);
-	virtual ~EventManager() throw();
+	EventManager() ;
+	virtual ~EventManager() ;
 
 public:
-	void   addEvent(Event* pEvent) throw();
-	Event* getEvent(Event::EventClass EClass) throw();
-	void   deleteEvent(Event::EventClass EClass) throw();
+	void   addEvent(Event* pEvent) ;
+	Event* getEvent(Event::EventClass EClass) ;
+	void   deleteEvent(Event::EventClass EClass) ;
 
-	void   heartbeat() throw(Error);
+	void   heartbeat() ;
 
 	bool	   isEmpty() const { return m_Events.empty(); }
 

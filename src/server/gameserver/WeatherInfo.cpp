@@ -18,7 +18,7 @@ WeatherInfoManager* g_pWeatherInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 Weather WeatherInfo::getWeather(uint probability) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ Weather WeatherInfo::getWeather(uint probability) const
 }
 
 string WeatherInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ string WeatherInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 void WeatherInfoManager::load () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void WeatherInfoManager::load ()
 }
 
 string WeatherInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 	StringStream msg;

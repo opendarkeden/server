@@ -153,7 +153,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 ObjectManager::ObjectManager ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ ObjectManager::ObjectManager ()
 }
 
 ObjectManager::~ObjectManager ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -358,7 +358,7 @@ ObjectManager::~ObjectManager ()
 }
 
 void ObjectManager::init ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -527,7 +527,7 @@ void ObjectManager::init ()
 
 
 void ObjectManager::load ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 
@@ -793,7 +793,7 @@ void ObjectManager::load ()
 }
 
 void ObjectManager::save ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 

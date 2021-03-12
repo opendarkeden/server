@@ -14,7 +14,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectMagnumSpear::EffectMagnumSpear(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ EffectMagnumSpear::EffectMagnumSpear(Creature* pCreature)
 	__END_CATCH
 }
 
-void EffectMagnumSpear::affect() throw(Error)
+void EffectMagnumSpear::affect() 
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void EffectMagnumSpear::affect() throw(Error)
 }
 
 void EffectMagnumSpear::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void EffectMagnumSpear::affect(Creature* pCreature)
 }
 
 void EffectMagnumSpear::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -102,7 +102,7 @@ void EffectMagnumSpear::unaffect()
 }
 
 void EffectMagnumSpear::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

@@ -16,7 +16,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionPetWithdraw::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ void ActionPetWithdraw::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionPetWithdraw::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

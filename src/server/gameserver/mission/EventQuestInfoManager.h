@@ -10,7 +10,7 @@ public:
 	virtual ~EventQuestInfoManager() { }
 
 public:
-	void	load(const string& name) throw(Error);
+	void	load(const string& name) ;
 
 private:
 };

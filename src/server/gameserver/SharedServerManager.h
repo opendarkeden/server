@@ -26,17 +26,17 @@ class SharedServerClient;
 class SharedServerManager : public Thread 
 {
 public:
-	SharedServerManager() throw(Error);
-	~SharedServerManager() throw(Error);
+	SharedServerManager() ;
+	~SharedServerManager() ;
 
 public:
-	void init() throw(Error) {}
+	void init()  {}
 
-	void stop() throw(Error);
+	void stop() ;
 
-	void run() throw();
+	void run() ;
 
-	void sendPacket( Packet* pPacket ) throw( ProtocolException, Error );
+	void sendPacket( Packet* pPacket ) ;
 
 private:
 

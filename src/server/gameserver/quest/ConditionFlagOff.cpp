@@ -12,7 +12,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionFlagOff::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -29,7 +29,7 @@ bool ConditionFlagOff::isSatisfied (Creature * pCreature1 , Creature * pCreature
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionFlagOff::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	try
 	{
@@ -46,7 +46,7 @@ void ConditionFlagOff::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionFlagOff::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

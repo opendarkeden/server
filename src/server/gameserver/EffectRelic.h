@@ -16,25 +16,25 @@
 class EffectRelic : public Effect 
 {
 public:
-	EffectRelic(Creature* pCreature) throw(Error);
+	EffectRelic(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_RELIC; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_RELIC; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	HP_t getPoint() const throw() { return m_Point; }
-	void setPoint(HP_t Point) throw() { m_Point = Point; }
+	HP_t getPoint() const  { return m_Point; }
+	void setPoint(HP_t Point)  { m_Point = Point; }
 
-	Turn_t getTick() const throw() { return m_Tick; }
-	void   setTick(Turn_t Tick) throw() { m_Tick = Tick; }
+	Turn_t getTick() const  { return m_Tick; }
+	void   setTick(Turn_t Tick)  { m_Tick = Tick; }
 
 private:
 	HP_t   m_Point;  // 회복 에너지량

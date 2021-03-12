@@ -16,16 +16,16 @@
 class EffectCannonade : public Effect 
 {
 public:
-	EffectCannonade(Creature* pCreature, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
+	EffectCannonade(Creature* pCreature, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MAX; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

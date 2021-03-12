@@ -42,7 +42,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 MasterLairManager::MasterLairManager (Zone* pZone) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -90,7 +90,7 @@ MasterLairManager::MasterLairManager (Zone* pZone)
 //
 ////////////////////////////////////////////////////////////////////////////////
 MasterLairManager::~MasterLairManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -120,7 +120,7 @@ MasterLairManager::~MasterLairManager ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::enterCreature(Creature* pCreature)
-	throw(Error)
+	
 {	
 	__BEGIN_TRY
 
@@ -268,7 +268,7 @@ ENTER_OK :
 //
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::leaveCreature(Creature* pCreature)
-	throw(Error)
+	
 {	
 	__BEGIN_TRY
 
@@ -314,7 +314,7 @@ bool MasterLairManager::leaveCreature(Creature* pCreature)
 // 
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::heartbeat() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -359,7 +359,7 @@ bool MasterLairManager::heartbeat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingPlayer() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -450,7 +450,7 @@ void MasterLairManager::processEventWaitingPlayer()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventMinionCombat() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -494,7 +494,7 @@ void MasterLairManager::processEventMinionCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventMasterCombat() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -550,7 +550,7 @@ void MasterLairManager::processEventMasterCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingKickOut() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -574,7 +574,7 @@ void MasterLairManager::processEventWaitingKickOut()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::processEventWaitingRegen() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -608,7 +608,7 @@ void MasterLairManager::processEventWaitingRegen()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingPlayer() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -707,7 +707,7 @@ void MasterLairManager::activeEventWaitingPlayer()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventMinionCombat() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -773,7 +773,7 @@ void MasterLairManager::activeEventMinionCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventMasterCombat() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -899,7 +899,7 @@ void MasterLairManager::activeEventMasterCombat()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingKickOut() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -944,7 +944,7 @@ void MasterLairManager::activeEventWaitingKickOut()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::activeEventWaitingRegen() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -971,7 +971,7 @@ void MasterLairManager::activeEventWaitingRegen()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::deleteAllMonsters()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -994,7 +994,7 @@ void MasterLairManager::deleteAllMonsters()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::killAllMonsters()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1018,7 +1018,7 @@ void MasterLairManager::killAllMonsters()
 ////////////////////////////////////////////////////////////////////////////////
 /*
 void MasterLairManager::increaseSummonedMonsterNumber(int num) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1037,7 +1037,7 @@ void MasterLairManager::increaseSummonedMonsterNumber(int num)
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::startEvent()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1052,7 +1052,7 @@ void MasterLairManager::startEvent()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::stopEvent()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1068,7 +1068,7 @@ void MasterLairManager::stopEvent()
 //
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::kickOutPlayers()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1124,7 +1124,7 @@ void MasterLairManager::kickOutPlayers()
 // 이미 가지고 있는 사람은 주울 수 없다.
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::giveKillingReward() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1244,7 +1244,7 @@ void MasterLairManager::giveKillingReward()
 }
 
 string MasterLairManager::toString() const 
-	throw(Error)
+	
 {
 	StringStream msg;
 

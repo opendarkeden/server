@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 ItemInfo::ItemInfo()
-	throw()
+	
 {
 	m_ItemType    = 0;
 	m_Name        = "";
@@ -43,12 +43,12 @@ ItemInfo::ItemInfo()
 }
 
 ItemInfo::~ItemInfo()
-	throw()
+	
 {
 }
 
 VolumeWidth_t ItemInfo::getVolumeWidth () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ VolumeWidth_t ItemInfo::getVolumeWidth () const
 }
 
 VolumeHeight_t ItemInfo::getVolumeHeight () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ VolumeHeight_t ItemInfo::getVolumeHeight () const
 }
 
 void ItemInfo::setReqAbility(const string& req)
-	throw()
+	
 {
 	size_t a = 0, b = 0, c = 0;
 
@@ -101,7 +101,7 @@ void ItemInfo::setReqAbility(const string& req)
 }
 
 void ItemInfo::setDefaultOptions(const string& options)
-	throw(Error)
+	
 {
 	//////////////////////////////////////////////
 	// DEX+1,INT+2
@@ -138,14 +138,14 @@ void ItemInfo::setDefaultOptions(const string& options)
 
 
 void ItemInfo::addDefaultOptions(OptionType_t optionType)
-	throw()
+	
 {
 	m_bDefaultOptions = true;
 	m_DefaultOptions.push_back( optionType );
 }
 
 void ItemInfo::clearDefaultOptions()
-	throw()
+	
 {
 	m_bDefaultOptions = false;
 	m_DefaultOptions.clear();

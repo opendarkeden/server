@@ -19,7 +19,7 @@ ZoneInfo::~ZoneInfo()
 }
 
 void ZoneInfo::load( ZoneID_t zoneID )
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void ZoneInfo::load( ZoneID_t zoneID )
 }
 
 void ZoneInfo::setZoneType ( const string & zoneType ) 
-	throw ( Error ) 
+	 
 { 
 	if ( zoneType == "NORMAL_FIELD" ) 
 		m_ZoneType = ZONE_NORMAL_FIELD;
@@ -95,13 +95,13 @@ void ZoneInfo::setZoneType ( const string & zoneType )
 	}
 }
 
-void ZoneInfo::setZoneAccessMode ( const string & zoneAccessMode ) throw ( Error )
+void ZoneInfo::setZoneAccessMode ( const string & zoneAccessMode ) 
 {
 	if ( zoneAccessMode == "PUBLIC" ) m_ZoneAccessMode = PUBLIC;
 	else if ( zoneAccessMode == "PRIVATE" ) m_ZoneAccessMode = PRIVATE;
 }
 
-string ZoneInfo::toString () const throw ()
+string ZoneInfo::toString () const 
 {
 	StringStream msg;
 	msg << "ZoneInfo("

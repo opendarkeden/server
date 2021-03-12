@@ -16,18 +16,18 @@
 class EffectDragonEye : public EffectHasRelic 
 {
 public:
-	EffectDragonEye(Creature* pCreature) throw(Error);
-	EffectDragonEye(Item* pItem) throw(Error);
+	EffectDragonEye(Creature* pCreature) ;
+	EffectDragonEye(Item* pItem) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DRAGON_EYE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_DRAGON_EYE; }
 
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Item* pItem) throw(Error);
+	void affect(Creature* pCreature) ;
+	void affect(Item* pItem) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect(Creature* pCreature) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set ItemID
 	ItemID_t getItemID() const { return m_ItemID; }

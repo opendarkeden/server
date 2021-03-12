@@ -10,7 +10,7 @@
 DWORD MonsterCounter::s_MonsterCounter = 0;
 
 MonsterCounter::MonsterCounter(SpriteType_t spriteType, WORD maxMonsters, WORD currentMonsters) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ MonsterCounter::MonsterCounter(SpriteType_t spriteType, WORD maxMonsters, WORD c
 }
 
 void MonsterCounter::addMonster() 
-	throw(Error) 
+	 
 { 
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ void MonsterCounter::addMonster()
 }
 
 void MonsterCounter::addMonster(WORD Count) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void MonsterCounter::addMonster(WORD Count)
 }
 
 void MonsterCounter::deleteMonster() 
-	throw(Error) 
+	 
 { 
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ void MonsterCounter::deleteMonster()
 }
 
 // get debug string
-string MonsterCounter::toString() const throw()
+string MonsterCounter::toString() const 
 {
 	__BEGIN_TRY
 

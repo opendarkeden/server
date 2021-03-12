@@ -79,23 +79,23 @@ private:
 class NoOption
 {
 public:
-	bool						hasOptionType() const throw() { return false; }
-	int							getOptionTypeSize() const throw() { return 0; }
-	int							getRandomOptionType() const throw() { return 0; }
-	const list<OptionType_t>&	getOptionTypeList() const throw() { static list<OptionType_t> nullList; return nullList; }
-	OptionType_t				getFirstOptionType() const throw() { return 0; }
-	void						removeOptionType(OptionType_t OptionType) throw() { }
-	void						changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType) throw() { }
-	void						addOptionType(OptionType_t OptionType) throw() { }
-	void						setOptionType(const list<OptionType_t>& OptionType) throw() { }
+	bool						hasOptionType() const  { return false; }
+	int							getOptionTypeSize() const  { return 0; }
+	int							getRandomOptionType() const  { return 0; }
+	const list<OptionType_t>&	getOptionTypeList() const  { static list<OptionType_t> nullList; return nullList; }
+	OptionType_t				getFirstOptionType() const  { return 0; }
+	void						removeOptionType(OptionType_t OptionType)  { }
+	void						changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType)  { }
+	void						addOptionType(OptionType_t OptionType)  { }
+	void						setOptionType(const list<OptionType_t>& OptionType)  { }
 };
 
 class HasOption
 {
 public:
-	bool						hasOptionType() const throw() { return !m_OptionType.empty(); }
-	int							getOptionTypeSize() const throw() { return m_OptionType.size(); }
-	int							getRandomOptionType() const throw()
+	bool						hasOptionType() const  { return !m_OptionType.empty(); }
+	int							getOptionTypeSize() const  { return m_OptionType.size(); }
+	int							getRandomOptionType() const 
 	{
 		if (m_OptionType.empty())
 			return 0;
@@ -105,12 +105,12 @@ public:
 		return *itr;
 	}
 
-	const	list<OptionType_t>& getOptionTypeList() const throw() { return m_OptionType; }
-	OptionType_t				getFirstOptionType() const throw() { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
-	void						removeOptionType(OptionType_t OptionType) throw() { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
-	void						changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType) throw() { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
-	void						addOptionType(OptionType_t OptionType) throw() { m_OptionType.push_back(OptionType); }
-	void						setOptionType(const list<OptionType_t>& OptionType) throw() { m_OptionType = OptionType; }
+	const	list<OptionType_t>& getOptionTypeList() const  { return m_OptionType; }
+	OptionType_t				getFirstOptionType() const  { if (m_OptionType.empty()) return 0; return m_OptionType.front(); }
+	void						removeOptionType(OptionType_t OptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), OptionType); if (itr!=m_OptionType.end()) m_OptionType.erase(itr); }
+	void						changeOptionType(OptionType_t currentOptionType, OptionType_t newOptionType)  { list<OptionType_t>::iterator itr = find(m_OptionType.begin(), m_OptionType.end(), currentOptionType); if (itr!=m_OptionType.end()) *itr=newOptionType; }
+	void						addOptionType(OptionType_t OptionType)  { m_OptionType.push_back(OptionType); }
+	void						setOptionType(const list<OptionType_t>& OptionType)  { m_OptionType = OptionType; }
 
 private:
 	list<OptionType_t>   m_OptionType;
@@ -188,17 +188,17 @@ public:
 class NoAttacking
 {
 public:
-	BYTE		getBulletCount() const throw() { return 0; }
-	void		setBulletCount(BYTE bulletCount) throw() { }
+	BYTE		getBulletCount() const  { return 0; }
+	void		setBulletCount(BYTE bulletCount)  { }
 
-	bool		isSilverWeapon() const throw() { return false; }
-	Silver_t	getSilver() const throw() { return 0; }
-	void		setSilver(Silver_t amount) throw() { }
+	bool		isSilverWeapon() const  { return false; }
+	Silver_t	getSilver() const  { return 0; }
+	void		setSilver(Silver_t amount)  { }
 
-	bool		isGun() const throw() { return false; }
+	bool		isGun() const  { return false; }
 
-	Damage_t	getBonusDamage() const throw() { return 0; }
-	void		setBonusDamage(Damage_t BonusDamage) throw() { }
+	Damage_t	getBonusDamage() const  { return 0; }
+	void		setBonusDamage(Damage_t BonusDamage)  { }
 };
 
 class Weapon
@@ -206,17 +206,17 @@ class Weapon
 public:
 	Weapon() : m_BonusDamage(0) { }
 
-	BYTE		getBulletCount() const throw() { return 0; }
-	void		setBulletCount(BYTE bulletCount) throw() { }
+	BYTE		getBulletCount() const  { return 0; }
+	void		setBulletCount(BYTE bulletCount)  { }
 
-	bool		isGun() const throw() { return false; }
+	bool		isGun() const  { return false; }
 
-	bool		isSilverWeapon() const throw() { return false; }
-	Silver_t	getSilver() const throw() { return 0; }
-	void		setSilver(Silver_t amount) throw() { }
+	bool		isSilverWeapon() const  { return false; }
+	Silver_t	getSilver() const  { return 0; }
+	void		setSilver(Silver_t amount)  { }
 
-	Damage_t	getBonusDamage() const throw() { return m_BonusDamage; }
-	void		setBonusDamage(Damage_t BonusDamage) throw() { m_BonusDamage = BonusDamage; }
+	Damage_t	getBonusDamage() const  { return m_BonusDamage; }
+	void		setBonusDamage(Damage_t BonusDamage)  { m_BonusDamage = BonusDamage; }
 
 private:
 	Damage_t	m_BonusDamage;
@@ -227,9 +227,9 @@ class SlayerWeapon : public Weapon
 public:
 	SlayerWeapon() : m_Silver(0) { }
 
-	bool		isSilverWeapon() const throw() { return true; }
-	Silver_t	getSilver() const throw() { return m_Silver; }
-	void		setSilver(Silver_t amount) throw() { m_Silver = amount; }
+	bool		isSilverWeapon() const  { return true; }
+	Silver_t	getSilver() const  { return m_Silver; }
+	void		setSilver(Silver_t amount)  { m_Silver = amount; }
 
 private:
 	Silver_t	m_Silver;
@@ -240,10 +240,10 @@ class SlayerGun : public SlayerWeapon
 public:
 	SlayerGun() : m_Bullet(0) { }
 
-	BYTE	getBulletCount() const throw() { return m_Bullet; }
-	void	setBulletCount(BYTE bulletCount) throw() { m_Bullet = bulletCount; }
+	BYTE	getBulletCount() const  { return m_Bullet; }
+	void	setBulletCount(BYTE bulletCount)  { m_Bullet = bulletCount; }
 
-	bool	isGun() const throw() { return true; }
+	bool	isGun() const  { return true; }
 
 private:
 	BYTE	m_Bullet;

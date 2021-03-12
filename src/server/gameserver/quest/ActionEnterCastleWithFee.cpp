@@ -38,7 +38,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterCastleWithFee::read (PropertyBuffer & pb)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -60,7 +60,7 @@ void ActionEnterCastleWithFee::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterCastleWithFee::execute (Creature * pNPC , Creature * pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -177,7 +177,7 @@ void ActionEnterCastleWithFee::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterCastleWithFee::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

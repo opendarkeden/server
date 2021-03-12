@@ -30,7 +30,7 @@ QuestInfo::~QuestInfo()
 {
 }
 
-string QuestInfo::toString() const throw()
+string QuestInfo::toString() const 
 {
 	StringStream msg;
 
@@ -49,7 +49,7 @@ string QuestInfo::toString() const throw()
 }
 
 bool QuestInfo::canExecute( PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

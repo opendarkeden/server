@@ -18,15 +18,15 @@
 class EffectRequital : public Effect 
 {
 public:
-	EffectRequital(Creature* pCreature) throw(Error);
+	EffectRequital(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REQUITAL; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 
@@ -49,7 +49,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectRequital"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 

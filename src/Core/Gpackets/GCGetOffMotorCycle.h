@@ -28,40 +28,40 @@ class GCGetOffMotorCycle : public Packet {
 public :
 	
 	// constructor
-	GCGetOffMotorCycle() throw();
+	GCGetOffMotorCycle() ;
 	
 	// destructor
-	~GCGetOffMotorCycle() throw();
+	~GCGetOffMotorCycle() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_GET_OFF_MOTORCYCLE; }
+	PacketID_t getPacketID() const  { return PACKET_GC_GET_OFF_MOTORCYCLE; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szObjectID; }
+	PacketSize_t getPacketSize() const  { return szObjectID; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCGetOffMotorCycle"; }
+	string getPacketName() const  { return "GCGetOffMotorCycle"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 private :
 	
@@ -84,25 +84,25 @@ class GCGetOffMotorCycleFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCGetOffMotorCycleFactory() throw() {}
+	GCGetOffMotorCycleFactory()  {}
 	
 	// destructor
-	virtual ~GCGetOffMotorCycleFactory() throw() {}
+	virtual ~GCGetOffMotorCycleFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCGetOffMotorCycle(); }
+	Packet* createPacket()  { return new GCGetOffMotorCycle(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCGetOffMotorCycle"; }
+	string getPacketName() const  { return "GCGetOffMotorCycle"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_GET_OFF_MOTORCYCLE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_GET_OFF_MOTORCYCLE; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
 
 };
 
@@ -118,7 +118,7 @@ class GCGetOffMotorCycleHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCGetOffMotorCycle* pGCGetOffMotorCycle, Player* pPlayer) throw(Error);
+	static void execute(GCGetOffMotorCycle* pGCGetOffMotorCycle, Player* pPlayer) ;
 
 };
 

@@ -28,7 +28,7 @@ public :
 	virtual void	release();
 
 	lua_State* 		getState() const	{ return m_pState; }
-	int				dofile(const string& filename) throw (Error);
+	int				dofile(const string& filename) ;
 
 
 	static bool		isError(int result)	{ return result!=0; }

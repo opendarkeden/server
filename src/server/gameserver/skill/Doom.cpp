@@ -23,7 +23,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -267,7 +267,7 @@ void Doom::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlo
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Doom::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -327,7 +327,7 @@ void Doom::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 void Doom::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

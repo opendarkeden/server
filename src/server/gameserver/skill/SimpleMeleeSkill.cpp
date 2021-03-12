@@ -21,7 +21,7 @@ void SimpleMeleeSkill::execute(
 	Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -274,7 +274,7 @@ void SimpleMeleeSkill::execute(
 	Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -433,7 +433,7 @@ void SimpleMeleeSkill::execute(
 	Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -619,7 +619,7 @@ void SimpleMeleeSkill::execute(
 	Monster* pMonster, Creature* pEnemy, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

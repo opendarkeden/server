@@ -26,13 +26,13 @@ Mutex    QuestItem::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 QuestItem::QuestItem()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 QuestItem::QuestItem(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	m_ItemType = itemType;
 
@@ -44,7 +44,7 @@ QuestItem::QuestItem(ItemType_t itemType, const list<OptionType_t>& optionType)
 }
 
 void QuestItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void QuestItem::create(const string & ownerID, Storage storage, StorageID_t stor
 // save item
 //--------------------------------------------------------------------------------
 void QuestItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ void QuestItem::tinysave(const char* field) const
 }
 
 void QuestItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void QuestItem::save(const string & ownerID, Storage storage, StorageID_t storag
 }
 
 string QuestItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -161,7 +161,7 @@ string QuestItem::toString() const
 }
 
 VolumeWidth_t QuestItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ VolumeWidth_t QuestItem::getVolumeWidth() const
 }
 	
 VolumeHeight_t QuestItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -181,7 +181,7 @@ VolumeHeight_t QuestItem::getVolumeHeight() const
 }
 		
 Weight_t QuestItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ Weight_t QuestItem::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string QuestItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "QuestItemInfo("
@@ -212,7 +212,7 @@ string QuestItemInfo::toString() const
 }
 
 void QuestItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -267,7 +267,7 @@ void QuestItemInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void QuestItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -412,7 +412,7 @@ void QuestItemLoader::load(Creature* pCreature)
 }
 
 void QuestItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -475,7 +475,7 @@ void QuestItemLoader::load(Zone* pZone)
 }
 
 void QuestItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

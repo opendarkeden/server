@@ -18,16 +18,16 @@
 class EffectIceField : public Effect 
 {
 public:
-	EffectIceField(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectIceField(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_ICE_FIELD; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 
@@ -63,8 +63,8 @@ public:
     virtual string getEffectClassName() const throw() { return "EffectIceField"; }
 
 public:
-    virtual void load(Creature* pCreature) throw(Error) {}
-    virtual void load(Zone* pZone) throw(Error);
+    virtual void load(Creature* pCreature)  {}
+    virtual void load(Zone* pZone) ;
 };
 
 extern EffectIceFieldLoader* g_pEffectIceFieldLoader;

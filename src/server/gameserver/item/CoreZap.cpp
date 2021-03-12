@@ -25,14 +25,14 @@ Mutex    CoreZap::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 CoreZap::CoreZap()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
 }
 
 CoreZap::CoreZap(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -49,7 +49,7 @@ CoreZap::CoreZap(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void CoreZap::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ void CoreZap::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void CoreZap::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void CoreZap::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void CoreZap::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -170,7 +170,7 @@ void CoreZap::save(const string & ownerID, Storage storage, StorageID_t storageI
 // get debug string
 //--------------------------------------------------------------------------------
 string CoreZap::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -188,7 +188,7 @@ string CoreZap::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t CoreZap::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -202,7 +202,7 @@ VolumeWidth_t CoreZap::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t CoreZap::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ VolumeHeight_t CoreZap::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t CoreZap::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ Weight_t CoreZap::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t CoreZap::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -239,7 +239,7 @@ Defense_t CoreZap::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t CoreZap::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -253,7 +253,7 @@ Protection_t CoreZap::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string CoreZapInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -275,7 +275,7 @@ string CoreZapInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void CoreZapInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -330,7 +330,7 @@ void CoreZapInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void CoreZapLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -519,7 +519,7 @@ void CoreZapLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void CoreZapLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -592,7 +592,7 @@ void CoreZapLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void CoreZapLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

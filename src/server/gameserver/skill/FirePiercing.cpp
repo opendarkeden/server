@@ -18,7 +18,7 @@
 // 아우스터즈 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -68,7 +68,7 @@ void FirePiercing::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 // 아우스터즈 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void FirePiercing::execute(Ousters* pOusters, ZoneCoord_t tX, ZoneCoord_t tY, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

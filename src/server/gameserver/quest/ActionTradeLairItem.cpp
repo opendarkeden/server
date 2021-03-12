@@ -49,7 +49,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeLairItem::read(PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -70,7 +70,7 @@ void ActionTradeLairItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -472,7 +472,7 @@ void ActionTradeLairItem::execute(Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeLairItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -2,7 +2,7 @@
 #include "RewardInfo.h"
 #include "Assert.h"
 
-RewardInfo*	RandomRewardClass::selectReward( PlayerCreature* pPC ) const throw(Error)
+RewardInfo*	RandomRewardClass::selectReward( PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 
@@ -14,7 +14,7 @@ RewardInfo*	RandomRewardClass::selectReward( PlayerCreature* pPC ) const throw(E
 	__END_CATCH
 }
 
-string RandomRewardClass::toString() const throw()
+string RandomRewardClass::toString() const 
 {
 	return "RandomRewardClass() : \n" + RewardClass::toString();
 }

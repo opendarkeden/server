@@ -49,16 +49,16 @@ enum
 class GCPartyError : public Packet 
 {
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PARTY_ERROR; }
-	PacketSize_t getPacketSize() const throw() { return szBYTE + szObjectID; }
-	string getPacketName() const throw() { return "GCPartyError"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_PARTY_ERROR; }
+	PacketSize_t getPacketSize() const  { return szBYTE + szObjectID; }
+	string getPacketName() const  { return "GCPartyError"; }
+	string toString() const ;
 
 public:
-	BYTE getCode() const throw() { return m_Code; }
+	BYTE getCode() const  { return m_Code; }
 	void setCode(BYTE code) { m_Code = code; }
 
 	ObjectID_t getTargetObjectID(void) const { return m_TargetObjectID; }
@@ -77,10 +77,10 @@ private :
 class GCPartyErrorFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCPartyError(); }
-	string getPacketName() const throw() { return "GCPartyError"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PARTY_ERROR; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + szObjectID; }
+	Packet* createPacket()  { return new GCPartyError(); }
+	string getPacketName() const  { return "GCPartyError"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PARTY_ERROR; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szObjectID; }
 };
 
 
@@ -91,7 +91,7 @@ public:
 class GCPartyErrorHandler 
 {
 public:
-	static void execute(GCPartyError* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCPartyError* pPacket, Player* pPlayer) ;
 };
 
 #endif

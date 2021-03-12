@@ -23,7 +23,7 @@
 #include "Gpackets/GCAddEffect.h"
 
 Item* InventoryItemPosition::popItem( bool bLock )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ Item* InventoryItemPosition::popItem( bool bLock )
 }
 
 Item* InventoryItemPosition::popItem_LOCKED()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -51,7 +51,7 @@ Item* InventoryItemPosition::popItem_LOCKED()
 }
 
 Item* InventoryItemPosition::popItem_UNLOCKED()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ Item* InventoryItemPosition::popItem_UNLOCKED()
 }
 
 Zone* InventoryItemPosition::getZone() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ Zone* InventoryItemPosition::getZone()
 }
 
 Creature* InventoryItemPosition::findCreature()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,7 @@ Creature* InventoryItemPosition::findCreature()
 }
 
 Zone* InventoryItemPosition::getZoneByCreature( Creature* pCreature )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ Zone* InventoryItemPosition::getZoneByCreature( Creature* pCreature )
 }
 
 Item* InventoryItemPosition::popItem_CORE( PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -204,7 +204,7 @@ Item* InventoryItemPosition::popItem_CORE( PlayerCreature* pPC )
 }
 
 string InventoryItemPosition::toString() const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -17,15 +17,15 @@
 class ConditionHasQuest : public Condition 
 {
 public:
-	ConditionHasQuest() throw();
-	virtual ~ConditionHasQuest() throw();
+	ConditionHasQuest() ;
+	virtual ~ConditionHasQuest() ;
 
 public:
-	virtual ConditionType_t getConditionType() const throw() { return CONDITION_HAS_QUEST; }
-	virtual bool isPassive() const throw() { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const throw();
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual string toString() const throw();
+	virtual ConditionType_t getConditionType() const  { return CONDITION_HAS_QUEST; }
+	virtual bool isPassive() const  { return true; }
+	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual string toString() const ;
 
 private:
 	QuestID_t m_QuestID;
@@ -38,9 +38,9 @@ private:
 class ConditionHasQuestFactory : public ConditionFactory 
 {
 public:
-    virtual ConditionType_t getConditionType() const throw() { return Condition::CONDITION_HAS_QUEST; }
-    virtual Condition* createCondition() const throw() { return new ConditionHasQuest(); }
-    virtual string getConditionName() const throw() { return "HasQuest"; }
+    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_HAS_QUEST; }
+    virtual Condition* createCondition() const  { return new ConditionHasQuest(); }
+    virtual string getConditionName() const  { return "HasQuest"; }
 };
 
 #endif

@@ -21,21 +21,21 @@
 class ActionPrepareShop : public Action 
 {
 public:
-	ActionPrepareShop() throw();
-	virtual ~ActionPrepareShop() throw();
+	ActionPrepareShop() ;
+	virtual ~ActionPrepareShop() ;
 	
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_PREPARE_SHOP; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_PREPARE_SHOP; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	BYTE getListNum() const throw() { return m_ListNum;}
-	void setListNum(BYTE num) throw() { m_ListNum = num;}
+	BYTE getListNum() const  { return m_ListNum;}
+	void setListNum(BYTE num)  { m_ListNum = num;}
 
-	void addListElement(ShopTemplateID_t id) throw();
-	void clearList() throw() { m_List.clear(); m_ListNum = 0; }
+	void addListElement(ShopTemplateID_t id) ;
+	void clearList()  { m_List.clear(); m_ListNum = 0; }
 
 private :
 	BYTE                   m_ListNum;
@@ -53,9 +53,9 @@ private :
 class ActionPrepareShopFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_PREPARE_SHOP; }
-	virtual string getActionName() const throw() { return "PrepareShop"; }
-	virtual Action* createAction() const throw() { return new ActionPrepareShop(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_PREPARE_SHOP; }
+	virtual string getActionName() const  { return "PrepareShop"; }
+	virtual Action* createAction() const  { return new ActionPrepareShop(); }
 };
 
 #endif

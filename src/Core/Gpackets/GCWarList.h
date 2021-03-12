@@ -20,26 +20,26 @@ typedef WarInfoList::const_iterator 	WarInfoListItor;
 class GCWarList : public Packet
 {
 public:
-	GCWarList() throw();
-	virtual ~GCWarList() throw();
+	GCWarList() ;
+	virtual ~GCWarList() ;
 
-	void	clear() throw();
-
-public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_WAR_LIST; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCWarList"; }
-	string toString() const throw();
+	void	clear() ;
 
 public:
-	int 	getSize() const throw() { return m_WarInfos.size(); }
-	bool 	isEmpty() const throw() { return m_WarInfos.empty(); }
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_WAR_LIST; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCWarList"; }
+	string toString() const ;
 
-	void addWarInfo( WarInfo* pWarInfo ) throw() { m_WarInfos.push_back( pWarInfo ); }
-	WarInfo* popWarInfo() throw();
+public:
+	int 	getSize() const  { return m_WarInfos.size(); }
+	bool 	isEmpty() const  { return m_WarInfos.empty(); }
+
+	void addWarInfo( WarInfo* pWarInfo )  { m_WarInfos.push_back( pWarInfo ); }
+	WarInfo* popWarInfo() ;
 
 	void	operator = (const GCWarList& WL);
 
@@ -51,16 +51,16 @@ class GCWarListFactory : public PacketFactory {
 
 public :
 	
-	Packet* createPacket() throw() { return new GCWarList(); }
-	string getPacketName() const throw() { return "GCWarList"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_WAR_LIST; }
-	PacketSize_t getPacketMaxSize() const throw() { return (RaceWarInfo::getMaxSize() + GuildWarInfo::getMaxSize()) * 12; }
+	Packet* createPacket()  { return new GCWarList(); }
+	string getPacketName() const  { return "GCWarList"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_WAR_LIST; }
+	PacketSize_t getPacketMaxSize() const  { return (RaceWarInfo::getMaxSize() + GuildWarInfo::getMaxSize()) * 12; }
 };
 
 class GCWarListHandler {
 	
 public :
-	static void execute(GCWarList* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCWarList* pPacket, Player* pPlayer) ;
 
 };
 

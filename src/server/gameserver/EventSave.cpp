@@ -14,18 +14,18 @@
 #include "Gpackets/GCModifyInformation.h"
 
 EventSave::EventSave (GamePlayer* pGamePlayer) 
-	throw (Error)
+	
 : Event(pGamePlayer)
 {
 }
 
 EventSave::~EventSave () 
-	throw ()
+	
 {
 }
 			
 void EventSave::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

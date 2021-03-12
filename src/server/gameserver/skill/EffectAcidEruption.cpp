@@ -14,7 +14,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectAcidEruption::EffectAcidEruption(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ EffectAcidEruption::EffectAcidEruption(Creature* pCreature)
 	__END_CATCH
 }
 
-void EffectAcidEruption::affect() throw(Error)
+void EffectAcidEruption::affect() 
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void EffectAcidEruption::affect() throw(Error)
 }
 
 void EffectAcidEruption::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void EffectAcidEruption::affect(Creature* pCreature)
 }
 
 void EffectAcidEruption::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -102,7 +102,7 @@ void EffectAcidEruption::unaffect()
 }
 
 void EffectAcidEruption::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

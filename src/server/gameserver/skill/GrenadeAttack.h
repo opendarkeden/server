@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "GrenadeAttack"; }
 	SkillType_t getSkillType() const throw() { return SKILL_GRENADE_ATTACK; }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

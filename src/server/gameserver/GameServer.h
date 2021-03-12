@@ -21,19 +21,19 @@ class ThreadManager;
 class GameServer 
 {
 public:
-	GameServer() throw(Error);
-	~GameServer() throw(Error);
+	GameServer() ;
+	~GameServer() ;
 
 public:
-	void init() throw(Error);
+	void init() ;
 
-	void start() throw(Error);
+	void start() ;
 	
-	void stop() throw(Error);
+	void stop() ;
 
 private:
-	void sysinit() throw(Error);
-	void goBackground() throw(Error);
+	void sysinit() ;
+	void goBackground() ;
 };
 
 // global variable

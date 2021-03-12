@@ -15,7 +15,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -35,7 +35,7 @@ void ActionInitEventQuest::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionInitEventQuest::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionInitEventQuest::execute (Creature * pCreature1 , Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionInitEventQuest::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -57,7 +57,7 @@ IceWave::IceWave()
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void IceWave::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

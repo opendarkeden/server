@@ -11,21 +11,21 @@ class WaitForMeet : public PartnerWaitInfo
 public:
 	WaitForMeet( PlayerCreature* pWaitingPC, string RequestedPCName ) : PartnerWaitInfo( pWaitingPC, RequestedPCName ){ }
 public:
-	uint waitPartner( PlayerCreature* pTargetPC ) throw(Error);
-	uint acceptPartner( PlayerCreature* pRequestedPC ) throw(Error);
-	void timeExpired() throw(Error);
+	uint waitPartner( PlayerCreature* pTargetPC ) ;
+	uint acceptPartner( PlayerCreature* pRequestedPC ) ;
+	void timeExpired() ;
 	WaitType getWaitType() { return WAIT_FOR_MEET; }
 
 public:
-	static Gold_t	getCoupleRegisterFee( PlayerCreature* pPC ) throw(Error);
+	static Gold_t	getCoupleRegisterFee( PlayerCreature* pPC ) ;
 
 protected:
-	static void receiveCoupleRegisterFee( PlayerCreature* pPC ) throw(Error);
+	static void receiveCoupleRegisterFee( PlayerCreature* pPC ) ;
 	static uint canMakeCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 );
 	static OptionType_t getRandomOptionType( PlayerCreature* pPC );
-	static CoupleRingBase* giveCoupleRing( PlayerCreature* pPC, string partnerName, _TPOINT* pPt = NULL ) throw(Error);
+	static CoupleRingBase* giveCoupleRing( PlayerCreature* pPC, string partnerName, _TPOINT* pPt = NULL ) ;
 	static bool canGetCoupleRing( PlayerCreature* pPC, _TPOINT& pt );
-	static uint canHavePartner( PlayerCreature* pPC ) throw(Error);
+	static uint canHavePartner( PlayerCreature* pPC ) ;
 };
 
 #endif // __WAIT_FOR_MEET_H__

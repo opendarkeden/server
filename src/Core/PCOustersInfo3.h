@@ -147,7 +147,7 @@ public:
 
 	Sex getSex () const  { return m_Sex; }
 	void setSex (Sex sex)  { m_Sex = sex; }
-	void setSex (const string & sex) throw (InvalidProtocolException)
+	void setSex (const string & sex) 
 	{
 		if (sex == Sex2String[MALE]) 
 			m_Sex = MALE;

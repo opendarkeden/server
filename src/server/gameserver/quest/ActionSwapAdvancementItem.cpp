@@ -19,7 +19,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSwapAdvancementItem::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -31,7 +31,7 @@ void ActionSwapAdvancementItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSwapAdvancementItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ void ActionSwapAdvancementItem::execute (Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSwapAdvancementItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

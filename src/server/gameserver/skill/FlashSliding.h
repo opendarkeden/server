@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "FlashSliding"; }
 	SkillType_t getSkillType() const throw() { return SKILL_FLASH_SLIDING; }
 
-	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

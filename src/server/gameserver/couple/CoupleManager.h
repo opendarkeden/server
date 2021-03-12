@@ -20,20 +20,20 @@ public:
 	CoupleManager() { }
 
 public:
-	bool 	isCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) throw(Error);
-	bool	hasCouple( PlayerCreature* pPC ) throw(Error);
-	bool	getPartnerName( PlayerCreature* pPC, string& partnerName ) throw(Error);
-	bool 	isCouple( PlayerCreature* pPC1, string name2 ) throw(Error);
+	bool 	isCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) ;
+	bool	hasCouple( PlayerCreature* pPC ) ;
+	bool	getPartnerName( PlayerCreature* pPC, string& partnerName ) ;
+	bool 	isCouple( PlayerCreature* pPC1, string name2 ) ;
 
 public:
 	static string	getFieldName( Sex sex ) { return Sex2FieldName[(int)sex]; }
 	static string	getCounterFieldName( Sex sex ) { return Sex2FieldName[ 1 - (int)sex ]; }
 
 public:
-	void	makeCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) throw(Error);
-	void	removeCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) throw(Error);
-	void	removeCoupleForce( PlayerCreature* pPC1, string strPC2 ) throw(Error);
-	void	removeCoupleForce( PlayerCreature* pPC1 ) throw(Error);
+	void	makeCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) ;
+	void	removeCouple( PlayerCreature* pPC1, PlayerCreature* pPC2 ) ;
+	void	removeCoupleForce( PlayerCreature* pPC1, string strPC2 ) ;
+	void	removeCoupleForce( PlayerCreature* pPC1 ) ;
 
 };
 

@@ -13,7 +13,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterLevelWarZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -30,7 +30,7 @@ bool ConditionCanEnterLevelWarZone::isSatisfied (Creature * pCreature1 , Creatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterLevelWarZone::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 }
 
@@ -38,7 +38,7 @@ void ConditionCanEnterLevelWarZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterLevelWarZone::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

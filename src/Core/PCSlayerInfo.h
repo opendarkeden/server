@@ -118,7 +118,7 @@ public:
 	// get/set Slot
 	Slot getSlot () const  { return m_Slot; }
 	void setSlot (Slot slot)  { m_Slot = slot; }
-	void setSlot (string slot) throw (InvalidProtocolException) 
+	void setSlot (string slot)  
 	{
 		if (slot == Slot2String[SLOT1]) 
 		{
@@ -214,7 +214,7 @@ public:
 		m_Outlook.set(SLAYER_BIT_SEX,(sex==MALE?true:false)); 
 	}
 
-	void setSex (string sex) throw(InvalidProtocolException)
+	void setSex (string sex) 
 	{
 		if (sex == Sex2String[MALE])
 			m_Outlook.set(SLAYER_BIT_SEX, true);
@@ -235,7 +235,7 @@ public:
 		m_Outlook |= bitset<SLAYER_BIT_MAX>(hairStyle << SLAYER_BIT_HAIRSTYLE1); 
 	}
 
-	void setHairStyle (string hairStyle) throw (InvalidProtocolException)
+	void setHairStyle (string hairStyle) 
 	{
 		if (hairStyle == HairStyle2String[HAIR_STYLE1]) 
 		{

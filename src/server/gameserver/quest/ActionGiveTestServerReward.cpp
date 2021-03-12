@@ -55,7 +55,7 @@ ActionGiveTestServerReward::~ActionGiveTestServerReward()
 //  load
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::load()
-    throw (Error)
+    
 {
     __BEGIN_TRY
 	
@@ -71,7 +71,7 @@ void ActionGiveTestServerReward::load()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::read(PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -96,7 +96,7 @@ void ActionGiveTestServerReward::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveTestServerReward::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

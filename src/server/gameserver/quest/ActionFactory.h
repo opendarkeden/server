@@ -16,10 +16,10 @@
 class ActionFactory 
 {
 public:
-	virtual ~ActionFactory() throw() {}
-	virtual ActionType_t getActionType() const throw() = 0;
-	virtual string getActionName() const throw() = 0;
-	virtual Action* createAction() const throw() = 0;
+	virtual ~ActionFactory()  {}
+	virtual ActionType_t getActionType() const  = 0;
+	virtual string getActionName() const  = 0;
+	virtual Action* createAction() const  = 0;
 
 };
 

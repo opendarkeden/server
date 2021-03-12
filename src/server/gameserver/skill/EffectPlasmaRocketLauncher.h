@@ -17,15 +17,15 @@
 class EffectPlasmaRocketLauncher : public Effect 
 {
 public:
-	EffectPlasmaRocketLauncher(Creature* pCreature) throw(Error);
+	EffectPlasmaRocketLauncher(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PLASMA_ROCKET_LAUNCHER; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 	string toString() const throw();
 
 public:

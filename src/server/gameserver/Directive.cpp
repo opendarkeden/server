@@ -27,7 +27,7 @@ DirectiveSetManager* g_pDirectiveSetManager = NULL;
 ////////////////////////////////////////////////////////////////////////
 
 Directive::Directive()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -40,7 +40,7 @@ Directive::Directive()
 }
 
 Directive::~Directive()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ Directive::~Directive()
 }
 
 void Directive::addCondition(int condition) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ void Directive::addCondition(int condition)
 }
 
 string Directive::toString()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ string Directive::toString()
 ////////////////////////////////////////////////////////////////////////
 
 DirectiveSet::DirectiveSet()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -115,7 +115,7 @@ DirectiveSet::DirectiveSet()
 }
 
 DirectiveSet::~DirectiveSet()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ DirectiveSet::~DirectiveSet()
 }
 
 void DirectiveSet::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ bool DirectiveSet::hasCondition( int condition ) const
 }
 
 void DirectiveSet::addDirective(Directive* pDirective)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ void DirectiveSet::addDirective(Directive* pDirective)
 }
 
 void DirectiveSet::addDeadDirective(Directive* pDirective)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -189,7 +189,7 @@ void DirectiveSet::addDeadDirective(Directive* pDirective)
 // 생성자
 ////////////////////////////////////////////////////////////////////////
 DirectiveSetManager::DirectiveSetManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ DirectiveSetManager::DirectiveSetManager()
 // 소멸자
 ////////////////////////////////////////////////////////////////////////
 DirectiveSetManager::~DirectiveSetManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -225,7 +225,7 @@ DirectiveSetManager::~DirectiveSetManager()
 // 객체를 초기화한다. 초기화는 ObjectManager에서...
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::init()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -241,7 +241,7 @@ void DirectiveSetManager::init()
 // MonsterAI 객체들은 로드된 DirectiveSet에 대한 포인터만을 가지게 된다.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::load()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -305,7 +305,7 @@ void DirectiveSetManager::load()
 // 지정된 타입의 DirectiveSet의 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////////////////
 DirectiveSet* DirectiveSetManager::getDirectiveSet(uint index)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -325,7 +325,7 @@ DirectiveSet* DirectiveSetManager::getDirectiveSet(uint index)
 // 문자열을 파싱해서 지정된 인덱스의 자리에다 DirectiveSet을 생성.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::createDirectiveSet(uint index, const string& name, const string& text, const string& deadtext)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -501,7 +501,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 // 문자열을 파싱해서, 컨디션이나 액션을 만들어 Directive에 세팅한다.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const string& text, int mode)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -581,7 +581,7 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 // 문자열을 받아 그에 해당하는 컨디션 상수를 리턴한다.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getCondition(const string& token)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -604,7 +604,7 @@ int DirectiveSetManager::getCondition(const string& token)
 // 문자열을 받아 그에 해당하는 액션 상수를 리턴한다.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getAction(const string& token)
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -624,7 +624,7 @@ int DirectiveSetManager::getAction(const string& token)
 // 현재로서는 몬스터가 사용하는 스킬 타입 뿐이다.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getParameter(const string& token)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -647,7 +647,7 @@ int DirectiveSetManager::getParameter(const string& token)
 // 문자열을 받아 그에 해당하는 확률값을 리턴한다. 백분율이다.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getRatio(const string& token)
-	throw()
+	
 {
 	__BEGIN_TRY
 

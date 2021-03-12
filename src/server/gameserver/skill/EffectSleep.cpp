@@ -14,7 +14,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectSleep::EffectSleep( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ EffectSleep::EffectSleep( Creature* pCreature )
 }
 
 void EffectSleep::affect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ void EffectSleep::affect()
 }
 
 void EffectSleep::affect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ void EffectSleep::affect( Creature* pCreature )
 }
 
 void EffectSleep::unaffect( Creature* pCreature )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -73,7 +73,7 @@ void EffectSleep::unaffect( Creature* pCreature )
 }
 
 void EffectSleep::unaffect()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 

@@ -23,9 +23,9 @@ public:
     string getSkillHandlerName() const throw() { return "SummonMonsters"; }
 	SkillType_t getSkillType() const throw() { return SKILL_SUMMON_MONSTERS; }
 
-	//void execute(Slayer* pSlayer, SlayerSkillSlot* pSlayerSkillSlot, CEffectID_t CEffectID) throw(Error);
-	//void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Monster* pMonster) throw(Error);
+	//void execute(Slayer* pSlayer, SlayerSkillSlot* pSlayerSkillSlot, CEffectID_t CEffectID) ;
+	//void execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

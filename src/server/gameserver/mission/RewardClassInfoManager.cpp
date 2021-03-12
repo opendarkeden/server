@@ -24,7 +24,7 @@ RewardClassInfoManager::~RewardClassInfoManager()
 	m_RewardClasses.clear();
 }
 
-QuestMessage RewardClassInfoManager::canGiveReward( RewardClass_t rClass, PlayerCreature* pPC ) const throw(Error)
+QuestMessage RewardClassInfoManager::canGiveReward( RewardClass_t rClass, PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ QuestMessage RewardClassInfoManager::canGiveReward( RewardClass_t rClass, Player
 	__END_CATCH
 }
 
-RewardClass* RewardClassInfoManager::getRewardClass( RewardClass_t rClass ) const throw(Error)
+RewardClass* RewardClassInfoManager::getRewardClass( RewardClass_t rClass ) const 
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ RewardClass* RewardClassInfoManager::getRewardClass( RewardClass_t rClass ) cons
 	__END_CATCH
 }
 
-/*void RewardClassInfoManager::load( const string& name ) throw(Error)
+/*void RewardClassInfoManager::load( const string& name ) 
 {
 	__BEGIN_TRY
 

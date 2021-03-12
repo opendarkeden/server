@@ -10,7 +10,7 @@
 #include "Slayer.h"
 
 EffectDetectMine::EffectDetectMine(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -20,21 +20,21 @@ EffectDetectMine::EffectDetectMine(Creature* pCreature)
 }
 
 void EffectDetectMine::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectDetectMine::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectDetectMine::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void EffectDetectMine::unaffect(Creature* pCreature)
 }
 
 void EffectDetectMine::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ void EffectDetectMine::unaffect()
 }
 
 void EffectDetectMine::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

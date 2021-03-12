@@ -17,17 +17,17 @@
 class EventSystemMessage : public Event 
 {
 public:
-	EventSystemMessage(GamePlayer* pGamePlayer) throw();
-	~EventSystemMessage() throw();			
+	EventSystemMessage(GamePlayer* pGamePlayer) ;
+	~EventSystemMessage() ;			
 
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_SYSTEM_MESSAGE; }
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_SYSTEM_MESSAGE; }
 
-	virtual void activate() throw(Error);
+	virtual void activate() ;
 	
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
-	void	addMessage(const string& msg) throw(Error);
+	void	addMessage(const string& msg) ;
 
 private:
 	list<string>	m_Messages;

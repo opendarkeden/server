@@ -25,14 +25,14 @@ Mutex    BloodBible::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 BloodBible::BloodBible()
-	throw()
+	
 : m_ItemType(0), m_Durability(0)
 {
 	m_EnchantLevel = 0;
 }
 
 BloodBible::BloodBible(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_Durability(0)
 {
 	try {
@@ -56,7 +56,7 @@ BloodBible::BloodBible(ItemType_t itemType, const list<OptionType_t>& optionType
 // create item
 //--------------------------------------------------------------------------------
 void BloodBible::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void BloodBible::create(const string & ownerID, Storage storage, StorageID_t sto
 // save item
 //--------------------------------------------------------------------------------
 void BloodBible::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void BloodBible::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void BloodBible::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -177,7 +177,7 @@ void BloodBible::save(const string & ownerID, Storage storage, StorageID_t stora
 // get debug string
 //--------------------------------------------------------------------------------
 string BloodBible::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string BloodBible::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t BloodBible::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t BloodBible::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t BloodBible::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t BloodBible::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t BloodBible::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t BloodBible::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t BloodBible::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t BloodBible::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t BloodBible::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t BloodBible::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string BloodBibleInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string BloodBibleInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void BloodBibleInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -344,7 +344,7 @@ void BloodBibleInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void BloodBibleLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -502,7 +502,7 @@ void BloodBibleLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void BloodBibleLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -571,7 +571,7 @@ void BloodBibleLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void BloodBibleLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

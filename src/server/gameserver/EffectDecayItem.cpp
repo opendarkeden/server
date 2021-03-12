@@ -24,7 +24,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectDecayItem::EffectDecayItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -47,7 +47,7 @@ EffectDecayItem::EffectDecayItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 // destructor
 //----------------------------------------------------------------------
 EffectDecayItem::~EffectDecayItem () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ EffectDecayItem::~EffectDecayItem ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectDecayItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -77,7 +77,7 @@ void EffectDecayItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obje
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -174,7 +174,7 @@ void EffectDecayItem::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectDecayItem::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -184,7 +184,7 @@ void EffectDecayItem::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectDecayItem::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

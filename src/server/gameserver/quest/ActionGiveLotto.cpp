@@ -25,7 +25,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveLotto::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void ActionGiveLotto::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -141,7 +141,7 @@ void ActionGiveLotto::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveLotto::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

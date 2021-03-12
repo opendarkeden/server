@@ -19,7 +19,7 @@
 // constructor
 //----------------------------------------------------------------------
 GameServerGroupInfoManager::GameServerGroupInfoManager () 
-	throw ()
+	
 {
 	m_MaxWorldID = 0;
 }
@@ -28,7 +28,7 @@ GameServerGroupInfoManager::GameServerGroupInfoManager ()
 // destructor
 //----------------------------------------------------------------------
 GameServerGroupInfoManager::~GameServerGroupInfoManager () 
-	throw ()
+	
 {
 	clear();
 }
@@ -37,7 +37,7 @@ GameServerGroupInfoManager::~GameServerGroupInfoManager ()
 // clear GameServerGroupInfos
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::clear()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ void GameServerGroupInfoManager::clear()
 // initialize GSIM
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::init ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void GameServerGroupInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::load ()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -152,7 +152,6 @@ void GameServerGroupInfoManager::load ()
 // add info 
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) 
-	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -174,7 +173,6 @@ void GameServerGroupInfoManager::addGameServerGroupInfo ( GameServerGroupInfo * 
 // delete info
 //----------------------------------------------------------------------
 void GameServerGroupInfoManager::deleteGameServerGroupInfo ( const ServerGroupID_t GroupID, WorldID_t WorldID ) 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -202,7 +200,6 @@ void GameServerGroupInfoManager::deleteGameServerGroupInfo ( const ServerGroupID
 // get GameServerGroupinfo by ServerGroupID
 //----------------------------------------------------------------------
 GameServerGroupInfo * GameServerGroupInfoManager::getGameServerGroupInfo ( const ServerGroupID_t GroupID, WorldID_t WorldID ) const
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
@@ -231,7 +228,7 @@ GameServerGroupInfo * GameServerGroupInfoManager::getGameServerGroupInfo ( const
 // get debug string
 //----------------------------------------------------------------------
 string GameServerGroupInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

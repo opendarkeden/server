@@ -23,13 +23,13 @@ class MonsterNameManager
 ///// Member methods /////
 
 public:
-	MonsterNameManager() throw();
-	virtual ~MonsterNameManager() throw();
+	MonsterNameManager() ;
+	virtual ~MonsterNameManager() ;
 
 public:
-	void init(void) throw();
+	void init(void) ;
 
-	string getRandomName(Monster* pMonster) throw();
+	string getRandomName(Monster* pMonster) ;
 
 ///// Member data ///// 
 

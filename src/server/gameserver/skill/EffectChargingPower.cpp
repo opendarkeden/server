@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectChargingPower::EffectChargingPower(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectChargingPower::EffectChargingPower(Creature* pCreature)
 }
 
 void EffectChargingPower::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectChargingPower::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectChargingPower::unaffect()
 }
 
 void EffectChargingPower::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

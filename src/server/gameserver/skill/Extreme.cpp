@@ -21,7 +21,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Extreme::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -123,7 +123,7 @@ void Extreme::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CE
 }
 
 void Extreme::execute(Vampire* pVampire, ObjectID_t TargetObjectID,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -254,7 +254,7 @@ void Extreme::execute(Vampire* pVampire, ObjectID_t TargetObjectID,  VampireSkil
 }
 
 void Extreme::execute(Vampire* pVampire)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

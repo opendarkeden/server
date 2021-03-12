@@ -19,7 +19,7 @@ MonsterNameManager* g_pMonsterNameManager = NULL;
 //////////////////////////////////////////////////////////////////////////////
 
 MonsterNameManager::MonsterNameManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ MonsterNameManager::MonsterNameManager()
 }
 
 MonsterNameManager::~MonsterNameManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -48,7 +48,7 @@ MonsterNameManager::~MonsterNameManager()
 }
 
 void MonsterNameManager::init() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void MonsterNameManager::init()
 }
 
 string MonsterNameManager::getRandomName(Monster* pMonster)
-	throw()
+	
 {
 	__BEGIN_TRY
 

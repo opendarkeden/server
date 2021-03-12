@@ -27,14 +27,14 @@
 //////////////////////////////////////////////////////////////////////////////
 
 GuildMember::GuildMember()
-	throw()
+	
 {
 	m_bLogOn = false;
 	m_ServerID = 255;
 }
 
 void GuildMember::create()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void GuildMember::create()
 
 
 bool GuildMember::load()
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -122,7 +122,7 @@ bool GuildMember::load()
 
 
 void GuildMember::save()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -144,7 +144,7 @@ void GuildMember::save()
 
 
 void GuildMember::destroy()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ void GuildMember::destroy()
 }
 
 void GuildMember::expire()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -191,7 +191,7 @@ void GuildMember::expire()
 }
 
 void GuildMember::leave()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -219,7 +219,7 @@ void GuildMember::leave()
 
 
 void GuildMember::saveIntro( const string& intro )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -242,7 +242,7 @@ void GuildMember::saveIntro( const string& intro )
 
 
 string GuildMember::getIntro() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -272,7 +272,7 @@ string GuildMember::getIntro() const
 
 
 string GuildMember::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -295,7 +295,7 @@ GuildMember& GuildMember::operator=( GuildMember& Member )
 }
 
 string GuildMember::getRequestDateTime() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -314,7 +314,7 @@ string GuildMember::getRequestDateTime() const
 
 
 void GuildMember::setRank(GuildMemberRank_t rank)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -325,7 +325,7 @@ void GuildMember::setRank(GuildMemberRank_t rank)
 
 
 void GuildMember::setRequestDateTime( const string& rtime )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -353,7 +353,7 @@ void GuildMember::setRequestDateTime( const string& rtime )
 }
 
 bool GuildMember::isRequestDateTimeOut( const VSDateTime& currentDateTime ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -379,7 +379,7 @@ ZoneID_t Guild::m_MaxOustersZoneID = 30000;
 //////////////////////////////////////////////////////////////////////////////
 
 Guild::Guild()
-	throw()
+	
 {
 	m_ID			= 0;
 	m_Name			= "";
@@ -403,7 +403,7 @@ Guild::Guild()
 
 
 Guild::~Guild()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -428,7 +428,7 @@ Guild::~Guild()
 
 
 void Guild::create()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -456,7 +456,7 @@ void Guild::create()
 
 
 bool Guild::load()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -502,7 +502,7 @@ bool Guild::load()
 
 
 void Guild::save()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -528,7 +528,7 @@ void Guild::save()
 
 
 void Guild::destroy()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -555,7 +555,7 @@ void Guild::destroy()
 
 #ifdef __SHARED_SERVER__
 void Guild::saveIntro( const string& intro )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -579,7 +579,7 @@ void Guild::saveIntro( const string& intro )
 }
 
 void Guild::tinysave( const char* field ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -598,7 +598,7 @@ void Guild::tinysave( const char* field ) const
 	__END_CATCH
 }
 
-void Guild::saveCount() const throw()
+void Guild::saveCount() const 
 {
 	__BEGIN_TRY
 
@@ -612,7 +612,7 @@ void Guild::saveCount() const throw()
 
 
 GuildMember* Guild::getMember( const string& name ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -642,7 +642,7 @@ GuildMember* Guild::getMember( const string& name ) const
 
 
 GuildMember* Guild::getMember_NOLOCKED( const string& name ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -666,7 +666,7 @@ GuildMember* Guild::getMember_NOLOCKED( const string& name ) const
 }
 
 void Guild::addMember( GuildMember* pMember )
-	throw( DuplicatedException, Error )
+	
 {
 	__BEGIN_TRY
 
@@ -712,7 +712,7 @@ void Guild::addMember( GuildMember* pMember )
 
 
 void Guild::deleteMember( const string& name )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -759,7 +759,7 @@ void Guild::deleteMember( const string& name )
 
 
 void Guild::modifyMember( GuildMember& Member )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -786,7 +786,7 @@ void Guild::modifyMember( GuildMember& Member )
 
 
 void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -833,7 +833,6 @@ void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank )
 
 #ifdef __GAME_SERVER__
 void Guild::addCurrentMember( const string& name )
-	throw ( DuplicatedException, Error )
 {
 	__BEGIN_TRY
 	
@@ -863,7 +862,6 @@ void Guild::addCurrentMember( const string& name )
 }
 
 void Guild::deleteCurrentMember( const string& name )
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 	
@@ -895,7 +893,7 @@ void Guild::deleteCurrentMember( const string& name )
 }
 
 list<string> Guild::getCurrentMembers()
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -915,7 +913,7 @@ list<string> Guild::getCurrentMembers()
 
 #ifdef __SHARED_SERVER__
 void Guild::makeInfo( GuildInfo2* pGuildInfo )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -951,7 +949,7 @@ void Guild::makeInfo( GuildInfo2* pGuildInfo )
 #endif
 
 void Guild::makeInfo( GuildInfo* pGuildInfo )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -968,7 +966,7 @@ void Guild::makeInfo( GuildInfo* pGuildInfo )
 }
 
 void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -997,7 +995,7 @@ void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList )
 
 
 void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1036,7 +1034,7 @@ void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& m
 
 
 string Guild::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -1057,7 +1055,7 @@ string Guild::toString() const
 }
 
 string Guild::correctString( const string& str )
-	throw()
+	
 {
 	__BEGIN_TRY
 

@@ -21,7 +21,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectRideMotorcycle::EffectRideMotorcycle (Slayer* pOwner, Item* pMotorcycle, ZoneCoord_t motorX, ZoneCoord_t motorY)
-	throw (Error)
+	
 : Effect(pOwner->getZone(),motorX,motorY,pOwner,0), m_MotorX(motorX), m_MotorY(motorY), m_OwnerObjectID(pOwner->getObjectID()), m_pMotorcycle(pMotorcycle)
 {
 	__BEGIN_TRY
@@ -40,7 +40,7 @@ EffectRideMotorcycle::EffectRideMotorcycle (Slayer* pOwner, Item* pMotorcycle, Z
 // destructor
 //----------------------------------------------------------------------
 EffectRideMotorcycle::~EffectRideMotorcycle () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ EffectRideMotorcycle::~EffectRideMotorcycle ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectRideMotorcycle::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void EffectRideMotorcycle::unaffect ()
 // get debug string
 //----------------------------------------------------------------------
 string EffectRideMotorcycle::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

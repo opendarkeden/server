@@ -35,24 +35,24 @@ class ThreadManager {
 public:
 	
 	// constructor
-	ThreadManager() throw(Error);
+	ThreadManager() ;
 	
 	// destructor
-	~ThreadManager() throw(Error);
+	~ThreadManager() ;
 
 	
 public:
 	
 	// 쓰레드 매니저를 초기화한다.
-	void init() throw(Error);
+	void init() ;
 	
 	// activate sub thread pools
 	// 하위 쓰레드 풀을 활성화시킨다.
-	void start() throw(Error);
+	void start() ;
 	
 	// deactivate sub thread pools
 	// 하위 쓰레드 풀을 종료시킨다.
-	void stop() throw(Error);
+	void stop() ;
 
 //#ifdef __NO_COMBAT__
 	ThreadPool* getThreadPool(){ return m_pZoneGroupThreadPool; } // 김경석

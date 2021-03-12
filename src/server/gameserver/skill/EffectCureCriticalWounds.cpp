@@ -25,7 +25,7 @@
 const uint CriticalBloodDrainLevel = 74;
 
 EffectCureCriticalWounds::EffectCureCriticalWounds(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ EffectCureCriticalWounds::EffectCureCriticalWounds(Creature* pCreature)
 }
 
 void EffectCureCriticalWounds::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectCureCriticalWounds::affect()
 }
 
 void EffectCureCriticalWounds::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -193,14 +193,14 @@ void EffectCureCriticalWounds::affect(Creature* pCreature)
 }
 
 void EffectCureCriticalWounds::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectCureCriticalWounds::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -219,7 +219,7 @@ void EffectCureCriticalWounds::unaffect(Creature* pCreature)
 }
 
 void EffectCureCriticalWounds::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ void EffectCureCriticalWounds::unaffect()
 }
 
 void EffectCureCriticalWounds::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

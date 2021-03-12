@@ -28,7 +28,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterQuestZone::read (PropertyBuffer & pb)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionEnterQuestZone::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -148,7 +148,7 @@ void ActionEnterQuestZone::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterQuestZone::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

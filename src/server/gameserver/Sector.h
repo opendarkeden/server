@@ -22,21 +22,21 @@ class Object;
 class Sector
 {
 public:
-	Sector() throw();
-	~Sector() throw();
+	Sector() ;
+	~Sector() ;
 
 public:
-	void addObject(Object* pObject) throw (DuplicatedException, Error);
-	void deleteObject(ObjectID_t id) throw (NoSuchElementException, Error);
-	Object* getObject(ObjectID_t id) throw (NoSuchElementException, Error);
+	void addObject(Object* pObject) ;
+	void deleteObject(ObjectID_t id) ;
+	Object* getObject(ObjectID_t id) ;
 
-	Sector* getNearbySector(uint dir) throw (Error);
-	void setNearbySector(uint dir, Sector* pSector) throw (Error);
+	Sector* getNearbySector(uint dir) ;
+	void setNearbySector(uint dir, Sector* pSector) ;
 
 	const unordered_map<ObjectID_t, Object*>& getObjects(void) const { return m_Objects; }
-	uint getSize(void) const throw() { return m_Objects.size(); }
+	uint getSize(void) const  { return m_Objects.size(); }
 
-	string toString(void) const throw();
+	string toString(void) const ;
 
 protected:
 	unordered_map<ObjectID_t, Object*> m_Objects;

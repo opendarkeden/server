@@ -20,22 +20,22 @@ protected:
 
 public:
 	QuestInfoManager( NPC* pNPC ) { m_QuestInfos.clear(); m_pOwnerNPC = pNPC; }
-	virtual ~QuestInfoManager() throw(Error);
+	virtual ~QuestInfoManager() ;
 
 public:
-	void		clear() throw(Error);
-	virtual void		load( const string& name = "" ) throw(Error) = 0;
-	void		addQuestInfo(QuestInfo* pQI) throw(Error);
+	void		clear() ;
+	virtual void		load( const string& name = "" )  = 0;
+	void		addQuestInfo(QuestInfo* pQI) ;
 
-	QuestMessage	canExecuteQuest( QuestID_t qID, PlayerCreature* pPC ) const throw(Error);
-	QuestMessage	startQuest( QuestID_t qID, PlayerCreature* pPC ) throw(Error);
-	QuestStatus*	makeQuestStatus( QuestID_t qID, PlayerCreature* pPC ) const throw(Error);
+	QuestMessage	canExecuteQuest( QuestID_t qID, PlayerCreature* pPC ) const ;
+	QuestMessage	startQuest( QuestID_t qID, PlayerCreature* pPC ) ;
+	QuestStatus*	makeQuestStatus( QuestID_t qID, PlayerCreature* pPC ) const ;
 
 	bool			isEventQuest( QuestID_t qID ) const;
 
 	// OutITR은 container<QuestID_t>::output_iterator 타입이어야 한다.
 	template <class OutITR>
-	void		getEventQuestIDs( int questLevel, PlayerCreature* pPC, OutITR outItr ) const throw(Error)
+	void		getEventQuestIDs( int questLevel, PlayerCreature* pPC, OutITR outItr ) const 
 	{
 		__BEGIN_TRY
 
@@ -51,7 +51,7 @@ public:
 
 	// OutITR은 container<QuestID_t>::output_iterator 타입이어야 한다.
 	template <class OutITR>
-	void		getPossibleQuestIDs( PlayerCreature* pPC, OutITR outItr ) const throw(Error)
+	void		getPossibleQuestIDs( PlayerCreature* pPC, OutITR outItr ) const 
 	{
 		__BEGIN_TRY
 

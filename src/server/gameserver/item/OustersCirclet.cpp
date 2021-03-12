@@ -25,7 +25,7 @@ Mutex    OustersCirclet::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 OustersCirclet::OustersCirclet()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -34,7 +34,7 @@ OustersCirclet::OustersCirclet()
 }
 
 OustersCirclet::OustersCirclet(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -55,7 +55,7 @@ OustersCirclet::OustersCirclet(ItemType_t itemType, const list<OptionType_t>& op
 // create item
 //--------------------------------------------------------------------------------
 void OustersCirclet::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void OustersCirclet::create(const string & ownerID, Storage storage, StorageID_t
 // save item
 //--------------------------------------------------------------------------------
 void OustersCirclet::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void OustersCirclet::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void OustersCirclet::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void OustersCirclet::save(const string & ownerID, Storage storage, StorageID_t s
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersCirclet::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string OustersCirclet::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t OustersCirclet::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t OustersCirclet::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t OustersCirclet::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t OustersCirclet::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t OustersCirclet::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t OustersCirclet::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t OustersCirclet::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t OustersCirclet::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t OustersCirclet::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t OustersCirclet::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersCircletInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string OustersCircletInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void OustersCircletInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -350,7 +350,7 @@ void OustersCircletInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void OustersCircletLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -520,7 +520,7 @@ void OustersCircletLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void OustersCircletLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -595,7 +595,7 @@ void OustersCircletLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void OustersCircletLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -16,14 +16,14 @@
 class EffectMiracleShield : public Effect 
 {
 public:
-	EffectMiracleShield(Creature* pCreature) throw(Error);
+	EffectMiracleShield(Creature* pCreature) ;
 
 public:
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MIRACLE_SHIELD; }
 
@@ -31,10 +31,10 @@ public:
 
 public:
 	int getDefenseBonus() throw() { return m_DefenseBonus;}
-	void setDefenseBonus(Defense_t DefenseBonus) throw(Error) { m_DefenseBonus = DefenseBonus;}
+	void setDefenseBonus(Defense_t DefenseBonus)  { m_DefenseBonus = DefenseBonus;}
 
 	int getProtectionBonus() throw() { return m_ProtectionBonus;}
-	void setProtectionBonus(Protection_t ProtectionBonus) throw(Error) { m_ProtectionBonus = ProtectionBonus;}
+	void setProtectionBonus(Protection_t ProtectionBonus)  { m_ProtectionBonus = ProtectionBonus;}
 
 private :
 	Defense_t    m_DefenseBonus;

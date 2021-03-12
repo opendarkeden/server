@@ -23,7 +23,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 void ThrowHolyWater::execute(Slayer* pSlayer , ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t InvenX, CoordInven_t InvenY)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -18,7 +18,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetDeposit::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -38,7 +38,7 @@ void ActionPetDeposit::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void ActionPetDeposit::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionPetDeposit::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

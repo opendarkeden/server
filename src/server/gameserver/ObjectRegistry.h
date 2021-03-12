@@ -20,13 +20,13 @@
 class ObjectRegistry 
 {
 public:
-	ObjectRegistry() throw();
+	ObjectRegistry() ;
 
 public:
-	void registerObject(Object* pObject) throw();
-	void registerObject_NOLOCKED(Object* pObject) throw();
-	void lock() throw(Error);
-	void unlock() throw(Error);
+	void registerObject(Object* pObject) ;
+	void registerObject_NOLOCKED(Object* pObject) ;
+	void lock() ;
+	void unlock() ;
 
 private:
 	ObjectID_t m_ObjectIDKey; // Object ID 생성을 위한 키값

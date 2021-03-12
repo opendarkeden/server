@@ -58,61 +58,61 @@ class ShopRack;
 class NPC : public Creature 
 {
 public: 
-	NPC() throw();
-	NPC(const string & name) throw();
-	virtual ~NPC() throw (Error);
+	NPC() ;
+	NPC(const string & name) ;
+	virtual ~NPC() ;
 
 public: 
-	virtual CreatureClass getCreatureClass() const throw() { return CREATURE_CLASS_NPC; }
-	virtual string getCreatureClassString() const throw() { return "CREATURE_CLASS_NPC"; }
+	virtual CreatureClass getCreatureClass() const  { return CREATURE_CLASS_NPC; }
+	virtual string getCreatureClassString() const  { return "CREATURE_CLASS_NPC"; }
 
-	virtual void registerObject() throw(Error);
+	virtual void registerObject() ;
 
-	virtual bool load() throw(Error);
-	virtual void save() const throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual bool load() ;
+	virtual void save() const  { throw UnsupportedError(__PRETTY_FUNCTION__); }
 
-	virtual string toString() const throw();
-
-public:
-	void init() throw(Error);
-	void act(const Timeval& currentTime) throw(Error);
+	virtual string toString() const ;
 
 public:
-	virtual Level_t getLevel() const throw() { return 1; }
+	void init() ;
+	void act(const Timeval& currentTime) ;
+
+public:
+	virtual Level_t getLevel() const  { return 1; }
 
 	Race_t getRace(void) const { return m_Race;}
 	void setRace(int race) { m_Race = race;}
 	
-	bool isSlayer() const throw() { return(m_Race == NPC_RACE_SLAYER) ? true : false;}
-	bool isVampire() const throw() { return(m_Race == NPC_RACE_VAMPIRE) ? true : false;}
-	bool isOusters() const throw() { return(m_Race == NPC_RACE_OUSTERS) ? true : false;}
+	bool isSlayer() const  { return(m_Race == NPC_RACE_SLAYER) ? true : false;}
+	bool isVampire() const  { return(m_Race == NPC_RACE_VAMPIRE) ? true : false;}
+	bool isOusters() const  { return(m_Race == NPC_RACE_OUSTERS) ? true : false;}
 
-	SpriteType_t getSpriteType() const throw() { return m_SpriteType; } 
-	void setSpriteType(SpriteType_t spriteType) throw() { m_SpriteType = spriteType; }
+	SpriteType_t getSpriteType() const  { return m_SpriteType; } 
+	void setSpriteType(SpriteType_t spriteType)  { m_SpriteType = spriteType; }
 
-	const string& getName() const throw() { return m_Name; }
-	void setName(const string & name) throw() { m_Name = name; }
+	const string& getName() const  { return m_Name; }
+	void setName(const string & name)  { m_Name = name; }
 
-	NPCID_t getNPCID() const throw() { return m_NPCID;}
-	void setNPCID(NPCID_t NPCID) throw() { m_NPCID = NPCID;}
+	NPCID_t getNPCID() const  { return m_NPCID;}
+	void setNPCID(NPCID_t NPCID)  { m_NPCID = NPCID;}
 
-	Color_t getMainColor() const throw() { return m_MainColor; }
-	void setMainColor(Color_t color) throw() { m_MainColor = color; }
+	Color_t getMainColor() const  { return m_MainColor; }
+	void setMainColor(Color_t color)  { m_MainColor = color; }
 
-	Color_t getSubColor() const throw() { return m_SubColor; }
-	void setSubColor(Color_t color) throw() { m_SubColor = color; }
+	Color_t getSubColor() const  { return m_SubColor; }
+	void setSubColor(Color_t color)  { m_SubColor = color; }
 
-	Inventory* getInventory() throw() { return m_pInventory; }
-	void setInventory(Inventory* pInventory) throw() { m_pInventory = pInventory; }
+	Inventory* getInventory()  { return m_pInventory; }
+	void setInventory(Inventory* pInventory)  { m_pInventory = pInventory; }
 
-	TriggerManager & getTriggerManager() throw() { return m_TriggerManager; }
-	const TriggerManager & getTriggerManager() const throw() { return m_TriggerManager; }
+	TriggerManager & getTriggerManager()  { return m_TriggerManager; }
+	const TriggerManager & getTriggerManager() const  { return m_TriggerManager; }
 
 	bool isShowInMinimap(void) const { return m_bShowInMinimap; }
 	void setShowInMinimap(bool bShow) { m_bShowInMinimap = bShow; }
 
-	bool isDead() const throw() { return false; }
-	bool isAlive() const throw() { return true; }
+	bool isDead() const  { return false; }
+	bool isAlive() const  { return true; }
 
 ////////////////////////////////////////////////////////////
 // 상점 관련 인터페이스
@@ -151,10 +151,10 @@ public:
 	virtual void setClanType(ClanType_t clan) { m_ClanType = clan; }
 	
 	// SimpleQuest by sigi. 2002.12.3
-//	bool regenSimpleQuest() throw (Error);
-//	bool giveSimpleQuest(Creature* pPC, QuestID_t qid) throw (Error);
-//	void setSimpleQuestListScript(Script* pScript) throw (Error);
-	//void sendSimpleQuestListPacket(Creature* pCreature) throw (Error);
+//	bool regenSimpleQuest() ;
+//	bool giveSimpleQuest(Creature* pPC, QuestID_t qid) ;
+//	void setSimpleQuestListScript(Script* pScript) ;
+	//void sendSimpleQuestListPacket(Creature* pCreature) ;
 	
 	void setCoupleRegisterManager( PartnerWaitingManager* pPWM ) 	{ m_pCoupleRegisterManager = pPWM; }
 	void setCoupleUnregisterManager( PartnerWaitingManager* pPWM ) 	{ m_pCoupleUnregisterManager = pPWM; }

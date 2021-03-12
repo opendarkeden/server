@@ -17,16 +17,16 @@
 class EffectDestructionSpear : public Effect 
 {
 public:
-	EffectDestructionSpear(Creature* pCreature) throw(Error);
+	EffectDestructionSpear(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DESTRUCTION_SPEAR; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

@@ -21,7 +21,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedistributeAttr::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -53,7 +53,7 @@ void ActionRedistributeAttr::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -251,7 +251,7 @@ void ActionRedistributeAttr::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionRedistributeAttr::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -20,19 +20,19 @@ class TilePortalItem;
 class EffectTilePortal : public Effect 
 {
 public:
-	EffectTilePortal(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
+	EffectTilePortal(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TILE_PORTAL; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TILE_PORTAL; }
 
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error) {};
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature)  {};
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	ZONE_COORD getZoneCoord(void) const { return m_ZoneCoord; }

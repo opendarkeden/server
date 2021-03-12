@@ -16,7 +16,7 @@
 #include "DB.h"
 
 EffectCanEnterGDRLair::EffectCanEnterGDRLair(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -26,21 +26,21 @@ EffectCanEnterGDRLair::EffectCanEnterGDRLair(Creature* pCreature)
 }
 
 EffectCanEnterGDRLair::~EffectCanEnterGDRLair()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectCanEnterGDRLair::affect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectCanEnterGDRLair::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -51,7 +51,7 @@ void EffectCanEnterGDRLair::unaffect()
 }
 
 void EffectCanEnterGDRLair::unaffect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void EffectCanEnterGDRLair::unaffect (Creature* pCreature)
 }
 
 void EffectCanEnterGDRLair::create (const string & ownerID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -114,7 +114,7 @@ void EffectCanEnterGDRLair::create (const string & ownerID)
 }
 
 void EffectCanEnterGDRLair::destroy (const string & ownerID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -136,7 +136,7 @@ void EffectCanEnterGDRLair::destroy (const string & ownerID)
 }
 
 void EffectCanEnterGDRLair::save (const string & ownerID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -161,7 +161,7 @@ void EffectCanEnterGDRLair::save (const string & ownerID)
 }
 
 string EffectCanEnterGDRLair::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ string EffectCanEnterGDRLair::toString()
 }
 
 void EffectCanEnterGDRLairLoader::load (Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

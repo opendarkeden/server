@@ -16,7 +16,7 @@
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSay::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -37,7 +37,7 @@ void ActionSay::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSay::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,7 @@ void ActionSay::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSay::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -24,7 +24,7 @@
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +158,7 @@ void TransformToWolf::execute(Vampire* pVampire, ObjectID_t InvenObjectID, Coord
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void TransformToWolf::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

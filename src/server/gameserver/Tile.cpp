@@ -25,7 +25,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Tile::Tile (WORD wFlags , WORD wOption)
-    throw ()
+    
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ Tile::Tile (WORD wFlags , WORD wOption)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 Tile::~Tile ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,6 @@ Tile::~Tile ()
 // return값은 그냥 이동인가(true), Portal을 activate 시킨건가(false)에 대한 값
 //////////////////////////////////////////////////////////////////////////////
 bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPortal) 
-	throw (GameException , DuplicatedException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -283,7 +282,6 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 // 최적화할 필요가 있다. (검색 + 삭제)
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (ObjectID_t creatureID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -348,7 +346,6 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 // 특정 위치(행위)의 크리처를 리스트에서 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (Creature::MoveMode mode) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -384,7 +381,6 @@ void Tile::deleteCreature (Creature::MoveMode mode)
 // 특정 ID를 가진 크리처를 리턴한다.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (ObjectID_t creatureID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -399,7 +395,6 @@ Creature* Tile::getCreature (ObjectID_t creatureID)
 // 특정 위치(행위)의 크리처를 리턴한다.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (Creature::MoveMode mode) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -414,7 +409,7 @@ Creature* Tile::getCreature (Creature::MoveMode mode)
 // (아이템은 타일당 하나다.)
 //////////////////////////////////////////////////////////////
 void Tile::addItem (Item* pItem) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -442,7 +437,6 @@ void Tile::addItem (Item* pItem)
 // 아이템을 타일에서 삭제한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteItem () 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -466,7 +460,6 @@ void Tile::deleteItem ()
 // 타일의 아이템을 리턴한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 Item* Tile::getItem () 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -482,7 +475,7 @@ Item* Tile::getItem ()
 // 장애물을 타일에 추가한다.
 //////////////////////////////////////////////////////////////
 void Tile::addObstacle (Obstacle* pObstacle) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -510,7 +503,6 @@ void Tile::addObstacle (Obstacle* pObstacle)
 // 장애물을 타일에서 삭제한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObstacle () 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -527,7 +519,6 @@ void Tile::deleteObstacle ()
 // 타일의 장애물을 리턴한다. 어차피 하나밖에 없으므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 Obstacle* Tile::getObstacle () 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -539,7 +530,7 @@ Obstacle* Tile::getObstacle ()
 }
 
 bool Tile::canAddEffect() 
-	throw(Error)
+	
 {
 	return !(hasObstacle() || hasBuilding() || hasPortal());
 }
@@ -551,7 +542,7 @@ bool Tile::canAddEffect()
 // 중복되는 마법에 대한 정책이 필요하다.... (같은 마법을 한자리에..)
 //////////////////////////////////////////////////////////////
 void Tile::addEffect (Effect* pEffect) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -580,7 +571,6 @@ void Tile::addEffect (Effect* pEffect)
 // 최적화할 필요성이 있다.. (search - unaffect - flag clear를 한번에..)
 //////////////////////////////////////////////////////////////
 void Tile::deleteEffect (ObjectID_t effectID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -624,7 +614,6 @@ void Tile::deleteEffect (ObjectID_t effectID)
 // 특정 ID를 가진 마법 효과를 리턴한다.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (ObjectID_t effectID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -638,7 +627,7 @@ Effect* Tile::getEffect (ObjectID_t effectID)
 // EffectClass를 가진 마법 효과를 리턴한다.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (Effect::EffectClass effectClass) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -672,7 +661,7 @@ Effect* Tile::getEffect (Effect::EffectClass effectClass)
 // 현재 타일을 건물로 설정한다. 
 //////////////////////////////////////////////////////////////
 void Tile::addBuilding (BuildingID_t buildingID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -697,7 +686,7 @@ void Tile::addBuilding (BuildingID_t buildingID)
 // 현재 타일에서 건물을 삭제한다. 어차피 하나이므로 특별히 지정할 필요는 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteBuilding () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -714,7 +703,7 @@ void Tile::deleteBuilding ()
 // 현재 타일에 해당하는 건물 아이디를 리턴한다.
 //////////////////////////////////////////////////////////////
 BuildingID_t Tile::getBuilding () const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -729,7 +718,7 @@ BuildingID_t Tile::getBuilding () const
 // 포탈을 타일에 추가한다.
 //////////////////////////////////////////////////////////////
 void Tile::addPortal (Portal* pPortal) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -758,7 +747,7 @@ void Tile::addPortal (Portal* pPortal)
 // 포탈을 타일에서 삭제한다. 어차피 하나이므로 특별히 지정할 필요가 없다.
 //////////////////////////////////////////////////////////////
 void Tile::deletePortal () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -775,7 +764,7 @@ void Tile::deletePortal ()
 // 포탈 객체를 리턴한다.
 //////////////////////////////////////////////////////////////
 Portal* Tile::getPortal () const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -790,7 +779,7 @@ Portal* Tile::getPortal () const
 // terrain 을 타일에 추가한다. 
 //////////////////////////////////////////////////////////////
 void Tile::addTerrain (TerrainID_t terrainID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -813,7 +802,7 @@ void Tile::addTerrain (TerrainID_t terrainID)
 // terrain 을 타일에서 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteTerrain () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -832,7 +821,7 @@ void Tile::deleteTerrain ()
 // terrain 아이디를 리턴한다.
 //////////////////////////////////////////////////////////////
 TerrainID_t Tile::getTerrain () const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -848,7 +837,7 @@ TerrainID_t Tile::getTerrain () const
 // get debug string
 //////////////////////////////////////////////////////////////
 string Tile::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -875,7 +864,6 @@ string Tile::toString () const
 // add object into object list
 //////////////////////////////////////////////////////////////
 void Tile::addObject (Object* pObject) 
-	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -964,7 +952,6 @@ void Tile::addObject (Object* pObject)
 // Delete object from object list
 //////////////////////////////////////////////////////////////
 void Tile::deleteObject (ObjectID_t objectID) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -1021,7 +1008,6 @@ void Tile::deleteObject (ObjectID_t objectID)
 // 특정 Tile Priority를 가진 객체를 삭제한다.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObject (ObjectPriority objectPriority) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -1072,7 +1058,6 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 // 리스트를 모두 검색해야 한다.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectID_t objectID) const
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -1099,7 +1084,6 @@ Object* Tile::getObject (ObjectID_t objectID) const
 // 특정 Tile Priority 를 가진 객체를 리턴한다.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectPriority objectPriority) const
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 

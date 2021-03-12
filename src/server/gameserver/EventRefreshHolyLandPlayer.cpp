@@ -18,13 +18,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EventRefreshHolyLandPlayer::EventRefreshHolyLandPlayer( GamePlayer* pGamePlayer )
-	throw ()
+	
 	:Event(pGamePlayer)
 {
 }
 
 void EventRefreshHolyLandPlayer::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void EventRefreshHolyLandPlayer::activate ()
 }
 
 string EventRefreshHolyLandPlayer::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EventRefreshHolyLandPlayer("

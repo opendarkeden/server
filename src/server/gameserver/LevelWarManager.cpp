@@ -41,7 +41,7 @@ void LevelWarManager::init()
 }
 
 Work* LevelWarManager::heartbeat() 
-	throw(Error)
+	
 {
 	Work* pWork = NULL;
 	pWork = Scheduler::heartbeat();
@@ -274,7 +274,7 @@ VSDateTime LevelWarManager::getNextLevelWarTime() const
 }
 
 void LevelWarManager::fixTimeband( uint timeband )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -287,7 +287,7 @@ void LevelWarManager::fixTimeband( uint timeband )
 }
 
 void LevelWarManager::resumeTimeband()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -299,7 +299,7 @@ void LevelWarManager::resumeTimeband()
 }
 
 void LevelWarManager::killAllMonsters()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -321,7 +321,7 @@ int LevelWarManager::getStartHour()
 }
 
 bool LevelWarManager::makeGCWarList()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -385,7 +385,7 @@ bool LevelWarManager::makeGCWarList()
 }
 
 void LevelWarManager::sendGCWarList(Player *pPlayer)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -401,7 +401,7 @@ void LevelWarManager::sendGCWarList(Player *pPlayer)
 	__END_CATCH
 }
 void LevelWarManager::broadcastGCWarList()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -415,7 +415,7 @@ void LevelWarManager::broadcastGCWarList()
 }
 
 void LevelWarManager::freeUserTimeCheck()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

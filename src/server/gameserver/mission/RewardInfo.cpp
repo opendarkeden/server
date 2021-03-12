@@ -11,7 +11,7 @@ RewardInfo::~RewardInfo()
 {
 }
 
-string RewardInfo::toString() const throw()
+string RewardInfo::toString() const 
 {
 	StringStream msg;
 

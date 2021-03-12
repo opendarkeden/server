@@ -18,8 +18,8 @@ class SweeperBonus
 {
 
 public:
-	SweeperBonus() throw() {}
-	~SweeperBonus() throw() { clearOptionTypeList(); }
+	SweeperBonus()  {}
+	~SweeperBonus()  { clearOptionTypeList(); }
 
 public:
 	SweeperBonusType_t getType() const { return m_Type; }
@@ -37,7 +37,7 @@ public:
 	void clearOptionTypeList() { m_OptionTypeList.clear(); }
 	const OptionTypeList& getOptionTypeList() const { return m_OptionTypeList; }
 	void setOptionTypeList( const string& optionList ) { makeOptionList( optionList, m_OptionTypeList ); } 
-	string toString() const throw();
+	string toString() const ;
 
 protected:
 	SweeperBonusType_t		m_Type;

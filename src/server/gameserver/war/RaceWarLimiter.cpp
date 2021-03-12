@@ -24,7 +24,7 @@ PCWarLimiter::~PCWarLimiter()
 // load
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::load() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void	PCWarLimiter::load()
 // lock걸린 상태에서 불려야 한다.
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::clearCurrent()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void	PCWarLimiter::clearCurrent()
 // lock걸린 상태에서 불려야 한다.
 //--------------------------------------------------------------------------------
 void	PCWarLimiter::saveCurrent(const LevelLimitInfo* pLI) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -131,7 +131,7 @@ void	PCWarLimiter::saveCurrent(const LevelLimitInfo* pLI) const
 // join
 //--------------------------------------------------------------------------------
 bool 	PCWarLimiter::join(PlayerCreature* pPC) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -161,7 +161,7 @@ bool 	PCWarLimiter::join(PlayerCreature* pPC)
 // leave
 //--------------------------------------------------------------------------------
 bool	PCWarLimiter::leave(PlayerCreature* pPC) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -205,7 +205,7 @@ SlayerWarLimiter::~SlayerWarLimiter()
 //--------------------------------------------------------------------------------
 SlayerWarLimiter::LimitInfo_t*
 SlayerWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -255,7 +255,7 @@ VampireWarLimiter::~VampireWarLimiter()
 //--------------------------------------------------------------------------------
 VampireWarLimiter::LimitInfo_t*
 VampireWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -302,7 +302,7 @@ OustersWarLimiter::~OustersWarLimiter()
 //--------------------------------------------------------------------------------
 OustersWarLimiter::LimitInfo_t*
 OustersWarLimiter::getLimitInfo(PlayerCreature* pPC)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -339,7 +339,7 @@ OustersWarLimiter::getLimitInfo(PlayerCreature* pPC)
 // clear
 //--------------------------------------------------------------------------------
 void	RaceWarLimiter::clearCurrent() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -354,7 +354,7 @@ void	RaceWarLimiter::clearCurrent()
 // load
 //--------------------------------------------------------------------------------
 void	RaceWarLimiter::load() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -369,7 +369,7 @@ void	RaceWarLimiter::load()
 // join
 //--------------------------------------------------------------------------------
 bool	RaceWarLimiter::join(PlayerCreature* pPC) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -409,7 +409,7 @@ bool	RaceWarLimiter::join(PlayerCreature* pPC)
 // leave
 //--------------------------------------------------------------------------------
 bool	RaceWarLimiter::leave(PlayerCreature* pPC) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -448,7 +448,7 @@ bool	RaceWarLimiter::leave(PlayerCreature* pPC)
 // get LimitInfo( race, index )
 //--------------------------------------------------------------------------------
 LevelLimitInfo*    RaceWarLimiter::getLimitInfo(Race_t race, int index) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -472,7 +472,7 @@ LevelLimitInfo*    RaceWarLimiter::getLimitInfo(Race_t race, int index)
 // clear PCList
 //--------------------------------------------------------------------------------
 void     RaceWarLimiter::clearPCList()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -522,7 +522,7 @@ void     RaceWarLimiter::clearPCList()
 // add PCList
 //--------------------------------------------------------------------------------
 void     RaceWarLimiter::addPCList(PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -546,7 +546,7 @@ void     RaceWarLimiter::addPCList(PlayerCreature* pPC)
 // isIn PCList
 //--------------------------------------------------------------------------------
 bool     RaceWarLimiter::isInPCList(PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -580,7 +580,7 @@ bool     RaceWarLimiter::isInPCList(PlayerCreature* pPC)
 // remove PCList
 //--------------------------------------------------------------------------------
 void     RaceWarLimiter::removePCList(PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

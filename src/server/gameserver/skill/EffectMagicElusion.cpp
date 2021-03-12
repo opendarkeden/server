@@ -1,14 +1,14 @@
 #include "EffectMagicElusion.h"
 #include "Zone.h"
 
-EffectMagicElusion::EffectMagicElusion( Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY ) throw(Error)
+EffectMagicElusion::EffectMagicElusion( Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY ) 
 	: Effect( pZone, ZoneX, ZoneY, NULL, 0 )
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
-void EffectMagicElusion::unaffect() throw(Error)
+void EffectMagicElusion::unaffect() 
 {
 	__BEGIN_TRY
 

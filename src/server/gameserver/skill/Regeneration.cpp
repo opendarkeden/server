@@ -19,7 +19,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Regeneration::execute( Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ void Regeneration::execute( Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSk
 }
 
 void Regeneration::execute( Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

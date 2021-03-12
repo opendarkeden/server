@@ -20,7 +20,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ void Sanctuary::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 // 슬레이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -360,7 +360,7 @@ void Sanctuary::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Sanctuary::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	execute(pSlayer, pSlayer->getX(), pSlayer->getY(), pSkillSlot, CEffectID);
 }

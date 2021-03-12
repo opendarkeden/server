@@ -10,7 +10,7 @@ public:
 	~EventQuestRewardManager() { }
 
 public:
-	void load(const string& name) throw(Error);
+	void load(const string& name) ;
 };
 
 #endif// __EVENT_QUEST_REWARD_MANAGER_H__

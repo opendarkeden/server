@@ -20,7 +20,7 @@ TimeLimitItemManager::~TimeLimitItemManager()
 }
 
 void TimeLimitItemManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ void TimeLimitItemManager::load()
 // false 가 리턴될 경우 오브젝트가 아이디가 등록되지 않으므로 m_ItemTimeLimits[pItem->ObjectID()] 는
 // 예외가 발생한다.
 bool TimeLimitItemManager::registerItem( Item* pItem )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ bool TimeLimitItemManager::registerItem( Item* pItem )
 }
 
 bool TimeLimitItemManager::checkTimeLimit( Item* pItem )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ bool TimeLimitItemManager::checkTimeLimit( Item* pItem )
 }
 
 bool TimeLimitItemManager::wasteIfTimeOver( Item* pItem )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -155,7 +155,7 @@ bool TimeLimitItemManager::wasteIfTimeOver( Item* pItem )
 }
 
 bool TimeLimitItemManager::makeTimeLimitItemInfo( GCTimeLimitItemInfo& gcTLII ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ bool TimeLimitItemManager::makeTimeLimitItemInfo( GCTimeLimitItemInfo& gcTLII ) 
 	__END_CATCH
 }
 
-bool TimeLimitItemManager::updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error)
+bool TimeLimitItemManager::updateItemTimeLimit( Item* pItem, DWORD time ) 
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ bool TimeLimitItemManager::updateItemTimeLimit( Item* pItem, DWORD time ) throw(
 
 // 반드시 존에 아이템을 등록한 후에 호출해야 한다.
 void TimeLimitItemManager::addTimeLimitItem( Item* pItem, DWORD time )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -233,7 +233,7 @@ void TimeLimitItemManager::addTimeLimitItem( Item* pItem, DWORD time )
 }
 
 // 메모리에 있는 애는 일단 아직 시간이 남은 넘이다.
-bool TimeLimitItemManager::changeStatus( Item* pItem, TimeLimitStatus status ) throw(Error)
+bool TimeLimitItemManager::changeStatus( Item* pItem, TimeLimitStatus status ) 
 {
 	__BEGIN_TRY
 

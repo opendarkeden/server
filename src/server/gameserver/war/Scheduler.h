@@ -33,22 +33,22 @@ public :
 class Scheduler 
 {
 public:
-	Scheduler() throw();
-	virtual ~Scheduler() throw(Error);
+	Scheduler() ;
+	virtual ~Scheduler() ;
 
-	void			clear() throw(Error);
+	void			clear() ;
 
 	int 			getSize() const						{ return m_RecentSchedules.size(); }
 	bool 			isEmpty() const						{ return m_RecentSchedules.empty(); }
 
 public:
-	void 			addSchedule( Schedule* pSchedule ) throw (Error);
+	void 			addSchedule( Schedule* pSchedule ) ;
 
-	virtual Work* 	heartbeat() throw(Error);
+	virtual Work* 	heartbeat() ;
 	Schedule*		getRecentSchedule() const { return (isEmpty())?NULL:m_RecentSchedules.top(); }
 
 protected :
-	Work* 			popRecentWork() throw (Error);
+	Work* 			popRecentWork() ;
 
 protected:
 	RecentSchedules m_RecentSchedules;

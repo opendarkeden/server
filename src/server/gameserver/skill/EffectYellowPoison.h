@@ -18,19 +18,19 @@
 class EffectYellowPoison : public Effect 
 {
 public:
-	EffectYellowPoison(Zone*, ZoneCoord_t, ZoneCoord_t) throw(Error);
+	EffectYellowPoison(Zone*, ZoneCoord_t, ZoneCoord_t) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_YELLOW_POISON; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error); 
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ; 
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
-	void unaffect(Item*  pItem) throw(Error) {}
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+	void unaffect(Item*  pItem)  {}
 
 	string toString() const throw();
 
@@ -47,7 +47,7 @@ public:
 	void setForce( bool force ) { m_bForce = force; }
 	bool isForce() { return m_bForce; }
 	
-	bool affectCreature(Creature* pCreature, bool bAffectByMove) throw(Error); 
+	bool affectCreature(Creature* pCreature, bool bAffectByMove) ; 
 
 private:
 	Duration_t m_Duration;
@@ -64,8 +64,8 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectYellowPoison"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
-	virtual void load(Zone* pZone) throw(Error);
+	virtual void load(Creature* pCreature)  {}
+	virtual void load(Zone* pZone) ;
 };
 
 extern EffectYellowPoisonLoader* g_pEffectYellowPoisonLoader;

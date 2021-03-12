@@ -21,25 +21,25 @@
 class ActionSetPosition : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SET_POSITION; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SET_POSITION; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	ZoneID_t getZoneID() const throw() { return m_ZoneID; }
-	void setZoneID(ZoneID_t zoneID) throw() { m_ZoneID = zoneID; }
+	ZoneID_t getZoneID() const  { return m_ZoneID; }
+	void setZoneID(ZoneID_t zoneID)  { m_ZoneID = zoneID; }
 
-	ZoneCoord_t getX() const throw() { return m_X; }
-	ZoneCoord_t getY() const throw() { return m_Y; }
-	Dir_t getDir() const throw() { return m_Dir; }
+	ZoneCoord_t getX() const  { return m_X; }
+	ZoneCoord_t getY() const  { return m_Y; }
+	Dir_t getDir() const  { return m_Dir; }
 
-	void setX(ZoneCoord_t x) throw() { m_X = x; }
-	void setY(ZoneCoord_t y) throw() { m_Y = y; }
-	void setDir(Dir_t dir) throw() { m_Dir = dir; }
+	void setX(ZoneCoord_t x)  { m_X = x; }
+	void setY(ZoneCoord_t y)  { m_Y = y; }
+	void setDir(Dir_t dir)  { m_Dir = dir; }
 
-	Creature::MoveMode getMoveMode() const throw() { return m_MoveMode; }	
-	void setMoveMode(Creature::MoveMode moveMode) throw() { m_MoveMode = moveMode; }
+	Creature::MoveMode getMoveMode() const  { return m_MoveMode; }	
+	void setMoveMode(Creature::MoveMode moveMode)  { m_MoveMode = moveMode; }
 
 private:
 	ZoneID_t           m_ZoneID;
@@ -56,9 +56,9 @@ private:
 class ActionSetPositionFactory : public ActionFactory 
 {
 public:
-    virtual ActionType_t getActionType() const throw() { return Action::ACTION_SET_POSITION; }
-    virtual string getActionName() const throw() { return "SetPosition"; }
-    virtual Action* createAction() const throw() { return new ActionSetPosition(); }
+    virtual ActionType_t getActionType() const  { return Action::ACTION_SET_POSITION; }
+    virtual string getActionName() const  { return "SetPosition"; }
+    virtual Action* createAction() const  { return new ActionSetPosition(); }
 };
 
 #endif

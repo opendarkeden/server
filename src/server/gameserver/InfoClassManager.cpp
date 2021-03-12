@@ -14,7 +14,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 InfoClassManager::InfoClassManager () 
-	throw ()
+	
 : m_InfoCount(0), m_pItemInfos(NULL), m_TotalRatio(0), m_AveragePrice(0)
 {
 }
@@ -24,7 +24,7 @@ InfoClassManager::InfoClassManager ()
 // destructor
 //--------------------------------------------------------------------------------
 InfoClassManager::~InfoClassManager() 
-	throw ()
+	
 {
 	if (m_pItemInfos != NULL) 
 	{
@@ -40,7 +40,7 @@ InfoClassManager::~InfoClassManager()
 // init
 //--------------------------------------------------------------------------------
 void InfoClassManager::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void InfoClassManager::init ()
 // reload item infos
 //--------------------------------------------------------------------------------
 void InfoClassManager::reload()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void InfoClassManager::reload()
 // add item info
 //--------------------------------------------------------------------------------
 void InfoClassManager::addItemInfo (ItemInfo* pItemInfo) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -120,7 +120,6 @@ void InfoClassManager::addItemInfo (ItemInfo* pItemInfo)
 // get item info
 //--------------------------------------------------------------------------------
 ItemInfo* InfoClassManager::getItemInfo (ItemType_t itemType) const 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -136,7 +135,7 @@ ItemInfo* InfoClassManager::getItemInfo (ItemType_t itemType) const
 // remove all item infos
 //--------------------------------------------------------------------------------
 void InfoClassManager::removeAllItemInfo()
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -153,7 +152,7 @@ void InfoClassManager::removeAllItemInfo()
 // get Random ItemType
 //--------------------------------------------------------------------------------
 ItemType_t  InfoClassManager::getRandomItemType() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -218,7 +217,7 @@ ItemType_t  InfoClassManager::getRandomItemType() const
 // toString for debug
 //--------------------------------------------------------------------------------
 string InfoClassManager::toString() const 
-	throw ()
+	
 {
 	StringStream msg;
 

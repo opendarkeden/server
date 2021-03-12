@@ -17,23 +17,23 @@
 class OustersEXPInfo 
 {
 public:
-	OustersEXPInfo() throw();
-	~OustersEXPInfo() throw();
+	OustersEXPInfo() ;
+	~OustersEXPInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(Exp_t sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(Exp_t sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(Exp_t accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(Exp_t accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	void setSkillPointBonus(SkillBonus_t SkillBonus) throw() { m_SkillPointBonus = SkillBonus; }
-	SkillBonus_t getSkillPointBonus() const throw() { return m_SkillPointBonus; }
+	void setSkillPointBonus(SkillBonus_t SkillBonus)  { m_SkillPointBonus = SkillBonus; }
+	SkillBonus_t getSkillPointBonus() const  { return m_SkillPointBonus; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	Level_t m_Level;		// ·¹º§
@@ -50,17 +50,17 @@ private:
 class OustersEXPInfoManager 
 {
 public:
-	OustersEXPInfoManager() throw();
-	~OustersEXPInfoManager() throw();
+	OustersEXPInfoManager() ;
+	~OustersEXPInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	OustersEXPInfo* getOustersEXPInfo(uint OustersEXPType) const throw(NoSuchElementException, OutOfBoundException, Error);
-	void addOustersEXPInfo(OustersEXPInfo* pOustersEXPInfo) throw(DuplicatedException, Error);
+	OustersEXPInfo* getOustersEXPInfo(uint OustersEXPType) const ;
+	void addOustersEXPInfo(OustersEXPInfo* pOustersEXPInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint          m_OustersEXPCount;

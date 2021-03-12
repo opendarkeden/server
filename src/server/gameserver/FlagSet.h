@@ -56,29 +56,29 @@ class FlagSet
 ///// Member methods /////
 	
 public:
-	FlagSet() throw();
-	~FlagSet() throw();
+	FlagSet() ;
+	~FlagSet() ;
 
 public:
-	void create(const string& owner) throw();
-	void load(const string& owner) throw();
-	void save(const string& owner) throw();
-	void destroy(const string& owner) throw();
+	void create(const string& owner) ;
+	void load(const string& owner) ;
+	void save(const string& owner) ;
+	void destroy(const string& owner) ;
 
 public:
-	bool isOn(int index) throw();
-	bool turnOn(int index) throw();
-	bool turnOff(int index) throw();
+	bool isOn(int index) ;
+	bool turnOn(int index) ;
+	bool turnOff(int index) ;
 
 public:
-	string toString(void) throw();
-	static FlagSet fromString(const string& text) throw();
+	string toString(void) ;
+	static FlagSet fromString(const string& text) ;
 
-	static void initialize(void) throw();
+	static void initialize(void) ;
 
 protected:
-	bool isValidIndex(int index) throw();
-	BYTE* getData() throw() { return &m_pData[0]; }
+	bool isValidIndex(int index) ;
+	BYTE* getData()  { return &m_pData[0]; }
 	
 
 ///// Member data /////

@@ -12,7 +12,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterBeginnerZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -24,7 +24,7 @@ bool ConditionCanEnterBeginnerZone::isSatisfied (Creature * pCreature1 , Creatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterBeginnerZone::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 }
 
@@ -32,7 +32,7 @@ void ConditionCanEnterBeginnerZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterBeginnerZone::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

@@ -96,7 +96,7 @@
 #include "DynamicZone.h"
 
 void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
-	throw()
+	
 {
 
 	__BEGIN_TRY
@@ -135,7 +135,7 @@ void sendGCOtherModifyInfoGuildUnionByGuildID(uint gID)
 }
 // 해당크리쳐가 소속된 길드의 모든 놈에게 GCOtherModifyInfo 를 날린다.
 void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
-	throw()
+	
 {
 
 	__BEGIN_TRY
@@ -191,7 +191,7 @@ void sendGCOtherModifyInfoGuildUnion(Creature* pTargetCreature)
 
 
 void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Creature* pCreature)
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -260,7 +260,7 @@ void makeGCOtherModifyInfoGuildUnion(GCOtherModifyInfo* pModifyInformation, Crea
 
 	
 void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creature* pCreature)
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -328,7 +328,7 @@ void makeGCModifyInfoGuildUnion(GCModifyInformation* pModifyInformation, Creatur
 // 포탈이나, 죽어서 맵 사이를 이동할 때 쓰는, GCUpdateInfo 정보를 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -691,7 +691,7 @@ void makeGCUpdateInfo(GCUpdateInfo* pUpdateInfo, Creature* pCreature)
 // 슬레이어 추가 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddSlayer(GCAddSlayer* pAddSlayer, Slayer* pSlayer) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -708,7 +708,7 @@ void makeGCAddSlayer(GCAddSlayer* pAddSlayer, Slayer* pSlayer)
 // 뱀파이어 추가 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -731,7 +731,7 @@ void makeGCAddVampire(GCAddVampire* pAddVampire, Vampire* pVampire)
 // 아우스터스 추가 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddOusters(GCAddOusters* pAddOusters, Ousters* pOusters) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -748,7 +748,7 @@ void makeGCAddOusters(GCAddOusters* pAddOusters, Ousters* pOusters)
 // 몬스터 추가 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -773,7 +773,7 @@ void makeGCAddMonster(GCAddMonster* pAddMonster, Monster* pMonster)
 // NPC 추가 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddNPC(GCAddNPC* pAddNPC, NPC* pNPC) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -794,7 +794,7 @@ void makeGCAddNPC(GCAddNPC* pAddNPC, NPC* pNPC)
 // 새로운 아이템을 존에다 추가할 때 보내는 GCAddNewItemToZone을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, int X, int Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -897,7 +897,7 @@ void makeGCAddNewItemToZone(GCAddNewItemToZone* pAddNewItemToZone, Item* pItem, 
 // 새로운 아이템을 존에다 추가할 때 보내는 GCDropItemToZone을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X, int Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1000,7 +1000,7 @@ void makeGCDropItemToZone(GCDropItemToZone* pDropItemToZone, Item* pItem, int X,
 // 존에다 슬레이어 시체를 추가할 때 보내는 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddSlayerCorpse(GCAddSlayerCorpse* pAddSlayerCorpse, SlayerCorpse* pSlayerCorpse) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1014,7 +1014,7 @@ void makeGCAddSlayerCorpse(GCAddSlayerCorpse* pAddSlayerCorpse, SlayerCorpse* pS
 // 존에다 뱀파이어 시체를 추가할 때 보내는 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddVampireCorpse(GCAddVampireCorpse* pAddVampireCorpse, VampireCorpse* pVampireCorpse) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1028,7 +1028,7 @@ void makeGCAddVampireCorpse(GCAddVampireCorpse* pAddVampireCorpse, VampireCorpse
 // 존에다 몬스터 시체를 추가할 때 보내는 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddMonsterCorpse(GCAddMonsterCorpse* pAddMonsterCorpse, MonsterCorpse* pMonsterCorpse, int X, int Y) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1049,7 +1049,7 @@ void makeGCAddMonsterCorpse(GCAddMonsterCorpse* pAddMonsterCorpse, MonsterCorpse
 // 존에다 아우스터즈 시체를 추가할 때 보내는 패킷을 구성한다.
 //////////////////////////////////////////////////////////////////////////////
 void makeGCAddOustersCorpse(GCAddOustersCorpse* pAddOustersCorpse, OustersCorpse* pOustersCorpse) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1096,7 +1096,7 @@ void makeGCOtherModifyInfo(GCOtherModifyInfo* pInfo, Ousters* pOusters, const OU
 }
 
 void makeGCCreateItem(GCCreateItem* pGCCreateItem, Item* pItem, CoordInven_t x, CoordInven_t y) 
-	throw(Error)
+	
 {
 	pGCCreateItem->setObjectID(pItem->getObjectID());
 	pGCCreateItem->setItemClass((BYTE)pItem->getItemClass());
@@ -1128,7 +1128,7 @@ void makeGCCreateItem(GCCreateItem* pGCCreateItem, Item* pItem, CoordInven_t x, 
 }
 
 void sendPayInfo(GamePlayer* pGamePlayer)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1177,7 +1177,7 @@ void sendPayInfo(GamePlayer* pGamePlayer)
 
 // 주위에 LevelUp effect를 뿌려준다.
 void sendEffectLevelUp(Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1210,7 +1210,7 @@ void sendEffectLevelUp(Creature* pCreature)
 }
 
 void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1253,7 +1253,7 @@ void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg)
 }
 
 bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1272,7 +1272,7 @@ bool makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList, ZoneID_t zoneI
 }
 
 /*void makeGCItemNameInfoList(GCItemNameInfoList* pInfo, PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

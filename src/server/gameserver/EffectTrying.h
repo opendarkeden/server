@@ -16,15 +16,15 @@
 class EffectTrying : public Effect 
 {
 public:
-//	EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
-	EffectTrying(Creature* pCreature) throw(Error);
+//	EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
+	EffectTrying(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRYING; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRYING; }
 
-	void unaffect() throw(Error); 
+	void unaffect() ; 
 
-	string toString() const throw() { return "EffectTrying"; }
+	string toString() const  { return "EffectTrying"; }
 
 private:
 };

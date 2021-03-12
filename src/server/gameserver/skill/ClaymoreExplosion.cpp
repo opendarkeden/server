@@ -45,7 +45,7 @@ ClaymoreExplosion::ClaymoreExplosion()
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void ClaymoreExplosion::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

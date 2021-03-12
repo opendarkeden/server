@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "MonsterRangeSkill "; }
 	SkillType_t getSkillType() const throw() { return m_SkillType; }
 
-	void execute(Monster* pMonster, Creature* pEnemy) throw(Error);
+	void execute(Monster* pMonster, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) { }
 

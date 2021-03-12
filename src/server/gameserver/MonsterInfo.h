@@ -118,8 +118,8 @@ enum BodySize
 class MonsterInfo 
 {
 public:
-	MonsterInfo() throw();
-	~MonsterInfo() throw();
+	MonsterInfo() ;
+	~MonsterInfo() ;
 
 public:
 	MonsterType_t getMonsterType() const { return m_MonsterType; }
@@ -187,7 +187,7 @@ public:
 
 	Creature::MoveMode getMoveMode() const { return m_MoveMode; }
 	void setMoveMode(Creature::MoveMode moveMode) { m_MoveMode = moveMode; }
-	void setMoveMode(const string & moveMode) throw(Error);
+	void setMoveMode(const string & moveMode) ;
 
 	uint getAIType(void) const { return m_AIType;}
 	void setAIType(uint aitype) { m_AIType = aitype;}
@@ -198,22 +198,22 @@ public:
 	int getEnhanceProtection(void) const { return m_EnhanceProtection; }
 	int getEnhanceMinDamage(void) const { return m_EnhanceMinDamage; }
 	int getEnhanceMaxDamage(void) const { return m_EnhanceMaxDamage; }
-	void parseEnhanceAttr(const string& enhance) throw();
+	void parseEnhanceAttr(const string& enhance) ;
 
-	void parseSlayerTreasureString(const string& text) throw();
+	void parseSlayerTreasureString(const string& text) ;
 	TreasureList* getSlayerTreasureList(void) const { return m_pSlayerTreasureList; }
 	TreasureList* getSlayerTreasureList(void) { return m_pSlayerTreasureList; }
-	void setSlayerTreasureList(TreasureList* pTreasureList) throw();
+	void setSlayerTreasureList(TreasureList* pTreasureList) ;
 
-	void parseVampireTreasureString(const string& text) throw();
+	void parseVampireTreasureString(const string& text) ;
 	TreasureList* getVampireTreasureList(void) const { return m_pVampireTreasureList; }
 	TreasureList* getVampireTreasureList(void) { return m_pVampireTreasureList; }
-	void setVampireTreasureList(TreasureList* pTreasureList) throw();
+	void setVampireTreasureList(TreasureList* pTreasureList) ;
 
-	void parseOustersTreasureString(const string& text) throw();
+	void parseOustersTreasureString(const string& text) ;
 	TreasureList* getOustersTreasureList(void) const { return m_pOustersTreasureList; }
 	TreasureList* getOustersTreasureList(void) { return m_pOustersTreasureList; }
-	void setOustersTreasureList(TreasureList* pTreasureList) throw();
+	void setOustersTreasureList(TreasureList* pTreasureList) ;
 
 	RegenType selectRegenType() const;
 	int getRegenType(RegenType rt) const				{ return m_RegenType[rt]; }
@@ -251,7 +251,7 @@ public:
 	int  getSkullType(void) const { return m_SkullType;}
 	void setSkullType(int skullType) { m_SkullType = skullType;}
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	MonsterType_t      m_MonsterType;               // 몬스터 타입
@@ -308,37 +308,37 @@ private:
 class MonsterInfoManager 
 {
 public:
-	MonsterInfoManager() throw();
-	~MonsterInfoManager() throw();
+	MonsterInfoManager() ;
+	~MonsterInfoManager() ;
 
 public:
 	// initialize
-	void init() throw(Error);
+	void init() ;
 
 	// load to database
-	void load() throw(Error);
-	void reload(MonsterType_t monsterType) throw(Error);
+	void load() ;
+	void reload(MonsterType_t monsterType) ;
 
 	// add monster info with monster type
-	void addMonsterInfo(MonsterType_t monsterType, MonsterInfo* pMonsterInfo) throw(DuplicatedException, OutOfBoundException, Error);
+	void addMonsterInfo(MonsterType_t monsterType, MonsterInfo* pMonsterInfo) ;
 
 	// get monster info with monster type
-	const MonsterInfo* getMonsterInfo(MonsterType_t monsterType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	const MonsterInfo* getMonsterInfo(MonsterType_t monsterType) const ;
 
 	// 임의의 스프라이트 타입을 가진 몬스터의 타입 리스트를 가져온다.
 	// (여러 몬스터가 하나의 스프라이트 타입을 가질 수 있기 때문에) 
-	const vector<MonsterType_t>& getMonsterTypeBySprite(SpriteType_t spriteType) const throw (NoSuchElementException, OutOfBoundException, Error);
+	const vector<MonsterType_t>& getMonsterTypeBySprite(SpriteType_t spriteType) const ;
 	string	getNameBySpriteType(SpriteType_t spriteType) const;
 
-	SpriteType_t getSpriteTypeByName(const string& monsterName) const throw (NoSuchElementException, Error);
-	MonsterType_t getChiefMonsterTypeByName(const string& monsterName) const throw (NoSuchElementException, Error);
+	SpriteType_t getSpriteTypeByName(const string& monsterName) const ;
+	MonsterType_t getChiefMonsterTypeByName(const string& monsterName) const ;
 	vector<MonsterType_t>& getMonsterTypesByMonsterClass(int MonsterClass) { return m_MonsterClassMap[MonsterClass]; }
 
 	uint	getMaxMonsterType() const	{ return m_MaxMonsterType; }
 	MonsterType_t	getRandomMonsterByClass( int minClass, int maxClass );
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 protected :
 	void	clearTreasures();

@@ -6,7 +6,7 @@
 #include "SlayerWeaponRewardClass.h"
 #include "ItemRewardInfo.h"
 
-void SimpleQuestRewardManager::load(const string& name) throw(Error)
+void SimpleQuestRewardManager::load(const string& name) 
 {
 	__BEGIN_TRY
 

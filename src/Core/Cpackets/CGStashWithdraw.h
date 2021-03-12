@@ -19,17 +19,17 @@
 class CGStashWithdraw : public Packet 
 {
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_STASH_WITHDRAW; }
-	PacketSize_t getPacketSize() const throw() { return szGold; }
-	string getPacketName() const throw() { return "CGStashWithdraw"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_STASH_WITHDRAW; }
+	PacketSize_t getPacketSize() const  { return szGold; }
+	string getPacketName() const  { return "CGStashWithdraw"; }
+	string toString() const ;
 	
 public:
-	Gold_t getAmount(void) const throw() { return m_Amount;}
-	void setAmount(Gold_t amount) throw() { m_Amount = amount;}
+	Gold_t getAmount(void) const  { return m_Amount;}
+	void setAmount(Gold_t amount)  { m_Amount = amount;}
 
 private :
 	Gold_t m_Amount;
@@ -45,10 +45,10 @@ private :
 class CGStashWithdrawFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGStashWithdraw(); }
-	string getPacketName() const throw() { return "CGStashWithdraw"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_STASH_WITHDRAW; }
-	PacketSize_t getPacketMaxSize() const throw() { return szGold; }
+	Packet* createPacket()  { return new CGStashWithdraw(); }
+	string getPacketName() const  { return "CGStashWithdraw"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_STASH_WITHDRAW; }
+	PacketSize_t getPacketMaxSize() const  { return szGold; }
 
 };
 
@@ -64,7 +64,7 @@ class CGStashWithdrawHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGStashWithdraw* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGStashWithdraw* pPacket, Player* player) ;
 };
 
 #endif

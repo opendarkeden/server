@@ -37,41 +37,41 @@ class ZoneGroup {
 public:
 	
 	// constructor
-	ZoneGroup(ZoneGroupID_t zoneGroupID) throw();
+	ZoneGroup(ZoneGroupID_t zoneGroupID) ;
 	
 	// destructor
-	~ZoneGroup() throw();
+	~ZoneGroup() ;
 	
 
 public:
 	
 	// initialize zone group
-	void init() throw(Error);
+	void init() ;
 	
 	// load sub zones from database
-	void load() throw(Error);
+	void load() ;
 	
 	// save sub zones to database
-	void save() throw(Error);
+	void save() ;
 
 	//
-	void processPlayers() throw(Error);
-	void heartbeat() throw(Error);	
+	void processPlayers() ;
+	void heartbeat() ;	
 	
 public:
 
 	// add zone to zone group
-	void addZone(Zone* pZone) throw(Error);
+	void addZone(Zone* pZone) ;
 	
 	// delete zone from zone group
-	void deleteZone(ZoneID_t zoneID) throw(NoSuchElementException);
-	Zone* removeZone(ZoneID_t zoneID) throw(NoSuchElementException);
+	void deleteZone(ZoneID_t zoneID) ;
+	Zone* removeZone(ZoneID_t zoneID) ;
 	
 	// get zone from zone group
-	Zone* getZone(ZoneID_t zoneID) const throw(NoSuchElementException);
+	Zone* getZone(ZoneID_t zoneID) const ;
 
 //#ifdef __NO_COMBAT__
-	Zone* getCombatZone(ZoneID_t zoneID) const throw(Error); // getZone과 같은 일을 수행하나 NULL을 리턴하는 것이 가능, 김경석
+	Zone* getCombatZone(ZoneID_t zoneID) const ; // getZone과 같은 일을 수행하나 NULL을 리턴하는 것이 가능, 김경석
 //#endif
 
 //--------------------------------------------------
@@ -80,27 +80,27 @@ public:
 public:
 
 	// get/set zone group id
-	ZoneGroupID_t getZoneGroupID() const throw() { return m_ZoneGroupID; }
-	void setZoneGroupID(ZoneGroupID_t zoneGroupID) throw() { m_ZoneGroupID = zoneGroupID; }
+	ZoneGroupID_t getZoneGroupID() const  { return m_ZoneGroupID; }
+	void setZoneGroupID(ZoneGroupID_t zoneGroupID)  { m_ZoneGroupID = zoneGroupID; }
 
 	// get zone player manager
-	ZonePlayerManager* getZonePlayerManager() throw() { return m_pZonePlayerManager; }
-	void setZonePlayerManager(ZonePlayerManager* pZonePlayerManager) throw() { m_pZonePlayerManager = pZonePlayerManager; }
+	ZonePlayerManager* getZonePlayerManager()  { return m_pZonePlayerManager; }
+	void setZonePlayerManager(ZonePlayerManager* pZonePlayerManager)  { m_pZonePlayerManager = pZonePlayerManager; }
 
 	// get/set game time
-	GameTime getGameTime() const throw() { return m_GameTime; }
-	void setGameTime(const GameTime & gameTime) throw() { m_GameTime = gameTime; }
+	GameTime getGameTime() const  { return m_GameTime; }
+	void setGameTime(const GameTime & gameTime)  { m_GameTime = gameTime; }
 
-	void makeZoneUserInfo ( GMServerInfo & gmServerInfo ) throw(Error);
+	void makeZoneUserInfo ( GMServerInfo & gmServerInfo ) ;
 
 	const unordered_map< ZoneID_t, Zone* >& getZones() const { return m_Zones; }
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
-	void 	lock() throw (Error)		{ m_Mutex.lock(); }
-	void 	unlock() throw (Error)		{ m_Mutex.unlock(); }
+	void 	lock() 		{ m_Mutex.lock(); }
+	void 	unlock() 		{ m_Mutex.unlock(); }
 
 	  void   initLoadValue();
       DWORD  getLoadValue() const;

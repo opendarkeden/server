@@ -24,7 +24,7 @@
 #include <list>
 
 Item* CorpseItemPosition::popItem( bool bLock )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -37,7 +37,7 @@ Item* CorpseItemPosition::popItem( bool bLock )
 }
 
 Item* CorpseItemPosition::getItem_LOCKED( bool isDel )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ Item* CorpseItemPosition::getItem_LOCKED( bool isDel )
 }
 
 Item* CorpseItemPosition::getItem_UNLOCKED( bool isDel )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -83,7 +83,7 @@ Item* CorpseItemPosition::getItem_UNLOCKED( bool isDel )
 }
 
 Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +158,7 @@ Item* CorpseItemPosition::getItem_CORE(Zone* pZone, bool isDel)
 
 string  
 CorpseItemPosition::toString() const 
-	throw(Error)
+	
 {
 	return "CorpseItemPosition";
 }

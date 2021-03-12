@@ -42,7 +42,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 IncomingPlayerManager::IncomingPlayerManager () 
-	throw (Error)
+	
 : m_pServerSocket(NULL), m_SocketID(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -91,7 +91,7 @@ IncomingPlayerManager::IncomingPlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 IncomingPlayerManager::~IncomingPlayerManager () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ IncomingPlayerManager::~IncomingPlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -239,7 +239,7 @@ void IncomingPlayerManager::init ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::copyPlayers()
-	    throw()
+	    
 {
 	__BEGIN_TRY
 
@@ -256,7 +256,7 @@ void IncomingPlayerManager::copyPlayers()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::broadcast (Packet* pPacket)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -278,7 +278,6 @@ void IncomingPlayerManager::broadcast (Packet* pPacket)
 // 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::select ()
-	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
 
@@ -324,7 +323,6 @@ void IncomingPlayerManager::select ()
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::processInputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -453,7 +451,6 @@ void IncomingPlayerManager::processInputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processCommands() 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -579,7 +576,6 @@ void IncomingPlayerManager::processCommands()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processOutputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -746,7 +742,6 @@ void IncomingPlayerManager::processOutputs ()
 //////////////////////////////////////////////////////////////////////////////
 
 void IncomingPlayerManager::processExceptions () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -823,7 +818,7 @@ void IncomingPlayerManager::processExceptions ()
 // select 기반에서는 nonblocking 소켓을 사용하지 않는다.
 //////////////////////////////////////////////////////////////////////////////
 bool IncomingPlayerManager::acceptNewConnection ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1008,7 +1003,6 @@ bool IncomingPlayerManager::acceptNewConnection ()
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::addPlayer (Player* pGamePlayer) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1040,7 +1034,6 @@ void IncomingPlayerManager::addPlayer (Player* pGamePlayer)
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::addPlayer_NOBLOCKED (Player* pGamePlayer) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1063,7 +1056,6 @@ void IncomingPlayerManager::addPlayer_NOBLOCKED (Player* pGamePlayer)
 }
 
 void IncomingPlayerManager::deletePlayer_NOBLOCKED (SOCKET fd) 
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1139,7 +1131,6 @@ void IncomingPlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 //
 //////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::deletePlayer (SOCKET fd) 
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1207,7 +1198,6 @@ void IncomingPlayerManager::deletePlayer (SOCKET fd)
 }
 
 GamePlayer* IncomingPlayerManager::getPlayer_NOBLOCKED (const string & id)
-    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1235,7 +1225,6 @@ GamePlayer* IncomingPlayerManager::getPlayer_NOBLOCKED (const string & id)
 }
 
 GamePlayer* IncomingPlayerManager::getPlayer (const string & id)
-    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1253,7 +1242,6 @@ GamePlayer* IncomingPlayerManager::getPlayer (const string & id)
 }
 
 GamePlayer* IncomingPlayerManager::getReadyPlayer (const string & id)
-    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1281,7 +1269,7 @@ GamePlayer* IncomingPlayerManager::getReadyPlayer (const string & id)
 }
 
 void IncomingPlayerManager::pushPlayer(GamePlayer* pGamePlayer)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1295,7 +1283,7 @@ void IncomingPlayerManager::pushPlayer(GamePlayer* pGamePlayer)
 }
 
 void IncomingPlayerManager::pushOutPlayer(GamePlayer* pGamePlayer)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1309,7 +1297,7 @@ void IncomingPlayerManager::pushOutPlayer(GamePlayer* pGamePlayer)
 }
 
 void IncomingPlayerManager::heartbeat()
-	throw(Error) 
+	 
 {
 	__BEGIN_TRY
 
@@ -1602,7 +1590,6 @@ void IncomingPlayerManager::heartbeat()
 }
 
 void IncomingPlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
-    throw(NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1631,7 +1618,7 @@ void IncomingPlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
 // IncomingPlayerManager 에 있는 모든 사용자를 정리한다.
 ////////////////////////////////////////////////////////////////////////
 void IncomingPlayerManager::clearPlayers()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -19,7 +19,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	/*if (!g_pVariableManager->isActiveHolyLand())
 	{
@@ -99,7 +99,7 @@ bool ConditionEnterCastleDungeon::isSatisfied (Creature * pCreature1 , Creature 
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEnterCastleDungeon::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	try
 	{
@@ -116,7 +116,7 @@ void ConditionEnterCastleDungeon::read (PropertyBuffer & propertyBuffer)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEnterCastleDungeon::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

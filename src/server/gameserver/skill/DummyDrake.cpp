@@ -19,7 +19,7 @@
 // 아우스터즈 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DummyDrake::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

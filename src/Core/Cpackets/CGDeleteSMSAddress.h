@@ -17,17 +17,17 @@
 class CGDeleteSMSAddress : public Packet 
 {
 public:
-	CGDeleteSMSAddress() throw();
-	~CGDeleteSMSAddress() throw();
+	CGDeleteSMSAddress() ;
+	~CGDeleteSMSAddress() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_DELETE_SMS_ADDRESS; }
-	PacketSize_t getPacketSize() const throw() { return szDWORD; }
-	string getPacketName() const throw() { return "CGDeleteSMSAddress"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_DELETE_SMS_ADDRESS; }
+	PacketSize_t getPacketSize() const  { return szDWORD; }
+	string getPacketName() const  { return "CGDeleteSMSAddress"; }
+	string toString() const ;
 	
 public:
 	DWORD	getElementID() const { return m_ElementID; }
@@ -44,10 +44,10 @@ private:
 class CGDeleteSMSAddressFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGDeleteSMSAddress(); }
-	string getPacketName() const throw() { return "CGDeleteSMSAddress"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_DELETE_SMS_ADDRESS; }
-	PacketSize_t getPacketMaxSize() const throw() { return szDWORD; }
+	Packet* createPacket()  { return new CGDeleteSMSAddress(); }
+	string getPacketName() const  { return "CGDeleteSMSAddress"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_DELETE_SMS_ADDRESS; }
+	PacketSize_t getPacketMaxSize() const  { return szDWORD; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ public:
 class CGDeleteSMSAddressHandler 
 {
 public:
-	static void execute(CGDeleteSMSAddress* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGDeleteSMSAddress* pPacket, Player* player) ;
 };
 
 #endif

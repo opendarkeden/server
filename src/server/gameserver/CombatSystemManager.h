@@ -45,16 +45,16 @@ const string RELIC4NAME = "역십자가";
 
 class CombatSystemManager {
 	public:
-		CombatSystemManager() throw();
-		~CombatSystemManager() throw();
+		CombatSystemManager() ;
+		~CombatSystemManager() ;
 
-		void CheckCombat() throw(Error); // 전투 활성화 여부 체크하여 생성/파괴 실시
+		void CheckCombat() ; // 전투 활성화 여부 체크하여 생성/파괴 실시
 
-		void ActiveCombat() throw(Error); // 전투 개시
-		void DeactiveCombat() throw(Error); // 전투 종료
+		void ActiveCombat() ; // 전투 개시
+		void DeactiveCombat() ; // 전투 종료
 
-		void BroadcastPacket(Packet*) throw(Error); // 모든 존의 사용자에게 메시지 전달
-		void BroadcastPacket(Packet*, int condition, int minute) throw(Error); // 모든 존의 사용자에게 메시지 전달
+		void BroadcastPacket(Packet*) ; // 모든 존의 사용자에게 메시지 전달
+		void BroadcastPacket(Packet*, int condition, int minute) ; // 모든 존의 사용자에게 메시지 전달
 
 		void ActiveMonster(); // 전투 몬스터 생성
 		void DeactiveMonster(); // 전투 몬스터 파괴

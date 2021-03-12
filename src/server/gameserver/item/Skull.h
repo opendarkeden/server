@@ -21,35 +21,35 @@
 class Skull : public Item 
 {
 public:
-	Skull() throw();
-	Skull(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	Skull() ;
+	Skull(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
 
-	static void initItemIDRegistry(void) throw();
-
-public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SKULL; }
-	virtual string getObjectTableName() const throw() { return "SkullObject"; }
-
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
-
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
-
-	virtual string toString() const throw();
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual ItemNum_t getNum() const throw() { return m_Num; }
-	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_SKULL; }
+	virtual string getObjectTableName() const  { return "SkullObject"; }
 
-	bool    isStackable() const throw() { return true; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
+
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
+
+	virtual string toString() const ;
+
+public:
+	virtual ItemNum_t getNum() const  { return m_Num; }
+	virtual void setNum(ItemNum_t Num)  { m_Num = Num; }
+
+	bool    isStackable() const  { return true; }
 	
 private:
 	ItemType_t m_ItemType; // 아이템 타입
@@ -69,12 +69,12 @@ private:
 class SkullInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SKULL; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SKULL; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	uint m_ItemLevel;
@@ -90,8 +90,8 @@ private:
 class SkullInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SKULL; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SKULL; }
+	virtual void load() ;
 
 };
 
@@ -109,15 +109,15 @@ class SkullFactory : public ItemFactory {
 public:
 	
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SKULL; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SKULL; }
 
 	// get item classname
-	virtual string getItemClassName() const throw() { return "Skull"; }
+	virtual string getItemClassName() const  { return "Skull"; }
 	
 public:
 
 	// create item
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Skull(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Skull(ItemType,OptionType); }
 
 };
 
@@ -133,21 +133,21 @@ class SkullLoader : public ItemLoader {
 public:
 
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SKULL; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SKULL; }
 
 	// get item class name
-	virtual string getItemClassName() const throw() { return "Skull"; }
+	virtual string getItemClassName() const  { return "Skull"; }
 
 public:
 
 	// load to creature
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 
 	// load to zone
-	virtual void load(Zone* pZone) throw(Error);
+	virtual void load(Zone* pZone) ;
 
 	// load to inventory
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 
 };
 

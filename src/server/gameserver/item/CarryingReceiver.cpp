@@ -24,13 +24,13 @@ Mutex    CarryingReceiver::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 CarryingReceiver::CarryingReceiver()
-	throw()
+	
 {
 	setItemType(0);
 }
 
 CarryingReceiver::CarryingReceiver(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -47,7 +47,7 @@ CarryingReceiver::CarryingReceiver(ItemType_t itemType, const list<OptionType_t>
 // create item
 //--------------------------------------------------------------------------------
 void CarryingReceiver::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -99,7 +99,7 @@ void CarryingReceiver::create(const string & ownerID, Storage storage, StorageID
 // save item
 //--------------------------------------------------------------------------------
 void CarryingReceiver::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -123,7 +123,7 @@ void CarryingReceiver::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void CarryingReceiver::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void CarryingReceiver::save(const string & ownerID, Storage storage, StorageID_t
 // get debug string
 //--------------------------------------------------------------------------------
 string CarryingReceiver::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -169,7 +169,7 @@ string CarryingReceiver::toString() const
 // get debug string
 //--------------------------------------------------------------------------------
 string CarryingReceiverInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -192,7 +192,7 @@ string CarryingReceiverInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void CarryingReceiverInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -256,7 +256,7 @@ void CarryingReceiverInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void CarryingReceiverLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -407,7 +407,7 @@ void CarryingReceiverLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void CarryingReceiverLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -419,7 +419,7 @@ void CarryingReceiverLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void CarryingReceiverLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

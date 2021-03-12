@@ -41,8 +41,8 @@ public :
 
 
 public :
-	UserGateway() throw (Error);
-	~UserGateway()  throw (Error);
+	UserGateway() ;
+	~UserGateway()  ;
 
 	static UserGateway* getInstance()
 	{
@@ -55,14 +55,14 @@ public :
 		return s_UserGatewayTypeToString[ugt];
 	}
 
-	void 	clear() throw (Error);
+	void 	clear() ;
 
-	void	passUser(UserGatewayType ugt) throw (Error);
-	int		getInfo(UserGatewayType ugt) const throw (Error);
+	void	passUser(UserGatewayType ugt) ;
+	int		getInfo(UserGatewayType ugt) const ;
 
-	int		getTotalInfo() const throw (Error);
+	int		getTotalInfo() const ;
 
-	string	toString() throw (Error);
+	string	toString() ;
 
 protected :
 	USER_INFO		m_UserInfos;

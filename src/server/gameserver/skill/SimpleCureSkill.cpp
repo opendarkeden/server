@@ -27,7 +27,7 @@ SimpleCureSkill g_SimpleCureSkill;
 void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -169,7 +169,7 @@ void SimpleCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -20,21 +20,21 @@ OustersEXPInfoManager* g_pOustersEXPInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 OustersEXPInfo::OustersEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 OustersEXPInfo::~OustersEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string OustersEXPInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -55,7 +55,7 @@ string OustersEXPInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 OustersEXPInfoManager::OustersEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,7 @@ OustersEXPInfoManager::OustersEXPInfoManager()
 }
 
 OustersEXPInfoManager::~OustersEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -82,7 +82,7 @@ OustersEXPInfoManager::~OustersEXPInfoManager()
 }
 
 void OustersEXPInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ void OustersEXPInfoManager::init()
 }
 
 void OustersEXPInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -149,7 +149,7 @@ void OustersEXPInfoManager::load()
 }
 
 void OustersEXPInfoManager::addOustersEXPInfo(OustersEXPInfo* pOustersEXPInfo)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -161,8 +161,7 @@ void OustersEXPInfoManager::addOustersEXPInfo(OustersEXPInfo* pOustersEXPInfo)
 	__END_CATCH
 }
 
-OustersEXPInfo* OustersEXPInfoManager::getOustersEXPInfo(uint  OustersEXPType)
-	const throw(NoSuchElementException , OutOfBoundException, Error)
+OustersEXPInfo* OustersEXPInfoManager::getOustersEXPInfo(uint  OustersEXPType) const 
 {
 	__BEGIN_TRY
 
@@ -175,7 +174,7 @@ OustersEXPInfo* OustersEXPInfoManager::getOustersEXPInfo(uint  OustersEXPType)
 }
 
 string OustersEXPInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

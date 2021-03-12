@@ -20,7 +20,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BombCrashWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -66,7 +66,7 @@ void BombCrashWalk::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlo
 //  슬레이어가 Wide Lightning Skill을 Tile에 사용했을때 사용하는 Handler
 //////////////////////////////////////////////////////////////////////////////
 void BombCrashWalk::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -37,8 +37,8 @@ class Effect;
 class EffectScheduleWork
 {
 public:
-	EffectScheduleWork() throw();
-	~EffectScheduleWork() throw();
+	EffectScheduleWork() ;
+	~EffectScheduleWork() ;
 
 public:
 	int getCode(void) const { return m_Code; }
@@ -60,8 +60,8 @@ private:
 class EffectSchedule
 {
 public:
-	EffectSchedule() throw();
-	~EffectSchedule() throw();
+	EffectSchedule() ;
+	~EffectSchedule() ;
 
 public:
 	// 작업 대상인 이펙트를 더한다.
@@ -69,10 +69,10 @@ public:
 	void setEffect(Effect* pEffect) { m_pEffect = pEffect; }
 
 	// 작업을 더한다.
-	void addWork(int WorkCode, void* pData) throw();
+	void addWork(int WorkCode, void* pData) ;
 
 	// 작업 중에 제일 앞에 있는 작업의 포인터를 리턴한다.
-	EffectScheduleWork* getFrontWork(void) throw();
+	EffectScheduleWork* getFrontWork(void) ;
 
 private:
 	Effect* m_pEffect;
@@ -87,15 +87,15 @@ private:
 class EffectScheduleManager
 {
 public:
-	EffectScheduleManager() throw();
-	~EffectScheduleManager() throw();
+	EffectScheduleManager() ;
+	~EffectScheduleManager() ;
 
 public:
 	// 이펙트 스케쥴을 더한다.
-	void addEffectSchedule(EffectSchedule* pEffectSchedule) throw();
+	void addEffectSchedule(EffectSchedule* pEffectSchedule) ;
 
 	// 이펙트 스케쥴을 실행한다.
-	void heartbeat(void) throw();
+	void heartbeat(void) ;
 
 protected:
 	list<EffectSchedule*> m_EffectScheduleList;

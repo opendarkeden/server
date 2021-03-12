@@ -15,34 +15,34 @@
 class EffectRelicPosition : public Effect 
 {
 public:
-	EffectRelicPosition(Item* pItem) throw(Error);
+	EffectRelicPosition(Item* pItem) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_RELIC_POSITION; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_RELIC_POSITION; }
 
-	void affect() throw(Error);
-	void affect(Item* pItem) throw(Error);
+	void affect() ;
+	void affect(Item* pItem) ;
 
-	void unaffect() throw(Error); 
-	void unaffect(Item* pItem) throw(Error);
+	void unaffect() ; 
+	void unaffect(Item* pItem) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	int getTick(void) const { return m_Tick; }
-	void   setTick(Turn_t Tick) throw() { m_Tick = Tick; }
+	void   setTick(Turn_t Tick)  { m_Tick = Tick; }
 
 	ZoneID_t getZoneID() const { return m_ZoneID; }
-	void setZoneID( ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
+	void setZoneID( ZoneID_t zoneID )  { m_ZoneID = zoneID; }
 
 	int getPart() const { return m_Part; }
-	void setPart( int Part ) throw() { m_Part = Part; }
+	void setPart( int Part )  { m_Part = Part; }
 
 	ZoneCoord_t getX() const { return m_X; }
-	void setX( ZoneCoord_t x ) throw() { m_X = x; }
+	void setX( ZoneCoord_t x )  { m_X = x; }
 
 	ZoneCoord_t getY() const { return m_Y; }
-	void setY( ZoneCoord_t y ) throw() { m_Y = y; }
+	void setY( ZoneCoord_t y )  { m_Y = y; }
 
 private:
 	Turn_t m_Tick;

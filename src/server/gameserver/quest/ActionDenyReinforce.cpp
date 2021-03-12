@@ -30,7 +30,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionDenyReinforce::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -52,7 +52,7 @@ void ActionDenyReinforce::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionDenyReinforce::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -156,7 +156,7 @@ void ActionDenyReinforce::execute (Creature * pCreature1 , Creature * pCreature2
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionDenyReinforce::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

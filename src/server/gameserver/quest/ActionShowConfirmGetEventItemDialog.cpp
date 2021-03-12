@@ -15,7 +15,7 @@
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowConfirmGetEventItemDialog::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -36,7 +36,7 @@ void ActionShowConfirmGetEventItemDialog::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowConfirmGetEventItemDialog::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void ActionShowConfirmGetEventItemDialog::execute (Creature * pCreature1, Creatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionShowConfirmGetEventItemDialog::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

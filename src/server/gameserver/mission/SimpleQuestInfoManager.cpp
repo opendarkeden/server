@@ -6,7 +6,7 @@
 #include "Assert.h"
 #include "DB.h"
 
-void SimpleQuestInfoManager::load(const string& name) throw(Error)
+void SimpleQuestInfoManager::load(const string& name) 
 {
 	__BEGIN_TRY
 

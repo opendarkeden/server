@@ -112,19 +112,19 @@ public:
 	};
 
 public:
-	RankBonus() throw();
-	RankBonus( DWORD type, DWORD point, Rank_t rank ) throw();
-	~RankBonus() throw();
+	RankBonus() ;
+	RankBonus( DWORD type, DWORD point, Rank_t rank ) ;
+	~RankBonus() ;
 
 public:
-	DWORD getType() const throw() { return m_Type; }
-	void setType( DWORD type ) throw() { m_Type = type; }
+	DWORD getType() const  { return m_Type; }
+	void setType( DWORD type )  { m_Type = type; }
 
-	DWORD getPoint() const throw() { return m_Point; }
-	void setPoint( DWORD point ) throw() { m_Point = point; }
+	DWORD getPoint() const  { return m_Point; }
+	void setPoint( DWORD point )  { m_Point = point; }
 
-	Rank_t getRank() const throw() { return m_Rank; }
-	void setRank( Rank_t rank ) throw() { m_Rank = rank; }
+	Rank_t getRank() const  { return m_Rank; }
+	void setRank( Rank_t rank )  { m_Rank = rank; }
 
 protected:
 	DWORD m_Type;

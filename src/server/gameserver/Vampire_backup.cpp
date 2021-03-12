@@ -131,7 +131,7 @@ void increaseVampExpEx(Vampire* pVampire, Exp_t Point)
 
 
 Vampire::Vampire () 
-	throw () 
+	 
 : PlayerCreature(0, NULL)
 {
 	__BEGIN_TRY
@@ -175,7 +175,7 @@ Vampire::Vampire ()
 }
 
 Vampire::~Vampire() 
-    throw (Error)
+    
 {
 	__BEGIN_TRY
 
@@ -235,7 +235,7 @@ Vampire::~Vampire()
 // Zone에 종속된 ObjectRegistry를 사용해서, Vampire 와 소유아이템들의
 // ObjectID를 할당받는다.
 void Vampire::registerObject ()
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -277,7 +277,7 @@ void Vampire::registerObject ()
 //	아템 로딩은 따로 처리한다.
 //
 void Vampire::loadItem()
-	throw (InvalidProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -302,7 +302,7 @@ void Vampire::loadItem()
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Vampire::load ()
-	throw (InvalidProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -565,7 +565,7 @@ bool Vampire::load ()
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 void Vampire::save () const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -643,7 +643,7 @@ void Vampire::save () const
 // tinysave
 //----------------------------------------------------------------------
 void Vampire::tinysave(const char* field)	// by sigi. 2002.5.15
-	    const throw(Error)
+	    const 
 {
     __BEGIN_TRY
 
@@ -670,7 +670,7 @@ void Vampire::tinysave(const char* field)	// by sigi. 2002.5.15
 
 // 특정 Skill을 리턴한다.
 VampireSkillSlot* Vampire::getSkill (SkillType_t SkillType) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -687,7 +687,7 @@ VampireSkillSlot* Vampire::getSkill (SkillType_t SkillType) const
 
 // 특정 Skill을 add 한다
 void Vampire::addSkill(SkillType_t SkillType)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -729,7 +729,7 @@ void Vampire::addSkill(SkillType_t SkillType)
 
 // 특정 SkillSlot을 자동으로 빈 슬랏을 찾아 넣는다.
 void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -781,7 +781,7 @@ void Vampire::addSkill(VampireSkillSlot* pVampireSkillSlot)
 //
 //----------------------------------------------------------------------
 void Vampire::wearItem(WearPart Part, Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -853,7 +853,7 @@ void Vampire::wearItem(WearPart Part, Item* pItem)
 // Item을 장착창에 장착시키고 능력치를 계산한다.
 //----------------------------------------------------------------------
 void Vampire::wearItem(WearPart Part)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -960,7 +960,7 @@ void Vampire::wearItem(WearPart Part)
 //
 //----------------------------------------------------------------------
 void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1035,7 +1035,7 @@ void Vampire::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 // 장착 아이템을 Delete 한다.
 //----------------------------------------------------------------------
 void Vampire::destroyGears() 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1076,7 +1076,7 @@ void Vampire::destroyGears()
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Vampire::isRealWearing(WearPart part) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1092,7 +1092,7 @@ bool Vampire::isRealWearing(WearPart part) const
 //----------------------------------------------------------------------
 //----------------------------------------------------------------------
 bool Vampire::isRealWearing(Item* pItem) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1134,7 +1134,7 @@ bool Vampire::isRealWearingEx(WearPart part) const
 }
 
 DWORD Vampire::sendRealWearingInfo(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1165,7 +1165,7 @@ DWORD Vampire::sendRealWearingInfo(void) const
 ////////////////////////////////////////////////////////////////////////////////
 
 PCVampireInfo2* Vampire::getVampireInfo2 ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1222,7 +1222,7 @@ PCVampireInfo2* Vampire::getVampireInfo2 ()
 // Vampire Outlook Information
 //----------------------------------------------------------------------
 PCVampireInfo3 Vampire::getVampireInfo3 () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1274,7 +1274,7 @@ PCVampireInfo3 Vampire::getVampireInfo3 () const
 //
 //----------------------------------------------------------------------
 ExtraInfo* Vampire::getExtraInfo() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1377,7 +1377,7 @@ ExtraInfo* Vampire::getExtraInfo() const
 //
 //----------------------------------------------------------------------
 GearInfo* Vampire::getGearInfo() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1466,7 +1466,7 @@ GearInfo* Vampire::getGearInfo() const
 // get Inventory Info
 //////////////////////////////////////////////////////////////////////////////
 InventoryInfo* Vampire::getInventoryInfo() const
-    throw()
+    
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1579,7 +1579,7 @@ InventoryInfo* Vampire::getInventoryInfo() const
 // getSkillInfo
 //----------------------------------------------------------------------
 void Vampire::sendVampireSkillInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1643,7 +1643,7 @@ void Vampire::sendVampireSkillInfo()
 ////////////////////////////////////////////////////////////////////////////////
 
 void Vampire::setGoldEx(Gold_t gold)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1665,7 +1665,7 @@ void Vampire::setGoldEx(Gold_t gold)
 }
 
 void Vampire::saveSilverDamage(Silver_t damage)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1689,7 +1689,7 @@ void Vampire::saveSilverDamage(Silver_t damage)
 // 소유 아이템 hearbeat
 //////////////////////////////////////////////////////////////////////////////
 void Vampire::heartbeat(const Timeval& currentTime)
-    throw()
+    
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1826,7 +1826,7 @@ void Vampire::heartbeat(const Timeval& currentTime)
 }
 
 void Vampire::getVampireRecord(VAMPIRE_RECORD& record) const
-	throw()
+	
 {
     __BEGIN_TRY
 
@@ -1857,7 +1857,7 @@ void Vampire::getVampireRecord(VAMPIRE_RECORD& record) const
 }
 
 void Vampire::setResurrectZoneIDEx(ZoneID_t id)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1880,7 +1880,7 @@ void Vampire::setResurrectZoneIDEx(ZoneID_t id)
 }
 
 void Vampire::saveAlignment(Alignment_t alignment)
-	    throw()
+	    
 {
 	__BEGIN_TRY
 
@@ -1907,7 +1907,7 @@ void Vampire::saveAlignment(Alignment_t alignment)
 // get debug string
 //----------------------------------------------------------------------
 string Vampire::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -1941,7 +1941,7 @@ string Vampire::toString () const
 }
 
 void Vampire::saveSkills(void) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1970,7 +1970,7 @@ IP_t Vampire::getIP(void) const
 }
 
 void Vampire::saveGears(void) const
-    throw (Error)
+    
 {
 	__BEGIN_TRY
 
@@ -1998,7 +1998,7 @@ void Vampire::saveGears(void) const
 
 
 void Vampire::saveExps(void) const
-    throw (Error)
+    
 {
 	__BEGIN_TRY
 
@@ -2048,7 +2048,7 @@ void Vampire::saveExps(void) const
 // colors[1]은 coatColor만 있기 때문이다.
 //----------------------------------------------------------------------
 void Vampire::getShapeInfo (DWORD& flag, Color_t colors[PCVampireInfo::VAMPIRE_COLOR_MAX]) const
-//	throw ()
+//	
 {
 	__BEGIN_DEBUG
 

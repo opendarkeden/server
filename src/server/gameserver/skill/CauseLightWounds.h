@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "CauseLightWounds"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CAUSE_LIGHT_WOUNDS; }
 
-	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t ObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

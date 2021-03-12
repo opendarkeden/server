@@ -24,7 +24,7 @@ public :
 	SkillType_t getSkillType () const throw () { return SKILL_INSTALL_MINE; }
 
 	// 인벤토리용 기술이다.
-	void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) throw(Error);
+	void execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

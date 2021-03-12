@@ -26,7 +26,7 @@
 //
 //--------------------------------------------------------------------------------
 WeatherManager::~WeatherManager ()
-	throw (Error)
+	
 {
     __BEGIN_TRY
     __END_CATCH
@@ -37,7 +37,7 @@ WeatherManager::~WeatherManager ()
 // initialize current zone's weather, darklevel, lightlevel
 //--------------------------------------------------------------------------------
 void WeatherManager::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -134,7 +134,7 @@ void WeatherManager::init ()
 // 지정 시간이 되면 날씨를 알아서 바꿔준다. 존의 heartbeat 에서 호출되어야 한다.
 //--------------------------------------------------------------------------------
 void WeatherManager::heartbeat () 
-	throw (Error)
+	
 {
 	// 노멀 필드가 아니라면 아무 것도 할 필요가 없다.
 	if (m_pZone->getZoneType() != ZONE_NORMAL_FIELD) return;
@@ -290,7 +290,7 @@ void WeatherManager::heartbeat ()
 // get debug string
 //--------------------------------------------------------------------------------
 string WeatherManager::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

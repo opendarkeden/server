@@ -20,28 +20,28 @@ class Packet;
 class CreatureManager 
 {
 public:
-	CreatureManager() throw();
-	virtual ~CreatureManager() throw();
+	CreatureManager() ;
+	virtual ~CreatureManager() ;
 	
 public:
-	virtual void addCreature(Creature* pCreature) throw(DuplicatedException, Error);
-	virtual void deleteCreature(ObjectID_t objectID) throw();//NoSuchElementException, Error);
-	Creature* getCreature(ObjectID_t objectID) const throw();//NoSuchElementException, Error);
-	Creature* getCreature(const string& Name) const throw();//NoSuchElementException, Error);
+	virtual void addCreature(Creature* pCreature) ;
+	virtual void deleteCreature(ObjectID_t objectID) ;//NoSuchElementException, Error);
+	Creature* getCreature(ObjectID_t objectID) const ;//NoSuchElementException, Error);
+	Creature* getCreature(const string& Name) const ;//NoSuchElementException, Error);
 
-	virtual void processCreatures() throw(Error);
-	virtual void killCreature(Creature* pDeadCreature) throw(Error);
+	virtual void processCreatures() ;
+	virtual void killCreature(Creature* pDeadCreature) ;
 
-	void broadcastPacket(Packet* pPacket, Creature* owner) throw(Error);
-	void broadcastDarkLightPacket(Packet* pPacket1, Packet* pPacket2, Creature* owner) throw(Error);
-	void broadcastLevelWarBonusPacket(Packet* pPacket, Creature* owner) throw(Error);
+	void broadcastPacket(Packet* pPacket, Creature* owner) ;
+	void broadcastDarkLightPacket(Packet* pPacket1, Packet* pPacket2, Creature* owner) ;
+	void broadcastLevelWarBonusPacket(Packet* pPacket, Creature* owner) ;
 
-	WORD getSize() const throw() { return m_Creatures.size(); }
+	WORD getSize() const  { return m_Creatures.size(); }
 
-	unordered_map< ObjectID_t, Creature* > & getCreatures() throw() { return m_Creatures; }
-	const unordered_map< ObjectID_t, Creature* > & getCreatures() const throw() { return m_Creatures; }
+	unordered_map< ObjectID_t, Creature* > & getCreatures()  { return m_Creatures; }
+	const unordered_map< ObjectID_t, Creature* > & getCreatures() const  { return m_Creatures; }
 
-	string toString() const throw();
+	string toString() const ;
 
 protected:
 	unordered_map< ObjectID_t, Creature* > m_Creatures;

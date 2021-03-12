@@ -11,7 +11,7 @@ public:
 	{ m_TargetNPCID[0] = npcID; m_TargetNPCID[1] = npcID2; m_bMet[0] = false; m_bMet[1] = false; }
 	virtual ~MeetNPCQuestStatus() { }
 
-	bool			isSuccess() const throw(Error) { return m_bMet[0] && m_bMet[1]; }
+	bool			isSuccess() const  { return m_bMet[0] && m_bMet[1]; }
 
 	bool			isTarget( NPCID_t npcID ) const;
 	bool			met( NPCID_t npcID );
@@ -19,7 +19,7 @@ public:
 
 	GCQuestStatus* makeStatusPacket() const;
 
-	string			toString() const throw(Error);
+	string			toString() const ;
 
 private:
 	NPCID_t			m_TargetNPCID[2];

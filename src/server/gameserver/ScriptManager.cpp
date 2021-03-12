@@ -14,7 +14,7 @@
 // load from database with NPC ID
 //////////////////////////////////////////////////////////////////////////////
 void ScriptManager::load (const string & ownerID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -124,7 +124,6 @@ void ScriptManager::load (const string & ownerID)
 // get script
 //////////////////////////////////////////////////////////////////////////////
 Script* ScriptManager::getScript (ScriptID_t scriptID) const 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -148,7 +147,7 @@ Script* ScriptManager::getScript (ScriptID_t scriptID) const
 // set script
 //////////////////////////////////////////////////////////////////////////////
 void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +170,7 @@ void ScriptManager::setScript (ScriptID_t scriptID , Script* pScript)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ScriptManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -47,7 +47,7 @@ NPCID_t	MeetNPCQuestStatus::getTargetID() const
 	return 0;
 }
 
-string MeetNPCQuestStatus::toString() const throw(Error)
+string MeetNPCQuestStatus::toString() const 
 {
 	__BEGIN_TRY
 

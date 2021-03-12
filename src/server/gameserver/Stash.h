@@ -23,8 +23,8 @@ class Stash
 ///// Member methods /////
 
 public: // constructor & destructor
-	Stash() throw();
-	virtual ~Stash() throw();
+	Stash() ;
+	virtual ~Stash() ;
 
 public: // public methods
 	bool  isExist(BYTE rack, BYTE index) const ;

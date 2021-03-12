@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectRevealer::EffectRevealer(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ EffectRevealer::EffectRevealer(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRevealer::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -39,7 +39,7 @@ void EffectRevealer::affect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRevealer::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -48,7 +48,7 @@ void EffectRevealer::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRevealer::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ void EffectRevealer::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRevealer::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ void EffectRevealer::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectRevealer::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -118,7 +118,7 @@ string EffectRevealer::toString()
 }
 
 bool EffectRevealer::canSeeHide( Creature* pTarget ) const
-	throw( Error )
+	
 {
 	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_HIDE ) )
 		return true;
@@ -151,7 +151,7 @@ bool EffectRevealer::canSeeHide( Creature* pTarget ) const
 }
 
 bool EffectRevealer::canSeeSniping( Creature* pTarget ) const
-	throw( Error )
+	
 {
 	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_SNIPING_MODE ) )
 		return true;
@@ -173,7 +173,7 @@ bool EffectRevealer::canSeeSniping( Creature* pTarget ) const
 }
 
 bool EffectRevealer::canSeeInvisibility( Creature* pTarget ) const
-	throw( Error )
+	
 {
 	if ( !pTarget->isFlag( Effect::EFFECT_CLASS_INVISIBILITY ) )
 		return true;

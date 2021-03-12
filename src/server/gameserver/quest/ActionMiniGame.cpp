@@ -15,7 +15,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -37,7 +37,7 @@ void ActionMiniGame::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ void ActionMiniGame::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionMiniGame::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

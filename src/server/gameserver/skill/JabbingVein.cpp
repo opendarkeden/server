@@ -18,7 +18,7 @@
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -243,7 +243,7 @@ void JabbingVein::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSlo
 }
 
 void JabbingVein::execute(Monster* pMonster, Creature* pEnemy) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 

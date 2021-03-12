@@ -5,7 +5,7 @@
 #include "Tile.h"
 #include "Zone.h"
 
-void EffectCastingIcicleTrap::affect() throw(Error)
+void EffectCastingIcicleTrap::affect() 
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectCastingIcicleTrap::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectCastingSideTrap::affect() throw(Error)
+void EffectCastingSideTrap::affect() 
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void EffectCastingSideTrap::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectCastingIceWall::affect() throw(Error)
+void EffectCastingIceWall::affect() 
 {
 	__BEGIN_TRY
 

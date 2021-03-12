@@ -29,7 +29,7 @@ bool GuildUnion::hasGuild( GuildID_t gID ) const
 	return false;
 }
 
-bool GuildUnion::addGuild( GuildID_t gID ) throw(Error)
+bool GuildUnion::addGuild( GuildID_t gID ) 
 {
 	if ( hasGuild( gID ) ) return false;
 
@@ -48,7 +48,7 @@ bool GuildUnion::addGuild( GuildID_t gID ) throw(Error)
 	return true;
 }
 
-bool GuildUnion::removeGuild( GuildID_t gID ) throw(Error)
+bool GuildUnion::removeGuild( GuildID_t gID ) 
 {
 	if ( m_MasterGuildID == gID ) return false;
 
@@ -75,7 +75,7 @@ bool GuildUnion::removeGuild( GuildID_t gID ) throw(Error)
 	return true;
 }
 
-void GuildUnion::create() throw(Error)
+void GuildUnion::create() 
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void GuildUnion::create() throw(Error)
 	__END_CATCH
 }
 
-void GuildUnion::destroy() throw(Error)
+void GuildUnion::destroy() 
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void GuildUnionManager::addGuildUnion( GuildUnion* pUnion )
 	}
 }
 
-void GuildUnionManager::sendModifyUnionInfo(uint gID)	throw(Error)
+void GuildUnionManager::sendModifyUnionInfo(uint gID)	
 {
 	char	Msg[80];
 	sprintf(Msg,"*modifyunioninfo %d", gID);
@@ -206,7 +206,7 @@ void GuildUnionManager::sendModifyUnionInfo(uint gID)	throw(Error)
 
 }
 
-void GuildUnionManager::sendRefreshCommand() throw(Error)
+void GuildUnionManager::sendRefreshCommand() 
 {
 	GGCommand ggCommand;
 	ggCommand.setCommand( "*refreshguildunion" );
@@ -258,7 +258,7 @@ void GuildUnionManager::sendRefreshCommand() throw(Error)
 
 }
 
-bool GuildUnionManager::addGuild( uint uID, GuildID_t gID ) throw(Error)
+bool GuildUnionManager::addGuild( uint uID, GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -281,7 +281,7 @@ bool GuildUnionManager::addGuild( uint uID, GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-bool GuildUnionManager::removeMasterGuild(GuildID_t gID) throw(Error)
+bool GuildUnionManager::removeMasterGuild(GuildID_t gID) 
 {
 
 	__BEGIN_TRY
@@ -447,7 +447,7 @@ bool GuildUnionManager::removeMasterGuild(GuildID_t gID) throw(Error)
 	return true;	
 }
 
-bool GuildUnionManager::removeGuild( uint uID, GuildID_t gID ) throw(Error)
+bool GuildUnionManager::removeGuild( uint uID, GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -489,7 +489,7 @@ bool GuildUnionManager::removeGuild( uint uID, GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-void GuildUnionManager::reload() throw(Error)
+void GuildUnionManager::reload() 
 {
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
@@ -512,7 +512,7 @@ void GuildUnionManager::reload() throw(Error)
     __LEAVE_CRITICAL_SECTION(m_Mutex)
 }
 
-void GuildUnionManager::load() throw(Error)
+void GuildUnionManager::load() 
 {
 	__BEGIN_TRY
 
@@ -558,7 +558,7 @@ void GuildUnionManager::load() throw(Error)
 	__END_CATCH
 }
 
-uint GuildUnionOfferManager::offerJoin( GuildID_t gID, GuildID_t masterGID ) throw(Error)
+uint GuildUnionOfferManager::offerJoin( GuildID_t gID, GuildID_t masterGID ) 
 {
 	__BEGIN_TRY
 
@@ -636,7 +636,7 @@ uint GuildUnionOfferManager::offerJoin( GuildID_t gID, GuildID_t masterGID ) thr
 	__END_CATCH
 }
 
-uint GuildUnionOfferManager::offerQuit( GuildID_t gID ) throw(Error)
+uint GuildUnionOfferManager::offerQuit( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -673,7 +673,7 @@ uint GuildUnionOfferManager::offerQuit( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-bool GuildUnionOfferManager::makeOfferList( uint uID, GCUnionOfferList& offerList ) throw(Error)
+bool GuildUnionOfferManager::makeOfferList( uint uID, GCUnionOfferList& offerList ) 
 {
 	Statement* pStmt = NULL;
 	Statement* pStmt2 = NULL;
@@ -734,7 +734,7 @@ bool GuildUnionOfferManager::makeOfferList( uint uID, GCUnionOfferList& offerLis
 	return true;
 }
 
-uint GuildUnionOfferManager::acceptJoin( GuildID_t gID ) throw(Error)
+uint GuildUnionOfferManager::acceptJoin( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -786,7 +786,7 @@ uint GuildUnionOfferManager::acceptJoin( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-uint GuildUnionOfferManager::acceptQuit( GuildID_t gID ) throw(Error)
+uint GuildUnionOfferManager::acceptQuit( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -829,7 +829,7 @@ uint GuildUnionOfferManager::acceptQuit( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-uint GuildUnionOfferManager::denyJoin( GuildID_t gID ) throw(Error)
+uint GuildUnionOfferManager::denyJoin( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -865,7 +865,7 @@ uint GuildUnionOfferManager::denyJoin( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-uint GuildUnionOfferManager::denyQuit( GuildID_t gID ) throw(Error)
+uint GuildUnionOfferManager::denyQuit( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -906,7 +906,7 @@ uint GuildUnionOfferManager::denyQuit( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-void GuildUnionOfferManager::clearOffer( GuildID_t gID ) throw(Error)
+void GuildUnionOfferManager::clearOffer( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 
@@ -922,7 +922,7 @@ void GuildUnionOfferManager::clearOffer( GuildID_t gID ) throw(Error)
 	__END_CATCH
 }
 
-bool GuildUnionOfferManager::hasOffer( GuildID_t gID ) throw(Error)
+bool GuildUnionOfferManager::hasOffer( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 

@@ -20,11 +20,11 @@ public:
 	};
 
 public:
-	Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) throw();
-	virtual ~Schedule() throw(Error);
+	Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) ;
+	virtual ~Schedule() ;
 
 public:
-	virtual bool 		heartbeat() throw(Error);
+	virtual bool 		heartbeat() ;
 
 	const VSDateTime& 	getScheduledTime() const 	{ return m_ScheduledTime; }
 	ScheduleType 		getType() const 			{ return m_ScheduleType; }
@@ -38,7 +38,7 @@ public:
 	friend class Scheduler;
 
 public:
-	virtual string		toString() const throw(Error);
+	virtual string		toString() const ;
 
 protected:
 	ScheduleType 	m_ScheduleType;

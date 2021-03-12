@@ -19,13 +19,13 @@ Mutex    WarItem::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 WarItem::WarItem()
-	throw()
+	
 : m_ItemType(0)
 {
 }
 
 WarItem::WarItem(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType)
 {
 	try
@@ -46,7 +46,7 @@ WarItem::WarItem(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void WarItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ void WarItem::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void WarItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -123,7 +123,7 @@ void WarItem::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void WarItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void WarItem::save(const string & ownerID, Storage storage, StorageID_t storageI
 // get debug string
 //--------------------------------------------------------------------------------
 string WarItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -165,7 +165,7 @@ string WarItem::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t WarItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -179,7 +179,7 @@ VolumeWidth_t WarItem::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t WarItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -193,7 +193,7 @@ VolumeHeight_t WarItem::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t WarItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -207,7 +207,7 @@ Weight_t WarItem::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string WarItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -229,7 +229,7 @@ string WarItemInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void WarItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -283,7 +283,7 @@ void WarItemInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void WarItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -297,7 +297,7 @@ void WarItemLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void WarItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -311,7 +311,7 @@ void WarItemLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void WarItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

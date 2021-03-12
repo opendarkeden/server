@@ -19,8 +19,8 @@ private:
 		ObjectID_t	ObjectID;
 	};
 public:
-	GlobalItemPosition*		load( Item::ItemClass itemClass, ItemID_t itemID) throw(Error);
-	GlobalItemPosition*		makeGlobalItemPosition( GlobalDBItemPosition& gip ) throw(Error);
+	GlobalItemPosition*		load( Item::ItemClass itemClass, ItemID_t itemID) ;
+	GlobalItemPosition*		makeGlobalItemPosition( GlobalDBItemPosition& gip ) ;
 
 	static GlobalItemPositionLoader* getInstance()
 	{

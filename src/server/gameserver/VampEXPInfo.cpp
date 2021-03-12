@@ -20,21 +20,21 @@ VampEXPInfoManager* g_pVampEXPInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 VampEXPInfo::VampEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 VampEXPInfo::~VampEXPInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string VampEXPInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -54,7 +54,7 @@ string VampEXPInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 VampEXPInfoManager::VampEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ VampEXPInfoManager::VampEXPInfoManager()
 }
 
 VampEXPInfoManager::~VampEXPInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ VampEXPInfoManager::~VampEXPInfoManager()
 }
 
 void VampEXPInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void VampEXPInfoManager::init()
 }
 
 void VampEXPInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -147,7 +147,7 @@ void VampEXPInfoManager::load()
 }
 
 void VampEXPInfoManager::addVampEXPInfo(VampEXPInfo* pVampEXPInfo)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -159,8 +159,7 @@ void VampEXPInfoManager::addVampEXPInfo(VampEXPInfo* pVampEXPInfo)
 	__END_CATCH
 }
 
-VampEXPInfo* VampEXPInfoManager::getVampEXPInfo(uint  VampEXPType)
-	const throw(NoSuchElementException , OutOfBoundException, Error)
+VampEXPInfo* VampEXPInfoManager::getVampEXPInfo(uint  VampEXPType) const
 {
 	__BEGIN_TRY
 
@@ -173,7 +172,7 @@ VampEXPInfo* VampEXPInfoManager::getVampEXPInfo(uint  VampEXPType)
 }
 
 string VampEXPInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

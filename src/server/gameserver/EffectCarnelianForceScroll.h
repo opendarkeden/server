@@ -17,22 +17,22 @@
 class EffectCarnelianForceScroll : public Effect
 {
 public:
-	EffectCarnelianForceScroll(Creature* pCreature) throw(Error);
+	EffectCarnelianForceScroll(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error); 
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ; 
+	void unaffect(Creature* pCreature) ;
 
-	virtual void create(const string& ownerID ) throw(Error);
-	virtual void destroy(const string& ownerID ) throw(Error);
-	virtual void save(const string& ownerID ) throw(Error);
+	virtual void create(const string& ownerID ) ;
+	virtual void destroy(const string& ownerID ) ;
+	virtual void save(const string& ownerID ) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 };
@@ -44,11 +44,11 @@ private:
 class EffectCarnelianForceScrollLoader : public EffectLoader
 {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
-	virtual string getEffectClassName() const throw() { return "EffectCarnelianForceScroll"; }
+	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_CARNELIAN_FORCE_SCROLL; }
+	virtual string getEffectClassName() const  { return "EffectCarnelianForceScroll"; }
 
 public:
-	virtual void load(Creature* pCreature ) throw(Error);
+	virtual void load(Creature* pCreature ) ;
 };
 
 extern EffectCarnelianForceScrollLoader* g_pEffectCarnelianForceScrollLoader;

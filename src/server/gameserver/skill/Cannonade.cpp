@@ -16,7 +16,7 @@
 #include "Gpackets/GCSkillToTileOK5.h"
 #include "Gpackets/GCSkillToTileOK6.h"
 
-void Cannonade::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) throw(Error)
+void Cannonade::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) 
 {
 	__BEGIN_TRY
 

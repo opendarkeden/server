@@ -16,7 +16,7 @@
 #include "DB.h"
 
 EffectEnemyErase::EffectEnemyErase(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -29,21 +29,21 @@ EffectEnemyErase::EffectEnemyErase(Creature* pCreature)
 }
 
 EffectEnemyErase::~EffectEnemyErase()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectEnemyErase::affect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectEnemyErase::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -54,7 +54,7 @@ void EffectEnemyErase::unaffect()
 }
 
 void EffectEnemyErase::unaffect (Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -102,7 +102,7 @@ void EffectEnemyErase::unaffect (Creature* pCreature)
 }
 
 void EffectEnemyErase::create (const string & ownerID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -142,7 +142,7 @@ void EffectEnemyErase::create (const string & ownerID)
 }
 
 void EffectEnemyErase::destroy (const string & ownerID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -170,7 +170,7 @@ void EffectEnemyErase::destroy (const string & ownerID)
 }
 
 void EffectEnemyErase::save (const string & ownerID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -207,7 +207,7 @@ void EffectEnemyErase::save (const string & ownerID)
 }
 
 string EffectEnemyErase::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 
@@ -221,7 +221,7 @@ string EffectEnemyErase::toString()
 }
 
 void EffectEnemyEraseLoader::load (Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

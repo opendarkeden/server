@@ -14,7 +14,7 @@
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -26,7 +26,7 @@ void ActionSystemMessagePerRace::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void ActionSystemMessagePerRace::execute (Creature * pCreature1, Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSystemMessagePerRace::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

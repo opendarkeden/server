@@ -39,7 +39,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivatePortal::read (PropertyBuffer & pb)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionActivatePortal::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -184,7 +184,7 @@ void ActionActivatePortal::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionActivatePortal::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

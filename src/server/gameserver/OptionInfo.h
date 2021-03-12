@@ -195,8 +195,8 @@ class OptionInfo
 ///// Member methods /////
 	
 public:
-	OptionInfo() throw();
-	~OptionInfo() throw();
+	OptionInfo() ;
+	~OptionInfo() ;
 
 public:
 	OptionType_t getType(void) const { return m_OptionType; }
@@ -235,7 +235,7 @@ public:
 	int getReqLevel(void) const  { return m_ReqLevel; }
 	void setReqLevel(int req) { m_ReqLevel = req; }
 
-	void setReqAbility(const string& text) throw();
+	void setReqAbility(const string& text) ;
 
 	int getLevel(void) const { return m_Level; }
 	void setLevel(int level) { m_Level = level; }
@@ -284,7 +284,7 @@ public:
 	int	getGrade() const { return m_Grade; }
 	void setGrade( int grade ) { m_Grade = grade; }
 
-	string toString() const throw();
+	string toString() const ;
 
 
 ///// Member data /////
@@ -328,17 +328,17 @@ class OptionInfoSet
 {
 
 public:
-	OptionInfoSet() throw();
-	~OptionInfoSet() throw();
+	OptionInfoSet() ;
+	~OptionInfoSet() ;
 
 public:
-	void addOptionType(uint level, OptionType_t type) throw(DuplicatedException, Error);
+	void addOptionType(uint level, OptionType_t type) ;
 
-	void getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<OptionType_t>& rOptionVector) throw();
+	void getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<OptionType_t>& rOptionVector) ;
 
 	void clear()	{ m_OptionTypes.clear(); }
 
-	string toString(void) const throw();
+	string toString(void) const ;
 
 private:
 	unordered_map<uint, OptionType_t> m_OptionTypes;
@@ -350,14 +350,14 @@ private:
 class PetEnchantOption
 {
 public:
-	PetEnchantOption() throw() { m_Type = 0; m_Ratio = 0; }
-	~PetEnchantOption() throw() {}
+	PetEnchantOption()  { m_Type = 0; m_Ratio = 0; }
+	~PetEnchantOption()  {}
 
-	void setOptionType( OptionType_t type ) throw() { m_Type = type; }
-	OptionType_t getOptionType() const throw() { return m_Type; }
+	void setOptionType( OptionType_t type )  { m_Type = type; }
+	OptionType_t getOptionType() const  { return m_Type; }
 
-	void setRatio( int ratio ) throw() { m_Ratio = ratio; }
-	int getRatio() const throw() { return m_Ratio; }
+	void setRatio( int ratio )  { m_Ratio = ratio; }
+	int getRatio() const  { return m_Ratio; }
 
 private:
 	OptionType_t 	m_Type;
@@ -376,40 +376,40 @@ class OptionInfoManager
 ///// Member methods /////
 	
 public:
-	OptionInfoManager() throw();
-	~OptionInfoManager() throw();
+	OptionInfoManager() ;
+	~OptionInfoManager() ;
 
 public:
-	void init() throw();
-	void load() throw();
+	void init() ;
+	void load() ;
 
-	void release() throw();
+	void release() ;
 	
-	OptionInfo* getOptionInfo(OptionType_t OptionType) throw(NoSuchElementException, Error);
-	OptionInfo* getOptionInfo(const string& nickname) throw(NoSuchElementException, Error);
-	OptionType_t getOptionType(const string& nickname) throw(NoSuchElementException, Error);
-	string getOptionName(const list<OptionType_t>& optionTypes) throw(NoSuchElementException, Error);
+	OptionInfo* getOptionInfo(OptionType_t OptionType) ;
+	OptionInfo* getOptionInfo(const string& nickname) ;
+	OptionType_t getOptionType(const string& nickname) ;
+	string getOptionName(const list<OptionType_t>& optionTypes) ;
 
-	vector<OptionType_t> getPossibleOptionVector(Item::ItemClass IClass, uint minLevel, uint maxLevel) throw();
+	vector<OptionType_t> getPossibleOptionVector(Item::ItemClass IClass, uint minLevel, uint maxLevel) ;
 
-	void addOptionInfo(OptionInfo* pOptionInfo) throw(DuplicatedException, Error);
+	void addOptionInfo(OptionInfo* pOptionInfo) ;
 
 	// gamble 관련
-	void addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType) throw(DuplicatedException, Error);
-	const vector<OptionType_t>& getPossibleGambleOptionVector(Item::ItemClass itemClass, uint level) throw()	{ return m_GambleOptions[itemClass][level]; }
-	int	getTotalGambleRatio(Item::ItemClass itemClass, uint level) throw()	{ return m_TotalGambleRatio[itemClass][level]; }
+	void addGambleOption(Item::ItemClass itemClass, uint level, OptionType_t optionType) ;
+	const vector<OptionType_t>& getPossibleGambleOptionVector(Item::ItemClass itemClass, uint level) 	{ return m_GambleOptions[itemClass][level]; }
+	int	getTotalGambleRatio(Item::ItemClass itemClass, uint level) 	{ return m_TotalGambleRatio[itemClass][level]; }
 
 	// rare enchant 관련
 	int getRareUpgradeRatio( OptionType_t optionType, bool success );
 	const OptionClassInfo* getOptionClassInfo( OptionClass oc ) { return m_OptionClassInfos[oc]; }
 
-	void addPetEnchantOption(PetEnchantOption* pPetEnchantOption) throw();
+	void addPetEnchantOption(PetEnchantOption* pPetEnchantOption) ;
 	const list<PetEnchantOption*>& getPetEnchantOptionList() const { return m_PetEnchantOptionList; }
 
-	void setTotalPetEnchantOption( int total ) throw() { m_ToTalPetEnchantOption = total; }
-	int getTotalPetEnchantOption() throw() { return m_ToTalPetEnchantOption; }
+	void setTotalPetEnchantOption( int total )  { m_ToTalPetEnchantOption = total; }
+	int getTotalPetEnchantOption()  { return m_ToTalPetEnchantOption; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	void addOptionClassInfo( OptionClassInfo* pInfo ) { m_OptionClassInfos[pInfo->getOptionClass()] = pInfo; }

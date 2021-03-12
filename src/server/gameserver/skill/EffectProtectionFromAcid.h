@@ -18,19 +18,19 @@
 class EffectProtectionFromAcid : public Effect 
 {
 public:
-	EffectProtectionFromAcid(Creature* pCreature) throw(Error);
+	EffectProtectionFromAcid(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROTECTION_FROM_ACID; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item* pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
 	string toString() const throw();
 
@@ -54,7 +54,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectProtectionFromAcid"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 };
 
 extern EffectProtectionFromAcidLoader* g_pEffectProtectionFromAcidLoader;

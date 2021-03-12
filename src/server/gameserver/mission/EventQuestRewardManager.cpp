@@ -7,7 +7,7 @@
 #include "QuestAdvanceRewardInfo.h"
 #include "ItemRewardInfo.h"
 
-void EventQuestRewardManager::load(const string& name) throw(Error)
+void EventQuestRewardManager::load(const string& name) 
 {
 	__BEGIN_TRY
 

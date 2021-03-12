@@ -19,17 +19,17 @@
 class CGDownSkill : public Packet 
 {
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_DOWN_SKILL; }
-	PacketSize_t getPacketSize() const throw() { return szSkillType; }
-	string getPacketName() const throw() { return "CGDownSkill"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_DOWN_SKILL; }
+	PacketSize_t getPacketSize() const  { return szSkillType; }
+	string getPacketName() const  { return "CGDownSkill"; }
+	string toString() const ;
 
 public:
-	SkillType_t getSkillType() const throw()  { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const   { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 private:
 	SkillType_t       m_SkillType;  // 기술의 종류
@@ -42,10 +42,10 @@ private:
 class CGDownSkillFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGDownSkill(); }
-	string getPacketName() const throw() { return "CGDownSkill"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_DOWN_SKILL; }
-	PacketSize_t getPacketMaxSize() const throw() { return szSkillType; }
+	Packet* createPacket()  { return new CGDownSkill(); }
+	string getPacketName() const  { return "CGDownSkill"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_DOWN_SKILL; }
+	PacketSize_t getPacketMaxSize() const  { return szSkillType; }
 };
 
 
@@ -56,7 +56,7 @@ public:
 class CGDownSkillHandler 
 {
 public:
-	static void execute(CGDownSkill* pCGDownSkill, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CGDownSkill* pCGDownSkill, Player* pPlayer) ;
 };
 
 #endif

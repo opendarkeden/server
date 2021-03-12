@@ -20,21 +20,21 @@
 class CGRequestIP : public Packet
 {
 public:
-	CGRequestIP () throw ();
-	~CGRequestIP () throw ();
+	CGRequestIP () ;
+	~CGRequestIP () ;
 	
 public:
-    void read ( SocketInputStream & iStream ) throw ( ProtocolException , Error );
-    void write ( SocketOutputStream & oStream ) const throw ( ProtocolException , Error );
-	void execute ( Player * pPlayer ) throw ( ProtocolException , Error );
-    PacketID_t getPacketID () const throw () { return PACKET_CG_REQUEST_IP; }
-	PacketSize_t getPacketSize () const throw () { return szBYTE + m_Name.size(); }
-	string getPacketName () const throw () { return "CGRequestIP"; }
-	string toString () const throw ();
+    void read ( SocketInputStream & iStream ) ;
+    void write ( SocketOutputStream & oStream ) const ;
+	void execute ( Player * pPlayer ) ;
+    PacketID_t getPacketID () const  { return PACKET_CG_REQUEST_IP; }
+	PacketSize_t getPacketSize () const  { return szBYTE + m_Name.size(); }
+	string getPacketName () const  { return "CGRequestIP"; }
+	string toString () const ;
 
 public:
-	string getName() const throw() { return m_Name; }
-	void setName( const char* pName) throw() { m_Name = pName;}
+	string getName() const  { return m_Name; }
+	void setName( const char* pName)  { m_Name = pName;}
 
 protected:
 	string			m_Name;
@@ -47,10 +47,10 @@ protected:
 class CGRequestIPFactory : public PacketFactory 
 {
 public:
-	Packet * createPacket () throw () { return new CGRequestIP(); }
-	string getPacketName () const throw () { return "CGRequestIP"; }
-	PacketID_t getPacketID () const throw () { return Packet::PACKET_CG_REQUEST_IP; }
-	PacketSize_t getPacketMaxSize () const throw () { return szBYTE + 10;}
+	Packet * createPacket ()  { return new CGRequestIP(); }
+	string getPacketName () const  { return "CGRequestIP"; }
+	PacketID_t getPacketID () const  { return Packet::PACKET_CG_REQUEST_IP; }
+	PacketSize_t getPacketMaxSize () const  { return szBYTE + 10;}
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -60,7 +60,7 @@ public:
 class CGRequestIPHandler 
 {
 public:
-	static void execute ( CGRequestIP * pCGRequestIP , Player * pPlayer ) throw (ProtocolException, Error);
+	static void execute ( CGRequestIP * pCGRequestIP , Player * pPlayer ) ;
 };
 
 

@@ -34,7 +34,7 @@ const int NextWarHour [2][24] =
 
 
 WarScheduler::WarScheduler( Zone* pZone ) 
-	throw (Error)
+	
 : m_pZone(pZone) 
 {
 	// Zone에 붙어서 돌아간다.
@@ -43,12 +43,12 @@ WarScheduler::WarScheduler( Zone* pZone )
 }
 
 WarScheduler::~WarScheduler()
-	throw (Error)
+	
 {
 }
 
 bool WarScheduler::makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ bool WarScheduler::makeGCWarScheduleList(GCWarScheduleList* pGCWarScheduleList) 
 }
 
 Work* WarScheduler::heartbeat() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -129,7 +129,7 @@ Work* WarScheduler::heartbeat()
 }
 
 void WarScheduler::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -265,7 +265,7 @@ void WarScheduler::load()
 }
 
 int WarScheduler::getWarTypeCount(WarType_t warType)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -297,7 +297,7 @@ int WarScheduler::getWarTypeCount(WarType_t warType)
 }
 
 void WarScheduler::tinysave( WarID_t warID, const string& query )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -406,7 +406,7 @@ WarScheduler::getNextWarDateTime( WarType_t warType ) const
 }
 
 bool WarScheduler::addWar( War* pWar ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -446,7 +446,7 @@ bool WarScheduler::addWar( War* pWar )
 }
 
 bool WarScheduler::canAddWar( WarType_t warType ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -458,7 +458,7 @@ bool WarScheduler::canAddWar( WarType_t warType )
 
 void
 WarScheduler::cancelGuildSchedules() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -485,7 +485,7 @@ WarScheduler::cancelGuildSchedules()
 	__END_CATCH
 }
 
-bool WarScheduler::hasSchedule( GuildID_t gID ) throw(Error)
+bool WarScheduler::hasSchedule( GuildID_t gID ) 
 {
 	__BEGIN_TRY
 

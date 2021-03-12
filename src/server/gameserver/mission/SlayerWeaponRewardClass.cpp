@@ -6,7 +6,7 @@
 #include "ItemRewardInfo.h"
 #include "ItemUtil.h"
 
-RewardInfo*	SlayerWeaponRewardClass::selectReward( PlayerCreature* pPC ) const throw(Error)
+RewardInfo*	SlayerWeaponRewardClass::selectReward( PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 
@@ -83,7 +83,7 @@ RewardInfo*	SlayerWeaponRewardClass::selectReward( PlayerCreature* pPC ) const t
 	__END_CATCH
 }
 
-QuestMessage SlayerWeaponRewardClass::giveReward( PlayerCreature* pPC ) const throw(Error)
+QuestMessage SlayerWeaponRewardClass::giveReward( PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ QuestMessage SlayerWeaponRewardClass::giveReward( PlayerCreature* pPC ) const th
 	__END_CATCH
 }
 
-string SlayerWeaponRewardClass::toString() const throw()
+string SlayerWeaponRewardClass::toString() const 
 {
 	return "SlayerWeaponRewardClass() : \n" + RewardClass::toString();
 }

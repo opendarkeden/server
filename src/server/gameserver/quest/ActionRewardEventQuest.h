@@ -20,14 +20,14 @@
 class ActionRewardEventQuest : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_REWARD_EVENT_QUEST; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_REWARD_EVENT_QUEST; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	ScriptID_t getScriptID( int index ) const throw() { return m_ScriptID[index]; }
-	void setScriptID( int index, ScriptID_t scriptID ) throw() { m_ScriptID[index] = scriptID; }
+	ScriptID_t getScriptID( int index ) const  { return m_ScriptID[index]; }
+	void setScriptID( int index, ScriptID_t scriptID )  { m_ScriptID[index] = scriptID; }
 
 private:
 	ScriptID_t m_ScriptID[5];   // 말할 대사 아이디
@@ -43,8 +43,8 @@ private:
 class ActionRewardEventQuestFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_REWARD_EVENT_QUEST; }
-	virtual string getActionName() const throw() { return "RewardEventQuest"; }
-	virtual Action* createAction() const throw() { return new ActionRewardEventQuest(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_REWARD_EVENT_QUEST; }
+	virtual string getActionName() const  { return "RewardEventQuest"; }
+	virtual Action* createAction() const  { return new ActionRewardEventQuest(); }
 };
 #endif

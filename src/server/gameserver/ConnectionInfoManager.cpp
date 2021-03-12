@@ -25,7 +25,7 @@ ConnectionInfoManager* g_pConnectionInfoManager = NULL;
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfoManager::ConnectionInfoManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ ConnectionInfoManager::ConnectionInfoManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfoManager::~ConnectionInfoManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,6 @@ ConnectionInfoManager::~ConnectionInfoManager ()
 // add connection info to connection info manager
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::addConnectionInfo (ConnectionInfo* pConnectionInfo) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -113,7 +112,6 @@ void ConnectionInfoManager::addConnectionInfo (ConnectionInfo* pConnectionInfo)
 // Delete connection info from connection info manager
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::deleteConnectionInfo (const string& clientIP) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 		
@@ -146,7 +144,6 @@ void ConnectionInfoManager::deleteConnectionInfo (const string& clientIP)
 // get connection info from connection info manager
 //////////////////////////////////////////////////////////////////////////////
 ConnectionInfo* ConnectionInfoManager::getConnectionInfo (const string& clientIP) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 		
@@ -176,7 +173,7 @@ ConnectionInfo* ConnectionInfoManager::getConnectionInfo (const string& clientIP
 // expire 된 Connection Info 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::heartbeat ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -341,7 +338,7 @@ void ConnectionInfoManager::heartbeat ()
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ConnectionInfoManager::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 

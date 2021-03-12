@@ -23,8 +23,8 @@ public:
     string getSkillHandlerName() const throw() { return "AttackArms"; }
 	SkillType_t getSkillType() const throw() { return SKILL_ATTACK_ARMS; }
 
-	void execute(Slayer* pPlayer, ObjectID_t ObjectID) throw(Error);
-	void execute(Monster* pPlayer, Creature* pEnemy) throw(Error);
+	void execute(Slayer* pPlayer, ObjectID_t ObjectID) ;
+	void execute(Monster* pPlayer, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

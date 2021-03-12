@@ -10,7 +10,7 @@
 
 
 RankBonus::RankBonus()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ RankBonus::RankBonus()
 }
 
 RankBonus::RankBonus( DWORD type, DWORD point, Rank_t rank )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -30,7 +30,7 @@ RankBonus::RankBonus( DWORD type, DWORD point, Rank_t rank )
 }
 
 RankBonus::~RankBonus()
-	throw()
+	
 {
 	__BEGIN_TRY
 

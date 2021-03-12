@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 NPC::NPC ()
-	throw () 
+	 
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ NPC::NPC ()
 }
 
 NPC::NPC (const string & name) 
-	throw () 
+	 
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ NPC::NPC (const string & name)
 }
 
 NPC::~NPC() 
-    throw (Error)
+    
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ NPC::~NPC()
 // NPC 와 소유아이템들의 ObjectID를 할당받는다.
 // 현재로는 등록해야 할 것은 NPC 자신의 OID 밖에 없다.
 void NPC::registerObject ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -143,7 +143,7 @@ void NPC::registerObject ()
 // 이 NPC와 관련된 데이터들을 로드한다.
 // 스크립트나, 트리거 등등.
 bool NPC::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ bool NPC::load ()
 // init()
 // 데이터들을 초기화하고...존에 NPC를 등록한다.
 void NPC::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -190,7 +190,7 @@ void NPC::init ()
 // 게임 서버의 메인 루프마다 한번씩 불리는 함수이다.
 // AI 코드가 수행되는 메인 함수라 할 수 있다.
 void NPC::act(const Timeval& currentTime)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -333,7 +333,7 @@ int NPC::getTaxRatio(PlayerCreature* pPC) const
 
 // SimpleQuest by sigi. 2002.12.3
 /*bool NPC::regenSimpleQuest() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -357,7 +357,7 @@ int NPC::getTaxRatio(PlayerCreature* pPC) const
 }
 
 bool NPC::giveSimpleQuest(Creature* pCreature, QuestID_t qid) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -399,7 +399,7 @@ bool NPC::giveSimpleQuest(Creature* pCreature, QuestID_t qid)
 }
 
 void NPC::setSimpleQuestListScript(Script* pScript)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -418,7 +418,7 @@ void NPC::setSimpleQuestListScript(Script* pScript)
 */
 /*
 void NPC::sendSimpleQuestListPacket(Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -444,7 +444,7 @@ void NPC::sendSimpleQuestListPacket(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string NPC::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

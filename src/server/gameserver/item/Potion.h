@@ -23,49 +23,49 @@
 class Potion : public ConcreteItem<Item::ITEM_CLASS_POTION, Stackable, NoDurability, NoOption, NoGrade, NoAttacking, NoEnchantLevel>
 {
 public:
-	Potion() throw();
-	Potion(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) throw();
+	Potion() ;
+	Potion(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	bool destroy() throw(Error);
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	bool destroy() ;
 
 	// get debug string
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 public:
-//	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_POTION; }
-//	virtual string getObjectTableName() const throw() { return "PotionObject"; }
+//	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_POTION; }
+//	virtual string getObjectTableName() const  { return "PotionObject"; }
 
-/*	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+/*	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
 
-	virtual ItemNum_t getNum() const throw() { return m_Num; }
-	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemNum_t getNum() const  { return m_Num; }
+	virtual void setNum(ItemNum_t Num)  { m_Num = Num; }
 
-	bool    isStackable() const throw() { return true; }*/
+	bool    isStackable() const  { return true; }*/
 
 	// È¸º¹¾ç
-	int getHPAmount(void) const throw();
-	int getMPAmount(void) const throw();
+	int getHPAmount(void) const ;
+	int getMPAmount(void) const ;
 
-	int getHPDelay(void) const throw();
-	int getMPDelay(void) const throw();
+	int getHPDelay(void) const ;
+	int getMPDelay(void) const ;
 
-	int getHPQuantity(void) const throw();
-	int getMPQuantity(void) const throw();
+	int getHPQuantity(void) const ;
+	int getMPQuantity(void) const ;
 
-	int getHPRecoveryUnit(void) const throw();
-	int getMPRecoveryUnit(void) const throw();
+	int getHPRecoveryUnit(void) const ;
+	int getMPRecoveryUnit(void) const ;
 
 private:
 
@@ -88,27 +88,27 @@ class PotionInfo : public ItemInfo
 public:
 
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_POTION; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_POTION; }
 
-	int getHPAmount(void) const throw() { return m_HPAmount; }
-	int getMPAmount(void) const throw() { return m_MPAmount; }
+	int getHPAmount(void) const  { return m_HPAmount; }
+	int getMPAmount(void) const  { return m_MPAmount; }
 
-	int getHPDelay(void) const throw() { return m_HPDelay; }
-	int getMPDelay(void) const throw() { return m_MPDelay; }
+	int getHPDelay(void) const  { return m_HPDelay; }
+	int getMPDelay(void) const  { return m_MPDelay; }
 
-	int getHPQuantity(void) const throw() { return m_HPRecoveryUnit; }
-	int getMPQuantity(void) const throw() { return m_MPRecoveryUnit; }
+	int getHPQuantity(void) const  { return m_HPRecoveryUnit; }
+	int getMPQuantity(void) const  { return m_MPRecoveryUnit; }
 
-	int getHPRecoveryUnit(void) const throw() { return m_HPRecoveryUnit; }
-	int getMPRecoveryUnit(void) const throw() { return m_MPRecoveryUnit; }
+	int getHPRecoveryUnit(void) const  { return m_HPRecoveryUnit; }
+	int getMPRecoveryUnit(void) const  { return m_MPRecoveryUnit; }
 
-	virtual uint getItemLevel(void) const throw() { return m_ItemLevel; }
-	virtual void setItemLevel(uint level) throw() { m_ItemLevel = level; }
+	virtual uint getItemLevel(void) const  { return m_ItemLevel; }
+	virtual void setItemLevel(uint level)  { m_ItemLevel = level; }
 
-	void parseEffect(const string& effect) throw();
+	void parseEffect(const string& effect) ;
 
 	// toString
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	int  m_HPAmount;
@@ -132,10 +132,10 @@ class PotionInfoManager : public InfoClassManager {
 public:
 
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_POTION; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_POTION; }
 	
 	// load from DB
-	virtual void load() throw(Error);
+	virtual void load() ;
 
 };
 
@@ -153,15 +153,15 @@ class PotionFactory : public ItemFactory {
 public:
 	
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_POTION; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_POTION; }
 
 	// get item classname
-	virtual string getItemClassName() const throw() { return "Potion"; }
+	virtual string getItemClassName() const  { return "Potion"; }
 	
 public:
 
 	// create item
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new Potion(ItemType,OptionType,1); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new Potion(ItemType,OptionType,1); }
 
 };
 
@@ -177,21 +177,21 @@ class PotionLoader : public ItemLoader {
 public:
 
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_POTION; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_POTION; }
 
 	// get item class name
-	virtual string getItemClassName() const throw() { return "Potion"; }
+	virtual string getItemClassName() const  { return "Potion"; }
 
 public:
 
 	// load to creature
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 
 	// load to zone
-	virtual void load(Zone* pZone) throw(Error);
+	virtual void load(Zone* pZone) ;
 
 	// load to inventory
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 
 };
 

@@ -19,26 +19,26 @@
 class ConnectionInfo 
 {
 public:
-	ConnectionInfo() throw();
-	~ConnectionInfo() throw();
+	ConnectionInfo() ;
+	~ConnectionInfo() ;
 
 public:
-	string getClientIP() const throw() { return m_ClientIP; }
-	void setClientIP(const string & clientIP) throw() { m_ClientIP = clientIP; }
+	string getClientIP() const  { return m_ClientIP; }
+	void setClientIP(const string & clientIP)  { m_ClientIP = clientIP; }
 
-	string getPlayerID() const throw() { return m_PlayerID; }
-	void setPlayerID(const string & PlayerID) throw() { m_PlayerID = PlayerID; }
+	string getPlayerID() const  { return m_PlayerID; }
+	void setPlayerID(const string & PlayerID)  { m_PlayerID = PlayerID; }
 	
-	string getPCName() const throw() { return m_PCName; }
-	void setPCName(const string & name) throw() { m_PCName = name; }
+	string getPCName() const  { return m_PCName; }
+	void setPCName(const string & name)  { m_PCName = name; }
 
-	Timeval getExpireTime() const throw() { return m_ExpireTime; }
-	void setExpireTime(Timeval tv) throw() { m_ExpireTime = tv; }
+	Timeval getExpireTime() const  { return m_ExpireTime; }
+	void setExpireTime(Timeval tv)  { m_ExpireTime = tv; }
 	
-	DWORD getKey() const throw() { return m_Key; }
-	void setKey(DWORD key) throw() { m_Key = key; }
+	DWORD getKey() const  { return m_Key; }
+	void setKey(DWORD key)  { m_Key = key; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	string  m_ClientIP;   // valid client's ip

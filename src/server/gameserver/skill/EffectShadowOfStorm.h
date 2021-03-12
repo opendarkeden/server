@@ -17,13 +17,13 @@
 class EffectShadowOfStorm : public Effect 
 {
 public:
-	EffectShadowOfStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectShadowOfStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SHADOW_OF_STORM; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error);
+	void affect() ;
+	void unaffect() ;
 	string toString() const throw();
 
 public:

@@ -13,7 +13,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectHolyArmor::EffectHolyArmor(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,14 +23,14 @@ EffectHolyArmor::EffectHolyArmor(Creature* pCreature)
 }
 
 void EffectHolyArmor::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectHolyArmor::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -45,7 +45,7 @@ void EffectHolyArmor::unaffect()
 }
 
 void EffectHolyArmor::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

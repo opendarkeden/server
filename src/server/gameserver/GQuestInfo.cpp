@@ -99,7 +99,7 @@ GQuestStatus* GQuestInfo::makeInitStatus(PlayerCreature* pOwner)
 	return pStatus;
 }
 
-void GQuestInfoManager::load() throw(Error)
+void GQuestInfoManager::load() 
 {
 	m_pXMLInfo = new XMLTree;
 	m_pXMLInfo->LoadFromFile((g_pConfig->getProperty("HomePath") + "/data/SimpleGQuest.xml").c_str());

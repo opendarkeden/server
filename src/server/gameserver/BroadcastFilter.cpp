@@ -11,7 +11,7 @@
 // class BroadcastFilterRace
 /////////////////////////////////////////////////////////////////////////////
 bool BroadcastFilterRace::isSatisfy( GamePlayer* pGamePlayer )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -26,7 +26,7 @@ bool BroadcastFilterRace::isSatisfy( GamePlayer* pGamePlayer )
 }
 
 BroadcastFilter* BroadcastFilterRace::Clone()
-	throw()
+	
 {
 	__BEGIN_TRY
 

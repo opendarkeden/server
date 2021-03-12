@@ -26,10 +26,10 @@ public:
 	virtual ~RewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const throw(Error) = 0;
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const throw(Error) = 0;
+	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const  = 0;
+	virtual QuestMessage	giveReward(PlayerCreature* pPC) const  = 0;
 
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
 	virtual bool	isAnotherQuest() const { return false; }
 

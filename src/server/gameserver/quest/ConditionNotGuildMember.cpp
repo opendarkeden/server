@@ -11,7 +11,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionNotGuildMember::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -29,7 +29,7 @@ bool ConditionNotGuildMember::isSatisfied (Creature * pCreature1 , Creature * pC
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionNotGuildMember::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 }
 
@@ -37,7 +37,7 @@ void ConditionNotGuildMember::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionNotGuildMember::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

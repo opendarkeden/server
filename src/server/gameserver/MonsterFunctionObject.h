@@ -49,7 +49,7 @@
 class StrongerSlayer 
 {
 public:
-	StrongerSlayer (Zone* pZone , SkillLevel_t skillLevelSum) throw ()
+	StrongerSlayer (Zone* pZone , SkillLevel_t skillLevelSum) 
 	{
 		m_pZone = pZone;
 		m_SkillDomainLevelSum = skillLevelSum;
@@ -100,7 +100,7 @@ class WeakerSlayer
 public :
 
 	// constructor
-	WeakerSlayer (Zone* pZone , SkillLevel_t skillLevelSum) throw ()
+	WeakerSlayer (Zone* pZone , SkillLevel_t skillLevelSum) 
 	{
 		m_pZone = pZone;
 		m_SkillDomainLevelSum = skillLevelSum;
@@ -149,7 +149,7 @@ private:
 class StrongerVampire 
 {
 public:
-	StrongerVampire (Zone* pZone , Level_t level) throw ()
+	StrongerVampire (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;
@@ -197,7 +197,7 @@ private:
 class WeakerVampire 
 {
 public:
-	WeakerVampire (Zone* pZone , Level_t level) throw ()
+	WeakerVampire (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;
@@ -238,7 +238,7 @@ private:
 class StrongerOusters 
 {
 public:
-	StrongerOusters (Zone* pZone , Level_t level) throw ()
+	StrongerOusters (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;
@@ -286,7 +286,7 @@ private:
 class WeakerOusters 
 {
 public:
-	WeakerOusters (Zone* pZone , Level_t level) throw ()
+	WeakerOusters (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;
@@ -334,7 +334,7 @@ private:
 class StrongerMonster 
 {
 public:
-	StrongerMonster (Zone* pZone , Level_t level) throw ()
+	StrongerMonster (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;
@@ -382,7 +382,7 @@ private:
 class WeakerMonster 
 {
 public:
-	WeakerMonster (Zone* pZone , Level_t level) throw ()
+	WeakerMonster (Zone* pZone , Level_t level) 
 	{
 		m_pZone = pZone;
 		m_Level = level;

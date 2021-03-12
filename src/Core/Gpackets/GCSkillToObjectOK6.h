@@ -29,57 +29,57 @@ class GCSkillToObjectOK6 : public ModifyInfo {
 public :
 	
 	// constructor
-	GCSkillToObjectOK6() throw();
+	GCSkillToObjectOK6() ;
 	
 	// destructor
-	~GCSkillToObjectOK6() throw();
+	~GCSkillToObjectOK6() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SKILL_TO_OBJECT_OK_6; }
+	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_OBJECT_OK_6; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szCoord*2 + szSkillType + szDuration + szBYTE + ModifyInfo::getPacketSize(); }
+	PacketSize_t getPacketSize() const  { return szCoord*2 + szSkillType + szDuration + szBYTE + ModifyInfo::getPacketSize(); }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCSkillToObjectOK6"; }
+	string getPacketName() const  { return "GCSkillToObjectOK6"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ObjectID
-	Coord_t getX() const throw() { return m_X;}
-	Coord_t getY() const throw() { return m_Y;}
-	void setXY(Coord_t X, Coord_t Y) throw() { m_X = X; m_Y = Y;}
+	Coord_t getX() const  { return m_X;}
+	Coord_t getY() const  { return m_Y;}
+	void setXY(Coord_t X, Coord_t Y)  { m_X = X; m_Y = Y;}
 		
 
 	// get / set SkillType
-	SkillType_t getSkillType() const throw() { return m_SkillType; }
-	void setSkillType(SkillType_t SkillType) throw() { m_SkillType = SkillType; }
+	SkillType_t getSkillType() const  { return m_SkillType; }
+	void setSkillType(SkillType_t SkillType)  { m_SkillType = SkillType; }
 
 	// get / set Duration
-	Duration_t getDuration() const throw() { return m_Duration; }
-	void setDuration(Duration_t Duration) throw() { m_Duration = Duration; }
+	Duration_t getDuration() const  { return m_Duration; }
+	void setDuration(Duration_t Duration)  { m_Duration = Duration; }
 	
 	// get / set CEffectID 
-//	CEffectID_t getCEffectID() const throw() { return m_CEffectID; }
-//	void setCEffectID(CEffectID_t e) throw() { m_CEffectID = e; }
+//	CEffectID_t getCEffectID() const  { return m_CEffectID; }
+//	void setCEffectID(CEffectID_t e)  { m_CEffectID = e; }
 
-	BYTE getGrade() const throw() { return m_Grade; } 
-	void setGrade( BYTE grade ) throw() { m_Grade = grade; }
+	BYTE getGrade() const  { return m_Grade; } 
+	void setGrade( BYTE grade )  { m_Grade = grade; }
 
 private :
 
@@ -112,25 +112,25 @@ class GCSkillToObjectOK6Factory : public PacketFactory {
 public :
 	
 	// constructor
-	GCSkillToObjectOK6Factory() throw() {}
+	GCSkillToObjectOK6Factory()  {}
 	
 	// destructor
-	virtual ~GCSkillToObjectOK6Factory() throw() {}
+	virtual ~GCSkillToObjectOK6Factory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCSkillToObjectOK6(); }
+	Packet* createPacket()  { return new GCSkillToObjectOK6(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCSkillToObjectOK6"; }
+	string getPacketName() const  { return "GCSkillToObjectOK6"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SKILL_TO_OBJECT_OK_6; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SKILL_TO_OBJECT_OK_6; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szCoord*2+ szSkillType + szDuration + szBYTE + ModifyInfo::getPacketMaxSize(); }
+	PacketSize_t getPacketMaxSize() const  { return szCoord*2+ szSkillType + szDuration + szBYTE + ModifyInfo::getPacketMaxSize(); }
 
 };
 
@@ -146,7 +146,7 @@ class GCSkillToObjectOK6Handler {
 public :
 
 	// execute packet's handler
-	static void execute(GCSkillToObjectOK6* pGCSkillToObjectOK6, Player* pPlayer) throw(Error);
+	static void execute(GCSkillToObjectOK6* pGCSkillToObjectOK6, Player* pPlayer) ;
 
 };
 

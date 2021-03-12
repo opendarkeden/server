@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectWillOfLife::EffectWillOfLife(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ EffectWillOfLife::EffectWillOfLife(Creature* pCreature)
 }
 
 void EffectWillOfLife::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void EffectWillOfLife::affect()
 }
 
 void EffectWillOfLife::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void EffectWillOfLife::affect(Creature* pCreature)
 }
 
 void EffectWillOfLife::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -79,7 +79,7 @@ void EffectWillOfLife::unaffect()
 }
 
 void EffectWillOfLife::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

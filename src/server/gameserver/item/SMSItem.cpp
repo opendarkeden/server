@@ -26,13 +26,13 @@ Mutex    SMSItem::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 SMSItem::SMSItem()
-	throw()
+	
 {
 	setItemType(0);
 }
 
 SMSItem::SMSItem(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 
@@ -44,7 +44,7 @@ SMSItem::SMSItem(ItemType_t itemType, const list<OptionType_t>& optionType)
 }
 
 void SMSItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void SMSItem::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void SMSItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ void SMSItem::tinysave(const char* field) const
 }
 
 void SMSItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void SMSItem::save(const string & ownerID, Storage storage, StorageID_t storageI
 }
 
 string SMSItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -161,7 +161,7 @@ string SMSItem::toString() const
 }
 
 /*VolumeWidth_t SMSItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ string SMSItem::toString() const
 }
 	
 VolumeHeight_t SMSItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -181,7 +181,7 @@ VolumeHeight_t SMSItem::getVolumeHeight() const
 }
 	
 Weight_t SMSItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ Weight_t SMSItem::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string SMSItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "SMSItemInfo("
@@ -211,7 +211,7 @@ string SMSItemInfo::toString() const
 }
 
 void SMSItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -266,7 +266,7 @@ void SMSItemInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void SMSItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -411,7 +411,7 @@ void SMSItemLoader::load(Creature* pCreature)
 }
 
 void SMSItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -474,7 +474,7 @@ void SMSItemLoader::load(Zone* pZone)
 }
 
 void SMSItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

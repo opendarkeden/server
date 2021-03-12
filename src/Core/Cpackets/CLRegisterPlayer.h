@@ -26,19 +26,19 @@ class CLRegisterPlayer : public Packet {
 public:
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CL_REGISTER_PLAYER; }
+	PacketID_t getPacketID() const  { return PACKET_CL_REGISTER_PLAYER; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw()
+	PacketSize_t getPacketSize() const 
 	{
 		// 최적화시 미리 계산된 상수를 사용하도록 한다.
 		return    szBYTE + m_ID.size() 			// 아이디
@@ -58,10 +58,10 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "CLRegisterPlayer"; }
+	string getPacketName() const  { return "CLRegisterPlayer"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
@@ -72,60 +72,60 @@ public:
 	//----------------------------------------------------------------------
 
     // get/set player's id
-	string getID() const throw() { return m_ID; }
-	void setID(string id) throw() { m_ID =(id.size() > maxIDLength) ? id.substr(0,maxIDLength) : id; }
+	string getID() const  { return m_ID; }
+	void setID(string id)  { m_ID =(id.size() > maxIDLength) ? id.substr(0,maxIDLength) : id; }
 
     // get/set player's password
-    string getPassword() const throw() { return m_Password; }
-    void setPassword(string password) throw() { m_Password =(password.size() > maxPasswordLength) ? password.substr(0,maxPasswordLength) : password; }
+    string getPassword() const  { return m_Password; }
+    void setPassword(string password)  { m_Password =(password.size() > maxPasswordLength) ? password.substr(0,maxPasswordLength) : password; }
 
     // get/set player's name
-    string getName() const throw() { return m_Name; }
-    void setName(string name) throw() { m_Name =(name.size() > maxNameLength) ? name.substr(0,maxNameLength) : name; }
+    string getName() const  { return m_Name; }
+    void setName(string name)  { m_Name =(name.size() > maxNameLength) ? name.substr(0,maxNameLength) : name; }
 
     // get/set player's sex
-    Sex getSex() const throw() { return m_Sex; }
-    void setSex(Sex sex) throw() { m_Sex = sex; }
+    Sex getSex() const  { return m_Sex; }
+    void setSex(Sex sex)  { m_Sex = sex; }
 
     // get/set player's ssn
-    string getSSN() const throw() { return m_SSN; }
-    void setSSN(string ssn) throw() { m_SSN =(ssn.size() > maxSSNLength) ? ssn.substr(0,maxSSNLength) : ssn; }
+    string getSSN() const  { return m_SSN; }
+    void setSSN(string ssn)  { m_SSN =(ssn.size() > maxSSNLength) ? ssn.substr(0,maxSSNLength) : ssn; }
 
     // get/set player's telephone
-    string getTelephone() const throw() { return m_Telephone; }
-    void setTelephone(string telephone) throw() { m_Telephone =(telephone.size() > maxTelephoneLength) ? telephone.substr(0,maxTelephoneLength) : telephone; }
+    string getTelephone() const  { return m_Telephone; }
+    void setTelephone(string telephone)  { m_Telephone =(telephone.size() > maxTelephoneLength) ? telephone.substr(0,maxTelephoneLength) : telephone; }
 
     // get/set player's cellular
-    string getCellular() const throw() { return m_Cellular; }
-    void setCellular(string cellular) throw() { m_Cellular =(cellular.size() > maxCellularLength) ? cellular.substr(0,maxCellularLength) : cellular; }
+    string getCellular() const  { return m_Cellular; }
+    void setCellular(string cellular)  { m_Cellular =(cellular.size() > maxCellularLength) ? cellular.substr(0,maxCellularLength) : cellular; }
 
     // get/set player's zipcode
-    string getZipCode() const throw() { return m_ZipCode; }
-    void setZipCode(string zipcode) throw() { m_ZipCode =(zipcode.size() > maxZipCodeLength) ? zipcode.substr(0,maxZipCodeLength) : zipcode; }
+    string getZipCode() const  { return m_ZipCode; }
+    void setZipCode(string zipcode)  { m_ZipCode =(zipcode.size() > maxZipCodeLength) ? zipcode.substr(0,maxZipCodeLength) : zipcode; }
 
     // get/set player's address
-    string getAddress() const throw() { return m_Address; }
-    void setAddress(string address) throw() { m_Address =(address.size() > maxAddressLength) ? address.substr(0,maxAddressLength) : address; }
+    string getAddress() const  { return m_Address; }
+    void setAddress(string address)  { m_Address =(address.size() > maxAddressLength) ? address.substr(0,maxAddressLength) : address; }
 
     // get/set player's nation
-    Nation getNation() const throw() { return m_Nation; }
-    void setNation(Nation nation) throw() { m_Nation = nation; }
+    Nation getNation() const  { return m_Nation; }
+    void setNation(Nation nation)  { m_Nation = nation; }
 
     // get/set player's email
-    string getEmail() const throw() { return m_Email; }
-    void setEmail(string email) throw() { m_Email =(email.size() > maxEmailLength) ? email.substr(0,maxEmailLength) : email; }
+    string getEmail() const  { return m_Email; }
+    void setEmail(string email)  { m_Email =(email.size() > maxEmailLength) ? email.substr(0,maxEmailLength) : email; }
 
     // get/set player's homepage
-    string getHomepage() const throw() { return m_Homepage; }
-    void setHomepage(string homepage) throw() { m_Homepage =(homepage.size() > maxHomepageLength) ? homepage.substr(0,maxHomepageLength) : homepage; }
+    string getHomepage() const  { return m_Homepage; }
+    void setHomepage(string homepage)  { m_Homepage =(homepage.size() > maxHomepageLength) ? homepage.substr(0,maxHomepageLength) : homepage; }
 
     // get/set player's profile
-    string getProfile() const throw() { return m_Profile; }
-    void setProfile(string profile) throw() { m_Profile =(profile.size() > maxProfileLength) ? profile.substr(0,maxProfileLength) : profile; }
+    string getProfile() const  { return m_Profile; }
+    void setProfile(string profile)  { m_Profile =(profile.size() > maxProfileLength) ? profile.substr(0,maxProfileLength) : profile; }
 
 	// get/set player info's publicability(?) 
-	bool getPublic() const throw() { return m_bPublic; }
-	void setPublic(bool bPublic) throw() { m_bPublic = bPublic; }
+	bool getPublic() const  { return m_bPublic; }
+	void setPublic(bool bPublic)  { m_bPublic = bPublic; }
 
 private :
 
@@ -175,16 +175,16 @@ class CLRegisterPlayerFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CLRegisterPlayer(); }
+	Packet* createPacket()  { return new CLRegisterPlayer(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CLRegisterPlayer"; }
+	string getPacketName() const  { return "CLRegisterPlayer"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CL_REGISTER_PLAYER; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CL_REGISTER_PLAYER; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{
 		// 최적화시 미리 계산된 상수를 사용하도록 한다.
 		return    szBYTE + maxIDLength 			// 아이디
@@ -218,7 +218,7 @@ class CLRegisterPlayerHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CLRegisterPlayer* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CLRegisterPlayer* pPacket, Player* pPlayer) ;
 
 };
 

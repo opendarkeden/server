@@ -74,7 +74,7 @@ Gold_t CastleInfo::decreaseTaxBalance( Gold_t tax )
 }
 
 Gold_t CastleInfo::increaseTaxBalanceEx( Gold_t tax )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ Gold_t CastleInfo::increaseTaxBalanceEx( Gold_t tax )
 }
 
 Gold_t CastleInfo::decreaseTaxBalanceEx( Gold_t tax )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -114,7 +114,7 @@ Gold_t CastleInfo::decreaseTaxBalanceEx( Gold_t tax )
 }
 
 void CastleInfo::setOptionTypeList( const string& options )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ void CastleInfo::setOptionTypeList( const string& options )
 }
 
 void CastleInfo::setZoneIDList( const string& zoneIDs ) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -144,7 +144,7 @@ void CastleInfo::getResurrectPosition( ResurrectPriority resurrectPriority, ZONE
 }
 
 void CastleInfo::broadcast(Packet* pPacket) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -162,7 +162,7 @@ void CastleInfo::broadcast(Packet* pPacket) const
 }
 
 bool CastleInfo::isCastleZone(ZoneID_t targetZoneID) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ bool CastleInfo::isCastleZone(ZoneID_t targetZoneID) const
 
 
 string CastleInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -234,7 +234,7 @@ CastleInfoManager::~CastleInfoManager ()
 // initialize zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void CastleInfoManager::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -251,7 +251,7 @@ void CastleInfoManager::init ()
 // load from database
 //////////////////////////////////////////////////////////////////////////////
 void CastleInfoManager::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -333,7 +333,7 @@ void CastleInfoManager::load ()
 }
 
 void CastleInfoManager::save( ZoneID_t zoneID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -370,7 +370,7 @@ void CastleInfoManager::save( ZoneID_t zoneID )
 // add zone info to zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void CastleInfoManager::addCastleInfo (CastleInfo* pCastleInfo) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -401,7 +401,7 @@ void CastleInfoManager::addCastleInfo (CastleInfo* pCastleInfo)
 // Delete zone info from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void CastleInfoManager::deleteCastleInfo (ZoneID_t zoneID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -428,7 +428,7 @@ void CastleInfoManager::deleteCastleInfo (ZoneID_t zoneID)
 // get zone from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 CastleInfo* CastleInfoManager::getCastleInfo (ZoneID_t zoneID) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -457,7 +457,7 @@ CastleInfo* CastleInfoManager::getCastleInfo (ZoneID_t zoneID) const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string CastleInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -482,7 +482,7 @@ string CastleInfoManager::toString () const
 }
 
 bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -497,7 +497,7 @@ bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC )
 }
 
 bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_t guildID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -622,7 +622,7 @@ bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_
 }
 
 bool CastleInfoManager::increaseTaxBalance( ZoneID_t zoneID, Gold_t tax )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -639,7 +639,7 @@ bool CastleInfoManager::increaseTaxBalance( ZoneID_t zoneID, Gold_t tax )
 	__END_CATCH
 }
 bool CastleInfoManager::decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -657,7 +657,7 @@ bool CastleInfoManager::decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax )
 }
 
 bool CastleInfoManager::setItemTaxRatio( Zone* pZone, int itemTaxRatio ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -684,7 +684,7 @@ bool CastleInfoManager::setItemTaxRatio( Zone* pZone, int itemTaxRatio )
 }
 
 int CastleInfoManager::getItemTaxRatio( const PlayerCreature* pPC, const NPC* pNPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -719,7 +719,7 @@ int CastleInfoManager::getItemTaxRatio( const PlayerCreature* pPC, const NPC* pN
 }
 
 Gold_t CastleInfoManager::getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -748,7 +748,7 @@ Gold_t CastleInfoManager::getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC )
 }
 
 bool CastleInfoManager::isCastleMember( PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -776,7 +776,7 @@ bool CastleInfoManager::isCastleMember( PlayerCreature* pPC ) const
 }
 
 bool CastleInfoManager::isCastleMember( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -805,7 +805,7 @@ bool CastleInfoManager::isCastleMember( ZoneID_t zoneID, PlayerCreature* pPC ) c
 }
 
 bool CastleInfoManager::hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -835,7 +835,7 @@ bool CastleInfoManager::hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC
 }
 	
 bool CastleInfoManager::isPossibleEnter( ZoneID_t zoneID, PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 
     __BEGIN_TRY
@@ -873,7 +873,7 @@ bool CastleInfoManager::isPossibleEnter( ZoneID_t zoneID, PlayerCreature* pPC ) 
 }
 
 bool CastleInfoManager::canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC ) const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -913,7 +913,7 @@ bool CastleInfoManager::canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC 
 }
 
 CastleInfo* CastleInfoManager::getGuildCastleInfo( GuildID_t guildID ) const
-	throw(Error)
+	
 {
 
 	__BEGIN_TRY
@@ -945,7 +945,7 @@ CastleInfo* CastleInfoManager::getGuildCastleInfo( GuildID_t guildID ) const
 }
 
 list<CastleInfo*> CastleInfoManager::getGuildCastleInfos( GuildID_t guildID ) const
-	throw(Error)
+	
 {
 
 	__BEGIN_TRY
@@ -979,7 +979,7 @@ list<CastleInfo*> CastleInfoManager::getGuildCastleInfos( GuildID_t guildID ) co
 }
 
 bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) 
-	throw (Error)
+	
 {
 	CastleInfo::ResurrectPriority resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
 
@@ -1050,7 +1050,7 @@ bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& z
 }
 
 bool CastleInfoManager::tinysave( ZoneID_t zoneID, const string& query )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1082,7 +1082,7 @@ bool CastleInfoManager::tinysave( ZoneID_t zoneID, const string& query )
 }
 
 void    CastleInfoManager::deleteAllNPCs() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1108,7 +1108,7 @@ void    CastleInfoManager::deleteAllNPCs()
 }
 
 void    CastleInfoManager::releaseAllSafeZone() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1132,7 +1132,7 @@ void    CastleInfoManager::releaseAllSafeZone()
 }
 
 void    CastleInfoManager::resetAllSafeZone() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1156,7 +1156,7 @@ void    CastleInfoManager::resetAllSafeZone()
 }
 
 void	CastleInfoManager::transportAllOtherRace()
-	throw (Error)
+	
 {	
 	__BEGIN_TRY
 
@@ -1197,7 +1197,7 @@ void	CastleInfoManager::transportAllOtherRace()
 }
 
 void	CastleInfoManager::loadAllNPCs()
-	throw (Error)
+	
 {	
 	__BEGIN_TRY
 
@@ -1223,7 +1223,7 @@ void	CastleInfoManager::loadAllNPCs()
 }
 
 ZoneID_t    CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1250,7 +1250,7 @@ ZoneID_t    CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
 }
 
 void CastleInfoManager::broadcastShrinePacket(ShrineID_t shrineID, Packet* pPacket) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1265,7 +1265,7 @@ void CastleInfoManager::broadcastShrinePacket(ShrineID_t shrineID, Packet* pPack
 }
 
 bool CastleInfoManager::isCastleZone(ZoneID_t castleZoneID, ZoneID_t targetZoneID) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1295,7 +1295,7 @@ bool CastleInfoManager::isCastleZone(ZoneID_t zoneID) const
 
 void  
 CastleInfoManager::clearCastleZoneIDs()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1306,7 +1306,7 @@ CastleInfoManager::clearCastleZoneIDs()
 
 bool 
 CastleInfoManager::getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1325,7 +1325,7 @@ CastleInfoManager::getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) cons
 
 void  
 CastleInfoManager::setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1336,7 +1336,7 @@ CastleInfoManager::setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID)
 
 bool        
 CastleInfoManager::isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1355,7 +1355,7 @@ CastleInfoManager::isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const
 }
 
 SkillType_t CastleInfoManager::getCastleSkillType( ZoneID_t zoneID, GuildID_t guildID ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

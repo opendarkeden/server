@@ -20,7 +20,7 @@
 //----------------------------------------------------------------------
 EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pItem, 
 														Zone* pTargetZone, ObjectID_t corpseObjectID, Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,0,0,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -45,7 +45,7 @@ EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pIt
 // destructor
 //----------------------------------------------------------------------
 EffectTransportItemToCorpse::~EffectTransportItemToCorpse () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ EffectTransportItemToCorpse::~EffectTransportItemToCorpse ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void EffectTransportItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoor
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -123,7 +123,7 @@ void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCo
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -136,7 +136,7 @@ void EffectTransportItemToCorpse::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -146,7 +146,7 @@ void EffectTransportItemToCorpse::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectTransportItemToCorpse::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

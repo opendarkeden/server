@@ -40,7 +40,7 @@ public:
 
 	void init();
 
-	virtual Work* heartbeat() throw(Error);
+	virtual Work* heartbeat() ;
 	bool hasWar() const { return m_bHasWar; }
 	bool hasToDayWar() const { return m_bHasWarToDay; }
 	void startWar();
@@ -53,19 +53,19 @@ public:
 
 	VSDateTime getNextLevelWarTime() const;
 
-	void fixTimeband( uint timeband ) throw(Error);
-	void resumeTimeband() throw(Error);
+	void fixTimeband( uint timeband ) ;
+	void resumeTimeband() ;
 
-	void killAllMonsters() throw (Error);
+	void killAllMonsters() ;
 
 	int getStartHour();
 
-	bool makeGCWarList() throw(Error);
-	void sendGCWarList(Player* pPlayer) throw(Error);
-	void broadcastGCWarList() throw(Error);
+	bool makeGCWarList() ;
+	void sendGCWarList(Player* pPlayer) ;
+	void broadcastGCWarList() ;
 
-	bool canEnterFreeUser() throw(Error) { return m_bCanEnterFreeUser; }
-	void freeUserTimeCheck() throw(Error);
+	bool canEnterFreeUser()  { return m_bCanEnterFreeUser; }
+	void freeUserTimeCheck() ;
 
     const VSDateTime&   getLevelWarStartTime() const     { return m_StartTime; }
     void                setLevelWarStartTime(VSDateTime dt) { m_StartTime = dt; }

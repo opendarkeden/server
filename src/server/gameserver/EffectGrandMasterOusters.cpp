@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGrandMasterOusters::EffectGrandMasterOusters(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ EffectGrandMasterOusters::EffectGrandMasterOusters(Creature* pCreature)
 	__END_CATCH
 }
 
-Effect::EffectClass EffectGrandMasterOusters::getSendEffectClass() const throw()
+Effect::EffectClass EffectGrandMasterOusters::getSendEffectClass() const 
 {
 	Ousters* pOusters = dynamic_cast<Ousters*>(m_pTarget);
 	if ( pOusters == NULL ) return getEffectClass();
@@ -39,7 +39,7 @@ Effect::EffectClass EffectGrandMasterOusters::getSendEffectClass() const throw()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterOusters::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void EffectGrandMasterOusters::affect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterOusters::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectGrandMasterOusters::affect(Creature* pCreature)
 }
 
 void EffectGrandMasterOusters::unaffect() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY	
 
@@ -84,7 +84,7 @@ void EffectGrandMasterOusters::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterOusters::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -108,7 +108,7 @@ void EffectGrandMasterOusters::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string EffectGrandMasterOusters::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

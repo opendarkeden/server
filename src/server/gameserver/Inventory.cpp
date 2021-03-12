@@ -32,7 +32,7 @@
 // 기본 생성자
 ////////////////////////////////////////////////////////////
 Inventory::Inventory(CoordInven_t Width, CoordInven_t Height, bool bDeleteAll)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ Inventory::Inventory(CoordInven_t Width, CoordInven_t Height, bool bDeleteAll)
 // 복사 생성자
 ////////////////////////////////////////////////////////////
 Inventory::Inventory(const Inventory* pInventory)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ Inventory::Inventory(const Inventory* pInventory)
 // 소멸자
 ////////////////////////////////////////////////////////////
 Inventory::~Inventory()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -180,7 +180,7 @@ Inventory::~Inventory()
 // 지정된 위치에 아이템이 있는가?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -198,7 +198,7 @@ bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y)
 // 지정된 아이템이 있는가?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItem(ObjectID_t ObjectID)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -213,7 +213,7 @@ bool Inventory::hasItem(ObjectID_t ObjectID)
 // 지정된 아이템이 있는가?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItemWithItemID(ItemID_t ItemID)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -228,7 +228,7 @@ bool Inventory::hasItemWithItemID(ItemID_t ItemID)
 // 지정된 타겟을 타겟으로 하는 열쇠를 가지고 있는가?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasKey(ItemID_t TargetItemID)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,7 @@ bool Inventory::hasKey(ItemID_t TargetItemID)
 // 결과를 리턴한다.
 ////////////////////////////////////////////////////////////
 bool Inventory::canAdding(CoordInven_t X, CoordInven_t Y, Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -305,7 +305,7 @@ bool Inventory::canAdding(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 가정하지 ***않는다.***
 ////////////////////////////////////////////////////////////
 bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -393,7 +393,7 @@ bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 지정된 위치에 아이템을 더한다.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -437,7 +437,7 @@ bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 지정된 위치에 아이템을 더한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -494,7 +494,6 @@ Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 아이템을 알아서 더한다.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(Item* pItem)
-	throw(InventoryFullException , Error)
 {
 	__BEGIN_TRY
 
@@ -517,7 +516,6 @@ bool Inventory::addItem(Item* pItem)
 // 아이템을 알아서 더한다.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(Item* pItem, TPOINT& rpt)
-	throw(InventoryFullException , Error)
 {
 	__BEGIN_TRY
 
@@ -545,7 +543,7 @@ bool Inventory::addItem(Item* pItem, TPOINT& rpt)
 // 아이템을 넣을 수 있는 빈 자리를 찾는다.
 ////////////////////////////////////////////////////////////
 bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight, _TPOINT& p)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -616,7 +614,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 // 지정된 아이템을 찾아서 지운다.
 ////////////////////////////////////////////////////////////
 void Inventory::deleteItem(ObjectID_t ObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -644,7 +642,7 @@ void Inventory::deleteItem(ObjectID_t ObjectID)
 // 않으면 끔찍한 결과가 발생할 수 있다.
 ////////////////////////////////////////////////////////////
 void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -746,7 +744,7 @@ void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
 // 존재하는 아이템이 있으면 그 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::searchItem(CoordInven_t X, CoordInven_t Y, Item* pItem, TPOINT & pt)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -779,7 +777,7 @@ Item* Inventory::searchItem(CoordInven_t X, CoordInven_t Y, Item* pItem, TPOINT 
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithItemID (ItemID_t itemID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -793,7 +791,7 @@ Item* Inventory::getItemWithItemID (ItemID_t itemID)
 // 지정된 벨트를 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getBeltWithItemID(ItemID_t itemID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -807,7 +805,7 @@ Item* Inventory::getBeltWithItemID(ItemID_t itemID)
 // 지정된 아이템을 찾아서 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -822,7 +820,7 @@ Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -852,7 +850,7 @@ Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -882,7 +880,7 @@ Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -913,7 +911,7 @@ Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t
 // 이와 함께 그 아이템의 좌측 상단 좌표도 같이 보내준다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -950,7 +948,7 @@ Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& 
 /////////////////////////////////////////////////////////////////////////////////////
 
 Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType)//, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -978,7 +976,7 @@ Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType)//, CoordI
 }
 
 Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInven_t& X, CoordInven_t& Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1019,7 +1017,7 @@ Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInve
 // 지정된 위치의 아이템 포인터를 리턴한다.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItem(CoordInven_t X, CoordInven_t Y) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1033,7 +1031,7 @@ Item* Inventory::getItem(CoordInven_t X, CoordInven_t Y) const
 // 지정된 위치에 아이템 포인터를 세팅해준다.
 ////////////////////////////////////////////////////////////
 void Inventory::setItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1054,7 +1052,7 @@ void Inventory::setItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 // 실제로 아이템 객체를 지우지는 않는다.
 ////////////////////////////////////////////////////////////
 void Inventory::clear()
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -1078,7 +1076,7 @@ void Inventory::clear()
 // 인벤토리에 들어있는 아이템을 리스트로 만들어서 리턴한다.
 ////////////////////////////////////////////////////////////
 list<Item*> Inventory::getList() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1127,7 +1125,7 @@ list<Item*> Inventory::getList() const
 // 인벤토리 안에 들어 있는 2x2 아이템의 갯수를 리턴한다.
 ////////////////////////////////////////////////////////////
 int Inventory::calc2x2Item(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1157,7 +1155,7 @@ int Inventory::calc2x2Item(void) const
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 void Inventory::save(const string& owner) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1205,7 +1203,7 @@ void Inventory::save(const string& owner)
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 string Inventory::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -1252,7 +1250,7 @@ string Inventory::toString () const
 //#ifdef __XMAS_EVENT_CODE__
 // 인벤토리를 검색하면서 색깔별로 이벤트 별 숫자를 헤아린다.
 bool Inventory::hasEnoughStar(const XMAS_STAR& star)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1303,7 +1301,7 @@ bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 
 //#ifdef __XMAS_EVENT_CODE__
 void Inventory::decreaseStar(const XMAS_STAR& star)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1377,7 +1375,7 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 ///*
 //#ifdef __XMAS_EVENT_CODE__
 bool Inventory::hasRedGiftBox(void) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1409,7 +1407,7 @@ bool Inventory::hasRedGiftBox(void)
 ///*
 //#ifdef __XMAS_EVENT_CODE__
 bool Inventory::hasGreenGiftBox(void) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1438,7 +1436,7 @@ bool Inventory::hasGreenGiftBox(void)
 //#endif
 //*/
 
-void Inventory::clearQuestItem(list<Item*>& iList) throw(Error)
+void Inventory::clearQuestItem(list<Item*>& iList) 
 {
 	{
 		list<Item*> ItemList;

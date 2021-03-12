@@ -17,16 +17,16 @@
 class EffectRingOfFlare : public Effect 
 {
 public:
-	EffectRingOfFlare(Creature* pCreature) throw(Error);
+	EffectRingOfFlare(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_RING_OF_FLARE; }
 	EffectClass getSendEffectClass() const throw() { return m_SendEffectClass; }
 
-	void affect() throw(Error);
+	void affect() ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

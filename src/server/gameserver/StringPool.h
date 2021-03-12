@@ -398,18 +398,18 @@ public:
 	typedef StringHashMap::const_iterator	StringHashMapConstItor;
 
 public:
-	StringPool() throw(Error);
-	~StringPool() throw(Error);
+	StringPool() ;
+	~StringPool() ;
 
 public:
-	void clear() throw(Error);
-	void load() throw(Error);
+	void clear() ;
+	void load() ;
 
-	void addString( uint strID, string sString ) throw( DuplicatedException, Error );
+	void addString( uint strID, string sString ) ;
 	
-	string getString( uint strID ) throw( NoSuchElementException, Error );
+	string getString( uint strID ) ;
 
-	const char* c_str( uint strID ) throw( NoSuchElementException, Error );
+	const char* c_str( uint strID ) ;
 
 private:
 	StringHashMap m_Strings;

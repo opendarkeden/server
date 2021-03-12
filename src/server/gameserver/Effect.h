@@ -708,67 +708,67 @@ public:
 
 // constructor/destructor
 public:
-	Effect() throw();
-	Effect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget, Turn_t delay) throw();
-	virtual ~Effect() throw(Error);
+	Effect() ;
+	Effect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget, Turn_t delay) ;
+	virtual ~Effect() ;
 			
 
 // methods from Object
 public:
-	virtual ObjectClass getObjectClass() const throw() { return OBJECT_CLASS_EFFECT; }
-	virtual ObjectPriority getObjectPriority() const throw() { return OBJECT_PRIORITY_EFFECT; }
-	virtual string toString() const throw() = 0;
+	virtual ObjectClass getObjectClass() const  { return OBJECT_CLASS_EFFECT; }
+	virtual ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_EFFECT; }
+	virtual string toString() const  = 0;
 
 
 // own methods
 public:
-	virtual EffectClass getEffectClass() const throw() = 0;
-	virtual EffectClass getSendEffectClass() const throw() { return getEffectClass(); }
+	virtual EffectClass getEffectClass() const  = 0;
+	virtual EffectClass getSendEffectClass() const  { return getEffectClass(); }
 
 	// Client에 뿌려줘야하는 Effect인가? by sigi. 2002.11.14
 	bool isBroadcastingEffect() { return m_bBroadcastingEffect; }
 	void setBroadcastingEffect(bool bBroadcasting=true) { m_bBroadcastingEffect = bBroadcasting; }
 
-	virtual void affect() throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void affect(Creature* pCreature) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void affect(Item* pItem) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__);}
+	virtual void affect()  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void affect(Creature* pCreature)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void affect(Item* pItem)  { throw UnsupportedError(__PRETTY_FUNCTION__);}
 	
-	virtual void unaffect(Item* pItem) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
-	virtual void unaffect() throw(Error) = 0;
-	virtual void unaffect(Creature* pCreature) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); } // 원래는 pure virtual이었는데 EffectRelicTable때메 바꿨다. by sigi
-	virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget) throw(Error) { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void unaffect(Item* pItem)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual void unaffect()  = 0;
+	virtual void unaffect(Creature* pCreature)  { throw UnsupportedError(__PRETTY_FUNCTION__); } // 원래는 pure virtual이었는데 EffectRelicTable때메 바꿨다. by sigi
+	virtual void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
 	
 
 // get/set methods
 public:
-	Zone* getZone() const throw() { return m_pZone; }
-	void setZone(Zone* pZone) throw() { m_pZone = pZone; }
+	Zone* getZone() const  { return m_pZone; }
+	void setZone(Zone* pZone)  { m_pZone = pZone; }
 
-	ZoneCoord_t getX() const throw() { return m_X; }
-	ZoneCoord_t getY() const throw() { return m_Y; }
-	void setX(ZoneCoord_t x) throw() { m_X = x; }
-	void setY(ZoneCoord_t y) throw() { m_Y = y; }
-	void setXY(ZoneCoord_t x, ZoneCoord_t y) throw() { m_X = x; m_Y = y; }
+	ZoneCoord_t getX() const  { return m_X; }
+	ZoneCoord_t getY() const  { return m_Y; }
+	void setX(ZoneCoord_t x)  { m_X = x; }
+	void setY(ZoneCoord_t y)  { m_Y = y; }
+	void setXY(ZoneCoord_t x, ZoneCoord_t y)  { m_X = x; m_Y = y; }
 
-	Object* getTarget() const throw() { return m_pTarget; }
-	void setTarget(Object* pTarget) throw() { m_pTarget = pTarget; }
+	Object* getTarget() const  { return m_pTarget; }
+	void setTarget(Object* pTarget)  { m_pTarget = pTarget; }
 
-	Timeval getNextTime() const throw() { return m_NextTime; }
-	void setNextTime(Timeval tv) throw() { m_NextTime = tv; }
-	void setNextTime(Turn_t delay) throw();
+	Timeval getNextTime() const  { return m_NextTime; }
+	void setNextTime(Timeval tv)  { m_NextTime = tv; }
+	void setNextTime(Turn_t delay) ;
 
-	Timeval getDeadline() const throw() { return m_Deadline; }
-	void setDeadline(Turn_t delay) throw();
+	Timeval getDeadline() const  { return m_Deadline; }
+	void setDeadline(Turn_t delay) ;
 
-	Duration_t getRemainDuration() throw();
+	Duration_t getRemainDuration() ;
 
 
 // save/load members
 public:
-	virtual void create(const string & ownerID) throw(Error) {}
-	virtual void save(const string & ownerID) throw(Error) {}
-	virtual void destroy(const string & ownerID) throw(Error) {}
+	virtual void create(const string & ownerID)  {}
+	virtual void save(const string & ownerID)  {}
+	virtual void destroy(const string & ownerID)  {}
 
 
 ////////////////////////////////////////////////////////////

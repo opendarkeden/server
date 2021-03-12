@@ -24,7 +24,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -311,7 +311,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 // NPC 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Restore::execute(NPC* pNPC, Creature* pFromCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

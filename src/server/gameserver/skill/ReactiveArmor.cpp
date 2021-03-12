@@ -22,7 +22,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void ReactiveArmor::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -128,7 +128,7 @@ void ReactiveArmor::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSl
 	__END_CATCH
 }
 
-void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 		

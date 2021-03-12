@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectMephisto::EffectMephisto(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectMephisto::EffectMephisto(Creature* pCreature)
 }
 
 void EffectMephisto::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectMephisto::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectMephisto::unaffect()
 }
 
 void EffectMephisto::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

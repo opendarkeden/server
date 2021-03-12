@@ -22,7 +22,7 @@ public:
 	ItemID_t getCastleSymbolItemID() const			{ return m_ItemID; }
 	void	 setCastleSymbolItemID(ItemID_t itemID) 	{ m_ItemID = itemID; }
 
-	string toString() const throw();
+	string toString() const ;
 
 public :
 	ShrineID_t		m_ShrineID;				// Shrine ID. ItemType과 같아야 한다.
@@ -45,37 +45,37 @@ public:
 	~CastleShrineInfoManager();
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 	void clear();
 
-	void addAllShrineToZone() throw(Error);
-	Item* addShrineToZone( ShrineInfo& shrineInfo, ItemType_t itemType = 0 ) throw(Error);
+	void addAllShrineToZone() ;
+	Item* addShrineToZone( ShrineInfo& shrineInfo, ItemType_t itemType = 0 ) ;
 
-	void addShrineSet( CastleShrineSet* pShrineSet ) throw(Error);
-	void deleteShrineSet( ShrineID_t shrineID ) throw(Error);
-	CastleShrineSet* getShrineSet( ShrineID_t shrineID ) const throw(Error);
+	void addShrineSet( CastleShrineSet* pShrineSet ) ;
+	void deleteShrineSet( ShrineID_t shrineID ) ;
+	CastleShrineSet* getShrineSet( ShrineID_t shrineID ) const ;
 	int  size() const { return m_ShrineSets.size(); }
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	bool isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCorpse) const throw(Error);
-	bool isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCorpse* pShrine ) const throw(Error);
-	bool canPickupCastleSymbol( Race_t race, CastleSymbol* pCastleSymbol ) const throw (Error);
-	bool getMatchGuardShrinePosition(Item* pItem, ZoneItemPosition& zip) const throw(Error);
+	bool isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCorpse) const ;
+	bool isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCorpse* pShrine ) const ;
+	bool canPickupCastleSymbol( Race_t race, CastleSymbol* pCastleSymbol ) const ;
+	bool getMatchGuardShrinePosition(Item* pItem, ZoneItemPosition& zip) const ;
 
-	bool returnAllCastleSymbol( ZoneID_t castleZoneID ) const throw (Error);
-	bool returnCastleSymbol( ShrineID_t shrineID, bool bLock = true ) const throw (Error);
-	bool returnCastleSymbol( Zone* pZone, CastleSymbol* pCastleSymbol ) const throw (Error);
+	bool returnAllCastleSymbol( ZoneID_t castleZoneID ) const ;
+	bool returnCastleSymbol( ShrineID_t shrineID, bool bLock = true ) const ;
+	bool returnCastleSymbol( Zone* pZone, CastleSymbol* pCastleSymbol ) const ;
 
-	ZoneID_t getGuardShrineZoneID( ZoneID_t castleZoneID ) const throw(Error);
+	ZoneID_t getGuardShrineZoneID( ZoneID_t castleZoneID ) const ;
 
-	bool removeShrineShield( Zone* pZone ) throw(Error);
-	bool addShrineShield( Zone* pZone ) throw(Error);
-	bool addShrineShield_LOCKED( Zone* pZone ) throw(Error);
+	bool removeShrineShield( Zone* pZone ) ;
+	bool addShrineShield( Zone* pZone ) ;
+	bool addShrineShield_LOCKED( Zone* pZone ) ;
 
-	bool putCastleSymbol(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const throw (Error);
+	bool putCastleSymbol(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const ;
 
 private:
 	HashMapShrineSet		m_ShrineSets;

@@ -25,14 +25,14 @@ Mutex    BombMaterial::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 BombMaterial::BombMaterial()
-	throw()
+	
 : m_ItemType(0)
 {
 	m_Num = 1;
 }
 
 BombMaterial::BombMaterial(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -46,7 +46,7 @@ BombMaterial::BombMaterial(ItemType_t itemType, const list<OptionType_t>& option
 // create item
 //--------------------------------------------------------------------------------
 void BombMaterial::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ void BombMaterial::create(const string & ownerID, Storage storage, StorageID_t s
 // save item
 //--------------------------------------------------------------------------------
 void BombMaterial::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ void BombMaterial::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void BombMaterial::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ void BombMaterial::save(const string & ownerID, Storage storage, StorageID_t sto
 // get debug string
 //--------------------------------------------------------------------------------
 string BombMaterial::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -181,7 +181,7 @@ string BombMaterial::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t BombMaterial::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ VolumeWidth_t BombMaterial::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t BombMaterial::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeHeight_t BombMaterial::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t BombMaterial::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ Weight_t BombMaterial::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string BombMaterialInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -245,7 +245,7 @@ string BombMaterialInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void BombMaterialInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -299,7 +299,7 @@ void BombMaterialInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void BombMaterialLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -441,7 +441,7 @@ void BombMaterialLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void BombMaterialLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -506,7 +506,7 @@ void BombMaterialLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void BombMaterialLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

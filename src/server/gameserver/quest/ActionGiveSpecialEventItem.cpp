@@ -29,7 +29,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveSpecialEventItem::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
     __END_CATCH
@@ -39,7 +39,7 @@ void ActionGiveSpecialEventItem::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -300,7 +300,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveSpecialEventItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -22,7 +22,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -278,7 +278,7 @@ void BloodDrain::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 //
 //////////////////////////////////////////////////////////////////////
 void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -365,7 +365,7 @@ void BloodDrain::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 bool BloodDrain::executeMonster(Monster* pMonster, Creature* pEnemy)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

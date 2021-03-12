@@ -22,7 +22,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodySnake::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ void BloodySnake::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireS
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -293,7 +293,7 @@ void BloodySnake::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void BloodySnake::execute(Monster* pMonster, Creature* pEnemy) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -308,7 +308,7 @@ void BloodySnake::execute(Monster* pMonster, Creature* pEnemy)
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodySnake::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

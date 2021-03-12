@@ -14,12 +14,12 @@ public:
 	}
 	virtual ~MiniGameQuestStatus() { }
 
-	bool	isSuccess() const throw() { return m_bScoreSet; }
+	bool	isSuccess() const  { return m_bScoreSet; }
 
 	int		getGameType() const { return m_GameType; }
 	bool	setScore( uint score ) { if ( m_bScoreSet ) return false; m_GameScore = score; return m_bScoreSet = true; }
 	GCQuestStatus*	makeStatusPacket() const;
-	string	toStrong() const throw(Error);
+	string	toStrong() const ;
 
 	void	executeWhenStart();
 	void	executeWhenFail();

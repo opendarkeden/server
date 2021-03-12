@@ -31,11 +31,11 @@ public:
 
 public:
 	// 아이템을 뽑아낸다.
-	virtual Item*	popItem( bool bLock = true ) throw(Error) = 0;
-	virtual Zone*	getZone() throw(Error) = 0;
+	virtual Item*	popItem( bool bLock = true )  = 0;
+	virtual Zone*	getZone()  = 0;
 
 public:
-	virtual string	toString() const throw(Error) = 0;
+	virtual string	toString() const  = 0;
 
 private:
 	PositionType	m_ItemPosType;

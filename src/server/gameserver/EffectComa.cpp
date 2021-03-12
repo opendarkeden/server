@@ -36,7 +36,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectComa::EffectComa(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -46,14 +46,14 @@ EffectComa::EffectComa(Creature* pCreature)
 }
 
 EffectComa::~EffectComa()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectComa::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -66,14 +66,14 @@ void EffectComa::affect()
 }
 
 void EffectComa::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectComa::unaffect(Creature* pDeadCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ void EffectComa::unaffect(Creature* pDeadCreature)
 }
 
 void EffectComa::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -122,21 +122,21 @@ void EffectComa::unaffect()
 }
 
 void EffectComa::create(const string & ownerID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectComa::destroy(const string & ownerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectComa::save(const string & ownerID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -165,7 +165,7 @@ bool EffectComa::canResurrect(void)
 }
 
 string EffectComa::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 
@@ -179,7 +179,7 @@ string EffectComa::toString()
 }
 
 void EffectComaLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

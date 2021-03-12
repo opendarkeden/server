@@ -33,7 +33,7 @@
 
 void
 sendBloodBibleEffect( Object* pObject, Effect::EffectClass EClass )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ sendBloodBibleEffect( Object* pObject, Effect::EffectClass EClass )
 //	아담의 성지 서<슬레이어> ( 27, 133 ) 
 void
 sendHolyLandWarpEffect( Creature* pCreature ) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -196,7 +196,7 @@ sendHolyLandWarpEffect( Creature* pCreature )
 }
 
 bool addEffectRelicPosition( Item* pItem, ZoneID_t zoneID, TPOINT pt )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ bool addEffectRelicPosition( Item* pItem, ZoneID_t zoneID, TPOINT pt )
 
 bool
 deleteEffectRelicPosition( Item* pItem )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -251,7 +251,7 @@ deleteEffectRelicPosition( Item* pItem )
 // Corpse붙은 pItem과 관련된 Effect를 없애준다.
 bool
 deleteRelicEffect(Corpse* pCorpse, Item* pItem)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -308,7 +308,7 @@ deleteRelicEffect(Corpse* pCorpse, Item* pItem)
 
 void
 saveItemInCorpse(Item* pItem, Corpse* pCorpse)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -365,7 +365,7 @@ bool isRelicItem(Item::ItemClass IClass)
 // Zone에 있는 pCorpse가 pItem을 가지고 있다.
 bool
 addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -421,7 +421,7 @@ addHasRelicEffect(Zone* pZone, Corpse* pCorpse, Item* pItem)
 
 
 bool deleteRelicEffect(Creature* pCreature, Item* pItem) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -477,7 +477,7 @@ bool deleteRelicEffect(Creature* pCreature, Item* pItem)
 
 bool
 addRelicEffect(Creature* pCreature, Item* pItem)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -570,7 +570,7 @@ addRelicEffect(Creature* pCreature, Item* pItem)
 
 
 bool dropRelicToZone(PlayerCreature* pPC, Item* pItem)
-	throw (Error)
+	
 {
 	Zone* pZone = pPC->getZone();
 	Assert(pZone!=NULL);
@@ -636,7 +636,7 @@ bool dropRelicToZone(PlayerCreature* pPC, Item* pItem)
 
 
 bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -742,7 +742,7 @@ bool dropRelicToZone(Creature* pCreature, bool bSendPacket)
 // 시체에서 RelicItem이 나오는것 처리
 bool
 dissectionRelicItem( Corpse* pCorpse, Item* pItem, const TPOINT& pt )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -888,7 +888,7 @@ dissectionRelicItem( Corpse* pCorpse, Item* pItem, const TPOINT& pt )
 // pCorpse에 Effect를 붙여준다.
 void
 sendRelicWarpEffect(Corpse* pCorpse)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

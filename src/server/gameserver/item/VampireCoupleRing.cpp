@@ -29,13 +29,13 @@ Mutex    VampireCoupleRing::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 VampireCoupleRing::VampireCoupleRing()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 VampireCoupleRing::VampireCoupleRing(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_OptionType( optionType )
 {
 	__BEGIN_TRY
@@ -50,7 +50,7 @@ VampireCoupleRing::VampireCoupleRing(ItemType_t itemType, const list<OptionType_
 }
 
 void VampireCoupleRing::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ void VampireCoupleRing::create(const string & ownerID, Storage storage, StorageI
 // save item
 //--------------------------------------------------------------------------------
 void VampireCoupleRing::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void VampireCoupleRing::tinysave(const char* field) const
 }
 
 void VampireCoupleRing::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -154,7 +154,7 @@ void VampireCoupleRing::save(const string & ownerID, Storage storage, StorageID_
 }
 
 string VampireCoupleRing::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "VampireCoupleRing("
@@ -165,7 +165,7 @@ string VampireCoupleRing::toString() const
 }
 
 VolumeWidth_t VampireCoupleRing::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ VolumeWidth_t VampireCoupleRing::getVolumeWidth() const
 }
 	
 VolumeHeight_t VampireCoupleRing::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VolumeHeight_t VampireCoupleRing::getVolumeHeight() const
 }
 	
 Weight_t VampireCoupleRing::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ Weight_t VampireCoupleRing::getWeight() const
 }
 
 bool VampireCoupleRing::hasPartnerItem()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -239,7 +239,7 @@ bool VampireCoupleRing::hasPartnerItem()
 //////////////////////////////////////////////////////////////////////////////
 
 string VampireCoupleRingInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "VampireCoupleRingInfo("
@@ -255,7 +255,7 @@ string VampireCoupleRingInfo::toString() const
 }
 
 void VampireCoupleRingInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -309,7 +309,7 @@ void VampireCoupleRingInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void VampireCoupleRingLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -500,7 +500,7 @@ void VampireCoupleRingLoader::load(Creature* pCreature)
 }
 
 void VampireCoupleRingLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -564,7 +564,7 @@ void VampireCoupleRingLoader::load(Zone* pZone)
 }
 
 void VampireCoupleRingLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

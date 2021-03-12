@@ -26,14 +26,14 @@ Mutex    PetFood::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 PetFood::PetFood()
-	throw()
+	
 {
 	m_ItemType = 0;
 	m_Num = 1;
 }
 
 PetFood::PetFood(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num = Num;
@@ -46,7 +46,7 @@ PetFood::PetFood(ItemType_t itemType, const list<OptionType_t>& optionType, Item
 }
 
 void PetFood::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void PetFood::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void PetFood::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void PetFood::tinysave(const char* field) const
 }
 
 void PetFood::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void PetFood::save(const string & ownerID, Storage storage, StorageID_t storageI
 }
 
 string PetFood::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -163,7 +163,7 @@ string PetFood::toString() const
 }
 
 VolumeWidth_t PetFood::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ VolumeWidth_t PetFood::getVolumeWidth() const
 }
 	
 VolumeHeight_t PetFood::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ VolumeHeight_t PetFood::getVolumeHeight() const
 }
 		
 Weight_t PetFood::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ Weight_t PetFood::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string PetFoodInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "PetFoodInfo("
@@ -213,7 +213,7 @@ string PetFoodInfo::toString() const
 }
 
 void PetFoodInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -270,7 +270,7 @@ void PetFoodInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void PetFoodLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -416,7 +416,7 @@ void PetFoodLoader::load(Creature* pCreature)
 }
 
 void PetFoodLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -479,7 +479,7 @@ void PetFoodLoader::load(Zone* pZone)
 }
 
 void PetFoodLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

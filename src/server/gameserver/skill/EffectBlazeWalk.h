@@ -17,16 +17,16 @@
 class EffectBlazeWalk : public Effect 
 {
 public:
-	EffectBlazeWalk(Creature* pCreature) throw(Error);
+	EffectBlazeWalk(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLAZE_WALK; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

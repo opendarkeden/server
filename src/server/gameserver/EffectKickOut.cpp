@@ -4,7 +4,7 @@
 #include "Gpackets/GCSystemMessage.h"
 #include <cstdio>
 
-void EffectKickOut::affect() throw(Error)
+void EffectKickOut::affect() 
 {
 	// 1분에 한번
 	setNextTime( 600 );
@@ -17,7 +17,7 @@ void EffectKickOut::affect() throw(Error)
 	m_pZone->broadcastPacket( &gcSM );
 }
 
-void EffectKickOut::unaffect() throw(Error)
+void EffectKickOut::unaffect() 
 {
 	__BEGIN_TRY
 

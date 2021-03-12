@@ -20,10 +20,10 @@
 class ActionSwapAdvancementItem : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SWAP_ADVANCEMENT_ITEM; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SWAP_ADVANCEMENT_ITEM; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 };
 
 
@@ -34,8 +34,8 @@ public:
 class ActionSwapAdvancementItemFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_SWAP_ADVANCEMENT_ITEM; }
-	virtual string getActionName() const throw() { return "SwapAdvancementItem"; }
-	virtual Action* createAction() const throw() { return new ActionSwapAdvancementItem(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_SWAP_ADVANCEMENT_ITEM; }
+	virtual string getActionName() const  { return "SwapAdvancementItem"; }
+	virtual Action* createAction() const  { return new ActionSwapAdvancementItem(); }
 };
 #endif

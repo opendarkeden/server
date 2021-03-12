@@ -8,7 +8,7 @@ LuaTradeEventSlayerItem::LuaTradeEventSlayerItem(LuaState* pState)
 
 void
 LuaTradeEventSlayerItem::prepare()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

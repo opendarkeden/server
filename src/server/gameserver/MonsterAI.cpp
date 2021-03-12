@@ -128,7 +128,7 @@ int getStrongValue(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 TPOINT randPos(int ox, int oy, int threshold, Zone* pZone) 
-	throw()
+	
 {
 	int tx = ox + (rand()%(threshold*2)) - threshold;
 	int ty = oy + (rand()%(threshold*2)) - threshold;
@@ -152,7 +152,7 @@ TPOINT randPos(int ox, int oy, int threshold, Zone* pZone)
 //////////////////////////////////////////////////////////////////////////////
 
 MonsterAI::MonsterAI(Monster* pMonster, uint type)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ MonsterAI::MonsterAI(Monster* pMonster, uint type)
 }
 
 MonsterAI::~MonsterAI()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -226,7 +226,7 @@ MonsterAI::~MonsterAI()
 //////////////////////////////////////////////////////////////////////////////
 
 void MonsterAI::addDirective(Directive* pDirective)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -241,7 +241,7 @@ void MonsterAI::addDirective(Directive* pDirective)
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::checkCondition(int condition, Creature* pEnemy)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -253,7 +253,7 @@ bool MonsterAI::checkCondition(int condition, Creature* pEnemy)
 }
 
 bool MonsterAI::checkDirective(Directive* pDirective, Creature* pEnemy)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -285,7 +285,7 @@ bool MonsterAI::checkDirective(Directive* pDirective, Creature* pEnemy)
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir)
-	throw()
+	
 {
 	//Zone*       pZone   = m_pBody->getZone();
 	Dir_t       bestDir = DIR_NONE;
@@ -513,7 +513,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir, bool bLeft)
-	throw()
+	
 {
 	//Zone*       pZone   = m_pBody->getZone();
 	//cout << "MoveWall[" << (bLeft? "Left" : "Right") << "] : " << m_pBody->getName() << endl;
@@ -665,7 +665,7 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::move(ZoneCoord_t ex, ZoneCoord_t ey)
-	throw()
+	
 {
 	Zone*       pZone   = m_pBody->getZone();
 
@@ -718,7 +718,7 @@ bool MonsterAI::move(ZoneCoord_t ex, ZoneCoord_t ey)
 }
 
 bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -766,7 +766,7 @@ bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
 }
 
 bool MonsterAI::flee(Creature* pEnemy)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -797,7 +797,7 @@ bool MonsterAI::flee(Creature* pEnemy)
 }
 
 int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio) 
-	throw()
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1074,7 +1074,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 //////////////////////////////////////////////////////////////////////////////
 
 void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1339,7 +1339,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 
 // 죽을 때의 행동을 취한다.
 void MonsterAI::actDeadAction(Creature* pEnemy) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1405,7 +1405,7 @@ void MonsterAI::actDeadAction(Creature* pEnemy)
 }
 
 void MonsterAI::setDelay(const Timeval& currentTime)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1473,7 +1473,7 @@ void MonsterAI::setDelay(const Timeval& currentTime)
 }
 
 void MonsterAI::setAttackDelay(const Timeval& currentTime)
-	throw()
+	
 {
 	__BEGIN_TRY
 

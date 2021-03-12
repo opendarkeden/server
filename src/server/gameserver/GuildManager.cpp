@@ -41,7 +41,7 @@ GuildManager* g_pGuildManager = NULL;
 ////////////////////////////////////////////////////////////////////////
 
 GuildManager::GuildManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -51,7 +51,7 @@ GuildManager::GuildManager()
 }
 
 GuildManager::~GuildManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ GuildManager::~GuildManager()
 
 
 void GuildManager::init()
-	throw()
+	
 {
 #ifdef __SHARED_SERVER__
 
@@ -169,7 +169,7 @@ void GuildManager::init()
 
 
 void GuildManager::load()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -292,7 +292,6 @@ void GuildManager::load()
 
 
 void GuildManager::addGuild(Guild* pGuild)
-	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
@@ -311,7 +310,6 @@ void GuildManager::addGuild(Guild* pGuild)
 
 
 void GuildManager::addGuild_NOBLOCKED(Guild* pGuild)
-	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
@@ -326,7 +324,6 @@ void GuildManager::addGuild_NOBLOCKED(Guild* pGuild)
 
 
 void GuildManager::deleteGuild(GuildID_t id)
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -415,7 +412,7 @@ void GuildManager::deleteGuild(GuildID_t id)
 
 
 Guild* GuildManager::getGuild(GuildID_t id)
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -444,7 +441,7 @@ Guild* GuildManager::getGuild(GuildID_t id)
 	
 
 Guild* GuildManager::getGuild_NOBLOCKED(GuildID_t id)
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -467,7 +464,7 @@ Guild* GuildManager::getGuild_NOBLOCKED(GuildID_t id)
 
 
 void GuildManager::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -503,7 +500,7 @@ void GuildManager::clear_NOBLOCKED()
 
 #ifdef __SHARED_SERVER__
 void GuildManager::makeSGGuildInfo( SGGuildInfo& sgGuildInfo )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -524,7 +521,7 @@ void GuildManager::makeSGGuildInfo( SGGuildInfo& sgGuildInfo )
 #endif
 
 void GuildManager::makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRace_t race )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -550,7 +547,7 @@ void GuildManager::makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRac
 }
 
 void GuildManager::makeActiveGuildList( GCActiveGuildList& gcActiveGuildList, GuildRace_t race )
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -576,7 +573,7 @@ void GuildManager::makeActiveGuildList( GCActiveGuildList& gcActiveGuildList, Gu
 }
 
 void GuildManager::heartbeat()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -626,7 +623,7 @@ void GuildManager::heartbeat()
 }
 
 string GuildManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -637,7 +634,7 @@ string GuildManager::toString() const
 }
 
 bool GuildManager::isGuildMaster( GuildID_t guildID, PlayerCreature* pPC )
-	throw(Error)
+	
 {
 #ifdef __GAME_SERVER__
 	__BEGIN_TRY
@@ -657,7 +654,7 @@ bool GuildManager::isGuildMaster( GuildID_t guildID, PlayerCreature* pPC )
 
 // 길드가 성을 가졌나?
 bool GuildManager::hasCastle( GuildID_t guildID ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -696,7 +693,7 @@ bool GuildManager::hasCastle( GuildID_t guildID )
 
 // 길드가 성을 가졌나?
 bool GuildManager::hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -733,7 +730,7 @@ bool GuildManager::hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t&
 
 // 길드가 전쟁신청을 했나?
 bool GuildManager::hasWarSchedule( GuildID_t guildID ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -792,7 +789,7 @@ bool GuildManager::hasWarSchedule( GuildID_t guildID )
 }
 
 bool GuildManager::hasActiveWar( GuildID_t guildID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -863,7 +860,7 @@ bool GuildManager::hasActiveWar( GuildID_t guildID )
 
 
 string GuildManager::getGuildName( GuildID_t guildID )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

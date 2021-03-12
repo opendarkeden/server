@@ -27,13 +27,13 @@ Mutex    EventItem::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 EventItem::EventItem()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 EventItem::EventItem(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num      = Num;
@@ -46,7 +46,7 @@ EventItem::EventItem(ItemType_t itemType, const list<OptionType_t>& optionType, 
 }
 
 void EventItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void EventItem::create(const string & ownerID, Storage storage, StorageID_t stor
 // save item
 //--------------------------------------------------------------------------------
 void EventItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void EventItem::tinysave(const char* field) const
 }
 
 void EventItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -151,7 +151,7 @@ void EventItem::save(const string & ownerID, Storage storage, StorageID_t storag
 }
 
 string EventItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -165,7 +165,7 @@ string EventItem::toString() const
 }
 
 VolumeWidth_t EventItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ VolumeWidth_t EventItem::getVolumeWidth() const
 }
 	
 VolumeHeight_t EventItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VolumeHeight_t EventItem::getVolumeHeight() const
 }
 	
 Weight_t EventItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ void EventItem::whenPCTake( PlayerCreature* pPC )
 //////////////////////////////////////////////////////////////////////////////
 
 string EventItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "EventItemInfo("
@@ -219,7 +219,7 @@ string EventItemInfo::toString() const
 }
 
 void EventItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -273,7 +273,7 @@ void EventItemInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void EventItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -433,7 +433,7 @@ void EventItemLoader::load(Creature* pCreature)
 }
 
 void EventItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -497,7 +497,7 @@ void EventItemLoader::load(Zone* pZone)
 }
 
 void EventItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

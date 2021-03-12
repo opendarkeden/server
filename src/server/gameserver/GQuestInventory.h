@@ -16,7 +16,7 @@ public:
 	const list<ItemType_t>&	getItems() const { return m_Inventory.getItemList(); }
 
 	Packet*	getInventoryPacket() { return &m_Inventory; }
-	void load(const string& ownerName) throw (Error);
+	void load(const string& ownerName) ;
 
 	void removeOne(const string& ownerName, ItemType_t item);
 

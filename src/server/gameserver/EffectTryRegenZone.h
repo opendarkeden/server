@@ -14,11 +14,11 @@ class EffectTryRegenZone : public Effect
 public:
 	EffectTryRegenZone( MonsterCorpse* pTower );
 
-	EffectClass	getEffectClass() const throw() { return (EffectClass)(Effect::EFFECT_CLASS_SLAYER_TRYING_1 + (m_OwnerRace*3)); }
-	EffectClass	getSendEffectClass() const throw() { return (EffectClass)(getEffectClass() + m_Progress); }
+	EffectClass	getEffectClass() const  { return (EffectClass)(Effect::EFFECT_CLASS_SLAYER_TRYING_1 + (m_OwnerRace*3)); }
+	EffectClass	getSendEffectClass() const  { return (EffectClass)(getEffectClass() + m_Progress); }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error);
+	void affect() ;
+	void unaffect() ;
 
 	Race_t getOwnerRace() const { return m_OwnerRace; }
 	void setOwnerRace( Race_t race ) { m_OwnerRace = race; }
@@ -26,7 +26,7 @@ public:
 	uint getProgress() const { return m_Progress; }
 	void setProgress( uint pro ) { m_Progress = pro; }
 
-	string toString() const throw() { return "EffectTryRegenZone"; }
+	string toString() const  { return "EffectTryRegenZone"; }
 
 private:
 	Race_t	m_OwnerRace;

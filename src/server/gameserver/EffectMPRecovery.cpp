@@ -14,7 +14,7 @@
 #include "Player.h"
 
 EffectMPRecovery::EffectMPRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ EffectMPRecovery::EffectMPRecovery ()
 }
 
 EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -40,14 +40,14 @@ EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 }
 
 EffectMPRecovery::~EffectMPRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectMPRecovery::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -62,7 +62,7 @@ void EffectMPRecovery::affect()
 }
 
 void EffectMPRecovery::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void EffectMPRecovery::affect(Creature* pCreature)
 }
 
 void EffectMPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void EffectMPRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 }
 
 void EffectMPRecovery::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -161,7 +161,7 @@ void EffectMPRecovery::unaffect()
 }
 
 void EffectMPRecovery::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	
@@ -212,7 +212,7 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectMPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -220,7 +220,7 @@ void EffectMPRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , O
 }
 
 string EffectMPRecovery::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

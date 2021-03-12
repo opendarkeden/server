@@ -29,13 +29,13 @@ Mutex    CodeSheet::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 CodeSheet::CodeSheet()
-	throw()
+	
 : m_ItemType(0)
 {
 }
 
 CodeSheet::CodeSheet(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_OptionType(optionType)
 {
 	if ( m_OptionType.size() == 0 )
@@ -72,7 +72,7 @@ CodeSheet::CodeSheet(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void CodeSheet::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ void CodeSheet::create(const string & ownerID, Storage storage, StorageID_t stor
 // save item
 //--------------------------------------------------------------------------------
 void CodeSheet::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void CodeSheet::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void CodeSheet::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -194,7 +194,7 @@ void CodeSheet::save(const string & ownerID, Storage storage, StorageID_t storag
 // get debug string
 //--------------------------------------------------------------------------------
 string CodeSheet::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -212,7 +212,7 @@ string CodeSheet::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t CodeSheet::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -226,7 +226,7 @@ VolumeWidth_t CodeSheet::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t CodeSheet::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -240,7 +240,7 @@ VolumeHeight_t CodeSheet::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t CodeSheet::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -253,7 +253,7 @@ Weight_t CodeSheet::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string CodeSheetInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -275,7 +275,7 @@ string CodeSheetInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void CodeSheetInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -328,7 +328,7 @@ void CodeSheetInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void CodeSheetLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -480,7 +480,7 @@ void CodeSheetLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void CodeSheetLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -555,7 +555,7 @@ void CodeSheetLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void CodeSheetLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

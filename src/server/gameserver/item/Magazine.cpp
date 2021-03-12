@@ -24,13 +24,13 @@ Mutex    Magazine::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Magazine::Magazine()
-	throw()
+	
 : m_ItemType(0)
 {
 }
 
 Magazine::Magazine(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 : m_ItemType(itemType), m_Num(Num)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -45,7 +45,7 @@ Magazine::Magazine(ItemType_t itemType, const list<OptionType_t>& optionType, It
 // create item
 //--------------------------------------------------------------------------------
 void Magazine::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +98,7 @@ void Magazine::create(const string & ownerID, Storage storage, StorageID_t stora
 // save item
 //--------------------------------------------------------------------------------
 void Magazine::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ void Magazine::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Magazine::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ void Magazine::save(const string & ownerID, Storage storage, StorageID_t storage
 // get debug string
 //--------------------------------------------------------------------------------
 string Magazine::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -182,7 +182,7 @@ string Magazine::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Magazine::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -196,7 +196,7 @@ VolumeWidth_t Magazine::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Magazine::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeHeight_t Magazine::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Magazine::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ Weight_t Magazine::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string MagazineInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -247,7 +247,7 @@ string MagazineInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void MagazineInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -306,7 +306,7 @@ void MagazineInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void MagazineLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -488,7 +488,7 @@ void MagazineLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void MagazineLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -555,7 +555,7 @@ void MagazineLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void MagazineLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

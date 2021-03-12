@@ -22,29 +22,29 @@ class Slayer;
 class SlayerCorpse : public Corpse 
 {
 public:
-	SlayerCorpse(Slayer* pSlayer) throw(Error);
-	virtual ~SlayerCorpse() throw();
+	SlayerCorpse(Slayer* pSlayer) ;
+	virtual ~SlayerCorpse() ;
 
 public:
-	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error) {}
-	virtual bool destroy() throw(Error) { return true; }
-	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y) throw(Error) {}
-	void tinysave(const string & field) const throw (Error) { tinysave(field.c_str()); }
-    void tinysave(const char* field) const throw (Error) {}
+	virtual void create(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y, ItemID_t itemID=0)  {}
+	virtual bool destroy()  { return true; }
+	virtual void save(const string & ownerID, Storage storage, DWORD storageID, BYTE x, BYTE y)  {}
+	void tinysave(const string & field) const  { tinysave(field.c_str()); }
+    void tinysave(const char* field) const  {}
 
 
 public:
-	virtual ItemClass getItemClass() const throw() { return ITEM_CLASS_CORPSE; }
+	virtual ItemClass getItemClass() const  { return ITEM_CLASS_CORPSE; }
 
-	virtual ItemType_t getItemType() const throw() { return SLAYER_CORPSE; }
-	virtual void setItemType(ItemType_t itemType) throw() { throw UnsupportedError(__PRETTY_FUNCTION__); }
+	virtual ItemType_t getItemType() const  { return SLAYER_CORPSE; }
+	virtual void setItemType(ItemType_t itemType)  { throw UnsupportedError(__PRETTY_FUNCTION__); }
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 public:
-	PCSlayerInfo3 & getSlayerInfo() throw() { return m_SlayerInfo; }
-	const PCSlayerInfo3 & getSlayerInfo() const throw() { return m_SlayerInfo; }
-	void setSlayerInfo(const PCSlayerInfo3 & slayerInfo) throw() { m_SlayerInfo = slayerInfo; }
+	PCSlayerInfo3 & getSlayerInfo()  { return m_SlayerInfo; }
+	const PCSlayerInfo3 & getSlayerInfo() const  { return m_SlayerInfo; }
+	void setSlayerInfo(const PCSlayerInfo3 & slayerInfo)  { m_SlayerInfo = slayerInfo; }
 
 	void setXY(ZoneCoord_t X, ZoneCoord_t Y) { m_SlayerInfo.setX(X); m_SlayerInfo.setY(Y); }
 

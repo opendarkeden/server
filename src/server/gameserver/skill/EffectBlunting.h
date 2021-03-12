@@ -16,16 +16,16 @@
 class EffectBlunting : public Effect 
 {
 public:
-	EffectBlunting(Creature* pCreature) throw(Error);
+	EffectBlunting(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLUNTING; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 

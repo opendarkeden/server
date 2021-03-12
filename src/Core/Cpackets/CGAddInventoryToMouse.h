@@ -17,26 +17,26 @@
 class CGAddInventoryToMouse : public Packet 
 {
 public:
-	CGAddInventoryToMouse() throw();
-	~CGAddInventoryToMouse() throw();
+	CGAddInventoryToMouse() ;
+	~CGAddInventoryToMouse() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_INVENTORY_TO_MOUSE; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoordInven + szCoordInven; }
-	string getPacketName() const throw() { return "CGAddInventoryToMouse"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_INVENTORY_TO_MOUSE; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoordInven + szCoordInven; }
+	string getPacketName() const  { return "CGAddInventoryToMouse"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
-	CoordInven_t getX() const throw() { return m_InvenX; }
-	void setX(CoordInven_t InvenX) throw() { m_InvenX = InvenX; }
+	CoordInven_t getX() const  { return m_InvenX; }
+	void setX(CoordInven_t InvenX)  { m_InvenX = InvenX; }
 
-	CoordInven_t getY() const throw() { return m_InvenY; }
+	CoordInven_t getY() const  { return m_InvenY; }
 	void setY(CoordInven_t InvenY) { m_InvenY = InvenY; }
 
 private:
@@ -53,10 +53,10 @@ private:
 class CGAddInventoryToMouseFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddInventoryToMouse(); }
-	string getPacketName() const throw() { return "CGAddInventoryToMouse"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_INVENTORY_TO_MOUSE; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoordInven + szCoordInven; }
+	Packet* createPacket()  { return new CGAddInventoryToMouse(); }
+	string getPacketName() const  { return "CGAddInventoryToMouse"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_INVENTORY_TO_MOUSE; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoordInven + szCoordInven; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ public:
 class CGAddInventoryToMouseHandler 
 {
 public:
-	static void execute(CGAddInventoryToMouse* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddInventoryToMouse* pPacket, Player* player) ;
 };
 
 #endif

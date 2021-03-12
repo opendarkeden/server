@@ -17,23 +17,23 @@
 class EffectFlare : public Effect 
 {
 public:
-	EffectFlare(Creature* pCreature) throw(Error);
+	EffectFlare(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_FLARE; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Item*  pItem) throw(Error) {}
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Item*  pItem)  {}
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	virtual void create(const string & ownerID) throw(Error);
-	virtual void destroy(const string & ownerID) throw(Error);
-	virtual void save(const string & ownerID) throw(Error);
+	virtual void create(const string & ownerID) ;
+	virtual void destroy(const string & ownerID) ;
+	virtual void save(const string & ownerID) ;
 
 	string toString() const throw();
 	
@@ -62,7 +62,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectFlare"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 
 };
 

@@ -21,38 +21,38 @@
 class SlayerPortalItem : public Item 
 {
 public:
-	SlayerPortalItem() throw();
-	SlayerPortalItem(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	SlayerPortalItem() ;
+	SlayerPortalItem(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
-	virtual string getObjectTableName() const throw() { return "SlayerPortalItemObject"; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
+	virtual string getObjectTableName() const  { return "SlayerPortalItemObject"; }
 
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 public:
 	int getCharge(void) const { return m_Charge; }
 	void setCharge(int charge) { m_Charge = charge; }
 
-	int getMaxCharge(void) const throw();
+	int getMaxCharge(void) const ;
 
 public:
-	virtual EnchantLevel_t getEnchantLevel() const throw() { return m_Charge; }
+	virtual EnchantLevel_t getEnchantLevel() const  { return m_Charge; }
 
 private:
 	ItemType_t m_ItemType; // 아이템 타입
@@ -70,8 +70,8 @@ private:
 class SlayerPortalItemInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
-	virtual string toString() const throw();
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
+	virtual string toString() const ;
 
 public:
 	int getMaxCharge(void) const { return m_MaxCharge; }
@@ -89,8 +89,8 @@ private:
 class SlayerPortalItemInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
+	virtual void load() ;
 };
 
 extern SlayerPortalItemInfoManager* g_pSlayerPortalItemInfoManager;
@@ -103,11 +103,11 @@ extern SlayerPortalItemInfoManager* g_pSlayerPortalItemInfoManager;
 class SlayerPortalItemFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
-	virtual string getItemClassName() const throw() { return "SlayerPortalItem"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
+	virtual string getItemClassName() const  { return "SlayerPortalItem"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new SlayerPortalItem(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new SlayerPortalItem(ItemType,OptionType); }
 };
 
 
@@ -118,13 +118,13 @@ public:
 class SlayerPortalItemLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
-	virtual string getItemClassName() const throw() { return "SlayerPortalItem"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_SLAYER_PORTAL_ITEM; }
+	virtual string getItemClassName() const  { return "SlayerPortalItem"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 
 };
 

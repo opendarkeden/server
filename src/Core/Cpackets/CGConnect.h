@@ -28,19 +28,19 @@ class CGConnect : public Packet {
 public:
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_CONNECT; }
+	PacketID_t getPacketID() const  { return PACKET_CG_CONNECT; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szDWORD 						// authentication key
 			+ szPCType 						// Slayer or Vampire?
@@ -48,24 +48,24 @@ public:
 	}
 
 	// get packet name
-	string getPacketName() const throw() { return "CGConnect"; }
+	string getPacketName() const  { return "CGConnect"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public:
 
 	// get/set key
-	DWORD getKey() const throw() { return m_Key; }
-	void setKey(DWORD key) throw() { m_Key = key; }
+	DWORD getKey() const  { return m_Key; }
+	void setKey(DWORD key)  { m_Key = key; }
 
 	// get/set PCType
-	PCType getPCType() const throw() { return m_PCType; }
-	void setPCType(PCType pcType) throw() { m_PCType = pcType; }
+	PCType getPCType() const  { return m_PCType; }
+	void setPCType(PCType pcType)  { m_PCType = pcType; }
 	
 	// get/set pc name
-	string getPCName() const throw() { return m_PCName; }
-	void setPCName(string pcName) throw() { m_PCName = pcName; }
+	string getPCName() const  { return m_PCName; }
+	void setPCName(string pcName)  { m_PCName = pcName; }
 
 	const BYTE* getMacAddress() const { return m_MacAddress; }
 
@@ -97,16 +97,16 @@ class CGConnectFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGConnect(); }
+	Packet* createPacket()  { return new CGConnect(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGConnect"; }
+	string getPacketName() const  { return "CGConnect"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_CONNECT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_CONNECT; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw()
+	PacketSize_t getPacketMaxSize() const 
 	{ 
 		return szDWORD 			// authentication key
 			+ szPCType 			// Slayer or Vampire
@@ -126,7 +126,7 @@ class CGConnectHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGConnect* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CGConnect* pPacket, Player* pPlayer) ;
 
 };
 

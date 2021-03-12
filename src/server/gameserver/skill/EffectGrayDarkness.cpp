@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectGrayDarkness::EffectGrayDarkness(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoord_t ZoneY)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ EffectGrayDarkness::EffectGrayDarkness(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoor
 // pTarget의 시야가 변한  경우 true를 return
 //////////////////////////////////////////////////////////////////////////////
 /*bool EffectGrayDarkness::affectObject(Object* pTarget, bool bAffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ EffectGrayDarkness::EffectGrayDarkness(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoor
 }
 
 void EffectGrayDarkness::unaffectObject(Object* pTarget, bool bUnaffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void EffectGrayDarkness::unaffectObject(Object* pTarget, bool bUnaffectByMove)
 // EffectGrayDarkness::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrayDarkness::affect(Creature* pTargetCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -94,7 +94,7 @@ void EffectGrayDarkness::affect(Creature* pTargetCreature)
 // EffectGrayDarkness::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrayDarkness::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -104,7 +104,7 @@ void EffectGrayDarkness::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 // unaffect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrayDarkness::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void EffectGrayDarkness::unaffect()
 }
 
 /*void EffectGrayDarkness::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -151,7 +151,7 @@ string EffectGrayDarkness::toString() const
 }
 
 /*void EffectGrayDarknessLoader::load( Zone* pZone )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

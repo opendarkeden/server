@@ -18,28 +18,28 @@
 class EffectGrayDarkness : public Effect 
 {
 public:
-	EffectGrayDarkness(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY) throw(Error);
+	EffectGrayDarkness(Zone* pZone, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GRAY_DARKNESS; }
 
-	void affect() throw(Error){}
-//	void affect(Creature* pCreature) throw(Error);
-//	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
+	void affect() {}
+//	void affect(Creature* pCreature) ;
+//	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
 
-	void unaffect() throw(Error);
-//	void unaffect(Creature* pCreature) throw(Error) {};
-//	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) throw(Error);
-//	void unaffect(Item* pItem) throw(Error) {}
+	void unaffect() ;
+//	void unaffect(Creature* pCreature)  {};
+//	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject ) ;
+//	void unaffect(Item* pItem)  {}
 
 	string toString() const throw();
 
 public:
-	void setLevel(Attr_t l) throw(Error) { m_Level = l;}
+	void setLevel(Attr_t l)  { m_Level = l;}
 	Attr_t getLevel() const throw() { return m_Level;}
 	
-	void setDuration(Duration_t d) throw(Error) { m_Duration = d; }
-	Duration_t getDuration() throw(Error) { return m_Duration;}
+	void setDuration(Duration_t d)  { m_Duration = d; }
+	Duration_t getDuration()  { return m_Duration;}
 	
 //	void setStartTime() throw() { getCurrentTime(m_StartTime);}
 //	bool isHalfTimePassed() 
@@ -58,8 +58,8 @@ public:
 //		m_Deadline.tv_usec = m_StartTime.tv_usec +(m_Duration%10)* 100000;
 //	}
 	
-//	bool affectObject(Object*, bool bAffectByMove) throw(Error);
-//	void unaffectObject(Object*, bool bUnaffectByMove) throw(Error);
+//	bool affectObject(Object*, bool bAffectByMove) ;
+//	void unaffectObject(Object*, bool bUnaffectByMove) ;
 	
 private :
 	Attr_t       m_Level;
@@ -75,8 +75,8 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectGrayDarkness"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
-	virtual void load(Zone* pZone) throw(Error);
+	virtual void load(Creature* pCreature)  {}
+	virtual void load(Zone* pZone) ;
 };
 
 extern EffectGrayDarknessLoader* g_pEffectGrayDarknessLoader;*/

@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "Rediance"; }
 	SkillType_t getSkillType() const throw() { return SKILL_REDIANCE; }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

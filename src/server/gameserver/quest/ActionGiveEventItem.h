@@ -25,12 +25,12 @@ public:
 	ActionGiveEventItem();
 	~ActionGiveEventItem();
 
-	virtual ActionType_t getActionType() const throw() { return ACTION_GIVE_EVENT_ITEM; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_GIVE_EVENT_ITEM; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
-	void						load() throw (Error);
+	void						load() ;
 
 private :
 	FlagSetType					m_FlagSetType;
@@ -52,9 +52,9 @@ private :
 class ActionGiveEventItemFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_GIVE_EVENT_ITEM; }
-	virtual string getActionName() const throw() { return "GiveEventItem"; }
-	virtual Action* createAction() const throw() { return new ActionGiveEventItem(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_GIVE_EVENT_ITEM; }
+	virtual string getActionName() const  { return "GiveEventItem"; }
+	virtual Action* createAction() const  { return new ActionGiveEventItem(); }
 };
 
 #endif

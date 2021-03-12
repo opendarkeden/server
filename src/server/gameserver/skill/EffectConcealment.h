@@ -17,15 +17,15 @@
 class EffectConcealment : public Effect 
 {
 public:
-	EffectConcealment(Creature* pCreature) throw(Error);
+	EffectConcealment(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_CONCEALMENT; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 
@@ -48,7 +48,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectConcealment"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 

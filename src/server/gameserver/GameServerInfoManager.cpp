@@ -12,7 +12,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 GameServerInfoManager::GameServerInfoManager () 
-	throw ()
+	
 {
 	m_MaxWorldID = 0;
 	m_MaxServerGroupID = 0;
@@ -20,14 +20,14 @@ GameServerInfoManager::GameServerInfoManager ()
 
 
 GameServerInfoManager::~GameServerInfoManager () 
-	throw ()
+	
 {
 	clear();
 }
 
 
 void GameServerInfoManager::clear()
-	throw (Error)
+	
 {
 	// hashmap 안의 각 pair 의 second, 즉 GameServerInfo 객체만을 삭제하고
 	// pair 자체는 그대로 둔다. (GameServerInfo가 힙에 생성되어 있다는 것에
@@ -56,7 +56,7 @@ void GameServerInfoManager::clear()
 
 
 void GameServerInfoManager::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void GameServerInfoManager::init ()
 }
 
 void GameServerInfoManager::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -227,7 +227,6 @@ void GameServerInfoManager::load ()
 }
 
 void GameServerInfoManager::addGameServerInfo(GameServerInfo * pGameServerInfo, const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) 
-	throw (DuplicatedException)
 {
 	__BEGIN_TRY
 
@@ -254,7 +253,6 @@ void GameServerInfoManager::addGameServerInfo(GameServerInfo * pGameServerInfo, 
 }
 	
 void GameServerInfoManager::deleteGameServerInfo (const ServerID_t ServerID, const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 
@@ -290,7 +288,6 @@ void GameServerInfoManager::deleteGameServerInfo (const ServerID_t ServerID, con
 // get info
 //----------------------------------------------------------------------
 GameServerInfo * GameServerInfoManager::getGameServerInfo (const string & nickname) const
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -316,7 +313,6 @@ GameServerInfo * GameServerInfoManager::getGameServerInfo (const string & nickna
 */
 
 GameServerInfo * GameServerInfoManager::getGameServerInfo (const ServerID_t ServerID, const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -345,7 +341,7 @@ GameServerInfo * GameServerInfoManager::getGameServerInfo (const ServerID_t Serv
 }
 
 string GameServerInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

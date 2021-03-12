@@ -31,7 +31,7 @@ PleasureExplosion::PleasureExplosion()
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void PleasureExplosion::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

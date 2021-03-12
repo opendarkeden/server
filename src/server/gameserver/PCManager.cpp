@@ -79,7 +79,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 PCManager::PCManager () 
-	throw ()
+	
 {
     __BEGIN_TRY
 
@@ -95,7 +95,7 @@ PCManager::PCManager ()
 // 컨테이너의 모든 객체들을 DB에 저장한 후, 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 PCManager::~PCManager () 
-	throw ()
+	
 {
     __BEGIN_TRY
     __END_CATCH
@@ -115,7 +115,7 @@ PCManager::~PCManager ()
 // 하게 되면 이 함수 또한 안전하지 못할 것이다.
 //////////////////////////////////////////////////////////////////////////////
 void PCManager::processCreatures ()
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -1161,7 +1161,7 @@ void PCManager::processCreatures ()
 // (5) 부활 이펙트를 크리처에 추가한다.
 //////////////////////////////////////////////////////////////////////////////
 void PCManager::killCreature (Creature* pDeadCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -1686,7 +1686,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 // transport All Creatures
 //////////////////////////////////////////////////////////////////////////////
 void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneCoord_t ZoneY, Race_t race, Turn_t delay) const
-       throw (Error)
+       
 {
 	__BEGIN_TRY
 
@@ -1815,7 +1815,7 @@ vector<uint> PCManager::getPCNumByRace() const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string PCManager::toString () const
-       throw ()
+       
 {
 	__BEGIN_TRY
 

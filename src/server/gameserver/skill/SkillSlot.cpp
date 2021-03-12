@@ -44,7 +44,7 @@ SkillSlot::~SkillSlot()
 }
 
 void SkillSlot::create(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -83,7 +83,7 @@ void SkillSlot::create(const string & OwnerID)
 }
 
 void SkillSlot::save(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void SkillSlot::save(const string & OwnerID)
 }
 
 void SkillSlot::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

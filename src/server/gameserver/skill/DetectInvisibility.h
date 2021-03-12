@@ -24,7 +24,7 @@ public:
 
 	SkillType_t getSkillType() const throw() { return SKILL_DETECT_INVISIBILITY; }
 
-	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

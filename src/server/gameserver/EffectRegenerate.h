@@ -17,16 +17,16 @@
 class EffectRegenerate : public Effect 
 {
 public:
-	EffectRegenerate(Creature* pCreature) throw(Error);
-	~EffectRegenerate() throw(Error);
+	EffectRegenerate(Creature* pCreature) ;
+	~EffectRegenerate() ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSPORT_CREATURE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_CREATURE; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error);
+	void affect() ;
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 	void setPoint(HP_t point) { m_Point = point; }
 	void setTick(Turn_t tick) { m_Tick = tick; }

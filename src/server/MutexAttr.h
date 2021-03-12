@@ -48,10 +48,10 @@ class MutexAttr {
 public :
 	
 	// constructor
-	MutexAttr () throw ( Error ) { pthread_mutexattr_init( &m_Attr ); }
+	MutexAttr ()  { pthread_mutexattr_init( &m_Attr ); }
 
 	// destructor
-	~MutexAttr () throw ( Error ) { pthread_mutexattr_destroy( &m_Attr ); }
+	~MutexAttr ()  { pthread_mutexattr_destroy( &m_Attr ); }
 	
 
 //////////////////////////////////////////////////
@@ -70,7 +70,7 @@ public :
 	// (pthread_mutexattr_t 에 대해 assignment 가 지원되지 않을 
 	// 가능성 있음)
 	//
-	pthread_mutexattr_t * getAttr () throw () { return &m_Attr; }
+	pthread_mutexattr_t * getAttr ()  { return &m_Attr; }
 	
 	/*
 	bool isFastMutex () const throw ( MutexAttrException ) { return getMutexKind() == PTHREAD_MUTEX_FAST_NP; }

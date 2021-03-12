@@ -11,7 +11,7 @@
 #include "Creature.h"
 
 EffectPrecedence::EffectPrecedence(Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ EffectPrecedence::EffectPrecedence(Creature* pCreature)
 }
 
 EffectPrecedence::EffectPrecedence(Item* pItem) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -45,21 +45,21 @@ EffectPrecedence::EffectPrecedence(Item* pItem)
 }
 
 void EffectPrecedence::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectPrecedence::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectPrecedence::affect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void EffectPrecedence::affect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object
 }
 
 void EffectPrecedence::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void EffectPrecedence::unaffect()
 }
 
 void EffectPrecedence::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void EffectPrecedence::unaffect(Creature* pCreature)
 }
 
 void EffectPrecedence::unaffect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -110,7 +110,7 @@ void EffectPrecedence::unaffect (Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Obje
 }
 
 string EffectPrecedence::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EffectPrecedence("

@@ -17,21 +17,21 @@
 class CGAddMouseToZone : public Packet 
 {
 public:
-	CGAddMouseToZone() throw();
-	~CGAddMouseToZone() throw();
+	CGAddMouseToZone() ;
+	~CGAddMouseToZone() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_ADD_MOUSE_TO_ZONE; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID; }
-	string getPacketName() const throw() { return "CGAddMouseToZone"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_ADD_MOUSE_TO_ZONE; }
+	PacketSize_t getPacketSize() const  { return szObjectID; }
+	string getPacketName() const  { return "CGAddMouseToZone"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getObjectID() throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID()  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 private :
 	ObjectID_t m_ObjectID;
@@ -44,10 +44,10 @@ private :
 class CGAddMouseToZoneFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGAddMouseToZone(); }
-	string getPacketName() const throw() { return "CGAddMouseToZone"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_ADD_MOUSE_TO_ZONE; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID; }
+	Packet* createPacket()  { return new CGAddMouseToZone(); }
+	string getPacketName() const  { return "CGAddMouseToZone"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_ADD_MOUSE_TO_ZONE; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ public:
 class CGAddMouseToZoneHandler 
 {
 public:
-	static void execute(CGAddMouseToZone* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGAddMouseToZone* pPacket, Player* player) ;
 };
 
 #endif

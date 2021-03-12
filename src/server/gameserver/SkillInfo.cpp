@@ -167,7 +167,7 @@ string SkillInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 SkillInfoManager::SkillInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -178,7 +178,7 @@ SkillInfoManager::SkillInfoManager()
 }
 
 SkillInfoManager::~SkillInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -189,7 +189,6 @@ SkillInfoManager::~SkillInfoManager()
 }
 
 void SkillInfoManager::init()
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -321,7 +320,6 @@ void SkillInfoManager::init()
 }
 
 void SkillInfoManager::load()
-	throw(Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -419,7 +417,6 @@ void SkillInfoManager::load()
 }
 
 void SkillInfoManager::save()
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -429,7 +426,6 @@ void SkillInfoManager::save()
 }
 
 void SkillInfoManager::addSkillInfo(SkillInfo* pSkillInfo)
-	throw(DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
@@ -462,7 +458,7 @@ void SkillInfoManager::addSkillInfo(SkillInfo* pSkillInfo)
 }
 
 SkillInfo* SkillInfoManager::getSkillInfo(SkillType_t SkillType)
-	const throw(NoSuchElementException , OutOfBoundException, Error)
+	const 
 {
 	__BEGIN_TRY
 
@@ -484,7 +480,6 @@ SkillInfo* SkillInfoManager::getSkillInfo(SkillType_t SkillType)
 }
 
 SkillType_t SkillInfoManager::getSkillTypeByLevel(SkillDomainType_t SkillDomain , SkillLevel_t SkillLevel)
-	throw(OutOfBoundException)
 {
 	__BEGIN_TRY
 
@@ -498,7 +493,6 @@ SkillType_t SkillInfoManager::getSkillTypeByLevel(SkillDomainType_t SkillDomain 
 
 // 도메인의 레벨로 그 레벨은 어떤 등급에 해당하는지 아는 함수.
 SkillGrade SkillInfoManager::getGradeByDomainLevel(Level_t Level)
-	throw(OutOfBoundException)
 {
 	__BEGIN_TRY
 
@@ -510,7 +504,6 @@ SkillGrade SkillInfoManager::getGradeByDomainLevel(Level_t Level)
 
 // 현재 등급에서 기술이 어느정도 레벨까지 올라갈 수 있는지 알아 본다.
 Level_t SkillInfoManager::getLimitLevelByDomainGrade(SkillGrade Grade)
-	throw(OutOfBoundException)
 {
 	__BEGIN_TRY
 
@@ -522,7 +515,7 @@ Level_t SkillInfoManager::getLimitLevelByDomainGrade(SkillGrade Grade)
 
 // SkillInfoManager:: toString()
 string SkillInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

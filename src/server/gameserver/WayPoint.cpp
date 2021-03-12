@@ -72,7 +72,7 @@ WayPointManager::~WayPointManager()
 
 // load waypoint data from database
 void WayPointManager::load(void) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void WayPointManager::load(void)
 
 // if there's right waypoint, return true, else return false
 bool WayPointManager::isValidWayPoint(ZoneID_t id, ZoneCoord_t x, ZoneCoord_t y, Race_t race)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -134,7 +134,7 @@ bool WayPointManager::isValidWayPoint(ZoneID_t id, ZoneCoord_t x, ZoneCoord_t y,
 
 // add waypoint data into waypoint map
 void WayPointManager::addWayPoint(WayPoint* pWayPoint) 
-	throw()
+	
 {
 	__BEGIN_TRY
 

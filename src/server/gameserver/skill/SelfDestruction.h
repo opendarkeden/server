@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "SelfDestruction"; }
 	SkillType_t getSkillType() const throw() { return SKILL_SELF_DESTRUCTION; }
 
-	void execute(Monster* pMonster) throw(Error);
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 

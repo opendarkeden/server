@@ -44,7 +44,7 @@ public:
 	isSameZoneID(ZoneID_t ZoneID) : m_ZoneID(ZoneID) {}
 
 	// operator
-	bool operator () (PortalTargetInfo* pPortalTargetInfo) throw ()
+	bool operator () (PortalTargetInfo* pPortalTargetInfo) 
 	{
 		return pPortalTargetInfo->getZoneID() == m_ZoneID;
 	}
@@ -64,7 +64,7 @@ private:
 //////////////////////////////////////////////////////////////////////////////
 
 PrivatePortal::PrivatePortal(ObjectID_t objectID)
-	throw()
+	
 : Portal(objectID)
 {
 	__BEGIN_TRY
@@ -75,7 +75,7 @@ PrivatePortal::PrivatePortal(ObjectID_t objectID)
 }
 
 PrivatePortal::~PrivatePortal()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ PrivatePortal::~PrivatePortal()
 }
 
 ZoneID_t PrivatePortal::getZoneID() const 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ ZoneID_t PrivatePortal::getZoneID() const
 }
 
 void PrivatePortal::setZoneID(ZoneID_t zoneID) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -108,7 +108,7 @@ void PrivatePortal::setZoneID(ZoneID_t zoneID)
 
 
 ZoneCoord_t PrivatePortal::getX() const 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ ZoneCoord_t PrivatePortal::getX() const
 }
 
 void PrivatePortal::setX(ZoneCoord_t x) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void PrivatePortal::setX(ZoneCoord_t x)
 }
 
 ZoneCoord_t PrivatePortal::getY() const
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -141,7 +141,7 @@ ZoneCoord_t PrivatePortal::getY() const
 }
 
 void PrivatePortal::setY(ZoneCoord_t y) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -153,7 +153,7 @@ void PrivatePortal::setY(ZoneCoord_t y)
 
 
 bool PrivatePortal::activate (Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -171,7 +171,7 @@ bool PrivatePortal::activate (Creature* pCreature)
 }
 
 string PrivatePortal::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string PrivatePortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool NormalPortal::activate (Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -231,7 +231,7 @@ bool NormalPortal::activate (Creature* pCreature)
 }
 
 string NormalPortal::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 
@@ -254,7 +254,7 @@ string NormalPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool GuildPortal::activate (Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -302,7 +302,7 @@ bool GuildPortal::activate (Creature* pCreature)
 }
 
 string GuildPortal::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 
@@ -325,7 +325,7 @@ string GuildPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool MultiPortal::activate (Creature* pCreature, ZoneID_t ZoneID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -357,7 +357,7 @@ bool MultiPortal::activate (Creature* pCreature, ZoneID_t ZoneID)
 }
 
 string MultiPortal::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 
@@ -383,7 +383,7 @@ string MultiPortal::toString () const
 //////////////////////////////////////////////////////////////////////////////
 
 bool TriggeredPortal::activate(Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -419,7 +419,7 @@ bool TriggeredPortal::activate(Creature* pCreature)
 }
 
 void TriggeredPortal::load(ZoneID_t zoneid, int left, int top, int right, int bottom) 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -448,7 +448,7 @@ void TriggeredPortal::load(ZoneID_t zoneid, int left, int top, int right, int bo
 	__END_CATCH
 }
 
-string TriggeredPortal::toString() const throw()
+string TriggeredPortal::toString() const 
 {
 	__BEGIN_TRY
 

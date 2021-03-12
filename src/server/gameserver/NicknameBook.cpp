@@ -13,7 +13,7 @@
 
 string getDBString(const string& str);
 
-void NicknameBook::load() throw(Error)
+void NicknameBook::load() 
 {
 	__BEGIN_TRY
 
@@ -135,7 +135,7 @@ Packet* NicknameBook::getNicknameBookListPacket() const
 }
 
 void NicknameBook::addNewNickname(const string& nick)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

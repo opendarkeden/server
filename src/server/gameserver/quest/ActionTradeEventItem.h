@@ -19,10 +19,10 @@
 class ActionTradeEventItem : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_TRADE_EVENT_ITEM; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_TRADE_EVENT_ITEM; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 public:
 	int getAmount(void) const { return m_GoalAmount; }
 	void setAmount(int amount) { m_GoalAmount = amount; }
@@ -40,9 +40,9 @@ private:
 class ActionTradeEventItemFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_TRADE_EVENT_ITEM; }
-	virtual string getActionName() const throw() { return "TradeEventItem"; }
-	virtual Action* createAction() const throw() { return new ActionTradeEventItem(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_TRADE_EVENT_ITEM; }
+	virtual string getActionName() const  { return "TradeEventItem"; }
+	virtual Action* createAction() const  { return new ActionTradeEventItem(); }
 };
 
 #endif

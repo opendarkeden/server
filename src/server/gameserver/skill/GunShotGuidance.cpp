@@ -23,7 +23,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -65,7 +65,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 // 슬레이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ void GunShotGuidance::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, Ski
 	__END_CATCH
 }
 
-void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) throw(Error)
+void GunShotGuidance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y) 
 {
 	__BEGIN_TRY
 

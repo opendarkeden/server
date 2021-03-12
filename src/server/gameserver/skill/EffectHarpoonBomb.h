@@ -17,16 +17,16 @@
 class EffectHarpoonBomb : public Effect 
 {
 public:
-	EffectHarpoonBomb(Creature* pCreature) throw(Error);
-	EffectHarpoonBomb(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	EffectHarpoonBomb(Creature* pCreature) ;
+	EffectHarpoonBomb(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HARPOON_BOMB; }
 
-	void affect() throw(Error);
+	void affect() ;
 	void crash(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y);
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
 	string toString() const throw();
 

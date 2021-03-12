@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 BloodBibleBonusManager::BloodBibleBonusManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ BloodBibleBonusManager::BloodBibleBonusManager()
 }
 
 BloodBibleBonusManager::~BloodBibleBonusManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ BloodBibleBonusManager::~BloodBibleBonusManager()
 }
 
 void BloodBibleBonusManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ void BloodBibleBonusManager::init()
 }
 
 void BloodBibleBonusManager::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ void BloodBibleBonusManager::clear()
 }
 
 void BloodBibleBonusManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -112,7 +112,7 @@ void BloodBibleBonusManager::load()
 }
 
 void BloodBibleBonusManager::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,6 @@ void BloodBibleBonusManager::save()
 }
 
 BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus( BloodBibleBonusType_t bloodBibleBonusType ) const
-	throw( NoSuchElementException, Error )
 {
 	__BEGIN_TRY
 
@@ -140,7 +139,7 @@ BloodBibleBonus* BloodBibleBonusManager::getBloodBibleBonus( BloodBibleBonusType
 }
 
 void BloodBibleBonusManager::addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonus)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +157,7 @@ void BloodBibleBonusManager::addBloodBibleBonus(BloodBibleBonus* pBloodBibleBonu
 }
 
 void BloodBibleBonusManager::setBloodBibleBonusRace( BloodBibleBonusType_t bloodBibleBonusType, Race_t race )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -168,7 +167,7 @@ void BloodBibleBonusManager::setBloodBibleBonusRace( BloodBibleBonusType_t blood
 }
 
 void BloodBibleBonusManager::makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyLandBonusInfo )
-	throw( Error )
+	
 {
 	__BEGIN_TRY
 
@@ -189,7 +188,7 @@ void BloodBibleBonusManager::makeHolyLandBonusInfo( GCHolyLandBonusInfo& gcHolyL
 }
 
 string BloodBibleBonusManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

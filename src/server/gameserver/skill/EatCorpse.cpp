@@ -25,7 +25,7 @@
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void EatCorpse::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

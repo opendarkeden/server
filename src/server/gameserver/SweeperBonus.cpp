@@ -29,7 +29,7 @@ void SweeperBonus::setRace( Race_t race )
 }
 
 string SweeperBonus::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

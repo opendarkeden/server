@@ -19,10 +19,10 @@
 class ActionContractGnomesHorn : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_CONTRACT_GNOMES_HORN; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_CONTRACT_GNOMES_HORN; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -32,9 +32,9 @@ public:
 class ActionContractGnomesHornFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_CONTRACT_GNOMES_HORN; }
-	virtual string getActionName() const throw() { return "ContractGnomesHorn"; }
-	virtual Action* createAction() const throw() { return new ActionContractGnomesHorn(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_CONTRACT_GNOMES_HORN; }
+	virtual string getActionName() const  { return "ContractGnomesHorn"; }
+	virtual Action* createAction() const  { return new ActionContractGnomesHorn(); }
 };
 
 #endif

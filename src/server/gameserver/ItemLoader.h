@@ -25,19 +25,19 @@ public:
 
 public:
 	// get item class
-	virtual Item::ItemClass getItemClass() const throw() = 0;
+	virtual Item::ItemClass getItemClass() const  = 0;
 
 	// get item class name
-	virtual string getItemClassName() const throw() = 0;
+	virtual string getItemClassName() const  = 0;
 
 	// load to creature
-	virtual void load(Creature* pCreature) throw(Error) = 0;
+	virtual void load(Creature* pCreature)  = 0;
 
 	// load to zone
-	virtual void load(Zone* pZone) throw(Error) = 0;
+	virtual void load(Zone* pZone)  = 0;
 
 	// load to inventory
-	virtual void load(DWORD StorageID, Inventory* pInventory) throw(Error) = 0;
+	virtual void load(DWORD StorageID, Inventory* pInventory)  = 0;
 
 };
 

@@ -26,7 +26,7 @@ Mutex    OustersChakram::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 OustersChakram::OustersChakram()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
@@ -34,7 +34,7 @@ OustersChakram::OustersChakram()
 }
 
 OustersChakram::OustersChakram(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_OptionType( optionType )
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ OustersChakram::OustersChakram(ItemType_t itemType, const list<OptionType_t>& op
 // create item
 //--------------------------------------------------------------------------------
 void OustersChakram::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void OustersChakram::create(const string & ownerID, Storage storage, StorageID_t
 // save item
 //--------------------------------------------------------------------------------
 void OustersChakram::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -128,7 +128,7 @@ void OustersChakram::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void OustersChakram::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ void OustersChakram::save(const string & ownerID, Storage storage, StorageID_t s
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersChakram::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string OustersChakram::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t OustersChakram::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeWidth_t OustersChakram::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t OustersChakram::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ VolumeHeight_t OustersChakram::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t OustersChakram::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -237,7 +237,7 @@ Weight_t OustersChakram::getWeight() const
 // get/set weapon's minDamage
 //--------------------------------------------------------------------------------
 Damage_t OustersChakram::getMinDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -251,7 +251,7 @@ Damage_t OustersChakram::getMinDamage() const
 // get/set weapon's maxDamage
 //--------------------------------------------------------------------------------
 Damage_t OustersChakram::getMaxDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -263,7 +263,7 @@ Damage_t OustersChakram::getMaxDamage() const
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 int OustersChakram::getCriticalBonus(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -277,7 +277,7 @@ int OustersChakram::getCriticalBonus(void) const
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersChakramInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -303,7 +303,7 @@ string OustersChakramInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void OustersChakramInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -370,7 +370,7 @@ void OustersChakramInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void OustersChakramLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -547,7 +547,7 @@ void OustersChakramLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void OustersChakramLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -622,7 +622,7 @@ void OustersChakramLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void OustersChakramLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

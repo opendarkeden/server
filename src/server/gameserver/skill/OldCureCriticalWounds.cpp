@@ -13,7 +13,7 @@ const uint CriticalBloodDrainLevel = 74;
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void CureCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void CureCriticalWounds::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Ski
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void CureCriticalWounds::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

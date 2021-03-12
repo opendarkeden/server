@@ -23,7 +23,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 void RegenerationSkill::execute(Slayer* pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

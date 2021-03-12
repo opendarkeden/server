@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectHowl::EffectHowl(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectHowl::EffectHowl(Creature* pCreature)
 }
 
 void EffectHowl::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectHowl::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectHowl::unaffect()
 }
 
 void EffectHowl::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

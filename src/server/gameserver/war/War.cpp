@@ -60,7 +60,7 @@ War::~War()
 //
 //--------------------------------------------------------------------------------
 void War::initWarIDRegistry()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ const string& War::getState2DBString() const
 //
 //--------------------------------------------------------------------------------
 void War::execute()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -159,7 +159,7 @@ void War::execute()
 // 전쟁 시작할 때
 //--------------------------------------------------------------------------------
 void War::sendWarStartMessage() const
-	throw (ProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -180,7 +180,7 @@ void War::sendWarStartMessage() const
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void War::sendWarEndMessage() const
-	throw (ProtocolException, Error)
+	
 {
 	__BEGIN_TRY
 		

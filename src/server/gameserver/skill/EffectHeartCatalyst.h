@@ -16,22 +16,22 @@
 class EffectHeartCatalyst : public Effect 
 {
 public:
-	EffectHeartCatalyst(Creature* pCreature) throw(Error);
+	EffectHeartCatalyst(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HEART_CATALYST; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 
 public:
 	int getHealPoint() throw() { return m_HealPoint;}
-	void setHealPoint(HP_t HealPoint) throw(Error) { m_HealPoint = HealPoint; }
+	void setHealPoint(HP_t HealPoint)  { m_HealPoint = HealPoint; }
 
 	int getTick() const { return m_Tick; }
 	void setTick( int tick ) { m_Tick = tick; }

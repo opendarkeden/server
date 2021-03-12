@@ -29,7 +29,7 @@ DarkBluePoison g_DarkBluePoison;
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -204,7 +204,7 @@ void DarkBluePoison::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void DarkBluePoison::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

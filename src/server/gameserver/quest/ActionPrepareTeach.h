@@ -22,14 +22,14 @@
 class ActionPrepareTeach : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_PREPARE_TEACH; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_PREPARE_TEACH; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	SkillLevel_t getMaxLevel(void) const throw() { return m_MaxLevel;}
-	void setMaxLevel(SkillLevel_t level) throw() { m_MaxLevel = level;}
+	SkillLevel_t getMaxLevel(void) const  { return m_MaxLevel;}
+	void setMaxLevel(SkillLevel_t level)  { m_MaxLevel = level;}
 
 private:
 	SkillLevel_t m_MaxLevel; // 가르쳐 줄 스킬의 맥스 레벨
@@ -44,9 +44,9 @@ private:
 class ActionPrepareTeachFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_PREPARE_TEACH; }
-	virtual string getActionName() const throw() { return "PrepareTeach"; }
-	virtual Action* createAction() const throw() { return new ActionPrepareTeach(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_PREPARE_TEACH; }
+	virtual string getActionName() const  { return "PrepareTeach"; }
+	virtual Action* createAction() const  { return new ActionPrepareTeach(); }
 
 };
 

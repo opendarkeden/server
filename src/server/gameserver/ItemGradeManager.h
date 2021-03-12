@@ -9,7 +9,7 @@ class ItemGradeManager
 {
 public:
 	ItemGradeManager() { m_GradeRatios.reserve(10); }
-	void load() throw(Error);
+	void load() ;
 	Grade_t getRandomGrade() const;
 	Grade_t getRandomGambleGrade() const;
 	Grade_t getRandomBeadGrade() const;

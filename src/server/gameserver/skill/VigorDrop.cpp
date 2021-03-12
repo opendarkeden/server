@@ -40,7 +40,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -86,7 +86,7 @@ void VigorDrop::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 //  뱀파이어가 Vigor Drop Skill을 Tile에 사용했을때 사용하는 Handler
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -373,7 +373,7 @@ void VigorDrop::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot
 // 몬스터 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void VigorDrop::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -30,19 +30,19 @@ class ZoneGroupThread : public Thread {
 public:
 
 	// constructor
-	ZoneGroupThread(ZoneGroup* pZoneGroup) throw();
+	ZoneGroupThread(ZoneGroup* pZoneGroup) ;
 
 	// destructor
-	~ZoneGroupThread() throw();
+	~ZoneGroupThread() ;
 
 	// main method
-	void run() throw();
+	void run() ;
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get thread's name
-	string getName() const throw() { return "ZoneGroupThread"; }
+	string getName() const  { return "ZoneGroupThread"; }
 
 	ZoneGroup* getZoneGroup(){ return m_pZoneGroup; }
 

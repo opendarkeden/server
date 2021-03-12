@@ -28,7 +28,7 @@
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -180,7 +180,7 @@ void TransformToBat::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordI
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void TransformToBat::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

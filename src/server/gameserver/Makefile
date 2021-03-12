@@ -18,7 +18,6 @@ SRCDIR   = ../..
 COREDIR  = ../../Core
 SERVDIR  = ..
 DBDIR    = ../database
-MYSQLDIR = /usr/local/lib/mysql
 SKILLDIR = ./skill
 ITEMDIR  = ./item
 BILLINGDIR  = ./billing
@@ -45,7 +44,7 @@ CCFLAGS  = -Wall -c -g
 #LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lGameServerTest -lWar -lCouple -lMission -lCTF -lGameServerCBilling -lxerces-c -lsicuuc -lsicudata -lCSAuth
 LIBS     = -L$(LIBDIR) -lItems -lQuest -lMofus -lGameServerDatabase -lServerCore -lGameServerPackets -lSkill -lCore -lGameServerBilling -lLuaScript -lWar -lCouple -lMission -lCTF -lGameServerCBilling
 #SYSLIBS  = -L$(MYSQLDIR) -static -lpthread -lnsl -lutil -ldl -lmysqlclient -llua -llualib -lz -lcppunit
-SYSLIBS  = -L$(MYSQLDIR) -lpthread -lnsl -lutil -lmysqlclient -lxerces-c -ldl -llua -llualib -lz
+SYSLIBS  = -lpthread -lnsl -lutil -lmysqlclient -llua -llualib -lxerces-c -ldl -lz
 
 DEPDIR = .deps
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)/$*.d

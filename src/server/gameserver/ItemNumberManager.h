@@ -43,17 +43,17 @@ private :
 class ItemNumberManager 
 {
 public:
-	ItemNumberManager() throw();
-	~ItemNumberManager() throw();
+	ItemNumberManager() ;
+	~ItemNumberManager() ;
 
 public:
-	void 	init() throw(Error);
-	NUMBER_INFO* getItemNumber(Item::ItemClass Class, ItemType_t ItemType) const throw();
+	void 	init() ;
+	NUMBER_INFO* getItemNumber(Item::ItemClass Class, ItemType_t ItemType) const ;
 	{
 		return m_ItemNumberInfos[Class][ItemType];
 	}
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	vector<NUMBER_INFO*> 	m_ItemNumberInfos[Item::ITEM_CLASS_MAX];
@@ -64,17 +64,17 @@ extern ItemNumberManager* g_pItemNumberManager;
 #endif
 
 ItemNumberManager::ItemNumberManager() 
-	throw()
+	
 {
 }
 
 ItemNumberManager::~ItemNumberManager() 
-	throw()
+	
 {
 }
 
 void ItemNumberManager::init() 
-	throw(Error)
+	
 {
 	for (int i=0; i<Item::ITEM_CLASS_MAX; i++)
 	{
@@ -82,9 +82,9 @@ void ItemNumberManager::init()
 	}
 
 }
-int 	getItemNumber(Item::ItemClass Class, ItemType_t ItemType) const throw(Error);
+int 	getItemNumber(Item::ItemClass Class, ItemType_t ItemType) const ;
 
-string toString() const throw();
+string toString() const ;
 
 bool			m_bLimitNumber[Item::ITEM_CLASS_MAX];
 vector<int> 	m_ItemNumber[Item::ITEM_CLASS_MAX];

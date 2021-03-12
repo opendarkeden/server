@@ -24,7 +24,7 @@ Mutex    VampireEarring::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 VampireEarring::VampireEarring()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ VampireEarring::VampireEarring()
 }
 
 VampireEarring::VampireEarring(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ VampireEarring::VampireEarring(ItemType_t itemType, const list<OptionType_t>& op
 // create item
 //--------------------------------------------------------------------------------
 void VampireEarring::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void VampireEarring::create(const string & ownerID, Storage storage, StorageID_t
 // save item
 //--------------------------------------------------------------------------------
 void VampireEarring::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void VampireEarring::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void VampireEarring::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ void VampireEarring::save(const string & ownerID, Storage storage, StorageID_t s
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireEarring::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string VampireEarring::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t VampireEarring::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeWidth_t VampireEarring::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t VampireEarring::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ VolumeHeight_t VampireEarring::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t VampireEarring::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -237,7 +237,7 @@ Weight_t VampireEarring::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t VampireEarring::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ Defense_t VampireEarring::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t VampireEarring::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ Protection_t VampireEarring::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireEarringInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -284,7 +284,7 @@ string VampireEarringInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void VampireEarringInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -354,7 +354,7 @@ void VampireEarringInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void VampireEarringLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -519,7 +519,7 @@ void VampireEarringLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void VampireEarringLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -595,7 +595,7 @@ void VampireEarringLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void VampireEarringLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

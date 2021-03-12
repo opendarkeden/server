@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectTransportItem::EffectTransportItem (Zone* pZone , ZoneCoord_t sx, ZoneCoord_t sy, Zone* pTargetZone, ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -47,7 +47,7 @@ EffectTransportItem::EffectTransportItem (Zone* pZone , ZoneCoord_t sx, ZoneCoor
 // destructor
 //----------------------------------------------------------------------
 EffectTransportItem::~EffectTransportItem () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ EffectTransportItem::~EffectTransportItem ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectTransportItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -77,7 +77,7 @@ void EffectTransportItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectTransportItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -150,7 +150,7 @@ void EffectTransportItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItem::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ void EffectTransportItem::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectTransportItem::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -173,7 +173,7 @@ void EffectTransportItem::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectTransportItem::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

@@ -26,15 +26,15 @@ public:
 	virtual ~ItemRewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const throw(Error);
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const throw(Error);
+	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const ;
+	virtual QuestMessage	giveReward(PlayerCreature* pPC) const ;
 
 	Item::ItemClass	getItemClass() const { return m_IClass; }
 
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
 public:
-//	static void		loadRewardClass( RewardClass& rClass ) throw(Error);
+//	static void		loadRewardClass( RewardClass& rClass ) ;
 
 private:
 	Item::ItemClass			m_IClass;

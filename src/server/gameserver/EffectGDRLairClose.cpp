@@ -4,7 +4,7 @@
 #include "ZoneGroupManager.h"
 #include <cstdio>
 
-void EffectGDRLairClose::affect() throw(Error)
+void EffectGDRLairClose::affect() 
 {
 	setNextTime( 600 );
 
@@ -16,7 +16,7 @@ void EffectGDRLairClose::affect() throw(Error)
 	m_MinutesCount--;
 }
 
-void EffectGDRLairClose::unaffect() throw(Error)
+void EffectGDRLairClose::unaffect() 
 {
 	__BEGIN_TRY
 

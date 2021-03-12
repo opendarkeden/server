@@ -7,7 +7,7 @@
 #include "ZoneInfoManager.h"
 #include "SXml.h"
 
-void GQuestCheckPoint::load() throw(Error)
+void GQuestCheckPoint::load() 
 {
 	__BEGIN_TRY
 

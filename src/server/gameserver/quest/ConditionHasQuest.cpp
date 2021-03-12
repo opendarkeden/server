@@ -11,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ConditionHasQuest::ConditionHasQuest()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -21,7 +21,7 @@ ConditionHasQuest::ConditionHasQuest()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ConditionHasQuest::~ConditionHasQuest()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -31,7 +31,7 @@ ConditionHasQuest::~ConditionHasQuest()
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionHasQuest::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -54,7 +54,7 @@ bool ConditionHasQuest::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionHasQuest::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	try
 	{
@@ -70,7 +70,7 @@ void ConditionHasQuest::read (PropertyBuffer & propertyBuffer)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionHasQuest::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

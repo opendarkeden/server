@@ -9,7 +9,6 @@
 #include "StringStream.h"
 
 CBillingPlayerInfo::CBillingPlayerInfo()
-	throw ( Error )
 	: m_bCBillingVerified( false ),
 	  m_bPayPlayer( false ),
 	  m_bShowPayInfo( false ),
@@ -25,7 +24,6 @@ CBillingPlayerInfo::CBillingPlayerInfo()
 }
 
 CBillingPlayerInfo::~CBillingPlayerInfo()
-	throw ( Error )
 {
 	__BEGIN_TRY
 	__END_CATCH

@@ -19,16 +19,16 @@
 class ActionFactoryManager 
 {
 public:
-	ActionFactoryManager() throw();
-	~ActionFactoryManager() throw();
+	ActionFactoryManager() ;
+	~ActionFactoryManager() ;
 
 public:
-	void init() throw(Error);
-	void addFactory(ActionFactory* pFactory) throw(Error);
-	Action* createAction(ActionType_t conditionType) const throw(Error);
-	string getActionName(ActionType_t conditionType) const throw(Error);
-	ActionType_t getActionType(const string & actionname) const throw(Error);
-	string toString() const throw();
+	void init() ;
+	void addFactory(ActionFactory* pFactory) ;
+	Action* createAction(ActionType_t conditionType) const ;
+	string getActionName(ActionType_t conditionType) const ;
+	ActionType_t getActionType(const string & actionname) const ;
+	string toString() const ;
 
 private:
 	ActionFactory** m_Factories;

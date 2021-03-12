@@ -17,15 +17,15 @@
 class EffectHideSight : public Effect 
 {
 public:
-	EffectHideSight(Creature* pCreature) throw(Error);
+	EffectHideSight(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HIDE_SIGHT; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 
@@ -48,7 +48,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectHideSight"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 

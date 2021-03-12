@@ -10,7 +10,7 @@ LuaSelectItem::LuaSelectItem(LuaState* pState)
 
 int
 LuaSelectItem::executeFile(const string& filename)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -25,32 +25,32 @@ class ShopTemplate
 ///// Member methods /////
 	
 public:
-	ShopTemplate() throw();
-	virtual ~ShopTemplate() throw();
+	ShopTemplate() ;
+	virtual ~ShopTemplate() ;
 
 public:
-	ShopTemplateID_t getID(void) const throw() { return m_ID; }
-	void setID(ShopTemplateID_t id) throw() { m_ID = id; }
+	ShopTemplateID_t getID(void) const  { return m_ID; }
+	void setID(ShopTemplateID_t id)  { m_ID = id; }
 	
-	ShopRackType_t getShopType(void) const throw() { return m_RackType; }
-	void setShopType(const ShopRackType_t type) throw() { m_RackType = type; }
+	ShopRackType_t getShopType(void) const  { return m_RackType; }
+	void setShopType(const ShopRackType_t type)  { m_RackType = type; }
 
-	int getItemClass(void) const throw() { return m_ItemClass; }
-	void setItemClass(int iclass) throw() { m_ItemClass = iclass; }
+	int getItemClass(void) const  { return m_ItemClass; }
+	void setItemClass(int iclass)  { m_ItemClass = iclass; }
 	
-	ItemType_t getMinItemType(void) const throw() { return m_MinItemType; }
+	ItemType_t getMinItemType(void) const  { return m_MinItemType; }
 	void setMinItemType(ItemType_t t) { m_MinItemType = t; }
 
-	ItemType_t getMaxItemType(void) const throw() { return m_MaxItemType; }
+	ItemType_t getMaxItemType(void) const  { return m_MaxItemType; }
 	void setMaxItemType(ItemType_t t) { m_MaxItemType = t; }
 
-	uint getMinOptionLevel(void) const throw() { return m_MinOptionLevel; }
+	uint getMinOptionLevel(void) const  { return m_MinOptionLevel; }
 	void setMinOptionLevel(uint o) { m_MinOptionLevel = o; }
 
-	uint getMaxOptionLevel(void) const throw() { return m_MaxOptionLevel;}
+	uint getMaxOptionLevel(void) const  { return m_MaxOptionLevel;}
 	void setMaxOptionLevel(uint o) { m_MaxOptionLevel = o; }
 
-	string toString() const throw();
+	string toString() const ;
 
 
 ///// Member data /////
@@ -78,18 +78,18 @@ class ShopTemplateManager
 ///// Member methods /////
 	
 public:
-	ShopTemplateManager() throw();
-	~ShopTemplateManager() throw();
+	ShopTemplateManager() ;
+	~ShopTemplateManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
 public:
-	ShopTemplate* getTemplate(ShopTemplateID_t id) const throw(NoSuchElementException, Error);
-	void setTemplate(ShopTemplateID_t id, ShopTemplate* pEntry) throw();
+	ShopTemplate* getTemplate(ShopTemplateID_t id) const ;
+	void setTemplate(ShopTemplateID_t id, ShopTemplate* pEntry) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 
 ///// Member data ///// 

@@ -14,11 +14,11 @@ public:
 	~CorpseItemPosition(){ }
 
 public:
-	virtual Item*	popItem( bool bLock = true ) throw(Error);
-	virtual Item*	getItem_LOCKED( bool isDel ) throw(Error);
-	virtual Item*	getItem_UNLOCKED( bool isDel ) throw(Error);
+	virtual Item*	popItem( bool bLock = true ) ;
+	virtual Item*	getItem_LOCKED( bool isDel ) ;
+	virtual Item*	getItem_UNLOCKED( bool isDel ) ;
 
-	Zone*   getZone() throw(Error)	{ return m_pZone; }
+	Zone*   getZone() 	{ return m_pZone; }
 
 	ZoneID_t		getZoneID() const { return m_ZoneID; }
 	void			setZoneID( ZoneID_t zoneID ) { m_ZoneID = zoneID; }
@@ -30,10 +30,10 @@ public:
 	void			setCorpseObjectID( ObjectID_t objectID ) { m_CorpseObjectID = objectID; }
 
 public:
-	virtual string	toString() const throw(Error);
+	virtual string	toString() const ;
 
 protected:
-	Item*			getItem_CORE(Zone* pZone, bool isDel) throw(Error);
+	Item*			getItem_CORE(Zone* pZone, bool isDel) ;
 
 private:
 	ZoneID_t	m_ZoneID;

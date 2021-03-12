@@ -18,17 +18,17 @@
 class EffectDragonTornado : public Effect 
 {
 public:
-	EffectDragonTornado(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectDragonTornado(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DRAGON_TORNADO; }
 	EffectClass getSendEffectClass() const throw() { return (m_bCanSplit)?EFFECT_CLASS_DRAGON_TORNADO:EFFECT_CLASS_DRAGON_TORNADO_CHILD; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

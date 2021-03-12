@@ -23,7 +23,7 @@
 // Constructor
 //////////////////////////////////////////////////////////////////////////////
 EffectReloadTimer::EffectReloadTimer(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ EffectReloadTimer::EffectReloadTimer(Creature* pCreature)
 // EffectReloadTimer::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectReloadTimer::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -46,7 +46,7 @@ void EffectReloadTimer::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Obj
 // EffectReloadTimer::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectReloadTimer::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -56,7 +56,7 @@ void EffectReloadTimer::affect(Creature* pCreature)
 // EffectReloadTimer::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectReloadTimer::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void EffectReloadTimer::unaffect()
 // EffectReloadTimer::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectReloadTimer::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ void EffectReloadTimer::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectReloadTimer::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

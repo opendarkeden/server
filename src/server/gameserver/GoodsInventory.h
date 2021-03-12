@@ -31,24 +31,24 @@ public:
 
 public:
 	GoodsInventory() {};
-	~GoodsInventory() throw();
+	~GoodsInventory() ;
 
 public:
-	ListItem& getGoods() throw() { return m_Goods; }
+	ListItem& getGoods()  { return m_Goods; }
 
 	// 아이템 추가
-	void addItem( string ID, Item* pItem ) throw();
+	void addItem( string ID, Item* pItem ) ;
 
 	// 아이템 가져오기
-	Item* popItem( ObjectID_t oid ) throw();
+	Item* popItem( ObjectID_t oid ) ;
 
 	// 아이템 걍가져오기
-	Item* getItem( ObjectID_t oid ) throw();
+	Item* getItem( ObjectID_t oid ) ;
 
 	// 인벤토리가 비었나?
-	bool empty() throw() { return m_Goods.empty(); }
+	bool empty()  { return m_Goods.empty(); }
 
-	void clear() throw();
+	void clear() ;
 
 	// 인벤토리에 있는 아이템 개수
 	int getNum() const { return m_Goods.size(); }

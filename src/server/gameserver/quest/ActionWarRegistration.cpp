@@ -28,7 +28,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarRegistration::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionWarRegistration::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWarRegistration::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -165,7 +165,7 @@ void ActionWarRegistration::execute (Creature * pCreature1 , Creature * pCreatur
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWarRegistration::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -19,17 +19,17 @@
 class CGModifyNickname : public Packet 
 {
 public:
-	CGModifyNickname() throw();
-	~CGModifyNickname() throw();
+	CGModifyNickname() ;
+	~CGModifyNickname() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_MODIFY_NICKNAME; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szBYTE + m_Nickname.size(); }
-	string getPacketName() const throw() { return "CGModifyNickname"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_MODIFY_NICKNAME; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szBYTE + m_Nickname.size(); }
+	string getPacketName() const  { return "CGModifyNickname"; }
+	string toString() const ;
 	
 public:
 	ObjectID_t	getItemObjectID() const { return m_ItemObjectID; }
@@ -49,10 +49,10 @@ private:
 class CGModifyNicknameFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGModifyNickname(); }
-	string getPacketName() const throw() { return "CGModifyNickname"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_MODIFY_NICKNAME; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szBYTE + MAX_NICKNAME_SIZE; }
+	Packet* createPacket()  { return new CGModifyNickname(); }
+	string getPacketName() const  { return "CGModifyNickname"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_MODIFY_NICKNAME; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szBYTE + MAX_NICKNAME_SIZE; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ public:
 class CGModifyNicknameHandler 
 {
 public:
-	static void execute(CGModifyNickname* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGModifyNickname* pPacket, Player* player) ;
 };
 
 #endif

@@ -20,10 +20,10 @@
 class ActionInitSimpleQuest : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_INIT_SIMPLE_QUEST; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_INIT_SIMPLE_QUEST; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
 private:
@@ -38,8 +38,8 @@ private:
 class ActionInitSimpleQuestFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_INIT_SIMPLE_QUEST; }
-	virtual string getActionName() const throw() { return "InitSimpleQuest"; }
-	virtual Action* createAction() const throw() { return new ActionInitSimpleQuest(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_INIT_SIMPLE_QUEST; }
+	virtual string getActionName() const  { return "InitSimpleQuest"; }
+	virtual Action* createAction() const  { return new ActionInitSimpleQuest(); }
 };
 #endif

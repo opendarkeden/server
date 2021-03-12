@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "ChargingAttack"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CHARGING_ATTACK; }
 
-	void execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

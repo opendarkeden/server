@@ -16,7 +16,7 @@ UniqueItemManager* g_pUniqueItemManager = NULL;
 // init
 //----------------------------------------------------------------------
 void UniqueItemManager::init() 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -55,7 +55,7 @@ void UniqueItemManager::init()
 // is Possible Create
 //----------------------------------------------------------------------
 bool UniqueItemManager::isPossibleCreate(Item::ItemClass itemClass, ItemType_t itemType) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -95,7 +95,7 @@ bool UniqueItemManager::isPossibleCreate(Item::ItemClass itemClass, ItemType_t i
 // DB에서 개수 증가
 //----------------------------------------------------------------------
 void UniqueItemManager::createItem(Item::ItemClass itemClass, ItemType_t itemType) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -125,7 +125,7 @@ void UniqueItemManager::createItem(Item::ItemClass itemClass, ItemType_t itemTyp
 // DB에서 개수 증가
 //----------------------------------------------------------------------
 void UniqueItemManager::deleteItem(Item::ItemClass itemClass, ItemType_t itemType) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

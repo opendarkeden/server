@@ -24,21 +24,21 @@ class GCAddMonsterCorpse : public Packet {
 public :
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_MONSTER_CORPSE; }
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_MONSTER_CORPSE; }
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
 	// const static GCAddMonsterCorpsePacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketSize() const throw() 
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szObjectID + 
 			szMonsterType + 
@@ -53,43 +53,43 @@ public :
 	}
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCAddMonsterCorpse"; }
+	string getPacketName() const  { return "GCAddMonsterCorpse"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 public :
 
 	// get/set creature ID 
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
 	// get/set monster type
-	MonsterType_t getMonsterType() const throw() { return m_MonsterType; }
-	void setMonsterType(MonsterType_t monsterType) throw() { m_MonsterType = monsterType; }
+	MonsterType_t getMonsterType() const  { return m_MonsterType; }
+	void setMonsterType(MonsterType_t monsterType)  { m_MonsterType = monsterType; }
 
 	// get/set monster name
-	string getMonsterName() const throw() { return m_MonsterName; }
-	void setMonsterName(string name) throw() { m_MonsterName = name; }
+	string getMonsterName() const  { return m_MonsterName; }
+	void setMonsterName(string name)  { m_MonsterName = name; }
 
 	// get/set X
-	Coord_t getX() const throw() { return m_X; }
-	void setX(Coord_t x) throw() { m_X = x; }
+	Coord_t getX() const  { return m_X; }
+	void setX(Coord_t x)  { m_X = x; }
 	
 	// get/set Y
-	Coord_t getY() const throw() { return m_Y; }
-	void setY(Coord_t y) throw() { m_Y = y; }
+	Coord_t getY() const  { return m_Y; }
+	void setY(Coord_t y)  { m_Y = y; }
 
 	// get/set Dir
-	Dir_t getDir() const throw() { return m_Dir; }
-	void setDir(Dir_t dir) throw() { m_Dir = dir; }
+	Dir_t getDir() const  { return m_Dir; }
+	void setDir(Dir_t dir)  { m_Dir = dir; }
 
-	bool gethasHead() const throw() { return m_bhasHead; }
-	void sethasHead(bool bhasHead) throw() { m_bhasHead = bhasHead; }
+	bool gethasHead() const  { return m_bhasHead; }
+	void sethasHead(bool bhasHead)  { m_bhasHead = bhasHead; }
 
 	// get/set Treasure Count
-	BYTE getTreasureCount() const throw() { return m_TreasureCount; }
-	void setTreasureCount(BYTE Count) throw() { m_TreasureCount = Count; }
+	BYTE getTreasureCount() const  { return m_TreasureCount; }
+	void setTreasureCount(BYTE Count)  { m_TreasureCount = Count; }
 
 	ObjectID_t getLastKiller() const { return m_LastKiller; }
 	void setLastKiller( ObjectID_t id ) { m_LastKiller = id; }
@@ -127,18 +127,18 @@ class GCAddMonsterCorpseFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCAddMonsterCorpse(); }
+	Packet* createPacket()  { return new GCAddMonsterCorpse(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCAddMonsterCorpse"; }
+	string getPacketName() const  { return "GCAddMonsterCorpse"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_MONSTER_CORPSE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_MONSTER_CORPSE; }
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
 	// const static GCAddMonsterCorpsePacketSize 를 정의, 리턴하라.
-	PacketSize_t getPacketMaxSize() const throw() 
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szObjectID + 
 			szMonsterType + 
@@ -166,7 +166,7 @@ class GCAddMonsterCorpseHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCAddMonsterCorpse* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCAddMonsterCorpse* pPacket, Player* pPlayer) ;
 
 };
 

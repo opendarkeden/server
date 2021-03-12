@@ -27,7 +27,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveChildrenItem::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
     __END_CATCH
@@ -42,7 +42,7 @@ void ActionGiveChildrenItem::read (PropertyBuffer & propertyBuffer)
 // 나오는 아이템은 아직은 미정이다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveChildrenItem::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ void ActionGiveChildrenItem::execute (Creature * pCreature1 , Creature * pCreatu
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveChildrenItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

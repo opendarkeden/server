@@ -14,7 +14,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneInfoManager::ZoneInfoManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -25,7 +25,7 @@ ZoneInfoManager::ZoneInfoManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneInfoManager::~ZoneInfoManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ ZoneInfoManager::~ZoneInfoManager ()
 // initialize zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void ZoneInfoManager::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void ZoneInfoManager::init ()
 // load from database
 //////////////////////////////////////////////////////////////////////////////
 void ZoneInfoManager::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ void ZoneInfoManager::load ()
 // add zone info to zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,6 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 // Delete zone info from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 void ZoneInfoManager::deleteZoneInfo (ZoneID_t zoneID) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -246,7 +245,6 @@ void ZoneInfoManager::deleteZoneInfo (ZoneID_t zoneID)
 // get zone from zone info manager
 //////////////////////////////////////////////////////////////////////////////
 ZoneInfo* ZoneInfoManager::getZoneInfo (ZoneID_t zoneID) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -317,7 +315,7 @@ vector<Zone*> ZoneInfoManager::getNormalFields() const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ZoneInfoManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

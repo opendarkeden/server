@@ -8,7 +8,7 @@
 #include "Gpackets/GCModifyInformation.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-EffectDestructionSpear::EffectDestructionSpear(Creature* pCreature) throw(Error)
+EffectDestructionSpear::EffectDestructionSpear(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -18,7 +18,7 @@ EffectDestructionSpear::EffectDestructionSpear(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectDestructionSpear::affect() throw(Error)
+void EffectDestructionSpear::affect() 
 {
 	__BEGIN_TRY
 
@@ -32,7 +32,7 @@ void EffectDestructionSpear::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectDestructionSpear::affect(Creature* pCreature) throw(Error)
+void EffectDestructionSpear::affect(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -82,7 +82,7 @@ void EffectDestructionSpear::affect(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectDestructionSpear::unaffect() throw(Error)
+void EffectDestructionSpear::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ void EffectDestructionSpear::unaffect() throw(Error)
 	__END_CATCH
 }
 
-void EffectDestructionSpear::unaffect( Creature* pCreature ) throw (Error)
+void EffectDestructionSpear::unaffect( Creature* pCreature ) 
 {
 	__BEGIN_TRY
 

@@ -53,7 +53,7 @@ IceField::IceField()
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void IceField::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ void IceField::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void IceField::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

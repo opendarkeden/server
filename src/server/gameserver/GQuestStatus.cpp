@@ -420,7 +420,7 @@ void GQuestStatus::cleanUpMissions()
 	}
 }
 
-void GQuestStatus::save() throw(Error)
+void GQuestStatus::save() 
 {
 	__BEGIN_TRY
 

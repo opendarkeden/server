@@ -20,10 +20,10 @@
 class ActionWaitForApartCouple : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_WAIT_FOR_APART_COUPLE; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_WAIT_FOR_APART_COUPLE; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
 
@@ -38,8 +38,8 @@ private:
 class ActionWaitForApartCoupleFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_WAIT_FOR_APART_COUPLE; }
-	virtual string getActionName() const throw() { return "WaitForApartCouple"; }
-	virtual Action* createAction() const throw() { return new ActionWaitForApartCouple(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_WAIT_FOR_APART_COUPLE; }
+	virtual string getActionName() const  { return "WaitForApartCouple"; }
+	virtual Action* createAction() const  { return new ActionWaitForApartCouple(); }
 };
 #endif

@@ -20,7 +20,7 @@
 
 // constructor
 MPlayerManager::MPlayerManager()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -32,7 +32,7 @@ MPlayerManager::MPlayerManager()
 
 // destructor
 MPlayerManager::~MPlayerManager()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ MPlayerManager::~MPlayerManager()
 
 // stop thread. unsupport
 void MPlayerManager::stop()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,6 @@ void MPlayerManager::stop()
 
 // main method
 void MPlayerManager::run()
-	throw()
 {
 	__BEGIN_TRY
 

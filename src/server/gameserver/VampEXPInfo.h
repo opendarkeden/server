@@ -17,20 +17,20 @@
 class VampEXPInfo 
 {
 public:
-	VampEXPInfo() throw();
-	~VampEXPInfo() throw();
+	VampEXPInfo() ;
+	~VampEXPInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(Exp_t sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(Exp_t sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(Exp_t accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(Exp_t accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	Level_t m_Level;		// ·¹º§
@@ -46,17 +46,17 @@ private:
 class VampEXPInfoManager 
 {
 public:
-	VampEXPInfoManager() throw();
-	~VampEXPInfoManager() throw();
+	VampEXPInfoManager() ;
+	~VampEXPInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	VampEXPInfo* getVampEXPInfo(uint VampEXPType) const throw(NoSuchElementException, OutOfBoundException, Error);
-	void addVampEXPInfo(VampEXPInfo* pVampEXPInfo) throw(DuplicatedException, Error);
+	VampEXPInfo* getVampEXPInfo(uint VampEXPType) const ;
+	void addVampEXPInfo(VampEXPInfo* pVampEXPInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint          m_VampEXPCount;

@@ -15,7 +15,7 @@
 #include "Gpackets/GCOtherModifyInfo.h"
 
 EffectPotentialExplosion::EffectPotentialExplosion(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,21 +25,21 @@ EffectPotentialExplosion::EffectPotentialExplosion(Creature* pCreature)
 }
 
 void EffectPotentialExplosion::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectPotentialExplosion::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectPotentialExplosion::unaffect() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY	
 
@@ -50,7 +50,7 @@ void EffectPotentialExplosion::unaffect()
 }
 
 void EffectPotentialExplosion::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -89,7 +89,7 @@ void EffectPotentialExplosion::unaffect(Creature* pCreature)
 }
 
 void EffectPotentialExplosion::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

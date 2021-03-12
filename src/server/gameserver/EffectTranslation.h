@@ -16,18 +16,18 @@
 class EffectTranslation : public Effect 
 {
 public:
-	EffectTranslation(Creature* pCreature) throw(Error);
+	EffectTranslation(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSLATION; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSLATION; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 };
 
 #endif // __EFFECT_DOOM__

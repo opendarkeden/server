@@ -21,13 +21,13 @@
 class CGStashRequestBuy : public Packet 
 {
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_STASH_REQUEST_BUY; }
-	PacketSize_t getPacketSize() const throw() { return 0; }
-	string getPacketName() const throw() { return "CGStashRequestBuy"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_STASH_REQUEST_BUY; }
+	PacketSize_t getPacketSize() const  { return 0; }
+	string getPacketName() const  { return "CGStashRequestBuy"; }
+	string toString() const ;
 	
 };
 
@@ -43,10 +43,10 @@ public:
 class CGStashRequestBuyFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGStashRequestBuy(); }
-	string getPacketName() const throw() { return "CGStashRequestBuy"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_STASH_REQUEST_BUY; }
-	PacketSize_t getPacketMaxSize() const throw() { return 0; }
+	Packet* createPacket()  { return new CGStashRequestBuy(); }
+	string getPacketName() const  { return "CGStashRequestBuy"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_STASH_REQUEST_BUY; }
+	PacketSize_t getPacketMaxSize() const  { return 0; }
 
 };
 
@@ -60,7 +60,7 @@ public:
 class CGStashRequestBuyHandler 
 {
 public:
-	static void execute(CGStashRequestBuy* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGStashRequestBuy* pPacket, Player* player) ;
 };
 
 #endif

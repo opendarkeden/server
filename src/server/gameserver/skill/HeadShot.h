@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "HeadShot"; }
 	SkillType_t getSkillType() const throw() { return SKILL_HEAD_SHOT; }
 
-	void execute(Slayer* pPlayer, ObjectID_t ObjectID, SkillSlot*, CEffectID_t) throw(Error);
+	void execute(Slayer* pPlayer, ObjectID_t ObjectID, SkillSlot*, CEffectID_t) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

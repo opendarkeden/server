@@ -8,7 +8,7 @@ class NewbieFlagWar : public FlagWar
 public:
 	virtual int getWarTime() const { return 3600; }
 protected:
-	virtual void executeEnd() throw(Error);
+	virtual void executeEnd() ;
 	virtual VSDateTime getNextFlagWarTime();
 	virtual void addFlags();
 };

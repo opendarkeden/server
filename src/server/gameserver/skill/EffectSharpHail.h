@@ -17,13 +17,13 @@
 class EffectSharpHail : public Effect 
 {
 public:
-	EffectSharpHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectSharpHail(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROMINENCE; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error);
+	void affect() ;
+	void unaffect() ;
 	string toString() const throw();
 
 public:

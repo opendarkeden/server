@@ -17,16 +17,16 @@
 class EventKick : public Event 
 {
 public:
-	EventKick(GamePlayer* pGamePlayer) throw();
-	~EventKick() throw();			
+	EventKick(GamePlayer* pGamePlayer) ;
+	~EventKick() ;			
 
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_KICK; }
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_KICK; }
 
-	virtual void activate() throw(Error);
-	void sendMessage() throw (Error);
+	virtual void activate() ;
+	void sendMessage() ;
 
-	virtual string toString() const throw();
+	virtual string toString() const ;
 };
 
 #endif

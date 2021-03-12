@@ -9,7 +9,7 @@
 #include "SimpleTileMissileSkill.h"
 #include <list>
 
-void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void BikeCrash::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 

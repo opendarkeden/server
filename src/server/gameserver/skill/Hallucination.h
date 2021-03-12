@@ -23,9 +23,9 @@ public:
     string getSkillHandlerName() const throw() { return "Hallucination"; }
 	SkillType_t getSkillType() const throw() { return SKILL_HALLUCINATION; }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Monster* pMonster, Creature* pEnemy) throw(Error);
-	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) throw(Error);
+	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Monster* pMonster, Creature* pEnemy) ;
+	void executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

@@ -19,14 +19,14 @@
 class ActionSetResurrectZone : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SET_RESURRECT_ZONE; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SET_RESURRECT_ZONE; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	ZoneID_t getZoneID(void) const throw() { return m_ZoneID; }
-	void setZoneID(ZoneID_t id) throw() { m_ZoneID = id; }
+	ZoneID_t getZoneID(void) const  { return m_ZoneID; }
+	void setZoneID(ZoneID_t id)  { m_ZoneID = id; }
 
 private:
 	ZoneID_t m_ZoneID;
@@ -39,9 +39,9 @@ private:
 class ActionSetResurrectZoneFactory : public ActionFactory 
 {
 public :
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_SET_RESURRECT_ZONE; }
-	virtual string getActionName() const throw() { return "SetResurrectZone"; }
-	virtual Action* createAction() const throw() { return new ActionSetResurrectZone(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_SET_RESURRECT_ZONE; }
+	virtual string getActionName() const  { return "SetResurrectZone"; }
+	virtual Action* createAction() const  { return new ActionSetResurrectZone(); }
 };
 
 #endif

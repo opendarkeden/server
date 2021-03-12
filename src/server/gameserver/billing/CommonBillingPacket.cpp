@@ -105,7 +105,6 @@ void CommonBillingPacket::test ()
 }
 
 void CommonBillingPacket::setUser_CC() 
-	throw (Error)
 { 
 	__BEGIN_TRY
 
@@ -125,7 +124,6 @@ void CommonBillingPacket::setUser_CC()
 }
 
 void CommonBillingPacket::read (SocketInputStream & iStream) 
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 
@@ -173,7 +171,6 @@ void CommonBillingPacket::read (SocketInputStream & iStream)
 }
 
 void CommonBillingPacket::write (SocketOutputStream & oStream) const
-     throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 		
@@ -226,7 +223,6 @@ void CommonBillingPacket::write (SocketOutputStream & oStream) const
 }
 
 void CommonBillingPacket::execute (Player* pPlayer) 
-	 throw (ProtocolException , Error)
 {
 	__BEGIN_TRY
 		
@@ -236,7 +232,6 @@ void CommonBillingPacket::execute (Player* pPlayer)
 }
 
 void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
-	throw (Error)
 {
 	__BEGIN_TRY
 	
@@ -329,7 +324,6 @@ string  CommonBillingPacket::getExpire_DateToString() const
 }
 
 string CommonBillingPacket::toString () const
-       throw ()
 {
 	__BEGIN_TRY
 		

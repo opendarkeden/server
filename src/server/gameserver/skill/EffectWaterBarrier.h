@@ -17,15 +17,15 @@
 class EffectWaterBarrier : public Effect 
 {
 public:
-	EffectWaterBarrier(Creature* pCreature) throw(Error);
+	EffectWaterBarrier(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_WATER_BARRIER; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

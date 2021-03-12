@@ -13,7 +13,7 @@
 // execute just once at PC's login
 //--------------------------------------------------------------------------------
 void TelephoneCenter::addSlayer (Slayer* pSlayer) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,6 @@ void TelephoneCenter::addSlayer (Slayer* pSlayer)
 // execute just once at PC's logout
 //--------------------------------------------------------------------------------
 void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -66,7 +65,6 @@ void TelephoneCenter::deleteSlayer (PhoneNumber_t PhoneNumber)
 // get creature with PC-name
 //--------------------------------------------------------------------------------
 Slayer* TelephoneCenter::getSlayer(PhoneNumber_t PhoneNumber) const 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 

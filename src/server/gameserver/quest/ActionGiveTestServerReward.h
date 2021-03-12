@@ -24,12 +24,12 @@ public:
 	ActionGiveTestServerReward();
 	~ActionGiveTestServerReward();
 
-	virtual ActionType_t getActionType() const throw() { return ACTION_GIVE_TEST_SERVER_REWARD; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_GIVE_TEST_SERVER_REWARD; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
-	void						load() throw (Error);
+	void						load() ;
 
 private :
 	LuaState*					m_pLuaState;
@@ -49,9 +49,9 @@ private :
 class ActionGiveTestServerRewardFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_GIVE_TEST_SERVER_REWARD; }
-	virtual string getActionName() const throw() { return "GiveTestServerReward"; }
-	virtual Action* createAction() const throw() { return new ActionGiveTestServerReward(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_GIVE_TEST_SERVER_REWARD; }
+	virtual string getActionName() const  { return "GiveTestServerReward"; }
+	virtual Action* createAction() const  { return new ActionGiveTestServerReward(); }
 };
 
 #endif

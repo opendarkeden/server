@@ -16,19 +16,19 @@
 class EffectTransformToBat : public Effect 
 {
 public:
-	EffectTransformToBat(Creature* pCreature) throw(Error);
+	EffectTransformToBat(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSFORM_TO_BAT; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
-	void unaffect() throw(Error); 
-	void unaffect(Item* pItem) throw(Error) {}
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+	void unaffect() ; 
+	void unaffect(Item* pItem)  {}
 
 	string toString() const throw();
 };

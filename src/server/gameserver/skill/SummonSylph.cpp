@@ -20,7 +20,7 @@
 //  아우스터즈 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SummonSylph::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

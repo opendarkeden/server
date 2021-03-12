@@ -30,48 +30,48 @@ class GCRemoveEffect : public Packet
 public :
 	
 	// constructor
-	GCRemoveEffect() throw();
+	GCRemoveEffect() ;
 	
 	// destructor
-	~GCRemoveEffect() throw();
+	~GCRemoveEffect() ;
 	
 public :
-    PacketID_t getPacketID() const throw() { return PACKET_GC_REMOVE_EFFECT; }
-    string getPacketName() const throw() { return "GCRemoveEffect"; }
+    PacketID_t getPacketID() const  { return PACKET_GC_REMOVE_EFFECT; }
+    string getPacketName() const  { return "GCRemoveEffect"; }
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szBYTE + szEffectID* m_ListNum; }
-	static PacketSize_t getPacketMaxSize() throw() { return 255;}
+	PacketSize_t getPacketSize() const  { return szObjectID + szBYTE + szEffectID* m_ListNum; }
+	static PacketSize_t getPacketMaxSize()  { return 255;}
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get / set ListNumber
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE ListNum) throw() { m_ListNum = ListNum; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE ListNum)  { m_ListNum = ListNum; }
 
 	// get&set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID;}
-	void setObjectID(ObjectID_t id) throw() { m_ObjectID = id;}
+	ObjectID_t getObjectID() const  { return m_ObjectID;}
+	void setObjectID(ObjectID_t id)  { m_ObjectID = id;}
 
 	// add / delete / clear S List
-	void addEffectList(EffectID_t id) throw(); 
+	void addEffectList(EffectID_t id) ; 
 
 	// ClearList
-	void clearList() throw() { m_EffectList.clear(); m_ListNum = 0; }
+	void clearList()  { m_EffectList.clear(); m_ListNum = 0; }
 
 	// pop front Element in Status List
-	WORD popFrontListElement() throw() { EffectID_t effectID = m_EffectList.front(); m_EffectList.pop_front(); return effectID; }
+	WORD popFrontListElement()  { EffectID_t effectID = m_EffectList.front(); m_EffectList.pop_front(); return effectID; }
 
 protected :
 	
@@ -97,25 +97,25 @@ class GCRemoveEffectFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCRemoveEffectFactory() throw() {}
+	GCRemoveEffectFactory()  {}
 	
 	// destructor
-	virtual ~GCRemoveEffectFactory() throw() {}
+	virtual ~GCRemoveEffectFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCRemoveEffect(); }
+	Packet* createPacket()  { return new GCRemoveEffect(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCRemoveEffect"; }
+	string getPacketName() const  { return "GCRemoveEffect"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_REMOVE_EFFECT; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_REMOVE_EFFECT; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return 255;}
+	PacketSize_t getPacketMaxSize() const  { return 255;}
 
 };
 
@@ -131,7 +131,7 @@ class GCRemoveEffectHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCRemoveEffect* pGCRemoveEffect, Player* pPlayer) throw(Error);
+	static void execute(GCRemoveEffect* pGCRemoveEffect, Player* pPlayer) ;
 
 };
 

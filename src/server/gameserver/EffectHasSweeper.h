@@ -16,18 +16,18 @@
 class EffectHasSweeper : public Effect
 {
 public:
-	EffectHasSweeper(Creature* pCreature) throw(Error);
+	EffectHasSweeper(Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HAS_SWEEPER; }
-	EffectClass getSendEffectClass() const throw() { return (EffectClass)(EFFECT_CLASS_HAS_SWEEPER + m_Part); }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_HAS_SWEEPER; }
+	EffectClass getSendEffectClass() const  { return (EffectClass)(EFFECT_CLASS_HAS_SWEEPER + m_Part); }
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	void   	setPart(int part) throw() { m_Part = part; }
+	void   	setPart(int part)  { m_Part = part; }
 
 private:
 	ItemType_t	m_Part;	

@@ -22,11 +22,11 @@ public:
 	void		setUnionID( uint ID ) { m_UnionID = ID; }
 
 	bool		hasGuild( GuildID_t gID ) const;
-	bool		addGuild( GuildID_t gID ) throw(Error);
-	bool		removeGuild( GuildID_t gId ) throw(Error);
+	bool		addGuild( GuildID_t gID ) ;
+	bool		removeGuild( GuildID_t gId ) ;
 
-	void		create() throw(Error);
-	void		destroy() throw(Error);
+	void		create() ;
+	void		destroy() ;
 
 	list<GuildID_t>	getGuildList()	const	{ return m_Guilds; }
 	
@@ -65,18 +65,18 @@ public:
 	GuildUnionManager();
 	~GuildUnionManager();
 
-	void	reload()	throw(Error);
-	void	load() throw(Error);
+	void	reload()	;
+	void	load() ;
 	void	addGuildUnion( GuildUnion* pUnion );
 	GuildUnion*	getGuildUnion( GuildID_t gID ) { return m_GuildUnionMap[gID]; }
 	GuildUnion* getGuildUnionByUnionID( uint uID ) { return m_UnionIDMap[uID]; }
 
-	bool	addGuild( uint uID, GuildID_t gID ) throw(Error);
-	bool 	removeMasterGuild(GuildID_t gID) throw(Error);
-	bool	removeGuild( uint uID, GuildID_t gID ) throw(Error);
+	bool	addGuild( uint uID, GuildID_t gID ) ;
+	bool 	removeMasterGuild(GuildID_t gID) ;
+	bool	removeGuild( uint uID, GuildID_t gID ) ;
 
-	void	sendRefreshCommand()	throw(Error);
-	void	sendModifyUnionInfo(uint gID)	throw(Error);
+	void	sendRefreshCommand()	;
+	void	sendModifyUnionInfo(uint gID)	;
 	
 	static GuildUnionManager& Instance()
 	{
@@ -130,19 +130,19 @@ public:
 			
 		
 	};
-	uint	offerJoin( GuildID_t gID, GuildID_t MasterGID ) throw(Error);	// 연합가입 신청
-	uint	offerQuit( GuildID_t gID ) throw(Error);						// 연합탈퇴 신청
+	uint	offerJoin( GuildID_t gID, GuildID_t MasterGID ) ;	// 연합가입 신청
+	uint	offerQuit( GuildID_t gID ) ;						// 연합탈퇴 신청
 
-	uint	acceptJoin( GuildID_t gID ) throw(Error);						// 연합가입 수락
-	uint	acceptQuit( GuildID_t gID ) throw(Error);						// 연합탈퇴 수락
+	uint	acceptJoin( GuildID_t gID ) ;						// 연합가입 수락
+	uint	acceptQuit( GuildID_t gID ) ;						// 연합탈퇴 수락
 
-	uint	denyJoin( GuildID_t gID ) throw(Error);							// 연합가입 거부
-	uint	denyQuit( GuildID_t gID ) throw(Error);							// 엽합탈퇴 거부
+	uint	denyJoin( GuildID_t gID ) ;							// 연합가입 거부
+	uint	denyQuit( GuildID_t gID ) ;							// 엽합탈퇴 거부
 
-	void	clearOffer( GuildID_t gID ) throw(Error);	
-	bool	hasOffer( GuildID_t gID ) throw(Error);
+	void	clearOffer( GuildID_t gID ) ;	
+	bool	hasOffer( GuildID_t gID ) ;
 
-	bool	makeOfferList( uint uID, GCUnionOfferList& offerList ) throw(Error);	// 목록요청
+	bool	makeOfferList( uint uID, GCUnionOfferList& offerList ) ;	// 목록요청
 
 	static GuildUnionOfferManager& Instance()
 	{

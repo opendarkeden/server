@@ -17,7 +17,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectLight::EffectLight(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -27,21 +27,21 @@ EffectLight::EffectLight(Creature* pCreature)
 }
 
 void EffectLight::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectLight::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectLight::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -95,7 +95,7 @@ void EffectLight::unaffect(Creature* pCreature)
 }
 
 void EffectLight::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,14 +106,14 @@ void EffectLight::unaffect()
 }
 
 void EffectLight::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectLight::create(const string & ownerID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void EffectLight::create(const string & ownerID)
 }
 
 void EffectLight::destroy(const string & ownerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ void EffectLight::destroy(const string & ownerID)
 }
 
 void EffectLight::save(const string & ownerID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -218,7 +218,7 @@ string EffectLight::toString() const
 }
 
 void EffectLightLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

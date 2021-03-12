@@ -21,22 +21,22 @@
 class ZoneInfoManager 
 {
 public:
-	ZoneInfoManager() throw();
-	~ZoneInfoManager() throw();
+	ZoneInfoManager() ;
+	~ZoneInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 	
-	void addZoneInfo(ZoneInfo* pZoneInfo) throw(Error);
-	void deleteZoneInfo(ZoneID_t zoneID) throw(NoSuchElementException);
-	ZoneInfo* getZoneInfo(ZoneID_t zoneID) throw(NoSuchElementException);
+	void addZoneInfo(ZoneInfo* pZoneInfo) ;
+	void deleteZoneInfo(ZoneID_t zoneID) ;
+	ZoneInfo* getZoneInfo(ZoneID_t zoneID) ;
 	ZoneInfo* getZoneInfoByName(const string & ZoneName);
 	int  size() const	{ return m_ZoneInfos.size(); }
 
 	vector<Zone*> getNormalFields() const;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	unordered_map<ZoneID_t, ZoneInfo*> m_ZoneInfos; // zone info ÀÇ ÇØ½¬¸Ê

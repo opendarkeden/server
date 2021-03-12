@@ -16,17 +16,17 @@
 class GCPetInfo : public Packet
 {
 public:
-	GCPetInfo() throw();
-	virtual ~GCPetInfo() throw();
+	GCPetInfo() ;
+	virtual ~GCPetInfo() ;
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_PET_INFO; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + ((m_pPetInfo!=NULL)?(m_pPetInfo->getSize()):szPetType); }
-	string getPacketName() const throw() { return "GCPetInfo"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_PET_INFO; }
+	PacketSize_t getPacketSize() const  { return szObjectID + ((m_pPetInfo!=NULL)?(m_pPetInfo->getSize()):szPetType); }
+	string getPacketName() const  { return "GCPetInfo"; }
+	string toString() const ;
 
 public:
 	void		setObjectID(ObjectID_t ObjectID) { m_ObjectID = ObjectID; }
@@ -47,16 +47,16 @@ class GCPetInfoFactory : public PacketFactory {
 
 public :
 	
-	Packet* createPacket() throw() { return new GCPetInfo(); }
-	string getPacketName() const throw() { return "GCPetInfo"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_PET_INFO; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + PetInfo::getMaxSize(); }
+	Packet* createPacket()  { return new GCPetInfo(); }
+	string getPacketName() const  { return "GCPetInfo"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_PET_INFO; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + PetInfo::getMaxSize(); }
 };
 
 class GCPetInfoHandler {
 	
 public :
-	static void execute(GCPetInfo* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCPetInfo* pPacket, Player* pPlayer) ;
 
 };
 

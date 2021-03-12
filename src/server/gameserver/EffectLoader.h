@@ -22,10 +22,10 @@ public:
 	virtual ~EffectLoader() {}
 
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() = 0;
-	virtual string getEffectClassName() const throw() = 0;
-	virtual void load(Creature* pCreature) throw(Error) = 0;
-	virtual void load(Zone* pZone) throw(Error) { }
+	virtual Effect::EffectClass getEffectClass() const  = 0;
+	virtual string getEffectClassName() const  = 0;
+	virtual void load(Creature* pCreature)  = 0;
+	virtual void load(Zone* pZone)  { }
 };
 
 #endif

@@ -45,7 +45,7 @@ string CastleSkillInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 CastleSkillInfoManager::CastleSkillInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ CastleSkillInfoManager::CastleSkillInfoManager()
 }
 
 CastleSkillInfoManager::~CastleSkillInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -63,7 +63,7 @@ CastleSkillInfoManager::~CastleSkillInfoManager()
 }
 
 void CastleSkillInfoManager::clear()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -80,7 +80,7 @@ void CastleSkillInfoManager::clear()
 }
 
 void CastleSkillInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -115,7 +115,7 @@ void CastleSkillInfoManager::load()
 }
 
 void CastleSkillInfoManager::addCastleSkillInfo( CastleSkillInfo* pCastleSkillInfo )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -164,7 +164,7 @@ ZoneID_t CastleSkillInfoManager::getZoneID( SkillType_t SkillType ) const
 }
 
 string CastleSkillInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

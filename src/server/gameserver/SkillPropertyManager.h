@@ -61,28 +61,28 @@ private:
 class SkillPropertyManager 
 {
 public:
-	SkillPropertyManager() throw();
-	~SkillPropertyManager() throw();
+	SkillPropertyManager() ;
+	~SkillPropertyManager() ;
 
 public:
 
 	// init SkillProperties
-	void init() throw();
+	void init() ;
 
 	// clear SkillProperties
-	void clear() throw();
+	void clear() ;
 
 	// init default SkillProperty
-	void initDefaultSkillProperty() throw();
+	void initDefaultSkillProperty() ;
 
 	// get SkillProperty
-	SkillProperty* getSkillProperty(SkillType_t SkillType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	SkillProperty* getSkillProperty(SkillType_t SkillType) const ;
 
 	// add SkillProperty
-	void addSkillProperty(SkillProperty* pSkillProperty) throw(DuplicatedException, OutOfBoundException, Error);
+	void addSkillProperty(SkillProperty* pSkillProperty) ;
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	vector<SkillProperty*> 	m_SkillProperties;

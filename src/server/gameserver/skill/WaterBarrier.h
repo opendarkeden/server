@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "WaterBarrier"; }
 	SkillType_t getSkillType() const throw() { return SKILL_WATER_BARRIER; }
 
-	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Ousters* pOusters,  OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

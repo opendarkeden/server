@@ -26,13 +26,13 @@ Mutex    PetEnchantItem::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 PetEnchantItem::PetEnchantItem()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 PetEnchantItem::PetEnchantItem(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num = Num;
@@ -45,7 +45,7 @@ PetEnchantItem::PetEnchantItem(ItemType_t itemType, const list<OptionType_t>& op
 }
 
 void PetEnchantItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -90,7 +90,7 @@ void PetEnchantItem::create(const string & ownerID, Storage storage, StorageID_t
 // save item
 //--------------------------------------------------------------------------------
 void PetEnchantItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void PetEnchantItem::tinysave(const char* field) const
 }
 
 void PetEnchantItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void PetEnchantItem::save(const string & ownerID, Storage storage, StorageID_t s
 }
 
 string PetEnchantItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -163,7 +163,7 @@ string PetEnchantItem::toString() const
 }
 
 VolumeWidth_t PetEnchantItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ VolumeWidth_t PetEnchantItem::getVolumeWidth() const
 }
 	
 VolumeHeight_t PetEnchantItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ VolumeHeight_t PetEnchantItem::getVolumeHeight() const
 }
 		
 Weight_t PetEnchantItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ Weight_t PetEnchantItem::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string PetEnchantItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "PetEnchantItemInfo("
@@ -213,7 +213,7 @@ string PetEnchantItemInfo::toString() const
 }
 
 void PetEnchantItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -269,7 +269,7 @@ void PetEnchantItemInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void PetEnchantItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -415,7 +415,7 @@ void PetEnchantItemLoader::load(Creature* pCreature)
 }
 
 void PetEnchantItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -479,7 +479,7 @@ void PetEnchantItemLoader::load(Zone* pZone)
 }
 
 void PetEnchantItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

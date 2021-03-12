@@ -13,7 +13,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectTrapTriggered::EffectTrapTriggered(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,14 +23,14 @@ EffectTrapTriggered::EffectTrapTriggered(Creature* pCreature)
 }
 
 void EffectTrapTriggered::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectTrapTriggered::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -45,7 +45,7 @@ void EffectTrapTriggered::unaffect()
 }
 
 void EffectTrapTriggered::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

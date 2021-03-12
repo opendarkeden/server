@@ -29,40 +29,40 @@ class GCRemoveFromGear : public Packet {
 public :
 	
 	// constructor
-	GCRemoveFromGear() throw();
+	GCRemoveFromGear() ;
 	
 	// destructor
-	~GCRemoveFromGear() throw();
+	~GCRemoveFromGear() ;
 
 	
 public :
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_REMOVE_FROM_GEAR; }
+	PacketID_t getPacketID() const  { return PACKET_GC_REMOVE_FROM_GEAR; }
 	
 	// get packet's body size
 	// 최적화시, 미리 계산된 정수를 사용한다.
-	PacketSize_t getPacketSize() const throw() { return szSlotID; }
+	PacketSize_t getPacketSize() const  { return szSlotID; }
 
 	// get packet's name
-	string getPacketName() const throw() { return "GCRemoveFromGear"; }
+	string getPacketName() const  { return "GCRemoveFromGear"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 	// get/set SlotID
-	SlotID_t getSlotID() const throw() { return m_SlotID; }
-	void setSlotID(SlotID_t SlotID) throw() { m_SlotID = SlotID; }
+	SlotID_t getSlotID() const  { return m_SlotID; }
+	void setSlotID(SlotID_t SlotID)  { m_SlotID = SlotID; }
 
 private :
 
@@ -85,25 +85,25 @@ class GCRemoveFromGearFactory : public PacketFactory {
 public :
 	
 	// constructor
-	GCRemoveFromGearFactory() throw() {}
+	GCRemoveFromGearFactory()  {}
 	
 	// destructor
-	virtual ~GCRemoveFromGearFactory() throw() {}
+	virtual ~GCRemoveFromGearFactory()  {}
 
 	
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCRemoveFromGear(); }
+	Packet* createPacket()  { return new GCRemoveFromGear(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCRemoveFromGear"; }
+	string getPacketName() const  { return "GCRemoveFromGear"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_REMOVE_FROM_GEAR; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_REMOVE_FROM_GEAR; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szSlotID; }
+	PacketSize_t getPacketMaxSize() const  { return szSlotID; }
 
 };
 
@@ -119,7 +119,7 @@ class GCRemoveFromGearHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCRemoveFromGear* pGCRemoveFromGear, Player* pPlayer) throw(Error);
+	static void execute(GCRemoveFromGear* pGCRemoveFromGear, Player* pPlayer) ;
 
 };
 

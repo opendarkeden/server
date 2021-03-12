@@ -54,7 +54,7 @@ bool AddBible[] =
 };
 
 string ShrineInfo::toString() const
-	throw()
+	
 {
 	StringStream msg;
 
@@ -71,7 +71,7 @@ string ShrineInfo::toString() const
 }
 
 ShrineInfo& ShrineSet::getReturnGuardShrine()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ ShrineSet::~ShrineSet()
 }
 
 Item* ShrineSet::createBloodBibleInGuardShrine()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -136,7 +136,7 @@ Item* ShrineSet::createBloodBibleInGuardShrine()
 }
 
 void ShrineSet::setOwnerRace( Race_t race )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void ShrineSet::setOwnerRace( Race_t race )
 }
 
 void ShrineSet::setBloodBibleStatus( GCBloodBibleStatus* pGCBBS )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -162,7 +162,7 @@ void ShrineSet::setBloodBibleStatus( GCBloodBibleStatus* pGCBBS )
 }
 
 void ShrineSet::sendBloodBibleStatus( PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -174,7 +174,7 @@ void ShrineSet::sendBloodBibleStatus( PlayerCreature* pPC )
 }
 	
 void ShrineSet::broadcastBloodBibleStatus()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -189,7 +189,7 @@ void ShrineSet::broadcastBloodBibleStatus()
 }
 
 string ShrineSet::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -229,7 +229,7 @@ void ShrineInfoManager::clear()
 }
 
 void ShrineInfoManager::init()
-	throw (Error)
+	
 { 
 	__BEGIN_TRY
 
@@ -241,7 +241,7 @@ void ShrineInfoManager::init()
 }
 
 void ShrineInfoManager::load()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -316,7 +316,7 @@ void ShrineInfoManager::load()
 
 // 이거는 ClientManager thread에서 불린다. 딴데서 부르면 안된다~~
 void ShrineInfoManager::reloadOwner()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -366,7 +366,7 @@ void ShrineInfoManager::reloadOwner()
 
 
 void ShrineInfoManager::addAllShrineToZone()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -391,7 +391,7 @@ void ShrineInfoManager::addAllShrineToZone()
 }
 
 void ShrineInfoManager::addShrineToZone( ShrineInfo& shrineInfo, ItemType_t itemType )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -464,7 +464,7 @@ void ShrineInfoManager::addShrineToZone( ShrineInfo& shrineInfo, ItemType_t item
 }
 
 void ShrineInfoManager::addShrineSet( ShrineSet* pShrineSet )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -486,7 +486,7 @@ void ShrineInfoManager::addShrineSet( ShrineSet* pShrineSet )
 }
 
 void ShrineInfoManager::deleteShrineSet( ShrineID_t shrineID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -502,7 +502,7 @@ void ShrineInfoManager::deleteShrineSet( ShrineID_t shrineID )
 }
 
 ShrineSet* ShrineInfoManager::getShrineSet( ShrineID_t shrineID ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -519,7 +519,7 @@ ShrineSet* ShrineInfoManager::getShrineSet( ShrineID_t shrineID ) const
 }
 
 bool ShrineInfoManager::isMatchGuardShrine(Item* pItem, MonsterCorpse* pMonsterCorpse, PlayerCreature* pPC) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -559,7 +559,7 @@ bool ShrineInfoManager::isMatchGuardShrine(Item* pItem, MonsterCorpse* pMonsterC
 
 
 bool ShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCorpse) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -585,7 +585,7 @@ bool ShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCo
 }
 
 bool ShrineInfoManager::isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCorpse* pShrine ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -615,7 +615,7 @@ bool ShrineInfoManager::isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCor
 
 // 이 종족이 성서 조각을 들 수 있는가?
 bool ShrineInfoManager::canPickupBloodBible( Race_t race, BloodBible* pBloodBible ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -669,7 +669,7 @@ bool ShrineInfoManager::canPickupBloodBible( Race_t race, BloodBible* pBloodBibl
 }
 
 bool ShrineInfoManager::getMatchGuardShrinePosition( Item* pItem, ZoneItemPosition& zip ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -704,7 +704,7 @@ bool ShrineInfoManager::getMatchGuardShrinePosition( Item* pItem, ZoneItemPositi
 // false일 경우 성지성단이 있는 존과 같은 존그룹스레드에서 돌아가므로 내부에서 락을 걸어주지 않아야 한다.
 // 2003. 2. 5. by Sequoia
 bool ShrineInfoManager::returnBloodBible( ShrineID_t shrineID, bool bLock ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -742,7 +742,7 @@ bool ShrineInfoManager::returnBloodBible( ShrineID_t shrineID, bool bLock ) cons
 
 // WarSystem에서만 부른다.
 /*bool ShrineInfoManager::returnCastleBloodBible( ZoneID_t castleZoneID ) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -775,7 +775,7 @@ bool ShrineInfoManager::returnBloodBible( ShrineID_t shrineID, bool bLock ) cons
 */
 // WarSystem에서만 부른다.
 bool ShrineInfoManager::returnAllBloodBible() const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -798,7 +798,7 @@ bool ShrineInfoManager::returnAllBloodBible() const
 
 
 bool ShrineInfoManager::returnBloodBible(Zone* pZone, BloodBible* pBloodBible) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -860,7 +860,7 @@ bool ShrineInfoManager::returnBloodBible(Zone* pZone, BloodBible* pBloodBible) c
 }
 
 bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -917,7 +917,7 @@ bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterC
 }
 
 /*bool ShrineInfoManager::removeShrineShield( Zone *pZone )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -970,7 +970,7 @@ bool ShrineInfoManager::putBloodBible(PlayerCreature* pPC, Item* pItem, MonsterC
 */
 
 bool ShrineInfoManager::removeAllShrineShield()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -992,7 +992,7 @@ bool ShrineInfoManager::removeAllShrineShield()
 }
 
 bool ShrineInfoManager::removeShrineShield( ShrineInfo* pShrineInfo )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1041,7 +1041,7 @@ bool ShrineInfoManager::removeShrineShield( ShrineInfo* pShrineInfo )
 }
 
 /*bool ShrineInfoManager::addShrineShield(Zone *pZone)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1065,7 +1065,7 @@ bool ShrineInfoManager::removeShrineShield( ShrineInfo* pShrineInfo )
 }
 */
 /*bool ShrineInfoManager::addShrineShield_LOCKED( Zone *pZone )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1098,7 +1098,7 @@ bool ShrineInfoManager::removeShrineShield( ShrineInfo* pShrineInfo )
 }
 */
 void ShrineInfoManager::addAllShrineShield()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1117,7 +1117,7 @@ void ShrineInfoManager::addAllShrineShield()
 }
 
 bool ShrineInfoManager::addShrineShield( ShrineInfo& shrineInfo )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1157,7 +1157,7 @@ bool ShrineInfoManager::addShrineShield( ShrineInfo& shrineInfo )
 }
 
 bool ShrineInfoManager::saveBloodBibleOwner() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1186,7 +1186,7 @@ bool ShrineInfoManager::saveBloodBibleOwner()
 }
 
 bool ShrineSet::saveBloodBibleOwner()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1210,7 +1210,7 @@ bool ShrineSet::saveBloodBibleOwner()
 }
 
 void ShrineInfoManager::registerBloodBibleStatus( ItemType_t m_Part, GCBloodBibleStatus* pGCBBS )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1223,7 +1223,7 @@ void ShrineInfoManager::registerBloodBibleStatus( ItemType_t m_Part, GCBloodBibl
 }
 
 void ShrineInfoManager::sendBloodBibleStatus( PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1242,7 +1242,7 @@ void ShrineInfoManager::sendBloodBibleStatus( PlayerCreature* pPC )
 }
 
 void ShrineInfoManager::broadcastBloodBibleStatus()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1259,7 +1259,7 @@ void ShrineInfoManager::broadcastBloodBibleStatus()
 }
 
 string ShrineInfoManager::toString() const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

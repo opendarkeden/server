@@ -25,7 +25,7 @@ static const POINT d [] = {
 // read from PropertyBuffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWander::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionWander::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionWander::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void ActionWander::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionWander::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

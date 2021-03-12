@@ -16,17 +16,17 @@
 class SimpleCreatureEffect : public Effect 
 {
 public:
-	SimpleCreatureEffect(EffectClass eClass, Creature* pCreature) throw(Error);
+	SimpleCreatureEffect(EffectClass eClass, Creature* pCreature) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return m_EffectClass; }
+    EffectClass getEffectClass() const  { return m_EffectClass; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	EffectClass	m_EffectClass;

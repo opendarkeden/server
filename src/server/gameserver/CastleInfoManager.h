@@ -50,15 +50,15 @@ public:
 	Gold_t increaseTaxBalance( Gold_t tax );
 	Gold_t decreaseTaxBalance( Gold_t tax );
 
-	Gold_t increaseTaxBalanceEx( Gold_t tax ) throw(Error);
-	Gold_t decreaseTaxBalanceEx( Gold_t tax ) throw(Error);
+	Gold_t increaseTaxBalanceEx( Gold_t tax ) ;
+	Gold_t decreaseTaxBalanceEx( Gold_t tax ) ;
 
-	const list<OptionType_t>& getOptionTypeList() const throw() { return m_BonusOptionList; }
-	void setOptionTypeList( const string& options ) throw();
+	const list<OptionType_t>& getOptionTypeList() const  { return m_BonusOptionList; }
+	void setOptionTypeList( const string& options ) ;
 
-	bool isCastleZone(ZoneID_t targetZoneID) const throw (Error);
-	const list<ZoneID_t>& getZoneIDList() const throw() { return m_CastleZoneIDList; }
-	void setZoneIDList( const string& zoneIDs ) throw();
+	bool isCastleZone(ZoneID_t targetZoneID) const ;
+	const list<ZoneID_t>& getZoneIDList() const  { return m_CastleZoneIDList; }
+	void setZoneIDList( const string& zoneIDs ) ;
 
 	Race_t getRace() const { return m_Race; }
 	void   setRace( Race_t race ) { m_Race = race; }
@@ -68,9 +68,9 @@ public:
 
 	bool isCommon() const { return ( m_GuildID == SlayerCommon || m_GuildID == VampireCommon || m_GuildID == OustersCommon ); }
 
-	void	broadcast(Packet* pPacket) const throw (Error);
+	void	broadcast(Packet* pPacket) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	ZoneID_t 	m_ZoneID;		// 존ID
@@ -94,65 +94,65 @@ public:
 	CastleInfoManager();
 	~CastleInfoManager();
 public:
-	void init() throw(Error);
-	void load() throw(Error);
-	void save(ZoneID_t zoneID) throw(Error);
+	void init() ;
+	void load() ;
+	void save(ZoneID_t zoneID) ;
 
-	void addCastleInfo( CastleInfo* pCastleInfo ) throw(Error);
-	void deleteCastleInfo( ZoneID_t zoneID ) throw(Error);
-	CastleInfo* getCastleInfo( ZoneID_t zoneID ) const throw(Error);
+	void addCastleInfo( CastleInfo* pCastleInfo ) ;
+	void deleteCastleInfo( ZoneID_t zoneID ) ;
+	CastleInfo* getCastleInfo( ZoneID_t zoneID ) const ;
 	int  size() const { return m_CastleInfos.size(); }
 
-	bool modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC ) throw(Error);
-	bool modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_t guildID ) throw (Error);
-	bool tinysave( ZoneID_t zoneID, const string& query ) throw(Error);
-	bool increaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) throw(Error);
-	bool decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) throw(Error);
+	bool modifyCastleOwner(ZoneID_t zoneID, PlayerCreature* pPC ) ;
+	bool modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_t guildID ) ;
+	bool tinysave( ZoneID_t zoneID, const string& query ) ;
+	bool increaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) ;
+	bool decreaseTaxBalance( ZoneID_t zoneID, Gold_t tax ) ;
 
-	bool setItemTaxRatio( Zone* pZone, int itemTaxRatio ) throw(Error);
+	bool setItemTaxRatio( Zone* pZone, int itemTaxRatio ) ;
 	const unordered_map<ZoneID_t, CastleInfo*>& getCastleInfos() const 	{ return m_CastleInfos; }
 
-	int getItemTaxRatio( const PlayerCreature* pPC, const NPC* pNPC = NULL ) const throw(Error);
-	Gold_t getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC ) const  throw(Error);
+	int getItemTaxRatio( const PlayerCreature* pPC, const NPC* pNPC = NULL ) const ;
+	Gold_t getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC ) const  ;
 
-	bool isCastleMember( PlayerCreature* pPC ) const throw(Error);
-	bool isCastleMember( ZoneID_t zoneID, PlayerCreature* pPC ) const throw(Error);
-	bool isPossibleEnter( ZoneID_t zoneID, PlayerCreature* pPC ) const throw(Error);
-	bool canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC ) const throw(Error);
-	bool hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC ) const throw(Error);
+	bool isCastleMember( PlayerCreature* pPC ) const ;
+	bool isCastleMember( ZoneID_t zoneID, PlayerCreature* pPC ) const ;
+	bool isPossibleEnter( ZoneID_t zoneID, PlayerCreature* pPC ) const ;
+	bool canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC ) const ;
+	bool hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC ) const ;
 
-	CastleInfo* getGuildCastleInfo( GuildID_t guildID ) const throw(Error);
-	list<CastleInfo*> getGuildCastleInfos( GuildID_t guildID ) const throw(Error);
+	CastleInfo* getGuildCastleInfo( GuildID_t guildID ) const ;
+	list<CastleInfo*> getGuildCastleInfos( GuildID_t guildID ) const ;
 
-	bool getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) throw (Error);
+	bool getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& zoneCoord ) ;
 
 	//----------------------------------------------------------------------
 	// CastleZoneID 관련
 	//----------------------------------------------------------------------
-	bool 		isCastleZone(ZoneID_t castleZoneID, ZoneID_t targetZoneID) const throw (Error);
+	bool 		isCastleZone(ZoneID_t castleZoneID, ZoneID_t targetZoneID) const ;
 	bool		isCastleZone(ZoneID_t zoneID) const;
-	void		clearCastleZoneIDs() throw (Error);
-	bool	 	getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) const throw (Error);
-	void 		setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID) throw (Error);
-	bool		isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const throw (Error);
+	void		clearCastleZoneIDs() ;
+	bool	 	getCastleZoneID(ZoneID_t zoneID, ZoneID_t &castleZoneID) const ;
+	void 		setCastleZoneID(ZoneID_t zoneID, ZoneID_t castleZoneID) ;
+	bool		isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const ;
 
 	//----------------------------------------------------------------------
 	// 모든 성에 적용 되는 것들
 	//----------------------------------------------------------------------
-	void	releaseAllSafeZone() throw (Error);
-	void    resetAllSafeZone() throw (Error);
+	void	releaseAllSafeZone() ;
+	void    resetAllSafeZone() ;
 
-	void	deleteAllNPCs() throw (Error);
-	void	loadAllNPCs() throw (Error);
+	void	deleteAllNPCs() ;
+	void	loadAllNPCs() ;
 
-	void	transportAllOtherRace() throw (Error);
+	void	transportAllOtherRace() ;
 
-	ZoneID_t 	getCastleZoneID(ShrineID_t shrineID) const throw (Error);
-	void		broadcastShrinePacket(ShrineID_t shrineID, Packet* pPacket) const throw (Error);
+	ZoneID_t 	getCastleZoneID(ShrineID_t shrineID) const ;
+	void		broadcastShrinePacket(ShrineID_t shrineID, Packet* pPacket) const ;
 
-	SkillType_t getCastleSkillType( ZoneID_t zoneID, GuildID_t guildID ) const throw (Error);
+	SkillType_t getCastleSkillType( ZoneID_t zoneID, GuildID_t guildID ) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	unordered_map<ZoneID_t, CastleInfo*> m_CastleInfos;

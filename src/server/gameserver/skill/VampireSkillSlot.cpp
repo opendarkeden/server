@@ -42,7 +42,7 @@ VampireSkillSlot::~VampireSkillSlot()
 }
 
 void VampireSkillSlot::create(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,7 @@ void VampireSkillSlot::create(const string & OwnerID)
 }
 
 void VampireSkillSlot::save(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void VampireSkillSlot::save(const string & OwnerID)
 }
 
 void VampireSkillSlot::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

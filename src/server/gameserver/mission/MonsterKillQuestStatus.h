@@ -11,7 +11,7 @@ public:
 	{ m_TargetMonsterSpriteType = targetSType; m_IsChief = isChief; m_GoalNum = goal; m_CurrentNum = 0; }
 	virtual ~MonsterKillQuestStatus() { }
 
-	//virtual bool	isSuccess() throw(Error) { return m_CurrentNum >= m_GoalNum; }
+	//virtual bool	isSuccess()  { return m_CurrentNum >= m_GoalNum; }
 	// ( !m_IsChief || isChief ) 는 m_IsChief 이면 isChief 이어야 한다. 라는 말과 같다.
 	bool			killed( SpriteType_t targetSType, bool isChief );
 	bool			isTarget( SpriteType_t sType, bool isChief ) { return (!m_IsChief || isChief ) && m_TargetMonsterSpriteType == sType; }
@@ -19,7 +19,7 @@ public:
 
 	GCQuestStatus* makeStatusPacket() const;
 
-	string			toString() const throw(Error);
+	string			toString() const ;
 
 private:
 	SpriteType_t	m_TargetMonsterSpriteType;

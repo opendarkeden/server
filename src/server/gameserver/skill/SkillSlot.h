@@ -24,10 +24,10 @@ public:
 	virtual ~SkillSlot() throw();
 
 public:
-	virtual void save(const string & ownerID) throw(Error);
-	virtual void save() throw(Error);
+	virtual void save(const string & ownerID) ;
+	virtual void save() ;
 
-	virtual void create(const string & ownerID) throw(Error);
+	virtual void create(const string & ownerID) ;
 
 	SkillType_t getSkillType() const throw() { return m_SkillType; }
 	void setSkillType(SkillType_t Type) throw() { m_SkillType = Type; }

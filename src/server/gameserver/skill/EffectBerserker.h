@@ -16,14 +16,14 @@
 class EffectBerserker : public Effect 
 {
 public:
-	EffectBerserker(Creature* pCreature) throw(Error);
+	EffectBerserker(Creature* pCreature) ;
 
 public:
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BERSERKER; }
 

@@ -20,16 +20,16 @@ const int MAX_LUCK_LEVEL = 140;
 class LuckInfoManager 
 {
 public:
-	LuckInfoManager() throw();
-	~LuckInfoManager() throw();
+	LuckInfoManager() ;
+	~LuckInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	const LuckInfo& getLuckInfo(int level) const throw (Error);
+	const LuckInfo& getLuckInfo(int level) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	vector<int>	m_ItemTypeUpgradeRatio[3];

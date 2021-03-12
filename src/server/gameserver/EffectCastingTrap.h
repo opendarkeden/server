@@ -6,7 +6,7 @@
 class EffectCastingIcicleTrap : public Effect
 {
 public:
-	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
+	EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
 	EffectCastingIcicleTrap( EffectClass IcicleEffect, Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ), m_IcicleEffect(IcicleEffect), m_bLarge(false) { }
 
 	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
@@ -16,10 +16,10 @@ public:
 	void setUnit(int unit) { m_Unit = unit; }
 	void setLarge(bool large) { m_bLarge = large; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error) { }
+	void affect() ;
+	void unaffect()  { }
 
-	string toString() const throw() { return "EffectCastingIcicleTrap"; }
+	string toString() const  { return "EffectCastingIcicleTrap"; }
 
 private:
 	EffectClass	m_IcicleEffect;
@@ -34,7 +34,7 @@ private:
 class EffectCastingSideTrap : public Effect
 {
 public:
-	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
+	EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
 	EffectCastingSideTrap( Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ) { }
 
 	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
@@ -43,10 +43,10 @@ public:
 	void setTick(Turn_t tick) { m_Tick = tick; }
 	void setUnit(int unit) { m_Unit = unit; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error) { }
+	void affect() ;
+	void unaffect()  { }
 
-	string toString() const throw() { return "EffectCastingSideTrap"; }
+	string toString() const  { return "EffectCastingSideTrap"; }
 
 private:
 	ZoneCoord_t	m_StartX, m_StartY;
@@ -59,7 +59,7 @@ private:
 class EffectCastingIceWall : public Effect
 {
 public:
-	EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
+	EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_TRANSPORT_CREATURE; }
 	EffectCastingIceWall( Zone* pZone ) : Effect( pZone, 0, 0, NULL, 99999999 ), m_State(0) { }
 
 	void setStartXY( ZoneCoord_t x, ZoneCoord_t y ) { m_StartX = x; m_StartY = y; }
@@ -68,10 +68,10 @@ public:
 	void setWallLength(int len) { m_WallLength = len; }
 	void setTick(Turn_t tick) { m_Tick = tick; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error) { }
+	void affect() ;
+	void unaffect()  { }
 
-	string toString() const throw() { return "EffectCastingSideTrap"; }
+	string toString() const  { return "EffectCastingSideTrap"; }
 
 private:
 	ZoneCoord_t	m_StartX, m_StartY;

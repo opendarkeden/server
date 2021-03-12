@@ -21,7 +21,7 @@
 // 특별히 읽어들여야 할 파라미터가 없다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSell::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
     __END_CATCH
@@ -32,7 +32,7 @@ void ActionSell::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSell::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void ActionSell::execute (Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSell::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

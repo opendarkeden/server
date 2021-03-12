@@ -21,17 +21,17 @@
 class GCAddVampirePortal : public Packet 
 {
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_ADD_VAMPIRE_PORTAL; }
-	PacketSize_t getPacketSize() const throw() 
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_ADD_VAMPIRE_PORTAL; }
+	PacketSize_t getPacketSize() const  
 	{ 
 		return szObjectID + szBYTE + m_OwnerID.size() + szDuration 
 			+ szCoord*2 + szZoneID + szCoord*2 + szBYTE;
 	}
-	string getPacketName() const throw() { return "GCAddVampirePortal"; }
-	string toString() const throw();
+	string getPacketName() const  { return "GCAddVampirePortal"; }
+	string toString() const ;
 
 public:
 	ObjectID_t getObjectID(void) const { return m_ObjectID; }
@@ -81,10 +81,10 @@ private:
 class GCAddVampirePortalFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCAddVampirePortal(); }
-	string getPacketName() const throw() { return "GCAddVampirePortal"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_ADD_VAMPIRE_PORTAL; }
-	PacketSize_t getPacketMaxSize() const throw()
+	Packet* createPacket()  { return new GCAddVampirePortal(); }
+	string getPacketName() const  { return "GCAddVampirePortal"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_VAMPIRE_PORTAL; }
+	PacketSize_t getPacketMaxSize() const 
 	{ 
 		return szObjectID + szBYTE + 20 + szDuration 
 			+ szCoord*2 + szZoneID + szCoord*2 + szBYTE;
@@ -98,7 +98,7 @@ public:
 class GCAddVampirePortalHandler 
 {
 public:
-	static void execute(GCAddVampirePortal* pGCAddVampirePortal, Player* pPlayer) throw(Error);
+	static void execute(GCAddVampirePortal* pGCAddVampirePortal, Player* pPlayer) ;
 };
 
 #endif

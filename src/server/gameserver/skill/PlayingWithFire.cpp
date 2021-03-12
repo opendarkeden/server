@@ -37,7 +37,7 @@ PlayingWithFire::PlayingWithFire()
 //////////////////////////////////////////////////////////////////////////////
 /*
 void PlayingWithFire::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ void PlayingWithFire::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, C
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void PlayingWithFire::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

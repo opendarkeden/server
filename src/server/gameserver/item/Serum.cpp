@@ -23,14 +23,14 @@ Mutex    Serum::m_Mutex;
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 Serum::Serum()
-	throw()
+	
 {
 	m_ItemType = 0;
 	m_Num = 1;
 }
 
 Serum::Serum(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num = 1;
@@ -47,7 +47,7 @@ Serum::Serum(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //////////////////////////////////////////////////////////////////////////////
 void Serum::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ void Serum::create(const string & ownerID, Storage storage, StorageID_t storageI
 // save item
 //--------------------------------------------------------------------------------
 void Serum::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void Serum::tinysave(const char* field) const
 // save item
 //////////////////////////////////////////////////////////////////////////////
 void Serum::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +158,7 @@ void Serum::save(const string & ownerID, Storage storage, StorageID_t storageID,
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string Serum::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "Serum("
@@ -174,7 +174,7 @@ string Serum::toString() const
 // get width
 //////////////////////////////////////////////////////////////////////////////
 VolumeWidth_t Serum::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -188,7 +188,7 @@ VolumeWidth_t Serum::getVolumeWidth() const
 // get height
 //////////////////////////////////////////////////////////////////////////////
 VolumeHeight_t Serum::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -202,7 +202,7 @@ VolumeHeight_t Serum::getVolumeHeight() const
 // get weight
 //////////////////////////////////////////////////////////////////////////////
 Weight_t Serum::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -212,21 +212,21 @@ Weight_t Serum::getWeight() const
 }
 
 int Serum::getHPAmount(void) const 
-	throw()
+	
 {
 	SerumInfo* pInfo = dynamic_cast<SerumInfo*>(g_pSerumInfoManager->getItemInfo(m_ItemType));
 	return pInfo->getHPAmount();
 }
 
 int Serum::getPeriod(void) const 
-	throw()
+	
 {
 	SerumInfo* pInfo = dynamic_cast<SerumInfo*>(g_pSerumInfoManager->getItemInfo(m_ItemType));
 	return pInfo->getPeriod();
 }
 
 int Serum::getCount(void) const 
-	throw()
+	
 {
 	SerumInfo* pInfo = dynamic_cast<SerumInfo*>(g_pSerumInfoManager->getItemInfo(m_ItemType));
 	return pInfo->getCount();
@@ -239,7 +239,7 @@ int Serum::getCount(void) const
 // parse effect string
 //////////////////////////////////////////////////////////////////////////////
 void SerumInfo::parseEffect(const string& effect)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -275,7 +275,7 @@ void SerumInfo::parseEffect(const string& effect)
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string SerumInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "SerumInfo("
@@ -298,7 +298,7 @@ string SerumInfo::toString() const
 // load from DB
 //////////////////////////////////////////////////////////////////////////////
 void SerumInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -353,7 +353,7 @@ void SerumInfoManager::load()
 // load to creature
 //////////////////////////////////////////////////////////////////////////////
 void SerumLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -493,7 +493,7 @@ void SerumLoader::load(Creature* pCreature)
 // load to zone
 //////////////////////////////////////////////////////////////////////////////
 void SerumLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -560,7 +560,7 @@ void SerumLoader::load(Zone* pZone)
 // load to inventory
 //////////////////////////////////////////////////////////////////////////////
 void SerumLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

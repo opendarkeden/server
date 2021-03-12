@@ -24,14 +24,14 @@ Mutex    ShoulderArmor::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 ShoulderArmor::ShoulderArmor()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
 }
 
 ShoulderArmor::ShoulderArmor(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -49,7 +49,7 @@ ShoulderArmor::ShoulderArmor(ItemType_t itemType, const list<OptionType_t>& opti
 // create item
 //--------------------------------------------------------------------------------
 void ShoulderArmor::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void ShoulderArmor::create(const string & ownerID, Storage storage, StorageID_t 
 // save item
 //--------------------------------------------------------------------------------
 void ShoulderArmor::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ void ShoulderArmor::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void ShoulderArmor::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -152,7 +152,7 @@ void ShoulderArmor::save(const string & ownerID, Storage storage, StorageID_t st
 // get debug string
 //--------------------------------------------------------------------------------
 string ShoulderArmor::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -172,7 +172,7 @@ string ShoulderArmor::toString() const
 // get debug string
 //--------------------------------------------------------------------------------
 string ShoulderArmorInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string ShoulderArmorInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void ShoulderArmorInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ void ShoulderArmorInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void ShoulderArmorLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -414,7 +414,7 @@ void ShoulderArmorLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void ShoulderArmorLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -426,7 +426,7 @@ void ShoulderArmorLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void ShoulderArmorLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

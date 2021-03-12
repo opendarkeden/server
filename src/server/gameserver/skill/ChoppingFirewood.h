@@ -24,7 +24,7 @@ public:
     string getSkillHandlerName() const throw() { return "ChoppingFirewood"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CHOPPING_FIREWOOD; }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

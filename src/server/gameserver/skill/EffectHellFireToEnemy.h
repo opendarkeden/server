@@ -16,17 +16,17 @@
 class EffectHellFireToEnemy : public Effect 
 {
 public:
-	EffectHellFireToEnemy(Creature* pCreature) throw(Error);
+	EffectHellFireToEnemy(Creature* pCreature) ;
 
 public:
 	EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HELLFIRE_TO_ENEMY; }
 	EffectClass getSendEffectClass() const throw() { return EFFECT_CLASS_HELLFIRE_TO_ENEMY; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

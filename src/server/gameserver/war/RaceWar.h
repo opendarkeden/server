@@ -18,24 +18,24 @@ public:
 
 	WarType_t		getWarType() const				{ return WAR_RACE; }
 	string 			getWarType2DBString() const		{ return "RACE"; }
-	string			getWarName() const throw (Error); 
+	string			getWarName() const ; 
 
 public:
-	//void			sendWarStartMessage() const throw (ProtocolException, Error);
-	void			sendWarEndMessage() const throw (ProtocolException, Error);
+	//void			sendWarStartMessage() const ;
+	void			sendWarEndMessage() const ;
 
 protected :
-	void 			executeStart() throw (Error);
-	void 			executeEnd() throw (Error);
+	void 			executeStart() ;
+	void 			executeEnd() ;
 
-	void 			recordRaceWarStart() throw (Error);
-	void 			recordRaceWarEnd() throw (Error);
+	void 			recordRaceWarStart() ;
+	void 			recordRaceWarEnd() ;
 
 public :
-	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const throw (Error);
-	void 	makeWarInfo(WarInfo* pWarInfo) const throw (Error);
+	void    makeWarScheduleInfo( WarScheduleInfo* pWSI ) const ;
+	void 	makeWarInfo(WarInfo* pWarInfo) const ;
 
-	virtual string	toString() const throw (Error);
+	virtual string	toString() const ;
 
 private:
 };

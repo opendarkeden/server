@@ -51,18 +51,18 @@ struct ITEM_TEMPLATE
 class TreasureOptionType
 {
 public:
-	TreasureOptionType() throw();
-	~TreasureOptionType() throw();
+	TreasureOptionType() ;
+	~TreasureOptionType() ;
 
 public:
 	int getOptionType(void) const { return m_OptionType; }
 	int getRatio(void) const { return m_Ratio; }
 
 public:
-	void loadFromFile(ifstream& file) throw();
-	void parseString(const string& text) throw();
+	void loadFromFile(ifstream& file) ;
+	void parseString(const string& text) ;
 
-	string toString(void) const throw();
+	string toString(void) const ;
 //	XMLTree*	makeXMLTree() const;
 
 public:
@@ -76,18 +76,18 @@ public:
 class TreasureItemType
 {
 public:
-	TreasureItemType() throw();
-	~TreasureItemType() throw();
+	TreasureItemType() ;
+	~TreasureItemType() ;
 
 public:
 	int getItemType(void) const { return m_ItemType; }
 	int getRatio(void) const { return m_Ratio; }
 
 public:
-	void loadFromFile(int itemClass, ifstream& file) throw();
-	void parseString(int itemClass, const string& text) throw();
-	bool getRandomOption(ITEM_TEMPLATE* pTemplate) throw();
-	string toString(void) const throw();
+	void loadFromFile(int itemClass, ifstream& file) ;
+	void parseString(int itemClass, const string& text) ;
+	bool getRandomOption(ITEM_TEMPLATE* pTemplate) ;
+	string toString(void) const ;
 //	XMLTree*	makeXMLTree() const;
 
 public:
@@ -107,22 +107,22 @@ public:
 class TreasureItemClass
 {
 public:
-	TreasureItemClass() throw();
-	~TreasureItemClass() throw();
+	TreasureItemClass() ;
+	~TreasureItemClass() ;
 
 public:
 	Item::ItemClass getItemClass(void) const { return m_ItemClass; }
 	int getRatio(void) const { return m_Ratio; }
 
 public:
-	void loadFromFile(ifstream& file) throw();
-	void parseString(const string& text) throw();
-	bool getRandomItem(ITEM_TEMPLATE* pTemplate) throw();
-	string toString(void) const throw();
+	void loadFromFile(ifstream& file) ;
+	void parseString(const string& text) ;
+	bool getRandomItem(ITEM_TEMPLATE* pTemplate) ;
+	string toString(void) const ;
 //	XMLTree*	makeXMLTree() const;
 
 public:
-	static Item::ItemClass getItemClassFromString(const string& text) throw();
+	static Item::ItemClass getItemClassFromString(const string& text) ;
 
 public:
 	Item::ItemClass m_ItemClass;
@@ -143,16 +143,16 @@ public:
 class Treasure
 {
 public:
-	Treasure() throw();
-	~Treasure() throw();
+	Treasure() ;
+	~Treasure() ;
 
 public:
-	void loadFromFile(ifstream& file) throw();
-	void parseString(const string& text) throw();
-	bool getRandomItem(ITEM_TEMPLATE* pTemplate) throw();
-	bool getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent) throw();
+	void loadFromFile(ifstream& file) ;
+	void parseString(const string& text) ;
+	bool getRandomItem(ITEM_TEMPLATE* pTemplate) ;
+	bool getRandomItem(ITEM_TEMPLATE* pTemplate, int nPercent) ;
 	
-	string toString(void) const throw();
+	string toString(void) const ;
 //	XMLTree*	makeXMLTree() const;
 
 public:
@@ -173,18 +173,18 @@ public:
 class TreasureList
 {
 public:
-	TreasureList() throw();
-	~TreasureList() throw();
+	TreasureList() ;
+	~TreasureList() ;
 
 public:
 	const list<Treasure*>& getTreasures(void) const { return m_Treasures; }
 
 public:
-	void loadFromFile(ifstream& file) throw();
-	void parseString(const string& text) throw();
-	void addTreasure(Treasure* pTreasure) throw();
+	void loadFromFile(ifstream& file) ;
+	void parseString(const string& text) ;
+	void addTreasure(Treasure* pTreasure) ;
 
-	string toString(void) const throw();
+	string toString(void) const ;
 //	XMLTree*	makeXMLTree() const;
 
 public:

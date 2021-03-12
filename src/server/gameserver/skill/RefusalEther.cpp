@@ -28,7 +28,7 @@ RefusalEther::RefusalEther()
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void RefusalEther::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -73,7 +73,7 @@ void RefusalEther::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 // 뱀파이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void RefusalEther::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

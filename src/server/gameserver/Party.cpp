@@ -53,7 +53,7 @@ GlobalPartyManager* g_pGlobalPartyManager = NULL;
 //////////////////////////////////////////////////////////////////////////////
 
 string PartyInviteInfo::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ string PartyInviteInfo::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 PartyInviteInfoManager::PartyInviteInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ PartyInviteInfoManager::PartyInviteInfoManager()
 }
 
 PartyInviteInfoManager::~PartyInviteInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -101,7 +101,7 @@ PartyInviteInfoManager::~PartyInviteInfoManager()
 }
 
 bool PartyInviteInfoManager::hasInviteInfo(const string& HostName) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ bool PartyInviteInfoManager::hasInviteInfo(const string& HostName)
 }
 
 bool PartyInviteInfoManager::canInvite(Creature* pHost, Creature* pGuest) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -143,7 +143,7 @@ bool PartyInviteInfoManager::canInvite(Creature* pHost, Creature* pGuest)
 }
 
 bool PartyInviteInfoManager::isInviting(Creature* pHost, Creature* pGuest) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -167,7 +167,7 @@ bool PartyInviteInfoManager::isInviting(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::initInviteInfo(Creature* pHost, Creature* pGuest) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ void PartyInviteInfoManager::initInviteInfo(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -231,7 +231,7 @@ void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest)
 }
 
 void PartyInviteInfoManager::cancelInvite(Creature* pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -289,7 +289,7 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 }
 
 bool PartyInviteInfoManager::addInviteInfo(PartyInviteInfo* pInfo) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -311,7 +311,7 @@ bool PartyInviteInfoManager::addInviteInfo(PartyInviteInfo* pInfo)
 }
 	
 void PartyInviteInfoManager::deleteInviteInfo(const string& HostName) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -330,7 +330,7 @@ void PartyInviteInfoManager::deleteInviteInfo(const string& HostName)
 }
 	
 PartyInviteInfo* PartyInviteInfoManager::getInviteInfo(const string& HostName) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -362,7 +362,7 @@ PartyInviteInfo* PartyInviteInfoManager::getInviteInfo(const string& HostName)
 //////////////////////////////////////////////////////////////////////////////
 
 Party::Party(Creature::CreatureClass CClass) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -378,7 +378,7 @@ Party::Party(Creature::CreatureClass CClass)
 }
 
 Party::~Party() 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -393,7 +393,7 @@ Party::~Party()
 
 // 이름으로 파티에 멤버를 찾아서 리턴한다.
 Creature* Party::getMember(const string& name) const
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -423,7 +423,7 @@ Creature* Party::getMember(const string& name) const
 
 // 멤버를 더한다.
 void Party::addMember(Creature* pCreature) 
-	throw (DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -460,7 +460,7 @@ void Party::addMember(Creature* pCreature)
 
 // 파티에서 멤버를 삭제한다.
 void Party::deleteMember(const string& name) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -490,7 +490,7 @@ void Party::deleteMember(const string& name)
 
 // 파티에 특정 이름을 가진 멤버가 있는지 조사한다.
 bool Party::hasMember(const string& name) const
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -520,7 +520,7 @@ bool Party::hasMember(const string& name) const
 // 파티를 해체하기 전에 파티 멤버들의 파티 ID를 0으로 만들고,
 // 로컬 파티 매니저에서 해당 ID를 가진 파티를 삭제한다.
 void Party::destroyParty(void) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -557,7 +557,6 @@ void Party::destroyParty(void)
 
 // 파티 멤버들에게 패킷을 날린다.
 void Party::broadcastPacket(Packet* pPacket, Creature* pOwner) 
-	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY
 
@@ -585,7 +584,7 @@ void Party::broadcastPacket(Packet* pPacket, Creature* pOwner)
 // 새로운 파티원이 추가되었을 때, 파티원들에게 날아가는
 // GCPartyJoined 패킷을 구성한다.
 void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -647,7 +646,7 @@ void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
 }
 
 int Party::getSize(void) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -656,7 +655,7 @@ int Party::getSize(void) const
 	__END_CATCH
 }
 
-unordered_map<string, Creature*> Party::getMemberMap(void) throw() 
+unordered_map<string, Creature*> Party::getMemberMap(void)  
 { 
 	__BEGIN_TRY
 
@@ -666,7 +665,7 @@ unordered_map<string, Creature*> Party::getMemberMap(void) throw()
 }
 
 int Party::getAdjacentMemberSize(Creature* pLeader) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -710,7 +709,7 @@ int Party::getAdjacentMemberSize(Creature* pLeader) const
 }
 
 int Party::getAdjacentMemberSize_LOCKED(Creature* pLeader) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -756,7 +755,7 @@ int Party::getAdjacentMemberSize_LOCKED(Creature* pLeader) const
 // 리더의 올라간 경험치는 LeaderModifyInfo에다 집어넣고, 
 // 나머지 멤버들의 올라간 경험치는 패킷을 따로 만들어 보낸다.
 int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DEXMultiplier, int INTMultiplier, ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -916,7 +915,7 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 }
 
 int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1035,7 +1034,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 }
 
 int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1142,7 +1141,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 }
 
 void Party::shareRankExp(Creature* pLeader, int otherLevel) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1278,7 +1277,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 }
 
 void Party::shareAdvancementExp(Creature* pLeader, int amount) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -1365,7 +1364,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 }
 
 void Party::shareRevealer(Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1443,7 +1442,7 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 }
 
 void Party::shareActivation(Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1505,7 +1504,7 @@ void Party::shareActivation(Creature* pCaster, int Duration)
 
 
 void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1568,7 +1567,7 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 }
 
 void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1635,7 +1634,7 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 }
 	
 bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1718,7 +1717,7 @@ bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
 }
 
 void Party::shareGDRLairEnter(Creature* pLeader)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1782,7 +1781,7 @@ void Party::shareGDRLairEnter(Creature* pLeader)
 
 
 void Party::shareDetectHidden(Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1845,7 +1844,7 @@ void Party::shareDetectHidden(Creature* pCaster, int Duration)
 }
 
 void Party::shareDetectInvisibility(Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1908,7 +1907,7 @@ void Party::shareDetectInvisibility(Creature* pCaster, int Duration)
 }
 
 void Party::shareExpansion(Creature* pCaster, int Duration, int Percent) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1987,7 +1986,7 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 	__END_CATCH
 }
 
-void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) throw(Error)
+void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) 
 {
 	__BEGIN_TRY
 
@@ -2038,7 +2037,7 @@ void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse) throw(Er
 	__END_CATCH
 }
 
-void Party::eventPartyCrash() throw(Error)
+void Party::eventPartyCrash() 
 {
 	__BEGIN_TRY
 
@@ -2114,7 +2113,7 @@ void Party::refreshFamilyPay()
 }
 
 string Party::toString(void) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2152,7 +2151,7 @@ string Party::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 PartyManager::PartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2162,14 +2161,14 @@ PartyManager::PartyManager()
 }
 
 PartyManager::~PartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 bool PartyManager::createParty(int ID, Creature::CreatureClass CClass) 
-	throw (DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2196,7 +2195,7 @@ bool PartyManager::createParty(int ID, Creature::CreatureClass CClass)
 }
 
 Party* PartyManager::getParty(int ID) 	// by sigi. 2002.10.14
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2214,7 +2213,6 @@ Party* PartyManager::getParty(int ID) 	// by sigi. 2002.10.14
 
 
 bool PartyManager::addPartyMember(int ID, Creature* pCreature) 
-	throw (NoSuchElementException, DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
@@ -2261,7 +2259,7 @@ bool PartyManager::addPartyMember(int ID, Creature* pCreature)
 }
 
 bool PartyManager::deletePartyMember(int ID, Creature* pCreature) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2294,7 +2292,7 @@ bool PartyManager::deletePartyMember(int ID, Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 
 LocalPartyManager::LocalPartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2304,14 +2302,14 @@ LocalPartyManager::LocalPartyManager()
 }
 
 LocalPartyManager::~LocalPartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void LocalPartyManager::heartbeat(void)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2355,7 +2353,7 @@ void LocalPartyManager::heartbeat(void)
 }
 
 int LocalPartyManager::getAdjacentMemberSize(int PartyID, Creature* pLeader) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2386,7 +2384,7 @@ int LocalPartyManager::getAdjacentMemberSize(int PartyID, Creature* pLeader) con
 int LocalPartyManager::shareAttrExp(int PartyID, Creature* pLeader, int amount, 
 		int STRMultiplier, int DEXMultiplier, int INTMultiplier, 
 		ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2415,7 +2413,7 @@ int LocalPartyManager::shareAttrExp(int PartyID, Creature* pLeader, int amount,
 }
 
 int LocalPartyManager::shareVampireExp(int PartyID, Creature* pLeader, int amount, ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2444,7 +2442,7 @@ int LocalPartyManager::shareVampireExp(int PartyID, Creature* pLeader, int amoun
 }
 
 int LocalPartyManager::shareOustersExp(int PartyID, Creature* pLeader, int amount, ModifyInfo& LeaderModifyInfo) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2473,7 +2471,7 @@ int LocalPartyManager::shareOustersExp(int PartyID, Creature* pLeader, int amoun
 }
 
 int LocalPartyManager::shareRankExp(int PartyID, Creature* pLeader, int amount) const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2502,7 +2500,7 @@ int LocalPartyManager::shareRankExp(int PartyID, Creature* pLeader, int amount) 
 }
 
 void LocalPartyManager::shareRevealer(int PartyID, Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2527,7 +2525,7 @@ void LocalPartyManager::shareRevealer(int PartyID, Creature* pCaster, int Durati
 }
 
 void LocalPartyManager::shareDetectHidden(int PartyID, Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2552,7 +2550,7 @@ void LocalPartyManager::shareDetectHidden(int PartyID, Creature* pCaster, int Du
 }
 
 void LocalPartyManager::shareDetectInvisibility(int PartyID, Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2577,7 +2575,7 @@ void LocalPartyManager::shareDetectInvisibility(int PartyID, Creature* pCaster, 
 }
 
 void LocalPartyManager::shareExpansion(int PartyID, Creature* pCaster, int Duration, int percent) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2602,7 +2600,7 @@ void LocalPartyManager::shareExpansion(int PartyID, Creature* pCaster, int Durat
 }
 
 void LocalPartyManager::shareActivation(int PartyID, Creature* pCaster, int Duration) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2627,7 +2625,7 @@ void LocalPartyManager::shareActivation(int PartyID, Creature* pCaster, int Dura
 }
 
 void LocalPartyManager::shareGnomesWhisper(int PartyID, Creature* pCaster, int Duration, int SkillLevel)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2652,7 +2650,7 @@ void LocalPartyManager::shareGnomesWhisper(int PartyID, Creature* pCaster, int D
 }
 
 void LocalPartyManager::shareHolyArmor(int PartyID, Creature* pCaster, int DefBonus, int SkillLevel)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2677,7 +2675,7 @@ void LocalPartyManager::shareHolyArmor(int PartyID, Creature* pCaster, int DefBo
 }
 
 bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, int HealPoint)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2706,7 +2704,7 @@ bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, 
 }
 
 void LocalPartyManager::shareGDRLairEnter(int PartyID, Creature* pLeader)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2730,7 +2728,7 @@ void LocalPartyManager::shareGDRLairEnter(int PartyID, Creature* pLeader)
 	__END_CATCH
 }
 
-int LocalPartyManager::shareAdvancementExp(int PartyID, Creature* pLeader, int amount) const throw()
+int LocalPartyManager::shareAdvancementExp(int PartyID, Creature* pLeader, int amount) const 
 {
 	__BEGIN_TRY
 
@@ -2759,7 +2757,7 @@ int LocalPartyManager::shareAdvancementExp(int PartyID, Creature* pLeader, int a
 }
 
 string LocalPartyManager::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2792,7 +2790,7 @@ string LocalPartyManager::toString(void) const
 //////////////////////////////////////////////////////////////////////////////
 
 GlobalPartyManager::GlobalPartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -2803,14 +2801,14 @@ GlobalPartyManager::GlobalPartyManager()
 }
 
 GlobalPartyManager::~GlobalPartyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 bool GlobalPartyManager::canAddMember(int ID) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -2839,7 +2837,6 @@ bool GlobalPartyManager::canAddMember(int ID)
 }
 
 bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature) 
-	throw (NoSuchElementException, DuplicatedException, Error)
 {
 	__BEGIN_TRY
 
@@ -2942,7 +2939,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 }
 
 bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -3023,7 +3020,7 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 }
 
 bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const string& ExpelleeName) 
-	throw (NoSuchElementException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -3157,7 +3154,7 @@ void GlobalPartyManager::refreshFamilyPay( int ID )
 }
 
 int GlobalPartyManager::registerParty(void) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -3175,7 +3172,7 @@ int GlobalPartyManager::registerParty(void)
 }
 
 string GlobalPartyManager::toString(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -3206,7 +3203,7 @@ string GlobalPartyManager::toString(void) const
 //
 //////////////////////////////////////////////////////////////////////////////
 void deleteAllPartyInfo(Creature* pCreature)
-	throw()
+	
 {
 	__BEGIN_TRY
 

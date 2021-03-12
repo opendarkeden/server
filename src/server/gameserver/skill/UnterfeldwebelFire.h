@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "UnterfeldwebelFire"; }
 	SkillType_t getSkillType() const throw() { return SKILL_UNTERFELDWEBEL_FIRE; }
 
-	void execute(Monster* pPlayer, Creature* pEnemy) throw(Error);
+	void execute(Monster* pPlayer, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

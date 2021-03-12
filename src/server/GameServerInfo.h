@@ -33,36 +33,36 @@ public:
 public :
 
 	// get/set GameServerID
-	ServerID_t getServerID() const throw() { return m_ServerID; }
-	void setServerID( ServerID_t ServerID ) throw() { m_ServerID = ServerID; }
+	ServerID_t getServerID() const  { return m_ServerID; }
+	void setServerID( ServerID_t ServerID )  { m_ServerID = ServerID; }
 
 	// get/set host name
-	const string& getNickname () const throw () { return m_Nickname; }
-	void setNickname ( const string &nickname ) throw () { m_Nickname = nickname; }
+	const string& getNickname () const  { return m_Nickname; }
+	void setNickname ( const string &nickname )  { m_Nickname = nickname; }
 	
 	// get/set ip address
-	const string& getIP () const throw () { return m_IP; }
-	void setIP ( const string &ip ) throw () { m_IP = ip; }
+	const string& getIP () const  { return m_IP; }
+	void setIP ( const string &ip )  { m_IP = ip; }
 
 	// get/set port
-	uint getTCPPort () const throw () { return m_TCPPort; }
-	void setTCPPort ( uint port ) throw () { m_TCPPort = port; }
+	uint getTCPPort () const  { return m_TCPPort; }
+	void setTCPPort ( uint port )  { m_TCPPort = port; }
 
 	// get/set UDP port
-	uint getUDPPort () const throw () { return m_UDPPort; }
-	void setUDPPort ( uint port ) throw () { m_UDPPort = port; }
+	uint getUDPPort () const  { return m_UDPPort; }
+	void setUDPPort ( uint port )  { m_UDPPort = port; }
 
 	// get/set GameServerGroupID
-	ServerGroupID_t getGroupID() const throw() { return m_GroupID; }
+	ServerGroupID_t getGroupID() const  { return m_GroupID; }
 	void setGroupID( ServerGroupID_t GroupID ) { m_GroupID = GroupID; }
 
 	// get/set GameWorldID
-	WorldID_t getWorldID() const throw() { return m_WorldID; }
+	WorldID_t getWorldID() const  { return m_WorldID; }
 	void setWorldID( WorldID_t WorldID ) { m_WorldID= WorldID; }
 
 	// get/set ServerStat
-	ServerStatus getServerStat() const throw() { return m_ServerStat; }
-	void setServerStat( ServerStatus Stat ) throw() { m_ServerStat = Stat; }
+	ServerStatus getServerStat() const  { return m_ServerStat; }
+	void setServerStat( ServerStatus Stat )  { m_ServerStat = Stat; }
 
 	// PK Server
 	bool isNonPKServer() const { return m_bNonPKServer; }
@@ -72,7 +72,7 @@ public :
 	void setCastleFollowingServerID( ServerID_t sID ) { m_CastleFollowingServerID = sID; }
 
 	// get debug string
-	string toString () const throw () 
+	string toString () const  
 	{
 		StringStream msg;
 		msg << "GameServerInfo("

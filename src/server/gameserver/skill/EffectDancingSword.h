@@ -16,22 +16,22 @@
 class EffectDancingSword : public Effect 
 {
 public:
-	EffectDancingSword(Creature* pCreature) throw(Error);
+	EffectDancingSword(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DANCING_SWORD; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 
 public:
 	int getToHitBonus() throw() { return m_ToHitBonus;}
-	void setToHitBonus(ToHit_t ToHitBonus) throw(Error) { m_ToHitBonus = ToHitBonus;}
+	void setToHitBonus(ToHit_t ToHitBonus)  { m_ToHitBonus = ToHitBonus;}
 
 private :
 	ToHit_t m_ToHitBonus;

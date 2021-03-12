@@ -32,39 +32,39 @@ class CommonBillingPacket : public Packet, public BillingInfo {
 public:
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_COMMON_BILLING; }
+	PacketID_t getPacketID() const  { return PACKET_COMMON_BILLING; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szBillingInfo; }
+	PacketSize_t getPacketSize() const  { return szBillingInfo; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CommonBillingPacket"; }
+	string getPacketName() const  { return "CommonBillingPacket"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
     void test();
 
 public :
 	void	setPacket_Type(BillingPacketType bpt)	{ Packet_Type = bpt; }
 	void	setResult(int result) 					{ Result = result; }
-	void	setUser_CC() throw (Error);
+	void	setUser_CC() ;
 	void	setSession(const string& session) 		{ memset(Session, 0, sizeof(Session)); memcpy(Session, session.c_str(), session.length()); }
 	void	setUser_ID(const string& PlayerID) 		{ strcpy(User_ID, PlayerID.c_str()); }
 	void	setUser_No(int uno) 					{ sprintf(User_No, "%d", uno); }
 	void	setUser_IP(const string& IP) 			{ strcpy(User_IP, IP.c_str()); }
 	void	setGame_No(int gameNo) 					{ Game_No = gameNo; }
 	void	setUser_Status(const string& UserStatus){ strcpy(User_Status, UserStatus.c_str()); }
-	void	setExpire_Date(const string& PlayerID) throw (Error);
+	void	setExpire_Date(const string& PlayerID) ;
 
 	string	getExpire_DateToString() const;
 
@@ -87,17 +87,17 @@ class CommonBillingPacketFactory : public PacketFactory {
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CommonBillingPacket(); }
+	Packet* createPacket()  { return new CommonBillingPacket(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CommonBillingPacket"; }
+	string getPacketName() const  { return "CommonBillingPacket"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_COMMON_BILLING; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_COMMON_BILLING; }
 
 	// get packet's max body size
 	// message 의 최대 크기에 대한 설정이 필요하다.
-	PacketSize_t getPacketMaxSize() const throw() { return szBillingInfo; }
+	PacketSize_t getPacketMaxSize() const  { return szBillingInfo; }
 
 };
 
@@ -113,15 +113,15 @@ class CommonBillingPacketHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(CommonBillingPacket* pPacket, Player* pPlayer) ;
 
 private :
-	static void executeBillingLoginVerify(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void executeBillingRemain(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void executeBillingCheck(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void executeBillingLoginCheckVerify(CommonBillingPacket* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-	static void disconnectGamePlayer(GamePlayer* pGamePlayer, Turn_t delay) throw (Error);
-	static void sendBillingRemainMessage(CommonBillingPacket* pPacket, GamePlayer* pGamePlayer) throw (Error);
+	static void executeBillingLoginVerify(CommonBillingPacket* pPacket, Player* pPlayer) ;
+	static void executeBillingRemain(CommonBillingPacket* pPacket, Player* pPlayer) ;
+	static void executeBillingCheck(CommonBillingPacket* pPacket, Player* pPlayer) ;
+	static void executeBillingLoginCheckVerify(CommonBillingPacket* pPacket, Player* pPlayer) ;
+	static void disconnectGamePlayer(GamePlayer* pGamePlayer, Turn_t delay) ;
+	static void sendBillingRemainMessage(CommonBillingPacket* pPacket, GamePlayer* pGamePlayer) ;
 
 };
 

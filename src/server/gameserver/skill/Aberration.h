@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "Aberration"; }
 	SkillType_t getSkillType() const throw() { return SKILL_ABERRATION; }
 
-	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

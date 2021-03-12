@@ -35,7 +35,7 @@ public:
 	bool	advanced() { return transition( EVENT_QUEST_STARTED, EVENT_QUEST_ADVANCED ); }
 	void	reset() { setStatus( EVENT_QUEST_INIT ); }
 
-	void	save( const string& name ) throw(Error);
+	void	save( const string& name ) ;
 
 protected:
 	bool	transition( Status I, Status O )
@@ -66,9 +66,9 @@ public:
 
 	EventQuestAdvance::Status	getStatus( int questLevel );
 
-	void	save() throw(Error);
-	void	save( int questLevel ) throw(Error);
-	void	load() throw(Error);
+	void	save() ;
+	void	save( int questLevel ) ;
+	void	load() ;
 
 	bool	canExecute( int questLevel );
 	int		getQuestLevel();

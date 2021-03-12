@@ -42,7 +42,7 @@ class FiniteStateMachine
 {
 public:
 	FiniteStateMachine() : m_pCurrentState(NULL), m_pStateFactory(NULL), m_bReset(false), m_ResetState(0) { }
-	virtual ~FiniteStateMachine() throw (Error) { }
+	virtual ~FiniteStateMachine() { }
 
 	virtual void init() = 0;
 	virtual void heartbeat(Timeval currentTime);

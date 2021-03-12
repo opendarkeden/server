@@ -29,17 +29,17 @@ public:
 	static const char* SpaceTab;
 	
 public:
-	PropertyBuffer(const string & buffer) throw();
-	~PropertyBuffer() throw();
+	PropertyBuffer(const string & buffer) ;
+	~PropertyBuffer() ;
 	
 public:
-	string getProperty(string key) throw(NoSuchElementException, Error);
-	int getPropertyInt(string key) throw(NoSuchElementException, Error);
+	string getProperty(string key) ;
+	int getPropertyInt(string key) ;
 
-	bool getProperty(string key, string& value) throw(NoSuchElementException, Error);
-	bool getPropertyInt(string key, int& value) throw(NoSuchElementException, Error);
+	bool getProperty(string key, string& value) ;
+	bool getPropertyInt(string key, int& value) ;
 
-	string toString() const throw();
+	string toString() const ;
 	
 private:
 	size_t   m_Index;

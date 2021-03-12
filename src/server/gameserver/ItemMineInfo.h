@@ -62,14 +62,14 @@ public:
 
 public:
 
-	// void load() throw();
-	void load() throw(Error);
+	// void load() ;
+	void load() ;
 	
 	// get ItemMineInfo
 	ItemMineInfo* getItemMineInfo(int id) const;
 
 	// add ItemMineInfo
-	void addItemMineInfo(ItemMineInfo* pItemMineInfo) throw(DuplicatedException, Error);
+	void addItemMineInfo(ItemMineInfo* pItemMineInfo) ;
 
 	Item* getRandomItem(int minID, int maxID);
 

@@ -91,7 +91,7 @@ void MiniGameQuestStatus::executeWhenFail()
 	else Assert(false);
 }
 
-string MiniGameQuestStatus::toStrong() const throw(Error)
+string MiniGameQuestStatus::toStrong() const 
 {
 	__BEGIN_TRY
 

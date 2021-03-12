@@ -68,7 +68,7 @@ EventZoneInfo* EventZoneInfoManager::getEventZoneInfo( ZoneID_t zoneID ) const
 	return itr->second;
 }
 
-void EventZoneInfoManager::load() throw(Error)
+void EventZoneInfoManager::load() 
 {
 	__BEGIN_TRY
 

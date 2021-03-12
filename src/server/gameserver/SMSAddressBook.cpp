@@ -25,7 +25,7 @@ SMSAddressBook::~SMSAddressBook()
 	}
 }
 
-void SMSAddressBook::load() throw(Error)
+void SMSAddressBook::load() 
 {
 	__BEGIN_TRY
 

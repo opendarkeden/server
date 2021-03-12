@@ -24,14 +24,14 @@ Mutex    Sweeper::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Sweeper::Sweeper()
-	throw()
+	
 : m_ItemType(0), m_Durability(0)
 {
 	m_EnchantLevel = 0;
 }
 
 Sweeper::Sweeper(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_Durability(0)
 {
 	try {
@@ -55,7 +55,7 @@ Sweeper::Sweeper(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Sweeper::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void Sweeper::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void Sweeper::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,7 @@ void Sweeper::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Sweeper::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void Sweeper::save(const string & ownerID, Storage storage, StorageID_t storageI
 // get debug string
 //--------------------------------------------------------------------------------
 string Sweeper::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string Sweeper::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Sweeper::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeWidth_t Sweeper::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Sweeper::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ VolumeHeight_t Sweeper::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Sweeper::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -237,7 +237,7 @@ Weight_t Sweeper::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t Sweeper::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ Defense_t Sweeper::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t Sweeper::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ Protection_t Sweeper::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string SweeperInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -284,7 +284,7 @@ string SweeperInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void SweeperInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -343,7 +343,7 @@ void SweeperInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void SweeperLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -501,7 +501,7 @@ void SweeperLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void SweeperLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -570,7 +570,7 @@ void SweeperLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void SweeperLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

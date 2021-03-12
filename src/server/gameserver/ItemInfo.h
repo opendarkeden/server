@@ -18,106 +18,106 @@ class ItemInfo
 {
 // constructor & destructor
 public:
-	ItemInfo() throw();
-	virtual ~ItemInfo() throw();
+	ItemInfo() ;
+	virtual ~ItemInfo() ;
 
 
 // 공통 정보
 public:
-	virtual Item::ItemClass getItemClass() const throw() = 0;
-	string getItemClassName() const throw() { return ItemClass2String[getItemClass()]; }
+	virtual Item::ItemClass getItemClass() const  = 0;
+	string getItemClassName() const  { return ItemClass2String[getItemClass()]; }
 
-	ItemType_t getItemType() const throw() { return m_ItemType; }
-    void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+	ItemType_t getItemType() const  { return m_ItemType; }
+    void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
  
-	string getName() const throw() { return m_Name; }
-	void setName(const string & name) throw() { m_Name = name; }
+	string getName() const  { return m_Name; }
+	void setName(const string & name)  { m_Name = name; }
 
-	string getEName() const throw() { return m_EName; }
-	void setEName(const string & ename) throw() { m_EName = ename; }
+	string getEName() const  { return m_EName; }
+	void setEName(const string & ename)  { m_EName = ename; }
 	
-	Price_t getPrice() const throw() { return m_Price; }
-	void setPrice(Price_t Price) throw(){ m_Price = Price; }
+	Price_t getPrice() const  { return m_Price; }
+	void setPrice(Price_t Price) { m_Price = Price; }
 
-	VolumeType_t getVolumeType() const throw() { return m_VolumeType; }
-	void setVolumeType(VolumeType_t VolumeType) throw() { m_VolumeType = VolumeType; }
-	VolumeWidth_t getVolumeWidth() const throw();
-	VolumeHeight_t getVolumeHeight() const throw();
+	VolumeType_t getVolumeType() const  { return m_VolumeType; }
+	void setVolumeType(VolumeType_t VolumeType)  { m_VolumeType = VolumeType; }
+	VolumeWidth_t getVolumeWidth() const ;
+	VolumeHeight_t getVolumeHeight() const ;
 
-	Weight_t getWeight() const throw() { return m_Weight; }
-	void setWeight(Weight_t weight) throw() { m_Weight = weight; }
+	Weight_t getWeight() const  { return m_Weight; }
+	void setWeight(Weight_t weight)  { m_Weight = weight; }
 
-	Ratio_t getRatio() const throw() { return m_Ratio; }
-	void setRatio(Ratio_t Ratio) throw() { m_Ratio = Ratio; }
+	Ratio_t getRatio() const  { return m_Ratio; }
+	void setRatio(Ratio_t Ratio)  { m_Ratio = Ratio; }
 	
-	string getDescription() const throw() { return m_Description; }
-	void setDescription(const string& description) throw() { m_Description = description ; }
+	string getDescription() const  { return m_Description; }
+	void setDescription(const string& description)  { m_Description = description ; }
 	
-	virtual Attr_t  getReqSTR(void) const throw()    { return m_ReqSTR; }
-	virtual Attr_t  getReqDEX(void) const throw()    { return m_ReqDEX; }
-	virtual Attr_t  getReqINT(void) const throw()    { return m_ReqINT; }
-	virtual Attr_t  getReqSum(void) const throw()    { return m_ReqSum; }
-	virtual Level_t getReqLevel(void) const throw()  { return m_ReqLevel; }
-	virtual Level_t getReqAdvancedLevel(void) const throw()  { return m_ReqAdvanceLevel; }
-	virtual Attr_t  getReqGender(void) const throw() { return m_ReqGender; }
+	virtual Attr_t  getReqSTR(void) const     { return m_ReqSTR; }
+	virtual Attr_t  getReqDEX(void) const     { return m_ReqDEX; }
+	virtual Attr_t  getReqINT(void) const     { return m_ReqINT; }
+	virtual Attr_t  getReqSum(void) const     { return m_ReqSum; }
+	virtual Level_t getReqLevel(void) const   { return m_ReqLevel; }
+	virtual Level_t getReqAdvancedLevel(void) const   { return m_ReqAdvanceLevel; }
+	virtual Attr_t  getReqGender(void) const  { return m_ReqGender; }
 
-	virtual void    setReqSTR(Attr_t req) throw()      { m_ReqSTR = req; }
-	virtual void    setReqDEX(Attr_t req) throw()      { m_ReqDEX = req; }
-	virtual void    setReqINT(Attr_t req) throw()      { m_ReqINT = req; }
-	virtual void    setReqSum(Attr_t req) throw()      { m_ReqSum = req; }
-	virtual void    setReqLevel(Level_t req) throw()   { m_ReqLevel = req; }
-	virtual void    setReqAdvanceLevel(Level_t req) throw()   { m_ReqAdvanceLevel = req; }
-	virtual void    setReqGender(Attr_t req) throw()   { m_ReqGender = req; }
-	virtual void    setReqAbility(const string& req) throw();
+	virtual void    setReqSTR(Attr_t req)       { m_ReqSTR = req; }
+	virtual void    setReqDEX(Attr_t req)       { m_ReqDEX = req; }
+	virtual void    setReqINT(Attr_t req)       { m_ReqINT = req; }
+	virtual void    setReqSum(Attr_t req)       { m_ReqSum = req; }
+	virtual void    setReqLevel(Level_t req)    { m_ReqLevel = req; }
+	virtual void    setReqAdvanceLevel(Level_t req)    { m_ReqAdvanceLevel = req; }
+	virtual void    setReqGender(Attr_t req)    { m_ReqGender = req; }
+	virtual void    setReqAbility(const string& req) ;
 
-	virtual string toString() const throw() = 0;
+	virtual string toString() const  = 0;
 
 
 // 개별 정보. 편의상 베이스 클래스에 정의해준다.
 public:
-	virtual Durability_t getDurability() const throw() { return 1; }
-	virtual void setDurability(Durability_t durability) throw() {}
+	virtual Durability_t getDurability() const  { return 1; }
+	virtual void setDurability(Durability_t durability)  {}
 
-	virtual Damage_t getMinDamage() const throw() { return 0; }
-	virtual void setMinDamage(Damage_t damage) throw() {}
+	virtual Damage_t getMinDamage() const  { return 0; }
+	virtual void setMinDamage(Damage_t damage)  {}
 
-	virtual Damage_t getMaxDamage() const throw() { return 0; }
-	virtual void setMaxDamage(Damage_t damage) throw() {}
+	virtual Damage_t getMaxDamage() const  { return 0; }
+	virtual void setMaxDamage(Damage_t damage)  {}
 
-	virtual Range_t getRange() const throw() { return 0; }
-	virtual void setRange(Range_t range) throw() {}
+	virtual Range_t getRange() const  { return 0; }
+	virtual void setRange(Range_t range)  {}
 
-	virtual ToHit_t getToHitBonus() const throw() { return 0; }
-	virtual void setToHitBonus(ToHit_t tohit) throw() {}
+	virtual ToHit_t getToHitBonus() const  { return 0; }
+	virtual void setToHitBonus(ToHit_t tohit)  {}
 
-	virtual Defense_t getDefenseBonus() const throw() { return 0; }
-	virtual void setDefenseBonus(Defense_t defense) throw() {}
+	virtual Defense_t getDefenseBonus() const  { return 0; }
+	virtual void setDefenseBonus(Defense_t defense)  {}
 
-	virtual Protection_t getProtectionBonus() const throw() { return 0; }
-	virtual void setProtectionBonus(Protection_t defense) throw() {}
+	virtual Protection_t getProtectionBonus() const  { return 0; }
+	virtual void setProtectionBonus(Protection_t defense)  {}
 
-	virtual MP_t getMPBonus() const throw() { return 0;}
-	virtual void setMPBonus(MP_t bonus) throw() { }
+	virtual MP_t getMPBonus() const  { return 0;}
+	virtual void setMPBonus(MP_t bonus)  { }
 
-	virtual Silver_t getMaxSilver() const throw() { return 0; }
-	virtual void setMaxSilver(Silver_t amount) throw() { }
+	virtual Silver_t getMaxSilver() const  { return 0; }
+	virtual void setMaxSilver(Silver_t amount)  { }
 
-	virtual Speed_t getSpeed(void) const throw() { return 0; }
-	virtual void setSpeed(Speed_t speed) throw() { } 
+	virtual Speed_t getSpeed(void) const  { return 0; }
+	virtual void setSpeed(Speed_t speed)  { } 
 
-	virtual uint getItemLevel(void) const throw() { return 99; }
-	virtual void setItemLevel(uint level) throw() { }
+	virtual uint getItemLevel(void) const  { return 99; }
+	virtual void setItemLevel(uint level)  { }
 
-	virtual int getCriticalBonus(void) const throw() { return 0; }
-	virtual void setCriticalBonus(int bonus) throw() { };
+	virtual int getCriticalBonus(void) const  { return 0; }
+	virtual void setCriticalBonus(int bonus)  { };
 
 	virtual ElementalType getElementalType() const { return ELEMENTAL_MAX; }
 	virtual Elemental_t getElemental() const { return 0; }
 	
 	// ItemType에 따른 기본 옵션
-	virtual void    setDefaultOptions(const string& options) throw(Error);
-	void			addDefaultOptions(OptionType_t optionType) throw();
-	void			clearDefaultOptions() throw();
+	virtual void    setDefaultOptions(const string& options) ;
+	void			addDefaultOptions(OptionType_t optionType) ;
+	void			clearDefaultOptions() ;
 	bool			hasDefaultOptions() const { return m_bDefaultOptions; }
 	const list<OptionType_t>& getDefaultOptions() const { return m_DefaultOptions; }
 

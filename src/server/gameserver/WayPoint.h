@@ -64,11 +64,11 @@ public:
 	~WayPointManager();
 
 public:
-	void load(void) throw();
-	bool isValidWayPoint(ZoneID_t id, ZoneCoord_t x, ZoneCoord_t y, Race_t race) throw();
+	void load(void) ;
+	bool isValidWayPoint(ZoneID_t id, ZoneCoord_t x, ZoneCoord_t y, Race_t race) ;
 
 private:
-	void addWayPoint(WayPoint* pWayPoint) throw();
+	void addWayPoint(WayPoint* pWayPoint) ;
 };
 
 // global varible

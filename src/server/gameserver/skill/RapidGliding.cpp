@@ -15,7 +15,7 @@
 // 뱀파이어 타일 핸들러 
 //////////////////////////////////////////////////////////////////////////////
 void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void RapidGliding::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  Vam
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void RapidGliding::execute(Vampire * pVampire, ObjectID_t TargetObjectID, VampireSkillSlot * pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

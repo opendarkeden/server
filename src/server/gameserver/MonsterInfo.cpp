@@ -116,7 +116,7 @@ void saveTreasure(const string& filename, TreasureList* pTreasureList)
 //////////////////////////////////////////////////////////////////////////////
 
 MonsterInfo::MonsterInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -170,7 +170,7 @@ MonsterInfo::MonsterInfo()
 }
 
 MonsterInfo::~MonsterInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -222,7 +222,7 @@ RegenType MonsterInfo::selectRegenType() const
 }
 
 void MonsterInfo::setMoveMode(const string& moveMode)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -235,7 +235,7 @@ void MonsterInfo::setMoveMode(const string& moveMode)
 }
 
 void MonsterInfo::parseEnhanceAttr(const string& enhance) 
-	throw()
+	
 {
 	m_EnhanceHP         = 0;
 	m_EnhanceToHit      = 0;
@@ -274,7 +274,7 @@ void MonsterInfo::parseEnhanceAttr(const string& enhance)
 }
 
 void MonsterInfo::parseSlayerTreasureString(const string& text)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -293,7 +293,7 @@ void MonsterInfo::parseSlayerTreasureString(const string& text)
 }
 
 void MonsterInfo::setSlayerTreasureList(TreasureList* pTreasureList)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -305,7 +305,7 @@ void MonsterInfo::setSlayerTreasureList(TreasureList* pTreasureList)
 }
 
 void MonsterInfo::parseVampireTreasureString(const string& text)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -324,7 +324,7 @@ void MonsterInfo::parseVampireTreasureString(const string& text)
 }
 
 void MonsterInfo::setVampireTreasureList(TreasureList* pTreasureList)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -336,7 +336,7 @@ void MonsterInfo::setVampireTreasureList(TreasureList* pTreasureList)
 }
 
 void MonsterInfo::parseOustersTreasureString(const string& text)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -348,7 +348,7 @@ void MonsterInfo::parseOustersTreasureString(const string& text)
 }
 
 void MonsterInfo::setOustersTreasureList(TreasureList* pTreasureList)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -480,7 +480,7 @@ void MonsterInfo::addDefaultEffects(Creature* pCreature) const
 
 
 string MonsterInfo::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -523,7 +523,7 @@ string MonsterInfo::toString () const
 ////////////////////////////////////////////////////////////////////////////////
 
 MonsterInfoManager::MonsterInfoManager ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -533,7 +533,7 @@ MonsterInfoManager::MonsterInfoManager ()
 }
 
 MonsterInfoManager::~MonsterInfoManager ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 		
@@ -543,7 +543,7 @@ MonsterInfoManager::~MonsterInfoManager ()
 }
 
 void MonsterInfoManager::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -560,7 +560,7 @@ void MonsterInfoManager::clearTreasures()
 }
 
 void MonsterInfoManager::load () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -837,7 +837,7 @@ void MonsterInfoManager::load ()
 
 
 void MonsterInfoManager::reload (MonsterType_t monsterType) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -988,7 +988,6 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 }
 
 void MonsterInfoManager::addMonsterInfo (MonsterType_t monsterType , MonsterInfo* pMonsterInfo) 
-	throw (DuplicatedException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1029,7 +1028,6 @@ void MonsterInfoManager::addMonsterInfo (MonsterType_t monsterType , MonsterInfo
 }
 
 const MonsterInfo* MonsterInfoManager::getMonsterInfo (MonsterType_t monsterType) const 
-	throw (NoSuchElementException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1052,7 +1050,6 @@ const MonsterInfo* MonsterInfoManager::getMonsterInfo (MonsterType_t monsterType
 }
 
 const vector<MonsterType_t>& MonsterInfoManager::getMonsterTypeBySprite(SpriteType_t spriteType) const
-	throw (NoSuchElementException , OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -1095,7 +1092,6 @@ string MonsterInfoManager::getNameBySpriteType(SpriteType_t spriteType) const
 }
 
 SpriteType_t MonsterInfoManager::getSpriteTypeByName(const string& monsterName) const
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1115,7 +1111,6 @@ SpriteType_t MonsterInfoManager::getSpriteTypeByName(const string& monsterName) 
 }
 
 MonsterType_t MonsterInfoManager::getChiefMonsterTypeByName(const string& monsterName) const
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1165,7 +1160,7 @@ MonsterType_t MonsterInfoManager::getRandomMonsterByClass( int minClass, int max
 }
 
 string MonsterInfoManager::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

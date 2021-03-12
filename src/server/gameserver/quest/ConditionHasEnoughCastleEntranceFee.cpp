@@ -17,7 +17,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionHasEnoughCastleEntranceFee::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -35,7 +35,7 @@ bool ConditionHasEnoughCastleEntranceFee::isSatisfied (Creature * pCreature1 , C
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionHasEnoughCastleEntranceFee::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	try
 	{
@@ -52,7 +52,7 @@ void ConditionHasEnoughCastleEntranceFee::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionHasEnoughCastleEntranceFee::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

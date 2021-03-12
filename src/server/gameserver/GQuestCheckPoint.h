@@ -12,7 +12,7 @@ class MonsterCorpse;
 class GQuestCheckPoint
 {
 public:
-	void load() throw(Error);
+	void load() ;
 	static GQuestCheckPoint& Instance()
 	{
 		static GQuestCheckPoint theInstance;

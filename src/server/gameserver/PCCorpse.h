@@ -18,12 +18,12 @@ class PCCorpse : public Corpse
 {
 // methods from Object
 public:
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 // methods from Item
 public:
 	// 크리처의 인벤토리에서 아이템을 꺼내서, 시체에 집어넣는다.
-	void transportItems(Creature* pCreature) throw(Error);
+	void transportItems(Creature* pCreature) ;
 
 // data members
 private:

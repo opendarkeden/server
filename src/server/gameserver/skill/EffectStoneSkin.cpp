@@ -15,7 +15,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectStoneSkin::EffectStoneSkin(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectStoneSkin::EffectStoneSkin(Creature* pCreature)
 }
 
 void EffectStoneSkin::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectStoneSkin::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectStoneSkin::unaffect()
 }
 
 void EffectStoneSkin::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

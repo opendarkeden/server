@@ -21,15 +21,15 @@
 class GCTradeAddItem : public Packet 
 {
 public:
-	GCTradeAddItem() throw();
-	~GCTradeAddItem() throw();
+	GCTradeAddItem() ;
+	~GCTradeAddItem() ;
 	
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_TRADE_ADD_ITEM; }
-	PacketSize_t getPacketSize() const throw() 
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_TRADE_ADD_ITEM; }
+	PacketSize_t getPacketSize() const  
 	{ 
 		PacketSize_t size = 0;
 		size += szObjectID;                           // m_TargetObjectID
@@ -48,31 +48,31 @@ public:
 		size +=(SubItemInfo::getSize()* m_ListNum); // list<SubItemInfo*> m_InfoList;
 		return size;
 	}
-	string getPacketName() const throw() { return "GCTradeAddItem"; }
-	string toString() const throw();
+	string getPacketName() const  { return "GCTradeAddItem"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t id) throw() { m_TargetObjectID = id; }
+	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
+	void setTargetObjectID(ObjectID_t id)  { m_TargetObjectID = id; }
 
-	CoordInven_t getX() const throw() { return m_X; }
-	void setX(CoordInven_t x) throw() { m_X = x; }
+	CoordInven_t getX() const  { return m_X; }
+	void setX(CoordInven_t x)  { m_X = x; }
 
-	CoordInven_t getY() const throw() { return m_Y; }
-	void setY(CoordInven_t y) throw() { m_Y = y; }
+	CoordInven_t getY() const  { return m_Y; }
+	void setY(CoordInven_t y)  { m_Y = y; }
 
-	ObjectID_t getItemObjectID() const throw() { return m_ItemObjectID; }
-	void setItemObjectID(ObjectID_t id) throw() { m_ItemObjectID = id; }
+	ObjectID_t getItemObjectID() const  { return m_ItemObjectID; }
+	void setItemObjectID(ObjectID_t id)  { m_ItemObjectID = id; }
 
-	BYTE getItemClass() const throw() { return m_ItemClass; }
-	void setItemClass(BYTE IClass) throw() { m_ItemClass = IClass; }
+	BYTE getItemClass() const  { return m_ItemClass; }
+	void setItemClass(BYTE IClass)  { m_ItemClass = IClass; }
 
-	ItemType_t getItemType() const throw() { return m_ItemType; }
+	ItemType_t getItemType() const  { return m_ItemType; }
 	void setItemType(ItemType_t itemType) { m_ItemType = itemType; }
 
-	int getOptionTypeSize() const throw() { return m_OptionType.size(); }
-	const list<OptionType_t>& getOptionType() const throw() { return m_OptionType; }
-	OptionType_t popOptionType() throw()
+	int getOptionTypeSize() const  { return m_OptionType.size(); }
+	const list<OptionType_t>& getOptionType() const  { return m_OptionType; }
+	OptionType_t popOptionType() 
 	{
 		if (m_OptionType.empty()) return 0;
 		OptionType_t optionType = m_OptionType.front();
@@ -80,30 +80,30 @@ public:
 		return optionType;
 	}
 	void addOptionType(OptionType_t otype) { m_OptionType.push_back( otype ); }
-	void setOptionType(const list<OptionType_t>& OptionTypes) throw() { m_OptionType = OptionTypes; }
+	void setOptionType(const list<OptionType_t>& OptionTypes)  { m_OptionType = OptionTypes; }
 
-	Durability_t getDurability() const throw() { return m_Durability; }
-	void setDurability(Durability_t dur) throw() { m_Durability = dur; }
+	Durability_t getDurability() const  { return m_Durability; }
+	void setDurability(Durability_t dur)  { m_Durability = dur; }
 
-	ItemNum_t getItemNum() const throw() { return m_ItemNum; }
+	ItemNum_t getItemNum() const  { return m_ItemNum; }
 	void setItemNum(ItemNum_t itemNum) { m_ItemNum = itemNum; }
 
-	Silver_t getSilver() const throw() { return m_Silver; }
-	void setSilver(Silver_t amount) throw() { m_Silver = amount; }
+	Silver_t getSilver() const  { return m_Silver; }
+	void setSilver(Silver_t amount)  { m_Silver = amount; }
 
-	Grade_t getGrade() const throw() { return m_Grade; }
-	void setGrade(Grade_t grade) throw() { m_Grade = grade; }
+	Grade_t getGrade() const  { return m_Grade; }
+	void setGrade(Grade_t grade)  { m_Grade = grade; }
 
-	EnchantLevel_t getEnchantLevel() const throw() { return m_EnchantLevel; }
-	void setEnchantLevel(EnchantLevel_t level) throw() { m_EnchantLevel = level; }
+	EnchantLevel_t getEnchantLevel() const  { return m_EnchantLevel; }
+	void setEnchantLevel(EnchantLevel_t level)  { m_EnchantLevel = level; }
 
-	BYTE getListNum() const throw() { return m_ListNum; }
-	void setListNum(BYTE num) throw() { m_ListNum = num; }
+	BYTE getListNum() const  { return m_ListNum; }
+	void setListNum(BYTE num)  { m_ListNum = num; }
 
-	void addListElement(SubItemInfo* pInfo) throw() { m_InfoList.push_back(pInfo); }
-	void clearList() throw() { m_InfoList.clear(); m_ListNum = 0; }
+	void addListElement(SubItemInfo* pInfo)  { m_InfoList.push_back(pInfo); }
+	void clearList()  { m_InfoList.clear(); m_ListNum = 0; }
 
-	SubItemInfo* popListElement() throw() 
+	SubItemInfo* popListElement()  
 	{
 		SubItemInfo* pInfo = m_InfoList.front();
 		m_InfoList.pop_front();
@@ -138,10 +138,10 @@ private:
 class GCTradeAddItemFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCTradeAddItem(); }
-	string getPacketName() const throw() { return "GCTradeAddItem"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_TRADE_ADD_ITEM; }
-	PacketSize_t getPacketMaxSize() const throw() 
+	Packet* createPacket()  { return new GCTradeAddItem(); }
+	string getPacketName() const  { return "GCTradeAddItem"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_TRADE_ADD_ITEM; }
+	PacketSize_t getPacketMaxSize() const  
 	{ 
 		PacketSize_t size = 0;
 		size += szObjectID;                   // m_TargetObjectID
@@ -172,7 +172,7 @@ public:
 class GCTradeAddItemHandler 
 {
 public:
-	static void execute(GCTradeAddItem* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCTradeAddItem* pPacket, Player* pPlayer) ;
 
 };
 

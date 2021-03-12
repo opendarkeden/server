@@ -48,7 +48,7 @@ bool MonsterKillQuestStatus::killed( SpriteType_t targetSType, bool isChief )
 	return ret;
 }
 
-string MonsterKillQuestStatus::toString() const throw(Error)
+string MonsterKillQuestStatus::toString() const 
 {
 	__BEGIN_TRY
 

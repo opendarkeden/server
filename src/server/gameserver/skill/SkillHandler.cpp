@@ -101,7 +101,7 @@ SkillInput::SkillInput(Monster* pMonster)
 //////////////////////////////////////////////////////////////////////////////
 
 void SkillHandler::execute(Slayer* pSlayer, ObjectID_t ObjectID) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -111,7 +111,7 @@ void SkillHandler::execute(Slayer* pSlayer, ObjectID_t ObjectID)
 }
 
 void SkillHandler::execute(Vampire* pVampire, ObjectID_t ObjectID) 
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -121,7 +121,7 @@ void SkillHandler::execute(Vampire* pVampire, ObjectID_t ObjectID)
 }
 
 void SkillHandler::execute(Vampire* pVampire) 
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -131,7 +131,7 @@ void SkillHandler::execute(Vampire* pVampire)
 }
 
 void SkillHandler::execute(Ousters* pOusters, ObjectID_t ObjectID) 
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -141,7 +141,7 @@ void SkillHandler::execute(Ousters* pOusters, ObjectID_t ObjectID)
 }
 
 void SkillHandler::execute(Ousters* pOusters) 
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -151,7 +151,7 @@ void SkillHandler::execute(Ousters* pOusters)
 }
 
 void SkillHandler::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -161,7 +161,7 @@ void SkillHandler::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t C
 }
 
 void SkillHandler::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -171,7 +171,7 @@ void SkillHandler::execute(Vampire* pVampire, VampireSkillSlot* pVampireSkillSlo
 }
 
 void SkillHandler::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -181,7 +181,7 @@ void SkillHandler::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlo
 }
 
 void SkillHandler::execute(Creature* pCreature, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID, SkillType_t SkillType) 
-	throw (Error)
+	
 {
 	if (pCreature != NULL && pCreature->isPC())
 	{
@@ -191,7 +191,7 @@ void SkillHandler::execute(Creature* pCreature, ObjectID_t ObjectID, SkillSlot* 
 }
 
 void SkillHandler::execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -201,7 +201,7 @@ void SkillHandler::execute(Slayer* pSlayer, ObjectID_t ObjectID, SkillSlot* pSki
 }
 
 void SkillHandler::execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -211,7 +211,7 @@ void SkillHandler::execute(Vampire* pVampire, ObjectID_t ObjectID, VampireSkillS
 }
 
 void SkillHandler::execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -221,7 +221,7 @@ void SkillHandler::execute(Ousters* pOusters, ObjectID_t ObjectID, OustersSkillS
 }
 
 void SkillHandler::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -231,7 +231,7 @@ void SkillHandler::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 }
 
 void SkillHandler::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -241,7 +241,7 @@ void SkillHandler::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vamp
 }
 
 void SkillHandler::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -251,7 +251,7 @@ void SkillHandler::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Oust
 }
 
 void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -262,7 +262,7 @@ void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, CoordInve
 
 // Create Holy Water ¿ë execute
 void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_t ItemObjectID, CoordInven_t X, CoordInven_t Y) 
-	throw (Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -272,7 +272,7 @@ void SkillHandler::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, ObjectID_
 }
 
 void SkillHandler::execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pVampireSkillSlot)
-	throw (Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -282,7 +282,7 @@ void SkillHandler::execute(Vampire* pVampire, ObjectID_t TargetObjectID, CoordIn
 }
 
 void SkillHandler::execute(Ousters* pOusters, ObjectID_t TargetObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, OustersSkillSlot* pOustersSkillSlot)
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -292,7 +292,7 @@ void SkillHandler::execute(Ousters* pOusters, ObjectID_t TargetObjectID, CoordIn
 }
 
 void SkillHandler::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoord_t TargetZoneX, ZoneCoord_t TargetZoneY, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY)
-	throw (Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -302,7 +302,7 @@ void SkillHandler::execute(Ousters* pOusters, ObjectID_t TargetObjectID, ZoneCoo
 }
 
 void SkillHandler::execute(PlayerCreature* pPC, const string& TargetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	if (pPC != NULL)
 	{
@@ -312,7 +312,7 @@ void SkillHandler::execute(PlayerCreature* pPC, const string& TargetName, SkillS
 }
 
 void SkillHandler::execute(Slayer* pSlayer, const string& TargetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	if (pSlayer != NULL)
 	{
@@ -322,7 +322,7 @@ void SkillHandler::execute(Slayer* pSlayer, const string& TargetName, SkillSlot*
 }
 
 void SkillHandler::execute(Vampire* pVampire, const string& TargetName, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	if (pVampire != NULL)
 	{
@@ -332,7 +332,7 @@ void SkillHandler::execute(Vampire* pVampire, const string& TargetName, VampireS
 }
 
 void SkillHandler::execute(Ousters* pOusters, const string& TargetName, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	if (pOusters != NULL)
 	{
@@ -342,12 +342,12 @@ void SkillHandler::execute(Ousters* pOusters, const string& TargetName, OustersS
 }
 
 void SkillHandler::execute(Monster* pMonster) 
-	throw (Error)
+	
 {
 }
 
 void SkillHandler::execute(Monster* pMonster, Creature* pEnemy) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -358,7 +358,7 @@ void SkillHandler::execute(Monster* pMonster, Creature* pEnemy)
 	__END_CATCH
 }
 
-void SkillHandler::execute(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y) throw (Error)
+void SkillHandler::execute(Monster* pMonster, ZoneCoord_t x, ZoneCoord_t y) 
 {
 }
 

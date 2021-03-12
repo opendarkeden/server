@@ -18,20 +18,20 @@
 class VolumeInfo 
 {
 public:
-	VolumeInfo(VolumeType_t volumeType, VolumeWidth_t volumeWidth, VolumeHeight_t volumeHeight) throw();
-	~VolumeInfo() throw();
+	VolumeInfo(VolumeType_t volumeType, VolumeWidth_t volumeWidth, VolumeHeight_t volumeHeight) ;
+	~VolumeInfo() ;
 
 public:
 	// get/set volume width
-	VolumeWidth_t getVolumeWidth() const throw() { return m_VolumeWidth; }
-	void setVolumeWidth(VolumeWidth_t volumeWidth) throw() { m_VolumeWidth = volumeWidth; }
+	VolumeWidth_t getVolumeWidth() const  { return m_VolumeWidth; }
+	void setVolumeWidth(VolumeWidth_t volumeWidth)  { m_VolumeWidth = volumeWidth; }
 
 	// get/set volume height
-	VolumeHeight_t getVolumeHeight() const throw() { return m_VolumeHeight; }
-	void setVolumeHeight(VolumeHeight_t volumeHeight) throw() { m_VolumeHeight = volumeHeight; }
+	VolumeHeight_t getVolumeHeight() const  { return m_VolumeHeight; }
+	void setVolumeHeight(VolumeHeight_t volumeHeight)  { m_VolumeHeight = volumeHeight; }
 
 	// get debug string
-	string toString() throw();
+	string toString() ;
 
 private:
 	VolumeType_t   m_VolumeType;
@@ -48,13 +48,13 @@ private:
 class VolumeInfoManager 
 {
 public:
-	VolumeInfoManager() throw();
-	~VolumeInfoManager() throw();
+	VolumeInfoManager() ;
+	~VolumeInfoManager() ;
 	
 public:
-	void init() throw();
-	VolumeInfo* getVolumeInfo(VolumeType_t VolumeType) const throw() { return m_VolumeInfo[VolumeType]; }
-	string toString() throw();
+	void init() ;
+	VolumeInfo* getVolumeInfo(VolumeType_t VolumeType) const  { return m_VolumeInfo[VolumeType]; }
+	string toString() ;
 
 private:
 	VolumeInfo* m_VolumeInfo[MAX_VOLUME_TYPE];

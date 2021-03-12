@@ -19,17 +19,17 @@ class Zone;
 class DarkLightInfo 
 {
 public:
-	DarkLightInfo() throw();
-	DarkLightInfo(const DarkLightInfo & dli) throw();
+	DarkLightInfo() ;
+	DarkLightInfo(const DarkLightInfo & dli) ;
 
 public:
-	DarkLevel_t getDarkLevel() const throw() { return m_DarkLevel; }
-	void setDarkLevel(DarkLevel_t darkLevel) throw() { m_DarkLevel = darkLevel; }
+	DarkLevel_t getDarkLevel() const  { return m_DarkLevel; }
+	void setDarkLevel(DarkLevel_t darkLevel)  { m_DarkLevel = darkLevel; }
 
-	LightLevel_t getLightLevel() const throw() { return m_LightLevel; }
-	void setLightLevel(LightLevel_t lightLevel) throw() { m_LightLevel = lightLevel; }
+	LightLevel_t getLightLevel() const  { return m_LightLevel; }
+	void setLightLevel(LightLevel_t lightLevel)  { m_LightLevel = lightLevel; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 
@@ -57,20 +57,20 @@ const uint nDarkLightInfos = 12* 24* 6;
 class DarkLightInfoManager 
 {
 public:
-	DarkLightInfoManager() throw();
-	~DarkLightInfoManager() throw();
+	DarkLightInfoManager() ;
+	~DarkLightInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) throw(OutOfBoundException, Error);
-	const DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) const throw(OutOfBoundException, Error);
+	DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) ;
+	const DarkLightInfo* getDarkLightInfo(BYTE month, BYTE hour, BYTE minute) const ;
 
-	DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) throw(Error);
-	const DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) const throw(Error);
+	DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) ;
+	const DarkLightInfo* getCurrentDarkLightInfo( Zone* pZone ) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	DarkLightInfo* m_DarkLightInfos[nDarkLightInfos];

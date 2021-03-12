@@ -17,21 +17,21 @@
 class AlignmentManager 
 {
 public:
-	AlignmentManager() throw();
-	~AlignmentManager() throw();
+	AlignmentManager() ;
+	~AlignmentManager() ;
 
 public:
-	Alignment getAlignmentType(Alignment_t Alignment) throw();
+	Alignment getAlignmentType(Alignment_t Alignment) ;
 
-	int getMultiplier(Alignment_t AttackerAlignment, Alignment_t DefenderAlignment) throw();
+	int getMultiplier(Alignment_t AttackerAlignment, Alignment_t DefenderAlignment) ;
 
-	BYTE getDropItemNum(Alignment_t Alignment, bool isPK) throw();
+	BYTE getDropItemNum(Alignment_t Alignment, bool isPK) ;
 
-	BYTE getDropBonusPercentage(Alignment_t Alignment) throw();
+	BYTE getDropBonusPercentage(Alignment_t Alignment) ;
 
-	BYTE getMoneyDropPenalty(Alignment_t Alignment) throw();
+	BYTE getMoneyDropPenalty(Alignment_t Alignment) ;
 
-	string toString() const throw();
+	string toString() const ;
 };
 
 // global variable definition

@@ -17,15 +17,15 @@
 class EffectSummonWaterElemental : public Effect 
 {
 public:
-	EffectSummonWaterElemental(Creature* pCreature) throw(Error);
+	EffectSummonWaterElemental(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_WATER_ELEMENTAL; }
 
-	void affect() throw(Error);
+	void affect() ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

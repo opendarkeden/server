@@ -63,7 +63,7 @@ private:
 class EventZoneInfoManager
 {
 public:
-	void	load() throw(Error);
+	void	load() ;
 	
 	ZoneEventInfo*	getZoneEventInfo( WORD eventID ) const;
 	EventZoneInfo*	getEventZoneInfo( ZoneID_t zoneID ) const;

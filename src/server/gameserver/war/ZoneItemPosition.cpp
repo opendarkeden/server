@@ -19,7 +19,7 @@
 #include "ZoneItemPosition.h"
 
 Item* ZoneItemPosition::getItem_LOCKED( bool isDel )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ Item* ZoneItemPosition::getItem_LOCKED( bool isDel )
 }
 
 Item* ZoneItemPosition::getItem( bool isDel )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ Item* ZoneItemPosition::getItem( bool isDel )
 }
 
 Item* ZoneItemPosition::popItem( bool bLock )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ Item* ZoneItemPosition::popItem( bool bLock )
 }
 
 Item* ZoneItemPosition::getItemFromZone( Zone* pZone )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -135,7 +135,7 @@ Item* ZoneItemPosition::getItemFromZone( Zone* pZone )
 }
 
 void ZoneItemPosition::deleteItemFromZone( Zone* pZone, Item* pItem )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -148,7 +148,7 @@ void ZoneItemPosition::deleteItemFromZone( Zone* pZone, Item* pItem )
 }
 
 string ZoneItemPosition::toString() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

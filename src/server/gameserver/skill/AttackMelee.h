@@ -24,10 +24,10 @@ public:
 
 	SkillType_t getSkillType() const throw() { return SKILL_ATTACK_MELEE; }
 
-	void execute(Slayer* pPlayer, ObjectID_t ObjectID) throw(Error);
-	void execute(Vampire* pCreature, ObjectID_t ObjectID) throw(Error);
-	void execute(Monster* pCreature, Creature* pEnemy) throw(Error);
-	void execute(Ousters* pCreature, ObjectID_t ObjectID) throw(Error);
+	void execute(Slayer* pPlayer, ObjectID_t ObjectID) ;
+	void execute(Vampire* pCreature, ObjectID_t ObjectID) ;
+	void execute(Monster* pCreature, Creature* pEnemy) ;
+	void execute(Ousters* pCreature, ObjectID_t ObjectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "ChainThrowingAxe"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CHAIN_THROWING_AXE; }
 
-	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void execute(Monster*, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

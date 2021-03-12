@@ -16,14 +16,14 @@
 class EffectSatelliteBombPoint : public Effect 
 {
 public:
-	EffectSatelliteBombPoint(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) throw(Error);
+	EffectSatelliteBombPoint(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SKILL_SATELLITE_BOMB_POINT; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
 	string toString() const throw();
 

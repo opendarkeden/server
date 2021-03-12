@@ -17,7 +17,7 @@ VolumeInfoManager* g_pVolumeInfoManager = NULL;
 ////////////////////////////////////////////////////////////////////////////////
 
 VolumeInfo::VolumeInfo(VolumeType_t type, VolumeWidth_t width, VolumeHeight_t height)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -29,14 +29,14 @@ VolumeInfo::VolumeInfo(VolumeType_t type, VolumeWidth_t width, VolumeHeight_t he
 }
 
 VolumeInfo::~VolumeInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string VolumeInfo::toString()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -56,21 +56,21 @@ string VolumeInfo::toString()
 // class VolumeInfoManager member methods
 ////////////////////////////////////////////////////////////////////////////////
 VolumeInfoManager::VolumeInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 VolumeInfoManager::~VolumeInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void VolumeInfoManager::init()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void VolumeInfoManager::init()
 }
 
 string VolumeInfoManager::toString() 
-	throw()
+	
 {
 	__BEGIN_TRY
 	

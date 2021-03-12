@@ -17,15 +17,15 @@
 class EffectHandsOfFire : public Effect 
 {
 public:
-	EffectHandsOfFire(Creature* pCreature) throw(Error);
+	EffectHandsOfFire(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_HANDS_OF_FIRE; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

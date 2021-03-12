@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSearchMotorcycle::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
     __END_CATCH
@@ -29,7 +29,7 @@ void ActionSearchMotorcycle::read (PropertyBuffer & propertyBuffer)
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSearchMotorcycle::execute (Creature * pCreature1 , Creature* pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void ActionSearchMotorcycle::execute (Creature * pCreature1 , Creature* pCreatur
 }
 
 bool ActionSearchMotorcycle::search(Item* pItem, uint& zoneid, uint& x, uint& y) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ bool ActionSearchMotorcycle::search(Item* pItem, uint& zoneid, uint& x, uint& y)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionSearchMotorcycle::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

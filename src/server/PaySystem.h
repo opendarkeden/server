@@ -87,13 +87,13 @@ public:
 	void   			setPayPlayFlag(uint ppf)		{ m_PayPlayFlag = ppf; }
 	bool			hasPayPlayFlag(uint flag) const	{ return m_PayPlayFlag & flag; }
 
-	void			setPayPlayAvailableDateTime(const string& pat) throw (Error);
+	void			setPayPlayAvailableDateTime(const string& pat) ;
 	const VSDateTime& getPayPlayAvailableDateTime() const	{ return m_PayPlayAvailableDateTime; }	// 언제까지 play가능한가?
 
-	void			setFamilyPayPlayAvailableDateTime(const string& pat) throw (Error);
+	void			setFamilyPayPlayAvailableDateTime(const string& pat) ;
 	const VSDateTime& getFamilyPayPlayAvailableDateTime() const	{ return m_FamilyPayPlayAvailableDateTime; }	// 언제까지 play가능한가?
 
-	void			setPayStartAvailableDateTime(const string& pat) throw (Error);
+	void			setPayStartAvailableDateTime(const string& pat) ;
 	const VSDateTime& getPayStartAvailableDateTime() const	{ return m_PayStartAvailableDateTime; }	// 언제부터 play가능한가?
 
 	Timeval			getPayPlayTime(const Timeval& currentTime) const	{ return timediff(m_PayPlayStartTime, currentTime); }
@@ -116,19 +116,19 @@ public :
 	bool 			loginPayPlay(PayType payType,
 								const string& payPlayDate, int payPlayHours, uint payPlayFlag,
 								const string& ip, const string& playerID)
-											throw (Error);
+											;
 
 	// pay시작
 	bool 			loginPayPlay(const string& ip, const string& playerID)
-											throw (Error);
+											;
 	
 	// pay 시간 update 등..
 	bool			updatePayPlayTime(const string& playerID,
 										const VSDateTime& currentDateTime, 
-										const Timeval& currentTime) throw (ProtocolException, Error);
+										const Timeval& currentTime) ;
 
 	// pay끝
-	void			logoutPayPlay(const string& playerID, bool bClear=false, bool bDecreaseTime=true) throw (Error);
+	void			logoutPayPlay(const string& playerID, bool bClear=false, bool bDecreaseTime=true) ;
 
 	//
 	bool			isPayPlaying() const	{ return m_PayPlayStartTime.tv_sec!=0; }
@@ -147,24 +147,24 @@ public :
 	bool			isPCRoomPlay() const	{ return m_bPCRoomPlay; }
 
 	// 개인 유료 정액 사용자인가?
-	static bool		isPayPlayingPeriodPersonal(const string& PlayerID) throw (Error);
+	static bool		isPayPlayingPeriodPersonal(const string& PlayerID) ;
 
-	bool			isPlayInPayPCRoom( const string& ip, const string& playerID ) throw (Error);
+	bool			isPlayInPayPCRoom( const string& ip, const string& playerID ) ;
 
 protected :
 	// PC방인 경우의 처리
-	bool		loginPayPlayPCRoom(const string& ip, const string& playerID) throw (Error);
-	void		logoutPayPlayPCRoom(const string& playerID) throw (Error);
+	bool		loginPayPlayPCRoom(const string& ip, const string& playerID) ;
+	void		logoutPayPlayPCRoom(const string& playerID) ;
 
 	// 정량제인 경우 시간 줄일때..
-	void		decreasePayPlayTime(const string& playerID, uint mm) throw (Error);
-	void		decreasePayPlayTimePCRoom(uint mm) throw (Error);
+	void		decreasePayPlayTime(const string& playerID, uint mm) ;
+	void		decreasePayPlayTimePCRoom(uint mm) ;
 
 	// 이상한 정액제 코드
-	void		increasePayPlayTimePCRoom(uint mm) throw (Error);
+	void		increasePayPlayTimePCRoom(uint mm) ;
 
 	// 모든 Pay정보를 삭제하고, 무료 사용자로 만든다. by sigi. 2002.11.18
-	void		clearPayPlayDateTime(const string& playerID) throw (Error);
+	void		clearPayPlayDateTime(const string& playerID) ;
 
 protected:
 	bool			m_bSetPersonValue;			// 값이 설정되었나.

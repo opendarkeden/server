@@ -17,7 +17,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionExistReinforce::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -48,7 +48,7 @@ bool ConditionExistReinforce::isSatisfied (Creature * pCreature1 , Creature * pC
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionExistReinforce::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	m_ZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
@@ -57,7 +57,7 @@ void ConditionExistReinforce::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionExistReinforce::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

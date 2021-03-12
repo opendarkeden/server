@@ -16,22 +16,22 @@
 class EffectMephisto : public Effect 
 {
 public:
-	EffectMephisto(Creature* pCreature) throw(Error);
+	EffectMephisto(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_MEPHISTO; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 
 public:
 	int getBonus() throw() { return m_Bonus;}
-	void setBonus(int Bonus) throw(Error) { m_Bonus = Bonus;}
+	void setBonus(int Bonus)  { m_Bonus = Bonus;}
 
 private:
 	int m_Bonus;

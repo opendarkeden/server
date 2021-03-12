@@ -26,7 +26,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EventTransport::EventTransport(GamePlayer* pGamePlayer) 
-	throw()
+	
 : Event(pGamePlayer)
 {
 //	m_pTransportZone = NULL;
@@ -34,7 +34,7 @@ EventTransport::EventTransport(GamePlayer* pGamePlayer)
 }
 
 EventTransport::~EventTransport() 
-	throw()
+	
 {
 }
 
@@ -42,7 +42,7 @@ EventTransport::~EventTransport()
 // affect
 //----------------------------------------------------------------------
 void EventTransport::sendMessage()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -75,7 +75,7 @@ void EventTransport::sendMessage()
 
 
 void EventTransport::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -129,7 +129,7 @@ void EventTransport::activate ()
 }
 
 string EventTransport::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EventTransport("

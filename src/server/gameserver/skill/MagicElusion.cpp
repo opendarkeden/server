@@ -24,7 +24,7 @@
 // 슬레이어 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -278,7 +278,7 @@ void MagicElusion::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillS
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void MagicElusion::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	execute(pSlayer, pSlayer->getX(), pSlayer->getY(), pSkillSlot, CEffectID);
 }

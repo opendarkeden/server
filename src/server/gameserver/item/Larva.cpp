@@ -27,13 +27,13 @@ Mutex    Larva::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Larva::Larva()
-	throw()
+	
 : m_ItemType(0)
 {
 }
 
 Larva::Larva(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 : m_ItemType(itemType), m_Num(Num)
 {
 	//cout << "Larva::Larva(" << getOptionTypeToString(optionType).c_str() << ")" << endl;
@@ -49,7 +49,7 @@ Larva::Larva(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_
 // create item
 //--------------------------------------------------------------------------------
 void Larva::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void Larva::create(const string & ownerID, Storage storage, StorageID_t storageI
 // destroy
 //--------------------------------------------------------------------------------
 bool Larva::destroy() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -134,7 +134,7 @@ bool Larva::destroy()
 // save item
 //--------------------------------------------------------------------------------
 void Larva::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -158,7 +158,7 @@ void Larva::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Larva::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -184,7 +184,7 @@ void Larva::save(const string & ownerID, Storage storage, StorageID_t storageID,
 // get debug string
 //--------------------------------------------------------------------------------
 string Larva::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -202,7 +202,7 @@ string Larva::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Larva::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ VolumeWidth_t Larva::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Larva::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ VolumeHeight_t Larva::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Larva::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -240,7 +240,7 @@ Weight_t Larva::getWeight() const
 }
 
 int Larva::getHPAmount(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -251,7 +251,7 @@ int Larva::getHPAmount(void) const
 }
 
 int Larva::getMPAmount(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -262,7 +262,7 @@ int Larva::getMPAmount(void) const
 }
 
 int Larva::getHPDelay(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -273,7 +273,7 @@ int Larva::getHPDelay(void) const
 }
 
 int Larva::getMPDelay(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -284,7 +284,7 @@ int Larva::getMPDelay(void) const
 }
 
 int Larva::getHPQuantity(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -295,7 +295,7 @@ int Larva::getHPQuantity(void) const
 }
 
 int Larva::getMPQuantity(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -306,7 +306,7 @@ int Larva::getMPQuantity(void) const
 }
 
 int Larva::getHPRecoveryUnit(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -317,7 +317,7 @@ int Larva::getHPRecoveryUnit(void) const
 }
 
 int Larva::getMPRecoveryUnit(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -331,7 +331,7 @@ int Larva::getMPRecoveryUnit(void) const
 // parse effect string
 //--------------------------------------------------------------------------------
 void LarvaInfo::parseEffect(const string& effect)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -386,7 +386,7 @@ void LarvaInfo::parseEffect(const string& effect)
 // get debug string
 //--------------------------------------------------------------------------------
 string LarvaInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "LarvaInfo("
@@ -408,7 +408,7 @@ string LarvaInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void LarvaInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -463,7 +463,7 @@ void LarvaInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void LarvaLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -660,7 +660,7 @@ void LarvaLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void LarvaLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -727,7 +727,7 @@ void LarvaLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void LarvaLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

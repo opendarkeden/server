@@ -22,7 +22,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectAlignmentRecovery::EffectAlignmentRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ EffectAlignmentRecovery::EffectAlignmentRecovery ()
 }
 
 EffectAlignmentRecovery::EffectAlignmentRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Creature* pCreature , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pCreature,delay) 
 {
 	__BEGIN_TRY
@@ -51,14 +51,14 @@ EffectAlignmentRecovery::EffectAlignmentRecovery (Zone* pZone , ZoneCoord_t x , 
 }
 
 EffectAlignmentRecovery::~EffectAlignmentRecovery () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectAlignmentRecovery::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -73,7 +73,7 @@ void EffectAlignmentRecovery::affect()
 }
 
 void EffectAlignmentRecovery::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -230,7 +230,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 }
 
 void EffectAlignmentRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -240,7 +240,7 @@ void EffectAlignmentRecovery::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 }
 
 void EffectAlignmentRecovery::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -252,7 +252,7 @@ void EffectAlignmentRecovery::unaffect()
 }
 
 void EffectAlignmentRecovery::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -373,14 +373,14 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 }
 
 void EffectAlignmentRecovery::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string EffectAlignmentRecovery::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

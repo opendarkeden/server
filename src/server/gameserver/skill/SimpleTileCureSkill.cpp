@@ -32,7 +32,7 @@ SimpleTileCureSkill g_SimpleTileCureSkill;
 void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -306,7 +306,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -578,7 +578,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

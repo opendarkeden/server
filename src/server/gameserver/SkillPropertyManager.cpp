@@ -70,7 +70,7 @@ string SkillProperty::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 SkillPropertyManager::SkillPropertyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ SkillPropertyManager::SkillPropertyManager()
 }
 
 SkillPropertyManager::~SkillPropertyManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -88,7 +88,7 @@ SkillPropertyManager::~SkillPropertyManager()
 }
 
 void SkillPropertyManager::init()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void SkillPropertyManager::init()
 }
 
 void SkillPropertyManager::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -120,7 +120,7 @@ void SkillPropertyManager::clear()
 }
 
 void SkillPropertyManager::initDefaultSkillProperty()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void SkillPropertyManager::initDefaultSkillProperty()
 }
 
 SkillProperty* SkillPropertyManager::getSkillProperty(SkillType_t SkillType)
-	const throw(NoSuchElementException , OutOfBoundException, Error)
+	const 
 {
 	__BEGIN_TRY
 
@@ -161,7 +161,6 @@ SkillProperty* SkillPropertyManager::getSkillProperty(SkillType_t SkillType)
 }
 
 void SkillPropertyManager::addSkillProperty( SkillProperty* pSkillProperty )
-	throw( DuplicatedException, OutOfBoundException, Error )
 {
 	__BEGIN_TRY
 
@@ -184,7 +183,7 @@ void SkillPropertyManager::addSkillProperty( SkillProperty* pSkillProperty )
 
 // SkillPropertyManager:: toString()
 string SkillPropertyManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

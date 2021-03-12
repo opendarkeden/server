@@ -53,10 +53,10 @@ public:
 	~DefaultOptionSetInfoManager();
 
 public:
-	void load() throw();
+	void load() ;
 
 	DefaultOptionSetInfo* getDefaultOptionSetInfo( DefaultOptionSetType_t type );
-	void addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo ) throw(DuplicatedException,Error);
+	void addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo ) ;
 
 private:
 	HashMapDefaultOptionSetInfo	m_DefaultOptionSetInfos;

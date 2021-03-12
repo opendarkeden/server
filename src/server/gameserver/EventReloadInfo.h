@@ -40,15 +40,15 @@ public :
 	};
 
 public:
-	EventReloadInfo(GamePlayer* pGamePlayer, InfoType infoType, int infoValue=0) throw();
-	~EventReloadInfo() throw();			
+	EventReloadInfo(GamePlayer* pGamePlayer, InfoType infoType, int infoValue=0) ;
+	~EventReloadInfo() ;			
 
 public:
-	virtual EventClass getEventClass() const throw() { return EVENT_CLASS_RELOAD_INFO; }
+	virtual EventClass getEventClass() const  { return EVENT_CLASS_RELOAD_INFO; }
 
-	virtual void activate() throw(Error);
+	virtual void activate() ;
 	
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 public:
 	InfoType getInfoType() const { return m_InfoType; }

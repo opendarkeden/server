@@ -20,19 +20,19 @@
 class EffectEventQuestReset : public Effect 
 {
 public:
-	EffectEventQuestReset(Creature* pCreature, int type) throw(Error);
-	~EffectEventQuestReset() throw(Error);
+	EffectEventQuestReset(Creature* pCreature, int type) ;
+	~EffectEventQuestReset() ;
 
 public:
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSPORT_CREATURE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_CREATURE; }
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	int m_Type;

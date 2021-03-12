@@ -17,8 +17,8 @@
 class FameLimitInfo 
 {
 public:
-	FameLimitInfo() throw();
-	~FameLimitInfo() throw();
+	FameLimitInfo() ;
+	~FameLimitInfo() ;
 
 public:
 	void setDomainType( SkillDomainType_t domainType ) { m_DomainType = domainType; }
@@ -30,7 +30,7 @@ public:
 	void setFame( Fame_t fame ) { m_Fame = fame; }
 	Fame_t getFame() const { return m_Fame; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	SkillDomainType_t m_DomainType;
@@ -46,18 +46,18 @@ private:
 class FameLimitInfoManager 
 {
 public:
-	FameLimitInfoManager() throw();
-	~FameLimitInfoManager() throw();
+	FameLimitInfoManager() ;
+	~FameLimitInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
-	void clear() throw(Error);
+	void init() ;
+	void load() ;
+	void clear() ;
 
-	FameLimitInfo* getFameLimitInfo(SkillDomainType_t domainType, uint level) const throw (Error);
-	void addFameLimitInfo(FameLimitInfo* pFameLimitInfo) throw();
+	FameLimitInfo* getFameLimitInfo(SkillDomainType_t domainType, uint level) const ;
+	void addFameLimitInfo(FameLimitInfo* pFameLimitInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	FameLimitInfo** m_FameLimitInfoList[SKILL_DOMAIN_MAX];

@@ -38,7 +38,7 @@ DefaultOptionSetInfoManager::~DefaultOptionSetInfoManager()
 }
 
 void DefaultOptionSetInfoManager::load()
-	throw()
+	
 {
 	Statement* pStmt = NULL;
 	Result* pResult = NULL;
@@ -77,7 +77,6 @@ DefaultOptionSetInfo* DefaultOptionSetInfoManager::getDefaultOptionSetInfo( Defa
 }
 
 void DefaultOptionSetInfoManager::addDefaultOptionSetInfo( DefaultOptionSetInfo* pDefaultOptionSetInfo )
-	throw(DuplicatedException, Error)
 {
 	HashMapDefaultOptionSetInfoItor itr = m_DefaultOptionSetInfos.find( pDefaultOptionSetInfo->getType() );
 

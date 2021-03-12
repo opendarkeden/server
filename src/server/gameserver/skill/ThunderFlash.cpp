@@ -34,7 +34,7 @@ ThunderFlash::ThunderFlash()
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void ThunderFlash::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -76,7 +76,7 @@ void ThunderFlash::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot
 //
 //////////////////////////////////////////////////////////////////////
 void ThunderFlash::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

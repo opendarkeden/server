@@ -21,7 +21,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -252,7 +252,7 @@ void Seduction::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSki
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Seduction::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -311,7 +311,7 @@ void Seduction::execute(Monster* pMonster, Creature* pEnemy)
 }
 
 void Seduction::executeMonster(Zone* pZone, Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

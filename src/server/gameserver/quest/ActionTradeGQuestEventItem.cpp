@@ -35,7 +35,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGQuestEventItem::read(PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionTradeGQuestEventItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ void ActionTradeGQuestEventItem::execute(Creature * pCreature1 , Creature * pCre
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeGQuestEventItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

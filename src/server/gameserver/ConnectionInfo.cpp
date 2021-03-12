@@ -8,7 +8,7 @@
 #include "StringStream.h"
 
 ConnectionInfo::ConnectionInfo() 
-	throw()
+	
 { 
 	__BEGIN_TRY
 
@@ -20,14 +20,14 @@ ConnectionInfo::ConnectionInfo()
 }
 
 ConnectionInfo::~ConnectionInfo() 
-	throw() 
+	 
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string ConnectionInfo::toString() const 
-	throw() 
+	 
 {
 	__BEGIN_TRY
 

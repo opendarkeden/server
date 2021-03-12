@@ -18,7 +18,6 @@
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 Trigger::Trigger () 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -34,7 +33,6 @@ Trigger::Trigger ()
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 Trigger::~Trigger () 
-	throw (Error)
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -45,7 +43,6 @@ Trigger::~Trigger ()
 // add condition
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addCondition (Condition * pCondition)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -62,7 +59,6 @@ void Trigger::addCondition (Condition * pCondition)
 // add action
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addAction (Action * pAction)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -76,7 +72,6 @@ void Trigger::addAction (Action * pAction)
 // add counter action
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::addCounterAction (Action * pAction)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -90,7 +85,6 @@ void Trigger::addCounterAction (Action * pAction)
 // is all conditions satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::isAllSatisfied (TriggerMode triggerMode , Creature * pCreature1 , Creature * pCreature2, void* pParam) const
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -118,7 +112,6 @@ bool Trigger::isAllSatisfied (TriggerMode triggerMode , Creature * pCreature1 , 
 // activate trigger
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::activate (Creature * pCreature1 , Creature * pCreature2) const
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -142,7 +135,6 @@ bool Trigger::activate (Creature * pCreature1 , Creature * pCreature2) const
 // activate trigger
 ////////////////////////////////////////////////////////////////////////////////
 bool Trigger::activateCounter (Creature * pCreature1 , Creature * pCreature2) const
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -178,7 +170,6 @@ bool Trigger::activateCounter (Creature * pCreature1 , Creature * pCreature2) co
 //            Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setConditions (const string & str)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -262,7 +253,6 @@ void Trigger::setConditions (const string & str)
 //         Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setActions (const string & str)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -351,7 +341,6 @@ void Trigger::setActions (const string & str)
 //         Sep = ':'
 ////////////////////////////////////////////////////////////////////////////////
 void Trigger::setCounterActions (const string & str)
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -429,7 +418,6 @@ void Trigger::setCounterActions (const string & str)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string Trigger::toString () const
-	throw ()
 {
 
 	__BEGIN_TRY

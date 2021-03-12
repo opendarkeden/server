@@ -7,7 +7,7 @@
 #include "Gpackets/GCModifyInformation.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) throw(Error)
+EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -17,7 +17,7 @@ EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectPoisonMesh::affect() throw(Error)
+void EffectPoisonMesh::affect() 
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void EffectPoisonMesh::affect() throw(Error)
 	__END_CATCH
 }
 
-void EffectPoisonMesh::affect(Creature* pCreature) throw(Error)
+void EffectPoisonMesh::affect(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ void EffectPoisonMesh::affect(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectPoisonMesh::unaffect() throw(Error)
+void EffectPoisonMesh::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectPoisonMesh::unaffect() throw(Error)
 	__END_CATCH
 }
 
-void EffectPoisonMesh::unaffect( Creature* pCreature ) throw (Error)
+void EffectPoisonMesh::unaffect( Creature* pCreature ) 
 {
 	__BEGIN_TRY
 

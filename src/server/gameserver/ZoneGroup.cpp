@@ -23,7 +23,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroup::ZoneGroup (ZoneGroupID_t zoneGroupID) 
-	throw ()
+	
 : m_ZoneGroupID(zoneGroupID), m_pZonePlayerManager(NULL)
 {
 	__BEGIN_TRY
@@ -42,7 +42,7 @@ ZoneGroup::ZoneGroup (ZoneGroupID_t zoneGroupID)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroup::~ZoneGroup () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ ZoneGroup::~ZoneGroup ()
 // initialize zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -70,7 +70,7 @@ void ZoneGroup::init ()
 // load from database
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::load ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void ZoneGroup::load ()
 // save to database
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::save ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -98,7 +98,7 @@ void ZoneGroup::save ()
 // process all players in zone player manager
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::processPlayers ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -188,7 +188,7 @@ void ZoneGroup::processPlayers ()
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::heartbeat()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -216,7 +216,7 @@ void ZoneGroup::heartbeat()
 // process all npc, monsters, ... in zones
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -242,7 +242,7 @@ void ZoneGroup::makeZoneUserInfo(GMServerInfo & gmServerInfo )
 // add zone to zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::addZone (Zone* pZone) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -262,7 +262,6 @@ void ZoneGroup::addZone (Zone* pZone)
 // Delete zone from zone group
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroup::deleteZone (ZoneID_t zoneID) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -292,7 +291,6 @@ void ZoneGroup::deleteZone (ZoneID_t zoneID)
 // delete하지 않고 node만 지워준다.
 //////////////////////////////////////////////////////////////////////////////
 Zone* ZoneGroup::removeZone (ZoneID_t zoneID) 
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -326,7 +324,6 @@ Zone* ZoneGroup::removeZone (ZoneID_t zoneID)
 // get zone from zone group
 //////////////////////////////////////////////////////////////////////////////
 Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
-	throw (NoSuchElementException)
 {
 	__BEGIN_TRY
 		
@@ -353,7 +350,7 @@ Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
 
 //#ifdef __NO_COMBAT__
 Zone* ZoneGroup::getCombatZone (ZoneID_t zoneID) const
-	throw (Error)
+	
 {
 	Zone* pZone = NULL;
 
@@ -422,7 +419,7 @@ ZoneGroup::getLoadValue() const
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ZoneGroup::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "ZoneGroup("

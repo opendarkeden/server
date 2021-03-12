@@ -22,7 +22,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void GroundBless::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ void GroundBless::execute(Ousters* pOusters, OustersSkillSlot* pOustersSkillSlot
 	__END_CATCH
 }
 
-void GroundBless::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void GroundBless::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 		

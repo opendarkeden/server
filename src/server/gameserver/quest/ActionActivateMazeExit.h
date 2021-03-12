@@ -20,19 +20,19 @@
 class ActionActivateMazeExit : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_ACTIVATE_MAZE_EXIT; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_ACTIVATE_MAZE_EXIT; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	ZoneID_t    getGoodZoneID(void) const throw() { return m_GoodZoneID; }
-	ZoneCoord_t getGoodX(void) const throw() { return m_GoodX; }
-	ZoneCoord_t getGoodY(void) const throw() { return m_GoodY; }
-	ZoneID_t    getBadZoneID(void) const throw() { return m_BadZoneID; }
-	ZoneCoord_t getBadX(void) const throw() { return m_BadX; }
-	ZoneCoord_t getBadY(void) const throw() { return m_BadY; }
-	int			getExitID() const throw() { return m_ExitID; }
+	ZoneID_t    getGoodZoneID(void) const  { return m_GoodZoneID; }
+	ZoneCoord_t getGoodX(void) const  { return m_GoodX; }
+	ZoneCoord_t getGoodY(void) const  { return m_GoodY; }
+	ZoneID_t    getBadZoneID(void) const  { return m_BadZoneID; }
+	ZoneCoord_t getBadX(void) const  { return m_BadX; }
+	ZoneCoord_t getBadY(void) const  { return m_BadY; }
+	int			getExitID() const  { return m_ExitID; }
 
 private:
 	ZoneID_t    m_GoodZoneID;
@@ -52,8 +52,8 @@ private:
 class ActionActivateMazeExitFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_ACTIVATE_MAZE_EXIT; }
-	virtual string getActionName() const throw() { return "ActivateMazeExit"; }
-	virtual Action* createAction() const throw() { return new ActionActivateMazeExit(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_ACTIVATE_MAZE_EXIT; }
+	virtual string getActionName() const  { return "ActivateMazeExit"; }
+	virtual Action* createAction() const  { return new ActionActivateMazeExit(); }
 };
 #endif

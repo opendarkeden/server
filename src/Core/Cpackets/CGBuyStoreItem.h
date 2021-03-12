@@ -22,23 +22,23 @@
 class CGBuyStoreItem : public Packet 
 {
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_BUY_STORE_ITEM; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID+szObjectID+szBYTE; }
-	string getPacketName() const throw() { return "CGBuyStoreItem"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_BUY_STORE_ITEM; }
+	PacketSize_t getPacketSize() const  { return szObjectID+szObjectID+szBYTE; }
+	string getPacketName() const  { return "CGBuyStoreItem"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getOwnerObjectID() throw() { return m_OwnerObjectID; }
-	void setOwnerObjectID(ObjectID_t ObjectID) throw() { m_OwnerObjectID = ObjectID; }
+	ObjectID_t getOwnerObjectID()  { return m_OwnerObjectID; }
+	void setOwnerObjectID(ObjectID_t ObjectID)  { m_OwnerObjectID = ObjectID; }
 
-	ObjectID_t getItemObjectID() throw() { return m_ItemObjectID; }
-	void setItemObjectID(ObjectID_t ObjectID) throw() { m_ItemObjectID = ObjectID; }
+	ObjectID_t getItemObjectID()  { return m_ItemObjectID; }
+	void setItemObjectID(ObjectID_t ObjectID)  { m_ItemObjectID = ObjectID; }
 
-	BYTE getIndex(void) const throw() { return m_Index; }
-	void setIndex(BYTE index) throw() { m_Index = index;}
+	BYTE getIndex(void) const  { return m_Index; }
+	void setIndex(BYTE index)  { m_Index = index;}
 
 private:
 	ObjectID_t		m_OwnerObjectID;
@@ -56,10 +56,10 @@ private:
 class CGBuyStoreItemFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGBuyStoreItem(); }
-	string getPacketName() const throw() { return "CGBuyStoreItem"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_BUY_STORE_ITEM; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID+szObjectID+szBYTE; }
+	Packet* createPacket()  { return new CGBuyStoreItem(); }
+	string getPacketName() const  { return "CGBuyStoreItem"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_BUY_STORE_ITEM; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID+szObjectID+szBYTE; }
 };
 
 
@@ -72,7 +72,7 @@ public:
 class CGBuyStoreItemHandler 
 {
 public:
-	static void execute(CGBuyStoreItem* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGBuyStoreItem* pPacket, Player* player) ;
 };
 
 #endif

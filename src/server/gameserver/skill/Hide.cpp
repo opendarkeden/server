@@ -15,7 +15,7 @@
 // 뱀파이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -111,7 +111,7 @@ void Hide::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t 
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Hide::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

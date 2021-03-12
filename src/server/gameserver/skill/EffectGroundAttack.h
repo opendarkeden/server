@@ -17,16 +17,16 @@
 class EffectGroundAttack : public Effect 
 {
 public:
-	EffectGroundAttack(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectGroundAttack(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_GROUND_ATTACK; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 
@@ -62,7 +62,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectGroundAttack"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 extern EffectGroundAttackLoader* g_pEffectGroundAttackLoader;

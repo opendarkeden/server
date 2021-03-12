@@ -24,7 +24,7 @@ public:
 
 	SkillType_t getSkillType() const throw() { return SKILL_BLLODY_SCARIFY; }
 
-	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Vampire* pVampire, ObjectID_t targetObject, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
 
 	void eatCorpse(Vampire* pVampire, Item* pCorpse, VampireSkillSlot* pVampireSkillSlot);
 	void eatComaCreature(Vampire* pVampire, Creature* pComaCreature);

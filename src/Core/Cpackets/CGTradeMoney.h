@@ -32,23 +32,23 @@ enum
 class CGTradeMoney : public Packet 
 {
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_TRADE_MONEY; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szGold + szBYTE; }
-	string getPacketName() const throw() { return "CGTradeMoney"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_TRADE_MONEY; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szGold + szBYTE; }
+	string getPacketName() const  { return "CGTradeMoney"; }
+	string toString() const ;
 	
 public:
-	ObjectID_t getTargetObjectID() const throw() { return m_TargetObjectID; }
-	void setTargetObjectID(ObjectID_t id) throw() { m_TargetObjectID = id; }
+	ObjectID_t getTargetObjectID() const  { return m_TargetObjectID; }
+	void setTargetObjectID(ObjectID_t id)  { m_TargetObjectID = id; }
 
-	Gold_t getAmount() const throw() { return m_Gold; }
-	void setAmount(Gold_t gold) throw() { m_Gold = gold; }
+	Gold_t getAmount() const  { return m_Gold; }
+	void setAmount(Gold_t gold)  { m_Gold = gold; }
 
-	BYTE getCode() const throw() { return m_Code; }
-	void setCode(BYTE code) throw() { m_Code = code; }
+	BYTE getCode() const  { return m_Code; }
+	void setCode(BYTE code)  { m_Code = code; }
 
 private:
 	ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 ObjectID
@@ -67,10 +67,10 @@ private:
 class CGTradeMoneyFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGTradeMoney(); }
-	string getPacketName() const throw() { return "CGTradeMoney"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_TRADE_MONEY; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szGold + szBYTE; }
+	Packet* createPacket()  { return new CGTradeMoney(); }
+	string getPacketName() const  { return "CGTradeMoney"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_TRADE_MONEY; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szGold + szBYTE; }
 };
 
 
@@ -83,11 +83,11 @@ public:
 class CGTradeMoneyHandler 
 {
 public:
-	static void execute(CGTradeMoney* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeSlayer(CGTradeMoney* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeVampire(CGTradeMoney* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeOusters(CGTradeMoney* pPacket, Player* player) throw(ProtocolException, Error);
-	static void executeError(CGTradeMoney* pPacket, Player* player, BYTE ErrorCode) throw(ProtocolException, Error);
+	static void execute(CGTradeMoney* pPacket, Player* player) ;
+	static void executeSlayer(CGTradeMoney* pPacket, Player* player) ;
+	static void executeVampire(CGTradeMoney* pPacket, Player* player) ;
+	static void executeOusters(CGTradeMoney* pPacket, Player* player) ;
+	static void executeError(CGTradeMoney* pPacket, Player* player, BYTE ErrorCode) ;
 };
 
 #endif

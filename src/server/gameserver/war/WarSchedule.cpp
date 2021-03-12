@@ -13,7 +13,7 @@
 
 WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type // = SCHEDULE_TYPE_ONCE
                           )
-	throw(Error)
+	
 : Schedule(pWork, Time, type)
 {
 	__BEGIN_TRY
@@ -21,13 +21,13 @@ WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type
 }
 
 WarSchedule::~WarSchedule()
-	throw (Error)
+	
 {
 }
 
 void    
 WarSchedule::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ WarSchedule::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
 
 void
 WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ WarSchedule::makeWarInfo(WarInfo* pWarInfo) const
 }
 
 void WarSchedule::create()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -145,7 +145,7 @@ void WarSchedule::create()
 
 #ifndef __OLD_GUILD_WAR__
 void WarSchedule::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -197,7 +197,7 @@ void WarSchedule::save()
 #endif
 
 void WarSchedule::tinysave( const string& query )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -233,7 +233,7 @@ void WarSchedule::tinysave( const string& query )
 }
 
 bool WarSchedule::heartbeat()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -30,7 +30,6 @@ PartnerWaitInfo::PartnerWaitInfo( PlayerCreature* pWaitingPC, string RequestedPC
 }
 
 PartnerWaitInfo* PartnerWaitInfo::getPartnerWaitInfo(PlayerCreature* pWaitingPC, string RequestedPCName, WaitType waitType)
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -83,7 +82,6 @@ PartnerWaitingManager::~PartnerWaitingManager()
 
 // 새로운 PartnerWaitInfo를 만들고 등록한다.
 uint PartnerWaitingManager::waitForPartner( PlayerCreature* pWaitingPC, string RequestedPCName )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -133,7 +131,6 @@ uint PartnerWaitingManager::waitForPartner( PlayerCreature* pWaitingPC, string R
 
 // 해당하는 PC가 기다리고 있는 파트너 요청을 찾아서 지운다.
 bool PartnerWaitingManager::stopWaitForPartner( PlayerCreature* pWaitingPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -157,7 +154,6 @@ bool PartnerWaitingManager::stopWaitForPartner( PlayerCreature* pWaitingPC )
 }
 
 uint PartnerWaitingManager::acceptPartner( PlayerCreature* pRequestedPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -191,7 +187,6 @@ uint PartnerWaitingManager::acceptPartner( PlayerCreature* pRequestedPC )
 }
 
 bool PartnerWaitingManager::isWaitForPartner( PlayerCreature* pRequestedPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -202,7 +197,6 @@ bool PartnerWaitingManager::isWaitForPartner( PlayerCreature* pRequestedPC )
 }
 
 PlayerCreature* PartnerWaitingManager::getWaitingPartner( PlayerCreature* pRequestedPC )
-	throw(Error)
 {
 	__BEGIN_TRY
 
@@ -215,7 +209,6 @@ PlayerCreature* PartnerWaitingManager::getWaitingPartner( PlayerCreature* pReque
 }
 
 void PartnerWaitingManager::heartbeat()
-	throw(Error)
 {
 	__BEGIN_TRY
 

@@ -23,7 +23,7 @@ const char * VariableBuffer::SpaceTab = " \t";
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 VariableBuffer::VariableBuffer (const string & buffer) 
-	throw ()
+	
 {
 	m_Buffer = buffer;
 
@@ -34,7 +34,7 @@ VariableBuffer::VariableBuffer (const string & buffer)
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 VariableBuffer::~VariableBuffer () 
-	throw ()
+	
 {
 	clear();
 }
@@ -52,7 +52,7 @@ void VariableBuffer::clear()
 }
 
 void VariableBuffer::parse()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,6 @@ void VariableBuffer::parse()
 }
 
 VariableInfo* VariableBuffer::getVariableInfo( int index )
-	throw( OutOfBoundException, Error )
 {
 	__BEGIN_TRY
 
@@ -107,7 +106,7 @@ VariableInfo* VariableBuffer::getVariableInfo( int index )
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string VariableBuffer::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

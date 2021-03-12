@@ -12,7 +12,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionSameClan::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature1 != NULL);
 	Assert(pCreature2 != NULL);
@@ -27,7 +27,7 @@ bool ConditionSameClan::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionSameClan::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 }
 
@@ -35,7 +35,7 @@ void ConditionSameClan::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionSameClan::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

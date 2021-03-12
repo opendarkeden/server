@@ -17,26 +17,26 @@
 class DomainInfo 
 {
 public:
-	DomainInfo() throw();
-	~DomainInfo() throw();
+	DomainInfo() ;
+	~DomainInfo() ;
 
 public:
-	SkillDomainType_t getType() const throw() { return m_Type; }
-	void setType(SkillDomainType_t type) throw() { m_Type = type; }
+	SkillDomainType_t getType() const  { return m_Type; }
+	void setType(SkillDomainType_t type)  { m_Type = type; }
 
-	Level_t getLevel() const throw() { return m_Level; }
-	void setLevel(Level_t level) throw() { m_Level = level; }
+	Level_t getLevel() const  { return m_Level; }
+	void setLevel(Level_t level)  { m_Level = level; }
 
-	uint getGoalExp() const throw() { return m_GoalExp; }
-	void setGoalExp(Exp_t exp) throw() { m_GoalExp = exp ; }
+	uint getGoalExp() const  { return m_GoalExp; }
+	void setGoalExp(Exp_t exp)  { m_GoalExp = exp ; }
 
-	uint getAccumExp() const throw() { return m_AccumExp; }
-	void setAccumExp(Exp_t exp) throw() { m_AccumExp = exp ; }
+	uint getAccumExp() const  { return m_AccumExp; }
+	void setAccumExp(Exp_t exp)  { m_AccumExp = exp ; }
 
-	ItemType_t getBestItemType() const throw() { return m_BestItemType; }
-	void setBestItemType(ItemType_t it) throw() { m_BestItemType = it; }
+	ItemType_t getBestItemType() const  { return m_BestItemType; }
+	void setBestItemType(ItemType_t it)  { m_BestItemType = it; }
 	
-	string toString() const throw();
+	string toString() const ;
 
 private:
 
@@ -67,24 +67,24 @@ class DomainInfoManager {
 public:
 
 	// constructor
-	DomainInfoManager() throw();
+	DomainInfoManager() ;
 
 	// destructor
-	~DomainInfoManager() throw();
+	~DomainInfoManager() ;
 
 	// initialize manager
-	void init() throw(Error);
+	void init() ;
 
 	// get sub info class manager
-	DomainInfoManager* getInfoManager(Domain DomainType) const throw(Error);
+	DomainInfoManager* getInfoManager(Domain DomainType) const ;
 
 	// get item info
-	SkillDomainInfo* getSkillDomainInfo(Level_t Level) const throw(Error);
+	SkillDomainInfo* getSkillDomainInfo(Level_t Level) const ;
 
-	uint getDomainCount() const throw(Error);
+	uint getDomainCount() const ;
 
 	// toString for debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 
@@ -100,21 +100,21 @@ private:
 class SkillDomainInfoManager 
 {
 public:
-	SkillDomainInfoManager() throw();
-	~SkillDomainInfoManager() throw();
+	SkillDomainInfoManager() ;
+	~SkillDomainInfoManager() ;
 
 public:
 	// initialize manager
-	void init() throw(Error);
+	void init() ;
 
 	// get item info
-	DomainInfo* getDomainInfo(SkillDomain DomainType, Level_t Level) const throw(Error);
+	DomainInfo* getDomainInfo(SkillDomain DomainType, Level_t Level) const ;
 
 	// addDomainInfo
-	void addDomainInfo(DomainInfo* pDomainInfo) const throw(Error);
+	void addDomainInfo(DomainInfo* pDomainInfo) const ;
 
 	// toString for debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	DomainInfo ** m_DomainInfoLists[SKILL_DOMAIN_MAX];

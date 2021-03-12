@@ -12,7 +12,7 @@
 
 /*
 InventorySlot::InventorySlot() 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ InventorySlot::InventorySlot()
 */
 
 InventorySlot::~InventorySlot() 
-	throw(Error) 
+	 
 { 
 	__BEGIN_TRY
 
@@ -34,7 +34,7 @@ InventorySlot::~InventorySlot()
 
 /*
 Item* InventorySlot::getItem() 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -45,7 +45,7 @@ Item* InventorySlot::getItem()
 */
 
 void InventorySlot::addItem(Item* pItem) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -56,7 +56,7 @@ void InventorySlot::addItem(Item* pItem)
 }
 
 void InventorySlot::deleteItem() 
-	throw(Error) 
+	 
 { 
 	__BEGIN_TRY
 

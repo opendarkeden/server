@@ -19,7 +19,7 @@
 // 뱀파이어 인벤토리 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void BloodyTunnel::execute(Vampire* pVampire, ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, VampireSkillSlot* pSkillSlot)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

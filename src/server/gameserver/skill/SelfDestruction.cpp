@@ -27,7 +27,7 @@ SelfDestruction::SelfDestruction()
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SelfDestruction::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

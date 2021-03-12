@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectScheduleWork::EffectScheduleWork()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ EffectScheduleWork::EffectScheduleWork()
 }
 
 EffectScheduleWork::~EffectScheduleWork()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -61,7 +61,7 @@ EffectScheduleWork::~EffectScheduleWork()
 //////////////////////////////////////////////////////////////////////////////
 
 EffectSchedule::EffectSchedule()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ EffectSchedule::EffectSchedule()
 }
 
 EffectSchedule::~EffectSchedule()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ EffectSchedule::~EffectSchedule()
 }
 
 void EffectSchedule::addWork(int WorkCode, void* pData) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -100,7 +100,7 @@ void EffectSchedule::addWork(int WorkCode, void* pData)
 }
 
 EffectScheduleWork* EffectSchedule::getFrontWork(void) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -121,14 +121,14 @@ EffectScheduleWork* EffectSchedule::getFrontWork(void)
 //////////////////////////////////////////////////////////////////////////////
 
 EffectScheduleManager::EffectScheduleManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 EffectScheduleManager::~EffectScheduleManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -143,7 +143,7 @@ EffectScheduleManager::~EffectScheduleManager()
 }
 
 void EffectScheduleManager::addEffectSchedule(EffectSchedule* pEffectSchedule) 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -159,7 +159,7 @@ void EffectScheduleManager::addEffectSchedule(EffectSchedule* pEffectSchedule)
 }
 
 void EffectScheduleManager::heartbeat(void)
-	throw()
+	
 {
 	__BEGIN_TRY
 

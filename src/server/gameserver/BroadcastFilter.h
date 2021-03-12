@@ -22,8 +22,8 @@ public:
 	virtual ~BroadcastFilter() {}
 
 public:
-	virtual bool isSatisfy( GamePlayer* ) throw() = 0;
-	virtual BroadcastFilter* Clone() throw() = 0;
+	virtual bool isSatisfy( GamePlayer* )  = 0;
+	virtual BroadcastFilter* Clone()  = 0;
 };
 
 
@@ -37,8 +37,8 @@ public:
 	virtual ~BroadcastFilterRace() {}
 
 public:
-	virtual bool isSatisfy( GamePlayer* ) throw();
-	virtual BroadcastFilter* Clone() throw();
+	virtual bool isSatisfy( GamePlayer* ) ;
+	virtual BroadcastFilter* Clone() ;
 
 private:
 	Race_t m_Race;

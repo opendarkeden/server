@@ -15,7 +15,7 @@ public:
 
 	GCQuestStatus* makeStatusPacket() const;
 
-	string			toString() const throw(Error);
+	string			toString() const ;
 
 private:
 	string			m_Name;

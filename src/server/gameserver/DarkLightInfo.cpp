@@ -25,7 +25,7 @@ const int DLIndexByTimeband[4] =
 //////////////////////////////////////////////////////////////////////////////
 
 DarkLightInfo::DarkLightInfo() 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -36,7 +36,7 @@ DarkLightInfo::DarkLightInfo()
 }
 
 DarkLightInfo::DarkLightInfo(const DarkLightInfo & dli) 
-	throw() 
+	 
 { 
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ DarkLightInfo::DarkLightInfo(const DarkLightInfo & dli)
 }
 
 string DarkLightInfo::toString() const 
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ string DarkLightInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 DarkLightInfoManager::DarkLightInfoManager ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ DarkLightInfoManager::DarkLightInfoManager ()
 }
 
 DarkLightInfoManager::~DarkLightInfoManager ()
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ DarkLightInfoManager::~DarkLightInfoManager ()
 }
 
 void DarkLightInfoManager::init () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -99,7 +99,7 @@ void DarkLightInfoManager::init ()
 }
 
 void DarkLightInfoManager::load () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -153,7 +153,6 @@ void DarkLightInfoManager::load ()
 }
 
 DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , BYTE minute) 
-	throw (OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -172,7 +171,6 @@ DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , 
 }
 
 const DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE hour , BYTE minute) const 
-	throw (OutOfBoundException , Error)
 {
 	__BEGIN_TRY
 
@@ -191,7 +189,7 @@ const DarkLightInfo* DarkLightInfoManager::getDarkLightInfo (BYTE month , BYTE h
 }
 
 const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +208,7 @@ const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone
 }
 
 DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone ) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -229,7 +227,7 @@ DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone )
 }
 
 string DarkLightInfoManager::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	StringStream msg;

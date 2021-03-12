@@ -24,7 +24,7 @@ Mutex    Glove::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Glove::Glove()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ Glove::Glove()
 }
 
 Glove::Glove(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ Glove::Glove(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Glove::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void Glove::create(const string & ownerID, Storage storage, StorageID_t storageI
 // save item
 //--------------------------------------------------------------------------------
 void Glove::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -128,7 +128,7 @@ void Glove::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Glove::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -174,7 +174,7 @@ void Glove::save(const string & ownerID, Storage storage, StorageID_t storageID,
 // get debug string
 //--------------------------------------------------------------------------------
 string Glove::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -194,7 +194,7 @@ string Glove::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Glove::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -208,7 +208,7 @@ VolumeWidth_t Glove::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Glove::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -222,7 +222,7 @@ VolumeHeight_t Glove::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Glove::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -236,7 +236,7 @@ Weight_t Glove::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t Glove::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -245,7 +245,7 @@ Defense_t Glove::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t Glove::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -259,7 +259,7 @@ Protection_t Glove::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string GloveInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -283,7 +283,7 @@ string GloveInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void GloveInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -348,7 +348,7 @@ void GloveInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void GloveLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -514,7 +514,7 @@ void GloveLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void GloveLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -589,7 +589,7 @@ void GloveLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void GloveLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

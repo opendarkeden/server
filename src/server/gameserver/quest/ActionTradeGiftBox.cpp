@@ -57,7 +57,7 @@ ActionTradeGiftBox::~ActionTradeGiftBox()
 //  load
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGiftBox::load()
-    throw (Error)
+    
 {
     __BEGIN_TRY
 	
@@ -73,7 +73,7 @@ void ActionTradeGiftBox::load()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGiftBox::read(PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -98,7 +98,7 @@ void ActionTradeGiftBox::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTradeGiftBox::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -302,7 +302,7 @@ void ActionTradeGiftBox::execute(Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTradeGiftBox::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

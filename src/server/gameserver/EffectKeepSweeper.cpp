@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-EffectKeepSweeper::EffectKeepSweeper(Item* pItem) throw(Error)
+EffectKeepSweeper::EffectKeepSweeper(Item* pItem) 
 {
 	__BEGIN_TRY
 
@@ -13,7 +13,7 @@ EffectKeepSweeper::EffectKeepSweeper(Item* pItem) throw(Error)
 	__END_CATCH
 }
 
-void EffectKeepSweeper::unaffect() throw(Error)
+void EffectKeepSweeper::unaffect() 
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ void EffectKeepSweeper::unaffect() throw(Error)
 	__END_CATCH
 }
 
-string EffectKeepSweeper::toString() const throw()
+string EffectKeepSweeper::toString() const 
 {
 	__BEGIN_TRY
 

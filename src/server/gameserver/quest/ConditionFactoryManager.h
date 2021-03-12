@@ -19,16 +19,16 @@
 class ConditionFactoryManager 
 {
 public:
-	ConditionFactoryManager() throw();
-	~ConditionFactoryManager() throw();
+	ConditionFactoryManager() ;
+	~ConditionFactoryManager() ;
 
 public:
-	void init() throw(Error);
-	void addFactory(ConditionFactory* pFactory) throw(Error);
-	Condition* createCondition(ConditionType_t conditionType) const throw(Error);
-	string getConditionName(ConditionType_t conditionType) const throw(Error);
-	ConditionType_t getConditionType(const string & contionname) const throw(Error);
-	string toString() const throw();
+	void init() ;
+	void addFactory(ConditionFactory* pFactory) ;
+	Condition* createCondition(ConditionType_t conditionType) const ;
+	string getConditionName(ConditionType_t conditionType) const ;
+	ConditionType_t getConditionType(const string & contionname) const ;
+	string toString() const ;
 
 private:
 	ConditionFactory** m_Factories;

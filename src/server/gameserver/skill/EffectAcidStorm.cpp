@@ -12,7 +12,7 @@
 #include "Gpackets/GCAddEffect.h"
 
 EffectAcidStorm::EffectAcidStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY)
-	throw(Error)
+	
 {
 
 	__BEGIN_TRY
@@ -30,7 +30,7 @@ EffectAcidStorm::EffectAcidStorm(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zon
 
 
 bool EffectAcidStorm::affectCreature(Creature* pTargetCreature, bool bAffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -82,7 +82,7 @@ bool EffectAcidStorm::affectCreature(Creature* pTargetCreature, bool bAffectByMo
 
 
 void EffectAcidStorm::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 /*	
@@ -184,28 +184,28 @@ void EffectAcidStorm::affect()
 }
 
 void EffectAcidStorm::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectAcidStorm::affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectAcidStorm::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectAcidStorm::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -216,7 +216,7 @@ void EffectAcidStorm::unaffect()
 }
 
 void EffectAcidStorm::unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObjbect)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

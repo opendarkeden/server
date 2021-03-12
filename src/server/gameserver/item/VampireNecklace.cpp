@@ -24,7 +24,7 @@ Mutex    VampireNecklace::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 VampireNecklace::VampireNecklace()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ VampireNecklace::VampireNecklace()
 }
 
 VampireNecklace::VampireNecklace(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ VampireNecklace::VampireNecklace(ItemType_t itemType, const list<OptionType_t>& 
 // create item
 //--------------------------------------------------------------------------------
 void VampireNecklace::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void VampireNecklace::create(const string & ownerID, Storage storage, StorageID_
 // save item
 //--------------------------------------------------------------------------------
 void VampireNecklace::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void VampireNecklace::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void VampireNecklace::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void VampireNecklace::save(const string & ownerID, Storage storage, StorageID_t 
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireNecklace::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string VampireNecklace::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t VampireNecklace::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t VampireNecklace::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t VampireNecklace::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t VampireNecklace::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t VampireNecklace::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t VampireNecklace::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t VampireNecklace::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t VampireNecklace::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t VampireNecklace::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t VampireNecklace::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireNecklaceInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string VampireNecklaceInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void VampireNecklaceInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -350,7 +350,7 @@ void VampireNecklaceInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void VampireNecklaceLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -515,7 +515,7 @@ void VampireNecklaceLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void VampireNecklaceLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -591,7 +591,7 @@ void VampireNecklaceLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void VampireNecklaceLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

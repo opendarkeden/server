@@ -31,34 +31,34 @@ class GameServerGroupInfoManager {
 public :
 	
 	// constructor
-	GameServerGroupInfoManager () throw ();
+	GameServerGroupInfoManager () ;
 	
 	// destructor
-	~GameServerGroupInfoManager () throw ();
+	~GameServerGroupInfoManager () ;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init () ;
 
 	// load from database
-	void load () throw ( Error );
+	void load () ;
 
 	// clear GameServerGroupInfos
-	void clear() throw ( Error );
+	void clear() ;
 	
 	// add info
-	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) throw ( DuplicatedException );
+	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) ;
 	
 	// delete info
-	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
+	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) ;
 	
 	// get GameServerGroupInfo by ServerGroupID
-	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const throw( NoSuchElementException );
+	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const ;
 
 	// get count of info
-	uint getSize ( WorldID_t WorldID ) const throw () { return m_GameServerGroupInfos[WorldID].size(); }
+	uint getSize ( WorldID_t WorldID ) const  { return m_GameServerGroupInfos[WorldID].size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 private :
 	

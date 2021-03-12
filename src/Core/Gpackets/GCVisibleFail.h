@@ -24,31 +24,31 @@ class GCVisibleFail : public Packet {
 public :
 
 	// constructor
-	GCVisibleFail() throw() {}
+	GCVisibleFail()  {}
 	
 
 public :
 
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_GC_VISIBLE_FAIL; }
+	PacketID_t getPacketID() const  { return PACKET_GC_VISIBLE_FAIL; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return 0; }
+	PacketSize_t getPacketSize() const  { return 0; }
 	
 	// get packet's name
-	string getPacketName() const throw() { return "GCVisibleFail"; }
+	string getPacketName() const  { return "GCVisibleFail"; }
 	
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 	
 
 public :
@@ -73,16 +73,16 @@ class  GCVisibleFailFactory : public PacketFactory {
 public :
 	
 	// create packet
-	Packet* createPacket() throw() { return new GCVisibleFail(); }
+	Packet* createPacket()  { return new GCVisibleFail(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "GCVisibleFail"; }
+	string getPacketName() const  { return "GCVisibleFail"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_VISIBLE_FAIL; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_VISIBLE_FAIL; }
 
 	// get packet's max body size
-	PacketSize_t getPacketMaxSize() const throw() { return 0; }
+	PacketSize_t getPacketMaxSize() const  { return 0; }
 	
 };
 
@@ -98,7 +98,7 @@ class  GCVisibleFailHandler {
 public :
 
 	// execute packet's handler
-	static void execute(GCVisibleFail* pPacket, Player* pPlayer) throw(Error);
+	static void execute(GCVisibleFail* pPacket, Player* pPlayer) ;
 
 };
 

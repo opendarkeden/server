@@ -20,7 +20,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 EventAuth::EventAuth (GamePlayer* pGamePlayer) 
-	throw (Error)
+	
 : Event(pGamePlayer)
 {
 	// 1Ка
@@ -31,7 +31,7 @@ EventAuth::EventAuth (GamePlayer* pGamePlayer)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 EventAuth::~EventAuth () 
-	throw ()
+	
 {
 }
 
@@ -39,7 +39,7 @@ EventAuth::~EventAuth ()
 // activate
 //////////////////////////////////////////////////////////////////////////////
 void EventAuth::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

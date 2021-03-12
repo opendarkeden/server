@@ -17,13 +17,13 @@
 class EffectRapidFreeze : public Effect 
 {
 public:
-	EffectRapidFreeze(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) throw(Error);
+	EffectRapidFreeze(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_Rapid_Freeze; }
 
-	void affect() throw(Error);
-	void unaffect() throw(Error);
+	void affect() ;
+	void unaffect() ;
 	string toString() const throw();
 
 public:

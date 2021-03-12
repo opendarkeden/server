@@ -56,7 +56,7 @@ ActionGiveEventItem::~ActionGiveEventItem()
 //  load
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::load()
-    throw (Error)
+    
 {
     __BEGIN_TRY
 	
@@ -72,7 +72,7 @@ void ActionGiveEventItem::load()
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::read(PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -98,7 +98,7 @@ void ActionGiveEventItem::read(PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -307,7 +307,7 @@ void ActionGiveEventItem::execute(Creature * pCreature1 , Creature * pCreature2)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionGiveEventItem::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

@@ -16,7 +16,7 @@
 // ¹ìÆÄÀÌ¾î ¼¿ÇÁ
 //////////////////////////////////////////////////////////////////////////////
 void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -119,7 +119,7 @@ void Invisibility::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 // ¸ó½ºÅÍ ¼¿ÇÁ ÇÚµé·¯
 //////////////////////////////////////////////////////////////////////////////
 void Invisibility::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

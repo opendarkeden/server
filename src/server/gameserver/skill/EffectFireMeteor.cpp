@@ -14,7 +14,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectFireMeteor::EffectFireMeteor(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ EffectFireMeteor::EffectFireMeteor(Creature* pCreature)
 	__END_CATCH
 }
 
-void EffectFireMeteor::affect() throw(Error)
+void EffectFireMeteor::affect() 
 {
 	__BEGIN_TRY
 
@@ -38,7 +38,7 @@ void EffectFireMeteor::affect() throw(Error)
 }
 
 void EffectFireMeteor::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -87,7 +87,7 @@ void EffectFireMeteor::affect(Creature* pCreature)
 }
 
 void EffectFireMeteor::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -102,7 +102,7 @@ void EffectFireMeteor::unaffect()
 }
 
 void EffectFireMeteor::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

@@ -42,7 +42,7 @@ OustersSkillSlot::~OustersSkillSlot()
 }
 
 void OustersSkillSlot::create(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -64,7 +64,7 @@ void OustersSkillSlot::create(const string & OwnerID)
 }
 
 void OustersSkillSlot::save(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -85,7 +85,7 @@ void OustersSkillSlot::save(const string & OwnerID)
 }
 
 void OustersSkillSlot::destroy(const string & OwnerID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -107,7 +107,7 @@ void OustersSkillSlot::destroy(const string & OwnerID)
 }
 
 void OustersSkillSlot::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -14,7 +14,7 @@ HolyLandRaceBonus::~HolyLandRaceBonus()
 
 void	
 HolyLandRaceBonus::refresh()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -21,23 +21,23 @@
 class EffectComa : public Effect 
 {
 public:
-	EffectComa(Creature* pCreature) throw(Error);
-	~EffectComa() throw(Error);
+	EffectComa(Creature* pCreature) ;
+	~EffectComa() ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_COMA; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_COMA; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
-    virtual void create(const string & ownerID) throw(Error);
-    virtual void save(const string & ownerID) throw(Error);
-    virtual void destroy(const string & ownerID) throw(Error);	
+    virtual void create(const string & ownerID) ;
+    virtual void save(const string & ownerID) ;
+    virtual void destroy(const string & ownerID) ;	
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	Timeval getStartTime(void) const { return m_StartTime; }
@@ -55,11 +55,11 @@ private:
 class EffectComaLoader : public EffectLoader 
 {
 public:
-	virtual Effect::EffectClass getEffectClass() const throw() { return Effect::EFFECT_CLASS_COMA; }
-	virtual string getEffectClassName() const throw() { return "EffectComa"; }
+	virtual Effect::EffectClass getEffectClass() const  { return Effect::EFFECT_CLASS_COMA; }
+	virtual string getEffectClassName() const  { return "EffectComa"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
+	virtual void load(Creature* pCreature) ;
 };
 
 extern EffectComaLoader* g_pEffectComaLoader;

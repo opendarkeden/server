@@ -18,20 +18,20 @@
 class RankEXPInfo 
 {
 public:
-	RankEXPInfo() throw();
-	~RankEXPInfo() throw();
+	RankEXPInfo() ;
+	~RankEXPInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(uint sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(uint sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(uint accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Level;
@@ -47,17 +47,17 @@ private:
 class RankEXPInfoManager 
 {
 public:
-	RankEXPInfoManager() throw();
-	~RankEXPInfoManager() throw();
+	RankEXPInfoManager() ;
+	~RankEXPInfoManager() ;
 
 public:
-	void init(RankType rankType) throw(Error);
-	void load(RankType rankType) throw(Error);
+	void init(RankType rankType) ;
+	void load(RankType rankType) ;
 
-	RankEXPInfo* getRankEXPInfo(uint value) const throw (InvalidProtocolException);
-	void addRankEXPInfo(RankEXPInfo* pRankEXPInfo) throw();
+	RankEXPInfo* getRankEXPInfo(uint value) const ;
+	void addRankEXPInfo(RankEXPInfo* pRankEXPInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint             m_RankEXPCount;

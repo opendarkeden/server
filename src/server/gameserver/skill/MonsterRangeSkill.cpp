@@ -12,7 +12,7 @@
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void MonsterRangeSkill::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

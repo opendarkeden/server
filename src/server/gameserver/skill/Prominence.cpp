@@ -20,7 +20,7 @@
 // 아우스터즈 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Prominence::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-    throw(Error)
+    
 {
     __BEGIN_TRY
 
@@ -70,7 +70,7 @@ void Prominence::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSk
 // 아우스터즈 타일 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void Prominence::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

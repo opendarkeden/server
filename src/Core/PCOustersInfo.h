@@ -84,7 +84,7 @@ public:
 
 	Slot getSlot () const  { return m_Slot; }
 	void setSlot (Slot slot)  { m_Slot = slot; }
-	void setSlot (string slot) throw (InvalidProtocolException)
+	void setSlot (string slot)
 	{
 		if (slot == Slot2String[SLOT1])
 			m_Slot = SLOT1;
@@ -104,7 +104,7 @@ public:
 
 	Sex getSex () const  { return m_Sex; }
 	void setSex (Sex sex)  { m_Sex = sex; }
-	void setSex (string sex) throw (InvalidProtocolException)
+	void setSex (string sex) 
 	{
 		if (sex == Sex2String[MALE]) 
 			m_Sex = MALE;

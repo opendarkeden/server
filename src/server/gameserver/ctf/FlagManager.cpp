@@ -344,7 +344,7 @@ bool FlagManager::isInPoleField( ZONE_COORD zc )
 }
 
 void FlagManager::recordPutFlag( PlayerCreature* pPC, Item* pItem ) 
-	throw(Error)
+	
 {
 	Statement* pStmt = NULL;
 	Result* pResult  = NULL;
@@ -372,7 +372,7 @@ void FlagManager::recordPutFlag( PlayerCreature* pPC, Item* pItem )
 }
 
 void FlagManager::recordFlagWarHistory()
-	throw(Error)
+	
 {
 	Statement* pStmt = NULL;
 	Statement* pStmt2 = NULL;

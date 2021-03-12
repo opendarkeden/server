@@ -17,15 +17,15 @@
 class EffectReactiveArmor : public Effect 
 {
 public:
-	EffectReactiveArmor(Creature* pCreature) throw(Error);
+	EffectReactiveArmor(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_REACTIVE_ARMOR; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ;
 
 	string toString() const throw();
 

@@ -4,7 +4,7 @@
 
 #include "StringStream.h"
 
-string QuestStatus::toString() const throw(Error)
+string QuestStatus::toString() const 
 {
 	__BEGIN_TRY
 

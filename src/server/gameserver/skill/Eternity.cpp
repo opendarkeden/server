@@ -14,7 +14,7 @@
 // 슬레이어 셀프
 //////////////////////////////////////////////////////////////////////////////
 void Eternity::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -61,7 +61,7 @@ enum NewYear2005Item
 NewYear2005Item getNewYear2005ItemKind( PlayerCreature* pPC, Monster* pMonster );
 Item* getNewYear2005Item( NewYear2005Item kind );
 
-void logEventItemCount(Item* pEventItem) throw(Error);
+void logEventItemCount(Item* pEventItem) ;
 
 #endif// __EVENT_ITEM_UTIL_H__
 

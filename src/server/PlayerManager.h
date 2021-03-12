@@ -47,31 +47,31 @@ public :
 public :
 
 	// constructor
-	PlayerManager () throw ();
+	PlayerManager () ;
 
 	// destructor
-	virtual ~PlayerManager () throw (Error);
+	virtual ~PlayerManager () ;
 
 	// broadcast message
-	virtual void broadcastPacket ( Packet * pPacket ) throw ( Error );
+	virtual void broadcastPacket ( Packet * pPacket ) ;
 
 	// 특정 플레이어를 매니저에 추가한다.
-	virtual void addPlayer ( Player * pPlayer ) throw ( DuplicatedException , Error );
+	virtual void addPlayer ( Player * pPlayer ) ;
 
 	// 특정 플레이어를 매니저에서 삭제한다.
-	virtual void deletePlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
+	virtual void deletePlayer ( SOCKET fd ) ;
 
 	// 특정 플레이어 객체를 가져온다.
-	virtual Player * getPlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
+	virtual Player * getPlayer ( SOCKET fd ) ;
 
 	// 특정 폰을 가진 플레이어의 객체를 가져온다.
-	virtual Player * getPlayerByPhoneNumber( PhoneNumber_t PhoneNumber ) throw( OutOfBoundException, NoSuchElementException, Error ) { return NULL; }
+	virtual Player * getPlayerByPhoneNumber( PhoneNumber_t PhoneNumber )  { return NULL; }
 
 	// 현재 관리중인 플레이어 숫자를 리턴한다.
-	uint size () const throw () { return m_nPlayers; }
+	uint size () const  { return m_nPlayers; }
 
 	// Copy Player
-	void copyPlayers() throw();
+	void copyPlayers() ;
 
 protected :
 

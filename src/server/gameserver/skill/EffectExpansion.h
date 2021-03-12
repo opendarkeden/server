@@ -16,14 +16,14 @@
 class EffectExpansion : public Effect 
 {
 public:
-	EffectExpansion(Creature* pCreature) throw(Error);
+	EffectExpansion(Creature* pCreature) ;
 
 public:
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_EXPANSION; }
 
@@ -31,7 +31,7 @@ public:
 
 public:
 	int getHPBonus() throw() { return m_HPBonus;}
-	void setHPBonus(HP_t HPBonus) throw(Error) { m_HPBonus = HPBonus;}
+	void setHPBonus(HP_t HPBonus)  { m_HPBonus = HPBonus;}
 
 private :
 	HP_t m_HPBonus;

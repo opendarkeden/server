@@ -17,7 +17,7 @@
 //
 //----------------------------------------------------------------------
 SkillParentInfo::SkillParentInfo (SkillType_t SkillType) 
-	throw () 
+	 
 : m_SkillType(SkillType)
 {
 	__BEGIN_TRY
@@ -32,7 +32,7 @@ SkillParentInfo::SkillParentInfo (SkillType_t SkillType)
 //
 //----------------------------------------------------------------------
 SkillParentInfo::~SkillParentInfo () 
-    throw ()
+    
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -45,7 +45,7 @@ SkillParentInfo::~SkillParentInfo ()
 //
 //----------------------------------------------------------------------
 void SkillParentInfo::init ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -60,7 +60,6 @@ void SkillParentInfo::init ()
 //
 //----------------------------------------------------------------------
 bool SkillParentInfo::hasParent (SkillType_t SkillType)
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -95,7 +94,6 @@ bool SkillParentInfo::hasParent (SkillType_t SkillType)
 // 적 리스트의 특정 위치의 크리처의 아이디를 리턴한다.
 //----------------------------------------------------------------------
 SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -115,7 +113,7 @@ SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
 // get debug string
 //----------------------------------------------------------------------
 string SkillParentInfo::toString () const
-	throw ()
+	
 {
 
 	__BEGIN_TRY
@@ -149,7 +147,7 @@ string SkillParentInfo::toString () const
 //
 //--------------------------------------------------------------------
 SkillParentInfoManager::SkillParentInfoManager()
-	throw()
+	
 : m_SkillCount(0), m_SkillParentInfoList(NULL)
 {
 	__BEGIN_TRY
@@ -162,7 +160,7 @@ SkillParentInfoManager::SkillParentInfoManager()
 //
 //--------------------------------------------------------------------
 SkillParentInfoManager::~SkillParentInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -179,7 +177,7 @@ SkillParentInfoManager::~SkillParentInfoManager()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +193,7 @@ void SkillParentInfoManager::init()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -269,7 +267,7 @@ void SkillParentInfoManager::load()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -285,7 +283,7 @@ void SkillParentInfoManager::save()
 //
 //--------------------------------------------------------------------
 void SkillParentInfoManager::addSkillParentInfo(SkillParentInfo* pSkillParentInfo)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -304,8 +302,7 @@ void SkillParentInfoManager::addSkillParentInfo(SkillParentInfo* pSkillParentInf
 // SkillParentInfoManager:: getSkillParentInfo()
 //
 //--------------------------------------------------------------------
-SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillType)
-	const throw(NoSuchElementException , OutOfBoundException, Error)
+SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillType) const 
 {
 	__BEGIN_TRY
 
@@ -332,7 +329,7 @@ SkillParentInfo* SkillParentInfoManager::getSkillParentInfo(SkillType_t SkillTyp
 //
 //--------------------------------------------------------------------
 string SkillParentInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

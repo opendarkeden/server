@@ -63,17 +63,17 @@ public:
 	~GCShopBuyFail();
 
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SHOP_BUY_FAIL; }
-	PacketSize_t getPacketSize() const throw() { return szObjectID;}
-	string getPacketName() const throw() { return "GCShopBuyFail"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SHOP_BUY_FAIL; }
+	PacketSize_t getPacketSize() const  { return szObjectID;}
+	string getPacketName() const  { return "GCShopBuyFail"; }
+	string toString() const ;
 
 public:
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t creatureID) throw() { m_ObjectID = creatureID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t creatureID)  { m_ObjectID = creatureID; }
 
 	BYTE getCode(void) const { return m_Code; }
 	void setCode(BYTE code) { m_Code = code; }
@@ -93,10 +93,10 @@ private :
 class GCShopBuyFailFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new GCShopBuyFail(); }
-	string getPacketName() const throw() { return "GCShopBuyFail"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SHOP_BUY_FAIL; }
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID; }
+	Packet* createPacket()  { return new GCShopBuyFail(); }
+	string getPacketName() const  { return "GCShopBuyFail"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SHOP_BUY_FAIL; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ public:
 class GCShopBuyFailHandler 
 {
 public:
-	static void execute(GCShopBuyFail* pPacket, Player* pPlayer) throw(ProtocolException, Error);
+	static void execute(GCShopBuyFail* pPacket, Player* pPlayer) ;
 };
 
 #endif

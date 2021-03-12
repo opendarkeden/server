@@ -12,7 +12,7 @@
 // 뱀파이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void PoisonousHands::execute(Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,7 @@ void PoisonousHands::execute(Vampire* pVampire, ObjectID_t TargetObjectID, Vampi
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void PoisonousHands::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

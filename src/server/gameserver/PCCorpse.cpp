@@ -15,7 +15,7 @@
 // 크리처의 인벤토리에서 아이템을 꺼내서, 시체에 집어넣는다.
 //----------------------------------------------------------------------
 void PCCorpse::transportItems (Creature* pCreature) 
-	throw (Error)
+	
 {
 }
 
@@ -23,7 +23,7 @@ void PCCorpse::transportItems (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string PCCorpse::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

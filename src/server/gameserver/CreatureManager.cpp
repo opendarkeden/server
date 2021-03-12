@@ -29,7 +29,7 @@ class isSameNAME
 public:
 	isSameNAME (const string& Name) : m_Name(Name) {}
 
-	bool operator () (pair<const long unsigned int , Creature *> itr) throw ()
+	bool operator () (pair<const long unsigned int , Creature *> itr) 
 	{
 		return (itr.second)->getName() == m_Name;
 	}
@@ -43,7 +43,7 @@ private:
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 CreatureManager::CreatureManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ CreatureManager::CreatureManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 CreatureManager::~CreatureManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -79,7 +79,6 @@ CreatureManager::~CreatureManager ()
 // 크리처 매니저에 새 크리처 객체를 등록한다.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::addCreature (Creature* pCreature) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -100,8 +99,6 @@ void CreatureManager::addCreature (Creature* pCreature)
 // 크리처 매니저에 들어있는 특정 크리처 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::deleteCreature (ObjectID_t objectID) 
-	 //throw (NoSuchElementException , Error)
-	 throw ()
 {
 	__BEGIN_TRY
 
@@ -141,8 +138,6 @@ void CreatureManager::deleteCreature (ObjectID_t objectID)
 // 크리처 매니저에 들어있는 특정 크리처 객체를 리턴한다.
 //////////////////////////////////////////////////////////////////////////////
 Creature* CreatureManager::getCreature (ObjectID_t objectID) const 
-           //throw (NoSuchElementException , Error)
-           throw ()
 {
 	__BEGIN_TRY
 		
@@ -163,8 +158,6 @@ Creature* CreatureManager::getCreature (ObjectID_t objectID) const
 // 크리처 매니저에 들어있는 특정 크리처 객체를 리턴한다.
 //////////////////////////////////////////////////////////////////////////////
 Creature* CreatureManager::getCreature (const string& Name) const 
-           //throw (NoSuchElementException , Error)
-           throw ()
 {
 	__BEGIN_TRY
 		
@@ -185,7 +178,7 @@ Creature* CreatureManager::getCreature (const string& Name) const
 // 크리처 매니저에 종속된 몬스터/NPC 들의 AI에 의한 액션을 실행한다.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::processCreatures ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -229,7 +222,7 @@ void CreatureManager::processCreatures ()
 // 죽은 크리처를 처리한다.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::killCreature (Creature* pDeadCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -242,7 +235,7 @@ void CreatureManager::killCreature (Creature* pDeadCreature)
 // broadcast packet
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::broadcastPacket (Packet* pPacket , Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -274,7 +267,7 @@ void CreatureManager::broadcastPacket (Packet* pPacket , Creature* pCreature)
 // broadcast DarkLight packet
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::broadcastDarkLightPacket (Packet* pPacket1, Packet* pPacket2 , Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -328,7 +321,7 @@ void CreatureManager::broadcastDarkLightPacket (Packet* pPacket1, Packet* pPacke
 }
 
 void CreatureManager::broadcastLevelWarBonusPacket (Packet* pPacket , Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -365,7 +358,7 @@ void CreatureManager::broadcastLevelWarBonusPacket (Packet* pPacket , Creature* 
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string CreatureManager::toString () const
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "CreatureManager(" << "Size:" << (int)m_Creatures.size();

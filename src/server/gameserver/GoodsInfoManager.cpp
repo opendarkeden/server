@@ -51,7 +51,7 @@ string GoodsInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 GoodsInfoManager::GoodsInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ GoodsInfoManager::GoodsInfoManager()
 }
 
 GoodsInfoManager::~GoodsInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ GoodsInfoManager::~GoodsInfoManager()
 }
 
 void GoodsInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -77,7 +77,7 @@ void GoodsInfoManager::init()
 }
 
 void GoodsInfoManager::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ void GoodsInfoManager::clear()
 }
 
 void GoodsInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -140,7 +140,7 @@ void GoodsInfoManager::load()
 }
 
 void GoodsInfoManager::addGoodsInfo(GoodsInfo* pGoodsInfo)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -157,7 +157,7 @@ void GoodsInfoManager::addGoodsInfo(GoodsInfo* pGoodsInfo)
 }
 
 GoodsInfo* GoodsInfoManager::getGoodsInfo( DWORD id ) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ GoodsInfo* GoodsInfoManager::getGoodsInfo( DWORD id ) const
 }
 
 string GoodsInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

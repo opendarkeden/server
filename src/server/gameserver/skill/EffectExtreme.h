@@ -16,22 +16,22 @@
 class EffectExtreme : public Effect 
 {
 public:
-	EffectExtreme(Creature* pCreature) throw(Error);
+	EffectExtreme(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_EXTREME; }
 
-	void affect() throw(Error) {}
-	void affect(Creature* pCreature) throw(Error);
+	void affect()  {}
+	void affect(Creature* pCreature) ;
 
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Creature* pCreature) ;
+	void unaffect() ; 
 
 	string toString() const throw();
 
 public:
 	int getDamageBonus() throw() { return m_DamageBonus;}
-	void setDamageBonus(ToHit_t DamageBonus) throw(Error) { m_DamageBonus = DamageBonus;}
+	void setDamageBonus(ToHit_t DamageBonus)  { m_DamageBonus = DamageBonus;}
 
 private:
 	Damage_t m_DamageBonus;

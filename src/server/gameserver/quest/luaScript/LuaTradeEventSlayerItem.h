@@ -7,7 +7,7 @@ class LuaTradeEventSlayerItem : public LuaSelectItem {
 public :
 	LuaTradeEventSlayerItem(LuaState* pState);
 
-	virtual void	prepare() throw (Error);
+	virtual void	prepare() ;
 
 	Attr_t	getSum() const		{ return m_SUM; }
 	void	setSum(Attr_t sum) 	{ m_SUM = sum; }

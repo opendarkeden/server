@@ -16,7 +16,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionCanEnterDynamicZone::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Assert(pCreature2 != NULL);
 	Assert(pCreature2->isPC());
@@ -36,7 +36,7 @@ bool ConditionCanEnterDynamicZone::isSatisfied (Creature * pCreature1 , Creature
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionCanEnterDynamicZone::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	m_DynamicZoneID = propertyBuffer.getPropertyInt("ZoneID");
 }
@@ -45,7 +45,7 @@ void ConditionCanEnterDynamicZone::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionCanEnterDynamicZone::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

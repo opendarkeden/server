@@ -9,13 +9,13 @@
 
 
 GoodsInventory::~GoodsInventory()
-	throw()
+	
 {
 	clear();
 }
 
 void GoodsInventory::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -31,7 +31,7 @@ void GoodsInventory::clear()
 }
 
 void GoodsInventory::addItem( string ID, Item* pItem )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void GoodsInventory::addItem( string ID, Item* pItem )
 }
 
 Item* GoodsInventory::getItem( ObjectID_t oid )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ Item* GoodsInventory::getItem( ObjectID_t oid )
 	__END_CATCH
 }
 Item* GoodsInventory::popItem( ObjectID_t oid )
-	throw()
+	
 {
 	__BEGIN_TRY
 

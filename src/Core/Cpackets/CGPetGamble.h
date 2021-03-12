@@ -18,17 +18,17 @@
 class CGPetGamble : public Packet 
 {
 public:
-	CGPetGamble() throw();
-	~CGPetGamble() throw();
+	CGPetGamble() ;
+	~CGPetGamble() ;
 
 public:
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_CG_PET_GAMBLE; }
-	PacketSize_t getPacketSize() const throw() { return 0; }
-	string getPacketName() const throw() { return "CGPetGamble"; }
-	string toString() const throw();
+    void read(SocketInputStream & iStream) ;
+    void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_CG_PET_GAMBLE; }
+	PacketSize_t getPacketSize() const  { return 0; }
+	string getPacketName() const  { return "CGPetGamble"; }
+	string toString() const ;
 	
 public:
 private :
@@ -41,10 +41,10 @@ private :
 class CGPetGambleFactory : public PacketFactory 
 {
 public:
-	Packet* createPacket() throw() { return new CGPetGamble(); }
-	string getPacketName() const throw() { return "CGPetGamble"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_PET_GAMBLE; }
-	PacketSize_t getPacketMaxSize() const throw() { return 0; }
+	Packet* createPacket()  { return new CGPetGamble(); }
+	string getPacketName() const  { return "CGPetGamble"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_PET_GAMBLE; }
+	PacketSize_t getPacketMaxSize() const  { return 0; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ public:
 class CGPetGambleHandler 
 {
 public:
-	static void execute(CGPetGamble* pPacket, Player* player) throw(ProtocolException, Error);
+	static void execute(CGPetGamble* pPacket, Player* player) ;
 };
 
 #endif

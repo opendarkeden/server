@@ -33,7 +33,7 @@ public:
 
 	virtual WarType_t	getWarType() const = 0;
 	virtual string 		getWarType2DBString() const = 0;
-	virtual string		getWarName() const throw (Error) = 0;
+	virtual string		getWarName() const  = 0;
 
 	WarID_t			getWarID()	const				{ return m_WarID; }
 	void			setWarID( WarID_t warID )		{ m_WarID = warID; }
@@ -46,28 +46,28 @@ public:
 	void				setWarStartTime(VSDateTime dt) { m_StartTime = dt; }
 
 public:
-	virtual bool	isModifyCastleOwner( PlayerCreature* pPC ) throw (Error) { return false; }
+	virtual bool	isModifyCastleOwner( PlayerCreature* pPC )  { return false; }
 
-	virtual void	sendWarStartMessage() const throw (ProtocolException, Error);
-	virtual void	sendWarEndMessage() const throw (ProtocolException, Error);
-
-public:
-	static void		initWarIDRegistry() throw (Error);
+	virtual void	sendWarStartMessage() const ;
+	virtual void	sendWarEndMessage() const ;
 
 public:
-	virtual void 	execute() throw (Error);
-	virtual bool    endWar(PlayerCreature* pPC) throw(Error) { return false; }
+	static void		initWarIDRegistry() ;
+
+public:
+	virtual void 	execute() ;
+	virtual bool    endWar(PlayerCreature* pPC)  { return false; }
 
 protected :
-	virtual void 	executeStart() throw (Error) = 0;
-	virtual void 	executeEnd() throw (Error) = 0;
+	virtual void 	executeStart()  = 0;
+	virtual void 	executeEnd()  = 0;
 
 
 public :
-	virtual void	makeWarScheduleInfo( WarScheduleInfo* pWSI ) const throw (Error) = 0;
-	virtual void 	makeWarInfo(WarInfo* pWarInfo) const throw (Error) = 0;
+	virtual void	makeWarScheduleInfo( WarScheduleInfo* pWSI ) const  = 0;
+	virtual void 	makeWarInfo(WarInfo* pWarInfo) const  = 0;
 
-	virtual string	toString() const throw (Error) = 0;
+	virtual string	toString() const  = 0;
 
 private:
 	WarID_t				m_WarID;

@@ -13,7 +13,7 @@
 #include "Gpackets/GCRemoveEffect.h"
 
 EffectRediance::EffectRediance(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -25,14 +25,14 @@ EffectRediance::EffectRediance(Creature* pCreature)
 }
 
 void EffectRediance::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectRediance::unaffect()
-	    throw(Error)
+	    
 {
     __BEGIN_TRY
 
@@ -47,7 +47,7 @@ void EffectRediance::unaffect()
 }
 
 void EffectRediance::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG

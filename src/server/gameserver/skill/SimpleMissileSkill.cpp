@@ -22,7 +22,7 @@ void SimpleMissileSkill::execute(
 	Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
 	CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -188,7 +188,7 @@ void SimpleMissileSkill::execute(
 	Vampire* pVampire, ObjectID_t TargetObjectID, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -368,7 +368,7 @@ void SimpleMissileSkill::execute(
 	Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 	CEffectID_t CEffectID, int HitBonus) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -566,7 +566,7 @@ void SimpleMissileSkill::execute(
 		Monster* pMonster, Creature* pEnemy, 
 		const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result, 
 		CEffectID_t CEffectID) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -26,7 +26,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void HolyBlast::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -59,7 +59,7 @@ void HolyBlast::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* p
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void HolyBlast::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -89,7 +89,7 @@ void HolyBlast::execute(Slayer* pSlayer, SkillSlot* pSkillSlot, CEffectID_t CEff
 }
 
 void HolyBlast::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -122,7 +122,7 @@ void HolyBlast::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,  SkillSlo
 
 void HolyBlast::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID) throw (Error)
+	CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 

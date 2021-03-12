@@ -47,7 +47,7 @@ string RankBonusInfo::toString() const
 //////////////////////////////////////////////////////////////////////////////
 
 RankBonusInfoManager::RankBonusInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ RankBonusInfoManager::RankBonusInfoManager()
 }
 
 RankBonusInfoManager::~RankBonusInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ RankBonusInfoManager::~RankBonusInfoManager()
 }
 
 void RankBonusInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ void RankBonusInfoManager::init()
 }
 
 void RankBonusInfoManager::clear()
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -96,7 +96,7 @@ void RankBonusInfoManager::clear()
 }
 
 void RankBonusInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -153,7 +153,7 @@ void RankBonusInfoManager::load()
 }
 
 void RankBonusInfoManager::save()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,6 @@ void RankBonusInfoManager::save()
 }
 
 RankBonusInfo* RankBonusInfoManager::getRankBonusInfo( DWORD rankBonusType ) const
-	throw( NoSuchElementException, OutOfBoundException, Error )
 {
 	__BEGIN_TRY
 
@@ -185,7 +184,7 @@ RankBonusInfo* RankBonusInfoManager::getRankBonusInfo( DWORD rankBonusType ) con
 }
 
 void RankBonusInfoManager::addRankBonusInfo(RankBonusInfo* pRankBonusInfo)
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 
@@ -200,7 +199,7 @@ void RankBonusInfoManager::addRankBonusInfo(RankBonusInfo* pRankBonusInfo)
 }
 
 string RankBonusInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

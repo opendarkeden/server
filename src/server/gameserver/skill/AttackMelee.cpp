@@ -21,7 +21,7 @@
 // 슬레이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -207,7 +207,7 @@ void AttackMelee::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 // 뱀파이어 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -338,7 +338,7 @@ void AttackMelee::execute(Vampire* pVampire, ObjectID_t TargetObjectID)
 // 아우스터스 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -465,7 +465,7 @@ void AttackMelee::execute(Ousters* pOusters, ObjectID_t TargetObjectID)
 // 몬스터 오브젝트
 //////////////////////////////////////////////////////////////////////////////
 void AttackMelee::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

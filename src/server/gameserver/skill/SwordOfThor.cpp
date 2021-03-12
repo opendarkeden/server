@@ -12,7 +12,7 @@
 #include "Gpackets/GCAddEffectToTile.h"
 #include <list>
 
-void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 
@@ -35,7 +35,7 @@ void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
 }
 
 void SwordOfThor::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

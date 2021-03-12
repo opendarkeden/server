@@ -107,7 +107,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 ItemFactoryManager::ItemFactoryManager () 
-	throw ()
+	
 : m_Factories(NULL) , m_Size(Item::ITEM_CLASS_MAX)
 {
 	__BEGIN_TRY
@@ -130,7 +130,7 @@ ItemFactoryManager::ItemFactoryManager ()
 //
 //////////////////////////////////////////////////////////////////////
 ItemFactoryManager::~ItemFactoryManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 		
@@ -153,7 +153,7 @@ ItemFactoryManager::~ItemFactoryManager ()
 //
 //////////////////////////////////////////////////////////////////////
 void ItemFactoryManager::init ()
-	 throw (Error)
+	 
 {
 	__BEGIN_TRY
 		
@@ -430,7 +430,7 @@ void ItemFactoryManager::init ()
 //
 //////////////////////////////////////////////////////////////////////
 Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemType, const list<OptionType_t>& OptionType) 
-	   throw (NoSuchElementException, Error)
+	   
 {
 	__BEGIN_TRY
 
@@ -469,7 +469,7 @@ Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemTyp
 //
 //////////////////////////////////////////////////////////////////////
 string ItemFactoryManager::getItemName (Item::ItemClass IClass) 
-	   throw ()
+	   
 {
 	__BEGIN_TRY
 
@@ -486,7 +486,7 @@ string ItemFactoryManager::getItemName (Item::ItemClass IClass)
 }
 
 Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName )
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -523,7 +523,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string ItemFactoryManager::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

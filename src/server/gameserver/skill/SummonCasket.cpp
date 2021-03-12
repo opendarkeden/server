@@ -21,7 +21,7 @@
 // 뱀파이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -200,7 +200,7 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 // 몬스터 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SummonCasket::execute(Monster* pMonster)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

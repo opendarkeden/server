@@ -4,7 +4,7 @@
 #include "Gpackets/GCDeleteEffectFromTile.h"
 #include "Gpackets/GCRemoveEffect.h"
 
-/*EffectTrying::EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error)
+/*EffectTrying::EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) 
 {
 	__BEGIN_TRY
 
@@ -14,7 +14,7 @@
 	__END_CATCH
 }*/
 
-EffectTrying::EffectTrying(Creature* pCreature) throw(Error)
+EffectTrying::EffectTrying(Creature* pCreature) 
 {
 	__BEGIN_TRY
 
@@ -23,7 +23,7 @@ EffectTrying::EffectTrying(Creature* pCreature) throw(Error)
 	__END_CATCH
 }
 
-void EffectTrying::unaffect() throw(Error)
+void EffectTrying::unaffect() 
 {
 	__BEGIN_TRY
 

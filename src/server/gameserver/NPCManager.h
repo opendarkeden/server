@@ -19,13 +19,13 @@ class Zone;
 class NPCManager : public CreatureManager 
 {
 public:
-	NPCManager() throw(Error);
-	~NPCManager() throw();
+	NPCManager() ;
+	~NPCManager() ;
 	
 public:
-	void load(ZoneID_t zoneID, int race=0xFF) throw(Error);	// 0xFF이면 ALL.. -_-;
-	void processCreatures() throw(Error);
-	string toString() const throw();
+	void load(ZoneID_t zoneID, int race=0xFF) ;	// 0xFF이면 ALL.. -_-;
+	void processCreatures() ;
+	string toString() const ;
 };
 
 #endif

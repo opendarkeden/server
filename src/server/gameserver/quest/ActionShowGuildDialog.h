@@ -25,10 +25,10 @@ const int szGuildDialog = sizeof(GuildDialog_t);
 class ActionShowGuildDialog : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SHOW_GUILD_DIALOG; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SHOW_GUILD_DIALOG; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 	enum GUILDDIALOG
 	{
@@ -52,9 +52,9 @@ private:
 class ActionShowGuildDialogFactory : public ActionFactory 
 {
 public:
-    virtual ActionType_t getActionType() const throw() { return Action::ACTION_SHOW_GUILD_DIALOG; }
-	virtual string getActionName() const throw() { return "ShowGuildDialog"; }
-    virtual Action* createAction() const throw() { return new ActionShowGuildDialog(); }
+    virtual ActionType_t getActionType() const  { return Action::ACTION_SHOW_GUILD_DIALOG; }
+	virtual string getActionName() const  { return "ShowGuildDialog"; }
+    virtual Action* createAction() const  { return new ActionShowGuildDialog(); }
 };
 
 #endif

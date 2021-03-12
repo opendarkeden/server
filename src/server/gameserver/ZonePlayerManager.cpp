@@ -63,7 +63,7 @@ bool checkZonePlayerManager( GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, c
 // 하위 매니저 객체를 생성한다.
 //////////////////////////////////////////////////////////////////////////////
 ZonePlayerManager::ZonePlayerManager () 
-	throw ()
+	
 : m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -116,7 +116,7 @@ ZonePlayerManager::ZonePlayerManager ()
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZonePlayerManager::~ZonePlayerManager () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ ZonePlayerManager::~ZonePlayerManager ()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::broadcastPacket (Packet* pPacket)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -145,7 +145,7 @@ void ZonePlayerManager::broadcastPacket (Packet* pPacket)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::broadcastPacket_NOBLOCKED (Packet* pPacket)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -157,7 +157,7 @@ void ZonePlayerManager::broadcastPacket_NOBLOCKED (Packet* pPacket)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::pushBroadcastPacket( Packet* pPacket, BroadcastFilter* pFilter )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -183,7 +183,7 @@ void ZonePlayerManager::pushBroadcastPacket( Packet* pPacket, BroadcastFilter* p
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::flushBroadcastPacket()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -302,7 +302,7 @@ void ZonePlayerManager::flushBroadcastPacket()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::copyPlayers()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -321,7 +321,6 @@ void ZonePlayerManager::copyPlayers()
 // 상위에서 TimeoutException 을 받으면 플레이어는 처리하지 않아도 된다.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::select ()
-	throw (TimeoutException , InterruptedException , Error)
 {
 	__BEGIN_TRY
 
@@ -365,7 +364,6 @@ void ZonePlayerManager::select ()
 // 들어왔으므로 그 플레이어의 processInput()을 호출하면 된다.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processInputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -531,7 +529,6 @@ void ZonePlayerManager::processInputs ()
 // process all players' commands
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processCommands() 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -988,7 +985,6 @@ void ZonePlayerManager::processCommands()
 //
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processOutputs () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -1148,7 +1144,6 @@ void ZonePlayerManager::processOutputs ()
 //
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processExceptions () 
-	throw (IOException , Error)
 {
 	__BEGIN_TRY
 
@@ -1219,7 +1214,6 @@ void ZonePlayerManager::processExceptions ()
 // 특정 플레이어를 매니저에 추가한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1257,7 +1251,6 @@ void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer)
 // 특정 플레이어를 매니저에 추가한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer) 
-	throw (DuplicatedException , Error)
 {
 	__BEGIN_TRY
 
@@ -1291,7 +1284,6 @@ void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer)
 // 특정 플레이어를 매니저에서 삭제한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd) 
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1358,7 +1350,6 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 // 특정 플레이어를 매니저에서 삭제한다.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer (SOCKET fd) 
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1450,7 +1441,6 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 //
 //////////////////////////////////////////////////////////////////////
 Player* ZonePlayerManager::getPlayer (SOCKET fd)
-	throw (OutOfBoundException , NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -1471,7 +1461,6 @@ Player* ZonePlayerManager::getPlayer (SOCKET fd)
 //
 //////////////////////////////////////////////////////////////////////
 Player* ZonePlayerManager::getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber)
-	throw(OutOfBoundException, NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	return NULL;
@@ -1486,7 +1475,7 @@ Player* ZonePlayerManager::getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber)
 // ZonePlayerManager:: save()
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::save()
-	throw(Error)
+	
 {
 
 	__BEGIN_TRY
@@ -1515,7 +1504,7 @@ void ZonePlayerManager::save()
 }
 
 void ZonePlayerManager::pushPlayer(GamePlayer* pGamePlayer)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1529,7 +1518,7 @@ void ZonePlayerManager::pushPlayer(GamePlayer* pGamePlayer)
 }
 
 void ZonePlayerManager::pushOutPlayer(GamePlayer* pGamePlayer)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1539,7 +1528,7 @@ void ZonePlayerManager::pushOutPlayer(GamePlayer* pGamePlayer)
 }
 
 void ZonePlayerManager::processPlayerListQueue()
-	throw(Error) 
+	 
 {
 	__BEGIN_TRY
 
@@ -1593,7 +1582,7 @@ void ZonePlayerManager::processPlayerListQueue()
 }
 
 void ZonePlayerManager::heartbeat()
-	throw(Error) 
+	 
 {
 	__BEGIN_TRY
 
@@ -1624,7 +1613,6 @@ void ZonePlayerManager::heartbeat()
 }
 
 void ZonePlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
-    throw(NoSuchElementException , Error)
 {
 
     __BEGIN_TRY
@@ -1648,7 +1636,7 @@ void ZonePlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
 }
 
 void    ZonePlayerManager::removeFlag (Effect::EffectClass EC) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -1679,7 +1667,7 @@ void    ZonePlayerManager::removeFlag (Effect::EffectClass EC)
 // ZonePlayerManager 에 있는 모든 사용자를 정리한다.
 ////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::clearPlayers()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

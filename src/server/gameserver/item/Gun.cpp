@@ -14,7 +14,7 @@
 // constructor
 //--------------------------------------------------------------------------------
 Gun::Gun()
-	throw()
+	
 {
 	m_ItemType    = 0;
 	m_Durability  = 0;
@@ -25,7 +25,7 @@ Gun::Gun()
 }
 
 Gun::Gun(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_OptionType( optionType )
 {
 	m_ItemType    = itemType;
@@ -41,7 +41,7 @@ Gun::Gun(ItemType_t itemType, const list<OptionType_t>& optionType)
 // destructor
 //--------------------------------------------------------------------------------
 Gun::~Gun()
-	throw()
+	
 {
 }
 

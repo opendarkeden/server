@@ -30,7 +30,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EventResurrect::EventResurrect(GamePlayer* pGamePlayer) 
-	throw()
+	
 : Event(pGamePlayer)
 {
 //	m_pResurrectZone = NULL;
@@ -38,12 +38,12 @@ EventResurrect::EventResurrect(GamePlayer* pGamePlayer)
 }
 
 EventResurrect::~EventResurrect() 
-	throw()
+	
 {
 }
 
 void EventResurrect::activate () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -131,7 +131,7 @@ void EventResurrect::activate ()
 }
 
 string EventResurrect::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EventResurrect("

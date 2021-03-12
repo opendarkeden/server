@@ -26,10 +26,10 @@ public:
 	virtual ~QuestAdvanceRewardInfo();
 
 public:
-	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const throw(Error);
-	virtual QuestMessage	giveReward(PlayerCreature* pPC) const throw(Error);
+	virtual QuestMessage	canGiveReward(PlayerCreature* pPC) const ;
+	virtual QuestMessage	giveReward(PlayerCreature* pPC) const ;
 
-	virtual string	toString() const throw();
+	virtual string	toString() const ;
 
 private:
 	int			m_ThisQuestLevel;

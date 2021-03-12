@@ -12,7 +12,7 @@
 // 아우스터즈 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void IceLance::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -47,7 +47,7 @@ void IceLance::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkil
 }
 
 void IceLance::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -97,7 +97,7 @@ void IceLance::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersS
 }
 
 void IceLance::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

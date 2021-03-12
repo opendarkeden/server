@@ -91,7 +91,7 @@ bool EventQuestLootingInfo::isTargetMonster( PlayerCreature* pPC, Monster* pMons
 	}
 }
 
-Item* EventQuestLootingInfo::getLootingItem() throw(Error)
+Item* EventQuestLootingInfo::getLootingItem() 
 {
 	__BEGIN_TRY
 
@@ -144,7 +144,7 @@ EventQuestLootingInfo* EventQuestLootingManager::isTargetMonster( PlayerCreature
 	return NULL;
 }
 
-bool EventQuestLootingManager::killed( PlayerCreature* pPC, Monster* pMonster ) throw(Error)
+bool EventQuestLootingManager::killed( PlayerCreature* pPC, Monster* pMonster ) 
 {
 	__BEGIN_TRY
 
@@ -168,7 +168,7 @@ bool EventQuestLootingManager::killed( PlayerCreature* pPC, Monster* pMonster ) 
 	__END_CATCH
 }
 
-void EventQuestLootingManager::load() throw(Error)
+void EventQuestLootingManager::load() 
 {
 	__BEGIN_TRY
 

@@ -28,7 +28,7 @@
 // read from property buffer
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowGuildDialog::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -50,7 +50,7 @@ void ActionShowGuildDialog::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionShowGuildDialog::execute (Creature * pCreature1, Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -394,7 +394,7 @@ void ActionShowGuildDialog::execute (Creature * pCreature1, Creature * pCreature
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionShowGuildDialog::toString () const
-	throw ()
+	
 {
 	__BEGIN_TRY
 

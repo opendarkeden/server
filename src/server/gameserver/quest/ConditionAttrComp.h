@@ -36,19 +36,19 @@ const string ConditionAttrCompOperator2String[] =
 class ConditionAttrComp : public Condition 
 {
 public:
-	ConditionAttrComp() throw();
-	virtual ~ConditionAttrComp() throw();
+	ConditionAttrComp() ;
+	virtual ~ConditionAttrComp() ;
 
 public:
-	virtual ConditionType_t getConditionType() const throw() { return CONDITION_ATTR_COMP; }
-	virtual bool isPassive() const throw() { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const throw();
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual string toString() const throw();
+	virtual ConditionType_t getConditionType() const  { return CONDITION_ATTR_COMP; }
+	virtual bool isPassive() const  { return true; }
+	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual string toString() const ;
 
 public:
-	void parseOperator(string& op, uint& var) throw();
-	bool satisfy(uint op, uint current, uint restriction) const throw();
+	void parseOperator(string& op, uint& var) ;
+	bool satisfy(uint op, uint current, uint restriction) const ;
 
 private:
 	uint m_ReqSTR;        // ÇÊ¿ä STR
@@ -72,9 +72,9 @@ private:
 class ConditionAttrCompFactory : public ConditionFactory 
 {
 public:
-    virtual ConditionType_t getConditionType() const throw() { return Condition::CONDITION_ATTR_COMP; }
-    virtual Condition* createCondition() const throw() { return new ConditionAttrComp(); }
-    virtual string getConditionName() const throw() { return "AttrComp"; }
+    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_ATTR_COMP; }
+    virtual Condition* createCondition() const  { return new ConditionAttrComp(); }
+    virtual string getConditionName() const  { return "AttrComp"; }
 };
 
 #endif

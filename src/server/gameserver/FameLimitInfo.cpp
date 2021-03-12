@@ -14,21 +14,21 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 FameLimitInfo::FameLimitInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 FameLimitInfo::~FameLimitInfo()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string FameLimitInfo::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -50,7 +50,7 @@ string FameLimitInfo::toString() const
 ////////////////////////////////////////////////////////////////////////////////
 
 FameLimitInfoManager::FameLimitInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -58,7 +58,7 @@ FameLimitInfoManager::FameLimitInfoManager()
 }
 
 FameLimitInfoManager::~FameLimitInfoManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -68,7 +68,7 @@ FameLimitInfoManager::~FameLimitInfoManager()
 }
 
 void FameLimitInfoManager::clear()
-	throw ( Error )
+	
 {
 	__BEGIN_TRY
 	
@@ -86,7 +86,7 @@ void FameLimitInfoManager::clear()
 }
 
 void FameLimitInfoManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ void FameLimitInfoManager::init()
 }
 
 void FameLimitInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -152,7 +152,7 @@ void FameLimitInfoManager::load()
 }
 
 void FameLimitInfoManager::addFameLimitInfo(FameLimitInfo * pFameLimitInfo)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -171,7 +171,7 @@ void FameLimitInfoManager::addFameLimitInfo(FameLimitInfo * pFameLimitInfo)
 }
 
 FameLimitInfo * FameLimitInfoManager::getFameLimitInfo( SkillDomainType_t DomainType, uint Level ) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -186,7 +186,7 @@ FameLimitInfo * FameLimitInfoManager::getFameLimitInfo( SkillDomainType_t Domain
 }
 
 string FameLimitInfoManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 

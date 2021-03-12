@@ -20,19 +20,19 @@ class Item;
 class EffectRecallMotorcycle : public Effect 
 {
 public:
-	EffectRecallMotorcycle(Zone* pZone, ZoneCoord_t sx, ZoneCoord_t sy, Zone* pTargetZone, ZoneCoord_t x, ZoneCoord_t y, Item* pItem, ObjectID_t ownerOID, Turn_t delay) throw(Error);
-	virtual ~EffectRecallMotorcycle() throw(Error);
+	EffectRecallMotorcycle(Zone* pZone, ZoneCoord_t sx, ZoneCoord_t sy, Zone* pTargetZone, ZoneCoord_t x, ZoneCoord_t y, Item* pItem, ObjectID_t ownerOID, Turn_t delay) ;
+	virtual ~EffectRecallMotorcycle() ;
 
 public:
-	virtual EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRANSPORT_ITEM; }
+	virtual EffectClass getEffectClass() const  { return EFFECT_CLASS_TRANSPORT_ITEM; }
 
 	// OBJECT_PRIORITY_NONE 라는 뜻은, 타일에 들어가서는 안된다는 뜻이다.
-	virtual ObjectPriority getObjectPriority() const throw() { return OBJECT_PRIORITY_NONE; }
+	virtual ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_NONE; }
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
 	// get debug string
-	virtual string toString() const throw();
+	virtual string toString() const ;
 
 private:
 	ZoneCoord_t m_StartX; 

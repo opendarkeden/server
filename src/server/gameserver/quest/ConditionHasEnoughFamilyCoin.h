@@ -18,11 +18,11 @@
 class ConditionHasEnoughFamilyCoin : public Condition 
 {
 public:
-	virtual ConditionType_t getConditionType() const throw() { return CONDITION_HAS_ENOUGH_FAMILY_COIN; }
-	virtual bool isPassive() const throw() { return true; }
-	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const throw();
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual string toString() const throw();
+	virtual ConditionType_t getConditionType() const  { return CONDITION_HAS_ENOUGH_FAMILY_COIN; }
+	virtual bool isPassive() const  { return true; }
+	virtual bool isSatisfied(Creature* pNPC, Creature* pPC = NULL, void* pParam = NULL) const ;
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual string toString() const ;
 private:
 };
 
@@ -33,9 +33,9 @@ private:
 class ConditionHasEnoughFamilyCoinFactory : public ConditionFactory 
 {
 public:
-    virtual ConditionType_t getConditionType() const throw() { return Condition::CONDITION_HAS_ENOUGH_FAMILY_COIN; }
-    virtual Condition* createCondition() const throw() { return new ConditionHasEnoughFamilyCoin(); }
-    virtual string getConditionName() const throw() { return "HasEnoughFamilyCoin"; }
+    virtual ConditionType_t getConditionType() const  { return Condition::CONDITION_HAS_ENOUGH_FAMILY_COIN; }
+    virtual Condition* createCondition() const  { return new ConditionHasEnoughFamilyCoin(); }
+    virtual string getConditionName() const  { return "HasEnoughFamilyCoin"; }
 };
 
 #endif

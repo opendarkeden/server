@@ -19,18 +19,18 @@ class MonsterCorpse;
 class EffectTryingPosition : public Effect 
 {
 public:
-	EffectTryingPosition(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) throw(Error);
+	EffectTryingPosition(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TRYING_POSITION; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TRYING_POSITION; }
 
-	void affect(Creature* pCreature) throw(Error);
-	void unaffect( Creature* pCreature ) throw(Error);
+	void affect(Creature* pCreature) ;
+	void unaffect( Creature* pCreature ) ;
 
-	void unaffect() throw(Error); 
+	void unaffect() ; 
 	MonsterCorpse* getTower() const { return m_pTower; }
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	MonsterCorpse* m_pTower;

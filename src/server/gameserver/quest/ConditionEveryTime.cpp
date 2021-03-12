@@ -10,7 +10,7 @@
 // is satisfied?
 ////////////////////////////////////////////////////////////////////////////////
 bool ConditionEveryTime::isSatisfied (Creature * pCreature1 , Creature * pCreature2, void* pParam) const 
-	throw () 
+	 
 { 
 	Timeval currentTime;
 
@@ -37,7 +37,7 @@ bool ConditionEveryTime::isSatisfied (Creature * pCreature1 , Creature * pCreatu
 //
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionEveryTime::read (PropertyBuffer & propertyBuffer) 
-	throw (Error)
+	
 {
 	try
 	{
@@ -62,7 +62,7 @@ void ConditionEveryTime::read (PropertyBuffer & propertyBuffer)
 	// get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ConditionEveryTime::toString () const 
-	throw () 
+	 
 { 
 	__BEGIN_TRY
 

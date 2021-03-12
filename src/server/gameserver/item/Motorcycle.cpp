@@ -24,13 +24,13 @@ Mutex    Motorcycle::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Motorcycle::Motorcycle()
-	throw()
+	
 : m_ItemType(0), m_Durability(0), m_pInventory(NULL)
 {
 }
 
 Motorcycle::Motorcycle(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw(Error)
+	
 : m_ItemType(itemType), m_OptionType(optionType), m_Durability(0), m_pInventory(NULL)
 {
 	__BEGIN_TRY
@@ -60,7 +60,7 @@ Motorcycle::Motorcycle(ItemType_t itemType, const list<OptionType_t>& optionType
 }
 
 Motorcycle::~Motorcycle()
-	throw()
+	
 {
 	SAFE_DELETE(m_pInventory);
 }
@@ -70,7 +70,7 @@ Motorcycle::~Motorcycle()
 // create item
 //--------------------------------------------------------------------------------
 void Motorcycle::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,7 @@ void Motorcycle::create(const string & ownerID, Storage storage, StorageID_t sto
 // save item
 //--------------------------------------------------------------------------------
 void Motorcycle::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -149,7 +149,7 @@ void Motorcycle::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Motorcycle::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -196,7 +196,7 @@ void Motorcycle::save(const string & ownerID, Storage storage, StorageID_t stora
 // get debug string
 //--------------------------------------------------------------------------------
 string Motorcycle::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -215,7 +215,7 @@ string Motorcycle::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Motorcycle::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -229,7 +229,7 @@ VolumeWidth_t Motorcycle::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Motorcycle::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -243,7 +243,7 @@ VolumeHeight_t Motorcycle::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Motorcycle::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,7 @@ Weight_t Motorcycle::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string MotorcycleInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -280,7 +280,7 @@ string MotorcycleInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void MotorcycleInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -335,7 +335,7 @@ void MotorcycleInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void MotorcycleLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -428,7 +428,7 @@ void MotorcycleLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void MotorcycleLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -497,7 +497,7 @@ void MotorcycleLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void MotorcycleLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

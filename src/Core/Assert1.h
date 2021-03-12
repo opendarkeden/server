@@ -26,7 +26,7 @@ void __assert__ (const char* file, uint line, const char* func, const char* expr
 // 그 연결을 종료시키는 역할을 한다.
 //
 //--------------------------------------------------------------------------------
-void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr) throw(InvalidProtocolException);
+void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr) ;
 
 #ifdef NDEBUG
 	#define Assert(expr) ((void)0)

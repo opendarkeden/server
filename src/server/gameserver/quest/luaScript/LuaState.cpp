@@ -56,7 +56,7 @@ LuaState::release()
 //--------------------------------------------------------------------------------
 int
 LuaState::dofile(const string& filename)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

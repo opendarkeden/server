@@ -36,45 +36,45 @@ public :
 
 
 public:
-	MasterLairManager(Zone* pZone) throw(Error);
-	~MasterLairManager() throw();
+	MasterLairManager(Zone* pZone) ;
+	~MasterLairManager() ;
 
 	MasterLairEvent getCurrentEvent() const { return m_Event; }
 
-	bool enterCreature(Creature* pCreature) throw(Error);  // 존에 출입이 가능한가? 
-	bool leaveCreature(Creature* pCreature) throw(Error);  // 존에서 나간 경우
+	bool enterCreature(Creature* pCreature) ;  // 존에 출입이 가능한가? 
+	bool leaveCreature(Creature* pCreature) ;  // 존에서 나간 경우
 
-	bool heartbeat() throw (Error);
+	bool heartbeat() ;
 
-	//void increaseSummonedMonsterNumber(int num) throw(Error);
+	//void increaseSummonedMonsterNumber(int num) ;
 	bool isMasterReady() const { return m_bMasterReady; }
 	void setMasterReady(bool bReady=true) { m_bMasterReady = bReady; }
 
-	void startEvent() throw (Error);
-	void stopEvent() throw (Error);
+	void startEvent() ;
+	void stopEvent() ;
 
-	void lock() throw(Error) { m_Mutex.lock(); }
-    void ulnock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+    void ulnock()  { m_Mutex.unlock(); }
 
-	string toString() const throw(Error);
+	string toString() const ;
 
 protected :
-	void processEventWaitingPlayer() throw (Error);
-	void processEventMinionCombat() throw (Error);
-	void processEventMasterCombat() throw (Error);
-	void processEventWaitingKickOut() throw (Error);
-	void processEventWaitingRegen() throw (Error);
+	void processEventWaitingPlayer() ;
+	void processEventMinionCombat() ;
+	void processEventMasterCombat() ;
+	void processEventWaitingKickOut() ;
+	void processEventWaitingRegen() ;
 
-	void activeEventWaitingPlayer() throw (Error);
-	void activeEventMinionCombat() throw (Error);
-	void activeEventMasterCombat() throw (Error);
-	void activeEventWaitingKickOut() throw (Error);
-	void activeEventWaitingRegen() throw (Error);
+	void activeEventWaitingPlayer() ;
+	void activeEventMinionCombat() ;
+	void activeEventMasterCombat() ;
+	void activeEventWaitingKickOut() ;
+	void activeEventWaitingRegen() ;
 
-	void deleteAllMonsters() throw (Error);		// 모든 몬스터 삭제
-	void kickOutPlayers() throw (Error);		// 사용자 강제 추방
-	void giveKillingReward() throw (Error);		// 마스터 죽였을 때 받는 보상
-	void killAllMonsters() throw (Error);		// 모든 몬스터를 죽인다
+	void deleteAllMonsters() ;		// 모든 몬스터 삭제
+	void kickOutPlayers() ;		// 사용자 강제 추방
+	void giveKillingReward() ;		// 마스터 죽였을 때 받는 보상
+	void killAllMonsters() ;		// 모든 몬스터를 죽인다
 
 private : 
 	Zone*             m_pZone;  

@@ -25,13 +25,13 @@ Mutex    Key::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Key::Key()
-	throw()
+	
 : m_ItemType(0), m_Target(0)
 {
 }
 
 Key::Key(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_Target(0)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -46,7 +46,7 @@ Key::Key(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Key::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ void Key::create(const string & ownerID, Storage storage, StorageID_t storageID,
 // save item
 //--------------------------------------------------------------------------------
 void Key::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void Key::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Key::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -155,7 +155,7 @@ void Key::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 	__END_CATCH
 }
 
-ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) throw(Error)
+ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) 
 {
 	__BEGIN_TRY
 
@@ -214,7 +214,7 @@ ItemID_t Key::setNewMotorcycle(Slayer* pSlayer) throw(Error)
 // get debug string
 //--------------------------------------------------------------------------------
 string Key::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -232,7 +232,7 @@ string Key::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Key::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ VolumeWidth_t Key::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Key::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ VolumeHeight_t Key::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Key::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -274,7 +274,7 @@ Weight_t Key::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string KeyInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -296,7 +296,7 @@ string KeyInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void KeyInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -353,7 +353,7 @@ void KeyInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void KeyLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -515,7 +515,7 @@ void KeyLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void KeyLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -582,7 +582,7 @@ void KeyLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void KeyLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

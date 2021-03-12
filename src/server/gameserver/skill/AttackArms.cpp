@@ -24,7 +24,7 @@
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY __BEGIN_DEBUG
 
@@ -376,7 +376,7 @@ void AttackArms::execute(Slayer* pSlayer, ObjectID_t TargetObjectID)
 // 몬스터 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void AttackArms::execute(Monster* pMonster, Creature* pEnemy)
-	throw(Error)
+	
 {
 	__BEGIN_TRY 
 

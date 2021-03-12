@@ -11,8 +11,8 @@ public :
 	LuaScript(LuaState* pState) : m_pState(pState) {}
 	virtual ~LuaScript() { m_pState = NULL; }
 	
-	virtual void	prepare() throw (Error) = 0;
-	virtual int		executeFile(const string& filename) throw (Error) = 0;
+	virtual void	prepare()  = 0;
+	virtual int		executeFile(const string& filename)  = 0;
 
 	virtual void 	clear();
 

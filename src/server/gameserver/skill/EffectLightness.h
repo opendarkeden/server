@@ -17,15 +17,15 @@
 class EffectLightness : public Effect 
 {
 public:
-	EffectLightness(Creature* pCreature) throw(Error);
+	EffectLightness(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_LIGHTNESS; }
 
-	void affect() throw(Error){}
+	void affect() {}
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

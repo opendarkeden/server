@@ -20,10 +20,10 @@
 class ActionEventMeet : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_EVENT_MEET; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_EVENT_MEET; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
 
@@ -41,8 +41,8 @@ private:
 class ActionEventMeetFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_EVENT_MEET; }
-	virtual string getActionName() const throw() { return "EventMeet"; }
-	virtual Action* createAction() const throw() { return new ActionEventMeet(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_EVENT_MEET; }
+	virtual string getActionName() const  { return "EventMeet"; }
+	virtual Action* createAction() const  { return new ActionEventMeet(); }
 };
 #endif

@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectGrandMasterVampire::EffectGrandMasterVampire(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -24,7 +24,7 @@ EffectGrandMasterVampire::EffectGrandMasterVampire(Creature* pCreature)
 	__END_CATCH
 }
 
-Effect::EffectClass EffectGrandMasterVampire::getSendEffectClass() const throw()
+Effect::EffectClass EffectGrandMasterVampire::getSendEffectClass() const 
 {
 	Vampire* pVampire = dynamic_cast<Vampire*>(m_pTarget);
 	if ( pVampire == NULL ) return getEffectClass();
@@ -39,7 +39,7 @@ Effect::EffectClass EffectGrandMasterVampire::getSendEffectClass() const throw()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterVampire::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -52,7 +52,7 @@ void EffectGrandMasterVampire::affect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterVampire::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectGrandMasterVampire::affect(Creature* pCreature)
 }
 
 void EffectGrandMasterVampire::unaffect() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY	
 
@@ -84,7 +84,7 @@ void EffectGrandMasterVampire::unaffect()
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectGrandMasterVampire::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -114,7 +114,7 @@ void EffectGrandMasterVampire::unaffect(Creature* pCreature)
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 string EffectGrandMasterVampire::toString()
-	const throw()
+	const 
 {
 	__BEGIN_TRY
 

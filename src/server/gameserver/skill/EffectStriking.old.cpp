@@ -22,7 +22,7 @@
 #include "DB.h"
 
 EffectStriking::EffectStriking(Item* pItem)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -32,7 +32,7 @@ EffectStriking::EffectStriking(Item* pItem)
 }
 
 void EffectStriking::affect(Item* pItem)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 																															    	
@@ -40,21 +40,21 @@ void EffectStriking::affect(Item* pItem)
 }
 
 void EffectStriking::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectStriking::unaffect()
-	throw(Error)
+	
 {
     Item* pItem = dynamic_cast<Item*>(m_pTarget);
 	unaffect(pItem);
 }
 
 void EffectStriking::unaffect(Item* pItem)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -126,7 +126,7 @@ void EffectStriking::unaffect(Item* pItem)
 }
 
 void EffectStriking::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH

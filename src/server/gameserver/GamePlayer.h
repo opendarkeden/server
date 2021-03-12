@@ -56,7 +56,7 @@ public:
 
 public:
 	// read socket's receive buffer and fill input buffer
-	// virtual void processInput() throw(IOException, Error);
+	// virtual void processInput() ;
 	
 	// parse packet and execute handler for the packet
 	virtual void processCommand(bool Option = true);

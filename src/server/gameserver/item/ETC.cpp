@@ -25,13 +25,13 @@ Mutex    ETC::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 ETC::ETC()
-	throw()
+	
 : m_ItemType(0)
 {
 }
 
 ETC::ETC(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t num)
-	throw()
+	
 : m_ItemType(itemType), m_Num(num)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -46,7 +46,7 @@ ETC::ETC(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t nu
 // create item
 //--------------------------------------------------------------------------------
 void ETC::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -92,7 +92,7 @@ void ETC::create(const string & ownerID, Storage storage, StorageID_t storageID,
 // save item
 //--------------------------------------------------------------------------------
 void ETC::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -116,7 +116,7 @@ void ETC::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void ETC::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -157,7 +157,7 @@ void ETC::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 // get debug string
 //--------------------------------------------------------------------------------
 string ETC::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -175,7 +175,7 @@ string ETC::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t ETC::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -189,7 +189,7 @@ VolumeWidth_t ETC::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t ETC::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -203,7 +203,7 @@ VolumeHeight_t ETC::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t ETC::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -217,7 +217,7 @@ Weight_t ETC::getWeight() const
 // get debug string
 //--------------------------------------------------------------------------------
 string ETCInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -239,7 +239,7 @@ string ETCInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void ETCInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -293,7 +293,7 @@ void ETCInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void ETCLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -434,7 +434,7 @@ void ETCLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void ETCLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -501,7 +501,7 @@ void ETCLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void ETCLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

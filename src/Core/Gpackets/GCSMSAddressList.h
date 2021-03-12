@@ -31,24 +31,24 @@ struct AddressUnit
 	PacketSize_t getPacketSize() const { return szDWORD + szBYTE + CharacterName.size() + szBYTE + CustomName.size() + szBYTE + Number.size(); }
 	static PacketSize_t getMaxPacketSize() { return szDWORD + szBYTE + 20 + szBYTE + 40 + szBYTE + 11; }
 
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
 };
 
 class GCSMSAddressList : public Packet 
 {
 public:
-	GCSMSAddressList() throw();
-	~GCSMSAddressList() throw();
+	GCSMSAddressList() ;
+	~GCSMSAddressList() ;
 	
 public:
-	void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-	void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
-	PacketID_t getPacketID() const throw() { return PACKET_GC_SMS_ADDRESS_LIST; }
-	PacketSize_t getPacketSize() const throw();
-	string getPacketName() const throw() { return "GCSMSAddressList"; }
-	string toString() const throw();
+	void read(SocketInputStream & iStream) ;
+	void write(SocketOutputStream & oStream) const ;
+	void execute(Player* pPlayer) ;
+	PacketID_t getPacketID() const  { return PACKET_GC_SMS_ADDRESS_LIST; }
+	PacketSize_t getPacketSize() const ;
+	string getPacketName() const  { return "GCSMSAddressList"; }
+	string toString() const ;
 
 public:
 	vector<AddressUnit*>& getAddresses() { return m_Addresses; }
@@ -64,14 +64,14 @@ private :
 class GCSMSAddressListFactory : public PacketFactory 
 {
 public :
-	GCSMSAddressListFactory() throw() {}
-	virtual ~GCSMSAddressListFactory() throw() {}
+	GCSMSAddressListFactory()  {}
+	virtual ~GCSMSAddressListFactory()  {}
 	
 public:
-	Packet* createPacket() throw() { return new GCSMSAddressList(); }
-	string getPacketName() const throw() { return "GCSMSAddressList"; }
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_GC_SMS_ADDRESS_LIST; }
-	PacketSize_t getPacketMaxSize() const throw() { return szBYTE + AddressUnit::getMaxPacketSize() * MAX_ADDRESS_NUM; }
+	Packet* createPacket()  { return new GCSMSAddressList(); }
+	string getPacketName() const  { return "GCSMSAddressList"; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_GC_SMS_ADDRESS_LIST; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + AddressUnit::getMaxPacketSize() * MAX_ADDRESS_NUM; }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ public:
 class GCSMSAddressListHandler 
 {
 public:
-	static void execute(GCSMSAddressList* pGCSMSAddressList, Player* pPlayer) throw(Error);
+	static void execute(GCSMSAddressList* pGCSMSAddressList, Player* pPlayer) ;
 
 };
 

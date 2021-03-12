@@ -22,12 +22,12 @@ public:
 	virtual ~RewardClassInfoManager();
 
 public:
-	virtual void load( const string& name = "" ) throw(Error) = 0;
+	virtual void load( const string& name = "" )  = 0;
 
 	bool			hasReward( RewardClass_t rClass ) const { return m_RewardClasses.find(rClass) != m_RewardClasses.end(); }
-	QuestMessage	canGiveReward( RewardClass_t rClass, PlayerCreature* pPC ) const throw(Error);
-//	QuestMessage	giveReward( RewardClass_t rClass, PlayerCreature* pPC ) throw(Error);
-	RewardClass*	getRewardClass( RewardClass_t rClass ) const throw(Error);
+	QuestMessage	canGiveReward( RewardClass_t rClass, PlayerCreature* pPC ) const ;
+//	QuestMessage	giveReward( RewardClass_t rClass, PlayerCreature* pPC ) ;
+	RewardClass*	getRewardClass( RewardClass_t rClass ) const ;
 
 protected:
 	NPC*				m_pOwnerNPC;

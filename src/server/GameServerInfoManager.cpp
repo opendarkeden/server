@@ -337,7 +337,6 @@ GameServerInfo * GameServerInfoManager::getGameServerInfo (const ServerID_t Serv
 }
 
 string GameServerInfoManager::toString () const
-	throw ()
 {
 	__BEGIN_TRY
 

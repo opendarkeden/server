@@ -16,21 +16,21 @@ AlignmentManager* g_pAlignmentManager = NULL;
 //////////////////////////////////////////////////////////////////////////////
 
 AlignmentManager::AlignmentManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 AlignmentManager::~AlignmentManager()
-	throw()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 Alignment AlignmentManager::getAlignmentType(Alignment_t Alignment)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -67,7 +67,7 @@ Alignment AlignmentManager::getAlignmentType(Alignment_t Alignment)
 }
 
 int AlignmentManager::getMultiplier(Alignment_t AttackerAlignment, Alignment_t DefenderAlignment)
-	throw()
+	
 {
 	__BEGIN_TRY
 	
@@ -165,7 +165,7 @@ int AlignmentManager::getMultiplier(Alignment_t AttackerAlignment, Alignment_t D
 }
 
 BYTE AlignmentManager::getDropItemNum(Alignment_t Alignment, bool isPK)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -213,7 +213,7 @@ BYTE AlignmentManager::getDropItemNum(Alignment_t Alignment, bool isPK)
 }
 
 BYTE AlignmentManager::getDropBonusPercentage(Alignment_t Alignment)
-	throw()
+	
 {
 	__BEGIN_TRY
 	return 0;
@@ -229,7 +229,7 @@ BYTE AlignmentManager::getDropBonusPercentage(Alignment_t Alignment)
 }
 
 BYTE AlignmentManager::getMoneyDropPenalty(Alignment_t Alignment)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -270,7 +270,7 @@ BYTE AlignmentManager::getMoneyDropPenalty(Alignment_t Alignment)
 }
 
 string AlignmentManager::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 	

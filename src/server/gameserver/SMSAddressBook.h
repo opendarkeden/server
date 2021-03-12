@@ -37,7 +37,7 @@ public:
 	SMSAddressBook( PlayerCreature* pOwner ) : m_pOwner(pOwner) { m_Addresses.clear(); }
 	~SMSAddressBook();
 
-	void load() throw(Error);
+	void load() ;
 
 	GCSMSAddressList*	getGCSMSAddressList() const;
 

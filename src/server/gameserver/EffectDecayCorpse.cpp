@@ -16,7 +16,7 @@
 #include "ZoneUtil.h"
 
 EffectDecayCorpse::EffectDecayCorpse (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Corpse* pCorpse , Turn_t delay) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pCorpse,delay) 
 {
 	__BEGIN_TRY
@@ -33,7 +33,7 @@ EffectDecayCorpse::EffectDecayCorpse (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 }
 
 EffectDecayCorpse::~EffectDecayCorpse () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -43,7 +43,7 @@ EffectDecayCorpse::~EffectDecayCorpse ()
 }
 			
 void EffectDecayCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -53,7 +53,7 @@ void EffectDecayCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 }
 
 void EffectDecayCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -99,21 +99,21 @@ void EffectDecayCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 }
 
 void EffectDecayCorpse::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectDecayCorpse::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 string EffectDecayCorpse::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

@@ -3,7 +3,7 @@
 #include "GatherItemQuestInfo.h"
 #include "PlayerCreature.h"
 
-GatherItemQuestStatus* GatherItemQuestInfo::makeQuestStatus( PlayerCreature* pPC ) const throw(Error)
+GatherItemQuestStatus* GatherItemQuestInfo::makeQuestStatus( PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 

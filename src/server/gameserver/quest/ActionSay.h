@@ -21,14 +21,14 @@
 class ActionSay : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_SAY; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_SAY; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	ScriptID_t getScriptID() const throw() { return m_ScriptID; }
-	void setScriptID(ScriptID_t scriptID) throw() { m_ScriptID = scriptID; }
+	ScriptID_t getScriptID() const  { return m_ScriptID; }
+	void setScriptID(ScriptID_t scriptID)  { m_ScriptID = scriptID; }
 
 private:
 	ScriptID_t m_ScriptID; // 말할 대사 아이디
@@ -41,9 +41,9 @@ private:
 class ActionSayFactory : public ActionFactory 
 {
 public:
-    virtual ActionType_t getActionType() const throw() { return Action::ACTION_SAY; }
-	virtual string getActionName() const throw() { return "Say"; }
-    virtual Action* createAction() const throw() { return new ActionSay(); }
+    virtual ActionType_t getActionType() const  { return Action::ACTION_SAY; }
+	virtual string getActionName() const  { return "Say"; }
+    virtual Action* createAction() const  { return new ActionSay(); }
 };
 
 #endif

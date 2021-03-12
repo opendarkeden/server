@@ -17,20 +17,20 @@
 class STRBalanceInfo 
 {
 public:
-	STRBalanceInfo() throw();
-	~STRBalanceInfo() throw();
+	STRBalanceInfo() ;
+	~STRBalanceInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(uint sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(uint sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(uint accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Level;
@@ -46,17 +46,17 @@ private:
 class STRBalanceInfoManager 
 {
 public:
-	STRBalanceInfoManager() throw();
-	~STRBalanceInfoManager() throw();
+	STRBalanceInfoManager() ;
+	~STRBalanceInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	STRBalanceInfo* getSTRBalanceInfo(uint value) const throw (InvalidProtocolException);
-	void addSTRBalanceInfo(STRBalanceInfo* pSTRBalanceInfo) throw();
+	STRBalanceInfo* getSTRBalanceInfo(uint value) const ;
+	void addSTRBalanceInfo(STRBalanceInfo* pSTRBalanceInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint             m_STRBalanceCount;
@@ -71,20 +71,20 @@ private:
 class DEXBalanceInfo 
 {
 public:
-	DEXBalanceInfo() throw();
-	~DEXBalanceInfo() throw();
+	DEXBalanceInfo() ;
+	~DEXBalanceInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(uint sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(uint sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(uint accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Level;
@@ -100,17 +100,17 @@ private:
 class DEXBalanceInfoManager 
 {
 public:
-	DEXBalanceInfoManager() throw();
-	~DEXBalanceInfoManager() throw();
+	DEXBalanceInfoManager() ;
+	~DEXBalanceInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	DEXBalanceInfo* getDEXBalanceInfo(uint value) const throw (InvalidProtocolException);
-	void addDEXBalanceInfo(DEXBalanceInfo* pDEXBalanceInfo) throw();
+	DEXBalanceInfo* getDEXBalanceInfo(uint value) const ;
+	void addDEXBalanceInfo(DEXBalanceInfo* pDEXBalanceInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint             m_DEXBalanceCount;
@@ -126,20 +126,20 @@ private:
 class INTBalanceInfo 
 {
 public:
-	INTBalanceInfo() throw();
-	~INTBalanceInfo() throw();
+	INTBalanceInfo() ;
+	~INTBalanceInfo() ;
 
 public:
-	void setLevel(uint lev) throw() { m_Level = lev; }
-	uint getLevel() const throw() { return m_Level; }
+	void setLevel(uint lev)  { m_Level = lev; }
+	uint getLevel() const  { return m_Level; }
 
-	void setGoalExp(uint sum) throw() { m_GoalExp = sum; }
-	uint getGoalExp() const throw() { return m_GoalExp; }
+	void setGoalExp(uint sum)  { m_GoalExp = sum; }
+	uint getGoalExp() const  { return m_GoalExp; }
 
-	void setAccumExp(uint accum) throw() { m_AccumExp = accum ; }
-	uint getAccumExp() const throw() { return m_AccumExp; }
+	void setAccumExp(uint accum)  { m_AccumExp = accum ; }
+	uint getAccumExp() const  { return m_AccumExp; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint m_Level;
@@ -155,17 +155,17 @@ private:
 class INTBalanceInfoManager 
 {
 public:
-	INTBalanceInfoManager() throw();
-	~INTBalanceInfoManager() throw();
+	INTBalanceInfoManager() ;
+	~INTBalanceInfoManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	INTBalanceInfo* getINTBalanceInfo(uint value) const throw (InvalidProtocolException);
-	void addINTBalanceInfo(INTBalanceInfo* pINTBalanceInfo) throw();
+	INTBalanceInfo* getINTBalanceInfo(uint value) const ;
+	void addINTBalanceInfo(INTBalanceInfo* pINTBalanceInfo) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint             m_INTBalanceCount;

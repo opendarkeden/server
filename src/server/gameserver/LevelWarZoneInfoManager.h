@@ -47,15 +47,15 @@ public:
 	Level_t					getMaxOustersLevel() const	{ return m_OustersLevelMax; }
 	void					setMaxOustersLevel(const Level_t level)	{ m_OustersLevelMax = level; }
 
-	const list<ZoneID_t>& 	getZoneIDList() const throw() { return m_LevelWarBonusZoneIDList; }
-	void					setZoneIDList( const string& zoneIDs )	throw();
+	const list<ZoneID_t>& 	getZoneIDList() const  { return m_LevelWarBonusZoneIDList; }
+	void					setZoneIDList( const string& zoneIDs )	;
 
-	bool 					isBonusZone(ZoneID_t targetZoneID) const throw (Error);
+	bool 					isBonusZone(ZoneID_t targetZoneID) const ;
 
-	bool					isCreatureThisLevel(Creature* pCreature) const throw();
-	bool					isZoneThisLevel( ZoneID_t zoneID ) const throw();
+	bool					isCreatureThisLevel(Creature* pCreature) const ;
+	bool					isZoneThisLevel( ZoneID_t zoneID ) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 
@@ -86,29 +86,29 @@ public:
 	~LevelWarZoneInfoManager();
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
-	void lock() throw(Error) { m_Mutex.lock(); }
-	void unlock() throw(Error) { m_Mutex.unlock(); }
+	void lock()  { m_Mutex.lock(); }
+	void unlock()  { m_Mutex.unlock(); }
 
-	void addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZoneInfo ) throw(Error);
-	int getCreatureLevelGrade( Creature* pCreature ) throw(Error);
-	ZoneID_t getCreatureZoneID( Creature* pCreature ) throw(Error);
+	void addLevelWarZoneInfo( LevelWarZoneInfo* pLevelWarZoneInfo ) ;
+	int getCreatureLevelGrade( Creature* pCreature ) ;
+	ZoneID_t getCreatureZoneID( Creature* pCreature ) ;
 	
-	bool isCreatureBonusZone( Creature* pCreature, ZoneID_t zoneID ) const throw(Error);
+	bool isCreatureBonusZone( Creature* pCreature, ZoneID_t zoneID ) const ;
 
-	LevelWarZoneInfo* getLevelWarZoneInfo( ZoneID_t zoneID ) const throw(Error);
+	LevelWarZoneInfo* getLevelWarZoneInfo( ZoneID_t zoneID ) const ;
 
 public:
-	void clearLevelWarZoneIDs() throw(Error);
-	bool getLevelWarZoneID( ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const throw(Error);
-	void setLevelWarZoneID( ZoneID_t zoneID, ZoneID_t levelWarZoneID ) throw (Error);
+	void clearLevelWarZoneIDs() ;
+	bool getLevelWarZoneID( ZoneID_t zoneID, ZoneID_t &levelWarZoneID ) const ;
+	void setLevelWarZoneID( ZoneID_t zoneID, ZoneID_t levelWarZoneID ) ;
 
-//	void refreshSweeperBonusZonePlayer() throw(Error);
-	void broadcast( ZoneID_t zoneID, Packet* pPacket ) const throw(Error);
+//	void refreshSweeperBonusZonePlayer() ;
+	void broadcast( ZoneID_t zoneID, Packet* pPacket ) const ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 

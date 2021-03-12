@@ -22,7 +22,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::read (PropertyBuffer & propertyBuffer)
-    throw (Error)
+    
 {
 	__BEGIN_TRY
 
@@ -54,7 +54,7 @@ void ActionTeachSkill::read (PropertyBuffer & propertyBuffer)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::execute (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -80,7 +80,7 @@ void ActionTeachSkill::execute (Creature * pCreature1 , Creature * pCreature2)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeSlayer (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -139,7 +139,7 @@ void ActionTeachSkill::executeSlayer (Creature * pCreature1 , Creature * pCreatu
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionTeachSkill::executeVampire (Creature * pCreature1 , Creature * pCreature2) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -190,7 +190,7 @@ void ActionTeachSkill::executeVampire (Creature * pCreature1 , Creature * pCreat
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionTeachSkill::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

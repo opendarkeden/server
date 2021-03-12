@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "ContinualLight"; }
 	SkillType_t getSkillType() const throw() { return SKILL_CONTINUAL_LIGHT; }
 
-	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error);
+	void execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

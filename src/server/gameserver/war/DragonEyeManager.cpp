@@ -36,7 +36,7 @@ DragonEyeManager::~DragonEyeManager()
 }
 
 void DragonEyeManager::init()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -46,7 +46,7 @@ void DragonEyeManager::init()
 }
 
 void DragonEyeManager::initDefaultPositions()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -65,7 +65,7 @@ void DragonEyeManager::initDefaultPositions()
 }
 
 void DragonEyeManager::createAllDragonEyes()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -97,7 +97,7 @@ void DragonEyeManager::createAllDragonEyes()
 }
 
 void DragonEyeManager::addAllDragonEyesToZone()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -118,7 +118,7 @@ void DragonEyeManager::addAllDragonEyesToZone()
 }
 
 void DragonEyeManager::removeAllDragonEyes()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -141,7 +141,7 @@ void DragonEyeManager::removeAllDragonEyes()
 }
 
 void DragonEyeManager::warpToDefaultPosition( Creature* pCreature )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

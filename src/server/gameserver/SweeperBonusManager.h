@@ -24,42 +24,42 @@ typedef SweeperBonusHashMap::const_iterator 			SweeperBonusHashMapConstItor;
 class SweeperBonusManager 
 {
 public:
-	SweeperBonusManager() throw();
-	~SweeperBonusManager() throw();
+	SweeperBonusManager() ;
+	~SweeperBonusManager() ;
 
 public:
 
 	// initialize Manager
-	void init() throw(Error);
+	void init() ;
 
-	// void load() throw();
-	void load() throw(Error);
+	// void load() ;
+	void load() ;
 
-	void reloadOwner(int level) throw(Error);
+	void reloadOwner(int level) ;
 
 	// clear list
-	void clear() throw();
+	void clear() ;
 
 	// Save to DB
-	void save() throw(Error);
+	void save() ;
 
 	// get SweeperBonus
-	SweeperBonus* getSweeperBonus(SweeperBonusType_t sweeperBonusType) const throw(NoSuchElementException, Error);
+	SweeperBonus* getSweeperBonus(SweeperBonusType_t sweeperBonusType) const ;
 	const SweeperBonusHashMap& getSweeperBonuses() const { return m_SweeperBonuses; }
 
 	// add SweeperBonus
-	void addSweeperBonus(SweeperBonus* pSweeperBonus) throw(DuplicatedException, Error);
+	void addSweeperBonus(SweeperBonus* pSweeperBonus) ;
 
 	bool isAble(ZoneID_t zoneID) const; 
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 public:
-	void setSweeperBonusRace( SweeperBonusType_t sweeperBonusType, Race_t race ) throw( Error );
+	void setSweeperBonusRace( SweeperBonusType_t sweeperBonusType, Race_t race ) ;
 
-	void makeSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) throw( Error );
-	void makeVoidSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) throw( Error );
+	void makeSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) ;
+	void makeVoidSweeperBonusInfo( GCSweeperBonusInfo& gcSweeperBonusInfo ) ;
 
 
 private:

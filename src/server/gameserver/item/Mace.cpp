@@ -24,7 +24,7 @@ Mutex    Mace::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Mace::Mace()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
@@ -34,7 +34,7 @@ Mace::Mace()
 }
 
 Mace::Mace(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_OptionType( optionType )
 {
 	setItemType(itemType);
@@ -57,7 +57,7 @@ Mace::Mace(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Mace::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -109,7 +109,7 @@ void Mace::create(const string & ownerID, Storage storage, StorageID_t storageID
 // save item
 //--------------------------------------------------------------------------------
 void Mace::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -133,7 +133,7 @@ void Mace::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Mace::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -180,7 +180,7 @@ void Mace::save(const string & ownerID, Storage storage, StorageID_t storageID, 
 // get debug string
 //--------------------------------------------------------------------------------
 string Mace::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -201,7 +201,7 @@ string Mace::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Mace::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -215,7 +215,7 @@ VolumeWidth_t Mace::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Mace::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -229,7 +229,7 @@ VolumeHeight_t Mace::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Mace::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -243,7 +243,7 @@ Weight_t Mace::getWeight() const
 // get/set weapon's minDamage
 //--------------------------------------------------------------------------------
 Damage_t Mace::getMinDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,7 @@ Damage_t Mace::getMinDamage() const
 // get/set weapon's maxDamage
 //--------------------------------------------------------------------------------
 Damage_t Mace::getMaxDamage() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -268,7 +268,7 @@ Damage_t Mace::getMaxDamage() const
 
 */
 MP_t Mace::getMPBonus() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -280,7 +280,7 @@ MP_t Mace::getMPBonus() const
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 int Mace::getCriticalBonus(void) const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -293,7 +293,7 @@ int Mace::getCriticalBonus(void) const
 // get debug string
 //--------------------------------------------------------------------------------
 string MaceInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -320,7 +320,7 @@ string MaceInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void MaceInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -389,7 +389,7 @@ void MaceInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void MaceLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -556,7 +556,7 @@ void MaceLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void MaceLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -632,7 +632,7 @@ void MaceLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void MaceLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

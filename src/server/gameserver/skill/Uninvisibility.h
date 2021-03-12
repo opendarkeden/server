@@ -23,8 +23,8 @@ public:
     string getSkillHandlerName() const throw() { return "Uninvisibility"; }
 	SkillType_t getSkillType() const throw() { return SKILL_UN_INVISIBILITY; }
 
-	void execute(Vampire* pVampire) throw(Error);
-	void execute(Monster* pMonster) throw(Error);
+	void execute(Vampire* pVampire) ;
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

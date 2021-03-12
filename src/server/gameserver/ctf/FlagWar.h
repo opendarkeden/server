@@ -19,22 +19,22 @@ class FlagWar : public Work
 	};
 public:
 	FlagWar() { m_State = STATE_WAIT; }
-	virtual void	execute() throw(Error);
+	virtual void	execute() ;
 
 	virtual VSDateTime	getNextFlagWarTime();
 	virtual int			getWarTime() const;
 
 protected:
-	virtual void	executeReady() throw(Error);
-	virtual void	executeStart() throw(Error);
-	virtual void	executeFinish() throw(Error);
-	virtual void	executeEnd() throw(Error);
+	virtual void	executeReady() ;
+	virtual void	executeStart() ;
+	virtual void	executeFinish() ;
+	virtual void	executeEnd() ;
 
 	virtual void		addFlags();
 
 	void addFlagsRandom( ZoneID_t zoneID, uint no );
 
-	string toString() const throw(Error) { return "FlagWar"; }
+	string toString() const  { return "FlagWar"; }
 
 private:
 	enum State

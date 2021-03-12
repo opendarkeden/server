@@ -92,7 +92,7 @@ bool SiegeWar::addChallengerGuild(GuildID_t gID)
 //     자신의 Zone(성)에 대한 처리는 lock이 필요없다.
 //--------------------------------------------------------------------------------
 void SiegeWar::executeStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -134,7 +134,7 @@ void SiegeWar::executeStart()
 }
 
 void SiegeWar::recordSiegeWarStart()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ void SiegeWar::recordSiegeWarStart()
 // 전쟁이 끝나는 시점에서 처리해야 될 것들
 //--------------------------------------------------------------------------------
 void SiegeWar::executeEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ void SiegeWar::executeEnd()
 }
 
 void SiegeWar::recordSiegeWarEnd()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -292,7 +292,7 @@ void SiegeWar::recordSiegeWarEnd()
 }
 
 string SiegeWar::getWarName() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -310,7 +310,7 @@ string SiegeWar::getWarName() const
 //--------------------------------------------------------------------------------
 bool
 SiegeWar::isModifyCastleOwner( PlayerCreature* pPC )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -339,7 +339,7 @@ SiegeWar::isModifyCastleOwner( PlayerCreature* pPC )
 //--------------------------------------------------------------------------------
 GuildID_t       
 SiegeWar::getWinnerGuildID( PlayerCreature* pPC ) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -357,7 +357,7 @@ SiegeWar::getWinnerGuildID( PlayerCreature* pPC )
 }
 
 bool SiegeWar::endWar(PlayerCreature* pPC)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -382,7 +382,7 @@ bool SiegeWar::endWar(PlayerCreature* pPC)
 // 전쟁 끝날 때
 //--------------------------------------------------------------------------------
 void SiegeWar::sendWarEndMessage() const
-    throw (ProtocolException, Error)
+    
 {
     __BEGIN_TRY
 
@@ -398,7 +398,7 @@ void SiegeWar::sendWarEndMessage() const
 }
 
 void    SiegeWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -417,7 +417,7 @@ void    SiegeWar::makeWarScheduleInfo( WarScheduleInfo* pWSI ) const
 }
 
 void 	SiegeWar::makeWarInfo(WarInfo* pWarInfo) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -471,7 +471,7 @@ void 	SiegeWar::makeWarInfo(WarInfo* pWarInfo) const
 
 
 string SiegeWar::toString() const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

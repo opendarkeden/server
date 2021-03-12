@@ -406,12 +406,12 @@ public :
 	typedef unordered_map<string, VariableType>	VARIABLE_NAME;
 
 public:
-	VariableManager() throw(Error);
-    ~VariableManager() throw(Error);
+	VariableManager() ;
+    ~VariableManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
+	void init() ;
+	void load() ;
 
 	// generic value. by sigi. 2002.11.19
 	VariableType	 getVariableType(const string& variableName) const;

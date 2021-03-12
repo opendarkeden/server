@@ -22,7 +22,6 @@ const char * PropertyBuffer::SpaceTab = " \t";
 // constructor
 ////////////////////////////////////////////////////////////////////////////////
 PropertyBuffer::PropertyBuffer (const string & buffer) 
-	throw ()
 {
 	m_Index  = 0;
 	m_Buffer = buffer;
@@ -33,12 +32,10 @@ PropertyBuffer::PropertyBuffer (const string & buffer)
 // destructor
 ////////////////////////////////////////////////////////////////////////////////
 PropertyBuffer::~PropertyBuffer () 
-	throw ()
 {
 }
 
 string PropertyBuffer::getProperty (string key)
-	    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -78,7 +75,6 @@ string PropertyBuffer::getProperty (string key)
 }
 
 int PropertyBuffer::getPropertyInt (string key)
-	    throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -88,7 +84,6 @@ int PropertyBuffer::getPropertyInt (string key)
 }
 
 bool PropertyBuffer::getProperty (string key, string& value)
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -128,7 +123,6 @@ bool PropertyBuffer::getProperty (string key, string& value)
 }
 
 bool PropertyBuffer::getPropertyInt (string key, int& value)
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -149,7 +143,6 @@ bool PropertyBuffer::getPropertyInt (string key, int& value)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string PropertyBuffer::toString () const 
-	throw ()
 {
 	__BEGIN_TRY
 

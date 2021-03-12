@@ -21,7 +21,7 @@ const int dir_advance[8][2] =
 	{ -1,-1 }
 };
 
-void WildTyphoon::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) throw(Error)
+void WildTyphoon::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 
 {
 	__BEGIN_TRY
 
@@ -44,7 +44,7 @@ void WildTyphoon::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot*
 }
 
 void WildTyphoon::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

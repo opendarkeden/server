@@ -16,17 +16,17 @@
 class EffectTurretLaser : public Effect 
 {
 public:
-	EffectTurretLaser(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	EffectTurretLaser(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_TURRET_LASER; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_TURRET_LASER; }
 
-	void affect() throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void affect() ;
+	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 };
 
 #endif

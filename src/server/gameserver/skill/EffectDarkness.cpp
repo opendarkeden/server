@@ -14,7 +14,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EffectDarkness::EffectDarkness(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoord_t ZoneY)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ EffectDarkness::EffectDarkness(Zone* pZone , ZoneCoord_t ZoneX, ZoneCoord_t Zone
 // pTarget의 시야가 변한  경우 true를 return
 //////////////////////////////////////////////////////////////////////////////
 bool EffectDarkness::affectObject(Object* pTarget, bool bAffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ bool EffectDarkness::affectObject(Object* pTarget, bool bAffectByMove)
 }
 
 void EffectDarkness::unaffectObject(Object* pTarget, bool bUnaffectByMove)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void EffectDarkness::unaffectObject(Object* pTarget, bool bUnaffectByMove)
 // EffectDarkness::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectDarkness::affect(Creature* pTargetCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -94,7 +94,7 @@ void EffectDarkness::affect(Creature* pTargetCreature)
 // EffectDarkness::affect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectDarkness::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -104,7 +104,7 @@ void EffectDarkness::affect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object
 // unaffect()
 //////////////////////////////////////////////////////////////////////////////
 void EffectDarkness::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void EffectDarkness::unaffect()
 }
 
 void EffectDarkness::unaffect(Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pObject)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -151,7 +151,7 @@ string EffectDarkness::toString() const
 }
 
 void EffectDarknessLoader::load( Zone* pZone )
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

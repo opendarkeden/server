@@ -250,42 +250,42 @@ private:
 class SkillInfoManager 
 {
 public:
-	SkillInfoManager() throw();
-	~SkillInfoManager() throw();
+	SkillInfoManager() ;
+	~SkillInfoManager() ;
 
 public:
 
 	// initialize Manager
-	void init() throw(Error);
+	void init() ;
 
-	// void load() throw();
-	void load() throw(Error);
+	// void load() ;
+	void load() ;
 	
 	// Save to DB
-	void save() throw(Error);
+	void save() ;
 
 	// get SkillInfo
-	SkillInfo* getSkillInfo(SkillType_t SkillType) const throw(NoSuchElementException, OutOfBoundException, Error);
+	SkillInfo* getSkillInfo(SkillType_t SkillType) const ;
 
 	// add SkillInfo
-	void addSkillInfo(SkillInfo* pSkillInfo) throw(DuplicatedException, Error);
+	void addSkillInfo(SkillInfo* pSkillInfo) ;
 
 	// get SkillType by LearnLevel
 	// 현재의 도메인 레벨에서 배울 수 있는 기술의 타입은 어떤 것인지 찾는다.
 	// 도메인의 레벨로 알 수 있지렁.
-	SkillType_t getSkillTypeByLevel(SkillDomainType_t SkillDomain, Level_t Level) throw(OutOfBoundException);
+	SkillType_t getSkillTypeByLevel(SkillDomainType_t SkillDomain, Level_t Level) ;
 
 	// 도메인의 레벨로 그 레벨은 어떤 등급에 해당하는지 아는 함수.
-	SkillGrade getGradeByDomainLevel(Level_t Level) throw(OutOfBoundException);
+	SkillGrade getGradeByDomainLevel(Level_t Level) ;
 
 	// 현재 등급에서 기술이 어느정도 레벨까지 올라갈 수 있는지 알아 본다.
-	Level_t getLimitLevelByDomainGrade(SkillGrade Grade) throw(OutOfBoundException);
+	Level_t getLimitLevelByDomainGrade(SkillGrade Grade) ;
 
 	// 현재 INT에서 MP 감소량을 뽑아내기 위한 함수.
 	MP_t getdecreaseConsumeMP(Attr_t INT) { return m_decreaseConsumeMP[INT]; }
 
 	// toString for Debug
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	uint         m_SkillCount;

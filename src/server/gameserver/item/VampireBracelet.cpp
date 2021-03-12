@@ -24,7 +24,7 @@ Mutex    VampireBracelet::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 VampireBracelet::VampireBracelet()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ VampireBracelet::VampireBracelet()
 }
 
 VampireBracelet::VampireBracelet(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ VampireBracelet::VampireBracelet(ItemType_t itemType, const list<OptionType_t>& 
 // create item
 //--------------------------------------------------------------------------------
 void VampireBracelet::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void VampireBracelet::create(const string & ownerID, Storage storage, StorageID_
 // save item
 //--------------------------------------------------------------------------------
 void VampireBracelet::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void VampireBracelet::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void VampireBracelet::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ void VampireBracelet::save(const string & ownerID, Storage storage, StorageID_t 
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireBracelet::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -195,7 +195,7 @@ string VampireBracelet::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t VampireBracelet::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -209,7 +209,7 @@ VolumeWidth_t VampireBracelet::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t VampireBracelet::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -223,7 +223,7 @@ VolumeHeight_t VampireBracelet::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t VampireBracelet::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -237,7 +237,7 @@ Weight_t VampireBracelet::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t VampireBracelet::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -246,7 +246,7 @@ Defense_t VampireBracelet::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t VampireBracelet::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -260,7 +260,7 @@ Protection_t VampireBracelet::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string VampireBraceletInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -284,7 +284,7 @@ string VampireBraceletInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void VampireBraceletInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -349,7 +349,7 @@ void VampireBraceletInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void VampireBraceletLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -514,7 +514,7 @@ void VampireBraceletLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void VampireBraceletLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -589,7 +589,7 @@ void VampireBraceletLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void VampireBraceletLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

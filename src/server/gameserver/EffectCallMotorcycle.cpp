@@ -18,7 +18,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectCallMotorcycle::EffectCallMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Item* pItem , Turn_t delay, bool bDeleteFromDB) 
-	throw (Error)
+	
 : Effect(pZone,x,y,pItem,delay) 
 {
 	__BEGIN_TRY
@@ -41,7 +41,7 @@ EffectCallMotorcycle::EffectCallMotorcycle (Zone* pZone , ZoneCoord_t x , ZoneCo
 // destructor
 //----------------------------------------------------------------------
 EffectCallMotorcycle::~EffectCallMotorcycle () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -57,7 +57,7 @@ EffectCallMotorcycle::~EffectCallMotorcycle ()
 // 왜냐하면, target은 생성자에서 지정되며, 아무런 일도 하지 않기 때문이다.
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -71,7 +71,7 @@ void EffectCallMotorcycle::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y ,
 // remove effect from target
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect (Motorcycle* pMotorcycle, Slayer* pSlayer)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void EffectCallMotorcycle::unaffect (Motorcycle* pMotorcycle, Slayer* pSlayer)
 // unaffect()
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect ()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -114,7 +114,7 @@ void EffectCallMotorcycle::unaffect ()
 // unaffect()
 //----------------------------------------------------------------------
 void EffectCallMotorcycle::unaffect (Creature* pCreature)
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -124,7 +124,7 @@ void EffectCallMotorcycle::unaffect (Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectCallMotorcycle::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

@@ -23,7 +23,7 @@
 // constructor
 //----------------------------------------------------------------------
 EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t zoneID , ZoneCoord_t x , ZoneCoord_t y , Turn_t delay) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -48,14 +48,14 @@ EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t 
 // destructor
 //----------------------------------------------------------------------
 EffectTransportCreature::~EffectTransportCreature () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
 void EffectTransportCreature::affect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ void EffectTransportCreature::affect()
 // affect
 //----------------------------------------------------------------------
 void EffectTransportCreature::affect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void EffectTransportCreature::affect(Creature* pCreature)
 // unaffect()
 //--------------------------------------------------------------------
 void EffectTransportCreature::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -124,7 +124,7 @@ void EffectTransportCreature::unaffect()
 // unaffect
 //--------------------------------------------------------------------
 void EffectTransportCreature::unaffect(Creature* pCreature)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -142,7 +142,7 @@ void EffectTransportCreature::unaffect(Creature* pCreature)
 // get debug string
 //----------------------------------------------------------------------
 string EffectTransportCreature::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 

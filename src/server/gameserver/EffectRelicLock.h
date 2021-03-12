@@ -17,22 +17,22 @@
 class EffectRelicLock : public Effect 
 {
 public:
-	EffectRelicLock(Item* pItem) throw(Error);
+	EffectRelicLock(Item* pItem) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_RELIC_LOCK; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_RELIC_LOCK; }
 
-	void affect() throw(Error) {}
-	void affect(Item* pItem) throw(Error);
+	void affect()  {}
+	void affect(Item* pItem) ;
 
-	void unaffect(Item* pItem) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Item* pItem) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	//bool   isLockTime() const;
-	//void   setLockTime(const Timeval& tv) throw() { m_LockTime = tv; }
+	//void   setLockTime(const Timeval& tv)  { m_LockTime = tv; }
 
 private:
 	//Timeval m_LockTime;

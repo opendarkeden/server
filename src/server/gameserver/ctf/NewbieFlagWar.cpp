@@ -5,7 +5,7 @@
 #include "ZoneInfoManager.h"
 #include "FlagManager.h"
 
-void NewbieFlagWar::executeEnd() throw(Error)
+void NewbieFlagWar::executeEnd() 
 {
 	FlagWar::executeEnd();
 	ZoneCoord_t	ZoneX, ZoneY;

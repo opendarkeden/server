@@ -19,7 +19,7 @@
 // 슬레이어 셀프 핸들러
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -191,7 +191,7 @@ void SoulChain::execute(Slayer* pSlayer, const string& targetName, SkillSlot* pS
 // 뱀파이어 셀프
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -332,7 +332,7 @@ void SoulChain::execute(Vampire* pVampire, const string& targetName, VampireSkil
 // 아우스터즈 셀프
 //////////////////////////////////////////////////////////////////////////////
 void SoulChain::execute(Ousters* pOusters, const string& targetName, OustersSkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

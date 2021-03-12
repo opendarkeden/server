@@ -27,7 +27,7 @@
 // constructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroupThread::ZoneGroupThread (ZoneGroup* pZoneGroup) 
-	throw ()
+	
 : m_pZoneGroup(pZoneGroup)
 {
 	__BEGIN_TRY
@@ -38,7 +38,7 @@ ZoneGroupThread::ZoneGroupThread (ZoneGroup* pZoneGroup)
 // destructor
 //////////////////////////////////////////////////////////////////////////////
 ZoneGroupThread::~ZoneGroupThread () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 	__END_CATCH
@@ -49,7 +49,7 @@ ZoneGroupThread::~ZoneGroupThread ()
 // 를 할 필요가 없다. 즉 모든 예외를 잡아서 처리해야 한다는 소리.
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroupThread::run () 
-	throw ()
+	
 {
 	__BEGIN_DEBUG
 
@@ -195,7 +195,7 @@ void ZoneGroupThread::run ()
 // get debug string
 //////////////////////////////////////////////////////////////////////////////
 string ZoneGroupThread::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "ZoneGroupThread("

@@ -20,7 +20,7 @@ SimpleTileMeleeSkill g_SimpleTileMeleeSkill;
 
 void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 
@@ -309,7 +309,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 
 void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkillSlot* pVampireSkillSlot, 
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 
@@ -556,7 +556,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkillSlot* pOustersSkillSlot,
 	const SIMPLE_SKILL_INPUT& param, SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 
@@ -827,7 +827,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 
 void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 	const SIMPLE_SKILL_INPUT& param,  SIMPLE_SKILL_OUTPUT& result,
-	CEffectID_t CEffectID, bool bForceKnockback) throw (Error)
+	CEffectID_t CEffectID, bool bForceKnockback) 
 {
 	__BEGIN_TRY
 

@@ -29,13 +29,13 @@ Mutex    CoupleRing::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 CoupleRing::CoupleRing()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 CoupleRing::CoupleRing(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType), m_OptionType(optionType)
 {
 	__BEGIN_TRY
@@ -50,7 +50,7 @@ CoupleRing::CoupleRing(ItemType_t itemType, const list<OptionType_t>& optionType
 }
 
 void CoupleRing::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -96,7 +96,7 @@ void CoupleRing::create(const string & ownerID, Storage storage, StorageID_t sto
 // save item
 //--------------------------------------------------------------------------------
 void CoupleRing::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -117,7 +117,7 @@ void CoupleRing::tinysave(const char* field) const
 }
 
 void CoupleRing::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -154,7 +154,7 @@ void CoupleRing::save(const string & ownerID, Storage storage, StorageID_t stora
 }
 
 string CoupleRing::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "CoupleRing("
@@ -165,7 +165,7 @@ string CoupleRing::toString() const
 }
 
 VolumeWidth_t CoupleRing::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ VolumeWidth_t CoupleRing::getVolumeWidth() const
 }
 	
 VolumeHeight_t CoupleRing::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VolumeHeight_t CoupleRing::getVolumeHeight() const
 }
 	
 Weight_t CoupleRing::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -195,7 +195,7 @@ Weight_t CoupleRing::getWeight() const
 }
 
 bool CoupleRing::hasPartnerItem()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -240,7 +240,7 @@ bool CoupleRing::hasPartnerItem()
 //////////////////////////////////////////////////////////////////////////////
 
 string CoupleRingInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "CoupleRingInfo("
@@ -256,7 +256,7 @@ string CoupleRingInfo::toString() const
 }
 
 void CoupleRingInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -310,7 +310,7 @@ void CoupleRingInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void CoupleRingLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -498,7 +498,7 @@ void CoupleRingLoader::load(Creature* pCreature)
 }
 
 void CoupleRingLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -562,7 +562,7 @@ void CoupleRingLoader::load(Zone* pZone)
 }
 
 void CoupleRingLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

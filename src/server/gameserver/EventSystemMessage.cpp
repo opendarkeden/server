@@ -15,7 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 EventSystemMessage::EventSystemMessage(GamePlayer* pGamePlayer) 
-	throw()
+	
 : Event(pGamePlayer)
 {
 //	m_pSystemMessageZone = NULL;
@@ -23,12 +23,12 @@ EventSystemMessage::EventSystemMessage(GamePlayer* pGamePlayer)
 }
 
 EventSystemMessage::~EventSystemMessage() 
-	throw()
+	
 {
 }
 
 void EventSystemMessage::addMessage (const string& msg) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -41,7 +41,7 @@ void EventSystemMessage::addMessage (const string& msg)
 // affect
 //----------------------------------------------------------------------
 void EventSystemMessage::activate () 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,7 @@ void EventSystemMessage::activate ()
 }
 
 string EventSystemMessage::toString () const 
-	throw ()
+	
 {
 	StringStream msg;
 	msg << "EventSystemMessage("

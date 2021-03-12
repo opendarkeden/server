@@ -10,7 +10,7 @@ EffectRegenZone::EffectRegenZone( MonsterCorpse* pTower )
 }
 
 void EffectRegenZone::unaffect()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

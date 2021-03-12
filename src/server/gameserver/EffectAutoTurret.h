@@ -16,17 +16,17 @@
 class EffectAutoTurret : public Effect 
 {
 public:
-	EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	EffectAutoTurret(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_AUTO_TURRET; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_AUTO_TURRET; }
 
-	void affect() throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) throw(Error);
+	void affect() ;
+	void affect(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) ;
 
-	void unaffect() throw(Error);
+	void unaffect() ;
 
-	string toString() const throw();
+	string toString() const ;
 };
 
 #endif

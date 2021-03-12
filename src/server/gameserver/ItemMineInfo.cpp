@@ -77,7 +77,7 @@ ItemMineInfoManager::~ItemMineInfoManager()
 }
 
 void ItemMineInfoManager::load()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,7 @@ ItemMineInfo* ItemMineInfoManager::getItemMineInfo(int id) const
 }
 
 void ItemMineInfoManager::addItemMineInfo(ItemMineInfo* pItemMineInfo) 
-	throw(DuplicatedException, Error)
+	
 {
 	__BEGIN_TRY
 

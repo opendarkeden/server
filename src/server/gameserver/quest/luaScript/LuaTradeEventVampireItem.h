@@ -7,7 +7,7 @@ class LuaTradeEventVampireItem : public LuaSelectItem {
 public :
 	LuaTradeEventVampireItem(LuaState* pState);
 
-	virtual void	prepare() throw (Error);
+	virtual void	prepare() ;
 
 	int		getLevel() const	{ return m_Level; }
 	void	setLevel(int sum) 	{ m_Level = sum; }

@@ -11,7 +11,7 @@ RewardClass::RewardClass( RewardClass_t rClass )
 }
 
 RewardClass::~RewardClass()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -29,7 +29,7 @@ RewardClass::~RewardClass()
 }
 
 void RewardClass::addRewardInfo( RewardInfo* pRewardInfo )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -39,7 +39,7 @@ void RewardClass::addRewardInfo( RewardInfo* pRewardInfo )
 	__END_CATCH
 }
 
-QuestMessage RewardClass::giveReward( PlayerCreature* pPC ) const throw(Error)
+QuestMessage RewardClass::giveReward( PlayerCreature* pPC ) const 
 {
 	__BEGIN_TRY
 
@@ -50,7 +50,7 @@ QuestMessage RewardClass::giveReward( PlayerCreature* pPC ) const throw(Error)
 }
 
 QuestMessage RewardClass::canGiveReward( PlayerCreature* pPC ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -74,7 +74,7 @@ QuestMessage RewardClass::canGiveReward( PlayerCreature* pPC ) const
 	__END_CATCH
 }
 
-string RewardClass::toString() const throw()
+string RewardClass::toString() const 
 {
 	StringStream msg;
 

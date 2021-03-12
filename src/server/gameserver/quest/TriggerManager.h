@@ -20,27 +20,27 @@
 class TriggerManager 
 {
 public:
-	TriggerManager() throw(Error);
-	~TriggerManager() throw(Error);
+	TriggerManager() ;
+	~TriggerManager() ;
 
 public:
-	void load(const string & name) throw(Error);
-	void load(ZoneID_t zoneid, int left, int top, int right, int bottom) throw(Error);
+	void load(const string & name) ;
+	void load(ZoneID_t zoneid, int left, int top, int right, int bottom) ;
 
-	void refresh() throw(Error);
+	void refresh() ;
 
-	void addTrigger(Trigger* pTrigger) throw(DuplicatedException, Error);
+	void addTrigger(Trigger* pTrigger) ;
 
-	void deleteTrigger(TriggerID_t triggerID) throw(NoSuchElementException, Error);
+	void deleteTrigger(TriggerID_t triggerID) ;
 
-	Trigger* getTrigger(TriggerID_t triggerID) throw(NoSuchElementException, Error);
+	Trigger* getTrigger(TriggerID_t triggerID) ;
 
-	bool hasCondition(ConditionType_t conditionType) const throw() { return m_ConditionSet.test(conditionType); }
+	bool hasCondition(ConditionType_t conditionType) const  { return m_ConditionSet.test(conditionType); }
 
-	list<Trigger*> & getTriggers() throw() { return m_Triggers; }
-	const list<Trigger*> & getTriggers() const throw() { return m_Triggers; }
+	list<Trigger*> & getTriggers()  { return m_Triggers; }
+	const list<Trigger*> & getTriggers() const  { return m_Triggers; }
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 

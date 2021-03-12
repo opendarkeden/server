@@ -25,13 +25,13 @@ Mutex    EventGiftBox::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 EventGiftBox::EventGiftBox()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 EventGiftBox::EventGiftBox(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 : m_ItemType(itemType)
 {
 	if (!g_pItemInfoManager->isPossibleItem(getItemClass(), m_ItemType, optionType))
@@ -42,7 +42,7 @@ EventGiftBox::EventGiftBox(ItemType_t itemType, const list<OptionType_t>& option
 }
 
 void EventGiftBox::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -84,7 +84,7 @@ void EventGiftBox::create(const string & ownerID, Storage storage, StorageID_t s
 // save item
 //--------------------------------------------------------------------------------
 void EventGiftBox::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void EventGiftBox::tinysave(const char* field) const
 }
 
 void EventGiftBox::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -142,7 +142,7 @@ void EventGiftBox::save(const string & ownerID, Storage storage, StorageID_t sto
 }
 
 string EventGiftBox::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "EventGiftBox("
@@ -153,7 +153,7 @@ string EventGiftBox::toString() const
 }
 
 VolumeWidth_t EventGiftBox::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ VolumeWidth_t EventGiftBox::getVolumeWidth() const
 }
 	
 VolumeHeight_t EventGiftBox::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -173,7 +173,7 @@ VolumeHeight_t EventGiftBox::getVolumeHeight() const
 }
 	
 Weight_t EventGiftBox::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -187,7 +187,7 @@ Weight_t EventGiftBox::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string EventGiftBoxInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "EventGiftBoxInfo("
@@ -203,7 +203,7 @@ string EventGiftBoxInfo::toString() const
 }
 
 void EventGiftBoxInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -257,7 +257,7 @@ void EventGiftBoxInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void EventGiftBoxLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -400,7 +400,7 @@ void EventGiftBoxLoader::load(Creature* pCreature)
 }
 
 void EventGiftBoxLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -461,7 +461,7 @@ void EventGiftBoxLoader::load(Zone* pZone)
 }
 
 void EventGiftBoxLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

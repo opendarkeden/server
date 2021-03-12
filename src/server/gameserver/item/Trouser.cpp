@@ -24,7 +24,7 @@ Mutex    Trouser::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Trouser::Trouser()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ Trouser::Trouser()
 }
 
 Trouser::Trouser(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -54,7 +54,7 @@ Trouser::Trouser(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Trouser::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -105,7 +105,7 @@ void Trouser::create(const string & ownerID, Storage storage, StorageID_t storag
 // save item
 //--------------------------------------------------------------------------------
 void Trouser::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -129,7 +129,7 @@ void Trouser::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Trouser::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void Trouser::save(const string & ownerID, Storage storage, StorageID_t storageI
 // get debug string
 //--------------------------------------------------------------------------------
 string Trouser::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string Trouser::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Trouser::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t Trouser::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Trouser::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t Trouser::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Trouser::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t Trouser::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t Trouser::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t Trouser::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t Trouser::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t Trouser::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string TrouserInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -286,7 +286,7 @@ string TrouserInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void TrouserInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -351,7 +351,7 @@ void TrouserInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void TrouserLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -516,7 +516,7 @@ void TrouserLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void TrouserLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -591,7 +591,7 @@ void TrouserLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void TrouserLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

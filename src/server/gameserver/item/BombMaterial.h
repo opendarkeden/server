@@ -21,33 +21,33 @@
 class BombMaterial : public Item 
 {
 public:
-	BombMaterial() throw();
-	BombMaterial(ItemType_t itemType, const list<OptionType_t>& optionType) throw();
+	BombMaterial() ;
+	BombMaterial(ItemType_t itemType, const list<OptionType_t>& optionType) ;
 	
 public:
-	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) throw(Error);
-	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) throw(Error);
-	void tinysave(const string & field) const throw (Error)	{ tinysave(field.c_str()); }
-	void tinysave(const char* field) const throw (Error);
-	virtual string toString() const throw();
+	virtual void create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID=0) ;
+	virtual void save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) ;
+	void tinysave(const string & field) const 	{ tinysave(field.c_str()); }
+	void tinysave(const char* field) const ;
+	virtual string toString() const ;
 
-	static void initItemIDRegistry(void) throw();
+	static void initItemIDRegistry(void) ;
 
 public:
-	virtual ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB_MATERIAL; }
-	virtual string getObjectTableName() const throw() { return "BombMaterialObject"; }
+	virtual ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB_MATERIAL; }
+	virtual string getObjectTableName() const  { return "BombMaterialObject"; }
 
-	virtual ItemType_t getItemType() const throw() { return m_ItemType; }
-	virtual void setItemType(ItemType_t itemType) throw() { m_ItemType = itemType; }
+	virtual ItemType_t getItemType() const  { return m_ItemType; }
+	virtual void setItemType(ItemType_t itemType)  { m_ItemType = itemType; }
 
-	virtual VolumeWidth_t getVolumeWidth() const throw(Error);
-	virtual VolumeHeight_t getVolumeHeight() const throw(Error);
-	virtual Weight_t getWeight() const throw(Error);
+	virtual VolumeWidth_t getVolumeWidth() const ;
+	virtual VolumeHeight_t getVolumeHeight() const ;
+	virtual Weight_t getWeight() const ;
 
-	virtual ItemNum_t getNum() const throw() { return m_Num; }
-	virtual void setNum(ItemNum_t Num) throw() { m_Num = Num; }
+	virtual ItemNum_t getNum() const  { return m_Num; }
+	virtual void setNum(ItemNum_t Num)  { m_Num = Num; }
 
-	bool    isStackable() const throw() { return true; }
+	bool    isStackable() const  { return true; }
 
 private:
 	ItemType_t m_ItemType; // 아이템 타입
@@ -65,8 +65,8 @@ private:
 class BombMaterialInfo : public ItemInfo 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB_MATERIAL; }
-	virtual string toString() const throw();
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB_MATERIAL; }
+	virtual string toString() const ;
 
 private:
 
@@ -80,8 +80,8 @@ private:
 class BombMaterialInfoManager : public InfoClassManager 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB_MATERIAL; }
-	virtual void load() throw(Error);
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB_MATERIAL; }
+	virtual void load() ;
 };
 
 extern BombMaterialInfoManager* g_pBombMaterialInfoManager;
@@ -94,11 +94,11 @@ extern BombMaterialInfoManager* g_pBombMaterialInfoManager;
 class BombMaterialFactory : public ItemFactory 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB_MATERIAL; }
-	virtual string getItemClassName() const throw() { return "BombMaterial"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB_MATERIAL; }
+	virtual string getItemClassName() const  { return "BombMaterial"; }
 	
 public:
-	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType) throw() { return new BombMaterial(ItemType,OptionType); }
+	virtual Item* createItem(ItemType_t ItemType, const list<OptionType_t>& OptionType)  { return new BombMaterial(ItemType,OptionType); }
 };
 
 
@@ -109,13 +109,13 @@ public:
 class BombMaterialLoader : public ItemLoader 
 {
 public:
-	virtual Item::ItemClass getItemClass() const throw() { return Item::ITEM_CLASS_BOMB_MATERIAL; }
-	virtual string getItemClassName() const throw() { return "BombMaterial"; }
+	virtual Item::ItemClass getItemClass() const  { return Item::ITEM_CLASS_BOMB_MATERIAL; }
+	virtual string getItemClassName() const  { return "BombMaterial"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error);
-	virtual void load(Zone* pZone) throw(Error);
-	virtual void load(StorageID_t storageID, Inventory* pInventory) throw(Error);
+	virtual void load(Creature* pCreature) ;
+	virtual void load(Zone* pZone) ;
+	virtual void load(StorageID_t storageID, Inventory* pInventory) ;
 };
 
 extern BombMaterialLoader* g_pBombMaterialLoader;

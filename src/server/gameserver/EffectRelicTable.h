@@ -15,16 +15,16 @@
 class EffectRelicTable : public Effect 
 {
 public:
-	EffectRelicTable(Item* pItem) throw(Error);
+	EffectRelicTable(Item* pItem) ;
 
 public:
-	void affect() throw(Error);
-	void affect(Item* pItem) throw(Error);
+	void affect() ;
+	void affect(Item* pItem) ;
 
-	void unaffect(Item* pItem) throw(Error);
-	void unaffect() throw(Error); 
+	void unaffect(Item* pItem) ;
+	void unaffect() ; 
 
-	string toString() const throw();
+	string toString() const ;
 
 public:
 	void   setSafeTime(const Timeval& tv)  { m_SafeTime = tv; }
@@ -41,17 +41,17 @@ private:
 class EffectSlayerRelicTable : public EffectRelicTable
 {
 public:
-	EffectSlayerRelicTable(Item* pItem) throw(Error) : EffectRelicTable(pItem) {}
+	EffectSlayerRelicTable(Item* pItem)  : EffectRelicTable(pItem) {}
 
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_SLAYER_RELIC_TABLE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_SLAYER_RELIC_TABLE; }
 };
 
 class EffectVampireRelicTable : public EffectRelicTable
 {
 public:
-	EffectVampireRelicTable(Item* pItem) throw(Error) : EffectRelicTable(pItem) {}
+	EffectVampireRelicTable(Item* pItem)  : EffectRelicTable(pItem) {}
 
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_VAMPIRE_RELIC_TABLE; }
+    EffectClass getEffectClass() const  { return EFFECT_CLASS_VAMPIRE_RELIC_TABLE; }
 };
 
 

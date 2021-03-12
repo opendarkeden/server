@@ -20,21 +20,21 @@
 class ItemFactoryManager 
 {
 public:
-	ItemFactoryManager() throw();
-	~ItemFactoryManager() throw();
+	ItemFactoryManager() ;
+	~ItemFactoryManager() ;
 
 public:
-	void init() throw(Error);
+	void init() ;
 
-	void addFactory(ItemFactory* pFactory) throw(Error);
+	void addFactory(ItemFactory* pFactory) ;
 
-	Item* createItem(Item::ItemClass IClass, ItemType_t ItemType, const list<OptionType_t>& OptionType) throw(NoSuchElementException, Error);
+	Item* createItem(Item::ItemClass IClass, ItemType_t ItemType, const list<OptionType_t>& OptionType) ;
 
-	string getItemName(Item::ItemClass IClass) throw();
+	string getItemName(Item::ItemClass IClass) ;
 
-	Item::ItemClass getItemClassByName( const string & ClassName ) throw();
+	Item::ItemClass getItemClassByName( const string & ClassName ) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	ItemFactory ** m_Factories; // 아이템팩토리의 배열

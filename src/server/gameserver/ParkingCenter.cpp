@@ -11,7 +11,7 @@
 // class MotorcycleBox member methods
 //////////////////////////////////////////////////////////////////////////////
 MotorcycleBox::MotorcycleBox(Motorcycle* pMotorcycle, Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y)
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -25,7 +25,7 @@ MotorcycleBox::MotorcycleBox(Motorcycle* pMotorcycle, Zone* pZone, ZoneCoord_t X
 }
 
 MotorcycleBox::~MotorcycleBox()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -66,7 +66,7 @@ MotorcycleBox::~MotorcycleBox()
 //////////////////////////////////////////////////////////////////////////////
 
 ParkingCenter::ParkingCenter()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -77,7 +77,7 @@ ParkingCenter::ParkingCenter()
 }
 
 ParkingCenter::~ParkingCenter()
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -99,7 +99,7 @@ ParkingCenter::~ParkingCenter()
 }
 
 void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox) 
-	throw (DuplicatedException , Error)
+	
 {
 	__BEGIN_TRY
 
@@ -125,7 +125,6 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 // 여기서 오토바이 전체를 삭제하게 됨으로 존에서 오토바이를 지운다음.
 // 최종적으로 이 함수를 불러야 할 것이다.
 void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -169,7 +168,6 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 
 // 특정 KeyID를 가진 MotorcycleBox가 있는지 확인한다.
 bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 
@@ -193,7 +191,6 @@ bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID)
 
 // 열쇠의 TargetID로 오토바이를 찾아서 Return 해주는 함수이다.
 MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	
@@ -231,7 +228,7 @@ MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const
 
 // 이건  ClientManager thread에서 돌아간다.
 void ParkingCenter::heartbeat()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 

@@ -18,13 +18,13 @@
 class ObjectManager 
 {
 public:
-	ObjectManager() throw(Error);
-	~ObjectManager() throw(Error);
+	ObjectManager() ;
+	~ObjectManager() ;
 
 public:
-	void init() throw(Error);
-	void load() throw(Error);
-	void save() throw(Error);
+	void init() ;
+	void load() ;
+	void save() ;
 };
 
 // global variable declaration

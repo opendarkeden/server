@@ -23,12 +23,12 @@ public:
     string getSkillHandlerName() const throw() { return "GreenPoison"; }
 	SkillType_t getSkillType() const throw() { return SKILL_GREEN_POISON; }
 
-	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Vampire* pVampire, ObjectID_t,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) throw(Error);
-	void execute(Monster* pMonster, Creature* pEnemy) throw(Error);
-	void execute(Monster* pMonster, ZoneCoord_t, ZoneCoord_t) throw(Error);
+	void execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Vampire* pVampire, ObjectID_t,  VampireSkillSlot* pVampireSkillSlot, CEffectID_t CEffectID) ;
+	void execute(Monster* pMonster, Creature* pEnemy) ;
+	void execute(Monster* pMonster, ZoneCoord_t, ZoneCoord_t) ;
 
-	void execute(Monster* pMonster) throw(Error);
+	void execute(Monster* pMonster) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output);
 };

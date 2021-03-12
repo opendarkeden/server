@@ -31,34 +31,34 @@ class GameWorldInfoManager {
 public :
 	
 	// constructor
-	GameWorldInfoManager () throw ();
+	GameWorldInfoManager () ;
 	
 	// destructor
-	~GameWorldInfoManager () throw ();
+	~GameWorldInfoManager () ;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init () ;
 
 	// load from database
-	void load () throw ( Error );
+	void load () ;
 
 	// clear GameWorldInfo objects
-	void clear() throw ( Error );
+	void clear() ;
 	
 	// add info
-	void addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) throw ( DuplicatedException );
+	void addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) ;
 	
 	// delete info
-	void deleteGameWorldInfo ( const WorldID_t WorldID ) throw ( NoSuchElementException );
+	void deleteGameWorldInfo ( const WorldID_t WorldID ) ;
 	
 	// get GameWorldInfo by WorldID
-	GameWorldInfo * getGameWorldInfo ( const WorldID_t WorldID ) const throw( NoSuchElementException );
+	GameWorldInfo * getGameWorldInfo ( const WorldID_t WorldID ) const ;
 
 	// get count of info
-	uint getSize () const throw () { return m_GameWorldInfos.size(); }
+	uint getSize () const  { return m_GameWorldInfos.size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 private :
 	

@@ -30,7 +30,7 @@ int MaterialType2BombTypeMap[] =
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CreateBomb::execute(Slayer * pSlayer , ObjectID_t InvenObjectID, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot * pSkillSlot)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

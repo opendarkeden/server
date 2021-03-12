@@ -22,7 +22,7 @@
 #include "Gpackets/GCAddEffect.h"
 
 Item* MouseItemPosition::popItem( bool bLock )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -33,7 +33,7 @@ Item* MouseItemPosition::popItem( bool bLock )
 }
 
 Item* MouseItemPosition::popItem_UNLOCKED( )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ Item* MouseItemPosition::popItem_UNLOCKED( )
 }
 
 Item* MouseItemPosition::popItem_LOCKED()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -78,7 +78,7 @@ Item* MouseItemPosition::popItem_LOCKED()
 }
 
 Zone* MouseItemPosition::getZone()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -94,7 +94,7 @@ Zone* MouseItemPosition::getZone()
 }
 
 Item* MouseItemPosition::popItem_CORE( PlayerCreature* pPC )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -146,7 +146,7 @@ Item* MouseItemPosition::popItem_CORE( PlayerCreature* pPC )
 }
 
 Creature* MouseItemPosition::findCreature()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -172,7 +172,7 @@ Creature* MouseItemPosition::findCreature()
 }
 
 Zone* MouseItemPosition::getZoneByCreature( Creature* pCreature ) 
-	throw (Error)
+	
 {
 	if (pCreature==NULL) return NULL;
 
@@ -188,7 +188,7 @@ Zone* MouseItemPosition::getZoneByCreature( Creature* pCreature )
 }
 
 string  MouseItemPosition::toString() const 
-	throw(Error)
+	
 {
 	return "MouseItemPosition";
 }

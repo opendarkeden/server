@@ -22,7 +22,7 @@ public:
 
 public:
 	int		getGameType() const { return m_GameType; }
-	MiniGameQuestStatus*	makeQuestStatus( PlayerCreature *pPC ) const throw(Error);
+	MiniGameQuestStatus*	makeQuestStatus( PlayerCreature *pPC ) const ;
 
 private:
 	int		m_GameType;

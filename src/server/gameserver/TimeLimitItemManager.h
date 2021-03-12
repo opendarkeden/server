@@ -42,22 +42,22 @@ public:
 	~TimeLimitItemManager();
 
 public:
-	void		load() throw(Error);
+	void		load() ;
 
-	bool		makeTimeLimitItemInfo( GCTimeLimitItemInfo& gcTimeLimitItemInfo ) const throw(Error);
-	bool		registerItem( Item* pItem ) throw(Error);
-	bool		checkTimeLimit( Item* pItem ) throw(Error);
-	bool		wasteIfTimeOver( Item* pItem ) throw(Error);
-	bool		itemSold( Item* pItem ) throw(Error) { return changeStatus( pItem, SOLD ); }
-	bool		deleteItemByMorph( Item* pItem ) throw(Error) { return changeStatus( pItem, MORPH ); }
-	bool		updateItemTimeLimit( Item* pItem, DWORD time ) throw(Error);
+	bool		makeTimeLimitItemInfo( GCTimeLimitItemInfo& gcTimeLimitItemInfo ) const ;
+	bool		registerItem( Item* pItem ) ;
+	bool		checkTimeLimit( Item* pItem ) ;
+	bool		wasteIfTimeOver( Item* pItem ) ;
+	bool		itemSold( Item* pItem )  { return changeStatus( pItem, SOLD ); }
+	bool		deleteItemByMorph( Item* pItem )  { return changeStatus( pItem, MORPH ); }
+	bool		updateItemTimeLimit( Item* pItem, DWORD time ) ;
 
-	void		clear() throw(Error) { m_ItemTimeLimits.clear(); }
+	void		clear()  { m_ItemTimeLimits.clear(); }
 
-	void		addTimeLimitItem( Item* pItem, DWORD time ) throw(Error);
+	void		addTimeLimitItem( Item* pItem, DWORD time ) ;
 
 protected:
-	bool		changeStatus( Item* pItem, TimeLimitStatus status ) throw(Error);
+	bool		changeStatus( Item* pItem, TimeLimitStatus status ) ;
 
 private:
 	PlayerCreature*		m_pOwnerPC;

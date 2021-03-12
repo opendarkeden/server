@@ -17,16 +17,16 @@
 class EffectDummyDrake : public Effect 
 {
 public:
-	EffectDummyDrake(Creature* pCreature) throw(Error);
+	EffectDummyDrake(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_DUMMY_DRAKE; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 

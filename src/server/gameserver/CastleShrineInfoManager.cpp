@@ -33,7 +33,7 @@
 #include "CastleSymbol.h"
 
 string CastleShrineSet::toString() const
-	throw()
+	
 {
 	__BEGIN_TRY
 
@@ -69,7 +69,7 @@ void CastleShrineInfoManager::clear()
 }
 
 void CastleShrineInfoManager::init()
-	throw (Error)
+	
 { 
 	__BEGIN_TRY
 
@@ -81,7 +81,7 @@ void CastleShrineInfoManager::init()
 }
 
 void CastleShrineInfoManager::load()
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -132,7 +132,7 @@ void CastleShrineInfoManager::load()
 }
 
 ZoneID_t CastleShrineInfoManager::getGuardShrineZoneID( ZoneID_t castleZoneID ) const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -163,7 +163,7 @@ ZoneID_t CastleShrineInfoManager::getGuardShrineZoneID( ZoneID_t castleZoneID ) 
 }
 
 void CastleShrineInfoManager::addAllShrineToZone()
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -192,7 +192,7 @@ void CastleShrineInfoManager::addAllShrineToZone()
 }
 
 Item* CastleShrineInfoManager::addShrineToZone( ShrineInfo& shrineInfo, ItemType_t itemType )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -286,7 +286,7 @@ Item* CastleShrineInfoManager::addShrineToZone( ShrineInfo& shrineInfo, ItemType
 }
 
 void CastleShrineInfoManager::addShrineSet( CastleShrineSet* pShrineSet )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -308,7 +308,7 @@ void CastleShrineInfoManager::addShrineSet( CastleShrineSet* pShrineSet )
 }
 
 void CastleShrineInfoManager::deleteShrineSet( ShrineID_t shrineID )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -324,7 +324,7 @@ void CastleShrineInfoManager::deleteShrineSet( ShrineID_t shrineID )
 }
 
 CastleShrineSet* CastleShrineInfoManager::getShrineSet( ShrineID_t shrineID ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -341,7 +341,7 @@ CastleShrineSet* CastleShrineInfoManager::getShrineSet( ShrineID_t shrineID ) co
 }
 
 bool CastleShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMonsterCorpse) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -368,7 +368,7 @@ bool CastleShrineInfoManager::isMatchHolyShrine(Item* pItem, MonsterCorpse* pMon
 }
 
 bool CastleShrineInfoManager::isDefenderOfGuardShrine( PlayerCreature* pPC, MonsterCorpse* pShrine ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -432,7 +432,7 @@ bool CastleShrineInfoManager::isDefenderOfGuardShrine( PlayerCreature* pPC, Mons
 
 // 이 종족이 성의 상징 조각을 들 수 있는가?
 bool CastleShrineInfoManager::canPickupCastleSymbol( Race_t race, CastleSymbol* pCastleSymbol ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -489,7 +489,7 @@ bool CastleShrineInfoManager::canPickupCastleSymbol( Race_t race, CastleSymbol* 
 }
 
 bool CastleShrineInfoManager::getMatchGuardShrinePosition( Item* pItem, ZoneItemPosition& zip ) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -522,7 +522,7 @@ bool CastleShrineInfoManager::getMatchGuardShrinePosition( Item* pItem, ZoneItem
 // false일 경우 성지성단이 있는 존과 같은 존그룹스레드에서 돌아가므로 내부에서 락을 걸어주지 않아야 한다.
 // 2003. 2. 5. by Sequoia
 bool CastleShrineInfoManager::returnCastleSymbol( ShrineID_t shrineID, bool bLock ) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -560,7 +560,7 @@ bool CastleShrineInfoManager::returnCastleSymbol( ShrineID_t shrineID, bool bLoc
 
 // WarSystem에서만 부른다.
 bool CastleShrineInfoManager::returnAllCastleSymbol( ZoneID_t castleZoneID ) const 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -592,7 +592,7 @@ bool CastleShrineInfoManager::returnAllCastleSymbol( ZoneID_t castleZoneID ) con
 
 
 bool CastleShrineInfoManager::returnCastleSymbol(Zone* pZone, CastleSymbol* pCastleSymbol) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -632,7 +632,7 @@ bool CastleShrineInfoManager::returnCastleSymbol(Zone* pZone, CastleSymbol* pCas
 }
 
 bool CastleShrineInfoManager::putCastleSymbol(PlayerCreature* pPC, Item* pItem, MonsterCorpse* pCorpse) const
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 
@@ -691,7 +691,7 @@ bool CastleShrineInfoManager::putCastleSymbol(PlayerCreature* pPC, Item* pItem, 
 
 // pZone은 guardZone이다.
 bool CastleShrineInfoManager::removeShrineShield( Zone *pZone )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -739,7 +739,7 @@ bool CastleShrineInfoManager::removeShrineShield( Zone *pZone )
 
 // pZone은 guardZone이다.
 bool CastleShrineInfoManager::addShrineShield(Zone *pZone)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -760,7 +760,7 @@ bool CastleShrineInfoManager::addShrineShield(Zone *pZone)
 
 // pZone은 guardZone이다.
 bool CastleShrineInfoManager::addShrineShield_LOCKED( Zone *pZone )
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -811,7 +811,7 @@ bool CastleShrineInfoManager::addShrineShield_LOCKED( Zone *pZone )
 }
 
 string CastleShrineInfoManager::toString() const 
-	throw()
+	
 {
 	__BEGIN_TRY
 

@@ -57,8 +57,8 @@ public:
 	};
 
 public:
-	Object(ObjectID_t objectID = 0) throw() : m_ObjectID(objectID) {}
-	virtual ~Object() throw(Error) {}
+	Object(ObjectID_t objectID = 0)  : m_ObjectID(objectID) {}
+	virtual ~Object()  {}
 	
 public:
 	// get/set object id
@@ -69,8 +69,8 @@ public:
 	// id 가 중복될 우려가 있어서 범위를 존 레벨로 축소했다. 
 	// 이렇게 하면 초당 1000 개의 객체가 새로 생긴다고 할지라도 4M 초,
 	// 즉 40-50일동안 안전하다는 뜻이다.
-	ObjectID_t getObjectID() const throw(Error) { Assert(m_ObjectID != 0); return m_ObjectID; };
-	void setObjectID(ObjectID_t objectID) throw(Error) { Assert(objectID != 0); m_ObjectID = objectID; }
+	ObjectID_t getObjectID() const  { Assert(m_ObjectID != 0); return m_ObjectID; };
+	void setObjectID(ObjectID_t objectID)  { Assert(objectID != 0); m_ObjectID = objectID; }
 
 	// get object class(virtual)
 	// Object* pObject 에 대해서 이 객체가 크리처인지, 아이템인지, 아니면
@@ -80,13 +80,13 @@ public:
 	// 물론 Object에 m_ObjectClass 데이타 멤버를 둬도 되지만, 이렇게 하면 
 	// 컴파일러의 정렬 문제로 인해 모든 Object 하위 클래스의 객체들이 추가적인
 	// 바이트를 소모하게 되므로, virtual method 로 해결했다.
-	virtual ObjectClass getObjectClass() const throw() = 0;
+	virtual ObjectClass getObjectClass() const  = 0;
 
 	// get object priority(virtual)
-	virtual ObjectPriority getObjectPriority() const throw(Error) = 0;
+	virtual ObjectPriority getObjectPriority() const  = 0;
 
 	// get debug string
-	virtual string toString() const throw() = 0;
+	virtual string toString() const  = 0;
 
 	virtual Packet* getAddPacket() const { return NULL; }
 
@@ -103,7 +103,7 @@ class isSameObjectID
 public:
     isSameObjectID(ObjectID_t objectID) : m_ObjectID(objectID) {}
  
-    bool operator()(Object* pObject) throw()
+    bool operator()(Object* pObject) 
     {
         return pObject->getObjectID() == m_ObjectID;
     }

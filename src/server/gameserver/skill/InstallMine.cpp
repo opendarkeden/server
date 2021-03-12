@@ -23,7 +23,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInven_t Y, CoordInven_t TargetX, CoordInven_t TargetY, SkillSlot* pSkillSlot) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -161,7 +161,7 @@ void InstallMine::execute(Slayer* pSlayer, ObjectID_t, CoordInven_t X, CoordInve
 
 /*
 void InstallMine::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot* pSkillSlot, CEffectID_t CEffectID)
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

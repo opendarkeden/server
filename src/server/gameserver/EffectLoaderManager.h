@@ -22,19 +22,19 @@ class Ousters;
 class EffectLoaderManager 
 {
 public:
-	EffectLoaderManager() throw();
-	~EffectLoaderManager() throw();
+	EffectLoaderManager() ;
+	~EffectLoaderManager() ;
 
 public:
-	void init() throw(Error);
+	void init() ;
 
-	void load(Slayer* pSlayer) throw(Error);
-	void load(Vampire* pVampire) throw(Error);
-	void load(Ousters* pOusters) throw(Error);
+	void load(Slayer* pSlayer) ;
+	void load(Vampire* pVampire) ;
+	void load(Ousters* pOusters) ;
 
-	void load(Zone* pZone) throw(Error);
+	void load(Zone* pZone) ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	EffectLoader* m_pEffectLoaders[Effect::EFFECT_CLASS_MAX];

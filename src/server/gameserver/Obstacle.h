@@ -37,19 +37,19 @@ public:
 	};
 
 public:
-	Obstacle(ObjectID_t objectID) throw() : Object(objectID) {}
-	virtual ~Obstacle() throw() {}
+	Obstacle(ObjectID_t objectID)  : Object(objectID) {}
+	virtual ~Obstacle()  {}
 	
 // methods from Object
 public:
-	virtual ObjectClass getObjectClass() const throw() { return OBJECT_CLASS_OBSTACLE; }
-	virtual ObjectPriority getObjectPriority() const throw(Error) { return OBJECT_PRIORITY_OBSTACLE; }
-	virtual string toString() const throw() = 0;
+	virtual ObjectClass getObjectClass() const  { return OBJECT_CLASS_OBSTACLE; }
+	virtual ObjectPriority getObjectPriority() const  { return OBJECT_PRIORITY_OBSTACLE; }
+	virtual string toString() const  = 0;
 
 // own methods
 public:
-	virtual ObstacleClass getObstacleClass() const throw() = 0;
-	virtual ObstacleType_t getObstacleType() const throw() = 0;
+	virtual ObstacleClass getObstacleClass() const  = 0;
+	virtual ObstacleType_t getObstacleType() const  = 0;
 };
 
 #endif

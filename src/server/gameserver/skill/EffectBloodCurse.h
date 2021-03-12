@@ -17,16 +17,16 @@
 class EffectBloodCurse : public Effect 
 {
 public:
-	EffectBloodCurse(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY, bool bPlayer = false) throw(Error);
+	EffectBloodCurse(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY, bool bPlayer = false) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_BLOOD_CURSE; }
 
-	void affect() throw(Error);
-	void affect(Creature* pCreature) throw(Error);
+	void affect() ;
+	void affect(Creature* pCreature) ;
 
-	void unaffect() throw(Error);
-	void unaffect(Creature* pCreature) throw(Error);
+	void unaffect() ;
+	void unaffect(Creature* pCreature) ;
 
 	string toString() const throw();
 
@@ -65,7 +65,7 @@ public:
 	virtual string getEffectClassName() const throw() { return "EffectBloodCurse"; }
 
 public:
-	virtual void load(Creature* pCreature) throw(Error) {}
+	virtual void load(Creature* pCreature)  {}
 };
 
 extern EffectBloodCurseLoader* g_pEffectBloodCurseLoader;

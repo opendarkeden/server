@@ -29,7 +29,7 @@ public :
 	isSameTID (TID tid) : m_TID(tid) {}
 
 	//
-	bool operator () (Thread* pThread) throw ()
+	bool operator () (Thread* pThread) 
 	{
 		return pThread->getTID() == m_TID;
 	}
@@ -45,7 +45,7 @@ private :
 // constructor
 //////////////////////////////////////////////////////////////////////
 ThreadPool::ThreadPool () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 
@@ -60,7 +60,7 @@ ThreadPool::ThreadPool ()
 // 포함하고 있는 모든 쓰레드 객체를 삭제해야 한다.
 //////////////////////////////////////////////////////////////////////
 ThreadPool::~ThreadPool () 
-	throw ()
+	
 {
 	__BEGIN_TRY
 		
@@ -114,7 +114,7 @@ ThreadPool::~ThreadPool ()
 // 쓰레드풀안에 등록된 쓰레드들을 RUNNING 상태로 만든다. 
 //////////////////////////////////////////////////////////////////////
 void ThreadPool::start () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -150,7 +150,7 @@ void ThreadPool::start ()
 // (이는 singal 혹은 cancellation 으로 구현해야 하겠다.)
 //////////////////////////////////////////////////////////////////////
 void ThreadPool::stop () 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -164,7 +164,7 @@ void ThreadPool::stop ()
 // 쓰레드풀에 쓰레드 객체를 등록한다.
 //////////////////////////////////////////////////////////////////////
 void ThreadPool::addThread (Thread* thread) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 		
@@ -195,7 +195,6 @@ void ThreadPool::addThread (Thread* thread)
 // 쓰레드풀에서 특정 쓰레드 객체를 삭제한다.
 //////////////////////////////////////////////////////////////////////
 void ThreadPool::deleteThread (TID tid) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 	
@@ -254,7 +253,6 @@ void ThreadPool::deleteThread (TID tid)
 // 쓰레드풀에서 특정 쓰레드 객체를 찾아서 리턴한다.
 //////////////////////////////////////////////////////////////////////
 Thread* ThreadPool::getThread (TID tid) 
-	throw (NoSuchElementException , Error)
 {
 	__BEGIN_TRY
 		

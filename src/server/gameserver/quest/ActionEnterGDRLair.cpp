@@ -41,7 +41,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterGDRLair::read (PropertyBuffer & pb)
-    throw (Error)
+    
 {
     __BEGIN_TRY
 
@@ -61,7 +61,7 @@ void ActionEnterGDRLair::read (PropertyBuffer & pb)
 // 액션을 실행한다.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature) 
-	throw (Error)
+	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
@@ -191,7 +191,7 @@ void ActionEnterGDRLair::execute (Creature * pNPC , Creature * pCreature)
 // get debug string
 ////////////////////////////////////////////////////////////////////////////////
 string ActionEnterGDRLair::toString () const 
-	throw ()
+	
 {
 	__BEGIN_TRY
 

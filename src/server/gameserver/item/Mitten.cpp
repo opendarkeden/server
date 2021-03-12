@@ -25,14 +25,14 @@ Mutex    Mitten::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Mitten::Mitten()
-	throw()
+	
 {
 	setItemType(0);
 	setDurability(0);
 }
 
 Mitten::Mitten(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 {
 	setItemType(itemType);
 	setOptionType(optionType);
@@ -51,7 +51,7 @@ Mitten::Mitten(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Mitten::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -102,7 +102,7 @@ void Mitten::create(const string & ownerID, Storage storage, StorageID_t storage
 // save item
 //--------------------------------------------------------------------------------
 void Mitten::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -126,7 +126,7 @@ void Mitten::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Mitten::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -153,7 +153,7 @@ void Mitten::save(const string & ownerID, Storage storage, StorageID_t storageID
 // get debug string
 //--------------------------------------------------------------------------------
 string Mitten::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -172,7 +172,7 @@ string Mitten::toString() const
 // get debug string
 //--------------------------------------------------------------------------------
 string MittenInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string MittenInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void MittenInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ void MittenInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void MittenLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -416,7 +416,7 @@ void MittenLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void MittenLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -428,7 +428,7 @@ void MittenLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void MittenLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

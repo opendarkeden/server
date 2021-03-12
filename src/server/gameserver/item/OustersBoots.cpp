@@ -25,7 +25,7 @@ Mutex    OustersBoots::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 OustersBoots::OustersBoots()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -34,7 +34,7 @@ OustersBoots::OustersBoots()
 }
 
 OustersBoots::OustersBoots(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -55,7 +55,7 @@ OustersBoots::OustersBoots(ItemType_t itemType, const list<OptionType_t>& option
 // create item
 //--------------------------------------------------------------------------------
 void OustersBoots::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -106,7 +106,7 @@ void OustersBoots::create(const string & ownerID, Storage storage, StorageID_t s
 // save item
 //--------------------------------------------------------------------------------
 void OustersBoots::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -130,7 +130,7 @@ void OustersBoots::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void OustersBoots::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -176,7 +176,7 @@ void OustersBoots::save(const string & ownerID, Storage storage, StorageID_t sto
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersBoots::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -196,7 +196,7 @@ string OustersBoots::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t OustersBoots::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -210,7 +210,7 @@ VolumeWidth_t OustersBoots::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t OustersBoots::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -224,7 +224,7 @@ VolumeHeight_t OustersBoots::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t OustersBoots::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -238,7 +238,7 @@ Weight_t OustersBoots::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t OustersBoots::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -247,7 +247,7 @@ Defense_t OustersBoots::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t OustersBoots::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -261,7 +261,7 @@ Protection_t OustersBoots::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string OustersBootsInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -285,7 +285,7 @@ string OustersBootsInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void OustersBootsInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -350,7 +350,7 @@ void OustersBootsInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void OustersBootsLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -520,7 +520,7 @@ void OustersBootsLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void OustersBootsLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -595,7 +595,7 @@ void OustersBootsLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void OustersBootsLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

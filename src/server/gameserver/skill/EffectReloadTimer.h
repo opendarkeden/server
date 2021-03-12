@@ -17,26 +17,26 @@
 class EffectReloadTimer : public Effect 
 {
 public:
-	EffectReloadTimer(Creature* pCreature) throw(Error);
+	EffectReloadTimer(Creature* pCreature) ;
 
 public:
     EffectClass getEffectClass() const throw() { return EFFECT_CLASS_RELOAD_TIMER; }
 
-	void affect() throw(Error){}
-	void affect(Creature* pCreature) throw(Error);
-	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
+	void affect() {}
+	void affect(Creature* pCreature) ;
+	void affect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
 	
-	void unaffect(Creature* pCreature) throw(Error);
-	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) throw(Error);
-	void unaffect(Item* pItem) throw(Error) {}
-	void unaffect() throw(Error);
+	void unaffect(Creature* pCreature) ;
+	void unaffect(Zone* pZone, ZoneCoord_t x, ZoneCoord_t y, Object* pObject) ;
+	void unaffect(Item* pItem)  {}
+	void unaffect() ;
 
 	string toString() const throw();
 
 public:
 	void setFromInventory(bool b) throw() { m_bFromInventory = b; }
-	void setSlotID(SlotID_t id) throw(Error) { m_SlotID = id; }
-	void setObjectID(ObjectID_t id) throw(Error) { m_ObjectID = id; }
+	void setSlotID(SlotID_t id)  { m_SlotID = id; }
+	void setObjectID(ObjectID_t id)  { m_ObjectID = id; }
 	void setInventoryXY(CoordInven_t x, CoordInven_t y) throw() { m_invenX = x; m_invenY = y; }
 
 private:

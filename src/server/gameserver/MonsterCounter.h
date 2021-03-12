@@ -17,23 +17,23 @@
 class MonsterCounter 
 {
 public:
-	MonsterCounter(SpriteType_t spriteType = 0, WORD maxMonsters = 0, WORD currentMonsters = 0) throw();
+	MonsterCounter(SpriteType_t spriteType = 0, WORD maxMonsters = 0, WORD currentMonsters = 0) ;
 
 public:
-	SpriteType_t getSpriteType() const throw() { return m_SpriteType; }
-	void setSpriteType(SpriteType_t monsterType) throw() { m_SpriteType = monsterType; }
+	SpriteType_t getSpriteType() const  { return m_SpriteType; }
+	void setSpriteType(SpriteType_t monsterType)  { m_SpriteType = monsterType; }
 
-	WORD getMaxMonsters() const throw() { return m_MaxMonsters; }
-	void setMaxMonsters(WORD n) throw() { m_MaxMonsters = n; }
+	WORD getMaxMonsters() const  { return m_MaxMonsters; }
+	void setMaxMonsters(WORD n)  { m_MaxMonsters = n; }
 
-	WORD getCurrentMonsters() const throw() { return m_CurrentMonsters; }
-	void setCurrentMonsters(WORD n) throw() { m_CurrentMonsters = n; }
+	WORD getCurrentMonsters() const  { return m_CurrentMonsters; }
+	void setCurrentMonsters(WORD n)  { m_CurrentMonsters = n; }
 
-	void addMonster() throw(Error);
-	void addMonster(WORD Count) throw();
-	void deleteMonster() throw(Error);
+	void addMonster() ;
+	void addMonster(WORD Count) ;
+	void deleteMonster() ;
 
-	string toString() const throw();
+	string toString() const ;
 
 private:
 	SpriteType_t m_SpriteType;      // 스프라이트 타입

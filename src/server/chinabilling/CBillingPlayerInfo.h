@@ -21,10 +21,10 @@ class CBillingPlayerInfo
 {
 public:
 	// constructor
-	CBillingPlayerInfo() throw ( Error );
+	CBillingPlayerInfo() ;
 
 	// destructor
-	virtual ~CBillingPlayerInfo() throw ( Error );
+	virtual ~CBillingPlayerInfo() ;
 
 	// get debug string
 	virtual string toString() const;

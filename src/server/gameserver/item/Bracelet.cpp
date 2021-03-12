@@ -24,7 +24,7 @@ Mutex    Bracelet::m_Mutex;
 // constructor
 //--------------------------------------------------------------------------------
 Bracelet::Bracelet()
-	throw()
+	
 //: m_ItemType(0), m_Durability(0)
 {
 	setItemType(0);
@@ -33,7 +33,7 @@ Bracelet::Bracelet()
 }
 
 Bracelet::Bracelet(ItemType_t itemType, const list<OptionType_t>& optionType)
-	throw()
+	
 //: m_ItemType(itemType), m_OptionType(optionType), m_Durability(0)
 {
 	setItemType(itemType);
@@ -53,7 +53,7 @@ Bracelet::Bracelet(ItemType_t itemType, const list<OptionType_t>& optionType)
 // create item
 //--------------------------------------------------------------------------------
 void Bracelet::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -104,7 +104,7 @@ void Bracelet::create(const string & ownerID, Storage storage, StorageID_t stora
 // save item
 //--------------------------------------------------------------------------------
 void Bracelet::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -128,7 +128,7 @@ void Bracelet::tinysave(const char* field) const
 // save item
 //--------------------------------------------------------------------------------
 void Bracelet::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -177,7 +177,7 @@ void Bracelet::save(const string & ownerID, Storage storage, StorageID_t storage
 // get debug string
 //--------------------------------------------------------------------------------
 string Bracelet::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -197,7 +197,7 @@ string Bracelet::toString() const
 // get width
 //--------------------------------------------------------------------------------
 VolumeWidth_t Bracelet::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -211,7 +211,7 @@ VolumeWidth_t Bracelet::getVolumeWidth() const
 // get height
 //--------------------------------------------------------------------------------
 VolumeHeight_t Bracelet::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -225,7 +225,7 @@ VolumeHeight_t Bracelet::getVolumeHeight() const
 // get weight
 //--------------------------------------------------------------------------------
 Weight_t Bracelet::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -239,7 +239,7 @@ Weight_t Bracelet::getWeight() const
 // get/set armor's Defense Bonus
 //--------------------------------------------------------------------------------
 Defense_t Bracelet::getDefenseBonus() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -248,7 +248,7 @@ Defense_t Bracelet::getDefenseBonus() const
 	__END_CATCH
 }
 Protection_t Bracelet::getProtectionBonus() const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -262,7 +262,7 @@ Protection_t Bracelet::getProtectionBonus() const
 // get debug string
 //--------------------------------------------------------------------------------
 string BraceletInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -286,7 +286,7 @@ string BraceletInfo::toString() const
 // load from DB
 //--------------------------------------------------------------------------------
 void BraceletInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -351,7 +351,7 @@ void BraceletInfoManager::load()
 // load to creature
 //--------------------------------------------------------------------------------
 void BraceletLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -517,7 +517,7 @@ void BraceletLoader::load(Creature* pCreature)
 // load to zone
 //--------------------------------------------------------------------------------
 void BraceletLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -592,7 +592,7 @@ void BraceletLoader::load(Zone* pZone)
 // load to inventory
 //--------------------------------------------------------------------------------
 void BraceletLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

@@ -19,10 +19,10 @@
 class ActionCallHelicopter : public Action 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_CALL_HELICOPTER; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_CALL_HELICOPTER; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -32,9 +32,9 @@ public:
 class ActionCallHelicopterFactory : public ActionFactory 
 {
 public:
-    virtual ActionType_t getActionType() const throw() { return Action::ACTION_CALL_HELICOPTER; }
-	virtual string getActionName() const throw() { return "CallHelicopter"; }
-    virtual Action* createAction() const throw() { return new ActionCallHelicopter(); }
+    virtual ActionType_t getActionType() const  { return Action::ACTION_CALL_HELICOPTER; }
+	virtual string getActionName() const  { return "CallHelicopter"; }
+    virtual Action* createAction() const  { return new ActionCallHelicopter(); }
 };
 
 #endif

@@ -23,7 +23,7 @@ public:
     string getSkillHandlerName() const throw() { return "FeldwebelFire"; }
 	SkillType_t getSkillType() const throw() { return SKILL_FELDWEBEL_FIRE; }
 
-	void execute(Monster* pPlayer, Creature* pEnemy) throw(Error);
+	void execute(Monster* pPlayer, Creature* pEnemy) ;
 
 	void computeOutput(const SkillInput& input, SkillOutput& output) {}
 };

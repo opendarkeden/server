@@ -27,13 +27,13 @@ Mutex    ResurrectItem::m_Mutex;
 //////////////////////////////////////////////////////////////////////////////
 
 ResurrectItem::ResurrectItem()
-	throw()
+	
 {
 	m_ItemType = 0;
 }
 
 ResurrectItem::ResurrectItem(ItemType_t itemType, const list<OptionType_t>& optionType, ItemNum_t Num)
-	throw()
+	
 {
 	m_ItemType = itemType;
 	m_Num      = Num;
@@ -46,7 +46,7 @@ ResurrectItem::ResurrectItem(ItemType_t itemType, const list<OptionType_t>& opti
 }
 
 void ResurrectItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -91,7 +91,7 @@ void ResurrectItem::create(const string & ownerID, Storage storage, StorageID_t 
 // save item
 //--------------------------------------------------------------------------------
 void ResurrectItem::tinysave(const char* field) const
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -112,7 +112,7 @@ void ResurrectItem::tinysave(const char* field) const
 }
 
 void ResurrectItem::save(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -151,7 +151,7 @@ void ResurrectItem::save(const string & ownerID, Storage storage, StorageID_t st
 }
 
 string ResurrectItem::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 
@@ -165,7 +165,7 @@ string ResurrectItem::toString() const
 }
 
 VolumeWidth_t ResurrectItem::getVolumeWidth() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -175,7 +175,7 @@ VolumeWidth_t ResurrectItem::getVolumeWidth() const
 }
 	
 VolumeHeight_t ResurrectItem::getVolumeHeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -185,7 +185,7 @@ VolumeHeight_t ResurrectItem::getVolumeHeight() const
 }
 	
 Weight_t ResurrectItem::getWeight() const 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -199,7 +199,7 @@ Weight_t ResurrectItem::getWeight() const
 //////////////////////////////////////////////////////////////////////////////
 
 string ResurrectItemInfo::toString() const 
-	throw()
+	
 {
 	StringStream msg;
 	msg << "ResurrectItemInfo("
@@ -215,7 +215,7 @@ string ResurrectItemInfo::toString() const
 }
 
 void ResurrectItemInfoManager::load() 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -270,7 +270,7 @@ void ResurrectItemInfoManager::load()
 //////////////////////////////////////////////////////////////////////////////
 
 void ResurrectItemLoader::load(Creature* pCreature) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -416,7 +416,7 @@ void ResurrectItemLoader::load(Creature* pCreature)
 }
 
 void ResurrectItemLoader::load(Zone* pZone) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 
@@ -480,7 +480,7 @@ void ResurrectItemLoader::load(Zone* pZone)
 }
 
 void ResurrectItemLoader::load(StorageID_t storageID, Inventory* pInventory) 
-	throw(Error)
+	
 {
 	__BEGIN_TRY
 

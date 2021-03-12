@@ -27,7 +27,7 @@ const Coord_t maxVisionHeight = maxViewportUpperHeight + maxViewportLowerHeight 
 /*class VisionInfo 
 {
 public:
-	VisionState getVisionState(ZoneCoord_t cx, ZoneCoord_t cy, ZoneCoord_t x, ZoneCoord_t y) const throw()
+	VisionState getVisionState(ZoneCoord_t cx, ZoneCoord_t cy, ZoneCoord_t x, ZoneCoord_t y) const 
 	{
 		// inline for speed. by sigi. 2002.11.8
 //		int px = x + (maxViewportWidth + 1) - cx;
@@ -41,7 +41,7 @@ public:
 
 		return OUT_OF_SIGHT;
 	}
-	string toString() const throw();
+	string toString() const ;
 		
 private:
 	// 시야 레벨(0 - 13)
@@ -53,7 +53,7 @@ private:
 	// viewport rectangle
 	VisionState m_Rect[maxVisionWidth][maxVisionHeight];
 	// deprecated. 이 클래스는 더이상 안 쓴다.
-	VisionInfo(Sight_t sight, Dir_t dir) throw();
+	VisionInfo(Sight_t sight, Dir_t dir) ;
 	~VisionInfo();
 };
 */
@@ -66,16 +66,16 @@ private:
 class VisionInfoManager 
 {
 public:
-	VisionInfoManager() throw() {}
-	~VisionInfoManager() throw();
+	VisionInfoManager()  {}
+	~VisionInfoManager() ;
 
 public:
 
 	// init vision info
-	void init() throw();
+	void init() ;
 
 	// get vision info
-/*	VisionInfo* getVisionInfo(Sight_t sight, Dir_t dir) //throw(OutOfBoundException)
+/*	VisionInfo* getVisionInfo(Sight_t sight, Dir_t dir) //
 	{
 		// for speed. by sigi. 2002.11.8
 		//__BEGIN_TRY
@@ -101,7 +101,7 @@ public:
 	}
 
 	// get debug string
-	string toString() const throw();
+	string toString() const ;
 
 private:
 

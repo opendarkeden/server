@@ -22,18 +22,18 @@
 class ActionRegenShop : public Action 
 {
 public:
-	ActionRegenShop() throw();
-	virtual ~ActionRegenShop() throw();
+	ActionRegenShop() ;
+	virtual ~ActionRegenShop() ;
 	
 public:
-	virtual ActionType_t getActionType() const throw() { return ACTION_REGEN_SHOP; }
-	virtual void read(PropertyBuffer & propertyBuffer) throw(Error);
-	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) throw(Error);
-	virtual string toString() const throw();
+	virtual ActionType_t getActionType() const  { return ACTION_REGEN_SHOP; }
+	virtual void read(PropertyBuffer & propertyBuffer) ;
+	virtual void execute(Creature* pCreature1, Creature* pCreature2 = NULL) ;
+	virtual string toString() const ;
 
 public:
-	void addListElement(ShopTemplateID_t id) throw() { m_List.push_back(id); }
-	void clearList() throw() { m_List.clear(); }
+	void addListElement(ShopTemplateID_t id)  { m_List.push_back(id); }
+	void clearList()  { m_List.clear(); }
 
 private :
 	list<ShopTemplateID_t> m_List;      // Shop template ID list
@@ -50,9 +50,9 @@ private :
 class ActionRegenShopFactory : public ActionFactory 
 {
 public:
-	virtual ActionType_t getActionType() const throw() { return Action::ACTION_REGEN_SHOP; }
-	virtual string getActionName() const throw() { return "RegenShop"; }
-	virtual Action* createAction() const throw() { return new ActionRegenShop(); }
+	virtual ActionType_t getActionType() const  { return Action::ACTION_REGEN_SHOP; }
+	virtual string getActionName() const  { return "RegenShop"; }
+	virtual Action* createAction() const  { return new ActionRegenShop(); }
 
 };
 #endif

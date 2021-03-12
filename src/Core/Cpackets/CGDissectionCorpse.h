@@ -26,50 +26,50 @@ class CGDissectionCorpse : public Packet {
 public:
 	
 	// constructor
-	CGDissectionCorpse() throw();
+	CGDissectionCorpse() ;
 	
 	// destructor
-	~CGDissectionCorpse() throw();
+	~CGDissectionCorpse() ;
 
 	
 public:
 	
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
+    void read(SocketInputStream & iStream) ;
 		    
     // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer) ;
 
 	// get packet id
-	PacketID_t getPacketID() const throw() { return PACKET_CG_DISSECTION_CORPSE; }
+	PacketID_t getPacketID() const  { return PACKET_CG_DISSECTION_CORPSE; }
 	
 	// get packet's body size
-	PacketSize_t getPacketSize() const throw() { return szObjectID + szCoord + szCoord + szBYTE; }
+	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord + szBYTE; }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGDissectionCorpse"; }
+	string getPacketName() const  { return "CGDissectionCorpse"; }
 
 	// get/set Corpse's X
-	Coord_t getX() const throw() { return m_X; }
-	void setX(Coord_t X) throw() { m_X = X; }
+	Coord_t getX() const  { return m_X; }
+	void setX(Coord_t X)  { m_X = X; }
 
 	// get/set Corpse's Y
-	Coord_t getY() const throw() { return m_Y; }
-	void setY(Coord_t Y) throw() { m_Y = Y; }
+	Coord_t getY() const  { return m_Y; }
+	void setY(Coord_t Y)  { m_Y = Y; }
 
 	// get/set ObjectID
-	ObjectID_t getObjectID() const throw() { return m_ObjectID; }
-	void setObjectID(ObjectID_t ObjectID) throw() { m_ObjectID = ObjectID; }
+	ObjectID_t getObjectID() const  { return m_ObjectID; }
+	void setObjectID(ObjectID_t ObjectID)  { m_ObjectID = ObjectID; }
 
 	BYTE isPet() const { return m_IsPet; }
 	void setPet(BYTE isPet) { m_IsPet = isPet; }
 
 	// get packet's debug string
-	string toString() const throw();
+	string toString() const ;
 
 private :
 
@@ -96,25 +96,25 @@ class CGDissectionCorpseFactory : public PacketFactory {
 public:
 	
 	// constructor
-	CGDissectionCorpseFactory() throw() {}
+	CGDissectionCorpseFactory()  {}
 	
 	// destructor
-	virtual ~CGDissectionCorpseFactory() throw() {}
+	virtual ~CGDissectionCorpseFactory()  {}
 
 	
 public:
 	
 	// create packet
-	Packet* createPacket() throw() { return new CGDissectionCorpse(); }
+	Packet* createPacket()  { return new CGDissectionCorpse(); }
 
 	// get packet name
-	string getPacketName() const throw() { return "CGDissectionCorpse"; }
+	string getPacketName() const  { return "CGDissectionCorpse"; }
 	
 	// get packet id
-	PacketID_t getPacketID() const throw() { return Packet::PACKET_CG_DISSECTION_CORPSE; }
+	PacketID_t getPacketID() const  { return Packet::PACKET_CG_DISSECTION_CORPSE; }
 
 	// get Packet Max Size
-	PacketSize_t getPacketMaxSize() const throw() { return szObjectID + szCoord + szCoord + szBYTE; }
+	PacketSize_t getPacketMaxSize() const  { return szObjectID + szCoord + szCoord + szBYTE; }
 };
 
 
@@ -129,7 +129,7 @@ class CGDissectionCorpseHandler {
 public:
 
 	// execute packet's handler
-	static void execute(CGDissectionCorpse* pCGDissectionCorpse, Player* pPlayer) throw(Error);
+	static void execute(CGDissectionCorpse* pCGDissectionCorpse, Player* pPlayer) ;
 };
 
 #endif
