@@ -29,10 +29,10 @@
 #include "DB.h"
 #include "CreatureUtil.h"
 
-#include "Gpackets/GCUpdateInfo.h"
-#include "Gpackets/GCMorph1.h"
-#include "Gpackets/GCMorphVampire2.h"
-#include "Gpackets/GSGuildMemberLogOn.h"
+#include "GCUpdateInfo.h"
+#include "GCMorph1.h"
+#include "GCMorphVampire2.h"
+#include "GSGuildMemberLogOn.h"
 
 #include <stdio.h>
 

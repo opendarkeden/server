@@ -10,8 +10,8 @@
 
 #include "item/Mine.h"
 
-#include "Gpackets/GCSkillToInventoryOK1.h"
-#include "Gpackets/GCSkillToInventoryOK2.h"
+#include "GCSkillToInventoryOK1.h"
+#include "GCSkillToInventoryOK2.h"
 
 int MaterialType2MineTypeMap[] =
 {

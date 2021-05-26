@@ -13,8 +13,8 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Gpackets/GCNPCAsk.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCAsk.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

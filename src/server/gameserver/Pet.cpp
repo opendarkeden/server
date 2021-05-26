@@ -4,8 +4,8 @@
 #include "GamePlayer.h"
 #include "Corpse.h"
 #include "skill/SkillUtil.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCPetUseSkill.h"
+#include "GCModifyInformation.h"
+#include "GCPetUseSkill.h"
 #include "CreatureUtil.h"
 
 Pet* Pet::makePet( PlayerCreature* pOwner, PetInfo* pPetInfo )

@@ -18,7 +18,6 @@
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToTileOK1::GCSkillToTileOK1 () 
-     
 {
 	__BEGIN_TRY
 
@@ -34,7 +33,6 @@ GCSkillToTileOK1::GCSkillToTileOK1 ()
 // destructor
 //////////////////////////////////////////////////////////////////////
 GCSkillToTileOK1::~GCSkillToTileOK1 () 
-    
 {
 	__BEGIN_TRY
 	__END_CATCH

@@ -10,9 +10,9 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
 
 EffectSetAfire::EffectSetAfire(Creature* pCreature)
 	

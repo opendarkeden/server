@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "PlayerCreature.h"
 
-#include "Gpackets/GCTimeLimitItemInfo.h"
+#include "GCTimeLimitItemInfo.h"
 
 TimeLimitItemManager::~TimeLimitItemManager()
 {

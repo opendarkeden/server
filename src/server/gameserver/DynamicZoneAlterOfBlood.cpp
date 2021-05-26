@@ -16,8 +16,8 @@
 #include "Assert.h"
 #include "NPCInfo.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCSystemMessage.h"
+#include "GCAddEffectToTile.h"
 
 #include <stdio.h>
 #include <stdlib.h>

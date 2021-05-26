@@ -15,9 +15,9 @@
 #include "DB.h"
 #include "Assert.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCDeleteEffectFromTile.h"
+#include "GCSystemMessage.h"
+#include "GCAddEffectToTile.h"
+#include "GCDeleteEffectFromTile.h"
 
 #include <stdio.h>
 #include <stdlib.h>

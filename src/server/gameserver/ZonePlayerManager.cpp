@@ -37,8 +37,8 @@
 
 #include "chinabilling/CBillingInfo.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCKickMessage.h"
+#include "GCSystemMessage.h"
+#include "GCKickMessage.h"
 
 #ifdef __THAILAND_SERVER__
 	

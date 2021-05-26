@@ -16,7 +16,7 @@
 #endif
 
 #include "GuildInfo.h"
-#include "Gpackets/GCGuildMemberList.h"
+#include "GCGuildMemberList.h"
 #include "GuildMemberInfo.h"
 #include "Properties.h"
 

@@ -17,7 +17,7 @@
 #include "ZoneGroup.h"
 #include "Zone.h"
 #include "ZonePlayerManager.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "Packet.h"
 #include "Mutex.h"
 

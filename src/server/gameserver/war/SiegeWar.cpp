@@ -25,12 +25,12 @@
 #include "GameServerInfoManager.h"
 #include "LoginServerManager.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNoticeEvent.h"
-#include "Gpackets/GCWarScheduleList.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCNoticeEvent.h"
+#include "GCWarScheduleList.h"
+#include "GCNPCResponse.h"
 #include "Cpackets/CGSay.h"
-#include "Gpackets/GGCommand.h"
+#include "GGCommand.h"
 #include "GuildWarInfo.h"
 
 //--------------------------------------------------------------------------------

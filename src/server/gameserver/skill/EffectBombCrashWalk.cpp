@@ -12,10 +12,10 @@
 #include "SkillUtil.h"
 #include "SkillInfo.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
+#include "GCModifyInformation.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK4.h"
 
 #include "EffectBombCrashWalkToEnemy.h"
 

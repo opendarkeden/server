@@ -17,7 +17,7 @@
 #include "CreatureUtil.h"
 #include "StringPool.h"
 	
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 
 #include <stdio.h>
 

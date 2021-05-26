@@ -2,7 +2,7 @@
 #include "EffectHasSweeper.h"
 #include "Creature.h"
 #include "Zone.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectHasSweeper::EffectHasSweeper(Creature* pCreature) 
 {

@@ -16,7 +16,7 @@
 //#include "ZoneGroupManager.h"
 #include "VSDateTime.h"
 
-#include "Gpackets/GCFlagWarStatus.h"
+#include "GCFlagWarStatus.h"
 
 #include <vector>
 #include <map>

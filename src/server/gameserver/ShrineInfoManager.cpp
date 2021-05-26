@@ -28,12 +28,12 @@
 #include "StringPool.h"
 
 #include "EventRefreshHolyLandPlayer.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCBloodBibleStatus.h"
+#include "GCSystemMessage.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffect.h"
+#include "GCAddEffectToTile.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCBloodBibleStatus.h"
 
 #include "BloodBible.h"
 

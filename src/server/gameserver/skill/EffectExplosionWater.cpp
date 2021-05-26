@@ -8,7 +8,7 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectExplosionWater::EffectExplosionWater( Creature* pCreature )
 	

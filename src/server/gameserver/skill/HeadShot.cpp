@@ -5,16 +5,16 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "HeadShot.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK3.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK3.h"
-#include "Gpackets/GCSkillToTileOK4.h"
-#include "Gpackets/GCSkillToTileOK5.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK3.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK3.h"
+#include "GCSkillToTileOK4.h"
+#include "GCSkillToTileOK5.h"
 #include "ItemUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////

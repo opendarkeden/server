@@ -8,9 +8,9 @@
 #include "EffectFadeOut.h"
 #include "Monster.h"
 #include "RankBonus.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // ¹ìÆÄÀÌ¾î ¼¿ÇÁ

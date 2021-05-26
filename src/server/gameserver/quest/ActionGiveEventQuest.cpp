@@ -16,9 +16,9 @@
 #include "mission/MonsterKillQuestInfo.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Gpackets/GCSelectQuestID.h"
-#include "Gpackets/GCMonsterKillQuestInfo.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCSelectQuestID.h"
+#include "GCMonsterKillQuestInfo.h"
+#include "GCNPCResponse.h"
 
 #include <algorithm>
 #include <iosfwd>

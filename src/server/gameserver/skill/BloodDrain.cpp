@@ -10,11 +10,11 @@
 #include "EffectDecreaseHP.h"
 #include "GQuestManager.h"
 
-#include "Gpackets/GCBloodDrainOK1.h"
-#include "Gpackets/GCBloodDrainOK2.h"
-#include "Gpackets/GCBloodDrainOK3.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCChangeDarkLight.h"
+#include "GCBloodDrainOK1.h"
+#include "GCBloodDrainOK2.h"
+#include "GCBloodDrainOK3.h"
+#include "GCStatusCurrentHP.h"
+#include "GCChangeDarkLight.h"
 
 #include "LogClient.h"
 

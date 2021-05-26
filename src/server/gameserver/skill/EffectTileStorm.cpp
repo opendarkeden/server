@@ -12,9 +12,9 @@
 #include "SkillUtil.h"
 #include "SkillInfo.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
+#include "GCModifyInformation.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK4.h"
 
 int StormDamageModify[5][5] =
 {

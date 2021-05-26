@@ -9,8 +9,8 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "Gpackets/GCNPCSay.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCSay.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

@@ -6,7 +6,7 @@
 #include "QuestInfo.h"
 #include "QuestStatus.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include <unordered_map>
 

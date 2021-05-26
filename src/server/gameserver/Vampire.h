@@ -26,7 +26,7 @@
 
 #include "skill/VampireSkillSlot.h"
 
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 
 #define VAMPIRE_MAX_LEVEL				150		//abcd
 #define VAMPIRE_MAX_RANK				50		// °è±Þ max

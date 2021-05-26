@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "LightningHand.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK5.h"
 #include "CrossCounter.h"
 
 //////////////////////////////////////////////////////////////////////////////

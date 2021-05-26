@@ -17,10 +17,10 @@
 #include "GuildInfo.h"
 #include "SharedServerManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCWaitGuildList.h"
-#include "Gpackets/GCActiveGuildList.h"
-#include "Gpackets/GSQuitGuild.h"
+#include "GCNPCResponse.h"
+#include "GCWaitGuildList.h"
+#include "GCActiveGuildList.h"
+#include "GSQuitGuild.h"
 
 #include "SystemAvailabilitiesManager.h"
 

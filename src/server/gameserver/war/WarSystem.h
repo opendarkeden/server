@@ -5,7 +5,7 @@
 #include "Exception.h"
 #include "Mutex.h"
 #include "Scheduler.h"
-#include "Gpackets/GCWarList.h"
+#include "GCWarList.h"
 
 class War;
 class WarSchedule;

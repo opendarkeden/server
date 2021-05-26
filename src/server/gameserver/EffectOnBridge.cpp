@@ -16,9 +16,9 @@
 #include "StringStream.h"
 #include "ZoneUtil.h"
 #include "skill/EffectBloodDrain.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

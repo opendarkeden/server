@@ -11,7 +11,7 @@
 #include "ZoneGroupManager.h"
 #include "ZoneGroup.h"
 
-//#include "Gpackets/GCHolyLandBonusInfo.h"
+//#include "GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventRefreshHolyLandPlayer member methods

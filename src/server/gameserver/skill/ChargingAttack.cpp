@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ChargingAttack.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러

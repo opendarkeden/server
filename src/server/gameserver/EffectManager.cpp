@@ -11,7 +11,7 @@
 #include "Creature.h"
 #include "Zone.h"
 #include "ZoneUtil.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCAddEffect.h"
 
 #include "Profile.h"
 

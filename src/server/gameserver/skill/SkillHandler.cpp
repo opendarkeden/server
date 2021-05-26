@@ -14,7 +14,7 @@
 #include "ZoneUtil.h"
 #include <math.h>
 
-#include "Gpackets/GCSkillFailed1.h"
+#include "GCSkillFailed1.h"
 
 #include "LogClient.h"
 

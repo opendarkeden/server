@@ -10,8 +10,6 @@
 	#include "GamePlayer.h"
 	#include "Zone.h"
 	#include "Slayer.h"
-	#include "Vampire.h"
-	#include "Ousters.h"
 	#include "Inventory.h"
 	#include "Item.h"
 	#include "ItemUtil.h"
@@ -35,13 +33,12 @@
 	#include "Belt.h"
 	#include "Sweeper.h"
 	#include "OustersArmsband.h"
-	#include "BalloonHeadbandUtil.h"
 
-	#include "GCDeleteandPickUpOK.h"
-	#include "GCDeleteObject.h"
-	#include "GCCannotAdd.h"
-	#include "GCSystemMessage.h"
-	#include "GCAddEffect.h"
+	#include "Gpackets/GCDeleteandPickUpOK.h"
+	#include "Gpackets/GCDeleteObject.h"
+	#include "Gpackets/GCCannotAdd.h"
+	#include "Gpackets/GCSystemMessage.h"
+	#include "Gpackets/GCAddEffect.h"
 
 	#include <stdio.h>
 #endif
@@ -49,7 +46,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlayer)
-	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
@@ -110,7 +106,7 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 				Assert(pEffectPrecedence != NULL);
 
 				// Relic이면 아무나 주울 수 있다.
-				if (isRelicItem(pItem )
+				if (isRelicItem( pItem )
 					|| pEffectPrecedence->getDeadline() < currentTime)
 				{
 					// 시간이 지났다면 아무나 주을 수 있다. 더불어 여기서 이펙트를 삭제해준다.
@@ -145,7 +141,7 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 				pInventory->hasGreenGiftBox()) goto ERROR;
 #endif
 */
-			//pItem->whenPCTake(pPC);
+			pItem->whenPCTake(pPC);
 
 			Item::ItemClass itemclass = pItem->getItemClass();
 			//ItemType_t itemtype = pItem->getItemType();
@@ -153,47 +149,47 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 			// relic인 경우는 이미 갖고 있는 relic종류를 또 가질 수는 없다.
 			// 가질 수 있다면 relic을 가졌다는 effect를 걸어주고
 			// CombatInfoManager에 소유자 값을 설정해준다.
-			if (isRelicItem(itemclass ))
+			if (isRelicItem( itemclass ))
 			{
-				addRelicEffect(pPC, pItem);
+				addRelicEffect( pPC, pItem );
 				
-				deleteEffectRelicPosition(pItem);
+				deleteEffectRelicPosition( pItem );
 			}
 
 			// Flag인 경우엔 Flag 를 붙여준다.
-			if (pItem->isFlagItem() )
+			if ( pItem->isFlagItem() )
 			{
-				addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_HAS_FLAG);
+				addSimpleCreatureEffect( pPC, Effect::EFFECT_CLASS_HAS_FLAG );
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 			{
-				EffectHasSweeper* pEffect = new EffectHasSweeper(pPC);
-				pEffect->setPart(pItem->getItemType());
+				EffectHasSweeper* pEffect = new EffectHasSweeper( pPC );
+				pEffect->setPart( pItem->getItemType() );
 
-				pPC->setFlag(pEffect->getEffectClass());
-				pPC->addEffect(pEffect);
-//				addSimpleCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_HAS_SWEEPER + pItem->getItemType()));
+				pPC->setFlag( pEffect->getEffectClass() );
+				pPC->addEffect( pEffect );
+//				addSimpleCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_HAS_SWEEPER + pItem->getItemType()) );
 
 				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pPC->getObjectID());
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
+				gcAddEffect.setObjectID( pPC->getObjectID() );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
 
-				pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pPC->getX(), pPC->getY(), &gcAddEffect );
 
 				// 주웠으면 존에 시스템 메세지 뿌려준다
 				char race[15];
-				if (pCreature->isSlayer() )
+				if ( pCreature->isSlayer() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_SLAYER ));
+					sprintf( race, g_pStringPool->c_str( STRID_SLAYER ) );
 				}
-				else if (pCreature->isVampire() )
+				else if ( pCreature->isVampire() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_VAMPIRE ));
+					sprintf( race, g_pStringPool->c_str( STRID_VAMPIRE ) );
 				}
-				else if (pCreature->isOusters() )
+				else if ( pCreature->isOusters() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_OUSTERS ));
+					sprintf( race, g_pStringPool->c_str( STRID_OUSTERS ) );
 				}
 				else
 				{
@@ -203,14 +199,14 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 				const SweeperInfo* pSweeperInfo = dynamic_cast<SweeperInfo*>(g_pSweeperInfoManager->getItemInfo(pItem->getItemType()));
 
 				char msg[100];
-				sprintf(msg , g_pStringPool->c_str(STRID_PICK_UP_SWEEPER ) ,
+				sprintf( msg , g_pStringPool->c_str( STRID_PICK_UP_SWEEPER ) ,
 									pSweeperInfo->getName().c_str(),
 									pCreature->getName().c_str(),
 									race
 									);
 				GCSystemMessage gcSystemMessage;
-				gcSystemMessage.setMessage(msg);
-				pZone->broadcastPacket(&gcSystemMessage);
+				gcSystemMessage.setMessage( msg );
+				pZone->broadcastPacket( &gcSystemMessage );
 			}
 
 			pZone->deleteItem(pItem,ZoneX, ZoneY);
@@ -238,102 +234,67 @@ void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlay
 			pItem->tinysave(pField);
 
 			// 벨트일 경우 벨트 안의 아이템들도 모두 소유권이 넘어가야 한다. 2003.3.22 by Sequoia
-			if (pItem->getItemClass() == Item::ITEM_CLASS_BELT )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_BELT )
 			{
 	            sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
 
-                Belt* pBelt = dynamic_cast<Belt*>(pItem);
-                Assert(pBelt != NULL);
+                Belt* pBelt = dynamic_cast<Belt*>( pItem );
+                Assert( pBelt != NULL );
 
                 Inventory* pBeltInventory = pBelt->getInventory();
                 PocketNum_t num = pBelt->getPocketCount();
 
-                for (SlotID_t count = 0 ; count < num ; ++count )
+                for ( SlotID_t count = 0 ; count < num ; ++count )
                 {
-                    Item* pBeltItem = pBeltInventory->getItem(count, 0);
-                    if (pBeltItem != NULL )
+                    Item* pBeltItem = pBeltInventory->getItem( count, 0 );
+                    if ( pBeltItem != NULL )
                     {
-                        pBeltItem->tinysave(pField);
+                        pBeltItem->tinysave( pField );
                     }
                 }
 			}
 			// 암스밴드일 경우 안의 아이템들도 모두 소유권이 넘어가야 한다. 2003.3.22 by Sequoia
-			if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND )
 			{
 	            sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
 
-                OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
-                Assert(pOustersArmsband != NULL);
+                OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>( pItem );
+                Assert( pOustersArmsband != NULL );
 
                 Inventory* pOustersArmsbandInventory = pOustersArmsband->getInventory();
                 PocketNum_t num = pOustersArmsband->getPocketCount();
 
-                for (SlotID_t count = 0 ; count < num ; ++count )
+                for ( SlotID_t count = 0 ; count < num ; ++count )
                 {
-                    Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(count, 0);
-                    if (pOustersArmsbandItem != NULL )
+                    Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem( count, 0 );
+                    if ( pOustersArmsbandItem != NULL )
                     {
-                        pOustersArmsbandItem->tinysave(pField);
+                        pOustersArmsbandItem->tinysave( pField );
                     }
                 }
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 30 )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 30 )
 			{
 				unsigned long timeLimit = 3600 * 24;
 
-				pPC->addTimeLimitItem(pItem, timeLimit);
+				pPC->addTimeLimitItem( pItem, timeLimit );
 				pPC->sendTimeLimitItemInfo();
 				pPC->setBaseLuck(10);
 				pPC->initAllStatAndSend();
 			}
-			else if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM )
-			{
-				ItemType_t itemType = pItem->getItemType();
-				if (itemType >= 32 && itemType <= 36 )
-				{
-					// 시간제한 30분
-					unsigned long timeLimit = 30 * 60;
 
-					pPC->addTimeLimitItem(pItem, timeLimit);
-					pPC->sendTimeLimitItemInfo();
-					applyBalloonHeadbandDefaultOption(pPC, itemType);
-					pPC->initAllStatAndSend();
-
-					if (pPC->isSlayer() )
-					{
-						Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-						Assert(pSlayer != NULL);
-
-						pSlayer->sendRealWearingInfo();
-					}
-					else if (pPC->isVampire() )
-					{
-						Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-						Assert(pVampire != NULL);
-
-						pVampire->sendRealWearingInfo();
-					}
-					else if (pPC->isOusters() )
-					{
-						Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-						Assert(pOusters != NULL);
-
-						pOusters->sendRealWearingInfo();
-					}
-				}
-			}
 		}
 		else
 		{
 			goto ERROR;
 		}
 
-        if (pItem != NULL && pItem->isTraceItem() )
+        if ( pItem != NULL && pItem->isTraceItem() )
         {
             char zoneName[15];
             sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), ZoneX, ZoneY);
-            remainTraceLog(pItem, zoneName, pCreature->getName(), ITEM_LOG_MOVE, DETAIL_PICKUP);
+            remainTraceLog( pItem, zoneName, pCreature->getName(), ITEM_LOG_MOVE, DETAIL_PICKUP);
         }
 	} 
 	catch (Throwable & t) 
@@ -360,7 +321,7 @@ ERROR:
 //////////////////////////////////////////////////////////////////////////////
 /*
 void CGAddZoneToMouseHandler::execute (CGAddZoneToMouse* pPacket , Player* pPlayer)
-	
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 

@@ -16,12 +16,12 @@
 #include "Corpse.h"
 #include "MonsterCorpse.h"
 
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCHPRecoveryStartToOthers.h"
-#include "Gpackets/GCHPRecoveryStartToSelf.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCHPRecoveryStartToOthers.h"
+#include "GCHPRecoveryStartToSelf.h"
+#include "GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러

@@ -13,8 +13,8 @@
 #include "Relic.h"
 #include "ZoneInfoManager.h"
 #include "CastleInfoManager.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCBloodBibleStatus.h"
+#include "GCSystemMessage.h"
+#include "GCBloodBibleStatus.h"
 #include "StringPool.h"
 
 #include <stdio.h>

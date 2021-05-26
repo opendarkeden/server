@@ -8,9 +8,9 @@
 #include "EffectDetectInvisibility.h"
 #include "Party.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러

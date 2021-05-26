@@ -9,8 +9,8 @@
 #include "Slayer.h"
 #include "Player.h"
 #include "DB.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectLight member methods

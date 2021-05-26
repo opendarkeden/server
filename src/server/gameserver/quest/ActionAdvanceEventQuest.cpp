@@ -14,8 +14,8 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 #include "mission/RewardClassInfoManager.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
+#include "GCNPCResponse.h"
+#include "GCDeleteInventoryItem.h"
 
 #include <algorithm>
 

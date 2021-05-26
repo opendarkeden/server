@@ -4,7 +4,7 @@
 #include "Types.h"
 #include "Exception.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include <unordered_map>
 

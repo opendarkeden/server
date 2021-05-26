@@ -21,8 +21,8 @@
 #include "DynamicZoneInfo.h"
 #include "GQuestManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////

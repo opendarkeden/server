@@ -5,14 +5,14 @@
 //////////////////////////////////////////////////////////////////////////////
 #include "OpenCasket.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK3.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK3.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCAddEffect.h"
 #include "HitRoll.h"
 
 //////////////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 #include "ActionDownSkill.h"
 #include "Creature.h"
 #include "GamePlayer.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

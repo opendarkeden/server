@@ -11,11 +11,11 @@
 #include "RankBonus.h"
 #include "PKZoneInfoManager.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToInventoryOK1.h"
-#include "Gpackets/GCSkillToSelfOK3.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCAddWolf.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToInventoryOK1.h"
+#include "GCSkillToSelfOK3.h"
+#include "GCDeleteObject.h"
+#include "GCAddWolf.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러

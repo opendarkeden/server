@@ -14,10 +14,10 @@
 #include "SkillUtil.h"
 #include "HitRoll.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCChangeDarkLight.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCChangeDarkLight.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

@@ -8,14 +8,14 @@
 #include "EffectRegeneration.h"
 #include "Vampire.h"
 
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCSkillFailed1.h"
-#include "Gpackets/GCSkillFailed2.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCSkillFailed1.h"
+#include "GCSkillFailed2.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////
 //

@@ -10,8 +10,8 @@
 #include "ActionBuy.h"
 #include "Creature.h"
 #include "NPC.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCShopMarketCondition.h"
+#include "GCNPCResponse.h"
+#include "GCShopMarketCondition.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -11,8 +11,8 @@
 #include "Vampire.h"
 #include "DB.h"
 
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCDeleteEffectFromTile.h"
+#include "GCAddEffect.h"
+#include "GCDeleteEffectFromTile.h"
 #include "SkillHandler.h"
 
 #include "item/VampirePortalItem.h"

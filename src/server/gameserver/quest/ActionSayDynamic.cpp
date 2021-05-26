@@ -10,7 +10,7 @@
 #include "Script.h"
 #include "ScriptManager.h"
 
-#include "Gpackets/GCNPCSayDynamic.h"
+#include "GCNPCSayDynamic.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

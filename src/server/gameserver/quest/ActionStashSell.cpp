@@ -10,7 +10,7 @@
 #include "Vampire.h"
 #include "Ousters.h"
 #include "PriceManager.h"
-#include "Gpackets/GCStashSell.h"
+#include "GCStashSell.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -19,11 +19,11 @@
 #include "item/VampireCoupleRing.h"
 #include "ItemFactoryManager.h"
 
-#include "Gpackets/GCCreateItem.h"
-//#include "Gpackets/GCItemNameInfoList.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCCreateItem.h"
+//#include "GCItemNameInfoList.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCModifyInformation.h"
 
 #include <stdio.h>
 

@@ -12,8 +12,8 @@
 #include "Vampire.h"
 #include "Ousters.h"
 #include "StringPool.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

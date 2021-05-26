@@ -11,10 +11,10 @@
 #include "EffectTrying.h"
 #include "skill/EffectFadeOut.h"
 
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCAddEffect.h"
+#include "GCAddEffectToTile.h"
+#include "GCRemoveEffect.h"
 
 EffectTryingPosition::EffectTryingPosition( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y, MonsterCorpse* pTower) 
 {

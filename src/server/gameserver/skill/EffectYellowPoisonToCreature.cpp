@@ -10,9 +10,9 @@
 #include "DB.h"
 #include "DarkLightInfo.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCChangeDarkLight.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCChangeDarkLight.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

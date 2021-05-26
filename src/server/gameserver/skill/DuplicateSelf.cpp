@@ -10,9 +10,9 @@
 #include "MasterLairManager.h"
 #include "MasterLairInfoManager.h"
 #include "MonsterManager.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCFakeMove.h"
-#include "Gpackets/GCSay.h"
+#include "GCSkillToTileOK5.h"
+#include "GCFakeMove.h"
+#include "GCSay.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

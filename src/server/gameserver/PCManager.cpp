@@ -65,14 +65,14 @@
 #include "EffectSummonCasket.h"
 #include "skill/EffectHarpoonBomb.h"
 
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCCreatureDied.h"
-#include "Gpackets/GCGetOffMotorCycle.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCRemoveFromGear.h"
-#include "Gpackets/GCHolyLandBonusInfo.h"
-//#include "Gpackets/GCSweeperBonusInfo.h"
+#include "GCAddEffect.h"
+#include "GCCreatureDied.h"
+#include "GCGetOffMotorCycle.h"
+#include "GCSystemMessage.h"
+#include "GCRemoveEffect.h"
+#include "GCRemoveFromGear.h"
+#include "GCHolyLandBonusInfo.h"
+//#include "GCSweeperBonusInfo.h"
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////////////

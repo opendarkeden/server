@@ -15,8 +15,8 @@
 #include "mission/QuestManager.h"
 #include "mission/MonsterKillQuestInfo.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCNPCAsk.h"
+#include "GCNPCResponse.h"
+#include "GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

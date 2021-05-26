@@ -14,8 +14,8 @@
 #include "WarSystem.h"
 #include "Properties.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 #include "SystemAvailabilitiesManager.h"
 

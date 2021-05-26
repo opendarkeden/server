@@ -15,9 +15,9 @@
 
 #include "EffectHellFireToEnemy.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

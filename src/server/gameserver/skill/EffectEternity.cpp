@@ -9,10 +9,10 @@
 #include "Player.h"
 #include "CreatureUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffectToTile.h"
+#include "GCRemoveEffect.h"
 
 EffectEternity::EffectEternity(Creature* pCreature)
 	

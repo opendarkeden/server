@@ -8,7 +8,7 @@
 #include "Creature.h"
 #include "GamePlayer.h"
 #include "StringPool.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

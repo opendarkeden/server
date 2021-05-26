@@ -23,7 +23,7 @@
 
 #include "VariableManager.h"
 
-#include "Gpackets/GCTradeFinish.h"
+#include "GCTradeFinish.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // class TradeInfo member methods

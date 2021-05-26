@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "HarpoonBomb.h"
-#include "Gpackets/GCAttackArmsOK1.h"
-#include "Gpackets/GCAttackArmsOK2.h"
-#include "Gpackets/GCAttackArmsOK3.h"
-#include "Gpackets/GCAttackArmsOK4.h"
-#include "Gpackets/GCAttackArmsOK5.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCAttackArmsOK1.h"
+#include "GCAttackArmsOK2.h"
+#include "GCAttackArmsOK3.h"
+#include "GCAttackArmsOK4.h"
+#include "GCAttackArmsOK5.h"
+#include "GCAddEffect.h"
 #include "EffectHarpoonBomb.h"
 #include "ItemUtil.h"
 

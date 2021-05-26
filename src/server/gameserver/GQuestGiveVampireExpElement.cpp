@@ -2,8 +2,8 @@
 #include "PlayerCreature.h"
 #include "Vampire.h"
 #include "skill/SkillUtil.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCModifyInformation.h"
+#include "GCSystemMessage.h"
 #include "Player.h"
 
 GQuestElement::ResultType GQuestGiveVampireExpElement::checkCondition( PlayerCreature* pPC ) const

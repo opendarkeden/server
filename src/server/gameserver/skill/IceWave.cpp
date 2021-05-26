@@ -5,11 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "IceWave.h"
-//#include "Gpackets/GCSkillToSelfOK1.h"
-//#include "Gpackets/GCSkillToSelfOK2.h"
+//#include "GCSkillToSelfOK1.h"
+//#include "GCSkillToSelfOK2.h"
 #include "SimpleTileMeleeSkill.h"
 #include "Utility.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

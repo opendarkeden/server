@@ -15,8 +15,8 @@
 #include "Slayer.h"
 #include "Vampire.h"
 #include "SkillInfo.h"
-#include "Gpackets/GCTeachSkillInfo.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCTeachSkillInfo.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

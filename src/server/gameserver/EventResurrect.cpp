@@ -23,7 +23,7 @@
 
 #include "PacketUtil.h"
 
-#include "Gpackets/GCUpdateInfo.h"
+#include "GCUpdateInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EventResurrect member methods

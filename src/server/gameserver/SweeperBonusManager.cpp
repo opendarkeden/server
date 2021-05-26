@@ -12,7 +12,7 @@
 #include "LevelWarZoneInfoManager.h"
 #include "DB.h"
 
-#include "Gpackets/GCSweeperBonusInfo.h"
+#include "GCSweeperBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class SweeperBonusManager member methods

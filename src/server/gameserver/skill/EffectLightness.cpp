@@ -9,9 +9,9 @@
 #include "Creature.h"
 #include "Zone.h"
 #include "Player.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCChangeDarkLight.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCChangeDarkLight.h"
+#include "GCModifyInformation.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

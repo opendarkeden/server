@@ -13,9 +13,9 @@
 #include "SkillUtil.h"
 #include "SkillInfo.h"
 
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

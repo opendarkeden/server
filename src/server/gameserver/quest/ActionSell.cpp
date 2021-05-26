@@ -12,8 +12,8 @@
 #include "NPC.h"
 #include "Script.h"
 #include "Trigger.h"
-#include "Gpackets/GCShopVersion.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCShopVersion.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

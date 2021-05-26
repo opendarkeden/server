@@ -10,7 +10,7 @@
 #include "GamePlayer.h"
 #include "Effect.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

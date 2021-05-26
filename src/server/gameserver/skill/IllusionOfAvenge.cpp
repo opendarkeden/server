@@ -7,12 +7,12 @@
 #include "IllusionOfAvenge.h"
 #include "SkillUtil.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러

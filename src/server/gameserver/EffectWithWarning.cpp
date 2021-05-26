@@ -1,10 +1,10 @@
 #include "EffectWithWarning.h"
 
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCAddEffectToTile.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffect.h"
 
 #include "skill/EffectIceFieldToCreature.h"
 

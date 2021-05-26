@@ -1,7 +1,7 @@
 #include "SMSAddressBook.h"
 #include "DB.h"
 #include "PlayerCreature.h"
-#include "Gpackets/GCAddressListVerify.h"
+#include "GCAddressListVerify.h"
 
 AddressUnit* SMSAddressElement::getAddressUnit() const 
 {

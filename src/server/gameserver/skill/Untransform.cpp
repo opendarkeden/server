@@ -5,11 +5,11 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Untransform.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK3.h"
-#include "Gpackets/GCSkillFailed1.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK3.h"
+#include "GCSkillFailed1.h"
+#include "GCDeleteObject.h"
+#include "GCRemoveEffect.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////

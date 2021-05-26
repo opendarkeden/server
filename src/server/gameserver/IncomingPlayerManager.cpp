@@ -28,9 +28,9 @@
 #include "PKZoneInfoManager.h"
 #include "CreatureUtil.h"
 
-#include "Gpackets/GCUpdateInfo.h"
-#include "Gpackets/GLIncomingConnection.h"
-#include "Gpackets/GLKickVerify.h"
+#include "GCUpdateInfo.h"
+#include "GLIncomingConnection.h"
+#include "GLKickVerify.h"
 
 //#include "UserGateway.h"
 #include "SystemAvailabilitiesManager.h"

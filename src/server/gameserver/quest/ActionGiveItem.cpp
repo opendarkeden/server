@@ -14,7 +14,7 @@
 #include "Zone.h"
 #include "PacketUtil.h"
 
-#include "Gpackets/GCCreateItem.h"
+#include "GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

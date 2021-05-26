@@ -23,7 +23,7 @@
 	#include "LoginPlayerManager.h"
 #endif
 
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 
 // packetUtil.h에 추가해야 한다.
 extern void sendSystemMessage(GamePlayer* pGamePlayer, const string& msg) ;

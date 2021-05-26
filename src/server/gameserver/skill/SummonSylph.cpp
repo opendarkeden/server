@@ -10,9 +10,9 @@
 #include "GamePlayer.h"
 #include "CreatureUtil.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCAddEffect.h"
 #include "GDRLairManager.h"
 #include "GQuestManager.h"
 

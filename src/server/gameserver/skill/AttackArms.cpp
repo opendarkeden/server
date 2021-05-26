@@ -9,16 +9,16 @@
 #include <fstream>
 #include <list>
 
-#include "Gpackets/GCAttackArmsOK1.h"
-#include "Gpackets/GCAttackArmsOK2.h"
-#include "Gpackets/GCAttackArmsOK3.h"
-#include "Gpackets/GCAttackArmsOK4.h"
-#include "Gpackets/GCAttackArmsOK5.h"
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK3.h"
-#include "Gpackets/GCSkillToTileOK4.h"
-#include "Gpackets/GCSkillToTileOK5.h"
+#include "GCAttackArmsOK1.h"
+#include "GCAttackArmsOK2.h"
+#include "GCAttackArmsOK3.h"
+#include "GCAttackArmsOK4.h"
+#include "GCAttackArmsOK5.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK3.h"
+#include "GCSkillToTileOK4.h"
+#include "GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러

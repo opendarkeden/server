@@ -12,13 +12,13 @@
 #include "ZoneUtil.h"
 #include "ZoneInfoManager.h"
 #include "SkillUtil.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffectToTile.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCStatusCurrentHP.h"
+#include "GCModifyInformation.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

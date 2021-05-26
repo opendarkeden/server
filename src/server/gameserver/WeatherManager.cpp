@@ -14,9 +14,9 @@
 #include "DarkLightInfo.h"
 #include "Zone.h"
 #include "PKZoneInfoManager.h"
-#include "Gpackets/GCChangeDarkLight.h"
-#include "Gpackets/GCChangeWeather.h"
-#include "Gpackets/GCLightning.h"
+#include "GCChangeDarkLight.h"
+#include "GCChangeWeather.h"
+#include "GCLightning.h"
 
 //--------------------------------------------------------------------------------
 //

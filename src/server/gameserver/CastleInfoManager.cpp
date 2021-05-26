@@ -35,9 +35,9 @@
 
 #include "Skill.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNoticeEvent.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCSystemMessage.h"
+#include "GCNoticeEvent.h"
+#include "GCModifyInformation.h"
 
 CastleInfo::CastleInfo() : m_Name(""), m_BonusOptionList() , m_CastleZoneIDList()
 {

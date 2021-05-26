@@ -1,7 +1,7 @@
 #include "NicknameBook.h"
 #include "NicknameInfo.h"
 #include "PlayerCreature.h"
-#include "Gpackets/GCNicknameList.h"
+#include "GCNicknameList.h"
 #include "DB.h"
 #include "LevelNickInfoManager.h"
 #include "Guild.h"

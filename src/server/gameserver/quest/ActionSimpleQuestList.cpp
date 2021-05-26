@@ -11,7 +11,7 @@
 #include "ScriptManager.h"
 //#include "Quest.h"
 #include "NPC.h"
-#include "Gpackets/GCNPCAskDynamic.h"
+#include "GCNPCAskDynamic.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

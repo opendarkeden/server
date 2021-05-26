@@ -1,6 +1,6 @@
 #include "EffectGDRLairClose.h"
 #include "GDRLairManager.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "ZoneGroupManager.h"
 #include <cstdio>
 

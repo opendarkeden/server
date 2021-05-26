@@ -13,11 +13,11 @@
 #include "MonsterCorpse.h"
 #include "Player.h"
 #include "StringPool.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffect.h"
+#include "GCSystemMessage.h"
 
 #include <stdio.h>
 

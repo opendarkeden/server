@@ -8,7 +8,7 @@
 #include "PlayerCreature.h"
 #include "Player.h"
 #include "GQuestManager.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include <cstdio>
 
 EffectEventQuestReset::EffectEventQuestReset(Creature* pCreature, int type) 

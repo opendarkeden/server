@@ -8,7 +8,7 @@
 #define __SKILL_FLARE_HANDLER_H__
 
 #include "SkillHandler.h"
-#include "Gpackets/GCChangeDarkLight.h"
+#include "GCChangeDarkLight.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class Flare;

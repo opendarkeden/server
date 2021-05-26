@@ -12,9 +12,9 @@
 #include "FlagSet.h"
 #include "VariableManager.h"
 #include "StringPool.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCModifyInformation.h"
 
 #include <stdio.h>
 

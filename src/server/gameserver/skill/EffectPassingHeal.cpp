@@ -22,12 +22,12 @@
 #include "Slayer.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCChangeDarkLight.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
+#include "GCChangeDarkLight.h"
+#include "GCModifyInformation.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCStatusCurrentHP.h"
 
 TPOINT PassingHealSearchTiles[] = 
 {

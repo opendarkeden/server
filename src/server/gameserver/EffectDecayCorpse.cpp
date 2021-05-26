@@ -6,7 +6,7 @@
 
 #include "Assert.h"
 #include "EffectDecayCorpse.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Corpse.h"

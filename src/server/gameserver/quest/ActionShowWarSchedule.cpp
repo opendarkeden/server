@@ -17,8 +17,8 @@
 #include "PlayerCreature.h"
 #include "VariableManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCWarScheduleList.h"
+#include "GCNPCResponse.h"
+#include "GCWarScheduleList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

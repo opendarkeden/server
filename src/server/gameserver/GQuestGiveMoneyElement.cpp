@@ -1,7 +1,7 @@
 #include "GQuestGiveMoneyElement.h"
 #include "PlayerCreature.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCModifyInformation.h"
+#include "GCSystemMessage.h"
 #include "Player.h"
 #include <cstdio>
 

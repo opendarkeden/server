@@ -7,10 +7,10 @@
 #include "BloodyMarker.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToInventoryOK1.h"
-#include "Gpackets/GCSkillToSelfOK3.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToInventoryOK1.h"
+#include "GCSkillToSelfOK3.h"
+#include "GCDeleteObject.h"
 
 #include "item/VampirePortalItem.h"
 

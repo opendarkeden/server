@@ -6,8 +6,8 @@
 #include "ItemUtil.h"
 #include "ItemFactoryManager.h"
 #include "Inventory.h"
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCCreateItem.h"
+#include "GCSystemMessage.h"
 #include "PacketUtil.h"
 #include "Zone.h"
 

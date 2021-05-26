@@ -30,8 +30,8 @@
 
 #include "quest/Trigger.h"
 
-#include "Gpackets/GCUpdateInfo.h"
-#include "Gpackets/GCMoveOK.h"
+#include "GCUpdateInfo.h"
+#include "GCMoveOK.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

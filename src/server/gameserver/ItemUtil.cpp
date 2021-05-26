@@ -34,7 +34,7 @@
 #include "ItemFactoryManager.h"
 #include "VariableManager.h"
 
-#include "Gpackets/GCCreateItem.h"
+#include "GCCreateItem.h"
 
 #include <fstream>
 #include <stdio.h>

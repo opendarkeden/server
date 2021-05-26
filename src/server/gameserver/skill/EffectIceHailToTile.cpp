@@ -1,5 +1,5 @@
 #include "EffectIceHailToTile.h"
-#include "Gpackets/GCStatusCurrentHP.h" 
+#include "GCStatusCurrentHP.h" 
 
 #include "Slayer.h"
 #include "Vampire.h"

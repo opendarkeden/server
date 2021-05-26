@@ -5,7 +5,7 @@
 #include "Exception.h"
 #include <list>
 #include <unordered_map>
-#include "Gpackets/GCUnionOfferList.h"
+#include "GCUnionOfferList.h"
 
 #include "Mutex.h"
 

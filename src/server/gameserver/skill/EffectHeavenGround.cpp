@@ -10,8 +10,8 @@
 #include "EffectTrapTriggered.h"
 #include "Monster.h"
 
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCAddEffect.h"
 
 
 #include "DB.h"
@@ -21,8 +21,8 @@
 #include "GamePlayer.h"
 #include "SkillUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 EffectHeavenGround::EffectHeavenGround( Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y )

@@ -3,7 +3,7 @@
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 #include "Player.h"
 #include "SkillDomainInfoManager.h"
 #include "VampEXPInfo.h"

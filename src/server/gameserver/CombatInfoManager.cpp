@@ -6,7 +6,7 @@
 
 #include "StringPool.h"
 #include "CombatInfoManager.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "ZoneGroupManager.h"
 
 //////////////////////////////////////////////////////////////////////////////

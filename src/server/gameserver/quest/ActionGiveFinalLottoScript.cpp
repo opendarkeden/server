@@ -15,9 +15,9 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNPCAsk.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
+#include "GCSystemMessage.h"
+#include "GCNPCAsk.h"
+#include "GCDeleteInventoryItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

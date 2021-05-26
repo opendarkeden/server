@@ -9,7 +9,7 @@
 #include "SimpleTileMissileSkill.h"
 //#include "EffectInfinityThunderbolt.h"
 #include "ZoneUtil.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 #include <list>
 
 void InfinityThunderbolt::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 

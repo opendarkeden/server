@@ -24,10 +24,10 @@
 
 #include "SkillHandler.h"
 
-#include "Gpackets/GCAddMonster.h"
-#include "Gpackets/GCMove.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCSay.h"
+#include "GCAddMonster.h"
+#include "GCMove.h"
+#include "GCStatusCurrentHP.h"
+#include "GCSay.h"
 
 #include "skill/SkillHandlerManager.h"
 #include "skill/EffectParalyze.h"

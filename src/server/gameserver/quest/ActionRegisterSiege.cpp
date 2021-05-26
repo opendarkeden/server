@@ -21,8 +21,8 @@
 #include "Properties.h"
 #include "CastleInfoManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCNPCResponse.h"
+#include "GCModifyInformation.h"
 
 #include "SystemAvailabilitiesManager.h"
 

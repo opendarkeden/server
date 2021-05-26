@@ -8,7 +8,7 @@
 #include "MonsterSummonInfo.h"
 
 #include "ZoneGroupManager.h"
-#include "Gpackets/GCNoticeEvent.h"
+#include "GCNoticeEvent.h"
 
 list<FlagWar::FlagGenZone> FlagWar::m_FlagGenInfo;
 

@@ -10,7 +10,7 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

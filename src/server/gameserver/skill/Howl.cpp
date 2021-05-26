@@ -5,10 +5,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "Howl.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCDeleteObject.h"
+#include "GCAddEffect.h"
 #include "ZoneUtil.h"
 #include "EffectHowl.h"
 

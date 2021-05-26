@@ -8,7 +8,7 @@
 // include files
 #include "Assert.h"
 #include "EffectTransportItemToCorpse.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"

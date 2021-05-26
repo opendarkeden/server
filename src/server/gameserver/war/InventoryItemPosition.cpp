@@ -19,8 +19,8 @@
 
 #include "InventoryItemPosition.h"
 
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCAddEffect.h"
 
 Item* InventoryItemPosition::popItem( bool bLock )
 	

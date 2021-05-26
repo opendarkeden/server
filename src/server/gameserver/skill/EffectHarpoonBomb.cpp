@@ -11,12 +11,12 @@
 #include "Player.h"
 #include "SkillUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
+#include "GCModifyInformation.h"
+#include "GCAddEffectToTile.h"
+#include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCSkillToObjectOK2.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

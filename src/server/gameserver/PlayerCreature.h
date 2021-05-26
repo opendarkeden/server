@@ -18,7 +18,7 @@
 //#include "RankExpTable.h"
 //#include "ItemNameInfo.h"
 //#include "quest/Squest/QuestManager.h"
-#include "Gpackets/GCMonsterKillQuestInfo.h"
+#include "GCMonsterKillQuestInfo.h"
 #include "OptionInfo.h"
 
 #include <unordered_map>

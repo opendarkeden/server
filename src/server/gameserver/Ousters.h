@@ -25,7 +25,7 @@
 
 #include "skill/OustersSkillSlot.h"
 
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 
 class SkillInfo;
 

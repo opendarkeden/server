@@ -5,12 +5,12 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SimpleMissileSkill.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK3.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCSkillToObjectOK5.h"
-#include "Gpackets/GCSkillToObjectOK6.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK3.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCSkillToObjectOK5.h"
+#include "GCSkillToObjectOK6.h"
 
 SimpleMissileSkill g_SimpleMissileSkill;
 

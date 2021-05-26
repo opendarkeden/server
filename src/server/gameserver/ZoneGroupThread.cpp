@@ -12,7 +12,7 @@
 #include "Properties.h"
 #include "Profile.h"
 #include "Timeval.h"
-#include "Gpackets/GMServerInfo.h"
+#include "GMServerInfo.h"
 
 //#define __FULL_PROFILE__
 

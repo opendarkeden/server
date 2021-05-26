@@ -10,7 +10,7 @@
 #include "GamePlayer.h"
 
 #include "PacketUtil.h"
-#include "Gpackets/GCPetStashList.h"
+#include "GCPetStashList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

@@ -16,7 +16,7 @@
 #include "PlayerCreature.h"
 #include "FlagSet.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // ActionContractGnomesHorn 액션은 그냥 클라이언트에게 ShopVersion을 보내주는 것이므로,

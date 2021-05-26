@@ -11,7 +11,7 @@
 #include "DB.h"
 #include "SkillHandler.h"
 
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectSleep::EffectSleep( Creature* pCreature )
 	

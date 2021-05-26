@@ -9,7 +9,7 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////

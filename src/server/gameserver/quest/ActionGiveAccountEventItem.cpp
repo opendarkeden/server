@@ -21,8 +21,8 @@
 #include <list>
 
 #include "PacketUtil.h"
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCCreateItem.h"
+#include "GCNPCResponse.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////

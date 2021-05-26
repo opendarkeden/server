@@ -5,7 +5,7 @@
 #include "QuestUtil.h"
 #include "QuestBoard.h"
 #include "QuestFactoryManager.h"
-#include "Gpackets/GCNPCAskDynamic.h"
+#include "GCNPCAskDynamic.h"
 #include "Script.h"
 #include "Assert.h"
 

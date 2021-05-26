@@ -4,8 +4,8 @@
 #include "Creature.h"
 #include "Zone.h"
 
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffect.h"
 
 EffectTryRegenZone::EffectTryRegenZone( MonsterCorpse* pTower )
 {

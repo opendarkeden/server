@@ -10,11 +10,11 @@
 #include "EffectPoison.h"
 #include "EffectProtectionFromPoison.h"
 
-#include "Gpackets/GCAttackMeleeOK1.h"
-#include "Gpackets/GCAttackMeleeOK2.h"
-#include "Gpackets/GCAttackMeleeOK3.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCAttackMeleeOK1.h"
+#include "GCAttackMeleeOK2.h"
+#include "GCAttackMeleeOK3.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffect.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

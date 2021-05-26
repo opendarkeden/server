@@ -7,9 +7,9 @@
 #include "BurningSolCharging.h"
 #include "EffectBurningSolCharging.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK5.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러

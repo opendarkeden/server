@@ -9,7 +9,7 @@
 #include "SimpleTileMissileSkill.h"
 #include "EffectSwordOfThor.h"
 #include "ZoneUtil.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 #include <list>
 
 void SwordOfThor::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 

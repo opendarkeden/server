@@ -10,12 +10,12 @@
 #include "EffectDarkness.h"
 #include "item/Mine.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSkillFailed1.h"
-#include "Gpackets/GCSkillFailed2.h"
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSkillFailed1.h"
+#include "GCSkillFailed2.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCDeleteObject.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

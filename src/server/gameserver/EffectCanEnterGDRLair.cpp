@@ -11,8 +11,8 @@
 #include "Ousters.h"
 #include "Monster.h"
 #include "Player.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
 #include "DB.h"
 
 EffectCanEnterGDRLair::EffectCanEnterGDRLair(Creature* pCreature)

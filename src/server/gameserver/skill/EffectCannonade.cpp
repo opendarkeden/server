@@ -14,9 +14,9 @@
 #include "SkillInfo.h"
 #include "SkillUtil.h"
 #include "HitRoll.h"
-#include "Gpackets/GCSkillToObjectOK2.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToObjectOK2.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCStatusCurrentHP.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

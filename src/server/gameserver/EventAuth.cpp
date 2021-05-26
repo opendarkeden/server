@@ -12,8 +12,8 @@
 #include "Ousters.h"
 #include "Item.h"
 
-#include "Gpackets/GCAuthKey.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCAuthKey.h"
+#include "GCSystemMessage.h"
 #include "EventKick.h"
 
 //////////////////////////////////////////////////////////////////////////////

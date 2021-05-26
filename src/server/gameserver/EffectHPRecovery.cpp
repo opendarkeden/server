@@ -14,9 +14,9 @@
 #include "Player.h"
 #include "Creature.h"
 
-#include "Gpackets/GCHPRecoveryEndToSelf.h"
-#include "Gpackets/GCHPRecoveryEndToOthers.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCHPRecoveryEndToSelf.h"
+#include "GCHPRecoveryEndToOthers.h"
+#include "GCModifyInformation.h"
 
 EffectHPRecovery::EffectHPRecovery () 
 	

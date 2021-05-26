@@ -12,8 +12,8 @@
 #include "Vampire.h"
 #include "Ousters.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCNPCResponse.h"
+#include "GCModifyInformation.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

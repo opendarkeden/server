@@ -8,7 +8,7 @@
 #include "Creature.h"
 #include "GamePlayer.h"
 #include "PropertyBuffer.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //

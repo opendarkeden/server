@@ -12,8 +12,8 @@
 #include "Ousters.h"
 #include "Item.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor

@@ -19,13 +19,13 @@
 #include "RelicUtil.h"
 #include "SharedServerManager.h"
 
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCMorph1.h"
-#include "Gpackets/GCMorphSlayer2.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GSGuildMemberLogOn.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCMorph1.h"
+#include "GCMorphSlayer2.h"
+#include "GCRemoveEffect.h"
+#include "GCDeleteObject.h"
+#include "GSGuildMemberLogOn.h"
 
 #include <stdio.h>
 

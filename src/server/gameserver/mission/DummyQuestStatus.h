@@ -2,7 +2,7 @@
 #define __DUMMY_QUEST_STATUS_H__
 
 #include "QuestStatus.h"
-#include "Gpackets/GCQuestStatus.h"
+#include "GCQuestStatus.h"
 
 class DummyQuestStatus : public QuestStatus
 {

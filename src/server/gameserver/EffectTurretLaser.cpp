@@ -10,8 +10,8 @@
 #include "Creature.h"
 #include "SkillUtil.h"
 #include "Player.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCModifyInformation.h"
+#include "GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

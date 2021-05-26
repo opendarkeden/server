@@ -9,7 +9,7 @@
 
 #include "PacketUtil.h"
 
-#include "Gpackets/GCMiniGameScores.h"
+#include "GCMiniGameScores.h"
 
 GCQuestStatus* MiniGameQuestStatus::makeStatusPacket() const
 {

@@ -8,8 +8,8 @@
 #include "CastleInfoManager.h"
 #include "GuildWar.h"
 #include "SiegeWar.h"
-#include "Gpackets/GCWarScheduleList.h"
-#include "Gpackets/GCWarList.h"
+#include "GCWarScheduleList.h"
+#include "GCWarList.h"
 
 WarSchedule::WarSchedule( Work* pWork, const VSDateTime& Time, ScheduleType type // = SCHEDULE_TYPE_ONCE
                           )

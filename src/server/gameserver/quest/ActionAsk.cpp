@@ -9,7 +9,7 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "Gpackets/GCNPCAsk.h"
+#include "GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

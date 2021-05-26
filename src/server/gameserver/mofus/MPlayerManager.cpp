@@ -13,7 +13,7 @@
 #include "PCFinder.h"
 
 #include "PKTError.h"
-#include "Gpackets/GCRequestPowerPointResult.h"
+#include "GCRequestPowerPointResult.h"
 #include "DB.h"
 
 #include <unistd.h>

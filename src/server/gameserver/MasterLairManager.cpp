@@ -28,11 +28,11 @@
 #include "ZoneGroupManager.h"
 #include "StringPool.h"
 
-#include "Gpackets/GCNoticeEvent.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCSay.h"
+#include "GCNoticeEvent.h"
+#include "GCSystemMessage.h"
+#include "GCCreateItem.h"
+#include "GCAddEffect.h"
+#include "GCSay.h"
 
 #include <stdio.h>
 

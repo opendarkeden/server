@@ -15,7 +15,7 @@
 #include "ZoneUtil.h"
 #include "VisionInfo.h"
 
-#include "Gpackets/GCSay.h"
+#include "GCSay.h"
 #include "Effect.h"
 //#include "EffectHPRecovery.h"
 

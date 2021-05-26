@@ -12,9 +12,9 @@
 #include "EffectManager.h"
 #include "NPCInfo.h"
 
-#include "Gpackets/GCFlagWarStatus.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCFlagWarStatus.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCAddEffect.h"
 
 #include "SystemAvailabilitiesManager.h"
 

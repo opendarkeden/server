@@ -1,7 +1,7 @@
 #include "GQuestExecuteElement.h"
 #include "PlayerCreature.h"
 #include "GQuestInfo.h"
-#include "Gpackets/GCExecuteElement.h"
+#include "GCExecuteElement.h"
 #include "Player.h"
 
 GQuestElement::ResultType GQuestExecuteElement::checkCondition( PlayerCreature* pPC ) const

@@ -22,9 +22,9 @@
 #include "PCManager.h"
 #include "StringStream.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNoticeEvent.h"
-#include "Gpackets/GCWarScheduleList.h"
+#include "GCSystemMessage.h"
+#include "GCNoticeEvent.h"
+#include "GCWarScheduleList.h"
 #include "Cpackets/CGSay.h"
 #include "GuildWarInfo.h"
 

@@ -11,10 +11,10 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCOtherModifyInfo.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
+#include "GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

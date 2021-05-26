@@ -13,9 +13,9 @@
 #include "StringPool.h"
 #include <stdio.h>
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCModifyInformation.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

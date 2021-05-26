@@ -9,7 +9,7 @@
 #include "Player.h"
 
 #include "Cpackets/CGGetEventItem.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from property buffer

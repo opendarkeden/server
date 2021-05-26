@@ -105,32 +105,21 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCAddVampirePortal.cpp \
 	GCAddWolf.cpp \
 	GCAttackArmsOK1.cpp \
-	GCAttackArmsOK1Handler.cpp \
 	GCAttackArmsOK2.cpp \
-	GCAttackArmsOK2Handler.cpp \
 	GCAttackArmsOK3.cpp \
-	GCAttackArmsOK3Handler.cpp \
 	GCAttackArmsOK4.cpp \
-	GCAttackArmsOK4Handler.cpp \
 	GCAttackArmsOK5.cpp \
-	GCAttackArmsOK5Handler.cpp \
 	GCAttack.cpp \
 	GCAttackMeleeOK1.cpp \
-	GCAttackMeleeOK1Handler.cpp \
 	GCAttackMeleeOK2.cpp \
-	GCAttackMeleeOK2Handler.cpp \
 	GCAttackMeleeOK3.cpp \
-	GCAttackMeleeOK3Handler.cpp \
 	GCAuthKey.cpp \
 	GCBloodBibleList.cpp \
 	GCBloodBibleSignInfo.cpp \
 	GCBloodBibleStatus.cpp \
 	GCBloodDrainOK1.cpp \
-	GCBloodDrainOK1Handler.cpp \
 	GCBloodDrainOK2.cpp \
-	GCBloodDrainOK2Handler.cpp \
 	GCBloodDrainOK3.cpp \
-	GCBloodDrainOK3Handler.cpp \
 	GCCannotAdd.cpp \
 	GCCannotUse.cpp \
 	GCCastingSkill.cpp \
@@ -141,11 +130,8 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCCreateItem.cpp \
 	GCCreatureDied.cpp \
 	GCCrossCounterOK1.cpp \
-	GCCrossCounterOK1Handler.cpp \
 	GCCrossCounterOK2.cpp \
-	GCCrossCounterOK2Handler.cpp \
 	GCCrossCounterOK3.cpp \
-	GCCrossCounterOK3Handler.cpp \
 	GCDeleteandPickUpOK.cpp \
 	GCDeleteEffectFromTile.cpp \
 	GCDeleteInventoryItem.cpp \
@@ -180,13 +166,9 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCKickMessage.cpp \
 	GCKnockBack.cpp \
 	GCKnocksTargetBackOK1.cpp \
-	GCKnocksTargetBackOK1Handler.cpp \
 	GCKnocksTargetBackOK2.cpp \
-	GCKnocksTargetBackOK2Handler.cpp \
 	GCKnocksTargetBackOK4.cpp \
-	GCKnocksTargetBackOK4Handler.cpp \
 	GCKnocksTargetBackOK5.cpp \
-	GCKnocksTargetBackOK5Handler.cpp \
 	GCLearnSkillFailed.cpp \
 	GCLearnSkillOK.cpp \
 	GCLearnSkillReady.cpp \
@@ -194,9 +176,7 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCMakeItemFail.cpp \
 	GCMakeItemOK.cpp \
 	GCMineExplosionOK1.cpp \
-	GCMineExplosionOK1Handler.cpp \
 	GCMineExplosionOK2.cpp \
-	GCMineExplosionOK2Handler.cpp \
 	GCMiniGameScores.cpp \
 	GCModifyGuildMemberInfo.cpp \
 	GCModifyInformation.cpp \
@@ -205,11 +185,8 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCModyfyMoney.cpp \
 	GCMonsterKillQuestInfo.cpp \
 	GCMorph1.cpp \
-	GCMorph1Handler.cpp \
 	GCMorphSlayer2.cpp \
-	GCMorphSlayer2Handler.cpp \
 	GCMorphVampire2.cpp \
-	GCMorphVampire2Handler.cpp \
 	GCMove.cpp \
 	GCMoveError.cpp \
 	GCMoveOK.cpp \
@@ -288,44 +265,25 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCShowUnionInfo.cpp \
 	GCShowWaitGuildInfo.cpp \
 	GCSkillFailed1.cpp \
-	GCSkillFailed1Handler.cpp \
 	GCSkillFailed2.cpp \
-	GCSkillFailed2Handler.cpp \
 	GCSkillInfo.cpp \
 	GCSkillToInventoryOK1.cpp \
-	GCSkillToInventoryOK1Handler.cpp \
 	GCSkillToInventoryOK2.cpp \
-	GCSkillToInventoryOK2Handler.cpp \
 	GCSkillToObjectOK1.cpp \
-	GCSkillToObjectOK1Handler.cpp \
 	GCSkillToObjectOK2.cpp \
-	GCSkillToObjectOK2Handler.cpp \
 	GCSkillToObjectOK3.cpp \
-	GCSkillToObjectOK3Handler.cpp \
 	GCSkillToObjectOK4.cpp \
-	GCSkillToObjectOK4Handler.cpp \
 	GCSkillToObjectOK5.cpp \
-	GCSkillToObjectOK5Handler.cpp \
 	GCSkillToObjectOK6.cpp \
-	GCSkillToObjectOK6Handler.cpp \
 	GCSkillToSelfOK1.cpp \
-	GCSkillToSelfOK1Handler.cpp \
 	GCSkillToSelfOK2.cpp \
-	GCSkillToSelfOK2Handler.cpp \
 	GCSkillToSelfOK3.cpp \
-	GCSkillToSelfOK3Handler.cpp \
 	GCSkillToTileOK1.cpp \
-	GCSkillToTileOK1Handler.cpp \
 	GCSkillToTileOK2.cpp \
-	GCSkillToTileOK2Handler.cpp \
 	GCSkillToTileOK3.cpp \
-	GCSkillToTileOK3Handler.cpp \
 	GCSkillToTileOK4.cpp \
-	GCSkillToTileOK4Handler.cpp \
 	GCSkillToTileOK5.cpp \
-	GCSkillToTileOK5Handler.cpp \
 	GCSkillToTileOK6.cpp \
-	GCSkillToTileOK6Handler.cpp \
 	GCSMSAddressList.cpp \
 	GCStashList.cpp \
 	GCStashSell.cpp \
@@ -339,17 +297,11 @@ GC_PACKET_SRC := GCActiveGuildList.cpp \
 	GCTakeOutOK.cpp \
 	GCTeachSkillInfo.cpp \
 	GCThrowBombOK1.cpp \
-	GCThrowBombOK1Handler.cpp \
 	GCThrowBombOK2.cpp \
-	GCThrowBombOK2Handler.cpp \
 	GCThrowBombOK3.cpp \
-	GCThrowBombOK3Handler.cpp \
 	GCThrowItemOK1.cpp \
-	GCThrowItemOK1Handler.cpp \
 	GCThrowItemOK2.cpp \
-	GCThrowItemOK2Handler.cpp \
 	GCThrowItemOK3.cpp \
-	GCThrowItemOK3Handler.cpp \
 	GCTimeLimitItemInfo.cpp \
 	GCTradeAddItem.cpp \
 	GCTradeError.cpp \
@@ -397,6 +349,7 @@ CG_PACKET_SRC :=  CGAbsorbSoul.cpp \
 	CGBuyStoreItem.cpp \
 	CGCastingSkill.cpp \
 	CGConnect.cpp \
+	CGConnectSetKey.cpp \
 	CGCrashReport.cpp \
 	CGDeleteSMSAddress.cpp \
 	CGDenyUnion.cpp \
@@ -538,11 +491,11 @@ L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharact
 	LGIncomingConnectionErrorHandler.cpp  LGIncomingConnectionHandler.cpp  LGIncomingConnectionOKHandler.cpp  LGKickCharacterHandler.cpp \
 	GCDisconnect.cpp GCDisconnectHandler.cpp 
 
-G_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp         CGModifyGuildMemberHandler.cpp       CGRelicToObjectHandler.cpp           CGSelectTileEffectHandler.cpp  CGTakeOutGoodHandler.cpp                  CGWhisperHandler.cpp \
+CG_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp         CGModifyGuildMemberHandler.cpp       CGRelicToObjectHandler.cpp           CGSelectTileEffectHandler.cpp  CGTakeOutGoodHandler.cpp                  CGWhisperHandler.cpp \
 	CGAcceptUnionHandler.cpp           CGDepositPetHandler.cpp        CGModifyGuildMemberIntroHandler.cpp  CGReloadFromInventoryHandler.cpp     CGSelectWayPointHandler.cpp    CGTameMonsterHandler.cpp                  CGWithdrawPetHandler.cpp \
 	CGAddGearToMouseHandler.cpp        CGDialUpHandler.cpp            CGModifyNicknameHandler.cpp          CGReloadFromQuickSlotHandler.cpp     CGSetSlayerHotKeyHandler.cpp   CGThrowBombHandler.cpp                    CGWithdrawTaxHandler.cpp \
 	CGDisplayItemHandler.cpp       CGModifyTaxRatioHandler.cpp          CGRequestGuildListHandler.cpp        CGSetVampireHotKeyHandler.cpp  CGThrowItemHandler.cpp                    GGCommandHandler.cpp \
-	CGAddInventoryToMouseHandler.cpp   CGDissectionCorpseHandler.cpp  CGMouseToStashHandler.cpp            CGRequestGuildMemberListHandler.cpp  CGShopRequestBuyHandler.cpp    CGTradeAddItemHandler.cpp                 GGGuildChatHandler.cpp \
+	CGAddInventoryToMouseHandler.cpp   CGDissectionCorpseHandler.cpp  CGMouseToStashHandler.cpp            CGRequestGuildMemberListHandler.cpp  CGShopRequestBuyHandler.cpp    CGTradeAddItemHandler.cpp                  \
 	CGAddItemToCodeSheetHandler.cpp    CGDonationMoneyHandler.cpp     CGMoveHandler.cpp                    CGRequestInfoHandler.cpp             CGShopRequestListHandler.cpp   CGTradeFinishHandler.cpp                  GGServerChatHandler.cpp \
 	CGAddItemToItemHandler.cpp         CGDownSkillHandler.cpp         CGNPCAskAnswerHandler.cpp            CGRequestIPHandler.cpp               CGShopRequestSellHandler.cpp   CGTradeMoneyHandler.cpp                   LGIncomingConnectionErrorHandler.cpp \
 	CGAddMouseToGearHandler.cpp        CGDropMoneyHandler.cpp         CGNPCTalkHandler.cpp                 CGRequestNewbieItemHandler.cpp       CGSilverCoatingHandler.cpp     CGTradePrepareHandler.cpp                 LGIncomingConnectionHandler.cpp \
@@ -561,7 +514,70 @@ G_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp     
 	CGCastingSkillHandler.cpp          CGLotterySelectHandler.cpp     CGQuitUnionHandler.cpp               CGSelectPortalHandler.cpp            CGStoreCloseHandler.cpp        CGUsePotionFromQuickSlotHandler.cpp \
 	CGConnectHandler.cpp               CGMakeItemHandler.cpp          CGRangerSayHandler.cpp               CGSelectQuestHandler.cpp             CGStoreOpenHandler.cpp         CGUsePowerPointHandler.cpp \
 	CGCrashReportHandler.cpp           CGMixItemHandler.cpp           CGReadyHandler.cpp                   CGSelectRankBonusHandler.cpp         CGStoreSignHandler.cpp         CGVerifyTimeHandler.cpp \
-	CGDeleteSMSAddressHandler.cpp      CGModifyGuildIntroHandler.cpp  CGRegistGuildHandler.cpp             CGSelectRegenZoneHandler.cpp         CGSubmitScoreHandler.cpp       CGVisibleHandler.cpp
+	CGDeleteSMSAddressHandler.cpp      CGModifyGuildIntroHandler.cpp  CGRegistGuildHandler.cpp             CGSelectRegenZoneHandler.cpp         CGSubmitScoreHandler.cpp       CGVisibleHandler.cpp \
+	CGConnectSetKeyHandler.cpp
+
+GC_HANDLER_SRC := GCActiveGuildListHandler.cpp               GCChangeWeatherHandler.cpp            GCModifyGuildMemberInfoHandler.cpp   GCRemoveCorpseHeadHandler.cpp         GCSkillToTileOK2Handler.cpp \
+	GCAddBatHandler.cpp                        GCCreateItemHandler.cpp               GCModifyInformationHandler.cpp       GCRemoveEffectHandler.cpp             GCSkillToTileOK3Handler.cpp \
+	GCAddBurrowingCreatureHandler.cpp          GCCreatureDiedHandler.cpp             GCModifyMoneyHandler.cpp             GCRemoveFromGearHandler.cpp           GCSkillToTileOK4Handler.cpp \
+	GCAddEffectHandler.cpp                     GCCrossCounterOK1Handler.cpp          GCModifyNicknameHandler.cpp          GCRemoveInjuriousCreatureHandler.cpp  GCSkillToTileOK5Handler.cpp \
+	GCAddEffectToTileHandler.cpp               GCCrossCounterOK2Handler.cpp          GCModyfyMoneyHandler.cpp             GCRemoveStoreItemHandler.cpp          GCSkillToTileOK6Handler.cpp \
+	GCAddGearToInventoryHandler.cpp            GCCrossCounterOK3Handler.cpp          GCMonsterKillQuestInfoHandler.cpp    GCRequestedIPHandler.cpp              GCSMSAddressListHandler.cpp \
+	GCAddGearToZoneHandler.cpp                 GCDeleteandPickUpOKHandler.cpp        GCRequestFailedHandler.cpp            GCStashListHandler.cpp \
+	GCAddHelicopterHandler.cpp                 GCDeleteEffectFromTileHandler.cpp     GCMorph1Handler.cpp                  GCRequestPowerPointResultHandler.cpp  GCStashSellHandler.cpp \
+	GCAddInjuriousCreatureHandler.cpp          GCDeleteInventoryItemHandler.cpp      GCMorphSlayer2Handler.cpp            GCRideMotorCycleFailedHandler.cpp     GCStatusCurrentHPHandler.cpp \
+	GCAddInstalledMineToZoneHandler.cpp        GCDeleteObjectHandler.cpp             GCMorphVampire2Handler.cpp           GCRideMotorCycleHandler.cpp           GCSubInventoryInfoHandler.cpp \
+	GCAddItemToItemVerifyHandler.cpp           GCDisconnectHandler.cpp               GCMoveErrorHandler.cpp               GCRideMotorCycleOKHandler.cpp         GCSweeperBonusInfoHandler.cpp \
+	GCAddMonsterCorpseHandler.cpp              GCDownSkillFailedHandler.cpp          GCMoveHandler.cpp                    GCRingHandler.cpp                     GCSystemAvailabilitiesHandler.cpp \
+	GCAddMonsterFromBurrowingHandler.cpp       GCDownSkillOKHandler.cpp              GCMoveOKHandler.cpp                  GCSayHandler.cpp                      GCSystemMessageHandler.cpp \
+	GCAddMonsterFromTransformationHandler.cpp  GCDropItemToZoneHandler.cpp           GCMPRecoveryEndHandler.cpp           GCSearchMotorcycleFailHandler.cpp     GCTakeOffHandler.cpp \
+	GCAddMonsterHandler.cpp                    GCEnterVampirePortalHandler.cpp       GCMPRecoveryStartHandler.cpp         GCSearchMotorcycleOKHandler.cpp       GCTakeOutFailHandler.cpp \
+	GCAddNewItemToZoneHandler.cpp              GCExecuteElementHandler.cpp           GCMyStoreInfoHandler.cpp             GCSelectQuestIDHandler.cpp            GCTakeOutOKHandler.cpp \
+	GCAddNicknameHandler.cpp                   GCFakeMoveHandler.cpp                 GCNicknameListHandler.cpp            GCSelectRankBonusFailedHandler.cpp    GCTeachSkillInfoHandler.cpp \
+	GCAddNPCHandler.cpp                        GCFastMoveHandler.cpp                 GCNicknameVerifyHandler.cpp          GCSelectRankBonusOKHandler.cpp        GCThrowBombOK1Handler.cpp \
+	GCAddOustersCorpseHandler.cpp              GCFlagWarStatusHandler.cpp            GCNoticeEventHandler.cpp             GCSetPositionHandler.cpp              GCThrowBombOK2Handler.cpp \
+	GCAddOustersHandler.cpp                    GCGetDamageHandler.cpp                GCNotifyWinHandler.cpp               GCShopBoughtHandler.cpp               GCThrowBombOK3Handler.cpp \
+	GCAddressListVerifyHandler.cpp             GCGetOffMotorCycleFailedHandler.cpp   GCNPCAskDynamicHandler.cpp           GCShopBuyFailHandler.cpp              GCThrowItemOK1Handler.cpp \
+	GCAddSlayerCorpseHandler.cpp               GCGetOffMotorCycleHandler.cpp         GCNPCAskHandler.cpp                  GCShopBuyOKHandler.cpp                GCThrowItemOK2Handler.cpp \
+	GCAddSlayerHandler.cpp                     GCGetOffMotorCycleOKHandler.cpp       GCNPCAskVariableHandler.cpp          GCShopListHandler.cpp                 GCThrowItemOK3Handler.cpp \
+	GCAddStoreItemHandler.cpp                  GCGlobalChatHandler.cpp               GCNPCInfoHandler.cpp                 GCShopListMysteriousHandler.cpp       GCTimeLimitItemInfoHandler.cpp \
+	GCAddVampireCorpseHandler.cpp              GCGoodsListHandler.cpp                GCNPCResponseHandler.cpp             GCShopMarketConditionHandler.cpp      GCTradeAddItemHandler.cpp \
+	GCAddVampireFromBurrowingHandler.cpp       GCGQuestInventoryHandler.cpp          GCNPCSayDynamicHandler.cpp           GCShopSellFailHandler.cpp             GCTradeErrorHandler.cpp \
+	GCAddVampireFromTransformationHandler.cpp  GCGQuestStatusInfoHandler.cpp         GCNPCSayHandler.cpp                  GCShopSellOKHandler.cpp               GCTradeFinishHandler.cpp \
+	GCAddVampireHandler.cpp                    GCGQuestStatusModifyHandler.cpp       GCOtherGuildNameHandler.cpp          GCShopSoldHandler.cpp                 GCTradeMoneyHandler.cpp \
+	GCAddVampirePortalHandler.cpp              GCGuildChatHandler.cpp                GCOtherModifyInfoHandler.cpp         GCShopVersionHandler.cpp              GCTradePrepareHandler.cpp \
+	GCAddWolfHandler.cpp                       GCGuildMemberListHandler.cpp          GCOtherStoreInfoHandler.cpp          GCShowGuildInfoHandler.cpp            GCTradeRemoveItemHandler.cpp \
+	GCAttackArmsOK1Handler.cpp                 GCGuildResponseHandler.cpp            GCPartyErrorHandler.cpp              GCShowGuildJoinHandler.cpp            GCTradeVerifyHandler.cpp \
+	GCAttackArmsOK2Handler.cpp                 GCHolyLandBonusInfoHandler.cpp        GCPartyInviteHandler.cpp             GCShowGuildMemberInfoHandler.cpp      GCUnburrowFailHandler.cpp \
+	GCAttackArmsOK3Handler.cpp                 GCHPRecoveryEndToOthersHandler.cpp    GCPartyJoinedHandler.cpp             GCShowGuildRegistHandler.cpp          GCUnburrowOKHandler.cpp \
+	GCAttackArmsOK4Handler.cpp                 GCHPRecoveryEndToSelfHandler.cpp      GCPartyLeaveHandler.cpp              GCShowMessageBoxHandler.cpp           GCUnionOfferListHandler.cpp \
+	GCAttackArmsOK5Handler.cpp                 GCHPRecoveryStartToOthersHandler.cpp  GCPartyPositionHandler.cpp           GCShowUnionInfoHandler.cpp            GCUntransformFailHandler.cpp \
+	GCAttackHandler.cpp                        GCHPRecoveryStartToSelfHandler.cpp    GCPartySayHandler.cpp                GCShowWaitGuildInfoHandler.cpp        GCUntransformOKHandler.cpp \
+	GCAttackMeleeOK1Handler.cpp                GCKickMessageHandler.cpp              GCPetInfoHandler.cpp                 GCSkillFailed1Handler.cpp             GCUpdateInfoHandler.cpp \
+	GCAttackMeleeOK2Handler.cpp                GCKnockBackHandler.cpp                GCPetStashListHandler.cpp            GCSkillFailed2Handler.cpp             GCUseBonusPointFailHandler.cpp \
+	GCAttackMeleeOK3Handler.cpp                GCKnocksTargetBackOK1Handler.cpp      GCPetStashVerifyHandler.cpp          GCSkillInfoHandler.cpp                GCUseBonusPointOKHandler.cpp \
+	GCAuthKeyHandler.cpp                       GCKnocksTargetBackOK2Handler.cpp      GCPetUseSkillHandler.cpp             GCSkillToInventoryOK1Handler.cpp      GCUseOKHandler.cpp \
+	GCBloodBibleListHandler.cpp                GCKnocksTargetBackOK4Handler.cpp      GCPhoneConnectedHandler.cpp          GCSkillToInventoryOK2Handler.cpp      GCUsePowerPointResultHandler.cpp \
+	GCBloodBibleSignInfoHandler.cpp            GCKnocksTargetBackOK5Handler.cpp      GCPhoneConnectionFailedHandler.cpp   GCSkillToObjectOK1Handler.cpp         GCVisibleFailHandler.cpp \
+	GCBloodBibleStatusHandler.cpp              GCLearnSkillFailedHandler.cpp         GCPhoneDisconnectedHandler.cpp       GCSkillToObjectOK2Handler.cpp         GCVisibleOKHandler.cpp \
+	GCBloodDrainOK1Handler.cpp                 GCLearnSkillOKHandler.cpp             GCPhoneSayHandler.cpp                GCSkillToObjectOK3Handler.cpp         GCWaitGuildListHandler.cpp \
+	GCBloodDrainOK2Handler.cpp                 GCLearnSkillReadyHandler.cpp          GCQuestStatusHandler.cpp             GCSkillToObjectOK4Handler.cpp         GCWarListHandler.cpp \
+	GCBloodDrainOK3Handler.cpp                 GCLightningHandler.cpp                GCRankBonusInfoHandler.cpp           GCSkillToObjectOK5Handler.cpp         GCWarScheduleListHandler.cpp \
+	GCCannotAddHandler.cpp                     GCMakeItemFailHandler.cpp             GCRealWearingInfoHandler.cpp         GCSkillToObjectOK6Handler.cpp         GCWhisperFailedHandler.cpp \
+	GCCannotUseHandler.cpp                     GCMakeItemOKHandler.cpp               GCReconnectHandler.cpp               GCSkillToSelfOK1Handler.cpp           GCWhisperHandler.cpp \
+	GCCastingSkillHandler.cpp                  GCMineExplosionOK1Handler.cpp         GCReconnectLoginHandler.cpp          GCSkillToSelfOK2Handler.cpp \
+	GCChangeDarkLightHandler.cpp               GCMineExplosionOK2Handler.cpp         GCRegenZoneStatusHandler.cpp         GCSkillToSelfOK3Handler.cpp \
+	GCChangeShapeHandler.cpp                   GCMiniGameScoresHandler.cpp           GCReloadOKHandler.cpp                GCSkillToTileOK1Handler.cpp	GCFriendChattingHandler.cpp
+	# GCMonsterKillQuestStatusHandler.cpp
+
+GS_HANDLER_SRC := GSAddGuildHandler.cpp        GSExpelGuildMemberHandler.cpp  GSModifyGuildIntroHandler.cpp   GSQuitGuildHandler.cpp \
+	GSAddGuildMemberHandler.cpp  GSGuildMemberLogOnHandler.cpp  GSModifyGuildMemberHandler.cpp  GSRequestGuildInfoHandler.cpp \
+	GMServerInfo.cpp GMServerInfoHandler.cpp \
+	GGCommand.cpp GGCommandHandler.cpp GGServerChat.cpp GGServerChatHandler.cpp \
+	GGGuildChat.cpp GGGuildChatHandler.cpp
+
+GL_HANDLER_SRC := GLIncomingConnectionHandler.cpp  GLIncomingConnectionErrorHandler.cpp GLIncomingConnectionOKHandler.cpp GLKickVerifyHandler.cpp
+
 
 #----------------------------------------------------------------------
 # Packet Library for LoginServer
@@ -581,7 +597,7 @@ SS_PACKET_LIB  = $(LIBDIR)/libSharedServerPackets.a
 # Packet Library for GameServer
 #----------------------------------------------------------------------
 GS_PACKET_OBJS = PacketFactoryManager.gs.o PacketIDSet.gs.o PacketValidator.gs.o
-GS_LIB_OBJS := $(CG_PACKET_SRC:.cpp=.o) $(GC_PACKET_SRC:.cpp=.o) $(SG_PACKET_SRC:.cpp=.o) $(GS_PACKET_SRC:.cpp=.o) $(LG_PACKET_SRC:.cpp=.o) $(GL_PACKET_SRC:.cpp=.o) $(G_HANDLER_SRC:.cpp=.gs.o) $(GS_PACKET_OBJS)
+GS_LIB_OBJS := $(CG_PACKET_SRC:.cpp=.o) $(GC_PACKET_SRC:.cpp=.o) $(SG_PACKET_SRC:.cpp=.o) $(GS_PACKET_SRC:.cpp=.o) $(LG_PACKET_SRC:.cpp=.o) $(GL_PACKET_SRC:.cpp=.o) $(CG_HANDLER_SRC:.cpp=.gs.o) $(GC_HANDLER_SRC:.cpp=.gs.o) $(GS_HANDLER_SRC:.cpp=.gs.o) $(GL_HANDLER_SRC:.cpp=.gs.o) $(GS_PACKET_OBJS)
 GS_PACKET_LIB  = $(LIBDIR)/libGameServerPackets.a
 
 
@@ -678,7 +694,7 @@ $(LS_PACKET_LIB) : $(LS_LIB_OBJS)
 $(SS_PACKET_LIB) : $(SS_LIB_OBJS)
 	ar rc $@ $^
 
-$(GS_PACKET_LIB) : $(GS_PACKET_OBJS)
+$(GS_PACKET_LIB) : $(GS_LIB_OBJS)
 	ar rc $@ $^
 
 $(LCC_PACKET_LIB) : $(LCC_PACKET_OBJS)

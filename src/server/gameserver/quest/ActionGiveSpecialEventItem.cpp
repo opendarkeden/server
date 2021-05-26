@@ -21,9 +21,9 @@
 
 #include "item/Key.h"
 
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCCreateItem.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

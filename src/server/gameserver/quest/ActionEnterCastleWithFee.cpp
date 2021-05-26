@@ -29,11 +29,11 @@
 
 #include <stdio.h>
 
-#include "Gpackets/GCUpdateInfo.h"
-#include "Gpackets/GCMoveOK.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCUpdateInfo.h"
+#include "GCMoveOK.h"
+#include "GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCModifyInformation.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////

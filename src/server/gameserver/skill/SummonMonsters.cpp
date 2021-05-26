@@ -9,8 +9,8 @@
 #include "ZoneUtil.h"
 #include "MasterLairManager.h"
 #include "MasterLairInfoManager.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSay.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSay.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

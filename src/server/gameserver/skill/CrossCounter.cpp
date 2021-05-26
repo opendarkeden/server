@@ -8,13 +8,13 @@
 #include "EffectCrossCounter.h"
 #include "SkillHandlerManager.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCCrossCounterOK1.h"
-#include "Gpackets/GCCrossCounterOK2.h"
-#include "Gpackets/GCCrossCounterOK3.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCCrossCounterOK1.h"
+#include "GCCrossCounterOK2.h"
+#include "GCCrossCounterOK3.h"
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러

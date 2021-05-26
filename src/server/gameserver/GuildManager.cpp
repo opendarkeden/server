@@ -26,8 +26,8 @@
 	#include "GameServerManager.h"
 #endif
 
-#include "Gpackets/GCWaitGuildList.h"
-#include "Gpackets/GCActiveGuildList.h"
+#include "GCWaitGuildList.h"
+#include "GCActiveGuildList.h"
 
 ////////////////////////////////////////////////////////////////////////
 // global varible initialization

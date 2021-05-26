@@ -20,9 +20,9 @@
 #include <list>
 
 #include "PacketUtil.h"
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCCreateItem.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCNPCResponse.h"
 
 #include "PriceManager.h"
 

@@ -20,7 +20,7 @@
 #include "DB.h"
 #include "Timeval.h"
 
-#include "Gpackets/GSRequestGuildInfo.h"
+#include "GSRequestGuildInfo.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor

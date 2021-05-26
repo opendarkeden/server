@@ -2,8 +2,8 @@
 #include "PlayerCreature.h"
 #include "Ousters.h"
 #include "skill/SkillUtil.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCModifyInformation.h"
+#include "GCSystemMessage.h"
 #include "Player.h"
 
 GQuestElement::ResultType GQuestGiveOustersExpElement::checkCondition( PlayerCreature* pPC ) const

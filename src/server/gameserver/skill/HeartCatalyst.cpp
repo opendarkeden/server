@@ -8,10 +8,10 @@
 #include "EffectHeartCatalyst.h"
 #include "ItemUtil.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프

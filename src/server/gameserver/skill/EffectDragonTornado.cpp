@@ -12,10 +12,10 @@
 #include "SkillUtil.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCSkillToObjectOK4.h"
-#include "Gpackets/GCSkillToObjectOK6.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCAddEffectToTile.h"
+#include "GCSkillToObjectOK4.h"
+#include "GCSkillToObjectOK6.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

@@ -45,11 +45,11 @@
 
 #include <fstream>
 
-#include "Gpackets/GCCreatureDied.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCSay.h"
+#include "GCCreatureDied.h"
+#include "GCAddEffect.h"
+#include "GCAddEffectToTile.h"
+#include "GCDeleteObject.h"
+#include "GCSay.h"
 
 #include "Profile.h"
 #include "GDRLairManager.h"

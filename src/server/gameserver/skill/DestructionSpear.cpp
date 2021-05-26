@@ -7,8 +7,8 @@
 #include "DestructionSpear.h"
 #include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
 #include "Player.h"
 #include "EffectDestructionSpear.h"
 

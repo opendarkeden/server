@@ -9,9 +9,7 @@
 #ifdef __GAME_SERVER__
 	#include "GamePlayer.h"
 	#include "Zone.h"
-	#include "Slayer.h"
-	#include "Vampire.h"
-	#include "Ousters.h"
+	#include "PlayerCreature.h"
 	#include "Inventory.h"
 	#include "Item.h"
 	#include "Relic.h"
@@ -23,7 +21,7 @@
 	#include "ItemFactoryManager.h"
 	#include "CreatureUtil.h"
 	#include "ZoneUtil.h"
-	//#include "LogClient.h"
+	#include "LogClient.h"
 	#include "CombatInfoManager.h"
 	#include "ZoneGroupManager.h"
 	#include "PacketUtil.h"
@@ -33,17 +31,16 @@
 	#include "Belt.h"
 	#include "Sweeper.h"
 	#include "OustersArmsband.h"
-	#include "BalloonHeadbandUtil.h"
 	#include "VariableManager.h"
 
-	#include "GCDeleteandPickUpOK.h"
-	#include "GCDeleteObject.h"
-	#include "GCCannotAdd.h"
-	#include "GCSystemMessage.h"
-	#include "GCAddEffect.h"
-	#include "GCCreateItem.h"
-	#include "GCNoticeEvent.h"
-	#include "GCDeleteInventoryItem.h"
+	#include "Gpackets/GCDeleteandPickUpOK.h"
+	#include "Gpackets/GCDeleteObject.h"
+	#include "Gpackets/GCCannotAdd.h"
+	#include "Gpackets/GCSystemMessage.h"
+	#include "Gpackets/GCAddEffect.h"
+	#include "Gpackets/GCCreateItem.h"
+	#include "Gpackets/GCNoticeEvent.h"
+	#include "Gpackets/GCDeleteInventoryItem.h"
 
 	#include "EffectHasSlayerRelic.h"
 	#include "EffectHasVampireRelic.h"
@@ -57,7 +54,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Player* pPlayer)
-	
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG	
@@ -115,7 +111,7 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 
 		// 우선권이 붙어있는 아이템일 경우에는 주인 또는 주인파티가 아니라면 주을 수 없다.
 		// 렐릭일 경우에는 우선순위 이펙트를 삭제해준다.
-		if (isRelicItem(pItem )
+		if ( isRelicItem( pItem )
 			&& pItem->isFlag(Effect::EFFECT_CLASS_PRECEDENCE))
 		{
 			EffectManager& effectManager = pItem->getEffectManager();
@@ -189,9 +185,18 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 		{
 			if (canStack(pItem, pPrevItem))
 			{
+				// add by sonic 2006.10.30  렝岺唐珂쇌掘齡膠틔렴瞳寧폅
+				if(pItem->isTimeLimitItem() || pPrevItem->isTimeLimitItem())
+				{
+					//cout << "cannot add" << endl;
+					GCCannotAdd _GCCannotAdd;
+					_GCCannotAdd.setObjectID(pPacket->getObjectID());
+					pPlayer->sendPacket(&_GCCannotAdd);
+					return;
+				}
 				int MaxStack = ItemMaxStack[pItem->getItemClass()];
 
-				if(pt.x == InvenX && pt.y == InvenY ) {
+				if( pt.x == InvenX && pt.y == InvenY ) {
 					if (pItem->getNum() + pPrevItem->getNum() > MaxStack) 
 					{
 						ItemNum_t CurrentNum = pPrevItem->getNum();
@@ -212,7 +217,7 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 						//pPrevItem->save(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 						// item저장 최적화. by sigi. 2002.5.13
 						char pField[80];
-						sprintf(pField, "OwnerID='%s', Num=%d, Storage=%d, StorageID=0, X=%d, Y=%d", pPC->getName().c_str(), MaxStack, STORAGE_INVENTORY, InvenX, InvenY);
+						sprintf(pField, "OwnerID='%s', Num=%d, Storage=%d, X=%d, Y=%d", pPC->getName().c_str(), MaxStack, STORAGE_INVENTORY, InvenX, InvenY);
 						pPrevItem->tinysave(pField);
 
 						//pItem->save(pPC->getName(), STORAGE_EXTRASLOT, 0, 0, 0);
@@ -231,7 +236,7 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 						//pPrevItem->save(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 						// item저장 최적화. by sigi. 2002.5.13
 						char pField[80];
-						sprintf(pField, "OwnerID='%s', Num=%d, Storage=%d, StorageID=0, X=%d, Y=%d", pPC->getName().c_str(), pPrevItem->getNum(), STORAGE_INVENTORY, InvenX, InvenY);
+						sprintf(pField, "OwnerID='%s', Num=%d, Storage=%d, X=%d, Y=%d", pPC->getName().c_str(), pPrevItem->getNum(), STORAGE_INVENTORY, InvenX, InvenY);
 						pPrevItem->tinysave(pField);
 
 						pItem->destroy();
@@ -239,42 +244,42 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 						Success = true;
 					}
 
-					if (g_pVariableManager->getVariable(NETMARBLE_CARD_EVENT) != 0 && pPrevItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pPrevItem->getItemType() == 2 && pPrevItem->getNum() == 99 )
+					if ( g_pVariableManager->getVariable(NETMARBLE_CARD_EVENT) != 0 && pPrevItem->getItemClass() == Item::ITEM_CLASS_MOON_CARD && pPrevItem->getItemType() == 2 && pPrevItem->getNum() == 99 )
 					{
 						GCNoticeEvent gcNE;
-						gcNE.setCode(NOTICE_EVENT_NETMARBLE_CARD_FULL);
-						pGamePlayer->sendPacket(&gcNE);
-						//cout << "gcNE sent" << endl;
+						gcNE.setCode( NOTICE_EVENT_NETMARBLE_CARD_FULL );
+						pGamePlayer->sendPacket( &gcNE );
+						cout << "gcNE sent" << endl;
 					}
 
-					if (pPrevItem->getItemClass() == Item::ITEM_CLASS_LUCKY_BAG
+					if ( pPrevItem->getItemClass() == Item::ITEM_CLASS_LUCKY_BAG
 							&& pPrevItem->getItemType() == 3
 							&& pPrevItem->getNum() == 50 )
 					{
 						GCDeleteInventoryItem gcDI;
-						gcDI.setObjectID(pPrevItem->getObjectID());
-						pGamePlayer->sendPacket(&gcDI);
+						gcDI.setObjectID( pPrevItem->getObjectID() );
+						pGamePlayer->sendPacket( &gcDI );
 
-						pInventory->deleteItem(pPrevItem->getObjectID());
+						pInventory->deleteItem( pPrevItem->getObjectID() );
 						pPrevItem->destroy();
-						SAFE_DELETE(pPrevItem);
+						SAFE_DELETE( pPrevItem );
 						
-						Item* pNewItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_EVENT_ITEM, 28, list<OptionType_t>());
-						pZone->registerObject(pNewItem);
+						Item* pNewItem = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_EVENT_ITEM, 28, list<OptionType_t>() );
+						pZone->registerObject( pNewItem );
 
-						if (!pInventory->addItem(pt.x, pt.y, pNewItem) )
+						if ( !pInventory->addItem(pt.x, pt.y, pNewItem) )
 						{
-							//cout << "-_-;" << endl;
+							cout << "-_-;" << endl;
 							return;
 						}
 
-						pNewItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
+						pNewItem->create( pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y );
 
-						if (pNewItem != NULL )
+						if ( pNewItem != NULL )
 						{
 							GCCreateItem gcCI;
-							makeGCCreateItem(&gcCI, pNewItem, pt.x, pt.y);
-							pGamePlayer->sendPacket(&gcCI);
+							makeGCCreateItem( &gcCI, pNewItem, pt.x, pt.y );
+							pGamePlayer->sendPacket( &gcCI );
 						}
 					}
 				} 
@@ -286,46 +291,46 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 			//pItem->save(pPC->getName(), STORAGE_INVENTORY, 0, InvenX, InvenY);
 			// item저장 최적화. by sigi. 2002.5.13
 			char pField[80];
-			sprintf(pField, "OwnerID='%s', Storage=%d, StorageID=0, X=%d, Y=%d", pPC->getName().c_str(), STORAGE_INVENTORY, InvenX, InvenY);
+			sprintf(pField, "OwnerID='%s', Storage=%d, X=%d, Y=%d", pPC->getName().c_str(), STORAGE_INVENTORY, InvenX, InvenY);
 			pItem->tinysave(pField);
 
 			// 벨트 안의 아이템들도 모두 소유권이 넘어가야 한다. 2003.3.22 by Sequoia
-			if (pItem->getItemClass() == Item::ITEM_CLASS_BELT )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_BELT )
 			{
-				sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
+				sprintf( pField, "OwnerID='%s'", pPC->getName().c_str() );
 
-                Belt* pBelt = dynamic_cast<Belt*>(pItem);
-                Assert(pBelt != NULL);
+                Belt* pBelt = dynamic_cast<Belt*>( pItem );
+                Assert( pBelt != NULL );
 
                 Inventory* pBeltInventory = pBelt->getInventory();
                 PocketNum_t num = pBelt->getPocketCount();
 
-                for (SlotID_t count = 0 ; count < num ; ++count )
+                for ( SlotID_t count = 0 ; count < num ; ++count )
                 {
-                    Item* pBeltItem = pBeltInventory->getItem(count, 0);
-                    if (pBeltItem != NULL )
+                    Item* pBeltItem = pBeltInventory->getItem( count, 0 );
+                    if ( pBeltItem != NULL )
                     {
-                        pBeltItem->tinysave(pField);
+                        pBeltItem->tinysave( pField );
                     }
                 }
 			}
 			// 암스밴드 안의 아이템들도 모두 소유권이 넘어가야 한다. 2003.3.22 by Sequoia
-			if (pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_OUSTERS_ARMSBAND )
 			{
-				sprintf(pField, "OwnerID='%s'", pPC->getName().c_str());
+				sprintf( pField, "OwnerID='%s'", pPC->getName().c_str() );
 
-                OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>(pItem);
-                Assert(pOustersArmsband != NULL);
+                OustersArmsband* pOustersArmsband = dynamic_cast<OustersArmsband*>( pItem );
+                Assert( pOustersArmsband != NULL );
 
                 Inventory* pOustersArmsbandInventory = pOustersArmsband->getInventory();
                 PocketNum_t num = pOustersArmsband->getPocketCount();
 
-                for (SlotID_t count = 0 ; count < num ; ++count )
+                for ( SlotID_t count = 0 ; count < num ; ++count )
                 {
-                    Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem(count, 0);
-                    if (pOustersArmsbandItem != NULL )
+                    Item* pOustersArmsbandItem = pOustersArmsbandInventory->getItem( count, 0 );
+                    if ( pOustersArmsbandItem != NULL )
                     {
-                        pOustersArmsbandItem->tinysave(pField);
+                        pOustersArmsbandItem->tinysave( pField );
                     }
                 }
 			}
@@ -348,52 +353,52 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 //			pZone->broadcastPacket(ZoneX , ZoneY, &_GCDeleteObject , pPC);
 			pZone->broadcastPacket(ZoneX , ZoneY, &_GCDeleteObject);
 
-			//log(LOG_PICKUP_ITEM, pPC->getName(), "", pItem->toString());
+			log(LOG_PICKUP_ITEM, pPC->getName(), "", pItem->toString());
 
-			//pItem->whenPCTake(pPC);
+			pItem->whenPCTake( pPC );
 
 			// Relic 소유자 체크하기
-			if (isRelicItem(itemclass ))
+			if (isRelicItem( itemclass ))
 			{
-				addRelicEffect(pPC, pItem);
+				addRelicEffect( pPC, pItem );
 
-				deleteEffectRelicPosition(pItem);
+				deleteEffectRelicPosition( pItem );
 			}
 
 			// Flag인 경우엔 Flag 를 붙여준다.
-			if (pItem->isFlagItem() )
+			if ( pItem->isFlagItem() )
 			{
-				addSimpleCreatureEffect(pPC, Effect::EFFECT_CLASS_HAS_FLAG);
+				addSimpleCreatureEffect( pPC, Effect::EFFECT_CLASS_HAS_FLAG );
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_SWEEPER )
 			{
-				EffectHasSweeper* pEffect = new EffectHasSweeper(pPC);
-				pEffect->setPart(pItem->getItemType());
+				EffectHasSweeper* pEffect = new EffectHasSweeper( pPC );
+				pEffect->setPart( pItem->getItemType() );
 
-				pPC->setFlag(pEffect->getEffectClass());
-				pPC->addEffect(pEffect);
-			//	addSimpleCreatureEffect(pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_HAS_SWEEPER + pItem->getItemType()));
+				pPC->setFlag( pEffect->getEffectClass() );
+				pPC->addEffect( pEffect );
+			//	addSimpleCreatureEffect( pPC, (Effect::EffectClass)(Effect::EFFECT_CLASS_HAS_SWEEPER + pItem->getItemType()) );
 
 				GCAddEffect gcAddEffect;
-				gcAddEffect.setObjectID(pPC->getObjectID());
-				gcAddEffect.setEffectID(pEffect->getSendEffectClass());
+				gcAddEffect.setObjectID( pPC->getObjectID() );
+				gcAddEffect.setEffectID( pEffect->getSendEffectClass() );
 
-				pZone->broadcastPacket(pPC->getX(), pPC->getY(), &gcAddEffect);
+				pZone->broadcastPacket( pPC->getX(), pPC->getY(), &gcAddEffect );
 
 				// 주웠으면 존에 시스템 메세지 뿌려준다
 				char race[15];
-				if (pCreature->isSlayer() )
+				if ( pCreature->isSlayer() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_SLAYER ));
+					sprintf( race, g_pStringPool->c_str( STRID_SLAYER ) );
 				}
-				else if (pCreature->isVampire() )
+				else if ( pCreature->isVampire() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_VAMPIRE ));
+					sprintf( race, g_pStringPool->c_str( STRID_VAMPIRE ) );
 				}
-				else if (pCreature->isOusters() )
+				else if ( pCreature->isOusters() )
 				{
-					sprintf(race, g_pStringPool->c_str(STRID_OUSTERS ));
+					sprintf( race, g_pStringPool->c_str( STRID_OUSTERS ) );
 				}
 				else
 				{
@@ -403,85 +408,49 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 				const SweeperInfo* pSweeperInfo = dynamic_cast<SweeperInfo*>(g_pSweeperInfoManager->getItemInfo(pItem->getItemType()));
 
 				char msg[100];
-				sprintf(msg , g_pStringPool->c_str(STRID_PICK_UP_SWEEPER ) ,
+				sprintf( msg , g_pStringPool->c_str( STRID_PICK_UP_SWEEPER ) ,
 									pSweeperInfo->getName().c_str(),
 									pCreature->getName().c_str(),
 									race
 									);
 				GCSystemMessage gcSystemMessage;
-				gcSystemMessage.setMessage(msg);
-				pZone->broadcastPacket(&gcSystemMessage);
+				gcSystemMessage.setMessage( msg );
+				pZone->broadcastPacket( &gcSystemMessage );
 			}
 
-			if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 30 )
+			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM && pItem->getItemType() == 30 )
 			{
 				unsigned long timeLimit = 3600 * 24;
 
-				pPC->addTimeLimitItem(pItem, timeLimit);
+				pPC->addTimeLimitItem( pItem, timeLimit );
 				pPC->sendTimeLimitItemInfo();
 				pPC->setBaseLuck(10);
 				pPC->initAllStatAndSend();
-			}
-			else if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_ITEM )
-			{
-				ItemType_t itemType = pItem->getItemType();
-				if (itemType >= 32 && itemType <= 36 )
-				{
-					// 시간제한 30분
-					unsigned long timeLimit = 30 * 60;
-
-					pPC->addTimeLimitItem(pItem, timeLimit);
-					pPC->sendTimeLimitItemInfo();
-					applyBalloonHeadbandDefaultOption(pPC, itemType);
-					pPC->initAllStatAndSend();
-
-					if (pPC->isSlayer() )
-					{
-						Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
-						Assert(pSlayer != NULL);
-
-						pSlayer->sendRealWearingInfo();
-					}
-					else if (pPC->isVampire() )
-					{
-						Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
-						Assert(pVampire != NULL);
-
-						pVampire->sendRealWearingInfo();
-					}
-					else if (pPC->isOusters() )
-					{
-						Ousters* pOusters = dynamic_cast<Ousters*>(pPC);
-						Assert(pOusters != NULL);
-
-						pOusters->sendRealWearingInfo();
-					}
-				}
 			}
 
 /*			else if (itemclass == Item::ITEM_CLASS_EVENT_TREE)
 			{
 				// 크리스마스 트리 조각이면
-				if (itemtype <= 11 )
+				if ( itemtype <= 11 )
 				{
-					TPOINT pt = checkEventTree(pPC, InvenX, InvenY);
+					TPOINT pt = checkEventTree( pPC, InvenX, InvenY );
 					// 크리스마스 트리 조각이 맞춰지는지 본다.
-					if (pt.x != -1 && pt.y != -1 )
+					if ( pt.x != -1 && pt.y != -1 )
 					{
 						// 맞춰진 트리 조각을 지운다.
-						deleteInventoryItem(pInventory, pt.x, pt.y, pt.x + 2, pt.y + 3);
+						deleteInventoryItem( pInventory, pt.x, pt.y, pt.x + 2, pt.y + 3 );
 						pItem = NULL;	// ㅋㅋ
 
 						// 트리를 생성한다.
 						list<OptionType_t> optionType;
-						Item* pTreeItem = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_EVENT_TREE, 12, optionType);
-						pZone->getObjectRegistry().registerObject(pTreeItem);
-						pInventory->addItem(pt.x, pt.y, pTreeItem);
-						pTreeItem->create(pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y);
+						Item* pTreeItem = g_pItemFactoryManager->createItem( Item::ITEM_CLASS_EVENT_TREE, 12, optionType );
+						pZone->getObjectRegistry().registerObject( pTreeItem );
+						pInventory->addItem( pt.x, pt.y, pTreeItem );
+						pTreeItem->create( pPC->getName(), STORAGE_INVENTORY, 0, pt.x, pt.y );
 
 						// 클라이언트에 트리가 만들어졌다는 걸 알린다.
 						GCCreateItem gcCreateItem;
-						makeGCCreateItem(&gcCreateItem, pTreeItem, pt.x, pt.y);
+						makeGCCreateItem( &gcCreateItem, pTreeItem, pt.x, pt.y );
 						pGamePlayer->sendPacket(&gcCreateItem);
 					}
 				}
@@ -498,11 +467,11 @@ void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Playe
 			goto ERROR;
 		}
 
-		if (pItem != NULL && pItem->isTraceItem() )
+		if ( pItem != NULL && pItem->isTraceItem() )
 		{
 			char zoneName[15];
 			sprintf(zoneName, "%4d%3d%3d", pZone->getZoneID(), ZoneX, ZoneY);
-			remainTraceLog(pItem, zoneName, pCreature->getName(), ITEM_LOG_MOVE, DETAIL_PICKUP);
+			remainTraceLog( pItem, zoneName, pCreature->getName(), ITEM_LOG_MOVE, DETAIL_PICKUP);
 		}
 	} 
 	catch (Throwable & t) 
@@ -528,7 +497,7 @@ ERROR:
 //////////////////////////////////////////////////////////////////////////////
 /*
 void CGAddZoneToInventoryHandler::execute (CGAddZoneToInventory* pPacket , Player* pPlayer)
-	
+	throw (ProtocolException, Error)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 	__BEGIN_DEBUG	

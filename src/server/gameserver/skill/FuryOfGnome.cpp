@@ -7,9 +7,9 @@
 #include "FuryOfGnome.h"
 #include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCAddEffectToTile.h"
 
 #include "Player.h"
 #include "EffectFuryOfGnome.h"

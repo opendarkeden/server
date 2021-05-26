@@ -15,7 +15,7 @@
 
 #include "skill/EffectVampirePortal.h"
 
-#include "Gpackets/GCAddVampirePortal.h"
+#include "GCAddVampirePortal.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

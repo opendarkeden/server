@@ -2,7 +2,7 @@
 #define __MONSTER_KILL_QUEST_STATUS_H__
 
 #include "QuestStatus.h"
-#include "Gpackets/GCQuestStatus.h"
+#include "GCQuestStatus.h"
 
 class MonsterKillQuestStatus : public QuestStatus
 {

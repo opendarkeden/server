@@ -2,7 +2,7 @@
 #include "PlayerCreature.h"
 #include "GQuestInventory.h"
 #include "Player.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "CreatureUtil.h"
 #include "skill/SkillUtil.h"
 #include "Slayer.h"

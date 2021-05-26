@@ -11,9 +11,9 @@
 
 #include "item/VampirePortalItem.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToInventoryOK1.h"
-#include "Gpackets/GCSkillToSelfOK3.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToInventoryOK1.h"
+#include "GCSkillToSelfOK3.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 인벤토리 핸들러

@@ -14,11 +14,11 @@
 #include "EffectBloodDrain.h"
 #include "EffectRestore.h"
 
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCMorph1.h"
-#include "Gpackets/GCMorphSlayer2.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCMorph1.h"
+#include "GCMorphSlayer2.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러

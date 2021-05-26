@@ -19,7 +19,7 @@
 
 #include "CorpseItemPosition.h"
 #include "RelicUtil.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 #include "ctf/FlagManager.h"
 #include <list>
 

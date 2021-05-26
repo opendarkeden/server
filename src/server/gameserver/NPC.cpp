@@ -12,7 +12,7 @@
 #include "mission/RewardClassInfoManager.h"
 #include "PlayerCreature.h"
 #include "couple/PartnerWaitingManager.h"
-#include "Gpackets/GCNPCAskDynamic.h"
+#include "GCNPCAskDynamic.h"
 #include "CastleInfoManager.h"
 
 //////////////////////////////////////////////////////////////////////////////

@@ -11,10 +11,10 @@
 #include "Zone.h"
 #include "Tile.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프

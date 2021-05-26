@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CriticalGround.h"
-//#include "Gpackets/GCSkillToSelfOK1.h"
-//#include "Gpackets/GCSkillToSelfOK2.h"
+//#include "GCSkillToSelfOK1.h"
+//#include "GCSkillToSelfOK2.h"
 #include "SimpleTileMeleeSkill.h"
 
 

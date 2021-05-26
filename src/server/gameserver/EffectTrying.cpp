@@ -1,8 +1,8 @@
 #include "EffectTrying.h"
 #include "Creature.h"
 #include "Zone.h"
-#include "Gpackets/GCDeleteEffectFromTile.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCDeleteEffectFromTile.h"
+#include "GCRemoveEffect.h"
 
 /*EffectTrying::EffectTrying(Zone* pZone, ZoneCoord_t X, ZoneCoord_t Y) 
 {

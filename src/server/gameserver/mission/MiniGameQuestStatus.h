@@ -2,7 +2,7 @@
 #define __MINI_GAME_QUEST_STATUS_H__
 
 #include "QuestStatus.h"
-#include "Gpackets/GCQuestStatus.h"
+#include "GCQuestStatus.h"
 
 class MiniGameQuestStatus : public QuestStatus
 {

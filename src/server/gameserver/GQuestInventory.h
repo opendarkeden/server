@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include "Gpackets/GCGQuestInventory.h"
+#include "GCGQuestInventory.h"
 
 #include <string>
 

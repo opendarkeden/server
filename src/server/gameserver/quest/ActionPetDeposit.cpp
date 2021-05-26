@@ -11,8 +11,8 @@
 #include "GamePlayer.h"
 
 #include "PacketUtil.h"
-#include "Gpackets/GCPetStashList.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCPetStashList.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

@@ -22,7 +22,7 @@
 #include "PaySystem.h"
 #include "billing/BillingPlayerInfo.h"
 #include "chinabilling/CBillingPlayerInfo.h"
-#include "Gpackets/GCReconnectLogin.h"
+#include "GCReconnectLogin.h"
 #include <bitset>
 
 // #include "gameguard/CSAuth.h"

@@ -63,17 +63,17 @@
 #include "skill/EffectProtectionFromAcid.h"
 #include "EffectGrandMasterSlayer.h"
 
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCChangeShape.h"
-#include "Gpackets/GCTakeOff.h"
-#include "Gpackets/GCSkillInfo.h"
-#include "Gpackets/GCRealWearingInfo.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCTradeFinish.h"
-#include "Gpackets/GCOtherModifyInfo.h"
-#include "Gpackets/GCPetStashList.h"
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCChangeShape.h"
+#include "GCTakeOff.h"
+#include "GCSkillInfo.h"
+#include "GCRealWearingInfo.h"
+#include "GCStatusCurrentHP.h"
+#include "GCTradeFinish.h"
+#include "GCOtherModifyInfo.h"
+#include "GCPetStashList.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>

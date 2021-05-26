@@ -7,7 +7,7 @@
 #include "EventSystemMessage.h"
 #include "GamePlayer.h"
 	
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

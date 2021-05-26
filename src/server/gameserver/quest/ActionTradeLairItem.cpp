@@ -38,10 +38,10 @@
 #include "ItemGradeManager.h"
 #include <list>
 
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
+#include "GCCreateItem.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCDeleteInventoryItem.h"
 
 #include "SystemAvailabilitiesManager.h"
 

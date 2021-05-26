@@ -8,7 +8,7 @@
 #include "SimpleMeleeSkill.h"
 #include "SimpleTileMissileSkill.h"
 #include "ZoneUtil.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 #include <list>
 
 void SkyFire::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot* pSkillSlot, CEffectID_t CEffectID) 

@@ -16,10 +16,10 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCNPCAsk.h"
-#include "Gpackets/GCCreateItem.h"
+#include "GCSystemMessage.h"
+#include "GCNPCResponse.h"
+#include "GCNPCAsk.h"
+#include "GCCreateItem.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

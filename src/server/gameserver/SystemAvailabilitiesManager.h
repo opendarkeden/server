@@ -6,7 +6,7 @@
 #include "Types.h"
 #include "Exception.h"
 
-#include "Gpackets/GCSystemAvailabilities.h"
+#include "GCSystemAvailabilities.h"
 
 #if defined(__CHINA_SERVER__) || defined(__THAILAND_SERVER__)
 #define SYSTEM_ASSERT(KIND) SystemAvailabilitiesManager::AssertAvailable(SystemAvailabilitiesManager::KIND,\

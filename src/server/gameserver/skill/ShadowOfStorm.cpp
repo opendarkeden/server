@@ -8,13 +8,13 @@
 #include "EffectShadowOfStorm.h"
 #include "RankBonus.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK3.h"
-#include "Gpackets/GCSkillToTileOK4.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSkillToTileOK6.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK3.h"
+#include "GCSkillToTileOK4.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSkillToTileOK6.h"
+#include "GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터즈 오브젝트 핸들러

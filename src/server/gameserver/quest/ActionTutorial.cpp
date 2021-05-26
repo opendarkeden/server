@@ -6,7 +6,7 @@
 
 #include "ActionTutorial.h"
 #include "Creature.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

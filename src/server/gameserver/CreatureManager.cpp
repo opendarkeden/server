@@ -22,7 +22,7 @@
 #include "LevelWarZoneInfoManager.h"
 #include "SweeperBonusManager.h"
 
-#include "Gpackets/GCCreatureDied.h"
+#include "GCCreatureDied.h"
 
 class isSameNAME 
 {

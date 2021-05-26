@@ -10,7 +10,7 @@
 #include "Zone.h"
 #include "PlayerCreature.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 PartnerWaitInfo::PartnerWaitInfo( PlayerCreature* pWaitingPC, string RequestedPCName )
 {

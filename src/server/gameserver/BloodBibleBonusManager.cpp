@@ -8,7 +8,7 @@
 #include "BloodBibleBonusManager.h"
 #include "DB.h"
 
-#include "Gpackets/GCHolyLandBonusInfo.h"
+#include "GCHolyLandBonusInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class BloodBibleBonusManager member methods

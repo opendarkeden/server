@@ -9,7 +9,7 @@
 #include "NPC.h"
 #include "GamePlayer.h"
 
-#include "Gpackets/GCNoticeEvent.h"
+#include "GCNoticeEvent.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

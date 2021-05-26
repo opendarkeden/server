@@ -11,7 +11,7 @@
 #include "Vampire.h"
 #include "Ousters.h"
 
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 
 EventSave::EventSave (GamePlayer* pGamePlayer) 
 	

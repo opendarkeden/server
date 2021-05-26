@@ -16,11 +16,11 @@
 #include "item/CoupleRingBase.h"
 #include "ItemFactoryManager.h"
 
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCRemoveFromGear.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCCreateItem.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCRemoveFromGear.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 #include <stdio.h>
 

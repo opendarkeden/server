@@ -10,8 +10,8 @@
 #include "GamePlayer.h"
 #include "ZoneInfoManager.h"
 #include "PKZoneInfoManager.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
 #include "GDRLairManager.h"
 #include "war/WarSystem.h"
 

@@ -14,8 +14,8 @@
 #include "Player.h"
 #include "AlignmentManager.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCOtherModifyInfo.h"
+#include "GCModifyInformation.h"
+#include "GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // class EffectAlignmentRecovery member methods

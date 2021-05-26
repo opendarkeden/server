@@ -15,7 +15,7 @@
 #include <unordered_map>
 #include "Zone.h"
 #include "GameTime.h"
-#include "Gpackets/GMServerInfo.h"
+#include "GMServerInfo.h"
 
 // forward declaration
 class ZoneThread;

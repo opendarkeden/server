@@ -10,7 +10,7 @@
 #include "Zone.h"
 #include "EffectDarkness.h"
 
-#include "Gpackets/GCDeleteEffectFromTile.h"
+#include "GCDeleteEffectFromTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // »ý¼ºÀÚ

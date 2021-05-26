@@ -4,8 +4,8 @@
 #include "Player.h"
 #include "SkillUtil.h"
 #include "Zone.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
 
 EffectPoisonMesh::EffectPoisonMesh(Creature* pCreature) 
 {

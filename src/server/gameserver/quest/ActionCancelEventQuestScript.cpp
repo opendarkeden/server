@@ -13,7 +13,7 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Gpackets/GCNPCAsk.h"
+#include "GCNPCAsk.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

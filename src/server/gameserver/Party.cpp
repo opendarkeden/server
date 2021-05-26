@@ -32,14 +32,14 @@
 
 #include "EffectCanEnterGDRLair.h"
 
-#include "Gpackets/GCPartyLeave.h"
-#include "Gpackets/GCPartyInvite.h"
-#include "Gpackets/GCPartyJoined.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCOtherModifyInfo.h"
-#include "Gpackets/GCOtherGuildName.h"
+#include "GCPartyLeave.h"
+#include "GCPartyInvite.h"
+#include "GCPartyJoined.h"
+#include "GCAddEffect.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCOtherModifyInfo.h"
+#include "GCOtherGuildName.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // global varible 

@@ -1,6 +1,6 @@
 #include "GQuestStatus.h"
 #include "GQuestInfo.h"
-#include "Gpackets/GCGQuestStatusModify.h"
+#include "GCGQuestStatusModify.h"
 #include "PlayerCreature.h"
 #include "Player.h"
 #include "DB.h"

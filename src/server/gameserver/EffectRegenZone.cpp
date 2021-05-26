@@ -2,7 +2,7 @@
 #include "MonsterCorpse.h"
 #include "Zone.h"
 
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectRegenZone::EffectRegenZone( MonsterCorpse* pTower )
 {

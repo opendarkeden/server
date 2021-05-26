@@ -11,8 +11,8 @@
 
 #include "PacketUtil.h"
 
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCAddNPC.h"
+#include "GCDeleteObject.h"
+#include "GCAddNPC.h"
 
 static const POINT d [] = {
     POINT(-1, 0),   // 0 == LEFT

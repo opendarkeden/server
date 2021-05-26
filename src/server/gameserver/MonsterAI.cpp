@@ -23,7 +23,7 @@
 #include "StringPool.h"
 
 #include "Profile.h"
-#include "Gpackets/GCSay.h"
+#include "GCSay.h"
 
 #define ABS(X) (((X)>=0)?X:-X)
 

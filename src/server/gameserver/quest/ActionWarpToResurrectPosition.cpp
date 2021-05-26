@@ -14,7 +14,7 @@
 
 #include "couple/PartnerWaitingManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

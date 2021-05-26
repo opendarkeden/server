@@ -11,8 +11,8 @@
 #include "Ousters.h"
 #include "Monster.h"
 #include "Player.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveInjuriousCreature.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveInjuriousCreature.h"
 #include "DB.h"
 
 EffectEnemyErase::EffectEnemyErase(Creature* pCreature)

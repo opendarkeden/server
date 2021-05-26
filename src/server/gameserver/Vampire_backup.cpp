@@ -39,13 +39,13 @@
 #include "skill/EffectTransformToWolf.h"
 #include "skill/EffectTransformToBat.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCChangeShape.h"
-#include "Gpackets/GCSkillInfo.h"
-#include "Gpackets/GCRealWearingInfo.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCTakeOff.h"
-#include "Gpackets/GCOtherModifyInfo.h"
+#include "GCModifyInformation.h"
+#include "GCChangeShape.h"
+#include "GCSkillInfo.h"
+#include "GCRealWearingInfo.h"
+#include "GCStatusCurrentHP.h"
+#include "GCTakeOff.h"
+#include "GCOtherModifyInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

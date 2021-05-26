@@ -22,10 +22,10 @@
 #include "Vampire.h"
 #include "Ousters.h"
 
-#include "Gpackets/GCNPCAskVariable.h"
+#include "GCNPCAskVariable.h"
 #include "StringPool.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCSystemMessage.h"
+#include "GCNPCResponse.h"
 
 #include "WarScheduler.h"
 #include "WarSchedule.h"

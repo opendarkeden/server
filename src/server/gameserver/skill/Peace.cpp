@@ -6,13 +6,13 @@
 
 #include "Peace.h"
 #include "EffectPeace.h"
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK3.h"
-#include "Gpackets/GCSkillToTileOK4.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK3.h"
+#include "GCSkillToTileOK4.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
 
 
 //////////////////////////////////////////////////////////////////////////////

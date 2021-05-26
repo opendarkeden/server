@@ -7,7 +7,7 @@
 #include "ConditionSiegeAttackerSide.h"
 #include "GDRLairManager.h"
 #include "Effect.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "Player.h"
 
 ////////////////////////////////////////////////////////////////////////////////

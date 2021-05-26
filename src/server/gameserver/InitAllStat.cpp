@@ -81,11 +81,11 @@
 #include "skill/EffectWhitsuntide.h"
 #include "skill/EffectIntimateGrail.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCChangeShape.h"
-#include "Gpackets/GCBloodBibleSignInfo.h"
+#include "GCModifyInformation.h"
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
+#include "GCChangeShape.h"
+#include "GCBloodBibleSignInfo.h"
 #include "BloodBibleSignInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////

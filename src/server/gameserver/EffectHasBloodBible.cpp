@@ -18,12 +18,12 @@
 #include "HolyLandManager.h"
 #include "ZoneGroupManager.h"
 #include "ShrineInfoManager.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCBloodBibleStatus.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
+#include "GCSystemMessage.h"
+#include "GCBloodBibleStatus.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

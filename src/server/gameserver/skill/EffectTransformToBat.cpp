@@ -10,10 +10,10 @@
 #include "Vampire.h"
 #include "Monster.h"
 #include "Player.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddVampireFromTransformation.h"
-#include "Gpackets/GCAddMonsterFromTransformation.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCModifyInformation.h"
+#include "GCAddVampireFromTransformation.h"
+#include "GCAddMonsterFromTransformation.h"
+#include "GCDeleteObject.h"
 #include "ZoneUtil.h"
 
 //////////////////////////////////////////////////////////////////////////////

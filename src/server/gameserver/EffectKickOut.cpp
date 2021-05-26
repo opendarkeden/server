@@ -1,7 +1,7 @@
 #include "EffectKickOut.h"
 #include "Zone.h"
 #include "PCManager.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include <cstdio>
 
 void EffectKickOut::affect() 

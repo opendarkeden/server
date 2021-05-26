@@ -15,7 +15,7 @@
 #include "mission/QuestInfoManager.h"
 #include "mission/EventQuestAdvance.h"
 #include "mission/RewardClassInfoManager.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include <algorithm>
 

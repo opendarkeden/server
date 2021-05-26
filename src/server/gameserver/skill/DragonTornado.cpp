@@ -8,7 +8,7 @@
 #include "SimpleMeleeSkill.h"
 #include "EffectDragonTornado.h"
 
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러

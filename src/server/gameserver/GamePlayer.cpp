@@ -33,9 +33,9 @@
 #include "StringPool.h"
 
 #include "Cpackets/CGConnect.h"
-#include "Gpackets/GSGuildMemberLogOn.h"
-#include "Gpackets/GCKickMessage.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GSGuildMemberLogOn.h"
+#include "GCKickMessage.h"
+#include "GCSystemMessage.h"
 
 #include "ServiceDeadline.h"
 

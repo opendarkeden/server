@@ -11,7 +11,7 @@
 #include "ScriptManager.h"
 #include "GamePlayer.h"
 
-#include "Gpackets/GCNPCSay.h"
+#include "GCNPCSay.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

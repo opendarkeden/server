@@ -21,7 +21,7 @@
 #include "GQuestManager.h"
 #include "PlayerCreature.h"
 
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // read from PropertyBuffer

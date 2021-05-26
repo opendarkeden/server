@@ -14,8 +14,8 @@
 #include "StringStream.h"
 #include "Effect.h"
 
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCDeleteObject.h"
+#include "GCAddEffectToTile.h"
 #include "ZoneItemPosition.h"
 
 Item* ZoneItemPosition::getItem_LOCKED( bool isDel )

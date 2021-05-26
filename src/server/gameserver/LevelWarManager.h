@@ -11,7 +11,7 @@
 #include "SweeperSet.h"
 #include "VSDateTime.h"
 
-#include "Gpackets/GCWarList.h"
+#include "GCWarList.h"
 
 class PlayerCreature;
 

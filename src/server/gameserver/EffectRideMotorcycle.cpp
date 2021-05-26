@@ -8,7 +8,7 @@
 // include files
 #include "Assert.h"
 #include "EffectRideMotorcycle.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCDeleteObject.h"
 #include "Cpackets/CGRideMotorCycle.h"
 #include "Tile.h"
 #include "Zone.h"

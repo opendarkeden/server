@@ -10,8 +10,8 @@
 #include "GamePlayer.h"
 #include "mission/QuestManager.h"
 
-#include "Gpackets/GCNPCAsk.h"
-#include "Gpackets/GCNoticeEvent.h"
+#include "GCNPCAsk.h"
+#include "GCNoticeEvent.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

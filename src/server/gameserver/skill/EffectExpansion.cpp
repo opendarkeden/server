@@ -11,9 +11,9 @@
 #include "Player.h"
 #include "PacketUtil.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCOtherModifyInfo.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCModifyInformation.h"
+#include "GCOtherModifyInfo.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

@@ -12,8 +12,8 @@
 #include "GamePlayer.h"
 #include "VariableManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCGoodsList.h"
+#include "GCNPCResponse.h"
+#include "GCGoodsList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

@@ -8,7 +8,7 @@
 #include "SiegeWar.h"
 #include "VariableManager.h"
 #include <stdio.h>
-#include "Gpackets/GCWarScheduleList.h"
+#include "GCWarScheduleList.h"
 #include "WarSystem.h"
 
 // dt 이후의 월, 수, 금 오후 8시(~9시)

@@ -7,10 +7,10 @@
 #include "Rebuke.h"
 #include "EffectSleep.h"
 
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCAddEffect.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 셀프 핸들러

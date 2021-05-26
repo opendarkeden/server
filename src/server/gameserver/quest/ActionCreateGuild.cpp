@@ -8,7 +8,7 @@
 #include "ActionCreateGuild.h"
 #include "Creature.h"
 #include "GamePlayer.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include "SystemAvailabilitiesManager.h"
 

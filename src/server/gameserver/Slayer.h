@@ -31,7 +31,7 @@
 #include "skill/Skill.h"
 #include "skill/SkillSlot.h"
 
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 
 #ifdef __CHINA_SERVER__
 #define	SLAYER_BOUND_LEVEL			100

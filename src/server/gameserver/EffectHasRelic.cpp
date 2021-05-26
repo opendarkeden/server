@@ -15,11 +15,11 @@
 #include "WarSystem.h"
 #include "ZoneInfoManager.h"
 #include "ZoneGroupManager.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCAddEffect.h"
+#include "GCRemoveEffect.h"
+#include "GCSystemMessage.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

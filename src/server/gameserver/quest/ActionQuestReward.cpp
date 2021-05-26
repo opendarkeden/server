@@ -13,7 +13,7 @@
 #include "mission/QuestManager.h"
 #include "mission/QuestStatus.h"
 #include "mission/RewardClassInfoManager.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include "CreatureUtil.h"
 

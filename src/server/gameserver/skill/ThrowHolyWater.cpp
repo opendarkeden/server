@@ -10,11 +10,11 @@
 
 #include "item/HolyWater.h"
 
-#include "Gpackets/GCThrowItemOK1.h"
-#include "Gpackets/GCSkillToObjectOK1.h"
-#include "Gpackets/GCThrowItemOK2.h"
-#include "Gpackets/GCThrowItemOK3.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCThrowItemOK1.h"
+#include "GCSkillToObjectOK1.h"
+#include "GCThrowItemOK2.h"
+#include "GCThrowItemOK3.h"
+#include "GCModifyInformation.h"
 
 
 //////////////////////////////////////////////////////////////////////

@@ -8,7 +8,7 @@
 // include fies
 #include "Assert.h"
 #include "EffectDeleteItem.h"
-#include "Gpackets/GCDeleteObject.h"
+#include "GCDeleteObject.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"

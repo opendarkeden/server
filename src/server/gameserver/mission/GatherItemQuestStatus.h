@@ -4,7 +4,7 @@
 #include "QuestStatus.h"
 #include "Item.h"
 
-#include "Gpackets/GCQuestStatus.h"
+#include "GCQuestStatus.h"
 
 class GatherItemQuestStatus : public QuestStatus
 {

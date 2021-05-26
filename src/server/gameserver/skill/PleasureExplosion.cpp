@@ -5,9 +5,9 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "PleasureExplosion.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCModifyInformation.h"
+#include "GCAddEffectToTile.h"
 #include "Tile.h"
 #include "Creature.h"
 #include "CreatureUtil.h"

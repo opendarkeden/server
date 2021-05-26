@@ -17,7 +17,7 @@
 #include "Utility.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCAddEffect.h"
+#include "GCAddEffect.h"
 
 MonsterCorpse* SweeperSet::getSweeperSafes( uint itemType )
 {

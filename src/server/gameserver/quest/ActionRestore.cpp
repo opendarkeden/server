@@ -9,7 +9,7 @@
 #include "NPC.h"
 #include "SkillHandlerManager.h"
 #include "Restore.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //

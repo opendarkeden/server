@@ -10,15 +10,15 @@
 #include "RankBonus.h"
 #include "Properties.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK3.h"
-#include "Gpackets/GCSkillToTileOK4.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSkillToTileOK6.h"
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK3.h"
+#include "GCSkillToTileOK4.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSkillToTileOK6.h"
+#include "GCAddEffectToTile.h"
+#include "GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러

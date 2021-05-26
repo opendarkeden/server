@@ -16,10 +16,10 @@
 #include "mission/QuestInfoManager.h"
 #include "mission/MonsterKillQuestInfo.h"
 
-#include "Gpackets/GCSelectQuestID.h"
-#include "Gpackets/GCMonsterKillQuestInfo.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSelectQuestID.h"
+#include "GCMonsterKillQuestInfo.h"
+#include "GCNPCResponse.h"
+#include "GCSystemMessage.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

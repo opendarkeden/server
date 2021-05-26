@@ -6,10 +6,10 @@
 
 #include "RapidGliding.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK5.h"
+#include "GCModifyInformation.h"
+#include "GCStatusCurrentHP.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK5.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 타일 핸들러 

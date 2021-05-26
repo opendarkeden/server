@@ -18,8 +18,8 @@
 #include "CreatureUtil.h"
 
 #include "MouseItemPosition.h"
-#include "Gpackets/GCDeleteInventoryItem.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCDeleteInventoryItem.h"
+#include "GCAddEffect.h"
 
 Item* MouseItemPosition::popItem( bool bLock )
 	

@@ -5,8 +5,8 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SummonMigaAttack.h"
-//#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCAddEffectToTile.h"
+//#include "GCSkillToSelfOK1.h"
+#include "GCAddEffectToTile.h"
 #include "SimpleTileMissileSkill.h"
 #include "EffectKillTimer.h"
 

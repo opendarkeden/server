@@ -24,7 +24,7 @@
 #include "WarScheduler.h"
 #include "ShrineInfoManager.h"
 #include "StringPool.h"
-#include "Gpackets/GCSystemMessage.h"
+#include "GCSystemMessage.h"
 #include "RaceWarLimiter.h"
 #include "mission/QuestInfoManager.h"
 #include "GoodsInfoManager.h"

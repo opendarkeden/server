@@ -9,7 +9,7 @@
 #include "Slayer.h"
 #include "Vampire.h"
 #include "Ousters.h"
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

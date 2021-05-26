@@ -8,9 +8,9 @@
 #include "CrossCounter.h"
 #include "ZoneUtil.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK5.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK5.h"
 
 SimpleTileMeleeSkill g_SimpleTileMeleeSkill;
 

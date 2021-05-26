@@ -14,10 +14,10 @@
 #include "DB.h"
 #include "LogClient.h"
 
-#include "Gpackets/GCModifyInformation.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCStatusCurrentHP.h"
+#include "GCModifyInformation.h"
+#include "GCRemoveEffect.h"
+#include "GCNPCResponse.h"
+#include "GCStatusCurrentHP.h"
 
 #include "EffectAftermath.h"
 

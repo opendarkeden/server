@@ -11,9 +11,9 @@
 #include "Zone.h"
 #include "ItemFactoryManager.h"
 #include "item/Magazine.h"
-#include "Gpackets/GCCreateItem.h"
-#include "Gpackets/GCNPCResponse.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCCreateItem.h"
+#include "GCNPCResponse.h"
+#include "GCModifyInformation.h"
 #include "GamePlayer.h"
 
 ////////////////////////////////////////////////////////////////////////////////

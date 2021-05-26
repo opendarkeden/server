@@ -20,7 +20,7 @@
 #include "PetTypeInfo.h"
 #include "VSDateTime.h"
 
-#include "Gpackets/GCCreateItem.h"
+#include "GCCreateItem.h"
 
 ItemRewardInfo::ItemRewardInfo( RewardID_t rID, RewardClass_t rClass, Item::ItemClass iClass, ItemType_t iType, const string& option, DWORD time )
 	: RewardInfo( rID, rClass )

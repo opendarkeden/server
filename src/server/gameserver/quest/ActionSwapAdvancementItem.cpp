@@ -13,7 +13,7 @@
 #include "GuildManager.h"
 #include "CastleInfoManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

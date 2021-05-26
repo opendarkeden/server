@@ -16,11 +16,11 @@
 #include "Properties.h"
 #include "GQuestManager.h"
 
-#include "Gpackets/GCSkillToTileOK1.h"
-#include "Gpackets/GCSkillToTileOK2.h"
-#include "Gpackets/GCSkillToTileOK5.h"
-#include "Gpackets/GCSkillToInventoryOK1.h"
-#include "Gpackets/GCSkillFailed1.h"
+#include "GCSkillToTileOK1.h"
+#include "GCSkillToTileOK2.h"
+#include "GCSkillToTileOK5.h"
+#include "GCSkillToInventoryOK1.h"
+#include "GCSkillFailed1.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 아우스터스 오브젝트 핸들러

@@ -13,7 +13,7 @@
 #include "BloodBibleBonus.h"
 #include "BloodBibleBonusManager.h"
 
-#include "Gpackets/GCBloodBibleList.h"
+#include "GCBloodBibleList.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

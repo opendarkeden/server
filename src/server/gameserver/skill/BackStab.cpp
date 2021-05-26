@@ -7,7 +7,7 @@
 #include "BackStab.h"
 #include "SimpleMeleeSkill.h"
 #include "RankBonus.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCAddEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 뱀파이어 오브젝트 핸들러

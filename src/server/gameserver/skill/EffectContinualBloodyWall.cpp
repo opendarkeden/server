@@ -13,7 +13,7 @@
 #include "Zone.h"
 #include "ZoneUtil.h"
 #include "SkillUtil.h"
-#include "Gpackets/GCAddEffectToTile.h"
+#include "GCAddEffectToTile.h"
 
 //----------------------------------------------------------------------
 // constructor

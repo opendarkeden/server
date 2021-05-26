@@ -1,6 +1,6 @@
 #include "GuildUnion.h"
 #include "DB.h"
-#include "Gpackets/GGCommand.h"
+#include "GGCommand.h"
 #include "LoginServerManager.h"
 #include "GameServer.h"
 #include "GameServerInfoManager.h"
@@ -12,7 +12,7 @@
 #include "Guild.h"
 #include "GuildManager.h"
 #include "VariableManager.h"
-#include "Gpackets/GCModifyInformation.h"
+#include "GCModifyInformation.h"
 GuildUnion::~GuildUnion()
 {
 	//cout << "GuildUnion : DELETE!!!" << endl;

@@ -1,7 +1,7 @@
 
 #include "EffectKeepSweeper.h"
 #include "Item.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectKeepSweeper::EffectKeepSweeper(Item* pItem) 
 {

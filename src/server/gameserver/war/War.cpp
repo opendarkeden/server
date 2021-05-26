@@ -22,8 +22,8 @@
 #include "StringStream.h"
 #include "StringPool.h"
 
-#include "Gpackets/GCSystemMessage.h"
-#include "Gpackets/GCNoticeEvent.h"
+#include "GCSystemMessage.h"
+#include "GCNoticeEvent.h"
 
 //--------------------------------------------------------------------------------
 // static members

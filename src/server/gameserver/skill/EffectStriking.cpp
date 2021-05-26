@@ -8,7 +8,7 @@
 #include "Slayer.h"
 #include "Player.h"
 
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCRemoveEffect.h"
 
 EffectStriking::EffectStriking(Creature* pCreature)
 	

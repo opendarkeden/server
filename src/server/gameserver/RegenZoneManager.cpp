@@ -25,10 +25,10 @@
 
 #include "war/WarSystem.h"
 
-#include "Gpackets/GCAddEffectToTile.h"
-#include "Gpackets/GCRemoveEffect.h"
-#include "Gpackets/GCAddEffect.h"
-#include "Gpackets/GCRegenZoneStatus.h"
+#include "GCAddEffectToTile.h"
+#include "GCRemoveEffect.h"
+#include "GCAddEffect.h"
+#include "GCRegenZoneStatus.h"
 
 void RegenZoneInfo::putTryingPosition() 
 {

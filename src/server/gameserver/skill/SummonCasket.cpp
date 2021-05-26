@@ -5,10 +5,10 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SummonCasket.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK3.h"
-#include "Gpackets/GCDeleteObject.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK3.h"
+#include "GCDeleteObject.h"
+#include "GCAddEffect.h"
 #include "ZoneUtil.h"
 #include "RankBonus.h"
 

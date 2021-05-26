@@ -6,9 +6,9 @@
 
 #include "CureCriticalWounds.h"
 #include "EffectCureCriticalWounds.h"
-#include "Gpackets/GCSkillToSelfOK1.h"
-#include "Gpackets/GCSkillToSelfOK2.h"
-#include "Gpackets/GCAddEffect.h"
+#include "GCSkillToSelfOK1.h"
+#include "GCSkillToSelfOK2.h"
+#include "GCAddEffect.h"
 
 const uint CriticalBloodDrainLevel = 74;
 

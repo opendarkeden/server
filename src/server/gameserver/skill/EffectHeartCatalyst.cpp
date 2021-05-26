@@ -10,8 +10,8 @@
 #include "Item.h"
 #include "ItemUtil.h"
 
-#include "Gpackets/GCStatusCurrentHP.h"
-#include "Gpackets/GCRemoveEffect.h"
+#include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
 
 EffectHeartCatalyst::EffectHeartCatalyst(Creature* pCreature)
 	
