@@ -1,5 +1,5 @@
-bin/
-lib/
+bin/*
+lib/*
 data/
 build/
 *.o

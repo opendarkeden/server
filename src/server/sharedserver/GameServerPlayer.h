@@ -26,10 +26,10 @@ public :
 
 	// constructor
 	GameServerPlayer () throw (Error);
-	GameServerPlayer (Socket * pSocket) throw ( Error );
+	GameServerPlayer (Socket * pSocket);
 	
 	// destructor
-	virtual ~GameServerPlayer () throw (Error);
+	virtual ~GameServerPlayer ();
 
 	virtual void processInput () throw (IOException, Error);
 	

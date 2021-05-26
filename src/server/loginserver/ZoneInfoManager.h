@@ -30,31 +30,31 @@ class ZoneInfoManager {
 public :
 	
 	// constructor
-	ZoneInfoManager () throw ();
+	ZoneInfoManager () ;
 	
 	// destructor
-	~ZoneInfoManager () throw ();
+	~ZoneInfoManager () ;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init ();
 
 	// load from database
-	void load () throw ( Error );
+	void load ();
 	
 	// add info
-	void addZoneInfo ( ZoneInfo * pZoneInfo ) throw ( DuplicatedException );
+	void addZoneInfo ( ZoneInfo * pZoneInfo );
 	
 	// delete info
-	void deleteZoneInfo ( ZoneID_t zoneID ) throw ( NoSuchElementException );
+	void deleteZoneInfo ( ZoneID_t zoneID );
 	
 	// get info
-	ZoneInfo * getZoneInfo ( ZoneID_t zoneID ) const throw ( NoSuchElementException );
+	ZoneInfo * getZoneInfo ( ZoneID_t zoneID ) ;
 
 	// get count of info
-	uint getSize () const throw () { return m_ZoneInfos.size(); }
+	uint getSize () const { return m_ZoneInfos.size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const ;
 
 private :
 	

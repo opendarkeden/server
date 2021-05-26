@@ -33,7 +33,7 @@ public :
 	LoginPlayerManager () throw ( Error );
 
 	// destructor
-	~LoginPlayerManager () throw ( Error );
+	~LoginPlayerManager ();
 
 public :
 

@@ -24,7 +24,6 @@ using namespace pthreadAPI;
 //
 //////////////////////////////////////////////////////////////////////
 ThreadAttr::ThreadAttr () 
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -40,7 +39,6 @@ ThreadAttr::ThreadAttr ()
 //
 //////////////////////////////////////////////////////////////////////
 ThreadAttr::~ThreadAttr () 
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -56,7 +54,6 @@ ThreadAttr::~ThreadAttr ()
 //
 //////////////////////////////////////////////////////////////////////
 int ThreadAttr::getDetachState () const 
-    throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -74,7 +71,6 @@ int ThreadAttr::getDetachState () const
 //
 //////////////////////////////////////////////////////////////////////
 void ThreadAttr::setDetachState ( int state ) 
-     throw ( Error )
 {
 	__BEGIN_TRY
 

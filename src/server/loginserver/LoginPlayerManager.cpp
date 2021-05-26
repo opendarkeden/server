@@ -50,7 +50,6 @@ LoginPlayerManager::LoginPlayerManager ()
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayerManager::~LoginPlayerManager () 
-	throw ( Error )
 {
 	__BEGIN_TRY
 

@@ -1131,7 +1131,7 @@ void PacketFactoryManager::init ()
 //end
 
 	addFactory(new GGCommandFactory());
-	addFactory(new GMServerInfoFactory());
+	// addFactory(new GMServerInfoFactory());
 
 #endif
 	

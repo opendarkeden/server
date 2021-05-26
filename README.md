@@ -8,9 +8,6 @@ xerces-c 3.2.3
 
 # compile
 
-	mkdir build
-	cd build
-	cmake ../src
 	make
 
 

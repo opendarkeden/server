@@ -531,7 +531,12 @@ L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharact
 	CLChangeServerHandler.cpp  CLGetPCListHandler.cpp      CLLoginHandler.cpp         CLQueryPlayerIDHandler.cpp \
 	CLSelectPCHandler.cpp        CLVersionCheckHandler.cpp             GLIncomingConnectionOKHandler.cpp \
 	CLCreatePCHandler.cpp      CLGetServerListHandler.cpp  CLLogoutHandler.cpp        CLReconnectLoginHandler.cpp \
-	CLSelectServerHandler.cpp    GLIncomingConnectionErrorHandler.cpp  GLKickVerifyHandler.cpp
+	CLSelectServerHandler.cpp    GLIncomingConnectionErrorHandler.cpp  GLKickVerifyHandler.cpp \
+	LCCreatePCErrorHandler.cpp  LCDeletePCOKHandler.cpp  LCPCListHandler.cpp                    LCReconnectHandler.cpp            LCSelectPCErrorHandler.cpp      LCVersionCheckOKHandler.cpp \
+	LCCreatePCOKHandler.cpp     LCLoginErrorHandler.cpp  LCQueryResultCharacterNameHandler.cpp  LCRegisterPlayerErrorHandler.cpp  LCServerListHandler.cpp         LCWorldListHandler.cpp \
+	LCDeletePCErrorHandler.cpp  LCLoginOKHandler.cpp     LCQueryResultPlayerIDHandler.cpp       LCRegisterPlayerOKHandler.cpp     LCVersionCheckErrorHandler.cpp \
+	LGIncomingConnectionErrorHandler.cpp  LGIncomingConnectionHandler.cpp  LGIncomingConnectionOKHandler.cpp  LGKickCharacterHandler.cpp \
+	GCDisconnect.cpp GCDisconnectHandler.cpp 
 
 G_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp         CGModifyGuildMemberHandler.cpp       CGRelicToObjectHandler.cpp           CGSelectTileEffectHandler.cpp  CGTakeOutGoodHandler.cpp                  CGWhisperHandler.cpp \
 	CGAcceptUnionHandler.cpp           CGDepositPetHandler.cpp        CGModifyGuildMemberIntroHandler.cpp  CGReloadFromInventoryHandler.cpp     CGSelectWayPointHandler.cpp    CGTameMonsterHandler.cpp                  CGWithdrawPetHandler.cpp \

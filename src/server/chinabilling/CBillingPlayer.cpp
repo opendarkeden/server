@@ -75,7 +75,6 @@ CBillingPlayer::CBillingPlayer( Socket* pSocket )
 
 // destructor
 CBillingPlayer::~CBillingPlayer()
-	throw ( Error )
 {
 	__BEGIN_TRY
 

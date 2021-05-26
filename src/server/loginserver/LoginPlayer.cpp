@@ -96,7 +96,6 @@ LoginPlayer::LoginPlayer (Socket * pSocket)
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayer::~LoginPlayer ()
-	 throw ( Error )
 {
 	__BEGIN_TRY
 		

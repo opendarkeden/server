@@ -18,7 +18,6 @@
 // constructor
 //----------------------------------------------------------------------
 GameWorldInfoManager::GameWorldInfoManager () 
-	throw ()
 {
 }
 	
@@ -48,7 +47,6 @@ GameWorldInfoManager::~GameWorldInfoManager ()
 // initialize GSIM
 //----------------------------------------------------------------------
 void GameWorldInfoManager::init ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -65,7 +63,6 @@ void GameWorldInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void GameWorldInfoManager::load ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -112,7 +109,6 @@ void GameWorldInfoManager::load ()
 // clear info 
 //----------------------------------------------------------------------
 void GameWorldInfoManager::clear()
-	throw( Error )
 {
 	__BEGIN_TRY
 
@@ -132,7 +128,6 @@ void GameWorldInfoManager::clear()
 // add info 
 //----------------------------------------------------------------------
 void GameWorldInfoManager::addGameWorldInfo ( GameWorldInfo * pGameWorldInfo ) 
-	throw ( DuplicatedException )
 {
 	__BEGIN_TRY
 
@@ -153,7 +148,6 @@ void GameWorldInfoManager::addGameWorldInfo ( GameWorldInfo * pGameWorldInfo )
 // delete info
 //----------------------------------------------------------------------
 void GameWorldInfoManager::deleteGameWorldInfo ( const WorldID_t ID ) 
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -181,7 +175,6 @@ void GameWorldInfoManager::deleteGameWorldInfo ( const WorldID_t ID )
 // get Worldinfo by WorldID
 //----------------------------------------------------------------------
 GameWorldInfo * GameWorldInfoManager::getGameWorldInfo ( const WorldID_t ID ) const
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -205,7 +198,6 @@ GameWorldInfo * GameWorldInfoManager::getGameWorldInfo ( const WorldID_t ID ) co
 // get debug string
 //----------------------------------------------------------------------
 string GameWorldInfoManager::toString () const
-	throw ()
 {
 	__BEGIN_TRY
 

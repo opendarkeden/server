@@ -40,7 +40,7 @@ public:
 	CBillingPlayer() throw ( Error );
 	CBillingPlayer( Socket* pSocket ) throw ( Error );
 
-	virtual ~CBillingPlayer() throw ( Error );
+	virtual ~CBillingPlayer();
 
 public:
 	

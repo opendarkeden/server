@@ -56,7 +56,7 @@ public :
 	LoginPlayer (Socket * pSocket) throw ( Error );
 	
 	// destructor
-	~LoginPlayer () throw ( Error );
+	~LoginPlayer ();
 
 	// read socket's receive buffer and fill input buffer
 	//virtual void processInput () throw ( IOException , Error );
