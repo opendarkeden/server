@@ -233,7 +233,7 @@ void TrapItemInfoManager::load()
             m_pItemInfos[i] = NULL;
 
         pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Function, Parameter FROM TrapItemInfo"
+			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, `Function`, Parameter FROM TrapItemInfo"
 		);
 
 		while (pResult->next()) 

@@ -56,8 +56,8 @@ all : $(SERVER_CORE_LIB)
 	$(MAKE) -C chinabilling
 	$(MAKE) -C gameserver
 	$(MAKE) -C loginserver
-	$(MAKE) -C updateserver
-	$(MAKE) -C sharedserver
+	# $(MAKE) -C updateserver
+	# $(MAKE) -C sharedserver
 
 server : $(SERVER_CORE_LIB)
 

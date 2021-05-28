@@ -235,7 +235,7 @@ void PetEnchantItemInfoManager::load()
             m_pItemInfos[i] = NULL;
 
         pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Function, FunctionGrade FROM PetEnchantItemInfo"
+			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, `Function`, FunctionGrade FROM PetEnchantItemInfo"
 		);
 
 		while (pResult->next()) 

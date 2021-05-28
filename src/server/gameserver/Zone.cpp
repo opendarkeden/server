@@ -1655,8 +1655,9 @@ try {
 	}*/
 
 } catch ( Throwable& t )
-{ cout << t.toString() << endl; Assert(false);}
-
+  {
+    cout << t.toString() << endl;
+    Assert(false);}
 
 	__END_DEBUG
 	__END_CATCH

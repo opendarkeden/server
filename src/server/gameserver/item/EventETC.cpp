@@ -237,7 +237,7 @@ void EventETCInfoManager::load()
             m_pItemInfos[i] = NULL;
 
         pResult = pStmt->executeQuery(
-			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, Function FROM EventETCInfo"
+			"SELECT ItemType, Name, EName, Price, Volume, Weight, Ratio, `Function` FROM EventETCInfo"
 		);
 
 		while (pResult->next()) 

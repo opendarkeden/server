@@ -514,6 +514,7 @@ void GuildManager::makeSGGuildInfo( SGGuildInfo& sgGuildInfo )
 	{
 		GuildInfo2* pGuildInfo = new GuildInfo2();
 		itr->second->makeInfo( pGuildInfo );
+
 		sgGuildInfo.addGuildInfo( pGuildInfo );
 	}
 
