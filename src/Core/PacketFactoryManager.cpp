@@ -705,6 +705,10 @@ void PacketFactoryManager::init ()
 	addFactory(new CLReconnectLoginFactory());
 	addFactory(new CLSelectWorldFactory());
 	addFactory(new CLSelectServerFactory());
+	// By tiancaiamao: This one is required by the LoginServer to handle Encryption.
+	// If client use encryption, it send this packet and pass the encryption key.
+	// After that, the communication is encrypted using that key.
+	addFactory(new CGConnectSetKeyFactory() );
 #endif
 
 #if defined(__GAME_SERVER__)

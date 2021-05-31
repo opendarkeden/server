@@ -25,8 +25,8 @@ SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen )
 	m_Buffer = new char[ m_BufferLen ];
 
 	//add by viva
-	//m_EncryptKey = 0;
-	//m_HashTable = NULL;
+	m_EncryptKey = 0;
+	m_HashTable = NULL;
 	//end
 	
 	__END_CATCH
@@ -190,8 +190,8 @@ uint SocketOutputStream::flush ()
 	
 			nLeft = m_Tail - m_Head;
 //add by viva 2008-12-31
-			//if(nLeft > 0)
-				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);
+			if(nLeft > 0)
+				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);
 			
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
@@ -216,8 +216,8 @@ uint SocketOutputStream::flush ()
 			
 			nLeft = m_BufferLen - m_Head;
 //add by viva 2008-12-31
-			//if(nLeft>0)
-				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);	
+			if(nLeft>0)
+				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);	
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
 
@@ -235,8 +235,8 @@ uint SocketOutputStream::flush ()
 			
 			nLeft = m_Tail;
 //add by viva 2008-12-31
-			//if(nLeft>0)
-				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);	
+			if(nLeft>0)
+				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Head], nLeft);	
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
 
@@ -396,7 +396,7 @@ uint SocketOutputStream::length () const
 }
 
 //add by viva 2008-12-31
-/*WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
+WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 {
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
@@ -411,5 +411,5 @@ uint SocketOutputStream::length () const
 	
 	return EncryptKey;
 	
-}*/
+}
 //end

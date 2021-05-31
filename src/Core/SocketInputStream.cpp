@@ -34,8 +34,8 @@ SocketInputStream::SocketInputStream ( Socket * sock , uint BufferLen )
 	
 	m_Buffer = new char[ m_BufferLen ];
 //add by viva 2008-12-31
-	//m_EncryptKey = 0;
-	//m_HashTable = NULL;
+	m_EncryptKey = 0;
+	m_HashTable = NULL;
 //end
 		
 	__END_CATCH
@@ -325,8 +325,8 @@ uint SocketInputStream::fill ()
 			// by sigi. NonblockException力芭. 2002.5.17
 			if (nReceived==0) return 0;
 			//add by viva
-			//if(nReceived>0)
-				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+			if(nReceived>0)
+				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 			//end
 			m_Tail += nReceived;
 			nFilled += nReceived;
@@ -345,8 +345,8 @@ uint SocketInputStream::fill ()
 					// by sigi. NonblockException力芭. 2002.5.17
 					if (nReceived==0) return 0;
 					//add by viva
-					//if(nReceived>0)
-						//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+					if(nReceived>0)
+						m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 					//end
 					m_Tail += nReceived;
 					nFilled += nReceived;
@@ -368,8 +368,8 @@ uint SocketInputStream::fill ()
 			// by sigi. NonblockException力芭. 2002.5.17
 			if (nReceived==0) return 0;
 			//add by viva
-			//if(nReceived>0)
-				//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+			if(nReceived>0)
+				m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 			//end
 			m_Tail = ( m_Tail + nReceived ) % m_BufferLen;
 			nFilled += nReceived;
@@ -388,8 +388,8 @@ uint SocketInputStream::fill ()
 				// by sigi. NonblockException力芭. 2002.5.17
 				if (nReceived==0) return 0;
 				//add by viva
-				//if(nReceived>0)
-					//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+				if(nReceived>0)
+					m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 				//end
 				m_Tail += nReceived;
 				nFilled += nReceived;
@@ -407,8 +407,8 @@ uint SocketInputStream::fill ()
 						// by sigi. NonblockException力芭. 2002.5.17
 						if (nReceived==0) return 0;
 						//add by viva
-						//if(nReceived>0)
-							//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+						if(nReceived>0)
+							m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 						//end
 						m_Tail += nReceived;
 						nFilled += nReceived;
@@ -431,8 +431,8 @@ uint SocketInputStream::fill ()
 		// by sigi. NonblockException力芭. 2002.5.17
 		if (nReceived==0) return 0;
 		//add by viva
-		//if(nReceived>0)
-			//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+		if(nReceived>0)
+			m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 		//end
 		m_Tail += nReceived;
 		nFilled += nReceived;
@@ -450,8 +450,8 @@ uint SocketInputStream::fill ()
 				// by sigi. NonblockException力芭. 2002.5.17
 				if (nReceived==0) return 0;
 				//add by viva
-				//if(nReceived>0)
-					//m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
+				if(nReceived>0)
+					m_EncryptKey = EncryptData(m_EncryptKey, &m_Buffer[m_Tail], nReceived);
 				//end
 				m_Tail += nReceived;
 				nFilled += nReceived;
@@ -659,7 +659,7 @@ string SocketInputStream::toString () const
 	return msg.toString();
 }
 //add by viva 2008-12-31
-/*WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
+WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 {
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
@@ -672,5 +672,5 @@ string SocketInputStream::toString () const
 		if(++EncryptKey == 512)	EncryptKey = 0;
 	}
 	return EncryptKey;
-}*/
+}
 //end

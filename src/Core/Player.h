@@ -90,7 +90,7 @@ public :
 	virtual string toString () const ;
 
 	//add by viva
-	//void setKey(WORD EncryptKey, WORD HashKey) ; 
+	void setKey(WORD EncryptKey, WORD HashKey) ; 
 	
 protected :
 
@@ -113,7 +113,7 @@ protected :
 	BYTE m_MacAddress[6];
 
 	//add by viva 2008-12-31
-	//BYTE* pHashTable;
+	BYTE* pHashTable;
 };
 
 #endif

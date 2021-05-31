@@ -325,7 +325,7 @@ string Player::toString () const
 }
 
 //add by viva 2008-12-31
-/*void Player::setKey(WORD EncryptKey, WORD HashKey) 
+void Player::setKey(WORD EncryptKey, WORD HashKey) 
 {
 	__BEGIN_TRY
 	if(pHashTable!=NULL)
@@ -348,5 +348,5 @@ string Player::toString () const
 		m_pOutputStream->setKey(EncryptKey, pHashTable);
 
 	__END_CATCH
-}*/
+}
 //end

@@ -61,7 +61,8 @@ LG_PACKET_SRC := LGIncomingConnection.cpp LGIncomingConnectionError.cpp LGIncomi
 CL_PACKET_SRC := CLCreatePC.cpp CLGetPCList.cpp CLGetWorldList.cpp \
 	CLLogout.cpp CLQueryPlayerID.cpp CLRegisterPlayer.cpp CLSelectServer.cpp \
 	CLVersionCheck.cpp CLChangeServer.cpp CLDeletePC.cpp CLGetServerList.cpp \
-	CLLogin.cpp CLQueryCharacterName.cpp CLReconnectLogin.cpp CLSelectPC.cpp CLSelectWorld.cpp
+	CLLogin.cpp CLQueryCharacterName.cpp CLReconnectLogin.cpp CLSelectPC.cpp CLSelectWorld.cpp \
+	CGConnectSetKey.cpp
 
 GL_PACKET_SRC := GLIncomingConnection.cpp  GLIncomingConnectionError.cpp GLIncomingConnectionOK.cpp GLKickVerify.cpp
 
@@ -489,7 +490,7 @@ L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharact
 	LCCreatePCOKHandler.cpp     LCLoginErrorHandler.cpp  LCQueryResultCharacterNameHandler.cpp  LCRegisterPlayerErrorHandler.cpp  LCServerListHandler.cpp         LCWorldListHandler.cpp \
 	LCDeletePCErrorHandler.cpp  LCLoginOKHandler.cpp     LCQueryResultPlayerIDHandler.cpp       LCRegisterPlayerOKHandler.cpp     LCVersionCheckErrorHandler.cpp \
 	LGIncomingConnectionErrorHandler.cpp  LGIncomingConnectionHandler.cpp  LGIncomingConnectionOKHandler.cpp  LGKickCharacterHandler.cpp \
-	GCDisconnect.cpp GCDisconnectHandler.cpp 
+	GCDisconnect.cpp GCDisconnectHandler.cpp CGConnectSetKeyHandler.cpp
 
 CG_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp         CGModifyGuildMemberHandler.cpp       CGRelicToObjectHandler.cpp           CGSelectTileEffectHandler.cpp  CGTakeOutGoodHandler.cpp                  CGWhisperHandler.cpp \
 	CGAcceptUnionHandler.cpp           CGDepositPetHandler.cpp        CGModifyGuildMemberIntroHandler.cpp  CGReloadFromInventoryHandler.cpp     CGSelectWayPointHandler.cpp    CGTameMonsterHandler.cpp                  CGWithdrawPetHandler.cpp \

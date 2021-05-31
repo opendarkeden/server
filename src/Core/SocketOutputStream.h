@@ -116,11 +116,11 @@ private :
 	// ·â°üÐòÁÐ
 	BYTE m_Sequence;
 //add by viva 2008-12-31
-//public :
-//	WORD m_EncryptKey;
-//	BYTE* m_HashTable;
-//	void setKey(WORD EncryptKey, BYTE* HashTable)  { m_EncryptKey = EncryptKey; m_HashTable = HashTable;};
-//	WORD EncryptData(WORD EncryptKey, char* buf, int len) ;
+public :
+	WORD m_EncryptKey;
+	BYTE* m_HashTable;
+	void setKey(WORD EncryptKey, BYTE* HashTable)  { m_EncryptKey = EncryptKey; m_HashTable = HashTable;};
+	WORD EncryptData(WORD EncryptKey, char* buf, int len) ;
 //end
 };
 
