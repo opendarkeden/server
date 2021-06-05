@@ -748,7 +748,7 @@ bool Ousters::load ()
 			GoalExp, Level, Bonus, SkillBonus, Gold, GuildID, \
 			ZoneID, XCoord, YCoord, Sight, Alignment,\
 			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, SMSCharge,\
-			Rank, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'",
+			`Rank`, RankGoalExp, HairColor FROM Ousters WHERE Name = '%s' AND Active = 'ACTIVE'",
 			m_Name.c_str()
 		);
 
@@ -2835,7 +2835,7 @@ void Ousters::saveExps(void) const
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery( "UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
+		pStmt->executeQuery( "UPDATE Ousters SET Alignment=%d, Fame=%d, GoalExp=%lu, SilverDamage = %d, `Rank`=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
 							m_Alignment, m_Fame, m_GoalExp, m_SilverDamage, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str() );
 
 		SAFE_DELETE(pStmt);

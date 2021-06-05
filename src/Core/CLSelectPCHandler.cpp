@@ -353,10 +353,11 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		else if (g_pConfig->getProperty("User") == "crazydog")
 			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , g_pConfig->getPropertyInt("GameServerUDPPort"), &lgIncomingConnection);
 //			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , 6665, &lgIncomingConnection);
-		else if (g_pConfig->getProperty("User") == "elcastle")
+		else if (g_pConfig->getProperty("User") == "elcastle") {
+			cout << "gameserver ip: " <<  pGameServerInfo->getIP() << ", port: "  << g_pConfig->getPropertyInt("GameServerUDPPort") << endl;
 			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , g_pConfig->getPropertyInt("GameServerUDPPort"), &lgIncomingConnection);
 //			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , 8885 , &lgIncomingConnection);
-		else if (g_pConfig->getProperty("User") == "elca")
+		} else if (g_pConfig->getProperty("User") == "elca")
 			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , g_pConfig->getPropertyInt("GameServerUDPPort"), &lgIncomingConnection);
 //			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , 3335 , &lgIncomingConnection);
 

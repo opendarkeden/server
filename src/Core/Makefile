@@ -64,7 +64,7 @@ CL_PACKET_SRC := CLCreatePC.cpp CLGetPCList.cpp CLGetWorldList.cpp \
 	CLLogin.cpp CLQueryCharacterName.cpp CLReconnectLogin.cpp CLSelectPC.cpp CLSelectWorld.cpp \
 	CGConnectSetKey.cpp
 
-GL_PACKET_SRC := GLIncomingConnection.cpp  GLIncomingConnectionError.cpp GLIncomingConnectionOK.cpp GLKickVerify.cpp
+GL_PACKET_SRC := GLIncomingConnection.cpp  GLIncomingConnectionError.cpp GLIncomingConnectionOK.cpp GLKickVerify.cpp GMServerInfo.cpp GGCommand.cpp
 
 SG_PACKET_SRC := SGAddGuildMemberOK.cpp SGExpelGuildMemberOK.cpp SGModifyGuildIntroOK.cpp SGQuitGuildOK.cpp \
 	SGDeleteGuildOK.cpp           SGGuildMemberLogOnOK.cpp           SGModifyGuildOK.cpp               \
@@ -490,7 +490,8 @@ L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharact
 	LCCreatePCOKHandler.cpp     LCLoginErrorHandler.cpp  LCQueryResultCharacterNameHandler.cpp  LCRegisterPlayerErrorHandler.cpp  LCServerListHandler.cpp         LCWorldListHandler.cpp \
 	LCDeletePCErrorHandler.cpp  LCLoginOKHandler.cpp     LCQueryResultPlayerIDHandler.cpp       LCRegisterPlayerOKHandler.cpp     LCVersionCheckErrorHandler.cpp \
 	LGIncomingConnectionErrorHandler.cpp  LGIncomingConnectionHandler.cpp  LGIncomingConnectionOKHandler.cpp  LGKickCharacterHandler.cpp \
-	GCDisconnect.cpp GCDisconnectHandler.cpp CGConnectSetKeyHandler.cpp
+	GCDisconnect.cpp GCDisconnectHandler.cpp CGConnectSetKeyHandler.cpp \
+	GMServerInfoHandler.cpp GGCommandHandler.cpp
 
 CG_HANDLER_SRC :=  CGAbsorbSoulHandler.cpp            CGDenyUnionHandler.cpp         CGModifyGuildMemberHandler.cpp       CGRelicToObjectHandler.cpp           CGSelectTileEffectHandler.cpp  CGTakeOutGoodHandler.cpp                  CGWhisperHandler.cpp \
 	CGAcceptUnionHandler.cpp           CGDepositPetHandler.cpp        CGModifyGuildMemberIntroHandler.cpp  CGReloadFromInventoryHandler.cpp     CGSelectWayPointHandler.cpp    CGTameMonsterHandler.cpp                  CGWithdrawPetHandler.cpp \
@@ -577,7 +578,7 @@ GS_HANDLER_SRC := GSAddGuildHandler.cpp        GSExpelGuildMemberHandler.cpp  GS
 	GGCommand.cpp GGCommandHandler.cpp GGServerChat.cpp GGServerChatHandler.cpp \
 	GGGuildChat.cpp GGGuildChatHandler.cpp
 
-GL_HANDLER_SRC := GLIncomingConnectionHandler.cpp  GLIncomingConnectionErrorHandler.cpp GLIncomingConnectionOKHandler.cpp GLKickVerifyHandler.cpp
+GL_HANDLER_SRC := GLIncomingConnectionHandler.cpp  GLIncomingConnectionErrorHandler.cpp GLIncomingConnectionOKHandler.cpp GLKickVerifyHandler.cpp GGCommandHandler.cpp
 
 
 #----------------------------------------------------------------------

@@ -889,7 +889,7 @@ void LoginPlayer::makePCList( LCPCList& lcPCList )
 		//
 		//----------------------------------------------------------------------
 		pResult1 = pStmt->executeQuery(
-			"SELECT Race, Name, Slot, Sex, HairColor, SkinColor, AdvancementClass, STR, STRExp, DEX, DEXExp, INTE, INTExp, HP, CurrentHP, MP, CurrentMP, Fame, BladeLevel, SwordLevel, GunLevel, HealLevel, EnchantLevel, ETCLevel, Alignment, Shape, HelmetColor, JacketColor, PantsColor, WeaponColor, ShieldColor, Rank FROM Slayer WHERE PlayerID = '%s' AND Active = 'ACTIVE'",
+			"SELECT Race, Name, Slot, Sex, HairColor, SkinColor, AdvancementClass, STR, STRExp, DEX, DEXExp, INTE, INTExp, HP, CurrentHP, MP, CurrentMP, Fame, BladeLevel, SwordLevel, GunLevel, HealLevel, EnchantLevel, ETCLevel, Alignment, Shape, HelmetColor, JacketColor, PantsColor, WeaponColor, ShieldColor, `Rank` FROM Slayer WHERE PlayerID = '%s' AND Active = 'ACTIVE'",
 			getID().c_str()
 		);
 
@@ -970,7 +970,7 @@ void LoginPlayer::makePCList( LCPCList& lcPCList )
 				//----------------------------------------------------------------------
 
 				pResult2 = pStmt2->executeQuery(
-					"SELECT Name, Slot, Sex, BatColor, SkinColor, AdvancementClass, STR, DEX, INTE, HP, CurrentHP, Rank, GoalExp, Level, Bonus, Fame, Alignment, Shape, CoatColor FROM Vampire WHERE PlayerID = '%s' AND Active = 'ACTIVE' AND Name='%s'",
+					"SELECT Name, Slot, Sex, BatColor, SkinColor, AdvancementClass, STR, DEX, INTE, HP, CurrentHP, `Rank`, GoalExp, Level, Bonus, Fame, Alignment, Shape, CoatColor FROM Vampire WHERE PlayerID = '%s' AND Active = 'ACTIVE' AND Name='%s'",
 					getID().c_str() , name.c_str()
 				);
 
@@ -1034,7 +1034,7 @@ void LoginPlayer::makePCList( LCPCList& lcPCList )
 				//----------------------------------------------------------------------
 
 				pResult2 = pStmt2->executeQuery(
-					"SELECT Name, Slot, Sex, AdvancementClass, STR, DEX, INTE, HP, CurrentHP, Rank, Exp, Level, Bonus, SkillBonus, Fame, Alignment, CoatType, ArmType, CoatColor, HairColor, ArmColor, BootsColor FROM Ousters WHERE PlayerID = '%s' AND Active = 'ACTIVE' AND Name='%s'",
+					"SELECT Name, Slot, Sex, AdvancementClass, STR, DEX, INTE, HP, CurrentHP, `Rank`, Exp, Level, Bonus, SkillBonus, Fame, Alignment, CoatType, ArmType, CoatColor, HairColor, ArmColor, BootsColor FROM Ousters WHERE PlayerID = '%s' AND Active = 'ACTIVE' AND Name='%s'",
 					getID().c_str() , name.c_str()
 				);
 

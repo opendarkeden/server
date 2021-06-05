@@ -771,7 +771,7 @@ bool Vampire::load ()
 			GoalExp, Level, Bonus, Gold, GuildID,\
 			ZoneID, XCoord, YCoord, Sight, Alignment,\
 			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,\
-			Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
+			`Rank`, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
 			m_Name.c_str()
 		);
 		// end by Sonic 
@@ -3132,7 +3132,7 @@ void Vampire::saveExps(void) const
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery( "UPDATE Vampire SET Alignment=%d, Fame=%d, GoalExp=%lu%s, Rank=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
+		pStmt->executeQuery( "UPDATE Vampire SET Alignment=%d, Fame=%d, GoalExp=%lu%s, `Rank`=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%lu WHERE Name='%s'",
 							m_Alignment, m_Fame, m_GoalExp, silverDam, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(), m_Name.c_str() );
 
 		SAFE_DELETE(pStmt);

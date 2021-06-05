@@ -235,7 +235,7 @@
 #include "GCWarScheduleList.h"
 #include "GCWarList.h"
 
-#if defined(__GAME_CLIENT__) || defined(__LOGIN_SERVER__)
+#if defined(__GAME_SERVER__) || defined(__LOGIN_SERVER__)
 	#include "GMServerInfo.h"
 	#include "GLIncomingConnection.h"
 	#include "GLIncomingConnectionError.h"
@@ -1134,9 +1134,6 @@ void PacketFactoryManager::init ()
 	//addFactory( new GCUseSkillCardOKFactory() );
 //end
 
-	addFactory(new GGCommandFactory());
-	// addFactory(new GMServerInfoFactory());
-
 #endif
 	
 
@@ -1160,32 +1157,33 @@ void PacketFactoryManager::init ()
 	addFactory(new LCWorldListFactory());
 #endif
 
-
-#if defined(__GAME_CLIENT__) || defined(__LOGIN_SERVER__)
-	addFactory(new GLIncomingConnectionFactory());
-	addFactory(new GLIncomingConnectionErrorFactory());
-	addFactory(new GLIncomingConnectionOKFactory());
-	addFactory(new GLKickVerifyFactory());
-
+#if defined(__GAME_SERVER__) || defined(__LOGIN_SERVER__)
 	addFactory(new LGIncomingConnectionFactory());
 	addFactory(new LGIncomingConnectionOKFactory());
 	addFactory(new LGIncomingConnectionErrorFactory());
 	addFactory(new LGKickCharacterFactory());
+
+	addFactory(new GGCommandFactory());
+	addFactory(new GMServerInfoFactory());
+	addFactory(new GLIncomingConnectionFactory());
+	addFactory(new GLIncomingConnectionErrorFactory());
+	addFactory(new GLIncomingConnectionOKFactory());
+	addFactory(new GLKickVerifyFactory());
 #endif
 
-	#ifdef __GAME_CLIENT__
-		addFactory(new CRConnectFactory());
-		addFactory(new RCConnectVerifyFactory());
-		addFactory(new CRRequestFactory());
-		addFactory(new RCPositionInfoFactory());
-		addFactory(new CRDisconnectFactory());
-		addFactory(new RCSayFactory());		
-		addFactory(new RCStatusHPFactory());		
-		addFactory(new CRWhisperFactory());
-		addFactory(new RCRequestVerifyFactory());
-		addFactory(new RCRequestedFileFactory());
-		addFactory(new RCCharacterInfoFactory());
-	#endif
+#ifdef __GAME_CLIENT__
+	addFactory(new CRConnectFactory());
+	addFactory(new RCConnectVerifyFactory());
+	addFactory(new CRRequestFactory());
+	addFactory(new RCPositionInfoFactory());
+	addFactory(new CRDisconnectFactory());
+	addFactory(new RCSayFactory());		
+	addFactory(new RCStatusHPFactory());		
+	addFactory(new CRWhisperFactory());
+	addFactory(new RCRequestVerifyFactory());
+	addFactory(new RCRequestedFileFactory());
+	addFactory(new RCCharacterInfoFactory());
+#endif
 
 #if defined(__GAME_SERVER__) || defined(__SHARED_SERVER__)
 		addFactory( new SGQuitGuildOKFactory() );
