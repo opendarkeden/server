@@ -87,7 +87,9 @@ void LGIncomingConnectionOKHandler::execute (LGIncomingConnectionOK * pPacket )
 			gcReconnectLogin->setLoginServerPort(pPacket->getTCPPort());
 			gcReconnectLogin->setKey(pPacket->getKey());
 
-			pGamePlayer->setReconnectPacket(gcReconnectLogin);
+			if (pGamePlayer != NULL) {
+			  pGamePlayer->setReconnectPacket(gcReconnectLogin);
+			}
 
 			//cout << "LGIncomingConnectionOKHandler Store Packet : " << gcReconnectLogin->toString().c_str() << endl;
 			//cout << "LGIncomingConnectionOKHandler Store Packet" << endl;

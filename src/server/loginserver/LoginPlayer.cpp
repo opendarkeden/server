@@ -46,7 +46,6 @@ void addLogoutPlayerData(Player* pPlayer);
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayer::LoginPlayer (Socket * pSocket)
-	 throw ( Error )
 : //Player(pSocket), 
 	m_PlayerStatus(LPS_NONE), m_FailureCount(0)
 {
@@ -134,7 +133,6 @@ LoginPlayer::setExpireTimeForKickCharacter()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayer::processCommand ( bool Option ) 
-     throw ( IOException , Error )
 {
 	__BEGIN_TRY
 
@@ -217,8 +215,11 @@ void LoginPlayer::processCommand ( bool Option )
 			try 
 			{
 				// 패킷의 순서가 valid 한지 체크한다.
-				if ( ! g_pPacketValidator->isValidPacketID( getPlayerStatus() , packetID ) )
+			  if ( ! g_pPacketValidator->isValidPacketID( getPlayerStatus() , packetID ) ) {
+			    // DEBUG by tiancaiamao
+			    cout << "player status: " << getPlayerStatus() << " receive packet: " << packetID << endl;
 					throw InvalidProtocolException("invalid packet order");
+			  }
 				
 				// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
 				if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize( packetID ) )
@@ -318,7 +319,6 @@ void LoginPlayer::processCommand ( bool Option )
 // disconnect player
 //--------------------------------------------------------------------------------
 void LoginPlayer::disconnect ( bool bDisconnected )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -396,7 +396,6 @@ void LoginPlayer::disconnect ( bool bDisconnected )
 // DB 에 로그를 쌓지 않게 한다.
 //--------------------------------------------------------------------------------
 void LoginPlayer::disconnect_nolog ( bool bDisconnected )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -478,7 +477,6 @@ void LoginPlayer::disconnect_nolog ( bool bDisconnected )
 //
 //--------------------------------------------------------------------------------
 void LoginPlayer::sendPacket ( Packet * pPacket )
-	throw ( ProtocolException , Error )
 {
 	__BEGIN_TRY
 
@@ -798,7 +796,6 @@ bool    LoginPlayer::sendBillingLogin()
 //
 //////////////////////////////////////////////////////////////////////
 string LoginPlayer::toString () const
-       throw ( Error )
 {
 	__BEGIN_TRY
 		

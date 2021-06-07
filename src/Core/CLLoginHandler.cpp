@@ -313,7 +313,7 @@ void CLLoginHandler::execute (CLLogin* pPacket , Player* pPlayer)
 			{
 				pResult = pStmt->executeQuery(
 	//				"SELECT PlayerID, SSN, CurrentServerGroupID, LogOn, Access, ZipCode, LoginIP, MacAddress,PayType, PayPlayDate, PayPlayHours, PayPlayFlag, FamilyPayPlayDate FROM Player WHERE PlayerID = '%s' AND Password = PASSWORD('%s')", 
-					"SELECT PlayerID, SSN, CurrentServerGroupID, LogOn, Access, ZipCode, LoginIP, PayType, PayPlayDate, PayPlayHours, PayPlayFlag, FamilyPayPlayDate FROM Player WHERE PlayerID = '%s' AND Password = PASSWORD('%s')", 
+					"SELECT PlayerID, SSN, CurrentServerGroupID, LogOn, Access, ZipCode, LoginIP, PayType, PayPlayDate, PayPlayHours, PayPlayFlag, FamilyPayPlayDate FROM Player WHERE PlayerID = '%s' AND Password = '%s'", 
 					ID.c_str() , PASSWORD.c_str());
 			}
 		}
@@ -1050,7 +1050,8 @@ bool CLLoginHandler::checkFreePass (CLLogin* pPacket , Player* pPlayer)
 			}
 			else
 			{
-				//cout << "password wrong: " << password << " != " << pPacket->getPassword().c_str() << endl;
+			  // By tiancaiamao: for debug, comment it!!!
+				cout << "password wrong: " << password << " != " << pPacket->getPassword().c_str() << endl;
 			}
 		}
 		else
@@ -1220,7 +1221,7 @@ bool CLLoginHandler::checkWebLogin(CLLogin* pPacket, Player* pPlayer )
 				filelog("keydiff.txt", "db key: %s, packet key: %s, Player ID: %s", key.c_str(), pPacket->getPassword().c_str(), pPacket->getID().c_str());
 
 				SAFE_DELETE(pStmt);
-				cout << "3" << endl;
+				cout << "33333" << endl;
 				return false;
 			}
 

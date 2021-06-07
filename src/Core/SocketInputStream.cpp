@@ -661,6 +661,8 @@ string SocketInputStream::toString () const
 //add by viva 2008-12-31
 WORD SocketInputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 {
+  return EncryptKey;
+
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
 	

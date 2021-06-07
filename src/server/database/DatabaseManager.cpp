@@ -93,33 +93,21 @@ void DatabaseManager::init ()
 		pStmt = m_pDefaultConnection->createStatement();
 		Result * pResult = NULL;
 
-		// 시간 체크
-		// 데이터 베이스와 서버간에 시간차이가 1시간 이상이면 안뜬다.
-		pResult = pStmt->executeQuery( "SELECT now()" );
+		// time check
+		// No more than 1 hour with the database time.
+		pResult = pStmt->executeQuery( "SELECT unix_timestamp()" );
 		if ( pResult->next() )
 		{
-			// 0123456789012345678
-			// 2003-08-25 18:25:11
-			string sDBTime = pResult->getString( 1 );
-			tm tDBTime;
-			cout << sDBTime << endl;
-
-			tDBTime.tm_year	= atoi( sDBTime.substr( 0,4).c_str() ) - 1900;
-			tDBTime.tm_mon	= atoi( sDBTime.substr( 5,2).c_str() );
-			tDBTime.tm_mday	= atoi( sDBTime.substr( 8,2).c_str() );
-			tDBTime.tm_hour	= atoi( sDBTime.substr(11,2).c_str() );
-			tDBTime.tm_min	= atoi( sDBTime.substr(14,2).c_str() );
-			tDBTime.tm_sec	= atoi( sDBTime.substr(17,2).c_str() );
-
+			time_t tDBTime = pResult->getInt( 1 );
 			time_t tSYSTime = time(0);
-
-			double dbDiff = difftime( tSYSTime, mktime(&tDBTime) );
+			double dbDiff = difftime(tSYSTime, tDBTime);
 
 			if ( (int)dbDiff > 3600 )
 			{
 				// 데이터 베이스와 서버간에 시간차이가 1시간 이상이다.
 				cout << "======================================================" << endl;
 				cout << "!!! Time Check Error !!!" << endl;
+				cout << "DB time is " << tDBTime << "and server time is " << tSYSTime << endl;
 				cout << "!!! Please check DB server and service server time !!!" << endl;
 				cout << "======================================================" << endl;
 

@@ -145,9 +145,20 @@ void SocketOutputStream::writePacket ( const Packet * pPacket )
 	m_Sequence++;
 	
 	// 이제 패킷바디를 출력버퍼로 쓴다.
-	//cout<<"Send:"<<pPacket->toString()<<endl;
+	cout<<"Send:" << packetID << " " <<pPacket->toString() << "|666" <<endl;
+	if (packetID == 0) {
+	  cout << "WHAT THE FUCK?" << endl;
+	}
+
+	uint l1 = length();
+
 	pPacket->write( *this );
 	
+	uint l2 = length();
+
+	if ((l2 - l1) != packetSize) {
+	  cout << "writePacket error: diff size = " << (l2-l1) << " real size = " << packetSize << endl;
+	}
 	
 	/*
 	if( packetID == Packet::PACKET_GC_UPDATE_INFO ) {
@@ -398,6 +409,8 @@ uint SocketOutputStream::length () const
 //add by viva 2008-12-31
 WORD SocketOutputStream::EncryptData(WORD EncryptKey, char* buf, int len)
 {
+  return EncryptKey;
+
 	for(int i = 0; i<len; i++)
 		*(buf + i) ^= 0xCC;
 

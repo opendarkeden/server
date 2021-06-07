@@ -53,7 +53,7 @@ public :
 public :
 	
 	// constructor
-	LoginPlayer (Socket * pSocket) throw ( Error );
+	LoginPlayer (Socket * pSocket);
 	
 	// destructor
 	~LoginPlayer ();
@@ -62,22 +62,22 @@ public :
 	//virtual void processInput () throw ( IOException , Error );
 	
 	// parse packet and execute handler for the packet
-	virtual void processCommand ( bool Option = true ) throw ( IOException , Error );
+	virtual void processCommand ( bool Option = true );
 	
 	// flush output buffer to socket's send buffer
 	//virtual void processOutput () throw ( IOException , Error );
 	
 	// send packet to player's output buffer
-	virtual void sendPacket ( Packet * packet ) throw ( ProtocolException , Error );
+	virtual void sendPacket ( Packet * packet );
 
 	// disconnect
 	// 정식 로그아웃의 경우 disconnect(LOGOUT)
-	virtual void disconnect ( bool bDisconnected = DISCONNECTED ) throw ( Error );
-	virtual void disconnect_nolog ( bool bDisconnected = DISCONNECTED ) throw ( Error );
+	virtual void disconnect ( bool bDisconnected = DISCONNECTED );
+	virtual void disconnect_nolog ( bool bDisconnected = DISCONNECTED );
 
 	
 	// get debug string
-	virtual string toString () const throw ( Error );
+	virtual string toString () const;
 	
 public :
 
@@ -129,7 +129,7 @@ public :
 	void setZipcode( const string& zipcode ) throw() { m_Zipcode = zipcode; }
 
 	const string& getSSN() const throw() { return m_SSN; }
-	void setSSN( const string& ssn ) throw() { m_SSN = ssn; }
+	void setSSN( const string& ssn ) { m_SSN = ssn; }
 
 	bool isFreePass() const	{ return m_bFreePass; }
 	void setFreePass(bool bFreePass=true) { m_bFreePass = bFreePass; }

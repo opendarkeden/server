@@ -1071,8 +1071,12 @@ public :
 		oStream.write( getPacketID() );
 		oStream.write( getPacketSize() );
 		oStream.write( "0",1 );
-		if ( getPacketSize() != 0 )
+		if ( getPacketSize() != 0 ) {
 			write( oStream );
+			if (oStream.length() != getPacketSize() + szPacketID + szPacketSize + 1) {
+			  cout << "writeHeaderNBody: " << getPacketID() << " size:" << getPacketSize() << endl;
+			}
+		}
 	}
 	
 	// execute packet's handler

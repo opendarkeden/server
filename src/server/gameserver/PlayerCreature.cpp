@@ -1557,10 +1557,10 @@ bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus)
 	}
 
 	GCModifyInformation gcMI;
-	gcMI.addLongData( MODIFY_ADVANCEMENT_CLASS_GOAL_EXP, getAdvancementClassGoalExp() );
+	// gcMI.addLongData( MODIFY_ADVANCEMENT_CLASS_GOAL_EXP, getAdvancementClassGoalExp() );
 	if ( ret )
 	{
-		gcMI.addShortData( MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel() );
+	  // gcMI.addShortData( MODIFY_ADVANCEMENT_CLASS_LEVEL, getAdvancementClassLevel() );
 		gcMI.addShortData( MODIFY_BONUS_POINT, getBonus() );
 		m_pGQuestManager->advancementClassLevelUp();
 	}

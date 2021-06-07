@@ -12,27 +12,24 @@
 //--------------------------------------------------------------------------------
 // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
 //--------------------------------------------------------------------------------
-void GCAddMonsterCorpse::read (SocketInputStream & iStream ) 
-	 
+void GCAddMonsterCorpse::read ( SocketInputStream & iStream ) 
 {
 	__BEGIN_TRY
 
 	BYTE name_length = 0;
-	BYTE flag;
+		
+	iStream.read( m_ObjectID );
+	iStream.read( m_MonsterType );
 
-    iStream.read(flag);
-	iStream.read(m_ObjectID);
-	iStream.read(m_MonsterType);
-
-	iStream.read(name_length);
+	iStream.read( name_length );
 	if (name_length != 0) iStream.read(m_MonsterName, name_length);
 
-	iStream.read(m_X);
-	iStream.read(m_Y);
-	iStream.read(m_Dir);
-	iStream.read(m_bhasHead);
-	iStream.read(m_TreasureCount);
-	iStream.read(m_LastKiller);
+	iStream.read( m_X );
+	iStream.read( m_Y );
+	iStream.read( m_Dir );
+	iStream.read( m_bhasHead );
+	iStream.read( m_TreasureCount );
+	iStream.read( m_LastKiller );
 
 	__END_CATCH
 }
@@ -41,27 +38,24 @@ void GCAddMonsterCorpse::read (SocketInputStream & iStream )
 //--------------------------------------------------------------------------------
 // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
 //--------------------------------------------------------------------------------
-void GCAddMonsterCorpse::write (SocketOutputStream & oStream ) const 
-     
+void GCAddMonsterCorpse::write ( SocketOutputStream & oStream ) const 
 {
 	__BEGIN_TRY
 
 	BYTE name_length = m_MonsterName.size();
+		
+	oStream.write( m_ObjectID );
+	oStream.write( m_MonsterType );
 
-//	oStream.write((BYTE)48);
+	oStream.write( name_length );
+	if (m_MonsterName.size() != 0) oStream.write( m_MonsterName );
 
-	oStream.write(m_ObjectID);
-	oStream.write(m_MonsterType);
-
-	oStream.write(name_length);
-	if (m_MonsterName.size() != 0) oStream.write(m_MonsterName);
-
-	oStream.write(m_X);
-	oStream.write(m_Y);
-	oStream.write(m_Dir);
-	oStream.write(m_bhasHead);
-	oStream.write(m_TreasureCount);
-	oStream.write(m_LastKiller);
+	oStream.write( m_X );
+	oStream.write( m_Y );
+	oStream.write( m_Dir );
+	oStream.write( m_bhasHead );
+	oStream.write( m_TreasureCount );
+	oStream.write( m_LastKiller );
 
 	__END_CATCH
 }
@@ -70,12 +64,11 @@ void GCAddMonsterCorpse::write (SocketOutputStream & oStream ) const
 //--------------------------------------------------------------------------------
 // execute packet's handler
 //--------------------------------------------------------------------------------
-void GCAddMonsterCorpse::execute (Player * pPlayer ) 
-	 
+void GCAddMonsterCorpse::execute ( Player * pPlayer ) 
 {
 	__BEGIN_TRY
 		
-	GCAddMonsterCorpseHandler::execute(this , pPlayer);
+	GCAddMonsterCorpseHandler::execute( this , pPlayer );
 		
 	__END_CATCH
 }
@@ -85,7 +78,6 @@ void GCAddMonsterCorpse::execute (Player * pPlayer )
 // get packet's debug string
 //--------------------------------------------------------------------------------
 string GCAddMonsterCorpse::toString () const
-       
 {
 	__BEGIN_TRY
 

@@ -202,7 +202,7 @@ typedef struct _SHORTDATA
 typedef struct _LONGDATA
 {
 	BYTE  type;
-	ulong value;
+	DWORD value;
 
 } LONGDATA;
 

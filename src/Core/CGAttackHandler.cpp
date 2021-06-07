@@ -253,7 +253,7 @@ void CGAttackHandler::execute (CGAttack* pPacket , Player* pPlayer)
 	} 
 	catch (Throwable & t) 
 	{
-		//cout << t.toString();
+	  cout << "CGAttackHandle error: " << t.toString();
 	}
 	catch (...)
 	{
