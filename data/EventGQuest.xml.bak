@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<QuestList>
+	<Quest id="1001">
+		<Title>1단계 A등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 지정된 몬스터를 40마리 사냥하세요. 단, 사냥한 몬스터의 시체는 낮은 레벨의 파티원이 루팅해야 합니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<Level min="25" />
+			<NOT>
+			<OR>
+				<HasQuestItem type="4" num="5" />
+				<HasQuestItem type="7" num="5" />
+				<HasQuestItem type="10" num="5" />
+			</OR>
+			</NOT>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 다음 퀘스트는 12시간 후에 주어질 것입니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<PartyDissect num="40" sort="1" index="2">%s 를 사냥하세요. %d / 40마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="1" grade="A" />
+		</Reward>
+	</Quest>
+	<Quest id="1002">
+		<Title>1단계 B등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 지정된 몬스터를 50마리 사냥하세요. 단, 사냥한 몬스터의 시체는 낮은 레벨의 파티원이 루팅해야 합니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="1001" />
+			<Level min="25" />
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<PartyDissect num="50" sort="1" index="2">%s 를 사냥하세요. %d / 50마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="1" grade="B" />
+		</Reward>
+	</Quest>
+	<Quest id="1003">
+		<Title>1단계 C등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 지정된 몬스터를 60마리 사냥하세요. 단, 사냥한 몬스터의 시체는 낮은 레벨의 파티원이 루팅해야 합니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="1001" />
+			<CompleteQuest id="1002" />
+			<Level min="25" />
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<PartyDissect num="60" sort="1" index="2">%s 를 사냥하세요. %d / 60마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="1" grade="C" />
+		</Reward>
+	</Quest>
+	<Quest id="1004">
+		<Title>1단계 D등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 지정된 몬스터를 75마리 사냥하세요. 단, 사냥한 몬스터의 시체는 낮은 레벨의 파티원이 루팅해야 합니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="1001" />
+			<CompleteQuest id="1002" />
+			<CompleteQuest id="1003" />
+			<Level min="25" />
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<PartyDissect num="75" sort="1" index="2">%s 를 사냥하세요. %d / 75마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분 </Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="1" grade="D" />
+		</Reward>
+	</Quest>
+
+	<Quest id="2001">
+		<Title>2단계 A등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌아오십시오. 목표지점에 위치한 체크포인트를 낮은 레벨의 파티원이 체크해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<Level min="25" />
+			<NOT><CompleteQuest id="1001" /></NOT>
+			<OR>
+				<HasQuestItem type="4" num="5" />
+				<HasQuestItem type="7" num="5" />
+				<HasQuestItem type="10" num="5" />
+			</OR>
+			<NOT>
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+			</NOT>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 다음 퀘스트는 12시간 후에 주어질 것입니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="1" basenum="3" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="2" grade="A" />
+		</Reward>
+	</Quest>
+	<Quest id="2002">
+		<Title>2단계 B등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌아오십시오. 목표지점에 위치한 체크포인트를 낮은 레벨의 파티원이 체크해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="2001" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="4" num="5" />
+				<HasQuestItem type="7" num="5" />
+				<HasQuestItem type="10" num="5" />
+			</OR>
+			<NOT>
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+			</NOT>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="2" basenum="4" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="2" grade="B" />
+		</Reward>
+	</Quest>
+	<Quest id="2003">
+		<Title>2단계 C등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌아오십시오. 목표지점에 위치한 체크포인트를 낮은 레벨의 파티원이 체크해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="2001" />
+			<CompleteQuest id="2002" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="4" num="5" />
+				<HasQuestItem type="7" num="5" />
+				<HasQuestItem type="10" num="5" />
+			</OR>
+			<NOT>
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+			</NOT>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="3" basenum="6" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="2" grade="C" />
+		</Reward>
+	</Quest>
+	<Quest id="2004">
+		<Title>2단계 D등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌아오십시오. 목표지점에 위치한 체크포인트를 낮은 레벨의 파티원이 체크해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="2001" />
+			<CompleteQuest id="2002" />
+			<CompleteQuest id="2003" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="4" num="5" />
+				<HasQuestItem type="7" num="5" />
+				<HasQuestItem type="10" num="5" />
+			</OR>
+			<NOT>
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+			</NOT>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가실 수 있습니다.</CompleteMessage>
+		<Complete>
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="4" basenum="8" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분 </Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="2" grade="D" />
+		</Reward>
+	</Quest>
+
+	<Quest id="3001">
+		<Title>3단계 A등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌면서 몬스터를 사냥하십시오. 해당 몬스터의 루팅과 체크 포인트의 체크는 낮은 레벨의 캐릭터가 해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<Level min="25" />
+			<NOT><CompleteQuest id="1001" /></NOT>
+			<NOT><CompleteQuest id="2001" /></NOT>
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 다음 퀘스트는 12시간 후에 주어질 것입니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete type="and">
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="1" basenum="2" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+			<PartyDissect num="20" sort="1" index="3">%s 를 사냥하세요. %d / 20마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="3" grade="A" />
+		</Reward>
+	</Quest>
+	<Quest id="3002">
+		<Title>3단계 B등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 40분 안에 목표 지점을 돌면서 몬스터를 사냥하십시오. 해당 몬스터의 루팅과 체크 포인트의 체크는 낮은 레벨의 캐릭터가 해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="3001" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete type="and">
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="2" basenum="3" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+			<PartyDissect num="30" sort="1" index="3">%s 를 사냥하세요. %d / 30마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="3" grade="B" />
+		</Reward>
+	</Quest>
+	<Quest id="3003">
+		<Title>3단계 C등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 50분 안에 목표 지점을 돌면서 몬스터를 사냥하십시오. 해당 몬스터의 루팅과 체크 포인트의 체크는 낮은 레벨의 캐릭터가 해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="3001" />
+			<CompleteQuest id="3002" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가거나 더 많은 복권을 얻기 위해 높은 난이도에 도전하실 수 있습니다.</CompleteMessage>
+		<Complete type="and">
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="3" basenum="4" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+			<PartyDissect num="40" sort="1" index="3">%s 를 사냥하세요. %d / 40마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분</Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="2" grade="C" />
+		</Reward>
+	</Quest>
+	<Quest id="3004">
+		<Title>3단계 D등급 이벤트 퀘스트</Title>
+		<Script sender="운영자">24레벨 이하 1명과 2인 파티를 이뤄서 50분 안에 목표 지점을 돌면서 몬스터를 사냥하십시오. 해당 몬스터의 루팅과 체크 포인트의 체크는 낮은 레벨의 캐릭터가 해야 합니다. 퀘스트를 수행하는 도중에 빠른 이동 수단을 사용하면 실패하게 됩니다. 퀘스트를 완료할 경우 복권이 지급되며 파티 상대에게는 경험치와 게임 머니가 지급됩니다.</Script>
+		<Happen replay="true" gap="720">
+			<CompleteQuest id="3001" />
+			<CompleteQuest id="3002" />
+			<CompleteQuest id="3003" />
+			<Level min="25" />
+			<OR>
+				<HasQuestItem type="5" num="5" />
+				<HasQuestItem type="8" num="5" />
+				<HasQuestItem type="11" num="5" />
+			</OR>
+		</Happen>
+		<CompleteMessage>성공입니다. 이로서 하나의 퀘스트를 무사히 마치셨습니다. 12시간 후에 다음 퀘스트로 넘어가실 수 있습니다.</CompleteMessage>
+		<Complete type="and">
+			<EventParty index="1">24레벨 이하의 플레이어 1명과 파티를 맺어야 합니다.</EventParty>
+			<Travel grade="4" basenum="5" index="2">%s의 포인트를 체크해야 합니다.</Travel>
+			<PartyDissect num="40" sort="1" index="3">%s 를 사냥하세요. %d / 40마리
+				<Level min="25" max="39">
+					<Target type="60" />
+					<Target type="64" />
+					<Target type="67" />
+					<Target type="41" />
+					<Target type="62" />
+					<Target type="61" />
+					<Target type="68" />
+				</Level>
+				<Level min="40" max="59">
+					<Target type="48" />
+					<Target type="27" />
+					<Target type="40" />
+					<Target type="57" />
+					<Target type="72" />
+					<Target type="74" />
+				</Level>
+				<Level min="60" max="79">
+					<Target type="71" />
+					<Target type="76" />
+					<Target type="70" />
+					<Target type="47" />
+					<Target type="75" />
+				</Level>
+				<Level min="80" max="99">
+					<Target type="88" />
+					<Target type="89" />
+					<Target type="91" />
+					<Target type="92" />
+				</Level>
+				<Level min="100" max="119">
+					<Target type="90" />
+					<Target type="101" />
+					<Target type="102" />
+					<Target type="103" />
+					<Target type="193" />
+				</Level>
+				<Level min="120" max="150">
+					<Target type="105" />
+					<Target type="107" />
+					<Target type="108" />
+					<Target type="194" />
+				</Level>
+			</PartyDissect>
+		</Complete>
+		<FailMessage>이런 아깝게 실패하셨네요. 하지만 기회가 사라진 것은 아닙니다. 재도전이 가능하니 실망하지 마세요.</FailMessage>
+		<Fail>
+			<Time limit="40" index="1">%s남은 시간 : %d분 </Time>
+			<EventPartyCrash index="2">파티가 변경되어서는 안 됩니다.</EventPartyCrash>
+			<RideMotorcycle index="3">빠른 이동 수단을 사용해서는 안 됩니다.</RideMotorcycle>
+			<IllegalWarp index="4">NPC나 헬기, 씰, 대지정령의 뿔을 통해 이동해서는 안 됩니다.</IllegalWarp>
+		</Fail>
+		<Reward>
+			<GiveEventQuestItem type="3" grade="D" />
+		</Reward>
+	</Quest>
+
+</QuestList>

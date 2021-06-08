@@ -1,0 +1,23 @@
+#!/bin/sh
+cp 퀘스트키드.slayer.bin 퀘스트키드.vampire.bin
+cp 퀘스트키드.slayer.bin 퀘스트키드.ousters.bin
+cp 퀘스트모데라스.slayer.bin 퀘스트모데라스.vampire.bin
+cp 퀘스트모데라스.slayer.bin 퀘스트모데라스.ousters.bin
+cp 퀘스트위도우즈.slayer.bin 퀘스트위도우즈.vampire.bin
+cp 퀘스트위도우즈.slayer.bin 퀘스트위도우즈.ousters.bin
+cp 퀘스트블러드워록.slayer.bin 퀘스트블러드워록.vampire.bin
+cp 퀘스트블러드워록.slayer.bin 퀘스트블러드워록.ousters.bin
+cp 퀘스트크림슨슬로터.slayer.bin 퀘스트크림슨슬로터.vampire.bin
+cp 퀘스트크림슨슬로터.slayer.bin 퀘스트크림슨슬로터.ousters.bin
+cp 퀘스트카오스가디언.slayer.bin 퀘스트카오스가디언.vampire.bin
+cp 퀘스트카오스가디언.slayer.bin 퀘스트카오스가디언.ousters.bin
+cp 퀘스트로드카오스.slayer.bin 퀘스트로드카오스.vampire.bin
+cp 퀘스트로드카오스.slayer.bin 퀘스트로드카오스.ousters.bin
+cp 퀘스트다크가디언.slayer.bin 퀘스트다크가디언.vampire.bin
+cp 퀘스트다크가디언.slayer.bin 퀘스트다크가디언.ousters.bin
+cp 퀘스트카오스그리드.slayer.bin 퀘스트카오스그리드.vampire.bin
+cp 퀘스트카오스그리드.slayer.bin 퀘스트카오스그리드.ousters.bin
+cp 퀘스트던울프아크.slayer.bin 퀘스트던울프아크.vampire.bin
+cp 퀘스트던울프아크.slayer.bin 퀘스트던울프아크.ousters.bin
+
+

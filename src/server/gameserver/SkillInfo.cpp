@@ -356,7 +356,7 @@ void SkillInfoManager::load()
 		pResult = pStmt->executeQuery("Select \
 			Type, Name, Level, MinDam, MaxDam, MinDelay, MaxDelay, MinDur, MaxDur,\
 			Mana, MinRange, MaxRange, Target, SubExp, Point, Domain, MagicDomain,\
-			Melee, Magic, Physic, SkillPoint, LevelUpPoint, RequireSkill, Condition, ElementalDomain, CanDelete\
+			Melee, Magic, Physic, SkillPoint, LevelUpPoint, `RequireSkill`, `Condition`, ElementalDomain, CanDelete\
 			from SkillBalance");
 
 		while (pResult->next()) 

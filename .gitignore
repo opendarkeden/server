@@ -1,6 +1,5 @@
 bin/*
 lib/*
-data/
 build/
 *.o
 *.a

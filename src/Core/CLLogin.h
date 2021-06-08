@@ -28,7 +28,9 @@
 
 class CLLogin : public Packet {
 public:
-	CLLogin() : m_LoginMode (LOGIN_MODE_NORMAL ) {}
+	CLLogin() : m_LoginMode (LOGIN_MODE_NORMAL ) {
+	  m_strMacAddress = "";
+	}
     virtual ~CLLogin() {};
 
 public:

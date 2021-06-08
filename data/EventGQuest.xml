@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<QuestList>
+	<Quest id="1010">
+		<Title>진화의 고리</Title>
+		<Script sender="테리">긴급상황입니다. 저는 EVE본부 소속 "테리"입니다. 지금 빨리 길드 본부로의 귀환을 명합니다. 귀관께 특별 임무가 하달되었습니다. 자세한 내용은 말씀드릴 수 없습니다만 조속한 귀환을 바랍니다. 현재 상황 어떻습니까? 가능합니까?</Script>
+		<Happen replay="false">
+			<Race race="SLAYER" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SayNPC name="테리" target="302" index="1">테리에게 말을 건다.</SayNPC>
+			<Script sender="테리" target="302" index="2">지금부터 제 말을 잘 들으십시오. 이는 어디까지나 상부의 명령이며 자세한 내용은 저도 잘 알지 못합니다. 이는 극비 임무이며 절대 누설되어서는 안됩니다. 아시겠습니까?</Script>
+			<GiveQuestItem id="21" />
+			<AddEffect effectclass="462" />
+			<Script sender="테리" targetitem="21" index="3">이것을 받으십시오. 임무는 단지 이것을 전달하기만 하면 됩니다. 매우 쉽게 들리겠지만 이 문서를 림보성 내부에 있는 뱀파이어 레베카에게 전해야 하는 게 문제입니다. 물론 뱀파이어 성에 칩입할 수 있도록 조치를 취한 상태이니 큰 걱정은 마십시오. 이 임무는 은밀히 수행해야 하는 만큼 오토바이나 헬기 사용은 금지되어 있으니 이점 명심하시기 바랍니다.</Script>
+			<SayNPC name="레베카" target="255" index="4">림보성 내부에 있는 레베카에게 극비 문서를 전달한다.</SayNPC>
+			<Script sender="레베카" target="255" index="5">오느라 수고 많았습니다. 어떤가요? 미천한 인간의 몸으로 아름다운 림보성을 구경하는 기분이….</Script>
+			<LoseQuestItem id="21" />
+			<GiveQuestItem id="22" />
+			<Script sender="레베카" targetitem="22" index="6">전해주신 물건은 잘 받았습니다. 이제 이걸 받아가십시오. 그럼 안녕히…. 또 보게 될 일이 생길지도 모르겠지만요. 호호호호호호호호….</Script>
+			<RemoveEffect effectclass="462" />
+			<SayNPC name="테리" target="302" index="7">에슬라니아 북서에 있는 테리에게 회신 문서를 전한다.</SayNPC>
+			<Script sender="테리" target="302" index="8">무사히 완수하셨군요. 다행입니다. 조만간 새로운 임무가 주어질지도 모릅니다. 멀지 않은 곳에서 대기해주십시오.</Script>
+			<LoseQuestItem id="22" />
+		</Complete>
+		<FailMessage sender="테리" target="302">이런. 실패하셨군요. 실마앙~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<RideMotorcycle index="2">오토바이 사용 금지</RideMotorcycle>
+			<IllegalWarp index="3">헬기 사용 금지</IllegalWarp>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="1011">
+		<Title>제단의 문</Title>
+		<Script sender="테리">EVE본부 소속 "테리"입니다. 귀관께서 공을 세우신 일전의 임무에 대해 상부에서 크게 치하를 하였습니다. 이에 급히 새로운 중요 임무가 내려왔습니다. 아담의 성지 중앙 상층부에 아담의 성지로 통하는 입구가 열렸다고 합니다. 속히 이곳을 조사해주시기 바랍니다. 가능합니까?</Script>
+		<Happen replay="false">
+			<CompleteQuest id="1010" />
+			<Race race="SLAYER" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SetDynamicZone zoneid="4001" canenter="1" />
+			<EnterDynamicZone zoneid="4001" index="1">"아담의 성지" 중앙에 있는 "제단의 문"으로 향한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4001" canenter="0" />
+			<ClearDynamicZone zoneid="4001" index="2">시간 내에 몬스터의 피로 "마법진"을 완성하고 내부로 진입할 통로를 찾아야한다.</ClearDynamicZone>
+			<Script sender="테리" target="302" index="3">치직…. 감이 좋지 않군요. 지금 막 입수한… 정보에 의하면…. 치직-. 제단의 문에는 마법진…. 6개의…. 치직, 치지직, 치-.</Script>
+			<SetDynamicZone zoneid="4002" canenter="1" />
+			<EnterDynamicZone zoneid="4002" index="4">마법진을 통해 피의 제단으로 들어가야 한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4002" canenter="0" />
+			<Script index="5">추락. '마법진이 발동되자 우리는 깊은 어둠의 나락으로 끝없이 떨어졌다.'</Script>
+			<Script index="6">지옥. '수많은 인간과 뱀파이어들의 시체가 산을 이루고, 철벅거리는 핏물의 비릿한 내음이 코를 찔렀다.'</Script>
+			<Script index="7">제물. '동료들은 영혼을 붙잡힌 채 악귀들의 기괴한 웃음소리 속에서 원망의 눈초리를 보내고 있다.'</Script>
+			<Script index="8">배신. '이 임무는 우리를 단지 제물로 바치기 위한 함정이었던 것인가? 그럼 그 때의 편지는…. 양 측의 수뇌부가 손을 잡기 위해서….'</Script>
+			<Script index="9">의문. '대체 이 많은 제물은 무엇을 위한 것인가?'</Script>
+			<ClearDynamicZone zoneid="4002" index="10">몬스터들을 죽여 "생명의 나선"을 얻어라. 이를 이용해 슬레이어들을 구출하라.</ClearDynamicZone>
+			<SetDynamicZone zoneid="72" canenter="1" />
+		</Complete>
+		<FailMessage sender="테리" target="302">이런. 실패하셨군요. 실마앙~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<Time limit="120" index="2">%s남은 시간 : %d분</Time>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="1012" autostart="1" ending="1">
+		<Title>아브락사스, 작은 새의 날개 짓</Title>
+		<Script>"테리"에게 간다. 테리는 "에슬라니아 북서"에 있다.</Script>
+		<Happen replay="false">
+			<CompleteQuest id="1011" />
+			<Race race="SLAYER" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<Script index="1">'EVE의 지도층이라는 놈들이 이런 일을 꾸미다니…. 흡혈귀나 다름없는 놈들. 용서할 수 없다.'</Script>
+			<SayNPC name="테리" target="302" index="2">테리에게 말을 건다.</SayNPC>
+			<Script sender="테리" target="302" index="3">임무를 무사히 마치셨군요. 다행입니….</Script>
+			<Script sender="테리" target="302" index="4">네? 그런…. 아뇨…. 저는 아무것도….</Script>
+			<Script sender="테리" target="302" index="5" action="dead" warp="4003">진정하세요. 그러니까….</Script>
+			<SetDynamicZone zoneid="4003" canenter="1" />
+			<EnterDynamicZone zoneid="4003" index = "6" />
+			<SetDynamicZone zoneid="4003" canenter="0" />
+			<ClearDynamicZone zoneid="4003" index="7">자신의 내면 속에서 "이성의 봉인"을 수호하고 "10분" 동안 생존한다.</ClearDynamicZone>
+			<Warp zoneid="12" x="239" y="167" />
+			<SayNPC name="테리" target="302" index="8">다시 테리에게 말을 건다.</SayNPC>
+		</Complete>
+		<FailMessage sender="테리" target="302">이런. 실패하셨군요. 실마앙~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+		</Fail>
+		<Reward>
+			<AdvanceClass />
+			<Random>
+				<GiveItem class="CARRYING_RECEIVER" type="0" option="STR+1" />
+				<GiveItem class="CARRYING_RECEIVER" type="0" option="DEX+1" />
+				<GiveItem class="CARRYING_RECEIVER" type="0" option="INT+1" />
+			</Random>
+		</Reward>
+	</Quest>
+	<Quest id="2010">
+		<Title>진화의 고리</Title>
+		<Script sender="쎄쓰">대체 어디 있었던 거야? 내가 몇 번이나 텔레파시를 보냈었는데 이제야 대답하다니…. 원….  뭐야? 벌써 내 목소리도 잊어버린 거야? 나 세쓰라고…. 림보성의 세쓰.  애숭이 땐 좋다는 반지며 목걸이며 다 챙겨줬더니만 어쩜 그럴 수가 있어?  아이구, 내 정신 좀 봐. 아무튼 얼른 나한테 좀 오라고. 마스터께서 중요한 임무가 있대. 올 수 있지? 그리고 올 때 괜찮은 물건 구한 게 있으면 같이 가져오라고….  </Script>
+		<Happen replay="false">
+			<Race race="VAMPIRE" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SayNPC name="쎄쓰" target="219" index="1">쎄쓰에게 말을 건다.</SayNPC>
+			<Script sender="쎄쓰" target="219" index="2">어…. 왔군 왔어. 참 오랜만이야. 어떻게 지냈어, 그래….  그보다 마스터께서 특별 명령을 내리셨어. 비밀리에 수행해야 하니까 비밀을 맹세하라고. 뭐? 나만 조용히 있으면 될 것 같다고? 이런….  </Script>
+			<GiveQuestItem id="23" />
+			<Script sender="쎄쓰" targetitem="23" index="3">자, 이걸 품에 잘 넣어둬. 할 일은 이거 전달하는 것 뿐이야. 쉬울 것 같지만 누구한테 전해야 할 것 같아? 큭큭큭…. 바로 슬레이어들의 대장인 카이저라구.  왜 그자에게 이걸 전달해야 하는지 나한테 묻진 말라구, 나도 그 이윤 모르니까..  그럼 잘 갔다 와. 그리고 행여나 카이저 목을 물어버리는 대담한 짓은 관두라구. 큭큭큭큭….  아, 임무도중 박쥐로 변하거나 씰을 여는 어리석은 행동은 그만두라구.. 자넨 은밀히 임무 수행 하는 중이라는걸 기억하라구..  </Script>
+			<SayNPC name="카이저" target="17" index="4">에슬라니아 북서에 있는 카이저에게 극비 문서를 전달한다.</SayNPC>
+			<Script sender="카이저" target="17" index="5">크흠…. 이것인가? 허튼 짓 말고 거기 얌전히 있도록.</Script>
+			<LoseQuestItem id="23" />
+			<GiveQuestItem id="24" />
+			<Script sender="카이저" targetitem="24" index="6">음…. 좋아. 이걸 가져가라. 길 조심해서 돌아가도록. 그리고 다음엔 날 만나는 일은 없도록 해라. 상체와 하체가 따로 놀게 될지도 모르니까.</Script>
+			<SayNPC name="쎄쓰" target="219" index="7">림보성 내부에 있는 쎄쓰에게 회신 문서를 전한다.</SayNPC>
+			<Script sender="쎄쓰" target="219" index="8">그래…. 왔군, 왔어. 그건 이리 줘. 수고 많았어.  조만간 마스터께서 또 무슨 명령을 내리실지 몰라. 기다리고 있으라구.  </Script>
+			<LoseQuestItem id="24" />
+		</Complete>
+		<FailMessage sender="쎄쓰" target="219">이런. 실패했군. 바보~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<IllegalWarp index="2">씰 사용 금지</IllegalWarp>
+			<RideMotorcycle index="3">박쥐 변신 금지</RideMotorcycle>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="2011">
+		<Title>제단의 문</Title>
+		<Script sender="쎄쓰">나야, 세쓰. 들리지? 호호호호호. 알어? 마스터께서 아주 기뻐하셨어. 아, 그 일전에 명령 내리신 것을 잘 수행했다고 칭찬이 자자했지.  근데 말이야 급히 또 새로운 명령을 내리시지 뭐야. 아담의 성지 알지? 거기 중앙 상층부에 아담의 성지로 통하는 입구가 열렸대. 지금 갈 거지?  </Script>
+		<Happen replay="false">
+			<CompleteQuest id="2010" />
+			<Race race="VAMPIRE" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SetDynamicZone zoneid="4001" canenter="1" />
+			<EnterDynamicZone zoneid="4001" index="1">"아담의 성지" 중앙에 있는 "제단의 문"으로 향한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4001" canenter="0" />
+			<ClearDynamicZone zoneid="4001" index="2">시간 내에 몬스터의 피로 "마법진"을 완성하고 내부로 진입할 통로를 찾아야한다.</ClearDynamicZone>
+			<Script sender="쎄쓰" target="219" index="3">이봐, 이봐. 몇 번을 불렀는지… 알아? 윙- 윙-. 지금 막 입수한… 정보에 의하면…. 위잉-. 제단의 문에는 마법진…. 6개의…. 위위윙윙윙-.</Script>
+			<SetDynamicZone zoneid="4002" canenter="1" />
+			<EnterDynamicZone zoneid="4002" index="4">마법진을 통해 피의 제단으로 들어가야 한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4002" canenter="0" />
+			<Script index="5">추락. '마법진이 발동되자 우리는 깊은 어둠의 나락으로 끝없이 떨어졌다.'</Script>
+			<Script index="6">지옥. '수많은 인간과 뱀파이어들의 시체가 산을 이루고, 철벅거리는 핏물의 비릿한 내음이 코를 찔렀다.'</Script>
+			<Script index="7">제물. '함께 들어왔던 동지들은 영혼을 붙잡힌 채 악귀들의 기괴한 웃음소리 속에서 원망의 눈초리를 보내고 있다.'</Script>
+			<Script index="8">배신. '이 임무는 우리를 단지 제물로 바치기 위한 함정이었던 것인가? 그럼 그 때의 편지는…. 양 측의 수뇌부가 손을 잡기 위해서….'</Script>
+			<Script index="9">의문. '대체 이 많은 제물은 무엇을 위한 것인가?'</Script>
+			<ClearDynamicZone zoneid="4002" index="10">몬스터들을 죽여 "생명의 나선"을 얻어라. 이를 이용해 제물이 된 뱀파이어들을 구출하라.</ClearDynamicZone>
+			<SetDynamicZone zoneid="72" canenter="1" />
+		</Complete>
+		<FailMessage sender="쎄쓰" target="219">이런. 실패했군. 바보~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<Time limit="120" index="2">%s남은 시간 : %d분</Time>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="2012" autostart="1" ending="2">
+		<Title>아브락사스, 작은 새의 날개 짓</Title>
+		<Script>"쎄쓰"에게 간다. 쎄쓰는 "림보성 내부"에 있다.</Script>
+		<Happen replay="false">
+			<CompleteQuest id="2011" />
+			<Race race="VAMPIRE" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<Script index="1">'뱀파이어를 이끄는 마스터라는 자들이 일족의 피를 파는 짓이나 하다니…. 용서할 수 없다.'</Script>
+			<SayNPC name="쎄쓰" target="219" index="2">쎄쓰에게 말을 건다.</SayNPC>
+			<Script sender="쎄쓰" target="219" index="3">아이구, 힘들었지? 그래 얼굴이 다….</Script>
+			<Script sender="쎄쓰" target="219" index="4">뭐? 그런…. 아냐, 아냐…. 나는 아무것도….</Script>
+			<Script sender="쎄쓰" target="219" index="5" action="dead" warp="4004">진정하라니까…. 그게 말야….</Script>
+			<SetDynamicZone zoneid="4004" canenter="1" />
+			<EnterDynamicZone zoneid="4004" index="6" />
+			<SetDynamicZone zoneid="4004" canenter="0" />
+			<ClearDynamicZone zoneid="4004" index="7">자신의 내면 속에서 "이성의 봉인"을 수호하고 "10분" 동안 생존한다.</ClearDynamicZone>
+			<Warp zoneid="1003" x="48" y="100" />
+			<SayNPC name="쎄쓰" target="219" index="8">다시 쎄쓰에게 말을 건다.</SayNPC>
+		</Complete>
+		<FailMessage sender="쎄쓰" target="219">이런. 실패했군. 바보~</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+		</Fail>
+		<Reward>
+			<AdvanceClass />
+			<Random>
+				<GiveItem class="DERMIS" type="0" option="STR+1" />
+				<GiveItem class="DERMIS" type="0" option="DEX+1" />
+				<GiveItem class="DERMIS" type="0" option="INT+1" />
+			</Random>
+		</Reward>
+	</Quest>
+
+	<Quest id="3010">
+		<Title>진화의 고리</Title>
+		<Script sender="호라">저는 아우스터즈 마을의 호라. 정령의 힘을 빌어 당신께 메시지를 전합니다.  라비니아 님이 시급한 일이 있다고 합니다. 얼른 마을로 돌아와주십시오.  자세한 내용은 지금 말씀드릴 수 없습니다. 다시 한번 말씀 드리지만 긴급한 일입니다. 당신이 꼭 필요해요. 와주시겠습니까?  </Script>
+		<Happen replay="false">
+			<Race race="OUSTERS" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SayNPC name="호라" target="658" index="1">호라에게 말을 건다.</SayNPC>
+			<Script sender="호라" target="658" index="2">와주셨군요. 감사합니다. 당신께 물의 정령 엘라임의 순결한 마음과 축복이 함께하기를 기원합니다.  당신에게 주어진 중요한 비밀 임무가 있습니다.  </Script>
+			<GiveQuestItem id="25" />
+			<Script sender="호라" targetitem="25" index="3">이걸 받으십시오. 하실 일은 이것을 가지고 누군가를 만나는 일입니다. 만나야 하는 이는 바로 이단 뱀파이어인 "라르바"입니다. 보통은 그냥 만나주지 않지만 영혼 상태가 되어 이 증표를 가지고 가면 대화에 응해줄 것입니다.  제가 엘라임의 힘을 빌어 당신께 마법을 걸어드리겠습니다. 조금 있으면 육신과 영혼이 분리될 것입니다. 육신은 걱정하지 마십시오. 제가 잘 보관하고 있겠습니다.  자 어서 라르바에게로 향하십시오.  아, 영혼 상태에서는 마법도, 공격도, 그 밖의 많은 것들도 하지 못합니다. 하지만 어떠한 공격도 당하지 않게 되니 걱정 마십시오.  부디 엘라임의 축복이….  </Script>
+			<SayNPC name="라르바" target="368" index="4">림보성 남동에 있는 라르바에게 극비 문서를 전달한다.</SayNPC>
+			<Script sender="라르바" target="368" index="5">이런 곳까지 나를 찾아온 작은 영혼은 누구인가? 아, 그건 라비니아의….</Script>
+			<LoseQuestItem id="25" />
+			<GiveQuestItem id="26" />
+			<Script sender="라르바" targetitem="26" index="6">이걸 가지고 돌아가게. 그리고 한가지 더….  요새 뱀파이어들과 인간들 사이에서 이상한 일이 벌어지고 있네. 그들이 손을 잡는다는 것은 상상할 수 없는 일이지만 워낙 욕망으로만 가득한 놈들이니….  내 말을 명심하고 라비니아에게 이를 꼭 전하도록 하게.  </Script>
+			<SayNPC name="호라" target="658" index="7">아우스터즈 마을에 있는 호라에게 회신 문서를 전한다.</SayNPC>
+			<Script sender="호라" target="658" index="8">이것이군요. 수고하셨습니다. 걱정 많이 했답니다.  네? 인간과 뱀파이어들 사이에서 그런 일이…? 라르바의 말이라면 괜한 소리는 아니겠군요. 알겠습니다. 라비니아 님께 말씀 드리겠습니다.  조만간 다시 메시지를 전하도록 하겠습니다.  </Script>
+			<LoseQuestItem id="26" />
+		</Complete>
+		<FailMessage sender="호라" target="658">이런 실패하셨군요. 안타깝습니다.</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<IllegalWarp index="2">대지정령의 뿔 사용 금지</IllegalWarp>
+			<RideMotorcycle index="3">실프 사용 금지</RideMotorcycle>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="3011">
+		<Title>제단의 문</Title>
+		<Script sender="호라">정령 엘라임의 축복으로 호라, 그대에게 라비니아님의 전언을 전합니다. 아담의 성지 중앙 상층부에 아담의 성지로 통하는 입구가 열렸다고 합니다. 뱀파이어와 인간들의 욕망을 저지하기 위해 당신의 도움이 필요합니다. 조사해주실 수 있겠습니까?</Script>
+		<Happen replay="false">
+			<CompleteQuest id="3010" />
+			<Race race="OUSTERS" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<SetDynamicZone zoneid="4001" canenter="1" />
+			<EnterDynamicZone zoneid="4001" index="1">"아담의 성지" 중앙에 있는 "제단의 문"으로 향한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4001" canenter="0" />
+			<ClearDynamicZone zoneid="4001" index="2">시간 내에 몬스터의 피로 "마법진"을 완성하고 내부로 진입할 통로를 찾아야한다.</ClearDynamicZone>
+			<Script sender="호라" target="658" index="3">제 말이 들리십니까? 우우웅…. 지금 막 입수한… 정보에 의하면…. 웅-. 제단의 문에는 마법진…. 6개의…. 우우우우우웅-.</Script>
+			<SetDynamicZone zoneid="4002" canenter="1" />
+			<EnterDynamicZone zoneid="4002" index="4">마법진을 통해 피의 제단으로 들어가야 한다.</EnterDynamicZone>
+			<SetDynamicZone zoneid="4002" canenter="0" />
+			<Script index="5">추락. '마법진이 발동되자 우리는 깊은 어둠의 나락으로 끝없이 떨어졌다.'</Script>
+			<Script index="6">지옥. '수많은 인간과 뱀파이어들의 시체가 산을 이루고, 철벅거리는 핏물의 비릿한 내음이 코를 찔렀다.'</Script>
+			<Script index="7">제물. '동족들은 영혼을 붙잡힌 채 악귀들의 기괴한 웃음소리 속에서 원망의 눈초리를 보내고 있다.'</Script>
+			<Script index="8">배신. '이 임무는 우리를 단지 제물로 삼기 위한 함정이었던 것인가? 간악한 인간과 뱀파이어들이 손을 잡고 이런 일을 꾸밀 줄이야.'</Script>
+			<Script index="9">의문. '헌데 대체 이 많은 제물은 무엇을 위한 것인가?'</Script>
+			<ClearDynamicZone zoneid="4002" index="10">몬스터들을 죽여 "생명의 나선"을 얻어라. 이를 이용해 제물이 된 아우스터즈들을 구출하라.</ClearDynamicZone>
+			<SetDynamicZone zoneid="72" canenter="1" />
+		</Complete>
+		<FailMessage sender="호라" target="658">이런 실패하셨군요. 안타깝습니다.</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+			<Time limit="120" index="2">%s남은 시간 : %d분</Time>
+		</Fail>
+		<Reward>
+		</Reward>
+	</Quest>
+	<Quest id="3012" autostart="1" ending="3">
+		<Title>아브락사스, 작은 새의 날개 짓</Title>
+		<Script>"호라"에게 간다.</Script>
+		<Happen replay="false">
+			<CompleteQuest id="3011" />
+			<Race race="OUSTERS" />
+			<Level min="150" />
+			<NOT><AdvancementClassLevel min="1" /></NOT>
+		</Happen>
+		<Complete>
+			<Script index="1"> 무서운 것들. 동료들을 팔면서까지 욕망을 채우려 하다니…. 역시 인간이나 뱀파이어들은 어쩔 수 없는 녀석들인가…. 한시 빨리 보고를 드려야겠다.  </Script>
+			<SayNPC name="호라" target="658" index="2">호라에게 말을 건다.</SayNPC>
+			<Script sender="호라" target="658" index="3">엘라임의 축복이 그대에게 함께 하였습니다.</Script>
+			<Script sender="호라" target="658" index="4">그래 하실 말씀이라도….</Script>
+			<Script sender="호라" target="658" index="5" action="dead" warp="4005">아…. 괜찮으십니까? 어디가 아프….</Script>
+			<SetDynamicZone zoneid="4005" canenter="1" />
+			<EnterDynamicZone zoneid="4005" index="6" />
+			<SetDynamicZone zoneid="4005" canenter="0" />
+			<ClearDynamicZone zoneid="4005" index="7">자신의 내면 속에서 "이성의 봉인"을 수호하고 "10분" 동안 생존한다.</ClearDynamicZone>
+			<Warp zoneid="1311" x="88" y="24" />
+			<SayNPC name="호라" target="658" index="8">다시 호라에게 말을 건다.</SayNPC>
+		</Complete>
+		<FailMessage sender="호라" target="658">이런 실패하셨군요. 안타깝습니다.</FailMessage>
+		<Fail>
+			<Killed num="1" index="1">수행 중 사망하지 않아야 한다.</Killed>
+		</Fail>
+		<Reward>
+			<AdvanceClass />
+			<Random>
+				<GiveItem class="FASCIA" type="0" option="STR+1" />
+				<GiveItem class="FASCIA" type="0" option="DEX+1" />
+				<GiveItem class="FASCIA" type="0" option="INT+1" />
+			</Random>
+		</Reward>
+	</Quest>
+</QuestList>
