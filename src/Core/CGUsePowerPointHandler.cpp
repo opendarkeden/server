@@ -17,8 +17,8 @@
 	#include "Assert.h"
 
 	#include "mofus/Mofus.h"
-	#include "Gpackets/GCUsePowerPointResult.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCUsePowerPointResult.h"
+	#include "GCCreateItem.h"
 
 struct POWER_POINT_ITEM_TEMPLATE
 {

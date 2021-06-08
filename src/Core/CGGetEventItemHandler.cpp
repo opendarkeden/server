@@ -19,8 +19,8 @@
 	#include "Zone.h"
 	#include "NicknameBook.h"
 
-	#include "Gpackets/GCNPCResponse.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCNPCResponse.h"
+	#include "GCCreateItem.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

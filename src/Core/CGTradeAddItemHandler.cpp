@@ -27,9 +27,9 @@
 	#include "ItemUtil.h"
 	#include "Store.h"
 
-	#include "Gpackets/GCTradeAddItem.h"
-	#include "Gpackets/GCTradeError.h"
-	#include "Gpackets/GCTradeVerify.h"
+	#include "GCTradeAddItem.h"
+	#include "GCTradeError.h"
+	#include "GCTradeVerify.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

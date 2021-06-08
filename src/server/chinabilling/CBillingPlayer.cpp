@@ -35,7 +35,7 @@
 
 	#include "DB.h"
 
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GCSystemMessage.h"
 	#include "gameserver/StringPool.h"
 #elif defined(__LOGIN_SERVER__)
 	#include "LoginPlayer.h"

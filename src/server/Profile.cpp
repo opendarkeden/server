@@ -9,7 +9,7 @@
 #include "Assert.h"
 #include "Thread.h"
 #include "VSDateTime.h"
-#include "Gpackets/GMServerInfo.h"
+#include "GMServerInfo.h"
 #include <stdio.h>
 #include <iomanip>
 #include <fstream>

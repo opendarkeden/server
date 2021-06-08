@@ -13,8 +13,8 @@
 #include "NicknameInfo.h"
 #include "Zone.h"
 
-#include "Gpackets/GCModifyNickname.h"
-#include "Gpackets/GCNicknameVerify.h"
+#include "GCModifyNickname.h"
+#include "GCNicknameVerify.h"
 #endif	// __GAME_SERVER__
 
 void CGSelectNicknameHandler::execute (CGSelectNickname* pPacket , Player* pPlayer)

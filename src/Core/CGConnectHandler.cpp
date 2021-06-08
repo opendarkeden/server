@@ -58,11 +58,11 @@
 	#include <list>
 	#include <stdio.h>
 
-	#include "Gpackets/GCDisconnect.h"
-	#include "Gpackets/GCUpdateInfo.h"
-	#include "Gpackets/GCSystemMessage.h"
-	#include "Gpackets/GSGuildMemberLogOn.h"
-	// #include "Gpackets/GCLoadInventory.h"
+	#include "GCDisconnect.h"
+	#include "GCUpdateInfo.h"
+	#include "GCSystemMessage.h"
+	#include "GSGuildMemberLogOn.h"
+	// #include "GCLoadInventory.h"
 	#include "SystemAvailabilitiesManager.h"
 	#include "types/ServerType.h"
 	#include "GDRLairManager.h"

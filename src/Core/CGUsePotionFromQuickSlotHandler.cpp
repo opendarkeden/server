@@ -38,13 +38,13 @@
 	#include "item/ComposMei.h"
 	#include "item/EventETC.h"
 
-	#include "Gpackets/GCHPRecoveryStartToSelf.h"
-	#include "Gpackets/GCHPRecoveryStartToOthers.h"
-	#include "Gpackets/GCMPRecoveryStart.h"
-	#include "Gpackets/GCUseOK.h"
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCModifyInformation.h"
-	#include "Gpackets/GCStatusCurrentHP.h"
+	#include "GCHPRecoveryStartToSelf.h"
+	#include "GCHPRecoveryStartToOthers.h"
+	#include "GCMPRecoveryStart.h"
+	#include "GCUseOK.h"
+	#include "GCCannotUse.h"
+	#include "GCModifyInformation.h"
+	#include "GCStatusCurrentHP.h"
 	#include "Cpackets/CGRideMotorCycle.h"
 
 bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)

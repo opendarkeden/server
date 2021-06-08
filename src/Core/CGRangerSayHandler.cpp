@@ -7,7 +7,7 @@
 
 #ifdef __GAME_SERVER__
 	#include "ZoneGroupManager.h"
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GCSystemMessage.h"
 	#include "Creature.h"
 	#include "GamePlayer.h"
 	#include "StringStream.h"

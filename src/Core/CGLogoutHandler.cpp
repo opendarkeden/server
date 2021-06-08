@@ -28,8 +28,8 @@
 	#include "PKZoneInfoManager.h"
 	#include <stdio.h>
 
-	#include "Gpackets/GLIncomingConnection.h"
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GLIncomingConnection.h"
+	#include "GCSystemMessage.h"
 #endif
 
 

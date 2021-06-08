@@ -16,8 +16,8 @@
 	#include "Vampire.h"
 	#include "Ousters.h"
 	#include "Guild.h"
-	#include "Gpackets/GSAddGuild.h"
-	#include "Gpackets/GCNPCResponse.h"
+	#include "GSAddGuild.h"
+	#include "GCNPCResponse.h"
 	#include "VariableManager.h"
 
 	#include <stdio.h>

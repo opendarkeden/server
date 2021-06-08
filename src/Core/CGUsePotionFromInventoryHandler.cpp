@@ -28,12 +28,12 @@
 	#include "item/ComposMei.h"
 	#include "item/EventETC.h"
 
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCUseOK.h"
-	#include "Gpackets/GCStatusCurrentHP.h"
-	#include "Gpackets/GCHPRecoveryStartToSelf.h"
-	#include "Gpackets/GCHPRecoveryStartToOthers.h"
-	#include "Gpackets/GCMPRecoveryStart.h"
+	#include "GCCannotUse.h"
+	#include "GCUseOK.h"
+	#include "GCStatusCurrentHP.h"
+	#include "GCHPRecoveryStartToSelf.h"
+	#include "GCHPRecoveryStartToOthers.h"
+	#include "GCMPRecoveryStart.h"
 #endif
 
 #define	 DELAY_PROVIDER	 2

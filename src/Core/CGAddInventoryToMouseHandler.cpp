@@ -18,9 +18,9 @@
 	#include "ObjectRegistry.h"
 	#include "Store.h"
 
-	#include "Gpackets/GCTradeVerify.h"
-	#include "Gpackets/GCCannotAdd.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCTradeVerify.h"
+	#include "GCCannotAdd.h"
+	#include "GCCreateItem.h"
 	#include <stdio.h>
 #endif
 

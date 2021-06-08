@@ -22,7 +22,7 @@ enum SystemMessageType
 	SYSTEM_MESSAGE_INFO, 		// 특정한 정보 관련
 	SYSTEM_MESSAGE_HOLY_LAND, 	// 아담의 성지 관련
 	SYSTEM_MESSAGE_RANGER_SAY, 	// Ranger Say, DragonEye 를 가진 Ranger의 메시지
-
+	SYSTEM_MESSAGE_PLAYER,      // 鯤소홍혐랙箇斤口
 	SYSTEM_MESSAGE_MAX
 };
 
@@ -39,8 +39,10 @@ enum SystemMessageType
 class GCSystemMessage : public Packet {
 
 public :
-	GCSystemMessage(): m_Color(0x006040E8), m_Type(SYSTEM_MESSAGE_NORMAL) {}
-    ~GCSystemMessage() {};
+	GCSystemMessage() 
+	: m_Color(0x006040E8), m_Type(SYSTEM_MESSAGE_NORMAL)
+	{
+	}
 	
     // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
     void read(SocketInputStream & iStream) ;
@@ -69,14 +71,14 @@ public :
 
 	// get/set text color
 	uint getColor() const  { return m_Color; }
-	void setColor(uint color )  { m_Color = color; }
+	void setColor( uint color )  { m_Color = color; }
 
 	SystemMessageType getType() const  { return m_Type; }
-	void setType(SystemMessageType Type )  { m_Type = Type; }
+	void setType( SystemMessageType Type )  { m_Type = Type; }
 
 	// get/set race
 	Race_t getRace() const { return m_Race; }
-	void setRace(Race_t race ) { m_Race = race; }
+	void setRace( Race_t race ) { m_Race = race; }
 
 private :
 	

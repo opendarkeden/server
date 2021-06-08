@@ -8,7 +8,7 @@
 
 #ifdef __GAME_SERVER__
 	#include "SystemAvailabilitiesManager.h"
-	#include "Gpackets/GCShowGuildMemberInfo.h"
+	#include "GCShowGuildMemberInfo.h"
 	#include "GuildManager.h"
 	#include "GamePlayer.h"
 	#include "PlayerCreature.h"

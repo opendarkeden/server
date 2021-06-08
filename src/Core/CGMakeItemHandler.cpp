@@ -18,9 +18,9 @@
 
 	#include "item/Money.h"
 
-	#include "Gpackets/GCDeleteandPickUpOK.h"
-	#include "Gpackets/GCDeleteObject.h"
-	#include "Gpackets/GCSkillFailed1.h"
+	#include "GCDeleteandPickUpOK.h"
+	#include "GCDeleteObject.h"
+	#include "GCSkillFailed1.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

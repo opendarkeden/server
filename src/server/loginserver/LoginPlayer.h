@@ -18,7 +18,7 @@
 #include "PaySystem.h"
 #include "gameserver/billing/BillingPlayerInfo.h"
 #include "chinabilling/CBillingPlayerInfo.h"
-#include "Gpackets/GCReconnectLogin.h"
+#include "GCReconnectLogin.h"
 
 #include "Packet.h"
 
