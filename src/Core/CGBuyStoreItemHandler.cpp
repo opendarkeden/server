@@ -17,13 +17,13 @@
 	#include "PacketUtil.h"
 	#include "DB.h"
 	#include "VariableManager.h"
-	#include "Gpackets/GCMyStoreInfo.h"
-	#include "Gpackets/GCRemoveStoreItem.h"
-	#include "Gpackets/GCShopSellOK.h"
-	#include "Gpackets/GCModifyInformation.h"
-	#include "Gpackets/GCCreateItem.h"
-	#include "Gpackets/GCSystemMessage.h"
-	#include "Gpackets/GCNoticeEvent.h"
+	#include "GCMyStoreInfo.h"
+	#include "GCRemoveStoreItem.h"
+	#include "GCShopSellOK.h"
+	#include "GCModifyInformation.h"
+	#include "GCCreateItem.h"
+	#include "GCSystemMessage.h"
+	#include "GCNoticeEvent.h"
 	#include <cstdio>
 #endif
 

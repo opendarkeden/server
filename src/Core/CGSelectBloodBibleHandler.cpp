@@ -12,8 +12,8 @@
 	#include "BloodBibleBonus.h"
 	#include "BloodBibleBonusManager.h"
 	#include "BloodBibleSignInfo.h"
-	#include "Gpackets/GCBloodBibleSignInfo.h"
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GCBloodBibleSignInfo.h"
+	#include "GCSystemMessage.h"
 	#include <algorithm>
 #endif	// __GAME_SERVER__
 

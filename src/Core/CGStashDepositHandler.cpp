@@ -18,8 +18,8 @@
 
 	#include "item/Money.h"
 
-	#include "Gpackets/GCDeleteandPickUpOK.h"
-	#include "Gpackets/GCDeleteObject.h"
+	#include "GCDeleteandPickUpOK.h"
+	#include "GCDeleteObject.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

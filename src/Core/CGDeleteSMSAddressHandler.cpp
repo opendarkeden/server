@@ -12,7 +12,7 @@
 	#include "SMSAddressBook.h"
 	#include "Assert.h"
 
-	#include "Gpackets/GCAddressListVerify.h"
+	#include "GCAddressListVerify.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

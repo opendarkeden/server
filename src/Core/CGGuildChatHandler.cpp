@@ -12,7 +12,7 @@
 	#include "Properties.h"
 	#include "GameServerInfoManager.h"
 	#include "LoginServerManager.h"
-	#include "Gpackets/GGGuildChat.h"
+	#include "GGGuildChat.h"
 	#include "SystemAvailabilitiesManager.h"
 #endif
 

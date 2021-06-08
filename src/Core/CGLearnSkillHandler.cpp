@@ -17,10 +17,10 @@
 	#include "SkillInfo.h"
 	#include "SkillDomainInfoManager.h"
 
-	#include "Gpackets/GCLearnSkillFailed.h"
-	#include "Gpackets/GCLearnSkillOK.h"
-	#include "Gpackets/GCLearnSkillReady.h"
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GCLearnSkillFailed.h"
+	#include "GCLearnSkillOK.h"
+	#include "GCLearnSkillReady.h"
+	#include "GCSystemMessage.h"
 
 	#include <cstdio>
 

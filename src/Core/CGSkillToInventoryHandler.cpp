@@ -13,7 +13,7 @@
 
 	#include "skill/Sniping.h"
 
-	#include "Gpackets/GCSkillFailed1.h"
+	#include "GCSkillFailed1.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////

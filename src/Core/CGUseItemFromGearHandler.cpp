@@ -30,8 +30,8 @@
 
 	#include "item/CoupleRingBase.h"
 
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCUseOK.h"
+	#include "GCCannotUse.h"
+	#include "GCUseOK.h"
 
 	#include "SystemAvailabilitiesManager.h"
 	#include "war/WarSystem.h"

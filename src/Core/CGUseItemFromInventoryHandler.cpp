@@ -62,25 +62,25 @@
 	#include "item/TrapItem.h"
 	#include "item/EventETC.h"
 
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCUseOK.h"
-	#include "Gpackets/GCHPRecoveryStartToSelf.h"
-	#include "Gpackets/GCHPRecoveryStartToOthers.h"
-	#include "Gpackets/GCMPRecoveryStart.h"
-	#include "Gpackets/GCAddHelicopter.h"
-	#include "Gpackets/GCAddEffectToTile.h"
-	#include "Gpackets/GCAddEffect.h"
+	#include "GCCannotUse.h"
+	#include "GCUseOK.h"
+	#include "GCHPRecoveryStartToSelf.h"
+	#include "GCHPRecoveryStartToOthers.h"
+	#include "GCMPRecoveryStart.h"
+	#include "GCAddHelicopter.h"
+	#include "GCAddEffectToTile.h"
+	#include "GCAddEffect.h"
 
-	#include "Gpackets/GCDeleteObject.h"
-	#include "Gpackets/GCAddSlayer.h"
-	#include "Gpackets/GCAddVampire.h"
-	#include "Gpackets/GCAddOusters.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCDeleteObject.h"
+	#include "GCAddSlayer.h"
+	#include "GCAddVampire.h"
+	#include "GCAddOusters.h"
+	#include "GCCreateItem.h"
 
-	#include "Gpackets/GCRemoveEffect.h"
-	#include "Gpackets/GCStatusCurrentHP.h"
-	#include "Gpackets/GCModifyInformation.h"
-	#include "Gpackets/GCAddressListVerify.h"
+	#include "GCRemoveEffect.h"
+	#include "GCStatusCurrentHP.h"
+	#include "GCModifyInformation.h"
+	#include "GCAddressListVerify.h"
 
 	#include "PacketUtil.h"
 	#include "PetTypeInfo.h"
@@ -93,7 +93,7 @@
 	#include "Store.h"
 	#include "DynamicZone.h"
 
-	#include "Gpackets/GCMyStoreInfo.h"
+	#include "GCMyStoreInfo.h"
 
 	bool changeHairColorEx( PlayerCreature* pPC, Color_t color );
 	bool changeBatColorEx( PlayerCreature* pPC, Color_t color );

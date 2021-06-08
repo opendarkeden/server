@@ -14,9 +14,9 @@
 	#include "Inventory.h"
 	#include "PacketUtil.h"
 	#include "ItemUtil.h"
-	#include "Gpackets/GCTakeOutFail.h"
-	#include "Gpackets/GCTakeOutOK.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCTakeOutFail.h"
+	#include "GCTakeOutOK.h"
+	#include "GCCreateItem.h"
 
 	#include "SystemAvailabilitiesManager.h"
 #endif

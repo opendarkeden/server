@@ -26,9 +26,9 @@
 	#include "DB.h"
 	#include "Store.h"
 
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCUseOK.h"
-	#include "Gpackets/GCSystemMessage.h"
+	#include "GCCannotUse.h"
+	#include "GCUseOK.h"
+	#include "GCSystemMessage.h"
 	#include "ZoneGroupManager.h"
 	#include "ZoneInfoManager.h"
 	#include "ZonePlayerManager.h"

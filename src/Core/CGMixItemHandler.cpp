@@ -16,9 +16,9 @@
 #include "ItemUtil.h"
 #include "ItemInfoManager.h"
 #include "OptionInfo.h"
-#include "Gpackets/GCCannotUse.h"
-#include "Gpackets/GCUseOK.h"
-#include "Gpackets/GCAddItemToItemVerify.h"
+#include "GCCannotUse.h"
+#include "GCUseOK.h"
+#include "GCAddItemToItemVerify.h"
 void sendCannotUse(CGMixItem* pPacket, Player* pPlayer);
 #endif
 

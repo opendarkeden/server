@@ -14,7 +14,7 @@
 	#include "Stash.h"
 	#include "PriceManager.h"
 
-	#include "Gpackets/GCNPCResponse.h"
+	#include "GCNPCResponse.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

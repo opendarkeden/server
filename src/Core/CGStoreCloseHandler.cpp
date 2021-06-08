@@ -12,8 +12,8 @@
 	#include "Store.h"
 	#include "Zone.h"
 
-	#include "Gpackets/GCMyStoreInfo.h"
-	#include "Gpackets/GCOtherStoreInfo.h"
+	#include "GCMyStoreInfo.h"
+	#include "GCOtherStoreInfo.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////

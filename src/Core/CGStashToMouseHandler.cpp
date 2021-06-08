@@ -16,7 +16,7 @@
 	#include "ItemInfoManager.h"
 	#include "LogClient.h"
 
-	#include "Gpackets/GCCannotAdd.h"
+	#include "GCCannotAdd.h"
 	#include <stdio.h>
 #endif
 

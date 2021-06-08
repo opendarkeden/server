@@ -25,9 +25,9 @@
 	#include "ItemUtil.h"
 	#include "PacketUtil.h"
 	#include "CreatureUtil.h"
-	#include "Gpackets/GCCannotUse.h"
-	#include "Gpackets/GCUseOK.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCCannotUse.h"
+	#include "GCUseOK.h"
+	#include "GCCreateItem.h"
 
 	bool sendCannotUse( CGUseItemFromGQuestInventory* pPacket, Player* pPlayer )
 	{

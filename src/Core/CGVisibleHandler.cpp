@@ -10,7 +10,7 @@
 	#include "GamePlayer.h"
 	#include "Zone.h"
 	#include "ZoneUtil.h"
-	#include "Gpackets/GCVisibleFail.h"
+	#include "GCVisibleFail.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

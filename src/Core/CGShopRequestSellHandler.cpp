@@ -30,11 +30,11 @@
 	#include "item/Magazine.h"
 	#include "item/Belt.h"
 
-	#include "Gpackets/GCShopSellOK.h"
-	#include "Gpackets/GCShopSellFail.h"
-	#include "Gpackets/GCShopBought.h"
-	#include "Gpackets/GCDeleteObject.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCShopSellOK.h"
+	#include "GCShopSellFail.h"
+	#include "GCShopBought.h"
+	#include "GCDeleteObject.h"
+	#include "GCCreateItem.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

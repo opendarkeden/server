@@ -34,6 +34,9 @@ enum
 	ADD_ITEM_TO_ITEM_VERIFY_CLEAR_OPTION_OK,			// option 力芭 己傍
 	ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK,				// grade棵府扁 己傍
 
+	// add by Coffee 2006.11.3
+	ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK,
+	//
 	ADD_ITEM_TO_ITEM_VERIFY_MAX
 };
 
@@ -45,8 +48,8 @@ class GCAddItemToItemVerify : public Packet
 {
 
 public:
-	GCAddItemToItemVerify()  { m_Code = ADD_ITEM_TO_ITEM_VERIFY_MAX; m_Parameter = 0;}
-	virtual ~GCAddItemToItemVerify()  {}
+	GCAddItemToItemVerify() { m_Code = ADD_ITEM_TO_ITEM_VERIFY_MAX; m_Parameter = 0;}
+	virtual ~GCAddItemToItemVerify() {}
 
 public:
 	void read(SocketInputStream & iStream) ;
@@ -63,11 +66,17 @@ public:
 	void setCode(BYTE code)  { m_Code = code;}
 
 	uint getParameter(void) const  { return m_Parameter; }
+
 	void setParameter(uint parameter)  { m_Parameter = parameter; }
+	// add by Coffee 2006.11.3
+	uint getParameter2(void) const  { return m_Parameter2;  }
+	void setParameter2(uint parameter2)  { m_Parameter2 = parameter2; }
 
 private: 
 	BYTE m_Code;
 	uint m_Parameter;
+	// add by Coffee 2006.11.3  保存第二个属性
+	uint m_Parameter2;
 };
 
 
@@ -81,7 +90,7 @@ public:
 	Packet* createPacket()  { return new GCAddItemToItemVerify(); }
 	string getPacketName() const  { return "GCAddItemToItemVerify"; }
 	PacketID_t getPacketID() const  { return Packet::PACKET_GC_ADD_ITEM_TO_ITEM_VERIFY; }
-	PacketSize_t getPacketMaxSize() const  { return szBYTE + szuint; }
+	PacketSize_t getPacketMaxSize() const  { return szBYTE + szuint +szuint; }
 };
 
 
@@ -92,7 +101,7 @@ public:
 class GCAddItemToItemVerifyHandler 
 {
 public:
-	static void execute(GCAddItemToItemVerify* pPacket, Player* pPlayer) ;
+	static void execute( GCAddItemToItemVerify* pPacket, Player* pPlayer) ;
 };
 
 #endif

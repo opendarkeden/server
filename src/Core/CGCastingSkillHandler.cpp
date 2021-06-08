@@ -13,7 +13,7 @@
 
 	#include "item/Motorcycle.h"
 
-	#include "Gpackets/GCCastingSkill.h"
+	#include "GCCastingSkill.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////

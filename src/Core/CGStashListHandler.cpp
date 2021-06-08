@@ -13,7 +13,7 @@
 	#include "Ousters.h"
 	#include "Stash.h"
 
-	#include "Gpackets/GCStashList.h"
+	#include "GCStashList.h"
 #endif
 
 void CGStashListHandler::execute(CGStashList* pPacket , Player* pPlayer)

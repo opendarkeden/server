@@ -21,9 +21,9 @@
 
     #include "skill/Sniping.h"
 
-	#include "Gpackets/GCAttack.h"
-	#include "Gpackets/GCGetDamage.h"
-	#include "Gpackets/GCSkillFailed1.h"
+	#include "GCAttack.h"
+	#include "GCGetDamage.h"
+	#include "GCSkillFailed1.h"
 
 	//#define __PROFILE_SKILLS__
 

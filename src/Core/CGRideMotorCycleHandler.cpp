@@ -21,9 +21,9 @@
 	#include "GQuestManager.h"
 	#include "SiegeManager.h"
 
-	#include "Gpackets/GCRideMotorCycle.h"
-	#include "Gpackets/GCRideMotorCycleOK.h"
-	#include "Gpackets/GCRideMotorCycleFailed.h"
+	#include "GCRideMotorCycle.h"
+	#include "GCRideMotorCycleOK.h"
+	#include "GCRideMotorCycleFailed.h"
 #endif	// __GAME_SERVER__
 
 //////////////////////////////////////////////////////////////////////////////

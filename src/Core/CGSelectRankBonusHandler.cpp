@@ -15,8 +15,8 @@
 	#include "RankBonus.h"
 	#include "RankBonusInfo.h"
 
-	#include "Gpackets/GCSelectRankBonusFailed.h"
-	#include "Gpackets/GCSelectRankBonusOK.h"
+	#include "GCSelectRankBonusFailed.h"
+	#include "GCSelectRankBonusOK.h"
 
 	#include "SystemAvailabilitiesManager.h"
 #endif	

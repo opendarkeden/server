@@ -15,7 +15,7 @@
 #include "mission/QuestManager.h"
 #include "mission/QuestInfoManager.h"
 
-#include "Gpackets/GCNPCResponse.h"
+#include "GCNPCResponse.h"
 
 #include <cstdio>
 

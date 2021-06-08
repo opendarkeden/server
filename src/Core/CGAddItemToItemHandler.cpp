@@ -44,9 +44,9 @@
 	#include "MixingItem.h"
 	#include "PacketUtil.h"
 
-	#include "Gpackets/GCAddItemToItemVerify.h"
-	#include "Gpackets/GCDeleteInventoryItem.h"
-	#include "Gpackets/GCCreateItem.h"
+	#include "GCAddItemToItemVerify.h"
+	#include "GCDeleteInventoryItem.h"
+	#include "GCCreateItem.h"
 
 	#include "SystemAvailabilitiesManager.h"
 

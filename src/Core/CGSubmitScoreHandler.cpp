@@ -14,7 +14,7 @@
 	#include "PacketUtil.h"
 	#include "CreatureUtil.h"
 
-	#include "Gpackets/GCMiniGameScores.h"
+	#include "GCMiniGameScores.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////////////

@@ -16,8 +16,8 @@
 	#include "GuildManager.h"
 	#include "Guild.h"
 	#include "Properties.h"
-	#include "Gpackets/GSAddGuildMember.h"
-	#include "Gpackets/GCNPCResponse.h"
+	#include "GSAddGuildMember.h"
+	#include "GCNPCResponse.h"
 	#include "VariableManager.h"
 
 	#include <stdio.h>
