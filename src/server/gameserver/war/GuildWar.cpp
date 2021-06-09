@@ -25,7 +25,7 @@
 #include "GCSystemMessage.h"
 #include "GCNoticeEvent.h"
 #include "GCWarScheduleList.h"
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 #include "GuildWarInfo.h"
 
 //--------------------------------------------------------------------------------

@@ -30,7 +30,7 @@
 #include "mission/QuestManager.h"
 #include "mission/EventQuestAdvance.h"
 
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 #include "GCNoticeEvent.h"
 #include "GCDeleteInventoryItem.h"
 #include "GCNotifyWin.h"

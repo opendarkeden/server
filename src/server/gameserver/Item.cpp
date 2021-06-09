@@ -13,7 +13,7 @@
 #include "PlayerCreature.h"
 #include "Store.h"
 
-#include "Cpackets/CGRequestStoreInfo.h"
+#include "CGRequestStoreInfo.h"
 
 #include <cstdio>
 

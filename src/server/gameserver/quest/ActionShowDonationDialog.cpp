@@ -8,7 +8,7 @@
 #include "Creature.h"
 #include "Player.h"
 
-#include "Cpackets/CGDonationMoney.h"
+#include "CGDonationMoney.h"
 #include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////

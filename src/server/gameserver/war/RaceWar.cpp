@@ -30,7 +30,7 @@
 
 #include "GCSystemMessage.h"
 #include "GCNoticeEvent.h"
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 
 //--------------------------------------------------------------------------------
 //

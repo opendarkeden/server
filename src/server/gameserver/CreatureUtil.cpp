@@ -51,7 +51,7 @@
 #include "PetInfo.h"
 #include "Store.h"
 
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 #include "ZoneGroupManager.h"
 #include "GameWorldInfoManager.h"
 #include "Properties.h"

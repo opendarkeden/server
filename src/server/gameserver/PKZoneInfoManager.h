@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include "Mutex.h"
 
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 
 class PKZoneInfo
 {

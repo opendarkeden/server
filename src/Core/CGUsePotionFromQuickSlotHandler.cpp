@@ -45,7 +45,7 @@
 	#include "GCCannotUse.h"
 	#include "GCModifyInformation.h"
 	#include "GCStatusCurrentHP.h"
-	#include "Cpackets/CGRideMotorCycle.h"
+	#include "CGRideMotorCycle.h"
 
 bool UseYellowCandy(PlayerCreature* pPC, Item* pItem)
 {

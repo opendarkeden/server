@@ -32,7 +32,7 @@
 #include "EventKick.h"
 #include "StringPool.h"
 
-#include "Cpackets/CGConnect.h"
+#include "CGConnect.h"
 #include "GSGuildMemberLogOn.h"
 #include "GCKickMessage.h"
 #include "GCSystemMessage.h"

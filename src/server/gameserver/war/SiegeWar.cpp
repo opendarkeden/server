@@ -29,7 +29,7 @@
 #include "GCNoticeEvent.h"
 #include "GCWarScheduleList.h"
 #include "GCNPCResponse.h"
-#include "Cpackets/CGSay.h"
+#include "CGSay.h"
 #include "GGCommand.h"
 #include "GuildWarInfo.h"
 

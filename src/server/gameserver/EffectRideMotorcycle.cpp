@@ -9,7 +9,7 @@
 #include "Assert.h"
 #include "EffectRideMotorcycle.h"
 #include "GCDeleteObject.h"
-#include "Cpackets/CGRideMotorCycle.h"
+#include "CGRideMotorCycle.h"
 #include "Tile.h"
 #include "Zone.h"
 #include "Item.h"

@@ -8,7 +8,7 @@
 #include "Creature.h"
 #include "Player.h"
 
-#include "Cpackets/CGGetEventItem.h"
+#include "CGGetEventItem.h"
 #include "GCNPCResponse.h"
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -108,9 +108,9 @@
 	#include "GCMiniGameScores.h"
 	#include "GCPetStashList.h"
 
-	#include "Cpackets/CGModifyGuildIntro.h"
-	#include "Cpackets/CGModifyGuildMemberIntro.h"
-	#include "Cpackets/CGSkillToNamed.h"
+	#include "CGModifyGuildIntro.h"
+	#include "CGModifyGuildMemberIntro.h"
+	#include "CGSkillToNamed.h"
 
 	#include "item/SlayerPortalItem.h"
 	#include "item/OustersSummonItem.h"

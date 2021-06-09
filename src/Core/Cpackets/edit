@@ -1,3 +1,0 @@
-# !/bin/sh
-
-vi CGConnectHandler.cpp CGRequestIPHandler.cpp CLChangeServerHandler.cpp CLCreatePCHandler.cpp CLDeletePCHandler.cpp CLGetPCListHandler.cpp CLLoginHandler.cpp CLQueryCharacterNameHandler.cpp CLQueryPlayerIDHandler.cpp CLReconnectLoginHandler.cpp CLRegisterPlayerHandler.cpp CLSelectPCHandler.cpp CLSelectServerHandler.cpp CLSelectWorldHandler.cpp 

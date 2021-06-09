@@ -19,7 +19,7 @@
 #include "GCNPCResponse.h"
 #include "GCDeleteInventoryItem.h"
 
-#include "Cpackets/CGLotterySelect.h"
+#include "CGLotterySelect.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 

@@ -18,7 +18,7 @@
 #include "Zone.h"
 #include <algorithm>
 #include "StringStream.h"
-#include "Cpackets/CGLogout.h"
+#include "CGLogout.h"
 #include "Profile.h"
 #include "ZoneInfoManager.h"
 #include "PaySystem.h"
