@@ -15,7 +15,7 @@
 #include "DB.h"
 #include "Properties.h"
 
-#include "Lpackets/LGKickCharacter.h"
+#include "LGKickCharacter.h"
 
 //////////////////////////////////////////////////////////////////////
 // constructor

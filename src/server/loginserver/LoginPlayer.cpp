@@ -19,10 +19,10 @@
 #include "GameServerManager.h"
 #include "gameserver/billing/BillingPlayerManager.h"
 
-#include "Lpackets/LCLoginOK.h"
-#include "Lpackets/LCLoginError.h"
-#include "Lpackets/LGKickCharacter.h"
-#include "Lpackets/LCPCList.h"
+#include "LCLoginOK.h"
+#include "LCLoginError.h"
+#include "LGKickCharacter.h"
+#include "LCPCList.h"
 
 // by sigi. 2002.11.12
 const int defaultLoginPlayerInputStreamSize = 1024;

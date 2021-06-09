@@ -16,7 +16,7 @@
 	#include "Assert.h"
 	#include "GameWorldInfoManager.h"
 
-	#include "Lpackets/LCQueryResultCharacterName.h"
+	#include "LCQueryResultCharacterName.h"
 #endif
 
 bool isAvailableID(const char* pID);

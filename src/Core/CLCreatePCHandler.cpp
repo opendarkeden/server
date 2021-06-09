@@ -13,8 +13,8 @@
 	#include "GameServerInfoManager.h"
 	#include "DB.h"
 	#include <list>
-	#include "Lpackets/LCCreatePCOK.h"
-	#include "Lpackets/LCCreatePCError.h"
+	#include "LCCreatePCOK.h"
+	#include "LCCreatePCError.h"
 	#include <string.h>
 
 	#include "chinabilling/CBillingInfo.h"

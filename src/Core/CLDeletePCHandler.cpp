@@ -13,8 +13,8 @@
 	#include "ItemDestroyer.h"
 	#include "Properties.h"
 
-	#include "Lpackets/LCDeletePCOK.h"
-	#include "Lpackets/LCDeletePCError.h"
+	#include "LCDeletePCOK.h"
+	#include "LCDeletePCError.h"
 
 	#include <cstdio>
 #endif
