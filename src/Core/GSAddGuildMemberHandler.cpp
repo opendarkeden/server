@@ -18,8 +18,8 @@
 	#include "DB.h"
 	#include "StringPool.h"
 
-	#include "Spackets/SGAddGuildMemberOK.h"
-	#include "Spackets/SGModifyGuildOK.h"
+	#include "SGAddGuildMemberOK.h"
+	#include "SGModifyGuildOK.h"
 
 #endif
 

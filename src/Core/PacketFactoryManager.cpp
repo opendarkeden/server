@@ -402,13 +402,13 @@
 	#include "GSQuitGuild.h"
 	#include "GSExpelGuildMember.h"
 	#include "GSModifyGuildMember.h"
-	#include "Spackets/SGAddGuildOK.h"
-	#include "Spackets/SGAddGuildMemberOK.h"
-	#include "Spackets/SGQuitGuildOK.h"
-	#include "Spackets/SGExpelGuildMemberOK.h"
-	#include "Spackets/SGModifyGuildMemberOK.h"
-	#include "Spackets/SGDeleteGuildOK.h"
-	#include "Spackets/SGModifyGuildOK.h"
+	#include "SGAddGuildOK.h"
+	#include "SGAddGuildMemberOK.h"
+	#include "SGQuitGuildOK.h"
+	#include "SGExpelGuildMemberOK.h"
+	#include "SGModifyGuildMemberOK.h"
+	#include "SGDeleteGuildOK.h"
+	#include "SGModifyGuildOK.h"
 #endif
 
 #include "CGRelicToObject.h"
@@ -421,7 +421,7 @@
 #ifndef __GAME_CLIENT__
 	#include "GGGuildChat.h"
 	#include "GSRequestGuildInfo.h"
-	#include "Spackets/SGGuildInfo.h"
+	#include "SGGuildInfo.h"
 #endif
 
 #include "CGAddItemToItem.h"
@@ -435,10 +435,10 @@
 
 #ifndef __GAME_CLIENT__
 	#include "GSModifyGuildIntro.h"
-	#include "Spackets/SGModifyGuildIntroOK.h"
+	#include "SGModifyGuildIntroOK.h"
 
 	#include "GSGuildMemberLogOn.h"
-	#include "Spackets/SGGuildMemberLogOnOK.h"
+	#include "SGGuildMemberLogOnOK.h"
 #endif
 
 #include "CGSelectRankBonus.h"
@@ -564,7 +564,7 @@
 //end
 #ifndef __GAME_CLIENT__
 //#include "GSGuildAction.h"
-//#include "Spackets/SGGuildResponse.h"
+//#include "SGGuildResponse.h"
 #endif
 
 //////////////////////////////////////////////////////////////////////
