@@ -33,6 +33,7 @@ And then compile is easy, just call:
 
 MySQL8 is tested, MySQL5.7 might also work.
 
+
 Create a user 'elcastle'@'%' with password 'elca110'
 
 Create the `DARKEDEN` and `USERINFO` database:
@@ -42,6 +43,20 @@ create database DARKEDEN;
 create database DARKEDEN;
 ```
 
+Make sure the `sql_mode` allow [zero date time](https://github.com/opendarkeden/server/issues/5), remove the `NO_ZERO_DATE` from the `sql_mode`:
+
+```
+mysql> select @@global.sql_mode;
++-------------------------------------------------------------------------------------------------------------------------------------------+
+| @@global.sql_mode                                                                                                                         |
++-------------------------------------------------------------------------------------------------------------------------------------------+
+| ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++-------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+Query OK, 0 rows affected (0.02 sec)
+```
 
 Then load the SQL file `data/DARKEDEN.sql` and `data/USERINFO.sql`:
 
