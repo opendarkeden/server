@@ -658,7 +658,7 @@ TARGETS = $(CORE_LIB) $(LS_PACKET_LIB) $(GS_PACKET_LIB) $(SS_PACKET_LIB)
 # actions
 #----------------------------------------------------------------------
 
-all : $(TARGETS)
+all : $(LIBDIR) $(TARGETS)
 
 core : $(CORE_LIB)
 
@@ -686,6 +686,9 @@ allsharedserver : $(TARGETS)
 
 alltheoneserver : $(CORE_LIB)
 	$(MAKE) -C TOpackets alltheoneserver
+
+$(LIBDIR) :
+	mkdir -p $(LIBDIR)
 
 $(CORE_LIB) : $(CORE_OBJS)
 	ar rc $@ $^
