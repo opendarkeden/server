@@ -51,7 +51,7 @@ DEPS = $(SERVER_CORE_SRCS:%.cpp=$(DEPDIR)/%.d)
 #----------------------------------------------------------------------
 # actions
 #----------------------------------------------------------------------
-all : $(SERVER_CORE_LIB)
+all : $(BINDIR) $(SERVER_CORE_LIB)
 	$(MAKE) -C database
 	$(MAKE) -C chinabilling
 	$(MAKE) -C gameserver
@@ -115,6 +115,9 @@ cleanall :
 	$(MAKE) -C updateserver cleanall
 	$(MAKE) -C sharedserver cleanall
 	rm -rf *.o $(SERVER_CORE_LIB)
+
+$(BINDIR) :
+	mkdir -p $(BINDIR)
 
 $(DEPDIR):
 	@mkdir -p $@
