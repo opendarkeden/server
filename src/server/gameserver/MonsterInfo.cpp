@@ -701,9 +701,9 @@ void MonsterInfoManager::load ()
 
 					if ( pInfo->getMonsterClass() == 0 )
 					{
-						slayer_filename  = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".slayer.bin";
-						vampire_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".vampire.bin";
-						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getHName() + ".ousters.bin";
+						slayer_filename  = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getEName() + ".slayer.bin";
+						vampire_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getEName() + ".vampire.bin";
+						ousters_filename = g_pConfig->getProperty("HomePath") + "/data/" + pInfo->getEName() + ".ousters.bin";
 					}
 					else
 					{
@@ -743,7 +743,7 @@ void MonsterInfoManager::load ()
 					pInfo->setVampireTreasureList(pVampireTreasureList);
 					pInfo->setOustersTreasureList(pOustersTreasureList);
 
-					// 검증한다.
+					// verify
 					//cout << "MonsterType:" << pInfo->getMonsterType() 
 					//	<< ",MonsterName:" << pInfo->getEName()
 					//	<< ",SlayerTreasure:" << pInfo->getSlayerTreasureList()->getTreasures().size()
@@ -752,7 +752,7 @@ void MonsterInfoManager::load ()
 				}
 				else
 				{
-					cout << "[NoTreasureFile] " << pInfo->getHName().c_str() << endl;
+					cout << "[NoTreasureFile] " << pInfo->getEName().c_str() << endl;
 				}
 			}
 		}
