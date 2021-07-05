@@ -42,7 +42,7 @@ Create the `DARKEDEN` and `USERINFO` database:
 
 ```
 create database DARKEDEN;
-create database DARKEDEN;
+create database USERINFO;
 ```
 
 Make sure the `sql_mode` allow [zero date time](https://github.com/opendarkeden/server/issues/5), remove the `NO_ZERO_DATE` from the `sql_mode`:
@@ -64,7 +64,7 @@ Then load the SQL file `data/DARKEDEN.sql` and `data/USERINFO.sql`:
 
 ```
 mysql -h 127.0.0.1 -u elcastle -D 'DARKEDEN' -p < DARKEDEN.sql
-mysql -h 127.0.0.1 -u elcastle -D 'DARKEDEN' -p < USERINFO.sql
+mysql -h 127.0.0.1 -u elcastle -D 'USERINFO' -p < USERINFO.sql
 ```
 
 Update the `DARKEDEN.WorldDBInfo` table to set the correct IP/PORT().
