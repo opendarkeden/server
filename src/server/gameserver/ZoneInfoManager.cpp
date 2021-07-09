@@ -191,7 +191,7 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 	unordered_map<string, ZoneInfo*>::iterator fitr = m_FullNameMap.find(pZoneInfo->getFullName());
 	if (fitr != m_FullNameMap.end())
 	{
-		cerr << "Duplicated Zone Full Name" << endl;
+	  cerr << "Duplicated Zone Full Name:" << pZoneInfo->getFullName() << endl;
 		throw Error("Duplicated Zone Full Name");
 	}
 
