@@ -348,7 +348,7 @@ void ComposMeiInfo::parseEffect(const string& effect)
 
 	if (effect.size() < 5) return;
 
-	uint a = 0, b = 0, c = 0, d = 0, e = 0;
+	size_t a = 0, b = 0, c = 0, d = 0, e = 0;
 	
 	while (e < effect.size() - 1)
 	{

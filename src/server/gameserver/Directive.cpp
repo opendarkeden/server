@@ -380,7 +380,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 		Assert(pDirective != NULL);
 
-		uint i = 0, j = 0, k = 0;
+		size_t i = 0, j = 0, k = 0;
 
 		while (k < directive.size())
 		{
@@ -451,7 +451,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 			Assert(pDirective != NULL);
 
-			uint i = 0, j = 0, k = 0;
+			size_t i = 0, j = 0, k = 0;
 
 			while (k < directive.size())
 			{

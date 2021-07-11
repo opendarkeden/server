@@ -246,7 +246,7 @@ void MonsterInfo::parseEnhanceAttr(const string& enhance)
 
 	if (enhance.size() < 1) return;
 
-	uint a = 0 , b = 0 , c = 0;
+	size_t a = 0 , b = 0 , c = 0;
 
 	while (c < enhance.size() - 1)
 	{
@@ -407,7 +407,7 @@ void MonsterInfo::setDefaultEffects(const string& text)
 
 	if (text.size() < 1) return;
 
-	uint a = 0 , b = 0;
+	size_t a = 0 , b = 0;
 
 	while (b < text.size() - 1)
 	{

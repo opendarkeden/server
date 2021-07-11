@@ -28,7 +28,7 @@ void GCAddNPC::read (SocketInputStream & iStream )
 	if (szName == 0 )
 		throw InvalidProtocolException("szName == 0");
 
-	if (szName > 20 )
+	if (szName > 40 )
 		throw InvalidProtocolException("too large name length");
 		
 	iStream.read(m_Name , szName);
@@ -63,7 +63,7 @@ void GCAddNPC::write (SocketOutputStream & oStream ) const
 	if (szName == 0 )
 		throw InvalidProtocolException("szName == 0");
 
-	if (szName > 20 )
+	if (szName > 40 )
 		throw InvalidProtocolException("too large name length");
 
 	oStream.write(szName);

@@ -247,7 +247,7 @@ void SerumInfo::parseEffect(const string& effect)
 	m_Period   = 0;
 	m_Count    = 0;
 
-	uint a = 0, b = 0, c = 0, d = 0;
+	size_t a = 0, b = 0, c = 0, d = 0;
 
 	while (d < effect.size() - 1)
 	{

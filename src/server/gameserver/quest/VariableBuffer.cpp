@@ -63,7 +63,7 @@ void VariableBuffer::parse()
 	bool bEnd = false;
 
 	int index = 0;
-	uint i = 0;
+	size_t i = 0;
 
 	do
 	{
