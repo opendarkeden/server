@@ -128,7 +128,7 @@ void ResourceManager::optimize ()
 		string filename = (*current)->getFilename();
 
 		// 파일 사이즈를 잘라내고 순수하게 파일명만을 저장해둔다.
-		uint i = filename.find_first_of(' ');
+		size_t i = filename.find_first_of(' ');
 		filename = filename.substr(0,i);
 
 		// 이 파일명안에 darkeden.exe 가 포함될 경우, 중복 체크에 들어간다.

@@ -164,7 +164,7 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 
 	bool Success = true;
 
-	uint i = msg.find_first_of('*' , 0);
+	size_t i = msg.find_first_of('*' , 0);
 
 	if ( i == 0 ) 
 	{
@@ -184,9 +184,9 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 		if (msg.substr(i+1 , 5) == "world" && pCreature->isGOD() )
 		{
 			// 현재 서버	
-			uint j = msg.find_first_of(' ' , i+1);
+			size_t j = msg.find_first_of(' ' , i+1);
 			string command = msg.substr(j+1, msg.size()-j-1).c_str();
-			uint k = command.find_first_of('*', 0);
+			size_t k = command.find_first_of('*', 0);
 			opExecute(pCreature, pGamePlayer, command, k);
 
 			// 다른 server에도 보낸다. bSameWorldOnly==true
@@ -194,9 +194,9 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 		}
 		else if (msg.substr(i+1 , 8) == "allworld" && pCreature->isGOD()) {
 			// 현재 서버	
-			uint j = msg.find_first_of(' ' , i+1);
+			size_t j = msg.find_first_of(' ' , i+1);
 			string command = msg.substr(j+1, msg.size()-j-1).c_str();
-			uint k = command.find_first_of('*', 0);
+			size_t k = command.find_first_of('*', 0);
 			opExecute(pCreature, pGamePlayer, command, k);
 
 			// 다른 server에도 보낸다. bSameWorldOnly==false
@@ -450,7 +450,7 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 	}
 	else if ( msg.substr(i+1, 10) == "bug_report" && pCreature->isGOD() )
 	{
-		uint j = msg.find_first_of(' ', i+1);
+		size_t j = msg.find_first_of(' ', i+1);
 		if ( j == string::npos )
 		{
 			filelog("bugreport.log", "%s", msg.c_str());
@@ -479,10 +479,10 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 	}
 	else if ( msg.substr(i+1,11) == "CrashReport" && pCreature->isGOD())
 	{
-		uint j = msg.find_first_of(' ', i+1);
-		uint k = msg.find_first_of(' ', j+13);
-		uint l = msg.find_first_of(' ', k+1);
-		uint m = msg.find_first_of(' ', l+1);
+		size_t j = msg.find_first_of(' ', i+1);
+		size_t k = msg.find_first_of(' ', j+13);
+		size_t l = msg.find_first_of(' ', k+1);
+		size_t m = msg.find_first_of(' ', l+1);
 		if ( j == string::npos || k == string::npos || l == string::npos || m == string::npos )
 		{
 			filelog("CrashReport.log", "[%s] %s", pGamePlayer->getID().c_str(), msg.c_str() );
@@ -562,8 +562,8 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 
 	StringStream message;
 
-	uint j = msg.find_first_of(' ', i+1);
-	uint z = msg.find_first_of(' ', j+1);
+	size_t j = msg.find_first_of(' ', i+1);
+	size_t z = msg.find_first_of(' ', j+1);
 
 	string set_type = msg.substr(j+1, z-j-1);
 
@@ -686,8 +686,8 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 	GCSystemMessage gcSystemMessage;
 	StringStream message;
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint z = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t z = msg.find_first_of(' ' , j+1);
 	
 	string set_type = msg.substr(j+1, z-j-1);
 
@@ -884,8 +884,8 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	GCSystemMessage gcSystemMessage;
 	StringStream message;
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint z = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t z = msg.find_first_of(' ' , j+1);
 	
 	string load_type = msg.substr(j+1, z-j-1);
 	string load_value = "0";
@@ -1162,8 +1162,8 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 	GCSystemMessage gcSystemMessage;
 	StringStream message;
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint z = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t z = msg.find_first_of(' ' , j+1);
 	
 	string set_type = msg.substr(j+1, z-j-1);
 	string set_value = msg.substr(z+1);
@@ -1637,8 +1637,8 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 	}
 	else if ( set_type == "xmas_2002" )
 	{
-		uint l = set_value.find_first_of(' ' , 0);
-		uint m = set_value.find_first_of(' ' , l+1);
+		size_t l = set_value.find_first_of(' ' , 0);
+		size_t m = set_value.find_first_of(' ' , l+1);
 		
 		string value_firecracker	= set_value.substr( 0, l);
 		string value_treepart		= set_value.substr( l+1, m-l-1 );
@@ -1797,7 +1797,7 @@ void CGSayHandler::opguild( string msg, int i, Creature* pCreature )
 
 	i = i + 7;
 
-	uint j = msg.find_first_of( ' ', i );
+	size_t j = msg.find_first_of( ' ', i );
 	string command = msg.substr( i, j - i );
 	string variable = trim( msg.substr( j+1 ) );
 
@@ -1805,7 +1805,7 @@ void CGSayHandler::opguild( string msg, int i, Creature* pCreature )
 
 	if ( command == "changeGuildMaster" )
 	{
-		int a = variable.find_first_of( ' ', 0 );
+		size_t a = variable.find_first_of( ' ', 0 );
 		GuildID_t guildID = atoi( variable.substr( 0, a ).c_str() );
 		string master = trim( variable.substr( a+1 ) );
 
@@ -2030,7 +2030,7 @@ void CGSayHandler::opwall(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 
 	GCSystemMessage gcSystemMessage;
 
@@ -2088,7 +2088,7 @@ void CGSayHandler::opshutdown(GamePlayer* pGamePlayer , string msg, int i)
 
 	// 아무 zone에나 붙이면 되는데..
 	// multithread때메.. lock잘 걸고 effect를 붙여야 한다.
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	Turn_t dTime = atoi(msg.substr(j+1, msg.size()-j-1).c_str());
 
 	if (pGamePlayer!=NULL)
@@ -2147,7 +2147,7 @@ void CGSayHandler::opkick(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Creature* pTargetCreature = NULL;
@@ -2185,8 +2185,8 @@ void CGSayHandler::opmute(GamePlayer* pGamePlayer , string msg, int i)
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 	uint time = 0;
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 	string Name;
 	if ( k < msg.size() )
 	{
@@ -2257,8 +2257,8 @@ void CGSayHandler::opdenychat(GamePlayer* pGamePlayer , string msg, int i)
 
 	uint level = 0;
 	uint time = 0;
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 	string Name;
 	if ( k < msg.size() )
 	{
@@ -2354,7 +2354,7 @@ void CGSayHandler::opfreezing(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Creature* pTargetCreature = NULL;
@@ -2384,7 +2384,7 @@ void CGSayHandler::opdeny(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Statement* pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -2414,7 +2414,7 @@ void CGSayHandler::opinfo(GamePlayer* pGamePlayer , string msg, int i)
 
 	if (pGamePlayer==NULL)	 return;
 	
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Creature* pTargetCreature = NULL;
@@ -2497,7 +2497,7 @@ void CGSayHandler::opfind(GamePlayer* pGamePlayer , string msg, int i)
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
 	if (pGamePlayer==NULL)	 return;
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Statement* pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
@@ -2571,7 +2571,7 @@ void CGSayHandler::opcredit(GamePlayer* pGamePlayer , string msg, int i)
 		//Credits["홍상민"] = "서버(2002.12~)";
 	}
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	unordered_map<string, string>::const_iterator itr = Credits.find( Name );
@@ -2631,8 +2631,8 @@ void CGSayHandler::optrace(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 
 	bool isNPCTrace = false;
 
@@ -2748,9 +2748,9 @@ void CGSayHandler::opfun(GamePlayer* pGamePlayer , string msg, int i)
 
 	if (pGamePlayer==NULL)	 return;
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
-	uint l = msg.find_first_of(' ' , k+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
+	size_t l = msg.find_first_of(' ' , k+1);
 
 	string      FunType		= trim(msg.substr(j+1, k-j-1));
 	int 		value1    	= atoi(msg.substr(k+1, l-k-1).c_str());
@@ -2841,9 +2841,9 @@ void CGSayHandler::opwarp(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
-	uint l = msg.find_first_of(' ' , k+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
+	size_t l = msg.find_first_of(' ' , k+1);
 
 	string      ZoneName = trim(msg.substr(j+1, k-j-1));
 	ZoneCoord_t ZoneX    = atoi(msg.substr(k+1, l-k-1).c_str());
@@ -2906,15 +2906,15 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1);	// class
-	uint k = msg.find_first_of(' ' , j+1);	// type
-	uint l = msg.find_first_of(' ' , k+1);	// option
-	uint lNum = msg.find_first_of('[' , k+1);	// num
-	uint rNum = msg.find_first_of(']' , k+1);
-	uint lTime = msg.find_first_of('(' , k+1);	// num
-	uint rTime = msg.find_first_of(')' , k+1);
-	uint lGrade = msg.find_first_of('{' , k+1);	// num
-	uint rGrade = msg.find_first_of('}' , k+1);
+	size_t j = msg.find_first_of(' ' , i+1);	// class
+	size_t k = msg.find_first_of(' ' , j+1);	// type
+	size_t l = msg.find_first_of(' ' , k+1);	// option
+	size_t lNum = msg.find_first_of('[' , k+1);	// num
+	size_t rNum = msg.find_first_of(']' , k+1);
+	size_t lTime = msg.find_first_of('(' , k+1);	// num
+	size_t rTime = msg.find_first_of(')' , k+1);
+	size_t lGrade = msg.find_first_of('{' , k+1);	// num
+	size_t rGrade = msg.find_first_of('}' , k+1);
 
 	string optional;
 
@@ -2964,7 +2964,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 	list<OptionType_t> optionTypes;
 
 	
-	uint pos = l, previous = l;
+	size_t pos = l, previous = l;
 	while (previous < string::npos && pos < string::npos)
 	{
 		pos = msg.find_first_of(' ' , previous+1);
@@ -3253,8 +3253,8 @@ void CGSayHandler::opgrant(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 
 	BYTE Competence = atoi(msg.substr(j+1, k-j-1).c_str());
 	
@@ -3339,7 +3339,7 @@ void CGSayHandler::oprecall(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pTCreature = NULL;
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 
 	string Name;
 
@@ -3486,8 +3486,8 @@ void CGSayHandler::opnotice(GamePlayer* pGamePlayer , string msg, int i)
 
 	//Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 
 	string noticemsg = msg.substr(j+1, k-j-1).c_str();
 
@@ -3515,18 +3515,18 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	uint j = msg.find_first_of(' ' , i+1); 
-	uint k = msg.find_first_of(' ' , j+1); // j~k : name
-	uint l = msg.find_first_of(' ' , k+1); // k~l : num
-	uint m = msg.find_first_of(' ' , l+1); // l~m : mad
+	size_t j = msg.find_first_of(' ' , i+1); 
+	size_t k = msg.find_first_of(' ' , j+1); // j~k : name
+	size_t l = msg.find_first_of(' ' , k+1); // k~l : num
+	size_t m = msg.find_first_of(' ' , l+1); // l~m : mad
 
-	uint o = msg.find_first_of('{' , j);
-	uint p = msg.find_first_of('}' , j+1);
+	size_t o = msg.find_first_of('{' , j);
+	size_t p = msg.find_first_of('}' , j+1);
 
 #ifdef __UNDERWORLD__
 
-	uint e = msg.find_first_of('[', i+1);
-	uint v = msg.find_first_of(']', i+1); // e~v : event 여부
+	size_t e = msg.find_first_of('[', i+1);
+	size_t v = msg.find_first_of(']', i+1); // e~v : event 여부
 
 	string EventFlag = msg.substr(e+1,v-e-1);
 	
@@ -3747,8 +3747,8 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 	string command = trim( msg.substr(j+1, k-j-1) ); 
 	string value1 = msg.substr(k+1, msg.size()-k-1).c_str();
 
@@ -4136,7 +4136,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if (command=="setCastleOwnerGuild")
 	{
-		uint j = value1.find_first_of(' ' , 0);
+		size_t j = value1.find_first_of(' ' , 0);
 		ZoneID_t zoneID = (ZoneID_t)atoi( trim( value1.substr(0, j) ).c_str() );
 		GuildID_t guildID = (GuildID_t)atoi( trim( value1.substr(j+1, value1.size()-j-1) ).c_str() );
 
@@ -4386,7 +4386,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		{
 			ZoneID_t zoneID = pGamePlayer->getCreature()->getZone()->getZoneID();
 
-			uint j = value1.find_first_of(' ' , 0);
+			size_t j = value1.find_first_of(' ' , 0);
 			int num = atoi( trim( value1.substr(0, j) ).c_str() );
 
 			if ( g_pPKZoneInfoManager->isPKZone(zoneID) )
@@ -4581,7 +4581,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if ( command == "NotifyWin" )
 	{
-		int j = value1.find_first_of(' ', 0);
+		size_t j = value1.find_first_of(' ', 0);
 		string name = value1.substr(0,j);
 		int giftID = atoi( trim( value1.substr(j+1, value1.size()) ).c_str() );
 
@@ -4604,7 +4604,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	{
 		Creature* pCreature = pGamePlayer->getCreature();
 
-		int j = value1.find_first_of(' ', 0);
+		size_t j = value1.find_first_of(' ', 0);
 		string name = value1.substr(0,j);
 		int time = atoi( trim( value1.substr(j+1, value1.size()) ).c_str() );
 
@@ -4635,7 +4635,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if ( command == "Game" )
 	{
-		int j = value1.find_first_of(' ', 0);
+		size_t j = value1.find_first_of(' ', 0);
 		string name = value1.substr(0,j);
 		
 		GCNoticeEvent gcNE;
@@ -4775,7 +4775,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		{
 			Zone* pZone = pCreature->getZone();
 
-			uint l = value1.find_first_of(' ' , 0);
+			size_t l = value1.find_first_of(' ' , 0);
 
 			int bulletinLevel = atoi( value1.substr(0, l).c_str() );
 			string bulletinMessage = value1.substr(l+1, value1.size()-l-1) + "%" + pCreature->getName();
@@ -5089,7 +5089,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if ( command == "ForceNick" )
 	{
-		int j = value1.find_first_of(' ', 0);
+		size_t j = value1.find_first_of(' ', 0);
 		string name = trim( value1.substr(0,j) );
 		string nick = trim( value1.substr(j+1, value1.size()) );
 
@@ -5236,8 +5236,8 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Creature* pCreature = pGamePlayer->getCreature();
 		Assert( pCreature != NULL );
 
-		int j = value1.find_first_of(' ', 0);
-		int k = value1.find_first_of(' ', j+1);
+		size_t j = value1.find_first_of(' ', 0);
+		size_t k = value1.find_first_of(' ', j+1);
 
 		if ( k == string::npos ) k = value1.size();
 		GuildID_t gid = atoi(trim( value1.substr(0,j) ).c_str());
@@ -5465,7 +5465,7 @@ void CGSayHandler::opworld(GamePlayer* pGamePlayer , string msg, int i, bool bSa
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string command = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	// packet
@@ -5530,7 +5530,7 @@ void CGSayHandler::opsoulchain(GamePlayer* pPlayer, string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
@@ -5547,8 +5547,8 @@ void CGSayHandler::oplog(GamePlayer* pPlayer, string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
-	uint k = msg.find_first_of(' ' , j+1);
+	size_t j = msg.find_first_of(' ' , i+1);
+	size_t k = msg.find_first_of(' ' , j+1);
 	uint sec = 0;
 	string name;
 
@@ -5603,7 +5603,7 @@ void CGSayHandler::opmodifyunioninfo(GamePlayer* pGamePlayer , string msg, int i
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	uint gID = (uint)atoi(msg.substr(j+1, msg.size()-j-1).c_str());
 
 
@@ -5620,7 +5620,7 @@ void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	uint j = msg.find_first_of(' ' , i+1);
+	size_t j = msg.find_first_of(' ' , i+1);
 	string command = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	cout << "GuildUnionManager->reload()" << endl;
