@@ -133,22 +133,20 @@ void SocketOutputStream::writePacket ( const Packet * pPacket )
 {
 	__BEGIN_TRY
 		
-	// 우선 패킷아이디와 패킷크기를 출력버퍼로 쓴다.
+	// First, the packet ID and size are written to the output buffer.
 	PacketID_t packetID = pPacket->getPacketID();
 	write( (char*)&packetID , szPacketID );
 	
 	PacketSize_t packetSize = pPacket->getPacketSize();
 	write( (char*)&packetSize , szPacketSize );
 
-	// 속흙룐관埼죗
+	// The sequence.
 	write( (char*)&m_Sequence, szSequenceSize);
 	m_Sequence++;
 	
-	// 이제 패킷바디를 출력버퍼로 쓴다.
-	cout<<"Send:" << packetID << " " <<pPacket->toString() << "|666" <<endl;
-	if (packetID == 0) {
-	  cout << "WHAT THE FUCK?" << endl;
-	}
+	// Now, the packet body is used as the output buffer.
+	cout<<"Send:" << packetID << " " <<pPacket->toString() <<endl;
+	Assert(packetID != 0);
 
 	uint l1 = length();
 
@@ -157,7 +155,7 @@ void SocketOutputStream::writePacket ( const Packet * pPacket )
 	uint l2 = length();
 
 	if ((l2 - l1) != packetSize) {
-	  cout << "writePacket error: diff size = " << (l2-l1) << " real size = " << packetSize << endl;
+	  cout << "writePacket WARN: diff size = " << (l2-l1) << " real size = " << packetSize << "before:" << l1 << " after:" << l2 << endl;
 	}
 	
 	/*

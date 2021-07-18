@@ -114,6 +114,8 @@ PacketSize_t GCSkillInfo::getPacketSize() const
 
 	PacketSize_t PacketSize = szBYTE;
 
+	PacketSize += 1; // szSkill
+
 	for (list< PCSkillInfo * >::const_iterator itr = m_pPCSkillInfoList.begin() ; itr != m_pPCSkillInfoList.end() ; itr ++ ) {
 
 		PacketSize += (*itr)->getSize();
