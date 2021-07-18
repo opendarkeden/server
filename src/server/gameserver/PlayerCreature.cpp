@@ -1129,7 +1129,7 @@ void PlayerCreature::increaseRankExp(RankExp_t Point)
 	if ( m_pRank->increaseExp(Point) )
 	{
 		char pField[80];
-		sprintf(pField, "Rank=%u, RankExp=%lu, RankGoalExp=%lu",
+		sprintf(pField, "`Rank`=%u, RankExp=%lu, RankGoalExp=%lu",
 				getRank(), getRankExp(), getRankGoalExp());
 		tinysave(pField);
 		setRankExpSaveCount(0);

@@ -76,217 +76,6 @@ const Color_t QUEST_COLOR = 0xFFFE;
 const Level_t MAX_VAMPIRE_LEVEL = 150;
 const Level_t MAX_VAMPIRE_LEVEL_OLD = 100;
 
-//////////////////////////////////////////////////////////////////////////////
-// incraseVampExp
-//////////////////////////////////////////////////////////////////////////////
-/*void Vampire::increaseVampExp(Exp_t Point)
-{
-	if (Point <= 0) return;
-
-	Level_t curLevel = getLevel();
-
-	if (curLevel >= VAMPIRE_MAX_LEVEL) 
-	{
-		// 레벨 한계에 도달해도 경험치는 쌓게 해준다.
-		// by sigi. 2002.8.31
-		Exp_t NewExp = getExp() + Point;
-
-		WORD ExpSaveCount = getExpSaveCount();
-		if (ExpSaveCount > VAMPIRE_EXP_SAVE_PERIOD)
-		{
-			char pField[80];
-			sprintf(pField, "Exp=%lu", NewExp);
-			tinysave(pField);
-			ExpSaveCount = 0;
-		}
-		else ExpSaveCount++;
-		setExpSaveCount(ExpSaveCount);
-
-		setExp( NewExp );
-
-		return;
-	}
-
-	Exp_t OldExp = getExp();
-
-	Exp_t OldGoalExp = getGoalExp();
-	Exp_t NewGoalExp = max(0, (int)(OldGoalExp - Point));
-
-	// 누적 경험치에는 목표 경험치가 줄어든 만큼 플러스 하여야 한다.
-	Exp_t DiffGoalExp = max(0, (int)(OldGoalExp - NewGoalExp));
-
-	Exp_t NewExp = OldExp + DiffGoalExp;
-
-	setExp(NewExp);
-	setGoalExp(NewGoalExp);
-
-	// 목표 경험치가 0 이라면 레벨 업이다.
-	if (NewGoalExp == 0 && curLevel < VAMPIRE_MAX_LEVEL)
-	{
-		// 이 함수 자체가 load할때만 적용되는거기 때문에..
-		// 필요없다. by sigi. 2002.8.31
-	//	VAMPIRE_RECORD prev;
-	//	getVampireRecord(prev);
-
-		curLevel++;
-
-		setLevel(curLevel);
-
-		// add bonus point
-		Bonus_t bonus = getBonus();
-
-		if ((getSTR(ATTR_BASIC) + getDEX(ATTR_BASIC) + getINT(ATTR_BASIC) + getBonus() - 60) < ((getLevel() - 1) * 3)) 
-		{
-			// 레벨에 상관치 않고, 무조건 3으로 변경되었다.
-			// 2001.12.12 김성민
-			bonus += 3;
-		}
-
-		setBonus(bonus);
-
-		VampEXPInfo* pBeforeExpInfo = g_pVampEXPInfoManager->getVampEXPInfo(curLevel-1);
-		VampEXPInfo* pNextExpInfo = g_pVampEXPInfoManager->getVampEXPInfo(curLevel);
-		Exp_t NextGoalExp = pNextExpInfo->getGoalExp();
-
-		setGoalExp(NextGoalExp);
-
-//		StringStream sav;
-//		sav << "Level = " << (int)curLevel << "," << "Exp = " << (int)pBeforeExpInfo->getAccumExp() << "," << "GoalExp = " << (int)NextGoalExp << "," << "Bonus = " << (int)bonus;
-//		pVampire->tinysave(sav.toString());
-
-		char pField[80];
-		sprintf(pField, "Level=%d, Exp=%lu, GoalExp=%lu, Bonus=%d", 
-						curLevel, pBeforeExpInfo->getAccumExp(), NextGoalExp, bonus);
-		tinysave(pField);
-		setExpSaveCount(0);
-	}
-	else
-	{
-		// 주기적으로 저장한다.
-		WORD ExpSaveCount = getExpSaveCount();
-		if (ExpSaveCount > VAMPIRE_EXP_SAVE_PERIOD)
-		{
-			// by sigi. 2002.5.15
-			char pField[80];
-			sprintf(pField, "Exp=%lu, GoalExp=%lu", NewExp, NewGoalExp);
-			tinysave(pField);
-
-			ExpSaveCount = 0;
-		}
-		else ExpSaveCount++;
-		setExpSaveCount(ExpSaveCount);
-	}
-}*/
-
-//////////////////////////////////////////////////////////////////////////////
-// increaseRankExp
-//////////////////////////////////////////////////////////////////////////////
-/*void Vampire::increaseRankExp(RankExp_t Point)
-{
-	if (Point <= 0) return;
-
-	// PK존 안에서는 경험치를 주지 않는다.
-	if ( g_pPKZoneInfoManager->isPKZone( getZoneID() ) )
-		return;
-
-	Rank_t curRank = getRank();
-
-	if (curRank >= VAMPIRE_MAX_RANK)
-	{
-		// 레벨 한계에 도달해도 경험치는 쌓게 해준다.
-		// by sigi. 2002.8.31
-		Exp_t NewExp = getRankExp() + Point;
-
-		WORD ExpSaveCount = getRankExpSaveCount();
-		if (ExpSaveCount > RANK_EXP_SAVE_PERIOD)
-		{
-			char pField[80];
-			sprintf(pField, "RankExp=%lu", NewExp);
-			tinysave(pField);
-			ExpSaveCount = 0;
-		}
-		else ExpSaveCount++;
-		setRankExpSaveCount(ExpSaveCount);
-
-		setRankExp( NewExp );
-
-		return;
-	}
-
-	Exp_t OldExp = getRankExp();
-
-	Exp_t OldGoalExp = getRankGoalExp();
-	Exp_t NewGoalExp = max(0, (int)(OldGoalExp - Point));
-
-	// 누적 경험치에는 목표 경험치가 줄어든 만큼 플러스 하여야 한다.
-	Exp_t DiffGoalExp = max(0, (int)(OldGoalExp - NewGoalExp));
-
-	Exp_t NewExp = OldExp + DiffGoalExp;
-
-
-	// 목표 경험치가 0 이라면 레벨 업이다.
-	if (NewGoalExp == 0 && curRank < VAMPIRE_MAX_RANK)
-	{
-		VAMPIRE_RECORD prev;
-		getVampireRecord(prev);
-
-		curRank++;
-
-		setRank(curRank);
-		setRankExp(NewExp);
-		setRankGoalExp(NewGoalExp);
-
-		RankEXPInfo* pBeforeExpInfo = g_pRankEXPInfoManager[RANK_TYPE_VAMPIRE]->getRankEXPInfo(curRank-1);
-		RankEXPInfo* pNextExpInfo = g_pRankEXPInfoManager[RANK_TYPE_VAMPIRE]->getRankEXPInfo(curRank);
-		Exp_t NextGoalExp = pNextExpInfo->getGoalExp();
-
-		setRankGoalExp(NextGoalExp);
-
-//		StringStream sav;
-//		sav << "Rank = " << (int)curRank << "," << "Exp = " << (int)pBeforeExpInfo->getAccumExp() << "," << "GoalExp = " << (int)NextGoalExp << "," << "Bonus = " << (int)bonus;
-//		tinysave(sav.toString());
-
-		char pField[80];
-		sprintf(pField, "Rank=%d, RankExp=%lu, RankGoalExp=%lu",
-						curRank, pBeforeExpInfo->getAccumExp(), NextGoalExp);
-		tinysave(pField);
-		setRankExpSaveCount(0);
-
-		sendModifyInfo(prev);
-
-		if (m_pZone != NULL)
-		{
-			GCOtherModifyInfo gcOtherModifyInfo;
-			gcOtherModifyInfo.setObjectID(getObjectID());
-			gcOtherModifyInfo.addShortData(MODIFY_RANK, curRank);
-
-			m_pZone->broadcastPacket(m_X, m_Y, &gcOtherModifyInfo, this);
-		}
-	}
-	else
-	{
-		setRankExp(NewExp);
-		setRankGoalExp(NewGoalExp);
-
-		// 주기적으로 저장한다.
-		WORD rankExpSaveCount = getRankExpSaveCount();
-		if (rankExpSaveCount > RANK_EXP_SAVE_PERIOD)
-		{
-			char pField[80];
-			sprintf(pField, "RankExp=%lu, RankGoalExp=%lu", NewExp, NewGoalExp);
-			tinysave(pField);
-
-			rankExpSaveCount = 0;
-		}
-		else rankExpSaveCount++;
-		setRankExpSaveCount(rankExpSaveCount);
-
-		// 계급 경험치를 보내준다. by sigi. 2002.9.13
-		GCModifyInformation gcModifyInformation;
-		gcModifyInformation.addLongData(MODIFY_RANK_EXP, NewExp);
-		m_pPlayer->sendPacket(&gcModifyInformation);
-	}
-}*/
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -751,17 +540,6 @@ bool Vampire::load ()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		/*
-		pResult = pStmt->executeQuery(
-			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, BatColor, SkinColor, 
-			STR, DEX, INTE, HP, CurrentHP, Fame, 
-			GoalExp, Level, Bonus, Gold, GuildID,
-			ZoneID, XCoord, YCoord, Sight, Alignment,
-			StashGold, StashNum, Competence, CompetenceShape, ResurrectZone, SilverDamage, Reward, SMSCharge,
-			Rank, RankGoalExp FROM Vampire WHERE Name = '%s' AND Active = 'ACTIVE'",
-			m_Name.c_str()
-		);
-		*/
 		// add by Sonic 2006.10.28
 		pResult = pStmt->executeQuery(
 			"SELECT Name, AdvancementClass, AdvancementGoalExp, Sex, \
@@ -1021,38 +799,6 @@ bool Vampire::load ()
 	m_VampireInfo.setAdvancementLevel(getAdvancementClassLevel());
 	//m_VampireInfo.setCoatColor(2 , SUB_COLOR);
 
-	// 잘못된 경험치를 재조정 해준다.
-/*	VampEXPInfo* pVampEXPInfo = g_pVampEXPInfoManager->getVampEXPInfo(m_Level);
-
-	if ((pVampEXPInfo->getAccumExp() != m_Exp + m_GoalExp) 
-		&& m_Level > 1 && m_Level < VAMPIRE_MAX_LEVEL) 
-	{
-		//ofstream file("뱀프능력치조정.txt", ios::out | ios::app);
-		//file << "NAME:" << m_Name << endl;
-		//file << "==VampEXP==" << endl;
-		//file << "현재레벨의총경험치 : " << (int)pVampEXPInfo->getAccumExp() << endl;
-		//file << "현재 누적 경험치 : " << (int)m_Exp << endl;
-		//file << "현재 목표 경험치 : " << (int)m_GoalExp << endl;
-
-		// 이전 레벨의 인포를 받아온다.
-		VampEXPInfo* pBeforeVampEXPInfo = g_pVampEXPInfoManager->getVampEXPInfo(m_Level - 1);
-		// 이전 레벨의 총 경험치 + 목표 경험치 변화량 = 현재 누적 경험치
-		m_Exp = pBeforeVampEXPInfo->getAccumExp() + (pVampEXPInfo->getGoalExp() - m_GoalExp);
-
-		//file << "수정된 누적 경험치 : " << (int)m_Exp << endl;
-		//file << "수정된 목표 경험치 : " << (int)m_GoalExp << endl;
-		//file << endl;
-		//file.close();
-
-	   // by sigi. 2002.5.15
-//		StringStream attrsave;
-//		attrsave << "Exp = " << (int)m_Exp;
-//		tinysave(attrsave.toString());
-
-		char pField[80];
-		sprintf(pField, "Exp=%lu", m_Exp);
-		tinysave(pField);
-	}*/
 
 	// rank가 0이면 초기값이 설정되지 않았다는 의미이다. by sigi. 2002.9.13
 	if (getRank()==0)
@@ -1060,35 +806,6 @@ bool Vampire::load ()
 		saveInitialRank();
 	}
 
-
-	// 잘못된 계급을 재조정 해준다.
-/*	RankEXPInfo* pRankEXPInfo = g_pRankEXPInfoManager[RANK_TYPE_VAMPIRE]->getRankEXPInfo(m_Rank);
-
-	if ((pRankEXPInfo->getAccumExp() != m_RankExp + m_RankGoalExp) 
-		&& m_Rank > 1 && m_Rank < VAMPIRE_MAX_RANK) 
-	{
-		//ofstream file("뱀프능력치조정.txt", ios::out | ios::app);
-		//file << "NAME:" << m_Name << endl;
-		//file << "==VampEXP==" << endl;
-		//file << "현재레벨의총경험치 : " << (int)pVampEXPInfo->getAccumExp() << endl;
-		//file << "현재 누적 경험치 : " << (int)m_Exp << endl;
-		//file << "현재 목표 경험치 : " << (int)m_GoalExp << endl;
-
-		// 이전 레벨의 인포를 받아온다.
-		RankEXPInfo* pBeforeRankEXPInfo = g_pRankEXPInfoManager[RANK_TYPE_VAMPIRE]->getRankEXPInfo(m_Rank - 1);
-		// 이전 레벨의 총 경험치 + 목표 경험치 변화량 = 현재 누적 경험치
-		m_RankExp = pBeforeRankEXPInfo->getAccumExp() + (pRankEXPInfo->getGoalExp() - m_RankGoalExp);
-
-		//file << "수정된 누적 경험치 : " << (int)m_Exp << endl;
-		//file << "수정된 목표 경험치 : " << (int)m_GoalExp << endl;
-		//file << endl;
-		//file.close();
-
-		char pField[80];
-		sprintf(pField, "RankExp=%lu", m_RankExp);
-		tinysave(pField);
-	}
-*/
 
 	initAllStat();
 
@@ -3231,7 +2948,7 @@ void Vampire::saveInitialRank(void)
 */
 
 	char pField[80];
-	sprintf(pField, "Rank=%d, RankExp=%lu, RankGoalExp=%lu",
+	sprintf(pField, "`Rank`=%d, RankExp=%lu, RankGoalExp=%lu",
 					getRank(), getRankExp(), getRankGoalExp());
 	tinysave(pField);
 	setRankExpSaveCount(0);

@@ -51,12 +51,12 @@ void GuildMember::create()
 			// 이미 디비에 존재하므로 데이터만 고쳐준다.(즉, 전에 다른 길드에 속한 적이 있다)
 			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
 			{
-				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, Rank = %d, ExpireDate = '', RequestDateTime = '%s' WHERE Name = '%s'",
+				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '', RequestDateTime = '%s' WHERE Name = '%s'",
 										m_GuildID, m_Rank, getRequestDateTime().c_str(), m_Name.c_str() );
 			}
 			else
 			{
-				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, Rank = %d, ExpireDate = '' WHERE Name = '%s'",
+				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '' WHERE Name = '%s'",
 										m_GuildID, m_Rank, m_Name.c_str() );
 			}
 		}
@@ -64,12 +64,12 @@ void GuildMember::create()
 		{
 			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
 			{
-				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, Rank, RequestDateTime ) VALUES ( %d, '%s', %d, '%s' )",
+				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, `Rank`, RequestDateTime ) VALUES ( %d, '%s', %d, '%s' )",
 										m_GuildID, m_Name.c_str(),  m_Rank, getRequestDateTime().c_str() );
 			}
 			else
 			{
-				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, Rank ) VALUES ( %d, '%s', %d )",
+				pStmt->executeQuery( "INSERT INTO GuildMember( GuildID, Name, `Rank` ) VALUES ( %d, '%s', %d )",
 										m_GuildID, m_Name.c_str(),  m_Rank );
 			}
 		}
@@ -94,7 +94,7 @@ bool GuildMember::load()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery( "SELECT GuildID, Name, Rank, LogOn FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
+		pResult = pStmt->executeQuery( "SELECT GuildID, Name, `Rank`, LogOn FROM GuildMember WHERE Name = '%s'", m_Name.c_str() );
 
 		if ( pResult->getRowCount() != 1 )
 		{
@@ -132,7 +132,7 @@ void GuildMember::save()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		
-		pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, Rank = %d WHERE Name = '%s'",
+		pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d WHERE Name = '%s'",
 								m_GuildID, m_Rank, m_Name.c_str() );
 
 		SAFE_DELETE( pStmt );
@@ -181,7 +181,7 @@ void GuildMember::expire()
 
 		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildMember SET Rank = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_DENY, ExpireDate, m_Name.c_str() );
+		pStmt->executeQuery( "UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_DENY, ExpireDate, m_Name.c_str() );
 
 		SAFE_DELETE( pStmt );
 	}
@@ -208,7 +208,7 @@ void GuildMember::leave()
 
 		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
 
-		pStmt->executeQuery( "UPDATE GuildMember SET Rank = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_LEAVE, ExpireDate, m_Name.c_str() );
+		pStmt->executeQuery( "UPDATE GuildMember SET `Rank` = %d, ExpireDate = '%s' WHERE Name = '%s'", GUILDMEMBER_RANK_LEAVE, ExpireDate, m_Name.c_str() );
 
 		SAFE_DELETE( pStmt );
 	}
