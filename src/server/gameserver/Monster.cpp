@@ -210,7 +210,7 @@ Monster::Monster (MonsterType_t monsterType)
 	if ( m_HP[ATTR_MAX] > 20000 )
 	{
 		if ( monsterType >= 717 )
-			cout << pMonsterInfo->getHName() << "의 HP : " << m_HP[ATTR_MAX] << endl;
+			cout << pMonsterInfo->getEName() << "의 HP : " << m_HP[ATTR_MAX] << endl;
 		else
 			m_HP[ATTR_MAX] = 20000;
 	}
@@ -245,7 +245,7 @@ Monster::Monster (MonsterType_t monsterType)
 			m_pBrain = new MonsterAI(this, aitype);
 		else
 		{
-			cout << pMonsterInfo->getHName() << "은 뇌가 없다." << endl;
+			cout << pMonsterInfo->getEName() << "은 뇌가 없다." << endl;
 			m_pBrain = NULL;
 		}
 	}
@@ -282,7 +282,7 @@ Monster::Monster (MonsterType_t monsterType)
 
 	// 이름을 설정한다.
 	if (m_bMaster)
-		m_Name = pMonsterInfo->getHName();
+		m_Name = pMonsterInfo->getEName();
 	else
 		m_Name = g_pMonsterNameManager->getRandomName(this);
 

@@ -104,18 +104,19 @@ PacketSize_t GCNPCResponse::getPacketSize () const
 {
 	__BEGIN_TRY
 
-	PacketSize_t size = szBYTE;
+	PacketSize_t size = sizeof(m_Code);
 
 	switch (m_Code)
 	{
-		// 파라미터를 써야 하는 코드
+		// Code to write parameters.
 		case NPC_RESPONSE_REPAIR_OK:
 		case NPC_RESPONSE_SILVER_COATING_OK:
 		case NPC_RESPONSE_DONATION_OK:
 		case NPC_RESPONSE_DECREASE_BALL:
 		case NPC_RESPONSE_GUILD_SHOW_REGIST:
 		case NPC_RESPONSE_SHOW_TAX_BALANCE:
-		case NPC_RESPONSE_WITHDRAW_TAX_OK:				// 길드 마스터가 세금을 찾는 데에 성공했다.
+		// The guild master succeeded in finding the tax. 
+		case NPC_RESPONSE_WITHDRAW_TAX_OK:
 		case NPC_RESPONSE_COUPLE_CANNOT_MEET:
 		case NPC_RESPONSE_NOT_COUPLE:
 		case NPC_RESPONSE_QUEST:
@@ -126,7 +127,7 @@ PacketSize_t GCNPCResponse::getPacketSize () const
 		case NPC_RESPONSE_SHOW_COMMON_MESSAGE_DIALOG:
 			size += szuint;
 			break;
-		// 파라미터를 쓰지 않아도 되는 코드
+		// Code that does not require parameters.
 		default:
 			break;
 	}
