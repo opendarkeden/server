@@ -3,10 +3,8 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt update && apt install -y \
-    --no-install-recommends \
     gcc \
     build-essential \
-    zlib1g \
     libxerces-c-dev \
     libmysqlclient-dev \
     xutils-dev \

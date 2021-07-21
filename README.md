@@ -1,6 +1,9 @@
 ![](https://user-images.githubusercontent.com/1420062/121156821-a0d86180-c87b-11eb-9b41-4d75940f2d88.png)
 
 
+If you're using Windows or Docker environment, skip the following content and see [install using docker](./docker_install.md).
+
+
 ## Compile
 
 The development environment is Ubuntu 20.04, other linux release should also work.
@@ -88,32 +91,3 @@ Start the loginserver, sharedserver, gameserver in order:
 ./bin/gameserver -f ./conf/gameserver.conf
 ```
 
-## Install in Docker
-
-
-First, build the docker image:
-
-```bash
-docker build -t darkeden .
-```
-
-
-Second, run the container
-
-```bash
-docker run -v `pwd`:/home/darkeden/vs/ -it darkeden /bin/bash
-```
-
-On Windows `pwd` should be changed to %cd%
-
-```
-docker run -v %cd%/:/home/darkeden/vs/ -it darkeden /bin/bash
-```
-
-Third, build the darkeden server binary files
-
-```
-make
-```
-
-and you can add `-j 8` to the `make` command.
