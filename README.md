@@ -1,6 +1,9 @@
 ![](https://user-images.githubusercontent.com/1420062/121156821-a0d86180-c87b-11eb-9b41-4d75940f2d88.png)
 
 
+If you're using Windows or Docker environment, skip the following content and see [install using docker](./docker_install.md).
+
+
 ## Compile
 
 The development environment is Ubuntu 20.04, other linux release should also work.
@@ -87,3 +90,4 @@ Start the loginserver, sharedserver, gameserver in order:
 ./bin/sharedserver -f ./conf/sharedserver.conf
 ./bin/gameserver -f ./conf/gameserver.conf
 ```
+
