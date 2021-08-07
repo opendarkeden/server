@@ -117,8 +117,8 @@ void LGIncomingConnectionHandler::execute (LGIncomingConnection * pPacket )
 
 		g_pLoginServerManager->sendPacket(pPacket->getHost() , pPacket->getPort() , &glIncomingConnectionOK);
 
-		//cout << "LGIncomingConnectionHandler Send Packet to ServerIP : " << pPacket->getHost() << endl;
-		//cout << "LGIncomingConnectionHandler Send Packet to ServerPort : " << pPacket->getPort() << endl;
+		cout << "LGIncomingConnectionHandler Send Packet to ServerIP : " << pPacket->getHost() << endl;
+		cout << "LGIncomingConnectionHandler Send Packet to ServerPort : " << pPacket->getPort() << endl;
 
 	} catch (DuplicatedException & de ) {
 

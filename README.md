@@ -66,8 +66,8 @@ Query OK, 0 rows affected (0.02 sec)
 Then load the SQL file `data/DARKEDEN.sql` and `data/USERINFO.sql`:
 
 ```
-mysql -h 127.0.0.1 -u elcastle -D 'DARKEDEN' -p < DARKEDEN.sql
-mysql -h 127.0.0.1 -u elcastle -D 'USERINFO' -p < USERINFO.sql
+mysql -h 127.0.0.1 -u elcastle -D 'DARKEDEN' -p < initdb/DARKEDEN.sql
+mysql -h 127.0.0.1 -u elcastle -D 'USERINFO' -p < initdb/USERINFO.sql
 ```
 
 Update the `DARKEDEN.WorldDBInfo` and `DARKEDEN.GameServerInfo` table to set the correct IP/PORT().
