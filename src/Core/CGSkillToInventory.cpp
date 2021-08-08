@@ -9,6 +9,16 @@
 #include "SocketEncryptOutputStream.h"
 #include "Assert1.h"
 
+CGSkillToInventory::CGSkillToInventory ()
+{
+  __BEGIN_TRY
+
+    m_InventoryItemObjectID = 0; 
+
+  __END_CATCH  
+
+}
+
 
 void CGSkillToInventory::read (SocketInputStream & iStream) 
 	 
@@ -28,7 +38,7 @@ void CGSkillToInventory::read (SocketInputStream & iStream)
 							pEIStream->readEncrypt(m_Y),
 							pEIStream->readEncrypt(m_TargetX));
 		pEIStream->readEncrypt(m_TargetY);
-		pEIStream->readEncrypt(m_InventoryItemObjectID);
+		// pEIStream->readEncrypt(m_InventoryItemObjectID);
 	}
 	else
 #endif
@@ -39,7 +49,7 @@ void CGSkillToInventory::read (SocketInputStream & iStream)
 		iStream.read(m_Y);
 		iStream.read(m_TargetX);
 		iStream.read(m_TargetY);
-		iStream.read(m_InventoryItemObjectID);
+		// iStream.read(m_InventoryItemObjectID);
 	}
 
 	__END_CATCH
@@ -63,7 +73,7 @@ void CGSkillToInventory::write (SocketOutputStream & oStream) const
 							pEOStream->writeEncrypt(m_Y),
 							pEOStream->writeEncrypt(m_TargetX));
 		pEOStream->writeEncrypt(m_TargetY);
-		pEOStream->writeEncrypt(m_InventoryItemObjectID);
+		// pEOStream->writeEncrypt(m_InventoryItemObjectID);
 	}
 	else
 #endif
@@ -74,7 +84,7 @@ void CGSkillToInventory::write (SocketOutputStream & oStream) const
 		oStream.write(m_Y);
 		oStream.write(m_TargetX);
 		oStream.write(m_TargetY);
-		oStream.write(m_InventoryItemObjectID);
+		// oStream.write(m_InventoryItemObjectID);
 	}
 
 	__END_CATCH
