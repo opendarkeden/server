@@ -57,7 +57,7 @@ public:
 	void setShopVersion(ShopVersion_t ver)  { m_Version = ver;}
 	
 	ShopRackType_t getShopType(void) const  { return m_RackType; }
-	void setShopType(const ShopRackType_t type) { m_RackType = type; }
+	void setShopType(const ShopRackType_t type);
 
 	MarketCond_t getMarketCondBuy(void) const  { return m_MarketCondBuy;}
 	void setMarketCondBuy(MarketCond_t cond)  { m_MarketCondBuy = cond;}
