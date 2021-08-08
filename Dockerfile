@@ -19,9 +19,4 @@ COPY libs /home/darkeden/libs/
 ENV CPLUS_INCLUDE_PATH=/home/darkeden/libs/lua-4.0.1/include:$CPLUS_INCLUDE_PATH
 ENV LIBRARY_PATH=/home/darkeden/libs/lua-4.0.1/lib/:$LIBRARY_PATH
 
-EXPOSE 9999/tcp 9999/udp \
-       9998/tcp 9998/udp \
-       9997/tcp 9997/udp \
-       9900/tcp 9900/udp
-
 WORKDIR /home/darkeden/vs/src

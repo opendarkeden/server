@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  odk-mysql:
+    image: mysql/mysql-server:5.7
+    volumes:
+      - ../initdb:/docker-entrypoint-initdb.d/
+    environment:
+        MYSQL_ROOT_PASSWORD: 123456
+    restart: on-failure
+    command: mysqld --sql_mode="ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+    networks:
+      - odk-network
+
+  odk-server:
+    image: darkeden
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    command: ["sleep","infinity"]
+    ports:
+      - "9999:9999"
+      - "9998:9998"
+      - "9997:9997"
+    volumes:
+      - ../bin/:/home/darkeden/vs/bin/
+      - conf/:/home/darkeden/vs/conf/
+      - ../data/:/home/darkeden/vs/data/
+    networks:
+      - odk-network
+
+networks:
+  odk-network:

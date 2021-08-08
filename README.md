@@ -3,6 +3,7 @@
 
 If you're using Windows or Docker environment, skip the following content and see [install using docker](./docker_install.md).
 
+TL;DR
 
 ## Compile
 
@@ -36,8 +37,7 @@ or `make -j 8` if you have a 8 cores CPU computor to accelerate the compilation.
 
 ## Setup the Database
 
-MySQL8 is tested, MySQL5.7 might also work.
-
+MySQL 5.7 or 8 are tested.
 
 Create a user 'elcastle'@'%' with password 'elca110'
 
@@ -63,7 +63,7 @@ mysql> set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_I
 Query OK, 0 rows affected (0.02 sec)
 ```
 
-Then load the SQL file `data/DARKEDEN.sql` and `data/USERINFO.sql`:
+Then load the SQL file `initdb/DARKEDEN.sql` and `initdb/USERINFO.sql`:
 
 ```
 mysql -h 127.0.0.1 -u elcastle -D 'DARKEDEN' -p < initdb/DARKEDEN.sql
