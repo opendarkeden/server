@@ -1,4 +1,4 @@
 #!/bin/sh
-killall loginserver
-killall sharedserver
 killall gameserver
+killall sharedserver
+killall loginserver

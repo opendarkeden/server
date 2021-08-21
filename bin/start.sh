@@ -1,7 +1,7 @@
 #!/bin/sh
-killall loginserver
-killall sharedserver
 killall gameserver
+killall sharedserver
+killall loginserver
 
 sleep 1
 cd /home/darkeden/vs/bin
@@ -12,11 +12,15 @@ rm -rf sharedserver*.out
 
 sleep 3
 ./login &
-
-sleep 1
-./game &
+echo "login server started"
 
 sleep 1
 ./share &
+echo "shared server started"
 
-echo "DKL - START"
+sleep 1
+./game &
+echo "game server started"
+
+
+echo "ALL - START"
