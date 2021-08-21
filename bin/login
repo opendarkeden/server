@@ -1,0 +1,2 @@
+#!/bin/sh
+./loginserver -f ../conf/loginserver.conf > loginserver_$(date '+%y%m%d_%H%M').out &

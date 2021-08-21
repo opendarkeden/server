@@ -1,0 +1,2 @@
+#!/bin/sh
+./gameserver -f ../conf/gameserver.conf  > gameserver_$(date '+%y%m%d_%H%M').out &
