@@ -8,6 +8,7 @@ RUN apt update && apt install -y \
     libxerces-c-dev \
     libmysqlclient-dev \
     xutils-dev \
+    psmisc \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /home/darkeden

@@ -40,21 +40,19 @@ docker-compose up -d
 Login to server container:
 
 ```
-docker exec -it docker_odk-server_1 /bin/bash
+docker exec -w /home/darkeden/vs/bin -it docker_odk-server_1  /bin/bash
 ```
 
 Run the server:
 
 ```
-cd ../bin
-./bin/loginserver -f conf/loginserver.conf
-./bin/shardserver -f conf/sharedserver.conf
-./bin/gameserver -f conf/gameserver.conf
+./start.sh
 ```
 
 
 Stop all:
 
 ```sh
+./stop.sh
 docker-compose down
 ```
