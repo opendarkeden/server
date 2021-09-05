@@ -44,9 +44,17 @@ void GLIncomingConnectionOKHandler::execute (GLIncomingConnectionOK * pPacket )
 
 		if (pLoginPlayer->getPlayerStatus() == LPS_AFTER_SENDING_LG_INCOMING_CONNECTION ) 
 		{
-	        // 클라이언트에게 게임 서버로 재접속하라고 알려준다.
+
+
+		  // Tell the client to reconnect the game server.
+		  // by tiancaiamao: when gameserver is behind docker, it may have a docker internal IP 172.20.0.1 and a outside IP in database GameServerInfo table.
+		  // The outside IP should be used.
+		  // pPacket->getHost() get the internal one.
+		  // pLoginPlayer->getGameServerIP() get the outside one.
+
 			LCReconnect lcReconnect;
-			lcReconnect.setGameServerIP(pPacket->getHost());
+			// lcReconnect.setGameServerIP(pPacket->getHost());
+			lcReconnect.setGameServerIP(pLoginPlayer->getGameServerIP());
 			lcReconnect.setGameServerPort(pPacket->getTCPPort());
 			lcReconnect.setKey(pPacket->getKey());
 

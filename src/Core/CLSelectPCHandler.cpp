@@ -339,6 +339,10 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		//--------------------------------------------------------------------------------
 		pLoginPlayer->setPlayerStatus(LPS_AFTER_SENDING_LG_INCOMING_CONNECTION);
 
+		// by tiancaiamao: when gameserver is behind docker, it may have a docker internal IP 172.20.0.1 and a outside IP in database GameServerInfo table.
+		// The outside IP should be used.
+		pLoginPlayer->setGameServerIP(pGameServerInfo->getIP());
+
 /*
 		// 어쩔 수 없이 user name 을 사용해서 하드코딩한다. -_-;
 		g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , pGameServerInfo->getUDPPort() , &lgIncomingConnection);

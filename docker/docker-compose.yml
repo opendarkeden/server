@@ -23,6 +23,7 @@ services:
       - "9999:9999"
       - "9998:9998"
       - "9997:9997"
+      - "9997:9997/udp"
     volumes:
       - ../bin/:/home/darkeden/vs/bin/
       - ./conf/:/home/darkeden/vs/conf/

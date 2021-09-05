@@ -147,6 +147,9 @@ public :
 	void    setBillingSession() throw (Error)   { BillingPlayerInfo::setBillingSession(this); }
 	bool    sendBillingLogin() throw (Error);
 
+public :
+  void setGameServerIP(const string& ip) { m_gameServerIP = ip; }
+  const string& getGameServerIP() { return m_gameServerIP; }
 
 private :
 	
@@ -187,6 +190,9 @@ private :
 
 	// 웹 로그인 모드
 	bool			m_bWebLogin;
+
+  // m_gameServerIP is set in CLSelectPCHandler.
+  string m_gameServerIP;
 };
 
 #endif
