@@ -120,7 +120,6 @@ LoginPlayer::~LoginPlayer ()
 //////////////////////////////////////////////////////////////////////
 void
 LoginPlayer::setExpireTimeForKickCharacter()
-	throw ()
 {
 	getCurrentTime(m_ExpireTimeForKickCharacter);
 
@@ -501,7 +500,6 @@ void LoginPlayer::sendPacket ( Packet * pPacket )
 //
 //////////////////////////////////////////////////////////////////////
 Packet * LoginPlayer::getOldPacket ( uint prev )
-	throw ( OutOfBoundException , NoSuchElementException )
 {
 	__BEGIN_TRY
 
@@ -519,7 +517,6 @@ Packet * LoginPlayer::getOldPacket ( uint prev )
 //
 //////////////////////////////////////////////////////////////////////
 Packet * LoginPlayer::getOldPacket ( PacketID_t packetID )
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 
@@ -553,7 +550,6 @@ Packet * LoginPlayer::getOldPacket ( PacketID_t packetID )
 //////////////////////////////////////////////////////////////////////////////
 void
 LoginPlayer::sendLGKickCharacter()
-	throw ()
 {
 	cout << "send LGKickCharacter" << endl;
 
@@ -705,7 +701,6 @@ LoginPlayer::sendLGKickCharacter()
 //////////////////////////////////////////////////////////////////////
 void
 LoginPlayer::sendLCLoginOK()
-	throw ()
 {
 	try {
 	//cout << "Send LCLoginOK" << endl;
@@ -762,7 +757,6 @@ LoginPlayer::sendLCLoginOK()
 
 
 bool    LoginPlayer::sendBillingLogin() 
-	throw (Error)
 {
 	__BEGIN_TRY
 
@@ -854,7 +848,6 @@ void addLogoutPlayerData(Player* pPlayer)
 }
 
 void LoginPlayer::makePCList( LCPCList& lcPCList )
-	throw( DisconnectException )
 {
 	Statement* pStmt = NULL;
 	Statement* pStmt2 = NULL;

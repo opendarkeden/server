@@ -128,7 +128,7 @@ void EffectAftermath::create(const string & ownerID)
 			<< " " << m_Deadline.tv_sec << "   "
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
@@ -158,7 +158,7 @@ void EffectAftermath::destroy(const string & ownerID)
 		/*
 		StringStream sql;
 		sql << "DELETE FROM EffectAftermath WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
@@ -256,7 +256,7 @@ void EffectAftermathLoader::load(Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8

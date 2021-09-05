@@ -78,7 +78,7 @@ void Key::create(const string & ownerID, Storage storage, StorageID_t storageID,
 			<< m_ItemID << ", "
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " << m_Target << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -142,7 +142,7 @@ void Key::save(const string & ownerID, Storage storage, StorageID_t storageID, B
 			<< ",Target = " << m_Target
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE KeyObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Target=%d WHERE ItemID=%ld",
@@ -374,7 +374,7 @@ void KeyLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Target FROM KeyObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -532,7 +532,7 @@ void KeyLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Target FROM KeyObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

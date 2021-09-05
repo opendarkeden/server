@@ -68,16 +68,11 @@ Connection::Connection ( string host , string db , string user , string password
 //////////////////////////////////////////////////////////////////////
 
 Connection::~Connection() 
-	
 {
-	__BEGIN_TRY
-		
 	// 연결되어 있을 경우, 연결을 끊는다.
     if ( m_bConnected ) {
 		close();
     }
-	
-	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -45,8 +45,6 @@ EffectContinualBloodyWall::EffectContinualBloodyWall (Zone* pZone)
 EffectContinualBloodyWall::~EffectContinualBloodyWall () 
 	
 {
-	__BEGIN_TRY
-	__END_CATCH
 }
 
 void EffectContinualBloodyWall::affect()

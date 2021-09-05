@@ -571,7 +571,7 @@ void MonsterInfoManager::load ()
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT MAX(MType) FROM MonsterInfo");
+		pResult = pStmt->executeQueryString("SELECT MAX(MType) FROM MonsterInfo");
 
 		// MonsterInfo 테이블에서 최대 MonsterType 값을 가져온다.
 		// 이 값은 MonsterInfoManager의 내부 MonsterInfo* 배열의 크기가 된다.
@@ -606,7 +606,7 @@ void MonsterInfoManager::load ()
 			<< "FROM MonsterInfo";
 		*/
 
-		//pResult = pStmt->executeQuery(sql.toString());
+		//pResult = pStmt->executeQueryString(sql.toString());
 
 		pResult = pStmt->executeQuery( 
 			"SELECT MType, SType, HName, EName,\
@@ -862,7 +862,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 			sql << " WHERE MType=" << monsterType;
 		}
 
-		pResult = pStmt->executeQuery( sql.toString().c_str() );
+		pResult = pStmt->executeQueryString( sql.toString());
 
 		while (pResult->next()) 
 		{

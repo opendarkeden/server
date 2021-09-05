@@ -146,7 +146,7 @@ void EffectMute::destroy(const string & ownerID)
 		/*
 		StringStream sql;
 		sql << "DELETE FROM EffectMute WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery("DELETE FROM EffectMute WHERE OwnerID = '%s'", 
@@ -185,7 +185,7 @@ void EffectMute::save(const string & ownerID)
 			<< ", Level = " <<(int)m_Level
 			<< " WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE EffectMute SET YearTime=%ld, DayTime=%ld WHERE OwnerID='%s'", 

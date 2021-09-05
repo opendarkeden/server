@@ -10,7 +10,6 @@
 #include "SocketOutputStream.h"
 
 CBillingPacketResponseIntervalValidationBody::CBillingPacketResponseIntervalValidationBody()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -20,7 +19,6 @@ CBillingPacketResponseIntervalValidationBody::CBillingPacketResponseIntervalVali
 }
 
 void CBillingPacketResponseIntervalValidationBody::read( SocketInputStream& iStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
@@ -32,7 +30,6 @@ void CBillingPacketResponseIntervalValidationBody::read( SocketInputStream& iStr
 }
 
 void CBillingPacketResponseIntervalValidationBody::write( SocketOutputStream& oStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -43,7 +40,6 @@ void CBillingPacketResponseIntervalValidationBody::write( SocketOutputStream& oS
 }
 
 string CBillingPacketResponseIntervalValidationBody::toString() const
-	throw ()
 {
 	char str[128];
 	StringStream msg;

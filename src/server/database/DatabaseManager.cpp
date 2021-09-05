@@ -32,8 +32,6 @@ DatabaseManager::DatabaseManager ()
 
 DatabaseManager::~DatabaseManager () 
 {
-	__BEGIN_TRY
-	
 	// 모든 Connection 를 삭제해야 한다.
 	unordered_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
@@ -44,12 +42,9 @@ DatabaseManager::~DatabaseManager ()
 
 	SAFE_DELETE(m_pDefaultConnection);
 	SAFE_DELETE(m_pUserInfoConnection);
-
-	__END_CATCH
 }
 
 void DatabaseManager::init ()
-	
 {
 	__BEGIN_TRY
 
@@ -95,7 +90,7 @@ void DatabaseManager::init ()
 
 		// time check
 		// No more than 1 hour with the database time.
-		pResult = pStmt->executeQuery( "SELECT unix_timestamp()" );
+		pResult = pStmt->executeQueryString( "SELECT unix_timestamp()" );
 		if ( pResult->next() )
 		{
 			time_t tDBTime = pResult->getInt( 1 );
@@ -116,11 +111,11 @@ void DatabaseManager::init ()
 		}
 
 		#ifdef __LOGIN_SERVER__
-			pResult = pStmt->executeQuery( 
+			pResult = pStmt->executeQueryString( 
 			"SELECT WorldID, Host, DB, User, Password, Port FROM WorldDBInfo");
 			cout << "[LOGIN_SERVER] query WorldDBInfo" << endl;
 		#else
-			pResult = pStmt->executeQuery( 
+			pResult = pStmt->executeQueryString( 
 			"SELECT WorldID, Host, DB, User, Password, Port FROM WorldDBInfo WHERE WorldID = 0");
 		#endif
 	
@@ -198,7 +193,6 @@ void DatabaseManager::init ()
 }
 
 void DatabaseManager::addConnection ( int TID,  Connection * pConnection ) 
-	
 {
 	__BEGIN_TRY
 
@@ -227,7 +221,6 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 // Potion 측 Thread Connection을 위한 부분
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection ) 
-	
 {
 	__BEGIN_TRY
 
@@ -256,7 +249,6 @@ void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection )
 // China Billing log 저장을 위한 DB 연결 추가
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection ) 
-	
 {
 	__BEGIN_TRY
 
@@ -501,7 +493,7 @@ void DatabaseManager::executeDummyQuery(Connection* pConnection)
 	BEGIN_DB
 	{
 		pStmt = pConnection->createStatement();
-		pStmt->executeQuery("SELECT 1");
+		pStmt->executeQueryString("SELECT 1");
 
 		SAFE_DELETE(pStmt);
 	} END_DB(pStmt) {

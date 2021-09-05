@@ -313,7 +313,7 @@ GuildWar::isModifyCastleOwner( PlayerCreature* pPC )
 	// 길드전쟁인 경우 : 전쟁 신청한 길드이거나
 	// 					 길드성인 경우는 일반인
 	if (pPC->getGuildID() == m_ChallangerGuildID
-		|| !pCastleInfo->isCommon() && pPC->getCommonGuildID()==pPC->getGuildID())
+	    || (!pCastleInfo->isCommon() && pPC->getCommonGuildID()==pPC->getGuildID()))
 	{
 		return true;
 	}

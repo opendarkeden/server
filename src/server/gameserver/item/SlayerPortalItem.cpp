@@ -76,7 +76,7 @@ void SlayerPortalItem::create(const string & ownerID, Storage storage, StorageID
 			<< ")";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
@@ -130,7 +130,7 @@ void SlayerPortalItem::save(const string & ownerID, Storage storage, StorageID_t
 			<< ",Charge    = "  << m_Charge
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -307,7 +307,7 @@ void SlayerPortalItemLoader::load(Creature* pCreature)
 			<< (int)STORAGE_EXTRASLOT << "," << (int)STORAGE_MOTORCYCLE << "," <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge FROM SlayerPortalItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -439,7 +439,7 @@ void SlayerPortalItemLoader::load(Zone* pZone)
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

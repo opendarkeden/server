@@ -610,7 +610,7 @@ void Vampire::save () const
 		
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		//Assert(pStmt->getAffectedRowCount() != 1);
 
@@ -2025,7 +2025,7 @@ void Vampire::saveExps(void) const
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)

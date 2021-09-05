@@ -78,7 +78,7 @@ void GameServerInfoManager::load ()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 			"SELECT MAX(GroupID) FROM GameServerInfo"
 		);
 
@@ -98,7 +98,7 @@ void GameServerInfoManager::load ()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 			"SELECT MAX(WorldID) FROM GameServerInfo"
 		);
 
@@ -129,7 +129,7 @@ void GameServerInfoManager::load ()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 			"SELECT ServerID, Nickname , IP , TCPPort , UDPPort, WorldID, GroupID, Stat FROM GameServerInfo"
 		);
 
@@ -166,7 +166,7 @@ void GameServerInfoManager::load ()
 	{
 		// PKServerList 는 플레이어(login) DB 에 있다.
 		pStmt = g_pDatabaseManager->getDistConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 			"SELECT WorldID, ServerGroupID FROM NonPKServerList"
 		);
 
@@ -195,7 +195,7 @@ void GameServerInfoManager::load ()
 	{
 		// 플레이어(login) DB 에 있다.
 		pStmt = g_pDatabaseManager->getDistConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 			"SELECT WorldID, ServerGroupID, FollowServerID FROM CastleStatInfo"
 		);
 

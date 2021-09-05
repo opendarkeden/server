@@ -87,7 +87,7 @@ void Potion::create(const string & ownerID, Storage storage, StorageID_t storage
 			<<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " 
 			<< (int)m_Num << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream¡¶∞≈. by sigi. 2002.5.13
@@ -189,7 +189,7 @@ void Potion::save(const string & ownerID, Storage storage, StorageID_t storageID
 			<< ",Num = " <<(int)m_Num
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE PotionObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Num=%d WHERE ItemID=%ld",
@@ -515,7 +515,7 @@ void PotionLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PotionObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -693,7 +693,7 @@ void PotionLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM PotionObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

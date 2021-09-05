@@ -46,11 +46,7 @@ EffectAddItemToCorpse::EffectAddItemToCorpse (Zone* pZone, Item* pItem, ObjectID
 EffectAddItemToCorpse::~EffectAddItemToCorpse () 
 	
 {
-	__BEGIN_TRY
-
 	unaffect(m_pZone , m_X , m_Y , m_pTarget);
-
-	__END_CATCH
 }
 			
 

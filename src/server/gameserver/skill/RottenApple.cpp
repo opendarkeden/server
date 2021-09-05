@@ -159,13 +159,12 @@ void RottenApple::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot*
 						Monster* pMonster = dynamic_cast<Monster*>(pCreature);
 						// edit by sonic 2006.11.1  修正人类祝福秒杀BOSS技能(烂苹果)
 						if ( pMonster->getMonsterType() == 764 ||
-							 pMonster->getMonsterType() == 765 ||
-							 pMonster->getMonsterType() == 717 ||
-							 //pMonster->getMonsterType() == 599 ||
-							 //pMonster->getMonsterType() == 602 ||
-							 //pMonster->getMonsterType() == 603 ||
-							 pMonster->getMonsterType() >= 682 &&
-							 pMonster->getMonsterType() <= 686 ) continue;
+						     pMonster->getMonsterType() == 765 ||
+						     pMonster->getMonsterType() == 717 ||
+						     //pMonster->getMonsterType() == 599 ||
+						     //pMonster->getMonsterType() == 602 ||
+						     //pMonster->getMonsterType() == 603 ||
+						     (pMonster->getMonsterType() >= 682 && pMonster->getMonsterType() <= 686) ) continue;
 						// end by sonic 
 						maxHP = pMonster->getHP(ATTR_MAX);
 						currentHP = pMonster->getHP(ATTR_CURRENT);

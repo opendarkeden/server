@@ -615,11 +615,11 @@ void PlayerCreature::setStashNumEx(BYTE num)
 			<< " WHERE Name = '" << getName() << "'";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sqlSlayer.toString());
+		pStmt->executeQueryString(sqlSlayer.toString());
 		if ( !isOusters() )
-			pStmt->executeQuery(sqlVampire.toString());
+			pStmt->executeQueryString(sqlVampire.toString());
 		else
-			pStmt->executeQuery(sqlOusters.toString());
+			pStmt->executeQueryString(sqlOusters.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -655,11 +655,11 @@ void PlayerCreature::setStashGoldEx(Gold_t gold)
 			<< " WHERE Name = '" << getName() << "'";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sqlSlayer.toString());
+		pStmt->executeQueryString(sqlSlayer.toString());
 		if ( !isOusters() )
-			pStmt->executeQuery(sqlVampire.toString());
+			pStmt->executeQueryString(sqlVampire.toString());
 		else
-			pStmt->executeQuery(sqlOusters.toString());
+			pStmt->executeQueryString(sqlOusters.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -694,11 +694,11 @@ void PlayerCreature::increaseStashGoldEx(Gold_t gold)
 			<< " WHERE Name = '" << getName() << "'";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sqlSlayer.toString());
+		pStmt->executeQueryString(sqlSlayer.toString());
 		if ( !isOusters() )
-			pStmt->executeQuery(sqlVampire.toString());
+			pStmt->executeQueryString(sqlVampire.toString());
 		else
-			pStmt->executeQuery(sqlOusters.toString());
+			pStmt->executeQueryString(sqlOusters.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -733,11 +733,11 @@ void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
 			<< " WHERE Name = '" << getName() << "'";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sqlSlayer.toString());
+		pStmt->executeQueryString(sqlSlayer.toString());
 		if ( !isOusters() )
-			pStmt->executeQuery(sqlVampire.toString());
+			pStmt->executeQueryString(sqlVampire.toString());
 		else
-			pStmt->executeQuery(sqlOusters.toString());
+			pStmt->executeQueryString(sqlOusters.toString());
 
 		SAFE_DELETE(pStmt);
 	}

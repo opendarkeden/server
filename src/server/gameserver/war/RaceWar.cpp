@@ -113,7 +113,7 @@ void RaceWar::recordRaceWarStart()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery("SELECT Race, SUM(CurrentNum) FROM RaceWarPCLimit GROUP BY Race");
+		pResult = pStmt->executeQueryString("SELECT Race, SUM(CurrentNum) FROM RaceWarPCLimit GROUP BY Race");
 
 		uint slayerSum  = 0;
 		uint vampireSum = 0;
@@ -136,7 +136,7 @@ void RaceWar::recordRaceWarStart()
 				oustersSum = num;
 		}
 
-		pResult = pStmt->executeQuery("SELECT ID, OwnerRace FROM ShrineInfo");
+		pResult = pStmt->executeQueryString("SELECT ID, OwnerRace FROM ShrineInfo");
 
 		while (pResult->next())
 		{
@@ -241,7 +241,7 @@ void RaceWar::recordRaceWarEnd()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pResult = pStmt->executeQuery("SELECT ID, OwnerRace FROM ShrineInfo");
+		pResult = pStmt->executeQueryString("SELECT ID, OwnerRace FROM ShrineInfo");
 
 		string slayerNew;
 		string vampireNew;

@@ -49,13 +49,11 @@ const int defaultCBillingPlayerOutputStreamSize = 10240;
 
 // constructor
 CBillingPlayer::CBillingPlayer()
-	throw ( Error )
 {
 }
 
 // constructor
 CBillingPlayer::CBillingPlayer( Socket* pSocket )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -76,8 +74,6 @@ CBillingPlayer::CBillingPlayer( Socket* pSocket )
 // destructor
 CBillingPlayer::~CBillingPlayer()
 {
-	__BEGIN_TRY
-
 	// delete socket intput stream
 	SAFE_DELETE( m_pInputStream );
 
@@ -92,12 +88,9 @@ CBillingPlayer::~CBillingPlayer()
 
 		filelog( LOGFILE_CBILLING_PLAYER, "Close Socket" );
 	}
-
-	__END_CATCH
 }
 
 void CBillingPlayer::processInput()
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -113,7 +106,6 @@ void CBillingPlayer::processInput()
 }
 
 void CBillingPlayer::processOutput()
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -131,7 +123,6 @@ void CBillingPlayer::processOutput()
 
 // parse packet and execute packet handler
 void CBillingPlayer::processCommand()
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -311,7 +302,6 @@ void CBillingPlayer::processCommand()
 
 // send packet to player's output buffer
 void CBillingPlayer::sendPacket( Packet* pPacket )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -322,7 +312,6 @@ void CBillingPlayer::sendPacket( Packet* pPacket )
 
 // disconnect
 void CBillingPlayer::disconnect( bool bDisconnected )
-	throw ( InvalidProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -347,7 +336,6 @@ void CBillingPlayer::disconnect( bool bDisconnected )
 
 // set socket
 void CBillingPlayer::setSocket( Socket* pSocket )
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -366,7 +354,6 @@ void CBillingPlayer::setSocket( Socket* pSocket )
 
 // send login packet
 void CBillingPlayer::sendLogin( LoginPlayer* pLoginPlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -406,7 +393,6 @@ void CBillingPlayer::sendLogin( LoginPlayer* pLoginPlayer )
 
 // send interval validation packet
 void CBillingPlayer::sendIntervalValidation()
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -435,7 +421,6 @@ void CBillingPlayer::sendIntervalValidation()
 
 // send login packet
 void CBillingPlayer::sendLogin( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -473,7 +458,6 @@ void CBillingPlayer::sendLogin( GamePlayer* pGamePlayer )
 
 // send minus point packet
 void CBillingPlayer::sendMinusPoint( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -504,7 +488,6 @@ void CBillingPlayer::sendMinusPoint( GamePlayer* pGamePlayer )
 
 // send minus minute packet
 void CBillingPlayer::sendMinusMinute( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -535,7 +518,6 @@ void CBillingPlayer::sendMinusMinute( GamePlayer* pGamePlayer )
 
 // send logout packet
 void CBillingPlayer::sendLogout( GamePlayer* pGamePlayer )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -567,7 +549,6 @@ void CBillingPlayer::sendLogout( GamePlayer* pGamePlayer )
 #endif
 
 void CBillingPlayer::executeError( CBillingPacketHeader& header, CBillingPacketErrorBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -621,7 +602,6 @@ void CBillingPlayer::executeError( CBillingPacketHeader& header, CBillingPacketE
 #ifdef __LOGIN_SERVER__
 
 void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -662,7 +642,6 @@ void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketR
 
 #elif defined(__GAME_SERVER__)
 void CBillingPlayer::executeIntervalValidation( CBillingPacketHeader& header, CBillingPacketResponseIntervalValidationBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -692,7 +671,6 @@ void CBillingPlayer::executeIntervalValidation( CBillingPacketHeader& header, CB
 }
 
 void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -776,7 +754,6 @@ void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketR
 }
 
 void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPacketResponseMinusPointBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -857,7 +834,6 @@ void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPa
 }
 
 void CBillingPlayer::executeMinusMinute( CBillingPacketHeader& header, CBillingPacketResponseMinusMinuteBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -873,7 +849,6 @@ void CBillingPlayer::executeMinusMinute( CBillingPacketHeader& header, CBillingP
 }
 
 void CBillingPlayer::executeLogout( CBillingPacketHeader& header, CBillingPacketResponseLogoutBody& body )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -894,7 +869,6 @@ void CBillingPlayer::executeLogout( CBillingPacketHeader& header, CBillingPacket
 
 #ifdef __GAME_SERVER__
 void CBillingPlayer::checkSessionID( CBillingPacketHeader& header, GamePlayer* pGamePlayer )
-	throw ( IOException, Error )
 {
 	__BEGIN_TRY
 
@@ -915,7 +889,6 @@ void CBillingPlayer::checkSessionID( CBillingPacketHeader& header, GamePlayer* p
 #ifdef __GAME_SERVER__
 	// DB에 packet 로그 남기기
 void CBillingPlayer::logPacket( CBillingPacketHeader* header, CBillingPacketResponseLoginBody* login, CBillingPacketResponseMinusPointBody* point, CBillingPacketResponseLogoutBody* logout, CBillingPacketErrorBody* error )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -1157,7 +1130,6 @@ void CBillingPlayer::logPacket( CBillingPacketHeader* header, CBillingPacketResp
 
 // get debug string
 string CBillingPlayer::toString() const
-	throw ( Error )
 {
 	__BEGIN_TRY
 

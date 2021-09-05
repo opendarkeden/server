@@ -131,7 +131,7 @@ void VampirePortalItem::create(const string & ownerID, Storage storage, StorageI
 			<< ")";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
@@ -187,7 +187,7 @@ void VampirePortalItem::save(const string & ownerID, Storage storage, StorageID_
 			<< ",TargetX   = "  << (int)m_X
 			<< ",TargetY   = "  << (int)m_Y
 			<< " WHERE ItemID = " << m_ItemID;
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
@@ -398,7 +398,7 @@ void VampirePortalItemLoader::load(Creature* pCreature)
 			<< (int)STORAGE_EXTRASLOT << "," << (int)STORAGE_MOTORCYCLE << "," <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge, TargetZID, TargetX, TargetY FROM VampirePortalItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -537,7 +537,7 @@ void VampirePortalItemLoader::load(Zone* pZone)
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

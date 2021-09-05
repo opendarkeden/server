@@ -13,8 +13,6 @@ RewardClass::RewardClass( RewardClass_t rClass )
 RewardClass::~RewardClass()
 	
 {
-	__BEGIN_TRY
-
 	vector<RewardInfo*>::iterator itr = m_RewardInfos.begin();
 	vector<RewardInfo*>::iterator endItr = m_RewardInfos.end();
 
@@ -24,8 +22,6 @@ RewardClass::~RewardClass()
 	}
 
 	m_RewardInfos.clear();
-
-	__END_CATCH
 }
 
 void RewardClass::addRewardInfo( RewardInfo* pRewardInfo )

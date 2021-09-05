@@ -1120,7 +1120,7 @@ void Slayer::save () const
 			<< ", F12 = " << (int)m_HotKey[3]
 			<< "  WHERE Name = '" << m_Name << "'";
 
-			pStmt->executeQuery(sql.toString());
+			pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -3717,7 +3717,7 @@ void Slayer::saveExps(void) const
 		<< ",Alignment = " << m_Alignment
 		<< ",Fame = " << m_Fame
 		<< "  WHERE Name = '" << m_Name << "'";
-		//pStmt->executeQuery(sql.toString());
+		//pStmt->executeQueryString(sql.toString());
 	*/
 
 	Statement* pStmt = NULL;

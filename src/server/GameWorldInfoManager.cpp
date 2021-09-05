@@ -74,7 +74,7 @@ void GameWorldInfoManager::load ()
 	try {
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result * pResult = pStmt->executeQuery( "SELECT ID, Name, Stat FROM WorldInfo" );
+		Result * pResult = pStmt->executeQueryString( "SELECT ID, Name, Stat FROM WorldInfo" );
 
 		cout << "Loading GameWorldInfoManager...." << endl;
 

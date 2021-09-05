@@ -30,7 +30,7 @@ class LoginPlayerManager : public PlayerManager {
 public :
 
 	// constructor
-	LoginPlayerManager () throw ( Error );
+	LoginPlayerManager ();
 
 	// destructor
 	~LoginPlayerManager ();
@@ -38,52 +38,52 @@ public :
 public :
 
 	// 클라이언트 매니저를 초기화한다.
-	void init () throw ( Error );
+	void init ();
 
 	// accept new connection
-	void acceptNewConnection () throw ( Error );
+	void acceptNewConnection ();
 
 	// select() 시스템콜을 사용해서 I/O Multiplexing을 한다.
-	void select () throw ( Error );
+	void select ();
 
 	// 접속한 모든 사용자의 입력을 입력 버퍼로 복사한다.
-	void processInputs () throw ( Error );
+	void processInputs ();
 
 	// 접속한 모든 사용자의 출력을 클라이언트로 전송한다.
-	void processOutputs () throw ( Error );
+	void processOutputs ();
 
 	// 접속한 모든 사용자의 패킷을 처리한다.
-	void processCommands () throw ( Error );
+	void processCommands ();
 
 	// OOB 데이타를 처리한다. ^^;
-	void processExceptions () throw ( Error );
+	void processExceptions ();
 
 public :
 
 	// 로그인 서버에 접속한 모든 플레이어들에게 특정 패킷을 전달한다.
-	void broadcastPacket ( Packet * pPacket ) throw ( Error );
+	void broadcastPacket ( Packet * pPacket );
 
 	// 특정 아이디의 플레이어에게 특정 패킷을 전달한다.
-	void sendPacket ( const string & id , Packet * pPacket ) throw ( Error );
+	void sendPacket ( const string & id , Packet * pPacket );
 
 	// 플레이어 객체를 추가한다.
-	void addPlayer ( Player * pPlayer ) throw ( DuplicatedException , Error );
-	void addPlayer_NOLOCKED ( Player * pPlayer ) throw ( DuplicatedException , Error );
+	void addPlayer ( Player * pPlayer );
+	void addPlayer_NOLOCKED ( Player * pPlayer );
 
 	// 플레이어 객체를 삭제한다.
-	void deletePlayer ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
-	void deletePlayer_NOLOCKED ( SOCKET fd ) throw ( OutOfBoundException , NoSuchElementException , Error );
+	void deletePlayer ( SOCKET fd );
+	void deletePlayer_NOLOCKED ( SOCKET fd );
 
 	// 플레이어 객체에 접근한다.
-	LoginPlayer * getPlayer ( const string & PCName ) const throw ( NoSuchElementException , Error );
-	LoginPlayer * getPlayer_NOLOCKED ( const string & PCName ) const throw ( NoSuchElementException , Error );
+	LoginPlayer * getPlayer ( const string & PCName ) const;
+	LoginPlayer * getPlayer_NOLOCKED ( const string & PCName ) const;
 
 	// lock/unlock
-	void lock () throw ( Error ) { m_Mutex.lock(); }
-	void unlock () throw ( Error ) { m_Mutex.unlock(); }
+	void lock () { m_Mutex.lock(); }
+	void unlock () { m_Mutex.unlock(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const;
 
 private :
 

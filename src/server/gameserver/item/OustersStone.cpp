@@ -92,7 +92,7 @@ void OustersStone::create(const string & ownerID, Storage storage, StorageID_t s
 			<< m_ObjectID << ", " << getItemType() << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ", '" << optionField.c_str() << "', " << getDurability() << ", " << getGrade() << ", " << (int)m_CreateType << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -156,7 +156,7 @@ void OustersStone::save(const string & ownerID, Storage storage, StorageID_t sto
 			<< ",EnchantLevel = " <<(int)m_EnchantLevel
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		string optionField;
@@ -401,7 +401,7 @@ void OustersStoneLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, Grade, EnchantLevel, ItemFlag FROM OustersStoneObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -567,7 +567,7 @@ void OustersStoneLoader::load(Zone* pZone)
 			<< " OptionType, Durability, EnchantLevel, ItemFlag FROM OustersStoneObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

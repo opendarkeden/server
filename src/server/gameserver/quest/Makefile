@@ -216,7 +216,7 @@ $(TARGET) : $(OBJS)
 clean :
 	rm -rf *.o
 	$(MAKE) -C luaScript clean
-#	$(MAKE) -C Squest clean
+	$(MAKE) -C Squest clean
 
 cleanall :
 	rm -rf *.o $(TARGET)

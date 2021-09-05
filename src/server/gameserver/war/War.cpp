@@ -73,7 +73,7 @@ void War::initWarIDRegistry()
 	{
 		//pStmt = g_pDatabaseManager->getConnection("DIST_DARKEDEN")->createStatement();
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pCountResult = pStmt->executeQuery("SELECT COUNT(*) from WarScheduleInfo");
+		Result* pCountResult = pStmt->executeQueryString("SELECT COUNT(*) from WarScheduleInfo");
 		pCountResult->next();
 		int count = pCountResult->getDWORD(1);
 		SAFE_DELETE(pStmt);
@@ -82,7 +82,7 @@ void War::initWarIDRegistry()
 		{
 			//pStmt = g_pDatabaseManager->getConnection("DIST_DARKEDEN")->createStatement();
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			Result* pResult = pStmt->executeQuery("SELECT MAX(WarID) FROM WarScheduleInfo");
+			Result* pResult = pStmt->executeQueryString("SELECT MAX(WarID) FROM WarScheduleInfo");
 			pResult->next();
 			m_WarIDRegistry = pResult->getDWORD(1);
 			SAFE_DELETE(pStmt);

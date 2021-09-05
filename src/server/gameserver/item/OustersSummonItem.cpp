@@ -77,7 +77,7 @@ void OustersSummonItem::create(const string & ownerID, Storage storage, StorageI
 			<< ")";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
@@ -131,7 +131,7 @@ void OustersSummonItem::save(const string & ownerID, Storage storage, StorageID_
 			<< ",Charge    = "  << m_Charge
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -308,7 +308,7 @@ void OustersSummonItemLoader::load(Creature* pCreature)
 			<< (int)STORAGE_EXTRASLOT << "," << (int)STORAGE_MOTORCYCLE << "," <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Charge FROM OustersSummonItemObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
@@ -448,7 +448,7 @@ void OustersSummonItemLoader::load(Zone* pZone)
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

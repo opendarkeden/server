@@ -489,7 +489,7 @@ void     RaceWarLimiter::clearPCList()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 				"SELECT Name, Race FROM RaceWarPCList");
 
 		while (pResult->next())
@@ -502,7 +502,7 @@ void     RaceWarLimiter::clearPCList()
 			num[Race]++;
 		}
 
-		pStmt->executeQuery("DELETE FROM RaceWarPCList");
+		pStmt->executeQueryString("DELETE FROM RaceWarPCList");
 
 		SAFE_DELETE(pStmt);
 	}

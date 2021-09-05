@@ -139,7 +139,7 @@ void EffectLight::create(const string & ownerID)
 			<< "," <<(int)m_OldSight
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -161,7 +161,7 @@ void EffectLight::destroy(const string & ownerID)
 
 		StringStream sql;
 		sql << "DELETE FROM EffectLight WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -193,7 +193,7 @@ void EffectLight::save(const string & ownerID)
 			<< " WHERE OwnerID = '" << ownerID 
 			<< "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -240,7 +240,7 @@ void EffectLightLoader::load(Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while(pResult->next())
 		{

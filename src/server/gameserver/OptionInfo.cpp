@@ -588,7 +588,7 @@ void OptionInfoManager::load()
 			<< "FROM OptionInfo";
 
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 
 		if (pResult->getRowCount() == 0)
 		{

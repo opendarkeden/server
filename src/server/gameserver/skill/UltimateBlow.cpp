@@ -70,7 +70,7 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 		SkillType_t       SkillType  = pSkillSlot->getSkillType();
 		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
 		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
-		SkillLevel_t      SkillLevel = pSkillSlot->getExpLevel();
+		// SkillLevel_t      SkillLevel = pSkillSlot->getExpLevel();
 
 		SkillInput input(pSlayer, pSkillSlot);
 		SkillOutput output;
@@ -106,7 +106,7 @@ void UltimateBlow::execute (Slayer* pSlayer, ObjectID_t TargetObjectID,  SkillSl
 			_GCAttackArmsOK5.setSkillSuccess(true);
 			_GCAttackArmsOK1.setSkillSuccess(true);
 
-			bool bCriticalHit = false;
+			// bool bCriticalHit = false;
 
 			// 데미지를 계산하고, quickfire 페널티를 가한다.
 			// output.Damage가 음수이기 때문에, %값을 구해 더하면 결국 빼는 것이 된다.

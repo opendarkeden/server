@@ -268,7 +268,7 @@ void HolyWater::initItemIDRegistry(void)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pCountResult = pStmt->executeQuery("SELECT COUNT(*) from HolyWaterObject");
+		Result* pCountResult = pStmt->executeQueryString("SELECT COUNT(*) from HolyWaterObject");
 		pCountResult->next();
 		int count = pCountResult->getDWORD(1);
 		SAFE_DELETE(pStmt);
@@ -276,7 +276,7 @@ void HolyWater::initItemIDRegistry(void)
 		if (count != 0)
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			Result* pResult = pStmt->executeQuery("SELECT MAX(ItemID) FROM HolyWaterObject");
+			Result* pResult = pStmt->executeQueryString("SELECT MAX(ItemID) FROM HolyWaterObject");
 			pResult->next();
 			m_ItemIDRegistry = pResult->getDWORD(1);
 			SAFE_DELETE(pStmt);
@@ -342,7 +342,7 @@ void BombMaterial::initItemIDRegistry(void)
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pCountResult = pStmt->executeQuery("SELECT COUNT(*) from BombMaterialObject");
+		Result* pCountResult = pStmt->executeQueryString("SELECT COUNT(*) from BombMaterialObject");
 		pCountResult->next();
 		int count = pCountResult->getDWORD(1);
 		SAFE_DELETE(pStmt);
@@ -350,7 +350,7 @@ void BombMaterial::initItemIDRegistry(void)
 		if (count != 0)
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			Result* pResult = pStmt->executeQuery("SELECT MAX(ItemID) FROM BombMaterialObject");
+			Result* pResult = pStmt->executeQueryString("SELECT MAX(ItemID) FROM BombMaterialObject");
 			pResult->next();
 			m_ItemIDRegistry = pResult->getDWORD(1);
 			SAFE_DELETE(pStmt);

@@ -68,7 +68,7 @@ void SkillSlot::create(const string & OwnerID)
 			<< " , " << (int)m_runTime.tv_sec
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "INSERT INTO SkillSave (OwnerID , SkillType , SkillLevel , SkillExp , Delay , CastingTime , NextTime) VALUES ( '%s', %d, %d, %d, %d, %d, %d )",
@@ -103,7 +103,7 @@ void SkillSlot::save(const string & OwnerID)
 			<< " WHERE OwnerID = '" << OwnerID
 			<< "' AND SkillType = " << (int)m_SkillType;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE SkillSave SET SkillLevel=%d, SkillExp=%d, Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
@@ -138,7 +138,7 @@ void SkillSlot::save()
 			<< " WHERE OwnerID = '" << m_Name 
 			<< "' AND SkillType = " << (int)m_SkillType;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE SkillSave SET SkillLevel=%d, SkillExp=%d, Delay=%d WHERE OwnerID='%s' AND SkillType=%d",

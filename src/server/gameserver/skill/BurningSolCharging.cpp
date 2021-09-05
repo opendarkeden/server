@@ -40,15 +40,15 @@ void BurningSolCharging::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y, 
 			return;
 		}
 
-		bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
+		// bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
 
 		GCSkillToTileOK1 _GCSkillToTileOK1;
 		GCSkillToTileOK5 _GCSkillToTileOK5;
 
 		SkillType_t       SkillType  = pSkillSlot->getSkillType();
 		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
-		SkillLevel_t      SkillLevel = pSkillSlot->getExpLevel();
+		// SkillDomainType_t DomainType = pSkillInfo->getDomainType();
+		// SkillLevel_t      SkillLevel = pSkillSlot->getExpLevel();
 
 		int  RequiredMP  = (int)pSkillInfo->getConsumeMP();
 		bool bManaCheck  = hasEnoughMana(pSlayer, RequiredMP);

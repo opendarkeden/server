@@ -109,7 +109,7 @@ void SummonGoreGland::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, V
 		{
 			decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-			Tile&   tile  = pZone->getTile(X, Y);
+			// Tile&   tile  = pZone->getTile(X, Y);
 			Range_t Range = 1;	// 항상 1이다.
 			
 			// 데미지와 지속 시간을 계산한다.

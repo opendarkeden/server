@@ -180,7 +180,7 @@ void EffectBloodDrain::create(const string & ownerID)
 			<< " , " <<(int)m_Level
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "INSERT INTO EffectBloodDrain (OwnerID , YearTime, DayTime, Level) VALUES('%s', %ld, %ld, %d)",
@@ -211,7 +211,7 @@ void EffectBloodDrain::destroy(const string & ownerID)
 		/*
 		StringStream sql;
 		sql << "DELETE FROM EffectBloodDrain WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery("DELETE FROM EffectBloodDrain WHERE OwnerID = '%s'", 
@@ -250,7 +250,7 @@ void EffectBloodDrain::save(const string & ownerID)
 			<< ", Level = " <<(int)m_Level
 			<< " WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE EffectBloodDrain SET YearTime=%ld, DayTime=%ld, Level=%d WHERE OwnerID='%s'", 
@@ -305,7 +305,7 @@ void EffectBloodDrainLoader::load(Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		Result* pResult = pStmt->executeQuery( "SELECT DayTime, Level FROM EffectBloodDrain WHERE OwnerID='%s'", 

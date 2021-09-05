@@ -29,7 +29,6 @@
 //
 //////////////////////////////////////////////////////////////////////
 LoginPlayerManager::LoginPlayerManager () 
-	throw ( Error )
 : m_pServerSocket(NULL), m_ServerFD(INVALID_SOCKET), m_MinFD(-1), m_MaxFD(-1)
 {
 	__BEGIN_TRY
@@ -77,7 +76,6 @@ LoginPlayerManager::~LoginPlayerManager ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::init ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -162,7 +160,6 @@ void LoginPlayerManager::init ()
 // select()를 사용해서 I/O Multiplexing 을 한다.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::select ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -199,7 +196,6 @@ void LoginPlayerManager::select ()
 // 혹시모를 OOB 데이타를 처리한다.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processExceptions ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -236,7 +232,6 @@ void LoginPlayerManager::processExceptions ()
 // 접속한 모든 플레이어들의 입력을 각자의 입력 버퍼에 복사한다.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processInputs ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -303,7 +298,6 @@ void LoginPlayerManager::processInputs ()
 // 접속한 모든 플레이어들의 입력 패킷을 처리한다.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processCommands ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -385,7 +379,6 @@ void LoginPlayerManager::processCommands ()
 // 접속한 모든 플레이어들의 출력을 클라이언트로 전송한다.
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::processOutputs ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -449,7 +442,6 @@ void LoginPlayerManager::processOutputs ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::acceptNewConnection ()
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -527,7 +519,6 @@ void LoginPlayerManager::acceptNewConnection ()
 //
 //////////////////////////////////////////////////////////////////////
 void LoginPlayerManager::addPlayer_NOLOCKED ( Player * pPlayer ) 
-	throw ( DuplicatedException , Error )
 {
 	__BEGIN_TRY
 
@@ -552,7 +543,6 @@ void LoginPlayerManager::addPlayer_NOLOCKED ( Player * pPlayer )
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::addPlayer ( Player * pPlayer ) 
-	throw ( DuplicatedException , Error )
 {
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -571,7 +561,6 @@ void LoginPlayerManager::addPlayer ( Player * pPlayer )
 //
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::deletePlayer_NOLOCKED ( SOCKET fd ) 
-	throw ( OutOfBoundException , NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 
@@ -633,7 +622,6 @@ void LoginPlayerManager::deletePlayer_NOLOCKED ( SOCKET fd )
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::deletePlayer ( SOCKET fd ) 
-	throw ( OutOfBoundException , NoSuchElementException , Error )
 {
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
@@ -647,7 +635,6 @@ void LoginPlayerManager::deletePlayer ( SOCKET fd )
 // 로그인 서버에 접속한 특정 플레이어를 검색한다.
 //----------------------------------------------------------------------
 LoginPlayer * LoginPlayerManager::getPlayer_NOLOCKED ( const string & id ) const
-	throw ( NoSuchElementException , Error )
 {
 	__BEGIN_TRY
 
@@ -683,7 +670,6 @@ LoginPlayer * LoginPlayerManager::getPlayer_NOLOCKED ( const string & id ) const
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 LoginPlayer * LoginPlayerManager::getPlayer ( const string & id ) const
-	throw ( NoSuchElementException , Error )
 {
 
 	LoginPlayer * pPlayer;
@@ -702,7 +688,6 @@ LoginPlayer * LoginPlayerManager::getPlayer ( const string & id ) const
 // 로그인 서버에 접속한 모든 플레이어들에게 특정 패킷을 전송한다.
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::broadcastPacket ( Packet * pPacket )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -720,7 +705,6 @@ void LoginPlayerManager::broadcastPacket ( Packet * pPacket )
 // 로그인 서버에 접속한 특정 플레이어에게 특정 패킷을 보낸다.
 //--------------------------------------------------------------------------------
 void LoginPlayerManager::sendPacket ( const string & id , Packet * pPacket )
-	throw ( Error )
 {
 	__BEGIN_TRY
 
@@ -746,7 +730,6 @@ void LoginPlayerManager::sendPacket ( const string & id , Packet * pPacket )
 // get debug string
 //////////////////////////////////////////////////////////////////////
 string LoginPlayerManager::toString () const
-	throw ()
 {
 	__BEGIN_TRY
 

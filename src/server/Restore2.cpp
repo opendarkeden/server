@@ -105,7 +105,7 @@ void Restore::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot* pSk
 				pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 				StringStream sql;
 				sql << "DELETE FROM EffectBloodDrain WHERE OwnerID = '" + pFromCreature->getName() + "'";
-				pStmt->executeQuery(sql.toString());
+				pStmt->executeQueryString(sql.toString());
 				SAFE_DELETE(pStmt);
 			}
 			END_DB(pStmt)
@@ -385,7 +385,7 @@ void Restore::execute(NPC* pNPC, Creature* pFromCreature)
 				pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 				StringStream sql;
 				sql << "DELETE FROM EffectBloodDrain WHERE OwnerID = '" + pFromCreature->getName() + "'";
-				pStmt->executeQuery(sql.toString());
+				pStmt->executeQueryString(sql.toString());
 				SAFE_DELETE(pStmt);
 			}
 			END_DB(pStmt)

@@ -63,7 +63,7 @@ void VampireSkillSlot::create(const string & OwnerID)
 			<< " , " << (int)m_runTime.tv_sec
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "INSERT INTO VampireSkillSave (OwnerID, SkillType, Delay, CastingTime, NextTime) VALUES ( '%s', %d, %d, %d, %d )",
@@ -97,7 +97,7 @@ void VampireSkillSlot::save(const string & OwnerID)
 			<< " WHERE OwnerID = '" << OwnerID
 			<< "' AND SkillType = " << (int)m_SkillType;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE VampireSkillSave SET Delay=%d WHERE OwnerID='%s' AND SkillType=%d",
@@ -129,7 +129,7 @@ void VampireSkillSlot::save()
 			<< " WHERE OwnerID = '" << m_Name
 			<< "' AND SkillType = " << (int)m_SkillType;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 

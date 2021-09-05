@@ -11,7 +11,6 @@
 #include "CBillingPlayerManager.h"
 
 CBillingPacketRequestIntervalValidationBody::CBillingPacketRequestIntervalValidationBody()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -25,7 +24,6 @@ CBillingPacketRequestIntervalValidationBody::CBillingPacketRequestIntervalValida
 }
 
 void CBillingPacketRequestIntervalValidationBody::read( SocketInputStream& iStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
@@ -37,7 +35,6 @@ void CBillingPacketRequestIntervalValidationBody::read( SocketInputStream& iStre
 }
 
 void CBillingPacketRequestIntervalValidationBody::write( SocketOutputStream& oStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -48,7 +45,6 @@ void CBillingPacketRequestIntervalValidationBody::write( SocketOutputStream& oSt
 }
 
 string CBillingPacketRequestIntervalValidationBody::toString() const
-	throw ()
 {
 	char str[128];
 	StringStream msg;

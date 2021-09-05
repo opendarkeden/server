@@ -127,7 +127,7 @@ void EffectEnemyErase::create (const string & ownerID)
 			<< " , '" << m_EnemyName
 			<< "')";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
@@ -155,7 +155,7 @@ void EffectEnemyErase::destroy (const string & ownerID)
 		/*
 		StringStream sql;
 		sql << "DELETE FROM EnemyErase WHERE OwnerID = '" << ownerID << "' AND EnemyName = '" << m_EnemyName << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
@@ -193,7 +193,7 @@ void EffectEnemyErase::save (const string & ownerID)
 			<< ", EnemyName = '" << m_EnemyName
 			<< "' WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery("UPDATE EnemyErase SET YearTime = %ld, DayTime = %ld, EnemyName = '%s' WHERE OwnerID = '%s'",
@@ -244,7 +244,7 @@ void EffectEnemyEraseLoader::load (Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8

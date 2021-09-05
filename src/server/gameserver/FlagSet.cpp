@@ -57,7 +57,7 @@ void FlagSet::create(const string& owner)
 			<< "'" << toString() << "'  "
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -129,7 +129,7 @@ void FlagSet::save(const string& owner)
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -151,7 +151,7 @@ void FlagSet::destroy(const string& owner)
 		sql << "DELETE FROM FlagSet WHERE OwnerID = '" << owner << "'";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)

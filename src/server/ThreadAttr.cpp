@@ -40,11 +40,11 @@ ThreadAttr::ThreadAttr ()
 //////////////////////////////////////////////////////////////////////
 ThreadAttr::~ThreadAttr () 
 {
-	__BEGIN_TRY
+	// __BEGIN_TRY
 
 	pthread_attr_destroy_ex( &attr );
 	
-	__END_CATCH
+	// __END_CATCH
 }
 
 

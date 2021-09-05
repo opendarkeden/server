@@ -1694,7 +1694,7 @@ void addLogoutPlayerData(Player* pPlayer)
 			<< currentDT.substr( 0, 10 ).c_str() << "','"
 			<< currentDT.substr( 11 ).c_str() << "')";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}

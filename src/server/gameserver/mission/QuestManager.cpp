@@ -31,8 +31,6 @@ QuestManager::QuestManager(PlayerCreature* pOwner)
 
 QuestManager::~QuestManager() 
 {
-	__BEGIN_TRY
-
 	unordered_map<QuestID_t, QuestStatus*>::iterator itr;
 	unordered_map<QuestID_t, QuestStatus*>::iterator endItr = m_Quests.end();
 
@@ -42,8 +40,6 @@ QuestManager::~QuestManager()
 	}
 
 	m_Quests.clear();
-
-	__END_CATCH
 }
 
 void QuestManager::load() 

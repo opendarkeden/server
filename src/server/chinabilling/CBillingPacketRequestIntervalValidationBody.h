@@ -22,13 +22,13 @@ class CBillingPacketRequestIntervalValidationBody : public CBillingPacketRequest
 {
 public:
 	// constructor
-	CBillingPacketRequestIntervalValidationBody() throw ();
+	CBillingPacketRequestIntervalValidationBody();
 
 public:
-	void read( SocketInputStream& iStream ) throw ( ProtocolException, Error );
-	void write( SocketOutputStream& oStream ) throw ( ProtocolException, Error );
+	void read( SocketInputStream& iStream );
+	void write( SocketOutputStream& oStream );
 
-	string toString() const throw ();
+	string toString() const;
 };
 
 #endif

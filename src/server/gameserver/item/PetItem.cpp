@@ -86,7 +86,7 @@ void PetItem::create(const string & ownerID, Storage storage, StorageID_t storag
 			<<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " 
 			<< (int)m_CreateType << ")";
 
-		pStmt->executeQuery(sql.toString());*/
+		pStmt->executeQueryString(sql.toString());*/
 
 		if ( m_pPetInfo == NULL )
 		{
@@ -418,7 +418,7 @@ void PetItemLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		Result* pResult = pStmt->executeQuery(	"SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, ItemFlag, "
@@ -624,7 +624,7 @@ void PetItemLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, ItemFlag FROM PetItemObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

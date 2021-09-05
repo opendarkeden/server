@@ -18,11 +18,7 @@
 QuestInfoManager::~QuestInfoManager()
 	
 {
-	__BEGIN_TRY
-
 	clear();
-
-	__END_CATCH
 }
 
 void QuestInfoManager::clear() 

@@ -10,7 +10,6 @@
 #include "SocketOutputStream.h"
 
 CBillingPacketResponseLogoutBody::CBillingPacketResponseLogoutBody()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -20,7 +19,6 @@ CBillingPacketResponseLogoutBody::CBillingPacketResponseLogoutBody()
 }
 
 void CBillingPacketResponseLogoutBody::read( SocketInputStream& iStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
@@ -36,7 +34,6 @@ void CBillingPacketResponseLogoutBody::read( SocketInputStream& iStream )
 }
 
 void CBillingPacketResponseLogoutBody::write( SocketOutputStream& oStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -55,7 +52,6 @@ void CBillingPacketResponseLogoutBody::write( SocketOutputStream& oStream )
 }
 
 string CBillingPacketResponseLogoutBody::toString() const
-	throw ()
 {
 	char str[128];
 	StringStream msg;

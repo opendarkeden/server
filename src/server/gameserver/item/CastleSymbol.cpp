@@ -90,7 +90,7 @@ void CastleSymbol::create(const string & ownerID, Storage storage, StorageID_t s
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ", " << m_Durability << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
 
 		SAFE_DELETE(pStmt);
@@ -159,7 +159,7 @@ void CastleSymbol::save(const string & ownerID, Storage storage, StorageID_t sto
 			<< ",EnchantLevel = " <<(int)m_EnchantLevel
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE CastleSymbolObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d WHERE ItemID=%ld",
@@ -366,7 +366,7 @@ void CastleSymbolLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// CastleSymbol load할게 있다는것은..
@@ -520,7 +520,7 @@ void CastleSymbolLoader::load(Zone* pZone)
 			<< " Durability, EnchantLevel FROM CastleSymbolObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

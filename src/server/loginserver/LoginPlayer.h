@@ -83,11 +83,11 @@ public :
 
 	// return recent N-th packet
 	// 최근 전송된 N 번째 패킷을 리턴한다.
-	Packet * getOldPacket ( uint prev = 0 ) throw ( OutOfBoundException , NoSuchElementException );
+	Packet * getOldPacket ( uint prev = 0 );
 
 	// return recent packet which has packetID
 	// 특정 ID를 가진 패킷 중 가장 최근의 패킷을 리턴한다.
-	Packet * getOldPacket ( PacketID_t packetID ) throw ( NoSuchElementException );
+	Packet * getOldPacket ( PacketID_t packetID );
 
 	// get/set player's status
 	PlayerStatus getPlayerStatus () const throw () { return m_PlayerStatus; }
@@ -103,7 +103,7 @@ public :
 
 public :
 	int		getKickCharacterCount() const throw()	{ return m_KickCharacterCount; }	
-	void 	setExpireTimeForKickCharacter() throw();
+	void 	setExpireTimeForKickCharacter();
 
 	// 현재 월드의 ID
 	WorldID_t getWorldID() const throw() { return m_WorldID; }
@@ -137,15 +137,15 @@ public :
 	bool isWebLogin() const { return m_bWebLogin; }
 	void setWebLogin( bool bWebLogin = true ) { m_bWebLogin = bWebLogin; }
 
-	void makePCList( LCPCList& lcPCList ) throw( DisconnectException );
+	void makePCList( LCPCList& lcPCList );
 
 public :
-	void sendLGKickCharacter() throw();
-	void sendLCLoginOK() throw();
+	void sendLGKickCharacter();
+	void sendLCLoginOK();
 
 public :
-	void    setBillingSession() throw (Error)   { BillingPlayerInfo::setBillingSession(this); }
-	bool    sendBillingLogin() throw (Error);
+	void    setBillingSession() { BillingPlayerInfo::setBillingSession(this); }
+	bool    sendBillingLogin();
 
 public :
   void setGameServerIP(const string& ip) { m_gameServerIP = ip; }

@@ -80,7 +80,7 @@ void WarItem::create(const string & ownerID, Storage storage, StorageID_t storag
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
 
 		SAFE_DELETE(pStmt);

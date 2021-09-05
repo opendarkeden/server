@@ -386,7 +386,7 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 
 	int ToHit      = 0;
 	int Defense    = 0;
-	int VampLevel  = 0;
+	// int VampLevel  = 0;
 	int OtherLevel = 0;
 	int ratio      = 0;
 
@@ -497,7 +497,7 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 		Vampire* pVampire = dynamic_cast<Vampire*>(pAttacker);
 
 		ToHit     = pVampire->getToHit();
-		VampLevel = pVampire->getLevel();
+		// VampLevel = pVampire->getLevel();
 
 		ToHit = (ToHit_t)getPercentValue(ToHit, VampireTimebandFactor[timeband]);
 	}
@@ -506,7 +506,7 @@ bool HitRoll::isSuccessBloodDrain(Creature* pAttacker, Creature* pDefender, int 
 		Monster* pMonster = dynamic_cast<Monster*>(pAttacker);
 
 		ToHit     = pMonster->getToHit();
-		VampLevel = pMonster->getLevel();
+		// VampLevel = pMonster->getLevel();
 
 		ToHit = (ToHit_t)getPercentValue(ToHit, MonsterTimebandFactor[timeband]);
 	}
