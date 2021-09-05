@@ -963,7 +963,7 @@ addLoginPlayerData(const string& ID, const string& ip, const string& SSN, const 
 			<< currentDT.substr(0, 10 ).c_str() << "','" << currentDT.substr(11 ).c_str() << "')";
 
 		pStmt2 = g_pDatabaseManager->getUserInfoConnection()->createStatement();
-		pStmt2->executeQuery(sql.toString());
+		pStmt2->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt2);	// 2002.1.16 by sigi
 	}

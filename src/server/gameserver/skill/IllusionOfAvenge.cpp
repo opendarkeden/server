@@ -63,7 +63,7 @@ void IllusionOfAvenge::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffect
 		{
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToSelfOK1);
 
-			bool bHit = false;
+			// bool bHit = false;
 
 			int oX, oY;
 
@@ -108,7 +108,7 @@ void IllusionOfAvenge::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffect
 						{
 							Player* pTargetPlayer = pTargetCreature->getPlayer();
 
-							bHit = true;
+							// bHit = true;
 
 							Vampire* pVampire = dynamic_cast<Vampire*>(pTargetCreature);
 
@@ -127,7 +127,7 @@ void IllusionOfAvenge::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffect
 						else if(pTargetCreature->isMonster())
 						{
 							Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-							bHit = true;
+							// bHit = true;
 
 							::setDamage( pMonster, output.Damage, pSlayer, pSkillSlot->getSkillType() );
 						}

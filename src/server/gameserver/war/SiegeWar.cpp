@@ -441,7 +441,7 @@ void 	SiegeWar::makeWarInfo(WarInfo* pWarInfo) const
 
 	pGuildWarInfo->addJoinGuild( ownGuildID ); 				// 현재 성 주인
 
-	for ( int i=0; i<m_ChallangerGuildCount; ++i )
+	for ( uint i=0; i<m_ChallangerGuildCount; ++i )
 		pGuildWarInfo->addJoinGuild( m_ChallangerGuildID[i] );
 
 	pGuildWarInfo->setCastleID( getCastleZoneID() );

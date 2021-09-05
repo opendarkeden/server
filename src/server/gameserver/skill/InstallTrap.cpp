@@ -46,14 +46,14 @@ void InstallTrap::execute(Slayer * pSlayer, SkillSlot * pSkillSlot, CEffectID_t 
 			return;
 		}
 
-		bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
+		// bool bIncreaseDomainExp = pSlayer->isRealWearingEx(Slayer::WEAR_RIGHTHAND);
 
 		GCSkillToSelfOK1 _GCSkillToSelfOK1;
 		GCSkillToSelfOK2 _GCSkillToSelfOK2;
 
 		SkillType_t       SkillType  = pSkillSlot->getSkillType();
 		SkillInfo*        pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-		SkillDomainType_t DomainType = pSkillInfo->getDomainType();
+		// SkillDomainType_t DomainType = pSkillInfo->getDomainType();
 
 		ZoneCoord_t X = pSlayer->getX();
 		ZoneCoord_t Y = pSlayer->getY();

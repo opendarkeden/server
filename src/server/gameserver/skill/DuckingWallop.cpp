@@ -142,13 +142,13 @@ void DuckingWallop::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, Ous
 	SkillType_t SkillType = getSkillType();
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
-	int HitBonus = 0;
+	// int HitBonus = 0;
 	if ( pOusters->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD ) )
 	{
 		RankBonus* pRankBonus = pOusters->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_BLOOD );
 		Assert( pRankBonus != NULL );
 
-		HitBonus = pRankBonus->getPoint();
+		// HitBonus = pRankBonus->getPoint();
 	}
 
 	try 

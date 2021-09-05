@@ -99,7 +99,7 @@ void EffectCanEnterGDRLair::create (const string & ownerID)
 			<< " , '" << m_EnemyName
 			<< "')";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8
@@ -197,7 +197,7 @@ void EffectCanEnterGDRLairLoader::load (Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream제거. by sigi. 2002.5.8

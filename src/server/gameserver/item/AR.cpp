@@ -101,7 +101,7 @@ void AR::create(const string & ownerID, Storage storage, StorageID_t storageID, 
 			<<(int)x << ", " <<(int)y << ", " <<(int)m_OptionType << ", "
 			<< m_Durability << ", " <<(int)m_BulletCount << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream ¾ø¾Ö±â. by sigi. 2002.5.13
@@ -174,7 +174,7 @@ void AR::save(const string & ownerID, Storage storage, StorageID_t storageID, BY
 			<< ",Silver = " <<(int)m_Silver
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		string optionField;
@@ -469,7 +469,7 @@ void ARLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 		Result* pResult = pStmt->executeQuery( "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Silver, EnchantLevel, Grade, ItemFlag FROM ARObject WHERE OwnerID = '%s' AND Storage IN(0, 1, 2, 3, 4, 9)",
 												pCreature->getName().c_str() );
@@ -629,7 +629,7 @@ void ARLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, OptionType, Durability, BulletCount, Silver, EnchantLevel, ItemFlag FROM ARObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

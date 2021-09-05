@@ -97,7 +97,7 @@ void Relic::create(const string & ownerID, Storage storage, StorageID_t storageI
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ", " << m_Durability << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -162,7 +162,7 @@ void Relic::save(const string & ownerID, Storage storage, StorageID_t storageID,
 			<< ",EnchantLevel = " <<(int)m_EnchantLevel
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE RelicObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d  WHERE ItemID=%ld",
@@ -375,7 +375,7 @@ void RelicLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// Relic load할게 있다는것은..
@@ -529,7 +529,7 @@ void RelicLoader::load(Zone* pZone)
 			<< " Durability, EnchantLevel FROM RelicObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

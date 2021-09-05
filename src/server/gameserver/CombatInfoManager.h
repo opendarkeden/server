@@ -47,7 +47,7 @@ public:
 	void computeModify();
 
 	// Relic Onwer를 설정한다.
-	void setRelicOwner( int index, RelicOwner relicOwner ) throw ( OutOfBoundException );
+	void setRelicOwner( int index, RelicOwner relicOwner );
 
 
 	// Bonus, Penalty 값을 return

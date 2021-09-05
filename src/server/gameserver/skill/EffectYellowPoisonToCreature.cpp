@@ -172,7 +172,7 @@ void EffectYellowPoisonToCreature::create(const string & ownerID)
 			<< "," <<(int)m_OldSight
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		delete pStmt;
 	}
@@ -199,7 +199,7 @@ void EffectYellowPoisonToCreature::destroy(const string & ownerID)
 
 		sql << "DELETE FROM EffectYellowPoisonToCreature WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		delete pStmt;
 	}
@@ -235,7 +235,7 @@ void EffectYellowPoisonToCreature::save(const string & ownerID)
 			<< " WHERE OwnerID = '" << ownerID 
 			<< "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		delete pStmt;
 	}
@@ -290,7 +290,7 @@ void EffectYellowPoisonToCreatureLoader::load(Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while(pResult->next())
 		{

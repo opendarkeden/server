@@ -177,7 +177,7 @@ void EventQuestLootingManager::load()
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		Result* pResult = pStmt->executeQuery(
+		Result* pResult = pStmt->executeQueryString(
 				"SELECT QuestLevel, LootingType-1, LootingZone, LootingMType, LootingIClass, LootingITypeMin, LootingITypeMax, Race, MinGrade, MaxGrade FROM EventQuestLootingInfo");
 
 		while (pResult->next()) 

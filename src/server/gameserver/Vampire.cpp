@@ -884,7 +884,7 @@ void Vampire::save () const
 		
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		//Assert(pStmt->getAffectedRowCount() != 1);
 

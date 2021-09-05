@@ -37,67 +37,67 @@ class CBillingPlayer : public Player
 {
 public:
 	// constructor & destructor
-	CBillingPlayer() throw ( Error );
-	CBillingPlayer( Socket* pSocket ) throw ( Error );
+	CBillingPlayer();
+	CBillingPlayer( Socket* pSocket );
 
 	virtual ~CBillingPlayer();
 
 public:
 	
 	// network read / write
-	virtual void processInput() throw ( IOException, Error );
-	virtual void processOutput() throw ( IOException, Error );
+	virtual void processInput();
+	virtual void processOutput();
 
 	// parse packet and execute handler for the packet
-	virtual void processCommand() throw ( IOException, Error );
+	virtual void processCommand();
 
 	// send packet to player's output buffer
-	virtual void sendPacket( Packet* pPacket ) throw ( ProtocolException, Error );
+	virtual void sendPacket( Packet* pPacket );
 
 	// disconnect
 	// 플레이어의 연결을 종료할 때, 상대편이 적절하게 로그아웃하지 않을 경우 소켓의 연결이
 	// 이미 끊겨 있으므로 disconnect(DISCONNECTED) 를 사용하새 연결을 종료해야 한다.
 	// 반면, 정장하게 로그아웃을 한 경우에는 disconnect(UNDISCONNECTED) 를 사용해야한다.
-	virtual void disconnect( bool bDisconnected = DISCONNECTED ) throw ( InvalidProtocolException, Error );
+	virtual void disconnect( bool bDisconnected = DISCONNECTED );
 
-	void setSocket( Socket* pSocket ) throw ();
+	void setSocket( Socket* pSocket );
 
 	// get debug string
-	virtual string toString() const throw ( Error );
+	virtual string toString() const;
 
 public:
 
 #ifdef __LOGIN_SERVER__
-	void sendLogin( LoginPlayer* pLoginPlayer ) throw ( ProtocolException, Error );
+	void sendLogin( LoginPlayer* pLoginPlayer );
 #elif defined(__GAME_SERVER__)
-	void sendIntervalValidation() throw ( ProtocolException, Error );
-	void sendLogin( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
-	void sendMinusPoint( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
-	void sendMinusMinute( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
-	void sendLogout( GamePlayer* pGamePlayer ) throw ( ProtocolException, Error );
+	void sendIntervalValidation();
+	void sendLogin( GamePlayer* pGamePlayer );
+	void sendMinusPoint( GamePlayer* pGamePlayer );
+	void sendMinusMinute( GamePlayer* pGamePlayer );
+	void sendLogout( GamePlayer* pGamePlayer );
 #endif
 
 public:
 	// 패킷 처리용 함수들
-	void executeError( CBillingPacketHeader& header, CBillingPacketErrorBody& body ) throw ( IOException, Error );
+	void executeError( CBillingPacketHeader& header, CBillingPacketErrorBody& body );
 #ifdef __LOGIN_SERVER__
-	void executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body ) throw ( IOException, Error );
+	void executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body );
 #elif defined(__GAME_SERVER__)
-	void executeIntervalValidation( CBillingPacketHeader& header, CBillingPacketResponseIntervalValidationBody& body ) throw ( IOException, Error );
-	void executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body ) throw ( IOException, Error );
-	void executeMinusPoint( CBillingPacketHeader& header, CBillingPacketResponseMinusPointBody& body ) throw ( IOException, Error );
-	void executeMinusMinute( CBillingPacketHeader& header, CBillingPacketResponseMinusMinuteBody& body ) throw ( IOException, Error );
-	void executeLogout( CBillingPacketHeader& header, CBillingPacketResponseLogoutBody& body ) throw ( IOException, Error );
+	void executeIntervalValidation( CBillingPacketHeader& header, CBillingPacketResponseIntervalValidationBody& body );
+	void executeLogin( CBillingPacketHeader& header, CBillingPacketResponseLoginBody& body );
+	void executeMinusPoint( CBillingPacketHeader& header, CBillingPacketResponseMinusPointBody& body );
+	void executeMinusMinute( CBillingPacketHeader& header, CBillingPacketResponseMinusMinuteBody& body );
+	void executeLogout( CBillingPacketHeader& header, CBillingPacketResponseLogoutBody& body );
 #endif
 
 #ifdef __GAME_SERVER__
 	// DB에 packet 로그 남기기
-	void logPacket( CBillingPacketHeader* header, CBillingPacketResponseLoginBody* login, CBillingPacketResponseMinusPointBody* point, CBillingPacketResponseLogoutBody* logout, CBillingPacketErrorBody* error ) throw ( Error );
+	void logPacket( CBillingPacketHeader* header, CBillingPacketResponseLoginBody* login, CBillingPacketResponseMinusPointBody* point, CBillingPacketResponseLogoutBody* logout, CBillingPacketErrorBody* error );
 #endif
 
 public:
 #ifdef __GAME_SERVER__
-	void checkSessionID( CBillingPacketHeader& header, GamePlayer* pGamePlayer ) throw ( IOException, Error );
+	void checkSessionID( CBillingPacketHeader& header, GamePlayer* pGamePlayer );
 #endif
 };
 

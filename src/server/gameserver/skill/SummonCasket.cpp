@@ -147,9 +147,10 @@ void SummonCasket::execute(Vampire* pVampire, VampireSkillSlot* pSkillSlot, CEff
 			{
 				int level =	(dynamic_cast<EffectSeduction*>(pCheckEffect))->getLevel();
 
-				if (level < userLevel)
+				if (level < userLevel) {
 					pEffectManager->deleteEffect( effectClass );
 					pVampire->removeFlag( effectClass );
+				}
 			}
 
 

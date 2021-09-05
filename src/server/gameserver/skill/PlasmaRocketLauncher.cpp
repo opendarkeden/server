@@ -92,11 +92,11 @@ void PlasmaRocketLauncher::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, S
 			// 마나를 줄인다.
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToObjectOK1);
 
-			Bullet_t RemainBullet = 0;
+			// Bullet_t RemainBullet = 0;
 			decreaseBullet(pWeapon);
 			// 한발쓸때마다 저장할 필요 없다. by sigi. 2002.5.9
 			//pWeapon->save(pSlayer->getName(), STORAGE_GEAR, 0, Slayer::WEAR_RIGHTHAND, 0);
-			RemainBullet = getRemainBullet(pWeapon);
+			// RemainBullet = getRemainBullet(pWeapon);
 
 			
 			if (!pTargetCreature->isSlayer())

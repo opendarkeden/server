@@ -90,7 +90,7 @@ void BloodBible::create(const string & ownerID, Storage storage, StorageID_t sto
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ", " << m_Durability << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
 
 		SAFE_DELETE(pStmt);
@@ -159,7 +159,7 @@ void BloodBible::save(const string & ownerID, Storage storage, StorageID_t stora
 			<< ",EnchantLevel = " <<(int)m_EnchantLevel
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE BloodBibleObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d WHERE ItemID=%ld",
@@ -366,7 +366,7 @@ void BloodBibleLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// BloodBible load할게 있다는것은..
@@ -520,7 +520,7 @@ void BloodBibleLoader::load(Zone* pZone)
 			<< " Durability, EnchantLevel FROM BloodBibleObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

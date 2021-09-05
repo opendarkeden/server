@@ -47,7 +47,7 @@ void EffectIceHorizon::affect()
 	// 이펙트를 사용한 크리쳐를 가져온다.
 	// !! 이미 존을 나갔을 수도 있으므로 NULL이 될 수 있다.
 	// by bezz. 2003.1.4
-	Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
+	// Creature* pCastCreature = m_pZone->getCreature( m_CasterID );
 
 	// 현재 이펙트가 붙어있는 타일을 받아온다.
     Tile& tile = m_pZone->getTile(m_X, m_Y);

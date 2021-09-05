@@ -78,7 +78,7 @@ void DyePotion::create(const string & ownerID, Storage storage, StorageID_t stor
 			<<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " 
 			<< (int)getNum() << ", " << (int)m_CreateType << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		SAFE_DELETE(pStmt);
 	}
 	END_DB(pStmt)
@@ -404,7 +404,7 @@ void DyePotionLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num, ItemFlag FROM DyePotionObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

@@ -266,7 +266,7 @@ void EffectAcidSwampLoader::load(Zone* pZone)
 			ZoneCoord_t top 	= pResult->getInt( ++count );
 			ZoneCoord_t right 	= pResult->getInt( ++count );
 			ZoneCoord_t	bottom	= pResult->getInt( ++count );
-			int 		value1	= pResult->getInt( ++count );
+			// int 		value1	= pResult->getInt( ++count );
 			int 		value2	= pResult->getInt( ++count );
 			int 		value3	= pResult->getInt( ++count );
 

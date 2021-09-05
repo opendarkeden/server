@@ -193,7 +193,7 @@ void EffectFlare::create(const string & ownerID)
 			<< "," <<(int)m_OldSight
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -220,7 +220,7 @@ void EffectFlare::destroy(const string & ownerID)
 
 		sql << "DELETE FROM EffectFlare WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -255,7 +255,7 @@ void EffectFlare::save(const string & ownerID)
 			<< " WHERE OwnerID = '" << ownerID 
 			<< "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -304,7 +304,7 @@ void EffectFlareLoader::load(Creature* pCreature)
 			<< " WHERE OwnerID = '" << pCreature->getName() 
 			<< "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while(pResult->next())
 		{

@@ -84,7 +84,7 @@ void Larva::create(const string & ownerID, Storage storage, StorageID_t storageI
 			<<(int)storage << ", " << storageID << ", " <<(int)x << ", " <<(int)y << ", " 
 			<< (int)m_Num << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		// StringStream¡¶∞≈. by sigi. 2002.5.13
@@ -677,7 +677,7 @@ void LarvaLoader::load(Zone* pZone)
 		sql << "SELECT ItemID, ObjectID, ItemType, Storage, StorageID, X, Y, Num FROM LarvaObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

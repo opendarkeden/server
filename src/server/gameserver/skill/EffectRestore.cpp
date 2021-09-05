@@ -114,7 +114,7 @@ void EffectRestore::create(const string & ownerID)
 			<< " , " << m_Deadline.tv_sec
 			<< ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -139,7 +139,7 @@ void EffectRestore::destroy(const string & ownerID)
 
 		StringStream sql;
 		sql << "DELETE FROM EffectRestore WHERE OwnerID = '" << ownerID << "'";
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -173,7 +173,7 @@ void EffectRestore::save(const string & ownerID)
 			<< ",DayTime = " << m_Deadline.tv_sec
 			<< " WHERE OwnerID = '" << ownerID << "'";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 
 		SAFE_DELETE(pStmt);
 	}
@@ -221,7 +221,7 @@ void EffectRestoreLoader::load(Creature* pCreature)
 		sql << "SELECT DayTime FROM EffectRestore"
 			<< " WHERE OwnerID = '" << pCreature->getName() << "'";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while(pResult->next())
 		{

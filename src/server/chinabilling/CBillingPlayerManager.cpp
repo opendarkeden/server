@@ -44,11 +44,7 @@ CBillingPlayerManager::CBillingPlayerManager()
 // destructor
 CBillingPlayerManager::~CBillingPlayerManager()
 {
-	__BEGIN_TRY
-
 	SAFE_DELETE( m_pCBillingPlayer );
-
-	__END_CATCH
 }
 
 // stop thread. unsupport

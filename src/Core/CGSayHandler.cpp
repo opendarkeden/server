@@ -1993,7 +1993,7 @@ void CGSayHandler::opsave(GamePlayer* pGamePlayer , string msg, int i)
 
 	Statement* pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-	Result* pResult = pStmt->executeQuery("SELECT MAX(ZoneGroupID) FROM ZoneGroupInfo");
+	Result* pResult = pStmt->executeQueryString("SELECT MAX(ZoneGroupID) FROM ZoneGroupInfo");
 
 	pResult->next();
 
@@ -2599,7 +2599,7 @@ void CGSayHandler::opuser(GamePlayer* pGamePlayer , string msg, int i)
 
 	Statement* pStmt = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 	//Statement* pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
-	Result* pResult = pStmt->executeQuery("SELECT Count(*) FROM Player where LogOn='GAME' OR LogOn='LOGON'");
+	Result* pResult = pStmt->executeQueryString("SELECT Count(*) FROM Player where LogOn='GAME' OR LogOn='LOGON'");
 
 	pResult->next();
 
@@ -3229,7 +3229,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 				<< ")";
 
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-			pStmt->executeQuery(sql.toString());
+			pStmt->executeQueryString(sql.toString());
 			SAFE_DELETE(pStmt);
 		}
 		END_DB(pStmt);
@@ -3497,7 +3497,7 @@ void CGSayHandler::opnotice(GamePlayer* pGamePlayer , string msg, int i)
 
 	Connection* pConnection = new Connection("211.117.52.124", "darkBBS2002", "elcastle", "elca005", 3306);
 	Statement* pStmt = pConnection->createStatement();
-	pStmt->executeQuery(sql.toString());
+	pStmt->executeQueryString(sql.toString());
 
 	SAFE_DELETE(pStmt);
 	SAFE_DELETE(pConnection);

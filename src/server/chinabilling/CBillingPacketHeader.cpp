@@ -11,7 +11,6 @@
 #include "Properties.h"
 
 CBillingPacketHeader::CBillingPacketHeader()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -25,7 +24,6 @@ CBillingPacketHeader::CBillingPacketHeader()
 }
 
 void CBillingPacketHeader::read( SocketInputStream& iStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
@@ -44,7 +42,6 @@ void CBillingPacketHeader::read( SocketInputStream& iStream )
 }
 
 void CBillingPacketHeader::write( SocketOutputStream& oStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -69,7 +66,6 @@ void CBillingPacketHeader::write( SocketOutputStream& oStream )
 }
 
 string CBillingPacketHeader::toString() const
-	throw ()
 {
 	StringStream msg;
 	msg << "Header("

@@ -73,15 +73,11 @@ Statement::Statement (char * fmt , ... )
 
 Statement::~Statement() 
 {
-	__BEGIN_TRY
-
 	if (m_pResult != NULL ) 
 	{
 		delete m_pResult;
 		m_pResult = NULL;
 	}
-	
-	__END_CATCH
 }
 
     
@@ -155,8 +151,7 @@ Result * Statement::executeQuery ()
 //
 //////////////////////////////////////////////////////////////////////
 
-Result * Statement::executeQuery (const string& sqlStatement )
-	
+Result * Statement::executeQueryString (const string& sqlStatement )
 {
 	__BEGIN_TRY
 		
@@ -176,7 +171,6 @@ Result * Statement::executeQuery (const string& sqlStatement )
 //////////////////////////////////////////////////////////////////////
 
 Result * Statement::executeQuery (char * fmt , ... ) 
-	
 {
 	__BEGIN_TRY
 		

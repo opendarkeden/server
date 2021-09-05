@@ -171,7 +171,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 			// 이펙트 범위내의 모든 Creature에게 effect를 붙여준다.
 			// Vampire가 기술을 사용한 경우 같은 Vampire에게는
 			// 해당하지 않는다.
-			bool bEffected = false;
+			// bool bEffected = false;
 			Creature* pTargetCreature;
 
 
@@ -208,7 +208,7 @@ void BloodyStorm::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Vampi
 						if(pEffect->affectCreature(pTargetCreature, false) == true)
 						{
 							Player* pTargetPlayer = pTargetCreature->getPlayer();
-							bEffected = true;
+							// bEffected = true;
 
 							bool bCanSee = canSee(pTargetCreature, pVampire);
 
@@ -383,7 +383,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			// 이펙트 범위내의 모든 Creature에게 effect를 붙여준다.
 			// Vampire가 기술을 사용한 경우 같은 Vampire에게는
 			// 해당하지 않는다.
-			bool bEffected = false;
+			// bool bEffected = false;
 			Creature* pTargetCreature;
 
 
@@ -433,7 +433,7 @@ void BloodyStorm::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 						if(pEffect->affectCreature(pTargetCreature, false) == true)
 						{
 							Player* pTargetPlayer = pTargetCreature->getPlayer();
-							bEffected = true;
+							// bEffected = true;
 
 							bool bCanSee = canSee(pTargetCreature, pMonster);
 

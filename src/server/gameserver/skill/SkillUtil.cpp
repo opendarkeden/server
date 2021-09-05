@@ -955,7 +955,7 @@ affectKillCount(Creature* pAttacker, Creature* pDeadCreature)
 
 	int myLevel = 0;
 	int otherLevel = 0;
-	int bonusPercent = 100;
+	// int bonusPercent = 100;
 
 	if (pAttacker->isSlayer())
 	{
@@ -974,14 +974,14 @@ affectKillCount(Creature* pAttacker, Creature* pDeadCreature)
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
 			otherLevel = pVampire->getLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 슬레이어가 아우스터스를 죽인 경우
 		else if (pDeadCreature->isOusters())
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
 			otherLevel = pOusters->getLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 슬레이어가 몬스터를 죽인 경우
 		else if (pDeadCreature->isMonster())
@@ -1013,14 +1013,14 @@ affectKillCount(Creature* pAttacker, Creature* pDeadCreature)
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
 			otherLevel = pSlayer->getHighestSkillDomainLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 뱀파이어가 아우스터스를 죽인 경우
 		else if (pDeadCreature->isOusters())
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pDeadCreature);
 			otherLevel = pOusters->getLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 뱀파이어가 몬스터를 죽인 경우
 		else if (pDeadCreature->isMonster())
@@ -1052,14 +1052,14 @@ affectKillCount(Creature* pAttacker, Creature* pDeadCreature)
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
 			otherLevel = pSlayer->getHighestSkillDomainLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 아우스터즈가 뱀파이어를 죽인 경우
 		if (pDeadCreature->isVampire())
 		{
 			Vampire* pVampire = dynamic_cast<Vampire*>(pDeadCreature);
 			otherLevel = pVampire->getLevel();
-			bonusPercent = 150;
+			// bonusPercent = 150;
 		}
 		// 뱀파이어가 몬스터를 죽인 경우
 		else if (pDeadCreature->isMonster())
@@ -3622,7 +3622,7 @@ bool verifyDistance(Creature* pCreature, ZoneCoord_t X, ZoneCoord_t Y, Range_t D
 	ZoneCoord_t cy = pCreature->getY();
 
 	ZoneLevel_t AttackerZoneLevel = pZone->getZoneLevel(cx, cy);
-	ZoneLevel_t DefenderZoneLevel = pZone->getZoneLevel(X, Y);
+	// ZoneLevel_t DefenderZoneLevel = pZone->getZoneLevel(X, Y);
 
 	// 아담의 성지나 PK존 내의 안전지대에서는 기술을 사용할 수 없다.
 	if ( (AttackerZoneLevel & SAFE_ZONE) 
@@ -7367,7 +7367,7 @@ bool canAttack( Creature* pAttacker, Creature* pDefender )
 
 	// 게임서버에 PK 설정이 되었는가?
 	static bool bNonPK = g_pGameServerInfoManager->getGameServerInfo( 1, g_pConfig->getPropertyInt( "ServerID" ), g_pConfig->getPropertyInt( "WorldID" ) )->isNonPKServer();
-	bool canPK = bNonPK || GDRLairManager::Instance().isGDRLairZone( pAttacker->getZoneID() );
+	// bool canPK = bNonPK || GDRLairManager::Instance().isGDRLairZone( pAttacker->getZoneID() );
 
 	// non PK 체크
 	if ( bNonPK && pAttacker->isPC() && pDefender->isPC() )

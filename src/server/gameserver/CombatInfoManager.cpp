@@ -122,7 +122,6 @@ void CombatInfoManager::computeModify()
 }
 
 void CombatInfoManager::setRelicOwner( int index, RelicOwner relicOwner )
-	throw ( OutOfBoundException )
 {
 	__BEGIN_TRY
 

@@ -89,7 +89,7 @@ void Sweeper::create(const string & ownerID, Storage storage, StorageID_t storag
 			<< m_ObjectID << ", " << m_ItemType << ", '" << ownerID << "', " <<(int)storage << ", " << storageID << ", " 
 			<<(int)x << ", " <<(int)y << ", " << m_Durability << ")";
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		filelog( "WarLog.txt", "%s", sql.toString().c_str() );
 
 		SAFE_DELETE(pStmt);
@@ -158,7 +158,7 @@ void Sweeper::save(const string & ownerID, Storage storage, StorageID_t storageI
 			<< ",EnchantLevel = " <<(int)m_EnchantLevel
 			<< " WHERE ItemID = " << m_ItemID;
 
-		pStmt->executeQuery(sql.toString());
+		pStmt->executeQueryString(sql.toString());
 		*/
 
 		pStmt->executeQuery( "UPDATE SweeperObject SET ObjectID=%ld, ItemType=%d, OwnerID='%s', Storage=%d, StorageID=%ld, X=%d, Y=%d, Durability=%d, EnchantLevel=%d WHERE ItemID=%ld",
@@ -365,7 +365,7 @@ void SweeperLoader::load(Creature* pCreature)
 			<<(int)STORAGE_EXTRASLOT << ", " <<(int)STORAGE_MOTORCYCLE << ", " <<(int)STORAGE_STASH << ", " 
 			<<(int)STORAGE_GARBAGE << ")";
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
 		// Sweeper load할게 있다는것은..
@@ -519,7 +519,7 @@ void SweeperLoader::load(Zone* pZone)
 			<< " Durability, EnchantLevel FROM SweeperObject"
 			<< " WHERE Storage = " <<(int)STORAGE_ZONE << " AND StorageID = " << pZone->getZoneID();
 
-		Result* pResult = pStmt->executeQuery(sql.toString());
+		Result* pResult = pStmt->executeQueryString(sql.toString());
 
 		while (pResult->next())
 		{

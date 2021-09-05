@@ -53,17 +53,11 @@ WarSystem::WarSystem()
 }
 
 WarSystem::~WarSystem()
-	
 {
-	__BEGIN_TRY
-
 	SAFE_DELETE(m_pRaceWarSchedule);
-
-	__END_CATCH
 }
 
 void WarSystem::init()
-	
 {
 	__BEGIN_TRY
 
@@ -75,7 +69,6 @@ void WarSystem::init()
 }
 
 void WarSystem::prepareRaceWar()
-	
 {
 	__BEGIN_TRY
 

@@ -10,7 +10,6 @@
 #include "SocketOutputStream.h"
 
 CBillingPacketRequestMinusPointBody::CBillingPacketRequestMinusPointBody()
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -20,7 +19,6 @@ CBillingPacketRequestMinusPointBody::CBillingPacketRequestMinusPointBody()
 }
 
 void CBillingPacketRequestMinusPointBody::read( SocketInputStream& iStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 	
@@ -32,7 +30,6 @@ void CBillingPacketRequestMinusPointBody::read( SocketInputStream& iStream )
 }
 
 void CBillingPacketRequestMinusPointBody::write( SocketOutputStream& oStream )
-	throw ( ProtocolException, Error )
 {
 	__BEGIN_TRY
 
@@ -43,7 +40,6 @@ void CBillingPacketRequestMinusPointBody::write( SocketOutputStream& oStream )
 }
 
 string CBillingPacketRequestMinusPointBody::toString() const
-	throw ()
 {
 	char str[128];
 	StringStream msg;

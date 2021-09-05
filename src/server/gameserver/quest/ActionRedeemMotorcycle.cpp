@@ -267,7 +267,7 @@ bool ActionRedeemMotorcycle::load(Item* pItem, Slayer* pSlayer, Zone* pZone, Zon
 		    << "FROM MotorcycleObject where ItemID = " << targetID;
 		
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pResult = pStmt->executeQuery(sql.toString());
+		pResult = pStmt->executeQueryString(sql.toString());
 
 		// by sigi. 2002.10.14
 		// 결과물이 없다면 모터사이클이 없는 거쥐.

@@ -18,10 +18,10 @@ class ItemDestroyer {
 public :
 
 	// constructor
-	ItemDestroyer () throw ();
+	ItemDestroyer ();
 
 	// destroy all item whose owner is ...
-	void destroyAll ( const string & ownerID ) throw ( Error );
+	void destroyAll ( const string & ownerID );
 
 };
 

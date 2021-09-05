@@ -737,7 +737,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			<< ")";
 
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
-		pStmt->executeQuery(SQL.toString());
+		pStmt->executeQueryString(SQL.toString());
 
 		SAFE_DELETE(pStmt);
 	}

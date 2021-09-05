@@ -101,8 +101,8 @@ void HeterChakram::execute(Ousters* pOusters, ObjectID_t TargetObjectID, Ousters
 			SkillInput input(pOusters, pOustersSkillSlot);
 			SkillOutput output;
 			computeOutput(input, output);
-			int cx = pTargetCreature->getX();
-			int cy = pTargetCreature->getY();
+			// int cx = pTargetCreature->getX();
+			// int cy = pTargetCreature->getY();
 			if ( pTargetCreature == NULL || 
 				pTargetCreature->isDead() || 
 				pTargetCreature->isFlag( Effect::EFFECT_CLASS_HETER_CHAKRAM )

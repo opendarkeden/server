@@ -45,7 +45,7 @@ public:
 	
 	// SQL 문을 받아서 쿼리한다.
 	Result * executeQuery(char *,...) ;
-	Result * executeQuery(const string& sqlStatement) ;
+	Result * executeQueryString(const string& sqlStatement) ;
 	
 	// get SQL statement
 	string getStatement() const  { return m_Statement; }

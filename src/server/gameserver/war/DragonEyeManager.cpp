@@ -31,8 +31,6 @@ DragonEyeManager::DragonEyeManager()
 
 DragonEyeManager::~DragonEyeManager()
 {
-	__BEGIN_TRY
-	__END_CATCH
 }
 
 void DragonEyeManager::init()

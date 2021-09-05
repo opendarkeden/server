@@ -77,10 +77,10 @@ void GrenadeAttack::execute(Monster* pMonster, ZoneCoord_t X, ZoneCoord_t Y)
 			tile.addEffect(pEffect);
 
 			// 타일 위에 크리쳐가 있다면 바로 영향을 주도록 한다.
-			Creature* pTargetCreature = NULL;
+			// Creature* pTargetCreature = NULL;
 
-			if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) 
-				pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
+			// if (tile.hasCreature(Creature::MOVE_MODE_WALKING)) 
+			// 	pTargetCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 
 			ZoneCoord_t myX = pMonster->getX();
 			ZoneCoord_t myY = pMonster->getY();

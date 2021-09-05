@@ -45,7 +45,7 @@ void EffectHandsOfFire::unaffect(Creature* pCreature)
 	Ousters* pTargetOusters = dynamic_cast<Ousters*>(pCreature);
 	Assert( pTargetOusters != NULL );
 
-	OUSTERS_RECORD prev;
+	// OUSTERS_RECORD prev;
 
 //	pTargetOusters->getOustersRecord(prev);
 	pTargetOusters->initAllStat();

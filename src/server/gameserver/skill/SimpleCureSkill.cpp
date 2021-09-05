@@ -277,12 +277,12 @@ void SimpleCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillS
 			HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
 			// 실제 회복 수치를 계산한다.
-			int RealHealPoint = 0;
-			if( CurrentHP + HealPoint <= MaxHP ) {
-				RealHealPoint = max( (unsigned int)0, HealPoint );
-			} else {
-				RealHealPoint = max( 0, MaxHP - CurrentHP );
-			}
+			// int RealHealPoint = 0;
+			// if( CurrentHP + HealPoint <= MaxHP ) {
+			// 	RealHealPoint = max( (unsigned int)0, HealPoint );
+			// } else {
+			// 	RealHealPoint = max( 0, MaxHP - CurrentHP );
+			// }
 
 			// 경험치를 올려준다.
 			shareAttrExp(pSlayer, HealPoint , param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToObjectOK1);

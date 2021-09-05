@@ -59,7 +59,7 @@ public:
 public:
 
 	// get/set pc info
-	PCInfo* getPCInfo(Slot slot) const throw(NoSuchElementException) 
+	PCInfo* getPCInfo(Slot slot) const
 	{ 
 		if(m_pPCInfos[ slot ] == NULL)
 			throw NoSuchElementException("no such PC exist in that slot");
@@ -67,7 +67,7 @@ public:
 		return m_pPCInfos[slot];
 	}
 
-	void setPCInfo(Slot slot, PCInfo* pPCInfo) throw(DuplicatedException) 
+	void setPCInfo(Slot slot, PCInfo* pPCInfo) 
 	{ 
 		if(m_pPCInfos[ slot ] != NULL)
 			throw DuplicatedException("PCInfo duplicated.");

@@ -25,8 +25,6 @@ CBillingPlayerInfo::CBillingPlayerInfo()
 
 CBillingPlayerInfo::~CBillingPlayerInfo()
 {
-	__BEGIN_TRY
-	__END_CATCH
 }
 
 string CBillingPlayerInfo::toString() const

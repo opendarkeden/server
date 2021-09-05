@@ -107,7 +107,7 @@ void ViolentPhantom::execute(Vampire* pVampire, ZoneCoord_t X, ZoneCoord_t Y, Va
 	}
 
 	// Knowledge of Blood 가 있다면 hit bonus 10
-	int HitBonus = 0;
+	// int HitBonus = 0;
 	g_SimpleTileMeleeSkill.execute(pVampire, X, Y, pVampireSkillSlot, param, result, CEffectID);
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " end " << endl;
