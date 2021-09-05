@@ -13,7 +13,6 @@
 
 
 void CGUseItemFromInventory::read (SocketInputStream & iStream) 
-	 
 {
 	__BEGIN_TRY
 		
@@ -23,9 +22,9 @@ void CGUseItemFromInventory::read (SocketInputStream & iStream)
 
 	if (pEIStream->getEncryptCode()!=0)
 	{
-		SHUFFLE_STATEMENT_4(pEIStream->getEncryptCode(),
+		SHUFFLE_STATEMENT_3(pEIStream->getEncryptCode(),
 							pEIStream->readEncrypt(m_ObjectID),
-							pEIStream->readEncrypt(m_InventoryItemObjectID),
+							// pEIStream->readEncrypt(m_InventoryItemObjectID),
 							pEIStream->readEncrypt(m_InvenX),
 							pEIStream->readEncrypt(m_InvenY));
 	}
@@ -33,7 +32,7 @@ void CGUseItemFromInventory::read (SocketInputStream & iStream)
 #endif
 	{
 		iStream.read(m_ObjectID);
-		iStream.read(m_InventoryItemObjectID);
+		// iStream.read(m_InventoryItemObjectID);
 		iStream.read(m_InvenX);
 		iStream.read(m_InvenY);
 	}
@@ -42,7 +41,6 @@ void CGUseItemFromInventory::read (SocketInputStream & iStream)
 }
 		    
 void CGUseItemFromInventory::write (SocketOutputStream & oStream) const 
-     
 {
 	__BEGIN_TRY
 
@@ -52,9 +50,9 @@ void CGUseItemFromInventory::write (SocketOutputStream & oStream) const
 
 	if (pEOStream->getEncryptCode()!=0)
 	{
-		SHUFFLE_STATEMENT_4(pEOStream->getEncryptCode(),
+		SHUFFLE_STATEMENT_3(pEOStream->getEncryptCode(),
 							pEOStream->writeEncrypt(m_ObjectID),
-							pEOStream->writeEncrypt(m_InventoryItemObjectID),
+							// pEOStream->writeEncrypt(m_InventoryItemObjectID),
 							pEOStream->writeEncrypt(m_InvenX),
 							pEOStream->writeEncrypt(m_InvenY));
 	}
@@ -62,7 +60,7 @@ void CGUseItemFromInventory::write (SocketOutputStream & oStream) const
 #endif
 	{
 		oStream.write(m_ObjectID);
-		oStream.write(m_InventoryItemObjectID);
+		// oStream.write(m_InventoryItemObjectID);
 		oStream.write(m_InvenX);
 		oStream.write(m_InvenY);
 	}
