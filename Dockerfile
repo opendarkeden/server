@@ -10,6 +10,8 @@ RUN apt update && apt install -y \
     xutils-dev \
     psmisc \
     && rm -rf /var/lib/apt/lists/*
+	
+RUN apt install -y psmisc
 
 RUN mkdir /home/darkeden
 RUN mkdir /home/darkeden/vs
