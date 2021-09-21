@@ -27,6 +27,10 @@ void GCAddItemToItemVerify::read (SocketInputStream & iStream )
 		case ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK:
 			iStream.read(m_Parameter);
 			break;
+		case ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK:
+			iStream.read(m_Parameter);
+			iStream.read(m_Parameter2);
+			break;
 		// 파라미터를 쓰지 않아도 되는 코드
 		default:
 			break;
@@ -55,6 +59,10 @@ void GCAddItemToItemVerify::write (SocketOutputStream & oStream ) const
 		case ADD_ITEM_TO_ITEM_VERIFY_REVIVAL_OK:
 		case ADD_ITEM_TO_ITEM_VERIFY_UP_GRADE_OK:
 			oStream.write(m_Parameter);
+			break;
+		case ADD_ITEM_TO_ITEM_VERIFY_THREE_ENCHANT_OK:
+			oStream.write(m_Parameter);
+			oStream.write(m_Parameter2);
 			break;
 		// 파라미터를 쓰지 않아도 되는 코드
 		default:
