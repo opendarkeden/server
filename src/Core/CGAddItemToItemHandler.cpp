@@ -1238,6 +1238,8 @@ EnOK:
 			return;
 		}
 
+		uint optionChange = 0;
+
 		// 옵션이 여러개인 경우는 불가능하지는 않다고 보고..
 		// 들고 있는 아이템이 맞는지 확인하고
 		// upgrade가능한 option인 경우에...
@@ -1323,13 +1325,29 @@ EnOK:
 				}
 				else
 				{
-					downgradeOptionType( pItem, currentOptionType, pOptionInfo );
 
-					OptionType_t previousOptionType = pOptionInfo->getPreviousType();
-					uint optionChange = (currentOptionType << 24) | (previousOptionType << 16);
+					int noChangeRatio = 33;
+					int downgradeRatio = pItemInfo->getDowngradeRatio();
+					int dice = rand() % 100;
+
+					//cout << "인챈트 아템 : " << pItemInfo->getName() << " 옵션떨어질 확률 " << downgradeRatio << endl;
+
+					if ( dice < noChangeRatio )
+					{
+						// 변화없음
+					}
+					else if ( dice < noChangeRatio + downgradeRatio )
+					{
+						// 옵션떨어짐
+						downgradeOptionType( pItem, currentOptionType, pOptionInfo );
+
+						OptionType_t previousOptionType = pOptionInfo->getPreviousType();
+						optionChange = (currentOptionType << 24) | (previousOptionType << 16);
+					}
 
 					gcAddItemToItemVerify.setCode( ADD_ITEM_TO_ITEM_VERIFY_ENCHANT_FAIL_DECREASE );
 					gcAddItemToItemVerify.setParameter( optionChange );
+
 				}
 
 				pGamePlayer->sendPacket( &gcAddItemToItemVerify );
