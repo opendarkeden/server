@@ -280,13 +280,12 @@ Monster::Monster (MonsterType_t monsterType)
 		break;
 	}
 
-	// 이름을 설정한다.
-	if (m_bMaster)
-		m_Name = pMonsterInfo->getEName();
-	else
-		m_Name = g_pMonsterNameManager->getRandomName(this);
-
-	if ( monsterType == 722 ) m_Name = "하이메스 맹인석상";
+	// Set the name.
+	if (pMonsterInfo->getEName().length() < 20) {
+	  m_Name = pMonsterInfo->getEName();
+	} else {
+	  m_Name = g_pMonsterNameManager->getRandomName(this);
+	}
 
 	getCurrentTime(m_LastSpeechTime);
 
