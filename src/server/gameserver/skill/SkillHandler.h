@@ -63,8 +63,8 @@ public:
 public:
 	int             SkillLevel;
 	int             DomainLevel;
-	int				STR;
-	int				DEX;
+	int		STR;
+	int		DEX;
 	int             INTE;
 	int             TargetType;
 	int             Range;
