@@ -1,4 +1,5 @@
 #include "PetInfo.h"
+#include "PetItem.h"
 
 PetInfo::PetInfo()
 {
@@ -101,7 +102,14 @@ string PetInfo::toString() const
 		<< ", PetAttr : " << (int)m_PetAttr
 		<< ", PetOption : " << (int)m_PetOption
 		<< ", PetFoodType : " << (int)m_PetFoodType
+	        << ", ItemObjectID : " << getItemObjectID()
 		<< ")";
 
 	return msg.toString();
+}
+
+ObjectID_t PetInfo::getItemObjectID() const
+{
+	if (m_pPetItem == NULL ) return 0;
+	return m_pPetItem->getObjectID();
 }

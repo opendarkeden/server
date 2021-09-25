@@ -10,10 +10,6 @@
 #include "GuildWarInfo.h"
 #include "Assert1.h"
 
-#ifdef __GAME_SERVER__
-#include "PetItem.h"
-#endif
-
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
@@ -105,21 +101,20 @@ string GCPetInfo::toString () const
 		
 	StringStream msg;
 	
-	msg << "GCPetInfo(" ;
+	msg << "GCPetInfo("
+	    << "ObjectID:" << m_ObjectID
+	    << "PetInfo:";
+
+	if (m_pPetInfo == NULL) {
+	  msg << "NULL";
+	} else {
+	  msg << m_pPetInfo->toString();
+	}
+	  
+	msg << "IsSummonInfo:" << m_IsSummonInfo;
 	msg << ")";
 
 	return msg.toString();
 		
 	__END_CATCH
 }
-
-ObjectID_t PetInfo::getItemObjectID() const
-{
-#ifdef __GAME_SERVER__
-	if (m_pPetItem == NULL ) return 0;
-		return m_pPetItem->getObjectID();
-#else
-	return 0;
-#endif
-}
-
