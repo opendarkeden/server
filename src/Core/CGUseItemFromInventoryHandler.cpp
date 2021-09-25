@@ -2433,11 +2433,11 @@ void CGUseItemFromInventoryHandler::executePetItem(CGUseItemFromInventory* pPack
 		if ( pPetInfo == NULL || pPetInfo->getPetItem() != pPetItem )
 		{
 			pPC->setPetInfo( pTargetPetInfo );
-			//cout << pPetItem->getObjectID() << " ¾ÆÀÌÅÛÀÇ ÆêÀ» ºÒ·¶½À´Ï´Ù." << endl;
+			cout << pPetItem->getObjectID() << " call the pet item." << endl;
 		}
 		else
 		{
-			//cout << "ÆêÀ» Áö¿ü½À´Ï´Ù." << endl;
+			cout << "recall the pet" << endl;
 			pPC->setPetInfo( NULL );
 		}
 
