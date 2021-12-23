@@ -11,12 +11,12 @@ The development environment is Ubuntu 20.04, other linux release should also wor
 
 ### dependency
 
-- libmysqlclient-dev 5.7
-- lua 4.0
+- libmysqlclient-dev 5.7  <- extremely important   ,mysql-8 can't make it!
+- lua 4.0 <- important,ln -s the libs
 - xerces-c 3.2.3
 
 lua 4.0 has to be download from the internet, other dependencies can be installed using `apt`.
-
+# 
 ### compile
 
 If your head file are not in the standard path, specify the include path like this:
