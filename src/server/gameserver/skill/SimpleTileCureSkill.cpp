@@ -90,7 +90,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 				EffectBloodDrain* pEffectBloodDrain = NULL;
 
-				bHPCheck = false;		// Å©¸®ÃÄ¸¦ Ã¼Å©ÇÒ¶§ ¸¶´Ù »õ·Î ¼¼ÆÃÇØ¾ßÇÏÁö ¾ÊÀ»±î? 2002.05.31 by bezz
+				bHPCheck = false;		// í¬ë¦¬ì³ë¥¼ ì²´í¬í• ë•Œ ë§ˆë‹¤ ìƒˆë¡œ ì„¸íŒ…í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ? 2002.05.31 by bezz
 				
 				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ) {
 
@@ -120,7 +120,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 					{
 						Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 
-						// Èú È¿°ú broadcast
+						// í íš¨ê³¼ broadcast
 						// by sigi. 2002.6.1
 						///*
 						_GCSkillToSelfOK1.setSkillType(SKILL_CURE_EFFECT);
@@ -134,21 +134,21 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 						//*/
 
 
-						// ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+						// í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
 						if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
 						{
 
-							// ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+							// í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 							if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
 							{
 								Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
 								EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-								pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+								pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 							}
 							else
 							{
 								EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-								pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+								pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 								pTargetSlayer->addEffect(pEffectAftermath);
 								pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
 								pEffectAftermath->create(pTargetSlayer->getName());
@@ -175,11 +175,11 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 						}
 
-						// HP¸¦ ¼¼ÆÃÇÑ´Ù.
+						// HPë¥¼ ì„¸íŒ…í•œë‹¤.
 						HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
 						HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
-						// ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+						// ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 						if( CurrentHP + HealPoint <= MaxHP ) {
 							RealHealPoint = max( (unsigned int)0, HealPoint );
 						} else {
@@ -197,7 +197,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 			}
 
 			if( bheal ) {
-				// °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+				// ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
@@ -241,7 +241,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
     	    cList.push_back(pSlayer);
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
 			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature* pTargetCreature = *itr;
@@ -267,12 +267,12 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, SkillSlot* pSkillSlot,
 
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ÆĞÅ¶À» º¸³»ÁØ´Ù.
+					// íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
 					Player* pPlayer = pTargetCreature->getPlayer();
 					Assert(pPlayer != NULL);
 					pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					// HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+					// HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
 					GCStatusCurrentHP gcStatusCurrentHP;
 					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
 					gcStatusCurrentHP.setCurrentHP (targetHP);
@@ -321,7 +321,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
 		//Assert(pTargetCreature != NULL);
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		if (pTargetCreature==NULL)
 		{
 			executeSkillFailException(pSlayer, param.SkillType);
@@ -372,7 +372,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 				EffectBloodDrain* pEffectBloodDrain = NULL;
 				bool bSlayer	 = false;
 				
-				bHPCheck = false;		// Å©¸®ÃÄ¸¦ Ã¼Å©ÇÒ¶§ ¸¶´Ù »õ·Î ¼¼ÆÃÇØ¾ßÇÏÁö ¾ÊÀ»±î? 2002.05.31 by bezz
+				bHPCheck = false;		// í¬ë¦¬ì³ë¥¼ ì²´í¬í• ë•Œ ë§ˆë‹¤ ìƒˆë¡œ ì„¸íŒ…í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ? 2002.05.31 by bezz
 
 				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA)) {
 
@@ -405,21 +405,21 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 					Assert(pTargetSlayer!= NULL);
 
-					// ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+					// í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
 					if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
 					{
 
-						// ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+						// í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 						if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
 						{
 							Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
 							EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-							pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+							pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 						}
 						else
 						{
 							EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-							pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+							pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 							pTargetSlayer->addEffect(pEffectAftermath);
 							pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
 							pEffectAftermath->create(pTargetSlayer->getName());
@@ -446,11 +446,11 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
 					}
 
-					// HP¸¦ ¼¼ÆÃÇÑ´Ù.
+					// HPë¥¼ ì„¸íŒ…í•œë‹¤.
 					HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
 					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
-					// ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+					// ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 					if( CurrentHP + HealPoint <= MaxHP ) {
 						RealHealPoint = max( (unsigned int)0, HealPoint );
 					} else {
@@ -467,7 +467,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 			}
 
 			if( bheal ) {
-				// °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+				// ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
@@ -511,7 +511,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
 			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
     	    cList.push_back(pSlayer);
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
 			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature* pTargetCreature = *itr;
@@ -537,12 +537,12 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, Sk
 
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ÆĞÅ¶À» º¸³»ÁØ´Ù.
+					// íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
 					Player* pPlayer = pTargetCreature->getPlayer();
 					Assert(pPlayer != NULL);
 					pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					// HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+					// HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
 					GCStatusCurrentHP gcStatusCurrentHP;
 					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
 					gcStatusCurrentHP.setCurrentHP (targetHP);
@@ -631,11 +631,13 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 				EffectBloodDrain* pEffectBloodDrain = NULL;
 				
 				bool bSlayer	 = false;
-				bHPCheck = false;		// Å©¸®ÃÄ¸¦ Ã¼Å©ÇÒ¶§ ¸¶´Ù »õ·Î ¼¼ÆÃÇØ¾ßÇÏÁö ¾ÊÀ»±î? 2002.05.31 by bezz
-				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ) {
+				bHPCheck = false;		// í¬ë¦¬ì³ë¥¼ ì²´í¬í• ë•Œ ë§ˆë‹¤ ìƒˆë¡œ ì„¸íŒ…í•´ì•¼í•˜ì§€ ì•Šì„ê¹Œ? 2002.05.31 by bezz
+				if (pTargetCreature->isSlayer() && !pTargetCreature->isFlag(Effect::EFFECT_CLASS_COMA) ) 
+				{
 
-					HP_t CurrentHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_CURRENT);
-					HP_t MaxHP = dynamic_cast<Slayer*>(pTargetCreature)->getHP(ATTR_MAX);
+					Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+					HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
+					HP_t MaxHP = pTargetSlayer->getHP(ATTR_MAX);
 
 					if ( CurrentHP < MaxHP )
 					{
@@ -660,23 +662,23 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 
 				if ( bSlayer && bHitRoll && bHPCheck && pTargetCreature->isAlive())
 				{
-					Slayer * pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
+					Slayer* pTargetSlayer = dynamic_cast<Slayer*>(pTargetCreature);
 					Assert( pTargetSlayer != NULL );
 
-					// ÈíÇ÷´çÇÑ »óÅÂ¶ó¸é ÈíÇ÷ »óÅÂ¸¦ ³¯·ÁÁØ´Ù.
+					// í¡í˜ˆë‹¹í•œ ìƒíƒœë¼ë©´ í¡í˜ˆ ìƒíƒœë¥¼ ë‚ ë ¤ì¤€ë‹¤.
 					if (pEffectBloodDrain != NULL && pEffectBloodDrain->getLevel() < param.Level)
 					{
-						// ÈíÇ÷ ¾Æ¸£¹ÙÀÌÆ®¸¦ ¹æÁöÇÏ±â À§ÇÑ ÈÄÀ¯Áõ ÀÌÆåÆ®¸¦ ºÙ¿©ÁØ´Ù.
+						// í¡í˜ˆ ì•„ë¥´ë°”ì´íŠ¸ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•œ í›„ìœ ì¦ ì´í™íŠ¸ë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 						if (pTargetSlayer->isFlag(Effect::EFFECT_CLASS_AFTERMATH))
 						{
 							Effect* pEffect = pTargetSlayer->findEffect(Effect::EFFECT_CLASS_AFTERMATH);
 							EffectAftermath* pEffectAftermath = dynamic_cast<EffectAftermath*>(pEffect);
-							pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+							pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 						}
 						else
 						{
 							EffectAftermath* pEffectAftermath = new EffectAftermath(pTargetSlayer);
-							pEffectAftermath->setDeadline(5*600); // 5ºĞ µ¿¾È Áö¼ÓµÈ´Ù.
+							pEffectAftermath->setDeadline(5*600); // 5ë¶„ ë™ì•ˆ ì§€ì†ëœë‹¤.
 							pTargetSlayer->addEffect(pEffectAftermath);
 							pTargetSlayer->setFlag(Effect::EFFECT_CLASS_AFTERMATH);
 							pEffectAftermath->create(pTargetSlayer->getName());
@@ -704,11 +706,11 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 
 					}
 
-					// HP¸¦ ¼¼ÆÃÇÑ´Ù.
+					// HPë¥¼ ì„¸íŒ…í•œë‹¤.
 					HP_t CurrentHP = pTargetSlayer->getHP(ATTR_CURRENT);
 					HP_t MaxHP     = pTargetSlayer->getHP(ATTR_MAX);
 
-					// ½ÇÁ¦ È¸º¹ ¼öÄ¡¸¦ °è»êÇÑ´Ù.
+					// ì‹¤ì œ íšŒë³µ ìˆ˜ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 					if( CurrentHP + HealPoint <= MaxHP ) {
 						RealHealPoint = max( (unsigned int)0, HealPoint );
 					} else {
@@ -725,7 +727,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 			}
 
 			if( bheal ) {
-				// °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+				// ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 				shareAttrExp(pSlayer, RealHealPoint, param.STRMultiplier, param.DEXMultiplier, param.INTMultiplier, _GCSkillToTileOK1);
 				increaseDomainExp(pSlayer, DomainType, pSkillInfo->getPoint(), _GCSkillToTileOK1);
 				increaseSkillExp(pSlayer, DomainType, pSkillSlot, pSkillInfo, _GCSkillToTileOK1);
@@ -768,9 +770,9 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 
 			//cout << "Healed Creature Size : " << (int)cList.size() << endl;
-    	    cList.push_back(pSlayer);
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Ş´Â ³ğµé¿¡°Ô ÆĞÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
-			for(list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
+    	    
+			// ì´ ê¸°ìˆ ì— ì˜í•´ ì˜í–¥ì„ ë°›ëŠ” ë†ˆë“¤ì—ê²Œ íŒ¨í‚·ì„ ë³´ë‚´ì¤˜ì•¼ í•œë‹¤.
+			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature* pTargetCreature = *itr;
 				Assert(pTargetCreature != NULL);
@@ -784,38 +786,32 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 					{
 						targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP();
 					}
-					else if (pTargetCreature->isVampire())
-					{
-						targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP();
-					}
-					else if (pTargetCreature->isOusters())
-					{
-						targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP();
-					}
+
 
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ÆĞÅ¶À» º¸³»ÁØ´Ù.
+					// íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
 					Player* pPlayer = pTargetCreature->getPlayer();
 					Assert(pPlayer != NULL);
 					pPlayer->sendPacket(&_GCSkillToTileOK2);
 
-					// HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+					// HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
 					GCStatusCurrentHP gcStatusCurrentHP;
 					gcStatusCurrentHP.setObjectID(pTargetCreature->getObjectID());
-					gcStatusCurrentHP.setCurrentHP (targetHP);
+					gcStatusCurrentHP.setCurrentHP(targetHP);
 					pZone->broadcastPacket(pTargetCreature->getX(), pTargetCreature->getY(), &gcStatusCurrentHP);
 
 				}
+				// fix by pika å‚»é€¼ä»£ç çœ‹äº†å°±å†’ç«
+			}
+			cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
-				cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
+			pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
+			pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
 
-				pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
-				pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
-
-				pSkillSlot->setRunTime(param.Delay);
-				result.bSuccess = true;
-			} 
+			pSkillSlot->setRunTime(param.Delay);
+			result.bSuccess = true;
+			
 
 		}
 		else 
