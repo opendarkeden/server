@@ -132,7 +132,7 @@ public:
 			//+ szSpriteType 
 			//+ szColor + szColor
 			+ szCoord + szCoord + szDir
-			+ szHP
+			+ szHP*2
 			+ szGuildID
 			+ szColor
 			;
