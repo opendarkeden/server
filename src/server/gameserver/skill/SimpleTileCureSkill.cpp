@@ -808,7 +808,7 @@ void SimpleTileCureSkill::execute(Slayer* pSlayer, ZoneCoord_t X, ZoneCoord_t Y,
 
 				}
 
-				cList = pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
+				pZone->broadcastSkillPacket(myX, myY, X, Y, &_GCSkillToTileOK5, cList);
 
 				pZone->broadcastPacket(myX, myY,  &_GCSkillToTileOK3 , cList);
 				pZone->broadcastPacket(X, Y,  &_GCSkillToTileOK4 , cList);
