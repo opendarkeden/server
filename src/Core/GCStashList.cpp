@@ -6,19 +6,16 @@
 
 #include "GCStashList.h"
 #include "Assert1.h"
-
-#ifdef __GAME_SERVER__
-	#include "Item.h"
-	#include "ItemInfoManager.h"
-	#include "Inventory.h"
-	#include "AR.h"
-	#include "SR.h"
-	#include "SG.h"
-	#include "SMG.h"
-	#include "Belt.h"
-	#include "OustersArmsband.h"
-	#include "PetItem.h"
-#endif
+#include "Item.h"
+#include "ItemInfoManager.h"
+#include "Inventory.h"
+#include "AR.h"
+#include "SR.h"
+#include "SG.h"
+#include "SMG.h"
+#include "Belt.h"
+#include "OustersArmsband.h"
+#include "PetItem.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
@@ -336,7 +333,6 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
 {
 	__BEGIN_TRY
 
-#ifdef	__GAME_SERVER__
 
 	Assert(rack < STASH_RACK_MAX && index < STASH_INDEX_MAX);
 	Assert(pItem != NULL);	
@@ -527,8 +523,6 @@ void GCStashList::setStashItem(BYTE rack, BYTE index, Item* pItem)
 	}
 
 	m_bExist[rack][index] = true;
-
-#endif
 
 	__END_CATCH
 }

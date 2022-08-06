@@ -7,17 +7,6 @@
 #include "GCGoodsList.h"
 #include "Assert1.h"
 
-#ifdef __GAME_SERVER__
-	#include "Item.h"
-	#include "ItemInfoManager.h"
-	#include "Inventory.h"
-	#include "AR.h"
-	#include "SR.h"
-	#include "SG.h"
-	#include "SMG.h"
-	#include "Belt.h"
-#endif
-
 //////////////////////////////////////////////////////////////////////////////
 // constructor
 //////////////////////////////////////////////////////////////////////////////
