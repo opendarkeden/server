@@ -3688,37 +3688,10 @@ void Slayer::saveExps(void) const
 {
 	__BEGIN_TRY
 
-	// 스킬 핸들러에서 쿼리 숫자를 줄이기 위해서 10으로 나누는 부분들은,
-	// 서버 다운이 되지 않고, 정상적으로 로그아웃하는 경우에 
-	// 세이브를 명시적으로 해주지 않으면 10 이하 올라간 부분은 날아가 버리게 된다.
-	// 그러므로 여기서 세이브를 해 준다. 
-
-	/*
-	StringStream sql;
-	sql << "UPDATE Slayer SET"
-		<< " STRExp = " << m_STRExp
-		<< ",DEXExp = " << m_DEXExp
-		<< ",INTExp = " << m_INTExp
-		<< ",STRGoalExp = " << m_STRGoalExp
-		<< ",DEXGoalExp = " << m_DEXGoalExp
-		<< ",INTGoalExp = " << m_INTGoalExp
-		<< ",BladeExp = " << m_SkillDomainExps[SKILL_DOMAIN_BLADE]
-		<< ",BladeGoalExp = " << m_GoalExp[SKILL_DOMAIN_BLADE]
-		<< ",SwordExp = " << m_SkillDomainExps[SKILL_DOMAIN_SWORD]
-		<< ",SwordGoalExp = " << m_GoalExp[SKILL_DOMAIN_SWORD]
-		<< ",GunExp = " << m_SkillDomainExps[SKILL_DOMAIN_GUN]
-		<< ",GunGoalExp = " << m_GoalExp[SKILL_DOMAIN_GUN]
-		<< ",EnchantExp = " << m_SkillDomainExps[SKILL_DOMAIN_ENCHANT]
-		<< ",EnchantGoalExp = " << m_GoalExp[SKILL_DOMAIN_ENCHANT]
-		<< ",HealExp = " << m_SkillDomainExps[SKILL_DOMAIN_HEAL]
-		<< ",HealGoalExp = " << m_GoalExp[SKILL_DOMAIN_HEAL]
-		<< ",ETCExp = " << m_SkillDomainExps[SKILL_DOMAIN_ETC]
-		<< ",ETCGoalExp = " << m_GoalExp[SKILL_DOMAIN_ETC]
-		<< ",Alignment = " << m_Alignment
-		<< ",Fame = " << m_Fame
-		<< "  WHERE Name = '" << m_Name << "'";
-		//pStmt->executeQueryString(sql.toString());
-	*/
+	// Divide by 10 to reduce the number of queries in the skill handler,
+	// If the server is not down and you log out normally
+	// If you don't explicitly save, the part that goes up below 10 will be blown away.
+	// So save here.
 
 	Statement* pStmt = NULL;
 
@@ -3726,7 +3699,7 @@ void Slayer::saveExps(void) const
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		pStmt->executeQuery( "UPDATE Slayer SET STRGoalExp=%lu, DEXGoalExp=%lu, INTGoalExp=%lu, BladeGoalExp=%lu, SwordGoalExp=%lu, GunGoalExp=%lu, EnchantGoalExp=%lu, HealGoalExp=%lu, ETCGoalExp=%lu, Alignment=%d, Fame=%ld, `Rank`=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%ld, AdvancedSTR=%u, AdvancedDEX=%u, AdvancedINT=%u, Bonus=%u WHERE Name='%s'",
+		pStmt->executeQuery( "UPDATE Slayer SET STRGoalExp=%lu, DEXGoalExp=%lu, INTGoalExp=%lu, BladeGoalExp=%lu, SwordGoalExp=%lu, GunGoalExp=%lu, EnchantGoalExp=%lu, HealGoalExp=%lu, ETCGoalExp=%lu, Alignment=%d, Fame=%ld, `Rank`=%d, RankGoalExp=%lu, AdvancementClass=%u, AdvancementGoalExp=%d, AdvancedSTR=%u, AdvancedDEX=%u, AdvancedINT=%u, Bonus=%u WHERE Name='%s'",
 								getSTRGoalExp(), getDEXGoalExp(), getINTGoalExp(), m_GoalExp[SKILL_DOMAIN_BLADE], m_GoalExp[SKILL_DOMAIN_SWORD], m_GoalExp[SKILL_DOMAIN_GUN], m_GoalExp[SKILL_DOMAIN_ENCHANT], m_GoalExp[SKILL_DOMAIN_HEAL], m_GoalExp[SKILL_DOMAIN_ETC], m_Alignment, m_Fame, getRank(), getRankGoalExp(), getAdvancementClassLevel(), getAdvancementClassGoalExp(),
 								m_AdvancedSTR, m_AdvancedDEX, m_AdvancedINT, m_AdvancedAttrBonus, m_Name.c_str());
 
