@@ -17,167 +17,123 @@
 
 #include "GCModifyInformation.h"
 #include "GCStatusCurrentHP.h"
+#include "GCRemoveEffect.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-EffectPenetrateWheel::EffectPenetrateWheel(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) 
-	
+EffectPenetrateWheel::EffectPenetrateWheel(Creature* pCreature)
 {
 	__BEGIN_TRY
 
-	m_pZone = pZone;
-	m_X = zoneX;
-	m_Y = zoneY;
-	m_UserObjectID = 0;
-	m_bForce = false;
+	m_pTarget = pCreature;
+	m_CanSteal = false;
 
 	__END_CATCH
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
 void EffectPenetrateWheel::affect()
-	
 {
 	__BEGIN_TRY
 
-	//cout << "EffectPenetrateWheel" << "affect BEGIN" << endl;
-	
-	Assert(m_pZone != NULL);
-
-	// ¿Ã∆Â∆Æ ªÁøÎ¿⁄∏¶ ∞°¡Æø¬¥Ÿ.
-	// ¡∏ø° æ¯¿ª ºˆ ¿÷¿∏π«∑Œ NULL ¿Ã µ… ºˆ ¿÷¥Ÿ.
-	Creature * pCastCreature = m_pZone->getCreature( m_UserObjectID );
-
-	if ( pCastCreature == NULL && !isForce() )
+	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
 	{
-		setNextTime(m_Tick);
-
-		return;
+		affect( dynamic_cast<Creature*>(m_pTarget) );
 	}
 
-	// «ˆ¿Á ¿Ã∆Â∆Æ∞° ∫ŸæÓ¿÷¥¬ ≈∏¿œ¿ª πﬁæ∆ø¬¥Ÿ.
-    Tile& tile = m_pZone->getTile(m_X, m_Y);
+	setNextTime(10);
 
-	// ≈∏¿œ æ»ø° ¡∏¿Á«œ¥¬ ø¿∫Í¡ß∆ÆµÈ¿ª ∞Àªˆ«—¥Ÿ.
-    const forward_list<Object*>& oList = tile.getObjectList();
-	forward_list<Object*>::const_iterator itr = oList.begin();
-    for (; itr != oList.end(); itr++) 
+	__END_CATCH
+}
+
+void EffectPenetrateWheel::affect(Creature* pCreature)
+{
+	__BEGIN_TRY
+
+	if ( pCreature == NULL ) return;
+	
+	Zone* pZone = pCreature->getZone();
+	if ( pZone == NULL ) return;
+
+	Creature* pCastCreature = pZone->getCreature( getCasterID() );
+
+	GCModifyInformation gcMI, gcAttackerMI;
+
+	if ( canAttack( pCastCreature, pCreature )
+	&& !(pZone->getZoneLevel() & COMPLETE_SAFE_ZONE) )
 	{
-		Assert(*itr != NULL);
-
-		Object* pObject = *itr;
-		Assert(pObject != NULL);
-
-    	if (pObject->getObjectClass() == Object::OBJECT_CLASS_CREATURE)
+		if ( pCreature->isPC() )
 		{
-			Creature* pCreature = dynamic_cast<Creature*>(pObject);
-			Assert(pCreature != NULL);
+			PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-			// π´¿˚ªÛ≈¬ √º≈©. by sigi. 2002.9.5
-			// ªÍ ∏Èø™. by sigi. 2002.9.13
-			if ( pCastCreature != NULL &&
-				( !canAttack( pCastCreature, pCreature )
-				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA) 
-				|| !canHit( pCastCreature, pCreature, SKILL_Penetrate_Wheel, getLevel() ))
-			)
+			// There is no attacker. This is to ensure that the Sharp Shield is not applied and the Steel is not applied.
+			::setDamage( pPC, getDamage(), NULL, SKILL_Penetrate_Wheel, &gcMI, &gcAttackerMI, false, m_CanSteal );
+			pPC->getPlayer()->sendPacket( &gcMI );
+		}
+		else if ( pCreature->isMonster() )
+		{
+			// There is no attacker. This is to ensure that the Sharp Shield is not applied and the Steel is not applied.
+			::setDamage( pCreature, getDamage(), NULL, SKILL_Penetrate_Wheel, NULL, &gcAttackerMI, false, m_CanSteal );
+		}
+
+		if ( pCastCreature != NULL && pCastCreature->isOusters() )
+		{
+			Ousters* pOusters = dynamic_cast<Ousters*>(pCastCreature);
+
+			computeAlignmentChange(pCreature, getDamage(), pOusters, &gcMI, &gcAttackerMI);
+			increaseAlignment(pOusters, pCreature, gcAttackerMI);
+
+			if (pCreature->isDead())
 			{
-				continue;
+				int exp = computeCreatureExp(pCreature, 100, pOusters);
+				shareOustersExp(pOusters, exp, gcAttackerMI);
 			}
 
-			// 2003.1.10 by Sequoia
-			// æ»¿¸¡ˆ¥Î √º≈©
-			if( !checkZoneLevelToHitTarget( pCreature ) ) continue;
-			if ( pCastCreature != NULL && !HitRoll::isSuccess( pCastCreature, pCreature ) ) continue;
-
-			if (pCreature->getMoveMode() != Creature::MOVE_MODE_FLYING)
-			{
-				GCModifyInformation gcAttackerMI;
-				GCModifyInformation gcDefenderMI;
-
-				if (pCreature->isSlayer()) 
-				{
-					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-
-					::setDamage( pSlayer, m_Damage, pCastCreature, SKILL_Penetrate_Wheel, &gcDefenderMI, &gcAttackerMI, true, true );
-
-					Player* pPlayer = pSlayer->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&gcDefenderMI);
-				} 
-				else if (pCreature->isVampire())
-				{
-					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-
-					::setDamage( pVampire, m_Damage, pCastCreature, SKILL_Penetrate_Wheel, &gcDefenderMI, &gcAttackerMI, true, true );
-
-					Player* pPlayer = pVampire->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&gcDefenderMI);
-				}
-				else if (pCreature->isMonster())
-				{
-					Monster* pMonster = dynamic_cast<Monster*>(pCreature);
-				
-					::setDamage( pMonster, m_Damage, pCastCreature, SKILL_Penetrate_Wheel, NULL, &gcAttackerMI, true, true );
-				}
-				else if (pCreature->isOusters() && isForce() )
-				{
-					Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-
-					::setDamage( pOusters, m_Damage, pCastCreature, SKILL_Penetrate_Wheel, &gcDefenderMI, &gcAttackerMI, true, true );
-
-					Player* pPlayer = pOusters->getPlayer();
-					Assert(pPlayer != NULL);
-					pPlayer->sendPacket(&gcDefenderMI);
-				}
-				else continue; // æ∆øÏΩ∫≈Õ¡Ó≥™ NPC ªÛ¥Î∑Œ... -_-
-
-				// ¡◊æ˙¿∏∏È ∞Ê«Ëƒ°¡ÿ¥Ÿ. ¿Ω.....
-				if ( pCastCreature != NULL )
-				{
-					if (pCreature->isDead() && pCastCreature->isOusters())
-					{
-						Ousters* pCastOusters = dynamic_cast<Ousters*>( pCastCreature );
-						Assert( pCastOusters != NULL );
-
-						int exp = computeCreatureExp(pCreature, 100, pCastOusters);
-						shareOustersExp(pCastOusters, exp, gcAttackerMI);
-					}
-				}
-
-				if ( gcAttackerMI.getShortCount() != 0 || gcAttackerMI.getLongCount() != 0 ) pCastCreature->getPlayer()->sendPacket(&gcAttackerMI);
-			}
+			pOusters->getPlayer()->sendPacket( &gcAttackerMI );
 		}
 	}
-	
-	setNextTime(m_Tick);
 
-	//cout << "EffectPenetrateWheel" << "affect END" << endl;
+	setNextTime(20);
 
-	__END_CATCH 
+	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 void EffectPenetrateWheel::unaffect()
-	
 {
 	__BEGIN_TRY
 
-	//cout << "EffectPenetrateWheel" << "unaffect BEGIN" << endl;
 
-    Tile& tile = m_pZone->getTile(m_X, m_Y);
-	tile.deleteEffect(m_ObjectID);
-
-	//cout << "EffectPenetrateWheel" << "unaffect END" << endl;
+	if ( m_pTarget != NULL && m_pTarget->getObjectClass() == Object::OBJECT_CLASS_CREATURE )
+	{
+		unaffect( dynamic_cast<Creature*>(m_pTarget) );
+	}
 
 	__END_CATCH
 }
+
+void EffectPenetrateWheel::unaffect( Creature* pCreature )
+{
+	__BEGIN_TRY
+
+	pCreature->removeFlag( getEffectClass() );
+
+	Zone* pZone = pCreature->getZone();
+	Assert(pZone != NULL);
+
+	// Ïù¥ÌéôÌä∏Í∞Ä ÏÇ¨ÎùºÏ°åÎã§Í≥† ÏïåÎ†§Ï§ÄÎã§.
+	GCRemoveEffect gcRemoveEffect;
+	gcRemoveEffect.setObjectID(pCreature->getObjectID());
+	gcRemoveEffect.addEffectList( getSendEffectClass() );
+	pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
+
+	__END_CATCH
+}
+
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-string EffectPenetrateWheel::toString()
-	const throw()
+string EffectPenetrateWheel::toString() const 
 {
 	__BEGIN_TRY
 

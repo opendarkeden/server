@@ -3513,11 +3513,16 @@ void VoodooRing::computeOutput(const SkillInput& input, SkillOutput& output)
 }
 void PenetrateWheel::computeOutput(const SkillInput& input, SkillOutput& output)
 {
-	output.Damage = min(200,140 + (input.STR/5) + (min(input.Range,10)*5));
-	output.Range = 60 + (min(input.Range,10)*3);
-	output.Duration = 18;
-	output.Delay = 70;
+	output.Damage = (30 + (input.DEX / 10.0)) * (11 + (int)((input.Range - 1) / 10)) / 10;
+	output.Duration = max( 20, min(150, (int)(( 5.0 + (input.DEX/30.0) * 2.0 ) * 10.0)));
+	output.Delay = 6;
+
+	// output.Damage = min(200,140 + (input.STR/5) + (min(input.Range,10)*5));
+	// output.Range = 60 + (min(input.Range,10)*3);
+	// output.Duration = 18;
+	// output.Delay = 70;
 }
+
 void FireMeteor::computeOutput(const SkillInput& input, SkillOutput& output)
 {
 	output.Damage = 250 + (input.INTE/50) + min(input.Range,10);
