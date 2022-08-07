@@ -17,38 +17,32 @@
 class EffectPenetrateWheel : public Effect 
 {
 public:
-	EffectPenetrateWheel(Zone* pZone, ZoneCoord_t zoneX, ZoneCoord_t zoneY) ;
+	EffectPenetrateWheel(Creature* pCreature);
 
 public:
-    EffectClass getEffectClass() const throw() { return EFFECT_CLASS_PROMINENCE; }
+  EffectClass getEffectClass() const { return EFFECT_CLASS_Penetrate_Wheel; }
 
 	void affect() ;
+	void affect(Creature* pCreature);
+
 	void unaffect() ;
-	string toString() const throw();
+	void unaffect(Creature* pCreature);
+	string toString() const;
 
 public:
+	void		setCasterID( ObjectID_t objectID ) { m_CasterID = objectID; }
+	ObjectID_t	getCasterID() const { return m_CasterID; }
+
 	int getDamage(void) const { return m_Damage; }
 	void setDamage(int damage) { m_Damage = damage; }
 
-	Turn_t getTick() const { return m_Tick; }
-	void setTick(Turn_t Tick) { m_Tick = Tick; }
-
-	int getLevel(void) const { return m_Level; }
-	void setLevel(int level) { m_Level = level; }
-
-	void setForce( bool force ) { m_bForce = force; }
-	bool isForce() const { return m_bForce; }
-
-	ObjectID_t getUserObjectID() const { return m_UserObjectID; }
-	void setUserObjectID( ObjectID_t UserObjectID ) { m_UserObjectID = UserObjectID; }
+	bool		canSteal() const { return m_CanSteal; }
+	void		setSteal(bool steal) { m_CanSteal = steal; }
 
 private:
-	int     m_Damage;
-	Turn_t  m_Tick;
-	int     m_Level;
-	bool	m_bForce;
-
-	ObjectID_t	m_UserObjectID;
+	ObjectID_t	m_CasterID;
+	Damage_t	m_Damage;
+	bool		m_CanSteal;
 };
 
 #endif // __EFFECT_Penetrate_Wheel__
