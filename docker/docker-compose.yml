@@ -14,7 +14,7 @@ services:
       - odk-network
 
   odk-server:
-    image: darkeden
+    image: darkeden:latest
     build:
       context: ..
       dockerfile: Dockerfile
@@ -24,10 +24,10 @@ services:
       - "9998:9998"
       - "9997:9997"
       - "9997:9997/udp"
-    volumes:
-      - ../bin/:/home/darkeden/vs/bin/
-      - ./conf/:/home/darkeden/vs/conf/
-      - ../data/:/home/darkeden/vs/data/
+    # volumes:
+    #   - ../bin/:/home/darkeden/vs/bin/
+    #   - ./conf/:/home/darkeden/vs/conf/
+    #   - ../data/:/home/darkeden/vs/data/
     networks:
       - odk-network
 
