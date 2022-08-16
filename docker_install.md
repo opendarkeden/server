@@ -56,7 +56,7 @@ TODO
 
 If you want to run server on one machine, and client on the other, you need to modify mysql `DARKEDEN.GameServerInfo` table and restart server.
 
-### Packet the binary/config/data files into docker image
+### Pack the binary/config/data files into docker image
 
 ```sh
 docker build . -t darkeden:latest -f Dockerfile.pub
