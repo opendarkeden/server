@@ -14,7 +14,7 @@ services:
       - odk-network
 
   odk-server:
-    image: darkeden:latest
+    image: tiancaiamao/darkeden:latest
     build:
       context: ..
       dockerfile: Dockerfile

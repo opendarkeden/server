@@ -1035,42 +1035,38 @@ void setOptionTypeFromField(list<OptionType_t>& optionTypes, const string& optio
 {
 	if (optionField.empty()) return;
 
-	//cout << "setOptionType: " << optionField.c_str() << " --> ";
-
 	const char* pOptionField = optionField.c_str();
-	unsigned char ch;
-	while (ch=*pOptionField++)
-	{
-		optionTypes.push_back( (OptionType_t)ch );
-		//cout << (int)ch << " ";
-	}
-	//cout << endl;
+	  const char *sep = " ";
+	  char *s = new char[optionField.size()+1];
+	  strcpy(s,optionField.c_str());
+	  char *p;
+	  int aa;
+	  p = strtok(s, sep);
+	  while(p)
+	 {
+		aa = atoi(p);
+	   optionTypes.push_back( (OptionType_t)aa );
+	    p = strtok(NULL, sep);
+	  }
 }
+
 
 void setOptionTypeToField(const list<OptionType_t>& optionTypes, string& optionField)
 {
 	if (optionTypes.empty()) return;
 
-	//cout << "setOptionType: ";
-	unsigned char ch;
-
+	int ch;
+	char string[128];
 	list<OptionType_t>::const_iterator itr;
 	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 	{
-		ch = *itr;
-
-		// 특수~문자인 경우에는 이거 해줘야된당.
-		if (ch=='\'' || ch=='\\')
-		{
-			optionField += '\\';
+		if (itr != optionTypes.begin()) {
+		    optionField += " ";
 		}
-
-		optionField += ch;
-
-		//cout << (int)ch << " ";
+		ch = *itr;
+ 		sprintf(string, "%d", ch);
+		optionField += string;
 	}
-
-	//cout << " --> " << optionField.c_str() << endl;
 }
 
 string getOptionTypeToString(const list<OptionType_t>& optionTypes)
@@ -1085,10 +1081,12 @@ string getOptionTypeToString(const list<OptionType_t>& optionTypes)
 	list<OptionType_t>::const_iterator itr;
 	for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 	{
+		if (itr != optionTypes.begin()) {
+			optionField += " ";
+		}
 		ch = *itr;
 		sprintf(str, "%d", (int)ch);
 		optionField += str;
-		optionField += " ";
 	}
 
 	return optionField;
