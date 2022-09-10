@@ -11286,7 +11286,7 @@ CREATE TABLE `VampireWeaponObject` (
   `X` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `Y` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `OptionType` varchar(10) NOT NULL DEFAULT '',
-  `Durability` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `Durability` mediumint(6) unsigned NOT NULL DEFAULT '0',
   `EnchantLevel` smallint(5) unsigned NOT NULL DEFAULT '0',
   `ItemFlag` tinyint(4) NOT NULL DEFAULT '0',
   `Grade` smallint(5) unsigned NOT NULL DEFAULT '6',

@@ -26,10 +26,9 @@ Third, build the darkeden server binary files
 make
 ```
 
-and you can add `-j 8` to the `make` command.
+and you can add `-j 8` to the `make` command to accelerate the building process if you're using a 8-core machine.
 
-When the build process finish, you can exit docker, and you can see loginserver/sharedserver/gameserver in the bin/ directory.
-
+When the build process finish, exit docker, and loginserver/sharedserver/gameserver are generated in the bin/ directory.
 
 ## Run the binary (development mode)
 
