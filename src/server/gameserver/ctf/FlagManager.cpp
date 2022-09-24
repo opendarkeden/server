@@ -80,7 +80,7 @@ void FlagManager::addPoleField( Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, 
 	Assert( isValidZoneCoord( pZone, left+width, top+height ) );
 
 	NPCInfo* pNPCInfo = new NPCInfo();
-	pNPCInfo->setName( "标记" );
+	pNPCInfo->setName( "Flag Pole" );
 	pNPCInfo->setNPCID( type );
 	pNPCInfo->setX( left );
 	pNPCInfo->setY( top );
@@ -90,7 +90,7 @@ void FlagManager::addPoleField( Zone* pZone, ZoneCoord_t left, ZoneCoord_t top, 
 	for ( uint i=0; i<width; ++i )
 	for ( uint j=0; j<height; ++j )
 	{
-		MonsterCorpse* pFlagPole = new MonsterCorpse( type, "标记", 2 );
+		MonsterCorpse* pFlagPole = new MonsterCorpse( type, "Flag Pole", 2 );
 		Assert( pFlagPole != NULL );
 
 		pFlagPole->setZone( pZone );
