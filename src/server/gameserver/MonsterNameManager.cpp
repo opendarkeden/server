@@ -201,7 +201,7 @@ string MonsterNameManager::getRandomName(Monster* pMonster)
 		short nMiddleNameIndex = -1;
 		short nLastNameIndex   = -1;
 
-		nLastNameIndex   = rand()%m_nLastNameCount;
+		nMiddleNameIndex   = rand()%m_nMiddleNameCount;
 
 		/*
 		if (0 < MonsterLevel && MonsterLevel <= 33)
