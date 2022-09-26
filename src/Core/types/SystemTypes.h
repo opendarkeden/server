@@ -110,7 +110,7 @@ enum WorldStatus
 	WORLD_CLOSE	
 };
 
-typedef unsigned long IP_t;
+typedef unsigned int IP_t;
 const uint szIP = sizeof(IP_t);
 
 typedef BYTE WorldID_t;
