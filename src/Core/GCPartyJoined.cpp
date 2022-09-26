@@ -190,25 +190,13 @@ string GCPartyJoined::toString () const
 	for (; itr != m_MemberInfoList.end(); itr++)
 	{
 		PARTY_MEMBER_INFO* pInfo = (*itr);
-		msg << "("
-			<< pInfo->name
-			<< "),";
-	}
-
-	/*
-	list<PARTY_MEMBER_INFO*>::const_iterator itr = m_MemberInfoList.begin();
-	for (; itr != m_MemberInfoList.end(); itr++)
-	{
-		PARTY_MEMBER_INFO* pInfo = (*itr);
 		msg << "Element("
 			<< "Name:"       << pInfo->name
 			<< ",Sex:"       << (int)pInfo->sex
 			<< ",HairStyle:" << (int)pInfo->hair_style
-			<< ",MainColor:" << (int)pInfo->main_color
-			<< ",SubColor:"  << (int)pInfo->sub_color 
+			<< ",IP:"  << (int)pInfo->ip
 			<< "),";
 	}
-	*/
 
 	msg << ")";
 	return msg.toString();

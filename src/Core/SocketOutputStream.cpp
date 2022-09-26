@@ -145,7 +145,7 @@ void SocketOutputStream::writePacket ( const Packet * pPacket )
 	m_Sequence++;
 	
 	// Now, the packet body is used as the output buffer.
-	cout<<"Send:" << packetID << " " <<pPacket->toString() <<endl;
+	cout<<"Send:" << packetID << "[" << packetSize << "," << (m_Sequence-1) << "]" << " " <<pPacket->toString() <<endl;
 	Assert(packetID != 0);
 
 	uint l1 = length();
