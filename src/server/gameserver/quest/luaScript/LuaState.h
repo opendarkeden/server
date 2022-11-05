@@ -10,8 +10,9 @@
 
 extern "C" 
 {
-	#include "lua.h"
-	#include "lualib.h"
+	#include <lua5.1/lua.h>
+	#include <lua5.1/lualib.h>
+	#include <lua5.1/lauxlib.h>
 }
 
 
@@ -28,7 +29,7 @@ public :
 	virtual void	release();
 
 	lua_State* 		getState() const	{ return m_pState; }
-	int				dofile(const string& filename) ;
+	int				dofile(const string& filename);
 
 
 	static bool		isError(int result)	{ return result!=0; }

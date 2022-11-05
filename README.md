@@ -13,24 +13,21 @@ The development environment is Ubuntu 20.04, other linux release should also wor
 ### dependency
 
 - libmysqlclient-dev 5.7
-- lua 4.0
+- lua 5.1
 - xerces-c 3.2.3
 
-lua 4.0 has to be download from the internet, other dependencies can be installed using `apt`.
+All the dependencies can be installed using `apt`.
+
+```
+sudo apt install \
+    libxerces-c-dev \
+    libmysqlclient-dev \
+    liblua5.1-dev
+```
 
 ### compile
 
-If your head file are not in the standard path, specify the include path like this:
-
-```
-export CPLUS_INCLUDE_PATH=/path/to/your/lua-4.0.1/include:$CPLUS_INCLUDE_PATH
-// export CPLUS_INCLUDE_PATH=/path/to/your/xerces-c-3.2.3/xerces-c-3.2.3/src/:$CPLUS_INCLUDE_PATH
-
-export LIBRARY_PATH=/path/to/your/lua-4.0.1/lib/:$LIBRARY_PATH
-// export LIBRARY_PATH=/path/to/your/xerces-c-3.2.3/xerces-c-3.2.3/src/.libs/:$LIBRARY_PATH
-```
-
-And then compile is easy, just call:
+Compile is easy, just call:
 
 	make
 
