@@ -1,0 +1,10 @@
+#!/bin/sh
+luac -o TestServerRewardCommon.luc TestServerRewardCommon.lua
+luac -o TestServerRewardSlayer.luc TestServerRewardSlayer.lua
+luac -o TestServerRewardVampire.luc TestServerRewardVampire.lua
+luac -o premiumEventItemCommon.luc premiumEventItemCommon.lua
+luac -o premiumEventItemSlayer.luc premiumEventItemSlayer.lua
+luac -o premiumEventItemVampire.luc premiumEventItemVampire.lua
+luac -o xmasEventCommon.luc xmasEventCommon.lua
+luac -o xmasEventSlayer.luc xmasEventSlayer.lua
+luac -o xmasEventVampire.luc xmasEventVampire.lua

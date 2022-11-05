@@ -22,11 +22,15 @@ LuaState::~LuaState() {
 void LuaState::init(int stackSize) {
 	open(stackSize);
 
-	// 모든 lib를 load한다.. 
-	baselibopen();
-	mathlibopen();
-	strlibopen();
-	iolibopen();
+	// load all libs.
+	luaL_openlibs(m_pState);
+
+	// This is the old lua4.x API
+	// lua5.1 doesn't need the following lines, otherwise it get PANIC: unprotected error in call to Lua API
+	// baselibopen();
+	// mathlibopen();
+	// strlibopen();
+	// iolibopen();
 
 	randomseed();
 }
@@ -47,7 +51,7 @@ void LuaState::release() {
 int LuaState::dofile(const string& filename) {
 	__BEGIN_TRY
 
-	return luaL_loadfile(m_pState, filename.c_str());
+	return luaL_dofile(m_pState, filename.c_str());
 
 	__END_CATCH
 }
