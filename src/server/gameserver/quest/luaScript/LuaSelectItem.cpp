@@ -14,7 +14,7 @@ LuaSelectItem::executeFile(const string& filename)
 {
 	__BEGIN_TRY
 
-	int result = lua_dofile(m_pState->getState(), filename.c_str());
+	int result = luaL_dofile(m_pState->getState(), filename.c_str());
 
 	lua_getglobal(m_pState->getState(), "ItemClass");
 	lua_getglobal(m_pState->getState(), "ItemType");
