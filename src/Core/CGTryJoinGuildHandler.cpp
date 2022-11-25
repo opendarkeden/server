@@ -66,7 +66,7 @@ void CGTryJoinGuildHandler::execute (CGTryJoinGuild* pPacket , Player* pPlayer)
 	{
 		// 다른 길드 소속인지 체크
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN" )->createStatement();
-		pResult = pStmt->executeQuery("SELECT GuildID, ExpireDate,Rank FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str());
+		pResult = pStmt->executeQuery("SELECT GuildID, ExpireDate,`Rank` FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str());
 
 		/*
 		if (pResult->getRowCount() == 0 )

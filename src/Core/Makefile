@@ -599,7 +599,7 @@ SS_PACKET_LIB  = $(LIBDIR)/libSharedServerPackets.a
 # Packet Library for GameServer
 #----------------------------------------------------------------------
 GS_PACKET_OBJS = PacketFactoryManager.gs.o PacketIDSet.gs.o PacketValidator.gs.o
-GS_LIB_OBJS := $(CG_PACKET_SRC:.cpp=.o) $(GC_PACKET_SRC:.cpp=.o) $(SG_PACKET_SRC:.cpp=.o) $(GS_PACKET_SRC:.cpp=.o) $(LG_PACKET_SRC:.cpp=.o) $(GL_PACKET_SRC:.cpp=.o) $(CG_HANDLER_SRC:.cpp=.gs.o) $(GC_HANDLER_SRC:.cpp=.gs.o) $(GS_HANDLER_SRC:.cpp=.gs.o) $(GL_HANDLER_SRC:.cpp=.gs.o) $(GS_PACKET_OBJS)
+GS_LIB_OBJS := $(CG_PACKET_SRC:.cpp=.gs.o) $(GC_PACKET_SRC:.cpp=.gs.o) $(SG_PACKET_SRC:.cpp=.gs.o) $(GS_PACKET_SRC:.cpp=.o) $(LG_PACKET_SRC:.cpp=.gs.o) $(GL_PACKET_SRC:.cpp=.o) $(CG_HANDLER_SRC:.cpp=.gs.o) $(GC_HANDLER_SRC:.cpp=.gs.o) $(GS_HANDLER_SRC:.cpp=.gs.o) $(GL_HANDLER_SRC:.cpp=.gs.o) $(GS_PACKET_OBJS)
 GS_PACKET_LIB  = $(LIBDIR)/libGameServerPackets.a
 
 

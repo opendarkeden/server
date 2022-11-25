@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y \
     libxerces-c-dev \
     libmysqlclient-dev \
+    liblua5.1-dev \
     psmisc \
     && rm -rf /var/lib/apt/lists/*
 

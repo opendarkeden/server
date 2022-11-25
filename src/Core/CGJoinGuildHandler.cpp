@@ -58,7 +58,7 @@ void CGJoinGuildHandler::execute (CGJoinGuild* pPacket , Player* pPlayer)
 		// 그런 이유로 에러메시지를 클라이언트로 보내지 않는다.
 		// 다른 길드 소속인지 체크
 		pStmt = g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
-		pResult = pStmt->executeQuery( "SELECT GuildID, Rank, ExpireDate FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str() );
+		pResult = pStmt->executeQuery( "SELECT GuildID, `Rank`, ExpireDate FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str() );
 
 		if ( pResult->next() )
 		{
