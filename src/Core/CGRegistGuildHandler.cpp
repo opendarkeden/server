@@ -108,7 +108,7 @@ void CGRegistGuildHandler::execute (CGRegistGuild* pPacket , Player* pPlayer)
 		}
 		
 		// 다른 길드 소속인지 체크
-		pResult = pStmt->executeQuery( "SELECT Rank, ExpireDate FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str() );
+		pResult = pStmt->executeQuery( "SELECT `Rank`, ExpireDate FROM GuildMember WHERE Name = '%s'", pCreature->getName().c_str() );
 
 		if ( pResult->next() )
 		{
