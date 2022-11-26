@@ -5,14 +5,36 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "SacredStamp.h"
-#include "SimpleMissileSkill.h"
+#include "SimpleTileMissileSkill.h"
 #include "RankBonus.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // 슬레이어 오브젝트 핸들러
 //////////////////////////////////////////////////////////////////////////////
-void SacredStamp::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
+void SacredStamp::execute(Slayer* pSlayer, ObjectID_t targetObjectID, SkillSlot * pSkillSlot, CEffectID_t CEffectID)	
+{
+
+	__BEGIN_TRY
+
+	Zone* pZone = pSlayer->getZone();
+	Assert(pZone != NULL);
 	
+	Creature* pTargetCreature = pZone->getCreature(targetObjectID);
+	//Assert(pTargetCreature != NULL);
+
+	// NoSuch제거. by sigi. 2002.5.2
+	if (pTargetCreature==NULL)
+	{
+		executeSkillFailException(pSlayer, getSkillType());
+		return;
+	}
+
+	execute( pSlayer, pTargetCreature->getX(), pTargetCreature->getY(), pSkillSlot, CEffectID );
+
+	__END_CATCH
+}
+
+void SacredStamp::execute(Slayer * pSlayer, ZoneCoord_t X, ZoneCoord_t Y, SkillSlot * pSkillSlot, CEffectID_t CEffectID)
 {
 	__BEGIN_TRY
 
@@ -31,8 +53,14 @@ void SacredStamp::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot 
 	param.DEXMultiplier = 1;
 	param.INTMultiplier = 8;
 	param.bMagicHitRoll = true;
-	param.bMagicDamage  = false;
+	param.bMagicDamage  = true;
 	param.bAdd          = false;
+
+	for ( int i=-2; i<=2; ++i )
+	for ( int j=-2; j<=2; ++j )
+	{
+		param.addMask(i, j, 100);
+	}
 
 	SIMPLE_SKILL_OUTPUT result;
 
@@ -45,7 +73,7 @@ void SacredStamp::execute(Slayer* pSlayer, ObjectID_t TargetObjectID, SkillSlot 
 		param.SkillDamage += pRankBonus->getPoint();
 	}
 
-	g_SimpleMissileSkill.execute(pSlayer, TargetObjectID, pSkillSlot, param, result);
+	g_SimpleTileMissileSkill.execute(pSlayer, X, Y, pSkillSlot, param, result);
 
 	//cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(slayer)" << endl;
 
