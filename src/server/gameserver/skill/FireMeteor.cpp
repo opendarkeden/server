@@ -8,206 +8,99 @@
 #include "RankBonus.h"
 #include "EffectFireMeteor.h"
 #include "SkillUtil.h"
-#include "GCSkillToObjectOK1.h"
-#include "GCSkillToObjectOK2.h"
-#include "GCSkillToObjectOK3.h"
-#include "GCSkillToObjectOK4.h"
-#include "GCSkillToObjectOK5.h"
-#include "GCSkillToObjectOK6.h"
+#include "SimpleTileMissileSkill.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// æ∆øÏΩ∫≈Õ¡Ó ø¿∫Í¡ß∆Æ «⁄µÈ∑Ø
+// ¬æ√Ü¬ø√¨¬Ω¬∫√Ö√ç√Å√Æ ¬ø√Ä¬∫√™√Å¬ß√Ü¬Æ √á√ö¬µ√©¬∑¬Ø
 //////////////////////////////////////////////////////////////////////////////
 void FireMeteor::execute(Ousters* pOusters, ObjectID_t TargetObjectID, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
-	
 {
-	__BEGIN_TRY
+  __BEGIN_TRY
 
-	Assert(pOusters != NULL);
-	Assert(pOustersSkillSlot != NULL);
+    //cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " End(vampire)" << endl;
 
-	try 
+    Assert(pOusters != NULL);
+  Assert(pOustersSkillSlot != NULL);
+
+  try
+    {
+      Zone* pZone = pOusters->getZone();
+      Assert(pZone != NULL);
+
+      Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
+      //Assert(pTargetCreature != NULL);
+
+      // NoSuch¡¶∞≈. by sigi. 2002.5.2
+      if (pTargetCreature==NULL
+	  || !canAttack( pOusters, pTargetCreature )
+	  )
 	{
-		Player* pPlayer = pOusters->getPlayer();
-		Zone* pZone = pOusters->getZone();
-		Assert(pPlayer != NULL);
-		Assert(pZone != NULL);
-
-		Item* pWeapon = pOusters->getWearItem( Ousters::WEAR_RIGHTHAND );
-		if (pWeapon == NULL || pWeapon->getItemClass() != Item::ITEM_CLASS_OUSTERS_WRISTLET || !pOusters->isRealWearingEx(Ousters::WEAR_RIGHTHAND))
-		{
-			executeSkillFailException(pOusters, pOustersSkillSlot->getSkillType());
-			return;
-		}
-
-		Creature* pTargetCreature = pZone->getCreature(TargetObjectID);
-		SkillType_t SkillType = pOustersSkillSlot->getSkillType();
-
-		// NPC¥¬ ∞¯∞›«“ ºˆ∞° æ¯¥Ÿ.
-		if (pTargetCreature==NULL
-			|| !canAttack( pOusters, pTargetCreature )
-			|| pTargetCreature->isNPC())
-		{
-			executeSkillFailException(pOusters, SkillType);
-			return;
-		}
-
-		GCSkillToObjectOK1 _GCSkillToObjectOK1;
-		GCSkillToObjectOK2 _GCSkillToObjectOK2;
-		GCSkillToObjectOK3 _GCSkillToObjectOK3;
-		GCSkillToObjectOK4 _GCSkillToObjectOK4;
-		GCSkillToObjectOK5 _GCSkillToObjectOK5;
-		GCSkillToObjectOK6 _GCSkillToObjectOK6;
-
-		SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo(SkillType);
-
-		
-		int HitBonus = 0;
-		/*
-		if ( pOusters->hasRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID ) )
-		{
-			RankBonus* pRankBonus = pOusters->getRankBonus( RankBonus::RANK_BONUS_KNOWLEDGE_OF_ACID );
-			Assert( pRankBonus != NULL );
-
-			HitBonus = pRankBonus->getPoint();
-		}
-		*/
-
-
-		int  RequiredMP  = (int)(pSkillInfo->getConsumeMP() + pOustersSkillSlot->getExpLevel()/3);
-		bool bManaCheck  = hasEnoughMana(pOusters, RequiredMP);
-		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
-		bool bRangeCheck = verifyDistance(pOusters, pTargetCreature, pSkillInfo->getRange());
-		bool bHitRoll    = HitRoll::isSuccessMagic(pOusters, pSkillInfo, pOustersSkillSlot, HitBonus);
-		bool bCanHit     = canHit(pOusters, pTargetCreature, SkillType);
-		bool bPK         = verifyPK(pOusters, pTargetCreature);
-		bool bEffect	 = pTargetCreature->isFlag( Effect::EFFECT_CLASS_Fire_Meteor );
-
-		if (bManaCheck && bTimeCheck && bRangeCheck && bHitRoll && bCanHit && bPK && !bEffect)
-		{
-			ZoneCoord_t oustX   = pOusters->getX();
-			ZoneCoord_t oustY   = pOusters->getY();
-			ZoneCoord_t targetX = pTargetCreature->getX();
-			ZoneCoord_t targetY = pTargetCreature->getY();
-
-			decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
-			bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
-
-			SkillInput input(pOusters, pOustersSkillSlot);
-			SkillOutput output;
-			computeOutput(input, output);
-
-			Damage_t Damage = output.Damage;
-
-			OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_Fire_Meteor );
-			if ( pMastery != NULL )
-			{
-				Damage += ( pMastery->getExpLevel() * 5 / 3 ) + 15;
-			}
-			else
-			{
-				bool dummy;
-				computeCriticalBonus(pOusters, getSkillType(), Damage, dummy);
-			}
-
-			EffectFireMeteor* pEffect = new EffectFireMeteor( pTargetCreature );
-			pEffect->setDamage( computeOustersMagicDamage( pOusters, pTargetCreature, Damage, SKILL_Fire_Meteor ) );
-
-			int spearNum = 2;
-
-			if ( pOustersSkillSlot->getExpLevel() <= 15 )
-				spearNum = 2;
-			else if ( pOustersSkillSlot->getExpLevel() < 30 )
-				spearNum = 4;
-			else if ( pOustersSkillSlot->getExpLevel() == 30 )
-				spearNum = 6;
-
-			int Grade = spearNum/2 - 1;
-
-			if ( pMastery != NULL ) 
-			{
-				spearNum = 1;
-				Grade = 4;
-				output.Delay = 20;
-			}
-
-			pEffect->setTimes(spearNum);
-			pEffect->setTick(5);
-			pEffect->setNextTime(5);
-			pEffect->setCasterOID( pOusters->getObjectID() );
-
-			pTargetCreature->addEffect( pEffect );
-			pTargetCreature->setFlag( pEffect->getEffectClass() );
-
-			_GCSkillToObjectOK1.setSkillType(SkillType);
-			_GCSkillToObjectOK1.setCEffectID(CEffectID);
-			_GCSkillToObjectOK1.setTargetObjectID(TargetObjectID);
-			_GCSkillToObjectOK1.setDuration(0);
-			_GCSkillToObjectOK1.setGrade(Grade);
-		
-			_GCSkillToObjectOK2.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK2.setSkillType(SkillType);
-			_GCSkillToObjectOK2.setDuration(0);
-			_GCSkillToObjectOK2.setGrade(Grade);
-			
-			_GCSkillToObjectOK3.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK3.setSkillType(SkillType);
-			_GCSkillToObjectOK3.setTargetXY(targetX, targetY);
-			_GCSkillToObjectOK3.setGrade(Grade);
-		
-			_GCSkillToObjectOK4.setSkillType(SkillType);
-			_GCSkillToObjectOK4.setTargetObjectID(TargetObjectID);
-			_GCSkillToObjectOK4.setGrade(Grade);
-
-			_GCSkillToObjectOK5.setObjectID(pOusters->getObjectID());
-			_GCSkillToObjectOK5.setTargetObjectID(TargetObjectID);
-			_GCSkillToObjectOK5.setSkillType(SkillType);
-			_GCSkillToObjectOK5.setGrade(Grade);
-			
-			_GCSkillToObjectOK6.setXY(oustX, oustY);
-			_GCSkillToObjectOK6.setSkillType(SkillType);
-			_GCSkillToObjectOK6.setDuration(0);
-			_GCSkillToObjectOK6.setGrade(Grade);
-
-			pPlayer->sendPacket(&_GCSkillToObjectOK1);
-		
-			Player* pTargetPlayer = NULL;
-			if (pTargetCreature->isPC()) 
-			{
-				pTargetPlayer = pTargetCreature->getPlayer();
-				Assert(pTargetPlayer != NULL);
-				if (bCanSeeCaster) pTargetPlayer->sendPacket(&_GCSkillToObjectOK2);
-				else pTargetPlayer->sendPacket(&_GCSkillToObjectOK6);
-			} 
-			else 
-			{
-				Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
-				pMonster->addEnemy(pOusters);
-			}
-
-			list<Creature*> cList;
-			cList.push_back(pOusters);
-			cList.push_back(pTargetCreature);
-
-			cList = pZone->broadcastSkillPacket(oustX, oustY, targetX, targetY, &_GCSkillToObjectOK5, cList);
-			
-			pZone->broadcastPacket(oustX, oustY,  &_GCSkillToObjectOK3 , cList);
-			pZone->broadcastPacket(targetX, targetY,  &_GCSkillToObjectOK4 , cList);
-
-			pOustersSkillSlot->setRunTime(output.Delay);
-
-		}
-		else 
-		{
-			executeSkillFailNormal(pOusters, getSkillType(), pTargetCreature);
-		}
-	} 
-	catch (Throwable & t) 
-	{
-		executeSkillFailException(pOusters, getSkillType());
+	  executeSkillFailException(pOusters, getSkillType());
+	  return;
 	}
 
-	__END_CATCH
+      execute(pOusters, pTargetCreature->getX(), pTargetCreature->getY(), pOustersSkillSlot, CEffectID);
+    } 
+  catch (Throwable & t) 
+    {
+      executeSkillFailException(pOusters, getSkillType());
+    }
+
+  __END_CATCH
+    return;
 }
+
+void FireMeteor::execute(Ousters* pOusters, ZoneCoord_t X, ZoneCoord_t Y, OustersSkillSlot* pOustersSkillSlot, CEffectID_t CEffectID)
+{
+  __BEGIN_TRY
+
+    //cout << "TID[" << Thread::self() << "]" << getSkillHandlerName() << " Begin(vampire)" << endl;
+
+    SkillInput input(pOusters, pOustersSkillSlot);
+  SkillOutput output;
+  computeOutput(input, output);
+
+  if (pOusters->hasRankBonus(RankBonus::RANK_BONUS_FIRE_ENDOW ) )
+    {
+      RankBonus* pRankBonus = pOusters->getRankBonus(RankBonus::RANK_BONUS_FIRE_ENDOW);
+      Assert( pRankBonus != NULL );
+      output.Damage += pRankBonus->getPoint();
+    }
+  // if (pOusters->hasRankBonus(RankBonus::RANK_BONUS_FIRE_OF_SPIRIT ) )
+  //   {
+  //     NewRankGem* pRankBonus = pOusters->getRankBonus(RankBonus::RANK_BONUS_FIRE_OF_SPIRIT);
+  //     Assert( pRankBonus != NULL );
+
+  //     bool isCri = HitRoll::isCriticalHit(pOusters, 200);
+  //     if(isCri)
+  // 	output.Damage += output.Damage*0.5;
+  //   }
+
+
+  SIMPLE_SKILL_INPUT param;
+  param.SkillType     = getSkillType();
+  param.SkillDamage   = output.Damage;
+  param.Delay         = output.Delay;
+  param.ItemClass     = Item::ITEM_CLASS_OUSTERS_WRISTLET;
+  param.STRMultiplier = 0;
+  param.DEXMultiplier = 0;
+  param.INTMultiplier = 0;
+  param.bMagicHitRoll = true;
+  param.bMagicDamage  = true;
+  param.bAdd          = false;
+  param.Grade			= 0;
+
+  SIMPLE_SKILL_OUTPUT result;
+
+  int diff =2;
+
+  for ( int i=-diff; i<=diff; ++i )
+    for ( int j=-diff; j<=diff; ++j )
+      param.addMask( i, j, 100 );
+
+  return g_SimpleTileMissileSkill.execute(pOusters, X, Y, pOustersSkillSlot, param, result, CEffectID);
+
+  __END_CATCH
+    }
 
 FireMeteor g_FireMeteor;
