@@ -46,7 +46,8 @@ create database DARKEDEN;
 create database USERINFO;
 ```
 
-Make sure the `sql_mode` allow [zero date time](https://github.com/opendarkeden/server/issues/5), remove the `NO_ZERO_DATE` from the `sql_mode`:
+Make sure the `sql_mode` allow [zero date time](https://github.com/opendarkeden/server/issues/5), remove the `NO_ZERO_DATE` from the `sql_mode`.
+And also remove the `STRICT_TRANS_TABLES` from it to workaround a guild related [issue](https://github.com/opendarkeden/server/issues/111) :
 
 ```
 mysql> select @@global.sql_mode;
@@ -57,7 +58,7 @@ mysql> select @@global.sql_mode;
 +-------------------------------------------------------------------------------------------------------------------------------------------+
 1 row in set (0.00 sec)
 
-mysql> set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+mysql> set @@global.sql_mode = 'ONLY_FULL_GROUP_BY,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 Query OK, 0 rows affected (0.02 sec)
 ```
 
