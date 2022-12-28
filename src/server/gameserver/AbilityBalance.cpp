@@ -231,7 +231,7 @@ ToHit_t computeToHit(Creature::CreatureClass CClass, BASIC_ATTR* pAttr, int enha
 			// 도메인 레벨에 의해서 보너스 포인트가 존재한다.
 			if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_SWORD)
 			{
-				toHit += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_SWORD]*1.5*10);
+				toHit += (int)(pAttr->pDomainLevel[SKILL_DOMAIN_SWORD]*1.5);
 			}
 			else if (pAttr->pWeapon->getItemClass() == Item::ITEM_CLASS_BLADE)
 			{
