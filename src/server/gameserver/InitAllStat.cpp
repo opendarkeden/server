@@ -4216,17 +4216,6 @@ void Ousters::initAllStat(int numPartyMember)
 		m_Resist[MAGIC_DOMAIN_BLOOD]     += ResistBonus;
 	}
 
-	if ( isFlag( Effect::EFFECT_CLASS_REACTIVE_ARMOR ) )
-	{
-		EffectReactiveArmor* pEffect = dynamic_cast<EffectReactiveArmor*>(findEffect(Effect::EFFECT_CLASS_REACTIVE_ARMOR));
-
-		if ( pEffect != NULL )
-		{
-			int bonus = pEffect->getBonus();
-			m_Protection[ATTR_CURRENT] += bonus;
-			m_Defense[ATTR_CURRENT] += bonus;
-		}
-	}
 	if (isFlag(Effect::EFFECT_CLASS_INTIMATE_GRAIL))
 	{
 		EffectIntimateGrail* pIntimateGrail = dynamic_cast<EffectIntimateGrail*>(findEffect(Effect::EFFECT_CLASS_INTIMATE_GRAIL));
@@ -4531,6 +4520,29 @@ void Ousters::initAllStat(int numPartyMember)
 		{
 			int bonus = pEffect->getBonus();
 			m_ToHit[ATTR_CURRENT] += getPercentValue( m_ToHit[ATTR_CURRENT], bonus );
+		}
+	}
+	if ( isFlag( Effect::EFFECT_CLASS_REACTIVE_ARMOR ) )
+	{
+		EffectReactiveArmor* pEffect = dynamic_cast<EffectReactiveArmor*>(findEffect(Effect::EFFECT_CLASS_REACTIVE_ARMOR));
+
+		if ( pEffect != NULL )
+		{
+		  bool unaffect = false;
+		  if (  getSkill( SKILL_REACTIVE_ARMOR ) != NULL ) {
+		    SkillInfo* pSkillInfo = g_pSkillInfoManager->getSkillInfo( SKILL_REACTIVE_ARMOR );
+		    if ( pSkillInfo != NULL && !satisfySkillRequire( pSkillInfo ) ) {
+		      unaffect = true;
+		    }
+		  }
+
+		  if ( unaffect ) {
+		        pEffect->setDeadline(0);
+		  } else {
+			int bonus = pEffect->getBonus();
+			m_Protection[ATTR_CURRENT] += bonus;
+			m_Defense[ATTR_CURRENT] += bonus;
+		  }
 		}
 	}
 
