@@ -196,18 +196,21 @@ void ReactiveArmor::execute(Ousters* pOusters, ObjectID_t TargetObjectID,  Ouste
 		{
 			decreaseMana(pOusters, RequiredMP, _GCSkillToObjectOK1);
 
-        	bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
+			bool bCanSeeCaster = canSee(pTargetCreature, pOusters);
+			uint damageReduce = 0;
 
 			OustersSkillSlot* pMastery = pOusters->hasSkill( SKILL_REACTIVE_ARMOR_MASTERY );
 			if ( pMastery != NULL )
 			{
 				output.Damage += 5 + (pMastery->getExpLevel()*2/5);
+				damageReduce = 20 + pMastery->getExpLevel();
 			}
 
 			// 이펙트 오브젝트를 생성해 붙인다.
 			EffectReactiveArmor* pEffect = new EffectReactiveArmor(pTargetCreature);
 			pEffect->setDeadline(output.Duration);
 			pEffect->setBonus(output.Damage);
+			pEffect->setDamageReduce(damageReduce);
 			pTargetCreature->addEffect(pEffect);
 			pTargetCreature->setFlag(Effect::EFFECT_CLASS_REACTIVE_ARMOR);
 
