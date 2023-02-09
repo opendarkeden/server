@@ -3169,7 +3169,7 @@ void IntimateGrail::computeOutput(const SkillInput& input, SkillOutput& output)
 
 void NooseOfWraith::computeOutput(const SkillInput& input, SkillOutput& output)
 {
-	output.Damage = 30 + (input.INTE/2);
+	output.Damage = min(30 + (input.INTE/3), 200);
 	output.Delay = 18;
 	output.Range = 7;
 }
@@ -3460,12 +3460,14 @@ void HeterChakram::computeOutput(const SkillInput& input, SkillOutput& output)
 	output.Duration = 18;
 	output.Delay = 70;
 }
+
 void SkyFire::computeOutput(const SkillInput& input, SkillOutput& output) 
 {
-	output.Damage = (20 + (input.STR/15) + (min(input.Range,10)*2))*3;
-	output.Delay = (4 - min(input.Range,10)/5)*10;
-	output.Duration = 20;//延时显示效果
+	output.Damage = 60 + (int)((input.Range - 1) / 10) * 10;
+	output.Duration = 0;
+	output.Delay = 4;
 }
+
 void CutStorm::computeOutput(const SkillInput& input, SkillOutput& output) 
 {
 	output.Damage = (20 + (input.STR/15) + (min(input.Range,10)*2))*3;
