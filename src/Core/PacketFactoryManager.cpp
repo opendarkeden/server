@@ -1199,7 +1199,7 @@ void PacketFactoryManager::init ()
 		addFactory(new GSAddGuildMemberFactory() );
 		addFactory( new GSQuitGuildFactory());
 
-		// addFactory( new GGGuildChatFactory() );
+		addFactory( new GGGuildChatFactory() );
 		addFactory( new GSRequestGuildInfoFactory() );
 		addFactory( new SGGuildInfoFactory() );
 

@@ -478,7 +478,8 @@ CG_PACKET_SRC :=  CGAbsorbSoul.cpp \
 	CGWithdrawTax.cpp
 
 S_HANDLER_SRC := GSAddGuildHandler.cpp  GSAddGuildMemberHandler.cpp  GSExpelGuildMemberHandler.cpp  GSGuildMemberLogOnHandler.cpp  \
-	GSModifyGuildIntroHandler.cpp GSModifyGuildMemberHandler.cpp  GSQuitGuildHandler.cpp  GSRequestGuildInfoHandler.cpp
+	GSModifyGuildIntroHandler.cpp GSModifyGuildMemberHandler.cpp  GSQuitGuildHandler.cpp  GSRequestGuildInfoHandler.cpp \
+	GGGuildChatHandler.cpp
 
 L_HANDLER_SRC := CLDeletePCHandler.cpp CLGetWorldListHandler.cpp  CLQueryCharacterNameHandler.cpp \
 	CLRegisterPlayerHandler.cpp  CLSelectWorldHandler.cpp              GLIncomingConnectionHandler.cpp \
@@ -591,7 +592,7 @@ LS_PACKET_LIB  = $(LIBDIR)/libLoginServerPackets.a
 #----------------------------------------------------------------------
 # Packet Library for SharedServer
 #----------------------------------------------------------------------
-SS_PACKET_OBJS = PacketFactoryManager.ss.o PacketIDSet.ss.o PacketValidator.ss.o
+SS_PACKET_OBJS = PacketFactoryManager.ss.o PacketIDSet.ss.o PacketValidator.ss.o GGGuildChat.ss.o
 SS_LIB_OBJS := $(SG_PACKET_SRC:.cpp=.o) $(GS_PACKET_SRC:.cpp=.o) $(S_HANDLER_SRC:.cpp=.ss.o) $(SS_PACKET_OBJS)
 SS_PACKET_LIB  = $(LIBDIR)/libSharedServerPackets.a
 
