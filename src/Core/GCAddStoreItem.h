@@ -20,7 +20,7 @@ class GCAddStoreItem : public Packet
 {
 public:
 	GCAddStoreItem()  { }
-	virtual ~GCAddStoreItem() ;
+	virtual ~GCAddStoreItem() noexcept ;
 
 public:
 	void read(SocketInputStream & iStream) ;

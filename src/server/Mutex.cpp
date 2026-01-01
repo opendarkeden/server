@@ -34,21 +34,20 @@ Mutex::Mutex ( MutexAttr * attr )
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-Mutex::~Mutex () 
+Mutex::~Mutex () noexcept
 {
-	__BEGIN_TRY
-
 	try 
 	{
 		pthreadAPI::pthread_mutex_destroy_ex( &m_Mutex );
 	} 
-	catch ( MutexException & me ) 
+	catch ( const MutexException & me ) 
 	{
 		cerr << me.toString() << endl;
-		throw Error(me.toString());
 	}
-	
-	__END_CATCH
+	catch (...)
+	{
+		// must not throw from destructor
+	}
 }
 
 

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPacketHandler.h
-// Desc		: ¸ðÆÛ½º ¿ë ÆÐÅ¶ ÇÚµé·¯
+// Desc		: ï¿½ï¿½ï¿½Û½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶ ï¿½Úµé·¯
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MPACKET_HANDLER_H__
@@ -16,6 +16,8 @@ class MPlayer;
 class MPacketHandler
 {
 public:
+	virtual ~MPacketHandler() = default;
+
 	virtual MPacketID_t getID() const = 0;
 
 	virtual void execute( MPlayer* pPlayer, MPacket* pPacket ) = 0;

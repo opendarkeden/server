@@ -8,6 +8,7 @@
 // include files
 #include "GCActiveGuildList.h"
 #include <list>
+#include <exception>
 
 //////////////////////////////////////////////////////////////////////
 // constructor
@@ -21,18 +22,21 @@ GCActiveGuildList::GCActiveGuildList()
 // constructor
 //////////////////////////////////////////////////////////////////////
 GCActiveGuildList::~GCActiveGuildList()
-	
-{
-	__BEGIN_TRY
-	
-	// ±æµå ¸®½ºÆ®ÀÇ ¸ðµç °´Ã¼¸¦ »èÁ¦
-	clearGuildInfoList();
 
-	__END_CATCH
+{
+	// Destructor must not throw; clear list defensively.
+	try
+	{
+		clearGuildInfoList();
+	}
+	catch (const std::exception&)
+	{
+		// Ignore to avoid std::terminate in noexcept destructor.
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::read (SocketInputStream & iStream ) 
 {
@@ -53,7 +57,7 @@ void GCActiveGuildList::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GCActiveGuildList::write (SocketOutputStream & oStream ) const 
 {
@@ -80,7 +84,7 @@ void GCActiveGuildList::clearGuildInfoList()
 {
 	__BEGIN_TRY
 
-	// GuildInfoList ¸¦ »èÁ¦ÇÑ´Ù
+	// GuildInfoList ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	while(!m_GuildInfoList.empty() )
 	{
 		GuildInfo* pGuildInfo = m_GuildInfoList.front();

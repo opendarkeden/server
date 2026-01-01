@@ -24,11 +24,9 @@ GCAddNewItemToZone::GCAddNewItemToZone()
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
-GCAddNewItemToZone::~GCAddNewItemToZone() 
-    
+GCAddNewItemToZone::~GCAddNewItemToZone() noexcept
 {
-	__BEGIN_TRY
-	__END_CATCH
+	// nothing to do
 }
 
 //////////////////////////////////////////////////////////////////////

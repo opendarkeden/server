@@ -21,7 +21,7 @@ typedef unordered_map< ZoneGroupID_t , UserInfo * > HashMapUserInfo;
 //
 // class UserInfoManager;
 //
-// Á¸±×·ì ¾ÆÀÌµð¸¦ Å°°ªÀ¸·Î ÇÏ´Â Á¸ Á¤º¸ÀÇ unordered_map À» °¡Áö°í ÀÖ´Ù.
+// ï¿½ï¿½ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unordered_map ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -30,31 +30,31 @@ class UserInfoManager {
 public :
 	
 	// constructor
-	UserInfoManager () throw ();
+	UserInfoManager () noexcept;
 	
 	// destructor
-	~UserInfoManager () throw ();
+	~UserInfoManager () noexcept;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init () noexcept(false);
 
 	// add info
-	void addUserInfo ( UserInfo * pUserInfo ) throw ( DuplicatedException );
+	void addUserInfo ( UserInfo * pUserInfo ) noexcept(false);
 	
 	// delete info
-	void deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
+	void deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) noexcept(false);
 	
 	// get info
-	UserInfo * getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const throw ( NoSuchElementException );
+	UserInfo * getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const noexcept(false);
 
 	// get count of info
-	uint getSize ( WorldID_t WorldID ) const throw () { return m_UserInfos[WorldID].size(); }
+	uint getSize ( WorldID_t WorldID ) const noexcept { return m_UserInfos[WorldID].size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const noexcept(false);
 
 	// load from database
-	void load () throw ( Error );
+	void load () noexcept(false);
 	
 private :
 	

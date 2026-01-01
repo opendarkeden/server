@@ -93,13 +93,9 @@ SocketImpl::SocketImpl ( const SocketImpl & impl )
 //     Error
 //
 ////////////////////////////////////////////////////////////////////////
-SocketImpl::~SocketImpl () 
+SocketImpl::~SocketImpl () noexcept
 {
-	__BEGIN_TRY 
-
 	close();
-	
-	__END_CATCH
 }
 	
 //////////////////////////////////////////////////////////////////////
@@ -274,7 +270,7 @@ uint SocketImpl::send ( const void * buf , uint len , uint flags )
 	} catch ( Throwable & t ) {
 		cout << "SocketImpl::send Exception Check!" << endl;
 		cout << t.toString() << endl;
-		throw InvalidProtocolException( "À½ ¿©±îÁö ¿Ã¶ó¿Ô±º" );
+		throw InvalidProtocolException( "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½Ô±ï¿½" );
 	}
 
 	return result;

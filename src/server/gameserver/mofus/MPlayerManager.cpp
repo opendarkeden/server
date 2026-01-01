@@ -31,12 +31,10 @@ MPlayerManager::MPlayerManager()
 }
 
 // destructor
-MPlayerManager::~MPlayerManager()
+MPlayerManager::~MPlayerManager() noexcept
 	
 {
-	__BEGIN_TRY
-
-	__END_CATCH
+	// no owning members to clean; keep noexcept
 }
 
 // stop thread. unsupport
@@ -76,25 +74,25 @@ void MPlayerManager::run()
 	{
 		usleep( 100 );
 
-		// ÇöÀç ÁøÇàÁßÀÎ Job È®ÀÎ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Job È®ï¿½ï¿½
 		if ( m_pCurrentJob == NULL )
 		{
 			m_pCurrentJob = popJob();
 		}
 
-		// ÇöÀç ÁøÇàÁßÀÎ Job ÀÌ ÀÖ´Ù¸é
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Job ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
 		if ( m_pCurrentJob != NULL )
 		{
-			// Mofus ¿Í ¿¬°áÇØ¼­ ÀÛ¾÷À» ÇÒ »õ Player¸¦ »ý¼º
+			// Mofus ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MPlayer* pPlayer = new MPlayer( m_pCurrentJob );
 
-			// ÆÄ¿öÆ÷ÀÎÆ® °¡Á®¿À±â ÀÛ¾÷ ÁøÇà
+			// ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 			pPlayer->process();
 
-			// °á°úÃ³¸®
+			// ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 			processResult();
 
-			// Player/Job »èÁ¦
+			// Player/Job ï¿½ï¿½ï¿½ï¿½
 			SAFE_DELETE( pPlayer );
 			SAFE_DELETE( m_pCurrentJob );
 		}
@@ -115,7 +113,7 @@ void MPlayerManager::run()
 
 void MPlayerManager::addJob( const string& userID, const string& name, const string& cellnum )
 {
-	// »õ job °´Ã¼¸¦ »ý¼º
+	// ï¿½ï¿½ job ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	MJob* pJob = new MJob( userID, name, cellnum );
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -145,7 +143,7 @@ MJob* MPlayerManager::popJob()
 
 void MPlayerManager::processResult()
 {
-	// »ç¿ëÀÚ Ã£±â
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
 	__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
 	Creature* pCreature = g_pPCFinder->getCreature_LOCKED( m_pCurrentJob->getName() );
@@ -155,7 +153,7 @@ void MPlayerManager::processResult()
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		Assert( pPC != NULL );
 
-		// ÆÄ¿öÆ÷ÀÎÆ®¸¦ ÇÃ·¹ÀÌ¾î¿¡ ¼¼ÆÃ
+		// ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ ï¿½ï¿½ï¿½ï¿½
 		pPC->setPowerPoint( loadPowerPoint( pPC->getName() ) );
 
 		GCRequestPowerPointResult gcRequestPowerPointResult;
@@ -202,7 +200,7 @@ void MPlayerManager::processResult()
 			}
 		}
 
-		// Å¬¶óÀÌ¾ðÆ®¿¡ ¾Ë¸®±â
+		// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½
 		pPC->getPlayer()->sendPacket( &gcRequestPowerPointResult );
 	}
 

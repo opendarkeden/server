@@ -2,8 +2,8 @@
 // Filename    : InventoryInfo.h 
 // Written By  : elca@ewestsoft.com
 // Description :
-// ÀÎº¥Åä¸® ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛµéÀÇ Á¤º¸ ¸®½ºÆ®ÀÌ´Ù.
-// ÀÎº¥Åä¸® ¾ÈÀÇ °¢°¢ÀÇ ¾ÆÀÌÅÛµé¿¡ ´ëÇÑ Á¤º¸´Â InventorySlotInfo¸¦ ÂüÁ¶.
+// ï¿½Îºï¿½ï¿½ä¸® ï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ì´ï¿½.
+// ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ûµé¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ InventorySlotInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __INVENTORY_INFO_H__
@@ -22,7 +22,7 @@ class InventoryInfo
 {
 public:
 	InventoryInfo () ;
-	~InventoryInfo () ;
+	~InventoryInfo () noexcept ;
 	
 public:
     void read (SocketInputStream & iStream) ;

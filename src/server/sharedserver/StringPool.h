@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////
 // Filename : StringPool.h
-// Desc     : ¼­¹ö³»¿¡¼­ »ç¿ëµÇ´Â string µéÀÇ pool
+// Desc     : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç´ï¿½ string ï¿½ï¿½ï¿½ï¿½ pool
 ////////////////////////////////////////////////////////////////////
 
 #ifndef __STRING_POOL_H__
@@ -35,18 +35,18 @@ public:
 	typedef StringHashMap::const_iterator	StringHashMapConstItor;
 
 public:
-	StringPool() throw(Error);
-	~StringPool() throw(Error);
+	StringPool() noexcept(false);
+	~StringPool() noexcept;
 
 public:
-	void clear() throw(Error);
-	void load() throw(Error);
+	void clear() noexcept(false);
+	void load() noexcept(false);
 
-	void addString( uint strID, string sString ) throw( DuplicatedException, Error );
+	void addString( uint strID, string sString ) noexcept(false);
 	
-	string getString( uint strID ) throw( NoSuchElementException, Error );
+	string getString( uint strID ) noexcept(false);
 
-	const char* c_str( uint strID ) throw( NoSuchElementException, Error );
+	const char* c_str( uint strID ) noexcept(false);
 
 private:
 	StringHashMap	m_Strings;

@@ -22,7 +22,7 @@ class Mutex
 {
 public:
 	Mutex ( MutexAttr * attr = NULL ) ;
-	virtual ~Mutex () ;
+	virtual ~Mutex () noexcept;
 
 public:
 	string getName(void) const { return m_Name; }
@@ -35,9 +35,9 @@ public:
 	pthread_mutex_t * getMutex () { return &m_Mutex; }
 
 private:
-	pthread_mutex_t 	m_Mutex; 		// ¹ÂÅØ½º °´Ã¼
-	string 				m_Name; 		// ÀÌ ¹ÂÅØ½º¸¦ ¼ÒÀ¯ÇÑ Å¬·¡½º ÀÌ¸§
-	int 				m_LockTID;		// ÇöÀç ¶ôÀ» °Ç ³ðÀÇ precoess id
+	pthread_mutex_t 	m_Mutex; 		// ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½Ã¼
+	string 				m_Name; 		// ï¿½ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	int 				m_LockTID;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ precoess id
 };
 
 #endif

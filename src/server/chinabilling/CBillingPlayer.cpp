@@ -115,7 +115,7 @@ void CBillingPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "ÀÌ»óÇÑ ÆÐÅ¶ÀÓ" );
+		throw DisconnectException( "ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½" );
 	}
 
 	__END_CATCH
@@ -128,14 +128,14 @@ void CBillingPlayer::processCommand()
 
 	try
 	{
-		// ÀÔ·Â ¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+		// ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 		while ( true )
 		{
-			// Çì´õ¸¦ ÀúÀåÇÒ ¹öÆÛ »ý¼º
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			CBillingPacketHeader header;
 
-			// ÀÏ´Ü Çì´õ¸¦ ÀÐ´Â´Ù. peek. ÀÔ·Â¹öÆÛ¿¡¼­ Áö¿ìÁö´Â ¾Ê´Â´Ù.
-			// Çì´õ°¡ ¿ÏÀüÇÏÁö ¾ÊÀ¸¸é ÆÐ½º
+			// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´Â´ï¿½. peek. ï¿½Ô·Â¹ï¿½ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
 			if ( !m_pInputStream->peek( (char*)&header, szCBillingPacketHeaderInfo ) )
 				return;
 
@@ -146,7 +146,7 @@ void CBillingPlayer::processCommand()
 			header.Body_Length = ntohl( header.Body_Length );
 
 			////////////////////////////////////////////////////////////////////////////////////
-			// Packet_Type, Method_Code, Return_Code ¿¡ µû¶ó ¹Ùµð°¡ ¿ÏÀüÈ÷ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÑ´Ù.
+			// Packet_Type, Method_Code, Return_Code ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 			////////////////////////////////////////////////////////////////////////////////////
 			if ( header.Packet_Type != CBILLING_PACKET_RESPONSE )
 			{
@@ -157,40 +157,40 @@ void CBillingPlayer::processCommand()
 
 				g_pCBillingPlayerManager->setForceDisconnect();
 				return;
-				// ¿¡·¯´Ù ³¶ÆÐ~
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½~
 			}
 
-			// ½ÇÆÐÀÏ °æ¿ì
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if ( header.Return_Code != CBILLING_RETURN_CODE_SUCCESS )
 			{
-				// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+				// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 				if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketErrorBodyInfo )
 					return;
 
-				// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				CBillingPacketErrorBody body;
 				header.read( *m_pInputStream );
 				body.read( *m_pInputStream );
 
 				executeError( header, body );
 			}
-			else // ¼º°øÀÏ °æ¿ì
+			else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			{
 				switch ( header.Method_Code )
 				{
 #ifdef __LOGIN_SERVER__
 				case CBILLING_METHOD_CODE_LOGIN :
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseLoginBodyInfo )
 							return;
 
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseLoginBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeLogin( header, body );
 
 						break;
@@ -198,80 +198,80 @@ void CBillingPlayer::processCommand()
 #elif defined(__GAME_SERVER__)
 				case CBILLING_METHOD_CODE_INTERVAL_VALIDATION:
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseIntervalValidationBodyInfo )
 							return;
 						
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseIntervalValidationBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeIntervalValidation( header, body );
 
 						break;
 					}
 				case CBILLING_METHOD_CODE_LOGIN :
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseLoginBodyInfo )
 							return;
 
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseLoginBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeLogin( header, body );
 
 						break;
 					}
 				case CBILLING_METHOD_CODE_MINUS_POINT:
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseMinusPointBodyInfo )
 							return;
 
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseMinusPointBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeMinusPoint( header, body );
 
 						break;
 					}
 				case CBILLING_METHOD_CODE_MINUS_MINUTE:
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseMinusMinuteBodyInfo )
 							return;
 
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseMinusMinuteBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeMinusMinute( header, body );
 
 						break;
 					}
 				case CBILLING_METHOD_CODE_LOGOUT:
 					{
-						// ¹Ùµð°¡ ¿ÏÀüÈ÷ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if ( m_pInputStream->length() < szCBillingPacketHeaderInfo + szCBillingPacketResponseLogoutBodyInfo )
 							return;
 
-						// ÀÌÁ¦ ½ÇÁ¦·Î ¸ðÁ¶¸® ÀÐ¾î ³»ÀÚ.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½ï¿½.
 						CBillingPacketResponseLogoutBody body;
 						header.read( *m_pInputStream );
 						body.read( *m_pInputStream );
 
-						// ½ÇÇà
+						// ï¿½ï¿½ï¿½ï¿½
 						executeLogout( header, body );
 
 						break;
@@ -281,7 +281,7 @@ void CBillingPlayer::processCommand()
 					{
 						throw Error( "Invaild Code" );
 
-						// ¿¡·¯´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 						break;
 					}
 				}
@@ -292,8 +292,8 @@ void CBillingPlayer::processCommand()
 	{
 		throw Error( nsee.toString() );
 	}
-	catch ( InsufficientDataException )
-	{
+	catch ( const InsufficientDataException& )
+    {
 		// do nothing
 	}
 
@@ -560,7 +560,7 @@ void CBillingPlayer::executeError( CBillingPacketHeader& header, CBillingPacketE
 
 	if ( pLoginPlayer != NULL )
 	{
-		// °ËÁõ µÇ¾ú´Ù°í Ã¼Å©ÇÑ´Ù. À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ï¹Ç·Î CLSelectPC ¿¡¼­ Â©¸°´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù°ï¿½ Ã¼Å©ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Æ´Ï¹Ç·ï¿½ CLSelectPC ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ï¿½.
 		pLoginPlayer->setCBillingVerified();
 	}
 
@@ -568,7 +568,7 @@ void CBillingPlayer::executeError( CBillingPacketHeader& header, CBillingPacketE
 
 #elif defined(__GAME_SERVER__)
 
-	// À¯·á ³¡³µ´Ù Â©·Á¶ó~
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ï¿½~
 	__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
 	Creature* pCreature = g_pPCFinder->getCreatureByID_LOCKED( body.Login_Name );
@@ -613,7 +613,7 @@ void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketR
 
 		if ( pLoginPlayer != NULL )
 		{
-			// °ËÁõ µÇ¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù°ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 			pLoginPlayer->setCBillingVerified();
 
 			bool bPayPlayer = ( body.Free_Left_Time + body.Rating_Left_Time > 0 );
@@ -647,7 +647,7 @@ void CBillingPlayer::executeIntervalValidation( CBillingPacketHeader& header, CB
 
 	if ( atoi(body.Parameter_Value) != g_pCBillingPlayerManager->getMinusIntervalInt() )
 	{
-		// °ÔÀÓ¼­¹ö¿Í Áß±¹ ºô¸µ ¼­¹ö°£¿¡ minus interval ÀÌ ¸ÂÁö ¾Ê´Ù. Á×¾î¾ß ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ minus interval ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½. ï¿½×¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		cerr << "-------------------------------------------------------------------------------" << endl;
 		cerr << "Interval configuration is different between gameserver and china billing server" << endl;
 		cerr << "gameserver interval : " << g_pCBillingPlayerManager->getMinusIntervalInt() << ", china billing server interval : " << body.Parameter_Value << endl;
@@ -655,7 +655,7 @@ void CBillingPlayer::executeIntervalValidation( CBillingPacketHeader& header, CB
 
 		filelog( LOGFILE_CBILLING_ERROR, "Different Interval between gameserver and china billing server\ngameserver interval : %d, china billing server interval : %s", g_pCBillingPlayerManager->getMinusIntervalInt(), body.Parameter_Value );
 
-		// Á×¾î¶ó. ÈæÈæ ¤Ð¤Ð.
+		// ï¿½×¾ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¤ï¿½.
 		kill( getpid(), 9 );
 	}
 
@@ -688,7 +688,7 @@ void CBillingPlayer::executeLogin( CBillingPacketHeader& header, CBillingPacketR
 			Assert( false );
 		}
 
-		// °ËÁõ µÇ¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù°ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 		pGamePlayer->setCBillingVerified();
 
 		// set CBillingInfo
@@ -770,7 +770,7 @@ void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPa
 			Assert( false );
 		}
 
-		// Á¤·®Á¦ÀÏ °æ¿ì, ½Ã°£ÀÌ ¾ó¸¶ ³²¾Ò´Ù°í º¸¿©ÁØ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ò´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 		if ( body.Player_Type == CBILLING_PLAYER_TYPE_POINT )
 		{
 			int leftTime = body.Free_Left_Time + body.Rating_Left_Time;
@@ -784,7 +784,7 @@ void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPa
 				msg.setMessage( m );
 				pGamePlayer->sendPacket( &msg );
 
-				// ´ÙÀ½¿¡ º¸¿© ÁÙ ½Ã°£ ¼³Á¤
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
 				pGamePlayer->setCBLastShowLeftTime( leftTime - 30 );
 			}
 		}
@@ -795,7 +795,7 @@ void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPa
 			{
 				int leftTime = body.Free_Left_Time + body.Rating_Left_Time;
 
-				// point user ·Î ¹Ù²¼´Ù.
+				// point user ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½.
 				char m[200];
 				sprintf( m, g_pStringPool->c_str( STRID_CB_CHANGE_TO_POINT_PLAYER ), leftTime / 10 );
 
@@ -805,7 +805,7 @@ void CBillingPlayer::executeMinusPoint( CBillingPacketHeader& header, CBillingPa
 			}
 			else if ( body.Player_Type == CBILLING_PLAYER_TYPE_MONTHLY )
 			{
-				// monthly user ·Î ¹Ù²¼´Ù.
+				// monthly user ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½.
 				char m[200];
 				sprintf( m, g_pStringPool->c_str( STRID_CB_CHANGE_TO_MONTHLY_PLAYER ) );
 
@@ -887,7 +887,7 @@ void CBillingPlayer::checkSessionID( CBillingPacketHeader& header, GamePlayer* p
 #endif
 
 #ifdef __GAME_SERVER__
-	// DB¿¡ packet ·Î±× ³²±â±â
+	// DBï¿½ï¿½ packet ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 void CBillingPlayer::logPacket( CBillingPacketHeader* header, CBillingPacketResponseLoginBody* login, CBillingPacketResponseMinusPointBody* point, CBillingPacketResponseLogoutBody* logout, CBillingPacketErrorBody* error )
 {
 	__BEGIN_TRY

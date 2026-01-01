@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPlayer.cpp
-// Desc		: ¸ðÆÛ½º Åë½Å °´Ã¼
+// Desc		: ï¿½ï¿½ï¿½Û½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -78,7 +78,7 @@ void MPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "ÀÌ»óÇÑ ÆÐÅ¶ÀÓ" );
+		throw DisconnectException( "ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½" );
 	}
 }
 
@@ -88,10 +88,10 @@ void MPlayer::processCommand()
 
 	try
 	{
-		// ÀÔ·Â ¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+		// ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 		while ( true )
 		{
-			// ÀÏ´Ü ÆÐÅ¶ÀÇ »çÀÌÁî¿Í ID ¸¦ ÀÐ¾î¿Â´Ù.
+			// ï¿½Ï´ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ID ï¿½ï¿½ ï¿½Ð¾ï¿½Â´ï¿½.
 			char header[szMPacketHeader];
 			MPacketSize_t packetSize;
 			MPacketID_t packetID;
@@ -105,37 +105,37 @@ void MPlayer::processCommand()
 			//packetSize = ntohl( packetSize );
 			//packetID = ntohl( packetID );
 
-			// ÆÐÅ¶ ¾ÆÀÌµð°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄÝ ¿¡·¯
+			// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ì»ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			if ( !g_pMPacketManager->hasHandler( packetID ) )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketID : %d", packetID );
 				throw ProtocolException( "Invalid PacketID" );
 			}
 
-			// ÆÐÅ¶ »çÀÌÁî È®ÀÎ
+			// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			if ( g_pMPacketManager->getPacketSize( packetID ) != packetSize )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketSize : %d, expected size : %d", packetSize, g_pMPacketManager->getPacketSize(packetID) );
 				throw ProtocolException( "Invalid PacketSize" );
 			}
 
-			// ¿ÏÀüÇÑ ÇÏ³ªÀÇ ÆÐÅ¶ÀÌ µé¾îÀÖ´ÂÁö È®ÀÎ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			if ( m_pInputStream->length() < (unsigned int)( packetSize + szMPacketSize ) )
 				return;
 
-			// ÆÐÅ¶À» »ý¼º
+			// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			MPacket* pPacket = g_pMPacketManager->createPacket( packetID );
 			
-			// ÆÐÅ¶ °´Ã¼¿¡ ÀÐÀº ³»¿ëÀ» Ã¤¿î´Ù.
+			// ï¿½ï¿½Å¶ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½.
 			pPacket->read( *m_pInputStream );
 
-			// ÆÐÅ¶ÀÇ ÇØ´ç ÇÚµé·¯¸¦ ½ÇÇàÇÑ´Ù.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Úµé·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			g_pMPacketManager->execute( this, pPacket );
 		}
 	}
-	catch ( InsufficientDataException )
+	catch ( const InsufficientDataException& )
 	{
-		// ¹«½Ã
+		// ï¿½ï¿½ï¿½ï¿½
 	}
 
 	__END_CATCH
@@ -150,10 +150,10 @@ void MPlayer::sendPacket( MPacket* pPacket )
 
 void MPlayer::connect()
 {
-	// ¿¬°áµÇ¾î ÀÖÁö ¾Ê¾Æ¾ßÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¾ï¿½ï¿½Ñ´ï¿½.
 	Assert( m_pSocket == NULL );
 
-	// ¸ðÆÛ½º ¼­¹öÀÇ IP ¿Í Port ¸¦ °¡Á®¿Â´Ù.
+	// ï¿½ï¿½ï¿½Û½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IP ï¿½ï¿½ Port ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 	const string	MofusIP = g_pConfig->getProperty( "MofusIP" );
 	uint 			MofusPort = g_pConfig->getPropertyInt( "MofusPort" );
 
@@ -171,7 +171,7 @@ void MPlayer::connect()
 		// make no-linger socket
 		m_pSocket->setLinger(0);
 
-		// read/write ¿ë ¹öÆÛ(stream) À» »ý¼ºÇÑ´Ù.
+		// read/write ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(stream) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_pInputStream = new SocketInputStream( m_pSocket, defaultMPlayerInputStreamSize );
 		m_pOutputStream = new SocketOutputStream( m_pSocket, defaultMPlayerOutputStreamSize );
 
@@ -185,7 +185,7 @@ void MPlayer::connect()
 			 << MofusIP.c_str() << ":" << MofusPort << endl;
 		filelog( MOFUS_LOG_FILE, "----- connecti fail(%s:%u) -----", MofusIP.c_str(), MofusPort );
 
-		// ¼ÒÄÏÀ» »èÁ¦ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		try
 		{
 			SAFE_DELETE( m_pSocket );
@@ -195,8 +195,8 @@ void MPlayer::connect()
 			filelog( MOFUS_ERROR_FILE, "[socket release error] %s", t.toString().c_str() );
 		}
 
-		// ´ÙÀ½ Á¢¼Ó ½Ãµµ ½Ã°£
-		usleep( 1000000 );	// 1ÃÊ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ ï¿½Ã°ï¿½
+		usleep( 1000000 );	// 1ï¿½ï¿½
 	}
 }
 
@@ -235,17 +235,17 @@ void MPlayer::process()
 		{
 			usleep(100);
 
-			// ¿¬°á µÇ¾î ÀÖÁö ¾Ê´Ù¸é ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½Ñ´ï¿½.
 			if ( m_pSocket == NULL )
 			{
 				connect();
 
-				// ¿¬°á È®ÀÎ ÆÐÅ¶À» º¸³½´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 				if ( m_pSocket != NULL )
 					sendConnectAsk();
 			}
 
-			// ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é ÀÔÃâ·ÂÀ» Ã³¸®ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if ( m_pSocket != NULL )
 			{
 				__BEGIN_TRY
@@ -254,35 +254,35 @@ void MPlayer::process()
 				{
 					filelog( MOFUS_ERROR_FILE, "[MPlayer socket error]" );
 
-					// ¿¬°áÀ» ²÷°í ¼ÒÄÏ »èÁ¦ÇÏ°í, ÀÔÃâ·Â ¹öÆÛ Áö¿î´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 					m_pSocket->close();
 					SAFE_DELETE( m_pSocket );
 					SAFE_DELETE( m_pInputStream );
 					SAFE_DELETE( m_pOutputStream );
 
-					// ·çÆ¾À» ºüÁ®³ª°£´Ù.
+					// ï¿½ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					cout << "return" << endl;
 					return;
 				}
 				else
 				{
-					// ÀÛ¾÷ÀÌ ´Ù ³¡³ª°í º¸³¾ ÆÐÅ¶À» ´Ù º¸³Â´Ù¸é ·çÆ¾À» ºüÁ® ³ª°£´Ù.
+					// ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â´Ù¸ï¿½ ï¿½ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					if ( m_pJob->isEnd() && m_pOutputStream->isEmpty() )
 					{
-						// ¿¬°áÀ» ²÷°í ¼ÒÄÏ »èÁ¦ÇÏ°í, ÀÔÃâ·Â ¹öÆÛ Áö¿î´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
 						SAFE_DELETE( m_pOutputStream );
 
-						// ·çÆ¾À» ºüÁ®³ª°£´Ù.
+						// ï¿½ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 						cout << "return" << endl;
 						return;
 					}
 
 					try
 					{
-						// ¼ÒÄÏ ÀÔÃâ·Â Ã³¸® ¹× ÆÐÅ¶ Ã³¸®
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶ Ã³ï¿½ï¿½
 						processInput();
 						processCommand();
 						processOutput();
@@ -291,8 +291,8 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_LOG_FILE, "----- connection close" );
 
-						// ¿¬°áÀÌ ²÷°å´Ù.
-						// ¼ÒÄÏÀ» ´Ý°í, ÀÔÃâ·Â ¹öÆÛ Áö¿ì°í ºüÁ®³ª°¡±â
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
@@ -305,7 +305,7 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_ERROR_FILE, "[MPlayer process error]" );
 
-						// ¼ÒÄÏÀ» ´Ý°í, ÀÔÃâ·Â ¹öÆÛ Áö¿ì°í ºüÁ®³ª°¡±â
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );

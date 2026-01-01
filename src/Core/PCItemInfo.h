@@ -2,9 +2,9 @@
 // Filename    : PCItemInfo.h
 // Written By  : elca
 // Description :
-// ¾ÆÀÌÅÛ ÇÏ³ª¿¡ ´ëÇÑ Á¤º¸¸¦ °¡Áö°í ÀÖ´Â ÆÐÅ¶ÀÌ´Ù.
-// ÁÂÇ¥¶óµçÁö, ÀÌÆåÆ®¿¡ °üÇÑ Á¤º¸´Â °¡Áö°í ÀÖÁö ¾Ê´Ù.
-// ÀÎº¥Åä¸®¿Í °ü·ÃµÈ ¿©·¯ ±ºµ¥¿¡¼­ »ó¼ÓµÇ¾î »ç¿ëµÈ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Å¶ï¿½Ì´ï¿½.
+// ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½.
+// ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÓµÇ¾ï¿½ ï¿½ï¿½ï¿½È´ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SLAYER_ITEM_INFO_H__
@@ -25,7 +25,7 @@ class PCItemInfo
 {
 public:
 	PCItemInfo() ;
-	virtual ~PCItemInfo() ;
+	virtual ~PCItemInfo() noexcept ;
 
 public:
 	void read (SocketInputStream & iStream) ;
@@ -132,7 +132,7 @@ protected:
 	list<OptionType_t> m_OptionType;       // item option type
 	Durability_t       m_Durability;       // item durability
 	Silver_t           m_Silver;           // silver coating amount
-	Grade_t				m_Grade;			// ¾ÆÀÌÅÛ µî±Þ
+	Grade_t				m_Grade;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	EnchantLevel_t     m_EnchantLevel;     // item enchant level
 	ItemNum_t          m_ItemNum;          // number of item
 	WORD               m_MainColor;        // item color

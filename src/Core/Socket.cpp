@@ -43,16 +43,12 @@ Socket::Socket ( SocketImpl * impl )
 	__END_CATCH
 }
 
-Socket::~Socket () 
+Socket::~Socket () noexcept
 { 
-	__BEGIN_TRY
-
 	if ( m_pSocketImpl != NULL ) { 
 		delete m_pSocketImpl; 
 		m_pSocketImpl = NULL; 
 	} 
-	
-	__END_CATCH
 }
 
 // close previous connection and connect to another server socket

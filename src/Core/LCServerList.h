@@ -25,17 +25,17 @@ class LCServerList : public Packet {
 public:
 
 	// constructor
-	// PCInfo* ¹è¿­¿¡ °¢°¢ NULLÀ» ÁöÁ¤ÇÑ´Ù.
+	// PCInfo* ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ NULLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	LCServerList() ;
 
 	// destructor
-	// PCInfo* ¹è¿­¿¡ ÇÒ´çµÈ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
-	~LCServerList() ;
+	// PCInfo* ï¿½è¿­ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	~LCServerList() noexcept;
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+    // ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
     void read(SocketInputStream & iStream) ;
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+    // ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -55,7 +55,7 @@ public:
 	
 public:
 
-	// ÇöÀç ¼­¹ö ±×·ì
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½
 	ServerGroupID_t getCurrentServerGroupID() const  { return m_CurrentServerGroupID; }
 	void setCurrentServerGroupID(ServerGroupID_t ServerGroupID )  { m_CurrentServerGroupID = ServerGroupID; }
 
@@ -75,10 +75,10 @@ public:
 
 private : 
 
-	// ÇöÀç ¼­¹ö ±×·ì
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½
 	ServerGroupID_t m_CurrentServerGroupID;
 
-	// Ä³¸¯ÅÍ Á¤º¸
+	// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	list<ServerGroupInfo*> m_ServerGroupInfoList;
 
 };
@@ -107,8 +107,8 @@ public:
 	// get packet's max body size
 	PacketSize_t getPacketMaxSize() const  
 	{ 
-		// ½½·¹ÀÌ¾î Á¤º¸°¡ ¹ìÆÄÀÌ¾î Á¤º¸º¸´Ù »çÀÌÁî°¡ Å©±â ¶§¹®¿¡,
-		// ÀÌ ÆÐÅ¶ÀÇ ÃÖ´ë Å©±â´Â ½½·¹ÀÌ¾î 3 ¸íÀÏ °æ¿ìÀÌ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î°¡ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+		// ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ö´ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		return szServerGroupID + ServerGroupInfo::getMaxSize();
 	}
 	

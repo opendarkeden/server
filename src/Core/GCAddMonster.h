@@ -19,7 +19,7 @@ class GCAddMonster : public Packet
 {
 public:
 	GCAddMonster() ;
-	virtual ~GCAddMonster() ;
+	virtual ~GCAddMonster() noexcept ;
 
 public:
     void read(SocketInputStream & iStream) ;
@@ -94,7 +94,7 @@ private:
 	EffectInfo*   m_pEffectInfo;  // effects info on monster
 	HP_t          m_CurrentHP;    // current hp
 	HP_t          m_MaxHP;        // max hp
-	BYTE          m_FromFlag;     // ¾îµð·ÎºÎÅÍÀÎ°¡? Á¤»óÀÏ °æ¿ì¿¡´Â 0, Æ÷Å»À» ÅëÇßÀ» °æ¿ì¿¡´Â 1
+	BYTE          m_FromFlag;     // ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½Î°ï¿½? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ 0, ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ 1
 };
 
 
@@ -117,7 +117,7 @@ public :
 
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCAddMonsterPacketSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCAddMonsterPacketSize ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
 	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szObjectID +            // object id

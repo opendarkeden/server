@@ -37,14 +37,10 @@ Properties::Properties ( const string & filename )
 //--------------------------------------------------------------------------------
 // destructor
 //--------------------------------------------------------------------------------
-Properties::~Properties () 
-{	
-	__BEGIN_TRY
-		
-	// ¸ðµç pair ¸¦ »èÁ¦ÇÑ´Ù.
+Properties::~Properties () noexcept
+{ 
+	// ï¿½ï¿½ï¿½ pair ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Properties.clear();
-
-	__END_CATCH
 }
 
 
@@ -71,47 +67,47 @@ void Properties::load ()
 		if ( ifile.eof() )
 			break;
 
-		// ÄÚ¸àÆ® ¶óÀÎÀÌ°Å³ª ºó ¶óÀÎÀÌ¹Ç·Î skip ÇÑ´Ù.
+		// ï¿½Ú¸ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ skip ï¿½Ñ´ï¿½.
 		if ( line.size() == 0 || line[0] == Comment )	
 			continue;
 
-		// key ÀÇ ½ÃÀÛ¹®ÀÚ(white space°¡ ¾Æ´Ñ ¹®ÀÚ)¸¦ Ã£´Â´Ù. 
+		// key ï¿½ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½ï¿½ï¿½(white spaceï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ Ã£ï¿½Â´ï¿½. 
 		size_t key_begin = line.find_first_not_of( WhiteSpaces );
 		
-		// key_beginÀÌ npos ¶ó´Â ¶æÀº ±×·± ¹®ÀÚ¸¦ Ã£Áö ¸øÇß´Ù´Â ¶æÀÌ´Ù.
-		// Áï, ¿ÂÅë white space ·Î¸¸ µÇ¾î ÀÖ´Â ¶óÀÎÀÌ¹Ç·Î skip ÇÑ´Ù.
+		// key_beginï¿½ï¿½ npos ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+		// ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ white space ï¿½Î¸ï¿½ ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ skip ï¿½Ñ´ï¿½.
 		if ( key_begin == string::npos )
 			continue;
 
-		// key ¿Í value ¸¦ ±¸ºÐÁþ´Â separator ¸¦ Ã£´Â´Ù.
-		// key_end º¸´Ù sep ¸¦ ¸ÕÀú Ã£´Â ÀÌÀ¯´Â find_last_not_of()¸¦ ½á¼­
-		// sep ¿¡¼­ºÎÅÍ ¿ªÀ¸·Î key_end ¸¦ Ã£±â À§ÇØ¼­ÀÌ´Ù. ^^;
+		// key ï¿½ï¿½ value ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ separator ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
+		// key_end ï¿½ï¿½ï¿½ï¿½ sep ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ find_last_not_of()ï¿½ï¿½ ï¿½á¼­
+		// sep ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key_end ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ì´ï¿½. ^^;
 		size_t sep = line.find( Separator , key_begin );
 
-		// Separator ¸¦ ¹ß°ßÇÏÁö ¸øÇßÀ» °æ¿ì´Â ÆÄ½Ì ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+		// Separator ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if ( sep == string::npos )
 			throw IOException("missing separator");
 		
-		// sep ¿¡¼­ºÎÅÍ ¿ªÀ¸·Î key_end ¸¦ Ã£¾Æ³ª°£´Ù.
+		// sep ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key_end ï¿½ï¿½ Ã£ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½.
 		size_t key_end = line.find_last_not_of( WhiteSpaces , sep - 1 );
 		
-		// sep ¿¡¼­ºÎÅÍ value_begin À» Ã£´Â´Ù.
+		// sep ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ value_begin ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 		size_t value_begin = line.find_first_not_of( WhiteSpaces , sep + 1 );
 		
-		// key ´Â ÀÖÁö¸¸ value °¡ ¾ø´Â »óÅÂÀÌ´Ù. 
+		// key ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ value ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½. 
 		if ( value_begin == string::npos )
 			throw IOException("missing value");
 		
-		// ¸Ç ³¡¿¡¼­ºÎÅÍ ¿ªÀ¸·Î value_end ¸¦ Ã£´Â´Ù. 
-		// ( value_begin ÀÌ ÀÖÀ¸¸é value_end ´Â ¹«Á¶°Ç Á¸ÀçÇÑ´Ù.)
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ value_end ï¿½ï¿½ Ã£ï¿½Â´ï¿½. 
+		// ( value_begin ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ value_end ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.)
 		size_t value_end = line.find_last_not_of( WhiteSpaces ); 
 
-		// key_begin,key_end ¿Í value_begin,value_end ¸¦ »ç¿ëÇØ¼­ 
-		// line ÀÇ substring ÀÎ key ¿Í value ¸¦ »ý¼ºÇÑ´Ù.
+		// key_begin,key_end ï¿½ï¿½ value_begin,value_end ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ 
+		// line ï¿½ï¿½ substring ï¿½ï¿½ key ï¿½ï¿½ value ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		string key = line.substr( key_begin , key_end - key_begin + 1 );
 		string value = line.substr( value_begin , value_end - value_begin + 1 );
 
-		// property ·Î µî·ÏÇÑ´Ù.
+		// property ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		setProperty( key , value );
 	}
 	
@@ -186,7 +182,7 @@ void Properties::setProperty ( string key , string value )
 {
 	__BEGIN_TRY
 		
-	// ÀÌ¹Ì Å°°¡ Á¸ÀçÇÒ °æ¿ì, value ¸¦ µ¤¾î¾´´Ù.
+	// ï¿½Ì¹ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, value ï¿½ï¿½ ï¿½ï¿½ï¿½î¾´ï¿½ï¿½.
 	m_Properties[ key ] = value;
 
 	__END_CATCH

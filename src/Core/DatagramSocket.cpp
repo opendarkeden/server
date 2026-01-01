@@ -10,14 +10,15 @@
 #include "DatagramSocket.h"
 #include "Assert.h"
 #include "FileAPI.h"
+#include <exception>
 
 //////////////////////////////////////////////////////////////////////
 //
 // constructor for UDP Client Socket
 //
-// UDP Å¬¶óÀÌ¾ðÆ® ¼ÒÄÏÀº ´ÜÁö nonamed ¼ÒÄÏ¸¸ »ý¼ºÇØ µÎ¸é µÈ´Ù.
-// ¿Ö³ÄÇÏ¸é, ¼­¹ö·Î sendÇÒ ¶§¸¶´Ù DatagramÀÇ ÁÖ¼Ò¸¦ ÁöÁ¤ÇØµÎ¸é
-// µÇ±â ¶§¹®ÀÌ´Ù.
+// UDP Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ nonamed ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½È´ï¿½.
+// ï¿½Ö³ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sendï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Datagramï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ¸ï¿½
+// ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::DatagramSocket () 
@@ -37,7 +38,7 @@ DatagramSocket::DatagramSocket ()
 //
 // constructor for UDP Server Socket
 //
-// UDP ¼­¹ö ¼ÒÄÏÀº ¼ÒÄÏÀ» »ý¼ºÇÏ°í, port ¸¦ ¹ÙÀÎµù½ÃÅ°¸é ÁØºñ°¡ ¿Ï·áµÈ´Ù.
+// UDP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½, port ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Øºï¿½ ï¿½Ï·ï¿½È´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 DatagramSocket::DatagramSocket ( uint port ) 
@@ -64,14 +65,17 @@ DatagramSocket::DatagramSocket ( uint port )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-DatagramSocket::~DatagramSocket ()
+DatagramSocket::~DatagramSocket () noexcept
 {
-	__BEGIN_TRY
-	
-	if ( m_SocketID != INVALID_SOCKET )
-		FileAPI::close_ex( m_SocketID );
-
-	__END_CATCH
+	try
+	{
+		if ( m_SocketID != INVALID_SOCKET )
+			FileAPI::close_ex( m_SocketID );
+	}
+	catch (const std::exception&)
+	{
+		// ignore during teardown
+	}
 }
 
 
@@ -92,7 +96,7 @@ uint DatagramSocket::send ( Datagram * pDatagram )
 	} catch ( ConnectException & t ) {
 		cout <<"DatagramSocket::send Exception Check!" << endl;
 		cout << t.toString() << endl;
-		throw ConnectException("DatagramSocketÀÇ »óÀ§·Î ´øÁø´Ù");
+		throw ConnectException("DatagramSocketï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 
 	__END_CATCH
@@ -103,8 +107,8 @@ uint DatagramSocket::send ( Datagram * pDatagram )
 //
 // receive datagram from peer
 //
-// ¸¸¾à¿¡ ÀÌ Å¬·¡½º¸¦ blocking À¸·Î »ç¿ëÇÑ´Ù¸é, (Áï select ±â¹ÝÀ¸·Î)
-// ¾Æ¸¶µµ nReceived °¡ 0 ÀÌÇÏÀÎ °æ¿ì´Â ¾øÀ¸¸®¶ó°í ÆÇ´ÜµÈ´Ù.
+// ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ blocking ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½, (ï¿½ï¿½ select ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+// ï¿½Æ¸ï¿½ï¿½ï¿½ nReceived ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ÜµÈ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 Datagram * DatagramSocket::receive ()
@@ -116,7 +120,7 @@ Datagram * DatagramSocket::receive ()
 	SOCKADDR_IN SockAddr;
 	uint _szSOCKADDR_IN = szSOCKADDR_IN;
 
-	// ³»ºÎ ¹öÆÛ¿¡´Ù°¡ º¹»çÇØµÐ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÐ´ï¿½.
 	int nReceived = SocketAPI::recvfrom_ex( m_SocketID , m_Buffer , DATAGRAM_SOCKET_BUFFER_LEN , 0 , (SOCKADDR*)&SockAddr , &_szSOCKADDR_IN );
 
 	if ( nReceived > 0 ) {

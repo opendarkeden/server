@@ -26,15 +26,13 @@
 // class GuildMember member methods
 //////////////////////////////////////////////////////////////////////////////
 
-GuildMember::GuildMember()
-	throw()
+GuildMember::GuildMember() noexcept
 {
 	m_bLogOn = false;
 //	m_ServerID = 255;
 }
 
-void GuildMember::create()
-	throw()
+void GuildMember::create() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -48,7 +46,7 @@ void GuildMember::create()
 
 		if ( pResult->getRowCount() != 0 )
 		{
-			// ÀÌ¹Ì µðºñ¿¡ Á¸ÀçÇÏ¹Ç·Î µ¥ÀÌÅÍ¸¸ °íÃÄÁØ´Ù.(Áï, Àü¿¡ ´Ù¸¥ ±æµå¿¡ ¼ÓÇÑ ÀûÀÌ ÀÖ´Ù)
+			// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.(ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½)
 			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
 			{
 				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '', RequestDateTime = '%s' WHERE Name = '%s'",
@@ -83,8 +81,7 @@ void GuildMember::create()
 }
 
 
-bool GuildMember::load()
-	throw()
+bool GuildMember::load() noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -121,8 +118,7 @@ bool GuildMember::load()
 }
 
 
-void GuildMember::save()
-	throw()
+void GuildMember::save() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -143,8 +139,7 @@ void GuildMember::save()
 }
 
 
-void GuildMember::destroy()
-	throw()
+void GuildMember::destroy() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -163,8 +158,7 @@ void GuildMember::destroy()
 	__END_CATCH
 }
 
-void GuildMember::expire()
-	throw()
+void GuildMember::expire() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -172,7 +166,7 @@ void GuildMember::expire()
 
 	BEGIN_DB
 	{
-		// ÇöÀç ½Ç½Ã°£ ³¯Â¥¸¦ ±¸ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		time_t daytime = time(0);
 		tm Timec;
 		localtime_r( &daytime, &Timec );
@@ -190,8 +184,7 @@ void GuildMember::expire()
 	__END_CATCH
 }
 
-void GuildMember::leave()
-	throw()
+void GuildMember::leave() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -199,7 +192,7 @@ void GuildMember::leave()
 
 	BEGIN_DB
 	{
-		// ÇöÀç ½Ç½Ã°£ ³¯Â¥¸¦ ±¸ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç½Ã°ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		time_t daytime = time(0);
 		tm Timec;
 		localtime_r( &daytime, &Timec );
@@ -218,8 +211,7 @@ void GuildMember::leave()
 }
 
 
-void GuildMember::saveIntro( const string& intro )
-	throw()
+void GuildMember::saveIntro( const string& intro ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -241,8 +233,7 @@ void GuildMember::saveIntro( const string& intro )
 }
 
 
-string GuildMember::getIntro() const
-	throw()
+string GuildMember::getIntro() const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -271,17 +262,11 @@ string GuildMember::getIntro() const
 }
 
 
-string GuildMember::toString() const
-	throw()
+string GuildMember::toString() const noexcept
 {
-	__BEGIN_TRY
-	
 	StringStream msg;
 	msg << "GuildID = " << (int)m_GuildID << " Name = " << m_Name << " Rank = " << (int)m_Rank << "\n";
-
 	return msg.toString();
-
-	__END_CATCH
 }
 
 
@@ -294,8 +279,7 @@ GuildMember& GuildMember::operator=( GuildMember& Member )
 	return *this;
 }
 
-string GuildMember::getRequestDateTime() const
-	throw()
+string GuildMember::getRequestDateTime() const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -313,9 +297,8 @@ string GuildMember::getRequestDateTime() const
 }
 
 
-void GuildMember::setRank(GuildMemberRank_t rank)
-	throw()
-{
+void GuildMember::setRank(GuildMemberRank_t rank) noexcept(false)
+	{
 	__BEGIN_TRY
 
 	m_Rank = rank;
@@ -324,8 +307,7 @@ void GuildMember::setRank(GuildMemberRank_t rank)
 }
 
 
-void GuildMember::setRequestDateTime( const string& rtime )
-	throw()
+void GuildMember::setRequestDateTime( const string& rtime ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -352,16 +334,10 @@ void GuildMember::setRequestDateTime( const string& rtime )
 	__END_CATCH
 }
 
-bool GuildMember::isRequestDateTimeOut( const VSDateTime& currentDateTime ) const
-	throw()
+bool GuildMember::isRequestDateTimeOut( const VSDateTime& currentDateTime ) const noexcept
 {
-	__BEGIN_TRY
-
 	VSDateTime limitDateTime = m_RequestDateTime.addDays(7);
-
 	return currentDateTime > limitDateTime;
-
-	__END_CATCH
 }
 
 
@@ -378,8 +354,7 @@ ZoneID_t Guild::m_MaxOustersZoneID = 30000;
 // class Guild member methods
 //////////////////////////////////////////////////////////////////////////////
 
-Guild::Guild()
-	throw()
+Guild::Guild() noexcept(false)
 {
 	m_ID			= 0;
 	m_Name			= "";
@@ -402,33 +377,34 @@ Guild::Guild()
 }
 
 
-Guild::~Guild()
-	throw()
+Guild::~Guild() noexcept
 {
-	__BEGIN_TRY
-
-	__ENTER_CRITICAL_SECTION( m_Mutex )
-
-	HashMapGuildMemberItor itr = m_Members.begin();
-	for ( ; itr != m_Members.end(); itr++ )
+	try
 	{
-		SAFE_DELETE( itr->second );
-	}
+		__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	m_Members.clear();
+		HashMapGuildMemberItor itr = m_Members.begin();
+		for ( ; itr != m_Members.end(); itr++ )
+		{
+			SAFE_DELETE( itr->second );
+		}
+
+		m_Members.clear();
 
 #ifdef __GAME_SERVER__
-	m_CurrentMembers.clear();
+		m_CurrentMembers.clear();
 #endif
 
-	__LEAVE_CRITICAL_SECTION( m_Mutex )
-
-	__END_CATCH
+		__LEAVE_CRITICAL_SECTION( m_Mutex )
+	}
+	catch (...)
+	{
+		// destructor must not throw
+	}
 }
 
 
-void Guild::create()
-	throw()
+void Guild::create() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -455,8 +431,7 @@ void Guild::create()
 }
 
 
-bool Guild::load()
-	throw()
+bool Guild::load() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -501,8 +476,7 @@ bool Guild::load()
 }
 
 
-void Guild::save()
-	throw()
+void Guild::save() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -527,8 +501,7 @@ void Guild::save()
 }
 
 
-void Guild::destroy()
-	throw()
+void Guild::destroy() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -554,8 +527,7 @@ void Guild::destroy()
 
 
 #ifdef __SHARED_SERVER__
-void Guild::saveIntro( const string& intro )
-	throw()
+void Guild::saveIntro( const string& intro ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -578,8 +550,7 @@ void Guild::saveIntro( const string& intro )
 	__END_CATCH
 }
 
-void Guild::tinysave( const char* field ) const
-	throw()
+void Guild::tinysave( const char* field ) const noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -598,7 +569,7 @@ void Guild::tinysave( const char* field ) const
 	__END_CATCH
 }
 
-void Guild::saveCount() const throw()
+void Guild::saveCount() const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -611,8 +582,7 @@ void Guild::saveCount() const throw()
 #endif
 
 
-GuildMember* Guild::getMember( const string& name ) const
-	throw()
+GuildMember* Guild::getMember( const string& name ) const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -641,8 +611,7 @@ GuildMember* Guild::getMember( const string& name ) const
 }
 
 
-GuildMember* Guild::getMember_NOLOCKED( const string& name ) const
-	throw()
+GuildMember* Guild::getMember_NOLOCKED( const string& name ) const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -665,8 +634,7 @@ GuildMember* Guild::getMember_NOLOCKED( const string& name ) const
 	__END_CATCH
 }
 
-void Guild::addMember( GuildMember* pMember )
-	throw( DuplicatedException, Error )
+void Guild::addMember( GuildMember* pMember ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -692,12 +660,12 @@ void Guild::addMember( GuildMember* pMember )
 		 rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
 		 rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
 	{
-		// ÀÏ¹ÝÈ¸¿øÀÌ³ª (¼­ºê)¸¶½ºÅÍ°¡ Ãß°¡µÉ¶§ ActiverMemberCount¸¦ Áõ°¡½ÃÅ²´Ù.
+		// ï¿½Ï¹ï¿½È¸ï¿½ï¿½ï¿½Ì³ï¿½ (ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ß°ï¿½ï¿½É¶ï¿½ ActiverMemberCountï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 		m_ActiveMemberCount++;
 	}
 	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
 	{
-		// °¡ÀÔ ´ë±âÀÚ°¡ Ãß°¡µÉ¶§ WaitMemberCount ¸¦ Áõ°¡ ½ÃÅ²´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ß°ï¿½ï¿½É¶ï¿½ WaitMemberCount ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½.
 		m_WaitMemberCount++;
 	}
 
@@ -711,8 +679,7 @@ void Guild::addMember( GuildMember* pMember )
 }
 
 
-void Guild::deleteMember( const string& name )
-	throw()
+void Guild::deleteMember( const string& name ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -736,7 +703,7 @@ void Guild::deleteMember( const string& name )
 	  || rank == GuildMember::GUILDMEMBER_RANK_MASTER
 	  || rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
 	{
-		// È°µ¿ÁßÀÎ È¸¿ø¼ö Ä«¿îÅÍ¸¦ °¨¼Ò ½ÃÅ²´Ù
+		// È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å²ï¿½ï¿½
 		m_ActiveMemberCount--;
 	}
 	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
@@ -758,8 +725,7 @@ void Guild::deleteMember( const string& name )
 }
 
 
-void Guild::modifyMember( GuildMember& Member )
-	throw()
+void Guild::modifyMember( GuildMember& Member ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -785,8 +751,7 @@ void Guild::modifyMember( GuildMember& Member )
 }
 
 
-void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank )
-	throw()
+void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank ) noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -832,12 +797,11 @@ void Guild::modifyMemberRank( const string& name, GuildMemberRank_t rank )
 
 
 #ifdef __GAME_SERVER__
-void Guild::addCurrentMember( const string& name )
-	throw ( DuplicatedException, Error )
+void Guild::addCurrentMember( const string& name ) noexcept(false)
 {
 	__BEGIN_TRY
 	
-	__ENTER_CRITICAL_SECTION(m_Mutex)		// ´Ù¸¥ ¹ÂÅØ½º ½áµµ µÉ µíÇÑµ¥.. ±ÍÂú¾Æ..
+	__ENTER_CRITICAL_SECTION(m_Mutex)		// ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½áµµ ï¿½ï¿½ ï¿½ï¿½ï¿½Ñµï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 
 	if ( m_CurrentMembers.end() != find( m_CurrentMembers.begin(), m_CurrentMembers.end(), name ) )
 	{
@@ -847,7 +811,7 @@ void Guild::addCurrentMember( const string& name )
 
 	m_CurrentMembers.push_back( name );
 
-	// Guild Member °´Ã¼¿¡ ·Î±×¿ÂÀ» ¼¼ÆÃÇÑ´Ù.
+	// Guild Member ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Î±×¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	GuildMember* pGuildMember = getMember_NOLOCKED( name );
 	if ( pGuildMember == NULL ) 
 	{
@@ -862,8 +826,7 @@ void Guild::addCurrentMember( const string& name )
 	__END_CATCH
 }
 
-void Guild::deleteCurrentMember( const string& name )
-	throw ( NoSuchElementException )
+void Guild::deleteCurrentMember( const string& name ) noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -879,7 +842,7 @@ void Guild::deleteCurrentMember( const string& name )
 
 	m_CurrentMembers.erase( itr );
 
-	// Guild Member °´Ã¼¿¡ ·Î±×¿ÀÇÁ¸¦ ¼¼ÆÃÇÑ´Ù.
+	// Guild Member ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Î±×¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	GuildMember* pGuildMember = getMember_NOLOCKED( name );
 	if ( pGuildMember == NULL ) 
 	{
@@ -894,8 +857,7 @@ void Guild::deleteCurrentMember( const string& name )
 	__END_CATCH
 }
 
-list<string> Guild::getCurrentMembers()
-	throw()
+list<string> Guild::getCurrentMembers() noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -914,8 +876,7 @@ list<string> Guild::getCurrentMembers()
 #endif
 
 #ifdef __SHARED_SERVER__
-void Guild::makeInfo( GuildInfo2* pGuildInfo )
-	throw()
+void Guild::makeInfo( GuildInfo2* pGuildInfo ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -950,8 +911,7 @@ void Guild::makeInfo( GuildInfo2* pGuildInfo )
 }
 #endif
 
-void Guild::makeInfo( GuildInfo* pGuildInfo )
-	throw()
+void Guild::makeInfo( GuildInfo* pGuildInfo ) noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -967,8 +927,7 @@ void Guild::makeInfo( GuildInfo* pGuildInfo )
 	__END_CATCH
 }
 
-void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList )
-	throw()
+void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -996,8 +955,7 @@ void Guild::makeMemberInfo( GCGuildMemberList& gcGuildMemberList )
 }
 
 
-void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList )
-	throw(Error)
+void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -1014,7 +972,7 @@ void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& m
 		{
 			mList.push_back( pGuildMember->getName() );
 
-			// wait member count ¸¦ ÁÙÀÎ´Ù.
+			// wait member count ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 			m_WaitMemberCount--;
 
 			pGuildMember->expire();
@@ -1035,11 +993,8 @@ void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& m
 }
 
 
-string Guild::toString() const
-	throw()
+string Guild::toString() const noexcept
 {
-	__BEGIN_TRY
-	
 	StringStream msg;
 	msg << " GuildID = " << m_ID
 		<< " GuildName = " << m_Name
@@ -1049,18 +1004,13 @@ string Guild::toString() const
 		<< " GuildZoneID = " << (int)m_ZoneID
 		<< " Master = " << m_Master
 		<< " Date = " << m_Date
-		<< "\n";
+		<< " \n";
 
 	return msg.toString();
-
-	__END_CATCH
 }
 
-string Guild::correctString( const string& str )
-	throw()
+string Guild::correctString( const string& str ) noexcept
 {
-	__BEGIN_TRY
-
 	string correct = str;
 
 	unsigned int i = 0;
@@ -1087,6 +1037,4 @@ string Guild::correctString( const string& str )
 	}
 
 	return correct;
-
-	__END_CATCH
 }

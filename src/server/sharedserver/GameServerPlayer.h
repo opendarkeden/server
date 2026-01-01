@@ -25,38 +25,38 @@ class GameServerPlayer : public Player {
 public :
 
 	// constructor
-	GameServerPlayer () throw (Error);
+	GameServerPlayer () noexcept(false);
 	GameServerPlayer (Socket * pSocket);
 	
 	// destructor
 	virtual ~GameServerPlayer ();
 
-	virtual void processInput () throw (IOException, Error);
+	virtual void processInput () noexcept(false);
 	
-	virtual void processOutput () throw (IOException, Error);
+	virtual void processOutput () noexcept(false);
 	
 	// parse packet and execute handler for the packet
-	virtual void processCommand () throw (IOException, Error);
+	virtual void processCommand () noexcept(false);
 	
 	// send packet to player's output buffer
-	virtual void sendPacket (Packet* pPacket) throw (ProtocolException, Error);
+	virtual void sendPacket (Packet* pPacket) noexcept(false);
 
 	// disconnect
-	// ÇÃ·¹ÀÌ¾îÀÇ ¿¬°áÀ» Á¾·áÇÒ ¶§, »ó´ëÆíÀÌ ÀûÀýÇÏ°Ô ·Î±×¾Æ¿ôÇÏÁö ¾ÊÀ» °æ¿ì ¼ÒÄÏÀÇ ¿¬°áÀÌ 
-	// ÀÌ¹Ì ²÷°Ü ÀÖÀ¸¹Ç·Î disconnect(DISCONNECTED) ¸¦ »ç¿ëÇØ¼­ ¿¬°áÀ» Á¾·áÇØ¾ß ÇÑ´Ù. ¹Ý¸é, 
-	// Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÀ» ÇÑ °æ¿ì¿¡´Â disconnect(UNDISCONNECTED) ¸¦ »ç¿ëÇØ¾ß ÇÑ´Ù.
-	virtual void disconnect (bool bDisconnected = DISCONNECTED) throw (InvalidProtocolException, Error);
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Î±×¾Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ disconnect(DISCONNECTED) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½Ý¸ï¿½, 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Î±×¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ disconnect(UNDISCONNECTED) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
+	virtual void disconnect (bool bDisconnected = DISCONNECTED) noexcept(false);
 	
 	// get/set socket
 	//Socket* getSocket () throw () { return m_pSocket; }
-	void setSocket (Socket* pSocket) throw ();
+	void setSocket (Socket* pSocket) noexcept;
 
 	// get/set player ID
 	//string getID () const throw () { return m_ID; }
 	//void setID (const string & id) throw () { m_ID = id; }
 
 	// get debug string
-	virtual string toString () const throw (Error);
+	virtual string toString () const noexcept(false);
 	
 protected :
 

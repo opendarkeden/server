@@ -21,7 +21,7 @@ typedef unordered_map< string , ReconnectLoginInfo * > HashMapReconnectLoginInfo
 //
 // class ReconnectLoginInfoManager;
 //
-// IP ½ºÆ®¸µÀ» Å°°ªÀ¸·Î ÇÏ´Â unordered_map À» ³»ºÎ¿¡ °¡Áö°í ÀÖ´Ù.
+// IP ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ unordered_map ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -30,29 +30,29 @@ class ReconnectLoginInfoManager {
 public :
 	
 	// constructor
-	ReconnectLoginInfoManager () throw ();
+	ReconnectLoginInfoManager () noexcept;
 	
 	// destructor
-	~ReconnectLoginInfoManager () throw ();
+	~ReconnectLoginInfoManager () noexcept;
 	
 
 public :
 	
 	// add connection info to connection info manager
-	void addReconnectLoginInfo ( ReconnectLoginInfo * pReconnectLoginInfo ) throw ( DuplicatedException , Error );
+	void addReconnectLoginInfo ( ReconnectLoginInfo * pReconnectLoginInfo ) noexcept(false);
 	
 	// delete connection info from connection info manager
-	void deleteReconnectLoginInfo ( string ip ) throw ( NoSuchElementException , Error );
+	void deleteReconnectLoginInfo ( string ip ) noexcept(false);
 	
 	// get connection info from connection info manager
-	ReconnectLoginInfo * getReconnectLoginInfo ( string ip ) throw ( NoSuchElementException , Error );
+	ReconnectLoginInfo * getReconnectLoginInfo ( string ip ) noexcept(false);
 
 	// heartbeat method
-	// expire µÈ ReconnectLoginInfo ¸¦ »èÁ¦ÇÑ´Ù.
-	void heartbeat () throw ( Error );	
+	// expire ï¿½ï¿½ ReconnectLoginInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	void heartbeat () noexcept(false); 
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const;
 
 
 private :

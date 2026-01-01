@@ -36,14 +36,18 @@ CondVar::CondVar ( CondVarAttr * attr )
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-CondVar::~CondVar () 
+CondVar::~CondVar () noexcept
 {
-	__BEGIN_TRY
-
-	pthreadAPI::pthread_cond_destroy_ex( &m_Cond );
-	log(LOG_DEBUG_MSG, "", "", "CondVar object destructed");
-
-	__END_CATCH
+	// Best-effort cleanup; errors should not escape destructors.
+	try
+	{
+		pthreadAPI::pthread_cond_destroy_ex( &m_Cond );
+		log(LOG_DEBUG_MSG, "", "", "CondVar object destructed");
+	}
+	catch (const Throwable&)
+	{
+		// Swallow to keep destructor noexcept; nothing sensible to recover.
+	}
 }
 
 	

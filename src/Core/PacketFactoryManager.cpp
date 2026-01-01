@@ -297,7 +297,7 @@
 // added by elca 2001-06-26
 #include "CGSelectPortal.h"
 
-// 2001-01-08 ±è¼º¹Î
+// 2001-01-08 ï¿½è¼ºï¿½ï¿½
 #include "CGMouseToStash.h"
 #include "CGStashToMouse.h"
 #include "CGStashList.h"
@@ -374,7 +374,7 @@
 	#include "Rpackets/RCCharacterInfo.h"
 #endif
 
-// ±æµå°ü·Ã 2002. 05. 31. bezz
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2002. 05. 31. bezz
 //#include "GCShowGuildRegist.h"
 #include "CGRegistGuild.h"
 #include "GCWaitGuildList.h"
@@ -579,10 +579,10 @@ PacketFactoryManager::PacketFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ÆÐÅ¶ÆÑÅä¸®¹è¿­À» »ý¼ºÇÑ´Ù.
+	// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Factories = new PacketFactory*[ m_Size ];
 	
-	// ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ NULL ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -595,13 +595,11 @@ PacketFactoryManager::PacketFactoryManager ()
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-PacketFactoryManager::~PacketFactoryManager () 
+PacketFactoryManager::~PacketFactoryManager () noexcept
 {
-	__BEGIN_TRY
-		
 	Assert(m_Factories != NULL);
 
-	// °¢°¢ÀÇ ÆÐÅ¶ÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	for (int i = 0 ; i < m_Size ; i ++) 
 	{
 #ifdef __GAME_CLIENT__
@@ -615,7 +613,7 @@ PacketFactoryManager::~PacketFactoryManager ()
 #endif
 	}
 	
-	// ÆÐÅ¶ÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+	// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 #ifdef __GAME_CLIENT__
 	if (m_Factories != NULL)
 	{
@@ -625,14 +623,12 @@ PacketFactoryManager::~PacketFactoryManager ()
 #else
 	SAFE_DELETE_ARRAY(m_Factories);
 #endif
-			
-	__END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
 //
-// Á¤ÀÇµÈ ¸ðµç ÆÐÅ¶ÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::init ()
@@ -754,7 +750,7 @@ void PacketFactoryManager::init ()
 
 	addFactory(new CGRequestIPFactory());
 
-	// ÀüÀï ½Ã½ºÅÛ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½
 	addFactory( new CGRelicToObjectFactory() );
 
 	addFactory( new CGRegistGuildFactory() );
@@ -768,10 +764,10 @@ void PacketFactoryManager::init ()
 	addFactory( new CGModifyGuildMemberFactory() );
 	addFactory( new CGGuildChatFactory() );
 
-	// ÀÎÃ¦Æ® ¾ÆÀÌÅÛ : º° --> ¾ÆÀÌÅÛ ³Ö±â
+	// ï¿½ï¿½Ã¦Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ --> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
 	addFactory( new CGAddItemToItemFactory() );
 
-	// Á¤º¸ ¿äÃ». 2002.9.2
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã». 2002.9.2
 	addFactory( new CGRequestInfoFactory() );
 
 	addFactory( new CGModifyGuildIntroFactory() );
@@ -1221,7 +1217,7 @@ void PacketFactoryManager::init ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÑÅä¸® °´Ã¼¸¦ Æ¯Á¤ ÀÎµ¦½º¿¡ Ãß°¡ÇÑ´Ù.
+// ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½Ã¼ï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::addFactory (PacketFactory * pFactory) 
@@ -1242,7 +1238,7 @@ void PacketFactoryManager::addFactory (PacketFactory * pFactory)
 		throw Error(msg.toString());
 	}
 	
-	// ÆÐÅ¶ÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+	// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Factories[ pFactory->getPacketID() ] = pFactory;
 			
 	__END_CATCH
@@ -1251,15 +1247,15 @@ void PacketFactoryManager::addFactory (PacketFactory * pFactory)
 	
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÐÅ¶¾ÆÀÌµð·Î ÆÐÅ¶°´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 Packet * PacketFactoryManager::createPacket (PacketID_t packetID) 
 {
 	__BEGIN_TRY
 
-	// ÆÐÅ¶ ¾ÆÀÌµð°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î¼¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Seg.Fault ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½.
+	// ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "packet factory [" << packetID << "] not exist.";
@@ -1274,15 +1270,15 @@ Packet * PacketFactoryManager::createPacket (PacketID_t packetID)
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÐÅ¶¾ÆÀÌµð·Î Æ¯Á¤ ÆÐÅ¶ÀÇ ÃÖ´ë Å©±â¸¦ ¸®ÅÏÇÑ´Ù.
+// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ö´ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 PacketSize_t PacketFactoryManager::getPacketMaxSize (PacketID_t packetID) 
 {
 	__BEGIN_TRY
 
-	// ÆÐÅ¶ ¾ÆÀÌµð°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î¼¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Seg.Fault ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½.
+	// ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << packetID << ")";
@@ -1297,7 +1293,7 @@ PacketSize_t PacketFactoryManager::getPacketMaxSize (PacketID_t packetID)
 
 //////////////////////////////////////////////////////////////////////
 //
-// ÆÐÅ¶¾ÆÀÌµð·Î Æ¯Á¤ ÆÐÅ¶ÀÇ ÀÌ¸§À» ¸®ÅÏÇÑ´Ù.
+// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 #if !defined(__GAME_CLIENT__) || defined(__GAME_CLIENT__) && defined(__DEBUG_OUTPUT__)
@@ -1305,8 +1301,8 @@ string PacketFactoryManager::getPacketName (PacketID_t packetID)
 {
 	__BEGIN_TRY
 
-	// ÆÐÅ¶ ¾ÆÀÌµð°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î¼¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ Seg.Fault ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½.
+	// ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << packetID << ")";

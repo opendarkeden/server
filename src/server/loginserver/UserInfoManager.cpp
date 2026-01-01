@@ -17,34 +17,39 @@
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-UserInfoManager::UserInfoManager () 
-	throw ()
+UserInfoManager::UserInfoManager () noexcept
 {
 }
 	
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-UserInfoManager::~UserInfoManager () 
-	throw ()
+UserInfoManager::~UserInfoManager () noexcept
 {
-	// hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï UserInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-	// pair ÀÚÃ¼´Â ±×´ë·Î µÐ´Ù. (UserInfo°¡ Èü¿¡ »ý¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-	// À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, ZGIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-	// ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -; )
-	for( int i = 1; i < m_MaxWorldID; i++ ) {
-		for ( HashMapUserInfo::iterator itr = m_UserInfos[i].begin() ; 
-			  itr != m_UserInfos[i].end() ; 
-			  itr ++ ) {
-			delete itr->second;
-			itr->second = NULL;
+	try
+	{
+		// hashmap ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ pair ï¿½ï¿½ second, ï¿½ï¿½ UserInfo ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+		// pair ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½Ð´ï¿½. (UserInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Í¿ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½. ï¿½ï¿½ ï¿½Ê»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½Ï±ï¿½, ZGIMï¿½ï¿½ destruct ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ù¿ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï´Ï±ï¿½.. - -; )
+		for( int i = 1; i < m_MaxWorldID; i++ ) {
+			for ( HashMapUserInfo::iterator itr = m_UserInfos[i].begin() ; 
+				  itr != m_UserInfos[i].end() ; 
+				  itr ++ ) {
+				delete itr->second;
+				itr->second = NULL;
+			}
+
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+			m_UserInfos[i].clear();
 		}
 
-		// ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
-		m_UserInfos[i].clear();
+		delete [] m_UserInfos;
 	}
-
-	delete [] m_UserInfos;
+	catch (...)
+	{
+		// destructor must not throw
+	}
 
 }
 	
@@ -53,7 +58,7 @@ UserInfoManager::~UserInfoManager ()
 // initialize GSIM
 //----------------------------------------------------------------------
 void UserInfoManager::init ()
-	throw ( Error )
+	noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -69,7 +74,7 @@ void UserInfoManager::init ()
 // load data from database
 //----------------------------------------------------------------------
 void UserInfoManager::load ()
-	throw ( Error )
+	noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -115,13 +120,13 @@ void UserInfoManager::load ()
 
 	} catch ( SQLQueryException & sqe ) {
 
-		// ÇÊ»ì »èÁ¦!
+		// ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ï¿½!
 		delete pStmt;
 
 		throw Error(sqe.toString());
 	}
 
-	// ÇÊ»ì »èÁ¦!
+	// ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	delete pStmt;
 
 	__END_CATCH
@@ -131,7 +136,7 @@ void UserInfoManager::load ()
 // add info 
 //----------------------------------------------------------------------
 void UserInfoManager::addUserInfo ( UserInfo * pUserInfo ) 
-	throw ( DuplicatedException )
+	noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -149,7 +154,7 @@ void UserInfoManager::addUserInfo ( UserInfo * pUserInfo )
 // delete info
 //----------------------------------------------------------------------
 void UserInfoManager::deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID )
-	throw ( NoSuchElementException )
+	noexcept(false)
 {
 	__BEGIN_TRY
 		
@@ -157,10 +162,10 @@ void UserInfoManager::deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t Wo
 	
 	if ( itr != m_UserInfos[WorldID].end() ) {
 
-		// UserInfo ¸¦ »èÁ¦ÇÑ´Ù.
+		// UserInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		delete itr->second;
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_UserInfos[WorldID].erase( itr );
 
 	} else { // not found
@@ -178,7 +183,7 @@ void UserInfoManager::deleteUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t Wo
 // get info
 //----------------------------------------------------------------------
 UserInfo * UserInfoManager::getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t WorldID ) const
-	throw ( NoSuchElementException )
+	noexcept(false)
 {
 	__BEGIN_TRY
 		
@@ -207,8 +212,7 @@ UserInfo * UserInfoManager::getUserInfo ( ZoneGroupID_t ServerGroupID, WorldID_t
 //----------------------------------------------------------------------
 // get debug string
 //----------------------------------------------------------------------
-string UserInfoManager::toString () const
-	throw ()
+string UserInfoManager::toString () const noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -227,7 +231,7 @@ string UserInfoManager::toString () const
 			//--------------------------------------------------
 			// *OPTIMIZATION*
 			//
-			// for_each()¸¦ »ç¿ëÇÒ °Í
+			// for_each()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 			//--------------------------------------------------
 			for ( HashMapUserInfo::const_iterator itr = m_UserInfos[i].begin() ; 
 				  itr != m_UserInfos[i].end() ; 

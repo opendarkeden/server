@@ -16,21 +16,19 @@
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-ZoneGroupInfoManager::ZoneGroupInfoManager () 
-	throw ()
+ZoneGroupInfoManager::ZoneGroupInfoManager () noexcept
 {
 }
 	
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-ZoneGroupInfoManager::~ZoneGroupInfoManager () 
-	throw ()
+ZoneGroupInfoManager::~ZoneGroupInfoManager () noexcept
 {
-	// hashmap ¾ÈÀÇ °¢ pair ÀÇ second, Áï ZoneGroupInfo °´Ã¼¸¸À» »èÁ¦ÇÏ°í
-	// pair ÀÚÃ¼´Â ±×´ë·Î µÐ´Ù. (ZoneGroupInfo°¡ Èü¿¡ »ý¼ºµÇ¾î ÀÖ´Ù´Â °Í¿¡
-	// À¯ÀÇÇÏ¶ó. Áï ÇÊ»ì»èÁ¦¸¦ ÇØ¾ß ÇÑ´Ù. ÇÏ±ä, ZGIMÀÌ destruct µÈ´Ù´Â °ÍÀº
-	// ·Î±×ÀÎ ¼­¹ö°¡ ¼Ë´Ù¿îµÈ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÏ´Ï±ñ.. - -; )
+	// hashmap ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ pair ï¿½ï¿½ second, ï¿½ï¿½ ZoneGroupInfo ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½
+	// pair ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½Ð´ï¿½. (ZoneGroupInfoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½Í¿ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½. ï¿½ï¿½ ï¿½Ê»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½Ï±ï¿½, ZGIMï¿½ï¿½ destruct ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë´Ù¿ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ï´Ï±ï¿½.. - -; )
 	for ( HashMapZoneGroupInfo::iterator itr = m_ZoneGroupInfos.begin() ; 
 		  itr != m_ZoneGroupInfos.end() ; 
 		  itr ++ ) {
@@ -38,7 +36,7 @@ ZoneGroupInfoManager::~ZoneGroupInfoManager ()
 		itr->second = NULL;
 	}
 
-	// ÀÌÁ¦ ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_ZoneGroupInfos.clear();
 }
 	
@@ -46,8 +44,7 @@ ZoneGroupInfoManager::~ZoneGroupInfoManager ()
 //----------------------------------------------------------------------
 // initialize GSIM
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::init ()
-	throw ( Error )
+void ZoneGroupInfoManager::init () noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -63,8 +60,7 @@ void ZoneGroupInfoManager::init ()
 //----------------------------------------------------------------------
 // load data from database
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::load ()
-	throw ( Error )
+void ZoneGroupInfoManager::load () noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -86,13 +82,13 @@ void ZoneGroupInfoManager::load ()
 
 	} catch ( SQLQueryException & sqe ) {
 
-		// ÇÊ»ì »èÁ¦!
+		// ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ï¿½!
 		delete pStmt;
 
 		throw Error(sqe.toString());
 	}
 
-	// ÇÊ»ì »èÁ¦!
+	// ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ï¿½!
 	delete pStmt;
 
 	__END_CATCH
@@ -101,8 +97,7 @@ void ZoneGroupInfoManager::load ()
 //----------------------------------------------------------------------
 // add info 
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) 
-	throw ( DuplicatedException )
+void ZoneGroupInfoManager::addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -119,8 +114,7 @@ void ZoneGroupInfoManager::addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo )
 //----------------------------------------------------------------------
 // delete info
 //----------------------------------------------------------------------
-void ZoneGroupInfoManager::deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID )
-	throw ( NoSuchElementException )
+void ZoneGroupInfoManager::deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) noexcept(false)
 {
 	__BEGIN_TRY
 		
@@ -128,10 +122,10 @@ void ZoneGroupInfoManager::deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID )
 	
 	if ( itr != m_ZoneGroupInfos.end() ) {
 
-		// ZoneGroupInfo ¸¦ »èÁ¦ÇÑ´Ù.
+		// ZoneGroupInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		delete itr->second;
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_ZoneGroupInfos.erase( itr );
 
 	} else { // not found
@@ -149,7 +143,6 @@ void ZoneGroupInfoManager::deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID )
 // get info
 //----------------------------------------------------------------------
 ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) const
-	throw ( NoSuchElementException )
 {
 	__BEGIN_TRY
 		
@@ -179,7 +172,6 @@ ZoneGroupInfo * ZoneGroupInfoManager::getZoneGroupInfo ( ZoneGroupID_t zoneGroup
 // get debug string
 //----------------------------------------------------------------------
 string ZoneGroupInfoManager::toString () const
-	throw ()
 {
 	__BEGIN_TRY
 
@@ -196,7 +188,7 @@ string ZoneGroupInfoManager::toString () const
 		//--------------------------------------------------
 		// *OPTIMIZATION*
 		//
-		// for_each()¸¦ »ç¿ëÇÒ °Í
+		// for_each()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 		//--------------------------------------------------
 		for ( HashMapZoneGroupInfo::const_iterator itr = m_ZoneGroupInfos.begin() ; 
 			  itr != m_ZoneGroupInfos.end() ; 

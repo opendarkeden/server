@@ -2,7 +2,7 @@
 // Filename    : GCAddGearToInventory.h 
 // Written By  : crazydog
 // Description : 
-// Skill ShieldStrike¿¡ ÀÇÇØ ¹ß»ý. shield¸¦ ÀåÂøÃ¢¿¡¼­ inventory·Î º¸³½´Ù.
+// Skill ShieldStrikeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½. shieldï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ï¿½ï¿½ inventoryï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __GC_ADD_GEAR_TO_INVENTORY_H__
@@ -19,7 +19,7 @@ class GCAddGearToInventory : public Packet
 {
 public:
 	GCAddGearToInventory() ;
-	~GCAddGearToInventory() ;
+	~GCAddGearToInventory() noexcept ;
 
 public:
     void read(SocketInputStream & iStream) ;
@@ -42,7 +42,7 @@ public:
 
 private:
 	SlotID_t     m_SlotID; // wear part ID
-	CoordInven_t m_InvenX; // InventoryÀÇ X, Y ÁÂÇ¥.
+	CoordInven_t m_InvenX; // Inventoryï¿½ï¿½ X, Y ï¿½ï¿½Ç¥.
 	CoordInven_t m_InvenY;
 };
 

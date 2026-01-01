@@ -26,15 +26,11 @@ GuildInfo::GuildInfo ()
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GuildInfo::~GuildInfo () 
-{
-	__BEGIN_TRY
-	__END_CATCH
-}
+GuildInfo::~GuildInfo () noexcept = default;
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GuildInfo::read ( SocketInputStream & iStream ) 
 {
@@ -42,7 +38,7 @@ void GuildInfo::read ( SocketInputStream & iStream )
 		
 	BYTE szGuildName, szGuildMaster, szGuildExpireDate;
 
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½È­ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	iStream.read( m_GuildID );
 	iStream.read( szGuildName );
 
@@ -75,7 +71,7 @@ void GuildInfo::read ( SocketInputStream & iStream )
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GuildInfo::write ( SocketOutputStream & oStream ) 
      const
@@ -99,7 +95,7 @@ void GuildInfo::write ( SocketOutputStream & oStream )
 	if ( szGuildExpireDate > 11 )
 		throw InvalidProtocolException( "too long szGuildExpireDate size" );
 
-	// ÃÖÀûÈ­ ÀÛ¾÷½Ã ½ÇÁ¦ Å©±â¸¦ ¸í½ÃÇÏµµ·Ï ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½È­ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	oStream.write( m_GuildID );
 	oStream.write( szGuildName );
 	oStream.write( m_GuildName );

@@ -19,7 +19,7 @@ class GCAddMonsterFromBurrowing : public Packet
 {
 public:
 	GCAddMonsterFromBurrowing() ;
-	virtual ~GCAddMonsterFromBurrowing() ;
+	virtual ~GCAddMonsterFromBurrowing() noexcept ;
 	
 public:
     void read(SocketInputStream & iStream) ;

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ½ºÄÉÁÙ¸µµÈ ÀÛ¾÷À» À§ÇÑ Schedule Å¬·¡½º ±¸Çö
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Schedule Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 ///////////////////////////////////////////////////////////////////
 
 #include "Exception.h"
@@ -21,14 +21,16 @@ Schedule::Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type )
 	__END_CATCH
 }
 
-Schedule::~Schedule()
-  
+Schedule::~Schedule() noexcept
 {
-	__BEGIN_TRY
-
-	SAFE_DELETE(m_pWork);
-
-	__END_CATCH
+	try
+	{
+		SAFE_DELETE(m_pWork);
+	}
+	catch (...)
+	{
+		// destructor must not throw
+	}
 }
 
 Work*

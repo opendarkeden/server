@@ -16,6 +16,8 @@
 #include "PacketFactoryManager.h"
 #include "CommonBillingPacket.h"
 
+#include <exception>
+
 #ifdef __GAME_SERVER__
 	#include "PCFinder.h"
 	#include "GamePlayer.h"
@@ -69,27 +71,30 @@ BillingPlayer::BillingPlayer (Socket * pSocket)
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-BillingPlayer::~BillingPlayer ()
+BillingPlayer::~BillingPlayer () noexcept
 {
-	__BEGIN_TRY
-		
-	// delete socket input stream
-	SAFE_DELETE(m_pInputStream);
-
-	// delete socket output stream
-	SAFE_DELETE(m_pOutputStream);
-
-	// delete socket
-	if ( m_pSocket != NULL ) 
+	try
 	{
-		m_pSocket->close();
-		delete m_pSocket;
-		m_pSocket = NULL;
+		// delete socket input stream
+		SAFE_DELETE(m_pInputStream);
 
-		filelog(LOGFILE_BILLING_PLAYER, "Close Socket" );
+		// delete socket output stream
+		SAFE_DELETE(m_pOutputStream);
+
+		// delete socket
+		if ( m_pSocket != NULL ) 
+		{
+			m_pSocket->close();
+			delete m_pSocket;
+			m_pSocket = NULL;
+
+			filelog(LOGFILE_BILLING_PLAYER, "Close Socket" );
+		}
 	}
-
-	__END_CATCH
+	catch (const std::exception&)
+	{
+		// ignore during teardown
+	}
 }
 
 
@@ -119,7 +124,7 @@ void BillingPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "ÀÌ»óÇÑ ÆÐÅ¶ÀÓ" );
+		throw DisconnectException( "ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½" );
 	}
 
 	__END_CATCH
@@ -137,38 +142,38 @@ void BillingPlayer::processCommand ()
 
 	try {
 
-		// Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ý¼º
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		//char header[szPacketHeader];
 		//PacketID_t packetID;
 		//PacketSize_t packetSize;
 		CommonBillingPacket	cbPacket;
 
-		// ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆÐÅ¶µéÀ» ¸ðÁ¶¸® Ã³¸®ÇÑ´Ù.
+		// ï¿½Ô·Â¹ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 		while ( true ) {
 		
 			/*
-			// ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆÐÅ¶Çì´õÅ©±â¸¸Å­ ÀÐ¾îº»´Ù.
-			// ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀÐÀ» ¼ö ¾ø´Ù¸é,
-			// Insufficient ¿¹¿Ü°¡ ¹ß»ýÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
+			// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Å©ï¿½â¸¸Å­ ï¿½Ð¾îº»ï¿½ï¿½.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¸Å­ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½,
+			// Insufficient ï¿½ï¿½ï¿½Ü°ï¿½ ï¿½ß»ï¿½ï¿½Ï°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 			if ( !m_pInputStream->peek( header , szPacketHeader ) )
 				break;
 
-			// ÆÐÅ¶¾ÆÀÌµð ¹× ÆÐÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-			// ÀÌ¶§ ÆÐÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶Å©ï¿½â¸¦ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
+			// ï¿½Ì¶ï¿½ ï¿½ï¿½Å¶Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			memcpy( &packetID   , &header[0] , szPacketID );	
 			memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 
-			// ÆÐÅ¶ ¾ÆÀÌµð°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			// ï¿½ï¿½Å¶ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ì»ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if ( packetID >= Packet::PACKET_MAX )
 				throw InvalidProtocolException("invalid packet id");
 			
-			// ÆÐÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄÝ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			// ï¿½ï¿½Å¶ Å©ï¿½â°¡ ï¿½Ê¹ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 				throw InvalidProtocolException("too large packet size");
 			*/
 			
-			// ÀÔ·Â¹öÆÛ³»¿¡ ÆÐÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
-			// ÃÖÀûÈ­½Ã break ¸¦ »ç¿ëÇÏ¸é µÈ´Ù. (¿©±â¼­´Â ÀÏ´Ü exceptionÀ» ¾µ °ÍÀÌ´Ù.)
+			// ï¿½Ô·Â¹ï¿½ï¿½Û³ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶Å©ï¿½â¸¸Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
+			// ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ break ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½. (ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ ï¿½Ï´ï¿½ exceptionï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.)
 			//if ( m_pInputStream->length() < szPacketHeader + packetSize )
 			if ( m_pInputStream->length() < cbPacket.getPacketSize())
 			{
@@ -176,24 +181,24 @@ void BillingPlayer::processCommand ()
 				return;
 			}
 			
-			// ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆÐÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-			// ÆÐÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆÐÅ¶¾ÆÀÌµð¸¦ »ç¿ëÇØ¼­ ÆÐÅ¶ ½ºÆ®·°Ã³¸¦ »ý¼ºÇÏ¸é µÈ´Ù.
-			// ÆÐÅ¶¾ÆÀÌµð°¡ Àß¸øµÉ °æ¿ì´Â ÆÐÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´Ù¸ï¿½ ï¿½Ô·Â¹ï¿½ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ ï¿½Ï³ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½Å´ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Å¶ ï¿½ï¿½Æ®ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ä¸®ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 			//pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
-			// ÀÌÁ¦ ÀÌ ÆÐÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-			// ÆÐÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ÞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-			// ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½Æ®ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ read()ï¿½ï¿½ virtual ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ È£ï¿½ï¿½Ç¾ï¿½
+			// ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½È´ï¿½.
 			//m_pInputStream->read( pPacket );
-			// packetHeaderºÎºÐÀÌ ÇÊ¿ä¾ø´Ù.
+			// packetHeaderï¿½Îºï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½.
 			cbPacket.read( *m_pInputStream );
 			
-			// ÀÌÁ¦ ÀÌ ÆÐÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆÐÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-			// ÆÐÅ¶¾ÆÀÌµð°¡ Àß¸øµÉ °æ¿ì´Â ÆÐÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½Æ®ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½Úµé·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½È´ï¿½.
+			// ï¿½ï¿½Å¶ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½Úµé·¯ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 			//pPacket->execute( this );
 			cbPacket.execute( this );
 
-			// ÆÐÅ¶À» »èÁ¦ÇÑ´Ù
+			// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 			//delete pPacket;
 
 		}
@@ -202,10 +207,10 @@ void BillingPlayer::processCommand ()
 
 		// PacketFactoryManager::createPacket(PacketID_t)
 		// PacketFactoryManager::getPacketMaxSize(PacketID_t)
-		// ¿¡¼­ ´øÁú °¡´É¼ºÀÌ ÀÖ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 		throw Error( nsee.toString() );
 
-	} catch ( InsufficientDataException ) {
+	} catch ( const InsufficientDataException& ) {
 
 		// do nothing
 
@@ -223,7 +228,7 @@ void BillingPlayer::sendPacket ( Packet * pPacket )
 {
 	__BEGIN_TRY
 
-	//m_pOutputStream->write( pPacket );	// packetHeader´Â ÇÊ¿ä¾ø´Ù.
+	//m_pOutputStream->write( pPacket );	// packetHeaderï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½.
 	pPacket->write( *m_pOutputStream );
 
 	/*
@@ -248,9 +253,9 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 
 	try 
 	{
-		// Á¤´çÇÏ°Ô ·Î±×¾Æ¿ôÇÑ °æ¿ì¿¡´Â Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÒ ¼ö ÀÖ´Ù.
-		// ±×·¯³ª, ºÒ¹ýÀûÀÎ µð½º¸¦ °É¾ú´Ù¸é ¼ÒÄÏÀÌ ´Ý°åÀ¸¹Ç·Î
-		// ÇÃ·¯½ÃÇÒ °æ¿ì SIG_PIPE À» ¹Þ°Ô µÈ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Î±×¾Æ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+		// ï¿½×·ï¿½ï¿½ï¿½, ï¿½Ò¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ð½º¸ï¿½ ï¿½É¾ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+		// ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ SIG_PIPE ï¿½ï¿½ ï¿½Þ°ï¿½ ï¿½È´ï¿½.
 		if ( bDisconnected == UNDISCONNECTED ) 
 		{
 			m_pOutputStream->flush();
@@ -263,7 +268,7 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 		cerr << "BillingPlayer::disconnect Exception Check!!" << endl;
 		cerr << t.toString() << endl;
 		m_pSocket->close();
-		//throw Error("¾¾¹Ù...");
+		//throw Error("ï¿½ï¿½ï¿½ï¿½...");
 	}
 
 	__END_CATCH
@@ -294,7 +299,7 @@ void BillingPlayer::setSocket ( Socket * pSocket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// °ÔÀÓ ¼­¹ö°¡ Ã³À½ ¶ã ¶§ º¸³½´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayInit()
 {
@@ -321,7 +326,7 @@ void BillingPlayer::sendPayInit()
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍÀÇ Á¢¼Ó »óÅÂ¸¦ º¸³½´Ù.
+// Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 {
@@ -342,7 +347,7 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 	cbPacket.setPacket_Type( BILLING_PACKET_CHECK );
 	cbPacket.setSession( pPacket->Session );
 
-	// Á¢¼Ó ÁßÀÎÁö ¾Æ´ÑÁö PlayerID·Î Ã¼Å©ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ PlayerIDï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
 #ifdef __GAME_SERVER__
 	Creature* pCreature = g_pPCFinder->getCreatureByID(PlayerID);
 	bool isPlaying = ( pCreature != NULL );
@@ -380,7 +385,7 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ°¡ °ÔÀÓ¿¡ Ã³À½ Á¢¼ÓÇÒ¶§ º¸³»´Â°Í
+// Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½Ó¿ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogin( Player* pPlayer ) 
 {
@@ -486,7 +491,7 @@ void BillingPlayer::sendPayLogin( Player* pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ°¡ °ÔÀÓ¿¡¼­ ³ª°¥¶§ º¸³»´Â°Í
+// Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogout( Player* pPlayer ) 
 {

@@ -52,15 +52,15 @@ void CommonBillingPacket::test ()
 	const BillingInfo* pBillingInfo = this;
 	memcpy(pBuffer, (const char*)pBillingInfo, len);
 
-	// ´Ù½Ã ¿ø·¡´ë·Î
+	// ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
 	Game_No 	= ntohl(Game_No);
 	Remain_Time = ntohl(Remain_Time);
 
-	// ´Ù 0 À¸·Î...
-	memset(this, 0, sizeof(this));
+	// Reset contents without invoking undefined behavior on non-trivial type.
+	*static_cast<CommonBillingPacket*>(this) = CommonBillingPacket();
 
 	//---------------------------------------
 	// read
@@ -211,7 +211,7 @@ void CommonBillingPacket::write (SocketOutputStream & oStream) const
 	const BillingInfo* pBillingInfo = this;
 	oStream.write((const char*)pBillingInfo, len);
 
-	// ´Ù½Ã ¿ø·¡´ë·Î
+	// ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
@@ -235,7 +235,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 {
 	__BEGIN_TRY
 	
-	// BillingInfo¿¡µµ Result°¡ ÀÖÀ¸´Ï±î ::¸¦ ºÙ¿©¾ß ÇÑ´Ù.
+	// BillingInfoï¿½ï¿½ï¿½ï¿½ Resultï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ::ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	::Result* 	pResult	= NULL;
 	Statement* 	pStmt 	= NULL;
 
@@ -269,7 +269,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 	}
 	END_DB(pStmt)
 
-	// °ªÀÌ Á¦´ë·Î ¾È µé¾î°£ °æ¿ì´Â ÇöÀç°ª
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½î°£ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç°ª
 	if (year==0)
 	{
 		VSDate	currentDate(VSDate::currentDate());
@@ -295,7 +295,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 string  CommonBillingPacket::getExpire_DateToString() const
 {
 	// 012345678
-	// 20021120 À» "2002³â 11¿ù 20ÀÏ 24½Ã"·Î ¹Ù²ãÁØ´Ù.
+	// 20021120 ï¿½ï¿½ "2002ï¿½ï¿½ 11ï¿½ï¿½ 20ï¿½ï¿½ 24ï¿½ï¿½"ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½Ø´ï¿½.
 	//int len = strlen(Expire_Date);
 	if (Expire_Date[0]=='2')
 	{

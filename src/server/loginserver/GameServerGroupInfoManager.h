@@ -21,8 +21,8 @@ typedef unordered_map< ServerGroupID_t ,GameServerGroupInfo * > HashMapGameServe
 //
 // class GameServerGroupInfoManager;
 //
-// °ÔÀÓ ¼­¹öÀÇ ID ¸¦ Å°°ªÀ¸·Î ÇÏ´Â GameServerGroupInfoÀÇ unordered_map À» 
-// ³»ºÎ¿¡ °¡Áö°í ÀÖ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ID ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ GameServerGroupInfoï¿½ï¿½ unordered_map ï¿½ï¿½ 
+// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -31,34 +31,34 @@ class GameServerGroupInfoManager {
 public :
 	
 	// constructor
-	GameServerGroupInfoManager () throw ();
+	GameServerGroupInfoManager () noexcept;
 	
 	// destructor
-	~GameServerGroupInfoManager () throw ();
+	~GameServerGroupInfoManager () noexcept;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init () noexcept(false);
 
 	// load from database
-	void load () throw ( Error );
+	void load () noexcept(false);
 
 	// clear GameServerGroupInfos
-	void clear() throw ( Error );
+	void clear() noexcept(false);
 	
 	// add info
-	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) throw ( DuplicatedException );
+	void addGameServerGroupInfo ( GameServerGroupInfo * pGameServerGroupInfo, WorldID_t WorldID ) noexcept(false);
 	
 	// delete info
-	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) throw ( NoSuchElementException );
+	void deleteGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) noexcept(false);
 	
 	// get GameServerGroupInfo by ServerGroupID
-	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const throw( NoSuchElementException );
+	GameServerGroupInfo * getGameServerGroupInfo ( const ServerGroupID_t ServerGroupID, WorldID_t WorldID ) const noexcept(false);
 
 	// get count of info
-	uint getSize ( WorldID_t WorldID ) const throw () { return m_GameServerGroupInfos[WorldID].size(); }
+	uint getSize ( WorldID_t WorldID ) const noexcept { return m_GameServerGroupInfos[WorldID].size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const noexcept(false);
 
 private :
 	

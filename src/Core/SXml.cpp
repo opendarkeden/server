@@ -59,7 +59,7 @@ class XMLUtil
 {
 public:
 	static string trim(const string& str);
-	static void filelog(char* fmt, ...);
+	static void filelog(const char* fmt, ...);
 	static string WideCharToString(const XMLCh * wstr, int wstrlen = -1);
 };
 
@@ -72,7 +72,7 @@ public:
 class StrX
 {
 private:
-	char* m_pCSTR; ///< ³»ºÎ ¹®ÀÚ¿­ ¹öÆÛ
+	char* m_pCSTR; ///< ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 public:
 	StrX(const XMLCh* const toTranscode) { m_pCSTR = XMLString::transcode(toTranscode); }
@@ -90,8 +90,8 @@ public:
 class XMLTreeGenerator : public DefaultHandler
 {
 private:
-	XMLTree* m_pRoot;   ///< ÃÖ»óÀ§ ³ëµå
-	XMLTree* m_pBuffer; ///< XML ÆÄ½Ì¿ë ÀÓ½Ã ³ëµå
+	XMLTree* m_pRoot;   ///< ï¿½Ö»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	XMLTree* m_pBuffer; ///< XML ï¿½Ä½Ì¿ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½
 
 
 public:
@@ -135,10 +135,10 @@ public:
 
 
 public:
-	/// \brief ÁöÁ¤µÈ À§Ä¡¿¡ ÀÖ´Â ÆÄÀÏ ¶Ç´Â À¥ ¹®¼­¸¦ ÆÄ½ÌÇÑ´Ù.
+	/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 	void parseURL(const char* pURL);
 
-	/// \brief ÀÎ¼ö·Î ³Ñ°ÜÁö´Â ¹®ÀÚ¿­À» XML ¹®¼­·Î °¡Á¤ÇÏ°í ÆÄ½ÌÇÑ´Ù.
+	/// \brief ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ XML ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 	void parse(const char* buffer);
 };
 
@@ -186,9 +186,9 @@ string XMLUtil::WideCharToString(const XMLCh * wstr, int wstrlen)
 	//	For the code pages mentioned in dwFlags, lpUsedDefaultChar must be NULL, 
 	//  otherwise the function fails with ERROR_INVALID_PARAMETER. 
 
-	// ÃÖ¼ÒÇÑÀÇ º¹»ç¸¦ ÁÙÀÌ±â À§ÇØ¼­ ½ºÆ®¸µÀ» ÁØºñ. 	
+	// ï¿½Ö¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç¸¦ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½. 	
 /*	string strBuffer;
-	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity ¸¦ ÃæºÐÇÏ°Ô.. 
+	strBuffer.reserve( wstrlen * 2 + 1 );		// capacity ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½.. 
 	int nCopied = WideCharToMultiByte(
 		CP_OEMCP,
 		WC_COMPOSITECHECK,
@@ -196,10 +196,10 @@ string XMLUtil::WideCharToString(const XMLCh * wstr, int wstrlen)
 		wstrlen,								// length of wide string
 		const_cast<LPSTR>(strBuffer.data()),	// mbcs string (unicode)
 		(int)strBuffer.capacity(),					// length of mbcs string
-		NULL,									// NULL ÀÌ ºü¸£´Ù´Âµ¥?
+		NULL,									// NULL ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ù´Âµï¿½?
 		NULL );
 	strBuffer[nCopied] = 0;
-	strBuffer._Mysize = nCopied;				// ¼öµ¿À¸·Î ÁöÁ¤ÇØ¾ß ÇÑ´Ù.
+	strBuffer._Mysize = nCopied;				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 
 	return strBuffer;*/
 	return StrX(wstr).toString();
@@ -231,7 +231,7 @@ string XMLUtil::trim(const string& str)
 /// \param fmt 
 /// \param ... 
 //////////////////////////////////////////////////////////////////////////////
-void XMLUtil::filelog(char* fmt, ...)
+void XMLUtil::filelog(const char* fmt, ...)
 {
 	ofstream file(XML_ERROR_FILENAME, ios::out | ios::app);
 	if (file.is_open())
@@ -924,7 +924,7 @@ XMLParser::~XMLParser()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ÁöÁ¤µÈ À§Ä¡¿¡ ÀÖ´Â ÆÄÀÏ ¶Ç´Â À¥ ¹®¼­¸¦ ÆÄ½ÌÇÑ´Ù.
+/// \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 /// 
 /// \param pURL 
 //////////////////////////////////////////////////////////////////////////////
@@ -933,8 +933,8 @@ void XMLParser::parseURL(const char* pURL)
 	// assert(pURL != NULL);
 	// assert(m_pHandler != NULL);
 
-	// SAX ÆÄ¼­ ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù. ±×¸®°í feature¸¦ ¼³Á¤ÇÑ´Ù.
-	// SAX2¿¡¼­ Áö¿øµÇ´Â feature´Â ´ÙÀ½°ú °°´Ù.
+	// SAX ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½×¸ï¿½ï¿½ï¿½ featureï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// SAX2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ featureï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	//
 	// validation (default: true) 
 	// namespaces (default: true) 
@@ -947,7 +947,7 @@ void XMLParser::parseURL(const char* pURL)
 	// continue-after-fatal-error (default: false) 
 	// validation-error-as-fatal (default: false) 
 	//
-	// ÀÚ¼¼ÇÑ »çÇ×Àº ´ÙÀ½ ÁÖ¼Ò¸¦ Âü°íÇÏ±â ¹Ù¶õ´Ù.
+	// ï¿½Ú¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½.
 	// http://xml.apache.org/xerces-c/program-sax2.html#SAX2Features 
 	SAX2XMLReader* pParser = XMLReaderFactory::createXMLReader();
 	pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
@@ -979,7 +979,7 @@ void XMLParser::parseURL(const char* pURL)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-/// \brief ÀÎ¼ö·Î ³Ñ°ÜÁö´Â ¹®ÀÚ¿­À» XML ¹®¼­·Î °¡Á¤ÇÏ°í ÆÄ½ÌÇÑ´Ù.
+/// \brief ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ XML ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ä½ï¿½ï¿½Ñ´ï¿½.
 /// 
 /// \param buffer 
 //////////////////////////////////////////////////////////////////////////////
@@ -988,8 +988,8 @@ void XMLParser::parse(const char* buffer)
 	// assert(buffer != NULL);
 	// assert(m_pHandler != NULL);
 
-	// SAX ÆÄ¼­ ¿ÀºêÁ§Æ®¸¦ »ý¼ºÇÑ´Ù. ±×¸®°í feature¸¦ ¼³Á¤ÇÑ´Ù.
-	// feature¿¡ °üÇÑ »çÇ×Àº XMLParser::parseURL() ÇÔ¼ö¸¦ Âü°íÇÏ±â ¹Ù¶õ´Ù.
+	// SAX ï¿½Ä¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½×¸ï¿½ï¿½ï¿½ featureï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// featureï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ XMLParser::parseURL() ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½Ù¶ï¿½ï¿½ï¿½.
 	SAX2XMLReader* pParser = XMLReaderFactory::createXMLReader();
 	pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
 	pParser->setFeature(XMLUni::fgXercesSchema, true);

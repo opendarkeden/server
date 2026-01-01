@@ -14,19 +14,19 @@
 
 //--------------------------------------------------------------------------------
 //
-// Config.h ¿¡ NDEBUG °¡ Á¤ÀÇµÇ¸é, ¸ðµç Assert¸¦ ¹«½ÃÇÑ´Ù.
-// ±×·¸Áö ¾ÊÀº °æ¿ì Assert°¡ ½ÇÆÐÇÏ¸é ÆÄÀÏ¿¡ ·Î±×¸¦ ÇÑÈÄ, AssertError¸¦ ¸®ÅÏÇÑ´Ù.
+// Config.h ï¿½ï¿½ NDEBUG ï¿½ï¿½ ï¿½ï¿½ï¿½ÇµÇ¸ï¿½, ï¿½ï¿½ï¿½ Assertï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Assertï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½, AssertErrorï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //--------------------------------------------------------------------------------
-void __assert__ (const char* file, uint line, const char* func, const char* expr);
+void __assert__ (const char* file, uint line, const char* func, const char* expr) noexcept(false);
 
 //--------------------------------------------------------------------------------
 //
-// ProtocolAssert ´Â Å¬¶óÀÌ¾ðÆ® ÇØÅ·½Ã, Àß¸øµÈ µ¥ÀÌÅÍ°¡ ³Ñ¾î¿Ã ¶§, ÀûÀýÇÑ ´ëÃ³¸¦ ÇÑ ÈÄ, 
-// ±× ¿¬°áÀ» Á¾·á½ÃÅ°´Â ¿ªÇÒÀ» ÇÑ´Ù.
+// ProtocolAssert ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½Å·ï¿½ï¿½, ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½, 
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 //
 //--------------------------------------------------------------------------------
-void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr);
+void __protocol_assert__ (const char* file, uint line, const char* func, const char* expr) noexcept(false);
 
 #if defined(NDEBUG)
 	#define Assert(expr) ((void)0)
@@ -34,7 +34,7 @@ void __protocol_assert__ (const char* file, uint line, const char* func, const c
 	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
 	#define ProtocolAssert(expr) ((void)((expr)?0:(__protocol_assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
 #elif __WIN_CONSOLE__ || __WIN32__
-	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,"",#expr),0)))
+	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,__FUNCTION__,#expr),0)))
 #elif __MFC__
 	#define Assert(expr) ASSERT(expr)
 #endif
