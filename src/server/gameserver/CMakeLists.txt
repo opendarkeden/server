@@ -19,6 +19,7 @@ set(GAMESERVER_INCLUDE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/quest
     ${CMAKE_CURRENT_SOURCE_DIR}/quest/luaScript
     ${CMAKE_CURRENT_SOURCE_DIR}/mofus
+    ${CMAKE_CURRENT_SOURCE_DIR}/test
 )
 
 # ============================================================================

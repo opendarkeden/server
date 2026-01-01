@@ -37,7 +37,7 @@ set(CONDITION_OBJS
 	ConditionNotGuildMember.cpp
 	ConditionIsGuildMember.cpp
 	ConditionCanEnterQuestZone.cpp
-	ConditionHasEnoughFamilyCoin.cpp
+#	ConditionHasEnoughFamilyCoin.cpp
 )
 
 set(ACTION_OBJS
@@ -151,7 +151,7 @@ set(ACTION_OBJS
 	ActionShowDonationDialog.cpp
 	ActionEnterQuestZone.cpp
 	ActionShowConfirmGetEventItemDialog.cpp
-	ActionGiveCommonEventItem.cpp
+#	ActionGiveCommonEventItem.cpp
 )
 
 set(LIBQUEST_SRCS ${QUEST_OBJS} ${CONDITION_OBJS} ${ACTION_OBJS})
@@ -165,6 +165,9 @@ target_include_directories(Quest PUBLIC
 	${CMAKE_SOURCE_DIR}/src/server
 	${CMAKE_SOURCE_DIR}/src/server/database
 	${CMAKE_SOURCE_DIR}/src/server/gameserver
+	${CMAKE_SOURCE_DIR}/src/server/gameserver/war
+	${CMAKE_SOURCE_DIR}/src/server/gameserver/item
+	${CMAKE_SOURCE_DIR}/src/server/gameserver/skill	
 )
 
 add_subdirectory(luaScript)

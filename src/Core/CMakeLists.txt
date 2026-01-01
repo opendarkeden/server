@@ -9,7 +9,8 @@ set(CORE_SOURCES
     GuildWarInfo.cpp
     LevelWarInfo.cpp
     BloodBibleBonusInfo.cpp
-    Assert1.cpp
+    Assert.cpp
+#    Assert1.cpp
     Datagram.cpp
     SerialDatagram.cpp
     DatagramSocket.cpp
@@ -83,7 +84,11 @@ set(CORE_SOURCES
 )
 
 add_library(Core STATIC ${CORE_SOURCES})
-target_include_directories(Core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(Core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/src/server/gameserver
+    ${CMAKE_SOURCE_DIR}/src/server/gameserver/item
+)
 
 # ============================================================================
 # 通用 Packet 源文件定义
@@ -203,7 +208,7 @@ set(GC_PACKET_SOURCES
     GCModifyNickname.cpp GCModifyNicknameHandler.cpp
     GCModyfyMoney.cpp GCModyfyMoneyHandler.cpp
     GCMonsterKillQuestInfo.cpp GCMonsterKillQuestInfoHandler.cpp
-    GCMonsterKillQuestStatus.cpp GCMonsterKillQuestStatusHandler.cpp
+#    GCMonsterKillQuestStatus.cpp GCMonsterKillQuestStatusHandler.cpp
     GCMorph1.cpp GCMorph1Handler.cpp
     GCMorphSlayer2.cpp GCMorphSlayer2Handler.cpp
     GCMorphVampire2.cpp GCMorphVampire2Handler.cpp
@@ -355,7 +360,7 @@ set(CG_PACKET_SOURCES
     CGAbsorbSoul.cpp CGAbsorbSoulHandler.cpp
     CGAcceptUnion.cpp CGAcceptUnionHandler.cpp
     CGAddGearToMouse.cpp CGAddGearToMouseHandler.cpp
-    CGAddInjuriousCreature.cpp CGAddInjuriousCreatureHandler.cpp
+#    CGAddInjuriousCreature.cpp CGAddInjuriousCreatureHandler.cpp
     CGAddInventoryToMouse.cpp CGAddInventoryToMouseHandler.cpp
     CGAddItemToCodeSheet.cpp CGAddItemToCodeSheetHandler.cpp
     CGAddItemToItem.cpp CGAddItemToItemHandler.cpp
@@ -504,7 +509,6 @@ set(CG_PACKET_SOURCES
 
 # CL Packets (Client -> Login)
 set(CL_PACKET_SOURCES
-    CLAgreement.cpp CLAgreementHandler.cpp
     CLChangeServer.cpp CLChangeServerHandler.cpp
     CLCreatePC.cpp CLCreatePCHandler.cpp
     CLDeletePC.cpp CLDeletePCHandler.cpp
@@ -521,6 +525,8 @@ set(CL_PACKET_SOURCES
     CLSelectServer.cpp CLSelectServerHandler.cpp
     CLSelectWorld.cpp CLSelectWorldHandler.cpp
     CLVersionCheck.cpp CLVersionCheckHandler.cpp
+    GCDisconnect.cpp GCDisconnectHandler.cpp
+	CGConnectSetKey.cpp CGConnectSetKeyHandler.cpp 
 )
 
 # LC Packets (Login -> Client)
@@ -550,6 +556,7 @@ set(GL_PACKET_SOURCES
     GLIncomingConnectionError.cpp GLIncomingConnectionErrorHandler.cpp
     GLIncomingConnectionOK.cpp GLIncomingConnectionOKHandler.cpp
     GLKickVerify.cpp GLKickVerifyHandler.cpp
+    GMServerInfo.cpp GGCommand.cpp GGCommandHandler.cpp
 )
 
 # LG Packets (Login -> Game)
@@ -570,6 +577,7 @@ set(GS_PACKET_SOURCES
     GSModifyGuildMember.cpp GSModifyGuildMemberHandler.cpp
     GSQuitGuild.cpp GSQuitGuildHandler.cpp
     GSRequestGuildInfo.cpp GSRequestGuildInfoHandler.cpp
+	GGGuildChat.cpp GGGuildChatHandler.cpp
 )
 
 # SG Packets (Shared -> Game)
