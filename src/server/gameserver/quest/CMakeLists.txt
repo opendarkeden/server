@@ -1,7 +1,13 @@
-ADD_DEFINITIONS(-D__LINUX__ -D__GAME_SERVER__)
-INCLUDE_DIRECTORIES(. ./LuaScript)
-SET(QUEST_OBJS Trigger.cpp TriggerManager.cpp PropertyBuffer.cpp VariableBuffer.cpp VariableInfo.cpp TriggerParser.cpp)
-SET(CONDITION_OBJS
+set(QUEST_OBJS
+	Trigger.cpp
+	TriggerManager.cpp
+	PropertyBuffer.cpp
+	VariableBuffer.cpp
+	VariableInfo.cpp
+	TriggerParser.cpp
+)
+
+set(CONDITION_OBJS
 	ConditionFactoryManager.cpp
 	ConditionEveryTime.cpp
 	ConditionAnsweredBy.cpp
@@ -31,8 +37,10 @@ SET(CONDITION_OBJS
 	ConditionNotGuildMember.cpp
 	ConditionIsGuildMember.cpp
 	ConditionCanEnterQuestZone.cpp
-	ConditionHasEnoughFamilyCoin.cpp)
-SET(ACTION_OBJS
+	ConditionHasEnoughFamilyCoin.cpp
+)
+
+set(ACTION_OBJS
 	ActionFactoryManager.cpp
 	ActionSetPosition.cpp
 	ActionWander.cpp
@@ -143,8 +151,20 @@ SET(ACTION_OBJS
 	ActionShowDonationDialog.cpp
 	ActionEnterQuestZone.cpp
 	ActionShowConfirmGetEventItemDialog.cpp
-	ActionGiveCommonEventItem.cpp)
-SET(LIBQUEST_SRCS ${QUEST_OBJS} ${CONDITION_OBJS} ${ACTION_OBJS})
-ADD_LIBRARY(Quest STATIC ${LIBQUEST_SRCS})
+	ActionGiveCommonEventItem.cpp
+)
 
-ADD_SUBDIRECTORY(luaScript)
+set(LIBQUEST_SRCS ${QUEST_OBJS} ${CONDITION_OBJS} ${ACTION_OBJS})
+
+add_library(Quest STATIC ${LIBQUEST_SRCS})
+target_compile_definitions(Quest PRIVATE __GAME_SERVER__)
+target_include_directories(Quest PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/luaScript
+	${CMAKE_SOURCE_DIR}/src/Core
+	${CMAKE_SOURCE_DIR}/src/server
+	${CMAKE_SOURCE_DIR}/src/server/database
+	${CMAKE_SOURCE_DIR}/src/server/gameserver
+)
+
+add_subdirectory(luaScript)
