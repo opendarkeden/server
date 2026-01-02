@@ -50,7 +50,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 
 	uint current = 0;
 
-	// STRÀ» ºñ±³ÇÑ´Ù.
+	// STRì„ ë¹„êµí•œë‹¤.
 	if (m_ReqSTR > 0)
 	{
 		if (pCreature2->isSlayer())
@@ -73,7 +73,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 		}
 	}
 
-	// DEX¸¦ ºñ±³ÇÑ´Ù.
+	// DEXë¥¼ ë¹„êµí•œë‹¤.
 	if (m_ReqDEX > 0)
 	{
 		if (pCreature2->isSlayer())
@@ -96,7 +96,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 		}
 	}
 
-	// INT¸¦ ºñ±³ÇÑ´Ù.
+	// INTë¥¼ ë¹„êµí•œë‹¤.
 	if (m_ReqINT > 0)
 	{
 		if (pCreature2->isSlayer())
@@ -119,7 +119,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 		}
 	}
 
-	// SumÀ» ºñ±³ÇÑ´Ù.
+	// Sumì„ ë¹„êµí•œë‹¤.
 	if (m_ReqSum > 0)
 	{
 		if (pCreature2->isSlayer())
@@ -154,7 +154,7 @@ bool ConditionAttrComp::isSatisfied (Creature * pCreature1 , Creature * pCreatur
 		}
 	}
 
-	// LevelÀ» ºñ±³ÇÑ´Ù.
+	// Levelì„ ë¹„êµí•œë‹¤.
 	if (m_ReqLevel > 0)
 	{
 		if (pCreature2->isSlayer())

@@ -123,18 +123,18 @@ bool PartyInviteInfoManager::canInvite(Creature* pHost, Creature* pGuest)
 
 	Assert(pHost != NULL && pGuest != NULL);
 
-	// »ç¶÷³¢¸® ÃÊ´ë¸¦ ÇØ¾ß ÇÑ´Ù.
+	// ì‚¬ëŒë¼ë¦¬ ì´ˆëŒ€ë¥¼ í•´ì•¼ í•œë‹¤.
 	if (!pHost->isPC() || !pGuest->isPC()) return false;
 
-	// ´Ù¸¥ Á¾Á·³¢¸®´Â ÃÊ´ëÇÒ ¼ö ¾ø´Ù.
+	// ë‹¤ë¥¸ ì¢…ì¡±ë¼ë¦¬ëŠ” ì´ˆëŒ€í•  ìˆ˜ ì—†ë‹¤.
 	if (!isSameRace(pHost, pGuest)) return false;
 
-	// ÀÌ¹Ì ´©±º°¡¸¦ ÃÊ´ëÇÏ°í ÀÖ°Å³ª, ÃÊ´ë¹Ş°í ÀÖ´Ù¸é ÃÊ´ëÇÒ ¼ö ¾ø´Ù.
+	// ì´ë¯¸ ëˆ„êµ°ê°€ë¥¼ ì´ˆëŒ€í•˜ê³  ìˆê±°ë‚˜, ì´ˆëŒ€ë°›ê³  ìˆë‹¤ë©´ ì´ˆëŒ€í•  ìˆ˜ ì—†ë‹¤.
 	PartyInviteInfo* pHostInfo  = getInviteInfo(pHost->getName());
 	PartyInviteInfo* pGuestInfo = getInviteInfo(pGuest->getName());
 	if (pHostInfo != NULL || pGuestInfo != NULL) return false;
 
-	// °Ô½ºÆ®°¡ ÀÌ¹Ì ÆÄÆ¼¿¡ °¡ÀÔµÇ¾î ÀÖ´Ù¸é ÃÊ´ëÇÒ ¼ö ¾ø´Ù.
+	// ê²ŒìŠ¤íŠ¸ê°€ ì´ë¯¸ íŒŒí‹°ì— ê°€ì…ë˜ì–´ ìˆë‹¤ë©´ ì´ˆëŒ€í•  ìˆ˜ ì—†ë‹¤.
 	//if (pGuest->getPartyID() != 0) return false;
 
 	return true;
@@ -154,7 +154,7 @@ bool PartyInviteInfoManager::isInviting(Creature* pHost, Creature* pGuest)
 
 	if (pHostInfo == NULL || pGuestInfo == NULL) return false;
 
-	// ¼­·Î°¡ ½Ö¹æÇâÀ¸·Î »ó´ë¸¦ °¡¸®Å°°í ÀÖ¾î¾ß ÇÑ´Ù.
+	// ì„œë¡œê°€ ìŒë°©í–¥ìœ¼ë¡œ ìƒëŒ€ë¥¼ ê°€ë¦¬í‚¤ê³  ìˆì–´ì•¼ í•œë‹¤.
 	// A(Host)      | B(Guest)
 	// Host  : shit | Host  : fuck
 	// Guest : fuck | Guest : shit
@@ -173,10 +173,10 @@ void PartyInviteInfoManager::initInviteInfo(Creature* pHost, Creature* pGuest)
 
 	if (hasInviteInfo(pHost->getName()) || hasInviteInfo(pGuest->getName()))
 	{
-		// ¿©±â¼­ ¹«¾ğ°¡ ÁßÃ¸ Çö»óÀÌ ÀÏ¾î³µ¾ú´Ù. ±×·¯´Ï±î, CGPartyInvite
-		// ÆĞÅ¶¿¡ ÀÇÇØ¼­ ÆÄÆ¼ ÃÊ´ë Á¤º¸°¡ ÃÊ±âÈ­µÇ·Á´Â ½ÃÁ¡ÀÎµ¥, ÀÌ¹Ì
-		// ÃÊ´ë Á¤º¸°¡ Á¸ÀçÇÑ´Ù´Â ¸»ÀÌ´Ù. ¿ø·¡´Â ¿¡·¯¸¦ ´øÁ®¾ß ÇÏ´Âµ¥,
-		// ¿øÀÎÀ» ¾Ë ¼ö°¡ ¾ø¾î¼­, °Á ½Ö¹æÀÇ Á¤º¸¸¦ Ãë¼ÒÇØ ¹ö¸®µµ·Ï º¯°æÇß´Ù.
+		// ì—¬ê¸°ì„œ ë¬´ì–¸ê°€ ì¤‘ì²© í˜„ìƒì´ ì¼ì–´ë‚¬ì—ˆë‹¤. ê·¸ëŸ¬ë‹ˆê¹Œ, CGPartyInvite
+		// íŒ¨í‚·ì— ì˜í•´ì„œ íŒŒí‹° ì´ˆëŒ€ ì •ë³´ê°€ ì´ˆê¸°í™”ë˜ë ¤ëŠ” ì‹œì ì¸ë°, ì´ë¯¸
+		// ì´ˆëŒ€ ì •ë³´ê°€ ì¡´ì¬í•œë‹¤ëŠ” ë§ì´ë‹¤. ì›ë˜ëŠ” ì—ëŸ¬ë¥¼ ë˜ì ¸ì•¼ í•˜ëŠ”ë°,
+		// ì›ì¸ì„ ì•Œ ìˆ˜ê°€ ì—†ì–´ì„œ, ê± ìŒë°©ì˜ ì •ë³´ë¥¼ ì·¨ì†Œí•´ ë²„ë¦¬ë„ë¡ ë³€ê²½í–ˆë‹¤.
 		cancelInvite(pHost, pGuest);
 		return;
 	}
@@ -211,7 +211,7 @@ void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest)
 
 	int nCondition = 0;
 
-	// µÑ ´Ù »ç¶÷ÀÌ ¾Æ´Ï¶ó¸é °ï¶õÇÑ´Ù.
+	// ë‘˜ ë‹¤ ì‚¬ëŒì´ ì•„ë‹ˆë¼ë©´ ê³¤ë€í•œë‹¤.
 	if (!pHost->isPC() || !pGuest->isPC()) nCondition = 1;
 	if (!isSameRace(pHost, pGuest))        nCondition = 2;
 	if (!isInviting(pHost, pGuest))        nCondition = 4;
@@ -219,8 +219,8 @@ void PartyInviteInfoManager::cancelInvite(Creature* pHost, Creature* pGuest)
 	if (nCondition != 0)
 	{
 		cerr << "PartyInviteInfoManager::cancelInvite() : Error = " << nCondition << endl;
-		// initInviteInfo()¿¡¼­ ÀÏ¾î³ª´Â Çö»ó°ú ¸¶Âù°¡Áö·Î ¿©±â¿¡¼­µµ 
-		// ±× ¹İ´ëÀÇ Çö»óÀÌ ÀÏ¾î³ª¼­, ÁÖ¼®Ã³¸®ÇØ ¹ö·È´Ù.
+		// initInviteInfo()ì—ì„œ ì¼ì–´ë‚˜ëŠ” í˜„ìƒê³¼ ë§ˆì°¬ê°€ì§€ë¡œ ì—¬ê¸°ì—ì„œë„ 
+		// ê·¸ ë°˜ëŒ€ì˜ í˜„ìƒì´ ì¼ì–´ë‚˜ì„œ, ì£¼ì„ì²˜ë¦¬í•´ ë²„ë ¸ë‹¤.
 		//throw Error("PartyInviteInfoManager::cancelInvite()");
 	}
 
@@ -241,9 +241,9 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 
 	if (pInfo != NULL)
 	{
-		Zone* pZone = pCreature->getZone();	// if ¹Û¿¡ ÀÖ´ø°É ¿Å±è. by sigi. 2002.5.8
+		Zone* pZone = pCreature->getZone();	// if ë°–ì— ìˆë˜ê±¸ ì˜®ê¹€. by sigi. 2002.5.8
 
-		const string& HostName  = pInfo->getHostName();	// &Ãß°¡. by sigi. 2002.5.8
+		const string& HostName  = pInfo->getHostName();	// &ì¶”ê°€. by sigi. 2002.5.8
 		const string& GuestName = pInfo->getGuestName();
 
 			Creature* pTargetCreature = NULL;
@@ -258,11 +258,11 @@ void PartyInviteInfoManager::cancelInvite(Creature* pCreature)
 			}
 			*/
 	
-			// NoSuch.. Á¦°Å. by sigi. 2002.5.2
+			// NoSuch.. ì œê±°. by sigi. 2002.5.2
 			pTargetCreature = pZone->getCreature(GuestName);
 	
-			// ÆÄÆ¼ ÃÊ´ë »ó´ë°¡ °°Àº Á¸¿¡ Á¸ÀçÇÒ °æ¿ì, »ó´ë¹æ¿¡°Ô ÃÊ´ë°¡ 
-			// °ÅºÎµÇ¾ú´Ù´Â Á¤º¸¸¦ ³¯·ÁÁØ´Ù.
+			// íŒŒí‹° ì´ˆëŒ€ ìƒëŒ€ê°€ ê°™ì€ ì¡´ì— ì¡´ì¬í•  ê²½ìš°, ìƒëŒ€ë°©ì—ê²Œ ì´ˆëŒ€ê°€ 
+			// ê±°ë¶€ë˜ì—ˆë‹¤ëŠ” ì •ë³´ë¥¼ ë‚ ë ¤ì¤€ë‹¤.
 			GCPartyInvite gcPartyInvite;
 			gcPartyInvite.setTargetObjectID(pCreature->getObjectID());
 			gcPartyInvite.setCode(GC_PARTY_INVITE_REJECT);
@@ -299,7 +299,7 @@ bool PartyInviteInfoManager::addInviteInfo(PartyInviteInfo* pInfo)
 		cerr << "PartyInviteInfoManager::addInviteInfo() : DuplicatedException" << endl;
 		//throw DuplicatedException("PartyInviteInfoManager::addInviteInfo() : DuplicatedException");
 
-		// ExceptionÁ¦°Å. by sigi. 2002.5.9
+		// Exceptionì œê±°. by sigi. 2002.5.9
 		return false;
 	}
 
@@ -366,12 +366,12 @@ Party::Party(Creature::CreatureClass CClass)
 {
 	__BEGIN_TRY
 
-	// ÆÄÆ¼¿¡ ¼ÓÇÒ ¼ö ÀÖ´Â Å©¸®ÃÄ Å¬·¡½º¸¦ Á¤ÇØÁÖ°í...
+	// íŒŒí‹°ì— ì†í•  ìˆ˜ ìˆëŠ” í¬ë¦¬ì³ í´ë˜ìŠ¤ë¥¼ ì •í•´ì£¼ê³ ...
 	m_CreatureClass = CClass;
 
 	m_bFamilyPay = false;
 
-	// ¹ÂÅØ½º¿¡ ÀÌ¸§À» ¼¼ÆÃÇÑ´Ù. (µğ¹ö±ë¿ë)
+	// ë®¤í…ìŠ¤ì— ì´ë¦„ì„ ì„¸íŒ…í•œë‹¤. (ë””ë²„ê¹…ìš©)
 	m_Mutex.setName("Party");
 
 	__END_CATCH
@@ -391,7 +391,7 @@ Party::~Party()
 	__END_CATCH_NO_RETHROW
 }
 
-// ÀÌ¸§À¸·Î ÆÄÆ¼¿¡ ¸â¹ö¸¦ Ã£¾Æ¼­ ¸®ÅÏÇÑ´Ù.
+// ì´ë¦„ìœ¼ë¡œ íŒŒí‹°ì— ë©¤ë²„ë¥¼ ì°¾ì•„ì„œ ë¦¬í„´í•œë‹¤.
 Creature* Party::getMember(const string& name) const
 	
 {
@@ -421,7 +421,7 @@ Creature* Party::getMember(const string& name) const
 	__END_CATCH
 }
 
-// ¸â¹ö¸¦ ´õÇÑ´Ù.
+// ë©¤ë²„ë¥¼ ë”í•œë‹¤.
 void Party::addMember(Creature* pCreature) 
 	
 {
@@ -429,7 +429,7 @@ void Party::addMember(Creature* pCreature)
 
 	//cout << "Party::addMember() : BEGIN" << endl;
 
-	// ÆÄÆ¼¿¡ ¼ÓÇÒ ¼ö ÀÖ´Â Á¾Á·ÀÌ ¾Æ´Ï¶ó¸é...
+	// íŒŒí‹°ì— ì†í•  ìˆ˜ ìˆëŠ” ì¢…ì¡±ì´ ì•„ë‹ˆë¼ë©´...
 	if (pCreature->getCreatureClass() != m_CreatureClass)
 	{
 		cerr << "Party::addMember() : Invalid Creature Class" << endl;
@@ -458,7 +458,7 @@ void Party::addMember(Creature* pCreature)
 	__END_CATCH
 }
 
-// ÆÄÆ¼¿¡¼­ ¸â¹ö¸¦ »èÁ¦ÇÑ´Ù.
+// íŒŒí‹°ì—ì„œ ë©¤ë²„ë¥¼ ì‚­ì œí•œë‹¤.
 void Party::deleteMember(const string& name) 
 	
 {
@@ -488,7 +488,7 @@ void Party::deleteMember(const string& name)
 	__END_CATCH
 }
 
-// ÆÄÆ¼¿¡ Æ¯Á¤ ÀÌ¸§À» °¡Áø ¸â¹ö°¡ ÀÖ´ÂÁö Á¶»çÇÑ´Ù.
+// íŒŒí‹°ì— íŠ¹ì • ì´ë¦„ì„ ê°€ì§„ ë©¤ë²„ê°€ ìˆëŠ”ì§€ ì¡°ì‚¬í•œë‹¤.
 bool Party::hasMember(const string& name) const
 	
 {
@@ -516,9 +516,9 @@ bool Party::hasMember(const string& name) const
 	__END_CATCH
 }
 
-// ±Û·Î¹ú ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­¸¸ »ç¿ëÇÑ´Ù...
-// ÆÄÆ¼¸¦ ÇØÃ¼ÇÏ±â Àü¿¡ ÆÄÆ¼ ¸â¹öµéÀÇ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µé°í,
-// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ ÇØ´ç ID¸¦ °¡Áø ÆÄÆ¼¸¦ »èÁ¦ÇÑ´Ù.
+// ê¸€ë¡œë²Œ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œë§Œ ì‚¬ìš©í•œë‹¤...
+// íŒŒí‹°ë¥¼ í•´ì²´í•˜ê¸° ì „ì— íŒŒí‹° ë©¤ë²„ë“¤ì˜ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ê³ ,
+// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ í•´ë‹¹ IDë¥¼ ê°€ì§„ íŒŒí‹°ë¥¼ ì‚­ì œí•œë‹¤.
 void Party::destroyParty(void) 
 	
 {
@@ -536,9 +536,9 @@ void Party::destroyParty(void)
 		pCreature->setPartyID(0);
 //		pCreature->removeFlag( Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR );
 
-		//cout << "ÆÄÆ¼¿¡ ³²¾ÆÀÖ´Â Å©¸®ÃÄ[" << pCreature->getName() << "]ÀÇ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µé¾ú½À´Ï´Ù." << endl;
+		//cout << "íŒŒí‹°ì— ë‚¨ì•„ìˆëŠ” í¬ë¦¬ì³[" << pCreature->getName() << "]ì˜ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤." << endl;
 
-		// °¢°¢ÀÇ Á¸¿¡ ÀÖ´Â ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ ÇØ´çÇÏ´Â ÆÄÆ¼ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+		// ê°ê°ì˜ ì¡´ì— ìˆëŠ” ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ í•´ë‹¹í•˜ëŠ” íŒŒí‹° ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 		Zone* pZone = pCreature->getZone();
 		if (pZone != NULL)
 		{
@@ -555,7 +555,7 @@ void Party::destroyParty(void)
 	__END_CATCH
 }
 
-// ÆÄÆ¼ ¸â¹öµé¿¡°Ô ÆĞÅ¶À» ³¯¸°´Ù.
+// íŒŒí‹° ë©¤ë²„ë“¤ì—ê²Œ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 void Party::broadcastPacket(Packet* pPacket, Creature* pOwner) 
 {
 	__BEGIN_TRY
@@ -581,8 +581,8 @@ void Party::broadcastPacket(Packet* pPacket, Creature* pOwner)
 	__END_CATCH
 }
 
-// »õ·Î¿î ÆÄÆ¼¿øÀÌ Ãß°¡µÇ¾úÀ» ¶§, ÆÄÆ¼¿øµé¿¡°Ô ³¯¾Æ°¡´Â
-// GCPartyJoined ÆĞÅ¶À» ±¸¼ºÇÑ´Ù.
+// ìƒˆë¡œìš´ íŒŒí‹°ì›ì´ ì¶”ê°€ë˜ì—ˆì„ ë•Œ, íŒŒí‹°ì›ë“¤ì—ê²Œ ë‚ ì•„ê°€ëŠ”
+// GCPartyJoined íŒ¨í‚·ì„ êµ¬ì„±í•œë‹¤.
 void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
 	
 {
@@ -622,7 +622,7 @@ void Party::makeGCPartyJoined(GCPartyJoined* pGCPartyJoined) const
 		}
 		else if ( pCreature->isOusters() )
 		{
-			// ¾Æ¿ì½ºÅÍ½º Ãß°¡. by bezz 2003.04.19
+			// ì•„ìš°ìŠ¤í„°ìŠ¤ ì¶”ê°€. by bezz 2003.04.19
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 
 			pInfo->name			= pOusters->getName();
@@ -687,17 +687,17 @@ int Party::getAdjacentMemberSize(Creature* pLeader) const
 		Creature* pCreature = itr->second;
 		Assert(pCreature != NULL);
 
-		// ÆÄÆ¼ÀÇ ¼ıÀÚ¿¡´Â ÀÚ½Åµµ Æ÷ÇÔµÇ±â ¶§¹®¿¡ 
-		// °°Àº ³ğÀÎÁö ´Ù¸¥ ³ğÀÎÁö´Â Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
+		// íŒŒí‹°ì˜ ìˆ«ìì—ëŠ” ìì‹ ë„ í¬í•¨ë˜ê¸° ë•Œë¬¸ì— 
+		// ê°™ì€ ë†ˆì¸ì§€ ë‹¤ë¥¸ ë†ˆì¸ì§€ëŠ” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		Zone* pTZone = pCreature->getZone();
 
-		// Á¸ Æ÷ÀÎÅÍ°¡ ÀÏÄ¡ÇÑ´Ù¸é °°Àº Á¸¿¡ ÀÖ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÑ´Ù.
+		// ì¡´ í¬ì¸í„°ê°€ ì¼ì¹˜í•œë‹¤ë©´ ê°™ì€ ì¡´ì— ìˆë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•œë‹¤.
 		if (pTZone == pZone && pCreature->getDistance(cx, cy) <= 8) rValue++;
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	// ÀÚ½Åµµ Æ÷ÇÔµÇ¹Ç·Î Àû¾îµµ 1º¸´Ù´Â Ä¿¾ß ÇÑ´Ù.
+	// ìì‹ ë„ í¬í•¨ë˜ë¯€ë¡œ ì ì–´ë„ 1ë³´ë‹¤ëŠ” ì»¤ì•¼ í•œë‹¤.
 	//Assert(rValue >= 1);
 	if (rValue == 0) rValue = 1;
 
@@ -731,17 +731,17 @@ int Party::getAdjacentMemberSize_LOCKED(Creature* pLeader) const
 		Creature* pCreature = itr->second;
 		Assert(pCreature != NULL);
 
-		// ÆÄÆ¼ÀÇ ¼ıÀÚ¿¡´Â ÀÚ½Åµµ Æ÷ÇÔµÇ±â ¶§¹®¿¡ 
-		// °°Àº ³ğÀÎÁö ´Ù¸¥ ³ğÀÎÁö´Â Ã¼Å©ÇÏÁö ¾Ê´Â´Ù.
+		// íŒŒí‹°ì˜ ìˆ«ìì—ëŠ” ìì‹ ë„ í¬í•¨ë˜ê¸° ë•Œë¬¸ì— 
+		// ê°™ì€ ë†ˆì¸ì§€ ë‹¤ë¥¸ ë†ˆì¸ì§€ëŠ” ì²´í¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		Zone* pTZone = pCreature->getZone();
 
-		// Á¸ Æ÷ÀÎÅÍ°¡ ÀÏÄ¡ÇÑ´Ù¸é °°Àº Á¸¿¡ ÀÖ´Ù´Â °ÍÀ» ÀÇ¹ÌÇÑ´Ù.
+		// ì¡´ í¬ì¸í„°ê°€ ì¼ì¹˜í•œë‹¤ë©´ ê°™ì€ ì¡´ì— ìˆë‹¤ëŠ” ê²ƒì„ ì˜ë¯¸í•œë‹¤.
 		if (pTZone == pZone && pCreature->getDistance(cx, cy) <= 8) rValue++;
 	}
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	// ÀÚ½Åµµ Æ÷ÇÔµÇ¹Ç·Î Àû¾îµµ 1º¸´Ù´Â Ä¿¾ß ÇÑ´Ù.
+	// ìì‹ ë„ í¬í•¨ë˜ë¯€ë¡œ ì ì–´ë„ 1ë³´ë‹¤ëŠ” ì»¤ì•¼ í•œë‹¤.
 	Assert(rValue >= 1);
 
 	//cout << "Party::getAdjacentMemberSize() : END" << endl;
@@ -751,9 +751,9 @@ int Party::getAdjacentMemberSize_LOCKED(Creature* pLeader) const
 	__END_CATCH
 }
 
-// ¸®´õ ¹× ÆÄÆ¼¿øµéÀÇ ´É·ÂÄ¡ °æÇèÄ¡¸¦ ¿Ã¸°´Ù.
-// ¸®´õÀÇ ¿Ã¶ó°£ °æÇèÄ¡´Â LeaderModifyInfo¿¡´Ù Áı¾î³Ö°í, 
-// ³ª¸ÓÁö ¸â¹öµéÀÇ ¿Ã¶ó°£ °æÇèÄ¡´Â ÆĞÅ¶À» µû·Î ¸¸µé¾î º¸³½´Ù.
+// ë¦¬ë” ë° íŒŒí‹°ì›ë“¤ì˜ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë¦°ë‹¤.
+// ë¦¬ë”ì˜ ì˜¬ë¼ê°„ ê²½í—˜ì¹˜ëŠ” LeaderModifyInfoì—ë‹¤ ì§‘ì–´ë„£ê³ , 
+// ë‚˜ë¨¸ì§€ ë©¤ë²„ë“¤ì˜ ì˜¬ë¼ê°„ ê²½í—˜ì¹˜ëŠ” íŒ¨í‚·ì„ ë”°ë¡œ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
 int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DEXMultiplier, int INTMultiplier, ModifyInfo& LeaderModifyInfo) const 
 	
 {
@@ -770,32 +770,32 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â (°æÇèÄ¡¸¦ ¿Ã·ÁÁÙ) ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” (ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤„) íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
 		Assert(pCreature != NULL);
 
-		// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ¼­¸¸ ºÒ¸®´Â ÇÔ¼öÀÌ±â ¶§¹®¿¡, 
-		// ÀÌ ÆÄÆ¼´Â ÇöÀç ·ÎÄÃ ÆÄÆ¼¶ó°í °¡Á¤ÇÒ ¼ö ÀÖ´Ù.
-		// ·ÎÄÃ ÆÄÆ¼ ³»ºÎ¿¡¼­´Â °°Àº Á¸¿¡ ÀÖ´ÂÁö¸¦ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-		// °Å¸® °Ë»ç¸¸À» ÇÑ´Ù.
-		// »ç½Ç ¸Å¹ø °è»ê ¶§¸¶´Ù ÀÌ·¸°Ô °Å¸® °è»êÀ» ÇÑ´Ù´Â °ÍÀº ¾à°£Àº
-		// ¹«¸®°¡ ÀÖ´Ù°í »ı°¢ÇÏ´Âµ¥, °°Àº Á¸¿¡ ÀÖÀ¸¸é °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş´Â
-		// ÂÊÀÌ ÁÁÁö ¾ÊÀ»±î? -- ±è¼º¹Î
+		// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œë§Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì—, 
+		// ì´ íŒŒí‹°ëŠ” í˜„ì¬ ë¡œì»¬ íŒŒí‹°ë¼ê³  ê°€ì •í•  ìˆ˜ ìˆë‹¤.
+		// ë¡œì»¬ íŒŒí‹° ë‚´ë¶€ì—ì„œëŠ” ê°™ì€ ì¡´ì— ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+		// ê±°ë¦¬ ê²€ì‚¬ë§Œì„ í•œë‹¤.
+		// ì‚¬ì‹¤ ë§¤ë²ˆ ê³„ì‚° ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ ê±°ë¦¬ ê³„ì‚°ì„ í•œë‹¤ëŠ” ê²ƒì€ ì•½ê°„ì€
+		// ë¬´ë¦¬ê°€ ìˆë‹¤ê³  ìƒê°í•˜ëŠ”ë°, ê°™ì€ ì¡´ì— ìˆìœ¼ë©´ ê²½í—˜ì¹˜ ë³´ë„ˆìŠ¤ë¥¼ ë°›ëŠ”
+		// ìª½ì´ ì¢‹ì§€ ì•Šì„ê¹Œ? -- ê¹€ì„±ë¯¼
 		if (pCreature->getDistance(cx, cy) <= 8)
 		{
 			//Assert(pCreature->getZone() == pLeader->getZone());
 
-			// ¾îµò°¡¿¡¼­(¾Æ¸¶ PCManager::killCreatureÀÎ°Å °°Àºµ¥)
-			// ZoneÀÌ ¹Ù²ï´Ù. -_-;
-			// Ã£À» ½Ã°£ÀÌ ¾ø¾î¼­ ÀÏ´Ü ÀÌ·¸°Ô °£´Ù. by sigi. 2002.5.8
+			// ì–´ë”˜ê°€ì—ì„œ(ì•„ë§ˆ PCManager::killCreatureì¸ê±° ê°™ì€ë°)
+			// Zoneì´ ë°”ë€ë‹¤. -_-;
+			// ì°¾ì„ ì‹œê°„ì´ ì—†ì–´ì„œ ì¼ë‹¨ ì´ë ‡ê²Œ ê°„ë‹¤. by sigi. 2002.5.8
 			if (pCreature->getZone()==pLeader->getZone())
 			{
 				MemberList.push_back(pCreature);
 
-				// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+				// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 				if (pCreature->isSlayer())
 				{
 					Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -803,7 +803,7 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 				}
 				else if (pCreature->isVampire())
 				{
-					// ½½·¹ÀÌ¾î ÆÄÆ¼¿¡ ¹ìÆÄÀÌ¾î°¡ ÀÖÀ» ¼ö ÀÖÀ»±î?
+					// ìŠ¬ë ˆì´ì–´ íŒŒí‹°ì— ë±€íŒŒì´ì–´ê°€ ìˆì„ ìˆ˜ ìˆì„ê¹Œ?
 					Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 					LevelSum += pVampire->getLevel();
 				}
@@ -811,11 +811,11 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		}
 	}
 
-	// °æÇèÄ¡¸¦ ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ ÁõÆø½ÃÅ²´Ù.
+	// ê²½í—˜ì¹˜ë¥¼ íŒŒí‹°ì›ì˜ ìˆ«ìì— ì¦í­ì‹œí‚¨ë‹¤.
 	int nMemberSize = MemberList.size();
 
-	//cout << "ÆÄÆ¼¿øÀÇ ¼ıÀÚ : " << nMemberSize << endl;
-	//cout << "¿ø·¡ °æÇèÄ¡ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ìˆ«ì : " << nMemberSize << endl;
+	//cout << "ì›ë˜ ê²½í—˜ì¹˜ : " << amount << endl;
 
 	if (nMemberSize == 1)
 	{
@@ -824,10 +824,10 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		Assert(pLeader->isSlayer());
 		Slayer* pLeaderSlayer = dynamic_cast<Slayer*>(pLeader);
 
-		// ÆÄÆ¼¿øÀÌ ÇÏ³ª¶ó¸é (±ÙÃ³¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é) ±×³É È¥ÀÚ ¿Ã·ÁÁÖ°í, ¸®ÅÏÇÑ´Ù.
+		// íŒŒí‹°ì›ì´ í•˜ë‚˜ë¼ë©´ (ê·¼ì²˜ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´) ê·¸ëƒ¥ í˜¼ì ì˜¬ë ¤ì£¼ê³ , ë¦¬í„´í•œë‹¤.
 		divideAttrExp(pLeaderSlayer, amount, 
 			STRMultiplier, DEXMultiplier, INTMultiplier, 
-			LeaderModifyInfo, nMemberSize);	// ÆÄÆ¼¿øÀÇ ¼ıÀÚ
+			LeaderModifyInfo, nMemberSize);	// íŒŒí‹°ì›ì˜ ìˆ«ì
 
 		return 0;
 	}
@@ -842,10 +842,10 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		default: break;
 	}
 
-	//cout << "ÁõÆøµÈ °æÇèÄ¡ : " << amount << endl;
-	//cout << "ÆÄÆ¼¿øÀÇ ·¹º§ÇÕ : " << LevelSum << endl;
+	//cout << "ì¦í­ëœ ê²½í—˜ì¹˜ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ë ˆë²¨í•© : " << LevelSum << endl;
 
-	// °¢°¢ÀÇ ÆÄÆ¼¿øµéÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+	// ê°ê°ì˜ íŒŒí‹°ì›ë“¤ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 	list<Creature*>::iterator itr = MemberList.begin();
 	for (; itr != MemberList.end(); itr++)
 	{
@@ -856,11 +856,11 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		int myQuota = (int)((float)amount * (float)pSlayer->getSlayerLevel() / (float)LevelSum);
 
-		//cout << "³ªÀÇ ¸ò : " << myQuota << endl;
+		//cout << "ë‚˜ì˜ ëª« : " << myQuota << endl;
 
 		if (pCreature->getName() != pLeader->getName())
 		{
-			//cout << "º»ÀÎ[" << pCreature->getName() << "]ÀÌ ¾Æ´Ï¶ó¼­ ÆĞÅ¶À» º¸³À´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸[" << pCreature->getName() << "]ì´ ì•„ë‹ˆë¼ì„œ íŒ¨í‚·ì„ ë³´ëƒ…ë‹ˆë‹¤." << endl;
 
 			Item* pWeapon = pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND);
 			if (pWeapon != NULL)
@@ -888,7 +888,7 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 						break;
 				}
 
-				// º»ÀÎÀÌ ¾Æ´Ï¶ó¸é...
+				// ë³¸ì¸ì´ ì•„ë‹ˆë¼ë©´...
 				GCModifyInformation gcModifyInformation;
 				divideAttrExp(pSlayer, myQuota, _STR, _DEX, _INT, 
 					gcModifyInformation, nMemberSize);
@@ -898,9 +898,9 @@ int Party::shareAttrExp(Creature* pLeader, int amount, int STRMultiplier, int DE
 		}
 		else
 		{
-			//cout << "º»ÀÎ[" << pCreature->getName() << "]ÀÌ¶ó¼­ ÆĞÅ¶ ÁØºñ¸¸ ÇÕ´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸[" << pCreature->getName() << "]ì´ë¼ì„œ íŒ¨í‚· ì¤€ë¹„ë§Œ í•©ë‹ˆë‹¤." << endl;
 
-			// º»ÀÎÀÌ¶ó¸é ÀÏ´Ü ³ªÁß¿¡ º¸³»±â À§ÇØ, ´ã±â¸¸ ÇÑ´Ù.
+			// ë³¸ì¸ì´ë¼ë©´ ì¼ë‹¨ ë‚˜ì¤‘ì— ë³´ë‚´ê¸° ìœ„í•´, ë‹´ê¸°ë§Œ í•œë‹¤.
 			divideAttrExp(pSlayer, myQuota, 
 				STRMultiplier, DEXMultiplier, INTMultiplier, 
 				LeaderModifyInfo, nMemberSize);
@@ -930,29 +930,29 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â (°æÇèÄ¡¸¦ ¿Ã·ÁÁÙ) ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” (ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤„) íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
 		Assert(pCreature != NULL);
 
-		// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ¼­¸¸ ºÒ¸®´Â ÇÔ¼öÀÌ±â ¶§¹®¿¡, 
-		// ÀÌ ÆÄÆ¼´Â ÇöÀç ·ÎÄÃ ÆÄÆ¼¶ó°í °¡Á¤ÇÒ ¼ö ÀÖ´Ù.
-		// ·ÎÄÃ ÆÄÆ¼ ³»ºÎ¿¡¼­´Â °°Àº Á¸¿¡ ÀÖ´ÂÁö¸¦ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-		// °Å¸® °Ë»ç¸¸À» ÇÑ´Ù.
-		// »ç½Ç ¸Å¹ø °è»ê ¶§¸¶´Ù ÀÌ·¸°Ô °Å¸® °è»êÀ» ÇÑ´Ù´Â °ÍÀº ¾à°£Àº
-		// ¹«¸®°¡ ÀÖ´Ù°í »ı°¢ÇÏ´Âµ¥, °°Àº Á¸¿¡ ÀÖÀ¸¸é °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş´Â
-		// ÂÊÀÌ ÁÁÁö ¾ÊÀ»±î? -- ±è¼º¹Î
-		// ¹ÚÁã»óÅÂ¿¡¼­´Â ÆÄÆ¼°æÇèÄ¡ ¸ø ¸Ô´Â´Ù. by Sequoia
+		// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œë§Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì—, 
+		// ì´ íŒŒí‹°ëŠ” í˜„ì¬ ë¡œì»¬ íŒŒí‹°ë¼ê³  ê°€ì •í•  ìˆ˜ ìˆë‹¤.
+		// ë¡œì»¬ íŒŒí‹° ë‚´ë¶€ì—ì„œëŠ” ê°™ì€ ì¡´ì— ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+		// ê±°ë¦¬ ê²€ì‚¬ë§Œì„ í•œë‹¤.
+		// ì‚¬ì‹¤ ë§¤ë²ˆ ê³„ì‚° ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ ê±°ë¦¬ ê³„ì‚°ì„ í•œë‹¤ëŠ” ê²ƒì€ ì•½ê°„ì€
+		// ë¬´ë¦¬ê°€ ìˆë‹¤ê³  ìƒê°í•˜ëŠ”ë°, ê°™ì€ ì¡´ì— ìˆìœ¼ë©´ ê²½í—˜ì¹˜ ë³´ë„ˆìŠ¤ë¥¼ ë°›ëŠ”
+		// ìª½ì´ ì¢‹ì§€ ì•Šì„ê¹Œ? -- ê¹€ì„±ë¯¼
+		// ë°•ì¥ìƒíƒœì—ì„œëŠ” íŒŒí‹°ê²½í—˜ì¹˜ ëª» ë¨¹ëŠ”ë‹¤. by Sequoia
 		if (pCreature->getDistance(cx, cy) <= 8 && !pCreature->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ) )
 		{
 			MemberList.push_back(pCreature);
 
-			// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+			// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 			if (pCreature->isSlayer())
 			{
-				// ¹ìÆÄÀÌ¾î ÆÄÆ¼¿¡ ½½·¹ÀÌ¾î°¡ ÀÖÀ» ¼ö ÀÖÀ»±î?
+				// ë±€íŒŒì´ì–´ íŒŒí‹°ì— ìŠ¬ë ˆì´ì–´ê°€ ìˆì„ ìˆ˜ ìˆì„ê¹Œ?
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 				LevelSum += pSlayer->getSlayerLevel();
 			}
@@ -964,11 +964,11 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		}
 	}
 
-	// °æÇèÄ¡¸¦ ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ ÁõÆø½ÃÅ²´Ù.
+	// ê²½í—˜ì¹˜ë¥¼ íŒŒí‹°ì›ì˜ ìˆ«ìì— ì¦í­ì‹œí‚¨ë‹¤.
 	int nMemberSize = MemberList.size();
 
-	//cout << "ÆÄÆ¼¿øÀÇ ¼ıÀÚ : " << nMemberSize << endl;
-	//cout << "¿ø·¡ °æÇèÄ¡ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ìˆ«ì : " << nMemberSize << endl;
+	//cout << "ì›ë˜ ê²½í—˜ì¹˜ : " << amount << endl;
 
 	if (nMemberSize == 1)
 	{
@@ -977,7 +977,7 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		Assert(pLeader->isVampire());
 		Vampire* pLeaderVampire = dynamic_cast<Vampire*>(pLeader);
 
-		// ÆÄÆ¼¿øÀÌ ÇÏ³ª¶ó¸é (±ÙÃ³¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é) ±×³É È¥ÀÚ ¿Ã·ÁÁÖ°í, ¸®ÅÏÇÑ´Ù.
+		// íŒŒí‹°ì›ì´ í•˜ë‚˜ë¼ë©´ (ê·¼ì²˜ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´) ê·¸ëƒ¥ í˜¼ì ì˜¬ë ¤ì£¼ê³ , ë¦¬í„´í•œë‹¤.
 		increaseVampExp(pLeaderVampire, amount, LeaderModifyInfo);
 		return 0;
 	}
@@ -992,10 +992,10 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		default: break;
 	}
 
-	//cout << "ÁõÆøµÈ °æÇèÄ¡ : " << amount << endl;
-	//cout << "ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕ : " << LevelSum << endl;
+	//cout << "ì¦í­ëœ ê²½í—˜ì¹˜ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•© : " << LevelSum << endl;
 
-	// °¢°¢ÀÇ ÆÄÆ¼¿øµéÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+	// ê°ê°ì˜ íŒŒí‹°ì›ë“¤ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 	list<Creature*>::iterator itr = MemberList.begin();
 	for (; itr != MemberList.end(); itr++)
 	{
@@ -1006,22 +1006,22 @@ int Party::shareVampireExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		int myQuota = (int)( (float)amount * (float)pVampire->getLevel() / (float)LevelSum );
 
-		//cout << "³ªÀÇ ¸ò : " << myQuota << endl;
+		//cout << "ë‚˜ì˜ ëª« : " << myQuota << endl;
 
 		if (pCreature != pLeader)
 		{
-			//cout << "º»ÀÎÀÌ ¾Æ´Ï¶ó¼­ ÆĞÅ¶À» º¸³À´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸ì´ ì•„ë‹ˆë¼ì„œ íŒ¨í‚·ì„ ë³´ëƒ…ë‹ˆë‹¤." << endl;
 
-			// º»ÀÎÀÌ ¾Æ´Ï¶ó¸é...
+			// ë³¸ì¸ì´ ì•„ë‹ˆë¼ë©´...
 			GCModifyInformation gcModifyInformation;
 			increaseVampExp(pVampire, myQuota, gcModifyInformation);
 			pVampire->getPlayer()->sendPacket(&gcModifyInformation);
 		}
 		else
 		{
-			//cout << "º»ÀÎÀÌ¶ó¼­ ÆĞÅ¶À» º¸³»Áö ¾Ê½À´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸ì´ë¼ì„œ íŒ¨í‚·ì„ ë³´ë‚´ì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
 
-			// º»ÀÎÀÌ¶ó¸é ÀÏ´Ü ³ªÁß¿¡ º¸³»±â À§ÇØ, ´ã±â¸¸ ÇÑ´Ù.
+			// ë³¸ì¸ì´ë¼ë©´ ì¼ë‹¨ ë‚˜ì¤‘ì— ë³´ë‚´ê¸° ìœ„í•´, ë‹´ê¸°ë§Œ í•œë‹¤.
 			increaseVampExp(pVampire, myQuota, LeaderModifyInfo);
 		}
 	}
@@ -1049,25 +1049,25 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â (°æÇèÄ¡¸¦ ¿Ã·ÁÁÙ) ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” (ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤„) íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
 		Assert(pCreature != NULL);
 
-		// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ¼­¸¸ ºÒ¸®´Â ÇÔ¼öÀÌ±â ¶§¹®¿¡, 
-		// ÀÌ ÆÄÆ¼´Â ÇöÀç ·ÎÄÃ ÆÄÆ¼¶ó°í °¡Á¤ÇÒ ¼ö ÀÖ´Ù.
-		// ·ÎÄÃ ÆÄÆ¼ ³»ºÎ¿¡¼­´Â °°Àº Á¸¿¡ ÀÖ´ÂÁö¸¦ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-		// °Å¸® °Ë»ç¸¸À» ÇÑ´Ù.
-		// »ç½Ç ¸Å¹ø °è»ê ¶§¸¶´Ù ÀÌ·¸°Ô °Å¸® °è»êÀ» ÇÑ´Ù´Â °ÍÀº ¾à°£Àº
-		// ¹«¸®°¡ ÀÖ´Ù°í »ı°¢ÇÏ´Âµ¥, °°Àº Á¸¿¡ ÀÖÀ¸¸é °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş´Â
-		// ÂÊÀÌ ÁÁÁö ¾ÊÀ»±î? -- ±è¼º¹Î
+		// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œë§Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì—, 
+		// ì´ íŒŒí‹°ëŠ” í˜„ì¬ ë¡œì»¬ íŒŒí‹°ë¼ê³  ê°€ì •í•  ìˆ˜ ìˆë‹¤.
+		// ë¡œì»¬ íŒŒí‹° ë‚´ë¶€ì—ì„œëŠ” ê°™ì€ ì¡´ì— ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+		// ê±°ë¦¬ ê²€ì‚¬ë§Œì„ í•œë‹¤.
+		// ì‚¬ì‹¤ ë§¤ë²ˆ ê³„ì‚° ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ ê±°ë¦¬ ê³„ì‚°ì„ í•œë‹¤ëŠ” ê²ƒì€ ì•½ê°„ì€
+		// ë¬´ë¦¬ê°€ ìˆë‹¤ê³  ìƒê°í•˜ëŠ”ë°, ê°™ì€ ì¡´ì— ìˆìœ¼ë©´ ê²½í—˜ì¹˜ ë³´ë„ˆìŠ¤ë¥¼ ë°›ëŠ”
+		// ìª½ì´ ì¢‹ì§€ ì•Šì„ê¹Œ? -- ê¹€ì„±ë¯¼
 		if (pCreature->getDistance(cx, cy) <= 8)
 		{
 			MemberList.push_back(pCreature);
 
-			// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+			// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 			if (pCreature->isOusters())
 			{
 				Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
@@ -1076,11 +1076,11 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		}
 	}
 
-	// °æÇèÄ¡¸¦ ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ ÁõÆø½ÃÅ²´Ù.
+	// ê²½í—˜ì¹˜ë¥¼ íŒŒí‹°ì›ì˜ ìˆ«ìì— ì¦í­ì‹œí‚¨ë‹¤.
 	int nMemberSize = MemberList.size();
 
-	//cout << "ÆÄÆ¼¿øÀÇ ¼ıÀÚ : " << nMemberSize << endl;
-	//cout << "¿ø·¡ °æÇèÄ¡ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ìˆ«ì : " << nMemberSize << endl;
+	//cout << "ì›ë˜ ê²½í—˜ì¹˜ : " << amount << endl;
 
 	if (nMemberSize == 1)
 	{
@@ -1089,7 +1089,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		Assert(pLeader->isOusters());
 		Ousters* pLeaderOusters = dynamic_cast<Ousters*>(pLeader);
 
-		// ÆÄÆ¼¿øÀÌ ÇÏ³ª¶ó¸é (±ÙÃ³¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é) ±×³É È¥ÀÚ ¿Ã·ÁÁÖ°í, ¸®ÅÏÇÑ´Ù.
+		// íŒŒí‹°ì›ì´ í•˜ë‚˜ë¼ë©´ (ê·¼ì²˜ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´) ê·¸ëƒ¥ í˜¼ì ì˜¬ë ¤ì£¼ê³ , ë¦¬í„´í•œë‹¤.
 		increaseOustersExp(pLeaderOusters, amount, LeaderModifyInfo);
 		return 0;
 	}
@@ -1104,7 +1104,7 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 		default: break;
 	}
 
-	// °¢°¢ÀÇ ÆÄÆ¼¿øµéÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+	// ê°ê°ì˜ íŒŒí‹°ì›ë“¤ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 	list<Creature*>::iterator itr = MemberList.begin();
 	for (; itr != MemberList.end(); itr++)
 	{
@@ -1117,18 +1117,18 @@ int Party::shareOustersExp(Creature* pLeader, int amount, ModifyInfo& LeaderModi
 
 		if (pCreature != pLeader)
 		{
-			//cout << "º»ÀÎÀÌ ¾Æ´Ï¶ó¼­ ÆĞÅ¶À» º¸³À´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸ì´ ì•„ë‹ˆë¼ì„œ íŒ¨í‚·ì„ ë³´ëƒ…ë‹ˆë‹¤." << endl;
 
-			// º»ÀÎÀÌ ¾Æ´Ï¶ó¸é...
+			// ë³¸ì¸ì´ ì•„ë‹ˆë¼ë©´...
 			GCModifyInformation gcModifyInformation;
 			increaseOustersExp(pOusters, myQuota, gcModifyInformation);
 			pOusters->getPlayer()->sendPacket(&gcModifyInformation);
 		}
 		else
 		{
-			//cout << "º»ÀÎÀÌ¶ó¼­ ÆĞÅ¶À» º¸³»Áö ¾Ê½À´Ï´Ù." << endl;
+			//cout << "ë³¸ì¸ì´ë¼ì„œ íŒ¨í‚·ì„ ë³´ë‚´ì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
 
-			// º»ÀÎÀÌ¶ó¸é ÀÏ´Ü ³ªÁß¿¡ º¸³»±â À§ÇØ, ´ã±â¸¸ ÇÑ´Ù.
+			// ë³¸ì¸ì´ë¼ë©´ ì¼ë‹¨ ë‚˜ì¤‘ì— ë³´ë‚´ê¸° ìœ„í•´, ë‹´ê¸°ë§Œ í•œë‹¤.
 			increaseOustersExp(pOusters, myQuota, LeaderModifyInfo);
 		}
 	}
@@ -1158,25 +1158,25 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â (°æÇèÄ¡¸¦ ¿Ã·ÁÁÙ) ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” (ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤„) íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		Creature* pCreature = mitr->second;
 		Assert(pCreature != NULL);
 
-		// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ¼­¸¸ ºÒ¸®´Â ÇÔ¼öÀÌ±â ¶§¹®¿¡, 
-		// ÀÌ ÆÄÆ¼´Â ÇöÀç ·ÎÄÃ ÆÄÆ¼¶ó°í °¡Á¤ÇÒ ¼ö ÀÖ´Ù.
-		// ·ÎÄÃ ÆÄÆ¼ ³»ºÎ¿¡¼­´Â °°Àº Á¸¿¡ ÀÖ´ÂÁö¸¦ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-		// °Å¸® °Ë»ç¸¸À» ÇÑ´Ù.
-		// »ç½Ç ¸Å¹ø °è»ê ¶§¸¶´Ù ÀÌ·¸°Ô °Å¸® °è»êÀ» ÇÑ´Ù´Â °ÍÀº ¾à°£Àº
-		// ¹«¸®°¡ ÀÖ´Ù°í »ı°¢ÇÏ´Âµ¥, °°Àº Á¸¿¡ ÀÖÀ¸¸é °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş´Â
-		// ÂÊÀÌ ÁÁÁö ¾ÊÀ»±î? -- ±è¼º¹Î
+		// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œë§Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì—, 
+		// ì´ íŒŒí‹°ëŠ” í˜„ì¬ ë¡œì»¬ íŒŒí‹°ë¼ê³  ê°€ì •í•  ìˆ˜ ìˆë‹¤.
+		// ë¡œì»¬ íŒŒí‹° ë‚´ë¶€ì—ì„œëŠ” ê°™ì€ ì¡´ì— ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+		// ê±°ë¦¬ ê²€ì‚¬ë§Œì„ í•œë‹¤.
+		// ì‚¬ì‹¤ ë§¤ë²ˆ ê³„ì‚° ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ ê±°ë¦¬ ê³„ì‚°ì„ í•œë‹¤ëŠ” ê²ƒì€ ì•½ê°„ì€
+		// ë¬´ë¦¬ê°€ ìˆë‹¤ê³  ìƒê°í•˜ëŠ”ë°, ê°™ì€ ì¡´ì— ìˆìœ¼ë©´ ê²½í—˜ì¹˜ ë³´ë„ˆìŠ¤ë¥¼ ë°›ëŠ”
+		// ìª½ì´ ì¢‹ì§€ ì•Šì„ê¹Œ? -- ê¹€ì„±ë¯¼
 		if (pCreature->getDistance(cx, cy) <= 8)
 		{
 			MemberList.push_back(pCreature);
 
-			// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+			// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 			if (pCreature->isSlayer())
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -1201,14 +1201,14 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 		}
 	}
 
-	// °æÇèÄ¡¸¦ ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ ÁõÆø½ÃÅ²´Ù.
+	// ê²½í—˜ì¹˜ë¥¼ íŒŒí‹°ì›ì˜ ìˆ«ìì— ì¦í­ì‹œí‚¨ë‹¤.
 	int nMemberSize = MemberList.size();
 
-	// ÆÄÆ¼¿ø Æò±Õ ·¹º§¿¡ ÀÇÇÑ °æÇèÄ¡¸¦ ±¸ÇÑ´Ù.
+	// íŒŒí‹°ì› í‰ê·  ë ˆë²¨ì— ì˜í•œ ê²½í—˜ì¹˜ë¥¼ êµ¬í•œë‹¤.
 	int amount = (int) computeRankExp( LevelSum2 / nMemberSize, otherLevel );
 
-	//cout << "ÆÄÆ¼¿øÀÇ ¼ıÀÚ : " << nMemberSize << endl;
-	//cout << "¿ø·¡ °æÇèÄ¡ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ìˆ«ì : " << nMemberSize << endl;
+	//cout << "ì›ë˜ ê²½í—˜ì¹˜ : " << amount << endl;
 
 	if (nMemberSize == 1)
 	{
@@ -1216,7 +1216,7 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pLeader);
 
-		// ÆÄÆ¼¿øÀÌ ÇÏ³ª¶ó¸é (±ÙÃ³¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é) ±×³É È¥ÀÚ ¿Ã·ÁÁÖ°í, ¸®ÅÏÇÑ´Ù.
+		// íŒŒí‹°ì›ì´ í•˜ë‚˜ë¼ë©´ (ê·¼ì²˜ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´) ê·¸ëƒ¥ í˜¼ì ì˜¬ë ¤ì£¼ê³ , ë¦¬í„´í•œë‹¤.
 		pPC->increaseRankExp(amount);
 		return;
 	}
@@ -1231,17 +1231,17 @@ void Party::shareRankExp(Creature* pLeader, int otherLevel)
 		default: break;
 	}
 
-	//cout << "ÁõÆøµÈ °æÇèÄ¡ : " << amount << endl;
-	//cout << "ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕ : " << LevelSum << endl;
+	//cout << "ì¦í­ëœ ê²½í—˜ì¹˜ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•© : " << LevelSum << endl;
 
-	// °¢°¢ÀÇ ÆÄÆ¼¿øµéÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+	// ê°ê°ì˜ íŒŒí‹°ì›ë“¤ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 	list<Creature*>::iterator itr = MemberList.begin();
 	for (; itr != MemberList.end(); itr++)
 	{
 		Creature* pCreature = (*itr);
 		Assert(pCreature != NULL);
 
-		// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+		// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 		int level = 0;
 		if (pCreature->isSlayer())
 		{
@@ -1292,20 +1292,20 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â (°æÇèÄ¡¸¦ ¿Ã·ÁÁÙ) ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” (ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤„) íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
 		PlayerCreature* pCreature = dynamic_cast<PlayerCreature*>(mitr->second);
 		Assert(pCreature != NULL);
 
-		// ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¸¦ ÅëÇØ¼­¸¸ ºÒ¸®´Â ÇÔ¼öÀÌ±â ¶§¹®¿¡, 
-		// ÀÌ ÆÄÆ¼´Â ÇöÀç ·ÎÄÃ ÆÄÆ¼¶ó°í °¡Á¤ÇÒ ¼ö ÀÖ´Ù.
-		// ·ÎÄÃ ÆÄÆ¼ ³»ºÎ¿¡¼­´Â °°Àº Á¸¿¡ ÀÖ´ÂÁö¸¦ °Ë»çÇÒ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
-		// °Å¸® °Ë»ç¸¸À» ÇÑ´Ù.
-		// »ç½Ç ¸Å¹ø °è»ê ¶§¸¶´Ù ÀÌ·¸°Ô °Å¸® °è»êÀ» ÇÑ´Ù´Â °ÍÀº ¾à°£Àº
-		// ¹«¸®°¡ ÀÖ´Ù°í »ı°¢ÇÏ´Âµ¥, °°Àº Á¸¿¡ ÀÖÀ¸¸é °æÇèÄ¡ º¸³Ê½º¸¦ ¹Ş´Â
-		// ÂÊÀÌ ÁÁÁö ¾ÊÀ»±î? -- ±è¼º¹Î
+		// ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œë§Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì—, 
+		// ì´ íŒŒí‹°ëŠ” í˜„ì¬ ë¡œì»¬ íŒŒí‹°ë¼ê³  ê°€ì •í•  ìˆ˜ ìˆë‹¤.
+		// ë¡œì»¬ íŒŒí‹° ë‚´ë¶€ì—ì„œëŠ” ê°™ì€ ì¡´ì— ìˆëŠ”ì§€ë¥¼ ê²€ì‚¬í•  í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
+		// ê±°ë¦¬ ê²€ì‚¬ë§Œì„ í•œë‹¤.
+		// ì‚¬ì‹¤ ë§¤ë²ˆ ê³„ì‚° ë•Œë§ˆë‹¤ ì´ë ‡ê²Œ ê±°ë¦¬ ê³„ì‚°ì„ í•œë‹¤ëŠ” ê²ƒì€ ì•½ê°„ì€
+		// ë¬´ë¦¬ê°€ ìˆë‹¤ê³  ìƒê°í•˜ëŠ”ë°, ê°™ì€ ì¡´ì— ìˆìœ¼ë©´ ê²½í—˜ì¹˜ ë³´ë„ˆìŠ¤ë¥¼ ë°›ëŠ”
+		// ìª½ì´ ì¢‹ì§€ ì•Šì„ê¹Œ? -- ê¹€ì„±ë¯¼
 		if (pCreature->isAdvanced() && pCreature->getDistance(cx, cy) <= 8)
 		{
 			MemberList.push_back(pCreature);
@@ -1313,11 +1313,11 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 		}
 	}
 
-	// °æÇèÄ¡¸¦ ÆÄÆ¼¿øÀÇ ¼ıÀÚ¿¡ ÁõÆø½ÃÅ²´Ù.
+	// ê²½í—˜ì¹˜ë¥¼ íŒŒí‹°ì›ì˜ ìˆ«ìì— ì¦í­ì‹œí‚¨ë‹¤.
 	int nMemberSize = MemberList.size();
 
-	//cout << "ÆÄÆ¼¿øÀÇ ¼ıÀÚ : " << nMemberSize << endl;
-	//cout << "¿ø·¡ °æÇèÄ¡ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ì˜ ìˆ«ì : " << nMemberSize << endl;
+	//cout << "ì›ë˜ ê²½í—˜ì¹˜ : " << amount << endl;
 
 	if (nMemberSize == 1)
 	{
@@ -1325,7 +1325,7 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pLeader);
 
-		// ÆÄÆ¼¿øÀÌ ÇÏ³ª¶ó¸é (±ÙÃ³¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é) ±×³É È¥ÀÚ ¿Ã·ÁÁÖ°í, ¸®ÅÏÇÑ´Ù.
+		// íŒŒí‹°ì›ì´ í•˜ë‚˜ë¼ë©´ (ê·¼ì²˜ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´) ê·¸ëƒ¥ í˜¼ì ì˜¬ë ¤ì£¼ê³ , ë¦¬í„´í•œë‹¤.
 		if ( pPC->isAdvanced() )
 			pPC->increaseAdvancementClassExp(amount);
 		return;
@@ -1341,17 +1341,17 @@ void Party::shareAdvancementExp(Creature* pLeader, int amount)
 		default: break;
 	}
 
-	//cout << "ÁõÆøµÈ °æÇèÄ¡ : " << amount << endl;
-	//cout << "ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕ : " << LevelSum << endl;
+	//cout << "ì¦í­ëœ ê²½í—˜ì¹˜ : " << amount << endl;
+	//cout << "íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•© : " << LevelSum << endl;
 
-	// °¢°¢ÀÇ ÆÄÆ¼¿øµéÀÇ °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+	// ê°ê°ì˜ íŒŒí‹°ì›ë“¤ì˜ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 	list<Creature*>::iterator itr = MemberList.begin();
 	for (; itr != MemberList.end(); itr++)
 	{
 		PlayerCreature* pCreature = dynamic_cast<PlayerCreature*>(*itr);
 		Assert(pCreature != NULL);
 
-		// ±ÙÃ³¿¡ ÀÖ´Â ÆÄÆ¼¿ø °Ë»öÇÏ´Â ±è¿¡ ÆÄÆ¼¿øµéÀÇ ·¹º§ ÇÕµµ ±¸ÇØµĞ´Ù.
+		// ê·¼ì²˜ì— ìˆëŠ” íŒŒí‹°ì› ê²€ìƒ‰í•˜ëŠ” ê¹€ì— íŒŒí‹°ì›ë“¤ì˜ ë ˆë²¨ í•©ë„ êµ¬í•´ë‘”ë‹¤.
 		int myQuota = amount * pCreature->getLevel() / LevelSum;
 		pCreature->increaseAdvancementClassExp(myQuota);
 	}
@@ -1376,7 +1376,7 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1396,10 +1396,10 @@ void Party::shareRevealer(Creature* pCaster, int Duration)
 
 	if ( !pCaster->isFlag( Effect::EFFECT_CLASS_REVEALER ) )
 	{
-		throw Error( "Revealer ÀÌÆåÆ®°¡ °É·Á ÀÖÁö ¾ÊÀ½" );
+		throw Error( "Revealer ì´í™íŠ¸ê°€ ê±¸ë ¤ ìˆì§€ ì•ŠìŒ" );
 	}
 
-	// Caster ÀÇ Revelaer ½ºÅ³ ·¹º§À» °¡Á®¿Â´Ù
+	// Caster ì˜ Revelaer ìŠ¤í‚¬ ë ˆë²¨ì„ ê°€ì ¸ì˜¨ë‹¤
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pCaster);
 	Assert( pSlayer != NULL );
 	SkillSlot* pSkillSlot = pSlayer->getSkill( SKILL_REVEALER );
@@ -1454,7 +1454,7 @@ void Party::shareActivation(Creature* pCaster, int Duration)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1516,7 +1516,7 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1544,7 +1544,7 @@ void Party::shareGnomesWhisper(Creature* pCaster, int Duration, int SkillLevel )
 		if (pCreature != pCaster)
 		{
 			Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
 			EffectGnomesWhisper* pEffect = new EffectGnomesWhisper(pOusters);
 			pEffect->setDeadline( Duration );
 			pEffect->setLevel( SkillLevel );
@@ -1579,7 +1579,7 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1608,7 +1608,7 @@ void Party::shareHolyArmor(Creature* pCaster, int DefBonus, int SkillLevel )
 		{
 			int Duration = (30 + SkillLevel/2) * 10;
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
-            // ÀÌÆÑÆ® Å¬·¡½º¸¦ ¸¸µé¾î ºÙÀÎ´Ù.
+            // ì´íŒ©íŠ¸ í´ë˜ìŠ¤ë¥¼ ë§Œë“¤ì–´ ë¶™ì¸ë‹¤.
 			EffectHolyArmor* pEffect = new EffectHolyArmor(pSlayer);
 			pEffect->setDeadline( Duration );
 			pEffect->setDefBonus( DefBonus );
@@ -1648,7 +1648,7 @@ bool Party::shareWaterElementalHeal(Creature* pCaster, int HealPoint)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1729,7 +1729,7 @@ void Party::shareGDRLairEnter(Creature* pLeader)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1793,7 +1793,7 @@ void Party::shareDetectHidden(Creature* pCaster, int Duration)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1856,7 +1856,7 @@ void Party::shareDetectInvisibility(Creature* pCaster, int Duration)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1919,7 +1919,7 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -1948,7 +1948,7 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 		{
 			Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-			// ÀÌ¹Ì °°Àº ÀÌÆåÆ®°¡ Á¸ÀçÇÑ´Ù¸é ÀÌÀüÀÇ ÀÌÆåÆ®¸¦ »èÁ¦ÇØÁÖ¾î¾ß ÇÑ´Ù.
+			// ì´ë¯¸ ê°™ì€ ì´í™íŠ¸ê°€ ì¡´ì¬í•œë‹¤ë©´ ì´ì „ì˜ ì´í™íŠ¸ë¥¼ ì‚­ì œí•´ì£¼ì–´ì•¼ í•œë‹¤.
 			if (pSlayer->isFlag(Effect::EFFECT_CLASS_EXPANSION))
 			{
 				pSlayer->deleteEffect(Effect::EFFECT_CLASS_EXPANSION);
@@ -1960,8 +1960,8 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 			pSlayer->addEffect(pEffectExpansion);
 			pSlayer->setFlag(Effect::EFFECT_CLASS_EXPANSION);
 
-			// ÀÌÆåÆ®¸¦ ºÙ¿´À¸´Ï, ´É·ÂÄ¡¸¦ Àç°è»êÇÑ´Ù.
-			// ±×¸®°í º»ÀÎ¿¡°Ô º¯È­µÈ »çÇ×À» ¾Ë·ÁÁØ´Ù.
+			// ì´í™íŠ¸ë¥¼ ë¶™ì˜€ìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ì¬ê³„ì‚°í•œë‹¤.
+			// ê·¸ë¦¬ê³  ë³¸ì¸ì—ê²Œ ë³€í™”ëœ ì‚¬í•­ì„ ì•Œë ¤ì¤€ë‹¤.
 			SLAYER_RECORD prev;
 			pSlayer->getSlayerRecord(prev);
 			pSlayer->initAllStat();
@@ -1974,7 +1974,7 @@ void Party::shareExpansion(Creature* pCaster, int Duration, int Percent)
 			gcAddEffect.setDuration(Duration);
 			pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcAddEffect);
 
-			// ¾Æ¸¶µµ ÃÖ´ë Ã¼·ÂÀÌ º¯°æµÇ¾úÀ» Å×´Ï, HP ¿ª½Ã ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
+			// ì•„ë§ˆë„ ìµœëŒ€ ì²´ë ¥ì´ ë³€ê²½ë˜ì—ˆì„ í…Œë‹ˆ, HP ì—­ì‹œ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
 			GCOtherModifyInfo gcOtherModifyInfo;
 			makeGCOtherModifyInfo(&gcOtherModifyInfo, pSlayer, &prev);
 			pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &gcOtherModifyInfo, pSlayer);
@@ -2002,7 +2002,7 @@ void Party::dissectCorpse(Creature* pDissecter, MonsterCorpse* pCorpse)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ±ÙÃ³¿¡ ÀÖ´Â ÀÌÆåÆ®¸¦ °É¾îÁÙ ÆÄÆ¼¿øÀÇ ¸®½ºÆ®¸¦ °¡Á®¿Â´Ù.
+	// ê·¼ì²˜ì— ìˆëŠ” ì´í™íŠ¸ë¥¼ ê±¸ì–´ì¤„ íŒŒí‹°ì›ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	unordered_map<string, Creature*>::const_iterator mitr = m_MemberMap.begin();
 	for (; mitr != m_MemberMap.end(); mitr++)
 	{
@@ -2080,8 +2080,8 @@ void Party::refreshFamilyPay()
 		}
 	}
 
-	// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀÌ ¹Ù²î¸é ¸ğµç ÆÄÆ¼¿øµé¿¡°Ô Àû¿ë½ÃÅ²´Ù.
-	// ´Ü ÆĞ¹Ğ¸® ¿ä±İÁ¦ °¡ÀÔÀÚ´Â Á¦¿ÜÇÑ´Ù.
+	// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì´ ë°”ë€Œë©´ ëª¨ë“  íŒŒí‹°ì›ë“¤ì—ê²Œ ì ìš©ì‹œí‚¨ë‹¤.
+	// ë‹¨ íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ê°€ì…ìëŠ” ì œì™¸í•œë‹¤.
 	if ( oldFamilyPay != m_bFamilyPay )
 	{
 		mitr = m_MemberMap.begin();
@@ -2097,12 +2097,12 @@ void Party::refreshFamilyPay()
 			{
 				if ( m_bFamilyPay )
 				{
-					// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë
+					// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©
 					pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS );
 				}
 				else
 				{
-					// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀÌ ³¡³µÀ½À» ¾Ë·Á¾ßÇÑ´Ù.
+					// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì´ ëë‚¬ìŒì„ ì•Œë ¤ì•¼í•œë‹¤.
 					pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 				}
 			}
@@ -2174,7 +2174,7 @@ bool PartyManager::createParty(int ID, Creature::CreatureClass CClass)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ÁßÃ¸µÇ´Â ÆÄÆ¼¸¦ Ã£¾Æº»´Ù.
+	// ì¤‘ì²©ë˜ëŠ” íŒŒí‹°ë¥¼ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr != m_PartyMap.end())
 	{
@@ -2199,7 +2199,7 @@ Party* PartyManager::getParty(int ID) 	// by sigi. 2002.10.14
 {
 	__BEGIN_TRY
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2218,17 +2218,17 @@ bool PartyManager::addPartyMember(int ID, Creature* pCreature)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
-		// ¾ø´Ù¸é ¿©±â¼­ »ı¼ºÇØÁØ´Ù.
+		// ì—†ë‹¤ë©´ ì—¬ê¸°ì„œ ìƒì„±í•´ì¤€ë‹¤.
 		Party* pNewParty = new Party(pCreature->getCreatureClass());
 		pNewParty->setID(ID);
 
 		m_PartyMap[ID] = pNewParty;
 
-		// ÀÇ¹Ì°¡ ÀÖ´Â Ã¼Å©ÀÏ±î...-_-
+		// ì˜ë¯¸ê°€ ìˆëŠ” ì²´í¬ì¼ê¹Œ...-_-
 		if (pNewParty->getSize() >= PARTY_MAX_SIZE)
 		{
 			m_Mutex.unlock();
@@ -2265,7 +2265,7 @@ bool PartyManager::deletePartyMember(int ID, Creature* pCreature)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2325,7 +2325,7 @@ void LocalPartyManager::heartbeat(void)
 
 		if (pParty->getSize() == 0)
 		{
-			//cout << "·ÎÄÃÆÄÆ¼ÀÇ »çÀÌÁî°¡ 0ÀÌ µÇ¾î¼­, ÆÄÆ¼ °´Ã¼[" << pParty->getID() << "]¸¦ »èÁ¦ÇÕ´Ï´Ù." << endl;
+			//cout << "ë¡œì»¬íŒŒí‹°ì˜ ì‚¬ì´ì¦ˆê°€ 0ì´ ë˜ì–´ì„œ, íŒŒí‹° ê°ì²´[" << pParty->getID() << "]ë¥¼ ì‚­ì œí•©ë‹ˆë‹¤." << endl;
 
 			SAFE_DELETE(pParty);
 
@@ -2361,7 +2361,7 @@ int LocalPartyManager::getAdjacentMemberSize(int PartyID, Creature* pLeader) con
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2392,7 +2392,7 @@ int LocalPartyManager::shareAttrExp(int PartyID, Creature* pLeader, int amount,
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2421,7 +2421,7 @@ int LocalPartyManager::shareVampireExp(int PartyID, Creature* pLeader, int amoun
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2450,7 +2450,7 @@ int LocalPartyManager::shareOustersExp(int PartyID, Creature* pLeader, int amoun
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2479,7 +2479,7 @@ int LocalPartyManager::shareRankExp(int PartyID, Creature* pLeader, int amount) 
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2506,7 +2506,7 @@ void LocalPartyManager::shareRevealer(int PartyID, Creature* pCaster, int Durati
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2531,7 +2531,7 @@ void LocalPartyManager::shareDetectHidden(int PartyID, Creature* pCaster, int Du
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2556,7 +2556,7 @@ void LocalPartyManager::shareDetectInvisibility(int PartyID, Creature* pCaster, 
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2581,7 +2581,7 @@ void LocalPartyManager::shareExpansion(int PartyID, Creature* pCaster, int Durat
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2606,7 +2606,7 @@ void LocalPartyManager::shareActivation(int PartyID, Creature* pCaster, int Dura
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2631,7 +2631,7 @@ void LocalPartyManager::shareGnomesWhisper(int PartyID, Creature* pCaster, int D
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2656,7 +2656,7 @@ void LocalPartyManager::shareHolyArmor(int PartyID, Creature* pCaster, int DefBo
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2683,7 +2683,7 @@ bool LocalPartyManager::shareWaterElementalHeal(int PartyID, Creature* pCaster, 
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2710,7 +2710,7 @@ void LocalPartyManager::shareGDRLairEnter(int PartyID, Creature* pLeader)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2736,7 +2736,7 @@ int LocalPartyManager::shareAdvancementExp(int PartyID, Creature* pLeader, int a
 
 	__ENTER_CRITICAL_SECTION(m_Mutex);
 
-	// ÇØ´çÇÏ´Â ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£¾Æº»´Ù.
+	// í•´ë‹¹í•˜ëŠ” íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ì•„ë³¸ë‹¤.
 	unordered_map<int, Party*>::const_iterator itr = m_PartyMap.find(PartyID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2844,7 +2844,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 
 	//cout << "GlobalPartyManager::addPartyMember() : BEGIN" << endl;
 
-	// ¸ÕÀú ÇØ´çÆÄÆ¼¸¦ Ã£¾Æ¼­ ÇÇÆ¼¿øÀÇ ¼ıÀÚ¸¦ È®ÀÎÇÑ´Ù.
+	// ë¨¼ì € í•´ë‹¹íŒŒí‹°ë¥¼ ì°¾ì•„ì„œ í”¼í‹°ì›ì˜ ìˆ«ìë¥¼ í™•ì¸í•œë‹¤.
 	unordered_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
@@ -2853,7 +2853,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 		//cerr << "GlobalPartyManager::addPartyMember() : NoSuchElementException" << endl;
 		//throw NoSuchElementException("GlobalPartyManager::addPartyMember() : NoSuchElementException");
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.13
+		// NoSuchì œê±°. by sigi. 2002.5.13
 		return false;
 	}
 
@@ -2863,7 +2863,7 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 	{
 		m_Mutex.unlock();
 
-		//cout << "ÆÄÆ¼ ¸Æ½º »çÀÌÁî¸¦ ÃÊ°ú" << endl;
+		//cout << "íŒŒí‹° ë§¥ìŠ¤ ì‚¬ì´ì¦ˆë¥¼ ì´ˆê³¼" << endl;
 		//cout << "GlobalPartyManager::addPartyMember() : END" << endl;
 		return false;
 	}
@@ -2873,17 +2873,17 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 		pParty->eventPartyCrash();
 	}
 
-	// ÆÄÆ¼¿øÀ» Ãß°¡ÇÑ´Ù.
+	// íŒŒí‹°ì›ì„ ì¶”ê°€í•œë‹¤.
 	pParty->addMember(pCreature);
 	pCreature->setPartyID(pParty->getID());
 
-	// ´Ù¸¥ ¸â¹öµé¿¡°Ô ÆÄÆ¼¿øÀÌ Ãß°¡µÇ¾ú´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
-	// ÃÖÃÊ¿¡ 2¸íÀÌ ÆÄÆ¼¸¦ ±¸¼ºÇÒ °æ¿ì, 1¸íÀ» ´õÇÑ ´ÙÀ½¿¡ ±× »ç¶÷¿¡°Ô
-	// ÇÑ¸í ÀÌ¸§¸¸ÀÌ µé¾î°¡ ÀÖ´Â ÆÄÆ¼ ¸®½ºÆ®°¡ ³¯¾Æ°¡°Ô µÈ´Ù.
-	// ±× ´ÙÀ½ 2¹øÂ° ¸â¹ö°¡ µé¾î°¡¸é 2¸í¿¡°Ô 2¸íÀÌ µé¾î°¡ ÀÖ´Â ¸®½ºÆ®°¡ 
-	// Â÷·Ê·Î ³¯¾Æ°¡°Ô µÈ´Ù.
-	// ±×·¯¹Ç·Î ÆÄÆ¼¿øÀÌ 1¸íÀÏ ¶§´Â º¸³»Áö ¾Ê¾Æ¾ß, ÆÄÆ¼ ¸®½ºÆ®°¡ 2¹ø
-	// ³¯¾Æ°¡´Â °ÍÀ» ¹æÁöÇÒ ¼ö ÀÖ´Ù.
+	// ë‹¤ë¥¸ ë©¤ë²„ë“¤ì—ê²Œ íŒŒí‹°ì›ì´ ì¶”ê°€ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
+	// ìµœì´ˆì— 2ëª…ì´ íŒŒí‹°ë¥¼ êµ¬ì„±í•  ê²½ìš°, 1ëª…ì„ ë”í•œ ë‹¤ìŒì— ê·¸ ì‚¬ëŒì—ê²Œ
+	// í•œëª… ì´ë¦„ë§Œì´ ë“¤ì–´ê°€ ìˆëŠ” íŒŒí‹° ë¦¬ìŠ¤íŠ¸ê°€ ë‚ ì•„ê°€ê²Œ ëœë‹¤.
+	// ê·¸ ë‹¤ìŒ 2ë²ˆì§¸ ë©¤ë²„ê°€ ë“¤ì–´ê°€ë©´ 2ëª…ì—ê²Œ 2ëª…ì´ ë“¤ì–´ê°€ ìˆëŠ” ë¦¬ìŠ¤íŠ¸ê°€ 
+	// ì°¨ë¡€ë¡œ ë‚ ì•„ê°€ê²Œ ëœë‹¤.
+	// ê·¸ëŸ¬ë¯€ë¡œ íŒŒí‹°ì›ì´ 1ëª…ì¼ ë•ŒëŠ” ë³´ë‚´ì§€ ì•Šì•„ì•¼, íŒŒí‹° ë¦¬ìŠ¤íŠ¸ê°€ 2ë²ˆ
+	// ë‚ ì•„ê°€ëŠ” ê²ƒì„ ë°©ì§€í•  ìˆ˜ ìˆë‹¤.
 	if (pParty->getSize() != 1)
 	{
 		GCPartyJoined gcPartyJoined;
@@ -2913,18 +2913,18 @@ bool GlobalPartyManager::addPartyMember(int ID, Creature* pCreature)
 		}
 	}
 
-	// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë Ã³¸®
+	// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© ì²˜ë¦¬
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	if ( pGamePlayer != NULL )
 	{
 		if ( pParty->isFamilyPay() && !pGamePlayer->isFamilyPayAvailable() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë ÆÄÆ¼¶ó¸é À¯·áÁ¸ ÃâÀÔ±ÇÀ» ÁØ´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© íŒŒí‹°ë¼ë©´ ìœ ë£Œì¡´ ì¶œì…ê¶Œì„ ì¤€ë‹¤.
 			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS );
 		}
 		else if ( pGamePlayer->isFamilyPayAvailable() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ÀÎ ÆÄÆ¼¿øÀÌ Âü°¡ÇÏ°Ô µÉ °æ¿ì ÆÄÆ¼¸¦ ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë ÆÄÆ¼·Î ¸¸µç´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œì¸ íŒŒí‹°ì›ì´ ì°¸ê°€í•˜ê²Œ ë  ê²½ìš° íŒŒí‹°ë¥¼ íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© íŒŒí‹°ë¡œ ë§Œë“ ë‹¤.
 			pParty->refreshFamilyPay();
 		}
 	}
@@ -2955,18 +2955,18 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 		cerr << "GlobalPartyManager::deletePartyMember() : NoSuchElementException" << endl;
 		//throw NoSuchElementException("GlobalPartyManager::deletePartyMember() : NoSuchElementException");
 
-		// ¿ÜºÎ¿¡¼­ NoSuchÃ³¸®µµ ¾ÈÇÏ´Âµ¥ -_-; by sigi. 2002.5.9
+		// ì™¸ë¶€ì—ì„œ NoSuchì²˜ë¦¬ë„ ì•ˆí•˜ëŠ”ë° -_-; by sigi. 2002.5.9
 		m_Mutex.unlock();
 		return false;
 	}
 
 	Party* pParty = itr->second;
 
-	//cout << "ÆÄÆ¼¸¦ Ã£¾Ò´Ù." << endl;
+	//cout << "íŒŒí‹°ë¥¼ ì°¾ì•˜ë‹¤." << endl;
 	//cout << pParty->toString() << endl;
-	//cout << "Áö¿ì·Á°íÇÏ´Â ³ğÀÇ ÀÌ¸§Àº:" << pCreature->getName() << endl;
+	//cout << "ì§€ìš°ë ¤ê³ í•˜ëŠ” ë†ˆì˜ ì´ë¦„ì€:" << pCreature->getName() << endl;
 
-	// ¸â¹öµé¿¡°Ô ÆÄÆ¼¿øÀÌ ÆÄÆ¼¿¡¼­ Ãß¹æµÇ¾ú´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+	// ë©¤ë²„ë“¤ì—ê²Œ íŒŒí‹°ì›ì´ íŒŒí‹°ì—ì„œ ì¶”ë°©ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 	GCPartyLeave gcPartyLeave;
 	gcPartyLeave.setExpellee(pCreature->getName());
 	gcPartyLeave.setExpeller("");
@@ -2974,39 +2974,39 @@ bool GlobalPartyManager::deletePartyMember(int ID, Creature* pCreature)
 
 	pParty->eventPartyCrash();
 
-	// ¶°³ª´Â ´ç»çÀÚ¿¡°Ôµµ GCPartyLeave°¡ ³¯¾Æ°¡¾ßÇÏ±â ¶§¹®¿¡,
-	// ¸ÕÀú ÆĞÅ¶À» ºê·ÎµåÄ³½ºÆÃÇÑ ´ÙÀ½¿¡, ½ÇÁ¦·Î ÆÄÆ¼¿¡¼­ »èÁ¦ÇØÁØ´Ù.
+	// ë– ë‚˜ëŠ” ë‹¹ì‚¬ìì—ê²Œë„ GCPartyLeaveê°€ ë‚ ì•„ê°€ì•¼í•˜ê¸° ë•Œë¬¸ì—,
+	// ë¨¼ì € íŒ¨í‚·ì„ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œ ë‹¤ìŒì—, ì‹¤ì œë¡œ íŒŒí‹°ì—ì„œ ì‚­ì œí•´ì¤€ë‹¤.
 	pParty->deleteMember(pCreature->getName());
 	pCreature->setPartyID(0);
 
-	// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë Ã³¸®
+	// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© ì²˜ë¦¬
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pCreature->getPlayer());
 	if ( pGamePlayer != NULL )
 	{
 		if ( pGamePlayer->isFamilyPayAvailable() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ÀÎ ÆÄÆ¼¿øÀÌ ¶°³ªÇÏ°Ô µÉ °æ¿ì ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀ» »õ·Î °è»êÇÑ´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œì¸ íŒŒí‹°ì›ì´ ë– ë‚˜í•˜ê²Œ ë  ê²½ìš° íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì„ ìƒˆë¡œ ê³„ì‚°í•œë‹¤.
 			pParty->refreshFamilyPay();
 		}
 		else if ( pParty->isFamilyPay() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë ÆÄÆ¼ÀÏ °æ¿ì ÆĞ¹Ğ¸® Àû¿ëÀ» ³¡³½´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© íŒŒí‹°ì¼ ê²½ìš° íŒ¨ë°€ë¦¬ ì ìš©ì„ ëë‚¸ë‹¤.
 			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 		}
 	}
 
-	// ÆÄÆ¼ÀÇ »çÀÌÁî°¡ 1ÀÌ µÇ¾ú´Ù¸é »èÁ¦ÇÑ´Ù.
+	// íŒŒí‹°ì˜ ì‚¬ì´ì¦ˆê°€ 1ì´ ë˜ì—ˆë‹¤ë©´ ì‚­ì œí•œë‹¤.
 	if (pParty->getSize() == 1)
 	{
-		//cout << "±Û·Î¹úÆÄÆ¼ÀÇ »çÀÌÁî°¡ 0ÀÌ µÇ¾î¼­, ÆÄÆ¼ °´Ã¼[" << pParty->getID() << "]¸¦ »èÁ¦ÇÕ´Ï´Ù." << endl;
+		//cout << "ê¸€ë¡œë²ŒíŒŒí‹°ì˜ ì‚¬ì´ì¦ˆê°€ 0ì´ ë˜ì–´ì„œ, íŒŒí‹° ê°ì²´[" << pParty->getID() << "]ë¥¼ ì‚­ì œí•©ë‹ˆë‹¤." << endl;
 
 		m_PartyMap.erase(itr);
 
-		// ³²Àº ÆÄÆ¼¿øµéÀÇ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µé°í,
-		// °¢°¢ÀÇ ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ ÆÄÆ¼¸¦ »èÁ¦ÇÑ´Ù.
+		// ë‚¨ì€ íŒŒí‹°ì›ë“¤ì˜ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ê³ ,
+		// ê°ê°ì˜ ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ íŒŒí‹°ë¥¼ ì‚­ì œí•œë‹¤.
 		pParty->destroyParty();
 
-		// °´Ã¼¸¦ Áö¿î´Ù.
+		// ê°ì²´ë¥¼ ì§€ìš´ë‹¤.
 		SAFE_DELETE(pParty);
 	}
 
@@ -3028,13 +3028,13 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ¸ÕÀú ÇØ´çÆÄÆ¼¸¦ Ã£´Â´Ù.
+	// ë¨¼ì € í•´ë‹¹íŒŒí‹°ë¥¼ ì°¾ëŠ”ë‹¤.
 	unordered_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
 		cerr << "GlobalPartyManager::expelPartyMember() : NoSuchElementException" << endl;
 
-		// ¿ÜºÎ¿¡¼­ NoSuchÃ³¸®µµ ¾ÈÇÏ´Âµ¥ -_-; by sigi. 2002.5.9
+		// ì™¸ë¶€ì—ì„œ NoSuchì²˜ë¦¬ë„ ì•ˆí•˜ëŠ”ë° -_-; by sigi. 2002.5.9
 		//throw NoSuchElementException("GlobalPartyManager::expelPartyMember() : NoSuchElementException");
 
 		m_Mutex.unlock();
@@ -3043,29 +3043,29 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 
 	Party* pParty = itr->second;
 
-	// Ãß¹æÇÏ´Â ³ğÀÌ ÀÌ ÆÄÆ¼¿¡ ÀÖ´ÂÁö °Ë»çÇØ¾ß ÇÑ´Ù.
+	// ì¶”ë°©í•˜ëŠ” ë†ˆì´ ì´ íŒŒí‹°ì— ìˆëŠ”ì§€ ê²€ì‚¬í•´ì•¼ í•œë‹¤.
 	if (!pParty->hasMember(pExpeller->getName()))
 	{
 		m_Mutex.unlock();
 
-		// ¿¡·¯ÀÎµ¥...?
-		//cout << "Ãß¹æÇÏ´Â ³ğÀÌ ÆÄÆ¼¿¡ Á¸ÀçÇÏÁö ¾ÊÀ½" << endl;
+		// ì—ëŸ¬ì¸ë°...?
+		//cout << "ì¶”ë°©í•˜ëŠ” ë†ˆì´ íŒŒí‹°ì— ì¡´ì¬í•˜ì§€ ì•ŠìŒ" << endl;
 		//cout << "GlobalPartyManager::expelPartyMember() : END" << endl;
 		return false;
 	}
 
-	// Ãß¹æ´çÇÒ ³ğÀÌ ÆÄÆ¼¿¡ Á¸ÀçÇÏ´ÂÁö¸¦ Ã¼Å©ÇØ¾ß ÇÑ´Ù.
+	// ì¶”ë°©ë‹¹í•  ë†ˆì´ íŒŒí‹°ì— ì¡´ì¬í•˜ëŠ”ì§€ë¥¼ ì²´í¬í•´ì•¼ í•œë‹¤.
 	if (!pParty->hasMember(ExpelleeName))
 	{
 		m_Mutex.unlock();
 
-		// ¿¡·¯ÀÎµ¥...?
-		//cout << "Ãß¹æ´çÇÏ´Â ³ğÀÌ ÆÄÆ¼¿¡ Á¸ÀçÇÏÁö ¾ÊÀ½" << endl;
+		// ì—ëŸ¬ì¸ë°...?
+		//cout << "ì¶”ë°©ë‹¹í•˜ëŠ” ë†ˆì´ íŒŒí‹°ì— ì¡´ì¬í•˜ì§€ ì•ŠìŒ" << endl;
 		//cout << "GlobalPartyManager::expelPartyMember() : END" << endl;
 		return false;
 	}
 
-	// ¸â¹öµé¿¡°Ô ÆÄÆ¼¿øÀÌ ÆÄÆ¼¿¡¼­ Ãß¹æµÇ¾ú´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+	// ë©¤ë²„ë“¤ì—ê²Œ íŒŒí‹°ì›ì´ íŒŒí‹°ì—ì„œ ì¶”ë°©ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 	GCPartyLeave gcPartyLeave;
 	gcPartyLeave.setExpellee(ExpelleeName);
 	gcPartyLeave.setExpeller(pExpeller->getName());
@@ -3073,51 +3073,51 @@ bool GlobalPartyManager::expelPartyMember(int ID, Creature* pExpeller, const str
 
 	pParty->eventPartyCrash();
 
-	//cout << "¸â¹öµé¿¡°Ô ÆÄÆ¼¿øÀÌ ÆÄÆ¼¿¡¼­ Ãß¹æµÇ¾ú´Ù´Â »ç½ÇÀ» ¾Ë·ÁÁØ´Ù." << endl;
+	//cout << "ë©¤ë²„ë“¤ì—ê²Œ íŒŒí‹°ì›ì´ íŒŒí‹°ì—ì„œ ì¶”ë°©ë˜ì—ˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤." << endl;
 
-	// Ãß¹æ´çÇÒ ³ğÀ» ÆÄÆ¼¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// ì¶”ë°©ë‹¹í•  ë†ˆì„ íŒŒí‹°ì—ì„œ ì‚­ì œí•œë‹¤.
 	// * NOTE *
-	// ÆÄÆ¼¿¡¼­ ¸ÕÀú »èÁ¦ÇÏÁö ¾Ê°í, ÆĞÅ¶À» º¸³½ ´ÙÀ½¿¡ »èÁ¦ÇÏ´Â ÀÌÀ¯´Â
-	// Ãß¹æ´çÇÑ ³ğ¿¡°Ô °¡´Â ÆĞÅ¶ÀÌ³ª, ´Ù¸¥ ¸â¹öµé¿¡°Ô Ãß¹æµÇ¾ú´Ù°í ¾Ë·ÁÁÖ´Â
-	// ÆĞÅ¶ÀÌ³ª °°Àº ÆĞÅ¶À» ¾²±â ¶§¹®ÀÌ´Ù. 
+	// íŒŒí‹°ì—ì„œ ë¨¼ì € ì‚­ì œí•˜ì§€ ì•Šê³ , íŒ¨í‚·ì„ ë³´ë‚¸ ë‹¤ìŒì— ì‚­ì œí•˜ëŠ” ì´ìœ ëŠ”
+	// ì¶”ë°©ë‹¹í•œ ë†ˆì—ê²Œ ê°€ëŠ” íŒ¨í‚·ì´ë‚˜, ë‹¤ë¥¸ ë©¤ë²„ë“¤ì—ê²Œ ì¶”ë°©ë˜ì—ˆë‹¤ê³  ì•Œë ¤ì£¼ëŠ”
+	// íŒ¨í‚·ì´ë‚˜ ê°™ì€ íŒ¨í‚·ì„ ì“°ê¸° ë•Œë¬¸ì´ë‹¤. 
 	Creature* pExpellee = pParty->getMember(ExpelleeName);
 	pExpellee->setPartyID(0);
 	pParty->deleteMember(ExpelleeName);
 
-	// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë Ã³¸®
+	// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© ì²˜ë¦¬
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pExpellee->getPlayer());
 	if ( pGamePlayer != NULL )
 	{
 		if ( pGamePlayer->isFamilyPayAvailable() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ÀÎ ÆÄÆ¼¿øÀÌ ¶°³ªÇÏ°Ô µÉ °æ¿ì ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀ» »õ·Î °è»êÇÑ´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œì¸ íŒŒí‹°ì›ì´ ë– ë‚˜í•˜ê²Œ ë  ê²½ìš° íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì„ ìƒˆë¡œ ê³„ì‚°í•œë‹¤.
 			pParty->refreshFamilyPay();
 		}
 		else if ( pParty->isFamilyPay() )
 		{
-			// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ë ÆÄÆ¼ÀÏ °æ¿ì ÆĞ¹Ğ¸® Àû¿ëÀ» ³¡³½´Ù.
+			// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš© íŒŒí‹°ì¼ ê²½ìš° íŒ¨ë°€ë¦¬ ì ìš©ì„ ëë‚¸ë‹¤.
 			pGamePlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_FREE_PASS_END );
 		}
 	}
 
-	//cout << "ÆÄÆ¼¿¡¼­ [" << pExpellee->getName() << "]¸¦ »èÁ¦Çß´Ù." << endl;
+	//cout << "íŒŒí‹°ì—ì„œ [" << pExpellee->getName() << "]ë¥¼ ì‚­ì œí–ˆë‹¤." << endl;
 
-	// ÆÄÆ¼ÀÇ »çÀÌÁî°¡ 1ÀÌ µÇ¾ú´Ù¸é »èÁ¦ÇÑ´Ù.
+	// íŒŒí‹°ì˜ ì‚¬ì´ì¦ˆê°€ 1ì´ ë˜ì—ˆë‹¤ë©´ ì‚­ì œí•œë‹¤.
 	if (pParty->getSize() == 1)
 	{
-		//cout << "ÆÄÆ¼ »çÀÌÁî°¡ 1ÀÌ µÇ¾î¼­ ÆÄÆ¼¸¦ »èÁ¦ÇÑ´Ù." << endl;
+		//cout << "íŒŒí‹° ì‚¬ì´ì¦ˆê°€ 1ì´ ë˜ì–´ì„œ íŒŒí‹°ë¥¼ ì‚­ì œí•œë‹¤." << endl;
 
 		m_PartyMap.erase(itr);
 
-		//cout << "itrÀ» »èÁ¦" << endl;
+		//cout << "itrì„ ì‚­ì œ" << endl;
 
-		// ³²Àº ÆÄÆ¼¿øµéÀÇ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µé°í,
-		// °¢°¢ÀÇ ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ ÆÄÆ¼¸¦ »èÁ¦ÇÑ´Ù.
+		// ë‚¨ì€ íŒŒí‹°ì›ë“¤ì˜ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ê³ ,
+		// ê°ê°ì˜ ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ íŒŒí‹°ë¥¼ ì‚­ì œí•œë‹¤.
 		pParty->destroyParty();
 
 		//cout << "After Party::destroyParty()" << endl;
 
-		// °´Ã¼¸¦ Áö¿î´Ù.
+		// ê°ì²´ë¥¼ ì§€ìš´ë‹¤.
 		SAFE_DELETE(pParty);
 
 		//cout << "After object deletion" << endl;
@@ -3136,7 +3136,7 @@ void GlobalPartyManager::refreshFamilyPay( int ID )
 {
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ¸ÕÀú ÇØ´çÆÄÆ¼¸¦ Ã£´Â´Ù.
+	// ë¨¼ì € í•´ë‹¹íŒŒí‹°ë¥¼ ì°¾ëŠ”ë‹¤.
 	unordered_map<int, Party*>::iterator itr = m_PartyMap.find(ID);
 	if (itr == m_PartyMap.end())
 	{
@@ -3199,7 +3199,7 @@ string GlobalPartyManager::toString(void) const
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ÆíÀÇ¸¦ À§ÇÑ Àü¿ª ÇÔ¼öµé...
+// í¸ì˜ë¥¼ ìœ„í•œ ì „ì—­ í•¨ìˆ˜ë“¤...
 //
 //////////////////////////////////////////////////////////////////////////////
 void deleteAllPartyInfo(Creature* pCreature)
@@ -3215,8 +3215,8 @@ void deleteAllPartyInfo(Creature* pCreature)
 	PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
 	Assert(pPIIM != NULL);
 
-	// Å¬·¡½º°¡ »èÁ¦µÉ °æ¿ì, ÇØ´çÇÏ´Â ÆÄÆ¼ ÃÊÃ» Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÔÀº ¹°·Ğ,
-	// ÆÄÆ¼ ÃÊÃ» »ó´ë¿¡°Ôµµ ÀÌ »ç½ÇÀ» ¾Ë·ÁÁà¾ß ÇÑ´Ù.
+	// í´ë˜ìŠ¤ê°€ ì‚­ì œë  ê²½ìš°, í•´ë‹¹í•˜ëŠ” íŒŒí‹° ì´ˆì²­ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•¨ì€ ë¬¼ë¡ ,
+	// íŒŒí‹° ì´ˆì²­ ìƒëŒ€ì—ê²Œë„ ì´ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤˜ì•¼ í•œë‹¤.
 	PartyInviteInfo* pInviteInfo = pPIIM->getInviteInfo(pCreature->getName());
 	if (pInviteInfo != NULL)
 	{
@@ -3225,33 +3225,33 @@ void deleteAllPartyInfo(Creature* pCreature)
 
 	int PartyID = pCreature->getPartyID();
 
-	// ÆÄÆ¼¿¡ ¼ÓÇØÀÖÀ» °æ¿ì¿¡´Â ÆÄÆ¼¿¡¼­ ÀÚ½ÅÀ» »èÁ¦ÇÏ°í, 
-	// ´Ù¸¥ ÆÄÆ¼¿øµé¿¡°Ô ¾Ë·Á¾ß ÇÑ´Ù.
+	// íŒŒí‹°ì— ì†í•´ìˆì„ ê²½ìš°ì—ëŠ” íŒŒí‹°ì—ì„œ ìì‹ ì„ ì‚­ì œí•˜ê³ , 
+	// ë‹¤ë¥¸ íŒŒí‹°ì›ë“¤ì—ê²Œ ì•Œë ¤ì•¼ í•œë‹¤.
 	if (PartyID != 0)
 	{
-		// ±Û·Î¹ú ÆÄÆ¼¿¡¼­ »èÁ¦ÇÏ°í, ÆÄÆ¼¿øµé¿¡°Ô ¾Ë¸°´Ù.
+		// ê¸€ë¡œë²Œ íŒŒí‹°ì—ì„œ ì‚­ì œí•˜ê³ , íŒŒí‹°ì›ë“¤ì—ê²Œ ì•Œë¦°ë‹¤.
 		g_pGlobalPartyManager->deletePartyMember(PartyID, pCreature);
 
-		// ÇöÀç ¼ÓÇØÀÖ´Â Á¸ÀÇ ·ÎÄÃÆÄÆ¼¸Å´ÏÀú¿¡¼­ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
-		// Zone::deleteCreature() ÇÔ¼ö ³»ºÎ¿¡¼­ Æ¯Á¤ Å©¸®ÃÄ°¡ 
-		// ±× Á¸À» ¶°³¯ °æ¿ì, LocalPartyManager ³»ºÎ¿¡¼­ ±× Å©¸®ÃÄ°¡
-		// ¼ÓÇÑ ÆÄÆ¼¿¡¼­ Å©¸®ÃÄ¸¦ Áö¿öÁÖ¹Ç·Î, ¿©±â¼­ Áö¿öÁÙ ÇÊ¿ä°¡ ¾ø´Ù.
+		// í˜„ì¬ ì†í•´ìˆëŠ” ì¡´ì˜ ë¡œì»¬íŒŒí‹°ë§¤ë‹ˆì €ì—ì„œ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
+		// Zone::deleteCreature() í•¨ìˆ˜ ë‚´ë¶€ì—ì„œ íŠ¹ì • í¬ë¦¬ì³ê°€ 
+		// ê·¸ ì¡´ì„ ë– ë‚  ê²½ìš°, LocalPartyManager ë‚´ë¶€ì—ì„œ ê·¸ í¬ë¦¬ì³ê°€
+		// ì†í•œ íŒŒí‹°ì—ì„œ í¬ë¦¬ì³ë¥¼ ì§€ì›Œì£¼ë¯€ë¡œ, ì—¬ê¸°ì„œ ì§€ì›Œì¤„ í•„ìš”ê°€ ì—†ë‹¤.
 		//
-		// ¾îµğÀÎÁö´Â Á¤È®ÇÏ°Ô ¾Ë ¼ö´Â ¾øÀ¸³ª, ¾îµğ¿¡¼±°¡ ·ÎÄÃ ÆÄÆ¼¿¡¼­
-		// Æ÷ÀÎÅÍ¸¦ È®½ÇÈ÷ Áö¿öÁÖÁö ¾Ê´Â Çö»óÀÌ ¹ß»ıÇÏ´Â µí ÇÏ´Ù.
-		// ±×·¡¼­ ¿ø·¡ ÁÖ¼®Ã³¸®Çß´ø ºÎºĞÀÌ¾úÀ¸³ª, ´Ù½Ã ÁÖ¼®Ã³¸®¸¦ Á¦°ÅÇÑ´Ù.
-		// -- 2002.01.08 ±è¼º¹Î
+		// ì–´ë””ì¸ì§€ëŠ” ì •í™•í•˜ê²Œ ì•Œ ìˆ˜ëŠ” ì—†ìœ¼ë‚˜, ì–´ë””ì—ì„ ê°€ ë¡œì»¬ íŒŒí‹°ì—ì„œ
+		// í¬ì¸í„°ë¥¼ í™•ì‹¤íˆ ì§€ì›Œì£¼ì§€ ì•ŠëŠ” í˜„ìƒì´ ë°œìƒí•˜ëŠ” ë“¯ í•˜ë‹¤.
+		// ê·¸ë˜ì„œ ì›ë˜ ì£¼ì„ì²˜ë¦¬í–ˆë˜ ë¶€ë¶„ì´ì—ˆìœ¼ë‚˜, ë‹¤ì‹œ ì£¼ì„ì²˜ë¦¬ë¥¼ ì œê±°í•œë‹¤.
+		// -- 2002.01.08 ê¹€ì„±ë¯¼
 		Zone* pZone = pCreature->getZone();
 		if (pZone != NULL)
 		{
-			// ·ÎÄÃ ÆÄÆ¼¿¡¼­ »èÁ¦ÇÑ´Ù.
+			// ë¡œì»¬ íŒŒí‹°ì—ì„œ ì‚­ì œí•œë‹¤.
 			LocalPartyManager* pLocalPartyManager = pZone->getLocalPartyManager();
 			Assert(pLocalPartyManager != NULL);
 			pLocalPartyManager->deletePartyMember(PartyID, pCreature);
 		}
 
-		// ±Û·Î¹ú ÆÄÆ¼ ³»ºÎ¿¡¼­ ÆÄÆ¼ ID¸¦ 0À¸·Î ¸¸µéÁö¸¸,
-		// È®½ÇÇÏ°Ô ÇØÁÖ´Â ÀÇ¹Ì¿¡¼­ ´Ù½ÃÇÑ¹ø 0À¸·Î ¸¸µé¾îÁØ´Ù.
+		// ê¸€ë¡œë²Œ íŒŒí‹° ë‚´ë¶€ì—ì„œ íŒŒí‹° IDë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ì§€ë§Œ,
+		// í™•ì‹¤í•˜ê²Œ í•´ì£¼ëŠ” ì˜ë¯¸ì—ì„œ ë‹¤ì‹œí•œë²ˆ 0ìœ¼ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.
 		pCreature->setPartyID(0);
 	}
 

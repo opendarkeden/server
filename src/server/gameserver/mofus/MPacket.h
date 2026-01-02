@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPacket.h
-// Desc		: ���۽� �� ��Ŷ
+// Desc		: Base interface for Mofus packets.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MPACKET_H__
@@ -29,19 +29,19 @@ class MPacket
 public:
 	virtual ~MPacket() = default;
 
-	// ��Ŷ ���̵� ��ȯ�Ѵ�.
+	// Return the packet identifier.
 	virtual MPacketID_t getID() const = 0;
 
-	// ��Ŷ�� ũ���� ��ȯ�Ѵ�.
+	// Return the packet size.
 	virtual MPacketSize_t getSize() const = 0;
 
-	// ���ο� ��Ŷ�� �����ؼ� ��ȯ
+	// Factory: create a new packet of this type.
 	virtual MPacket* create() = 0;
 
-	// �Է� ��Ʈ�����κ��� �����͸� �о ��Ŷ�� �ʱ�ȭ �Ѵ�.
+	// Populate the packet from the input stream payload.
 	virtual void read( SocketInputStream& iStream ) = 0;
 
-	// ��� ��Ʈ������ ��Ŷ�� ���̳ʸ� �̹����� ������.
+	// Serialize the packet to the output stream.
 	virtual void write( SocketOutputStream& oStream ) = 0;
 
 	// debug message

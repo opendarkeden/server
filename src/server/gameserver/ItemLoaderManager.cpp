@@ -223,10 +223,10 @@ void ItemLoaderManager::load (Slayer* pSlayer)
 {
 	__BEGIN_TRY
 
-	// ¸ğÅÍ»çÀÌÅ¬À» °¡Àå ¸ÕÀú ·ÎµùÇØ¾ß ÇÑ´Ù.
+	// ëª¨í„°ì‚¬ì´í´ì„ ê°€ì¥ ë¨¼ì € ë¡œë”©í•´ì•¼ í•œë‹¤.
 	g_pMotorcycleLoader->load(pSlayer);
 
-	// ±×´ÙÀ½ÀÌ º§Æ®ÀÌ´Ù.
+	// ê·¸ë‹¤ìŒì´ ë²¨íŠ¸ì´ë‹¤.
 	g_pBeltLoader->load(pSlayer);
 	g_pMagazineLoader->load(pSlayer);
 	g_pPotionLoader->load(pSlayer);
@@ -309,8 +309,8 @@ void ItemLoaderManager::load (Vampire* pVampire)
 {
 	__BEGIN_TRY
 
-	// ¹ìÆÄÀÌ¾î´Â ¸ğÅÍ»çÀÌÅ¬ÀÌ ¾øÀ¸¹Ç·Î, ¸ğÅÍ»çÀÌÅ¬À» ·ÎµùÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-	// ±×·¯³ª, º§Æ®´Â ·ÎµùÇÒ ÇÊ¿ä°¡ ÀÖ´Ù.
+	// ë±€íŒŒì´ì–´ëŠ” ëª¨í„°ì‚¬ì´í´ì´ ì—†ìœ¼ë¯€ë¡œ, ëª¨í„°ì‚¬ì´í´ì„ ë¡œë”©í•  í•„ìš”ê°€ ì—†ë‹¤.
+	// ê·¸ëŸ¬ë‚˜, ë²¨íŠ¸ëŠ” ë¡œë”©í•  í•„ìš”ê°€ ìˆë‹¤.
 	g_pBeltLoader->load(pVampire);
 
 	g_pARLoader->load(pVampire);
@@ -393,8 +393,8 @@ void ItemLoaderManager::load (Ousters* pOusters)
 {
 	__BEGIN_TRY
 
-	// ¾Ï½º¹êµå´Â º§Æ®´Ù.
-	// Á¦ÀÏ¸ÕÀú ·ÎµùÇØ¾ß ÇªÆÄ³ª ÄŞÆ÷½º¸ŞÀÌ°¡ µé¾î°¥ ¼ö ÀÖ´Ù.
+	// ì•”ìŠ¤ë°´ë“œëŠ” ë²¨íŠ¸ë‹¤.
+	// ì œì¼ë¨¼ì € ë¡œë”©í•´ì•¼ í‘¸íŒŒë‚˜ ì½¤í¬ìŠ¤ë©”ì´ê°€ ë“¤ì–´ê°ˆ ìˆ˜ ìˆë‹¤.
 	g_pOustersArmsbandLoader->load(pOusters);
 	g_pOustersBootsLoader->load(pOusters);
 	g_pOustersChakramLoader->load(pOusters);

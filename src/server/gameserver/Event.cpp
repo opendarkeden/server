@@ -18,9 +18,9 @@ Event::Event(GamePlayer* pGamePlayer)
 
 	m_pGamePlayer = pGamePlayer;
 
-	// EventReloadInfo¶§¹®¿¡ assertÁ¦°ÅÇß´Ù. NULLÀÏ ¼ö ÀÖ±â ¶§¹®¿¡
-	// »ç½Ç EventReloadInfo¸¦ Event·Î ¸¸µé ÀÌÀ¯´Â ¾ø¾úÁö¸¸(GamePlayer¶û °ü°è¾ø´Ù -_-;)
-	// °³¹ß ½Ã°£»ó.. EventManager¸¦ ¾µ ¼ö ¹Û¿¡ ¾ø¾î¼­¸®.. -_-
+	// EventReloadInfoë•Œë¬¸ì— assertì œê±°í–ˆë‹¤. NULLì¼ ìˆ˜ ìˆê¸° ë•Œë¬¸ì—
+	// ì‚¬ì‹¤ EventReloadInfoë¥¼ Eventë¡œ ë§Œë“¤ ì´ìœ ëŠ” ì—†ì—ˆì§€ë§Œ(GamePlayerë‘ ê´€ê³„ì—†ë‹¤ -_-;)
+	// ê°œë°œ ì‹œê°„ìƒ.. EventManagerë¥¼ ì“¸ ìˆ˜ ë°–ì— ì—†ì–´ì„œë¦¬.. -_-
 	// by sigi. 2002.9.26
 //	Assert(m_pGamePlayer != NULL);
 
@@ -42,11 +42,11 @@ void Event::setDeadline(Turn_t delay)
 {
 	__BEGIN_TRY
 
-	// ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+	// í˜„ì¬ ì‹œê°„ì„ ì¸¡ì •í•œë‹¤.
 	getCurrentTime(m_Deadline);
 
-	// µ¥µå¶óÀÎÀ» °áÁ¤ÇÑ´Ù. 
-	// ÀÌ¶§, delay ´Â 0.1 ÃÊ°¡ 1 ÀÌ´Ù.
+	// ë°ë“œë¼ì¸ì„ ê²°ì •í•œë‹¤. 
+	// ì´ë•Œ, delay ëŠ” 0.1 ì´ˆê°€ 1 ì´ë‹¤.
 	m_Deadline.tv_sec += delay / 10;
 	m_Deadline.tv_usec +=(delay % 10)* 100000;
 

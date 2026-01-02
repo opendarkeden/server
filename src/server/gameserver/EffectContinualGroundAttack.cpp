@@ -33,13 +33,13 @@ EffectContinualGroundAttack::EffectContinualGroundAttack (Zone* pZone , EffectCl
 
 	m_Delay = delay;
 
-	setNextTime(10);	// 1ÃÊ ÈÄ ½ÃÀÛ
+	setNextTime(10);	// 1ì´ˆ í›„ ì‹œì‘
 	setDeadline(delay);
 
 	m_MinNumber = 1;
 	m_MaxNumber = 1;
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -66,26 +66,26 @@ void EffectContinualGroundAttack::affect()
 	int creatureNum = m_pZone->getPCManager()->getSize()
 						+ m_pZone->getMonsterManager()->getSize();
 
-	// ºÎÇÏ¸¦ Á¶±İÀÌ¶óµµ ÁÙÀÌ±â À§ÇØ¼­..
-	// Á¸¿¡ °ø°İ¹ŞÀ» Ä³¸¯ÅÍ°¡ ÀÖ¾î¾ßÁö effect¸¦ ºÙÀÌÁö..
+	// ë¶€í•˜ë¥¼ ì¡°ê¸ˆì´ë¼ë„ ì¤„ì´ê¸° ìœ„í•´ì„œ..
+	// ì¡´ì— ê³µê²©ë°›ì„ ìºë¦­í„°ê°€ ìˆì–´ì•¼ì§€ effectë¥¼ ë¶™ì´ì§€..
 	if (creatureNum > 0)
 	{
-		// zoneÀÇ Æ¯Á¤ À§Ä¡¿¡ effect¸¦ Ãâ·ÂÇÏ°í damage¸¦ ÁØ´Ù.
-		int range = min(100, (m_MaxNumber-m_MinNumber));		// µ¿½Ã¿¡ 1~100»çÀÌ
+		// zoneì˜ íŠ¹ì • ìœ„ì¹˜ì— effectë¥¼ ì¶œë ¥í•˜ê³  damageë¥¼ ì¤€ë‹¤.
+		int range = min(100, (m_MaxNumber-m_MinNumber));		// ë™ì‹œì— 1~100ì‚¬ì´
 		int number = (range>0? m_MinNumber + rand()%range : m_MinNumber);
 
 		//cout << "EffectContinualGroundAttack: " << (int)m_pZone->getZoneID() << ", num= " << number << endl;
 
 		VSRect rect(0, 0, m_pZone->getWidth()-1, m_pZone->getHeight()-1);
 
-		// m_MinNumber ~ m_MaxNumber °³ÀÇ °ø°İ
+		// m_MinNumber ~ m_MaxNumber ê°œì˜ ê³µê²©
 		for (int i=0; i<number; i++)
 		{
 			const BPOINT& pt = m_pZone->getRandomEmptyTilePosition();
 
 			if (!rect.ptInRect(pt.x, pt.y)) continue;
 
-			// Áß½É Å¸ÀÏ Ã¼Å©
+			// ì¤‘ì‹¬ íƒ€ì¼ ì²´í¬
 			Tile& tile = m_pZone->getTile(pt.x, pt.y);
 
 			int X = pt.x;
@@ -95,14 +95,14 @@ void EffectContinualGroundAttack::affect()
 
 			int	DamagePercent = 100;
 		
-			// ÀÌÆåÆ® ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÑ´Ù.
+			// ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•œë‹¤.
 			Effect* pAttackEffect = NULL;
 
 			switch (m_AttackEffect)
 			{
 				case EFFECT_CLASS_GROUND_ATTACK :
 				{
-					// °°Àº ÀÌÆåÆ®°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é ´õ ½ë damage·Î ¼³Á¤ÇÑ´Ù.
+					// ê°™ì€ ì´í™íŠ¸ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´ ë” ìˆ damageë¡œ ì„¤ì •í•œë‹¤.
 					Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_GROUND_ATTACK);
 					if (pOldEffect != NULL)
 					{
@@ -112,7 +112,7 @@ void EffectContinualGroundAttack::affect()
 					}
 
 					EffectGroundAttack* pEffect = new EffectGroundAttack(m_pZone, X, Y);
-					pEffect->setDeadline( 22 ); // 2ÃÊ+¾ËÆÄ
+					pEffect->setDeadline( 22 ); // 2ì´ˆ+ì•ŒíŒŒ
 					pEffect->setDamagePercent( DamagePercent );
 
 					pAttackEffect = pEffect;
@@ -121,7 +121,7 @@ void EffectContinualGroundAttack::affect()
 
 				case EFFECT_CLASS_METEOR_STRIKE :
 				{
-					// °°Àº ÀÌÆåÆ®°¡ ÀÖ´Ù¸é »èÁ¦ÇÑ´Ù.
+					// ê°™ì€ ì´í™íŠ¸ê°€ ìˆë‹¤ë©´ ì‚­ì œí•œë‹¤.
 					Effect* pOldEffect = tile.getEffect(Effect::EFFECT_CLASS_METEOR_STRIKE);
 					if ( pOldEffect != NULL )
 					{
@@ -130,7 +130,7 @@ void EffectContinualGroundAttack::affect()
 					}
 
 					EffectMeteorStrike* pEffect = new EffectMeteorStrike(m_pZone, X, Y);
-					pEffect->setDeadline( 10 ); // 1ÃÊ
+					pEffect->setDeadline( 10 ); // 1ì´ˆ
 
 					// 400 ~ 600 100%
 					// 200 ~ 300 50%
@@ -148,20 +148,20 @@ void EffectContinualGroundAttack::affect()
 
 			if (pAttackEffect!=NULL)
 			{
-				// Å¸ÀÏ¿¡ ºÙÀº ÀÌÆåÆ®´Â OID¸¦ ¹Ş¾Æ¾ß ÇÑ´Ù.
+				// íƒ€ì¼ì— ë¶™ì€ ì´í™íŠ¸ëŠ” OIDë¥¼ ë°›ì•„ì•¼ í•œë‹¤.
 				ObjectRegistry & objectregister = m_pZone->getObjectRegistry();
 				objectregister.registerObject(pAttackEffect);
 			
-				// Á¸ ¹× Å¸ÀÏ¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+				// ì¡´ ë° íƒ€ì¼ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
 				m_pZone->addEffect(pAttackEffect);	
 				tile.addEffect(pAttackEffect);
 
-				// °¡¿îµ¥²¨¸¸ ÀÌÆåÆ®¸¦ º¸¿©ÁØ´Ù.
+				// ê°€ìš´ë°êº¼ë§Œ ì´í™íŠ¸ë¥¼ ë³´ì—¬ì¤€ë‹¤.
 				GCAddEffectToTile gcAddEffectToTile;
 				gcAddEffectToTile.setEffectID( pAttackEffect->getEffectClass() );
 				gcAddEffectToTile.setObjectID( pAttackEffect->getObjectID());
 				gcAddEffectToTile.setXY(X, Y);
-				gcAddEffectToTile.setDuration( 20 );	// 2ÃÊ
+				gcAddEffectToTile.setDuration( 20 );	// 2ì´ˆ
 
 				m_pZone->broadcastPacket(X, Y, &gcAddEffectToTile);
 			}

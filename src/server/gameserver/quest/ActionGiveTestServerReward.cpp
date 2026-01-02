@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : ActionGiveTestServerReward.cpp
-// Written By  : ÀåÈ«Ã¢
+// Written By  : ì¥í™ì°½
 // Description :
 ////////////////////////////////////////////////////////////////////////////////
 #include "ActionGiveTestServerReward.h"
@@ -93,7 +93,7 @@ void ActionGiveTestServerReward::read(PropertyBuffer & propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -126,7 +126,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 
 	Item*			pItem;
 
-	// ÀÌ¹Ì º¸»óÀ» ¹ŞÀ» ¼ö ÀÖ´ÂÁö Ã¼Å©
+	// ì´ë¯¸ ë³´ìƒì„ ë°›ì„ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬
 	if ( !(pGamePlayer->getSpecialEventCount() & SPECIAL_EVENT_TEST_SERVER_REWARD) )
 	{
 		GCNPCResponse response;
@@ -145,7 +145,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 
 	if ( pPC->isSlayer() )
 	{
-		// ·ç¾Æ¿¡ ½½·¹ÀÌ¾î ´É·ÂÄ¡ÀÇ ÇÕÀ» setÇÑ´Ù.
+		// ë£¨ì•„ì— ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ì˜ í•©ì„ setí•œë‹¤.
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 		Assert( pSlayer != NULL );
 
@@ -160,7 +160,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	}
 	else if ( pPC->isVampire() )
 	{
-		// ·ç¾Æ¿¡ ¹ìÆÄÀÌ¾îÀÇ ·¹º§À» setÇÑ´Ù.
+		// ë£¨ì•„ì— ë±€íŒŒì´ì–´ì˜ ë ˆë²¨ì„ setí•œë‹¤.
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 		Assert( pVampire != NULL );
 
@@ -170,7 +170,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 		luaFileName = m_VampireFilename;
 	}
 
-	// ·ç¾ÆÀÇ °è»ê °á°ú¸¦ ¹Ş¾Æ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+	// ë£¨ì•„ì˜ ê³„ì‚° ê²°ê³¼ë¥¼ ë°›ì•„ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 	pLuaSelectItem->prepare();
 	
 	int result = pLuaSelectItem->executeFile( luaFileName );
@@ -193,7 +193,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// ¼±¹°(Item)À» ¸¸µç´Ù.
+	// ì„ ë¬¼(Item)ì„ ë§Œë“ ë‹¤.
 	list<OptionType_t> optionTypeList;
 	if ( OptionType != 0 )
 		optionTypeList.push_back( OptionType );
@@ -201,7 +201,7 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 	pItem = g_pItemFactoryManager->createItem( ItemClass, ItemType, optionTypeList );
 	Assert( pItem != NULL );
 
-	// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀ» ºó ÀÚ¸®¸¦ ¹Ş¾Æ¿Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ë„£ì„ ë¹ˆ ìë¦¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 	TPOINT p;
 	
 	if (!pInventory->getEmptySlot(pItem, p)) 
@@ -219,28 +219,28 @@ void ActionGiveTestServerReward::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// ¼±¹°À» ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÑ´Ù.
+	// ì„ ë¬¼ì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€í•œë‹¤.
 	pZone->getObjectRegistry().registerObject( pItem );
 	pInventory->addItem( p.x, p.y, pItem );
 	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, p.x, p.y );
 
-	// ItemTraceLog ¸¦ ³²±ä´Ù
+	// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 	if ( pItem != NULL && pItem->isTraceItem() )
 	{
 		remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 	}
 
-	// Å¬¶óÀÌ¾ğÆ®¿¡ ¼±¹°ÀÌ Ãß°¡µÇ¾úÀ½À» ¾Ë¸°´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ì— ì„ ë¬¼ì´ ì¶”ê°€ë˜ì—ˆìŒì„ ì•Œë¦°ë‹¤.
 	GCCreateItem gcCreateItem;
 	makeGCCreateItem( &gcCreateItem, pItem, p.x, p.y );
 	pPlayer->sendPacket(&gcCreateItem);
 
-	// ¼±¹°À» ¹Ş¾Ò´Ù°í Flag ¸¦ ²ö´Ù.
+	// ì„ ë¬¼ì„ ë°›ì•˜ë‹¤ê³  Flag ë¥¼ ëˆë‹¤.
 	pGamePlayer->setSpecialEventCount( pGamePlayer->getSpecialEventCount() & ~(SPECIAL_EVENT_TEST_SERVER_REWARD) );
-	// Flag ¸¦ ÀúÀåÇÑ´Ù.
+	// Flag ë¥¼ ì €ì¥í•œë‹¤.
 	pGamePlayer->saveSpecialEventCount();
 
-	// º¸»óÀ» ¹Ş¾Ò´Ù°í Å¬¶óÀÌ¾ğÆ®¿¡ º¸³½´Ù.
+	// ë³´ìƒì„ ë°›ì•˜ë‹¤ê³  í´ë¼ì´ì–¸íŠ¸ì— ë³´ë‚¸ë‹¤.
 	GCNPCResponse response;
 	response.setCode( NPC_RESPONSE_REWARD_OK );
 	pPlayer->sendPacket( &response );

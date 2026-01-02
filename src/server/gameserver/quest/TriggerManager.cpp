@@ -46,7 +46,7 @@ TriggerManager::~TriggerManager ()
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// NPC ÀÌ¸§À» ÆÄ¶ó¹ÌÅÍ·Î ÁÖ¸é, NPC¿Í °ü·ÃµÈ Æ®¸®°ÅµéÀ» DB¿¡¼­ ·ÎµùÇÑ´Ù.
+// NPC ì´ë¦„ì„ íŒŒë¼ë¯¸í„°ë¡œ ì£¼ë©´, NPCì™€ ê´€ë ¨ëœ íŠ¸ë¦¬ê±°ë“¤ì„ DBì—ì„œ ë¡œë”©í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::load (const string & name)
 	
@@ -102,7 +102,7 @@ void TriggerManager::load (const string & name)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Á¸ ÁÂÇ¥¸¦ ÆÄ¶ó¹ÌÅÍ·Î ÁÖ¸é, ±× ÁÂÇ¥¿Í °ü·ÃµÈ Æ®¸®°ÅµéÀ» DB¿¡¼­ ·ÎµùÇÑ´Ù.
+// ì¡´ ì¢Œí‘œë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ì£¼ë©´, ê·¸ ì¢Œí‘œì™€ ê´€ë ¨ëœ íŠ¸ë¦¬ê±°ë“¤ì„ DBì—ì„œ ë¡œë”©í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void TriggerManager::load (ZoneID_t zoneid, int left, int top, int right, int bottom)
 {
@@ -152,7 +152,7 @@ void TriggerManager::refresh ()
 {
 	__BEGIN_TRY
 
-	// ¼Ò¼ÓµÈ ¸ğµç Æ®¸®°ÅµéÀÇ ConditionSet À» m_ConditionSet ¿¡ OR ¿¬»êÇÑ´Ù.
+	// ì†Œì†ëœ ëª¨ë“  íŠ¸ë¦¬ê±°ë“¤ì˜ ConditionSet ì„ m_ConditionSet ì— OR ì—°ì‚°í•œë‹¤.
 	for (list<Trigger*>::const_iterator itr = m_Triggers.begin() ; itr != m_Triggers.end() ; itr ++)
 	{
 		m_ConditionSet |= (*itr)->getConditionSet();
@@ -214,7 +214,7 @@ void TriggerManager::deleteTrigger (TriggerID_t triggerID)
 	// delete node
 	m_Triggers.erase(itr);
 
-	// condition set À» »õ·Î ±¸¼ºÇÑ´Ù.
+	// condition set ì„ ìƒˆë¡œ êµ¬ì„±í•œë‹¤.
 	refresh();
 
 	__END_CATCH

@@ -18,7 +18,7 @@ EffectAftermath::EffectAftermath(Creature* pCreature)
 {
 	__BEGIN_TRY 
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	setTarget(pCreature);
@@ -131,7 +131,7 @@ void EffectAftermath::create(const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("INSERT INTO EffectAftermath (OwnerID , YearTime, DayTime) VALUES('%s', %ld, %ld)",
 								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec);	
 
@@ -161,7 +161,7 @@ void EffectAftermath::destroy(const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("DELETE FROM EffectAftermath WHERE OwnerID = '%s'", 
 								ownerID.c_str());
 
@@ -198,7 +198,7 @@ void EffectAftermath::save(const string & ownerID)
 			<< " WHERE OwnerID = '" << ownerID << "'";
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery( "UPDATE EffectAftermath SET YearTime = %ld, DayTime = %ld WHERE OwnerID = '%s'",
 		 						currentYearTime, m_Deadline.tv_sec, ownerID.c_str() );
 
@@ -239,7 +239,7 @@ void EffectAftermathLoader::load(Creature* pCreature)
 		( !pCreature->isSlayer() && !pCreature->isOusters() )
 	)
 	{
-		//cout << "EffectAftermathLoader : Å©¸®ÃÄ°¡ ³ÎÀÔ´Ï´Ù." << endl;
+		//cout << "EffectAftermathLoader : í¬ë¦¬ì³ê°€ ë„ìž…ë‹ˆë‹¤." << endl;
 		return;
 	}
 
@@ -259,7 +259,7 @@ void EffectAftermathLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM EffectAftermath WHERE OwnerID = '%s'", 
 												pCreature->getName().c_str() );
 

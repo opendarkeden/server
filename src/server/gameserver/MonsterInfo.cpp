@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : MonsterInfo.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -22,11 +22,11 @@
 
 int DefaultClanID[CLAN_MAX] =
 {
-	0, //CLAN_NONE,							// ¾îµğ¿¡µµ ¼ÓÇÏÁö ¾Ê´Â ¾Ö´ú.. 0
-	1, //CLAN_VAMPIRE_MONSTER,				// ¶°µ¹ÀÌ ¹ìÆÄ ¸ó½ºÅÍ -_-;     1
-	2, //CLAN_VAMPIRE_BATHORY_MONSTER,		// ¹ÙÅä¸® ¼Ò¼Ó ¸ó½ºÅÍ          2
-	3, //CLAN_VAMPIRE_TEPEZ_MONSTER,			// Å×ÆäÁî ¼Ò¼Ó ¸ó½ºÅÍ          3
-	4, //CLAN_SLAYER_MONSTER,				// ½½·¹ÀÌ¾î ¸ó½ºÅÍ - -;;       4
+	0, //CLAN_NONE,							// ì–´ë””ì—ë„ ì†í•˜ì§€ ì•ŠëŠ” ì• ëœ.. 0
+	1, //CLAN_VAMPIRE_MONSTER,				// ë– ëŒì´ ë±€íŒŒ ëª¬ìŠ¤í„° -_-;     1
+	2, //CLAN_VAMPIRE_BATHORY_MONSTER,		// ë°”í† ë¦¬ ì†Œì† ëª¬ìŠ¤í„°          2
+	3, //CLAN_VAMPIRE_TEPEZ_MONSTER,			// í…Œí˜ì¦ˆ ì†Œì† ëª¬ìŠ¤í„°          3
+	4, //CLAN_SLAYER_MONSTER,				// ìŠ¬ë ˆì´ì–´ ëª¬ìŠ¤í„° - -;;       4
 };
 
 extern int DefaultClanID[CLAN_MAX];
@@ -174,7 +174,7 @@ MonsterInfo::~MonsterInfo()
 {
 	__BEGIN_TRY
 
-	// ÀÌ°Å´Â MonsterInfo¿¡¼­ °ü¸®ÇÑ´Ù.
+	// ì´ê±°ëŠ” MonsterInfoì—ì„œ ê´€ë¦¬í•œë‹¤.
 	//SAFE_DELETE(m_pSlayerTreasureList);
 	//SAFE_DELETE(m_pVampireTreasureList);
 
@@ -191,26 +191,26 @@ void MonsterInfo::setRegenType(RegenType rt, int percent)
 { 
 	m_RegenType[rt] = percent;
 
-	// REGENTYPE_NORMALÀÇ È®·üÀ» ¹Ù²ã¼­ 100%·Î ¸ÂÃâ·Á°í ÇßÁö¸¸
-	// º° ÀÇ¹Ì°¡ ¾øÀ» µí ÇÏ¿©.. - -;  by sigi
+	// REGENTYPE_NORMALì˜ í™•ë¥ ì„ ë°”ê¿”ì„œ 100%ë¡œ ë§ì¶œë ¤ê³  í–ˆì§€ë§Œ
+	// ë³„ ì˜ë¯¸ê°€ ì—†ì„ ë“¯ í•˜ì—¬.. - -;  by sigi
 }
 
 //---------------------------------------------------------------------------
 // select RegenType
 //---------------------------------------------------------------------------
-// Hide¿Í PortalÀÇ È®·üÀ» ¸ÕÀú Ã¼Å©ÇØº»ÈÄ µÑ ´Ù ¾Æ´Ï¸é.. NormalÀÌ´Ù. by sigi
+// Hideì™€ Portalì˜ í™•ë¥ ì„ ë¨¼ì € ì²´í¬í•´ë³¸í›„ ë‘˜ ë‹¤ ì•„ë‹ˆë©´.. Normalì´ë‹¤. by sigi
 //---------------------------------------------------------------------------
 RegenType MonsterInfo::selectRegenType() const
 {
-	// ¼Óµµ ¾à°£ ³ôÈú·Á°í
-	// 100ºĞ·üÀÌ ¾Æ´Ï°í 128ºĞ·üÀÌ´Ù - -;
+	// ì†ë„ ì•½ê°„ ë†’íë ¤ê³ 
+	// 100ë¶„ë¥ ì´ ì•„ë‹ˆê³  128ë¶„ë¥ ì´ë‹¤ - -;
 	int dice = rand() & 0x0000007F; //rand()%100;
 
 	int acc = 0;
 	const int REGENTYPE_MAX_1 = REGENTYPE_MAX-1;
 	for (int i=0; i<REGENTYPE_MAX_1; i++)
 	{
-		// °¢ È®·üº°·Î ´©Àû½ÃÄÑ¼­ Àß~ Ã¼Å©
+		// ê° í™•ë¥ ë³„ë¡œ ëˆ„ì ì‹œì¼œì„œ ì˜~ ì²´í¬
 		acc += m_RegenType[i];
 		if (dice < acc)
 		{
@@ -443,9 +443,9 @@ void MonsterInfo::addDefaultEffects(Creature* pCreature) const
 
 		pCreature->setFlag( effectClass );
 
-		// ½ÇÁ¦·Î effect¸¦ ºÙ¿©ÁØ´Ù.
-		// ´Ù¸¥ °÷¿¡¼­ effect¸¦ ÂüÁ¶ÇÏ±â ¶§¹®ÀÌ´Ù. by sigi. 2002.10.25
-		// ±Ùµ¥.. ´Ù¸¥ °÷¿¡¼­ assert(isSlayer())ÇØ³õÀº°Ô Á» ÀÖ¾î¼­ ÀÏ´Ü Á¦°Å. by sigi. 2002.10.28
+		// ì‹¤ì œë¡œ effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+		// ë‹¤ë¥¸ ê³³ì—ì„œ effectë¥¼ ì°¸ì¡°í•˜ê¸° ë•Œë¬¸ì´ë‹¤. by sigi. 2002.10.25
+		// ê·¼ë°.. ë‹¤ë¥¸ ê³³ì—ì„œ assert(isSlayer())í•´ë†“ì€ê²Œ ì¢€ ìˆì–´ì„œ ì¼ë‹¨ ì œê±°. by sigi. 2002.10.28
 		/*
 		switch (effectClass)
 		{
@@ -573,18 +573,18 @@ void MonsterInfoManager::load ()
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQueryString("SELECT MAX(MType) FROM MonsterInfo");
 
-		// MonsterInfo Å×ÀÌºí¿¡¼­ ÃÖ´ë MonsterType °ªÀ» °¡Á®¿Â´Ù.
-		// ÀÌ °ªÀº MonsterInfoManagerÀÇ ³»ºÎ MonsterInfo* ¹è¿­ÀÇ Å©±â°¡ µÈ´Ù.
+		// MonsterInfo í…Œì´ë¸”ì—ì„œ ìµœëŒ€ MonsterType ê°’ì„ ê°€ì ¸ì˜¨ë‹¤.
+		// ì´ ê°’ì€ MonsterInfoManagerì˜ ë‚´ë¶€ MonsterInfo* ë°°ì—´ì˜ í¬ê¸°ê°€ ëœë‹¤.
 		if (pResult->getRowCount() == 0)
 		{
-			// Å×ÀÌºíÀÌ ¾ø´Ù¸é ´ç¿¬È÷ ¿¡·¯´Ù...
+			// í…Œì´ë¸”ì´ ì—†ë‹¤ë©´ ë‹¹ì—°íˆ ì—ëŸ¬ë‹¤...
 			SAFE_DELETE(pStmt);
 			throw Error("MonsterInfo table is empty.. insert any row."); 
 		}
 
-		// Å¬¶óÀÌ¾ğÆ®¿¡¼­´Â ½½·¹ÀÌ¾î-¹ìÆÄÀÌ¾î-¸ó½ºÅÍ-NPC ¸¦ ±¸ºĞÇÏÁö ¾Ê°í,
-		// ´ÜÁö Ä³¸¯ÅÍ·Î¼­ ÀÎµ¦½ÌÀ» ÇÏ±â ¶§¹®¿¡, µµ·®ÀÌ ³ĞÀº ¿ì¸®°¡ ÀÌÇØÇØ¼­
-		// ¸ÂÃçÁà¾ß ÇÏ°Ú´Ù. -_-; ½ÇÁ¦ ¸Æ½ºº¸´Ù 4¸¦ ´õÇØ¼­ ¹è¿­À» »ı¼ºÇÑ´Ù.
+		// í´ë¼ì´ì–¸íŠ¸ì—ì„œëŠ” ìŠ¬ë ˆì´ì–´-ë±€íŒŒì´ì–´-ëª¬ìŠ¤í„°-NPC ë¥¼ êµ¬ë¶„í•˜ì§€ ì•Šê³ ,
+		// ë‹¨ì§€ ìºë¦­í„°ë¡œì„œ ì¸ë±ì‹±ì„ í•˜ê¸° ë•Œë¬¸ì—, ë„ëŸ‰ì´ ë„“ì€ ìš°ë¦¬ê°€ ì´í•´í•´ì„œ
+		// ë§ì¶°ì¤˜ì•¼ í•˜ê² ë‹¤. -_-; ì‹¤ì œ ë§¥ìŠ¤ë³´ë‹¤ 4ë¥¼ ë”í•´ì„œ ë°°ì—´ì„ ìƒì„±í•œë‹¤.
 		// 0:Male Slayer, 1:Female Slayer, 2:Male Vampire, 3:Female Vampire
 		pResult->next();
 		m_MaxMonsterType = pResult->getInt(1) + 4 + 1;
@@ -593,7 +593,7 @@ void MonsterInfoManager::load ()
 		for (uint i = 0 ; i < m_MaxMonsterType ; i ++)
 			m_MonsterInfos[i] = NULL;
 
-		// MonsterInfo Å×ÀÌºí·ÎºÎÅÍ ¸ó½ºÅÍ Á¤º¸¸¦ ÀĞ¾î¼­ MonsterInfo °´Ã¼¿¡ ÀúÀå, add ÇÑ´Ù.
+		// MonsterInfo í…Œì´ë¸”ë¡œë¶€í„° ëª¬ìŠ¤í„° ì •ë³´ë¥¼ ì½ì–´ì„œ MonsterInfo ê°ì²´ì— ì €ì¥, add í•œë‹¤.
 		//RegenInvisible, RegenBat, 
 		/*
 		StringStream sql;
@@ -670,8 +670,8 @@ void MonsterInfoManager::load ()
 			addMonsterInfo(pMonsterInfo->getMonsterType(), pMonsterInfo);
 		}
 
-		// MonsterSummonInfo´Â µû·Î ¼³Á¤ÇÑ´Ù.
-		// ÀÏ´Ü ¸ó½ºÅÍ Á¤º¸°¡ loadµÈ »óÅÂ¿©¾ß ÇÏ±â ¶§¹®ÀÌ´Ù. (ÀÌ¸§ ºñ±³ ¶§¹®¿¡)
+		// MonsterSummonInfoëŠ” ë”°ë¡œ ì„¤ì •í•œë‹¤.
+		// ì¼ë‹¨ ëª¬ìŠ¤í„° ì •ë³´ê°€ loadëœ ìƒíƒœì—¬ì•¼ í•˜ê¸° ë•Œë¬¸ì´ë‹¤. (ì´ë¦„ ë¹„êµ ë•Œë¬¸ì—)
 		pResult = pStmt->executeQuery( 
 			"SELECT MType, MonsterSummonInfo FROM MonsterInfo");
 
@@ -793,7 +793,7 @@ void MonsterInfoManager::load ()
 					pMonsterInfo->parseSlayerTreasureString(slayer_treasure);
 					pMonsterInfo->parseVampireTreasureString(vampire_treasure);
 
-					// ÆÄÀÏ¿¡´Ù ¾´´Ù.
+					// íŒŒì¼ì—ë‹¤ ì“´ë‹¤.
 					//saveTreasure((string)(hname + ".slayer"), pSlayerTreasureList);
 					//saveTreasure((string)(hname + ".vampire"), pVampireTreasureList);
 				}
@@ -803,7 +803,7 @@ void MonsterInfoManager::load ()
 					pMonsterInfo->setVampireTreasureList(pVampireTreasureList);
 				}
 
-				// °ËÁõÇÑ´Ù.
+				// ê²€ì¦í•œë‹¤.
 				cout << "MonsterType:" << pMonsterInfo->getMonsterType() 
 					<< ",MonsterName:" << pMonsterInfo->getEName()
 					<< ",SlayerTreasure:" << pMonsterInfo->getSlayerTreasureList()->getTreasures().size()
@@ -856,7 +856,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 		sql << "SELECT MType, SType, HName, EName, Level, STR, DEX, INTE, BSize, Exp, MColor, SColor, Align, AOrder, Moral, Delay, ADelay, Sight, MeleeRange, MissileRange, RegenPortal, RegenInvisible, RegenBat, MMode, AIType, Enhance, UnburrowChance, Master, ClanType, MonsterSummonInfo, DefaultEffects, NormalRegen "
 			<< " FROM MonsterInfo";
 
-		// ÀüºÎ ´Ù loadingÇÏ´Â°Ô ¾Æ´Ï¶ó¸é Æ¯Á¤ MonsterTypeÀ» ¼³Á¤ÇÑ´Ù.
+		// ì „ë¶€ ë‹¤ loadingí•˜ëŠ”ê²Œ ì•„ë‹ˆë¼ë©´ íŠ¹ì • MonsterTypeì„ ì„¤ì •í•œë‹¤.
 		if (!bLoadAll)
 		{
 			sql << " WHERE MType=" << monsterType;
@@ -917,7 +917,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 		int startType = 0; 
 		int endType   = m_MaxMonsterType;
 
-		// ÀüºÎ ´Ù loadingÇÏ´Â°Ô ¾Æ´Ï¶ó¸é Æ¯Á¤ MonsterTypeÀ» ¼³Á¤ÇÑ´Ù.
+		// ì „ë¶€ ë‹¤ loadingí•˜ëŠ”ê²Œ ì•„ë‹ˆë¼ë©´ íŠ¹ì • MonsterTypeì„ ì„¤ì •í•œë‹¤.
 		if (!bLoadAll)
 		{
 			startType = monsterType;
@@ -969,7 +969,7 @@ void MonsterInfoManager::reload (MonsterType_t monsterType)
 					pInfo->setVampireTreasureList(pVampireTreasureList);
 					pInfo->setOustersTreasureList(pOustersTreasureList);
 
-					// °ËÁõÇÑ´Ù.
+					// ê²€ì¦í•œë‹¤.
 //					cout << "MonsterType:" << pInfo->getMonsterType() 
 //						<< ",MonsterName:" << pInfo->getEName()
 //						<< ",SlayerTreasure:" << pInfo->getSlayerTreasureList()->getTreasures().size()
@@ -1043,7 +1043,7 @@ const MonsterInfo* MonsterInfoManager::getMonsterInfo (MonsterType_t monsterType
 		throw NoSuchElementException();
 	}
 
-	// ÀÏ´Ü À§¿¡¼­ ÇÑ¹ø Ã¼Å©°¡ µÇ¸é [] ¸¦ ½áµµ µÈ´Ù.
+	// ì¼ë‹¨ ìœ„ì—ì„œ í•œë²ˆ ì²´í¬ê°€ ë˜ë©´ [] ë¥¼ ì¨ë„ ëœë‹¤.
 	return m_MonsterInfos[monsterType]; 
 
 	__END_CATCH

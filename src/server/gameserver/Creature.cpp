@@ -57,7 +57,7 @@ Creature::~Creature ()
 {
 	__BEGIN_TRY
 
-	m_pPlayer = NULL;	// delete는 외부에서 한다.
+	m_pPlayer = NULL;	// Deleted externally.
 	SAFE_DELETE(m_pEffectManager);
 
 	if ( m_CClass == CREATURE_CLASS_SLAYER || m_CClass == CREATURE_CLASS_VAMPIRE )
@@ -73,8 +73,8 @@ Creature::~Creature ()
 
 //////////////////////////////////////////////////////////////////////////////
 // get object priority
-// 타일의 Object List 상의 우선순위값을 리턴한다.
-// 크리처의 경우, 이동 모드에 따라서 이 우선순위가 결정된다.
+// Return the priority value used in the tile's Object list.
+// For creatures, the move mode determines this priority.
 //////////////////////////////////////////////////////////////////////////////
 ObjectPriority Creature::getObjectPriority () const
 	
@@ -93,14 +93,14 @@ ObjectPriority Creature::getObjectPriority () const
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// vision state 관련 메쏘드
+// vision state helpers
 //////////////////////////////////////////////////////////////////////////////
 VisionState Creature::getVisionState (ZoneCoord_t x , ZoneCoord_t y) 
 	
 {
 	__BEGIN_DEBUG
 
-	// 주석처리 by sigi
+	// Disabled by sigi
 	//if (isFlag(Effect::EFFECT_CLASS_DARKNESS))
 	//	return g_pVisionInfoManager->getVisionInfo(DARKNESS_SIGHT,m_Dir)->getVisionState(m_X,m_Y,x,y);
 	//return g_pVisionInfoManager->getVisionInfo(m_Sight,m_Dir)->getVisionState(m_X,m_Y,x,y);
@@ -138,10 +138,10 @@ ZoneID_t Creature::getNewZoneID () const
 //////////////////////////////////////////////////////////////////////////////
 // set zone id
 //
-// (1) ZoneInfoManager 에서 ZoneID 를 사용해서 ZoneInfo 객체에 접근한다.�
-// (2) ZoneInfo 객체에서 ZoneGroupID 를 알아낸다.
-// (3) ZoneGroupManager 에서 ZoneGroupID 를 사용해서 ZoneGroup 에 접근한다.
-// (4) ZoneGroup 에서 ZoneID 를 사용해서 Zone 에 접근한다.
+// (1) Use the ZoneID to get ZoneInfo from ZoneInfoManager.
+// (2) From ZoneInfo, obtain the ZoneGroupID.
+// (3) Use ZoneGroupID to fetch the ZoneGroup from ZoneGroupManager.
+// (4) From ZoneGroup, use ZoneID to access the Zone.
 //////////////////////////////////////////////////////////////////////////////
 void Creature::setZoneID (ZoneID_t zoneID)
 	
@@ -161,8 +161,8 @@ void Creature::setZoneID (ZoneID_t zoneID)
 	catch (NoSuchElementException & nsee) 
 	{
 		StringStream msg;
-		msg << "data intergrity broken : "
-			<< "ZoneID - Zone - ZoneGroupID - ZoneGroup - ZoneInfo 간의 무결성이 깨졌당.\n"
+		msg << "data integrity broken : "
+			<< "ZoneID - Zone - ZoneGroupID - ZoneGroup - ZoneInfo relationship is broken.\n"
 			<< nsee.toString();
 
 		cerr << msg.toString() << endl;
@@ -175,15 +175,15 @@ void Creature::setZoneID (ZoneID_t zoneID)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// (nx,ny)로 이동할 수 있는가?
+// Can we move to (nx, ny)?
 //////////////////////////////////////////////////////////////////////////////
 bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 	
 {
 	Assert(m_pZone != NULL);
 
-	// 올바른 좌표인가?
-	// 막혀있지는 않은가?
+	// Is the coordinate valid?
+	// Is it blocked?
 	if (//isFlag(Effect::EFFECT_CLASS_SANCTUARY)
 		// m_Flag.test(Effect::EFFECT_CLASS_SANCTUARY)
 		m_Flag.test(Effect::EFFECT_CLASS_POISON_MESH)
@@ -193,15 +193,15 @@ bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 		|| !isValidZoneCoord(m_pZone, nx, ny)) return false;
 
 	/*
-	// 성물을 가지고 있는 경우라면..
+	// If carrying a holy relic..
 	if (m_Flag.test(Effect::EFFECT_CLASS_HAS_SLAYER_RELIC)
 		|| m_Flag.test(Effect::EFFECT_CLASS_HAS_VAMPIRE_RELIC))
 	{
 		ZoneLevel_t ZoneLevel = m_pZone->getZoneLevel(nx, ny);
 
-		// 슬레이어이면 슬레이어 안전지대에 못 들어간다.
-		// 뱀파이어이면  뱀파이어안전지대에 못 들어간다.
-		// 공통 안전지대이면 못 들어간다.
+		// If Slayer, cannot enter a Slayer safe zone.
+		// If Vampire, cannot enter a Vampire safe zone.
+		// Cannot enter a neutral safe zone either.
 		if (isSlayer() && (ZoneLevel & SLAYER_SAFE_ZONE)
 			|| isVampire() && (ZoneLevel & VAMPIRE_SAFE_ZONE)
 			|| (ZoneLevel & COMPLETE_SAFE_ZONE))
@@ -214,8 +214,7 @@ bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 	Tile& rTile = m_pZone->getTile(nx,ny);
 
 	if (rTile.isBlocked(m_MoveMode)
-		// BloodyWallBlock나
-		// Sanctuary 이펙트가 걸려있다면 못 간다.
+		// Cannot move while under BloodyWallBlock or Sanctuary effects.
 		|| rTile.hasEffect() 
 			&& (rTile.getEffect(Effect::EFFECT_CLASS_BLOODY_WALL_BLOCKED)
 				|| rTile.getEffect(Effect::EFFECT_CLASS_SANCTUARY))
@@ -233,15 +232,15 @@ bool Creature::canMove (ZoneCoord_t nx , ZoneCoord_t ny) const
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// (nx,ny)이 맵에 의해 막히는가?
+// Is (nx, ny) blocked by the map?
 //////////////////////////////////////////////////////////////////////////////
 bool Creature::isBlockedByCreature (ZoneCoord_t nx , ZoneCoord_t ny) const
 	
 {
 	Assert(m_pZone != NULL);
 
-	// 올바른 좌표인가?
-	// 같은 무드 모드의 크리쳐가 존재하지 않는가?
+	// Is the coordinate valid?
+	// Is there another creature with the same move mode there?
 	if (!isValidZoneCoord(m_pZone, nx, ny)
 		|| !m_pZone->getTile(nx,ny).hasCreature(m_MoveMode)) return false;
 
@@ -268,8 +267,8 @@ void Creature::recoverHP(HP_t addHP)
         pEffect = new EffectHPRecovery(this);
 		pEffect->setDestPoint(destHP);
 //        pEffect->setPoint(10);
-//        pEffect->setDelay(2);  // 0.2초 마다..
-//        pEffect->setDeadline(10000);    // 적당한 값. deadline은 무의미..
+//        pEffect->setDelay(2);  // Every 0.2 seconds
+//        pEffect->setDeadline(10000);    // Arbitrary value; deadline is meaningless
         pEffect->setDeadline(10);    // delay 
 
 
@@ -283,7 +282,7 @@ void Creature::recoverHP(HP_t addHP)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// 거리 계산 함수
+// Distance calculation helper
 //////////////////////////////////////////////////////////////////////////////
 Distance_t Creature::getDistance (ZoneCoord_t x1 , ZoneCoord_t y1 , ZoneCoord_t x2 , ZoneCoord_t y2) const 
 	

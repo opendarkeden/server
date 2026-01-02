@@ -82,7 +82,7 @@
 
 //#include "MonsterKillQuest.h"
 
-// ¾Æ´ãÀÇ ¼ºÁö º¸³Ê½º
+// ì•„ë‹´ì˜ ì„±ì§€ ë³´ë„ˆìŠ¤
 //#include "HolyLandRaceBonus.h"
 #include "WarSystem.h"
 #include "War.h"
@@ -95,13 +95,13 @@
 #include "SkillPropertyManager.h"
 #include "RaceWarLimiter.h"
 
-// Ä¿ÇÃ ÀÌº¥Æ®¿ë
+// ì»¤í”Œ ì´ë²¤íŠ¸ìš©
 #include "CoupleManager.h"
 
-// PKÁ¸¿ë
+// PKì¡´ìš©
 #include "PKZoneInfoManager.h"
 
-// ¼ºÁö½ºÅ³
+// ì„±ì§€ìŠ¤í‚¬
 #include "CastleSkillInfo.h"
 
 #include "StringPool.h"
@@ -144,7 +144,7 @@
 #include "DynamicZoneInfo.h"
 #include "DynamicZoneFactoryManager.h"
 
-/*// ½ÉÇÃÄù½ºÆ®
+/*// ì‹¬í”Œí€˜ìŠ¤íŠ¸
 #include "mission/QuestInfoManager.h"
 #include "mission/RewardClassInfoManager.h"
 */
@@ -195,7 +195,7 @@ ObjectManager::ObjectManager ()
 	g_pOustersEXPInfoManager    = new OustersEXPInfoManager();
 	g_pPriceManager             = new PriceManager();
 	g_pEffectLoaderManager      = new EffectLoaderManager();
-	//´Ù¸¥ ÀÛ¾÷À» À§ÇØ¼­ ÀÓ½Ã·Î ¸·¾ÆµÒ.
+	//ë‹¤ë¥¸ ìž‘ì—…ì„ ìœ„í•´ì„œ ìž„ì‹œë¡œ ë§‰ì•„ë‘ .
 	g_pGuildManager             = new GuildManager();
 //	g_pGuildRegistrationManager = new GuildRegistrationManager();
 //	g_pGuildVoteManager         = new GuildVoteManager();
@@ -368,8 +368,8 @@ void ObjectManager::init ()
 	printf("ObjectManager::load() : SystemAvailabilitiesManager Initialization Success\n");
 
 	//--------------------------------------------------------------------------------
-	// Á¸À» ·ÎµùÇÒ¶§, NPC ¸¦ ·ÎµùÇÏ¸ç ÀÌ¶§ ÀÌ ÆÑÅä¸®µéÀÌ »ç¿ëµÇ¹Ç·Î
-	// Á¸ ·Îµùº¸´Ù ¸ÕÀú È£ÃâµÇ¾î¾ß ÇÑ´Ù.
+	// ì¡´ì„ ë¡œë”©í• ë•Œ, NPC ë¥¼ ë¡œë”©í•˜ë©° ì´ë•Œ ì´ íŒ©í† ë¦¬ë“¤ì´ ì‚¬ìš©ë˜ë¯€ë¡œ
+	// ì¡´ ë¡œë”©ë³´ë‹¤ ë¨¼ì € í˜¸ì¶œë˜ì–´ì•¼ í•œë‹¤.
 	//--------------------------------------------------------------------------------
 	printf("ObjectManager::init() : StringPool Initialization Start....... \n");
 	g_pStringPool->load();
@@ -407,7 +407,7 @@ void ObjectManager::init ()
 	g_pPublicScriptManager->init();
 	printf("ObjectManager::init() : PublicScriptManager Initialization Success\n");
 	
-	// optionÀ» itemInfoº¸´Ù ¸ÕÀú load()ÇØ¾ßÇÑ´Ù.
+	// optionì„ itemInfoë³´ë‹¤ ë¨¼ì € load()í•´ì•¼í•œë‹¤.
 	printf("ObjectManager::init() : OptionInfoManager Initialization Start\n");
 	g_pOptionInfoManager->init();
 	printf("ObjectManager::init() : OptionInfoManager Initialization Success\n");
@@ -449,8 +449,8 @@ void ObjectManager::init ()
 	g_pMonsterInfoManager->init();
 	printf("ObjectManager::init() : MonsterInfoManager Initialization Success\n");
 
-	// ¹Ýµå½Ã ZoneInfoManagerº¸´Ù ¸ÕÀú ·ÎµåµÇ¾î¾ß ÇÑ´Ù.
-	// ¹Ýµå½Ã OptionInfo º¸´Ù ³ªÁß¿¡ ·ÎµåµÇ¾î¾ß ÇÑ´Ù.
+	// ë°˜ë“œì‹œ ZoneInfoManagerë³´ë‹¤ ë¨¼ì € ë¡œë“œë˜ì–´ì•¼ í•œë‹¤.
+	// ë°˜ë“œì‹œ OptionInfo ë³´ë‹¤ ë‚˜ì¤‘ì— ë¡œë“œë˜ì–´ì•¼ í•œë‹¤.
 /*	printf("ObjectManager::load() : RewardClassInfoManager Initialization Start\n");
 	g_pRewardClassInfoManager->load();
 	printf("ObjectManager::load() : RewardClassInfoManager Initialization Success\n");*/
@@ -465,12 +465,12 @@ void ObjectManager::init ()
 
 	// by sigi. 2002.9.2
 	printf("ObjectManager::load() : MasterLairInfoManager Initialization Start\n");
-	g_pMasterLairInfoManager->init();	// ZoneInfo, MonsterManagerÀÌÈÄ, Zone ÀÌÀü¿¡ loadingÇØ¾ß ÇÑ´Ù.
+	g_pMasterLairInfoManager->init();	// ZoneInfo, MonsterManagerì´í›„, Zone ì´ì „ì— loadingí•´ì•¼ í•œë‹¤.
 	printf("ObjectManager::load() : MasterLairInfoManager Initialization Success\n");
 
 	// by bezz,Sequoia. 2003. 1. 20.
 	printf("ObjectManager::load() : CastleInfoManager Initialization Start\n");
-	g_pCastleInfoManager->init();	// ZoneInfo, MonsterManagerÀÌÈÄ, Zone ÀÌÀü¿¡ loadingÇØ¾ß ÇÑ´Ù.
+	g_pCastleInfoManager->init();	// ZoneInfo, MonsterManagerì´í›„, Zone ì´ì „ì— loadingí•´ì•¼ í•œë‹¤.
 	printf("ObjectManager::load() : CastleInfoManager Initialization Success\n");
 
 //	printf("ObjectManager::load() : HolyLandRaceBonus Initialization Start\n");
@@ -485,8 +485,8 @@ void ObjectManager::init ()
 	g_pBloodBibleBonusManager->init();
 	printf("ObjectManager::load() : BloodBibleBonusManager Initialization Success\n");
 		
-	// ShrineInfoManager ´Â ÇÊ»ì·Î Zone ÀÌ ¸ðµÎ ·ÎµùµÈ ´ÙÀ½¿¡ ºÒ·Á¾ß ÇÑ´Ù.
-	// BloodBibleBonusManager¿¡ BloodBible ¼ÒÀ¯ Á¾Á·À» ¼¼ÆÃÇÏ¹Ç·Î BloodBibleBonusManager°¡ ·ÎµùµÈ ´ÙÀ½¿¡ ºÒ·Á¾ß ÇÑ´Ù.
+	// ShrineInfoManager ëŠ” í•„ì‚´ë¡œ Zone ì´ ëª¨ë‘ ë¡œë”©ëœ ë‹¤ìŒì— ë¶ˆë ¤ì•¼ í•œë‹¤.
+	// BloodBibleBonusManagerì— BloodBible ì†Œìœ  ì¢…ì¡±ì„ ì„¸íŒ…í•˜ë¯€ë¡œ BloodBibleBonusManagerê°€ ë¡œë”©ëœ ë‹¤ìŒì— ë¶ˆë ¤ì•¼ í•œë‹¤.
 	printf("ObjectManager::init() : ShrineInfoManager Initialization Start\n");
 	g_pShrineInfoManager->init();
 	printf("ObjectManager::init() : ShrineInfoManager Initialization Success\n");
@@ -499,25 +499,25 @@ void ObjectManager::init ()
 	g_pWeatherInfoManager->init();
 	printf("ObjectManager::init() : WeatherInfoManager Initialization Success\n");
 
-	// WayPointManager µµ ÇÊ»ì·Î ZoneÀÌ ¸ðµÎ ·ÎµùµÈ ´ÙÀ½¿¡ ºÒ·Á¾ß µÈ´Ù.
+	// WayPointManager ë„ í•„ì‚´ë¡œ Zoneì´ ëª¨ë‘ ë¡œë”©ëœ ë‹¤ìŒì— ë¶ˆë ¤ì•¼ ëœë‹¤.
 	printf("ObjectManager::load() : WayPointManager Initialization Start\n");
 	g_pWayPointManager->load();
 	printf("ObjectManager::load() : WayPointManager Initialization Success\n");
 
 	printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Start\n");
-	g_pLevelWarZoneInfoManager->init();	// ¸Ó ¾Æ¹«¶§³ª Loading ÇØµµ µÊ
+	g_pLevelWarZoneInfoManager->init();	// ë¨¸ ì•„ë¬´ë•Œë‚˜ Loading í•´ë„ ë¨
 	printf("ObjectManager::load() : LevelWarZoneInfoManager Initialization Success\n");
 
 	printf("ObjectManager::load() : LevelNickInfoManager Initialization Start\n");
-	LevelNickInfoManager::Instance().load();	// ¸Ó ¾Æ¹«¶§³ª Loading ÇØµµ µÊ
+	LevelNickInfoManager::Instance().load();	// ë¨¸ ì•„ë¬´ë•Œë‚˜ Loading í•´ë„ ë¨
 	printf("ObjectManager::load() : LevelNickInfoManager Initialization Success\n");
 
 	printf("ObjectManager::load() : DragonEyeManagerManager Initialization Start\n");
-	g_pDragonEyeManager->init();	// ¾ÆÀÌÅÛ ÀÎÆ÷°¡ ·ÎµùµÈ µÚ.
+	g_pDragonEyeManager->init();	// ì•„ì´í…œ ì¸í¬ê°€ ë¡œë”©ëœ ë’¤.
 	printf("ObjectManager::load() : DragonEyeManagerManager Initialization Success\n");
 
 	printf("ObjectManager::init() : TimeChecker Initialization Start\n");
-	g_pTimeChecker->init(); // ¾Æ¹«¶§³ª Loading ÇØµµ µÊ
+	g_pTimeChecker->init(); // ì•„ë¬´ë•Œë‚˜ Loading í•´ë„ ë¨
 	printf("ObjectManager::init() : TimeChecker Initialization Success\n");
 
 	
@@ -532,10 +532,10 @@ void ObjectManager::load ()
 	__BEGIN_TRY
 
 	//--------------------------------------------------------------------------------
-	// Á¸±×·ìÀ» ·ÎµùÇÏ¸é, ³»ºÎÀûÀ¸·Î Á¸À» ·ÎµùÇÑ´Ù.
-	// ÀÌ¶§ Á¸ ¾È¿¡ ¼Ò¼ÓµÈ NPC µéÀÌ ·ÎµùµÇ´Âµ¥.. SetPosition ¾×¼ÇÀÌ ¼öÇàµÇ±â
-	// À§ÇØ¼­´Â ¸ÕÀú ZoneInfoManager °¡ InitializationµÇ¾î¾ß ÇÑ´Ù.
-	// µû¶ó¼­, ZoneInfoManager -> ZoneGroupManager ¼øÀ¸·Î InitializationµÇ¾î¾ß ÇÑ´Ù.
+	// ì¡´ê·¸ë£¹ì„ ë¡œë”©í•˜ë©´, ë‚´ë¶€ì ìœ¼ë¡œ ì¡´ì„ ë¡œë”©í•œë‹¤.
+	// ì´ë•Œ ì¡´ ì•ˆì— ì†Œì†ëœ NPC ë“¤ì´ ë¡œë”©ë˜ëŠ”ë°.. SetPosition ì•¡ì…˜ì´ ìˆ˜í–‰ë˜ê¸°
+	// ìœ„í•´ì„œëŠ” ë¨¼ì € ZoneInfoManager ê°€ Initializationë˜ì–´ì•¼ í•œë‹¤.
+	// ë”°ë¼ì„œ, ZoneInfoManager -> ZoneGroupManager ìˆœìœ¼ë¡œ Initializationë˜ì–´ì•¼ í•œë‹¤.
 	//--------------------------------------------------------------------------------
 	//printf("ObjectManager::init() : ZoneInfoManager Initialization Start\n");
 	//g_pZoneInfoManager->init();
@@ -746,7 +746,7 @@ void ObjectManager::load ()
 	g_pDynamicZoneInfoManager->init();
 	printf("ObjectManager::load() : DynamicZoneInfoManager Initialization Success\n");
 
-	// DynamicZoneInfoManager init ÈÄ¿¡ È£Ãâ
+	// DynamicZoneInfoManager init í›„ì— í˜¸ì¶œ
 	printf("ObjectManager::load() : DynamicZoneManager Initialization Start\n");
 	g_pDynamicZoneManager->init();
 	printf("ObjectManager::load() : DynamicZoneManager Initialization Success\n");

@@ -2,8 +2,8 @@
 // Filename    : ActionPrepareShop.cpp
 // Written By  : 
 // Description : 
-// »óÁ¡ NPC¸¦ Á¦ÀÏ Ã³À½ ·ÎµùÇÒ ¶§, »óÁ¡ NPC°¡ ÆÈ°Ô µÉ ¾ÆÀÌÅÛÀ»
-// ÁØºñÇÏ´Â ¾×¼ÇÀÌ´Ù. ShopTemplate Å¬·¡½º¿Í ¸Å´ÏÀú¸¦ Âü°íÇÒ °Í.
+// ìƒì  NPCë¥¼ ì œì¼ ì²˜ìŒ ë¡œë”©í•  ë•Œ, ìƒì  NPCê°€ íŒ”ê²Œ ë  ì•„ì´í…œì„
+// ì¤€ë¹„í•˜ëŠ” ì•¡ì…˜ì´ë‹¤. ShopTemplate í´ë˜ìŠ¤ì™€ ë§¤ë‹ˆì €ë¥¼ ì°¸ê³ í•  ê²ƒ.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "ActionPrepareShop.h"
@@ -86,8 +86,8 @@ void ActionPrepareShop::read (PropertyBuffer & propertyBuffer)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
-// NOTE : ShopTemplateÀº ÀÌ ¾×¼ÇÀÌ ½ÇÇàµÇ±â Àü¿¡ ¸ğµÎ ·ÎµåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
+// NOTE : ShopTemplateì€ ì´ ì•¡ì…˜ì´ ì‹¤í–‰ë˜ê¸° ì „ì— ëª¨ë‘ ë¡œë“œë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -99,11 +99,11 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 
 	NPC * pNPC = dynamic_cast<NPC*>(pCreature1);
 
-	// IDList    : ShopTemplate ID¸¦ Áø¿­Àå Á¾·ù¿¡ µû¶ó ºĞ·ùÇØ ÀúÀåÇÏ±â
-	//             À§ÇÑ ¸®½ºÆ®µé.
-	// combi[]   : Class¸¶´Ù minItemType°ú maxItemType¿¡ ÀÇÇØ¼­ Á¶ÇÕÀÌ »ı±ä´Ù.
-	//             ÀÌ Á¶ÇÕÀÇ ÃÑ °¹¼ö¸¦ ÀúÀåÇÏ±â À§ÇÑ ¹è¿­
-	// count[]   : ÇöÀç NPC°¡ Áø¿­Àå¿¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ö. ¿ª½Ã Á¾·ùº°.
+	// IDList    : ShopTemplate IDë¥¼ ì§„ì—´ì¥ ì¢…ë¥˜ì— ë”°ë¼ ë¶„ë¥˜í•´ ì €ì¥í•˜ê¸°
+	//             ìœ„í•œ ë¦¬ìŠ¤íŠ¸ë“¤.
+	// combi[]   : Classë§ˆë‹¤ minItemTypeê³¼ maxItemTypeì— ì˜í•´ì„œ ì¡°í•©ì´ ìƒê¸´ë‹¤.
+	//             ì´ ì¡°í•©ì˜ ì´ ê°¯ìˆ˜ë¥¼ ì €ì¥í•˜ê¸° ìœ„í•œ ë°°ì—´
+	// count[]   : í˜„ì¬ NPCê°€ ì§„ì—´ì¥ì— ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œì˜ ìˆ˜. ì—­ì‹œ ì¢…ë¥˜ë³„.
 	
 	list<ShopTemplateID_t> IDList[SHOP_RACK_TYPE_MAX];
 	int                    combi[SHOP_RACK_TYPE_MAX] = {0,0,0};
@@ -116,14 +116,14 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 	uint                   minOptionLevel, maxOptionLevel;
 	OptionType_t           optionType;
 
-	// °¢°¢ÀÇ ¼¥ÅÛÇÃ¸´Àº ¾ÆÀÌÅÛ Å¬·¡½º¿Í ÃÖ¼Ò, ÃÖ´ë Å¸ÀÔÀ» °¡Áö°í ÀÖ´Ù.
-	// ÃÖ¼Ò, ÃÖ´ë Å¸ÀÔÀ» °¡Áö°í, ÇØ´çÇÏ´Â ¾ÆÀÌÅÛ ¸î °¡Áö¸¦ 
-	// »ı¼ºÇØ¾ß ÇÑ´Ù´Â °ÍÀ» ¾Ë ¼ö ÀÖ´Ù. ¿¹¸¦ µé¸é ´ÙÀ½°ú °°´Ù.
-	// MinItemType : 0, MaxItemType : 0 --> 1°¡Áö
-	// MinItemType : 0, MaxItemType : 2 --> 3°¡Áö
+	// ê°ê°ì˜ ìƒµí…œí”Œë¦¿ì€ ì•„ì´í…œ í´ë˜ìŠ¤ì™€ ìµœì†Œ, ìµœëŒ€ íƒ€ì…ì„ ê°€ì§€ê³  ìˆë‹¤.
+	// ìµœì†Œ, ìµœëŒ€ íƒ€ì…ì„ ê°€ì§€ê³ , í•´ë‹¹í•˜ëŠ” ì•„ì´í…œ ëª‡ ê°€ì§€ë¥¼ 
+	// ìƒì„±í•´ì•¼ í•œë‹¤ëŠ” ê²ƒì„ ì•Œ ìˆ˜ ìˆë‹¤. ì˜ˆë¥¼ ë“¤ë©´ ë‹¤ìŒê³¼ ê°™ë‹¤.
+	// MinItemType : 0, MaxItemType : 0 --> 1ê°€ì§€
+	// MinItemType : 0, MaxItemType : 2 --> 3ê°€ì§€
 	for (list<ShopTemplateID_t>::const_iterator itr=m_List.begin(); itr != m_List.end(); itr++)
 	{
-		// ÅÛÇÃ¸´ ¸®½ºÆ®¿¡¼­ ÇÏ³ª¸¦ »Ì¾Æ¿Â´Ù.
+		// í…œí”Œë¦¿ ë¦¬ìŠ¤íŠ¸ì—ì„œ í•˜ë‚˜ë¥¼ ë½‘ì•„ì˜¨ë‹¤.
 		pTemplate = g_pShopTemplateManager->getTemplate((*itr));
 
 		Assert(pTemplate != NULL);
@@ -133,30 +133,30 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 		minItemType = pTemplate->getMinItemType();
 		maxItemType = pTemplate->getMaxItemType();
 		
-		// ¼¥ÀÇ Á¾·ù(³ë¸Ö, ½ºÆä¼È...)¿¡ µû¶ó
-		// »ı¼ºÇÒ ¼¥ ÅÛÇÃ¸´ÀÇ ID¸¦ ¸®½ºÆ®¿¡ Áı¾î³Ö¾î µÎ°í,
-		// »ı¼ºÇÒ ¾ÆÀÌÅÛÀÇ Á¾·ù ¼ö¸¦ ÀúÀåÇØ µĞ´Ù.
+		// ìƒµì˜ ì¢…ë¥˜(ë…¸ë©€, ìŠ¤í˜ì…œ...)ì— ë”°ë¼
+		// ìƒì„±í•  ìƒµ í…œí”Œë¦¿ì˜ IDë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì§‘ì–´ë„£ì–´ ë‘ê³ ,
+		// ìƒì„±í•  ì•„ì´í…œì˜ ì¢…ë¥˜ ìˆ˜ë¥¼ ì €ì¥í•´ ë‘”ë‹¤.
 		IDList[shopType].push_back(*itr);
 		combi[shopType] += (maxItemType - minItemType + 1);
 	}
 
-	// °¢ ¼¥¿¡´Ù ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+	// ê° ìƒµì—ë‹¤ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 	for (ShopRackType_t i=0; i<SHOP_RACK_TYPE_MAX; i++)
 	{
-		// Á¶ÇÕÀÇ ¼ıÀÚ·Î¼­ ÇÑ Å¬·¡½ºÀÇ ÇÑ Å¸ÀÔ ¾ÆÀÌÅÛÀÌ ¾ó¸¶³ª ¸¹ÀÌ Áø¿­Àå¿¡
-		// ¹èÄ¡µÉ ¼ö ÀÖ´ÂÁö ¾Ë¾Æ³½´Ù.
-		// ex) ÀüÃ¼ ¾ÆÀÌÅÛÀÇ Á¶ÇÕÀÌ 9°¡ÁöÀÌ¶ó¸é, 20/9 = 3. Áï ÇÑ Å¬·¡½ºÀÇ
-		// ÇÑ Å¸ÀÔ ¾ÆÀÌÅÛÀº ÃÖ´ë 3°³±îÁö Áø¿­Àå¿¡ ³ªÅ¸³¯ ¼ö ÀÖ´Ù.
+		// ì¡°í•©ì˜ ìˆ«ìë¡œì„œ í•œ í´ë˜ìŠ¤ì˜ í•œ íƒ€ì… ì•„ì´í…œì´ ì–¼ë§ˆë‚˜ ë§ì´ ì§„ì—´ì¥ì—
+		// ë°°ì¹˜ë  ìˆ˜ ìˆëŠ”ì§€ ì•Œì•„ë‚¸ë‹¤.
+		// ex) ì „ì²´ ì•„ì´í…œì˜ ì¡°í•©ì´ 9ê°€ì§€ì´ë¼ë©´, 20/9 = 3. ì¦‰ í•œ í´ë˜ìŠ¤ì˜
+		// í•œ íƒ€ì… ì•„ì´í…œì€ ìµœëŒ€ 3ê°œê¹Œì§€ ì§„ì—´ì¥ì— ë‚˜íƒ€ë‚  ìˆ˜ ìˆë‹¤.
 		if (combi[i] == 0) trialMax = 0;
 		else trialMax = (int)(floor(SHOP_RACK_INDEX_MAX/combi[i]));
 
-		// ¸¸ÀÏ ¼¥ Å¸ÀÔÀÌ ³ë¸ÖÀÌ¶ó¸é, °°Àº ¾ÆÀÌÅÛÀ» ¿©·¯ °³ 
-		// »ı¼ºÇÏ´Â °ÍÀº ÀÇ¹Ì°¡ ¾øÀ¸¹Ç·Î, ÇÑ¹ø¸¸ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+		// ë§Œì¼ ìƒµ íƒ€ì…ì´ ë…¸ë©€ì´ë¼ë©´, ê°™ì€ ì•„ì´í…œì„ ì—¬ëŸ¬ ê°œ 
+		// ìƒì„±í•˜ëŠ” ê²ƒì€ ì˜ë¯¸ê°€ ì—†ìœ¼ë¯€ë¡œ, í•œë²ˆë§Œ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 		if (i == SHOP_RACK_NORMAL
 			|| i==SHOP_RACK_MYSTERIOUS) trialMax = 1;
 
-		// ¾Æ±î ÀúÀåÇØ ³õ¾Ò´ø ¼¥ ÅÛÇÃ¸´ ID ¸®½ºÆ®¿¡¼­ ÇÏ³ª¾¿À» »Ì¾Æ¿Í¼­
-		// »óÁ¡ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+		// ì•„ê¹Œ ì €ì¥í•´ ë†“ì•˜ë˜ ìƒµ í…œí”Œë¦¿ ID ë¦¬ìŠ¤íŠ¸ì—ì„œ í•˜ë‚˜ì”©ì„ ë½‘ì•„ì™€ì„œ
+		// ìƒì  ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 		for (list<ShopTemplateID_t>::const_iterator itr=IDList[i].begin(); itr != IDList[i].end(); itr++)
 		{
 			pTemplate      = g_pShopTemplateManager->getTemplate((*itr));
@@ -166,21 +166,21 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 			minOptionLevel = pTemplate->getMinOptionLevel();
 			maxOptionLevel = pTemplate->getMaxOptionLevel();
 
-			// ¸ÕÀú »ı¼º °¡´ÉÇÑ ¿É¼Ç Å¸ÀÔÀÇ º¤ÅÍ¸¦ »ı¼ºÇØµĞ´Ù.
+			// ë¨¼ì € ìƒì„± ê°€ëŠ¥í•œ ì˜µì…˜ íƒ€ì…ì˜ ë²¡í„°ë¥¼ ìƒì„±í•´ë‘”ë‹¤.
 			vector<OptionType_t> optionVector = g_pOptionInfoManager->getPossibleOptionVector((Item::ItemClass)itemClass, minOptionLevel, maxOptionLevel);
 
 			for (ItemType_t type=minItemType; type<=maxItemType; type++)
 			{
-				// ÇÑ Å¸ÀÔÀÇ ¼¥¿¡´Â 20±îÁöÀÇ ¾ÆÀÌÅÛÀÌ µé¾î°£´Ù.
-				// ¸¸ÀÏ »ı¼ºÇØ¾ß ÇÒ ¾ÆÀÌÅÛÀÇ Á¾·ù°¡ 5°¡Áö¶ó¸é
-				// °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» 4°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
-				// Á¾·ù°¡ 6°¡Áö¶ó¸é, 3°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
+				// í•œ íƒ€ì…ì˜ ìƒµì—ëŠ” 20ê¹Œì§€ì˜ ì•„ì´í…œì´ ë“¤ì–´ê°„ë‹¤.
+				// ë§Œì¼ ìƒì„±í•´ì•¼ í•  ì•„ì´í…œì˜ ì¢…ë¥˜ê°€ 5ê°€ì§€ë¼ë©´
+				// ê°ê°ì˜ ì•„ì´í…œì„ 4ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
+				// ì¢…ë¥˜ê°€ 6ê°€ì§€ë¼ë©´, 3ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
 				for (int tc=0; tc<trialMax; tc++)
 				{
 					itemType  = type;
 
-					// ¿É¼Ç º¤ÅÍ ³»¿¡¼­ ¹«ÀÛÀ§·Î ¿É¼ÇÀ» »Ì¾Æ³½´Ù.
-					// ´ç¿¬È÷ °¡´ÉÇÑ ¿É¼ÇÀÌ ¾ø´Ù¸é, optionTypeÀº 0(¹«¿É¼Ç)ÀÌ´Ù.
+					// ì˜µì…˜ ë²¡í„° ë‚´ì—ì„œ ë¬´ì‘ìœ„ë¡œ ì˜µì…˜ì„ ë½‘ì•„ë‚¸ë‹¤.
+					// ë‹¹ì—°íˆ ê°€ëŠ¥í•œ ì˜µì…˜ì´ ì—†ë‹¤ë©´, optionTypeì€ 0(ë¬´ì˜µì…˜)ì´ë‹¤.
 					Item::ItemClass IClass = Item::ItemClass(itemClass);
 					list<OptionType_t> optionTypes; 
 					if (i!=SHOP_RACK_MYSTERIOUS && optionVector.size() > 0) 
@@ -191,14 +191,14 @@ void ActionPrepareShop::execute (Creature * pCreature1 , Creature * pCreature2)
 							optionTypes.push_back( optionType );
 					}
 					
-					// ½ÇÁ¦·Î ¾ÆÀÌÅÛÀ» ¸¸µç´Ù.
+					// ì‹¤ì œë¡œ ì•„ì´í…œì„ ë§Œë“ ë‹¤.
 					Item* pItem = g_pItemFactoryManager->createItem(IClass, itemType, optionTypes);
 					Assert(pItem != NULL);
 
-					// zoneÀÇ object registery¿¡ µî·Ï.
+					// zoneì˜ object registeryì— ë“±ë¡.
 					(pNPC->getZone()->getObjectRegistry()).registerObject(pItem);
 
-					// ÇØ´ç Áø¿­Àå¿¡ ÀÚ¸®°¡ ÀÖ´Ù¸é ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+					// í•´ë‹¹ ì§„ì—´ì¥ì— ìë¦¬ê°€ ìˆë‹¤ë©´ ì•„ì´í…œì„ ë”í•œë‹¤.
 					if (count[i] < SHOP_RACK_INDEX_MAX)
 					{
 						pNPC->insertShopItem(i, count[i], pItem);

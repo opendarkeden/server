@@ -17,7 +17,7 @@ EffectRegenerate::EffectRegenerate(Creature* pCreature)
 {
 	__BEGIN_TRY 
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	setTarget(pCreature);
@@ -53,7 +53,7 @@ void EffectRegenerate::affect()
 		gcHP.setCurrentHP( pMonster->getHP() );
 		pMonster->getZone()->broadcastPacket( pMonster->getX(), pMonster->getY(), &gcHP );
 
-		cout << pMonster->getName() << "ÀÇ HP°¡ " << pMonster->getHP() << "°¡ µÇ¾ú½À´Ï´Ù." << endl;
+		cout << pMonster->getName() << "ì˜ HPê°€ " << pMonster->getHP() << "ê°€ ë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 	}
 
 	__END_CATCH

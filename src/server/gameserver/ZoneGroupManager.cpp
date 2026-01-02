@@ -50,7 +50,7 @@ ZoneGroupManager::~ZoneGroupManager ()
 		SAFE_DELETE(pZoneGroup);
 	}
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
 	m_ZoneGroups.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -75,7 +75,7 @@ void ZoneGroupManager::init ()
 //
 // load data from database
 //
-// µ¥ÀÌÅ¸º£ÀÌ½º¿¡ ¿¬°áÇØ¼­ ZoneGroup À» ·ÎµåÇØ¿Â´Ù.
+// ë°ì´íƒ€ë² ì´ìŠ¤ì— ì—°ê²°í•´ì„œ ZoneGroup ì„ ë¡œë“œí•´ì˜¨ë‹¤.
 //
 //--------------------------------------------------------------------------------
 void ZoneGroupManager::load ()
@@ -87,7 +87,7 @@ void ZoneGroupManager::load ()
 	Statement* pStmt = NULL;
 	list<ZoneGroupID_t> ZoneGroupIDList;
 
-	// ¸ÕÀú Á¸ ±×·ì ¾ÆÀÌµğµéÀ» ÀĞ´Â´Ù.
+	// ë¨¼ì € ì¡´ ê·¸ë£¹ ì•„ì´ë””ë“¤ì„ ì½ëŠ”ë‹¤.
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -109,14 +109,14 @@ void ZoneGroupManager::load ()
 	{
 		ZoneGroupID_t ID = (*itr);
 
-		// ÇØ´çÇÏ´Â IDÀÇ Á¸ ±×·ìÀ» »ı¼ºÇÏ°í, ¸Å´ÏÀú¿¡´Ù ´õÇÑ´Ù.
+		// í•´ë‹¹í•˜ëŠ” IDì˜ ì¡´ ê·¸ë£¹ì„ ìƒì„±í•˜ê³ , ë§¤ë‹ˆì €ì—ë‹¤ ë”í•œë‹¤.
 		ZoneGroup* pZoneGroup = new ZoneGroup(ID);
 		ZonePlayerManager* pZonePlayerManager = new ZonePlayerManager();
 		pZonePlayerManager->setZGID( ID );
 		pZoneGroup->setZonePlayerManager(pZonePlayerManager);
 		addZoneGroup(pZoneGroup);
 
-		// ÀÌ Á¸ ±×·ì¿¡ ¼ÓÇÏ´Â Á¸ÀÇ Á¤º¸¸¦ ÀĞ¾îµéÀÌ°í, ÃÊ±âÈ­ÇØ¾ß ÇÑ´Ù.
+		// ì´ ì¡´ ê·¸ë£¹ì— ì†í•˜ëŠ” ì¡´ì˜ ì •ë³´ë¥¼ ì½ì–´ë“¤ì´ê³ , ì´ˆê¸°í™”í•´ì•¼ í•œë‹¤.
 		BEGIN_DB
 		{
 			pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -128,7 +128,7 @@ void ZoneGroupManager::load ()
 			{
 				ZoneID_t zoneID = pResult->getInt(1);
 
-				// Á¸ °´Ã¼¸¦ »ı¼º, ÃÊ±âÈ­ÇÑ ÈÄ, Á¸±×·ì¿¡ Ãß°¡ÇÑ´Ù.
+				// ì¡´ ê°ì²´ë¥¼ ìƒì„±, ì´ˆê¸°í™”í•œ í›„, ì¡´ê·¸ë£¹ì— ì¶”ê°€í•œë‹¤.
 				Zone* pZone = new Zone(zoneID);
 				Assert(pZone != NULL);
 								
@@ -137,9 +137,9 @@ void ZoneGroupManager::load ()
 				pZoneGroup->addZone(pZone);
 
 				//--------------------------------------------------------------------------------
-				// ¼ø¼­¿¡ À¯ÀÇÇÒ °Í.
-				// ³»ºÎ¿¡¼­ NPC ¸¦ ·ÎµùÇÏ°Ô µÇ´Âµ¥.. AtFirst-SetPosition ÄÁµğ¼Ç-¾×¼ÇÀ» ¼öÇàÇÒ¶§
-				// ZoneGroupManager ¿¡ Á¢±ÙÇÏ°Ô µÈ´Ù. µû¶ó¼­, ¸ÕÀú ZGM¿¡ Ãß°¡ÇÑ ÈÄ ÃÊ±âÈ­¸¦ ÇØ¾ß ÇÑ´Ù.
+				// ìˆœì„œì— ìœ ì˜í•  ê²ƒ.
+				// ë‚´ë¶€ì—ì„œ NPC ë¥¼ ë¡œë”©í•˜ê²Œ ë˜ëŠ”ë°.. AtFirst-SetPosition ì»¨ë””ì…˜-ì•¡ì…˜ì„ ìˆ˜í–‰í• ë•Œ
+				// ZoneGroupManager ì— ì ‘ê·¼í•˜ê²Œ ëœë‹¤. ë”°ë¼ì„œ, ë¨¼ì € ZGMì— ì¶”ê°€í•œ í›„ ì´ˆê¸°í™”ë¥¼ í•´ì•¼ í•œë‹¤.
 				//--------------------------------------------------------------------------------
 
 				printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION START @@@@@@@@@@@@@@@\n", zoneID);
@@ -165,7 +165,7 @@ void ZoneGroupManager::load ()
 	{
 		pStmt1 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		// ZoneGroupID ¸¦ ÀĞ¾î¿Â´Ù.
+		// ZoneGroupID ë¥¼ ì½ì–´ì˜¨ë‹¤.
 		//Result* pResult1 = pStmt1->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo ORDER BY ZoneGroupID");
 		Result* pResult1 = pStmt1->executeQuery("SELECT ZoneGroupID FROM ZoneGroupInfo");
 
@@ -173,15 +173,15 @@ void ZoneGroupManager::load ()
 		{
 			ZoneGroupID_t zoneGroupID = pResult1->getInt(1);
 
-			// ZoneGroup °´Ã¼¿Í ZonePlayerManager °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+			// ZoneGroup ê°ì²´ì™€ ZonePlayerManager ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 			ZoneGroup* pZoneGroup = new ZoneGroup(zoneGroupID);
 			ZonePlayerManager* pZonePlayerManager = new ZonePlayerManager();
 			pZoneGroup->setZonePlayerManager(pZonePlayerManager);
 
-			// Á¸±×·ìÀ» Á¸±×·ì¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+			// ì¡´ê·¸ë£¹ì„ ì¡´ê·¸ë£¹ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
 			addZoneGroup(pZoneGroup);
 	
-			// Æ¯Á¤ ZoneGroupID ¸¦ °¡Áø Á¸ Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+			// íŠ¹ì • ZoneGroupID ë¥¼ ê°€ì§„ ì¡´ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 			Statement* pStmt2 = NULL;
 			
 			BEGIN_DB
@@ -195,7 +195,7 @@ void ZoneGroupManager::load ()
 
 					ZoneID_t zoneID = pResult2->getInt(1);
 
-					// Á¸ °´Ã¼¸¦ »ı¼º, ÃÊ±âÈ­ÇÑ ÈÄ, Á¸±×·ì¿¡ Ãß°¡ÇÑ´Ù.
+					// ì¡´ ê°ì²´ë¥¼ ìƒì„±, ì´ˆê¸°í™”í•œ í›„, ì¡´ê·¸ë£¹ì— ì¶”ê°€í•œë‹¤.
 					Zone* pZone = new Zone (zoneID);
 					Assert(pZone != NULL);
 									
@@ -204,9 +204,9 @@ void ZoneGroupManager::load ()
 					pZoneGroup->addZone(pZone);
 
 					//--------------------------------------------------------------------------------
-					// ¼ø¼­¿¡ À¯ÀÇÇÒ °Í.
-					// ³»ºÎ¿¡¼­ NPC ¸¦ ·ÎµùÇÏ°Ô µÇ´Âµ¥.. AtFirst-SetPosition ÄÁµğ¼Ç-¾×¼ÇÀ» ¼öÇàÇÒ¶§
-					// ZoneGroupManager ¿¡ Á¢±ÙÇÏ°Ô µÈ´Ù. µû¶ó¼­, ¸ÕÀú ZGM¿¡ Ãß°¡ÇÑ ÈÄ ÃÊ±âÈ­¸¦ ÇØ¾ß ÇÑ´Ù.
+					// ìˆœì„œì— ìœ ì˜í•  ê²ƒ.
+					// ë‚´ë¶€ì—ì„œ NPC ë¥¼ ë¡œë”©í•˜ê²Œ ë˜ëŠ”ë°.. AtFirst-SetPosition ì»¨ë””ì…˜-ì•¡ì…˜ì„ ìˆ˜í–‰í• ë•Œ
+					// ZoneGroupManager ì— ì ‘ê·¼í•˜ê²Œ ëœë‹¤. ë”°ë¼ì„œ, ë¨¼ì € ZGMì— ì¶”ê°€í•œ í›„ ì´ˆê¸°í™”ë¥¼ í•´ì•¼ í•œë‹¤.
 					//--------------------------------------------------------------------------------
 
 					printf("\n@@@@@@@@@@@@@@@ [%d]th ZONE INITIALIZATION START @@@@@@@@@@@@@@@\n", zoneID);
@@ -262,10 +262,10 @@ void ZoneGroupManager::addZoneGroup (ZoneGroup* pZoneGroup)
 	unordered_map< ZoneGroupID_t , ZoneGroup *>::iterator itr = m_ZoneGroups.find(pZoneGroup->getZoneGroupID());
 	
 	if (itr != m_ZoneGroups.end())
-		// ¶È°°Àº ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ë˜‘ê°™ì€ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤. - -;
 		throw Error("duplicated zone id");
 
-	// itr ÀÌ °¡¸®Å°´Â
+	// itr ì´ ê°€ë¦¬í‚¤ëŠ”
 	m_ZoneGroups[ pZoneGroup->getZoneGroupID() ] = pZoneGroup;
 
 	__END_CATCH
@@ -288,7 +288,7 @@ ZoneGroup* ZoneGroupManager::getZoneGroupByGroupID (ZoneGroupID_t ZoneGroupID) c
 
 	} else {
 
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneGroupID : " << ZoneGroupID;
 		throw NoSuchElementException(msg.toString());
@@ -312,15 +312,15 @@ void ZoneGroupManager::deleteZoneGroup (ZoneGroupID_t zoneID)
 	
 	if (itr != m_ZoneGroups.end()) 
 	{
-		// Á¸À» »èÁ¦ÇÑ´Ù.
+		// ì¡´ì„ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(itr->second);
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_ZoneGroups.erase(itr);
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneGroupID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -347,7 +347,7 @@ ZoneGroup* ZoneGroupManager::getZoneGroup (ZoneGroupID_t zoneID) const
 
 	} else {
 
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneGroupID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -410,7 +410,7 @@ void ZoneGroupManager::outputLoadValue()
 		const unordered_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
 		unordered_map< ZoneID_t, Zone* >::const_iterator iZone;
 
-		// °¢ ZoneÀÇ loadValue¸¦ ±¸ÇÑ´Ù.
+		// ê° Zoneì˜ loadValueë¥¼ êµ¬í•œë‹¤.
 		int totalLoad = 0;
 		for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
 		{
@@ -436,11 +436,11 @@ void ZoneGroupManager::outputLoadValue()
 // make Balanced LoadInfo
 //---------------------------------------------------------------------------
 //
-// bForce : balacingÇÒ ÇÊ¿ä°¡ ¾ø´Ù°í ÆÇ´ÜµÇ´Â °æ¿ì¿¡µµ 
-//          °­Á¦·Î ZoneGroupÀ» balancingÇÒ °æ¿ì¿¡ »ç¿ëµÈ´Ù.
+// bForce : balacingí•  í•„ìš”ê°€ ì—†ë‹¤ê³  íŒë‹¨ë˜ëŠ” ê²½ìš°ì—ë„ 
+//          ê°•ì œë¡œ ZoneGroupì„ balancingí•  ê²½ìš°ì— ì‚¬ìš©ëœë‹¤.
 //
-// Zone¸¶´ÙÀÇ 10ÃÊ°£ÀÇ loop Ã³¸® È¸¼ö¸¦ load°ªÀ¸·Î ÇÑ´Ù.
-// °è»ê¿¡ ÆíÀÇ¸¦ À§ÇØ¼­ ½ÇÁ¦ load´Â ´ÙÀ½°ú °°ÀÇ Á¤ÀÇÇÑ´Ù.
+// Zoneë§ˆë‹¤ì˜ 10ì´ˆê°„ì˜ loop ì²˜ë¦¬ íšŒìˆ˜ë¥¼ loadê°’ìœ¼ë¡œ í•œë‹¤.
+// ê³„ì‚°ì— í¸ì˜ë¥¼ ìœ„í•´ì„œ ì‹¤ì œ loadëŠ” ë‹¤ìŒê³¼ ê°™ì˜ ì •ì˜í•œë‹¤.
 //
 //     load = (loadLimit - load)*loadMultiplier;
 //
@@ -448,13 +448,13 @@ void ZoneGroupManager::outputLoadValue()
 bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	
 {
-	const int maxGroup  		= m_ZoneGroups.size();	// zoneGroup ¼ö
-	//const int loadMultiplier 	= 5;					// load °¡ÁßÄ¡ - ´À¸° ¾ÖµéÀ» ´õ ´À¸®´Ù...¶ó°í ÇÏ±â À§ÇÑ °Í.
-	const int loadLimit 		= 500;					// load °ª Á¦ÇÑ - sleep¿¡ ÀÇÇØ¼­ Á¦ÇÑµÅ¼­ ·çÇÁ Ã³¸®È¸¼ö 500ÀÌ ÃÖ°í´Ù.
-	const int stableLoad 		= 120;					// ¾ÈÁ¤ÀûÀÎ load - ÀÌ Á¤µµ¸é balancingÀÌ ÇÊ¿ä¾ø´Ù°í »ı°¢µÇ´Â ¼öÁØ
-	//const int minLoadGap 		= 20 * loadMultiplier;	// load balancingÀ» ÇÏ±â À§ÇÑ load Â÷ÀÌ - ÃÖ°í~ÃÖÀúÀÇ Â÷ÀÌ°¡ ÀÏÁ¤ °ª ÀÌ»óÀÌ¾î¾ßÁö balancingÀÌ ÀÇ¹ÌÀÖ´Ù.
-	const int minLoadGap 		= 20;	// load balancingÀ» ÇÏ±â À§ÇÑ load Â÷ÀÌ - ÃÖ°í~ÃÖÀúÀÇ Â÷ÀÌ°¡ ÀÏÁ¤ °ª ÀÌ»óÀÌ¾î¾ßÁö balancingÀÌ ÀÇ¹ÌÀÖ´Ù.
-	const int averageLoadPercent = 90;					// ÇÑ groupÀÇ load % Á¦ÇÑ. 100À¸·Î ÇØµµ µÇ°ÚÁö¸¸ 90Á¤µµ°¡ ±¦ÂúÀº°Å °°´Ù.
+	const int maxGroup  		= m_ZoneGroups.size();	// zoneGroup ìˆ˜
+	//const int loadMultiplier 	= 5;					// load ê°€ì¤‘ì¹˜ - ëŠë¦° ì• ë“¤ì„ ë” ëŠë¦¬ë‹¤...ë¼ê³  í•˜ê¸° ìœ„í•œ ê²ƒ.
+	const int loadLimit 		= 500;					// load ê°’ ì œí•œ - sleepì— ì˜í•´ì„œ ì œí•œë¼ì„œ ë£¨í”„ ì²˜ë¦¬íšŒìˆ˜ 500ì´ ìµœê³ ë‹¤.
+	const int stableLoad 		= 120;					// ì•ˆì •ì ì¸ load - ì´ ì •ë„ë©´ balancingì´ í•„ìš”ì—†ë‹¤ê³  ìƒê°ë˜ëŠ” ìˆ˜ì¤€
+	//const int minLoadGap 		= 20 * loadMultiplier;	// load balancingì„ í•˜ê¸° ìœ„í•œ load ì°¨ì´ - ìµœê³ ~ìµœì €ì˜ ì°¨ì´ê°€ ì¼ì • ê°’ ì´ìƒì´ì–´ì•¼ì§€ balancingì´ ì˜ë¯¸ìˆë‹¤.
+	const int minLoadGap 		= 20;	// load balancingì„ í•˜ê¸° ìœ„í•œ load ì°¨ì´ - ìµœê³ ~ìµœì €ì˜ ì°¨ì´ê°€ ì¼ì • ê°’ ì´ìƒì´ì–´ì•¼ì§€ balancingì´ ì˜ë¯¸ìˆë‹¤.
+	const int averageLoadPercent = 90;					// í•œ groupì˜ load % ì œí•œ. 100ìœ¼ë¡œ í•´ë„ ë˜ê² ì§€ë§Œ 90ì •ë„ê°€ ê´œì°®ì€ê±° ê°™ë‹¤.
 
 	int i;
 
@@ -463,12 +463,12 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 
 	unordered_map< ZoneGroupID_t , ZoneGroup* >::const_iterator itr;
 
-	// ÀüÃ¼ load
+	// ì „ì²´ load
 	int totalLoad = 0;
 
 
 	//------------------------------------------------------------------
-	// ZoneGroup¸¶´Ù loadValue Á¶»ç 
+	// ZoneGroupë§ˆë‹¤ loadValue ì¡°ì‚¬ 
 	//------------------------------------------------------------------
 	int maxLoadValue = 0;
 	int minLoadValue = loadLimit;
@@ -479,7 +479,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 		const unordered_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
 		unordered_map< ZoneID_t, Zone* >::const_iterator iZone;
 
-		// °¢ ZoneÀÇ loadValue¸¦ ±¸ÇÑ´Ù.
+		// ê° Zoneì˜ loadValueë¥¼ êµ¬í•œë‹¤.
 		for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
 		{
 			Zone* pZone = iZone->second;
@@ -491,14 +491,14 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 			maxLoadValue = max(maxLoadValue, load);
 			minLoadValue = min(minLoadValue, load);
 
-			// ¼ıÀÚ ÀûÀº°Ô ´À¸° °Å´Ù.
-			// °è»êÀÇ ÆíÀÇ¸¦ À§ÇØ¼­ ¼ıÀÚ¸¦ µÚÁı?´Â´Ù. --> Å« ¼ıÀÚ ºÎÇÏ°¡ Å« °É·Î ¹Ù²Û´Ù.
-			// player¼ıÀÚ¸¦ ºÎÇÏ°¡ÁßÄ¡·Î »ç¿ëÇÑ´Ù.
-			// playerLoad = 1 ~ 20Á¤µµ?
+			// ìˆ«ì ì ì€ê²Œ ëŠë¦° ê±°ë‹¤.
+			// ê³„ì‚°ì˜ í¸ì˜ë¥¼ ìœ„í•´ì„œ ìˆ«ìë¥¼ ë’¤ì§‘?ëŠ”ë‹¤. --> í° ìˆ«ì ë¶€í•˜ê°€ í° ê±¸ë¡œ ë°”ê¾¼ë‹¤.
+			// playerìˆ«ìë¥¼ ë¶€í•˜ê°€ì¤‘ì¹˜ë¡œ ì‚¬ìš©í•œë‹¤.
+			// playerLoad = 1 ~ 20ì •ë„?
 			int playerLoad = pZone->getPCCount()/10;
 			playerLoad = max(1, playerLoad);
-			//load = (loadLimit - load)*loadMultiplier;	// ºÎÇÏ °¡ÁßÄ¡
-			load = (loadLimit - load)*playerLoad;	// ºÎÇÏ °¡ÁßÄ¡
+			//load = (loadLimit - load)*loadMultiplier;	// ë¶€í•˜ ê°€ì¤‘ì¹˜
+			load = (loadLimit - load)*playerLoad;	// ë¶€í•˜ ê°€ì¤‘ì¹˜
 
 			LoadInfo* pInfo = new LoadInfo;
 			pInfo->id 			= pZone->getZoneID();
@@ -506,7 +506,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 			pInfo->groupID 		= -1;
 			pInfo->load 		= load;
 
-			// ºÎÇÏ¿Í zoneID·Î ÀÌ·ç¾îÁø key
+			// ë¶€í•˜ì™€ zoneIDë¡œ ì´ë£¨ì–´ì§„ key
 			DWORD key = (load << 8) | pInfo->id;
 
 			loadInfos[key] = pInfo;
@@ -517,7 +517,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 
 	//------------------------------------------------------------------
 	//
-	// balancingÀÌ ÇÊ¿äÇÑÁö È®ÀÎ
+	// balancingì´ í•„ìš”í•œì§€ í™•ì¸
 	//
 	//------------------------------------------------------------------
 	if (!bForce)
@@ -525,24 +525,24 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 		int loadBoundary = stableLoad;
 		//int loadBoundary = ( loadLimit - stableLoad ) * loadMultiplier;
 
-		// ºÎÇÏ ÇÑ°è ¼öÄ¡º¸´Ù ÀÛ°Å³ª
-		// min~max ºÎÇÏ ¼öÄ¡ Â÷ÀÌ°¡ ÀÏÁ¤¼öÄ¡ ÀÌÇÏÀÌ¸é
-		// load balancingÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+		// ë¶€í•˜ í•œê³„ ìˆ˜ì¹˜ë³´ë‹¤ ì‘ê±°ë‚˜
+		// min~max ë¶€í•˜ ìˆ˜ì¹˜ ì°¨ì´ê°€ ì¼ì •ìˆ˜ì¹˜ ì´í•˜ì´ë©´
+		// load balancingí•  í•„ìš”ê°€ ì—†ë‹¤.
 		//if (maxLoad <= loadBoundary
 		if (minLoadValue >= loadBoundary
 			|| maxLoadValue-minLoadValue <= minLoadGap)
 		{
 
-			// load¸¦ ´Ù½Ã Á¶»çÇØ¾ß ÇÑ´Ù.
+			// loadë¥¼ ë‹¤ì‹œ ì¡°ì‚¬í•´ì•¼ í•œë‹¤.
 			for (itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 			{
 				ZoneGroup* pZoneGroup = itr->second;
 
-				// loadValue¸¦ ÃÊ±âÈ­ ½ÃÄÑÁØ´Ù.
+				// loadValueë¥¼ ì´ˆê¸°í™” ì‹œì¼œì¤€ë‹¤.
 				const unordered_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
 				unordered_map< ZoneID_t, Zone* >::const_iterator iZone;
 
-				// °¢ ZoneÀÇ loadValue¸¦ ±¸ÇÑ´Ù.
+				// ê° Zoneì˜ loadValueë¥¼ êµ¬í•œë‹¤.
 				for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
 				{
 					Zone* pZone = iZone->second;
@@ -555,26 +555,26 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 		}
 	}
 
-	// Æò±Õ load
+	// í‰ê·  load
 	//int avgLoad = totalLoad / maxGroups;
-	// average¸¦ 90%·Î ÀâÀº °æ¿ì
+	// averageë¥¼ 90%ë¡œ ì¡ì€ ê²½ìš°
 	int avgLoad = totalLoad * averageLoadPercent / maxGroup / 100;
 
-	// »õ·Î¿î ±×·ìÀÇ load¸¦ °è»êÇÏ±â À§ÇØ¼­
+	// ìƒˆë¡œìš´ ê·¸ë£¹ì˜ loadë¥¼ ê³„ì‚°í•˜ê¸° ìœ„í•´ì„œ
 	groups.reserve( maxGroup );
 	for (i=0; i<maxGroup; i++)
 	{
 		groups[i] = 0;
 	}
 
-	// balancingÇÏ±â ÀüÀÇ »óÅÂ Ãâ·Â
+	// balancingí•˜ê¸° ì „ì˜ ìƒíƒœ ì¶œë ¥
 	//outputLoadValue();
 
 	//------------------------------------------------------------------
 	//
 	// load balancing
 	//
-	// ¾à°£ÀÇ º¯È­¸¦ ÁØ? FirstFit »ç¿ë.
+	// ì•½ê°„ì˜ ë³€í™”ë¥¼ ì¤€? FirstFit ì‚¬ìš©.
 	//------------------------------------------------------------------
 	LOAD_INFOS::const_iterator iInfo = loadInfos.begin();
 
@@ -584,7 +584,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 	{
 		LoadInfo* pInfo = iInfo->second;
 
-		// µé¾î°¥ »õ groupÀ» Ã£´Â´Ù.
+		// ë“¤ì–´ê°ˆ ìƒˆ groupì„ ì°¾ëŠ”ë‹¤.
 		int newGroupID = -1;
 		for (int k=0; k<maxGroup; k++)
 		{
@@ -602,7 +602,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 			if (++index>=maxGroup) index = 0;
 		}
 
-		// ÀûÀıÇÑ groupÀ» ¸ø Ã£¾ÒÀ¸¸é Á© °ªÀÌ ÀûÀº group¿¡ ³Ö´Â´Ù.
+		// ì ì ˆí•œ groupì„ ëª» ì°¾ì•˜ìœ¼ë©´ ì ¤ ê°’ì´ ì ì€ groupì— ë„£ëŠ”ë‹¤.
 		if (newGroupID==-1)
 		{
 			newGroupID = 0;
@@ -615,8 +615,8 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 			}
 		}
 
-		// newGroupID¿¡´Ù°¡ Info¸¦ Ãß°¡ÇÑ´Ù.
-		pInfo->groupID = newGroupID + 1;		// 1À» Áõ°¡½ÃÄÑÁà¾ß ÇÑ´Ù. -_-;
+		// newGroupIDì—ë‹¤ê°€ Infoë¥¼ ì¶”ê°€í•œë‹¤.
+		pInfo->groupID = newGroupID + 1;		// 1ì„ ì¦ê°€ì‹œì¼œì¤˜ì•¼ í•œë‹¤. -_-;
 		groups[newGroupID] += pInfo->load;
 	}
 
@@ -626,7 +626,7 @@ bool 	ZoneGroupManager::makeBalancedLoadInfo(LOAD_INFOS& loadInfos, bool bForce)
 //---------------------------------------------------------------------------
 // make DefaultLoadInfo
 //---------------------------------------------------------------------------
-// DB¿¡ ¼³Á¤µÈ ±âº» ZoneGroupÀ¸·Î ¼³Á¤ÇÑ´Ù.
+// DBì— ì„¤ì •ëœ ê¸°ë³¸ ZoneGroupìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 //---------------------------------------------------------------------------
 bool	ZoneGroupManager::makeDefaultLoadInfo( LOAD_INFOS& loadInfos )
 	
@@ -637,7 +637,7 @@ bool	ZoneGroupManager::makeDefaultLoadInfo( LOAD_INFOS& loadInfos )
 	Statement* pStmt = NULL;
 	list<ZoneGroupID_t> ZoneGroupIDList;
 
-	// ¸ÕÀú Á¸ ±×·ì ¾ÆÀÌµğµéÀ» ÀĞ´Â´Ù.
+	// ë¨¼ì € ì¡´ ê·¸ë£¹ ì•„ì´ë””ë“¤ì„ ì½ëŠ”ë‹¤.
 	BEGIN_DB
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -677,11 +677,11 @@ bool	ZoneGroupManager::makeDefaultLoadInfo( LOAD_INFOS& loadInfos )
 					pInfo->oldGroupID 	= g_pZoneInfoManager->getZoneInfo(zoneID)->getZoneGroupID();
 				} catch (NoSuchElementException& ) {
 					filelog("makeDefaultLoadInfoError.txt", "NoSuch ZoneInfo : %d", zoneID);
-					pInfo->oldGroupID 	= ID;	// ±×³É ³Ñ¾î°¡°Ô ÇÑ´Ù.
+					pInfo->oldGroupID 	= ID;	// ê·¸ëƒ¥ ë„˜ì–´ê°€ê²Œ í•œë‹¤.
 				}
 
 				pInfo->groupID 		= ID;
-				pInfo->load 		= 0;	// ÀÇ¹Ì¾ø´Ù.
+				pInfo->load 		= 0;	// ì˜ë¯¸ì—†ë‹¤.
 
 				loadInfos[zoneID] = pInfo;
 			}
@@ -703,13 +703,13 @@ bool	ZoneGroupManager::makeDefaultLoadInfo( LOAD_INFOS& loadInfos )
 // balance ZoneGroup ( bForce )
 //---------------------------------------------------------------------------
 //
-// bForce : balacingÇÒ ÇÊ¿ä°¡ ¾ø´Ù°í ÆÇ´ÜµÇ´Â °æ¿ì¿¡µµ 
-//          °­Á¦·Î ZoneGroupÀ» balancingÇÒ °æ¿ì¿¡ »ç¿ëµÈ´Ù.
+// bForce : balacingí•  í•„ìš”ê°€ ì—†ë‹¤ê³  íŒë‹¨ë˜ëŠ” ê²½ìš°ì—ë„ 
+//          ê°•ì œë¡œ ZoneGroupì„ balancingí•  ê²½ìš°ì— ì‚¬ìš©ëœë‹¤.
 //
-// bDefault : DB¿¡¼­ ÁöÁ¤µÇ¾î ÀÖ´Â °ªÀ¸·Î ZoneGroupÀ» ¼³Á¤ÇÑ´Ù.
+// bDefault : DBì—ì„œ ì§€ì •ë˜ì–´ ìˆëŠ” ê°’ìœ¼ë¡œ ZoneGroupì„ ì„¤ì •í•œë‹¤.
 //
-// Zone¸¶´ÙÀÇ 10ÃÊ°£ÀÇ loop Ã³¸® È¸¼ö¸¦ load°ªÀ¸·Î ÇÑ´Ù.
-// °è»ê¿¡ ÆíÀÇ¸¦ À§ÇØ¼­ ½ÇÁ¦ load´Â ´ÙÀ½°ú °°ÀÇ Á¤ÀÇÇÑ´Ù.
+// Zoneë§ˆë‹¤ì˜ 10ì´ˆê°„ì˜ loop ì²˜ë¦¬ íšŒìˆ˜ë¥¼ loadê°’ìœ¼ë¡œ í•œë‹¤.
+// ê³„ì‚°ì— í¸ì˜ë¥¼ ìœ„í•´ì„œ ì‹¤ì œ loadëŠ” ë‹¤ìŒê³¼ ê°™ì˜ ì •ì˜í•œë‹¤.
 //
 //     load = (loadLimit - load)*loadMultiplier;
 //
@@ -719,13 +719,13 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 {
 	__BEGIN_TRY
 
-	filelog("balanceZoneGroup.txt", "Á¸±×·ì ¹ë·±½Ì ¾ÈÇÒ·¡¿ä.");
+	filelog("balanceZoneGroup.txt", "ì¡´ê·¸ë£¹ ë°¸ëŸ°ì‹± ì•ˆí• ë˜ìš”.");
 	return;
 
 /*	LOAD_INFOS 	loadInfos;
 
 	//------------------------------------------------------------------
-	// zoneGroupÀ» balancingÇÒ LoadInfo¸¦ »ı¼ºÇÑ´Ù.
+	// zoneGroupì„ balancingí•  LoadInfoë¥¼ ìƒì„±í•œë‹¤.
 	//------------------------------------------------------------------
 	if (bDefault)
 	{
@@ -735,7 +735,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 	{
 		if (!makeBalancedLoadInfo( loadInfos, bForce ))
 		{
-			// balancingÇÒ ÇÊ¿ä°¡ ¾ø´Ù°í ÆÇ´ÜµÇ´Â °æ¿ìÀÌ´Ù.
+			// balancingí•  í•„ìš”ê°€ ì—†ë‹¤ê³  íŒë‹¨ë˜ëŠ” ê²½ìš°ì´ë‹¤.
 			return;
 		}
 	}
@@ -745,7 +745,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 
 	//------------------------------------------------------------------
 	//
-	// ZoneGroup º¯°æ
+	// ZoneGroup ë³€ê²½
 	//
 	//------------------------------------------------------------------
 	// ZonePlayerManager::m_PlayerListQueue
@@ -771,28 +771,28 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 		{
 			ZoneGroup* pZoneGroup = itr->second;
 			pZoneGroup->lock();
-			pZoneGroup->processPlayers();	// Á¤¸®~¶ó°í ÇÒ±î. Æ¯È÷ EventResurrect¶§¹®ÀÌ´Ù.
+			pZoneGroup->processPlayers();	// ì •ë¦¬~ë¼ê³  í• ê¹Œ. íŠ¹íˆ EventResurrectë•Œë¬¸ì´ë‹¤.
 		}
 
 		//------------------------------------------------------------------
-		// Zone¿¡¼­ ³ª¿Â ¾ÖµéÀ» ´Ù½Ã ¸ñÇ¥ ZoneÀ¸·Î ³Ö´Â´Ù.
+		// Zoneì—ì„œ ë‚˜ì˜¨ ì• ë“¤ì„ ë‹¤ì‹œ ëª©í‘œ Zoneìœ¼ë¡œ ë„£ëŠ”ë‹¤.
 		//------------------------------------------------------------------
 		g_pIncomingPlayerManager->heartbeat();
 
 		//------------------------------------------------------------------
-		// °¢ ZoneGroupÀÇ 
-		// ZPM¿¡¼­ ZoneÀ¸·Î µé¾î°¥ ´ë±â¿­¿¡ ÀÖ´Â »ç¿ëÀÚµéÀ» ¿ì¼± ³Ö¾î¹ö¸°´Ù.
+		// ê° ZoneGroupì˜ 
+		// ZPMì—ì„œ Zoneìœ¼ë¡œ ë“¤ì–´ê°ˆ ëŒ€ê¸°ì—´ì— ìˆëŠ” ì‚¬ìš©ìë“¤ì„ ìš°ì„  ë„£ì–´ë²„ë¦°ë‹¤.
 		//------------------------------------------------------------------
 		for (itr = m_ZoneGroups.begin() ; itr != m_ZoneGroups.end() ; itr ++) 
 		{
 			ZoneGroup* pZoneGroup = itr->second;
 
-			// ZonePlayerManager::m_PlayerListQueue¸¦ Á¤¸®ÇØÁØ´Ù. --> ÀÏ´Ü Zone¿¡ Ãß°¡.
+			// ZonePlayerManager::m_PlayerListQueueë¥¼ ì •ë¦¬í•´ì¤€ë‹¤. --> ì¼ë‹¨ Zoneì— ì¶”ê°€.
 			pZoneGroup->getZonePlayerManager()->processPlayerListQueue();
 		}
 
 		//------------------------------------------------------------------
-		// ZoneGroup º¯°æ
+		// ZoneGroup ë³€ê²½
 		//------------------------------------------------------------------
 		for (iInfo=loadInfos.begin(); iInfo!=loadInfos.end(); iInfo++)
 		{
@@ -802,7 +802,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 			int newGroupID = pInfo->groupID;
 			int zoneID = pInfo->id;
 
-			// groupÀÌ °°À¸¸é ÀÌµ¿½ÃÅ³ ÇÊ¿ä°¡ ¾ø´Ù.
+			// groupì´ ê°™ìœ¼ë©´ ì´ë™ì‹œí‚¬ í•„ìš”ê°€ ì—†ë‹¤.
 			if (oldGroupID==newGroupID)
 			{
 				//cout << "same ZoneGroup" << endl;
@@ -839,15 +839,15 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 				//------------------------------------------------------------------
 				// ZonePlayerManager::m_pPlayers
 				//------------------------------------------------------------------
-				// pZoneÀÇ PCManagerÀÇ ¾ÖµéÀ» 
-				// 		pOldZoneGroup->m_pZonePlayerManager¿¡¼­ Á¦°ÅÇØ¼­
-				// 		pZoneGroup->m_pZonePlayerManager¿¡ Ãß°¡ÇÑ´Ù.
+				// pZoneì˜ PCManagerì˜ ì• ë“¤ì„ 
+				// 		pOldZoneGroup->m_pZonePlayerManagerì—ì„œ ì œê±°í•´ì„œ
+				// 		pZoneGroup->m_pZonePlayerManagerì— ì¶”ê°€í•œë‹¤.
 				//------------------------------------------------------------------
 				const PCManager* pPCManager = pZone->getPCManager();
 				const unordered_map< ObjectID_t, Creature* >& players = pPCManager->getCreatures();
 				unordered_map< ObjectID_t, Creature* >::const_iterator iPlayer;
 
-				// °¢ PlayerµéÀÇ ZPMÀ» ¿Å±ä´Ù.
+				// ê° Playerë“¤ì˜ ZPMì„ ì˜®ê¸´ë‹¤.
 				for (iPlayer=players.begin(); iPlayer!=players.end(); iPlayer++)
 				{
 					Player* pPlayer = iPlayer->second->getPlayer();
@@ -861,7 +861,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 			}
 		}
 
-		// balancingÇÑ ÈÄÀÇ »óÅÂ Ãâ·Â
+		// balancingí•œ í›„ì˜ ìƒíƒœ ì¶œë ¥
 		outputLoadValue();
 
 		//------------------------------------------------------------------
@@ -873,11 +873,11 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 		{
 			ZoneGroup* pZoneGroup = itr->second;
 
-			// loadValue¸¦ ÃÊ±âÈ­ ½ÃÄÑÁØ´Ù.
+			// loadValueë¥¼ ì´ˆê¸°í™” ì‹œì¼œì¤€ë‹¤.
 			const unordered_map< ZoneID_t, Zone* >& zones = pZoneGroup->getZones();
 			unordered_map< ZoneID_t, Zone* >::const_iterator iZone;
 
-			// °¢ ZoneÀÇ loadValue¸¦ ±¸ÇÑ´Ù.
+			// ê° Zoneì˜ loadValueë¥¼ êµ¬í•œë‹¤.
 			for (iZone=zones.begin(); iZone!=zones.end(); iZone++)
 			{
 				Zone* pZone = iZone->second;
@@ -906,7 +906,7 @@ void   ZoneGroupManager::balanceZoneGroup(bool bForce, bool bDefault)
 
 
 	//------------------------------------------------------------------
-	// loadInfos Áö¿öÁÖ±â
+	// loadInfos ì§€ì›Œì£¼ê¸°
 	//------------------------------------------------------------------
 	for (iInfo=loadInfos.begin(); iInfo!=loadInfos.end(); iInfo++)
 	{
@@ -943,7 +943,7 @@ void ZoneGroupManager::lockZoneGroups()
 	{
 		ZoneGroup* pZoneGroup = itr->second;
 		pZoneGroup->lock();
-//		pZoneGroup->processPlayers();	// Á¤¸®~¶ó°í ÇÒ±î. Æ¯È÷ EventResurrect¶§¹®ÀÌ´Ù.
+//		pZoneGroup->processPlayers();	// ì •ë¦¬~ë¼ê³  í• ê¹Œ. íŠ¹íˆ EventResurrectë•Œë¬¸ì´ë‹¤.
 	}
 
 	__END_CATCH
@@ -968,7 +968,7 @@ void ZoneGroupManager::unlockZoneGroups()
 	{
 		ZoneGroup* pZoneGroup = itr->second;
 		pZoneGroup->unlock();
-//		pZoneGroup->processPlayers();	// Á¤¸®~¶ó°í ÇÒ±î. Æ¯È÷ EventResurrect¶§¹®ÀÌ´Ù.
+//		pZoneGroup->processPlayers();	// ì •ë¦¬~ë¼ê³  í• ê¹Œ. íŠ¹íˆ EventResurrectë•Œë¬¸ì´ë‹¤.
 	}
 
 	//------------------------------------------------------------------
@@ -996,7 +996,7 @@ int ZoneGroupManager::getPlayerNum () const
 	{
 		ZoneGroup* pZoneGroup = itr->second;
 		
-		// lock °É ÇÊ¿ä ¾ø´Ù
+		// lock ê±¸ í•„ìš” ì—†ë‹¤
 		numPC += pZoneGroup->getZonePlayerManager()->size();
 	}
 

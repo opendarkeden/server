@@ -88,7 +88,7 @@ void FlagSet::load(const string& owner)
 
 			filelog("flagSetError.txt", "%s", msg.toString().c_str());
 
-			// flagSetÀÌ ¾ø´Â °æ¿ì¿¡´Â ÀÏ´Ü default·Î ³Ö¾î¼­ µ¿ÀÛÇÏ°Ô ÇÑ´Ù.
+			// flagSetì´ ì—†ëŠ” ê²½ìš°ì—ëŠ” ì¼ë‹¨ defaultë¡œ ë„£ì–´ì„œ ë™ìž‘í•˜ê²Œ í•œë‹¤.
 			pStmt->executeQuery("INSERT IGNORE INTO FlagSet (OwnerID, FlagData) VALUES ('%s','')", owner.c_str());
 
 			//cerr << msg.toString() << endl;

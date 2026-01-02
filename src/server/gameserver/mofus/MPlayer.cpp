@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPlayer.cpp
-// Desc		: ���۽� ��� ��ü
+// Desc		: Mofus network player wrapper
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -78,7 +78,7 @@ void MPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "�̻��� ��Ŷ��" );
+		throw DisconnectException( "Invalid packet" );
 	}
 }
 
@@ -88,10 +88,10 @@ void MPlayer::processCommand()
 
 	try
 	{
-		// �Է� ���ۿ� ����ִ� ������ ��Ŷ���� ������ ó���Ѵ�.
+		// Continuously pull packets from the input stream and dispatch handlers.
 		while ( true )
 		{
-			// �ϴ� ��Ŷ�� ������� ID �� �о�´�.
+			// Peek packet header to read ID and size without consuming stream data.
 			char header[szMPacketHeader];
 			MPacketSize_t packetSize;
 			MPacketID_t packetID;
@@ -105,37 +105,37 @@ void MPlayer::processCommand()
 			//packetSize = ntohl( packetSize );
 			//packetID = ntohl( packetID );
 
-			// ��Ŷ ���̵� �̻��ϸ� �������� ����
+			// Verify we have a handler for this packet ID.
 			if ( !g_pMPacketManager->hasHandler( packetID ) )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketID : %d", packetID );
 				throw ProtocolException( "Invalid PacketID" );
 			}
 
-			// ��Ŷ ������ Ȯ��
+			// Validate packet size.
 			if ( g_pMPacketManager->getPacketSize( packetID ) != packetSize )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketSize : %d, expected size : %d", packetSize, g_pMPacketManager->getPacketSize(packetID) );
 				throw ProtocolException( "Invalid PacketSize" );
 			}
 
-			// ������ �ϳ��� ��Ŷ�� ����ִ��� Ȯ��
+			// Ensure the input stream already holds the full packet payload.
 			if ( m_pInputStream->length() < (unsigned int)( packetSize + szMPacketSize ) )
 				return;
 
-			// ��Ŷ�� ����
+			// Create the packet object.
 			MPacket* pPacket = g_pMPacketManager->createPacket( packetID );
 			
-			// ��Ŷ ��ü�� ���� ������ ä���.
+			// Fill the packet from the stream.
 			pPacket->read( *m_pInputStream );
 
-			// ��Ŷ�� �ش� �ڵ鷯�� �����Ѵ�.
+			// Execute the packet handler.
 			g_pMPacketManager->execute( this, pPacket );
 		}
 	}
 	catch ( const InsufficientDataException& )
 	{
-		// ����
+		// Not enough data yet; wait for more.
 	}
 
 	__END_CATCH
@@ -150,10 +150,10 @@ void MPlayer::sendPacket( MPacket* pPacket )
 
 void MPlayer::connect()
 {
-	// ����Ǿ� ���� �ʾƾ��Ѵ�.
+	// Must not already have an active socket.
 	Assert( m_pSocket == NULL );
 
-	// ���۽� ������ IP �� Port �� �����´�.
+	// Load Mofus host/port from configuration.
 	const string	MofusIP = g_pConfig->getProperty( "MofusIP" );
 	uint 			MofusPort = g_pConfig->getPropertyInt( "MofusPort" );
 
@@ -171,7 +171,7 @@ void MPlayer::connect()
 		// make no-linger socket
 		m_pSocket->setLinger(0);
 
-		// read/write �� ����(stream) �� �����Ѵ�.
+		// Prepare buffered read/write streams on the socket.
 		m_pInputStream = new SocketInputStream( m_pSocket, defaultMPlayerInputStreamSize );
 		m_pOutputStream = new SocketOutputStream( m_pSocket, defaultMPlayerOutputStreamSize );
 
@@ -185,7 +185,7 @@ void MPlayer::connect()
 			 << MofusIP.c_str() << ":" << MofusPort << endl;
 		filelog( MOFUS_LOG_FILE, "----- connecti fail(%s:%u) -----", MofusIP.c_str(), MofusPort );
 
-		// ������ �����Ѵ�.
+		// Release socket resources on failure.
 		try
 		{
 			SAFE_DELETE( m_pSocket );
@@ -195,8 +195,8 @@ void MPlayer::connect()
 			filelog( MOFUS_ERROR_FILE, "[socket release error] %s", t.toString().c_str() );
 		}
 
-		// ���� ���� �õ� �ð�
-		usleep( 1000000 );	// 1��
+		// Back off briefly before retrying.
+		usleep( 1000000 );	// 1 second
 	}
 }
 
@@ -235,17 +235,17 @@ void MPlayer::process()
 		{
 			usleep(100);
 
-			// ���� �Ǿ� ���� �ʴٸ� ������ �õ��Ѵ�.
+			// Attempt connection if the socket is not yet established.
 			if ( m_pSocket == NULL )
 			{
 				connect();
 
-				// ���� Ȯ�� ��Ŷ�� ������.
+				// After connecting, send the initial connect packet.
 				if ( m_pSocket != NULL )
 					sendConnectAsk();
 			}
 
-			// ������ ����Ǿ� �ִٸ� ������� ó���Ѵ�.
+			// If connected, process I/O and job state.
 			if ( m_pSocket != NULL )
 			{
 				__BEGIN_TRY
@@ -254,35 +254,35 @@ void MPlayer::process()
 				{
 					filelog( MOFUS_ERROR_FILE, "[MPlayer socket error]" );
 
-					// ������ ���� ���� �����ϰ�, ����� ���� �����.
+					// On socket errors, close everything and return.
 					m_pSocket->close();
 					SAFE_DELETE( m_pSocket );
 					SAFE_DELETE( m_pInputStream );
 					SAFE_DELETE( m_pOutputStream );
 
-					// ��ƾ�� ����������.
+					// Exit loop so caller can retry later.
 					cout << "return" << endl;
 					return;
 				}
 				else
 				{
-					// �۾��� �� ������ ���� ��Ŷ�� �� ���´ٸ� ��ƾ�� ���� ������.
+					// When job is finished and output is empty, cleanly close and exit.
 					if ( m_pJob->isEnd() && m_pOutputStream->isEmpty() )
 					{
-						// ������ ���� ���� �����ϰ�, ����� ���� �����.
+						// Close streams and socket before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
 						SAFE_DELETE( m_pOutputStream );
 
-						// ��ƾ�� ����������.
+						// Exit loop.
 						cout << "return" << endl;
 						return;
 					}
 
 					try
 					{
-						// ���� ����� ó�� �� ��Ŷ ó��
+						// Drive input/command/output processing for this socket.
 						processInput();
 						processCommand();
 						processOutput();
@@ -291,8 +291,7 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_LOG_FILE, "----- connection close" );
 
-						// ������ �����.
-						// ������ �ݰ�, ����� ���� ����� ����������
+						// On disconnect, close socket and streams before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
@@ -305,7 +304,7 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_ERROR_FILE, "[MPlayer process error]" );
 
-						// ������ �ݰ�, ����� ���� ����� ����������
+						// On processing error, close socket and streams before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );

@@ -271,20 +271,20 @@ bool GuildPortal::activate (Creature* pCreature)
 
 	Guild* pGuild = g_pGuildManager->getGuild( pPlayerCreature->getGuildID() );
 
-	// ¼Ò¼ÓµÈ ±æµå°¡ ¾øÀ¸¸é °Á ¹«½Ã
+	// ì†Œì†ëœ ê¸¸ë“œê°€ ì—†ìœ¼ë©´ ê± ë¬´ì‹œ
 	if ( pGuild == NULL )
 		return false;
 
-	// ¼Ò¼ÓµÈ ±æµåÀÇ ¾ÆÁöÆ®°¡ ÀÌ ¼­¹ö¿¡ ¾øÀ¸¸é ¹«½Ã
+	// ì†Œì†ëœ ê¸¸ë“œì˜ ì•„ì§€íŠ¸ê°€ ì´ ì„œë²„ì— ì—†ìœ¼ë©´ ë¬´ì‹œ
 	if ( pGuild->getServerGroupID() != g_pConfig->getPropertyInt( "ServerID" ) )
 		return false;
 
-	// ±æµåÀÇ »óÅÂ°¡ active°¡ ¾Æ´Ï¸é ¹«½Ã
+	// ê¸¸ë“œì˜ ìƒíƒœê°€ activeê°€ ì•„ë‹ˆë©´ ë¬´ì‹œ
 	if ( pGuild->getState() != Guild::GUILD_STATE_ACTIVE )
 		return false;
 
-	// Guild Portal Á¾·ù¸¦ Slayer, Vampire µÎ°¡Áö·Î ¹Ù²ã¾ß ÇÏ´Âµ¥ ½Ã°£ÀÌ ¾ø¾î¼­ ±×³É Zone ID ¸¦ º¸°í ±¸º°ÇÑ´Ù.
-	// ÀÚ±â Á¾Á·ÀÇ ±æµå Æ÷Å»ÀÎÁö È®ÀÎÇÑ´Ù.
+	// Guild Portal ì¢…ë¥˜ë¥¼ Slayer, Vampire ë‘ê°€ì§€ë¡œ ë°”ê¿”ì•¼ í•˜ëŠ”ë° ì‹œê°„ì´ ì—†ì–´ì„œ ê·¸ëƒ¥ Zone ID ë¥¼ ë³´ê³  êµ¬ë³„í•œë‹¤.
+	// ìê¸° ì¢…ì¡±ì˜ ê¸¸ë“œ í¬íƒˆì¸ì§€ í™•ì¸í•œë‹¤.
 	if ( ( pGuild->getRace() == Guild::GUILD_RACE_SLAYER  && m_pTarget->getZoneID() == TEAM_ZONEID )
 	  || ( pGuild->getRace() == Guild::GUILD_RACE_VAMPIRE && m_pTarget->getZoneID() == CLAN_ZONEID ) )
 	{
@@ -336,7 +336,7 @@ bool MultiPortal::activate (Creature* pCreature, ZoneID_t ZoneID)
 
 	if (itr == m_Targets.end()) 
 	{
-		// ¸ø Ã£¾ÒÁö··.
+		// ëª» ì°¾ì•˜ì§€ë .
 		return false;
 	}
 
@@ -390,9 +390,9 @@ bool TriggeredPortal::activate(Creature* pCreature)
 	list<Trigger*>&          triggers = m_TriggerManager.getTriggers();
 	list<Trigger*>::iterator itr      = triggers.begin();
 
-	// »ç½Ç for¸¦ ¹İº¹ÇÏ´Â °ÍÀº ¹«ÀÇ¹ÌÇÏ´Ù.
-	// Á¦ÀÏ Ã¹¹øÂ° Æ®¸®°Å¿¡¼­ Á¶°ÇÀ» ¸¸Á·½ÃÅ°Áö ¸øÇÏ¸é,
-	// Ä«¿îÅÍ ¾×¼ÇÀÌ ½ÇÇàµÇ¸é¼­ ¸®ÅÏµÇ¾î¹ö¸®±â ¶§¹®ÀÌ´Ù.
+	// ì‚¬ì‹¤ forë¥¼ ë°˜ë³µí•˜ëŠ” ê²ƒì€ ë¬´ì˜ë¯¸í•˜ë‹¤.
+	// ì œì¼ ì²«ë²ˆì§¸ íŠ¸ë¦¬ê±°ì—ì„œ ì¡°ê±´ì„ ë§Œì¡±ì‹œí‚¤ì§€ ëª»í•˜ë©´,
+	// ì¹´ìš´í„° ì•¡ì…˜ì´ ì‹¤í–‰ë˜ë©´ì„œ ë¦¬í„´ë˜ì–´ë²„ë¦¬ê¸° ë•Œë¬¸ì´ë‹¤.
 	for (; itr != triggers.end(); itr++)
 	{
 		Trigger* pTrigger = *itr;
@@ -426,7 +426,7 @@ void TriggeredPortal::load(ZoneID_t zoneid, int left, int top, int right, int bo
 	m_TriggerManager.load(zoneid, left, top, right, bottom);
 
 	/*
-	// AtFirst ÄÁµğ¼ÇÀÌ ÀÖÀ¸¸é, ½ÇÇàÇÏ°í, »èÁ¦ÇÑ´Ù.
+	// AtFirst ì»¨ë””ì…˜ì´ ìˆìœ¼ë©´, ì‹¤í–‰í•˜ê³ , ì‚­ì œí•œë‹¤.
 	if (m_TriggerManager.hasCondition(Condition::CONDITION_AT_FIRST))
 	{
 		list<Trigger*>&          triggers = m_TriggerManager.getTriggers();

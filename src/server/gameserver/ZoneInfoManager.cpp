@@ -36,7 +36,7 @@ ZoneInfoManager::~ZoneInfoManager ()
 		SAFE_DELETE(pInfo);
 	}
 	
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// í•´ì‰¬ë§µì•ˆì— ìžˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
 	m_ZoneInfos.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -177,17 +177,17 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 {
 	__BEGIN_TRY
 
-	// ÀÏ´Ü °°Àº ¾ÆÀÌµðÀÇ Á¸ÀÌ ÀÖ´ÂÁö Ã¼Å©ÇØº»´Ù.
+	// ì¼ë‹¨ ê°™ì€ ì•„ì´ë””ì˜ ì¡´ì´ ìžˆëŠ”ì§€ ì²´í¬í•´ë³¸ë‹¤.
 	unordered_map< ZoneID_t , ZoneInfo *>::iterator itr = m_ZoneInfos.find(pZoneInfo->getZoneID());
 	
 	if (itr != m_ZoneInfos.end())
-		// ¶È°°Àº ¾ÆÀÌµð°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ë˜‘ê°™ì€ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤. - -;
 		throw Error("duplicated zone id");
 
 	m_ZoneInfos[ pZoneInfo->getZoneID() ] = pZoneInfo;
 
-	// Zone full name ¸Ê¿¡´Ù Á¸ ID¸¦ Áý¾î³Ö¾îµÐ´Ù.
-	// ¿î¿µÀÚ ¸í·É¾î¸¦ À§ÇÑ ±â´ÉÀÌ´Ù.
+	// Zone full name ë§µì—ë‹¤ ì¡´ IDë¥¼ ì§‘ì–´ë„£ì–´ë‘”ë‹¤.
+	// ìš´ì˜ìž ëª…ë ¹ì–´ë¥¼ ìœ„í•œ ê¸°ëŠ¥ì´ë‹¤.
 	unordered_map<string, ZoneInfo*>::iterator fitr = m_FullNameMap.find(pZoneInfo->getFullName());
 	if (fitr != m_FullNameMap.end())
 	{
@@ -197,8 +197,8 @@ void ZoneInfoManager::addZoneInfo (ZoneInfo* pZoneInfo)
 
 	m_FullNameMap[pZoneInfo->getFullName()] = pZoneInfo;
 
-	// Zone short name ¸Ê¿¡´Ù Á¸ ID¸¦ Áý¾î³Ö¾îµÐ´Ù.
-	// ¿î¿µÀÚ ¸í·É¾î¸¦ À§ÇÑ ±â´ÉÀÌ´Ù.
+	// Zone short name ë§µì—ë‹¤ ì¡´ IDë¥¼ ì§‘ì–´ë„£ì–´ë‘”ë‹¤.
+	// ìš´ì˜ìž ëª…ë ¹ì–´ë¥¼ ìœ„í•œ ê¸°ëŠ¥ì´ë‹¤.
 	unordered_map<string, ZoneInfo*>::iterator sitr = m_ShortNameMap.find(pZoneInfo->getShortName());
 	if (sitr != m_ShortNameMap.end())
 	{
@@ -223,15 +223,15 @@ void ZoneInfoManager::deleteZoneInfo (ZoneID_t zoneID)
 	
 	if (itr != m_ZoneInfos.end()) 
 	{
-		// Á¸À» »èÁ¦ÇÑ´Ù.
+		// ì¡´ì„ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(itr->second);
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_ZoneInfos.erase(itr);
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµð¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -258,7 +258,7 @@ ZoneInfo* ZoneInfoManager::getZoneInfo (ZoneID_t zoneID)
 
 	} else {
 
-		// ±×·± Á¸ ¾ÆÀÌµð¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID; 
 		throw NoSuchElementException(msg.toString());
@@ -275,21 +275,21 @@ ZoneInfo* ZoneInfoManager::getZoneInfo (ZoneID_t zoneID)
 //////////////////////////////////////////////////////////////////////////////
 ZoneInfo* ZoneInfoManager::getZoneInfoByName(const string & ZoneName)
 {
-	// ¸ÕÀú short name mapÀ» °Ë»öÇÑ´Ù.
+	// ë¨¼ì € short name mapì„ ê²€ìƒ‰í•œë‹¤.
 	unordered_map<string, ZoneInfo*>::const_iterator short_itr = m_ShortNameMap.find(ZoneName);
 	if (short_itr != m_ShortNameMap.end())
 	{
 		return short_itr->second;
 	}
 
-	// ¾ø´Ù¸é full name mapÀ» °Ë»öÇÑ´Ù.
+	// ì—†ë‹¤ë©´ full name mapì„ ê²€ìƒ‰í•œë‹¤.
 	unordered_map<string, ZoneInfo*>::const_iterator full_itr = m_FullNameMap.find(ZoneName);
 	if (full_itr != m_FullNameMap.end())
 	{
 		return full_itr->second;
 	}
 
-	// ¾Æ¹« °÷¿¡µµ ¾ø¾ú´Ù¸é ±×³É NULLÀ» ¸®ÅÏÇÑ´Ù.
+	// ì•„ë¬´ ê³³ì—ë„ ì—†ì—ˆë‹¤ë©´ ê·¸ëƒ¥ NULLì„ ë¦¬í„´í•œë‹¤.
 	return NULL;
 }
 

@@ -52,7 +52,7 @@ void CommonBillingPacket::test ()
 	const BillingInfo* pBillingInfo = this;
 	memcpy(pBuffer, (const char*)pBillingInfo, len);
 
-	// �ٽ� �������
+	// Restore host-order values for validation.
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
@@ -211,7 +211,7 @@ void CommonBillingPacket::write (SocketOutputStream & oStream) const
 	const BillingInfo* pBillingInfo = this;
 	oStream.write((const char*)pBillingInfo, len);
 
-	// �ٽ� �������
+	// Restore host-order values for validation.
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
@@ -235,7 +235,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 {
 	__BEGIN_TRY
 	
-	// BillingInfo���� Result�� �����ϱ� ::�� �ٿ��� �Ѵ�.
+	// Format BillingInfo::Result for sending.
 	::Result* 	pResult	= NULL;
 	Statement* 	pStmt 	= NULL;
 
@@ -269,7 +269,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 	}
 	END_DB(pStmt)
 
-	// ���� ����� �� �� ���� ���簪
+	// Convert "YYYYMMDDHH" into a human-friendly timestamp for logging.
 	if (year==0)
 	{
 		VSDate	currentDate(VSDate::currentDate());
@@ -295,7 +295,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 string  CommonBillingPacket::getExpire_DateToString() const
 {
 	// 012345678
-	// 20021120 �� "2002�� 11�� 20�� 24��"�� �ٲ��ش�.
+	// Example: 20021120 becomes "2002-11-20 24:00".
 	//int len = strlen(Expire_Date);
 	if (Expire_Date[0]=='2')
 	{

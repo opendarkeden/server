@@ -76,7 +76,7 @@ CreatureManager::~CreatureManager ()
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³ ¸Å´ÏÀú¿¡ »õ Å©¸®Ã³ °´Ã¼¸¦ µî·ÏÇÑ´Ù.
+// í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ìƒˆ í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ë“±ë¡í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::addCreature (Creature* pCreature) 
 {
@@ -96,7 +96,7 @@ void CreatureManager::addCreature (Creature* pCreature)
 
 	
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³ ¸Å´ÏÀú¿¡ µé¾îÀÖ´Â Æ¯Á¤ Å©¸®Ã³ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+// í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ë“¤ì–´ìžˆëŠ” íŠ¹ì • í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::deleteCreature (ObjectID_t objectID) 
 {
@@ -111,16 +111,16 @@ void CreatureManager::deleteCreature (ObjectID_t objectID)
 		if (itr == m_Creatures.end())
 		{
 			//throw NoSuchElementException();
-			// ´ëÃæ(-_-;) »ìÆìº» °á°ú ¿ÜºÎ¿¡¼­ NoSuchElementException()¿¡ ´ëÇÑ
-			// Æ¯º°ÇÑ Ã³¸®¸¦ ÇÏ´Â°Ô ¾ø¾ú´Ù.
-			// ¿ÀÈ÷·Á.. Ã³¸®°¡ ¾ÈµÈ°Ô ÀÖ¾î¼­ ¹®Á¦°¡ µÇ´Â ºÎºÐµµ ÀÖ¾ú´Ù.
-			//  EventMorph¿¡¼­ Zone::deletePC()¿¡¼­ NoSuch..°¡ ¶ß´Â °æ¿ì°¡ ÀÖ´Ù¸é..
-			// ¾ÏÆ° ¼Óµµ ¹®Á¦·Î ÀÎÇØ¼­ Á¦°Å
+			// ëŒ€ì¶©(-_-;) ì‚´íŽ´ë³¸ ê²°ê³¼ ì™¸ë¶€ì—ì„œ NoSuchElementException()ì— ëŒ€í•œ
+			// íŠ¹ë³„í•œ ì²˜ë¦¬ë¥¼ í•˜ëŠ”ê²Œ ì—†ì—ˆë‹¤.
+			// ì˜¤ížˆë ¤.. ì²˜ë¦¬ê°€ ì•ˆëœê²Œ ìžˆì–´ì„œ ë¬¸ì œê°€ ë˜ëŠ” ë¶€ë¶„ë„ ìžˆì—ˆë‹¤.
+			//  EventMorphì—ì„œ Zone::deletePC()ì—ì„œ NoSuch..ê°€ ëœ¨ëŠ” ê²½ìš°ê°€ ìžˆë‹¤ë©´..
+			// ì•”íŠ¼ ì†ë„ ë¬¸ì œë¡œ ì¸í•´ì„œ ì œê±°
 			m_Mutex.unlock();
 			return; // by sigi 2002.5.2
 		}
 
-		// ´ÜÁö unordered_map ÀÇ ³ëµå¸¸À» »èÁ¦ÇÒ »Ó, Å©¸®Ã³ ÀÚÃ¼´Â »èÁ¦ÇÏÁö ¾Ê´Â´Ù.
+		// ë‹¨ì§€ unordered_map ì˜ ë…¸ë“œë§Œì„ ì‚­ì œí•  ë¿, í¬ë¦¬ì²˜ ìžì²´ëŠ” ì‚­ì œí•˜ì§€ ì•ŠëŠ”ë‹¤.
 		m_Creatures.erase(itr);
 	} 
 	//catch (Throwable & t) 
@@ -135,7 +135,7 @@ void CreatureManager::deleteCreature (ObjectID_t objectID)
 
 	
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³ ¸Å´ÏÀú¿¡ µé¾îÀÖ´Â Æ¯Á¤ Å©¸®Ã³ °´Ã¼¸¦ ¸®ÅÏÇÑ´Ù.
+// í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ë“¤ì–´ìžˆëŠ” íŠ¹ì • í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Creature* CreatureManager::getCreature (ObjectID_t objectID) const 
 {
@@ -155,7 +155,7 @@ Creature* CreatureManager::getCreature (ObjectID_t objectID) const
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³ ¸Å´ÏÀú¿¡ µé¾îÀÖ´Â Æ¯Á¤ Å©¸®Ã³ °´Ã¼¸¦ ¸®ÅÏÇÑ´Ù.
+// í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ë“¤ì–´ìžˆëŠ” íŠ¹ì • í¬ë¦¬ì²˜ ê°ì²´ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Creature* CreatureManager::getCreature (const string& Name) const 
 {
@@ -175,7 +175,7 @@ Creature* CreatureManager::getCreature (const string& Name) const
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³ ¸Å´ÏÀú¿¡ Á¾¼ÓµÈ ¸ó½ºÅÍ/NPC µéÀÇ AI¿¡ ÀÇÇÑ ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// í¬ë¦¬ì²˜ ë§¤ë‹ˆì €ì— ì¢…ì†ëœ ëª¬ìŠ¤í„°/NPC ë“¤ì˜ AIì— ì˜í•œ ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::processCreatures ()
 	
@@ -219,7 +219,7 @@ void CreatureManager::processCreatures ()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Á×Àº Å©¸®Ã³¸¦ Ã³¸®ÇÑ´Ù.
+// ì£½ì€ í¬ë¦¬ì²˜ë¥¼ ì²˜ë¦¬í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void CreatureManager::killCreature (Creature* pDeadCreature)
 	
@@ -299,10 +299,10 @@ void CreatureManager::broadcastDarkLightPacket (Packet* pPacket1, Packet* pPacke
 				bool bYellowPoisonEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_YELLOW_POISON_TO_CREATURE);
 				bool bLightnessEffected = pTargetCreature->isFlag(Effect::EFFECT_CLASS_LIGHTNESS);
 
-				// ÁÖ¼®Ã³¸® by sigi
+				// ì£¼ì„ì²˜ë¦¬ by sigi
 				//bool bDarknessEffected = (tile.getEffect(Effect::EFFECT_CLASS_DARKNESS) == NULL) ? false : true;
 
-				if (!bYellowPoisonEffected && !bLightnessEffected)// && !bDarknessEffected)  // ÁÖ¼®Ã³¸® by sigi
+				if (!bYellowPoisonEffected && !bLightnessEffected)// && !bDarknessEffected)  // ì£¼ì„ì²˜ë¦¬ by sigi
 				{
 					Player* pPlayer = pTargetCreature->getPlayer();
 					Assert(pPlayer != NULL);

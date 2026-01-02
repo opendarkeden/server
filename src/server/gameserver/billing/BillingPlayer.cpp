@@ -19,10 +19,10 @@
 #include <exception>
 
 #ifdef __GAME_SERVER__
-	#include "PCFinder.h"
-	#include "GamePlayer.h"
+#include "PCFinder.h"
+#include "GamePlayer.h"
 #elif defined(__LOGIN_SERVER__)
-	#include "LoginPlayer.h"
+#include "LoginPlayer.h"
 #endif
 
 // by sigi. 2002.11.12
@@ -45,18 +45,16 @@ BillingPlayer::BillingPlayer (Socket * pSocket)
 //: Player( pSocket )//m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
-		
+
 	Assert( pSocket != NULL );
 	m_pSocket = pSocket;
 
 	// create socket input stream
 	m_pInputStream = new SocketInputStream( m_pSocket, defaultBillingPlayerInputStreamSize );
-
 	Assert( m_pInputStream != NULL );
-	
+
 	// create socket output stream
 	m_pOutputStream = new SocketOutputStream( m_pSocket, defaultBillingPlayerOutputStreamSize );
-
 	Assert( m_pOutputStream != NULL );
 
 	m_RetryCount = 0;
@@ -124,7 +122,7 @@ void BillingPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "�̻��� ��Ŷ��" );
+		throw DisconnectException( "Invalid packet" );
 	}
 
 	__END_CATCH
@@ -142,63 +140,54 @@ void BillingPlayer::processCommand ()
 
 	try {
 
-		// ����� �ӽ������� ���� ����
+		// Legacy temporary storage when reading header and size separately.
 		//char header[szPacketHeader];
 		//PacketID_t packetID;
 		//PacketSize_t packetSize;
-		CommonBillingPacket	cbPacket;
+		CommonBillingPacket cbPacket;
 
-		// �Է¹��ۿ� ����ִ� ������ ��Ŷ���� ������ ó���Ѵ�.
+		// Process every full packet currently buffered; return when incomplete.
 		while ( true ) {
-		
+
 			/*
-			// �Է½�Ʈ������ ��Ŷ���ũ�⸸ŭ �о��.
-			// ���� ������ ũ�⸸ŭ ��Ʈ������ ���� �� ���ٸ�,
-			// Insufficient ���ܰ� �߻��ϰ�, ������ ����������.
+			// Legacy flow: read only the header and bail if not enough data.
 			if ( !m_pInputStream->peek( header , szPacketHeader ) )
 				break;
 
-			// ��Ŷ���̵� �� ��Ŷũ�⸦ �˾Ƴ���.
-			// �̶� ��Ŷũ��� ����� �����Ѵ�.
-			memcpy( &packetID   , &header[0] , szPacketID );	
+			// Extract id and size from the header.
+			memcpy( &packetID   , &header[0] , szPacketID );
 			memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 
-			// ��Ŷ ���̵� �̻��ϸ� �������� ������ �����Ѵ�.
+			// Guard against invalid packet id values.
 			if ( packetID >= Packet::PACKET_MAX )
 				throw InvalidProtocolException("invalid packet id");
-			
-			// ��Ŷ ũ�Ⱑ �ʹ� ũ�� �������� ������ �����Ѵ�.
+
+			// Reject payloads larger than allowed for the id.
 			if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 				throw InvalidProtocolException("too large packet size");
 			*/
-			
-			// �Է¹��۳��� ��Ŷũ�⸸ŭ�� ����Ÿ�� ����ִ��� Ȯ���Ѵ�.
-			// ����ȭ�� break �� ����ϸ� �ȴ�. (���⼭�� �ϴ� exception�� �� ���̴�.)
+
+			// Ensure a full packet is buffered; otherwise wait for more data.
 			//if ( m_pInputStream->length() < szPacketHeader + packetSize )
 			if ( m_pInputStream->length() < cbPacket.getPacketSize())
 			{
 				//throw InsufficientDataException();
 				return;
 			}
-			
-			// ������� �Դٸ� �Է¹��ۿ��� ������ ��Ŷ �ϳ� �̻��� ����ִٴ� ���̴�.
-			// ��Ŷ���丮�Ŵ����κ��� ��Ŷ���̵� ����ؼ� ��Ŷ ��Ʈ��ó�� �����ϸ� �ȴ�.
-			// ��Ŷ���̵� �߸��� ���� ��Ŷ���丮�Ŵ������� ó���Ѵ�.
+
+			// Legacy: allocate the specific packet type once we knew the id.
 			//pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
-			// ���� �� ��Ŷ��Ʈ��ó�� �ʱ�ȭ�Ѵ�.
-			// ��Ŷ����Ŭ������ ���ǵ� read()�� virtual ��Ŀ���� ���ؼ� ȣ��Ǿ�
-			// �ڵ������� �ʱ�ȭ�ȴ�.
+			// Initialize and read a packet from the stream, then dispatch to handler.
+			// The packet class implements read() via virtual methods so derived types
+			// can populate themselves correctly.
 			//m_pInputStream->read( pPacket );
-			// packetHeader�κ��� �ʿ����.
 			cbPacket.read( *m_pInputStream );
-			
-			// ���� �� ��Ŷ��Ʈ��ó�� ������ ��Ŷ�ڵ鷯�� �����ϸ� �ȴ�.
-			// ��Ŷ���̵� �߸��� ���� ��Ŷ�ڵ鷯�Ŵ������� ó���Ѵ�.
+
+			// Execute the parsed packet. If the id was invalid, the handler will throw.
 			//pPacket->execute( this );
 			cbPacket.execute( this );
 
-			// ��Ŷ�� �����Ѵ�
 			//delete pPacket;
 
 		}
@@ -207,7 +196,7 @@ void BillingPlayer::processCommand ()
 
 		// PacketFactoryManager::createPacket(PacketID_t)
 		// PacketFactoryManager::getPacketMaxSize(PacketID_t)
-		// ���� ���� ���ɼ��� �ִ�.
+		// could both fail.
 		throw Error( nsee.toString() );
 
 	} catch ( const InsufficientDataException& ) {
@@ -217,7 +206,7 @@ void BillingPlayer::processCommand ()
 	} 
 	__END_CATCH
 }
-		    
+                    
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -228,15 +217,8 @@ void BillingPlayer::sendPacket ( Packet * pPacket )
 {
 	__BEGIN_TRY
 
-	//m_pOutputStream->write( pPacket );	// packetHeader�� �ʿ����.
+	//m_pOutputStream->write( pPacket );    // packetHeader is unnecessary.
 	pPacket->write( *m_pOutputStream );
-
-	/*
-	cout << endl;
-	cout << "=== BillingPlayer::sendPacket() ===" << endl;
-	cout << pPacket->toString() << endl;
-	cout << "============================" << endl;
-	*/
 
 	__END_CATCH
 }
@@ -253,9 +235,8 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 
 	try 
 	{
-		// �����ϰ� �α׾ƿ��� ��쿡�� ��� ���۸� �÷����� �� �ִ�.
-		// �׷���, �ҹ����� �𽺸� �ɾ��ٸ� ������ �ݰ����Ƿ�
-		// �÷����� ��� SIG_PIPE �� �ް� �ȴ�.
+		// If the player requested a disconnect, flush any pending output first.
+		// Otherwise buffered data could trigger SIG_PIPE when the socket closes.
 		if ( bDisconnected == UNDISCONNECTED ) 
 		{
 			m_pOutputStream->flush();
@@ -268,7 +249,7 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 		cerr << "BillingPlayer::disconnect Exception Check!!" << endl;
 		cerr << t.toString() << endl;
 		m_pSocket->close();
-		//throw Error("����...");
+		//throw Error("disconnect error");
 	}
 
 	__END_CATCH
@@ -299,12 +280,12 @@ void BillingPlayer::setSocket ( Socket * pSocket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// ���� ������ ó�� �� �� ������.
+// Send the billing init packet.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayInit()
 {
 	__BEGIN_TRY
-		
+
 	CommonBillingPacket cbPacket;
 
 	BillingInfo* pBillingInfo = &cbPacket;
@@ -326,7 +307,7 @@ void BillingPlayer::sendPayInit()
 }
 
 //////////////////////////////////////////////////////////////////////
-// ĳ������ ���� ���¸� ������.
+// Check whether the character is still playing.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 {
@@ -347,7 +328,7 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 	cbPacket.setPacket_Type( BILLING_PACKET_CHECK );
 	cbPacket.setSession( pPacket->Session );
 
-	// ���� ������ �ƴ��� PlayerID�� üũ�Ѵ�.
+	// Verify whether the user is still online using PlayerID.
 #ifdef __GAME_SERVER__
 	Creature* pCreature = g_pPCFinder->getCreatureByID(PlayerID);
 	bool isPlaying = ( pCreature != NULL );
@@ -366,7 +347,6 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 		cbPacket.setExpire_Date(PlayerID);
 		cbPacket.setResult( BILLING_RESULT_CHECK_DISCONNECTED );
 
-		//filelog(LOGFILE_BILLING_PLAYER, "SEND PayCheck : Disconnected(%s, %s)", PlayerID.c_str(), cbPacket.getExpire_DateToString().c_str());
 		filelog(LOGFILE_BILLING_PLAYER, "SEND PayCheck : Disconnected(%s, %s)", PlayerID.c_str(), cbPacket.Expire_Date );
 	}
 
@@ -374,18 +354,11 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 
 	sendPacket( &cbPacket );
 
-	/*
-	cout << "[send] BillingPlayer::sendPayCheck (" << PlayerID.c_str() << ") - " << (int)isPlaying << endl;
-
-	cbPacket.setExpire_Date(PlayerID);
-	cout << "[CHECK_EXPIRE_TIME] " << cbPacket.toString().c_str() << endl;
-	*/
-
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-// ĳ���Ͱ� ���ӿ� ó�� �����Ҷ� �����°�
+// Send login billing info when a character is joining.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogin( Player* pPlayer ) 
 {
@@ -491,7 +464,7 @@ void BillingPlayer::sendPayLogin( Player* pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////
-// ĳ���Ͱ� ���ӿ��� ������ �����°�
+// Send logout billing info when a character leaves.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogout( Player* pPlayer ) 
 {
@@ -559,3 +532,4 @@ string BillingPlayer::toString () const
 
 	__END_CATCH
 }
+

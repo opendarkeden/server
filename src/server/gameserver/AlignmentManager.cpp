@@ -74,55 +74,55 @@ int AlignmentManager::getMultiplier(Alignment_t AttackerAlignment, Alignment_t D
 	Alignment AAlignmentType = getAlignmentType(AttackerAlignment);
 	Alignment DAlignmentType = getAlignmentType(DefenderAlignment);
 
-	// °ø°İÀÚÀÇ ¼ºÇâÀÌ Good, More Good ÀÌ¸é
+	// ê³µê²©ìì˜ ì„±í–¥ì´ Good, More Good ì´ë©´
 	if (AAlignmentType >= GOOD) 
 	{
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ GOOD, More Good ÀÌ¸é
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ GOOD, More Good ì´ë©´
 		if (DAlignmentType >= GOOD) 
 		{
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¼±ÀÌ¸é -2
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì„ ì´ë©´ -2
 			if (AttackerAlignment > DefenderAlignment) 
 			{
 				return -200;
 			} 
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¾ÇÀÌ¸é -3
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì•…ì´ë©´ -3
 			else if (AttackerAlignment <= DefenderAlignment) 
 			{
 				return -300;
 			}
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ NEUTRAL ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ NEUTRAL ì´ë©´,
 		else if (DAlignmentType == NEUTRAL) 
 		{
 			return -100;
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ Evil, Less Evil ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ Evil, Less Evil ì´ë©´,
 		else if (DAlignmentType <= EVIL) {
 			return 200;
 		}
 	} 
 	else if (getAlignmentType(AttackerAlignment) == NEUTRAL) 
 	{
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ GOOD, More Good ÀÌ¸é
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ GOOD, More Good ì´ë©´
 		if (DAlignmentType >= GOOD) 
 		{
 			return -300;
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ NEUTRAL ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ NEUTRAL ì´ë©´,
 		else if (DAlignmentType == NEUTRAL) 
 		{
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¼±ÀÌ¸é -1
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì„ ì´ë©´ -1
 			if (AttackerAlignment > DefenderAlignment) 
 			{
 				return -100;
 			} 
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¾ÇÀÌ¸é -2
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì•…ì´ë©´ -2
 			else if (AttackerAlignment <= DefenderAlignment) 
 			{
 				return -200;
 			}
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ Evil, Less Evil ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ Evil, Less Evil ì´ë©´,
 		else if (DAlignmentType <= EVIL) 
 		{
 			return 100;
@@ -130,25 +130,25 @@ int AlignmentManager::getMultiplier(Alignment_t AttackerAlignment, Alignment_t D
 	} 
 	else if (getAlignmentType(AttackerAlignment) <= EVIL) 
 	{
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ GOOD, More Good ÀÌ¸é
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ GOOD, More Good ì´ë©´
 		if (DAlignmentType >= GOOD) 
 		{
 			return -300;
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ NEUTRAL ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ NEUTRAL ì´ë©´,
 		else if (DAlignmentType == NEUTRAL) 
 		{
 			return -200;
 		} 
-		// ¹æ¾îÀÚÀÇ ¼ºÇâÀÌ Evil, Less Evil ÀÌ¸é,
+		// ë°©ì–´ìì˜ ì„±í–¥ì´ Evil, Less Evil ì´ë©´,
 		else if (DAlignmentType <= EVIL) 
 		{
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¼±ÀÌ¸é 2
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì„ ì´ë©´ 2
 			if (AttackerAlignment > DefenderAlignment) 
 			{
 				return 200;
 			} 
-			// °ø°İÀÚÀÇ ¼ºÇâÀÌ »ó´ë ¾ÇÀÌ¸é 1
+			// ê³µê²©ìì˜ ì„±í–¥ì´ ìƒëŒ€ ì•…ì´ë©´ 1
 			else if (AttackerAlignment <= DefenderAlignment) {
 				return 100;
 			}
@@ -185,11 +185,11 @@ BYTE AlignmentManager::getDropItemNum(Alignment_t Alignment, bool isPK)
 	}
 
 	/*
-	¾ğÁ¦ º¯°æµÈ Áö´Â ¾Ë ¼ö ¾øÁö¸¸, ¼ºÇâÀÌ ÂøÇÑ »ç¶÷ÀÌ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸®´Â
-	ÀÏÀÌ ¹ß»ıÇÏ±â ½ÃÀÛÇß´Ù. PCManager.cppÀÇ killCreature() ºÎºĞÀÇ
-	ÁÖ¼®À» Á» Áö¿ì´Ù°¡ ¿¹Àü¿¡ ¹º°¡ ÀÖ´ø °ÍÀ» ³¯¸° °Í °°Àºµ¥,
-	ÀÏ´Ü ¼ºÇâÀÌ ÂøÇÑ »ç¶÷ÀÌ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸®Áö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ ÀÌ ºÎºĞÀ»
-	ÁÖ¼®Ã³¸®ÇÑ´Ù. -- 2001.12.25 ±è¼º¹Î
+	ì–¸ì œ ë³€ê²½ëœ ì§€ëŠ” ì•Œ ìˆ˜ ì—†ì§€ë§Œ, ì„±í–¥ì´ ì°©í•œ ì‚¬ëŒì´ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¬ëŠ”
+	ì¼ì´ ë°œìƒí•˜ê¸° ì‹œì‘í–ˆë‹¤. PCManager.cppì˜ killCreature() ë¶€ë¶„ì˜
+	ì£¼ì„ì„ ì¢€ ì§€ìš°ë‹¤ê°€ ì˜ˆì „ì— ë­”ê°€ ìˆë˜ ê²ƒì„ ë‚ ë¦° ê²ƒ ê°™ì€ë°,
+	ì¼ë‹¨ ì„±í–¥ì´ ì°©í•œ ì‚¬ëŒì´ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¬ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ ì´ ë¶€ë¶„ì„
+	ì£¼ì„ì²˜ë¦¬í•œë‹¤. -- 2001.12.25 ê¹€ì„±ë¯¼
 	int Percent = getDropBonusPercentage(Alignment);
 
 	if (isPK) 

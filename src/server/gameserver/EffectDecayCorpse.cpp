@@ -26,7 +26,7 @@ EffectDecayCorpse::EffectDecayCorpse (Zone* pZone , ZoneCoord_t x , ZoneCoord_t 
 
 	m_ObjectID = pCorpse->getObjectID();
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -57,23 +57,23 @@ void EffectDecayCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 {
 	__BEGIN_TRY
 
-	// ¿Ã¹Ù¸¥ ÁÂÇ¥ÀÌ¾î¾ß ÇÑ´Ù.
+	// ì˜¬ë°”ë¥¸ ì¢Œí‘œì´ì–´ì•¼ í•œë‹¤.
 	Assert(isValidZoneCoord(pZone, x, y));
 
-	// ½ÃÃ¼¿¡ Á¢±ÙÇÑ´Ù.
+	// ì‹œì²´ì— ì ‘ê·¼í•œë‹¤.
 	if (pZone->getTile(x,y).hasItem()) 
 	{
 		Item* pItem = pZone->getTile(x,y).getItem();
 
 		if (pItem != NULL) 
 		{
-			// Å¸ÀÏÀ§¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ°í ±× ¾ÆÀÌÅÛÀÇ ¿ÀºêÁ§Æ® ¾ÆÀÌµğ°¡ ¶È°°¾Æ¾ß¸¸ ¶È °°Àº ½ÃÃ¼ÀÌ´Ù.
+			// íƒ€ì¼ìœ„ì— ì•„ì´í…œì´ ìˆê³  ê·¸ ì•„ì´í…œì˜ ì˜¤ë¸Œì íŠ¸ ì•„ì´ë””ê°€ ë˜‘ê°™ì•„ì•¼ë§Œ ë˜‘ ê°™ì€ ì‹œì²´ì´ë‹¤.
 			if (pItem->getObjectID() == m_ObjectID) 
 			{
 				Corpse* pCorpse = dynamic_cast<Corpse*>(pTarget);
 				try 
 				{
-					// ½ÃÃ¼¸¦ Á¸¿¡¼­ »èÁ¦ÇÑ´Ù.
+					// ì‹œì²´ë¥¼ ì¡´ì—ì„œ ì‚­ì œí•œë‹¤.
 					Assert(pZone->getTile(x,y).getItem() == pCorpse);
 					pZone->deleteItem(pCorpse , x, y);
 				} 
@@ -87,7 +87,7 @@ void EffectDecayCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 				gcDeleteObject.setObjectID(pCorpse->getObjectID());
 				pZone->broadcastPacket(x, y , &gcDeleteObject);
 
-				// ½ÃÃ¼ ÀÚÃ¼¸¦ »èÁ¦ÇÑ´Ù.
+				// ì‹œì²´ ìì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				SAFE_DELETE(pCorpse);
 			}
 		}

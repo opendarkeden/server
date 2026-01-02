@@ -124,12 +124,12 @@ PlayerCreature::~PlayerCreature()
 {
 	__BEGIN_TRY
 
-	// ÀÎº¥Åä¸® »èÁ¦
+	// Delete inventories and pointer-held item.
 	SAFE_DELETE(m_pInventory);
 
 	SAFE_DELETE(m_pGoodsInventory);
 
-	// ¸¶¿ì½º Æ÷ÀÎÅÍ¿Í ´Þ·ÁÀÖ´Â ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.
+	// Delete the item attached to the cursor.
 	if (m_pExtraInventorySlot != NULL)
 	{
 		Item* pItem = m_pExtraInventorySlot->getItem();
@@ -138,7 +138,7 @@ PlayerCreature::~PlayerCreature()
 			if (pItem->getItemClass() == Item::ITEM_CLASS_KEY)
 			{
 				Key* pKey = dynamic_cast<Key*>(pItem);
-				// °Á °£´ÜÇÏ°Ô ÀÌ¾È¿¡¼­ ¾Ë¾Æ¼­ Á¸¿¡¼­ Áö¿ö ÁÖµµ·Ï ÇÏÀÚ.
+				// Remove the motorcycle box directly from the zone here.
 				if (g_pParkingCenter->hasMotorcycleBox(pKey->getTarget()))
 				{
 					g_pParkingCenter->deleteMotorcycleBox(pKey->getTarget());
@@ -152,13 +152,13 @@ PlayerCreature::~PlayerCreature()
 		SAFE_DELETE(m_pExtraInventorySlot);
 	}
 
-	// º¸°üÇÔ »èÁ¦
+	// Delete stash.
 	SAFE_DELETE(m_pStash);
 
-	// ÇÃ·¡±× ¼Â »èÁ¦
+	// Delete flag set.
 	SAFE_DELETE(m_pFlagSet);
 
-	// RankBonus unordered_map »èÁ¦
+	// Delete rank bonus map entries.
 	for ( HashMapRankBonusItor itr = m_RankBonuses.begin(); itr != m_RankBonuses.end(); itr++ )
 	{
 		SAFE_DELETE( itr->second );
@@ -212,10 +212,8 @@ bool PlayerCreature::load()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛ ÇÏ³ª µî·ÏÇÏ±â
-// *** ÁÖÀÇ ***
-// ÀÌ ÇÔ¼ö¸¦ ºÎ¸£±â Àü¿¡ ¹Ýµå½Ã OR¿¡´Ù ¶ôÀ» °É¾î¾ß ÇÑ´Ù.
-// ³»ºÎÀûÀ¸·Î´Â ¶ôÀ» °ÉÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// Register a single item into the object registry.
+// NOTE: caller must lock the registry; this function does not lock internally.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
     
@@ -224,12 +222,12 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 
 	Assert(pItem != NULL);
 
-	// Item ÀÚÃ¼¿¡ ObjectID ÇÒ´ç
+	// Assign object ID to the item.
 	OR.registerObject_NOLOCKED(pItem);
-	// ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ ¸Å´ÏÀú¿¡ OID °¡ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+	// Inform time-limit manager about the new OID.
 	m_pTimeLimitItemManager->registerItem( pItem );
 
-	// º§Æ®¶ó¸é ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛµéµµ OID¸¦ ¹Þ¾Æ³õ¾Æ¾ß ÇÑ´Ù.
+	// If the item is a belt, also register contained items.
 	if (pItem->getItemClass() == Item::ITEM_CLASS_BELT)
 	{
 		Belt*       pBelt       = dynamic_cast<Belt*>(pItem);
@@ -242,7 +240,6 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 			if (pBeltItem != NULL)
 			{
 				OR.registerObject_NOLOCKED(pBeltItem);
-				// ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ ¸Å´ÏÀú¿¡ OID °¡ ¹Ù²î¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
 				m_pTimeLimitItemManager->registerItem( pBeltItem );
 			}
 		}
@@ -252,10 +249,8 @@ void PlayerCreature::registerItem(Item* pItem, ObjectRegistry& OR)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÎº¥Åä¸® ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛ µî·ÏÇÏ±â
-// *** ÁÖÀÇ ***
-// ÀÌ ÇÔ¼ö¸¦ ºÎ¸£±â Àü¿¡ ¹Ýµå½Ã OR¿¡´Ù ¶ôÀ» °É¾î¾ß ÇÑ´Ù.
-// ³»ºÎÀûÀ¸·Î´Â ¶ôÀ» °ÉÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// Register all items inside the inventory.
+// NOTE: caller must lock the registry; this function does not lock internally.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerInventory(ObjectRegistry& OR)
     
@@ -273,16 +268,15 @@ void PlayerCreature::registerInventory(ObjectRegistry& OR)
 			Item* pItem = m_pInventory->getItem(i, j);
 			if (pItem != NULL)
 			{
-				// µî·ÏµÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+				// Skip already-registered stacked items.
 				list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
 				if (itr == ItemList.end())
 				{
-					// °°Àº ¾ÆÀÌÅÛÀ» µÎ¹ø µî·ÏÇÏÁö ¾Ê±â À§ÇØ¼­
-					// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áý¾î³Ö´Â´Ù.
+					// Track to avoid double registration.
 					ItemList.push_back(pItem);
 
-					// ¾ÆÀÌÅÛÀÇ OID¸¦ ÇÒ´ç¹Þ´Â´Ù.
+					// Register and assign OID.
 					registerItem(pItem, OR);
 
 					i += pItem->getVolumeWidth() - 1;
@@ -310,19 +304,14 @@ void PlayerCreature::registerInitInventory(ObjectRegistry& OR)
 			Item* pItem = m_pInventory->getItem(i, j);
 			if (pItem != NULL)
 			{
-				// µî·ÏµÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
 				list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
 				if (itr == ItemList.end())
 				{
-					// °°Àº ¾ÆÀÌÅÛÀ» µÎ¹ø µî·ÏÇÏÁö ¾Ê±â À§ÇØ¼­
-					// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áý¾î³Ö´Â´Ù.
 					ItemList.push_back(pItem);
 
-					// ItemTrace ¸¦ ³²±æ °ÍÀÎÁö °áÁ¤
 					pItem->setTraceItem( bTraceLog( pItem ) );
 
-					// ¾ÆÀÌÅÛÀÇ OID¸¦ ÇÒ´ç¹Þ´Â´Ù.
 					registerItem(pItem, OR);
 
 					i += pItem->getVolumeWidth() - 1;
@@ -335,7 +324,6 @@ void PlayerCreature::registerInitInventory(ObjectRegistry& OR)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ ¾È¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛ µî·ÏÇÏ±â
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::registerStash(void)
 	
@@ -498,7 +486,8 @@ void PlayerCreature::whenQuestLevelUpgrade()
 		Assert(pGamePlayer!=NULL);
 
 		GCSystemMessage gcSM;
-		gcSM.setMessage( "µ±Ç°µÈ¼¶ÒÑ³¬³öµÇÂ½½ûÖ¹PKµÄ·þÎñÆ÷ÏÞÖÆ.10Ãëºó½«ÍË³ö." );
+		gcSM.setMessage( "This non-PK server is only for characters up to level 80."
+					  " You will be disconnected in 10 seconds." );
 		pGamePlayer->sendPacket( &gcSM );
 
 		bool newEvent = false;
@@ -590,7 +579,6 @@ void PlayerCreature::whenQuestLevelUpgrade()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ °¹¼ö ¼¼ÆÃÇÏ±â
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::setStashNumEx(BYTE num)
 	
@@ -629,7 +617,6 @@ void PlayerCreature::setStashNumEx(BYTE num)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ¿¡ µé¾îÀÖ´Â µ· ¼¼ÆÃÇÏ±â
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::setStashGoldEx(Gold_t gold)
 	
@@ -669,7 +656,6 @@ void PlayerCreature::setStashGoldEx(Gold_t gold)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ¿¡ µé¾îÀÖ´Â µ· ¼¼ÆÃÇÏ±â
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::increaseStashGoldEx(Gold_t gold)
 	
@@ -708,7 +694,6 @@ void PlayerCreature::increaseStashGoldEx(Gold_t gold)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ¿¡ µé¾îÀÖ´Â µ· ¼¼ÆÃÇÏ±â
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
 	
@@ -747,7 +732,7 @@ void PlayerCreature::decreaseStashGoldEx(Gold_t gold)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸°üÇÔ ¸Þ¸ð¸®¿¡¼­ »èÁ¦ÇÏ±â
+// Delete stash in memory.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::deleteStash(void)
 	
@@ -761,7 +746,7 @@ void PlayerCreature::deleteStash(void)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÃ·¡±×¼Â ¸Þ¸ð¸®¿¡¼­ »èÁ¦ÇÏ±â
+// Delete flag set in memory.
 //////////////////////////////////////////////////////////////////////////////
 void PlayerCreature::deleteFlagSet(void)
 	
@@ -774,7 +759,7 @@ void PlayerCreature::deleteFlagSet(void)
 }
 
 //----------------------------------------------------------------------
-// ¼±°øÀÚÀÇ ¸®½ºÆ®¿¡ ¼±°øÀÚ¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö
+// Add an aggressor to the aggressor list.
 //----------------------------------------------------------------------
 void PlayerCreature::addEnemy(const string& Name)
 	
@@ -783,18 +768,17 @@ void PlayerCreature::addEnemy(const string& Name)
 
 	list<string>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , Name);
 
-	// ¾ø´Ù¸é Ãß°¡ÇÏÀÚ
+	// Add if not already present.
 	if (itr == m_Enemies.end()) 
 	{
 		m_Enemies.push_back(Name);
-		//cout << "¼±°øÀÚ¸¦ Ãß°¡ÇÑ´Ù : " << Name << endl;
 	}
 
 	__END_DEBUG
 }
 
 //----------------------------------------------------------------------
-// ¼±°øÀÚÀÇ ¸®½ºÆ®¿¡ ¼±°øÀÚ¸¦ »èÁ¦ÇÏ´Â ÇÔ¼ö
+// Remove an aggressor from the aggressor list.
 //----------------------------------------------------------------------
 void PlayerCreature::deleteEnemy(const string& Name)
 	
@@ -805,14 +789,13 @@ void PlayerCreature::deleteEnemy(const string& Name)
 	if (itr != m_Enemies.end()) 
 	{
 		m_Enemies.erase(itr);
-		//cout << "¼±°øÀÚ¸¦ Áö¿î´Ù : " << Name << endl;
 	}
 
 	__END_DEBUG
 }
 
 //----------------------------------------------------------------------
-// Æ¯Á¤ ÀÌ¸§À» °¡Áø ¼±°øÀÚ°¡ ÀÌ¹Ì ÀÖ´ÂÁö ¾ø´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö.
+// Check if an aggressor with a given name exists.
 //----------------------------------------------------------------------
 bool PlayerCreature::hasEnemy(const string& Name)
 	const 
@@ -822,7 +805,6 @@ bool PlayerCreature::hasEnemy(const string& Name)
     list<string>::const_iterator itr = find(m_Enemies.begin(), m_Enemies.end() , Name);
 	if (itr != m_Enemies.end()) 
 	{
-		//cout << "¼±°øÀÚ·Î ÀÌ¹Ì ¼³Á¤ÀÌ µÇ¾îÀÖ´Ù : " << Name << endl;
 		return true;
 	} 
 	else 
@@ -834,7 +816,6 @@ bool PlayerCreature::hasEnemy(const string& Name)
 }
 
 //----------------------------------------------------------------------
-// ±æµå ÀÌ¸§À» °¡Á®¿À´Â ÇÔ¼ö
 //----------------------------------------------------------------------
 string PlayerCreature::getGuildName() const
 	
@@ -848,7 +829,6 @@ string PlayerCreature::getGuildName() const
 }
 
 //----------------------------------------------------------------------
-// ±æµå ¸â¹ö ·©Å©¸¦ °¡Á®¿À´Â ÇÔ¼ö
 //----------------------------------------------------------------------
 GuildMemberRank_t PlayerCreature::getGuildMemberRank() const
 	
@@ -993,17 +973,14 @@ bool PlayerCreature::learnRankBonus( DWORD type )
 	//__BEGIN_TRY
 	try
 	{
-	// °°Àº Rank ÀÇ Bonus °¡ ÀÖ´Ù¸é ¹è¿ï ¼ö ¾ø´Ù.
 	HashMapRankBonusConstItor itr = m_RankBonuses.begin();
 
 	RankBonusInfo* pRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo( type );
 
-	// Á¾Á· °Ë»ç. 0ÀÌ ½½·¹ÀÌ¾î. 1ÀÌ ¹ìÆÄÀÌ¾î
 	bool bValidRace = isSlayer() && pRankBonusInfo->getRace() == 0
 						|| isVampire() && pRankBonusInfo->getRace() == 1
 						|| isOusters() && pRankBonusInfo->getRace() == 2;
 
-	// °è±Þ °Ë»ç
 	if ( getRank() < pRankBonusInfo->getRank() )
 		return false;
 
@@ -1020,7 +997,6 @@ bool PlayerCreature::learnRankBonus( DWORD type )
 
 			RankBonusInfo* pLearnedRankBonusInfo = g_pRankBonusInfoManager->getRankBonusInfo( type );
 
-			// °°Àº Á¾Á·ÀÇ °°Àº ¼öÁØÀÇ ±â¼úÀº ¸ø ¹è¿î´Ù.
 			if ( pRankBonusInfo->getRace()==pLearnedRankBonusInfo->getRace())
 			{
 				return false;
@@ -1032,7 +1008,6 @@ bool PlayerCreature::learnRankBonus( DWORD type )
 
 	addRankBonus( rankBonus );
 
-	// DB ¿¡ Ãß°¡
 	Statement* pStmt = NULL;
 
 	BEGIN_DB
@@ -1116,11 +1091,9 @@ void PlayerCreature::increaseRankExp(RankExp_t Point)
 {
 	if (Point <= 0) return;
 
-	// PK Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
 	if ( g_pPKZoneInfoManager->isPKZone( getZoneID() ) )
 		return;
 
-	// ´ÙÀÌ³ª¹Í Á¸ ¾È¿¡¼­´Â °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.
 	if ( m_pZone != NULL && m_pZone->isDynamicZone() )
 		return;
 
@@ -1161,7 +1134,6 @@ void PlayerCreature::increaseRankExp(RankExp_t Point)
 		else rankExpSaveCount++;
 		setRankExpSaveCount(rankExpSaveCount);
 
-		// °è±Þ °æÇèÄ¡¸¦ º¸³»ÁØ´Ù. by sigi. 2002.9.13
 		GCModifyInformation gcModifyInformation;
 		gcModifyInformation.addLongData(MODIFY_RANK_EXP, getRankGoalExp());
 		m_pPlayer->sendPacket(&gcModifyInformation);
@@ -1216,7 +1188,7 @@ void PlayerCreature::loadGoods()
 
 	if ( m_pGoodsInventory->getNum() != 0 )
 	{
-		filelog("GoodsReload.log", "¸¶ÄÏ¾ÆÅÛ ¸®·Îµå Çß³Ä? : %s", getName().c_str() );
+		filelog("GoodsReload.log", "  ? : %s", getName().c_str() );
 		m_pGoodsInventory->clear();
 	}
 
@@ -1386,7 +1358,6 @@ string PlayerCreature::getItemName( ObjectID_t objectID )
 void PlayerCreature::addDefaultOptionSet( DefaultOptionSetType_t type )
 	
 {
-	// ÀÌ¹Ì ÀÖ´Â °ÍÀÎÁö È®ÀÎÇÑ´Ù.
 	forward_list<DefaultOptionSetType_t>::iterator itr = m_DefaultOptionSet.begin();
 	for ( ; itr != m_DefaultOptionSet.end(); itr++ )
 	{
@@ -1407,7 +1378,6 @@ void PlayerCreature::removeDefaultOptionSet( DefaultOptionSetType_t type )
 	{
 		if ( (*current) == type )
 		{
-			// ¹ß°ßÇß´Ù.
 			if ( before == m_DefaultOptionSet.end() )
 			{
 				// delete first node
@@ -1422,7 +1392,6 @@ void PlayerCreature::removeDefaultOptionSet( DefaultOptionSetType_t type )
 		}
 	}
 
-	// ¹ß°ß¸øÇß´Ù.
 }
 
 PetInfo* PlayerCreature::getPetInfo() const
@@ -1504,23 +1473,23 @@ bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus)
 
 		if ( bApplyExpBonus && isAffectExp2X() )
 		{
-			// °æÇèÄ¡ µÎ¹è
-			//exp <<= 1;
-			exp=2*exp;
+			// Double EXP effect
+			exp = exp * 2;
 		}
-		//chengh modify 2006 07 21 ,ÐÞ¸ÄÉ³Â©Ë«±¶ÎÞÐ§´íÎó
+		// chengh modify 2006-07-21: bonus EXP effect.
 		if ( isFlag( Effect::EFFECT_CLASS_BONUS_EXP ) ) 
 		{
 			exp*= 2;
 		}
 	}
 
-	cout << getName() << "¿¡°Ô ½ÂÁ÷ °æÇèÄ¡ " << (int)exp << "¸¸Å­ ÁÝ´Ï´Ù." << endl;
+	cout << getName() << " gains " << static_cast<int>(exp) << " advancement EXP." << endl;
 	Level_t prevLevel = getAdvancementClassLevel();
 	bool ret = m_pAdvancementClass->increaseExp( exp, true, true );
 	if ( getAdvancementClassLevel() > 0 ) m_bAdvanced = true;
 	Level_t nextLevel = getAdvancementClassLevel();
-	cout << getName() << "ÀÌ " << (int)prevLevel << " ¿¡¼­ " << (int)nextLevel << " ÀÌ µÇ¾ú½À´Ï´Ù." << endl;
+	cout << getName() << " advanced from " << static_cast<int>(prevLevel)
+	     << " to " << static_cast<int>(nextLevel) << "." << endl;
 
 	if ( prevLevel != nextLevel )
 	{
@@ -1531,7 +1500,8 @@ bool PlayerCreature::increaseAdvancementClassExp(Exp_t exp, bool bApplyExpBonus)
 		Level_t _5pointend = max((int)nextLevel, 50);
 
 		Bonus_t bonusdiff = (( _4pointend - _4pointstart ) * 4) + (( _5pointend - _5pointstart ) * 5);
-		cout << getName() << "¿¡°Ô " << (int)bonusdiff << "¸¸Å­ ´É·ÂÄ¡ ÁÝ´Ï´Ù." << endl;
+		cout << getName() << " receives " << static_cast<int>(bonusdiff)
+		     << " attribute points." << endl;
 		bonus += bonusdiff;
 		setBonus( bonus );
 
@@ -1595,8 +1565,8 @@ bool PlayerCreature::putAdvancedBonusToINT()
 }
 bool PlayerCreature::canChangeMasterEffectColor()
 {
-	// MasterEffectColor 5 ´Â ±æµåÀü ¿ì½ÂÀÚµéÇÑÅ× ÁÖ´Â ¸¶½ºÅÍ ÀÌÆåÆ®´Ù
-	// »óÁ¡ÀÇ ¸¶½ºÅÍ ÀÌÆåÆ® º¯È¯ ¾ÆÀÌÅÛÀ¸·Î ÀÌ ÀÌÆåÆ®¿¡¼­ ´Ù¸¥ ÀÌÆåÆ®·Î º¯°æÇÒ ¼ö ¾ø´Ù.
+	// MasterEffectColor 5 is reserved for guild war champions;
+	// it cannot be changed via shop conversion items.
 	// 2005.05.17 by bezz
 	return m_MasterEffectColor != 5;
 }

@@ -56,7 +56,7 @@ void SkillParentInfo::init ()
 //
 // SkillParentInfo::hasParent()
 //
-// Æ¯Á¤ Å¸ÀÔÀ» °¡Áö´Â ºÎ¸ğ°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+// íŠ¹ì • íƒ€ì…ì„ ê°€ì§€ëŠ” ë¶€ëª¨ê°€ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 //
 //----------------------------------------------------------------------
 bool SkillParentInfo::hasParent (SkillType_t SkillType)
@@ -91,7 +91,7 @@ bool SkillParentInfo::hasParent (SkillType_t SkillType)
 
 
 //----------------------------------------------------------------------
-// Àû ¸®½ºÆ®ÀÇ Æ¯Á¤ À§Ä¡ÀÇ Å©¸®Ã³ÀÇ ¾ÆÀÌµğ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì  ë¦¬ìŠ¤íŠ¸ì˜ íŠ¹ì • ìœ„ì¹˜ì˜ í¬ë¦¬ì²˜ì˜ ì•„ì´ë””ë¥¼ ë¦¬í„´í•œë‹¤.
 //----------------------------------------------------------------------
 SkillType_t SkillParentInfo::getParents (SkillType_t SkillType) const
 {
@@ -164,7 +164,7 @@ SkillParentInfoManager::~SkillParentInfoManager()
 {
 	__BEGIN_TRY
 
-	// ´ú Áö¿üÀ½µÕ -_-; by sigi
+	// ëœ ì§€ì› ìŒë‘¥ -_-; by sigi
 
 	SAFE_DELETE_ARRAY(m_SkillParentInfoList);
 	

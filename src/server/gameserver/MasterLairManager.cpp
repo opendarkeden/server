@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : MasterLairManager.h 
-// Written By  : ½­
+// Written By  : ì‰­
 // Description : 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -52,16 +52,16 @@ MasterLairManager::MasterLairManager (Zone* pZone)
 	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
-	m_MasterID = 0;           // ¸¶½ºÅÍ ÇÑ ¸¶¸® 
+	m_MasterID = 0;           // ë§ˆìŠ¤í„° í•œ ë§ˆë¦¬ 
 	m_MasterX = 0;
 	m_MasterY = 0;
 
-	m_bMasterReady = false;      // ¸¶½ºÅÍ°¡ ½Î¿ï ÁØºñ°¡ µÇ¾ú³ª? 
+	m_bMasterReady = false;      // ë§ˆìŠ¤í„°ê°€ ì‹¸ìš¸ ì¤€ë¹„ê°€ ë˜ì—ˆë‚˜? 
 
-	//m_nMaxSummonMonster = pInfo->getMaxSummonMonster(); // ¸¶½ºÅÍ°¡ ¼ÒÈ¯ÇÒ ÃÖ´ëÀÇ ¸ó½ºÅÍ ¼ö 
+	//m_nMaxSummonMonster = pInfo->getMaxSummonMonster(); // ë§ˆìŠ¤í„°ê°€ ì†Œí™˜í•  ìµœëŒ€ì˜ ëª¬ìŠ¤í„° ìˆ˜ 
 	//m_nSummonedMonster = 0;
 
-	m_nMaxPassPlayer = pInfo->getMaxPassPlayer(); // ÃÖ´ë ÃâÀÔ °¡´ÉÀÚ ¼ö
+	m_nMaxPassPlayer = pInfo->getMaxPassPlayer(); // ìµœëŒ€ ì¶œì… ê°€ëŠ¥ì ìˆ˜
 	m_nPassPlayer = 0;
 
 	m_Event = EVENT_WAITING_REGEN;
@@ -70,7 +70,7 @@ MasterLairManager::MasterLairManager (Zone* pZone)
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ÀÇ¹Ì¾ø´ç. - -;
+	// ì˜ë¯¸ì—†ë‹¹. - -;
 	m_EventTime.tv_sec = currentTime.tv_sec + pInfo->getFirstRegenDelay();
 	m_EventTime.tv_usec = 0;
 
@@ -103,20 +103,20 @@ MasterLairManager::~MasterLairManager ()
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Creature°¡ ÀÌ Zone(MasterLair)¿¡ µé¾î¿Ã ¼ö ÀÖ´ÂÁö Ã¼Å©ÇÏ°í
-// µé¾î¿Ã ¼ö ÀÖ´Ù¸é µé¾î¿Ô´Ù°í º¸°í Ã¼Å©ÇØµĞ´Ù.
+// Creatureê°€ ì´ Zone(MasterLair)ì— ë“¤ì–´ì˜¬ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬í•˜ê³ 
+// ë“¤ì–´ì˜¬ ìˆ˜ ìˆë‹¤ë©´ ë“¤ì–´ì™”ë‹¤ê³  ë³´ê³  ì²´í¬í•´ë‘”ë‹¤.
 //
-// [Á¶°Ç]
+// [ì¡°ê±´]
 //   - EVENT_WAITING_PLAYER, 
 //     EVENT_MINION_COMBAT, 
-//     EVENT_MASTER_COMBATÀÎ °æ¿ì¸¸ µé¾î¿Ã °¡´É¼ºÀÌ ÀÖ´Ù.
-//   - EffectMasterLairPass°¡ ÀÖ°í ÇöÀç MasterLairÀÇ °ÍÀÌ ¸Â´Â °æ¿ì´Â ¹«Á¶°Ç µé¾î¿Â´Ù.
-//   - EVENT_WAITING_PLAYER°¡ ¾Æ´Ï¸é ¸ø µé¾î¿Â´Ù.
-//   - ¸¶½ºÅÍ°¡ ¾ø´Â °æ¿ì m_nPassPlayer >= m_nMaxPassPlayerÀÎ °æ¿ì ¸ø µé¾î¿È
+//     EVENT_MASTER_COMBATì¸ ê²½ìš°ë§Œ ë“¤ì–´ì˜¬ ê°€ëŠ¥ì„±ì´ ìˆë‹¤.
+//   - EffectMasterLairPassê°€ ìˆê³  í˜„ì¬ MasterLairì˜ ê²ƒì´ ë§ëŠ” ê²½ìš°ëŠ” ë¬´ì¡°ê±´ ë“¤ì–´ì˜¨ë‹¤.
+//   - EVENT_WAITING_PLAYERê°€ ì•„ë‹ˆë©´ ëª» ë“¤ì–´ì˜¨ë‹¤.
+//   - ë§ˆìŠ¤í„°ê°€ ì—†ëŠ” ê²½ìš° m_nPassPlayer >= m_nMaxPassPlayerì¸ ê²½ìš° ëª» ë“¤ì–´ì˜´
 //
-// ÃâÀÔ °¡´ÉÇÑ Ä³¸¯ÅÍ¿¡°Ô´Â EffectMasterLairPass°¡ ¾ø´Ù¸é
-//   - m_nPassPlayer¸¦ 1Áõ°¡½ÃÅ°°í EffectMasterLairPass¸¦ ºÙ¿©ÁØ´Ù.
-//   - EffectMasterLairPassÀÇ Áö¼Ó ½Ã°£Àº EVENT_MASTER_COMBATÀÌ ³¡³ª´Â ½Ã°£±îÁöÀÌ´Ù.
+// ì¶œì… ê°€ëŠ¥í•œ ìºë¦­í„°ì—ê²ŒëŠ” EffectMasterLairPassê°€ ì—†ë‹¤ë©´
+//   - m_nPassPlayerë¥¼ 1ì¦ê°€ì‹œí‚¤ê³  EffectMasterLairPassë¥¼ ë¶™ì—¬ì¤€ë‹¤.
+//   - EffectMasterLairPassì˜ ì§€ì† ì‹œê°„ì€ EVENT_MASTER_COMBATì´ ëë‚˜ëŠ” ì‹œê°„ê¹Œì§€ì´ë‹¤.
 //
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::enterCreature(Creature* pCreature)
@@ -137,14 +137,14 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 		&& m_Event!=EVENT_MINION_COMBAT
 		&& m_Event!=EVENT_MASTER_COMBAT)
 	{
-		//cout << "[" << (int)m_pZone->getZoneID() << "] MasterLairManager: Áö±İÀº µé¾î°¥ ¼ö ¾ø´Â ¸ğµå" << endl;
+		//cout << "[" << (int)m_pZone->getZoneID() << "] MasterLairManager: ì§€ê¸ˆì€ ë“¤ì–´ê°ˆ ìˆ˜ ì—†ëŠ” ëª¨ë“œ" << endl;
 		m_Mutex.unlock();
 		return false;
 	}
 
 	EffectMasterLairPass* pPassEffect = NULL;
 
-	// ÇöÀç ZoneÀÇ EffectMasterLairPass¸¦ °®°í ÀÖ´Â°¡?
+	// í˜„ì¬ Zoneì˜ EffectMasterLairPassë¥¼ ê°–ê³  ìˆëŠ”ê°€?
 	if (pCreature->isFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
 	{
 		if (g_pVariableManager->isRetryMasterLair())
@@ -162,7 +162,7 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 				goto ENTER_OK;
 			}
 
-			// ´Ù¸¥ LairÀÇ Pass´Ù. - -;
+			// ë‹¤ë¥¸ Lairì˜ Passë‹¤. - -;
 			//cout << "[" << (int)m_pZone->getZoneID() << "] MMasterLairManager: " << pCreature->getName().c_str() << " has Wrong EffectPass" << endl;
 		}
 		else
@@ -174,7 +174,7 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 		}
 	}
 
-	// µé¾î¿Ã ¼ö ¾ø´Â °æ¿ì
+	// ë“¤ì–´ì˜¬ ìˆ˜ ì—†ëŠ” ê²½ìš°
 	if (m_Event!=EVENT_WAITING_PLAYER)
 	{
 		//cout << "[" << (int)m_pZone->getZoneID() << "] MasterLairManager: Not WAITING_PLAYER: "
@@ -194,7 +194,7 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 		return false;
 	}
 
-	// µé¾î¿Ã ¼ö ÀÖ´Ù°í ÆÇ´ÜµÈ °æ¿ì
+	// ë“¤ì–´ì˜¬ ìˆ˜ ìˆë‹¤ê³  íŒë‹¨ëœ ê²½ìš°
 	m_nPassPlayer ++;
 
 	if (pPassEffect==NULL)
@@ -219,7 +219,7 @@ bool MasterLairManager::enterCreature(Creature* pCreature)
 ENTER_OK :
 
 	/*
-	// Sniping Á¦°Å
+	// Sniping ì œê±°
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE))
 	{
         EffectManager* pEffectManager = pCreature->getEffectManager();
@@ -228,7 +228,7 @@ ENTER_OK :
 		pCreature->removeFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 	}
 
-	// InvisibilityÁ¦°Å
+	// Invisibilityì œê±°
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
 	{
         EffectManager* pEffectManager = pCreature->getEffectManager();
@@ -262,9 +262,9 @@ ENTER_OK :
 //
 ////////////////////////////////////////////////////////////////////////////////
 //
-// WaitingPlayer»óÅÂÀÌ¸é PassPlayer¸¦ ÇÏ³ª ÁÙ¿©ÁØ´Ù.
+// WaitingPlayerìƒíƒœì´ë©´ PassPlayerë¥¼ í•˜ë‚˜ ì¤„ì—¬ì¤€ë‹¤.
 //
-// ¸¶½ºÅÍ ·¹¾î¿¡ ´Ù½Ã µé¾î°¥ ¼ö ¾ø´Â »óÅÂÀÌ¸é EffectPass¸¦ ¾ø¾ÖÁØ´Ù.
+// ë§ˆìŠ¤í„° ë ˆì–´ì— ë‹¤ì‹œ ë“¤ì–´ê°ˆ ìˆ˜ ì—†ëŠ” ìƒíƒœì´ë©´ EffectPassë¥¼ ì—†ì• ì¤€ë‹¤.
 //
 ////////////////////////////////////////////////////////////////////////////////
 bool MasterLairManager::leaveCreature(Creature* pCreature)
@@ -280,14 +280,14 @@ bool MasterLairManager::leaveCreature(Creature* pCreature)
 		return true;
 	}
 
-	// waiting playerÀÎ °æ¿ì¸¸ ¼ıÀÚ¸¦ ÁÙÀÎ´Ù.
+	// waiting playerì¸ ê²½ìš°ë§Œ ìˆ«ìë¥¼ ì¤„ì¸ë‹¤.
 	if (m_Event==EVENT_WAITING_PLAYER)
 	{
 		if (m_nPassPlayer>0) m_nPassPlayer--;
 	}
 
-	// ³ª°£ °æ¿ì(Á×Àº °æ¿ì) ¸¶½ºÅÍ ·¹¾î¿¡ ´Ù½Ã µ¹¾Æ¿Ã ¼ö ¾ø´Â ¸ğµå..°¡ µÇ¾îÀÖ´Ù¸é
-	// ³ª°¥ ¶§ EffectMasterLairPass¸¦ Á¦°ÅÇÑ´Ù.
+	// ë‚˜ê°„ ê²½ìš°(ì£½ì€ ê²½ìš°) ë§ˆìŠ¤í„° ë ˆì–´ì— ë‹¤ì‹œ ëŒì•„ì˜¬ ìˆ˜ ì—†ëŠ” ëª¨ë“œ..ê°€ ë˜ì–´ìˆë‹¤ë©´
+	// ë‚˜ê°ˆ ë•Œ EffectMasterLairPassë¥¼ ì œê±°í•œë‹¤.
 	if (!g_pVariableManager->isRetryMasterLair())
 	{
 		if (pCreature->isFlag( Effect::EFFECT_CLASS_MASTER_LAIR_PASS ))
@@ -366,16 +366,16 @@ void MasterLairManager::processEventWaitingPlayer()
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ´ë±â ½Ã°£ÀÌ ³¡³ª¸é..
-	// ¸¶½ºÅÍ°¡ ¸ó½ºÅÍ¸¦ ¼ÒÈ¯ÇÏ±â ÇÏ±â ½ÃÀÛÇÑ´Ù.
+	// ëŒ€ê¸° ì‹œê°„ì´ ëë‚˜ë©´..
+	// ë§ˆìŠ¤í„°ê°€ ëª¬ìŠ¤í„°ë¥¼ ì†Œí™˜í•˜ê¸° í•˜ê¸° ì‹œì‘í•œë‹¤.
 	if (currentTime >= m_EventTime)
 	{
-		// ¸¶½ºÅÍ ·¹¾î°¡ ¿­·ÁÀÖ´Ù°í »ç¶÷µé¿¡°Ô ¾Ë·ÁÁØ´Ù.
+		// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì—´ë ¤ìˆë‹¤ê³  ì‚¬ëŒë“¤ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
 //		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //		Assert(pZoneInfo!=NULL);
 
 //		StringStream msg;
-//		msg << "¸¶½ºÅÍ ·¹¾î(" << pZoneInfo->getFullName().c_str() << ")°¡ ´İÇû½À´Ï´Ù.";
+//		msg << "ë§ˆìŠ¤í„° ë ˆì–´(" << pZoneInfo->getFullName().c_str() << ")ê°€ ë‹«í˜”ìŠµë‹ˆë‹¤.";
 
 //        char msg[50];
  //       sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_CLOSED ),
@@ -395,23 +395,23 @@ void MasterLairManager::processEventWaitingPlayer()
 
 		g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
-		// Minion°úÀÇ ½Î¿ò ½ÃÀÛ
+		// Minionê³¼ì˜ ì‹¸ì›€ ì‹œì‘
 		activeEventMinionCombat();
 	}
 	else
 	{ 
 		int remainSec = m_EventTime.tv_sec - currentTime.tv_sec;
 
-		// 1ºĞ ¸¶´Ù ÇÑ¹ø¾¿ ¾Ë¸°´Ù.
+		// 1ë¶„ ë§ˆë‹¤ í•œë²ˆì”© ì•Œë¦°ë‹¤.
 		if (remainSec!=m_EventValue && remainSec!=0 && remainSec % 60 == 0)
 		{
-			// ¸¶½ºÅÍ ·¹¾î°¡ ¿­·ÁÀÖ´Ù°í »ç¶÷µé¿¡°Ô ¾Ë·ÁÁØ´Ù.
+			// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì—´ë ¤ìˆë‹¤ê³  ì‚¬ëŒë“¤ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
 //			ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //			Assert(pZoneInfo!=NULL);
 
 //			StringStream msg;
-//			msg << "¸¶½ºÅÍ ·¹¾î(" << pZoneInfo->getFullName().c_str() << ") ÃâÀÔ °¡´É ½Ã°£ÀÌ "
-//				<< (remainSec/60) << "ºĞ ³²¾Ò½À´Ï´Ù.";
+//			msg << "ë§ˆìŠ¤í„° ë ˆì–´(" << pZoneInfo->getFullName().c_str() << ") ì¶œì… ê°€ëŠ¥ ì‹œê°„ì´ "
+//				<< (remainSec/60) << "ë¶„ ë‚¨ì•˜ìŠµë‹ˆë‹¤.";
 
 //            char msg[100];
  //           sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_OPENING_COUNT_DOWN ),
@@ -457,9 +457,9 @@ void MasterLairManager::processEventMinionCombat()
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ´ë±â ½Ã°£ÀÌ ³¡³ª¸é..
-	// ¸÷À» ´ú Á×¿´´Ù´Â ÀÇ¹ÌÀÌ¹Ç·Î..
-	// °­Á¦Ãß¹æÇÑ´Ù.
+	// ëŒ€ê¸° ì‹œê°„ì´ ëë‚˜ë©´..
+	// ëª¹ì„ ëœ ì£½ì˜€ë‹¤ëŠ” ì˜ë¯¸ì´ë¯€ë¡œ..
+	// ê°•ì œì¶”ë°©í•œë‹¤.
 	if (currentTime >= m_EventTime)
 	{
 		GCNoticeEvent gcNoticeEvent;
@@ -469,17 +469,17 @@ void MasterLairManager::processEventMinionCombat()
 		activeEventWaitingKickOut();
 	}
 
-	// ¼ÒÈ¯µÈ ¸÷ÀÌ ´Ù Á×Àº °æ¿ì¶ó¸é..
-	// ¸¶½ºÅÍ°¡ ³ª¿Í¼­ ½Î¿î´Ù.
+	// ì†Œí™˜ëœ ëª¹ì´ ë‹¤ ì£½ì€ ê²½ìš°ë¼ë©´..
+	// ë§ˆìŠ¤í„°ê°€ ë‚˜ì™€ì„œ ì‹¸ìš´ë‹¤.
 	//if (m_nSummonedMonster >= m_nMaxSummonMonster
 	if (m_bMasterReady
-		// Á¸¿¡ ¸¶½ºÅÍ È¥ÀÚ¸¸ ³²Àº °æ¿ì
+		// ì¡´ì— ë§ˆìŠ¤í„° í˜¼ìë§Œ ë‚¨ì€ ê²½ìš°
 		&& m_pZone->getMonsterManager()->getSize()==1)
 	{
 		activeEventMasterCombat();
 	}
 
-	// ÇÃ·¹ÀÌ¾îµéÀÌ ´Ù Á×Àº °æ¿ì
+	// í”Œë ˆì´ì–´ë“¤ì´ ë‹¤ ì£½ì€ ê²½ìš°
 	if (m_pZone->getPCManager()->getSize()==0)
 	{
 		activeEventWaitingRegen();
@@ -505,9 +505,9 @@ void MasterLairManager::processEventMasterCombat()
 
 	if (pMaster==NULL)
 	{
-		// ¸¶½ºÅÍ ¾îµğ°¬³ª?
+		// ë§ˆìŠ¤í„° ì–´ë””ê°”ë‚˜?
 		StringStream msg;
-		msg << "¸¶½ºÅÍ°¡ ¾ø¾îÁ³´Ù. zoneID = " << (int)m_pZone->getZoneID();
+		msg << "ë§ˆìŠ¤í„°ê°€ ì—†ì–´ì¡Œë‹¤. zoneID = " << (int)m_pZone->getZoneID();
 
 		filelog("masterLairBug.txt", "%s", msg.toString().c_str());
 			
@@ -515,14 +515,14 @@ void MasterLairManager::processEventMasterCombat()
 	}
 	else
 	{
-		// ÇöÀç ¸¶½ºÅÍÀÇ À§Ä¡
+		// í˜„ì¬ ë§ˆìŠ¤í„°ì˜ ìœ„ì¹˜
 		m_MasterX = pMaster->getX();
 		m_MasterY = pMaster->getY();
 	}
 
-	// ¸¶½ºÅÍ°¡ Á×¾ú°Å³ª
-	// ´ë±â ½Ã°£ÀÌ ³¡³ª¸é..
-	// °­Á¦Ãß¹æ ¸ğµå·Î ¹Ù²Û´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ì£½ì—ˆê±°ë‚˜
+	// ëŒ€ê¸° ì‹œê°„ì´ ëë‚˜ë©´..
+	// ê°•ì œì¶”ë°© ëª¨ë“œë¡œ ë°”ê¾¼ë‹¤.
 	if (pMaster==NULL || pMaster->isDead() )
 	{
 		killAllMonsters();
@@ -535,7 +535,7 @@ void MasterLairManager::processEventMasterCombat()
 		activeEventWaitingKickOut();
 	}
 
-	// ÇÃ·¹ÀÌ¾îµéÀÌ ´Ù Á×Àº °æ¿ì
+	// í”Œë ˆì´ì–´ë“¤ì´ ë‹¤ ì£½ì€ ê²½ìš°
 	if (m_pZone->getPCManager()->getSize()==0)
 	{
 		activeEventWaitingRegen();
@@ -557,9 +557,9 @@ void MasterLairManager::processEventWaitingKickOut()
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ´ë±â ½Ã°£ÀÌ ³¡³ª¸é 
-	//   »ç¿ëÀÚµéÀ» kickOut ½ÃÅ°°í
-	//   RegenµÇ±â¸¦ ±â´Ù¸°´Ù.
+	// ëŒ€ê¸° ì‹œê°„ì´ ëë‚˜ë©´ 
+	//   ì‚¬ìš©ìë“¤ì„ kickOut ì‹œí‚¤ê³ 
+	//   Regenë˜ê¸°ë¥¼ ê¸°ë‹¤ë¦°ë‹¤.
 	if (currentTime >= m_EventTime)
 	{
 		kickOutPlayers();
@@ -581,8 +581,8 @@ void MasterLairManager::processEventWaitingRegen()
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ¸®Á¨ ½Ã°£ÀÌ µÇ¸é 
-	//   »ç¿ëÀÚµéÀ» ±â´Ù¸°´Ù.
+	// ë¦¬ì   ì‹œê°„ì´ ë˜ë©´ 
+	//   ì‚¬ìš©ìë“¤ì„ ê¸°ë‹¤ë¦°ë‹¤.
 	if (currentTime >= m_RegenTime)
 	{
 		if (g_pVariableManager->isActiveMasterLair())
@@ -591,7 +591,7 @@ void MasterLairManager::processEventWaitingRegen()
 		}
 		else
 		{
-			// ¾Æ´Ï¸é ´ÙÀ½ ¸®Á¨ ½Ã°£±îÁö ´ë±âÇÑ´Ù.
+			// ì•„ë‹ˆë©´ ë‹¤ìŒ ë¦¬ì   ì‹œê°„ê¹Œì§€ ëŒ€ê¸°í•œë‹¤.
 			MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 			Assert(pInfo!=NULL);
 
@@ -622,14 +622,14 @@ void MasterLairManager::activeEventWaitingPlayer()
 
 	m_nPassPlayer = 0;
 
-	// 5ºĞ ´ë±â ½Ã°£
+	// 5ë¶„ ëŒ€ê¸° ì‹œê°„
 	getCurrentTime( m_RegenTime );
 	m_EventTime.tv_sec = m_RegenTime.tv_sec + pInfo->getStartDelay();
 	m_EventTime.tv_usec = m_RegenTime.tv_usec;
 	m_EventValue = 0;
 
-	// ¹Ù´Ú¿¡¼­ °è¼Ó ºÒ²ÉÀÌ ¼Ú¾Æ¿À¸¥´Ù.
-	// 3ÃÊ¸¶´Ù
+	// ë°”ë‹¥ì—ì„œ ê³„ì† ë¶ˆê½ƒì´ ì†Ÿì•„ì˜¤ë¥¸ë‹¤.
+	// 3ì´ˆë§ˆë‹¤
 	int lairAttackTick = pInfo->getLairAttackTick();
 	int lairAttackMinNumber = pInfo->getLairAttackMinNumber();
 	int lairAttackMaxNumber = pInfo->getLairAttackMaxNumber();
@@ -638,8 +638,8 @@ void MasterLairManager::activeEventWaitingPlayer()
 
 	if (lairAttackMinNumber>0 && lairAttackMaxNumber>0)
 	{
-		// ±âÁ¸¿¡ ÀÖ´ø °ø°İ Effect¸¦ ¸ğµÎ Áö¿î´Ù.
-		for (int i=0; i<10; i++) // ¹«ÇÑ·çÇÁ ¹æÁö -_-;
+		// ê¸°ì¡´ì— ìˆë˜ ê³µê²© Effectë¥¼ ëª¨ë‘ ì§€ìš´ë‹¤.
+		for (int i=0; i<10; i++) // ë¬´í•œë£¨í”„ ë°©ì§€ -_-;
 		{
 			Effect* pOldEffect = m_pZone->findEffect( Effect::EFFECT_CLASS_CONTINUAL_GROUND_ATTACK );
 			if (pOldEffect==NULL)
@@ -655,23 +655,23 @@ void MasterLairManager::activeEventWaitingPlayer()
 		ObjectRegistry & objectregister = m_pZone->getObjectRegistry();
 		objectregister.registerObject(pEffect);
 
-		// Á¸¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+		// ì¡´ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
 		m_pZone->addEffect( pEffect );
 
-		// ºÒ±âµÕ
+		// ë¶ˆê¸°ë‘¥
 		GCNoticeEvent gcNoticeEvent;
 		gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK );
-		gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// ÃÊ
+		gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// ì´ˆ
 
 		m_pZone->broadcastPacket( &gcNoticeEvent );
 	}
 
-	// ¸¶½ºÅÍ ·¹¾î°¡ ¿­·È´Ù°í »ç¶÷µé¿¡°Ô ¾Ë·ÁÁØ´Ù.
+	// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì—´ë ¸ë‹¤ê³  ì‚¬ëŒë“¤ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
 //	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( m_pZone->getZoneID() );
 //	Assert(pZoneInfo!=NULL);
 
 //	StringStream msg;
-//	msg << "¸¶½ºÅÍ ·¹¾î(" << pZoneInfo->getFullName().c_str() << ")°¡ ¿­·È½À´Ï´Ù.";
+//	msg << "ë§ˆìŠ¤í„° ë ˆì–´(" << pZoneInfo->getFullName().c_str() << ")ê°€ ì—´ë ¸ìŠµë‹ˆë‹¤.";
 
 //    char msg[50];
  //   sprintf( msg, g_pStringPool->c_str( STRID_MASTER_LAIR_OPENED ),
@@ -691,7 +691,7 @@ void MasterLairManager::activeEventWaitingPlayer()
 
 	g_pZoneGroupManager->broadcast( &gcNoticeEvent );
 
-	// ´ÙÀ½ ¸®Á¨ ½Ã°£ ¼³Á¤
+	// ë‹¤ìŒ ë¦¬ì   ì‹œê°„ ì„¤ì •
 	m_RegenTime.tv_sec += pInfo->getRegenDelay();
 
 	m_Event = EVENT_WAITING_PLAYER;
@@ -714,7 +714,7 @@ void MasterLairManager::activeEventMinionCombat()
 	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
-	// ºÒ±âµÕ ³¡³µ´Ù´Â ½ÅÈ£
+	// ë¶ˆê¸°ë‘¥ ëë‚¬ë‹¤ëŠ” ì‹ í˜¸
 	GCNoticeEvent gcNoticeEvent;
 	gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK_END );
 	m_pZone->broadcastPacket( &gcNoticeEvent );
@@ -724,41 +724,41 @@ void MasterLairManager::activeEventMinionCombat()
 	m_pZone->broadcastPacket( &gcNoticeEvent );
 
 
-	// tile¿¡¼­´Â Áö¿ì°í packetÀº ¾È º¸³½´Ù.
+	// tileì—ì„œëŠ” ì§€ìš°ê³  packetì€ ì•ˆ ë³´ë‚¸ë‹¤.
 	deleteAllMonsters();
 
-	// ¸¶½ºÅÍ »ı¼º
+	// ë§ˆìŠ¤í„° ìƒì„±
 	Monster* pMaster = new Monster( pInfo->getMasterNotReadyMonsterType() );
 	Assert(pMaster != NULL);
 
-	// ½ÃÃ¼¿¡¼­ ¾ÆÀÌÅÛÀÌ ¾È ³ª¿Àµµ·Ï ÇÑ´Ù.
+	// ì‹œì²´ì—ì„œ ì•„ì´í…œì´ ì•ˆ ë‚˜ì˜¤ë„ë¡ í•œë‹¤.
 	pMaster->setTreasure( false );
 
-	// ¹«Àû »óÅÂ·Î ¼³Á¤
+	// ë¬´ì  ìƒíƒœë¡œ ì„¤ì •
 	pMaster->setFlag(Effect::EFFECT_CLASS_NO_DAMAGE);
 
-	// ¸¶½ºÅÍ¸¦ »ı¼ºÇØ ³õÀ¸¸é
-	// ¸¶½ºÅÍ°¡ ¾Ë¾Æ¼­ ¸ó½ºÅÍ¸¦ ¼ÒÈ¯ÇÏ°Ô µÈ´Ù.
+	// ë§ˆìŠ¤í„°ë¥¼ ìƒì„±í•´ ë†“ìœ¼ë©´
+	// ë§ˆìŠ¤í„°ê°€ ì•Œì•„ì„œ ëª¬ìŠ¤í„°ë¥¼ ì†Œí™˜í•˜ê²Œ ëœë‹¤.
 
 	try
 	{
 		m_pZone->addCreature(pMaster, pInfo->getMasterX(), pInfo->getMasterY(), pInfo->getMasterDir());
 
-		// ObjectID¸¦ ±â¾ïÇØµÎ°í ÀĞ¾î¼­ »ç¿ëÇÑ´Ù.
+		// ObjectIDë¥¼ ê¸°ì–µí•´ë‘ê³  ì½ì–´ì„œ ì‚¬ìš©í•œë‹¤.
 		m_MasterID = pMaster->getObjectID();
 	}
 	catch (EmptyTileNotExistException&)
 	{
-		// ¸¶½ºÅÍ°¡ µé¾î°¥ ÀÚ¸®°¡ ¾ø´Ù°í? -_-;
+		// ë§ˆìŠ¤í„°ê°€ ë“¤ì–´ê°ˆ ìë¦¬ê°€ ì—†ë‹¤ê³ ? -_-;
 		SAFE_DELETE(pMaster);
 	}
 
-	//m_nSummonedMonster = 0;  // ¸¶½ºÅÍ°¡ ¼ÒÈ¯ÇÑ ¸ó½ºÅÍ ¼ö 
+	//m_nSummonedMonster = 0;  // ë§ˆìŠ¤í„°ê°€ ì†Œí™˜í•œ ëª¬ìŠ¤í„° ìˆ˜ 
 
 	m_Event = EVENT_MINION_COMBAT;
 	m_EventValue = 0;
 
-	// ¾ğÁ¦±îÁö ½Î¿ï±î?
+	// ì–¸ì œê¹Œì§€ ì‹¸ìš¸ê¹Œ?
 	getCurrentTime( m_EventTime );
 	m_EventTime.tv_sec += pInfo->getEndDelay();
 
@@ -778,7 +778,7 @@ void MasterLairManager::activeEventMasterCombat()
 	__BEGIN_TRY
 
 	Creature* pMaster = m_pZone->getMonsterManager()->getCreature( m_MasterID );
-	// ¿©±â¼­ ¸¶½ºÅÍ °ü·Ã ÇÏµåÄÚµùÀ» ÇØµµ µÇ°ÚÁö. - -;
+	// ì—¬ê¸°ì„œ ë§ˆìŠ¤í„° ê´€ë ¨ í•˜ë“œì½”ë”©ì„ í•´ë„ ë˜ê² ì§€. - -;
 
 	if (pMaster!=NULL)
 	{
@@ -787,49 +787,49 @@ void MasterLairManager::activeEventMasterCombat()
 
 		Monster* pMasterMonster = dynamic_cast<Monster*>(pMaster);
 
-		// ¼ÒÈ¯ ´Ü°èÀÇ ¸¶½ºÅÍ ´ë½Å¿¡ Á÷Á¢ ½Î¿ì´Â ¸¶½ºÅÍ ¸ó½ºÅÍ·Î ¹Ù²Û´Ù.
+		// ì†Œí™˜ ë‹¨ê³„ì˜ ë§ˆìŠ¤í„° ëŒ€ì‹ ì— ì§ì ‘ ì‹¸ìš°ëŠ” ë§ˆìŠ¤í„° ëª¬ìŠ¤í„°ë¡œ ë°”ê¾¼ë‹¤.
 		if (pInfo->getMasterMonsterType()!=pMasterMonster->getMonsterType())
 		{
-		  	// ¸¶½ºÅÍ »ı¼º
+		  	// ë§ˆìŠ¤í„° ìƒì„±
 			Monster* pNewMaster = new Monster( pInfo->getMasterMonsterType() );
 			Assert(pNewMaster != NULL);
 
-			// ½ÃÃ¼¿¡¼­ ¾ÆÀÌÅÛÀÌ ¾È ³ª¿Àµµ·Ï ÇÑ´Ù.
+			// ì‹œì²´ì—ì„œ ì•„ì´í…œì´ ì•ˆ ë‚˜ì˜¤ë„ë¡ í•œë‹¤.
 			pNewMaster->setTreasure( false );
 
 			try
 			{
 				m_pZone->addCreature(pNewMaster, pInfo->getSummonX(), pInfo->getSummonY(), pMaster->getDir());
 
-				// ObjectID¸¦ ±â¾ïÇØµÎ°í ÀĞ¾î¼­ »ç¿ëÇÑ´Ù.
+				// ObjectIDë¥¼ ê¸°ì–µí•´ë‘ê³  ì½ì–´ì„œ ì‚¬ìš©í•œë‹¤.
 				m_MasterID = pNewMaster->getObjectID();
 			}
 			catch (EmptyTileNotExistException&)
 			{
 				m_MasterID = 0;
 
-				// ¸¶½ºÅÍ°¡ µé¾î°¥ ÀÚ¸®°¡ ¾ø´Ù°í? -_-;
+				// ë§ˆìŠ¤í„°ê°€ ë“¤ì–´ê°ˆ ìë¦¬ê°€ ì—†ë‹¤ê³ ? -_-;
 				SAFE_DELETE(pNewMaster);
 			}
 
-			// NotReady»óÅÂÀÇ Master¸¦ ±×³É ³²°Ü µÎ´Â °æ¿ì
+			// NotReadyìƒíƒœì˜ Masterë¥¼ ê·¸ëƒ¥ ë‚¨ê²¨ ë‘ëŠ” ê²½ìš°
 			if (pInfo->isMasterRemainNotReady())
 			{
 				ZoneCoord_t cx = pMasterMonster->getX();
 				ZoneCoord_t cy = pMasterMonster->getY();
 
-			 	// ¸ÕÀú ¹Ù´Ú¿¡ ¾²·¯¶ß¸®¶ó°í, ÀÌÆåÆ®¸¦ »Ñ¸°´Ù.
+			 	// ë¨¼ì € ë°”ë‹¥ì— ì“°ëŸ¬ëœ¨ë¦¬ë¼ê³ , ì´í™íŠ¸ë¥¼ ë¿Œë¦°ë‹¤.
 			   	GCAddEffect gcAddEffect;
 			    gcAddEffect.setObjectID(pMasterMonster->getObjectID());
 			    gcAddEffect.setEffectID(Effect::EFFECT_CLASS_COMA);
 				gcAddEffect.setDuration(0);
 			    m_pZone->broadcastPacket(cx, cy, &gcAddEffect);
 
-				// AI¸¸ Á¦°ÅÇÏ°í ±×´ë·Î µĞ´Ù.
+				// AIë§Œ ì œê±°í•˜ê³  ê·¸ëŒ€ë¡œ ë‘”ë‹¤.
 				pMasterMonster->removeBrain();
 
 				/*
-				// ¾ÆÀÌÅÛÀ¸·Î ³²°ÜµÑ·¨´Âµ¥.. AIÁ¦°ÅÇÏ°í ±×³É µÎ´Â°Ô ³ªÀ»°Å °°¾Æ¼­
+				// ì•„ì´í…œìœ¼ë¡œ ë‚¨ê²¨ë‘˜ë¬ëŠ”ë°.. AIì œê±°í•˜ê³  ê·¸ëƒ¥ ë‘ëŠ”ê²Œ ë‚˜ì„ê±° ê°™ì•„ì„œ
 				m_pZone->deleteCreature( pMaster, pMaster->getX(), pMaster->getY() );
 
 				ZoneCoord_t cx = pMasterMonster->getX();
@@ -839,13 +839,13 @@ void MasterLairManager::activeEventMasterCombat()
 
 				bool bCreateCorpse = true;
 
-				// ½ÃÃ¼¸¦ Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù. ÇöÀç Å¸ÀÏ¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÑ´Ù¸é,
+				// ì‹œì²´ë¥¼ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤. í˜„ì¬ íƒ€ì¼ì— ì•„ì´í…œì´ ì¡´ì¬í•œë‹¤ë©´,
 				if (tile.hasItem())
 				{
 					bCreateCorpse = false;
 				}
 
-				// Zone¿¡ ½ÃÃ¼(°ü)¸¦ Ãß°¡ÇÑ´Ù.
+				// Zoneì— ì‹œì²´(ê´€)ë¥¼ ì¶”ê°€í•œë‹¤.
 				if (bCreateCorpse)
 				{
 					Timeval currentTime;
@@ -875,12 +875,12 @@ void MasterLairManager::activeEventMasterCombat()
 		}
 		else
 		{
-			// ¹«Àû »óÅÂ ÇØÁ¦
-			// ¿ø·¡ ÀÖ´ø ¸¶½ºÅÍ°¡ »õ ¸¶½ºÅÍ·Î ´ëÃ¼µÇÁö ¾Ê°í Á÷Á¢ ½Î¿ì°Ô ÇÏ¸é ±×Àü¿¡ ¸¶½ºÅÍ°¡ ¹«ÀûÀÌ¾úÀ¸¹Ç·Î
-			// ¹«ÀûÀ» Ç®¾îÁà¾ß ÇÑ´Ù. »õ ¸¶½ºÅÍ°¡ ½Î¿ì°Ô ÇÏ·Á¸é ¿ø·¡ ¸¶½ºÅÍ´Â NO_DAMAGE»óÅÂ·Î ³²¾ÆÀÖ¾î¾ß ÇÑ´Ù.
-			// Å×ÆäÁî·¹¾î¿¡¼­ ¿ø·¡ ¸¶½ºÅÍ°¡ Å×ÆäÁî °üÀÎµ¥ ÀÌ°Å ³Ê¹« ÀÏÂï Ç®¾îÁÖ´Â ¹Ù¶÷¿¡ Å×ÆäÁî °üÀÌ NO_DAMAGE
-			// °¡ Ç®·Á¼­ Å×ÆäÁî °üÀ» ¶§·Á¼­ °æÇèÄ¡¸¦ ¾òÀ» ¼ö ÀÖ°Ô µÇ´Â ¹ö±×°¡ ÀÖ¾ú´Ù.
-			// ÀÌ ifÀı µé¾î¿À±â Àü¿¡ ÀÖ¾ú´ø °ÍÀ» else Àı·Î ¿Å±ä´Ù. 2003. 1.16. by Sequoia
+			// ë¬´ì  ìƒíƒœ í•´ì œ
+			// ì›ë˜ ìˆë˜ ë§ˆìŠ¤í„°ê°€ ìƒˆ ë§ˆìŠ¤í„°ë¡œ ëŒ€ì²´ë˜ì§€ ì•Šê³  ì§ì ‘ ì‹¸ìš°ê²Œ í•˜ë©´ ê·¸ì „ì— ë§ˆìŠ¤í„°ê°€ ë¬´ì ì´ì—ˆìœ¼ë¯€ë¡œ
+			// ë¬´ì ì„ í’€ì–´ì¤˜ì•¼ í•œë‹¤. ìƒˆ ë§ˆìŠ¤í„°ê°€ ì‹¸ìš°ê²Œ í•˜ë ¤ë©´ ì›ë˜ ë§ˆìŠ¤í„°ëŠ” NO_DAMAGEìƒíƒœë¡œ ë‚¨ì•„ìˆì–´ì•¼ í•œë‹¤.
+			// í…Œí˜ì¦ˆë ˆì–´ì—ì„œ ì›ë˜ ë§ˆìŠ¤í„°ê°€ í…Œí˜ì¦ˆ ê´€ì¸ë° ì´ê±° ë„ˆë¬´ ì¼ì° í’€ì–´ì£¼ëŠ” ë°”ëŒì— í…Œí˜ì¦ˆ ê´€ì´ NO_DAMAGE
+			// ê°€ í’€ë ¤ì„œ í…Œí˜ì¦ˆ ê´€ì„ ë•Œë ¤ì„œ ê²½í—˜ì¹˜ë¥¼ ì–»ì„ ìˆ˜ ìˆê²Œ ë˜ëŠ” ë²„ê·¸ê°€ ìˆì—ˆë‹¤.
+			// ì´ ifì ˆ ë“¤ì–´ì˜¤ê¸° ì „ì— ìˆì—ˆë˜ ê²ƒì„ else ì ˆë¡œ ì˜®ê¸´ë‹¤. 2003. 1.16. by Sequoia
 			pMaster->removeFlag(Effect::EFFECT_CLASS_NO_DAMAGE);
 		}
 	}
@@ -906,7 +906,7 @@ void MasterLairManager::activeEventWaitingKickOut()
 	MasterLairInfo* pInfo = g_pMasterLairInfoManager->getMasterLairInfo( m_pZone->getZoneID() );
 	Assert(pInfo!=NULL);
 
-	// ¸¶½ºÅÍ°¡ ¾È Á×¾ú´Ù¸é ¸Ş¼¼Áö Ãâ·Â
+	// ë§ˆìŠ¤í„°ê°€ ì•ˆ ì£½ì—ˆë‹¤ë©´ ë©”ì„¸ì§€ ì¶œë ¥
 	Creature* pMaster = m_pZone->getMonsterManager()->getCreature( m_MasterID );
 
 	if (pMaster!=NULL && pMaster->isAlive())
@@ -919,14 +919,14 @@ void MasterLairManager::activeEventWaitingKickOut()
 			m_pZone->broadcastPacket(pMaster->getX(), pMaster->getY(), &gcSay);
 	}
 	
-    // ¾ÈÀÇ »ç¿ëÀÚµéÀ» ¹ÛÀ¸·Î ³»º¸³»´Â ½Ã°£ 
+    // ì•ˆì˜ ì‚¬ìš©ìë“¤ì„ ë°–ìœ¼ë¡œ ë‚´ë³´ë‚´ëŠ” ì‹œê°„ 
 	m_Event = EVENT_WAITING_KICK_OUT;
 	m_EventValue = 0;
 
 	getCurrentTime( m_EventTime );
 	m_EventTime.tv_sec += pInfo->getKickOutDelay();
 
-	// LairÀÇ À¯Àúµé¿¡°Ô Á¾·á ½Ã°£À» º¸³»ÁØ´Ù.
+	// Lairì˜ ìœ ì €ë“¤ì—ê²Œ ì¢…ë£Œ ì‹œê°„ì„ ë³´ë‚´ì¤€ë‹¤.
 	GCNoticeEvent gcNoticeEvent;
 	gcNoticeEvent.setCode( NOTICE_EVENT_KICK_OUT_FROM_ZONE );
 	gcNoticeEvent.setParameter( pInfo->getKickOutDelay() );
@@ -950,7 +950,7 @@ void MasterLairManager::activeEventWaitingRegen()
 
 	deleteAllMonsters();
 
-	// EffectContinualGroundAttack¸¦ ²¨ÁØ´Ù.
+	// EffectContinualGroundAttackë¥¼ êº¼ì¤€ë‹¤.
 
 	//m_nSummonedMonster = 0;
 	m_nPassPlayer = 0;
@@ -975,7 +975,7 @@ void MasterLairManager::deleteAllMonsters()
 {
 	__BEGIN_TRY
 
-	// ZoneÀÇ MonsterManager¿¡¼­ Á¦°ÅÇÑ ´ÙÀ½¿¡ Áö¿öÁØ´Ù.
+	// Zoneì˜ MonsterManagerì—ì„œ ì œê±°í•œ ë‹¤ìŒì— ì§€ì›Œì¤€ë‹¤.
 	//m_pZone->getMonsterManager()->deleteCreature( m_pMaster->getObjectID() );
 	//SAFE_DELETE(m_pMaster);
 	bool bDeleteFromZone = true;
@@ -998,14 +998,14 @@ void MasterLairManager::killAllMonsters()
 {
 	__BEGIN_TRY
 
-	// ÀÌ ºÎºĞ¿¡ ¹º°¡ ¹®Á¦°¡ ÀÖ´Â°Å °°¾Æ Á¦°ÅÇÑ´Ù.
+	// ì´ ë¶€ë¶„ì— ë­”ê°€ ë¬¸ì œê°€ ìˆëŠ”ê±° ê°™ì•„ ì œê±°í•œë‹¤.
 
 	/*
-	// °­Á¦·Î Á×ÀÌÁö ¾ÊÀ» ¸ó½ºÅÍ
+	// ê°•ì œë¡œ ì£½ì´ì§€ ì•Šì„ ëª¬ìŠ¤í„°
 	unordered_map<ObjectID_t, ObjectID_t> exceptCreatures;
 	exceptCreatures[m_MasterID] = m_MasterID;
 
-	// ¸ğµç ¸ó½ºÅÍ¸¦ Á×ÀÎ´Ù.
+	// ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ ì£½ì¸ë‹¤.
 	m_pZone->getMonsterManager()->killAllMonsters( exceptCreatures );
 	*/
 
@@ -1082,13 +1082,13 @@ void MasterLairManager::kickOutPlayers()
 
 	//cout << "[kickOut] " << (int)zoneID << ": "<< (int)zoneX << ", " << (int)zoneY << endl;
 
-	// Á¸ÀÇ ¸ğµç »ç¿ëÀÚµéÀ» ´Ù¸¥ °÷À¸·Î ÀÌµ¿½ÃÅ²´Ù.
+	// ì¡´ì˜ ëª¨ë“  ì‚¬ìš©ìë“¤ì„ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
 	PCManager* pPCManager = (PCManager*)(m_pZone->getPCManager());
 	pPCManager->transportAllCreatures( zoneID, zoneX, zoneY );
 	*/
 
 
-	// Ãß¹æ ½Ã°£ ÈÄ¿¡´Â ¸ŞÅ×¿À °ø°İ
+	// ì¶”ë°© ì‹œê°„ í›„ì—ëŠ” ë©”í…Œì˜¤ ê³µê²©
 	int lairAttackTick = pInfo->getLairAttackTick();
 	int lairAttackMinNumber = pInfo->getLairAttackMinNumber();
 	int lairAttackMaxNumber = pInfo->getLairAttackMaxNumber();
@@ -1100,13 +1100,13 @@ void MasterLairManager::kickOutPlayers()
 	ObjectRegistry & objectregister = m_pZone->getObjectRegistry();
 	objectregister.registerObject(pEffect);
 
-	// Á¸¿¡´Ù°¡ ÀÌÆåÆ®¸¦ Ãß°¡ÇÑ´Ù.
+	// ì¡´ì—ë‹¤ê°€ ì´í™íŠ¸ë¥¼ ì¶”ê°€í•œë‹¤.
 	m_pZone->addEffect( pEffect );
 
-	// ¸ŞÅ×¿À °ø°İ
+	// ë©”í…Œì˜¤ ê³µê²©
 	GCNoticeEvent gcNoticeEvent;
 	gcNoticeEvent.setCode( NOTICE_EVENT_CONTINUAL_GROUND_ATTACK );
-	gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// ÃÊ
+	gcNoticeEvent.setParameter( pInfo->getStartDelay() );	// ì´ˆ
 
 	m_pZone->broadcastPacket( &gcNoticeEvent );
 
@@ -1118,10 +1118,10 @@ void MasterLairManager::kickOutPlayers()
 // give Killing Reward
 //
 ////////////////////////////////////////////////////////////////////////////////
-// ¸¶½ºÅÍ°¡ Á×¾úÀ»¶§ÀÇ º¸»ó
-// Áö±İÀº QuestItemÀ» ÇöÀç Á¸ÀÇ »ç¶÷µé¿¡°Ô °¢ÀÚÀÇ ÀÎº¥Åä¸®¿¡ ³Ö¾îÁØ´Ù.
-// ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø´Â °æ¿ì¿£ ¹Ù´Ú¿¡ ¶³¾î¶ß¸®´Âµ¥
-// ÀÌ¹Ì °¡Áö°í ÀÖ´Â »ç¶÷Àº ÁÖ¿ï ¼ö ¾ø´Ù.
+// ë§ˆìŠ¤í„°ê°€ ì£½ì—ˆì„ë•Œì˜ ë³´ìƒ
+// ì§€ê¸ˆì€ QuestItemì„ í˜„ì¬ ì¡´ì˜ ì‚¬ëŒë“¤ì—ê²Œ ê°ìì˜ ì¸ë²¤í† ë¦¬ì— ë„£ì–´ì¤€ë‹¤.
+// ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ì—†ëŠ” ê²½ìš°ì—” ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦¬ëŠ”ë°
+// ì´ë¯¸ ê°€ì§€ê³  ìˆëŠ” ì‚¬ëŒì€ ì£¼ìš¸ ìˆ˜ ì—†ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void MasterLairManager::giveKillingReward() 
 	
@@ -1135,7 +1135,7 @@ void MasterLairManager::giveKillingReward()
 	if (creatures.empty())
 		return;
 
-	int goodOneIndex = rand()%creatures.size();	// Ææ´øÆ®¸¦ °¡Áú »ç¶÷Àº ´©±¸ÀÏ±î?
+	int goodOneIndex = rand()%creatures.size();	// íœë˜íŠ¸ë¥¼ ê°€ì§ˆ ì‚¬ëŒì€ ëˆ„êµ¬ì¼ê¹Œ?
 
 	ItemType_t itemType;
 	int i;
@@ -1149,9 +1149,9 @@ void MasterLairManager::giveKillingReward()
 			Inventory* pInventory = pPC->getInventory();
 
 			//------------------------------------------------------------
-			// °è±Ş °æÇèÄ¡¸¦ ¿Ã·ÁÁØ´Ù.
+			// ê³„ê¸‰ ê²½í—˜ì¹˜ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 			//------------------------------------------------------------
-			// ¸¶½ºÅÍ À§Ä¡¿Í 7Å¸ÀÏ ÀÌ³»¿¡ ÀÌ´Â °æ¿ì
+			// ë§ˆìŠ¤í„° ìœ„ì¹˜ì™€ 7íƒ€ì¼ ì´ë‚´ì— ì´ëŠ” ê²½ìš°
 			//
 			if (pPC->getDistance(m_MasterX, m_MasterY) <= 7)
 			{
@@ -1159,25 +1159,25 @@ void MasterLairManager::giveKillingReward()
 			}
 
 			//------------------------------------------------------------
-			// º¸»ó ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+			// ë³´ìƒ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 			//------------------------------------------------------------
-			// ÇÏµå. - -;
+			// í•˜ë“œ. - -;
 			switch (m_pZone->getZoneID())
 			{
-				// ¹ÙÅä¸®·¹¾î & Å¬·Ğ
+				// ë°”í† ë¦¬ë ˆì–´ & í´ë¡ 
 				case 1104 :
 				case 1106 :
 					itemType = ((goodOneIndex==i)? 1:0);
 				break;
 
-				// Å×ÆäÁî ·¹¾î & Å¬·Ğ
+				// í…Œí˜ì¦ˆ ë ˆì–´ & í´ë¡ 
 				case 1114 :
 				case 1115 :
 					itemType = ((goodOneIndex==i)? 3:2);
 				break;
 
 				default :
-					filelog("MasterLairBUG.txt", "ZoneID°¡ Àß¸øµÇ¾ú½À´Ï´Ù");
+					filelog("MasterLairBUG.txt", "ZoneIDê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤");
 				return;
 
 			}
@@ -1187,23 +1187,23 @@ void MasterLairManager::giveKillingReward()
  
 			(m_pZone->getObjectRegistry()).registerObject(pItem);
 
-			// ÀÎº¥Åä¸®ÀÇ ºó °÷À» Ã£´Â´Ù.
+			// ì¸ë²¤í† ë¦¬ì˜ ë¹ˆ ê³³ì„ ì°¾ëŠ”ë‹¤.
 			_TPOINT p;
 			if (pInventory->getEmptySlot(pItem, p))
 			{
-				// ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÑ´Ù.
+				// ì¸ë²¤í† ë¦¬ì— ì¶”ê°€í•œë‹¤.
 				pInventory->addItem(p.x, p.y, pItem);
 
 	            pItem->create(pCreature->getName(), STORAGE_INVENTORY, 0, p.x, p.y);
 
-				// ItemTrace ¿¡ Log ¸¦ ³²±ä´Ù
+				// ItemTrace ì— Log ë¥¼ ë‚¨ê¸´ë‹¤
 				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					remainTraceLog( pItem, "LairMaster", pCreature->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
 					remainTraceLogNew( pItem, pCreature->getName(), ITL_GET, ITLD_EVENTNPC, m_pZone->getZoneID() );
 				}
 
-				// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛ »ı¼º ÆĞÅ¶À» º¸³»ÁØ´Ù.
+				// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œ ìƒì„± íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.
 				GCCreateItem gcCreateItem;
 
 				makeGCCreateItem( &gcCreateItem, pItem, p.x, p.y );
@@ -1212,14 +1212,14 @@ void MasterLairManager::giveKillingReward()
 			}
 			else
 			{
-				// ÀÎº¥Åä¸®¿¡ ÀÚ¸®°¡ ¾ø¾î¼­ ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+				// ì¸ë²¤í† ë¦¬ì— ìë¦¬ê°€ ì—†ì–´ì„œ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
 
 				TPOINT p = m_pZone->addItem(pItem, pCreature->getX(), pCreature->getY());
 				if (p.x != -1)
 				{
 					pItem->create("", STORAGE_ZONE, m_pZone->getZoneID(), p.x, p.y );
 
-					// ItemTrace ¿¡ Log ¸¦ ³²±ä´Ù
+					// ItemTrace ì— Log ë¥¼ ë‚¨ê¸´ë‹¤
 					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
@@ -1236,7 +1236,7 @@ void MasterLairManager::giveKillingReward()
 		}
 		else
 		{
-			throw Error("PCManager¿¡ PC¾Æ´Ñ°Ô µé¾îÀÖ³ë -_-");
+			throw Error("PCManagerì— PCì•„ë‹Œê²Œ ë“¤ì–´ìˆë…¸ -_-");
 		}
 	}
 
@@ -1252,11 +1252,11 @@ string MasterLairManager::toString() const
 
 	switch (m_Event)
 	{
-		case EVENT_WAITING_PLAYER :     // »ç¶÷µéÀÌ µé¾î¿À±æ ±â´Ù¸°´Ù.
+		case EVENT_WAITING_PLAYER :     // ì‚¬ëŒë“¤ì´ ë“¤ì–´ì˜¤ê¸¸ ê¸°ë‹¤ë¦°ë‹¤.
 			msg << "WAITING_PLAYER, ";
 		break;
 
-		case EVENT_MINION_COMBAT:      // ¼ÒÈ¯µÈ ¸ó½ºÅÍ¿Í ½Î¿î´Ù.
+		case EVENT_MINION_COMBAT:      // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ì™€ ì‹¸ìš´ë‹¤.
 			msg << "MINION_COMBAT, ";
 		break;
 
@@ -1264,11 +1264,11 @@ string MasterLairManager::toString() const
 			msg << "MASTER_COMBAT, ";
 		break;
 
-		case EVENT_WAITING_KICK_OUT:    // »ç¿ëÀÚ °­Á¦Ãß¹æ ´ë±â(¸¶½ºÅÍ ÀâÀº °æ¿ìÀÇ Á¤¸® ½Ã°£)
+		case EVENT_WAITING_KICK_OUT:    // ì‚¬ìš©ì ê°•ì œì¶”ë°© ëŒ€ê¸°(ë§ˆìŠ¤í„° ì¡ì€ ê²½ìš°ì˜ ì •ë¦¬ ì‹œê°„)
 			msg << "WAITING_KICK_OUT, ";
 		break;
 
-		case EVENT_WAITING_REGEN:      // ´Ù½Ã ¸®Á¨µÇ±æ ±â´Ù¸°´Ù.
+		case EVENT_WAITING_REGEN:      // ë‹¤ì‹œ ë¦¬ì  ë˜ê¸¸ ê¸°ë‹¤ë¦°ë‹¤.
 			msg << "WAITING_REGEN, ";
 
 			eventSec = m_RegenTime.tv_sec;

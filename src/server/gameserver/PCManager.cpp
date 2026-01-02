@@ -92,7 +92,7 @@ PCManager::PCManager ()
 	
 //////////////////////////////////////////////////////////////////////////////
 // destructor
-// ÄÁÅ×ÀÌ³ÊÀÇ ¸ğµç °´Ã¼µéÀ» DB¿¡ ÀúÀåÇÑ ÈÄ, »èÁ¦ÇÑ´Ù.
+// ì»¨í…Œì´ë„ˆì˜ ëª¨ë“  ê°ì²´ë“¤ì„ DBì— ì €ì¥í•œ í›„, ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 PCManager::~PCManager () 
 	
@@ -103,16 +103,16 @@ PCManager::~PCManager ()
  
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¸¿¡ ¼Ò¼ÓµÈ PC µéÀÇ heartbeat °ü·Ã ¸Ş½îµåµéÀ» ½ÇÇàÇØÁØ´Ù.
-// ÀÌ¶§, PC°¡ Á×¾ú´õ¶óµµ »èÁ¦ÇÏ¸é ¾ÈµÈ´Ù. ¿Ö³ÄÇÏ¸é, PC °¡ PC ¸Å´ÏÀú¿¡¼­
-// »èÁ¦µÇ¸é PC's EffectManager ÀÇ heartbeat ¸Ş½îµå°¡ È£ÃâµÇÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
-// ´ë½Å CreatureDead::unaffect()¿¡¼­ ¾ø¿¡ÁÖ¸é µü ¾Ë¸Â°Ú´Ù.
+// ì¡´ì— ì†Œì†ëœ PC ë“¤ì˜ heartbeat ê´€ë ¨ ë©”ì˜ë“œë“¤ì„ ì‹¤í–‰í•´ì¤€ë‹¤.
+// ì´ë•Œ, PCê°€ ì£½ì—ˆë”ë¼ë„ ì‚­ì œí•˜ë©´ ì•ˆëœë‹¤. ì™œëƒí•˜ë©´, PC ê°€ PC ë§¤ë‹ˆì €ì—ì„œ
+// ì‚­ì œë˜ë©´ PC's EffectManager ì˜ heartbeat ë©”ì˜ë“œê°€ í˜¸ì¶œë˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
+// ëŒ€ì‹  CreatureDead::unaffect()ì—ì„œ ì—†ì—ì£¼ë©´ ë”± ì•Œë§ê² ë‹¤.
 //
-// ¿©±â¼± ÀÌÆåÆ® ¾ÆÀÌÅÛ¿¡ ´ëÇÑ Ã³¸®¸¦ ÇÁ·Î¼¼½Ì ÇÏ´Â ºÎºĞÀÌ´Ù.
-// ÀÌ ÇÔ¼ö´Â ZoneÀÇ Heart Beat¿¡¼­ Ã³¸®µÇ´Â ·çÆ¾ÀÌ´Ù.
-// ´Ù¸¥ ¾²·¹µå¿ÍÀÇ °ü°è¸¦ »ìÆì º¼¶§, ProcessCommand°¡ ³¡³­ »óÈ²¿¡¼­ Ã³¸®µÈ´Ù.
-// ±×·¯³ª ´Ù¸¥ ¾²·¹µå¿¡¼­ PCManagerÀÇ deleteCreature ¶Ç´Â addCreature¸¦
-// ÇÏ°Ô µÇ¸é ÀÌ ÇÔ¼ö ¶ÇÇÑ ¾ÈÀüÇÏÁö ¸øÇÒ °ÍÀÌ´Ù.
+// ì—¬ê¸°ì„  ì´í™íŠ¸ ì•„ì´í…œì— ëŒ€í•œ ì²˜ë¦¬ë¥¼ í”„ë¡œì„¸ì‹± í•˜ëŠ” ë¶€ë¶„ì´ë‹¤.
+// ì´ í•¨ìˆ˜ëŠ” Zoneì˜ Heart Beatì—ì„œ ì²˜ë¦¬ë˜ëŠ” ë£¨í‹´ì´ë‹¤.
+// ë‹¤ë¥¸ ì“°ë ˆë“œì™€ì˜ ê´€ê³„ë¥¼ ì‚´í´ ë³¼ë•Œ, ProcessCommandê°€ ëë‚œ ìƒí™©ì—ì„œ ì²˜ë¦¬ëœë‹¤.
+// ê·¸ëŸ¬ë‚˜ ë‹¤ë¥¸ ì“°ë ˆë“œì—ì„œ PCManagerì˜ deleteCreature ë˜ëŠ” addCreatureë¥¼
+// í•˜ê²Œ ë˜ë©´ ì´ í•¨ìˆ˜ ë˜í•œ ì•ˆì „í•˜ì§€ ëª»í•  ê²ƒì´ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void PCManager::processCreatures ()
     
@@ -136,7 +136,7 @@ void PCManager::processCreatures ()
 			Creature* pCreature = current->second;
 			Assert(pCreature != NULL);
 
-			// °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛÀÇ heartbeat.. Inventory, Gear °Ë»ö
+			// ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œì˜ heartbeat.. Inventory, Gear ê²€ìƒ‰
 			if (pCreature->isSlayer())
 			{
 				Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
@@ -144,13 +144,13 @@ void PCManager::processCreatures ()
 				pSlayer->heartbeat(currentTime);
 
 				/*
-				// ¾îµò°¡¿¡¼­ ÄÚ¸¶ »óÅÂ¿¡ °É·ÁÀÖ´Âµ¥ HP°¡ ¿Ã¶ó°¡´Â Çö»óÀÌ ¹ß»ıÇÏ´Â °Í °°´Ù.
-				// ±×·¡¼­ ÄÚ¸¶ »óÅÂ¿¡ °É·ÁÀÖÀ¸¸é ÀÏ´Ü HP¸¦ ¹«Á¶°Ç 0À¸·Î ¼¼ÆÃÇÏµµ·Ï º¯°æÇÑ´Ù.
+				// ì–´ë”˜ê°€ì—ì„œ ì½”ë§ˆ ìƒíƒœì— ê±¸ë ¤ìˆëŠ”ë° HPê°€ ì˜¬ë¼ê°€ëŠ” í˜„ìƒì´ ë°œìƒí•˜ëŠ” ê²ƒ ê°™ë‹¤.
+				// ê·¸ë˜ì„œ ì½”ë§ˆ ìƒíƒœì— ê±¸ë ¤ìˆìœ¼ë©´ ì¼ë‹¨ HPë¥¼ ë¬´ì¡°ê±´ 0ìœ¼ë¡œ ì„¸íŒ…í•˜ë„ë¡ ë³€ê²½í•œë‹¤.
 				if (pSlayer->isFlag(Effect::EFFECT_CLASS_COMA))
 					pSlayer->setHP(0, ATTR_CURRENT);
 				*/
 
-				// HolyLandRaceBonus Àû¿ëÀ» À§ÇØ initAllStatÀ» ºÎ¸¥´Ù.
+				// HolyLandRaceBonus ì ìš©ì„ ìœ„í•´ initAllStatì„ ë¶€ë¥¸ë‹¤.
 				if ( m_bRefreshHolyLandPlayer && !g_pWarSystem->hasActiveRaceWar() )
 				{
 					SLAYER_RECORD prev;
@@ -159,7 +159,7 @@ void PCManager::processCreatures ()
 					pSlayer->initAllStat();
 					pSlayer->sendRealWearingInfo();
 					pSlayer->sendModifyInfo(prev);
-					// ¼ºÁö½ºÅ³À» À§ÇØ ½ºÅ³ ¸ñ·ÏÀ» ´Ù½Ã º¸³½´Ù.
+					// ì„±ì§€ìŠ¤í‚¬ì„ ìœ„í•´ ìŠ¤í‚¬ ëª©ë¡ì„ ë‹¤ì‹œ ë³´ë‚¸ë‹¤.
 					pSlayer->sendSlayerSkillInfo();
 				}
 			}
@@ -170,8 +170,8 @@ void PCManager::processCreatures ()
 				pVampire->heartbeat(currentTime);
 
 				/*
-				// ¾îµò°¡¿¡¼­ ÄÚ¸¶ »óÅÂ¿¡ °É·ÁÀÖ´Âµ¥ HP°¡ ¿Ã¶ó°¡´Â Çö»óÀÌ ¹ß»ıÇÏ´Â °Í °°´Ù.
-				// ±×·¡¼­ ÄÚ¸¶ »óÅÂ¿¡ °É·ÁÀÖÀ¸¸é ÀÏ´Ü HP¸¦ ¹«Á¶°Ç 0À¸·Î ¼¼ÆÃÇÏµµ·Ï º¯°æÇÑ´Ù.
+				// ì–´ë”˜ê°€ì—ì„œ ì½”ë§ˆ ìƒíƒœì— ê±¸ë ¤ìˆëŠ”ë° HPê°€ ì˜¬ë¼ê°€ëŠ” í˜„ìƒì´ ë°œìƒí•˜ëŠ” ê²ƒ ê°™ë‹¤.
+				// ê·¸ë˜ì„œ ì½”ë§ˆ ìƒíƒœì— ê±¸ë ¤ìˆìœ¼ë©´ ì¼ë‹¨ HPë¥¼ ë¬´ì¡°ê±´ 0ìœ¼ë¡œ ì„¸íŒ…í•˜ë„ë¡ ë³€ê²½í•œë‹¤.
 				if (pVampire->isFlag(Effect::EFFECT_CLASS_COMA))
 					pVampire->setHP(0, ATTR_CURRENT);
 				*/
@@ -191,23 +191,23 @@ void PCManager::processCreatures ()
 						{
 							//cout << "Can Resurrect!" << endl;
 
-							// Å¸°ÙÀÇ ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ ÄÚ¸¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+							// íƒ€ê²Ÿì˜ ì´í™íŠ¸ ë§¤ë‹ˆì €ì—ì„œ ì½”ë§ˆ ì´í™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
 							pVampire->deleteEffect(Effect::EFFECT_CLASS_COMA);
 							pVampire->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-							// ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+							// ì½”ë§ˆ ì´í™íŠ¸ê°€ ë‚ ì•„ê°”ë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
 							GCRemoveEffect gcRemoveEffect;
 							gcRemoveEffect.setObjectID(pVampire->getObjectID());
 							gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
 							pVampire->getZone()->broadcastPacket(pVampire->getX(), pVampire->getY(), &gcRemoveEffect);
 
-							// ºÎÈ°ÇÏ°í ³ª¼­ effect ºÙ¿©ÁØ´Ù.
+							// ë¶€í™œí•˜ê³  ë‚˜ì„œ effect ë¶™ì—¬ì¤€ë‹¤.
 							pVampire->getEffectManager()->sendEffectInfo(pVampire, pVampire->getZone(), pVampire->getX(), pVampire->getY());
 						}
 					}
 				}
 
-				// HolyLandRaceBonus Àû¿ëÀ» À§ÇØ initAllStatÀ» ºÎ¸¥´Ù.
+				// HolyLandRaceBonus ì ìš©ì„ ìœ„í•´ initAllStatì„ ë¶€ë¥¸ë‹¤.
 				if ( m_bRefreshHolyLandPlayer && !g_pWarSystem->hasActiveRaceWar() )
 				{
 					VAMPIRE_RECORD prev;
@@ -216,7 +216,7 @@ void PCManager::processCreatures ()
 					pVampire->initAllStat();
 					pVampire->sendRealWearingInfo();
 					pVampire->sendModifyInfo(prev);
-					// ¼ºÁö½ºÅ³À» À§ÇØ ½ºÅ³ ¸ñ·ÏÀ» ´Ù½Ã º¸³½´Ù.
+					// ì„±ì§€ìŠ¤í‚¬ì„ ìœ„í•´ ìŠ¤í‚¬ ëª©ë¡ì„ ë‹¤ì‹œ ë³´ë‚¸ë‹¤.
 					pVampire->sendVampireSkillInfo();
 				}
 			}
@@ -228,21 +228,21 @@ void PCManager::processCreatures ()
 			}
 
 			if (pCreature->isDead()
-				// transfusion¶§¹®¿¡ Ãß°¡. isDead()´Â HP°¡ 0ÀÎÁö¸¦ ¤ÄÅ©ÇÏ´Âµ¥
-				// HP´Â Ã¤¿öÁö°í ÀÖÀ» ¼ö ÀÖ´Ù. by sigi. 2002.10.8
+				// transfusionë•Œë¬¸ì— ì¶”ê°€. isDead()ëŠ” HPê°€ 0ì¸ì§€ë¥¼ ã…”í¬í•˜ëŠ”ë°
+				// HPëŠ” ì±„ì›Œì§€ê³  ìˆì„ ìˆ˜ ìˆë‹¤. by sigi. 2002.10.8
 				|| pCreature->isFlag(Effect::EFFECT_CLASS_COMA) && pCreature->isVampire())
 			{
 				if (!pCreature->isFlag(Effect::EFFECT_CLASS_COMA))
 				{
 					///////////////////////////////////////////////////////////////////
-					// Á×À» ¶§ Relic ItemÀ» °¡Áö°í ÀÖ´Ù¸é ¹Ù´Ú¿¡ ¶³¾î¶ß¸°´Ù.
+					// ì£½ì„ ë•Œ Relic Itemì„ ê°€ì§€ê³  ìˆë‹¤ë©´ ë°”ë‹¥ì— ë–¨ì–´ëœ¨ë¦°ë‹¤.
 					///////////////////////////////////////////////////////////////////
 					dropRelicToZone(pCreature);
 					dropFlagToZone(pCreature);
 					dropSweeperToZone( pCreature );
 
 					///////////////////////////////////////////////////////////////////
-					// Á×À» ¶§ ¼ºÇâ¿¡ µû¶ó¼­ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸°´Ù.
+					// ì£½ì„ ë•Œ ì„±í–¥ì— ë”°ë¼ì„œ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 					///////////////////////////////////////////////////////////////////
 					Zone* pZone = pCreature->getZone();
 					Assert(pZone != NULL);
@@ -274,14 +274,14 @@ void PCManager::processCreatures ()
 
 						int SumAttr = pSlayer->getSTR(ATTR_BASIC) + pSlayer->getDEX(ATTR_BASIC) + pSlayer->getINT(ATTR_BASIC);
 
-						// ¼¶ÀÌ 40 ÀÌ»óÀÌ°í, ÀÏ¹İ À¯Àú¶ó¸é Á×À» ¶§ ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸± È®·üÀÌ ÀÖ´Ù.
+						// ì„¬ì´ 40 ì´ìƒì´ê³ , ì¼ë°˜ ìœ ì €ë¼ë©´ ì£½ì„ ë•Œ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦´ í™•ë¥ ì´ ìˆë‹¤.
 						if (SumAttr > 40 && pSlayer->getCompetence() == 3)
 						{
 							Alignment_t alignment   = pSlayer->getAlignment();
 							ItemNum_t   DropItemNum = g_pAlignmentManager->getDropItemNum(alignment, pSlayer->isPK());
 
-							// DropItemNum°³±îÁö¸¸ 
-							// Âø¿ëÇÑ À¯´ÏÅ© ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸°´Ù.
+							// DropItemNumê°œê¹Œì§€ë§Œ 
+							// ì°©ìš©í•œ ìœ ë‹ˆí¬ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 							for(int i = 0; DropItemNum>0 && i<Slayer::WEAR_MAX; i++) 
 							{
 								Item* pItem = pSlayer->getWearItem( (Slayer::WearPart)i );
@@ -311,7 +311,7 @@ void PCManager::processCreatures ()
 										pSlayer->deleteWearItem((Slayer::WearPart)i);
 									}
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pSlayer->getX(), pSlayer->getY());
 
 									if (pt.x != -1)
@@ -319,7 +319,7 @@ void PCManager::processCreatures ()
 										filelog("uniqueItem.txt", "DropByKilled: %s %s", pSlayer->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
 
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -330,7 +330,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -342,10 +342,10 @@ void PCManager::processCreatures ()
 
 									log(LOG_DROP_ITEM_DIE, pSlayer->getName(), "");
 
-									// ¶³¾î¶ß¸± °³¼ö¸¦ ÁÙ¿©ÁØ´Ù.
+									// ë–¨ì–´ëœ¨ë¦´ ê°œìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
 									DropItemNum--;
 
-									// À¯´ÏÅ©´Â ¹«Á¶°Ç ÇÑ°³¸¸ ¶³¾î¶ß¸°´Ù.
+									// ìœ ë‹ˆí¬ëŠ” ë¬´ì¡°ê±´ í•œê°œë§Œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 									break;
 								}
 							}
@@ -356,7 +356,7 @@ void PCManager::processCreatures ()
 								int RandomValue = Random(0, (int)Slayer::WEAR_MAX - 1);
 								Item* pItem = pSlayer->getWearItem(Slayer::WearPart(RandomValue));
 
-								// Ä¿ÇÃ¸µÀ» ¶³¾î¶ß·Á¼± ¾ÈµÈ´Ù ¤Ì.¤Ğ
+								// ì»¤í”Œë§ì„ ë–¨ì–´ëœ¨ë ¤ì„  ì•ˆëœë‹¤ ã…œ.ã… 
 								// 2003.3.14
 								if ( pItem != NULL
 								&&	!isCoupleRing(pItem)
@@ -385,7 +385,7 @@ void PCManager::processCreatures ()
 									//pItem->destroy();
 									//pCorpse->addTreasure(pItem);
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pSlayer->getX(), pSlayer->getY());
 
 									if (pt.x != -1)
@@ -393,7 +393,7 @@ void PCManager::processCreatures ()
 										filelog("dropItem.txt", "DropByKilled: %s %s", pSlayer->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
 
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -404,7 +404,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -419,7 +419,7 @@ void PCManager::processCreatures ()
 							}
 						}
 
-						// PK ´çÇÑ°ÍÀ» Àç ¼ÂÆÃ ÇØ Áà¾ß ÇÑ´Ù.
+						// PK ë‹¹í•œê²ƒì„ ì¬ ì…‹íŒ… í•´ ì¤˜ì•¼ í•œë‹¤.
 						pSlayer->setPK(false);
 					}
 					else if (CClass == Creature::CREATURE_CLASS_VAMPIRE)
@@ -427,7 +427,7 @@ void PCManager::processCreatures ()
 						pVampire = dynamic_cast<Vampire*>(pCreature);
 						//pCorpse = new VampireCorpse(dynamic_cast<Vampire*>(pCreature));
 
-						// ¼û¾îÀÖ¾úÀ» °æ¿ì Á×À»¶§ Æ¢¾î³ª¿Â´Ù.
+						// ìˆ¨ì–´ìˆì—ˆì„ ê²½ìš° ì£½ì„ë•Œ íŠ€ì–´ë‚˜ì˜¨ë‹¤.
 						// 2003. 1. 17. Sequoia, DEW
 						if( pVampire->isFlag( Effect::EFFECT_CLASS_HIDE ) )
 						{
@@ -437,7 +437,7 @@ void PCManager::processCreatures ()
 							}
 						}
 
-						// ¹ÚÁã³ª ´Á´ë »óÅÂÀÎ ¹ìÆÄÀÌ¾î´Â Á×À» ¶§ ¿ø·¡´ë·Î µ¹¾Æ°£´Ù.
+						// ë°•ì¥ë‚˜ ëŠ‘ëŒ€ ìƒíƒœì¸ ë±€íŒŒì´ì–´ëŠ” ì£½ì„ ë•Œ ì›ë˜ëŒ€ë¡œ ëŒì•„ê°„ë‹¤.
 						if ( pVampire->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ) ||
 							 pVampire->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_WOLF ) ||
 							 pVampire->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_WERWOLF ) )
@@ -447,7 +447,7 @@ void PCManager::processCreatures ()
 							addUntransformCreature(pZone, pVampire, true);
 						}
 
-						// °ü ¾È¿¡ ÀÖ´ø ¹ìÆÄÀÌ¾î´Â Á×À» ¶§ °üÀÌ ¾ø¾îÁø´Ù.
+						// ê´€ ì•ˆì— ìˆë˜ ë±€íŒŒì´ì–´ëŠ” ì£½ì„ ë•Œ ê´€ì´ ì—†ì–´ì§„ë‹¤.
 /*						if ( pVampire->isFlag( Effect::EFFECT_CLASS_CASKET ) )
 						{
 							EffectSummonCasket* pEffect = dynamic_cast<EffectSummonCasket*>( pVampire->findEffect( Effect::EFFECT_CLASS_CASKET ) );
@@ -456,14 +456,14 @@ void PCManager::processCreatures ()
 							pEffect->setDeadline(0);
 						}*/
 
-						// ¼ºÇâ¿¡ µû¶ó¼­ µ·°ú ¾ÆÀÌÅÛÀ» ¶³¾îÆ®¸°´Ù.
+						// ì„±í–¥ì— ë”°ë¼ì„œ ëˆê³¼ ì•„ì´í…œì„ ë–¨ì–´íŠ¸ë¦°ë‹¤.
 						if (pVampire->getLevel() > 10 && pVampire->getCompetence() == 3) 
 						{
 							Alignment_t alignment   = pVampire->getAlignment();
 							ItemNum_t   DropItemNum = g_pAlignmentManager->getDropItemNum(alignment, pVampire->isPK());
 
-							// DropItemNum°³±îÁö¸¸ 
-							// Âø¿ëÇÑ À¯´ÏÅ© ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸°´Ù.
+							// DropItemNumê°œê¹Œì§€ë§Œ 
+							// ì°©ìš©í•œ ìœ ë‹ˆí¬ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 							for(int i = 0; DropItemNum>0 && i<Vampire::VAMPIRE_WEAR_MAX; i++) 
 							{
 								Item* pItem = pVampire->getWearItem( (Vampire::WearPart)i );
@@ -492,14 +492,14 @@ void PCManager::processCreatures ()
 										pVampire->deleteWearItem((Vampire::WearPart)i);
 									}
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pVampire->getX(), pVampire->getY());
 
 									if (pt.x != -1)
 									{
 										filelog("uniqueItem.txt", "DropByKilled: %s %s", pVampire->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -510,7 +510,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -522,10 +522,10 @@ void PCManager::processCreatures ()
 
 									log(LOG_DROP_ITEM_DIE, pVampire->getName(), "");
 
-									// ¶³¾î¶ß¸± °³¼ö¸¦ ÁÙ¿©ÁØ´Ù.
+									// ë–¨ì–´ëœ¨ë¦´ ê°œìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
 									DropItemNum--;
 
-									// À¯´ÏÅ©´Â ¹«Á¶°Ç ÇÑ°³¸¸ ¶³¾î¶ß¸°´Ù.
+									// ìœ ë‹ˆí¬ëŠ” ë¬´ì¡°ê±´ í•œê°œë§Œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 									break;
 								}
 							}
@@ -536,7 +536,7 @@ void PCManager::processCreatures ()
 								int RandomValue = Random(0, (int)Vampire::VAMPIRE_WEAR_MAX - 1);
 								Item* pItem = pVampire->getWearItem(Vampire::WearPart(RandomValue));
 
-								// Ä¿ÇÃ¸µÀ» ¶³¾î¶ß·Á¼± ¾ÈµÈ´Ù ¤Ì.¤Ğ
+								// ì»¤í”Œë§ì„ ë–¨ì–´ëœ¨ë ¤ì„  ì•ˆëœë‹¤ ã…œ.ã… 
 								// 2003.3.14
 								if (pItem != NULL
 								&&	!isCoupleRing(pItem)
@@ -564,14 +564,14 @@ void PCManager::processCreatures ()
 									//pItem->destroy();
 									//pCorpse->addTreasure(pItem);
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pVampire->getX(), pVampire->getY());
 
 									if (pt.x != -1)
 									{
 										filelog("dropItem.txt", "DropByKilled: %s %s", pVampire->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -582,7 +582,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -599,24 +599,24 @@ void PCManager::processCreatures ()
 
 						SkillHandler * pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SKILL_EXTREME);
 						Assert( pSkillHandler != NULL );
-						// ÀÍ½ºÆ®¸² °É¾îÁÖ±â~ ºĞ³ë~~
+						// ìµìŠ¤íŠ¸ë¦¼ ê±¸ì–´ì£¼ê¸°~ ë¶„ë…¸~~
 						pSkillHandler->execute( pVampire );
 
-						// PK ´çÇÑ°ÍÀ» Àç ¼ÂÆÃ ÇØ Áà¾ß ÇÑ´Ù.
+						// PK ë‹¹í•œê²ƒì„ ì¬ ì…‹íŒ… í•´ ì¤˜ì•¼ í•œë‹¤.
 						pVampire->setPK(false);
 					}
 					else if (CClass == Creature::CREATURE_CLASS_OUSTERS)
 					{
 						pOusters = dynamic_cast<Ousters*>(pCreature);
 
-						// ¼ºÇâ¿¡ µû¶ó¼­ µ·°ú ¾ÆÀÌÅÛÀ» ¶³¾îÆ®¸°´Ù.
+						// ì„±í–¥ì— ë”°ë¼ì„œ ëˆê³¼ ì•„ì´í…œì„ ë–¨ì–´íŠ¸ë¦°ë‹¤.
 						if (pOusters->getLevel() > 10 && pOusters->getCompetence() == 3) 
 						{
 							Alignment_t alignment   = pOusters->getAlignment();
 							ItemNum_t   DropItemNum = g_pAlignmentManager->getDropItemNum(alignment, pOusters->isPK());
 
-							// DropItemNum°³±îÁö¸¸ 
-							// Âø¿ëÇÑ À¯´ÏÅ© ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸°´Ù.
+							// DropItemNumê°œê¹Œì§€ë§Œ 
+							// ì°©ìš©í•œ ìœ ë‹ˆí¬ ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 							for(int i = 0; DropItemNum>0 && i<Ousters::OUSTERS_WEAR_MAX; i++) 
 							{
 								Item* pItem = pOusters->getWearItem( (Ousters::WearPart)i );
@@ -645,14 +645,14 @@ void PCManager::processCreatures ()
 										pOusters->deleteWearItem((Ousters::WearPart)i);
 									}
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pOusters->getX(), pOusters->getY());
 
 									if (pt.x != -1)
 									{
 										filelog("uniqueItem.txt", "DropByKilled: %s %s", pOusters->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -663,7 +663,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -675,10 +675,10 @@ void PCManager::processCreatures ()
 
 									log(LOG_DROP_ITEM_DIE, pOusters->getName(), "");
 
-									// ¶³¾î¶ß¸± °³¼ö¸¦ ÁÙ¿©ÁØ´Ù.
+									// ë–¨ì–´ëœ¨ë¦´ ê°œìˆ˜ë¥¼ ì¤„ì—¬ì¤€ë‹¤.
 									DropItemNum--;
 
-									// À¯´ÏÅ©´Â ¹«Á¶°Ç ÇÑ°³¸¸ ¶³¾î¶ß¸°´Ù.
+									// ìœ ë‹ˆí¬ëŠ” ë¬´ì¡°ê±´ í•œê°œë§Œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 									break;
 								}
 							}
@@ -688,7 +688,7 @@ void PCManager::processCreatures ()
 								int RandomValue = Random(0, (int)Ousters::OUSTERS_WEAR_MAX - 1);
 								Item* pItem = pOusters->getWearItem(Ousters::WearPart(RandomValue));
 
-								// Ä¿ÇÃ¸µÀ» ¶³¾î¶ß·Á¼± ¾ÈµÈ´Ù ¤Ì.¤Ğ
+								// ì»¤í”Œë§ì„ ë–¨ì–´ëœ¨ë ¤ì„  ì•ˆëœë‹¤ ã…œ.ã… 
 								// 2003.3.14
 								if (pItem != NULL
 								&&	!isCoupleRing(pItem)
@@ -716,14 +716,14 @@ void PCManager::processCreatures ()
 									//pItem->destroy();
 									//pCorpse->addTreasure(pItem);
 
-									// Á¸À¸·Î »Ñ¸°´Ù.
+									// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
 									TPOINT pt = pZone->addItem(pItem, pOusters->getX(), pOusters->getY());
 
 									if (pt.x != -1)
 									{
 										filelog("dropItem.txt", "DropByKilled: %s %s", pOusters->getName().c_str(), pItem->toString().c_str());
 										pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											char zoneName[15];
@@ -734,7 +734,7 @@ void PCManager::processCreatures ()
 									}
 									else
 									{
-										// ItemTraceLog ¸¦ ³²±ä´Ù
+										// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 										if ( pItem != NULL && pItem->isTraceItem() )
 										{
 											remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -749,7 +749,7 @@ void PCManager::processCreatures ()
 							}
 						}
 
-						// PK ´çÇÑ°ÍÀ» Àç ¼ÂÆÃ ÇØ Áà¾ß ÇÑ´Ù.
+						// PK ë‹¹í•œê²ƒì„ ì¬ ì…‹íŒ… í•´ ì¤˜ì•¼ í•œë‹¤.
 						pOusters->setPK(false);
 					}
 					else
@@ -757,8 +757,8 @@ void PCManager::processCreatures ()
 						throw Error("invalid creature class");
 					}
 
-					// Á¦ÀÏ Ã³À½¿¡ Á×À» ¶§¿¡´Â COMA°¡ °É·Á ÀÖÁö ¾ÊÀ¸¹Ç·Î,
-					// ÀÌ ºÎºĞ¿¡ °É·Á¼­ COMA°¡ °É¸®°Ô µÈ´Ù.
+					// ì œì¼ ì²˜ìŒì— ì£½ì„ ë•Œì—ëŠ” COMAê°€ ê±¸ë ¤ ìˆì§€ ì•Šìœ¼ë¯€ë¡œ,
+					// ì´ ë¶€ë¶„ì— ê±¸ë ¤ì„œ COMAê°€ ê±¸ë¦¬ê²Œ ëœë‹¤.
 					EffectComa* pEffectComa = new EffectComa(pCreature);
 					pEffectComa->setStartTime();
 					if ( pTryingTile != NULL ) 
@@ -783,7 +783,7 @@ void PCManager::processCreatures ()
 					{
 						Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 
-						// ¸ğÅÍ»çÀÌÅ¬À» Å¸°í ÀÖ´Ù¸é, ¸ğÅÍ»çÀÌÅ¬¿¡¼­ ³»¸°´Ù.
+						// ëª¨í„°ì‚¬ì´í´ì„ íƒ€ê³  ìˆë‹¤ë©´, ëª¨í„°ì‚¬ì´í´ì—ì„œ ë‚´ë¦°ë‹¤.
 						if (pSlayer->hasRideMotorcycle())
 						{
 							Zone* pZone = pCreature->getZone();
@@ -795,12 +795,12 @@ void PCManager::processCreatures ()
 							pZone->broadcastPacket(pSlayer->getX(), pSlayer->getY(), &_GCGetOffMotorCycle);
 						}
 
-						// ÇöÀç Çï±â¸¦ ºÎ¸¥ »óÅÂ¶ó¸é Çï±â¸¦ ²ö´Ù.
+						// í˜„ì¬ í—¬ê¸°ë¥¼ ë¶€ë¥¸ ìƒíƒœë¼ë©´ í—¬ê¸°ë¥¼ ëˆë‹¤.
 						if (pSlayer->isFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL))
 						{
 							pSlayer->removeFlag(Effect::EFFECT_CLASS_SLAYER_PORTAL);
 
-							// Çï±â¸¦ Á¦°ÅÇÏ¶ó°í »Ñ·ÁÁà¾ß ÇÏ´Âµ¥...?
+							// í—¬ê¸°ë¥¼ ì œê±°í•˜ë¼ê³  ë¿Œë ¤ì¤˜ì•¼ í•˜ëŠ”ë°...?
 							//GCAddHelicopter gcAddHelicopter;
 							//gcAddHelicopter.setObjectID(pSlayer->getObjectID());
 							//gcAddHelicopter.setCode(1);
@@ -810,7 +810,7 @@ void PCManager::processCreatures ()
 					else if (pCreature->isVampire())
 					{
 						//Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
-						// °ü ¼Ó¿¡¼­ ³ª°¡±â
+						// ê´€ ì†ì—ì„œ ë‚˜ê°€ê¸°
 						if (pCreature->isFlag(Effect::EFFECT_CLASS_CASKET))
 						{
 							Effect* pEffectCasket = pCreature->findEffect(Effect::EFFECT_CLASS_CASKET);
@@ -878,7 +878,7 @@ void PCManager::processCreatures ()
 					{
 						pCreature->removeFlag( Effect::EFFECT_CLASS_FADE_OUT );
 						pCreature->deleteEffect( Effect::EFFECT_CLASS_FADE_OUT );
-						// unaffect ¸¦ ÇØÁÖ¸é ½º³ªÀÌÇÎÀÌ³ª ÀÎºñÁö°¡ °É¸®±â ¶§¹®¿¡ ÇØÁÖ¸é ¾È µÈ´Ù.
+						// unaffect ë¥¼ í•´ì£¼ë©´ ìŠ¤ë‚˜ì´í•‘ì´ë‚˜ ì¸ë¹„ì§€ê°€ ê±¸ë¦¬ê¸° ë•Œë¬¸ì— í•´ì£¼ë©´ ì•ˆ ëœë‹¤.
 					}
 
 					if ( pCreature->isFlag( Effect::EFFECT_CLASS_REFINIUM_TICKET ) )
@@ -895,7 +895,7 @@ void PCManager::processCreatures ()
 						{
 							pEffect->unaffect();
 						}
-						// paralyze Á¦°Å
+						// paralyze ì œê±°
 						pEffectManager->deleteEffect(pCreature, Effect::EFFECT_CLASS_SUMMON_SYLPH);
 						pCreature->removeFlag(Effect::EFFECT_CLASS_SUMMON_SYLPH);
 					}
@@ -908,7 +908,7 @@ void PCManager::processCreatures ()
 						{
 							pEffect->unaffect();
 						}
-						// paralyze Á¦°Å
+						// paralyze ì œê±°
 						pEffectManager->deleteEffect(pCreature, Effect::EFFECT_CLASS_INVISIBILITY);
 						pCreature->removeFlag(Effect::EFFECT_CLASS_INVISIBILITY);
 					}
@@ -921,7 +921,7 @@ void PCManager::processCreatures ()
 						{
 							pEffect->unaffect();
 						}
-						// paralyze Á¦°Å
+						// paralyze ì œê±°
 						pEffectManager->deleteEffect(pCreature, Effect::EFFECT_CLASS_SNIPING_MODE);
 						pCreature->removeFlag(Effect::EFFECT_CLASS_SNIPING_MODE);
 					}
@@ -934,12 +934,12 @@ void PCManager::processCreatures ()
 						{
 							pEffectPal->unaffect();
 						}
-						// paralyze Á¦°Å
+						// paralyze ì œê±°
 						pEffectManager->deleteEffect(pCreature, Effect::EFFECT_CLASS_PARALYZE);
 						pCreature->removeFlag(Effect::EFFECT_CLASS_PARALYZE);
 					}
 
-					// Á×¾úÀ»¶§ ÇÒ·ç ²ö´Ù. by sigi. 2002.9.23
+					// ì£½ì—ˆì„ë•Œ í• ë£¨ ëˆë‹¤. by sigi. 2002.9.23
 					if (pCreature->isFlag(Effect::EFFECT_CLASS_HALLUCINATION))
 					{
 						Effect* pEffectHallu = pCreature->findEffect(Effect::EFFECT_CLASS_HALLUCINATION);
@@ -975,29 +975,29 @@ void PCManager::processCreatures ()
 						pCreature->removeFlag(Effect::EFFECT_CLASS_HELLFIRE_TO_ENEMY);
 					}
 
-					// Á×¾úÀ» ¶§ Soul Chain ÀÌÆåÆ®¸¦ ²ö´Ù.
-					// unaffect°¡ È£ÃâµÉ ¶§ flagÀÌ ÄÑÁ®ÀÖÁö ¾Ê´Ù¸é transport ÇÏÁö ¾Êµµ·ÏÇÑ´Ù.
+					// ì£½ì—ˆì„ ë•Œ Soul Chain ì´í™íŠ¸ë¥¼ ëˆë‹¤.
+					// unaffectê°€ í˜¸ì¶œë  ë•Œ flagì´ ì¼œì ¸ìˆì§€ ì•Šë‹¤ë©´ transport í•˜ì§€ ì•Šë„ë¡í•œë‹¤.
 					if ( pCreature->isFlag( Effect::EFFECT_CLASS_SOUL_CHAIN ) )
 					{
 						//pCreature->deleteEffect( Effect::EFFECT_CLASS_SOUL_CHAIN );
 						pCreature->removeFlag( Effect::EFFECT_CLASS_SOUL_CHAIN );
 					}
 
-					// Á×¾úÀ» ¶§ Love Chain ÀÌÆåÆ®¸¦ ²ö´Ù.
-					// unaffect°¡ È£ÃâµÉ ¶§ flagÀÌ ÄÑÁ®ÀÖÁö ¾Ê´Ù¸é transport ÇÏÁö ¾Êµµ·ÏÇÑ´Ù.
+					// ì£½ì—ˆì„ ë•Œ Love Chain ì´í™íŠ¸ë¥¼ ëˆë‹¤.
+					// unaffectê°€ í˜¸ì¶œë  ë•Œ flagì´ ì¼œì ¸ìˆì§€ ì•Šë‹¤ë©´ transport í•˜ì§€ ì•Šë„ë¡í•œë‹¤.
 					if ( pCreature->isFlag( Effect::EFFECT_CLASS_LOVE_CHAIN ) )
 					{
 						pCreature->removeFlag( Effect::EFFECT_CLASS_LOVE_CHAIN );
 					}
 
-					// Á×À¸¸é GunShotGuidance Aim ÀÌÆåÆ®¸¦ ²ö´Ù.
+					// ì£½ìœ¼ë©´ GunShotGuidance Aim ì´í™íŠ¸ë¥¼ ëˆë‹¤.
 					if ( pCreature->isFlag( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM ) )
 					{
 						pCreature->deleteEffect( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
 						pCreature->removeFlag( Effect::EFFECT_CLASS_GUN_SHOT_GUIDANCE_AIM );
 					}
 
-					// Á×À¸¸é ½½¸³/¾Æ¸¶°Ôµ· ÀÌÆåÆ®¸¦ ²ö´Ù. 2003. 1. 2. by Sequoia
+					// ì£½ìœ¼ë©´ ìŠ¬ë¦½/ì•„ë§ˆê²Œëˆ ì´í™íŠ¸ë¥¼ ëˆë‹¤. 2003. 1. 2. by Sequoia
 					if (pCreature->isFlag(Effect::EFFECT_CLASS_SLEEP))
 					{
 						Effect* pEffectSleep = pCreature->findEffect(Effect::EFFECT_CLASS_SLEEP);
@@ -1033,7 +1033,7 @@ void PCManager::processCreatures ()
 						pCreature->deleteEffect(Effect::EFFECT_CLASS_TRAPPED);
 					}
 
-					// ¹Ù´Ú¿¡ ¾²·¯¶ß¸®¶ó°í, ÀÌÆåÆ®¸¦ »Ñ·ÁÁØ´Ù.
+					// ë°”ë‹¥ì— ì“°ëŸ¬ëœ¨ë¦¬ë¼ê³ , ì´í™íŠ¸ë¥¼ ë¿Œë ¤ì¤€ë‹¤.
 					GCAddEffect gcAddEffect;
 					gcAddEffect.setObjectID(pCreature->getObjectID());
 					gcAddEffect.setEffectID(Effect::EFFECT_CLASS_COMA);
@@ -1049,7 +1049,7 @@ void PCManager::processCreatures ()
 						GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
 						Assert( pGamePlayer != NULL );
 
-						filelog("DeletePC.log", "Á×¾î¼­ Áö¿öÁı´Ï´Ù : %s", pPC->getName().c_str() );
+						filelog("DeletePC.log", "ì£½ì–´ì„œ ì§€ì›Œì§‘ë‹ˆë‹¤ : %s", pPC->getName().c_str() );
 
 						pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
 						pGamePlayer->setItemRatioBonusPoint(1);
@@ -1067,15 +1067,15 @@ void PCManager::processCreatures ()
 
 					if (pEffectComa->getDeadline() < currentTime)
 					{
-						// ¸ÕÀú ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+						// ë¨¼ì € ì´í™íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
 						pEffectManager->deleteEffect(pCreature, Effect::EFFECT_CLASS_COMA);
 						pCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-						// »ç¿ëÀÚÀÇ ÀÔ·Â¿¡ ÀÇÇØ¼­ COMA ÀÌÆåÆ®°¡ unaffectµÇ¸é, ÁøÂ¥·Î Á×Àº °ÍÀÌ µÈ´Ù.
-						// ±×·¯¹Ç·Î, PC ¸¦ Á×ÀÌ°í, ÇÃ·¹ÀÌ¾î¸¦ ZPM -> IPM À¸·Î ¿Å±ä´Ù.
+						// ì‚¬ìš©ìì˜ ì…ë ¥ì— ì˜í•´ì„œ COMA ì´í™íŠ¸ê°€ unaffectë˜ë©´, ì§„ì§œë¡œ ì£½ì€ ê²ƒì´ ëœë‹¤.
+						// ê·¸ëŸ¬ë¯€ë¡œ, PC ë¥¼ ì£½ì´ê³ , í”Œë ˆì´ì–´ë¥¼ ZPM -> IPM ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 						killCreature(pCreature);
 
-						// PC ÀÇ ³ëµå¸¦ »èÁ¦ÇÑ´Ù.
+						// PC ì˜ ë…¸ë“œë¥¼ ì‚­ì œí•œë‹¤.
 						m_Creatures.erase(current);
 
 						if (before == m_Creatures.end()) 	// first element
@@ -1104,16 +1104,16 @@ void PCManager::processCreatures ()
 			{
 				before = current ++;
 				
-				// Å©¸®Ã³¿¡ °É·Á ÀÖ´Â ÀÌÆåÆ®µéÀ» ½ÇÇà½ÃÅ²´Ù.
+				// í¬ë¦¬ì²˜ì— ê±¸ë ¤ ìˆëŠ” ì´í™íŠ¸ë“¤ì„ ì‹¤í–‰ì‹œí‚¨ë‹¤.
 				pCreature->getEffectManager()->heartbeat( currentTime );
 			}
 		}
 
-		// ÀÌ°Å while ·çÇÁ ¾È¿¡ ÀÖ¾ú´Ù ¤Ì.¤Ğ
-		// ÀüÀïÁß¿¡´Â ¾È º¸³»ÁÖµµ·Ï ¼öÁ¤
+		// ì´ê±° while ë£¨í”„ ì•ˆì— ìˆì—ˆë‹¤ ã…œ.ã… 
+		// ì „ìŸì¤‘ì—ëŠ” ì•ˆ ë³´ë‚´ì£¼ë„ë¡ ìˆ˜ì •
 		if ( m_bRefreshHolyLandPlayer && !g_pWarSystem->hasActiveRaceWar() )
 		{
-			// ¾Æ´ãÀÇ ¼ºÁö Àü¿ª¿¡ ÇÇÀÇ ¼º¼­ º¸³Ê½º Á¤º¸¸¦ »Ñ¸°´Ù.
+			// ì•„ë‹´ì˜ ì„±ì§€ ì „ì—­ì— í”¼ì˜ ì„±ì„œ ë³´ë„ˆìŠ¤ ì •ë³´ë¥¼ ë¿Œë¦°ë‹¤.
 			GCHolyLandBonusInfo gcHolyLandBonusInfo;
 			g_pBloodBibleBonusManager->makeHolyLandBonusInfo( gcHolyLandBonusInfo );
 			g_pHolyLandManager->broadcast( &gcHolyLandBonusInfo );
@@ -1154,11 +1154,11 @@ void PCManager::processCreatures ()
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// (1) Å¸ÀÏ¿¡¼­ Å©¸®Ã³¸¦ »èÁ¦ÇÑ´Ù.
-// (2) ½ÃÃ¼¸¦ »ı¼ºÇÏ°í, ÀÎº¥Åä¸®¸¦ ½ÃÃ¼·Î ¿Å±ä´Ù.
-// (3) Å¸ÀÏ¿¡ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÒ °æ¿ì, ÀûÀıÈ÷ Ã³¸®ÇÑ´Ù.
-// (4) ½ÃÃ¼¸¦ Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù. Áßº¹½Ã, ±× ¿·¿¡ ³õ´Â´Ù.
-// (5) ºÎÈ° ÀÌÆåÆ®¸¦ Å©¸®Ã³¿¡ Ãß°¡ÇÑ´Ù.
+// (1) íƒ€ì¼ì—ì„œ í¬ë¦¬ì²˜ë¥¼ ì‚­ì œí•œë‹¤.
+// (2) ì‹œì²´ë¥¼ ìƒì„±í•˜ê³ , ì¸ë²¤í† ë¦¬ë¥¼ ì‹œì²´ë¡œ ì˜®ê¸´ë‹¤.
+// (3) íƒ€ì¼ì— ì•„ì´í…œì´ ì¡´ì¬í•  ê²½ìš°, ì ì ˆíˆ ì²˜ë¦¬í•œë‹¤.
+// (4) ì‹œì²´ë¥¼ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤. ì¤‘ë³µì‹œ, ê·¸ ì˜†ì— ë†“ëŠ”ë‹¤.
+// (5) ë¶€í™œ ì´í™íŠ¸ë¥¼ í¬ë¦¬ì²˜ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void PCManager::killCreature (Creature* pDeadCreature)
 	
@@ -1168,8 +1168,8 @@ void PCManager::killCreature (Creature* pDeadCreature)
 
 	Assert(pDeadCreature != NULL);
 
-	// transfusion¶§¹®¿¡ Á×Àº µÚ¿¡µµ HPÂù´Ù..
-	// ¹«½Ã. by sigi. 2002.10.8 
+	// transfusionë•Œë¬¸ì— ì£½ì€ ë’¤ì—ë„ HPì°¬ë‹¤..
+	// ë¬´ì‹œ. by sigi. 2002.10.8 
 	//Assert(pDeadCreature->isDead());
 
 	Zone* pZone = pDeadCreature->getZone();
@@ -1181,7 +1181,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 	// Eternity
 	pDeadCreature->removeFlag( Effect::EFFECT_CLASS_ETERNITY );
 
-	// PKÁ¸¿¡¼­ Á×¾úÀ» ¶§¿¡´Â »ì¾Æ³¯ ¶§ ÀÌÆåÆ®°¡ ºÙ´Â´Ù.
+	// PKì¡´ì—ì„œ ì£½ì—ˆì„ ë•Œì—ëŠ” ì‚´ì•„ë‚  ë•Œ ì´í™íŠ¸ê°€ ë¶™ëŠ”ë‹¤.
 	if ( g_pPKZoneInfoManager->isPKZone( pZone->getZoneID() ) )
 	{
 		EffectPKZoneResurrection* pEffect = new EffectPKZoneResurrection( pDeadCreature );
@@ -1189,11 +1189,11 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		pDeadCreature->setFlag( pEffect->getEffectClass() );
 	}
 
-	// ÆÄÆ¼ ÃÊ´ëÁßÀÌ¶ó¸é PartyInviteInfo¸¦ »èÁ¦ÇØÁØ´Ù.
+	// íŒŒí‹° ì´ˆëŒ€ì¤‘ì´ë¼ë©´ PartyInviteInfoë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
 	PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
 	pPIIM->cancelInvite(pDeadCreature);
 
-	// ¸ÕÀú ·ÎÄÃ ÆÄÆ¼ ¸Å´ÏÀú¿¡¼­ Á×Àº ³ğÀ» Áö¿öÁà¾ß ÇÑ´Ù.
+	// ë¨¼ì € ë¡œì»¬ íŒŒí‹° ë§¤ë‹ˆì €ì—ì„œ ì£½ì€ ë†ˆì„ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	uint PartyID = pDeadCreature->getPartyID();
 	if (PartyID != 0)
 	{
@@ -1201,7 +1201,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		pLPM->deletePartyMember(PartyID, pDeadCreature);
 	}
 
-	// Æ®·¹ÀÌµå ÁßÀÌ¾ú´Ù¸é Æ®·¹ÀÌµå °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+	// íŠ¸ë ˆì´ë“œ ì¤‘ì´ì—ˆë‹¤ë©´ íŠ¸ë ˆì´ë“œ ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
 	TradeManager* pTradeManager = pZone->getTradeManager();
 	TradeInfo* pInfo = pTradeManager->getTradeInfo(pDeadCreature->getName());
 	if (pInfo != NULL)
@@ -1209,7 +1209,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		pTradeManager->cancelTrade(pDeadCreature);
 	}
 
-	// ½ÃÃ¼¿¡ ºÙ¾îÀÖ´Â EFFECT_CLASS_CANNOT_ABSORB_SOUL ÀÌÆåÆ®¸¦ Á¦°ÅÇÑ´Ù
+	// ì‹œì²´ì— ë¶™ì–´ìˆëŠ” EFFECT_CLASS_CANNOT_ABSORB_SOUL ì´í™íŠ¸ë¥¼ ì œê±°í•œë‹¤
 	if (pDeadCreature->isFlag(Effect::EFFECT_CLASS_CANNOT_ABSORB_SOUL))
 	{
 		pDeadCreature->removeFlag(Effect::EFFECT_CLASS_CANNOT_ABSORB_SOUL);
@@ -1224,7 +1224,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 
 	if ( addCorpse )
 	{
-		// ½ÃÃ¼¸¦ »ı¼ºÇÑ´Ù.
+		// ì‹œì²´ë¥¼ ìƒì„±í•œë‹¤.
 		Corpse*  pCorpse = NULL;
 
 		if (pDeadCreature->isSlayer())
@@ -1250,7 +1250,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		}
 		else
 		{
-			throw Error("PlayerCreature class type ¿À·ù");
+			throw Error("PlayerCreature class type ì˜¤ë¥˜");
 		}
 
 		// by sigi. 2002.12.12
@@ -1274,45 +1274,45 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		}
 	}
 
-   	// Å©¸®Ã³°¡ Á×¾ú´Ù°í ÁÖº¯¿¡ ¾Ë·ÁÁØ´Ù.
+   	// í¬ë¦¬ì²˜ê°€ ì£½ì—ˆë‹¤ê³  ì£¼ë³€ì— ì•Œë ¤ì¤€ë‹¤.
     GCCreatureDied gcCreatureDied;
 	gcCreatureDied.setObjectID(pDeadCreature->getObjectID());
 	pDeadCreature->getPlayer()->sendPacket(&gcCreatureDied);
 	pZone->broadcastPacket(cx , cy , &gcCreatureDied, pDeadCreature);
 
-	// Å¸ÀÏ¿¡¼­ Creature¸¦ Áö¿öÁØ´Ù. 
-	// ´Ü PCManager ¿¡¼­ »èÁ¦ÇÏ¸é PC's EM's heartbeat °¡ È£ÃâµÇÁö ¾ÊÀ¸´Ï ÁÖÀÇÇÏ±â ¹Ù¶õ´Ù.
+	// íƒ€ì¼ì—ì„œ Creatureë¥¼ ì§€ì›Œì¤€ë‹¤. 
+	// ë‹¨ PCManager ì—ì„œ ì‚­ì œí•˜ë©´ PC's EM's heartbeat ê°€ í˜¸ì¶œë˜ì§€ ì•Šìœ¼ë‹ˆ ì£¼ì˜í•˜ê¸° ë°”ë€ë‹¤.
 	Tile & tile = pZone->getTile(cx , cy);
 	Assert(tile.getCreature(pDeadCreature->getMoveMode()) == pDeadCreature);
 	tile.deleteCreature(pDeadCreature->getObjectID());
 
 	/*
-	// ¹ØÀ¸·Î ¿Å±ä´Ù.	by sigi. 2002.5.11
-	// Resurrect ÀÌº¥Æ®¸¦ ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ ¿¬°ü½ÃÅ²´Ù.
+	// ë°‘ìœ¼ë¡œ ì˜®ê¸´ë‹¤.	by sigi. 2002.5.11
+	// Resurrect ì´ë²¤íŠ¸ë¥¼ í”Œë ˆì´ì–´ ê°ì²´ì— ì—°ê´€ì‹œí‚¨ë‹¤.
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pDeadCreature->getPlayer());
 	EventResurrect* pEventResurrect = new EventResurrect(pGamePlayer);
 	pEventResurrect->setDeadline(0);
 
-	// ¿ø·¡ ÀÖ¾ú´ø Àå¼Ò¸¦ ¼ÂÆÃÇÑ´Ù.
+	// ì›ë˜ ìˆì—ˆë˜ ì¥ì†Œë¥¼ ì…‹íŒ…í•œë‹¤.
 	pEventResurrect->setOldZone(pDeadCreature->getZone());
 
-	// Player¿¡ Event¸¦ ºÙÀÎ´Ù.
+	// Playerì— Eventë¥¼ ë¶™ì¸ë‹¤.
 	pGamePlayer->addEvent(pEventResurrect);
 	*/
 
 	// *NOTE
-	// °­Á¦ Á¢¼Ó Á¾·áÀÏ °æ¿ì ¸ñÇ¥ ÁöÁ¡À» ¹Ì¸® ÁöÁ¤ÇØ ³õ±â À§ÇÑ ¹æ¹ıÀÌ´Ù.
-	// ResurrectÃ³¸® °ü°è¿Í ¹ĞÁ¢ÇÑ ºÎºĞÀÌ¹Ç·Î ÀÌ ºÎºĞÀÌ ¹Ù²ğ °æ¿ì Resurrectµµ »ı°¢ÇØ¾ß
-	// ÇÑ´Ù. ´Ü¼øÈ÷ DB¼¼ÀÌºê¸¸ ÇÏ¸é µÈ´Ù°í »ı°¢ÇÏ±â ½±Áö¸¸. GamePlayer°¡ Disconnect
-	// ÇÏ¸é¼­ Å©¸®ÃÄ¸¦ ¼¼ÀÌºêÇÏ±â ¶§¹®¿¡ ´Ù½Ã µ¤¾î¼­ ¼¼ÀÌºêÇÏ°Ô µÇ¹Ç·Î ¼º¸³ÀÌ µÇÁö ¾Ê´Â´Ù.
+	// ê°•ì œ ì ‘ì† ì¢…ë£Œì¼ ê²½ìš° ëª©í‘œ ì§€ì ì„ ë¯¸ë¦¬ ì§€ì •í•´ ë†“ê¸° ìœ„í•œ ë°©ë²•ì´ë‹¤.
+	// Resurrectì²˜ë¦¬ ê´€ê³„ì™€ ë°€ì ‘í•œ ë¶€ë¶„ì´ë¯€ë¡œ ì´ ë¶€ë¶„ì´ ë°”ë€” ê²½ìš° Resurrectë„ ìƒê°í•´ì•¼
+	// í•œë‹¤. ë‹¨ìˆœíˆ DBì„¸ì´ë¸Œë§Œ í•˜ë©´ ëœë‹¤ê³  ìƒê°í•˜ê¸° ì‰½ì§€ë§Œ. GamePlayerê°€ Disconnect
+	// í•˜ë©´ì„œ í¬ë¦¬ì³ë¥¼ ì„¸ì´ë¸Œí•˜ê¸° ë•Œë¬¸ì— ë‹¤ì‹œ ë®ì–´ì„œ ì„¸ì´ë¸Œí•˜ê²Œ ë˜ë¯€ë¡œ ì„±ë¦½ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
 	ZoneID_t     ZoneID = 0;
 	ZoneCoord_t  ZoneX  = 0;
 	ZoneCoord_t  ZoneY  = 0;
 	ZONE_COORD   ResurrectCoord;
 	Zone*		 pResurrectZone = NULL;
 
-	// µµÂøÁ¸ÀÌ ¾î´À ¼­¹ö, ¾î´À Á¸±×·ì¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº»´Ù.
-	// ¿ø·¡´Â ¸ğµç Á¸Àº ±× Á¸¿¡¼­ Á×¾úÀ»¶§ µ¹¾Æ°¡¾ß ÇÒ Á¸À» ¸í½ÃÇØÁà¾ß ÇÑ´Ù.
+	// ë„ì°©ì¡´ì´ ì–´ëŠ ì„œë²„, ì–´ëŠ ì¡´ê·¸ë£¹ì— ì†í•˜ëŠ”ì§€ ì•Œì•„ë³¸ë‹¤.
+	// ì›ë˜ëŠ” ëª¨ë“  ì¡´ì€ ê·¸ ì¡´ì—ì„œ ì£½ì—ˆì„ë•Œ ëŒì•„ê°€ì•¼ í•  ì¡´ì„ ëª…ì‹œí•´ì¤˜ì•¼ í•œë‹¤.
 	ZoneInfo*  pZoneInfo  = NULL;
 	ZoneGroup* pZoneGroup = NULL;
 
@@ -1324,7 +1324,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		pSlayer->setStashStatus(false);
 		pSlayer->setHP(pSlayer->getHP(ATTR_MAX), ATTR_CURRENT);
 
-		// ´É·ÂÄ¡ ÃÑÇÕÀÌ 40ÀÌÇÏ¶ó¸é, ¹«Á¶°Ç ¾ßÀü»ç·ÉºÎ¿¡¼­ ÅÂ¾î³ª°Ô µÈ´Ù.
+		// ëŠ¥ë ¥ì¹˜ ì´í•©ì´ 40ì´í•˜ë¼ë©´, ë¬´ì¡°ê±´ ì•¼ì „ì‚¬ë ¹ë¶€ì—ì„œ íƒœì–´ë‚˜ê²Œ ëœë‹¤.
 		int SumAttr = pSlayer->getSTR(ATTR_BASIC) + pSlayer->getDEX(ATTR_BASIC) + pSlayer->getINT(ATTR_BASIC);
 		if (SumAttr <= 40)
 		{
@@ -1343,8 +1343,8 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		{
 			try
 			{
-				// ¸¸ÀÏ ¾ÆÁ÷ ºÎÈ° À§Ä¡¸¦ ÁöÁ¤ÇØ ³õÁö ¾Ê¾Ò´Ù¸é, 
-				// ÇöÀç Á¸¿¡¼­ µğÆúÆ®·Î ¼³Á¤µÇ¾î ÀÖ´Â ºÎÈ°Á¸À¸·Î °£´Ù.
+				// ë§Œì¼ ì•„ì§ ë¶€í™œ ìœ„ì¹˜ë¥¼ ì§€ì •í•´ ë†“ì§€ ì•Šì•˜ë‹¤ë©´, 
+				// í˜„ì¬ ì¡´ì—ì„œ ë””í´íŠ¸ë¡œ ì„¤ì •ë˜ì–´ ìˆëŠ” ë¶€í™œì¡´ìœ¼ë¡œ ê°„ë‹¤.
 				ResurrectCoord = g_pResurrectLocationManager->getSlayerPosition(pSlayer->getZone()->getZoneID());
 				ZoneID         = ResurrectCoord.id; 
 				ZoneX          = ResurrectCoord.x;
@@ -1352,13 +1352,13 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			}
 			catch (NoSuchElementException&)
 			{
-				// ¾Æ, ºñ»óÀÌ´å...
+				// ì•„, ë¹„ìƒì´ë‹·...
 				throw Error("Critical Error : ResurrectInfo is not established!");
 			}
 		}
 		o/
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.9
+		// NoSuchì œê±°. by sigi. 2002.5.9
 		if (g_pResurrectLocationManager->getSlayerPosition(pSlayer->getResurrectZoneID(), ResurrectCoord))
 		{
 			ZoneID         = ResurrectCoord.id;
@@ -1367,8 +1367,8 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		}
 		else
 		{
-			// ¸¸ÀÏ ¾ÆÁ÷ ºÎÈ° À§Ä¡¸¦ ÁöÁ¤ÇØ ³õÁö ¾Ê¾Ò´Ù¸é, 
-			// ÇöÀç Á¸¿¡¼­ µğÆúÆ®·Î ¼³Á¤µÇ¾î ÀÖ´Â ºÎÈ°Á¸À¸·Î °£´Ù.
+			// ë§Œì¼ ì•„ì§ ë¶€í™œ ìœ„ì¹˜ë¥¼ ì§€ì •í•´ ë†“ì§€ ì•Šì•˜ë‹¤ë©´, 
+			// í˜„ì¬ ì¡´ì—ì„œ ë””í´íŠ¸ë¡œ ì„¤ì •ë˜ì–´ ìˆëŠ” ë¶€í™œì¡´ìœ¼ë¡œ ê°„ë‹¤.
 			if (g_pResurrectLocationManager->getSlayerPosition(pSlayer->getZone()->getZoneID(), ResurrectCoord))
 			{
 				ZoneID         = ResurrectCoord.id; 
@@ -1377,7 +1377,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			}
 			else
 			{
-				// ¾Æ, ºñ»óÀÌ´å...
+				// ì•„, ë¹„ìƒì´ë‹·...
 				throw Error("Critical Error : ResurrectInfo is not established!");
 			}
 		}
@@ -1390,22 +1390,22 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pSlayer->getPlayer());
 			Assert(pGamePlayer!=NULL);
 
-			// À¯·áÈ­ Á¸ÀÌ°í À¯·á»ç¿ëÁßÀÌ ¾Æ´Ï¸é..
+			// ìœ ë£Œí™” ì¡´ì´ê³  ìœ ë£Œì‚¬ìš©ì¤‘ì´ ì•„ë‹ˆë©´..
 			if (pZoneInfo!=NULL
 				&& (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
 				&& !pGamePlayer->isPayPlaying())
 			{
 			   	string connectIP = pGamePlayer->getSocket()->getHost();
 
-				// À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+				// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
 				if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
 				{
 					sendPayInfo(pGamePlayer);
 				}
 				else if (pZoneInfo->isPayPlay())
 				{
-					// À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
-					// ¿¡½½³²µ¿¿¡¼­ ºÎÈ°ÇÏ´Â °÷À¸·Î °£´Ù.
+					// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
+					// ì—ìŠ¬ë‚¨ë™ì—ì„œ ë¶€í™œí•˜ëŠ” ê³³ìœ¼ë¡œ ê°„ë‹¤.
 					if (g_pResurrectLocationManager->getSlayerPosition(13, ResurrectCoord))
 					{
 						ZoneID         = ResurrectCoord.id; 
@@ -1416,7 +1416,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 					}
 					else
 					{
-						// ¾Æ, ºñ»óÀÌ´å...
+						// ì•„, ë¹„ìƒì´ë‹·...
 						throw Error("Critical Error : ResurrectInfo is not established!1");
 					}
 				}
@@ -1425,7 +1425,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		} 
 		catch (NoSuchElementException&) 
 		{
-			throw Error("Critical Error : Æ÷Å»¿¡ ÁöÁ¤µÈ Á¸ ¾ÆÀÌµğ°¡ Æ²¸®°Å³ª, ZoneInfoManager¿¡ ÇØ´ç Á¸ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw Error("Critical Error : í¬íƒˆì— ì§€ì •ëœ ì¡´ ì•„ì´ë””ê°€ í‹€ë¦¬ê±°ë‚˜, ZoneInfoManagerì— í•´ë‹¹ ì¡´ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 		
 		try 
@@ -1434,15 +1434,15 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		} 
 		catch (NoSuchElementException&) 
 		{
-			// ÀÏ´ÜÀº ¼­¹ö°¡ 1´ëÀÌ¹Ç·Î.. ±×´ë·Î ³ª°£´Ù...
-			throw Error("Critical Error : ÇöÀç·Î´Â °ÔÀÓ ¼­¹ö´Â 1´ë»ÓÀÌ´ç..");
+			// ì¼ë‹¨ì€ ì„œë²„ê°€ 1ëŒ€ì´ë¯€ë¡œ.. ê·¸ëŒ€ë¡œ ë‚˜ê°„ë‹¤...
+			throw Error("Critical Error : í˜„ì¬ë¡œëŠ” ê²Œì„ ì„œë²„ëŠ” 1ëŒ€ë¿ì´ë‹¹..");
 		}
 
 		//pResurrectZone = pZoneGroup->getZone(ZoneID);
 		//Assert(pResurrectZone != NULL);
 
-		// EventResurrect¿¡¼­ zone¼³Á¤À» ¹Ù²Û´Ù.
-		//pDeadCreature->setZone(pResurrectZone);	 // ÁÖ¼®Ã³¸® by sigi. 2002.5.11
+		// EventResurrectì—ì„œ zoneì„¤ì •ì„ ë°”ê¾¼ë‹¤.
+		//pDeadCreature->setZone(pResurrectZone);	 // ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.11
 		//pDeadCreature->setXY(ZoneX, ZoneY);
 		//pDeadCreature->save();
 	} 
@@ -1467,8 +1467,8 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		{
 			try
 			{
-				// ¸¸ÀÏ ¾ÆÁ÷ ºÎÈ° À§Ä¡¸¦ ÁöÁ¤ÇØ ³õÁö ¾Ê¾Ò´Ù¸é, 
-				// ÇöÀç Á¸¿¡¼­ µğÆúÆ®·Î ¼³Á¤µÇ¾î ÀÖ´Â ºÎÈ°Á¸À¸·Î °£´Ù.
+				// ë§Œì¼ ì•„ì§ ë¶€í™œ ìœ„ì¹˜ë¥¼ ì§€ì •í•´ ë†“ì§€ ì•Šì•˜ë‹¤ë©´, 
+				// í˜„ì¬ ì¡´ì—ì„œ ë””í´íŠ¸ë¡œ ì„¤ì •ë˜ì–´ ìˆëŠ” ë¶€í™œì¡´ìœ¼ë¡œ ê°„ë‹¤.
 				ResurrectCoord = g_pResurrectLocationManager->getVampirePosition(pVampire->getZone()->getZoneID());
 				ZoneID         = ResurrectCoord.id; 
 				ZoneX          = ResurrectCoord.x;
@@ -1476,13 +1476,13 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			}
 			catch (NoSuchElementException&)
 			{
-				// ¾Æ, ºñ»óÀÌ´å...
+				// ì•„, ë¹„ìƒì´ë‹·...
 				throw Error("Critical Error : ResurrectInfo is not established!");
 			}
 		}
 		o/
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.9
+		// NoSuchì œê±°. by sigi. 2002.5.9
 		if (g_pResurrectLocationManager->getVampirePosition(pVampire->getResurrectZoneID(), ResurrectCoord))
 		{
 			ZoneID         = ResurrectCoord.id;
@@ -1491,8 +1491,8 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		}
 		else
 		{
-			// ¸¸ÀÏ ¾ÆÁ÷ ºÎÈ° À§Ä¡¸¦ ÁöÁ¤ÇØ ³õÁö ¾Ê¾Ò´Ù¸é, 
-			// ÇöÀç Á¸¿¡¼­ µğÆúÆ®·Î ¼³Á¤µÇ¾î ÀÖ´Â ºÎÈ°Á¸À¸·Î °£´Ù.
+			// ë§Œì¼ ì•„ì§ ë¶€í™œ ìœ„ì¹˜ë¥¼ ì§€ì •í•´ ë†“ì§€ ì•Šì•˜ë‹¤ë©´, 
+			// í˜„ì¬ ì¡´ì—ì„œ ë””í´íŠ¸ë¡œ ì„¤ì •ë˜ì–´ ìˆëŠ” ë¶€í™œì¡´ìœ¼ë¡œ ê°„ë‹¤.
 			if (g_pResurrectLocationManager->getVampirePosition(pVampire->getZone()->getZoneID(), ResurrectCoord))
 			{
 				ZoneID         = ResurrectCoord.id; 
@@ -1501,7 +1501,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			}
 			else
 			{
-				// ¾Æ, ºñ»óÀÌ´å...
+				// ì•„, ë¹„ìƒì´ë‹·...
 				throw Error("Critical Error : ResurrectInfo is not established!");
 			}
 		}
@@ -1514,22 +1514,22 @@ void PCManager::killCreature (Creature* pDeadCreature)
 			GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pVampire->getPlayer());
 			Assert(pGamePlayer!=NULL);
 
-			// À¯·áÈ­ Á¸ÀÌ°í À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é..
+			// ìœ ë£Œí™” ì¡´ì´ê³  ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´..
 			if (pZoneInfo!=NULL
 				&& (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
 				&& !pGamePlayer->isPayPlaying())
 			{
                 string connectIP = pGamePlayer->getSocket()->getHost();
 
-                // À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+                // ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
                 if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
 				{
 					sendPayInfo(pGamePlayer);
 				}
 				else if (pZoneInfo->isPayPlay())
 				{
-					// À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
-					// ¸²º¸³²µ¿¿¡¼­ ºÎÈ°ÇÏ´Â °÷À¸·Î °£´Ù.
+					// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
+					// ë¦¼ë³´ë‚¨ë™ì—ì„œ ë¶€í™œí•˜ëŠ” ê³³ìœ¼ë¡œ ê°„ë‹¤.
 					if (g_pResurrectLocationManager->getVampirePosition(23, ResurrectCoord))
 					{
 						ZoneID         = ResurrectCoord.id; 
@@ -1540,7 +1540,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 					}
 					else
 					{
-						// ¾Æ, ºñ»óÀÌ´å...
+						// ì•„, ë¹„ìƒì´ë‹·...
 						throw Error("Critical Error : ResurrectInfo is not established!2");
 					}
 				}
@@ -1550,7 +1550,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		} 
 		catch (NoSuchElementException&) 
 		{
-			throw Error("Critical Error : Æ÷Å»¿¡ ÁöÁ¤µÈ Á¸ ¾ÆÀÌµğ°¡ Æ²¸®°Å³ª, ZoneInfoManager¿¡ ÇØ´ç Á¸ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw Error("Critical Error : í¬íƒˆì— ì§€ì •ëœ ì¡´ ì•„ì´ë””ê°€ í‹€ë¦¬ê±°ë‚˜, ZoneInfoManagerì— í•´ë‹¹ ì¡´ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 		
 		try 
@@ -1559,15 +1559,15 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		} 
 		catch (NoSuchElementException&) 
 		{
-			// ÀÏ´ÜÀº ¼­¹ö°¡ 1´ëÀÌ¹Ç·Î.. ±×´ë·Î ³ª°£´Ù...
-			throw Error("Critical Error : ÇöÀç·Î´Â °ÔÀÓ ¼­¹ö´Â 1´ë»ÓÀÌ´ç..");
+			// ì¼ë‹¨ì€ ì„œë²„ê°€ 1ëŒ€ì´ë¯€ë¡œ.. ê·¸ëŒ€ë¡œ ë‚˜ê°„ë‹¤...
+			throw Error("Critical Error : í˜„ì¬ë¡œëŠ” ê²Œì„ ì„œë²„ëŠ” 1ëŒ€ë¿ì´ë‹¹..");
 		}
 
 		//pResurrectZone = pZoneGroup->getZone(ZoneID);
 		//Assert(pResurrectZone != NULL);
 
-		// EventResurrect¿¡¼­ zone¼³Á¤À» ¹Ù²Û´Ù.
-		//pDeadCreature->setZone(pResurrectZone);	 // ÁÖ¼®Ã³¸® by sigi. 2002.5.11
+		// EventResurrectì—ì„œ zoneì„¤ì •ì„ ë°”ê¾¼ë‹¤.
+		//pDeadCreature->setZone(pResurrectZone);	 // ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.11
 		//pDeadCreature->setXY(ZoneX, ZoneY);
 		//pDeadCreature->save();
 	}
@@ -1576,7 +1576,7 @@ void PCManager::killCreature (Creature* pDeadCreature)
 	PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pDeadCreature);
 	Assert( pPC != NULL );
 
-	// ÀÌº¥Æ® Á¸¿¡¼­ Á×¾úÀ¸¸é ÀÌº¥Æ® Á¸ ºÎÈ°À§Ä¡·Î..
+	// ì´ë²¤íŠ¸ ì¡´ì—ì„œ ì£½ì—ˆìœ¼ë©´ ì´ë²¤íŠ¸ ì¡´ ë¶€í™œìœ„ì¹˜ë¡œ..
 	EventZoneInfo* pEventZoneInfo = EventZoneInfoManager::Instance().getEventZoneInfo( pPC->getZoneID() );
 	if ( pEventZoneInfo != NULL )
 	{
@@ -1584,14 +1584,14 @@ void PCManager::killCreature (Creature* pDeadCreature)
 		ResurrectCoord.x = pEventZoneInfo->getResurrectX();
 		ResurrectCoord.y = pEventZoneInfo->getResurrectY();
 	}
-	// PKÁ¸¿¡¼­ Á×¾úÀ» °æ¿ì
-	// PKÁ¸ÀÇ ºÎÈ° À§Ä¡·Î °¡¾ß ÇÑ´Ù.
+	// PKì¡´ì—ì„œ ì£½ì—ˆì„ ê²½ìš°
+	// PKì¡´ì˜ ë¶€í™œ ìœ„ì¹˜ë¡œ ê°€ì•¼ í•œë‹¤.
 	else if ( g_pPKZoneInfoManager->isPKZone( pPC->getZoneID() ) )
 	{
 		if ( !g_pPKZoneInfoManager->getResurrectPosition( pPC->getZoneID(), ResurrectCoord ) )
 			g_pResurrectLocationManager->getPosition( pPC, ResurrectCoord );
 	}
-	// ÀÏ·çÁ¯½º¿şÀÌ1
+	// ì¼ë£¨ì ¼ìŠ¤ì›¨ì´1
 	else if ( pPC->getZoneID() == 1410 )
 	{
 		ResurrectCoord.id = 1410;
@@ -1630,19 +1630,19 @@ void PCManager::killCreature (Creature* pDeadCreature)
 	pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneID);
 	pZoneGroup = g_pZoneGroupManager->getZoneGroup(pZoneInfo->getZoneGroupID());
 
-	// Resurrect ÀÌº¥Æ®¸¦ ÇÃ·¹ÀÌ¾î °´Ã¼¿¡ ¿¬°ü½ÃÅ²´Ù.
+	// Resurrect ì´ë²¤íŠ¸ë¥¼ í”Œë ˆì´ì–´ ê°ì²´ì— ì—°ê´€ì‹œí‚¨ë‹¤.
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pDeadCreature->getPlayer());
 	EventResurrect* pEventResurrect = new EventResurrect(pGamePlayer);
 	pEventResurrect->setDeadline(0);
 
-	// ºÎÈ°ÇÒ Àå¼Ò¸¦ ¼ÂÆÃÇÑ´Ù.	 by sigi. 2002.5.11
+	// ë¶€í™œí•  ì¥ì†Œë¥¼ ì…‹íŒ…í•œë‹¤.	 by sigi. 2002.5.11
 	pResurrectZone = pZoneGroup->getZone(ZoneID);
 	Assert(pResurrectZone != NULL);
 
 	if ( pZone->isHolyLand() != pResurrectZone->isHolyLand() )
 	{
-		// ¾Æ´ãÀÇ ¼ºÁö¿¡¼­ ¹ÛÀ¸·Î ³ª°¡¸é¼­ ºÎÈ°µÇ´Â °æ¿ì
-		// ¼ºÁö º¸³Ê½º¸¦ ´Ù½Ã ¼¼ÆÃÇÏ±â À§ÇØ initAllStat À» ºÒ·¯Áà¾ß ÇÑ´Ù.
+		// ì•„ë‹´ì˜ ì„±ì§€ì—ì„œ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ì„œ ë¶€í™œë˜ëŠ” ê²½ìš°
+		// ì„±ì§€ ë³´ë„ˆìŠ¤ë¥¼ ë‹¤ì‹œ ì„¸íŒ…í•˜ê¸° ìœ„í•´ initAllStat ì„ ë¶ˆëŸ¬ì¤˜ì•¼ í•œë‹¤.
 		pDeadCreature->setFlag( Effect::EFFECT_CLASS_INIT_ALL_STAT );
 	}
 
@@ -1660,19 +1660,19 @@ void PCManager::killCreature (Creature* pDeadCreature)
 	pDeadCreature->setNewZone( pResurrectZone );
 	pDeadCreature->setNewXY( ZoneX, ZoneY );
 
-	// Player¿¡ Event¸¦ ºÙÀÎ´Ù.
+	// Playerì— Eventë¥¼ ë¶™ì¸ë‹¤.
 	pGamePlayer->addEvent(pEventResurrect);
 
-	// DB ÀúÀåÀ» À§ÇØ¼­.. EventResurrect¿¡¼­ zone¼³Á¤À» ¹Ù²Û´Ù.
+	// DB ì €ì¥ì„ ìœ„í•´ì„œ.. EventResurrectì—ì„œ zoneì„¤ì •ì„ ë°”ê¾¼ë‹¤.
 	ZoneCoord_t  oldZoneX = pDeadCreature->getX();
 	ZoneCoord_t  oldZoneY = pDeadCreature->getY();
 
-	// »õ Á¸ÀÇ Á¤º¸¸¦ ÀúÀåÇØµĞ´Ù.
+	// ìƒˆ ì¡´ì˜ ì •ë³´ë¥¼ ì €ì¥í•´ë‘”ë‹¤.
 	pDeadCreature->setZone(pResurrectZone);	
 	pDeadCreature->setXY(ZoneX, ZoneY);
 
 	pDeadCreature->save();
-	// ´Ù½Ã ¿ø·¡ÀÇ Zone Á¤º¸·Î ¼³Á¤ÇØÁØ´Ù.
+	// ë‹¤ì‹œ ì›ë˜ì˜ Zone ì •ë³´ë¡œ ì„¤ì •í•´ì¤€ë‹¤.
 	pDeadCreature->setZone(pZone);
 	pDeadCreature->setXY(oldZoneX, oldZoneY);
 
@@ -1694,9 +1694,9 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 
 	Zone* pZone = NULL;
 
-	// transportCreature - Zone::deleteCreature¿¡¼­ ´Ù½Ã PCManager·Î Á¢±ÙÇØ¼­
-	// SELF_DEAD_LOCKÀÌ ¹ß»ıÇÑ´Ù. -_--.. ±×·¡¼­..
-	// ÀÏ´Ü Á¸¿¡ ÀÖ´Â ¸ğµç CreatureÀÇ ID¸¦ ±â¾ïÇØµÎ°í...
+	// transportCreature - Zone::deleteCreatureì—ì„œ ë‹¤ì‹œ PCManagerë¡œ ì ‘ê·¼í•´ì„œ
+	// SELF_DEAD_LOCKì´ ë°œìƒí•œë‹¤. -_--.. ê·¸ë˜ì„œ..
+	// ì¼ë‹¨ ì¡´ì— ìˆëŠ” ëª¨ë“  Creatureì˜ IDë¥¼ ê¸°ì–µí•´ë‘ê³ ...
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	unordered_map< ObjectID_t , Creature* >::const_iterator iCreature  = m_Creatures.begin();
@@ -1707,8 +1707,8 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
-		// race==0xFF´Â default·Î ¸ğµç Á¾Á·ÀÌ¶ó´Â ÀÇ¹ÌÀÌ°í -_-;
-		// Æ¯Á¤ Á¾Á·¸¸ ÀÌµ¿½ÃÅ²´Ù.
+		// race==0xFFëŠ” defaultë¡œ ëª¨ë“  ì¢…ì¡±ì´ë¼ëŠ” ì˜ë¯¸ì´ê³  -_-;
+		// íŠ¹ì • ì¢…ì¡±ë§Œ ì´ë™ì‹œí‚¨ë‹¤.
 		if (race==defaultRaceValue 
 			|| race==pPC->getRace())
 		{
@@ -1722,7 +1722,7 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	// ±× CreatureµéÀ» ´Ù¸¥ °÷À¸·Î ÀÌµ¿½ÃÅ²´Ù.
+	// ê·¸ Creatureë“¤ì„ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
 	try
 	{
 		vector< ObjectID_t >::const_iterator itr = creatureIDs.begin();
@@ -1750,7 +1750,7 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 					Assert( pPC != NULL );
 					g_pResurrectLocationManager->getPosition( pPC, ResurrectCoord );
 
-					// 10ÃÊ
+					// 10ì´ˆ
 					pEventTransport->setDeadline( 100 );
 					pEventTransport->setZoneName( "" );
 					pEventTransport->setTargetZone( ResurrectCoord.id, ResurrectCoord.x, ResurrectCoord.y );
@@ -1770,7 +1770,7 @@ void PCManager::transportAllCreatures (ZoneID_t ZoneID, ZoneCoord_t ZoneX, ZoneC
 					else
 					{
 						pEventTransport->setTargetZone( ZoneID, ZoneX, ZoneY );
-						// ¸î ÃÊÈÄ¿¡ ¾îµğ·Î ÀÌµ¿ÇÑ´Ù.°í º¸³»ÁØ´Ù.
+						// ëª‡ ì´ˆí›„ì— ì–´ë””ë¡œ ì´ë™í•œë‹¤.ê³  ë³´ë‚´ì¤€ë‹¤.
 //						pEventTransport->sendMessage();
 					}
 				}

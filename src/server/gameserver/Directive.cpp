@@ -1,9 +1,9 @@
 ////////////////////////////////////////////////////////////////////////
 // Filename    : Directive.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
-// MonsterAI¿¡¼­ Çàµ¿À» °áÁ¤ÇÏ´Â Directive¿Í DirectiveSetÀ»
-// ±¸ÇöÇØ³õÀº ÆÄÀÏÀÌ´Ù.
+// MonsterAIì—ì„œ í–‰ë™ì„ ê²°ì •í•˜ëŠ” Directiveì™€ DirectiveSetì„
+// êµ¬í˜„í•´ë†“ì€ íŒŒì¼ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 
 #include "Directive.h"
@@ -15,11 +15,11 @@
 
 #include "skill/Skill.h"
 
-// »ó¼öµé...
+// ìƒìˆ˜ë“¤...
 #define MODE_CONDITION   0
 #define MODE_ACTION      1
 
-// Àü¿ª º¯¼ö
+// ì „ì—­ ë³€ìˆ˜
 DirectiveSetManager* g_pDirectiveSetManager = NULL;
 
 ////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ void Directive::addCondition(int condition)
 {
 	__BEGIN_TRY
 
-	// °°Àº ÄÁµğ¼ÇÀÌ ÀÖÁö ¾ÊÀºÁö °Ë»çÇÑ´Ù.
+	// ê°™ì€ ì»¨ë””ì…˜ì´ ìˆì§€ ì•Šì€ì§€ ê²€ì‚¬í•œë‹¤.
 	list<int>::iterator itr = m_Conditions.begin();
 	for (; itr != m_Conditions.end(); itr++)
 	{
@@ -119,7 +119,7 @@ DirectiveSet::~DirectiveSet()
 {
 	__BEGIN_TRY
 
-	// ¸®½ºÆ®¸¦ °Ë»öÇÏ¸é¼­ Directive °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+	// ë¦¬ìŠ¤íŠ¸ë¥¼ ê²€ìƒ‰í•˜ë©´ì„œ Directive ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 	list<Directive*>::iterator itr = m_Directives.begin();
 	for (; itr != m_Directives.end(); itr++)
 	{
@@ -137,7 +137,7 @@ void DirectiveSet::clear()
 {
 	__BEGIN_TRY
 
-	// ¸®½ºÆ®¸¦ °Ë»öÇÏ¸é¼­ Directive °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+	// ë¦¬ìŠ¤íŠ¸ë¥¼ ê²€ìƒ‰í•˜ë©´ì„œ Directive ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 	list<Directive*>::iterator itr = m_Directives.begin();
 	for (; itr != m_Directives.end(); itr++)
 	{
@@ -186,7 +186,7 @@ void DirectiveSet::addDeadDirective(Directive* pDirective)
 
 
 ////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ
+// ìƒì„±ì
 ////////////////////////////////////////////////////////////////////////
 DirectiveSetManager::DirectiveSetManager()
 	
@@ -200,7 +200,7 @@ DirectiveSetManager::DirectiveSetManager()
 }
 
 ////////////////////////////////////////////////////////////////////////
-// ¼Ò¸êÀÚ
+// ì†Œë©¸ì
 ////////////////////////////////////////////////////////////////////////
 DirectiveSetManager::~DirectiveSetManager()
 	
@@ -214,7 +214,7 @@ DirectiveSetManager::~DirectiveSetManager()
 			SAFE_DELETE(m_ppSet[i]);
 		}
 
-		SAFE_DELETE_ARRAY(m_ppSet);	// ÀÌ°Ô ºÒ·ÁÁú ÀÏÀº ¾ø°ÚÁö¸¸.. -_-; by sigi
+		SAFE_DELETE_ARRAY(m_ppSet);	// ì´ê²Œ ë¶ˆë ¤ì§ˆ ì¼ì€ ì—†ê² ì§€ë§Œ.. -_-; by sigi
 	}
 
 	__END_CATCH_NO_RETHROW
@@ -222,7 +222,7 @@ DirectiveSetManager::~DirectiveSetManager()
 
 ////////////////////////////////////////////////////////////////////////
 // init()
-// °´Ã¼¸¦ ÃÊ±âÈ­ÇÑ´Ù. ÃÊ±âÈ­´Â ObjectManager¿¡¼­...
+// ê°ì²´ë¥¼ ì´ˆê¸°í™”í•œë‹¤. ì´ˆê¸°í™”ëŠ” ObjectManagerì—ì„œ...
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::init()
 	
@@ -237,8 +237,8 @@ void DirectiveSetManager::init()
 
 ////////////////////////////////////////////////////////////////////////
 // load()
-// DB¿¡¼­ ¸ğµç DirectiveSetÀ» ·ÎµåÇÑ´Ù. 
-// MonsterAI °´Ã¼µéÀº ·ÎµåµÈ DirectiveSet¿¡ ´ëÇÑ Æ÷ÀÎÅÍ¸¸À» °¡Áö°Ô µÈ´Ù.
+// DBì—ì„œ ëª¨ë“  DirectiveSetì„ ë¡œë“œí•œë‹¤. 
+// MonsterAI ê°ì²´ë“¤ì€ ë¡œë“œëœ DirectiveSetì— ëŒ€í•œ í¬ì¸í„°ë§Œì„ ê°€ì§€ê²Œ ëœë‹¤.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::load()
 	
@@ -252,15 +252,15 @@ void DirectiveSetManager::load()
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		// ¼ÂÀÇ ¼ıÀÚ¸¦ ÀĞ¾î¿Â´Ù.
+		// ì…‹ì˜ ìˆ«ìë¥¼ ì½ì–´ì˜¨ë‹¤.
 		pResult = pStmt->executeQuery("SELECT MAX(ID) FROM DirectiveSet");
 
-		if (pResult->getRowCount() == 0) throw ("DirectiveSetManager::load() : Å×ÀÌºí¿¡ ¾ø½À´Ï´Ù.");
+		if (pResult->getRowCount() == 0) throw ("DirectiveSetManager::load() : í…Œì´ë¸”ì— ì—†ìŠµë‹ˆë‹¤.");
 
 		pResult->next();
 		m_nSetCount = pResult->getInt(1)+1;
 
-		// ÀĞ¾îµéÀÎ ¼ıÀÚ¸¸Å­ ¸Ş¸ğ¸®¸¦ ÇÒ´çÇÏ°í...
+		// ì½ì–´ë“¤ì¸ ìˆ«ìë§Œí¼ ë©”ëª¨ë¦¬ë¥¼ í• ë‹¹í•˜ê³ ...
 		if (m_ppSet==NULL)
 		{
 			m_ppSet = new DirectiveSet*[m_nSetCount];
@@ -271,7 +271,7 @@ void DirectiveSetManager::load()
 			}
 		}
 
-		// °¢°¢ÀÇ directive¸¦ ÀĞ¾îµéÀÎ´Ù.
+		// ê°ê°ì˜ directiveë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 		pResult = pStmt->executeQuery("SELECT ID, Name, Content, DeadContent FROM DirectiveSet");
 
 		while (pResult->next())
@@ -302,7 +302,7 @@ void DirectiveSetManager::load()
 
 ////////////////////////////////////////////////////////////////////////
 // getDirectiveSet()
-// ÁöÁ¤µÈ Å¸ÀÔÀÇ DirectiveSetÀÇ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ íƒ€ì…ì˜ DirectiveSetì˜ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 DirectiveSet* DirectiveSetManager::getDirectiveSet(uint index)
 	
@@ -322,7 +322,7 @@ DirectiveSet* DirectiveSetManager::getDirectiveSet(uint index)
 
 ////////////////////////////////////////////////////////////////////////
 // createDirectiveSet()
-// ¹®ÀÚ¿­À» ÆÄ½ÌÇØ¼­ ÁöÁ¤µÈ ÀÎµ¦½ºÀÇ ÀÚ¸®¿¡´Ù DirectiveSetÀ» »ı¼º.
+// ë¬¸ìì—´ì„ íŒŒì‹±í•´ì„œ ì§€ì •ëœ ì¸ë±ìŠ¤ì˜ ìë¦¬ì—ë‹¤ DirectiveSetì„ ìƒì„±.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::createDirectiveSet(uint index, const string& name, const string& text, const string& deadtext)
 	
@@ -335,7 +335,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 		throw("DirectiveSetManager::createDirectiveSet() : Out of bounds!");
 	}
 
-	// ÀÌÀüÀÇ DirectiveSetÀ» »èÁ¦ÇÏ°í, »õ °ÍÀ» ¸¸µç´Ù.
+	// ì´ì „ì˜ DirectiveSetì„ ì‚­ì œí•˜ê³ , ìƒˆ ê²ƒì„ ë§Œë“ ë‹¤.
 	if (m_ppSet[index]==NULL)	// by sigi. 2002.9.26
 	{
 		//SAFE_DELETE(m_ppSet[index]);
@@ -343,7 +343,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 	}
 	else
 	{
-		// ±âÁ¸¿¡ ÀÖ´ø°Ô ÀÖ´Ù¸é.. Áö¿î´Ù.
+		// ê¸°ì¡´ì— ìˆë˜ê²Œ ìˆë‹¤ë©´.. ì§€ìš´ë‹¤.
 		m_ppSet[index]->clear();
 	}
 
@@ -384,17 +384,17 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 		while (k < directive.size())
 		{
-			// Directive¸¦ ±¸¼ºÇÏ´Â ¾×¼ÇÀÌ³ª ÄÁµğ¼Ç ÁßÀÇ 
-			// ÇÏ³ª¸¦ ÀĞ¾îµéÀÎ´Ù.
+			// Directiveë¥¼ êµ¬ì„±í•˜ëŠ” ì•¡ì…˜ì´ë‚˜ ì»¨ë””ì…˜ ì¤‘ì˜ 
+			// í•˜ë‚˜ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 			i = directive.find_first_of('(', k);
 			j = directive.find_first_of(':', i+1);
 			k = directive.find_first_of(')', j+1);
 
-			// ¹®ÀÚ¿­ÀÇ ³¡À» ÃÊ°úÇß´Ù¸é, ÆÄ½ÌÀ» Áß´ÜÇÑ´Ù.
+			// ë¬¸ìì—´ì˜ ëì„ ì´ˆê³¼í–ˆë‹¤ë©´, íŒŒì‹±ì„ ì¤‘ë‹¨í•œë‹¤.
 			if (i > j || j > k) break;
 
-			// identifier´Â ¾×¼ÇÀÌ³Ä, ÄÁµğ¼ÇÀÌ³ÄÀÇ ¿©ºÎ.
-			// parameter´Â ±× µÚ¿¡ µû¶ó¿À´Â ÀÎ¼öÀÌ´Ù.
+			// identifierëŠ” ì•¡ì…˜ì´ëƒ, ì»¨ë””ì…˜ì´ëƒì˜ ì—¬ë¶€.
+			// parameterëŠ” ê·¸ ë’¤ì— ë”°ë¼ì˜¤ëŠ” ì¸ìˆ˜ì´ë‹¤.
 			string identifier = directive.substr(i+1, j-i-1);
 			string parameter  = directive.substr(j+1, k-j-1);
 
@@ -408,18 +408,18 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 			}
 			else
 			{
-				cerr << "DirectiveSetManager::createDirectiveSet() : ¾Ë ¼ö ¾ø´Â IDENTIFIER" << endl;
-				throw ("DirectiveSetManager::createDirectiveSet() : ¾Ë ¼ö ¾ø´Â IDENTIFIER");
+				cerr << "DirectiveSetManager::createDirectiveSet() : ì•Œ ìˆ˜ ì—†ëŠ” IDENTIFIER" << endl;
+				throw ("DirectiveSetManager::createDirectiveSet() : ì•Œ ìˆ˜ ì—†ëŠ” IDENTIFIER");
 			}
 		}
 
 		m_ppSet[index]->addDirective(pDirective);
 	}
 
-	// Á×¾úÀ» ¶§ ÇÏ´Â Çàµ¿À» ÀĞ¾îµéÀÎ´Ù. 5¶õ ¼ıÀÚ¿¡ Å« ÀÇ¹Ì´Â ¾ø´Ù.
-	// ¾Æ¹« Çàµ¿µµ ÇÏÁö ¾ÊÀ» ¶§´Â º¸Åë 0ÀÌÁö¸¸, ¹«¾ğ°¡ ¾×¼ÇÀÌ µé¾î°¡¸é 
-	// ±æÀÌ°¡ ´ë°­ 50Àº µÇ¸®¶ó°í »ı°¢Àº ÇÏ´Âµ¥... ÇÏ¿¸Æ° ¾×¼ÇÀÌ ¾ø´Â 
-	// °æ¿ì¿¡´Â ÀĞ¾îµéÀÌÁö ¾Ê±â À§ÇØ¼­, ÇÏ´Â °Ë»ç´Ù. -- ±è¼º¹Î
+	// ì£½ì—ˆì„ ë•Œ í•˜ëŠ” í–‰ë™ì„ ì½ì–´ë“¤ì¸ë‹¤. 5ë€ ìˆ«ìì— í° ì˜ë¯¸ëŠ” ì—†ë‹¤.
+	// ì•„ë¬´ í–‰ë™ë„ í•˜ì§€ ì•Šì„ ë•ŒëŠ” ë³´í†µ 0ì´ì§€ë§Œ, ë¬´ì–¸ê°€ ì•¡ì…˜ì´ ë“¤ì–´ê°€ë©´ 
+	// ê¸¸ì´ê°€ ëŒ€ê°• 50ì€ ë˜ë¦¬ë¼ê³  ìƒê°ì€ í•˜ëŠ”ë°... í•˜ì˜‡íŠ¼ ì•¡ì…˜ì´ ì—†ëŠ” 
+	// ê²½ìš°ì—ëŠ” ì½ì–´ë“¤ì´ì§€ ì•Šê¸° ìœ„í•´ì„œ, í•˜ëŠ” ê²€ì‚¬ë‹¤. -- ê¹€ì„±ë¯¼
 	if (deadtext.size() > 5)
 	{
 		start = 0;
@@ -455,17 +455,17 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 			while (k < directive.size())
 			{
-				// Directive¸¦ ±¸¼ºÇÏ´Â ¾×¼ÇÀÌ³ª ÄÁµğ¼Ç ÁßÀÇ 
-				// ÇÏ³ª¸¦ ÀĞ¾îµéÀÎ´Ù.
+				// Directiveë¥¼ êµ¬ì„±í•˜ëŠ” ì•¡ì…˜ì´ë‚˜ ì»¨ë””ì…˜ ì¤‘ì˜ 
+				// í•˜ë‚˜ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 				i = directive.find_first_of('(', k);
 				j = directive.find_first_of(':', i+1);
 				k = directive.find_first_of(')', j+1);
 
-				// ¹®ÀÚ¿­ÀÇ ³¡À» ÃÊ°úÇß´Ù¸é, ÆÄ½ÌÀ» Áß´ÜÇÑ´Ù.
+				// ë¬¸ìì—´ì˜ ëì„ ì´ˆê³¼í–ˆë‹¤ë©´, íŒŒì‹±ì„ ì¤‘ë‹¨í•œë‹¤.
 				if (i > j || j > k) break;
 
-				// identifier´Â ¾×¼ÇÀÌ³Ä, ÄÁµğ¼ÇÀÌ³ÄÀÇ ¿©ºÎ.
-				// parameter´Â ±× µÚ¿¡ µû¶ó¿À´Â ÀÎ¼öÀÌ´Ù.
+				// identifierëŠ” ì•¡ì…˜ì´ëƒ, ì»¨ë””ì…˜ì´ëƒì˜ ì—¬ë¶€.
+				// parameterëŠ” ê·¸ ë’¤ì— ë”°ë¼ì˜¤ëŠ” ì¸ìˆ˜ì´ë‹¤.
 				string identifier = directive.substr(i+1, j-i-1);
 				string parameter  = directive.substr(j+1, k-j-1);
 
@@ -479,8 +479,8 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 				}
 				else
 				{
-					cerr << "DirectiveSetManager::createDirectiveSet() : ¾Ë ¼ö ¾ø´Â IDENTIFIER" << endl;
-					throw ("DirectiveSetManager::createDirectiveSet() : ¾Ë ¼ö ¾ø´Â IDENTIFIER");
+					cerr << "DirectiveSetManager::createDirectiveSet() : ì•Œ ìˆ˜ ì—†ëŠ” IDENTIFIER" << endl;
+					throw ("DirectiveSetManager::createDirectiveSet() : ì•Œ ìˆ˜ ì—†ëŠ” IDENTIFIER");
 				}
 			}
 
@@ -498,7 +498,7 @@ void DirectiveSetManager::createDirectiveSet(uint index, const string& name, con
 
 ////////////////////////////////////////////////////////////////////////
 // parseDirectiveParameter()
-// ¹®ÀÚ¿­À» ÆÄ½ÌÇØ¼­, ÄÁµğ¼ÇÀÌ³ª ¾×¼ÇÀ» ¸¸µé¾î Directive¿¡ ¼¼ÆÃÇÑ´Ù.
+// ë¬¸ìì—´ì„ íŒŒì‹±í•´ì„œ, ì»¨ë””ì…˜ì´ë‚˜ ì•¡ì…˜ì„ ë§Œë“¤ì–´ Directiveì— ì„¸íŒ…í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const string& text, int mode)
 	
@@ -511,14 +511,14 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 
 	while (oldpos < text.size() && pos < text.size())
 	{
-		// ¿¬¼ÓµÈ ÆÄ¶ó¹ÌÅÍ´Â ","·Î ±¸ºĞµÈ´Ù.
+		// ì—°ì†ëœ íŒŒë¼ë¯¸í„°ëŠ” ","ë¡œ êµ¬ë¶„ëœë‹¤.
 		oldpos = pos;
 		pos    = text.find_first_of(',', oldpos);
 
-		// ÄÁµğ¼Ç °°Àº °æ¿ì¿¡´Â ÆÄ¶ó¹ÌÅÍ°¡ ÇÏ³ªÀÌ±â ¶§¹®¿¡
-		// ","¸¦ Ã£À¸¸é ¸Æ½º °ªÀÌ ¹«Á¶°Ç ³ª¿Â´Ù. 
-		// ÀÌ°É·Î´Â ¼­ºê½ºÆ®¸µ ÇÔ¼ö¸¦ Á¦´ë·Î ºÎ¸¦ ¼ö°¡ 
-		// ¾ø±â ¶§¹®¿¡ ¹®ÀÚ¿­ÀÇ ±æÀÌ·Î pos °ªÀ» ¼¼ÆÃÇØÁØ´Ù.
+		// ì»¨ë””ì…˜ ê°™ì€ ê²½ìš°ì—ëŠ” íŒŒë¼ë¯¸í„°ê°€ í•˜ë‚˜ì´ê¸° ë•Œë¬¸ì—
+		// ","ë¥¼ ì°¾ìœ¼ë©´ ë§¥ìŠ¤ ê°’ì´ ë¬´ì¡°ê±´ ë‚˜ì˜¨ë‹¤. 
+		// ì´ê±¸ë¡œëŠ” ì„œë¸ŒìŠ¤íŠ¸ë§ í•¨ìˆ˜ë¥¼ ì œëŒ€ë¡œ ë¶€ë¥¼ ìˆ˜ê°€ 
+		// ì—†ê¸° ë•Œë¬¸ì— ë¬¸ìì—´ì˜ ê¸¸ì´ë¡œ pos ê°’ì„ ì„¸íŒ…í•´ì¤€ë‹¤.
     if (pos == string::npos) pos = text.size();
 		pos++;
 
@@ -578,7 +578,7 @@ void DirectiveSetManager::parseDirectiveParameter(Directive* pDirective, const s
 
 ////////////////////////////////////////////////////////////////////////
 // getCondition()
-// ¹®ÀÚ¿­À» ¹Ş¾Æ ±×¿¡ ÇØ´çÇÏ´Â ÄÁµğ¼Ç »ó¼ö¸¦ ¸®ÅÏÇÑ´Ù.
+// ë¬¸ìì—´ì„ ë°›ì•„ ê·¸ì— í•´ë‹¹í•˜ëŠ” ì»¨ë””ì…˜ ìƒìˆ˜ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getCondition(const string& token)
 	
@@ -601,7 +601,7 @@ int DirectiveSetManager::getCondition(const string& token)
 
 ////////////////////////////////////////////////////////////////////////
 // getAction()
-// ¹®ÀÚ¿­À» ¹Ş¾Æ ±×¿¡ ÇØ´çÇÏ´Â ¾×¼Ç »ó¼ö¸¦ ¸®ÅÏÇÑ´Ù.
+// ë¬¸ìì—´ì„ ë°›ì•„ ê·¸ì— í•´ë‹¹í•˜ëŠ” ì•¡ì…˜ ìƒìˆ˜ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getAction(const string& token)
 	
@@ -620,8 +620,8 @@ int DirectiveSetManager::getAction(const string& token)
 
 ////////////////////////////////////////////////////////////////////////
 // getParameter()
-// ¹®ÀÚ¿­À» ¹Ş¾Æ ±×¿¡ ÇØ´çÇÏ´Â ÆÄ¶ó¹ÌÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-// ÇöÀç·Î¼­´Â ¸ó½ºÅÍ°¡ »ç¿ëÇÏ´Â ½ºÅ³ Å¸ÀÔ »ÓÀÌ´Ù.
+// ë¬¸ìì—´ì„ ë°›ì•„ ê·¸ì— í•´ë‹¹í•˜ëŠ” íŒŒë¼ë¯¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+// í˜„ì¬ë¡œì„œëŠ” ëª¬ìŠ¤í„°ê°€ ì‚¬ìš©í•˜ëŠ” ìŠ¤í‚¬ íƒ€ì… ë¿ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getParameter(const string& token)
 	
@@ -644,7 +644,7 @@ int DirectiveSetManager::getParameter(const string& token)
 
 ////////////////////////////////////////////////////////////////////////
 // getRatio()
-// ¹®ÀÚ¿­À» ¹Ş¾Æ ±×¿¡ ÇØ´çÇÏ´Â È®·ü°ªÀ» ¸®ÅÏÇÑ´Ù. ¹éºĞÀ²ÀÌ´Ù.
+// ë¬¸ìì—´ì„ ë°›ì•„ ê·¸ì— í•´ë‹¹í•˜ëŠ” í™•ë¥ ê°’ì„ ë¦¬í„´í•œë‹¤. ë°±ë¶„ìœ¨ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////
 int DirectiveSetManager::getRatio(const string& token)
 	

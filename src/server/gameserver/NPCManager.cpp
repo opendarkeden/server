@@ -83,19 +83,19 @@ void NPCManager::load (ZoneID_t zoneID, int race)
 
 				pNPC->setTaxingCastleZoneID( pResult->getInt(++i) );
 
-//				cout << pNPC->getName() << "Àº " << pNPC->getTaxingCastleZoneID() << " Á¸¿¡¼­ ¼¼±İ ¸Å±é´Ï´Ù." << endl;
-				filelog("NPC.log", "%s´Â %uÁ¸¿¡¼­ ¼¼±İ ¸Å±é´Ï´Ù.", pNPC->getName().c_str(), pNPC->getTaxingCastleZoneID() );
+//				cout << pNPC->getName() << "ì€ " << pNPC->getTaxingCastleZoneID() << " ì¡´ì—ì„œ ì„¸ê¸ˆ ë§¤ê¹ë‹ˆë‹¤." << endl;
+				filelog("NPC.log", "%sëŠ” %uì¡´ì—ì„œ ì„¸ê¸ˆ ë§¤ê¹ë‹ˆë‹¤.", pNPC->getName().c_str(), pNPC->getTaxingCastleZoneID() );
 
 				printf("NPC[%s] loading begin >> ", pNPC->getName().c_str());
 				pNPC->init();
 				printf("loading end\n");
-				// NPC trace ¸¦ À§ÇØ by DEW 2003. 04. 16
+				// NPC trace ë¥¼ ìœ„í•´ by DEW 2003. 04. 16
 				g_pPCFinder->addNPC(pNPC);
 
-				// NPC->init() ¿¡¼­ NPC ÀÇ Trigger ¸¦ ·ÎµåÇÏ°í,
-				// CONDITION_AT_FIRST ¸¦ Ã£¾Æ¼­ ½ÇÇàÇÏ´Âµ¥
-				// ÀÌ¶§ ACTION_SET_POSITION ÀÌ ½ÇÇàµÇ¸é¼­ Zone¿¡ NPC ¸¦ Ãß°¡ÇÑ´Ù.
-				// ¸¸ÀÏ NPC ÀÇ CONDITION_AT_FIRST °¡ ACTION_SET_POSITION ÀÌ ¾Æ´Ï¶ó¸é ¹®Á¦°¡ »ı±æµí
+				// NPC->init() ì—ì„œ NPC ì˜ Trigger ë¥¼ ë¡œë“œí•˜ê³ ,
+				// CONDITION_AT_FIRST ë¥¼ ì°¾ì•„ì„œ ì‹¤í–‰í•˜ëŠ”ë°
+				// ì´ë•Œ ACTION_SET_POSITION ì´ ì‹¤í–‰ë˜ë©´ì„œ Zoneì— NPC ë¥¼ ì¶”ê°€í•œë‹¤.
+				// ë§Œì¼ NPC ì˜ CONDITION_AT_FIRST ê°€ ACTION_SET_POSITION ì´ ì•„ë‹ˆë¼ë©´ ë¬¸ì œê°€ ìƒê¸¸ë“¯
 				//addCreature(pNPC);
 			}
 		}

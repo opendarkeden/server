@@ -46,7 +46,7 @@ ZoneGroup::~ZoneGroup ()
 {
 	__BEGIN_TRY
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
 	m_Zones.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -130,8 +130,8 @@ void ZoneGroup::processPlayers ()
 	} 
 	catch (TimeoutException&) 
 	{
-		// timeout ÀÌ ¹ß»ıÇÏ¸é, ÀÔ·Â, Ãâ·Â, OOB Ã³¸® ¾î´À °ÍÀÌ³ª ÇÒ °Ô ¾ø´ç..
-		// Àß¸øµÈ FD°¡ ÀÖÀ» °æ¿ì Â¥¸£±â À§ÇÏ¿© ½ÃÇàÇÑ´Ù -_-;
+		// timeout ì´ ë°œìƒí•˜ë©´, ì…ë ¥, ì¶œë ¥, OOB ì²˜ë¦¬ ì–´ëŠ ê²ƒì´ë‚˜ í•  ê²Œ ì—†ë‹¹..
+		// ì˜ëª»ëœ FDê°€ ìˆì„ ê²½ìš° ì§œë¥´ê¸° ìœ„í•˜ì—¬ ì‹œí–‰í•œë‹¤ -_-;
 		//m_pZonePlayerManager->processOutputs();
 	} 
 	catch (InterruptedException & ie) 
@@ -151,7 +151,7 @@ void ZoneGroup::processPlayers ()
 
 	try {
 
-		// ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ ¸í·ÉÀ» Ã³¸®ÇÑ´Ù.
+		// ëª¨ë“  í”Œë ˆì´ì–´ì˜ ëª…ë ¹ì„ ì²˜ë¦¬í•œë‹¤.
 		beginProfileEx("ZPM_COMMAND");
 	//	__ENTER_CRITICAL_SECTION(m_pZonePlayerManager)
 		m_pZonePlayerManager->processCommands();
@@ -167,7 +167,7 @@ void ZoneGroup::processPlayers ()
 
 	try {
 		beginProfileEx("ZPM_HEARTBEAT");
-		m_pZonePlayerManager->heartbeat();	// ³»ºÎ¿¡¼­ lock°Ç´Ù.
+		m_pZonePlayerManager->heartbeat();	// ë‚´ë¶€ì—ì„œ lockê±´ë‹¤.
 		endProfileEx("ZPM_HEARTBEAT");
 	} catch (Error& er) {
 
@@ -246,11 +246,11 @@ void ZoneGroup::addZone (Zone* pZone)
 {
 	__BEGIN_TRY
 
-	// ÀÏ´Ü °°Àº ¾ÆÀÌµğÀÇ Á¸ÀÌ ÀÖ´ÂÁö Ã¼Å©ÇØº»´Ù.
+	// ì¼ë‹¨ ê°™ì€ ì•„ì´ë””ì˜ ì¡´ì´ ìˆëŠ”ì§€ ì²´í¬í•´ë³¸ë‹¤.
 	unordered_map< ZoneID_t , Zone *>::iterator itr = m_Zones.find(pZone->getZoneID());
 	
 	if (itr != m_Zones.end())
-		// ¶È°°Àº ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ë˜‘ê°™ì€ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤. - -;
 		throw Error("duplicated zone id");
 
 	m_Zones[ pZone->getZoneID() ] = pZone;
@@ -269,15 +269,15 @@ void ZoneGroup::deleteZone (ZoneID_t zoneID)
 	
 	if (itr != m_Zones.end()) 
 	{
-		// Á¸À» »èÁ¦ÇÑ´Ù.
+		// ì¡´ì„ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(itr->second);
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_Zones.erase(itr);
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -288,7 +288,7 @@ void ZoneGroup::deleteZone (ZoneID_t zoneID)
 
 //////////////////////////////////////////////////////////////////////////////
 // Remove zone from zone group
-// deleteÇÏÁö ¾Ê°í node¸¸ Áö¿öÁØ´Ù.
+// deleteí•˜ì§€ ì•Šê³  nodeë§Œ ì§€ì›Œì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Zone* ZoneGroup::removeZone (ZoneID_t zoneID) 
 {
@@ -298,18 +298,18 @@ Zone* ZoneGroup::removeZone (ZoneID_t zoneID)
 	
 	if (itr != m_Zones.end()) 
 	{
-		// Á¸À» »èÁ¦ÇÑ´Ù.
+		// ì¡´ì„ ì‚­ì œí•œë‹¤.
 		//SAFE_DELETE(itr->second);
 		Zone* pZone = itr->second;
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_Zones.erase(itr);
 
 		return pZone;
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -337,7 +337,7 @@ Zone* ZoneGroup::getZone (ZoneID_t zoneID) const
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID;
 		throw NoSuchElementException(msg.toString());

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : CastleInfoManager.cpp
 // Written By  : 
-// Description : 아담의 성지 근처에 있는 성에 대한 정보
+// Description : Information about the castles near Adam's sanctuary
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "CastleInfoManager.h"
@@ -55,7 +55,7 @@ CastleInfo::~CastleInfo()
 
 Gold_t CastleInfo::increaseTaxBalance( Gold_t tax )
 {
-	if( tax > GUILD_TAX_BALANCE_MAX - m_TaxBalance ) // 총합이 오버할 경우
+	if( tax > GUILD_TAX_BALANCE_MAX - m_TaxBalance ) // Clamp when the total would overflow
 	{
 		tax = GUILD_TAX_BALANCE_MAX - m_TaxBalance;
 	}
@@ -223,7 +223,7 @@ CastleInfoManager::~CastleInfoManager ()
 		SAFE_DELETE(pInfo);
 	}
 	
-	// 해쉬맵안에 있는 모든 pair 들을 삭제한다.
+	// Remove all pairs from the hashmap.
 	m_CastleInfos.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -374,16 +374,16 @@ void CastleInfoManager::addCastleInfo (CastleInfo* pCastleInfo)
 {
 	__BEGIN_TRY
 
-	// 일단 같은 아이디의 존이 있는지 체크해본다.
+	// First check if a zone with the same ID already exists.
 	unordered_map< ZoneID_t , CastleInfo *>::iterator itr = m_CastleInfos.find(pCastleInfo->getZoneID());
 	
 	if (itr != m_CastleInfos.end())
-		// 똑같은 아이디가 이미 존재한다는 소리다. - -;
+		// Duplicate zone ID.
 		throw Error("duplicated zone id");
 
 	m_CastleInfos[ pCastleInfo->getZoneID() ] = pCastleInfo;
 
-	// 성과 관련된 모든 ZoneID를 등록한다.
+	// Register every zone ID that belongs to this castle.
 	const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
 	list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
 
@@ -409,15 +409,15 @@ void CastleInfoManager::deleteCastleInfo (ZoneID_t zoneID)
 	
 	if (itr != m_CastleInfos.end()) 
 	{
-		// 존을 삭제한다.
+		// Delete the zone.
 		SAFE_DELETE(itr->second);
 
-		// pair를 삭제한다.
+		// Remove the pair entry.
 		m_CastleInfos.erase(itr);
 	} 
 	else 
 	{
-		// 그런 존 아이디를 찾을 수 없었을 때
+		// If no such zone ID is found
 		return;
 	}
 
@@ -442,7 +442,7 @@ CastleInfo* CastleInfoManager::getCastleInfo (ZoneID_t zoneID) const
 
 	} else {
 
-		// 그런 존 아이디를 찾을 수 없었을 때
+		// If no such zone ID exists
 
 		return NULL;
 
@@ -537,19 +537,19 @@ bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_
 		char msg[100];
 		if( guildID == SlayerCommon )
 		{
-//			msg << pCastleInfo->getName() << "성이 슬레이어 공용 성이 되었습니다.";
+			//msg << pCastleInfo->getName() << " castle became a Slayer common castle.";
 			sprintf( msg, g_pStringPool->c_str( STRID_BECOME_SLAYER_COMMON_CASTLE ),
 							pCastleInfo->getName().c_str() );
 		}
 		else if ( guildID == VampireCommon )
 		{
-//			msg << pCastleInfo->getName() << "성이 뱀파이어 공용 성이 되었습니다.";
+			//msg << pCastleInfo->getName() << " castle became a Vampire common castle.";
 			sprintf( msg, g_pStringPool->c_str( STRID_BECOME_VAMPIRE_COMMON_CASTLE ),
 							pCastleInfo->getName().c_str() );
 		}
 		else if ( guildID == OustersCommon )
 		{
-			sprintf( msg, "%s 성이 아우스터즈 공용 성이 되었습니다.", pCastleInfo->getName().c_str() );
+			sprintf( msg, "%s castle became an Ousters common castle.", pCastleInfo->getName().c_str() );
 		}
 		else
 		{
@@ -557,55 +557,55 @@ bool CastleInfoManager::modifyCastleOwner(ZoneID_t zoneID, Race_t race, GuildID_
 
 			if( pGuild == NULL )
 			{
-				filelog( "CastleError.log", "알 수 없는 길드ID : %d", (int)guildID );
+				filelog( "CastleError.log", "Unknown guildID : %d", (int)guildID );
 			}
 			else
 			{
 				if ( pGuild->getRace() == Guild::GUILD_RACE_SLAYER )
 				{
-//					msg << pGuild->getName() << " 팀이 ";
+					//msg << pGuild->getName() << " team conquered the castle.";
 					sprintf( msg, g_pStringPool->c_str( STRID_BECOME_SLAYER_GUILD_CASTLE ),
-								pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
+							pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
 				}
 				else
 				{
-//					msg << pGuild->getName() << " 클랜이 ";
+					//msg << pGuild->getName() << " clan conquered the castle.";
 					sprintf( msg, g_pStringPool->c_str( STRID_BECOME_VAMPIRE_GUILD_CASTLE ),
-								pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
+							pGuild->getName().c_str(), pCastleInfo->getName().c_str() );
 				}
 			}
 
-//			msg << pCastleInfo->getName() << " 성을 점령했습니다.";
+//			msg << pCastleInfo->getName() << " castle was captured.";
 		}
 
-		// 성을 소유한 종족이 바뀐 경우의 처리
+		// Handle when the owning race of the castle changes
 		if ( oldRace != race )
 		{
-			// 성 관련 보너스 재설정
+			// Re-apply castle-related bonuses
 			//g_pHolyLandRaceBonus->refresh();
 
-			// [NPC 재설정] --> War에서 한다.
+			// [NPC reset] --> handled in War
 			/*
 			Zone* pZone = getZoneByZoneID( zoneID );
 
-			// 성의 NPC를 모두 지운다.
+			// Remove all castle NPCs.
 			pZone->deleteNPCs( oldRace );
 
-			// 성의 NPC를 다시 Load한다.
+			// Reload castle NPCs.
 			pZone->loadNPCs( race );
 			*/
 
-			// 성의 전쟁 스케쥴을 모두 취소한다.
+			// Cancel every war schedule for this castle.
 			WarScheduler* pWarScheduler = pZone->getWarScheduler();
 			Assert(pWarScheduler!=NULL);
 
-			// 길드전 스케쥴을 모두 취소한다.
+			// Cancel all guild war schedules.
 			pWarScheduler->cancelGuildSchedules();
 		}
 
 		filelog( "WarLog.txt", "[CastleZoneID:%u]%s", (uint)pCastleInfo->getZoneID(), msg );
 
-		// Holy Land Race Bonus 를 Player 에게 바로 적용되도록 한다.
+		// Apply the Holy Land Race Bonus to players immediately.
 		EventRefreshHolyLandPlayer* pEvent = new EventRefreshHolyLandPlayer( NULL );
 		pEvent->setDeadline(0);
 		g_pClientManager->addEvent( pEvent );
@@ -726,7 +726,7 @@ Gold_t CastleInfoManager::getEntranceFee( ZoneID_t zoneID, PlayerCreature* pPC )
     Assert(pPC != NULL);
     const CastleInfo* pCastleInfo = getCastleInfo( zoneID );
 
-	// 성이 전쟁 중이라면 입장료가 0 이다.
+	// If the castle is in war, entrance fee is waived.
     if ( pCastleInfo != NULL && !g_pWarSystem->hasCastleActiveWar( zoneID ) && !g_pWarSystem->hasActiveRaceWar() )
     {
         GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
@@ -811,7 +811,7 @@ bool CastleInfoManager::hasOtherBloodBible( ZoneID_t zoneID, PlayerCreature* pPC
 
 	if ( pPC->isFlag( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) )
 	{
-		// 이 성에 해당하지 않는 피의 성서를 들고 있으면 못 들어가게 해야 한다.
+		// Block entry if carrying a Blood Bible that does not belong to this castle.
 		EffectHasBloodBible* pEffect = dynamic_cast<EffectHasBloodBible*>( pPC->findEffect( Effect::EFFECT_CLASS_HAS_BLOOD_BIBLE ) );
 		Assert( pEffect != NULL );
 		
@@ -881,7 +881,7 @@ bool CastleInfoManager::canPortalActivate( ZoneID_t zoneID, PlayerCreature* pPC 
 
 	if ( pCastleInfo == NULL )
 	{
-		filelog( "CastleError.log", "CastleInfoManager::canPortalActivate() CastleInfo(%d)가 없습니다.", (int)zoneID );
+		filelog( "CastleError.log", "CastleInfoManager::canPortalActivate() CastleInfo(%d) is missing.", (int)zoneID );
 		Assert( false );
 	}
 
@@ -995,11 +995,11 @@ bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& z
 	{
 		if ( pCastleInfo->getZoneID() != pPC->getResurrectZoneID() || g_pWarSystem->hasCastleActiveWar( castleZoneID ) )
 		{
-			// 부활위치가 성밖으로 되어 있는 경우
-			// 부활위치가 성에 딸린 던젼으로 되어 있으면 성밖에 부활위치를 지정한 것으로 인식한다.
-			// 필살 하드 코딩. 존에 부활 위치를 하나밖에 지정할 수 없어서 이렇게 코딩한다.
-			// 아담의 성지 서쪽이나 동쪽 같은 경우에 인근한 두 성의 성밖 부활위치를 모두 지정할 수 없다.ㅡㅡ;
-			// 또, 현재 성이 전쟁 중이라면 성밖에서 부활하도록 한다.
+			// Resurrect outside the castle.
+			// If the resurrect point is a castle dungeon, treat it as outside.
+			// Hard-coded because each zone only supports one resurrect point.
+			// Example: west/east of Adam's sanctuary has two nearby castles; cannot set both outside points.
+			// Also, if the castle is at war, resurrect outside.
 			if ( isCastleMember( castleZoneID, pPC ) )
 				resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_SECOND;
 			else
@@ -1007,8 +1007,8 @@ bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& z
 		}
 		else
 		{
-			// 부활위치가 성안으로 되어 있는 경우
-			// 길드원이 아니면 요금을 받는다. 요금이 모자라면 성밖에 부활 시킨다.
+			// Resurrect inside the castle.
+			// Non-guild members pay a fee; if short on gold, resurrect outside.
 			if ( isCastleMember( castleZoneID, pPC ) )
 				resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_FIRST;
 			else
@@ -1018,12 +1018,12 @@ bool CastleInfoManager::getResurrectPosition( PlayerCreature* pPC, ZONE_COORD& z
 
 				if ( remain < fee )
 				{
-					// 요금이 부족한 경우 성밖에 부활 시킨다.
+					// Not enough fee: resurrect outside.
 					resurrectPriority = CastleInfo::CASTLE_RESURRECT_PRIORITY_THIRD;
 				}
 				else
 				{
-					// 요금이 있다면 요금을 받고 성안에 부활 시킨다.
+					// Charge the fee and resurrect inside.
 					pPC->decreaseGoldEx( fee );
 					increaseTaxBalance( pCastleInfo->getZoneID(), fee );
 
@@ -1097,7 +1097,7 @@ void    CastleInfoManager::deleteAllNPCs()
 
 		__ENTER_CRITICAL_SECTION( (*pZone) )
 
-		// NPC를 모두 지운다.
+		// Remove all NPCs.
 		pZone->deleteNPCs( RACE_SLAYER );
 		pZone->deleteNPCs( RACE_VAMPIRE );
 
@@ -1166,7 +1166,7 @@ void	CastleInfoManager::transportAllOtherRace()
 	{
 		CastleInfo* pCastleInfo = itr->second;		
 
-		// 성과 관련된 모든 ZoneID를 등록한다.
+		// Register every zone ID that belongs to this castle.
 		const list<ZoneID_t>& zoneIDs = pCastleInfo->getZoneIDList();
 		list<ZoneID_t>::const_iterator iZoneID = zoneIDs.begin();
 
@@ -1179,7 +1179,7 @@ void	CastleInfoManager::transportAllOtherRace()
 
 			__ENTER_CRITICAL_SECTION( (*pZone) )
 
-			// 종족전쟁의 패배자들은 부활 위치로 모두 쫓아보낸다.
+			// Send the losing race of the race war to the resurrect point.
 			Race_t otherRace = (pCastleInfo->getRace()==RACE_SLAYER? RACE_VAMPIRE : RACE_SLAYER);
 
 			ZONE_COORD zoneCoord;
@@ -1212,7 +1212,7 @@ void	CastleInfoManager::loadAllNPCs()
 
 		__ENTER_CRITICAL_SECTION( (*pZone) )
 
-		// NPC 로드
+		// Load NPCs
 		pZone->loadNPCs( pCastleInfo->getRace() );
 
 		__LEAVE_CRITICAL_SECTION( (*pZone) )
@@ -1240,7 +1240,7 @@ ZoneID_t    CastleInfoManager::getCastleZoneID(ShrineID_t shrineID) const
 	}
 
 	StringStream msg;
-	msg << "그런 ShrineID(" << (int)shrineID << ")가 없습니다.";
+	msg << "No such ShrineID(" << (int)shrineID << ").";
 
 	throw Error(msg.toString());
 
@@ -1345,7 +1345,7 @@ CastleInfoManager::isSameCastleZone(ZoneID_t zoneID1, ZoneID_t zoneID2) const
 	bool isCastle1 = getCastleZoneID(zoneID1, castleZoneID1);
 	bool isCastle2 = getCastleZoneID(zoneID2, castleZoneID2);
 
-	// 한 군데라도 성이 아니면 같은 성에 속한 존이 아니다.
+	// If either zone is not a castle, they are not in the same castle group.
 	if (!isCastle1 || !isCastle2)
 		return false;
 
@@ -1365,7 +1365,7 @@ SkillType_t CastleInfoManager::getCastleSkillType( ZoneID_t zoneID, GuildID_t gu
     {
         GuildID_t   OwnerGuildID = pCastleInfo->getGuildID();
 
-		// 성의 소유 길드가 아니면 없다.
+		// If the guild does not own the castle, return none.
         if ( guildID == SlayerCommon
              || guildID == VampireCommon
              || guildID == OustersCommon
@@ -1374,7 +1374,7 @@ SkillType_t CastleInfoManager::getCastleSkillType( ZoneID_t zoneID, GuildID_t gu
             return SKILL_MAX;
         }
 
-		// 성이 길드 전쟁 중이라면 없다.
+		// If the castle is in a guild war, none is available.
 		if ( g_pWarSystem->hasCastleActiveWar( zoneID ) )
 		{
 			return SKILL_MAX;

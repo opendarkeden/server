@@ -114,10 +114,10 @@ ItemFactoryManager::ItemFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ¾ÆÀÌÅÛÆÑÅä¸®¹è¿­À» »ý¼ºÇÑ´Ù.
+	// ì•„ì´í…œíŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
 	m_Factories = new ItemFactory*[ m_Size ];
 	
-	// ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -136,11 +136,11 @@ ItemFactoryManager::~ItemFactoryManager ()
 		
 	Assert(m_Factories != NULL);
 
-	// °¢°¢ÀÇ ¾ÆÀÌÅÛÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+	// ê°ê°ì˜ ì•„ì´í…œíŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		SAFE_DELETE(m_Factories[i]);
 	
-	// ¾ÆÀÌÅÛÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+	// ì•„ì´í…œíŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
 	SAFE_DELETE_ARRAY(m_Factories);
 			
 	__END_CATCH_NO_RETHROW
@@ -149,7 +149,7 @@ ItemFactoryManager::~ItemFactoryManager ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// Á¤ÀÇµÈ ¸ðµç ¾ÆÀÌÅÛÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  ì•„ì´í…œíŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void ItemFactoryManager::init ()
@@ -426,7 +426,7 @@ void ItemFactoryManager::init ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// ¾ÆÀÌÅÛ Å¬·¡½º·Î ÇÏÀ§ ÆÑÅä¸® ¸Å´ÏÁ®¿¡ ÀÖ´Â createItemÀ» ½ÇÇàÇÑ´Ù.
+// ì•„ì´í…œ í´ëž˜ìŠ¤ë¡œ í•˜ìœ„ íŒ©í† ë¦¬ ë§¤ë‹ˆì ¸ì— ìžˆëŠ” createItemì„ ì‹¤í–‰í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemType, const list<OptionType_t>& OptionType) 
@@ -436,8 +436,8 @@ Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemTyp
 
 	try 
 	{
-		// ¾ÆÀÌÅÛ ¾ÆÀÌµð°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-		// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+		// ì•„ì´í…œ ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+		// ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
 		if (IClass >= m_Size || m_Factories[IClass] == NULL) 
 		{
 			StringStream msg;
@@ -465,7 +465,7 @@ Item* ItemFactoryManager::createItem (Item::ItemClass IClass, ItemType_t ItemTyp
 
 //////////////////////////////////////////////////////////////////////
 //
-// ¾ÆÀÌÅÛ¾ÆÀÌµð·Î Æ¯Á¤ ¾ÆÀÌÅÛÀÇ ÀÌ¸§À» ¸®ÅÏÇÑ´Ù.
+// ì•„ì´í…œì•„ì´ë””ë¡œ íŠ¹ì • ì•„ì´í…œì˜ ì´ë¦„ì„ ë¦¬í„´í•œë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 string ItemFactoryManager::getItemName (Item::ItemClass IClass) 
@@ -473,8 +473,8 @@ string ItemFactoryManager::getItemName (Item::ItemClass IClass)
 {
 	__BEGIN_TRY
 
-	// ¾ÆÀÌÅÛ ¾ÆÀÌµð°¡ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ì•„ì´í…œ ì•„ì´ë””ê°€ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (IClass >= m_Size || m_Factories[IClass] == NULL) {
 		StringStream msg;
 		msg << "invaltype item type(" << (int)IClass << ")";
@@ -493,7 +493,7 @@ Item::ItemClass ItemFactoryManager::getItemClassByName( const string & ClassName
 	unordered_map<string, Item::ItemClass>::const_iterator itr = m_ItemClassMap.begin();
 	for (; itr != m_ItemClassMap.end(); itr++)
 	{
-		// ´ë,¼Ò¹®ÀÚ¸¦ ¹«½ÃÇÏ°í, ºñ±³¸¦ ¼öÇàÇÑ´Ù.
+		// ëŒ€,ì†Œë¬¸ìžë¥¼ ë¬´ì‹œí•˜ê³ , ë¹„êµë¥¼ ìˆ˜í–‰í•œë‹¤.
 		if (strcasecmp(ClassName.c_str(), (itr->first).c_str()) == 0)
 		{
 			return itr->second;

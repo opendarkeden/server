@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : TradeManager.cpp
-// Written by  : ±è¼º¹Î
+// Written by  : ê¹€ì„±ë¯¼
 // Description :  
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -203,7 +203,7 @@ void TradeManager::removeTradeInfo(const string & Name)
 	if (itr == m_InfoMap.end())
 	{
 		cerr << "TradeManager::removeTradeInfo() : NoSuchElementException" << endl;
-		// ÀÇ¹Ì ¾ø´Â°Å °°¾Æ¼­ ¹«½ÃÇÑ´Ù.
+		// ì˜ë¯¸ ì—†ëŠ”ê±° ê°™ì•„ì„œ ë¬´ì‹œí•œë‹¤.
 		// by sigi. 2002.8.31
 		//throw NoSuchElementException();
 		return;
@@ -220,7 +220,7 @@ void TradeManager::initTrade(Creature* pCreature1, Creature* pCreature2)
 {
 	__BEGIN_TRY
 
-	// µÑ Áß¿¡ ÇÏ³ª¶óµµ ±³È¯ Á¤º¸°¡ Á¸ÀçÇÏ¸é °ï¶õÇÏ´Ù.
+	// ë‘˜ ì¤‘ì— í•˜ë‚˜ë¼ë„ êµí™˜ ì •ë³´ê°€ ì¡´ì¬í•˜ë©´ ê³¤ë€í•˜ë‹¤.
 	if (hasTradeInfo(pCreature1->getName()) || 
 		hasTradeInfo(pCreature2->getName()))
 	{
@@ -249,16 +249,16 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 
 	try {
 
-	// Æ÷ÀÎÅÍ°¡ ³ÎÀÌ¸é °ï¶õÇÑ´Ù.
+	// í¬ì¸í„°ê°€ ë„ì´ë©´ ê³¤ë€í•œë‹¤.
 	if (pCreature1 == NULL || pCreature2 == NULL) return 0;
 
-	// »ç¶÷³¢¸® ±³È¯À» ÇØ¾ß¸¸ ÇÑ´Ù.
+	// ì‚¬ëŒë¼ë¦¬ êµí™˜ì„ í•´ì•¼ë§Œ í•œë‹¤.
 	if (!pCreature1->isPC() || !pCreature2->isPC()) return 0;
 
-	// ´Ù¸¥ Á¾Á·³¢¸®´Â ±³È¯ÇÒ ¼ö ¾ø´Ù.
+	// ë‹¤ë¥¸ ì¢…ì¡±ë¼ë¦¬ëŠ” êµí™˜í•  ìˆ˜ ì—†ë‹¤.
 	if (!isSameRace(pCreature1, pCreature2)) return 0;
 
-	// ±³È¯ Á¤º¸°¡ »ı¼ºµÇ¾î ÀÖÁö ¾Ê´Ù¸é ±³È¯ÇÒ ¼ö ¾ø´Ù.
+	// êµí™˜ ì •ë³´ê°€ ìƒì„±ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ êµí™˜í•  ìˆ˜ ì—†ë‹¤.
 	if (!isTrading(pCreature1, pCreature2)) return 0;
 
 	TradeInfo* pInfo1 = getTradeInfo(pCreature1->getName());
@@ -267,11 +267,11 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 	if (pInfo1==NULL || pInfo2==NULL)	// by sigi. 2002.12.25
 		return 0;
 
-	// µÑ Áß¿¡ ÇÏ³ª¶óµµ ±³È¯À» Çã¶ôÇÏ°í ÀÖÁö ¾Ê´Ù¸é ±³È¯ÇÒ ¼ö ¾ø´Ù.
+	// ë‘˜ ì¤‘ì— í•˜ë‚˜ë¼ë„ êµí™˜ì„ í—ˆë½í•˜ê³  ìˆì§€ ì•Šë‹¤ë©´ êµí™˜í•  ìˆ˜ ì—†ë‹¤.
 	if (pInfo1->getStatus() != TRADE_FINISH || pInfo2->getStatus() != TRADE_FINISH) 
 		return 0;
 
-	// ÇÊ¿äÇÑ º¯¼öµéÀ» ÁØºñÇÑ´Ù.
+	// í•„ìš”í•œ ë³€ìˆ˜ë“¤ì„ ì¤€ë¹„í•œë‹¤.
 	list<Item*>      tradeList1  = pInfo1->getItemList();
 	list<Item*>      tradeList2  = pInfo2->getItemList();
 	ItemMap          itemMap1;
@@ -312,15 +312,15 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		pInventory1->setDeleteAllFlag(false);
 		pInventory2->setDeleteAllFlag(false);
 	}
-	else throw Error("TradeManager::canTrade() : Á¾Á·ÀÌ ´Ù¸£ÀÚ³ª!");	// throw Error·Î ¹Ù²Ş. by sigi. 2002.12.25
+	else throw Error("TradeManager::canTrade() : ì¢…ì¡±ì´ ë‹¤ë¥´ìë‚˜!");	// throw Errorë¡œ ë°”ê¿ˆ. by sigi. 2002.12.25
 
-	// ¸ÕÀú °¢ÀÚÀÇ ÀÎº¥Åä¸®¿¡¼­ ±³È¯ÇÒ ¾ÆÀÌÅÛµéÀ» Á¦°ÅÇÑ´Ù.
+	// ë¨¼ì € ê°ìì˜ ì¸ë²¤í† ë¦¬ì—ì„œ êµí™˜í•  ì•„ì´í…œë“¤ì„ ì œê±°í•œë‹¤.
 	for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
 	{
 		Item* pItem = (*itr);
 		if (pInventory1->hasItem(pItem->getObjectID()))
 		{
-			// ¼±¹° »óÀÚ ±³È¯ ÀÌº¥Æ® (¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² Trade µÉ ¼ö ¾ø´Ù! - Ãë¼Ò´Ù
+			// ì„ ë¬¼ ìƒì êµí™˜ ì´ë²¤íŠ¸ (ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ Trade ë  ìˆ˜ ì—†ë‹¤! - ì·¨ì†Œë‹¤
 			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
@@ -349,7 +349,7 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		Item* pItem = (*itr);
 		if (pInventory2->hasItem(pItem->getObjectID()))
 		{
-			// ¼±¹° »óÀÚ ±³È¯ ÀÌº¥Æ® (¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² Trade µÉ ¼ö ¾ø´Ù! - Ãë¼Ò´Ù
+			// ì„ ë¬¼ ìƒì êµí™˜ ì´ë²¤íŠ¸ (ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ Trade ë  ìˆ˜ ì—†ë‹¤! - ì·¨ì†Œë‹¤
 			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
@@ -358,7 +358,7 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 					goto ErrorCode;
 				*/
 
-				// »ó´ë°¡ GiftBox ¸¦ ¿Ã¸®Áö ¾Ê¾Ò´Ù¸é Trade ¸¦ ÇÒ ¼ö ¾ø´Ù!
+				// ìƒëŒ€ê°€ GiftBox ë¥¼ ì˜¬ë¦¬ì§€ ì•Šì•˜ë‹¤ë©´ Trade ë¥¼ í•  ìˆ˜ ì—†ë‹¤!
 				if ( !bTradeGiftBox )
 				{
 					SAFE_DELETE(pInventory1);
@@ -381,7 +381,7 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		else goto ErrorCode;
 	}
 
-	// ÇÑ¸íÀÌ¶óµµ GiftBox ¸¦ ¿Ã¸®Áö ¾Ê¾ÒÀ¸¸é bTradeGiftBox °¡ true °¡ µÇ¼­ µ¹¾Æ¿Â´Ù
+	// í•œëª…ì´ë¼ë„ GiftBox ë¥¼ ì˜¬ë¦¬ì§€ ì•Šì•˜ìœ¼ë©´ bTradeGiftBox ê°€ true ê°€ ë˜ì„œ ëŒì•„ì˜¨ë‹¤
 	if ( bTradeGiftBox || EventGiftBoxCount != 0 )
 	{
 		SAFE_DELETE(pInventory1);
@@ -389,25 +389,25 @@ int TradeManager::canTrade(Creature* pCreature1, Creature* pCreature2)
 		return 2;
 	}
 
-	// ÀÌÁ¦ ¼­·ÎÀÇ ÀÎº¥Åä¸®¿¡´Ù ±³È¯ÇÒ ¾ÆÀÌÅÛµéÀ» ´õÇØº»´Ù.
+	// ì´ì œ ì„œë¡œì˜ ì¸ë²¤í† ë¦¬ì—ë‹¤ êµí™˜í•  ì•„ì´í…œë“¤ì„ ë”í•´ë³¸ë‹¤.
 	for (ItemMap::iterator itr = itemMap1.begin(); itr != itemMap1.end(); itr++)
 	{
 		Item* pItem = itr->second;
-		// ¾ÆÀÌÅÛÀ» ´õÇÏ´ø Áß ÇÏ³ª¶óµµ ´õÇÒ ¼ö ¾ø´Ù¸é, false¸¦ ¸®ÅÏÇÑ´Ù.
+		// ì•„ì´í…œì„ ë”í•˜ë˜ ì¤‘ í•˜ë‚˜ë¼ë„ ë”í•  ìˆ˜ ì—†ë‹¤ë©´, falseë¥¼ ë¦¬í„´í•œë‹¤.
 		if (!pInventory2->addItem(pItem)) goto ErrorCode;
 	}
 
 	for (ItemMap::iterator itr = itemMap2.begin(); itr != itemMap2.end(); itr++)
 	{
 		Item* pItem = itr->second;
-		// ¾ÆÀÌÅÛÀ» ´õÇÏ´ø Áß ÇÏ³ª¶óµµ ´õÇÒ ¼ö ¾ø´Ù¸é, false¸¦ ¸®ÅÏÇÑ´Ù.
+		// ì•„ì´í…œì„ ë”í•˜ë˜ ì¤‘ í•˜ë‚˜ë¼ë„ ë”í•  ìˆ˜ ì—†ë‹¤ë©´, falseë¥¼ ë¦¬í„´í•œë‹¤.
 		if (!pInventory1->addItem(pItem)) goto ErrorCode;
 	}
 
 	SAFE_DELETE(pInventory1);
 	SAFE_DELETE(pInventory2);
 
-	// ´Ù ´õÇÒ ¼ö ÀÖ¾ú´Ù¸é, true¸¦ ¸®ÅÏÇÑ´Ù.
+	// ë‹¤ ë”í•  ìˆ˜ ìˆì—ˆë‹¤ë©´, trueë¥¼ ë¦¬í„´í•œë‹¤.
 	return 1;
 
 ErrorCode:
@@ -419,7 +419,7 @@ ErrorCode:
 
 		filelog("tradeError.txt", "C1=%s, C2=%s, %s", pCreature1->getName().c_str(), pCreature2->getName().c_str(), t.toString().c_str());
 
-		// trade ºÒ°¡..¸¸ È®ÀÎÇØÁÖ¸é µÈ´Ù.
+		// trade ë¶ˆê°€..ë§Œ í™•ì¸í•´ì£¼ë©´ ëœë‹¤.
 		return 0;
 	}
 
@@ -433,10 +433,10 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 
 	if (!canTrade(pCreature1, pCreature2))
 	{
-		throw ("TradeManager::processTrade() : ¾Æ, ¾¾¹Ù. ±³È¯µµ ¾È µÇ´Âµ¥, ¿Ö ±³È¯½ÃÅ°´Âµ¥?");
+		throw ("TradeManager::processTrade() : ì•„, ì”¨ë°”. êµí™˜ë„ ì•ˆ ë˜ëŠ”ë°, ì™œ êµí™˜ì‹œí‚¤ëŠ”ë°?");
 	}
 
-	// ÇÊ¿äÇÑ º¯¼öµéÀ» ÁØºñÇÑ´Ù.
+	// í•„ìš”í•œ ë³€ìˆ˜ë“¤ì„ ì¤€ë¹„í•œë‹¤.
 	TradeInfo*  pInfo1      = getTradeInfo(pCreature1->getName());
 	TradeInfo*  pInfo2      = getTradeInfo(pCreature2->getName());
 	list<Item*> tradeList1  = pInfo1->getItemList();
@@ -461,12 +461,12 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 
 	if ( !check1 )
 	{
-		filelog( "GoldBug.log", "TradeManager::processTrade : µ·ÀÌ ¾È ¸Â½À´Ï´Ù. [%s:%s]", pPlayerCreature1->getName().c_str(), pPlayerCreature1->getPlayer()->getID().c_str() );
+		filelog( "GoldBug.log", "TradeManager::processTrade : ëˆì´ ì•ˆ ë§ìŠµë‹ˆë‹¤. [%s:%s]", pPlayerCreature1->getName().c_str(), pPlayerCreature1->getPlayer()->getID().c_str() );
 	}
 
 	if ( !check2 )
 	{
-		filelog( "GoldBug.log", "TradeManager::processTrade : µ·ÀÌ ¾È ¸Â½À´Ï´Ù. [%s:%s]", pPlayerCreature2->getName().c_str(), pPlayerCreature2->getPlayer()->getID().c_str() );
+		filelog( "GoldBug.log", "TradeManager::processTrade : ëˆì´ ì•ˆ ë§ìŠµë‹ˆë‹¤. [%s:%s]", pPlayerCreature2->getName().c_str(), pPlayerCreature2->getPlayer()->getID().c_str() );
 	}
 
 	if ( !check1 || !check2 )
@@ -518,21 +518,21 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		pInventory1 = pOusters1->getInventory();
 		pInventory2 = pOusters2->getInventory();
 	}
-	else throw ("TradeManager::processTrade() : ´Ù¸¥ Á¾Á· °£¿¡ ±³È¯ÇÒ ¼ö´Â ¾øÁã!");
+	else throw ("TradeManager::processTrade() : ë‹¤ë¥¸ ì¢…ì¡± ê°„ì— êµí™˜í•  ìˆ˜ëŠ” ì—†ì¥!");
 
-	// ¸ÕÀú °¢ÀÚÀÇ ÀÎº¥Åä¸®¿¡¼­ ±³È¯ÇÒ ¾ÆÀÌÅÛµéÀ» Á¦°ÅÇÑ´Ù.
+	// ë¨¼ì € ê°ìì˜ ì¸ë²¤í† ë¦¬ì—ì„œ êµí™˜í•  ì•„ì´í…œë“¤ì„ ì œê±°í•œë‹¤.
 	for (list<Item*>::iterator itr = tradeList1.begin(); itr != tradeList1.end(); itr++)
 	{
 		Item* pItem = (*itr);
 		if (pInventory1->hasItem(pItem->getObjectID()))
 		{
-			// ¼±¹° »óÀÚ ±³È¯ ÀÌº¥Æ® (¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² Trade µÉ ¼ö ¾ø´Ù! - Ãë¼Ò´Ù
+			// ì„ ë¬¼ ìƒì êµí™˜ ì´ë²¤íŠ¸ (ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ Trade ë  ìˆ˜ ì—†ë‹¤! - ì·¨ì†Œë‹¤
 			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
 				if ( tradeList1.size() != 1 )
-					throw ("TradeManager::processTrade() : ¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² ±³È¯ÇÒ ¼ö´Â ¾ø´Ù!");
+					throw ("TradeManager::processTrade() : ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ êµí™˜í•  ìˆ˜ëŠ” ì—†ë‹¤!");
 				*/
 
 				bTradeGiftBox = true;
@@ -544,25 +544,25 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			itemMap1.addItem(pItem);
 			pItem->whenPCLost(pPlayerCreature1);
 		}
-		else throw ("TradeManager::processTrade() : ¸ğÁö? ¾ÆÀÌÅÛÀÌ ¾øÀÚ³ª!");
+		else throw ("TradeManager::processTrade() : ëª¨ì§€? ì•„ì´í…œì´ ì—†ìë‚˜!");
 	}
 	for (list<Item*>::iterator itr = tradeList2.begin(); itr != tradeList2.end(); itr++)
 	{
 		Item* pItem = (*itr);
 		if (pInventory2->hasItem(pItem->getObjectID()))
 		{
-			// ¼±¹° »óÀÚ ±³È¯ ÀÌº¥Æ® (¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² Trade µÉ ¼ö ¾ø´Ù! - Ãë¼Ò´Ù
+			// ì„ ë¬¼ ìƒì êµí™˜ ì´ë²¤íŠ¸ (ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ Trade ë  ìˆ˜ ì—†ë‹¤! - ì·¨ì†Œë‹¤
 			if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
 				 && pItem->getItemType() > 1 && pItem->getItemType() < 6 )
 			{
 				/*
 				if ( tradeList2.size() != 1 )
-					throw ("TradeManager::processTrade() : ¼±¹° »óÀÚ´Â ´Ù¸¥ ¾ÆÀÌÅÛ°ú ÇÔ²² ±³È¯ÇÒ ¼ö´Â ¾ø´Ù!");
+					throw ("TradeManager::processTrade() : ì„ ë¬¼ ìƒìëŠ” ë‹¤ë¥¸ ì•„ì´í…œê³¼ í•¨ê»˜ êµí™˜í•  ìˆ˜ëŠ” ì—†ë‹¤!");
 				*/
 
-				// »ó´ë°¡ GiftBox ¸¦ ¿Ã¸®Áö ¾Ê¾Ò´Ù¸é Trade ¸¦ ÇÒ ¼ö ¾ø´Ù!
+				// ìƒëŒ€ê°€ GiftBox ë¥¼ ì˜¬ë¦¬ì§€ ì•Šì•˜ë‹¤ë©´ Trade ë¥¼ í•  ìˆ˜ ì—†ë‹¤!
 				if ( !bTradeGiftBox )
-					throw ("TradeManager::processTrade() : ¼±¹° »óÀÚ´Â µÑ ´Ù ¿Ã·Á¾ß ±³È¯ÇÒ ¼ö ÀÖ´Ù!");
+					throw ("TradeManager::processTrade() : ì„ ë¬¼ ìƒìëŠ” ë‘˜ ë‹¤ ì˜¬ë ¤ì•¼ êµí™˜í•  ìˆ˜ ìˆë‹¤!");
 
 				giftBoxType2 = pItem->getItemType();
 			}
@@ -571,28 +571,28 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			itemMap2.addItem(pItem);
 			pItem->whenPCLost(pPlayerCreature2);
 		}
-		else throw ("TradeManager::processTrade() : ¸ğÁö? ¾ÆÀÌÅÛÀÌ ¾øÀÚ³ª!");
+		else throw ("TradeManager::processTrade() : ëª¨ì§€? ì•„ì´í…œì´ ì—†ìë‚˜!");
 	}
 
-	// ÀÌÁ¦ ¼­·ÎÀÇ ÀÎº¥Åä¸®¿¡´Ù ±³È¯ÇÒ ¾ÆÀÌÅÛµéÀ» ´õÇØº»´Ù.
+	// ì´ì œ ì„œë¡œì˜ ì¸ë²¤í† ë¦¬ì—ë‹¤ êµí™˜í•  ì•„ì´í…œë“¤ì„ ë”í•´ë³¸ë‹¤.
 	for (ItemMap::iterator itr = itemMap1.begin(); itr != itemMap1.end(); itr++)
 	{
 		Item* pItem = itr->second;
-		// ¾ÆÀÌÅÛÀ» ´õÇÏ´ø Áß ÇÏ³ª¶óµµ ´õÇÒ ¼ö ¾ø´Ù¸é, false¸¦ ¸®ÅÏÇÑ´Ù.
+		// ì•„ì´í…œì„ ë”í•˜ë˜ ì¤‘ í•˜ë‚˜ë¼ë„ ë”í•  ìˆ˜ ì—†ë‹¤ë©´, falseë¥¼ ë¦¬í„´í•œë‹¤.
 		if (!pInventory2->addItem(pItem))
 		{
-			throw ("TradeManager::processTrade() : ¾¾¹Ù, ±³È¯ÇÏ´Ù°¡ ¿¡·¯³µ´Ù.");
+			throw ("TradeManager::processTrade() : ì”¨ë°”, êµí™˜í•˜ë‹¤ê°€ ì—ëŸ¬ë‚¬ë‹¤.");
 		}
 
 		pItem->whenPCTake( pPlayerCreature2 );
 		
-		// Å©¸®½º¸¶½º ÀÌº¥Æ® 2002.12.16. by bezz.
-		// ³ì»ö ¼±¹° »óÀÚ¶ó¸é ºÓÀº »öÀ¸·Î ¹Ù²Û´Ù.
+		// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ 2002.12.16. by bezz.
+		// ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¼ë©´ ë¶‰ì€ ìƒ‰ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pItem->getItemType() == 0)
 		{
 			pItem->setItemType(1);
 
-			// FlagSet¼³Á¤. ³ì»ö ¼±¹° »óÀÚ¸¦ ¹ŞÀº °æ¿ì by sigi. 2002.12.16
+			// FlagSetì„¤ì •. ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¥¼ ë°›ì€ ê²½ìš° by sigi. 2002.12.16
 			FlagSet* pFlagSet = pPlayerCreature2->getFlagSet();
 			Assert(pFlagSet!=NULL);
 			pFlagSet->turnOn(FLAGSET_RECEIVE_GREEN_GIFT_BOX);
@@ -606,7 +606,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			if ( blackGiftBoxType != 0 )
 				pItem->setItemType(blackGiftBoxType);
 			else
-				throw ("TradeManager::processTrade() : ¾¾¹Ù, ±³È¯ÇÏ´Ù°¡ ¿¡·¯³µ´Ù.");
+				throw ("TradeManager::processTrade() : ì”¨ë°”, êµí™˜í•˜ë‹¤ê°€ ì—ëŸ¬ë‚¬ë‹¤.");
 		}
 
 		if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
@@ -615,7 +615,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			pItem->setItemType( pItem->getItemType()+3 );
 		}
 
-		// ItemTraceLog ¸¦ ³²±ä´Ù
+		// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 		if ( pItem != NULL && pItem->isTraceItem() )
 		{
 			remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
@@ -626,21 +626,21 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 	for (ItemMap::iterator itr = itemMap2.begin(); itr != itemMap2.end(); itr++)
 	{
 		Item* pItem = itr->second;
-		// ¾ÆÀÌÅÛÀ» ´õÇÏ´ø Áß ÇÏ³ª¶óµµ ´õÇÒ ¼ö ¾ø´Ù¸é, false¸¦ ¸®ÅÏÇÑ´Ù.
+		// ì•„ì´í…œì„ ë”í•˜ë˜ ì¤‘ í•˜ë‚˜ë¼ë„ ë”í•  ìˆ˜ ì—†ë‹¤ë©´, falseë¥¼ ë¦¬í„´í•œë‹¤.
 		if (!pInventory1->addItem(pItem))
 		{
-			throw ("TradeManager::processTrade() : ¾¾¹Ù, ±³È¯ÇÏ´Ù°¡ ¿¡·¯³µ´Ù.");
+			throw ("TradeManager::processTrade() : ì”¨ë°”, êµí™˜í•˜ë‹¤ê°€ ì—ëŸ¬ë‚¬ë‹¤.");
 		}
 
 		pItem->whenPCTake( pPlayerCreature1 );
 
-		// Å©¸®½º¸¶½º ÀÌº¥Æ® 2002.12.16. by bezz.
-		// ³ì»ö ¼±¹° »óÀÚ¶ó¸é ºÓÀº »öÀ¸·Î ¹Ù²Û´Ù.
+		// í¬ë¦¬ìŠ¤ë§ˆìŠ¤ ì´ë²¤íŠ¸ 2002.12.16. by bezz.
+		// ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¼ë©´ ë¶‰ì€ ìƒ‰ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
 		if (pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX && pItem->getItemType() == 0)
 		{
 			pItem->setItemType(1);
 
-			// FlagSet¼³Á¤. ³ì»ö ¼±¹° »óÀÚ¸¦ ¹ŞÀº °æ¿ì by sigi. 2002.12.16
+			// FlagSetì„¤ì •. ë…¹ìƒ‰ ì„ ë¬¼ ìƒìë¥¼ ë°›ì€ ê²½ìš° by sigi. 2002.12.16
 			FlagSet* pFlagSet = pPlayerCreature1->getFlagSet();
 			Assert(pFlagSet!=NULL);
 			pFlagSet->turnOn(FLAGSET_RECEIVE_GREEN_GIFT_BOX);
@@ -655,7 +655,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			if ( blackGiftBoxType != 0 )
 				pItem->setItemType(blackGiftBoxType);
 			else
-				throw ("TradeManager::processTrade() : ¾¾¹Ù, ±³È¯ÇÏ´Ù°¡ ¿¡·¯³µ´Ù.");
+				throw ("TradeManager::processTrade() : ì”¨ë°”, êµí™˜í•˜ë‹¤ê°€ ì—ëŸ¬ë‚¬ë‹¤.");
 		}
 
 		if ( pItem->getItemClass() == Item::ITEM_CLASS_EVENT_GIFT_BOX
@@ -664,7 +664,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 			pItem->setItemType( pItem->getItemType()+3 );
 		}
 
-		// ItemTraceLog ¸¦ ³²±ä´Ù
+		// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 		if ( pItem != NULL && pItem->isTraceItem() )
 		{
 			remainTraceLog( pItem, pCreature2->getName(), pCreature1->getName(), ITEM_LOG_TRADE, DETAIL_TRADE);
@@ -674,11 +674,11 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 
 	}
 
-	// ¿Å°ÜÁø ¾ÆÀÌÅÛÀ» DB¿¡´Ù°¡ ÀúÀåÇÑ´Ù.
+	// ì˜®ê²¨ì§„ ì•„ì´í…œì„ DBì—ë‹¤ê°€ ì €ì¥í•œë‹¤.
 	pInventory1->save(pCreature1->getName());
 	pInventory2->save(pCreature2->getName());
 
-	// ¿Å°ÜÁø µ·À» ÀúÀåÇÑ´Ù.
+	// ì˜®ê²¨ì§„ ëˆì„ ì €ì¥í•œë‹¤.
 	if (pCreature1->isSlayer())
 	{
 		pSlayer1->setGoldEx(pSlayer1->getGold() + tradeGold2);
@@ -695,7 +695,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 		pOusters2->setGoldEx(pOusters2->getGold() + tradeGold1);
 	}
 
-	// ±³È¯ Á¤º¸¸¦ »èÁ¦ÇÏ±â Àü¿¡ ·Î±×¸¦ ³²°ÜµĞ´Ù.
+	// êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•˜ê¸° ì „ì— ë¡œê·¸ë¥¼ ë‚¨ê²¨ë‘”ë‹¤.
 	string ip1 = pCreature1->getPlayer()->getSocket()->getHost();
 	string ip2 = pCreature2->getPlayer()->getSocket()->getHost();
 	StringStream msg;
@@ -709,7 +709,7 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 	for (ItemMap::iterator itr = itemMap2.begin(); itr != itemMap2.end(); itr++)
 		msg << itr->second->toString() << "\n";
 
-	// µ··Î±× ³²±âÀÚ -_-a
+	// ëˆë¡œê·¸ ë‚¨ê¸°ì -_-a
 	if ( tradeGold1 >= g_pVariableManager->getMoneyTraceLogLimit() )
 	{
 		remainMoneyTraceLog( pCreature1->getName(), pCreature2->getName(), ITEM_LOG_TRADE, DETAIL_TRADE, tradeGold1 );
@@ -743,9 +743,9 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 	}
 	END_DB(pStmt);
 
-	// ±³È¯ÀÌ ³¡³µÀ¸´Ï, ±³È¯ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
-	// *** Å¬¶óÀÌ¾ğÆ® Ãø¿¡¼­ ±³È¯ÀÌ ³¡³­ ÈÄ¿¡µµ
-	// ±³È¯ Ã¢À» ´İÁö ¾Ê±â¸¦ ¿øÇØ¼­¸®...
+	// êµí™˜ì´ ëë‚¬ìœ¼ë‹ˆ, êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
+	// *** í´ë¼ì´ì–¸íŠ¸ ì¸¡ì—ì„œ êµí™˜ì´ ëë‚œ í›„ì—ë„
+	// êµí™˜ ì°½ì„ ë‹«ì§€ ì•Šê¸°ë¥¼ ì›í•´ì„œë¦¬...
 	//removeTradeInfo(pCreature1->getObjectID());
 	//removeTradeInfo(pCreature2->getObjectID());
 	pInfo1->clearAll();
@@ -755,8 +755,8 @@ void TradeManager::processTrade(Creature* pCreature1, Creature* pCreature2)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ±³È¯À» Ãë¼Ò½ÃÅ°°í, ±³È¯ ´ë»óÀ¸·Î Ã¼Å©ÇØ ³ù´ø ¾ÆÀÌÅÛµéÀ» ¿ø·¡·Î µÇµ¹¸°´Ù.
-// ½ÇÁ¦·Î µÇµ¹·Á¾ß ÇÒ °ÍÀº µ· »ÓÀÌ´Ù.
+// êµí™˜ì„ ì·¨ì†Œì‹œí‚¤ê³ , êµí™˜ ëŒ€ìƒìœ¼ë¡œ ì²´í¬í•´ ë†¨ë˜ ì•„ì´í…œë“¤ì„ ì›ë˜ë¡œ ë˜ëŒë¦°ë‹¤.
+// ì‹¤ì œë¡œ ë˜ëŒë ¤ì•¼ í•  ê²ƒì€ ëˆ ë¿ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 	
@@ -767,25 +767,25 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 
 		int nCondition = 0;
 
-		// Æ÷ÀÎÅÍ°¡ ³ÎÀÌ¸é °ï¶õÇÑ´Ù.
+		// í¬ì¸í„°ê°€ ë„ì´ë©´ ê³¤ë€í•œë‹¤.
 		if (pCreature1 == NULL || pCreature2 == NULL) nCondition = 1;
 
-		// »ç¶÷³¢¸® ±³È¯À» ÇØ¾ß¸¸ ÇÑ´Ù.
+		// ì‚¬ëŒë¼ë¦¬ êµí™˜ì„ í•´ì•¼ë§Œ í•œë‹¤.
 		if (!pCreature1->isPC() || !pCreature2->isPC()) nCondition = 2;
 
-		// ´Ù¸¥ Á¾Á·³¢¸®´Â ±³È¯ÇÒ ¼ö ¾ø´Ù.
+		// ë‹¤ë¥¸ ì¢…ì¡±ë¼ë¦¬ëŠ” êµí™˜í•  ìˆ˜ ì—†ë‹¤.
 		if (!isSameRace(pCreature1, pCreature2)) nCondition = 3;
 
-		// ±³È¯ Á¤º¸°¡ »ı¼ºµÇ¾î ÀÖÁö ¾Ê´Ù¸é ±³È¯ÇÒ ¼ö ¾ø´Ù.
+		// êµí™˜ ì •ë³´ê°€ ìƒì„±ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ êµí™˜í•  ìˆ˜ ì—†ë‹¤.
 		if (!isTrading(pCreature1, pCreature2)) nCondition = 4;
 
 		if (nCondition != 0)
 		{
 			StringStream msg;
-			msg << "TradeManager::cancelTrade() ¿À·ù ¹ß»ı... CODE(" 
+			msg << "TradeManager::cancelTrade() ì˜¤ë¥˜ ë°œìƒ... CODE(" 
 				<< nCondition << ")";
 			filelog("tradeError.txt", "[1] %s", msg.toString().c_str());
-			//throw ("TradeManager::cancelTrade() : ÀÌ°Ç ¶Ç ¹ºµ¥?");
+			//throw ("TradeManager::cancelTrade() : ì´ê±´ ë˜ ë­”ë°?");
 
 			return;
 		}
@@ -793,7 +793,7 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 		TradeInfo* pInfo1 = getTradeInfo(pCreature1->getName());
 		TradeInfo* pInfo2 = getTradeInfo(pCreature2->getName());
 
-		// Ã¹¹øÂ° Å©¸®ÃÄ¿Í °ü·ÃµÈ ±³È¯ Á¤º¸¸¦ »èÁ¦
+		// ì²«ë²ˆì§¸ í¬ë¦¬ì³ì™€ ê´€ë ¨ëœ êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
 		if (pCreature1->isSlayer())
 		{
 			Slayer* pSlayer1 = dynamic_cast<Slayer*>(pCreature1);
@@ -810,7 +810,7 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 			if (pInfo1) pOusters1->setGold(pOusters1->getGold() + pInfo1->getGold());
 		}
 
-		// µÎ¹øÂ° Å©¸®ÃÄ¿Í °ü·ÃµÈ ±³È¯ Á¤º¸¸¦ »èÁ¦
+		// ë‘ë²ˆì§¸ í¬ë¦¬ì³ì™€ ê´€ë ¨ëœ êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
 		if (pCreature2->isSlayer())
 		{
 			Slayer* pSlayer2 = dynamic_cast<Slayer*>(pCreature2);
@@ -827,7 +827,7 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 			if (pInfo2) pOusters2->setGold(pOusters2->getGold() + pInfo2->getGold());
 		}
 
-		// ±³È¯ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
+		// êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
 		if (pInfo1) removeTradeInfo(pCreature1->getName());
 		if (pInfo2) removeTradeInfo(pCreature2->getName());
 
@@ -840,8 +840,8 @@ void TradeManager::cancelTrade(Creature* pCreature1, Creature* pCreature2)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ±³È¯À» Ãë¼Ò½ÃÅ°°í, ±³È¯ ´ë»óÀ¸·Î Ã¼Å©ÇØ ³ù´ø ¾ÆÀÌÅÛµéÀ» ¿ø·¡·Î µÇµ¹¸°´Ù.
-// ½ÇÁ¦·Î µÇµ¹·Á¾ß ÇÒ °ÍÀº µ· »ÓÀÌ´Ù.
+// êµí™˜ì„ ì·¨ì†Œì‹œí‚¤ê³ , êµí™˜ ëŒ€ìƒìœ¼ë¡œ ì²´í¬í•´ ë†¨ë˜ ì•„ì´í…œë“¤ì„ ì›ë˜ë¡œ ë˜ëŒë¦°ë‹¤.
+// ì‹¤ì œë¡œ ë˜ëŒë ¤ì•¼ í•  ê²ƒì€ ëˆ ë¿ì´ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void TradeManager::cancelTrade(Creature* pPC)
 	
@@ -850,7 +850,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 
 	try {
 
-		// Æ÷ÀÎÅÍ°¡ ³ÎÀÌ¸é °ï¶õÇÑ´Ù.
+		// í¬ì¸í„°ê°€ ë„ì´ë©´ ê³¤ë€í•œë‹¤.
 		if (pPC == NULL) return;
 
 		TradeInfo* pInfo1    = getTradeInfo(pPC->getName());
@@ -864,7 +864,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 			pInfo2    = getTradeInfo(pInfo1->getTargetName());
 			TargetName = pInfo1->getTargetName();
 
-			// Ã¹¹øÂ° Å©¸®ÃÄ¿Í °ü·ÃµÈ ±³È¯ Á¤º¸¸¦ »èÁ¦
+			// ì²«ë²ˆì§¸ í¬ë¦¬ì³ì™€ ê´€ë ¨ëœ êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
 			if (pPC->isSlayer())
 			{
 				Slayer* pSlayer1 = dynamic_cast<Slayer*>(pPC);
@@ -886,15 +886,15 @@ void TradeManager::cancelTrade(Creature* pPC)
 			catch (NoSuchElementException) { pTargetPC = NULL; }
 			*/
 
-			// NoSuch.. Á¦°Å. by sigi. 2002.5.2
+			// NoSuch.. ì œê±°. by sigi. 2002.5.2
 			pTargetPC = pZone->getCreature(TargetName);
 
-			// ±³È¯ »ó´ë°¡ °°Àº Á¸¿¡ Á¸ÀçÇÒ °æ¿ì, 
-			// ±³È¯ »ó´ë¿¡°Ô ±³È¯ÀÌ °ÅºÎµÇ¾ú´Ù´Â ÆĞÅ¶À» ³¯·ÁÁÖ°í,
-			// ±³È¯ Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+			// êµí™˜ ìƒëŒ€ê°€ ê°™ì€ ì¡´ì— ì¡´ì¬í•  ê²½ìš°, 
+			// êµí™˜ ìƒëŒ€ì—ê²Œ êµí™˜ì´ ê±°ë¶€ë˜ì—ˆë‹¤ëŠ” íŒ¨í‚·ì„ ë‚ ë ¤ì£¼ê³ ,
+			// êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
 			if (pTargetPC != NULL && pTargetPC->isPC() && pInfo2 != NULL)
 			{
-				// µÎ¹øÂ° Å©¸®ÃÄ¿Í °ü·ÃµÈ ±³È¯ Á¤º¸¸¦ »èÁ¦
+				// ë‘ë²ˆì§¸ í¬ë¦¬ì³ì™€ ê´€ë ¨ëœ êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
 				if (pTargetPC->isSlayer())
 				{
 					Slayer* pSlayer2 = dynamic_cast<Slayer*>(pTargetPC);
@@ -911,7 +911,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 					pOusters2->setGold(pOusters2->getGold() + pInfo2->getGold());
 				}
 
-				// Å¸°ÙÀÌ µÇ´Â ´ë»ó¿¡¼­ ±³È¯ °ÅºÎ ÆĞÅ¶À» ³¯·ÁÁØ´Ù.
+				// íƒ€ê²Ÿì´ ë˜ëŠ” ëŒ€ìƒì—ì„œ êµí™˜ ê±°ë¶€ íŒ¨í‚·ì„ ë‚ ë ¤ì¤€ë‹¤.
 				GCTradeFinish gcTradeFinish;
 				gcTradeFinish.setTargetObjectID(pPC->getObjectID());
 				gcTradeFinish.setCode(GC_TRADE_FINISH_REJECT);
@@ -920,7 +920,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 				pTargetPlayer->sendPacket(&gcTradeFinish);
 			}
 
-			// ±³È¯ Á¤º¸¸¦ »èÁ¦ÇÑ´Ù.
+			// êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.
 			removeTradeInfo(pPC->getName());
 			removeTradeInfo(TargetName);
 		}
@@ -934,7 +934,7 @@ void TradeManager::cancelTrade(Creature* pPC)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// µÎ Å©¸®ÃÄ°¡ ¼­·Î ±³È¯ÁßÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù.
+// ë‘ í¬ë¦¬ì³ê°€ ì„œë¡œ êµí™˜ì¤‘ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 bool TradeManager::isTrading(Creature* pCreature1, Creature* pCreature2)
 	

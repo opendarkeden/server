@@ -31,11 +31,11 @@ ConnectionInfoManager::ConnectionInfoManager ()
 
 	m_Mutex.setName("ConnectionInfoManager");
 
-	// ´ÙÀ½ heartbeat ½Ã°£À» ¼³Á¤ÇÑ´Ù.
+	// ë‹¤ìŒ heartbeat ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
 	getCurrentTime(m_NextHeartbeat);
 	m_NextHeartbeat.tv_sec += 10;
 
-	// 30ÃÊÈÄ »ç¿ëÀÚ ¼ýÀÚ µé¾î°£´Ù.
+	// 30ì´ˆí›„ ì‚¬ìš©ìž ìˆ«ìž ë“¤ì–´ê°„ë‹¤.
 	m_UpdateUserStatusTime.tv_sec = m_NextHeartbeat.tv_sec + 20;
 
 	__END_CATCH
@@ -49,14 +49,14 @@ ConnectionInfoManager::~ConnectionInfoManager ()
 {
 	__BEGIN_TRY
 
-	// ¸ðµç ConnectionInfo ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// ëª¨ë“  ConnectionInfo ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
 	HashMapConnectionInfo::iterator itr = m_ConnectionInfos.begin() ;
 	for (; itr != m_ConnectionInfos.end(); itr++) 
 	{
 		SAFE_DELETE(itr->second);
 	}
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// í•´ì‰¬ë§µì•ˆì— ìžˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
 	m_ConnectionInfos.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -77,10 +77,10 @@ void ConnectionInfoManager::addConnectionInfo (ConnectionInfo* pConnectionInfo)
 	
 	if (itr != m_ConnectionInfos.end())
 	{
-		// ¶È°°Àº ¾ÆÀÌµð°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ë˜‘ê°™ì€ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ìž¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤. - -;
 		//throw DuplicatedException("duplicated connection info id");
 
-		// ±âÁ¸¿¡ ÀÖ´ø Á¤º¸¸¦ Á¦°ÅÇÏ°í »õÁ¤º¸¸¦ ¼³Á¤ÇÑ´Ù.
+		// ê¸°ì¡´ì— ìžˆë˜ ì •ë³´ë¥¼ ì œê±°í•˜ê³  ìƒˆì •ë³´ë¥¼ ì„¤ì •í•œë‹¤.
 		// by sigi. 2002.12.7
 		//throw DuplicatedException("duplicated connection info id");
 		ConnectionInfo* pOldConnectionInfo = itr->second;
@@ -123,10 +123,10 @@ void ConnectionInfoManager::deleteConnectionInfo (const string& clientIP)
 	{
 		Assert(itr->second != NULL);
 
-		// ConnectionInfo ¸¦ »èÁ¦ÇÑ´Ù.
+		// ConnectionInfo ë¥¼ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(itr->second);
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_ConnectionInfos.erase(itr);
 	} 
 	else 
@@ -170,7 +170,7 @@ ConnectionInfo* ConnectionInfoManager::getConnectionInfo (const string& clientIP
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// expire µÈ Connection Info °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+// expire ëœ Connection Info ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ConnectionInfoManager::heartbeat ()
 	
@@ -224,7 +224,7 @@ void ConnectionInfoManager::heartbeat ()
 			}
     	}
 
-		// »ç¿ëÀÚ ¼ýÀÚ Á¤º¸¸¦ ¾Ë¸°´Ù.
+		// ì‚¬ìš©ìž ìˆ«ìž ì •ë³´ë¥¼ ì•Œë¦°ë‹¤.
 		Statement* pStmt = NULL;
 		Result* pResult = NULL;
 
@@ -267,7 +267,7 @@ void ConnectionInfoManager::heartbeat ()
 			} 
 			catch (NoSuchElementException& t) 
 			{
-				throw Error("Critical Error : ZoneInfoManager¿¡ ÇØ´ç Á¸±×·ìÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+				throw Error("Critical Error : ZoneInfoManagerì— í•´ë‹¹ ì¡´ê·¸ë£¹ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 			}
 
 			pZoneGroup->makeZoneUserInfo(gmServerInfo);
@@ -275,10 +275,10 @@ void ConnectionInfoManager::heartbeat ()
 			numPC += pZoneGroup->getZonePlayerManager()->size();
 		}
 
-		// ³Ý¸¶ºí¿ëÀÌ¸é DB¿¡ ÀúÀå.. by sigi. 2002.11.4
+		// ë„·ë§ˆë¸”ìš©ì´ë©´ DBì— ì €ìž¥.. by sigi. 2002.11.4
 		if (currentTime > m_UpdateUserStatusTime)
 		{
-			// 1ºÐ ¸¶´Ù
+			// 1ë¶„ ë§ˆë‹¤
 			m_UpdateUserStatusTime.tv_sec = currentTime.tv_sec + 30;
 
 			if (g_pConfig->getPropertyInt("IsNetMarble")==1)
@@ -292,7 +292,7 @@ void ConnectionInfoManager::heartbeat ()
 							"UPDATE UserStatus SET CurrentUser=%d WHERE WorldID=%d AND ServerID=%d", 
 							numPC, worldID, serverID);
 
-					// ¾ø´Ù¸é Ãß°¡ÇØ¾ßÁö
+					// ì—†ë‹¤ë©´ ì¶”ê°€í•´ì•¼ì§€
 					if (pStmt->getAffectedRowCount()==0)
 					{
 						pStmt->executeQuery( 
@@ -306,7 +306,7 @@ void ConnectionInfoManager::heartbeat ()
 			}
 		}
 
-		// Áö±ÝÀº MonitorClient¿¡¼­ ÀÌ °ªÀ» ¹Þ¾Æ¼­ ¾È¾´´Ù.
+		// ì§€ê¸ˆì€ MonitorClientì—ì„œ ì´ ê°’ì„ ë°›ì•„ì„œ ì•ˆì“´ë‹¤.
 		//g_pLoginServerManager->sendPacket(g_pConfig->getProperty("MonitorClientIP1") , g_pConfig->getPropertyInt("MonitorClient1UDPORT"), &gmServerInfo);
 		//g_pLoginServerManager->sendPacket(g_pConfig->getProperty("MonitorClientIP2") , g_pConfig->getPropertyInt("MonitorClient2UDPORT"), &gmServerInfo);
 
@@ -315,10 +315,10 @@ void ConnectionInfoManager::heartbeat ()
 		static int loginServerUDPPort = g_pConfig->getPropertyInt("LoginServerUDPPort");
 		static int loginServerBaseUDPPort = g_pConfig->getPropertyInt("LoginServerBaseUDPPort");
 
-		// ±âº»
+		// ê¸°ë³¸
 		g_pLoginServerManager->sendPacket( loginServerIP, loginServerUDPPort, &gmServerInfo);
 
-		// ¿©·¯°¡Áö -_-;
+		// ì—¬ëŸ¬ê°€ì§€ -_-;
 		if (portNum > 1)
 		{
 			for ( int j = 0 ; j < portNum ; j++ )

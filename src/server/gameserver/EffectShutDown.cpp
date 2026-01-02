@@ -90,7 +90,7 @@ void EffectShutDown::affect(Creature* pCreature)
 
 /*	StringStream msg;
 
-	msg << (int)RemainTime << "ÃÊ ÈÄ¿¡ ¼­¹ö°¡ Á¾·áµË´Ï´Ù. Àá½Ã ÈÄ Á¢¼ÓÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. "; */
+	msg << (int)RemainTime << "ì´ˆ í›„ì— ì„œë²„ê°€ ì¢…ë£Œë©ë‹ˆë‹¤. ì ì‹œ í›„ ì ‘ì†í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. "; */
     char msg[80];
     sprintf( msg, g_pStringPool->c_str( STRID_SERVER_SHUT_DOWN_COUNT_DOWN ),
                     (int)RemainTime );
@@ -120,7 +120,7 @@ void EffectShutDown::affect(Creature* pCreature)
 			catch (NoSuchElementException&) 
 			{
 				SAFE_DELETE(pStmt);
-				throw Error("Critical Error : ZoneInfoManager²»´æÔÚ¸ÃĞĞ»á.");
+				throw Error("Critical Error : ZoneInfoManagerê¼‡ë‹¸ç³ë§¡ï¤‰ì‚”.");
 			}
 
 			ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -142,7 +142,7 @@ void EffectShutDown::affect(Creature* pCreature)
 			pZoneInfo = g_pZoneInfoManager->getZoneInfo(i);
 	
 		} catch (NoSuchElementException) {
-			throw Error("Critical Error : ZoneInfoManager¿¡ ÇØ´ç Á¸ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw Error("Critical Error : ZoneInfoManagerì— í•´ë‹¹ ì¡´ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 	
 		ZoneGroup* pZoneGroup;
@@ -151,7 +151,7 @@ void EffectShutDown::affect(Creature* pCreature)
 			pZoneGroup = g_pZoneGroupManager->getZoneGroup(pZoneInfo->getZoneGroupID());
 	
 		} catch (NoSuchElementException) {
-			throw Error("Critical Error : ZoneInfoManager¿¡ ÇØ´ç Á¸±×·ìÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw Error("Critical Error : ZoneInfoManagerì— í•´ë‹¹ ì¡´ê·¸ë£¹ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 
 		Zone* pZone = pZoneGroup->getZone(i);
@@ -168,8 +168,8 @@ void EffectShutDown::affect(Creature* pCreature)
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ı¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´í™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectShutDown::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
 	
@@ -193,7 +193,7 @@ void EffectShutDown::unaffect()
 	Result*      pResult = NULL;
 //	StringStream msg;
 
-//	msg << "¼­¹ö°¡ Á¾·áµË´Ï´Ù.";
+//	msg << "ì„œë²„ê°€ ì¢…ë£Œë©ë‹ˆë‹¤.";
 
 	GCSystemMessage gcSystemMessage;
 	gcSystemMessage.setMessage( g_pStringPool->getString( STRID_SERVER_SHUT_DOWN ) );
@@ -217,7 +217,7 @@ void EffectShutDown::unaffect()
 			catch (NoSuchElementException&) 
 			{
 				SAFE_DELETE(pStmt);
-				throw Error("Critical Error : ZoneInfoManager²»´æÔÚ¸ÃĞĞ»á.");
+				throw Error("Critical Error : ZoneInfoManagerê¼‡ë‹¸ç³ë§¡ï¤‰ì‚”.");
 			}
 
 			ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();

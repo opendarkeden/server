@@ -32,12 +32,12 @@ EffectTransportCreature::EffectTransportCreature (Creature *pCreature, ZoneID_t 
 
 	m_CreatureID = pCreature->getObjectID();
 	m_ZoneID = zoneID;
-	m_pZone = pCreature->getZone();	// ±×³É ´Ù¸¥ °÷¿¡¼­ÀÇ assert¶§¹®¿¡
+	m_pZone = pCreature->getZone();	// ê·¸ëƒ¥ ë‹¤ë¥¸ ê³³ì—ì„œì˜ assertë•Œë¬¸ì—
 	setTarget( pCreature );
 	setDeadline( delay );
 	setNextTime( 0 );
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -83,7 +83,7 @@ void EffectTransportCreature::affect(Creature* pCreature)
 	Turn_t       RemainTime = deadLine.tv_sec - nextTime.tv_sec;
 
 //	StringStream msg;
-//	msg << (int)RemainTime << "ÃÊ ÈÄ¿¡ " << m_ZoneName << "·Î ÀÌµ¿µË´Ï´Ù.";
+//	msg << (int)RemainTime << "ì´ˆ í›„ì— " << m_ZoneName << "ë¡œ ì´ë™ë©ë‹ˆë‹¤.";
 
     char msg[50];
     sprintf( msg, g_pStringPool->c_str( STRID_TRANSPORT_CREATURE ),

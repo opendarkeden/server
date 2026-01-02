@@ -141,7 +141,7 @@ void ItemInfoManager::init ()
 {
 	__BEGIN_TRY
 
-	// ItemIDSuccessor¿Í Base¸¦ ÀÔ·ÂÇÑ´Ù.
+	// ItemIDSuccessorì™€ Baseë¥¼ ìž…ë ¥í•œë‹¤.
 	m_ItemIDSuccessor = g_pConfig->getPropertyInt("ServerCount");
 	m_ItemIDBase      = g_pConfig->getPropertyInt("ServerID");
 
@@ -742,8 +742,8 @@ vector<ItemType_t> ItemInfoManager::getPossibleItemTypes(Item::ItemClass IClass,
 
 		uint itemLevel = pItemInfo->getItemLevel();
 
-		// ÇöÀç ÁöÁ¤µÈ ¾ÆÀÌÅÛÀÇ ·¹º§ÀÌ min ·¹º§º¸´Ù ³ô°í,
-		// max ·¹º§º¸´Ù ³·´Ù¸é, ¾ÆÀÌÅÛ Å¸ÀÔÀ» º¤ÅÍ¿¡´Ù ´õÇÑ´Ù.
+		// í˜„ìž¬ ì§€ì •ëœ ì•„ì´í…œì˜ ë ˆë²¨ì´ min ë ˆë²¨ë³´ë‹¤ ë†’ê³ ,
+		// max ë ˆë²¨ë³´ë‹¤ ë‚®ë‹¤ë©´, ì•„ì´í…œ íƒ€ìž…ì„ ë²¡í„°ì—ë‹¤ ë”í•œë‹¤.
 		if (minLevel <= itemLevel && itemLevel <= maxLevel)
 		{
 			result.push_back(i);

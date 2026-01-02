@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTUserInfo.cpp
-// Desc		: �¶��� ���� ����ID, ĳ���͸�, ȸ���̸�, ������ ������
-// 			  �Ŀ��� ������ ���� ȸ���� �����Ѵ�.
+// Desc		: User info packet carrying userID, character name, account name, and serials.
+// 			  Sent from client to server when updating billing info.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -9,7 +9,7 @@
 #include "MPacketID.h"
 #include "Assert.h"
 
-// ������
+// constructor
 PKTUserInfo::PKTUserInfo() : _PKT_USERINFO()
 {
 	nSize = szPKTUserInfo - szMPacketSize;
@@ -19,7 +19,7 @@ PKTUserInfo::PKTUserInfo() : _PKT_USERINFO()
 	nIndex = 0;
 }
 
-// �Է� ��Ʈ�����κ��� �����͸� �о ��Ŷ�� �ʱ�ȭ �Ѵ�.
+// Deserialize packet from input stream.
 void PKTUserInfo::read( SocketInputStream& iStream )
 {
 	iStream.read( (char*)this, szPKTUserInfo );
@@ -30,7 +30,7 @@ void PKTUserInfo::read( SocketInputStream& iStream )
 //	nIndex		= ntohl( nIndex );
 }
 
-// ��� ��Ʈ������ ��Ŷ�� ���̳ʸ� �̹����� ������.
+// Serialize packet to output stream.
 void PKTUserInfo::write( SocketOutputStream& oStream )
 {
 	nCode = getID();

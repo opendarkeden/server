@@ -23,7 +23,7 @@ EffectHPRecovery::EffectHPRecovery ()
 {
 	__BEGIN_TRY
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -38,7 +38,7 @@ EffectHPRecovery::EffectHPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 	Assert(getZone() != NULL);
 	Assert(getTarget() != NULL);
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -90,10 +90,10 @@ void EffectHPRecovery::affect(Creature* pCreature)
 
 		if (bHPCheck && bPeriodCheck && bAliveCheck && !bComaCheck) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pSlayer->setFlag(Effect::EFFECT_CLASS_HP_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
 			HP_t NewHP     = min((int)(pSlayer->getHP(ATTR_MAX)), (int)(CurrentHP + m_HPQuantity * (m_Period - RecoveryPeriod)));
 
@@ -101,7 +101,7 @@ void EffectHPRecovery::affect(Creature* pCreature)
 		}
 		else 
 		{
-			// unaffectÇÏ¸é¼­ ÆĞÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -125,24 +125,24 @@ void EffectHPRecovery::affect(Creature* pCreature)
 
 		if (bHPCheck && bPeriodCheck && bAliveCheck && !bComaCheck) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pVampire->setFlag(Effect::EFFECT_CLASS_HP_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			HP_t CurrentHP = pVampire->getHP(ATTR_CURRENT);
 			HP_t NewHP     = min((int)(pVampire->getHP(ATTR_MAX)), CurrentHP + m_HPQuantity);
 
 			pVampire->setHP(NewHP, ATTR_CURRENT);
 
-			// Ç÷Ã»ÀÇ °æ¿ì¿¡´Â Àº µ¥¹ÌÁö¸¦ Ä¡·áÇÑ´Ù.
+			// í˜ˆì²­ì˜ ê²½ìš°ì—ëŠ” ì€ ë°ë¯¸ì§€ë¥¼ ì¹˜ë£Œí•œë‹¤.
 			if (pVampire->getSilverDamage() > 0)
 			{
 				Silver_t silverRecovery  = max(1, m_HPQuantity / 2);
 				Silver_t newSilverDamage = max(0, (int)(pVampire->getSilverDamage() - silverRecovery));
 
-				//printf("ÇöÀçÀºµ¥¹ÌÁö:%d\n", pVampire->getSilverDamage());
-				//printf("Àºµ¥¹ÌÁöÈ¸º¹·®:%d\n", (int)(m_HPQuantity/2));
-				//printf("»õ·Î¿î½Ç¹öµ¥¹ÌÁö:%d\n", newSilverDamage);
+				//printf("í˜„ì¬ì€ë°ë¯¸ì§€:%d\n", pVampire->getSilverDamage());
+				//printf("ì€ë°ë¯¸ì§€íšŒë³µëŸ‰:%d\n", (int)(m_HPQuantity/2));
+				//printf("ìƒˆë¡œìš´ì‹¤ë²„ë°ë¯¸ì§€:%d\n", newSilverDamage);
 
 				pVampire->saveSilverDamage(newSilverDamage);
 
@@ -154,7 +154,7 @@ void EffectHPRecovery::affect(Creature* pCreature)
 		} 
 		else
 		{
-			// unaffectÇÏ¸é¼­ ÆĞÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -178,16 +178,16 @@ void EffectHPRecovery::affect(Creature* pCreature)
 
 		if (bHPCheck && bPeriodCheck && bAliveCheck && !bComaCheck) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pOusters->setFlag(Effect::EFFECT_CLASS_HP_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			HP_t CurrentHP = pOusters->getHP(ATTR_CURRENT);
 			HP_t NewHP     = min( (int)(pOusters->getHP(ATTR_MAX) - pOusters->getSilverDamage()), (int)(CurrentHP + ( m_HPQuantity * (m_Period - RecoveryPeriod))));
 
 			pOusters->setHP(NewHP, ATTR_CURRENT);
 
-			// Àº µ¥¹ÌÁö¸¦ Ä¡·áÇÑ´Ù.
+			// ì€ ë°ë¯¸ì§€ë¥¼ ì¹˜ë£Œí•œë‹¤.
 /*			if ( pOusters->getSilverDamage() > 0 )
 			{
 				Silver_t silverRecovery  = max( 1, m_HPQuantity / 2 );
@@ -203,7 +203,7 @@ void EffectHPRecovery::affect(Creature* pCreature)
 		} 
 		else
 		{
-			// unaffectÇÏ¸é¼­ ÆĞÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -244,7 +244,7 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pCreature);
 		Zone* pZone = pSlayer->getZone();
 
-		// ÅÏÀÌ ³²¾ÆÀÖ°í, »ì¾ÆÀÖ´Â °æ¿ì¿¡¸¸ HP¸¦ È¸º¹½ÃÅ²´Ù.
+		// í„´ì´ ë‚¨ì•„ìˆê³ , ì‚´ì•„ìˆëŠ” ê²½ìš°ì—ë§Œ HPë¥¼ íšŒë³µì‹œí‚¨ë‹¤.
 		if (m_Period != 0 && pCreature->isAlive())
 		{
 			HP_t CurrentHP = pSlayer->getHP(ATTR_CURRENT);
@@ -253,14 +253,14 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 			pSlayer->setHP(NewHP, ATTR_CURRENT);
 		} 
 
-		// ÇöÀç HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ì¬ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìì‹ ì—ê²Œ ë¨¼ì €
 		GCHPRecoveryEndToSelf gcEffectHPRecoveryEndToSelf;
 		gcEffectHPRecoveryEndToSelf.setCurrentHP(pSlayer->getHP(ATTR_CURRENT));
 		pSlayer->getPlayer()->sendPacket(&gcEffectHPRecoveryEndToSelf);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ..
+		// ì£¼ë³€ì‚¬ëŒì—ê²Œë„..
 		GCHPRecoveryEndToOthers gcEffectHPRecoveryEndToOthers;
 		gcEffectHPRecoveryEndToOthers.setObjectID(pSlayer->getObjectID());
 		gcEffectHPRecoveryEndToOthers.setCurrentHP(pSlayer->getHP(ATTR_CURRENT));
@@ -273,7 +273,7 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
 		Zone* pZone = pVampire->getZone();
 
-		// ÅÏÀÌ ³²¾ÆÀÖ°í, »ì¾ÆÀÖ´Â °æ¿ì¿¡¸¸ HP¸¦ È¸º¹½ÃÅ²´Ù.
+		// í„´ì´ ë‚¨ì•„ìˆê³ , ì‚´ì•„ìˆëŠ” ê²½ìš°ì—ë§Œ HPë¥¼ íšŒë³µì‹œí‚¨ë‹¤.
 		if (m_Period != 0 && pCreature->isAlive()) 
 		{
 			HP_t CurrentHP = pVampire->getHP(ATTR_CURRENT);
@@ -282,14 +282,14 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 			pVampire->setHP(NewHP, ATTR_CURRENT);
 		} 
 
-		// ÇöÀç HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ì¬ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìì‹ ì—ê²Œ ë¨¼ì €
 		GCHPRecoveryEndToSelf gcEffectHPRecoveryEndToSelf;
 		gcEffectHPRecoveryEndToSelf.setCurrentHP(pVampire->getHP(ATTR_CURRENT));
 		pVampire->getPlayer()->sendPacket(&gcEffectHPRecoveryEndToSelf);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ..
+		// ì£¼ë³€ì‚¬ëŒì—ê²Œë„..
 		GCHPRecoveryEndToOthers gcEffectHPRecoveryEndToOthers;
 		gcEffectHPRecoveryEndToOthers.setObjectID(pVampire->getObjectID());
 		gcEffectHPRecoveryEndToOthers.setCurrentHP(pVampire->getHP(ATTR_CURRENT));
@@ -302,7 +302,7 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 		Ousters* pOusters = dynamic_cast<Ousters*>(pCreature);
 		Zone* pZone = pOusters->getZone();
 
-		// ÅÏÀÌ ³²¾ÆÀÖ°í, »ì¾ÆÀÖ´Â °æ¿ì¿¡¸¸ HP¸¦ È¸º¹½ÃÅ²´Ù.
+		// í„´ì´ ë‚¨ì•„ìˆê³ , ì‚´ì•„ìˆëŠ” ê²½ìš°ì—ë§Œ HPë¥¼ íšŒë³µì‹œí‚¨ë‹¤.
 		if (m_Period != 0 && pCreature->isAlive()) 
 		{
 			HP_t CurrentHP = pOusters->getHP(ATTR_CURRENT);
@@ -311,14 +311,14 @@ void EffectHPRecovery::unaffect(Creature* pCreature)
 			pOusters->setHP(NewHP, ATTR_CURRENT);
 		} 
 
-		// ÇöÀç HP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ì¬ HPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìì‹ ì—ê²Œ ë¨¼ì €
 		GCHPRecoveryEndToSelf gcEffectHPRecoveryEndToSelf;
 		gcEffectHPRecoveryEndToSelf.setCurrentHP(pOusters->getHP(ATTR_CURRENT));
 		pOusters->getPlayer()->sendPacket(&gcEffectHPRecoveryEndToSelf);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ..
+		// ì£¼ë³€ì‚¬ëŒì—ê²Œë„..
 		GCHPRecoveryEndToOthers gcEffectHPRecoveryEndToOthers;
 		gcEffectHPRecoveryEndToOthers.setObjectID(pOusters->getObjectID());
 		gcEffectHPRecoveryEndToOthers.setCurrentHP(pOusters->getHP(ATTR_CURRENT));

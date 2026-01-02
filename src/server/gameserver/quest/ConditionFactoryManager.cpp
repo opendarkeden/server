@@ -52,10 +52,10 @@ ConditionFactoryManager::ConditionFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ÄÁµð¼ÇÆÑÅä¸®¹è¿­À» »ý¼ºÇÑ´Ù.
+	// ì»¨ë””ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
 	m_Factories = new ConditionFactory*[ m_Size ];
 	
-	// ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -73,7 +73,7 @@ ConditionFactoryManager::~ConditionFactoryManager ()
 		
 	Assert(m_Factories != NULL);
 
-	// °¢°¢ÀÇ ÄÁµð¼ÇÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+	// ê°ê°ì˜ ì»¨ë””ì…˜íŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) {
 		if (m_Factories[i] != NULL) {
 			delete m_Factories[i];
@@ -81,7 +81,7 @@ ConditionFactoryManager::~ConditionFactoryManager ()
 		}
 	}
 	
-	// ÄÁµð¼ÇÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+	// ì»¨ë””ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
 	delete [] m_Factories;
 	m_Factories = NULL;
 			
@@ -90,7 +90,7 @@ ConditionFactoryManager::~ConditionFactoryManager ()
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Á¤ÀÇµÈ ¸ðµç ÄÁµð¼ÇÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  ì»¨ë””ì…˜íŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ConditionFactoryManager::init ()
 	 
@@ -151,7 +151,7 @@ void ConditionFactoryManager::addFactory (ConditionFactory * pFactory)
 		throw Error(msg.toString());
 	}
 	
-	// ÄÁµð¼ÇÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+	// ì»¨ë””ì…˜íŒ©í† ë¦¬ë¥¼ ë“±ë¡í•œë‹¤.
 	m_Factories[ pFactory->getConditionType() ] = pFactory;
 			
 	__END_CATCH
@@ -188,8 +188,8 @@ string ConditionFactoryManager::getConditionName (ConditionType_t conditionType)
 {
 	__BEGIN_TRY
 
-	// ÄÁµð¼Ç Å¸ÀÔÀÌ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ì»¨ë””ì…˜ íƒ€ìž…ì´ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (conditionType >= m_Size || m_Factories[conditionType] == NULL) 
 	{
 		StringStream msg;

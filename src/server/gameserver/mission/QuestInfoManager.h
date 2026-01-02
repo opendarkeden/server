@@ -34,7 +34,7 @@ public:
 
 	bool			isEventQuest( QuestID_t qID ) const;
 
-	// OutITR�� container<QuestID_t>::output_iterator Ÿ���̾�� �Ѵ�.
+	// OutITR must be a container<QuestID_t>::output_iterator-compatible type.
 	template <class OutITR>
 	void		getEventQuestIDs( int questLevel, PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -50,7 +50,7 @@ public:
 		__END_CATCH
 	}
 
-	// OutITR�� container<QuestID_t>::output_iterator Ÿ���̾�� �Ѵ�.
+	// OutITR must be a container<QuestID_t>::output_iterator-compatible type.
 	template <class OutITR>
 	void		getPossibleQuestIDs( PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -66,7 +66,7 @@ public:
 		__END_CATCH
 	}
 
-	// *InITR �� QuestID_t, *OutITR�� QuestInfo*
+	// *InITR yields QuestID_t values, *OutITR receives QuestInfo pointers.
 	template <class InITR, class OutITR>
 	void		getMonsterKillQuests( InITR b, InITR e, OutITR t )
 	{

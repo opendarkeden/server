@@ -199,7 +199,7 @@ MasterLairInfoManager::~MasterLairInfoManager ()
 		SAFE_DELETE(pInfo);
 	}
 	
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ğµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// í•´ì‰¬ë§µì•ˆì— ìˆëŠ” ëª¨ë“  pair ë“¤ì„ ì‚­ì œí•œë‹¤.
 	m_MasterLairInfos.clear();
 
 	__END_CATCH_NO_RETHROW
@@ -296,29 +296,29 @@ void MasterLairInfoManager::load ()
 
 				//cout << pMasterLairInfo->toString().c_str() << endl;
 
-				// Ã¼Å© ÄÚµå
-				// ¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+				// ì²´í¬ ì½”ë“œ
+				// ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 				try {
 					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( pMasterLairInfo->getMasterMonsterType() );
 
-					if (pMonsterInfo==NULL)	// ³ªÁßÀ» À§ÇØ¼­. -_-;
+					if (pMonsterInfo==NULL)	// ë‚˜ì¤‘ì„ ìœ„í•´ì„œ. -_-;
 					{
-						throw Error("¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ¾ø´ç.");
+						throw Error("ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ì—†ë‹¹.");
 					}
 
 					if (!pMonsterInfo->isMaster())
 					{
 						StringStream msg;
-						msg << "¸ó½ºÅÍ Å¸ÀÙ[" 
+						msg << "ëª¬ìŠ¤í„° íƒ€ì[" 
 							<< (int)pMasterLairInfo->getMasterMonsterType() 
-							<< "]Àº ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.";
+							<< "]ì€ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.";
 
 						throw Error(msg.toString());
 					}
 
 				} catch (Throwable& t) {
 					cout << t.toString().c_str() << endl;
-					throw Error("¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ¾ø´ç.");
+					throw Error("ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ì—†ë‹¹.");
 				}
 
 #if defined(__THAILAND_SERVER__) || defined(__CHINA_SERVER__)
@@ -397,29 +397,29 @@ void MasterLairInfoManager::reload ()
 				pMasterLairInfo->setMasterDeadVampireSay( pResult->getString(++i) );
 				pMasterLairInfo->setMasterNotDeadSay( pResult->getString(++i) );
 
-				// Ã¼Å© ÄÚµå
-				// ¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+				// ì²´í¬ ì½”ë“œ
+				// ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 				try {
 					const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo( pMasterLairInfo->getMasterMonsterType() );
 
-					if (pMonsterInfo==NULL)	// ³ªÁßÀ» À§ÇØ¼­. -_-;
+					if (pMonsterInfo==NULL)	// ë‚˜ì¤‘ì„ ìœ„í•´ì„œ. -_-;
 					{
-						throw Error("¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ¾ø´ç.");
+						throw Error("ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ì—†ë‹¹.");
 					}
 
 					if (!pMonsterInfo->isMaster())
 					{
 						StringStream msg;
-						msg << "¸ó½ºÅÍ Å¸ÀÙ[" 
+						msg << "ëª¬ìŠ¤í„° íƒ€ì[" 
 							<< (int)pMasterLairInfo->getMasterMonsterType() 
-							<< "]Àº ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.";
+							<< "]ì€ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.";
 
 						throw Error(msg.toString());
 					}
 
 				} catch (Throwable& t) {
 					cout << t.toString().c_str() << endl;
-					throw Error("¸¶½ºÅÍÀÇ ¸ó½ºÅÍ Á¤º¸°¡ ¾ø´ç.");
+					throw Error("ë§ˆìŠ¤í„°ì˜ ëª¬ìŠ¤í„° ì •ë³´ê°€ ì—†ë‹¹.");
 				}
 			}
 		}
@@ -440,11 +440,11 @@ void MasterLairInfoManager::addMasterLairInfo (MasterLairInfo* pMasterLairInfo)
 {
 	__BEGIN_TRY
 
-	// ÀÏ´Ü °°Àº ¾ÆÀÌµğÀÇ Á¸ÀÌ ÀÖ´ÂÁö Ã¼Å©ÇØº»´Ù.
+	// ì¼ë‹¨ ê°™ì€ ì•„ì´ë””ì˜ ì¡´ì´ ìˆëŠ”ì§€ ì²´í¬í•´ë³¸ë‹¤.
 	unordered_map< ZoneID_t , MasterLairInfo *>::iterator itr = m_MasterLairInfos.find(pMasterLairInfo->getZoneID());
 	
 	if (itr != m_MasterLairInfos.end())
-		// ¶È°°Àº ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ë˜‘ê°™ì€ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ëŠ” ì†Œë¦¬ë‹¤. - -;
 		throw Error("duplicated zone id");
 
 	m_MasterLairInfos[ pMasterLairInfo->getZoneID() ] = pMasterLairInfo;
@@ -464,15 +464,15 @@ void MasterLairInfoManager::deleteMasterLairInfo (ZoneID_t zoneID)
 	
 	if (itr != m_MasterLairInfos.end()) 
 	{
-		// Á¸À» »èÁ¦ÇÑ´Ù.
+		// ì¡´ì„ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(itr->second);
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairë¥¼ ì‚­ì œí•œë‹¤.
 		m_MasterLairInfos.erase(itr);
 	} 
 	else 
 	{
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		StringStream msg;
 		msg << "ZoneID : " << zoneID;
 		throw NoSuchElementException(msg.toString());
@@ -499,7 +499,7 @@ MasterLairInfo* MasterLairInfoManager::getMasterLairInfo (ZoneID_t zoneID)
 
 	} else {
 
-		// ±×·± Á¸ ¾ÆÀÌµğ¸¦ Ã£À» ¼ö ¾ø¾úÀ» ¶§
+		// ê·¸ëŸ° ì¡´ ì•„ì´ë””ë¥¼ ì°¾ì„ ìˆ˜ ì—†ì—ˆì„ ë•Œ
 		/*
 		StringStream msg;
 		msg << "ZoneID : " << zoneID; 

@@ -38,7 +38,7 @@ EventManager::~EventManager ()
 
 //////////////////////////////////////////////////////////////////////////////
 // add effect and affect it to its target
-// priority_queue¿¡ µî·ÏÇÏ°í, affectÇÑ´Ù.
+// priority_queueì— ë“±ë¡í•˜ê³ , affectí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void EventManager::addEvent (Event* pEvent) 
      
@@ -119,7 +119,7 @@ void EventManager::heartbeat ()
 {
 	__BEGIN_TRY
 		
-	// ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+	// í˜„ìž¬ ì‹œê°„ì„ ì¸¡ì •í•œë‹¤.
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
@@ -135,22 +135,22 @@ void EventManager::heartbeat ()
 		//--------------------------------------------------------------------------------
 		// *WARNING*
 		//
-		// EventResurrect Event ÀÇ °æ¿ì, GamePlayer °´Ã¼°¡ ZPM ¿¡¼­ IPM À¸·Î 
-		// ¼Ò¼ÓÀÌ ¹Ù²î°Ô µÈ´Ù.  ¹®Á¦´Â ZPM °ú IPM ÀÌ ¼­·Î ´Ù¸¥ ¾²·¹µåÀÌ±â 
-		// ¶§¹®¿¡, IPM ¿¡¼­ ¶Ç´Ù½Ã EventResurrect °¡ activate µÉ °¡´É¼ºÀÌ ÀÖ´Ù´Â
-		// °ÍÀÌ´Ù. (¾îÂ÷ÇÇ GamePlayer °´Ã¼¿¡¼­ EventResurrect °¡ ¿ÏÀüÈ÷ »èÁ¦µÇÁö
-		// ¾ÊÀº »óÅÂ¿¡¼­ IPM À¸·Î ¿Å°ÜÁö±â ¶§¹®ÀÌ´Ù.) µû¶ó¼­, ÀÌ·± ¿À·ù¸¦
-		// ÇÇÇÏ±â À§ÇØ¼­´Â ÀÏÈ¸¿ë ÀÌº¥Æ®ÀÇ °æ¿ì, ¿ì¼± ÀÌº¥Æ®¸¦ 
-		// ÀÌº¥Æ®¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÏ°í ³ª¼­ IPM À¸·Î ¿Å±âµçÁö ÇØ¾ß ÇÑ´Ù. 
-		// ÀÌ¶§, ¿µ±¸ÀûÀÎ ÀÌº¥Æ®ÀÇ °æ¿ì PM »çÀÌ¸¦ ¿Å°Ü ´Ù´Ï´Â ÀÏÀÌ ¾øµµ·Ï
-		// ÇØ¾ß ÇÒ °ÍÀÌ´Ù!!!! - ÇÇÇÒ ¹æµµ°¡ ¾ø´Ù -
+		// EventResurrect Event ì˜ ê²½ìš°, GamePlayer ê°ì²´ê°€ ZPM ì—ì„œ IPM ìœ¼ë¡œ 
+		// ì†Œì†ì´ ë°”ë€Œê²Œ ëœë‹¤.  ë¬¸ì œëŠ” ZPM ê³¼ IPM ì´ ì„œë¡œ ë‹¤ë¥¸ ì“°ë ˆë“œì´ê¸° 
+		// ë•Œë¬¸ì—, IPM ì—ì„œ ë˜ë‹¤ì‹œ EventResurrect ê°€ activate ë  ê°€ëŠ¥ì„±ì´ ìžˆë‹¤ëŠ”
+		// ê²ƒì´ë‹¤. (ì–´ì°¨í”¼ GamePlayer ê°ì²´ì—ì„œ EventResurrect ê°€ ì™„ì „ížˆ ì‚­ì œë˜ì§€
+		// ì•Šì€ ìƒíƒœì—ì„œ IPM ìœ¼ë¡œ ì˜®ê²¨ì§€ê¸° ë•Œë¬¸ì´ë‹¤.) ë”°ë¼ì„œ, ì´ëŸ° ì˜¤ë¥˜ë¥¼
+		// í”¼í•˜ê¸° ìœ„í•´ì„œëŠ” ì¼íšŒìš© ì´ë²¤íŠ¸ì˜ ê²½ìš°, ìš°ì„  ì´ë²¤íŠ¸ë¥¼ 
+		// ì´ë²¤íŠ¸ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•˜ê³  ë‚˜ì„œ IPM ìœ¼ë¡œ ì˜®ê¸°ë“ ì§€ í•´ì•¼ í•œë‹¤. 
+		// ì´ë•Œ, ì˜êµ¬ì ì¸ ì´ë²¤íŠ¸ì˜ ê²½ìš° PM ì‚¬ì´ë¥¼ ì˜®ê²¨ ë‹¤ë‹ˆëŠ” ì¼ì´ ì—†ë„ë¡
+		// í•´ì•¼ í•  ê²ƒì´ë‹¤!!!! - í”¼í•  ë°©ë„ê°€ ì—†ë‹¤ -
 		//--------------------------------------------------------------------------------
 		if (currentTime > pEvent->getDeadline())
 		{
-			// ÀÏÈ¸¿ë ÀÌº¥Æ®ÀÇ °æ¿ì
+			// ì¼íšŒìš© ì´ë²¤íŠ¸ì˜ ê²½ìš°
 			if (pEvent->isTemporary())
 			{
-				// ÀÌº¥Æ®¸¦ »èÁ¦ÇÑ´Ù.
+				// ì´ë²¤íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
 				m_Events.erase(current);
 
 				if (before == m_Events.end()) { // first effect
@@ -161,13 +161,13 @@ void EventManager::heartbeat ()
 				}
 			}
 
-			// ÀÌº¥Æ®¸¦ ½ÇÇàÇÑ´Ù.
+			// ì´ë²¤íŠ¸ë¥¼ ì‹¤í–‰í•œë‹¤.
 			pEvent->activate();
 
-			// ÀÏÈ¸¿ë ÀÌº¥Æ®ÀÇ °æ¿ì
+			// ì¼íšŒìš© ì´ë²¤íŠ¸ì˜ ê²½ìš°
 			if (pEvent->isTemporary())
 			{
-				// ÀÌº¥Æ® °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+				// ì´ë²¤íŠ¸ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				SAFE_DELETE(pEvent);
 			}
 		} 

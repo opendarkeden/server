@@ -128,7 +128,7 @@ void DarkLightInfoManager::load ()
 			pDIInfo->setDarkLevel(pResult->getInt(++i));
 			pDIInfo->setLightLevel(pResult->getInt(++i));
 
-			// ¿ùÀº 1-12 ÀÌÁö¸¸, ½Ã°£Àº 0-23 ÀÌ¸ç, ºĞÀº 0, 10, 20, 30, 40, 50 ÀÌ´Ù.
+			// ì›”ì€ 1-12 ì´ì§€ë§Œ, ì‹œê°„ì€ 0-23 ì´ë©°, ë¶„ì€ 0, 10, 20, 30, 40, 50 ì´ë‹¤.
 			int index = (month-1)*(24*6) + (hour)*6 + (minute/10);
 			Assert(m_DarkLightInfos[index] == NULL);
 			m_DarkLightInfos[ index ] = pDIInfo;
@@ -138,7 +138,7 @@ void DarkLightInfoManager::load ()
 	} 
 	END_DB(pStmt)
 
-	// ÁöÁ¤µÇÁö ¾ÊÀº ºóÄ­Àº ÀÌÀü°ªÀ» »ç¿ëÇØ¼­ º¹»çÇÑ´Ù.
+	// ì§€ì •ë˜ì§€ ì•Šì€ ë¹ˆì¹¸ì€ ì´ì „ê°’ì„ ì‚¬ìš©í•´ì„œ ë³µì‚¬í•œë‹¤.
 	Assert(m_DarkLightInfos[0] != NULL);
 
 	for (uint i = 1 ; i < nDarkLightInfos ; i ++) 
@@ -193,13 +193,13 @@ const DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone
 {
 	__BEGIN_TRY
 
-	// Á¸¿¡ ½Ã°£ÀÌ °íÁ¤µÈ °æ¿ì¶ó¸é ÀûÀıÇÑ DarkLight Á¤º¸¸¦ ¸®ÅÏÇÑ´Ù.
+	// ì¡´ì— ì‹œê°„ì´ ê³ ì •ëœ ê²½ìš°ë¼ë©´ ì ì ˆí•œ DarkLight ì •ë³´ë¥¼ ë¦¬í„´í•œë‹¤.
 	if ( pZone != NULL && pZone->isTimeStop() )
 	{
 		return m_DarkLightInfos[ DLIndexByTimeband[ pZone->getTimeband() ] ];
 	}
 
-	// ±Û·Î¹ú Å¸ÀÓ ¸Å´ÏÀú·ÎºÎÅÍ °ÔÀÓ ½Ã°£À» ¹Ş¾Æ¿Â´Ù.
+	// ê¸€ë¡œë²Œ íƒ€ì„ ë§¤ë‹ˆì €ë¡œë¶€í„° ê²Œì„ ì‹œê°„ì„ ë°›ì•„ì˜¨ë‹¤.
 	GameTime gametime = g_pTimeManager->getGameTime();
 
 	return getDarkLightInfo(gametime.getMonth() , gametime.getHour() , gametime.getMinute());
@@ -212,13 +212,13 @@ DarkLightInfo* DarkLightInfoManager::getCurrentDarkLightInfo ( Zone* pZone )
 {
 	__BEGIN_TRY
 
-	// Á¸¿¡ ½Ã°£ÀÌ °íÁ¤µÈ °æ¿ì¶ó¸é ÀûÀıÇÑ DarkLight Á¤º¸¸¦ ¸®ÅÏÇÑ´Ù.
+	// ì¡´ì— ì‹œê°„ì´ ê³ ì •ëœ ê²½ìš°ë¼ë©´ ì ì ˆí•œ DarkLight ì •ë³´ë¥¼ ë¦¬í„´í•œë‹¤.
 	if ( pZone != NULL && pZone->isTimeStop() )
 	{
 		return m_DarkLightInfos[ DLIndexByTimeband[ pZone->getTimeband() ] ];
 	}
 
-	// ±Û·Î¹ú Å¸ÀÓ ¸Å´ÏÀú·ÎºÎÅÍ °ÔÀÓ ½Ã°£À» ¹Ş¾Æ¿Â´Ù.
+	// ê¸€ë¡œë²Œ íƒ€ì„ ë§¤ë‹ˆì €ë¡œë¶€í„° ê²Œì„ ì‹œê°„ì„ ë°›ì•„ì˜¨ë‹¤.
 	GameTime gametime = g_pTimeManager->getGameTime();
 
 	return getDarkLightInfo(gametime.getMonth() , gametime.getHour() , gametime.getMinute());

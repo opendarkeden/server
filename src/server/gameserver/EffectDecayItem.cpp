@@ -36,7 +36,7 @@ EffectDecayItem::EffectDecayItem (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , 
 	m_ObjectID = pItem->getObjectID();
 	m_bDeleteFromDB = bDeleteFromDB;
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -59,8 +59,8 @@ EffectDecayItem::~EffectDecayItem ()
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ý¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´íŽ™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìžì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectDecayItem::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
 	
@@ -81,15 +81,15 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 {
 	__BEGIN_TRY
 
-	// ¿Ã¹Ù¸¥ ÁÂÇ¥ÀÌ¾î¾ß ÇÑ´Ù.
+	// ì˜¬ë°”ë¥¸ ì¢Œí‘œì´ì–´ì•¼ í•œë‹¤.
 	Assert(isValidZoneCoord(pZone, x, y));
 
-	// TempItem º¯¼ö¸¦ Àâ´Â´Ù.
+	// TempItem ë³€ìˆ˜ë¥¼ ìž¡ëŠ”ë‹¤.
 	Item* pTempItem = NULL;
 
-	// ¿©±â¼­´Â ÁöÁ¤ ¾ÆÀÌÅÛÀÌ ¾øÀ» ¼ö ÀÖÀ¸¸ç, ¶Ç ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ³õ¿© ÀÖÀ» ¼öµµ ÀÖ´Ù.
-	// ÀÌ °æ¿ì´Â ¿À¸®Áö³Î ¾ÆÀÌÅÛ°ú Áö±Ý ÇöÀç ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» ºñ±³ÇÏ¿© »èÁ¦ÇØ¾ß ÇÑ´Ù.
-	// ¾øÀ» °æ¿ì´Â ¹«½ÃÇÏ¸é µÈ´Ù.
+	// ì—¬ê¸°ì„œëŠ” ì§€ì • ì•„ì´í…œì´ ì—†ì„ ìˆ˜ ìžˆìœ¼ë©°, ë˜ ë‹¤ë¥¸ ì•„ì´í…œì´ ë†“ì—¬ ìžˆì„ ìˆ˜ë„ ìžˆë‹¤.
+	// ì´ ê²½ìš°ëŠ” ì˜¤ë¦¬ì§€ë„ ì•„ì´í…œê³¼ ì§€ê¸ˆ í˜„ìž¬ ë°”ë‹¥ì— ìžˆëŠ” ì•„ì´í…œì„ ë¹„êµí•˜ì—¬ ì‚­ì œí•´ì•¼ í•œë‹¤.
+	// ì—†ì„ ê²½ìš°ëŠ” ë¬´ì‹œí•˜ë©´ ëœë‹¤.
 	Tile & tile = pZone->getTile(x, y);
 
 	if (tile.hasItem()) {
@@ -97,13 +97,13 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 		pTempItem = tile.getItem();
 
 		if (pTempItem != NULL) {
-			// ObjectID°¡ °°´Ù´Â ¸»Àº °°Àº ¾ÆÀÌÅÛÀÌ¶õ ¸»ÀÌ´Ù.
+			// ObjectIDê°€ ê°™ë‹¤ëŠ” ë§ì€ ê°™ì€ ì•„ì´í…œì´ëž€ ë§ì´ë‹¤.
 			//if (pTempItem->getObjectID() == m_ObjectID) {
 			if (pTempItem->getObjectID() == m_ObjectID) {
 
 				pZone->deleteItem(pTempItem , x, y);
 
-				// ¾ÆÀÌÅÛÀÌ »ç¶óÁ³´Ù´Â ÆÐÅ¶À» ³¯¸°´Ù.
+				// ì•„ì´í…œì´ ì‚¬ë¼ì¡Œë‹¤ëŠ” íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 				GCDeleteObject gcDeleteObject;
 				gcDeleteObject.setObjectID(m_ObjectID);
 
@@ -114,19 +114,19 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 					//ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( pTempItem->getItemClass(), pTempItem->getItemType() );
 					//Assert(pItemInfo!=NULL);
 
-					// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì °³¼ö¸¦ ÁÙÀÎ´Ù.
+					// ìœ ë‹ˆí¬ ì•„ì´í…œì¸ ê²½ìš° ê°œìˆ˜ë¥¼ ì¤„ì¸ë‹¤.
 					if (pTempItem->isUnique())
 					{
-						// createÇÑ ¾ÆÀÌÅÛÀÌ ¾Æ´Ñ °æ¿ì¸¸ Áö¿öÁØ´Ù.
+						// createí•œ ì•„ì´í…œì´ ì•„ë‹Œ ê²½ìš°ë§Œ ì§€ì›Œì¤€ë‹¤.
 						if (pTempItem->getCreateType()!=Item::CREATE_TYPE_CREATE)
 							UniqueItemManager::deleteItem( pTempItem->getItemClass(), pTempItem->getItemType() );
 
 						filelog("uniqueItem.txt", "[EffectDecayItem] %s", pTempItem->toString().c_str());
 					}
 
-					// ItemTraceLog ¸¦ ³²±ä´Ù
+					// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 					/*
-					 * Á¸¿¡ ¶³¾îÁø ¾ÆÀÌÅÛÁß expire timeÀÎ°Íµé ¸ðµÎ ·Î±×¸¦ »©¹ö¸°´Ù.
+					 * ì¡´ì— ë–¨ì–´ì§„ ì•„ì´í…œì¤‘ expire timeì¸ê²ƒë“¤ ëª¨ë‘ ë¡œê·¸ë¥¼ ë¹¼ë²„ë¦°ë‹¤.
 					if ( pTempItem != NULL && pTempItem->isTraceItem() )
 					{
 						char zoneName[15];
@@ -135,7 +135,7 @@ void EffectDecayItem::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Ob
 					}
 					*/
 
-					// µ· ·Î±× ³²±âÀÚ
+					// ëˆ ë¡œê·¸ ë‚¨ê¸°ìž
 					if ( pTempItem->getItemClass() == Item::ITEM_CLASS_MONEY )
 					{
 						Money* pMoney = dynamic_cast<Money*>(pTempItem);

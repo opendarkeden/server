@@ -116,10 +116,10 @@ void LoginServerManager::run ()
 
 			try 
 			{
-				// µ•¿Ã≈Õ±◊∑• ∞¥√º∏¶ ≤Ù¡˝æÓ≥Ω¥Ÿ.
+				// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Í∞ùÏ≤¥Î•º ÎÅÑÏßëÏñ¥ÎÇ∏Îã§.
 				pDatagram = m_pDatagramSocket->receive();
 
-				if (pDatagram!=NULL)	// ¿œ∫Œexception¡¶∞≈. by sigi. 2002.5.17
+				if (pDatagram!=NULL)	// ÏùºÎ∂ÄexceptionÏ†úÍ±∞. by sigi. 2002.5.17
 				{
 					//cout << "[Datagram] " << pDatagram->getHost() << ":" << pDatagram->getPort() << endl;
 					pDatagram->read(pDatagramPacket);
@@ -127,18 +127,18 @@ void LoginServerManager::run ()
 					if (pDatagramPacket!=NULL)
 					{
 						//cout << "[DatagramPacket] " << pDatagram->getHost() << ":" << pDatagram->getPort() << endl;
-						// ≤Ù¡˝æÓ≥Ω µ•¿Ã≈Õ±◊∑• ∆–≈∂ ∞¥√º∏¶ Ω««‡«—¥Ÿ.
+						// ÎÅÑÏßëÏñ¥ÎÇ∏ Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Ìå®ÌÇ∑ Í∞ùÏ≤¥Î•º Ïã§ÌñâÌïúÎã§.
 						__ENTER_CRITICAL_SECTION(m_Mutex)
 
 						pDatagramPacket->execute(NULL);
 
 						__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-						// µ•¿Ã≈Õ±◊∑• ∆–≈∂ ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+						// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Ìå®ÌÇ∑ Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
 						SAFE_DELETE(pDatagramPacket);
 					}
 			
-					// µ•¿Ã≈Õ±◊∑• ∞¥√º∏¶ ªË¡¶«—¥Ÿ.
+					// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Í∞ùÏ≤¥Î•º ÏÇ≠Ï†úÌïúÎã§.
 					SAFE_DELETE(pDatagram);
 				}
 			} 
@@ -151,9 +151,9 @@ void LoginServerManager::run ()
 				SAFE_DELETE(pDatagramPacket);
 				SAFE_DELETE(pDatagram);
 
-				// º≠πˆ∞£ ≈ÎΩ≈ø°º≠ «¡∑Œ≈‰ƒ› ø°∑Ø∞° πﬂª˝«œ∏È, 
-				// «¡∑Œ±◊∑°π÷ ø¿∑˘¿Ã∞≈≥™ «ÿ≈∑ Ω√µµ¿Ã¥Ÿ.
-				// ¿œ¥‹¿∫ ¿¸¿⁄∏∏¿Ã «ÿ¥Áµ«π«∑Œ.. ø°∑Ø∑Œ ∞£¡÷«—¥Ÿ.
+				// ÏÑúÎ≤ÑÍ∞Ñ ÌÜµÏã†ÏóêÏÑú ÌîÑÎ°úÌÜ†ÏΩú ÏóêÎü¨Í∞Ä Î∞úÏÉùÌïòÎ©¥, 
+				// ÌîÑÎ°úÍ∑∏ÎûòÎ∞ç Ïò§Î•òÏù¥Í±∞ÎÇò Ìï¥ÌÇπ ÏãúÎèÑÏù¥Îã§.
+				// ÏùºÎã®ÏùÄ Ï†ÑÏûêÎßåÏù¥ Ìï¥ÎãπÎêòÎØÄÎ°ú.. ÏóêÎü¨Î°ú Í∞ÑÏ£ºÌïúÎã§.
 				//throw Error(pe.toString());
 
 				filelog("LOGINSERVERMANAGER.log", "LoginServerManager::run() 1 : %s", pe.toString().c_str());
@@ -167,8 +167,8 @@ void LoginServerManager::run ()
 				SAFE_DELETE(pDatagramPacket);
 				SAFE_DELETE(pDatagram);
 
-				// ¿∏¿Ω.. ∏”¡ˆ ¿Ã∞«..
-				// ¿œ¥‹ ø°∑Ø¥Á..
+				// ÏúºÏùå.. Î®∏ÏßÄ Ïù¥Í±¥..
+				// ÏùºÎã® ÏóêÎü¨Îãπ..
 				//throw Error(ce.toString());
 
 				filelog("LOGINSERVERMANAGER.log", "LoginServerManager::run() 2 : %s", ce.toString().c_str());
@@ -194,14 +194,14 @@ void LoginServerManager::run ()
 			{
 				g_pDatabaseManager->executeDummyQuery( pConnection );
 
-				// 1Ω√∞£ ~ 1Ω√∞£ 30∫– ªÁ¿Ãø°º≠ dummy query Ω√∞£¿ª º≥¡§«—¥Ÿ.
-				// timeout¿Ã µ«¡ˆ æ ∞‘ «œ±‚ ¿ß«ÿº≠¿Ã¥Ÿ.
+				// 1ÏãúÍ∞Ñ ~ 1ÏãúÍ∞Ñ 30Î∂Ñ ÏÇ¨Ïù¥ÏóêÏÑú dummy query ÏãúÍ∞ÑÏùÑ ÏÑ§Ï†ïÌïúÎã§.
+				// timeoutÏù¥ ÎêòÏßÄ ÏïäÍ≤å ÌïòÍ∏∞ ÏúÑÌï¥ÏÑúÏù¥Îã§.
 				dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 			}
 
-			// ≈∏¿” √ºƒø æ˜µ•¿Ã∆Æ
-			// ClientManager ø°º≠¥¬ ªÁøÎ¿⁄ ∞° ClientManager ø° µÈæÓ∞°¡ˆ æ ¿ª ∞ÊøÏ
-			// µπ¡ˆ æ ¿∏π«∑Œ ø©±‚ø° √ﬂ∞°
+			// ÌÉÄÏûÑ Ï≤¥Ïª§ ÏóÖÎç∞Ïù¥Ìä∏
+			// ClientManager ÏóêÏÑúÎäî ÏÇ¨Ïö©Ïûê Í∞Ä ClientManager Ïóê Îì§Ïñ¥Í∞ÄÏßÄ ÏïäÏùÑ Í≤ΩÏö∞
+			// ÎèåÏßÄ ÏïäÏúºÎØÄÎ°ú Ïó¨Í∏∞Ïóê Ï∂îÍ∞Ä
 			g_pTimeChecker->heartbeat();
 		}
 	} 
@@ -234,16 +234,16 @@ void LoginServerManager::sendPacket (const string& host , uint port , DatagramPa
 
 	try 
 	{
-		// µ•¿Ã≈Õ±◊∑• ∞¥√º∏¶ «œ≥™ µŒ∞Ì, ¿¸º€«“ peer ¿« »£Ω∫∆ÆøÕ ∆˜∆Æ∏¶ ¡ˆ¡§«—¥Ÿ.
+		// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Í∞ùÏ≤¥Î•º ÌïòÎÇò ÎëêÍ≥†, Ï†ÑÏÜ°Ìï† peer Ïùò Ìò∏Ïä§Ìä∏ÏôÄ Ìè¨Ìä∏Î•º ÏßÄÏ†ïÌïúÎã§.
 		Datagram datagram;
 
 		datagram.setHost(host);
 		datagram.setPort(port);
 
-		// µ•¿Ã≈Õ±◊∑• ∆–≈∂¿ª µ•¿Ã≈Õ±◊∑•ø° ¡˝æÓ≥÷¥¬¥Ÿ.
+		// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® Ìå®ÌÇ∑ÏùÑ Îç∞Ïù¥ÌÑ∞Í∑∏Îû®Ïóê ÏßëÏñ¥ÎÑ£ÎäîÎã§.
 		datagram.write(pPacket);
 
-		// µ•¿Ã≈Õ±◊∑• º“ƒœ¿ª ≈Î«ÿº≠ µ•¿Ã≈Õ±◊∑•¿ª ¿¸º€«—¥Ÿ.
+		// Îç∞Ïù¥ÌÑ∞Í∑∏Îû® ÏÜåÏºìÏùÑ ÌÜµÌï¥ÏÑú Îç∞Ïù¥ÌÑ∞Í∑∏Îû®ÏùÑ Ï†ÑÏÜ°ÌïúÎã§.
 		m_pDatagramSocket->send(&datagram);
 	} 
 	catch (Throwable & t) 

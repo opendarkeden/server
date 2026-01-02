@@ -31,7 +31,7 @@ MotorcycleBox::~MotorcycleBox()
 
 	if (m_pMotorcycle != NULL) 
 	{
-		// m_pZoneÀÇ µ¿±âÈ­ ¹®Á¦·Î ÀÎÇØ¼­ ¼öÁ¤Çß´Ù.
+		// m_pZoneì˜ ë™ê¸°í™” ë¬¸ì œë¡œ ì¸í•´ì„œ ìˆ˜ì •í–ˆë‹¤.
 		// by sigi. 2002.5.3
 		m_pZone->deleteMotorcycle(m_X, m_Y, m_pMotorcycle);
 
@@ -44,7 +44,7 @@ MotorcycleBox::~MotorcycleBox()
 		} 
 		else 
 		{
-			//cerr << "±× Å¸ÀÏ¿£ ¿ÀÅä¹ÙÀÌ°¡ ¾ø½À´Ï´Ù." << endl;
+			//cerr << "ê·¸ íƒ€ì¼ì—” ì˜¤í† ë°”ì´ê°€ ì—†ìŠµë‹ˆë‹¤." << endl;
 		}
 
 		GCDeleteObject gcDeleteObject;
@@ -121,9 +121,9 @@ void ParkingCenter::addMotorcycleBox (MotorcycleBox* pMotorcycleBox)
 	__END_CATCH
 }
 
-// unordered_map¿¡¼­ ¿­¼èÀÇ TargetID¿¡ ÇØ´çÇÏ´Â ¿ÀÅä¹ÙÀÌ¸¦ Áö¿ì´Â ÇÔ¼öÀÌ´Ù.
-// ¿©±â¼­ ¿ÀÅä¹ÙÀÌ ÀüÃ¼¸¦ »èÁ¦ÇÏ°Ô µÊÀ¸·Î Á¸¿¡¼­ ¿ÀÅä¹ÙÀÌ¸¦ Áö¿î´ÙÀ½.
-// ÃÖÁ¾ÀûÀ¸·Î ÀÌ ÇÔ¼ö¸¦ ºÒ·¯¾ß ÇÒ °ÍÀÌ´Ù.
+// unordered_mapì—ì„œ ì—´ì‡ ì˜ TargetIDì— í•´ë‹¹í•˜ëŠ” ì˜¤í† ë°”ì´ë¥¼ ì§€ìš°ëŠ” í•¨ìˆ˜ì´ë‹¤.
+// ì—¬ê¸°ì„œ ì˜¤í† ë°”ì´ ì „ì²´ë¥¼ ì‚­ì œí•˜ê²Œ ë¨ìœ¼ë¡œ ì¡´ì—ì„œ ì˜¤í† ë°”ì´ë¥¼ ì§€ìš´ë‹¤ìŒ.
+// ìµœì¢…ì ìœ¼ë¡œ ì´ í•¨ìˆ˜ë¥¼ ë¶ˆëŸ¬ì•¼ í•  ê²ƒì´ë‹¤.
 void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID) 
 {
 	__BEGIN_TRY
@@ -147,12 +147,12 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 
 	m_Motorcycles.erase(itr);
 
-	// µ¥µå¶ô ¹®Á¦·Î ¹Ù·Î Áö¿ìÁö ¾Ê´Â´Ù.
+	// ë°ë“œë½ ë¬¸ì œë¡œ ë°”ë¡œ ì§€ìš°ì§€ ì•ŠëŠ”ë‹¤.
 	//SAFE_DELETE(pMotorcycleBox);
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	// ³ªÁß¿¡ heartbeat¿¡¼­ Áö¿öÁØ´Ù.
+	// ë‚˜ì¤‘ì— heartbeatì—ì„œ ì§€ì›Œì¤€ë‹¤.
 	if (pMotorcycleBox!=NULL)
 	{
 		__ENTER_CRITICAL_SECTION(m_MutexRemove)
@@ -166,7 +166,7 @@ void ParkingCenter::deleteMotorcycleBox (ItemID_t keyTargetID)
 	__END_CATCH
 }
 
-// Æ¯Á¤ KeyID¸¦ °¡Áø MotorcycleBox°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+// íŠ¹ì • KeyIDë¥¼ ê°€ì§„ MotorcycleBoxê°€ ìžˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID) 
 {
 	__BEGIN_TRY
@@ -189,7 +189,7 @@ bool ParkingCenter::hasMotorcycleBox (ItemID_t keyTargetID)
 	__END_CATCH
 }
 
-// ¿­¼èÀÇ TargetID·Î ¿ÀÅä¹ÙÀÌ¸¦ Ã£¾Æ¼­ Return ÇØÁÖ´Â ÇÔ¼öÀÌ´Ù.
+// ì—´ì‡ ì˜ TargetIDë¡œ ì˜¤í† ë°”ì´ë¥¼ ì°¾ì•„ì„œ Return í•´ì£¼ëŠ” í•¨ìˆ˜ì´ë‹¤.
 MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const 
 {
 	__BEGIN_TRY
@@ -219,14 +219,14 @@ MotorcycleBox* ParkingCenter::getMotorcycleBox (ItemID_t keyTargetID) const
 	} 
 	catch (Throwable & t) 
 	{
-		//cerr << "¾ÆÁ÷ Ã£Áö ¾Ê¾Ò°Å³ª, ¿­¼è°¡ Àß¸øµÈ ¿ÀÅä¹ÙÀÌ ÀÔ´Ï´ç." << endl;
+		//cerr << "ì•„ì§ ì°¾ì§€ ì•Šì•˜ê±°ë‚˜, ì—´ì‡ ê°€ ìž˜ëª»ëœ ì˜¤í† ë°”ì´ ìž…ë‹ˆë‹¹." << endl;
 		return NULL;
 	}
 
 	__END_CATCH
 }
 
-// ÀÌ°Ç  ClientManager thread¿¡¼­ µ¹¾Æ°£´Ù.
+// ì´ê±´  ClientManager threadì—ì„œ ëŒì•„ê°„ë‹¤.
 void ParkingCenter::heartbeat()
 	
 {

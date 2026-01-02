@@ -131,10 +131,10 @@ ActionFactoryManager::ActionFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ¾×¼ÇÆÑÅä¸®¹è¿­À» »ý¼ºÇÑ´Ù.
+	// ì•¡ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ìƒì„±í•œë‹¤.
 	m_Factories = new ActionFactory*[ m_Size ];
 	
-	// ÆÑÅä¸®¿¡ ´ëÇÑ Æ÷ÀÎÅÍµéÀ» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// íŒ©í† ë¦¬ì— ëŒ€í•œ í¬ì¸í„°ë“¤ì„ NULL ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -152,7 +152,7 @@ ActionFactoryManager::~ActionFactoryManager ()
 		
 	Assert(m_Factories != NULL);
 
-	// °¢°¢ÀÇ ¾×¼ÇÆÑÅä¸®µéÀ» »èÁ¦ÇÑ´Ù.
+	// ê°ê°ì˜ ì•¡ì…˜íŒ©í† ë¦¬ë“¤ì„ ì‚­ì œí•œë‹¤.
 	for (int i = 0 ; i < m_Size ; i ++) {
 		if (m_Factories[i] != NULL) {
 			delete m_Factories[i];
@@ -160,7 +160,7 @@ ActionFactoryManager::~ActionFactoryManager ()
 		}
 	}
 	
-	// ¾×¼ÇÆÑÅä¸®¹è¿­À» »èÁ¦ÇÑ´Ù.
+	// ì•¡ì…˜íŒ©í† ë¦¬ë°°ì—´ì„ ì‚­ì œí•œë‹¤.
 	delete [] m_Factories;
 	m_Factories = NULL;
 			
@@ -169,7 +169,7 @@ ActionFactoryManager::~ActionFactoryManager ()
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Á¤ÀÇµÈ ¸ðµç ¾×¼ÇÆÑÅä¸®µéÀ» ¿©±â¿¡ Ãß°¡ÇÑ´Ù.
+// ì •ì˜ëœ ëª¨ë“  ì•¡ì…˜íŒ©í† ë¦¬ë“¤ì„ ì—¬ê¸°ì— ì¶”ê°€í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionFactoryManager::init ()
 	 
@@ -270,8 +270,8 @@ void ActionFactoryManager::init ()
 	addFactory(new ActionStartPetQuestFactory());
 
 	addFactory(new ActionPetDepositFactory());
-	/* Æê º¸°üÇÔ : ¾×¼ÇÅëÇÕ PetDeposit¸¸ ¾²±â·Î ÇÑ´Ù. Withdraw´Â ¾²Áö ¾Ê´Â´Ù. */
-	/* 2004³â 5¿ù 13ÀÏ - ½Â¸í, ¿ë±Ù */
+	/* íŽ« ë³´ê´€í•¨ : ì•¡ì…˜í†µí•© PetDepositë§Œ ì“°ê¸°ë¡œ í•œë‹¤. WithdrawëŠ” ì“°ì§€ ì•ŠëŠ”ë‹¤. */
+	/* 2004ë…„ 5ì›” 13ì¼ - ìŠ¹ëª…, ìš©ê·¼ */
 	/* addFactory(new ActionPetWithdrawFactory());	*/
 
 	addFactory(new ActionEnterEventZoneFactory());
@@ -311,7 +311,7 @@ void ActionFactoryManager::addFactory (ActionFactory * pFactory)
 		throw Error(msg.toString());
 	}
 	
-	// ¾×¼ÇÆÑÅä¸®¸¦ µî·ÏÇÑ´Ù.
+	// ì•¡ì…˜íŒ©í† ë¦¬ë¥¼ ë“±ë¡í•œë‹¤.
 	m_Factories[ pFactory->getActionType() ] = pFactory;
 			
 	__END_CATCH
@@ -326,8 +326,8 @@ Action * ActionFactoryManager::createAction (ActionType_t actionType) const
 {
 	__BEGIN_TRY
 
-	// ¾×¼Ç Å¸ÀÔÀÌ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ì•¡ì…˜ íƒ€ìž…ì´ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (actionType >= m_Size || m_Factories[actionType] == NULL) 
 	{
 		StringStream msg;
@@ -350,8 +350,8 @@ string ActionFactoryManager::getActionName (ActionType_t actionType) const
 {
 	__BEGIN_TRY
 
-	// ¾×¼Ç Å¸ÀÔÀÌ ¹üÀ§¸¦ ³Ñ¾î¼¶À¸·Î ÀÎÇØ¼­ Seg.Fault °¡ ¹ß»ýÇÏÁö ¾Êµµ·Ï.
-	// ÀÌ·± »ç¿ëÀÚ´Â ´çÀå Â©¶ó¾ß ÇÑ´Ù.
+	// ì•¡ì…˜ íƒ€ìž…ì´ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬ìœ¼ë¡œ ì¸í•´ì„œ Seg.Fault ê°€ ë°œìƒí•˜ì§€ ì•Šë„ë¡.
+	// ì´ëŸ° ì‚¬ìš©ìžëŠ” ë‹¹ìž¥ ì§¤ë¼ì•¼ í•œë‹¤.
 	if (actionType >= m_Size || m_Factories[actionType] == NULL) 
 	{
 		StringStream msg;

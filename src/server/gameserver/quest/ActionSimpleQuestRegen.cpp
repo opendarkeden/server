@@ -2,8 +2,8 @@
 // Filename    : ActionSimpleQuestRegen.cpp
 // Written By  : 
 // Description : 
-// »óÁ¡ NPC¸¦ Á¦ÀÏ Ã³À½ ·ÎµùÇÒ ¶§, »óÁ¡ NPC°¡ ÆÈ°Ô µÉ ¾ÆÀÌÅÛÀ»
-// ÁØºñÇÏ´Â ¾×¼ÇÀÌ´Ù. ShopTemplate Å¬·¡½º¿Í ¸Å´ÏÀú¸¦ Âü°íÇÒ °Í.
+// ìƒì  NPCë¥¼ ì œì¼ ì²˜ìŒ ë¡œë”©í•  ë•Œ, ìƒì  NPCê°€ íŒ”ê²Œ ë  ì•„ì´í…œì„
+// ì¤€ë¹„í•˜ëŠ” ì•¡ì…˜ì´ë‹¤. ShopTemplate í´ë˜ìŠ¤ì™€ ë§¤ë‹ˆì €ë¥¼ ì°¸ê³ í•  ê²ƒ.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionSimpleQuestRegen.h"
@@ -52,12 +52,12 @@ void ActionSimpleQuestRegen::read (PropertyBuffer & propertyBuffer)
 	{
 		//int m_Num   = propertyBuffer.getPropertyInt("Num");
 
-		// »óÁ¡ ¾÷µ¥ÀÌÆ® ÁÖ±â¸¦ ÀĞ¾îµéÀÎ´Ù. (ÃÊ ´ÜÀ§)
+		// ìƒì  ì—…ë°ì´íŠ¸ ì£¼ê¸°ë¥¼ ì½ì–´ë“¤ì¸ë‹¤. (ì´ˆ ë‹¨ìœ„)
 		int nSecond = propertyBuffer.getPropertyInt("Period");
 
 		m_Period.tv_sec = nSecond;
 
-		// ´ÙÀ½ »óÁ¡ ¾÷µ¥ÀÌÆ®¸¦ ¾ğÁ¦ ÇÒ °ÍÀÎ°¡¸¦ ¼¼ÆÃÇØ ÁØ´Ù.
+		// ë‹¤ìŒ ìƒì  ì—…ë°ì´íŠ¸ë¥¼ ì–¸ì œ í•  ê²ƒì¸ê°€ë¥¼ ì„¸íŒ…í•´ ì¤€ë‹¤.
 		Timeval currentTime;
 		getCurrentTime(currentTime);
 		m_NextRegen = currentTime;
@@ -72,8 +72,8 @@ void ActionSimpleQuestRegen::read (PropertyBuffer & propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
-// NOTE : ShopTemplateÀº ÀÌ ¾×¼ÇÀÌ ½ÇÇàµÇ±â Àü¿¡ ¸ğµÎ ·ÎµåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
+// NOTE : ShopTemplateì€ ì´ ì•¡ì…˜ì´ ì‹¤í–‰ë˜ê¸° ì „ì— ëª¨ë‘ ë¡œë“œë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -89,14 +89,14 @@ void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreatu
 	Zone* pZone = pNPC->getZone();
 	Assert(pZone != NULL);
 
-	// ÇöÀç ½Ã°£À» ¾ò¾î³½´Ù.
+	// í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ë‚¸ë‹¤.
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ¾÷µ¥ÀÌÆ®ÇÒ ½Ã°£ÀÌ ¾ÆÁ÷ µÇÁ÷ ¾Ê¾Ò´Ù¸é °Á ¸®ÅÏÇÑ´Ù.
+	// ì—…ë°ì´íŠ¸í•  ì‹œê°„ì´ ì•„ì§ ë˜ì§ ì•Šì•˜ë‹¤ë©´ ê± ë¦¬í„´í•œë‹¤.
 	if (currentTime < m_NextRegen) return;
 
-	// ÁÖÀ§¿¡ NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ÇÃ·¹ÀÌ¾î°¡ ¾ø´ÂÁö ¸ÕÀú °Ë»çÇÑ´Ù.
+	// ì£¼ìœ„ì— NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” í”Œë ˆì´ì–´ê°€ ì—†ëŠ”ì§€ ë¨¼ì € ê²€ì‚¬í•œë‹¤.
 	VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 	int centerX = pNPC->getX();
 	int centerY = pNPC->getY();
@@ -106,7 +106,7 @@ void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreatu
 		{
 			for (int zy = centerY - 5; zy <= centerY+5; zy++)
 			{
-				// ÁÂÇ¥°¡ ÇÑ°è¸¦ ³Ñ¾î°¡Áö ¾Ê¾Ò´ÂÁö Ã¼Å©...
+				// ì¢Œí‘œê°€ í•œê³„ë¥¼ ë„˜ì–´ê°€ì§€ ì•Šì•˜ëŠ”ì§€ ì²´í¬...
 				if (!rect.ptInRect(zx, zy))
 				{
 					continue;
@@ -114,23 +114,23 @@ void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreatu
 
 				Tile& tile = pZone->getTile(zx, zy);
 
-				// °É¾î´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+				// ê±¸ì–´ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
 				if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
 				{
 					Creature* pNearCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 					Assert(pNearCreature != NULL);
-					// NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ³ğÀÌ ÀÖÀ¸¸é °Á ¸®ÅÏ
+					// NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” ë†ˆì´ ìˆìœ¼ë©´ ê± ë¦¬í„´
 					if (pNearCreature->isPC())
 					{
 						return;
 					}
 				}
-				// ³¯¾Æ´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+				// ë‚ ì•„ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
 				if (tile.hasCreature(Creature::MOVE_MODE_FLYING))
 				{
 					Creature* pNearCreature = tile.getCreature(Creature::MOVE_MODE_FLYING);
 					Assert(pNearCreature != NULL);
-					// NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ³ğÀÌ ÀÖÀ¸¸é °Á ¸®ÅÏ
+					// NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” ë†ˆì´ ìˆìœ¼ë©´ ê± ë¦¬í„´
 					if (pNearCreature->isPC())
 					{
 						return;
@@ -151,14 +151,14 @@ void ActionSimpleQuestRegen::execute (Creature * pCreature1 , Creature * pCreatu
 
 
 	} catch (Error& t) {
-		// ¿¡·¯´Â ´Ù½Ã ´øÁø´Ù.
+		// ì—ëŸ¬ëŠ” ë‹¤ì‹œ ë˜ì§„ë‹¤.
 		filelog("regenQuestBug.txt", "%s", t.toString().c_str());
 		throw;
 	} catch (Throwable& t) {
 		filelog("regenQuestBug.txt", "%s", t.toString().c_str());
 	}
 
-	// ´ÙÀ½ ¾÷µ¥ÀÌÆ®ÇÒ ½Ã°£À» Á¤ÇØÁØ´Ù.
+	// ë‹¤ìŒ ì—…ë°ì´íŠ¸í•  ì‹œê°„ì„ ì •í•´ì¤€ë‹¤.
 	m_NextRegen = m_NextRegen + m_Period;*/
 
 	__END_CATCH

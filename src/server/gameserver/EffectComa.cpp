@@ -82,9 +82,9 @@ void EffectComa::unaffect(Creature* pDeadCreature)
 	Assert(pDeadCreature != NULL);
 	//Assert(pDeadCreature->isDead());
 
-	// ÀÌÆåÆ® ÇÃ·¡±×¸¦ »èÁ¦ÇØÁØ´Ù.
+	// ì´í™íŠ¸ í”Œë˜ê·¸ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
 	pDeadCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
-	// ³¯¾Æ¿À¸é °­Á¦·Î Á×ÀÌ´Â ÄÚµå¸¦ Áı¾î³Ö´Â´Ù.
+	// ë‚ ì•„ì˜¤ë©´ ê°•ì œë¡œ ì£½ì´ëŠ” ì½”ë“œë¥¼ ì§‘ì–´ë„£ëŠ”ë‹¤.
 	if (pDeadCreature->isSlayer())
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pDeadCreature);
@@ -142,9 +142,9 @@ void EffectComa::save(const string & ownerID)
 	__END_CATCH
 }
 
-// ½ºÅ¸ÆÃ ½Ã°£Àº ÀÌÆåÆ®¸¦ »ı¼ºÇÑ ½Ã°£ÀÌÀÚ, ÇÃ·¹ÀÌ¾î°¡ Á×Àº ½Ã°£ÀÌ´Ù.
-// ÀÌ ½Ã°£¿¡´Ù 5ÃÊ¸¦ ´õÇÔÀ¸·Î½á, canResurrect ÇÔ¼ö¿¡¼­ Á×Àº µÚ 5ÃÊ°¡ Áö³ªÁö
-// ¾ÊÀº »ç¶÷ÀÌ Resurrect¸øÇÏ°Ô °Ë»çÇÒ ¼ö ÀÖ´Ù.
+// ìŠ¤íƒ€íŒ… ì‹œê°„ì€ ì´í™íŠ¸ë¥¼ ìƒì„±í•œ ì‹œê°„ì´ì, í”Œë ˆì´ì–´ê°€ ì£½ì€ ì‹œê°„ì´ë‹¤.
+// ì´ ì‹œê°„ì—ë‹¤ 5ì´ˆë¥¼ ë”í•¨ìœ¼ë¡œì¨, canResurrect í•¨ìˆ˜ì—ì„œ ì£½ì€ ë’¤ 5ì´ˆê°€ ì§€ë‚˜ì§€
+// ì•Šì€ ì‚¬ëŒì´ Resurrectëª»í•˜ê²Œ ê²€ì‚¬í•  ìˆ˜ ìˆë‹¤.
 void EffectComa::setStartTime(void)
 {
 	getCurrentTime(m_StartTime);

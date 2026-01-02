@@ -74,25 +74,25 @@ void MPlayerManager::run()
 	{
 		usleep( 100 );
 
-		// ���� �������� Job Ȯ��
+		// Fetch a job if none is currently running.
 		if ( m_pCurrentJob == NULL )
 		{
 			m_pCurrentJob = popJob();
 		}
 
-		// ���� �������� Job �� �ִٸ�
+		// If a job is available, process it.
 		if ( m_pCurrentJob != NULL )
 		{
-			// Mofus �� �����ؼ� �۾��� �� �� Player�� ����
+			// Spin up an MPlayer to handle the job.
 			MPlayer* pPlayer = new MPlayer( m_pCurrentJob );
 
-			// �Ŀ�����Ʈ �������� �۾� ����
+			// Run the player.
 			pPlayer->process();
 
-			// ���ó��
+			// Persist any job results.
 			processResult();
 
-			// Player/Job ����
+			// Clean up player and job objects.
 			SAFE_DELETE( pPlayer );
 			SAFE_DELETE( m_pCurrentJob );
 		}
@@ -113,7 +113,7 @@ void MPlayerManager::run()
 
 void MPlayerManager::addJob( const string& userID, const string& name, const string& cellnum )
 {
-	// �� job ��ü�� ����
+	// Allocate and enqueue a new job.
 	MJob* pJob = new MJob( userID, name, cellnum );
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -143,7 +143,7 @@ MJob* MPlayerManager::popJob()
 
 void MPlayerManager::processResult()
 {
-	// ����� ã��
+	// Locate the target player creature.
 	__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
 	Creature* pCreature = g_pPCFinder->getCreature_LOCKED( m_pCurrentJob->getName() );
@@ -153,7 +153,7 @@ void MPlayerManager::processResult()
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		Assert( pPC != NULL );
 
-		// �Ŀ�����Ʈ�� �÷��̾ ����
+		// Refresh the player's PowerPoint from the database value.
 		pPC->setPowerPoint( loadPowerPoint( pPC->getName() ) );
 
 		GCRequestPowerPointResult gcRequestPowerPointResult;
@@ -200,7 +200,7 @@ void MPlayerManager::processResult()
 			}
 		}
 
-		// Ŭ���̾�Ʈ�� �˸���
+		// Send the result back to the client.
 		pPC->getPlayer()->sendPacket( &gcRequestPowerPointResult );
 	}
 

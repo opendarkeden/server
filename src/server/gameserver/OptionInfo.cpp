@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : OptionInfo.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description :
 //////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 OptionInfoManager* g_pOptionInfoManager = NULL;
 
 
-// itemClass¿¡ optionTypeÀÌ ºÙÀ» ¼ö ÀÖ´Â°¡?
+// itemClassì— optionTypeì´ ë¶™ì„ ìˆ˜ ìˆëŠ”ê°€?
 bool
 isPossibleOptionClass(Item::ItemClass itemClass, OptionClass optionClass)
 {
@@ -168,7 +168,7 @@ isPossibleOptionClass(Item::ItemClass itemClass, OptionClass optionClass)
 			}
 			break;
 				
-		/* »ğ -.-;
+		/* ì‚½ -.-;
 		case Item::ITEM_CLASS_BLOOD_BIBLE :
 			switch (optionClass)
 			{
@@ -266,7 +266,7 @@ OptionInfo::OptionInfo()
 	m_Ratio           = 0;
 	m_GambleLevel     = 0;
 
-	// ´ÙÀ½ ´Ü°èÀÇ optionÀ¸·Î upgradeÇÒ¶§ ÇÊ¿äÇÑ Á¤º¸
+	// ë‹¤ìŒ ë‹¨ê³„ì˜ optionìœ¼ë¡œ upgradeí• ë•Œ í•„ìš”í•œ ì •ë³´
 	m_PreviousOptionType   = 0;
 	m_UpgradeOptionType    = 0;
 	m_UpgradeRatio         = 0;
@@ -324,29 +324,29 @@ void OptionInfo::setReqAbility(const string& req)
 	__END_CATCH
 }
 
-// ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ ¼º°øÇß³ª?
+// ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ì„±ê³µí–ˆë‚˜?
 bool OptionInfo::isUpgradeSucceed() const
 {
-	// 0ÀÌ ¾Æ´Ï°í
-	// È®·ü¸¸Å­ rand()ÇßÀ»¶§ Æ¯Á¤ÇÑ ÇÑ °ª(0)ÀÌ ³ª¿À´Â °æ¿ì°¡ ¼º°øÀÌ´Ù.
+	// 0ì´ ì•„ë‹ˆê³ 
+	// í™•ë¥ ë§Œí¼ rand()í–ˆì„ë•Œ íŠ¹ì •í•œ í•œ ê°’(0)ì´ ë‚˜ì˜¤ëŠ” ê²½ìš°ê°€ ì„±ê³µì´ë‹¤.
 	//return m_UpgradeRatio!=0 && (rand()%m_UpgradeRatio==0);
 
-	// ±×·±µ¥.. ±âÈ¹ÀÌ ¹éºĞÀ²·Î ³ª¿Ô´Ù. -_-;
+	// ê·¸ëŸ°ë°.. ê¸°íšì´ ë°±ë¶„ìœ¨ë¡œ ë‚˜ì™”ë‹¤. -_-;
 	return (rand()%100 < (int)m_UpgradeRatio);
 }
 
-// ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade°¡ ¼º°øÇß³ª?
+// ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgradeê°€ ì„±ê³µí–ˆë‚˜?
 bool OptionInfo::isUpgradeSecondSucceed() const
 {
-	// 0ÀÌ ¾Æ´Ï°í
-	// È®·ü¸¸Å­ rand()ÇßÀ»¶§ Æ¯Á¤ÇÑ ÇÑ °ª(0)ÀÌ ³ª¿À´Â °æ¿ì°¡ ¼º°øÀÌ´Ù.
+	// 0ì´ ì•„ë‹ˆê³ 
+	// í™•ë¥ ë§Œí¼ rand()í–ˆì„ë•Œ íŠ¹ì •í•œ í•œ ê°’(0)ì´ ë‚˜ì˜¤ëŠ” ê²½ìš°ê°€ ì„±ê³µì´ë‹¤.
 	//return m_UpgradeRatio!=0 && (rand()%m_UpgradeRatio==0);
 
-	// ±×·±µ¥.. ±âÈ¹ÀÌ ¹éºĞÀ²·Î ³ª¿Ô´Ù. -_-;
+	// ê·¸ëŸ°ë°.. ê¸°íšì´ ë°±ë¶„ìœ¨ë¡œ ë‚˜ì™”ë‹¤. -_-;
 	return (rand()%100 < (int)m_UpgradeSecondRatio);
 }
 
-// ´ÙÀ½ ´Ü°èÀÇ ¿É¼ÇÀ¸·Î upgrade ÇÏ´Ù°¡ ½ÇÆĞÇØ¼­ itemÀÌ ºÎ¼­Á³³ª?
+// ë‹¤ìŒ ë‹¨ê³„ì˜ ì˜µì…˜ìœ¼ë¡œ upgrade í•˜ë‹¤ê°€ ì‹¤íŒ¨í•´ì„œ itemì´ ë¶€ì„œì¡Œë‚˜?
 bool OptionInfo::isUpgradeCrash() const
 {
 	return (rand()%100 < m_UpgradeCrashPercent);
@@ -408,7 +408,7 @@ OptionInfoSet::~OptionInfoSet()
 	__END_CATCH_NO_RETHROW
 }
 
-// ÁöÁ¤µÈ ·¹º§¿¡ µû¶ó¼­ ¸Ê¿¡´Ù ¿É¼Ç Å¸ÀÔÀ» Áı¾î³Ö´Â´Ù.
+// ì§€ì •ëœ ë ˆë²¨ì— ë”°ë¼ì„œ ë§µì—ë‹¤ ì˜µì…˜ íƒ€ì…ì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 void OptionInfoSet::addOptionType(uint level, OptionType_t type)
 	
 {
@@ -430,7 +430,7 @@ void OptionInfoSet::addOptionType(uint level, OptionType_t type)
 	__END_CATCH
 }
 
-// ÁöÁ¤µÈ ÃÖ¼Ò, ÃÖ´ë ·¹º§¿¡ µû¶ó, ±× ¹üÀ§ ¾ÈÀÇ ¿É¼ÇÀ» º¤ÅÍ¿¡´Ù Áı¾î³Ö´Â´Ù.
+// ì§€ì •ëœ ìµœì†Œ, ìµœëŒ€ ë ˆë²¨ì— ë”°ë¼, ê·¸ ë²”ìœ„ ì•ˆì˜ ì˜µì…˜ì„ ë²¡í„°ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
 void OptionInfoSet::getPossibleOptionTypes(uint minLevel, uint maxLevel, vector<OptionType_t>& rOptionVector)
 	
 {
@@ -623,8 +623,8 @@ void OptionInfoManager::load()
 
 			addOptionInfo(pInfo);
 
-			// ¿É¼Ç Å¬·¡½º¿¡ µû¶ó¼­ ¾Ë¸ÂÀº OptionInfoSet¿¡´Ù°¡ 
-			// level, typeÀ» Áı¾î³Ö¾îÁØ´Ù.
+			// ì˜µì…˜ í´ë˜ìŠ¤ì— ë”°ë¼ì„œ ì•Œë§ì€ OptionInfoSetì—ë‹¤ê°€ 
+			// level, typeì„ ì§‘ì–´ë„£ì–´ì¤€ë‹¤.
 			uint         OClass = pInfo->getClass();
 			uint         level  = pInfo->getLevel();
 			OptionType_t type   = pInfo->getType();
@@ -632,17 +632,17 @@ void OptionInfoManager::load()
 
 			m_OptionInfoSet[OClass].addOptionType(level, type);			
 
-			// gambleÀ» À§ÇÑ optionÁ¤º¸ ¼³Á¤
+			// gambleì„ ìœ„í•œ optionì •ë³´ ì„¤ì •
 			for (int ic=0; ic<Item::ITEM_CLASS_MAX; ic++)
 			{
-				// itemClass¿¡ ºÙÀ» ¼ö ÀÖ´Â optionÀÎ °æ¿ì
-				// m_GambleOptions¿¡ Ãß°¡ÇØµĞ´Ù.
+				// itemClassì— ë¶™ì„ ìˆ˜ ìˆëŠ” optionì¸ ê²½ìš°
+				// m_GambleOptionsì— ì¶”ê°€í•´ë‘”ë‹¤.
 				if (gambleRatio>0
 					&& isPossibleOptionClass((Item::ItemClass)ic, (OptionClass)OClass))
 				{
 					uint gambleLevel = pInfo->getGambleLevel();
 
-					// level±îÁö Ãß°¡ÇØµĞ´Ù.
+					// levelê¹Œì§€ ì¶”ê°€í•´ë‘”ë‹¤.
 					for (uint l=gambleLevel; l<=GAMBLE_OPTION_LEVEL_MAX; l++)
 					{
 						m_GambleOptions[ic][l].push_back( type );
@@ -723,7 +723,7 @@ void OptionInfoManager::load()
 	END_DB(pStmt)
 
 
-	// gamble optionº°·Î totalRatio¸¦ ±¸ÇØµĞ´Ù.
+	// gamble optionë³„ë¡œ totalRatioë¥¼ êµ¬í•´ë‘”ë‹¤.
     for (int ic=0; ic<Item::ITEM_CLASS_MAX; ic++)
     {
         for (uint l=0; l<=GAMBLE_OPTION_LEVEL_MAX; l++)
@@ -771,7 +771,7 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 {
 	__BEGIN_TRY
 
-	// OptionTypeÀ¸·Î ±¸ºĞµÇ´Â ÇØ½¬¸Ê¿¡´Ù Áı¾î³Ö´Â´Ù.
+	// OptionTypeìœ¼ë¡œ êµ¬ë¶„ë˜ëŠ” í•´ì‰¬ë§µì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
 	unordered_map<OptionType_t, OptionInfo*>::iterator itr = m_OptionInfos.find(pOptionInfo->getType());
 
 	if (itr != m_OptionInfos.end())
@@ -785,7 +785,7 @@ void OptionInfoManager::addOptionInfo(OptionInfo* pOptionInfo)
 
 	m_OptionInfos[pOptionInfo->getType()] = pOptionInfo;
 
-	// NicknameÀ¸·Î ±¸ºĞµÇ´Â ÇØ½¬¸Ê¿¡´Ù Áı¾î³Ö´Â´Ù.
+	// Nicknameìœ¼ë¡œ êµ¬ë¶„ë˜ëŠ” í•´ì‰¬ë§µì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
 	unordered_map<string, OptionInfo*>::iterator itr2 = m_NicknameOptionInfos.find(pOptionInfo->getNickname());
 
 	if (itr2 != m_NicknameOptionInfos.end())
@@ -816,7 +816,7 @@ OptionInfo* OptionInfoManager::getOptionInfo(OptionType_t OptionType)
 		//cerr << "OptionInfoManager::getOptionInfo() : No Such Element Exception. OptionType=" << (int)OptionType << endl;
 		//throw NoSuchElementException();
 
-		// nosuchÁ¦°Å. 2002.8.23. by sigi
+		// nosuchì œê±°. 2002.8.23. by sigi
 		return NULL;
 	}
 
@@ -837,7 +837,7 @@ OptionInfo* OptionInfoManager::getOptionInfo(const string& nickname)
 		//cerr << "OptionInfoManager::getOptionInfo() : No Such Element Exception" << endl;
 		//throw NoSuchElementException();
 
-		// nosuchÁ¦°Å. 2002.8.23. by sigi
+		// nosuchì œê±°. 2002.8.23. by sigi
 		return NULL;
 	}
 
@@ -1097,13 +1097,13 @@ void OptionInfoManager::addGambleOption(Item::ItemClass itemClass, uint level, O
 int OptionInfoManager::getRareUpgradeRatio( OptionType_t optionType, bool success )
 {
 	OptionInfo* pOI = getOptionInfo( optionType );
-	if ( pOI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ¿É¼Ç ÀÎÆ÷°¡ ¾ø½À´Ï´Ù.");
+	if ( pOI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ì˜µì…˜ ì¸í¬ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
 	OptionClassInfo* pOCI = m_OptionClassInfos[pOI->getClass()];
-	if ( pOCI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ¿É¼Ç Å¬·¡½º ÀÎÆ÷°¡ ¾ø½À´Ï´Ù.");
+	if ( pOCI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ì˜µì…˜ í´ë˜ìŠ¤ ì¸í¬ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
 	RareOptionUpgradeInfo* pROUI = m_RareEnchantInfo[pOCI->getKey()];
-	if ( pROUI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ·¹¾î ÀÎÃ¦Æ® ÀÎÆ÷°¡ ¾ø½À´Ï´Ù.");
+	if ( pROUI == NULL ) throw Error("OptionInfoManager::getRareUpgradeRatio() : ë ˆì–´ ì¸ì±ˆíŠ¸ ì¸í¬ê°€ ì—†ìŠµë‹ˆë‹¤.");
 
 	return pROUI->getRatio( pOI->getGrade(), success );
 }
