@@ -354,7 +354,7 @@ ObjectManager::~ObjectManager ()
 	SAFE_DELETE(g_pDynamicZoneManager);
 	SAFE_DELETE(g_pDynamicZoneFactoryManager);
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void ObjectManager::init ()

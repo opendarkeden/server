@@ -46,7 +46,7 @@ ThreadManager::~ThreadManager ()
 
 	SAFE_DELETE(m_pZoneGroupThreadPool);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

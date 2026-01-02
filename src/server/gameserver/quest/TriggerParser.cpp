@@ -41,7 +41,7 @@ void TriggerParser::parseTrigger(const string& type, const string& condition, co
 		for ( size_t i=0; i<pScriptTree->GetChildCount(); ++i )
 		{
 			XMLTree* pScriptChild = pScriptTree->GetChild(i);
-			if ( pScriptChild != NULL && pScriptChild->GetName() == "Content" && pScriptChild->GetAttribute("AnswerID")->ToInt() == m_TargetContentID )
+			if ( pScriptChild != NULL && pScriptChild->GetName() == "Content" && static_cast<uint>(pScriptChild->GetAttribute("AnswerID")->ToInt()) == m_TargetContentID )
 			{
 				pScriptChild->AddChild( pTrigger );
 			}

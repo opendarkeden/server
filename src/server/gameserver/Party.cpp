@@ -97,7 +97,7 @@ PartyInviteInfoManager::~PartyInviteInfoManager()
 
 	m_InfoMap.clear();
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool PartyInviteInfoManager::hasInviteInfo(const string& HostName) 
@@ -388,7 +388,7 @@ Party::~Party()
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // 이름으로 파티에 멤버를 찾아서 리턴한다.
@@ -2164,7 +2164,7 @@ PartyManager::~PartyManager()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool PartyManager::createParty(int ID, Creature::CreatureClass CClass) 
@@ -2305,7 +2305,7 @@ LocalPartyManager::~LocalPartyManager()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void LocalPartyManager::heartbeat(void)
@@ -2804,7 +2804,7 @@ GlobalPartyManager::~GlobalPartyManager()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool GlobalPartyManager::canAddMember(int ID) 

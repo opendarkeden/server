@@ -97,7 +97,7 @@ IncomingPlayerManager::~IncomingPlayerManager ()
 
 	SAFE_DELETE(g_pConnectionInfoManager);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

@@ -56,7 +56,7 @@ GameServerManager::~GameServerManager ()
 		m_pDatagramSocket = NULL;
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////

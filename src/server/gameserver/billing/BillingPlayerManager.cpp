@@ -59,7 +59,7 @@ BillingPlayerManager::~BillingPlayerManager ()
 
 	SAFE_DELETE(m_pBillingPlayer);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////

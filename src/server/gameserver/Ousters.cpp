@@ -186,7 +186,7 @@ Ousters::~Ousters()
 		SAFE_DELETE(pOustersSkillSlot);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // registerObject

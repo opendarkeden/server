@@ -17,7 +17,7 @@ CGAddInventoryToMouse::~CGAddInventoryToMouse ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGAddInventoryToMouse::read (SocketInputStream & iStream) 

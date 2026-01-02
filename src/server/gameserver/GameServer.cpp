@@ -133,7 +133,7 @@ GameServer::~GameServer ()
 	SAFE_DELETE(g_pThreadManager);
 	SAFE_DELETE(g_pDatabaseManager);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

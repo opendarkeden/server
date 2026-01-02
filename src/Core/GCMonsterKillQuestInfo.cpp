@@ -26,7 +26,7 @@ GCMonsterKillQuestInfo::~GCMonsterKillQuestInfo()
 
 	m_QuestInfoList.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

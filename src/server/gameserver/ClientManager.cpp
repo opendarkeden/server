@@ -68,7 +68,7 @@ ClientManager::~ClientManager ()
 	// Delete incoming player manager
 	SAFE_DELETE(g_pIncomingPlayerManager);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

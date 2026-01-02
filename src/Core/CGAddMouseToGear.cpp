@@ -17,7 +17,7 @@ CGAddMouseToGear::~CGAddMouseToGear ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGAddMouseToGear::read (SocketInputStream & iStream) 

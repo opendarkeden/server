@@ -46,7 +46,7 @@ Directive::~Directive()
 
 	m_Conditions.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void Directive::addCondition(int condition) 
@@ -129,7 +129,7 @@ DirectiveSet::~DirectiveSet()
 
 	m_Directives.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void DirectiveSet::clear()
@@ -217,7 +217,7 @@ DirectiveSetManager::~DirectiveSetManager()
 		SAFE_DELETE_ARRAY(m_ppSet);	// 이게 불려질 일은 없겠지만.. -_-; by sigi
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 ////////////////////////////////////////////////////////////////////////

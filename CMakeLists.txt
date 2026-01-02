@@ -22,8 +22,6 @@ add_compile_definitions(__LINUX__ _REENTRANT)
 # 警告设置
 set(WARNING_FLAGS 
     -Wall
-    -Wno-invalid-source-encoding 
-    -Wno-c++11-compat-deprecated-writable-strings 
     -Wno-format 
     -Wno-format-security
 )

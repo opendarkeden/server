@@ -71,7 +71,7 @@ CreatureManager::~CreatureManager ()
 
 	m_Creatures.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

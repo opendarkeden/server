@@ -33,7 +33,7 @@ Stash::~Stash()
 	SAFE_DELETE_ARRAY(m_pRack);
 
 	__END_DEBUG 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool Stash::isExist(BYTE rack, BYTE index) const 

@@ -30,7 +30,7 @@ PCFinder::~PCFinder()
 
 	m_PCs.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // add creature to unordered_map

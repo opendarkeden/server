@@ -15,7 +15,7 @@ GCAddVampire::~GCAddVampire()
 	
 	SAFE_DELETE(m_pEffectInfo);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

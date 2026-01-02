@@ -51,7 +51,7 @@ ResurrectLocationManager::~ResurrectLocationManager()
 	m_SlayerPosition.clear();
 	m_VampirePosition.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void ResurrectLocationManager::init() 

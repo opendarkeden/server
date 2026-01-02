@@ -50,7 +50,7 @@ ActionTradeGiftBox::~ActionTradeGiftBox()
 	SAFE_DELETE(m_pLuaSlayerItem);
 	SAFE_DELETE(m_pLuaVampireItem);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 ////////////////////////////////////////////////////////////////////////////////

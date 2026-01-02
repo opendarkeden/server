@@ -281,7 +281,7 @@ OptionInfo::~OptionInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void OptionInfo::setReqAbility(const string& req) 
@@ -405,7 +405,7 @@ OptionInfoSet::~OptionInfoSet()
 
 	m_OptionTypes.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // 지정된 레벨에 따라서 맵에다 옵션 타입을 집어넣는다.
@@ -497,7 +497,7 @@ OptionInfoManager::~OptionInfoManager()
 
 	release();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void

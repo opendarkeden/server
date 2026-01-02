@@ -37,7 +37,7 @@ TreasureOptionType::~TreasureOptionType()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void TreasureOptionType::loadFromFile(ifstream& file) 
@@ -159,7 +159,7 @@ TreasureItemType::~TreasureItemType()
 
 	m_TreasureOptionTypes.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void TreasureItemType::loadFromFile(int itemClass, ifstream& file) 
@@ -431,7 +431,7 @@ TreasureItemClass::~TreasureItemClass()
 
 	m_TreasureItemTypes.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void TreasureItemClass::loadFromFile(ifstream& file) 
@@ -675,7 +675,7 @@ Treasure::~Treasure()
 
 	m_TreasureItemClasses.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void Treasure::loadFromFile(ifstream& file) 
@@ -987,7 +987,7 @@ TreasureList::~TreasureList()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void TreasureList::loadFromFile(ifstream& file) 

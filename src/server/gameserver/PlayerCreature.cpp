@@ -195,7 +195,7 @@ PlayerCreature::~PlayerCreature()
 	SAFE_DELETE( m_pStore );
 	SAFE_DELETE( m_pAdvancementClass );
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool PlayerCreature::load()

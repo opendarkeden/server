@@ -17,7 +17,7 @@ CGPartyPosition::~CGPartyPosition ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGPartyPosition::read (SocketInputStream & iStream) 

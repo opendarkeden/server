@@ -85,7 +85,7 @@ ConditionFactoryManager::~ConditionFactoryManager ()
 	delete [] m_Factories;
 	m_Factories = NULL;
 			
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

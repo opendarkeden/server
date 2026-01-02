@@ -21,7 +21,7 @@ GCSkillFailed1::~GCSkillFailed1 ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void GCSkillFailed1::read (SocketInputStream & iStream ) 

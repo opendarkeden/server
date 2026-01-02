@@ -26,7 +26,7 @@ NPCManager::~NPCManager ()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void NPCManager::load (ZoneID_t zoneID, int race) 

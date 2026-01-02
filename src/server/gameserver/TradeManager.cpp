@@ -51,7 +51,7 @@ TradeInfo::~TradeInfo()
 	
 	m_ItemList.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 bool TradeInfo::hasItem(Item* pItem)
@@ -149,7 +149,7 @@ TradeManager::~TradeManager()
 
 	m_InfoMap.clear();
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void TradeManager::init()

@@ -5,6 +5,7 @@
 #include "Exception.h"
 
 #include "GCNPCResponse.h"
+#include "QuestInfo.h"
 
 #include <unordered_map>
 
@@ -33,7 +34,7 @@ public:
 
 	bool			isEventQuest( QuestID_t qID ) const;
 
-	// OutITRÀº container<QuestID_t>::output_iterator Å¸ÀÔÀÌ¾î¾ß ÇÑ´Ù.
+	// OutITRï¿½ï¿½ container<QuestID_t>::output_iterator Å¸ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	template <class OutITR>
 	void		getEventQuestIDs( int questLevel, PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -49,7 +50,7 @@ public:
 		__END_CATCH
 	}
 
-	// OutITRÀº container<QuestID_t>::output_iterator Å¸ÀÔÀÌ¾î¾ß ÇÑ´Ù.
+	// OutITRï¿½ï¿½ container<QuestID_t>::output_iterator Å¸ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	template <class OutITR>
 	void		getPossibleQuestIDs( PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -65,7 +66,7 @@ public:
 		__END_CATCH
 	}
 
-	// *InITR Àº QuestID_t, *OutITRÀº QuestInfo*
+	// *InITR ï¿½ï¿½ QuestID_t, *OutITRï¿½ï¿½ QuestInfo*
 	template <class InITR, class OutITR>
 	void		getMonsterKillQuests( InITR b, InITR e, OutITR t )
 	{

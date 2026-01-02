@@ -17,7 +17,7 @@ CGCastingSkill::~CGCastingSkill ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGCastingSkill::read (SocketInputStream & iStream) 

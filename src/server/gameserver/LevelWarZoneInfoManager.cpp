@@ -133,7 +133,7 @@ LevelWarZoneInfoManager::~LevelWarZoneInfoManager()
 
 	m_LevelWarZoneInfos.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void LevelWarZoneInfoManager::init() 

@@ -25,11 +25,11 @@ GCNPCAskVariable::~GCNPCAskVariable()
 
 	clearScriptParameters();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskVariable::read (SocketInputStream & iStream ) 
 	 
@@ -52,7 +52,7 @@ void GCNPCAskVariable::read (SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 void GCNPCAskVariable::write (SocketOutputStream & oStream ) const 
      
@@ -75,7 +75,6 @@ void GCNPCAskVariable::write (SocketOutputStream & oStream ) const
 }
 
 void GCNPCAskVariable::addScriptParameter(ScriptParameter* pParam )
-	throw(DuplicatedException)
 {
 	__BEGIN_TRY
 
@@ -110,7 +109,6 @@ void GCNPCAskVariable::clearScriptParameters()
 }
 
 string GCNPCAskVariable::getValue(const string& name ) const
-	throw(NoSuchElementException )
 {
 	__BEGIN_TRY
 
@@ -118,8 +116,8 @@ string GCNPCAskVariable::getValue(const string& name ) const
 
 	if (itr == m_ScriptParameters.end() )
 	{
-		// name ÀÌ ¾ø´Â °æ¿ì´Ù. NoSuchElement ¸¦ ´øÁ®¾ßÇÏ³ª
-		// °Á name À» µ¹·ÁÁÖµµ·Ï ÇÑ´Ù.
+		// name ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. NoSuchElement ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½
+		// ï¿½ï¿½ name ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		return name;
 	}
 

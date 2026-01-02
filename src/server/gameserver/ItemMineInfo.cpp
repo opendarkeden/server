@@ -20,7 +20,7 @@ ItemMineInfo::ItemMineInfo() :m_ID(0)
 ItemMineInfo::~ItemMineInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 Item* ItemMineInfo::getItem()
@@ -73,7 +73,7 @@ ItemMineInfoManager::~ItemMineInfoManager()
 	
 	m_ItemMineInfos.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void ItemMineInfoManager::load()

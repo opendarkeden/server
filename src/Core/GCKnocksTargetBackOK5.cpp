@@ -37,7 +37,7 @@ GCKnocksTargetBackOK5::~GCKnocksTargetBackOK5 ()
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 	__END_DEBUG
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

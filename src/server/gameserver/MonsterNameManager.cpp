@@ -44,7 +44,7 @@ MonsterNameManager::~MonsterNameManager()
 
 	m_UsedName.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void MonsterNameManager::init() 

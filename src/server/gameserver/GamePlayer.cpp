@@ -330,7 +330,7 @@ GamePlayer::~GamePlayer ()
 
 	//__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 //////////////////////////////////////////////////////////////////////////
 //

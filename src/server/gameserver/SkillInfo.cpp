@@ -42,7 +42,7 @@ SkillInfo::SkillInfo()
 SkillInfo::~SkillInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void SkillInfo::setRequireSkill( const string& requireSkill )
@@ -185,7 +185,7 @@ SkillInfoManager::~SkillInfoManager()
 	// 이것만 해서는 안되는디.. 어차피 안 불려질거기 때문에 일단 무시.. by sigi
 	SAFE_DELETE_ARRAY(m_SkillInfoList);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void SkillInfoManager::init()

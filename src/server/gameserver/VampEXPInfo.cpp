@@ -30,7 +30,7 @@ VampEXPInfo::~VampEXPInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string VampEXPInfo::toString() const
@@ -77,7 +77,7 @@ VampEXPInfoManager::~VampEXPInfoManager()
 		SAFE_DELETE_ARRAY(m_VampEXPInfoList);
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void VampEXPInfoManager::init()

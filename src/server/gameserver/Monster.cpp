@@ -456,7 +456,7 @@ Monster::~Monster()
 
 	SAFE_DELETE(m_pBrain);
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 SpriteType_t Monster::getSpriteType () const 

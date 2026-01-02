@@ -60,7 +60,7 @@ EffectLoaderManager::~EffectLoaderManager ()
 	SAFE_DELETE(g_pEffectOnBridgeLoader);
 	SAFE_DELETE(g_pEffectCanEnterGDRLairLoader);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectLoaderManager::init () 

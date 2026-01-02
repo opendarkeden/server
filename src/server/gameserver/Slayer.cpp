@@ -259,7 +259,7 @@ Slayer::~Slayer()
 
 	m_bDeriveDestructed = true;
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // Zone에 종속된 ObjectRegistry를 사용해서, Slayer 와 소유아이템들의

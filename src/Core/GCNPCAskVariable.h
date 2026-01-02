@@ -14,7 +14,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCNPCAskVariable;
-// NPC ÀÇ ´ë»ç¸¦ ÁÖº¯ÀÇ PC µé¿¡°Ô Àü¼ÛÇÑ´Ù.
+// NPC ï¿½ï¿½ ï¿½ï¿½ç¸¦ ï¿½Öºï¿½ï¿½ï¿½ PC ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 
 typedef map<string,ScriptParameter*>		HashMapScriptParameter;
@@ -43,15 +43,15 @@ public:
 	ScriptID_t getScriptID(void) const  { return m_ScriptID; }
 	void setScriptID(ScriptID_t id)  { m_ScriptID = id; }
 
-	void addScriptParameter(ScriptParameter* pParam ) throw(DuplicatedException);
+	void addScriptParameter(ScriptParameter* pParam );
 	void clearScriptParameters() ;
 	HashMapScriptParameter& getScriptParameters() { return m_ScriptParameters; }
-	string getValue(const string& name ) const throw(NoSuchElementException);
+	string getValue(const string& name ) const;
 
 private:
 	ObjectID_t m_ObjectID; // NPC's object id
 	ScriptID_t m_ScriptID; // script id
-	HashMapScriptParameter m_ScriptParameters; // ½ºÅ©¸³Æ®ÀÇ º¯¼ö ÆÄ¶ó¹ÌÅÍµé
+	HashMapScriptParameter m_ScriptParameters; // ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Íµï¿½
 };
 
 //////////////////////////////////////////////////////////////////////////////

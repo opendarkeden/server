@@ -81,7 +81,7 @@ PrivatePortal::~PrivatePortal()
 
 	SAFE_DELETE(m_pTarget);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 ZoneID_t PrivatePortal::getZoneID() const 

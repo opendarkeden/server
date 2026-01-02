@@ -39,7 +39,7 @@ GCGQuestStatusInfo::~GCGQuestStatusInfo ()
 		SAFE_DELETE((*itr));
 	}*/
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

@@ -24,7 +24,7 @@ GoodsInfo::GoodsInfo()
 GoodsInfo::~GoodsInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string GoodsInfo::toString() const
@@ -63,7 +63,7 @@ GoodsInfoManager::~GoodsInfoManager()
 {
 	__BEGIN_TRY
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void GoodsInfoManager::init()

@@ -46,7 +46,7 @@ EffectDeleteItem::~EffectDeleteItem ()
 
 	unaffect(m_pZone , m_X , m_Y , m_pTarget);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 			
 

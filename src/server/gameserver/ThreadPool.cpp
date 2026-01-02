@@ -106,7 +106,7 @@ ThreadPool::~ThreadPool ()
 	//////////////////////////////////////////////////
 	m_Mutex.unlock();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

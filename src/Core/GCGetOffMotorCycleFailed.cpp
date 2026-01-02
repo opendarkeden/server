@@ -32,7 +32,7 @@ GCGetOffMotorCycleFailed::~GCGetOffMotorCycleFailed ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

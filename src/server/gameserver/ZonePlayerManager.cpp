@@ -122,7 +122,7 @@ ZonePlayerManager::~ZonePlayerManager ()
 
 	// 플레이어 삭제는 PlayerManager 레벨에서 이루어지므로 신경쓰지 않아도 된다.
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

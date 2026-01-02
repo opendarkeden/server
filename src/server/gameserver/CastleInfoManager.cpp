@@ -226,7 +226,7 @@ CastleInfoManager::~CastleInfoManager ()
 	// 해쉬맵안에 있는 모든 pair 들을 삭제한다.
 	m_CastleInfos.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 	
 

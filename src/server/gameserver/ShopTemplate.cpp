@@ -36,7 +36,7 @@ ShopTemplate::~ShopTemplate()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string ShopTemplate::toString () const
@@ -86,7 +86,7 @@ ShopTemplateManager::~ShopTemplateManager()
 
 	m_Entries.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void ShopTemplateManager::init() 

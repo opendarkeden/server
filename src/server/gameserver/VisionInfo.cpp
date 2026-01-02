@@ -247,7 +247,7 @@ VisionInfoManager::~VisionInfoManager ()
 		SAFE_DELETE_ARRAY(m_pVisionInfos);
 	}*/
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

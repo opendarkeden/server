@@ -184,7 +184,7 @@ MonsterInfo::~MonsterInfo()
 
 	SAFE_DELETE(m_pMonsterSummonInfo);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void MonsterInfo::setRegenType(RegenType rt, int percent)
@@ -539,7 +539,7 @@ MonsterInfoManager::~MonsterInfoManager ()
 		
 	SAFE_DELETE_ARRAY(m_MonsterInfos);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void MonsterInfoManager::init ()

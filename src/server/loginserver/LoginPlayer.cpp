@@ -109,7 +109,7 @@ LoginPlayer::~LoginPlayer ()
 		m_PacketHistory.pop_front();
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////

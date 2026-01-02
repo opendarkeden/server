@@ -34,8 +34,8 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		// ¸¸ÀÏ ÀÌ ±â¼úÀÌ Æ¯º°ÇÑ ¹«±â°¡ ÀÖ¾î¾ß ½ÃÀüÇÒ ¼ö ÀÖ´Â ±â¼úÀÌ¶ó¸é...
-		// ±× °è¿­ÀÇ ¹«±â¸¦ µé°í ÀÖ´ÂÁö¸¦ Ã¼Å©ÇØ¼­ ¾Æ´Ï¶ó¸é ½ÇÆÐ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½...
+		// ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ð´ï¿½.
 		bool bIncreaseExp = true;
 		if (param.ItemClass != Item::ITEM_CLASS_MAX)
 		{
@@ -62,13 +62,13 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
 
-		// ¸¶³ª°¡ ÀÖ¾î¾ß ÇÏ°í, ½Ã°£°ú °Å¸® Ã¼Å©¿¡ ¼º°øÇÏ°í,
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP¸¦ ¶³¾î¶ß¸°´Ù.
+			// MPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-			// ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+			// ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 			ZoneCoord_t myX          = pSlayer->getX();
 			ZoneCoord_t myY          = pSlayer->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -76,6 +76,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 			Damage_t    MaxDamage    = 0;
 			bool        bCriticalHit = false;
 			bool        bHit         = false;
+			(void)bHit;
 
 			Level_t maxEnemyLevel = 0;
 			uint EnemyNum = 0;
@@ -93,10 +94,10 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é, ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°¡ ï¿½Æ´Ï¶ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// Å¸ÀÏÀ» ¹Þ¾Æ¿Â´Ù.
+					// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -141,7 +142,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel/2);
 							}
 
-							// µµ °è¿­ÀÇ ±â¼úÀº ¸ÂÁö ¾Ê´õ¶óµµ 7%ÀÇ µ¥¹ÌÁö¸¦ °¡Áø´Ù - by bezz
+							// ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ï¿½ï¿½ 7%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ - by bezz
 							if ( param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
 							{
 								bHitRoll = true;
@@ -175,7 +176,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 									Damage += param.SkillDamage;
 								}
 
-								// HitRoll ¿¡¼­ ½ÇÆÐÇÑ µµ °è¿­ÀÇ ±â¼úÀÇ °æ¿ì 7%ÀÇ µ¥¹ÌÁö¸¦ °®µµ·Ï ÇÑ´Ù - by bezz
+								// HitRoll ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 7%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½ - by bezz
 								if ( bSetMinDamage )
 								{
 									Damage = getPercentValue( Damage, 7 );
@@ -183,7 +184,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+								// ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½Ì´ï¿½.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -193,19 +194,19 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// ÀÏ´Ü ¸Â´Â ³ðÀÌ ¹ÞÀ» ÆÐÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+								// ï¿½Ï´ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
 								setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-								// Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+								// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
 								}
 
-								// »ó´ë¹æÀÌ ½½·¹ÀÌ¾î°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÃá °É·Î °£ÁÖÇÑ´Ù. 
+								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î°¡ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 								if (!pTargetCreature->isSlayer())
 								{
 									bHit = true;
@@ -254,7 +255,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Þ´Â ³ðµé¿¡°Ô ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -264,22 +265,22 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HPÀÇ º¯°æ»çÇ×À» ÆÐÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+					// HPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// ÆÐÅ¶À» º¸³»ÁØ´Ù.
+					// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ñ´ï¿½.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pSlayer);
 				}
@@ -334,13 +335,13 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 		bool bTimeCheck  = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck = verifyDistance(pVampire, X, Y, pSkillInfo->getRange());
 
-		// ¸¶³ª°¡ ÀÖ¾î¾ß ÇÏ°í, ½Ã°£°ú °Å¸® Ã¼Å©¿¡ ¼º°øÇÏ°í,
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP¸¦ ¶³¾î¶ß¸°´Ù.
+			// MPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 			decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-			// ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+			// ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 			ZoneCoord_t myX          = pVampire->getX();
 			ZoneCoord_t myY          = pVampire->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -361,10 +362,10 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é, ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°¡ ï¿½Æ´Ï¶ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// Å¸ÀÏÀ» ¹Þ¾Æ¿Â´Ù.
+					// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -442,7 +443,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+								// ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½Ì´ï¿½.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -452,13 +453,13 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// ÀÏ´Ü ¸Â´Â ³ðÀÌ ¹ÞÀ» ÆÐÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+								// ï¿½Ï´ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
 								setDamage(pTargetCreature, Damage, pVampire, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pVampire, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pVampire, pTargetCreature, _GCSkillToTileOK1);
 
-								// Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+								// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
@@ -500,7 +501,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Þ´Â ³ðµé¿¡°Ô ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -510,7 +511,7 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HPÀÇ º¯°æ»çÇ×À» ÆÐÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+					// HPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -518,15 +519,15 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// ÆÐÅ¶À» º¸³»ÁØ´Ù.
+					// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ñ´ï¿½.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pVampire);
 				}
@@ -570,8 +571,8 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		// ¸¸ÀÏ ÀÌ ±â¼úÀÌ Æ¯º°ÇÑ ¹«±â°¡ ÀÖ¾î¾ß ½ÃÀüÇÒ ¼ö ÀÖ´Â ±â¼úÀÌ¶ó¸é...
-		// ±× °è¿­ÀÇ ¹«±â¸¦ µé°í ÀÖ´ÂÁö¸¦ Ã¼Å©ÇØ¼­ ¾Æ´Ï¶ó¸é ½ÇÆÐ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â°¡ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½...
+		// ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ø¼ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ð´ï¿½.
 		if (param.ItemClass != Item::ITEM_CLASS_MAX)
 		{
 			Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
@@ -595,13 +596,13 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 
-		// ¸¶³ª°¡ ÀÖ¾î¾ß ÇÏ°í, ½Ã°£°ú °Å¸® Ã¼Å©¿¡ ¼º°øÇÏ°í,
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP¸¦ ¶³¾î¶ß¸°´Ù.
+			// MPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 			decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
-			// ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+			// ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 			ZoneCoord_t myX          = pOusters->getX();
 			ZoneCoord_t myY          = pOusters->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -623,10 +624,10 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é, ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°¡ ï¿½Æ´Ï¶ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// Å¸ÀÏÀ» ¹Þ¾Æ¿Â´Ù.
+					// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -698,7 +699,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 									Damage += param.SkillDamage;
 								}
 
-								// HitRoll ¿¡¼­ ½ÇÆÐÇÑ µµ °è¿­ÀÇ ±â¼úÀÇ °æ¿ì 7%ÀÇ µ¥¹ÌÁö¸¦ °®µµ·Ï ÇÑ´Ù - by bezz
+								// HitRoll ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 7%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½ - by bezz
 								if ( bSetMinDamage )
 								{
 									Damage = getPercentValue( Damage, 7 );
@@ -706,7 +707,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+								// ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½Ì´ï¿½.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -716,19 +717,19 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// ÀÏ´Ü ¸Â´Â ³ðÀÌ ¹ÞÀ» ÆÐÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+								// ï¿½Ï´ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
 								setDamage(pTargetCreature, Damage, pOusters, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pOusters, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pOusters, pTargetCreature, _GCSkillToTileOK1);
 
-								// Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
+								// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
 								}
 
-								// »ó´ë¹æÀÌ ¾Æ¿ì½ºÅÍÁî°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¸ÂÃá °É·Î °£ÁÖÇÑ´Ù. 
+								// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¿ì½ºï¿½ï¿½ï¿½î°¡ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½É·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
 								if (!pTargetCreature->isOusters())
 								{
 									bHit = true;
@@ -772,7 +773,7 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Þ´Â ³ðµé¿¡°Ô ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -782,22 +783,22 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HPÀÇ º¯°æ»çÇ×À» ÆÐÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+					// HPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// ÆÐÅ¶À» º¸³»ÁØ´Ù.
+					// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ñ´ï¿½.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pOusters);
 				}
@@ -845,10 +846,10 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 
 		bool bRangeCheck = verifyDistance(pMonster, X, Y, pSkillInfo->getRange());
 
-		// ¸¶³ª°¡ ÀÖ¾î¾ß ÇÏ°í, ½Ã°£°ú °Å¸® Ã¼Å©¿¡ ¼º°øÇÏ°í,
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½Ï°ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½,
 		if (bRangeCheck)
 		{
-			// ÁÂÇ¥¿Í ¹æÇâÀ» ±¸ÇÑ´Ù.
+			// ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 			ZoneCoord_t myX          = pMonster->getX();
 			ZoneCoord_t myY          = pMonster->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -869,10 +870,10 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// ÇöÀç Å¸ÀÏÀÌ Á¸ ³»ºÎÀÌ°í, ¾ÈÀüÁö´ë°¡ ¾Æ´Ï¶ó¸é, ¸ÂÀ» È®·üÀÌ ÀÖ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë°¡ ï¿½Æ´Ï¶ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// Å¸ÀÏÀ» ¹Þ¾Æ¿Â´Ù.
+					// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -898,7 +899,7 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 						Creature* pTargetCreature = (*itr);
 						Assert(pTargetCreature != NULL);
 
-						// °ø°Ý ´ë»óÀÌ ¸Â´ÂÁö È®ÀÎÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 						if (pMonster->isEnemyToAttack( pTargetCreature ))
 						{
 							bool bMoveModeCheck  = (pTargetCreature->getMoveMode() == Creature::MOVE_MODE_WALKING) ? true : false;
@@ -917,7 +918,7 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 								bHitRoll = HitRoll::isSuccess(pMonster, pTargetCreature, 0);
 							}
 
-							// bMoveModeCheck ÇÏ´Â°Å ¿©±â¼­´Â »°´Ù. ÁöÇÏ¿¡ ÀÖ´Â ³ðµéµµ ¸ÂÀ¸¶ó°í. 2003.10.27
+							// bMoveModeCheck ï¿½Ï´Â°ï¿½ ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½éµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. 2003.10.27
 							if (!bRaceCheck && bHitRoll && bCanHit && bPK && bZoneLevelCheck)
 							{
 								CheckCrossCounter(pMonster, pTargetCreature, Damage, pSkillInfo->getRange());
@@ -941,7 +942,7 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// Æä³ÎÆ¼´Â ±âº»ÀûÀ¸·Î 100ÀÌ´Ù.
+								// ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 100ï¿½Ì´ï¿½.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -950,11 +951,11 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// ÀÏ´Ü ¸Â´Â ³ðÀÌ ¹ÞÀ» ÆÐÅ¶Àº ³Î »óÅÂ·Î ÇÑ Ã¤·Î, µ¥¹ÌÁö¸¦ ÁØ´Ù.
+								// ï¿½Ï´ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ Ã¤ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
 								setDamage(pTargetCreature, Damage, pMonster, param.SkillType, NULL, NULL);
 
-								// Å©¸®Æ¼ÄÃ È÷Æ®¶ó¸é »ó´ë¹æÀ» µÚ·Î ¹°·¯³ª°Ô ÇÑ´Ù.
-								// °É¾î´Ù´Ï´Â ³ðµé¸¸ knockback½ÃÅ²´Ù.
+								// Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+								// ï¿½É¾ï¿½Ù´Ï´ï¿½ ï¿½ï¿½é¸¸ knockbackï¿½ï¿½Å²ï¿½ï¿½.
 								if ( bMoveModeCheck && (bCriticalHit || bForceKnockback) )
 								{
 									knockbackCreature(pZone, pTargetCreature, pMonster->getX(), pMonster->getY());
@@ -979,7 +980,7 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 			_GCSkillToTileOK5.setRange(dir);
 			_GCSkillToTileOK5.setDuration(0);
 		
-			// ÀÌ ±â¼ú¿¡ ÀÇÇØ ¿µÇâÀ» ¹Þ´Â ³ðµé¿¡°Ô ÆÐÅ¶À» º¸³»Áà¾ß ÇÑ´Ù.
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -989,22 +990,22 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HPÀÇ º¯°æ»çÇ×À» ÆÐÅ¶¿¡´Ù ±â·ÏÇÑ´Ù.
+					// HPï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// ¾ÆÀÌÅÛÀÇ ³»±¸·ÂÀ» ¶³¾î¶ß¸°´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// ÆÐÅ¶À» º¸³»ÁØ´Ù.
+					// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// ´ç±Ù ÀûÀ¸·Î ÀÎ½ÄÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ñ´ï¿½.
 					Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pTargetMonster->addEnemy(pMonster);
 				}

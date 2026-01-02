@@ -35,7 +35,7 @@ FlagSet::~FlagSet()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void FlagSet::create(const string& owner) 

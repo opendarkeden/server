@@ -63,7 +63,7 @@ LoginServerManager::~LoginServerManager ()
 
 	SAFE_DELETE(m_pDatagramSocket);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////

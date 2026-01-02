@@ -53,7 +53,7 @@ EffectScheduleWork::~EffectScheduleWork()
 	{
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ EffectSchedule::~EffectSchedule()
 		SAFE_DELETE(pWork);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectSchedule::addWork(int WorkCode, void* pData) 
@@ -139,7 +139,7 @@ EffectScheduleManager::~EffectScheduleManager()
 		SAFE_DELETE(pSchedule);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectScheduleManager::addEffectSchedule(EffectSchedule* pEffectSchedule) 

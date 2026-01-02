@@ -18,7 +18,7 @@ HolyLandManager::~HolyLandManager()
 
 	clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void HolyLandManager::addHolyLand( Zone* pZone )

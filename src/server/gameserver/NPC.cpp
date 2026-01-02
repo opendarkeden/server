@@ -114,7 +114,7 @@ NPC::~NPC()
 	SAFE_DELETE(m_pInventory);
 	SAFE_DELETE_ARRAY(m_pRack); 
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // registerObject()

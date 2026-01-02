@@ -85,7 +85,7 @@ DarkLightInfoManager::~DarkLightInfoManager ()
 	for (uint i = 0 ; i < nDarkLightInfos ; i ++) 
 		SAFE_DELETE(m_DarkLightInfos[i]);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void DarkLightInfoManager::init () 

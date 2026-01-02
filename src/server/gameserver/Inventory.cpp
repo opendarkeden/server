@@ -163,7 +163,7 @@ Inventory::~Inventory()
 		//cerr << t.toString() << endl; 
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
  
 

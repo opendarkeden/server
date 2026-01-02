@@ -47,7 +47,7 @@ Corpse::~Corpse()
 		m_Treasures.pop_front();
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 Item* Corpse::getTreasure() 

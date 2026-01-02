@@ -30,7 +30,7 @@ OustersEXPInfo::~OustersEXPInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string OustersEXPInfo::toString() const
@@ -78,7 +78,7 @@ OustersEXPInfoManager::~OustersEXPInfoManager()
 		SAFE_DELETE_ARRAY(m_OustersEXPInfoList);
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void OustersEXPInfoManager::init()

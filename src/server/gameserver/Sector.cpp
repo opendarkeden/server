@@ -29,7 +29,7 @@ Sector::~Sector()
 
 	m_Objects.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void Sector::addObject(Object* pObject) 

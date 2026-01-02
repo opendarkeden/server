@@ -143,7 +143,7 @@ ItemFactoryManager::~ItemFactoryManager ()
 	// 아이템팩토리배열을 삭제한다.
 	SAFE_DELETE_ARRAY(m_Factories);
 			
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

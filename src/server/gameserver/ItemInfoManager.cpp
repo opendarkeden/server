@@ -130,7 +130,7 @@ ItemInfoManager::~ItemInfoManager()
 		SAFE_DELETE(m_InfoClassManagers[i]);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

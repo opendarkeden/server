@@ -39,7 +39,7 @@ EffectDecayCorpse::~EffectDecayCorpse ()
 
 	unaffect(m_pZone , m_X , m_Y , m_pTarget);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 			
 void EffectDecayCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)

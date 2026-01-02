@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTUserInfo.cpp
-// Desc		: ¿Â¶óÀÎ °ÔÀÓ À¯ÀúID, Ä³¸¯ÅÍ¸í, È¸¿øÀÌ¸§, ¼­¹öÀÇ Á¤º¸¸¦
-// 			  ÆÄ¿ö¸µ ¼­¹ö·Î º¸³» È¸¿øÀ» ÀÎÁõÇÑ´Ù.
+// Desc		: ï¿½Â¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ID, Ä³ï¿½ï¿½ï¿½Í¸ï¿½, È¸ï¿½ï¿½ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// 			  ï¿½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -9,15 +9,17 @@
 #include "MPacketID.h"
 #include "Assert.h"
 
-// »ý¼ºÀÚ
-PKTUserInfo::PKTUserInfo()
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+PKTUserInfo::PKTUserInfo() : _PKT_USERINFO()
 {
-	memset( this, 0, szPKTUserInfo );
-
 	nSize = szPKTUserInfo - szMPacketSize;
+	nCode = 0;
+	sJuminNo[0] = '\0';
+	sHandPhone[0] = '\0';
+	nIndex = 0;
 }
 
-// ÀÔ·Â ½ºÆ®¸²À¸·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ ÇÑ´Ù.
+// ï¿½Ô·ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ñ´ï¿½.
 void PKTUserInfo::read( SocketInputStream& iStream )
 {
 	iStream.read( (char*)this, szPKTUserInfo );
@@ -28,7 +30,7 @@ void PKTUserInfo::read( SocketInputStream& iStream )
 //	nIndex		= ntohl( nIndex );
 }
 
-// Ãâ·Â ½ºÆ®¸²À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 void PKTUserInfo::write( SocketOutputStream& oStream )
 {
 	nCode = getID();
