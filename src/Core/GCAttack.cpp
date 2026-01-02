@@ -33,7 +33,7 @@ GCAttack::~GCAttack () noexcept
 
 
 //////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void GCAttack::read (SocketInputStream & iStream ) 
 	 
@@ -50,7 +50,7 @@ void GCAttack::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void GCAttack::write (SocketOutputStream & oStream ) const 
      

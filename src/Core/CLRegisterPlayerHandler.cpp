@@ -17,9 +17,9 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
-// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ÇÃ·¹ÀÌ¾î µî·Ï Á¤º¸¸¦ ³¯¸± °æ¿ì, ¼­¹ö¿¡¼­´Â ¿ì¼±
-// ÇöÀç ¾ÆÀÌµð°¡ "guest"ÀÎÁö Ã¼Å©ÇÏ°í, ÃÖÃÊÀÇ ÆÐÅ¶ÀÎÁö Ã¼Å©ÇÑ ÈÄ,
-// »ç¿ëÀÚ Á¤º¸¸¦ DB¿¡ µî·ÏÇÏ°í³ª¼­, ¿¬°áÀ» Â÷´ÜÇÑ´Ù.
+// When a client requests player registration, first verify the temporary
+// login ID is "guest", validate the registration packet, then insert into
+// the DB and respond.
 //////////////////////////////////////////////////////////////////////////////
 void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlayer)
 	 
@@ -38,20 +38,19 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 	//cout << "Registering Player... " << endl;
 
 	//----------------------------------------------------------------------
-	// ·Î±×ÀÎ ÇÃ·¹ÀÌ¾îÀÇ ¾ÆÀÌµð°¡ guest ÀÎÁö Ã¼Å©ÇÑ´Ù.
+	// Ensure the login user ID is "guest".
 	//----------------------------------------------------------------------
 //	if (pLoginPlayer->getID() != "guest")
 //		throw InvalidProtocolException("must be guest user");
 
 	//----------------------------------------------------------------------
-	// ÇÃ·¹ÀÌ¾î Á¤º¸ °ËÁõ
-	// °¢ ½ºÆ®¸µÀÇ ±æÀÌ ¹× NULL ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+	// Validate player profile fields; use NULL checks for each string.
 	//----------------------------------------------------------------------
 	LCRegisterPlayerError lcRegisterPlayerError;
 
 	try {
 
-		//cout << "ÇÃ·¹ÀÌ¾î Á¤º¸ °ËÁõ : " << pPacket->toString() << endl;
+		//cout << "Player registration : " << pPacket->toString() << endl;
 
 		if (pPacket->getID() == "") {
 			lcRegisterPlayerError.setErrorID(EMPTY_ID);	
@@ -99,17 +98,14 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 
 		//cout << lcRegisterPlayerError.toString() << endl;
 
-		// ÀÏ´Ü ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÏ°í, ¿¬°áÀ» Â÷´ÜÇÑ´Ù.
-		//
-		// *TODO*
-		// ½ÇÆÐ È¸¼ö¸¦ ÀúÀåÇÑ ÈÄ, ±× È¸¼öº¸´Ù ÀÛÀº °æ¿ì¿¡´Â °è¼Ó ¿¬°áÀ» À¯ÁöÇÏµµ·Ï ÇÑ´Ù.
-		//
+		// For now disconnect the client on validation failure.
+		// *TODO* Allow guest to retry without full disconnect.
 		throw DisconnectException(lcRegisterPlayerError.toString());
 	}
 		
 
 	//----------------------------------------------------------------------
-	// ÀÌÁ¦ µ¥ÀÌÅ¸º£ÀÌ½º¿¡ µî·ÏÇÏµµ·Ï ÇÑ´Ù.
+	// Insert into the database.
 	//----------------------------------------------------------------------
 
 	Statement* pStmt;
@@ -120,34 +116,34 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
 		//--------------------------------------------------------------------------------
-		// ¾ÆÀÌµð Áßº¹ ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+		// Check for duplicate PlayerID.
 		//--------------------------------------------------------------------------------
 		pResult = pStmt->executeQuery("SELECT PlayerID FROM Player WHERE PlayerID = '%s'" , pPacket->getID().c_str());
 
 		if (pResult->getRowCount() != 0) {
 			lcRegisterPlayerError.setErrorID(ALREADY_REGISTER_ID);	
-			throw DuplicatedException("±×·± ¾ÆÀÌµð°¡ ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.");
+			throw DuplicatedException("ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 		}
 
 
 		//--------------------------------------------------------------------------------
-		// ÁÖ¹Îµî·Ï¹øÈ£¸¦ °ËÁõÇÑ´Ù. ³ªÁß¿¡.. -_-;
+		// Validate SSN (placeholder).
 		//--------------------------------------------------------------------------------
 
 
 		//--------------------------------------------------------------------------------
-		// ÁÖ¹Îµî·Ï¹øÈ£ Áßº¹ ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù. 
+		// Check for duplicate SSN.
 		//--------------------------------------------------------------------------------
 		pResult = pStmt->executeQuery("SELECT SSN FROM Player WHERE SSN = '%s'" , pPacket->getSSN().c_str());
 
 		if (pResult->getRowCount() != 0) {
 			lcRegisterPlayerError.setErrorID(ALREADY_REGISTER_SSN);
-			throw DuplicatedException("ÀÌ¹Ì µî·ÏµÈ ÁÖ¹Îµî·Ï¹øÈ£ÀÔ´Ï´Ù.");
+			throw DuplicatedException("ï¿½Ì¹ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½Ö¹Îµï¿½Ï¹ï¿½È£ï¿½Ô´Ï´ï¿½.");
 		}
 
 
 		//--------------------------------------------------------------------------------
-		// ÇÃ·¹ÀÌ¾î¸¦ µî·ÏÇÑ´Ù.
+		// Insert the new player row.
 		//--------------------------------------------------------------------------------
 		pResult = pStmt->executeQuery(
 			"INSERT INTO Player (PlayerID , Password , Name , Sex , SSN , Telephone , Cellular , Zipcode , Address , Nation , Email , Homepage , Profile , Pub) VALUES ('%s' , PASSWORD('%s') , '%s' , '%s' , '%s' , '%s' , '%s' , '%s' , '%s' , %d , '%s' , '%s' , '%s' , '%s')" ,
@@ -167,23 +163,22 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 			(pPacket->getPublic() == true) ? "PUBLIC" : "PRIVATE" 
 		);
 				
-		// ¿©±â±îÁö ¿Ô´Ù¸é, DB¿¡ ÇÃ·¹ÀÌ¾î°¡ Àß Ãß°¡µÇ¾ú´Ù´Â ÀÇ¹Ì°¡ µÈ´Ù.
-		// ÇÃ·¹ÀÌ¾î¿¡°Ô µî·ÏÀÌ Àß µÇ¾ú´Ù´Â LCRegisterPlayerOK ÆÐÅ¶À» º¸³»ÀÚ.
+		// After successful insert, send LCRegisterPlayerOK to the client.
 		Assert(pResult == NULL);
 		Assert(pStmt->getAffectedRowCount() == 1);
 
-		// µî·ÏÇÑ ÈÄ µðÆúÆ® ¼­¹öÀÇ ±×·ì ¾ÆÀÌµð¸¦ ¹Þ¾Æ¿Â´Ù.
+		// Retrieve current world/group IDs for the new user.
 		pResult = pStmt->executeQuery("SELECT CurrentWorldID, CurrentServerGroupID FROM Player WHERE PlayerID = '%s'" , pPacket->getID().c_str());
 
 		if (pResult->getRowCount() == 0) {
 			lcRegisterPlayerError.setErrorID(ETC_ERROR);
-			throw SQLQueryException("Á¤»óÀûÀ¸·Î µ¥ÀÌÅÍº£ÀÌ½º°¡ ÀÔ·Â, Ãâ·Â µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+			throw SQLQueryException("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò½ï¿½ï¿½Ï´ï¿½.");
 		}
 
 		WorldID_t 		 WorldID = 0;
 		ServerGroupID_t  ServerGroupID = 0;
 
-		if (pResult->next()) throw SQLQueryException("µ¥ÀÌÅÍº£ÀÌ½º¿¡ Ä¡¸íÀûÀÎ ¹®Á¦°¡ ÀÖ½À´Ï´Ù.");
+		if (pResult->next()) throw SQLQueryException("ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
 
 		WorldID = pResult->getInt(1);
 		ServerGroupID = pResult->getInt(2);
@@ -197,12 +192,12 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 		string SSN = pPacket->getSSN();
 		string preSSN;
 		bool isChina = false;
-		// ÇÑ±¹
+		// Country-specific handling (e.g., China SSN) follows.
 		if (strstr(SSN.c_str(), "-") != NULL )
 		{
 			preSSN = SSN.substr(0, 6);
 		}
-		// Áß±¹
+		// ï¿½ß±ï¿½
 		else 
 		{
 			isChina = true;
@@ -216,7 +211,7 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 			}
 			else
 			{
-				// ÀÌ·± °æ¿ì´Â ¾ø´Ù°í ÇÏÁö¸¸ -_- ¸Ó ¾ÏÆ°
+				// ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -_- ï¿½ï¿½ ï¿½ï¿½Æ°
 			 	preSSN = SSN.substr(0, 6);
 			}
 		}
@@ -229,14 +224,14 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 		localtime_r(&daytime, &Timec);
 		AdultSSN << Timec.tm_year - 20 << Timec.tm_mon << Timec.tm_mday;
 
-		// ¼ºÀÎÀÎÁö ¾Æ´ÑÁö ÁÖ¹Îµî·Ï ¹øÈ£ Ã¼Å©
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ ï¿½Ö¹Îµï¿½ï¿½ ï¿½ï¿½È£ Ã¼Å©
 		if (atoi(preSSN.c_str()) <= atoi(AdultSSN.toString().c_str())) {
 			lcRegisterPlayerOK.setAdult(true);
 		} else {
 			lcRegisterPlayerOK.setAdult(false);
 		}
 
-		// Áß±¹ÀÌ¸é ¹«Á¶°Ç ¼ºÀÎ
+		// ï¿½ß±ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (isChina )
 		{
 			lcRegisterPlayerOK.setAdult(true);
@@ -244,10 +239,10 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 
 		pLoginPlayer->sendPacket(&lcRegisterPlayerOK);
 
-		// ÀÌ¸§À» º¯°æÇØÁà¾ß ÇÑ´Ù.
+		// ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 		pLoginPlayer->setID(pPacket->getID());
 
-		// µî·Ï¿¡ ¼º°øÇßÀ» °æ¿ì, CLGetPCList ÆÐÅ¶À» ±â´Ù¸°´Ù.
+		// ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, CLGetPCList ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½.
 		pLoginPlayer->setPlayerStatus(LPS_WAITING_FOR_CL_GET_PC_LIST);
 
 		SAFE_DELETE(pStmt);
@@ -259,12 +254,12 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 		//cout << de.toString() << endl;
 
 		//--------------------------------------------------------------------------------
-		// µî·Ï ½ÇÆÐ ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//--------------------------------------------------------------------------------
 		pLoginPlayer->sendPacket(&lcRegisterPlayerError);
 
 		//--------------------------------------------------------------------------------
-		// ½ÇÆÐ È¸¼ö¸¦ Áõ°¡½ÃÅ²´Ù. ³Ê¹« ¸¹ÀÌ ½ÇÆÐÇßÀ» °æ¿ì, ¿¬°áÀ» Á¾·áÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½. ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//--------------------------------------------------------------------------------
 		uint nFailed = pLoginPlayer->getFailureCount();
 
@@ -275,7 +270,7 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 
 		pLoginPlayer->setFailureCount(nFailed);
 
-		// µî·Ï¿¡ ½ÇÆÐÇÒ °æ¿ì, ´Ù½Ã CLRegisterPlayer ÆÐÅ¶À» ±â´Ù¸°´Ù.
+		// ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ù½ï¿½ CLRegisterPlayer ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½.
 		pLoginPlayer->setPlayerStatus(LPS_WAITING_FOR_CL_REGISTER_PLAYER);
 
 	} 
@@ -283,18 +278,18 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 	{
 		SAFE_DELETE(pStmt);
 
-		// Èì. SQL ¿¡·¯ÀÌµçÁö µî·ÏÀÌ Àß ¾ÈµÇ¾ú´Ù´Â ¼Ò¸®´Ù.
+		// ï¿½ï¿½. SQL ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½Ù´ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½.
 		//cout << sqe.toString() << endl;
 
 		//--------------------------------------------------------------------------------
-		// µî·Ï ½ÇÆÐ ÆÐÅ¶À» Àü¼ÛÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//--------------------------------------------------------------------------------
 		lcRegisterPlayerError.setErrorID(ETC_ERROR);
 
 		pLoginPlayer->sendPacket(&lcRegisterPlayerError);
 
 		//--------------------------------------------------------------------------------
-		// ½ÇÆÐ È¸¼ö¸¦ Áõ°¡½ÃÅ²´Ù. ³Ê¹« ¸¹ÀÌ ½ÇÆÐÇßÀ» °æ¿ì, ¿¬°áÀ» Á¾·áÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½. ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//--------------------------------------------------------------------------------
 		uint nFailed = pLoginPlayer->getFailureCount();
 
@@ -305,7 +300,7 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 
 		pLoginPlayer->setFailureCount(nFailed);
 
-		// µî·Ï¿¡ ½ÇÆÐÇÒ °æ¿ì, ´Ù½Ã CLRegisterPlayer ÆÐÅ¶À» ±â´Ù¸°´Ù.
+		// ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ù½ï¿½ CLRegisterPlayer ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½.
 		pLoginPlayer->setPlayerStatus(LPS_WAITING_FOR_CL_REGISTER_PLAYER);
 
 	}

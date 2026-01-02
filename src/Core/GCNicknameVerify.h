@@ -16,7 +16,7 @@ enum
 	NICKNAME_MODIFY_OK,
 
 	NICKNAME_SELECT_FAIL_NO_SUCH,
-	NICKNAME_SELECT_FAIL_FORCED,		// 운영자가 강제 지정한 닉네임은 맘대로 바꿀 수 없다.
+	NICKNAME_SELECT_FAIL_FORCED,		// GM forced rename; cannot choose the previous nickname.
 	NICKNAME_SELECT_OK,
 
 	NICKNAME_VERIFY_MAX

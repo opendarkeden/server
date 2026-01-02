@@ -23,18 +23,13 @@ typedef struct _ZONEUSERDATA {
 //
 // class GMServerInfo;
 //
-// �α��� �������� ����ڰ� ���� ������ �����Ϸ��� �� ��, �α��� ������
-// �� ���� �������� � �ּҿ��� � ����ڰ� � ũ��ó�� �α�����
-// ���̴�.. ��� �˷��ִ� ��Ŷ�̴�.
+// Packet sent from the login server so a GM client knows which world/server
+// to connect to and how many players are in each zone.
 //
 // *CAUTION*
-//
-// ���� ũ��ó �̸��� �ʿ��Ѱ�? �ϴ� �ǹ��� ���� �� �ְڴµ�, ������ ����
-// ��츦 ���������� �ʿ��ϰ� �ȴ�. �α��� �����κ��� Slot3 ĳ���͸� ����
-// �س���, ������ ���� ������ �����ؼ��� SLOT2 ĳ���͸� �ε��ش޶�� ��
-// ���� �ִ� ���̴�. �̸� ���� ���ؼ�, CLSelectPC�� ������ ĳ���͸� 
-// ���� �������� �˷���� �ϸ�, CGConnect ������ ĳ���� ���̵� �����ؼ�
-// �ٷ� �ε��ϵ��� �ؾ� �Ѵ�.
+// Keep the mapping between character slots and character IDs consistent.
+// After the client selects a character in CLSelectPC, CGConnect uses the
+// character ID immediately to load it.
 //
 //----------------------------------------------------------------------
 
@@ -44,11 +39,11 @@ public :
 	GMServerInfo() ;
 	~GMServerInfo() noexcept;
 	
-    // Datagram ��ü�������� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
-    void read(Datagram & iDatagram) ;
+	// Initialize the packet by reading data from the datagram payload.
+	void read(Datagram & iDatagram) ;
 		    
-    // Datagram ��ü�� ��Ŷ�� ���̳ʸ� �̹����� ������.
-    void write(Datagram & oDatagram) const ;
+	// Serialize the packet into the datagram payload.
+	void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
 	void execute(Player* pPlayer) ;
@@ -93,7 +88,7 @@ private :
 	BYTE            m_ZoneCount;
 	list<ZONEUSERDATA> m_ZoneUserList;
 
-	// Ŭ���̾�Ʈ�� IP
+	// Client IP (reference only; stored elsewhere)
 
 };
 
@@ -121,7 +116,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GMServerInfoPacketMaxSize �� ����, �����϶�.
+	// Use GMServerInfoPacketMaxSize if that constant is defined.
 	PacketSize_t getPacketMaxSize() const  { return szWorldID + szBYTE + 255*(szBYTE+szDWORD); }
 
 };

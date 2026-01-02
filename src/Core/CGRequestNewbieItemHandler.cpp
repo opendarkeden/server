@@ -36,7 +36,7 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	BYTE        IClass   = pPacket->getItemClass();
 
 	////////////////////////////////////////////////////////////
-	// 초보자가 슬레이어가 아닌 경우는 없다.
+	// Only Slayers can request this starter kit.
 	////////////////////////////////////////////////////////////
 	if (!pPC->isSlayer()) return;
 
@@ -45,14 +45,13 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	Inventory* pInventory  = pSlayer->getInventory();
 
 	////////////////////////////////////////////////////////////
-	// 진짜 초보인지를 검사한다.
-	// 0번을 초보 아이템 받았다 플래그로 정했다.
-	// 이것은 어디까지나 땜빵 코드다.
+	// Check whether the starter items were already granted.
+	// Flag 0 was historically used to track receipt; keep that behavior.
 	////////////////////////////////////////////////////////////
 	if (pFlagSet->isOn(0)) return;
 
 	////////////////////////////////////////////////////////////
-	// 각 아이템 클래스에 따라 아이템을 생성한다.
+	// Build the starter item set based on the requested class.
 	////////////////////////////////////////////////////////////
 	Item* pItem[10] = { NULL, };
 	int   i         = 0;
@@ -63,9 +62,9 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 
 	if (IClass == Item::ITEM_CLASS_SWORD)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SWORD, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
@@ -73,9 +72,9 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 	else if (IClass == Item::ITEM_CLASS_BLADE)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_BLADE, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
@@ -83,9 +82,9 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 	else if (IClass == Item::ITEM_CLASS_CROSS)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_CROSS, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
@@ -93,9 +92,9 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 	else if (IClass == Item::ITEM_CLASS_MACE)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_MACE, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
@@ -103,53 +102,53 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 	else if (IClass == Item::ITEM_CLASS_AR)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_AR, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
-		// 탄창
+		// Ammo magazine
 		pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 1, optionNULL);
 		dynamic_cast<Magazine*>(pItem[5])->setNum(9);
 	}
 	else if (IClass == Item::ITEM_CLASS_SR)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SR, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
-		// 탄창
+		// Ammo magazine
 		pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 4, optionNULL);
 		dynamic_cast<Magazine*>(pItem[5])->setNum(9);
 	}
 	else if (IClass == Item::ITEM_CLASS_SG)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SG, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
-		// 탄창
+		// Ammo magazine
 		pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 0, optionNULL);
 		dynamic_cast<Magazine*>(pItem[5])->setNum(9);
 	}
 	else if (IClass == Item::ITEM_CLASS_SMG)
 	{
-		// 무기
+		// Starter weapon
 		pItem[0] = CREATE_ITEM(Item::ITEM_CLASS_SMG, 0, optionNULL);
-		// 포션
+		// Healing items
 		pItem[1] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[2] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 0, optionNULL);
 		pItem[3] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
 		pItem[4] = CREATE_ITEM(Item::ITEM_CLASS_POTION, 4, optionNULL);
-		// 탄창
+		// Ammo magazine
 		pItem[5] = CREATE_ITEM(Item::ITEM_CLASS_MAGAZINE, 3, optionNULL);
 		dynamic_cast<Magazine*>(pItem[5])->setNum(9);
 	}
@@ -159,8 +158,7 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 
 	////////////////////////////////////////////////////////////
-	// 생성한 아이템을 등록하고, DB에 저장하고,
-	// 클라이언트에게 정보를 날려준다.
+	// Create the items, persist them, and inform the client.
 	////////////////////////////////////////////////////////////
 	ObjectRegistry& OR = pZone->getObjectRegistry();
 	TPOINT           pt;
@@ -196,25 +194,24 @@ void CGRequestNewbieItemHandler::execute (CGRequestNewbieItem* pPacket , Player*
 	}
 
 	////////////////////////////////////////////////////////////
-	// 아이템을 받았으니, 현재 FlagSet을 저장한다.
-	// 0번을 초보 아이템 받았다 플래그로 정했다.
-	// 이것은 어디까지나 땜빵 코드다.
+	// Mark that the starter kit was delivered using the FlagSet.
+	// Flag 0 tracks overall receipt for backward compatibility.
 	////////////////////////////////////////////////////////////
 	pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM);
 
 	if (IClass == Item::ITEM_CLASS_SWORD || IClass == Item::ITEM_CLASS_BLADE)
 	{
-		// 무사일 경우 1
+		// Fighter starter flag (type 1)
 		pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_FIGHTER);
 	}
 	else if (IClass == Item::ITEM_CLASS_CROSS || IClass == Item::ITEM_CLASS_MACE)
 	{
-		// 성직자일 경우 2
+		// Cleric starter flag (type 2)
 		pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_CLERIC);
 	}
 	else
 	{
-		// 군인일 경우 3
+		// Gunner starter flag (type 3)
 		pFlagSet->turnOn(FLAGSET_RECEIVE_NEWBIE_ITEM_GUNNER);
 	}
 

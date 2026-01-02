@@ -17,13 +17,10 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddSlayer;
-// �α����̳� ��Ż, �ڷ���Ʈ ������ �����̾ ���� ���� ���� ���, �Ǵ� 
-// �����̾ ������ �̵��� ���,(1) �̹� �� �����̾ ���� ������ ���� �ִ� 
-//(�� �� �����̾ ���� �ִ�..) ������ �����ϴ� PC�鿡�Դ� GCMove ��Ŷ�� 
-// ��ε�ĳ��Ʈ�Ѵ�. �׷���,(2) �� �����̾ ó�� ���� �Ǵ� ������ �����ϴ� 
-// PC�鿡�Դ� GCAddSlayer ��Ŷ�� ��ε�ĳ��Ʈ�Ѵ�. ����,(3) �� �����̾�� 
-// �ڽ��� ���� ��ô�� �þ�(?) �ȿ� �����ϴ� �����̾���� ������ GCAddSlayer�� 
-// ��Ƽ� �ް� �ȴ�.
+// Packet sent when a Slayer enters view. If a player already knows about the
+// Slayer (including itself) and it only moves, GCMove is used. When a Slayer
+// is seen for the first time or appears after a move to another map, send
+// GCAddSlayer so the client can build the full Slayer state.
 //////////////////////////////////////////////////////////////////////////////
 
 class GCAddSlayer : public Packet 
@@ -60,11 +57,11 @@ public:
 	void		setStoreInfo(StoreInfo* pInfo) { pInfo->makeStoreOutlook(m_StoreOutlook); }
 
 private:
-	PCSlayerInfo3  m_SlayerInfo;  // �����̾��� �ܸ� ����
-	EffectInfo*    m_pEffectInfo; // �ɷ��ִ� ����Ʈ ����
-	PetInfo*	   m_pPetInfo;	  // �� ���� ����
-	NicknameInfo*	   m_pNicknameInfo;	  // �� ���� ����
-	StoreOutlook		m_StoreOutlook;	// ���λ��� ���� ����
+	PCSlayerInfo3  m_SlayerInfo;  // Core Slayer info
+	EffectInfo*    m_pEffectInfo; // Active effect info
+	PetInfo*	   m_pPetInfo;	  // Pet information
+	NicknameInfo*	   m_pNicknameInfo;	  // Nickname information
+	StoreOutlook		m_StoreOutlook;	// Store visual state
 };
 
 //////////////////////////////////////////////////////////////////////////////

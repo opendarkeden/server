@@ -19,8 +19,8 @@
 //
 // class GCAttack;
 //
-// ���� �������� Ư�� ����ڰ� �������ٴ� ������ Ŭ���̾�Ʈ�� ������ 
-// �� ����ϴ� ��Ŷ ��ü�̴�.(CreatureID,X,Y,DIR) �� �����Ѵ�.
+// Packet sent to clients to indicate that a creature has performed an
+// attack. Carries creature ID, position, and direction.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -38,10 +38,10 @@ public :
 public :
 	
 	
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+	// Initialize the packet by reading data from the input stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+	// Serialize the packet into the output stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -51,7 +51,7 @@ public :
 	PacketID_t getPacketID() const  { return PACKET_GC_ATTACK; }
 	
 	// get packet's body size
-	// ����ȭ��, �̸� ���� ������ ����Ѵ�.
+	// Serialized size is fixed for this packet.
 	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord + szDir ; }
 
 	// get packet's name
@@ -79,10 +79,10 @@ public :
 
 private :
 
-	ObjectID_t m_ObjectID;		// ũ��ó ���̵�
-	Coord_t m_X;				// X ��ǥ
-	Coord_t m_Y;				// Y ��ǥ
-	Dir_t m_Dir;				// ����
+	ObjectID_t m_ObjectID;		// Creature ID
+	Coord_t m_X;			// X coordinate
+	Coord_t m_Y;			// Y coordinate
+	Dir_t m_Dir;			// Facing direction
 
 };
 

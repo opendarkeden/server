@@ -2,8 +2,7 @@
 // 
 // Filename    : GCGQuestInventory.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
-//               멤버 정의.
+// Description : Packet notifying the client of its quest-item inventory.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -56,7 +55,7 @@ void GCGQuestInventory::write(SocketOutputStream & oStream) const
 	BYTE size = m_ItemList.size();
 	oStream.write(size);
 
-	//cout << "퀘스트 인벤토리 개수 : " << (int)size << endl;
+	//cout << "Quest inventory size : " << (int)size << endl;
 
 	list<ItemType_t>::const_iterator itr = m_ItemList.begin();
 	list<ItemType_t>::const_iterator endItr = m_ItemList.end();
@@ -64,7 +63,7 @@ void GCGQuestInventory::write(SocketOutputStream & oStream) const
 	for (; itr != endItr ; ++itr )
 	{
 		oStream.write((*itr));
-		//cout << "	퀘스트 아이템 : " << (int)(*itr) << endl;
+		//cout << "	Quest item code : " << (int)(*itr) << endl;
 	}
 
 	__END_CATCH

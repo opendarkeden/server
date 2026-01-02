@@ -2,8 +2,8 @@
 // 
 // Filename    : GearInfo.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : �ڽſ��� ���� ����� ������ �˸��� ���� ��Ŷ Ŭ������
-//               ��� ����.
+// Description : Packet used to notify gear information changes to the
+//               player and others.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -31,7 +31,7 @@ GearInfo::GearInfo ()
 //////////////////////////////////////////////////////////////////////
 GearInfo::~GearInfo () noexcept
 {
-	// �Ҽӵ� ��� ��ü���� �����Ѵ�.
+	// Release every owned gear slot object.
 	while ( !m_GearSlotInfoList.empty() ) {
 		GearSlotInfo * pGearSlotInfo = m_GearSlotInfoList.front();
 		SAFE_DELETE(pGearSlotInfo);
@@ -41,13 +41,13 @@ GearInfo::~GearInfo () noexcept
 
 
 //////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::read ( SocketInputStream & iStream ) 
 {
 	__BEGIN_TRY
 		
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+	// Read the number of entries first for safe deserialization.
 	iStream.read( m_ListNum );
 
 	for( int i = 0; i < m_ListNum; i++ ) {
@@ -62,14 +62,14 @@ void GearInfo::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::write ( SocketOutputStream & oStream ) 
      const
 {
 	__BEGIN_TRY
 		
-	// ����ȭ �۾��� ���� ũ�⸦ �����ϵ��� �Ѵ�.
+	// Write the number of entries first for consistent serialization.
 	oStream.write( m_ListNum );
 
     for ( list<GearSlotInfo*>:: const_iterator itr = m_GearSlotInfoList.begin(); itr!= m_GearSlotInfoList.end(); itr++) {

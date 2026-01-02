@@ -18,7 +18,7 @@
 //
 // class SGGuildMemberLogOnOK;
 //
-// 팀이 추가 되었음을 게임서버에 알린다.
+// Notifies guild members when someone logs on.
 //
 // *CAUTION*
 //
@@ -29,10 +29,10 @@ class SGGuildMemberLogOnOK : public Packet {
 public:
 	SGGuildMemberLogOnOK() {};
     ~SGGuildMemberLogOnOK() {};
-    // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize the packet by reading data from the input stream.
     void read(SocketInputStream& iStream) ;
 		    
-    // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet into the output stream.
     void write(SocketOutputStream& oStream) const ;
 
 	// execute packet's handler
@@ -115,7 +115,7 @@ public:
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static LGIncomingConnectionPacketMaxSize 를 정의, 리턴하라.
+	// Use LGIncomingConnectionPacketMaxSize if that constant is defined.
 	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return szGuildID +				// guild ID

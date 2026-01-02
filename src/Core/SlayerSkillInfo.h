@@ -2,7 +2,7 @@
 // 
 // Filename    : SlayerSkillInfo.h 
 // Written By  : elca@ewestsoft.com
-// Description :  ��ų�� ������
+// Description :  Slayer skill information
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 //
 // class SlayerSkillInfo;
 //
-// ���Ӽ������� Ŭ���̾�Ʈ�� �ڽ��� ����� ������ �˷��ֱ� ���� Ŭ����
+// Holds a Slayer's skill information to be delivered to the client.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -36,14 +36,14 @@ public :
 
 public :
 
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+	// Initialize the packet by reading data from the input stream.
     virtual void read (SocketInputStream & iStream) ;
 		    
-    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+	// Serialize the packet into the output stream.
     virtual void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
-	// ����ȭ��, �̸� ���� ������ ����Ѵ�.
+	// Serialized size varies with the contained skill list.
 	PacketSize_t getSize () ;
 
 	static uint getMaxSize ()  { 
@@ -79,7 +79,7 @@ public :
 
 private :
 
-	// New ��ų�� ��� �� �ִ��� ������ ����
+	// Tracks whether there is a newly learnable skill
 	bool m_bLearnNewSkill;
 
 	SkillDomainType_t m_DomainType;

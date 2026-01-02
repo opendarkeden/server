@@ -25,10 +25,10 @@ class GCDeleteandPickUpOK : public Packet {
 public :
 	GCDeleteandPickUpOK() {};
     ~GCDeleteandPickUpOK() {};
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize the packet by reading data from the input stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet into the output stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -39,7 +39,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCDeleteandPickUpOKPacketSize 를 정의해서 리턴하라.
+	// Use GCDeleteandPickUpOKPacketSize if that constant is defined.
 	PacketSize_t getPacketSize() const  { return szObjectID; }
 
 	// get packet name
@@ -85,7 +85,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCDeleteandPickUpOKPacketSize 를 정의해서 리턴하라.
+	// Use GCDeleteandPickUpOKPacketSize if that constant is defined.
 	PacketSize_t getPacketMaxSize() const  { return szObjectID; }
 
 };

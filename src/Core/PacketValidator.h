@@ -18,10 +18,10 @@
 //
 // class PacketValidator;
 //
-// �÷��̾��� Ư�� ���¿��� ���Ǵ� ��Ŷ���� ����Ʈ�� ������.
-// XXXPlayer::processCommand() ���� ��Ŷ ���̵� ������ ���
-// �� ���̵� �÷��̾��� ���¿� ���� �����غ���. �̶� ������
-// ��� ó���ϸ� ������ Ʋ���� ������ �����ؾ� �Ѵ�.
+// Maintains the list of packet IDs that are valid for a given player
+// status. XXXPlayer::processCommand() should confirm that the incoming
+// packet ID is allowed for the player's current state and drop anything
+// unexpected to avoid incorrect processing.
 //
 //----------------------------------------------------------------------
 

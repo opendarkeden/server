@@ -2,8 +2,8 @@
 // 
 // Filename    : GCMoveError.cpp
 // Written By  : elca@ewestsoft.com
-// Description : CGMove가 날아 왓을때 자기 자신에게 Error 사인을 날리기
-//               위한 패킷 클래스 함수 정의
+// Description : Client-side handler for reporting movement errors back to
+//               the requester.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@
 
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void GCMoveError::read (SocketInputStream & iStream ) 
 	 
@@ -45,7 +45,7 @@ void GCMoveError::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void GCMoveError::write (SocketOutputStream & oStream ) const 
      

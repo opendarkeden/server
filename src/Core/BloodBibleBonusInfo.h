@@ -37,10 +37,10 @@ public :
 public :
 	
 	
-    // �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+	// Initialize the packet by reading data from the input stream.
     void read (SocketInputStream & iStream) ;
 		    
-    // ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+	// Serialize the packet into the output stream.
     void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size

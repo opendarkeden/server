@@ -43,7 +43,7 @@ BloodBibleBonusInfo::~BloodBibleBonusInfo () noexcept
 
 
 //////////////////////////////////////////////////////////////////////
-// �Է½�Ʈ��(����)���κ��� ����Ÿ�� �о ��Ŷ�� �ʱ�ȭ�Ѵ�.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void BloodBibleBonusInfo::read ( SocketInputStream & iStream ) 
 {
@@ -66,7 +66,7 @@ void BloodBibleBonusInfo::read ( SocketInputStream & iStream )
 }
 
 //////////////////////////////////////////////////////////////////////
-// ��½�Ʈ��(����)���� ��Ŷ�� ���̳ʸ� �̹����� ������.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void BloodBibleBonusInfo::write ( SocketOutputStream & oStream ) const 
 {

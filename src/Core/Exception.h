@@ -25,8 +25,8 @@
 //
 // class Throwable
 //
-// Exception �� Error �� ���̽� Ŭ�����̴�. ���� �޽�� �� ����Ÿ��
-// �����س��� �ִ�.
+// Base interface for exceptions and errors. Stores a message and a
+// stack trace for debugging.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -100,10 +100,9 @@ private :
 
 //--------------------------------------------------------------------------------
 //
-// Throwable�� �ʿ��ϱ� ������ �Ʒ��� �����ߴ�.
-// Exception/Error�� ������ ��� �޽���� ��/�Ʒ��� ���õǾ�� �Ѵ�.
-// __END_CATCH�� Throwable�� �޼ҵ� ���ÿ� ����� �� ������ ������
-// ������ �Ѵ�.
+// Convenience macros for Throwable. Exception/Error messages should be
+// wrapped with __BEGIN_TRY / __END_CATCH. __END_CATCH appends the
+// current function name to the Throwable stack before rethrowing.
 //
 //--------------------------------------------------------------------------------
 
@@ -117,10 +116,10 @@ private :
 	#define __END_CATCH_NO_RETHROW } catch (Throwable & t) { t.addStack(__PRETTY_FUNCTION__); }
 #endif
 
-// �޼��� ����� END_CATCH
+// END_CATCH for method definitions
 //#define __END_CATCH } catch (Throwable & t) { t.addStack(__PRETTY_FUNCTION__); throw; }
 
-// �޼��� ��� END_CATCH
+// Verbose END_CATCH with logging
 //#define __END_CATCH } catch (Throwable & t) { cout << "\nCAUGHT Exception IN END_CATCH MACRO...\n[" << __PRETTY_FUNCTION__ << "]\n>>> " << t.toString() << endl; t.addStack(__PRETTY_FUNCTION__); throw; }
 
 
@@ -176,10 +175,10 @@ public :
 	//
 	// I/O Exception
 	//
-	// ����, ����, IPC ����½� �߻��� �� �ִ� ����
+	// Errors that can occur during read/write or IPC operations.
 	//
 	//////////////////////////////////////////////////////////////////////
-	// ����, ����, IPC ����½� �߻��� �� �ִ� ����
+	// Errors that can occur during read/write or IPC operations.
 	class IOException : public Exception {
 	public :
 		IOException ()  : Exception () {}
@@ -191,7 +190,7 @@ public :
 		//
 		// Non Blocking I/O Exception
 		//
-		// I/O �� nonblocking �� �߻��� ���
+		// I/O would block when running in nonblocking mode.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NonBlockingIOException : public IOException {
@@ -205,7 +204,7 @@ public :
 		//
 		// Interrupted I/O Exception
 		//
-		// I/O �� ���ͷ�Ʈ�� �ɸ� ���
+		// I/O operation was interrupted by a signal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedIOException : public IOException {
@@ -219,7 +218,7 @@ public :
 		//
 		// EOF Exception
 		//
-		// I/O �� EOF �� ���� ���
+		// Unexpected EOF during an I/O operation.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class EOFException : public IOException {
@@ -269,7 +268,7 @@ public :
 		//
 		// Time out Exception
 		//
-		// ���� �ð��� ������ ���
+		// Operation exceeded the allowed time.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class TimeoutException : public IOException {
@@ -283,7 +282,7 @@ public :
 		//
 		// Socket Exception
 		//
-		// Ư�� ���Ͽ��� �߻��ϴ� ���ܵ�
+		// Generic socket-related errors.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SocketException : public IOException {
@@ -297,7 +296,7 @@ public :
 			//
 			// Bind Exception
 			//
-			// bind()�� �߻��ϴ� ����
+			// Errors raised while calling bind().
 			//
 			//////////////////////////////////////////////////////////////////////
 			class BindException : public SocketException {
@@ -311,7 +310,7 @@ public :
 			//
 			// Connect Exception
 			//
-			// ���� ������ ���� ��� (���� ���� �߻��Ѵٰ� ���� �ȴ�.)
+			// Unable to connect to the remote host (likely not listening).
 			//
 			//////////////////////////////////////////////////////////////////////
 			class ConnectException : public SocketException {
@@ -325,7 +324,7 @@ public :
 		//
 		// Protocol Exception
 		//
-		// ��Ŷ �Ľ��Ҷ� �߻��ϴ� ���ܵ�
+		// Errors while parsing or handling a packet.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class ProtocolException : public IOException {
@@ -339,7 +338,7 @@ public :
 			//
 			// Idle Exception
 			//
-			// ���� �ð����� peer �κ��� �Է��� ���� ���
+			// No input from the peer for an extended period.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class IdleException : public ProtocolException {
@@ -354,7 +353,7 @@ public :
 			//
 			// Invalid Protocol Exception
 			//
-			// �߸��� ��������
+			// Malformed protocol payload.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InvalidProtocolException : public ProtocolException {
@@ -368,7 +367,7 @@ public :
 			//
 			// Insufficient Data Exception
 			//
-			// ���� ��Ŷ ����Ÿ�� �����ϰ� �������� �ʾ��� ���
+			// Packet data is too short to continue processing.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InsufficientDataException : public ProtocolException {
@@ -395,8 +394,7 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// �������� ����, �ý��� ���� ���������ؼ� ������ ©��� �� ���
-			// �� ���ܸ� ����Ѵ�.
+			// Use when network or system issues require disconnecting the client.
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class DisconnectException : public ProtocolException {
@@ -408,7 +406,7 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// Ư�� ��Ȳ�� �����ؾ� �Ǵ� ��Ŷ�� ������ ���
+			// Ignore packets that must be skipped in special cases.
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class IgnorePacketException : public ProtocolException {
@@ -423,7 +421,7 @@ public :
 	//
 	// Thread Exception
 	//
-	// ������ �� ����ȭ �����鿡�� �߻��ϴ� ���ܵ�
+	// Exceptions raised during thread or synchronization operations.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class ThreadException : public Exception {
@@ -437,7 +435,7 @@ public :
 		//
 		// Mutex Exception
 		//
-		// ���ؽ����� �߻��ϴ� ���ܵ�
+		// Exceptions from mutex locking/unlocking.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class MutexException : public ThreadException {
@@ -451,7 +449,7 @@ public :
 			//
 			// Mutex Attribute Exception
 			//
-			// ���ؽ� �Ӽ����� �߻��ϴ� ���ܵ�
+			// Exceptions related to mutex attributes.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class MutexAttrException : public MutexException {
@@ -466,7 +464,7 @@ public :
 		//
 		// Conditional Variable Exception
 		//
-		// Conditional Variable ���� �߻��ϴ� ���� (�̸��� �ʹ� ���.. - -)
+		// Exceptions from condition variable operations.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class CondVarException : public ThreadException {
@@ -480,7 +478,7 @@ public :
 		//
 		// Semaphore Exception
 		//
-		// Semaphore ���� �߻��ϴ� ����
+		// Exceptions from semaphore operations.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SemaphoreException : public ThreadException {
@@ -495,7 +493,7 @@ public :
 	//
 	// SQL Exception 
 	//
-	// SQL ���� ����
+	// SQL execution errors.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class SQLException : public Exception {
@@ -509,7 +507,7 @@ public :
 		//
 		// SQL Warning
 		//
-		// SQL ������� ��Ÿ���� ����~~
+		// Non-fatal SQL warnings.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLWarning : public SQLException {
@@ -524,7 +522,7 @@ public :
 		//
 		// SQL Connect Exception
 		//
-		// SQL�� ���� ���� �õ��� ������ ���, ������ �������� ��� ��
+		// Failed to connect to SQL; connection attempt did not reach the server.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLConnectException : public SQLException {
@@ -551,7 +549,7 @@ public :
 	//
 	// Runtime Exception
 	//
-	// ��Ÿ�ӿ� �߻������� generic �� �뵵�� ���� �� �ִ� ���ܵ�
+	// Generic runtime errors for miscellaneous failure cases.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class RuntimeException : public Exception {
@@ -565,7 +563,7 @@ public :
 		//
 		// Invalid Arguemnt Exception
 		//
-		// �Լ�, ����Լ��� �Ķ���Ͱ� �߸��� ��� 
+		// Function or method received an invalid argument.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InvalidArgumentException : public RuntimeException {
@@ -579,7 +577,7 @@ public :
 		//
 		// Out Of Bound Exception
 		//
-		// ���״��. Out Of Bound!
+		// Index or coordinate out of bounds.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class OutOfBoundException : public RuntimeException {
@@ -593,7 +591,7 @@ public :
 		//
 		// Interrupted Exception
 		//
-		// System Call ���� ���ͷ�Ʈ ������ ���
+		// System call interrupted by a signal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedException : public RuntimeException {
@@ -607,7 +605,7 @@ public :
 		//
 		// No Such Element Exception
 		//
-		// �÷��ǿ��� Ư�� Ű���� �˻������� �׷� ������Ʈ�� ���� ���
+		// Lookup failed to find an element for the requested key.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NoSuchElementException : public RuntimeException {
@@ -621,7 +619,7 @@ public :
 		//
 		// Duplicated Exception
 		//
-		// �÷����� Ư�� Ű�� �ߺ��Ǿ��� �� 
+		// Duplicate key detected.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class DuplicatedException : public RuntimeException {
@@ -635,7 +633,7 @@ public :
 	//
 	// Game Exception
 	//
-	// ���ӿ��� goto �뵵�� ����ϴ� ���ܵ�.. -_-;
+	// Game-specific exceptions used for control-flow style handling.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class GameException : public Exception {
@@ -649,7 +647,7 @@ public :
 		//
 		// Portal Exception
 		//
-		// PC �� ��Ż�� �������...�
+		// PC failed to move through a portal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class PortalException : public GameException {
@@ -661,7 +659,7 @@ public :
 
 		//////////////////////////////////////////////////////////////////////
 		//
-		// Ư�� ��ǥ ������ ������ ũ��ó�� ���� ������� �� ���� ��
+		// No suitable empty tile was found when searching for placement.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class EmptyTileNotExistException : public GameException {
@@ -736,8 +734,8 @@ public :
 	//
 	// Log Error
 	//
-	// �Ϲ����� �����ʹ� �޸� LogError�� ����Ʈ �α����Ͽ� �α׵� �� ����.
-	// (�����غ���. �α׸Ŵ��� ��ü�� ������ ��� �α��Ѵٴ� ���ΰ�?)
+	// Ordinary errors should be logged with LogError to the system log.
+	// (Consider refining the logging strategy.)
 	//
 	//////////////////////////////////////////////////////////////////////
 	class LogError : public Error {

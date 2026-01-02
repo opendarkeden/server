@@ -10,7 +10,7 @@
 #include "LCCreatePCError.h"
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void LCCreatePCError::read (SocketInputStream & iStream ) 
 {
@@ -23,7 +23,7 @@ void LCCreatePCError::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void LCCreatePCError::write (SocketOutputStream & oStream ) const 
 {

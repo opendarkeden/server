@@ -297,7 +297,7 @@
 // added by elca 2001-06-26
 #include "CGSelectPortal.h"
 
-// 2001-01-08 �輺��
+// 2001-01-08 stash feature
 #include "CGMouseToStash.h"
 #include "CGStashToMouse.h"
 #include "CGStashList.h"
@@ -374,7 +374,7 @@
 	#include "Rpackets/RCCharacterInfo.h"
 #endif
 
-// ������ 2002. 05. 31. bezz
+// Guild feature update - 2002.05.31 (bezz)
 //#include "GCShowGuildRegist.h"
 #include "CGRegistGuild.h"
 #include "GCWaitGuildList.h"
@@ -579,10 +579,10 @@ PacketFactoryManager::PacketFactoryManager ()
 
 	Assert(m_Size > 0);
 	
-	// ��Ŷ���丮�迭�� �����Ѵ�.
+	// Allocate the packet factory array.
 	m_Factories = new PacketFactory*[ m_Size ];
 	
-	// ���丮�� ���� �����͵��� NULL �� �ʱ�ȭ�Ѵ�.
+	// Initialize every slot to NULL.
 	for (int i = 0 ; i < m_Size ; i ++) 
 		m_Factories[i] = NULL;
 			
@@ -599,7 +599,7 @@ PacketFactoryManager::~PacketFactoryManager () noexcept
 {
 	Assert(m_Factories != NULL);
 
-	// ������ ��Ŷ���丮���� �����Ѵ�.
+	// Delete any instantiated packet factories.
 	for (int i = 0 ; i < m_Size ; i ++) 
 	{
 #ifdef __GAME_CLIENT__
@@ -613,7 +613,7 @@ PacketFactoryManager::~PacketFactoryManager () noexcept
 #endif
 	}
 	
-	// ��Ŷ���丮�迭�� �����Ѵ�.
+	// Release the packet factory array itself.
 #ifdef __GAME_CLIENT__
 	if (m_Factories != NULL)
 	{
@@ -628,7 +628,7 @@ PacketFactoryManager::~PacketFactoryManager () noexcept
 
 //////////////////////////////////////////////////////////////////////
 //
-// ���ǵ� ��� ��Ŷ���丮���� ���⿡ �߰��Ѵ�.
+// Register every supported packet factory here.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::init ()
@@ -750,7 +750,7 @@ void PacketFactoryManager::init ()
 
 	addFactory(new CGRequestIPFactory());
 
-	// ���� �ý���
+	// Relic system
 	addFactory( new CGRelicToObjectFactory() );
 
 	addFactory( new CGRegistGuildFactory() );
@@ -764,10 +764,10 @@ void PacketFactoryManager::init ()
 	addFactory( new CGModifyGuildMemberFactory() );
 	addFactory( new CGGuildChatFactory() );
 
-	// ��æƮ ������ : �� --> ������ �ֱ�
+	// Inventory item-to-item merge: source item -> destination item
 	addFactory( new CGAddItemToItemFactory() );
 
-	// ���� ��û. 2002.9.2
+	// Information request packet - 2002.9.2
 	addFactory( new CGRequestInfoFactory() );
 
 	addFactory( new CGModifyGuildIntroFactory() );
@@ -1217,7 +1217,7 @@ void PacketFactoryManager::init ()
 
 //////////////////////////////////////////////////////////////////////
 //
-// ���丮 ��ü�� Ư�� �ε����� �߰��Ѵ�.
+// Insert the factory into its slot using the packet ID as the index.
 //
 //////////////////////////////////////////////////////////////////////
 void PacketFactoryManager::addFactory (PacketFactory * pFactory) 
@@ -1238,7 +1238,7 @@ void PacketFactoryManager::addFactory (PacketFactory * pFactory)
 		throw Error(msg.toString());
 	}
 	
-	// ��Ŷ���丮�� ����Ѵ�.
+	// Store the factory in the lookup table.
 	m_Factories[ pFactory->getPacketID() ] = pFactory;
 			
 	__END_CATCH
@@ -1247,15 +1247,14 @@ void PacketFactoryManager::addFactory (PacketFactory * pFactory)
 	
 //////////////////////////////////////////////////////////////////////
 //
-// ��Ŷ���̵�� ��Ŷ��ü�� �����Ѵ�.
+// Create a packet instance for the given packet ID.
 //
 //////////////////////////////////////////////////////////////////////
 Packet * PacketFactoryManager::createPacket (PacketID_t packetID) 
 {
 	__BEGIN_TRY
 
-	// ��Ŷ ���̵� ������ �Ѿ���� ���ؼ� Seg.Fault �� �߻����� �ʵ���.
-	// �̷� ����ڴ� ���� ©��� �Ѵ�.
+	// Guard against invalid IDs to avoid accessing an empty slot and crashing.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "packet factory [" << packetID << "] not exist.";
@@ -1270,15 +1269,14 @@ Packet * PacketFactoryManager::createPacket (PacketID_t packetID)
 
 //////////////////////////////////////////////////////////////////////
 //
-// ��Ŷ���̵�� Ư�� ��Ŷ�� �ִ� ũ�⸦ �����Ѵ�.
+// Return the max packet size for the given packet ID.
 //
 //////////////////////////////////////////////////////////////////////
 PacketSize_t PacketFactoryManager::getPacketMaxSize (PacketID_t packetID) 
 {
 	__BEGIN_TRY
 
-	// ��Ŷ ���̵� ������ �Ѿ���� ���ؼ� Seg.Fault �� �߻����� �ʵ���.
-	// �̷� ����ڴ� ���� ©��� �Ѵ�.
+	// Guard against invalid IDs to avoid accessing an empty slot and crashing.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << packetID << ")";
@@ -1293,7 +1291,7 @@ PacketSize_t PacketFactoryManager::getPacketMaxSize (PacketID_t packetID)
 
 //////////////////////////////////////////////////////////////////////
 //
-// ��Ŷ���̵�� Ư�� ��Ŷ�� �̸��� �����Ѵ�.
+// Return the packet name for the given packet ID.
 //
 //////////////////////////////////////////////////////////////////////
 #if !defined(__GAME_CLIENT__) || defined(__GAME_CLIENT__) && defined(__DEBUG_OUTPUT__)
@@ -1301,8 +1299,7 @@ string PacketFactoryManager::getPacketName (PacketID_t packetID)
 {
 	__BEGIN_TRY
 
-	// ��Ŷ ���̵� ������ �Ѿ���� ���ؼ� Seg.Fault �� �߻����� �ʵ���.
-	// �̷� ����ڴ� ���� ©��� �Ѵ�.
+	// Guard against invalid IDs to avoid accessing an empty slot and crashing.
 	if (packetID >= m_Size || m_Factories[packetID] == NULL) {
 		StringStream msg;
 		msg << "invalid packet id(" << packetID << ")";

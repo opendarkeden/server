@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : GCTradePrepare.h 
-// Written By  : 김성민
+// Written By  : elca@ewestsoft.com
 // Description : 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -11,24 +11,24 @@
 #include "PacketFactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// 교환 코드
+// Trade status codes
 ////////////////////////////////////////////////////////////////////////////////
 
 enum
 {
-	// 제일 처음 교환을 요청받은 플레이어에게 보내주는 코드
+	// Requester asks to start a trade; notify the target player.
 	GC_TRADE_PREPARE_CODE_REQUEST = 0,
 
-	// 제일 처음 교환을 요청받은 플레이어가 취소했을 경우에 보내주는 코드
+	// Requester cancelled the trade before the target responded.
 	GC_TRADE_PREPARE_CODE_CANCEL,
 
-	// 교환을 요청받은 플레이어가 응했을 경우에, 요청자에게 보내준다.
+	// Target accepted the trade request; notify the requester.
 	GC_TRADE_PREPARE_CODE_ACCEPT,
 
-	// 교환을 요청받은 플레이어가 거부했을 경우에, 요청자에게 보내준다.
+	// Target rejected the trade request; notify the requester.
 	GC_TRADE_PREPARE_CODE_REJECT,
 
-	// 교환을 요청받은 플레이어가 현재 교환 중이다.
+	// Target is busy and cannot trade.
 	GC_TRADE_PREPARE_CODE_BUSY,
 
 	GC_TRADE_PREPARE_CODE_MAX
@@ -61,8 +61,8 @@ public:
 	void setCode(BYTE code) { m_Code = code; }
 
 private :
-	ObjectID_t m_TargetObjectID; // 교환을 원하는 상대방의 OID
-	BYTE       m_Code;           // 교환 코드
+	ObjectID_t m_TargetObjectID; // Trading target object OID
+	BYTE       m_Code;           // Trade status code
 
 };
 

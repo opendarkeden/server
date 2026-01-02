@@ -14,7 +14,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCNPCAskVariable;
-// NPC �� ��縦 �ֺ��� PC �鿡�� �����Ѵ�.
+// Sends an NPC question with script variables to nearby PCs.
 //////////////////////////////////////////////////////////////////////////////
 
 typedef map<string,ScriptParameter*>		HashMapScriptParameter;
@@ -51,7 +51,7 @@ public:
 private:
 	ObjectID_t m_ObjectID; // NPC's object id
 	ScriptID_t m_ScriptID; // script id
-	HashMapScriptParameter m_ScriptParameters; // ��ũ��Ʈ�� ���� �Ķ���͵�
+	HashMapScriptParameter m_ScriptParameters; // script parameters
 };
 
 //////////////////////////////////////////////////////////////////////////////

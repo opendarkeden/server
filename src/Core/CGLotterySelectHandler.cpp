@@ -46,7 +46,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
 #ifdef __GAME_SERVER__
-	// È¡ÏûÍê³ÉÈÎÎñ²»¸øÎïÆ·ÏŞÖÆ
+	// NOTE: Original code could cancel reward processing; keep active.
 	//return;
 
 	GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPlayer );
@@ -67,7 +67,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 	{
 		case TYPE_SELECT_LOTTERY:
 			{
-				// ÀÎº¥¿¡¼­ Äù½ºÆ® ¾ÆÀÌÅÛ »èÁ¦
+				// Check quest status for lottery rewards
 				QuestID_t qID;
 				EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus( pPacket->getQuestLevel() );
 				int ownerQuestLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel();
@@ -100,7 +100,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					filelog( "EventBug.txt", "CGLotterySelectHandler : º¹±Ç ¼±ÅÃÀÌ ³¯¶ó¿Ô´Âµ¥ ¿Ï·áÇÑ Äù½ºÆ®°¡ ¾ø´Ù. -_-; %s[%d:%d]",
+					filelog( "EventBug.txt", "CGLotterySelectHandler : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô´Âµï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. -_-; %s[%d:%d]",
 							pPC->getName().c_str(), pPacket->getQuestLevel(), pPacket->getGiftID() );
 
 					return;
@@ -110,7 +110,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				gcNE.setCode( NOTICE_EVENT_RESULT_LOTTERY );
 				if ( bWinPrize( pPacket->getGiftID(), pPacket->getQuestLevel() ) ) 
 				{
-					// PlayerCreature ¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù
+					// Flag the player as winning
 					pPC->setLotto(true);
 					pPC->setLottoRewardID( pPacket->getGiftID() );
 					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
@@ -118,7 +118,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					// PlayerCreature ¿¡ Á¤º¸¸¦ ÀúÀåÇÑ´Ù
+					// Flag the player as losing
 					pPC->setLotto(false);
 					pPC->setLottoRewardID( pPacket->getGiftID() );
 					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
@@ -131,11 +131,10 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_FINISH_SCRATCH:
 			{
-				// ´çÃ·µÈ °æ¿ì µğºñ¿¡ ÀúÀå
+				// Finalize scratch result
 				if ( pPC->isLotto() )
 				{
-					// ´Ù½Ã false ·Î ¸¸µé¾îÁà¾ßÇÔ.
-					// ¾Æ´Ô ´ã¹ø Äù½ºÆ®¿¡¼­ ¹«Á¶°Ç ´çÃ·À¸·Î Ã³¸®µÇ´Ï ;;
+					// Reset lotto flag; non-winning paths handled elsewhere.
 					pPC->setLotto(false);
 
 					Statement* pStmt = NULL;
@@ -153,14 +152,14 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					}
 					END_DB(pStmt)
 
-					// ÀÌÂÊ ¼­¹ö¿¡ ºê·Îµå Ä³½ºÆ® ÇÏ°í (allworld ´Â ÇØ´ç ¼­¹ö´Â Ã³¸® ¾ÈÇÔ)
+					// Broadcast win to current map (and globally later).
 					GCNotifyWin gcNW;
 					gcNW.setGiftID( pPC->getLottoRewardID() );
 					gcNW.setName( pCreature->getName() );
 
 					g_pZoneGroupManager->broadcast( &gcNW );
 
-					// Àü ¿ùµå¿¡ ºê·ÎµåÄ³½ºÆ®ÇØÁØ´Ù 
+					// Broadcast to all worlds via server command
 					char sCommand[200];
 					string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt( "WorldID" ))->getName();
 					sprintf( sCommand, "*allworld *command NotifyWin %s(%s) %lu", pCreature->getName().c_str(), worldName.c_str(), pPC->getLottoRewardID() );
@@ -169,7 +168,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					// ¾Æ´Ï¸é ±×³É Äù½ºÆ® ¾ÆÀÌÅÛ¸¸ ÀÎº¥¿¡ ³Ö¾îÁÖ¸é µÇ´Âµí
+					// Otherwise, hand out consolation rewards
 					Item::ItemClass iClass;
 					ItemType_t iType;
 					list<OptionType_t> oList;
@@ -178,7 +177,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					bool isUnique = false;
 					MonsterType_t masterType;
 
-					// µÚÒ»¸öÈÎÎñ²»¸øÈÎºÎÎïÆ·
+					// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ñ²»¸ï¿½ï¿½Îºï¿½ï¿½ï¿½Æ·
 // 					if (pPC->getLottoQuestLevel()== 0 )
 // 					{
 // 						return;
@@ -188,7 +187,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					{
 						case 0:
 							{
-								// µÚÒ»¸öÈÎÎñ²»¸øÈÎºÎÎïÆ·
+								// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ñ²»¸ï¿½ï¿½Îºï¿½ï¿½ï¿½Æ·
 								return;
 								static const string options1[] =
 								{
@@ -669,7 +668,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_OVER_ENDING:
 			{
-				// Á×ÀÎ´Ù. // PlayerCreature ¿¡¼­´Â setHP ¸ø ºÎ¸¦µí
+				// ï¿½ï¿½ï¿½Î´ï¿½. // PlayerCreature ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ setHP ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½
 				//pPC->setHP(0);
 				if ( pCreature != NULL )
 				{
