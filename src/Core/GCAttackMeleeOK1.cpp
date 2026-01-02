@@ -2,8 +2,7 @@
 // 
 // Filename    : GCAttackMeleeOK1.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
-//               멤버 정의.
+// Description : Packet class to notify the attacker that a melee attack succeeded.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -37,7 +36,7 @@ GCAttackMeleeOK1::~GCAttackMeleeOK1 ()
 
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize from the incoming stream.
 //////////////////////////////////////////////////////////////////////
 void GCAttackMeleeOK1::read (SocketInputStream & iStream )
 	 
@@ -54,7 +53,7 @@ void GCAttackMeleeOK1::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Write the packet to the outgoing stream.
 //////////////////////////////////////////////////////////////////////
 void GCAttackMeleeOK1::write (SocketOutputStream & oStream )
      const 

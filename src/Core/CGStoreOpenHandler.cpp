@@ -49,13 +49,13 @@ void CGStoreOpenHandler::execute (CGStoreOpen* pPacket , Player* pPlayer)
 
 	if ( pStore->isOpen() )
 	{
-		filelog("Store.log", "[%s:%s] 이미 상점이 열려있습니다.",
+		filelog("Store.log", "[%s:%s] store already open",
 				pGamePlayer->getID().c_str(), pPC->getName().c_str());
 		return;
 	}
 
 	pStore->open();
-	cout << pPC->getName() << " 의 상점이 열렸습니다." << endl;
+	cout << pPC->getName() << " opened the store." << endl;
 
 	GCMyStoreInfo gcInfo;
 	gcInfo.setStoreInfo( &(pStore->getStoreInfo()) );

@@ -22,8 +22,8 @@
 //
 // class CGVerifyTime;
 //
-// 클라이언트가 서버에게 보내는 VerifyTime 패킷이다.
-// 내부에 VerifyTime String 만을 데이타 필드로 가진다.
+// Client sends this VerifyTime packet.
+// Use the new VerifyTime string instead of the old payload fields.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,10 +35,10 @@ class CGVerifyTime : public Packet {
 public :
 	CGVerifyTime() {};
     virtual ~CGVerifyTime() {};
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize packet from the input stream.
     void read (SocketInputStream & iStream ) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Write the packet body to the output stream.
     void write (SocketOutputStream & oStream ) const ;
 
 	// execute packet's handler
@@ -83,7 +83,7 @@ public :
 	PacketID_t getPacketID () const  { return Packet::PACKET_CG_VERIFY_TIME; }
 
 	// get packet's max body size
-	// message 의 최대 크기에 대한 설정이 필요하다.
+	// Reserve enough space for the message payload.
 	PacketSize_t getPacketMaxSize () const  { return 0; }
 
 };
@@ -102,7 +102,7 @@ public :
 	// execute packet's handler
 	static void execute (CGVerifyTime * pPacket , Player * pPlayer ) ;
 
-	// 스피드핵 사용자를 디비에 저장한다.
+	// Persist players flagged for speed-hack detection.
 	static void saveSpeedHackPlayer(Player* pPlayer);
 
 };

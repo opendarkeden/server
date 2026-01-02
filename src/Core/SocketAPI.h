@@ -24,9 +24,8 @@
 
 //////////////////////////////////////////////////
 //
-// Windows에서는 SOCKET과 INVALID_SOCKET에 unsigned int를
-// 사용한다. 만약 Windows라면 WinSock.h를 include했으므로
-// SOCKET과 INVALID_SOCKET이 정의되어 있게 된다.
+// On Windows, SOCKET and INVALID_SOCKET are unsigned int.
+// WinSock.h is already included on Windows so these are defined there.
 //
 //////////////////////////////////////////////////
 #if __LINUX__

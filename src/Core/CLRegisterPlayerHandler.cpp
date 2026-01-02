@@ -224,7 +224,7 @@ void CLRegisterPlayerHandler::execute (CLRegisterPlayer* pPacket , Player* pPlay
 		localtime_r(&daytime, &Timec);
 		AdultSSN << Timec.tm_year - 20 << Timec.tm_mon << Timec.tm_mday;
 
-		// �������� �ƴ��� �ֹε�� ��ȣ üũ
+		// Verify SSN indicates adult or minor.
 		if (atoi(preSSN.c_str()) <= atoi(AdultSSN.toString().c_str())) {
 			lcRegisterPlayerOK.setAdult(true);
 		} else {

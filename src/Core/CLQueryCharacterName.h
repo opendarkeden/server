@@ -17,8 +17,8 @@
 //
 // class CLQueryCharacterName;
 //
-// 클라이언트가 로그인 서버에게 최초에 전송하는 패킷이다.
-// 아이디와 패스워드가 암호화되어 있다.
+// Packet sent by the client on login when requesting character name lookup.
+// ID and password are encrypted.
 //
 //--------------------------------------------------------------------------------
 
@@ -27,10 +27,10 @@ class CLQueryCharacterName : public Packet {
 public:
 	CLQueryCharacterName() {};
     virtual ~CLQueryCharacterName() {};
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize packet by reading data from the incoming stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize packet data to the outgoing stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -59,7 +59,7 @@ public:
 
 private :
 
-	// 플레이어 아이디
+	// Player ID (character name)
 	string m_CharacterName;
 
 };

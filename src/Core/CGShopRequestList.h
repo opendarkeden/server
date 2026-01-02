@@ -1,10 +1,9 @@
 //--------------------------------------------------------------------------------
 // 
 // Filename    : CGShopRequestList.h 
-// Written By  : 김성민
-// Description : 플레이어가 가지고 있는 상점 버전과 서버가 가지고 있는 상점의
-//               버전이 다를 경우, 플레이어는 서버에게 상품의 리스트를 
-//               요청하게 된다. 이 패킷은 그때 보내게 되는 패킷이다.
+// Written By  : Rewster
+// Description : Client requests the list of goods sold by a store
+//               (type-specific rack) to browse and purchase items.
 // 
 //--------------------------------------------------------------------------------
 
@@ -26,10 +25,10 @@ class CGShopRequestList : public Packet {
 public:
 	CGShopRequestList() {};
     virtual ~CGShopRequestList() {};
-	// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize from the incoming stream.
 	void read(SocketInputStream & iStream) ;
 		    
-	// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Write this packet to the outgoing stream.
 	void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -40,7 +39,7 @@ public:
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static CGShopRequestListPacketSize 를 정의해서 리턴하라.
+	// Use the const static CGShopRequestListPacketSize for efficiency.
 	PacketSize_t getPacketSize() const  { return szObjectID+szShopRackType; }
 
 	// get packet name

@@ -100,7 +100,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					filelog( "EventBug.txt", "CGLotterySelectHandler : ���� ������ ����Դµ� �Ϸ��� ����Ʈ�� ����. -_-; %s[%d:%d]",
+					filelog( "EventBug.txt", "CGLotterySelectHandler : quest already cleared but client reported completion. -_-; %s[%d:%d]",
 							pPC->getName().c_str(), pPacket->getQuestLevel(), pPacket->getGiftID() );
 
 					return;
@@ -177,7 +177,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					bool isUnique = false;
 					MonsterType_t masterType;
 
-					// ��һ�����񲻸��κ���Ʒ
+					// No reward items for the first quest tier
 // 					if (pPC->getLottoQuestLevel()== 0 )
 // 					{
 // 						return;
@@ -187,7 +187,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					{
 						case 0:
 							{
-								// ��һ�����񲻸��κ���Ʒ
+								// No reward items for the first quest tier
 								return;
 								static const string options1[] =
 								{
@@ -668,7 +668,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_OVER_ENDING:
 			{
-				// ���δ�. // PlayerCreature ������ setHP �� �θ���
+				// Dev note: PlayerCreature::setHP should be updated to accept this path
 				//pPC->setHP(0);
 				if ( pCreature != NULL )
 				{

@@ -31,10 +31,10 @@ public :
 	// Desctructor
 	~GCUseOK() ;
 	
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize from the incoming stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Write the packet payload to the outgoing stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -45,7 +45,7 @@ public :
 	
 	// get packet's body size
 	// *OPTIMIZATION HINT*
-	// const static GCUseOKPacketSize 를 정의해서 리턴하라.
+	// Use the const static GCUseOKPacketSize for efficiency.
 	PacketSize_t getPacketSize() const  { return ModifyInfo::getPacketSize(); }
 
 	// get packet name
@@ -80,7 +80,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCUseOKPacketSize 를 정의해서 리턴하라.
+	// Use the const static GCUseOKPacketSize for efficiency.
 	PacketSize_t getPacketMaxSize() const  { return ModifyInfo::getPacketMaxSize(); }
 
 };

@@ -25,14 +25,14 @@ GCWaitGuildList::~GCWaitGuildList()
 {
 	__BEGIN_TRY
 	
-	// 길드 리스트의 모든 객체를 삭제
+	// Clear all guild info entries.
 	clearGuildInfoList();
 
 	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize from the incoming stream.
 //////////////////////////////////////////////////////////////////////
 void GCWaitGuildList::read (SocketInputStream & iStream ) 
 	 
@@ -54,7 +54,7 @@ void GCWaitGuildList::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Write this packet to the outgoing stream.
 //////////////////////////////////////////////////////////////////////
 void GCWaitGuildList::write (SocketOutputStream & oStream ) const 
      
@@ -82,7 +82,7 @@ void GCWaitGuildList::clearGuildInfoList()
 {
 	__BEGIN_TRY
 
-	// GuildInfoList 를 삭제한다
+	// Clear GuildInfoList
 	while(!m_GuildInfoList.empty() )
 	{
 		GuildInfo* pGuildInfo = m_GuildInfoList.front();

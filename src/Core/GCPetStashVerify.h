@@ -15,10 +15,10 @@ enum
 	PET_STASH_OK,
 	PET_STASH_NOT_ENOUGH_MONEY,
 	PET_STASH_NO_INVENTORY_SPACE,
-	PET_STASH_RACK_IS_NOT_EMPTY,	// 해당 위치에 이미 다른 펫 아이템이 있습니다.
-	PET_STASH_RACK_IS_EMPTY,		// 찾으려고 한 위치에 아이템이 없습니다.
-	PET_STASH_INVALID_OID,			// ObjectID 가 맞지 않습니다.
-	PET_STASH_INVALID_INDEX,		// Index가 맞지 않습니다.
+		PET_STASH_RACK_IS_NOT_EMPTY,	// Target slot already holds another pet.
+		PET_STASH_RACK_IS_EMPTY,		// Requested slot is empty.
+		PET_STASH_INVALID_OID,			// Invalid ObjectID.
+		PET_STASH_INVALID_INDEX,		// Invalid index.
 };
 
 //////////////////////////////////////////////////////////////////////////////

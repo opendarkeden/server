@@ -21,9 +21,9 @@
 //
 // class GCSkillInfo;
 //
-// 클라이언트가 게임 서버에 접속해서 CGConnect 패킷을 보내면, 게임 서버는 크리처와
-// 소유 아이템을 로딩해서 존에 들어갈 준비를 하게 된다. 그다음 PC와 아이템 정보,
-// 그리고 존 정보를 GCSkillInfo에 담아서 클라이언트로 전송하게 된다.
+// After the client loads core info and sends CGConnect, it prepares to enter the
+// world by loading all core data. The PC skill information is bundled and sent
+// to the client via GCSkillInfo.
 //
 //--------------------------------------------------------------------------------
 
@@ -37,10 +37,10 @@ public :
 	// destructor
 	~GCSkillInfo() ;
 	
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize packet by reading data from the incoming stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize packet data to the outgoing stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -85,7 +85,7 @@ private :
 
 	//---------------------------------------------------------
 	// PC Skill Information
-	// SlayerSkillInfo 또는 VampireSkillInfo 를 사용한다.
+	// Holds either SlayerSkillInfo or VampireSkillInfo objects.
 	//---------------------------------------------------------
 	list<PCSkillInfo *> m_pPCSkillInfoList;
 
@@ -115,7 +115,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSkillInfoPacketMaxSize 를 정의, 리턴하라.
+	// Use const static GCSkillInfoPacketMaxSize when possible.
 	PacketSize_t getPacketMaxSize() const  
 	{ 
 		return SlayerSkillInfo::getMaxSize();
