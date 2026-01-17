@@ -13,7 +13,7 @@
 #include "Exception.h"
 #include "SocketAPI.h"
 
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 	#include <sys/socket.h>
 	#include <arpa/inet.h>
 	#include <netinet/in.h>

@@ -151,10 +151,10 @@ void IncomingPlayerManager::init ()
 		dist_port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 	Connection* pDistConnection = new Connection(dist_host, dist_db, dist_user, dist_password, dist_port);
-	g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+	g_pDatabaseManager->addDistConnection(((int)(long)Thread::self()), pDistConnection);
 	cout << "******************************************************" << endl;
 	cout << " THREAD CONNECT UIIRIBUTION DB " << endl;
-	cout << " TID Number = " << (int)Thread::self()<< endl;
+	cout << " TID Number = " << (int)(long)Thread::self()<< endl;
 	cout << "******************************************************" << endl;
 
 	/*
@@ -192,8 +192,8 @@ void IncomingPlayerManager::init ()
 	{
 		//pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		//pStmt = g_pDatabaseManager->getDistConnection( (int)Thread::self() )->createStatement();
-		//pStmt2 = g_pDatabaseManager->getDistConnection( (int)Thread::self() )->createStatement();
+		//pStmt = g_pDatabaseManager->getDistConnection( (int)(long)Thread::self() )->createStatement();
+		//pStmt2 = g_pDatabaseManager->getDistConnection( (int)(long)Thread::self() )->createStatement();
 
 		pStmt = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
 		pStmt2 = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();

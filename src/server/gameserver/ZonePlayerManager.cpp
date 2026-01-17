@@ -541,7 +541,7 @@ void ZonePlayerManager::processCommands()
 
 		try {
 			ps.loginPayPlay("111.111.222.333", "sdfdf");
-			cout << "[" << (int)Thread::self() << "] " << i << endl;
+			cout << "[" << (int)(long)Thread::self() << "] " << i << endl;
 		} catch (Throwable&t)
 		{
 			cout << t.toString().c_str() << endl;

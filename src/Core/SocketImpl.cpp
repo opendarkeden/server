@@ -13,7 +13,7 @@
 #include "FileAPI.h"
 #include "SocketAPI.h"
 
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 #include <sys/socket.h>
 #include <arpa/inet.h>	// for inet_ntoa()
 #elif __WINDOWS__

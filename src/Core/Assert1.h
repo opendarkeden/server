@@ -30,7 +30,7 @@ void __protocol_assert__ (const char* file, uint line, const char* func, const c
 
 #ifdef NDEBUG
 	#define Assert(expr) ((void)0)
-#elif __LINUX__
+#elif defined(__LINUX__) || defined(__APPLE__)
 	#define Assert(expr) ((void)((expr)?0:(__assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
 	#define ProtocolAssert(expr) ((void)((expr)?0:(__protocol_assert__(__FILE__,__LINE__,__PRETTY_FUNCTION__,#expr),0)))
 #elif __WIN_CONSOLE__ || __WIN32__

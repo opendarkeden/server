@@ -150,7 +150,7 @@ private :
 #if defined(NDEBUG) || defined(__WIN32__)
 	#define __BEGIN_DEBUG ((void)0);
 	#define __END_DEBUG ((void)0);
-#elif defined(__LINUX__) || defined(__WIN_CONSOLE__)
+#elif defined(__LINUX__) || defined(__APPLE__) || defined(__WIN_CONSOLE__)
 	#define __BEGIN_DEBUG try {
 	#define __END_DEBUG  } catch (Throwable & t) { cout << t.toString() << endl; throw; } catch (exception & e) { cout << e.what() << endl; throw; }
 #elif defined(__MFC__)

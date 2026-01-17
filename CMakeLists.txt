@@ -17,7 +17,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 # 全局编译选项
 # ============================================================================
 # 基础宏定义 - 所有目标都需要
-add_compile_definitions(__LINUX__ _REENTRANT)
+if(APPLE)
+    add_compile_definitions(__APPLE__ _REENTRANT)
+elseif(UNIX)
+    add_compile_definitions(__LINUX__ _REENTRANT)
+endif()
 
 # 警告设置
 set(WARNING_FLAGS 
@@ -37,25 +41,74 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 find_package(Threads REQUIRED)
 
 # MySQL
-find_path(MYSQL_INCLUDE_DIR mysql.h
-    PATHS /usr/include/mysql /usr/local/include/mysql
-)
-find_library(MYSQL_LIBRARY mysqlclient
-    PATHS /usr/lib/mysql /usr/local/lib/mysql /usr/lib/x86_64-linux-gnu
-)
+if(APPLE)
+    find_path(MYSQL_INCLUDE_DIR mysql/mysql.h
+        PATHS
+        /opt/homebrew/include
+        /opt/homebrew/Cellar/mysql-client/*/include
+        /opt/homebrew/Cellar/mariadb-connector-c/*/include
+        /usr/local/include
+        NO_DEFAULT_PATH
+    )
+    find_library(MYSQL_LIBRARY mysqlclient
+        PATHS
+        /opt/homebrew/lib
+        /opt/homebrew/Cellar/mysql-client/*/lib
+        /opt/homebrew/Cellar/mariadb-connector-c/*/lib
+        /opt/homebrew/Cellar/mariadb-connector-c/*/lib/mariadb
+        /usr/local/lib
+    )
+elseif(UNIX)
+    find_path(MYSQL_INCLUDE_DIR mysql/mysql.h
+        PATHS /usr/include /usr/local/include
+        NO_DEFAULT_PATH
+    )
+    find_library(MYSQL_LIBRARY mysqlclient
+        PATHS /usr/lib /usr/local/lib /usr/lib/x86_64-linux-gnu /usr/lib/aarch64-linux-gnu
+    )
+endif()
 
-# Lua 5.1
+# Lua 5.1 / LuaJIT
 find_package(PkgConfig)
 if(PkgConfig_FOUND)
     pkg_check_modules(LUA51 lua5.1)
 endif()
 if(NOT LUA51_FOUND)
-    find_path(LUA51_INCLUDE_DIRS lua.h PATHS /usr/include/lua5.1 /usr/local/include/lua5.1)
-    find_library(LUA51_LIBRARIES lua5.1 PATHS /usr/lib /usr/local/lib)
+    if(APPLE)
+        find_path(LUA51_INCLUDE_DIRS lua.h
+            PATHS
+            /opt/homebrew/include/luajit-2.1
+            /opt/homebrew/include/lua5.1
+            /usr/local/include/lua5.1
+        )
+        find_library(LUA51_LIBRARIES luajit
+            PATHS /opt/homebrew/lib /usr/local/lib
+        )
+        if(NOT LUA51_LIBRARIES)
+            find_library(LUA51_LIBRARIES lua5.1
+                PATHS /opt/homebrew/lib /usr/local/lib
+            )
+        endif()
+    else()
+        find_path(LUA51_INCLUDE_DIRS lua.h PATHS /usr/include/lua5.1 /usr/local/include/lua5.1)
+        find_library(LUA51_LIBRARIES lua5.1 PATHS /usr/lib /usr/local/lib)
+    endif()
 endif()
 
 # Xerces-C
-find_library(XERCES_LIBRARY xerces-c)
+if(APPLE)
+    find_path(XERCES_INCLUDE_DIR xercesc/util/XercesVersion.hpp
+        PATHS
+        /opt/homebrew/include
+        /opt/homebrew/Cellar/xerces-c/*/include
+        /usr/local/include
+    )
+    find_library(XERCES_LIBRARY xerces-c
+        PATHS /opt/homebrew/lib /usr/local/lib
+    )
+else()
+    find_library(XERCES_LIBRARY xerces-c)
+endif()
 
 # ============================================================================
 # 包含目录（全局）
@@ -66,6 +119,10 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/server/database
     ${MYSQL_INCLUDE_DIR}
 )
+
+if(XERCES_INCLUDE_DIR)
+    include_directories(${XERCES_INCLUDE_DIR})
+endif()
 
 # ============================================================================
 # 子目录

@@ -80,7 +80,7 @@ void SharedServerManager::run ()
 			port = g_pConfig->getPropertyInt("DB_PORT");
 
 		Connection* pConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+		g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 		cout << "************************************************************************" << endl;
 		cout << "OPEN LOGIN DB" << endl;
 		cout << "************************************************************************" << endl;

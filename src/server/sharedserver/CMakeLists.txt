@@ -30,6 +30,12 @@ target_include_directories(sharedserver PRIVATE
 )
 
 # 链接库
+if(APPLE)
+    set(EXTRA_LIBS z)
+elseif(UNIX)
+    set(EXTRA_LIBS nsl z dl)
+endif()
+
 target_link_libraries(sharedserver PRIVATE
     Database
     SharedServerPackets
@@ -37,7 +43,5 @@ target_link_libraries(sharedserver PRIVATE
     Core
     ${MYSQL_LIBRARY}
     Threads::Threads
-    nsl
-    z
-    dl
+    ${EXTRA_LIBS}
 )

@@ -62,7 +62,7 @@ void ZoneGroupThread::run ()
 		port = g_pConfig->getPropertyInt("DB_PORT");
 
 	Connection* pConnection = new Connection(host, db, user, password, port);
-	g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+	g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 	cout << "******************************************************" << endl;
 	cout << " THREAD CONNECT DB " << endl;
 	cout << "******************************************************" << endl;
@@ -76,10 +76,10 @@ void ZoneGroupThread::run ()
 		dist_port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 	Connection* pDistConnection = new Connection(dist_host, dist_db, dist_user, dist_password, dist_port);
-	g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+	g_pDatabaseManager->addDistConnection(((int)(long)Thread::self()), pDistConnection);
 	cout << "******************************************************" << endl;
 	cout << " THREAD CONNECT UIIRIBUTION DB " << endl;
-	cout << " TID Number = " << (int)Thread::self()<< endl;
+	cout << " TID Number = " << (int)(long)Thread::self()<< endl;
 	cout << "******************************************************" << endl;
 
 	/*

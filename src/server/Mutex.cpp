@@ -64,7 +64,7 @@ void Mutex::lock ()
 
 	try 
 	{
-		int TID = Thread::self();
+		int TID = (int)(long)Thread::self();
 
 		if (TID != m_LockTID)
 		{
@@ -103,7 +103,7 @@ void Mutex::trylock ()
 
 	try 
 	{
-		int TID = Thread::self();
+		int TID = (int)(long)Thread::self();
 
 		if (TID != m_LockTID)
 		{

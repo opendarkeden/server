@@ -401,6 +401,12 @@ target_compile_definitions(gameserver PRIVATE ${GAMESERVER_COMPILE_DEFS})
 target_include_directories(gameserver PRIVATE ${GAMESERVER_INCLUDE_DIRS})
 
 # 链接库（注意顺序，被依赖的库放后面）
+if(APPLE)
+    set(EXTRA_LIBS util z)
+elseif(UNIX)
+    set(EXTRA_LIBS nsl util dl z)
+endif()
+
 target_link_libraries(gameserver PRIVATE
     Items
     Quest
@@ -421,10 +427,7 @@ target_link_libraries(gameserver PRIVATE
     ${LUA51_LIBRARIES}
     ${XERCES_LIBRARY}
     Threads::Threads
-    nsl
-    util
-    dl
-    z
+    ${EXTRA_LIBS}
 )
 
 # 导出符号（用于动态加载）

@@ -28,11 +28,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // CLSelectPCHandler::execute()
 // 
-// ·Î±×ÀÎ ¼­¹ö´Â ÀÌ ÆÐÅ¶À» ¹ÞÀ¸¸é, ÁöÁ¤µÈ Name + PCType ¸¦ °¡Áø PC ¸¦ ·ÎµùÇÑ´Ù.°
-// ÀÌ PC°¡ ÇÃ·¹ÀÌ¾îÀÇ Ä³¸¯ÅÍ¶ó¸é ÀÌ PC°¡ ±âÁ¸¿¡ ÀÖ´ø Á¸À» ¾Ë¾Æ³»¼­
-// ±× Á¸À» ´ã´çÇÑ °ÔÀÓ ¼­¹ö¿¡°Ô LGIncomingConnection À» Àü¼ÛÇÑ´Ù.
-// Á÷ÈÄ Å¬¶óÀÌ¾ðÆ®¿¡°Ô LCReconnect ÆÐÅ¶À» º¸³»¼­, °ÔÀÓ ¼­¹ö·Î ¿¬°áÇÏµµ·Ï
-// ÇØÁØ´Ù.
+// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Name + PCType ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ PC ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ñ´ï¿½.ï¿½
+// ï¿½ï¿½ PCï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ ï¿½ï¿½ PCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½
+// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ LGIncomingConnection ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ LCReconnect ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½Ø´ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 	 
@@ -48,11 +48,11 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 
 	bool bCheckATTR = false;
 
-	// ·Î±×ÀÎ ¼­¹ö¿¡¼­ billing ¿¬°á ºÎºÐÀ» »©±â·Î ÇÑ´Ù.
-    // ¾Öµåºô ¿äÃ» »çÇ×. by bezz 2003.04.22
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ billing ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
+    // ï¿½Öµï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½. by bezz 2003.04.22
 /*#ifdef __CONNECT_BILLING_SYSTEM__
 
-	// ºô¸µ ½Ã½ºÅÛÀ¸·ÎºÎÅÍ Ã¼Å©¸¦ ¹Þ´Â °æ¿ì
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½
 	// by sigi. 2002.11.21
 	if (pLoginPlayer->isBillingLoginVerified())
 	{
@@ -63,10 +63,10 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		}
 		else if (pLoginPlayer->isPayPlaying())
 		{
-			// °Á Åë°ú~
+			// ï¿½ï¿½ ï¿½ï¿½ï¿½~
 			cout << "isPayPlaying: " << pLoginPlayer->getID().c_str() << endl;
 
-			// ±×·¯³ª.. ¹Ø¿¡¼­ ´É·ÂÄ¡ Ã¼Å©¸¦ ÇØ¾ßÇÑ´Ù.
+			// ï¿½×·ï¿½ï¿½ï¿½.. ï¿½Ø¿ï¿½ï¿½ï¿½ ï¿½É·ï¿½Ä¡ Ã¼Å©ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
 			if (pLoginPlayer->getPayType()!=PAY_TYPE_FREE)
 			{
 				bCheckATTR = true;
@@ -76,7 +76,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		{
 			cout <<  "CannotPlay: " << pLoginPlayer->getID().c_str() << endl;
 
-			// °ÔÀÓ ÇÒ ¼ö ¾ø´Â Ä³¸¯ÅÍ(ºô¸µ °ü·Ã)
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 			LCSelectPCError lcSelectPCError;
 			lcSelectPCError.setCode(SELECT_PC_CANNOT_PLAY);
 			pLoginPlayer->sendPacket(&lcSelectPCError);	
@@ -87,16 +87,16 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 	}
 	else 
 	{
-		// ¾ÆÁ÷ ºô¸µ½Ã½ºÅÛÀ¸·ÎºÎÅÍ °ËÁõÀÌ µÇÁö ¾ÊÀº »óÅÂ
-		// Å¬¶óÀÌ¾ðÆ®¿¡¼­ ´õ ±â´Ù¸®µµ·Ï ÇØ¾ßÇÑ´Ù.
-		// ¾Æ´Ï¸é, ÀÏ´Ü ±×³É ³Ñ¾î°¡°í.. °× ¼­¹ö¿¡¼­ Â©¸®µµ·Ï ÇÒ±î?
-		// ¾ÆÁ÷ °áÁ¦ Á¤º¸°¡ Ã¼Å©µÇÁö ¾Ê¾Ò´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½.
+		// ï¿½Æ´Ï¸ï¿½, ï¿½Ï´ï¿½ ï¿½×³ï¿½ ï¿½Ñ¾î°¡ï¿½ï¿½.. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Â©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò±ï¿½?
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´ï¿½.
 		cout << "NotBillingChecked: " << pLoginPlayer->getID().c_str();
 
 		if (pLoginPlayer->isPayPlaying()
 			&& pLoginPlayer->getPayType()==PAY_TYPE_FREE)
 		{
-			// ¿ÏÀü ¹«·á »ç¿ëÀÚ´Â ±×³É Åë°úÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			cout << "But PAY_TYPE_FREE" << endl;
 		}
 		else
@@ -146,10 +146,10 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 
 #endif
 
-// ¾Öµåºô ºô¸µÀº »ç¿ëÇÏÁö ¾Ê¾Æµµ..
-// ´É·ÂÄ¡ Á¦ÇÑ Ã¼Å©´Â ÇØ¾ßÇÏ´Â °æ¿ì
+// ï¿½Öµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½..
+// ï¿½É·ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 #ifdef __PAY_SYSTEM_FREE_LIMIT__
-	// À¯·á »ç¿ëÀÚ°¡ ¾Æ´Ñ °æ¿ì´Â ... ´É·ÂÄ¡ Ã¼Å©ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ... ï¿½É·ï¿½Ä¡ Ã¼Å©ï¿½Ñ´ï¿½.
 	if (!pLoginPlayer->isPayPlaying())
 	{
 		bCheckATTR = true;
@@ -160,7 +160,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 	if (pLoginPlayer->getPlayerStatus() != LPS_PC_MANAGEMENT)
 		throw DisconnectException("invalid player status");
 
-	// PC ÀÇ Á¤º¸¸¦ µ¥ÀÌÅ¸º£ÀÌ½º·ÎºÎÅÍ °¡Á® ¿Â´Ù.
+	// PC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â´ï¿½.
 	Statement* pStmt = NULL;
 	Statement* pStmt1 = NULL;	// (!)
 	Result* pResult;
@@ -169,13 +169,13 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 	try 
 	{
 		pStmt1 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement(); // (!)
-        pStmt = g_pDatabaseManager->getConnection((TID)WorldID )->createStatement();
+        pStmt = g_pDatabaseManager->getConnection((int)WorldID )->createStatement();
 
 		//----------------------------------------------------------------------
-		// PC °¡ ¸¶Áö¸·À¸·Î ÇÃ·¹ÀÌÇÑ Á¸ÀÇ ¾ÆÀÌµð¸¦ °¡Á®¿Â´Ù.
+		// PC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 		//----------------------------------------------------------------------
 
-		// ½½·¹ÀÌ¾î È¤Àº ¹ìÆÄÀÌ¾î Å×ÀÌºí¿¡¼­ ³»°¡ ¼ÒÀ¯ÇÑ ¾×Æ¼ºê Ä³¸¯ÅÍ¸¦ Ã£´Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í¸ï¿½ Ã£ï¿½Â´ï¿½.
 		/*
 		pResult = pStmt->executeQuery(
 			"SELECT ZoneID, Slot FROM %s WHERE Name = '%s' AND PlayerID = '%s' AND Active = 'ACTIVE'", 
@@ -213,7 +213,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 			);
 		}
 	
-		// ±×·± PC°¡ ¾øÀ» °æ¿ì
+		// ï¿½×·ï¿½ PCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (pResult->getRowCount() != 1)
 		{
 			SAFE_DELETE(pStmt);
@@ -225,7 +225,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		ZoneID_t zoneID = pResult->getWORD(1);
 		string slotStr 	= pResult->getString(2);
 
-		// ´É·ÂÄ¡ Ã¼Å©. by sigi. 2002.11.22
+		// ï¿½É·ï¿½Ä¡ Ã¼Å©. by sigi. 2002.11.22
 		if (bCheckATTR)
 		{
 		#ifdef __PAY_SYSTEM_FREE_LIMIT__
@@ -273,8 +273,8 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 			int playerLevel = pResult->getInt(3);
 			int competence = pResult->getInt(4);
 
-			// 40 ·¹º§ º¸´Ù ³ôÀº ÇÃ·¹ÀÌ¾î´Â µé¾î°¥ ¼ö ¾ø´Ù.
-			// ¿î¿µÀÚ´Â µé¾î°¡¾ßÇÑ´Ù.
+			// 40 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			// ï¿½î¿µï¿½Ú´ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if (playerLevel > 80 && competence == 3 )
 			{
 				LCSelectPCError lcSelectPCError;
@@ -295,12 +295,12 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		int slot = slotStr.at(4) - '0';
 
 		//----------------------------------------------------------------------
-		// ÀÌ Á¸À» °ü¸®ÇÏ´Â °ÔÀÓ ¼­¹ö Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 		//----------------------------------------------------------------------
 		GameServerInfo* pGameServerInfo;
 		if (zoneID > 10000 && zoneID < 30000 )
 		{
-			// Ä³¸¯ÅÍ°¡ ±æµå ¾ÆÁöÆ®¿¡ ÀÖ´Ù. ±æµå ¾ÆÁöÆ® Á¸ÀÇ Á¤º¸´Â login server¿¡ ¾øÀ¸¹Ç·Î ´ëÃæ ¶«»§ÇÑ´Ù.
+			// Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ login serverï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			pGameServerInfo = g_pGameServerInfoManager->getGameServerInfo(1, pLoginPlayer->getServerGroupID(), WorldID);
 		}
 		else
@@ -313,13 +313,13 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		}
 
 		//----------------------------------------------------------------------
-		// ÀÌ »ç¿ëÀÚÀÇ ÇöÀç Á¢¼Ó ¼­¹ö Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 		//----------------------------------------------------------------------
 //		GameServerInfo* pGameServerInfo = g_pGameServerInfoManager->getGameServerInfo(pPlayer->getServerID());
 
 
 		//----------------------------------------------------------------------
-		// °ÔÀÓ¼­¹ö¿¡°Ô incoming connection ÀÌ ¿Ã °Å¶ó°í ¾Ë·ÁÁØ´Ù.
+		// ï¿½ï¿½ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ incoming connection ï¿½ï¿½ ï¿½ï¿½ ï¿½Å¶ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½.
 		//----------------------------------------------------------------------
 		LGIncomingConnection lgIncomingConnection;
 		lgIncomingConnection.setClientIP(pLoginPlayer->getSocket()->getHost());
@@ -330,11 +330,11 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		//
 		// *CAUTION*
 		//
-		// LoginPlayer::setPlayerStatus()¿Í GameServerManager::sendPacket()ÀÇ ¼ø¼­¿¡ ÁÖÀÇÇÏ¶ó.
-		// ´Ü¼øÇÏ°Ô »ý°¢ÇÏ¸é sendPacket()ÈÄ¿¡ setPlayerStatus()¸¦ È£ÃâÇÏ´Â °ÍÀÌ ³í¸®¿¡ ÇÕ´ç
-		// ÇÏÁö¸¸, ½ÇÁ¦·Î ±×·¸°Ô ÇÏ¸é setPlayerStatus()¸¦ È£ÃâÇÏ±â Àü¿¡ °ÔÀÓ ¼­¹ö·ÎºÎÅÍ
-		// GLIncomingConnectionXXX ÆÐÅ¶ÀÌ ³¯¾Æ¿Í¼­ ±× ÇÚµé·¯°¡ ½ÇÇàµÈ´Ù. - -;
-		// µû¶ó¼­, ¾Æ·¡¿Í °°ÀÌ »óÅÂ¸¦ ¸ÕÀú ÁöÁ¤ÇÑ ÈÄ¿¡ UDP ÆÐÅ¶À» Àü¼ÛÇØ¾ß ÇÑ´Ù.
+		// LoginPlayer::setPlayerStatus()ï¿½ï¿½ GameServerManager::sendPacket()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
+		// ï¿½Ü¼ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ sendPacket()ï¿½Ä¿ï¿½ setPlayerStatus()ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ´ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½ setPlayerStatus()ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½
+		// GLIncomingConnectionXXX ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Æ¿Í¼ï¿½ ï¿½ï¿½ ï¿½Úµé·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´ï¿½. - -;
+		// ï¿½ï¿½ï¿½ï¿½, ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ UDP ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 		//
 		//--------------------------------------------------------------------------------
 		pLoginPlayer->setPlayerStatus(LPS_AFTER_SENDING_LG_INCOMING_CONNECTION);
@@ -344,7 +344,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 		pLoginPlayer->setGameServerIP(pGameServerInfo->getIP());
 
 /*
-		// ¾îÂ¿ ¼ö ¾øÀÌ user name À» »ç¿ëÇØ¼­ ÇÏµåÄÚµùÇÑ´Ù. -_-;
+		// ï¿½ï¿½Â¿ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ user name ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½ï¿½Ñ´ï¿½. -_-;
 		g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , pGameServerInfo->getUDPPort() , &lgIncomingConnection);
 */
 		
@@ -365,7 +365,7 @@ void CLSelectPCHandler::execute (CLSelectPC* pPacket , Player* pPlayer)
 			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , g_pConfig->getPropertyInt("GameServerUDPPort"), &lgIncomingConnection);
 //			g_pGameServerManager->sendPacket(pGameServerInfo->getIP() , 3335 , &lgIncomingConnection);
 
-		// ¸¶Áö¸·À¸·Î Á¢¼ÓÇÑ slot ±â¾ï. by sigi. 2002.5.6
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ slot ï¿½ï¿½ï¿½. by sigi. 2002.5.6
 		pStmt1->executeQuery(	// (!)
 		//pStmt->executeQuery(
 			"UPDATE Player Set CurrentWorldID = %d, CurrentServerGroupID = %d, LastSlot = %d WHERE PlayerID = '%s'",

@@ -135,7 +135,7 @@ void ProfileSampleSet::beginProfile(const string& name)
 {
 	unordered_map<string, int>::iterator itr = m_NameMap.find(name);
 
-	// ÀÌ¹Ì °°Àº ÀÌ¸§ÀÇ »ùÇÃÀÌ Á¸ÀçÇÑ´Ù¸é...
+	// ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù¸ï¿½...
 	if (itr != m_NameMap.end())
 	{
 		int i = itr->second;
@@ -144,16 +144,16 @@ void ProfileSampleSet::beginProfile(const string& name)
 		m_ProfileSamples[i].setCallCount(m_ProfileSamples[i].getCallCount() + 1);
 		m_ProfileSamples[i].setStartTime();
 
-		// Àç±ÍÈ£ÃâÀº Áö¿øÇÏÁö ¾Ê´Â´Ù.
+		// ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 		Assert(m_ProfileSamples[i].getOpenCount() == 1);
 	}
-	// Ã³À½À¸·Î µî·ÏÇÏ´Â °Å¶ó¸é...
+	// Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Å¶ï¿½ï¿½...
 	else
 	{
-		// ºó ÀÚ¸®¸¦ Ã£¾Æ¾ß ÇÑ´Ù.
+		// ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ Ã£ï¿½Æ¾ï¿½ ï¿½Ñ´ï¿½.
 		for (int i=0; i<MAX_PROFILE_SAMPLES; i++)
 		{
-			// ¾ÆÁ÷ »ç¿ëµÇÁö ¾ÊÀº »ùÇÃÀ» Ã£¾Ò´Ù¸é µî·ÏÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Ò´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if (!m_ProfileSamples[i].isUsed())
 			{
 				m_ProfileSamples[i].setUsed(true);
@@ -164,15 +164,15 @@ void ProfileSampleSet::beginProfile(const string& name)
 				m_ProfileSamples[i].initChildTime();
 				m_ProfileSamples[i].initAccuTime();
 
-				// ºü¸¥ °Ë»öÀ» À§ÇØ¼­ ÇØ½¬¸Ê¿¡´Ù ÀÎµ¦½º¸¦ ³Ö¾îµÐ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ø½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½Ð´ï¿½.
 				m_NameMap[name] = i;
 
 				return;
 			}
 		}
 
-		// ÀÌ±îÁö ¿Ô´Ù´Â °ÍÀº ÇÁ·ÎÆÄÀÏ ÃÖ´ë °¹¼ö¸¦ ÃÊ°úÇß´Ù´Â ¸»ÀÌ´Ù.
-		// ±×·¯¹Ç·Î ¿¡·¯´Ù.
+		// ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Ô´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½ß´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+		// ï¿½×·ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		Assert(false);
 	}
 }
@@ -181,7 +181,7 @@ void ProfileSampleSet::endProfile(const string& name)
 {
 	unordered_map<string, int>::iterator itr = m_NameMap.find(name);
 
-	// ±×·± ÀÌ¸§À» °¡Áø ÇÁ·ÎÆÄÀÏ »ùÇÃÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ¿¡·¯´Ù...
+	// ï¿½×·ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...
 	if (itr == m_NameMap.end())
 	{
 		Assert(false);
@@ -198,25 +198,25 @@ void ProfileSampleSet::endProfile(const string& name)
 
 	m_ProfileSamples[index].setOpenCount(m_ProfileSamples[index].getOpenCount() - 1);
 
-	// ¼öÇà ½Ã°£À» °è»êÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	Timeval timeoffset = timediff(m_ProfileSamples[index].getStartTime(), endTime);
 
-	// ¸ðµç ºÎ¸ðµéÀÇ °¹¼ö¸¦ ¼¼°í, Á÷°è ºÎ¸ð¸¦ Ã£´Â´Ù.
+	// ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ Ã£ï¿½Â´ï¿½.
 	for (int i=0; i<MAX_PROFILE_SAMPLES; i++)
 	{
-		// 1. »ç¿ëµÇ´Â »ùÇÃÀÌ´Ù.
-		// 2. ÇöÀç ¿­·ÁÀÖ´Ù.
-		// ¶ó¸é ºÎ¸ðÀÏ °¡´É¼ºÀÌ ÀÖ´Â »ùÇÃÀÌ´Ù.
+		// 1. ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+		// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½.
+		// ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 		if (m_ProfileSamples[i].isUsed() && m_ProfileSamples[i].getOpenCount() > 0)
 		{
 			ParentCount++;
 
-			// ÃÖÃÊÀÇ ºÎ¸ð¶ó¸é...
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½...
 			if (Parent < 0)
 			{
 				Parent = i;
 			}
-			// ÃÖÃÊÀÇ ºÎ¸ð°¡ ¾Æ´Ï¶ó¸é Á» ´õ ÃÖ±Ù¿¡ ¿­¸° ºÎ¸ð°¡ ÁøÂ¥ ºÎ¸ð »ùÇÃÀÌ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½Â¥ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
 			else if (m_ProfileSamples[i].getStartTime() >= m_ProfileSamples[Parent].getStartTime())
 			{
 				Parent = i;
@@ -224,15 +224,15 @@ void ProfileSampleSet::endProfile(const string& name)
 		}
 	}
 	
-	// ÇöÀç »ùÇÃ¿¡°Ô ºÎ¸ðÀÇ °¹¼ö¸¦ ¾Ë·ÁÁØ´Ù. 
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½. 
 	m_ProfileSamples[index].setParentCount(ParentCount);
 
-	// ÇöÀç »ùÇÃÀÇ ´©Àû ½Ã°£¿¡ ÇöÀç ¼öÇà ½Ã°£À» ´©Àû½ÃÅ²´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 	m_ProfileSamples[index].addAccuTime(timeoffset);
 
 	if (Parent >= 0)
 	{
-		// Á÷°è ºÎ¸ðÀÇ ÀÚ½Ä ¼öÇà ½Ã°£¿¡ ÇöÀç ¼öÇà ½Ã°£À» ´©Àû½ÃÅ²´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 		m_ProfileSamples[Parent].addChildTime(timeoffset);
 	}
 }
@@ -272,9 +272,9 @@ void ProfileSampleSet::outputProfile(bool bOutputOnlyRootNode, bool bOutputThrea
 			cout << endl;
 		}
 
-		// ·çÆ® ³ëµå¸¸ Âï´Â´Ù´Â °ÍÀº ¹è¿­ÀÇ Á¦ÀÏ ¾ÕºÎºÐ¿¡ Á¸ÀçÇÏ´Â
-		// ³ëµå¸¸À» Âï´Â´Ù´Â ¸»°ú °°´Ù. ±×·¯¹Ç·Î ÇÏ³ª¸¸ Âï°í,
-		// ¹Ù·Î ¸®ÅÏÇÏ¸é µÇ°Ú´Ù.
+		// ï¿½ï¿½Æ® ï¿½ï¿½å¸¸ ï¿½ï¿½Â´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÕºÎºÐ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
+		// ï¿½ï¿½å¸¸ï¿½ï¿½ ï¿½ï¿½Â´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½×·ï¿½ï¿½Ç·ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,
+		// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ç°Ú´ï¿½.
 		if (bOutputOnlyRootNode)
 		{
 			return;
@@ -332,9 +332,9 @@ void ProfileSampleSet::outputProfileToFile(const char* filename, bool bOutputOnl
 			file << endl;
 		}
 
-		// ·çÆ® ³ëµå¸¸ Âï´Â´Ù´Â °ÍÀº ¹è¿­ÀÇ Á¦ÀÏ ¾ÕºÎºÐ¿¡ Á¸ÀçÇÏ´Â
-		// ³ëµå¸¸À» Âï´Â´Ù´Â ¸»°ú °°´Ù. ±×·¯¹Ç·Î ÇÏ³ª¸¸ Âï°í,
-		// ¹Ù·Î ¸®ÅÏÇÏ¸é µÇ°Ú´Ù.
+		// ï¿½ï¿½Æ® ï¿½ï¿½å¸¸ ï¿½ï¿½Â´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÕºÎºÐ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
+		// ï¿½ï¿½å¸¸ï¿½ï¿½ ï¿½ï¿½Â´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½×·ï¿½ï¿½Ç·ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½,
+		// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Ç°Ú´ï¿½.
 		if (bOutputOnlyRootNode)
 		{
 			return;
@@ -396,13 +396,13 @@ void ProfileSampleManager::addProfileSampleSet(int TID, ProfileSampleSet* pSet)
 
 ProfileSampleSet* ProfileSampleManager::getProfileSampleSet(void)
 {
-	unordered_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find(Thread::self());
+	unordered_map<int, ProfileSampleSet*>::iterator itr = m_ProfileSampleMap.find((int)(long)Thread::self());
 	
-	// ¾ø´Ù¸é »ý¼ºÇØ¼­ ¸®ÅÏÇÑ´Ù.
+	// ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (itr == m_ProfileSampleMap.end())
 	{
 		ProfileSampleSet* pProfileSampleSet = new ProfileSampleSet;
-		m_ProfileSampleMap[Thread::self()] = pProfileSampleSet;
+		m_ProfileSampleMap[(int)(long)Thread::self()] = pProfileSampleSet;
 		return pProfileSampleSet;
 	}
 	

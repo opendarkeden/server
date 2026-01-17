@@ -62,7 +62,7 @@ void MPlayerManager::run()
 		port = g_pConfig->getPropertyInt("DB_PORT");
 
 	Connection* pConnection = new Connection(host, db, user, password, port);
-	g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+	g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 	cout << "******************************************************" << endl;
 	cout << " Mofus THREAD CONNECT DB " << endl;
 	cout << "******************************************************" << endl;

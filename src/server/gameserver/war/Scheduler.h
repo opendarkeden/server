@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ½ºÄÉÁÙ¸µµÈ ÀÛ¾÷À» À§ÇÑ Scheduler Å¬·¡½º.
+// ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Scheduler Å¬ï¿½ï¿½ï¿½ï¿½.
 ///////////////////////////////////////////////////////////////////
 
 #ifndef __SCHEDULER_H__
@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <queue>
-#include <hash_map>
+#include "HashMap.h"
 #include "Exception.h"
 #include "Work.h"
 #include "Schedule.h"

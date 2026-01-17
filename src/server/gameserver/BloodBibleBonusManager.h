@@ -8,12 +8,11 @@
 #define __BLOOD_BIBLE_BONUS_INFO_MANAGER_H__
 
 #include "Exception.h"
-#include "Exception.h"
 #include "Types.h"
 #include <unordered_map>
+#include "BloodBibleBonus.h"
 
 class GCHolyLandBonusInfo;
-class BloodBibleBonus;
 
 typedef unordered_map<BloodBibleBonusType_t, BloodBibleBonus*>	BloodBibleBonusHashMap;
 typedef BloodBibleBonusHashMap::iterator 					BloodBibleBonusHashMapItor;

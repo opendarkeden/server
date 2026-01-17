@@ -15,7 +15,7 @@
 
 #if __WINDOWS__
 #include <WinSock.h>
-#elif __LINUX__
+#elif defined(__LINUX__) || defined(__APPLE__)
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -28,7 +28,7 @@
 // WinSock.h is already included on Windows so these are defined there.
 //
 //////////////////////////////////////////////////
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 
 	typedef int SOCKET;
 	static const int INVALID_SOCKET = -1;

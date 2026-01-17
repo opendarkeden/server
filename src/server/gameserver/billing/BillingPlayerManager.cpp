@@ -92,10 +92,10 @@ void BillingPlayerManager::run ()
 			port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 		Connection* pDistConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+		g_pDatabaseManager->addDistConnection(((int)(long)Thread::self()), pDistConnection);
 		cout << "******************************************************" << endl;
 		cout << " THREAD CONNECT UIIRIBUTION DB - for BillingSystem" << endl;
-		cout << " TID Number = " << (int)Thread::self()<< endl;
+		cout << " TID Number = " << (int)(long)Thread::self()<< endl;
 		cout << "******************************************************" << endl;
 
 		Timeval dummyQueryTime;

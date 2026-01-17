@@ -13,7 +13,7 @@
 #include "Packet.h"
 #include "PlayerStatus.h"
 
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 	#include <unordered_set>
 	typedef unordered_set<PacketID_t> PACKET_ID_SET;
 #elif __WINDOWS__
@@ -25,7 +25,7 @@
 //
 // class PacketValidator;
 //
-// ÆÐÅ¶ÀÇ ¼ø¼­¸¦ ÀÎÁõÇÑ´Ù.
+// ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -68,10 +68,10 @@ private :
 	// Packet ID Set Type 
 	PacketIDSetType m_PacketIDSetType;
 
-	// ÇÃ·¹ÀÌ¾î »óÅÂ
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 	PlayerStatus m_PlayerStatus;
 
-	// Çã¿ëµÇ´Â ÆÐÅ¶ÀÇ ÇØ½¬¸Ê
+	// ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ø½ï¿½ï¿½ï¿½
 	PACKET_ID_SET m_PacketIDSet;
 
 };

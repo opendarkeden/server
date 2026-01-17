@@ -681,7 +681,7 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 
 		BEGIN_DB
 		{
-			//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+			//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 			pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 			Result* pResult = pStmt->executeQuery( "SELECT PayType, PayPlayDate, PayPlayHours, PayPlayFlag, FamilyPayPlayDate FROM Player WHERE PlayerID='%s'", playerID.c_str());
@@ -880,7 +880,7 @@ void PaySystem::clearPayPlayDateTime(const string& playerID)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -908,7 +908,7 @@ void PaySystem::decreasePayPlayTime(const string& playerID, uint mm)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -935,7 +935,7 @@ void PaySystem::decreasePayPlayTimePCRoom(uint mm)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -1009,7 +1009,7 @@ bool PaySystem::isPayPlayingPeriodPersonal(const string& PlayerID)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		Result* pResult = pStmt->executeQuery("SELECT PayType=0 or PayPlayDate > now() FROM Player WHERE PlayerID='%s'",

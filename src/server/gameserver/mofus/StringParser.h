@@ -4,13 +4,13 @@
 //	filename	:	CommandStringParser.h
 //	author		:	bezz
 //	
-//	purpose		:	StringParser Å¬·¡½º
+//	purpose		:	StringParser Å¬ï¿½ï¿½ï¿½ï¿½
 //	
 //////////////////////////////////////////////////////////////////////
 
 // include files
 #include <string>
-#include <hash_map>
+#include "HashMap.h"
 
 // forward declaration;
 
