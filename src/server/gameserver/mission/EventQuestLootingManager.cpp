@@ -17,7 +17,7 @@
 #include <iosfwd>
 #include <list>
 
-int ratio[5] = { 34,50,34,25,16 };
+int g_ratio[5] = { 34,50,34,25,16 };
 
 EventQuestLootingManager* g_pEventQuestLootingManager = NULL;
 
@@ -67,7 +67,7 @@ bool EventQuestLootingInfo::isTargetMonster( PlayerCreature* pPC, Monster* pMons
 		}
 		else
 		{
-			cout << "³Í¹¹³Ä!" << endl;
+			cout << "ï¿½Í¹ï¿½ï¿½ï¿½!" << endl;
 			qGrade = 0;
 		}
 
@@ -153,8 +153,8 @@ bool EventQuestLootingManager::killed( PlayerCreature* pPC, Monster* pMonster )
 	EventQuestLootingInfo* pInfo = isTargetMonster( pPC, pMonster );
 	if ( pInfo == NULL ) return false;
 
-//	cout << "Affecting ratio : " << ratio[pInfo->m_QuestLevel] << endl;
-	if ( (rand()%100) < ratio[pInfo->m_QuestLevel] )
+//	cout << "Affecting ratio : " << g_ratio[pInfo->m_QuestLevel] << endl;
+	if ( (rand()%100) < g_ratio[pInfo->m_QuestLevel] )
 	{
 		Item* pItem = pInfo->getLootingItem();
 		if ( pItem == NULL ) return false;

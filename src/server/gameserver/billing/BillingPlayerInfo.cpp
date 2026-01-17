@@ -31,10 +31,8 @@ BillingPlayerInfo::BillingPlayerInfo ()
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-BillingPlayerInfo::~BillingPlayerInfo ()
+BillingPlayerInfo::~BillingPlayerInfo () noexcept
 {
-	__BEGIN_TRY
-	__END_CATCH
 }
 
 void BillingPlayerInfo::setBillingSession (Player* pPlayer)

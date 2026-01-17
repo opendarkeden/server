@@ -120,7 +120,7 @@ Slayer::Slayer ()
 
 	m_Mutex.setName("Slayer");
 
-	// AttackMelee °°Àº ±âº» ±â¼úÀ» Áı¾î³Ö¾îÁØ´Ù.
+	// AttackMelee ê°™ì€ ê¸°ë³¸ ê¸°ìˆ ì„ ì§‘ì–´ë„£ì–´ì¤€ë‹¤.
 	for (int i=0; i<SKILL_DOUBLE_IMPACT; i++)
 	{
 		SkillSlot* pSkillSlot = new SkillSlot;
@@ -138,7 +138,7 @@ Slayer::Slayer ()
 	for (int i = 0; i < WEAR_MAX; i++) 
 		m_pWearItem[i] = NULL;
 
-	// MotorcycleÀ» Null ·Î ¸¸µç´Ù.
+	// Motorcycleì„ Null ë¡œ ë§Œë“ ë‹¤.
 	m_pMotorcycle = NULL;
 
 	for (int i = 0; i < MAX_PHONE_SLOT; i++) 
@@ -146,16 +146,16 @@ Slayer::Slayer ()
 		m_PhoneSlot[i] = 0;
 	}
 
-	// ÇÖ Å°¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+	// í•« í‚¤ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 //	for (int i = 0; i < 4; i++) 
 //	{
 //		m_HotKey[i] = 0;
 //	}
 
-	// MP ¸®Á¨ ½Ã°£ ÃÊ±âÈ­
+	// MP ë¦¬ì   ì‹œê°„ ì´ˆê¸°í™”
 	getCurrentTime(m_MPRegenTime);
 
-	// °æÇèÄ¡ ¼¼ÀÌºê Ä«¿îÆ®¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// ê²½í—˜ì¹˜ ì„¸ì´ë¸Œ ì¹´ìš´íŠ¸ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	m_DomainExpSaveCount = 0;
 	m_AttrExpSaveCount   = 0;
 	m_SkillExpSaveCount  = 0;
@@ -179,8 +179,8 @@ Slayer::~Slayer()
 		{
 			//getOffMotorcycle();
 
-			// ÀÌ°Å IncomingPlayerManager¿¡¼­ ÇØ¹ö¸®¸é ¹®Á¦°¡ µÈ´Ù..
-			// ±×·¡¼­.. ±×³É ¿ÀÅä¹ÙÀÌ¸¦ ¾ø¾Ö¹ö¸®µµ·Ï ÇÏÀÚ. 2002.7.15 by sigi
+			// ì´ê±° IncomingPlayerManagerì—ì„œ í•´ë²„ë¦¬ë©´ ë¬¸ì œê°€ ëœë‹¤..
+			// ê·¸ë˜ì„œ.. ê·¸ëƒ¥ ì˜¤í† ë°”ì´ë¥¼ ì—†ì• ë²„ë¦¬ë„ë¡ í•˜ì. 2002.7.15 by sigi
 			if (g_pParkingCenter->hasMotorcycleBox(m_pMotorcycle->getItemID()))
 			{
 				g_pParkingCenter->deleteMotorcycleBox(m_pMotorcycle->getItemID());
@@ -189,7 +189,7 @@ Slayer::~Slayer()
 			m_pMotorcycle = NULL;
 		}
 
-		// º¹Àå Á¤º¸¸¦ »ı¼ºÇØµĞ´Ù. by sigi. 2002.6.18
+		// ë³µì¥ ì •ë³´ë¥¼ ìƒì„±í•´ë‘”ë‹¤. by sigi. 2002.6.18
 		DWORD 	flag;
 		Color_t color[PCSlayerInfo::SLAYER_COLOR_MAX];
 		getShapeInfo (flag, color);
@@ -208,33 +208,33 @@ Slayer::~Slayer()
 		tinysave(pField);
 
 
-		// ¶³¾îÁø ¾ÆÀÌÅÛÀÇ ³»±¸¼º°ú °æÇèÄ¡, ¼ºÇâ µîÀ» ÀúÀåÇÑ´Ù.
+		// ë–¨ì–´ì§„ ì•„ì´í…œì˜ ë‚´êµ¬ì„±ê³¼ ê²½í—˜ì¹˜, ì„±í–¥ ë“±ì„ ì €ì¥í•œë‹¤.
 		saveGears();
 		saveExps();
 		saveSkills();
 
-		// ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛÀ» ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù. 
+		// ì…ê³  ìˆëŠ” ì•„ì´í…œì„ ë©”ëª¨ë¦¬ì—ì„œ ì‚­ì œí•œë‹¤. 
 		destroyGears();
 
-		// Å¬·¡½º°¡ »èÁ¦µÉ °æ¿ì, ÇØ´çÇÏ´Â ±³È¯ Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÔÀº ¹°·Ğ,
-		// ±³È¯ »ó´ë¿¡°Ôµµ ÀÌ »ç½ÇÀ» ¾Ë·ÁÁà¾ß ÇÑ´Ù.
+		// í´ë˜ìŠ¤ê°€ ì‚­ì œë  ê²½ìš°, í•´ë‹¹í•˜ëŠ” êµí™˜ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•¨ì€ ë¬¼ë¡ ,
+		// êµí™˜ ìƒëŒ€ì—ê²Œë„ ì´ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤˜ì•¼ í•œë‹¤.
 		TradeManager* pTradeManager = m_pZone->getTradeManager();
 		TradeInfo* pInfo = pTradeManager->getTradeInfo(getName());
 		if (pInfo != NULL)
 		{
-			// ±³È¯ Á¤º¸¸¦ »èÁ¦
+			// êµí™˜ ì •ë³´ë¥¼ ì‚­ì œ
 			pTradeManager->cancelTrade(this);
 		}
 
-		// ±Û·Î¹ú ÆÄÆ¼¿¡¼­ »èÁ¦ÇÑ´Ù.
-		// ÀÏ¹İÀûÀÎ ·Î±×¾Æ¿ôÀÇ °æ¿ì¿¡´Â
-		// CGLogoutHandler¿¡¼­ Zone::deleteCreature() ÇÔ¼ö¸¦ ºÎ¸£°Ô µÇ°í,
-		// ºñÁ¤»óÀûÀÎ °æ¿ì¶ó°í ÇØµµ, 
-		// GamePlayer::disconnect()¿¡¼­ Zone::deleteCreature() ÇÔ¼ö¸¦ ºÎ¸£°Ô µÇ¹Ç·Î,
-		// ·ÎÄÃ ÆÄÆ¼ ¹× ÆÄÆ¼ ÃÊ´ë, Æ®·¹ÀÌµå Á¤º¸¸¦ °ÆÁ¤ÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+		// ê¸€ë¡œë²Œ íŒŒí‹°ì—ì„œ ì‚­ì œí•œë‹¤.
+		// ì¼ë°˜ì ì¸ ë¡œê·¸ì•„ì›ƒì˜ ê²½ìš°ì—ëŠ”
+		// CGLogoutHandlerì—ì„œ Zone::deleteCreature() í•¨ìˆ˜ë¥¼ ë¶€ë¥´ê²Œ ë˜ê³ ,
+		// ë¹„ì •ìƒì ì¸ ê²½ìš°ë¼ê³  í•´ë„, 
+		// GamePlayer::disconnect()ì—ì„œ Zone::deleteCreature() í•¨ìˆ˜ë¥¼ ë¶€ë¥´ê²Œ ë˜ë¯€ë¡œ,
+		// ë¡œì»¬ íŒŒí‹° ë° íŒŒí‹° ì´ˆëŒ€, íŠ¸ë ˆì´ë“œ ì •ë³´ë¥¼ ê±±ì •í•  í•„ìš”ëŠ” ì—†ë‹¤.
 		deleteAllPartyInfo(this);
 
-		// ±â¼úµéÀ» »èÁ¦
+		// ê¸°ìˆ ë“¤ì„ ì‚­ì œ
 		unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.begin();
 		for (; itr != m_SkillSlot.end(); itr++)
 		{
@@ -259,11 +259,11 @@ Slayer::~Slayer()
 
 	m_bDeriveDestructed = true;
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
-// Zone¿¡ Á¾¼ÓµÈ ObjectRegistry¸¦ »ç¿ëÇØ¼­, Slayer ¿Í ¼ÒÀ¯¾ÆÀÌÅÛµéÀÇ
-// ObjectID¸¦ ÇÒ´ç¹Ş´Â´Ù.
+// Zoneì— ì¢…ì†ëœ ObjectRegistryë¥¼ ì‚¬ìš©í•´ì„œ, Slayer ì™€ ì†Œìœ ì•„ì´í…œë“¤ì˜
+// ObjectIDë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
 void Slayer::registerObject ()
 	
 {
@@ -271,25 +271,25 @@ void Slayer::registerObject ()
 
 	Assert(getZone() != NULL);
 
-	// zone ÀÇ object registery ¿¡ Á¢±ÙÇÑ´Ù.
+	// zone ì˜ object registery ì— ì ‘ê·¼í•œë‹¤.
 	ObjectRegistry & OR = getZone()->getObjectRegistry();
 
 	__ENTER_CRITICAL_SECTION(OR)
 
-	// ¸ğµç ¾ÆÀÌÅÛ¿¡ OID °¡ ¹Ù²î¹Ç·Î ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ ¸Å´ÏÀú¿¡¼­ OID ¸ÊÀ» Áö¿öÁà¾ß ÇÑ´Ù.
+	// ëª¨ë“  ì•„ì´í…œì— OID ê°€ ë°”ë€Œë¯€ë¡œ ì‹œê°„ì œí•œ ì•„ì´í…œ ë§¤ë‹ˆì €ì—ì„œ OID ë§µì„ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	if (m_pTimeLimitItemManager != NULL)
 		m_pTimeLimitItemManager->clear();
 
-	// ¿ì¼± ½½·¹ÀÌ¾îÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ìš°ì„  ìŠ¬ë ˆì´ì–´ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	OR.registerObject_NOLOCKED(this);
 
-	// ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	registerInventory(OR);
 
-	// Goods InventoryÀÇ ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// Goods Inventoryì˜ ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	registerGoodsInventory(OR);
 
-	// ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ì¥ì°©í•˜ê³  ìˆëŠ” ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	for (int i = 0; i < WEAR_MAX; i++) 
 	{
 		Item* pItem = m_pWearItem[i];
@@ -298,8 +298,8 @@ void Slayer::registerObject ()
 		{
 			bool bCheck = true;
 
-			// ¾ç¼Õ ¹«±âÀÏ °æ¿ì, WEAR_LEFTHAND ¿¡¼­ µî·ÏÇßÀ¸¹Ç·Î,
-			// ¶Ç µî·ÏÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+			// ì–‘ì† ë¬´ê¸°ì¼ ê²½ìš°, WEAR_LEFTHAND ì—ì„œ ë“±ë¡í–ˆìœ¼ë¯€ë¡œ,
+			// ë˜ ë“±ë¡í•  í•„ìš”ëŠ” ì—†ë‹¤.
 			if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
 				bCheck = false;
 
@@ -307,11 +307,11 @@ void Slayer::registerObject ()
 		}
 	}
 
-	// ¸¶¿ì½º¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÇ OID¸¦ µî·Ï ¹Ş´Â´Ù.
+	// ë§ˆìš°ìŠ¤ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œì˜ OIDë¥¼ ë“±ë¡ ë°›ëŠ”ë‹¤.
 	Item* pSlotItem = m_pExtraInventorySlot->getItem();
 	if (pSlotItem != NULL) registerItem(pSlotItem, OR);
 
-	// ¿ÀÅä¹ÙÀÌÀÇ OID¸¦ µî·Ï ¹Ş´Â´Ù.
+	// ì˜¤í† ë°”ì´ì˜ OIDë¥¼ ë“±ë¡ ë°›ëŠ”ë‹¤.
 	if (m_pMotorcycle != NULL) 
 		OR.registerObject_NOLOCKED(m_pMotorcycle);
 
@@ -331,8 +331,8 @@ void Slayer::registerObject ()
 	__END_CATCH
 }
 
-// Zone¿¡ Á¾¼ÓµÈ ObjectRegistry¸¦ »ç¿ëÇØ¼­, Slayer ¿Í ¼ÒÀ¯¾ÆÀÌÅÛµéÀÇ
-// ObjectID¸¦ ÇÒ´ç¹Ş´Â´Ù. ÃÊ±â¿¡ ItemTrace ¸¦ À§ÇØ µû·Î »­
+// Zoneì— ì¢…ì†ëœ ObjectRegistryë¥¼ ì‚¬ìš©í•´ì„œ, Slayer ì™€ ì†Œìœ ì•„ì´í…œë“¤ì˜
+// ObjectIDë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤. ì´ˆê¸°ì— ItemTrace ë¥¼ ìœ„í•´ ë”°ë¡œ ëºŒ
 void Slayer::registerInitObject ()
 	
 {
@@ -340,38 +340,38 @@ void Slayer::registerInitObject ()
 
 	Assert(getZone() != NULL);
 
-	// zone ÀÇ object registery ¿¡ Á¢±ÙÇÑ´Ù.
+	// zone ì˜ object registery ì— ì ‘ê·¼í•œë‹¤.
 	ObjectRegistry & OR = getZone()->getObjectRegistry();
 
 	__ENTER_CRITICAL_SECTION(OR)
 
-	// ¸ğµç ¾ÆÀÌÅÛ¿¡ OID °¡ ¹Ù²î¹Ç·Î ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛ ¸Å´ÏÀú¿¡¼­ OID ¸ÊÀ» Áö¿öÁà¾ß ÇÑ´Ù.
+	// ëª¨ë“  ì•„ì´í…œì— OID ê°€ ë°”ë€Œë¯€ë¡œ ì‹œê°„ì œí•œ ì•„ì´í…œ ë§¤ë‹ˆì €ì—ì„œ OID ë§µì„ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	if (m_pTimeLimitItemManager != NULL)
 		m_pTimeLimitItemManager->clear();
 
-	// ¿ì¼± ½½·¹ÀÌ¾îÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ìš°ì„  ìŠ¬ë ˆì´ì–´ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	OR.registerObject_NOLOCKED(this);
 
-	// ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	registerInitInventory(OR);
 
-	// Goods InventoryÀÇ ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// Goods Inventoryì˜ ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	registerGoodsInventory(OR);
 
-	// ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀÇ OID¸¦ µî·Ï¹Ş´Â´Ù.
+	// ì¥ì°©í•˜ê³  ìˆëŠ” ì•„ì´í…œë“¤ì˜ OIDë¥¼ ë“±ë¡ë°›ëŠ”ë‹¤.
 	for (int i = 0; i < WEAR_MAX; i++) 
 	{
 		Item* pItem = m_pWearItem[i];
 
 		if (pItem != NULL) 
 		{
-			// ItemTrace ¸¦ ³²±æ °ÍÀÎÁö °áÁ¤
+			// ItemTrace ë¥¼ ë‚¨ê¸¸ ê²ƒì¸ì§€ ê²°ì •
 			pItem->setTraceItem( bTraceLog( pItem ) );
 
 			bool bCheck = true;
 
-			// ¾ç¼Õ ¹«±âÀÏ °æ¿ì, WEAR_LEFTHAND ¿¡¼­ µî·ÏÇßÀ¸¹Ç·Î,
-			// ¶Ç µî·ÏÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+			// ì–‘ì† ë¬´ê¸°ì¼ ê²½ìš°, WEAR_LEFTHAND ì—ì„œ ë“±ë¡í–ˆìœ¼ë¯€ë¡œ,
+			// ë˜ ë“±ë¡í•  í•„ìš”ëŠ” ì—†ë‹¤.
 			if (i == WEAR_RIGHTHAND && isTwohandWeapon(pItem))
 				bCheck = false;
 
@@ -379,16 +379,16 @@ void Slayer::registerInitObject ()
 		}
 	}
 
-	// ¸¶¿ì½º¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÇ OID¸¦ µî·Ï ¹Ş´Â´Ù.
+	// ë§ˆìš°ìŠ¤ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œì˜ OIDë¥¼ ë“±ë¡ ë°›ëŠ”ë‹¤.
 	Item* pSlotItem = m_pExtraInventorySlot->getItem();
 	if (pSlotItem != NULL)
 	{
-		// ItemTrace ¸¦ ³²±æ °ÍÀÎÁö °áÁ¤
+		// ItemTrace ë¥¼ ë‚¨ê¸¸ ê²ƒì¸ì§€ ê²°ì •
 		pSlotItem->setTraceItem( bTraceLog( pSlotItem ) );
 		registerItem(pSlotItem, OR);
 	}
 
-	// ¿ÀÅä¹ÙÀÌÀÇ OID¸¦ µî·Ï ¹Ş´Â´Ù.
+	// ì˜¤í† ë°”ì´ì˜ OIDë¥¼ ë“±ë¡ ë°›ëŠ”ë‹¤.
 	if (m_pMotorcycle != NULL) 
 		OR.registerObject_NOLOCKED(m_pMotorcycle);
 
@@ -402,13 +402,13 @@ void Slayer::registerInitObject ()
 }
 
 
-// ½Ã°£Á¦ÇÑ ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÑ´Ù.
-// ¸ğµç ¾ÆÀÌÅÛÀÌ ÀÌ¹Ì register µÇ¾îÀÖ¾î¾ß ÇÑ´Ù.
+// ì‹œê°„ì œí•œ ì•„ì´í…œì„ ì²´í¬í•œë‹¤.
+// ëª¨ë“  ì•„ì´í…œì´ ì´ë¯¸ register ë˜ì–´ìˆì–´ì•¼ í•œë‹¤.
 void Slayer::checkItemTimeLimit() 
 {
 	__BEGIN_TRY
 
-	// ÀÎº¥Åä¸®¿¡¼­ Ã£´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì—ì„œ ì°¾ëŠ”ë‹¤.
 	{
 		list<Item*> ItemList;
 		int height = m_pInventory->getHeight();
@@ -421,7 +421,7 @@ void Slayer::checkItemTimeLimit()
 				Item* pItem = m_pInventory->getItem(i, j);
 				if (pItem != NULL)
 				{
-					// Ã¼Å©µÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+					// ì²´í¬ëœ ì•„ì´í…œì˜ ë¦¬ìŠ¤íŠ¸ì—ì„œ í˜„ì¬ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
 					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
 					if (itr == ItemList.end())
@@ -435,9 +435,9 @@ void Slayer::checkItemTimeLimit()
 						}
 						else
 						{
-							// ¸®½ºÆ®¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é
-							// °°Àº ¾ÆÀÌÅÛÀ» µÎ¹ø Ã¼Å©ÇÏÁö ¾Ê±â À§ÇØ¼­
-							// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áı¾î³Ö´Â´Ù.
+							// ë¦¬ìŠ¤íŠ¸ì— ì•„ì´í…œì´ ì—†ìœ¼ë©´
+							// ê°™ì€ ì•„ì´í…œì„ ë‘ë²ˆ ì²´í¬í•˜ì§€ ì•Šê¸° ìœ„í•´ì„œ
+							// ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ì•„ì´í…œì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 							ItemList.push_back(pItem);
 						}
 					}
@@ -446,7 +446,7 @@ void Slayer::checkItemTimeLimit()
 		}
 	}
 
-	// ÀåÂøÇÏ°í ÀÖ´Â °Í Áß¿¡ Ã£´Â´Ù.
+	// ì¥ì°©í•˜ê³  ìˆëŠ” ê²ƒ ì¤‘ì— ì°¾ëŠ”ë‹¤.
 	{
 		for (int i = 0; i < WEAR_MAX; i++) 
 		{
@@ -473,7 +473,7 @@ void Slayer::checkItemTimeLimit()
 		}
 	}
 
-	// ¸¶¿ì½º¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÑ´Ù.
+	// ë§ˆìš°ìŠ¤ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œì„ ì²´í¬í•œë‹¤.
 	{
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
 		if (pSlotItem != NULL && wasteIfTimeLimitExpired( pSlotItem ) )
@@ -483,8 +483,8 @@ void Slayer::checkItemTimeLimit()
 		}
 	}
 
-	// ¿ÀÅä¹ÙÀÌ¸¦ Ã¼Å©ÇÑ´Ù.
-	// ÀÏ´Ü º¹ÀâÇØ¼­ ¿ÀÅä¹ÙÀÌ´Â ½Ã°£Á¦ÇÑ ¾ÈÇÔ
+	// ì˜¤í† ë°”ì´ë¥¼ ì²´í¬í•œë‹¤.
+	// ì¼ë‹¨ ë³µì¡í•´ì„œ ì˜¤í† ë°”ì´ëŠ” ì‹œê°„ì œí•œ ì•ˆí•¨
 /*	{
 		if (m_pMotorcycle != NULL && wasteIfTimeLimitExpired( m_pMotorcycle ) )
 		{
@@ -498,7 +498,7 @@ void Slayer::updateEventItemTime( DWORD time )
 {
 	__BEGIN_TRY
 
-	// ÀÎº¥Åä¸®¿¡¼­ Ã£´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì—ì„œ ì°¾ëŠ”ë‹¤.
 	{
 		list<Item*> ItemList;
 		int height = m_pInventory->getHeight();
@@ -511,7 +511,7 @@ void Slayer::updateEventItemTime( DWORD time )
 				Item* pItem = m_pInventory->getItem(i, j);
 				if (pItem != NULL)
 				{
-					// Ã¼Å©µÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+					// ì²´í¬ëœ ì•„ì´í…œì˜ ë¦¬ìŠ¤íŠ¸ì—ì„œ í˜„ì¬ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
 					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
 					if (itr == ItemList.end())
@@ -520,9 +520,9 @@ void Slayer::updateEventItemTime( DWORD time )
 
 						updateItemTimeLimit( pItem, time );
 
-						// ¸®½ºÆ®¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é
-						// °°Àº ¾ÆÀÌÅÛÀ» µÎ¹ø Ã¼Å©ÇÏÁö ¾Ê±â À§ÇØ¼­
-						// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áı¾î³Ö´Â´Ù.
+						// ë¦¬ìŠ¤íŠ¸ì— ì•„ì´í…œì´ ì—†ìœ¼ë©´
+						// ê°™ì€ ì•„ì´í…œì„ ë‘ë²ˆ ì²´í¬í•˜ì§€ ì•Šê¸° ìœ„í•´ì„œ
+						// ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ì•„ì´í…œì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 						ItemList.push_back(pItem);
 					}
 				}
@@ -530,7 +530,7 @@ void Slayer::updateEventItemTime( DWORD time )
 		}
 	}
 
-	// ÀåÂøÇÏ°í ÀÖ´Â °Í Áß¿¡ Ã£´Â´Ù.
+	// ì¥ì°©í•˜ê³  ìˆëŠ” ê²ƒ ì¤‘ì— ì°¾ëŠ”ë‹¤.
 	{
 		for (int i = 0; i < WEAR_MAX; i++) 
 		{
@@ -551,7 +551,7 @@ void Slayer::updateEventItemTime( DWORD time )
 		}
 	}
 
-	// ¸¶¿ì½º¿¡ µé°í ÀÖ´Â ¾ÆÀÌÅÛÀ» Ã¼Å©ÇÑ´Ù.
+	// ë§ˆìš°ìŠ¤ì— ë“¤ê³  ìˆëŠ” ì•„ì´í…œì„ ì²´í¬í•œë‹¤.
 	{
 		Item* pSlotItem = m_pExtraInventorySlot->getItem();
 		if (pSlotItem != NULL)
@@ -570,28 +570,28 @@ void Slayer::loadItem( bool checkTimeLimit )
 
 	PlayerCreature::loadItem();
 
-	// ÀÎº¥Åä¸®¸¦ »ı¼ºÇÑ´Ù. 
-	// »ı¼ºÇÏ±â Àü¿¡ Àü¿¡ ÀÖ´ø °ÍÀº Áö¿öÁØ´Ù.
+	// ì¸ë²¤í† ë¦¬ë¥¼ ìƒì„±í•œë‹¤. 
+	// ìƒì„±í•˜ê¸° ì „ì— ì „ì— ìˆë˜ ê²ƒì€ ì§€ì›Œì¤€ë‹¤.
 	SAFE_DELETE(m_pInventory);
 	m_pInventory = new Inventory(10, 6);
 	m_pInventory->setOwner(getName());
 
-	// ¾ÆÀÌÅÛÀ» ·ÎµåÇÑ´Ù.
+	// ì•„ì´í…œì„ ë¡œë“œí•œë‹¤.
 	g_pItemLoaderManager->load(this);
 
-	// ±¸¸ÅÇÑ ¾ÆÀÌÅÛÀ» ·ÎµåÇÑ´Ù.
+	// êµ¬ë§¤í•œ ì•„ì´í…œì„ ë¡œë“œí•œë‹¤.
 	PlayerCreature::loadGoods();
 
-	// ·ÎµåÇÑ ¾ÆÀÌÅÛµéÀ» µî·ÏÇÏ°í...
+	// ë¡œë“œí•œ ì•„ì´í…œë“¤ì„ ë“±ë¡í•˜ê³ ...
 	registerInitObject();
 
-	// Ã³À½ Á¢¼ÓÇÑ »ç¶÷ÀÏ °æ¿ì ÃÊº¸ÀÚ¿ë ¾ÆÀÌÅÛ¼¼Æ®¸¦ ÀÏ´Ü ÁØ ´ÙÀ½..
+	// ì²˜ìŒ ì ‘ì†í•œ ì‚¬ëŒì¼ ê²½ìš° ì´ˆë³´ììš© ì•„ì´í…œì„¸íŠ¸ë¥¼ ì¼ë‹¨ ì¤€ ë‹¤ìŒ..
 	if( m_pFlagSet->isOn( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO ) )
 	{
 		addNewbieItemToInventory( this );
 		addNewbieGoldToInventory( this );
 		addNewbieItemToGear( this );
-		// ÁÖ¾úÀ» °æ¿ì Áá´Ù´Â ÇÃ·¡±×¸¦ ²¨ÁØ´Ù.
+		// ì£¼ì—ˆì„ ê²½ìš° ì¤¬ë‹¤ëŠ” í”Œë˜ê·¸ë¥¼ êº¼ì¤€ë‹¤.
 		m_pFlagSet->turnOff( FLAGSET_RECEIVE_NEWBIE_ITEM_AUTO );
 		m_pFlagSet->save( getName() );
 	}
@@ -601,7 +601,7 @@ void Slayer::loadItem( bool checkTimeLimit )
 		checkItemTimeLimit();
 	}
 
-	// ÀÔ°í ÀÖ´Â ¿Ê¿¡ µû¶ó ´É·ÂÄ¡¸¦ °è»êÇØ ÁØ´Ù.
+	// ì…ê³  ìˆëŠ” ì˜·ì— ë”°ë¼ ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.
 	initAllStat();
 
 	//cout << "Slayer::loadItem() : STR[CURRENT]" << (int)m_STR[ATTR_CURRENT] << endl;
@@ -665,7 +665,7 @@ bool Slayer::load ()
 
 		if (pResult->getRowCount() == 0) 
 		{
-			//throw Error("Critical Error : data intergrity broken. (·Î±×ÀÎ ¼­¹ö¿¡¼­ °ÔÀÓ ¼­¹ö·Î ³Ñ¾î¿À´Â µ¿¾È¿¡ Ä³¸¯ÅÍ°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.)");
+			//throw Error("Critical Error : data intergrity broken. (ë¡œê·¸ì¸ ì„œë²„ì—ì„œ ê²Œì„ ì„œë²„ë¡œ ë„˜ì–´ì˜¤ëŠ” ë™ì•ˆì— ìºë¦­í„°ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.)");
 			SAFE_DELETE(pStmt);
 			return false;
 		}
@@ -795,8 +795,8 @@ bool Slayer::load ()
 		reward = pResult->getInt(++i);
 		setSMSCharge( pResult->getInt(++i) );
 
-		// ±×³É ´Ù½Ã °è»êÇØ¹ö¸°´Ù. 2002.7.15 by sigi
-		// °ø½Ä ¹Ù²î¸é AbilityBalance.cppÀÇ computeHPµµ ¼öÁ¤ÇØ¾ßÇÑ´Ù.
+		// ê·¸ëƒ¥ ë‹¤ì‹œ ê³„ì‚°í•´ë²„ë¦°ë‹¤. 2002.7.15 by sigi
+		// ê³µì‹ ë°”ë€Œë©´ AbilityBalance.cppì˜ computeHPë„ ìˆ˜ì •í•´ì•¼í•œë‹¤.
 //		m_HP[ATTR_MAX]      = m_STR[ATTR_CURRENT]*2;
 
 		try
@@ -805,8 +805,8 @@ bool Slayer::load ()
 		}
 		catch ( Error& e )
 		{
-			// ±æµå ¾ÆÁöÆ® ¹®Á¦·Î º»´Ù.
-			// ±æµå ¾ÆÁöÆ®°¡ ÇÑ °ÔÀÓ ¼­¹ö¿¡¸¸ Á¸ÀçÇÏ¹Ç·Î ´Ù¸¥ °ÔÀÓ¼­¹ö·Î Á¢¼ÓÇÒ ¶§ ±× ¾ÆÁöÆ®·Î µé¾î°¡Áö ¸øÇÑ´Ù.
+			// ê¸¸ë“œ ì•„ì§€íŠ¸ ë¬¸ì œë¡œ ë³¸ë‹¤.
+			// ê¸¸ë“œ ì•„ì§€íŠ¸ê°€ í•œ ê²Œì„ ì„œë²„ì—ë§Œ ì¡´ì¬í•˜ë¯€ë¡œ ë‹¤ë¥¸ ê²Œì„ì„œë²„ë¡œ ì ‘ì†í•  ë•Œ ê·¸ ì•„ì§€íŠ¸ë¡œ ë“¤ì–´ê°€ì§€ ëª»í•œë‹¤.
 			ZONE_COORD ResurrectCoord;
 			g_pResurrectLocationManager->getSlayerPosition( 12, ResurrectCoord );
 			setZoneID( ResurrectCoord.id );
@@ -818,7 +818,7 @@ bool Slayer::load ()
 	} 
 	END_DB(pStmt)
 
-	// zone ÀÇ object registery ¿¡ Á¢±ÙÇÑ´Ù.
+	// zone ì˜ object registery ì— ì ‘ê·¼í•œë‹¤.
 	ObjectRegistry & OR = getZone()->getObjectRegistry();
 	OR.registerObject(this);
 
@@ -926,7 +926,7 @@ bool Slayer::load ()
 		}
 	}
 */
-	// Slayer Outlook Information À» ±¸¼ºÇÑ´Ù.
+	// Slayer Outlook Information ì„ êµ¬ì„±í•œë‹¤.
 	m_SlayerInfo.setObjectID(m_ObjectID);
     m_SlayerInfo.setName(m_Name);
     m_SlayerInfo.setX(m_X);
@@ -935,11 +935,11 @@ bool Slayer::load ()
     m_SlayerInfo.setSex(m_Sex);
     m_SlayerInfo.setHairStyle(m_HairStyle);
 
-	// 0ÀÌ³ª 1 ±ÇÇÑÀ» °¡Áö°í ÀÖÀ¸¸é
-	// ¿î¿µÀÚ·Î ½ºÇÁ¶óÀÌÆ®¸¦ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù. 
+	// 0ì´ë‚˜ 1 ê¶Œí•œì„ ê°€ì§€ê³  ìˆìœ¼ë©´
+	// ìš´ì˜ìë¡œ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤. 
 	m_SlayerInfo.setCompetence(m_CompetenceShape);
 
-	// ½ºÅ³À» ·ÎµùÇÑ´Ù.
+	// ìŠ¤í‚¬ì„ ë¡œë”©í•œë‹¤.
 	BEGIN_DB
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -961,12 +961,12 @@ bool Slayer::load ()
 			//pSkillSlot->setRunTime (pResult->getInt(++i));
 			pSkillSlot->setRunTime();
 
-			// ÀÌ ½ºÅ³À» ¾µ ¼ö ÀÖ´ÂÁö ¾ø´ÂÁö Ã¼Å© ÇÑµÂ..
-			// ½ºÅ³ÀÎÆ÷¸¦ ¹Ş¾Æ¿Â´Ù.
+			// ì´ ìŠ¤í‚¬ì„ ì“¸ ìˆ˜ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ ì²´í¬ í•œë ..
+			// ìŠ¤í‚¬ì¸í¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 			SkillInfo * pSkillInfo = g_pSkillInfoManager->getSkillInfo(pSkillSlot->getSkillType() );
 			Assert( pSkillInfo != NULL );
 
-			// ¹è¿ì´Â ·¹º§º¸´Ù Áö±İ ÇöÀçÀÇ µµ¸ŞÀÎ ·¹º§ÀÌ ³·À¸¸é ´ç¿¬È÷ ¸ø¾´´Ù.
+			// ë°°ìš°ëŠ” ë ˆë²¨ë³´ë‹¤ ì§€ê¸ˆ í˜„ì¬ì˜ ë„ë©”ì¸ ë ˆë²¨ì´ ë‚®ìœ¼ë©´ ë‹¹ì—°íˆ ëª»ì“´ë‹¤.
 			if( pSkillInfo->getLevel() > m_SkillDomainLevels[pSkillInfo->getDomainType()] && pSkillInfo->getDomainType() != SKILL_DOMAIN_ETC ) 
 			{
 				pSkillSlot->setDisable();
@@ -979,13 +979,13 @@ bool Slayer::load ()
 	} 
 	END_DB(pStmt)
 
-	// ÀÌÆåÆ®¸¦ ·ÎµùÇÑ´Ù.
+	// ì´í™íŠ¸ë¥¼ ë¡œë”©í•œë‹¤.
 	g_pEffectLoaderManager->load(this);
 
-	// Rank Bonus ¸¦ ·ÎµùÇÑ´Ù.
+	// Rank Bonus ë¥¼ ë¡œë”©í•œë‹¤.
 	loadRankBonus();
 
-	// GrandMasterÀÎ °æ¿ì´Â Effect¸¦ ºÙ¿©ÁØ´Ù.
+	// GrandMasterì¸ ê²½ìš°ëŠ” Effectë¥¼ ë¶™ì—¬ì¤€ë‹¤.
 	// by sigi. 2002.11.8
 	if (getHighestSkillDomainLevel()>=100
 		&& SystemAvailabilitiesManager::getInstance()->isAvailable( SystemAvailabilitiesManager::SYSTEM_GRAND_MASTER_EFFECT ) )
@@ -1000,10 +1000,10 @@ bool Slayer::load ()
 	}
 
 
-	// ÇÃ·¡±× ¼ÂÀ» ·ÎµåÇÑ´Ù.
+	// í”Œë˜ê·¸ ì…‹ì„ ë¡œë“œí•œë‹¤.
 	m_pFlagSet->load(getName());
 
-	// Slayer Outlook Information À» ±¸¼ºÇÑ´Ù.
+	// Slayer Outlook Information ì„ êµ¬ì„±í•œë‹¤.
 	m_SlayerInfo.setHelmetType(HELMET_NONE);
 	m_SlayerInfo.setJacketType(JACKET_BASIC);
 	m_SlayerInfo.setPantsType(PANTS_BASIC);
@@ -1017,18 +1017,18 @@ bool Slayer::load ()
 
 	m_SlayerInfo.setAdvancementLevel(getAdvancementClassLevel());
 
-	// rank°¡ 0ÀÌ¸é ÃÊ±â°ªÀÌ ¼³Á¤µÇÁö ¾Ê¾Ò´Ù´Â ÀÇ¹ÌÀÌ´Ù.
+	// rankê°€ 0ì´ë©´ ì´ˆê¸°ê°’ì´ ì„¤ì •ë˜ì§€ ì•Šì•˜ë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
 	if (getRank()==0)
 	{
 		saveInitialRank();
 	}
 
 
-	// ¸ğµç ´É·ÂÄ¡¸¦ ·ÎµåÇß±â ¶§¹®¿¡,
-	// ÀÌ°É ±âº»À¸·Î ºÎ°¡ ´É·ÂÄ¡¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// ëª¨ë“  ëŠ¥ë ¥ì¹˜ë¥¼ ë¡œë“œí–ˆê¸° ë•Œë¬¸ì—,
+	// ì´ê±¸ ê¸°ë³¸ìœ¼ë¡œ ë¶€ê°€ ëŠ¥ë ¥ì¹˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	initAllStat();
 
-	// ÀüÀï Âü°¡ Flag Ã¼Å©
+	// ì „ìŸ ì°¸ê°€ Flag ì²´í¬
 	if ( RaceWarLimiter::isInPCList( this ) )
 	{
 		setFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET );
@@ -1062,7 +1062,7 @@ void Slayer::save () const
 	BEGIN_DB
 	{
 		/*
-		// StringStream ¾È¾²±â. by sigi. 2002.5.9
+		// StringStream ì•ˆì“°ê¸°. by sigi. 2002.5.9
 		StringStream sql;
 		sql << "UPDATE Slayer SET"
 			//<< " Competence = " << (int)m_Competence
@@ -1129,11 +1129,11 @@ void Slayer::save () const
 								m_HP[ATTR_CURRENT], m_HP[ATTR_MAX], m_MP[ATTR_CURRENT], m_MP[ATTR_MAX], getZoneID(), (int)m_X, (int)m_Y, m_Name.c_str() );
 
 
-		// ÀÏ¹İÀûÀ¸·Î, ¾Æ¹«·± µ¥ÀÌÅ¸µµ ¹Ù²îÁö ¾Ê¾ÒÀ» °æ¿ì
-		// #Affected Rows == 0 ÀÌ´Ù. ±×·±µ¥, ´ëºÎºĞÀÇ °æ¿ì
-		// µ¥ÀÌÅ¸°¡ ¾à°£ÀÌ¶óµµ ¹Ù²î°Ô µÈ´Ù. ±×·¯³ª, ¾È¹Ù²ğ
-		// °¡´É¼ºµµ ÀÖ´Ù. µû¶ó¼­, AffectedRows ´Â Ã¼Å©µÇÁö
-		// ¾Ê¾Æ¾ß ÇÑ´Ù.
+		// ì¼ë°˜ì ìœ¼ë¡œ, ì•„ë¬´ëŸ° ë°ì´íƒ€ë„ ë°”ë€Œì§€ ì•Šì•˜ì„ ê²½ìš°
+		// #Affected Rows == 0 ì´ë‹¤. ê·¸ëŸ°ë°, ëŒ€ë¶€ë¶„ì˜ ê²½ìš°
+		// ë°ì´íƒ€ê°€ ì•½ê°„ì´ë¼ë„ ë°”ë€Œê²Œ ëœë‹¤. ê·¸ëŸ¬ë‚˜, ì•ˆë°”ë€”
+		// ê°€ëŠ¥ì„±ë„ ìˆë‹¤. ë”°ë¼ì„œ, AffectedRows ëŠ” ì²´í¬ë˜ì§€
+		// ì•Šì•„ì•¼ í•œë‹¤.
 		//Assert(pStmt->getAffectedRowCount() == 1);
 
 		SAFE_DELETE(pStmt);
@@ -1141,14 +1141,14 @@ void Slayer::save () const
 	END_DB(pStmt)
 
 	/*
-	// ÀÎº¥Åä¸®ÀÇ ¾ÆÀÌÅÛµéÀ» ¼¼ÀÌºê ÇÑ´Ù.
+	// ì¸ë²¤í† ë¦¬ì˜ ì•„ì´í…œë“¤ì„ ì„¸ì´ë¸Œ í•œë‹¤.
 	m_pInventory->save(m_Name);
 	*/
 
-	// ÀÌÆåÆ®¸¦ ¼¼ÀÌºê ÇÑ´Ù.
+	// ì´í™íŠ¸ë¥¼ ì„¸ì´ë¸Œ í•œë‹¤.
 	m_pEffectManager->save(m_Name);
 
-	// ¿ÀÅä¹ÙÀÌ¸¦ ¼¼ÀÌºê ÇÑ´Ù.
+	// ì˜¤í† ë°”ì´ë¥¼ ì„¸ì´ë¸Œ í•œë‹¤.
 	if (m_pMotorcycle != NULL) 
 	{
 		//m_pMotorcycle->save("", STORAGE_ZONE, m_pZone->getZoneID(), m_X, m_Y);
@@ -1271,7 +1271,7 @@ bool Slayer::isEmptyPhoneSlot()
 	{
 		if (m_PhoneSlot[i] == 0) 
 		{
-			// ºó ½½¶ùÀ» Ã£¾Ò´Ù.
+			// ë¹ˆ ìŠ¬ëì„ ì°¾ì•˜ë‹¤.
 			Success = true;
 		}
 	}
@@ -1281,7 +1281,7 @@ bool Slayer::isEmptyPhoneSlot()
 	__END_CATCH
 }
 
-// Æ¯Á¤ SkillÀÌ Á¸ÀçÇÏ´ÂÁö Á¶»çÇÏ°í SkillSlotÀ» ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • Skillì´ ì¡´ì¬í•˜ëŠ”ì§€ ì¡°ì‚¬í•˜ê³  SkillSlotì„ ë¦¬í„´í•œë‹¤.
 SkillSlot* Slayer::getSkill(SkillType_t SkillType) const
 	
 {
@@ -1298,7 +1298,7 @@ SkillSlot* Slayer::getSkill(SkillType_t SkillType) const
 	__END_CATCH
 }
 
-// Æ¯Á¤ SkillSlotÀ» ÀÚµ¿À¸·Î ºó ½½¶ùÀ» Ã£¾Æ ³Ö´Â´Ù.
+// íŠ¹ì • SkillSlotì„ ìë™ìœ¼ë¡œ ë¹ˆ ìŠ¬ëì„ ì°¾ì•„ ë„£ëŠ”ë‹¤.
 void Slayer::addSkill(SkillSlot* pSkillSlot)
 	
 {
@@ -1327,7 +1327,7 @@ void Slayer::addSkill(SkillSlot* pSkillSlot)
 		m_SkillSlot[pSkillSlot->getSkillType()] = pSkillSlot;
 	}
 	// 2002.1.16 by sigi
-	// 2003.3.30 by Sequoia Á¶°Ç Ãß°¡ÇÔ
+	// 2003.3.30 by Sequoia ì¡°ê±´ ì¶”ê°€í•¨
 	else
 	{
 		if ( pSkillSlot != itr->second ) SAFE_DELETE(pSkillSlot);
@@ -1336,7 +1336,7 @@ void Slayer::addSkill(SkillSlot* pSkillSlot)
 	__END_CATCH
 }
 
-// ±â¼úÀ» ¹è¿ï¶§¸¸ ¾²´Â ÇÔ¼öÀÌ´Ù. ´Ù¸¥ °÷¿¡¼­ ¾²¸é °³ µÈ´Ù.
+// ê¸°ìˆ ì„ ë°°ìš¸ë•Œë§Œ ì“°ëŠ” í•¨ìˆ˜ì´ë‹¤. ë‹¤ë¥¸ ê³³ì—ì„œ ì“°ë©´ ê°œ ëœë‹¤.
 void Slayer::addSkill(SkillType_t SkillType)
 	
 {
@@ -1379,13 +1379,13 @@ void Slayer::addSkill(SkillType_t SkillType)
 	__END_CATCH
 }
 
-// ¼ºÁö½ºÅ³À» Áö¿öÁÖ´Â ÇÔ¼ö´Ù.
+// ì„±ì§€ìŠ¤í‚¬ì„ ì§€ì›Œì£¼ëŠ” í•¨ìˆ˜ë‹¤.
 void Slayer::removeCastleSkill(SkillType_t SkillType)
 	
 {
 	__BEGIN_TRY
 
-	// ¼ºÁö ½ºÅ³¸¸ Áö¿ï ¼ö ÀÖ´Ù.
+	// ì„±ì§€ ìŠ¤í‚¬ë§Œ ì§€ìš¸ ìˆ˜ ìˆë‹¤.
 	if ( g_pCastleSkillInfoManager->getZoneID( SkillType ) == 0 ) return;
 
 	unordered_map<SkillType_t, SkillSlot*>::iterator itr = m_SkillSlot.find(SkillType);
@@ -1402,7 +1402,7 @@ void Slayer::removeCastleSkill(SkillType_t SkillType)
 	__END_CATCH
 }
 
-// °®°í ÀÖ´Â ¸ğµç ¼ºÁö½ºÅ³À» Áö¿öÁÖ´Â ÇÔ¼öÀÌ´Ù.
+// ê°–ê³  ìˆëŠ” ëª¨ë“  ì„±ì§€ìŠ¤í‚¬ì„ ì§€ì›Œì£¼ëŠ” í•¨ìˆ˜ì´ë‹¤.
 void Slayer::removeAllCastleSkill()
 	
 {
@@ -1417,12 +1417,12 @@ void Slayer::removeAllCastleSkill()
 			SkillSlot* pSkillSlot = itr->second;
 			if ( g_pCastleSkillInfoManager->getZoneID( pSkillSlot->getSkillType() ) == 0 )
 			{
-				// ¼ºÁö½ºÅ³ÀÌ ¾Æ´Ï¸é ´ÙÀ½²¬·Î ³Ñ¾î°£´Ù.
+				// ì„±ì§€ìŠ¤í‚¬ì´ ì•„ë‹ˆë©´ ë‹¤ìŒê»„ë¡œ ë„˜ì–´ê°„ë‹¤.
 				++itr;
 				continue;
 			}
 
-			// ¼ºÁö½ºÅ³ÀÌ¸é Áö¿öÁØ´Ù. ¹İº¹ÀÚ »ç¿ë¿¡ ÁÖÀÇ
+			// ì„±ì§€ìŠ¤í‚¬ì´ë©´ ì§€ì›Œì¤€ë‹¤. ë°˜ë³µì ì‚¬ìš©ì— ì£¼ì˜
 			SAFE_DELETE( pSkillSlot );
 			unordered_map<SkillType_t, SkillSlot*>::iterator prevItr = itr;
 			
@@ -1431,7 +1431,7 @@ void Slayer::removeAllCastleSkill()
 		}
 		else
 		{
-			// ÀÌ°Ç ¸Ö±î.... Assert ÇØ¾ß µÇÁö ¾Ê³ª -_-;
+			// ì´ê±´ ë©€ê¹Œ.... Assert í•´ì•¼ ë˜ì§€ ì•Šë‚˜ -_-;
 			Assert(false);
 		}
 	}
@@ -1440,9 +1440,9 @@ void Slayer::removeAllCastleSkill()
 }
 
 // Slayer::wearItem()
-// ItemÀ» ÀåÂøÃ¢¿¡ ÀåÂø½ÃÅ°°í ´É·ÂÄ¡¸¦ °è»êÇÑ´Ù.
-// ÀÌ ¸Ş¼Òµå´Â Á¢¼ÓÇÒ¶§ ItemÀ» Loading ÇÏ¸é¼­ ¾²´Â wearItemÀÌ´Ù.
-// ÀÌ ¸Ş¼Òµå ¾È¿¡¼± Broadcast¸¦ ÇÏÁö ¾Ê´Â °ÍÀÌ ÁÁ´Ù.
+// Itemì„ ì¥ì°©ì°½ì— ì¥ì°©ì‹œí‚¤ê³  ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
+// ì´ ë©”ì†Œë“œëŠ” ì ‘ì†í• ë•Œ Itemì„ Loading í•˜ë©´ì„œ ì“°ëŠ” wearItemì´ë‹¤.
+// ì´ ë©”ì†Œë“œ ì•ˆì—ì„  Broadcastë¥¼ í•˜ì§€ ì•ŠëŠ” ê²ƒì´ ì¢‹ë‹¤.
 void Slayer::wearItem(WearPart Part, Item* pItem)
 	
 {
@@ -1457,26 +1457,26 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 	Item*           pPrevItem = NULL;
 	OptionInfo*     pOptionInfo = NULL;
 
-	// Ã¹¹øÂ° ¿É¼ÇÀÇ »ö±òÀ» ÁöÁ¤ÇÑ´Ù.
+	// ì²«ë²ˆì§¸ ì˜µì…˜ì˜ ìƒ‰ê¹”ì„ ì§€ì •í•œë‹¤.
 	if (pItem->getFirstOptionType() != 0)
 		pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getFirstOptionType());
 
-	// ÇöÀç ±âÈ¹¿¡¼­´Â...´É·ÂÄ¡°¡ ¸ğÀÚ¶ó´õ¶óµµ ¾ÆÀÌÅÛÀ» ¹«Á¶°Ç »ç¿ëÇÒ ¼ö´Â
-	// ÀÖ´Ù. ÇÏÁö¸¸ ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ´É·ÂÄ¡°¡ Àû¿ëÀÌ µÇÁö ¾Ê´Â´Ù. 
-	// ±×·¯¹Ç·Î ÀÏ´Ü ¾ÆÀÌÅÛÀ» ÇØ´çÇÏ´Â ÀåÂøÃ¢¿¡´Ù Áı¾î³Ö´Â´Ù.
-	// ¾ç¼Õ ¹«±âÀÏ °æ¿ì¿¡´Â ¾ç¼Õ ÀåÂøÃ¢¿¡´Ù ÇÏ³ªÀÇ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ¸¦ ÇÒ´ç...
+	// í˜„ì¬ ê¸°íšì—ì„œëŠ”...ëŠ¥ë ¥ì¹˜ê°€ ëª¨ìë¼ë”ë¼ë„ ì•„ì´í…œì„ ë¬´ì¡°ê±´ ì‚¬ìš©í•  ìˆ˜ëŠ”
+	// ìˆë‹¤. í•˜ì§€ë§Œ ì•„ì´í…œì— ì˜í•œ ëŠ¥ë ¥ì¹˜ê°€ ì ìš©ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤. 
+	// ê·¸ëŸ¬ë¯€ë¡œ ì¼ë‹¨ ì•„ì´í…œì„ í•´ë‹¹í•˜ëŠ” ì¥ì°©ì°½ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
+	// ì–‘ì† ë¬´ê¸°ì¼ ê²½ìš°ì—ëŠ” ì–‘ì† ì¥ì°©ì°½ì—ë‹¤ í•˜ë‚˜ì˜ ì•„ì´í…œ í¬ì¸í„°ë¥¼ í• ë‹¹...
 	if (isTwohandWeapon(pItem))
 	{
-		// ¾ç¼Õ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+		// ì–‘ì†ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 		if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND))
 		{
 			pLeft  = getWearItem(WEAR_RIGHTHAND);
 			pRight = getWearItem(WEAR_LEFTHAND);
 			
-			// ¾ç¼Õ ¹«±â¸¦ µé°í ÀÖÀ» °æ¿ì
+			// ì–‘ì† ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 			if (pLeft == pRight)
 			{
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö°í,
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ê³ ,
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 
@@ -1486,33 +1486,33 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pLeft);
 				//pLeft->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pLeft->tinysave(pField);
 			}
-			// °Ë°ú ¹æÆĞ¸¦ µé°í ÀÖÀ» °æ¿ì
+			// ê²€ê³¼ ë°©íŒ¨ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 			else
 			{
-				// ¾ç¼Õ¿¡ °Ë°ú ¹æÆĞ¸¦ µé°í ÀÖ¾ú´Âµ¥...¾ç¼Õ ¹«±â¸¦ µé·Á°í ÇÏ¸é,
-				// °ËÀº ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾ÆÁÙ ¼ö ÀÖÁö¸¸, ¹æÆĞ´Â ¾î¶»°Ô ÇÒ ¼ö°¡ ¾ø´Ù.
-				// ÀÎº¥Åä¸®¿¡ ³Ö¾îÁà¾ß ÇÒ ÅÙµ¥, Áö±İ ´çÀåÀº ¾î¶»°Ô ÇÒ Áö¸¦ ¸ğ¸£°Ú³×...
-				// °Á ÀÔÀ» ¼ö ¾ø´Ù´Â ÆĞÅ¶À» º¸³»ÁÖÀÚ...
-				cerr << "¾ç¼Õ¿¡ Ä®°ú ¹æÆĞ¸¦ µé°í ÀÖ¾î¼­, ¾ç¼Õ ¹«±â¸¦ ÀåÂøÇÒ ¼ö ¾ø½À´Ï´Ù." << endl;
+				// ì–‘ì†ì— ê²€ê³¼ ë°©íŒ¨ë¥¼ ë“¤ê³  ìˆì—ˆëŠ”ë°...ì–‘ì† ë¬´ê¸°ë¥¼ ë“¤ë ¤ê³  í•˜ë©´,
+				// ê²€ì€ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ì¤„ ìˆ˜ ìˆì§€ë§Œ, ë°©íŒ¨ëŠ” ì–´ë–»ê²Œ í•  ìˆ˜ê°€ ì—†ë‹¤.
+				// ì¸ë²¤í† ë¦¬ì— ë„£ì–´ì¤˜ì•¼ í•  í…ë°, ì§€ê¸ˆ ë‹¹ì¥ì€ ì–´ë–»ê²Œ í•  ì§€ë¥¼ ëª¨ë¥´ê² ë„¤...
+				// ê± ì…ì„ ìˆ˜ ì—†ë‹¤ëŠ” íŒ¨í‚·ì„ ë³´ë‚´ì£¼ì...
+				cerr << "ì–‘ì†ì— ì¹¼ê³¼ ë°©íŒ¨ë¥¼ ë“¤ê³  ìˆì–´ì„œ, ì–‘ì† ë¬´ê¸°ë¥¼ ì¥ì°©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤." << endl;
 				return;
 			}
 		}
-		// ¾ç¼Õ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÁö ¾ÊÀ» °æ¿ì
+		// ì–‘ì†ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì§€ ì•Šì„ ê²½ìš°
 		else 
 		{
 			char pField[80];
 
-			// ¿À¸¥ÂÊ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+			// ì˜¤ë¥¸ìª½ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 			if (isWear(WEAR_RIGHTHAND))
 			{
 				pRight = getWearItem(WEAR_RIGHTHAND);
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 
@@ -1521,17 +1521,17 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pRight);
 				//pRight->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pRight->tinysave(pField);
 			}
-			// ¿ŞÂÊ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+			// ì™¼ìª½ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 			else if (isWear(WEAR_LEFTHAND))
 			{
 				pLeft = getWearItem(WEAR_LEFTHAND);
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 
@@ -1540,16 +1540,16 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pLeft);
 				//pLeft->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pLeft->tinysave(pField);
 			}
-			// ¾Æ¹«ÂÊµµ ¾ÆÀÌÅÛÀ» µé°í ÀÖÁö ¾ÊÀ» °æ¿ì
+			// ì•„ë¬´ìª½ë„ ì•„ì´í…œì„ ë“¤ê³  ìˆì§€ ì•Šì„ ê²½ìš°
 			else
 			{
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 
@@ -1567,7 +1567,7 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 		if (isWear(Part))
 		{
 			pPrevItem = getWearItem(Part);
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 			m_pWearItem[Part] = pItem;
 
 			// by sigi. 2002.5.15
@@ -1575,7 +1575,7 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 			pItem->tinysave(pField);
 
-			// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+			// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 			addItemToExtraInventorySlot(pPrevItem);
 
 			//pPrevItem->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
@@ -1584,7 +1584,7 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 		}
 		else
 		{
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 			m_pWearItem[Part] = pItem;
 			//pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
 			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
@@ -1594,8 +1594,8 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 
 	ItemType_t IType = pItem->getItemType();
 
-	// ¾î¶² ¹«±â¸¦ Àâ°í ÀÖ´Ù´Â Á¤º¸¸¦ ÀúÀåÇÑ´Ù. 
-	// SlayerInfo¿¡ ¼ÂÆÃÀ» ÇØ ³õ¾Æ¾ß ´ÙÀ½ ´©±º°¡°¡ º¼¶§ ³¯·ÁÁØ´Ù.
+	// ì–´ë–¤ ë¬´ê¸°ë¥¼ ì¡ê³  ìˆë‹¤ëŠ” ì •ë³´ë¥¼ ì €ì¥í•œë‹¤. 
+	// SlayerInfoì— ì…‹íŒ…ì„ í•´ ë†“ì•„ì•¼ ë‹¤ìŒ ëˆ„êµ°ê°€ê°€ ë³¼ë•Œ ë‚ ë ¤ì¤€ë‹¤.
 	Color_t color = getItemShapeColor( pItem, pOptionInfo ); 
 
 	switch (IClass)
@@ -1665,14 +1665,14 @@ void Slayer::wearItem(WearPart Part, Item* pItem)
 }
 
 // Slayer::wearItem()
-// ItemÀ» ÀåÂøÃ¢¿¡ ÀåÂø½ÃÅ°°í ´É·ÂÄ¡¸¦ °è»êÇÑ´Ù.
+// Itemì„ ì¥ì°©ì°½ì— ì¥ì°©ì‹œí‚¤ê³  ëŠ¥ë ¥ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 void Slayer::wearItem(WearPart Part)
 	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	// ÀåÂø ÁØºñÁßÀÎ ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Â´Ù.
+	// ì¥ì°© ì¤€ë¹„ì¤‘ì¸ ì•„ì´í…œì„ ë°›ì•„ì˜¨ë‹¤.
 	Item* pItem = getExtraInventorySlotItem();
 	Assert(pItem != NULL);
 
@@ -1683,7 +1683,7 @@ void Slayer::wearItem(WearPart Part)
 	Item*           pPrevItem   = NULL;
 	GCTakeOff       _GCTakeOff;
 
-	// Ã¹¹øÂ° ¿É¼ÇÀÇ »ö±òÀ» ÁöÁ¤ÇÑ´Ù.
+	// ì²«ë²ˆì§¸ ì˜µì…˜ì˜ ìƒ‰ê¹”ì„ ì§€ì •í•œë‹¤.
 	if (pItem->getFirstOptionType() != 0)
 		pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getFirstOptionType());
 
@@ -1691,31 +1691,31 @@ void Slayer::wearItem(WearPart Part)
 	if (IClass == Item::ITEM_CLASS_SHIELD) Part = WEAR_LEFTHAND;
 	if (IClass == Item::ITEM_CLASS_SWORD)  Part = WEAR_RIGHTHAND;
 
-	// ¸ÕÀú ¿ÊÀ» ÀÔÈ÷°Å³ª, ¹ş±â±â Àü¿¡ ÇöÀçÀÇ ´É·ÂÄ¡¸¦ ¹öÆÛ¿¡´Ù ÀúÀåÇØ µĞ´Ù.
-	// ÀÌ´Â ³ªÁß¿¡ º¯ÇÑ ´É·ÂÄ¡¸¸À» Àü¼ÛÇÏ±â À§ÇÑ °ÍÀÌ´Ù.
+	// ë¨¼ì € ì˜·ì„ ì…íˆê±°ë‚˜, ë²—ê¸°ê¸° ì „ì— í˜„ì¬ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ë²„í¼ì—ë‹¤ ì €ì¥í•´ ë‘”ë‹¤.
+	// ì´ëŠ” ë‚˜ì¤‘ì— ë³€í•œ ëŠ¥ë ¥ì¹˜ë§Œì„ ì „ì†¡í•˜ê¸° ìœ„í•œ ê²ƒì´ë‹¤.
 	SLAYER_RECORD prev;
 	getSlayerRecord(prev);
 
-	// ÇöÀç ±âÈ¹¿¡¼­´Â...´É·ÂÄ¡°¡ ¸ğÀÚ¶ó´õ¶óµµ ¾ÆÀÌÅÛÀ» ¹«Á¶°Ç »ç¿ëÇÒ ¼ö´Â
-	// ÀÖ´Ù. ÇÏÁö¸¸ ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ´É·ÂÄ¡°¡ Àû¿ëÀÌ µÇÁö ¾Ê´Â´Ù. 
-	// ±×·¯¹Ç·Î ÀÏ´Ü ¾ÆÀÌÅÛÀ» ÇØ´çÇÏ´Â ÀåÂøÃ¢¿¡´Ù Áı¾î³Ö´Â´Ù.
-	// ¾ç¼Õ ¹«±âÀÏ °æ¿ì¿¡´Â ¾ç¼Õ ÀåÂøÃ¢¿¡´Ù ÇÏ³ªÀÇ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ¸¦ ÇÒ´ç...
+	// í˜„ì¬ ê¸°íšì—ì„œëŠ”...ëŠ¥ë ¥ì¹˜ê°€ ëª¨ìë¼ë”ë¼ë„ ì•„ì´í…œì„ ë¬´ì¡°ê±´ ì‚¬ìš©í•  ìˆ˜ëŠ”
+	// ìˆë‹¤. í•˜ì§€ë§Œ ì•„ì´í…œì— ì˜í•œ ëŠ¥ë ¥ì¹˜ê°€ ì ìš©ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤. 
+	// ê·¸ëŸ¬ë¯€ë¡œ ì¼ë‹¨ ì•„ì´í…œì„ í•´ë‹¹í•˜ëŠ” ì¥ì°©ì°½ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
+	// ì–‘ì† ë¬´ê¸°ì¼ ê²½ìš°ì—ëŠ” ì–‘ì† ì¥ì°©ì°½ì—ë‹¤ í•˜ë‚˜ì˜ ì•„ì´í…œ í¬ì¸í„°ë¥¼ í• ë‹¹...
 	if (isTwohandWeapon(pItem))
 	{
-		// ¾ç¼Õ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+		// ì–‘ì†ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 		if (isWear(WEAR_RIGHTHAND) && isWear(WEAR_LEFTHAND))
 		{
 			pLeft  = getWearItem(WEAR_RIGHTHAND);
 			pRight = getWearItem(WEAR_LEFTHAND);
 			
-			// ¾ç¼Õ ¹«±â¸¦ µé°í ÀÖÀ» °æ¿ì
+			// ì–‘ì† ë¬´ê¸°ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 			if (pLeft == pRight)
 			{
 				char pField[80];
 
 				takeOffItem(WEAR_LEFTHAND, false, false);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö°í,
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ê³ ,
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 				// by sigi. 2002.5.15
@@ -1723,39 +1723,39 @@ void Slayer::wearItem(WearPart Part)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 				deleteItemFromExtraInventorySlot();
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pLeft);
 				//pLeft->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pLeft->tinysave(pField);
 
 			}
-			// °Ë°ú ¹æÆĞ¸¦ µé°í ÀÖÀ» °æ¿ì
+			// ê²€ê³¼ ë°©íŒ¨ë¥¼ ë“¤ê³  ìˆì„ ê²½ìš°
 			else
 			{
-				// ¾ç¼Õ¿¡ °Ë°ú ¹æÆĞ¸¦ µé°í ÀÖ¾ú´Âµ¥...¾ç¼Õ ¹«±â¸¦ µé·Á°í ÇÏ¸é,
-				// °ËÀº ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾ÆÁÙ ¼ö ÀÖÁö¸¸, ¹æÆĞ´Â ¾î¶»°Ô ÇÒ ¼ö°¡ ¾ø´Ù.
-				// ÀÎº¥Åä¸®¿¡ ³Ö¾îÁà¾ß ÇÒ ÅÙµ¥, Áö±İ ´çÀåÀº ¾î¶»°Ô ÇÒ Áö¸¦ ¸ğ¸£°Ú³×...
-				// °Á ÀÔÀ» ¼ö ¾ø´Ù´Â ÆĞÅ¶À» º¸³»ÁÖÀÚ...
+				// ì–‘ì†ì— ê²€ê³¼ ë°©íŒ¨ë¥¼ ë“¤ê³  ìˆì—ˆëŠ”ë°...ì–‘ì† ë¬´ê¸°ë¥¼ ë“¤ë ¤ê³  í•˜ë©´,
+				// ê²€ì€ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ì¤„ ìˆ˜ ìˆì§€ë§Œ, ë°©íŒ¨ëŠ” ì–´ë–»ê²Œ í•  ìˆ˜ê°€ ì—†ë‹¤.
+				// ì¸ë²¤í† ë¦¬ì— ë„£ì–´ì¤˜ì•¼ í•  í…ë°, ì§€ê¸ˆ ë‹¹ì¥ì€ ì–´ë–»ê²Œ í•  ì§€ë¥¼ ëª¨ë¥´ê² ë„¤...
+				// ê± ì…ì„ ìˆ˜ ì—†ë‹¤ëŠ” íŒ¨í‚·ì„ ë³´ë‚´ì£¼ì...
 				return;
 			}
 		}
-		// ¾ç¼Õ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÁö ¾ÊÀ» °æ¿ì
+		// ì–‘ì†ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì§€ ì•Šì„ ê²½ìš°
 		else 
 		{
 			// by sigi. 2002.5.15
 			char pField[80];
 
-			// ¿À¸¥ÂÊ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+			// ì˜¤ë¥¸ìª½ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 			if (isWear(WEAR_RIGHTHAND))
 			{
 				pRight = getWearItem(WEAR_RIGHTHAND);
 
 				takeOffItem(WEAR_RIGHTHAND, false, false);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 				//pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
@@ -1764,23 +1764,23 @@ void Slayer::wearItem(WearPart Part)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 				deleteItemFromExtraInventorySlot();
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pRight);
 				//pRight->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pRight->tinysave(pField);
 				
 			}
-			// ¿ŞÂÊ¿¡ ¾ÆÀÌÅÛÀ» µé°í ÀÖÀ» °æ¿ì
+			// ì™¼ìª½ì— ì•„ì´í…œì„ ë“¤ê³  ìˆì„ ê²½ìš°
 			else if (isWear(WEAR_LEFTHAND))
 			{
 				pLeft = getWearItem(WEAR_LEFTHAND);
 				
 				takeOffItem(WEAR_LEFTHAND, false, false);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 				
@@ -1789,23 +1789,23 @@ void Slayer::wearItem(WearPart Part)
 				sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 				pItem->tinysave(pField);
 
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 				deleteItemFromExtraInventorySlot();
-				// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+				// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 				addItemToExtraInventorySlot(pLeft);
 				//pLeft->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 				sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
 				pLeft->tinysave(pField);
 			}
-			// ¾Æ¹«ÂÊµµ ¾ÆÀÌÅÛÀ» µé°í ÀÖÁö ¾ÊÀ» °æ¿ì
+			// ì•„ë¬´ìª½ë„ ì•„ì´í…œì„ ë“¤ê³  ìˆì§€ ì•Šì„ ê²½ìš°
 			else
 			{
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 				m_pWearItem[WEAR_RIGHTHAND] = pItem;
 				m_pWearItem[WEAR_LEFTHAND]  = pItem;
 
 				pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
-				// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+				// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 				deleteItemFromExtraInventorySlot();
 			}
 		}
@@ -1820,16 +1820,16 @@ void Slayer::wearItem(WearPart Part)
 
 			takeOffItem(Part, false, false);
 			
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 			m_pWearItem[Part] = pItem;
 			// by sigi. 2002.5.15
 			//pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
 			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 			pItem->tinysave(pField);
 
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 			deleteItemFromExtraInventorySlot();
-			// ¿ø·¡ ÀÖ´ø ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡ ´Ş¾Æ ÁØ´Ù.
+			// ì›ë˜ ìˆë˜ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì— ë‹¬ì•„ ì¤€ë‹¤.
 			addItemToExtraInventorySlot(pPrevItem);
 			//pPrevItem->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 			sprintf(pField, "Storage=%d", STORAGE_EXTRASLOT);
@@ -1837,25 +1837,25 @@ void Slayer::wearItem(WearPart Part)
 		}
 		else
 		{
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ÀåÂø Æ÷ÀÎÆ®¿¡ ³Ö´Â´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ì¥ì°© í¬ì¸íŠ¸ì— ë„£ëŠ”ë‹¤.
 			m_pWearItem[Part] = pItem;
 
 			// by sigi. 2002.5.15
 			//pItem->save(m_Name, STORAGE_GEAR, 0, Part, 0);
 			sprintf(pField, "Storage=%d, X=%d", STORAGE_GEAR, Part);
 			pItem->tinysave(pField);
-			// ¿ä±¸ÇÑ ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Æ÷ÀÎÅÍ¿¡¼­ Á¦°ÅÇÑ´Ù.
+			// ìš”êµ¬í•œ ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ í¬ì¸í„°ì—ì„œ ì œê±°í•œë‹¤.
 			deleteItemFromExtraInventorySlot();
 		}
 	}
 
-	// ÀÏ´Ü ÀÔ¾ú´Ù°í Ã¼Å©ÇØµĞ´Ù. 
+	// ì¼ë‹¨ ì…ì—ˆë‹¤ê³  ì²´í¬í•´ë‘”ë‹¤. 
 	// by sigi. 2002.10.31
 	m_pRealWearingCheck[Part] = true;
 
 	initAllStat();
 	sendRealWearingInfo();
-	sendModifyInfo(prev); // ºñ±³ ÈÄ ´Ş¶óÁø ´É·ÂÄ¡ Àü¼Û
+	sendModifyInfo(prev); // ë¹„êµ í›„ ë‹¬ë¼ì§„ ëŠ¥ë ¥ì¹˜ ì „ì†¡
 
 	//bool bisWeapon = false;
 	bool bisChange = false;
@@ -1864,10 +1864,10 @@ void Slayer::wearItem(WearPart Part)
 
 	Color_t color = getItemShapeColor( pItem, pOptionInfo ); 
 
-	// ÇÔ¼ö·Î »°´Ù. by sigi. 2002.10.30
+	// í•¨ìˆ˜ë¡œ ëºë‹¤. by sigi. 2002.10.30
 	bisChange = changeShape( pItem, color );
 	/*
-	// ½ÇÁ¦·Î ÀÔÀ» ¼ö ÀÖÀ¸¸é º¹ÀåÀ» ¹Ù²ãÁØ´Ù. by sigi. 2002.10.30
+	// ì‹¤ì œë¡œ ì…ì„ ìˆ˜ ìˆìœ¼ë©´ ë³µì¥ì„ ë°”ê¿”ì¤€ë‹¤. by sigi. 2002.10.30
 	if (m_pRealWearingCheck[Part])
 	{
 		switch (IClass)
@@ -1959,16 +1959,16 @@ void Slayer::wearItem(WearPart Part)
 	/*
 	if (bisWeapon) 
 	{
-		// ¹«±â¿¡ StrkingÀÌ ºÙ¾î ÀÖÀ¸¸é...
+		// ë¬´ê¸°ì— Strkingì´ ë¶™ì–´ ìˆìœ¼ë©´...
 		EffectManager* pEffectManager = pItem->getEffectManager();
 		if (pEffectManager->isEffect(Effect::EFFECT_CLASS_STRIKING)) 
 		{
 			Effect* pEffect = pEffectManager->findEffect(Effect::EFFECT_CLASS_STRIKING);
-			// ÇöÁ¦ ½Ã°£ Ã¼Å©
+			// í˜„ì œ ì‹œê°„ ì²´í¬
 			Timeval currentTime;
 			getCurrentTime(currentTime);
 
-			// ³²Àº½Ã°£ »êÃâÇÏ±â
+			// ë‚¨ì€ì‹œê°„ ì‚°ì¶œí•˜ê¸°
 			Timeval DeadLine = pEffect->getDeadline();
 			Turn_t Duration = DeadLine.tv_sec - currentTime.tv_sec;
 
@@ -1981,7 +1981,7 @@ void Slayer::wearItem(WearPart Part)
 	}
 	*/
 
-	// ½ÇÁ¦·Î ÀÔÀ» ¼ö ÀÖÀ¸¸é º¹ÀåÀ» ¹Ù²ãÁØ´Ù. by sigi. 2002.10.30
+	// ì‹¤ì œë¡œ ì…ì„ ìˆ˜ ìˆìœ¼ë©´ ë³µì¥ì„ ë°”ê¿”ì¤€ë‹¤. by sigi. 2002.10.30
 	if (m_pRealWearingCheck[Part])
 	//if (bisChange) 
 	{
@@ -2017,8 +2017,8 @@ void Slayer::wearItem(WearPart Part)
 }
 
 // Slayer::takeOffItem()
-// *NOTE : ÀÓ½Ã·Î bool Å¸ÀÔÀÇ parameter¸¦ ³Ö¾î µĞ´Ù.
-//         ÄÚµå°¡ ±¸Áú±¸Áú ÇØÁö±â ¶§¹®¿¡ ³ªÁß¿¡ ¹Ù²Ùµµ·Ï ÇÑ´Ù.. ÇÊ¼ö!
+// *NOTE : ì„ì‹œë¡œ bool íƒ€ì…ì˜ parameterë¥¼ ë„£ì–´ ë‘”ë‹¤.
+//         ì½”ë“œê°€ êµ¬ì§ˆêµ¬ì§ˆ í•´ì§€ê¸° ë•Œë¬¸ì— ë‚˜ì¤‘ì— ë°”ê¾¸ë„ë¡ í•œë‹¤.. í•„ìˆ˜!
 void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 	
 {
@@ -2027,7 +2027,7 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 
 	SLAYER_RECORD prev;
 
-	// ÀåÂøÃ¢¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Â´Ù.
+	// ì¥ì°©ì°½ì— ìˆëŠ” ì•„ì´í…œì„ ë°›ì•„ì˜¨ë‹¤.
 	Item* pItem = m_pWearItem[Part];
 	Assert(pItem != NULL);
 	Item::ItemClass IClass = pItem->getItemClass();
@@ -2044,7 +2044,7 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 		}
 	}
 
-	// ¾ÆÀÌÅÛÀ» ÀåÂøÆ÷ÀÎÆ®¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// ì•„ì´í…œì„ ì¥ì°©í¬ì¸íŠ¸ì—ì„œ ì œê±°í•œë‹¤.
 	if (isTwohandWeapon(pItem))
 	{
 		m_pWearItem[WEAR_RIGHTHAND] = NULL;
@@ -2052,10 +2052,10 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 	}
 	else m_pWearItem[Part] = NULL;
 
-	// wearItem¿¡¼­ ÁöÁ¤µÈ ½½¶ù¿¡ ¿ÊÀ» ÀÌ¹Ì ÀÔ°í ÀÖ´Â °æ¿ì¿¡, ±×°ÍÀ» ¹ş±â°í
-	// ´Ù½Ã ¿ÊÀ» ÀÔÈ÷´Âµ¥, ±×·¯¸é ¹ş±æ ¶§ ÆĞÅ¶À» ÇÑ¹ø, ÀÔ¾úÀ» ¶§ ´Ù½Ã ÆĞÅ¶À»
-	// ÇÑ¹ø, ÃÑ µÎ ¹øÀÇ ÆĞÅ¶À» º¸³»°Ô µÈ´Ù. ±×°ÍÀ» ¹æÁöÇÏ±â À§ÇØ¼­
-	// bool º¯¼ö¸¦ ÇÏ³ª Áı¾î³Ö¾ú´Ù. -- 2002.01.24 ±è¼º¹Î
+	// wearItemì—ì„œ ì§€ì •ëœ ìŠ¬ëì— ì˜·ì„ ì´ë¯¸ ì…ê³  ìˆëŠ” ê²½ìš°ì—, ê·¸ê²ƒì„ ë²—ê¸°ê³ 
+	// ë‹¤ì‹œ ì˜·ì„ ì…íˆëŠ”ë°, ê·¸ëŸ¬ë©´ ë²—ê¸¸ ë•Œ íŒ¨í‚·ì„ í•œë²ˆ, ì…ì—ˆì„ ë•Œ ë‹¤ì‹œ íŒ¨í‚·ì„
+	// í•œë²ˆ, ì´ ë‘ ë²ˆì˜ íŒ¨í‚·ì„ ë³´ë‚´ê²Œ ëœë‹¤. ê·¸ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ì„œ
+	// bool ë³€ìˆ˜ë¥¼ í•˜ë‚˜ ì§‘ì–´ë„£ì—ˆë‹¤. -- 2002.01.24 ê¹€ì„±ë¯¼
 	if (bSendModifyInfo)
 	{
 		getSlayerRecord(prev); 
@@ -2068,13 +2068,13 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 		initAllStat();
 	}
 
-	// ÀÖ¾î¼± ¾ÈµÉ Ã¼Å© -_-; ÀÓ½Ã ¶«»§
-	// ¾ÆÀÌÅÛÀ» ¸¶¿ì½º Ä¿¼­¿¡´Ù ´Ş¾ÆÁØ´ç.
+	// ìˆì–´ì„  ì•ˆë  ì²´í¬ -_-; ì„ì‹œ ë•œë¹µ
+	// ì•„ì´í…œì„ ë§ˆìš°ìŠ¤ ì»¤ì„œì—ë‹¤ ë‹¬ì•„ì¤€ë‹¹.
 	if (bAddOnMouse) 
 	{
 		addItemToExtraInventorySlot(pItem);
 
-		// ¾ÆÀÌÅÛ ÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+		// ì•„ì´í…œ ì €ì¥ ìµœì í™”. by sigi. 2002.5.13
 		//pItem->save(m_Name, STORAGE_EXTRASLOT, 0, 0, 0);
 		char pField[80];
 
@@ -2160,7 +2160,7 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 	/*
 	if (bisWeapon) 
 	{
-		// ¹«±â¿¡ StrkingÀÌ ºÙ¾î ÀÖÀ¸¸é...
+		// ë¬´ê¸°ì— Strkingì´ ë¶™ì–´ ìˆìœ¼ë©´...
 		EffectManager* pEffectManager = pItem->getEffectManager();
 
 		if (pEffectManager->isEffect(Effect::EFFECT_CLASS_STRIKING)) 
@@ -2189,7 +2189,7 @@ void Slayer::takeOffItem(WearPart Part, bool bAddOnMouse, bool bSendModifyInfo)
 }
 
 // destroyGears
-// ÀåÂø ¾ÆÀÌÅÛÀ» Delete ÇÑ´Ù.
+// ì¥ì°© ì•„ì´í…œì„ Delete í•œë‹¤.
 void Slayer::destroyGears() 
 	
 {
@@ -2200,8 +2200,8 @@ void Slayer::destroyGears()
 		Item* pItem = m_pWearItem[j];
 		if (pItem != NULL) 
 		{
-			// ¾ç¼Õ ¹«±âÀÎÁö¸¦ °Ë»çÇØ¼­ ¾ÆÀÌÅÛ ÇÏ³ª¸¦ Áö¿ì¸é¼­
-			// ¾ç¼ÕÀ» ºñ¿öÁØ´Ù.
+			// ì–‘ì† ë¬´ê¸°ì¸ì§€ë¥¼ ê²€ì‚¬í•´ì„œ ì•„ì´í…œ í•˜ë‚˜ë¥¼ ì§€ìš°ë©´ì„œ
+			// ì–‘ì†ì„ ë¹„ì›Œì¤€ë‹¤.
 			if (isTwohandWeapon(pItem))
 			{
 				m_pWearItem[WEAR_RIGHTHAND] = NULL;
@@ -2225,7 +2225,7 @@ bool Slayer::isRealWearing(WearPart part) const
 	if (m_pWearItem[part] == NULL) return false;
 	if (part >= WEAR_ZAP1 && part <= WEAR_ZAP4)
 	{
-		// ÇØ´ç À§Ä¡¿¡ ¹İÁöµµ ÀÖ¾î¾ß µÈ´Ù.
+		// í•´ë‹¹ ìœ„ì¹˜ì— ë°˜ì§€ë„ ìˆì–´ì•¼ ëœë‹¤.
 		if ( m_pWearItem[part-WEAR_ZAP1+WEAR_FINGER1]==NULL ) return false;
 	}
 
@@ -2256,7 +2256,7 @@ bool Slayer::isRealWearing(Item* pItem) const
 		if ( ReqAdvancedLevel <= 0 && isAdvanced() ) return false;
 	}
 
-	// ½Ã°£Á¦ÇÑ¾ÆÀÌÅÛÀº ·¹¾î³ª À¯´ÏÅ©³ª ¹«·á»ç¿ëÀÚµµ ¾µ ¼ö ÀÖ´Ù....... 2003.5.4
+	// ì‹œê°„ì œí•œì•„ì´í…œì€ ë ˆì–´ë‚˜ ìœ ë‹ˆí¬ë‚˜ ë¬´ë£Œì‚¬ìš©ìë„ ì“¸ ìˆ˜ ìˆë‹¤....... 2003.5.4
 	if ( pItem->isTimeLimitItem() )
 	{
 		Attr_t    ReqGender = pItemInfo->getReqGender();
@@ -2265,8 +2265,8 @@ bool Slayer::isRealWearing(Item* pItem) const
 		return true;
 	}
 
-	// ÇÁ¸®¹Ì¾ö Á¸¿¡¼­´Â À¯·á»ç¿ëÀÚ¸¸ À¯´ÏÅ©/·¹¾î ¾ÆÀÌÅÛÀÌ Àû¿ëµÈ´Ù.
-	// Ä¿ÇÃ¸µµµ À¯·á»ç¿ëÀÚ¸¸ ¾µ ¼ö ÀÖ´Ù. by Sequoia 2003. 3. 5.
+	// í”„ë¦¬ë¯¸ì—„ ì¡´ì—ì„œëŠ” ìœ ë£Œì‚¬ìš©ìë§Œ ìœ ë‹ˆí¬/ë ˆì–´ ì•„ì´í…œì´ ì ìš©ëœë‹¤.
+	// ì»¤í”Œë§ë„ ìœ ë£Œì‚¬ìš©ìë§Œ ì“¸ ìˆ˜ ìˆë‹¤. by Sequoia 2003. 3. 5.
 	if (getZone()->isPremiumZone()
 		&& (pItem->isUnique() || pItem->getOptionTypeSize()>1 || 
 			pItem->getItemClass() == Item::ITEM_CLASS_COUPLE_RING || pItem->getItemClass() == Item::ITEM_CLASS_VAMPIRE_COUPLE_RING))
@@ -2291,20 +2291,20 @@ bool Slayer::isRealWearing(Item* pItem) const
 	Attr_t    ReqSum    = pItemInfo->getReqSum();
 	Attr_t    ReqGender = pItemInfo->getReqGender();
 
-	// ±âº» ¾ÆÀÌÅÛÀÇ ´É·ÂÄ¡ ÃÑÇÕ ¿ä±¸Ä¡°¡ 300ÀÌ ³ÑÀ¸¸é ¿É¼ÇÀ» Æ÷ÇÔÇÑ ¿ä±¸Ä¡°¡ 435±îÁö ¿Ã¶ó°¥ ¼ö ÀÖ´Ù.
-	// ±âº» ¾ÆÀÌÅÛÀÇ ¿ä±¸Ä¡°¡ 300 ÀÌÇÏÀÏ °æ¿ì ¿É¼ÇÀ» ´Ù Æ÷ÇÔÇØµµ 300À» ³Ñ¾î¼­´Â ¾È µÈ´Ù.
-	// ´Ù¸¥ °Íµéµµ ¸¶Âù°¡Áö´Ù. 2003.3.21 by Sequoia
+	// ê¸°ë³¸ ì•„ì´í…œì˜ ëŠ¥ë ¥ì¹˜ ì´í•© ìš”êµ¬ì¹˜ê°€ 300ì´ ë„˜ìœ¼ë©´ ì˜µì…˜ì„ í¬í•¨í•œ ìš”êµ¬ì¹˜ê°€ 435ê¹Œì§€ ì˜¬ë¼ê°ˆ ìˆ˜ ìˆë‹¤.
+	// ê¸°ë³¸ ì•„ì´í…œì˜ ìš”êµ¬ì¹˜ê°€ 300 ì´í•˜ì¼ ê²½ìš° ì˜µì…˜ì„ ë‹¤ í¬í•¨í•´ë„ 300ì„ ë„˜ì–´ì„œëŠ” ì•ˆ ëœë‹¤.
+	// ë‹¤ë¥¸ ê²ƒë“¤ë„ ë§ˆì°¬ê°€ì§€ë‹¤. 2003.3.21 by Sequoia
 	Attr_t	ReqSumMax	= ( ( ReqSum > MAX_SLAYER_SUM_OLD ) ? MAX_SLAYER_SUM : MAX_SLAYER_SUM_OLD );
 	Attr_t	ReqSTRMax	= ( ( ReqSTR > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
 	Attr_t	ReqDEXMax	= ( ( ReqDEX > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
 	Attr_t	ReqINTMax	= ( ( ReqINT > MAX_SLAYER_ATTR_OLD ) ? MAX_SLAYER_ATTR : MAX_SLAYER_ATTR_OLD );
 
-	// ¾ÆÀÌÅÛÀÌ ¿É¼ÇÀ» °¡Áö°í ÀÖ´Ù¸é, 
-	// ¿É¼ÇÀÇ Á¾·ù¿¡ µû¶ó¼­ ´É·ÂÄ¡ Á¦ÇÑÀ» ¿Ã·ÁÁØ´Ù.
+	// ì•„ì´í…œì´ ì˜µì…˜ì„ ê°€ì§€ê³  ìˆë‹¤ë©´, 
+	// ì˜µì…˜ì˜ ì¢…ë¥˜ì— ë”°ë¼ì„œ ëŠ¥ë ¥ì¹˜ ì œí•œì„ ì˜¬ë ¤ì¤€ë‹¤.
 	const list<OptionType_t>& optionTypes = pItem->getOptionTypeList();
 	if (!optionTypes.empty())
 	{
-		// ¸ğµç ¿É¼Ç¿¡ ´ëÇØ¼­...
+		// ëª¨ë“  ì˜µì…˜ì— ëŒ€í•´ì„œ...
 		list<OptionType_t>::const_iterator itr;
 		for (itr=optionTypes.begin(); itr!=optionTypes.end(); itr++)
 		{
@@ -2325,14 +2325,14 @@ bool Slayer::isRealWearing(Item* pItem) const
 	}
 
 	// 2003.1.6 by Sequoia, Bezz
-	// 2003.3.21 À§¿¡ Á¤ÀÇµÈ Max°ªÀÌ ÃÖ´ëÄ¡·Î Á¦ÇÑµÈ´Ù.
+	// 2003.3.21 ìœ„ì— ì •ì˜ëœ Maxê°’ì´ ìµœëŒ€ì¹˜ë¡œ ì œí•œëœë‹¤.
 	ReqSTR = min(ReqSTR, ReqSTRMax);
 	ReqDEX = min(ReqDEX, ReqDEXMax);
 	ReqINT = min(ReqINT, ReqINTMax);
 	ReqSum = min(ReqSum, ReqSumMax);
 	
-	// ´É·ÂÄ¡ Á¦ÇÑÀÌ ÇÏ³ª¶óµµ ÀÖ´Ù¸é,
-	// ±× ´É·ÂÀ» ¸¸Á·½ÃÅ°´ÂÁö °Ë»çÇØ¾ß ÇÑ´Ù.
+	// ëŠ¥ë ¥ì¹˜ ì œí•œì´ í•˜ë‚˜ë¼ë„ ìˆë‹¤ë©´,
+	// ê·¸ ëŠ¥ë ¥ì„ ë§Œì¡±ì‹œí‚¤ëŠ”ì§€ ê²€ì‚¬í•´ì•¼ í•œë‹¤.
 	Attr_t CSTR = m_STR[ATTR_CURRENT];
 	Attr_t CDEX = m_DEX[ATTR_CURRENT];
 	Attr_t CINT = m_INT[ATTR_CURRENT];
@@ -2390,10 +2390,10 @@ void Slayer::setMotorcycle(Motorcycle* pMotorcycle)
 {
 	__BEGIN_DEBUG
 
-	// ¸ğÅÍ»çÀÌÅ¬À» ¼ÂÆÃÇÑ´Ù.
+	// ëª¨í„°ì‚¬ì´í´ì„ ì…‹íŒ…í•œë‹¤.
 	m_pMotorcycle = pMotorcycle;
 
-	// SlaeyrInfo¿¡ ¸ğÅä»çÀÌÅ¬À» Å¸°í ÀÖ´Ù´Â °ÍÀ» ¼ÂÆÃÇÑ´Ù.
+	// SlaeyrInfoì— ëª¨í† ì‚¬ì´í´ì„ íƒ€ê³  ìˆë‹¤ëŠ” ê²ƒì„ ì…‹íŒ…í•œë‹¤.
 	//m_SlayerInfo.setMotorcycleType(MOTORCYCLE1);
 	// by sigi.2002.6.22
 	m_SlayerInfo.setMotorcycleType( getMotorcycleType(pMotorcycle->getItemType()) );
@@ -2425,14 +2425,14 @@ void Slayer::getOffMotorcycle()
 {
 	__BEGIN_DEBUG
 	
-	// ¸ğÅä»çÀÌÅ¬À» Á¸¿¡ ¶³¾îÆ®¸°´Ù.
+	// ëª¨í† ì‚¬ì´í´ì„ ì¡´ì— ë–¨ì–´íŠ¸ë¦°ë‹¤.
 	TPOINT pt = m_pZone->addItem((Item*)m_pMotorcycle, m_X, m_Y);
 
 	if (pt.x != -1) 
 	{
 		//m_pMotorcycle->save("", STORAGE_ZONE, m_pZone->getZoneID(), pt.x, pt.y);
 
-		// ¾ÆÀÌÅÛ ÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.15
+		// ì•„ì´í…œ ì €ì¥ ìµœì í™”. by sigi. 2002.5.15
 		char pField[80];
 		sprintf(pField, "OwnerID='', Storage=%d, StorageID=%u, X=%d, Y=%d",
 									STORAGE_ZONE, m_pZone->getZoneID(), (int)pt.x, (int)pt.y);
@@ -2450,13 +2450,13 @@ void Slayer::getOffMotorcycle()
 		{
 			//cout << "Slayer::getOffMotorcycle() - pMotorcycleBox is NULL" << endl;
 			filelog("errorLog.txt", "Slayer::getOffMotorcycle() - No MotorcycleBox: %d", (int)m_pMotorcycle->getItemID());
-			//throw Error("¿ÀÅä¹ÙÀÌ¸¦ ¹şÀ»·Á°í ÇÏ´Âµ¥ ParkingCenter¿¡ MotorcycleBox°¡ ¾ø½À´Ï´Ù.");
+			//throw Error("ì˜¤í† ë°”ì´ë¥¼ ë²—ì„ë ¤ê³  í•˜ëŠ”ë° ParkingCenterì— MotorcycleBoxê°€ ì—†ìŠµë‹ˆë‹¤.");
 		}
 	} 
 	else 
 	{
-		// ´Ù¸¥ ¾ÆÀÌÅÛµéÀÌ ³Ñ ¸¹ÀÌ ±ò·Á ÀÖÀ» °æ¿ì ±×³É BoxÀÚÃ¼¸¦ »èÁ¦ ÇØÁØ´Ù..
-		// ´Ù½Ã ¹Ş±â¸¦ ÇØ¾ß ÇÏ°ÚÁö? -_-;
+		// ë‹¤ë¥¸ ì•„ì´í…œë“¤ì´ ë„˜ ë§ì´ ê¹”ë ¤ ìˆì„ ê²½ìš° ê·¸ëƒ¥ Boxìì²´ë¥¼ ì‚­ì œ í•´ì¤€ë‹¤..
+		// ë‹¤ì‹œ ë°›ê¸°ë¥¼ í•´ì•¼ í•˜ê² ì§€? -_-;
 		if (g_pParkingCenter->hasMotorcycleBox(m_pMotorcycle->getItemID())) 
 		{
 			g_pParkingCenter->deleteMotorcycleBox(m_pMotorcycle->getItemID());
@@ -2464,10 +2464,10 @@ void Slayer::getOffMotorcycle()
 
 	}
 
-	// ½½·¹ÀÌ¾îÀÇ ¸ğÅä»çÀÌÅ¬À» ¹ş±ä´Ù.
+	// ìŠ¬ë ˆì´ì–´ì˜ ëª¨í† ì‚¬ì´í´ì„ ë²—ê¸´ë‹¤.
 	m_pMotorcycle = NULL;
 
-	// ½½·¹ÀÌ¾î°¡ ¸ğÅä»çÀÌÅ¬À» Å¸°í ÀÖÁö ¾Ê´Ù´Â °ÍÀ» ¼ÂÆÃÇÑ´Ù.
+	// ìŠ¬ë ˆì´ì–´ê°€ ëª¨í† ì‚¬ì´í´ì„ íƒ€ê³  ìˆì§€ ì•Šë‹¤ëŠ” ê²ƒì„ ì…‹íŒ…í•œë‹¤.
 	m_SlayerInfo.setMotorcycleType(MOTORCYCLE_NONE);
 
 	__END_DEBUG
@@ -2492,7 +2492,7 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 
 	//pInfo->setPhoneNumber(m_PhoneNumber);
 
-	// ¼ºÇâ
+	// ì„±í–¥
 	pInfo->setAlignment(m_Alignment);
 
 	//cout << "STR[CURRENT]" << (int)m_STR[ATTR_CURRENT] << endl;
@@ -2505,7 +2505,7 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 	//cout << "INT[MAX]" << (int)m_INT[ATTR_MAX] << endl;
 	//cout << "INT[BASIC]" << (int)m_INT[ATTR_BASIC] << endl;
 
-	// ´É·ÂÄ¡
+	// ëŠ¥ë ¥ì¹˜
 	pInfo->setSTR(m_STR[ATTR_CURRENT], ATTR_CURRENT);
 	pInfo->setSTR(m_STR[ATTR_MAX], ATTR_MAX);
 	pInfo->setSTR(m_STR[ATTR_BASIC], ATTR_BASIC);
@@ -2516,7 +2516,7 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 	pInfo->setINT(m_INT[ATTR_MAX], ATTR_MAX);
 	pInfo->setINT(m_INT[ATTR_BASIC], ATTR_BASIC);
 
-	// ´É·ÂÄ¡ °æÇèÄ¡
+	// ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜
 //	pInfo->setSTRExp(m_STRExp);
 //	pInfo->setDEXExp(m_DEXExp);
 //	pInfo->setINTExp(m_INTExp);
@@ -2524,7 +2524,7 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 	pInfo->setDEXExp( getDEXGoalExp() );
 	pInfo->setINTExp( getINTGoalExp() );
 
-	// °è±Ş
+	// ê³„ê¸‰
 	pInfo->setRank(getRank());
 	pInfo->setRankExp(getRankGoalExp());
 
@@ -2547,8 +2547,8 @@ PCSlayerInfo2* Slayer::getSlayerInfo2 () const
 //		pInfo->setHotKey(i, m_HotKey[i]);
 //	}
 
-	// 0ÀÌ³ª 1 ±ÇÇÑÀ» °¡Áö°í ÀÖÀ¸¸é
-	// ¿î¿µÀÚ·Î ½ºÇÁ¶óÀÌÆ®¸¦ Ãâ·ÂÇØÁà¾ß ÇÑ´Ù. 
+	// 0ì´ë‚˜ 1 ê¶Œí•œì„ ê°€ì§€ê³  ìˆìœ¼ë©´
+	// ìš´ì˜ìë¡œ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì¶œë ¥í•´ì¤˜ì•¼ í•œë‹¤. 
 	pInfo->setCompetence(m_CompetenceShape);
 	pInfo->setGuildID(m_GuildID);
 	pInfo->setGuildName( getGuildName() );
@@ -2572,9 +2572,9 @@ PCSlayerInfo3 Slayer::getSlayerInfo3 () const
 {
 	__BEGIN_DEBUG
 
-	// ÁÂÇ¥¿Í ¹æÇâÀº ³Ê¹« ÀÚÁÖ ¹Ù²î±â ¶§¹®¿¡, ÀÌ ÇÔ¼ö°¡ È£ÃâµÉ ¶§¿¡¸¸
-	// ÁöÁ¤ÇØÁØ´Ù.
-	m_SlayerInfo.setObjectID(m_ObjectID);	// by sigi. 2002.6.5. morph¶§¹®¿¡
+	// ì¢Œí‘œì™€ ë°©í–¥ì€ ë„ˆë¬´ ìì£¼ ë°”ë€Œê¸° ë•Œë¬¸ì—, ì´ í•¨ìˆ˜ê°€ í˜¸ì¶œë  ë•Œì—ë§Œ
+	// ì§€ì •í•´ì¤€ë‹¤.
+	m_SlayerInfo.setObjectID(m_ObjectID);	// by sigi. 2002.6.5. morphë•Œë¬¸ì—
 	m_SlayerInfo.setX(m_X);
 	m_SlayerInfo.setY(m_Y);
 	m_SlayerInfo.setDir(m_Dir);
@@ -2583,13 +2583,13 @@ PCSlayerInfo3 Slayer::getSlayerInfo3 () const
 	m_SlayerInfo.setAlignment(m_Alignment);
 	m_SlayerInfo.setGuildID(m_GuildID);
 
-	// °ø°İ ½ºÇÇµå
+	// ê³µê²© ìŠ¤í”¼ë“œ
 	m_SlayerInfo.setAttackSpeed(m_AttackSpeed[ATTR_CURRENT]);
 
 	// by sigi. 2002.9.10
 	m_SlayerInfo.setRank(getRank());
 
-	// 2003.5.15 ¿°»ö¾à¿ë
+	// 2003.5.15 ì—¼ìƒ‰ì•½ìš©
     m_SlayerInfo.setHairColor(m_HairColor);
     m_SlayerInfo.setSkinColor(m_SkinColor);
 	m_SlayerInfo.setMasterEffectColor(m_MasterEffectColor);
@@ -2657,7 +2657,7 @@ ExtraInfo* Slayer::getExtraInfo() const
 			pExtraSlotInfo->setItemNum(pItem->getNum());
 		}
 
-		// º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+		// ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
 		if (IClass == Item::ITEM_CLASS_BELT) 
 		{
 			Belt* pBelt = dynamic_cast<Belt*>(pItem);
@@ -2687,7 +2687,7 @@ ExtraInfo* Slayer::getExtraInfo() const
 
 		}
 
-		// »óÀÇ ÇÏÀÇ Main Color Áö±İÀº ±×³É 0 À¸·Î ¼ÂÆÃ ÇØµĞ´Ù.
+		// ìƒì˜ í•˜ì˜ Main Color ì§€ê¸ˆì€ ê·¸ëƒ¥ 0 ìœ¼ë¡œ ì…‹íŒ… í•´ë‘”ë‹¤.
 		pExtraSlotInfo->setMainColor(0);
 */	
 		pExtraInfo->addListElement(pExtraSlotInfo);
@@ -2758,21 +2758,21 @@ GearInfo* Slayer::getGearInfo() const
 				pGearSlotInfo->setItemNum(pItem->getNum());
 			}
 
-			// º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+			// ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
 			if (IClass == Item::ITEM_CLASS_BELT) {
 
-				// ¾ÆÀÌÅÛ ÀÎÆ÷¸¦ ¹Ş¾Æ¿Â´Ù.
+				// ì•„ì´í…œ ì¸í¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 				ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo(pItem->getItemClass(), pItem->getItemType());
 	
-				// Æ÷ÄÏÀÇ ¼ıÀÚ¸¦ ¹Ş¾Æ¿Â´Ù.
+				// í¬ì¼“ì˜ ìˆ«ìë¥¼ ë°›ì•„ì˜¨ë‹¤.
 				BYTE PocketNum = ((BeltInfo*)pItemInfo)->getPocketCount();
 	
-				// º§Æ®ÀÇ ÀÎº¥Åä¸®¸¦ ¹Ş¾Æ¿Â´Ù.
+				// ë²¨íŠ¸ì˜ ì¸ë²¤í† ë¦¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 				Inventory* pBeltInventory = ((Belt*)pItem)->getInventory();
 	
 				BYTE SubItemCount = 0;
 	
-				// Æ÷ÄÏÀÇ ¼ıÀÚ¸¸Å­ ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ÀĞ¾î µéÀÎ´Ù.
+				// í¬ì¼“ì˜ ìˆ«ìë§Œí¼ ì•„ì´í…œì˜ ì •ë³´ë¥¼ ì½ì–´ ë“¤ì¸ë‹¤.
 				for (int i = 0; i < PocketNum ; i++) {
 	
 					Item* pBeltItem = pBeltInventory->getItem(i, 0);
@@ -2797,7 +2797,7 @@ GearInfo* Slayer::getGearInfo() const
 
 			pGearSlotInfo->setSlotID(i);
 		
-			// »óÀÇ ÇÏÀÇ Main Color Áö±İÀº ±×³É 0 À¸·Î ¼ÂÆÃ ÇØµĞ´Ù.
+			// ìƒì˜ í•˜ì˜ Main Color ì§€ê¸ˆì€ ê·¸ëƒ¥ 0 ìœ¼ë¡œ ì…‹íŒ… í•´ë‘”ë‹¤.
 			pGearSlotInfo->setMainColor(0);*/
 		
 			pGearInfo->addListElement(pGearSlotInfo);
@@ -2843,8 +2843,8 @@ InventoryInfo* Slayer::getInventoryInfo() const
 
 				if (itr == ItemList.end()) 
 				{
-					// Hash_map ¿¡ ItemÀ» µî·Ï½ÃÄÑ ³õÀ½,
-					// ´ÙÀ½ ºñ±³¶§ °°Àº ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÏ±â À§ÇÏ¿©.
+					// Hash_map ì— Itemì„ ë“±ë¡ì‹œì¼œ ë†“ìŒ,
+					// ë‹¤ìŒ ë¹„êµë•Œ ê°™ì€ ì•„ì´í…œì¸ì§€ í™•ì¸í•˜ê¸° ìœ„í•˜ì—¬.
 					ItemList.push_back(pItem);
 
 					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
@@ -2852,7 +2852,7 @@ InventoryInfo* Slayer::getInventoryInfo() const
 					pInventorySlotInfo->setInvenX(i);
 					pInventorySlotInfo->setInvenY(j);
 
-					// InventorySlotInfo¸¦ ±¸¼º
+					// InventorySlotInfoë¥¼ êµ¬ì„±
 /*					InventorySlotInfo* pInventorySlotInfo = new InventorySlotInfo();
 					pInventorySlotInfo->setObjectID(pItem->getObjectID());
 					pInventorySlotInfo->setItemClass(pItem->getItemClass());
@@ -2886,7 +2886,7 @@ InventoryInfo* Slayer::getInventoryInfo() const
 						pInventorySlotInfo->setItemNum(pSR->getBulletCount());
 					} 
 
-					// º§Æ®¶ó¸é Sub ¾ÆÀÌÅÛÀÇ Ãß°¡ Á¤º¸°¡ ÇÊ¿äÇÏ´Ù.
+					// ë²¨íŠ¸ë¼ë©´ Sub ì•„ì´í…œì˜ ì¶”ê°€ ì •ë³´ê°€ í•„ìš”í•˜ë‹¤.
 					if (IClass == Item::ITEM_CLASS_BELT) 
 					{
 						Belt*      pBelt          = dynamic_cast<Belt*>(pItem);
@@ -2970,7 +2970,7 @@ void Slayer::sendSlayerSkillInfo()
 		SkillInfo* pSkillInfo = NULL;
 		SkillDomainType_t SDomainType = 0;
 
-		// ÇöÀç ½Ã°£, ³²Àº Ä³½ºÆÃ Å¸ÀÓÀ» °è»êÇÏ±â À§ÇØ
+		// í˜„ì¬ ì‹œê°„, ë‚¨ì€ ìºìŠ¤íŒ… íƒ€ì„ì„ ê³„ì‚°í•˜ê¸° ìœ„í•´
 		Timeval currentTime;
 		getCurrentTime( currentTime );
 
@@ -2980,30 +2980,30 @@ void Slayer::sendSlayerSkillInfo()
 			SkillSlot* pSkillSlot = itr->second;
 			Assert(pSkillSlot != NULL);
 
-			// ±âº» °ø°İ ½ºÅ³ÀÌ ¾Æ´Ï¶ó¸é...
+			// ê¸°ë³¸ ê³µê²© ìŠ¤í‚¬ì´ ì•„ë‹ˆë¼ë©´...
 			if (pSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT)
 			{
-				// ½ºÅ³ ÀÎÆ÷¸¦ ¹Ş¾Æ¿Â´Ù.
+				// ìŠ¤í‚¬ ì¸í¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 				pSkillInfo = g_pSkillInfoManager->getSkillInfo(pSkillSlot->getSkillType());
 
-				// ½ºÅ³ÀÎÆ÷·Î ºÎÅÍ ÇöÀç ±â¼úÀÇ µµ¸ŞÀÎÀ» ¹Ş¾Æ¿Â´Ù.
+				// ìŠ¤í‚¬ì¸í¬ë¡œ ë¶€í„° í˜„ì¬ ê¸°ìˆ ì˜ ë„ë©”ì¸ì„ ë°›ì•„ì˜¨ë‹¤.
 				SDomainType = pSkillInfo->getDomainType();
 
-				// ¼­ºê ½ºÅ³ ÀÎÆ÷¸¦ ±¸¼ºÇÑ´Ù.
+				// ì„œë¸Œ ìŠ¤í‚¬ ì¸í¬ë¥¼ êµ¬ì„±í•œë‹¤.
 				SubSlayerSkillInfo* pSubSlayerSkillInfo = new SubSlayerSkillInfo();
 				pSubSlayerSkillInfo->setSkillType(pSkillSlot->getSkillType());
 				pSubSlayerSkillInfo->setSkillExp(pSkillSlot->getExp());
 				pSubSlayerSkillInfo->setSkillExpLevel(pSkillSlot->getExpLevel());
 				pSubSlayerSkillInfo->setSkillTurn(pSkillSlot->getInterval());
 
-//				cout << pSkillInfo->getName() << "½ºÅ³ µô·¹ÀÌ " << pSkillSlot->getInterval() << endl;
+//				cout << pSkillInfo->getName() << "ìŠ¤í‚¬ ë”œë ˆì´ " << pSkillSlot->getInterval() << endl;
 
-				// casting time Ç×¸ñÀ» ´ÙÀ½ Ä³½ºÆÃ±îÁö ³²Àº ½Ã°£À¸·Î ÇÑ´Ù.
+				// casting time í•­ëª©ì„ ë‹¤ìŒ ìºìŠ¤íŒ…ê¹Œì§€ ë‚¨ì€ ì‹œê°„ìœ¼ë¡œ í•œë‹¤.
 				//pSubSlayerSkillInfo->setCastingTime(pSkillSlot->getCastingTime());
 				pSubSlayerSkillInfo->setCastingTime( pSkillSlot->getRemainTurn( currentTime ) );
 				pSubSlayerSkillInfo->setEnable(pSkillSlot->canUse());
 
-				// ½½·¹ÀÌ¾î ½ºÅ³ÀÎÆ÷¿¡ ¼­ºê ½ºÅ³ ÀÎÆ÷¸¦ Ãß°¡ÇÑ´Ù.
+				// ìŠ¬ë ˆì´ì–´ ìŠ¤í‚¬ì¸í¬ì— ì„œë¸Œ ìŠ¤í‚¬ ì¸í¬ë¥¼ ì¶”ê°€í•œë‹¤.
 				pSlayerSkillInfo[SDomainType]->addListElement(pSubSlayerSkillInfo);
 				SkillCount[SDomainType]++;
 				pSlayerSkillInfo[SDomainType]->setListNum(SkillCount[SDomainType]);
@@ -3018,10 +3018,10 @@ void Slayer::sendSlayerSkillInfo()
 		{
 			SkillType_t LearnSkillType = g_pSkillInfoManager->getSkillTypeByLevel(i, m_SkillDomainLevels[i]);
 
-			// ÇöÀç ·¹º§¿¡¼­ ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ´ÂÁö º»´Ù.
+			// í˜„ì¬ ë ˆë²¨ì—ì„œ ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ ìˆëŠ”ì§€ ë³¸ë‹¤.
 			if (LearnSkillType != 0) 
 			{
-				// ¹è¿ï ¼ö ÀÖ´Â ±â¼úÀÌ ÀÖ°í ¹è¿ìÁö ¾ÊÀº »óÅÂ¶ó¸é ¹è¿ì¶ó°í ¾Ë·ÁÁØ´Ù.
+				// ë°°ìš¸ ìˆ˜ ìˆëŠ” ê¸°ìˆ ì´ ìˆê³  ë°°ìš°ì§€ ì•Šì€ ìƒíƒœë¼ë©´ ë°°ìš°ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
 				if (hasSkill(LearnSkillType) == NULL) 
 				{
 					pSlayerSkillInfo[i]->setLearnNewSkill(true);
@@ -3061,7 +3061,7 @@ void Slayer::setGold( Gold_t gold )
 {
 	__BEGIN_TRY
 
-	// MAX_MONEY ¸¦ ³Ñ¾î°¡´Â °É ¸·´Â´Ù
+	// MAX_MONEY ë¥¼ ë„˜ì–´ê°€ëŠ” ê±¸ ë§‰ëŠ”ë‹¤
 	// 2003.1.8  by bezz.
 	m_Gold = min( (Gold_t)MAX_MONEY, gold );
 
@@ -3096,7 +3096,7 @@ void Slayer::increaseGoldEx(Gold_t gold)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	// MAX_MONEY ¸¦ ³Ñ¾î°¡´Â °É ¸·´Â´Ù
+	// MAX_MONEY ë¥¼ ë„˜ì–´ê°€ëŠ” ê±¸ ë§‰ëŠ”ë‹¤
 	// 2003.1.8  by bezz.
 	if ( m_Gold + gold > MAX_MONEY )
 		gold = MAX_MONEY - m_Gold;
@@ -3124,7 +3124,7 @@ void Slayer::decreaseGoldEx(Gold_t gold)
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	// 0 ¹Ì¸¸ÀÌ µÇ´Â °É ¸·´Â´Ù. 0 ¹Ì¸¸ÀÌ µÇ¸é underflow µÇ¼­ ³­¸®°¡ ³­´Ù.
+	// 0 ë¯¸ë§Œì´ ë˜ëŠ” ê±¸ ë§‰ëŠ”ë‹¤. 0 ë¯¸ë§Œì´ ë˜ë©´ underflow ë˜ì„œ ë‚œë¦¬ê°€ ë‚œë‹¤.
 	// 2003.1.8  by bezz.
 	if ( m_Gold < gold )
 		gold = m_Gold;
@@ -3213,8 +3213,8 @@ void Slayer::heartbeat(const Timeval& currentTime)
 
 	PlayerCreature::heartbeat( currentTime );
 
-	// ¿©±â¼­ Prayer¿Í Meditation¿¡ °ü·ÃµÈ MP ¸®Á¨À» ÇØÁØ´Ù.
-	// ÇÏÆ®ºñÆ® ÇÔ¼ö¸¦ ÇÏ³ª µû·Î ¸¸µé°í, ½ÇÇà½ÃÅ°´Â °ÍÀÌ ¿Ç°ÚÁö¸¸...
+	// ì—¬ê¸°ì„œ Prayerì™€ Meditationì— ê´€ë ¨ëœ MP ë¦¬ì  ì„ í•´ì¤€ë‹¤.
+	// í•˜íŠ¸ë¹„íŠ¸ í•¨ìˆ˜ë¥¼ í•˜ë‚˜ ë”°ë¡œ ë§Œë“¤ê³ , ì‹¤í–‰ì‹œí‚¤ëŠ” ê²ƒì´ ì˜³ê² ì§€ë§Œ...
 	Item* pWeapon = getWearItem(Slayer::WEAR_RIGHTHAND);
 	if (pWeapon != NULL)
 	{
@@ -3245,7 +3245,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 					m_pPlayer->sendPacket(&gcMI);
 				}
 
-				// 5ÃÊ ´ÜÀ§·Î ÇÏÆ®ºñÆ® ½ÃÅ²´Ù. 
+				// 5ì´ˆ ë‹¨ìœ„ë¡œ í•˜íŠ¸ë¹„íŠ¸ ì‹œí‚¨ë‹¤. 
 				m_MPRegenTime.tv_sec = currentTime.tv_sec + 5;
 				m_MPRegenTime.tv_usec = currentTime.tv_usec;
 			}
@@ -3272,7 +3272,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 					m_pPlayer->sendPacket(&gcMI);
 				}
 
-				// 5ÃÊ ´ÜÀ§·Î ÇÏÆ®ºñÆ®½ÃÅ²´Ù.
+				// 5ì´ˆ ë‹¨ìœ„ë¡œ í•˜íŠ¸ë¹„íŠ¸ì‹œí‚¨ë‹¤.
 				m_MPRegenTime.tv_sec = (currentTime.tv_sec + 5);
 				m_MPRegenTime.tv_usec = currentTime.tv_usec;
 			}
@@ -3299,7 +3299,7 @@ void Slayer::heartbeat(const Timeval& currentTime)
 				{
 					ItemList.push_back(pItem);
 
-					//¾ÆÀÌÅÛ Å©±âÀÇ ´ÙÀ½ À§Ä¡ ºÎÅÍ °Ë»öÇÏ±â À§ÇÔ.
+					//ì•„ì´í…œ í¬ê¸°ì˜ ë‹¤ìŒ ìœ„ì¹˜ ë¶€í„° ê²€ìƒ‰í•˜ê¸° ìœ„í•¨.
 					i = i + ItemWidth - 1;
 				}
 			}
@@ -3332,17 +3332,17 @@ void Slayer::heartbeat(const Timeval& currentTime)
 		{
 			int rvalue = pItemEffectManager->heartbeat();
 
-			// rvalue´Â ÀÌÆåÆ® ¸Å´ÏÀú ³»ºÎ¿¡¼­ »èÁ¦µÈ ÀÌÆåÆ®ÀÇ °¹¼öÀÌ´Ù.
-			// ÀÌ °¹¼ö°¡ 0ÀÌ ¾Æ´Ï¶ó´Â ¸»Àº »èÁ¦µÈ ÀÌÆåÆ®°¡ Á¸ÀçÇÑ´Ù´Â ¸»ÀÌ´Ù.
-			// ÀÌÆåÆ®°¡ »èÁ¦µÇ¾úÀ¸´Ï, ´É·ÂÄ¡¸¦ »õ·Î °è»êÇØ ÁØ´Ù.
-			// »ç½Ç ÀÌ ÄÚµå´Â ½ºÆ®¶óÀÌÅ· ¶§¹®¿¡ »ı±ä ÄÚµåÀÌ´Ù.
-			// ½ºÆ®¶óÀÌÅ·ÀÌ °É¸®´Â ÁÖÃ¼°¡ Å©¸®ÃÄ°¡ ¾Æ´Ï¶ó, ¾ÆÀÌÅÛÀÌ±â ¶§¹®¿¡,
-			// unaffectµÉ ¶§ Å©¸®ÃÄÀÇ ´É·ÂÄ¡¸¦ Àç°è»êÇØ¾ß ÇÏ´Âµ¥, ÇÒ °÷ÀÌ ¸¶¶¥ÇÏÁö ¾Ê¾Ò´Ù.
-			// ±×·¡¼­ ±Ã¿©ÁöÃ¥À¸·Î ÀÌ ºÎºĞ¿¡¼­ ´É·ÂÄ¡¸¦ »õ·Î °è»êÇÏµµ·Ï º¯°æÇÑ´Ù.
-			// 2002.01.17 - ±è¼º¹Î
-			// ÀÌ ºÎºĞÀº ½ºÆ®¶óÀÌÅ· ÀÌÆåÆ® ÀÚÃ¼¸¦ ¾ÆÀÌÅÛ¿¡ ºÙ´Â °ÍÀÌ ¾Æ´Ï¶ó,
-			// Å©¸®ÃÄ¿¡ ºÙ´Â °ÍÀ¸·Î º¯°æÇØ ¹ö¸²À¸·Î½á ÇØ°áÇØ ¹ö·È´Ù.
-			// 2002.01.17 -- ±è¼º¹Î
+			// rvalueëŠ” ì´í™íŠ¸ ë§¤ë‹ˆì € ë‚´ë¶€ì—ì„œ ì‚­ì œëœ ì´í™íŠ¸ì˜ ê°¯ìˆ˜ì´ë‹¤.
+			// ì´ ê°¯ìˆ˜ê°€ 0ì´ ì•„ë‹ˆë¼ëŠ” ë§ì€ ì‚­ì œëœ ì´í™íŠ¸ê°€ ì¡´ì¬í•œë‹¤ëŠ” ë§ì´ë‹¤.
+			// ì´í™íŠ¸ê°€ ì‚­ì œë˜ì—ˆìœ¼ë‹ˆ, ëŠ¥ë ¥ì¹˜ë¥¼ ìƒˆë¡œ ê³„ì‚°í•´ ì¤€ë‹¤.
+			// ì‚¬ì‹¤ ì´ ì½”ë“œëŠ” ìŠ¤íŠ¸ë¼ì´í‚¹ ë•Œë¬¸ì— ìƒê¸´ ì½”ë“œì´ë‹¤.
+			// ìŠ¤íŠ¸ë¼ì´í‚¹ì´ ê±¸ë¦¬ëŠ” ì£¼ì²´ê°€ í¬ë¦¬ì³ê°€ ì•„ë‹ˆë¼, ì•„ì´í…œì´ê¸° ë•Œë¬¸ì—,
+			// unaffectë  ë•Œ í¬ë¦¬ì³ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ì¬ê³„ì‚°í•´ì•¼ í•˜ëŠ”ë°, í•  ê³³ì´ ë§ˆë•…í•˜ì§€ ì•Šì•˜ë‹¤.
+			// ê·¸ë˜ì„œ ê¶ì—¬ì§€ì±…ìœ¼ë¡œ ì´ ë¶€ë¶„ì—ì„œ ëŠ¥ë ¥ì¹˜ë¥¼ ìƒˆë¡œ ê³„ì‚°í•˜ë„ë¡ ë³€ê²½í•œë‹¤.
+			// 2002.01.17 - ê¹€ì„±ë¯¼
+			// ì´ ë¶€ë¶„ì€ ìŠ¤íŠ¸ë¼ì´í‚¹ ì´í™íŠ¸ ìì²´ë¥¼ ì•„ì´í…œì— ë¶™ëŠ” ê²ƒì´ ì•„ë‹ˆë¼,
+			// í¬ë¦¬ì³ì— ë¶™ëŠ” ê²ƒìœ¼ë¡œ ë³€ê²½í•´ ë²„ë¦¼ìœ¼ë¡œì¨ í•´ê²°í•´ ë²„ë ¸ë‹¤.
+			// 2002.01.17 -- ê¹€ì„±ë¯¼
 			//if (rvalue != 0)
 			//{
 			//	SLAYER_RECORD prev;
@@ -3568,7 +3568,7 @@ void Slayer::saveSkills(void) const
 		SkillSlot* pSkillSlot = itr->second;
 		Assert(pSkillSlot != NULL);
 
-		// ±âº» °ø°İ ½ºÅ³ÀÌ ¾Æ´Ï¶ó¸é...
+		// ê¸°ë³¸ ê³µê²© ìŠ¤í‚¬ì´ ì•„ë‹ˆë¼ë©´...
 		if (pSkillSlot->getSkillType() >= SKILL_DOUBLE_IMPACT)
 		{
 			pSkillSlot->save(m_Name);
@@ -3592,7 +3592,7 @@ IP_t Slayer::getIP(void) const
 	IP_t IP;
 	uint Port;
 
-	// UserIPInfo Å×ÀÌºí¿¡¼­ »ç¿ëÀÚ IP¸¦ Äõ¸® ÇÑ´Ù.
+	// UserIPInfo í…Œì´ë¸”ì—ì„œ ì‚¬ìš©ì IPë¥¼ ì¿¼ë¦¬ í•œë‹¤.
 	Statement* pStmt = NULL;
 
 	BEGIN_DB
@@ -3636,7 +3636,7 @@ void Slayer::saveGears(void) const
 {
 	__BEGIN_TRY
 
-	// ÀåÂøÇÏ°í ÀÖ´Â ¾ÆÀÌÅÛµéÀ» ÀúÀåÇÑ´Ù.
+	// ì¥ì°©í•˜ê³  ìˆëŠ” ì•„ì´í…œë“¤ì„ ì €ì¥í•œë‹¤.
 	char pField[80];
 
 	for (int i=0; i < Slayer::WEAR_MAX; i++) 
@@ -3648,8 +3648,8 @@ void Slayer::saveGears(void) const
 			if (pItem->getDurability() < maxDurability)
 			{
 
-				// ¹«±âÀÎ °æ¿ì´Â ÃÑ¾Ë °³¼ö¸¦ ÀúÀåÇÑ´Ù. by sigi. 2002.5.13
-				if (i==Slayer::WEAR_RIGHTHAND)	// Ã¼Å© »¡¸® ÇÒ·Á°í ¼­ºñ½º·Î. - -;
+				// ë¬´ê¸°ì¸ ê²½ìš°ëŠ” ì´ì•Œ ê°œìˆ˜ë¥¼ ì €ì¥í•œë‹¤. by sigi. 2002.5.13
+				if (i==Slayer::WEAR_RIGHTHAND)	// ì²´í¬ ë¹¨ë¦¬ í• ë ¤ê³  ì„œë¹„ìŠ¤ë¡œ. - -;
 				{
 					if (pItem->isGun())
 					{
@@ -3662,7 +3662,7 @@ void Slayer::saveGears(void) const
 							pItem->tinysave(pField);
 						}
 					}
-					// Áö±İ ÇöÀç ¹«±â´Â ÀüºÎ Àºµµ±İµÈ´Ù.
+					// ì§€ê¸ˆ í˜„ì¬ ë¬´ê¸°ëŠ” ì „ë¶€ ì€ë„ê¸ˆëœë‹¤.
 					else //if (pItem->isSilverWeapon())
 					{
 						sprintf(pField, "Durability=%d, Silver=%d", pItem->getDurability(), pItem->getSilver());
@@ -3672,7 +3672,7 @@ void Slayer::saveGears(void) const
 				else
 				{
 					//pItem->save(m_Name, STORAGE_GEAR, 0, i, 0);
-					// itemÀúÀå ÃÖÀûÈ­. by sigi. 2002.5.13
+					// itemì €ì¥ ìµœì í™”. by sigi. 2002.5.13
 					sprintf(pField, "Durability=%d", pItem->getDurability());
 					pItem->tinysave(pField);
 				}
@@ -3714,14 +3714,14 @@ void Slayer::saveExps(void) const
 //----------------------------------------------------------------------
 // getShapeInfo
 //----------------------------------------------------------------------
-// ÇöÀç slayerÀÇ º¹ÀåÀ» Âü°í·ÎÇØ¼­ º¹Àåflag/color Á¤º¸¸¦ ¸¸µç´Ù.
-// loginÇÒ¶§ Ã³¸®¸¦ »¡¸®ÇÏ±â À§ÇØ¼­´Ù.
+// í˜„ì¬ slayerì˜ ë³µì¥ì„ ì°¸ê³ ë¡œí•´ì„œ ë³µì¥flag/color ì •ë³´ë¥¼ ë§Œë“ ë‹¤.
+// loginí• ë•Œ ì²˜ë¦¬ë¥¼ ë¹¨ë¦¬í•˜ê¸° ìœ„í•´ì„œë‹¤.
 //----------------------------------------------------------------------
-// ÀÏ´Ü 32bit·Î 32°¡Áö¸¦ Ç¥ÇöÇÏ´Â°É·Îµµ ÃæºĞÇÏ´Ù°í º»´Ù.
-// ¾ğÁ¨°¡? overµÇ¸é bitsetÀ» ½á¾ß°ÚÁö..
+// ì¼ë‹¨ 32bitë¡œ 32ê°€ì§€ë¥¼ í‘œí˜„í•˜ëŠ”ê±¸ë¡œë„ ì¶©ë¶„í•˜ë‹¤ê³  ë³¸ë‹¤.
+// ì–¸ì  ê°€? overë˜ë©´ bitsetì„ ì¨ì•¼ê² ì§€..
 //
-// (!) »ö±òÀº index»ö°ªÀÌ ¾Æ´Ï°í optionTypeÀ» ³Ö¾î¼­ »ç¿ëÇÑ´Ù.
-//     Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¿É¼ÇÀ¸·Î »ö°ªÀ» Ã£¾Æ¼­ ¾´´Ù.
+// (!) ìƒ‰ê¹”ì€ indexìƒ‰ê°’ì´ ì•„ë‹ˆê³  optionTypeì„ ë„£ì–´ì„œ ì‚¬ìš©í•œë‹¤.
+//     í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì˜µì…˜ìœ¼ë¡œ ìƒ‰ê°’ì„ ì°¾ì•„ì„œ ì“´ë‹¤.
 //----------------------------------------------------------------------
 void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLOR_MAX]) const
 //	
@@ -3735,11 +3735,11 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 
 	WearPart Part;
 
-	// ÃÊ±âÈ­
+	// ì´ˆê¸°í™”
 	flag = 0;
 
 	//-----------------------------------------------------------------
-	// ¼ºº°
+	// ì„±ë³„
 	//-----------------------------------------------------------------
 	slayerBit	= PCSlayerInfo::SLAYER_BIT_SEX;
 	flag |= ((m_Sex? 1:0) << slayerBit);
@@ -3751,7 +3751,7 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 	flag |= (m_HairStyle << slayerBit);
 
 	//-----------------------------------------------------------------
-	// ¹ÙÁö
+	// ë°”ì§€
 	//-----------------------------------------------------------------
 	Part = WEAR_LEG;
 	pItem = m_pWearItem[Part];
@@ -3782,7 +3782,7 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 		flag |= (PANTS_BASIC << slayerBit);
 	}
 	//-----------------------------------------------------------------
-	// ÀğÄÏ
+	// ìŸˆì¼“
 	//-----------------------------------------------------------------
 	Part = WEAR_BODY;
 	pItem = m_pWearItem[Part];
@@ -3815,7 +3815,7 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 	}
 
 	//-----------------------------------------------------------------
-	// Åõ±¸
+	// íˆ¬êµ¬
 	//-----------------------------------------------------------------
 	Part = WEAR_HEAD;
 	pItem = m_pWearItem[Part];
@@ -3845,11 +3845,11 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 	else 
 	{
 		colors[slayerColor] = 0;
-		// ¾ø´Ù
+		// ì—†ë‹¤
 	}
 
 	//-----------------------------------------------------------------
-	// ¹æÆĞ
+	// ë°©íŒ¨
 	//-----------------------------------------------------------------
 	Part = WEAR_LEFTHAND;
 	pItem = m_pWearItem[Part];
@@ -3881,11 +3881,11 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 	else 
 	{
 		colors[slayerColor] = 0;
-		// ¾ø´Ù
+		// ì—†ë‹¤
 	}
 
 	//-----------------------------------------------------------------
-	// ¹«±â
+	// ë¬´ê¸°
 	//-----------------------------------------------------------------
 	Part = WEAR_RIGHTHAND;
 	pItem = m_pWearItem[Part];
@@ -3933,7 +3933,7 @@ void Slayer::getShapeInfo (DWORD& flag, Color_t colors[PCSlayerInfo::SLAYER_COLO
 //----------------------------------------------------------------------
 // save InitialRank
 //----------------------------------------------------------------------
-// Rank, RankExp, RankGoalExpÀÇ ÃÊ±â°ªÀ» ÀúÀåÇÑ´Ù.
+// Rank, RankExp, RankGoalExpì˜ ì´ˆê¸°ê°’ì„ ì €ì¥í•œë‹¤.
 //----------------------------------------------------------------------
 void Slayer::saveInitialRank(void)
 	
@@ -4140,8 +4140,8 @@ Slayer::removeShape(Item::ItemClass IClass, bool bSendPacket)
 {
 	bool bisWeapon = false;
 
-	// Á×À»¶§ ¾ÆÀÌÅÛ ¶³¾î¶ß¸±¶§´Â ÀÚ½Å¿¡°Ôµµ ÆĞÅ¶À» º¸³»¾ßÇÏ±â ¶§¹®¿¡..
-	// parameter·Î ¹Ş´Â°Ô ÁÁÀ»ÅÙµ¥ header ¾È¹Ù²Ü·Á°í.. -_-;
+	// ì£½ì„ë•Œ ì•„ì´í…œ ë–¨ì–´ëœ¨ë¦´ë•ŒëŠ” ìì‹ ì—ê²Œë„ íŒ¨í‚·ì„ ë³´ë‚´ì•¼í•˜ê¸° ë•Œë¬¸ì—..
+	// parameterë¡œ ë°›ëŠ”ê²Œ ì¢‹ì„í…ë° header ì•ˆë°”ê¿€ë ¤ê³ .. -_-;
 	// by sigi. 2002.11.7
 	Creature* pOwner = (isDead()? NULL : this);
 
@@ -4267,20 +4267,20 @@ Slayer::getItemShapeColor(Item* pItem, OptionInfo* pOptionInfo) const
 
 	if ( pItem->isTimeLimitItem() )
 	{
-		// Äù½ºÆ® ¾ÆÀÌÅÛµµ Æ¯Á¤ÇÑ »ö±ò·Î ´ëÃ¼ÇØ¼­ Ã³¸®ÇÑ´Ù.
+		// í€˜ìŠ¤íŠ¸ ì•„ì´í…œë„ íŠ¹ì •í•œ ìƒ‰ê¹”ë¡œ ëŒ€ì²´í•´ì„œ ì²˜ë¦¬í•œë‹¤.
 		color = QUEST_COLOR;
 	}
 	else if (pItem->isUnique())
 	{
-		// À¯´ÏÅ©´Â Æ¯Á¤ÇÑ »ö±ò·Î ´ëÃ¼ÇØ¼­ Ã³¸®ÇÑ´Ù.
+		// ìœ ë‹ˆí¬ëŠ” íŠ¹ì •í•œ ìƒ‰ê¹”ë¡œ ëŒ€ì²´í•´ì„œ ì²˜ë¦¬í•œë‹¤.
 		color = UNIQUE_COLOR;
 	}
-	// ¿ÜºÎ¿¡¼­ ÀÌ¹Ì OptionInfo¸¦ Ã£Àº °æ¿ì
+	// ì™¸ë¶€ì—ì„œ ì´ë¯¸ OptionInfoë¥¼ ì°¾ì€ ê²½ìš°
 	else if (pOptionInfo != NULL) 
 	{
 		color = pOptionInfo->getColor();
 	}
-	// ¾Æ´Ï¸é.. Ã¹¹øÂ° ¿É¼ÇÀÇ »ö±òÀ» ÁöÁ¤ÇÑ´Ù.
+	// ì•„ë‹ˆë©´.. ì²«ë²ˆì§¸ ì˜µì…˜ì˜ ìƒ‰ê¹”ì„ ì§€ì •í•œë‹¤.
 	else if (pItem->getFirstOptionType() != 0)
 	{
 		OptionInfo* pOptionInfo = g_pOptionInfoManager->getOptionInfo(pItem->getFirstOptionType());
@@ -4288,7 +4288,7 @@ Slayer::getItemShapeColor(Item* pItem, OptionInfo* pOptionInfo) const
 	}
 	else 
 	{
-		// default »ö
+		// default ìƒ‰
 		color = 377;
 	}
 
@@ -4319,13 +4319,13 @@ bool Slayer::isPayPlayAvaiable()
 #ifdef __CONNECT_BILLING_SYSTEM__
 	if (pGamePlayer->isPayPlaying())
 	{
-		// ¿ÏÀü ¹«·á »ç¿ëÀÚ. ¤»¤»
+		// ì™„ì „ ë¬´ë£Œ ì‚¬ìš©ì. ã…‹ã…‹
 		if (pGamePlayer->getPayType()==PAY_TYPE_FREE)
 			return true;
 
 		int DomainSUM = getSkillDomainLevelSum();
 
-		// Á¦ÇÑµÈ µµ¸ŞÀÎÇÕ±îÁö play°¡´É
+		// ì œí•œëœ ë„ë©”ì¸í•©ê¹Œì§€ playê°€ëŠ¥
 		if (DomainSUM <= g_pVariableManager->getVariable(FREE_PLAY_SLAYER_DOMAIN_SUM))
 		{
 			return true;
@@ -4334,14 +4334,14 @@ bool Slayer::isPayPlayAvaiable()
 
 	return false;
 
-// ¾Öµåºô ºô¸µÀ» »ç¿ëÇÏÁö ¾Ê°í »ç¿ëÀÚ Á¦ÇÑÀ» ÇÏ´Â °æ¿ì
+// ì• ë“œë¹Œ ë¹Œë§ì„ ì‚¬ìš©í•˜ì§€ ì•Šê³  ì‚¬ìš©ì ì œí•œì„ í•˜ëŠ” ê²½ìš°
 #elif defined(__PAY_SYSTEM_FREE_LIMIT__)
 
 	if (!pGamePlayer->isPayPlaying())
 	{
 		int DomainSUM = getSkillDomainLevelSum();
 
-		// Á¦ÇÑµÈ µµ¸ŞÀÎÇÕ±îÁö play°¡´É
+		// ì œí•œëœ ë„ë©”ì¸í•©ê¹Œì§€ playê°€ëŠ¥
 		if (DomainSUM <= g_pVariableManager->getVariable(FREE_PLAY_SLAYER_DOMAIN_SUM))
 		{
 			return true;
@@ -4364,7 +4364,7 @@ bool Slayer::isPayPlayAvaiable()
 
 QuestGrade_t Slayer::getQuestGrade() const  { return getTotalAttr( ATTR_BASIC ) - getSkillDomainLevel(SKILL_DOMAIN_HEAL)*1.5 - getSkillDomainLevel(SKILL_DOMAIN_ENCHANT)*1.5; }
 
-// ¼ø¼ö ´É·ÂÄ¡ ÇÕÀÌ 40 ¹Ì¸¸ÀÌ¸é ÃÊº¸(Novice) ÀÌ´Ù.
+// ìˆœìˆ˜ ëŠ¥ë ¥ì¹˜ í•©ì´ 40 ë¯¸ë§Œì´ë©´ ì´ˆë³´(Novice) ì´ë‹¤.
 bool Slayer::isNovice() const
 {
 	return ( m_STR[ATTR_BASIC] + m_DEX[ATTR_BASIC] + m_INT[ATTR_BASIC] ) <= 40;
@@ -4380,7 +4380,7 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 	if(g_pVariableManager->getExpRatio()>100 && g_pVariableManager->getEventActivate() == 1)
 		damage = getPercentValue(damage, g_pVariableManager->getExpRatio());
 
-	// ½Ã°£´ë¿¡ µû¶ó °æÇèÄ¡ µÎ¹è
+	// ì‹œê°„ëŒ€ì— ë”°ë¼ ê²½í—˜ì¹˜ ë‘ë°°
 	if ( isAffectExp2X() )
 		damage <<= 1;
 
@@ -4391,7 +4391,7 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 
 #ifdef __CHINA_SERVER__
 
-	// Áß±¹ÂÊÀº ·¹º§º°·Î ´É·ÂÄ¡ °æÇèÄ¡ ¾ò´Â °ÍÀÌ ´Ù¸£´Ù
+	// ì¤‘êµ­ìª½ì€ ë ˆë²¨ë³„ë¡œ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ ì–»ëŠ” ê²ƒì´ ë‹¤ë¥´ë‹¤
 	float userExpConst = 1.0;
 
 	SkillLevel_t HighSkillLevel = getHighestSkillDomainLevel();
@@ -4410,16 +4410,16 @@ void Slayer::divideAttrExp(AttrKind kind, Damage_t damage, ModifyInfo& modifyInf
 
 #endif
 
-	// ½½·¹ÀÌ¾î ´É·ÂÄ¡´Â µµ¸ŞÀÎ ·¹º§ 100ÀÌÀü¿¡´Â ÃÑÇÕ 300À¸·Î Á¦ÇÑ µÈ´Ù.(±âÁ¸Ã³·³ 50, 200, 50 À¸·Î..)¶ÇÇÑ ±× ÀÌÈÄÀÇ °æÇèÄ¡´Â ´©ÀûµÇÁö ¾Ê´Â´Ù.
-	// ±×¸®°í µµ¸ŞÀÎ ·¹º§ ÀÌ 100À» ³Ñ¾î¼­¸é ´Ù½Ã ´É·ÂÄ¡ °æÇèÄ¡°¡ ´©ÀûµÇ¾î ´É·ÂÄ¡°¡ ¿Ã¶ó°¡±â ½ÃÀÛÇÑ´Ù.
-	// µµ¸ŞÀÎ ·¹º§ÀÌ 100 ¾Æ·¡·Î µµ·Î ¶³¾îÁ³¾îµµ ´É·ÂÄ¡ ÃÑÇÕÀÌ 300À» ³Ñ¾úÀ» °æ¿ì 300ÀÇ Á¦ÇÑÀ» ¹ŞÁö ¾Ê´Â´Ù.
+	// ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ëŠ” ë„ë©”ì¸ ë ˆë²¨ 100ì´ì „ì—ëŠ” ì´í•© 300ìœ¼ë¡œ ì œí•œ ëœë‹¤.(ê¸°ì¡´ì²˜ëŸ¼ 50, 200, 50 ìœ¼ë¡œ..)ë˜í•œ ê·¸ ì´í›„ì˜ ê²½í—˜ì¹˜ëŠ” ëˆ„ì ë˜ì§€ ì•ŠëŠ”ë‹¤.
+	// ê·¸ë¦¬ê³  ë„ë©”ì¸ ë ˆë²¨ ì´ 100ì„ ë„˜ì–´ì„œë©´ ë‹¤ì‹œ ëŠ¥ë ¥ì¹˜ ê²½í—˜ì¹˜ê°€ ëˆ„ì ë˜ì–´ ëŠ¥ë ¥ì¹˜ê°€ ì˜¬ë¼ê°€ê¸° ì‹œì‘í•œë‹¤.
+	// ë„ë©”ì¸ ë ˆë²¨ì´ 100 ì•„ë˜ë¡œ ë„ë¡œ ë–¨ì–´ì¡Œì–´ë„ ëŠ¥ë ¥ì¹˜ ì´í•©ì´ 300ì„ ë„˜ì—ˆì„ ê²½ìš° 300ì˜ ì œí•œì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
 
 	SkillLevel_t	MaxDomainLevel	= getHighestSkillDomainLevel();
 	Attr_t			TotalAttr		= getTotalAttr( ATTR_BASIC );
-    Attr_t          TotalAttrBound      = 0;        // ´É·ÂÄ¡ ÃÑÇÕ Á¦ÇÑ
-    Attr_t          AttrBound           = 0;        // ´ÜÀÏ ´É·ÂÄ¡ Á¦ÇÑ
-    Attr_t          OneAttrExpBound     = 0;        // ÇÑ °³ÀÇ ´É·ÂÄ¡¿¡¸¸ °æÇèÄ¡ ÁÖ´Â ´É·ÂÄ¡ ÃÑÇÕ °æ°è°ª
-	Attr_t			SubAttrMax			= 0;		// º¸Á¶ ´É·ÂÄ¡ ÃÖ´ë°ª
+    Attr_t          TotalAttrBound      = 0;        // ëŠ¥ë ¥ì¹˜ ì´í•© ì œí•œ
+    Attr_t          AttrBound           = 0;        // ë‹¨ì¼ ëŠ¥ë ¥ì¹˜ ì œí•œ
+    Attr_t          OneAttrExpBound     = 0;        // í•œ ê°œì˜ ëŠ¥ë ¥ì¹˜ì—ë§Œ ê²½í—˜ì¹˜ ì£¼ëŠ” ëŠ¥ë ¥ì¹˜ ì´í•© ê²½ê³„ê°’
+	Attr_t			SubAttrMax			= 0;		// ë³´ì¡° ëŠ¥ë ¥ì¹˜ ìµœëŒ€ê°’
 
 	if ( MaxDomainLevel <= SLAYER_BOUND_LEVEL && TotalAttr <= SLAYER_BOUND_ATTR_SUM )
 	{

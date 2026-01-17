@@ -11,6 +11,7 @@
 #include "SocketEncryptInputStream.h"
 #include "SocketEncryptOutputStream.h"
 #include "Assert1.h"
+#include <exception>
 
 //--------------------------------------------------------------------
 // Constructor
@@ -27,23 +28,25 @@ GCAddItemToZone::GCAddItemToZone()
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
-GCAddItemToZone::~GCAddItemToZone() 
-    
+GCAddItemToZone::~GCAddItemToZone() noexcept
 {
-	__BEGIN_TRY
-
-	// ¼Ò¼ÓµÈ ¸ðµç °´Ã¼µéÀ» »èÁ¦ÇÑ´Ù.
-	while (!m_SubItemInfoList.empty() ) {
-		SubItemInfo * pSubItemInfo = m_SubItemInfoList.front();
-		SAFE_DELETE(pSubItemInfo);
-		m_SubItemInfoList.pop_front();
+	try
+	{
+		// ï¿½Ò¼Óµï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+		while (!m_SubItemInfoList.empty() ) {
+			SubItemInfo * pSubItemInfo = m_SubItemInfoList.front();
+			SAFE_DELETE(pSubItemInfo);
+			m_SubItemInfoList.pop_front();
+		}
 	}
-
-	__END_CATCH
+	catch (const std::exception&)
+	{
+		// ignore during teardown
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GCAddItemToZone::read (SocketInputStream & iStream ) 
 	 
@@ -88,7 +91,7 @@ void GCAddItemToZone::read (SocketInputStream & iStream )
 	iStream.read(m_EnchantLevel);
 	iStream.read(m_ItemNum);
 
-	// Sub ¾ÆÀÌÅÛ Á¤º¸¸¦ ÀÐ¾î µéÀÎ´Ù.
+	// Sub ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
     iStream.read(m_ListNum);
 	for(int i = 0; i < m_ListNum; i++ ) {
 		SubItemInfo * pSubItemInfo = new SubItemInfo();
@@ -102,7 +105,7 @@ void GCAddItemToZone::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void GCAddItemToZone::write (SocketOutputStream & oStream ) const 
      
@@ -147,7 +150,7 @@ void GCAddItemToZone::write (SocketOutputStream & oStream ) const
 	oStream.write(m_EnchantLevel);
 	oStream.write(m_ItemNum);
 
-	// Sub ¾ÆÀÌÅÛÀÇ Á¤º¸¸¦ ¾´´Ù.
+	// Sub ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	oStream.write(m_ListNum);
 
     for (list<SubItemInfo*>:: const_iterator itr = m_SubItemInfoList.begin(); itr!= m_SubItemInfoList.end(); itr++) {

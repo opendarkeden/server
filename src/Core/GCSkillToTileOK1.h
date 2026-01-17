@@ -2,8 +2,9 @@
 // 
 // Filename    : GCSkillToTileOK1.h 
 // Written By  : elca@ewestsoft.com
-// Description : 기술이 성공했을때 보내는 패킷을 위한 클래스 정의
-// 				기술 사용자에게 보내는 패킷
+// Description : Packet informing clients about a successful skill cast
+// 			targeting a tile and the affected targets.
+// 
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -21,7 +22,7 @@
 //
 // class GCSkillToTileOK1;
 //
-// 게임서버에서 클라이언트로 자신의 기술이 성공을 알려주기 위한 클래스
+// Announces a Slayer's skill state to the client.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -39,10 +40,10 @@ public :
 public :
 	
 	
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize the packet by reading data from the input stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet into the output stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -52,7 +53,7 @@ public :
 	PacketID_t getPacketID() const  { return PACKET_GC_SKILL_TO_TILE_OK_1; }
 	
 	// get packet's body size
-	// 최적화시, 미리 계산된 정수를 사용한다.
+	// Serialized size varies with the contained lists.
 	PacketSize_t getPacketSize() const  { return szSkillType + szCEffectID + szCoord* 2
 			+ szDuration + szBYTE + szRange + szObjectID* m_CListNum + szBYTE + ModifyInfo::getPacketSize(); }
 

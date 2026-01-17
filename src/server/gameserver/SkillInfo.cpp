@@ -42,7 +42,7 @@ SkillInfo::SkillInfo()
 SkillInfo::~SkillInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void SkillInfo::setRequireSkill( const string& requireSkill )
@@ -182,10 +182,10 @@ SkillInfoManager::~SkillInfoManager()
 {
 	__BEGIN_TRY
 
-	// ÀÌ°Í¸¸ ÇØ¼­´Â ¾ÈµÇ´Âµğ.. ¾îÂ÷ÇÇ ¾È ºÒ·ÁÁú°Å±â ¶§¹®¿¡ ÀÏ´Ü ¹«½Ã.. by sigi
+	// ì´ê²ƒë§Œ í•´ì„œëŠ” ì•ˆë˜ëŠ”ë””.. ì–´ì°¨í”¼ ì•ˆ ë¶ˆë ¤ì§ˆê±°ê¸° ë•Œë¬¸ì— ì¼ë‹¨ ë¬´ì‹œ.. by sigi
 	SAFE_DELETE_ARRAY(m_SkillInfoList);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void SkillInfoManager::init()
@@ -207,7 +207,7 @@ void SkillInfoManager::init()
 
 				if ( pRequireSkillInfo == NULL )
 				{
-					cout << "½ºÅ³ ·Îµå ¼ø¼­°¡ Æ²·Á¸Ô¾ú½À´Ï´Ù. : " << (int)m_SkillInfoList[i]->getType() << " / " << (int)(*itr) << endl;
+					cout << "ìŠ¤í‚¬ ë¡œë“œ ìˆœì„œê°€ í‹€ë ¤ë¨¹ì—ˆìŠµë‹ˆë‹¤. : " << (int)m_SkillInfoList[i]->getType() << " / " << (int)(*itr) << endl;
 					Assert(false);
 				}
 
@@ -216,7 +216,7 @@ void SkillInfoManager::init()
 		}
 	}
 
-	// ½ºÅ³ ·¹º§ ¸Ê ÃÊ±âÈ­
+	// ìŠ¤í‚¬ ë ˆë²¨ ë§µ ì´ˆê¸°í™”
 	for(int i = 0 ; i < SKILL_DOMAIN_MAX; i++) 
 	{
 		for(int j = 0; j < SLAYER_MAX_DOMAIN_LEVEL+1 ; j++) 
@@ -225,7 +225,7 @@ void SkillInfoManager::init()
 		}
 	}
 
-	// ·¹º§¿¡ µû¸¥ µµ¸ŞÀÎ ±×·¹ÀÌµå ÃÊ±âÈ­
+	// ë ˆë²¨ì— ë”°ë¥¸ ë„ë©”ì¸ ê·¸ë ˆì´ë“œ ì´ˆê¸°í™”
 	for(int i = 0; i < GRADE_APPRENTICE_LIMIT_LEVEL + 1; i++) 
 	{
 		m_DomainGradeMap[i] = SKILL_GRADE_APPRENTICE;
@@ -252,7 +252,7 @@ void SkillInfoManager::init()
 	}
 
 
-	// µµ¸ŞÀÎ ±×·¹ÀÌµå¿¡ µû¸¥ ±â¼ú ·¹º§ Á¦ÇÑ ÃÊ±âÈ­
+	// ë„ë©”ì¸ ê·¸ë ˆì´ë“œì— ë”°ë¥¸ ê¸°ìˆ  ë ˆë²¨ ì œí•œ ì´ˆê¸°í™”
 	m_LimitLevelMap[SKILL_GRADE_APPRENTICE] = GRADE_APPRENTICE_LIMIT_LEVEL;
 	m_LimitLevelMap[SKILL_GRADE_ADEPT] = GRADE_ADEPT_LIMIT_LEVEL;
 	m_LimitLevelMap[SKILL_GRADE_EXPERT] = GRADE_EXPERT_LIMIT_LEVEL;
@@ -260,7 +260,7 @@ void SkillInfoManager::init()
 	m_LimitLevelMap[SKILL_GRADE_GRAND_MASTER] = GRADE_GRAND_MASTER_LIMIT_LEVEL;
 	m_LimitLevelMap[SKILL_GRADE_GRAND_MASTER + 1] = GRADE_GRAND_MASTER_LIMIT_LEVEL;
 
-	// ÀÎÆ®¿¡ µû¸¥ MP °¨¼ÒÀ² Å×ÀÌºí ÃÊ±âÈ­
+	// ì¸íŠ¸ì— ë”°ë¥¸ MP ê°ì†Œìœ¨ í…Œì´ë¸” ì´ˆê¸°í™”
 	for(int i = 0; i < 43; i++) 
 	{
 		m_decreaseConsumeMP[i] = 0;
@@ -327,7 +327,7 @@ void SkillInfoManager::load()
 	Statement* pStmt    = NULL;
 	Result*    pResult  = NULL;
 
-	// Skill Property Manager ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// Skill Property Manager ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	g_pSkillPropertyManager->init();
 	
 	BEGIN_DB
@@ -384,7 +384,7 @@ void SkillInfoManager::load()
 			pSkillInfo->setDomainType(pResult->getBYTE(++i));
 			pSkillInfo->setMagicDomain(pResult->getBYTE(++i));
 
-			// Skill Property Ãß°¡
+			// Skill Property ì¶”ê°€
 			SkillProperty* pSkillProperty = new SkillProperty();
 
 			pSkillProperty->setType( pSkillInfo->getType() );
@@ -404,7 +404,7 @@ void SkillInfoManager::load()
 				pSkillInfo->setCanDelete( pResult->getInt(++i) );
 			}
 
-			// Skill Info Ãß°¡
+			// Skill Info ì¶”ê°€
 			addSkillInfo(pSkillInfo);
 		}
 		
@@ -447,7 +447,7 @@ void SkillInfoManager::addSkillInfo(SkillInfo* pSkillInfo)
 
 		if ( pRequireSkillInfo == NULL )
 		{
-			cout << "½ºÅ³ ·Îµå ¼ø¼­°¡ Æ²·Á¸Ô¾ú½À´Ï´Ù. : " << (int)pSkillInfo->getType() << " / " << (int)(*itr) << endl;
+			cout << "ìŠ¤í‚¬ ë¡œë“œ ìˆœì„œê°€ í‹€ë ¤ë¨¹ì—ˆìŠµë‹ˆë‹¤. : " << (int)pSkillInfo->getType() << " / " << (int)(*itr) << endl;
 			Assert(false);
 		}
 
@@ -491,7 +491,7 @@ SkillType_t SkillInfoManager::getSkillTypeByLevel(SkillDomainType_t SkillDomain 
 	__END_CATCH
 }
 
-// µµ¸ŞÀÎÀÇ ·¹º§·Î ±× ·¹º§Àº ¾î¶² µî±Ş¿¡ ÇØ´çÇÏ´ÂÁö ¾Æ´Â ÇÔ¼ö.
+// ë„ë©”ì¸ì˜ ë ˆë²¨ë¡œ ê·¸ ë ˆë²¨ì€ ì–´ë–¤ ë“±ê¸‰ì— í•´ë‹¹í•˜ëŠ”ì§€ ì•„ëŠ” í•¨ìˆ˜.
 SkillGrade SkillInfoManager::getGradeByDomainLevel(Level_t Level)
 {
 	__BEGIN_TRY
@@ -502,7 +502,7 @@ SkillGrade SkillInfoManager::getGradeByDomainLevel(Level_t Level)
 	__END_CATCH
 }
 
-// ÇöÀç µî±Ş¿¡¼­ ±â¼úÀÌ ¾î´ÀÁ¤µµ ·¹º§±îÁö ¿Ã¶ó°¥ ¼ö ÀÖ´ÂÁö ¾Ë¾Æ º»´Ù.
+// í˜„ì¬ ë“±ê¸‰ì—ì„œ ê¸°ìˆ ì´ ì–´ëŠì •ë„ ë ˆë²¨ê¹Œì§€ ì˜¬ë¼ê°ˆ ìˆ˜ ìˆëŠ”ì§€ ì•Œì•„ ë³¸ë‹¤.
 Level_t SkillInfoManager::getLimitLevelByDomainGrade(SkillGrade Grade)
 {
 	__BEGIN_TRY

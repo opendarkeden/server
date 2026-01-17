@@ -16,7 +16,7 @@ EffectKillTimer::EffectKillTimer(Creature* pCreature, bool kill)
 {
 	__BEGIN_TRY 
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	setTarget(pCreature);
@@ -31,7 +31,7 @@ EffectKillTimer::~EffectKillTimer()
 	
 {
 	__BEGIN_TRY 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

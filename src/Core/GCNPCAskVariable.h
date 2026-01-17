@@ -14,7 +14,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCNPCAskVariable;
-// NPC 의 대사를 주변의 PC 들에게 전송한다.
+// Sends an NPC question with script variables to nearby PCs.
 //////////////////////////////////////////////////////////////////////////////
 
 typedef map<string,ScriptParameter*>		HashMapScriptParameter;
@@ -43,15 +43,15 @@ public:
 	ScriptID_t getScriptID(void) const  { return m_ScriptID; }
 	void setScriptID(ScriptID_t id)  { m_ScriptID = id; }
 
-	void addScriptParameter(ScriptParameter* pParam ) throw(DuplicatedException);
+	void addScriptParameter(ScriptParameter* pParam );
 	void clearScriptParameters() ;
 	HashMapScriptParameter& getScriptParameters() { return m_ScriptParameters; }
-	string getValue(const string& name ) const throw(NoSuchElementException);
+	string getValue(const string& name ) const;
 
 private:
 	ObjectID_t m_ObjectID; // NPC's object id
 	ScriptID_t m_ScriptID; // script id
-	HashMapScriptParameter m_ScriptParameters; // 스크립트의 변수 파라미터들
+	HashMapScriptParameter m_ScriptParameters; // script parameters
 };
 
 //////////////////////////////////////////////////////////////////////////////

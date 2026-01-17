@@ -8,11 +8,17 @@
 #include "Types.h"
 #include "Exception.h"
 
-extern "C" 
+extern "C"
 {
+#if defined(__APPLE__)
+	#include <luajit-2.1/lua.h>
+	#include <luajit-2.1/lualib.h>
+	#include <luajit-2.1/lauxlib.h>
+#else
 	#include <lua5.1/lua.h>
 	#include <lua5.1/lualib.h>
 	#include <lua5.1/lauxlib.h>
+#endif
 }
 
 
@@ -24,7 +30,7 @@ public :
 	LuaState();
 	virtual ~LuaState();
 
-	// LuaState¿¡ ´ëÇØ¼­ ÃÖÃÊ ÇÑ¹ø¸¸ initÇØÁÖ¸é µÈ´Ù.
+	// LuaStateï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ initï¿½ï¿½ï¿½Ö¸ï¿½ ï¿½È´ï¿½.
 	virtual void	init(int stackSize=defaultStateSize);
 	virtual void	release();
 

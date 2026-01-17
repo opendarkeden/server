@@ -47,7 +47,7 @@ SharedServerManager::~SharedServerManager ()
 
 	SAFE_DELETE(m_pSharedServerClient);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ void SharedServerManager::run ()
 			port = g_pConfig->getPropertyInt("DB_PORT");
 
 		Connection* pConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+		g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 		cout << "************************************************************************" << endl;
 		cout << "OPEN LOGIN DB" << endl;
 		cout << "************************************************************************" << endl;
@@ -92,7 +92,7 @@ void SharedServerManager::run ()
 		{
 			usleep( 100 );
 
-			// ¿¬°áµÇ¾î ÀÖÁö ¾Ê´Ù¸é ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+			// ì—°ê²°ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ ì—°ê²°ì„ ì‹œë„í•œë‹¤.
 			if ( m_pSharedServerClient == NULL )
 			{
 				Socket* pSocket = NULL;
@@ -122,7 +122,7 @@ void SharedServerManager::run ()
 
 					cout << "connection to sharedserver established" << endl;
 
-					// ±æµå Á¤º¸¸¦ °¡Á®¿Àµµ·Ï ¿äÃ»ÇÑ´Ù.
+					// ê¸¸ë“œ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ë„ë¡ ìš”ì²­í•œë‹¤.
 					GSRequestGuildInfo gsRequestGuildInfo;
 					m_pSharedServerClient->sendPacket( &gsRequestGuildInfo );
 				} 
@@ -145,12 +145,12 @@ void SharedServerManager::run ()
 					}
 					__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-					// ´ÙÀ½ Á¢¼Ó½Ãµµ½Ã°£
+					// ë‹¤ìŒ ì ‘ì†ì‹œë„ì‹œê°„
 					usleep( 500000 );
 				}
 			}
 
-			// ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é ÀÔÃâ·ÂÀ» Ã³¸®ÇÑ´Ù.
+			// ì†Œì¼“ì´ ì—°ê²°ë˜ì–´ ìˆë‹¤ë©´ ì…ì¶œë ¥ì„ ì²˜ë¦¬í•œë‹¤.
 			__ENTER_CRITICAL_SECTION(m_Mutex)
 
 			if ( m_pSharedServerClient != NULL )
@@ -183,8 +183,8 @@ void SharedServerManager::run ()
 			{
 				g_pDatabaseManager->executeDummyQuery( pConnection );
 
-				// 1½Ã°£ ~ 1½Ã°£ 30ºĞ »çÀÌ¿¡¼­ dummy query ½Ã°£À» ¼³Á¤ÇÑ´Ù.
-				// timeoutÀÌ µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+				// 1ì‹œê°„ ~ 1ì‹œê°„ 30ë¶„ ì‚¬ì´ì—ì„œ dummy query ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
+				// timeoutì´ ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
 				dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 			}
 		}

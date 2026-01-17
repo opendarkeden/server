@@ -19,8 +19,8 @@
 //
 // class GCAttack;
 //
-// 게임 서버에서 특정 사용자가 움직였다는 정보를 클라이언트로 보내줄 
-// 때 사용하는 패킷 객체이다.(CreatureID,X,Y,DIR) 을 포함한다.
+// Packet sent to clients to indicate that a creature has performed an
+// attack. Carries creature ID, position, and direction.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,16 +32,16 @@ public :
 	GCAttack() ;
 	
 	// destructor
-	~GCAttack() ;
+	~GCAttack() noexcept;
 
 	
 public :
 	
 	
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize the packet by reading data from the input stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet into the output stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -51,7 +51,7 @@ public :
 	PacketID_t getPacketID() const  { return PACKET_GC_ATTACK; }
 	
 	// get packet's body size
-	// 최적화시, 미리 계산된 정수를 사용한다.
+	// Serialized size is fixed for this packet.
 	PacketSize_t getPacketSize() const  { return szObjectID + szCoord + szCoord + szDir ; }
 
 	// get packet's name
@@ -79,10 +79,10 @@ public :
 
 private :
 
-	ObjectID_t m_ObjectID;		// 크리처 아이디
-	Coord_t m_X;				// X 좌표
-	Coord_t m_Y;				// Y 좌표
-	Dir_t m_Dir;				// 방향
+	ObjectID_t m_ObjectID;		// Creature ID
+	Coord_t m_X;			// X coordinate
+	Coord_t m_Y;			// Y coordinate
+	Dir_t m_Dir;			// Facing direction
 
 };
 

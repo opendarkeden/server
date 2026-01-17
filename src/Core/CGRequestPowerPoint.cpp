@@ -2,7 +2,7 @@
 // Filename    : CGRequestPowerPoint.cpp 
 // Written By  :
 // Description :
-// 서버에 원하는 사람의 IP 요청
+// Request the target player's IP address.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "CGRequestPowerPoint.h"
@@ -22,7 +22,7 @@ CGRequestPowerPoint::~CGRequestPowerPoint ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGRequestPowerPoint::read (SocketInputStream & iStream ) 

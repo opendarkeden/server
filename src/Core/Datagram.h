@@ -14,7 +14,7 @@
 #include "SocketAPI.h"
 #include "Packet.h"
 
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 	#include <sys/socket.h>
 	#include <arpa/inet.h>
 	#include <netinet/in.h>
@@ -29,8 +29,8 @@ class DatagramPacket;
 //
 // class Datagram;
 //
-// UDP ¼ÒÄÏÀ¸·ÎºÎÅÍ ÀÔ·Â¹Þ°Å³ª Ãâ·ÂÇÒ µ¥ÀÌÅ¸ÀÇ ÁýÇÕÀÌ´Ù.
-// °¢ DatagramÀº º¸³¾ °÷ ¶Ç´Â º¸³½ °÷ÀÇ ÁÖ¼Ò¸¦ °¡Áö°í ÀÖ´Ù.
+// UDP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ô·Â¹Þ°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+// ï¿½ï¿½ Datagramï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -102,7 +102,7 @@ public :
 
 	string toString () const ;
 
-	//ÅÐ¶ÏÊÇ·ñÊÇudp±¨ÎÄ
+	//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½udpï¿½ï¿½ï¿½ï¿½
 	bool isDatagram(PacketID_t packetID);
 
 private :

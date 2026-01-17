@@ -31,12 +31,10 @@ MPlayerManager::MPlayerManager()
 }
 
 // destructor
-MPlayerManager::~MPlayerManager()
+MPlayerManager::~MPlayerManager() noexcept
 	
 {
-	__BEGIN_TRY
-
-	__END_CATCH
+	// no owning members to clean; keep noexcept
 }
 
 // stop thread. unsupport
@@ -64,7 +62,7 @@ void MPlayerManager::run()
 		port = g_pConfig->getPropertyInt("DB_PORT");
 
 	Connection* pConnection = new Connection(host, db, user, password, port);
-	g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+	g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 	cout << "******************************************************" << endl;
 	cout << " Mofus THREAD CONNECT DB " << endl;
 	cout << "******************************************************" << endl;
@@ -76,25 +74,25 @@ void MPlayerManager::run()
 	{
 		usleep( 100 );
 
-		// 현재 진행중인 Job 확인
+		// Fetch a job if none is currently running.
 		if ( m_pCurrentJob == NULL )
 		{
 			m_pCurrentJob = popJob();
 		}
 
-		// 현재 진행중인 Job 이 있다면
+		// If a job is available, process it.
 		if ( m_pCurrentJob != NULL )
 		{
-			// Mofus 와 연결해서 작업을 할 새 Player를 생성
+			// Spin up an MPlayer to handle the job.
 			MPlayer* pPlayer = new MPlayer( m_pCurrentJob );
 
-			// 파워포인트 가져오기 작업 진행
+			// Run the player.
 			pPlayer->process();
 
-			// 결과처리
+			// Persist any job results.
 			processResult();
 
-			// Player/Job 삭제
+			// Clean up player and job objects.
 			SAFE_DELETE( pPlayer );
 			SAFE_DELETE( m_pCurrentJob );
 		}
@@ -115,7 +113,7 @@ void MPlayerManager::run()
 
 void MPlayerManager::addJob( const string& userID, const string& name, const string& cellnum )
 {
-	// 새 job 객체를 생성
+	// Allocate and enqueue a new job.
 	MJob* pJob = new MJob( userID, name, cellnum );
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -145,7 +143,7 @@ MJob* MPlayerManager::popJob()
 
 void MPlayerManager::processResult()
 {
-	// 사용자 찾기
+	// Locate the target player creature.
 	__ENTER_CRITICAL_SECTION( (*g_pPCFinder) )
 
 	Creature* pCreature = g_pPCFinder->getCreature_LOCKED( m_pCurrentJob->getName() );
@@ -155,7 +153,7 @@ void MPlayerManager::processResult()
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 		Assert( pPC != NULL );
 
-		// 파워포인트를 플레이어에 세팅
+		// Refresh the player's PowerPoint from the database value.
 		pPC->setPowerPoint( loadPowerPoint( pPC->getName() ) );
 
 		GCRequestPowerPointResult gcRequestPowerPointResult;
@@ -202,7 +200,7 @@ void MPlayerManager::processResult()
 			}
 		}
 
-		// 클라이언트에 알리기
+		// Send the result back to the client.
 		pPC->getPlayer()->sendPacket( &gcRequestPowerPointResult );
 	}
 

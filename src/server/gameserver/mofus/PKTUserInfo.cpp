@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : PKTUserInfo.cpp
-// Desc		: 온라인 게임 유저ID, 캐릭터명, 회원이름, 서버의 정보를
-// 			  파워링 서버로 보내 회원을 인증한다.
+// Desc		: User info packet carrying userID, character name, account name, and serials.
+// 			  Sent from client to server when updating billing info.
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -9,15 +9,17 @@
 #include "MPacketID.h"
 #include "Assert.h"
 
-// 생성자
-PKTUserInfo::PKTUserInfo()
+// constructor
+PKTUserInfo::PKTUserInfo() : _PKT_USERINFO()
 {
-	memset( this, 0, szPKTUserInfo );
-
 	nSize = szPKTUserInfo - szMPacketSize;
+	nCode = 0;
+	sJuminNo[0] = '\0';
+	sHandPhone[0] = '\0';
+	nIndex = 0;
 }
 
-// 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
+// Deserialize packet from input stream.
 void PKTUserInfo::read( SocketInputStream& iStream )
 {
 	iStream.read( (char*)this, szPKTUserInfo );
@@ -28,7 +30,7 @@ void PKTUserInfo::read( SocketInputStream& iStream )
 //	nIndex		= ntohl( nIndex );
 }
 
-// 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize packet to output stream.
 void PKTUserInfo::write( SocketOutputStream& oStream )
 {
 	nCode = getID();

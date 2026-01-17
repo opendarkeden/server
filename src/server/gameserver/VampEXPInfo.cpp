@@ -30,7 +30,7 @@ VampEXPInfo::~VampEXPInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string VampEXPInfo::toString() const
@@ -77,7 +77,7 @@ VampEXPInfoManager::~VampEXPInfoManager()
 		SAFE_DELETE_ARRAY(m_VampEXPInfoList);
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void VampEXPInfoManager::init()
@@ -110,7 +110,7 @@ void VampEXPInfoManager::load()
 			throw Error ("There is no data in VampEXPInfo Table");
 		}
 
-		// ÀüÃ¼ °¹¼ö¸¦ ¼¼ÆÃÇÑ´Ù.
+		// ì „ì²´ ê°¯ìˆ˜ë¥¼ ì„¸íŒ…í•œë‹¤.
 		pResult->next();
 		m_VampEXPCount = pResult->getInt(1) +1;
 
@@ -120,7 +120,7 @@ void VampEXPInfoManager::load()
 
 		Assert(m_VampEXPInfoList != NULL);
 
-		// ¹è¿­À» ÃÊ±âÈ­
+		// ë°°ì—´ì„ ì´ˆê¸°í™”
 		for (uint i = 0 ; i < m_VampEXPCount ; i ++)
 			m_VampEXPInfoList[i] = NULL;
 		

@@ -23,18 +23,13 @@ typedef struct _ZONEUSERDATA {
 //
 // class GMServerInfo;
 //
-// 로그인 서버에서 사용자가 게임 서버로 접속하려고 할 때, 로그인 서버는
-// 그 게임 서버에게 어떤 주소에서 어떤 사용자가 어떤 크리처로 로그인할
-// 것이다.. 라고 알려주는 패킷이다.
+// Packet sent from the login server so a GM client knows which world/server
+// to connect to and how many players are in each zone.
 //
 // *CAUTION*
-//
-// 굳이 크리처 이름이 필요한가? 하는 의문이 있을 수 있겠는데, 다음과 같은
-// 경우를 고려했을때 필요하게 된다. 로그인 서버로부터 Slot3 캐릭터를 선택
-// 해놓고, 실제로 게임 서버에 접속해서는 SLOT2 캐릭터를 로딩해달라고 할
-// 수가 있는 것이다. 이를 막기 위해서, CLSelectPC로 선택한 캐릭터를 
-// 게임 서버에게 알려줘야 하며, CGConnect 에서도 캐릭터 아이디를 포함해서
-// 바로 로딩하도록 해야 한다.
+// Keep the mapping between character slots and character IDs consistent.
+// After the client selects a character in CLSelectPC, CGConnect uses the
+// character ID immediately to load it.
 //
 //----------------------------------------------------------------------
 
@@ -42,13 +37,13 @@ class GMServerInfo : public DatagramPacket {
 
 public :
 	GMServerInfo() ;
-	~GMServerInfo() ;
+	~GMServerInfo() noexcept;
 	
-    // Datagram 객체에서부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(Datagram & iDatagram) ;
+	// Initialize the packet by reading data from the datagram payload.
+	void read(Datagram & iDatagram) ;
 		    
-    // Datagram 객체로 패킷의 바이너리 이미지를 보낸다.
-    void write(Datagram & oDatagram) const ;
+	// Serialize the packet into the datagram payload.
+	void write(Datagram & oDatagram) const ;
 
 	// execute packet's handler
 	void execute(Player* pPlayer) ;
@@ -93,7 +88,7 @@ private :
 	BYTE            m_ZoneCount;
 	list<ZONEUSERDATA> m_ZoneUserList;
 
-	// 클라이언트의 IP
+	// Client IP (reference only; stored elsewhere)
 
 };
 
@@ -121,7 +116,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GMServerInfoPacketMaxSize 를 정의, 리턴하라.
+	// Use GMServerInfoPacketMaxSize if that constant is defined.
 	PacketSize_t getPacketMaxSize() const  { return szWorldID + szBYTE + 255*(szBYTE+szDWORD); }
 
 };

@@ -25,8 +25,8 @@
 //
 // class Throwable
 //
-// Exception 과 Error 의 베이스 클래스이다. 관련 메쏘드 및 데이타를
-// 구현해놓고 있다.
+// Base interface for exceptions and errors. Stores a message and a
+// stack trace for debugging.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -100,25 +100,26 @@ private :
 
 //--------------------------------------------------------------------------------
 //
-// Throwable이 필요하기 때문에 아래에 정의했다.
-// Exception/Error를 던지는 모든 메쏘드의 위/아래에 명시되어야 한다.
-// __END_CATCH는 Throwable의 메소드 스택에 등록한 후 상위로 던지는
-// 역할을 한다.
+// Convenience macros for Throwable. Exception/Error messages should be
+// wrapped with __BEGIN_TRY / __END_CATCH. __END_CATCH appends the
+// current function name to the Throwable stack before rethrowing.
 //
 //--------------------------------------------------------------------------------
 
 #if defined(NDEBUG)
 	#define __BEGIN_TRY ((void)0);
 	#define __END_CATCH ((void)0);
+	#define __END_CATCH_NO_RETHROW ((void)0);
 #else
 	#define __BEGIN_TRY try {
 	#define __END_CATCH } catch (Throwable & t) { t.addStack(__PRETTY_FUNCTION__); throw; }
+	#define __END_CATCH_NO_RETHROW } catch (Throwable & t) { t.addStack(__PRETTY_FUNCTION__); }
 #endif
 
-// 메세지 비출력 END_CATCH
+// END_CATCH for method definitions
 //#define __END_CATCH } catch (Throwable & t) { t.addStack(__PRETTY_FUNCTION__); throw; }
 
-// 메세지 출력 END_CATCH
+// Verbose END_CATCH with logging
 //#define __END_CATCH } catch (Throwable & t) { cout << "\nCAUGHT Exception IN END_CATCH MACRO...\n[" << __PRETTY_FUNCTION__ << "]\n>>> " << t.toString() << endl; t.addStack(__PRETTY_FUNCTION__); throw; }
 
 
@@ -149,7 +150,7 @@ private :
 #if defined(NDEBUG) || defined(__WIN32__)
 	#define __BEGIN_DEBUG ((void)0);
 	#define __END_DEBUG ((void)0);
-#elif defined(__LINUX__) || defined(__WIN_CONSOLE__)
+#elif defined(__LINUX__) || defined(__APPLE__) || defined(__WIN_CONSOLE__)
 	#define __BEGIN_DEBUG try {
 	#define __END_DEBUG  } catch (Throwable & t) { cout << t.toString() << endl; throw; } catch (exception & e) { cout << e.what() << endl; throw; }
 #elif defined(__MFC__)
@@ -174,10 +175,10 @@ public :
 	//
 	// I/O Exception
 	//
-	// 파일, 소켓, IPC 입출력시 발생할 수 있는 예외
+	// Errors that can occur during read/write or IPC operations.
 	//
 	//////////////////////////////////////////////////////////////////////
-	// 파일, 소켓, IPC 입출력시 발생할 수 있는 예외
+	// Errors that can occur during read/write or IPC operations.
 	class IOException : public Exception {
 	public :
 		IOException ()  : Exception () {}
@@ -189,7 +190,7 @@ public :
 		//
 		// Non Blocking I/O Exception
 		//
-		// I/O 시 nonblocking 이 발생할 경우
+		// I/O would block when running in nonblocking mode.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NonBlockingIOException : public IOException {
@@ -203,7 +204,7 @@ public :
 		//
 		// Interrupted I/O Exception
 		//
-		// I/O 시 인터럽트가 걸린 경우
+		// I/O operation was interrupted by a signal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedIOException : public IOException {
@@ -217,7 +218,7 @@ public :
 		//
 		// EOF Exception
 		//
-		// I/O 시 EOF 를 만난 경우
+		// Unexpected EOF during an I/O operation.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class EOFException : public IOException {
@@ -267,7 +268,7 @@ public :
 		//
 		// Time out Exception
 		//
-		// 지정 시간이 지났을 경우
+		// Operation exceeded the allowed time.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class TimeoutException : public IOException {
@@ -281,7 +282,7 @@ public :
 		//
 		// Socket Exception
 		//
-		// 특히 소켓에서 발생하는 예외들
+		// Generic socket-related errors.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SocketException : public IOException {
@@ -295,7 +296,7 @@ public :
 			//
 			// Bind Exception
 			//
-			// bind()시 발생하는 예외
+			// Errors raised while calling bind().
 			//
 			//////////////////////////////////////////////////////////////////////
 			class BindException : public SocketException {
@@ -309,7 +310,7 @@ public :
 			//
 			// Connect Exception
 			//
-			// 소켓 연결이 끊길 경우 (가장 많이 발생한다고 보면 된다.)
+			// Unable to connect to the remote host (likely not listening).
 			//
 			//////////////////////////////////////////////////////////////////////
 			class ConnectException : public SocketException {
@@ -323,7 +324,7 @@ public :
 		//
 		// Protocol Exception
 		//
-		// 패킷 파싱할때 발생하는 예외들
+		// Errors while parsing or handling a packet.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class ProtocolException : public IOException {
@@ -337,7 +338,7 @@ public :
 			//
 			// Idle Exception
 			//
-			// 일정 시간동안 peer 로부터 입력이 없는 경우
+			// No input from the peer for an extended period.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class IdleException : public ProtocolException {
@@ -352,7 +353,7 @@ public :
 			//
 			// Invalid Protocol Exception
 			//
-			// 잘못된 프로토콜
+			// Malformed protocol payload.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InvalidProtocolException : public ProtocolException {
@@ -366,7 +367,7 @@ public :
 			//
 			// Insufficient Data Exception
 			//
-			// 아직 패킷 데이타가 완전하게 도착하지 않았을 경우
+			// Packet data is too short to continue processing.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class InsufficientDataException : public ProtocolException {
@@ -393,8 +394,7 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// 프로토콜 예외, 시스템 예외 등으로인해서 접속을 짤라야 할 경우
-			// 이 예외를 사용한다.
+			// Use when network or system issues require disconnecting the client.
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class DisconnectException : public ProtocolException {
@@ -406,7 +406,7 @@ public :
 
 			//////////////////////////////////////////////////////////////////////
 			// 
-			// 특정 상황때 무시해야 되는 패킷이 들어왔을 경우
+			// Ignore packets that must be skipped in special cases.
 			// 
 			//////////////////////////////////////////////////////////////////////
 			class IgnorePacketException : public ProtocolException {
@@ -421,7 +421,7 @@ public :
 	//
 	// Thread Exception
 	//
-	// 쓰레드 및 동기화 도구들에서 발생하는 예외들
+	// Exceptions raised during thread or synchronization operations.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class ThreadException : public Exception {
@@ -435,7 +435,7 @@ public :
 		//
 		// Mutex Exception
 		//
-		// 뮤텍스에서 발생하는 예외들
+		// Exceptions from mutex locking/unlocking.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class MutexException : public ThreadException {
@@ -449,7 +449,7 @@ public :
 			//
 			// Mutex Attribute Exception
 			//
-			// 뮤텍스 속성에서 발생하는 예외들
+			// Exceptions related to mutex attributes.
 			//
 			//////////////////////////////////////////////////////////////////////
 			class MutexAttrException : public MutexException {
@@ -464,7 +464,7 @@ public :
 		//
 		// Conditional Variable Exception
 		//
-		// Conditional Variable 에서 발생하는 예외 (이름이 너무 길다.. - -)
+		// Exceptions from condition variable operations.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class CondVarException : public ThreadException {
@@ -478,7 +478,7 @@ public :
 		//
 		// Semaphore Exception
 		//
-		// Semaphore 에서 발생하는 예외
+		// Exceptions from semaphore operations.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SemaphoreException : public ThreadException {
@@ -493,7 +493,7 @@ public :
 	//
 	// SQL Exception 
 	//
-	// SQL 관련 예외
+	// SQL execution errors.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class SQLException : public Exception {
@@ -507,7 +507,7 @@ public :
 		//
 		// SQL Warning
 		//
-		// SQL 경고문을 나타내는 예외~~
+		// Non-fatal SQL warnings.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLWarning : public SQLException {
@@ -522,7 +522,7 @@ public :
 		//
 		// SQL Connect Exception
 		//
-		// SQL에 대한 연결 시도가 실패한 경우, 연결이 끊어졌을 경우 등
+		// Failed to connect to SQL; connection attempt did not reach the server.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class SQLConnectException : public SQLException {
@@ -549,7 +549,7 @@ public :
 	//
 	// Runtime Exception
 	//
-	// 런타임에 발생가능한 generic 한 용도로 사용될 수 있는 예외들
+	// Generic runtime errors for miscellaneous failure cases.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class RuntimeException : public Exception {
@@ -563,7 +563,7 @@ public :
 		//
 		// Invalid Arguemnt Exception
 		//
-		// 함수, 멤버함수의 파라미터가 잘못된 경우 
+		// Function or method received an invalid argument.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InvalidArgumentException : public RuntimeException {
@@ -577,7 +577,7 @@ public :
 		//
 		// Out Of Bound Exception
 		//
-		// 말그대로. Out Of Bound!
+		// Index or coordinate out of bounds.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class OutOfBoundException : public RuntimeException {
@@ -591,7 +591,7 @@ public :
 		//
 		// Interrupted Exception
 		//
-		// System Call 등이 인터럽트 당했을 경우
+		// System call interrupted by a signal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class InterruptedException : public RuntimeException {
@@ -605,7 +605,7 @@ public :
 		//
 		// No Such Element Exception
 		//
-		// 컬렉션에서 특정 키값을 검색했을때 그런 엘리먼트가 없는 경우
+		// Lookup failed to find an element for the requested key.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class NoSuchElementException : public RuntimeException {
@@ -619,7 +619,7 @@ public :
 		//
 		// Duplicated Exception
 		//
-		// 컬렉션의 특정 키가 중복되었을 때 
+		// Duplicate key detected.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class DuplicatedException : public RuntimeException {
@@ -633,7 +633,7 @@ public :
 	//
 	// Game Exception
 	//
-	// 게임에서 goto 용도로 사용하는 예외들.. -_-;
+	// Game-specific exceptions used for control-flow style handling.
 	//
 	//////////////////////////////////////////////////////////////////////
 	class GameException : public Exception {
@@ -647,7 +647,7 @@ public :
 		//
 		// Portal Exception
 		//
-		// PC 가 포탈을 밟았을때...�
+		// PC failed to move through a portal.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class PortalException : public GameException {
@@ -659,7 +659,7 @@ public :
 
 		//////////////////////////////////////////////////////////////////////
 		//
-		// 특정 좌표 주위가 꽉차서 크리처를 존에 집어넣을 수 없을 때
+		// No suitable empty tile was found when searching for placement.
 		//
 		//////////////////////////////////////////////////////////////////////
 		class EmptyTileNotExistException : public GameException {
@@ -734,8 +734,8 @@ public :
 	//
 	// Log Error
 	//
-	// 일반적인 에러와는 달리 LogError는 디폴트 로그파일에 로그될 수 없다.
-	// (생각해보라. 로그매니저 자체의 에러를 어떻게 로그한다는 말인가?)
+	// Ordinary errors should be logged with LogError to the system log.
+	// (Consider refining the logging strategy.)
 	//
 	//////////////////////////////////////////////////////////////////////
 	class LogError : public Error {

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Filename    : Inventory.cpp
 // Written By  : elca@ewestsoft.com
-// Revised By  : ±è¼º¹Î
+// Revised By  : ê¹€ì„±ë¯¼
 // Description : 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// ±âº» »ý¼ºÀÚ
+// ê¸°ë³¸ ìƒì„±ìž
 ////////////////////////////////////////////////////////////
 Inventory::Inventory(CoordInven_t Width, CoordInven_t Height, bool bDeleteAll)
 	
@@ -55,7 +55,7 @@ Inventory::Inventory(CoordInven_t Width, CoordInven_t Height, bool bDeleteAll)
 }
 
 ////////////////////////////////////////////////////////////
-// º¹»ç »ý¼ºÀÚ
+// ë³µì‚¬ ìƒì„±ìž
 ////////////////////////////////////////////////////////////
 Inventory::Inventory(const Inventory* pInventory)
 	
@@ -88,7 +88,7 @@ Inventory::Inventory(const Inventory* pInventory)
 }
 
 ////////////////////////////////////////////////////////////
-// ¼Ò¸êÀÚ
+// ì†Œë©¸ìž
 ////////////////////////////////////////////////////////////
 Inventory::~Inventory()
 	
@@ -101,8 +101,8 @@ Inventory::~Inventory()
 	{
 		if (m_pInventorySlot != NULL)
 		{
-			// ÀÎº¥Åä¸®¿¡ Á¸ÀçÇÏ´Â ¸ðµç ¾ÆÀÌÅÛµéÀ» »èÁ¦ÇÑ´Ù.
-			// ¾ÆÀÌÅÛ Å©±â¸¦ »ç¿ëÇÏ¸é Á»´õ ÃÖÀûÈ­ÇÒ ¼ö ÀÖÀ» °ÍÀÌ´Ù.
+			// ì¸ë²¤í† ë¦¬ì— ì¡´ìž¬í•˜ëŠ” ëª¨ë“  ì•„ì´í…œë“¤ì„ ì‚­ì œí•œë‹¤.
+			// ì•„ì´í…œ í¬ê¸°ë¥¼ ì‚¬ìš©í•˜ë©´ ì¢€ë” ìµœì í™”í•  ìˆ˜ ìžˆì„ ê²ƒì´ë‹¤.
 			for (j = 0 ; j < m_Height ; j++) 
 			{
 				for (i = 0 ; i < m_Width ; i++) 
@@ -110,21 +110,21 @@ Inventory::~Inventory()
 					Item* pItem = m_pInventorySlot[i][j].getItem();
 					if (pItem != NULL) 
 					{
-						// ÀÎº¥Åä¸® ½½¶ùÀ» NULL ·Î ÁöÁ¤ÇÑ´Ù.
+						// ì¸ë²¤í† ë¦¬ ìŠ¬ëžì„ NULL ë¡œ ì§€ì •í•œë‹¤.
 
 						deleteItem(i,j);
 
 						if (m_bDeleteAll)
 						{
-							// ¿­¼èÀÏ °æ¿ì¿¡ ParkingCenter¿¡¼­ ¿ÀÅä¹ÙÀÌ Á¤º¸¸¦ »©³½´ÙÀ½.
-							// Zone¿¡¼­ ¿ÀÅä¹ÙÀÌ¸¦ »èÁ¦ÇØÁÖ°í, ParkingCenter¿¡ ¿ÀÅä¹ÙÀÌ¸¦ »èÁ¦ÇÑ´Ù.
-							// ¿ø·¡ ±ò²ûÇÏ°Ô ÇÏ±â À§ÇØ¼± GamePlayer ³»Áö´Â CreatureÀÇ destructor¿¡¼­
-							// ÇØ¾ßÇÏ³ª, °Ë»ö ½Ã°£ÀÇ ´ÜÃàÀ» À§ÇØ¼­ ²Ç¼ö·Î ¿©±â¼­ ÇÏµµ·Ï ÇÑ´Ù.
-							// ÀÌ°Å ¾ø¾Ö¹È, °³ µÈ´Ù.
+							// ì—´ì‡ ì¼ ê²½ìš°ì— ParkingCenterì—ì„œ ì˜¤í† ë°”ì´ ì •ë³´ë¥¼ ë¹¼ë‚¸ë‹¤ìŒ.
+							// Zoneì—ì„œ ì˜¤í† ë°”ì´ë¥¼ ì‚­ì œí•´ì£¼ê³ , ParkingCenterì— ì˜¤í† ë°”ì´ë¥¼ ì‚­ì œí•œë‹¤.
+							// ì›ëž˜ ê¹”ë”í•˜ê²Œ í•˜ê¸° ìœ„í•´ì„  GamePlayer ë‚´ì§€ëŠ” Creatureì˜ destructorì—ì„œ
+							// í•´ì•¼í•˜ë‚˜, ê²€ìƒ‰ ì‹œê°„ì˜ ë‹¨ì¶•ì„ ìœ„í•´ì„œ ê½ìˆ˜ë¡œ ì—¬ê¸°ì„œ í•˜ë„ë¡ í•œë‹¤.
+							// ì´ê±° ì—†ì• ë¯„, ê°œ ëœë‹¤.
 							if (pItem->getItemClass() == Item::ITEM_CLASS_KEY) 
 							{
 								Key* pKey = dynamic_cast<Key*>(pItem);
-								// °Á °£´ÜÇÏ°Ô ÀÌ¾È¿¡¼­ ¾Ë¾Æ¼­ Á¸¿¡¼­ Áö¿ö ÁÖµµ·Ï ÇÏÀÚ.
+								// ê± ê°„ë‹¨í•˜ê²Œ ì´ì•ˆì—ì„œ ì•Œì•„ì„œ ì¡´ì—ì„œ ì§€ì›Œ ì£¼ë„ë¡ í•˜ìž.
 								if (g_pParkingCenter->hasMotorcycleBox(pKey->getTarget())) 
 								{
 									g_pParkingCenter->deleteMotorcycleBox(pKey->getTarget());
@@ -139,7 +139,7 @@ Inventory::~Inventory()
 
 			//Assert(m_TotalNum == 0);
 			//Assert(m_TotalWeight == 0);
-			// ÀÓ½Ã·Î ³Ö¾îµÐ ÄÚµå.. ±×³É ¼ýÀÚ³ª º¸°í ½Í¾î¼­ - -; by sigi. 2002.5.15
+			// ìž„ì‹œë¡œ ë„£ì–´ë‘” ì½”ë“œ.. ê·¸ëƒ¥ ìˆ«ìžë‚˜ ë³´ê³  ì‹¶ì–´ì„œ - -; by sigi. 2002.5.15
 			if (m_TotalNum != 0)
 			{
 				filelog("inventoryBug.txt", "TotalNum=%d", m_TotalNum);
@@ -163,7 +163,7 @@ Inventory::~Inventory()
 		//cerr << t.toString() << endl; 
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
  
 
@@ -177,7 +177,7 @@ Inventory::~Inventory()
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
+// ì§€ì •ëœ ìœ„ì¹˜ì— ì•„ì´í…œì´ ìžˆëŠ”ê°€?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y)
 	
@@ -195,7 +195,7 @@ bool Inventory::hasItem(CoordInven_t X, CoordInven_t Y)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
+// ì§€ì •ëœ ì•„ì´í…œì´ ìžˆëŠ”ê°€?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItem(ObjectID_t ObjectID)
 	
@@ -210,7 +210,7 @@ bool Inventory::hasItem(ObjectID_t ObjectID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
+// ì§€ì •ëœ ì•„ì´í…œì´ ìžˆëŠ”ê°€?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasItemWithItemID(ItemID_t ItemID)
 	
@@ -225,7 +225,7 @@ bool Inventory::hasItemWithItemID(ItemID_t ItemID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ Å¸°ÙÀ» Å¸°ÙÀ¸·Î ÇÏ´Â ¿­¼è¸¦ °¡Áö°í ÀÖ´Â°¡?
+// ì§€ì •ëœ íƒ€ê²Ÿì„ íƒ€ê²Ÿìœ¼ë¡œ í•˜ëŠ” ì—´ì‡ ë¥¼ ê°€ì§€ê³  ìžˆëŠ”ê°€?
 ////////////////////////////////////////////////////////////
 bool Inventory::hasKey(ItemID_t TargetItemID)
 	
@@ -252,9 +252,9 @@ bool Inventory::hasKey(ItemID_t TargetItemID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁÖ¾îÁø À§Ä¡¿¡ ¾ÆÀÌÅÛÀ» ´õÇÒ ¼ö ÀÖ´Â°¡? 
-// ÀÌ ÇÔ¼ö´Â ÇÏ³ª´Â ¸¶¿ì½º¿¡ ºÙÀÏ ¼ö ÀÖ´Ù°í °¡Á¤ÇÏ°í 
-// °á°ú¸¦ ¸®ÅÏÇÑ´Ù.
+// ì£¼ì–´ì§„ ìœ„ì¹˜ì— ì•„ì´í…œì„ ë”í•  ìˆ˜ ìžˆëŠ”ê°€? 
+// ì´ í•¨ìˆ˜ëŠ” í•˜ë‚˜ëŠ” ë§ˆìš°ìŠ¤ì— ë¶™ì¼ ìˆ˜ ìžˆë‹¤ê³  ê°€ì •í•˜ê³  
+// ê²°ê³¼ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 bool Inventory::canAdding(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	
@@ -300,9 +300,9 @@ bool Inventory::canAdding(CoordInven_t X, CoordInven_t Y, Item* pItem)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁÖ¾îÁø À§Ä¡¿¡ ¾ÆÀÌÅÛÀ» ºÙÀÏ ¼ö ÀÖ´Â°¡? 
-// ÀÌ ÇÔ¼ö´Â ¸¶¿ì½º¿¡ ¾ÆÀÌÅÛÀ» ºÙÀÏ ¼ö ÀÖ´Ù°í 
-// °¡Á¤ÇÏÁö ***¾Ê´Â´Ù.***
+// ì£¼ì–´ì§„ ìœ„ì¹˜ì— ì•„ì´í…œì„ ë¶™ì¼ ìˆ˜ ìžˆëŠ”ê°€? 
+// ì´ í•¨ìˆ˜ëŠ” ë§ˆìš°ìŠ¤ì— ì•„ì´í…œì„ ë¶™ì¼ ìˆ˜ ìžˆë‹¤ê³  
+// ê°€ì •í•˜ì§€ ***ì•ŠëŠ”ë‹¤.***
 ////////////////////////////////////////////////////////////
 bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	
@@ -315,20 +315,20 @@ bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 
 	if ((X+ItemWidth > m_Width) || (Y+ItemHeight > m_Height)) return false;
 
-	// ÀÎº¥Åä¸®¸¦ °Ë»öÇÏ¸é¼­, ±× ÀÚ¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é,
-	// ¸®½ºÆ®¿¡ ±× ¾ÆÀÌÅÛÀÌ ¾ø´ÂÁö °Ë»çÇÑ ÈÄ, ¸®½ºÆ®¿¡´Ù ¾ÆÀÌÅÛÀ» Áý¾î³Ö´Â´Ù.
+	// ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•˜ë©´ì„œ, ê·¸ ìžë¦¬ì— ì•„ì´í…œì´ ìžˆë‹¤ë©´,
+	// ë¦¬ìŠ¤íŠ¸ì— ê·¸ ì•„ì´í…œì´ ì—†ëŠ”ì§€ ê²€ì‚¬í•œ í›„, ë¦¬ìŠ¤íŠ¸ì—ë‹¤ ì•„ì´í…œì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 	for (int x=X; x<X+ItemWidth; x++)
 	{
 		for (int y=Y; y<Y+ItemHeight; y++)
 		{
 			Item* pInvenItem = m_pInventorySlot[x][y].getItem();
 
-			// ±× ÀÚ¸®¿¡ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é...
+			// ê·¸ ìžë¦¬ì— ì•„ì´í…œì´ ìžˆë‹¤ë©´...
 			if (pInvenItem != NULL)
 			{
 				bool bAdd = true;
 
-				// ¸®½ºÆ®¿¡ Á¸ÀçÇÏ´ÂÁö °Ë»ç
+				// ë¦¬ìŠ¤íŠ¸ì— ì¡´ìž¬í•˜ëŠ”ì§€ ê²€ì‚¬
 				list<Item*>::iterator itr = prevItemList.begin();
 				for (; itr != prevItemList.end(); itr++)
 				{
@@ -339,18 +339,18 @@ bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 					}
 				}
 
-				// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ì•„ì´í…œì„ ë”í•œë‹¤.
 				if (bAdd) prevItemList.push_back(pInvenItem);
 			}
 		} 
 	} 
 
-	// ¾ÆÀÌÅÛÀ» ³ÖÀ¸·Á°í ÇÏ´Â °÷¿¡ µÎ °¡Áö ÀÌ»óÀÇ ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é,
-	// ¾ÆÀÌÅÛÀ» ³ÖÀ» ¼ö ¾ø´Ù.
+	// ì•„ì´í…œì„ ë„£ìœ¼ë ¤ê³  í•˜ëŠ” ê³³ì— ë‘ ê°€ì§€ ì´ìƒì˜ ì•„ì´í…œì´ ìžˆë‹¤ë©´,
+	// ì•„ì´í…œì„ ë„£ì„ ìˆ˜ ì—†ë‹¤.
 	if (prevItemList.size() > 1) return false;
 
-	// ¾ÆÀÌÅÛÀÌ ÇÏ³ª ÀÖ´Ù¸é ±× ¾ÆÀÌÅÛÀº ½×ÀÌ´Â ¾ÆÀÌÅÛÀÌ¾î¾ß ÇÏ°í,
-	// ½×À¸·Á´Â ¾ÆÀÌÅÛ°ú Å¬·¡½º¿Í Å¸ÀÔÀÌ °°¾Æ¾ß ÇÑ´Ù.
+	// ì•„ì´í…œì´ í•˜ë‚˜ ìžˆë‹¤ë©´ ê·¸ ì•„ì´í…œì€ ìŒ“ì´ëŠ” ì•„ì´í…œì´ì–´ì•¼ í•˜ê³ ,
+	// ìŒ“ìœ¼ë ¤ëŠ” ì•„ì´í…œê³¼ í´ëž˜ìŠ¤ì™€ íƒ€ìž…ì´ ê°™ì•„ì•¼ í•œë‹¤.
 	if (prevItemList.size() == 1)
 	{
 		Item::ItemClass IClass      = pItem->getItemClass();
@@ -360,13 +360,13 @@ bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 		Item::ItemClass InvenIClass = pInvenItem->getItemClass();
 		ItemType_t      InvenIType  = pInvenItem->getItemType();
 
-		// ¾ÆÀÌÅÛÀÌ Á¾·ù°¡ ´Ù¸¥ °ÍÀÌ¶ó¸é ´ç¿¬È÷ false´å.
+		// ì•„ì´í…œì´ ì¢…ë¥˜ê°€ ë‹¤ë¥¸ ê²ƒì´ë¼ë©´ ë‹¹ì—°ížˆ falseë‹·.
 		if (IClass != InvenIClass || IType != InvenIType) return false;
 		
-		// ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¾ú´Ù¸é ´ç¿¬È÷ false´å.
+		// ìŒ“ì¼ ìˆ˜ ìžˆëŠ” ì•„ì´í…œì´ ì•„ë‹ˆì—ˆë‹¤ë©´ ë‹¹ì—°ížˆ falseë‹·.
 		if (!isStackable(pItem)) return false;
 
-		// °¹¼ö¸¦ ³Ñ¾îµµ ´ç¿¬È÷ false´å.
+		// ê°¯ìˆ˜ë¥¼ ë„˜ì–´ë„ ë‹¹ì—°ížˆ falseë‹·.
 		uint MaxStack = ItemMaxStack[IClass];
 		if ((pItem->getNum() + pInvenItem->getNum()) > (int)(MaxStack)) return false;
 	}
@@ -390,7 +390,7 @@ bool Inventory::canAddingEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡¿¡ ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+// ì§€ì •ëœ ìœ„ì¹˜ì— ì•„ì´í…œì„ ë”í•œë‹¤.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	
@@ -400,7 +400,7 @@ bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 
 	if (pItem == NULL)
 	{
-		//cerr << "Inventory::addItem() : ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ°¡ ³ÎÀÔ´Ï´Ù." << endl;
+		//cerr << "Inventory::addItem() : ì•„ì´í…œ í¬ì¸í„°ê°€ ë„ìž…ë‹ˆë‹¤." << endl;
 		return false;
 	}
 	
@@ -408,7 +408,7 @@ bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
     VolumeHeight_t ItemHeight = pItem->getVolumeHeight();
 	Weight_t       ItemWeight = pItem->getWeight();
 			
-	// ¾ÆÀÌÅÛÀ» ´õÇÏ±â Àü¿¡ È®ÀÎÀ» ÇÑ´Ù.
+	// ì•„ì´í…œì„ ë”í•˜ê¸° ì „ì— í™•ì¸ì„ í•œë‹¤.
 	for (int x = X; x < X + ItemWidth ; x++) 
 		for (int y = Y; y < Y + ItemHeight ; y++) 
 			if (getInventorySlot(x, y).getItem() != NULL) return false;
@@ -423,7 +423,7 @@ bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 		}
 	}
 	
-	// ¾ÆÀÌÅÛ °¹¼ö¸¸Å­ ¹«°Ô¸¦ ´õÇÏ°í, °¹¼öµµ ´õÇÑ´Ù.
+	// ì•„ì´í…œ ê°¯ìˆ˜ë§Œí¼ ë¬´ê²Œë¥¼ ë”í•˜ê³ , ê°¯ìˆ˜ë„ ë”í•œë‹¤.
 	m_TotalWeight += (ItemWeight* pItem->getNum());	
 	m_TotalNum    += pItem->getNum();
 
@@ -434,7 +434,7 @@ bool Inventory::addItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡¿¡ ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+// ì§€ì •ëœ ìœ„ì¹˜ì— ì•„ì´í…œì„ ë”í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	
@@ -446,27 +446,27 @@ Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	{
 		//cerr << "Inventory::addItemEx() : canAddingExCheck failed!!!" << endl;
 		//cerr << toString() << endl;
-		throw Error("Inventory::addItemEx() : ¾ÆÀÌÅÛÀ» ´õÇÒ ¼ö ¾ø½À´Ï´Ù!");
+		throw Error("Inventory::addItemEx() : ì•„ì´í…œì„ ë”í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
 	}
 
 	VolumeWidth_t   ItemWidth  = pItem->getVolumeWidth();
 	VolumeHeight_t  ItemHeight = pItem->getVolumeHeight();
 	Item*           pInvenItem = m_pInventorySlot[X][Y].getItem();
 
-	// ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÑ´Ù¸é ½×ÀÏ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ±â
-	// ¶§¹®¿¡, ¼ýÀÚ¸¦ Áõ°¡½ÃÄÑ ÁØ´Ù.
+	// ì•„ì´í…œì´ ì¡´ìž¬í•œë‹¤ë©´ ìŒ“ì¼ ìˆ˜ ìžˆëŠ” ì•„ì´í…œì´ê¸°
+	// ë•Œë¬¸ì—, ìˆ«ìžë¥¼ ì¦ê°€ì‹œì¼œ ì¤€ë‹¤.
 	if (pInvenItem != NULL)
 	{
 		pInvenItem->setNum(pItem->getNum()+pInvenItem->getNum());
 
-		// Æ÷ÀÎÅÍ¸¦ »èÁ¦ÇÏ±â¿¡ ¾Õ¼­, ¹«°Ô¿Í ¾ÆÀÌÅÛ ¼ýÀÚ¸¦ Áõ°¡½ÃÄÑÁØ´Ù.
+		// í¬ì¸í„°ë¥¼ ì‚­ì œí•˜ê¸°ì— ì•žì„œ, ë¬´ê²Œì™€ ì•„ì´í…œ ìˆ«ìžë¥¼ ì¦ê°€ì‹œì¼œì¤€ë‹¤.
 		m_TotalWeight += (pItem->getWeight()* pItem->getNum());
 		m_TotalNum    += pItem->getNum();
 
-		// ÀÎº¥Åä¸® ¾ÆÀÌÅÛÀÇ Ä«¿îÆ®¸¦ Áõ°¡½ÃÄ×À¸´Ï±î, 
-		// ´õÇÏ¶ó°í ¿Â ¾ÆÀÌÅÛÀº »èÁ¦ÇØÁØ´Ù.
-		// *** ¿ø·¡´Â »èÁ¦¸¦ Çß¾ú´Âµ¥, 
-		// ¾Æ¹«·¡µµ ÀÌ»óÇØ¼­, ÀÏ´ÜÀº ±×³É ³öµÐ´Ù. ***
+		// ì¸ë²¤í† ë¦¬ ì•„ì´í…œì˜ ì¹´ìš´íŠ¸ë¥¼ ì¦ê°€ì‹œì¼°ìœ¼ë‹ˆê¹Œ, 
+		// ë”í•˜ë¼ê³  ì˜¨ ì•„ì´í…œì€ ì‚­ì œí•´ì¤€ë‹¤.
+		// *** ì›ëž˜ëŠ” ì‚­ì œë¥¼ í–ˆì—ˆëŠ”ë°, 
+		// ì•„ë¬´ëž˜ë„ ì´ìƒí•´ì„œ, ì¼ë‹¨ì€ ê·¸ëƒ¥ ë†”ë‘”ë‹¤. ***
 		//SAFE_DELETE(pItem);
 		//pItem = NULL;
 		return pInvenItem;
@@ -476,7 +476,7 @@ Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	{
 		for (int y=Y; y<Y+ItemHeight; y++)
 		{
-			// ¾ÆÀÌÅÛÀÌ ¾ø´Ù¸é...¸ðµç ½½·Ô¿¡´Ù°¡ °°Àº Æ÷ÀÎÅÍ¸¦ ÇÒ´çÇØ ÁØ´Ù.
+			// ì•„ì´í…œì´ ì—†ë‹¤ë©´...ëª¨ë“  ìŠ¬ë¡¯ì—ë‹¤ê°€ ê°™ì€ í¬ì¸í„°ë¥¼ í• ë‹¹í•´ ì¤€ë‹¤.
 			m_pInventorySlot[x][y].addItem(pItem);
 		}
 	}
@@ -491,7 +491,7 @@ Item* Inventory::addItemEx(CoordInven_t X, CoordInven_t Y, Item* pItem)
 }
 
 ////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» ¾Ë¾Æ¼­ ´õÇÑ´Ù.
+// ì•„ì´í…œì„ ì•Œì•„ì„œ ë”í•œë‹¤.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(Item* pItem)
 {
@@ -513,7 +513,7 @@ bool Inventory::addItem(Item* pItem)
 }
 
 ////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» ¾Ë¾Æ¼­ ´õÇÑ´Ù.
+// ì•„ì´í…œì„ ì•Œì•„ì„œ ë”í•œë‹¤.
 ////////////////////////////////////////////////////////////
 bool Inventory::addItem(Item* pItem, TPOINT& rpt)
 {
@@ -540,7 +540,7 @@ bool Inventory::addItem(Item* pItem, TPOINT& rpt)
 }
 
 ////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» ³ÖÀ» ¼ö ÀÖ´Â ºó ÀÚ¸®¸¦ Ã£´Â´Ù.
+// ì•„ì´í…œì„ ë„£ì„ ìˆ˜ ìžˆëŠ” ë¹ˆ ìžë¦¬ë¥¼ ì°¾ëŠ”ë‹¤.
 ////////////////////////////////////////////////////////////
 bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight, _TPOINT& p)
 	
@@ -551,7 +551,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 	int i, j;
 
 	//---------------------------------------------------------
-	// gridÀÇ ¸ðµç(x,y)¿¡ pItemÀ» Ãß°¡ÇÒ ¼ö ÀÖ´ÂÁö °Ë»çÇØº»´Ù.
+	// gridì˜ ëª¨ë“ (x,y)ì— pItemì„ ì¶”ê°€í•  ìˆ˜ ìžˆëŠ”ì§€ ê²€ì‚¬í•´ë³¸ë‹¤.
 	//---------------------------------------------------------
 	int yLimit = m_Height - ItemHeight;
 	int xLimit = m_Width  - ItemWidth;
@@ -567,7 +567,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 			yPlusHeight = y + ItemHeight;
 
 			//---------------------------------------------------------
-			// (x,y)¿¡ ³ÖÀ» ¼ö ÀÖ´ÂÁö Ã¼Å©..
+			// (x,y)ì— ë„£ì„ ìˆ˜ ìžˆëŠ”ì§€ ì²´í¬..
 			//---------------------------------------------------------
 			bool bPlace = true;
 
@@ -576,14 +576,14 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 				for (j = x; bPlace && j < xPlusWidth; j++)
 				{
 					//---------------------------------------------------------
-					// ÀÌ¹Ì ´Ù¸¥ ItemÀÌ ÀÖ´Â grid°¡ ÇÏ³ª¶óµµ ÀÖ´Ù¸é Ãß°¡ÇÒ ¼ö ¾ø´Ù.
+					// ì´ë¯¸ ë‹¤ë¥¸ Itemì´ ìžˆëŠ” gridê°€ í•˜ë‚˜ë¼ë„ ìžˆë‹¤ë©´ ì¶”ê°€í•  ìˆ˜ ì—†ë‹¤.
 					//---------------------------------------------------------
 					Item* pItem = m_pInventorySlot[j][i].getItem();
 					if (pItem != NULL)
 					{
 						bPlace = false;
 
-						// ´ÙÀ½¿¡ Ã¼Å©ÇÒ °Í...
+						// ë‹¤ìŒì— ì²´í¬í•  ê²ƒ...
 				//		y = i + pItem->getVolumeHeight() - 1;
 
 						break;
@@ -592,7 +592,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 			}
 
 			//---------------------------------------------------------
-			// (x,y)¿¡ ³ÖÀ» ¼ö ÀÖ´Â °æ¿ì
+			// (x,y)ì— ë„£ì„ ìˆ˜ ìžˆëŠ” ê²½ìš°
 			//---------------------------------------------------------
 			if (bPlace)
 			{
@@ -611,7 +611,7 @@ bool Inventory::getEmptySlot(VolumeWidth_t ItemWidth, VolumeHeight_t ItemHeight,
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Áö¿î´Ù.
+// ì§€ì •ëœ ì•„ì´í…œì„ ì°¾ì•„ì„œ ì§€ìš´ë‹¤.
 ////////////////////////////////////////////////////////////
 void Inventory::deleteItem(ObjectID_t ObjectID)
 	
@@ -636,10 +636,10 @@ void Inventory::deleteItem(ObjectID_t ObjectID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡¿¡¼­ ¾ÆÀÌÅÛÀ» Áö¿î´Ù.
-// *** ÁÖÀÇ *** 
-// 1x1 ¾ÆÀÌÅÛÀÌ ¾Æ´Ò °æ¿ì, ÁÂÃø »ó´ÜÀÇ ÁÂÇ¥¸¦ ÁöÁ¤ÇØÁÖÁö
-// ¾ÊÀ¸¸é ²ûÂïÇÑ °á°ú°¡ ¹ß»ýÇÒ ¼ö ÀÖ´Ù.
+// ì§€ì •ëœ ìœ„ì¹˜ì—ì„œ ì•„ì´í…œì„ ì§€ìš´ë‹¤.
+// *** ì£¼ì˜ *** 
+// 1x1 ì•„ì´í…œì´ ì•„ë‹ ê²½ìš°, ì¢Œì¸¡ ìƒë‹¨ì˜ ì¢Œí‘œë¥¼ ì§€ì •í•´ì£¼ì§€
+// ì•Šìœ¼ë©´ ë”ì°í•œ ê²°ê³¼ê°€ ë°œìƒí•  ìˆ˜ ìžˆë‹¤.
 ////////////////////////////////////////////////////////////
 void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
 	
@@ -682,19 +682,19 @@ void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
 						slot.deleteItem();
 					}
 					/*
-					// ´Ù¸¥ ¹®Á¦¿´´Ù. - -;
-					// Restore¿¡¼­ ¹ìÆÄÀÌ¾î ¾ÆÀÌÅÛ ¾ç¼Õ ¹«±â¸¦ ÇÏ³ª Ã¼Å©¸¦ ¾ÈÇØ¼­ ±×·¸´Ù.
-					// by sigi. 2002.8.29 ¹ã
+					// ë‹¤ë¥¸ ë¬¸ì œì˜€ë‹¤. - -;
+					// Restoreì—ì„œ ë±€íŒŒì´ì–´ ì•„ì´í…œ ì–‘ì† ë¬´ê¸°ë¥¼ í•˜ë‚˜ ì²´í¬ë¥¼ ì•ˆí•´ì„œ ê·¸ë ‡ë‹¤.
+					// by sigi. 2002.8.29 ë°¤
 					else
 					{
-						// ÀÎº¥Åä¸®¿¡ ¹º°¡ ÀÌ»óÇÑ Çö»óÀÌ ÀÖ´Ù°í º¸¿©Áö¹Ç·Î
-						// ÀÏ´Ü ´Ù¿î Çö»óÀ» ¸·±â À§ÇØ¼­..
-						// ÀüÃ¼¸¦ °Ë»öÇØ¼­ ¾ÆÀÌÅÛÀ» Áö¿î´Ù.
+						// ì¸ë²¤í† ë¦¬ì— ë­”ê°€ ì´ìƒí•œ í˜„ìƒì´ ìžˆë‹¤ê³  ë³´ì—¬ì§€ë¯€ë¡œ
+						// ì¼ë‹¨ ë‹¤ìš´ í˜„ìƒì„ ë§‰ê¸° ìœ„í•´ì„œ..
+						// ì „ì²´ë¥¼ ê²€ìƒ‰í•´ì„œ ì•„ì´í…œì„ ì§€ìš´ë‹¤.
 						// by sigi. 2002.8.29
 						filelog("inventoryDeleteBug.txt", "deleteItem(%d, %d): class=%d, type=%d, volume(%d, %d), Wrong Item. (%d, %d) ",
 								(int)X, (int)Y, (int)pItem->getItemClass(), (int)pItem->getItemType(), (int)ItemWidth, (int)ItemHeight, (int)x, (int)y);
 
-						// ÀüÃ¼ °Ë»öÇØ¼­ pItemÀ» Áö¿î´Ù.
+						// ì „ì²´ ê²€ìƒ‰í•´ì„œ pItemì„ ì§€ìš´ë‹¤.
 						for (int a=0; a<m_Width; a++)
 						{
 							for (int b=0; b<m_Height; b++)
@@ -740,8 +740,8 @@ void Inventory::deleteItem(CoordInven_t X, CoordInven_t Y)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// X, Y·ÎºÎÅÍ ¾ÆÀÌÅÛÀÇ Å©±â¸¸Å­ÀÇ ½½¶ùÀ» °Ë»çÇÏ¿©,
-// Á¸ÀçÇÏ´Â ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é ±× Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// X, Yë¡œë¶€í„° ì•„ì´í…œì˜ í¬ê¸°ë§Œí¼ì˜ ìŠ¬ëžì„ ê²€ì‚¬í•˜ì—¬,
+// ì¡´ìž¬í•˜ëŠ” ì•„ì´í…œì´ ìžˆìœ¼ë©´ ê·¸ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::searchItem(CoordInven_t X, CoordInven_t Y, Item* pItem, TPOINT & pt)
 	
@@ -774,7 +774,7 @@ Item* Inventory::searchItem(CoordInven_t X, CoordInven_t Y, Item* pItem, TPOINT 
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithItemID (ItemID_t itemID)
 	
@@ -788,7 +788,7 @@ Item* Inventory::getItemWithItemID (ItemID_t itemID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ º§Æ®¸¦ Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ë²¨íŠ¸ë¥¼ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getBeltWithItemID(ItemID_t itemID)
 	
@@ -802,7 +802,7 @@ Item* Inventory::getBeltWithItemID(ItemID_t itemID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
 	
@@ -816,8 +816,8 @@ Item* Inventory::getItemWithObjectID(ObjectID_t objectID)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-// ÀÌ¿Í ÇÔ²² ±× ¾ÆÀÌÅÛÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥µµ °°ÀÌ º¸³»ÁØ´Ù.
+// ì§€ì •ëœ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+// ì´ì™€ í•¨ê»˜ ê·¸ ì•„ì´í…œì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œë„ ê°™ì´ ë³´ë‚´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
 	
@@ -846,8 +846,8 @@ Item* Inventory::findItemOID(ObjectID_t id, CoordInven_t& X, CoordInven_t& Y)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-// ÀÌ¿Í ÇÔ²² ±× ¾ÆÀÌÅÛÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥µµ °°ÀÌ º¸³»ÁØ´Ù.
+// ì§€ì •ëœ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+// ì´ì™€ í•¨ê»˜ ê·¸ ì•„ì´í…œì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œë„ ê°™ì´ ë³´ë‚´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
 	
@@ -876,8 +876,8 @@ Item* Inventory::findItemIID(ItemID_t id, CoordInven_t& X, CoordInven_t& Y)
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ id¿Í Å¬·¡½º·Î ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-// ÀÌ¿Í ÇÔ²² ±× ¾ÆÀÌÅÛÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥µµ °°ÀÌ º¸³»ÁØ´Ù.
+// ì§€ì •ëœ idì™€ í´ëž˜ìŠ¤ë¡œ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+// ì´ì™€ í•¨ê»˜ ê·¸ ì•„ì´í…œì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œë„ ê°™ì´ ë³´ë‚´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
 	
@@ -907,8 +907,8 @@ Item* Inventory::findItemOID(ObjectID_t id, Item::ItemClass IClass, CoordInven_t
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ id¿Í Å¬·¡½º·Î ¾ÆÀÌÅÛÀ» Ã£¾Æ¼­ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
-// ÀÌ¿Í ÇÔ²² ±× ¾ÆÀÌÅÛÀÇ ÁÂÃø »ó´Ü ÁÂÇ¥µµ °°ÀÌ º¸³»ÁØ´Ù.
+// ì§€ì •ëœ idì™€ í´ëž˜ìŠ¤ë¡œ ì•„ì´í…œì„ ì°¾ì•„ì„œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
+// ì´ì™€ í•¨ê»˜ ê·¸ ì•„ì´í…œì˜ ì¢Œì¸¡ ìƒë‹¨ ì¢Œí‘œë„ ê°™ì´ ë³´ë‚´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& X, CoordInven_t& Y)
 	
@@ -940,11 +940,11 @@ Item* Inventory::findItemIID(ItemID_t id, Item::ItemClass IClass, CoordInven_t& 
 /////////////////////////////////////////////////////////////////////////////////////
 // findItem
 //    : ItemClass
-//  Desctiption: ÇØ´ç ÀÎº¥Åä¸®¿¡ Æ¯Á¤ Item ClassÀÇ ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÏ´Â °¡ Ã¼Å©ÇÑ´Ù.
-//               ·¹¾î ¸¶½ºÅÍ¸¦ Á×¿´À» °æ¿ì ³ªÅ¸³ª´Â ¾ÆÀÌÅÛÀ» ±³È¯ÇÏ±â À§ÇØ¼­ 
-//               ÀÌ »ç¶÷ÀÌ °¡Áö°í ÀÖ´Â Æ¯Á¤ Item ClassÀÇ ¾ÆÀÌÅÛÀ» ¹ÝÈ¯ÇÑ´Ù.
+//  Desctiption: í•´ë‹¹ ì¸ë²¤í† ë¦¬ì— íŠ¹ì • Item Classì˜ ì•„ì´í…œì´ ì¡´ìž¬í•˜ëŠ” ê°€ ì²´í¬í•œë‹¤.
+//               ë ˆì–´ ë§ˆìŠ¤í„°ë¥¼ ì£½ì˜€ì„ ê²½ìš° ë‚˜íƒ€ë‚˜ëŠ” ì•„ì´í…œì„ êµí™˜í•˜ê¸° ìœ„í•´ì„œ 
+//               ì´ ì‚¬ëžŒì´ ê°€ì§€ê³  ìžˆëŠ” íŠ¹ì • Item Classì˜ ì•„ì´í…œì„ ë°˜í™˜í•œë‹¤.
 //
-//  2002.09.04 ÀåÈ«Ã¢ 
+//  2002.09.04 ìž¥í™ì°½ 
 /////////////////////////////////////////////////////////////////////////////////////
 
 Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType)//, CoordInven_t& X, CoordInven_t& Y)
@@ -1014,7 +1014,7 @@ Item* Inventory::findItem(Item::ItemClass IClass, ItemType_t itemType, CoordInve
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡ÀÇ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ìœ„ì¹˜ì˜ ì•„ì´í…œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 Item* Inventory::getItem(CoordInven_t X, CoordInven_t Y) const 
 	
@@ -1028,7 +1028,7 @@ Item* Inventory::getItem(CoordInven_t X, CoordInven_t Y) const
 }
 
 ////////////////////////////////////////////////////////////
-// ÁöÁ¤µÈ À§Ä¡¿¡ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ¸¦ ¼¼ÆÃÇØÁØ´Ù.
+// ì§€ì •ëœ ìœ„ì¹˜ì— ì•„ì´í…œ í¬ì¸í„°ë¥¼ ì„¸íŒ…í•´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////
 void Inventory::setItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 	
@@ -1048,15 +1048,15 @@ void Inventory::setItem(CoordInven_t X, CoordInven_t Y, Item* pItem)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-// ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ ¸ðµÎ¸¦ Á¦°ÅÇÑ´Ù.
-// ½ÇÁ¦·Î ¾ÆÀÌÅÛ °´Ã¼¸¦ Áö¿ìÁö´Â ¾Ê´Â´Ù.
+// ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œ í¬ì¸í„° ëª¨ë‘ë¥¼ ì œê±°í•œë‹¤.
+// ì‹¤ì œë¡œ ì•„ì´í…œ ê°ì²´ë¥¼ ì§€ìš°ì§€ëŠ” ì•ŠëŠ”ë‹¤.
 ////////////////////////////////////////////////////////////
 void Inventory::clear()
 	
 {
 	__BEGIN_TRY
 
-	// ÀÎº¥Åä¸® ÀüÃ¼¸¦ ÂÞ¿í °Ë»öÇÏ¸é¼­...
+	// ì¸ë²¤í† ë¦¬ ì „ì²´ë¥¼ ì­ˆìš± ê²€ìƒ‰í•˜ë©´ì„œ...
 	for (int y=0; y<m_Height; y++)
 	{
 		for (int x=0; x<m_Width; x++)
@@ -1073,7 +1073,7 @@ void Inventory::clear()
 }
 
 ////////////////////////////////////////////////////////////
-// ÀÎº¥Åä¸®¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛÀ» ¸®½ºÆ®·Î ¸¸µé¾î¼­ ¸®ÅÏÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ì— ë“¤ì–´ìžˆëŠ” ì•„ì´í…œì„ ë¦¬ìŠ¤íŠ¸ë¡œ ë§Œë“¤ì–´ì„œ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 list<Item*> Inventory::getList() const
 	
@@ -1090,11 +1090,11 @@ list<Item*> Inventory::getList() const
 			Item*          pItem = slot.getItem();
 			bool           bAdd  = true;
 
-			// ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é ¾ÆÀÌÅÛ ¸®½ºÆ®¿¡ 
-			// ÀÌ¹Ì µé¾î°¡ ÀÖÁö´Â ¾ÊÀºÁö Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
+			// ì•„ì´í…œì´ ìžˆë‹¤ë©´ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ì— 
+			// ì´ë¯¸ ë“¤ì–´ê°€ ìžˆì§€ëŠ” ì•Šì€ì§€ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
 			if (pItem != NULL)
 			{
-				// ¸®½ºÆ®¿¡ °°Àº ³ðÀÌ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì— ê°™ì€ ë†ˆì´ ìžˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
 				list<Item*>::iterator itr = itemList.begin();
 				for (; itr != itemList.end(); itr++)
 				{
@@ -1105,7 +1105,7 @@ list<Item*> Inventory::getList() const
 					}
 				}
 
-				// ¸®½ºÆ®¿¡ ¶È°°Àº ¾ÆÀÌÅÛÀÌ ¾ø¾ú´Ù¸é ¸®½ºÆ®¿¡´Ù°¡ ´õÇÑ´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì— ë˜‘ê°™ì€ ì•„ì´í…œì´ ì—†ì—ˆë‹¤ë©´ ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ë”í•œë‹¤.
 				if (bAdd)
 				{
 					itemList.push_back(pItem);
@@ -1122,7 +1122,7 @@ list<Item*> Inventory::getList() const
 }
 
 ////////////////////////////////////////////////////////////
-// ÀÎº¥Åä¸® ¾È¿¡ µé¾î ÀÖ´Â 2x2 ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ¸®ÅÏÇÑ´Ù.
+// ì¸ë²¤í† ë¦¬ ì•ˆì— ë“¤ì–´ ìžˆëŠ” 2x2 ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ë¦¬í„´í•œë‹¤.
 ////////////////////////////////////////////////////////////
 int Inventory::calc2x2Item(void) const
 	
@@ -1169,11 +1169,11 @@ void Inventory::save(const string& owner)
 			Item*          pItem = slot.getItem();
 			bool           bAdd  = true;
 
-			// ¾ÆÀÌÅÛÀÌ ÀÖ´Ù¸é ¾ÆÀÌÅÛ ¸®½ºÆ®¿¡ 
-			// ÀÌ¹Ì µé¾î°¡ ÀÖÁö´Â ¾ÊÀºÁö Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
+			// ì•„ì´í…œì´ ìžˆë‹¤ë©´ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ì— 
+			// ì´ë¯¸ ë“¤ì–´ê°€ ìžˆì§€ëŠ” ì•Šì€ì§€ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
 			if (pItem != NULL)
 			{
-				// ¸®½ºÆ®¿¡ °°Àº ³ðÀÌ ÀÖ´ÂÁö Ã¼Å©¸¦ ÇÑ´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì— ê°™ì€ ë†ˆì´ ìžˆëŠ”ì§€ ì²´í¬ë¥¼ í•œë‹¤.
 				list<Item*>::iterator itr = itemList.begin();
 				for (; itr != itemList.end(); itr++)
 				{
@@ -1184,9 +1184,9 @@ void Inventory::save(const string& owner)
 					}
 				}
 
-				// ¸®½ºÆ®¿¡ ¶È°°Àº ¾ÆÀÌÅÛÀÌ ¾ø¾ú´Ù¸é ¸®½ºÆ®¿¡´Ù°¡ ´õÇÑ´Ù.
-				// º§Æ®ÀÏ °æ¿ì¿¡´Â Belt::save¿¡¼­ ¾È¿¡ µé¾îÀÖ´Â ¾ÆÀÌÅÛ±îÁö
-				// ÀúÀåÇÏ´Ï±î, °ÆÁ¤ÇÒ ÇÊ¿ä¾ø´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì— ë˜‘ê°™ì€ ì•„ì´í…œì´ ì—†ì—ˆë‹¤ë©´ ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ë”í•œë‹¤.
+				// ë²¨íŠ¸ì¼ ê²½ìš°ì—ëŠ” Belt::saveì—ì„œ ì•ˆì— ë“¤ì–´ìžˆëŠ” ì•„ì´í…œê¹Œì§€
+				// ì €ìž¥í•˜ë‹ˆê¹Œ, ê±±ì •í•  í•„ìš”ì—†ë‹¤.
 				if (bAdd)
 				{
 					pItem->save(owner, STORAGE_INVENTORY, 0, x, y);
@@ -1237,24 +1237,24 @@ string Inventory::toString () const
 
 
 ///////////////////////////////////////////////////////////////////////////
-// XMAS ÀÌº¥Æ®¸¦ À§ÇØ¼­ ¸¸µç »ö±òº° ÀÌº¥Æ® º° ¼ýÀÚ ÄÚµåÀÌ´Ù.
-// 2002³â ¾î¸°ÀÌ³¯¿¡ ÀÌ ÄÚµå¸¦ ±×´ë·Î »ç¿ëÇÏ±â À§ÇØ¼­ 
-// ÁÖ¼®À» ÇØÁ¦ÇÏ°í »ç¿ëÇÏ¿´´Ù. 
-// ´Ü °°Àº ÀÌº¥Æ®°¡ °è¼ÓÇØ¼­ ¹ß»ýÇÒ ¼ö ÀÖ±â ¶§¹®¿¡,
-// EVENT CODEÀÇ ÀÌ¸§À» XMAS°¡ ¾Æ´Ï¶ó STAR_EVENT_CODE·Î ¹Ù²Ù´Â °ÍÀ» °í·ÁÇØ¾ß
-// ÇÒ °ÍÀÌ´Ù.
+// XMAS ì´ë²¤íŠ¸ë¥¼ ìœ„í•´ì„œ ë§Œë“  ìƒ‰ê¹”ë³„ ì´ë²¤íŠ¸ ë³„ ìˆ«ìž ì½”ë“œì´ë‹¤.
+// 2002ë…„ ì–´ë¦°ì´ë‚ ì— ì´ ì½”ë“œë¥¼ ê·¸ëŒ€ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œ 
+// ì£¼ì„ì„ í•´ì œí•˜ê³  ì‚¬ìš©í•˜ì˜€ë‹¤. 
+// ë‹¨ ê°™ì€ ì´ë²¤íŠ¸ê°€ ê³„ì†í•´ì„œ ë°œìƒí•  ìˆ˜ ìžˆê¸° ë•Œë¬¸ì—,
+// EVENT CODEì˜ ì´ë¦„ì„ XMASê°€ ì•„ë‹ˆë¼ STAR_EVENT_CODEë¡œ ë°”ê¾¸ëŠ” ê²ƒì„ ê³ ë ¤í•´ì•¼
+// í•  ê²ƒì´ë‹¤.
 // 
-// 2002.5.2 ÀåÈ«Ã¢(changaya@metrotech.co.kr
+// 2002.5.2 ìž¥í™ì°½(changaya@metrotech.co.kr
 //
 //////////////////////////////////////////////////////////////////////////
 //#ifdef __XMAS_EVENT_CODE__
-// ÀÎº¥Åä¸®¸¦ °Ë»öÇÏ¸é¼­ »ö±òº°·Î ÀÌº¥Æ® º° ¼ýÀÚ¸¦ Çì¾Æ¸°´Ù.
+// ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•˜ë©´ì„œ ìƒ‰ê¹”ë³„ë¡œ ì´ë²¤íŠ¸ ë³„ ìˆ«ìžë¥¼ í—¤ì•„ë¦°ë‹¤.
 bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 	
 {
 	__BEGIN_TRY
 
-	//cout << "ÇÊ¿äÇÑ º°ÀÇ ¼ýÀÚ : " << star.amount << endl;
+	//cout << "í•„ìš”í•œ ë³„ì˜ ìˆ«ìž : " << star.amount << endl;
 	
 	int amount[STAR_COLOR_MAX];
 	memset(amount, 0, sizeof(int)*STAR_COLOR_MAX);
@@ -1289,7 +1289,7 @@ bool Inventory::hasEnoughStar(const XMAS_STAR& star)
 	}
 
 	//cout << star.color << endl;
-	//cout << "°¡Áö°í ÀÖ´Â °øÀÇ ¼ýÀÚ: " << amount[star.color] << endl;
+	//cout << "ê°€ì§€ê³  ìžˆëŠ” ê³µì˜ ìˆ«ìž: " << amount[star.color] << endl;
 
 	if (amount[star.color] >= star.amount) return true;
 
@@ -1305,7 +1305,7 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 {
 	__BEGIN_TRY
 
-	// ÁÙ¿©¾ß ÇÒ ¾çÀ» ±â¾ïÇØ µÐ´Ù.
+	// ì¤„ì—¬ì•¼ í•  ì–‘ì„ ê¸°ì–µí•´ ë‘”ë‹¤.
 	int  amount = star.amount;
 
 	for (int y=0; y<m_Height; y++)
@@ -1330,17 +1330,17 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 				{
 					int ItemNum = pItem->getNum();
 
-					// ¾ÆÀÌÅÛÀÇ ½ºÅÃ ¼ýÀÚ°¡ ÁÙ¿©¾ß ÇÒ ¾çº¸´Ù ÀÛ°Å³ª °°´Ù¸é,
-					// ¾ÆÀÌÅÛÀ» »èÁ¦ÇØ¾ß ÇÑ´Ù.
+					// ì•„ì´í…œì˜ ìŠ¤íƒ ìˆ«ìžê°€ ì¤„ì—¬ì•¼ í•  ì–‘ë³´ë‹¤ ìž‘ê±°ë‚˜ ê°™ë‹¤ë©´,
+					// ì•„ì´í…œì„ ì‚­ì œí•´ì•¼ í•œë‹¤.
 					if (ItemNum <= amount)
 					{
 						m_TotalWeight -= (pItem->getWeight() * ItemNum);
 						m_TotalNum -= ItemNum;
 
-						// ¾ÆÀÌÅÛÀÌ »èÁ¦µÈ¸¸Å­ Áö¿ö¾ß ÇÒ ¾çµµ ÁÙ¿©Áà¾ß ÇÑ´Ù. 
+						// ì•„ì´í…œì´ ì‚­ì œëœë§Œí¼ ì§€ì›Œì•¼ í•  ì–‘ë„ ì¤„ì—¬ì¤˜ì•¼ í•œë‹¤. 
 						amount = amount - ItemNum;
 
-						// ¾ÆÀÌÅÛÀ» »èÁ¦ÇØÁØ´Ù.
+						// ì•„ì´í…œì„ ì‚­ì œí•´ì¤€ë‹¤.
 						deleteItem(x, y);
 						pItem->destroy();
 						SAFE_DELETE(pItem);
@@ -1353,18 +1353,18 @@ void Inventory::decreaseStar(const XMAS_STAR& star)
 						pItem->setNum(ItemNum - amount);
 						pItem->save(m_Owner, STORAGE_INVENTORY, 0, x, y);
 
-						// ¾ÆÀÌÅÛÀÌ »èÁ¦µÈ¸¸Å­ Áö¿ö¾ß ÇÒ ¾çµµ ÁÙ¿©Áà¾ß ÇÑ´Ù. 
+						// ì•„ì´í…œì´ ì‚­ì œëœë§Œí¼ ì§€ì›Œì•¼ í•  ì–‘ë„ ì¤„ì—¬ì¤˜ì•¼ í•œë‹¤. 
 						amount = 0;
 					}
 
-					// ÁÙ¿©¾ß ÇÒ ¾çÀÌ 0ÀÌ µÇ¾ú´Ù¸é ¸®ÅÏÇÑ´Ù.
+					// ì¤„ì—¬ì•¼ í•  ì–‘ì´ 0ì´ ë˜ì—ˆë‹¤ë©´ ë¦¬í„´í•œë‹¤.
 					if (amount == 0) return;
 				}
 			}
 		}
 	}
 
-	// Á¤»óÀûÀÎ Ã³¸® ¼ø¼­¶ó¸é ÀÌ °÷±îÁö ¿À¸é ¾È µÈ´Ù.
+	// ì •ìƒì ì¸ ì²˜ë¦¬ ìˆœì„œë¼ë©´ ì´ ê³³ê¹Œì§€ ì˜¤ë©´ ì•ˆ ëœë‹¤.
 	Assert(false);
 
 	__END_CATCH
@@ -1390,8 +1390,8 @@ bool Inventory::hasRedGiftBox(void)
 			{
 				return true;
 
-				// ¼±¹° »óÀÚÀÇ Å©±â°¡ 2x2ÀÌ±â ¶§¹®¿¡,
-				// x¸¦ ÇÏ³ª ´õ ´õÇØÁØ´Ù.
+				// ì„ ë¬¼ ìƒìžì˜ í¬ê¸°ê°€ 2x2ì´ê¸° ë•Œë¬¸ì—,
+				// xë¥¼ í•˜ë‚˜ ë” ë”í•´ì¤€ë‹¤.
 				x += 1;
 			}
 		}
@@ -1422,8 +1422,8 @@ bool Inventory::hasGreenGiftBox(void)
 			{
 				return true;
 
-				// ¼±¹° »óÀÚÀÇ Å©±â°¡ 2x2ÀÌ±â ¶§¹®¿¡,
-				// x¸¦ ÇÏ³ª ´õ ´õÇØÁØ´Ù.
+				// ì„ ë¬¼ ìƒìžì˜ í¬ê¸°ê°€ 2x2ì´ê¸° ë•Œë¬¸ì—,
+				// xë¥¼ í•˜ë‚˜ ë” ë”í•´ì¤€ë‹¤.
 				x += 1;
 			}
 		}
@@ -1450,7 +1450,7 @@ void Inventory::clearQuestItem(list<Item*>& iList)
 				Item* pItem = getItem(i, j);
 				if (pItem != NULL)
 				{
-					// Ã¼Å©µÈ ¾ÆÀÌÅÛÀÇ ¸®½ºÆ®¿¡¼­ ÇöÀç ¾ÆÀÌÅÛÀ» Ã£´Â´Ù.
+					// ì²´í¬ëœ ì•„ì´í…œì˜ ë¦¬ìŠ¤íŠ¸ì—ì„œ í˜„ìž¬ ì•„ì´í…œì„ ì°¾ëŠ”ë‹¤.
 					list<Item*>::iterator itr = find(ItemList.begin(), ItemList.end(), pItem);
 
 					if (itr == ItemList.end())
@@ -1464,9 +1464,9 @@ void Inventory::clearQuestItem(list<Item*>& iList)
 						}
 						else
 						{
-							// ¸®½ºÆ®¿¡ ¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é
-							// °°Àº ¾ÆÀÌÅÛÀ» µÎ¹ø Ã¼Å©ÇÏÁö ¾Ê±â À§ÇØ¼­
-							// ¸®½ºÆ®¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áý¾î³Ö´Â´Ù.
+							// ë¦¬ìŠ¤íŠ¸ì— ì•„ì´í…œì´ ì—†ìœ¼ë©´
+							// ê°™ì€ ì•„ì´í…œì„ ë‘ë²ˆ ì²´í¬í•˜ì§€ ì•Šê¸° ìœ„í•´ì„œ
+							// ë¦¬ìŠ¤íŠ¸ì—ë‹¤ê°€ ì•„ì´í…œì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 							ItemList.push_back(pItem);
 						}
 					}

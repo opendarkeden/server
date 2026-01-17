@@ -18,9 +18,8 @@
 //
 // class GCPhoneSay;
 //
-// 게임 서버가 특정 플레이어의 PhoneSay 를 다른 플레이어들에게 브로드캐스트
-// 할 때 전송하는 패킷이다. 내부에 캐릭터명과 PhoneSay 스트링을 데이타
-// 필드로 가지고 있다.
+// Packet used to broadcast a player's PhoneSay chat text to other players.
+// The phone chat text is included in the Message field.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -29,10 +28,10 @@ class GCPhoneSay : public Packet {
 public :
 	GCPhoneSay() {};
     ~GCPhoneSay() {};
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize packet by reading data from the incoming stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize packet data to the outgoing stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -93,7 +92,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCPhoneSayPacketMaxSize 를 정의, 리턴하라.
+	// Use const static GCPhoneSayPacketMaxSize when possible.
 	PacketSize_t getPacketMaxSize() const  { return szSlotID + szBYTE + 128 ; }
 
 };

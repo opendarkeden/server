@@ -38,7 +38,7 @@ EffectRecallMotorcycle::EffectRecallMotorcycle (Zone* pZone , ZoneCoord_t sx, Zo
 	m_StartX = sx;					
 	m_StartY = sy;
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -53,7 +53,7 @@ EffectRecallMotorcycle::~EffectRecallMotorcycle ()
 {
 	__BEGIN_TRY
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 			
 //----------------------------------------------------------------------
@@ -70,17 +70,17 @@ void EffectRecallMotorcycle::unaffect ()
 	ZoneCoord_t x = m_X;
 	ZoneCoord_t y = m_Y;
 
-	// ¿Ã¹Ù¸¥ ÁÂÇ¥ÀÌ¾î¾ß ÇÑ´Ù.
+	// ì˜¬ë°”ë¥¸ ì¢Œí‘œì´ì–´ì•¼ í•œë‹¤.
 	if (isValidZoneCoord(pZone, m_StartX, m_StartY))
 	{
 		//Assert(isValidZoneCoord(pZone, m_StartX, m_StartY));
 
-		// TempItem º¯¼ö¸¦ Àâ´Â´Ù.
+		// TempItem ë³€ìˆ˜ë¥¼ ì¡ëŠ”ë‹¤.
 		Item* pTempItem = NULL;
 
-		// ¿©±â¼­´Â ÁöÁ¤ ¾ÆÀÌÅÛÀÌ ¾øÀ» ¼ö ÀÖÀ¸¸ç, ¶Ç ´Ù¸¥ ¾ÆÀÌÅÛÀÌ ³õ¿© ÀÖÀ» ¼öµµ ÀÖ´Ù.
-		// ÀÌ °æ¿ì´Â ¿À¸®Áö³Î ¾ÆÀÌÅÛ°ú Áö±İ ÇöÀç ¹Ù´Ú¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀ» ºñ±³ÇÏ¿© »èÁ¦ÇØ¾ß ÇÑ´Ù.
-		// ¾øÀ» °æ¿ì´Â ¹«½ÃÇÏ¸é µÈ´Ù.
+		// ì—¬ê¸°ì„œëŠ” ì§€ì • ì•„ì´í…œì´ ì—†ì„ ìˆ˜ ìˆìœ¼ë©°, ë˜ ë‹¤ë¥¸ ì•„ì´í…œì´ ë†“ì—¬ ìˆì„ ìˆ˜ë„ ìˆë‹¤.
+		// ì´ ê²½ìš°ëŠ” ì˜¤ë¦¬ì§€ë„ ì•„ì´í…œê³¼ ì§€ê¸ˆ í˜„ì¬ ë°”ë‹¥ì— ìˆëŠ” ì•„ì´í…œì„ ë¹„êµí•˜ì—¬ ì‚­ì œí•´ì•¼ í•œë‹¤.
+		// ì—†ì„ ê²½ìš°ëŠ” ë¬´ì‹œí•˜ë©´ ëœë‹¤.
 		Tile & tile = pZone->getTile(m_StartX, m_StartY);
 
 		if (tile.hasItem()) 
@@ -89,12 +89,12 @@ void EffectRecallMotorcycle::unaffect ()
 
 			if (pTempItem != NULL)
 			{
-				// ObjectID°¡ °°´Ù´Â ¸»Àº °°Àº ¾ÆÀÌÅÛÀÌ¶õ ¸»ÀÌ´Ù.
+				// ObjectIDê°€ ê°™ë‹¤ëŠ” ë§ì€ ê°™ì€ ì•„ì´í…œì´ë€ ë§ì´ë‹¤.
 				if (pTempItem->getObjectID() == m_ObjectID)
 				{
 					pZone->deleteItem(pTempItem , m_StartX, m_StartY);
 
-					// ¾ÆÀÌÅÛÀÌ »ç¶óÁ³´Ù´Â ÆĞÅ¶À» ³¯¸°´Ù.
+					// ì•„ì´í…œì´ ì‚¬ë¼ì¡Œë‹¤ëŠ” íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 					GCDeleteObject gcDeleteObject;
 					gcDeleteObject.setObjectID(m_ObjectID);
 

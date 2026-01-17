@@ -15,7 +15,7 @@
 
 #if __WINDOWS__
 #include <WinSock.h>
-#elif __LINUX__
+#elif defined(__LINUX__) || defined(__APPLE__)
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -24,12 +24,11 @@
 
 //////////////////////////////////////////////////
 //
-// Windows에서는 SOCKET과 INVALID_SOCKET에 unsigned int를
-// 사용한다. 만약 Windows라면 WinSock.h를 include했으므로
-// SOCKET과 INVALID_SOCKET이 정의되어 있게 된다.
+// On Windows, SOCKET and INVALID_SOCKET are unsigned int.
+// WinSock.h is already included on Windows so these are defined there.
 //
 //////////////////////////////////////////////////
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 
 	typedef int SOCKET;
 	static const int INVALID_SOCKET = -1;

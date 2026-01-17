@@ -25,12 +25,12 @@ class CGStoreSign : public Packet
 {
 public:
 	CGStoreSign() {};
-    virtual ~CGStoreSign() {};
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
-    void read(SocketInputStream & iStream) ;
-		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
-    void write(SocketOutputStream & oStream) const ;
+	virtual ~CGStoreSign() {};
+	// Initialize packet by reading data from the incoming stream.
+	void read(SocketInputStream & iStream) ;
+	    
+	// Serialize packet data to the outgoing stream.
+	void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
 	void execute(Player* pPlayer) ;

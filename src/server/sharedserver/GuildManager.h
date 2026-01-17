@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : GuildManager.h
-// Written By  : ±è¼º¹Î
+// Written By  : ï¿½è¼ºï¿½ï¿½
 // Description : 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -16,8 +16,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildManager
-// ÇöÀç È°µ¿ÁßÀÎ ±æµå¿Í µî·Ï ´ë±âÁßÀÎ ±æµå¸¦ ¸Þ¸ð¸®¿¡ map ÇüÅÂ·Î °¡Áö°í ÀÖ°í,
-// »õ·Î¿î ±æµåÀÇ µî·Ï/»èÁ¦¸¦ ´ã´çÇÑ´Ù.
+// ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å¸¦ ï¿½Þ¸ð¸®¿ï¿½ map ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½,
+// ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -41,38 +41,38 @@ class GuildManager
 ///// Member methods /////
 	
 public: // constructor & destructor 
-	GuildManager() throw();
-	~GuildManager() throw();
+	GuildManager() noexcept;
+	~GuildManager() noexcept;
 
 
 public: // initializing related methods
-	void init() throw();
-	void load() throw();
+	void init() noexcept(false);
+	void load() noexcept(false);
 
 
 public: // memory related methods
-	void addGuild(Guild* pGuild) throw(DuplicatedException);
-	void addGuild_NOBLOCKED(Guild* pGuild) throw(DuplicatedException);
-	void deleteGuild(GuildID_t id) throw(NoSuchElementException);
-	Guild* getGuild(GuildID_t id) throw();
-	Guild* getGuild_NOBLOCKED(GuildID_t id) throw();
+	void addGuild(Guild* pGuild) noexcept(false);
+	void addGuild_NOBLOCKED(Guild* pGuild) noexcept(false);
+	void deleteGuild(GuildID_t id) noexcept(false);
+	Guild* getGuild(GuildID_t id) noexcept(false);
+	Guild* getGuild_NOBLOCKED(GuildID_t id) noexcept(false);
 
-	void clear() throw();
+	void clear() noexcept(false);
 	void clear_NOBLOCKED();
 
 
 public: // misc methods
-	ushort getGuildSize() const throw() { return m_Guilds.size(); }
-	HashMapGuild& getGuilds() throw() { return m_Guilds; }
-	const HashMapGuild& getGuilds_const() const throw() { return m_Guilds; }
+	ushort getGuildSize() const noexcept { return m_Guilds.size(); }
+	HashMapGuild& getGuilds() noexcept { return m_Guilds; }
+	const HashMapGuild& getGuilds_const() const noexcept { return m_Guilds; }
 
 #ifdef __SHARED_SERVER__
 public:
-	void makeSGGuildInfo( SGGuildInfo& sgGuildInfo ) throw();
+	void makeSGGuildInfo( SGGuildInfo& sgGuildInfo ) noexcept(false);
 #endif
 
-	void makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRace_t race ) throw();
-	void makeActiveGuildList( GCActiveGuildList& gcWaitGuildList, GuildRace_t race ) throw();
+	void makeWaitGuildList( GCWaitGuildList& gcWaitGuildList, GuildRace_t race ) noexcept(false);
+	void makeActiveGuildList( GCActiveGuildList& gcWaitGuildList, GuildRace_t race ) noexcept(false);
 
 public:
 	void lock() { m_Mutex.lock(); }
@@ -80,33 +80,33 @@ public:
 
 
 public:
-	void heartbeat() throw(Error);
+	void heartbeat() noexcept(false);
 
 public:
-	bool isGuildMaster( GuildID_t guildID, PlayerCreature* pPC ) throw(Error);
+	bool isGuildMaster( GuildID_t guildID, PlayerCreature* pPC ) noexcept(false);
 
-	string getGuildName( GuildID_t guildID ) throw (Error);
+	string getGuildName( GuildID_t guildID ) noexcept(false);
 
-	// ±æµå°¡ ¼ºÀ» °¡Á³³ª?
-	bool hasCastle( GuildID_t guildID ) throw(Error);
-	bool hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) throw(Error);
+	// ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+	bool hasCastle( GuildID_t guildID ) noexcept(false);
+	bool hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) noexcept(false);
 
-	// ±æµå°¡ ÀüÀï½ÅÃ»À» Çß³ª?
-	bool hasWarSchedule( GuildID_t guildID ) throw(Error);
+	// ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ß³ï¿½?
+	bool hasWarSchedule( GuildID_t guildID ) noexcept(false);
 
-	// ÇöÀç ÁøÇàÁßÀÎ ÀüÀïÀÌ ÀÖ´Â°¡?
-	bool hasActiveWar( GuildID_t guidlID ) throw(Error);
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Â°ï¿½?
+	bool hasActiveWar( GuildID_t guidlID ) noexcept(false);
 
 public: // debug
-	string toString(void) const throw();
+	string toString(void) const noexcept;
 
 
 ///// Member data /////
 	
 protected:
-	unordered_map<GuildID_t, Guild*> m_Guilds;		// ±æµå Æ÷ÀÎÅÍ ¸Ê
+	unordered_map<GuildID_t, Guild*> m_Guilds;		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
-	Timeval m_WaitMemberClearTime;				// heartbeat ¿¡¼­ Wait ÁßÀÎ ±æµå¸â¹ö Á¤¸® ½Ã°£
+	Timeval m_WaitMemberClearTime;				// heartbeat ï¿½ï¿½ï¿½ï¿½ Wait ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
 	// mutex
 	mutable Mutex m_Mutex;

@@ -2,8 +2,8 @@
 // Filename    : ActionRegenShop.cpp
 // Written By  : 
 // Description : 
-// »óÁ¡ NPC¸¦ Á¦ÀÏ Ã³À½ ·ÎµùÇÒ ¶§, »óÁ¡ NPC°¡ ÆÈ°Ô µÉ ¾ÆÀÌÅÛÀ»
-// ÁØºñÇÏ´Â ¾×¼ÇÀÌ´Ù. ShopTemplate Å¬·¡½º¿Í ¸Å´ÏÀú¸¦ Âü°íÇÒ °Í.
+// ìƒì  NPCë¥¼ ì œì¼ ì²˜ìŒ ë¡œë”©í•  ë•Œ, ìƒì  NPCê°€ íŒ”ê²Œ ë  ì•„ì´í…œì„
+// ì¤€ë¹„í•˜ëŠ” ì•¡ì…˜ì´ë‹¤. ShopTemplate í´ë˜ìŠ¤ì™€ ë§¤ë‹ˆì €ë¥¼ ì°¸ê³ í•  ê²ƒ.
 ////////////////////////////////////////////////////////////////////////////////
 
 #include "ActionRegenShop.h"
@@ -44,7 +44,7 @@ ActionRegenShop::~ActionRegenShop()
 
 	clearList();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
@@ -77,11 +77,11 @@ void ActionRegenShop::read (PropertyBuffer & propertyBuffer)
 		}
 		END_DB(pStmt)
 
-		// »óÁ¡ ¾÷µ¥ÀÌÆ® ÁÖ±â¸¦ ÀĞ¾îµéÀÎ´Ù. (ÃÊ ´ÜÀ§)
+		// ìƒì  ì—…ë°ì´íŠ¸ ì£¼ê¸°ë¥¼ ì½ì–´ë“¤ì¸ë‹¤. (ì´ˆ ë‹¨ìœ„)
 		int nSecond = propertyBuffer.getPropertyInt("Period");
 		m_Period.tv_sec = nSecond;
 
-		// ´ÙÀ½ »óÁ¡ ¾÷µ¥ÀÌÆ®¸¦ ¾ğÁ¦ ÇÒ °ÍÀÎ°¡¸¦ ¼¼ÆÃÇØ ÁØ´Ù.
+		// ë‹¤ìŒ ìƒì  ì—…ë°ì´íŠ¸ë¥¼ ì–¸ì œ í•  ê²ƒì¸ê°€ë¥¼ ì„¸íŒ…í•´ ì¤€ë‹¤.
 		Timeval currentTime;
 		getCurrentTime(currentTime);
 		m_NextRegen = currentTime;
@@ -96,8 +96,8 @@ void ActionRegenShop::read (PropertyBuffer & propertyBuffer)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
-// NOTE : ShopTemplateÀº ÀÌ ¾×¼ÇÀÌ ½ÇÇàµÇ±â Àü¿¡ ¸ğµÎ ·ÎµåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
+// NOTE : ShopTemplateì€ ì´ ì•¡ì…˜ì´ ì‹¤í–‰ë˜ê¸° ì „ì— ëª¨ë‘ ë¡œë“œë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -113,14 +113,14 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 	Zone* pZone = pNPC->getZone();
 	Assert(pZone != NULL);
 
-	// ÇöÀç ½Ã°£À» ¾ò¾î³½´Ù.
+	// í˜„ì¬ ì‹œê°„ì„ ì–»ì–´ë‚¸ë‹¤.
 	Timeval currentTime;
 	getCurrentTime(currentTime);
 
-	// ¾÷µ¥ÀÌÆ®ÇÒ ½Ã°£ÀÌ ¾ÆÁ÷ µÇÁ÷ ¾Ê¾Ò´Ù¸é °Á ¸®ÅÏÇÑ´Ù.
+	// ì—…ë°ì´íŠ¸í•  ì‹œê°„ì´ ì•„ì§ ë˜ì§ ì•Šì•˜ë‹¤ë©´ ê± ë¦¬í„´í•œë‹¤.
 	if (currentTime < m_NextRegen) return;
 
-	// ÁÖÀ§¿¡ NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ÇÃ·¹ÀÌ¾î°¡ ¾ø´ÂÁö ¸ÕÀú °Ë»çÇÑ´Ù.
+	// ì£¼ìœ„ì— NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” í”Œë ˆì´ì–´ê°€ ì—†ëŠ”ì§€ ë¨¼ì € ê²€ì‚¬í•œë‹¤.
 	VSRect rect(0, 0, pZone->getWidth()-1, pZone->getHeight()-1);
 	int centerX = pNPC->getX();
 	int centerY = pNPC->getY();
@@ -130,7 +130,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 		{
 			for (int zy = centerY - 5; zy <= centerY+5; zy++)
 			{
-				// ÁÂÇ¥°¡ ÇÑ°è¸¦ ³Ñ¾î°¡Áö ¾Ê¾Ò´ÂÁö Ã¼Å©...
+				// ì¢Œí‘œê°€ í•œê³„ë¥¼ ë„˜ì–´ê°€ì§€ ì•Šì•˜ëŠ”ì§€ ì²´í¬...
 				if (!rect.ptInRect(zx, zy))
 				{
 					continue;
@@ -138,23 +138,23 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 
 				Tile& tile = pZone->getTile(zx, zy);
 
-				// °É¾î´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+				// ê±¸ì–´ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
 				if (tile.hasCreature(Creature::MOVE_MODE_WALKING))
 				{
 					Creature* pNearCreature = tile.getCreature(Creature::MOVE_MODE_WALKING);
 					Assert(pNearCreature != NULL);
-					// NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ³ğÀÌ ÀÖÀ¸¸é °Á ¸®ÅÏ
+					// NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” ë†ˆì´ ìˆìœ¼ë©´ ê± ë¦¬í„´
 					if (pNearCreature->isPC())
 					{
 						return;
 					}
 				}
-				// ³¯¾Æ´Ù´Ï´Â Å©¸®ÃÄ¸¦ °Ë»ö
+				// ë‚ ì•„ë‹¤ë‹ˆëŠ” í¬ë¦¬ì³ë¥¼ ê²€ìƒ‰
 				if (tile.hasCreature(Creature::MOVE_MODE_FLYING))
 				{
 					Creature* pNearCreature = tile.getCreature(Creature::MOVE_MODE_FLYING);
 					Assert(pNearCreature != NULL);
-					// NPC¶û ÀÌ¾ß±âÇÏ°í ÀÖ´Â ³ğÀÌ ÀÖÀ¸¸é °Á ¸®ÅÏ
+					// NPCë‘ ì´ì•¼ê¸°í•˜ê³  ìˆëŠ” ë†ˆì´ ìˆìœ¼ë©´ ê± ë¦¬í„´
 					if (pNearCreature->isPC())
 					{
 						return;
@@ -171,10 +171,10 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 
 	try {
 
-	// ¸ÕÀú NPC°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛÀ» ÀüºÎ ³¯¸®°í...»óÁ¡ ¹öÀüÀ» ¿Ã¸°´Ù.
-	// ÀÏ´Ü Å¬¸®¾îÇÏ±â Àü¿¡ ·Î±×¸¦ ÇÑ´Ù.
+	// ë¨¼ì € NPCê°€ ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œì„ ì „ë¶€ ë‚ ë¦¬ê³ ...ìƒì  ë²„ì „ì„ ì˜¬ë¦°ë‹¤.
+	// ì¼ë‹¨ í´ë¦¬ì–´í•˜ê¸° ì „ì— ë¡œê·¸ë¥¼ í•œë‹¤.
 	/*
-	// Áö±İÀº ·Î±× ¾ÈÇØ¼­ »«´Ù. 2002.8.29. by sigi
+	// ì§€ê¸ˆì€ ë¡œê·¸ ì•ˆí•´ì„œ ëº€ë‹¤. 2002.8.29. by sigi
 	for (ShopRackType_t rackType=0; rackType<SHOP_RACK_TYPE_MAX; rackType++)
 	{
 		for (BYTE rackIndex=0; rackIndex<SHOP_RACK_INDEX_MAX; rackIndex++)
@@ -191,7 +191,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 	for (int i=0; i<SHOP_RACK_TYPE_MAX; i++)
 		pNPC->increaseShopVersion(i);
 
-	// ¾ÆÀÌÅÛÀ» ¸¸µç´Ù.
+	// ì•„ì´í…œì„ ë§Œë“ ë‹¤.
 	list<ShopTemplateID_t> IDList[SHOP_RACK_TYPE_MAX];
 	int                    combi[SHOP_RACK_TYPE_MAX] = {0,0,0};
 	int                    count[SHOP_RACK_TYPE_MAX] = {0,0,0};
@@ -203,11 +203,11 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 	uint                   minOptionLevel, maxOptionLevel;
 	OptionType_t           optionType = 0;
 
-	// °¢°¢ÀÇ ¼¥ÅÛÇÃ¸´Àº ¾ÆÀÌÅÛ Å¬·¡½º¿Í ÃÖ¼Ò, ÃÖ´ë Å¸ÀÔÀ» °¡Áö°í ÀÖ´Ù.
-	// ÃÖ¼Ò, ÃÖ´ë Å¸ÀÔÀ» °¡Áö°í, ÇØ´çÇÏ´Â ¾ÆÀÌÅÛ ¸î °¡Áö¸¦
-	// »ı¼ºÇØ¾ß ÇÏ´Â °ÍÀ» ¾Ë ¼ö ÀÖ´Ù. ¿¹¸¦ µé¸é ´ÙÀ½°ú °°´Ù.
-	// MinItemType : 0, MaxItemType : 0 --> 1°¡Áö
-	// MinItemType : 0, MaxItemType : 2 --> 3°¡Áö
+	// ê°ê°ì˜ ìƒµí…œí”Œë¦¿ì€ ì•„ì´í…œ í´ë˜ìŠ¤ì™€ ìµœì†Œ, ìµœëŒ€ íƒ€ì…ì„ ê°€ì§€ê³  ìˆë‹¤.
+	// ìµœì†Œ, ìµœëŒ€ íƒ€ì…ì„ ê°€ì§€ê³ , í•´ë‹¹í•˜ëŠ” ì•„ì´í…œ ëª‡ ê°€ì§€ë¥¼
+	// ìƒì„±í•´ì•¼ í•˜ëŠ” ê²ƒì„ ì•Œ ìˆ˜ ìˆë‹¤. ì˜ˆë¥¼ ë“¤ë©´ ë‹¤ìŒê³¼ ê°™ë‹¤.
+	// MinItemType : 0, MaxItemType : 0 --> 1ê°€ì§€
+	// MinItemType : 0, MaxItemType : 2 --> 3ê°€ì§€
 	for (list<ShopTemplateID_t>::const_iterator itr=m_List.begin(); itr != m_List.end(); itr++)
 	{
 		pTemplate = g_pShopTemplateManager->getTemplate((*itr));
@@ -219,31 +219,31 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 		minItemType = pTemplate->getMinItemType();
 		maxItemType = pTemplate->getMaxItemType();
 		
-		// ¼¥ÀÇ Á¾·ù(³ë¸Ö, ½ºÆä¼È...)¿¡ µû¶ó, 
-		// »ı¼ºÇÒ ¼¥ ÅÛÇÃ¸´ÀÇ ID¸¦ ¸®½ºÆ®¿¡ Áı¾î³Ö¾î µÎ°í,
-		// »ı¼ºÇÒ ¾ÆÀÌÅÛÀÇ Á¾·ù¼ö¸¦ ÀúÀåÇØ µĞ´Ù.
+		// ìƒµì˜ ì¢…ë¥˜(ë…¸ë©€, ìŠ¤í˜ì…œ...)ì— ë”°ë¼, 
+		// ìƒì„±í•  ìƒµ í…œí”Œë¦¿ì˜ IDë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì§‘ì–´ë„£ì–´ ë‘ê³ ,
+		// ìƒì„±í•  ì•„ì´í…œì˜ ì¢…ë¥˜ìˆ˜ë¥¼ ì €ì¥í•´ ë‘”ë‹¤.
 		IDList[shopType].push_back(*itr);
 		combi[shopType] += (maxItemType - minItemType + 1);
 	}
 
-	// °¢ ¼¥¿¡´Ù ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+	// ê° ìƒµì—ë‹¤ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 	for (ShopRackType_t i=0; i<SHOP_RACK_TYPE_MAX; i++)
 	{
-		// ÇÑ Å¸ÀÔÀÇ ¼¥¿¡´Â 20°³±îÁöÀÇ ¾ÆÀÌÅÛÀÌ µé¾î°£´Ù.
-		// ¸¸ÀÏ »ı¼ºÇØ¾ß ÇÒ ¾ÆÀÌÅÛÀÇ Á¾·ù°¡ 5°¡Áö¶ó¸é,
-		// °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» 4°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
-		// Á¾·ù°¡ 6°¡Áö¶ó¸é, 3°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
-		// ÀÌ ½Ãµµ È½¼ö¸¦ trialMax º¯¼ö¿¡´Ù Áı¾î³Ö´Â´Ù.
+		// í•œ íƒ€ì…ì˜ ìƒµì—ëŠ” 20ê°œê¹Œì§€ì˜ ì•„ì´í…œì´ ë“¤ì–´ê°„ë‹¤.
+		// ë§Œì¼ ìƒì„±í•´ì•¼ í•  ì•„ì´í…œì˜ ì¢…ë¥˜ê°€ 5ê°€ì§€ë¼ë©´,
+		// ê°ê°ì˜ ì•„ì´í…œì„ 4ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
+		// ì¢…ë¥˜ê°€ 6ê°€ì§€ë¼ë©´, 3ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
+		// ì´ ì‹œë„ íšŸìˆ˜ë¥¼ trialMax ë³€ìˆ˜ì—ë‹¤ ì§‘ì–´ë„£ëŠ”ë‹¤.
 		if (combi[i] == 0) trialMax = 0;
 		else trialMax = (int)(floor(SHOP_RACK_INDEX_MAX/combi[i]));
 
-		// ¸¸ÀÏ ¼¥ Å¸ÀÔÀÌ ³ë¸ÖÀÌ¶ó¸é, °°Àº ¾ÆÀÌÅÛÀ» ¿©·¯ °³
-		// »ı¼ºÇÏ´Â °ÍÀº ÀÇ¹Ì°¡ ¾øÀ¸¹Ç·Î, ÇÑ¹ø¸¸ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+		// ë§Œì¼ ìƒµ íƒ€ì…ì´ ë…¸ë©€ì´ë¼ë©´, ê°™ì€ ì•„ì´í…œì„ ì—¬ëŸ¬ ê°œ
+		// ìƒì„±í•˜ëŠ” ê²ƒì€ ì˜ë¯¸ê°€ ì—†ìœ¼ë¯€ë¡œ, í•œë²ˆë§Œ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 		if (i == SHOP_RACK_NORMAL
 			|| i == SHOP_RACK_MYSTERIOUS) trialMax = 1;
 
-		// ¾Æ±î ÀúÀåÇØ ³õ¾Ò´ø ¼¥ ÅÛÇÃ¸´ ID ¸®½ºÆ®¿¡¼­ ÇÏ³ª¾¿À» »Ì¾Æ¿Í¼­,
-		// »óÁ¡ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+		// ì•„ê¹Œ ì €ì¥í•´ ë†“ì•˜ë˜ ìƒµ í…œí”Œë¦¿ ID ë¦¬ìŠ¤íŠ¸ì—ì„œ í•˜ë‚˜ì”©ì„ ë½‘ì•„ì™€ì„œ,
+		// ìƒì  ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 		for (list<ShopTemplateID_t>::const_iterator itr=IDList[i].begin(); itr != IDList[i].end(); itr++)
 		{
 			pTemplate      = g_pShopTemplateManager->getTemplate((*itr));
@@ -253,21 +253,21 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 			minOptionLevel = pTemplate->getMinOptionLevel();
 			maxOptionLevel = pTemplate->getMaxOptionLevel();
 
-			// ¸ÕÀú »ı¼º°¡´ÉÇÑ ¿É¼Ç Å¸ÀÔÀÇ º¤ÅÍ¸¦ »ı¼ºÇØµĞ´Ù.
+			// ë¨¼ì € ìƒì„±ê°€ëŠ¥í•œ ì˜µì…˜ íƒ€ì…ì˜ ë²¡í„°ë¥¼ ìƒì„±í•´ë‘”ë‹¤.
 			vector<OptionType_t> optionVector = g_pOptionInfoManager->getPossibleOptionVector((Item::ItemClass)itemClass, minOptionLevel, maxOptionLevel);
 
 			for (ItemType_t type=minItemType; type<=maxItemType; type++)
 			{
-				// ÇÑ Å¸ÀÔÀÇ ¼¥¿¡´Â 20°³±îÁöÀÇ ¾ÆÀÌÅÛÀÌ µé¾î°£´Ù.
-				// ¸¸ÀÏ »ı¼ºÇØ¾ß ÇÒ ¾ÆÀÌÅÛÀÇ Á¾·ù°¡ 5°¡Áö¶ó¸é,
-				// °¢°¢ÀÇ ¾ÆÀÌÅÛÀ» 4°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
-				// Á¾·ù°¡ 6°¡Áö¶ó¸é, 3°³±îÁö Áı¾î³ÖÀ» ¼ö ÀÖ´Ù.
+				// í•œ íƒ€ì…ì˜ ìƒµì—ëŠ” 20ê°œê¹Œì§€ì˜ ì•„ì´í…œì´ ë“¤ì–´ê°„ë‹¤.
+				// ë§Œì¼ ìƒì„±í•´ì•¼ í•  ì•„ì´í…œì˜ ì¢…ë¥˜ê°€ 5ê°€ì§€ë¼ë©´,
+				// ê°ê°ì˜ ì•„ì´í…œì„ 4ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
+				// ì¢…ë¥˜ê°€ 6ê°€ì§€ë¼ë©´, 3ê°œê¹Œì§€ ì§‘ì–´ë„£ì„ ìˆ˜ ìˆë‹¤.
 				for (int tc=0; tc<trialMax; tc++)
 				{
 					itemType = type;
 
-					// ¿É¼Ç º¤ÅÍ ³»¿¡¼­ ¹«ÀÛÀ§·Î ¿É¼ÇÀ» »Ì¾Æ³½´Ù.
-					// ´ç¿¬È÷ °¡´ÉÇÑ ¿É¼ÇÀÌ ¾ø´Ù¸é, optionTypeÀº 0(¹«¿É¼Ç)ÀÌ´Ù.
+					// ì˜µì…˜ ë²¡í„° ë‚´ì—ì„œ ë¬´ì‘ìœ„ë¡œ ì˜µì…˜ì„ ë½‘ì•„ë‚¸ë‹¤.
+					// ë‹¹ì—°íˆ ê°€ëŠ¥í•œ ì˜µì…˜ì´ ì—†ë‹¤ë©´, optionTypeì€ 0(ë¬´ì˜µì…˜)ì´ë‹¤.
 					if (i!=SHOP_RACK_MYSTERIOUS && optionVector.size() > 0)
 					{
 						int randValue = rand();
@@ -278,7 +278,7 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 					}
 					else optionType = 0;
 					
-					// ½ÇÁ¦·Î ¾ÆÀÌÅÛÀ» ¸¸µç´Ù.
+					// ì‹¤ì œë¡œ ì•„ì´í…œì„ ë§Œë“ ë‹¤.
 					Item::ItemClass IClass = Item::ItemClass(itemClass);
 					list<OptionType_t> optionTypes;
 
@@ -288,10 +288,10 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 					Item* pItem = g_pItemFactoryManager->createItem(IClass, itemType, optionTypes);
 					Assert(pItem != NULL);
 
-					// zoneÀÇ object registery¿¡ µî·Ï.
+					// zoneì˜ object registeryì— ë“±ë¡.
 					(pZone->getObjectRegistry()).registerObject(pItem);
 
-					// ÇØ´ç Áø¿­Àå¿¡ ÀÚ¸®°¡ ÀÖ´Ù¸é ¾ÆÀÌÅÛÀ» ´õÇÑ´Ù.
+					// í•´ë‹¹ ì§„ì—´ì¥ì— ìë¦¬ê°€ ìˆë‹¤ë©´ ì•„ì´í…œì„ ë”í•œë‹¤.
 					if (count[i] < SHOP_RACK_INDEX_MAX)
 					{
 						pNPC->insertShopItem(i, count[i], pItem);
@@ -304,14 +304,14 @@ void ActionRegenShop::execute (Creature * pCreature1 , Creature * pCreature2)
 	}
 
 	} catch (Error& t) {
-		// ¿¡·¯´Â ´Ù½Ã ´øÁø´Ù.
+		// ì—ëŸ¬ëŠ” ë‹¤ì‹œ ë˜ì§„ë‹¤.
 		filelog("regenShopBug.txt", "%s", t.toString().c_str());
 		throw;
 	} catch (Throwable& t) {
 		filelog("regenShopBug.txt", "%s", t.toString().c_str());
 	}
 
-	// ´ÙÀ½ ¾÷µ¥ÀÌÆ®ÇÒ ½Ã°£À» Á¤ÇØÁØ´Ù.
+	// ë‹¤ìŒ ì—…ë°ì´íŠ¸í•  ì‹œê°„ì„ ì •í•´ì¤€ë‹¤.
 	m_NextRegen = m_NextRegen + m_Period;
 
 	__END_CATCH

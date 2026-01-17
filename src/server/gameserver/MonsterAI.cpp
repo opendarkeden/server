@@ -110,13 +110,13 @@ int getStrongValue(Creature* pCreature)
 	}
 	else return 0;
 
-	// pCreature HP°¡ 120ÀÌ»ó 
+	// pCreature HPê°€ 120ì´ìƒ 
 	if (currentHP>=120)
 	{
 		strongValue += 200;
 	}
 	
-	// HP percentage°¡ 60% ÀÌ»óÀÌ¶ó¸é 
+	// HP percentageê°€ 60% ì´ìƒì´ë¼ë©´ 
 	if (currentHP*100 >= maxHP*60)
 	{
 		strongValue += 200;
@@ -148,7 +148,7 @@ TPOINT randPos(int ox, int oy, int threshold, Zone* pZone)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// »ı¼ºÀÚ/¼Ò¸êÀÚ
+// ìƒì„±ì/ì†Œë©¸ì
 //////////////////////////////////////////////////////////////////////////////
 
 MonsterAI::MonsterAI(Monster* pMonster, uint type)
@@ -219,7 +219,7 @@ MonsterAI::~MonsterAI()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -237,7 +237,7 @@ void MonsterAI::addDirective(Directive* pDirective)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Á¶°Ç ÇÔ¼ö
+// ì¡°ê±´ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::checkCondition(int condition, Creature* pEnemy)
@@ -259,12 +259,12 @@ bool MonsterAI::checkDirective(Directive* pDirective, Creature* pEnemy)
 
 	if (pDirective == NULL) return false;
 
-	// ÄÁµğ¼Ç ¸®½ºÆ®¸¦ ¾ò¾î³»°í...
+	// ì»¨ë””ì…˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ë‚´ê³ ...
 	list<int>& conditionList = pDirective->getConditions();
 	bool       rValue        = true;
 
-	// Á¶°Ç Áß¿¡ ÇÏ³ª¶óµµ ¸¸Á·ÇÏÁö ¾Ê´Â °ÍÀÌ ÀÖ´Ù¸é,
-	// false¸¦ ¸®ÅÏÇÑ´Ù.
+	// ì¡°ê±´ ì¤‘ì— í•˜ë‚˜ë¼ë„ ë§Œì¡±í•˜ì§€ ì•ŠëŠ” ê²ƒì´ ìˆë‹¤ë©´,
+	// falseë¥¼ ë¦¬í„´í•œë‹¤.
 	list<int>::iterator itr = conditionList.begin();
 	for (; itr != conditionList.end(); itr++)
 	{
@@ -281,7 +281,7 @@ bool MonsterAI::checkDirective(Directive* pDirective, Creature* pEnemy)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º¸ÅëÀÇ ¿òÁ÷ÀÓ
+// ë³´í†µì˜ ì›€ì§ì„
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir)
@@ -293,7 +293,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 	Dir_t curDir = m_pBody->getDir();
 
 	////////////////////////////////////////////////////////////
-	// ¸ñÀûÁöÁ¡À¸·Î ÇâÇÏ´Â ÃÖ¼±ÀÇ ¹æÇâÀ» Ã£´Â´Ù.
+	// ëª©ì ì§€ì ìœ¼ë¡œ í–¥í•˜ëŠ” ìµœì„ ì˜ ë°©í–¥ì„ ì°¾ëŠ”ë‹¤.
 	////////////////////////////////////////////////////////////
 	if (m_pBody->getX() < ex) 
 	{
@@ -320,17 +320,17 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 
 	int diffLevel = 0;
 
-	// ¹æÇâ°ú ¹æÇâ »çÀÌÀÇ Â÷ÀÌ¸¦ ³ªÅ¸³½´Ù. diffLevel == 1 ¿¡¼­, diff == 0 ÀÌ±â À§ÇØ¼­
-	// 0 À¸·Î ÃÊ±âÈ­ÇØ¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀ¸¸é, garbage °ªÀ¸·Î ÀÎÇØ ¿À·ù°¡ ³ª°Ô µÈ´Ù.
+	// ë°©í–¥ê³¼ ë°©í–¥ ì‚¬ì´ì˜ ì°¨ì´ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤. diffLevel == 1 ì—ì„œ, diff == 0 ì´ê¸° ìœ„í•´ì„œ
+	// 0 ìœ¼ë¡œ ì´ˆê¸°í™”í•´ì•¼ í•œë‹¤. ê·¸ë ‡ì§€ ì•Šìœ¼ë©´, garbage ê°’ìœ¼ë¡œ ì¸í•´ ì˜¤ë¥˜ê°€ ë‚˜ê²Œ ëœë‹¤.
 	int diff = 0;
 
-	// ´ÙÀ½ ¹æÇâÀÌ ¹ß°ßµÇ¾ú´Â°¡?
+	// ë‹¤ìŒ ë°©í–¥ì´ ë°œê²¬ë˜ì—ˆëŠ”ê°€?
 	bool found = false;
 
-	// ¿ì¼± bestDir ºÎÅÍ Ã¼Å©ÇØº»´Ù. unsigned type ÀÌ µÇ¾î¼­´Â ¾ÈµÈ´Ù.
+	// ìš°ì„  bestDir ë¶€í„° ì²´í¬í•´ë³¸ë‹¤. unsigned type ì´ ë˜ì–´ì„œëŠ” ì•ˆëœë‹¤.
 	ndir = bestDir;
 
-	// ´ÙÀ½ ÁÂÇ¥
+	// ë‹¤ìŒ ì¢Œí‘œ
 	nx = m_pBody->getX() + dirMoveMask[ndir].x;
 	ny = m_pBody->getY() + dirMoveMask[ndir].y;
 
@@ -338,11 +338,11 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 
 	const Dir_t DIR_MAX_1 = DIR_MAX - 1;
 
-	// bestDir ¹æÇâÀÌ ¸·Çô ÀÖ´Ù¸é, previous Dir ¹æÇâÀ» ±âÁØÀ¸·Î +- ÇÏ¸é¼­ Ã¼Å©ÇÑ´Ù.
-	// ÀÌ¶§ Á¸ÀÇ °æ°è¸¦ ³Ñ¾î¼­´ÂÁö Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
+	// bestDir ë°©í–¥ì´ ë§‰í˜€ ìˆë‹¤ë©´, previous Dir ë°©í–¥ì„ ê¸°ì¤€ìœ¼ë¡œ +- í•˜ë©´ì„œ ì²´í¬í•œë‹¤.
+	// ì´ë•Œ ì¡´ì˜ ê²½ê³„ë¥¼ ë„˜ì–´ì„œëŠ”ì§€ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
 	bool bCanMove = m_pBody->canMove(nx,ny);
 
-	// ¸¶½ºÅÍÀÎ °æ¿ì¿¡´Â ¹Ù´Ú¿¡ ¾È ÁÁÀº°Ô ¾ø¾î¾ß ÇÑ´Ù. - -; by sigi. 2002.9.12
+	// ë§ˆìŠ¤í„°ì¸ ê²½ìš°ì—ëŠ” ë°”ë‹¥ì— ì•ˆ ì¢‹ì€ê²Œ ì—†ì–´ì•¼ í•œë‹¤. - -; by sigi. 2002.9.12
 	/*
 	if (bCanMove && m_pBody->isMaster())
 	{
@@ -362,34 +362,34 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 	{
 		bBlocked[ndir] = true;
 
-		// best directionÀÌ º®ÀÌ¶ó¸é ´ÙÀ½ºÎÅÍ º®Å¸±â¸¦ ÇÑ´Ù.
-		// ¹ÚÁã³ª hideÁßÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+		// best directionì´ ë²½ì´ë¼ë©´ ë‹¤ìŒë¶€í„° ë²½íƒ€ê¸°ë¥¼ í•œë‹¤.
+		// ë°•ì¥ë‚˜ hideì¤‘ì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
 		if (!m_pBody->isBlockedByCreature(nx,ny)
 			&& !m_pBody->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT)
 			&& !m_pBody->isFlag(Effect::EFFECT_CLASS_HIDE))
 		{
-			setMoveRule( MOVE_RULE_RIGHTWALL ); // ¿©±â²« º° ÀÇ¹Ì¾ø´Ù.
+			setMoveRule( MOVE_RULE_RIGHTWALL ); // ì—¬ê¸°ê»€ ë³„ ì˜ë¯¸ì—†ë‹¤.
 			m_BlockedDir = bestDir;
 
-			// ÀÌ¹ø ÅÏ¿¡´Â ±×³É °¥ ¹æÇâÀ» °áÁ¤ÇÏ¸é µÈ´Ù.
+			// ì´ë²ˆ í„´ì—ëŠ” ê·¸ëƒ¥ ê°ˆ ë°©í–¥ì„ ê²°ì •í•˜ë©´ ëœë‹¤.
 		}
 
 		while (true) 
 		{
-			// ÃÖÃÊÀÏ °æ¿ì, diffLevel == 1 ÀÌ µÈ´Ù. ÀÌ´Â m_pBody->getDir() ¹æÇâÀ» Ã¼Å©ÇÏ¶ó´Â ¶æÀÌ´Ù.
+			// ìµœì´ˆì¼ ê²½ìš°, diffLevel == 1 ì´ ëœë‹¤. ì´ëŠ” m_pBody->getDir() ë°©í–¥ì„ ì²´í¬í•˜ë¼ëŠ” ëœ»ì´ë‹¤.
 			diffLevel ++;
 
-			// ÀûÀıÇÑ ¹æÇâÀ» Ã£¾Ò°Å³ª, ´õÀÌ»ó Ã£À» ¼ö ¾ø´Ù¸é ³¡³½´Ù.
+			// ì ì ˆí•œ ë°©í–¥ì„ ì°¾ì•˜ê±°ë‚˜, ë”ì´ìƒ ì°¾ì„ ìˆ˜ ì—†ë‹¤ë©´ ëë‚¸ë‹¤.
 			if (found || diffLevel > 8) break;
 
 			////////////////////////////////////////////////////////////
-			// diffLevel À» 2 ·Î ³ª´« °ªÀÌ °°´Ù´Â ¶æÀº, ¼­·Î ´ëÄªµÇ´Â
-			// ¹æÇâÀÌ¶ó´Â ¶æÀÌ´Ù.  ±× Áß Â¦¼ö¸¦ ¸¸³ª¸é ÃÖÃÊ·Î diff ¸¦ 
-			// °è»êÇØ¼­ ÇÑÂÊ ¹æÇâÀ» Ã¼Å©ÇÏ¸ç, È¦¼ö¸¦ ¸¸³ª¸é ÀÌÀü ·çÇÁ¿¡¼­
-			// ¹İ´ëÆí ¹æÇâÀÌ Ã¼Å©µÇ¾ú´Ù´Â ¶æÀÌ¹Ç·Î, °è»êµÈ diff ÀÇ
-			// À½¼ö¸¦ »ç¿ëÇØ¼­ ´Ù¸¥Æí ¹æÇâÀ» Ã¼Å©ÇÏ¸é µÇ°Ú´Ù.
+			// diffLevel ì„ 2 ë¡œ ë‚˜ëˆˆ ê°’ì´ ê°™ë‹¤ëŠ” ëœ»ì€, ì„œë¡œ ëŒ€ì¹­ë˜ëŠ”
+			// ë°©í–¥ì´ë¼ëŠ” ëœ»ì´ë‹¤.  ê·¸ ì¤‘ ì§ìˆ˜ë¥¼ ë§Œë‚˜ë©´ ìµœì´ˆë¡œ diff ë¥¼ 
+			// ê³„ì‚°í•´ì„œ í•œìª½ ë°©í–¥ì„ ì²´í¬í•˜ë©°, í™€ìˆ˜ë¥¼ ë§Œë‚˜ë©´ ì´ì „ ë£¨í”„ì—ì„œ
+			// ë°˜ëŒ€í¸ ë°©í–¥ì´ ì²´í¬ë˜ì—ˆë‹¤ëŠ” ëœ»ì´ë¯€ë¡œ, ê³„ì‚°ëœ diff ì˜
+			// ìŒìˆ˜ë¥¼ ì‚¬ìš©í•´ì„œ ë‹¤ë¥¸í¸ ë°©í–¥ì„ ì²´í¬í•˜ë©´ ë˜ê² ë‹¤.
 			////////////////////////////////////////////////////////////
-			if ((diffLevel & 0x00000001) == 0) 	// % 2 ÀÎµ¥.. ¹Ù²å´ç.. ¤»¤» by sigi 
+			if ((diffLevel & 0x00000001) == 0) 	// % 2 ì¸ë°.. ë°”ê¿¨ë‹¹.. ã…‹ã…‹ by sigi 
 			{
 				//diff = (int)(diffLevel >> 1) * (bSelectLeft ? 1 : -1);
 				diff = diffLevel >> 1;
@@ -397,7 +397,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 				Dir_t dir1 = (m_pBody->getDir() + diff) & DIR_MAX_1;
 				Dir_t dir2 = (m_pBody->getDir() + DIR_MAX - diff) & DIR_MAX_1;
 
-				// bestDir¿¡ °¡±î¿î ÂÊÀ» ¸ÕÀú ¼±ÅÃÇØº¸ÀÚ.
+				// bestDirì— ê°€ê¹Œìš´ ìª½ì„ ë¨¼ì € ì„ íƒí•´ë³´ì.
 				if ((abs(ndir+DIR_MAX-dir1) & DIR_MAX_1) 
 						< (abs(ndir+DIR_MAX-dir2) & DIR_MAX_1))
 				{
@@ -412,7 +412,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 			else ndir = m_pBody->getDir() + DIR_MAX - diff;
 
 			////////////////////////////////////////////////////////////
-			// ndir ÀÌ overflow, underflow ÇÒ °æ¿ì °ªÀ» º¸Á¤ÇØÁà¾ß ÇÑ´Ù.
+			// ndir ì´ overflow, underflow í•  ê²½ìš° ê°’ì„ ë³´ì •í•´ì¤˜ì•¼ í•œë‹¤.
 			// overflow  : -1 -> 7 , -2 -> 6 , -3 -> 5 , ...
 			// underflow :  8 -> 0 ,  9 -> 1 , 10 -> 2 , ...
 			////////////////////////////////////////////////////////////
@@ -426,15 +426,15 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 			//}
 			ndir &= DIR_MAX_1;
 
-			// ´ÙÀ½ ÁÂÇ¥¸¦ ±¸ÇÑ´Ù.
+			// ë‹¤ìŒ ì¢Œí‘œë¥¼ êµ¬í•œë‹¤.
 			nx = m_pBody->getX() + dirMoveMask[ndir].x;
 			ny = m_pBody->getY() + dirMoveMask[ndir].y;
 
-			// ´ÙÀ½ ¹æÇâÀÌ ºñ¾úÀ¸¸é, ·çÇÁ¸¦ ºüÁ®³ª°¥ ¼ö ÀÖ´Ù.
-			// ÀÌ¶§ Á¸ÀÇ °æ°è¸¦ ³Ñ¾î¼­´ÂÁö Ã¼Å©¸¦ ÇØ¾ß ÇÑ´Ù.
+			// ë‹¤ìŒ ë°©í–¥ì´ ë¹„ì—ˆìœ¼ë©´, ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°ˆ ìˆ˜ ìˆë‹¤.
+			// ì´ë•Œ ì¡´ì˜ ê²½ê³„ë¥¼ ë„˜ì–´ì„œëŠ”ì§€ ì²´í¬ë¥¼ í•´ì•¼ í•œë‹¤.
 			if (m_pBody->canMove(nx,ny))
 			{
-				// ¸¶½ºÅÍÀÎ °æ¿ì¿¡´Â ¹Ù´Ú¿¡ ¾È ÁÁÀº°Ô ¾ø¾î¾ß ÇÑ´Ù. - -; by sigi. 2002.9.12
+				// ë§ˆìŠ¤í„°ì¸ ê²½ìš°ì—ëŠ” ë°”ë‹¥ì— ì•ˆ ì¢‹ì€ê²Œ ì—†ì–´ì•¼ í•œë‹¤. - -; by sigi. 2002.9.12
 				/*
 				if (m_pBody->isMaster())
 				{
@@ -460,14 +460,14 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 	} 
 	else found = true;
 
-	// ÁÂ¼ö/¿ì¼ö¸¦ È®½ÇÈ÷ °áÁ¤ÇØÁØ´Ù.
+	// ì¢Œìˆ˜/ìš°ìˆ˜ë¥¼ í™•ì‹¤íˆ ê²°ì •í•´ì¤€ë‹¤.
 	if (found 
 		&& m_MoveRule!=MOVE_RULE_NORMAL)
 	{
 		bool leftWall = bBlocked[(ndir+2) & DIR_MAX_1];
 		bool rightWall = bBlocked[(ndir+DIR_MAX-2) & DIR_MAX_1];
 
-		// µÑ ´Ù ¸·ÇûÀ¸¸é ¹æÇâ¿¡ µû¶ó¼­.. »ç¹Ù»ç¹Ù
+		// ë‘˜ ë‹¤ ë§‰í˜”ìœ¼ë©´ ë°©í–¥ì— ë”°ë¼ì„œ.. ì‚¬ë°”ì‚¬ë°”
 		if (leftWall && rightWall)
 		{
 			if (ndir>curDir && ndir<curDir+4
@@ -482,19 +482,19 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 				//cout << "set LeftWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 			}
 		}
-		// ÁÂ¼ö¹ı Àû¿ë
+		// ì¢Œìˆ˜ë²• ì ìš©
 		else if (leftWall)
 		{
 			setMoveRule( MOVE_RULE_LEFTWALL );
 			//cout << "set LeftWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 		}
-		// ¿ì¼ö¹ı Àû¿ë
+		// ìš°ìˆ˜ë²• ì ìš©
 		else if (rightWall)
 		{
 			setMoveRule( MOVE_RULE_RIGHTWALL );
 			//cout << "set RightWall : " << (int)curDir << " to " << (int)ndir << " - " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 		}
-		// º®ÀÌ ¾ø´Ù¸é º®Å¸±â ¾ÈÇÑ´Ù.
+		// ë²½ì´ ì—†ë‹¤ë©´ ë²½íƒ€ê¸° ì•ˆí•œë‹¤.
 		else
 		{
 			setMoveRule( MOVE_RULE_NORMAL );
@@ -509,7 +509,7 @@ bool MonsterAI::moveNormal(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, Zone
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// º®Å¸°í ÀÌµ¿ÇÏ±â
+// ë²½íƒ€ê³  ì´ë™í•˜ê¸°
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCoord_t& ny, Dir_t& ndir, bool bLeft)
@@ -521,19 +521,19 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 	////////////////////////////////////////////////////////////
 	// search surrounding tiles
 	////////////////////////////////////////////////////////////
-	// ¿ì¼± ¸ñÇ¥ ¹æÇâÀ¸·Î °¡º¼·Á°í ÇÑ´Ù.
+	// ìš°ì„  ëª©í‘œ ë°©í–¥ìœ¼ë¡œ ê°€ë³¼ë ¤ê³  í•œë‹¤.
 	ndir = m_BlockedDir;
 
-	// ´ÙÀ½ ÁÂÇ¥
+	// ë‹¤ìŒ ì¢Œí‘œ
 	nx = m_pBody->getX() + dirMoveMask[ndir].x;
 	ny = m_pBody->getY() + dirMoveMask[ndir].y;
 
 	m_WallCount++;
 
-	// ¸ñÇ¥ÇÑ ¹æÇâÀ¸·Î °¥ ¼ö ÀÖ´Â °æ¿ì
+	// ëª©í‘œí•œ ë°©í–¥ìœ¼ë¡œ ê°ˆ ìˆ˜ ìˆëŠ” ê²½ìš°
 	bool bCanMove = m_pBody->canMove(nx,ny); 
 
-	// ¸¶½ºÅÍÀÎ °æ¿ì¿¡´Â ¹Ù´Ú¿¡ ¾È ÁÁÀº°Ô ¾ø¾î¾ß ÇÑ´Ù. - -; by sigi. 2002.9.12
+	// ë§ˆìŠ¤í„°ì¸ ê²½ìš°ì—ëŠ” ë°”ë‹¥ì— ì•ˆ ì¢‹ì€ê²Œ ì—†ì–´ì•¼ í•œë‹¤. - -; by sigi. 2002.9.12
 	/*
 	if (bCanMove && m_pBody->isMaster())
 	{
@@ -555,7 +555,7 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 		Dir_t bestDir;
 
 		////////////////////////////////////////////////////////////
-		// (nx, ny)¿¡¼­ ¸ñÀûÁöÁ¡À¸·Î ÇâÇÏ´Â ÃÖ¼±ÀÇ ¹æÇâÀ» Ã£´Â´Ù.
+		// (nx, ny)ì—ì„œ ëª©ì ì§€ì ìœ¼ë¡œ í–¥í•˜ëŠ” ìµœì„ ì˜ ë°©í–¥ì„ ì°¾ëŠ”ë‹¤.
 		////////////////////////////////////////////////////////////
 		if (nx < ex) 
 		{
@@ -580,11 +580,11 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 		ZoneCoord_t by = ny + dirMoveMask[bestDir].y;
 		*/
 
-		// ÇÑ Ä­ ÀÌµ¿ÇßÀ»¶§ÀÇ
-		// best¹æÇâÀÌ blockÀÌ µÇ¾îÀÖÁö ¾ÊÀº °æ¿ì¿¡¸¸ º®Å¸±â¸¦ ±×¸¸µĞ´Ù.
+		// í•œ ì¹¸ ì´ë™í–ˆì„ë•Œì˜
+		// bestë°©í–¥ì´ blockì´ ë˜ì–´ìˆì§€ ì•Šì€ ê²½ìš°ì—ë§Œ ë²½íƒ€ê¸°ë¥¼ ê·¸ë§Œë‘”ë‹¤.
 		//if (m_pBody->canMove(bx,by)) 
 		{
-			// º®Å¸±â¸¦ ±×¸¸µĞ´Ù.
+			// ë²½íƒ€ê¸°ë¥¼ ê·¸ë§Œë‘”ë‹¤.
 			//cout << "FindBest : " << (int)m_BlockedDir << " - " << m_pBody->getName() << endl;
 			setMoveRule( MOVE_RULE_NORMAL );
 		}
@@ -599,41 +599,41 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 
 	if (bLeft)	
 	{
-		// ÁÂ¼ö¹ı
+		// ì¢Œìˆ˜ë²•
 		dirInc = 7;		//	+DIR_MAX-1;
-		dirWallInc = 2;	// º®ÀÌ ÀÖ¾î¾ßÇÏ´Â ¹æÇâ
+		dirWallInc = 2;	// ë²½ì´ ìˆì–´ì•¼í•˜ëŠ” ë°©í–¥
 	}
 	else		
 	{
-		// ¿ì¼ö¹ı
+		// ìš°ìˆ˜ë²•
 		dirInc = 1;
-		dirWallInc = 6;	// +DIR_MAX-3 º®ÀÌ ÀÖ¾î¾ßÇÏ´Â ¹æÇâ
+		dirWallInc = 6;	// +DIR_MAX-3 ë²½ì´ ìˆì–´ì•¼í•˜ëŠ” ë°©í–¥
 	}
 
-	// º®ÀÌ ÀÖ¾î¾ßÇÏ´Â ¹æÇâºÎÅÍ Ã¼Å©
+	// ë²½ì´ ìˆì–´ì•¼í•˜ëŠ” ë°©í–¥ë¶€í„° ì²´í¬
 	ndir = (m_pBody->getDir() + dirWallInc) & DIR_MAX_1;
 	
 	//----------------------------------------------------------
-	// °¥·Á´Â ¹æÇâÀ¸·Î °¥ ¼ö ÀÖÀ¸¸é °¡¸é µÈ´Ù.
+	// ê°ˆë ¤ëŠ” ë°©í–¥ìœ¼ë¡œ ê°ˆ ìˆ˜ ìˆìœ¼ë©´ ê°€ë©´ ëœë‹¤.
 	// 
-	// °¥ ¼ö ¾ø´Â ÀÌÀ¯°¡ ¸Ê¿¡ ÀÇÇÑ blockÀÌ ¾Æ´Ñ °æ¿ìÀÌ¸é 
-	//        º®Å¸±â¸¦ ±×¸¸µĞ´Ù.
+	// ê°ˆ ìˆ˜ ì—†ëŠ” ì´ìœ ê°€ ë§µì— ì˜í•œ blockì´ ì•„ë‹Œ ê²½ìš°ì´ë©´ 
+	//        ë²½íƒ€ê¸°ë¥¼ ê·¸ë§Œë‘”ë‹¤.
 	//----------------------------------------------------------
 	for (int i=0; i<DIR_MAX; i++)
 	{
-		// ´ÙÀ½ ÁÂÇ¥
+		// ë‹¤ìŒ ì¢Œí‘œ
 		nx = m_pBody->getX() + dirMoveMask[ndir].x;
 		ny = m_pBody->getY() + dirMoveMask[ndir].y;
 
 		if (m_pBody->canMove(nx,ny))
 		{
-			// ¹«Á¶°Ç °¡¹ö¸®¸é µÈ´Ù.
-			// º®ÀÌ ÀÖ¾î¾ß µÇ´Â À§Ä¡
+			// ë¬´ì¡°ê±´ ê°€ë²„ë¦¬ë©´ ëœë‹¤.
+			// ë²½ì´ ìˆì–´ì•¼ ë˜ëŠ” ìœ„ì¹˜
 			//Dir_t 		dirWall = (ndir + dirWallInc) & DIR_MAX_1;
 			//ZoneCoord_t wallx 	= m_pBody->getX() + dirMoveMask[dirWall].x;
 			//ZoneCoord_t wally 	= m_pBody->getY() + dirMoveMask[dirWall].y;
 
-			// °¥ ¼ö ¾ø°í creature¿¡ ÀÇÇÑ blockÀÌ ¾Æ´Ï¸é º®ÀÌ´Ù.
+			// ê°ˆ ìˆ˜ ì—†ê³  creatureì— ì˜í•œ blockì´ ì•„ë‹ˆë©´ ë²½ì´ë‹¤.
 			//if (!m_pBody->canMove(wallx,wally)
 			//	&& !m_pBody->isBlockedByCreature(wallx,wally)) 
 			{
@@ -641,17 +641,17 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 				return true;
 			}
 		}
-		// ´Ù¸¥ creature¿¡ ÀÇÇØ¼­ °¥ ¼ö ¾ø´Ù¸é º®Å¸±â¸¦ ±×¸¸µĞ´Ù.
+		// ë‹¤ë¥¸ creatureì— ì˜í•´ì„œ ê°ˆ ìˆ˜ ì—†ë‹¤ë©´ ë²½íƒ€ê¸°ë¥¼ ê·¸ë§Œë‘”ë‹¤.
 		else if (m_pBody->isBlockedByCreature(nx,ny))
 		{
 			break;
 		}
 
-		// ´ÙÀ½ ¹æÇâ
+		// ë‹¤ìŒ ë°©í–¥
 		ndir = (ndir+dirInc) & DIR_MAX_1;
 	}
 
-	// º®Å¸±â·Î ¾Æ¹«°÷µµ °¥ ¼ö ¾ø´Ù¸é º®Å¸±â¸¦ ±×¸¸µĞ´Ù. 
+	// ë²½íƒ€ê¸°ë¡œ ì•„ë¬´ê³³ë„ ê°ˆ ìˆ˜ ì—†ë‹¤ë©´ ë²½íƒ€ê¸°ë¥¼ ê·¸ë§Œë‘”ë‹¤. 
 	setMoveRule( MOVE_RULE_NORMAL );
 
 	//cout << "Can't go Wall : " << m_pBody->getName() << endl;
@@ -661,7 +661,7 @@ bool MonsterAI::moveWall(ZoneCoord_t ex, ZoneCoord_t ey, ZoneCoord_t& nx, ZoneCo
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Çàµ¿ ÇÔ¼ö (°ø°İ °ü·Ã)
+// í–‰ë™ í•¨ìˆ˜ (ê³µê²© ê´€ë ¨)
 //////////////////////////////////////////////////////////////////////////////
 
 bool MonsterAI::move(ZoneCoord_t ex, ZoneCoord_t ey)
@@ -669,46 +669,46 @@ bool MonsterAI::move(ZoneCoord_t ex, ZoneCoord_t ey)
 {
 	Zone*       pZone   = m_pBody->getZone();
 
-	// ÇÏÀÌµå »óÅÂ¿¡¼­´Â ¿òÁ÷ÀÌ¸é °ï¶õÇÏ´Ù...
+	// í•˜ì´ë“œ ìƒíƒœì—ì„œëŠ” ì›€ì§ì´ë©´ ê³¤ë€í•˜ë‹¤...
 	//if (m_pBody->isFlag(Effect::EFFECT_CLASS_HIDE))
 	//{
 	//	m_LastAction = LAST_ACTION_MOVE;
 	//	return true;
 	//}
 	
-	// ÀÌµ¿ÇÒ À§Ä¡,¹æÇâ
+	// ì´ë™í•  ìœ„ì¹˜,ë°©í–¥
 	ZoneCoord_t nx, ny; 
 	Dir_t ndir;
 
-	// ÀÌµ¿ ¹æ¹ı¿¡ µû¶ó¼­ ÀÌµ¿ÇÒ °÷À» °áÁ¤ÇÑ´Ù.
+	// ì´ë™ ë°©ë²•ì— ë”°ë¼ì„œ ì´ë™í•  ê³³ì„ ê²°ì •í•œë‹¤.
 	bool found = false;
 	switch (m_MoveRule)
 	{
-		// º¸ÅëÀÇ ÀÌµ¿
+		// ë³´í†µì˜ ì´ë™
 		case MOVE_RULE_NORMAL :
 			found = moveNormal(ex, ey, nx, ny, ndir);
 		break;
 
-		// ÁÂ¼ö¹ı
+		// ì¢Œìˆ˜ë²•
 		case MOVE_RULE_LEFTWALL :
-			found = moveWall(ex, ey, nx, ny, ndir, true);		// true°¡ left¹æÇâÀÌ´Ù.
+			found = moveWall(ex, ey, nx, ny, ndir, true);		// trueê°€ leftë°©í–¥ì´ë‹¤.
 		break;
 
-		// ¿ì¼ö¹ı
+		// ìš°ìˆ˜ë²•
 		case MOVE_RULE_RIGHTWALL :
-			found = moveWall(ex, ey, nx, ny, ndir, false);	// false°¡ right¹æÇâÀÌ´Ù.
+			found = moveWall(ex, ey, nx, ny, ndir, false);	// falseê°€ rightë°©í–¥ì´ë‹¤.
 		break;
 
 		default :
 		break;
 	}
 
-	// 1. ´ÙÀ½ ¹æÇâÀÌ ¹ß°ßµÇ¾ú°í,
-	// 2. ¾ÈÀü Áö´ë°¡ ¾Æ´Ï¶ó¸é... 
+	// 1. ë‹¤ìŒ ë°©í–¥ì´ ë°œê²¬ë˜ì—ˆê³ ,
+	// 2. ì•ˆì „ ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´... 
 	if ((found) && !(pZone->getZoneLevel(nx, ny) & SAFE_ZONE))
 	{
-		// ³»ºÎ¿¡¼­ Å©¸®Ã³ÀÇ ÁÂÇ¥¿Í ¹æÇâÀ» º¯°æÇÏ¸ç, ºê·ÎµåÄ³½ºÆ®¸¦ ¾Ë¾Æ¼­ ÇØÁØ´Ù.
-		// ÀÌ¹Ì Q(nx,ny)°¡ °è»êµÇ¾î ÀÖÀ¸¹Ç·Î ±»ÀÌ Àç°è»êÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+		// ë‚´ë¶€ì—ì„œ í¬ë¦¬ì²˜ì˜ ì¢Œí‘œì™€ ë°©í–¥ì„ ë³€ê²½í•˜ë©°, ë¸Œë¡œë“œìºìŠ¤íŠ¸ë¥¼ ì•Œì•„ì„œ í•´ì¤€ë‹¤.
+		// ì´ë¯¸ Q(nx,ny)ê°€ ê³„ì‚°ë˜ì–´ ìˆìœ¼ë¯€ë¡œ êµ³ì´ ì¬ê³„ì‚°í•  í•„ìš”ëŠ” ì—†ë‹¤.
 		pZone->moveCreature(m_pBody, nx, ny, ndir);
 	}
 
@@ -732,8 +732,8 @@ bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
 	ZoneCoord_t ex      = pEnemy->getX();
 	ZoneCoord_t ey      = pEnemy->getY();
 
-	// µµ¸ÁÀ» Ä¥ °æ¿ì¿¡´Â ÀûÀÇ ¹İ´ë ÁÂÇ¥¿¡ ÀûÀÌ ÀÖ´Ù°í 
-	// »ı°¢ÇÏ°í, ¿òÁ÷ÀÌ¸é µÈ´Ù.
+	// ë„ë§ì„ ì¹  ê²½ìš°ì—ëŠ” ì ì˜ ë°˜ëŒ€ ì¢Œí‘œì— ì ì´ ìˆë‹¤ê³  
+	// ìƒê°í•˜ê³ , ì›€ì§ì´ë©´ ëœë‹¤.
 	if (bRetreat)
 	{
 		////////////////////////////////////////////////////////////
@@ -743,8 +743,8 @@ bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
 		//
 		//                           (ex, ey)
 		//                           
-		// ÀûÀÌ ÀÖ´Â Æ÷Áö¼Ç(enemyX, enemyY)¿¡¼­ 
-		// ´ë°¢¼± ¹İ´ë ¹æÇâÀ¸·Î µµ¸ÁÀ» Ä£´Ù.
+		// ì ì´ ìˆëŠ” í¬ì§€ì…˜(enemyX, enemyY)ì—ì„œ 
+		// ëŒ€ê°ì„  ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ë„ë§ì„ ì¹œë‹¤.
 		////////////////////////////////////////////////////////////
 		int xOffset2 = xOffset<<1;	// by sigi
 		int yOffset2 = yOffset<<1;	// by sigi
@@ -757,7 +757,7 @@ bool MonsterAI::move(Creature* pEnemy, bool bRetreat)
 		else if (enemyY - yOffset2 > (int)pZone->getHeight()) ey = pZone->getHeight();
 		else ey = enemyY - yOffset2;
 
-		setMoveRule( MOVE_RULE_NORMAL );	// Á¤»óÀûÀÎ ÀÌµ¿
+		setMoveRule( MOVE_RULE_NORMAL );	// ì •ìƒì ì¸ ì´ë™
 	}
 
 	return move(ex, ey);
@@ -786,7 +786,7 @@ bool MonsterAI::flee(Creature* pEnemy)
 
 	if (m_Panic > 0)
 	{
-		// µµ¸ÁÄ£´Ù.
+		// ë„ë§ì¹œë‹¤.
 		move(pEnemy, true);
 		return true;
 	}
@@ -808,7 +808,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 	ZoneCoord_t ey = pEnemy->getY();
 	Distance_t  dist = m_pBody->getDistance(ex , ey);
 
-	// ¾î¶² Çàµ¿À» ÃëÇÒ ¶§´Â ±× Çàµ¿À» ÃëÇÒ È®·üÀÌ µ¹¾Æ¿Â´Ù.
+	// ì–´ë–¤ í–‰ë™ì„ ì·¨í•  ë•ŒëŠ” ê·¸ í–‰ë™ì„ ì·¨í•  í™•ë¥ ì´ ëŒì•„ì˜¨ë‹¤.
 	if (rand()%100 >= ratio) return SKILL_FAILED_RATIO;
  
 	// [ test code ]
@@ -820,28 +820,28 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 
 
 	//----------------------------------------------------------
-	// skillÀ» »ç¿ëÇÏ±â ºÒ°¡´ÉÇÑ »óÅÂ¶ó¸é 
-	// ÀÏ´Ü °¡´ÉÇÑ »óÅÂ·Î ¸¸µé¾î¾ß ÇÑ´Ù.
-	// Directive¿¡ ³Ö¾îµµ µÇÁö¸¸, ¸ğµç ¸÷ÀÌ µ¿ÀÏÇÏ±â ¶§¹®¿¡...
+	// skillì„ ì‚¬ìš©í•˜ê¸° ë¶ˆê°€ëŠ¥í•œ ìƒíƒœë¼ë©´ 
+	// ì¼ë‹¨ ê°€ëŠ¥í•œ ìƒíƒœë¡œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
+	// Directiveì— ë„£ì–´ë„ ë˜ì§€ë§Œ, ëª¨ë“  ëª¹ì´ ë™ì¼í•˜ê¸° ë•Œë¬¸ì—...
 	//
-	// Slayer¸÷/Vampire¸÷À¸·Î ³ª´µÁö ¾ÊÀ»±î.. À¸Èì - -;
+	// Slayerëª¹/Vampireëª¹ìœ¼ë¡œ ë‚˜ë‰˜ì§€ ì•Šì„ê¹Œ.. ìœ¼í  - -;
 	//----------------------------------------------------------
-	// Hide»óÅÂ¶ó¸é Æ¢¾î³ª¿Í¾ß ÇÑ´Ù.
+	// Hideìƒíƒœë¼ë©´ íŠ€ì–´ë‚˜ì™€ì•¼ í•œë‹¤.
 	if (m_pBody->isFlag( Effect::EFFECT_CLASS_HIDE ))
 	{
 		SkillType = SKILL_UN_BURROW;
 	}
-	// ¹ÚÁã»óÅÂ¶ó¸é ´Ù½Ã º¯½Å
+	// ë°•ì¥ìƒíƒœë¼ë©´ ë‹¤ì‹œ ë³€ì‹ 
 	else if (m_pBody->isFlag( Effect::EFFECT_CLASS_TRANSFORM_TO_BAT ))
 	{
 		SkillType = SKILL_UN_TRANSFORM;
 	}
-	// invisible»óÅÂ¶ó¸é Ç®¾î¾ß ÇÑ´Ù.
+	// invisibleìƒíƒœë¼ë©´ í’€ì–´ì•¼ í•œë‹¤.
 	else if (m_pBody->isFlag( Effect::EFFECT_CLASS_INVISIBILITY ))
 	{
 		SkillType = SKILL_UN_INVISIBILITY;
 	}
-	// ´Á´ë´Â ¸¶¹ı¾²¸é ¾ÈµÇ´Âµ¥.. - -;
+	// ëŠ‘ëŒ€ëŠ” ë§ˆë²•ì“°ë©´ ì•ˆë˜ëŠ”ë°.. - -;
 
 	SkillHandler* pSkillHandler = g_pSkillHandlerManager->getSkillHandler(SkillType);
 	Assert(pSkillHandler != NULL);
@@ -853,7 +853,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 	switch (SkillType)
 	{
 		////////////////////////////////////////////////////////////
-		// ±Ù°Å¸® ±â¼úµé
+		// ê·¼ê±°ë¦¬ ê¸°ìˆ ë“¤
 		////////////////////////////////////////////////////////////
 		case SKILL_ATTACK_MELEE:
 		case SKILL_ACID_TOUCH:
@@ -868,14 +868,14 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			pSkillHandler->execute(m_pBody, pEnemy);
 			break;
 		////////////////////////////////////////////////////////////
-		// Àå°Å¸® ±â¼úµé
+		// ì¥ê±°ë¦¬ ê¸°ìˆ ë“¤
 		////////////////////////////////////////////////////////////
 		case SKILL_ATTACK_ARMS:
 			if (dist > m_pBody->getMissileRange()) return SKILL_FAILED_RANGE;
 			pSkillHandler->execute(m_pBody, pEnemy);
 			break;
 		////////////////////////////////////////////////////////////
-		// Àå°Å¸® ±â¼úµé (with delay)
+		// ì¥ê±°ë¦¬ ê¸°ìˆ ë“¤ (with delay)
 		////////////////////////////////////////////////////////////
 		case SKILL_GREEN_POISON:
 		case SKILL_YELLOW_POISON:
@@ -898,7 +898,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 		case SKILL_ACID_STORM:
 		case SKILL_POISON_STORM:
 		case SKILL_HALLUCINATION:
-		// 2003.04.13-14 ¸ó½ºÅÍ°¡ »ç¿ëÇÒ ¼ö ÀÖµµ·Ï Ãß°¡.
+		// 2003.04.13-14 ëª¬ìŠ¤í„°ê°€ ì‚¬ìš©í•  ìˆ˜ ìˆë„ë¡ ì¶”ê°€.
 		case SKILL_METEOR_STRIKE:
 		case SKILL_BLOODY_WALL:
 		case SKILL_BLOODY_SNAKE:
@@ -912,7 +912,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 		case SKILL_ACID_ERUPTION:
 		case SKILL_ICE_FIELD:
 
-		// Áúµå·¹ ½ºÅ³
+		// ì§ˆë“œë ˆ ìŠ¤í‚¬
 		case SKILL_WIDE_ICE_FIELD:
 		case SKILL_GLACIER_1:
 		case SKILL_GLACIER_2:
@@ -940,19 +940,19 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 
 			if ( SkillType == SKILL_GUN_SHOT_GUIDANCE || SkillType == SKILL_ICE_LANCE || SkillType == SKILL_ICE_HAIL )
 			{
-				// ¹Ùº¸
+				// ë°”ë³´
 			}
 			else if (dist > pSkillInfo->getRange()) return SKILL_FAILED_RANGE;
 			//cout << "useSkill: " << pSkillInfo->getName().c_str() << endl;
 			pSkillHandler->execute(m_pBody, pEnemy);
 			//cout << "useSkillOK: " << pSkillInfo->getName().c_str() << endl;
 
-			// ¹Ì»çÀÏ ½î´Â ¼Óµµ°¡ ³Ê¹« ºü¸£±â ¶§¹®¿¡ Áö¿¬½Ã°£À» ¼¼ÆÃÇØ ÁØ´Ù.
+			// ë¯¸ì‚¬ì¼ ì˜ëŠ” ì†ë„ê°€ ë„ˆë¬´ ë¹ ë¥´ê¸° ë•Œë¬¸ì— ì§€ì—°ì‹œê°„ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
 			if (m_pBody->isMaster()
 				|| m_pBody->getMonsterType() == 599
 				|| m_pBody->getMonsterType() == 764
 				|| m_pBody->getMonsterType() == 765
-			)		// ¸¶½ºÅÍ´Â delay¸¦ Á» ÁÙÀÎ´Ù. by sigi. 2002.9.13
+			)		// ë§ˆìŠ¤í„°ëŠ” delayë¥¼ ì¢€ ì¤„ì¸ë‹¤. by sigi. 2002.9.13
 			{
 				delay.tv_sec  = 0;
 				delay.tv_usec = 700000;
@@ -971,7 +971,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			m_pBody->addAccuDelay(delay);
 			break;
 		////////////////////////////////////////////////////////////
-		// ¼¿ÇÁ ±â¼úµé
+		// ì…€í”„ ê¸°ìˆ ë“¤
 		////////////////////////////////////////////////////////////
 		case SKILL_HIDE:
 		case SKILL_UN_BURROW:
@@ -983,7 +983,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 		case SKILL_DUPLICATE_SELF:
 			pSkillHandler->execute(m_pBody);
 
-			// delay¼³Á¤
+			// delayì„¤ì •
 			delay.tv_sec  = 1;
 			delay.tv_usec = 500000;
 			m_pBody->addAccuDelay(delay);
@@ -994,7 +994,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			
 			pSkillHandler->execute(m_pBody);
 
-			// delay¼³Á¤
+			// delayì„¤ì •
 			delay.tv_sec  = 1;
 			delay.tv_usec = 500000;
 			m_pBody->addAccuDelay(delay);
@@ -1008,7 +1008,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			pSkillHandler->execute(m_pBody);
 			//cout << "useSkillOK: " << pSkillInfo->getName().c_str() << endl;
 
-			// delay¼³Á¤
+			// delayì„¤ì •
 			delay.tv_sec  = 1;
 			delay.tv_usec = 0;
 			m_pBody->addAccuDelay(delay);
@@ -1024,7 +1024,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 			pSkillHandler->execute(m_pBody);
 			//cout << "useSkillOK: " << pSkillInfo->getName().c_str() << endl;
 
-			// delay¼³Á¤
+			// delayì„¤ì •
 			delay.tv_sec  = 3;
 			delay.tv_usec = 0;
 			m_pBody->addAccuDelay(delay);
@@ -1053,7 +1053,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 
 
 		////////////////////////////////////////////////////////////
-		// Áö¿øµÇÁö ¾Ê´Â ±â¼ú
+		// ì§€ì›ë˜ì§€ ì•ŠëŠ” ê¸°ìˆ 
 		////////////////////////////////////////////////////////////
 		default:
 			cerr << "MonsterAI::useSkill() : Try to use unavailable skill!" << endl;
@@ -1070,7 +1070,7 @@ int MonsterAI::useSkill(Creature* pEnemy, SkillType_t SkillType, int ratio)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Çàµ¿ ÆĞÅÏ ¼±ÅÃ ÇÔ¼ö
+// í–‰ë™ íŒ¨í„´ ì„ íƒ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 
 void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
@@ -1080,26 +1080,26 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 
 	Assert(pEnemy != NULL);	// by sigi
 
-	// ´ÙÀÌ·ºÆ¼ºê ¸®½ºÆ®¸¦ ¾ò¾î³½´Ù.
+	// ë‹¤ì´ë ‰í‹°ë¸Œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ë‚¸ë‹¤.
 	const list<Directive*>& directiveList = m_pDirectiveSet->getDirectives();
 	int rValue = 0;
 	int parameter = 0;
 	int ratio = 0;
 
-	// ´ÙÀÌ·¢Æ¼ºê ¸®½ºÆ®¸¦ ÇÏ³ª¾¿ °Ë»öÇÏ¸é¼­,
-	// Á¶°ÇÀÌ ¸¸Á·µÇ´Â °ÍÀÌ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// ë‹¤ì´ë™í‹°ë¸Œ ë¦¬ìŠ¤íŠ¸ë¥¼ í•˜ë‚˜ì”© ê²€ìƒ‰í•˜ë©´ì„œ,
+	// ì¡°ê±´ì´ ë§Œì¡±ë˜ëŠ” ê²ƒì´ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 	list<Directive*>::const_iterator itr = directiveList.begin();
 	for (; itr != directiveList.end(); itr++)
 	{
 		Directive* pDirective = *itr;
 
-		// Á¶°ÇÀÌ ¸¸Á·ÇÏ´Â ´ÙÀÌ·ºÆ¼ºê°¡ ÀÖ´Ù¸é,
-		// ±×¿¡ ÇØ´çÇÏ´Â ¾×¼ÇÀ» ¼öÇàÇÑ´Ù.
+		// ì¡°ê±´ì´ ë§Œì¡±í•˜ëŠ” ë‹¤ì´ë ‰í‹°ë¸Œê°€ ìˆë‹¤ë©´,
+		// ê·¸ì— í•´ë‹¹í•˜ëŠ” ì•¡ì…˜ì„ ìˆ˜í–‰í•œë‹¤.
 		if (checkDirective(pDirective, pEnemy))
 		{
 			switch (pDirective->getAction())
 			{
-				// Àû¿¡°Ô ´Ù°¡°£´Ù.
+				// ì ì—ê²Œ ë‹¤ê°€ê°„ë‹¤.
 				case DIRECTIVE_ACTION_APPROACH:
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_APPROACH");
 					approach(pEnemy);
@@ -1107,12 +1107,12 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] approach" << endl;
 					break;
 
-				// ÀûÀ¸·ÎºÎÅÍ µµ¸ÁÄ£´Ù.
+				// ì ìœ¼ë¡œë¶€í„° ë„ë§ì¹œë‹¤.
 				case DIRECTIVE_ACTION_FLEE:
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_FLEE");
 					if (!flee(pEnemy))
 					{
-						setMoveRule( MOVE_RULE_NORMAL );	// Á¤»óÀûÀÎ ÀÌµ¿
+						setMoveRule( MOVE_RULE_NORMAL );	// ì •ìƒì ì¸ ì´ë™
 						rValue = useSkill(pEnemy, SKILL_ATTACK_MELEE, 100);
 						if (rValue != 0) approach(pEnemy);
 						//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] !free" << endl;
@@ -1124,10 +1124,10 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					__END_PROFILE_MONSTER("DIRECTIVE_ACTION_FLEE");
 					break;
 
-				// ½ºÅ³À» »ç¿ëÇÑ´Ù. ÀûÀ» °ø°İÇÏ°Å³ª, ¼¿ÇÁ ±â¼ú...
+				// ìŠ¤í‚¬ì„ ì‚¬ìš©í•œë‹¤. ì ì„ ê³µê²©í•˜ê±°ë‚˜, ì…€í”„ ê¸°ìˆ ...
 				case DIRECTIVE_ACTION_USE_SKILL:
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_USE_SKILL");
-					// Block Head °É·ÁÀÖÀ»¶§´Â ½ºÅ³À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+					// Block Head ê±¸ë ¤ìˆì„ë•ŒëŠ” ìŠ¤í‚¬ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 					if ( m_pBody->isFlag( Effect::EFFECT_CLASS_BLOCK_HEAD ) || m_pBody->isFlag( Effect::EFFECT_CLASS_TENDRIL ) ) continue;
 					parameter = pDirective->getParameter();
 					ratio     = pDirective->getRatio();
@@ -1143,29 +1143,29 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] " << SkillTypes2String[parameter] << endl;
 
 
-					setMoveRule( MOVE_RULE_NORMAL );	// Á¤»óÀûÀÎ ÀÌµ¿
+					setMoveRule( MOVE_RULE_NORMAL );	// ì •ìƒì ì¸ ì´ë™
 
 					break;
 				
-				// ÀûÀ» Æ÷±âÇÑ´Ù.
+				// ì ì„ í¬ê¸°í•œë‹¤.
 				case DIRECTIVE_ACTION_FORGET:
 					__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_FORGET");
 					// by sigi. 2002.10.7
 					if (!m_pBody->getEnemies().empty())
 						m_pBody->getEnemies().pop_front();
 
-					setMoveRule( MOVE_RULE_NORMAL );	// Á¤»óÀûÀÎ ÀÌµ¿
+					setMoveRule( MOVE_RULE_NORMAL );	// ì •ìƒì ì¸ ì´ë™
 					//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] forget" << endl;
 					__END_PROFILE_MONSTER("DIRECTIVE_ACTION_FORGET");
 
 					break;
 
-				// »õ·Î¿î PrimaryEnemy¸¦ Ã£¾Æ¼­ Ã¼Å©ÇÑ´Ù.
+				// ìƒˆë¡œìš´ PrimaryEnemyë¥¼ ì°¾ì•„ì„œ ì²´í¬í•œë‹¤.
 				case DIRECTIVE_ACTION_CHANGE_ENEMY :
 					{
 						ratio = pDirective->getParameter();
 
-						// ÀûÀ» ¾È ¹Ù²Û´Ù.
+						// ì ì„ ì•ˆ ë°”ê¾¼ë‹¤.
 						if (rand()%100 >= ratio)
 						{
 							//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] !changeEnemy" << endl;
@@ -1181,9 +1181,9 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 						}
 						else
 						{
-							// ¾ø´Ù¸é.. checkFindWeakEnemy¿¡¼­ deleteÇÏ°í 
-							// »õ·Î¿î ÀûÀÌ Ãß°¡°¡ µÇÁö ¾Ê¾Ò´Ù´Â ÀÇ¹ÌÀÌ´Ù.
-							// ±âÁ¸ÀÇ ÀûÀ» ´Ù½Ã Ãß°¡ÇÑ´Ù.
+							// ì—†ë‹¤ë©´.. checkFindWeakEnemyì—ì„œ deleteí•˜ê³  
+							// ìƒˆë¡œìš´ ì ì´ ì¶”ê°€ê°€ ë˜ì§€ ì•Šì•˜ë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤.
+							// ê¸°ì¡´ì˜ ì ì„ ë‹¤ì‹œ ì¶”ê°€í•œë‹¤.
 							// by sigi. 2002.10.7
 							if (m_pBody->getEnemies().empty())
 							{
@@ -1193,18 +1193,18 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 
 						__END_PROFILE_MONSTER("DIRECTIVE_ACTION_CHANGE_ENEMY");
 
-						// ´ÙÀ½ AI¸¦ °Ô¼Ó ÁøÇàÇÑ´Ù.
+						// ë‹¤ìŒ AIë¥¼ ê²Œì† ì§„í–‰í•œë‹¤.
 						//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] changeEnemy" << endl;
 						continue;
 					}
 					break;
 
-				// ±ÙÃ³ÀÇ ¾îµò°¡·Î ÀÌµ¿ÇÑ´Ù.
+				// ê·¼ì²˜ì˜ ì–´ë”˜ê°€ë¡œ ì´ë™í•œë‹¤.
 				case DIRECTIVE_ACTION_MOVE_RANDOM :
 					{
 						ratio = pDirective->getParameter();
 
-						// ¾îµò°¡·Î ÀÌµ¿ÇÏÁö ¾Ê´Â´Ù.
+						// ì–´ë”˜ê°€ë¡œ ì´ë™í•˜ì§€ ì•ŠëŠ”ë‹¤.
 						if (rand()%100 >= ratio)
 						{
 							//cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] !moveRandom" << endl;
@@ -1224,7 +1224,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 
 						__END_PROFILE_MONSTER("DIRECTIVE_ACTION_MOVE_RANDOM_GET_SAFE_TILE");
 
-						// ÀÚ¸®°¡ ¾ø´Ù¸é.. °Á Æ÷±â - -;
+						// ìë¦¬ê°€ ì—†ë‹¤ë©´.. ê± í¬ê¸° - -;
 						if (p.x==-1)
 						{
 							///cout << "[" << (int)currentTime.tv_sec << "." << (int)currentTime.tv_usec << "] moveRandom : no position" << endl;
@@ -1244,7 +1244,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 					}
 					break;
 
-				// Àá½Ã ´ë±âÇÑ´Ù.
+				// ì ì‹œ ëŒ€ê¸°í•œë‹¤.
 				case DIRECTIVE_ACTION_WAIT :
 					{
 						__BEGIN_PROFILE_MONSTER("DIRECTIVE_ACTION_WAIT");
@@ -1306,7 +1306,7 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 
 	__BEGIN_PROFILE_MONSTER("MAI_POST_DEAL");
 
-	// ÀÌ¹ø ÅÏ¿¡ ¾î¶² Çàµ¿À» Çß´À³Ä¿¡ µû¶ó Çàµ¿ Áö¿¬ ½Ã°£À» ¼¼ÆÃÇØÁØ´Ù.
+	// ì´ë²ˆ í„´ì— ì–´ë–¤ í–‰ë™ì„ í–ˆëŠëƒì— ë”°ë¼ í–‰ë™ ì§€ì—° ì‹œê°„ì„ ì„¸íŒ…í•´ì¤€ë‹¤.
 	switch (m_LastAction)
 	{
 		case LAST_ACTION_NONE:
@@ -1318,10 +1318,10 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 			break;
 	}
 
-	// Çàµ¿ º¯¼ö¸¦ »õ·Î ¼¼ÆÃÇØ ÁØ´Ù.
+	// í–‰ë™ ë³€ìˆ˜ë¥¼ ìƒˆë¡œ ì„¸íŒ…í•´ ì¤€ë‹¤.
 	m_LastAction = LAST_ACTION_NONE;
 	
-	// µµ¸Á¿¡ °üÇÑ º¯¼ö¸¦ È®·üÀûÀ¸·Î »õ·Î ¼¼ÆÃÇØÁØ´Ù.
+	// ë„ë§ì— ê´€í•œ ë³€ìˆ˜ë¥¼ í™•ë¥ ì ìœ¼ë¡œ ìƒˆë¡œ ì„¸íŒ…í•´ì¤€ë‹¤.
 	if ((rand() & 0x0000007F) > 64)	//%100 > 50)
 	{
 		if (m_bDamaged)
@@ -1337,22 +1337,22 @@ void MonsterAI::deal(Creature* pEnemy, const Timeval& currentTime)
 	__END_CATCH
 }
 
-// Á×À» ¶§ÀÇ Çàµ¿À» ÃëÇÑ´Ù.
+// ì£½ì„ ë•Œì˜ í–‰ë™ì„ ì·¨í•œë‹¤.
 void MonsterAI::actDeadAction(Creature* pEnemy) 
 	
 {
 	__BEGIN_TRY
 
-	// MonsterAIÀÇ ÇÑ°è·Î ÀÎÇØ,
-	// ÀûÀÌ ¾øÀ» °æ¿ì¿¡ ÇàÇÒ ¼ö ÀÖ´Â ¾×¼Ç¿¡´Â ÇÑ°è°¡ ÀÖ´Ù.
+	// MonsterAIì˜ í•œê³„ë¡œ ì¸í•´,
+	// ì ì´ ì—†ì„ ê²½ìš°ì— í–‰í•  ìˆ˜ ìˆëŠ” ì•¡ì…˜ì—ëŠ” í•œê³„ê°€ ìˆë‹¤.
 	if (pEnemy != NULL)
 	{
-		// ´ÙÀÌ·ºÆ¼ºê ¸®½ºÆ®¸¦ ¾ò¾î³½´Ù.
+		// ë‹¤ì´ë ‰í‹°ë¸Œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ë‚¸ë‹¤.
 		const list<Directive*>& directiveList = m_pDirectiveSet->getDeadDirectives();
 		bool bContinue = true;
 
-		// ´ÙÀÌ·¢Æ¼ºê ¸®½ºÆ®¸¦ ÇÏ³ª¾¿ °Ë»öÇÏ¸é¼­,
-		// Á¶°ÇÀÌ ¸¸Á·µÇ´Â °ÍÀÌ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù.
+		// ë‹¤ì´ë™í‹°ë¸Œ ë¦¬ìŠ¤íŠ¸ë¥¼ í•˜ë‚˜ì”© ê²€ìƒ‰í•˜ë©´ì„œ,
+		// ì¡°ê±´ì´ ë§Œì¡±ë˜ëŠ” ê²ƒì´ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤.
 		list<Directive*>::const_iterator itr = directiveList.begin();
 		for (; itr != directiveList.end() && bContinue; itr++)
 		{
@@ -1385,7 +1385,7 @@ void MonsterAI::actDeadAction(Creature* pEnemy)
 				}
 				else
 				{
-					// ±â¼ú »ç¿ëÀÌ È®·ü Ã¼Å©·Î ÀÎÇØ ½ÇÆĞÇß´Ù¸é ´ÙÀ½ ¾×¼ÇÀ¸·Î ³Ñ¾î°£´Ù.
+					// ê¸°ìˆ  ì‚¬ìš©ì´ í™•ë¥  ì²´í¬ë¡œ ì¸í•´ ì‹¤íŒ¨í–ˆë‹¤ë©´ ë‹¤ìŒ ì•¡ì…˜ìœ¼ë¡œ ë„˜ì–´ê°„ë‹¤.
 					continue;
 				}
 			}
@@ -1409,7 +1409,7 @@ void MonsterAI::setDelay(const Timeval& currentTime)
 {
 	__BEGIN_TRY
 
-	// ±âÁ¸¿¡ ±¸ÇÑ ½Ã°£À» ÀÌ¿ëÇÑ´Ù. °è»ê ÁÙÀÏ·Á°í. - -; by sigi. 2002.5.6
+	// ê¸°ì¡´ì— êµ¬í•œ ì‹œê°„ì„ ì´ìš©í•œë‹¤. ê³„ì‚° ì¤„ì¼ë ¤ê³ . - -; by sigi. 2002.5.6
 	//Timeval currentTime;
 	//getCurrentTime(currentTime);
 
@@ -1477,7 +1477,7 @@ void MonsterAI::setAttackDelay(const Timeval& currentTime)
 {
 	__BEGIN_TRY
 
-	// ±âÁ¸¿¡ ±¸ÇÑ ½Ã°£À» ÀÌ¿ëÇÑ´Ù. °è»ê ÁÙÀÏ·Á°í. - -; by sigi. 2002.5.6
+	// ê¸°ì¡´ì— êµ¬í•œ ì‹œê°„ì„ ì´ìš©í•œë‹¤. ê³„ì‚° ì¤„ì¼ë ¤ê³ . - -; by sigi. 2002.5.6
 	//Timeval currentTime;
 	//getCurrentTime(currentTime);
 
@@ -1805,20 +1805,20 @@ bool checkTimingBloodDrain(Monster* pMonster, Creature* pEnemy)
 {
 	Assert(pMonster != NULL);
 
-	// ¸ó½ºÅÍ°¡ slayer°¡ ¾Æ´Ï¶óµµ ÈíÇ÷ÇÏ°Ô ¼öÁ¤. by sigi. 2002.9.14
+	// ëª¬ìŠ¤í„°ê°€ slayerê°€ ì•„ë‹ˆë¼ë„ í¡í˜ˆí•˜ê²Œ ìˆ˜ì •. by sigi. 2002.9.14
 	if (pEnemy == NULL
-		// Slayer°¡ ¾Æ´Ï¸é ÈíÇ÷ÇÏÁö ¾Ê´Â´Ù.
+		// Slayerê°€ ì•„ë‹ˆë©´ í¡í˜ˆí•˜ì§€ ì•ŠëŠ”ë‹¤.
 		|| pEnemy->isNPC()
-		// ÀÌ¹Ì ÈíÇ÷´çÇßÀ¸¸é ÈíÇ÷ÇÏÁö ¾Ê´Â´Ù.
+		// ì´ë¯¸ í¡í˜ˆë‹¹í–ˆìœ¼ë©´ í¡í˜ˆí•˜ì§€ ì•ŠëŠ”ë‹¤.
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)
-		// ¹«Àû. ÈíÇ÷ ¸é¿ª. by sigi. 2002.9.14
+		// ë¬´ì . í¡í˜ˆ ë©´ì—­. by sigi. 2002.9.14
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN)) 
 	{
 		return false;
 	}
 
-	// ÈíÇ÷°Å¸®°¡ µÇ´ÂÁö È®ÀÎÇÑ´Ù.
+	// í¡í˜ˆê±°ë¦¬ê°€ ë˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
 	Distance_t dist = pMonster->getDistance(pEnemy->getX(), pEnemy->getY());
 	if (dist > pMonster->getMeleeRange()) return false;
 
@@ -1850,18 +1850,18 @@ bool checkTimingBloodDrain(Monster* pMonster, Creature* pEnemy)
 		EnemyMaxHP = pMonster->getHP(ATTR_MAX);
 	}
 
-	// HP°¡ 1/5ÀÌ»ó ³²¾ÒÀ¸¸é ÈíÇ÷ÇÏÁö ¾Ê´Â´Ù.
+	// HPê°€ 1/5ì´ìƒ ë‚¨ì•˜ìœ¼ë©´ í¡í˜ˆí•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (EnemyCurHP*5 >= EnemyMaxHP) return false;
 
-	// ¸¶Ä§³»... ÈíÇ÷ÇÑ´Ù~
+	// ë§ˆì¹¨ë‚´... í¡í˜ˆí•œë‹¤~
 	return true;
 
 }
 
 bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 {
-	// 20% Ã¼Å©
-	// °è»ê ÀÚÃ¼°¡ ºı½Ã¹Ç·Î..
+	// 20% ì²´í¬
+	// ê³„ì‚° ìì²´ê°€ ë¹¡ì‹œë¯€ë¡œ..
 	//if (rand()%100 > 10)
 	//	return false;
 
@@ -1880,7 +1880,7 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 
 	int masterHPPercent = pMonster->getHP(ATTR_CURRENT)*100/pMonster->getHP(ATTR_MAX);
 
-	// ÈíÇ÷ È®·ü
+	// í¡í˜ˆ í™•ë¥ 
 	//int startHPPercent 	= 70,	startBDPercent 	= 10;
 	//int endHPPercent 	= 30, 	endBDPercent 	= 30;
 	int startHPPercent 	= g_pVariableManager->getMasterBloodDrainStartHP();
@@ -1888,19 +1888,19 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 	int endHPPercent 	= g_pVariableManager->getMasterBloodDrainEndHP();	
 	int endBDPercent 	= g_pVariableManager->getMasterBloodDrainEndBD();
 
-	// HP°¡ 70% ÀÌ»óÀÌ¸é ÈíÇ÷ÇÏÁö ¾Ê´Â´Ù.
+	// HPê°€ 70% ì´ìƒì´ë©´ í¡í˜ˆí•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (masterHPPercent >= startHPPercent)
 		return false;
 
 	int ratio = rand()%100;
 
-	// HP°¡ 30% ÀÌÇÏÀÌ¸é.. 30%ÀÇ È®·ü·Î ÈíÇ÷ÇÑ´Ù.
+	// HPê°€ 30% ì´í•˜ì´ë©´.. 30%ì˜ í™•ë¥ ë¡œ í¡í˜ˆí•œë‹¤.
 	if (masterHPPercent <= endHPPercent)
 	{
 		return ratio < endBDPercent;
 	}
 
-	// HP°¡ 30~70%ÀÌ¸é 10~30%ÀÇ È®·ü·Î ÈíÇ÷ÇÑ´Ù.
+	// HPê°€ 30~70%ì´ë©´ 10~30%ì˜ í™•ë¥ ë¡œ í¡í˜ˆí•œë‹¤.
 	int maxBDPercent = max( startBDPercent, endBDPercent );
 	int gapHPPercent = startHPPercent - endHPPercent;
 	int gapBDPercent = abs( endBDPercent - startBDPercent );
@@ -1917,13 +1917,13 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 	}
 	*/
 
-	// ¾Æ¹«³ª ÈíÇ÷ÇÒ ¼ö ÀÖÀ¸¹Ç·Î.. - -;
+	// ì•„ë¬´ë‚˜ í¡í˜ˆí•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ.. - -;
 	//return true;
 
 	/*
 	int x = pEnemy->getX();
 	int y = pEnemy->getY();
-	int Splash = 30; // ±×³É 30¸¶¸®¸¸ Ã¼Å©ÇÑ´Ù.
+	int Splash = 30; // ê·¸ëƒ¥ 30ë§ˆë¦¬ë§Œ ì²´í¬í•œë‹¤.
 	int range = 3; // 7x7   //5;	// 11x11
 	list<Creature*> creatureList;
 	getSplashVictims(pMonster->getZone(), x, y, Creature::CREATURE_CLASS_MAX, creatureList, Splash, range);
@@ -1936,9 +1936,9 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 	
 		if (pMonster!=pTargetCreature
 			&& pTargetCreature->isNPC()
-			// ÀÌ¹Ì ÈíÇ÷´çÇßÀ¸¸é ÈíÇ÷ÇÏÁö ¾Ê´Â´Ù. ¸¶½ºÅÍ°¡ ÀÌ·±°Å µûÁö°Ú³ª ½Í¾î¼­ »¯´Ù.
+			// ì´ë¯¸ í¡í˜ˆë‹¹í–ˆìœ¼ë©´ í¡í˜ˆí•˜ì§€ ì•ŠëŠ”ë‹¤. ë§ˆìŠ¤í„°ê°€ ì´ëŸ°ê±° ë”°ì§€ê² ë‚˜ ì‹¶ì–´ì„œ ëºë‹¤.
 			//&& pTargetCreature->isFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN)
-			// ¹«Àû. ÈíÇ÷ ¸é¿ª. by sigi. 2002.9.14
+			// ë¬´ì . í¡í˜ˆ ë©´ì—­. by sigi. 2002.9.14
 			&& pTargetCreature->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
 			&& pTargetCreature->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_BLOOD_DRAIN)) 
 		{
@@ -1964,7 +1964,7 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 				EnemyMaxHP = pMonster->getHP(ATTR_MAX);
 			}
 	
-			// Ã¼·Â 50% ¹Ì¸¸Àº ÈíÇ÷´çÇÑ´Ù
+			// ì²´ë ¥ 50% ë¯¸ë§Œì€ í¡í˜ˆë‹¹í•œë‹¤
 			if (EnemyCurHP*2 < EnemyMaxHP) 
 				return true;
 		}
@@ -1980,9 +1980,9 @@ bool checkTimingMasterBloodDrain(Monster* pMonster, Creature* pEnemy)
 // bool checkMasterSummonTiming(Monster* pMonster, Creature* pEnemy)
 //
 //----------------------------------------------------------------------
-// ¼ÒÈ¯ ±â¼úÀ» ¾²°Ô ÇÒ·Á°í ÇÏ´Âµ¥..
-// ÇöÀç Á¸ÀÌ ¸¶½ºÅÍ ·¹¾îÀÌ°í.. 
-// ´Ù¸¥ ¸÷ÀÌ ¾ø¾î¾ß ÇÑ´Ù.
+// ì†Œí™˜ ê¸°ìˆ ì„ ì“°ê²Œ í• ë ¤ê³  í•˜ëŠ”ë°..
+// í˜„ì¬ ì¡´ì´ ë§ˆìŠ¤í„° ë ˆì–´ì´ê³ .. 
+// ë‹¤ë¥¸ ëª¹ì´ ì—†ì–´ì•¼ í•œë‹¤.
 //----------------------------------------------------------------------
 bool checkMasterSummonTiming(Monster* pMonster, Creature* pEnemy)
 {
@@ -1990,7 +1990,7 @@ bool checkMasterSummonTiming(Monster* pMonster, Creature* pEnemy)
 
 	Assert(pMonster != NULL);
 
-	// ¸¶½ºÅÍ°¡ ¾Æ´Ï¸é ¼Ò¿ë¾ø´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë©´ ì†Œìš©ì—†ë‹¤.
 	if (!pMonster->isMaster())
 		//|| !pMonster->hasNextMonsterSummonInfo())
 	{
@@ -1998,11 +1998,11 @@ bool checkMasterSummonTiming(Monster* pMonster, Creature* pEnemy)
 		return false;
 	}
 
-	// ¸¶½ºÅÍ°¡ ÀÖ´Â Á¸ÀÌ ¸¶½ºÅÍ·¹¾îÀÎÁö È®ÀÎÇÑ´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ìˆëŠ” ì¡´ì´ ë§ˆìŠ¤í„°ë ˆì–´ì¸ì§€ í™•ì¸í•œë‹¤.
 	Zone* pZone = pMonster->getZone();
 	Assert(pZone!=NULL);
 
-	// ¸¶½ºÅÍ ·¹¾î°¡ ¾Æ´Ï¸é ÀÇ¹Ì¾ø´Ù.
+	// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì•„ë‹ˆë©´ ì˜ë¯¸ì—†ë‹¤.
 	if (!pZone->isMasterLair())
 	{
 		//cout << "not MasterLair" << endl;
@@ -2012,8 +2012,8 @@ bool checkMasterSummonTiming(Monster* pMonster, Creature* pEnemy)
 	MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
 	Assert(pMasterLairManager!=NULL);
 
-	// ¾ÆÁ÷ ¸¶½ºÅÍ°¡ ½Î¿ì´Â »óÅÂ°¡ ¾Æ´Ï°í
-	// Á¸¿¡ ¸¶½ºÅÍ ÀÌ¿ÜÀÇ ¸ó½ºÅÍ°¡ ¾ø´Â °æ¿ì ¼ÒÈ¯ÇÒ ¼ö ÀÖ´Ù.
+	// ì•„ì§ ë§ˆìŠ¤í„°ê°€ ì‹¸ìš°ëŠ” ìƒíƒœê°€ ì•„ë‹ˆê³ 
+	// ì¡´ì— ë§ˆìŠ¤í„° ì´ì™¸ì˜ ëª¬ìŠ¤í„°ê°€ ì—†ëŠ” ê²½ìš° ì†Œí™˜í•  ìˆ˜ ìˆë‹¤.
 	bool bSummonTiming = !pMasterLairManager->isMasterReady() && 
 						pZone->getMonsterManager()->getSize() <= 1;
 
@@ -2036,17 +2036,17 @@ bool checkMasterNotReady(Monster* pMonster, Creature* pEnemy)
 {
 	Assert(pMonster != NULL);
 
-	// ¸¶½ºÅÍ°¡ ¾Æ´Ï¸é ¼Ò¿ë¾ø´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë©´ ì†Œìš©ì—†ë‹¤.
 	if (!pMonster->isMaster())
 	{
 		return false;
 	}
 
-	// ¸¶½ºÅÍ°¡ ÀÖ´Â Á¸ÀÌ ¸¶½ºÅÍ·¹¾îÀÎÁö È®ÀÎÇÑ´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ìˆëŠ” ì¡´ì´ ë§ˆìŠ¤í„°ë ˆì–´ì¸ì§€ í™•ì¸í•œë‹¤.
 	Zone* pZone = pMonster->getZone();
 	Assert(pZone!=NULL);
 
-	// ¸¶½ºÅÍ ·¹¾î°¡ ¾Æ´Ï¸é ÀÇ¹Ì¾ø´Ù.
+	// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì•„ë‹ˆë©´ ì˜ë¯¸ì—†ë‹¤.
 	if (!pZone->isMasterLair())
 	{
 		return false;
@@ -2055,8 +2055,8 @@ bool checkMasterNotReady(Monster* pMonster, Creature* pEnemy)
 	MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
 	Assert(pMasterLairManager!=NULL);
 
-	// ¾ÆÁ÷ ¸¶½ºÅÍ°¡ ½Î¿ì´Â »óÅÂ°¡ ¾Æ´Ï°í
-	// Á¸¿¡ ¸¶½ºÅÍ ÀÌ¿ÜÀÇ ¸ó½ºÅÍ°¡ ¾ø´Â °æ¿ì ¼ÒÈ¯ÇÒ ¼ö ÀÖ´Ù.
+	// ì•„ì§ ë§ˆìŠ¤í„°ê°€ ì‹¸ìš°ëŠ” ìƒíƒœê°€ ì•„ë‹ˆê³ 
+	// ì¡´ì— ë§ˆìŠ¤í„° ì´ì™¸ì˜ ëª¬ìŠ¤í„°ê°€ ì—†ëŠ” ê²½ìš° ì†Œí™˜í•  ìˆ˜ ìˆë‹¤.
 	return !pMasterLairManager->isMasterReady();
 }
 
@@ -2065,9 +2065,9 @@ bool checkMasterNotReady(Monster* pMonster, Creature* pEnemy)
 // bool checkImInBadPosition(Monster* pMonster, Creature* pEnemy)
 //
 //----------------------------------------------------------------------
-// ÇöÀç À§Ä¡°¡ ¾È ÁÁÀº °÷ÀÎ°¡?
+// í˜„ì¬ ìœ„ì¹˜ê°€ ì•ˆ ì¢‹ì€ ê³³ì¸ê°€?
 //
-// pMonster°¡ ÀÖ´Â Å¸ÀÏ¿¡ AcidSwampÀÌ »Ñ·ÁÁ® ÀÖ´Â °æ¿ì
+// pMonsterê°€ ìˆëŠ” íƒ€ì¼ì— AcidSwampì´ ë¿Œë ¤ì ¸ ìˆëŠ” ê²½ìš°
 //----------------------------------------------------------------------
 bool checkImInBadPosition(Monster* pMonster, Creature* pEnemy)
 {
@@ -2078,10 +2078,10 @@ bool checkImInBadPosition(Monster* pMonster, Creature* pEnemy)
 
 	Tile& rTile = pZone->getTile( pMonster->getX(), pMonster->getY() );
 
-	// ¹«Àû »óÅÂ°¡ ¾Æ´Ï°í
+	// ë¬´ì  ìƒíƒœê°€ ì•„ë‹ˆê³ 
 	if (!pMonster->isFlag(Effect::EFFECT_CLASS_NO_DAMAGE)
 
-			// Acid ¸é¿ªÀÌ ¾Æ´Ï°í ¹Ù´Ú¿¡ AcidSwapÀÌ ±ò·ÁÀÖ´Ù¸é ¾È ÁÁÁö. - -;
+			// Acid ë©´ì—­ì´ ì•„ë‹ˆê³  ë°”ë‹¥ì— AcidSwapì´ ê¹”ë ¤ìˆë‹¤ë©´ ì•ˆ ì¢‹ì§€. - -;
 		&& (!pMonster->isFlag(Effect::EFFECT_CLASS_IMMUNE_TO_ACID)
 				&& rTile.getEffect(Effect::EFFECT_CLASS_ACID_SWAMP)!=NULL
 
@@ -2100,14 +2100,14 @@ bool checkImInBadPosition(Monster* pMonster, Creature* pEnemy)
 // bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 //
 //----------------------------------------------------------------------
-// ´õ ¾àÇÑ ÀûÀ» Ã£À» ¼ö ÀÖ³ª?
+// ë” ì•½í•œ ì ì„ ì°¾ì„ ìˆ˜ ìˆë‚˜?
 //
-// pEnemyÀÇ HP°¡ 100ÀÌ»óÀÌ°í HP percentage°¡ 60% ÀÌ»óÀÌ¶ó¸é 
-// ´Ù¸¥ ¾àÇÑ ÀûÀ» ÇÔ Ã£¾Æº»´Ù.
+// pEnemyì˜ HPê°€ 100ì´ìƒì´ê³  HP percentageê°€ 60% ì´ìƒì´ë¼ë©´ 
+// ë‹¤ë¥¸ ì•½í•œ ì ì„ í•¨ ì°¾ì•„ë³¸ë‹¤.
 //----------------------------------------------------------------------
 bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 {
-	// ÀÏ´Ü
+	// ì¼ë‹¨
 	//return false;
 
 	try
@@ -2123,11 +2123,11 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 
 		if (strongValue==0) return false;
 
-		// ÇöÀç ÀûÀº Á» ½ê´Ù..¶ó°í ÆÇ´ÜÀ» ÇÏ°í. --;
-		// »õ·Î¿î ¾àÇÑ ÀûÀ» Ã£´Â´Ù.
+		// í˜„ì¬ ì ì€ ì¢€ ì„ë‹¤..ë¼ê³  íŒë‹¨ì„ í•˜ê³ . --;
+		// ìƒˆë¡œìš´ ì•½í•œ ì ì„ ì°¾ëŠ”ë‹¤.
 		Creature* pWeakestCreature = NULL;
 
-		// ÁÖÀ§ °Ë»ö
+		// ì£¼ìœ„ ê²€ìƒ‰
 		ZoneCoord_t cx = pMonster->getX();
 		ZoneCoord_t cy = pMonster->getY();;
 		ZoneCoord_t ix = 0;
@@ -2135,7 +2135,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 		ZoneCoord_t endx = 0;
 		ZoneCoord_t endy = 0;
 
-		// ¸ó½ºÅÍ ½Ã¾ß ¹üÀ§¿¡¼­ Ã£´Â´Ù.
+		// ëª¬ìŠ¤í„° ì‹œì•¼ ë²”ìœ„ì—ì„œ ì°¾ëŠ”ë‹¤.
 		Sight_t sight = pMonster->getSight();	
 
 		endx = min(pZone->getWidth() - 1, cx + sight + 1);
@@ -2147,7 +2147,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 			{
 				Tile& rTile = pZone->getTile(ix, iy);
 
-				// Å¸ÀÏ¿¡ Å©¸®Ã³°¡ ÀÖ´Â °æ¿ì¿¡¸¸
+				// íƒ€ì¼ì— í¬ë¦¬ì²˜ê°€ ìˆëŠ” ê²½ìš°ì—ë§Œ
 				if (rTile.hasCreature()) 
 				{
 					const forward_list<Object*> & objectList = rTile.getObjectList();
@@ -2159,8 +2159,8 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 						Creature* pCreature = dynamic_cast<Creature*>(*itr);		
 						Assert(pCreature != NULL);
 
-						// pMonster, pEnemy°¡ ¾Æ´Ï¶ó¸é..
-						// Player¶ó¸é °ø°İÇÏ°Ô µÈ´Ù.
+						// pMonster, pEnemyê°€ ì•„ë‹ˆë¼ë©´..
+						// Playerë¼ë©´ ê³µê²©í•˜ê²Œ ëœë‹¤.
 						if (pCreature != pMonster 
 							&& pCreature != pEnemy
 							&& pCreature->isPC()
@@ -2168,7 +2168,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 						{
 							int checkStrongValue = getStrongValue( pCreature );
 
-							// ´õ ¾àÇÑ³ÑÀ» pWeakestCreature·Î ÀÓ¸í~ÇÑ´Ù
+							// ë” ì•½í•œë„˜ì„ pWeakestCreatureë¡œ ì„ëª…~í•œë‹¤
 							if (checkStrongValue < strongValue)
 							{
 								pWeakestCreature = pCreature;
@@ -2180,7 +2180,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 			}
 		}
 
-		// Á© ¾àÇÑ³ÑÀ» Ã£Àº °æ¿ì..
+		// ì ¤ ì•½í•œë„˜ì„ ì°¾ì€ ê²½ìš°..
 		if (pWeakestCreature!=NULL)
 		{
 			pMonster->deleteAllEnemy();
@@ -2193,7 +2193,7 @@ bool checkFindWeakEnemy(Monster* pMonster, Creature* pEnemy)
 		}
 
 	} catch (Throwable& t) {
-		// ¸ğµç exceptionÀ» ¹«½ÃÇÑ´Ù.
+		// ëª¨ë“  exceptionì„ ë¬´ì‹œí•œë‹¤.
 		filelog("monsterAIBug.txt", "%s", t.toString().c_str());
 	}
 
@@ -2213,18 +2213,18 @@ bool checkTimingDuplicateSelf(Monster* pMonster, Creature* pEnemy)
 {
 	Assert(pMonster != NULL);
 
-	// ¸¶½ºÅÍ°¡ ¾Æ´Ï¸é ¼Ò¿ë¾ø´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë©´ ì†Œìš©ì—†ë‹¤.
 	if (!pMonster->isMaster())
 	{
 		return false;
 	}
 
-	// ¸¶½ºÅÍ°¡ ÀÖ´Â Á¸ÀÌ ¸¶½ºÅÍ·¹¾îÀÎÁö È®ÀÎÇÑ´Ù.
+	// ë§ˆìŠ¤í„°ê°€ ìˆëŠ” ì¡´ì´ ë§ˆìŠ¤í„°ë ˆì–´ì¸ì§€ í™•ì¸í•œë‹¤.
 	Zone* pZone = pMonster->getZone();
 	Assert(pZone!=NULL);
 
 	/*
-	// ¸¶½ºÅÍ ·¹¾î°¡ ¾Æ´Ï¸é ÀÇ¹Ì¾ø´Ù.
+	// ë§ˆìŠ¤í„° ë ˆì–´ê°€ ì•„ë‹ˆë©´ ì˜ë¯¸ì—†ë‹¤.
 	if (!pZone->isMasterLair())
 	{
 		return false;
@@ -2234,13 +2234,13 @@ bool checkTimingDuplicateSelf(Monster* pMonster, Creature* pEnemy)
 	HP_t currentHP = pMonster->getHP(ATTR_CURRENT);
 	HP_t maxHP = pMonster->getHP(ATTR_MAX);
 
-	// HP°¡ 70%°¡ ³ÑÀ¸¸é »ç¿ë¾ÈÇÑ´Ù.
+	// HPê°€ 70%ê°€ ë„˜ìœ¼ë©´ ì‚¬ìš©ì•ˆí•œë‹¤.
 	if (currentHP*100/maxHP > 70)
 	{
 		return false;
 	}
 
-	// 12¸¶¸® ÀÌ»óÀÌ¸é ´õ ¼ÒÈ¯ ¾ÈÇÑ´Ù.
+	// 12ë§ˆë¦¬ ì´ìƒì´ë©´ ë” ì†Œí™˜ ì•ˆí•œë‹¤.
 	if (pZone->getMonsterManager()->getSize() > 12)
 	{
 		return false;
@@ -2254,7 +2254,7 @@ bool checkTimingDuplicateSelf(Monster* pMonster, Creature* pEnemy)
 // bool checkPossibleSummonMonsters(Monster* pMonster, Creature* pEnemy)
 //
 //----------------------------------------------------------------------
-// ¼ÒÈ¯ ±â¼úÀ» ¾²°Ô ÇÒ·Á°í ÇÏ´Âµ¥..
+// ì†Œí™˜ ê¸°ìˆ ì„ ì“°ê²Œ í• ë ¤ê³  í•˜ëŠ”ë°..
 //----------------------------------------------------------------------
 bool checkPossibleSummonMonsters(Monster* pMonster, Creature* pEnemy)
 {

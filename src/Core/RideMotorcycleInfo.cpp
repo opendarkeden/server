@@ -25,22 +25,18 @@ RideMotorcycleInfo::RideMotorcycleInfo ()
 //////////////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////////////
-RideMotorcycleInfo::~RideMotorcycleInfo () 
+RideMotorcycleInfo::~RideMotorcycleInfo () noexcept
 {
-	__BEGIN_TRY
-
 	while ( !m_RideMotorcycleSlotInfoList.empty() ) 
 	{
 		RideMotorcycleSlotInfo * pRideMotorcycleSlotInfo = m_RideMotorcycleSlotInfoList.front();
 		SAFE_DELETE(pRideMotorcycleSlotInfo);
 		m_RideMotorcycleSlotInfoList.pop_front();
 	}
-
-	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 void RideMotorcycleInfo::read ( SocketInputStream & iStream ) 
 {
@@ -73,7 +69,7 @@ void RideMotorcycleInfo::read ( SocketInputStream & iStream )
 }
 		    
 //////////////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 void RideMotorcycleInfo::write ( SocketOutputStream & oStream ) 
      const

@@ -34,7 +34,7 @@ void SGAddGuildOKHandler::execute (SGAddGuildOK* pPacket )
 
 #ifdef __GAME_SERVER__
 
-	// 길드 object 를 만든다
+	// Allocate a new guild object
 	Guild* pGuild = new Guild();
 	pGuild->setID(pPacket->getGuildID());
 	pGuild->setName(pPacket->getGuildName());
@@ -45,10 +45,10 @@ void SGAddGuildOKHandler::execute (SGAddGuildOK* pPacket )
 	pGuild->setMaster(pPacket->getGuildMaster());
 	pGuild->setIntro(pPacket->getGuildIntro());
 
-	// 길드 매니저에 추가한다
+	// Add to guild manager
 	g_pGuildManager->addGuild(pGuild);
 
-	// 길드 마스터에게 메시지를 보낸다.
+	// Notify guild master if online
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	Creature* pCreature = g_pPCFinder->getCreature_LOCKED(pGuild->getMaster());

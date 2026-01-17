@@ -149,12 +149,12 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPlayer);
 
-	// ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÏ¹Ç·Î GC- ÆÐÅ¶À» »ç¿ëÇØ¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¹Ç·ï¿½ GC- ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	GCSay gcSay;
 	
 	Creature* pCreature = pGamePlayer->getCreature();
 
-	// Å©¸®Ã³ ÀÌ¸§°ú ¸Þ½ÃÁö¸¦ ÆÐÅ¶¿¡ ´ëÀÔÇÑ´Ù.
+	// Å©ï¿½ï¿½Ã³ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	gcSay.setObjectID(pCreature->getObjectID());	
 	gcSay.setColor( pPacket->getColor() );
 
@@ -170,7 +170,7 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 	{
 		Success = false;
 
-		// ±æµå¿ë ÀÓ½Ã ¸í·Éµé
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½Éµï¿½
 		if ( msg.substr(i+1, 4) == "zone" && pCreature->isGOD() )
 		{
 			opzone( msg, i );
@@ -180,26 +180,26 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 			opguild( msg, i, pCreature );
 		}
 		/////////////////////
-		// world¸í·É¾î´Â µµ¿ì¹Ì ÄÉ¸¯ÅÍµµ ¾µ ¼ö ÀÖ´Ù.
+		// worldï¿½ï¿½ï¿½É¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½Íµï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 		if (msg.substr(i+1 , 5) == "world" && pCreature->isGOD() )
 		{
-			// ÇöÀç ¼­¹ö	
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
 			size_t j = msg.find_first_of(' ' , i+1);
 			string command = msg.substr(j+1, msg.size()-j-1).c_str();
 			size_t k = command.find_first_of('*', 0);
 			opExecute(pCreature, pGamePlayer, command, k);
 
-			// ´Ù¸¥ server¿¡µµ º¸³½´Ù. bSameWorldOnly==true
+			// ï¿½Ù¸ï¿½ serverï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. bSameWorldOnly==true
 			opworld(pGamePlayer, msg, i, true);
 		}
 		else if (msg.substr(i+1 , 8) == "allworld" && pCreature->isGOD()) {
-			// ÇöÀç ¼­¹ö	
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½	
 			size_t j = msg.find_first_of(' ' , i+1);
 			string command = msg.substr(j+1, msg.size()-j-1).c_str();
 			size_t k = command.find_first_of('*', 0);
 			opExecute(pCreature, pGamePlayer, command, k);
 
-			// ´Ù¸¥ server¿¡µµ º¸³½´Ù. bSameWorldOnly==false
+			// ï¿½Ù¸ï¿½ serverï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. bSameWorldOnly==false
 			opworld(pGamePlayer, msg, i, false);
 		}
 		else
@@ -209,13 +209,13 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 
 	}
 
-	// Ã¤ÆÃ ·Î±×¸¦ ³²±ä´Ù. by sigi. 2002.10.30
+	// Ã¤ï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½. by sigi. 2002.10.30
 	if (LogNameManager::getInstance().isExist( pCreature->getName() ))
 	{
 		filelog("chatLog.txt", "[Say] %s> %s", pCreature->getName().c_str(), msg.c_str());
 	}
 
-	// invisibility»óÅÂ¸é Ç¬´Ù.
+	// invisibilityï¿½ï¿½ï¿½Â¸ï¿½ Ç¬ï¿½ï¿½.
 	if (pCreature->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
 	{
 		Zone* pZone = pCreature->getZone();
@@ -229,7 +229,7 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 	}
 
 	bool isVampire = false;
-	// ¹ìÆÄÀÌ¾î°¡ ´Á´ë, ¹ÚÁãÀÌ¸é ¸»ÇÒ¼ö¾ø´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½ï¿½.
 	if (pCreature->isVampire())
 	{
 		Vampire* pVampire = dynamic_cast<Vampire*>(pCreature);
@@ -252,7 +252,7 @@ void CGSayHandler::execute (CGSay* pPacket , Player* pPlayer)
 	}
 
 	if (Success) {
-		// ÁÖº¯ PCµé¿¡°Ô ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+		// ï¿½Öºï¿½ PCï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Îµï¿½Ä³ï¿½ï¿½Æ®ï¿½Ñ´ï¿½.
 //		pCreature->getZone()->broadcastSayPacket(pCreature->getX() , pCreature->getY() , &gcSay , pCreature, isVampire);
 		pCreature->getZone()->broadcastPacket(pCreature->getX() , pCreature->getY() , &gcSay , pCreature);
 	}
@@ -412,9 +412,9 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 		opnotice(pGamePlayer, msg, i);
 	}
 
-	// °¢Á¾ ÇÔ¼ö¿ë °ª ¼¼ÆÃ¿ë ÇÔ¼ö
-	// set type value ÇüÅÂ·Î Á¤ÀÇµÈ´Ù.
-	// 2002.5.8 º° È®·üÀ» ÀÚÀ²ÀûÀ¸·Î Á¶ÀýÇÏ±â À§ÇØ¼­ ¸¸µë
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½Ô¼ï¿½
+	// set type value ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ÇµÈ´ï¿½.
+	// 2002.5.8 ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	else if (msg.substr(i+1, 3) == "set" && pCreature->isGOD()) {
 		opset(pGamePlayer, msg, i);
 	}
@@ -431,7 +431,7 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 		opcombat(pGamePlayer, msg, i);
 	}
 	
-	else if (msg.substr(i+1, 4) == "find" || msg.substr(i+1, 4) == "¾îµð" && pCreature->isGOD()) {
+	else if (msg.substr(i+1, 4) == "find" || msg.substr(i+1, 4) == "ï¿½ï¿½ï¿½" && pCreature->isGOD()) {
 		opfind(pGamePlayer, msg, i);
 	}
 
@@ -474,7 +474,7 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 				SAFE_DELETE(pStmt);
 			}
 			END_DB(pStmt)
-				// ´©°¡ ÀÌ»óÇÑ°Å ³¯¸®¸é ¹«½ÃÇÏÀÚ
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		} catch(...) { filelog("bugreport.log", "%s", msg.c_str()); }
 	}
 	else if ( msg.substr(i+1,11) == "CrashReport" && pCreature->isGOD())
@@ -513,24 +513,24 @@ void CGSayHandler::opExecute(Creature* pCreature, GamePlayer* pGamePlayer, strin
 				SAFE_DELETE(pStmt);
 			}
 			END_DB(pStmt)
-				// ´©°¡ ÀÌ»óÇÑ°Å ³¯¸®¸é ¹«½ÃÇÏÀÚ
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		} catch(...) { filelog("CrashReport.log", "%s", msg.c_str()); }
 	}
-	// add by sonic 2006.10.30 Ôö¼ÓÒ»¸öGMÃüÁî  Ö±½Ó´ò¿ª´ò±¦µØÍ¼
-	else if ( msg.substr(i+1,10) == "OpenPayMap" || msg.substr(i+1, 12) == "´ò¿ªÊÕ·ÑµØÍ¼" && pCreature->isGOD())
+	// add by sonic 2006.10.30 ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½GMï¿½ï¿½ï¿½ï¿½  Ö±ï¿½Ó´ò¿ª´ò±¦µï¿½Í¼
+	else if ( msg.substr(i+1,10) == "OpenPayMap" || msg.substr(i+1, 12) == "ï¿½ï¿½ï¿½Õ·Ñµï¿½Í¼" && pCreature->isGOD())
 	{
 		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(1013);
 		pZoneInfo->setNoPortalZone(true);
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("ÊÕ·ÑµØÍ¼ÒÑ¾­´ò¿ª");
+		gcSystemMessage.setMessage("ï¿½Õ·Ñµï¿½Í¼ï¿½Ñ¾ï¿½ï¿½ï¿½");
 		pGamePlayer->sendPacket (&gcSystemMessage);
 	}
-	else if ( msg.substr(i+1,11) == "ClosePayMap" || msg.substr(i+1, 12) == "¹Ø±ÕÊÕ·ÑµØÍ¼" && pCreature->isGOD())
+	else if ( msg.substr(i+1,11) == "ClosePayMap" || msg.substr(i+1, 12) == "ï¿½Ø±ï¿½ï¿½Õ·Ñµï¿½Í¼" && pCreature->isGOD())
 	{
 		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo(1013);
 		pZoneInfo->setNoPortalZone(false);
 		GCSystemMessage gcSystemMessage1;
-		gcSystemMessage1.setMessage("ÊÕ·ÑµØÍ¼ÒÑ¾­¹Ø±Õ");
+		gcSystemMessage1.setMessage("ï¿½Õ·Ñµï¿½Í¼ï¿½Ñ¾ï¿½ï¿½Ø±ï¿½");
 		pGamePlayer->sendPacket (&gcSystemMessage1);
 	}
 
@@ -552,7 +552,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 //	Creature* pCreature = pGamePlayer->getCreature();
 	GCSystemMessage gcSystemMessage;
 
-	// ÀÓ½Ã·Î ¸·¾ÆµÐ°Í
+	// ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ÆµÐ°ï¿½
 	{
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_DO_NOT_SUPPORT_OLD_WAR ) );
 		pGamePlayer->sendPacket (&gcSystemMessage);
@@ -573,16 +573,16 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 			|| g_pCombatInfoManager->isSlayerBonus()
 			|| g_pCombatInfoManager->isVampireBonus())
 		{
-			cout << "ÀÌ¹Ì ÀüÀïÁßÀÔ´Ï´Ù" << endl;
-//			message << "ÀÌ¹Ì ÀüÀïÁßÀÔ´Ï´Ù";
+			cout << "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½" << endl;
+//			message << "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_COMBAT_ALEADY_START ) );
 
 			pGamePlayer->sendPacket (&gcSystemMessage);
 		}
 		else
 		{
-			cout << "ÀüÀïÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù" << endl;
-//			message << "ÀüÀïÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù";
+			cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½" << endl;
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_COMBAT_START ) );
 
 			g_pZoneGroupManager->broadcast( &gcSystemMessage );
@@ -599,7 +599,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 				try {
 					pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneNum);
 				} catch (NoSuchElementException&) {
-					throw Error("Ã»ÓÐÕ½¶·ÇøÓò.");
+					throw Error("Ã»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 				}
 
 				ZoneGroup* pZoneGroup = NULL;
@@ -607,7 +607,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 				try {
 					pZoneGroup = g_pZoneGroupManager->getZoneGroup(pZoneInfo->getZoneGroupID());
 				} catch (NoSuchElementException&) {
-					throw Error("Ã»ÓÐÕ½¶·ÇøÓò.2");
+					throw Error("Ã»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.2");
 				}
 
 				Zone* pZone = pZoneGroup->getZone(ZoneNum);
@@ -625,7 +625,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 				|| g_pCombatInfoManager->isVampireBonus()))
 
 		{
-			cout << "ÀüÀïÀ» Á¾·áÇÕ´Ï´Ù." << endl;
+			cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½." << endl;
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_COMBAT_END ) );
 			g_pZoneGroupManager->broadcast( &gcSystemMessage );
 
@@ -641,7 +641,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 				try {
 					pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneNum);
 				} catch (NoSuchElementException&) {
-					throw Error("Ã»ÓÐÕ½¶·ÇøÓò.");
+					throw Error("Ã»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 				}
 
 				ZoneGroup* pZoneGroup = NULL;
@@ -649,7 +649,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 				try {
 					pZoneGroup = g_pZoneGroupManager->getZoneGroup(pZoneInfo->getZoneGroupID());
 				} catch (NoSuchElementException&) {
-					throw Error("Ã»ÓÐÕ½¶·ÇøÓò.2");
+					throw Error("Ã»ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.2");
 				}
 
 				Zone* pZone = pZoneGroup->getZone(ZoneNum);
@@ -663,7 +663,7 @@ void CGSayHandler::opcombat(GamePlayer* pGamePlayer, string msg, int i)
 		}
 		else
 		{
-			cout << "ÀüÀïÁßÀÌ ¾Æ´Ï°Å³ª Á¾·áÇÒ ¼ö ¾ø½À´Ï´Ù." << endl;
+			cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½." << endl;
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_END_COMBAT ) );
 			
 			pGamePlayer->sendPacket (&gcSystemMessage);
@@ -701,65 +701,65 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 	else if(set_type == "evnet_activate")
 	{
 		if(g_pVariableManager->getEventActivate() == 1) {
-			// message << ((const string &) ("ÊÂ¼þÕýÔÚ½øÐÐÖÐ...")) << endl;
+			// message << ((const string &) ("ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½...")) << endl;
 		} else {
-			// message << "ÊÂ¼þÒÑÍ£Ö¹" << endl;
+			// message << "ï¿½Â¼ï¿½ï¿½ï¿½Í£Ö¹" << endl;
     }
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "event_ratio")
 	{
-	    message << "Ê±¼ä¹ÖÎï±¬ÂÊ 1/" << g_pVariableManager->getEventRatio();
+	    message << "Ê±ï¿½ï¿½ï¿½ï¿½ï±¬ï¿½ï¿½ 1/" << g_pVariableManager->getEventRatio();
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "exp_ratio")
 	{
-	    message << "¾­ÑéÖµ: " << g_pVariableManager->getExpRatio();
+	    message << "ï¿½ï¿½ï¿½ï¿½Öµ: " << g_pVariableManager->getExpRatio();
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "item_prob_ratio")
 	{
-	    message << "ÎïÆ·±¬ÂÊ: " << g_pVariableManager->getItemProbRatio();
+	    message << "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getItemProbRatio();
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "combat_bonus_time")
 	{
-	    message << "Õ½¶·Ê¤ÀûÎ¬³ÖÊ±¼ä: " << g_pVariableManager->getCombatBonusTime() << "·Ö";
+	    message << "Õ½ï¿½ï¿½Ê¤ï¿½ï¿½Î¬ï¿½ï¿½Ê±ï¿½ï¿½: " << g_pVariableManager->getCombatBonusTime() << "ï¿½ï¿½";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "combat_bonus_slayer_hp_ratio")
 	{
-	    message << "ÈËÀàÕ½¶· HP½±ÀøÔö¼ÓÖµ: +" << g_pVariableManager->getCombatSlayerHPBonusRatio() << "%";
+	    message << "ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ HPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ: +" << g_pVariableManager->getCombatSlayerHPBonusRatio() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "combat_bonus_vampire_hp_ratio")
 	{
-	    message << "ÎüÑª¹íÕ½¶· HP½±ÀøÔö¼ÓÖµ: +" << g_pVariableManager->getCombatVampireHPBonusRatio() << "%";
+	    message << "ï¿½ï¿½Ñªï¿½ï¿½Õ½ï¿½ï¿½ HPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ: +" << g_pVariableManager->getCombatVampireHPBonusRatio() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "combat_bonus_slayer_damage")
 	{
-	    message << "ÈËÀàÕ½¶· Damage½±ÀøÔö¼ÓÖµ: +" << g_pVariableManager->getCombatSlayerDamageBonus();
+	    message << "ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ Damageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ: +" << g_pVariableManager->getCombatSlayerDamageBonus();
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "combat_bonus_vampire_damage")
 	{
-	    message << "ÎüÑª¹íÕ½¶· Damage½±ÀøÔö¼ÓÖµ: +" << g_pVariableManager->getCombatVampireDamageBonus();
+	    message << "ï¿½ï¿½Ñªï¿½ï¿½Õ½ï¿½ï¿½ Damageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ: +" << g_pVariableManager->getCombatVampireDamageBonus();
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "premium_exp_bonus_percent")
 	{
-	    message << "¸¶·ÑÓÃ»§¾­ÑéÖµ½±Àø: " << g_pVariableManager->getPremiumExpBonusPercent() << "%";
+	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getPremiumExpBonusPercent() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "premium_item_probe_percent")
 	{
-	    message << "¸¶·ÑµØÍ¼ÎïÆ·±©ÂÊ: " << g_pVariableManager->getPremiumItemProbePercent() << "%";
+	    message << "ï¿½ï¿½ï¿½Ñµï¿½Í¼ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getPremiumItemProbePercent() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "zone_group_balancing_minute")
 	{
-	    message << "ZoneGroupBalancingÊ±¼ä: " << g_pVariableManager->getZoneGroupBalancingMinute() << "·Ö";
+	    message << "ZoneGroupBalancingÊ±ï¿½ï¿½: " << g_pVariableManager->getZoneGroupBalancingMinute() << "ï¿½ï¿½";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "zone_group_next_balancing_time")
@@ -767,87 +767,87 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 		const Timeval& tv = g_pClientManager->getBalanceZoneGroupTime();
 		Timeval currentTime;
 		getCurrentTime(currentTime);
-	    message << "ÏÂ´ÎZoneGroupBalancingÊ±¼ä: " << (tv.tv_sec - currentTime.tv_sec)/60 << "·Öºó";
+	    message << "ï¿½Â´ï¿½ZoneGroupBalancingÊ±ï¿½ï¿½: " << (tv.tv_sec - currentTime.tv_sec)/60 << "ï¿½Öºï¿½";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "gamble_item_type_ratio")
 	{
-	    message << "¶Ä²©ItemType±©ÂÊ: " << g_pVariableManager->getGambleItemTypeRatio() << "%";
+	    message << "ï¿½Ä²ï¿½ItemTypeï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getGambleItemTypeRatio() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "gamble_item_option_ratio")
 	{
-	    message << "¶Ä²©ItemOption±©ÂÊ: " << g_pVariableManager->getGambleItemOptionRatio() << "%";
+	    message << "ï¿½Ä²ï¿½ItemOptionï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getGambleItemOptionRatio() << "%";
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "summon_motorcycle")
 	{
-	    message << "Ä¦ÍÐ³µÕÙ»½¼¼ÄÜ : " << (g_pVariableManager->isSummonMotorcycle()? "ON":"OFF");
+	    message << "Ä¦ï¿½Ð³ï¿½ï¿½Ù»ï¿½ï¿½ï¿½ï¿½ï¿½ : " << (g_pVariableManager->isSummonMotorcycle()? "ON":"OFF");
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if (set_type == "enemy_limit_time")
 	{
-		message << "¹ÖÎïÓÐÐ§Ê±¼ä: " << g_pVariableManager->getEnemyLimitTime() << "Ãë";
+		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Ê±ï¿½ï¿½: " << g_pVariableManager->getEnemyLimitTime() << "ï¿½ï¿½";
 		gcSystemMessage.setMessage(message.toString());
  	}				
 	else if (set_type == "rare_item_ratio")
 	{
-		message << "¸ß¼¶ÎïÆ·±©ÂÊ: " << g_pVariableManager->getRareItemRatio() << "%";
+		message << "ï¿½ß¼ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getRareItemRatio() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}				
 	else if (set_type == "unique_item_ratio")
 	{
-		message << "Ï¡ÊÀÎïÆ·±©ÂÊ: " << g_pVariableManager->getUniqueItemRatio() << "/10000";
+		message << "Ï¡ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getUniqueItemRatio() << "/10000";
 		gcSystemMessage.setMessage(message.toString());
  	}				
 	else if(set_type == "active_master_lair")
 	{
-	    message << "ÀÏ¹Ö»î¶¯ : " << (g_pVariableManager->isActiveMasterLair()? "ON":"OFF");
+	    message << "ï¿½Ï¹Ö»î¶¯ : " << (g_pVariableManager->isActiveMasterLair()? "ON":"OFF");
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if(set_type == "retry_master_lair")
 	{
-	    message << "±»ÀÏ¹ÖÉ±ËÀºó,ÖØÐÂÌôÕ½ : " << (g_pVariableManager->isRetryMasterLair()? "ON":"OFF");
+	    message << "ï¿½ï¿½ï¿½Ï¹ï¿½É±ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ : " << (g_pVariableManager->isRetryMasterLair()? "ON":"OFF");
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if (set_type == "harvest_festival_item_ratio")
 	{
-		message << "ÖÐÇï½Ú×£¸£±©ÂÊ: 1/" << g_pVariableManager->getHarvestFestivalItemRatio();
+		message << "ï¿½ï¿½ï¿½ï¿½ï¿½×£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 1/" << g_pVariableManager->getHarvestFestivalItemRatio();
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if (set_type == "master_blood_drain_start_hp")
 	{
-		message << "¿ªÊ¼ÎüÑªÊ±µÄHP: " << g_pVariableManager->getMasterBloodDrainStartHP() << "%";
+		message << "ï¿½ï¿½Ê¼ï¿½ï¿½ÑªÊ±ï¿½ï¿½HP: " << g_pVariableManager->getMasterBloodDrainStartHP() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if (set_type == "master_blood_drain_start_bd")
 	{
-		message << "¿ªÊ¼ÎüÑªÊ±µÄÎüÑªÂÊ: " << g_pVariableManager->getMasterBloodDrainStartBD() << "%";
+		message << "ï¿½ï¿½Ê¼ï¿½ï¿½ÑªÊ±ï¿½ï¿½ï¿½ï¿½Ñªï¿½ï¿½: " << g_pVariableManager->getMasterBloodDrainStartBD() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if (set_type == "master_blood_drain_end_hp")
 	{
-		message << "½áÊøÎüÑªÊ±(?)µÄHP: " << g_pVariableManager->getMasterBloodDrainEndHP() << "%";
+		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑªÊ±(?)ï¿½ï¿½HP: " << g_pVariableManager->getMasterBloodDrainEndHP() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if (set_type == "master_blood_drain_end_bd")
 	{
-		message << "½áÊøÎüÑªÊ±(?)ÎüÑªÂÊ: " << g_pVariableManager->getMasterBloodDrainEndBD() << "%";
+		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÑªÊ±(?)ï¿½ï¿½Ñªï¿½ï¿½: " << g_pVariableManager->getMasterBloodDrainEndBD() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if(set_type == "chief_monster")
 	{
-	    message << "Ë¢ÐÂBOSS¹ÖÎï : " << (g_pVariableManager->isActiveChiefMonster()? "ON":"OFF");
+	    message << "Ë¢ï¿½ï¿½BOSSï¿½ï¿½ï¿½ï¿½ : " << (g_pVariableManager->isActiveChiefMonster()? "ON":"OFF");
 		gcSystemMessage.setMessage(message.toString());
 	}
 	else if (set_type == "chief_monster_rare_item_percent")
 	{
-		message << "BOSS¹ÖÎï¸ß¼¶ÎïÆ·±©ÂÊ: " << g_pVariableManager->getChiefMonsterRareItemPercent() << "%";
+		message << "BOSSï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½: " << g_pVariableManager->getChiefMonsterRareItemPercent() << "%";
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else if (set_type == "newbie_transport_to_guild")
 	{
-		message << "ÒÆ¶¯µ½ÄÜÁ¦ÖµÎª40µÄÐÐ»á:" << (g_pVariableManager->isNewbieTransportToGuild()? "ON":"OFF");
+		message << "ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎª40ï¿½ï¿½ï¿½Ð»ï¿½:" << (g_pVariableManager->isNewbieTransportToGuild()? "ON":"OFF");
 		gcSystemMessage.setMessage(message.toString());
  	}
 	else
@@ -866,7 +866,7 @@ void CGSayHandler::opview(GamePlayer* pGamePlayer, string msg, int i)
 		}
 	}
 
-	// ÀÚ½Å¿¡°Ô¸¸ ½Ã½ºÅÛ ¸Þ½ÃÁö º¸³»±â (¼öÁ¤µÇ¾úÀ»½Ã)
+	// ï¿½Ú½Å¿ï¿½ï¿½Ô¸ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½)
 	pGamePlayer->sendPacket (&gcSystemMessage);
 
 	__END_CATCH
@@ -908,7 +908,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::MASTER_LAIR_INFO );
 //		StringStream msg;
-//		msg << "¸¶½ºÅÍ ·¹¾î Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_MASTER_LAIR_INFO ) );
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -918,12 +918,12 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		string MonsterName = "all";
 		int SpriteType = 0;
 
-		// ÀÏ´Ü 'ÀÌ¸§'À¸·Î ¸ó½ºÅÍ SpriteTypeÀ» Ã£¾Æº»´Ù.
+		// ï¿½Ï´ï¿½ 'ï¿½Ì¸ï¿½'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SpriteTypeï¿½ï¿½ Ã£ï¿½Æºï¿½ï¿½ï¿½.
 //		int SpriteType = g_pMonsterInfoManager->getSpriteTypeByName( MonsterName );
 
 //		if (SpriteType==0)
 //		{
-			// ÀÌ¸§À¸·Î ¾ø´Ù¸é.. °ª ÀÚÃ¼°¡ ¼ýÀÚ(SpriteType)ÀÎ°¡?
+			// ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½.. ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(SpriteType)ï¿½Î°ï¿½?
 //			SpriteType = atoi( MonsterName.c_str() );
 //		}	
 
@@ -940,26 +940,26 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 
 		if (bExist || MonsterName=="all")
 		{
-			// allÀÎ °æ¿ì´Â SpriteTypeÀÌ 0ÀÌ´Ù.
+			// allï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SpriteTypeï¿½ï¿½ 0ï¿½Ì´ï¿½.
 			pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::MONSTER_INFO, SpriteType );
 
 			if (SpriteType!=0)
 			{
                 sprintf( msg, g_pStringPool->c_str( STRID_LOAD_MONSTER_INFO ),
                                 load_value.c_str() );
-//				msg << "¸ó½ºÅÍ Á¤º¸(" << load_value.c_str() << ")¸¦ loadÇÕ´Ï´Ù.";
+//				msg << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(" << load_value.c_str() << ")ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 			}
 			else
 			{
                 sprintf( msg, g_pStringPool->c_str( STRID_LOAD_ALL_MONSTER_INFO ) );
-//				msg << "¸ðµç ¸ó½ºÅÍ Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//				msg << "ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 			}
 		}
 		else
 		{
             sprintf( msg, g_pStringPool->c_str( STRID_LOAD_WRONG_MONSTER_INFO ),
                             load_value.c_str() );
-//			msg << "¸ó½ºÅÍ(" << load_value.c_str() << ")°¡ Àß¸ø ÁöÁ¤µÇ¾ú½À´Ï´Ù.";
+//			msg << "ï¿½ï¿½ï¿½ï¿½(" << load_value.c_str() << ")ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		}
 
 		gcSystemMessage.setMessage(msg);
@@ -969,7 +969,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::MONSTER_AI );
 //		StringStream msg;
-//		msg << "¸ó½ºÅÍ AIÁ¤º¸(DirectiveSet)¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "ï¿½ï¿½ï¿½ï¿½ AIï¿½ï¿½ï¿½ï¿½(DirectiveSet)ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_DIRECTIVESET ) );
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -977,7 +977,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::ZONE_INFO );
 //		StringStream msg;
-//		msg << "Á¸ Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_ZONE ) );
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -988,7 +988,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::ZONE, zoneID );
 
 //		StringStream msg;
-//		msg << "Á¸À» loadÇÕ´Ï´Ù.";
+//		msg << "ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_ZONE ) );
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -996,7 +996,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		pEvent =  new EventReloadInfo( pGamePlayer,  EventReloadInfo::LOG_USER_INFO );
 //		StringStream msg;
-//		msg << "LogUser Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "LogUser ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_LOG_USER ) );
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1004,8 +1004,8 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		Item::ItemClass ItemClass = g_pItemFactoryManager->getItemClassByName( load_value );
 
-		// ItemClass°¡ MAX¶ó¸é ÀÌ¸§À¸·Î´Â ¸ø Ã£¾Ò´Ù´Â ¸»ÀÌ´Ù. 
-		// ÀÌ °æ¿ì¿¡´Â ¾ÆÀÌÅÛ Å¬·¡½º°¡ ¼ýÀÚ·Î ¹Ù·Î ¿ÀÁö´Â ¾Ê¾Ò´ÂÁö °Ë»çÇØ¾ß ÇÑ´Ù.
+		// ItemClassï¿½ï¿½ MAXï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ Ã£ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. 
+		// ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 		if (ItemClass == Item::ITEM_CLASS_MAX)
 		{
 			int temp = atoi(load_value.c_str());
@@ -1022,7 +1022,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::ITEM_INFO, ItemClass );
 
 //		StringStream msg;
-//		msg << load_value << " Info¸¦ loadÇÕ´Ï´Ù.";
+//		msg << load_value << " Infoï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_LOAD_ITEM_INFO ),
@@ -1033,14 +1033,14 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::OPTION_INFO );
 	//	StringStream msg;
-	//	msg << "OptionInfo Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+	//	msg << "OptionInfo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_OPTION_INFO ) );
 	}
 	else if ( load_type == "rank_bonus_info" )
 	{
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::RANK_BONUS_INFO );
 //		StringStream msg;
-//		msg << "RankBonusInfo Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "RankBonusInfo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_RANK_BONUS_INFO ) );
 	}
     else if ( load_type == "string_pool" )
@@ -1052,7 +1052,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 	{
 		ZoneID_t zoneID = atoi( load_value.c_str() );
 
-		// ¼³Á¤ ¾ÈµÈ °æ¿ì´Â ÇöÀç Creature°¡ ÀÖ´Â Á¸
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Creatureï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½
 		if (zoneID==0)
 		{
 			if (pGamePlayer!=NULL)
@@ -1085,7 +1085,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::BLOOD_BIBLE_OWNER );
 
 //		StringStream msg;
-//		msg << "BloodBibleOwner Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "BloodBibleOwner ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_BLOOD_BIBLE_OWNER_INFO ) );
 	}
 	else if ( load_type == "sweeper_owner" )
@@ -1094,7 +1094,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::SWEEPER_OWNER, level );
 
 //		StringStream msg;
-//		msg << "BloodBibleOwner Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "BloodBibleOwner ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_BLOOD_BIBLE_OWNER_INFO ) );
 	}
 	else if ( load_type == "race_war_pc_limit" )
@@ -1102,7 +1102,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		pEvent = new EventReloadInfo( pGamePlayer, EventReloadInfo::RACE_WAR_PC_LIMIT );
 
 //		StringStream msg;
-//		msg << "RaceWarPCLimit Á¤º¸¸¦ loadÇÕ´Ï´Ù.";
+//		msg << "RaceWarPCLimit ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ loadï¿½Õ´Ï´ï¿½.";
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_LOAD_RACE_WAR_PC_LIMIT_INFO ) );
 	}
 	else if ( load_type == "npc" )
@@ -1111,7 +1111,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		Zone* pZone = getZoneByZoneID( zoneID );
 		if ( pZone != NULL)
 		{
-			// ¼º ¿Ü¿¡´Â NPC °¡ »ç¶óÁö´Â ÀÏÀÌ ¾øÀ¸´Ï -_-a
+			// ï¿½ï¿½ ï¿½Ü¿ï¿½ï¿½ï¿½ NPC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -_-a
 			CastleInfo* pCastleInfo = g_pCastleInfoManager->getCastleInfo( zoneID );
 
 			if ( pCastleInfo != NULL)
@@ -1141,7 +1141,7 @@ void CGSayHandler::opload(GamePlayer* pGamePlayer, string msg, int i)
 		g_pClientManager->addEvent( pEvent );
 	}
 
-	// ÀÚ½Å¿¡°Ô¸¸ ½Ã½ºÅÛ ¸Þ½ÃÁö º¸³»±â (¼öÁ¤µÇ¾úÀ»½Ã)
+	// ï¿½Ú½Å¿ï¿½ï¿½Ô¸ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½)
 	if (pGamePlayer!=NULL)
 	{
 		pGamePlayer->sendPacket( &gcSystemMessage );
@@ -1156,8 +1156,8 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 {
 	__BEGIN_TRY
 
-	// [!!!] GGCommand¸¦ ÅëÇØ¼­ ¿©±â°¡ Ã³¸®µÉ¶§¿¡´Â
-	// pGamePlayer°¡ NULLÀÏ ¼ö ÀÖÀ¸¹Ç·Î.. ²À Ã¼Å©¸¦ ÇØ¾ßÇÑ´Ù! by sigi.2002.12.23
+	// [!!!] GGCommandï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½â°¡ Ã³ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½
+	// pGamePlayerï¿½ï¿½ NULLï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½! by sigi.2002.12.23
 	
 	GCSystemMessage gcSystemMessage;
 	StringStream message;
@@ -1184,7 +1184,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_STAR_RATIO ),
                         set_value.c_str() );
-//	    message << "º° ÃâÇö È®·üÀÌ 1/" << set_value << "·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ 1/" << set_value << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1193,14 +1193,14 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 		if(set_value == "start")
 		{
 			g_pVariableManager->setEventActivate(1);
-//	    	message << "ÀÌº¥Æ®°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù";
+//	    	message << "ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_EVENT_START ) );
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
 		else
 		{
 			g_pVariableManager->setEventActivate(0);
-//	    	message << "ÀÌº¥Æ®°¡ ÁßÁöµÇ¾ú½À´Ï´Ù";
+//	    	message << "ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_EVENT_END ) );
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1211,7 +1211,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_EVENT_MONSTER_RATIO ),
                         set_value.c_str() );
-//	    message << "ÀÌº¥Æ® ¸ó½ºÅÍ ÃâÇö È®·üÀÌ ÀÇÇØ¼­ 1/" << set_value << "·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 1/" << set_value << "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1225,7 +1225,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_EXP_RATIO ),
                         set_value.c_str() );
-//	    message << "°æÇèÄ¡ È¹µæ·üÀÌ" << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½Ä¡ È¹ï¿½ï¿½ï¿½ï¿½ï¿½" << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1239,7 +1239,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_ITEM_PROBE_RATIO ),
                         set_value.c_str() );
-//	    message << "¾ÆÀÌÅÛ È¹µæ·üÀÌ " << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ï¿½ï¿½ï¿½ " << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1253,7 +1253,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_COMBAT_BONUS_TIME ),
                         set_value.c_str() );
-//	    message << "ÀüÀï ½Â¸® À¯Áö½Ã°£ÀÌ " << set_value << "ºÐÀ¸·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ " << set_value << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1267,7 +1267,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_COMBAT_SLAYER_BONUS_HP ),
                         set_value.c_str() );
-//	    message << "½½·¹ÀÌ¾î ÀüÀï HPº¸³Ê½º°¡ +" << set_value << "% ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ HPï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ +" << set_value << "% ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1281,7 +1281,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_COMBAT_VAMPIRE_BONUS_HP ),
                         set_value.c_str() );
-//	    message << "¹ìÆÄÀÌ¾î ÀüÀï HPº¸³Ê½º°¡ +" << set_value << "% ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ HPï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ +" << set_value << "% ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1295,7 +1295,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_COMBAT_SLAYER_BONUS_DAMAGE ),
                         set_value.c_str() );
-//	    message << "½½·¹ÀÌ¾î ÀüÀï µ¥¹ÌÁöº¸³Ê½º°¡ +" << set_value << " ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ +" << set_value << " ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1309,7 +1309,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_COMBAT_VAMPIRE_BONUS_DAMAGE ),
                         set_value.c_str() );
-//	    message << "¹ìÆÄÀÌ¾î ÀüÀï µ¥¹ÌÁöº¸³Ê½º°¡ +" << set_value << " ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ +" << set_value << " ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1323,7 +1323,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_PREMIUM_EXP_RATIO ),
                         set_value.c_str() );
-//	    message << "ÇÁ¸®¹Ì¾ö »ç¿ëÀÚÀÇ °æÇèÄ¡ º¸³Ê½º°¡ " << set_value << "% ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ " << set_value << "% ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1337,7 +1337,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_PREMIUM_ITEM_PROBE_RATIO ),
                         set_value.c_str() );
-//	    message << "ÇÁ¸®¹Ì¾ö Á¸ÀÇ ¾ÆÀÌÅÛ ·çÆÃ È®·üÀÌ " << set_value << "% ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << set_value << "% ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1352,7 +1352,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_ZONE_GROUP_BALANCING_TIME ),
                         set_value.c_str() );
-//	    message << "ZoneGroupBalancing ÁÖ±â°¡ " << set_value << "ºÐÀ¸·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ZoneGroupBalancing ï¿½Ö±â°¡ " << set_value << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1366,7 +1366,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_GAMBLE_ITEM_TYPE_RATIO ),
                         set_value.c_str() );
-//	    message << "°·ºí ItemTypeÈ®·üÀÌ " << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ ItemTypeÈ®ï¿½ï¿½ï¿½ï¿½ " << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1380,7 +1380,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_GAMBLE_ITEM_OPTION_RATIO ),
                         set_value.c_str() );
-//	    message << "°·ºí ItemOptionÈ®·üÀÌ " << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ ItemOptionÈ®ï¿½ï¿½ï¿½ï¿½ " << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1391,7 +1391,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setSummonMotorcycle(true);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_SUMMON_MOTORCYCLE ), "ON" );
-//			message << "¿ÀÅä¹ÙÀÌ ¼ÒÈ¯ ±â´ÉÀÌ ON µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ ON ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1400,7 +1400,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setSummonMotorcycle(false);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_SUMMON_MOTORCYCLE ), "OFF" );
-//			message << "¿ÀÅä¹ÙÀÌ ¼ÒÈ¯ ±â´ÉÀÌ OFF µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ OFF ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1415,7 +1415,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_MONSTER_FORGET_TIME ),
                         set_value.c_str() );
-//	    message << "¸ó½ºÅÍÀÇ ¿¬¼Ó Àû ÀÎ½Ä½Ã°£ÀÌ" << set_value << "ÃÊ·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//	    message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Î½Ä½Ã°ï¿½ï¿½ï¿½" << set_value << "ï¿½Ê·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1429,7 +1429,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_RARE_ITEM_RATIO ),
                         set_value.c_str() );
-//		message << "·¹¾î ¾ÆÀÌÅÛ ·çÆÃ È®·üÀÌ " << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1443,7 +1443,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_UNIQUE_ITEM_RATIO ),
                         set_value.c_str() );
-//		message << "À¯´ÏÅ© ¾ÆÀÌÅÛ ·çÆÃ È®·üÀÌ " << set_value << "/10000 À¸·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << set_value << "/10000 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1463,7 +1463,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setActiveMasterLair(true);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_LAIR_ACTIVATE ), "ON" );
-//			message << "¸¶½ºÅÍ ·¹¾î ÀÌº¥Æ®°¡ ON µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ON ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 
@@ -1477,7 +1477,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setActiveMasterLair(false);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_LAIR_ACTIVATE ), "OFF" );
-//			message << "¸¶½ºÅÍ ·¹¾î ÀÌº¥Æ®°¡ OFF µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ OFF ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 
@@ -1494,7 +1494,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setRetryMasterLair(true);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_RETRY_MASTER_LAIR ), "ON" );
-//			message << "¸¶½ºÅÍ ·¹¾î¿¡ Á×°í ´Ù½Ã µé¾î°¡±â°¡ ON µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¿¡ ï¿½×°ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½î°¡ï¿½â°¡ ON ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1503,7 +1503,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setRetryMasterLair(false);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_RETRY_MASTER_LAIR ), "OFF" );
-//			message << "¸¶½ºÅÍ ·¹¾î¿¡ Á×°í ´Ù½Ã µé¾î°¡±â°¡ OFF µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¿¡ ï¿½×°ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½î°¡ï¿½â°¡ OFF ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1519,7 +1519,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_HARVEST_FESTIVAL_ITEM_RATIO ),
                         set_value.c_str() );
-//		message << "Ãß¼® ¼ÛÆí ¾ÆÀÌÅÛ ·çÆÃ È®·üÀÌ 1/" << ratio << "ÀÌ µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ß¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ 1/" << ratio << "ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1533,7 +1533,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_BLOOD_DRAIN_START_HP ),
                         set_value.c_str() );
-//		message << "¸¶½ºÅÍÀÇ ÈíÇ÷ ½ÃÀÛ HP°¡ " << percent << "%°¡ µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ HPï¿½ï¿½ " << percent << "%ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1547,7 +1547,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_BLOOD_DRAIN_START_BD ),
                         set_value.c_str() );
-//		message << "¸¶½ºÅÍÀÇ ÈíÇ÷ ½ÃÀÛ ¶§ÀÇ ÈíÇ÷ È®·üÀÌ " << percent << "%°¡ µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << percent << "%ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1561,7 +1561,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_BLOOD_DRAIN_END_HP ),
                         set_value.c_str() );
-//		message << "¸¶½ºÅÍÀÇ ÈíÇ÷ ³¡(?) HP°¡ " << percent << "%°¡ µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(?) HPï¿½ï¿½ " << percent << "%ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1575,7 +1575,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_MASTER_BLOOD_DRAIN_END_BD ),
                         set_value.c_str() );
-//		message << "¸¶½ºÅÍÀÇ ÈíÇ÷ ³¡(?) »óÅÂÀÇ ÈíÇ÷ È®·üÀÌ " << percent << "%°¡ µÇ¾ú½À´Ï´Ù.";
+//		message << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(?) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << percent << "%ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1586,7 +1586,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setActiveChiefMonster(true);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_CHIEF_MONSTER ), "ON" );
-//			message << "Ä¡ÇÁ ¸ó½ºÅÍ ±â´ÉÀÌ ON µÇ¾ú½À´Ï´Ù.";
+//			message << "Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ON ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1595,7 +1595,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setActiveChiefMonster(false);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_CHIEF_MONSTER ), "OFF" );
-//			message << "Ä¡ÇÁ ¸ó½ºÅÍ ±â´ÉÀÌ OFF µÇ¾ú½À´Ï´Ù.";
+//			message << "Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ OFF ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1610,7 +1610,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_SET_CHIEF_MONSTER_RARE_ITEM_RATIO ),
                         set_value.c_str() );
-//		message << "Ä¡ÇÁ ¸ó½ºÅÍ ·¹¾î ¾ÆÀÌÅÛ ·çÆÃ È®·üÀÌ " << set_value << "%·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.";
+//		message << "Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ " << set_value << "%ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 		gcSystemMessage.setMessage(msg);
 		filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 	}
@@ -1621,7 +1621,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setNewbieTransportToGuild(true);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_NEWBIE_TRANSPORT_TO_GUILD ), "ON" );
-//			message << "´É·ÂÄ¡ 40Â¥¸®, ±æµå·Î ÀÌµ¿½ÃÅ°±â ±â´ÉÀÌ ON µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½É·ï¿½Ä¡ 40Â¥ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ON ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1630,7 +1630,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 			g_pVariableManager->setNewbieTransportToGuild(false);
             char msg[100];
             sprintf( msg, g_pStringPool->c_str( STRID_SET_NEWBIE_TRANSPORT_TO_GUILD ), "OFF" );
-//			message << "´É·ÂÄ¡ 40Â¥¸®, ±æµå·Î ÀÌµ¿½ÃÅ°±â ±â´ÉÀÌ OFF µÇ¾ú½À´Ï´Ù.";
+//			message << "ï¿½É·ï¿½Ä¡ 40Â¥ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ OFF ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage(msg);
 			filelog("change.txt", "[%s]%s", (pGamePlayer==NULL?"Nobody":pGamePlayer->getCreature()->getName().c_str()), gcSystemMessage.toString().c_str());
 		}
@@ -1710,10 +1710,10 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 					gcNoticeEvent.setCode( NOTICE_EVENT_PREMIUM_HALF_END );
 				}
 
-				// À¯·áÁ¸¿¡¸¸ »Ñ¸°´Ù.
-				getZoneByZoneID( 61 )->broadcastPacket( &gcNoticeEvent );		// Æä·Î³ªºÏµ¿
-				getZoneByZoneID( 64 )->broadcastPacket( &gcNoticeEvent );		// Æä·Î³ª³²¼­
-				getZoneByZoneID( 1007 )->broadcastPacket( &gcNoticeEvent );		// ¶ó¼¾¼º³»ºÎ(¹ÙÅä¸®¸¶À»)
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½ï¿½ï¿½.
+				getZoneByZoneID( 61 )->broadcastPacket( &gcNoticeEvent );		// ï¿½ï¿½Î³ï¿½ï¿½Ïµï¿½
+				getZoneByZoneID( 64 )->broadcastPacket( &gcNoticeEvent );		// ï¿½ï¿½Î³ï¿½ï¿½ï¿½ï¿½ï¿½
+				getZoneByZoneID( 1007 )->broadcastPacket( &gcNoticeEvent );		// ï¿½ó¼¾¼ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½)
 			}
 			else if ( vt == TODAY_IS_HOLYDAY )
 			{
@@ -1738,7 +1738,7 @@ void CGSayHandler::opset(GamePlayer* pGamePlayer, string msg, int i)
 		}
 	}
 
-	// ÀÚ½Å¿¡°Ô¸¸ ½Ã½ºÅÛ ¸Þ½ÃÁö º¸³»±â (¼öÁ¤µÇ¾úÀ»½Ã)
+	// ï¿½Ú½Å¿ï¿½ï¿½Ô¸ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½)
 	if (pGamePlayer!=NULL)
 	{
 		pGamePlayer->sendPacket (&gcSystemMessage);
@@ -2010,7 +2010,7 @@ void CGSayHandler::opsave(GamePlayer* pGamePlayer , string msg, int i)
 		catch (NoSuchElementException&) 
 		{
 			SAFE_DELETE(pStmt);
-			throw Error("Critical Error : ZoneInfoManager¸ÃÐÐ»á²»´æÔÚ.");
+			throw Error("Critical Error : ZoneInfoManagerï¿½ï¿½ï¿½Ð»á²»ï¿½ï¿½ï¿½ï¿½.");
 		}
 
 		ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -2065,7 +2065,7 @@ void CGSayHandler::opwall(GamePlayer* pGamePlayer , string msg, int i)
 		catch (NoSuchElementException&) 
 		{
 			SAFE_DELETE(pStmt);
-			throw Error("Critical Error : ZoneInfoManager¿¡ ÇØ´ç Á¸±×·ìÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			throw Error("Critical Error : ZoneInfoManagerï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		}
 
 		ZonePlayerManager* pZonePlayerManager = pZoneGroup->getZonePlayerManager();
@@ -2086,8 +2086,8 @@ void CGSayHandler::opshutdown(GamePlayer* pGamePlayer , string msg, int i)
 {
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 
-	// ¾Æ¹« zone¿¡³ª ºÙÀÌ¸é µÇ´Âµ¥..
-	// multithread¶§¸Þ.. lockÀß °É°í effect¸¦ ºÙ¿©¾ß ÇÑ´Ù.
+	// ï¿½Æ¹ï¿½ zoneï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ç´Âµï¿½..
+	// multithreadï¿½ï¿½ï¿½ï¿½.. lockï¿½ï¿½ ï¿½É°ï¿½ effectï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	size_t j = msg.find_first_of(' ' , i+1);
 	Turn_t dTime = atoi(msg.substr(j+1, msg.size()-j-1).c_str());
 
@@ -2120,7 +2120,7 @@ void CGSayHandler::opshutdown(GamePlayer* pGamePlayer , string msg, int i)
 		try {
 			pZoneInfo = g_pZoneInfoManager->getZoneInfo(ZoneNum);
 		} catch (NoSuchElementException&) {
-			throw Error("ÏëÒª½øÐÐshutdown,µ«Ã»ÓÐzoneID.");
+			throw Error("ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½shutdown,ï¿½ï¿½Ã»ï¿½ï¿½zoneID.");
 		}
 
 		ZoneGroup* pZoneGroup = NULL;
@@ -2128,7 +2128,7 @@ void CGSayHandler::opshutdown(GamePlayer* pGamePlayer , string msg, int i)
 		try {
 			pZoneGroup = g_pZoneGroupManager->getZoneGroup(pZoneInfo->getZoneGroupID());
 		} catch (NoSuchElementException&) {
-			throw Error("ÏëÒª½øÐÐshutdown,µ«zoneGroupÈ±ÉÙÄÚÈÝ.");
+			throw Error("ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½shutdown,ï¿½ï¿½zoneGroupÈ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 		}
 
 		Zone* pZone = pZoneGroup->getZone(ZoneNum);
@@ -2152,7 +2152,7 @@ void CGSayHandler::opkick(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pTargetCreature = NULL;
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	pTargetCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -2199,7 +2199,7 @@ void CGSayHandler::opmute(GamePlayer* pGamePlayer , string msg, int i)
 	}
 
 	Creature* pTargetCreature = NULL;
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	pTargetCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -2274,31 +2274,31 @@ void CGSayHandler::opdenychat(GamePlayer* pGamePlayer , string msg, int i)
 
 	if ( level == 1 )
 	{
-		// level1 = 1½Ã°£
+		// level1 = 1ï¿½Ã°ï¿½
 		time = 1 * 60;
 	}
 	else if ( level == 2 )
 	{
-		// level2 = 6½Ã°£
+		// level2 = 6ï¿½Ã°ï¿½
 		time = 6 * 60;
 	}
 	else if ( level == 3 )
 	{
-		// level3 = 12½Ã°£
+		// level3 = 12ï¿½Ã°ï¿½
 		time = 12 * 60;
 	}
 	else if ( level == 4 )
 	{
-		// level4 = 24½Ã°£
+		// level4 = 24ï¿½Ã°ï¿½
 		time = 24 * 60;
 	}
 	else if ( level == 5 )
 	{
-		// level5 = 168½Ã°£
+		// level5 = 168ï¿½Ã°ï¿½
 		time = 168 * 60;
 	}
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	pTargetCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -2359,7 +2359,7 @@ void CGSayHandler::opfreezing(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pTargetCreature = NULL;
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	pTargetCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -2396,7 +2396,7 @@ void CGSayHandler::opdeny(GamePlayer* pGamePlayer , string msg, int i)
 	{
 		string PlayerID = pResult->getString(1);
 
-		Statement* pStmt2 = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
+		Statement* pStmt2 = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pStmt2->executeQuery("UPDATE Player set Access='DENY' where PlayerID ='%s'", PlayerID.c_str());
 		SAFE_DELETE(pStmt2);
 	}
@@ -2418,7 +2418,7 @@ void CGSayHandler::opinfo(GamePlayer* pGamePlayer , string msg, int i)
 	string Name = msg.substr(j+1, msg.size()-j-1).c_str();
 
 	Creature* pTargetCreature = NULL;
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 	pTargetCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -2523,7 +2523,7 @@ void CGSayHandler::opfind(GamePlayer* pGamePlayer , string msg, int i)
 
 	} else {
 //		StringStream msg;
-//		msg <<  Name << " ´ÔÀº ºñÁ¢¼Ó ÁßÀÔ´Ï´Ù.";
+//		msg <<  Name << " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô´Ï´ï¿½.";
 
         char msg[100];
         sprintf( msg, g_pStringPool->c_str( STRID_PLAYER_NOT_IN_GAMESERVER ),
@@ -2541,8 +2541,8 @@ void CGSayHandler::opfind(GamePlayer* pGamePlayer , string msg, int i)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¿©±â ÀÌ¸§ ³²±â°í.. ¿­½ÉÈ÷~ ÄÉÄÉ.. 
-// GCSystemMessage°¡ 256ÀÚ°¡ ÇÑ°è´Ï±î Á¶½ÉÇÏ±æ. by sigi. 2003.3.22
+// ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ ï¿½ï¿½ï¿½ï¿½.. 
+// GCSystemMessageï¿½ï¿½ 256ï¿½Ú°ï¿½ ï¿½Ñ°ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½. by sigi. 2003.3.22
 //////////////////////////////////////////////////////////////////////////////
 void CGSayHandler::opcredit(GamePlayer* pGamePlayer , string msg, int i)
 {
@@ -2552,23 +2552,23 @@ void CGSayHandler::opcredit(GamePlayer* pGamePlayer , string msg, int i)
 
 	static unordered_map<string, string> Credits;
 
-	// ÇÏµåÄÚµùÀ¸·Î À¯ÁöÇÏ±æ... ¤·¤¾¤¾  by sigi.
+	// ï¿½Ïµï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½... ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  by sigi.
 	if (Credits.empty())
 	{
-		Credits["ÅÖÐ¡Éß"] = "¿Í»§¶Ë,·þÎñÆ÷(2005~)";
-		//Credits["À±Ã¢ÇÊ"] = "¼­¹öÄÚ¾î(1999.9~2000.9), ±âÈ¹(2001.3~2002.3)";
-		//Credits["±è°Ç¿ì"] = "¼­¹ö, ±âÈ¹(1999.9~2002.3)";
-		//Credits["±èÁøÅÂ"] = "Å¬¶óÀÌ¾ðÆ®UI, Åø(1999.9~2001.1)";
-		//Credits["ÀÓÃá±Ù"] = "¼­¹ö, DB(1999.9~2000.?)";
-		//Credits["±è¼º¹Î"] = "¼­¹ö, DB(2000.10~2002.3)";
-		//Credits["À±¿µ½Ä"] = "Å¬¶óÀÌ¾ðÆ®¸ÞÀÎ(1999.9~2002.3), ¼­¹ö(2002.4~2003.3).¾Æ Ã»ÃáÀÌ¿©~T_T; unuis@hanmail.net";
-		//Credits["Áö¼º¿í"] = "Å¬¶óÀÌ¾ðÆ®UI, Åø(2001.2~2002.3), Å¬¶óÀÌ¾ðÆ®¸ÞÀÎ(2002.3~2003.3)";
-		//Credits["ÀåÈ«Ã¢"] = "¼­¹ö, DB(2002.1~2002.12)";
-		//Credits["¹èÀçÇü"] = "¼­¹ö(2002.4~)";
-		//Credits["¼ÕÈñ½Â"] = "Å¬¶óÀÌ¾ðÆ®UI, Åø(2002.6~2003.1), Å¬¶óÀÌ¾ðÆ®¸ÞÀÎ(2003.1~)";
-		//Credits["ÀÌÈñ¿ø"] = "DB, ¿î¿µÆÀÁö¿ø(2002.6~)";
-		//Credits["¾ç½Â¸í"] = "¼­¹ö(2002.11~)";
-		//Credits["È«»ó¹Î"] = "¼­¹ö(2002.12~)";
+		Credits["ï¿½ï¿½Ð¡ï¿½ï¿½"] = "ï¿½Í»ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(2005~)";
+		//Credits["ï¿½ï¿½Ã¢ï¿½ï¿½"] = "ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½(1999.9~2000.9), ï¿½ï¿½È¹(2001.3~2002.3)";
+		//Credits["ï¿½ï¿½Ç¿ï¿½"] = "ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È¹(1999.9~2002.3)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"] = "Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®UI, ï¿½ï¿½(1999.9~2001.1)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½"] = "ï¿½ï¿½ï¿½ï¿½, DB(1999.9~2000.?)";
+		//Credits["ï¿½è¼ºï¿½ï¿½"] = "ï¿½ï¿½ï¿½ï¿½, DB(2000.10~2002.3)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"] = "Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½(1999.9~2002.3), ï¿½ï¿½ï¿½ï¿½(2002.4~2003.3).ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½Ì¿ï¿½~T_T; unuis@hanmail.net";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"] = "Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®UI, ï¿½ï¿½(2001.2~2002.3), Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½(2002.3~2003.3)";
+		//Credits["ï¿½ï¿½È«Ã¢"] = "ï¿½ï¿½ï¿½ï¿½, DB(2002.1~2002.12)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"] = "ï¿½ï¿½ï¿½ï¿½(2002.4~)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½"] = "Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®UI, ï¿½ï¿½(2002.6~2003.1), Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ï¿½ï¿½(2003.1~)";
+		//Credits["ï¿½ï¿½ï¿½ï¿½ï¿½"] = "DB, ï¿½î¿µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(2002.6~)";
+		//Credits["ï¿½ï¿½Â¸ï¿½"] = "ï¿½ï¿½ï¿½ï¿½(2002.11~)";
+		//Credits["È«ï¿½ï¿½ï¿½"] = "ï¿½ï¿½ï¿½ï¿½(2002.12~)";
 	}
 
 	size_t j = msg.find_first_of(' ' , i+1);
@@ -2598,7 +2598,7 @@ void CGSayHandler::opuser(GamePlayer* pGamePlayer , string msg, int i)
 	if (pGamePlayer==NULL)	 return;
 
 	Statement* pStmt = g_pDatabaseManager->getDistConnection( "PLAYER_DB" )->createStatement();
-	//Statement* pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
+	//Statement* pStmt = g_pDatabaseManager->getConnection( (int)(long)Thread::self() )->createStatement();
 	Result* pResult = pStmt->executeQueryString("SELECT Count(*) FROM Player where LogOn='GAME' OR LogOn='LOGON'");
 
 	pResult->next();
@@ -2606,7 +2606,7 @@ void CGSayHandler::opuser(GamePlayer* pGamePlayer , string msg, int i)
 	int GroupCount = pResult->getInt(1);
 
 //	StringStream msg;
-//	msg << "ÇöÀç µ¿½Ã Á¢¼ÓÀÚ : " << GroupCount << "¸í";
+//	msg << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : " << GroupCount << "ï¿½ï¿½";
 
     char msg[100];
     sprintf( msg, g_pStringPool->c_str( STRID_CURRENT_NUMBER_OF_PLAYER ),
@@ -2652,7 +2652,7 @@ void CGSayHandler::optrace(GamePlayer* pGamePlayer , string msg, int i)
 
 	Creature* pTargetCreature = NULL;
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 		
 	if (isNPCTrace)
@@ -2698,7 +2698,7 @@ void CGSayHandler::oppay(GamePlayer* pGamePlayer , string msg, int i)
 
 	if (pGamePlayer->isBillingPlayAvaiable())
 	{
-		strcpy(str, "[Billing] ÒÑµÇÂ½»áÔ±ÏµÍ³£¬ÕýÔÚ½øÐÐÓÎÏ·ÖÐ....");
+		strcpy(str, "[Billing] ï¿½Ñµï¿½Â½ï¿½ï¿½Ô±ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½....");
 	}
 	else if (pGamePlayer->isPayPlaying())
 	{
@@ -2708,29 +2708,29 @@ void CGSayHandler::oppay(GamePlayer* pGamePlayer , string msg, int i)
 
 		if (pGamePlayer->getPayPlayType()==PAY_PLAY_TYPE_PERSON)
 		{
-			strcpy(str, "[Metrotech][¸öÈË] ");
+			strcpy(str, "[Metrotech][ï¿½ï¿½ï¿½ï¿½] ");
 		}
 		else
 		{
-			strcpy(str, "[Metrotech][Íø°É] ");
+			strcpy(str, "[Metrotech][ï¿½ï¿½ï¿½ï¿½] ");
 		}
 
 		if (pGamePlayer->getPayType()==PAY_TYPE_FREE)
 		{	
-			strcat(str, "Ãâ·ÑÕËºÅ.");
+			strcat(str, "ï¿½ï¿½ï¿½ï¿½Ëºï¿½.");
 		}
 		else if (pGamePlayer->getPayType()==PAY_TYPE_PERIOD)
 		{	
-			sprintf(str, "¿ÉÒÔÊ¹ÓÃµ½%s%sÎªÖ¹.", str, pGamePlayer->getPayPlayAvailableDateTime().toString().c_str());
+			sprintf(str, "ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ãµï¿½%s%sÎªÖ¹.", str, pGamePlayer->getPayPlayAvailableDateTime().toString().c_str());
 		}
 		else
 		{
-			sprintf(str, "%sÊ£ÓàÊ±¼ä : %d / %d ·Ö", str, (int)(payTime.tv_sec/60), (int)pGamePlayer->getPayPlayAvailableHours());
+			sprintf(str, "%sÊ£ï¿½ï¿½Ê±ï¿½ï¿½ : %d / %d ï¿½ï¿½", str, (int)(payTime.tv_sec/60), (int)pGamePlayer->getPayPlayAvailableHours());
 		}
 	}
 	else
 	{	
-		strcpy(str, "[Metrotech] Ãâ·Ñ½øÐÐÓÎÏ·.");
+		strcpy(str, "[Metrotech] ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·.");
 	}
 
 	GCSystemMessage gcSystemMessage;
@@ -2775,7 +2775,7 @@ void CGSayHandler::opfun(GamePlayer* pGamePlayer , string msg, int i)
 		if (!pCreature->isSlayer())
 		{
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage("slayer ¾Æ´Ï¸é ¾ÈµÈ´Ù~");
+			gcSystemMessage.setMessage("slayer ï¿½Æ´Ï¸ï¿½ ï¿½ÈµÈ´ï¿½~");
 			pGamePlayer->sendPacket (&gcSystemMessage);
 			return;
 		}
@@ -2814,13 +2814,13 @@ void CGSayHandler::opfun(GamePlayer* pGamePlayer , string msg, int i)
 		}
 
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("ÉèÖÃµØÀ×.");
+		gcSystemMessage.setMessage("ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½.");
 		pGamePlayer->sendPacket (&gcSystemMessage);
 	}
 	else
 	{
 		GCSystemMessage gcSystemMessage;
-		gcSystemMessage.setMessage("µ½µ×ÔÚ×öÊ²Ã´~!?²»ÄÜºÃºÃ×öÂð!");
+		gcSystemMessage.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´~!?ï¿½ï¿½ï¿½ÜºÃºï¿½ï¿½ï¿½ï¿½ï¿½!");
 		pGamePlayer->sendPacket (&gcSystemMessage);
 	}
 
@@ -2851,10 +2851,10 @@ void CGSayHandler::opwarp(GamePlayer* pGamePlayer , string msg, int i)
 
 	int ZoneID = 0;
 
-	// ZoneNameÀº Á¸ÀÇ ÀÌ¸§ÀÏ ¼öµµ ÀÖ°í, Á¸ÀÇ IDÀÏ ¼öµµ ÀÖ´Ù.
-	// ZoneInfo°¡ NULLÀÌ ¾Æ´Ï¶ó´Â ¸»Àº ÀÌ ¹®ÀÚ¿­ÀÌ Á¸ÀÇ ÀÌ¸§ÀÌ¶ó´Â ¶æÀÌ°í,
-	// Zoneinfo°¡ NULLÀÌ¶ó´Â ¸»Àº ÀÌ ¹®ÀÚ¿­ÀÌ Á¸ÀÇ IDÀÌ¶ó´Â ¸»ÀÌ´Ù.
-	// (¹°·Ð »ç¿ëÀÚÀÇ ÀÔ·Â ½Ç¼öµµ ÀÖ°ÚÁö¸¸, ÀÌ´Â ¹«½ÃÇÑ´Ù.)
+	// ZoneNameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
+	// ZoneInfoï¿½ï¿½ NULLï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½,
+	// Zoneinfoï¿½ï¿½ NULLï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+	// (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½Ç¼ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.)
 	ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfoByName(ZoneName);
 	if (pZoneInfo != NULL)
 	{
@@ -2867,8 +2867,8 @@ void CGSayHandler::opwarp(GamePlayer* pGamePlayer , string msg, int i)
 
 	if (pCreature->isPC() && ZoneX < 256 && ZoneY < 256)
 	{
-		// ½ÃÇè»ï¾Æ¼­ ½ÇÁ¦·Î ±×·± Á¸ÀÌ ÀÖ´ÂÁö¸¦ Ã¼Å©ÇÑ´Ù.
-		// ¾ø´Ù¸é ¸®ÅÏÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ñ´ï¿½.
+		// ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		try
 		{
 			Zone* pZone = getZoneByZoneID(ZoneID);
@@ -2880,7 +2880,7 @@ void CGSayHandler::opwarp(GamePlayer* pGamePlayer , string msg, int i)
 			return;
 		}
 
-		// ±×·± Á¸ÀÌ ÀÖ´Ù´Â °ÍÀÌ È®ÀÎµÇ¾ú´Ù¸é ÀÌµ¿½ÃÅ²´Ù. 
+		// ï¿½×·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ÎµÇ¾ï¿½ï¿½Ù¸ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å²ï¿½ï¿½. 
 		try
 		{
 			transportCreature(pCreature, ZoneID, ZoneX, ZoneY, false);
@@ -2929,8 +2929,8 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 	string ItemClassName = trim(msg.substr(j+1, k-j-1));
 	Item::ItemClass ItemClass = g_pItemFactoryManager->getItemClassByName( ItemClassName );
 
-	// ItemClass°¡ MAX¶ó¸é ÀÌ¸§À¸·Î´Â ¸ø Ã£¾Ò´Ù´Â ¸»ÀÌ´Ù. 
-	// ÀÌ °æ¿ì¿¡´Â ¾ÆÀÌÅÛ Å¬·¡½º°¡ ¼ýÀÚ·Î ¹Ù·Î ¿ÀÁö´Â ¾Ê¾Ò´ÂÁö °Ë»çÇØ¾ß ÇÑ´Ù.
+	// ItemClassï¿½ï¿½ MAXï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ Ã£ï¿½Ò´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½. 
+	// ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	if (ItemClass == Item::ITEM_CLASS_MAX)
 	{
 		int temp = atoi(ItemClassName.c_str());
@@ -2950,7 +2950,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 		|| isRelicItem( ItemClass ) && optional != "force"
 		)
 	{
-		// ½ÃÃ¼ ¸¸µéÁö ¸¶¶û~~ by sigi
+		// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½~~ by sigi
 		GCSystemMessage gcSystemMessage;
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_CANNOT_CREATE_ITEM ) );
 
@@ -3013,7 +3013,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 	}
 
 
-	// Á¤»óÀûÀ¸·Î »ý¼ºÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¶ó¸é ¸®ÅÏÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if (!g_pItemInfoManager->isPossibleItem(ItemClass, ItemType, optionTypes))
 	{
 		//cerr << "Cannot create item" << endl;
@@ -3032,18 +3032,18 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 	}
 
 	//cout << "createItemOptions : " << getOptionTypeToString(optionTypes) << endl;
-	// create·Î »ý¼ºÇÑ À¯´ÏÅ© ¾ÆÀÌÅÛµµ °³¼ö Á¦ÇÑÀ» ½ÃÄÑ¾ßÇÒ±î?
+	// createï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ò±ï¿½?
 	ItemInfo* pItemInfo = g_pItemInfoManager->getItemInfo( ItemClass, ItemType );
 	Assert(pItemInfo!=NULL);
 
-	// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì
+	// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	/*
 	if (pItemInfo->isUnique())
 	{
 		if (!UniqueItemManager::isPossibleCreate( ItemClass, ItemType )) 
 		{
 			GCSystemMessage gcSystemMessage;
-			gcSystemMessage.setMessage("´õ ÀÌ»ó ¸¸µé ¼ö ¾ø´Â À¯´ÏÅ© ¾ÆÀÌÅÛÀÔ´Ï´Ù.");
+			gcSystemMessage.setMessage("ï¿½ï¿½ ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
 
 			pGamePlayer->sendPacket( &gcSystemMessage );
 
@@ -3144,7 +3144,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 		} 
 		else 
 		{
-			//cerr << "¾ÆÀÌÅÛ Ã¢Á¶¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù" << endl;
+			//cerr << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½" << endl;
 			SAFE_DELETE(pItem);
 		}
 	} 
@@ -3170,7 +3170,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 		} 
 		else 
 		{
-			//cout << "¾ÆÀÌÅÛ Ã¢Á¶¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù" << endl;
+			//cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½" << endl;
 			SAFE_DELETE(pItem);
 		}
 	}
@@ -3196,7 +3196,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 		} 
 		else 
 		{
-			//cout << "¾ÆÀÌÅÛ Ã¢Á¶¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù" << endl;
+			//cout << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½" << endl;
 			SAFE_DELETE(pItem);
 		}
 	}*/
@@ -3208,7 +3208,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 			addRelicEffect( pCreature, pItem );
 		}
 
-		// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì °³¼ö Ã¼Å©ÇØÁØ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ï¿½Ø´ï¿½.
 		if (pItemInfo->isUnique())
 		{
 			pItem->setUnique();
@@ -3217,7 +3217,7 @@ void CGSayHandler::opcreate(GamePlayer* pGamePlayer , string msg, int i)
 		}
 
 
-		// ·Î±×¸¦ ³²±ä´Ù.
+		// ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 		Statement* pStmt = NULL;
 		BEGIN_DB
 		{
@@ -3268,7 +3268,7 @@ void CGSayHandler::opgrant(GamePlayer* pGamePlayer , string msg, int i)
 	//{
 	pTargetCreature = pZone->getCreature(Name);
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 	if (pTargetCreature!=NULL)
 	{
 		if (pTargetCreature->isSlayer()) 
@@ -3351,7 +3351,7 @@ void CGSayHandler::oprecall(GamePlayer* pGamePlayer , string msg, int i)
 
 		//cout << "Name : (" <<  Name << ")" << endl;
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 		__ENTER_CRITICAL_SECTION((*g_pPCFinder))
 
 		pTCreature = g_pPCFinder->getCreature_LOCKED(Name);
@@ -3364,7 +3364,7 @@ void CGSayHandler::oprecall(GamePlayer* pGamePlayer , string msg, int i)
 			
 		//if (pTCreature != NULL) 
 		{
-			// ºÒÇàÈ÷µµ PCFinder¿¡¼­ Ã£¾Æ¿Â Creature´Â constÀÌ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ PCFinderï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¿ï¿½ Creatureï¿½ï¿½ constï¿½Ì´ï¿½.
 			Zone* pTargetZone = pTCreature->getZone();
 
 			Assert(pTargetZone != NULL);
@@ -3372,7 +3372,7 @@ void CGSayHandler::oprecall(GamePlayer* pGamePlayer , string msg, int i)
 			Creature* pTargetCreature = NULL;
 			//try 
 			//{
-				// NoSuchÁ¦°Å. by sigi. 2002.5.2
+				// NoSuchï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.2
 				pTargetCreature = pTargetZone->getCreature(pTCreature->getObjectID());
 			//}
 			//catch (NoSuchElementException) 
@@ -3381,14 +3381,14 @@ void CGSayHandler::oprecall(GamePlayer* pGamePlayer , string msg, int i)
 
 			if (pTargetCreature != NULL) 
 			{
-				// ÇöÀç Á×¾îÀÖ´Â ³ðÀº µ¥¸®°í ¿Ã ¼ö ¾ø´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 				if (pTargetCreature->isEffect(Effect::EFFECT_CLASS_COMA)) 
 				{
 					g_pPCFinder->unlock();
 					return;
 				}
 
-				// ¼ÒÈ¯ÀÚÀÇ Á¸°ú ÁÂÇ¥.
+				// ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥.
 				ZoneID_t ZoneNum = pCreature->getZoneID();
 				Coord_t ZoneX = pCreature->getX();
 				Coord_t ZoneY = pCreature->getY();
@@ -3526,13 +3526,13 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 #ifdef __UNDERWORLD__
 
 	size_t e = msg.find_first_of('[', i+1);
-	size_t v = msg.find_first_of(']', i+1); // e~v : event ¿©ºÎ
+	size_t v = msg.find_first_of(']', i+1); // e~v : event ï¿½ï¿½ï¿½ï¿½
 
 	string EventFlag = msg.substr(e+1,v-e-1);
 	
 	if (strstr(EventFlag.c_str(), "EventAll") != NULL )
 	{
-		//	ÀÌº¥Æ®¿ë ÄÚµå (¸ó½ºÅÍÅ¸ÀÔµµ ±×³É ÇÏµåÄÚµù -_-;)
+		//	ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Úµï¿½ (ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ôµï¿½ ï¿½×³ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½ -_-;)
 		Zone* pZone = pCreature->getZone();
 		Coord_t ZoneX = pCreature->getX();
 		Coord_t ZoneY = pCreature->getY();
@@ -3556,7 +3556,7 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 			
 			if (pMonster == NULL) return;
 
-			pMonster->setName("µØÓü");
+			pMonster->setName("ï¿½ï¿½ï¿½ï¿½");
 
 			pMonster->setTreasure( true );
 			pMonster->setUnderworld( true );
@@ -3584,7 +3584,7 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if (strstr(EventFlag.c_str(), "Event") != NULL )
 	{
-		//	ÀÌº¥Æ®¿ë ÄÚµå (¸ó½ºÅÍÅ¸ÀÔµµ ±×³É ÇÏµåÄÚµù -_-;)
+		//	ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½Úµï¿½ (ï¿½ï¿½ï¿½ï¿½Å¸ï¿½Ôµï¿½ ï¿½×³ï¿½ ï¿½Ïµï¿½ï¿½Úµï¿½ -_-;)
 		Zone* pZone = pCreature->getZone();
 		Coord_t ZoneX = pCreature->getX();
 		Coord_t ZoneY = pCreature->getY();
@@ -3604,7 +3604,7 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 			
 			if (pMonster == NULL) return;
 
-			pMonster->setName("BOSS¹ÖÎï");
+			pMonster->setName("BOSSï¿½ï¿½ï¿½ï¿½");
 
 			pMonster->setTreasure( true );
 			pMonster->setUnderworld( true );
@@ -3634,14 +3634,14 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 
 //	cout << MonsterName << endl;
 
-	// SpriteTypeÀÌ ¾Æ´Ï°í MonsterTypeÀÌ ¼³Á¤µÈ °æ¿ì
+	// SpriteTypeï¿½ï¿½ ï¿½Æ´Ï°ï¿½ MonsterTypeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	if (o!=string::npos && p!=string::npos)
 	{
 		MonsterType = atoi(msg.substr(o+1, p-o-1).c_str());
 	}
-	else if ( strstr(MonsterName.c_str(),"Ä¡ÇÁ") != NULL)
+	else if ( strstr(MonsterName.c_str(),"Ä¡ï¿½ï¿½") != NULL)
 	{
-		// Ä¡ÇÁ¸ó½ºÅÍ ¼ÒÈ¯ÇÏ±â ¤Ñ.¤Ñ; by DEW
+		// Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï±ï¿½ ï¿½ï¿½.ï¿½ï¿½; by DEW
 		MonsterType = g_pMonsterInfoManager->getChiefMonsterTypeByName( MonsterName );
 	}
 	else
@@ -3656,7 +3656,7 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 
 	MonsterNum = atoi(msg.substr(k+1, msg.size()-k-1).c_str());
 
-	// 1~30 »çÀÌ
+	// 1~30 ï¿½ï¿½ï¿½ï¿½
 	MonsterNum = max( 1, MonsterNum );
 	MonsterNum = min( 30, MonsterNum );
 
@@ -3693,13 +3693,13 @@ void CGSayHandler::opsummon(GamePlayer* pGamePlayer , string msg, int i)
 
 	try 
 	{
-		// ÀÏ¹Ý Á¸ÀÌ¶ó¸é ¸ó½ºÅÍ¸¦ »ý¼ºÇÑ´Ù.
+		// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if (!(pZone->getZoneLevel() & SAFE_ZONE))
 		{
 			filelog("summon.txt", "[%s] ZoneID=%d, %s", pCreature->getName().c_str(), pCreature->getZone()->getZoneID(), msg.c_str());
 
-			// monsterInfo¿¡ ÀÖ´Â°ÇÁö ¾ø´Â°ÇÁö Ã¼Å©ÇÏ±â À§ÇØ¼­..
-			// ¾øÀ¸¸é NoSuchElementExceptionÀÌ ¶á´Ù.
+			// monsterInfoï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ Ã¼Å©ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½..
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NoSuchElementExceptionï¿½ï¿½ ï¿½ï¿½ï¿½.
 			if (SpriteType!=0)
 			{
 				g_pMonsterInfoManager->getMonsterTypeBySprite(SpriteType);
@@ -3769,7 +3769,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		if (value1=="default")
 			defaultZoneGroup = true;
 
-		// Áï½Ã~
+		// ï¿½ï¿½ï¿½~
 		g_pClientManager->setBalanceZoneGroup( 0, true, defaultZoneGroup );
 
 		gcSystemMessage.setMessage( g_pStringPool->getString( STRID_ZONE_GROUP_BALANCING ) );
@@ -3784,7 +3784,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 		if (pZone->isMasterLair())
 		{
-			// Áï½Ã~
+			// ï¿½ï¿½ï¿½~
 			MasterLairManager* pMasterLairManager = pZone->getMasterLairManager();
 			Assert(pMasterLairManager!=NULL);
 
@@ -3883,7 +3883,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 				Tile& rTile = pZone->getTile(pCreature->getX(), pCreature->getY());	
 				if (!rTile.isAirBlocked() && !rTile.hasPortal())
 				{
-					// ÁÖº¯ÀÇ PCµé¿¡°Ô Å©¸®Ã³°¡ »ç¶óÁ³´Ù´Â »ç½ÇÀ» ºê·ÎµåÄ³½ºÆ®ÇÑ´Ù.
+					// ï¿½Öºï¿½ï¿½ï¿½ PCï¿½é¿¡ï¿½ï¿½ Å©ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½Ä³ï¿½ï¿½Æ®ï¿½Ñ´ï¿½.
 					GCDeleteObject gcDeleteObject(pCreature->getObjectID());
 					pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcDeleteObject, pCreature);
 
@@ -3981,14 +3981,14 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	/*
 	else if (command=="twiceMoney")
 	{
-		gcSystemMessage.setMessage("µ·À» µÎ¹è·Î ¸¸µì´Ï´Ù.");
+		gcSystemMessage.setMessage("ï¿½ï¿½ï¿½ï¿½ ï¿½Î¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 
 		Creature* pCreature = pGamePlayer->getCreature();
 		PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 
 		pPC->setGold( pPC->getGold()*2 );
 
-		// ÆÐÅ¶ ¹¹ º¸³»Áà¾ß ÇÏ´Âµ¥.. -_-;
+		// ï¿½ï¿½Å¶ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´Âµï¿½.. -_-;
 	}
 	*/
 	else if (command=="clearInventory")
@@ -4013,12 +4013,12 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 						if (pItem != NULL) 
 						{
-							// ¿­¼è°¡ ¾Æ´Ï¸é Áö¿î´Ù.
+							// ï¿½ï¿½ï¿½è°¡ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 							if (pItem->getItemClass() != Item::ITEM_CLASS_KEY
 								&& !isRelicItem( pItem )
 								)
 							{
-								// À¯´ÏÅ© ¾ÆÀÌÅÛÀÎ °æ¿ì °³¼ö¸¦ ÁÙÀÎ´Ù.
+								// ï¿½ï¿½ï¿½ï¿½Å© ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
 								if (pItem->isUnique())
 								{
 									//UniqueItemManager::deleteItem( pItem->getItemClass(), pItem->getItemType() );
@@ -4029,7 +4029,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 								pItem->whenPCLost( pPC );
 								pItem->destroy();
 
-								// ItemTrace Log ¸¦ ³²±ä´Ù
+								// ItemTrace Log ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 								if ( pItem != NULL && pItem->isTraceItem() )
 								{
 									remainTraceLog( pItem, pCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_OPCLEAR);
@@ -4042,7 +4042,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 				} // end of for
 			}
 
-			// inventoryÁ¤¸® ÆÐÅ¶ÀÌ ¾ø¾î¼­.. -_-;
+			// inventoryï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­.. -_-;
 			transportCreature(pCreature, pCreature->getZone()->getZoneID(), pCreature->getX(), pCreature->getY(), false);
 		} 
 		catch (Throwable & t) 
@@ -4088,12 +4088,12 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 		if ( pZone->isCastle() )
 		{
-			// *command setCastleOwner SlayerCommon ÀÌ ³Ñ¾î¿Â °æ¿ì Slayer °ø¿ë¼º
+			// *command setCastleOwner SlayerCommon ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ Slayer ï¿½ï¿½ï¿½ë¼º
 			if (value1 == "SlayerCommon")
 			{
 				g_pCastleInfoManager->modifyCastleOwner( pZone->getZoneID(), RACE_SLAYER, 99 );
 			}
-			// *command setCastleOwner VampireCommon ÀÌ ³Ñ¾î¿Â °æ¿ì Vampire °ø¿ë¼º
+			// *command setCastleOwner VampireCommon ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ Vampire ï¿½ï¿½ï¿½ë¼º
 			else if (value1 == "VampireCommon")
 			{
 				g_pCastleInfoManager->modifyCastleOwner( pZone->getZoneID(), RACE_VAMPIRE, 0 );
@@ -4102,7 +4102,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			{
 				g_pCastleInfoManager->modifyCastleOwner( pZone->getZoneID(), RACE_OUSTERS, 66 );
 			}
-			// *command setCastleOwner Ä³¸¯ÅÍÀÌ¸§ ÀÌ ³Ñ¾î¿Â °æ¿ì ±× Ä³¸¯ÅÍÀÇ ±æµå¼º
+			// *command setCastleOwner Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½å¼º
 			else 
 			{
 				GuildID_t guildID;
@@ -4156,7 +4156,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		{
 			g_pCastleInfoManager->modifyCastleOwner( pZone->getZoneID(), RACE_SLAYER, 99 );
 		}
-		// *command setCastleOwner VampireCommon ÀÌ ³Ñ¾î¿Â °æ¿ì Vampire °ø¿ë¼º
+		// *command setCastleOwner VampireCommon ï¿½ï¿½ ï¿½Ñ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ Vampire ï¿½ï¿½ï¿½ë¼º
 		else if (pZone != NULL && pZone->isCastle() && guildID == 0)
 		{
 			g_pCastleInfoManager->modifyCastleOwner( pZone->getZoneID(), RACE_VAMPIRE, 0 );
@@ -4169,7 +4169,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	}
 	else if ( command == "showWarList")
 	{
-		// ÇöÀç ÁøÇàÁßÀÎ ÀüÀïÀÇ ¸ñ·ÏÀ» º¸¿©ÁØ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 
 		g_pWarSystem->broadcastWarList( pGamePlayer );
 		bSendPacket = false;
@@ -4224,7 +4224,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		if (g_pWarSystem->removeWar( zoneID ))
 		{
 //			StringStream msg;
-//			msg << "[" << (int)zoneID << "] ÀÇ ÀüÀïÀ» Á¦°ÅÇß½À´Ï´Ù.";
+//			msg << "[" << (int)zoneID << "] ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.";
 			char msg[100];
 			sprintf( msg, g_pStringPool->c_str( STRID_GUILD_WAR_REMOVED ),
 							(int)zoneID );
@@ -4233,7 +4233,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		else
 		{
 //			StringStream msg;
-//			msg << "[" << (int)zoneID << "] ¿¡´Â ÁøÇàÁßÀÎ ÀüÀïÀÌ ¾ø½À´Ï´Ù.";
+//			msg << "[" << (int)zoneID << "] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			char msg[100];
 			sprintf( msg, g_pStringPool->c_str( STRID_NO_GUILD_WAR_IN_ACTIVE ),
 							(int)zoneID );
@@ -4246,13 +4246,13 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		if (g_pWarSystem->removeRaceWar())
 		{
 //			StringStream msg;
-//			msg << "Á¾Á· ÀüÀïÀ» Á¦°ÅÇß½À´Ï´Ù.";
+//			msg << "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_RACE_WAR_REMOVED ) );
 		}
 		else
 		{
 //			StringStream msg;
-//			msg << "ÁøÇàÁßÀÎ Á¾Á· ÀüÀïÀÌ ¾ø½À´Ï´Ù.";
+//			msg << "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.";
 			gcSystemMessage.setMessage( g_pStringPool->getString( STRID_NO_RACE_WAR_IN_ACTIVE ) );
 		}
 		bSendPacket = true;
@@ -4428,17 +4428,17 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 			if ( pCreature->isFlag( Effect::EFFECT_CLASS_COMA ) )
 			{
-				// Å¸°ÙÀÇ ÀÌÆåÆ® ¸Å´ÏÀú¿¡¼­ ÄÚ¸¶ ÀÌÆåÆ®¸¦ »èÁ¦ÇÑ´Ù.
+				// Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				pCreature->deleteEffect(Effect::EFFECT_CLASS_COMA);
 				pCreature->removeFlag(Effect::EFFECT_CLASS_COMA);
 
-				// ÄÚ¸¶ ÀÌÆåÆ®°¡ ³¯¾Æ°¬´Ù°í ¾Ë·ÁÁØ´Ù.
+				// ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½Ù°ï¿½ ï¿½Ë·ï¿½ï¿½Ø´ï¿½.
 				GCRemoveEffect gcRemoveEffect;
 				gcRemoveEffect.setObjectID(pCreature->getObjectID());
 				gcRemoveEffect.addEffectList((EffectID_t)Effect::EFFECT_CLASS_COMA);
 				pZone->broadcastPacket(pCreature->getX(), pCreature->getY(), &gcRemoveEffect);
 
-				// ÀÌÆåÆ® Á¤º¸¸¦ ´Ù½Ã º¸³»ÁØ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 				pCreature->getEffectManager()->sendEffectInfo(pCreature, pZone, pCreature->getX(), pCreature->getY());
 			}
 
@@ -4487,7 +4487,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 			if ( hp != 0 )
 			{
-				// ÁÖÀ§¿¡ Ã¼·ÂÀÌ Ã¤¿öÁ³´Ù´Â »ç½ÇÀ» ¾Ë¸°´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½.
 				GCStatusCurrentHP gcStatusCurrentHP;
 				gcStatusCurrentHP.setObjectID(pCreature->getObjectID());
 				gcStatusCurrentHP.setCurrentHP(hp);
@@ -4538,7 +4538,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			pGamePlayer->sendPacket( &gcMI );
 		}
 
-		// µ··Î±× ³²±æ ¾×¼ö¸é µ··Î±× ³²±ä´Ù
+		// ï¿½ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 		if ( gold >= g_pVariableManager->getMoneyTraceLogLimit() )
 		{
 			if ( gold > 2000000000 )
@@ -4751,17 +4751,17 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 				|| atoi( value1.c_str() ) < 0 || atoi(value1.c_str() ) > 13
 			   )
 			{
-				// À½ -_-a
+				// ï¿½ï¿½ -_-a
 			}
 			else 
 			{
 				Effect::EffectClass effectClass = FirecrackerEffects[ atoi( value1.c_str() ) ];
-				// ¿¡ÆåÆ®¸¦ ¸¸µé¾î¼­ ºê·ÎµåÄ³½ºÆÃ ÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½Îµï¿½Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 				GCAddEffectToTile gcAddEffectToTile;
 				gcAddEffectToTile.setObjectID( pCreature->getObjectID() );
 				gcAddEffectToTile.setEffectID( effectClass );
 				gcAddEffectToTile.setXY( pCreature->getX(), pCreature->getY() );
-				gcAddEffectToTile.setDuration( 10 );  // º° ÀÇ¹Ì ¾ø´Ù ±×³É 1ÃÊ
+				gcAddEffectToTile.setDuration( 10 );  // ï¿½ï¿½ ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×³ï¿½ 1ï¿½ï¿½
 
 				pZone->broadcastPacket( pCreature->getX(), pCreature->getY(), &gcAddEffectToTile );
 				bSendPacket = false;
@@ -4853,7 +4853,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		{
 			if ( pCreature->isSlayer() )
 			{
-				gcSystemMessage.setMessage("ÈËÀà²»ÄÜ³õÊ¼»¯ÊôÐÔ.");
+				gcSystemMessage.setMessage("ï¿½ï¿½ï¿½à²»ï¿½Ü³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 			}
 			else if ( pCreature->isVampire() )
 			{
@@ -4963,7 +4963,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		EventZoneInfo* pEventZoneInfo = EventZoneInfoManager::Instance().getEventZoneInfo( pCreature->getZone()->getZoneID() );
 		if ( pEventZoneInfo == NULL ) 
 		{
-			gcSystemMessage.setMessage("²»ÊÇ»î¶¯µØÍ¼.");
+			gcSystemMessage.setMessage("ï¿½ï¿½ï¿½Ç»î¶¯ï¿½ï¿½Í¼.");
 		}
 		else if ( value1 == "on" )
 		{
@@ -4973,23 +4973,23 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 			if ( pCurrentEventZoneInfo != NULL && pCurrentEventZoneInfo != pEventZoneInfo )
 			{
-				gcSystemMessage.setMessage("ÒÑ¼¤»îÆäËû»î¶¯.");
+				gcSystemMessage.setMessage("ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯.");
 			}
 			else if ( pCurrentEventZoneInfo == NULL )
 			{
 				pEventZoneInfo->turnOn();
-				gcSystemMessage.setMessage("¿ªÊ¼»î¶¯.");
+				gcSystemMessage.setMessage("ï¿½ï¿½Ê¼ï¿½î¶¯.");
 			}
-			else gcSystemMessage.setMessage("ÒÑ¼¤»îÆäËû»î¶¯.");
+			else gcSystemMessage.setMessage("ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¯.");
 		}
 		else if ( value1 == "off" )
 		{
 			if ( pEventZoneInfo->isEventOn() )
 			{
 				pEventZoneInfo->turnOff();
-				gcSystemMessage.setMessage("¹Ø±Õ»î¶¯.");
+				gcSystemMessage.setMessage("ï¿½Ø±Õ»î¶¯.");
 			}
-			else gcSystemMessage.setMessage("»î¶¯»¹Ã»ÓÐÆô¶¯.");
+			else gcSystemMessage.setMessage("ï¿½î¶¯ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 		}
 	}
 	else if ( command == "EventZonePCLimit" )
@@ -4998,14 +4998,14 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		EventZoneInfo* pEventZoneInfo = EventZoneInfoManager::Instance().getEventZoneInfo( pCreature->getZone()->getZoneID() );
 		if ( pEventZoneInfo == NULL ) 
 		{
-			gcSystemMessage.setMessage("²»ÊÇ»î¶¯µØÍ¼.");
+			gcSystemMessage.setMessage("ï¿½ï¿½ï¿½Ç»î¶¯ï¿½ï¿½Í¼.");
 		}
 		else
 		{
 			WORD lim = (WORD)atoi(value1.c_str());
 			pEventZoneInfo->setPCLimit( lim );
 			char buffer[100];
-			sprintf(buffer, "ÈËÊýÏÞÖÆ : %u", lim );
+			sprintf(buffer, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : %u", lim );
 			gcSystemMessage.setMessage( buffer );
 		}
 	}
@@ -5014,7 +5014,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Creature* pCreature = pGamePlayer->getCreature();
 		PCManager* pPCManager = (PCManager*)pCreature->getZone()->getPCManager();
 		pPCManager->transportAllCreatures( 1303, 46, 49 );
-		gcSystemMessage.setMessage("°ÑËùÓÐÍæ¼ÒÒÆ¶¯µ½°ÍÄÇÍÐ.");
+		gcSystemMessage.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");
 	}
 	else if ( command == "StartTrap" )
 	{
@@ -5073,11 +5073,11 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 				pZone->addEffect( pEffect );
 			}
 
-			gcSystemMessage.setMessage( "ÉèÖÃÏÝÚå." );
+			gcSystemMessage.setMessage( "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½." );
 		}
 		else
 		{
-			gcSystemMessage.setMessage( "´ËµØÍ¼ÎÞ·¨ÉèÖÃÏÝÚå." );
+			gcSystemMessage.setMessage( "ï¿½Ëµï¿½Í¼ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½." );
 		}
 
 	}
@@ -5106,7 +5106,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 		if ( pTargetCreature == NULL || pTargetCreature->getZone() != pCreature->getZone() || !pTargetCreature->isPC() )
 		{
-			gcSystemMessage.setMessage( "µØÍ¼ÉÏ£¬ÎÞ·¨ÕÒµ½¸Ã½ÇÉ«." );
+			gcSystemMessage.setMessage( "ï¿½ï¿½Í¼ï¿½Ï£ï¿½ï¿½Þ·ï¿½ï¿½Òµï¿½ï¿½Ã½ï¿½É«." );
 		}
 		else
 		{
@@ -5157,7 +5157,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 		if ( pTargetCreature == NULL || pTargetCreature->getZone() != pCreature->getZone() || !pTargetCreature->isPC() )
 		{
-			gcSystemMessage.setMessage( "µØÍ¼ÉÏ£¬ÎÞ·¨ÕÒµ½¸Ã½ÇÉ«." );
+			gcSystemMessage.setMessage( "ï¿½ï¿½Í¼ï¿½Ï£ï¿½ï¿½Þ·ï¿½ï¿½Òµï¿½ï¿½Ã½ï¿½É«." );
 		}
 		else
 		{
@@ -5168,7 +5168,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 
 			if ( pNick == NULL )
 			{
-				gcSystemMessage.setMessage( "Ã»ÓÐ½øÐÐÉ¾³ýµÄÇ¿ÖÆÄ£Ê½." );
+				gcSystemMessage.setMessage( "Ã»ï¿½Ð½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ä£Ê½." );
 			}
 			else
 			{
@@ -5210,7 +5210,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			if ( pState != NULL )
 			{
 				pState->expire();
-				gcSystemMessage.setMessage("¿ªÊ¼ÒôÀÖlair.");
+				gcSystemMessage.setMessage("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½lair.");
 			}
 		}
 		else if ( GDRLairManager::Instance().getCurrentState() == GDR_LAIR_ENTRANCE )
@@ -5219,7 +5219,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			if ( pState != NULL )
 			{
 				pState->expire();
-				gcSystemMessage.setMessage("Æô¶¯ÒôÀÖlair.");
+				gcSystemMessage.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lair.");
 			}
 		}
 	}
@@ -5228,7 +5228,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		if ( GDRLairManager::Instance().getCurrentState() != GDR_LAIR_IDLE )
 		{
 			GDRLairManager::Instance().reset();
-			gcSystemMessage.setMessage("³õÊ¼»¯ÒôÀÖlair.");
+			gcSystemMessage.setMessage("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lair.");
 		}
 	}
 	else if ( command == "GuildRecall" && pGamePlayer != NULL )
@@ -5290,7 +5290,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 			Creature* pTargetCreature = *itr;
 			if ( pTargetCreature == NULL ) continue;
 			
-			// ¼ÒÈ¯ÀÚÀÇ Á¸°ú ÁÂÇ¥.
+			// ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥.
 			ZoneID_t ZoneNum = pCreature->getZoneID();
 			Coord_t ZoneX = pCreature->getX();
 			Coord_t ZoneY = pCreature->getY();
@@ -5336,14 +5336,14 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 	// {
 	// 	LoadAuthTable( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.tab").c_str() );
 	// 	LoadAuthIndex( (g_pConfig->getProperty("HomePath") + "/data/CSAuth.idx").c_str() );
-	// 	gcSystemMessage.setMessage("Æô¶¯ÈÏÖ¤³ÌÐò.");
+	// 	gcSystemMessage.setMessage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½.");
 	// }
 	// else if ( command == "SetAuthIndex" )
 	// {
 	// 	DWORD index = atoi(trim(value1).c_str());
 	// 	SetAuthIndex(index);
 	// 	char buffer[100];
-	// 	sprintf(buffer, "°ÑÈÏÖ¤Ë÷ÒýÉèÖÃÎª%u.", index);
+	// 	sprintf(buffer, "ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª%u.", index);
 	// 	gcSystemMessage.setMessage( buffer );
 	// }
 	else if ( command == "IAmAttacker" )
@@ -5352,7 +5352,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Assert( pCreature != NULL );
 
 		addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_SIEGE_ATTACKER_1, 600 );
-		gcSystemMessage.setMessage( "¹¥³ÇÕ½ 1ºÅ¹¥»÷·½±äÉíÒ»·ÖÖÓ." );
+		gcSystemMessage.setMessage( "ï¿½ï¿½ï¿½ï¿½Õ½ 1ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½." );
 	}
 	else if ( command == "IAmDefender" )
 	{
@@ -5360,7 +5360,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Assert( pCreature != NULL );
 
 		addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_SIEGE_DEFENDER, 600 );
-		gcSystemMessage.setMessage( "¹¥³ÇÕ½ ·ÀÊØ·½±äÉíÒ»·ÖÖÓ." );
+		gcSystemMessage.setMessage( "ï¿½ï¿½ï¿½ï¿½Õ½ ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½." );
 	}
 	else if ( command == "IAmReinforce" )
 	{
@@ -5368,7 +5368,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Assert( pCreature != NULL );
 
 		addSimpleCreatureEffect( pCreature, Effect::EFFECT_CLASS_SIEGE_REINFORCE, 600 );
-		gcSystemMessage.setMessage( "¹¥³ÇÕ½ ·ÀÊØ·½Ô®¾ü±äÉíÒ»·ÖÖÓ." );
+		gcSystemMessage.setMessage( "ï¿½ï¿½ï¿½ï¿½Õ½ ï¿½ï¿½ï¿½Ø·ï¿½Ô®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½." );
 	}
 	else if ( command == "showpcstat" )
 	{
@@ -5376,7 +5376,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Assert( pCreature != NULL );
 		vector<uint> num = pCreature->getZone()->getPCManager()->getPCNumByRace();
 		char buffer[200];
-		sprintf(buffer, "ÈËÀà %uÃû, ÎüÑª¹í %uÃû, Ä§Áé %uÃû", num[RACE_SLAYER], num[RACE_VAMPIRE], num[RACE_OUSTERS]);
+		sprintf(buffer, "ï¿½ï¿½ï¿½ï¿½ %uï¿½ï¿½, ï¿½ï¿½Ñªï¿½ï¿½ %uï¿½ï¿½, Ä§ï¿½ï¿½ %uï¿½ï¿½", num[RACE_SLAYER], num[RACE_VAMPIRE], num[RACE_OUSTERS]);
 		gcSystemMessage.setMessage(buffer);
 	}
 	else if ( command == "advanceclass" )
@@ -5423,7 +5423,7 @@ void CGSayHandler::opcommand(GamePlayer* pGamePlayer , string msg, int i)
 		Creature* pCreature = pGamePlayer->getCreature();
 		Assert( pCreature != NULL );
 		pCreature->getZone()->getEffectManager()->setTimeOutAllEffect();
-		gcSystemMessage.setMessage( "¹Ø±ÕµØÍ¼±³¾°ÒôÀÖ" );
+		gcSystemMessage.setMessage( "ï¿½Ø±Õµï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" );
 	}
 	else if ( command == "printTile" )
 	{
@@ -5473,7 +5473,7 @@ void CGSayHandler::opworld(GamePlayer* pGamePlayer , string msg, int i, bool bSa
 	ggCommand.setCommand( command );
 
 
-	// °¢ server·Î º¸³½´Ù.
+	// ï¿½ï¿½ serverï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HashMapGameServerInfo** pGameServerInfos = g_pGameServerInfoManager->getGameServerInfos();
 
 
@@ -5499,7 +5499,7 @@ void CGSayHandler::opworld(GamePlayer* pGamePlayer , string msg, int i, bool bSa
 
 					if (pGameServerInfo->getWorldID()==myWorldID)
 					{
-						// ÇöÀç ¼­¹ö°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸..(À§¿¡¼­ Ã³¸®ÇßÀ¸¹Ç·Î)
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½..(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½)
 						if (pGameServerInfo->getGroupID()==myServerID)
 						{
 						}
@@ -5510,7 +5510,7 @@ void CGSayHandler::opworld(GamePlayer* pGamePlayer , string msg, int i, bool bSa
 																&ggCommand );
 						}
 					}
-					// ´Ù¸¥ WorldÀÎ °æ¿ì. °°Àº world¿¡¸¸ »Ñ¸®´Â°Ô ¾Æ´Ï¶ó¸é..
+					// ï¿½Ù¸ï¿½ Worldï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ worldï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½..
 					else if (!bSameWorldOnly)
 					{
 						g_pLoginServerManager->sendPacket( pGameServerInfo->getIP(),
@@ -5587,7 +5587,7 @@ void CGSayHandler::oplog(GamePlayer* pPlayer, string msg, int i)
 	if ( pTargetGamePlayer->startPacketLog( sec ) )
 	{
 		char msg[100];
-		sprintf( msg, "%sÄÚ¼ÇÂ¼PacketLog(%uÃë)", name.c_str(), sec );
+		sprintf( msg, "%sï¿½Ú¼ï¿½Â¼PacketLog(%uï¿½ï¿½)", name.c_str(), sec );
 
 		GCSystemMessage gcMsg;
 		gcMsg.setMessage( msg );
@@ -5634,7 +5634,7 @@ void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int
 	ggCommand.setCommand( command );
 
 
-	// °¢ server·Î º¸³½´Ù.
+	// ï¿½ï¿½ serverï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	HashMapGameServerInfo** pGameServerInfos = g_pGameServerInfoManager->getGameServerInfos();
 
 
@@ -5660,7 +5660,7 @@ void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int
 
 					if (pGameServerInfo->getWorldID()==myWorldID)
 					{
-						// ÇöÀç ¼­¹ö°¡ ¾Æ´Ñ °æ¿ì¿¡¸¸..(À§¿¡¼­ Ã³¸®ÇßÀ¸¹Ç·Î)
+						// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½..(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½)
 						if (pGameServerInfo->getGroupID()==myServerID)
 						{
 						}
@@ -5671,7 +5671,7 @@ void CGSayHandler::oprefreshguildunion(GamePlayer* pGamePlayer , string msg, int
 																&ggCommand );
 						}
 					}
-					// ´Ù¸¥ WorldÀÎ °æ¿ì. °°Àº world¿¡¸¸ »Ñ¸®´Â°Ô ¾Æ´Ï¶ó¸é..
+					// ï¿½Ù¸ï¿½ Worldï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ worldï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¸ï¿½ï¿½Â°ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½..
 					else if (!bSameWorldOnly)
 					{
 						g_pLoginServerManager->sendPacket( pGameServerInfo->getIP(),

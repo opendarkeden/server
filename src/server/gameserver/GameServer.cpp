@@ -105,7 +105,7 @@ GameServer::GameServer ()
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
-// stop()À» °ÅÄ¡Áö ¾Ê°í °ÔÀÓ ¼­¹ö°¡ Á¾·áµÇ´Â °ÍÀ» Ã¼Å©ÇØÁà¾ß ÇÑ´Ù.
+// stop()ì„ ê±°ì¹˜ì§€ ì•Šê³  ê²Œì„ ì„œë²„ê°€ ì¢…ë£Œë˜ëŠ” ê²ƒì„ ì²´í¬í•´ì¤˜ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 GameServer::~GameServer ()
@@ -133,7 +133,7 @@ GameServer::~GameServer ()
 	SAFE_DELETE(g_pThreadManager);
 	SAFE_DELETE(g_pDatabaseManager);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -148,46 +148,46 @@ void GameServer::init ()
 	sysinit();
 	cout << "GameServer::init() : System Initialization Success..." << endl;
 
-	// gCurrentTimeÀ» ¼¼ÆÃÇÑ´Ù.
+	// gCurrentTimeì„ ì„¸íŒ…í•œë‹¤.
 	setCurrentTime();
 
-	// µ¥ÀÌÅ¸º£ÀÌ½º¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// ë°ì´íƒ€ë² ì´ìŠ¤ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	g_pDatabaseManager->init();
 	cout << "GameServer::init() : DatabaseManager Initialization Success..." << endl;
 
-	// µ¥ÀÌÅ¸º£ÀÌ½º¸Å´ÏÀú¸¦ ÅëÇØ¼­ ¿ÀºêÁ§Æ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù. 
+	// ë°ì´íƒ€ë² ì´ìŠ¤ë§¤ë‹ˆì €ë¥¼ í†µí•´ì„œ ì˜¤ë¸Œì íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤. 
 	g_pObjectManager->init();
 	g_pObjectManager->load();
 	cout << "GameServer::init() : ObjectManager Initialization Success..." << endl;
 
-	// ¿ÀºêÁ§Æ® ¸Å´ÏÀú¸¦ ±â¹İÀ¸·Î ¾²·¹µå¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-	// (Æ¯È÷ ZoneThreadPoolÀº ZoneGroupManager°¡ ¸ÕÀú ÃÊ±âÈ­µÇ¾î¾ß ÇÑ´Ù.
+	// ì˜¤ë¸Œì íŠ¸ ë§¤ë‹ˆì €ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ì“°ë ˆë“œë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+	// (íŠ¹íˆ ZoneThreadPoolì€ ZoneGroupManagerê°€ ë¨¼ì € ì´ˆê¸°í™”ë˜ì–´ì•¼ í•œë‹¤.
 	g_pThreadManager->init();
 	cout << "GameServer::init() : ThreadManager Initialization Success..." << endl;
 		
-	// Å¬¶óÀÌ¾ğÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÏ±â Àü¿¡, ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú/ÆĞÅ¶¹ß¸®µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•˜ê¸° ì „ì—, íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €/íŒ¨í‚·ë°œë¦¬ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	g_pPacketFactoryManager->init();
 	cout << "GameServer::init() : PacketFactoryManager Initialization Success..." << endl;
 
 	g_pPacketValidator->init();
 	cout << "GameServer::init() : PacketValidator Initialization Success..." << endl;
 
-	// ÀÌÁ¦ ¼­¹ö°£ Åë½Å ÁØºñ¿¡ µé¾î°£´Ù.
+	// ì´ì œ ì„œë²„ê°„ í†µì‹  ì¤€ë¹„ì— ë“¤ì–´ê°„ë‹¤.
 	g_pLoginServerManager->init();
 	cout << "GameServer::init() : LoginServerManager Initialization Success..." << endl;
 	
-	// shared server ¿ÍÀÇ Åë½Å ÁØºñ¿¡ µé¾î°£´Ù.
+	// shared server ì™€ì˜ í†µì‹  ì¤€ë¹„ì— ë“¤ì–´ê°„ë‹¤.
 	g_pSharedServerManager->init();
 	cout << "GameServer::init() : SharedServerManager Initialization Success..." << endl;
 
 #ifdef __CONNECT_BILLING_SYSTEM__
-	// shared server ¿ÍÀÇ Åë½Å ÁØºñ¿¡ µé¾î°£´Ù.
+	// shared server ì™€ì˜ í†µì‹  ì¤€ë¹„ì— ë“¤ì–´ê°„ë‹¤.
 	g_pBillingPlayerManager->init();
 	cout << "GameServer::init() : BillingPlayerManager Initialization Success..." << endl;
 #endif
 
 #ifdef __CONNECT_CBILLING_SYSTEM__
-	// china billing server ¿ÍÀÇ Åë½Å ÁØºñ¿¡ µé¾î°£´Ù.
+	// china billing server ì™€ì˜ í†µì‹  ì¤€ë¹„ì— ë“¤ì–´ê°„ë‹¤.
 	g_pCBillingPlayerManager->init();
 	cout << "GameServer::init() : CBillingPlayerManager Initialization Success..." << endl;
 #endif
@@ -203,12 +203,12 @@ void GameServer::init ()
 	g_pGameServerInfoManager->init();
 	cout << "GameServer::init() : GameServerInfoManager Initialization Success..." << endl;
 
-	// ¸¸¹İÀÇ ÁØºñ°¡ ³¡ÀÌ ³ª¸é ÀÌÁ¦ Å¬¶óÀÌ¾ğÆ®¸Å´ÏÀú¸¦ ÃÊ±âÈ­ÇÔÀ¸·Î½á,
-	// ³×Æ®¿öÅ·¿¡ ´ëºñÇÑ´Ù.
+	// ë§Œë°˜ì˜ ì¤€ë¹„ê°€ ëì´ ë‚˜ë©´ ì´ì œ í´ë¼ì´ì–¸íŠ¸ë§¤ë‹ˆì €ë¥¼ ì´ˆê¸°í™”í•¨ìœ¼ë¡œì¨,
+	// ë„¤íŠ¸ì›Œí‚¹ì— ëŒ€ë¹„í•œë‹¤.
 	g_pClientManager->init();
 	cout << "GameServer::init() : ClientManager Initialization Success..." << endl;
 	
-	// ÃÊ±âÈ­°¡ ³¡ÀÌ ³ª¸é, ÄÜ¼Ö Ãâ·ÂÀ» ¸ØÃß°í ¹é±×¶ó¿îµå·Î µé¾î°£´Ù.
+	// ì´ˆê¸°í™”ê°€ ëì´ ë‚˜ë©´, ì½˜ì†” ì¶œë ¥ì„ ë©ˆì¶”ê³  ë°±ê·¸ë¼ìš´ë“œë¡œ ë“¤ì–´ê°„ë‹¤.
 	//goBackground();
 
 	__END_CATCH
@@ -256,18 +256,18 @@ void GameServer::start ()
 	GDRLairManager::Instance().init();
 	GDRLairManager::Instance().start();
 
-	// Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú¸¦ ½ÃÀÛÇÑ´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‹œì‘í•œë‹¤.
 	// *Reiot's Notes*
-	// °¡Àå ³ªÁß¿¡ ½ÇÇàµÇ¾î¾ß ÇÑ´Ù. ¿Ö³ÄÇÏ¸é ¸ÖÆ¼¾²·¹µå±â¹İÀÌ ¾Æ´Ñ
-	// ¹«ÇÑ·çÇÁ¸¦ °¡Áø ÇÔ¼öÀÌ±â ¶§¹®ÀÌ´Ù. ¸¸ÀÏ ÀÌ ´ÙÀ½¿¡ ´Ù¸¥ ÇÔ¼ö¸¦
-	// È£ÃâÇÒ °æ¿ì, ·çÇÁ°¡ ³¡³ªÁö ¾Ê´ÂÇÑ(Áï ¿¡·¯°¡ ¹ß»ıÇÏÁö ¾Ê´ÂÇÑ)
-	// ½ÇÇàµÇÁö ¾Ê´Â´Ù.	
+	// ê°€ì¥ ë‚˜ì¤‘ì— ì‹¤í–‰ë˜ì–´ì•¼ í•œë‹¤. ì™œëƒí•˜ë©´ ë©€í‹°ì“°ë ˆë“œê¸°ë°˜ì´ ì•„ë‹Œ
+	// ë¬´í•œë£¨í”„ë¥¼ ê°€ì§„ í•¨ìˆ˜ì´ê¸° ë•Œë¬¸ì´ë‹¤. ë§Œì¼ ì´ ë‹¤ìŒì— ë‹¤ë¥¸ í•¨ìˆ˜ë¥¼
+	// í˜¸ì¶œí•  ê²½ìš°, ë£¨í”„ê°€ ëë‚˜ì§€ ì•ŠëŠ”í•œ(ì¦‰ ì—ëŸ¬ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”í•œ)
+	// ì‹¤í–‰ë˜ì§€ ì•ŠëŠ”ë‹¤.	
 	cout << ">>> ALL INITIALIZATIONS ARE COMPLETED SUCCESSFULLY." << endl;
 	cout << ">>> STARTING ClientManager->start() INFINITE LOOP..." << endl;
 
 	log(LOG_SYSTEM, "", "", "Game Server Started");
 
-	// Å×½ºÆ® by sigi. 2002.12.26
+	// í…ŒìŠ¤íŠ¸ by sigi. 2002.12.26
 	if (g_pTestConfig!=NULL)
 	{
 		// testGameServer();
@@ -288,11 +288,11 @@ void GameServer::start ()
 //////////////////////////////////////////////////////////////////////////////
 // stop game server
 //
-// stop ¼ø¼­¿¡ À¯ÀÇÇÏµµ·Ï ÇÏÀÚ. °¡Àå ¿µÇâÀ» ¸¹ÀÌ ÁÖ´Â ¸Å´ÏÀúºÎÅÍ
-// stop ½ÃÄÑ¾ß ÇÑ´Ù. ¸¸ÀÏ ¹İ´ëÀÇ ¼ø¼­·Î stop ½ÃÅ³ °æ¿ì null pointer
-// °°Àº Çö»óÀÌ ¹ß»ıÇÒ ¼ö ÀÖ´Ù.
+// stop ìˆœì„œì— ìœ ì˜í•˜ë„ë¡ í•˜ì. ê°€ì¥ ì˜í–¥ì„ ë§ì´ ì£¼ëŠ” ë§¤ë‹ˆì €ë¶€í„°
+// stop ì‹œì¼œì•¼ í•œë‹¤. ë§Œì¼ ë°˜ëŒ€ì˜ ìˆœì„œë¡œ stop ì‹œí‚¬ ê²½ìš° null pointer
+// ê°™ì€ í˜„ìƒì´ ë°œìƒí•  ìˆ˜ ìˆë‹¤.
 //
-// µû¶ó¼­, ¾²·¹µå °ü·Ã ¸Å´ÏÀúºÎÅÍ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+// ë”°ë¼ì„œ, ì“°ë ˆë“œ ê´€ë ¨ ë§¤ë‹ˆì €ë¶€í„° ì‚­ì œí•´ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServer::stop ()
@@ -303,25 +303,25 @@ void GameServer::stop ()
 	//
 	// stop client manager
 	//
-	// °¡Àå ¸ÕÀú Å¬¶óÀÌ¾ğÆ® ¸Å´ÏÀú¸¦ »èÁ¦½ÃÅ´À¸·Î½á ´õÀÌ»ó »õ Á¢¼ÓÀ» 
-	// ¹ŞÁö ¾Êµµ·Ï ÇÑ´Ù.
+	// ê°€ì¥ ë¨¼ì € í´ë¼ì´ì–¸íŠ¸ ë§¤ë‹ˆì €ë¥¼ ì‚­ì œì‹œí‚´ìœ¼ë¡œì¨ ë”ì´ìƒ ìƒˆ ì ‘ì†ì„ 
+	// ë°›ì§€ ì•Šë„ë¡ í•œë‹¤.
 	//
 	g_pClientManager->stop();
 	
 	//
 	// stop thread manager
 	//
-	// ±×´ÙÀ½, ¾²·¹µå¸Å´ÏÀú¸¦ »èÁ¦ÇÔÀ¸·Î½á ±âÁ¸ÀÇ »ç¿ëÀÚµéÀ» ´õÀÌ»ó Ã³¸®ÇÏÁö
-	// ¾Ê°í °ÔÀÓ ¼­¹ö¿¡¼­ ÂÑ¾Æ³½´Ù. ÀÌ¶§ ¾²·¹µå ¸Å´ÏÀúÀÇ ÇÏÀ§ ¾²·¹µåÇ®¿¡¼­
-	// stopÀ» ½ÇÇàÇÒ¶§ ÀûÀıÇÏ°Ô Àß µÇ¾î¾ß ÇÑ´Ù.
+	// ê·¸ë‹¤ìŒ, ì“°ë ˆë“œë§¤ë‹ˆì €ë¥¼ ì‚­ì œí•¨ìœ¼ë¡œì¨ ê¸°ì¡´ì˜ ì‚¬ìš©ìë“¤ì„ ë”ì´ìƒ ì²˜ë¦¬í•˜ì§€
+	// ì•Šê³  ê²Œì„ ì„œë²„ì—ì„œ ì«“ì•„ë‚¸ë‹¤. ì´ë•Œ ì“°ë ˆë“œ ë§¤ë‹ˆì €ì˜ í•˜ìœ„ ì“°ë ˆë“œí’€ì—ì„œ
+	// stopì„ ì‹¤í–‰í• ë•Œ ì ì ˆí•˜ê²Œ ì˜ ë˜ì–´ì•¼ í•œë‹¤.
 	//
 	g_pThreadManager->stop();
 	
 	//
 	// stop object manager
 	//
-	// ÀÌÁ¦ ¸ğµç »ç¿ëÀÚµéÀÇ Á¢¼ÓÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, ³²Àº Á¸ ¹× ¿©·¯ °¡Áö °ÔÀÓ
-	// È¯°æµéÀ» µ¥ÀÌÅ¸º£ÀÌ½º·Î ÀúÀåÇÏµµ·Ï ÇÑ´Ù.
+	// ì´ì œ ëª¨ë“  ì‚¬ìš©ìë“¤ì˜ ì ‘ì†ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ë‚¨ì€ ì¡´ ë° ì—¬ëŸ¬ ê°€ì§€ ê²Œì„
+	// í™˜ê²½ë“¤ì„ ë°ì´íƒ€ë² ì´ìŠ¤ë¡œ ì €ì¥í•˜ë„ë¡ í•œë‹¤.
 	//
 	//g_pObjectManager->save();
 
@@ -330,7 +330,7 @@ void GameServer::stop ()
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ½Ã½ºÅÛ ·¹º§ÀÇ ÃÊ±âÈ­
+// ì‹œìŠ¤í…œ ë ˆë²¨ì˜ ì´ˆê¸°í™”
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServer::sysinit()
@@ -338,20 +338,20 @@ void GameServer::sysinit()
 {
 	__BEGIN_TRY
 
-	// rand() ¸¦ À§ÇÑ ÃÊ±âÈ­
+	// rand() ë¥¼ ìœ„í•œ ì´ˆê¸°í™”
 	srand(time(0));
 
-	signal(SIGPIPE , SIG_IGN);	// ÀÌ°Å´Â Á¾Á¾ ¹ß»ıÇÒ µí
-	signal(SIGALRM , SIG_IGN);	// ¾Ë¶÷ ÇÏ´Â °æ¿ì´Â ¾öµû, ¿¹ÀÇ»ó
-	signal(SIGCHLD , SIG_IGN);	// fork ÇÏ´Â °æ¿ì´Â ¾öµû, ¿¹ÀÇ»ó
+	signal(SIGPIPE , SIG_IGN);	// ì´ê±°ëŠ” ì¢…ì¢… ë°œìƒí•  ë“¯
+	signal(SIGALRM , SIG_IGN);	// ì•ŒëŒ í•˜ëŠ” ê²½ìš°ëŠ” ì—„ë”°, ì˜ˆì˜ìƒ
+	signal(SIGCHLD , SIG_IGN);	// fork í•˜ëŠ” ê²½ìš°ëŠ” ì—„ë”°, ì˜ˆì˜ìƒ
 
 	__END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ³ªÁß¿¡ ÄÜ¼Ö·Î Ãâ·ÂÇÒ ÇÊ¿ä°¡ ¾ø¾îÁú ¸¸Å­ ¾ÈÁ¤ÀûÀÌ µÇ¸é, 
-// ÀÌ ÇÔ¼ö¸¦ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// ë‚˜ì¤‘ì— ì½˜ì†”ë¡œ ì¶œë ¥í•  í•„ìš”ê°€ ì—†ì–´ì§ˆ ë§Œí¼ ì•ˆì •ì ì´ ë˜ë©´, 
+// ì´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 void GameServer::goBackground ()

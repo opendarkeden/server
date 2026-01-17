@@ -18,10 +18,10 @@
 //
 // class PacketValidator;
 //
-// 플레이어의 특정 상태에서 허용되는 패킷들의 리스트를 관리함.
-// XXXPlayer::processCommand() 에서 패킷 아이디가 들어왔을 경우
-// 이 아이디를 플레이어의 상태에 따라서 검증해본다. 이때 맞으면
-// 계속 처리하면 되지만 틀리면 접속을 종료해야 한다.
+// Maintains the list of packet IDs that are valid for a given player
+// status. XXXPlayer::processCommand() should confirm that the incoming
+// packet ID is allowed for the player's current state and drop anything
+// unexpected to avoid incorrect processing.
 //
 //----------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ public :
 	PacketValidator () ;
 
 	// destructor
-	~PacketValidator () ;
+	~PacketValidator () noexcept;
 
 	// init
 	void init () ;

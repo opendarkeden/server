@@ -28,7 +28,7 @@ GCHolyLandBonusInfo::~GCHolyLandBonusInfo()
 	// 길드 리스트의 모든 객체를 삭제
 	clearBloodBibleBonusInfoList();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////

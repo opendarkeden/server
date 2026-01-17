@@ -21,7 +21,7 @@ typedef unordered_map< ZoneGroupID_t , ZoneGroupInfo * > HashMapZoneGroupInfo;
 //
 // class ZoneGroupInfoManager;
 //
-// Á¸±×·ì ¾ÆÀÌµð¸¦ Å°°ªÀ¸·Î ÇÏ´Â Á¸ Á¤º¸ÀÇ unordered_map À» °¡Áö°í ÀÖ´Ù.
+// ï¿½ï¿½ï¿½×·ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unordered_map ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½.
 //
 //----------------------------------------------------------------------
 
@@ -30,31 +30,31 @@ class ZoneGroupInfoManager {
 public :
 	
 	// constructor
-	ZoneGroupInfoManager () throw ();
+	ZoneGroupInfoManager () noexcept;
 	
 	// destructor
-	~ZoneGroupInfoManager () throw ();
+	~ZoneGroupInfoManager () noexcept;
 
 	// initialize manager
-	void init () throw ( Error );
+	void init () noexcept(false);
 
 	// load from database
-	void load () throw ( Error );
+	void load () noexcept(false);
 	
 	// add info
-	void addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) throw ( DuplicatedException );
+	void addZoneGroupInfo ( ZoneGroupInfo * pZoneGroupInfo ) noexcept(false);
 	
 	// delete info
-	void deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) throw ( NoSuchElementException );
+	void deleteZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) noexcept(false);
 	
 	// get info
-	ZoneGroupInfo * getZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) const throw ( NoSuchElementException );
+	ZoneGroupInfo * getZoneGroupInfo ( ZoneGroupID_t zoneGroupID ) const noexcept(false);
 
 	// get count of info
-	uint getSize () const throw () { return m_ZoneGroupInfos.size(); }
+	uint getSize () const noexcept { return m_ZoneGroupInfos.size(); }
 
 	// get debug string
-	string toString () const throw ();
+	string toString () const;
 
 private :
 	

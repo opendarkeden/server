@@ -48,7 +48,7 @@ void GuildMember::create()
 
 		if ( pResult->getRowCount() != 0 )
 		{
-			// ÀÌ¹Ì µğºñ¿¡ Á¸ÀçÇÏ¹Ç·Î µ¥ÀÌÅÍ¸¸ °íÃÄÁØ´Ù.(Áï, Àü¿¡ ´Ù¸¥ ±æµå¿¡ ¼ÓÇÑ ÀûÀÌ ÀÖ´Ù)
+			// ì´ë¯¸ ë””ë¹„ì— ì¡´ì¬í•˜ë¯€ë¡œ ë°ì´í„°ë§Œ ê³ ì³ì¤€ë‹¤.(ì¦‰, ì „ì— ë‹¤ë¥¸ ê¸¸ë“œì— ì†í•œ ì ì´ ìˆë‹¤)
 			if ( m_Rank == GUILDMEMBER_RANK_WAIT )
 			{
 				pStmt->executeQuery( "UPDATE GuildMember SET GuildID = %d, `Rank` = %d, ExpireDate = '', RequestDateTime = '%s' WHERE Name = '%s'",
@@ -172,7 +172,7 @@ void GuildMember::expire()
 
 	BEGIN_DB
 	{
-		// ÇöÀç ½Ç½Ã°£ ³¯Â¥¸¦ ±¸ÇÑ´Ù.
+		// í˜„ì¬ ì‹¤ì‹œê°„ ë‚ ì§œë¥¼ êµ¬í•œë‹¤.
 		time_t daytime = time(0);
 		tm Timec;
 		localtime_r( &daytime, &Timec );
@@ -199,7 +199,7 @@ void GuildMember::leave()
 
 	BEGIN_DB
 	{
-		// ÇöÀç ½Ç½Ã°£ ³¯Â¥¸¦ ±¸ÇÑ´Ù.
+		// í˜„ì¬ ì‹¤ì‹œê°„ ë‚ ì§œë¥¼ êµ¬í•œë‹¤.
 		time_t daytime = time(0);
 		tm Timec;
 		localtime_r( &daytime, &Timec );
@@ -423,7 +423,7 @@ Guild::~Guild()
 
 	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
@@ -692,12 +692,12 @@ void Guild::addMember( GuildMember* pMember )
 		 rank == GuildMember::GUILDMEMBER_RANK_MASTER ||
 		 rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
 	{
-		// ÀÏ¹İÈ¸¿øÀÌ³ª (¼­ºê)¸¶½ºÅÍ°¡ Ãß°¡µÉ¶§ ActiverMemberCount¸¦ Áõ°¡½ÃÅ²´Ù.
+		// ì¼ë°˜íšŒì›ì´ë‚˜ (ì„œë¸Œ)ë§ˆìŠ¤í„°ê°€ ì¶”ê°€ë ë•Œ ActiverMemberCountë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
 		m_ActiveMemberCount++;
 	}
 	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
 	{
-		// °¡ÀÔ ´ë±âÀÚ°¡ Ãß°¡µÉ¶§ WaitMemberCount ¸¦ Áõ°¡ ½ÃÅ²´Ù.
+		// ê°€ì… ëŒ€ê¸°ìê°€ ì¶”ê°€ë ë•Œ WaitMemberCount ë¥¼ ì¦ê°€ ì‹œí‚¨ë‹¤.
 		m_WaitMemberCount++;
 	}
 
@@ -736,7 +736,7 @@ void Guild::deleteMember( const string& name )
 	  || rank == GuildMember::GUILDMEMBER_RANK_MASTER
 	  || rank == GuildMember::GUILDMEMBER_RANK_SUBMASTER )
 	{
-		// È°µ¿ÁßÀÎ È¸¿ø¼ö Ä«¿îÅÍ¸¦ °¨¼Ò ½ÃÅ²´Ù
+		// í™œë™ì¤‘ì¸ íšŒì›ìˆ˜ ì¹´ìš´í„°ë¥¼ ê°ì†Œ ì‹œí‚¨ë‹¤
 		m_ActiveMemberCount--;
 	}
 	else if ( rank == GuildMember::GUILDMEMBER_RANK_WAIT )
@@ -836,7 +836,7 @@ void Guild::addCurrentMember( const string& name )
 {
 	__BEGIN_TRY
 	
-	__ENTER_CRITICAL_SECTION(m_Mutex)		// ´Ù¸¥ ¹ÂÅØ½º ½áµµ µÉ µíÇÑµ¥.. ±ÍÂú¾Æ..
+	__ENTER_CRITICAL_SECTION(m_Mutex)		// ë‹¤ë¥¸ ë®¤í…ìŠ¤ ì¨ë„ ë  ë“¯í•œë°.. ê·€ì°®ì•„..
 
 	if ( m_CurrentMembers.end() != find( m_CurrentMembers.begin(), m_CurrentMembers.end(), name ) )
 	{
@@ -846,7 +846,7 @@ void Guild::addCurrentMember( const string& name )
 
 	m_CurrentMembers.push_back( name );
 
-	// Guild Member °´Ã¼¿¡ ·Î±×¿ÂÀ» ¼¼ÆÃÇÑ´Ù.
+	// Guild Member ê°ì²´ì— ë¡œê·¸ì˜¨ì„ ì„¸íŒ…í•œë‹¤.
 	GuildMember* pGuildMember = getMember_NOLOCKED( name );
 	if ( pGuildMember == NULL ) 
 	{
@@ -877,7 +877,7 @@ void Guild::deleteCurrentMember( const string& name )
 
 	m_CurrentMembers.erase( itr );
 
-	// Guild Member °´Ã¼¿¡ ·Î±×¿ÀÇÁ¸¦ ¼¼ÆÃÇÑ´Ù.
+	// Guild Member ê°ì²´ì— ë¡œê·¸ì˜¤í”„ë¥¼ ì„¸íŒ…í•œë‹¤.
 	GuildMember* pGuildMember = getMember_NOLOCKED( name );
 	if ( pGuildMember == NULL ) 
 	{
@@ -1012,7 +1012,7 @@ void Guild::expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& m
 		{
 			mList.push_back( pGuildMember->getName() );
 
-			// wait member count ¸¦ ÁÙÀÎ´Ù.
+			// wait member count ë¥¼ ì¤„ì¸ë‹¤.
 			m_WaitMemberCount--;
 
 			pGuildMember->expire();

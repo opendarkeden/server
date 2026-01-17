@@ -27,7 +27,7 @@ GCUsePowerPointResult::~GCUsePowerPointResult ()
 }
 
 //--------------------------------------------------------------------------------
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize packet by reading data from the incoming stream.
 //--------------------------------------------------------------------------------
 void GCUsePowerPointResult::read (SocketInputStream & iStream ) 
 	 
@@ -48,7 +48,7 @@ void GCUsePowerPointResult::read (SocketInputStream & iStream )
 
 		    
 //--------------------------------------------------------------------------------
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize packet data to the outgoing stream.
 //--------------------------------------------------------------------------------
 void GCUsePowerPointResult::write (SocketOutputStream & oStream ) const 
      

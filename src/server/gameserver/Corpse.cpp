@@ -14,7 +14,7 @@
 //#include "EffectHasBloodBible.h"
 #include "GCAddEffect.h"
 
-// ItemUtil.h¿¡ ÀÌ°Å ¿Å±â°í Áö¿öµµ µÈ´Ù.
+// ItemUtil.hì— ì´ê±° ì˜®ê¸°ê³  ì§€ì›Œë„ ëœë‹¤.
 extern void saveItemInCorpse(Item* pItem, Corpse* pCorpse) ;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ Corpse::~Corpse()
 		m_Treasures.pop_front();
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 Item* Corpse::getTreasure() 
@@ -60,7 +60,7 @@ Item* Corpse::getTreasure()
 		Item* pItem = m_Treasures.front();
 		Assert(pItem!=NULL);
 
-		// ¼º´Ü¿¡¼­ ¼º¼­°¡ ºüÁ®³ª°¥¶§ ÀÌÆåÆ®¸¦ ²¨ÁØ´Ù.
+		// ì„±ë‹¨ì—ì„œ ì„±ì„œê°€ ë¹ ì ¸ë‚˜ê°ˆë•Œ ì´í™íŠ¸ë¥¼ êº¼ì¤€ë‹¤.
 		deleteFlagEffect( this, pItem );
 		deleteRelicEffect( this, pItem );
 

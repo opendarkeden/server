@@ -19,7 +19,7 @@ EffectKillAftermath::EffectKillAftermath(Creature* pCreature)
 {
 	__BEGIN_TRY 
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	setTarget(pCreature);
@@ -33,7 +33,7 @@ EffectKillAftermath::~EffectKillAftermath()
 	
 {
 	__BEGIN_TRY 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -120,7 +120,7 @@ void EffectKillAftermath::create(const string & ownerID)
 
 		getCurrentYearTime(currentYearTime);
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("INSERT INTO EffectKillAftermath (OwnerID , YearTime, DayTime) VALUES('%s', %ld, %ld)",
 								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec);	
 
@@ -150,7 +150,7 @@ void EffectKillAftermath::destroy(const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("DELETE FROM EffectKillAftermath WHERE OwnerID = '%s'", 
 								ownerID.c_str());
 
@@ -187,7 +187,7 @@ void EffectKillAftermath::save(const string & ownerID)
 			<< " WHERE OwnerID = '" << ownerID << "'";
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery( "UPDATE EffectKillAftermath SET YearTime = %ld, DayTime = %ld WHERE OwnerID = '%s'",
 		 						currentYearTime, m_Deadline.tv_sec, ownerID.c_str() );
 
@@ -226,7 +226,7 @@ void EffectKillAftermathLoader::load(Creature* pCreature)
 
 	if (pCreature == NULL)
 	{
-		//cout << "EffectKillAftermathLoader : Å©¸®ÃÄ°¡ ³ÎÀÔ´Ï´Ù." << endl;
+		//cout << "EffectKillAftermathLoader : í¬ë¦¬ì³ê°€ ë„ìž…ë‹ˆë‹¤." << endl;
 		return;
 	}
 
@@ -246,7 +246,7 @@ void EffectKillAftermathLoader::load(Creature* pCreature)
 		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM EffectKillAftermath WHERE OwnerID = '%s'", 
 												pCreature->getName().c_str() );
 

@@ -114,7 +114,7 @@ MonsterManager::~MonsterManager ()
 
 	SAFE_DELETE(m_pEventMonsterInfo);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 ////////////////////////////////////////////////////////////////////////////////

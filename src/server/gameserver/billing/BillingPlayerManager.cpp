@@ -59,7 +59,7 @@ BillingPlayerManager::~BillingPlayerManager ()
 
 	SAFE_DELETE(m_pBillingPlayer);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ void BillingPlayerManager::run ()
 	__BEGIN_TRY
 	try {
 
-		// Player DB¿¡ ConnectionÀ» ÇÏ³ª ¿¬°á½ÃÄÑ µĞ´Ù.
+		// Player DBì— Connectionì„ í•˜ë‚˜ ì—°ê²°ì‹œì¼œ ë‘”ë‹¤.
 		string host     = g_pConfig->getProperty("UI_DB_HOST");
 		string db 	    = "DARKEDEN";
 		string user     = g_pConfig->getProperty("UI_DB_USER");
@@ -92,10 +92,10 @@ void BillingPlayerManager::run ()
 			port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 		Connection* pDistConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+		g_pDatabaseManager->addDistConnection(((int)(long)Thread::self()), pDistConnection);
 		cout << "******************************************************" << endl;
 		cout << " THREAD CONNECT UIIRIBUTION DB - for BillingSystem" << endl;
-		cout << " TID Number = " << (int)Thread::self()<< endl;
+		cout << " TID Number = " << (int)(long)Thread::self()<< endl;
 		cout << "******************************************************" << endl;
 
 		Timeval dummyQueryTime;
@@ -113,7 +113,7 @@ void BillingPlayerManager::run ()
 		{
 			usleep( 100 );
 
-			// ¿¬°áµÇ¾î ÀÖÁö ¾Ê´Ù¸é ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+			// ì—°ê²°ë˜ì–´ ìˆì§€ ì•Šë‹¤ë©´ ì—°ê²°ì„ ì‹œë„í•œë‹¤.
 			if ( m_pBillingPlayer == NULL )
 			{
 				Socket* pSocket = NULL;
@@ -138,7 +138,7 @@ void BillingPlayerManager::run ()
 
 					pSocket = NULL;
 
-					// ÃÖÃÊÀÇ Á¢¼ÓÀÎ °æ¿ì Init packetÀ» º¸³½´Ù.
+					// ìµœì´ˆì˜ ì ‘ì†ì¸ ê²½ìš° Init packetì„ ë³´ë‚¸ë‹¤.
 					if (bFirstConnection)
 					{
 					#ifdef __GAME_SERVER__
@@ -172,12 +172,12 @@ void BillingPlayerManager::run ()
 					}
 					__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-					// ´ÙÀ½ Á¢¼Ó½Ãµµ½Ã°£
-					usleep( 1000000 );	// 1ÃÊ
+					// ë‹¤ìŒ ì ‘ì†ì‹œë„ì‹œê°„
+					usleep( 1000000 );	// 1ì´ˆ
 				}
 			}
 
-			// ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é ÀÔÃâ·ÂÀ» Ã³¸®ÇÑ´Ù.
+			// ì†Œì¼“ì´ ì—°ê²°ë˜ì–´ ìˆë‹¤ë©´ ì…ì¶œë ¥ì„ ì²˜ë¦¬í•œë‹¤.
 			__ENTER_CRITICAL_SECTION(m_Mutex)
 
 			if ( m_pBillingPlayer != NULL )
@@ -213,8 +213,8 @@ void BillingPlayerManager::run ()
 			{
 				g_pDatabaseManager->executeDummyQuery( pDistConnection );
 
-				// 1½Ã°£ ~ 1½Ã°£ 30ºĞ »çÀÌ¿¡¼­ dummy query ½Ã°£À» ¼³Á¤ÇÑ´Ù.
-				// timeoutÀÌ µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+				// 1ì‹œê°„ ~ 1ì‹œê°„ 30ë¶„ ì‚¬ì´ì—ì„œ dummy query ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
+				// timeoutì´ ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
 				dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 			}
 
@@ -224,7 +224,7 @@ void BillingPlayerManager::run ()
 				{
 					__ENTER_CRITICAL_SECTION(m_Mutex)
 
-					// 1ºĞ µ¿¾È 2¹øÂ° ÀÌ»óÀÇ retry °¡ 30¸íÀÌ ³ÑÀ¸¸é Â¥¸¥´Ù.
+					// 1ë¶„ ë™ì•ˆ 2ë²ˆì§¸ ì´ìƒì˜ retry ê°€ 30ëª…ì´ ë„˜ìœ¼ë©´ ì§œë¥¸ë‹¤.
 					if ( m_pBillingPlayer->getRetryCount() > 30 )
 						m_bForceDisconnect = true;
 
@@ -279,7 +279,7 @@ void BillingPlayerManager::sendPacket ( Packet* pPacket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// °ÔÀÓ ¼­¹ö°¡ Ã³À½ ¶ã ¶§ º¸³½´Ù.
+// ê²Œì„ ì„œë²„ê°€ ì²˜ìŒ ëœ° ë•Œ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayInit()
 {
@@ -290,7 +290,7 @@ void BillingPlayerManager::sendPayInit()
 	{
 		m_pBillingPlayer->sendPayInit();
 		
-		// ¹Ù·Î º¸³»¹ö¸°´Ù.
+		// ë°”ë¡œ ë³´ë‚´ë²„ë¦°ë‹¤.
 		m_pBillingPlayer->processOutput();
 	}
 
@@ -299,7 +299,7 @@ void BillingPlayerManager::sendPayInit()
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍÀÇ Á¢¼Ó »óÅÂ¸¦ º¸³½´Ù.
+// ìºë¦­í„°ì˜ ì ‘ì† ìƒíƒœë¥¼ ë³´ë‚¸ë‹¤.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayCheck( CommonBillingPacket* pPacket )
 {
@@ -314,7 +314,7 @@ void BillingPlayerManager::sendPayCheck( CommonBillingPacket* pPacket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ°¡ °ÔÀÓ¿¡ Ã³À½ Á¢¼ÓÇÒ¶§ º¸³»´Â°Í
+// ìºë¦­í„°ê°€ ê²Œì„ì— ì²˜ìŒ ì ‘ì†í• ë•Œ ë³´ë‚´ëŠ”ê²ƒ
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayLogin( Player* pPlayer ) 
 {
@@ -331,7 +331,7 @@ void BillingPlayerManager::sendPayLogin( Player* pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ°¡ °ÔÀÓ¿¡¼­ ³ª°¥¶§ º¸³»´Â°Í
+// ìºë¦­í„°ê°€ ê²Œì„ì—ì„œ ë‚˜ê°ˆë•Œ ë³´ë‚´ëŠ”ê²ƒ
 //////////////////////////////////////////////////////////////////////
 void BillingPlayerManager::sendPayLogout( Player* pPlayer ) 
 {

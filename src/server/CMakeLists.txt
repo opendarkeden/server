@@ -1,27 +1,39 @@
-INCLUDE_DIRECTORIES(. ../Core ./database /usr/local/include/mysql)
-ADD_DEFINITIONS(-D__LINUX__)
+# ============================================================================
+# Server 模块
+# ============================================================================
 
-ADD_SUBDIRECTORY(database)
-ADD_SUBDIRECTORY(chinabilling)
+# ============================================================================
+# ServerCore 库 - 服务器公共代码
+# ============================================================================
+set(SERVER_CORE_SOURCES
+    CondVar.cpp
+    LogData.cpp
+    LogClient.cpp
+    Mutex.cpp
+    PlayerManager.cpp
+    GameWorldInfoManager.cpp
+    SystemAPI.cpp
+    Thread.cpp
+    ThreadAttr.cpp
+    Timeval.cpp
+    pthreadAPI.cpp
+    Profile.cpp
+    PacketProfile.cpp
+    GameServerInfoManager.cpp
+    PaySystem.cpp
+)
 
-SET(SERVER_CORE_SRC
-CondVar.cpp
-LogData.cpp
-LogClient.cpp
-Mutex.cpp
-PlayerManager.cpp
-GameWorldInfoManager.cpp
-SystemAPI.cpp
-Thread.cpp
-ThreadAttr.cpp
-Timeval.cpp
-pthreadAPI.cpp
-Profile.cpp
-PacketProfile.cpp
-GameServerInfoManager.cpp
-PaySystem.cpp)
-ADD_LIBRARY(ServerCore STATIC ${SERVER_CORE_SRC})
+add_library(ServerCore STATIC ${SERVER_CORE_SOURCES})
+target_include_directories(ServerCore PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/src/Core
+)
 
-ADD_SUBDIRECTORY(loginserver)
-ADD_SUBDIRECTORY(gameserver)
-ADD_SUBDIRECTORY(sharedserver)
+# ============================================================================
+# 子目录
+# ============================================================================
+add_subdirectory(database)
+add_subdirectory(chinabilling)
+add_subdirectory(gameserver)
+add_subdirectory(loginserver)
+add_subdirectory(sharedserver)

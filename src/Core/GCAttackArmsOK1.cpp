@@ -41,7 +41,7 @@ GCAttackArmsOK1::~GCAttackArmsOK1 ()
 	__BEGIN_DEBUG
 
 	__END_DEBUG
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

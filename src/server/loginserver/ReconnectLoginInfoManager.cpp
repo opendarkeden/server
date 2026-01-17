@@ -14,12 +14,11 @@
 //----------------------------------------------------------------------
 // constructor
 //----------------------------------------------------------------------
-ReconnectLoginInfoManager::ReconnectLoginInfoManager () 
-	throw ()
+ReconnectLoginInfoManager::ReconnectLoginInfoManager () noexcept
 {
 	__BEGIN_TRY
 
-	// ´ÙÀ½ heartbeat ½Ã°£À» ¼³Á¤ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ heartbeat ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	getCurrentTime(m_NextHeartbeat);
 	m_NextHeartbeat.tv_sec += 5;
 
@@ -29,12 +28,11 @@ ReconnectLoginInfoManager::ReconnectLoginInfoManager ()
 //----------------------------------------------------------------------
 // destructor
 //----------------------------------------------------------------------
-ReconnectLoginInfoManager::~ReconnectLoginInfoManager () 
-	throw ()
+ReconnectLoginInfoManager::~ReconnectLoginInfoManager () noexcept
 {
 	__BEGIN_TRY
 
-	// ¸ðµç ReconnectLoginInfo ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ ReconnectLoginInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	for ( HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.begin() ;
 		itr != m_ReconnectLoginInfos.end() ;
 		itr ++ ) {
@@ -42,7 +40,7 @@ ReconnectLoginInfoManager::~ReconnectLoginInfoManager ()
 		itr->second = NULL;
 	}
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_ReconnectLoginInfos.clear();
 
 	__END_CATCH
@@ -52,8 +50,7 @@ ReconnectLoginInfoManager::~ReconnectLoginInfoManager ()
 //----------------------------------------------------------------------
 // add connection info to connection info manager
 //----------------------------------------------------------------------
-void ReconnectLoginInfoManager::addReconnectLoginInfo ( ReconnectLoginInfo * pReconnectLoginInfo ) 
-	throw ( DuplicatedException , Error )
+void ReconnectLoginInfoManager::addReconnectLoginInfo ( ReconnectLoginInfo * pReconnectLoginInfo ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -62,7 +59,7 @@ void ReconnectLoginInfoManager::addReconnectLoginInfo ( ReconnectLoginInfo * pRe
 	HashMapReconnectLoginInfo::iterator itr = m_ReconnectLoginInfos.find( pReconnectLoginInfo->getClientIP() );
 	
 	if ( itr != m_ReconnectLoginInfos.end() )
-		// ¶È°°Àº ¾ÆÀÌµð°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù´Â ¼Ò¸®´Ù. - -;
+		// ï¿½È°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½. - -;
 		throw DuplicatedException("duplicated connection info id");
 
 	m_ReconnectLoginInfos[ pReconnectLoginInfo->getClientIP() ] = pReconnectLoginInfo;
@@ -75,8 +72,7 @@ void ReconnectLoginInfoManager::addReconnectLoginInfo ( ReconnectLoginInfo * pRe
 //----------------------------------------------------------------------
 // delete connection info from connection info manager
 //----------------------------------------------------------------------
-void ReconnectLoginInfoManager::deleteReconnectLoginInfo ( string clientIP ) 
-	throw ( NoSuchElementException , Error )
+void ReconnectLoginInfoManager::deleteReconnectLoginInfo ( string clientIP ) noexcept(false)
 {
 	__BEGIN_TRY
 		
@@ -84,10 +80,10 @@ void ReconnectLoginInfoManager::deleteReconnectLoginInfo ( string clientIP )
 	
 	if ( itr != m_ReconnectLoginInfos.end() ) {
 
-		// ReconnectLoginInfo ¸¦ »èÁ¦ÇÑ´Ù.
+		// ReconnectLoginInfo ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		delete itr->second;
 
-		// pair¸¦ »èÁ¦ÇÑ´Ù.
+		// pairï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_ReconnectLoginInfos.erase( itr );
 
 	} else {
@@ -104,8 +100,7 @@ void ReconnectLoginInfoManager::deleteReconnectLoginInfo ( string clientIP )
 //----------------------------------------------------------------------
 // get connection info from connection info manager
 //----------------------------------------------------------------------
-ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo ( string clientIP ) 
-	throw ( NoSuchElementException , Error )
+ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo ( string clientIP ) noexcept(false)
 {
 	__BEGIN_TRY
 		
@@ -131,10 +126,9 @@ ReconnectLoginInfo * ReconnectLoginInfoManager::getReconnectLoginInfo ( string c
 
 
 //----------------------------------------------------------------------
-// expire µÈ ReconnectLogin Info °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+// expire ï¿½ï¿½ ReconnectLogin Info ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //----------------------------------------------------------------------
-void ReconnectLoginInfoManager::heartbeat ()
-	throw ( Error )
+void ReconnectLoginInfoManager::heartbeat () noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -184,7 +178,6 @@ void ReconnectLoginInfoManager::heartbeat ()
 // get debug string
 //----------------------------------------------------------------------
 string ReconnectLoginInfoManager::toString () const
-	throw ()
 {
 	StringStream msg;
 

@@ -26,11 +26,11 @@ ServerSocket::ServerSocket ( uint port , uint backlog )
 	m_Impl->create();
 	
 	// reuse address before Bind()
-	// ¹ÙÀÎµå ÇÏ±â Àü¿¡ ÁÖ¼Ò ¸®À¯Áî¸¦ ½Ã½ºÅÛ¿¡ ¾Ë·Á¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½Îµï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½Ã½ï¿½ï¿½Û¿ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	m_Impl->setReuseAddr();
 	
 	// bind address to socket
-	// ÀÌ¹Ì port°¡ m_Impl¿¡ ÀúÀåµÇ¾î ÀÖÀ¸¹Ç·Î, ÆÄ¶ó¹ÌÅÍ¾ø´Â Bind()¸¦ È£ÃâÇØµµ µÈ´Ù.
+	// ï¿½Ì¹ï¿½ portï¿½ï¿½ m_Implï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½, ï¿½Ä¶ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½ Bind()ï¿½ï¿½ È£ï¿½ï¿½ï¿½Øµï¿½ ï¿½È´ï¿½.
 	m_Impl->bind();
 
 //	m_Impl->setSendBufferSize( 9000 );
@@ -45,18 +45,14 @@ ServerSocket::ServerSocket ( uint port , uint backlog )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-ServerSocket::~ServerSocket () 
+ServerSocket::~ServerSocket () noexcept
 {
-	__BEGIN_TRY
-		
 	if ( m_Impl != NULL ) 
 	{
 		m_Impl->close();
 		delete m_Impl;
 		m_Impl = NULL;
 	}
-
-	__END_CATCH
 }
 	
 

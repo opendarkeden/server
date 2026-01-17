@@ -29,7 +29,7 @@ EffectRideMotorcycle::EffectRideMotorcycle (Slayer* pOwner, Item* pMotorcycle, Z
 	Assert(getZone() != NULL);
 	Assert(getTarget() != NULL);
 
-	// º≠πˆ ¿¸øÎ Effect¿Ã¥Ÿ. by sigi. 2002.11.14
+	// ÏÑúÎ≤Ñ Ï†ÑÏö© EffectÏù¥Îã§. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -44,7 +44,7 @@ EffectRideMotorcycle::~EffectRideMotorcycle ()
 {
 	__BEGIN_TRY
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 			
 

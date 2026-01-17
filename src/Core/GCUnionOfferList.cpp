@@ -26,7 +26,7 @@ GCUnionOfferList::~GCUnionOfferList()
 
     m_UnionOfferList.clear();
 
-    __END_CATCH
+    __END_CATCH_NO_RETHROW
 }
 
 PacketSize_t GCUnionOfferList::getPacketSize() const 

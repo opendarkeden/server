@@ -30,7 +30,7 @@ PCFinder::~PCFinder()
 
 	m_PCs.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // add creature to unordered_map
@@ -86,7 +86,7 @@ void PCFinder::deleteCreature (const string & name)
 	{
 		//cerr << "PCFinder::deleteCreature() : NoSuchElementException" << endl;
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 
 		m_Mutex.unlock();
 		return;
@@ -106,7 +106,7 @@ void PCFinder::deleteCreature (const string & name)
 	{
 		m_IDs.erase(itr2);
 	}
-	// ¿ä±â±îÁö 2002.11.18
+	// ìš”ê¸°ê¹Œì§€ 2002.11.18
 
 /*	if ( pCreature->isPC() )
 	{
@@ -148,7 +148,7 @@ Creature* PCFinder::getCreature_LOCKED (const string & name) const
 		//m_Mutex.unlock();
 
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		return NULL;
 	}
 
@@ -179,7 +179,7 @@ Creature* PCFinder::getCreatureByID_LOCKED (const string & ID) const
 		//m_Mutex.unlock();
 
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		return NULL;
 	}
 
@@ -212,7 +212,7 @@ Creature* PCFinder::getCreature (const string & name) const
 		m_Mutex.unlock();
 
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		return NULL;
 	}
 
@@ -243,7 +243,7 @@ Creature* PCFinder::getCreatureByID (const string & ID) const
 		m_Mutex.unlock();
 
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		return NULL;
 	}
 
@@ -333,7 +333,7 @@ bool PCFinder::sendPacket (const string& name, Packet* pPacket) const
 		Player* pPlayer = pCreature->getPlayer();
 		pPlayer->sendPacket( pPacket );
 	} catch (Throwable& ) {
-		// ±×³É ¹«½ÃÇÑ´Ù.
+		// ê·¸ëƒ¥ ë¬´ì‹œí•œë‹¤.
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
@@ -362,7 +362,7 @@ bool PCFinder::setKickCharacter (const string & name, const string& host, uint p
 		m_Mutex.unlock();
 
 		//throw NoSuchElementException();
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		return false;
 	}
 
@@ -371,11 +371,11 @@ bool PCFinder::setKickCharacter (const string & name, const string& host, uint p
 	GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>( pPlayer );
 	Assert(pGamePlayer!=NULL);
 
-	// °­Á¦ Á¾·á ½ÃÅ²´Ù.
+	// ê°•ì œ ì¢…ë£Œ ì‹œí‚¨ë‹¤.
 	pGamePlayer->setPenaltyFlag(PENALTY_TYPE_KICKED);
 	pGamePlayer->setKickForLogin(true);
 
-	// Á¢¼Ó ÇØÁ¦ ÈÄ, ÀÀ´äÀ» º¸³»ÁÙ °÷..
+	// ì ‘ì† í•´ì œ í›„, ì‘ë‹µì„ ë³´ë‚´ì¤„ ê³³..
 	pGamePlayer->setKickRequestHost( host );
 	pGamePlayer->setKickRequestPort( port );
 
@@ -418,7 +418,7 @@ void PCFinder::deleteNPC (const string & name)
     
 {
 
-    // ½ÇÁ¦·Î »ç¿ë ¾È ÇÒ ÇÔ¼ö¶ó°í »ı°¢ÇÔ ±×·¡µµ ±×³É add ¶û ½ÖÀ» ¸ÂÃß±â À§ÇØ =_=
+    // ì‹¤ì œë¡œ ì‚¬ìš© ì•ˆ í•  í•¨ìˆ˜ë¼ê³  ìƒê°í•¨ ê·¸ë˜ë„ ê·¸ëƒ¥ add ë‘ ìŒì„ ë§ì¶”ê¸° ìœ„í•´ =_=
     __BEGIN_TRY
 
     __ENTER_CRITICAL_SECTION(m_Mutex)

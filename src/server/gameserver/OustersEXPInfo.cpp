@@ -30,7 +30,7 @@ OustersEXPInfo::~OustersEXPInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string OustersEXPInfo::toString() const
@@ -78,7 +78,7 @@ OustersEXPInfoManager::~OustersEXPInfoManager()
 		SAFE_DELETE_ARRAY(m_OustersEXPInfoList);
 	}
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void OustersEXPInfoManager::init()
@@ -111,7 +111,7 @@ void OustersEXPInfoManager::load()
 			throw Error ("There is no data in OustersEXPInfo Table");
 		}
 
-		// ÀüÃ¼ °¹¼ö¸¦ ¼¼ÆÃÇÑ´Ù.
+		// ì „ì²´ ê°¯ìˆ˜ë¥¼ ì„¸íŒ…í•œë‹¤.
 		pResult->next();
 		m_OustersEXPCount = pResult->getInt(1) +1;
 
@@ -121,7 +121,7 @@ void OustersEXPInfoManager::load()
 
 		Assert(m_OustersEXPInfoList != NULL);
 
-		// ¹è¿­À» ÃÊ±âÈ­
+		// ë°°ì—´ì„ ì´ˆê¸°í™”
 		for (uint i = 0 ; i < m_OustersEXPCount ; i ++)
 			m_OustersEXPInfoList[i] = NULL;
 		

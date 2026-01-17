@@ -21,30 +21,30 @@ VariableManager::VariableManager()
 	m_Variables[EVENT_RATIO] = 1000;
     m_Variables[ITEM_PROBE_RATIO] = 1;
 	m_Variables[EXP_RATIO] = 1;
-	m_Variables[COMBAT_BONUS_TIME] = 30;	// 30∫–
+	m_Variables[COMBAT_BONUS_TIME] = 30;	// 30Î∂Ñ
 	m_Variables[COMBAT_SLAYER_HP_BONUS_RATIO] = 0;
 	m_Variables[COMBAT_VAMPIRE_HP_BONUS_RATIO] = 0;
 	m_Variables[COMBAT_SLAYER_DAMAGE_BONUS]= 0;
 	m_Variables[COMBAT_VAMPIRE_DAMAGE_BONUS]= 0;
 	m_Variables[PREMIUM_EXP_BONUS_PERCENT] = 150; // 150%
 	m_Variables[PREMIUM_ITEM_PROBE_PERCENT] = 220; // 220%
-	m_Variables[ZONE_GROUP_BALANCING_MINUTE] = 4*7*24*60; // 4¡÷¿œ
+	m_Variables[ZONE_GROUP_BALANCING_MINUTE] = 4*7*24*60; // 4Ï£ºÏùº
 	m_Variables[GAMBLE_ITEM_TYPE_RATIO] = 100;	// 100%
 	m_Variables[GAMBLE_ITEM_OPTION_RATIO] = 100;	// 100%
 	m_Variables[SUMMON_MOTORCYCLE] = 0;
-	m_Variables[ENEMY_LIMIT_TIME] = 300; // 5∫– 
+	m_Variables[ENEMY_LIMIT_TIME] = 300; // 5Î∂Ñ 
 	m_Variables[RARE_ITEM_RATIO] = 100; // 100%
 	m_Variables[UNIQUE_ITEM_RATIO] = 100; // 100%
 	m_Variables[ACTIVE_MASTER_LAIR] = 0;
 	m_Variables[RETRY_MASTER_LAIR] = 0;
 	m_Variables[HARVEST_FESTIVAL_ITEM_RATIO] = 100;	// 100%
 
-	// [∏∂Ω∫≈Õ »Ì«˜ πÊΩƒ]
-	// HP∞° 70% ¿ÃªÛ¿œ∂ß¥¬ »Ì«˜«œ¡ˆ æ ∞Ì
-	// HP∞° 70%¿œ∂ß 10%¿« »Æ∑¸∑Œ »Ì«˜«œ∞Ì
+	// [ÎßàÏä§ÌÑ∞ Ìù°Ìòà Î∞©Ïãù]
+	// HPÍ∞Ä 70% Ïù¥ÏÉÅÏùºÎïåÎäî Ìù°ÌòàÌïòÏßÄ ÏïäÍ≥†
+	// HPÍ∞Ä 70%ÏùºÎïå 10%Ïùò ÌôïÎ•†Î°ú Ìù°ÌòàÌïòÍ≥†
 	//      50%     20%
-	// HP∞° 30%¿œ∂ß 30%¿« »Æ∑¸∑Œ »Ì«˜«—¥Ÿ.
-	// HP∞° 30%¿Ã«œ¿œ∂ß¥¬ 30%¿« »Æ∑¸∑Œ »Ì«˜«—¥Ÿ.
+	// HPÍ∞Ä 30%ÏùºÎïå 30%Ïùò ÌôïÎ•†Î°ú Ìù°ÌòàÌïúÎã§.
+	// HPÍ∞Ä 30%Ïù¥ÌïòÏùºÎïåÎäî 30%Ïùò ÌôïÎ•†Î°ú Ìù°ÌòàÌïúÎã§.
 	m_Variables[MASTER_BLOOD_DRAIN_START_HP] 	= 70;
 	m_Variables[MASTER_BLOOD_DRAIN_START_BD] 	= 10;
 	m_Variables[MASTER_BLOOD_DRAIN_END_HP] 	= 30;
@@ -74,10 +74,10 @@ VariableManager::VariableManager()
 
 	// 2002.12.31
 	m_Variables[MASTER_LAIR_PLAYER_NUM] = 15;
-	m_Variables[RANK_EXP_GAIN_PERCENT] 	= 100;	// 100¿Ã∏È ø¯∑° ±◊¥Î∑Œ
-	m_Variables[ITEM_LUCK_PERCENT] 		= 100;	// 200¿Ã∏È µŒπË(200%)∂Û¥¬ ¿«πÃ¥Ÿ.
+	m_Variables[RANK_EXP_GAIN_PERCENT] 	= 100;	// 100Ïù¥Î©¥ ÏõêÎûò Í∑∏ÎåÄÎ°ú
+	m_Variables[ITEM_LUCK_PERCENT] 		= 100;	// 200Ïù¥Î©¥ ÎëêÎ∞∞(200%)ÎùºÎäî ÏùòÎØ∏Îã§.
 
-	// ¥Îπ⁄ ¿Ã∫•∆Æ øÎ ( code name : lotto event )
+	// ÎåÄÎ∞ï Ïù¥Î≤§Ìä∏ Ïö© ( code name : lotto event )
 	// 2003. 1. 12 by bezz. Sequoia. dew
 	m_Variables[LOTTO_ITEM_RATIO]		= 0;
 	m_Variables[LOTTO_ITEM_BONUS_NUM]	= 0;
@@ -92,37 +92,37 @@ VariableManager::VariableManager()
 	m_Variables[GUILD_CASTLE_ITEM_TAX_RATIO] = 150;
 	m_Variables[WAR_REGISTRATION_FEE] 	= 50000000;
 
-	m_Variables[GUILD_WAR_TIME] 	= 1*60*60;	// 1Ω√∞£
-	m_Variables[RACE_WAR_TIME] 		= 3*60*60;	// 3Ω√∞£
+	m_Variables[GUILD_WAR_TIME] 	= 1*60*60;	// 1ÏãúÍ∞Ñ
+	m_Variables[RACE_WAR_TIME] 		= 3*60*60;	// 3ÏãúÍ∞Ñ
 
-	m_Variables[WAR_PERIOD_WEEK] 	= true;		// ¿¸¿Ô¿∫ «— ¡÷ ¥‹¿ß¿« ¡÷±‚∏¶ ∞°¡¯¥Ÿ.
+	m_Variables[WAR_PERIOD_WEEK] 	= true;		// Ï†ÑÏüÅÏùÄ Ìïú Ï£º Îã®ÏúÑÏùò Ï£ºÍ∏∞Î•º Í∞ÄÏßÑÎã§.
 
-	m_Variables[WAR_ACTIVE] 		= false;	// ¿¸¿Ô ±‚¥…¿Ã ¿€µø«œ¡ˆ æ ¥¬¥Ÿ.
+	m_Variables[WAR_ACTIVE] 		= false;	// Ï†ÑÏüÅ Í∏∞Îä•Ïù¥ ÏûëÎèôÌïòÏßÄ ÏïäÎäîÎã§.
 
-	m_Variables[RACE_WAR_TIMEBAND]	= 2;		// ¡æ¡∑ ¿¸¿ÔΩ√ Ω√∞£
+	m_Variables[RACE_WAR_TIMEBAND]	= 2;		// Ï¢ÖÏ°± Ï†ÑÏüÅÏãú ÏãúÍ∞Ñ
 
-	m_Variables[AUTO_START_RACE_WAR]= false;	// ¡æ¡∑ ¿¸¿Ô¿ª ¿⁄µø¿∏∑Œ Ω√¿€«œ¥¬∞°?
+	m_Variables[AUTO_START_RACE_WAR]= false;	// Ï¢ÖÏ°± Ï†ÑÏüÅÏùÑ ÏûêÎèôÏúºÎ°ú ÏãúÏûëÌïòÎäîÍ∞Ä?
 
-	m_Variables[ACTIVATE_COUPLE] = false;	// ƒø«√¿Ã º∫ªÁµ… ºˆ ¿÷¥¬ ±‚∞£¿Œ∞°?
+	m_Variables[ACTIVATE_COUPLE] = false;	// Ïª§ÌîåÏù¥ ÏÑ±ÏÇ¨Îê† Ïàò ÏûàÎäî Í∏∞Í∞ÑÏù∏Í∞Ä?
 
-	m_Variables[ACTIVE_RACE_WAR_LIMITER] = true;	// ¡æ¡∑ ¿¸¿Ô ¬¸∞° ¿Œø¯ ¡¶«—
+	m_Variables[ACTIVE_RACE_WAR_LIMITER] = true;	// Ï¢ÖÏ°± Ï†ÑÏüÅ Ï∞∏Í∞Ä Ïù∏Ïõê Ï†úÌïú
 
-	m_Variables[CHIEF_ITEM_BONUS_NUM] = 0;		// ƒ°«¡ ∏ÛΩ∫≈Õ √ﬂ∞° æ∆¿Ã≈€ ∞≥ºˆ
+	m_Variables[CHIEF_ITEM_BONUS_NUM] = 0;		// ÏπòÌîÑ Î™¨Ïä§ÌÑ∞ Ï∂îÍ∞Ä ÏïÑÏù¥ÌÖú Í∞úÏàò
 
-	m_Variables[ACTIVE_EVENT_GIVE_ITEM] = false;		// æ∆¿Ã≈€ ¡÷¥¬ ¿Ã∫•∆Æ
+	m_Variables[ACTIVE_EVENT_GIVE_ITEM] = false;		// ÏïÑÏù¥ÌÖú Ï£ºÎäî Ïù¥Î≤§Ìä∏
 
-	m_Variables[VAMPIRE_REDISTRIBUTE_ATTR_PRICE] = 1000000;	// ¥…∑¬ƒ° ¿Á∫–πË ∫ÒøÎ
+	m_Variables[VAMPIRE_REDISTRIBUTE_ATTR_PRICE] = 1000000;	// Îä•Î†•Ïπò Ïû¨Î∂ÑÎ∞∞ ÎπÑÏö©
 
-	m_Variables[ACTIVATE_COUPLE] = true;		// ƒø«√ ±‚¥…
+	m_Variables[ACTIVATE_COUPLE] = true;		// Ïª§Ìîå Í∏∞Îä•
 
-	m_Variables[CAN_RECOUPLE] = false;			// ¿Á»•(?) ¿Ã∂Û±‚∫∏¥‹ ¥ŸΩ√ ƒø«√¿Ã µ… ºˆ ¿÷¥¬∞°
+	m_Variables[CAN_RECOUPLE] = false;			// Ïû¨Ìòº(?) Ïù¥ÎùºÍ∏∞Î≥¥Îã® Îã§Ïãú Ïª§ÌîåÏù¥ Îê† Ïàò ÏûàÎäîÍ∞Ä
 
-	m_Variables[GUILD_WAR_ACTIVE] = false;		// ±ÊµÂ¿¸¿ª «œ¥¬∞°?
+	m_Variables[GUILD_WAR_ACTIVE] = false;		// Í∏∏ÎìúÏ†ÑÏùÑ ÌïòÎäîÍ∞Ä?
 
-	m_Variables[FREE_PLAY_OUSTERS_LEVEL] = 30;	// æ∆øÏΩ∫≈ÕΩ∫∑Œ π´∑·∑Œ «√∑π¿Ã«“ ºˆ ¿÷¥¬ ∑π∫ß
+	m_Variables[FREE_PLAY_OUSTERS_LEVEL] = 30;	// ÏïÑÏö∞Ïä§ÌÑ∞Ïä§Î°ú Î¨¥Î£åÎ°ú ÌîåÎ†àÏù¥Ìï† Ïàò ÏûàÎäî Î†àÎ≤®
 
-	m_Variables[CAN_APPLY_QUEST] = true;	// ƒ˘Ω∫∆Æ∏¶ Ω≈√ª«“ ºˆ ¿÷¥¬∞°
-	m_Variables[SEND_QUEST_INFO] = false;	// ƒ˘Ω∫∆Æ ¡§∫∏∏¶ ∫∏≥ª¡‡æﬂ «œ¥¬∞°
+	m_Variables[CAN_APPLY_QUEST] = true;	// ÌÄòÏä§Ìä∏Î•º Ïã†Ï≤≠Ìï† Ïàò ÏûàÎäîÍ∞Ä
+	m_Variables[SEND_QUEST_INFO] = false;	// ÌÄòÏä§Ìä∏ Ï†ïÎ≥¥Î•º Î≥¥ÎÇ¥Ï§òÏïº ÌïòÎäîÍ∞Ä
 	m_Variables[CAN_BUY_SHOP] = true;
 
 	m_Variables[PCROOM_EXP_BONUS] = 100;
@@ -130,11 +130,11 @@ VariableManager::VariableManager()
 
 	m_Variables[MONEY_TRACE_LOG_LIMIT] = 5000000;
 
-	m_Variables[PC_ROOM_LOTTO_EVENT] = false;	// ««Ω√πÊ ∫π±« ¿Ã∫•∆Æ ø©∫Œ
-	m_Variables[ACTIVE_FLAG_WAR] = false;	// ±ÍπﬂªØ±‚ Ω««‡ ø©∫Œ
+	m_Variables[PC_ROOM_LOTTO_EVENT] = false;	// ÌîºÏãúÎ∞© Î≥µÍ∂å Ïù¥Î≤§Ìä∏ Ïó¨Î∂Ä
+	m_Variables[ACTIVE_FLAG_WAR] = false;	// ÍπÉÎ∞úÎ∫èÍ∏∞ Ïã§Ìñâ Ïó¨Î∂Ä
 
-	m_Variables[KILL_DAEMONCTL] = false;	// daemonctl2 ¡◊¿Ã¥¬ ∞≈ ø©∫Œ
-	m_Variables[EVENT_MOON_CARD] = false;	// daemonctl2 ¡◊¿Ã¥¬ ∞≈ ø©∫Œ
+	m_Variables[KILL_DAEMONCTL] = false;	// daemonctl2 Ï£ΩÏù¥Îäî Í±∞ Ïó¨Î∂Ä
+	m_Variables[EVENT_MOON_CARD] = false;	// daemonctl2 Ï£ΩÏù¥Îäî Í±∞ Ïó¨Î∂Ä
 
 	m_Variables[FULL_MOON_CARD_RATIO] = 3000;
 	m_Variables[HALF_MOON_CARD_RATIO] = 100;
@@ -230,7 +230,7 @@ VariableManager::~VariableManager()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void VariableManager::init()
@@ -251,7 +251,7 @@ void VariableManager::init()
 	load();
 
 
-	// ∆Ø∫∞»˜ ¥Ÿ∏• √ ±‚∞™¿ª º≥¡§«œ¥¬ ∞ÊøÏ
+	// ÌäπÎ≥ÑÌûà Îã§Î•∏ Ï¥àÍ∏∞Í∞íÏùÑ ÏÑ§Ï†ïÌïòÎäî Í≤ΩÏö∞
 	setVariable( AUTO_START_RACE_WAR, g_pConfig->getPropertyInt("ActiveRaceWar") );
 	setVariable( GUILD_WAR_ACTIVE, g_pConfig->getPropertyInt("ActiveGuildWar") );
 	setVariable( ACTIVE_FLAG_WAR, g_pConfig->getPropertyInt("ActiveFlagWar") );
@@ -294,7 +294,7 @@ void VariableManager::load()
 		if (pResult->getRowCount() <= 0)
 		{
 			SAFE_DELETE(pStmt);
-			throw Error("VariableManager::load(): attrID MAX∞™¿ª ±∏«“ ºˆ æ¯Ω¿¥œ¥Ÿ.");
+			throw Error("VariableManager::load(): attrID MAXÍ∞íÏùÑ Íµ¨Ìï† Ïàò ÏóÜÏäµÎãàÎã§.");
 		}
 
 		pResult->next();
@@ -307,7 +307,7 @@ void VariableManager::load()
 		if(pResult->getRowCount() <= 0)
 		{
 			SAFE_DELETE(pStmt);
-			throw Error("VariableManager::load(): ∞™¿Ã «œ≥™µµ ¡∏¿Á«œ¡ˆ æ Ω¿¥œ¥Ÿ");
+			throw Error("VariableManager::load(): Í∞íÏù¥ ÌïòÎÇòÎèÑ Ï°¥Ïû¨ÌïòÏßÄ ÏïäÏäµÎãàÎã§");
 		}
 
 		while(pResult->next())
@@ -375,7 +375,7 @@ VariableManager::setVariable(VariableType vt, int value)
 { 
 	try {
 
-		// RACE_WAR_TIMEBAND π¸¿ß √º≈©
+		// RACE_WAR_TIMEBAND Î≤îÏúÑ Ï≤¥ÌÅ¨
 		if ( vt == RACE_WAR_TIMEBAND )
 		{
 			if ( value < 0 || value > 3 )
@@ -443,7 +443,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case ZONE_GROUP_BALANCING_MINUTE:
-			msg << "ZoneGroupBalancing minute: " << attr1 << "∫–";
+			msg << "ZoneGroupBalancing minute: " << attr1 << "Î∂Ñ";
 			break;
 
 		case GAMBLE_ITEM_TYPE_RATIO:
@@ -459,7 +459,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case ENEMY_LIMIT_TIME:
-			msg << "ENEMY_LIMIT_TIME: " << attr1 << "√ "; 
+			msg << "ENEMY_LIMIT_TIME: " << attr1 << "Ï¥à"; 
 			break;
 
 		case COMBAT_SLAYER_DAMAGE_BONUS:
@@ -547,11 +547,11 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case CHRISTMAS_TREE_DECAY_TIME :
-			msg << "CHRISTMAS_TREE_DECAY_TIME: " << attr1/600 << "∫–";
+			msg << "CHRISTMAS_TREE_DECAY_TIME: " << attr1/600 << "Î∂Ñ";
 			break;
 
 		case MASTER_LAIR_PLAYER_NUM :
-			msg << "MASTER_LAIR_PLAYER_NUM: " << attr1 << "∏Ì";
+			msg << "MASTER_LAIR_PLAYER_NUM: " << attr1 << "Î™Ö";
 			break;
 
 		case RANK_EXP_GAIN_PERCENT :
@@ -599,15 +599,15 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case GUILD_WAR_TIME :
-			msg << "GUILD_WAR_TIME : " << attr1 << " √  == " << attr1/60 << "∫–";
+			msg << "GUILD_WAR_TIME : " << attr1 << " Ï¥à == " << attr1/60 << "Î∂Ñ";
 			break;
 
 		case RACE_WAR_TIME :
-			msg << "RACE_WAR_TIME :" << attr1 << " √  == " << attr1/60 << "∫–";
+			msg << "RACE_WAR_TIME :" << attr1 << " Ï¥à == " << attr1/60 << "Î∂Ñ";
 			break;
 
 		case WAR_PERIOD_WEEK :
-			msg << "WAR_PERIOD_WEEK :" << (attr1? "¡÷ ¥‹¿ß":"¿œ ¥‹¿ß");
+			msg << "WAR_PERIOD_WEEK :" << (attr1? "Ï£º Îã®ÏúÑ":"Ïùº Îã®ÏúÑ");
 			break;
 
 		case WAR_ACTIVE :
@@ -617,15 +617,15 @@ VariableManager::toString(VariableType vt) const
 		case RACE_WAR_TIMEBAND:
 			msg << "RACE_WAR_TIMEBAND:";
 			if ( attr1 == 0 )
-				msg << "ªı∫Æ";
+				msg << "ÏÉàÎ≤Ω";
 			else if ( attr1 == 1 )
-				msg << "≥∑";
+				msg << "ÎÇÆ";
 			else if ( attr1 == 2 )
-				msg << "¿˙≥·";
+				msg << "Ï†ÄÎÖÅ";
 			else if ( attr1 == 3 )
-				msg << "π„";
+				msg << "Î∞§";
 			else
-				msg << "æÀ ºˆ æ¯¿Ω";
+				msg << "Ïïå Ïàò ÏóÜÏùå";
 			break;
 
 		case AUTO_START_RACE_WAR:
@@ -637,7 +637,7 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case CHIEF_ITEM_BONUS_NUM:
-			msg << "CHIEF_ITEM_BONUS_NUM:" << attr1 << " ∞≥";
+			msg << "CHIEF_ITEM_BONUS_NUM:" << attr1 << " Í∞ú";
 			break;
 
 		case ACTIVE_EVENT_GIVE_ITEM :
@@ -685,28 +685,28 @@ VariableManager::toString(VariableType vt) const
 			msg << "MONEY_TRACE_LOG_LIMIT:" << attr1;
 			break;
 		case PC_ROOM_LOTTO_EVENT:
-			msg << "««ææπÊ ∫π±« ¿Ã∫•∆Æ: " << attr1;
+			msg << "ÌîºÏî®Î∞© Î≥µÍ∂å Ïù¥Î≤§Ìä∏: " << attr1;
 			break;
 		case ACTIVE_FLAG_WAR:
-			msg << "±ÍπﬂªØ±‚ ∞‘¿” Ω««‡: " << (attr1?"yes":"no");
+			msg << "ÍπÉÎ∞úÎ∫èÍ∏∞ Í≤åÏûÑ Ïã§Ìñâ: " << (attr1?"yes":"no");
 			break;
 		case KILL_DAEMONCTL:
-			msg << "DAEMONCTL ¡◊¿Ã¥¬ ø©∫Œ: " << (attr1?"yes":"no");
+			msg << "DAEMONCTL Ï£ΩÏù¥Îäî Ïó¨Î∂Ä: " << (attr1?"yes":"no");
 			break;
 
 		case EVENT_MOON_CARD:
 			if ( attr1 )
-				msg << "¥ﬁƒ´µÂ ¿Ã∫•∆Æ∞° ¡¯«‡¡ﬂ¿‘¥œ¥Ÿ.";
+				msg << "Îã¨Ïπ¥Îìú Ïù¥Î≤§Ìä∏Í∞Ä ÏßÑÌñâÏ§ëÏûÖÎãàÎã§.";
 			else
-				msg << "¥ﬁƒ´µÂ ¿Ã∫•∆Æ∏¶ ¡ﬂ¥‹«ﬂΩ¿¥œ¥Ÿ.";
+				msg << "Îã¨Ïπ¥Îìú Ïù¥Î≤§Ìä∏Î•º Ï§ëÎã®ÌñàÏäµÎãàÎã§.";
 			break;
 
 		case FULL_MOON_CARD_RATIO:
-			msg << "∫∏∏ß¥ﬁ ƒ´µÂ ≥™ø√ »Æ∑¸: 1 / " << attr1;
+			msg << "Î≥¥Î¶ÑÎã¨ Ïπ¥Îìú ÎÇòÏò¨ ÌôïÎ•†: 1 / " << attr1;
 			break;
 
 		case HALF_MOON_CARD_RATIO:
-			msg << "π›¥ﬁ ƒ´µÂ ≥™ø√ »Æ∑¸: 1 / " << attr1;
+			msg << "Î∞òÎã¨ Ïπ¥Îìú ÎÇòÏò¨ ÌôïÎ•†: 1 / " << attr1;
 			break;
 
 		case NEW_MOON_CARD_RATIO:
@@ -714,19 +714,19 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case OLD_MOON_CARD_RATIO:
-			msg << "±◊π ¥ﬁ(æ¯¥¬) ƒ´µÂ ≥™ø√ »Æ∑¸: 1 / " << attr1;
+			msg << "Í∑∏ÎØêÎã¨(ÏóÜÎäî) Ïπ¥Îìú ÎÇòÏò¨ ÌôïÎ•†: 1 / " << attr1;
 			break;
 
 		case ACTIVE_LEVEL_WAR:
-			msg << "∑π∫ß∫∞ ¿¸¿Ô ¡¯«‡ ø©∫Œ: " << (attr1?"yes":"no");
+			msg << "Î†àÎ≤®Î≥Ñ Ï†ÑÏüÅ ÏßÑÌñâ Ïó¨Î∂Ä: " << (attr1?"yes":"no");
 			break;
 
 		case RACE_WAR_HP_BONUS:
-			msg << "¡æ¡∑¿¸Ω√ HP ∫∏≥ Ω∫: " << attr1;
+			msg << "Ï¢ÖÏ°±Ï†ÑÏãú HP Î≥¥ÎÑàÏä§: " << attr1;
 			break;
 
 		case HEAD_COUNT:
-			msg << "∏”∏Æ ∞πºˆ ƒ´øÓ∆Æ«œ±‚: " << (attr1?"yes":"no");
+			msg << "Î®∏Î¶¨ Í∞ØÏàò Ïπ¥Ïö¥Ìä∏ÌïòÍ∏∞: " << (attr1?"yes":"no");
 			break;
 
 		case HEAD_PRICE_BONUS:
@@ -738,49 +738,49 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case PET_EXP_RATIO:
-			msg << "∆Í ∞Ê«Ëƒ° ∫Ò¿≤ : " << attr1;
+			msg << "Ìé´ Í≤ΩÌóòÏπò ÎπÑÏú® : " << attr1;
 			break;
 
 		case EVENT_LUCKY_BAG:
 			if ( attr1 )
-				msg << "∫π¡÷∏”¥œ ¿Ã∫•∆Æ∞° ¡¯«‡¡ﬂ¿‘¥œ¥Ÿ.";
+				msg << "Î≥µÏ£ºÎ®∏Îãà Ïù¥Î≤§Ìä∏Í∞Ä ÏßÑÌñâÏ§ëÏûÖÎãàÎã§.";
 			else
-				msg << "∫π¡÷∏”¥œ ¿Ã∫•∆Æ∞° ¡¯«‡¡ﬂ¿Ã¡ˆ æ Ω¿¥œ¥Ÿ.";
+				msg << "Î≥µÏ£ºÎ®∏Îãà Ïù¥Î≤§Ìä∏Í∞Ä ÏßÑÌñâÏ§ëÏù¥ÏßÄ ÏïäÏäµÎãàÎã§.";
 			break;
 
 		case GREEN_LUCKY_BAG_RATIO:
-			msg << "√ ∑œªˆ ∫π¡÷∏”¥œ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "Ï¥àÎ°ùÏÉâ Î≥µÏ£ºÎ®∏Îãà ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case BLUE_LUCKY_BAG_RATIO:
-			msg << "∆ƒ∂ıªˆ ∫π¡÷∏”¥œ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "ÌååÎûÄÏÉâ Î≥µÏ£ºÎ®∏Îãà ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case GOLD_LUCKY_BAG_RATIO:
-			msg << "»≤±›ªˆ ∫π¡÷∏”¥œ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "Ìô©Í∏àÏÉâ Î≥µÏ£ºÎ®∏Îãà ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case RED_LUCKY_BAG_RATIO:
-			msg << "ª°∞£ªˆ ∫π¡÷∏”¥œ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "Îπ®Í∞ÑÏÉâ Î≥µÏ£ºÎ®∏Îãà ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case EVENT_GIFT_BOX:
 			if ( attr1 )
-				msg << "º±π∞ªÛ¿⁄ ±≥»Ø ¿Ã∫•∆Æ∞° ¡¯«‡¡ﬂ¿‘¥œ¥Ÿ.";
+				msg << "ÏÑ†Î¨ºÏÉÅÏûê ÍµêÌôò Ïù¥Î≤§Ìä∏Í∞Ä ÏßÑÌñâÏ§ëÏûÖÎãàÎã§.";
 			else
-				msg << "º±π∞ªÛ¿⁄ ±≥»Ø ¿Ã∫•∆Æ∞° ¡¯«‡¡ﬂ¿Ã¡ˆ æ Ω¿¥œ¥Ÿ.";
+				msg << "ÏÑ†Î¨ºÏÉÅÏûê ÍµêÌôò Ïù¥Î≤§Ìä∏Í∞Ä ÏßÑÌñâÏ§ëÏù¥ÏßÄ ÏïäÏäµÎãàÎã§.";
 			break;
 
 		case RED_GIFT_BOX_RATIO:
-			msg << "ª°∞£ªˆ º±π∞ªÛ¿⁄ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "Îπ®Í∞ÑÏÉâ ÏÑ†Î¨ºÏÉÅÏûê ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case BLUE_GIFT_BOX_RATIO:
-			msg << "∆ƒ∂ıªˆ º±π∞ªÛ¿⁄ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "ÌååÎûÄÏÉâ ÏÑ†Î¨ºÏÉÅÏûê ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case GREEN_GIFT_BOX_RATIO:
-			msg << "√ ∑œªˆ º±π∞ªÛ¿⁄ ≥™ø√ »Æ∑¸ : 1 / " << attr1;
+			msg << "Ï¥àÎ°ùÏÉâ ÏÑ†Î¨ºÏÉÅÏûê ÎÇòÏò¨ ÌôïÎ•† : 1 / " << attr1;
 			break;
 
 		case YELLOW_GIFT_BOX_RATIO:
@@ -788,23 +788,23 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case NETMARBLE_CARD_RATIO:
-			msg << "≥›∏∂∫Ì ƒ´µÂ ≥™ø√ »Æ∑¸ : " << attr1 << " / 100000";
+			msg << "ÎÑ∑ÎßàÎ∏î Ïπ¥Îìú ÎÇòÏò¨ ÌôïÎ•† : " << attr1 << " / 100000";
 			break;
 
 		case NETMARBLE_CARD_EVENT:
-			msg << "≥›∏∂∫Ì ƒ´µÂ ¿Ã∫•∆Æ : " << ((attr1)?"Yes":"No");
+			msg << "ÎÑ∑ÎßàÎ∏î Ïπ¥Îìú Ïù¥Î≤§Ìä∏ : " << ((attr1)?"Yes":"No");
 			break;
 
 		case PREMIUM_TRIAL_EVENT:
-			msg << "«¡∏ÆπÃæˆ √º«Ë ¿Ã∫•∆Æ : " << ((attr1)?"Yes":"No");
+			msg << "ÌîÑÎ¶¨ÎØ∏ÏóÑ Ï≤¥Ìóò Ïù¥Î≤§Ìä∏ : " << ((attr1)?"Yes":"No");
 			break;
 
 		case PET_FOOD_EVENT:
-			msg << "∆Í ∏‘¿Ã ¿Ã∫•∆Æ : " << ((attr1)?"Yes":"No");
+			msg << "Ìé´ Î®πÏù¥ Ïù¥Î≤§Ìä∏ : " << ((attr1)?"Yes":"No");
 			break;
 
 		case HIGHER_PET_FOOD_RATIO:
-			msg << "∞Ì¥‹∞Ë ∆Í ∏‘¿Ã »Æ∑¸ : " << attr1 << "%";
+			msg << "Í≥†Îã®Í≥Ñ Ìé´ Î®πÏù¥ ÌôïÎ•† : " << attr1 << "%";
 			break;
 
 		case RACE_PET_FOOD_RATIO:
@@ -816,81 +816,81 @@ VariableManager::toString(VariableType vt) const
 			break;
 
 		case REVIVAL_SET_RATIO:
-			msg << "∏ÆπŸ¿Ãπ˙ º¬ »Æ∑¸ : " << attr1 << "%";
+			msg << "Î¶¨Î∞îÏù¥Î≤å ÏÖã ÌôïÎ•† : " << attr1 << "%";
 			break;
 
 		case TODAY_IS_HOLYDAY:
-			if ( attr1 ) msg << "ø¿¥√¿∫ ±π∞Ê¿œ ¿‘¥œ¥Ÿ.";
-			else msg << "ø¿¥√¿∫ ±π∞Ê¿œ¿Ã æ∆¥’¥œ¥Ÿ.";
+			if ( attr1 ) msg << "Ïò§ÎäòÏùÄ Íµ≠Í≤ΩÏùº ÏûÖÎãàÎã§.";
+			else msg << "Ïò§ÎäòÏùÄ Íµ≠Í≤ΩÏùºÏù¥ ÏïÑÎãôÎãàÎã§.";
 			break;
 
 		case SLAYER_HP_RATIO:
-			msg << "ΩΩ∑π¿ÃæÓ HP∫Ò¿≤ : " << attr1 << "%";
+			msg << "Ïä¨Î†àÏù¥Ïñ¥ HPÎπÑÏú® : " << attr1 << "%";
 			break;
 		case VAMPIRE_HP_RATIO:
-			msg << "πÏ∆ƒ¿ÃæÓ HP∫Ò¿≤ : " << attr1 << "%";
+			msg << "Î±ÄÌååÏù¥Ïñ¥ HPÎπÑÏú® : " << attr1 << "%";
 			break;
 		case OUSTERS_HP_RATIO:
-			msg << "æ∆øÏΩ∫≈Õ¡Ó HP∫Ò¿≤ : " << attr1 << "%";
+			msg << "ÏïÑÏö∞Ïä§ÌÑ∞Ï¶à HPÎπÑÏú® : " << attr1 << "%";
 			break;
 		case MONSTER_HP_RATIO:
-			msg << "∏ÛΩ∫≈Õ HP∫Ò¿≤ : " << attr1 << "%";
+			msg << "Î™¨Ïä§ÌÑ∞ HPÎπÑÏú® : " << attr1 << "%";
 			break;
 
 		case MONSTER_EXP_RATIO:
-			msg << "∏ÛΩ∫≈Õ EXP∫Ò¿≤ : " << attr1 << "%";
+			msg << "Î™¨Ïä§ÌÑ∞ EXPÎπÑÏú® : " << attr1 << "%";
 			break;
 
 		case CLOVER_EVENT:
-			msg << "≥◊¿Ÿ≈¨∑Œπˆ ¿Ã∫•∆Æ : " << ((attr1)?"on":"off");
+			msg << "ÎÑ§ÏûéÌÅ¥Î°úÎ≤Ñ Ïù¥Î≤§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case CLOVER_RATIO:
-			msg << "≥◊¿Ÿ≈¨∑Œπˆ »Æ∑¸ : " << attr1 << "/100000";
+			msg << "ÎÑ§ÏûéÌÅ¥Î°úÎ≤Ñ ÌôïÎ•† : " << attr1 << "/100000";
 			break;
 
 		case MONSTER_DAMAGE_RATIO:
-			msg << "∏ÛΩ∫≈Õ Damage ∫Ò¿≤ : " << attr1 << "%";
+			msg << "Î™¨Ïä§ÌÑ∞ Damage ÎπÑÏú® : " << attr1 << "%";
 			break;
 
 		case RACE_PET_QUEST:
-			msg << "2¬˜ ∆Í ƒ˘Ω∫∆Æ : " << ((attr1)?"on":"off");
+			msg << "2Ï∞® Ìé´ ÌÄòÏä§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case NICKNAME_PEN_EVENT:
-			msg << "≥◊¿Ãπ÷∆Ê ¿Ã∫•∆Æ : " << ((attr1)?"on":"off");
+			msg << "ÎÑ§Ïù¥Î∞çÌéú Ïù¥Î≤§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case NICKNAME_PEN_RATIO:
-			msg << "≥◊¿Ãπ÷∆Ê »Æ∑¸ : " << attr1 << "/100000";
+			msg << "ÎÑ§Ïù¥Î∞çÌéú ÌôïÎ•† : " << attr1 << "/100000";
 			break;
 
 		case GOLD_MEDAL_RATIO:
-			msg << "±›∏ﬁ¥ﬁ »Æ∑¸ : " << attr1 << "/100000";
+			msg << "Í∏àÎ©îÎã¨ ÌôïÎ•† : " << attr1 << "/100000";
 			break;
 
 		case PET_DAY_EVENT:
-			msg << "∫π≥Ø ¿Ã∫•∆Æ : " << ((attr1)?"on":"off");
+			msg << "Î≥µÎÇ† Ïù¥Î≤§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case OLYMPIC_ITEM_RATIO:
-			msg << "ø√∏≤«» ¿Ã∫•∆Æ æ∆¿Ã≈€ ∑Á∆√ »Æ∑¸ : " << attr1 << "/100000";
+			msg << "Ïò¨Î¶ºÌîΩ Ïù¥Î≤§Ìä∏ ÏïÑÏù¥ÌÖú Î£®ÌåÖ ÌôïÎ•† : " << attr1 << "/100000";
 			break;
 
 		case OLYMPIC_EVENT:
-			msg << "¥Ÿµß ø√∏≤«» ¿Ã∫•∆Æ : " << ((attr1)?"on":"off");
+			msg << "Îã§Îç¥ Ïò¨Î¶ºÌîΩ Ïù¥Î≤§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case CROWN_PRICE:
-			msg << "ø˘∞Ë∞¸ ∞°∞› : " << attr1;
+			msg << "ÏõîÍ≥ÑÍ¥Ä Í∞ÄÍ≤© : " << attr1;
 			break;
 
 		case CHOBO_EVENT:
-			msg << "√ ∫∏¿⁄ ¿Ã∫•∆Æ : " << ((attr1)?"on":"off");
+			msg << "Ï¥àÎ≥¥Ïûê Ïù¥Î≤§Ìä∏ : " << ((attr1)?"on":"off");
 			break;
 
 		case QUIT_GUILD_PENALTY_TERM:
-			msg << "±ÊµÂ ≈ª≈Ω√ ¿Á∞°¿‘ ∫“∞° ±‚∞£ : " << attr1;
+			msg << "Í∏∏Îìú ÌÉàÌá¥Ïãú Ïû¨Í∞ÄÏûÖ Î∂àÍ∞Ä Í∏∞Í∞Ñ : " << attr1;
 			break;
 
 		case GUILD_UNION_MAX:

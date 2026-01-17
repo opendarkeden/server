@@ -60,7 +60,7 @@ bool checkZonePlayerManager( GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, c
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
-// ÇÏÀ§ ¸Å´ÏÀú °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+// í•˜ìœ„ ë§¤ë‹ˆì € ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ZonePlayerManager::ZonePlayerManager () 
 	
@@ -73,13 +73,13 @@ ZonePlayerManager::ZonePlayerManager ()
 	m_PlayerListQueue.clear();
 	m_BroadcastQueue.clear();
 
-	// fd_set µéÀ» 0 À¸·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// fd_set ë“¤ì„ 0 ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	FD_ZERO(&m_ReadFDs[0]);
 	FD_ZERO(&m_WriteFDs[0]);
 	FD_ZERO(&m_ExceptFDs[0]);
 
-	// m_Timeout À» ÃÊ±âÈ­ÇÑ´Ù.
-	// ³ªÁß¿¡´Â ÀÌ ÁÖ±â ¿ª½Ã ¿É¼ÇÀ¸·Î Ã³¸®ÇÏµµ·Ï ÇÏÀÚ.
+	// m_Timeout ì„ ì´ˆê¸°í™”í•œë‹¤.
+	// ë‚˜ì¤‘ì—ëŠ” ì´ ì£¼ê¸° ì—­ì‹œ ì˜µì…˜ìœ¼ë¡œ ì²˜ë¦¬í•˜ë„ë¡ í•˜ì.
 	m_Timeout[0].tv_sec = 0;
 	m_Timeout[0].tv_usec = 0;
 /*
@@ -120,9 +120,9 @@ ZonePlayerManager::~ZonePlayerManager ()
 {
 	__BEGIN_TRY
 
-	// ÇÃ·¹ÀÌ¾î »èÁ¦´Â PlayerManager ·¹º§¿¡¼­ ÀÌ·ç¾îÁö¹Ç·Î ½Å°æ¾²Áö ¾Ê¾Æµµ µÈ´Ù.
+	// í”Œë ˆì´ì–´ ì‚­ì œëŠ” PlayerManager ë ˆë²¨ì—ì„œ ì´ë£¨ì–´ì§€ë¯€ë¡œ ì‹ ê²½ì“°ì§€ ì•Šì•„ë„ ëœë‹¤.
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
@@ -163,13 +163,13 @@ void ZonePlayerManager::pushBroadcastPacket( Packet* pPacket, BroadcastFilter* p
 
 	__ENTER_CRITICAL_SECTION(m_MutexBroadcast)
 
-	// ¿©±â¿¡ ¾²´Â ÆĞÅ¶ÀÌ Encrypter ¸¦ ¾²Áö ¾Ê´Â ´Ù´Â ÀüÁ¦ÇÏ¿¡ ÇØ³õÀº ÄÚµùÀÌ´Ù.
-	// ¸¸ÀÏ Encrypter ¸¦ ¾²´Â ÆĞÅ¶À» »ç¿ëÇÏ·Á¸é BroadcastQueue ¸¦ Zone ¿¡ µÎ°í
-	// ±×°ÍÀ» »ç¿ëÇØ¾ßÇÑ´Ù.
+	// ì—¬ê¸°ì— ì“°ëŠ” íŒ¨í‚·ì´ Encrypter ë¥¼ ì“°ì§€ ì•ŠëŠ” ë‹¤ëŠ” ì „ì œí•˜ì— í•´ë†“ì€ ì½”ë”©ì´ë‹¤.
+	// ë§Œì¼ Encrypter ë¥¼ ì“°ëŠ” íŒ¨í‚·ì„ ì‚¬ìš©í•˜ë ¤ë©´ BroadcastQueue ë¥¼ Zone ì— ë‘ê³ 
+	// ê·¸ê²ƒì„ ì‚¬ìš©í•´ì•¼í•œë‹¤.
 
-	// ÇÊÅÍ¿Í ÆĞÅ¶À» Å¥¿¡ ³Ö´Â´Ù.
-	// ÇÊÅÍ´Â »õ·Î »ı¼ºÇÑ °´Ã¼(Å¬·Ğ)¸¦ ³Ö´Â´Ù.
-	// ÆĞÅ¶À» ½ºÆ®¸²¿¡ ½á¼­ Å¥¿¡ ³Ö´Â´Ù.
+	// í•„í„°ì™€ íŒ¨í‚·ì„ íì— ë„£ëŠ”ë‹¤.
+	// í•„í„°ëŠ” ìƒˆë¡œ ìƒì„±í•œ ê°ì²´(í´ë¡ )ë¥¼ ë„£ëŠ”ë‹¤.
+	// íŒ¨í‚·ì„ ìŠ¤íŠ¸ë¦¼ì— ì¨ì„œ íì— ë„£ëŠ”ë‹¤.
 	SocketOutputStream* pStream = new SocketOutputStream( NULL, szPacketHeader + pPacket->getPacketSize() );
 	pPacket->writeHeaderNBody( *pStream );
 
@@ -199,7 +199,7 @@ void ZonePlayerManager::flushBroadcastPacket()
 
 		if ( pStream == NULL )
 		{
-			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pStreamÀÌ NULLÀÔ´Ï´Ù.");
+			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pStreamì´ NULLì…ë‹ˆë‹¤.");
 			continue;
 		}
 
@@ -229,13 +229,13 @@ void ZonePlayerManager::flushBroadcastPacket()
 
 		if ( pPacket == NULL )
 		{
-			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pPacket°¡ NULLÀÔ´Ï´Ù.");
+			filelog("ZoneBug.txt", "%s : %s", "Zone::flushBroadcastPacket", "pPacketê°€ NULLì…ë‹ˆë‹¤.");
 			continue;
 		}
 
 		bool bSend = false;
 
-		// Ranger Say ÀÎ °æ¿ì
+		// Ranger Say ì¸ ê²½ìš°
 		if ( pPacket->getPacketID() == Packet::PACKET_GC_SYSTEM_MESSAGE )
 		{
 			GCSystemMessage* pSystemMessage = dynamic_cast<GCSystemMessage*>(pPacket);
@@ -287,8 +287,8 @@ void ZonePlayerManager::flushBroadcastPacket()
 			}
 		}
 
-		// ÀÌ¶§ ÆĞÅ¶À» µ¿ÀûÀ¸·Î ÇÒ´çµÇ¾î ÀÖ´Ù.
-		// ±×·¯¹Ç·Î ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇØ¾ßÇÑ´Ù.
+		// ì´ë•Œ íŒ¨í‚·ì„ ë™ì ìœ¼ë¡œ í• ë‹¹ë˜ì–´ ìˆë‹¤.
+		// ê·¸ëŸ¬ë¯€ë¡œ ë©”ëª¨ë¦¬ì—ì„œ ì‚­ì œí•´ì•¼í•œë‹¤.
 		SAFE_DELETE( pPacket );
 	}
 */
@@ -318,7 +318,7 @@ void ZonePlayerManager::copyPlayers()
 
 //////////////////////////////////////////////////////////////////////////////
 // call select() system call
-// »óÀ§¿¡¼­ TimeoutException À» ¹ŞÀ¸¸é ÇÃ·¹ÀÌ¾î´Â Ã³¸®ÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
+// ìƒìœ„ì—ì„œ TimeoutException ì„ ë°›ìœ¼ë©´ í”Œë ˆì´ì–´ëŠ” ì²˜ë¦¬í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::select ()
 {
@@ -326,11 +326,11 @@ void ZonePlayerManager::select ()
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// m_Timeout[0] À» m_Timeout[1] À¸·Î º¹»çÇÑ´Ù.
+	// m_Timeout[0] ì„ m_Timeout[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
 	m_Timeout[1].tv_sec  = m_Timeout[0].tv_sec;
 	m_Timeout[1].tv_usec = m_Timeout[0].tv_usec;
 
-	// m_XXXFDs[0] À» m_XXXFDs[1] À¸·Î º¹»çÇÑ´Ù.
+	// m_XXXFDs[0] ì„ m_XXXFDs[1] ìœ¼ë¡œ ë³µì‚¬í•œë‹¤.
 	m_ReadFDs[1]   = m_ReadFDs[0];
 	m_WriteFDs[1]  = m_WriteFDs[0];
 	m_ExceptFDs[1] = m_ExceptFDs[0];
@@ -339,17 +339,17 @@ void ZonePlayerManager::select ()
 
     try 
 	{
-		// ÀÌÁ¦ m_XXXFDs[1] À» °¡Áö°í select() ¸¦ È£ÃâÇÑ´Ù.
+		// ì´ì œ m_XXXFDs[1] ì„ ê°€ì§€ê³  select() ë¥¼ í˜¸ì¶œí•œë‹¤.
 		SocketAPI::select_ex(m_MaxFD + 1 , &m_ReadFDs[1] , &m_WriteFDs[1] , &m_ExceptFDs[1] , &m_Timeout[1]);
     } 
-	// ÁÖ¼®Ã³¸® by sigi. 2002.5.14
+	// ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.14
 	//catch (TimeoutException&) 
 	//{
 		// do nothing
     //} 
 	catch (InterruptedException & ie) 
 	{
-	    // ½Ã±×³ÎÀÌ ¿Ã ¸®°¡ ¾öÂî~~
+	    // ì‹œê·¸ë„ì´ ì˜¬ ë¦¬ê°€ ì—„ì°Œ~~
 		log(LOG_GAMESERVER_ERROR, "", "", ie.toString());
     }
 
@@ -359,9 +359,9 @@ void ZonePlayerManager::select ()
 //////////////////////////////////////////////////////////////////////////////
 // process all players' inputs
 //
-// ¼­¹ö ¼ÒÄÏÀÇ read flag°¡ ÄÑÁ³À» °æ¿ì, »õ·Î¿î Á¢¼ÓÀÌ µé¾î¿ÔÀ¸¹Ç·Î
-// ÀÌ¸¦ Ã³¸®ÇÏ°í, ´Ù¸¥ ¼ÒÄÏÀÇ read flag°¡ ÄÑÁ³À» °æ¿ì, »õ·Î¿î ÆĞÅ¶ÀÌ
-// µé¾î¿ÔÀ¸¹Ç·Î ±× ÇÃ·¹ÀÌ¾îÀÇ processInput()À» È£ÃâÇÏ¸é µÈ´Ù.
+// ì„œë²„ ì†Œì¼“ì˜ read flagê°€ ì¼œì¡Œì„ ê²½ìš°, ìƒˆë¡œìš´ ì ‘ì†ì´ ë“¤ì–´ì™”ìœ¼ë¯€ë¡œ
+// ì´ë¥¼ ì²˜ë¦¬í•˜ê³ , ë‹¤ë¥¸ ì†Œì¼“ì˜ read flagê°€ ì¼œì¡Œì„ ê²½ìš°, ìƒˆë¡œìš´ íŒ¨í‚·ì´
+// ë“¤ì–´ì™”ìœ¼ë¯€ë¡œ ê·¸ í”Œë ˆì´ì–´ì˜ processInput()ì„ í˜¸ì¶œí•˜ë©´ ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processInputs () 
 {
@@ -379,7 +379,7 @@ void ZonePlayerManager::processInputs ()
 
 	for (int i = m_MinFD ; i <= m_MaxFD ; i ++) 
 	{
-		// ZPM¿¡´Â ÇÃ·¹ÀÌ¾î¸¸ µé¾îÀÖÀ¸¹Ç·Î, ´õ ºñ±³ÇÒ ²¨¸®°¡ ¾ø´Ù.
+		// ZPMì—ëŠ” í”Œë ˆì´ì–´ë§Œ ë“¤ì–´ìˆìœ¼ë¯€ë¡œ, ë” ë¹„êµí•  êº¼ë¦¬ê°€ ì—†ë‹¤.
 		if (FD_ISSET(i , &m_ReadFDs[1])) 
 		{
 			if (m_pPlayers[i] != NULL && m_pPlayers[i] == m_pPlayers[i]) 
@@ -422,7 +422,7 @@ void ZonePlayerManager::processInputs ()
 					/*
 					try 
 					{
-						// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+						// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 						pTempPlayer->disconnect(DISCONNECTED);
 					} 
 					catch (Throwable & t) 
@@ -433,7 +433,7 @@ void ZonePlayerManager::processInputs ()
 					deletePlayer(i);
 					deleteQueuePlayer(pTempPlayer);
 
-					// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+					// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 					delete pTempPlayer;
 					*/
 				} 
@@ -465,7 +465,7 @@ void ZonePlayerManager::processInputs ()
 						/*
 						try 
 						{
-							// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+							// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 							pTempPlayer->disconnect(DISCONNECTED);
 						} 
 						catch (Throwable & t) 
@@ -476,7 +476,7 @@ void ZonePlayerManager::processInputs ()
 						deletePlayer(i);
 						deleteQueuePlayer(pTempPlayer);
 
-						// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+						// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 						delete pTempPlayer;
 						*/
 					}
@@ -502,7 +502,7 @@ void ZonePlayerManager::processInputs ()
 						/*
 						try 
 						{
-							// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+							// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 							pTempPlayer->disconnect(DISCONNECTED);
 						} 
 						catch (Throwable & t) 
@@ -541,7 +541,7 @@ void ZonePlayerManager::processCommands()
 
 		try {
 			ps.loginPayPlay("111.111.222.333", "sdfdf");
-			cout << "[" << (int)Thread::self() << "] " << i << endl;
+			cout << "[" << (int)(long)Thread::self() << "] " << i << endl;
 		} catch (Throwable&t)
 		{
 			cout << t.toString().c_str() << endl;
@@ -592,7 +592,7 @@ void ZonePlayerManager::processCommands()
 				/*
 				try 
 				{
-					// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+					// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 					pTempPlayer->disconnect(DISCONNECTED);
 				} 
 				catch (Throwable & t) 
@@ -603,7 +603,7 @@ void ZonePlayerManager::processCommands()
 				deletePlayer(i);
 				deleteQueuePlayer(pTempPlayer);
 
-				// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+				// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				delete pTempPlayer;
 				*/
 			} 
@@ -630,28 +630,28 @@ void ZonePlayerManager::processCommands()
 						}
 					}
 
-					// Á¤»óÀûÀÎ °ÔÀÓ »óÅÂ¿¡¼­(GPS_NORMAL)¸¸ PayÃ¼Å©¸¦ ÇÑ´Ù.
-					// PCManager::killCreature()¿¡¼­´Â GPS_IGNORE_ALL·Î ¹Ù²î°í
-					// tile¿¡¼­ Áö¿ì°í.. zoneÀÌµ¿ÀÌ µÇ¹Ç·Î.. ÀÌ°É·Î ¹®Á¦°¡ »ı±æ ¼ö ÀÖ´Ù°í º»´Ù.
+					// ì •ìƒì ì¸ ê²Œì„ ìƒíƒœì—ì„œ(GPS_NORMAL)ë§Œ Payì²´í¬ë¥¼ í•œë‹¤.
+					// PCManager::killCreature()ì—ì„œëŠ” GPS_IGNORE_ALLë¡œ ë°”ë€Œê³ 
+					// tileì—ì„œ ì§€ìš°ê³ .. zoneì´ë™ì´ ë˜ë¯€ë¡œ.. ì´ê±¸ë¡œ ë¬¸ì œê°€ ìƒê¸¸ ìˆ˜ ìˆë‹¤ê³  ë³¸ë‹¤.
 					// by sigi. 2002.12.10
 					else if (pTempPlayer->getPlayerStatus()==GPS_NORMAL)
 					{
 
 #ifdef __CONNECT_BILLING_SYSTEM__
-						// ¾ÆÁ÷ ºô¸µ ½Ã½ºÅÛ¿¡¼­ °ËÁõµÇÁö ¾Ê¾Ò´Ù¸é..
+						// ì•„ì§ ë¹Œë§ ì‹œìŠ¤í…œì—ì„œ ê²€ì¦ë˜ì§€ ì•Šì•˜ë‹¤ë©´..
 						if (!pTempPlayer->isBillingLoginVerified())
 						{
 							if ( !pTempPlayer->isMetroFreePlayer() )
 								pTempPlayer->sendBillingLogin();
 						}
-						// ºô¸µ ½Ã½ºÅÛ °ËÁõÀÌ µÈ °æ¿ìÀÌ°í..
-						// ºô¸µ ÇÃ·¹ÀÌ°¡ ºÒ°¡´ÉÇÑ °æ¿ì¶ó¸é..
-						// Á¦ÇÑÀûÀÎ ¹«·á ÇÃ·¹ÀÌ°¡ °¡´ÉÇÑÁö Ã¼Å©ÇØº»´Ù.	// by sigi. 2002.12.5
+						// ë¹Œë§ ì‹œìŠ¤í…œ ê²€ì¦ì´ ëœ ê²½ìš°ì´ê³ ..
+						// ë¹Œë§ í”Œë ˆì´ê°€ ë¶ˆê°€ëŠ¥í•œ ê²½ìš°ë¼ë©´..
+						// ì œí•œì ì¸ ë¬´ë£Œ í”Œë ˆì´ê°€ ê°€ëŠ¥í•œì§€ ì²´í¬í•´ë³¸ë‹¤.	// by sigi. 2002.12.5
 						else if (pTempPlayer->isBillingLoginVerified() 
 								&& !pTempPlayer->isBillingPlayAvaiable())
 #endif
 
-						// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀÌ ³¡³­ °æ¿ì. À¯·áÁ¸¿¡ ÀÖ´Â ¹«·á ÆÄÆ¼¿øµéÀ» ¹«·áÁ¸À¸·Î ¿Å°Ü¾ßÇÑ´Ù.
+						// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì´ ëë‚œ ê²½ìš°. ìœ ë£Œì¡´ì— ìˆëŠ” ë¬´ë£Œ íŒŒí‹°ì›ë“¤ì„ ë¬´ë£Œì¡´ìœ¼ë¡œ ì˜®ê²¨ì•¼í•œë‹¤.
 						if ( pTempPlayer->isFamilyFreePassEnd() )
 						{
 							Creature* pCreature = pTempPlayer->getCreature();
@@ -660,13 +660,13 @@ void ZonePlayerManager::processCommands()
 
 							if ( pZone->isPayPlay() )
 							{
-								// ¹«·á »ç¿ëÀÚÀÏ °æ¿ì ¾Æ·¡ if ¹®¿¡¼­ À¯·á Ã¼Å©¸¦ ÇÏ°í ¹«·áÁ¸À¸·Î ¿Å°Ü°£´Ù.
+								// ë¬´ë£Œ ì‚¬ìš©ìì¼ ê²½ìš° ì•„ë˜ if ë¬¸ì—ì„œ ìœ ë£Œ ì²´í¬ë¥¼ í•˜ê³  ë¬´ë£Œì¡´ìœ¼ë¡œ ì˜®ê²¨ê°„ë‹¤.
 								pTempPlayer->setPremiumPlay();
 							}
 						}
 
-						// À¯·á »ç¿ëÀÚÀÎ °æ¿ì´Â ½Ã°£À» ÁÙÀÎ´Ù.
-						// ÆĞ¹Ğ¸® ¿ä±İ »ç¿ëÀÚÀÎ °æ¿ì ½Ã°£ÀÌ ´ÙµÇ¾ú´ÂÁö È®ÀÎÇÑ´Ù. À¯¹«·áÁ¸¿¡ »ó°ü¾øÀÌ
+						// ìœ ë£Œ ì‚¬ìš©ìì¸ ê²½ìš°ëŠ” ì‹œê°„ì„ ì¤„ì¸ë‹¤.
+						// íŒ¨ë°€ë¦¬ ìš”ê¸ˆ ì‚¬ìš©ìì¸ ê²½ìš° ì‹œê°„ì´ ë‹¤ë˜ì—ˆëŠ”ì§€ í™•ì¸í•œë‹¤. ìœ ë¬´ë£Œì¡´ì— ìƒê´€ì—†ì´
 						if ((pTempPlayer->isPayPlaying() || pTempPlayer->isPremiumPlay() || pTempPlayer->isFamilyPayAvailable() )
 							&& !pTempPlayer->updatePayPlayTime(pTempPlayer->getID(), currentDateTime, currentTime))
 						{
@@ -674,16 +674,16 @@ void ZonePlayerManager::processCommands()
 							Zone* pZone = pCreature->getZone();
 							Assert(pZone!=NULL);
 
-							// À¯·á ¼­ºñ½º Á¾·á
+							// ìœ ë£Œ ì„œë¹„ìŠ¤ ì¢…ë£Œ
 							pTempPlayer->logoutPayPlay( pTempPlayer->getID() );
 
-							// ÆĞ¹Ğ¸® ¿ä±İ »ç¿ëÀÚÀÎ °æ¿ì FamilyPayAvailable flag À» ²¨ÁØ´Ù.
-							// ÆĞ¹Ğ¸® ¿ä±İ µğÆúÆ® ¿É¼ÇÀ» ²÷´Ù.
+							// íŒ¨ë°€ë¦¬ ìš”ê¸ˆ ì‚¬ìš©ìì¸ ê²½ìš° FamilyPayAvailable flag ì„ êº¼ì¤€ë‹¤.
+							// íŒ¨ë°€ë¦¬ ìš”ê¸ˆ ë””í´íŠ¸ ì˜µì…˜ì„ ëŠë‹¤.
 							if ( pTempPlayer->isFamilyPayAvailable() )
 							{
 								pTempPlayer->setFamilyPayAvailable( false );
 
-								// ÆÄÆ¼¿øÀÏ °æ¿ì Family Pay¸¦ refresh ÇÑ´Ù.
+								// íŒŒí‹°ì›ì¼ ê²½ìš° Family Payë¥¼ refresh í•œë‹¤.
 								int PartyID = pCreature->getPartyID();
 								if ( PartyID != 0 )
 								{
@@ -700,13 +700,13 @@ void ZonePlayerManager::processCommands()
 							// by sigi. 2002.12.30
 							IsPayPlayEnd = true;
 
-						// Zone´ÜÀ§ À¯·áÀÎ °æ¿ì´Â.. ¹«·áÁ¸À¸·Î ¿Å±ä´Ù.
+						// Zoneë‹¨ìœ„ ìœ ë£Œì¸ ê²½ìš°ëŠ”.. ë¬´ë£Œì¡´ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 						#if defined(__PAY_SYSTEM_ZONE__)
 							
-							// À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
+							// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
 							//
-							// slayer : ¿¡½½³²µ¿¿¡¼­ ºÎÈ°ÇÏ´Â °÷À¸·Î °£´Ù.
-							// vampire : ¸²º¸³²µ¿¿¡¼­ ºÎÈ°ÇÏ´Â °÷À¸·Î °£´Ù.
+							// slayer : ì—ìŠ¬ë‚¨ë™ì—ì„œ ë¶€í™œí•˜ëŠ” ê³³ìœ¼ë¡œ ê°„ë‹¤.
+							// vampire : ë¦¼ë³´ë‚¨ë™ì—ì„œ ë¶€í™œí•˜ëŠ” ê³³ìœ¼ë¡œ ê°„ë‹¤.
 							if (pZone->isPayPlay())
 							{
 								ZONE_COORD zoneCoord;
@@ -715,16 +715,16 @@ void ZonePlayerManager::processCommands()
 								PlayerCreature* pPC = dynamic_cast<PlayerCreature*>(pCreature);
 								Assert( pPC != NULL );
 
-								// Å¬¶óÀÌ¾ğÆ®¿¡ À¯·á »ç¿ëÀÌ ³¡³µ´Ù´Â ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÏµµ·ÏÇÑ´Ù.
-								// ÀÏ´Ü ¹«·áÁ¸À¸·Î ÀÌµ¿ÇÏ°Ô µÇ¹Ç·Î Áö±İ º¸³»Áà¼­´Â ¼Ò¿ëÀÌ ¾ø´Ù.
-								// »õ·Î¿î Á¸¿¡ µé¾î°¡¼­ ¸Ş½ÃÁö¸¦ ¹Şµµ·Ï ÇÑ´Ù.
+								// í´ë¼ì´ì–¸íŠ¸ì— ìœ ë£Œ ì‚¬ìš©ì´ ëë‚¬ë‹¤ëŠ” ë©”ì‹œì§€ë¥¼ ì¶œë ¥í•˜ë„ë¡í•œë‹¤.
+								// ì¼ë‹¨ ë¬´ë£Œì¡´ìœ¼ë¡œ ì´ë™í•˜ê²Œ ë˜ë¯€ë¡œ ì§€ê¸ˆ ë³´ë‚´ì¤˜ì„œëŠ” ì†Œìš©ì´ ì—†ë‹¤.
+								// ìƒˆë¡œìš´ ì¡´ì— ë“¤ì–´ê°€ì„œ ë©”ì‹œì§€ë¥¼ ë°›ë„ë¡ í•œë‹¤.
 								Statement* pStmt = NULL;
 
 								BEGIN_DB
 								{
 									uint strID = STRID_END_PAY_PLAY;
 
-									// ÆĞ¹Ğ¸® ¿ä±İÁ¦ ÇØÁ¦·Î ÀÎÇÑ ¹«·áÁ¸ ÀÌµ¿½Ã ¸Ş½ÃÁö
+									// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ í•´ì œë¡œ ì¸í•œ ë¬´ë£Œì¡´ ì´ë™ì‹œ ë©”ì‹œì§€
 									if ( pTempPlayer->isFamilyFreePassEnd() )
 										strID = STRID_FAMILY_FREE_PLAY_END;
 
@@ -738,14 +738,14 @@ void ZonePlayerManager::processCommands()
 								}
 								END_DB(pStmt)
 							
-								// ¹«·áÁ¸À¸·Î ¿Å±ä´Ù.
+								// ë¬´ë£Œì¡´ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 								if ( g_pResurrectLocationManager->getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 								{
 									transportCreature(pCreature, zoneCoord.id, zoneCoord.x, zoneCoord.y, true);
 								}
 								else
 								{
-									// ¾Æ, ºñ»óÀÌ´å...
+									// ì•„, ë¹„ìƒì´ë‹·...
 									throw Error("Critical Error : ResurrectInfo is not established!1");
 								}
 							}
@@ -758,7 +758,7 @@ void ZonePlayerManager::processCommands()
 
 							if (pPC->isPayPlayAvaiable())
 							{
-								// À¯·áÁ¸ÀÏ °æ¿ì ¹«·áÁ¸À¸·Î ¿Å±ä´Ù.
+								// ìœ ë£Œì¡´ì¼ ê²½ìš° ë¬´ë£Œì¡´ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 								if (pZone->isPayPlay())
 								{
 									ZONE_COORD zoneCoord;
@@ -773,7 +773,7 @@ void ZonePlayerManager::processCommands()
 									}
 									else
 									{
-										// ¾Æ, ºñ»óÀÌ´å...
+										// ì•„, ë¹„ìƒì´ë‹·...
 										throw Error("Critical Error : ResurrectInfo is not established!1");
 									}
 								}
@@ -791,7 +791,7 @@ void ZonePlayerManager::processCommands()
 								pEventKick->setDeadline(30*10);
 								pTempPlayer->addEvent(pEventKick);
 
-								// ¸î ÃÊÈÄ¿¡ Â©¸°´Ù..°í º¸³»ÁØ´Ù.
+								// ëª‡ ì´ˆí›„ì— ì§¤ë¦°ë‹¤..ê³  ë³´ë‚´ì¤€ë‹¤.
 								GCKickMessage gcKickMessage;
 								gcKickMessage.setType( KICK_MESSAGE_PAY_TIMEOUT );
 								gcKickMessage.setSeconds( 30 );
@@ -807,7 +807,7 @@ void ZonePlayerManager::processCommands()
 						Timeval cTime;
 						getCurrentTime(cTime);
 
-						if(cTime > m_tmChildGuardCheckTerm )    // m_nChildGuardCheckTerm ½Ã°£¸¶´Ù ÇÑ¹ø¾¿¸¸ Ã¼Å©
+						if(cTime > m_tmChildGuardCheckTerm )    // m_nChildGuardCheckTerm ì‹œê°„ë§ˆë‹¤ í•œë²ˆì”©ë§Œ ì²´í¬
 						{
 							//cout << "check time : 30sec.."<<endl;
 							bool bChildGuardArea = onChildGuardTimeArea(m_nChildGuardStartTime, m_nChildGuardEndTime, m_bChildGuard);
@@ -836,7 +836,7 @@ void ZonePlayerManager::processCommands()
 						}
 #endif
 
-						// ÆĞ¹Ğ¸® ¿ä±İÁ¦ Àû¿ëÀÌ ³¡³µ´Ù¸é, ´Ù½Ã Ã¼Å©ÇÏÁö ¾Ê°Ô ÇÏ±âÀ§¿¡ Å¸ÀÔÀ» ¹Ù²ãÁØ´Ù.
+						// íŒ¨ë°€ë¦¬ ìš”ê¸ˆì œ ì ìš©ì´ ëë‚¬ë‹¤ë©´, ë‹¤ì‹œ ì²´í¬í•˜ì§€ ì•Šê²Œ í•˜ê¸°ìœ„ì— íƒ€ì…ì„ ë°”ê¿”ì¤€ë‹¤.
 						if ( pTempPlayer->isFamilyFreePassEnd() )
 						{
 							pTempPlayer->setFamilyPayPartyType( FAMILY_PAY_PARTY_TYPE_NONE );
@@ -845,12 +845,12 @@ void ZonePlayerManager::processCommands()
 #ifdef __CONNECT_CBILLING_SYSTEM__
 						if ( !pTempPlayer->isPayPlayer() )
 						{
-							// À¯·á ½Ã°£ ³¡³µÀ½. Â¥¸¥´Ù.
+							// ìœ ë£Œ ì‹œê°„ ëë‚¬ìŒ. ì§œë¥¸ë‹¤.
 							pTempPlayer->kickPlayer( 30, KICK_MESSAGE_PAY_TIMEOUT );
 						}
 						else
 						{
-							// À¯·á »ç¿ëÀÚÀÇ °æ¿ì pay info ¸¦ ¾ÆÁ÷ ¾È º¸³»Áá´Ù¸é º¸³»ÁØ´Ù.
+							// ìœ ë£Œ ì‚¬ìš©ìì˜ ê²½ìš° pay info ë¥¼ ì•„ì§ ì•ˆ ë³´ë‚´ì¤¬ë‹¤ë©´ ë³´ë‚´ì¤€ë‹¤.
 							if ( pTempPlayer->isCBillingVerified() && !pTempPlayer->isCBShowPayInfo() )
 							{
 								pTempPlayer->sendCBillingPayInfo();
@@ -892,7 +892,7 @@ void ZonePlayerManager::processCommands()
 					/*
 					try 
 					{
-						// Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÑ´Ù.
+						// ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•œë‹¤.
 						pTempPlayer->disconnect(UNDISCONNECTED);
 					} 
 					catch (Throwable & t) 
@@ -903,7 +903,7 @@ void ZonePlayerManager::processCommands()
 					deletePlayer(i);
 					deleteQueuePlayer(pTempPlayer);
 
-					// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+					// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 					delete pTempPlayer;
 					*/
 				}
@@ -928,16 +928,16 @@ void ZonePlayerManager::processCommands()
 			if (m_pPlayers[i]->getSocket()->getSockError()) {
 
 				try {
-				// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+				// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 				m_pPlayers[i]->disconnect(DISCONNECTED);
 				} catch (Throwable & t) {
 				}
 
 
-				// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+				// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				delete m_pPlayers[i];	
 
-				// ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ »èÁ¦ÇÑ´Ù.
+				// í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ í¬ì¸í„°ë¥¼ ì‚­ì œí•œë‹¤.
 //				deletePlayer_NOBLOCKED(i);
 				deletePlayer(i);
 
@@ -953,16 +953,16 @@ void ZonePlayerManager::processCommands()
 
 					try {
 
-					// Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÑ´Ù.
+					// ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•œë‹¤.
 					m_pPlayers[i]->disconnect(UNDISCONNECTED);
 
 					} catch (Throwable & t) {
 					}
 
-					// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+					// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 					delete m_pPlayers[i];
 
-					// ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú¿¡¼­ ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ »èÁ¦ÇÑ´Ù.
+					// í”Œë ˆì´ì–´ ë§¤ë‹ˆì €ì—ì„œ í”Œë ˆì´ì–´ í¬ì¸í„°ë¥¼ ì‚­ì œí•œë‹¤.
 //					deletePlayer_NOBLOCKED(i);
 					deletePlayer(i);
 
@@ -1029,7 +1029,7 @@ void ZonePlayerManager::processOutputs ()
 					/*
 					try 
 					{
-						// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+						// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 						pTempPlayer->disconnect(DISCONNECTED);
 					} 
 					catch (Throwable & t) 
@@ -1040,7 +1040,7 @@ void ZonePlayerManager::processOutputs ()
 					deletePlayer(i);
 					deleteQueuePlayer(pTempPlayer);
 
-					// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+					// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 					delete pTempPlayer;
 					*/
 				} 
@@ -1072,7 +1072,7 @@ void ZonePlayerManager::processOutputs ()
 						/*
 						try 
 						{
-							// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+							// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 							pTempPlayer->disconnect(DISCONNECTED);
 						} 
 						catch (Throwable & t) 
@@ -1083,7 +1083,7 @@ void ZonePlayerManager::processOutputs ()
 						deletePlayer(i);
 						deleteQueuePlayer(pTempPlayer);
 
-						// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+						// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 						delete pTempPlayer;
 						*/
 					} 
@@ -1107,7 +1107,7 @@ void ZonePlayerManager::processOutputs ()
 //						UserGateway::getInstance()->passUser( UserGateway::USER_OUT_ZPM_OUTPUT_DISCONNECT2 );
 
 						/*
-						// ÀÌ¹Ì ¿¬°áÀÌ Á¾·áµÇ¾úÀ¸¹Ç·Î, Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇØ¼­´Â ¾ÈµÈ´Ù.
+						// ì´ë¯¸ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆìœ¼ë¯€ë¡œ, ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•´ì„œëŠ” ì•ˆëœë‹¤.
 						try 
 						{
 							pTempPlayer->disconnect(DISCONNECTED);
@@ -1120,7 +1120,7 @@ void ZonePlayerManager::processOutputs ()
 						deletePlayer(i);
 						deleteQueuePlayer(pTempPlayer);
 
-						// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+						// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 						delete pTempPlayer;
 						*/
 					}
@@ -1139,8 +1139,8 @@ void ZonePlayerManager::processOutputs ()
 //
 // process all players' exceptions
 //
-// ÇöÀç±îÁö´Â OOB µ¥ÀÌÅ¸¸¦ Àü¼ÛÇÒ °èÈ¹Àº ¾ø´Ù.
-// µû¶ó¼­, ¸¸¾à OOB°¡ ÄÑÁ® ÀÖ´Ù¸é ¿¡·¯·Î °£ÁÖÇÏ°í Á¢¼ÓÀ» È® Â©¶ó ¹ö¸°´Ù.
+// í˜„ì¬ê¹Œì§€ëŠ” OOB ë°ì´íƒ€ë¥¼ ì „ì†¡í•  ê³„íšì€ ì—†ë‹¤.
+// ë”°ë¼ì„œ, ë§Œì•½ OOBê°€ ì¼œì ¸ ìˆë‹¤ë©´ ì—ëŸ¬ë¡œ ê°„ì£¼í•˜ê³  ì ‘ì†ì„ í™• ì§¤ë¼ ë²„ë¦°ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::processExceptions () 
@@ -1186,7 +1186,7 @@ void ZonePlayerManager::processExceptions ()
 				/*
 				try 
 				{
-					// Ãâ·Â ¹öÆÛ¸¦ ÇÃ·¯½ÃÇÑ´Ù.
+					// ì¶œë ¥ ë²„í¼ë¥¼ í”ŒëŸ¬ì‹œí•œë‹¤.
 					m_pPlayers[i]->disconnect(UNDISCONNECTED);
 				} 
 				catch (Throwable & t) 
@@ -1197,7 +1197,7 @@ void ZonePlayerManager::processExceptions ()
 				deletePlayer(i);
 				deleteQueuePlayer(pTempPlayer);
 
-				// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+				// í”Œë ˆì´ì–´ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 				delete pTempPlayer;
 				*/
 			}
@@ -1211,7 +1211,7 @@ void ZonePlayerManager::processExceptions ()
 	
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer) 
 {
@@ -1224,10 +1224,10 @@ void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer)
 
 	SOCKET fd = pGamePlayer->getSocket()->getSOCKET();
 
-	// m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
+	// m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
 	if (m_MinFD == -1 && m_MaxFD == -1) 
 	{
-		// ÃÖÃÊÀÇ ÇÃ·¹ÀÌ¾îÀÇ °æ¿ì
+		// ìµœì´ˆì˜ í”Œë ˆì´ì–´ì˜ ê²½ìš°
 		m_MinFD = m_MaxFD = fd;
 	} 
 	else 
@@ -1236,8 +1236,8 @@ void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer)
 		m_MaxFD = max(fd , m_MaxFD);
 	}
 
-	// ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ on ½ÃÅ²´Ù.
-	// m_XXXFDs[1] Àº ´ÙÀ½¹ø¿¡ Ã³¸®ÇØÁÖ¸é µÈ´Ù.
+	// ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ on ì‹œí‚¨ë‹¤.
+	// m_XXXFDs[1] ì€ ë‹¤ìŒë²ˆì— ì²˜ë¦¬í•´ì£¼ë©´ ëœë‹¤.
 	FD_SET(fd , &m_ReadFDs[0]);
 	FD_SET(fd , &m_WriteFDs[0]);
 	FD_SET(fd , &m_ExceptFDs[0]);
@@ -1248,7 +1248,7 @@ void ZonePlayerManager::addPlayer (GamePlayer* pGamePlayer)
 }
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer) 
 {
@@ -1259,10 +1259,10 @@ void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer)
 
 	SOCKET fd = pGamePlayer->getSocket()->getSOCKET();
 
-	// m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
+	// m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
 	if (m_MinFD == -1 && m_MaxFD == -1) 
 	{
-		// ÃÖÃÊÀÇ ÇÃ·¹ÀÌ¾îÀÇ °æ¿ì
+		// ìµœì´ˆì˜ í”Œë ˆì´ì–´ì˜ ê²½ìš°
 		m_MinFD = m_MaxFD = fd;
 	} 
 	else 
@@ -1271,8 +1271,8 @@ void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer)
 		m_MaxFD = max(fd , m_MaxFD);
 	}
 
-	// ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ on ½ÃÅ²´Ù.
-	// m_XXXFDs[1] Àº ´ÙÀ½¹ø¿¡ Ã³¸®ÇØÁÖ¸é µÈ´Ù.
+	// ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ on ì‹œí‚¨ë‹¤.
+	// m_XXXFDs[1] ì€ ë‹¤ìŒë²ˆì— ì²˜ë¦¬í•´ì£¼ë©´ ëœë‹¤.
 	FD_SET(fd , &m_ReadFDs[0]);
 	FD_SET(fd , &m_WriteFDs[0]);
 	FD_SET(fd , &m_ExceptFDs[0]);
@@ -1281,23 +1281,23 @@ void ZonePlayerManager::addPlayer_NOBLOCKED (GamePlayer* pGamePlayer)
 }
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd) 
 {
 	__BEGIN_TRY
 
-	// ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ ÇÃ·¹ÀÌ¾î ¹è¿­¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// í”Œë ˆì´ì–´ í¬ì¸í„°ë¥¼ í”Œë ˆì´ì–´ ë°°ì—´ì—ì„œ ì‚­ì œí•œë‹¤.
 	PlayerManager::deletePlayer(fd);
 
 	Assert(m_pPlayers[fd] == NULL);
 
-	// m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
-	// fd == m_MinFD && fd == m_MaxFD ÀÎ °æ¿ì´Â Ã¹¹øÂ° if ¿¡¼­ Ã³¸®µÈ´Ù.
+	// m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
+	// fd == m_MinFD && fd == m_MaxFD ì¸ ê²½ìš°ëŠ” ì²«ë²ˆì§¸ if ì—ì„œ ì²˜ë¦¬ëœë‹¤.
 	if (fd == m_MinFD) {
 
-		// ¾Õ¿¡¼­ºÎÅÍ Á¦ÀÏ ÀÛÀº fd ¸¦ Ã£´Â´Ù.
-		// m_MinFD ÀÚ¸®´Â ÇöÀç NULL ÀÌ µÇ¾î ÀÖÀ½À» À¯ÀÇÇÏ¶ó.
+		// ì•ì—ì„œë¶€í„° ì œì¼ ì‘ì€ fd ë¥¼ ì°¾ëŠ”ë‹¤.
+		// m_MinFD ìë¦¬ëŠ” í˜„ì¬ NULL ì´ ë˜ì–´ ìˆìŒì„ ìœ ì˜í•˜ë¼.
 		int i = m_MinFD;
 		for (i = m_MinFD ; i <= m_MaxFD ; i ++) {
 			if (m_pPlayers[i] != NULL) {
@@ -1306,15 +1306,15 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 			}
 		}
 
-		// ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
-		// ÀÌ¶§¿¡´Â m_MinFD == m_MaxFD ÀÎ °æ¿ìÀÌ´Ù.
-		// ÀÌ¶§¿¡´Â µÑ ´Ù -1 ·Î ¼³Á¤ÇØÁÖÀÚ.
+		// ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
+		// ì´ë•Œì—ëŠ” m_MinFD == m_MaxFD ì¸ ê²½ìš°ì´ë‹¤.
+		// ì´ë•Œì—ëŠ” ë‘˜ ë‹¤ -1 ë¡œ ì„¤ì •í•´ì£¼ì.
 		if (i > m_MaxFD)
 			m_MinFD = m_MaxFD = -1;
 
 	} else if (fd == m_MaxFD) {
 
-		// µÚ¿¡¼­ºÎÅÍ °¡Àå Å« fd ¸¦ Ã£´Â´Ù.
+		// ë’¤ì—ì„œë¶€í„° ê°€ì¥ í° fd ë¥¼ ì°¾ëŠ”ë‹¤.
 		int i = m_MaxFD;
 		for (i = m_MaxFD ; i >= m_MinFD ; i --) {
 			if (m_pPlayers[i] != NULL) {
@@ -1323,7 +1323,7 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 			}
 		}
 
-		// ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
+		// ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
 		if (i < m_MinFD) 
 		{
 			filelog("ZonePlayerManagerBug.txt", "%s : %s", "ZonePlayerManager::deletePlayer_NOBLOCKED()", "MinMaxFD problem");
@@ -1331,9 +1331,9 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 		}
 	}
 
-	// ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ off ½ÃÅ²´Ù.
-	// m_XXXFDs[1]µµ °íÃÄ¾ß ÇÏ´Â ÀÌÀ¯´Â, ÀÌÈÄ Ã³¸®¿¡¼­ °´Ã¼°¡ ¾ø¾îÁ³´Âµ¥µµ
-	// Ã³¸®¹ŞÀ» È®·üÀÌ ÀÖ±â ¶§¹®ÀÌ´Ù.
+	// ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ off ì‹œí‚¨ë‹¤.
+	// m_XXXFDs[1]ë„ ê³ ì³ì•¼ í•˜ëŠ” ì´ìœ ëŠ”, ì´í›„ ì²˜ë¦¬ì—ì„œ ê°ì²´ê°€ ì—†ì–´ì¡ŒëŠ”ë°ë„
+	// ì²˜ë¦¬ë°›ì„ í™•ë¥ ì´ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
 	FD_CLR(fd , &m_ReadFDs[0]);
 	FD_CLR(fd , &m_ReadFDs[1]);
 	FD_CLR(fd , &m_WriteFDs[0]);
@@ -1347,7 +1347,7 @@ void ZonePlayerManager::deletePlayer_NOBLOCKED (SOCKET fd)
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • í”Œë ˆì´ì–´ë¥¼ ë§¤ë‹ˆì €ì—ì„œ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::deletePlayer (SOCKET fd) 
 {
@@ -1357,7 +1357,7 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 
 	try
 	{
-		// ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ¸¦ ÇÃ·¹ÀÌ¾î ¹è¿­¿¡¼­ »èÁ¦ÇÑ´Ù.
+		// í”Œë ˆì´ì–´ í¬ì¸í„°ë¥¼ í”Œë ˆì´ì–´ ë°°ì—´ì—ì„œ ì‚­ì œí•œë‹¤.
 		PlayerManager::deletePlayer(fd);
 	}
 	catch ( OutOfBoundException& o )
@@ -1377,18 +1377,18 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 	}
 	catch (...)
 	{
-		filelog( "ZPMError.txt", "³­ ¸ô¶ó. Socket: %d", fd );
+		filelog( "ZPMError.txt", "ë‚œ ëª°ë¼. Socket: %d", fd );
 		throw;
 	}
 
 	Assert(m_pPlayers[fd] == NULL);
 
-	// m_MinFD , m_MaxFD ¸¦ ÀçÁ¶Á¤ÇÑ´Ù.
-	// fd == m_MinFD && fd == m_MaxFD ÀÎ °æ¿ì´Â Ã¹¹øÂ° if ¿¡¼­ Ã³¸®µÈ´Ù.
+	// m_MinFD , m_MaxFD ë¥¼ ì¬ì¡°ì •í•œë‹¤.
+	// fd == m_MinFD && fd == m_MaxFD ì¸ ê²½ìš°ëŠ” ì²«ë²ˆì§¸ if ì—ì„œ ì²˜ë¦¬ëœë‹¤.
 	if (fd == m_MinFD) {
 
-		// ¾Õ¿¡¼­ºÎÅÍ Á¦ÀÏ ÀÛÀº fd ¸¦ Ã£´Â´Ù.
-		// m_MinFD ÀÚ¸®´Â ÇöÀç NULL ÀÌ µÇ¾î ÀÖÀ½À» À¯ÀÇÇÏ¶ó.
+		// ì•ì—ì„œë¶€í„° ì œì¼ ì‘ì€ fd ë¥¼ ì°¾ëŠ”ë‹¤.
+		// m_MinFD ìë¦¬ëŠ” í˜„ì¬ NULL ì´ ë˜ì–´ ìˆìŒì„ ìœ ì˜í•˜ë¼.
 		int i = m_MinFD;
 		for (i = m_MinFD ; i <= m_MaxFD ; i ++) {
 			if (m_pPlayers[i] != NULL) {
@@ -1397,15 +1397,15 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 			}
 		}
 
-		// ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
-		// ÀÌ¶§¿¡´Â m_MinFD == m_MaxFD ÀÎ °æ¿ìÀÌ´Ù.
-		// ÀÌ¶§¿¡´Â µÑ ´Ù -1 ·Î ¼³Á¤ÇØÁÖÀÚ.
+		// ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
+		// ì´ë•Œì—ëŠ” m_MinFD == m_MaxFD ì¸ ê²½ìš°ì´ë‹¤.
+		// ì´ë•Œì—ëŠ” ë‘˜ ë‹¤ -1 ë¡œ ì„¤ì •í•´ì£¼ì.
 		if (i > m_MaxFD)
 			m_MinFD = m_MaxFD = -1;
 
 	} else if (fd == m_MaxFD) {
 
-		// µÚ¿¡¼­ºÎÅÍ °¡Àå Å« fd ¸¦ Ã£´Â´Ù.
+		// ë’¤ì—ì„œë¶€í„° ê°€ì¥ í° fd ë¥¼ ì°¾ëŠ”ë‹¤.
 		int i = m_MaxFD;
 		for (i = m_MaxFD ; i >= m_MinFD ; i --) {
 			if (m_pPlayers[i] != NULL) {
@@ -1414,7 +1414,7 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 			}
 		}
 
-		// ÀûÀıÇÑ m_MinFD¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì,
+		// ì ì ˆí•œ m_MinFDë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°,
 		if (i < m_MinFD) 
 		{
 			filelog("ZonePlayerManagerBug.txt", "%s : %s", "ZonePlayerManager::deletePlayer()", "MinMaxFD problem");
@@ -1422,9 +1422,9 @@ void ZonePlayerManager::deletePlayer (SOCKET fd)
 		}
 	}
 
-	// ¸ğµç fd_set ¿¡ fd ºñÆ®¸¦ off ½ÃÅ²´Ù.
-	// m_XXXFDs[1]µµ °íÃÄ¾ß ÇÏ´Â ÀÌÀ¯´Â, ÀÌÈÄ Ã³¸®¿¡¼­ °´Ã¼°¡ ¾ø¾îÁ³´Âµ¥µµ
-	// Ã³¸®¹ŞÀ» È®·üÀÌ ÀÖ±â ¶§¹®ÀÌ´Ù.
+	// ëª¨ë“  fd_set ì— fd ë¹„íŠ¸ë¥¼ off ì‹œí‚¨ë‹¤.
+	// m_XXXFDs[1]ë„ ê³ ì³ì•¼ í•˜ëŠ” ì´ìœ ëŠ”, ì´í›„ ì²˜ë¦¬ì—ì„œ ê°ì²´ê°€ ì—†ì–´ì¡ŒëŠ”ë°ë„
+	// ì²˜ë¦¬ë°›ì„ í™•ë¥ ì´ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
 	FD_CLR(fd , &m_ReadFDs[0]);
 	FD_CLR(fd , &m_ReadFDs[1]);
 	FD_CLR(fd , &m_WriteFDs[0]);
@@ -1468,10 +1468,10 @@ Player* ZonePlayerManager::getPlayerByPhoneNumber(PhoneNumber_t PhoneNumber)
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÀüÃ¼ »ç¿ëÀÚµéÀÇ ¼¼ÀÌºê¸¦ ´ã´çÇÏ´Â ·çÆ¾.
-// ´Ù¸¥ ¾²·¹µå¿¡¼­ Á¢±Ù ÇÒ ¼ö ÀÖÀ¸¹Ç·Î ¶ôÀ» °É¾î Áà¾ß ÇÏ³ª..
-// ÇöÀç ¾²·¹µåÀÇ EventÃ³¸®¸¦ ÇÏ¸é¼­ save¸¦ ÇÒ ¼ö ÀÖÀ¸¹Ç·Î...
-// ÇÏÀ§ save¿¡ LockÀ» °É¾îÁÖ°í ÀÌ ·çÆ¾¿¡¼­´Â ÇÔ¼ö¸¸ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
+// ì „ì²´ ì‚¬ìš©ìë“¤ì˜ ì„¸ì´ë¸Œë¥¼ ë‹´ë‹¹í•˜ëŠ” ë£¨í‹´.
+// ë‹¤ë¥¸ ì“°ë ˆë“œì—ì„œ ì ‘ê·¼ í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë½ì„ ê±¸ì–´ ì¤˜ì•¼ í•˜ë‚˜..
+// í˜„ì¬ ì“°ë ˆë“œì˜ Eventì²˜ë¦¬ë¥¼ í•˜ë©´ì„œ saveë¥¼ í•  ìˆ˜ ìˆìœ¼ë¯€ë¡œ...
+// í•˜ìœ„ saveì— Lockì„ ê±¸ì–´ì£¼ê³  ì´ ë£¨í‹´ì—ì„œëŠ” í•¨ìˆ˜ë§Œ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
 // ZonePlayerManager:: save()
 //////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::save()
@@ -1532,14 +1532,14 @@ void ZonePlayerManager::processPlayerListQueue()
 {
 	__BEGIN_TRY
 
-	// PlayerQueueÀÇ Player¸¦ ¸Ş´ÏÁ®¿¡ Ãß°¡ÇÑ´Ù.    
+	// PlayerQueueì˜ Playerë¥¼ ë©”ë‹ˆì ¸ì— ì¶”ê°€í•œë‹¤.    
 	while(! m_PlayerListQueue.empty())
 	{
 		GamePlayer* pGamePlayer = m_PlayerListQueue.front();
 
 		if (pGamePlayer == NULL)
 		{
-			filelog("ZoneBug.txt", "%s : %s", "Zone::heartbeat(1)", "pGamePlayer°¡ NULLÀÔ´Ï´Ù.");
+			filelog("ZoneBug.txt", "%s : %s", "Zone::heartbeat(1)", "pGamePlayerê°€ NULLì…ë‹ˆë‹¤.");
 			continue;
 		}
 
@@ -1551,12 +1551,12 @@ void ZonePlayerManager::processPlayerListQueue()
 
 		Assert(pCreature != NULL);
 
-		// »õ·Î µé¾î°¥ Zone.. by sigi. 2002.5.11
+		// ìƒˆë¡œ ë“¤ì–´ê°ˆ Zone.. by sigi. 2002.5.11
 		Zone* pZone = pCreature->getZone();
 		Assert(pZone != NULL);
 
 		/*
-		// getNewZone()Àº IncomingPlayerManager¿¡¼­ Ã³¸®ÇÏµµ·Ï Çß´Ù.
+		// getNewZone()ì€ IncomingPlayerManagerì—ì„œ ì²˜ë¦¬í•˜ë„ë¡ í–ˆë‹¤.
 		// by sigi. 2002.5.15
 		if (pZone==NULL)
 		{
@@ -1570,7 +1570,7 @@ void ZonePlayerManager::processPlayerListQueue()
 
 			pCreature->setXY( pCreature->getNewX(), pCreature->getNewY() );
 
-			// »õ Zone¿¡ µé¾î°¡°Ô µÇ´Â °æ¿ì
+			// ìƒˆ Zoneì— ë“¤ì–´ê°€ê²Œ ë˜ëŠ” ê²½ìš°
 			//pCreature->registerObject();
 		}
 		*/
@@ -1592,8 +1592,8 @@ void ZonePlayerManager::heartbeat()
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)
 
-	// ³ª°¥ ´ë±â¿­¿¡ ÀÖ´Â »ç¶÷À» Ã³¸® ÇØ ÁØ´Ù.
-	// ±â³É IPMÀ¸·Î PushÇÏ¹È ³¡ÀÌ´Ù.
+	// ë‚˜ê°ˆ ëŒ€ê¸°ì—´ì— ìˆëŠ” ì‚¬ëŒì„ ì²˜ë¦¬ í•´ ì¤€ë‹¤.
+	// ê¸°ëƒ¥ IPMìœ¼ë¡œ Pushí•˜ë¯„ ëì´ë‹¤.
 	while(!m_PlayerOutListQueue.empty()) 
 	{
 		GamePlayer* pGamePlayer = m_PlayerOutListQueue.front();
@@ -1605,7 +1605,7 @@ void ZonePlayerManager::heartbeat()
 		g_pIncomingPlayerManager->pushPlayer(pGamePlayer);
 	}
 
-	// broadcast packet queue ¸¦ Ã³¸®ÇÑ´Ù.
+	// broadcast packet queue ë¥¼ ì²˜ë¦¬í•œë‹¤.
 	if ( !m_BroadcastQueue.empty() )
 		flushBroadcastPacket();
 
@@ -1617,8 +1617,8 @@ void ZonePlayerManager::deleteQueuePlayer(GamePlayer* pGamePlayer)
 
     __BEGIN_TRY
 
-	// ÇÊ¿ä¾ø´Â lockÀÎ°Å °°´Ù.
-	// Á¦°Å by sigi. 2002.5.9
+	// í•„ìš”ì—†ëŠ” lockì¸ê±° ê°™ë‹¤.
+	// ì œê±° by sigi. 2002.5.9
 	//__ENTER_CRITICAL_SECTION(m_Mutex)
 
 	Assert(pGamePlayer != NULL);
@@ -1664,14 +1664,14 @@ void    ZonePlayerManager::removeFlag (Effect::EffectClass EC)
 }
 
 ////////////////////////////////////////////////////////////////////////
-// ZonePlayerManager ¿¡ ÀÖ´Â ¸ğµç »ç¿ëÀÚ¸¦ Á¤¸®ÇÑ´Ù.
+// ZonePlayerManager ì— ìˆëŠ” ëª¨ë“  ì‚¬ìš©ìë¥¼ ì •ë¦¬í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////
 void ZonePlayerManager::clearPlayers()
 	
 {
 	__BEGIN_TRY
 
-	// PlayerListQueue ¿¡ ÀÖ´Â ¾ÖµéÀ» Á¤¸®ÇÑ´Ù.
+	// PlayerListQueue ì— ìˆëŠ” ì• ë“¤ì„ ì •ë¦¬í•œë‹¤.
 	while ( !m_PlayerListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerListQueue.front();
@@ -1686,14 +1686,14 @@ void ZonePlayerManager::clearPlayers()
 			}
 			catch ( Throwable& t )
 			{
-				// ¹«½Ã
+				// ë¬´ì‹œ
 			}
 
 			SAFE_DELETE( pGamePlayer );
 		}
 	}
 
-	// PlayerOutListQueue ¿¡ ÀÖ´Â ¾ÖµéÀ» Á¤¸®ÇÑ´Ù.
+	// PlayerOutListQueue ì— ìˆëŠ” ì• ë“¤ì„ ì •ë¦¬í•œë‹¤.
 	while ( !m_PlayerOutListQueue.empty() )
 	{
 		GamePlayer* pGamePlayer = m_PlayerOutListQueue.front();
@@ -1708,7 +1708,7 @@ void ZonePlayerManager::clearPlayers()
 			}
 			catch ( Throwable& t )
 			{
-				// ¹«½Ã
+				// ë¬´ì‹œ
 			}
 
 			SAFE_DELETE( pGamePlayer );
@@ -1718,7 +1718,7 @@ void ZonePlayerManager::clearPlayers()
 	if ( m_MinFD == -1 && m_MaxFD == -1 )
 		return;
 
-	// ÇÃ·¹ÀÌ¾î¸¦ Á¤¸®ÇÑ´Ù.
+	// í”Œë ˆì´ì–´ë¥¼ ì •ë¦¬í•œë‹¤.
 	for ( int i = m_MinFD; i <= m_MaxFD; i ++ )
 	{
 		if ( m_pPlayers[i] != NULL )
@@ -1733,7 +1733,7 @@ void ZonePlayerManager::clearPlayers()
 				}
 				catch ( Throwable& t )
 				{
-					// ¹«½Ã
+					// ë¬´ì‹œ
 				}
 
 				SAFE_DELETE( pGamePlayer );
@@ -1781,18 +1781,18 @@ bool checkZonePlayerManager( GamePlayer* pGamePlayer, ZonePlayerManager* pZPM, c
 	return true;
 }
 #if defined(__THAILAND_SERVER__)
-// ÅÂ±¹¿ëÀÌ´Ù. ¹Ì¼º³âÀÚ Á¢¼ÓÀ» ¸·±â À§ÇÑ ÄÚµåÀÌ´Ù.
-// ÇöÀç ½Ã°£Áß (½Ã*100+ºĞ) °ªÀ» ÀÌ¿ëÇØ¼­ Â÷´ÜÁßÀÎ ½Ã°£´ë ÀÎÁö ¾Æ´ÑÁö¸¦ ±¸º°ÇÑ´Ù.
+// íƒœêµ­ìš©ì´ë‹¤. ë¯¸ì„±ë…„ì ì ‘ì†ì„ ë§‰ê¸° ìœ„í•œ ì½”ë“œì´ë‹¤.
+// í˜„ì¬ ì‹œê°„ì¤‘ (ì‹œ*100+ë¶„) ê°’ì„ ì´ìš©í•´ì„œ ì°¨ë‹¨ì¤‘ì¸ ì‹œê°„ëŒ€ ì¸ì§€ ì•„ë‹Œì§€ë¥¼ êµ¬ë³„í•œë‹¤.
 //
-// ¿¹¸¦µé¾î ¿ÀÀü 6½Ã 30ºĞÀÇ °æ¿ì 630 ÀÌ¶õ °ªÀÌ
-// ¿ÀÈÄ 11½Ã 15ºĞÀÏ°æ¿ì 2315 °¡ µÈ´Ù.
+// ì˜ˆë¥¼ë“¤ì–´ ì˜¤ì „ 6ì‹œ 30ë¶„ì˜ ê²½ìš° 630 ì´ë€ ê°’ì´
+// ì˜¤í›„ 11ì‹œ 15ë¶„ì¼ê²½ìš° 2315 ê°€ ëœë‹¤.
 //
-// ÀÔ·Â - am : ÀÌ ½Ã°£ ÀÌÀüÀº Á¦ÇÑµÇ´Â ½Ã°£´ëÀÌ´Ù.
-//        pm : ÀÌ ½Ã°£ ÀÌÈÄ´Â Á¦ÇÑµÇ´Â ½Ã°£´ëÀÌ´Ù.
+// ì…ë ¥ - am : ì´ ì‹œê°„ ì´ì „ì€ ì œí•œë˜ëŠ” ì‹œê°„ëŒ€ì´ë‹¤.
+//        pm : ì´ ì‹œê°„ ì´í›„ëŠ” ì œí•œë˜ëŠ” ì‹œê°„ëŒ€ì´ë‹¤.
 //
 //
-// Ãâ·Â - true : Á¦ÇÑ½Ã°£´ëÀÌ´Ù.
-//        false : Á¦ÇÑ½Ã°£´ë°¡ ¾Æ´Ï´Ù.
+// ì¶œë ¥ - true : ì œí•œì‹œê°„ëŒ€ì´ë‹¤.
+//        false : ì œí•œì‹œê°„ëŒ€ê°€ ì•„ë‹ˆë‹¤.
 bool ZonePlayerManager::onChildGuardTimeArea(int pm, int am, bool bSwitch)
 {
         bool returnValue = false;

@@ -56,7 +56,7 @@ GameServerManager::~GameServerManager ()
 		m_pDatagramSocket = NULL;
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ void GameServerManager::run ()
 			port = g_pConfig->getPropertyInt("DB_PORT");
 
 		Connection* pConnection = new Connection(host, db, user, password, port);
-		g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+		g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 
 		while ( true ) 
 		{
@@ -96,10 +96,10 @@ void GameServerManager::run ()
 			
 			try 
 			{
-				// µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ²ôÁý¾î³½´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î³½ï¿½ï¿½.
 				pDatagram = m_pDatagramSocket->receive();
 
-				if (pDatagram!=NULL)	// ÀÏºÎ exceptionÁ¦°Å. by sigi. 2002.5.17
+				if (pDatagram!=NULL)	// ï¿½Ïºï¿½ exceptionï¿½ï¿½ï¿½ï¿½. by sigi. 2002.5.17
 				{
 
 					//cout << pDatagramPacket->toString() << endl;
@@ -119,21 +119,21 @@ void GameServerManager::run ()
 					}
 					*/
 
-					// µ¥ÀÌÅÍ±×·¥ ÆÐÅ¶ °´Ã¼¸¦ ²ôÁý¾î³½´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Å¶ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î³½ï¿½ï¿½.
 					pDatagram->read( pDatagramPacket );
 
 					if (pDatagramPacket!=NULL)
 					{
 
-						// ²ôÁý¾î³½ µ¥ÀÌÅÍ±×·¥ ÆÐÅ¶ °´Ã¼¸¦ ½ÇÇàÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Å¶ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						pDatagramPacket->execute(NULL);
 
-						// µ¥ÀÌÅÍ±×·¥ ÆÐÅ¶ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+						// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Å¶ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 						delete pDatagramPacket;
 						pDatagramPacket = NULL;
 					}
 
-					// µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					delete pDatagram;
 					pDatagram = NULL;
 				}
@@ -143,9 +143,9 @@ void GameServerManager::run ()
 				cout << "GameServerManager::run Exception Check(ProtocolException)" << endl;
 				cout << pe.toString() << endl;
 
-				// ¼­¹ö°£ Åë½Å¿¡¼­ ÇÁ·ÎÅäÄÝ ¿¡·¯°¡ ¹ß»ýÇÏ¸é, 
-				// ÇÁ·Î±×·¡¹Ö ¿À·ùÀÌ°Å³ª ÇØÅ· ½ÃµµÀÌ´Ù.
-				// ÀÏ´ÜÀº ÀüÀÚ¸¸ÀÌ ÇØ´çµÇ¹Ç·Î.. ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï¸ï¿½, 
+				// ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°Å³ï¿½ ï¿½ï¿½Å· ï¿½Ãµï¿½ï¿½Ì´ï¿½.
+				// ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½Ç¹Ç·ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 				//throw Error( pe.toString() );
 				delete pDatagramPacket;
 				delete pDatagram;
@@ -155,8 +155,8 @@ void GameServerManager::run ()
 				cout << "GameServerManager::run Exception Check(ConnectException)" << endl;
 				cout << ce.toString() << endl;
 
-				// À¸À½.. ¸ÓÁö ÀÌ°Ç..
-				// ÀÏ´Ü ¿¡·¯´ç..
+				// ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½..
+				// ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..
 				//throw Error( ce.toString() );
 				delete pDatagramPacket;
 				delete pDatagram;
@@ -197,7 +197,7 @@ void GameServerManager::sendDatagram ( Datagram * pDatagram )
 	{
 		cout << "GameServerManager::sendDatagram Exception Check!!" << endl;
 		cout << t.toString() << endl;
-		throw ConnectException( "GameServerManager::sendDatagram »óÀ§·Î ´øÁø´Ù");
+		throw ConnectException( "GameServerManager::sendDatagram ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 
 	__END_CATCH
@@ -216,23 +216,23 @@ void GameServerManager::sendPacket ( string host , uint port , DatagramPacket * 
 
 //	try 
 //	{
-		// µ¥ÀÌÅÍ±×·¥ °´Ã¼¸¦ ÇÏ³ª µÎ°í, Àü¼ÛÇÒ peer ÀÇ È£½ºÆ®¿Í Æ÷Æ®¸¦ ÁöÁ¤ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½Î°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ peer ï¿½ï¿½ È£ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		Datagram datagram;
 
 		datagram.setHost(host);
 		datagram.setPort(port);
 
-		// µ¥ÀÌÅÍ±×·¥ ÆÐÅ¶À» µ¥ÀÌÅÍ±×·¥¿¡ Áý¾î³Ö´Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â´ï¿½.
 		datagram.write(pPacket);
 
-		// µ¥ÀÌÅÍ±×·¥ ¼ÒÄÏÀ» ÅëÇØ¼­ µ¥ÀÌÅÍ±×·¥À» Àü¼ÛÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í±×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		m_pDatagramSocket->send( &datagram );
 //	}
 //	catch ( ConnectException & t ) 
 //	{
 //		cout << "GameServerManager::sendDatagram Exception Check!!" << endl;
 //		cout << t.toString() << endl;
-//		throw ConnectException( "GameServerManager::sendDatagram »óÀ§·Î ´øÁø´Ù");
+//		throw ConnectException( "GameServerManager::sendDatagram ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //	}
 
 	} catch ( Throwable & t ) {

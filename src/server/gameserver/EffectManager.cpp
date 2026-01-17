@@ -62,17 +62,17 @@ EffectManager::~EffectManager ()
 {
 	__BEGIN_TRY
 		
-	// Á¤½ÄÀ¸·Î deleteEffects() °¡ È£ÃâµÇÁö ¾Ê¾Ò´Ù¸é, 
-	// °¢ effect¿¡ ´ëÇØ¼­ unaffect()¸¦ È£ÃâÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
-	// ´ÜÁö °´Ã¼¸¸ »èÁ¦ÇØÁÖ¸é µÈ´Ù.
+	// ì •ì‹ìœ¼ë¡œ deleteEffects() ê°€ í˜¸ì¶œë˜ì§€ ì•Šì•˜ë‹¤ë©´, 
+	// ê° effectì— ëŒ€í•´ì„œ unaffect()ë¥¼ í˜¸ì¶œí•  í•„ìš”ê°€ ì—†ë‹¤.
+	// ë‹¨ì§€ ê°ì²´ë§Œ ì‚­ì œí•´ì£¼ë©´ ëœë‹¤.
 	while (!m_Effects.empty()) 
 	{
-		// effect °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+		// effect ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 		SAFE_DELETE(m_Effects.front());
 		m_Effects.pop_front();
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ void EffectManager::deleteEffect(ObjectID_t effectID)
 			i++;
 		}
 
-		//cerr << "EffectManager::deleteEffect¿¡¼­ effect¸¦ Ã£Áö ¸øÇß½À´Ï´Ù."<<endl;
+		//cerr << "EffectManager::deleteEffectì—ì„œ effectë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤."<<endl;
 		filelog("EffectManagerBug.txt", "there is no effect with effect id %d", effectID);
 		Assert(false);
 	}
@@ -168,12 +168,12 @@ void EffectManager::deleteEffect(Effect::EffectClass EClass)
 	{
 		Effect* pEffect = *itr;
 		m_Effects.erase(itr);
-		//pEffect->unaffect(); // ÀÌ°Å ÇÏ¸é ¿Ö ¾ÈµÉ±î?
+		//pEffect->unaffect(); // ì´ê±° í•˜ë©´ ì™œ ì•ˆë ê¹Œ?
 		SAFE_DELETE(pEffect);
 	}
 	else
 	{
-		//cerr << "EffectManager::deleteEffect¿¡¼­ effect¸¦ Ã£Áö ¸øÇß½À´Ï´Ù."<<endl;
+		//cerr << "EffectManager::deleteEffectì—ì„œ effectë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤."<<endl;
 	}
 
 	__END_DEBUG
@@ -203,12 +203,12 @@ void EffectManager::deleteEffect(Creature* pCreature, Effect::EffectClass EClass
 			pEffect->destroy(pCreature->getName());
 		}
 	
-		//pEffect->unaffect(); // ÀÌ°ÅÇÏ¸é ¾ÈµÇ³×
+		//pEffect->unaffect(); // ì´ê±°í•˜ë©´ ì•ˆë˜ë„¤
 		SAFE_DELETE(pEffect);
 	}
 	else
 	{
-		//cerr << "EffectManager::deleteEffect¿¡¼­ effect¸¦ Ã£Áö ¸øÇß½À´Ï´Ù."<<endl;
+		//cerr << "EffectManager::deleteEffectì—ì„œ effectë¥¼ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤."<<endl;
 	}
 
 	__END_DEBUG
@@ -296,7 +296,7 @@ EffectInfo* EffectManager::getEffectInfo()
 	getCurrentTime(currentTime);
 	__END_PROFILE_EM( "EM_GETTIME" );
 
-	// ÀÌÆåÆ® Á¤º¸ ±¸¼º.
+	// ì´í™íŠ¸ ì •ë³´ êµ¬ì„±.
 	for(list<Effect*>::const_iterator itr = m_Effects.begin(); itr != m_Effects.end(); itr++) 
 	{
 		Effect* pEffect = *itr;
@@ -307,8 +307,8 @@ EffectInfo* EffectManager::getEffectInfo()
 		
 		switch (EffectID)
 		{
-			// ÀÌ ÀÌÆåÆ®µéÀº ¼­¹ö¿¡¼­¸¸ ¾²´Â ÀÌÆåÆ®ÀÌ±â ¶§¹®¿¡
-			// Å¬¶óÀÌ¾ğÆ®¿¡°Ô ³¯·ÁÁÖÁö ¾Ê´Â´Ù.
+			// ì´ ì´í™íŠ¸ë“¤ì€ ì„œë²„ì—ì„œë§Œ ì“°ëŠ” ì´í™íŠ¸ì´ê¸° ë•Œë¬¸ì—
+			// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë‚ ë ¤ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 			case Effect::EFFECT_CLASS_AFTERMATH:
 			case Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY:
 			case Effect::EFFECT_CLASS_ENEMY_ERASE:
@@ -320,7 +320,7 @@ EffectInfo* EffectManager::getEffectInfo()
 		}
 		*/
 		
-		// °¢ EffectÀÇ constructor¿¡¼­ client·Î º¸³¾ effectÀÎÁö ¾Æ´ÑÁö¸¦ °áÁ¤ÇÑ´Ù.
+		// ê° Effectì˜ constructorì—ì„œ clientë¡œ ë³´ë‚¼ effectì¸ì§€ ì•„ë‹Œì§€ë¥¼ ê²°ì •í•œë‹¤.
 		// by sigi. 2002.11.14
 		bool bSend = pEffect->isBroadcastingEffect();
 
@@ -330,18 +330,18 @@ EffectInfo* EffectManager::getEffectInfo()
 			Turn_t Duration;
 
 			__BEGIN_PROFILE_EM( "EM_COMPUTE_TIME" )
-			// µ¥µå¶óÀÎ°ú ÇöÀç ½Ã°£À» »©¼­ ³²Àº ½Ã°£À» ³¯·ÁÁà¾ß ÇÑ´Ù.
+			// ë°ë“œë¼ì¸ê³¼ í˜„ì¬ ì‹œê°„ì„ ë¹¼ì„œ ë‚¨ì€ ì‹œê°„ì„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
 			DeadLine = (*itr)->getDeadline();
 			Duration = DeadLine.tv_sec - currentTime.tv_sec;
 			__END_PROFILE_EM( "EM_COMPUTE_TIME" )
 
 			if (EffectID == Effect::EFFECT_CLASS_BLOOD_DRAIN || EffectID == Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR) 
 			{
-				// Duration ³¯¾Æ°¡´Â °ÍÀÌ WORD ÇüÀ¸·Î ³¯¾Æ°¡´Âµ¥,
-				// 2¹ÙÀÌÆ®¶ó¼­ ÈíÇ÷ ½Ã°£ °°Àº °æ¿ì¿¡´Â ³Ê¹« ±æ¾î
-				// ¿À¹öÇÃ·Î¿ì°¡ ÀÏ¾î³ª°Ô µÈ´Ù.
-				// ±×·¡¼­ ´Ù¸¥ ÀÌÆåÆ® °°Àº °æ¿ì¿¡´Â 10À» °öÇØ¼­ ³¯¸®Áö¸¸, 
-				// ÈíÇ÷ ÀÌÆåÆ®´Â 10À» °öÇØ¼­ ³¯¸®Áö ¾Ê´Â´Ù.
+				// Duration ë‚ ì•„ê°€ëŠ” ê²ƒì´ WORD í˜•ìœ¼ë¡œ ë‚ ì•„ê°€ëŠ”ë°,
+				// 2ë°”ì´íŠ¸ë¼ì„œ í¡í˜ˆ ì‹œê°„ ê°™ì€ ê²½ìš°ì—ëŠ” ë„ˆë¬´ ê¸¸ì–´
+				// ì˜¤ë²„í”Œë¡œìš°ê°€ ì¼ì–´ë‚˜ê²Œ ëœë‹¤.
+				// ê·¸ë˜ì„œ ë‹¤ë¥¸ ì´í™íŠ¸ ê°™ì€ ê²½ìš°ì—ëŠ” 10ì„ ê³±í•´ì„œ ë‚ ë¦¬ì§€ë§Œ, 
+				// í¡í˜ˆ ì´í™íŠ¸ëŠ” 10ì„ ê³±í•´ì„œ ë‚ ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 				pEffectInfo->addListElement(EffectID, Duration);
 			} 
 			else 
@@ -372,7 +372,7 @@ EffectInfo* EffectManager::getEffectInfo()
 // sendEffectInfo
 //
 //////////////////////////////////////////////////////////////////////////////
-// Effect Á¤º¸¸¦ broadcastingÇÑ´Ù.
+// Effect ì •ë³´ë¥¼ broadcastingí•œë‹¤.
 // by sigi. 2002.11.14
 //////////////////////////////////////////////////////////////////////////////
 void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t x, ZoneCoord_t y)
@@ -390,7 +390,7 @@ void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t
 
 	getCurrentTime(currentTime);
 
-	// ÁÖÀ§¿¡ »Ñ·ÁÁØ´Ù.
+	// ì£¼ìœ„ì— ë¿Œë ¤ì¤€ë‹¤.
 	GCAddEffect gcAddEffect;
 	gcAddEffect.setObjectID(pCreature->getObjectID());
 
@@ -403,17 +403,17 @@ void EffectManager::sendEffectInfo(Creature* pCreature, Zone* pZone, ZoneCoord_t
 			EffectID_t EffectID = pEffect->getSendEffectClass();
 			gcAddEffect.setEffectID(EffectID);
 
-			// µ¥µå¶óÀÎ°ú ÇöÀç ½Ã°£À» »©¼­ ³²Àº ½Ã°£À» ³¯·ÁÁà¾ß ÇÑ´Ù.
+			// ë°ë“œë¼ì¸ê³¼ í˜„ì¬ ì‹œê°„ì„ ë¹¼ì„œ ë‚¨ì€ ì‹œê°„ì„ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
 			Timeval DeadLine = (*itr)->getDeadline();
 			Turn_t Duration = DeadLine.tv_sec - currentTime.tv_sec;
 
 			if (EffectID == Effect::EFFECT_CLASS_BLOOD_DRAIN || EffectID == Effect::EFFECT_CLASS_CAN_ENTER_GDR_LAIR)
 			{
-				// Duration ³¯¾Æ°¡´Â °ÍÀÌ WORD ÇüÀ¸·Î ³¯¾Æ°¡´Âµ¥,
-				// 2¹ÙÀÌÆ®¶ó¼­ ÈíÇ÷ ½Ã°£ °°Àº °æ¿ì¿¡´Â ³Ê¹« ±æ¾î
-				// ¿À¹öÇÃ·Î¿ì°¡ ÀÏ¾î³ª°Ô µÈ´Ù.
-				// ±×·¡¼­ ´Ù¸¥ ÀÌÆåÆ® °°Àº °æ¿ì¿¡´Â 10À» °öÇØ¼­ ³¯¸®Áö¸¸, 
-				// ÈíÇ÷ ÀÌÆåÆ®´Â 10À» °öÇØ¼­ ³¯¸®Áö ¾Ê´Â´Ù.
+				// Duration ë‚ ì•„ê°€ëŠ” ê²ƒì´ WORD í˜•ìœ¼ë¡œ ë‚ ì•„ê°€ëŠ”ë°,
+				// 2ë°”ì´íŠ¸ë¼ì„œ í¡í˜ˆ ì‹œê°„ ê°™ì€ ê²½ìš°ì—ëŠ” ë„ˆë¬´ ê¸¸ì–´
+				// ì˜¤ë²„í”Œë¡œìš°ê°€ ì¼ì–´ë‚˜ê²Œ ëœë‹¤.
+				// ê·¸ë˜ì„œ ë‹¤ë¥¸ ì´í™íŠ¸ ê°™ì€ ê²½ìš°ì—ëŠ” 10ì„ ê³±í•´ì„œ ë‚ ë¦¬ì§€ë§Œ, 
+				// í¡í˜ˆ ì´í™íŠ¸ëŠ” 10ì„ ê³±í•´ì„œ ë‚ ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
 				gcAddEffect.setDuration(Duration);
 			} 
 			else 
@@ -466,7 +466,7 @@ void EffectManager::addEffect (Effect* pEffect)
 		Assert(*current != NULL);
 		Effect* pEffect = *current;
 		
-		// ÀÌÆåÆ®°¡ expire µÇ¾úÀ¸¸é »èÁ¦ÇÑ´Ù.
+		// ì´í™íŠ¸ê°€ expire ë˜ì—ˆìœ¼ë©´ ì‚­ì œí•œë‹¤.
 		if (currentTime > pEffect->getDeadline()) 
 		{
 			if (before == m_Effects.end()) 
@@ -484,10 +484,10 @@ void EffectManager::addEffect (Effect* pEffect)
 			}
 
 			// *CAUTION
-			// EffectBlood DrainÀÏ °æ¿ì¿¡ ·çÇÁ µµ´Â °ÍÀ» ¸ØÃçÁØ´Ù.
-			// ¿Ö? EffectBlood Drain¾È¿¡¼­ SlayerÀÇ µ¥ÀÌÅÍ°¡ º¯ÇüµÇ±â ¶§¹®¿¡.
-			// ´ÙÀ½ Effect¸¦ Ã³¸® ÇÏ¸é¼­ °³°¡ µÉ ¼öµµ ÀÖ´Ù.
-			// ´ÙÀ½¿¡ ½½·¹ÀÌ¾î°¡ µÇ¾úÀ»¶§ ³ª¸ÓÁö ÀÌÆåÆ®µéÀº ·ÎµùÇÏµµ·Ï ÇÑ´Ù.
+			// EffectBlood Drainì¼ ê²½ìš°ì— ë£¨í”„ ë„ëŠ” ê²ƒì„ ë©ˆì¶°ì¤€ë‹¤.
+			// ì™œ? EffectBlood Drainì•ˆì—ì„œ Slayerì˜ ë°ì´í„°ê°€ ë³€í˜•ë˜ê¸° ë•Œë¬¸ì—.
+			// ë‹¤ìŒ Effectë¥¼ ì²˜ë¦¬ í•˜ë©´ì„œ ê°œê°€ ë  ìˆ˜ë„ ìˆë‹¤.
+			// ë‹¤ìŒì— ìŠ¬ë ˆì´ì–´ê°€ ë˜ì—ˆì„ë•Œ ë‚˜ë¨¸ì§€ ì´í™íŠ¸ë“¤ì€ ë¡œë”©í•˜ë„ë¡ í•œë‹¤.
 			pEffect->unaffect();
 			SAFE_DELETE(pEffect);
 
@@ -495,8 +495,8 @@ void EffectManager::addEffect (Effect* pEffect)
 		} 
 		else 
 		{
-			// expire µÇÁö ¾ÊÀº ÀÌÆåÆ® Áß¿¡,
-			// ´ÙÀ½ affect ½Ã°£ÀÌ µÇ¾úÀ¸¸é affectÇÑ´Ù.
+			// expire ë˜ì§€ ì•Šì€ ì´í™íŠ¸ ì¤‘ì—,
+			// ë‹¤ìŒ affect ì‹œê°„ì´ ë˜ì—ˆìœ¼ë©´ affectí•œë‹¤.
 			if (currentTime > pEffect->getNextTime()) 
 			{
 				pEffect->affect();
@@ -514,9 +514,9 @@ void EffectManager::addEffect (Effect* pEffect)
 }
 */
 //////////////////////////////////////////////////////////////////////////////
-// À§ÀÇ heartbeat¶û ¶È°°Àºµ¥
-// ½Ã°£À» ¹Ş¾Æ¿À´Â°Å¸¸ ´Ù¸£´Ù. -_-;
-// getCurrentTime() ¾È ÇÒ·Á°í.. À½ÇÏÇÏ.. by sigi. 2002.5.8
+// ìœ„ì˜ heartbeatë‘ ë˜‘ê°™ì€ë°
+// ì‹œê°„ì„ ë°›ì•„ì˜¤ëŠ”ê±°ë§Œ ë‹¤ë¥´ë‹¤. -_-;
+// getCurrentTime() ì•ˆ í• ë ¤ê³ .. ìŒí•˜í•˜.. by sigi. 2002.5.8
 //////////////////////////////////////////////////////////////////////////////
 int EffectManager::heartbeat (const Timeval& currentTime)
      
@@ -539,7 +539,7 @@ int EffectManager::heartbeat (const Timeval& currentTime)
 		// by sigi. for debugging. 2002.12.23
 		m_LastEffectClass = (int)pEffect->getEffectClass();
 		
-		// ÀÌÆåÆ®°¡ expire µÇ¾úÀ¸¸é »èÁ¦ÇÑ´Ù.
+		// ì´í™íŠ¸ê°€ expire ë˜ì—ˆìœ¼ë©´ ì‚­ì œí•œë‹¤.
 		if (currentTime > pEffect->getDeadline()) 
 		{
 			if (before == m_Effects.end()) 
@@ -557,11 +557,11 @@ int EffectManager::heartbeat (const Timeval& currentTime)
 			}
 
 			// *CAUTION
-			// EffectBlood DrainÀÏ °æ¿ì¿¡ ·çÇÁ µµ´Â °ÍÀ» ¸ØÃçÁØ´Ù.
-			// ¿Ö? EffectBlood Drain¾È¿¡¼­ SlayerÀÇ µ¥ÀÌÅÍ°¡ º¯ÇüµÇ±â ¶§¹®¿¡.
-			// ´ÙÀ½ Effect¸¦ Ã³¸® ÇÏ¸é¼­ °³°¡ µÉ ¼öµµ ÀÖ´Ù.
-			// ´ÙÀ½¿¡ ½½·¹ÀÌ¾î°¡ µÇ¾úÀ»¶§ ³ª¸ÓÁö ÀÌÆåÆ®µéÀº ·ÎµùÇÏµµ·Ï ÇÑ´Ù.
-			// ÀÌº¥Æ® ±â¹İÀ¸·Î ¹Ù²ã¼­ ·çÇÁ µµ´Â°Å ¾È ¸ØÃçµµ µÇ°Ô ¼öÁ¤Çß´Ù. -_-
+			// EffectBlood Drainì¼ ê²½ìš°ì— ë£¨í”„ ë„ëŠ” ê²ƒì„ ë©ˆì¶°ì¤€ë‹¤.
+			// ì™œ? EffectBlood Drainì•ˆì—ì„œ Slayerì˜ ë°ì´í„°ê°€ ë³€í˜•ë˜ê¸° ë•Œë¬¸ì—.
+			// ë‹¤ìŒ Effectë¥¼ ì²˜ë¦¬ í•˜ë©´ì„œ ê°œê°€ ë  ìˆ˜ë„ ìˆë‹¤.
+			// ë‹¤ìŒì— ìŠ¬ë ˆì´ì–´ê°€ ë˜ì—ˆì„ë•Œ ë‚˜ë¨¸ì§€ ì´í™íŠ¸ë“¤ì€ ë¡œë”©í•˜ë„ë¡ í•œë‹¤.
+			// ì´ë²¤íŠ¸ ê¸°ë°˜ìœ¼ë¡œ ë°”ê¿”ì„œ ë£¨í”„ ë„ëŠ”ê±° ì•ˆ ë©ˆì¶°ë„ ë˜ê²Œ ìˆ˜ì •í–ˆë‹¤. -_-
 			pEffect->unaffect();
 			SAFE_DELETE(pEffect);
 
@@ -569,8 +569,8 @@ int EffectManager::heartbeat (const Timeval& currentTime)
 		} 
 		else 
 		{
-			// expire µÇÁö ¾ÊÀº ÀÌÆåÆ® Áß¿¡,
-			// ´ÙÀ½ affect ½Ã°£ÀÌ µÇ¾úÀ¸¸é affectÇÑ´Ù.
+			// expire ë˜ì§€ ì•Šì€ ì´í™íŠ¸ ì¤‘ì—,
+			// ë‹¤ìŒ affect ì‹œê°„ì´ ë˜ì—ˆìœ¼ë©´ affectí•œë‹¤.
 			if (currentTime > pEffect->getNextTime()) 
 			{
 				pEffect->affect();

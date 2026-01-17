@@ -43,7 +43,7 @@ Tile::~Tile ()
 {
 	__BEGIN_TRY
 
-	// ¼Ò¼ÓµÈ ¸ğµç °´Ã¼µéÀ» »èÁ¦ÇÑ´Ù.
+	// ì†Œì†ëœ ëª¨ë“  ê°ì²´ë“¤ì„ ì‚­ì œí•œë‹¤.
 	while (!m_Objects.empty()) 
 	{
 		Object* pObj = m_Objects.front();
@@ -51,13 +51,13 @@ Tile::~Tile ()
 		m_Objects.pop_front();
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Å©¸®Ã³¸¦ ¸®½ºÆ®¿¡ Ãß°¡ÇÑ´Ù. 
+// í¬ë¦¬ì²˜ë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•œë‹¤. 
 //
-// return°ªÀº ±×³É ÀÌµ¿ÀÎ°¡(true), PortalÀ» activate ½ÃÅ²°Ç°¡(false)¿¡ ´ëÇÑ °ª
+// returnê°’ì€ ê·¸ëƒ¥ ì´ë™ì¸ê°€(true), Portalì„ activate ì‹œí‚¨ê±´ê°€(false)ì— ëŒ€í•œ ê°’
 //////////////////////////////////////////////////////////////////////////////
 bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPortal) 
 {
@@ -66,13 +66,13 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 
 	Assert(pCreature != NULL);
 
-	// Å©¸®Ã³ÀÇ MoveMode { WALKING | FLYING | BURROWING }À» °¡Áö°í ¿Â´Ù.
+	// í¬ë¦¬ì²˜ì˜ MoveMode { WALKING | FLYING | BURROWING }ì„ ê°€ì§€ê³  ì˜¨ë‹¤.
 	Creature::MoveMode mode = pCreature->getMoveMode();	
 
-	// Ãß°¡ÇÏ·Á´Â Å©¸®Ã³¿Í °°Àº MoveMode¿¡ ÇØ´çÇÏ´Â °÷ÀÌ blockingµÇÁö ¾Ê¾Æ¾ß ÇÑ´Ù.
+	// ì¶”ê°€í•˜ë ¤ëŠ” í¬ë¦¬ì²˜ì™€ ê°™ì€ MoveModeì— í•´ë‹¹í•˜ëŠ” ê³³ì´ blockingë˜ì§€ ì•Šì•„ì•¼ í•œë‹¤.
 	Assert(! isBlocked(mode));
 
-	// Ãß°¡ÇÏ·Á´Â Å©¸®Ã³¿Í °°Àº MoveMode¸¦ °¡Áø Å©¸®Ã³°¡ Å¸ÀÏ³»¿¡ ¾ø¾î¾ß ÇÑ´Ù.
+	// ì¶”ê°€í•˜ë ¤ëŠ” í¬ë¦¬ì²˜ì™€ ê°™ì€ MoveModeë¥¼ ê°€ì§„ í¬ë¦¬ì²˜ê°€ íƒ€ì¼ë‚´ì— ì—†ì–´ì•¼ í•œë‹¤.
 	//Assert(! hasCreature(mode));
 	if (hasCreature(mode))
 	{
@@ -107,13 +107,13 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 		Assert(false);
 	}
 
-	// Å©¸®Ã³¸¦ ¸®½ºÆ®¿¡ Áı¾î³Ö´Â´Ù.
+	// í¬ë¦¬ì²˜ë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
 	addObject(pCreature);
 
-	// ÇØ´çÇÏ´Â Å©¸®Ã³ ÇÃ·¡±×¸¦ ÄÒ´Ù.
+	// í•´ë‹¹í•˜ëŠ” í¬ë¦¬ì²˜ í”Œë˜ê·¸ë¥¼ ì¼ ë‹¤.
 	FLAG_SET(m_wFlags , TILE_WALKING_CREATURE + mode);
 
-	// ÇØ´çÇÏ´Â blocking ÇÃ·¡±×¸¦ ÄÒ´Ù.
+	// í•´ë‹¹í•˜ëŠ” blocking í”Œë˜ê·¸ë¥¼ ì¼ ë‹¤.
 	FLAG_SET(m_wFlags , TILE_GROUND_BLOCKED + mode);
 
 	Assert(isBlocked(mode));
@@ -121,7 +121,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 
 	if (bCheckPortal)
 	{
-		// ¸¸¾à Æ÷Å»ÀÌ ÀÖÀ¸¸é¼­, Å©¸®Ã³°¡ PCÀÎ °æ¿ì.. (¸ó½ºÅÍ¿Í NPC´Â Æ÷Å» ÀÌµ¿À» ÇÏÁö ¾Ê´Â´Ù.)
+		// ë§Œì•½ í¬íƒˆì´ ìˆìœ¼ë©´ì„œ, í¬ë¦¬ì²˜ê°€ PCì¸ ê²½ìš°.. (ëª¬ìŠ¤í„°ì™€ NPCëŠ” í¬íƒˆ ì´ë™ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.)
 		if (hasPortal() && pCreature->isPC()) 
 		{
 			Portal* pPortal = getPortal();
@@ -136,14 +136,14 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 					if (pPortal->getObjectType() == PORTAL_NORMAL || pPortal->getObjectType() == PORTAL_SLAYER 
 							|| pPortal->getObjectType() == PORTAL_GUILD || pPortal->getObjectType() == PORTAL_BATTLE)
 					{
-						// Æ®¸®°Åµå Æ÷Å»ÀÏ °æ¿ì¿¡´Â Æ®¸®°Å Á¶°ÇÀ» ¸¸Á·½ÃÄ×À» ¶§¸¸, 
-						// portal exceptionÀ» ´øÁø´Ù.
+						// íŠ¸ë¦¬ê±°ë“œ í¬íƒˆì¼ ê²½ìš°ì—ëŠ” íŠ¸ë¦¬ê±° ì¡°ê±´ì„ ë§Œì¡±ì‹œì¼°ì„ ë•Œë§Œ, 
+						// portal exceptionì„ ë˜ì§„ë‹¤.
 						if (pPortal->getPortalClass() == PORTAL_CLASS_TRIGGERED)
 						{
 							if (pPortal->activate(pSlayer)) 
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -153,7 +153,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 							if (pPortal->activate(pSlayer))
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -169,14 +169,14 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 					if (pPortal->getObjectType() == PORTAL_NORMAL || pPortal->getObjectType() == PORTAL_VAMPIRE
 							|| pPortal->getObjectType() == PORTAL_GUILD || pPortal->getObjectType() == PORTAL_BATTLE)
 					{
-						// Æ®¸®°Åµå Æ÷Å»ÀÏ °æ¿ì¿¡´Â Æ®¸®°Å Á¶°ÇÀ» ¸¸Á·½ÃÄ×À» ¶§¸¸,
-						// portal exceptionÀ» ´øÁø´Ù.
+						// íŠ¸ë¦¬ê±°ë“œ í¬íƒˆì¼ ê²½ìš°ì—ëŠ” íŠ¸ë¦¬ê±° ì¡°ê±´ì„ ë§Œì¡±ì‹œì¼°ì„ ë•Œë§Œ,
+						// portal exceptionì„ ë˜ì§„ë‹¤.
 						if (pPortal->getPortalClass() == PORTAL_CLASS_TRIGGERED)
 						{
 							if (pPortal->activate(pVampire))
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -185,7 +185,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 							if (pPortal->activate(pVampire))
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -201,14 +201,14 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 					if (pPortal->getObjectType() == PORTAL_NORMAL || pPortal->getObjectType() == PORTAL_OUSTERS
 							|| pPortal->getObjectType() == PORTAL_GUILD || pPortal->getObjectType() == PORTAL_BATTLE)
 					{
-						// Æ®¸®°Åµå Æ÷Å»ÀÏ °æ¿ì¿¡´Â Æ®¸®°Å Á¶°ÇÀ» ¸¸Á·½ÃÄ×À» ¶§¸¸,
-						// portal exceptionÀ» ´øÁø´Ù.
+						// íŠ¸ë¦¬ê±°ë“œ í¬íƒˆì¼ ê²½ìš°ì—ëŠ” íŠ¸ë¦¬ê±° ì¡°ê±´ì„ ë§Œì¡±ì‹œì¼°ì„ ë•Œë§Œ,
+						// portal exceptionì„ ë˜ì§„ë‹¤.
 						if (pPortal->getPortalClass() == PORTAL_CLASS_TRIGGERED)
 						{
 							if (pPortal->activate(pOusters))
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -217,7 +217,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 							if (pPortal->activate(pOusters))
 							{
 								//throw PortalException();
-								// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+								// PortalExceptionì œê±°. by sigi. 2002.5.6
 								return false;
 							}
 						}
@@ -227,7 +227,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 		}
 	}
 
-	// effect °Ë»ç.
+	// effect ê²€ì‚¬.
 	if (hasEffect())
 	{
 		if (bCheckEffect)
@@ -243,7 +243,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 			{
 				pEYP->affectCreature(pCreature, true);
 			}
-			// ¹«Á¶°Ç Àû¿ëµÇ¾ß µÇ´Â °Å¸é Àû¿ë½ÃÅ²´Ù
+			// ë¬´ì¡°ê±´ ì ìš©ë˜ì•¼ ë˜ëŠ” ê±°ë©´ ì ìš©ì‹œí‚¨ë‹¤
 			else if ( (pEYP = (EffectYellowPoison*)getEffect(Effect::EFFECT_CLASS_YELLOW_POISON)) && pEYP->isForce() )
 			{
 				pEYP->affectCreature(pCreature, true);
@@ -270,7 +270,7 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 		}
 	}
 
-	// PortalExceptionÁ¦°Å. by sigi. 2002.5.6
+	// PortalExceptionì œê±°. by sigi. 2002.5.6
 	return true;
 
 	__END_DEBUG
@@ -278,8 +278,8 @@ bool Tile::addCreature (Creature* pCreature, bool bCheckEffect, bool bCheckPorta
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ ID¸¦ °¡Áø Å©¸®Ã³¸¦ ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
-// ÃÖÀûÈ­ÇÒ ÇÊ¿ä°¡ ÀÖ´Ù. (°Ë»ö + »èÁ¦)
+// íŠ¹ì • IDë¥¼ ê°€ì§„ í¬ë¦¬ì²˜ë¥¼ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
+// ìµœì í™”í•  í•„ìš”ê°€ ìˆë‹¤. (ê²€ìƒ‰ + ì‚­ì œ)
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (ObjectID_t creatureID) 
 {
@@ -288,16 +288,16 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 
 	try 
 	{
-		// ÇöÀç Å©¸®Ã³·Î ÀÎÇØ ¾îµò°¡°¡ ÇÑ±ºµ¥ blocking µÇ¾î¾ß ÇÑ´Ù.
+		// í˜„ì¬ í¬ë¦¬ì²˜ë¡œ ì¸í•´ ì–´ë”˜ê°€ê°€ í•œêµ°ë° blocking ë˜ì–´ì•¼ í•œë‹¤.
 		Assert(isGroundBlocked() || isAirBlocked() || isUndergroundBlocked());
 
-		// ÇöÀç Å©¸®Ã³°¡ ¾îµò°¡¿¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.
+		// í˜„ì¬ í¬ë¦¬ì²˜ê°€ ì–´ë”˜ê°€ì— ì¡´ì¬í•´ì•¼ í•œë‹¤.
 		//Assert(hasWalkingCreature() || hasFlyingCreature() || hasBurrowingCreature());
 		Assert(hasCreature());	// by sigi. 2002.5.8
 
 		Creature* pCreature = dynamic_cast<Creature*>(getObject(creatureID));
 
-		// ÀÌÆåÆ®°¡ Á¸ÀçÇÒ °æ¿ì, Å©¸®Ã³¿¡°Ô¼­ ¾ø¿£´Ù.
+		// ì´í™íŠ¸ê°€ ì¡´ì¬í•  ê²½ìš°, í¬ë¦¬ì²˜ì—ê²Œì„œ ì—†ì—”ë‹¤.
 		/*
 		if (hasEffect()) 
 		{
@@ -306,7 +306,7 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 		}
 		*/
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.2
+		// NoSuchì œê±°. by sigi. 2002.5.2
 		if (pCreature==NULL)
 		{
 			return;
@@ -322,18 +322,18 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 		}
 
 
-		// ³ëµå¸¦ »èÁ¦ÇÑ´Ù.
+		// ë…¸ë“œë¥¼ ì‚­ì œí•œë‹¤.
 		deleteObject(creatureID);
 
-		// ÇØ´çÇÏ´Â Å©¸®Ã³ ÇÃ·¡±×¸¦ ²ö´Ù.
+		// í•´ë‹¹í•˜ëŠ” í¬ë¦¬ì²˜ í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
 		FLAG_CLEAR(m_wFlags , TILE_WALKING_CREATURE + pCreature->getMoveMode());
 		
-		// ÇØ´çÇÏ´Â blocking ÇÃ·¡±×¸¦ ²ö´Ù.
+		// í•´ë‹¹í•˜ëŠ” blocking í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
 		FLAG_CLEAR(m_wFlags , TILE_GROUND_BLOCKED + pCreature->getMoveMode());
 	} 
 	catch (Throwable & t) 
 	{
-		//cerr << "Delete Creature Áö·Õ.." << endl;
+		//cerr << "Delete Creature ì§€ë¡±.." << endl;
 		//cerr << t.toString() << endl;
 		filelog("tileError.txt", "Tile::deleteCreature - %s", t.toString().c_str());
 	}
@@ -343,16 +343,16 @@ void Tile::deleteCreature (ObjectID_t creatureID)
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ À§Ä¡(ÇàÀ§)ÀÇ Å©¸®Ã³¸¦ ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • ìœ„ì¹˜(í–‰ìœ„)ì˜ í¬ë¦¬ì²˜ë¥¼ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteCreature (Creature::MoveMode mode) 
 {
 	__BEGIN_TRY
 
-	// ÇöÀç Å©¸®Ã³·Î ÀÎÇØ blocking µÇ¾î¾ß ÇÑ´Ù.
+	// í˜„ì¬ í¬ë¦¬ì²˜ë¡œ ì¸í•´ blocking ë˜ì–´ì•¼ í•œë‹¤.
 	Assert(isBlocked(mode));
 
-	// ÇöÀç Å©¸®Ã³°¡ Á¸ÀçÇØ¾ß ÇÑ´Ù.
+	// í˜„ì¬ í¬ë¦¬ì²˜ê°€ ì¡´ì¬í•´ì•¼ í•œë‹¤.
 	Assert(hasCreature(mode));
 
 	if ( hasEffect() )
@@ -365,20 +365,20 @@ void Tile::deleteCreature (Creature::MoveMode mode)
 		}
 	}
 
-	// °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+	// ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 	deleteObject(OBJECT_PRIORITY_WALKING_CREATURE + mode);
 
-	// ÇØ´çÇÏ´Â Å©¸®Ã³ ÇÃ·¡±×¸¦ ²ö´Ù.
+	// í•´ë‹¹í•˜ëŠ” í¬ë¦¬ì²˜ í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
 	FLAG_CLEAR(m_wFlags , TILE_WALKING_CREATURE + mode);
 	
-	// ÇØ´çÇÏ´Â blocking ÇÃ·¡±×¸¦ ²ö´Ù.
+	// í•´ë‹¹í•˜ëŠ” blocking í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
 	FLAG_CLEAR(m_wFlags , TILE_GROUND_BLOCKED + mode);
 
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ ID¸¦ °¡Áø Å©¸®Ã³¸¦ ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • IDë¥¼ ê°€ì§„ í¬ë¦¬ì²˜ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (ObjectID_t creatureID) 
 {
@@ -392,7 +392,7 @@ Creature* Tile::getCreature (ObjectID_t creatureID)
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ À§Ä¡(ÇàÀ§)ÀÇ Å©¸®Ã³¸¦ ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • ìœ„ì¹˜(í–‰ìœ„)ì˜ í¬ë¦¬ì²˜ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Creature* Tile::getCreature (Creature::MoveMode mode) 
 {
@@ -405,8 +405,8 @@ Creature* Tile::getCreature (Creature::MoveMode mode)
 }
 
 //////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù. ÀÌ¹Ì ¾ÆÀÌÅÛÀÌ Å¸ÀÏ¿¡ ÀÖ´Ù¸é Dup ¿¹¿Ü¸¦ ´øÁø´Ù.
-// (¾ÆÀÌÅÛÀº Å¸ÀÏ´ç ÇÏ³ª´Ù.)
+// ì•„ì´í…œì„ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤. ì´ë¯¸ ì•„ì´í…œì´ íƒ€ì¼ì— ìˆë‹¤ë©´ Dup ì˜ˆì™¸ë¥¼ ë˜ì§„ë‹¤.
+// (ì•„ì´í…œì€ íƒ€ì¼ë‹¹ í•˜ë‚˜ë‹¤.)
 //////////////////////////////////////////////////////////////
 void Tile::addItem (Item* pItem) 
 	
@@ -434,7 +434,7 @@ void Tile::addItem (Item* pItem)
 }
 
 //////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛÀ» Å¸ÀÏ¿¡¼­ »èÁ¦ÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ª¹Û¿¡ ¾øÀ¸¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ì•„ì´í…œì„ íƒ€ì¼ì—ì„œ ì‚­ì œí•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ë°–ì— ì—†ìœ¼ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ê°€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteItem () 
 {
@@ -444,7 +444,7 @@ void Tile::deleteItem ()
 	//Assert(hasItem());
 	if (!hasItem())
 	{
-		//cerr << "Tile::hasItem() : ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù." << endl;
+		//cerr << "Tile::hasItem() : ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤." << endl;
 		return;
 	}
 
@@ -457,7 +457,7 @@ void Tile::deleteItem ()
 }
 
 //////////////////////////////////////////////////////////////
-// Å¸ÀÏÀÇ ¾ÆÀÌÅÛÀ» ¸®ÅÏÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ª¹Û¿¡ ¾øÀ¸¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// íƒ€ì¼ì˜ ì•„ì´í…œì„ ë¦¬í„´í•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ë°–ì— ì—†ìœ¼ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ê°€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 Item* Tile::getItem () 
 {
@@ -472,7 +472,7 @@ Item* Tile::getItem ()
 }
 
 //////////////////////////////////////////////////////////////
-// Àå¾Ö¹°À» Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù.
+// ì¥ì• ë¬¼ì„ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::addObstacle (Obstacle* pObstacle) 
 	
@@ -500,7 +500,7 @@ void Tile::addObstacle (Obstacle* pObstacle)
 }
 
 //////////////////////////////////////////////////////////////
-// Àå¾Ö¹°À» Å¸ÀÏ¿¡¼­ »èÁ¦ÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ª¹Û¿¡ ¾øÀ¸¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ì¥ì• ë¬¼ì„ íƒ€ì¼ì—ì„œ ì‚­ì œí•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ë°–ì— ì—†ìœ¼ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ê°€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObstacle () 
 {
@@ -516,7 +516,7 @@ void Tile::deleteObstacle ()
 }
 
 //////////////////////////////////////////////////////////////
-// Å¸ÀÏÀÇ Àå¾Ö¹°À» ¸®ÅÏÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ª¹Û¿¡ ¾øÀ¸¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// íƒ€ì¼ì˜ ì¥ì• ë¬¼ì„ ë¦¬í„´í•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ë°–ì— ì—†ìœ¼ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ê°€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 Obstacle* Tile::getObstacle () 
 {
@@ -536,10 +536,10 @@ bool Tile::canAddEffect()
 }
 
 //////////////////////////////////////////////////////////////
-// ¸¶¹ı È¿°ú¸¦ Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù.
-// ÇöÀç Å¸ÀÏ¿¡ Å©¸®Ã³³ª ¾ÆÀÌÅÛÀÌ Á¸ÀçÇÑ´Ù¸é, ¸¶¹ıÀÇ È¿°ú¸¦ ±×
-// Å©¸®Ã³³ª ¾ÆÀÌÅÛ¿¡ ºÎ¿©ÇÑ´Ù.
-// Áßº¹µÇ´Â ¸¶¹ı¿¡ ´ëÇÑ Á¤Ã¥ÀÌ ÇÊ¿äÇÏ´Ù.... (°°Àº ¸¶¹ıÀ» ÇÑÀÚ¸®¿¡..)
+// ë§ˆë²• íš¨ê³¼ë¥¼ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤.
+// í˜„ì¬ íƒ€ì¼ì— í¬ë¦¬ì²˜ë‚˜ ì•„ì´í…œì´ ì¡´ì¬í•œë‹¤ë©´, ë§ˆë²•ì˜ íš¨ê³¼ë¥¼ ê·¸
+// í¬ë¦¬ì²˜ë‚˜ ì•„ì´í…œì— ë¶€ì—¬í•œë‹¤.
+// ì¤‘ë³µë˜ëŠ” ë§ˆë²•ì— ëŒ€í•œ ì •ì±…ì´ í•„ìš”í•˜ë‹¤.... (ê°™ì€ ë§ˆë²•ì„ í•œìë¦¬ì—..)
 //////////////////////////////////////////////////////////////
 void Tile::addEffect (Effect* pEffect) 
 	
@@ -554,7 +554,7 @@ void Tile::addEffect (Effect* pEffect)
 
 	addObject(pEffect);
 	
-	// ¿©±â¼­ ÇöÀç Å¸ÀÏ¿¡ ¼ÓÇÑ Å©¸®Ã³³ª ¾ÆÀÌÅÛ¿¡°Ô È¿°ú¸¦ ¹ÌÄ£´Ù.
+	// ì—¬ê¸°ì„œ í˜„ì¬ íƒ€ì¼ì— ì†í•œ í¬ë¦¬ì²˜ë‚˜ ì•„ì´í…œì—ê²Œ íš¨ê³¼ë¥¼ ë¯¸ì¹œë‹¤.
 	// pEffect->affectTile();
 
 	FLAG_SET(m_wFlags , TILE_EFFECT);
@@ -563,12 +563,12 @@ void Tile::addEffect (Effect* pEffect)
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ ID¸¦ °¡Áø ¸¶¹ı È¿°ú¸¦ Å¸ÀÏ¿¡¼­ »èÁ¦ÇÑ´Ù. 
-// µ¿½Ã¿¡ ÇöÀç Å¸ÀÏÀÇ Å©¸®Ã³³ª ¾ÆÀÌÅÛ¿¡°Ô ºÎ¿©µÈ ¸¶¹ı È¿°ú ¿ª½Ã
-// »èÁ¦ÇØ¾ß ÇÑ´Ù.
-// ¸¶¹ı È¿°ú¸¦ »èÁ¦ÇÒ ¶§, ´Ù¸¥ ¸¶¹ıÀÌ ³²¾ÆÀÖ´Ù¸é TILE_EFFECT 
-// ÇÃ·¡±×¸¦ ²ôÁö ¾Ê¾Æ¾ß ÇÑ´Ù!
-// ÃÖÀûÈ­ÇÒ ÇÊ¿ä¼ºÀÌ ÀÖ´Ù.. (search - unaffect - flag clear¸¦ ÇÑ¹ø¿¡..)
+// íŠ¹ì • IDë¥¼ ê°€ì§„ ë§ˆë²• íš¨ê³¼ë¥¼ íƒ€ì¼ì—ì„œ ì‚­ì œí•œë‹¤. 
+// ë™ì‹œì— í˜„ì¬ íƒ€ì¼ì˜ í¬ë¦¬ì²˜ë‚˜ ì•„ì´í…œì—ê²Œ ë¶€ì—¬ëœ ë§ˆë²• íš¨ê³¼ ì—­ì‹œ
+// ì‚­ì œí•´ì•¼ í•œë‹¤.
+// ë§ˆë²• íš¨ê³¼ë¥¼ ì‚­ì œí•  ë•Œ, ë‹¤ë¥¸ ë§ˆë²•ì´ ë‚¨ì•„ìˆë‹¤ë©´ TILE_EFFECT 
+// í”Œë˜ê·¸ë¥¼ ë„ì§€ ì•Šì•„ì•¼ í•œë‹¤!
+// ìµœì í™”í•  í•„ìš”ì„±ì´ ìˆë‹¤.. (search - unaffect - flag clearë¥¼ í•œë²ˆì—..)
 //////////////////////////////////////////////////////////////
 void Tile::deleteEffect (ObjectID_t effectID) 
 {
@@ -581,14 +581,14 @@ void Tile::deleteEffect (ObjectID_t effectID)
 	}
 //	Assert(hasEffect());
 
-	// ¸¶¹ı È¿°ú°¡ ÇÏ³ª ÀÌ»óÀÏ ¼ö ÀÖÀ¸¹Ç·Î, deleteObject(OBJECT_PRIORITY_EFFECT) À» »ç¿ëÇÒ ¼ö ¾ø´Ù.
+	// ë§ˆë²• íš¨ê³¼ê°€ í•˜ë‚˜ ì´ìƒì¼ ìˆ˜ ìˆìœ¼ë¯€ë¡œ, deleteObject(OBJECT_PRIORITY_EFFECT) ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
 	deleteObject(effectID);
 
-	// ÇöÀç Å¸ÀÏ¿¡ ¹ÌÄ£ ¿µÇâÀ» ¸ğµÎ ³¯¸°´Ù. Áï Å©¸®Ã³¿Í ¾ÆÀÌÅÛ¿¡ ºÎ¿©µÈ
-	// ¸¶¹ı È¿°ú¸¦ º¹±¸ÇØ¾ß ÇÑ´Ù.
+	// í˜„ì¬ íƒ€ì¼ì— ë¯¸ì¹œ ì˜í–¥ì„ ëª¨ë‘ ë‚ ë¦°ë‹¤. ì¦‰ í¬ë¦¬ì²˜ì™€ ì•„ì´í…œì— ë¶€ì—¬ëœ
+	// ë§ˆë²• íš¨ê³¼ë¥¼ ë³µêµ¬í•´ì•¼ í•œë‹¤.
 	// effect->unaffectTile();
 
-	// ´Ù¸¥ ¸¶¹ıÀÌ ¾ø´Ù¸é ÇÃ·¡±×¸¦ ²ö´Ù.
+	// ë‹¤ë¥¸ ë§ˆë²•ì´ ì—†ë‹¤ë©´ í”Œë˜ê·¸ë¥¼ ëˆë‹¤.
 	/*
 	try 
 	{
@@ -596,12 +596,12 @@ void Tile::deleteEffect (ObjectID_t effectID)
 	} 
 	catch (NoSuchElementException) 
 	{
-		// ¸¶¹ıÀÌ ¾øÀ¸¹Ç·Î ²ö´Ù.
+		// ë§ˆë²•ì´ ì—†ìœ¼ë¯€ë¡œ ëˆë‹¤.
 		FLAG_CLEAR(m_wFlags , TILE_EFFECT);
 	}
 	*/
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchì œê±°. by sigi. 2002.5.2
 	if (getObject(OBJECT_PRIORITY_EFFECT)==NULL)
 	{
 		FLAG_CLEAR(m_wFlags , TILE_EFFECT);
@@ -611,7 +611,7 @@ void Tile::deleteEffect (ObjectID_t effectID)
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ ID¸¦ °¡Áø ¸¶¹ı È¿°ú¸¦ ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • IDë¥¼ ê°€ì§„ ë§ˆë²• íš¨ê³¼ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (ObjectID_t effectID) 
 {
@@ -624,7 +624,7 @@ Effect* Tile::getEffect (ObjectID_t effectID)
 }
 
 //////////////////////////////////////////////////////////////
-// EffectClass¸¦ °¡Áø ¸¶¹ı È¿°ú¸¦ ¸®ÅÏÇÑ´Ù.
+// EffectClassë¥¼ ê°€ì§„ ë§ˆë²• íš¨ê³¼ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Effect* Tile::getEffect (Effect::EffectClass effectClass) 
 	
@@ -642,7 +642,7 @@ Effect* Tile::getEffect (Effect::EffectClass effectClass)
 			{
 				if (effectClass == ((Effect*)(*itr))->getEffectClass()) 
 				{
-					// ±×·± id ¸¦ °¡Áø °´Ã¼¸¦ ¹ß°ßÇÑ °æ¿ì
+					// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë°œê²¬í•œ ê²½ìš°
 					pEffect = dynamic_cast<Effect*>(*itr);
 					return pEffect;
 				}
@@ -658,7 +658,7 @@ Effect* Tile::getEffect (Effect::EffectClass effectClass)
 
 
 //////////////////////////////////////////////////////////////
-// ÇöÀç Å¸ÀÏÀ» °Ç¹°·Î ¼³Á¤ÇÑ´Ù. 
+// í˜„ì¬ íƒ€ì¼ì„ ê±´ë¬¼ë¡œ ì„¤ì •í•œë‹¤. 
 //////////////////////////////////////////////////////////////
 void Tile::addBuilding (BuildingID_t buildingID) 
 	
@@ -683,7 +683,7 @@ void Tile::addBuilding (BuildingID_t buildingID)
 }
 
 //////////////////////////////////////////////////////////////
-// ÇöÀç Å¸ÀÏ¿¡¼­ °Ç¹°À» »èÁ¦ÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ªÀÌ¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä´Â ¾ø´Ù.
+// í˜„ì¬ íƒ€ì¼ì—ì„œ ê±´ë¬¼ì„ ì‚­ì œí•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ì´ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ëŠ” ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteBuilding () 
 	
@@ -700,7 +700,7 @@ void Tile::deleteBuilding ()
 }
 
 //////////////////////////////////////////////////////////////
-// ÇöÀç Å¸ÀÏ¿¡ ÇØ´çÇÏ´Â °Ç¹° ¾ÆÀÌµğ¸¦ ¸®ÅÏÇÑ´Ù.
+// í˜„ì¬ íƒ€ì¼ì— í•´ë‹¹í•˜ëŠ” ê±´ë¬¼ ì•„ì´ë””ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 BuildingID_t Tile::getBuilding () const 
 	
@@ -715,7 +715,7 @@ BuildingID_t Tile::getBuilding () const
 }
 
 //////////////////////////////////////////////////////////////
-// Æ÷Å»À» Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù.
+// í¬íƒˆì„ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::addPortal (Portal* pPortal) 
 	
@@ -724,8 +724,8 @@ void Tile::addPortal (Portal* pPortal)
 
 	Assert(pPortal != NULL);
 
-	// ÇÏ´ÃÀ» ³¯¾Æ´Ù´Ï´Â Å©¸®Ã³³ª ¶¥¼Ó¿¡ ¼û¾îÀÖ´Â Å©¸®Ã³´Â Æ÷Å»ÀÇ ¿µÇâÀ» ¹ŞÀ» °ÍÀÎ°¡? ¸» °ÍÀÎ°¡?
-	// ¾ÏÆ° ¾Æ¹« °Íµµ ¾ø´Â ºó Å¸ÀÏÀÌ¾î¾ß ÇÑ´Ù!!!!!!!!!!!!!!!!!!!!
+	// í•˜ëŠ˜ì„ ë‚ ì•„ë‹¤ë‹ˆëŠ” í¬ë¦¬ì²˜ë‚˜ ë•…ì†ì— ìˆ¨ì–´ìˆëŠ” í¬ë¦¬ì²˜ëŠ” í¬íƒˆì˜ ì˜í–¥ì„ ë°›ì„ ê²ƒì¸ê°€? ë§ ê²ƒì¸ê°€?
+	// ì•”íŠ¼ ì•„ë¬´ ê²ƒë„ ì—†ëŠ” ë¹ˆ íƒ€ì¼ì´ì–´ì•¼ í•œë‹¤!!!!!!!!!!!!!!!!!!!!
 	Assert(!hasWalkingCreature());
 	Assert(!hasFlyingCreature());
 	Assert(!hasBurrowingCreature());
@@ -744,7 +744,7 @@ void Tile::addPortal (Portal* pPortal)
 }
 
 //////////////////////////////////////////////////////////////
-// Æ÷Å»À» Å¸ÀÏ¿¡¼­ »èÁ¦ÇÑ´Ù. ¾îÂ÷ÇÇ ÇÏ³ªÀÌ¹Ç·Î Æ¯º°È÷ ÁöÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// í¬íƒˆì„ íƒ€ì¼ì—ì„œ ì‚­ì œí•œë‹¤. ì–´ì°¨í”¼ í•˜ë‚˜ì´ë¯€ë¡œ íŠ¹ë³„íˆ ì§€ì •í•  í•„ìš”ê°€ ì—†ë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deletePortal () 
 	
@@ -761,7 +761,7 @@ void Tile::deletePortal ()
 }
 
 //////////////////////////////////////////////////////////////
-// Æ÷Å» °´Ã¼¸¦ ¸®ÅÏÇÑ´Ù.
+// í¬íƒˆ ê°ì²´ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Portal* Tile::getPortal () const 
 	
@@ -776,30 +776,30 @@ Portal* Tile::getPortal () const
 }
 
 //////////////////////////////////////////////////////////////
-// terrain À» Å¸ÀÏ¿¡ Ãß°¡ÇÑ´Ù. 
+// terrain ì„ íƒ€ì¼ì— ì¶”ê°€í•œë‹¤. 
 //////////////////////////////////////////////////////////////
 void Tile::addTerrain (TerrainID_t terrainID) 
 	
 {
 	__BEGIN_TRY
 
-	// ÇöÀç Å¸ÀÏ¿¡ m_wOption À» »ç¿ëÇÏ´Â °´Ã¼ÀÎ Àå¾Ö¹°, °Ç¹°, Æ÷Å»
-	// µîÀÌ ÀÖ´Ù¸é ¿¡·¯´ç.. Áï »óÀ§¿¡¼­ Ã¼Å©ÇØÁà¾ß ÇÑ´Ù.
+	// í˜„ì¬ íƒ€ì¼ì— m_wOption ì„ ì‚¬ìš©í•˜ëŠ” ê°ì²´ì¸ ì¥ì• ë¬¼, ê±´ë¬¼, í¬íƒˆ
+	// ë“±ì´ ìˆë‹¤ë©´ ì—ëŸ¬ë‹¹.. ì¦‰ ìƒìœ„ì—ì„œ ì²´í¬í•´ì¤˜ì•¼ í•œë‹¤.
 	Assert(! hasObstacle());
 	Assert(! hasBuilding());
 	Assert(! hasPortal());
 
-	// Terrain ÇÃ·¡±×¸¦ ÄÒ´Ù.
+	// Terrain í”Œë˜ê·¸ë¥¼ ì¼ ë‹¤.
 	FLAG_SET(m_wFlags , TILE_TERRAIN);
 
-	// ¿É¼ÇÀ» Terrain ID ·Î ¼³Á¤ÇÑ´Ù.
+	// ì˜µì…˜ì„ Terrain ID ë¡œ ì„¤ì •í•œë‹¤.
 	m_wOption = terrainID;
 
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////
-// terrain À» Å¸ÀÏ¿¡¼­ »èÁ¦ÇÑ´Ù.
+// terrain ì„ íƒ€ì¼ì—ì„œ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteTerrain () 
 	
@@ -808,17 +808,17 @@ void Tile::deleteTerrain ()
 
 	Assert(isTerrain());
 
-	// Terrain ÇÃ·¡±×¸¦ ÄÒ´Ù.
+	// Terrain í”Œë˜ê·¸ë¥¼ ì¼ ë‹¤.
 	FLAG_CLEAR(m_wFlags , TILE_TERRAIN);
 
-	// ¿É¼ÇÀ» Å¬¸®¾îÇÑ´Ù.
+	// ì˜µì…˜ì„ í´ë¦¬ì–´í•œë‹¤.
 	m_wOption = 0;
 
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////
-// terrain ¾ÆÀÌµğ¸¦ ¸®ÅÏÇÑ´Ù.
+// terrain ì•„ì´ë””ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 TerrainID_t Tile::getTerrain () const 
 	
@@ -875,26 +875,26 @@ void Tile::addObject (Object* pObject)
 	forward_list<Object*>::iterator current = m_Objects.begin();
 
 	/*
-	// ¿ì¼± ¼½ÅÍ¿¡ Áı¾î³Ö´Â´Ù.
+	// ìš°ì„  ì„¹í„°ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
 	m_pSector->addObject(pObject);
 	*/
 
 	for (; current != m_Objects.end() ; before = current , current ++) 
 	{
-		// °´Ã¼ ¸®½ºÆ®´Â ³»¸²Â÷¼øÀ¸·Î Á¤·ÄµÇ¾î ÀÖ´Ù.
-		// µû¶ó¼­, »ğÀÔÇÏ·Á´Â °´Ã¼ÀÇ ObjectPriority°¡ ÇöÀç iterator°¡ °¡¸®Å°´Â
-		// °´Ã¼ÀÇ ObjectPriorityº¸´Ù ÀÛÀ» ¶§±îÁö ·çÇÁ¸¦ µ¹·Á¾ß ÇÑ´Ù.
+		// ê°ì²´ ë¦¬ìŠ¤íŠ¸ëŠ” ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ë˜ì–´ ìˆë‹¤.
+		// ë”°ë¼ì„œ, ì‚½ì…í•˜ë ¤ëŠ” ê°ì²´ì˜ ObjectPriorityê°€ í˜„ì¬ iteratorê°€ ê°€ë¦¬í‚¤ëŠ”
+		// ê°ì²´ì˜ ObjectPriorityë³´ë‹¤ ì‘ì„ ë•Œê¹Œì§€ ë£¨í”„ë¥¼ ëŒë ¤ì•¼ í•œë‹¤.
 
 		if (pObject->getObjectPriority() < (*current)->getObjectPriority()) 
 		{
 			if (before == m_Objects.end()) 
 			{
-				// °´Ã¼ÀÇ Å¸ÀÏ ¿ì¼±¼øÀ§°¡ °¡Àå ÀÛÀ¸¹Ç·Î ¸®½ºÆ®ÀÇ ¸Ç ¾Õ¿¡ ³Ö´Â´Ù.
+				// ê°ì²´ì˜ íƒ€ì¼ ìš°ì„ ìˆœìœ„ê°€ ê°€ì¥ ì‘ìœ¼ë¯€ë¡œ ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ì•ì— ë„£ëŠ”ë‹¤.
 				m_Objects.push_front(pObject);
 			} 
 			else 
 			{
-				// ¸®½ºÆ®ÀÇ °¡¿îµ¥¿¡ ³Ö´Â´Ù.
+				// ë¦¬ìŠ¤íŠ¸ì˜ ê°€ìš´ë°ì— ë„£ëŠ”ë‹¤.
 				// O(1) insertion
 				m_Objects.insert_after(before , pObject);
 			}
@@ -902,7 +902,7 @@ void Tile::addObject (Object* pObject)
 		} 
 		else if (pObject->getObjectPriority() == (*current)->getObjectPriority()) 
 		{
-			// effect´Â Áßº¹µÉ ¼ö ÀÖ´Ù.
+			// effectëŠ” ì¤‘ë³µë  ìˆ˜ ìˆë‹¤.
 			if (pObject->getObjectPriority() == OBJECT_PRIORITY_EFFECT)
 			{
 				if (before == m_Objects.end())
@@ -918,27 +918,27 @@ void Tile::addObject (Object* pObject)
 			else
 			{	
 				cerr << toString() << endl;
-				cerr << "°ãÃÄÁø tile priority °ªÀº = " << (int)pObject->getObjectPriority() << endl;
-				cerr << "ÇÃ·¡±× °ªÀº = " << m_wFlags << endl;
+				cerr << "ê²¹ì³ì§„ tile priority ê°’ì€ = " << (int)pObject->getObjectPriority() << endl;
+				cerr << "í”Œë˜ê·¸ ê°’ì€ = " << m_wFlags << endl;
 				filelog("TILEBUG.log", "%s", toString().c_str());
 				throw DuplicatedException("tile priority duplicated");
 			}
 		}
 	}
 
-	// À§ÀÇ ·çÇÁ¿¡¼­ ÀûÀıÇÑ À§Ä¡¸¦ Ã£Áö ¸øÇßÀ» °æ¿ì´Â 
-	// (1) ¸®½ºÆ®¿¡ °´Ã¼°¡ ÇÏ³ªµµ ¾ø´Â °æ¿ì, 
-	// (2) ¸®½ºÆ®ÀÇ ¸Ç µÚ¿¡ ³Ö¾î¾ß µÇ´Â °æ¿ì.. °¡ ÀÖ´Ù.
+	// ìœ„ì˜ ë£¨í”„ì—ì„œ ì ì ˆí•œ ìœ„ì¹˜ë¥¼ ì°¾ì§€ ëª»í–ˆì„ ê²½ìš°ëŠ” 
+	// (1) ë¦¬ìŠ¤íŠ¸ì— ê°ì²´ê°€ í•˜ë‚˜ë„ ì—†ëŠ” ê²½ìš°, 
+	// (2) ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ë’¤ì— ë„£ì–´ì•¼ ë˜ëŠ” ê²½ìš°.. ê°€ ìˆë‹¤.
 	if (current == m_Objects.end()) 
 	{
 		if (before == m_Objects.end())
 		{
-			// ¸®½ºÆ®°¡ ºñ¾î ÀÖ±â ¶§¹®¿¡, ¸®½ºÆ®ÀÇ ¸Ç ¾Õ¿¡ ³Ö´Â´Ù.
+			// ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì–´ ìˆê¸° ë•Œë¬¸ì—, ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ì•ì— ë„£ëŠ”ë‹¤.
 			m_Objects.push_front(pObject);
 		}
 		else
 		{
-			// OBJECT_PRIORITY°¡ °¡Àå Å« °´Ã¼ÀÌ¹Ç·Î, ¸®½ºÆ®ÀÇ ¸Ç µÚ¿¡ ³Ö´Â´Ù.
+			// OBJECT_PRIORITYê°€ ê°€ì¥ í° ê°ì²´ì´ë¯€ë¡œ, ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ë’¤ì— ë„£ëŠ”ë‹¤.
 			// O(1) insertion
 			m_Objects.insert_after(before , pObject);
 		}
@@ -956,7 +956,7 @@ void Tile::deleteObject (ObjectID_t objectID)
 	__BEGIN_TRY
 
 	/*
-	// ¸ÕÀú ¼½ÅÍ¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// ë¨¼ì € ì„¹í„°ì—ì„œ ì‚­ì œí•œë‹¤.
 	m_pSector->deleteObject(objectID);
 	*/
 
@@ -968,7 +968,7 @@ void Tile::deleteObject (ObjectID_t objectID)
 	{
 		if (objectID == (*current)->getObjectID()) 
 		{
-			// ±×·± id ¸¦ °¡Áø °´Ã¼¸¦ ¹ß°ßÇÑ °æ¿ì
+			// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë°œê²¬í•œ ê²½ìš°
 			if (before == m_Objects.end()) 
 			{
 				// Delete first node
@@ -990,7 +990,7 @@ void Tile::deleteObject (ObjectID_t objectID)
 	/*
 	if (before == m_Objects.end())
 	{
-		cout << objectID << "¾Æ¹«°ÍµÎ ¾ø´ç" << endl;
+		cout << objectID << "ì•„ë¬´ê²ƒë‘ ì—†ë‹¹" << endl;
 	}
 	else
 	{
@@ -998,14 +998,14 @@ void Tile::deleteObject (ObjectID_t objectID)
 	}
 	*/
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchì œê±°. by sigi. 2002.5.2
 	//throw NoSuchElementException("invalid object id");
 
 	__END_CATCH
 }
 	
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ Tile Priority¸¦ °¡Áø °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • Tile Priorityë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////
 void Tile::deleteObject (ObjectPriority objectPriority) 
 {
@@ -1015,7 +1015,7 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 	forward_list<Object*>::iterator current = m_Objects.begin() ;
 
 	/*
-	// ¸ÕÀú ¼½ÅÍ¿¡¼­ »èÁ¦ÇÏÀÚ...
+	// ë¨¼ì € ì„¹í„°ì—ì„œ ì‚­ì œí•˜ì...
 	Object* pObject = getObject(objectPriority);
 	m_pSector->deleteObject(pObject->getObjectID());
 	*/
@@ -1024,7 +1024,7 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 	{
 		if (objectPriority == (*current)->getObjectPriority()) 
 		{
-			// ±×·± tp ¸¦ °¡Áø °´Ã¼¸¦ ¹ß°ßÇÑ °æ¿ì
+			// ê·¸ëŸ° tp ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë°œê²¬í•œ ê²½ìš°
 			if (before == m_Objects.end()) 
 			{
 				// Delete first node
@@ -1040,22 +1040,22 @@ void Tile::deleteObject (ObjectPriority objectPriority)
 		} 
 		else if (objectPriority < (*current)->getObjectPriority()) 
 		{
-			// ¸®½ºÆ®°¡ °´Ã¼ÀÇ tp ÀÇ ³»¸²Â÷¼øÀ¸·Î Á¤·ÄµÇ¾î ÀÖÀ¸¹Ç·Î,
-			// Ã£°íÀÚ ÇÏ´Â °´Ã¼ÀÇ tp º¸´Ù ÇöÀç iteratorÀÇ tp °¡ Å©´Ù¸é
-			// ±×·± id ¸¦ °¡Áø °´Ã¼´Â Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
-			// ex> [0] - [3] - [4] ¿¡¼­ [3]À» iterator°¡ °¡¸®Å³ ¶§, ÇöÀç tp °¡ 2ÀÎ °æ¿ì
+			// ë¦¬ìŠ¤íŠ¸ê°€ ê°ì²´ì˜ tp ì˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ë˜ì–´ ìˆìœ¼ë¯€ë¡œ,
+			// ì°¾ê³ ì í•˜ëŠ” ê°ì²´ì˜ tp ë³´ë‹¤ í˜„ì¬ iteratorì˜ tp ê°€ í¬ë‹¤ë©´
+			// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+			// ex> [0] - [3] - [4] ì—ì„œ [3]ì„ iteratorê°€ ê°€ë¦¬í‚¬ ë•Œ, í˜„ì¬ tp ê°€ 2ì¸ ê²½ìš°
 			break;
 		}
 	}
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchì œê±°. by sigi. 2002.5.2
 	//throw NoSuchElementException("invalid object priority");
 
 	__END_CATCH
 }
 //////////////////////////////////////////////////////////////
-// ÇöÀç Å¸ÀÏ¿¡¼­ Æ¯Á¤ ID¸¦ °¡Áø ¿ÀºêÁ§Æ®¸¦ ¸®ÅÏÇÑ´Ù.
-// ¸®½ºÆ®¸¦ ¸ğµÎ °Ë»öÇØ¾ß ÇÑ´Ù.
+// í˜„ì¬ íƒ€ì¼ì—ì„œ íŠ¹ì • IDë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¦¬í„´í•œë‹¤.
+// ë¦¬ìŠ¤íŠ¸ë¥¼ ëª¨ë‘ ê²€ìƒ‰í•´ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectID_t objectID) const
 {
@@ -1065,23 +1065,23 @@ Object* Tile::getObject (ObjectID_t objectID) const
 	{
 		if (objectID == (*itr)->getObjectID()) 
 		{
-			// ±×·± id ¸¦ °¡Áø °´Ã¼¸¦ ¹ß°ßÇÑ °æ¿ì
+			// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë°œê²¬í•œ ê²½ìš°
 			return *itr;
 		}
 	}
 
-	// ±×·± id ¸¦ °¡Áø °´Ã¼´Â Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	// NoSuchì œê±°. by sigi. 2002.5.2
 	//throw NoSuchElementException("invalid object id");
 
-	// warning ¶§¹®¿¡.. - -;
+	// warning ë•Œë¬¸ì—.. - -;
 	return NULL;
 
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////
-// Æ¯Á¤ Tile Priority ¸¦ °¡Áø °´Ã¼¸¦ ¸®ÅÏÇÑ´Ù.
+// íŠ¹ì • Tile Priority ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////
 Object* Tile::getObject (ObjectPriority objectPriority) const
 {
@@ -1091,20 +1091,20 @@ Object* Tile::getObject (ObjectPriority objectPriority) const
 	{
 		if (objectPriority == (*itr)->getObjectPriority()) 
 		{
-			// ±×·± id ¸¦ °¡Áø °´Ã¼¸¦ ¹ß°ßÇÑ °æ¿ì
+			// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ë¥¼ ë°œê²¬í•œ ê²½ìš°
 			return *itr;
 		} 
 		else if (objectPriority < (*itr)->getObjectPriority()) 
 		{
-			// ¸®½ºÆ®°¡ °´Ã¼ÀÇ tp ÀÇ ³»¸²Â÷¼øÀ¸·Î Á¤·ÄµÇ¾î ÀÖÀ¸¹Ç·Î,
-			// Ã£°íÀÚ ÇÏ´Â °´Ã¼ÀÇ tp º¸´Ù ÇöÀç iteratorÀÇ tp °¡ Å©´Ù¸é
-			// ±×·± id ¸¦ °¡Áø °´Ã¼´Â Á¸ÀçÇÏÁö ¾Ê´Â´Ù.
-			// ex> [0] - [3] - [4] ¿¡¼­ [3]À» iterator°¡ °¡¸®Å³ ¶§, ÇöÀç tp °¡ 2ÀÎ °æ¿ì
+			// ë¦¬ìŠ¤íŠ¸ê°€ ê°ì²´ì˜ tp ì˜ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬ë˜ì–´ ìˆìœ¼ë¯€ë¡œ,
+			// ì°¾ê³ ì í•˜ëŠ” ê°ì²´ì˜ tp ë³´ë‹¤ í˜„ì¬ iteratorì˜ tp ê°€ í¬ë‹¤ë©´
+			// ê·¸ëŸ° id ë¥¼ ê°€ì§„ ê°ì²´ëŠ” ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
+			// ex> [0] - [3] - [4] ì—ì„œ [3]ì„ iteratorê°€ ê°€ë¦¬í‚¬ ë•Œ, í˜„ì¬ tp ê°€ 2ì¸ ê²½ìš°
 			break;
 		}
 	}
 
-	// NoSuchÁ¦°Å. by sigi. 2002.5.2
+	// NoSuchì œê±°. by sigi. 2002.5.2
 	//throw NoSuchElementException("invalid tile priority");
 	return NULL;
 

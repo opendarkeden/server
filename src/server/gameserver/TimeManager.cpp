@@ -17,7 +17,7 @@ void TimeManager::init ()
 
 	try {
 
-		// ±âÁØ °ÔÀÓ ½Ã°£, ±âÁØ ½ÇÁ¦ ½Ã°£À» È¯°æ ÆÄÀÏ¿¡¼­ ÀÐ¾î¿Â´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½Â´ï¿½.
 		string strBaseGameTime = g_pConfig->getProperty("BaseGameTime");
 		string strBaseRealTime = g_pConfig->getProperty("BaseRealTime");
 
@@ -43,27 +43,27 @@ void TimeManager::init ()
 		//cout << yearEnd << ":" << monEnd << ":" << dayEnd << endl;
 		//cout << "BaseRealTime : " << year << "/" << month << "/" << day << endl;
 
-		// ±âÁØ °ÔÀÓ ½Ã°£ : 1999³â 8¿ù 18ÀÏ
-		// ±âÁØ °ÔÀÓ ½Ã°£ : 1990³â 7¿ù 20ÀÏ
-		// ³â,ÀÏÀ» Á¦¿ÜÇÑ ¸ðµç ½Ã°£°ªµéÀº 0 ºÎÅÍ ½ÃÀÛÇÑ´Ù´Â µ¥ À¯ÀÇÇÒ °Í.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ : 1999ï¿½ï¿½ 8ï¿½ï¿½ 18ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ : 1990ï¿½ï¿½ 7ï¿½ï¿½ 20ï¿½ï¿½
+		// ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 		struct tm baseGameTime;
-		baseGameTime.tm_year  = 90;		// 1990³â
-		baseGameTime.tm_mon   = 6;		// 7¿ù
-		baseGameTime.tm_mday  = 20;		// 20ÀÏ
-		baseGameTime.tm_hour  = 0;		// 0½Ã
-		baseGameTime.tm_min   = 0;		// 0ºÐ
-		baseGameTime.tm_sec   = 0;		// 0ÃÊ
-		baseGameTime.tm_isdst = 0;		// !¼¶¸ÓÅ¸ÀÓ
+		baseGameTime.tm_year  = 90;		// 1990ï¿½ï¿½
+		baseGameTime.tm_mon   = 6;		// 7ï¿½ï¿½
+		baseGameTime.tm_mday  = 20;		// 20ï¿½ï¿½
+		baseGameTime.tm_hour  = 0;		// 0ï¿½ï¿½
+		baseGameTime.tm_min   = 0;		// 0ï¿½ï¿½
+		baseGameTime.tm_sec   = 0;		// 0ï¿½ï¿½
+		baseGameTime.tm_isdst = 0;		// !ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 	
-		// ±âÁØ ½ÇÁ¦ ½Ã°£ : 2003³â 1¿ù 1ÀÏ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ : 2003ï¿½ï¿½ 1ï¿½ï¿½ 1ï¿½ï¿½
 		struct tm baseRealTime;
-		baseRealTime.tm_year  = 103;	// 2003³â
-		baseRealTime.tm_mon   = 9;		// 10¿ù
-		baseRealTime.tm_mday  = 1;		// 1ÀÏ
-		baseRealTime.tm_hour  = 0;		// 0½Ã
-		baseRealTime.tm_min   = 0;		// 0ºÐ
-		baseRealTime.tm_sec   = 0;		// 0ÃÊ
-		baseRealTime.tm_isdst = 0;		// !¼¶¸ÓÅ¸ÀÓ
+		baseRealTime.tm_year  = 103;	// 2003ï¿½ï¿½
+		baseRealTime.tm_mon   = 9;		// 10ï¿½ï¿½
+		baseRealTime.tm_mday  = 1;		// 1ï¿½ï¿½
+		baseRealTime.tm_hour  = 0;		// 0ï¿½ï¿½
+		baseRealTime.tm_min   = 0;		// 0ï¿½ï¿½
+		baseRealTime.tm_sec   = 0;		// 0ï¿½ï¿½
+		baseRealTime.tm_isdst = 0;		// !ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
 
 		//cout << "asctime(m_BaseGameTime) : " << asctime(&baseGameTime);
 		//cout << "asctime(m_BaseRealTime) : " << asctime(&baseRealTime);
@@ -83,29 +83,29 @@ void TimeManager::init ()
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇöÀç °ÔÀÓ ½Ã°£À» ¾Ë¾Æ³½´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 GameTime TimeManager::getGameTime () const 
 	
 {
 	__BEGIN_TRY
-	// ÇöÀç ½Ã°£À» ÃøÁ¤ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	time_t currentTime = time(0);
 
 	//
-	// ½Ç½Ã°£ÀÌ °ÔÀÓ½Ã°£¿¡ ºñÇØ¼­ 5¹è ´À¸®°Ô ÁøÇàµÈ´Ù´Â Á¡À» ÀÌ¿ëÇØ¼­
-	// °ÔÀÓ ½Ã°£À» ±¸ÇÑ´Ù.
+	// ï¿½Ç½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//
-	// (°ÔÀÓ½Ã°£ = ±âÁØ°ÔÀÓ½Ã°£ + (ÇöÀç½Ç½Ã°£ - ±âÁØ½Ç½Ã°£)* 5
+	// (ï¿½ï¿½ï¿½Ó½Ã°ï¿½ = ï¿½ï¿½ï¿½Ø°ï¿½ï¿½Ó½Ã°ï¿½ + (ï¿½ï¿½ï¿½ï¿½Ç½Ã°ï¿½ - ï¿½ï¿½ï¿½Ø½Ç½Ã°ï¿½)* 5
 	//
 	//time_t gameTime = m_BaseGameTime + (currentTime - m_BaseRealTime)* 24;
 	time_t gameTime = (currentTime - m_BaseRealTime)* 24;
 
-//	ITV¿ë È«º¸¿ë.
+//	ITVï¿½ï¿½ È«ï¿½ï¿½ï¿½ï¿½.
 //	time_t gameTime = m_BaseGameTime + (currentTime - m_BaseRealTime)* 1440;
 
-	// GameTime °´Ã¼¸¦ ÃÊ±âÈ­ÇÏ±â À§ÇØ¼­´Â, tm ½ºÆ®·°Ã³¸¦ ¾ò¾î³»¾ß ÇÑ´Ù.
-	// tm ½ºÆ®·°Ã³¿¡¼­ ³â,ÀÏÀ» Á¦¿ÜÇÑ °ªµéÀÌ 0ºÎÅÍ ½ÃÀÛÇÑ´Ù´Â Á¡¿¡ À¯ÀÇÇÒ °Í.
+	// GameTime ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½ï¿½, tm ï¿½ï¿½Æ®ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Ñ´ï¿½.
+	// tm ï¿½ï¿½Æ®ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 	tm ltm;
 	localtime_r( &gameTime, &ltm );
 	//struct tm* ptm = localtime(&gameTime);
@@ -125,20 +125,20 @@ GameTime TimeManager::getGameTime () const
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇöÀç °ÔÀÓ ½Ã°£À» time_t °ªÀ¸·Î ¾Ë¾Æ³½´Ù.
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ time_t ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ³ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////////////
 time_t TimeManager::getgametime () const 
 	
 {
 	__BEGIN_TRY
 	//
-	// ½Ç½Ã°£ÀÌ °ÔÀÓ½Ã°£¿¡ ºñÇØ¼­ 5¹è ´À¸®°Ô ÁøÇàµÈ´Ù´Â Á¡À» ÀÌ¿ëÇØ¼­
-	// °ÔÀÓ ½Ã°£À» ±¸ÇÑ´Ù.
+	// ï¿½Ç½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	//
-	// (°ÔÀÓ½Ã°£ = ±âÁØ°ÔÀÓ½Ã°£ + (ÇöÀç½Ç½Ã°£ - ±âÁØ½Ç½Ã°£)* 5
+	// (ï¿½ï¿½ï¿½Ó½Ã°ï¿½ = ï¿½ï¿½ï¿½Ø°ï¿½ï¿½Ó½Ã°ï¿½ + (ï¿½ï¿½ï¿½ï¿½Ç½Ã°ï¿½ - ï¿½ï¿½ï¿½Ø½Ç½Ã°ï¿½)* 5
 	//
 	return m_BaseGameTime + (time(0) - m_BaseRealTime)* 24;
-	// ITV È«º¸¿ë.
+	// ITV È«ï¿½ï¿½ï¿½ï¿½.
 //	return m_BaseGameTime + (time(0) - m_BaseRealTime)* 1440;
 	__END_CATCH
 }
@@ -229,9 +229,9 @@ string TimeManager::toString () const
 	__BEGIN_TRY
 	StringStream msg;
 
-	msg << "TimeManager:(" 
-			<< "BaseGameTime:" << (int64_t)ctime(&m_BaseGameTime)
-			<< "BaseRealTime:" << (int64_t)ctime(&m_BaseRealTime)
+	msg << "TimeManager:("
+			<< "BaseGameTime:" << ctime(&m_BaseGameTime)
+			<< "BaseRealTime:" << ctime(&m_BaseRealTime)
 			<< ")";
 
 	return msg.toString();

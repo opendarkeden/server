@@ -21,7 +21,7 @@ class GCAddItemToInventory
 {
 public:
 	GCAddItemToInventory() ;
-	~GCAddItemToInventory() ;
+	~GCAddItemToInventory() noexcept ;
 	
 public:
     void read(SocketInputStream & iStream) ;

@@ -34,7 +34,7 @@ EffectTransportItemToCorpse::EffectTransportItemToCorpse (Zone* pZone, Item* pIt
 	m_pTargetZone = pTargetZone;	
 	m_CorpseObjectID = corpseObjectID;	
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -51,14 +51,14 @@ EffectTransportItemToCorpse::~EffectTransportItemToCorpse ()
 
 	unaffect(m_pZone , m_X , m_Y , m_pTarget);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 			
 
 //----------------------------------------------------------------------
 // affect to target
-// ÀÌ ÀÌÆåÆ®´Â Å¸ÀÏ¿¡ Á¾¼ÓµÇÁö ¾ÊÀ¸¹Ç·Î, affect()´Â È£ÃâµÇÁö ¾Ê´Â´Ù.
-// ¿Ö³ÄÇÏ¸é, targetÀº »ı¼ºÀÚ¿¡¼­ ÁöÁ¤µÇ¸ç, ¾Æ¹«·± ÀÏµµ ÇÏÁö ¾Ê±â ¶§¹®ÀÌ´Ù.
+// ì´ ì´í™íŠ¸ëŠ” íƒ€ì¼ì— ì¢…ì†ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ, affect()ëŠ” í˜¸ì¶œë˜ì§€ ì•ŠëŠ”ë‹¤.
+// ì™œëƒí•˜ë©´, targetì€ ìƒì„±ìì—ì„œ ì§€ì •ë˜ë©°, ì•„ë¬´ëŸ° ì¼ë„ í•˜ì§€ ì•Šê¸° ë•Œë¬¸ì´ë‹¤.
 //----------------------------------------------------------------------
 void EffectTransportItemToCorpse::affect (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y , Object* pTarget)
 	
@@ -85,9 +85,9 @@ void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCo
 	Item* pItem = dynamic_cast<Item*>(pTarget);
 	Assert(pItem!=NULL);
 
-	// ´Ù¸¥ Á¸¿¡ Ãß°¡ÇÑ´Ù.
-	// Multi-threadÀÌ¹Ç·Î.. Á¶½ÉÁ¶½É..
-	// °°Àº ZoneGroupÀÌ¸é °Á ³Ö´Â´Ù.
+	// ë‹¤ë¥¸ ì¡´ì— ì¶”ê°€í•œë‹¤.
+	// Multi-threadì´ë¯€ë¡œ.. ì¡°ì‹¬ì¡°ì‹¬..
+	// ê°™ì€ ZoneGroupì´ë©´ ê± ë„£ëŠ”ë‹¤.
 	if (pZone->getZoneGroup()==m_pTargetZone->getZoneGroup())
 	//if (pZone==m_pTargetZone)
 	{
@@ -105,7 +105,7 @@ void EffectTransportItemToCorpse::unaffect (Zone* pZone , ZoneCoord_t x , ZoneCo
 		}
 		else
 		{
-			throw Error("½ÃÃ¼°¡ ¾Æ´Ï³×");
+			throw Error("ì‹œì²´ê°€ ì•„ë‹ˆë„¤");
 		}
 	}
 	else

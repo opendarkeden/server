@@ -16,5 +16,16 @@ SET(LIBWAR_SRC
 	CorpseItemPosition.cpp
 	RaceWarLimiter.cpp
 	DragonEyeManager.cpp
-	SubInventoryItemPosition.cpp)
+#	SubInventoryItemPosition.cpp)
+)
+
+
 ADD_LIBRARY(War STATIC ${LIBWAR_SRC})
+
+target_include_directories(War PUBLIC
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/src/Core
+	${CMAKE_SOURCE_DIR}/src/server
+	${CMAKE_SOURCE_DIR}/src/server/database
+	${CMAKE_SOURCE_DIR}/src/server/gameserver
+)

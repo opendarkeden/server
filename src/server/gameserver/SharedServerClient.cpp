@@ -13,10 +13,10 @@
 #include <fstream>
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ğµç packetµé¿¡ ´ëÇØ¼­ profilingÇÑ´Ù. by sigi. 2002.5.6
+// ëª¨ë“  packetë“¤ì— ëŒ€í•´ì„œ profilingí•œë‹¤. by sigi. 2002.5.6
 //
-// ´Ü, ÀÌ°É »ç¿ëÇÏ±â À§ÇØ¼­´Â 
-// Profile.h¿¡ MAX_PROFILE_SAMPLES += 300À» ÇØÁà¾ß ÇÑ´Ù.
+// ë‹¨, ì´ê±¸ ì‚¬ìš©í•˜ê¸° ìœ„í•´ì„œëŠ” 
+// Profile.hì— MAX_PROFILE_SAMPLES += 300ì„ í•´ì¤˜ì•¼ í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 //#define __PROFILE_PACKETS__
 
@@ -46,7 +46,7 @@ SharedServerClient::~SharedServerClient ()
 {
 	__BEGIN_TRY
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
@@ -59,7 +59,7 @@ void SharedServerClient::processCommand ()
 {
 	__BEGIN_TRY
 
-	// Çì´õ¸¦ ÀÓ½ÃÀúÀåÇÒ ¹öÆÛ »ı¼º
+	// í—¤ë”ë¥¼ ì„ì‹œì €ì¥í•  ë²„í¼ ìƒì„±
 	char header[szPacketHeader];
 	PacketID_t packetID;
 	PacketSize_t packetSize;
@@ -67,24 +67,24 @@ void SharedServerClient::processCommand ()
 
 	try {
 
-		// ÀÔ·Â¹öÆÛ¿¡ µé¾îÀÖ´Â ¿ÏÀüÇÑ ÆĞÅ¶µéÀ» ¸ğÁ¶¸® Ã³¸®ÇÑ´Ù.
+		// ì…ë ¥ë²„í¼ì— ë“¤ì–´ìˆëŠ” ì™„ì „í•œ íŒ¨í‚·ë“¤ì„ ëª¨ì¡°ë¦¬ ì²˜ë¦¬í•œë‹¤.
 		while (true) 
 		{
-			// ÀÔ·Â½ºÆ®¸²¿¡¼­ ÆĞÅ¶Çì´õÅ©±â¸¸Å­ ÀĞ¾îº»´Ù.
-			// ¸¸¾à ÁöÁ¤ÇÑ Å©±â¸¸Å­ ½ºÆ®¸²¿¡¼­ ÀĞÀ» ¼ö ¾ø´Ù¸é,
-			// Insufficient ¿¹¿Ü°¡ ¹ß»ıÇÏ°í, ·çÇÁ¸¦ ºüÁ®³ª°£´Ù.
-			// NoSuchÁ¦°Å. by sigi. 2002.5.4
+			// ì…ë ¥ìŠ¤íŠ¸ë¦¼ì—ì„œ íŒ¨í‚·í—¤ë”í¬ê¸°ë§Œí¼ ì½ì–´ë³¸ë‹¤.
+			// ë§Œì•½ ì§€ì •í•œ í¬ê¸°ë§Œí¼ ìŠ¤íŠ¸ë¦¼ì—ì„œ ì½ì„ ìˆ˜ ì—†ë‹¤ë©´,
+			// Insufficient ì˜ˆì™¸ê°€ ë°œìƒí•˜ê³ , ë£¨í”„ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.
+			// NoSuchì œê±°. by sigi. 2002.5.4
 			if (!m_pInputStream->peek(&header[0] , szPacketHeader))
 			{
 				break;
 			}
 			
-			// ÆĞÅ¶¾ÆÀÌµğ ¹× ÆĞÅ¶Å©±â¸¦ ¾Ë¾Æ³½´Ù.
-			// ÀÌ¶§ ÆĞÅ¶Å©±â´Â Çì´õ¸¦ Æ÷ÇÔÇÑ´Ù.
+			// íŒ¨í‚·ì•„ì´ë”” ë° íŒ¨í‚·í¬ê¸°ë¥¼ ì•Œì•„ë‚¸ë‹¤.
+			// ì´ë•Œ íŒ¨í‚·í¬ê¸°ëŠ” í—¤ë”ë¥¼ í¬í•¨í•œë‹¤.
 			memcpy(&packetID   , &header[0] , szPacketID);	
 			memcpy(&packetSize , &header[szPacketID] , szPacketSize);
 
-			// ÆĞÅ¶ ¾ÆÀÌµğ°¡ ÀÌ»óÇÏ¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+			// íŒ¨í‚· ì•„ì´ë””ê°€ ì´ìƒí•˜ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 			if (packetID >= (int)Packet::PACKET_MAX)
 			{
 				filelog("SharedServerClient.txt", "Packet ID exceed MAX, RECV [%d/%d]" );
@@ -94,7 +94,7 @@ void SharedServerClient::processCommand ()
 
 			try 
 			{
-				// ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+				// íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 				if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
 				{
 					filelog("SharedServerClient.txt", "Too Larget Packet Size, RECV [%d],PacketSize[%d]" );
@@ -102,22 +102,22 @@ void SharedServerClient::processCommand ()
 					throw InvalidProtocolException("too large packet size");
 				}
 			
-				// ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+				// ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 				if (m_pInputStream->length() < szPacketHeader + packetSize)
 					break;
 
-				// ¿©±â±îÁö ¿Ô´Ù¸é ÀÔ·Â¹öÆÛ¿¡´Â ¿ÏÀüÇÑ ÆĞÅ¶ ÇÏ³ª ÀÌ»óÀÌ µé¾îÀÖ´Ù´Â ¶æÀÌ´Ù.
-				// ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú·ÎºÎÅÍ ÆĞÅ¶¾ÆÀÌµğ¸¦ »ç¿ëÇØ¼­ ÆĞÅ¶ ½ºÆ®·°Ã³¸¦ »ı¼ºÇÏ¸é µÈ´Ù.
-				// ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÆÑÅä¸®¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ì—¬ê¸°ê¹Œì§€ ì™”ë‹¤ë©´ ì…ë ¥ë²„í¼ì—ëŠ” ì™„ì „í•œ íŒ¨í‚· í•˜ë‚˜ ì´ìƒì´ ë“¤ì–´ìˆë‹¤ëŠ” ëœ»ì´ë‹¤.
+				// íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ë¡œë¶€í„° íŒ¨í‚·ì•„ì´ë””ë¥¼ ì‚¬ìš©í•´ì„œ íŒ¨í‚· ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ìƒì„±í•˜ë©´ ëœë‹¤.
+				// íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·íŒ©í† ë¦¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 				pPacket = g_pPacketFactoryManager->createPacket(packetID);
 
-				// ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-				// ÆĞÅ¶ÇÏÀ§Å¬·¡½º¿¡ Á¤ÀÇµÈ read()°¡ virtual ¸ŞÄ¿´ÏÁò¿¡ ÀÇÇØ¼­ È£ÃâµÇ¾î
-				// ÀÚµ¿ÀûÀ¸·Î ÃÊ±âÈ­µÈ´Ù.
+				// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+				// íŒ¨í‚·í•˜ìœ„í´ë˜ìŠ¤ì— ì •ì˜ëœ read()ê°€ virtual ë©”ì»¤ë‹ˆì¦˜ì— ì˜í•´ì„œ í˜¸ì¶œë˜ì–´
+				// ìë™ì ìœ¼ë¡œ ì´ˆê¸°í™”ëœë‹¤.
 				m_pInputStream->readPacket(pPacket);
 
-				// ÀÌÁ¦ ÀÌ ÆĞÅ¶½ºÆ®·°Ã³¸¦ °¡Áö°í ÆĞÅ¶ÇÚµé·¯¸¦ ¼öÇàÇÏ¸é µÈ´Ù.
-				// ÆĞÅ¶¾ÆÀÌµğ°¡ Àß¸øµÉ °æ¿ì´Â ÆĞÅ¶ÇÚµé·¯¸Å´ÏÀú¿¡¼­ Ã³¸®ÇÑ´Ù.
+				// ì´ì œ ì´ íŒ¨í‚·ìŠ¤íŠ¸ëŸ­ì²˜ë¥¼ ê°€ì§€ê³  íŒ¨í‚·í•¸ë“¤ëŸ¬ë¥¼ ìˆ˜í–‰í•˜ë©´ ëœë‹¤.
+				// íŒ¨í‚·ì•„ì´ë””ê°€ ì˜ëª»ë  ê²½ìš°ëŠ” íŒ¨í‚·í•¸ë“¤ëŸ¬ë§¤ë‹ˆì €ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 				#ifdef __PROFILE_PACKETS__
 					
 					beginProfileEx(	pPacket->getPacketName().c_str() );
@@ -130,21 +130,21 @@ void SharedServerClient::processCommand ()
 			} 
 			catch (IgnorePacketException & igpe) 
 			{
-				// ÆĞÅ¶ Å©±â°¡ ³Ê¹« Å©¸é ÇÁ·ÎÅäÄİ ¿¡·¯·Î °£ÁÖÇÑ´Ù.
+				// íŒ¨í‚· í¬ê¸°ê°€ ë„ˆë¬´ í¬ë©´ í”„ë¡œí† ì½œ ì—ëŸ¬ë¡œ ê°„ì£¼í•œë‹¤.
 				if (packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID))
 					throw InvalidProtocolException("too large packet size");
 			
-				// ÀÔ·Â¹öÆÛ³»¿¡ ÆĞÅ¶Å©±â¸¸Å­ÀÇ µ¥ÀÌÅ¸°¡ µé¾îÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+				// ì…ë ¥ë²„í¼ë‚´ì— íŒ¨í‚·í¬ê¸°ë§Œí¼ì˜ ë°ì´íƒ€ê°€ ë“¤ì–´ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 				if (m_pInputStream->length() < szPacketHeader + packetSize)
 					break;
 
-				// µ¥ÀÌÅ¸°¡ ¸ğµÎ µµÂøÇßÀ¸¸é, ±× Å©±â¸¸Å­ ¹«½ÃÇÏ°í,
-				// ´Ù¸¥ ÆĞÅ¶À» Ã³¸®ÇÏµµ·Ï ÇÑ´Ù....
+				// ë°ì´íƒ€ê°€ ëª¨ë‘ ë„ì°©í–ˆìœ¼ë©´, ê·¸ í¬ê¸°ë§Œí¼ ë¬´ì‹œí•˜ê³ ,
+				// ë‹¤ë¥¸ íŒ¨í‚·ì„ ì²˜ë¦¬í•˜ë„ë¡ í•œë‹¤....
 				m_pInputStream->skip(szPacketHeader + packetSize);
 
-				// ¹«½ÃµÈ ÆĞÅ¶Àº, expire ¿¡ ¿µÇâÀ» ÁÖÁö ¾Ê°Ô µÈ´Ù.
-				// Áï À¯È¿ÇÑ ÆĞÅ¶¸¸ÀÌ Â©¸®Áö ¾Ê°Ô ÇØÁØ´Ù.
-				// ¶ÇÇÑ È÷½ºÅä¸®¿¡µµ µé¾î°¡Áö ¾Ê´Â´Ù.
+				// ë¬´ì‹œëœ íŒ¨í‚·ì€, expire ì— ì˜í–¥ì„ ì£¼ì§€ ì•Šê²Œ ëœë‹¤.
+				// ì¦‰ ìœ íš¨í•œ íŒ¨í‚·ë§Œì´ ì§¤ë¦¬ì§€ ì•Šê²Œ í•´ì¤€ë‹¤.
+				// ë˜í•œ íˆìŠ¤í† ë¦¬ì—ë„ ë“¤ì–´ê°€ì§€ ì•ŠëŠ”ë‹¤.
 			}
 		}
 	} 
@@ -160,8 +160,8 @@ void SharedServerClient::processCommand ()
 //
 // flush output buffer to socket's send buffer
 //
-// flushÇÒ µ¿¾È ´Ù¸¥ ¾²·¹µå¿¡¼­ Ãâ·Â ¹öÆÛ¿¡ sendPacketÀ» È£ÃâÇØ¼­´Â ¾ÈµÈ´Ù.
-// (ÀÌ·² °æ¿ì´Â ¼­¹ö°£ Åë½ÅÀ¸·Î say°¡ ³¯¾Æ¿À´Â °Í¹Û¿¡ ¾ø´Ù.)
+// flushí•  ë™ì•ˆ ë‹¤ë¥¸ ì“°ë ˆë“œì—ì„œ ì¶œë ¥ ë²„í¼ì— sendPacketì„ í˜¸ì¶œí•´ì„œëŠ” ì•ˆëœë‹¤.
+// (ì´ëŸ´ ê²½ìš°ëŠ” ì„œë²„ê°„ í†µì‹ ìœ¼ë¡œ sayê°€ ë‚ ì•„ì˜¤ëŠ” ê²ƒë°–ì— ì—†ë‹¤.)
 //
 //////////////////////////////////////////////////////////////////////
 void SharedServerClient::processOutput () 
@@ -176,7 +176,7 @@ void SharedServerClient::processOutput ()
 	} 
 	catch (InvalidProtocolException & It) 
 	{
-		throw DisconnectException("Pipe ¿¬°áÀÇ ÆÄ±«·Î Á¢¼ÓÀ» Â¥¸¥´Ù");
+		throw DisconnectException("Pipe ì—°ê²°ì˜ íŒŒê´´ë¡œ ì ‘ì†ì„ ì§œë¥¸ë‹¤");
 	}
 
 	__LEAVE_CRITICAL_SECTION(m_Mutex)

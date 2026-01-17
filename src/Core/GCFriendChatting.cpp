@@ -11,7 +11,7 @@
 
 
 //////////////////////////////////////////////////////////////////////
-// ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 GCFriendChatting::GCFriendChatting()
 {
@@ -20,8 +20,7 @@ GCFriendChatting::GCFriendChatting()
 	m_IsBlack = 0;
 	m_IsOnLine = 0;
 }
-void GCFriendChatting::read ( SocketInputStream & iStream ) 
-	 throw ( ProtocolException , Error )
+void GCFriendChatting::read ( SocketInputStream & iStream )
 {
 	__BEGIN_TRY
 		
@@ -47,10 +46,9 @@ void GCFriendChatting::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
-void GCFriendChatting::write ( SocketOutputStream & oStream ) const 
-     throw ( ProtocolException , Error )
+void GCFriendChatting::write ( SocketOutputStream & oStream ) const
 {
 	__BEGIN_TRY
 		
@@ -78,8 +76,7 @@ void GCFriendChatting::write ( SocketOutputStream & oStream ) const
 //////////////////////////////////////////////////////////////////////
 // execute packet's handler
 //////////////////////////////////////////////////////////////////////
-void GCFriendChatting::execute ( Player * pPlayer ) 
-	 throw ( ProtocolException , Error )
+void GCFriendChatting::execute ( Player * pPlayer )
 {
 	__BEGIN_TRY
 		 

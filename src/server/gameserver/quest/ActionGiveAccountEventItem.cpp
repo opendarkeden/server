@@ -49,7 +49,7 @@ ActionGiveAccountEventItem::~ActionGiveAccountEventItem()
 	SAFE_DELETE(m_pLuaSlayerItem);
 	SAFE_DELETE(m_pLuaVampireItem);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ void ActionGiveAccountEventItem::read(PropertyBuffer & propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ì•¡ì…˜ì„ ì‹¤í–‰í•œë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -129,7 +129,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 
 	Item*			pItem;
 
-	// ÀÌº¥Æ®°¡ ÁøÇàÁßÀÌÁö ¾ÊÀº °æ¿ì
+	// ì´ë²¤íŠ¸ê°€ ì§„í–‰ì¤‘ì´ì§€ ì•Šì€ ê²½ìš°
 	if (!g_pVariableManager->isActiveGiveEventItem())
 	{
 		GCNPCResponse response;
@@ -143,7 +143,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// ÀÌ¹Ì ¹Ş¾Ò´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// ì´ë¯¸ ë°›ì•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
 	if ( pGamePlayer->getSpecialEventCount() & m_SpecialEventFlag)
 	{
 		GCNPCResponse response;
@@ -157,7 +157,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// À¯·á »ç¿ëÀÚ ¿©ºÎ¸¦ Ã¼Å©ÇÑ´Ù.
+	// ìœ ë£Œ ì‚¬ìš©ì ì—¬ë¶€ë¥¼ ì²´í¬í•œë‹¤.
 	if ( !PaySystem::isPayPlayingPeriodPersonal( pGamePlayer->getID() ) )
 	{
 		GCNPCResponse response;
@@ -176,7 +176,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 
 	if ( pPC->isSlayer() )
 	{
-		// ·ç¾Æ¿¡ ½½·¹ÀÌ¾î ´É·ÂÄ¡ÀÇ ÇÕÀ» setÇÑ´Ù.
+		// ë£¨ì•„ì— ìŠ¬ë ˆì´ì–´ ëŠ¥ë ¥ì¹˜ì˜ í•©ì„ setí•œë‹¤.
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 		Assert( pSlayer != NULL );
 
@@ -191,7 +191,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 	}
 	else if ( pPC->isVampire() )
 	{
-		// ·ç¾Æ¿¡ ¹ìÆÄÀÌ¾îÀÇ ·¹º§À» setÇÑ´Ù.
+		// ë£¨ì•„ì— ë±€íŒŒì´ì–´ì˜ ë ˆë²¨ì„ setí•œë‹¤.
 		Vampire* pVampire = dynamic_cast<Vampire*>(pPC);
 		Assert( pVampire != NULL );
 
@@ -201,7 +201,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		luaFileName = m_VampireFilename;
 	}
 
-	// ·ç¾ÆÀÇ °è»ê °á°ú¸¦ ¹Ş¾Æ ¾ÆÀÌÅÛÀ» »ı¼ºÇÑ´Ù.
+	// ë£¨ì•„ì˜ ê³„ì‚° ê²°ê³¼ë¥¼ ë°›ì•„ ì•„ì´í…œì„ ìƒì„±í•œë‹¤.
 	pLuaSelectItem->prepare();
 	
 	int result = pLuaSelectItem->executeFile( luaFileName );
@@ -225,7 +225,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// ¼±¹°(Item)À» ¸¸µç´Ù.
+	// ì„ ë¬¼(Item)ì„ ë§Œë“ ë‹¤.
 	list<OptionType_t> optionTypeList;
 	if ( OptionType != 0 ) optionTypeList.push_back( OptionType );
 	if ( OptionType2 != 0 ) optionTypeList.push_back( OptionType2 );
@@ -233,7 +233,7 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 	pItem = g_pItemFactoryManager->createItem( ItemClass, ItemType, optionTypeList );
 	Assert( pItem != NULL );
 
-	// ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» ³ÖÀ» ºó ÀÚ¸®¸¦ ¹Ş¾Æ¿Â´Ù.
+	// ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ë„£ì„ ë¹ˆ ìë¦¬ë¥¼ ë°›ì•„ì˜¨ë‹¤.
 	TPOINT p;
 	
 	if (!pInventory->getEmptySlot(pItem, p)) 
@@ -251,12 +251,12 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		return;
 	}
 
-	// ¼±¹°À» ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÑ´Ù.
+	// ì„ ë¬¼ì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€í•œë‹¤.
 	pZone->getObjectRegistry().registerObject( pItem );
 	pInventory->addItem( p.x, p.y, pItem );
 	pItem->create( pPC->getName(), STORAGE_INVENTORY, 0, p.x, p.y );
 
-	// ItemTraceLog ¸¦ ³²±ä´Ù
+	// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 	if ( pItem != NULL && pItem->isTraceItem() )
 	{
 		remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
@@ -264,17 +264,17 @@ void ActionGiveAccountEventItem::execute(Creature * pCreature1 , Creature * pCre
 		remainTraceLogNew( pItem, pCreature2->getName(), ITL_GET, ITLD_EVENTNPC, pCreature1->getZone()->getZoneID(), pCreature1->getX(), pCreature1->getY() );
 	}
 
-	// Å¬¶óÀÌ¾ğÆ®¿¡ ¼±¹°ÀÌ Ãß°¡µÇ¾úÀ½À» ¾Ë¸°´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ì— ì„ ë¬¼ì´ ì¶”ê°€ë˜ì—ˆìŒì„ ì•Œë¦°ë‹¤.
 	GCCreateItem gcCreateItem;
 	makeGCCreateItem( &gcCreateItem, pItem, p.x, p.y );
 	pPlayer->sendPacket(&gcCreateItem);
 
-	// ¼±¹°À» ¹Ş¾Ò´Ù°í Flag ¸¦ ÄÒ´Ù.
+	// ì„ ë¬¼ì„ ë°›ì•˜ë‹¤ê³  Flag ë¥¼ ì¼ ë‹¤.
 	pGamePlayer->setSpecialEventCount( pGamePlayer->getSpecialEventCount() | m_SpecialEventFlag );
-	// Flag ¸¦ ÀúÀåÇÑ´Ù.
+	// Flag ë¥¼ ì €ì¥í•œë‹¤.
 	pGamePlayer->saveSpecialEventCount();
 
-	// º¸»óÀ» ¹Ş¾Ò´Ù°í Å¬¶óÀÌ¾ğÆ®¿¡ º¸³½´Ù.
+	// ë³´ìƒì„ ë°›ì•˜ë‹¤ê³  í´ë¼ì´ì–¸íŠ¸ì— ë³´ë‚¸ë‹¤.
 	GCNPCResponse response;
 	response.setCode( NPC_RESPONSE_GIVE_EVENT_ITEM_OK );
 	pPlayer->sendPacket( &response );

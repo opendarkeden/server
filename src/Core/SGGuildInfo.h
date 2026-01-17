@@ -35,7 +35,7 @@ public:
 	SGGuildInfo() ;
 
 	// destructor
-	~SGGuildInfo() ;
+	~SGGuildInfo() noexcept ;
 	
     void read(SocketInputStream& iStream) ;
 		    

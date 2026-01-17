@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////
 // Filename    : GuildManager.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
 ////////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@ GuildManager::~GuildManager()
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
 
-	// ¸ğµç ±æµå °´Ã¼µéÀ» ¸Ş¸ğ¸®¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// ëª¨ë“  ê¸¸ë“œ ê°ì²´ë“¤ì„ ë©”ëª¨ë¦¬ì—ì„œ ì‚­ì œí•œë‹¤.
 	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.begin();
 	for (; itr != m_Guilds.end(); itr++)
 	{
@@ -69,7 +69,7 @@ GuildManager::~GuildManager()
 
 	__LEAVE_CRITICAL_SECTION( m_Mutex )
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
@@ -87,14 +87,14 @@ void GuildManager::init()
 
 	BEGIN_DB
 	{
-		// ±æµå ID´Â ÃÖ´ë°ªÀ» Á¤ÇØ³õ°í, »õ·Î¿î ±æµå°¡ »ı±â¸é ÃÖ´ë°ª¿¡´Ù
-		// 1À» ´õÇØ¼­ ÇÒ´çÇÏ´Â ¹æ½ÄÀ¸·Î ¿î¿µµÈ´Ù. ±×·¯¹Ç·Î ±æµå ¸Å´ÏÀú°¡
-		// ÃÊ±âÈ­µÉ ¶§, ÇöÀç Á¸ÀçÇÏ´Â ±æµå IDÀÇ ÃÖ´ë°ªÀ» ÀĞ¾îµé¿©µĞ´Ù.
+		// ê¸¸ë“œ IDëŠ” ìµœëŒ€ê°’ì„ ì •í•´ë†“ê³ , ìƒˆë¡œìš´ ê¸¸ë“œê°€ ìƒê¸°ë©´ ìµœëŒ€ê°’ì—ë‹¤
+		// 1ì„ ë”í•´ì„œ í• ë‹¹í•˜ëŠ” ë°©ì‹ìœ¼ë¡œ ìš´ì˜ëœë‹¤. ê·¸ëŸ¬ë¯€ë¡œ ê¸¸ë“œ ë§¤ë‹ˆì €ê°€
+		// ì´ˆê¸°í™”ë  ë•Œ, í˜„ì¬ ì¡´ì¬í•˜ëŠ” ê¸¸ë“œ IDì˜ ìµœëŒ€ê°’ì„ ì½ì–´ë“¤ì—¬ë‘”ë‹¤.
 
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 		pResult = pStmt->executeQuery("SELECT COUNT(*) FROM GuildInfo");
 
-		// Å×ÀÌºí¿¡ µ¥ÀÌÅ¸°¡ ÇÏ³ªµµ ¾ø´Ù¸é, ÀÏ´Ü ¸Æ½º ¾ÆÀÌµğ´Â 1·Î ¼¼ÆÃÇØÁØ´Ù.
+		// í…Œì´ë¸”ì— ë°ì´íƒ€ê°€ í•˜ë‚˜ë„ ì—†ë‹¤ë©´, ì¼ë‹¨ ë§¥ìŠ¤ ì•„ì´ë””ëŠ” 1ë¡œ ì„¸íŒ…í•´ì¤€ë‹¤.
 		pResult->next();
 
 		if (pResult->getInt(1) == 0)
@@ -180,7 +180,7 @@ void GuildManager::load()
 
 	BEGIN_DB
 	{
-		// ±æµå Á¤º¸¸¦ DB·Î ºÎÅÍ ÀĞ¾î¿Â´Ù.
+		// ê¸¸ë“œ ì •ë³´ë¥¼ DBë¡œ ë¶€í„° ì½ì–´ì˜¨ë‹¤.
 		pStmt	= g_pDatabaseManager->getConnection( "DARKEDEN" )->createStatement();
 		pResult	= pStmt->executeQuery( "SELECT GuildID, GuildName, GuildType, GuildRace, GuildState, ServerGroupID, GuildZoneID, Master, Date, Intro FROM GuildInfo WHERE GuildState IN ( %d, %d )",
 										Guild::GUILD_STATE_WAIT, Guild::GUILD_STATE_ACTIVE );
@@ -189,7 +189,7 @@ void GuildManager::load()
 		{
 			GuildState_t state = pResult->getInt(5);
 
-			// ÇöÀç ¿ùµåÀÇ µî·Ï ´ë±âÁßÀÎ ±æµå¿Í È°µ¿ ÁßÀÎ ±æµå¸¸ Ãß°¡ÇÑ´Ù.
+			// í˜„ì¬ ì›”ë“œì˜ ë“±ë¡ ëŒ€ê¸°ì¤‘ì¸ ê¸¸ë“œì™€ í™œë™ ì¤‘ì¸ ê¸¸ë“œë§Œ ì¶”ê°€í•œë‹¤.
 			if ( state == Guild::GUILD_STATE_WAIT || state == Guild::GUILD_STATE_ACTIVE )
 			{
 				Guild* pGuild = new Guild();
@@ -208,7 +208,7 @@ void GuildManager::load()
 				addGuild_NOBLOCKED( pGuild );
 /*
 #ifdef __GAME_SERVER__
-				// ±æµå°¡ Active ÀÌ°í ÀÌ °ÔÀÓ ¼­¹ö¿¡ ¾ÆÁöÆ®°¡ Á¸ÀçÇÑ´Ù¸é ¾ÆÁöÆ® ZoneÀ» ¸¸µç´Ù.
+				// ê¸¸ë“œê°€ Active ì´ê³  ì´ ê²Œì„ ì„œë²„ì— ì•„ì§€íŠ¸ê°€ ì¡´ì¬í•œë‹¤ë©´ ì•„ì§€íŠ¸ Zoneì„ ë§Œë“ ë‹¤.
 				if ( pGuild->getServerGroupID() == g_pConfig->getPropertyInt("ServerID") && state == Guild::GUILD_STATE_ACTIVE )
 				{
 					//////////////
@@ -259,7 +259,7 @@ void GuildManager::load()
 			}
 		}
 
-		// ±æµå ¸â¹ö Á¤º¸¸¦ DB·Î ºÎÅÍ ÀĞ¾î¿Â´Ù.
+		// ê¸¸ë“œ ë©¤ë²„ ì •ë³´ë¥¼ DBë¡œ ë¶€í„° ì½ì–´ì˜¨ë‹¤.
 		pResult = pStmt->executeQuery( "SELECT GuildID, Name, `Rank`, RequestDateTime, LogOn FROM GuildMember WHERE `Rank` IN ( 0, 1, 2, 3 )" );
 
 		while ( pResult->next() )
@@ -338,7 +338,7 @@ void GuildManager::deleteGuild(GuildID_t id)
 
 	if ( !pGuildCastleInfoList.empty() )
 	{
-		// ¼ºÀ» °®°í ÀÖ´Â ±æµå´Ù.. °ø¿ë¼ºÀ¸·Î ¹Ù²ãÁà¾ß µÈ´Ù.
+		// ì„±ì„ ê°–ê³  ìˆëŠ” ê¸¸ë“œë‹¤.. ê³µìš©ì„±ìœ¼ë¡œ ë°”ê¿”ì¤˜ì•¼ ëœë‹¤.
 		list<CastleInfo*>::iterator itr = pGuildCastleInfoList.begin();
 		for ( ; itr != pGuildCastleInfoList.end() ; itr++ )
 		{
@@ -371,7 +371,7 @@ void GuildManager::deleteGuild(GuildID_t id)
 		}
 	}
 
-	// GuildUnion Á¤º¸¸¦ Áö¿öÁØ´Ù
+	// GuildUnion ì •ë³´ë¥¼ ì§€ì›Œì¤€ë‹¤
 /*	{
 
 		// UnionManager->deleteGuild(xx);
@@ -389,13 +389,13 @@ void GuildManager::deleteGuild(GuildID_t id)
 	{
 		pStmt   = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		// DB¿¡¼­ GuildInfo¸¦ Áö¿î´Ù.
+		// DBì—ì„œ GuildInfoë¥¼ ì§€ìš´ë‹¤.
 		pStmt->executeQuery("DELETE FROM GuildInfo WHERE GuildID=%d", id);
 
-		// GuildMember¸¦ ´Ù Áö¿î´Ù.
+		// GuildMemberë¥¼ ë‹¤ ì§€ìš´ë‹¤.
 		pStmt->executeQuery("DELETE FROM GuildMember WHERE GuildID=%d", id);
 
-		// GuildUnionMember ¿¡¼­ ±æµå¸¦ Áö¿î´Ù
+		// GuildUnionMember ì—ì„œ ê¸¸ë“œë¥¼ ì§€ìš´ë‹¤
 		pStmt->executeQuery( "DELETE FROM GuildUnionMember WHERE OwnerGuildID=%d", id );
 		
 		pStmt->executeQuery("UPDATE WarScheduleInfo SET Status='CANCEL' WHERE AttackGuildID=%d", id);
@@ -416,7 +416,7 @@ Guild* GuildManager::getGuild(GuildID_t id)
 {
 	__BEGIN_TRY
 
-	// ¸®ÅÏ ÇÒ ±æµå Æ÷ÀÎÅÍ
+	// ë¦¬í„´ í•  ê¸¸ë“œ í¬ì¸í„°
 	Guild* pGuild;
 
 	__ENTER_CRITICAL_SECTION( m_Mutex )
@@ -445,7 +445,7 @@ Guild* GuildManager::getGuild_NOBLOCKED(GuildID_t id)
 {
 	__BEGIN_TRY
 
-	// ¸®ÅÏ ÇÒ ±æµå Æ÷ÀÎÅÍ
+	// ë¦¬í„´ í•  ê¸¸ë“œ í¬ì¸í„°
 	Guild* pGuild;
 
 	unordered_map<GuildID_t, Guild*>::iterator itr = m_Guilds.find(id);
@@ -582,7 +582,7 @@ void GuildManager::heartbeat()
 	getCurrentTime( currentTime );
 
 	////////////////////////////////////////////////////////
-	// ±æµå °¡ÀÔ ½ÅÃ» ´ë±â ½Ã°£ÀÌ ³Ñ¾î°£ ¸â¹ö¸¦ Áö¿î´Ù.
+	// ê¸¸ë“œ ê°€ì… ì‹ ì²­ ëŒ€ê¸° ì‹œê°„ì´ ë„˜ì–´ê°„ ë©¤ë²„ë¥¼ ì§€ìš´ë‹¤.
 	////////////////////////////////////////////////////////
 	if ( currentTime > m_WaitMemberClearTime )
 	{
@@ -603,7 +603,7 @@ void GuildManager::heartbeat()
 
 			for ( ; itr2 != mList.end(); itr2++ )
 			{
-				// °¡ÀÔÀÌ Ãë¼ÒµÇ¾úÀ½À» °ÔÀÓ¼­¹ö¿¡ ¾Ë¸°´Ù.
+				// ê°€ì…ì´ ì·¨ì†Œë˜ì—ˆìŒì„ ê²Œì„ì„œë²„ì— ì•Œë¦°ë‹¤.
 				SGExpelGuildMemberOK sgExpelGuildMemberOK;
 				sgExpelGuildMemberOK.setGuildID( pGuild->getID() );
 				sgExpelGuildMemberOK.setName( *itr2 );
@@ -613,7 +613,7 @@ void GuildManager::heartbeat()
 			}
 		}
 
-		m_WaitMemberClearTime.tv_sec = currentTime.tv_sec + 3600;			// 1½Ã°£ ÁÖ±â
+		m_WaitMemberClearTime.tv_sec = currentTime.tv_sec + 3600;			// 1ì‹œê°„ ì£¼ê¸°
 
 		__LEAVE_CRITICAL_SECTION( m_Mutex )
 	}
@@ -652,7 +652,7 @@ bool GuildManager::isGuildMaster( GuildID_t guildID, PlayerCreature* pPC )
 #endif
 }
 
-// ±æµå°¡ ¼ºÀ» °¡Á³³ª?
+// ê¸¸ë“œê°€ ì„±ì„ ê°€ì¡Œë‚˜?
 bool GuildManager::hasCastle( GuildID_t guildID ) 
 	
 {
@@ -691,7 +691,7 @@ bool GuildManager::hasCastle( GuildID_t guildID )
 	__END_CATCH
 }
 
-// ±æµå°¡ ¼ºÀ» °¡Á³³ª?
+// ê¸¸ë“œê°€ ì„±ì„ ê°€ì¡Œë‚˜?
 bool GuildManager::hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t& zoneID ) 
 	
 {
@@ -728,7 +728,7 @@ bool GuildManager::hasCastle( GuildID_t guildID, ServerID_t& serverID, ZoneID_t&
 	__END_CATCH
 }
 
-// ±æµå°¡ ÀüÀï½ÅÃ»À» Çß³ª?
+// ê¸¸ë“œê°€ ì „ìŸì‹ ì²­ì„ í–ˆë‚˜?
 bool GuildManager::hasWarSchedule( GuildID_t guildID ) 
 	
 {
@@ -802,7 +802,7 @@ bool GuildManager::hasActiveWar( GuildID_t guildID )
 
 	if ( hasCastle( guildID, serverID, zoneID ) )
 	{
-		// ¼ºÀ» ¼ÒÀ¯ÇÏ°í ÀÖ´Ù¸é ±× ¼ºÀ» »ó´ë·Î ÇÏ´Â ±æµå ÀüÀïÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+		// ì„±ì„ ì†Œìœ í•˜ê³  ìˆë‹¤ë©´ ê·¸ ì„±ì„ ìƒëŒ€ë¡œ í•˜ëŠ” ê¸¸ë“œ ì „ìŸì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 		Statement* pStmt = NULL;
 		
 		BEGIN_DB
@@ -827,7 +827,7 @@ bool GuildManager::hasActiveWar( GuildID_t guildID )
 	}
 	else
 	{
-		// ¼ºÀ» ¼ÒÀ¯ÇÏ°í ÀÖÁö ¾Ê´Ù¸é ±× ±æµå°¡ ¾î¶² ¼ºÀ» »ó´ë·Î ÇÏ´Â ±æµå ÀüÀïÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+		// ì„±ì„ ì†Œìœ í•˜ê³  ìˆì§€ ì•Šë‹¤ë©´ ê·¸ ê¸¸ë“œê°€ ì–´ë–¤ ì„±ì„ ìƒëŒ€ë¡œ í•˜ëŠ” ê¸¸ë“œ ì „ìŸì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 		Statement* pStmt = NULL;
 
 		BEGIN_DB

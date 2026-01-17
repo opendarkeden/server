@@ -2,8 +2,8 @@
 // 
 // Filename    : GCGetOffMotorCycle.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
-//               멤버 정의.
+// Description : Packet notifying the client that a motorcycle dismount
+//               occurred.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -32,19 +32,19 @@ GCGetOffMotorCycle::~GCGetOffMotorCycle ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void GCGetOffMotorCycle::read (SocketInputStream & iStream ) 
 	 
 {
 	__BEGIN_TRY
 		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
+	// Read payload fields in order.
 	iStream.read(m_ObjectID);
 
 	__END_CATCH
@@ -52,14 +52,14 @@ void GCGetOffMotorCycle::read (SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void GCGetOffMotorCycle::write (SocketOutputStream & oStream ) 
      const 
 {
 	__BEGIN_TRY
 		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
+	// Write payload fields in order.
 	oStream.write(m_ObjectID);
 
 	__END_CATCH

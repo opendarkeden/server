@@ -34,7 +34,7 @@ ClientManager* g_pClientManager = NULL;
 
 //////////////////////////////////////////////////////////////////////////////
 // constructor
-// 하위 매니저 객체를 생성한다.
+// Create child manager objects.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::ClientManager ()
 	
@@ -45,7 +45,7 @@ ClientManager::ClientManager ()
 	g_pIncomingPlayerManager = new IncomingPlayerManager();
 	Assert(g_pIncomingPlayerManager != NULL);
 
-	// 다음에 ZoneGroup을 Balancing할 시간을 지정한다.
+	// Schedule the next ZoneGroup balancing time.
 	getCurrentTime( m_BalanceZoneGroupTime );
 	m_BalanceZoneGroupTime.tv_sec += 5*60;//g_pVariableManager->getZoneGroupBalancingMinute()*60;
 	m_bForceZoneGroupBalancing = false;
@@ -58,7 +58,7 @@ ClientManager::ClientManager ()
 
 //////////////////////////////////////////////////////////////////////////////
 // destructor
-// 하위 매니저 객체를 삭제한다.
+// Destroy child manager objects.
 //////////////////////////////////////////////////////////////////////////////
 ClientManager::~ClientManager ()
 	
@@ -68,11 +68,11 @@ ClientManager::~ClientManager ()
 	// Delete incoming player manager
 	SAFE_DELETE(g_pIncomingPlayerManager);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// 하위 매니저 객체를 초기화한다.
+// Initialize child manager objects.
 //////////////////////////////////////////////////////////////////////////////
 void ClientManager::init ()
 	 
@@ -92,7 +92,7 @@ void ClientManager::stop ()
 {
 	__BEGIN_TRY
 
-	// 시그널방식으로 나중에 구현하도록 한다.
+	// To be implemented later using signals.
 	throw UnsupportedError(__PRETTY_FUNCTION__);
 	
 	__END_CATCH
@@ -132,7 +132,7 @@ void ClientManager::run ()
 	    //ofstream file("ClientManager.txt", ios::out | ios::app);
 		//StringStream msg;
 
-		// CPU 점유율을 줄이기 위해 0.001초 동안 쉰다.
+			// Sleep 1ms to reduce CPU usage.
 		try 
 		{
 			// I/O Multiplexing
@@ -160,8 +160,8 @@ void ClientManager::run ()
 		} 
 		catch (TimeoutException&) 
 		{
-			// select()에서 timeout이 발생하면, 이후에 할 일이 하나도 없다.
-			// 바로 다음 루프로 넘어가면 되겠다..
+			// If select() times out, there is nothing to do.
+			// Just continue to the next loop iteration.
 		}
 		catch (Error&)
 		{
@@ -194,8 +194,7 @@ void ClientManager::run ()
 
 		//usleep(100);
 
-		// 현재 시간을 측정해서, 30초마다 ConnectionInfoManager 에서
-		// expire 된 ConnectionInfo 를 삭제한다.
+			// Track current time; every 30 seconds purge expired ConnectionInfo in ConnectionInfoManager.
 
 		g_pIncomingPlayerManager->heartbeat();
 
@@ -211,8 +210,7 @@ void ClientManager::run ()
 		{
 			g_pDatabaseManager->executeDummyQuery( g_pDatabaseManager->getDistConnection("PLAYERDB") );
 
-			// 1시간 ~ 1시간 30분 사이에서 dummy query 시간을 설정한다.
-			// timeout이 되지 않게 하기 위해서이다.
+			// Set a dummy query time between 1h and 1h30 to avoid timeouts.
 			dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 		}
 
@@ -269,7 +267,7 @@ void ClientManager::run ()
 				UserGateway::getInstance()->clear();
 			}*/
 
-			// 10초 후 다시 체크
+			// Check again after 10 seconds.
 			userGatewayTime.tv_sec += 10;
 		}
 
@@ -293,7 +291,7 @@ void ClientManager::run ()
 			}
 		}
 
-		// 전쟁~
+			// War handling
 		if (g_pVariableManager->isWarActive())
 		{
 			g_pWarSystem->heartbeat();
@@ -304,10 +302,10 @@ void ClientManager::run ()
 			g_pFlagManager->heartbeat();
 		}
 
-		// 지워준다.
+			// Remove it.
 		g_pParkingCenter->heartbeat();
 
-		// CPU 점유율을 줄이기 위해 0.001초 동안 쉰다.
+			// Sleep 1ms to reduce CPU usage.
 	} //while
 
 	__END_DEBUG
@@ -349,7 +347,7 @@ void ClientManager::addEvent_LOCKED (Event* pEvent)
 {
 	__BEGIN_TRY
 
-	// 이미 있는걸 지운다.
+	// Remove existing entry first.
 	m_EventManager.deleteEvent(pEvent->getEventClass());
 
 	m_EventManager.addEvent(pEvent);

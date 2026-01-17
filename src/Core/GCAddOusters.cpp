@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include "GCAddOusters.h"
+#include <exception>
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddOusters member methods
@@ -25,14 +26,19 @@ GCAddOusters::GCAddOusters(const PCOustersInfo3& info)
 	m_pNicknameInfo = NULL;
 }
 
-GCAddOusters::~GCAddOusters()
+GCAddOusters::~GCAddOusters() noexcept
 	
 {
-	__BEGIN_TRY
-	
-	SAFE_DELETE(m_pEffectInfo);
-
-	__END_CATCH
+	try
+	{
+		SAFE_DELETE(m_pEffectInfo);
+		SAFE_DELETE(m_pPetInfo);
+		SAFE_DELETE(m_pNicknameInfo);
+	}
+	catch (const std::exception&)
+	{
+		// ignore during teardown
+	}
 }
 
 void GCAddOusters::read (SocketInputStream & iStream ) 

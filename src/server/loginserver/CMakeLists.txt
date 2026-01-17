@@ -1,24 +1,51 @@
-INCLUDE_DIRECTORIES(.)
-ADD_DEFINITIONS(-D__LOGIN_SERVER__)
-SET(LOGINSERVER_SRC 
-ClientManager.cpp              LoginServer.cpp
-GameServerGroupInfoManager.cpp ReconnectLoginInfoManager.cpp
-GameServerManager.cpp          UserInfoManager.cpp
-ItemDestroyer.cpp              ZoneGroupInfoManager.cpp
-LoginPlayer.cpp                ZoneInfoManager.cpp
-LoginPlayerManager.cpp         main.cpp)
+# ============================================================================
+# LoginServer 可执行文件
+# ============================================================================
 
-SET(LoginServerBilling_SRC 
-../gameserver/billing/BillingPlayer.cpp              
-../gameserver/billing/BillingPlayerInfo.cpp              
-../gameserver/billing/BillingPlayerManager.cpp
-../gameserver/billing/CommonBillingPacket.cpp
-../gameserver/billing/CommonBillingPacketHandler.cpp
+set(LOGINSERVER_SOURCES
+    ClientManager.cpp
+    UserInfoManager.cpp
+    GameServerGroupInfoManager.cpp
+    GameServerManager.cpp
+    LoginPlayer.cpp
+    LoginPlayerManager.cpp
+    LoginServer.cpp
+    ZoneGroupInfoManager.cpp
+    ZoneInfoManager.cpp
+    main.cpp
+    ItemDestroyer.cpp
+    ReconnectLoginInfoManager.cpp
 )
 
-ADD_LIBRARY(LoginServerBilling ${LoginServerBilling_SRC})
-SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../lib)
+add_executable(loginserver ${LOGINSERVER_SOURCES})
 
-ADD_EXECUTABLE(loginserver ${LOGINSERVER_SRC})
-TARGET_LINK_LIBRARIES(loginserver LoginServerPackets Database ServerCore Core LoginServerBilling CBilling mysqlclient zlog pthread)
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../bin)
+# 编译定义
+target_compile_definitions(loginserver PRIVATE __LOGIN_SERVER__)
+
+# 包含目录
+target_include_directories(loginserver PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_SOURCE_DIR}/src/Core
+    ${CMAKE_SOURCE_DIR}/src/server
+    ${CMAKE_SOURCE_DIR}/src/server/database
+    ${CMAKE_SOURCE_DIR}/src/server/gameserver/billing
+)
+
+# 链接库
+if(APPLE)
+    set(EXTRA_LIBS z)
+elseif(UNIX)
+    set(EXTRA_LIBS nsl z dl)
+endif()
+
+target_link_libraries(loginserver PRIVATE
+    LoginServerDatabase
+    LoginServerPackets
+    ServerCore
+    Core
+    LoginServerBilling
+    LoginServerCBilling
+    ${MYSQL_LIBRARY}
+    Threads::Threads
+    ${EXTRA_LIBS}
+)

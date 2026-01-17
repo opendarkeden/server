@@ -34,8 +34,6 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		// 만일 이 기술이 특별한 무기가 있어야 시전할 수 있는 기술이라면...
-		// 그 계열의 무기를 들고 있는지를 체크해서 아니라면 실패다.
 		bool bIncreaseExp = true;
 		if (param.ItemClass != Item::ITEM_CLASS_MAX)
 		{
@@ -62,13 +60,10 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		bool bTimeCheck  = verifyRunTime(pSkillSlot);
 		bool bRangeCheck = verifyDistance(pSlayer, X, Y, pSkillInfo->getRange());
 
-		// 마나가 있어야 하고, 시간과 거리 체크에 성공하고,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP를 떨어뜨린다.
 			decreaseMana(pSlayer, RequiredMP, _GCSkillToTileOK1);
 
-			// 좌표와 방향을 구한다.
 			ZoneCoord_t myX          = pSlayer->getX();
 			ZoneCoord_t myY          = pSlayer->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -76,6 +71,7 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 			Damage_t    MaxDamage    = 0;
 			bool        bCriticalHit = false;
 			bool        bHit         = false;
+			(void)bHit;
 
 			Level_t maxEnemyLevel = 0;
 			uint EnemyNum = 0;
@@ -93,10 +89,8 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// 현재 타일이 존 내부이고, 안전지대가 아니라면, 맞을 확률이 있다.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// 타일을 받아온다.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -141,7 +135,6 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								bHitRoll = HitRoll::isSuccess(pSlayer, pTargetCreature, SkillLevel/2);
 							}
 
-							// 도 계열의 기술은 맞지 않더라도 7%의 데미지를 가진다 - by bezz
 							if ( param.ItemClass == Item::ITEM_CLASS_BLADE && !bHitRoll )
 							{
 								bHitRoll = true;
@@ -175,7 +168,6 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 									Damage += param.SkillDamage;
 								}
 
-								// HitRoll 에서 실패한 도 계열의 기술의 경우 7%의 데미지를 갖도록 한다 - by bezz
 								if ( bSetMinDamage )
 								{
 									Damage = getPercentValue( Damage, 7 );
@@ -183,7 +175,6 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// 페널티는 기본적으로 100이다.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -193,19 +184,16 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// 일단 맞는 놈이 받을 패킷은 널 상태로 한 채로, 데미지를 준다.
 								setDamage(pTargetCreature, Damage, pSlayer, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pSlayer, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pSlayer, pTargetCreature, _GCSkillToTileOK1);
 
-								// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pSlayer->getX(), pSlayer->getY());
 								}
 
-								// 상대방이 슬레이어가 아닐 경우에만 맞춘 걸로 간주한다. 
 								if (!pTargetCreature->isSlayer())
 								{
 									bHit = true;
@@ -254,7 +242,6 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -264,22 +251,18 @@ void SimpleTileMeleeSkill::execute(Slayer* pSlayer, int X, int Y, SkillSlot* pSk
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HP의 변경사항을 패킷에다 기록한다.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// 아이템의 내구력을 떨어뜨린다.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// 패킷을 보내준다.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// 당근 적으로 인식한다.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pSlayer);
 				}
@@ -334,13 +317,10 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 		bool bTimeCheck  = verifyRunTime(pVampireSkillSlot);
 		bool bRangeCheck = verifyDistance(pVampire, X, Y, pSkillInfo->getRange());
 
-		// 마나가 있어야 하고, 시간과 거리 체크에 성공하고,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP를 떨어뜨린다.
 			decreaseMana(pVampire, RequiredMP, _GCSkillToTileOK1);
 
-			// 좌표와 방향을 구한다.
 			ZoneCoord_t myX          = pVampire->getX();
 			ZoneCoord_t myY          = pVampire->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -361,10 +341,8 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// 현재 타일이 존 내부이고, 안전지대가 아니라면, 맞을 확률이 있다.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// 타일을 받아온다.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -442,7 +420,6 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// 페널티는 기본적으로 100이다.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -452,13 +429,11 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// 일단 맞는 놈이 받을 패킷은 널 상태로 한 채로, 데미지를 준다.
 								setDamage(pTargetCreature, Damage, pVampire, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pVampire, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pVampire, pTargetCreature, _GCSkillToTileOK1);
 
-								// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pVampire->getX(), pVampire->getY());
@@ -500,7 +475,6 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -510,7 +484,6 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HP의 변경사항을 패킷에다 기록한다.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
@@ -518,15 +491,12 @@ void SimpleTileMeleeSkill::execute(Vampire* pVampire, int X, int Y, VampireSkill
 
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// 아이템의 내구력을 떨어뜨린다.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// 패킷을 보내준다.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// 당근 적으로 인식한다.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pVampire);
 				}
@@ -570,8 +540,6 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		Assert(pPlayer != NULL);
 		Assert(pZone != NULL);
 
-		// 만일 이 기술이 특별한 무기가 있어야 시전할 수 있는 기술이라면...
-		// 그 계열의 무기를 들고 있는지를 체크해서 아니라면 실패다.
 		if (param.ItemClass != Item::ITEM_CLASS_MAX)
 		{
 			Item* pItem = pOusters->getWearItem(Ousters::WEAR_RIGHTHAND);
@@ -595,13 +563,10 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		bool bTimeCheck  = verifyRunTime(pOustersSkillSlot);
 		bool bRangeCheck = verifyDistance(pOusters, X, Y, pSkillInfo->getRange());
 
-		// 마나가 있어야 하고, 시간과 거리 체크에 성공하고,
 		if (bManaCheck && bTimeCheck && bRangeCheck)
 		{
-			// MP를 떨어뜨린다.
 			decreaseMana(pOusters, RequiredMP, _GCSkillToTileOK1);
 
-			// 좌표와 방향을 구한다.
 			ZoneCoord_t myX          = pOusters->getX();
 			ZoneCoord_t myY          = pOusters->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -623,10 +588,8 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// 현재 타일이 존 내부이고, 안전지대가 아니라면, 맞을 확률이 있다.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// 타일을 받아온다.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -698,7 +661,6 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 									Damage += param.SkillDamage;
 								}
 
-								// HitRoll 에서 실패한 도 계열의 기술의 경우 7%의 데미지를 갖도록 한다 - by bezz
 								if ( bSetMinDamage )
 								{
 									Damage = getPercentValue( Damage, 7 );
@@ -706,7 +668,6 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// 페널티는 기본적으로 100이다.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -716,19 +677,16 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// 일단 맞는 놈이 받을 패킷은 널 상태로 한 채로, 데미지를 준다.
 								setDamage(pTargetCreature, Damage, pOusters, param.SkillType, NULL, &_GCSkillToTileOK1);
 								computeAlignmentChange(pTargetCreature, Damage, pOusters, NULL, &_GCSkillToTileOK1);
 
 								increaseAlignment(pOusters, pTargetCreature, _GCSkillToTileOK1);
 
-								// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
 								if (bCriticalHit || bForceKnockback)
 								{
 									knockbackCreature(pZone, pTargetCreature, pOusters->getX(), pOusters->getY());
 								}
 
-								// 상대방이 아우스터즈가 아닐 경우에만 맞춘 걸로 간주한다. 
 								if (!pTargetCreature->isOusters())
 								{
 									bHit = true;
@@ -772,7 +730,6 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 		
 			pPlayer->sendPacket(&_GCSkillToTileOK1);
 		
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -782,22 +739,18 @@ void SimpleTileMeleeSkill::execute(Ousters* pOusters, int X, int Y, OustersSkill
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HP의 변경사항을 패킷에다 기록한다.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// 아이템의 내구력을 떨어뜨린다.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// 패킷을 보내준다.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// 당근 적으로 인식한다.
 					Monster* pMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pMonster->addEnemy(pOusters);
 				}
@@ -845,10 +798,8 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 
 		bool bRangeCheck = verifyDistance(pMonster, X, Y, pSkillInfo->getRange());
 
-		// 마나가 있어야 하고, 시간과 거리 체크에 성공하고,
 		if (bRangeCheck)
 		{
-			// 좌표와 방향을 구한다.
 			ZoneCoord_t myX          = pMonster->getX();
 			ZoneCoord_t myY          = pMonster->getY();	
 			Dir_t       dir          = calcDirection(myX, myY, X, Y);
@@ -869,10 +820,8 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 				int tileY   = Y + mask.y;
 				int penalty = mask.penalty;
 
-				// 현재 타일이 존 내부이고, 안전지대가 아니라면, 맞을 확률이 있다.
 				if (rect.ptInRect(tileX, tileY))
 				{
-					// 타일을 받아온다.
 					Tile& tile = pZone->getTile(tileX, tileY);
 
 					list<Creature*> targetList;
@@ -898,7 +847,6 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 						Creature* pTargetCreature = (*itr);
 						Assert(pTargetCreature != NULL);
 
-						// 공격 대상이 맞는지 확인한다.
 						if (pMonster->isEnemyToAttack( pTargetCreature ))
 						{
 							bool bMoveModeCheck  = (pTargetCreature->getMoveMode() == Creature::MOVE_MODE_WALKING) ? true : false;
@@ -917,7 +865,6 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 								bHitRoll = HitRoll::isSuccess(pMonster, pTargetCreature, 0);
 							}
 
-							// bMoveModeCheck 하는거 여기서는 뺐다. 지하에 있는 놈들도 맞으라고. 2003.10.27
 							if (!bRaceCheck && bHitRoll && bCanHit && bPK && bZoneLevelCheck)
 							{
 								CheckCrossCounter(pMonster, pTargetCreature, Damage, pSkillInfo->getRange());
@@ -941,7 +888,6 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 
 								MaxDamage = max(Damage, MaxDamage);
 
-								// 페널티는 기본적으로 100이다.
 								Damage = getPercentValue(Damage, penalty);
 
 								ObjectID_t targetObjectID = pTargetCreature->getObjectID();
@@ -950,11 +896,8 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 								_GCSkillToTileOK2.addCListElement(targetObjectID);
 								_GCSkillToTileOK5.addCListElement(targetObjectID);
 
-								// 일단 맞는 놈이 받을 패킷은 널 상태로 한 채로, 데미지를 준다.
 								setDamage(pTargetCreature, Damage, pMonster, param.SkillType, NULL, NULL);
 
-								// 크리티컬 히트라면 상대방을 뒤로 물러나게 한다.
-								// 걸어다니는 놈들만 knockback시킨다.
 								if ( bMoveModeCheck && (bCriticalHit || bForceKnockback) )
 								{
 									knockbackCreature(pZone, pTargetCreature, pMonster->getX(), pMonster->getY());
@@ -979,7 +922,6 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 			_GCSkillToTileOK5.setRange(dir);
 			_GCSkillToTileOK5.setDuration(0);
 		
-			// 이 기술에 의해 영향을 받는 놈들에게 패킷을 보내줘야 한다.
 			for (list<Creature*>::const_iterator itr = cList.begin(); itr != cList.end(); itr++)
 			{
 				Creature * pTargetCreature = *itr;
@@ -989,22 +931,18 @@ void SimpleTileMeleeSkill::execute(Monster* pMonster, int X, int Y,
 				{
 					_GCSkillToTileOK2.clearList();
 
-					// HP의 변경사항을 패킷에다 기록한다.
 					HP_t targetHP = 0;
 					if (pTargetCreature->isSlayer()) targetHP = (dynamic_cast<Slayer*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isVampire()) targetHP = (dynamic_cast<Vampire*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					else if (pTargetCreature->isOusters()) targetHP = (dynamic_cast<Ousters*>(pTargetCreature))->getHP(ATTR_CURRENT);
 					_GCSkillToTileOK2.addShortData(MODIFY_CURRENT_HP, targetHP);
 
-					// 아이템의 내구력을 떨어뜨린다.
 					decreaseDurability(NULL, pTargetCreature, pSkillInfo, NULL, &_GCSkillToTileOK2);
 
-					// 패킷을 보내준다.
 					pTargetCreature->getPlayer()->sendPacket(&_GCSkillToTileOK2);
 				}
 				else if (pTargetCreature->isMonster())
 				{
-					// 당근 적으로 인식한다.
 					Monster* pTargetMonster = dynamic_cast<Monster*>(pTargetCreature);
 					pTargetMonster->addEnemy(pMonster);
 				}

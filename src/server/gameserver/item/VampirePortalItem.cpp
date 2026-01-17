@@ -96,7 +96,7 @@ VampirePortalItem::~VampirePortalItem()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void VampirePortalItem::create(const string & ownerID, Storage storage, StorageID_t storageID, BYTE x, BYTE y, ItemID_t itemID) 
@@ -458,7 +458,7 @@ void VampirePortalItemLoader::load(Creature* pCreature)
 					pInventory = pVampire->getInventory();
 					pStash     = pVampire->getStash();
 				}
-				else throw UnsupportedError("Monster,NPC ÀÎº¥Åä¸®ÀÇ ÀúÀåÀº ¾ÆÁ÷ Áö¿øµÇÁö ¾Ê½À´Ï´Ù.");
+				else throw UnsupportedError("Monster,NPC ì¸ë²¤í† ë¦¬ì˜ ì €ì¥ì€ ì•„ì§ ì§€ì›ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 
 				if (storage == STORAGE_INVENTORY)
 				{

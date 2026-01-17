@@ -41,12 +41,12 @@ ZoneGroupThread::~ZoneGroupThread ()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// ¾²·¹µå ¸Ş½îµåµéÀº ÃÖ»óÀ§·Î »ç¿ëµÇ¹Ç·Î __BEGIN_TRY¿Í __END_CATCH
-// ¸¦ ÇÒ ÇÊ¿ä°¡ ¾ø´Ù. Áï ¸ğµç ¿¹¿Ü¸¦ Àâ¾Æ¼­ Ã³¸®ÇØ¾ß ÇÑ´Ù´Â ¼Ò¸®.
+// ì“°ë ˆë“œ ë©”ì˜ë“œë“¤ì€ ìµœìƒìœ„ë¡œ ì‚¬ìš©ë˜ë¯€ë¡œ __BEGIN_TRYì™€ __END_CATCH
+// ë¥¼ í•  í•„ìš”ê°€ ì—†ë‹¤. ì¦‰ ëª¨ë“  ì˜ˆì™¸ë¥¼ ì¡ì•„ì„œ ì²˜ë¦¬í•´ì•¼ í•œë‹¤ëŠ” ì†Œë¦¬.
 //////////////////////////////////////////////////////////////////////////////
 void ZoneGroupThread::run () 
 	
@@ -62,7 +62,7 @@ void ZoneGroupThread::run ()
 		port = g_pConfig->getPropertyInt("DB_PORT");
 
 	Connection* pConnection = new Connection(host, db, user, password, port);
-	g_pDatabaseManager->addConnection((int)Thread::self(), pConnection);
+	g_pDatabaseManager->addConnection((int)(long)Thread::self(), pConnection);
 	cout << "******************************************************" << endl;
 	cout << " THREAD CONNECT DB " << endl;
 	cout << "******************************************************" << endl;
@@ -76,14 +76,14 @@ void ZoneGroupThread::run ()
 		dist_port = g_pConfig->getPropertyInt("UI_DB_PORT");
 
 	Connection* pDistConnection = new Connection(dist_host, dist_db, dist_user, dist_password, dist_port);
-	g_pDatabaseManager->addDistConnection(((int)Thread::self()), pDistConnection);
+	g_pDatabaseManager->addDistConnection(((int)(long)Thread::self()), pDistConnection);
 	cout << "******************************************************" << endl;
 	cout << " THREAD CONNECT UIIRIBUTION DB " << endl;
-	cout << " TID Number = " << (int)Thread::self()<< endl;
+	cout << " TID Number = " << (int)(long)Thread::self()<< endl;
 	cout << "******************************************************" << endl;
 
 	/*
-	// Login DB ÀÇ PCRoomDBInfo Table ÀĞ¾î¼­ Connection ¸¸µé±â
+	// Login DB ì˜ PCRoomDBInfo Table ì½ì–´ì„œ Connection ë§Œë“¤ê¸°
 	Statement * pStmt = NULL;
 	pStmt = pDistConnection->createStatement();
 	Result * pResult = NULL;
@@ -129,7 +129,7 @@ void ZoneGroupThread::run ()
 		try {
 		beginProfileExNoTry("ZGT_MAIN");
 
-		usleep(100); // CPU Á¡À¯À²À» ÁÙÀÌ±â À§ÇØ¼­ °­Á¦·Î 0.001 ÃÊµ¿¾È ½®´Ù.
+		usleep(100); // CPU ì ìœ ìœ¨ì„ ì¤„ì´ê¸° ìœ„í•´ì„œ ê°•ì œë¡œ 0.001 ì´ˆë™ì•ˆ ì‰°ë‹¤.
 
 		__ENTER_CRITICAL_SECTION((*m_pZoneGroup))
 
@@ -157,8 +157,8 @@ void ZoneGroupThread::run ()
 			g_pDatabaseManager->executeDummyQuery( pConnection );
 			g_pDatabaseManager->executeDummyQuery( pDistConnection );
 
-			// 1½Ã°£ ~ 1½Ã°£ 30ºĞ »çÀÌ¿¡¼­ dummy query ½Ã°£À» ¼³Á¤ÇÑ´Ù.
-		    // timeoutÀÌ µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+			// 1ì‹œê°„ ~ 1ì‹œê°„ 30ë¶„ ì‚¬ì´ì—ì„œ dummy query ì‹œê°„ì„ ì„¤ì •í•œë‹¤.
+		    // timeoutì´ ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œì´ë‹¤.
 		    dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 		}
 
@@ -177,8 +177,8 @@ void ZoneGroupThread::run ()
 			NextTime.tv_sec = currentTime.tv_sec + 10;
 			NextTime.tv_usec = currentTime.tv_usec;
 
-			// ¸ÅÅÏ¸¶´Ù ÇÁ·ÎÆÄÀÏ µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇØÁØ´Ù.
-			// ´©Àû µ¥ÀÌÅÍº¸´Ù´Â ½Ã°£´ë¿¡ µû¸¥ ½Ã°£À» ÃøÁ¤ÇÏ±â À§ÇØ¼­...
+			// ë§¤í„´ë§ˆë‹¤ í”„ë¡œíŒŒì¼ ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•´ì¤€ë‹¤.
+			// ëˆ„ì  ë°ì´í„°ë³´ë‹¤ëŠ” ì‹œê°„ëŒ€ì— ë”°ë¥¸ ì‹œê°„ì„ ì¸¡ì •í•˜ê¸° ìœ„í•´ì„œ...
 			initProfileEx();
 		}
 	}

@@ -33,12 +33,12 @@ DatabaseManager::~DatabaseManager ()
 {
 	__BEGIN_TRY
 	
-	// ¸ðµç Connection ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ Connection ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	hash_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
 		SAFE_DELETE(itr->second);
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Connections.clear();
 
 	SAFE_DELETE(m_pDefaultConnection);
@@ -71,8 +71,8 @@ void DatabaseManager::init ()
 		pStmt = m_pDefaultConnection->createStatement();
 		Result * pResult = NULL;
 
-		// ½Ã°£ Ã¼Å©
-		// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¼­¹ö°£¿¡ ½Ã°£Â÷ÀÌ°¡ 1½Ã°£ ÀÌ»óÀÌ¸é ¾È¶á´Ù.
+		// ï¿½Ã°ï¿½ Ã¼Å©
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 1ï¿½Ã°ï¿½ ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½È¶ï¿½ï¿½.
 		pResult = pStmt->executeQuery( "SELECT now()" );
 		if ( pResult->next() )
 		{
@@ -95,7 +95,7 @@ void DatabaseManager::init ()
 
 			if ( (int)dbDiff > 3600 )
 			{
-				// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¼­¹ö°£¿¡ ½Ã°£Â÷ÀÌ°¡ 1½Ã°£ ÀÌ»óÀÌ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 1ï¿½Ã°ï¿½ ï¿½Ì»ï¿½ï¿½Ì´ï¿½.
 				cout << "======================================================" << endl;
 				cout << "!!! Time Check Error !!!" << endl;
 				cout << "!!! Please check DB server and service server time !!!" << endl;
@@ -141,6 +141,25 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 	__END_CATCH
 }
 
+Connection * DatabaseManager::getConnection ()
+	throw ( NoSuchElementException )
+{
+	__BEGIN_TRY
+
+	Connection * pTempConnection = NULL;
+
+	hash_map<int, Connection*>::iterator itr = m_Connections.find(Thread::self());
+
+	if(itr == m_Connections.end())
+		pTempConnection = m_pDefaultConnection;
+	else
+		pTempConnection = itr->second;
+
+	return pTempConnection;
+
+	__END_CATCH
+}
+
 Connection * DatabaseManager::getConnection ( const string& connName ) 
 	throw ( NoSuchElementException )
 {
@@ -150,7 +169,7 @@ Connection * DatabaseManager::getConnection ( const string& connName )
 
 	hash_map<int, Connection*>::iterator itr;
 
-	// connName¿¡ ´ëÇØ¼­ °¢±â ´Ù¸¥ DB Server·Î ºÐ±âÇÏµµ·Ï ÇÑ´Ù.
+	// connNameï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ DB Serverï¿½ï¿½ ï¿½Ð±ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	//if(connName == "DIST_DARKEDEN")
 	//{
 	//	itr = m_DistConnections.find(Thread::self());

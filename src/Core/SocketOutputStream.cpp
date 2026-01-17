@@ -36,19 +36,15 @@ SocketOutputStream::SocketOutputStream ( Socket * sock , uint BufferLen )
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-SocketOutputStream::~SocketOutputStream () 
+SocketOutputStream::~SocketOutputStream () noexcept
 {
-	__BEGIN_TRY
-
 	if ( m_Buffer != NULL ) {
-		// ¿¬°áÀÌ ²÷°Ü¼­ ConnectException À» ¹Þ¾Æ Á¾·áµÈ »óÅÂ¿¡¼­
-		// flush¸¦ ÇÒ °æ¿ì SIGPIPE °¡ ³­´Ù. µû¶ó¼­, ¹«½ÃÇÏÀÚ~
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü¼ï¿½ ConnectException ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
+		// flushï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ SIGPIPE ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~
 		// flush();
 		delete [] m_Buffer;
 		m_Buffer = NULL;
 	}
-	
-	__END_CATCH
 }
 
 
@@ -61,22 +57,22 @@ SocketOutputStream::~SocketOutputStream ()
 // ( ( m_Head = m_Tail + 1 ) ||  
 //   ( ( m_Head == 0 ) && ( m_Tail == m_BufferLen - 1 ) )
 //
-// ÀÏ ¶§ ¹öÆÛ full ·Î °£ÁÖÇÑ´Ù´Â °ÍÀ» ÀØÁö ¸»¶ó. µû¶ó¼­, ¹öÆÛÀÇ ºó
-// °ø°£ÀÇ Å©±â´Â Ç×»ó 1 À» »©Áà¾ß ÇÑ´Ù´Â »ç½Ç!
+// ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ full ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½×»ï¿½ 1 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´Ù´ï¿½ ï¿½ï¿½ï¿½!
 //
 //////////////////////////////////////////////////////////////////////
 uint SocketOutputStream::write ( const char * buf , uint len ) 
 {
 	__BEGIN_TRY
 		
-	// ÇöÀç ¹öÆÛÀÇ ºó ¿µ¿ªÀ» °è»êÇÑ´Ù.
-	// (!) m_Head > m_TailÀÎ °æ¿ì¿¡ m_Head - m_Tail - 1 ·Î ¼öÁ¤Çß´Ù. by sigi. 2002.9.16
-	// ±Ùµ¥ buffer_resize°¡ ´õ ÀÚÁÖ ÀÏ¾î³µ´Ù. ´Ù¸¥µ¥ ¹®Á¦°¡ ÀÖ´Âµ¥ ÀÏ´Ü ¸ø Ã£°ÚÀ¸¹Ç·Î.. back. by sigi. 2002.9.23
-	// Å×½ºÆ® ÇØº¸´Ï±î.. Á¤»óÀûÀÌ¾ú´Ù. ½ÇÁ¦·Î buffer resize°¡ ºó¹øÈ÷ ÀÏ¾î³ª´Â ¿øÀÎÀº ¹»±î? ´Ù½Ã ¼öÁ¤. by sigi. 2002.9.27
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	// (!) m_Head > m_Tailï¿½ï¿½ ï¿½ï¿½ì¿¡ m_Head - m_Tail - 1 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½. by sigi. 2002.9.16
+	// ï¿½Ùµï¿½ buffer_resizeï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½. ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Âµï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½.. back. by sigi. 2002.9.23
+	// ï¿½×½ï¿½Æ® ï¿½Øºï¿½ï¿½Ï±ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ buffer resizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¾î³ªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½? ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½. by sigi. 2002.9.27
 	uint nFree = ( ( m_Head <= m_Tail ) ?  m_BufferLen - m_Tail + m_Head - 1 : m_Head - m_Tail - 1 );
 					//m_Tail - m_Head - 1 );
 
-	// ¾µ·Á°í ÇÏ´Â µ¥ÀÌÅ¸ÀÇ Å©±â°¡ ºó ¿µ¿ªÀÇ Å©±â¸¦ ÃÊ°úÇÒ °æ¿ì ¹öÆÛ¸¦ Áõ°¡½ÃÅ²´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ Å©ï¿½â°¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½Ê°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 	if ( len >= nFree )
 		resize( len - nFree + 1 );
 		
@@ -205,7 +201,7 @@ uint SocketOutputStream::flush ()
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
 
-				// NonBlockExceptionÁ¦°Å. by sigi.2002.5.17
+				// NonBlockExceptionï¿½ï¿½ï¿½ï¿½. by sigi.2002.5.17
 				if (nSent==0) return 0;
 				
 				nFlushed += nSent;
@@ -230,7 +226,7 @@ uint SocketOutputStream::flush ()
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
 
-				// NonBlockExceptionÁ¦°Å. by sigi.2002.5.17
+				// NonBlockExceptionï¿½ï¿½ï¿½ï¿½. by sigi.2002.5.17
 				if (nSent==0) return 0;
 				
 				nFlushed += nSent;
@@ -249,7 +245,7 @@ uint SocketOutputStream::flush ()
 			while ( nLeft > 0 ) {
 				nSent = m_Socket->send( &m_Buffer[m_Head] , nLeft , MSG_NOSIGNAL );
 
-				// NonBlockExceptionÁ¦°Å. by sigi.2002.5.17
+				// NonBlockExceptionï¿½ï¿½ï¿½ï¿½. by sigi.2002.5.17
 				if (nSent==0) return 0;
 				
 				nFlushed += nSent;
@@ -270,7 +266,7 @@ uint SocketOutputStream::flush ()
 	}
 	catch ( NonBlockingIOException& ) 
 	{
-		// ÀÏºÎ¸¸ sendµÇ°í ¸¶´Â °æ¿ì
+		// ï¿½ÏºÎ¸ï¿½ sendï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		// by sigi. 2002.9.27
 		if (nSent>0)
 		{
@@ -282,7 +278,7 @@ uint SocketOutputStream::flush ()
 	} 
 	catch ( InvalidProtocolException & t ) 
 	{
-		// ÀÏºÎ¸¸ sendµÇ°í ¸¶´Â °æ¿ì
+		// ï¿½ÏºÎ¸ï¿½ sendï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		// by sigi. 2002.9.27
 		if (nSent>0)
 		{
@@ -300,7 +296,7 @@ uint SocketOutputStream::flush ()
 	file.close();
 	*/
 
-	// Ã·ºÎÅÍ ´Ù½Ã.. by sigi. 2002.9.26
+	// Ã·ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½.. by sigi. 2002.9.26
 	m_Head = m_Tail = 0;
 
 	return nFlushed;
@@ -321,24 +317,24 @@ void SocketOutputStream::resize ( int size )
 
 	int orgSize = size;
 
-	// ÀæÀº resize¸¦ ¹æÁöÇÏ±â À§ÇØ¼­.. ÇöÀç ¹öÆÛÀÇ 1/2¸¸Å­ ´Ã·Áº¼±î by sigi. 2002.9.26
+	// ï¿½ï¿½ï¿½ï¿½ resizeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½.. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1/2ï¿½ï¿½Å­ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ by sigi. 2002.9.26
 	size = max(size, (int)(m_BufferLen>>1));
 	uint newBufferLen = m_BufferLen + size;
 	uint len = length();
 	
 	if ( size < 0 ) {
 		
-		// ¸¸¾à Å©±â¸¦ ÁÙÀÌ·Á´Âµ¥ ¹öÆÛ¿¡ µé¾îÀÖ´Â µ¥ÀÌÅ¸¸¦ 
-		// ´Ù ¸ø´ã¾Æ³¾ °æ¿ì 
+		// ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½Ì·ï¿½ï¿½Âµï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ 
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ ï¿½ï¿½ï¿½ 
 		if ( newBufferLen < 0 || newBufferLen < len )
 			throw IOException("new buffer is too small!");
 		
 	} 
 	
-	// »õ ¹öÆÛ¸¦ ÇÒ´ç¹Þ´Â´Ù.
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½Ò´ï¿½Þ´Â´ï¿½.
 	char * newBuffer = new char[ newBufferLen ];
 		
-	// ¿ø·¡ ¹öÆÛÀÇ ³»¿ëÀ» º¹»çÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if ( m_Head < m_Tail ) {
 
 		//
@@ -362,10 +358,10 @@ void SocketOutputStream::resize ( int size )
 
 	}
 		
-	// ¿ø·¡ ¹öÆÛ¸¦ »èÁ¦ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	delete [] m_Buffer;
 		
-	// ¹öÆÛ ¹× ¹öÆÛ Å©±â¸¦ Àç¼³Á¤ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ç¼³ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Buffer = newBuffer;
 	m_BufferLen = newBufferLen;
 	m_Head = 0;
@@ -375,8 +371,8 @@ void SocketOutputStream::resize ( int size )
 
 	if ( m_Socket == NULL )
 	{
-		// m_Socket ÀÌ NULL ÀÌ¶ó´Â °ÍÀº ÀÌ ½ºÆ®¸²ÀÌ ºê·Îµå Ä³½ºÆ®¿ë ½ºÆ®¸²ÀÌ¶ó´Â ¸»ÀÌ´Ù.
-		// resize °¡ ºÒ·È´Ù´Â ¸»Àº ÆÐÅ¶ÀÇ getPacketSize() ÇÔ¼ö°¡ Àß¸øµÇ¾î ÀÖ´Ù´Â ¸»ÀÌ´Ù.
+		// m_Socket ï¿½ï¿½ NULL ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îµï¿½ Ä³ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
+		// resize ï¿½ï¿½ ï¿½Ò·È´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ getPacketSize() ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù´ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½.
 		filelog( "packetsizeerror.txt", "PacketID = %u", *(PacketID_t*)m_Buffer );
 	}
 	else

@@ -32,7 +32,7 @@ GuildInfo2::~GuildInfo2 ()
 	
 	clearGuildMemberInfoList();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

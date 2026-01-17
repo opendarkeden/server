@@ -33,16 +33,16 @@ void CGMoveHandler::execute (CGMove* pPacket , Player* pPlayer)
 
 	if (pGamePlayer->getPlayerStatus() == GPS_NORMAL) 
 	{
-		// 이 상태에서는 크리처가 옳게 로딩되었어야 하므로, NULL 이 아니어야 한다.
-		// PLAYER_INGAME 자체가 크리처 로딩이 성공되었음을 의미한다.
+		// In this state the creature should already be placed and loaded, so it must not be NULL.
+		// PLAYER_INGAME means the zone has finished loading.
 		Creature* pCreature = pGamePlayer->getCreature();
 		Assert(pCreature != NULL);
 
 		if (pCreature->isDead()) return;
 
-		// 포탈 이동을 했음에도 불구하고, 클라이언트 길찾기의 맹점으로 인해서
-		// 서버상에서 크리처가 존에서 IPM 으로 옮겨진 상태에서 CGMove 가 날아올
-		// 가능성이 있다. 헥헥..
+		// If the player is moving while being searched or relocating, the zone pointer can be NULL
+		// due to incomplete initialization; in that case the server may still receive CGMove.
+		// Guard against it here.
 		if (pCreature->getZone() == NULL) return;
 	
 		Zone* pZone = pCreature->getZone();
@@ -53,9 +53,8 @@ void CGMoveHandler::execute (CGMove* pPacket , Player* pPlayer)
 			g_Sniping.checkRevealRatio(pCreature, 10, 20);
 		}
 
-		// 특정 PC의 이동이 존레벨로 처리되는 이유는, PC의 이동을 보고 있는 다른 PC들에게
-		// 브로드캐스트해야 하기 때문이다. 이때, CGMove 패킷에 방향뿐만 아니라 현재 좌표가
-		// 포함된 이유는, 점프 체크를 하기 위해서이다.
+		// For some PCs, movement processing needs to notify other PCs nearby. CGMove includes
+		// the new coordinates, so simply validate and relay them.
 		pZone->movePC(pCreature , pPacket->getX() , pPacket->getY() , pPacket->getDir());
 	}
 

@@ -24,12 +24,12 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 	m_Sight = sight;
 	m_Dir   = dir;
 
-	// ÀÓ½Ã ½Ã¾ß ¿µ¿ª
+	// ì„ì‹œ ì‹œì•¼ ì˜ì—­
 	VisionState temp1[maxVisionWidth][maxVisionHeight];
 	VisionState temp2[maxVisionWidth][maxVisionHeight];
 
 	//--------------------------------------------------------------------------------
-	// temp1, temp2, m_Rect ¸¦ ¸ğµÎ OUT_OF_SIGHT·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// temp1, temp2, m_Rect ë¥¼ ëª¨ë‘ OUT_OF_SIGHTë¡œ ì´ˆê¸°í™”í•œë‹¤.
 	//--------------------------------------------------------------------------------
 	for (int x = 0 ; x < maxVisionWidth ; x ++) {
 		for (int y = 0 ; y < maxVisionHeight ; y ++) {
@@ -37,7 +37,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 		}
 	}
 
-	// Áß½ÉÁ¡Àº (10,11)ÀÌ µÈ´Ù.
+	// ì¤‘ì‹¬ì ì€ (10,11)ì´ ëœë‹¤.
 //	int cx = maxViewportWidth + 1;
 //	int cy = maxViewportUpperHeight + 1;
 	int cx = maxViewportWidth;
@@ -49,7 +49,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 	int endy   = min(maxVisionHeight - 1 , cy + m_Sight);
 
 	//--------------------------------------------------------------------------------
-	// m_Rect ÀÇ IN_SIGHT, OUT_OF_SIGHT ¿µ¿ªÀ» ÁöÁ¤ÇÑ´Ù.
+	// m_Rect ì˜ IN_SIGHT, OUT_OF_SIGHT ì˜ì—­ì„ ì§€ì •í•œë‹¤.
 	//--------------------------------------------------------------------------------
 	for (int x = 1 ; x < maxVisionWidth - 1 ; x ++) {
 		for (int y = 1 ; y < maxVisionHeight - 1 ; y ++) {
@@ -78,7 +78,7 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 		case LEFTUP : dx--; dy--; break;
 	}
 
-	// ½ÃÀÛ°ú ³¡ÁÂÇ¥¸¦ ÁÖÀÇÇÏ¶ó. m_Rect °¡ ±âÁØÀÌ´Ù.
+	// ì‹œì‘ê³¼ ëì¢Œí‘œë¥¼ ì£¼ì˜í•˜ë¼. m_Rect ê°€ ê¸°ì¤€ì´ë‹¤.
 	for (int x = 1 ; x < maxVisionWidth - 1 ; x ++) {
 		for (int y = 1 ; y < maxVisionHeight - 1 ; y ++) {
 			temp1[x+dx][y+dy] = m_Rect[x][y];
@@ -105,10 +105,10 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 	}
 
 	//--------------------------------------------------------------------------------
-	// m_RectÀÇ ON_SIGHT ¿µ¿ªÀ» ÁöÁ¤ÇÑ´Ù.
+	// m_Rectì˜ ON_SIGHT ì˜ì—­ì„ ì§€ì •í•œë‹¤.
 	//
-	// IN_SIGHT ¿µ¿ªÁß¿¡¼­, 8¹æÇâÀ» Ã¼Å©ÇØ¼­ 1°³ ÀÌ»óÀÇ OUT_OF_SIGHT °¡ Á¸ÀçÇÒ °æ¿ì
-	// ON_SIGHT ·Î ÁöÁ¤ÇÑ´Ù.
+	// IN_SIGHT ì˜ì—­ì¤‘ì—ì„œ, 8ë°©í–¥ì„ ì²´í¬í•´ì„œ 1ê°œ ì´ìƒì˜ OUT_OF_SIGHT ê°€ ì¡´ì¬í•  ê²½ìš°
+	// ON_SIGHT ë¡œ ì§€ì •í•œë‹¤.
 	//--------------------------------------------------------------------------------
 	for (int x = 1 ; x < maxVisionWidth - 1 ; x ++) {
 		for (int y = 1 ; y < maxVisionHeight - 1 ; y ++) {
@@ -147,18 +147,18 @@ VisionInfo::VisionInfo (Sight_t sight , Dir_t dir)
 
 //--------------------------------------------------------------------------------
 //
-// Q(cx,cy)¿¡ ÀÖ´Â Å©¸®Ã³°¡ P(x,y)¸¦ º¼ ¼ö ÀÖ´ÂÁö, ¾ø´ÂÁö.. ±× »óÅÂ°ªÀ» ¸®ÅÏÇÔ.
+// Q(cx,cy)ì— ìˆëŠ” í¬ë¦¬ì²˜ê°€ P(x,y)ë¥¼ ë³¼ ìˆ˜ ìˆëŠ”ì§€, ì—†ëŠ”ì§€.. ê·¸ ìƒíƒœê°’ì„ ë¦¬í„´í•¨.
 //
-// O(a,b)   - Vision Rectangle ÀÇ Áß½É
-// P(x,y)   - º¸°íÀÚ ÇÏ´Â ¿ÀºêÁ§Æ®ÀÇ À§Ä¡
-// Q(cx,cy) - º¸´Â Å©¸®Ã³ÀÇ À§Ä¡
+// O(a,b)   - Vision Rectangle ì˜ ì¤‘ì‹¬
+// P(x,y)   - ë³´ê³ ì í•˜ëŠ” ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜
+// Q(cx,cy) - ë³´ëŠ” í¬ë¦¬ì²˜ì˜ ìœ„ì¹˜
 //
-// Q¸¦ O·Î ÆòÇàÀÌµ¿ÇÑ °ø½ÄÀ» »ç¿ëÇØ¼­, P¸¦ ÆòÇàÀÌµ¿ÇÑ ÁÂÇ¥¸¦ P'(x',y') ÀÌ¶ó°í ÇÒ ¶§, 
+// Që¥¼ Oë¡œ í‰í–‰ì´ë™í•œ ê³µì‹ì„ ì‚¬ìš©í•´ì„œ, Pë¥¼ í‰í–‰ì´ë™í•œ ì¢Œí‘œë¥¼ P'(x',y') ì´ë¼ê³  í•  ë•Œ, 
 //
 //		x' = x + a - cx
 //		y' = y + b - cy
 //
-// °¡ µÈ´Ù. ±×·¯¸é, m_Rect[x'][y']ÀÇ °ªÀ» ¸®ÅÏÇÏ¸é µÈ´Ù. (´ç¿¬È÷ ¹üÀ§Ã¼Å©¸¦ ÇØ¾ßÁã)
+// ê°€ ëœë‹¤. ê·¸ëŸ¬ë©´, m_Rect[x'][y']ì˜ ê°’ì„ ë¦¬í„´í•˜ë©´ ëœë‹¤. (ë‹¹ì—°íˆ ë²”ìœ„ì²´í¬ë¥¼ í•´ì•¼ì¥)
 //
 //--------------------------------------------------------------------------------
 
@@ -170,7 +170,7 @@ VisionState VisionInfo::getVisionState (ZoneCoord_t cx , ZoneCoord_t cy , ZoneCo
 	int px = x + (maxViewportWidth + 1) - cx;
 	int py = y + (maxViewportUpperHeight + 1) - cy;
 
-	// ÆòÇàÀÌµ¿ÇÑ ÁÂÇ¥ÀÇ ¹üÀ§¸¦ Ã¼Å©ÇÑ´Ù.
+	// í‰í–‰ì´ë™í•œ ì¢Œí‘œì˜ ë²”ìœ„ë¥¼ ì²´í¬í•œë‹¤.
 	if (px >= 0 && px < maxVisionWidth && py >= 0 && py < maxVisionHeight)
 		return m_Rect[px][py];
 
@@ -247,7 +247,7 @@ VisionInfoManager::~VisionInfoManager ()
 		SAFE_DELETE_ARRAY(m_pVisionInfos);
 	}*/
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

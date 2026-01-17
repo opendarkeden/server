@@ -22,7 +22,7 @@ RankBonusInfo::RankBonusInfo()
 RankBonusInfo::~RankBonusInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string RankBonusInfo::toString() const
@@ -64,7 +64,7 @@ RankBonusInfoManager::~RankBonusInfoManager()
 
 	SAFE_DELETE_ARRAY(m_RankBonusInfoList);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void RankBonusInfoManager::init()

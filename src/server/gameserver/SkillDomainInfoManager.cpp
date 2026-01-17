@@ -25,7 +25,7 @@ DomainInfo::~DomainInfo()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //--------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ SkillDomainInfoManager::~SkillDomainInfoManager()
 		for(int j = 0; j <= 150; j++) 
 			SAFE_DELETE(m_DomainInfoLists[i][j]);
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //--------------------------------------------------------------------

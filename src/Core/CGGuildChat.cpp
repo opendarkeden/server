@@ -14,7 +14,7 @@ void CGGuildChat::read (SocketInputStream & iStream)
 	iStream.read(m_Type);
 	iStream.read(m_Color);
 
-	// 메세지 읽기
+	// Read message text
 	BYTE szMessage;
 
 	iStream.read(szMessage);
@@ -38,7 +38,7 @@ void CGGuildChat::write (SocketOutputStream & oStream) const
 	oStream.write(m_Type);
 	oStream.write(m_Color);
 
-	// 메세지 쓰기
+	// Write message text
 	BYTE szMessage = m_Message.size();
 
 	if (szMessage == 0)

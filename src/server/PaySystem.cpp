@@ -3,19 +3,18 @@
 // Written by : sigi
 // Description : 
 //---------------------------------------------------------------------------
-// ¾ÆÁ÷ ±¸Çö ¾ÈµÈ °Í :
-//   PC¹æ »ç¿ë ½Ã°£ »¬ ¶§.. ³²Àº »ç¿ë ½Ã°£ÀÌ 60ºÐ*UserLimitº¸´Ù ÀûÀº °æ¿ì¿¡
-//   ±× Å¸ÀÌ¹Ö¿¡ °ÔÀÓ¹æ¿¡¼­ UserLimit±îÁö ´Ù~ Á¢¼ÓÇÏ¸é
-//   ÃÖ´ë 60ºÐ*(UserLimit-1¸í)±îÁöÀÇ ½Ã°£À» ´õ playÇÒ ¼ö ÀÖ°Ô µÈ´Ù.
-//   
-// ÇØ°á ¹æ¹ý :
-//   °ÔÀÓ¹æÀÎ °æ¿ì´Â UserLimit¸¦ °í·ÁÇØ¼­
-//   ½Ã°£ÀÌ 60ºÐ*UserLimitº¸´Ù ÀûÀ¸¸é
-//   ½Ã°£ Ã¼Å© Å¸ÀÌ¹ÖÀ» 60ºÐ/UserLimit·Î ÇØ¾ßµÉ±î? -_-
-//   Á» ´õ È¿À²ÀûÀÎ°Ô ¾ø³ª?
-//   ÀÏ´ÜÀº ¼­ºñ½º·Î ³²°ÜµÑ±î?
+// Pending item:
+//   When deducting PC-room usage, if remaining time is below 60min*UserLimit
+//   and everyone connects up to UserLimit at that moment,
+//   they can effectively gain up to 60min*(UserLimit-1) extra play time.
 //
-// --> updatePayPlayTime()¿¡¼­ Ã³¸®Çß´Ù.
+// Ideas:
+//   For PC rooms, consider UserLimit.
+//   If remaining time is under 60min*UserLimit,
+//   maybe shorten the check interval to 60min/UserLimit? (not ideal)
+//   Is there a better approach? Maybe just leave it as service time.
+//
+// --> Handled in updatePayPlayTime().
 //---------------------------------------------------------------------------
 
 #include "PaySystem.h"
@@ -25,16 +24,16 @@
 #include "Properties.h"
 
 //---------------------------------------------------------------------------
-// ¸î ÃÊ¸¶´Ù Ã¼Å©ÇÒ °ÍÀÎ°¡?
+// How often should we check (seconds)?
 //---------------------------------------------------------------------------
-const int DELAY_PAY_TIME_UPDATE = 3600;	// 1½Ã°£ = 60ºÐ
-//const int DELAY_PAY_TIME_UPDATE = 10;	// 10ÃÊ¸¶´Ù - Å×½ºÆ®¿ë
+const int DELAY_PAY_TIME_UPDATE = 3600;	// 1 hour = 60 minutes
+//const int DELAY_PAY_TIME_UPDATE = 10;	// every 10 seconds - for testing
 const int MINUTE_PAY_TIME_DECREASE = DELAY_PAY_TIME_UPDATE/60;
 //const int MINUTE_PAY_TIME_DECREASE = 60;
 
 //---------------------------------------------------------------------------
-// Á¤·®Á¦ÀÎ °æ¿ì.. '¸î ½Ã ±îÁö' »ç¿ë°¡´ÉÇÏ´Ù°í ÇÒ ¶§.. 
-// ¸îºÐÀ» ¼­ºñ½º·Î Á¦°øÇÑ´Ù.
+// For period billing: when we say "usable until HH:MM",
+// we allow a small grace window.
 //---------------------------------------------------------------------------
 //const int PLUS_DEADLINE_MIN 	= 10;
 const int PLUS_DEADLINE_SECOND	= 59;
@@ -46,12 +45,12 @@ const int PLUS_DEADLINE_SECOND	= 59;
 //---------------------------------------------------------------------------
 PaySystem::PaySystem()
 {
-	// °³ÀÎ¿ä±ÝÁöºÒÃ¼°è¿¡ ´ëÇÑ ¼³Á¤..ÀÌ¶ó°í º¼ ¼ö ÀÖ´Ù. º¯¼ö¸í ¹Ù²ã¾ßµÈ´ç -_-;
+	// Defaults for personal billing; the variable names could be clearer.
 	m_bSetPersonValue = false;
 
-	m_PayPlayType = PAY_PLAY_TYPE_PERSON;        		// °³ÀÎ/°×¹æ..
-	m_PayType = PAY_TYPE_FREE;          		// ¹«·á/½Ã°£/±â°£/±âÅ¸..
-	m_PayIPType = PAY_IP_TYPE_ALL;        		// °ÔÀÓ¹æÀÎ °æ¿ìÀÇ IP type
+	m_PayPlayType = PAY_PLAY_TYPE_PERSON;        		// personal or PC-room
+	m_PayType = PAY_TYPE_FREE;          		// free / time / period / other
+	m_PayIPType = PAY_IP_TYPE_ALL;        		// IP type for PC-room billing
 
 	m_PayPlayStartTime.tv_sec = 0;
 	m_PayPlayStartTime.tv_usec = 0;
@@ -94,13 +93,13 @@ void PaySystem::setPayPlayAvailableDateTime(const string& pat)
 		int min   = atoi( pat.substr(14,2).c_str() );
 		//int sec   = atoi( pat.substr(10,2).c_str() );
 
-		// play°¡´ÉÇÑ ÇÑ°è ½Ã°£À» ÁöÁ¤ÇØµÐ´Ù.
+		// Set the latest playable datetime.
 		m_PayPlayAvailableDateTime.setDate( VSDate(year, month, day) );
 		m_PayPlayAvailableDateTime.setTime( VSTime(hour, min, PLUS_DEADLINE_SECOND) );
 	}
 	else
 	{
-		// Á¢¼Ó ºÒ°¡ »óÅÂ·Î ¼³Á¤
+		// Mark as not allowed to connect.
 		m_PayPlayAvailableDateTime.setDate( VSDate(2002, 1, 1) );
 		m_PayPlayAvailableDateTime.setTime( VSTime(12, 10, 0) );
 	}
@@ -126,13 +125,13 @@ void PaySystem::setFamilyPayPlayAvailableDateTime(const string& pat)
 		int min   = atoi( pat.substr(14,2).c_str() );
 		//int sec   = atoi( pat.substr(10,2).c_str() );
 
-		// play°¡´ÉÇÑ ÇÑ°è ½Ã°£À» ÁöÁ¤ÇØµÐ´Ù.
+		// Set the latest playable datetime for family billing.
 		m_FamilyPayPlayAvailableDateTime.setDate( VSDate(year, month, day) );
 		m_FamilyPayPlayAvailableDateTime.setTime( VSTime(hour, min, PLUS_DEADLINE_SECOND) );
 	}
 	else
 	{
-		// Á¢¼Ó ºÒ°¡ »óÅÂ·Î ¼³Á¤
+		// Mark as not allowed to connect.
 		m_FamilyPayPlayAvailableDateTime.setDate( VSDate(2002, 1, 1) );
 		m_FamilyPayPlayAvailableDateTime.setTime( VSTime(12, 10, 0) );
 	}
@@ -159,13 +158,13 @@ void PaySystem::setPayStartAvailableDateTime(const string& pat)
 		int min   = atoi( pat.substr(14,2).c_str() );
 		//int sec   = atoi( pat.substr(10,2).c_str() );
 
-		// play°¡´ÉÇÑ ÇÑ°è ½Ã°£À» ÁöÁ¤ÇØµÐ´Ù.
+		// Set the earliest playable datetime for PC rooms.
 		m_PayStartAvailableDateTime.setDate( VSDate(year, month, day) );
 		m_PayStartAvailableDateTime.setTime( VSTime(hour, min, PLUS_DEADLINE_SECOND) );
 	}
 	else
 	{
-		// ½ÃÀÛ ºÒ°¡ »óÅÂ·Î ¼³Á¤
+		// Mark as not allowed to start.
 		m_PayStartAvailableDateTime.setDate( VSDate(2099, 1, 1) );
 		m_PayStartAvailableDateTime.setTime( VSTime(0, 0, 0) );
 	}
@@ -182,7 +181,7 @@ bool PaySystem::checkPayPlayAvailable()
 	{
 		VSDateTime currentDateTime(VSDate::currentDate(), VSTime::currentTime());
 
-		// ÆÐ¹Ð¸® ¿ä±ÝÁ¦ »ç¿ë°¡´ÉÇÑÁö Ã¼Å©ÇÑ´Ù.
+		// Check whether the family plan applies.
 		if ( m_PayPlayAvailableDateTime != m_FamilyPayPlayAvailableDateTime
 			&& currentDateTime <= m_FamilyPayPlayAvailableDateTime )
 		{
@@ -190,13 +189,13 @@ bool PaySystem::checkPayPlayAvailable()
 			m_bFamilyPayAvailable = true;
 		}
 
-		// PC¹æÀÎ °æ¿ì¸¸ StartDate¸¦ Ã¼Å©ÇÑ´Ù.
+		// Only PC rooms check the start date.
 		bool bAvailable = (m_PayPlayType!=PAY_PLAY_TYPE_PCROOM || currentDateTime >= m_PayStartAvailableDateTime)
 							&& currentDateTime <= m_PayPlayAvailableDateTime;
 
 		//cout << "checkPayPlay: " << currentDateTime.toString() << " <= " << m_PayPlayAvailableDateTime.toString() << endl;
 
-		// Á¤·®Á¦ ¿ä±Ý
+		// Period billing
 		if (bAvailable)
 		{
 			m_PayType = PAY_TYPE_PERIOD;
@@ -205,7 +204,7 @@ bool PaySystem::checkPayPlayAvailable()
 		{ 
 			bAvailable = m_PayPlayAvailableHours > 0;
 
-			// Á¾·®Á¦ ¿ä±Ý
+			// Time billing
 			if (bAvailable)
 			{
 				m_PayType = PAY_TYPE_TIME;
@@ -271,12 +270,11 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 	switch (m_PayType)
 	{
 		//-----------------------------------------
-		// ±â°£Á¦ »ç¿ëÀÚÀÎ °æ¿ì
+		// Period-plan user
 		//-----------------------------------------
 		case PAY_TYPE_PERIOD :
 		{
-			// ÇÑ ½Ã°£ Á¤µµ¿¡ ÇÑ ¹ø¾¿ Ã¼Å©ÇÑ´Ù.
-			// ±â°£Á¦ »ç¿ëÀÚÀÎ °æ¿ì´Â 1½Ã°£ Á¤µµ ¼­ºñ½ºµÇ¾îµµ ¹®Á¦ ¾ø´Ù°í º»´Ù
+			// Check roughly once an hour; a one-hour grace window is acceptable for period plans.
 			if (currentTime.tv_sec >= m_PayPlayStartTime.tv_sec + DELAY_PAY_TIME_UPDATE)
 			{
 				m_PayPlayStartTime.tv_sec = currentTime.tv_sec;
@@ -285,10 +283,10 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 				//cout << "CurrentDateTime = " << currentDateTime.toString().c_str() << endl;
 				//cout << "PayPlayAvaiable = " << m_PayPlayAvailableDateTime.toString().c_str() << endl << endl;
 
-				// ½Ã°£ÀÌ Áö³µÀ¸¸é.. Â¥¸¥´Ù.
+				// If expired, cut off.
 				if (currentDateTime > m_PayPlayAvailableDateTime)
 				{
-					//throw ProtocolException("»ç¿ë½Ã°£ÀÌ ´ÙµÆ´Ù.");
+					//throw ProtocolException("Play time exhausted.");
 					m_PayPlayStartTime.tv_sec = 0;
 					m_bPremiumPlay = false;
 					return false;
@@ -298,7 +296,7 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 		break;
 
 		//-----------------------------------------
-		// ½Ã°£Á¦ »ç¿ëÀÚÀÎ °æ¿ì
+		// Time-plan user
 		//-----------------------------------------
 		case PAY_TYPE_TIME :
 		{
@@ -307,17 +305,16 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 			int UserMax = m_UserMax;
 
 
-			// ¿ä±ÝÀ» ÁÙÀÌ´Â °æ¿ì..
+			// When reducing remaining time..
 			if (m_PayPlayStartTime.tv_sec != 0
-					// [1] 1½Ã°£¸¶´Ù DB¸¦ update ½ÃÅ²´Ù.
+					// [1] Update DB every hour.
 				&& (currentTime.tv_sec >= m_PayPlayStartTime.tv_sec + DELAY_PAY_TIME_UPDATE
-					// [2] »ç¿ë½Ã°£ÀÌ 1½Ã°£µµ ¾È ³²¾Ò´Ù¸é.. ¹Ù·Î Ã¼Å©..
+					// [2] If less than an hour remains, check immediately.
 					|| m_PayPlayAvailableHours < MINUTE_PAY_TIME_DECREASE
 						&& elapsedSec > remainSec
-					// [3] PC¹æ ¿ä±ÝÀÌ°í 
-					//      ³²Àº ½Ã°£ÀÌ 1½Ã°£*UserMax º¸´Ù Àû°í, 
-					// 		»ç¿ë½Ã°£*UserMax°¡ ³²Àº ½Ã°£º¸´Ù Å©¸é.. (UserMax´Â 1~12·Î Á¦ÇÑ:³Ê¹« ÀÚÁÖ Ã¼Å©ÇÏÁö ¾Ê°ÔÇÏ±â À§ÇØ¼­)
-					//        ¶Ç´Â, ³²Àº minute°¡ »ç¿ëÀÚ¼öº¸´Ù ÀÛÀ¸¸é(1ºÐ¾¿µµ ¸ø ¾´´Ù¸é), 1ºÐ¸¶´Ù Ã¼Å©ÇÑ´Ù.
+					// [3] PC-room billing: remaining time is under 1h*UserMax and
+					//     elapsed*UserMax exceeds remaining (UserMax limited 1~12 to avoid too many checks),
+					//     or remaining minutes are fewer than users, so check each minute.
 					|| m_PayPlayType==PAY_PLAY_TYPE_PCROOM 
 						//&& elapsedSec <= DELAY_PAY_TIME_UPDATE
 						&& m_PayPlayAvailableHours < MINUTE_PAY_TIME_DECREASE*UserMax
@@ -326,10 +323,10 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 					)
 				)
 			{
-				// ºÐ´ÜÀ§·Î ¹Ù²Û´Ù.
+				// Convert to minutes.
 				int decreaseMin = (currentTime.tv_sec - m_PayPlayStartTime.tv_sec)/60;
 
-				// ´Ù½¬ 1½Ã°£À» ±â´Ù·ô´Ù.
+				// After updating, wait for the next hour window.
 				if (decreaseMin > 0)
 				{
 					m_PayPlayStartTime.tv_sec = currentTime.tv_sec;
@@ -337,19 +334,12 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 					switch (m_PayPlayType)
 					{
 						case PAY_PLAY_TYPE_PERSON :
-							// DB¿¡¼­ »ç¿ëÀÚ ½Ã°£À» 1½Ã°£ »©ÁØ´Ù.
-							//m_PayPlayAvailableHours -= 60;
-
-							// DB¿¡ ÀúÀåÇØ¾ßÇÑ´Ù.
+							// Subtract user minutes in DB.
 							decreasePayPlayTime(playerID, decreaseMin);//MINUTE_PAY_TIME_DECREASE);
 						break;
 
 						case PAY_PLAY_TYPE_PCROOM :
-							// DB¿¡¼­ °ÔÀÓ¹æ ½Ã°£À» 1½Ã°£ »©ÁØ´Ù.
-							//m_PayPlayAvailableHours -= 60;
-
-							// ¿©·¯¸íÀÌ¼­ ÇÒ ¼ö ÀÖÀ¸¹Ç·Î.. 
-							// ´Ù½Ã DB¿¡¼­ ³²Àº ½Ã°£À» ÀÐ¾î¿Â´Ù.
+							// Subtract PC-room minutes in DB; refresh because many can play.
 							decreasePayPlayTimePCRoom(decreaseMin);//MINUTE_PAY_TIME_DECREASE);
 						break;
 
@@ -359,7 +349,7 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 
 				if (m_PayPlayAvailableHours <= 0)
 				{
-					//throw ProtocolException("»ç¿ë½Ã°£ÀÌ ´ÙµÆ´Ù.");
+					//throw ProtocolException("ì‚¬ìš©ì‹œê°„ì´ ë‹¤ëë‹¤.");
 					m_PayPlayStartTime.tv_sec = 0;
 					m_bPremiumPlay = false;
 					return false;
@@ -379,8 +369,8 @@ bool PaySystem::updatePayPlayTime(const string& playerID, const VSDateTime& curr
 //---------------------------------------------------------------------------
 // login Pay PlayPCRoom IP
 //---------------------------------------------------------------------------
-// ip°¡ PCRoomIPInfo¿¡ ÀÖ´Ù¸é ±× ID¸¦ °¡Áø PCRoomÀ» PCRoomInfo¿¡¼­ Ã£¾Æ¼­
-// ±× Á¤º¸¸¦ ÀÐ¾îµéÀÎ´Ù.
+// If the IP exists in PCRoomIPInfo, load the matching PCRoomInfo row
+// and read its settings.
 //---------------------------------------------------------------------------
 bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 {
@@ -423,12 +413,12 @@ bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 			m_UserLimit 	= pResult->getInt(++i);
 			m_UserMax 		= pResult->getInt(++i);
 
-			// ÀÌ»óÇÑ Á¾·®Á¦ °ü·Ã ÄÚµå
+			// Legacy post-pay logic
 			if ( m_PayType == PAY_TYPE_POST )
 			{
 				VSDateTime currentDateTime(VSDate::currentDate(), VSTime::currentTime());
 
-				// Á¦ÇÑµÈ ³¯Â¥ ÀÌÈÄ¸é Àû¿ë ¾ÈµÇ¾ß ÇÏ¹Ç·Î
+				// Do not allow usage after the limited date.
 				if ( currentDateTime <= m_PayPlayAvailableDateTime )
 				{
 					setPayPlayType( PAY_PLAY_TYPE_PCROOM );
@@ -441,7 +431,7 @@ bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 
 			//m_UserMax = max((unsigned int)5, m_UserMax);
 			//m_UserMax = min((unsigned int)12, m_UserMax);
-			m_UserMax = 15;	// ÇÑ °×¹æ ÃÖ´ë 15¸í
+			m_UserMax = 15;	// Max 15 people per PC room
 
 			pResult = pStmt->executeQuery(
 				"SELECT count(*) from PCRoomUserInfo WHERE ID=%d", m_PCRoomID );
@@ -454,10 +444,10 @@ bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 				bool bAvailable = checkPayPlayAvailable();
 
 				//
-				// [PC¹æ »ç¿ëÀÚ¼ö Á¦ÇÑ]
+				// [PC-room user limits]
 				//
-				// Á¤¾×Á¦ : UserLimit ³Ñ¾î°¡¸é ¾ÈµÈ´Ù.
-				// Á¾·®Á¦ : UserMax ³Ñ¾î°¡¸é ¾ÈµÈ´Ù <-- »ç½Ç Å« ÀÇ¹Ì´Â ¾ø´Ù. 
+				// Period: must stay under UserLimit.
+				// Time: must stay under UserMax (rough safeguard).
 				//
 				if (m_PayType==PAY_TYPE_PERIOD && users >= m_UserLimit
 					|| m_PayType==PAY_TYPE_TIME && users >= m_UserMax)
@@ -468,20 +458,20 @@ bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 					return false;
 				}
 
-				// »ç¿ë°¡´ÉÇÏ´Ù¸é..
+				// If available..
 				if (bAvailable)
 				{
-					// ÀÏ´Ü »ç¿ëÀÚ¸¦ Ãß°¡ÇØº¸´Âµ¥..
+					// Tentatively insert the user.
 					try {
 						pStmt->executeQuery(
 							"INSERT IGNORE INTO PCRoomUserInfo(ID, PlayerID) VALUES(%d, '%s')",
 							m_PCRoomID, playerID.c_str());
 					} catch (SQLQueryException& se) {
 						filelog("paySystem.txt", "%s", se.toString().c_str());
-						// ±×³É ³Ñ¾î°¥±î
+						// ê·¸ëƒ¥ ë„˜ì–´ê°ˆê¹Œ
 					}
 
-					// Ãß°¡ÇÑ µÚÀÇ »ç¿ëÀÚ ¼ýÀÚ¸¦ È®ÀÎÇØº¸°í..
+					// Check the user count after insertion.
 					pResult = pStmt->executeQuery(
 						"SELECT count(*) from PCRoomUserInfo WHERE ID=%d", m_PCRoomID );
 					
@@ -489,25 +479,25 @@ bool PaySystem::loginPayPlayPCRoom(const string& ip, const string& playerID)
 					{
 						users = pResult->getInt(1);
 
-						// PC¹æ »ç¿ëÀÚ¼ö Á¦ÇÑÀ» ³Ñ¾î°¡¸é...
+						// If PC-room user limits are exceeded...
 						if (m_PayType==PAY_TYPE_PERIOD && users >= m_UserLimit
 							|| m_PayType==PAY_TYPE_TIME && users >= m_UserMax)
 						{
-							// Ãß°¡Çß´ø°É ´Ù½Ã Áö¿ì°í..
+							// Remove the row we just inserted.
 							pStmt->executeQuery(
 								"DELETE FROM PCRoomUserInfo WHERE PlayerID='%s'",
 									playerID.c_str());
 
 							//cout << "[PayPCRoom] User Limit Exceed2!" << endl;
 
-							// »ç¿ë ºÒ°¡..
+							// Not allowed.
 							SAFE_DELETE(pStmt);
 
 							return false;
 						}
 						else
 						{
-							// Á¤»óÀûÀÎ °æ¿ì
+							// ì •ìƒì ì¸ ê²½ìš°
 							SAFE_DELETE(pStmt);
 
 							m_bPCRoomPlay = true;
@@ -548,7 +538,7 @@ void PaySystem::logoutPayPlayPCRoom(const string& playerID)
 		{
 			pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
-			// Ãß°¡Çß´ø°É ´Ù½Ã Áö¿ì°í..
+			// Remove the row we inserted earlier.
 			pStmt->executeQuery( "DELETE FROM PCRoomUserInfo WHERE PlayerID='%s'",
 											playerID.c_str());
 
@@ -576,7 +566,7 @@ bool PaySystem::loginPayPlay(PayType payType,
 {
 	__BEGIN_TRY
 
-	// ¾ÆÁ÷ logoutÀÌ µÈ »óÅÂ°¡ ¾Æ´Ï¸é..
+	// If already logged in, reuse the session.
 	if (m_PayPlayStartTime.tv_sec != 0)
 	{
 		return true;
@@ -598,12 +588,11 @@ bool PaySystem::loginPayPlay(PayType payType,
 //		payType = PAY_TYPE_FREE;
 //	}
 
-	// ºô¸µ by sigi. 2002.5.31
-	// FREE, PERIOD, TIME, PART
+	// Billing (sigi, 2002-05-31): FREE, PERIOD, TIME, PART
 	setPayType(payType);
 
 	//--------------------------------------------------
-	// °³ÀÎ »ç¿ëÀÚ ¿ä±ÝÃ¼°è¿¡ ´ëÇÑ Ã¼Å©
+	// Check personal billing first
 	//--------------------------------------------------
 	if (payType!=PAY_TYPE_FREE)
 	{
@@ -615,11 +604,10 @@ bool PaySystem::loginPayPlay(PayType payType,
 
 		if ( !checkPayPlayAvailable() || m_PayType == PAY_TYPE_TIME )
 		{
-			// °ÔÀÓ¹æ ¸ÕÀú Ã¼Å©
+			// Try PC-room billing first.
 			if ( !loginPayPlayPCRoom(ip, playerID) )
 			{
-				// loginPayPlayPCRoom¿¡¼­ °ªÀÌ ¹Ù²î¹Ç·Î.. -_-;
-				// °³ÀÎ »ç¿ëÀÚ Á¤º¸ ¼³Á¤
+				// loginPayPlayPCRoom mutates values, so restore personal info.
 				setPayPlayType( PAY_PLAY_TYPE_PERSON );
 
 				setPayType( payType );
@@ -627,7 +615,7 @@ bool PaySystem::loginPayPlay(PayType payType,
 				setPayPlayAvailableHours( payPlayHours );
 				setPayPlayFlag( payPlayFlag );
 
-				// °³ÀÎ »ç¿ëÀÚ Ã¼Å©
+				// Personal billing check
 				if (!checkPayPlayAvailable())
 				{
 					return false;
@@ -635,19 +623,19 @@ bool PaySystem::loginPayPlay(PayType payType,
 			}
 			else
 			{
-				// ´ÙÀ½¿¡ °³ÀÎ¿ä±ÝÁöºÒÃ¼°è Á¤º¸¸¦ ÀÐ¾î¾ß ÇÏ¹Ç·Î..
+				// Need to reload personal billing next time.
 				m_bSetPersonValue = false;
 			}
 		}
-		// °³ÀÎ Á¤¾× »ç¿ëÀÚµµ PC ¹æ º¸³Ê½º¸¦ Àû¿ë½ÃÄÑÁÖ±â À§ÇØ¼­
+		// Apply PC-room bonus even for personal period users.
 		else if ( m_PayType == PAY_TYPE_PERIOD )
 		{
-			// PC ¹æ ·Î±äÇØº¸°í µÇ¸é -_-;;
+			// If PC-room login works,
 			if ( loginPayPlayPCRoom(ip, playerID) )
 			{
-				// PC ¹æ ·Î±× ¾Æ¿ô ÇÏ°í
+				// Logout from PC room
 				logoutPayPlayPCRoom( playerID );
-				// °ª ´Ù½Ã ¿ø·¡´ë·Î µ¹·ÁÁÖ±â
+				// Restore personal values
 				setPayType(payType);
 				setPayPlayType( PAY_PLAY_TYPE_PERSON );
 
@@ -662,7 +650,7 @@ bool PaySystem::loginPayPlay(PayType payType,
 
 	getCurrentTime(m_PayPlayStartTime);
 
-	// PayTypeÀ» ¼³Á¤ÇÑ´Ù.
+	// PayTypeì„ ì„¤ì •í•œë‹¤.
 	checkPayPlayAvailable();
 	m_bPremiumPlay = true;
 
@@ -679,7 +667,7 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 
 	__BEGIN_TRY
 
-	// ¾ÆÁ÷ logoutÀÌ µÈ »óÅÂ°¡ ¾Æ´Ï¸é..
+	// If already logged in, reuse the session.
 	if (m_PayPlayStartTime.tv_sec != 0)
 	{
 		return true;
@@ -693,7 +681,7 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 
 		BEGIN_DB
 		{
-			//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+			//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 			pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 			Result* pResult = pStmt->executeQuery( "SELECT PayType, PayPlayDate, PayPlayHours, PayPlayFlag, FamilyPayPlayDate FROM Player WHERE PlayerID='%s'", playerID.c_str());
@@ -744,28 +732,27 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 //		setPayType( PAY_TYPE_FREE );
 //	}
 
-	// ºô¸µ by sigi. 2002.5.31
-	// FREE, PERIOD, TIME, PART
+	// Billing (sigi, 2002-05-31): FREE, PERIOD, TIME, PART
 
 	//--------------------------------------------------
-	// °³ÀÎ »ç¿ëÀÚ ¿ä±ÝÃ¼°è¿¡ ´ëÇÑ Ã¼Å©
+	// Check personal billing first
 	//--------------------------------------------------
 	if (m_PayType!=PAY_TYPE_FREE)
 	{
-		// °³ÀÎ Á¤¾×Á¦ »ç¿ëÀÚÀÎÁö ¸ÕÀú Ã¼Å©ÇÑ´Ù.
+		// First check whether this is a personal period plan.
 		setPayPlayType( PAY_PLAY_TYPE_PERSON );
 		if (!checkPayPlayAvailable() || m_PayType != PAY_TYPE_PERIOD)
 		{
-			// loginPayPlayPCRoom¿¡¼­ °ªÀÌ ¹Ù²î¹Ç·Î.. -_-;
+			// loginPayPlayPCRoom mutates values, so save/restore.
 			PayType 	payType 	= m_PayType;
 			VSDateTime 	payPlayDate = m_PayPlayAvailableDateTime;
 			int 		payPlayHours = m_PayPlayAvailableHours;
 			uint 		payPlayFlag = m_PayPlayFlag;
 
-			// °ÔÀÓ¹æ ¸ÕÀú Ã¼Å©
+			// Try PC-room first
 			if (!loginPayPlayPCRoom(ip, playerID))
 			{
-				// °³ÀÎ »ç¿ëÀÚ Á¤º¸ ¼³Á¤
+				// Restore personal billing info
 				setPayPlayType( PAY_PLAY_TYPE_PERSON );
 
 				setPayType( payType );
@@ -773,7 +760,7 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 				setPayPlayAvailableHours( payPlayHours );
 				setPayPlayFlag( payPlayFlag );
 
-				// °³ÀÎ »ç¿ëÀÚ Ã¼Å©
+				// Personal billing check
 				if (!checkPayPlayAvailable())
 				{
 					//cout << "No PayPlay" << endl;
@@ -783,11 +770,11 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 			}
 			else
 			{
-				// ´ÙÀ½¿¡ °³ÀÎ¿ä±ÝÁöºÒÃ¼°è Á¤º¸¸¦ ÀÐ¾î¾ß ÇÏ¹Ç·Î..
+				// Need to reload personal billing on next login.
 				m_bSetPersonValue = false;
 			}
 		}
-		// °³ÀÎ Á¤¾× »ç¿ëÀÚµµ PC ¹æ º¸³Ê½º¸¦ Àû¿ë½ÃÄÑÁÖ±â À§ÇØ¼­
+		// Apply PC-room bonus even for personal period users.
 		else if ( m_PayType == PAY_TYPE_PERIOD )
 		{
 			m_bPCRoomPlay = isPlayInPayPCRoom( ip, playerID );
@@ -798,7 +785,7 @@ bool PaySystem::loginPayPlay(const string& ip, const string& playerID)
 
 	getCurrentTime(m_PayPlayStartTime);
 
-	// PayTypeÀ» ¼³Á¤ÇÑ´Ù.
+	// PayTypeì„ ì„¤ì •í•œë‹¤.
 	checkPayPlayAvailable();
 
 	m_bPremiumPlay = true;
@@ -816,8 +803,7 @@ void PaySystem::logoutPayPlay(const string& playerID, bool bClear, bool bDecreas
 {
 	__BEGIN_TRY
 
-	// ½Ã°£ÀÌ ´Ù µÅ¼­ Â©¸®´Â °æ¿ìÀÇ Ã³¸®°¡ µÉ ¶§
-	// m_PayPlayStartTime.tv_sec = 0 À¸·Î ¼³Á¤ÇØ³õÀº »óÅÂÀÌ´Ù.
+	// When kicked for time-out, m_PayPlayStartTime.tv_sec is set to 0.
 
 	//if (m_PayPlayStartTime.tv_sec == 0)
 	//	return;
@@ -854,7 +840,7 @@ void PaySystem::logoutPayPlay(const string& playerID, bool bClear, bool bDecreas
 	{
 		if (bClear)
 		{
-			// ¸ðµç PayÁ¤º¸¸¦ Á¦°ÅÇÏ°í ¹«·á»ç¿ëÀÚ·Î ¹Ù²Û´Ù. by sigi. 2002.11.18
+			// Clear all pay info and switch to free user. (sigi, 2002-11-18)
 			clearPayPlayDateTime(playerID);
 		}
 		else if (bDecreaseTime 
@@ -883,7 +869,7 @@ void PaySystem::logoutPayPlay(const string& playerID, bool bClear, bool bDecreas
 //---------------------------------------------------------------------------
 // clear PayPlayTime 
 //---------------------------------------------------------------------------
-// DB¿¡¼­ »ç¿ë½Ã°£À» Á¦°ÅÇÑ´Ù.
+// Remove play time from DB.
 void PaySystem::clearPayPlayDateTime(const string& playerID)
 {
 	__BEGIN_TRY
@@ -894,7 +880,7 @@ void PaySystem::clearPayPlayDateTime(const string& playerID)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -911,7 +897,7 @@ void PaySystem::clearPayPlayDateTime(const string& playerID)
 //---------------------------------------------------------------------------
 // decrease PayPlayTime 
 //---------------------------------------------------------------------------
-// DB¿¡¼­ »ç¿ë½Ã°£À» »©ÁØ´Ù. 
+// Subtract play time in DB.
 void PaySystem::decreasePayPlayTime(const string& playerID, uint mm)
 {
 	__BEGIN_TRY
@@ -922,7 +908,7 @@ void PaySystem::decreasePayPlayTime(const string& playerID, uint mm)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -949,7 +935,7 @@ void PaySystem::decreasePayPlayTimePCRoom(uint mm)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		pStmt->executeQuery( 
@@ -1023,7 +1009,7 @@ bool PaySystem::isPayPlayingPeriodPersonal(const string& PlayerID)
 
 	BEGIN_DB
 	{
-		//pStmt = g_pDatabaseManager->getConnection((int)Thread::self())->createStatement();
+		//pStmt = g_pDatabaseManager->getConnection((int)(long)Thread::self())->createStatement();
 		pStmt = g_pDatabaseManager->getDistConnection("PLAYER_DB")->createStatement();
 
 		Result* pResult = pStmt->executeQuery("SELECT PayType=0 or PayPlayDate > now() FROM Player WHERE PlayerID='%s'",
@@ -1051,10 +1037,9 @@ bool PaySystem::isPayPlayingPeriodPersonal(const string& PlayerID)
 }
 
 //---------------------------------------------------------------------------
-// ip°¡ PCRoomIPInfo¿¡ ÀÖ´Ù¸é ±× ID¸¦ °¡Áø PCRoomÀ» PCRoomInfo¿¡¼­ Ã£¾Æ¼­
-// ±× Á¤º¸¸¦ ÀÐ¾îµéÀÎ´Ù.
-// À¯·á »ç¿ëÁßÀÎ ÇÇ¾¾¹æ¿¡¼­ ÇÃ·¹ÀÌ ÇÏ°í ÀÖ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
-// °³ÀÎ Á¤¾×Á¦ÀÏ °æ¿ì loginPayPlayPCRoom() À» È£ÃâÇÏÁö ¾Ê±â ¶§¹®¿¡ µû·Î È®ÀÎÀ» ÇÑ´Ù.
+// If the IP exists in PCRoomIPInfo, load the matching PCRoomInfo row.
+// Check whether the player is playing in a paid PC room.
+// Personal period-plan users skip loginPayPlayPCRoom(), so verify separately.
 //---------------------------------------------------------------------------
 bool PaySystem::isPlayInPayPCRoom(const string& ip, const string& playerID)
 {
@@ -1093,25 +1078,25 @@ bool PaySystem::isPlayInPayPCRoom(const string& ip, const string& playerID)
 
 			VSDateTime currentDateTime(VSDate::currentDate(), VSTime::currentTime());
 
-			// ÀÌ»óÇÑ Á¾·®Á¦ °ü·Ã ÄÚµå
+			// Legacy post-pay logic
 			if ( payType == PAY_TYPE_POST )
 			{
 				VSDateTime currentDateTime(VSDate::currentDate(), VSTime::currentTime());
 
-				// Á¦ÇÑµÈ ³¯Â¥ ÀÌÈÄ¸é Àû¿ë ¾ÈµÇ¾ß ÇÏ¹Ç·Î
+				// Do not allow after the limited date.
 				if ( currentDateTime <= payPlayAvailableDateTime )
 					return true;
 
 				return false;
 			}
 
-			// À¯·á »ç¿ë °¡´ÉÇÑ PC ¹æÀÎÁö È®ÀÎÇÑ´Ù.
+			// Determine if this PC room is allowed for paid use.
 			bool bAvailable = ( payType == PAY_TYPE_FREE )
 								|| ( ( currentDateTime >= payStartAvailableDateTime ) 
 									&& ( currentDateTime <= payPlayAvailableDateTime ) )
 								|| ( payPlayAvailableHours > 0 );
 
-			// À¯·á »ç¿ë °¡´ÉÇÑ PC ¹æÀÏ°æ¿ì PC ¹æ ID ¸¦ ¼¼ÆÃÇÑ´Ù.
+			// If allowed, record the PC-room ID.
 			if ( bAvailable )
 				m_PCRoomID = pcRoomID;
 

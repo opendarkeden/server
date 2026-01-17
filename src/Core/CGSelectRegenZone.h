@@ -1,8 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : CGSelectRegenZone.h 
 // Written By  : excel96
-// Description : 
-// 슬레이어가 개인용 포탈을 이용해 다른 곳으로 이동하고자 할 때 보내는 패킷
+// Description : Packet for requesting a new regen zone when moving to another zone.
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __CG_SELECT_REGEN_ZONE_H__

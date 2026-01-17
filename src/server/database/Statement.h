@@ -2,7 +2,7 @@
 //
 // File Name 	: Statement.h
 // Written by	: Gday29@ewestsoft.com
-// Description	: SQL ¹®À» ¸¸µç´Ù..
+// Description	: SQL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½..
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@ class Result;
 //
 // class Statement;
 //
-// SQL¹®À» ¸¸µé¾î µðºñ¿¡ Äõ¸®ÇÑ´Ù.
+// SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -33,25 +33,25 @@ public:
 	Statement() ; 
 
 	// constructor
-    Statement(char * fmt, ...) ;
+	Statement(const char * fmt, ...) ;
 
 	// destructor
 	~Statement() ;
 
 public:
     
-	// »çÀü¿¡ ÁöÁ¤µÈ SQL ¹®À» °¡Áö°í Äõ¸®ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SQL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     Result * executeQuery() ;
 	
-	// SQL ¹®À» ¹Þ¾Æ¼­ Äõ¸®ÇÑ´Ù.
-	Result * executeQuery(char *,...) ;
+	// SQL ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	Result * executeQuery(const char *,...) ;
 	Result * executeQueryString(const string& sqlStatement) ;
 	
 	// get SQL statement
 	string getStatement() const  { return m_Statement; }
 
-	// SQL ¹®À» ÁöÁ¤ÇÑ´Ù.
-	void setStatement(char * fmt, ...) ;
+	// SQL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+	void setStatement(const char * fmt, ...) ;
 
 	// get connection object
 	Connection * getConnection() const  { return m_pConnection; }
@@ -77,13 +77,13 @@ private:
 	// Connection
 	Connection * m_pConnection;
 
-	// SQL Statement¹
+	// SQL Statementï¿½
 	string m_Statement;
 
 	// Query Result 
 	Result * m_pResult;
 
-	// insert, update, delete ÇßÀ» ¶§ ¿µÇâÀ» ¹ÞÀº row ÀÇ °³¼ö
+	// insert, update, delete ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ row ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	uint m_nAffectedRows;
 
 };

@@ -25,16 +25,16 @@
 #include "NicknameInfo.h"
 #include "BloodBibleSignInfo.h"
 
-#define FLAG_PREMIUM_ZONE			0x10	// premiumÀ¸·Î ¼³Á¤µÈ Á¸ÀÌ´Ù.
-#define FLAG_PREMIUM_PLAY			0x01	// premium play¸¦ ÇÏ´Â ÁßÀÎ°¡?
+#define FLAG_PREMIUM_ZONE			0x10	// Player is in a premium zone.
+#define FLAG_PREMIUM_PLAY			0x01	// Player has premium play active?
 
 //--------------------------------------------------------------------------------
 //
 // class GCUpdateInfo;
 //
-// Å¬¶óÀÌ¾ðÆ®°¡ °ÔÀÓ ¼­¹ö¿¡ Á¢¼ÓÇØ¼­ CGConnect ÆÐÅ¶À» º¸³»¸é, °ÔÀÓ ¼­¹ö´Â Å©¸®Ã³¿Í
-// ¼ÒÀ¯ ¾ÆÀÌÅÛÀ» ·ÎµùÇØ¼­ Á¸¿¡ µé¾î°¥ ÁØºñ¸¦ ÇÏ°Ô µÈ´Ù. ±×´ÙÀ½ PC¿Í ¾ÆÀÌÅÛ Á¤º¸,
-// ±×¸®°í Á¸ Á¤º¸¸¦ GCUpdateInfo¿¡ ´ã¾Æ¼­ Å¬¶óÀÌ¾ðÆ®·Î Àü¼ÛÇÏ°Ô µÈ´Ù.
+// After the client loads core info and sends CGConnect, it prepares to enter the
+// world by loading all core data. The PC information is bundled and delivered to
+// the client via GCUpdateInfo.
 //
 //--------------------------------------------------------------------------------
 
@@ -42,11 +42,11 @@ class GCUpdateInfo : public Packet {
 
 public :
 
-	enum
+		enum
 	{
-		UNION_MASTER = 0,		// ±æµå¿¬ÇÕÀÇ ¿¬ÇÕ¸¶½ºÅÍ´Ù
-		UNION_GUILD_MASTER,		// ±æµå¿¬ÇÕÀÇ ¿¬ÇÕ¸¶½ºÅÍ°¡ ¾Æ´ÏÁö¸¸ ¼Ò¼ÓµÈ ±æµåÀÇ ¸¶½ºÅÍ´Ù
-		UNION_NOTHING,			// ¾Æ¹«°Íµµ ¾Æ´Ï´Ù.
+		UNION_MASTER = 0,		// Union master
+		UNION_GUILD_MASTER,		// Guild master within a union but not the union master
+		UNION_NOTHING,			// No union role
 		UNION_MAX
 	};
 	
@@ -56,10 +56,10 @@ public :
 	// destructor
 	~GCUpdateInfo() ;
 	
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+	// Initialize packet by reading data from the incoming stream.
     void read(SocketInputStream & iStream) ;
 		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+	// Serialize packet data to the outgoing stream.
     void write(SocketOutputStream & oStream) const ;
 
 	// execute packet's handler
@@ -111,11 +111,11 @@ public :
 			NPCInfo* pInfo = *itr;
 			size += pInfo->getSize();
 		}
-		// ¼­¹ö »óÅÂ
+		// Server status
 		size += szBYTE;
-		// ÇÁ¸®¹Ì¾ö
+		// Premium flag
 		size += szBYTE;
-		// SMS
+		// SMS flag
 		size += szDWORD;
 
 		if (m_pNicknameInfo == NULL )
@@ -137,7 +137,7 @@ public :
 
 		size += m_pBloodBibleSign->getSize();
 
-		// ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+		// Deforum list
 		size += szint;
 
 		return size;
@@ -240,7 +240,7 @@ public :
 	void setServerStat(BYTE ServerStat )  { m_ServerStat = ServerStat; }
 	BYTE getServerStat() const  { return m_ServerStat; }
 
-	// premium play °ü·Ã
+	// premium play ï¿½ï¿½ï¿½ï¿½
 	void setPremiumZone() { m_fPremium |= FLAG_PREMIUM_ZONE; }
 	void setPremiumPlay() { m_fPremium |= FLAG_PREMIUM_PLAY; }
 	BYTE isPremiumZone() const { return m_fPremium & FLAG_PREMIUM_ZONE; }
@@ -277,7 +277,7 @@ private :
 	//--------------------------------------------------------------------------------
 	// PC Information
 	//--------------------------------------------------------------------------------
-	// PCSlayerInfo2 ¶Ç´Â PCVampireInfo2 ¸¦ »ç¿ëÇÑ´Ù.
+	// PCSlayerInfo2 ï¿½Ç´ï¿½ PCVampireInfo2 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	PCInfo* m_pPCInfo;
 
 	//--------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ private :
 	EffectInfo* m_pEffectInfo;
 
 	//--------------------------------------------------------------------------------
-	// ¸ðÅä»çÀÌÅ¬ÀÌ ÀÖ³ª ¾ø³ª.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¬ï¿½ï¿½ ï¿½Ö³ï¿½ ï¿½ï¿½ï¿½ï¿½.
 	//--------------------------------------------------------------------------------
 	bool m_hasMotorcycle;
 
@@ -314,25 +314,25 @@ private :
 	// quick item slot
 	// gear
 
-	// Àú³Î(PDA)
-	// ¼öÇà Äù½ºÆ® Á¤º¸
-	// °øÁö»çÇ×, ÀÌº¥Æ® Á¤º¸
-	// ÈåÈì.. ¾êµéÀº Ã³À½ PDS¸¦ ÄÓ ¶§ ´Ù¿î¹ÞÀ»±î³ª.. - -;
+	// ï¿½ï¿½ï¿½ï¿½(PDA)
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½.. ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ PDSï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù¿ï¿½ï¿½ï¿½ï¿½ï¿½î³ª.. - -;
 
 	//--------------------------------------------------------------------------------
 	// Zone Information
 	//--------------------------------------------------------------------------------
-	// Á¸ ¾ÆÀÌµð
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
 	ZoneID_t m_ZoneID;	
 
-	// ³ªÅ¸³¯ ÁÂÇ¥ÀÇ ´ë°­ÀÇ À§Ä¡
+	// ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ë°­ï¿½ï¿½ ï¿½ï¿½Ä¡
 	Coord_t m_ZoneX;
 	Coord_t m_ZoneY;
 
 	// Game Time
 	GameTime m_GameTime;
 	
-	// Weather(³¯¾¾ Á¤º¸)
+	// Weather(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	Weather m_Weather;
 	WeatherLevel_t m_WeatherLevel;
 
@@ -340,21 +340,21 @@ private :
 	DarkLevel_t m_DarkLevel;
 	LightLevel_t m_LightLevel;
 
-	// Á¸¿¡ ÃâÇöÇÏ´Â NPC ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ °³¼ö, ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ ¹è¿­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ NPC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å¸ï¿½ï¿½ ï¿½è¿­
 	BYTE m_nNPCs;
 	NPCType_t m_NPCTypes[ maxNPCPerZone ];
 
-	// Á¸¿¡ ÃâÇöÇÏ´Â ¸ó½ºÅÍ ½ºÇÁ¶óÀÌÆ® Å¸ÀÔÀÇ °³¼ö, ½ºÇÁ¶óÀÌÆ® Å¸ÀÔ ¹è¿­
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Å¸ï¿½ï¿½ ï¿½è¿­
 	BYTE m_nMonsters;
 	MonsterType_t m_MonsterTypes[ maxMonsterPerZone ];
 
-	// ÇöÀç Á¸¿¡ Á¸ÀçÇÏ´Â NPCµé¿¡ ´ëÇÑ Á¤º¸
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ NPCï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	list<NPCInfo*> m_NPCInfos;
 
-	// ¼­¹ö »óÅÂ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BYTE m_ServerStat;
 
-	// ÇÁ¸®¹Ì¾ö °ü·Ã
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 	BYTE m_fPremium;
 
 	DWORD	m_SMSCharge;
@@ -362,13 +362,13 @@ private :
 
 	BYTE	m_NonPK;
 
-	// ¿¬ÇÕ±æµå Á¤º¸
+	// ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	uint	m_GuildUnionID;
 	BYTE	m_GuildUnionUserType;
 
 	BloodBibleSignInfo* m_pBloodBibleSign;
 
-    // ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+    // ï¿½Ä¿ï¿½Â¯ ï¿½ï¿½ï¿½ï¿½Æ®
     int    m_PowerPoint;
 };
 
@@ -396,7 +396,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCUpdateInfoPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCUpdateInfoPacketMaxSize ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
 	PacketSize_t getPacketMaxSize() const  
 	{ 
 		PacketSize_t size = 0;
@@ -424,9 +424,9 @@ public :
 
 		size += szBYTE;
 		size += NPCInfo::getMaxSize()* 255;
-		// ¼­¹ö »óÅÂ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		size += szBYTE;
-		// ÇÁ¸®¹Ì¾ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½
 		size += szBYTE;
 		size += szDWORD;
 		size += NicknameInfo::getMaxSize();
@@ -439,7 +439,7 @@ public :
 
 		size += BloodBibleSignInfo::getMaxSize();
 
-		// ÆÄ¿öÂ¯ Æ÷ÀÎÆ®
+		// ï¿½Ä¿ï¿½Â¯ ï¿½ï¿½ï¿½ï¿½Æ®
 		size += szint;
 
 		return size;

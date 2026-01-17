@@ -24,11 +24,9 @@ GCAddInstalledMineToZone::GCAddInstalledMineToZone()
 //--------------------------------------------------------------------
 // Destructor
 //--------------------------------------------------------------------
-GCAddInstalledMineToZone::~GCAddInstalledMineToZone() 
-    
+GCAddInstalledMineToZone::~GCAddInstalledMineToZone() noexcept
 {
-	__BEGIN_TRY
-	__END_CATCH
+	// no resources; keep noexcept
 }
 
 //////////////////////////////////////////////////////////////////////

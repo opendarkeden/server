@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : NPC.cpp
-// Written By  : ±è¼º¹Î
+// Written By  : ê¹€ì„±ë¯¼
 // Description : 
-// ¿ø·¡´Â »óÁ¡ Ã³¸® ºÎºÐÀÌ ¾ø¾úÀ¸³ª, ÀÌ Å¬·¡½º¸¦ »ó¼Ó¹Þ¾Æ »óÁ¡ NPC¸¦ 
-// ¸¸µé±âµµ Á» ±×·¡¼­, ±×³É NPC ¾È¿¡´Ù »óÁ¡ ÀÎÅÍÆäÀÌ½º¸¦ Áý¾î³Ö¾ú´Ù.
+// ì›ëž˜ëŠ” ìƒì  ì²˜ë¦¬ ë¶€ë¶„ì´ ì—†ì—ˆìœ¼ë‚˜, ì´ í´ëž˜ìŠ¤ë¥¼ ìƒì†ë°›ì•„ ìƒì  NPCë¥¼ 
+// ë§Œë“¤ê¸°ë„ ì¢€ ê·¸ëž˜ì„œ, ê·¸ëƒ¥ NPC ì•ˆì—ë‹¤ ìƒì  ì¸í„°íŽ˜ì´ìŠ¤ë¥¼ ì§‘ì–´ë„£ì—ˆë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 
 #include "NPC.h"
@@ -26,30 +26,30 @@ NPC::NPC ()
 
 	m_pInventory = NULL;
 
-	// ´ÙÀ½ Ã³¸®¹ÞÀ» ÅÏÀ» ÁöÁ¤ÇÑ´Ù.
+	// ë‹¤ìŒ ì²˜ë¦¬ë°›ì„ í„´ì„ ì§€ì •í•œë‹¤.
 	getCurrentTime(m_NextTurn);
 	m_NextTurn.tv_sec  += rand() % 3;
 	m_NextTurn.tv_usec += rand() % 1000000;
 	if (m_NextTurn.tv_usec >= 1000000) m_NextTurn.tv_sec++;
 
-	// ÀÎº¥Åä¸® °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+	// ì¸ë²¤í† ë¦¬ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 	//m_pInventory = new Inventory(5,5);	
 
-	// »óÁ¡ Áø¿­Àå °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+	// ìƒì  ì§„ì—´ìž¥ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 	m_pRack = new ShopRack[SHOP_RACK_TYPE_MAX];
 	Assert(m_pRack != NULL);
 
-	// »óÁ¡ ½Ã¼¼ º¯¼ö¸¦ µðÆúÆ®·Î ¼¼ÆÃÇØÁØ´Ù.
+	// ìƒì  ì‹œì„¸ ë³€ìˆ˜ë¥¼ ë””í´íŠ¸ë¡œ ì„¸íŒ…í•´ì¤€ë‹¤.
 	m_MarketCondBuy  = 25;
 	m_MarketCondSell = 100;
 
-	// ±âº»ÀûÀ¸·Î »óÁ¡Àº ÀÏ¹Ý »óÁ¡ÀÌ´Ù.
+	// ê¸°ë³¸ì ìœ¼ë¡œ ìƒì ì€ ì¼ë°˜ ìƒì ì´ë‹¤.
 	m_ShopType = SHOPTYPE_NORMAL;
 
 	m_ClanType = 0;
 		
-	// ±×³É ÀÇ¹Ì¾ø´Â default.
-	// Àß¸øÇØ¼­ VisionInfo¿¡¼­ Sight¸¦ Ã£´Â °æ¿ì ´ëºñ
+	// ê·¸ëƒ¥ ì˜ë¯¸ì—†ëŠ” default.
+	// ìž˜ëª»í•´ì„œ VisionInfoì—ì„œ Sightë¥¼ ì°¾ëŠ” ê²½ìš° ëŒ€ë¹„
 	// by sigi. 2002.9.6
 	m_Sight = 5;
 
@@ -74,20 +74,20 @@ NPC::NPC (const string & name)
 	m_Name       = name;
 	m_pInventory = NULL;
 
-	// ´ÙÀ½ Ã³¸®¹ÞÀ» ÅÏÀ» ÁöÁ¤ÇÑ´Ù.
+	// ë‹¤ìŒ ì²˜ë¦¬ë°›ì„ í„´ì„ ì§€ì •í•œë‹¤.
 	getCurrentTime(m_NextTurn);
 	m_NextTurn.tv_sec += rand() % 3;
 	m_NextTurn.tv_usec += rand() % 1000000;
 	if (m_NextTurn.tv_usec >= 1000000) m_NextTurn.tv_sec ++;
 
-	// ÀÎº¥Åä¸® °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+	// ì¸ë²¤í† ë¦¬ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 	//m_pInventory = new Inventory(5,5);	
 
-	// »óÁ¡ Áø¿­Àå °´Ã¼¸¦ »ý¼ºÇÑ´Ù.
+	// ìƒì  ì§„ì—´ìž¥ ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 	m_pRack = new ShopRack[SHOP_RACK_TYPE_MAX];
 	Assert(m_pRack != NULL);
 
-	// »óÁ¡ ½Ã¼¼ º¯¼ö¸¦ µðÆúÆ®·Î ¼¼ÆÃÇØÁØ´Ù.
+	// ìƒì  ì‹œì„¸ ë³€ìˆ˜ë¥¼ ë””í´íŠ¸ë¡œ ì„¸íŒ…í•´ì¤€ë‹¤.
 	m_MarketCondBuy  = 25;
 	m_MarketCondSell = 100;
 
@@ -114,13 +114,13 @@ NPC::~NPC()
 	SAFE_DELETE(m_pInventory);
 	SAFE_DELETE_ARRAY(m_pRack); 
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 // registerObject()
-// Zone¿¡ Á¾¼ÓµÈ ObjectRegistry¸¦ »ç¿ëÇØ¼­, 
-// NPC ¿Í ¼ÒÀ¯¾ÆÀÌÅÛµéÀÇ ObjectID¸¦ ÇÒ´ç¹Þ´Â´Ù.
-// ÇöÀç·Î´Â µî·ÏÇØ¾ß ÇÒ °ÍÀº NPC ÀÚ½ÅÀÇ OID ¹Û¿¡ ¾ø´Ù.
+// Zoneì— ì¢…ì†ëœ ObjectRegistryë¥¼ ì‚¬ìš©í•´ì„œ, 
+// NPC ì™€ ì†Œìœ ì•„ì´í…œë“¤ì˜ ObjectIDë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
+// í˜„ìž¬ë¡œëŠ” ë“±ë¡í•´ì•¼ í•  ê²ƒì€ NPC ìžì‹ ì˜ OID ë°–ì— ì—†ë‹¤.
 void NPC::registerObject ()
 	
 {
@@ -140,17 +140,17 @@ void NPC::registerObject ()
 }
 
 // load()
-// ÀÌ NPC¿Í °ü·ÃµÈ µ¥ÀÌÅÍµéÀ» ·ÎµåÇÑ´Ù.
-// ½ºÅ©¸³Æ®³ª, Æ®¸®°Å µîµî.
+// ì´ NPCì™€ ê´€ë ¨ëœ ë°ì´í„°ë“¤ì„ ë¡œë“œí•œë‹¤.
+// ìŠ¤í¬ë¦½íŠ¸ë‚˜, íŠ¸ë¦¬ê±° ë“±ë“±.
 bool NPC::load ()
 	
 {
 	__BEGIN_TRY
 
-	// trigger ¸¦ ·ÎµùÇÑ´Ù.
+	// trigger ë¥¼ ë¡œë”©í•œë‹¤.
 	m_TriggerManager.load(m_Name); 
 
-	// AtFirst ÄÁµð¼ÇÀÌ ÀÖÀ¸¸é, ½ÇÇàÇÏ°í »èÁ¦ÇÑ´Ù.
+	// AtFirst ì»¨ë””ì…˜ì´ ìžˆìœ¼ë©´, ì‹¤í–‰í•˜ê³  ì‚­ì œí•œë‹¤.
 	if (m_TriggerManager.hasCondition(Condition::CONDITION_AT_FIRST))
 	{
 		list<Trigger*>&          triggers = m_TriggerManager.getTriggers();
@@ -174,7 +174,7 @@ bool NPC::load ()
 }
 
 // init()
-// µ¥ÀÌÅÍµéÀ» ÃÊ±âÈ­ÇÏ°í...Á¸¿¡ NPC¸¦ µî·ÏÇÑ´Ù.
+// ë°ì´í„°ë“¤ì„ ì´ˆê¸°í™”í•˜ê³ ...ì¡´ì— NPCë¥¼ ë“±ë¡í•œë‹¤.
 void NPC::init ()
 	
 {
@@ -187,20 +187,20 @@ void NPC::init ()
 }
 
 // act()
-// °ÔÀÓ ¼­¹öÀÇ ¸ÞÀÎ ·çÇÁ¸¶´Ù ÇÑ¹ø¾¿ ºÒ¸®´Â ÇÔ¼öÀÌ´Ù.
-// AI ÄÚµå°¡ ¼öÇàµÇ´Â ¸ÞÀÎ ÇÔ¼ö¶ó ÇÒ ¼ö ÀÖ´Ù.
+// ê²Œìž„ ì„œë²„ì˜ ë©”ì¸ ë£¨í”„ë§ˆë‹¤ í•œë²ˆì”© ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ë‹¤.
+// AI ì½”ë“œê°€ ìˆ˜í–‰ë˜ëŠ” ë©”ì¸ í•¨ìˆ˜ë¼ í•  ìˆ˜ ìžˆë‹¤.
 void NPC::act(const Timeval& currentTime)
 	
 {
 	__BEGIN_TRY
 	__BEGIN_DEBUG
 
-	// ÇöÀç ½Ã°£ÀÌ ´ÙÀ½ ÅÏº¸´Ù Å©´Ù¸é, ¾ÆÁ÷ Á» ´õ ±â´Ù·Á¾ß ÇÑ´Ù.
-	// ±×·¸Áö ¾ÊÀ¸¸é, ¾×¼ÇÀ» ÃëÇÑ´Ù.
+	// í˜„ìž¬ ì‹œê°„ì´ ë‹¤ìŒ í„´ë³´ë‹¤ í¬ë‹¤ë©´, ì•„ì§ ì¢€ ë” ê¸°ë‹¤ë ¤ì•¼ í•œë‹¤.
+	// ê·¸ë ‡ì§€ ì•Šìœ¼ë©´, ì•¡ì…˜ì„ ì·¨í•œë‹¤.
 	if (currentTime < m_NextTurn) return;	
 
-	// ´ÙÀ½ ÅÏÀ» ÁöÁ¤ÇÑ´Ù.
-	// ÇöÀç NPCµéÀº 1ÃÊ¿¡ 1Å¸ÀÏ¸¸ ¿òÁ÷ÀÌ±â ¶«½Ã·Î.. =_=;
+	// ë‹¤ìŒ í„´ì„ ì§€ì •í•œë‹¤.
+	// í˜„ìž¬ NPCë“¤ì€ 1ì´ˆì— 1íƒ€ì¼ë§Œ ì›€ì§ì´ê¸° ë•œì‹œë¡œ.. =_=;
 	Timeval delay;
 	delay.tv_sec  = 0;
 	delay.tv_usec = 750000 + rand() % 200000;
@@ -209,10 +209,10 @@ void NPC::act(const Timeval& currentTime)
 	if ( m_pCoupleRegisterManager != NULL ) m_pCoupleRegisterManager->heartbeat();
 	if ( m_pCoupleUnregisterManager != NULL ) m_pCoupleUnregisterManager->heartbeat();
 
-	// Æ®¸®°Å¸¦ °¡Áö°í ÀÖÀ» °æ¿ì, °¢ Æ®¸®°ÅµéÀÇ Á¶°ÇÀÌ ¸¸Á·µÇ´ÂÁö Ã¼Å©ÇÑ´Ù.
-	// ¸¸¾à Æ¯Á¤ Æ®¸®°ÅÀÇ ¸ðµç Á¶°ÇÀÌ ¸¸Á·ÇÑ´Ù¸é, ±× Æ®¸®°Å¿¡ ÇØ´çµÇ´Â
-	// ¾×¼ÇÀ» ½ÇÇàÇÏ°í ¸®ÅÏÇÑ´Ù. ¿Ö³ÄÇÏ¸é, Æ®¸®°Å ¿ª½Ã ¾×¼ÇÀÌ¹Ç·Î,
-	// ÀÏ´Ü ¾×¼ÇÀº ÇÑ ÅÏ¿¡ ÇÑ¹ø¸¸ ½ÇÇàµÇ±â ¶§¹®ÀÌ´Ù. 
+	// íŠ¸ë¦¬ê±°ë¥¼ ê°€ì§€ê³  ìžˆì„ ê²½ìš°, ê° íŠ¸ë¦¬ê±°ë“¤ì˜ ì¡°ê±´ì´ ë§Œì¡±ë˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
+	// ë§Œì•½ íŠ¹ì • íŠ¸ë¦¬ê±°ì˜ ëª¨ë“  ì¡°ê±´ì´ ë§Œì¡±í•œë‹¤ë©´, ê·¸ íŠ¸ë¦¬ê±°ì— í•´ë‹¹ë˜ëŠ”
+	// ì•¡ì…˜ì„ ì‹¤í–‰í•˜ê³  ë¦¬í„´í•œë‹¤. ì™œëƒí•˜ë©´, íŠ¸ë¦¬ê±° ì—­ì‹œ ì•¡ì…˜ì´ë¯€ë¡œ,
+	// ì¼ë‹¨ ì•¡ì…˜ì€ í•œ í„´ì— í•œë²ˆë§Œ ì‹¤í–‰ë˜ê¸° ë•Œë¬¸ì´ë‹¤. 
 	list<Trigger*>&          triggers = m_TriggerManager.getTriggers();
 	list<Trigger*>::iterator itr      = triggers.begin();
 
@@ -231,7 +231,7 @@ void NPC::act(const Timeval& currentTime)
 }
 
 // getShopVersion()
-// ÁöÁ¤µÈ Á¾·ùÀÇ »óÁ¡ÀÇ ¹öÀüÀ» ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ìƒì ì˜ ë²„ì „ì„ ë¦¬í„´í•œë‹¤.
 ShopVersion_t NPC::getShopVersion(ShopRackType_t type) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -239,7 +239,7 @@ ShopVersion_t NPC::getShopVersion(ShopRackType_t type) const
 }
 
 // setShopVersion()
-// ÁöÁ¤µÈ Á¾·ùÀÇ »óÁ¡ÀÇ ¹öÀüÀ» ¼¼ÆÃÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ìƒì ì˜ ë²„ì „ì„ ì„¸íŒ…í•œë‹¤.
 void NPC::setShopVersion(ShopRackType_t type, ShopVersion_t ver)
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -247,7 +247,7 @@ void NPC::setShopVersion(ShopRackType_t type, ShopVersion_t ver)
 }
 
 // increaseShopVersion()
-// ÁöÁ¤µÈ Á¾·ùÀÇ »óÁ¡ÀÇ ¹öÀüÀ» ¿Ã¸°´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ìƒì ì˜ ë²„ì „ì„ ì˜¬ë¦°ë‹¤.
 void NPC::increaseShopVersion(ShopRackType_t type)
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -255,7 +255,7 @@ void NPC::increaseShopVersion(ShopRackType_t type)
 }
 
 // isExistShopItem()
-// ÁöÁ¤µÈ Á¾·ù¿Í ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÛÀÌ »óÁ¡ Áø¿­Àå ¾È¿¡ Á¸ÀçÇÏ´ÂÁö ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì™€ ì¸ë±ìŠ¤ì˜ ì•„ì´í…œì´ ìƒì  ì§„ì—´ìž¥ ì•ˆì— ì¡´ìž¬í•˜ëŠ”ì§€ ë¦¬í„´í•œë‹¤.
 bool NPC::isExistShopItem(ShopRackType_t type, BYTE index) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -263,7 +263,7 @@ bool NPC::isExistShopItem(ShopRackType_t type, BYTE index) const
 }
 
 // insertShopItem()
-// ÁöÁ¤µÈ Á¾·ù¿Í ÀÎµ¦½ºÀÇ Áø¿­Àå¿¡´Ù°¡ ¾ÆÀÌÅÛÀ» Áý¾î³Ö´Â´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì™€ ì¸ë±ìŠ¤ì˜ ì§„ì—´ìž¥ì—ë‹¤ê°€ ì•„ì´í…œì„ ì§‘ì–´ë„£ëŠ”ë‹¤.
 void NPC::insertShopItem(ShopRackType_t type, BYTE index, Item* pItem)
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -271,7 +271,7 @@ void NPC::insertShopItem(ShopRackType_t type, BYTE index, Item* pItem)
 }
 
 // removeShopItem()
-// ÁöÁ¤µÈ Á¾·ù¿Í ÀÎµ¦½ºÀÇ Áø¿­Àå¿¡¼­ ¾ÆÀÌÅÛÀ» Á¦°ÅÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì™€ ì¸ë±ìŠ¤ì˜ ì§„ì—´ìž¥ì—ì„œ ì•„ì´í…œì„ ì œê±°í•œë‹¤.
 void NPC::removeShopItem(ShopRackType_t type, BYTE index)
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -279,7 +279,7 @@ void NPC::removeShopItem(ShopRackType_t type, BYTE index)
 }
 
 // getShopItem()
-// ÁöÁ¤µÈ Á¾·ù¿Í ÀÎµ¦½ºÀÇ Áø¿­Àå¿¡ ÀÖ´Â ¾ÆÀÌÅÛ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì™€ ì¸ë±ìŠ¤ì˜ ì§„ì—´ìž¥ì— ìžˆëŠ” ì•„ì´í…œ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 Item* NPC::getShopItem(ShopRackType_t type, BYTE index) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -287,7 +287,7 @@ Item* NPC::getShopItem(ShopRackType_t type, BYTE index) const
 }
 
 // clearShopItem()
-// Áø¿­ÀåÀ» Ã»¼Ò(?)ÇÑ´Ù.
+// ì§„ì—´ìž¥ì„ ì²­ì†Œ(?)í•œë‹¤.
 void NPC::clearShopItem(void)
 {
 	for (int i=0; i<SHOP_RACK_TYPE_MAX; i++) 
@@ -295,7 +295,7 @@ void NPC::clearShopItem(void)
 }
 
 // getFirstEmptySlot()
-// ÁöÁ¤µÈ Á¾·ùÀÇ Áø¿­Àå¿¡¼­ Á¦ÀÏ ¾ÕÂÊÀÇ ºó Ä­À» Ã£´Â´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ì§„ì—´ìž¥ì—ì„œ ì œì¼ ì•žìª½ì˜ ë¹ˆ ì¹¸ì„ ì°¾ëŠ”ë‹¤.
 BYTE NPC::getFirstEmptySlot(ShopRackType_t type) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -303,7 +303,7 @@ BYTE NPC::getFirstEmptySlot(ShopRackType_t type) const
 }
 
 // getLastEmptySlot()
-// ÁöÁ¤µÈ Á¾·ùÀÇ Áø¿­Àå¿¡¼­ Á¦ÀÏ µÚÂÊÀÇ ºó Ä­À» Ã£´Â´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ì§„ì—´ìž¥ì—ì„œ ì œì¼ ë’¤ìª½ì˜ ë¹ˆ ì¹¸ì„ ì°¾ëŠ”ë‹¤.
 BYTE NPC::getLastEmptySlot(ShopRackType_t type) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -311,7 +311,7 @@ BYTE NPC::getLastEmptySlot(ShopRackType_t type) const
 }
 
 // isFull()
-// ÁöÁ¤µÈ Á¾·ùÀÇ Áø¿­ÀåÀÌ ÇöÀç ²ËÂù »óÅÂÀÎÁö¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ì§„ì—´ìž¥ì´ í˜„ìž¬ ê½‰ì°¬ ìƒíƒœì¸ì§€ë¥¼ ë¦¬í„´í•œë‹¤.
 bool NPC::isFull(ShopRackType_t type) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -319,7 +319,7 @@ bool NPC::isFull(ShopRackType_t type) const
 }
 
 // isEmpty
-// ÁöÁ¤µÈ Á¾·ùÀÇ Áø¿­ÀåÀÌ ÇöÀç ºó »óÅÂÀÎÁö¸¦ ¸®ÅÏÇÑ´Ù.
+// ì§€ì •ëœ ì¢…ë¥˜ì˜ ì§„ì—´ìž¥ì´ í˜„ìž¬ ë¹ˆ ìƒíƒœì¸ì§€ë¥¼ ë¦¬í„´í•œë‹¤.
 bool NPC::isEmpty(ShopRackType_t type) const
 {
 	Assert(type < SHOP_RACK_TYPE_MAX);
@@ -347,7 +347,7 @@ int NPC::getTaxRatio(PlayerCreature* pPC) const
 		m_pQuestBoard->release();
 	}
 
-	// Å×½ºÆ®.. 5°³¸¸ »ý¼º.
+	// í…ŒìŠ¤íŠ¸.. 5ê°œë§Œ ìƒì„±.
 	m_pQuestBoard->regenerate( 5 );
 #endif
 
@@ -371,7 +371,7 @@ bool NPC::giveSimpleQuest(Creature* pCreature, QuestID_t qid)
 
 		Quest* pQuest = m_pQuestBoard->remove( qid );
 
-		// ±×·± QuestID´Â ¾ø´Ù.
+		// ê·¸ëŸ° QuestIDëŠ” ì—†ë‹¤.
 		if (pQuest==NULL)
 		{
 			// cout << "No Such Quest(" << (int)qid << ")" << endl;
@@ -386,7 +386,7 @@ bool NPC::giveSimpleQuest(Creature* pCreature, QuestID_t qid)
 			return true;
 		}
 
-		// quest Ãß°¡ ½ÇÆÐ
+		// quest ì¶”ê°€ ì‹¤íŒ¨
 		SAFE_DELETE(pQuest);
 		//cout << "cannot add Quest(" << (int)qid << ")" << endl;
 	}

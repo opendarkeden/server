@@ -17,13 +17,10 @@
 
 //////////////////////////////////////////////////////////////////////////////
 // class GCAddSlayer;
-// 로그인이나 포탈, 텔레포트 등으로 슬레이어가 존에 새로 들어갔을 경우, 또는 
-// 슬레이어가 존에서 이동할 경우,(1) 이미 이 슬레이어에 대한 정보를 갖고 있는 
-//(즉 이 슬레이어를 보고 있는..) 영역에 존재하는 PC들에게는 GCMove 패킷을 
-// 브로드캐스트한다. 그러나,(2) 이 슬레이어를 처음 보게 되는 영역에 존재하는 
-// PC들에게는 GCAddSlayer 패킷을 브로드캐스트한다. 또한,(3) 이 슬레이어는 
-// 자신이 새로 개척한 시야(?) 안에 존재하는 슬레이어들의 정보를 GCAddSlayer에 
-// 담아서 받게 된다.
+// Packet sent when a Slayer enters view. If a player already knows about the
+// Slayer (including itself) and it only moves, GCMove is used. When a Slayer
+// is seen for the first time or appears after a move to another map, send
+// GCAddSlayer so the client can build the full Slayer state.
 //////////////////////////////////////////////////////////////////////////////
 
 class GCAddSlayer : public Packet 
@@ -31,7 +28,7 @@ class GCAddSlayer : public Packet
 public:
 	GCAddSlayer();
 	GCAddSlayer(const PCSlayerInfo3 & slayerInfo);
-	virtual ~GCAddSlayer() ;
+	virtual ~GCAddSlayer() noexcept ;
 
 public:
     void read(SocketInputStream & iStream) ;
@@ -60,11 +57,11 @@ public:
 	void		setStoreInfo(StoreInfo* pInfo) { pInfo->makeStoreOutlook(m_StoreOutlook); }
 
 private:
-	PCSlayerInfo3  m_SlayerInfo;  // 슬레이어의 외모 정보
-	EffectInfo*    m_pEffectInfo; // 걸려있는 이펙트 정보
-	PetInfo*	   m_pPetInfo;	  // 펫 관련 정보
-	NicknameInfo*	   m_pNicknameInfo;	  // 펫 관련 정보
-	StoreOutlook		m_StoreOutlook;	// 개인상점 관련 정보
+	PCSlayerInfo3  m_SlayerInfo;  // Core Slayer info
+	EffectInfo*    m_pEffectInfo; // Active effect info
+	PetInfo*	   m_pPetInfo;	  // Pet information
+	NicknameInfo*	   m_pNicknameInfo;	  // Nickname information
+	StoreOutlook		m_StoreOutlook;	// Store visual state
 };
 
 //////////////////////////////////////////////////////////////////////////////

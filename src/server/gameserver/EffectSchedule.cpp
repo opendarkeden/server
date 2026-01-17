@@ -39,8 +39,8 @@ EffectScheduleWork::~EffectScheduleWork()
 
 	//SAFE_DELETE(m_pData);
 	
-	// ÄÚµå¿¡ µû¶ó¼­, void* m_pData¸¦ Ä³½ºÆÃÇØ¼­, 
-	// ¾Ë¸Â°Ô Áö¿öÁà¾ß ÇÑ´Ù.
+	// ì½”ë“œì— ë”°ë¼ì„œ, void* m_pDataë¥¼ ìºìŠ¤íŒ…í•´ì„œ, 
+	// ì•Œë§žê²Œ ì§€ì›Œì¤˜ì•¼ í•œë‹¤.
 	if (m_Code == WORKCODE_ADD_VAMPIRE_PORTAL)
 	{
 		Assert(m_pData == NULL);
@@ -53,7 +53,7 @@ EffectScheduleWork::~EffectScheduleWork()
 	{
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ EffectSchedule::~EffectSchedule()
 		SAFE_DELETE(pWork);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectSchedule::addWork(int WorkCode, void* pData) 
@@ -139,7 +139,7 @@ EffectScheduleManager::~EffectScheduleManager()
 		SAFE_DELETE(pSchedule);
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectScheduleManager::addEffectSchedule(EffectSchedule* pEffectSchedule) 
@@ -165,7 +165,7 @@ void EffectScheduleManager::heartbeat(void)
 
 	__ENTER_CRITICAL_SECTION(m_Mutex)
 
-	// ¸ðµç ½ºÄÉÁìÀ» Ã³¸®ÇÒ ¶§±îÁö...
+	// ëª¨ë“  ìŠ¤ì¼€ì¥´ì„ ì²˜ë¦¬í•  ë•Œê¹Œì§€...
 	while (!m_EffectScheduleList.empty())
 	{
 		EffectSchedule* pEffectSchedule = m_EffectScheduleList.front();
@@ -173,21 +173,21 @@ void EffectScheduleManager::heartbeat(void)
 
 		Effect* pEffect = pEffectSchedule->getEffect();
 
-		// ÀÛ¾÷ ´ë»óÀÌ µÇ´Â ÀÌÆåÆ®°¡ ¾ÆÁ÷ Á¸ÀçÇÑ´Ù¸é, ÀÛ¾÷¿¡ µé¾î°£´Ù.
+		// ìž‘ì—… ëŒ€ìƒì´ ë˜ëŠ” ì´íŽ™íŠ¸ê°€ ì•„ì§ ì¡´ìž¬í•œë‹¤ë©´, ìž‘ì—…ì— ë“¤ì–´ê°„ë‹¤.
 		if (pEffect != NULL)
 		{
-			// ¸ðµç ÀÏÀ» Ã³¸®ÇÒ ¶§±îÁö...
+			// ëª¨ë“  ì¼ì„ ì²˜ë¦¬í•  ë•Œê¹Œì§€...
 			while (true)
 			{
 				EffectScheduleWork* pWork = pEffectSchedule->getFrontWork();
 
-				// ¸ðµç ÀÏÀ» ³¡³Â´Ù¸é ºê·¹ÀÌÅ©
+				// ëª¨ë“  ì¼ì„ ëëƒˆë‹¤ë©´ ë¸Œë ˆì´í¬
 				if (pWork == NULL) break;
 
 				int   WorkCode = pWork->getCode();
 				//void* pData    = pWork->getData();
 
-				// °¢ ÀÛ¾÷ ÄÚµå¿¡ µû¶ó¼­ ÀÏÀ» Ã³¸®ÇÑ´Ù.
+				// ê° ìž‘ì—… ì½”ë“œì— ë”°ë¼ì„œ ì¼ì„ ì²˜ë¦¬í•œë‹¤.
 				if (WorkCode == WORKCODE_ADD_VAMPIRE_PORTAL)
 				{
 					Assert(pEffect->getEffectClass() == Effect::EFFECT_CLASS_VAMPIRE_PORTAL);
@@ -195,8 +195,8 @@ void EffectScheduleManager::heartbeat(void)
 					EffectVampirePortal* pEffectVampirePortal = dynamic_cast<EffectVampirePortal*>(pEffect);
 					Assert(pEffectVampirePortal != NULL);
 
-					// ÇöÀç ÀÌÆåÆ® ³»ºÎ¿¡ ÀÖ´Â ÁÂÇ¥´Â Á¦ÀÏ Ã³À½¿¡ °¡°íÀÚ Çß´ø ÁÂÇ¥´Ù.
-					// ±× Å¸ÀÏ¿¡ °°Àº ÀÌÆåÆ®°¡ ÀÖ°Å³ª ÇÏ´Â ÀÌÀ¯·Î ÁÂÇ¥´Â ¼öÁ¤µÉ ¼ö ÀÖ´Ù.
+					// í˜„ìž¬ ì´íŽ™íŠ¸ ë‚´ë¶€ì— ìžˆëŠ” ì¢Œí‘œëŠ” ì œì¼ ì²˜ìŒì— ê°€ê³ ìž í–ˆë˜ ì¢Œí‘œë‹¤.
+					// ê·¸ íƒ€ì¼ì— ê°™ì€ ì´íŽ™íŠ¸ê°€ ìžˆê±°ë‚˜ í•˜ëŠ” ì´ìœ ë¡œ ì¢Œí‘œëŠ” ìˆ˜ì •ë  ìˆ˜ ìžˆë‹¤.
 					Zone* pZone = pEffectVampirePortal->getZone();
 					ZoneCoord_t cx = pEffectVampirePortal->getX();
 					ZoneCoord_t cy = pEffectVampirePortal->getY();
@@ -206,22 +206,22 @@ void EffectScheduleManager::heartbeat(void)
 
 					if (pt.x != -1)
 					{
-						// ÁÂÇ¥°¡ ¼öÁ¤µÇ¾úÀ» Áöµµ ¸ð¸£´Ï, ÁÂÇ¥¸¦ ¼öÁ¤ÇØÁØ´Ù.
+						// ì¢Œí‘œê°€ ìˆ˜ì •ë˜ì—ˆì„ ì§€ë„ ëª¨ë¥´ë‹ˆ, ì¢Œí‘œë¥¼ ìˆ˜ì •í•´ì¤€ë‹¤.
 						pEffectVampirePortal->setX(pt.x);
 						pEffectVampirePortal->setY(pt.y);
 
-						// OID¸¦ µî·Ï¹Þ¾Æ¾ß find¶óµçÁö ÇÏ´Â ÀÛ¾÷À» ½ÇÇàÇÒ ¼ö ÀÖ´Ù.
+						// OIDë¥¼ ë“±ë¡ë°›ì•„ì•¼ findë¼ë“ ì§€ í•˜ëŠ” ìž‘ì—…ì„ ì‹¤í–‰í•  ìˆ˜ ìžˆë‹¤.
 						ObjectRegistry& OR = pZone->getObjectRegistry();
 						OR.registerObject(pEffectVampirePortal);
 
-						// Å¸ÀÏ ¹× ¹ìÆÄÀÌ¾î Æ÷Å» ¸Å´ÏÀú¿¡ µî·ÏÇÑ´Ù.
+						// íƒ€ì¼ ë° ë±€íŒŒì´ì–´ í¬íƒˆ ë§¤ë‹ˆì €ì— ë“±ë¡í•œë‹¤.
 						Tile& rTile = pZone->getTile(pt.x, pt.y);
 						rTile.addEffect(pEffectVampirePortal);
 
 						EffectManager* pVampirePortalManager = pZone->getVampirePortalManager();
 						pVampirePortalManager->addEffect(pEffectVampirePortal);
 
-						// Å¸ÀÏ¿¡ ÀÌÆåÆ®°¡ ºÙ¾úÀ¸´Ï, ºê·ÎµåÄ³½ºÆÃÀ» ÇØÁØ´Ù.
+						// íƒ€ì¼ì— ì´íŽ™íŠ¸ê°€ ë¶™ì—ˆìœ¼ë‹ˆ, ë¸Œë¡œë“œìºìŠ¤íŒ…ì„ í•´ì¤€ë‹¤.
 						GCAddVampirePortal gcAddVampirePortal;
 						gcAddVampirePortal.setObjectID(pEffectVampirePortal->getObjectID());
 						gcAddVampirePortal.setOwnerID(pEffectVampirePortal->getOwnerID());

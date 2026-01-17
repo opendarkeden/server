@@ -20,18 +20,14 @@ SGGuildInfo::SGGuildInfo()
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-SGGuildInfo::~SGGuildInfo()
+SGGuildInfo::~SGGuildInfo() noexcept
 {
-	__BEGIN_TRY
-	
-	// ±æµå ¸®½ºÆ®ÀÇ ¸ðµç °´Ã¼ »èÁ¦
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
 	clearGuildInfoList();
-
-	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-// Datagram °´Ã¼·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
+// Datagram ï¿½ï¿½Ã¼ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void SGGuildInfo::read (SocketInputStream& iStream ) 
 {
@@ -52,7 +48,7 @@ void SGGuildInfo::read (SocketInputStream& iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// Datagram °´Ã¼·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
+// Datagram ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void SGGuildInfo::write (SocketOutputStream& oStream ) const 
 {
@@ -78,7 +74,7 @@ void SGGuildInfo::clearGuildInfoList()
 {
 	__BEGIN_TRY
 
-	// GuildInfoList¸¦ »èÁ¦ÇÑ´Ù.
+	// GuildInfoListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	while(!m_GuildInfoList.empty() )
 	{
 		GuildInfo2* pGuildInfo = m_GuildInfoList.front();

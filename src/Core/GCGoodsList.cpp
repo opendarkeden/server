@@ -39,7 +39,7 @@ GCGoodsList::~GCGoodsList()
 
 	m_GoodsList.clear();
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 //////////////////////////////////////////////////////////////////////////////

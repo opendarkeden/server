@@ -32,12 +32,12 @@ DatabaseManager::DatabaseManager ()
 
 DatabaseManager::~DatabaseManager () 
 {
-	// ¸ðµç Connection ¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ Connection ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.
 	unordered_map<int, Connection*>::iterator itr = m_Connections.begin();
 	for (; itr != m_Connections.end(); itr++)
 		SAFE_DELETE(itr->second);
 
-	// ÇØ½¬¸Ê¾È¿¡ ÀÖ´Â ¸ðµç pair µéÀ» »èÁ¦ÇÑ´Ù.
+	// ï¿½Ø½ï¿½ï¿½Ê¾È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ pair ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_Connections.clear();
 
 	SAFE_DELETE(m_pDefaultConnection);
@@ -99,7 +99,7 @@ void DatabaseManager::init ()
 
 			if ( (int)dbDiff > 3600 )
 			{
-				// µ¥ÀÌÅÍ º£ÀÌ½º¿Í ¼­¹ö°£¿¡ ½Ã°£Â÷ÀÌ°¡ 1½Ã°£ ÀÌ»óÀÌ´Ù.
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 1ï¿½Ã°ï¿½ ï¿½Ì»ï¿½ï¿½Ì´ï¿½.
 				cout << "======================================================" << endl;
 				cout << "!!! Time Check Error !!!" << endl;
 				cout << "DB time is " << tDBTime << "and server time is " << tSYSTime << endl;
@@ -218,7 +218,7 @@ void DatabaseManager::addConnection ( int TID,  Connection * pConnection )
 }
 
 ////////////////////////////////////////////////////////////////////////////
-// Potion Ãø Thread ConnectionÀ» À§ÇÑ ºÎºÐ
+// Potion ï¿½ï¿½ Thread Connectionï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection ) 
 {
@@ -246,7 +246,7 @@ void DatabaseManager::addDistConnection ( int TID,  Connection * pConnection )
 }
 
 ////////////////////////////////////////////////////////////////////////////
-// China Billing log ÀúÀåÀ» À§ÇÑ DB ¿¬°á Ãß°¡
+// China Billing log ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DB ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 ////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection ) 
 {
@@ -275,7 +275,7 @@ void DatabaseManager::addCBillingConnection ( int TID,  Connection * pConnection
 
 /*
 ////////////////////////////////////////////////////////////////////////////////
-// PC ¹æ °ü·Ã Connection ÀúÀå
+// PC ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Connection ï¿½ï¿½ï¿½ï¿½
 ////////////////////////////////////////////////////////////////////////////////
 void DatabaseManager::addPCRoomConnection ( int TID,  Connection * pConnection ) 
 	
@@ -311,7 +311,7 @@ Connection * DatabaseManager::getDistConnection ( const string& connName )
 		
 	Connection * pTempConnection = NULL;
 
-	unordered_map<int, Connection*>::iterator itr = m_DistConnections.find(Thread::self());
+	unordered_map<int, Connection*>::iterator itr = m_DistConnections.find((int)(long)Thread::self());
 
 	if (itr == m_DistConnections.end())
 	{
@@ -342,7 +342,7 @@ Connection * DatabaseManager::getConnection ( const string& connName )
 
 	unordered_map<int, Connection*>::iterator itr;
 
-	// connName¿¡ ´ëÇØ¼­ °¢±â ´Ù¸¥ DB Server·Î ºÐ±âÇÏµµ·Ï ÇÑ´Ù.
+	// connNameï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ DB Serverï¿½ï¿½ ï¿½Ð±ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	//if(connName == "DIST_DARKEDEN")
 	//{
 	//	itr = m_DistConnections.find(Thread::self());
@@ -354,7 +354,7 @@ Connection * DatabaseManager::getConnection ( const string& connName )
 	//}
 	//else
 	//{
-		itr = m_Connections.find(Thread::self());
+		itr = m_Connections.find((int)(long)Thread::self());
 
 		if(itr == m_Connections.end())
 			pTempConnection = m_pDefaultConnection;
@@ -377,7 +377,7 @@ Connection* DatabaseManager::getCBillingConnection( const string& connName )
 
 	unordered_map<int, Connection*>::iterator itr;
 
-	itr = m_CBillingConnections.find(Thread::self());
+	itr = m_CBillingConnections.find((int)(long)Thread::self());
 
 	if( itr != m_CBillingConnections.end() )
 	{
@@ -395,7 +395,7 @@ Connection* DatabaseManager::getCBillingConnection( const string& connName )
 }
 /*
 ////////////////////////////////////////////////////////////////////////////
-// PC ¹æ ÅëÇÕ¿ë Connection °¡Á®¿À±â
+// PC ï¿½ï¿½ ï¿½ï¿½ï¿½Õ¿ï¿½ Connection ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 ////////////////////////////////////////////////////////////////////////////
 Connection * DatabaseManager::getPCRoomConnection ( const string& connName ) 
 	

@@ -52,7 +52,7 @@ EventMorph::~EventMorph()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EventMorph::activate () 
@@ -68,15 +68,15 @@ void EventMorph::activate ()
 
 	if (m_pGamePlayer->getPlayerStatus() != GPS_NORMAL)
 	{
-		// ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ°¡ WAITING_FOR_CG_READYÀÎµ¥, morph°¡ 
-		// activateµÇ¾î ¹ØÀÇ Á¸¿¡¼­ Å©¸®ÃÄ¸¦ Áö¿ì´Â ºÎºĞ¿¡¼­ ¿¡·¯°¡ throwµÇ¾î
-		// ¼­¹ö°¡ Á×´Â ¹ö±×°¡ ÀÖ¾ú´Ù. Á¤È®È÷ ¾î¶»°Ô ÇØ¼­ CG_READY»óÅÂ¿¡¼­
-		// ÀÌº¥Æ®°¡ activateµÇ´ÂÁö´Â ¸ğ¸£°ÚÀ¸³ª, GamePlayerÀÇ 
-		// EventManager ÀÚÃ¼¸¦ GPS_NORMALÀÏ ¶§¸¸ µ¹¾Æ°¡°Ô ÇÏ¸é,
-		// Resurrect°¡ µÇÁö ¾ÊÀ¸´Ï ÁÖÀÇÇÏ±æ ¹Ù¶õ´Ù. °á±¹ GamePlayer ³»ºÎ¿¡¼­
-		// Ã¼Å©¸¦ ÇÏ±â°¡ °ï¶õÇÏ±â ¶§¹®¿¡ ÀÌ ºÎºĞ¿¡¼­, Ã³¸®ÇÑ´Ù.
+		// í”Œë ˆì´ì–´ì˜ ìƒíƒœê°€ WAITING_FOR_CG_READYì¸ë°, morphê°€ 
+		// activateë˜ì–´ ë°‘ì˜ ì¡´ì—ì„œ í¬ë¦¬ì³ë¥¼ ì§€ìš°ëŠ” ë¶€ë¶„ì—ì„œ ì—ëŸ¬ê°€ throwë˜ì–´
+		// ì„œë²„ê°€ ì£½ëŠ” ë²„ê·¸ê°€ ìˆì—ˆë‹¤. ì •í™•íˆ ì–´ë–»ê²Œ í•´ì„œ CG_READYìƒíƒœì—ì„œ
+		// ì´ë²¤íŠ¸ê°€ activateë˜ëŠ”ì§€ëŠ” ëª¨ë¥´ê² ìœ¼ë‚˜, GamePlayerì˜ 
+		// EventManager ìì²´ë¥¼ GPS_NORMALì¼ ë•Œë§Œ ëŒì•„ê°€ê²Œ í•˜ë©´,
+		// Resurrectê°€ ë˜ì§€ ì•Šìœ¼ë‹ˆ ì£¼ì˜í•˜ê¸¸ ë°”ë€ë‹¤. ê²°êµ­ GamePlayer ë‚´ë¶€ì—ì„œ
+		// ì²´í¬ë¥¼ í•˜ê¸°ê°€ ê³¤ë€í•˜ê¸° ë•Œë¬¸ì— ì´ ë¶€ë¶„ì—ì„œ, ì²˜ë¦¬í•œë‹¤.
 		StringStream msg;
-		msg << "EventMorph::activate() : GamePlayerÀÇ »óÅÂ°¡ GPS_NORMALÀÌ ¾Æ´Õ´Ï´Ù."
+		msg << "EventMorph::activate() : GamePlayerì˜ ìƒíƒœê°€ GPS_NORMALì´ ì•„ë‹™ë‹ˆë‹¤."
 			<< "PlayerID[" << m_pGamePlayer->getID() << "]"
 			<< "CreatureName[" << pFromCreature->getName() << "]";
 
@@ -87,7 +87,7 @@ void EventMorph::activate ()
 	pFromCreature->removeFlag(Effect::EFFECT_CLASS_BLOOD_DRAIN);
 	Zone* pZone = pFromCreature->getZone();
 
-	// ¸¸ÀÏ Restore ÀÌÆåÆ®°¡ °É·ÁÀÖ´Ù¸é º¯½ÅÀÌ µÇÁö ¾Ê´Â´Ù.
+	// ë§Œì¼ Restore ì´í™íŠ¸ê°€ ê±¸ë ¤ìˆë‹¤ë©´ ë³€ì‹ ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (pFromCreature->isFlag(Effect::EFFECT_CLASS_RESTORE))
 	{
 		return;
@@ -98,28 +98,28 @@ void EventMorph::activate ()
 	dropSweeperToZone( pFromCreature );
 
 	//////////////////////////////////////////////////////////////////////
-	// °¢Á¾ Á¸ ·¹º§ Á¤º¸¸¦ »èÁ¦ÇØ¾ß ÇÑ´Ù.
+	// ê°ì¢… ì¡´ ë ˆë²¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì•¼ í•œë‹¤.
 	//////////////////////////////////////////////////////////////////////
 	
-	// ÆÄÆ¼ ÃÊ´ë ÁßÀÌ¶ó¸é Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+	// íŒŒí‹° ì´ˆëŒ€ ì¤‘ì´ë¼ë©´ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
 	PartyInviteInfoManager* pPIIM = pZone->getPartyInviteInfoManager();
 	Assert(pPIIM != NULL);
 	pPIIM->cancelInvite(pFromCreature);
 
-	// ÆÄÆ¼ °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØ ÁØ´Ù.
+	// íŒŒí‹° ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ ì¤€ë‹¤.
 	uint PartyID = pFromCreature->getPartyID();
 	if (PartyID != 0)
 	{
-		// ¸ÕÀú ·ÎÄÃ¿¡¼­ »èÁ¦ÇÏ°í...
+		// ë¨¼ì € ë¡œì»¬ì—ì„œ ì‚­ì œí•˜ê³ ...
 		LocalPartyManager* pLPM = pZone->getLocalPartyManager();
 		Assert(pLPM != NULL);
 		pLPM->deletePartyMember(PartyID, pFromCreature);
 
-		// ±Û·Î¹ú¿¡¼­µµ »èÁ¦ÇØ ÁØ´Ù.
+		// ê¸€ë¡œë²Œì—ì„œë„ ì‚­ì œí•´ ì¤€ë‹¤.
 		deleteAllPartyInfo(pFromCreature);
 	}
 
-	// Æ®·¹ÀÌµå ÁßÀÌ¾ú´Ù¸é Æ®·¹ÀÌµå °ü·Ã Á¤º¸¸¦ »èÁ¦ÇØÁØ´Ù.
+	// íŠ¸ë ˆì´ë“œ ì¤‘ì´ì—ˆë‹¤ë©´ íŠ¸ë ˆì´ë“œ ê´€ë ¨ ì •ë³´ë¥¼ ì‚­ì œí•´ì¤€ë‹¤.
 	TradeManager* pTM = pZone->getTradeManager();
 	Assert(pTM != NULL);
 	pTM->cancelTrade(pFromCreature);
@@ -129,8 +129,8 @@ void EventMorph::activate ()
 
 	Vampire* pVampire = new Vampire();
 	
-	GCMorph1 gcEventMorph1;	// º¯½Å ´ç»çÀÚ¿¡°Ô..
-	GCMorphVampire2 gcEventMorphVampire2;	// º¯½Å ±¸°æ²Ûµé¿¡°Ô..
+	GCMorph1 gcEventMorph1;	// ë³€ì‹  ë‹¹ì‚¬ìì—ê²Œ..
+	GCMorphVampire2 gcEventMorphVampire2;	// ë³€ì‹  êµ¬ê²½ê¾¼ë“¤ì—ê²Œ..
 		
 	pVampire->setName(pFromCreature->getName());
 
@@ -151,13 +151,13 @@ void EventMorph::activate ()
 	// slayer to vampire
 	Slayer* pSlayer = dynamic_cast<Slayer*>(pFromCreature);
 
-	// ¹ìÆÄÀÌ¾î·Î º¯½ÅÇÒ¶§ Creature Pointer°¡ ´Ş¶óÁö¹Ç·Î...
-	// ¿ø·¡ µî·Ï µÇ¾îÀÖ´ø Æ÷ÀÎÅÍ´Â °³°¡ µÈ´Ù...
-	// µû¶ó¼­ »õ·Î¿î Creature Pointer¸¦ µî·ÏÇØÁà¾ß ÇÑ´Ù.
+	// ë±€íŒŒì´ì–´ë¡œ ë³€ì‹ í• ë•Œ Creature Pointerê°€ ë‹¬ë¼ì§€ë¯€ë¡œ...
+	// ì›ë˜ ë“±ë¡ ë˜ì–´ìˆë˜ í¬ì¸í„°ëŠ” ê°œê°€ ëœë‹¤...
+	// ë”°ë¼ì„œ ìƒˆë¡œìš´ Creature Pointerë¥¼ ë“±ë¡í•´ì¤˜ì•¼ í•œë‹¤.
 	g_pPCFinder->deleteCreature(pFromCreature->getName());
 	g_pPCFinder->addCreature(pVampire);
 
-	// ±æµå ÇöÀç Á¢¼Ó ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// ê¸¸ë“œ í˜„ì¬ ì ‘ì† ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
 	if ( pSlayer->getGuildID() != 99 )
 	{
 		Guild* pGuild = g_pGuildManager->getGuild( pSlayer->getGuildID() );
@@ -173,7 +173,7 @@ void EventMorph::activate ()
 			g_pSharedServerManager->sendPacket( &gsGuildMemberLogOn );
 			
 			Statement* pStmt = NULL;
-			// µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+			// ë””ë¹„ì— ì—…ë°ì´íŠ¸ í•œë‹¤.
 			BEGIN_DB
 			{
 				pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
@@ -185,25 +185,25 @@ void EventMorph::activate ()
 			filelog( "GuildMissing.log", "[NoSuchGuild] GuildID : %d, Name : %s\n", (int)pSlayer->getGuildID(), pSlayer->getName().c_str() );
 	}
 
-	// ÀÎº¥Åä¸® ±³Ã¼.
+	// ì¸ë²¤í† ë¦¬ êµì²´.
 	Inventory* pInventory = pSlayer->getInventory();
 	pVampire->setInventory(pInventory);
 	pSlayer->setInventory(NULL);
 
-	// º¸°üÇÔ ±³Ã¼
-	pVampire->deleteStash();                 // ÀÌÀü °´Ã¼¸¦ Áö¿öÁÖ°í...
-	pVampire->setStash(pSlayer->getStash()); // ½½·¹ÀÌ¾î °É·Î ¹Ù²Û ´ÙÀ½¿¡
+	// ë³´ê´€í•¨ êµì²´
+	pVampire->deleteStash();                 // ì´ì „ ê°ì²´ë¥¼ ì§€ì›Œì£¼ê³ ...
+	pVampire->setStash(pSlayer->getStash()); // ìŠ¬ë ˆì´ì–´ ê±¸ë¡œ ë°”ê¾¼ ë‹¤ìŒì—
 	pVampire->setStashNum(pSlayer->getStashNum());
-	pVampire->setStashStatus(false);         // OID ÇÒ´ç »óÅÂ¸¦ false·Î...
-	pSlayer->setStash(NULL);                 // Æ÷ÀÎÅÍ ¿¡·¯¸¦ ¸·±â À§ÇØ ½½·¹ÀÌ¾î °ÍÀº NULL·Î...
+	pVampire->setStashStatus(false);         // OID í• ë‹¹ ìƒíƒœë¥¼ falseë¡œ...
+	pSlayer->setStash(NULL);                 // í¬ì¸í„° ì—ëŸ¬ë¥¼ ë§‰ê¸° ìœ„í•´ ìŠ¬ë ˆì´ì–´ ê²ƒì€ NULLë¡œ...
 
 	/*
-	// °¡ºñÁö ±³Ã¼
+	// ê°€ë¹„ì§€ êµì²´
 	while (true)
 	{
 		Item* pGarbage = pSlayer->popItemFromGarbage();
 
-		// ´õ ÀÌ»ó ¾ø´Ù¸é ºê·¹ÀÌÅ©...
+		// ë” ì´ìƒ ì—†ë‹¤ë©´ ë¸Œë ˆì´í¬...
 		if (pGarbage == NULL) break;
 
 		pVampire->addItemToGarbage(pGarbage);
@@ -211,14 +211,14 @@ void EventMorph::activate ()
 	*/
 
 
-	// ÇÃ·¡±× ¼Â ±³Ã¼
+	// í”Œë˜ê·¸ ì…‹ êµì²´
 	pVampire->deleteFlagSet();
 	pVampire->setFlagSet(pSlayer->getFlagSet());
 	pSlayer->setFlagSet(NULL);
 
 	Item* pItem = NULL;
 	_TPOINT point;
-	// ±â¾î¿¡¼­ ÀÎº¥Åä¸®·Î..
+	// ê¸°ì–´ì—ì„œ ì¸ë²¤í† ë¦¬ë¡œ..
     for(int part = 0; part < (int)Slayer::WEAR_MAX; part++)
    	{
        	pItem = pSlayer->getWearItem((Slayer::WearPart)part);
@@ -228,7 +228,7 @@ void EventMorph::activate ()
             {
 				Assert(((Slayer::WearPart)part == Slayer::WEAR_RIGHTHAND) || ((Slayer::WearPart)part == Slayer::WEAR_LEFTHAND));
 				Assert(pSlayer->getWearItem(Slayer::WEAR_RIGHTHAND) == pSlayer->getWearItem(Slayer::WEAR_LEFTHAND));
-				// ¾ç¼Õ ¾ÆÅÛ.
+				// ì–‘ì† ì•„í…œ.
 				pSlayer->deleteWearItem(Slayer::WEAR_RIGHTHAND);
 				pSlayer->deleteWearItem(Slayer::WEAR_LEFTHAND);
             }
@@ -239,8 +239,8 @@ void EventMorph::activate ()
 	
 			if (pInventory->getEmptySlot(pItem, point))
        	    {
-				// ÀÎº¥Åä¸®¿¡ ¿©À¯ ½½·ÔÀÌ ÀÖÀ¸¸é..
-				// ÀÎº¥Åä¸®¿¡ Ãß°¡
+				// ì¸ë²¤í† ë¦¬ì— ì—¬ìœ  ìŠ¬ë¡¯ì´ ìˆìœ¼ë©´..
+				// ì¸ë²¤í† ë¦¬ì— ì¶”ê°€
 				pInventory->addItem(point.x, point.y, pItem);
 				pItem->save(pVampire->getName(), STORAGE_INVENTORY, 0, point.x, point.y);
    	        }
@@ -257,7 +257,7 @@ void EventMorph::activate ()
 				ZoneCoord_t ZoneX = pSlayer->getX();
 				ZoneCoord_t ZoneY = pSlayer->getY();
 
-				// Á¸À¸·Î »Ñ¸°´Ù.
+				// ì¡´ìœ¼ë¡œ ë¿Œë¦°ë‹¤.
    	            pt = pZone->addItem(pItem, ZoneX, ZoneY);
 
 				if (pt.x != -1) 
@@ -265,7 +265,7 @@ void EventMorph::activate ()
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
 					log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "", pItem->toString());
 
-					// ItemTraceLog ¸¦ ³²±ä´Ù
+					// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
@@ -276,7 +276,7 @@ void EventMorph::activate ()
 				} 
 				else 
 				{
-					// ItemTraceLog ¸¦ ³²±ä´Ù
+					// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -288,7 +288,7 @@ void EventMorph::activate ()
       	    }
         }
     }
-	// ExtraInventorySlot¿¡¼­ ÀÎº¥Åä¸®·Î..
+	// ExtraInventorySlotì—ì„œ ì¸ë²¤í† ë¦¬ë¡œ..
     pItem = pSlayer->getExtraInventorySlotItem();
    	if (pItem)
     {
@@ -320,7 +320,7 @@ void EventMorph::activate ()
 				pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x , pt.y);
 				log(LOG_DROP_ITEM_MORPH, pSlayer->getName(), "");
 
-				// ItemTraceLog ¸¦ ³²±ä´Ù
+				// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					char zoneName[15];
@@ -331,7 +331,7 @@ void EventMorph::activate ()
 			}
 			else 
 			{
-				// ItemTraceLog ¸¦ ³²±ä´Ù
+				// ItemTraceLog ë¥¼ ë‚¨ê¸´ë‹¤
 				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					remainTraceLog( pItem, pFromCreature->getName(), "GOD", ITEM_LOG_DELETE, DETAIL_DROP);
@@ -349,7 +349,7 @@ void EventMorph::activate ()
 
 	pVampire->loadTimeLimitItem();
 
-	// Vampire·Î º¯ÇßÀ»¶§´Â µ·À» ÃÊ±âÈ­ÇÑ´Ù.
+	// Vampireë¡œ ë³€í–ˆì„ë•ŒëŠ” ëˆì„ ì´ˆê¸°í™”í•œë‹¤.
 	//pVampire->setGoldEx(pSlayer->getGold());
 	pVampire->setGoldEx(0);
 	pVampire->setStashGoldEx(0);
@@ -384,18 +384,18 @@ void EventMorph::activate ()
 //	pZone->deleteCreature(pFromCreature, x, y);
 //	pZone->morphCreature(pFromCreature, pVampire);
 
-	// ½Ã¾ß update..
+	// ì‹œì•¼ update..
 	pZone->updateHiddenScan(pVampire);
 
-	// ¹ìÇÁ ±â¼ú
+	// ë±€í”„ ê¸°ìˆ 
 	pVampire->sendVampireSkillInfo();
 
 	m_pTargetCreature = NULL;
 
-	// ¹ìÇÁ·Î º¯Çß´Ù´Â Á¤º¸¸¦ Slayer Field¿¡ Ãß°¡ÇÑ´Ù.
+	// ë±€í”„ë¡œ ë³€í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ Slayer Fieldì— ì¶”ê°€í•œë‹¤.
 	pSlayer->tinysave("Race='VAMPIRE'");
 
-	// ¹ìÆÄÀÌ¾î ¸¶À»·Î ÀÌµ¿½ÃÅ²´Ù.
+	// ë±€íŒŒì´ì–´ ë§ˆì„ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
 	uint ZoneNum = 1003;
 
 	ZoneCoord_t ZoneX = 62;
@@ -410,7 +410,7 @@ void EventMorph::activate ()
 //	Zone* pZone = pVampire->getZone();
 
 	//--------------------------------------------------------------------------------
-	// µµÂøÁ¸ÀÌ ¾î´À ¼­¹ö, ¾î´À Á¸±×·ì¿¡ ¼ÓÇÏ´ÂÁö ¾Ë¾Æº»´Ù.
+	// ë„ì°©ì¡´ì´ ì–´ëŠ ì„œë²„, ì–´ëŠ ì¡´ê·¸ë£¹ì— ì†í•˜ëŠ”ì§€ ì•Œì•„ë³¸ë‹¤.
 	//--------------------------------------------------------------------------------
 	ZoneInfo* pZoneInfo;
 	try 
@@ -419,8 +419,8 @@ void EventMorph::activate ()
 	} 
 	catch (NoSuchElementException&) 
 	{
-		cerr << "Critical Error : Æ÷Å»¿¡ ÁöÁ¤µÈ Á¸ ¾ÆÀÌµğ°¡ Æ²¸®°Å³ª, ZoneInfoManager¿¡ ÇØ´ç Á¸ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù." << endl;
-		throw Error("Critical Error : Æ÷Å»¿¡ ÁöÁ¤µÈ Á¸ ¾ÆÀÌµğ°¡ Æ²¸®°Å³ª, ZoneInfoManager¿¡ ÇØ´ç Á¸ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+		cerr << "Critical Error : í¬íƒˆì— ì§€ì •ëœ ì¡´ ì•„ì´ë””ê°€ í‹€ë¦¬ê±°ë‚˜, ZoneInfoManagerì— í•´ë‹¹ ì¡´ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." << endl;
+		throw Error("Critical Error : í¬íƒˆì— ì§€ì •ëœ ì¡´ ì•„ì´ë””ê°€ í‹€ë¦¬ê±°ë‚˜, ZoneInfoManagerì— í•´ë‹¹ ì¡´ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	}
 
 	ZoneGroup* pZoneGroup;
@@ -430,39 +430,39 @@ void EventMorph::activate ()
 	}
 	catch (NoSuchElementException&) 
 	{
-		cerr << "Critical Error : ÇöÀç·Î´Â °ÔÀÓ ¼­¹ö´Â 1´ë»ÓÀÌ´ç.." << endl;
+		cerr << "Critical Error : í˜„ì¬ë¡œëŠ” ê²Œì„ ì„œë²„ëŠ” 1ëŒ€ë¿ì´ë‹¹.." << endl;
 
-		// ÀÏ´ÜÀº ¼­¹ö°¡ 1´ëÀÌ¹Ç·Î.. ±×´ë·Î ³ª°£´Ù...
-		throw Error("Critical Error : ÇöÀç·Î´Â °ÔÀÓ ¼­¹ö´Â 1´ë»ÓÀÌ´ç..");
+		// ì¼ë‹¨ì€ ì„œë²„ê°€ 1ëŒ€ì´ë¯€ë¡œ.. ê·¸ëŒ€ë¡œ ë‚˜ê°„ë‹¤...
+		throw Error("Critical Error : í˜„ì¬ë¡œëŠ” ê²Œì„ ì„œë²„ëŠ” 1ëŒ€ë¿ì´ë‹¹..");
 	}
 
 	//--------------------------------------------------------------------------------
-	// ¿ì¼± ÀÌÀü Á¸¿¡¼­ PC ¸¦ »èÁ¦ÇÏ°í, ÇÃ·¹ÀÌ¾î¸¦ ZPM -> IPM À¸·Î ¿Å±ä´Ù.
+	// ìš°ì„  ì´ì „ ì¡´ì—ì„œ PC ë¥¼ ì‚­ì œí•˜ê³ , í”Œë ˆì´ì–´ë¥¼ ZPM -> IPM ìœ¼ë¡œ ì˜®ê¸´ë‹¤.
 	//--------------------------------------------------------------------------------
 	try 
 	{
-		// ÀÌÁ¦, Á¸¿¡¼­ PC¸¦ »èÁ¦ÇÑ´Ù.
+		// ì´ì œ, ì¡´ì—ì„œ PCë¥¼ ì‚­ì œí•œë‹¤.
 		//
 		// *CAUTION*
 		//
-		// pVampire ÁÂÇ¥°¡ ½ÇÁ¦·Î pVampire°¡ Á¸ÀçÇÏ´Â Å¸ÀÏÀÇ ÁÂÇ¥¿Í °°¾Æ¾ß ÇÑ´Ù.
-		// µû¶ó¼­, ÀÌ ¸Ş½îµå¸¦ È£ÃâÇÏ±â Àü¿¡ ÁÂÇ¥¸¦ Àß ¹Ù²ã³ö¾ß ÇÑ´ç..
+		// pVampire ì¢Œí‘œê°€ ì‹¤ì œë¡œ pVampireê°€ ì¡´ì¬í•˜ëŠ” íƒ€ì¼ì˜ ì¢Œí‘œì™€ ê°™ì•„ì•¼ í•œë‹¤.
+		// ë”°ë¼ì„œ, ì´ ë©”ì˜ë“œë¥¼ í˜¸ì¶œí•˜ê¸° ì „ì— ì¢Œí‘œë¥¼ ì˜ ë°”ê¿”ë†”ì•¼ í•œë‹¹..
 		//
 		pZone->deleteCreature(pVampire, pVampire->getX() , pVampire->getY());
 
-		// Á¸±×·ìÀÇ ZPM¿¡¼­ ÇÃ·¹ÀÌ¾î¸¦ »èÁ¦ÇÑ´Ù.
+		// ì¡´ê·¸ë£¹ì˜ ZPMì—ì„œ í”Œë ˆì´ì–´ë¥¼ ì‚­ì œí•œë‹¤.
 		//pZone->getZoneGroup()->getZonePlayerManager()->deletePlayer_NOBLOCKED(pGamePlayer);
 		//pZone->getZoneGroup()->getZonePlayerManager()->deletePlayer_NOBLOCKED(pGamePlayer->getSocket()->getSOCKET());
 		pZone->getZoneGroup()->getZonePlayerManager()->deletePlayer(pGamePlayer->getSocket()->getSOCKET());
 
 		//--------------------------------------------------
-		// Å©¸®Ã³ÀÇ »õ·Î¿î ÁÂÇ¥´Â Æ÷Å»ÀÇ µµÂø ÁöÁ¡ÀÌ´Ù.
+		// í¬ë¦¬ì²˜ì˜ ìƒˆë¡œìš´ ì¢Œí‘œëŠ” í¬íƒˆì˜ ë„ì°© ì§€ì ì´ë‹¤.
 		//--------------------------------------------------
-		// ÁÖ¼®Ã³¸® by sigi. 2002.5.17
+		// ì£¼ì„ì²˜ë¦¬ by sigi. 2002.5.17
 		//pVampire->setXY(ZoneX, ZoneY);
 		//pVampire->setZone(NULL);
 
-		// IPMÀ¸·Î ÇÃ·¹ÀÌ¾î¸¦ ¿Å±ä´Ù.
+		// IPMìœ¼ë¡œ í”Œë ˆì´ì–´ë¥¼ ì˜®ê¸´ë‹¤.
 		//g_pIncomingPlayerManager->addPlayer(pGamePlayer);
 		//g_pIncomingPlayerManager->pushPlayer(pGamePlayer);
 		pZone->getZoneGroup()->getZonePlayerManager()->pushOutPlayer(pGamePlayer);
@@ -474,17 +474,17 @@ void EventMorph::activate ()
 		throw Error(nsee.toString());
 	}
 
-	// Å©¸®Ã³¿¡´Ù°¡ Á¸À» ÁöÁ¤ÇØÁØ´Ù. ÀÌ´Â OID ¸¦ ÇÒ´ç¹Ş±â À§ÇØ¼­ÀÌ´Ù.
+	// í¬ë¦¬ì²˜ì—ë‹¤ê°€ ì¡´ì„ ì§€ì •í•´ì¤€ë‹¤. ì´ëŠ” OID ë¥¼ í• ë‹¹ë°›ê¸° ìœ„í•´ì„œì´ë‹¤.
 	Zone* pNewZone = pZoneGroup->getZone(ZoneNum);
 	Assert(pNewZone != NULL);
 
 	//pVampire->setZone(pZone);
-	// ÀÌµ¿ÇÒ Á¸À» ¼³Á¤ÇÑ´Ù. by sigi. 2002.5.11
+	// ì´ë™í•  ì¡´ì„ ì„¤ì •í•œë‹¤. by sigi. 2002.5.11
 	pVampire->setNewZone(pNewZone);
 	pVampire->setNewXY(ZoneX, ZoneY);
 
 
-	// Å©¸®Ã³ÀÇ Á¤º¸¸¦ ÀúÀåÇÑ´Ù.
+	// í¬ë¦¬ì²˜ì˜ ì •ë³´ë¥¼ ì €ì¥í•œë‹¤.
 	pVampire->setZone(pNewZone);
 	pVampire->setXY(ZoneX, ZoneY);
 
@@ -493,12 +493,12 @@ void EventMorph::activate ()
 	pVampire->setZone(pZone);
 	pVampire->setXY(x, y);
 
-	// Å©¸®Ã³ ÀÚ½Å°ú ¼ÒÀ¯ ¾ÆÀÌÅÛµéÀÇ OID¸¦ ÇÒ´ç¹Ş´Â´Ù.
+	// í¬ë¦¬ì²˜ ìì‹ ê³¼ ì†Œìœ  ì•„ì´í…œë“¤ì˜ OIDë¥¼ í• ë‹¹ë°›ëŠ”ë‹¤.
 	//pVampire->registerObject();
 
 	/*
 	//--------------------------------------------------------------------------------
-	// GCUpdateInfo ÆĞÅ¶À» ¸¸µé¾îµĞ´Ù.
+	// GCUpdateInfo íŒ¨í‚·ì„ ë§Œë“¤ì–´ë‘”ë‹¤.
 	//--------------------------------------------------------------------------------
 	GCUpdateInfo gcUpdateInfo;
 
@@ -513,7 +513,7 @@ void EventMorph::activate ()
 	pGamePlayer->setPlayerStatus(GPS_WAITING_FOR_CG_READY);
 
 
-	// Áö±İ Áö¿ì¸é.. µ¹°í ÀÖ´Â EffectManager´Â ¾îÄÉ µÇ³²? -_-;
+	// ì§€ê¸ˆ ì§€ìš°ë©´.. ëŒê³  ìˆëŠ” EffectManagerëŠ” ì–´ì¼€ ë˜ë‚¨? -_-;
 	//----------------------------------
 
 	/*
@@ -527,7 +527,7 @@ void EventMorph::activate ()
 
 	/*
 	ofstream file("blood.txt", ios::out | ios::app);
-	file << "½½·¹ÀÌ¾î [" << pSlayer->getName() << "] ¹ìÆÄ·Î º¯ÇÏ´Ù >> ";
+	file << "ìŠ¬ë ˆì´ì–´ [" << pSlayer->getName() << "] ë±€íŒŒë¡œ ë³€í•˜ë‹¤ >> ";
 	file << getCurrentTimeStringEx() << endl;
 	file.close();
 	*/

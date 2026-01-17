@@ -5,6 +5,7 @@
 #include "Exception.h"
 
 #include "GCNPCResponse.h"
+#include "QuestInfo.h"
 
 #include <unordered_map>
 
@@ -33,7 +34,7 @@ public:
 
 	bool			isEventQuest( QuestID_t qID ) const;
 
-	// OutITR은 container<QuestID_t>::output_iterator 타입이어야 한다.
+	// OutITR must be a container<QuestID_t>::output_iterator-compatible type.
 	template <class OutITR>
 	void		getEventQuestIDs( int questLevel, PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -49,7 +50,7 @@ public:
 		__END_CATCH
 	}
 
-	// OutITR은 container<QuestID_t>::output_iterator 타입이어야 한다.
+	// OutITR must be a container<QuestID_t>::output_iterator-compatible type.
 	template <class OutITR>
 	void		getPossibleQuestIDs( PlayerCreature* pPC, OutITR outItr ) const 
 	{
@@ -65,7 +66,7 @@ public:
 		__END_CATCH
 	}
 
-	// *InITR 은 QuestID_t, *OutITR은 QuestInfo*
+	// *InITR yields QuestID_t values, *OutITR receives QuestInfo pointers.
 	template <class InITR, class OutITR>
 	void		getMonsterKillQuests( InITR b, InITR e, OutITR t )
 	{

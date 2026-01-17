@@ -15,6 +15,7 @@
 #include "gameserver/Creature.h"
 #include "gameserver/Slayer.h"
 #include <algorithm>
+#include <exception>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -25,11 +26,11 @@ PlayerManager::PlayerManager ()
 {
 	__BEGIN_TRY
 
-	// ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ ¹è¿­À» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ NULL ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 	for ( uint i = 0 ; i < nMaxPlayers ; i ++ )
 		m_pPlayers[i] = NULL;
 
-	// ÇÃ·¹ÀÌ¾î Æ÷ÀÎÅÍ ¹è¿­À» NULL ·Î ÃÊ±âÈ­ÇÑ´Ù.
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ NULL ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
 	for ( uint i = 0 ; i < nMaxPlayers ; i ++ )
 		m_pCopyPlayers[i] = NULL;
 
@@ -40,20 +41,24 @@ PlayerManager::PlayerManager ()
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-PlayerManager::~PlayerManager () 
+PlayerManager::~PlayerManager () noexcept
 {
-	__BEGIN_TRY
+	// Destructors must not throw; perform best-effort cleanup.
+	try
+	{
+		for ( uint i = 0 ; i < nMaxPlayers ; i ++ ) {
 
-	for ( uint i = 0 ; i < nMaxPlayers ; i ++ ) {
-
-		if ( m_pPlayers[i] != NULL ) {
-			// ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ »èÁ¦ÇÏ¸é, destructor¿¡¼­ ¿¬°áÀ» Á¾·áÇÑ´Ù.
-			delete m_pPlayers[i];
-			m_pPlayers[i] = NULL;
+			if ( m_pPlayers[i] != NULL ) {
+				// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, destructorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+				delete m_pPlayers[i];
+				m_pPlayers[i] = NULL;
+			}
 		}
 	}
-
-	__END_CATCH
+	catch (const std::exception&)
+	{
+		// swallow
+	}
 }
 
 
@@ -78,7 +83,7 @@ void PlayerManager::broadcastPacket ( Packet * pPacket )
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡ Ãß°¡ÇÑ´Ù.
+// Æ¯ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::addPlayer ( Player * pPlayer ) 
 {
@@ -100,10 +105,10 @@ void PlayerManager::addPlayer ( Player * pPlayer )
 		throw DuplicatedException("socket descriptor duplicated");
 	}
 
-	// ±¦ÂúÀ¸¸é Æ÷ÀÎÅÍ¸¦ ´ëÀÔÇÑ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_pPlayers[ fd ] = pPlayer;
 
-	// ÇÃ·¹ÀÌ¾î ¼ýÀÚ¸¦ Áõ°¡½ÃÅ²´Ù.
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
 	m_nPlayers ++;
 
 	__END_CATCH
@@ -111,8 +116,8 @@ void PlayerManager::addPlayer ( Player * pPlayer )
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î¸¦ ¸Å´ÏÀú¿¡¼­ »èÁ¦ÇÑ´Ù.
-// °´Ã¼´Â »èÁ¦ÇÏÁö ¾ÊÀ¸¸ç, ½½¶ù¸¸À» NULL·Î ¸¸µç´Ù.
+// Æ¯ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½Å´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+// ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NULLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::deletePlayer ( SOCKET fd ) 
 {
@@ -126,10 +131,10 @@ void PlayerManager::deletePlayer ( SOCKET fd )
 	if ( m_pPlayers[ fd ] == NULL )
 		throw NoSuchElementException();
 
-	// ¹è¿­ÀÇ fd¹øÂ°¸¦ Å¬¸®¾îÇÑ´Ù.
+	// ï¿½è¿­ï¿½ï¿½ fdï¿½ï¿½Â°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	m_pPlayers[ fd ] = NULL;
 
-	// ÇÃ·¹ÀÌ¾î ¼ýÀÚ¸¦ °¨¼Ò½ÃÅ²´Ù.
+	// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ò½ï¿½Å²ï¿½ï¿½.
 	m_nPlayers --;
 
 	__END_CATCH
@@ -137,7 +142,7 @@ void PlayerManager::deletePlayer ( SOCKET fd )
 
 
 //////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ ÇÃ·¹ÀÌ¾î °´Ã¼¸¦ °¡Á®¿Â´Ù.
+// Æ¯ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 //////////////////////////////////////////////////////////////////////
 Player * PlayerManager::getPlayer ( SOCKET fd ) 
 {
@@ -157,7 +162,7 @@ Player * PlayerManager::getPlayer ( SOCKET fd )
 }
 
 //////////////////////////////////////////////////////////////////////
-// ÇÃ·¹ÀÌ¾î¸¦ º¹»çÇÑ´Ù.
+// ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //////////////////////////////////////////////////////////////////////
 void PlayerManager::copyPlayers()
 {

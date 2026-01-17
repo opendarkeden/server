@@ -2,7 +2,7 @@
 // 
 // Filename    : BillingPlayerInfo.h 
 // Written by  : sigi
-// Description : ╨Т╦╣╫ц╫╨еш а╒╪с а╓╨╦
+// Description : Е█═Л▐≥Л≤≥Е█═Л▐≥Л≤≥Е█═Л▀°Л▐≥Л≤≥Е█═Л▐≥Л≤≥ Е█═Л▐≥Л≤≥Е█═Л▐≥Л≤≥ Е█═Л▐≥Л≤≥Е█═Л▐≥Л≤≥
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -30,7 +30,7 @@ public :
 	BillingPlayerInfo () ;
 	
 	// destructor
-	virtual ~BillingPlayerInfo () ;
+	virtual ~BillingPlayerInfo () noexcept;
 
 	// get debug string
 	virtual string toString () const;

@@ -16,11 +16,13 @@
 #include "PacketFactoryManager.h"
 #include "CommonBillingPacket.h"
 
+#include <exception>
+
 #ifdef __GAME_SERVER__
-	#include "PCFinder.h"
-	#include "GamePlayer.h"
+#include "PCFinder.h"
+#include "GamePlayer.h"
 #elif defined(__LOGIN_SERVER__)
-	#include "LoginPlayer.h"
+#include "LoginPlayer.h"
 #endif
 
 // by sigi. 2002.11.12
@@ -43,18 +45,16 @@ BillingPlayer::BillingPlayer (Socket * pSocket)
 //: Player( pSocket )//m_pSocket(pSocket), m_pInputStream(NULL), m_pOutputStream(NULL)
 {
 	__BEGIN_TRY
-		
+
 	Assert( pSocket != NULL );
 	m_pSocket = pSocket;
 
 	// create socket input stream
 	m_pInputStream = new SocketInputStream( m_pSocket, defaultBillingPlayerInputStreamSize );
-
 	Assert( m_pInputStream != NULL );
-	
+
 	// create socket output stream
 	m_pOutputStream = new SocketOutputStream( m_pSocket, defaultBillingPlayerOutputStreamSize );
-
 	Assert( m_pOutputStream != NULL );
 
 	m_RetryCount = 0;
@@ -69,27 +69,30 @@ BillingPlayer::BillingPlayer (Socket * pSocket)
 // destructor
 //
 //////////////////////////////////////////////////////////////////////
-BillingPlayer::~BillingPlayer ()
+BillingPlayer::~BillingPlayer () noexcept
 {
-	__BEGIN_TRY
-		
-	// delete socket input stream
-	SAFE_DELETE(m_pInputStream);
-
-	// delete socket output stream
-	SAFE_DELETE(m_pOutputStream);
-
-	// delete socket
-	if ( m_pSocket != NULL ) 
+	try
 	{
-		m_pSocket->close();
-		delete m_pSocket;
-		m_pSocket = NULL;
+		// delete socket input stream
+		SAFE_DELETE(m_pInputStream);
 
-		filelog(LOGFILE_BILLING_PLAYER, "Close Socket" );
+		// delete socket output stream
+		SAFE_DELETE(m_pOutputStream);
+
+		// delete socket
+		if ( m_pSocket != NULL ) 
+		{
+			m_pSocket->close();
+			delete m_pSocket;
+			m_pSocket = NULL;
+
+			filelog(LOGFILE_BILLING_PLAYER, "Close Socket" );
+		}
 	}
-
-	__END_CATCH
+	catch (const std::exception&)
+	{
+		// ignore during teardown
+	}
 }
 
 
@@ -119,7 +122,7 @@ void BillingPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "이상한 패킷임" );
+		throw DisconnectException( "Invalid packet" );
 	}
 
 	__END_CATCH
@@ -137,63 +140,54 @@ void BillingPlayer::processCommand ()
 
 	try {
 
-		// 헤더를 임시저장할 버퍼 생성
+		// Legacy temporary storage when reading header and size separately.
 		//char header[szPacketHeader];
 		//PacketID_t packetID;
 		//PacketSize_t packetSize;
-		CommonBillingPacket	cbPacket;
+		CommonBillingPacket cbPacket;
 
-		// 입력버퍼에 들어있는 완전한 패킷들을 모조리 처리한다.
+		// Process every full packet currently buffered; return when incomplete.
 		while ( true ) {
-		
+
 			/*
-			// 입력스트림에서 패킷헤더크기만큼 읽어본다.
-			// 만약 지정한 크기만큼 스트림에서 읽을 수 없다면,
-			// Insufficient 예외가 발생하고, 루프를 빠져나간다.
+			// Legacy flow: read only the header and bail if not enough data.
 			if ( !m_pInputStream->peek( header , szPacketHeader ) )
 				break;
 
-			// 패킷아이디 및 패킷크기를 알아낸다.
-			// 이때 패킷크기는 헤더를 포함한다.
-			memcpy( &packetID   , &header[0] , szPacketID );	
+			// Extract id and size from the header.
+			memcpy( &packetID   , &header[0] , szPacketID );
 			memcpy( &packetSize , &header[szPacketID] , szPacketSize );
 
-			// 패킷 아이디가 이상하면 프로토콜 에러로 간주한다.
+			// Guard against invalid packet id values.
 			if ( packetID >= Packet::PACKET_MAX )
 				throw InvalidProtocolException("invalid packet id");
-			
-			// 패킷 크기가 너무 크면 프로토콜 에러로 간주한다.
+
+			// Reject payloads larger than allowed for the id.
 			if ( packetSize > g_pPacketFactoryManager->getPacketMaxSize(packetID) )
 				throw InvalidProtocolException("too large packet size");
 			*/
-			
-			// 입력버퍼내에 패킷크기만큼의 데이타가 들어있는지 확인한다.
-			// 최적화시 break 를 사용하면 된다. (여기서는 일단 exception을 쓸 것이다.)
+
+			// Ensure a full packet is buffered; otherwise wait for more data.
 			//if ( m_pInputStream->length() < szPacketHeader + packetSize )
 			if ( m_pInputStream->length() < cbPacket.getPacketSize())
 			{
 				//throw InsufficientDataException();
 				return;
 			}
-			
-			// 여기까지 왔다면 입력버퍼에는 완전한 패킷 하나 이상이 들어있다는 뜻이다.
-			// 패킷팩토리매니저로부터 패킷아이디를 사용해서 패킷 스트럭처를 생성하면 된다.
-			// 패킷아이디가 잘못될 경우는 패킷팩토리매니저에서 처리한다.
+
+			// Legacy: allocate the specific packet type once we knew the id.
 			//pPacket = g_pPacketFactoryManager->createPacket( packetID );
 
-			// 이제 이 패킷스트럭처를 초기화한다.
-			// 패킷하위클래스에 정의된 read()가 virtual 메커니즘에 의해서 호출되어
-			// 자동적으로 초기화된다.
+			// Initialize and read a packet from the stream, then dispatch to handler.
+			// The packet class implements read() via virtual methods so derived types
+			// can populate themselves correctly.
 			//m_pInputStream->read( pPacket );
-			// packetHeader부분이 필요없다.
 			cbPacket.read( *m_pInputStream );
-			
-			// 이제 이 패킷스트럭처를 가지고 패킷핸들러를 수행하면 된다.
-			// 패킷아이디가 잘못될 경우는 패킷핸들러매니저에서 처리한다.
+
+			// Execute the parsed packet. If the id was invalid, the handler will throw.
 			//pPacket->execute( this );
 			cbPacket.execute( this );
 
-			// 패킷을 삭제한다
 			//delete pPacket;
 
 		}
@@ -202,17 +196,17 @@ void BillingPlayer::processCommand ()
 
 		// PacketFactoryManager::createPacket(PacketID_t)
 		// PacketFactoryManager::getPacketMaxSize(PacketID_t)
-		// 에서 던질 가능성이 있다.
+		// could both fail.
 		throw Error( nsee.toString() );
 
-	} catch ( InsufficientDataException ) {
+	} catch ( const InsufficientDataException& ) {
 
 		// do nothing
 
 	} 
 	__END_CATCH
 }
-		    
+                    
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -223,15 +217,8 @@ void BillingPlayer::sendPacket ( Packet * pPacket )
 {
 	__BEGIN_TRY
 
-	//m_pOutputStream->write( pPacket );	// packetHeader는 필요없다.
+	//m_pOutputStream->write( pPacket );    // packetHeader is unnecessary.
 	pPacket->write( *m_pOutputStream );
-
-	/*
-	cout << endl;
-	cout << "=== BillingPlayer::sendPacket() ===" << endl;
-	cout << pPacket->toString() << endl;
-	cout << "============================" << endl;
-	*/
 
 	__END_CATCH
 }
@@ -248,9 +235,8 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 
 	try 
 	{
-		// 정당하게 로그아웃한 경우에는 출력 버퍼를 플러시할 수 있다.
-		// 그러나, 불법적인 디스를 걸었다면 소켓이 닫겼으므로
-		// 플러시할 경우 SIG_PIPE 을 받게 된다.
+		// If the player requested a disconnect, flush any pending output first.
+		// Otherwise buffered data could trigger SIG_PIPE when the socket closes.
 		if ( bDisconnected == UNDISCONNECTED ) 
 		{
 			m_pOutputStream->flush();
@@ -263,7 +249,7 @@ void BillingPlayer::disconnect ( bool bDisconnected )
 		cerr << "BillingPlayer::disconnect Exception Check!!" << endl;
 		cerr << t.toString() << endl;
 		m_pSocket->close();
-		//throw Error("씨바...");
+		//throw Error("disconnect error");
 	}
 
 	__END_CATCH
@@ -294,12 +280,12 @@ void BillingPlayer::setSocket ( Socket * pSocket )
 }
 
 //////////////////////////////////////////////////////////////////////
-// 게임 서버가 처음 뜰 때 보낸다.
+// Send the billing init packet.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayInit()
 {
 	__BEGIN_TRY
-		
+
 	CommonBillingPacket cbPacket;
 
 	BillingInfo* pBillingInfo = &cbPacket;
@@ -321,7 +307,7 @@ void BillingPlayer::sendPayInit()
 }
 
 //////////////////////////////////////////////////////////////////////
-// 캐릭터의 접속 상태를 보낸다.
+// Check whether the character is still playing.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 {
@@ -342,7 +328,7 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 	cbPacket.setPacket_Type( BILLING_PACKET_CHECK );
 	cbPacket.setSession( pPacket->Session );
 
-	// 접속 중인지 아닌지 PlayerID로 체크한다.
+	// Verify whether the user is still online using PlayerID.
 #ifdef __GAME_SERVER__
 	Creature* pCreature = g_pPCFinder->getCreatureByID(PlayerID);
 	bool isPlaying = ( pCreature != NULL );
@@ -361,7 +347,6 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 		cbPacket.setExpire_Date(PlayerID);
 		cbPacket.setResult( BILLING_RESULT_CHECK_DISCONNECTED );
 
-		//filelog(LOGFILE_BILLING_PLAYER, "SEND PayCheck : Disconnected(%s, %s)", PlayerID.c_str(), cbPacket.getExpire_DateToString().c_str());
 		filelog(LOGFILE_BILLING_PLAYER, "SEND PayCheck : Disconnected(%s, %s)", PlayerID.c_str(), cbPacket.Expire_Date );
 	}
 
@@ -369,18 +354,11 @@ void BillingPlayer::sendPayCheck( CommonBillingPacket* pPacket )
 
 	sendPacket( &cbPacket );
 
-	/*
-	cout << "[send] BillingPlayer::sendPayCheck (" << PlayerID.c_str() << ") - " << (int)isPlaying << endl;
-
-	cbPacket.setExpire_Date(PlayerID);
-	cout << "[CHECK_EXPIRE_TIME] " << cbPacket.toString().c_str() << endl;
-	*/
-
 	__END_CATCH
 }
 
 //////////////////////////////////////////////////////////////////////
-// 캐릭터가 게임에 처음 접속할때 보내는것
+// Send login billing info when a character is joining.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogin( Player* pPlayer ) 
 {
@@ -486,7 +464,7 @@ void BillingPlayer::sendPayLogin( Player* pPlayer )
 }
 
 //////////////////////////////////////////////////////////////////////
-// 캐릭터가 게임에서 나갈때 보내는것
+// Send logout billing info when a character leaves.
 //////////////////////////////////////////////////////////////////////
 void BillingPlayer::sendPayLogout( Player* pPlayer ) 
 {
@@ -554,3 +532,4 @@ string BillingPlayer::toString () const
 
 	__END_CATCH
 }
+

@@ -44,7 +44,7 @@ public :
 	SocketImpl (const SocketImpl & impl);
 
 	// virtual destructor
-	virtual ~SocketImpl ();
+	virtual ~SocketImpl () noexcept;
 
 //////////////////////////////////////////////////
 // methods

@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////
-// ½ºÄÉÁÙ¸µµÈ ÀÛ¾÷À» À§ÇÑ Schedule Å¬·¡½º
+// å ì™ì˜™å ì™ì˜™å ìŒ•ëªŒì˜™å ì™ì˜™ å ìŒœì–µì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™ Schedule í´å ì™ì˜™å ì™ì˜™
 ///////////////////////////////////////////////////////////////////
 
 #ifndef __SCHEDULE_H__
@@ -21,7 +21,7 @@ public:
 
 public:
 	Schedule( Work* pWork, const VSDateTime& Time, ScheduleType type = SCHEDULE_TYPE_ONCE ) ;
-	virtual ~Schedule() ;
+	virtual ~Schedule() noexcept;
 
 public:
 	virtual bool 		heartbeat() ;

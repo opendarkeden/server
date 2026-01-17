@@ -2,7 +2,7 @@
 // 
 // Filename    : SlayerSkillInfo.h 
 // Written By  : elca@ewestsoft.com
-// Description :  스킬의 정보들
+// Description :  Slayer skill information
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@
 //
 // class SlayerSkillInfo;
 //
-// 게임서버에서 클라이언트로 자신의 기술이 성공을 알려주기 위한 클래스
+// Holds a Slayer's skill information to be delivered to the client.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,18 +32,18 @@ public :
 	SlayerSkillInfo () ;
 	
 	// destructor
-	~SlayerSkillInfo () ;
+	~SlayerSkillInfo () noexcept ;
 
 public :
 
-    // 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+	// Initialize the packet by reading data from the input stream.
     virtual void read (SocketInputStream & iStream) ;
 		    
-    // 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet into the output stream.
     virtual void write (SocketOutputStream & oStream) const ;
 
 	// get packet's body size
-	// 최적화시, 미리 계산된 정수를 사용한다.
+	// Serialized size varies with the contained skill list.
 	PacketSize_t getSize () ;
 
 	static uint getMaxSize ()  { 
@@ -79,7 +79,7 @@ public :
 
 private :
 
-	// New 스킬을 배울 수 있느냐 없느냐 정보
+	// Tracks whether there is a newly learnable skill
 	bool m_bLearnNewSkill;
 
 	SkillDomainType_t m_DomainType;

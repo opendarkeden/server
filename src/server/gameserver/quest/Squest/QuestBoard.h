@@ -3,7 +3,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include "HashMap.h"
 
 class Quest;
 class GCNPCAskDynamic;

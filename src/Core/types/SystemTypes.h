@@ -7,22 +7,22 @@
 #ifndef __SYSTEM_TYPES_H__
 #define __SYSTEM_TYPES_H__
 
-/* Å×¼·/º»¼· ÆÐÄ¡¸¦ À§ÇØ ÃÖÁ¾ ºôµåÈÄ ¾Æ·¡ BUILD_NUMBER ¿Í BUILD_INFO¸¦ Ã¤¿ö³Ö´Â´Ù.
- * BUILD_NUMBER ³â¿ùÀÏ
- * BUILD_INFO  +Add (Ãß°¡µÈ ±â´É °£·« ±â¼ú)
- *             -Delete (»èÁ¦µÈ ±â´É °£·« ±â¼ú)
- *             *Fix (¹ö±×ÆÐÄ¡/¼öÁ¤ °£·« ±â¼ú)
- * BUILD_INFO ´Â °£·«ÇÏ°Ô ¿µ¹®À¸·Î ±â¼ú
+/* ï¿½×¼ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ BUILD_NUMBER ï¿½ï¿½ BUILD_INFOï¿½ï¿½ Ã¤ï¿½ï¿½ï¿½Ö´Â´ï¿½.
+ * BUILD_NUMBER ï¿½ï¿½ï¿½ï¿½ï¿½
+ * BUILD_INFO  +Add (ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+ *             -Delete (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+ *             *Fix (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
+ * BUILD_INFO ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
  */
 #define BUILD_NUMBER 40518
 #define BUILD_INFO   "<Version Information>\n+Add ----- \n-Delete -----\nFix -----\n"
 
 
 #if defined(__WINDOWS__)
-	// 4786 - STLÀÇ ½Éº¼¸íÀÇ ±æÀÌ°¡ 255¸¦ ³Ñ¾î°¥ ¶§
+	// 4786 - STLï¿½ï¿½ ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ 255ï¿½ï¿½ ï¿½Ñ¾î°¥ ï¿½ï¿½
 	#pragma warning ( disable : 4786 )
 	#include <Windows.h>
-#elif defined(__LINUX__)
+#elif defined(__LINUX__) || defined(__APPLE__)
 	#include <sys/types.h>
 #endif
  
@@ -40,7 +40,7 @@ typedef unsigned short ushort;
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-#if defined(__LINUX__) || defined(__WIN_CONSOLE__)
+#if defined(__LINUX__) || defined(__APPLE__) || defined(__WIN_CONSOLE__)
 	typedef unsigned char  BYTE;
 	typedef unsigned short WORD;
 	typedef unsigned int DWORD;
@@ -49,7 +49,7 @@ typedef unsigned long ulong;
 	typedef unsigned __int64 ulonglong;
 #endif
 
-#if defined(__LINUX__)
+#if defined(__LINUX__) || defined(__APPLE__)
 	const char separatorChar = '/';
 	const string separator = "/";
 #elif defined(__WINDOWS__)

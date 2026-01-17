@@ -54,11 +54,11 @@ void EffectTileStorm::affect()
 
 	Assert( m_pZone != NULL );
 
-	// »ç¿ëÀÚ¸¦ °¡Á®¿Â´Ù.
-	// !! ÀÌ¹Ì Á¸À» ³ª°¬À» ¼ö ÀÖÀ¸¹Ç·Î NULLÀÌ µÉ ¼ö ÀÖ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+	// !! ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ NULLï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
 	// by bezz. 2003.1.4
 	Creature* pCastCreature = m_pZone->getCreature( m_UserObjectID );
-	// Ä³½ºÅÍ°¡ ¾øÀ¸¸é ¹«½ÃÇÑ´Ù.
+	// Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	if ( pCastCreature == NULL )
 		return;
 
@@ -84,8 +84,8 @@ void EffectTileStorm::affect()
 	Level_t maxEnemyLevel = 0;
 	uint EnemyNum = 0;
 
-	// ÇöÀç ÀÌÆåÆ®°¡ ºÙ¾îÀÖ´Â Å¸ÀÏÀ» ¹Þ¾Æ¿Â´Ù.
-	// Áß½ÉÅ¸ÀÏ + ½ºÇÃ·¡½¬ Å¸ÀÏ
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿Â´ï¿½.
+	// ï¿½ß½ï¿½Å¸ï¿½ï¿½ + ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
 	for(int oX = -diff; oX <= diff; oX++)
 	for(int oY = -diff; oY <= diff; oY++)
 	{
@@ -120,13 +120,13 @@ void EffectTileStorm::affect()
 
 				if ( bPK && bZoneLevelCheck && bHitRoll )
 				{
-					// ¿ø·¡ µ¥¹ÌÁö¿Í ½ºÅ³ µ¥¹ÌÁö º¸³Ê½º¸¦ ´õÇÑ ÃÖÁ¾ µ¥¹ÌÁö¸¦ ±¸ÇÑ´Ù.
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 					bool bCriticalHit = false;
 					Damage_t FinalDamage = 0;
 					FinalDamage += computeDamage( pSlayer, pTargetCreature, SkillLevel/2, bCriticalHit );
 					FinalDamage += m_Damage;
 
-					// Èì...´« Å©°Ô ¶ß°í º¸¼À...ÇÊ»ì ¾å»ð ÄÚµù
+					// ï¿½ï¿½...ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½...ï¿½Ê»ï¿½ ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 					int DamageModifier = StormDamageModify[oX+2][oY+2];
 					Damage_t TileDamage = getPercentValue( FinalDamage, DamageModifier );
 
@@ -152,7 +152,7 @@ void EffectTileStorm::affect()
 
 						if ( pTargetCreature->isPC() )
 						{
-							// °ø°ÝÀ» ´çÇÑ ¹ìÆÄÀÌ¾î¿¡°Ô 
+							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ 
 							_GCSkillToObjectOK2.setObjectID(1);
 							_GCSkillToObjectOK2.setSkillType(SKILL_ATTACK_MELEE);
 							_GCSkillToObjectOK2.setDuration(0);
@@ -185,7 +185,7 @@ void EffectTileStorm::affect()
 		pSlayer->getPlayer()->sendPacket( &gcMI );
 	}
 
-	// ¾ø¾îÁ® ¹ö·Ç!!
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!
 	m_StormTime--;
 	if ( m_StormTime <= 0 )
 		setDeadline( 0 );
@@ -237,7 +237,7 @@ string EffectTileStorm::toString()
 
 	msg << "EffectTileStorm("
 		<< "ObjectID:" << (int)getObjectID()
-		<< ",Zone:" << (int64_t)m_pZone
+		<< ",Zone:" << (long)m_pZone
 		<< ",X:" << (int)m_X
 		<< ",Y:" << (int)m_Y
 		<< ",Damage:" << (int)m_Damage

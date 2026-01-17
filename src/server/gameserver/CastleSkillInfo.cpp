@@ -22,7 +22,7 @@ CastleSkillInfo::CastleSkillInfo()
 CastleSkillInfo::~CastleSkillInfo()
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 string CastleSkillInfo::toString() const
@@ -59,7 +59,7 @@ CastleSkillInfoManager::~CastleSkillInfoManager()
 
 	clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CastleSkillInfoManager::clear()
@@ -125,7 +125,7 @@ void CastleSkillInfoManager::addCastleSkillInfo( CastleSkillInfo* pCastleSkillIn
 
 	if ( itr != m_CastleSkillInfos.end() )
 	{
-		throw Error("CastleSkillInfoManager::addCastleSkillInfo : 이미 들어가있는 SkillType입니다.");
+		throw Error("CastleSkillInfoManager::addCastleSkillInfo : SkillType already exists.");
 	}
 
 	m_CastleSkillInfos[ pCastleSkillInfo->getSkillType() ] = pCastleSkillInfo;
@@ -147,7 +147,7 @@ SkillType_t	CastleSkillInfoManager::getSkillType( ZoneID_t ZoneID ) const
 		}
 	}
 
-	// 없다.
+	// None found.
 	return SKILL_MAX;
 }
 

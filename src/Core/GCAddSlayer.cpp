@@ -25,14 +25,10 @@ GCAddSlayer::GCAddSlayer(const PCSlayerInfo3& info)
 	m_pNicknameInfo = NULL;
 }
 
-GCAddSlayer::~GCAddSlayer()
-	
-{
-	__BEGIN_TRY
-	
-	SAFE_DELETE(m_pEffectInfo);
+GCAddSlayer::~GCAddSlayer() noexcept
 
-	__END_CATCH
+{
+	SAFE_DELETE(m_pEffectInfo);
 }
 
 void GCAddSlayer::read (SocketInputStream & iStream ) 

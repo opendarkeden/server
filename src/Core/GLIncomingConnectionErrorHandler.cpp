@@ -27,33 +27,33 @@ void GLIncomingConnectionErrorHandler::execute (GLIncomingConnectionError * pPac
 
 #ifdef __LOGIN_SERVER__
 
-	// ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î¿¡ Á¢±ÙÇÑ´Ù.
+	// Handle login player connection failure.
 	//
 	// *CAUTION*
 	//
-	// ÀÌ·± Á¢±Ù ¹æ½ÄÀº ¹®Á¦°¡ ÀÖ´Ù. ·Î±×ÀÎ ÇÃ·¹ÀÌ¾î ¸Å´ÏÀú°¡ ÀÌ ÇÃ·¹ÀÌ¾î¸¦ Ã³¸®ÇÏ°í ÀÖÀ»
-	// °æ¿ì, ¾Æ·¡¿Í °°ÀÌ Á¢¼ÓÀ» Á¾·áÇØ ¹ö¸®¸é.. - -; ÈåÈì.. ÀÌ·¸°Ô µÇ¸é setPlayerStatus()
-	// ¿ª½Ã ¶ôÅ· ¹öÀüÀ¸·Î ¸¸µé¾î¾ß ÇÏ´Â°¡..  ÀÏ´ÜÀº ÀÌ·¸°Ô ÇÏÀå.. (´ëÃæ ÀÔ·ÂÀÌ ¾øÀ» °ÍÀÌ¹Ç·Î
-	// Ã³¸®¹ÞÁö´Â ¾Ê´Â´Ù..)
+	// Rare case: the login player may disappear before being processed because the
+	// login server is heavily loaded. In that situation setPlayerStatus() could be
+	// called on an invalid player. This should not happen under normal conditions
+	// since the incoming connection is not a user-triggered input.
 	//
-	// ÁÖÀÇÇÒ Á¡Àº, ÀÔ·ÂÀ¸·Î ¸®´ÙÀÌ·º¼ÇÇÏ´Â °ÍÀÌ ºÒ°¡´ÉÇÏ´Ù´Â °ÍÀÌ´Ù. ¿Ö³ÄÇÏ¸é, ¸®´ÙÀÌ·º¼Ç
-	// ½ÃÁ¡¿¡¼­ ÀÔ·Â ¹öÆÛ¿¡ ÆÐÅ¶ÀÌ µü ²÷°Ü¼­ µé¾î¿Ô´Ù´Â °ÍÀ» ¾Ë ¼ö ¾ø±â ¶§¹®ÀÌ´Ù. 
+	// In short, this indicates the login server could not accept the incoming
+	// request. The most likely reason is a timeout while reading the handshake.
 	try 
 	{
 		LoginPlayer * pLoginPlayer = g_pLoginPlayerManager->getPlayer(pPacket->getPlayerID());
 	
 		Assert(pLoginPlayer->getPlayerStatus() == LPS_AFTER_SENDING_LG_INCOMING_CONNECTION);
 
-		// ÀÌ ÇÃ·¹ÀÌ¾îÀÇ ·Î±×ÀÎÀÌ ½ÇÆÐÇßÀ¸¹Ç·Î Á¢¼ÓÀ» Á¾·áÇÑ´Ù.
+		// ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		//cout << "Fail to join game server...(" << pPacket->getPlayerID() << ")" << endl;
 
-		// ¿¬°áÀ» Á¾·áÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		pLoginPlayer->disconnect(UNDISCONNECTED);
 
-		// LPM¿¡¼­ »èÁ¦ÇÑ´Ù.
+		// LPMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		g_pLoginPlayerManager->deletePlayer(pLoginPlayer->getSocket()->getSOCKET());
 
-		// LoginPlayer °´Ã¼¸¦ »èÁ¦ÇÑ´Ù.
+		// LoginPlayer ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		SAFE_DELETE(pLoginPlayer);
 	} 
 	catch (NoSuchElementException & nsee ) 

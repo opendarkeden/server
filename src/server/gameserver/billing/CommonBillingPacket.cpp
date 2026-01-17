@@ -52,15 +52,15 @@ void CommonBillingPacket::test ()
 	const BillingInfo* pBillingInfo = this;
 	memcpy(pBuffer, (const char*)pBillingInfo, len);
 
-	// 다시 원래대로
+	// Restore host-order values for validation.
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
 	Game_No 	= ntohl(Game_No);
 	Remain_Time = ntohl(Remain_Time);
 
-	// 다 0 으로...
-	memset(this, 0, sizeof(this));
+	// Reset contents without invoking undefined behavior on non-trivial type.
+	*static_cast<CommonBillingPacket*>(this) = CommonBillingPacket();
 
 	//---------------------------------------
 	// read
@@ -211,7 +211,7 @@ void CommonBillingPacket::write (SocketOutputStream & oStream) const
 	const BillingInfo* pBillingInfo = this;
 	oStream.write((const char*)pBillingInfo, len);
 
-	// 다시 원래대로
+	// Restore host-order values for validation.
 	Packet_Type = ntohl(Packet_Type);
 	Result 		= ntohl(Result);
 	User_Age 	= ntohl(User_Age);
@@ -235,7 +235,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 {
 	__BEGIN_TRY
 	
-	// BillingInfo에도 Result가 있으니까 ::를 붙여야 한다.
+	// Format BillingInfo::Result for sending.
 	::Result* 	pResult	= NULL;
 	Statement* 	pStmt 	= NULL;
 
@@ -269,7 +269,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 	}
 	END_DB(pStmt)
 
-	// 값이 제대로 안 들어간 경우는 현재값
+	// Convert "YYYYMMDDHH" into a human-friendly timestamp for logging.
 	if (year==0)
 	{
 		VSDate	currentDate(VSDate::currentDate());
@@ -295,7 +295,7 @@ void  CommonBillingPacket::setExpire_Date(const string& PlayerID)
 string  CommonBillingPacket::getExpire_DateToString() const
 {
 	// 012345678
-	// 20021120 을 "2002년 11월 20일 24시"로 바꿔준다.
+	// Example: 20021120 becomes "2002-11-20 24:00".
 	//int len = strlen(Expire_Date);
 	if (Expire_Date[0]=='2')
 	{

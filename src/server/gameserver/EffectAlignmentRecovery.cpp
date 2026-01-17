@@ -26,7 +26,7 @@ EffectAlignmentRecovery::EffectAlignmentRecovery ()
 {
 	__BEGIN_TRY
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -44,7 +44,7 @@ EffectAlignmentRecovery::EffectAlignmentRecovery (Zone* pZone , ZoneCoord_t x , 
 	Assert(getZone() != NULL);
 	Assert(getTarget() != NULL);
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -54,7 +54,7 @@ EffectAlignmentRecovery::~EffectAlignmentRecovery ()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectAlignmentRecovery::affect()
@@ -95,10 +95,10 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pSlayer->setFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			CurrentAlignment = pSlayer->getAlignment();
 			NewAlignment     = min(10000, (int)(CurrentAlignment + m_AlignmentQuantity));
 
@@ -120,7 +120,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 		} 
 		else 
 		{
-			// unaffectÇÏ¸é¼­ ÆÐÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -134,10 +134,10 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pVampire->setFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			CurrentAlignment = pVampire->getAlignment();
 			NewAlignment     = min(10000, CurrentAlignment + m_AlignmentQuantity);
 
@@ -159,7 +159,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 		} 
 		else
 		{
-			// unaffectÇÏ¸é¼­ ÆÐÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -173,10 +173,10 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pOusters->setFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			CurrentAlignment = pOusters->getAlignment();
 			NewAlignment     = min(10000, CurrentAlignment + m_AlignmentQuantity);
 
@@ -198,7 +198,7 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 		} 
 		else
 		{
-			// unaffectÇÏ¸é¼­ ÆÐÅ¶ÀÌ ³¯¾Æ°¥ Å×´Ï±î....
+			// unaffectí•˜ë©´ì„œ íŒ¨í‚·ì´ ë‚ ì•„ê°ˆ í…Œë‹ˆê¹Œ....
 			setDeadline(0);
 		}
 
@@ -206,10 +206,10 @@ void EffectAlignmentRecovery::affect(Creature* pCreature)
 	}
 	else
 	{
-		return;	// Å« ÀÇ¹Ì´Â ¾øÁö¸¸..
+		return;	// í° ì˜ë¯¸ëŠ” ì—†ì§€ë§Œ..
 	}
 
-	// ¼ºÇâ ´Ü°è°¡ ¹Ù²î¸é ´Ù¸¥ »ç¶÷µé¿¡°Ôµµ ¾Ë·ÁÁà¾ß ÇÑ´Ù.  by sigi. 2002.12.28
+	// ì„±í–¥ ë‹¨ê³„ê°€ ë°”ë€Œë©´ ë‹¤ë¥¸ ì‚¬ëžŒë“¤ì—ê²Œë„ ì•Œë ¤ì¤˜ì•¼ í•œë‹¤.  by sigi. 2002.12.28
 
 	Alignment beforeAlignment = g_pAlignmentManager->getAlignmentType(CurrentAlignment);
 	Alignment afterAlignment = g_pAlignmentManager->getAlignmentType(NewAlignment);
@@ -268,7 +268,7 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			Alignment_t CurrentAlignment = pSlayer->getAlignment();
 			Alignment_t NewAlignment     = min(10000, (int)(CurrentAlignment + m_AlignmentQuantity* m_Period));
 
@@ -287,15 +287,15 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 			pSlayer->setAlignmentSaveCount(AlignmentSaveCount);
 		} 
 
-		// ÇöÀç Alignment¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ìž¬ Alignmentë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìžì‹ ì—ê²Œ ë¨¼ì €
 		GCModifyInformation gcModifyInformation;
 		gcModifyInformation.addLongData(MODIFY_ALIGNMENT, pSlayer->getAlignment());
 		pSlayer->getPlayer()->sendPacket(&gcModifyInformation);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ ¹«¾ð°¡¸¦ ³¯·ÁÁà¾ß ÇÑ´Ù.
-		// ÆÐÅ¶À» »õ·Î ¸¸µé¾î¾ß°ÚÁö..
+		// ì£¼ë³€ì‚¬ëžŒì—ê²Œë„ ë¬´ì–¸ê°€ë¥¼ ë‚ ë ¤ì¤˜ì•¼ í•œë‹¤.
+		// íŒ¨í‚·ì„ ìƒˆë¡œ ë§Œë“¤ì–´ì•¼ê² ì§€..
 		pSlayer->removeFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 	}
 	else if (pCreature->isVampire())
@@ -306,7 +306,7 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			Alignment_t CurrentAlignment = pVampire->getAlignment();
 			Alignment_t NewAlignment     = min(10000, (int)(CurrentAlignment + m_AlignmentQuantity* m_Period));
 
@@ -323,14 +323,14 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 			pVampire->setAlignmentSaveCount(AlignmentSaveCount);
 		} 
 
-		// ÇöÀç Alignment¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ìž¬ Alignmentë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìžì‹ ì—ê²Œ ë¨¼ì €
 		GCModifyInformation gcModifyInformation;
 		gcModifyInformation.addLongData(MODIFY_ALIGNMENT, pVampire->getAlignment());
 		pVampire->getPlayer()->sendPacket(&gcModifyInformation);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ..
+		// ì£¼ë³€ì‚¬ëžŒì—ê²Œë„..
 		pVampire->removeFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 	}
 	else if (pCreature->isOusters())
@@ -341,7 +341,7 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 
 		if (m_Period != 0) 
 		{
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			Alignment_t CurrentAlignment = pOusters->getAlignment();
 			Alignment_t NewAlignment     = min(10000, (int)(CurrentAlignment + m_AlignmentQuantity* m_Period));
 
@@ -358,14 +358,14 @@ void EffectAlignmentRecovery::unaffect(Creature* pCreature)
 			pOusters->setAlignmentSaveCount(AlignmentSaveCount);
 		} 
 
-		// ÇöÀç Alignment¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ìž¬ Alignmentë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìžì‹ ì—ê²Œ ë¨¼ì €
 		GCModifyInformation gcModifyInformation;
 		gcModifyInformation.addLongData(MODIFY_ALIGNMENT, pOusters->getAlignment());
 		pOusters->getPlayer()->sendPacket(&gcModifyInformation);
 
-		// ÁÖº¯»ç¶÷¿¡°Ôµµ..
+		// ì£¼ë³€ì‚¬ëžŒì—ê²Œë„..
 		pOusters->removeFlag(Effect::EFFECT_CLASS_ALIGNMENT_RECOVERY);
 	}
 

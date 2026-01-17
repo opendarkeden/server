@@ -18,7 +18,7 @@ EffectMPRecovery::EffectMPRecovery ()
 {
 	__BEGIN_TRY
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -33,7 +33,7 @@ EffectMPRecovery::EffectMPRecovery (Zone* pZone , ZoneCoord_t x , ZoneCoord_t y 
 	Assert(getZone() != NULL);
 	Assert(getTarget() != NULL);
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -43,7 +43,7 @@ EffectMPRecovery::~EffectMPRecovery ()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectMPRecovery::affect()
@@ -51,7 +51,7 @@ void EffectMPRecovery::affect()
 {
 	__BEGIN_TRY
 
-	// Delay¿¡ µû¸¥ Ã¼·Â È¸º¹.
+	// Delayì— ë”°ë¥¸ ì²´ë ¥ íšŒë³µ.
 	setNextTime(m_Delay);
 
 	Creature* pCreature = dynamic_cast<Creature*>(m_pTarget);
@@ -68,7 +68,7 @@ void EffectMPRecovery::affect(Creature* pCreature)
 
 	if ( pCreature->isFlag( Effect::EFFECT_CLASS_PLEASURE_EXPLOSION ) )
 	{
-		cout << "Pleasure Explosion ¶«¿¡ ¾È Âù´Ù." << endl;
+		cout << "Pleasure Explosion ë•œì— ì•ˆ ì°¬ë‹¤." << endl;
 		return;
 	}
 
@@ -89,10 +89,10 @@ void EffectMPRecovery::affect(Creature* pCreature)
 
 		if (pSlayer->getMP(ATTR_CURRENT) != pSlayer->getMP(ATTR_MAX) && m_Period != 0) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pSlayer->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			MP_t CurrentMP = pSlayer->getMP(ATTR_CURRENT);
 			MP_t NewMP     = min((int)(pSlayer->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* (m_Period - RecoveryPeriod)));
 
@@ -118,10 +118,10 @@ void EffectMPRecovery::affect(Creature* pCreature)
 
 		if (pOusters->getMP(ATTR_CURRENT) <= pOusters->getMP(ATTR_MAX) && m_Period != 0) 
 		{
-			// ÇÃ·¹±× °É±Í
+			// í”Œë ˆê·¸ ê±¸ê·€
 			pOusters->setFlag(Effect::EFFECT_CLASS_MP_RECOVERY);
 
-			// ÇÑ ÅÏ¿¡ ¾ó¸¶³ª È¸º¹ ½ÃÅ³ °ÍÀÎ°¡.
+			// í•œ í„´ì— ì–¼ë§ˆë‚˜ íšŒë³µ ì‹œí‚¬ ê²ƒì¸ê°€.
 			MP_t CurrentMP = pOusters->getMP(ATTR_CURRENT);
 			MP_t NewMP     = min((int)(pOusters->getMP(ATTR_MAX)), (int)(CurrentMP + m_MPQuantity* (m_Period - RecoveryPeriod)));
 
@@ -177,9 +177,9 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 			pSlayer->setMP(NewMP, ATTR_CURRENT);
 		}
 
-		// ÇöÀç MP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ì¬ MPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìì‹ ì—ê²Œ ë¨¼ì €
 		GCMPRecoveryEnd gcEffectMPRecoveryEnd;
 		gcEffectMPRecoveryEnd.setCurrentMP(pSlayer->getMP(ATTR_CURRENT));
 		pSlayer->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);
@@ -198,9 +198,9 @@ void EffectMPRecovery::unaffect(Creature* pCreature)
 			pOusters->setMP(NewMP, ATTR_CURRENT);
 		}
 
-		// ÇöÀç MP¸¦ ºê·ÎµåÄ³½ºÆÃÇÑ´Ù.
-		// ÀÌÁ¦ È¸º¹ÀÌ ³¡³µ³ª´Â °ÍÀ» ¾Ë¸®µµ·Ï ÇÑ´Ù.
-		// ÀÚ½Å¿¡°Ô ¸ÕÀú
+		// í˜„ì¬ MPë¥¼ ë¸Œë¡œë“œìºìŠ¤íŒ…í•œë‹¤.
+		// ì´ì œ íšŒë³µì´ ëë‚¬ë‚˜ëŠ” ê²ƒì„ ì•Œë¦¬ë„ë¡ í•œë‹¤.
+		// ìì‹ ì—ê²Œ ë¨¼ì €
 		GCMPRecoveryEnd gcEffectMPRecoveryEnd;
 		gcEffectMPRecoveryEnd.setCurrentMP(pOusters->getMP(ATTR_CURRENT));
 		pOusters->getPlayer()->sendPacket(&gcEffectMPRecoveryEnd);

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPacket.h
-// Desc		: 모퍼스 용 패킷
+// Desc		: Base interface for Mofus packets.
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __MPACKET_H__
@@ -27,19 +27,21 @@ const unsigned int szMPacketHeader = szMPacketSize + szMPacketID;
 class MPacket
 {
 public:
-	// 패킷 아이디를 반환한다.
+	virtual ~MPacket() = default;
+
+	// Return the packet identifier.
 	virtual MPacketID_t getID() const = 0;
 
-	// 패킷의 크리를 반환한다.
+	// Return the packet size.
 	virtual MPacketSize_t getSize() const = 0;
 
-	// 새로운 패킷을 생성해서 반환
+	// Factory: create a new packet of this type.
 	virtual MPacket* create() = 0;
 
-	// 입력 스트림으로부터 데이터를 읽어서 패킷을 초기화 한다.
+	// Populate the packet from the input stream payload.
 	virtual void read( SocketInputStream& iStream ) = 0;
 
-	// 출력 스트림으로 패킷의 바이너리 이미지를 보낸다.
+	// Serialize the packet to the output stream.
 	virtual void write( SocketOutputStream& oStream ) = 0;
 
 	// debug message

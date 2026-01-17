@@ -36,7 +36,7 @@ void ActionGiveSpecialEventItem::read (PropertyBuffer & propertyBuffer)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ¾×¼ÇÀ» ½ÇÇàÇÑ´Ù.
+// ï¿½×¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 ////////////////////////////////////////////////////////////////////////////////
 void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCreature2) 
 	
@@ -54,7 +54,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 	Player* pPlayer = pPC->getPlayer();
 	Assert(pPlayer != NULL);
 
-	// ¸ÕÀú Å¬¶óÀÌ¾ðÆ®¸¦ À§ÇØ GCNPCResponse¸¦ º¸³»ÁØ´Ù.
+	// ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ GCNPCResponseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
 	GCNPCResponse okpkt;
 	pPlayer->sendPacket(&okpkt);
 
@@ -64,14 +64,14 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 	BEGIN_DB
 	{
-		pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( (int)(long)Thread::self() )->createStatement();
 		pResult = pStmt->executeQuery("SELECT Count FROM SpecialEvent WHERE Name='%s'", pPlayer->getID().c_str());
 
-		// ÇØ´ç ·Î¿ì°¡ ¾ø´Ù´Â ¸»Àº ÀÌ »ç¶÷ÀÌ ÀÌº¥Æ® ¾ÆÀÌÅÛÀ» ¹ÞÀ» ÀÚ°ÝÀÌ ¾ø´Ù´Â °ÍÀ» ¸»ÇÑ´Ù.
+		// ï¿½Ø´ï¿½ ï¿½Î¿ì°¡ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if (pResult->getRowCount() == 0)
 		{
 //			StringStream buf;
-//			buf << pPlayer->getID() << " ´ÔÀº ÇÇÀÇ ÀüÀï ÀÌº¥Æ®¿¡ Âü°¡ÇÏÁö ¾ÊÀ¸¼Ì½À´Ï´Ù.";
+//			buf << pPlayer->getID() << " ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ï´ï¿½.";
 
 			char buf[100];
 			sprintf( buf, g_pStringPool->c_str( STRID_DO_NOT_JOIN_BLOOD_WAR_EVENT ),
@@ -92,11 +92,11 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 	}
 	END_DB(pStmt)
 
-	// Ä«¿îÆ®°¡ 0ÀÌÇÏ¶ó´Â ¸»Àº ÀÌ »ç¶÷ÀÌ ÀÌ¹Ì ¾ÆÀÌÅÛÀ» ¹Þ¾Ò´Ù´Â °ÍÀ» ÀÇ¹ÌÇÑ´Ù.
+	// Ä«ï¿½ï¿½Æ®ï¿½ï¿½ 0ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Ò´Ù´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½Ñ´ï¿½.
 	if (count <= 0)
 	{
 //		StringStream buf;
-//		buf << pPlayer->getID() << " ´ÔÀº ÀÌ¹Ì ÇÇÀÇ ÀüÀï ÀÌº¥Æ® °ü·Ã ¾ÆÀÌÅÛÀ» ¹ÞÀ¸¼Ì½À´Ï´Ù.";
+//		buf << pPlayer->getID() << " ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ï´ï¿½.";
 
 		char buf[100];
 		sprintf( buf, g_pStringPool->c_str( STRID_ALREADY_TAKE_BLOOD_WAR_EVET_ITEM ),
@@ -130,7 +130,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 		Key* pKey = dynamic_cast<Key*>(pKeyItem);
 
-		// OID¸¦ µî·Ï¹Þ´Â´Ù.
+		// OIDï¿½ï¿½ ï¿½ï¿½Ï¹Þ´Â´ï¿½.
 		OR.registerObject(pItem1);
 		OR.registerObject(pItem2);
 		OR.registerObject(pMotorcycle);
@@ -168,7 +168,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 				msg << "Inventory Adding Succeeded : " << pItem->toString() << "\n";
 
-				// ItemTraceLog ¸¦ ³²±ä´Ù
+				// ItemTraceLog ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
@@ -176,14 +176,14 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 			}
 			else
 			{
-				// ÀÚ¸®°¡ ¾ø´Ù¸é Á¸¿¡´Ù ¶³¾î¶ß¸°´Ù.
+				// ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 				pt = pZone->addItem(pItem, pPC->getX(), pPC->getY());
 				if (pt.x != -1)
 				{
 					pItem->create("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
-					// ItemTraceLog ¸¦ ³²±ä´Ù
+					// ItemTraceLog ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
@@ -210,7 +210,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 		Item* pItem3 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_RING, 3, option50);
 		Item* pItem4 = g_pItemFactoryManager->createItem(Item::ITEM_CLASS_VAMPIRE_RING, 3, option50);
 
-		// OID¸¦ µî·Ï¹Þ´Â´Ù.
+		// OIDï¿½ï¿½ ï¿½ï¿½Ï¹Þ´Â´ï¿½.
 		OR.registerObject(pItem1);
 		OR.registerObject(pItem2);
 		OR.registerObject(pItem3);
@@ -246,7 +246,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 
 				msg << "Inventory Adding Succeeded : " << pItem->toString() << "\n";
 
-				// ItemTraceLog ¸¦ ³²±ä´Ù
+				// ItemTraceLog ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 				if ( pItem != NULL && pItem->isTraceItem() )
 				{
 					remainTraceLog( pItem, pCreature1->getName(), pCreature2->getName(), ITEM_LOG_CREATE, DETAIL_EVENTNPC);
@@ -254,14 +254,14 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 			}
 			else
 			{
-				// ÀÚ¸®°¡ ¾ø´Ù¸é Á¸¿¡´Ù ¶³¾î¶ß¸°´Ù.
+				// ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½.
 				pt = pZone->addItem(pItem, pPC->getX(), pPC->getY());
 				if (pt.x != -1)
 				{
 					pItem->create("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 					pItem->save("", STORAGE_ZONE, pZone->getZoneID(), pt.x, pt.y);
 
-					// ItemTraceLog ¸¦ ³²±ä´Ù
+					// ItemTraceLog ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 					if ( pItem != NULL && pItem->isTraceItem() )
 					{
 						char zoneName[15];
@@ -283,7 +283,7 @@ void ActionGiveSpecialEventItem::execute (Creature * pCreature1 , Creature * pCr
 	msg << "Deleting SpecialEvent Count, ";
 	BEGIN_DB
 	{
-		pStmt = g_pDatabaseManager->getConnection( (int)Thread::self() )->createStatement();
+		pStmt = g_pDatabaseManager->getConnection( (int)(long)Thread::self() )->createStatement();
 		pStmt->executeQuery("UPDATE SpecialEvent SET Count = 0 WHERE Name='%s'", pPlayer->getID().c_str());
 		SAFE_DELETE(pStmt);
 	}

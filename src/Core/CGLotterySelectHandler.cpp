@@ -46,7 +46,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 	__BEGIN_TRY __BEGIN_DEBUG_EX
 		
 #ifdef __GAME_SERVER__
-	// 혤句供냥훨蛟꼇못膠틔掘齡
+	// NOTE: Original code could cancel reward processing; keep active.
 	//return;
 
 	GamePlayer* pGP = dynamic_cast<GamePlayer*>( pPlayer );
@@ -67,7 +67,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 	{
 		case TYPE_SELECT_LOTTERY:
 			{
-				// 인벤에서 퀘스트 아이템 삭제
+				// Check quest status for lottery rewards
 				QuestID_t qID;
 				EventQuestAdvance::Status status = pPC->getQuestManager()->getEventQuestAdvanceManager()->getStatus( pPacket->getQuestLevel() );
 				int ownerQuestLevel = pPC->getQuestManager()->getEventQuestAdvanceManager()->getQuestLevel();
@@ -100,7 +100,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					filelog( "EventBug.txt", "CGLotterySelectHandler : 복권 선택이 날라왔는데 완료한 퀘스트가 없다. -_-; %s[%d:%d]",
+					filelog( "EventBug.txt", "CGLotterySelectHandler : quest already cleared but client reported completion. -_-; %s[%d:%d]",
 							pPC->getName().c_str(), pPacket->getQuestLevel(), pPacket->getGiftID() );
 
 					return;
@@ -110,7 +110,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				gcNE.setCode( NOTICE_EVENT_RESULT_LOTTERY );
 				if ( bWinPrize( pPacket->getGiftID(), pPacket->getQuestLevel() ) ) 
 				{
-					// PlayerCreature 에 정보를 저장한다
+					// Flag the player as winning
 					pPC->setLotto(true);
 					pPC->setLottoRewardID( pPacket->getGiftID() );
 					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
@@ -118,7 +118,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					// PlayerCreature 에 정보를 저장한다
+					// Flag the player as losing
 					pPC->setLotto(false);
 					pPC->setLottoRewardID( pPacket->getGiftID() );
 					pPC->setLottoQuestLevel( pPacket->getQuestLevel() );
@@ -131,11 +131,10 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_FINISH_SCRATCH:
 			{
-				// 당첨된 경우 디비에 저장
+				// Finalize scratch result
 				if ( pPC->isLotto() )
 				{
-					// 다시 false 로 만들어줘야함.
-					// 아님 담번 퀘스트에서 무조건 당첨으로 처리되니 ;;
+					// Reset lotto flag; non-winning paths handled elsewhere.
 					pPC->setLotto(false);
 
 					Statement* pStmt = NULL;
@@ -153,14 +152,14 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					}
 					END_DB(pStmt)
 
-					// 이쪽 서버에 브로드 캐스트 하고 (allworld 는 해당 서버는 처리 안함)
+					// Broadcast win to current map (and globally later).
 					GCNotifyWin gcNW;
 					gcNW.setGiftID( pPC->getLottoRewardID() );
 					gcNW.setName( pCreature->getName() );
 
 					g_pZoneGroupManager->broadcast( &gcNW );
 
-					// 전 월드에 브로드캐스트해준다 
+					// Broadcast to all worlds via server command
 					char sCommand[200];
 					string worldName = g_pGameWorldInfoManager->getGameWorldInfo(g_pConfig->getPropertyInt( "WorldID" ))->getName();
 					sprintf( sCommand, "*allworld *command NotifyWin %s(%s) %lu", pCreature->getName().c_str(), worldName.c_str(), pPC->getLottoRewardID() );
@@ -169,7 +168,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 				}
 				else
 				{
-					// 아니면 그냥 퀘스트 아이템만 인벤에 넣어주면 되는듯
+					// Otherwise, hand out consolation rewards
 					Item::ItemClass iClass;
 					ItemType_t iType;
 					list<OptionType_t> oList;
@@ -178,7 +177,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					bool isUnique = false;
 					MonsterType_t masterType;
 
-					// 뒤寧몸훨蛟꼇못훨부膠틔
+					// No reward items for the first quest tier
 // 					if (pPC->getLottoQuestLevel()== 0 )
 // 					{
 // 						return;
@@ -188,7 +187,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 					{
 						case 0:
 							{
-								// 뒤寧몸훨蛟꼇못훨부膠틔
+								// No reward items for the first quest tier
 								return;
 								static const string options1[] =
 								{
@@ -669,7 +668,7 @@ void CGLotterySelectHandler::execute (CGLotterySelect* pPacket , Player* pPlayer
 			break;
 		case TYPE_OVER_ENDING:
 			{
-				// 죽인다. // PlayerCreature 에서는 setHP 못 부를듯
+				// Dev note: PlayerCreature::setHP should be updated to accept this path
 				//pPC->setHP(0);
 				if ( pCreature != NULL )
 				{

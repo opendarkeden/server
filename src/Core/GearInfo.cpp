@@ -2,8 +2,8 @@
 // 
 // Filename    : GearInfo.cpp 
 // Written By  : elca@ewestsoft.com
-// Description : 자신에게 쓰는 기술의 성공을 알리기 위한 패킷 클래스의
-//               멤버 정의.
+// Description : Packet used to notify gear information changes to the
+//               player and others.
 // 
 //////////////////////////////////////////////////////////////////////
 
@@ -29,29 +29,25 @@ GearInfo::GearInfo ()
 //////////////////////////////////////////////////////////////////////
 // destructor
 //////////////////////////////////////////////////////////////////////
-GearInfo::~GearInfo () 
+GearInfo::~GearInfo () noexcept
 {
-	__BEGIN_TRY
-
-	// 소속된 모든 객체들을 삭제한다.
+	// Release every owned gear slot object.
 	while ( !m_GearSlotInfoList.empty() ) {
 		GearSlotInfo * pGearSlotInfo = m_GearSlotInfoList.front();
 		SAFE_DELETE(pGearSlotInfo);
 		m_GearSlotInfoList.pop_front();
 	}
-
-	__END_CATCH
 }
 
 
 //////////////////////////////////////////////////////////////////////
-// 입력스트림(버퍼)으로부터 데이타를 읽어서 패킷을 초기화한다.
+// Initialize the packet by reading data from the input stream.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::read ( SocketInputStream & iStream ) 
 {
 	__BEGIN_TRY
 		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
+	// Read the number of entries first for safe deserialization.
 	iStream.read( m_ListNum );
 
 	for( int i = 0; i < m_ListNum; i++ ) {
@@ -66,14 +62,14 @@ void GearInfo::read ( SocketInputStream & iStream )
 
 		    
 //////////////////////////////////////////////////////////////////////
-// 출력스트림(버퍼)으로 패킷의 바이너리 이미지를 보낸다.
+// Serialize the packet into the output stream.
 //////////////////////////////////////////////////////////////////////
 void GearInfo::write ( SocketOutputStream & oStream ) 
      const
 {
 	__BEGIN_TRY
 		
-	// 최적화 작업시 실제 크기를 명시하도록 한다.
+	// Write the number of entries first for consistent serialization.
 	oStream.write( m_ListNum );
 
     for ( list<GearSlotInfo*>:: const_iterator itr = m_GearSlotInfoList.begin(); itr!= m_GearSlotInfoList.end(); itr++) {

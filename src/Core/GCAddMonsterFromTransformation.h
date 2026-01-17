@@ -19,7 +19,7 @@ class GCAddMonsterFromTransformation : public Packet
 {
 public:
 	GCAddMonsterFromTransformation() ;
-	virtual ~GCAddMonsterFromTransformation() ;
+	virtual ~GCAddMonsterFromTransformation() noexcept ;
 	
 public:
     void read(SocketInputStream & iStream) ;

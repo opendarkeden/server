@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Filename    : DatabaseManager.h
 // Written By  : elca
-// Description : µ¥ÀÌÅ¸º£ÀÌ½º ¸Å´ÏÀú
+// Description : ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½
 //////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DATABASE_MANAGER_H__
@@ -9,7 +9,7 @@
 
 #include "Types.h"
 #include "Exception.h"
-#include <hash_map>
+#include "HashMap.h"
 #include "Connection.h"
 #include "Mutex.h"
 
@@ -27,14 +27,15 @@ public:
 	void init() throw(Error);
 	void addConnection(int TID, Connection * pConnection) throw(DuplicatedException);
 
+	Connection* getConnection() throw(NoSuchElementException);
 	Connection* getConnection(const string& ip) throw(NoSuchElementException);
 	void	executeDummyQuery(Connection* pConnection) throw (Error);
 
 private:
-	// °¢ ¾²·¹µåº°·Î Á¸ÀçÇÏ´Â DB ¿¬°á
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½åº°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ DB ï¿½ï¿½ï¿½ï¿½
 	hash_map<int, Connection*> m_Connections;
 
-	// Á¦ÀÏ Ã³À½ »ý¼ºµÇ´Â ±âº» DB ¿¬°á
+	// ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½âº» DB ï¿½ï¿½ï¿½ï¿½
 	Connection* m_pDefaultConnection;
 
 	mutable Mutex m_Mutex;

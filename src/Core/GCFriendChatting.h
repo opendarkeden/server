@@ -51,14 +51,14 @@ class GCFriendChatting : public Packet {
 
 public :
 	GCFriendChatting();
-    // ÀÔ·Â½ºÆ®¸²(¹öÆÛ)À¸·ÎºÎÅÍ µ¥ÀÌÅ¸¸¦ ÀÐ¾î¼­ ÆÐÅ¶À» ÃÊ±âÈ­ÇÑ´Ù.
-    void read(SocketInputStream & iStream) throw(ProtocolException, Error);
-		    
-    // Ãâ·Â½ºÆ®¸²(¹öÆÛ)À¸·Î ÆÐÅ¶ÀÇ ¹ÙÀÌ³Ê¸® ÀÌ¹ÌÁö¸¦ º¸³½´Ù.
-    void write(SocketOutputStream & oStream) const throw(ProtocolException, Error);
+    // ï¿½Ô·Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ð¾î¼­ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ñ´ï¿½.
+	void read(SocketInputStream & iStream);
+	    
+	// ï¿½ï¿½Â½ï¿½Æ®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³Ê¸ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	void write(SocketOutputStream & oStream) const;
 
 	// execute packet's handler
-	void execute(Player* pPlayer) throw(ProtocolException, Error);
+	void execute(Player* pPlayer);
 
 	// get packet id
 	PacketID_t getPacketID() const  { return PACKET_GC_FRIEND_CHATTING; }
@@ -131,7 +131,7 @@ public :
 
 	// get packet's max body size
 	// *OPTIMIZATION HINT*
-	// const static GCSayPacketMaxSize ¸¦ Á¤ÀÇ, ¸®ÅÏÇÏ¶ó.
+	// const static GCSayPacketMaxSize ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½.
 	PacketSize_t getPacketMaxSize() const  { return szDWORD + szBYTE + 32 + szWORD + 512 + szBYTE + szBYTE; }
 
 };
@@ -144,12 +144,9 @@ public :
 //////////////////////////////////////////////////////////////////////
 
 class GCFriendChattingHandler {
-	
 public :
-	
 	// execute packet's handler
-	static void execute(GCFriendChatting* pPacket, Player* pPlayer) throw(ProtocolException, Error);
-
+	static void execute(GCFriendChatting* pPacket, Player* pPlayer);
 };
 
 #endif

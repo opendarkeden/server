@@ -25,7 +25,7 @@ class GCGuildMemberList;
 
 //////////////////////////////////////////////////////////////////////////////
 // class GuildMember
-// ±æµå¸â¹ö¿¡ °üÇÑ Á¤º¸¸¦ °¡Áø´Ù.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -153,7 +153,7 @@ class GuildMember
 {
 
 public:
-	GuildMember() throw();
+	GuildMember() noexcept;
 
 ///// Member constants /////
 
@@ -161,52 +161,52 @@ public:
 
 	enum GuildRank
 	{
-		GUILDMEMBER_RANK_NORMAL	= 0,		// ÀÏ¹Ý ¸â¹ö
-		GUILDMEMBER_RANK_MASTER,			// ±æµå ¸¶½ºÅÍ
-		GUILDMEMBER_RANK_SUBMASTER,			// ±æµå ¼­ºê ¸¶½ºÅÍ
-		GUILDMEMBER_RANK_WAIT,				// ±æµå °¡ÀÔ ´ë±â
-		GUILDMEMBER_RANK_DENY,				// Ãß¹æ/°ÅºÎ ´çÇÔ
-		GUILDMEMBER_RANK_LEAVE,				// ±æµå Å»Åð(½º½º·Î)
+		GUILDMEMBER_RANK_NORMAL	= 0,		// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½
+		GUILDMEMBER_RANK_MASTER,			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		GUILDMEMBER_RANK_SUBMASTER,			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		GUILDMEMBER_RANK_WAIT,				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		GUILDMEMBER_RANK_DENY,				// ï¿½ß¹ï¿½/ï¿½Åºï¿½ ï¿½ï¿½ï¿½ï¿½
+		GUILDMEMBER_RANK_LEAVE,				// ï¿½ï¿½ï¿½ Å»ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
 		GUILDMEMBER_RANK_MAX
 	};
 
 	
 public: // DB methods
-	void create() throw();
-	bool load() throw();
-	void save() throw();
-	void destroy() throw();
-	void expire() throw();
-	void leave() throw();
+	void create() noexcept(false);
+	bool load() noexcept(false);
+	void save() noexcept(false);
+	void destroy() noexcept(false);
+	void expire() noexcept(false);
+	void leave() noexcept(false);
 	
-	void saveIntro( const string& intro ) throw();
-	string getIntro() const throw();
+	void saveIntro( const string& intro ) noexcept(false);
+	string getIntro() const noexcept(false);
 
 	
 public: // identity methods
-	GuildID_t getGuildID() const throw() { return m_GuildID; }
-	void setGuildID(GuildID_t guildID) throw() { m_GuildID = guildID; }
+	GuildID_t getGuildID() const noexcept { return m_GuildID; }
+	void setGuildID(GuildID_t guildID) noexcept { m_GuildID = guildID; }
 
-	string getName() const throw() { return m_Name; }
-	void setName(const string& name) throw() { m_Name = name; }
+	string getName() const noexcept { return m_Name; }
+	void setName(const string& name) noexcept { m_Name = name; }
 
-	GuildMemberRank_t getRank() const throw() { return m_Rank; }
-	void setRank(GuildMemberRank_t rank) throw();		// Guild class ¿¡¼­ Ã³¸®ÇÑ´Ù.
+	GuildMemberRank_t getRank() const noexcept { return m_Rank; }
+	void setRank(GuildMemberRank_t rank) noexcept(false);		// Guild class ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 
-	bool getLogOn() const throw() { return m_bLogOn; }
-	void setLogOn( bool logOn ) throw() { m_bLogOn = logOn; }
+	bool getLogOn() const noexcept { return m_bLogOn; }
+	void setLogOn( bool logOn ) noexcept { m_bLogOn = logOn; }
 
-	ServerID_t	getServerID()	const throw() { return m_ServerID; }
-	void		setServerID( ServerID_t ServerID ) throw() { m_ServerID = ServerID; }
+	ServerID_t	getServerID()	const noexcept { return m_ServerID; }
+	void		setServerID( ServerID_t ServerID ) noexcept { m_ServerID = ServerID; }
 	
-	string getRequestDateTime() const throw();
-	void setRequestDateTime( const VSDateTime& vsdatetime ) throw() { m_RequestDateTime = vsdatetime; }
-	void setRequestDateTime( const string& rdatetime ) throw();
-	bool isRequestDateTimeOut( const VSDateTime& currentDateTime ) const throw();
+	string getRequestDateTime() const noexcept(false);
+	void setRequestDateTime( const VSDateTime& vsdatetime ) noexcept { m_RequestDateTime = vsdatetime; }
+	void setRequestDateTime( const string& rdatetime ) noexcept(false);
+	bool isRequestDateTimeOut( const VSDateTime& currentDateTime ) const noexcept;
 
 public: // debug
-	string toString() const throw();
+	string toString() const noexcept;
 
 
 ///// operator overloadgin /////
@@ -218,20 +218,20 @@ public:
 ///// Member data /////
 
 protected:
-	GuildID_t			m_GuildID;			// ±æµå ID
-	string				m_Name;				// ¸â¹ö ÀÌ¸§
-	GuildMemberRank_t	m_Rank;				// ¸â¹öÀÇ °è±Þ
-	VSDateTime			m_RequestDateTime;	// °¡ÀÔ ½ÅÃ» ½Ã°£
-	bool				m_bLogOn;			// Á¢¼Ó ¿©ºÎ
-	ServerID_t			m_ServerID;			// ¼­¹ö À§Ä¡
+	GuildID_t			m_GuildID;			// ï¿½ï¿½ï¿½ ID
+	string				m_Name;				// ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	GuildMemberRank_t	m_Rank;				// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	VSDateTime			m_RequestDateTime;	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Ã°ï¿½
+	bool				m_bLogOn;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ServerID_t			m_ServerID;			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
 };
 
 
 //////////////////////////////////////////////////////////////////////////////
 // class Guild
-// ±æµå¿¡ °üÇÑ Á¤º¸¸¦ °¡Áø´Ù.
+// ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 //
-// GuildInfo Å×ÀÌºíÀÇ ±¸Á¶
+// GuildInfo ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 // ----------------------------------------
 // GuildID            INT
 // GuildName          VARCHAR(20)
@@ -262,159 +262,159 @@ public:
 
 	enum GuildTypes
 	{
-		GUILD_TYPE_NORMAL = 0,		// ÀÏ¹Ý ±æµå
-		GUILD_TYPE_JUDGE,			// ÆÇ°ü ±æµå
-		GUILD_TYPE_ASSASSIN,		// ¾Ï»ìÀÚ ±æµå
+		GUILD_TYPE_NORMAL = 0,		// ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½
+		GUILD_TYPE_JUDGE,			// ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½
+		GUILD_TYPE_ASSASSIN,		// ï¿½Ï»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 		GUILD_TYPE_MAX
 	};
 
 	enum GuildState
 	{
-		GUILD_STATE_ACTIVE = 0,		// È°µ¿ ÁßÀÎ ±æµå
-		GUILD_STATE_WAIT,			// µî·Ï ´ë±â ÁßÀÎ ±æµå
-		GUILD_STATE_CANCEL,			// Ãë¼ÒµÈ ±æµå
-		GUILD_STATE_BROKEN,			// ÇØÃ¼µÈ ±æµå
+		GUILD_STATE_ACTIVE = 0,		// È°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		GUILD_STATE_WAIT,			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		GUILD_STATE_CANCEL,			// ï¿½ï¿½Òµï¿½ ï¿½ï¿½ï¿½
+		GUILD_STATE_BROKEN,			// ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 		GUILD_STATE_MAX
 	};
 
 	enum GuildRace
 	{
-		GUILD_RACE_SLAYER = 0,		// ½½·¹ÀÌ¾î ±æµå
-		GUILD_RACE_VAMPIRE,			// ¹ìÆÄÀÌ¾î ±æµå
-		GUILD_RACE_OUSTERS,			// ¾Æ¿ì½ºÅÍÁî ±æµå
+		GUILD_RACE_SLAYER = 0,		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½
+		GUILD_RACE_VAMPIRE,			// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½
+		GUILD_RACE_OUSTERS,			// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
 		GUILD_RACE_MAX
 	};
 
 public: // constructor & destructor
-	Guild() throw();
-	virtual ~Guild() throw();
+	Guild() noexcept(false);
+	virtual ~Guild() noexcept;
 
 
 public: // DB methods
-	void create() throw();
-	bool load() throw();
-	void save() throw();
-	void destroy() throw();
+	void create() noexcept(false);
+	bool load() noexcept(false);
+	void save() noexcept(false);
+	void destroy() noexcept(false);
 
 	
 public: // identity methods
-	GuildID_t getID() const throw() { return m_ID; }
-	void setID(GuildID_t id) throw() { m_ID = id; }
+	GuildID_t getID() const noexcept { return m_ID; }
+	void setID(GuildID_t id) noexcept { m_ID = id; }
 
-	string getName() const throw() { return m_Name; }
-	void setName(const string& name) throw() { m_Name = name; }
+	string getName() const noexcept { return m_Name; }
+	void setName(const string& name) noexcept { m_Name = name; }
 
-	GuildType_t getType() const throw() { return m_Type; }
-	void setType(GuildType_t type) throw() { m_Type = type; }
+	GuildType_t getType() const noexcept { return m_Type; }
+	void setType(GuildType_t type) noexcept { m_Type = type; }
 
-	GuildRace_t getRace() const throw() { return m_Race; }
-	void setRace( GuildRace_t race ) throw() { m_Race = race; }
+	GuildRace_t getRace() const noexcept { return m_Race; }
+	void setRace( GuildRace_t race ) noexcept { m_Race = race; }
 
-	GuildState_t getState() const throw() { return m_State; }
-	void setState(GuildState_t state) throw() { m_State = state; }
+	GuildState_t getState() const noexcept { return m_State; }
+	void setState(GuildState_t state) noexcept { m_State = state; }
 
-	ServerGroupID_t getServerGroupID() const throw() { return m_ServerGroupID; }
-	void setServerGroupID( ServerGroupID_t serverGroupID ) throw() { m_ServerGroupID = serverGroupID; }
+	ServerGroupID_t getServerGroupID() const noexcept { return m_ServerGroupID; }
+	void setServerGroupID( ServerGroupID_t serverGroupID ) noexcept { m_ServerGroupID = serverGroupID; }
 
-	ZoneID_t getZoneID() const throw() { return m_ZoneID; }
-	void setZoneID( ZoneID_t zoneID ) throw() { m_ZoneID = zoneID; }
+	ZoneID_t getZoneID() const noexcept { return m_ZoneID; }
+	void setZoneID( ZoneID_t zoneID ) noexcept { m_ZoneID = zoneID; }
 
-	string getMaster() const throw() { return m_Master; }
-	void setMaster(const string& master) throw() { m_Master = master; }
+	string getMaster() const noexcept { return m_Master; }
+	void setMaster(const string& master) noexcept { m_Master = master; }
 
-	string getDate() const throw() { return m_Date; }
-	void setDate( const string& Date ) throw() { m_Date = Date; }
+	string getDate() const noexcept { return m_Date; }
+	void setDate( const string& Date ) noexcept { m_Date = Date; }
 
-	string getIntro() const throw() { return m_Intro; }
-	void setIntro( const string& intro ) throw() { m_Intro = intro; }
+	string getIntro() const noexcept { return m_Intro; }
+	void setIntro( const string& intro ) noexcept { m_Intro = intro; }
 
 #ifdef __SHARED_SERVER__
-	void saveIntro( const string& intro ) throw();
-	void tinysave( const char* field ) const throw();
-	void saveCount() const throw();
+	void saveIntro( const string& intro ) noexcept(false);
+	void tinysave( const char* field ) const noexcept(false);
+	void saveCount() const noexcept(false);
 #endif
 
 
 ///// GuildMember get/add/delete/modify /////
-	GuildMember* getMember( const string& name ) const throw();
-	GuildMember* getMember_NOLOCKED( const string& name ) const throw();
-	void addMember( GuildMember* pMember ) throw( DuplicatedException, Error );
-	void deleteMember( const string& name ) throw();
-	void modifyMember( GuildMember& Member ) throw();
+	GuildMember* getMember( const string& name ) const noexcept(false);
+	GuildMember* getMember_NOLOCKED( const string& name ) const noexcept(false);
+	void addMember( GuildMember* pMember ) noexcept(false);
+	void deleteMember( const string& name ) noexcept(false);
+	void modifyMember( GuildMember& Member ) noexcept(false);
 
-	void modifyMemberRank( const string& name, GuildMemberRank_t rank ) throw();
+	void modifyMemberRank( const string& name, GuildMemberRank_t rank ) noexcept(false);
 
-	HashMapGuildMember& getMembers() throw() { return m_Members; }
+	HashMapGuildMember& getMembers() noexcept { return m_Members; }
 
-	int getActiveMemberCount() const throw() { return m_ActiveMemberCount; }
-	int getWaitMemberCount() const throw() { return m_WaitMemberCount; }
+	int getActiveMemberCount() const noexcept { return m_ActiveMemberCount; }
+	int getWaitMemberCount() const noexcept { return m_WaitMemberCount; }
 
 #ifdef __GAME_SERVER__
-	void addCurrentMember( const string& name ) throw( DuplicatedException, Error );
-	void deleteCurrentMember( const string& name ) throw( NoSuchElementException );
-	list<string> getCurrentMembers() throw();
+	void addCurrentMember( const string& name ) noexcept(false);
+	void deleteCurrentMember( const string& name ) noexcept(false);
+	list<string> getCurrentMembers() noexcept(false);
 #endif
 
 #ifdef __SHARED_SERVER__
-	void makeInfo( GuildInfo2* pGulidInfo ) throw();
+	void makeInfo( GuildInfo2* pGulidInfo ) noexcept(false);
 #endif
 
-	void makeInfo( GuildInfo* pGuildInfo ) throw();
-	void makeMemberInfo( GCGuildMemberList& gcGuildMemberList ) throw();
+	void makeInfo( GuildInfo* pGuildInfo ) noexcept(false);
+	void makeMemberInfo( GCGuildMemberList& gcGuildMemberList ) noexcept(false);
 
 
 public: // static
-	static GuildID_t getMaxGuildID() throw() { return m_MaxGuildID; }
-	static void setMaxGuildID(GuildID_t id) throw() { m_MaxGuildID = id; }
+	static GuildID_t getMaxGuildID() noexcept { return m_MaxGuildID; }
+	static void setMaxGuildID(GuildID_t id) noexcept { m_MaxGuildID = id; }
 
-	static ZoneID_t getMaxSlayerZoneID() throw() { return m_MaxSlayerZoneID; }
-	static void setMaxSlayerZoneID( ZoneID_t zoneID ) throw() { m_MaxSlayerZoneID = zoneID; }
+	static ZoneID_t getMaxSlayerZoneID() noexcept { return m_MaxSlayerZoneID; }
+	static void setMaxSlayerZoneID( ZoneID_t zoneID ) noexcept { m_MaxSlayerZoneID = zoneID; }
 
-	static ZoneID_t getMaxVampireZoneID() throw() { return m_MaxVampireZoneID; }
-	static void setMaxVampireZoneID( ZoneID_t zoneID ) throw() { m_MaxVampireZoneID = zoneID; }
+	static ZoneID_t getMaxVampireZoneID() noexcept { return m_MaxVampireZoneID; }
+	static void setMaxVampireZoneID( ZoneID_t zoneID ) noexcept { m_MaxVampireZoneID = zoneID; }
 
-	static ZoneID_t getMaxOustersZoneID() throw() { return m_MaxOustersZoneID; }
-	static void setMaxOustersZoneID( ZoneID_t zoneID ) throw() { m_MaxOustersZoneID = zoneID; }
+	static ZoneID_t getMaxOustersZoneID() noexcept { return m_MaxOustersZoneID; }
+	static void setMaxOustersZoneID( ZoneID_t zoneID ) noexcept { m_MaxOustersZoneID = zoneID; }
 
 public:
-	void expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList ) throw(Error);
+	void expireTimeOutWaitMember( VSDateTime currentDateTime, list<string>& mList ) noexcept(false);
 
 public: // debug
-	string toString() const throw();
+	string toString() const noexcept;
 
-	static string correctString( const string& str ) throw();
+	static string correctString( const string& str ) noexcept;
 
 
 ///// Member data /////
 
 protected:
-	GuildID_t			m_ID;					// ±æµå ID
-	string				m_Name;					// ±æµå ÀÌ¸§
-	GuildType_t			m_Type;					// ±æµå Å¸ÀÔ
-	GuildRace_t			m_Race;					// ±æµå Á¾Á·
-	GuildState_t		m_State;				// ±æµå »óÅÂ
-	ServerGroupID_t		m_ServerGroupID;		// ±æµå Á¸ÀÌ ÀÖ´Â ¼­¹ö ±×·ì ID
-	ZoneID_t			m_ZoneID;				// ±æµå ZoneID
-	string				m_Master;				// ±æµå ¸¶½ºÅÍ
-	string				m_Date;					// ±æµå Expire, Regist Date
-	string				m_Intro;				// ±æµå ¼Ò°³
+	GuildID_t			m_ID;					// ï¿½ï¿½ï¿½ ID
+	string				m_Name;					// ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	GuildType_t			m_Type;					// ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+	GuildRace_t			m_Race;					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	GuildState_t		m_State;				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ServerGroupID_t		m_ServerGroupID;		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ ID
+	ZoneID_t			m_ZoneID;				// ï¿½ï¿½ï¿½ ZoneID
+	string				m_Master;				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	string				m_Date;					// ï¿½ï¿½ï¿½ Expire, Regist Date
+	string				m_Intro;				// ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½
 
-	HashMapGuildMember	m_Members;				// ±æµå ¸â¹ö Æ÷ÀÎÅÍ ¸Ê
+	HashMapGuildMember	m_Members;				// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	int					m_ActiveMemberCount;	// Active Member Count
 	int					m_WaitMemberCount;		// Wait Member Count
 
-	static GuildID_t	m_MaxGuildID;			// ±æµå ¾ÆÀÌµð ÃÖ´ë°ª
-	static ZoneID_t		m_MaxSlayerZoneID;		// ½½·¹ÀÌ¾î ±æµå Á¸ ID ÃÖ´ë°ª
-	static ZoneID_t		m_MaxVampireZoneID;		// ¹ìÆÄÀÌ¾î ±æµå Á¸ ID ÃÖ´ë°ª
-	static ZoneID_t		m_MaxOustersZoneID;		// ¾Æ¿ì½ºÅÍÁî ±æµå Á¸ ID ÃÖ´ë°ª
+	static GuildID_t	m_MaxGuildID;			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½Ö´ë°ª
+	static ZoneID_t		m_MaxSlayerZoneID;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ID ï¿½Ö´ë°ª
+	static ZoneID_t		m_MaxVampireZoneID;		// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ID ï¿½Ö´ë°ª
+	static ZoneID_t		m_MaxOustersZoneID;		// ï¿½Æ¿ì½ºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ID ï¿½Ö´ë°ª
 
 	mutable Mutex		m_Mutex;				// Mutex for Guild
 
 #ifdef __GAME_SERVER__
-	list<string>		m_CurrentMembers;		// ÇöÀç Á¢¼Ó ÁßÀÎ ¸â¹ö
+	list<string>		m_CurrentMembers;		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 #endif
 
 };

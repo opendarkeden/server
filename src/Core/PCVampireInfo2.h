@@ -10,9 +10,8 @@
 #include "PCInfo.h"
 
 //////////////////////////////////////////////////////////////////////////////
-// Vampire Á¤º¸¸¦ ´ã°í ÀÖ´Â °´Ã¼.
-// GCPCList ÆÐÅ¶¿¡ ´ã°Ü¼­ Å¬¶óÀÌ¾ðÆ®¿¡°Ô Àü¼ÛµÈ´Ù.
-// ¾ÆÀÌÅÛÀÌ³ª °É·ÁÀÖ´Â ¸¶¹ý °°Àº Á¤º¸´Â ´ã°ÜÀÖÁö ¾Ê´Ù.
+// Container for vampire PC data used by GCPCList sent at character select.
+// Does not include guild or ability details not needed at that stage.
 //////////////////////////////////////////////////////////////////////////////
 
 class PCVampireInfo2 : public PCInfo 
@@ -25,27 +24,27 @@ public:
 
 	uint getSize () const 
 	{
-		return szObjectID				// ObjectID
-			+ szBYTE + m_Name.size() 	// ¹ìÆÄÀÌ¾î ÀÌ¸§
-			+ szLevel					// ·¹º§
-			+ szSex						// ¼ºº°
-			+ szColor* 2				// »ö»ó
+		return szObjectID			// ObjectID
+			+ szBYTE + m_Name.size() 	// Character name
+			+ szLevel				// Level
+			+ szSex					// Sex
+			+ szColor* 2				// ï¿½ï¿½ï¿½ï¿½
 			+ szBYTE
-			+ szAlignment				// ¼ºÇâ
-			+ szAttr * 3 * 3			// ´É·ÂÄ¡
+			+ szAlignment				// ï¿½ï¿½ï¿½ï¿½
+			+ szAttr * 3 * 3			// ï¿½É·ï¿½Ä¡
 			+ szHP* 2					// HP
-			+ szRank + szRankExp		// °è±Þ °æÇèÄ¡
-			+ szExp						// °æÇèÄ¡
+			+ szRank + szRankExp		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
+			+ szExp						// ï¿½ï¿½ï¿½ï¿½Ä¡
 			+ szFame					// Fame
-			+ szGold 					// µ·
-			+ szSight					// ½Ã¾ß
-			+ szSkillType* 8			// ÇÖ Å°
-			+ szSilver					// ÇÖ Å°
-			+ szBonus					// º¸³Ê½ºÆ÷ÀÎÆ®
-			+ szGuildID					// ±æµå ¾ÆÀÌµð
-			+ szBYTE + m_GuildName.size()	// ±æµå ÀÌ¸§
+			+ szGold 					// ï¿½ï¿½
+			+ szSight					// ï¿½Ã¾ï¿½
+			+ szSkillType* 8			// ï¿½ï¿½ Å°
+			+ szSilver					// ï¿½ï¿½ Å°
+			+ szBonus					// ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+			+ szGuildID					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+			+ szBYTE + m_GuildName.size()	// ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			+ szGuildMemberRank			// guild member rank
-			+ szBYTE					// ±ÇÇÑ
+			+ szBYTE					// ï¿½ï¿½ï¿½ï¿½
 			+ szuint
 			+ szLevel
 			+ szExp;
@@ -53,27 +52,27 @@ public:
 
 	static uint getMaxSize () 
 	{
-		return szObjectID				// ObjectID
-			+ szBYTE + 20				// ¹ìÆÄÀÌ¾î ÀÌ¸§
-			+ szLevel					// ·¹º§
-			+ szSex						// ¼ºº°
-			+ szColor* 2				// »ö»ó
+		return szObjectID			// ObjectID
+			+ szBYTE + 20			// Character name
+			+ szLevel				// Level
+			+ szSex					// Sex
+			+ szColor* 2				// ï¿½ï¿½ï¿½ï¿½
 			+ szBYTE
-			+ szAlignment				// ¼ºÇâ
-			+ szAttr * 3 * 3			// ´É·ÂÄ¡
+			+ szAlignment				// ï¿½ï¿½ï¿½ï¿½
+			+ szAttr * 3 * 3			// ï¿½É·ï¿½Ä¡
 			+ szHP* 2					// HP
-			+ szRank + szRankExp		// °è±Þ °æÇèÄ¡
-			+ szExp						// °æÇèÄ¡
+			+ szRank + szRankExp		// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä¡
+			+ szExp						// ï¿½ï¿½ï¿½ï¿½Ä¡
 			+ szFame					// Fame
-			+ szGold					// µ·
-			+ szSight					// ½Ã¾ß
-			+ szSkillType* 8			// ÇÖ Å°
-			+ szSilver					// ÇÖ Å°
-			+ szBonus					// º¸³Ê½ºÆ÷ÀÎÆ®
-			+ szGuildID					// ±æµå ¾ÆÀÌµð
-			+ szBYTE + 30				// ±æµå ÀÌ¸§
+			+ szGold					// ï¿½ï¿½
+			+ szSight					// ï¿½Ã¾ï¿½
+			+ szSkillType* 8			// ï¿½ï¿½ Å°
+			+ szSilver					// ï¿½ï¿½ Å°
+			+ szBonus					// ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+			+ szGuildID					// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+			+ szBYTE + 30				// ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			+ szGuildMemberRank +		// guild member rank
-			+ szBYTE					// ±ÇÇÑ
+			+ szBYTE					// ï¿½ï¿½ï¿½ï¿½
 			+ szuint
 			+ szLevel
 			+ szExp;
@@ -230,7 +229,7 @@ private:
 	// HP[0] = current hp, hp[1] == max hp
 	HP_t m_HP[2];
 
-	// °è±Þ
+	// ï¿½ï¿½ï¿½
 	Rank_t			m_Rank;
 	RankExp_t		m_RankExp;
 
@@ -243,16 +242,16 @@ private:
 	// Gold
 	Gold_t m_Gold;
 
-	// ½Ã¾ß
+	// Sight
 	Sight_t m_Sight;
 
-	// º¸³Ê½º Æ÷ÀÎÆ®
+	// ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 	Bonus_t m_Bonus;
 
-	// ÇÖ Å°
+	// ï¿½ï¿½ Å°
 	SkillType_t m_HotKey[8];
 
-	// ½Ç¹ö µ¥¹ÌÁö
+	// ï¿½Ç¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Silver_t m_SilverDamage;
 
 	// Competence

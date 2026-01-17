@@ -64,31 +64,31 @@ void CBillingPlayerManager::run()
 
 	try
 	{
-		// Player DB ¿¡ Connection À» ÇÏ³ª ¿¬°á½ÃÄÑ µÐ´Ù.
+		// Player DB ï¿½ï¿½ Connection ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½.
 		string host		= g_pConfig->getProperty( "UI_DB_HOST" );
 		string db		= "DARKEDEN";
 		string user		= g_pConfig->getProperty( "UI_DB_USER" );
 		string password	= g_pConfig->getProperty( "UI_DB_PASSWORD" );
 
 		Connection* pDistConnection = new Connection( host, db, user, password );
-		g_pDatabaseManager->addDistConnection( ( (int)Thread::self() ), pDistConnection );
+		g_pDatabaseManager->addDistConnection( ( (int)(long)Thread::self() ), pDistConnection );
 		cout << "***************************************************************" << endl;
 		cout << " THREAD CONNECT Player DB - for China Billing System" << endl;
-		cout << " TID Number = " << (int)Thread::self() << endl;
+		cout << " TID Number = " << (int)(long)Thread::self() << endl;
 		cout << "***************************************************************" << endl;
 
 #ifdef __GAME_SERVER__
-		// CBilling Log DB¿¡ Connection À» ÇÏ³ª ¿¬°á½ÃÄÑ µÐ´Ù.
+		// CBilling Log DBï¿½ï¿½ Connection ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð´ï¿½.
 		string cbhost		= g_pConfig->getProperty( "CBILLING_DB_HOST" );
 		string cbdb			= g_pConfig->getProperty( "CBILLING_DB_DB" );
 		string cbuser		= g_pConfig->getProperty( "CBILLING_DB_USER" );
 		string cbpassword	= g_pConfig->getProperty( "CBILLING_DB_PASSWORD" );
 
 		Connection* pCBillingConnection = new Connection( cbhost, cbdb, cbuser, cbpassword );
-		g_pDatabaseManager->addCBillingConnection( ( (int)Thread::self() ), pCBillingConnection );
+		g_pDatabaseManager->addCBillingConnection( ( (int)(long)Thread::self() ), pCBillingConnection );
 		cout << "***************************************************************" << endl;
 		cout << " THREAD CONNECT China Billing Log DB - for China Billing System" << endl;
-		cout << " TID Number = " << (int)Thread::self() << endl;
+		cout << " TID Number = " << (int)(long)Thread::self() << endl;
 		cout << "***************************************************************" << endl;
 #endif
 
@@ -102,7 +102,7 @@ void CBillingPlayerManager::run()
 		{
 			usleep( 100 );
 
-			// ¿¬°á µÇ¾î ÀÖÁö ¾Ê´Ù¸é ¿¬°áÀ» ½ÃµµÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ï¿½Ñ´ï¿½.
 			if ( m_pCBillingPlayer == NULL )
 			{
 				Socket* pSocket = NULL;
@@ -132,7 +132,7 @@ void CBillingPlayerManager::run()
 					filelog( LOGFILE_CBILLING_PLAYER, "----- connection established(%s:%d) -----", CBillingServerIP.c_str(), CBillingServerPort );
 
 #ifdef __GAME_SERVER__
-					// interval validation packet À» º¸³½´Ù.
+					// interval validation packet ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 					sendIntervalValidation();
 #endif
 				}
@@ -162,12 +162,12 @@ void CBillingPlayerManager::run()
 					}
 					__LEAVE_CRITICAL_SECTION( m_Mutex )
 
-					// ´ÙÀ½ Á¢¼Ó ½Ãµµ ½Ã°£
-					usleep( 1000000 );		// 1ÃÊ
+					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½ ï¿½Ã°ï¿½
+					usleep( 1000000 );		// 1ï¿½ï¿½
 				}
 			}
 
-			// ¼ÒÄÏÀÌ ¿¬°áµÇ¾î ÀÖ´Ù¸é ÀÔÃâ·ÂÀ» Ã³¸®ÇÑ´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ñ´ï¿½.
 			__ENTER_CRITICAL_SECTION( m_Mutex )
 
 
@@ -234,8 +234,8 @@ void CBillingPlayerManager::run()
 				g_pDatabaseManager->executeDummyQuery( pCBillingConnection );
 #endif
 
-				// 1½Ã°£ ~ 1½Ã°£ 30ºÐ »çÀÌ¿¡¼­ dummy query ½Ã°£À» ¼³Á¤ÇÑ´Ù.
-				// timeout ÀÌ µÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­ÀÌ´Ù.
+				// 1ï¿½Ã°ï¿½ ~ 1ï¿½Ã°ï¿½ 30ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½ dummy query ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
+				// timeout ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ì´ï¿½.
 				dummyQueryTime.tv_sec += (60+rand()%30) * 60;
 			}
 
@@ -296,7 +296,7 @@ void CBillingPlayerManager::sendIntervalValidation()
 	{
 		m_pCBillingPlayer->sendIntervalValidation();
 
-		// ¹Ù·Î º¸³»¹ö¸°´Ù.
+		// ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 		m_pCBillingPlayer->processOutput();
 	}
 

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 // Filename : MPlayer.cpp
-// Desc		: 모퍼스 통신 객체
+// Desc		: Mofus network player wrapper
 /////////////////////////////////////////////////////////////////////////////
 
 // include files
@@ -78,7 +78,7 @@ void MPlayer::processOutput()
 	}
 	catch ( InvalidProtocolException& )
 	{
-		throw DisconnectException( "이상한 패킷임" );
+		throw DisconnectException( "Invalid packet" );
 	}
 }
 
@@ -88,10 +88,10 @@ void MPlayer::processCommand()
 
 	try
 	{
-		// 입력 버퍼에 들어있는 완전한 패킷들을 모조리 처리한다.
+		// Continuously pull packets from the input stream and dispatch handlers.
 		while ( true )
 		{
-			// 일단 패킷의 사이즈와 ID 를 읽어온다.
+			// Peek packet header to read ID and size without consuming stream data.
 			char header[szMPacketHeader];
 			MPacketSize_t packetSize;
 			MPacketID_t packetID;
@@ -105,37 +105,37 @@ void MPlayer::processCommand()
 			//packetSize = ntohl( packetSize );
 			//packetID = ntohl( packetID );
 
-			// 패킷 아이디가 이상하면 프로토콜 에러
+			// Verify we have a handler for this packet ID.
 			if ( !g_pMPacketManager->hasHandler( packetID ) )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketID : %d", packetID );
 				throw ProtocolException( "Invalid PacketID" );
 			}
 
-			// 패킷 사이즈 확인
+			// Validate packet size.
 			if ( g_pMPacketManager->getPacketSize( packetID ) != packetSize )
 			{
 				filelog( MOFUS_ERROR_FILE, "Invalid PacketSize : %d, expected size : %d", packetSize, g_pMPacketManager->getPacketSize(packetID) );
 				throw ProtocolException( "Invalid PacketSize" );
 			}
 
-			// 완전한 하나의 패킷이 들어있는지 확인
+			// Ensure the input stream already holds the full packet payload.
 			if ( m_pInputStream->length() < (unsigned int)( packetSize + szMPacketSize ) )
 				return;
 
-			// 패킷을 생성
+			// Create the packet object.
 			MPacket* pPacket = g_pMPacketManager->createPacket( packetID );
 			
-			// 패킷 객체에 읽은 내용을 채운다.
+			// Fill the packet from the stream.
 			pPacket->read( *m_pInputStream );
 
-			// 패킷의 해당 핸들러를 실행한다.
+			// Execute the packet handler.
 			g_pMPacketManager->execute( this, pPacket );
 		}
 	}
-	catch ( InsufficientDataException )
+	catch ( const InsufficientDataException& )
 	{
-		// 무시
+		// Not enough data yet; wait for more.
 	}
 
 	__END_CATCH
@@ -150,10 +150,10 @@ void MPlayer::sendPacket( MPacket* pPacket )
 
 void MPlayer::connect()
 {
-	// 연결되어 있지 않아야한다.
+	// Must not already have an active socket.
 	Assert( m_pSocket == NULL );
 
-	// 모퍼스 서버의 IP 와 Port 를 가져온다.
+	// Load Mofus host/port from configuration.
 	const string	MofusIP = g_pConfig->getProperty( "MofusIP" );
 	uint 			MofusPort = g_pConfig->getPropertyInt( "MofusPort" );
 
@@ -171,7 +171,7 @@ void MPlayer::connect()
 		// make no-linger socket
 		m_pSocket->setLinger(0);
 
-		// read/write 용 버퍼(stream) 을 생성한다.
+		// Prepare buffered read/write streams on the socket.
 		m_pInputStream = new SocketInputStream( m_pSocket, defaultMPlayerInputStreamSize );
 		m_pOutputStream = new SocketOutputStream( m_pSocket, defaultMPlayerOutputStreamSize );
 
@@ -185,7 +185,7 @@ void MPlayer::connect()
 			 << MofusIP.c_str() << ":" << MofusPort << endl;
 		filelog( MOFUS_LOG_FILE, "----- connecti fail(%s:%u) -----", MofusIP.c_str(), MofusPort );
 
-		// 소켓을 삭제한다.
+		// Release socket resources on failure.
 		try
 		{
 			SAFE_DELETE( m_pSocket );
@@ -195,8 +195,8 @@ void MPlayer::connect()
 			filelog( MOFUS_ERROR_FILE, "[socket release error] %s", t.toString().c_str() );
 		}
 
-		// 다음 접속 시도 시간
-		usleep( 1000000 );	// 1초
+		// Back off briefly before retrying.
+		usleep( 1000000 );	// 1 second
 	}
 }
 
@@ -235,17 +235,17 @@ void MPlayer::process()
 		{
 			usleep(100);
 
-			// 연결 되어 있지 않다면 연결을 시도한다.
+			// Attempt connection if the socket is not yet established.
 			if ( m_pSocket == NULL )
 			{
 				connect();
 
-				// 연결 확인 패킷을 보낸다.
+				// After connecting, send the initial connect packet.
 				if ( m_pSocket != NULL )
 					sendConnectAsk();
 			}
 
-			// 소켓이 연결되어 있다면 입출력을 처리한다.
+			// If connected, process I/O and job state.
 			if ( m_pSocket != NULL )
 			{
 				__BEGIN_TRY
@@ -254,35 +254,35 @@ void MPlayer::process()
 				{
 					filelog( MOFUS_ERROR_FILE, "[MPlayer socket error]" );
 
-					// 연결을 끊고 소켓 삭제하고, 입출력 버퍼 지운다.
+					// On socket errors, close everything and return.
 					m_pSocket->close();
 					SAFE_DELETE( m_pSocket );
 					SAFE_DELETE( m_pInputStream );
 					SAFE_DELETE( m_pOutputStream );
 
-					// 루틴을 빠져나간다.
+					// Exit loop so caller can retry later.
 					cout << "return" << endl;
 					return;
 				}
 				else
 				{
-					// 작업이 다 끝나고 보낼 패킷을 다 보냈다면 루틴을 빠져 나간다.
+					// When job is finished and output is empty, cleanly close and exit.
 					if ( m_pJob->isEnd() && m_pOutputStream->isEmpty() )
 					{
-						// 연결을 끊고 소켓 삭제하고, 입출력 버퍼 지운다.
+						// Close streams and socket before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
 						SAFE_DELETE( m_pOutputStream );
 
-						// 루틴을 빠져나간다.
+						// Exit loop.
 						cout << "return" << endl;
 						return;
 					}
 
 					try
 					{
-						// 소켓 입출력 처리 및 패킷 처리
+						// Drive input/command/output processing for this socket.
 						processInput();
 						processCommand();
 						processOutput();
@@ -291,8 +291,7 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_LOG_FILE, "----- connection close" );
 
-						// 연결이 끊겼다.
-						// 소켓을 닫고, 입출력 버퍼 지우고 빠져나가기
+						// On disconnect, close socket and streams before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );
@@ -305,7 +304,7 @@ void MPlayer::process()
 					{
 						filelog( MOFUS_ERROR_FILE, "[MPlayer process error]" );
 
-						// 소켓을 닫고, 입출력 버퍼 지우고 빠져나가기
+						// On processing error, close socket and streams before returning.
 						m_pSocket->close();
 						SAFE_DELETE( m_pSocket );
 						SAFE_DELETE( m_pInputStream );

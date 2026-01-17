@@ -13,7 +13,7 @@
 #include "Exception.h"
 #include "SocketAPI.h"
 
-#if __LINUX__
+#if defined(__LINUX__) || defined(__APPLE__)
 	#include <sys/socket.h>
 	#include <arpa/inet.h>
 	#include <netinet/in.h>
@@ -28,8 +28,8 @@ class SerialDatagramPacket;
 //
 // class SerialDatagram;
 //
-// UDP 소켓으로부터 입력받거나 출력할 데이타의 집합이다.
-// 각 SerialDatagram은 보낼 곳 또는 보낸 곳의 주소를 가지고 있다.
+// Wraps a UDP datagram for reading or writing raw data. Stores the address
+// that the datagram was received from or will be sent to.
 //
 //////////////////////////////////////////////////////////////////////
 

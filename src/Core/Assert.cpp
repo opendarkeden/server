@@ -15,10 +15,10 @@
 //
 // __assert__
 //
-// ÀÌ ÇÔ¼ö¿¡¼­´Â __BEGIN_TRY , __END_CATCH·Î wrappingÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+// ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ __BEGIN_TRY , __END_CATCHï¿½ï¿½ wrappingï¿½ï¿½ ï¿½Ê¿ä°¡ ï¿½ï¿½ï¿½ï¿½.
 //
 //--------------------------------------------------------------------------------
-void __assert__ ( const char * file , uint line , const char * func , const char * expr )
+void __assert__ ( const char * file , uint line , const char * func , const char * expr ) noexcept(false)
 {
 	StringStream msg;
 	
@@ -41,10 +41,10 @@ void __assert__ ( const char * file , uint line , const char * func , const char
 
 //--------------------------------------------------------------------------------
 //
-// ³»ºÎ¿¡ Æ¯Á¤ À¯Àú¸¦ BAN ÇÏ°í, ·Î±×¸¦ ³²±â´Â ÄÚµå°¡ µé¾î°¥ ¼ö ÀÖÀ»±î?
+// ï¿½ï¿½ï¿½Î¿ï¿½ Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BAN ï¿½Ï°ï¿½, ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµå°¡ ï¿½ï¿½î°¥ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 //
 //--------------------------------------------------------------------------------
-void __protocol_assert__ ( const char * file , uint line , const char * func , const char * expr )
+void __protocol_assert__ ( const char * file , uint line , const char * func , const char * expr ) noexcept(false)
 {
 	StringStream msg;
 	

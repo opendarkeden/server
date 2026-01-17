@@ -29,7 +29,7 @@ EffectCanEnterGDRLair::~EffectCanEnterGDRLair()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectCanEnterGDRLair::affect (Creature* pCreature)
@@ -62,7 +62,7 @@ void EffectCanEnterGDRLair::unaffect (Creature* pCreature)
 	Zone* pZone = pCreature->getZone();
 	Assert(pZone != NULL);
 
-	// ÀÌÆåÆ®¸¦ »èÁ¦ÇÏ¶ó°í ¾Ë·ÁÁØ´Ù.
+	// ì´íŽ™íŠ¸ë¥¼ ì‚­ì œí•˜ë¼ê³  ì•Œë ¤ì¤€ë‹¤.
 	GCRemoveEffect gcRemoveEffect;
 	gcRemoveEffect.setObjectID(pCreature->getObjectID());
 	gcRemoveEffect.addEffectList(getSendEffectClass());
@@ -102,7 +102,7 @@ void EffectCanEnterGDRLair::create (const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("INSERT INTO CanEnterGDRLair (OwnerID , YearTime, DayTime) VALUES ('%s', %ld, %ld)",
 								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec);
 
@@ -124,7 +124,7 @@ void EffectCanEnterGDRLair::destroy (const string & ownerID)
 	{
 		pStmt = g_pDatabaseManager->getConnection("DARKEDEN")->createStatement();
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("DELETE FROM CanEnterGDRLair WHERE OwnerID = '%s'",
 								ownerID.c_str());
 
@@ -200,7 +200,7 @@ void EffectCanEnterGDRLairLoader::load (Creature* pCreature)
 		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		Result* pResult = pStmt->executeQuery( "SELECT DayTime FROM CanEnterGDRLair WHERE OwnerID = '%s'",
 												pCreature->getName().c_str() );
 

@@ -5,25 +5,25 @@
 #include "StringPool.h"
 #include "DB.h"
 
-StringPool::StringPool()
-	throw(Error)
+StringPool::StringPool() noexcept(false)
 {
 	__BEGIN_TRY
 	__END_CATCH
 }
 
-StringPool::~StringPool()
-	throw(Error)
+StringPool::~StringPool() noexcept
 {
-	__BEGIN_TRY
-	
-	clear();
-
-	__END_CATCH
+	try
+	{
+		clear();
+	}
+	catch (...)
+	{
+		// destructor must not throw
+	}
 }
 
-void StringPool::clear()
-	throw(Error)
+void StringPool::clear() noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -32,8 +32,7 @@ void StringPool::clear()
 	__END_CATCH
 }
 
-void StringPool::load()
-	throw(Error)
+void StringPool::load() noexcept(false)
 {
 	__BEGIN_TRY
 	
@@ -62,8 +61,7 @@ void StringPool::load()
 	__END_CATCH
 }
 
-void StringPool::addString( uint strID, string sString )
-	throw( DuplicatedException, Error )
+void StringPool::addString( uint strID, string sString ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -79,8 +77,7 @@ void StringPool::addString( uint strID, string sString )
 	__END_CATCH
 }
 
-string StringPool::getString( uint strID )
-	throw( NoSuchElementException, Error )
+string StringPool::getString( uint strID ) noexcept(false)
 {
 	__BEGIN_TRY
 
@@ -96,8 +93,7 @@ string StringPool::getString( uint strID )
 	__END_CATCH
 }
 
-const char* StringPool::c_str( uint strID )
-	throw( NoSuchElementException, Error )
+const char* StringPool::c_str( uint strID ) noexcept(false)
 {
 	__BEGIN_TRY
 

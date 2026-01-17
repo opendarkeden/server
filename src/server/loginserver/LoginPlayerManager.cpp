@@ -66,7 +66,7 @@ LoginPlayerManager::~LoginPlayerManager ()
 		g_pReconnectLoginInfoManager = NULL;
 	}
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 

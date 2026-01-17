@@ -22,7 +22,7 @@ EffectEnemyErase::EffectEnemyErase(Creature* pCreature)
 
 	setTarget(pCreature);
 
-	// ¼­¹ö Àü¿ë EffectÀÌ´Ù. by sigi. 2002.11.14
+	// ì„œë²„ ì „ìš© Effectì´ë‹¤. by sigi. 2002.11.14
 	m_bBroadcastingEffect = false;
 
 	__END_CATCH
@@ -32,7 +32,7 @@ EffectEnemyErase::~EffectEnemyErase()
 	
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void EffectEnemyErase::affect (Creature* pCreature)
@@ -130,7 +130,7 @@ void EffectEnemyErase::create (const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("INSERT INTO EnemyErase (OwnerID , YearTime, DayTime, EnemyName) VALUES ('%s', %ld, %ld, '%s')",
 								ownerID.c_str(), currentYearTime, m_Deadline.tv_sec, m_EnemyName.c_str());
 
@@ -158,7 +158,7 @@ void EffectEnemyErase::destroy (const string & ownerID)
 		pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		pStmt->executeQuery("DELETE FROM EnemyErase WHERE OwnerID = '%s' AND EnemyName = '%s'", 
 								ownerID.c_str(), m_EnemyName.c_str());
 
@@ -247,7 +247,7 @@ void EffectEnemyEraseLoader::load (Creature* pCreature)
 		Result* pResult = pStmt->executeQueryString(sql.toString());
 		*/
 
-		// StringStreamÁ¦°Å. by sigi. 2002.5.8
+		// StringStreamì œê±°. by sigi. 2002.5.8
 		Result* pResult = pStmt->executeQuery( "SELECT DayTime, EnemyName FROM EnemyErase WHERE OwnerID = '%s'",
 												pCreature->getName().c_str() );
 

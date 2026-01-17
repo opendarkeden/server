@@ -17,7 +17,7 @@ CGPhoneDisconnect::~CGPhoneDisconnect ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void CGPhoneDisconnect::read (SocketInputStream & iStream) 

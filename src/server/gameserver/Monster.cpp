@@ -58,33 +58,33 @@
 	
 const string SantaSpeech[] = 
 {
-	"ÀÌ ³à¼®µé, »ó´çÇÑ Áö½ÄÀ» °¡Áø ³ğµéÀÌ¾ú±º!!!",
-	"µµ¸Á°¡ÀÚ!!!",
-	"ÇÇÀÇ ¼º¼­ÀÇ ÃÖÈÄÀÇ ÁÖÀÎÀº ³ª´Ù!!!",
-	"¸Ö¶×¸Ö¶×~ O.o o.O",
-	"¸Ş¸® Å©¸®½º¸¶½º!!",
-	"Å©¸®½º¸¶½º¿¡ ±³È¸´Â ¾È °¡°í ¹¹ÇÏ´Â °Å¾ß!!!",
-	"³»°¡ Á×À» °Í °°À¸³Ä!!!",
-	"ÀÌ·± ¿Ïº®ÇÑ ÀÛÀüÀÌ ¾î¶»°Ô µéÅ² °ÅÁö???",
-	"·çµ¹ÇÁ!!! »ÔÀ» »Ì¾Æ¼­ °ø°İÇØ¶ù!!!",
-	"ÀÌ ³à¼®µé »ó´çÇÑ ½Ç·ÂÀ» °¡Áø ³ğµéÀÌ¾ú±º!!!",
-	"À¸~~~ ¹İµå½Ã º¹¼öÇÏ°Ú´Ù!!!",
-	"¾Æ¾ß~ ¾ÆÆÄ. ±×¸¸ ¶§·Á.",
-	"¾ß ¾îµğ°¡..."
+	"ì´ ë…€ì„ë“¤, ìƒë‹¹í•œ ì§€ì‹ì„ ê°€ì§„ ë†ˆë“¤ì´ì—ˆêµ°!!!",
+	"ë„ë§ê°€ì!!!",
+	"í”¼ì˜ ì„±ì„œì˜ ìµœí›„ì˜ ì£¼ì¸ì€ ë‚˜ë‹¤!!!",
+	"ë©€ëš±ë©€ëš±~ O.o o.O",
+	"ë©”ë¦¬ í¬ë¦¬ìŠ¤ë§ˆìŠ¤!!",
+	"í¬ë¦¬ìŠ¤ë§ˆìŠ¤ì— êµíšŒëŠ” ì•ˆ ê°€ê³  ë­í•˜ëŠ” ê±°ì•¼!!!",
+	"ë‚´ê°€ ì£½ì„ ê²ƒ ê°™ìœ¼ëƒ!!!",
+	"ì´ëŸ° ì™„ë²½í•œ ì‘ì „ì´ ì–´ë–»ê²Œ ë“¤í‚¨ ê±°ì§€???",
+	"ë£¨ëŒí”„!!! ë¿”ì„ ë½‘ì•„ì„œ ê³µê²©í•´ë!!!",
+	"ì´ ë…€ì„ë“¤ ìƒë‹¹í•œ ì‹¤ë ¥ì„ ê°€ì§„ ë†ˆë“¤ì´ì—ˆêµ°!!!",
+	"ìœ¼~~~ ë°˜ë“œì‹œ ë³µìˆ˜í•˜ê² ë‹¤!!!",
+	"ì•„ì•¼~ ì•„íŒŒ. ê·¸ë§Œ ë•Œë ¤.",
+	"ì•¼ ì–´ë””ê°€..."
 };
 
 const string RudolfSpeech[] = 
 {
-	"¿ö¿ì~ ¿ö¿ì~", 
-	"²¥ÈÇ~", 
-	"²ô¿¡~", 
-	"Å©¸£¸£~", 
-	"Â¡±Ûº§~",
-	"¸Û¸Û",
-	"Ä«¿À~",
-	"±ú°»~ ±ú°»~",
-	"±øÃÑ~ ±øÃÑ~",
-	"¸Ö¶×~ ¸Ö¶×~ O.O",
+	"ì›Œìš°~ ì›Œìš°~", 
+	"êº„í›Œ~", 
+	"ë„ì—~", 
+	"í¬ë¥´ë¥´~", 
+	"ì§•ê¸€ë²¨~",
+	"ë©ë©",
+	"ì¹´ì˜¤~",
+	"ê¹¨ê°±~ ê¹¨ê°±~",
+	"ê¹¡ì´~ ê¹¡ì´~",
+	"ë©€ëš±~ ë©€ëš±~ O.O",
 };
 
 const int SantaSpeechMax = 13;
@@ -94,7 +94,7 @@ const int RudolfSpeechMax = 10;
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ Àû ÀÎ½Ä °ü·Ã ÇÔ¼ö
+// ëª¬ìŠ¤í„° ì  ì¸ì‹ ê´€ë ¨ í•¨ìˆ˜
 //////////////////////////////////////////////////////////////////////////////
 bool Monster::isRealEnemy(Creature* pEnemy)
 	
@@ -119,23 +119,23 @@ bool Monster::isRealEnemy(Creature* pEnemy)
 		if ( GDRLairManager::Instance().isGDRLairZone(getZoneID()) && pEnemy->isPC() ) return false;
 	}
 
-	// À¯·ÉÀº ¹«½Ã
+	// ìœ ë ¹ì€ ë¬´ì‹œ
 	if (pEnemy->isFlag(Effect::EFFECT_CLASS_GHOST)
-		// Á×Àº ³ğÀº ÀûÀ¸·Î ÀÎ½ÄÇÏÁö ¾Ê´Â´Ù.
+		// ì£½ì€ ë†ˆì€ ì ìœ¼ë¡œ ì¸ì‹í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_COMA)
-		// °øÁß °ø°İÀ» ¸øÇÏ¸é ¹ÚÁã »óÅÂÀÇ ÀûÀº ÀûÀ¸·Î ÀÎ½ÄÇÏÁö ¾Ê´Â´Ù.
+		// ê³µì¤‘ ê³µê²©ì„ ëª»í•˜ë©´ ë°•ì¥ ìƒíƒœì˜ ì ì€ ì ìœ¼ë¡œ ì¸ì‹í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		|| ( !m_pBrain->canAttackAir() && pEnemy->isFlag(Effect::EFFECT_CLASS_TRANSFORM_TO_BAT) )
-		// ½º³ªÀÌÇÎ ¸ğµåÀÇ Àûµµ ÀûÀ¸·Î ÀÎ½ÄÇÏÁö ¾Ê´Â´Ù.
-		|| !pEnemy->isFlag(Effect::EFFECT_CLASS_PARALYZE)	// ¼®È­ °É¸®¸é º¸ÀÎ´Ù°í ÇÏÀÚ
-			&& !pZone->isMasterLair()						// ¸¶½ºÅÍ ·¹¾î¿¡¼­´Â ´Ù º¸ÀÎ´Ù. 2002.10.16.by sigi
+		// ìŠ¤ë‚˜ì´í•‘ ëª¨ë“œì˜ ì ë„ ì ìœ¼ë¡œ ì¸ì‹í•˜ì§€ ì•ŠëŠ”ë‹¤.
+		|| !pEnemy->isFlag(Effect::EFFECT_CLASS_PARALYZE)	// ì„í™” ê±¸ë¦¬ë©´ ë³´ì¸ë‹¤ê³  í•˜ì
+			&& !pZone->isMasterLair()						// ë§ˆìŠ¤í„° ë ˆì–´ì—ì„œëŠ” ë‹¤ ë³´ì¸ë‹¤. 2002.10.16.by sigi
 			&& (!isFlag(Effect::EFFECT_CLASS_OBSERVING_EYE) 
 					&& pEnemy->isFlag(Effect::EFFECT_CLASS_SNIPING_MODE)
-			// ³»°¡ µğµ¦Æ® ÀÎºñ°¡ ¾ø´Â °æ¿ì¿¡ ÀÎºñÀúºí »óÅÂÀÇ Àûµµ ÀûÀ¸·Î ÀÎ½ÄÇÏÁö ¾Ê´Â´Ù.
+			// ë‚´ê°€ ë””ë±íŠ¸ ì¸ë¹„ê°€ ì—†ëŠ” ê²½ìš°ì— ì¸ë¹„ì €ë¸” ìƒíƒœì˜ ì ë„ ì ìœ¼ë¡œ ì¸ì‹í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				|| !isFlag(Effect::EFFECT_CLASS_DETECT_INVISIBILITY) 
 					&& pEnemy->isFlag(Effect::EFFECT_CLASS_INVISIBILITY))
-		// ¾Æ¸¶°Ôµ· °É¸° ³ğÀ½ ¶§¸®¸é ¾È µÈ´Ù. ¾îÂ÷ÇÇ ¾È ¸Â´Â´Ù. 2003. 1. 2. by Sequoia
+		// ì•„ë§ˆê²Œëˆ ê±¸ë¦° ë†ˆìŒ ë•Œë¦¬ë©´ ì•ˆ ëœë‹¤. ì–´ì°¨í”¼ ì•ˆ ë§ëŠ”ë‹¤. 2003. 1. 2. by Sequoia
 		|| pEnemy->isFlag(Effect::EFFECT_CLASS_ARMAGEDDON)
-		// ¾ÈÀüÁö´ë ³»ºÎ¸¦ ¸ø º¸¸é ¾ÈÀüÁö´ë ³»ºÎ¿¡ ÀÖ´Â Àûµµ ÀûÀ¸·Î ÀÎ»èÇÏÁö ¾Ê´Â´Ù.
+		// ì•ˆì „ì§€ëŒ€ ë‚´ë¶€ë¥¼ ëª» ë³´ë©´ ì•ˆì „ì§€ëŒ€ ë‚´ë¶€ì— ìˆëŠ” ì ë„ ì ìœ¼ë¡œ ì¸ì‚­í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		|| ( !m_pBrain->canSeeSafeZone() && (pZone->getZoneLevel(pEnemy->getX(), pEnemy->getY()) & SAFE_ZONE) )
 		)
 	{
@@ -164,10 +164,10 @@ Monster::Monster (MonsterType_t monsterType)
 	try {
 	const MonsterInfo* pMonsterInfo = g_pMonsterInfoManager->getMonsterInfo(m_MonsterType);
 
-	// ÀÌµ¿ ¸ğµå¿¡ ´ëÇÑ ¼³Á¤
+	// ì´ë™ ëª¨ë“œì— ëŒ€í•œ ì„¤ì •
 	m_MoveMode = pMonsterInfo->getMoveMode();
 
-	// STR, DEX, INT´Â DB¿¡¼­ ·ÎµùÇÏ¿© ÃÊ±âÈ­ ½ÃÅ²´Ù.
+	// STR, DEX, INTëŠ” DBì—ì„œ ë¡œë”©í•˜ì—¬ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 	m_STR           = pMonsterInfo->getSTR();
 	m_DEX           = pMonsterInfo->getDEX();
 	m_INT           = pMonsterInfo->getINT();
@@ -210,18 +210,18 @@ Monster::Monster (MonsterType_t monsterType)
 	if ( m_HP[ATTR_MAX] > 20000 )
 	{
 		if ( monsterType >= 717 )
-			cout << pMonsterInfo->getEName() << "ÀÇ HP : " << m_HP[ATTR_MAX] << endl;
+			cout << pMonsterInfo->getEName() << "ì˜ HP : " << m_HP[ATTR_MAX] << endl;
 		else
 			m_HP[ATTR_MAX] = 20000;
 	}
 
-	// InitAllStatÀÌ¶û ¿©±â²¨¶û ¾î´À°Ô ÂüÀÏ±î? - 2002.5.14 È«Ã¢
+	// InitAllStatì´ë‘ ì—¬ê¸°êº¼ë‘ ì–´ëŠê²Œ ì°¸ì¼ê¹Œ? - 2002.5.14 í™ì°½
 	if (monsterType == 358 || monsterType == 359 || monsterType == 360 || monsterType == 361)
 		m_HP[ATTR_MAX] = m_HP[ATTR_MAX] * 10;
 
 	if(monsterType>=371 && monsterType <= 375)
 	{
-		m_HP[ATTR_MAX] = 500;   // 5000À¸·Î ÀâÇô ÀÖ´Ù. Å×½ºÆ®¸¦ À§ÇØ¼­ ÁÙÀÎ °Í
+		m_HP[ATTR_MAX] = 500;   // 5000ìœ¼ë¡œ ì¡í˜€ ìˆë‹¤. í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ì„œ ì¤„ì¸ ê²ƒ
 		m_Defense = 50;
 		m_Protection = 20;
 	}
@@ -229,7 +229,7 @@ Monster::Monster (MonsterType_t monsterType)
 	m_HP[ATTR_CURRENT]     = m_HP[ATTR_MAX];
 	m_SilverDamage         = 0;
 
-	// ´ÙÀ½ Ã³¸®¹ŞÀ» ÅÏÀ» ÁöÁ¤ÇÑ´Ù.
+	// ë‹¤ìŒ ì²˜ë¦¬ë°›ì„ í„´ì„ ì§€ì •í•œë‹¤.
 	getCurrentTime(m_NextTurn);
 	m_NextTurn.tv_sec += rand() % 3;
 	m_NextTurn.tv_usec += rand() % 1000000;
@@ -239,13 +239,13 @@ Monster::Monster (MonsterType_t monsterType)
 
 	if ( monsterType != 722 )
 	{
-		// AI Å¬·¡½º¸¦ »ı¼ºÇÑ´Ù.
+		// AI í´ë˜ìŠ¤ë¥¼ ìƒì„±í•œë‹¤.
 		uint aitype = pMonsterInfo->getAIType();
 		if ( aitype != 65535 )
 			m_pBrain = new MonsterAI(this, aitype);
 		else
 		{
-			cout << pMonsterInfo->getEName() << "Àº ³ú°¡ ¾ø´Ù." << endl;
+			cout << pMonsterInfo->getEName() << "ì€ ë‡Œê°€ ì—†ë‹¤." << endl;
 			m_pBrain = NULL;
 		}
 	}
@@ -254,7 +254,7 @@ Monster::Monster (MonsterType_t monsterType)
 		m_pBrain = NULL;
 	}
 
-	// Monster°¡ Á¸¿¡ ³ªÅ¸³ª´Â ¹æ¹ı
+	// Monsterê°€ ì¡´ì— ë‚˜íƒ€ë‚˜ëŠ” ë°©ë²•
 	switch (pMonsterInfo->selectRegenType())
 	{
 		case REGENTYPE_HIDE :
@@ -313,7 +313,7 @@ Monster::Monster (MonsterType_t monsterType)
 
 	if ( monsterType >= 660 && monsterType <= 669 ) m_Name = g_pStringPool->getString(STRID_ORE);
 
-	// Å¬·£ Å¸ÀÔÀ» ¼¼ÆÃÇÑ´Ù.
+	// í´ëœ íƒ€ì…ì„ ì„¸íŒ…í•œë‹¤.
 	// by sigi. 2002.10.8
 	m_ClanType = pMonsterInfo->getClanType();//CLAN_VAMPIRE_MONSTER;
 	m_OwnerObjectID = 0;
@@ -321,9 +321,9 @@ Monster::Monster (MonsterType_t monsterType)
 	m_HostName = "";
 	m_HostPartyID = 0;
 
-	// InitAllStat ÇÔ¼ö¿¡ ÀÖ´Â ºÎºĞÀÌÁö¸¸,
-	// InitAllStat ÇÔ¼ö´Â ¹«°Å¿î ÇÔ¼ö¿©¼­
-	// °£´ÜÈ÷ ¿©±â¼­ ¹Ù·Î ÀúÇ×·ÂÀ» ¼¼ÆÃÇØ ÁØ´Ù.
+	// InitAllStat í•¨ìˆ˜ì— ìˆëŠ” ë¶€ë¶„ì´ì§€ë§Œ,
+	// InitAllStat í•¨ìˆ˜ëŠ” ë¬´ê±°ìš´ í•¨ìˆ˜ì—¬ì„œ
+	// ê°„ë‹¨íˆ ì—¬ê¸°ì„œ ë°”ë¡œ ì €í•­ë ¥ì„ ì„¸íŒ…í•´ ì¤€ë‹¤.
 	if(monsterType>=371 && monsterType<=375)
 	{
 		m_Resist[MAGIC_DOMAIN_NO_DOMAIN] = 0;
@@ -341,16 +341,16 @@ Monster::Monster (MonsterType_t monsterType)
 		m_Resist[MAGIC_DOMAIN_BLOOD]     = 0;
 	}
 
-	// ±âº» effectµéÀ» ¼³Á¤ÇÑ´Ù. by sigi. 2002.9.13
+	// ê¸°ë³¸ effectë“¤ì„ ì„¤ì •í•œë‹¤. by sigi. 2002.9.13
 	pMonsterInfo->addDefaultEffects( this );
 		
 	m_LastHitCreatureClass = CREATURE_CLASS_MAX;
 	m_isEventMonster = false;
 
-	// ¾ø´Â°Ô -1ÀÌ´Ù.
+	// ì—†ëŠ”ê²Œ -1ì´ë‹¤.
 	m_RelicIndex = -1;
 
-	// ´ëÃæ ¸ø ¿òÁ÷ÀÌ´Â ¸÷Àº °Á RelicIndex¸¦ ³Ö¾î°¡Áö°í ¸ø ¿òÁ÷ÀÌ°Ô ÇÑ´Ù.
+	// ëŒ€ì¶© ëª» ì›€ì§ì´ëŠ” ëª¹ì€ ê± RelicIndexë¥¼ ë„£ì–´ê°€ì§€ê³  ëª» ì›€ì§ì´ê²Œ í•œë‹¤.
 	if ( monsterType >= 660 && monsterType <= 669 )
 	{
 		m_RelicIndex = monsterType;
@@ -370,8 +370,8 @@ Monster::Monster (MonsterType_t monsterType)
 	}
 	else
 	{
-		// ½ÇÁ¦ index´Â ¿ÜºÎ¿¡¼­ ¼³Á¤ÇØ¾ßµÇÁö¸¸,
-		// ¼ÒÈ¯µÈ ¸ó½ºÅÍÀÎ °æ¿ì´Â ¿©±â¼­ »ç¹Ù»ç¹Ù~ ÀÏ´Ü ¼³Á¤ÇØµĞ´Ù.
+		// ì‹¤ì œ indexëŠ” ì™¸ë¶€ì—ì„œ ì„¤ì •í•´ì•¼ë˜ì§€ë§Œ,
+		// ì†Œí™˜ëœ ëª¬ìŠ¤í„°ì¸ ê²½ìš°ëŠ” ì—¬ê¸°ì„œ ì‚¬ë°”ì‚¬ë°”~ ì¼ë‹¨ ì„¤ì •í•´ë‘”ë‹¤.
 		m_EventMonsterIndex = 0xF000 + rand()%0x0FFF;
 	}
 
@@ -456,7 +456,7 @@ Monster::~Monster()
 
 	SAFE_DELETE(m_pBrain);
 	
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 SpriteType_t Monster::getSpriteType () const 
@@ -542,8 +542,8 @@ void Monster::registerObject ()
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ¸ó½ºÅÍ AI °¡ ½ÇÇàµÇ´Â ¸Ş½îµåÀÌ´Ù. Zone::processZone () ¿¡¼­ Á¸¿¡ Á¸Àç
-// ÇÏ´Â ¸ğµç ¸ó½ºÅÍ¸¦ iterating ÇØ°¡¸é¼­ Monster::act() ¸Ş½îµå¸¦ È£ÃâÇÑ´Ù.
+// ëª¬ìŠ¤í„° AI ê°€ ì‹¤í–‰ë˜ëŠ” ë©”ì˜ë“œì´ë‹¤. Zone::processZone () ì—ì„œ ì¡´ì— ì¡´ì¬
+// í•˜ëŠ” ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ iterating í•´ê°€ë©´ì„œ Monster::act() ë©”ì˜ë“œë¥¼ í˜¸ì¶œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::act(const Timeval& currentTime)
 	
@@ -612,11 +612,11 @@ void Monster::act(const Timeval& currentTime)
 			getZone()->broadcastPacket( getX(), getY(), &gcHP );
 	}
 
-	// ÇöÀç ½Ã°£ÀÌ ´ÙÀ½ ÅÏº¸´Ù ÀÛ´Ù¸é, ¾ÆÁ÷ Á» ´õ ±â´Ù·Á¾ß ÇÑ´Ù.
-	// ±×·¸Áö ¾ÊÀ¸¸é, ¾×¼ÇÀ» ÃëÇÑ´Ù.
+	// í˜„ì¬ ì‹œê°„ì´ ë‹¤ìŒ í„´ë³´ë‹¤ ì‘ë‹¤ë©´, ì•„ì§ ì¢€ ë” ê¸°ë‹¤ë ¤ì•¼ í•œë‹¤.
+	// ê·¸ë ‡ì§€ ì•Šìœ¼ë©´, ì•¡ì…˜ì„ ì·¨í•œë‹¤.
 	if (currentTime < m_NextTurn) return;	
 
-	// ½×¿©ÀÖ´Â µô·¹ÀÌ°¡ ÀÖ´Ù¸é Á¦°ÅÇØ¾ß ÇÑ´Ù.
+	// ìŒ“ì—¬ìˆëŠ” ë”œë ˆì´ê°€ ìˆë‹¤ë©´ ì œê±°í•´ì•¼ í•œë‹¤.
 	if (m_AccuDelay.tv_sec != 0 || m_AccuDelay.tv_usec != 0)
 	{
 		m_NextTurn.tv_sec  += m_AccuDelay.tv_sec;
@@ -628,16 +628,16 @@ void Monster::act(const Timeval& currentTime)
 
 	__BEGIN_PROFILE_MONSTER("M_VERIFY_ENEMIES");
 
-	// ±×µ¿¾È ·Î±×¾Æ¿ôÇÏ°Å³ª ¾ÈÀüÁö´ë ¾ÈÀ¸·Î
-	// µé¾î°£ PC°¡ ÀÖÀ¸¸é Àû ¸®½ºÆ®¿¡¼­ »èÁ¦¸¦ ÇÑ´Ù.
+	// ê·¸ë™ì•ˆ ë¡œê·¸ì•„ì›ƒí•˜ê±°ë‚˜ ì•ˆì „ì§€ëŒ€ ì•ˆìœ¼ë¡œ
+	// ë“¤ì–´ê°„ PCê°€ ìˆìœ¼ë©´ ì  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œë¥¼ í•œë‹¤.
 	verifyEnemies(); 
 
 	__END_PROFILE_MONSTER("M_VERIFY_ENEMIES");
 
-	// AI°¡ ¾ø´Ù¸é...
+	// AIê°€ ì—†ë‹¤ë©´...
 	if (m_pBrain==NULL)
 	{
-		// delay¼³Á¤
+		// delayì„¤ì •
 		Timeval delay;
 		delay.tv_sec  = 1;
 		delay.tv_usec = 500000;
@@ -646,7 +646,7 @@ void Monster::act(const Timeval& currentTime)
 		return;
 	}
 
-	// Paralyze¿¡ °É·ÁÀÖ´Ù¸é ¿òÁ÷ÀÏ ¼ö°¡ ¾ø´Ù.
+	// Paralyzeì— ê±¸ë ¤ìˆë‹¤ë©´ ì›€ì§ì¼ ìˆ˜ê°€ ì—†ë‹¤.
 	if (isFlag(Effect::EFFECT_CLASS_PARALYZE) 
 		|| isFlag(Effect::EFFECT_CLASS_COMA) 
 		|| isFlag(Effect::EFFECT_CLASS_CAUSE_CRITICAL_WOUNDS)
@@ -688,7 +688,7 @@ void Monster::act(const Timeval& currentTime)
 
 //#endif
 */
-	// ÀûÀÌ ÀÖ´Ù¸é Àû¿¡ µû¶ó, ÀÏ·ÃÀÇ Çàµ¿À» ÃëÇÑ´Ù.
+	// ì ì´ ìˆë‹¤ë©´ ì ì— ë”°ë¼, ì¼ë ¨ì˜ í–‰ë™ì„ ì·¨í•œë‹¤.
 	if (hasEnemy())
 	{
 		Creature* pEnemy = getPrimaryEnemy();
@@ -702,7 +702,7 @@ void Monster::act(const Timeval& currentTime)
 	}
 	else
 	{
-		// ¼û¾îÀÖ´Â °æ¿ì Ã¼Å©
+		// ìˆ¨ì–´ìˆëŠ” ê²½ìš° ì²´í¬
 		if (isFlag(Effect::EFFECT_CLASS_HIDE))
 		{
 			__BEGIN_PROFILE_MONSTER("M_UNBURROW");
@@ -715,7 +715,7 @@ void Monster::act(const Timeval& currentTime)
 
 				pSkillHandler->execute(this);
 
-				// delay¼³Á¤
+				// delayì„¤ì •
 				Timeval delay;
 				delay.tv_sec  = 1;
 				delay.tv_usec = 500000;
@@ -723,17 +723,17 @@ void Monster::act(const Timeval& currentTime)
 			}
 			else
 			{
-				// ¼û¾îÀÖ´Â µ¿¾Èµµ Ã¼Å© delay¸¦ µĞ´Ù.
+				// ìˆ¨ì–´ìˆëŠ” ë™ì•ˆë„ ì²´í¬ delayë¥¼ ë‘”ë‹¤.
 				m_pBrain->setDelay(currentTime);
 			}
 			__END_PROFILE_MONSTER("M_UNBURROW");
 		}
-		// ÀûÀÌ ¾øÀ» ¶§¿¡´Â ¸ÊÀÇ Áß°£À» ÇâÇØ ¿òÁ÷ÀÎ´Ù.
-		// ¸¶½ºÅÍ°¡ ¾Æ´Ñ °æ¿ì¿¡..
-		// ¾Æ´ãÀÇ ¼ºÁö Áß¾Ó ¸ÊÀÌ ÀÌ»óÇÏ°Ô »ı°Ü¼­ ¾Æ´ãÀÇ ¼ºÁö Áß¾Ó ¸Êµµ ¾ÈÇÑ´Ù.
+		// ì ì´ ì—†ì„ ë•Œì—ëŠ” ë§µì˜ ì¤‘ê°„ì„ í–¥í•´ ì›€ì§ì¸ë‹¤.
+		// ë§ˆìŠ¤í„°ê°€ ì•„ë‹Œ ê²½ìš°ì—..
+		// ì•„ë‹´ì˜ ì„±ì§€ ì¤‘ì•™ ë§µì´ ì´ìƒí•˜ê²Œ ìƒê²¨ì„œ ì•„ë‹´ì˜ ì„±ì§€ ì¤‘ì•™ ë§µë„ ì•ˆí•œë‹¤.
 		else if (!isMaster() && m_pZone->getZoneID() != 72 )
 		{
-			// ¸ó½ºÅÍÀÇ Å¸ÀÔÀÌ RelicÀÎ °æ¿ì´Â ¿òÁ÷ÀÌÁö ¾Ê´Â´Ù.
+			// ëª¬ìŠ¤í„°ì˜ íƒ€ì…ì´ Relicì¸ ê²½ìš°ëŠ” ì›€ì§ì´ì§€ ì•ŠëŠ”ë‹¤.
 			if (m_RelicIndex==-1)
 			{
 				__BEGIN_PROFILE_MONSTER("M_MOVE_CENTER");
@@ -743,10 +743,10 @@ void Monster::act(const Timeval& currentTime)
 				VSRect* pInnerRect = m_pZone->getInnerRect();
 				VSRect* pCoreRect  = m_pZone->getCoreRect();
 
-				// ¾ÈÂÊºÎÅÍ °Ë»çÇØ ³ª°£´Ù.
+				// ì•ˆìª½ë¶€í„° ê²€ì‚¬í•´ ë‚˜ê°„ë‹¤.
 				if (pCoreRect->ptInRect(pt) || pInnerRect->ptInRect(pt))
 				{
-					// ¹Ù±ùÂÊ¿¡ ÀÖ´Ù¸é ·£´ıÀ¸·Î ¿òÁ÷ÀÎ´Ù.
+					// ë°”ê¹¥ìª½ì— ìˆë‹¤ë©´ ëœë¤ìœ¼ë¡œ ì›€ì§ì¸ë‹¤.
 					uint diceResult = rand() & 0x0000007F;	//%100;
 					if (diceResult < 6)						// 5
 					{
@@ -754,8 +754,8 @@ void Monster::act(const Timeval& currentTime)
 						ZoneCoord_t nx        = pt.x + dirMoveMask[direction].x;
 						ZoneCoord_t ny        = pt.y + dirMoveMask[direction].y;
 
-						// 1. ´ÙÀ½ ÁÂÇ¥°¡ ºí·°Å·ÀÌ µÇ¾îÀÖÁö ¾Ê¾Æ¾ß ÇÏ°í,
-						// 2. ¾ÈÀü Áö´ë°¡ ¾Æ´Ï¶ó¸é,
+						// 1. ë‹¤ìŒ ì¢Œí‘œê°€ ë¸”ëŸ­í‚¹ì´ ë˜ì–´ìˆì§€ ì•Šì•„ì•¼ í•˜ê³ ,
+						// 2. ì•ˆì „ ì§€ëŒ€ê°€ ì•„ë‹ˆë¼ë©´,
 						if (canMove(nx, ny) && !(m_pZone->getZoneLevel(nx, ny) & SAFE_ZONE))
 						{
 							m_pZone->moveCreature(this, nx, ny, direction);
@@ -764,7 +764,7 @@ void Monster::act(const Timeval& currentTime)
 				}
 				else if (pOuterRect->ptInRect(pt))
 				{
-					// Á¦ÀÏ ¹Ù±ùÂÊ¿¡ ÀÖ´Ù¸é, ¸ÊÀÇ Áß¾ÓÀ» ÇâÇØ ¿òÁ÷ÀÎ´Ù.
+					// ì œì¼ ë°”ê¹¥ìª½ì— ìˆë‹¤ë©´, ë§µì˜ ì¤‘ì•™ì„ í–¥í•´ ì›€ì§ì¸ë‹¤.
 					m_pBrain->move(m_pZone->getWidth()>>1, m_pZone->getHeight()>>1);
 				}
 
@@ -772,21 +772,21 @@ void Monster::act(const Timeval& currentTime)
 				{
 					m_pZone->monsterScan(this, m_X, m_Y, m_Dir);
 
-					// 5ÃÊ ÈÄ ´Ù½Ã °Ë»ö
+					// 5ì´ˆ í›„ ë‹¤ì‹œ ê²€ìƒ‰
 					m_NextScanTurn.tv_sec = currentTime.tv_sec + 2;
 					m_NextScanTurn.tv_usec = currentTime.tv_usec;
 				}
 				__END_PROFILE_MONSTER("M_MOVE_CENTER");
 			}
 
-			// ´ÙÀ½ ÅÏÀ» ÁöÁ¤ÇÑ´Ù.
-			// ÇöÀç ¸ó½ºÅÍµéÀº 1ÃÊ¿¡ 1Å¸ÀÏ¸¸ ¿òÁ÷ÀÌ±â ¶«½Ã·Î.. =_=;
+			// ë‹¤ìŒ í„´ì„ ì§€ì •í•œë‹¤.
+			// í˜„ì¬ ëª¬ìŠ¤í„°ë“¤ì€ 1ì´ˆì— 1íƒ€ì¼ë§Œ ì›€ì§ì´ê¸° ë•œì‹œë¡œ.. =_=;
 			m_pBrain->setDelay(currentTime);
 		}
 	}
 
 	//----------------------------------------------------------------------
-	// HP¸¦ ¸®Á¨ÇÑ´Ù.
+	// HPë¥¼ ë¦¬ì  í•œë‹¤.
 	// fucking
 	//----------------------------------------------------------------------
 	__BEGIN_PROFILE_MONSTER("M_REGEN_HP");
@@ -809,11 +809,11 @@ void Monster::actDeadAction(void)
 {
 	__BEGIN_TRY
 
-	// ±×µ¿¾È ·Î±×¾Æ¿ôÇÏ°Å³ª ¾ÈÀüÁö´ë ¾ÈÀ¸·Î
-	// µé¾î°£ PC°¡ ÀÖÀ¸¸é Àû ¸®½ºÆ®¿¡¼­ »èÁ¦¸¦ ÇÑ´Ù.
+	// ê·¸ë™ì•ˆ ë¡œê·¸ì•„ì›ƒí•˜ê±°ë‚˜ ì•ˆì „ì§€ëŒ€ ì•ˆìœ¼ë¡œ
+	// ë“¤ì–´ê°„ PCê°€ ìˆìœ¼ë©´ ì  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œë¥¼ í•œë‹¤.
 	verifyEnemies(); 
 
-	// AI°¡ ÀÖ´Ù¸é..
+	// AIê°€ ìˆë‹¤ë©´..
 	if (m_pBrain!=NULL)
 	{
 		if (hasEnemy())
@@ -850,14 +850,14 @@ void Monster::actDeadAction(void)
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ Å©¸®Ã³¸¦ Àû ¸®½ºÆ®¿¡ Ãß°¡ÇÑ´Ù.
+// íŠ¹ì • í¬ë¦¬ì²˜ë¥¼ ì  ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€í•œë‹¤.
 //
-// Ãß°¡ÇÒ ¶§, ¸ó½ºÅÍÀÇ AttackOrder °¡ ¼ø¼­¿¡ ¿µÇâÀ» ¹ÌÄ£´Ù.
+// ì¶”ê°€í•  ë•Œ, ëª¬ìŠ¤í„°ì˜ AttackOrder ê°€ ìˆœì„œì— ì˜í–¥ì„ ë¯¸ì¹œë‹¤.
 //
-// PC °¡ ÀÌµ¿ÇÒ ¶§, ÁÖº¯¿¡ AGGRESSIVE ¸ó½ºÅÍ°¡ ÀÖÀ» °æ¿ì, ±× ¸ó½ºÅÍ¿¡ 
-// ´ëÇØ¼­ addEnemy() ¸¦ È£ÃâÇØÁØ´Ù. ¶Ç´Â PC°¡ ¸ó½ºÅÍ¸¦ °ø°İÇÒ ¶§, ±×
-// ¸ó½ºÅÍ¿¡ ´ëÇØ¼­ addEnemy()¸¦ È£ÃâÇØÁØ´Ù. (ÀÌ¶§ ¼ºÇâ°ú´Â ¹«°üÇÏ´Ù.)
-// PC°¡ ¸ó½ºÅÍ¸¦ °ø°İÇÒ ¶§, ÁÖº¯ÀÇ ¸ó½ºÅÍµé¿¡°Ôµµ addEnemy()¸¦ È£ÃâÇØÁØ´Ù.
+// PC ê°€ ì´ë™í•  ë•Œ, ì£¼ë³€ì— AGGRESSIVE ëª¬ìŠ¤í„°ê°€ ìˆì„ ê²½ìš°, ê·¸ ëª¬ìŠ¤í„°ì— 
+// ëŒ€í•´ì„œ addEnemy() ë¥¼ í˜¸ì¶œí•´ì¤€ë‹¤. ë˜ëŠ” PCê°€ ëª¬ìŠ¤í„°ë¥¼ ê³µê²©í•  ë•Œ, ê·¸
+// ëª¬ìŠ¤í„°ì— ëŒ€í•´ì„œ addEnemy()ë¥¼ í˜¸ì¶œí•´ì¤€ë‹¤. (ì´ë•Œ ì„±í–¥ê³¼ëŠ” ë¬´ê´€í•˜ë‹¤.)
+// PCê°€ ëª¬ìŠ¤í„°ë¥¼ ê³µê²©í•  ë•Œ, ì£¼ë³€ì˜ ëª¬ìŠ¤í„°ë“¤ì—ê²Œë„ addEnemy()ë¥¼ í˜¸ì¶œí•´ì¤€ë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::addEnemy (Creature* pCreature)
 	
@@ -867,19 +867,19 @@ void Monster::addEnemy (Creature* pCreature)
 
 	Assert(pCreature != NULL);
 
-	// ÀÚ½ÅÀÌ ¾Æ´Ï¸é.. by sigi. 2002.9.7
+	// ìì‹ ì´ ì•„ë‹ˆë©´.. by sigi. 2002.9.7
 	if (this==pCreature
 		|| !isRealEnemy(pCreature)) return;
 
-	// peace¿¡ °É·ÁÀÖ´Ù¸é..
-	// addEnemy()´Â ¶§·ÈÀ»¶§ ºÒ¸®´Â ÇÔ¼öÀÌ¹Ç·Î.. pece¸¦ Á¦°ÅÇÑ´Ù.
+	// peaceì— ê±¸ë ¤ìˆë‹¤ë©´..
+	// addEnemy()ëŠ” ë•Œë ¸ì„ë•Œ ë¶ˆë¦¬ëŠ” í•¨ìˆ˜ì´ë¯€ë¡œ.. peceë¥¼ ì œê±°í•œë‹¤.
 	if (isFlag(Effect::EFFECT_CLASS_PEACE))
 	{
 		Effect* pEffect = m_pEffectManager->findEffect( Effect::EFFECT_CLASS_PEACE );
 
 		EffectPeace* pEffectPeace = dynamic_cast<EffectPeace*>(pEffect);
 
-		// peaceÀÎ ¾Ö¶ó¸é peace Á¦°Å
+		// peaceì¸ ì• ë¼ë©´ peace ì œê±°
 		if (pCreature->getObjectID()==pEffectPeace->getPeaceCreatureID())
 		{
 			pEffect->unaffect(this);
@@ -891,12 +891,12 @@ void Monster::addEnemy (Creature* pCreature)
 	{
 		switch (getAttackOrder()) 
 		{
-			// Á¦ÀÏ ¸ÕÀú ¶§¸° ³ğºÎÅÍ °ø°İÇÏ¹Ç·Î, 
-			// °¡Àå ¸¶Áö¸·¿¡ Ãß°¡µÇ¾î¾ß ÇÑ´Ù.
+			// ì œì¼ ë¨¼ì € ë•Œë¦° ë†ˆë¶€í„° ê³µê²©í•˜ë¯€ë¡œ, 
+			// ê°€ì¥ ë§ˆì§€ë§‰ì— ì¶”ê°€ë˜ì–´ì•¼ í•œë‹¤.
 			case ATTACK_FIRST :          
 				{
-					// ±â¾ïÇÏ°í ÀÖ´Â ÀûÀÇ ¼ıÀÚ°¡ ÀÚ½ÅÀÇ ÃÖ´ë±â¾ï°³¼öº¸´Ù ÀÛ°í,
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Â´Ù¸é, enemy listÀÇ ¸Ç ¸¶Áö¸·¿¡ Ãß°¡ÇÑ´Ù.
+					// ê¸°ì–µí•˜ê³  ìˆëŠ” ì ì˜ ìˆ«ìê°€ ìì‹ ì˜ ìµœëŒ€ê¸°ì–µê°œìˆ˜ë³´ë‹¤ ì‘ê³ ,
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•ŠëŠ”ë‹¤ë©´, enemy listì˜ ë§¨ ë§ˆì§€ë§‰ì— ì¶”ê°€í•œë‹¤.
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end()) {
 						m_Enemies.push_back(pCreature->getObjectID());
@@ -907,18 +907,18 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// Á¦ÀÏ ³ªÁß¿¡ ¶§¸° ³ğºÎÅÍ °ø°İÇÏ¹Ç·Î,
-			// °¡Àå ¾Õ¿¡ Ãß°¡µÇ¾î¾ß ÇÑ´Ù.
+			// ì œì¼ ë‚˜ì¤‘ì— ë•Œë¦° ë†ˆë¶€í„° ê³µê²©í•˜ë¯€ë¡œ,
+			// ê°€ì¥ ì•ì— ì¶”ê°€ë˜ì–´ì•¼ í•œë‹¤.
 			case ATTACK_LAST :           
 				{
-					// ±â¾ïÇÏ°í ÀÖ´Â ÀûÀÇ ¼ıÀÚ°¡ ÀÚ½ÅÀÇ ÃÖ´ë±â¾ï°³¼öº¸´Ù ÀÛ°í,
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Â´Ù¸é, enemy listÀÇ ¸Ç ¾Õ¿¡ Ãß°¡ÇÑ´Ù.
+					// ê¸°ì–µí•˜ê³  ìˆëŠ” ì ì˜ ìˆ«ìê°€ ìì‹ ì˜ ìµœëŒ€ê¸°ì–µê°œìˆ˜ë³´ë‹¤ ì‘ê³ ,
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•ŠëŠ”ë‹¤ë©´, enemy listì˜ ë§¨ ì•ì— ì¶”ê°€í•œë‹¤.
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end())
 					{
 						m_Enemies.push_front(pCreature->getObjectID());
 						
-						// < ¸¦ > ·Î ¹Ù²å´Ù. by sigi. 2002.10.7
+						// < ë¥¼ > ë¡œ ë°”ê¿¨ë‹¤. by sigi. 2002.10.7
 						if (m_Enemies.size() > getMaxEnemies()) 
 						{
 							m_Enemies.pop_back();
@@ -927,10 +927,10 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// Á¦ÀÏ ¾àÇÑ ³ğºÎÅÍ °ø°İ
+			// ì œì¼ ì•½í•œ ë†ˆë¶€í„° ê³µê²©
 			case ATTACK_WEAKEST :        
 				{
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Ù¸é...
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•Šë‹¤ë©´...
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end()) {
 
@@ -970,7 +970,7 @@ void Monster::addEnemy (Creature* pCreature)
 								m_Enemies.insert(itr , pOusters->getObjectID());
 		
 						} 
-						// Àç¹Ì»ï¾Æ -_-; 2002.7.22 by sigi
+						// ì¬ë¯¸ì‚¼ì•„ -_-; 2002.7.22 by sigi
 						else if (pCreature->isMonster()) 
 						{
 							Monster* pMonster = dynamic_cast<Monster*>(pCreature);
@@ -982,12 +982,12 @@ void Monster::addEnemy (Creature* pCreature)
 							else
 								m_Enemies.insert(itr , pMonster->getObjectID());
 
-							// ÀüÃ¼ÀÇ ÀûÀ¸·Î ÀÎ½Ä½ÃÄÑ¹ö¸°´Ù.
-							// ºÎÇÏ°¡ ½ÉÇØ¼­ ÀÏ´Ü »«´Ù.
+							// ì „ì²´ì˜ ì ìœ¼ë¡œ ì¸ì‹ì‹œì¼œë²„ë¦°ë‹¤.
+							// ë¶€í•˜ê°€ ì‹¬í•´ì„œ ì¼ë‹¨ ëº€ë‹¤.
 							//m_pZone->getMonsterManager()->addPotentialEnemy(this, pCreature);
 						}
 		
-						// »õ·Î Ãß°¡µÈ °á°ú, Á¤¿øÀ» ÃÊ°úÇÑ °æ¿ì ¸Ç ¸¶Áö¸· ³ğÀ» »èÁ¦ÇÑ´Ù.
+						// ìƒˆë¡œ ì¶”ê°€ëœ ê²°ê³¼, ì •ì›ì„ ì´ˆê³¼í•œ ê²½ìš° ë§¨ ë§ˆì§€ë§‰ ë†ˆì„ ì‚­ì œí•œë‹¤.
 						if (!m_Enemies.empty() && m_Enemies.size() > getMaxEnemies())
 							m_Enemies.pop_back();
 					}
@@ -995,10 +995,10 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// Á¦ÀÏ °­ÇÑ ³ğºÎÅÍ °ø°İ
+			// ì œì¼ ê°•í•œ ë†ˆë¶€í„° ê³µê²©
 			case ATTACK_STRONGEST :      
 				{
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Ù¸é...
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•Šë‹¤ë©´...
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 
 					if (itr == m_Enemies.end()) 
@@ -1036,7 +1036,7 @@ void Monster::addEnemy (Creature* pCreature)
 							else
 								m_Enemies.insert(itr , pOusters->getObjectID());
 						}
-						// Àç¹Ì»ï¾Æ -_-; 2002.7.22 by sigi
+						// ì¬ë¯¸ì‚¼ì•„ -_-; 2002.7.22 by sigi
 						else if (pCreature->isMonster()) 
 						{
 							Monster* pMonster = dynamic_cast<Monster*>(pCreature);
@@ -1048,35 +1048,35 @@ void Monster::addEnemy (Creature* pCreature)
 							else
 								m_Enemies.insert(itr , pMonster->getObjectID());
 		
-							// ÀüÃ¼ÀÇ ÀûÀ¸·Î ÀÎ½Ä½ÃÄÑ¹ö¸°´Ù.
-							// ºÎÇÏ°¡ ½ÉÇØ¼­ ÀÏ´Ü »«´Ù.
+							// ì „ì²´ì˜ ì ìœ¼ë¡œ ì¸ì‹ì‹œì¼œë²„ë¦°ë‹¤.
+							// ë¶€í•˜ê°€ ì‹¬í•´ì„œ ì¼ë‹¨ ëº€ë‹¤.
 							//m_pZone->getMonsterManager()->addPotentialEnemy(this, pCreature);
 						}
 		
-						// »õ·Î Ãß°¡µÈ °á°ú, Á¤¿øÀ» ÃÊ°úÇÑ °æ¿ì ¸Ç ¸¶Áö¸· ³ğÀ» »èÁ¦ÇÑ´Ù.
+						// ìƒˆë¡œ ì¶”ê°€ëœ ê²°ê³¼, ì •ì›ì„ ì´ˆê³¼í•œ ê²½ìš° ë§¨ ë§ˆì§€ë§‰ ë†ˆì„ ì‚­ì œí•œë‹¤.
 						if (!m_Enemies.empty() && m_Enemies.size() > getMaxEnemies())
 							m_Enemies.pop_back();
 					}
 				}
 				break;
 
-			// Á¦ÀÏ °¡±î¿î ³ğ ºÎÅÍ °ø°İ
-			// Àû°úÀÇ °Å¸®´Â °è¼Ó º¯ÇÏ±â ¶§¹®¿¡, ³»ºÎ ¸®½ºÆ®¸¦ °è¼Ó 
-			// º¯°æÇÏ´Â ´ë½Å ÀûÀ» °í¸¦ ¶§, °¡Àå °¡±õ°Å³ª ¸Õ ÀûÀ» 
-			// ¸®ÅÏÇÏµµ·Ï ÇØ¾ß ÇÑ´Ù.
+			// ì œì¼ ê°€ê¹Œìš´ ë†ˆ ë¶€í„° ê³µê²©
+			// ì ê³¼ì˜ ê±°ë¦¬ëŠ” ê³„ì† ë³€í•˜ê¸° ë•Œë¬¸ì—, ë‚´ë¶€ ë¦¬ìŠ¤íŠ¸ë¥¼ ê³„ì† 
+			// ë³€ê²½í•˜ëŠ” ëŒ€ì‹  ì ì„ ê³ ë¥¼ ë•Œ, ê°€ì¥ ê°€ê¹ê±°ë‚˜ ë¨¼ ì ì„ 
+			// ë¦¬í„´í•˜ë„ë¡ í•´ì•¼ í•œë‹¤.
 			case ATTACK_CLOSEST :        
 				{
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Ù¸é...
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•Šë‹¤ë©´...
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end()) 
 					{
-						// ÀÏ´Ü Ãß°¡ÇÑ´Ù.
+						// ì¼ë‹¨ ì¶”ê°€í•œë‹¤.
 						m_Enemies.push_back(pCreature->getObjectID());
 		
-						// Á¤¿ø ÃÊ°úÀÏ °æ¿ì
+						// ì •ì› ì´ˆê³¼ì¼ ê²½ìš°
 						if (m_Enemies.size() > getMaxEnemies()) 
 						{
-							// ´©°¡ °¡Àå °Å¸®°¡ ¸ÕÁö ¾Ë¾Æ³½´Ù.
+							// ëˆ„ê°€ ê°€ì¥ ê±°ë¦¬ê°€ ë¨¼ì§€ ì•Œì•„ë‚¸ë‹¤.
 							list<ObjectID_t>::iterator farest = m_Enemies.end();
 							Distance_t dist = 0;
 
@@ -1096,16 +1096,16 @@ void Monster::addEnemy (Creature* pCreature)
 								}
 								*/
 
-								// NoSuch..Á¦°Å. by sigi. 2002.5.2
+								// NoSuch..ì œê±°. by sigi. 2002.5.2
 								pEnemy = m_pZone->getCreature(*itr);
 
-								// zone¿¡ ¾ø´Â °æ¿ì.. Á¦°ÅÇÏ¸é µÈ´Ù. by sigi. 2002.5.3
+								// zoneì— ì—†ëŠ” ê²½ìš°.. ì œê±°í•˜ë©´ ëœë‹¤. by sigi. 2002.5.3
 								if (pEnemy == NULL)
 								{
 									dist = 255;
 									farest = itr;
 									
-									// ´õ ÀÌ»ó °Ë»çÇØº¼ ÇÊ¿ä°¡ ¾ø´Ù.
+									// ë” ì´ìƒ ê²€ì‚¬í•´ë³¼ í•„ìš”ê°€ ì—†ë‹¤.
 									break;
 								}
 								else
@@ -1119,30 +1119,30 @@ void Monster::addEnemy (Creature* pCreature)
 								}
 							}
 		
-							// Á¤¿ø ÃÊ°úÀÌ¹Ç·Î, °¡Àå ¸Õ³ğÀÌ ÇÏ³ª´Â ³ª¿Í¾ß ÇÑ´ç.
+							// ì •ì› ì´ˆê³¼ì´ë¯€ë¡œ, ê°€ì¥ ë¨¼ë†ˆì´ í•˜ë‚˜ëŠ” ë‚˜ì™€ì•¼ í•œë‹¹.
 							//Assert(farest != m_Enemies.end());
 
-							// °¡Àå °Å¸®°¡ ¸Õ ³ğÀ» »èÁ¦ÇÑ´Ù.
+							// ê°€ì¥ ê±°ë¦¬ê°€ ë¨¼ ë†ˆì„ ì‚­ì œí•œë‹¤.
 							if (farest!=m_Enemies.end()) m_Enemies.erase(farest);
 						}
 					}
 				}
 				break;
 
-			// Á¦ÀÏ ¸Õ ³ğ ºÎÅÍ °ø°İ
+			// ì œì¼ ë¨¼ ë†ˆ ë¶€í„° ê³µê²©
 			case ATTACK_FAREST :         
 				{
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Ù¸é...
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•Šë‹¤ë©´...
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end()) 
 					{
-						// ÀÏ´Ü Ãß°¡ÇÑ´Ù.
+						// ì¼ë‹¨ ì¶”ê°€í•œë‹¤.
 						m_Enemies.push_back(pCreature->getObjectID());
 		
-						// Á¤¿ø ÃÊ°úÀÏ °æ¿ì
+						// ì •ì› ì´ˆê³¼ì¼ ê²½ìš°
 						if (m_Enemies.size() > getMaxEnemies()) 
 						{
-							// ´©°¡ °¡Àå °Å¸®°¡ °¡±î¿îÁö ¾Ë¾Æ³½´Ù.
+							// ëˆ„ê°€ ê°€ì¥ ê±°ë¦¬ê°€ ê°€ê¹Œìš´ì§€ ì•Œì•„ë‚¸ë‹¤.
 							list<ObjectID_t>::iterator closest = m_Enemies.end();
 							Distance_t dist = 255;
 		
@@ -1162,16 +1162,16 @@ void Monster::addEnemy (Creature* pCreature)
 								}
 								*/
 
-								// NoSuch..Á¦°Å. by sigi. 2002.5.2
+								// NoSuch..ì œê±°. by sigi. 2002.5.2
 								pEnemy = m_pZone->getCreature(*itr);
 
-								// zone¿¡ ¾ø´Â °æ¿ì.. Á¦°ÅÇÏ¸é µÈ´Ù. by sigi. 2002.5.3
+								// zoneì— ì—†ëŠ” ê²½ìš°.. ì œê±°í•˜ë©´ ëœë‹¤. by sigi. 2002.5.3
 								if (pEnemy == NULL)
 								{
 									dist = 0;
 									closest = itr;
 
-									// ´õ ÀÌ»ó °Ë»çÇØº¼ ÇÊ¿ä°¡ ¾ø´Ù.
+									// ë” ì´ìƒ ê²€ì‚¬í•´ë³¼ í•„ìš”ê°€ ì—†ë‹¤.
 									break;
 								}
 								else
@@ -1185,25 +1185,25 @@ void Monster::addEnemy (Creature* pCreature)
 								}
 							}
 			
-							// °¡Àå °Å¸®°¡ °¡±î¿î ³ğÀ» »èÁ¦ÇÑ´Ù.
+							// ê°€ì¥ ê±°ë¦¬ê°€ ê°€ê¹Œìš´ ë†ˆì„ ì‚­ì œí•œë‹¤.
 							if (closest!=m_Enemies.end()) m_Enemies.erase(closest);
 						}
 					}
 				}
 				break;
 
-			// Àü»ç ¸ÕÀú °ø°İ
+			// ì „ì‚¬ ë¨¼ì € ê³µê²©
 			case ATTACK_FIGHTER :        
 				{
 					throw UnsupportedError(__PRETTY_FUNCTION__);
 
-					// ÀÏ´Ü Ãß°¡ÇÑ´Ù.
+					// ì¼ë‹¨ ì¶”ê°€í•œë‹¤.
 					m_Enemies.push_back(pCreature->getObjectID());
 
-					// Á¤¿ø ÃÊ°úÀÏ °æ¿ì
+					// ì •ì› ì´ˆê³¼ì¼ ê²½ìš°
 					if (m_Enemies.size() > getMaxEnemies()) 
 					{
-						// ¹«»ç ½ºÅ³ÀÌ Æ¯È÷ ³ôÀº ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é ¾ø¿£´Ù.
+						// ë¬´ì‚¬ ìŠ¤í‚¬ì´ íŠ¹íˆ ë†’ì€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ì—†ì—”ë‹¤.
 						for (list<ObjectID_t>::iterator itr = m_Enemies.begin() ; itr != m_Enemies.end() ; itr ++) 
 						{
 							//Creature* pCreature = m_pZone->getCreature(*itr);
@@ -1212,18 +1212,18 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// ¼ºÁ÷ÀÚ ¸ÕÀú °ø°İ
+			// ì„±ì§ì ë¨¼ì € ê³µê²©
 			case ATTACK_PRIEST :         
 				{
 					throw UnsupportedError(__PRETTY_FUNCTION__);
 
-					// ÀÏ´Ü Ãß°¡ÇÑ´Ù.
+					// ì¼ë‹¨ ì¶”ê°€í•œë‹¤.
 					m_Enemies.push_back(pCreature->getObjectID());
 
-					// Á¤¿ø ÃÊ°úÀÏ °æ¿ì
+					// ì •ì› ì´ˆê³¼ì¼ ê²½ìš°
 					if (m_Enemies.size() > getMaxEnemies()) 
 					{
-						// ¼ºÁ÷ÀÚ ¸¶¹ıÀÌ Æ¯È÷ ³ôÀº ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é ¾ø¿£´Ù.
+						// ì„±ì§ì ë§ˆë²•ì´ íŠ¹íˆ ë†’ì€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ì—†ì—”ë‹¤.
 						for (list<ObjectID_t>::iterator itr = m_Enemies.begin() ; itr != m_Enemies.end() ; itr ++) 
 						{
 							//Creature* pCreature = m_pZone->getCreature(*itr);
@@ -1232,18 +1232,18 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// °Ç³Ê ¸ÕÀú °ø°İ
+			// ê±´ë„ˆ ë¨¼ì € ê³µê²©
 			case ATTACK_GUNNER :         
 				{
 					throw UnsupportedError(__PRETTY_FUNCTION__);
 
-					// ÀÏ´Ü Ãß°¡ÇÑ´Ù.
+					// ì¼ë‹¨ ì¶”ê°€í•œë‹¤.
 					m_Enemies.push_back(pCreature->getObjectID());
 
-					// Á¤¿ø ÃÊ°úÀÏ °æ¿ì
+					// ì •ì› ì´ˆê³¼ì¼ ê²½ìš°
 					if (m_Enemies.size() > getMaxEnemies()) 
 					{
-						// °Ç³Ê ½ºÅ³ÀÌ Æ¯È÷ ³ôÀº ½½·¹ÀÌ¾î°¡ ¾Æ´Ï¶ó¸é ¾ø¿£´Ù.
+						// ê±´ë„ˆ ìŠ¤í‚¬ì´ íŠ¹íˆ ë†’ì€ ìŠ¬ë ˆì´ì–´ê°€ ì•„ë‹ˆë¼ë©´ ì—†ì—”ë‹¤.
 						for (list<ObjectID_t>::iterator itr = m_Enemies.begin() ; itr != m_Enemies.end() ; itr ++) 
 						{
 							//Creature* pCreature = m_pZone->getCreature(*itr);
@@ -1252,12 +1252,12 @@ void Monster::addEnemy (Creature* pCreature)
 				}
 				break;
 
-			// ÇöÀç ¿øÀÎÀ» ¾Ë ¼ö°¡ ¾ø¾î¼­ ÀÏ´Ü Á¦ÀÏ À§ÀÇ Å¸ÀÔÀ¸·Î ¸·¾Æ³õ´Â´Ù.
+			// í˜„ì¬ ì›ì¸ì„ ì•Œ ìˆ˜ê°€ ì—†ì–´ì„œ ì¼ë‹¨ ì œì¼ ìœ„ì˜ íƒ€ì…ìœ¼ë¡œ ë§‰ì•„ë†“ëŠ”ë‹¤.
 			default :
 				
 				{
-					// ±â¾ïÇÏ°í ÀÖ´Â ÀûÀÇ ¼ıÀÚ°¡ ÀÚ½ÅÀÇ ÃÖ´ë±â¾ï°³¼öº¸´Ù ÀÛ°í,
-					// ÀÚ½ÅÀÌ ÀÌ¹Ì ±â¾ïµÇ°í ÀÖÁö ¾Ê´Â´Ù¸é, enemy listÀÇ ¸Ç ¸¶Áö¸·¿¡ Ãß°¡ÇÑ´Ù.
+					// ê¸°ì–µí•˜ê³  ìˆëŠ” ì ì˜ ìˆ«ìê°€ ìì‹ ì˜ ìµœëŒ€ê¸°ì–µê°œìˆ˜ë³´ë‹¤ ì‘ê³ ,
+					// ìì‹ ì´ ì´ë¯¸ ê¸°ì–µë˜ê³  ìˆì§€ ì•ŠëŠ”ë‹¤ë©´, enemy listì˜ ë§¨ ë§ˆì§€ë§‰ì— ì¶”ê°€í•œë‹¤.
 					list<ObjectID_t>::iterator itr = find(m_Enemies.begin() , m_Enemies.end() , pCreature->getObjectID());
 					if (itr == m_Enemies.end()) {
 						m_Enemies.push_back(pCreature->getObjectID());
@@ -1281,9 +1281,9 @@ void Monster::addEnemy (Creature* pCreature)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÀáÀçÀûÀÎ ÀûÀ» ¸®½ºÆ®ÀÇ ¸Ç µÚ¿¡ Ãß°¡ÇÑ´Ù.
-// addEnemy()°¡ Á÷Á¢ÀûÀÎ °ø°İ½Ã¿¡ ¼³Á¤µÇ´Â ¹İ¸é, addPotentialEnemy()´Â
-// PCÀÇ ÀÌµ¿, ·Î±×ÀÎ½Ã ¼³Á¤µÈ´Ù.
+// ì ì¬ì ì¸ ì ì„ ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ë’¤ì— ì¶”ê°€í•œë‹¤.
+// addEnemy()ê°€ ì§ì ‘ì ì¸ ê³µê²©ì‹œì— ì„¤ì •ë˜ëŠ” ë°˜ë©´, addPotentialEnemy()ëŠ”
+// PCì˜ ì´ë™, ë¡œê·¸ì¸ì‹œ ì„¤ì •ëœë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::addPotentialEnemy (Creature* pCreature)
 	
@@ -1292,14 +1292,14 @@ void Monster::addPotentialEnemy (Creature* pCreature)
 
 	Assert(pCreature != NULL);
 
-	// ÀÚ½ÅÀÌ ¾Æ´Ï¸é.. by sigi. 2002.9.7
+	// ìì‹ ì´ ì•„ë‹ˆë©´.. by sigi. 2002.9.7
 	if (this==pCreature
 		|| !isRealEnemy(pCreature)) return;
-	// ÇÒ·ç °É·ÁÀÖÀ¸¸é Å¬·£Å¸ÀÔ ±¸ºĞ ¸ø ÇÑ´Ù.
+	// í• ë£¨ ê±¸ë ¤ìˆìœ¼ë©´ í´ëœíƒ€ì… êµ¬ë¶„ ëª» í•œë‹¤.
 	if (!isFlag( Effect::EFFECT_CLASS_HALLUCINATION ) &&
 		pCreature->getClanType() == m_ClanType) return;
 
-	// peace¿¡ °É·ÁÀÖ´Ù¸é..
+	// peaceì— ê±¸ë ¤ìˆë‹¤ë©´..
 	if (isFlag(Effect::EFFECT_CLASS_PEACE))
 	{
 //		Effect* pEffect = pMonster->getEffectManager()->findEffect(EFFECT_CLASS_PEACE);
@@ -1307,22 +1307,22 @@ void Monster::addPotentialEnemy (Creature* pCreature)
 
 		EffectPeace* pEffectPeace = dynamic_cast<EffectPeace*>(pEffect);
 
-		// peaceÀÎ ¾Ö´Â ¾È ³Ö´Â´Ù.
+		// peaceì¸ ì• ëŠ” ì•ˆ ë„£ëŠ”ë‹¤.
 		if (pCreature->getObjectID()==pEffectPeace->getPeaceCreatureID())
 		{
 			return;
 		}
 	}
 
-	// ÇöÀç Àû ¸®½ºÆ®¿¡ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é, ÀûÀ¸·Î¼­ ÀÎ½ÄÇÏ°í ´õÇÑ´Ù.
+	// í˜„ì¬ ì  ë¦¬ìŠ¤íŠ¸ì— ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, ì ìœ¼ë¡œì„œ ì¸ì‹í•˜ê³  ë”í•œë‹¤.
 	list<ObjectID_t>::iterator itr = find(m_Enemies.begin(), m_Enemies.end(), pCreature->getObjectID());
 	if (itr == m_Enemies.end() && m_Enemies.size() < getMaxEnemies()) 
 	{
 		m_Enemies.push_back(pCreature->getObjectID());
 
-		// Àç¹Ì»ï¾Æ -_-; 2002.7.22 by sigi
-		// ÀüÃ¼ÀÇ ÀûÀ¸·Î ÀÎ½Ä½ÃÄÑ¹ö¸°´Ù.
-		// ºÎÇÏ°¡ ½ÉÇØ¼­ ÀÏ´Ü »«´Ù.
+		// ì¬ë¯¸ì‚¼ì•„ -_-; 2002.7.22 by sigi
+		// ì „ì²´ì˜ ì ìœ¼ë¡œ ì¸ì‹ì‹œì¼œë²„ë¦°ë‹¤.
+		// ë¶€í•˜ê°€ ì‹¬í•´ì„œ ì¼ë‹¨ ëº€ë‹¤.
 		// m_pZone->getMonsterManager()->addPotentialEnemy(this, pCreature);
 	}
 
@@ -1331,7 +1331,7 @@ void Monster::addPotentialEnemy (Creature* pCreature)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Æ¯Á¤ Å©¸®Ã³¸¦ Àû ¸®½ºÆ®¿¡¼­ »èÁ¦ÇÑ´Ù.
+// íŠ¹ì • í¬ë¦¬ì²˜ë¥¼ ì  ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::deleteEnemy (ObjectID_t enemyID)
 {
@@ -1344,7 +1344,7 @@ void Monster::deleteEnemy (ObjectID_t enemyID)
 		//cerr << "Monster::deleteEnemy() : NoSuchElementException" << endl;
 		//throw NoSuchElementException();
 
-		// exception ¹«½Ã. by sigi. 2002.10.7
+		// exception ë¬´ì‹œ. by sigi. 2002.10.7
 		return;
 	}
 
@@ -1355,7 +1355,7 @@ void Monster::deleteEnemy (ObjectID_t enemyID)
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Enemy Áß¿¡¼­ ·Î±×¾Æ¿ôÇÑ PC ¸¦ »èÁ¦ÇÑ´Ù.
+// Enemy ì¤‘ì—ì„œ ë¡œê·¸ì•„ì›ƒí•œ PC ë¥¼ ì‚­ì œí•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 void Monster::verifyEnemies ()
 	
@@ -1368,7 +1368,7 @@ void Monster::verifyEnemies ()
 
 	while (current != m_Enemies.end())
 	{
-		// Å©¸®Ã³°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+		// í¬ë¦¬ì²˜ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
 		pEnemy = m_pZone->getCreature(*current);
 
 		if (pEnemy!=NULL)
@@ -1389,13 +1389,13 @@ void Monster::verifyEnemies ()
 			}
 			else
 			{
-				// Á¸ÀçÇÏ¸é ´ÙÀ½ ³ëµå·Î ³Ñ¾î°£´Ù.
+				// ì¡´ì¬í•˜ë©´ ë‹¤ìŒ ë…¸ë“œë¡œ ë„˜ì–´ê°„ë‹¤.
 				before = current ++;
 			}
 		} 
 		else
 		{
-			// Á¸ÀçÇÏÁö ¾ÊÀ¸¹Ç·Î »èÁ¦ÇØ¾ß ÇÑ´Ù.
+			// ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì‚­ì œí•´ì•¼ í•œë‹¤.
 			m_Enemies.erase(current);
 
 			if (before == m_Enemies.end()) // first enemy
@@ -1415,7 +1415,7 @@ void Monster::verifyEnemies ()
 
 
 //////////////////////////////////////////////////////////////////////////////
-// PRIMARY ENEMY ¸¦ ¸®ÅÏÇÑ´Ù.
+// PRIMARY ENEMY ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 Creature* Monster::getPrimaryEnemy () const
 	
@@ -1436,9 +1436,9 @@ Creature* Monster::getPrimaryEnemy () const
 
 	switch (getAttackOrder()) 
 	{
-		// ´ÙÀ½ 4 °¡Áö °ø°İ ¼ø¼­´Â ÀÌ¹Ì Àû ¸®½ºÆ®°¡
-		// ¼ø¼­´ë·Î Á¤·ÄµÇ¾î ÀÖÀ¸¹Ç·Î
-		// ¸®½ºÆ®ÀÇ front ¿¡ À§Ä¡ÇÏ´Â ENEMY ¸¦ ¸®ÅÏÇÏ¸é µÈ´Ù.
+		// ë‹¤ìŒ 4 ê°€ì§€ ê³µê²© ìˆœì„œëŠ” ì´ë¯¸ ì  ë¦¬ìŠ¤íŠ¸ê°€
+		// ìˆœì„œëŒ€ë¡œ ì •ë ¬ë˜ì–´ ìˆìœ¼ë¯€ë¡œ
+		// ë¦¬ìŠ¤íŠ¸ì˜ front ì— ìœ„ì¹˜í•˜ëŠ” ENEMY ë¥¼ ë¦¬í„´í•˜ë©´ ëœë‹¤.
 		case ATTACK_FIRST:
 		case ATTACK_LAST:
 		case ATTACK_STRONGEST:
@@ -1455,13 +1455,13 @@ Creature* Monster::getPrimaryEnemy () const
 			}
 			*/
 
-			// NoSuch.. Á¦°Å. by sigi. 2002.5.2
+			// NoSuch.. ì œê±°. by sigi. 2002.5.2
 			pEnemy = m_pZone->getCreature(m_Enemies.front());
 
 			break;
 
-		// ´ÙÀ½ 2 °¡Áö °ø°İ ¼ø¼­´Â, °Å¸®°¡ °è¼Ó ¹Ù²î±â ¶§¹®¿¡ 
-		// Ç×»ó °è»êÀ» ÇØÁà¾ß ÇÑ´Ù.
+		// ë‹¤ìŒ 2 ê°€ì§€ ê³µê²© ìˆœì„œëŠ”, ê±°ë¦¬ê°€ ê³„ì† ë°”ë€Œê¸° ë•Œë¬¸ì— 
+		// í•­ìƒ ê³„ì‚°ì„ í•´ì¤˜ì•¼ í•œë‹¤.
 		case ATTACK_CLOSEST :
 			dist = 255;
 			for (itr = m_Enemies.begin() ; itr != m_Enemies.end() ; itr ++) 
@@ -1478,14 +1478,14 @@ Creature* Monster::getPrimaryEnemy () const
 				}
 				*/
 				
-				// NoSuch.. Á¦°Å. by sigi. 2002.5.2
+				// NoSuch.. ì œê±°. by sigi. 2002.5.2
 				pCreature = m_pZone->getCreature(*itr);
 
 				if (pCreature != NULL)
 				{
 					newDist = pCreature->getDistance(m_X , m_Y);
 
-					if (newDist < dist) // °Å¸®°¡ ´õ °¡±î¿ï °æ¿ì
+					if (newDist < dist) // ê±°ë¦¬ê°€ ë” ê°€ê¹Œìš¸ ê²½ìš°
 					{	
 						dist = newDist;
 						pEnemy = pCreature;
@@ -1510,14 +1510,14 @@ Creature* Monster::getPrimaryEnemy () const
 				}
 				*/
 
-				// NoSuch.. Á¦°Å. by sigi. 2002.5.2
+				// NoSuch.. ì œê±°. by sigi. 2002.5.2
 				pCreature = m_pZone->getCreature(*itr);
 
 				if (pCreature != NULL)
 				{
 					newDist = pCreature->getDistance(m_X , m_Y);
 
-					if (newDist > dist) // °Å¸®°¡ ´õ ¸Ö °æ¿ì
+					if (newDist > dist) // ê±°ë¦¬ê°€ ë” ë©€ ê²½ìš°
 					{	
 						dist = newDist;
 						pEnemy = pCreature;
@@ -1547,7 +1547,7 @@ Creature* Monster::getPrimaryEnemy () const
 
 
 //////////////////////////////////////////////////////////////////////////////
-// Àû ¸®½ºÆ®ÀÇ Æ¯Á¤ À§Ä¡ÀÇ Å©¸®Ã³ÀÇ ¾ÆÀÌµğ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì  ë¦¬ìŠ¤íŠ¸ì˜ íŠ¹ì • ìœ„ì¹˜ì˜ í¬ë¦¬ì²˜ì˜ ì•„ì´ë””ë¥¼ ë¦¬í„´í•œë‹¤.
 //////////////////////////////////////////////////////////////////////////////
 ObjectID_t Monster::getEnemy (EnemyPriority enemyPriority) const
 {
@@ -1570,12 +1570,12 @@ ObjectID_t Monster::getEnemy (EnemyPriority enemyPriority) const
 
 
 //////////////////////////////////////////////////////////////////////////////
-// ÇÑ ¸ó½ºÅÍ°¡ ±â¾ïÇÒ ¼ö ÀÖ´Â ÃÖ´ë ¸ó½ºÅÍÀÇ °³¼ö
+// í•œ ëª¬ìŠ¤í„°ê°€ ê¸°ì–µí•  ìˆ˜ ìˆëŠ” ìµœëŒ€ ëª¬ìŠ¤í„°ì˜ ê°œìˆ˜
 //
 // *CAUTION*
 //
-// ¹ìÆÄÀÌ¾îÀÇ ´É·ÂÄ¡ÀÇ ÃÖ´ë°ªÀº 255 ÀÌ´Ù. ÀÌ ÃÖ´ë°ªÀ» ¹ÙÅÁÀ¸·Î ±â¾ï·®À»
-// »êÁ¤ÇØº¸¸é...
+// ë±€íŒŒì´ì–´ì˜ ëŠ¥ë ¥ì¹˜ì˜ ìµœëŒ€ê°’ì€ 255 ì´ë‹¤. ì´ ìµœëŒ€ê°’ì„ ë°”íƒ•ìœ¼ë¡œ ê¸°ì–µëŸ‰ì„
+// ì‚°ì •í•´ë³´ë©´...
 //
 //   0 -  30     : ENEMY_PRIORITY
 //  30 -  60     : ENEMY_SECONDARY
@@ -1645,7 +1645,7 @@ void Monster::setDamaged(bool value)
 {
 	__BEGIN_TRY
 
-	// AI°¡ ÀÖ´Ù¸é..
+	// AIê°€ ìˆë‹¤ë©´..
 	if (m_pBrain!=NULL)
 	{
 		m_pBrain->setDamaged(value);
@@ -1711,7 +1711,7 @@ bool Monster::getMonsterSummonInfo(SUMMON_INFO2& summonInfo)
 
 	if (pMonsterInfo->getMonsterSummonInfo( m_MonsterSummonStep, summonInfo ))
 	{
-		// ´ÙÀ½ ´Ü°èÀÇ ¼ÒÈ¯À» ÁØºñÇÑ´Ù.
+		// ë‹¤ìŒ ë‹¨ê³„ì˜ ì†Œí™˜ì„ ì¤€ë¹„í•œë‹¤.
 		m_MonsterSummonStep ++;
 
 		return true;
@@ -1725,9 +1725,9 @@ bool Monster::getMonsterSummonInfo(SUMMON_INFO2& summonInfo)
 ////////////////////////////////////////////////////////////////////////////////
 // isEnemyToAttack
 ////////////////////////////////////////////////////////////////////////////////
-// ÀÌ ¸ó½ºÅÍ¿¡°Ô ÀÖ¾î¼­ ÀûÀÎ°¡ ¾Æ´Ñ°¡¸¦ ÆÇ´ÜÇÏ´Â ÇÔ¼ö
+// ì´ ëª¬ìŠ¤í„°ì—ê²Œ ìˆì–´ì„œ ì ì¸ê°€ ì•„ë‹Œê°€ë¥¼ íŒë‹¨í•˜ëŠ” í•¨ìˆ˜
 //
-// ÆÄÆ¼/±æµå/µ¿Á¾Á·ÀÎ °æ¿ì´Â °ø°İÇÏÁö ¾Ê´Â´Ù.
+// íŒŒí‹°/ê¸¸ë“œ/ë™ì¢…ì¡±ì¸ ê²½ìš°ëŠ” ê³µê²©í•˜ì§€ ì•ŠëŠ”ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////
 bool Monster::isEnemyToAttack(Creature* pCreature) const
 {
@@ -1767,7 +1767,7 @@ bool Monster::isEnemyToAttack(Creature* pCreature) const
 	}
 	else if (pCreature->isOusters())
 	{
-		// ÀÏ´ÜÀº »õ·Î ÇÔ¼ö Ãß°¡ ¾ÈÇÏ°í ±×³É °£´Ù.
+		// ì¼ë‹¨ì€ ìƒˆë¡œ í•¨ìˆ˜ ì¶”ê°€ ì•ˆí•˜ê³  ê·¸ëƒ¥ ê°„ë‹¤.
 		return true;
 	}
 	else if (pCreature->isMonster())
@@ -1779,7 +1779,7 @@ bool Monster::isEnemyToAttack(Creature* pCreature) const
 	return false;
 }
 
-// ÀÌ ¸ó½ºÅÍ°¡ pSlayer¸¦ °ø°İÇØµµ µÇ´Â°¡?
+// ì´ ëª¬ìŠ¤í„°ê°€ pSlayerë¥¼ ê³µê²©í•´ë„ ë˜ëŠ”ê°€?
 bool Monster::isEnemyToAttack(Slayer* pSlayer) const
 {
 	if (pSlayer->isFlag(Effect::EFFECT_CLASS_GHOST))
@@ -1792,11 +1792,11 @@ bool Monster::isEnemyToAttack(Slayer* pSlayer) const
 		|| pSlayer->isFlag(Effect::EFFECT_CLASS_COMA))
 		return false;
 
-	// Áö±İÀº ¹«Á¶°Ç ½½·¹ÀÌ¾î´Â °ø°İÇØµµ µÈ´Ù.
+	// ì§€ê¸ˆì€ ë¬´ì¡°ê±´ ìŠ¬ë ˆì´ì–´ëŠ” ê³µê²©í•´ë„ ëœë‹¤.
 	return true;	
 }
 
-// ÀÌ ¸ó½ºÅÍ°¡ pVampire¸¦ °ø°İÇØµµ µÇ´Â°¡?
+// ì´ ëª¬ìŠ¤í„°ê°€ pVampireë¥¼ ê³µê²©í•´ë„ ë˜ëŠ”ê°€?
 bool Monster::isEnemyToAttack(Vampire* pVampire) const
 {
 	if (pVampire->isFlag(Effect::EFFECT_CLASS_GHOST))
@@ -1809,20 +1809,20 @@ bool Monster::isEnemyToAttack(Vampire* pVampire) const
 		|| pVampire->isFlag(Effect::EFFECT_CLASS_COMA))
 		return false;
 
-	// Áö±İÀº ¹«Á¶°Ç ¹ìÆÄÀÌ¾î´Â °ø°İÇØµµ µÈ´Ù.
+	// ì§€ê¸ˆì€ ë¬´ì¡°ê±´ ë±€íŒŒì´ì–´ëŠ” ê³µê²©í•´ë„ ëœë‹¤.
 	return true;	
 }
 
-// ÀÌ ¸ó½ºÅÍ°¡ pMonster¸¦ °ø°İÇØµµ µÇ´Â°¡?
+// ì´ ëª¬ìŠ¤í„°ê°€ pMonsterë¥¼ ê³µê²©í•´ë„ ë˜ëŠ”ê°€?
 bool Monster::isEnemyToAttack(Monster* pMonster) const
 {
 	if (m_Flag.test(Effect::EFFECT_CLASS_HALLUCINATION))
 		return true;
 
-	// °°Àº clan ¼Ò¼Ó ¸ó½ºÅÍ¸é °ø°İÇÏÁö ¾Ê´Â´Ù.
-	// ³ªÁß¿¡´Â.. ´©±º°¡ÀÇ ¸í·É?¿¡ ÀÇÇØ¼­ °ø°İ¹ŞÀ» ¼öµµ ÀÖÀ¸¹Ç·Î
-	// m_Ememies¸¦ °Ë»öÇØ¼­ Ã¼Å©ÇØ¾ßµÉ µí. -_-;
-	// °Á ÇÒ·ç °É¸°³ğÀº ¸Â¾Æµµ ½Î´Ù~ ¿ø·¡´Â m_Enemies °Ë»öÇØ¾ß µÇ´Â °Í °°Àºµ¥ ´À·Á¼­ ¿ø -_-
+	// ê°™ì€ clan ì†Œì† ëª¬ìŠ¤í„°ë©´ ê³µê²©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	// ë‚˜ì¤‘ì—ëŠ”.. ëˆ„êµ°ê°€ì˜ ëª…ë ¹?ì— ì˜í•´ì„œ ê³µê²©ë°›ì„ ìˆ˜ë„ ìˆìœ¼ë¯€ë¡œ
+	// m_Ememiesë¥¼ ê²€ìƒ‰í•´ì„œ ì²´í¬í•´ì•¼ë  ë“¯. -_-;
+	// ê± í• ë£¨ ê±¸ë¦°ë†ˆì€ ë§ì•„ë„ ì‹¸ë‹¤~ ì›ë˜ëŠ” m_Enemies ê²€ìƒ‰í•´ì•¼ ë˜ëŠ” ê²ƒ ê°™ì€ë° ëŠë ¤ì„œ ì› -_-
 	if (pMonster->isDead() 
 		|| pMonster->isFlag(Effect::EFFECT_CLASS_COMA)
 		|| (!pMonster->isFlag(Effect::EFFECT_CLASS_HALLUCINATION) && pMonster->m_ClanType==m_ClanType)
@@ -1857,7 +1857,7 @@ void Monster::deleteAllEnemy()
 
 Race_t Monster::getRace() const
 {
-	// ³ªÁß¿¡.. ¸ó½ºÅÍ Á¾·ù¿¡ µû¶ó¼­ ´Ù¸£°Ô ÇØ¾ß°ÚÁö
+	// ë‚˜ì¤‘ì—.. ëª¬ìŠ¤í„° ì¢…ë¥˜ì— ë”°ë¼ì„œ ë‹¤ë¥´ê²Œ í•´ì•¼ê² ì§€
 	return RACE_VAMPIRE;
 }
 

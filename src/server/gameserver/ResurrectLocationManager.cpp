@@ -51,7 +51,7 @@ ResurrectLocationManager::~ResurrectLocationManager()
 	m_SlayerPosition.clear();
 	m_VampirePosition.clear();
 
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 void ResurrectLocationManager::init() 
@@ -125,7 +125,7 @@ bool ResurrectLocationManager::getSlayerPosition(ZoneID_t id, ZONE_COORD& zoneCo
 		//cerr << "ResurrectLocationManager::getPosition() : No Such ZoneID" << endl;
 		//throw NoSuchElementException("ResurrectLocationManager::getPosition() : No Such ZoneID");
 
-		// NoSuchÁ¦°Å. by sigi. 2002.5.9
+		// NoSuchì œê±°. by sigi. 2002.5.9
 		return false;
 	}
 
@@ -166,7 +166,7 @@ bool ResurrectLocationManager::getVampirePosition(ZoneID_t id, ZONE_COORD& zoneC
 	if (itr == m_VampirePosition.end())
 	{
 		//cerr << "ResurrectLocationManager::getPosition() : No Such ZoneID" << endl;
-		// NoSuchÁ¦°Å. by sigi. 2002.5.9
+		// NoSuchì œê±°. by sigi. 2002.5.9
 		//throw NoSuchElementException("ResurrectLocationManager::getPosition() : No Such ZoneID");
 		return false;
 	}
@@ -281,7 +281,7 @@ bool ResurrectLocationManager::getPosition( PlayerCreature* pPC, ZONE_COORD& zon
 			}
 		}
 
-		// Á¾Á· ÀüÀïÀÌ ÁøÇàÁß¿¡ .. Âü°¡ ÀÎ¿ø Á¦ÇÑÀ» ÇÑ´Ù¸é
+		// ì¢…ì¡± ì „ìŸì´ ì§„í–‰ì¤‘ì— .. ì°¸ê°€ ì¸ì› ì œí•œì„ í•œë‹¤ë©´
 		if (!bFindPosition
 			&& g_pWarSystem->hasActiveRaceWar()
 			&& g_pVariableManager->isActiveRaceWarLimiter())
@@ -297,12 +297,12 @@ bool ResurrectLocationManager::getPosition( PlayerCreature* pPC, ZONE_COORD& zon
 				}
 			}
 	
-			// ¾Æ´ãÀÇ ¼ºÁö·Î µé¾î°¡´Â °æ¿ì.. ÀüÀï ½ÅÃ»À» ¾È Çß´Ù¸é..
+			// ì•„ë‹´ì˜ ì„±ì§€ë¡œ ë“¤ì–´ê°€ëŠ” ê²½ìš°.. ì „ìŸ ì‹ ì²­ì„ ì•ˆ í–ˆë‹¤ë©´..
 			if ( ( pResZoneInfo!=NULL && pResZoneInfo->isHolyLand() 
 					|| pPC->getZone()->isHolyLand() )
 				&& !pPC->isFlag( Effect::EFFECT_CLASS_RACE_WAR_JOIN_TICKET ))
 			{
-				// °¢ Á¾Á·ÀÇ ±âº» ºÎÈ°À§Ä¡·Î º¸³½´Ù.
+				// ê° ì¢…ì¡±ì˜ ê¸°ë³¸ ë¶€í™œìœ„ì¹˜ë¡œ ë³´ë‚¸ë‹¤.
 				if ( getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 				{
 					bFindPosition = true;
@@ -336,27 +336,27 @@ bool ResurrectLocationManager::getPosition( PlayerCreature* pPC, ZONE_COORD& zon
 		}
 
 #if defined(__PAY_SYSTEM_ZONE__) || defined(__PAY_SYSTEM_FREE_LIMIT__)
-		// À¯·áÁ¸ Ã¼Å©
+		// ìœ ë£Œì¡´ ì²´í¬
 		ZoneInfo* pZoneInfo = g_pZoneInfoManager->getZoneInfo( zoneCoord.id );
 		GamePlayer* pGamePlayer = dynamic_cast<GamePlayer*>(pPC->getPlayer());
 		Assert(pGamePlayer!=NULL);
 
-		// À¯·áÈ­ Á¸ÀÌ°í À¯·á»ç¿ëÀÚ°¡ ¾Æ´Ï¸é..
+		// ìœ ë£Œí™” ì¡´ì´ê³  ìœ ë£Œì‚¬ìš©ìê°€ ì•„ë‹ˆë©´..
 		if (pZoneInfo!=NULL
 			&& (pZoneInfo->isPayPlay() || pZoneInfo->isPremiumZone())
 			&& !pGamePlayer->isPayPlaying())
 		{
 			string connectIP = pGamePlayer->getSocket()->getHost();
 
-			// À¯·á ¼­ºñ½º »ç¿ëÀÌ °¡´ÉÇÑ°¡?
+			// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš©ì´ ê°€ëŠ¥í•œê°€?
 			if (pGamePlayer->loginPayPlay(connectIP, pGamePlayer->getID()))
 			{
 				sendPayInfo(pGamePlayer);
 			}
 			else if (pZoneInfo->isPayPlay() && !pGamePlayer->isFamilyFreePass())
 			{
-				// À¯·á ¼­ºñ½º »ç¿ë ºÒ°¡ÀÎ °æ¿ì
-				// °¢ Á¾Á·ÀÇ default Á¸À¸·Î ¼³Á¤ÇÑ´Ù.
+				// ìœ ë£Œ ì„œë¹„ìŠ¤ ì‚¬ìš© ë¶ˆê°€ì¸ ê²½ìš°
+				// ê° ì¢…ì¡±ì˜ default ì¡´ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 				if ( !getRaceDefaultPosition( pPC->getRace(), zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
@@ -384,13 +384,13 @@ bool ResurrectLocationManager::getBasicPosition( PlayerCreature* pPC, ZONE_COORD
 {
 	__BEGIN_TRY
 
-	// ÀÏ´Ü PlayerCreature¿¡ ÁöÁ¤µÇ¾î ÀÖ´Â ºÎÈ° À§Ä¡¸¦ °¡Á®¿Â´Ù.
+	// ì¼ë‹¨ PlayerCreatureì— ì§€ì •ë˜ì–´ ìˆëŠ” ë¶€í™œ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	if ( pPC->isSlayer() )
 	{
 		Slayer* pSlayer = dynamic_cast<Slayer*>(pPC);
 		Assert( pSlayer != NULL );
 
-		// ÃÊº¸ÀÚ ÀÌ¸é ÃÊº¸ÀÚÁ¸¿¡ ºÎÈ°ÇÏµµ·Ï ÇÑ´Ù.
+		// ì´ˆë³´ì ì´ë©´ ì´ˆë³´ìì¡´ì— ë¶€í™œí•˜ë„ë¡ í•œë‹¤.
 		if ( pSlayer->isNovice() )
 		{
 			pPC->setResurrectZoneID( SLAYER_NOVICE_ZONE_ID );
@@ -398,10 +398,10 @@ bool ResurrectLocationManager::getBasicPosition( PlayerCreature* pPC, ZONE_COORD
 
 		if ( !getSlayerPosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
-			// ¸¸¾à ÁöÁ¤µÈ ºÎÈ° Á¸ÀÌ ¾ø´Ù¸é ÇöÀç ÀÖ´Â Á¸ÀÇ ºÎÈ° À§Ä¡¸¦ °¡Á®¿Â´Ù.
+			// ë§Œì•½ ì§€ì •ëœ ë¶€í™œ ì¡´ì´ ì—†ë‹¤ë©´ í˜„ì¬ ìˆëŠ” ì¡´ì˜ ë¶€í™œ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 			if ( !getSlayerPosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
-				// ÇöÀç Á¸µµ ¾ø´Ù¸é Default ´Ù.
+				// í˜„ì¬ ì¡´ë„ ì—†ë‹¤ë©´ Default ë‹¤.
 				if ( !getSlayerPosition( SLAYER_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
@@ -411,10 +411,10 @@ bool ResurrectLocationManager::getBasicPosition( PlayerCreature* pPC, ZONE_COORD
 	{
 		if ( !getVampirePosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
-			// ¸¸¾à ÁöÁ¤µÈ ºÎÈ° Á¸ÀÌ ¾ø´Ù¸é ÇöÀç ÀÖ´Â Á¸ÀÇ ºÎÈ° À§Ä¡¸¦ °¡Á®¿Â´Ù.
+			// ë§Œì•½ ì§€ì •ëœ ë¶€í™œ ì¡´ì´ ì—†ë‹¤ë©´ í˜„ì¬ ìˆëŠ” ì¡´ì˜ ë¶€í™œ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 			if ( !getVampirePosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
-				// ÇöÀç Á¸µµ ¾ø´Ù¸é Default ´Ù.
+				// í˜„ì¬ ì¡´ë„ ì—†ë‹¤ë©´ Default ë‹¤.
 				if ( !getVampirePosition( VAMPIRE_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}
@@ -424,10 +424,10 @@ bool ResurrectLocationManager::getBasicPosition( PlayerCreature* pPC, ZONE_COORD
 	{
 		if ( !getOustersPosition( pPC->getResurrectZoneID(), zoneCoord ) )
 		{
-			// ¸¸¾à ÁöÁ¤µÈ ºÎÈ° Á¸ÀÌ ¾ø´Ù¸é ÇöÀç ÀÖ´Â Á¸ÀÇ ºÎÈ° À§Ä¡¸¦ °¡Á®¿Â´Ù.
+			// ë§Œì•½ ì§€ì •ëœ ë¶€í™œ ì¡´ì´ ì—†ë‹¤ë©´ í˜„ì¬ ìˆëŠ” ì¡´ì˜ ë¶€í™œ ìœ„ì¹˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 			if ( !getOustersPosition( pPC->getZone()->getZoneID(), zoneCoord ) )
 			{
-				// ÇöÀç Á¸µµ ¾ø´Ù¸é Default ´Ù.
+				// í˜„ì¬ ì¡´ë„ ì—†ë‹¤ë©´ Default ë‹¤.
 				if ( !getOustersPosition( OUSTERS_DEFAULT_ZONE_ID, zoneCoord ) )
 					throw Error("Critical Error : ResurrectInfo is not established!2");
 			}

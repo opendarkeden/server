@@ -33,7 +33,7 @@ GCSkillToInventoryOK2::~GCSkillToInventoryOK2 ()
     
 {
 	__BEGIN_TRY
-	__END_CATCH
+	__END_CATCH_NO_RETHROW
 }
 
 
