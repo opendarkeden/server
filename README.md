@@ -8,7 +8,7 @@ TL;DR
 
 ## Compile
 
-The development environment is Ubuntu 20.04, other linux release should also work.
+~~The development environment is Ubuntu 20.04, other linux release should also work.~~
 
 ### dependency
 
@@ -27,11 +27,14 @@ sudo apt install \
 
 ### compile
 
-Compile is easy, just call:
-
+```
+    mkdir build
+    cd build
+    cmake ..
 	make
+```
 
-or `make -j 8` if you have a 8 cores CPU computor to accelerate the compilation.
+or `make -j 8` for the last step if you have a 8 cores CPU computor to accelerate the compilation.
 
 ## Setup the Database
 
